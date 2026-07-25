@@ -36,8 +36,12 @@
     <string name="link_copied">Link copied to clipboard</string>
     <string name="action_paste">Paste from Clipboard</string>
 
-    <string name="footer_copyright">© 2026 Daniel Notthoff (TheFraggle)</string>
-    <string name="footer_famwake">Brought to you by the creators of FamWake</string>
+    <string name="famwake_promo">FROM THE SAME DEVELOPER</string>
+    <string name="famwake_title">FamWake – Family Alarm Clock</string>
+    <string name="famwake_desc">FamWake coordinates the morning for the whole family – bathroom times, breakfast, and wake-up.</string>
+    <string name="famwake_button">Learn more</string>
+
+    <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
 
     <string name="redirecting_toast">Flipping music link...</string>
     <string name="redirect_error_toast">Could not flip link. Opening original link.</string>

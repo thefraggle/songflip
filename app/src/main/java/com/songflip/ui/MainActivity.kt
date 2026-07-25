@@ -35,7 +35,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.songflip.R
@@ -45,6 +45,9 @@ import com.songflip.data.PackageUtils
 import com.songflip.data.SettingsRepository
 import com.songflip.ui.theme.SongFlipTheme
 import kotlinx.coroutines.launch
+
+private const val URL_FAMWAKE = "https://famwake.de"
+private const val URL_NOTTHOFF = "https://notthoff.org"
 
 class MainActivity : AppCompatActivity() {
 
@@ -666,42 +669,74 @@ fun MainScreen() {
             }
         }
 
-        // Footer Section (MapFlip Style: Copyright & FamWake Note)
+        // FamWake Promo Card (MapFlip Style)
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(20.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surface
+            )
+        ) {
+            Column(
+                modifier = Modifier.padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.famwake_promo),
+                    style = MaterialTheme.typography.labelSmall.copy(
+                        letterSpacing = 1.5.sp,
+                        fontWeight = FontWeight.Medium
+                    ),
+                    color = Color(0xFF94A3B8)
+                )
+                Text(
+                    text = stringResource(R.string.famwake_title),
+                    style = MaterialTheme.typography.titleMedium.copy(
+                        fontWeight = FontWeight.Bold
+                    ),
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Text(
+                    text = stringResource(R.string.famwake_desc),
+                    style = MaterialTheme.typography.bodySmall.copy(lineHeight = 18.sp),
+                    textAlign = TextAlign.Center,
+                    color = Color(0xFF94A3B8)
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                OutlinedButton(
+                    onClick = {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URL_FAMWAKE))
+                        context.startActivity(intent)
+                    },
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.famwake_button),
+                        style = MaterialTheme.typography.labelMedium
+                    )
+                }
+            }
+        }
+
+        // Copyright Footer (MapFlip Style: © 2026 Daniel Notthoff • notthoff.org)
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 12.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(6.dp)
+                .padding(vertical = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = stringResource(R.string.footer_copyright),
-                style = MaterialTheme.typography.bodySmall,
-                color = Color(0xFF64748B)
+                text = stringResource(R.string.copyright_text),
+                style = MaterialTheme.typography.bodySmall.copy(
+                    letterSpacing = 0.3.sp
+                ),
+                color = Color(0xFF64748B),
+                modifier = Modifier.clickable {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URL_NOTTHOFF))
+                    context.startActivity(intent)
+                }
             )
-
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.footer_famwake),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = Color(0xFF64748B)
-                )
-                Text(
-                    text = "• FamWake",
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontWeight = FontWeight.Bold,
-                        textDecoration = TextDecoration.Underline
-                    ),
-                    color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.clickable {
-                        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://famwake.de"))
-                        context.startActivity(browserIntent)
-                    }
-                )
-            }
         }
     }
 }

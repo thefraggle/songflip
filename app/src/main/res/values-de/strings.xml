@@ -36,8 +36,12 @@
     <string name="link_copied">Link in Zwischenablage kopiert</string>
     <string name="action_paste">Aus Zwischenablage einfügen</string>
 
-    <string name="footer_copyright">© 2026 Daniel Notthoff (TheFraggle)</string>
-    <string name="footer_famwake">Entwickelt von den Machern von FamWake</string>
+    <string name="famwake_promo">VOM GLEICHEN ENTWICKLER</string>
+    <string name="famwake_title">FamWake – Familienwecker</string>
+    <string name="famwake_desc">FamWake koordiniert den Morgen für die ganze Familie – Bad-Zeiten, Frühstück und Aufstehen.</string>
+    <string name="famwake_button">Mehr erfahren</string>
+
+    <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
 
     <string name="redirecting_toast">Wandle Musik-Link um...</string>
     <string name="redirect_error_toast">Link konnte nicht umgewandelt werden. Öffne Original-Link.</string>
