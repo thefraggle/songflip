@@ -4,8 +4,9 @@
     <string name="app_description">Einmalig einrichten – empfangene Musik-Links öffnen sich fortan automatisch im Hintergrund in deinem Lieblings-Player.</string>
 
     <string name="status_title">Redirector Status</string>
-    <string name="status_active">Aktiv &amp; Bereit im Hintergrund</string>
-    <string name="status_inactive">Link-Weiterleitung noch nicht aktiv</string>
+    <string name="status_active">Links sind aktiviert &amp; einsatzbereit</string>
+    <string name="status_inactive">Links sind noch nicht aktiv</string>
+    <string name="status_hint">Auf älteren Android-Versionen kann der Status nicht geprüft werden.</string>
 
     <string name="language_label">Sprache / Language</string>
     <string name="lang_de">Deutsch</string>

@@ -4,8 +4,9 @@
     <string name="app_description">Set up once – shared music links automatically open in your preferred player in the background.</string>
 
     <string name="status_title">Redirector Status</string>
-    <string name="status_active">Active &amp; Ready in Background</string>
-    <string name="status_inactive">Link handling not active yet</string>
+    <string name="status_active">Links are enabled &amp; active</string>
+    <string name="status_inactive">Links are not yet active</string>
+    <string name="status_hint">Status cannot be checked on older Android versions.</string>
 
     <string name="language_label">Language / Sprache</string>
     <string name="lang_de">Deutsch</string>

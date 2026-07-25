@@ -13,6 +13,8 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.*
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
@@ -26,6 +28,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -40,7 +43,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.os.LocaleListCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import com.songflip.R
+import com.songflip.data.DomainVerificationUtils
 import com.songflip.data.OdesliRepository
 import com.songflip.data.OdesliResult
 import com.songflip.data.PackageUtils
@@ -84,6 +91,7 @@ data class LanguageItem(
 @Composable
 fun MainScreen() {
     val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
     val scope = rememberCoroutineScope()
     val repository = remember { OdesliRepository() }
     val settingsRepository = remember { SettingsRepository(context) }
@@ -91,6 +99,21 @@ fun MainScreen() {
     var selectedTargetKey by remember { mutableStateOf(settingsRepository.targetPlatform) }
     var selectedLanguage by remember { mutableStateOf(settingsRepository.appLanguage) }
     var showLanguageBottomSheet by remember { mutableStateOf(false) }
+
+    var linksActive by remember { mutableStateOf<Boolean?>(DomainVerificationUtils.checkLinksEnabled(context)) }
+
+    // Live update when returning from system settings
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                linksActive = DomainVerificationUtils.checkLinksEnabled(context)
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
 
     var testInputUrl by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(false) }
@@ -271,48 +294,6 @@ fun MainScreen() {
             }
         }
 
-        // Status Card (MapFlip Style: Active Indicator)
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(20.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surface
-            ),
-            border = androidx.compose.foundation.BorderStroke(
-                1.dp,
-                Color(0xFF1DB954).copy(alpha = 0.3f)
-            )
-        ) {
-            Column(
-                modifier = Modifier.padding(18.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(10.dp)
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .size(12.dp)
-                            .clip(CircleShape)
-                            .background(Color(0xFF1DB954))
-                    )
-                    Text(
-                        text = stringResource(R.string.status_active),
-                        style = MaterialTheme.typography.titleMedium.copy(
-                            fontWeight = FontWeight.Bold
-                        ),
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                }
-                Text(
-                    text = stringResource(R.string.app_description),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = Color(0xFF94A3B8)
-                )
-            }
-        }
-
         // Setup Card ("So geht's / How it works" - MapFlip Style)
         Card(
             modifier = Modifier.fillMaxWidth(),
@@ -379,6 +360,17 @@ fun MainScreen() {
                             fontWeight = FontWeight.Bold
                         ),
                         color = Color.Black
+                    )
+                }
+
+                // Dynamic Status Badge (Exact MapFlip System Domain Status Verification)
+                when (linksActive) {
+                    true -> StatusBadge(text = stringResource(R.string.status_active), active = true)
+                    false -> StatusBadge(text = stringResource(R.string.status_inactive), active = false)
+                    null -> Text(
+                        text = stringResource(R.string.status_hint),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color(0xFF94A3B8)
                     )
                 }
             }
@@ -865,5 +857,57 @@ private fun SetupStepItem(number: Int, text: String) {
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.85f),
             modifier = Modifier.padding(top = 4.dp)
         )
+    }
+}
+
+@Composable
+private fun StatusBadge(text: String, active: Boolean) {
+    val targetBg = if (active) Color(0xFF1DB954).copy(alpha = 0.12f) else Color(0xFFFF0000).copy(alpha = 0.12f)
+    val contentColor = if (active) Color(0xFF1DB954) else Color(0xFFFF0000)
+
+    val infiniteTransition = rememberInfiniteTransition(label = "pulse")
+    val pulseAlpha by infiniteTransition.animateFloat(
+        initialValue = 0.4f,
+        targetValue = 1.0f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1000, easing = LinearEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "pulseAlpha"
+    )
+
+    Surface(
+        color = targetBg,
+        shape = RoundedCornerShape(12.dp),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            if (active) {
+                Box(
+                    modifier = Modifier
+                        .size(10.dp)
+                        .clip(CircleShape)
+                        .background(Color(0xFF1DB954).copy(alpha = pulseAlpha))
+                )
+            } else {
+                Icon(
+                    imageVector = Icons.Outlined.Info,
+                    contentDescription = null,
+                    tint = contentColor,
+                    modifier = Modifier.size(18.dp)
+                )
+            }
+            Text(
+                text = text,
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontWeight = FontWeight.SemiBold
+                ),
+                color = contentColor
+            )
+        }
     }
 }
