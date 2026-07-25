@@ -1,0 +1,6 @@
+.antigravity/
+.DS_Store
+build/
+.gradle/
+.gradle-cache/
+app/build/

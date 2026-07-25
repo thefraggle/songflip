@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">SongFlip</string>
+    <string name="app_tagline">Intelligenter Musik-Link Weiterleiter</string>
+
+    <string name="status_title">Redirector Status</string>
+    <string name="status_active">Aktiv &amp; Bereit für Musik-Links</string>
+
+    <string name="target_service_label">Bevorzugter Ziel-Dienst</string>
+    <string name="target_youtube_music">YouTube Music (Google Music)</string>
+    <string name="target_apple_music">Apple Music</string>
+    <string name="target_spotify">Spotify</string>
+    <string name="target_tidal">Tidal</string>
+    <string name="target_deezer">Deezer</string>
+
+    <string name="test_section_title">Link-Konverter Testen</string>
+    <string name="test_placeholder">Spotify-Link einfügen (z. B. open.spotify.com/track/...)</string>
+    <string name="test_button">Link umwandeln</string>
+    <string name="test_converting">Wandle Link über Odesli API um...</string>
+    <string name="test_result">Ziel-Link: %1$s</string>
+    <string name="test_error">Fehler beim Auflösen des Links: %1$s</string>
+
+    <string name="redirecting_toast">Wandle Link zu YouTube Music um...</string>
+    <string name="redirect_error_toast">Link konnte nicht umgewandelt werden. Öffne Original-Link.</string>
+</resources>
