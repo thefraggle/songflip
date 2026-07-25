@@ -1,11 +1,14 @@
 <resources>
     <string name="app_name">SongFlip</string>
-    <string name="app_tagline">Smart Music Link Redirector</string>
+    <string name="app_tagline">Automatic Music Link Redirector</string>
+    <string name="app_description">Set up once – Spotify links automatically open in your preferred player in the background.</string>
 
     <string name="status_title">Redirector Status</string>
-    <string name="status_active">Active &amp; Listening to Links</string>
+    <string name="status_active">Active &amp; Ready in Background</string>
+    <string name="status_subtitle">Links click directly into your chosen app</string>
 
-    <string name="target_service_label">Default Target Service</string>
+    <string name="target_service_label">Preferred Target Player</string>
+    <string name="target_service_subtitle">Select where Spotify links should open automatically</string>
     <string name="target_youtube_music">YouTube Music (Google Music)</string>
     <string name="target_apple_music">Apple Music</string>
     <string name="target_spotify">Spotify</string>
@@ -13,11 +16,16 @@
     <string name="target_deezer">Deezer</string>
 
     <string name="test_section_title">Test Link Converter</string>
-    <string name="test_placeholder">Paste a Spotify link (e.g. open.spotify.com/track/...)</string>
+    <string name="test_subtitle">Test link conversion directly inside the app</string>
+    <string name="test_placeholder">Paste Spotify link (open.spotify.com/track/...)</string>
     <string name="test_button">Flip Link</string>
-    <string name="test_converting">Converting with Odesli API...</string>
+    <string name="test_converting">Resolving via Odesli API...</string>
     <string name="test_result">Target Link: %1$s</string>
-    <string name="test_error">Error resolving link: %1$s</string>
+    <string name="test_error">Could not resolve link: %1$s</string>
+    <string name="action_open">Open in App</string>
+    <string name="action_copy">Copy Link</string>
+    <string name="link_copied">Link copied to clipboard</string>
+    <string name="action_paste">Paste from Clipboard</string>
 
     <string name="redirecting_toast">Flipping link to YouTube Music...</string>
     <string name="redirect_error_toast">Could not flip link. Opening original link.</string>

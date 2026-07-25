@@ -1,11 +1,14 @@
 <resources>
     <string name="app_name">SongFlip</string>
-    <string name="app_tagline">Intelligenter Musik-Link Weiterleiter</string>
+    <string name="app_tagline">Automatischer Musik-Link Redirector</string>
+    <string name="app_description">Einmalig einrichten – Spotify-Links öffnen sich fortan automatisch im Hintergrund in deinem Lieblings-Player.</string>
 
     <string name="status_title">Redirector Status</string>
-    <string name="status_active">Aktiv &amp; Bereit für Musik-Links</string>
+    <string name="status_active">Aktiv &amp; Bereit im Hintergrund</string>
+    <string name="status_subtitle">Links leiten direkt in deine gewählte App weiter</string>
 
-    <string name="target_service_label">Bevorzugter Ziel-Dienst</string>
+    <string name="target_service_label">Bevorzugter Ziel-Player</string>
+    <string name="target_service_subtitle">Wähle, in welchem Dienst Spotify-Links geöffnet werden sollen</string>
     <string name="target_youtube_music">YouTube Music (Google Music)</string>
     <string name="target_apple_music">Apple Music</string>
     <string name="target_spotify">Spotify</string>
@@ -13,11 +16,16 @@
     <string name="target_deezer">Deezer</string>
 
     <string name="test_section_title">Link-Konverter Testen</string>
-    <string name="test_placeholder">Spotify-Link einfügen (z. B. open.spotify.com/track/...)</string>
+    <string name="test_subtitle">Prüfe die Link-Umwandlung direkt in der App</string>
+    <string name="test_placeholder">Spotify-Link einfügen (open.spotify.com/track/...)</string>
     <string name="test_button">Link umwandeln</string>
-    <string name="test_converting">Wandle Link über Odesli API um...</string>
+    <string name="test_converting">Löse Link über Odesli API auf...</string>
     <string name="test_result">Ziel-Link: %1$s</string>
     <string name="test_error">Fehler beim Auflösen des Links: %1$s</string>
+    <string name="action_open">In App öffnen</string>
+    <string name="action_copy">Link kopieren</string>
+    <string name="link_copied">Link in Zwischenablage kopiert</string>
+    <string name="action_paste">Aus Zwischenablage einfügen</string>
 
     <string name="redirecting_toast">Wandle Link zu YouTube Music um...</string>
     <string name="redirect_error_toast">Link konnte nicht umgewandelt werden. Öffne Original-Link.</string>
