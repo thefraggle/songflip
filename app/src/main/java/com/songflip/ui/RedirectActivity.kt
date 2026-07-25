@@ -1,6 +1,7 @@
 package com.songflip.ui
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
@@ -12,8 +13,10 @@ import com.songflip.data.OdesliResult
 import com.songflip.data.SettingsRepository
 import kotlinx.coroutines.launch
 
-import android.content.pm.PackageManager
-
+/**
+ * Invisible Activity that intercepts incoming music links in the background,
+ * resolves them via Odesli API to the user's preferred target player, and launches the target link.
+ */
 class RedirectActivity : ComponentActivity() {
 
     private val odesliRepository = OdesliRepository()
@@ -32,6 +35,7 @@ class RedirectActivity : ComponentActivity() {
         val host = incomingUri.host ?: ""
         val sourcePlatformKey = detectSourcePlatformKey(host)
 
+        // If the user has disabled link interception for this platform, bypass SongFlip to prevent infinite loops
         if (sourcePlatformKey != null && !settingsRepository.isInputPlatformEnabled(sourcePlatformKey)) {
             openOriginalUrlBypassingSelf(incomingUrl)
             finish()
@@ -81,6 +85,10 @@ class RedirectActivity : ComponentActivity() {
         }
     }
 
+    /**
+     * Resolves intent handlers for the original URL while excluding SongFlip itself,
+     * avoiding infinite redirect loops when a source link type is disabled.
+     */
     private fun openOriginalUrlBypassingSelf(url: String) {
         try {
             val uri = Uri.parse(url)
