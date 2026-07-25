@@ -5,10 +5,18 @@
 
     <string name="status_title">Redirector Status</string>
     <string name="status_active">Aktiv &amp; Bereit im Hintergrund</string>
+    <string name="status_inactive">Link-Weiterleitung noch nicht aktiv</string>
 
     <string name="language_label">Sprache / Language</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
+    <string name="select_language_title">Sprache wählen</string>
+
+    <string name="setup_title">So geht’s</string>
+    <string name="step1">Tippe auf den Button "Einstellungen öffnen" unten</string>
+    <string name="step2">Aktiviere "Unterstützte Links öffnen" für Musik-Links</string>
+    <string name="step3">Fertig! Empfangene Musik-Links öffnen sich ab jetzt automatisch im Hintergrund in deinem Ziel-Player.</string>
+    <string name="btn_open_settings">Einstellungen öffnen</string>
 
     <string name="input_sources_label">Quell-Links abfangen</string>
     <string name="input_sources_subtitle">Wähle, welche eingehenden Musik-Links SongFlip automatisch umwandeln soll</string>

@@ -5,12 +5,13 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.widget.Toast
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.os.LocaleListCompat
-import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -38,6 +39,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.os.LocaleListCompat
 import com.songflip.R
 import com.songflip.data.OdesliRepository
 import com.songflip.data.OdesliResult
@@ -72,6 +74,12 @@ data class ServiceInfo(
     val brandColor: Color
 )
 
+data class LanguageItem(
+    val code: String,
+    val nativeName: String,
+    val flag: String
+)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen() {
@@ -82,12 +90,21 @@ fun MainScreen() {
 
     var selectedTargetKey by remember { mutableStateOf(settingsRepository.targetPlatform) }
     var selectedLanguage by remember { mutableStateOf(settingsRepository.appLanguage) }
+    var showLanguageBottomSheet by remember { mutableStateOf(false) }
+
     var testInputUrl by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(false) }
     var conversionResult by remember { mutableStateOf<String?>(null) }
     var isError by remember { mutableStateOf(false) }
 
     val scrollState = rememberScrollState()
+
+    val supportedLanguages = remember {
+        listOf(
+            LanguageItem("de", "Deutsch", "🇩🇪"),
+            LanguageItem("en", "English", "🇬🇧")
+        )
+    }
 
     val targetServices = remember {
         listOf(
@@ -99,6 +116,64 @@ fun MainScreen() {
         )
     }
 
+    // Language Selector BottomSheet
+    if (showLanguageBottomSheet) {
+        ModalBottomSheet(
+            onDismissRequest = { showLanguageBottomSheet = false },
+            sheetState = rememberModalBottomSheetState()
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(24.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.select_language_title),
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        fontWeight = FontWeight.Bold
+                    ),
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+
+                supportedLanguages.forEach { lang ->
+                    val isSelected = selectedLanguage == lang.code
+                    Surface(
+                        onClick = {
+                            selectedLanguage = lang.code
+                            settingsRepository.appLanguage = lang.code
+                            val localeList = LocaleListCompat.forLanguageTags(lang.code)
+                            AppCompatDelegate.setApplicationLocales(localeList)
+                            showLanguageBottomSheet = false
+                        },
+                        shape = RoundedCornerShape(12.dp),
+                        color = if (isSelected) MaterialTheme.colorScheme.primary.copy(alpha = 0.15f) else Color.Transparent,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp, vertical = 14.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(lang.flag, fontSize = 22.sp)
+                            Spacer(modifier = Modifier.width(16.dp))
+                            Text(
+                                text = lang.nativeName,
+                                style = MaterialTheme.typography.bodyLarge.copy(
+                                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
+                                ),
+                                color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                            )
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.height(24.dp))
+            }
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -106,7 +181,7 @@ fun MainScreen() {
             .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
-        // App Header Banner
+        // App Header Banner with Compact Top-Right Language Button
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -132,120 +207,71 @@ fun MainScreen() {
                 .padding(20.dp)
         ) {
             Row(
+                modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .size(56.dp)
-                        .clip(CircleShape)
-                        .background(
-                            Brush.linearGradient(
-                                colors = listOf(Color(0xFF1DB954), Color(0xFFFF0000))
-                            )
-                        ),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.SwapHoriz,
-                        contentDescription = null,
-                        tint = Color.White,
-                        modifier = Modifier.size(32.dp)
-                    )
-                }
-                Column {
-                    Text(
-                        text = stringResource(R.string.app_name),
-                        style = MaterialTheme.typography.headlineMedium.copy(
-                            fontWeight = FontWeight.ExtraBold,
-                            fontSize = 30.sp
-                        ),
-                        color = Color.White
-                    )
-                    Text(
-                        text = stringResource(R.string.app_tagline),
-                        style = MaterialTheme.typography.bodyMedium.copy(
-                            fontWeight = FontWeight.Medium
-                        ),
-                        color = Color(0xFF94A3B8)
-                    )
-                }
-            }
-        }
-
-        // Language Switcher Card (Analog MapFlip)
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(20.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surface
-            )
-        ) {
-            Column(
-                modifier = Modifier.padding(18.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(52.dp)
+                            .clip(CircleShape)
+                            .background(
+                                Brush.linearGradient(
+                                    colors = listOf(Color(0xFF1DB954), Color(0xFFFF0000))
+                                )
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.SwapHoriz,
+                            contentDescription = null,
+                            tint = Color.White,
+                            modifier = Modifier.size(30.dp)
+                        )
+                    }
+                    Column {
+                        Text(
+                            text = stringResource(R.string.app_name),
+                            style = MaterialTheme.typography.headlineMedium.copy(
+                                fontWeight = FontWeight.ExtraBold,
+                                fontSize = 28.sp
+                            ),
+                            color = Color.White
+                        )
+                        Text(
+                            text = stringResource(R.string.app_tagline),
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                fontWeight = FontWeight.Medium
+                            ),
+                            color = Color(0xFF94A3B8)
+                        )
+                    }
+                }
+
+                // Compact Subtle Language Switcher Button (Analog MapFlip 🌐)
+                IconButton(
+                    onClick = { showLanguageBottomSheet = true },
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .background(Color(0xFF334155).copy(alpha = 0.5f))
+                        .size(40.dp)
                 ) {
                     Icon(
                         imageVector = Icons.Default.Language,
-                        contentDescription = null,
-                        tint = Color(0xFF94A3B8),
+                        contentDescription = stringResource(R.string.select_language_title),
+                        tint = Color.White,
                         modifier = Modifier.size(20.dp)
                     )
-                    Text(
-                        text = stringResource(R.string.language_label),
-                        style = MaterialTheme.typography.titleMedium.copy(
-                            fontWeight = FontWeight.Bold
-                        ),
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                }
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    listOf("de" to R.string.lang_de, "en" to R.string.lang_en).forEach { (langCode, labelRes) ->
-                        val isSelected = selectedLanguage == langCode
-                        val btnColor = if (isSelected) MaterialTheme.colorScheme.primary else Color(0xFF0F172A)
-                        val textColor = if (isSelected) Color.Black else Color(0xFF94A3B8)
-
-                        Box(
-                            modifier = Modifier
-                                .weight(1f)
-                                .clip(RoundedCornerShape(12.dp))
-                                .background(btnColor)
-                                .border(
-                                    1.dp,
-                                    if (isSelected) MaterialTheme.colorScheme.primary else Color(0xFF334155),
-                                    RoundedCornerShape(12.dp)
-                                )
-                                .clickable {
-                                    selectedLanguage = langCode
-                                    settingsRepository.appLanguage = langCode
-                                    val localeList = LocaleListCompat.forLanguageTags(langCode)
-                                    AppCompatDelegate.setApplicationLocales(localeList)
-                                }
-                                .padding(vertical = 12.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = stringResource(labelRes),
-                                style = MaterialTheme.typography.bodyMedium.copy(
-                                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
-                                ),
-                                color = textColor
-                            )
-                        }
-                    }
                 }
             }
         }
 
-        // Status Card (MapFlip Style: Invisible Background Interceptor Active)
+        // Status Card (MapFlip Style: Active Indicator)
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(20.dp),
@@ -284,6 +310,77 @@ fun MainScreen() {
                     style = MaterialTheme.typography.bodySmall,
                     color = Color(0xFF94A3B8)
                 )
+            }
+        }
+
+        // Setup Card ("So geht's / How it works" - MapFlip Style)
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(20.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surface
+            )
+        ) {
+            Column(
+                modifier = Modifier.padding(20.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.setup_title),
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        fontWeight = FontWeight.Bold
+                    ),
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+
+                SetupStepItem(number = 1, text = stringResource(R.string.step1))
+                SetupStepItem(number = 2, text = stringResource(R.string.step2))
+                SetupStepItem(number = 3, text = stringResource(R.string.step3))
+
+                Button(
+                    onClick = {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                            try {
+                                context.startActivity(Intent(
+                                    Settings.ACTION_APP_OPEN_BY_DEFAULT_SETTINGS,
+                                    Uri.parse("package:${context.packageName}")
+                                ))
+                            } catch (e: Exception) {
+                                context.startActivity(Intent(
+                                    Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                                    Uri.parse("package:${context.packageName}")
+                                ))
+                            }
+                        } else {
+                            context.startActivity(Intent(
+                                Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                                Uri.parse("package:${context.packageName}")
+                            ))
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp),
+                    shape = RoundedCornerShape(14.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary
+                    )
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Settings,
+                        contentDescription = null,
+                        tint = Color.Black,
+                        modifier = Modifier.size(20.dp)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = stringResource(R.string.btn_open_settings),
+                        style = MaterialTheme.typography.labelLarge.copy(
+                            fontWeight = FontWeight.Bold
+                        ),
+                        color = Color.Black
+                    )
+                }
             }
         }
 
@@ -738,5 +835,35 @@ fun MainScreen() {
                 }
             )
         }
+    }
+}
+
+@Composable
+private fun SetupStepItem(number: Int, text: String) {
+    Row(
+        verticalAlignment = Alignment.Top,
+        horizontalArrangement = Arrangement.spacedBy(14.dp)
+    ) {
+        Surface(
+            shape = CircleShape,
+            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
+            modifier = Modifier.size(30.dp)
+        ) {
+            Box(contentAlignment = Alignment.Center) {
+                Text(
+                    text = number.toString(),
+                    color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.labelMedium.copy(
+                        fontWeight = FontWeight.Bold
+                    )
+                )
+            }
+        }
+        Text(
+            text = text,
+            style = MaterialTheme.typography.bodyMedium.copy(lineHeight = 20.sp),
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.85f),
+            modifier = Modifier.padding(top = 4.dp)
+        )
     }
 }

@@ -5,10 +5,18 @@
 
     <string name="status_title">Redirector Status</string>
     <string name="status_active">Active &amp; Ready in Background</string>
+    <string name="status_inactive">Link handling not active yet</string>
 
     <string name="language_label">Language / Sprache</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
+    <string name="select_language_title">Select Language</string>
+
+    <string name="setup_title">How it works</string>
+    <string name="step1">Tap the button below to open system settings</string>
+    <string name="step2">Enable "Open supported links" for music domains</string>
+    <string name="step3">Done! Shared links automatically flip into your target player in the background.</string>
+    <string name="btn_open_settings">Open Settings</string>
 
     <string name="input_sources_label">Intercept Source Links</string>
     <string name="input_sources_subtitle">Choose which incoming music links SongFlip should automatically flip</string>
