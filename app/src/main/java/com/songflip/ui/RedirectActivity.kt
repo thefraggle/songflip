@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.songflip.R
 import com.songflip.data.OdesliRepository
 import com.songflip.data.OdesliResult
+import com.songflip.data.SettingsRepository
 import kotlinx.coroutines.launch
 
 class RedirectActivity : ComponentActivity() {
@@ -18,6 +19,7 @@ class RedirectActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val settingsRepository = SettingsRepository(this)
         val incomingUri = intent?.data
         if (incomingUri == null) {
             finish()
@@ -25,10 +27,10 @@ class RedirectActivity : ComponentActivity() {
         }
 
         val incomingUrl = incomingUri.toString()
-        Toast.makeText(this, getString(R.string.redirecting_toast), Toast.LENGTH_SHORT).show()
+        val targetPlatform = settingsRepository.targetPlatform
 
         lifecycleScope.launch {
-            val result = odesliRepository.resolveTargetUrl(incomingUrl, targetPlatformKey = "youtubeMusic")
+            val result = odesliRepository.resolveTargetUrl(incomingUrl, targetPlatformKey = targetPlatform)
             when (result) {
                 is OdesliResult.Success -> {
                     openUrl(result.targetUrl)

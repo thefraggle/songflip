@@ -33,6 +33,8 @@ import com.songflip.data.OdesliResult
 import com.songflip.ui.theme.SongFlipTheme
 import kotlinx.coroutines.launch
 
+import com.songflip.data.SettingsRepository
+
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,8 +58,9 @@ fun MainScreen() {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val repository = remember { OdesliRepository() }
+    val settingsRepository = remember { SettingsRepository(context) }
 
-    var selectedTargetKey by remember { mutableStateOf("youtubeMusic") }
+    var selectedTargetKey by remember { mutableStateOf(settingsRepository.targetPlatform) }
     var testInputUrl by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(false) }
     var conversionResult by remember { mutableStateOf<String?>(null) }
@@ -184,7 +187,10 @@ fun MainScreen() {
                     val isSelected = selectedTargetKey == key
                     FilterChip(
                         selected = isSelected,
-                        onClick = { selectedTargetKey = key },
+                        onClick = {
+                            selectedTargetKey = key
+                            settingsRepository.targetPlatform = key
+                        },
                         label = { Text(label) },
                         leadingIcon = {
                             Icon(
