@@ -46,7 +46,7 @@ import com.songflip.data.SettingsRepository
 import com.songflip.ui.theme.SongFlipTheme
 import kotlinx.coroutines.launch
 
-private const val URL_FAMWAKE = "https://famwake.de"
+private const val URL_FAMWAKE = "https://play.google.com/store/apps/details?id=de.familienwecker.famwake"
 private const val URL_NOTTHOFF = "https://notthoff.org"
 
 class MainActivity : AppCompatActivity() {
