@@ -12,6 +12,8 @@ import com.songflip.data.OdesliResult
 import com.songflip.data.SettingsRepository
 import kotlinx.coroutines.launch
 
+import android.content.pm.PackageManager
+
 class RedirectActivity : ComponentActivity() {
 
     private val odesliRepository = OdesliRepository()
@@ -31,7 +33,7 @@ class RedirectActivity : ComponentActivity() {
         val sourcePlatformKey = detectSourcePlatformKey(host)
 
         if (sourcePlatformKey != null && !settingsRepository.isInputPlatformEnabled(sourcePlatformKey)) {
-            openUrl(incomingUrl)
+            openOriginalUrlBypassingSelf(incomingUrl)
             finish()
             return
         }
@@ -50,7 +52,7 @@ class RedirectActivity : ComponentActivity() {
                         getString(R.string.redirect_error_toast),
                         Toast.LENGTH_SHORT
                     ).show()
-                    openUrl(incomingUrl) // Fallback to original URL
+                    openOriginalUrlBypassingSelf(incomingUrl) // Fallback to original URL
                 }
             }
             finish()
@@ -76,6 +78,42 @@ class RedirectActivity : ComponentActivity() {
             startActivity(viewIntent)
         } catch (e: Exception) {
             e.printStackTrace()
+        }
+    }
+
+    private fun openOriginalUrlBypassingSelf(url: String) {
+        try {
+            val uri = Uri.parse(url)
+            val viewIntent = Intent(Intent.ACTION_VIEW, uri)
+            val resolveInfos = packageManager.queryIntentActivities(
+                viewIntent,
+                PackageManager.MATCH_DEFAULT_ONLY
+            )
+
+            // Find an intent handler that is NOT SongFlip itself
+            val otherHandler = resolveInfos.firstOrNull { 
+                it.activityInfo.packageName != packageName 
+            }
+
+            if (otherHandler != null) {
+                val forwardIntent = Intent(Intent.ACTION_VIEW, uri).apply {
+                    setClassName(
+                        otherHandler.activityInfo.packageName,
+                        otherHandler.activityInfo.name
+                    )
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+                startActivity(forwardIntent)
+            } else {
+                // Fallback: Open in default web browser directly
+                val browserIntent = Intent(Intent.ACTION_VIEW, uri).apply {
+                    addCategory(Intent.CATEGORY_BROWSABLE)
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+                startActivity(browserIntent)
+            }
+        } catch (e: Exception) {
+            openUrl(url)
         }
     }
 }
