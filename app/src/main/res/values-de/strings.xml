@@ -7,6 +7,10 @@
     <string name="status_active">Aktiv &amp; Bereit im Hintergrund</string>
     <string name="status_subtitle">Links leiten direkt in deine gewählte App weiter</string>
 
+    <string name="language_label">Sprache / Language</string>
+    <string name="lang_de">Deutsch</string>
+    <string name="lang_en">English</string>
+
     <string name="target_service_label">Bevorzugter Ziel-Player</string>
     <string name="target_service_subtitle">Wähle, in welchem Dienst Spotify-Links geöffnet werden sollen</string>
     <string name="target_youtube_music">YouTube Music (Google Music)</string>
@@ -26,6 +30,9 @@
     <string name="action_copy">Link kopieren</string>
     <string name="link_copied">Link in Zwischenablage kopiert</string>
     <string name="action_paste">Aus Zwischenablage einfügen</string>
+
+    <string name="footer_copyright">© 2026 Daniel Notthoff (TheFraggle)</string>
+    <string name="footer_famwake">Entwickelt von den Machern von FamWake</string>
 
     <string name="redirecting_toast">Wandle Link zu YouTube Music um...</string>
     <string name="redirect_error_toast">Link konnte nicht umgewandelt werden. Öffne Original-Link.</string>

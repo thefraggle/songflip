@@ -7,7 +7,9 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -33,6 +35,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.songflip.R
@@ -42,7 +45,7 @@ import com.songflip.data.SettingsRepository
 import com.songflip.ui.theme.SongFlipTheme
 import kotlinx.coroutines.launch
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +77,7 @@ fun MainScreen() {
     val settingsRepository = remember { SettingsRepository(context) }
 
     var selectedTargetKey by remember { mutableStateOf(settingsRepository.targetPlatform) }
+    var selectedLanguage by remember { mutableStateOf(settingsRepository.appLanguage) }
     var testInputUrl by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(false) }
     var conversionResult by remember { mutableStateOf<String?>(null) }
@@ -161,6 +165,78 @@ fun MainScreen() {
                         ),
                         color = Color(0xFF94A3B8)
                     )
+                }
+            }
+        }
+
+        // Language Switcher Card (Analog MapFlip)
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(20.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surface
+            )
+        ) {
+            Column(
+                modifier = Modifier.padding(18.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Language,
+                        contentDescription = null,
+                        tint = Color(0xFF94A3B8),
+                        modifier = Modifier.size(20.dp)
+                    )
+                    Text(
+                        text = stringResource(R.string.language_label),
+                        style = MaterialTheme.typography.titleMedium.copy(
+                            fontWeight = FontWeight.Bold
+                        ),
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    listOf("de" to R.string.lang_de, "en" to R.string.lang_en).forEach { (langCode, labelRes) ->
+                        val isSelected = selectedLanguage == langCode
+                        val btnColor = if (isSelected) MaterialTheme.colorScheme.primary else Color(0xFF0F172A)
+                        val textColor = if (isSelected) Color.Black else Color(0xFF94A3B8)
+
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .clip(RoundedCornerShape(12.dp))
+                                .background(btnColor)
+                                .border(
+                                    1.dp,
+                                    if (isSelected) MaterialTheme.colorScheme.primary else Color(0xFF334155),
+                                    RoundedCornerShape(12.dp)
+                                )
+                                .clickable {
+                                    selectedLanguage = langCode
+                                    settingsRepository.appLanguage = langCode
+                                    val localeList = LocaleListCompat.forLanguageTags(langCode)
+                                    AppCompatDelegate.setApplicationLocales(localeList)
+                                }
+                                .padding(vertical = 12.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = stringResource(labelRes),
+                                style = MaterialTheme.typography.bodyMedium.copy(
+                                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
+                                ),
+                                color = textColor
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -473,6 +549,44 @@ fun MainScreen() {
                         }
                     }
                 }
+            }
+        }
+
+        // Footer Section (MapFlip Style: Copyright & FamWake Note)
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
+            Text(
+                text = stringResource(R.string.footer_copyright),
+                style = MaterialTheme.typography.bodySmall,
+                color = Color(0xFF64748B)
+            )
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.footer_famwake),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = Color(0xFF64748B)
+                )
+                Text(
+                    text = "• FamWake",
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        fontWeight = FontWeight.Bold,
+                        textDecoration = TextDecoration.Underline
+                    ),
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.clickable {
+                        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://famwake.de"))
+                        context.startActivity(browserIntent)
+                    }
+                )
             }
         }
     }
