@@ -39,10 +39,6 @@ The output APK will be located at `app/build/outputs/apk/debug/app-debug.apk`.
 
 ---
 
-## 👤 Author & License
+## License
 
-Developed with ❤️ by **Daniel Notthoff ([TheFraggle](https://github.com/thefraggle))** – [notthoff.org](https://notthoff.org).
-
-Brought to you by the creators of **[FamWake](https://play.google.com/store/apps/details?id=de.familienwecker.famwake)**.
-
-Licensed under the [MIT License](LICENSE).
+[MIT](LICENSE) © 2026 Daniel Notthoff – [notthoff.org](https://notthoff.org)
