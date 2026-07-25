@@ -27,6 +27,15 @@ class RedirectActivity : ComponentActivity() {
         }
 
         val incomingUrl = incomingUri.toString()
+        val host = incomingUri.host ?: ""
+        val sourcePlatformKey = detectSourcePlatformKey(host)
+
+        if (sourcePlatformKey != null && !settingsRepository.isInputPlatformEnabled(sourcePlatformKey)) {
+            openUrl(incomingUrl)
+            finish()
+            return
+        }
+
         val targetPlatform = settingsRepository.targetPlatform
 
         lifecycleScope.launch {
@@ -45,6 +54,17 @@ class RedirectActivity : ComponentActivity() {
                 }
             }
             finish()
+        }
+    }
+
+    private fun detectSourcePlatformKey(host: String): String? {
+        return when {
+            host.contains("spotify") -> "spotify"
+            host.contains("apple") -> "appleMusic"
+            host.contains("youtube") || host.contains("youtu.be") -> "youtubeMusic"
+            host.contains("tidal") -> "tidal"
+            host.contains("deezer") -> "deezer"
+            else -> null
         }
     }
 

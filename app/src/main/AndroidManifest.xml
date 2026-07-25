@@ -3,6 +3,15 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- Package Visibility Queries for Music Players -->
+    <queries>
+        <package android:name="com.google.android.apps.youtube.music" />
+        <package android:name="com.apple.android.music" />
+        <package android:name="com.spotify.music" />
+        <package android:name="com.aspiro.tidal" />
+        <package android:name="deezer.android.app" />
+    </queries>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,7 +31,7 @@
             </intent-filter>
         </activity>
 
-        <!-- Transparent Link Interceptor Activity -->
+        <!-- Transparent Multi-Platform Link Interceptor Activity -->
         <activity
             android:name=".ui.RedirectActivity"
             android:exported="true"
@@ -35,11 +44,53 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data android:scheme="http" />
                 <data android:scheme="https" />
                 <data android:host="open.spotify.com" />
                 <data android:host="spotify.link" />
+            </intent-filter>
+
+            <!-- Apple Music URL Interception -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="music.apple.com" />
+            </intent-filter>
+
+            <!-- YouTube Music URL Interception -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="music.youtube.com" />
+            </intent-filter>
+
+            <!-- Tidal URL Interception -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="tidal.com" />
+                <data android:host="listen.tidal.com" />
+            </intent-filter>
+
+            <!-- Deezer URL Interception -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="deezer.com" />
+                <data android:host="www.deezer.com" />
+                <data android:host="deezer.page.link" />
             </intent-filter>
         </activity>
 

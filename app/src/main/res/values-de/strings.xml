@@ -1,32 +1,37 @@
 <resources>
     <string name="app_name">SongFlip</string>
     <string name="app_tagline">Automatischer Musik-Link Redirector</string>
-    <string name="app_description">Einmalig einrichten – Spotify-Links öffnen sich fortan automatisch im Hintergrund in deinem Lieblings-Player.</string>
+    <string name="app_description">Einmalig einrichten – empfangene Musik-Links öffnen sich fortan automatisch im Hintergrund in deinem Lieblings-Player.</string>
 
     <string name="status_title">Redirector Status</string>
     <string name="status_active">Aktiv &amp; Bereit im Hintergrund</string>
-    <string name="status_subtitle">Links leiten direkt in deine gewählte App weiter</string>
 
     <string name="language_label">Sprache / Language</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
 
+    <string name="input_sources_label">Quell-Links abfangen</string>
+    <string name="input_sources_subtitle">Wähle, welche eingehenden Musik-Links SongFlip automatisch umwandeln soll</string>
+
     <string name="target_service_label">Bevorzugter Ziel-Player</string>
-    <string name="target_service_subtitle">Wähle, in welchem Dienst Spotify-Links geöffnet werden sollen</string>
+    <string name="target_service_subtitle">Wähle den Ziel-Dienst. Installierte Apps öffnen direkt, andere im Web-Browser.</string>
     <string name="target_youtube_music">YouTube Music (Google Music)</string>
     <string name="target_apple_music">Apple Music</string>
     <string name="target_spotify">Spotify</string>
     <string name="target_tidal">Tidal</string>
     <string name="target_deezer">Deezer</string>
 
+    <string name="status_installed">App Installiert</string>
+    <string name="status_browser">Web-Browser</string>
+
     <string name="test_section_title">Link-Konverter Testen</string>
     <string name="test_subtitle">Prüfe die Link-Umwandlung direkt in der App</string>
-    <string name="test_placeholder">Spotify-Link einfügen (open.spotify.com/track/...)</string>
+    <string name="test_placeholder">Musik-Link einfügen (Spotify, Apple, YT Music, Tidal...)</string>
     <string name="test_button">Link umwandeln</string>
     <string name="test_converting">Löse Link über Odesli API auf...</string>
     <string name="test_result">Ziel-Link: %1$s</string>
     <string name="test_error">Fehler beim Auflösen des Links: %1$s</string>
-    <string name="action_open">In App öffnen</string>
+    <string name="action_open">Link öffnen</string>
     <string name="action_copy">Link kopieren</string>
     <string name="link_copied">Link in Zwischenablage kopiert</string>
     <string name="action_paste">Aus Zwischenablage einfügen</string>
@@ -34,6 +39,6 @@
     <string name="footer_copyright">© 2026 Daniel Notthoff (TheFraggle)</string>
     <string name="footer_famwake">Entwickelt von den Machern von FamWake</string>
 
-    <string name="redirecting_toast">Wandle Link zu YouTube Music um...</string>
+    <string name="redirecting_toast">Wandle Musik-Link um...</string>
     <string name="redirect_error_toast">Link konnte nicht umgewandelt werden. Öffne Original-Link.</string>
 </resources>

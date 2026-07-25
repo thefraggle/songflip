@@ -4,3 +4,5 @@ build/
 .gradle/
 .gradle-cache/
 app/build/
+.idea/
+local.properties

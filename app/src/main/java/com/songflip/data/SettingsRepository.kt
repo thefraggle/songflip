@@ -19,10 +19,20 @@ class SettingsRepository(context: Context) {
             prefs.edit().putString(KEY_APP_LANGUAGE, value).apply()
         }
 
+    fun isInputPlatformEnabled(platformKey: String): Boolean {
+        return prefs.getBoolean(KEY_INPUT_PREFIX + platformKey, true)
+    }
+
+    fun setInputPlatformEnabled(platformKey: String, enabled: Boolean) {
+        prefs.edit().putBoolean(KEY_INPUT_PREFIX + platformKey, enabled).apply()
+    }
+
     companion object {
         private const val PREFS_NAME = "songflip_settings"
         private const val KEY_TARGET_PLATFORM = "target_platform"
         private const val KEY_APP_LANGUAGE = "app_language"
+        private const val KEY_INPUT_PREFIX = "input_enabled_"
+
         const val DEFAULT_TARGET = "youtubeMusic"
         const val DEFAULT_LANGUAGE = "de"
     }

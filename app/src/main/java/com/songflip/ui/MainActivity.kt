@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.sp
 import com.songflip.R
 import com.songflip.data.OdesliRepository
 import com.songflip.data.OdesliResult
+import com.songflip.data.PackageUtils
 import com.songflip.data.SettingsRepository
 import com.songflip.ui.theme.SongFlipTheme
 import kotlinx.coroutines.launch
@@ -283,7 +284,83 @@ fun MainScreen() {
             }
         }
 
-        // Target Service Selector Card
+        // Intercept Source Links Configuration Card
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(20.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surface
+            )
+        ) {
+            Column(
+                modifier = Modifier.padding(20.dp),
+                verticalArrangement = Arrangement.spacedBy(14.dp)
+            ) {
+                Column {
+                    Text(
+                        text = stringResource(R.string.input_sources_label),
+                        style = MaterialTheme.typography.titleLarge.copy(
+                            fontWeight = FontWeight.Bold
+                        ),
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Text(
+                        text = stringResource(R.string.input_sources_subtitle),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color(0xFF94A3B8)
+                    )
+                }
+
+                targetServices.forEach { service ->
+                    var isEnabled by remember {
+                        mutableStateOf(settingsRepository.isInputPlatformEnabled(service.key))
+                    }
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(14.dp))
+                            .background(MaterialTheme.colorScheme.background)
+                            .padding(horizontal = 14.dp, vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .size(10.dp)
+                                    .clip(CircleShape)
+                                    .background(service.brandColor)
+                            )
+                            Text(
+                                text = stringResource(service.nameResId),
+                                style = MaterialTheme.typography.bodyMedium.copy(
+                                    fontWeight = FontWeight.SemiBold
+                                ),
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                        }
+
+                        Switch(
+                            checked = isEnabled,
+                            onCheckedChange = { checked ->
+                                isEnabled = checked
+                                settingsRepository.setInputPlatformEnabled(service.key, checked)
+                            },
+                            colors = SwitchDefaults.colors(
+                                checkedThumbColor = Color.White,
+                                checkedTrackColor = service.brandColor
+                            )
+                        )
+                    }
+                }
+            }
+        }
+
+        // Target Service Selector Card with App Installation Detection
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(20.dp),
@@ -312,6 +389,10 @@ fun MainScreen() {
 
                 targetServices.forEach { service ->
                     val isSelected = selectedTargetKey == service.key
+                    val isInstalled = remember(service.key) {
+                        PackageUtils.isAppInstalled(context, service.key)
+                    }
+
                     val backgroundColor = if (isSelected) {
                         service.brandColor.copy(alpha = 0.15f)
                     } else {
@@ -343,13 +424,46 @@ fun MainScreen() {
                                     .clip(CircleShape)
                                     .background(service.brandColor)
                             )
-                            Text(
-                                text = stringResource(service.nameResId),
-                                style = MaterialTheme.typography.bodyLarge.copy(
-                                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
-                                ),
-                                color = MaterialTheme.colorScheme.onSurface
-                            )
+                            Column {
+                                Text(
+                                    text = stringResource(service.nameResId),
+                                    style = MaterialTheme.typography.bodyLarge.copy(
+                                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
+                                    ),
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                                ) {
+                                    if (isInstalled) {
+                                        Icon(
+                                            imageVector = Icons.Default.Check,
+                                            contentDescription = null,
+                                            tint = Color(0xFF1DB954),
+                                            modifier = Modifier.size(12.dp)
+                                        )
+                                        Text(
+                                            text = stringResource(R.string.status_installed),
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = Color(0xFF1DB954)
+                                        )
+                                    } else {
+                                        Icon(
+                                            imageVector = Icons.Default.Language,
+                                            contentDescription = null,
+                                            tint = Color(0xFF94A3B8),
+                                            modifier = Modifier.size(12.dp)
+                                        )
+                                        Text(
+                                            text = stringResource(R.string.status_browser),
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = Color(0xFF94A3B8)
+                                        )
+                                    }
+                                }
+                            }
                         }
 
                         if (isSelected) {
@@ -411,7 +525,7 @@ fun MainScreen() {
                                 val clipData = clipboard.primaryClip
                                 if (clipData != null && clipData.itemCount > 0) {
                                     val text = clipData.getItemAt(0).text.toString()
-                                    if (text.contains("spotify.com") || text.contains("spotify.link")) {
+                                    if (text.startsWith("http://") || text.startsWith("https://")) {
                                         testInputUrl = text
                                     }
                                 }
