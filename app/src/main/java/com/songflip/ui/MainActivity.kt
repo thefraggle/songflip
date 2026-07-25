@@ -241,13 +241,20 @@ fun MainScreen() {
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     modifier = Modifier.weight(1f)
                 ) {
-                    Image(
-                        painter = painterResource(id = R.mipmap.ic_launcher_round),
-                        contentDescription = null,
+                    Box(
                         modifier = Modifier
                             .size(52.dp)
                             .clip(CircleShape)
-                    )
+                            .background(Color(0xFF0F172A))
+                            .border(1.dp, Color(0xFF334155), CircleShape),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                            contentDescription = null,
+                            modifier = Modifier.size(44.dp)
+                        )
+                    }
                     Column {
                         Text(
                             text = stringResource(R.string.app_name),
