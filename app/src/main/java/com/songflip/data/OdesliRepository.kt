@@ -41,7 +41,7 @@ class OdesliRepository {
             if (customApiUrl.isNotBlank()) {
                 val customResult = queryCustomApi(customApiUrl, cleanUrl, targetPlatformKey)
                 if (customResult != null) {
-                    return@withContext OdesliResult.Success(customResult, "custom_api")
+                    return@withContext OdesliResult.Success(formatTargetUrl(customResult, targetPlatformKey), "custom_api")
                 }
             }
 
@@ -71,20 +71,29 @@ class OdesliRepository {
                     val linksByPlatform = json.optJSONObject("linksByPlatform")
                     
                     if (linksByPlatform != null) {
+                        // Check direct platform or fallback platform (e.g., youtube for youtubeMusic)
                         val platformObj = linksByPlatform.optJSONObject(targetPlatformKey)
                             ?: if (targetPlatformKey == "youtubeMusic") {
                                 linksByPlatform.optJSONObject("youtube")
                             } else null
 
                         if (platformObj != null) {
-                            val targetUrl = platformObj.optString("url")
-                            if (targetUrl.isNotEmpty()) {
-                                return@withContext OdesliResult.Success(targetUrl, targetPlatformKey)
+                            val rawTargetUrl = platformObj.optString("url")
+                            if (rawTargetUrl.isNotEmpty()) {
+                                val formattedUrl = formatTargetUrl(rawTargetUrl, targetPlatformKey)
+                                return@withContext OdesliResult.Success(formattedUrl, targetPlatformKey)
                             }
                         }
                     }
 
-                    // Fallback to Odesli song.link page if target app link isn't directly listed
+                    // Extract entity title if target platform wasn't directly in linksByPlatform
+                    val entityTitle = extractEntityTitle(json)
+                    if (!entityTitle.isNullOrEmpty()) {
+                        val searchUrl = buildSearchUrl(entityTitle, targetPlatformKey)
+                        return@withContext OdesliResult.Success(searchUrl, "${targetPlatformKey}_search")
+                    }
+
+                    // Fallback to Odesli song.link page only if no entity title exists
                     val pageUrl = json.optString("pageUrl")
                     if (pageUrl.isNotEmpty()) {
                         return@withContext OdesliResult.Success(pageUrl, "songlink")
@@ -107,6 +116,55 @@ class OdesliRepository {
             }
 
             OdesliResult.Error(e.localizedMessage ?: "Unknown network error")
+        }
+    }
+
+    private fun formatTargetUrl(rawUrl: String, targetPlatformKey: String): String {
+        if (targetPlatformKey == "youtubeMusic") {
+            if (rawUrl.contains("music.youtube.com")) return rawUrl
+            if (rawUrl.contains("youtube.com/watch") || rawUrl.contains("m.youtube.com/watch")) {
+                return rawUrl.replace("www.youtube.com", "music.youtube.com")
+                             .replace("m.youtube.com", "music.youtube.com")
+                             .replace("youtube.com", "music.youtube.com")
+            }
+            if (rawUrl.contains("youtu.be/")) {
+                val videoId = rawUrl.substringAfter("youtu.be/").substringBefore("?").substringBefore("&")
+                if (videoId.isNotEmpty()) {
+                    return "https://music.youtube.com/watch?v=$videoId"
+                }
+            }
+        }
+        return rawUrl
+    }
+
+    private fun extractEntityTitle(json: JSONObject): String? {
+        val entities = json.optJSONObject("entitiesByUniqueId") ?: return null
+        val keys = entities.keys()
+        while (keys.hasNext()) {
+            val key = keys.next()
+            val entity = entities.optJSONObject(key) ?: continue
+            val title = entity.optString("title")
+            val artist = entity.optString("artistName")
+            if (title.isNotEmpty()) {
+                return if (artist.isNotEmpty() && !title.contains(artist, ignoreCase = true)) {
+                    "$artist $title"
+                } else {
+                    title
+                }
+            }
+        }
+        return null
+    }
+
+    private fun buildSearchUrl(queryText: String, targetPlatformKey: String): String {
+        val query = URLEncoder.encode(queryText, "UTF-8")
+        return when (targetPlatformKey) {
+            "youtubeMusic" -> "https://music.youtube.com/search?q=$query"
+            "appleMusic" -> "https://music.apple.com/search?term=$query"
+            "spotify" -> "https://open.spotify.com/search/$query"
+            "tidal" -> "https://listen.tidal.com/search?q=$query"
+            "deezer" -> "https://www.deezer.com/search/$query"
+            else -> "https://music.youtube.com/search?q=$query"
         }
     }
 
@@ -197,15 +255,7 @@ class OdesliRepository {
                 return null
             }
 
-            val query = URLEncoder.encode(title, "UTF-8")
-            when (targetPlatformKey) {
-                "youtubeMusic" -> "https://music.youtube.com/search?q=$query"
-                "appleMusic" -> "https://music.apple.com/search?term=$query"
-                "spotify" -> "https://open.spotify.com/search/$query"
-                "tidal" -> "https://listen.tidal.com/search?q=$query"
-                "deezer" -> "https://www.deezer.com/search/$query"
-                else -> "https://music.youtube.com/search?q=$query"
-            }
+            return buildSearchUrl(title, targetPlatformKey)
         } catch (e: Exception) {
             null
         }
