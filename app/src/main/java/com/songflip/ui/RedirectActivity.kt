@@ -1,24 +1,30 @@
 package com.songflip.ui
 
+import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.songflip.R
 import com.songflip.data.OdesliRepository
 import com.songflip.data.OdesliResult
 import com.songflip.data.SettingsRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
 
 /**
- * Invisible Activity that intercepts incoming music links in the background,
+ * Transparent activity that silently intercepts incoming music links in the background,
  * resolves them via Odesli API to the user's preferred target player, and launches the target link.
+ *
+ * Uses MapFlip's proven browser-targeting fallback to prevent infinite redirect loops.
  */
-class RedirectActivity : ComponentActivity() {
+class RedirectActivity : Activity() {
 
     private val odesliRepository = OdesliRepository()
 
@@ -29,6 +35,7 @@ class RedirectActivity : ComponentActivity() {
         val incomingUri = intent?.data
         if (incomingUri == null) {
             finish()
+            suppressTransitionAnimation()
             return
         }
 
@@ -38,8 +45,9 @@ class RedirectActivity : ComponentActivity() {
 
         // If the user has disabled link interception for this platform, bypass SongFlip to prevent infinite loops
         if (sourcePlatformKey != null && !settingsRepository.isInputPlatformEnabled(sourcePlatformKey)) {
-            openOriginalUrlBypassingSelf(incomingUrl)
+            forwardOriginalUrl(incomingUri)
             finish()
+            suppressTransitionAnimation()
             return
         }
 
@@ -52,9 +60,9 @@ class RedirectActivity : ComponentActivity() {
 
         val targetPlatform = settingsRepository.targetPlatform
 
-        lifecycleScope.launch {
-            // Strict 4-second timeout to ensure the app never hangs indefinitely
-            val result = withTimeoutOrNull(4000L) {
+        CoroutineScope(Dispatchers.Main + Job()).launch {
+            // Strict 3.5-second timeout to ensure the app never hangs indefinitely
+            val result = withTimeoutOrNull(3500L) {
                 odesliRepository.resolveTargetUrl(incomingUrl, targetPlatformKey = targetPlatform)
             }
 
@@ -66,9 +74,10 @@ class RedirectActivity : ComponentActivity() {
                     getString(R.string.redirect_error_toast),
                     Toast.LENGTH_SHORT
                 ).show()
-                openOriginalUrlBypassingSelf(incomingUrl)
+                forwardOriginalUrl(incomingUri)
             }
             finish()
+            suppressTransitionAnimation()
         }
     }
 
@@ -95,42 +104,50 @@ class RedirectActivity : ComponentActivity() {
     }
 
     /**
-     * Resolves intent handlers for the original URL while excluding SongFlip itself,
-     * avoiding infinite redirect loops when a source link type is disabled or resolution fails.
+     * Forwards original music URL to a web browser when redirect is disabled or resolution fails.
+     * Queries generic HTTPS browsers and sets explicit package name to guarantee bypassing SongFlip.
      */
-    private fun openOriginalUrlBypassingSelf(url: String) {
+    private fun forwardOriginalUrl(uri: Uri) {
         try {
-            val uri = Uri.parse(url)
-            val viewIntent = Intent(Intent.ACTION_VIEW, uri)
-            val resolveInfos = packageManager.queryIntentActivities(
-                viewIntent,
-                PackageManager.MATCH_DEFAULT_ONLY
-            )
-
-            // Find an intent handler that is NOT SongFlip itself
-            val otherHandler = resolveInfos.firstOrNull { 
-                it.activityInfo.packageName != packageName 
+            val genericWebIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com")).apply {
+                addCategory(Intent.CATEGORY_BROWSABLE)
             }
 
-            if (otherHandler != null) {
-                val forwardIntent = Intent(Intent.ACTION_VIEW, uri).apply {
-                    setClassName(
-                        otherHandler.activityInfo.packageName,
-                        otherHandler.activityInfo.name
-                    )
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                }
-                startActivity(forwardIntent)
-            } else {
-                // Fallback: Open in default web browser directly
-                val browserIntent = Intent(Intent.ACTION_VIEW, uri).apply {
+            val browserPackage = packageManager.queryIntentActivities(genericWebIntent, 0)
+                .map { it.activityInfo.packageName }
+                .firstOrNull { it != packageName }
+
+            if (browserPackage != null) {
+                val targetIntent = Intent(Intent.ACTION_VIEW, uri).apply {
                     addCategory(Intent.CATEGORY_BROWSABLE)
+                    setPackage(browserPackage)
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }
-                startActivity(browserIntent)
+                startActivity(targetIntent)
+                return
             }
+
+            // Fallback: browser selector intent
+            val selectorIntent = Intent(Intent.ACTION_MAIN).apply {
+                addCategory(Intent.CATEGORY_APP_BROWSER)
+            }
+            val browserIntent = Intent(Intent.ACTION_VIEW, uri).apply {
+                selector = selectorIntent
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            startActivity(browserIntent)
         } catch (e: Exception) {
-            openUrl(url)
+            openUrl(uri.toString())
+        }
+    }
+
+    /** Suppress enter/exit animation so the redirect is 100% invisible. */
+    private fun suppressTransitionAnimation() {
+        if (Build.VERSION.SDK_INT >= 34) {
+            overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, 0, 0)
+        } else {
+            @Suppress("DEPRECATION")
+            overridePendingTransition(0, 0)
         }
     }
 }

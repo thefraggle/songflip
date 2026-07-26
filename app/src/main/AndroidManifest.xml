@@ -3,8 +3,14 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!-- Package Visibility Queries for Music Players -->
+    <!-- Package Visibility Queries for Web Browsers & Music Players -->
     <queries>
+        <!-- Web Browsers Query for loop-free fallback -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" />
+        </intent>
         <package android:name="com.google.android.apps.youtube.music" />
         <package android:name="com.apple.android.music" />
         <package android:name="com.spotify.music" />
