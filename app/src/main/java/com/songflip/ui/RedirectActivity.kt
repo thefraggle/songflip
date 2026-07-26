@@ -12,6 +12,7 @@ import com.songflip.data.OdesliRepository
 import com.songflip.data.OdesliResult
 import com.songflip.data.SettingsRepository
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeoutOrNull
 
 /**
  * Invisible Activity that intercepts incoming music links in the background,
@@ -42,22 +43,30 @@ class RedirectActivity : ComponentActivity() {
             return
         }
 
+        // Show immediate toast feedback on link tap
+        Toast.makeText(
+            applicationContext,
+            getString(R.string.redirecting_toast),
+            Toast.LENGTH_SHORT
+        ).show()
+
         val targetPlatform = settingsRepository.targetPlatform
 
         lifecycleScope.launch {
-            val result = odesliRepository.resolveTargetUrl(incomingUrl, targetPlatformKey = targetPlatform)
-            when (result) {
-                is OdesliResult.Success -> {
-                    openUrl(result.targetUrl)
-                }
-                is OdesliResult.Error -> {
-                    Toast.makeText(
-                        this@RedirectActivity,
-                        getString(R.string.redirect_error_toast),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    openOriginalUrlBypassingSelf(incomingUrl) // Fallback to original URL
-                }
+            // Strict 4-second timeout to ensure the app never hangs indefinitely
+            val result = withTimeoutOrNull(4000L) {
+                odesliRepository.resolveTargetUrl(incomingUrl, targetPlatformKey = targetPlatform)
+            }
+
+            if (result is OdesliResult.Success) {
+                openUrl(result.targetUrl)
+            } else {
+                Toast.makeText(
+                    applicationContext,
+                    getString(R.string.redirect_error_toast),
+                    Toast.LENGTH_SHORT
+                ).show()
+                openOriginalUrlBypassingSelf(incomingUrl)
             }
             finish()
         }
@@ -87,7 +96,7 @@ class RedirectActivity : ComponentActivity() {
 
     /**
      * Resolves intent handlers for the original URL while excluding SongFlip itself,
-     * avoiding infinite redirect loops when a source link type is disabled.
+     * avoiding infinite redirect loops when a source link type is disabled or resolution fails.
      */
     private fun openOriginalUrlBypassingSelf(url: String) {
         try {

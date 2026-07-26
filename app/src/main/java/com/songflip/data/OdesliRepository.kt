@@ -17,8 +17,8 @@ sealed class OdesliResult {
 class OdesliRepository {
 
     private val client = OkHttpClient.Builder()
-        .connectTimeout(8, TimeUnit.SECONDS)
-        .readTimeout(8, TimeUnit.SECONDS)
+        .connectTimeout(4, TimeUnit.SECONDS)
+        .readTimeout(4, TimeUnit.SECONDS)
         .followRedirects(true)
         .followSslRedirects(true)
         .build()
@@ -34,8 +34,12 @@ class OdesliRepository {
             val cleanUrl = extractCleanUrl(inputUrl)
                 ?: return@withContext OdesliResult.Error("No valid URL found in input")
 
-            // Step 2: Resolve short links (spotify.link, deezer.page.link, youtu.be) to canonical URL
-            val canonicalUrl = resolveCanonicalUrl(cleanUrl)
+            // Step 2: Resolve short links (spotify.link, deezer.page.link, youtu.be) ONLY if needed
+            val canonicalUrl = if (isShortLinkDomain(cleanUrl)) {
+                resolveCanonicalUrl(cleanUrl)
+            } else {
+                cleanUrl
+            }
 
             // Step 3: Query Odesli API (api.song.link)
             val encodedUrl = URLEncoder.encode(canonicalUrl, "UTF-8")
@@ -77,7 +81,7 @@ class OdesliRepository {
                 }
             }
 
-            // Step 4: Fallback Search (OEmbed / OpenGraph title search fallback)
+            // Step 4: Fallback Search (OEmbed title search fallback)
             val fallbackSearchUrl = buildFallbackSearchUrl(canonicalUrl, targetPlatformKey)
             if (fallbackSearchUrl != null) {
                 return@withContext OdesliResult.Success(fallbackSearchUrl, "${targetPlatformKey}_search")
@@ -85,7 +89,6 @@ class OdesliRepository {
 
             OdesliResult.Error("Could not resolve link (HTTP ${response.code})")
         } catch (e: Exception) {
-            // Even on network exception, attempt fallback search construction
             val cleanUrl = extractCleanUrl(inputUrl) ?: inputUrl
             val fallbackSearchUrl = buildFallbackSearchUrl(cleanUrl, targetPlatformKey)
             if (fallbackSearchUrl != null) {
@@ -102,6 +105,14 @@ class OdesliRepository {
             return matcher.group(1)
         }
         return if (rawInput.startsWith("http://") || rawInput.startsWith("https://")) rawInput.trim() else null
+    }
+
+    private fun isShortLinkDomain(url: String): Boolean {
+        return url.contains("spotify.link") ||
+               url.contains("deezer.page.link") ||
+               url.contains("youtu.be") ||
+               url.contains("t.co") ||
+               url.contains("bit.ly")
     }
 
     private fun resolveCanonicalUrl(url: String): String {
