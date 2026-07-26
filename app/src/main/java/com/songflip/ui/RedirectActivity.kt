@@ -59,11 +59,16 @@ class RedirectActivity : Activity() {
         ).show()
 
         val targetPlatform = settingsRepository.targetPlatform
+        val customApiUrl = settingsRepository.customApiUrl
 
         CoroutineScope(Dispatchers.Main + Job()).launch {
             // Strict 3.5-second timeout to ensure the app never hangs indefinitely
             val result = withTimeoutOrNull(3500L) {
-                odesliRepository.resolveTargetUrl(incomingUrl, targetPlatformKey = targetPlatform)
+                odesliRepository.resolveTargetUrl(
+                    inputUrl = incomingUrl,
+                    targetPlatformKey = targetPlatform,
+                    customApiUrl = customApiUrl
+                )
             }
 
             if (result is OdesliResult.Success) {

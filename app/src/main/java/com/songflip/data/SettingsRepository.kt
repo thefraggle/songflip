@@ -19,6 +19,12 @@ class SettingsRepository(context: Context) {
             prefs.edit().putString(KEY_APP_LANGUAGE, value).apply()
         }
 
+    var customApiUrl: String
+        get() = prefs.getString(KEY_CUSTOM_API_URL, "") ?: ""
+        set(value) {
+            prefs.edit().putString(KEY_CUSTOM_API_URL, value).apply()
+        }
+
     fun isInputPlatformEnabled(platformKey: String): Boolean {
         return prefs.getBoolean(KEY_INPUT_PREFIX + platformKey, true)
     }
@@ -31,6 +37,7 @@ class SettingsRepository(context: Context) {
         private const val PREFS_NAME = "songflip_settings"
         private const val KEY_TARGET_PLATFORM = "target_platform"
         private const val KEY_APP_LANGUAGE = "app_language"
+        private const val KEY_CUSTOM_API_URL = "custom_api_url"
         private const val KEY_INPUT_PREFIX = "input_enabled_"
 
         const val DEFAULT_TARGET = "youtubeMusic"

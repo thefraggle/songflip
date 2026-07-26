@@ -2,8 +2,10 @@ package com.songflip.data
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.net.URLEncoder
 import java.util.concurrent.TimeUnit
@@ -27,21 +29,30 @@ class OdesliRepository {
 
     suspend fun resolveTargetUrl(
         inputUrl: String,
-        targetPlatformKey: String = "youtubeMusic"
+        targetPlatformKey: String = "youtubeMusic",
+        customApiUrl: String = ""
     ): OdesliResult = withContext(Dispatchers.IO) {
         try {
             // Step 1: Extract clean URL from raw input string (removes share text)
             val cleanUrl = extractCleanUrl(inputUrl)
                 ?: return@withContext OdesliResult.Error("No valid URL found in input")
 
-            // Step 2: Resolve short links (spotify.link, deezer.page.link, youtu.be) ONLY if needed
+            // Step 2: Try Custom API / n8n Webhook Endpoint if configured
+            if (customApiUrl.isNotBlank()) {
+                val customResult = queryCustomApi(customApiUrl, cleanUrl, targetPlatformKey)
+                if (customResult != null) {
+                    return@withContext OdesliResult.Success(customResult, "custom_api")
+                }
+            }
+
+            // Step 3: Resolve short links (spotify.link, deezer.page.link) if needed
             val canonicalUrl = if (isShortLinkDomain(cleanUrl)) {
                 resolveCanonicalUrl(cleanUrl)
             } else {
                 cleanUrl
             }
 
-            // Step 3: Query Odesli API (api.song.link)
+            // Step 4: Query Odesli API (api.song.link)
             val encodedUrl = URLEncoder.encode(canonicalUrl, "UTF-8")
             val apiUrl = "https://api.song.link/v1-alpha.1/links?url=$encodedUrl"
 
@@ -81,7 +92,7 @@ class OdesliRepository {
                 }
             }
 
-            // Step 4: Fallback Search (OEmbed title search fallback)
+            // Step 5: High-Reliability Fallback Search via Spotify OEmbed / Meta tags
             val fallbackSearchUrl = buildFallbackSearchUrl(canonicalUrl, targetPlatformKey)
             if (fallbackSearchUrl != null) {
                 return@withContext OdesliResult.Success(fallbackSearchUrl, "${targetPlatformKey}_search")
@@ -96,6 +107,34 @@ class OdesliRepository {
             }
 
             OdesliResult.Error(e.localizedMessage ?: "Unknown network error")
+        }
+    }
+
+    private fun queryCustomApi(apiUrl: String, url: String, targetPlatform: String): String? {
+        return try {
+            val jsonPayload = JSONObject().apply {
+                put("url", url)
+                put("targetPlatform", targetPlatform)
+            }.toString()
+
+            val body = jsonPayload.toRequestBody("application/json; charset=utf-8".toMediaType())
+            val request = Request.Builder()
+                .url(apiUrl)
+                .post(body)
+                .build()
+
+            val response = client.newCall(request).execute()
+            if (response.isSuccessful) {
+                val respString = response.body?.string() ?: ""
+                val respJson = JSONObject(respString)
+                val targetUrl = respJson.optString("targetUrl", respJson.optString("url", ""))
+                if (targetUrl.isNotEmpty()) {
+                    return targetUrl
+                }
+            }
+            null
+        } catch (e: Exception) {
+            null
         }
     }
 
