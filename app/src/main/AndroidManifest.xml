@@ -73,6 +73,9 @@
                 <data android:scheme="https" />
                 <data android:host="music.apple.com" />
                 <data android:host="geo.music.apple.com" />
+                <data android:host="itunes.apple.com" />
+                <data android:host="itun.es" />
+                <data android:host="apple.co" />
             </intent-filter>
 
             <!-- YouTube Music URL Interception -->
