@@ -26,7 +26,8 @@ class OdesliRepository {
         .build()
 
     private val urlPattern = Pattern.compile("(https?://[^\\s<>'\"()]+)")
-    private val ytVideoIdPattern = Pattern.compile("/watch\\?v=([a-zA-Z0-9_-]{11})")
+    private val ytVideoIdJsonPattern = Pattern.compile("\"videoId\":\"([a-zA-Z0-9_-]{11})\"")
+    private val ytWatchPattern = Pattern.compile("/watch\\?v=([a-zA-Z0-9_-]{11})")
 
     suspend fun resolveTargetUrl(
         inputUrl: String,
@@ -174,13 +175,13 @@ class OdesliRepository {
      */
     private fun resolveDirectPlatformUrl(query: String, targetPlatformKey: String): String? {
         return when (targetPlatformKey) {
-            "youtubeMusic" -> resolveYouTubeMusicDirectPlayUrl(query)
-            "appleMusic" -> resolveAppleMusicDirectUrl(query)
-            "deezer" -> resolveDeezerDirectUrl(query)
+            "youtubeMusic" -> resolveYouTubeMusicDirectPlayUrl(query) ?: buildSearchUrl(query, "youtubeMusic")
+            "appleMusic" -> resolveAppleMusicDirectUrl(query) ?: buildSearchUrl(query, "appleMusic")
+            "deezer" -> resolveDeezerDirectUrl(query) ?: buildSearchUrl(query, "deezer")
             "spotify" -> buildSearchUrl(query, "spotify")
             "tidal" -> buildSearchUrl(query, "tidal")
             "amazonMusic" -> buildSearchUrl(query, "amazonMusic")
-            else -> null
+            else -> buildSearchUrl(query, targetPlatformKey)
         }
     }
 
@@ -192,7 +193,7 @@ class OdesliRepository {
             val encodedQuery = URLEncoder.encode(query, "UTF-8")
             val req = Request.Builder()
                 .url("https://www.youtube.com/results?search_query=$encodedQuery")
-                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
                 .get()
                 .build()
 
@@ -204,9 +205,19 @@ class OdesliRepository {
             val html = resp.body?.string() ?: ""
             resp.close()
 
-            val matcher = ytVideoIdPattern.matcher(html)
-            if (matcher.find()) {
-                val videoId = matcher.group(1)
+            // Check JSON videoId first (modern desktop YT)
+            val jsonMatcher = ytVideoIdJsonPattern.matcher(html)
+            if (jsonMatcher.find()) {
+                val videoId = jsonMatcher.group(1)
+                if (!videoId.isNullOrEmpty()) {
+                    return "https://music.youtube.com/watch?v=$videoId"
+                }
+            }
+
+            // Check watch?v= format
+            val watchMatcher = ytWatchPattern.matcher(html)
+            if (watchMatcher.find()) {
+                val videoId = watchMatcher.group(1)
                 if (!videoId.isNullOrEmpty()) {
                     return "https://music.youtube.com/watch?v=$videoId"
                 }
