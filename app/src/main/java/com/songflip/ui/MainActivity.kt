@@ -541,19 +541,23 @@ fun MainScreen(initialShowPause: Boolean = false) {
             // ─────────────────────────────────────────────────────────────────
             // Live Status & Quick Pause Banner Card
             // ─────────────────────────────────────────────────────────────────
+            val isDarkTheme = androidx.compose.foundation.isSystemInDarkTheme()
+            val activeColor = if (isDarkTheme) StateActiveGreen else StateActiveGreenLight
+            val pausedColor = if (isDarkTheme) StatePausedAmber else StatePausedAmberLight
+
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(20.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = if (isCurrentlyPaused) {
-                        StatePausedAmber.copy(alpha = 0.12f)
+                        pausedColor.copy(alpha = 0.12f)
                     } else {
-                        StateActiveGreen.copy(alpha = 0.12f)
+                        activeColor.copy(alpha = 0.12f)
                     }
                 ),
                 border = androidx.compose.foundation.BorderStroke(
                     1.dp,
-                    if (isCurrentlyPaused) StatePausedAmber.copy(alpha = 0.4f) else StateActiveGreen.copy(alpha = 0.4f)
+                    if (isCurrentlyPaused) pausedColor.copy(alpha = 0.4f) else activeColor.copy(alpha = 0.4f)
                 )
             ) {
                 Row(
@@ -572,14 +576,14 @@ fun MainScreen(initialShowPause: Boolean = false) {
                             Icon(
                                 imageVector = Icons.Outlined.PauseCircle,
                                 contentDescription = null,
-                                tint = StatePausedAmber,
+                                tint = pausedColor,
                                 modifier = Modifier.size(24.dp)
                             )
                             Column {
                                 Text(
                                     text = stringResource(R.string.status_paused),
                                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
-                                    color = StatePausedAmber
+                                    color = pausedColor
                                 )
                                 if (pausedUntilTimestamp > 0L) {
                                     val timeStr = android.text.format.DateFormat.getTimeFormat(context).format(java.util.Date(pausedUntilTimestamp))
@@ -605,12 +609,12 @@ fun MainScreen(initialShowPause: Boolean = false) {
                                 modifier = Modifier
                                     .size(12.dp)
                                     .clip(CircleShape)
-                                    .background(StateActiveGreen.copy(alpha = pulseAlpha))
+                                    .background(activeColor.copy(alpha = pulseAlpha))
                             )
                             Text(
                                 text = stringResource(R.string.status_active),
                                 style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
-                                color = StateActiveGreen
+                                color = activeColor
                             )
                         }
                     }
@@ -705,16 +709,17 @@ fun MainScreen(initialShowPause: Boolean = false) {
                         },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(48.dp),
+                            .height(50.dp),
                         shape = RoundedCornerShape(14.dp),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primary
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.onPrimary
                         )
                     ) {
                         Icon(
                             imageVector = Icons.Default.Settings,
                             contentDescription = null,
-                            tint = Color.Black,
+                            tint = MaterialTheme.colorScheme.onPrimary,
                             modifier = Modifier.size(20.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
@@ -723,7 +728,7 @@ fun MainScreen(initialShowPause: Boolean = false) {
                             style = MaterialTheme.typography.labelLarge.copy(
                                 fontWeight = FontWeight.Bold
                             ),
-                            color = Color.Black
+                            color = MaterialTheme.colorScheme.onPrimary
                         )
                     }
 
@@ -734,7 +739,7 @@ fun MainScreen(initialShowPause: Boolean = false) {
                         null -> Text(
                             text = stringResource(R.string.status_hint),
                             style = MaterialTheme.typography.bodySmall,
-                            color = NightSlate400
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                 }
@@ -1043,22 +1048,26 @@ fun MainScreen(initialShowPause: Boolean = false) {
                         enabled = testInputUrl.isNotBlank() && !isLoading,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(48.dp),
-                        shape = RoundedCornerShape(14.dp)
+                            .height(50.dp),
+                        shape = RoundedCornerShape(14.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.onPrimary
+                        )
                     ) {
                         if (isLoading) {
                             CircularProgressIndicator(
                                 modifier = Modifier.size(20.dp),
-                                color = Color.Black,
+                                color = MaterialTheme.colorScheme.onPrimary,
                                 strokeWidth = 2.dp
                             )
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text(stringResource(R.string.test_converting), color = Color.Black)
+                            Text(stringResource(R.string.test_converting), color = MaterialTheme.colorScheme.onPrimary)
                         } else {
                             Text(
                                 text = stringResource(R.string.test_button),
                                 fontWeight = FontWeight.Bold,
-                                color = Color.Black
+                                color = MaterialTheme.colorScheme.onPrimary
                             )
                         }
                     }
@@ -1248,8 +1257,12 @@ private fun SetupStepItem(number: Int, text: String) {
 
 @Composable
 private fun StatusBadge(text: String, active: Boolean) {
-    val targetBg = if (active) StateActiveGreen.copy(alpha = 0.12f) else StateErrorRed.copy(alpha = 0.12f)
-    val contentColor = if (active) StateActiveGreen else StateErrorRed
+    val isDark = androidx.compose.foundation.isSystemInDarkTheme()
+    val activeColor = if (isDark) StateActiveGreen else StateActiveGreenLight
+    val errorColor = if (isDark) StateErrorRed else StateErrorRedLight
+
+    val targetBg = if (active) activeColor.copy(alpha = 0.12f) else errorColor.copy(alpha = 0.12f)
+    val contentColor = if (active) activeColor else errorColor
 
     val infiniteTransition = rememberInfiniteTransition(label = "pulse")
     val pulseAlpha by infiniteTransition.animateFloat(
@@ -1277,7 +1290,7 @@ private fun StatusBadge(text: String, active: Boolean) {
                     modifier = Modifier
                         .size(10.dp)
                         .clip(CircleShape)
-                        .background(StateActiveGreen.copy(alpha = pulseAlpha))
+                        .background(activeColor.copy(alpha = pulseAlpha))
                 )
             } else {
                 Icon(

@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.Color
 
 private val DarkColorScheme = darkColorScheme(
     primary = StateActiveGreen,
-    onPrimary = Color.Black,
+    onPrimary = Color(0xFF022C22),
     primaryContainer = NightSlate800,
     onPrimaryContainer = NightSlate200,
     secondary = BrandSpotify,
@@ -28,22 +28,21 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Color(0xFF047857),
-    onPrimary = Color.White,
+    primary = Color(0xFF059669), // Kräftiges Smaragdgrün
+    onPrimary = Color.White,     // Strahlend weißer Text auf Buttons
     primaryContainer = Color(0xFFD1FAE5),
     onPrimaryContainer = Color(0xFF064E3B),
     secondary = Color(0xFF10B981),
     onSecondary = Color.White,
     tertiary = Color(0xFFD97706),
     onTertiary = Color.White,
-    background = NightSlate050,
-    onBackground = NightSlate950,
+    background = Color(0xFFF1F5F9), // Sanfter Slate-Hintergrund
     surface = Color.White,
-    onSurface = NightSlate950,
-    surfaceVariant = Color(0xFFF1F5F9),
-    onSurfaceVariant = Color(0xFF475569),
-    outline = Color(0xFFCBD5E1),
-    error = StateErrorRed,
+    onSurface = Color(0xFF0F172A),
+    surfaceVariant = Color(0xFFF8FAFC),
+    onSurfaceVariant = Color(0xFF64748B),
+    outline = Color(0xFFE2E8F0),
+    error = StateErrorRedLight,
     onError = Color.White
 )
 
