@@ -6,11 +6,10 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import com.songflip.R
 import com.songflip.data.OdesliRepository
 import com.songflip.data.OdesliResult
+import com.songflip.data.PauseHelper
 import com.songflip.data.SettingsRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,10 +18,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
 
 /**
- * Transparent activity that silently intercepts incoming music links in the background,
- * resolves them via Odesli API to the user's preferred target player, and launches the target link.
- *
- * Uses MapFlip's proven browser-targeting fallback to prevent infinite redirect loops.
+ * Transparent activity that silently intercepts incoming music links (or shared URLs) in the background,
+ * resolves them via the 5-tier fallback engine to the user's preferred player, and launches the target link.
  */
 class RedirectActivity : Activity() {
 
@@ -32,26 +29,52 @@ class RedirectActivity : Activity() {
         super.onCreate(savedInstanceState)
 
         val settingsRepository = SettingsRepository(this)
-        val incomingUri = intent?.data
-        if (incomingUri == null) {
+        val incomingUrl: String?
+        val incomingUri: Uri?
+
+        if (Intent.ACTION_SEND == intent?.action && intent?.type == "text/plain") {
+            val sharedText = intent.getStringExtra(Intent.EXTRA_TEXT) ?: ""
+            incomingUrl = sharedText
+            incomingUri = Uri.parse(sharedText)
+        } else {
+            incomingUri = intent?.data
+            incomingUrl = incomingUri?.toString()
+        }
+
+        if (incomingUrl.isNullOrBlank()) {
             finish()
             suppressTransitionAnimation()
             return
         }
 
-        val incomingUrl = incomingUri.toString()
-        val host = incomingUri.host ?: ""
-        val sourcePlatformKey = detectSourcePlatformKey(host)
+        val host = incomingUri?.host ?: ""
+        val sourcePlatformKey = detectSourcePlatformKey(host, incomingUrl)
 
-        // If the user has disabled link interception for this platform, bypass SongFlip to prevent infinite loops
+        // 1. Check if SongFlip is currently paused
+        if (PauseHelper.isCurrentlyPaused(this)) {
+            if (incomingUri != null) {
+                forwardOriginalUrl(incomingUri)
+            } else {
+                openUrl(incomingUrl)
+            }
+            finish()
+            suppressTransitionAnimation()
+            return
+        }
+
+        // 2. Check if the user has disabled link interception for this platform
         if (sourcePlatformKey != null && !settingsRepository.isInputPlatformEnabled(sourcePlatformKey)) {
-            forwardOriginalUrl(incomingUri)
+            if (incomingUri != null) {
+                forwardOriginalUrl(incomingUri)
+            } else {
+                openUrl(incomingUrl)
+            }
             finish()
             suppressTransitionAnimation()
             return
         }
 
-        // Show immediate toast feedback on link tap
+        // Show immediate visual feedback
         Toast.makeText(
             applicationContext,
             getString(R.string.redirecting_toast),
@@ -60,14 +83,16 @@ class RedirectActivity : Activity() {
 
         val targetPlatform = settingsRepository.targetPlatform
         val customApiUrl = settingsRepository.customApiUrl
+        val customApiToken = settingsRepository.customApiToken
 
         CoroutineScope(Dispatchers.Main + Job()).launch {
-            // Strict 3.5-second timeout to ensure the app never hangs indefinitely
+            // Strict 3.5-second timeout
             val result = withTimeoutOrNull(3500L) {
                 odesliRepository.resolveTargetUrl(
                     inputUrl = incomingUrl,
                     targetPlatformKey = targetPlatform,
-                    customApiUrl = customApiUrl
+                    customApiUrl = customApiUrl,
+                    customApiToken = customApiToken
                 )
             }
 
@@ -79,20 +104,26 @@ class RedirectActivity : Activity() {
                     getString(R.string.redirect_error_toast),
                     Toast.LENGTH_SHORT
                 ).show()
-                forwardOriginalUrl(incomingUri)
+                if (incomingUri != null) {
+                    forwardOriginalUrl(incomingUri)
+                } else {
+                    openUrl(incomingUrl)
+                }
             }
             finish()
             suppressTransitionAnimation()
         }
     }
 
-    private fun detectSourcePlatformKey(host: String): String? {
+    private fun detectSourcePlatformKey(host: String, rawText: String): String? {
+        val lower = (host + " " + rawText).lowercase()
         return when {
-            host.contains("spotify") -> "spotify"
-            host.contains("apple") -> "appleMusic"
-            host.contains("youtube") || host.contains("youtu.be") -> "youtubeMusic"
-            host.contains("tidal") -> "tidal"
-            host.contains("deezer") -> "deezer"
+            lower.contains("spotify") -> "spotify"
+            lower.contains("apple.com") || lower.contains("music.apple") -> "appleMusic"
+            lower.contains("youtube") || lower.contains("youtu.be") -> "youtubeMusic"
+            lower.contains("tidal") -> "tidal"
+            lower.contains("deezer") -> "deezer"
+            lower.contains("amazon.") || lower.contains("amzn.to") || lower.contains("a.co") -> "amazonMusic"
             else -> null
         }
     }

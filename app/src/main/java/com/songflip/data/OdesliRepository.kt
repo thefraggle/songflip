@@ -30,7 +30,8 @@ class OdesliRepository {
     suspend fun resolveTargetUrl(
         inputUrl: String,
         targetPlatformKey: String = "youtubeMusic",
-        customApiUrl: String = ""
+        customApiUrl: String = "",
+        customApiToken: String = ""
     ): OdesliResult = withContext(Dispatchers.IO) {
         try {
             // Step 1: Extract clean URL from raw input string (removes share text)
@@ -39,13 +40,13 @@ class OdesliRepository {
 
             // Step 2: Try Custom API / n8n Webhook Endpoint if configured
             if (customApiUrl.isNotBlank()) {
-                val customResult = queryCustomApi(customApiUrl, cleanUrl, targetPlatformKey)
+                val customResult = queryCustomApi(customApiUrl, customApiToken, cleanUrl, targetPlatformKey)
                 if (customResult != null) {
                     return@withContext OdesliResult.Success(formatTargetUrl(customResult, targetPlatformKey), "custom_api")
                 }
             }
 
-            // Step 3: Resolve short links (spotify.link, deezer.page.link) if needed
+            // Step 3: Resolve short links (spotify.link, deezer.page.link, amzn.to, etc.)
             val canonicalUrl = if (isShortLinkDomain(cleanUrl)) {
                 resolveCanonicalUrl(cleanUrl)
             } else {
@@ -69,13 +70,16 @@ class OdesliRepository {
                 if (!bodyString.isNullOrEmpty()) {
                     val json = JSONObject(bodyString)
                     val linksByPlatform = json.optJSONObject("linksByPlatform")
-                    
+
                     if (linksByPlatform != null) {
-                        // Check direct platform or fallback platform (e.g., youtube for youtubeMusic)
+                        // Check direct platform or platform aliases
                         val platformObj = linksByPlatform.optJSONObject(targetPlatformKey)
-                            ?: if (targetPlatformKey == "youtubeMusic") {
-                                linksByPlatform.optJSONObject("youtube")
-                            } else null
+                            ?: when (targetPlatformKey) {
+                                "youtubeMusic" -> linksByPlatform.optJSONObject("youtube")
+                                "amazonMusic" -> linksByPlatform.optJSONObject("amazonMusic")
+                                    ?: linksByPlatform.optJSONObject("amazon")
+                                else -> null
+                            }
 
                         if (platformObj != null) {
                             val rawTargetUrl = platformObj.optString("url")
@@ -101,7 +105,7 @@ class OdesliRepository {
                 }
             }
 
-            // Step 5: High-Reliability Fallback Search via Spotify OEmbed / Meta tags
+            // Step 5: Multi-Source Fallback via Spotify / Deezer / YouTube OEmbed
             val fallbackSearchUrl = buildFallbackSearchUrl(canonicalUrl, targetPlatformKey)
             if (fallbackSearchUrl != null) {
                 return@withContext OdesliResult.Success(fallbackSearchUrl, "${targetPlatformKey}_search")
@@ -124,8 +128,8 @@ class OdesliRepository {
             if (rawUrl.contains("music.youtube.com")) return rawUrl
             if (rawUrl.contains("youtube.com/watch") || rawUrl.contains("m.youtube.com/watch")) {
                 return rawUrl.replace("www.youtube.com", "music.youtube.com")
-                             .replace("m.youtube.com", "music.youtube.com")
-                             .replace("youtube.com", "music.youtube.com")
+                    .replace("m.youtube.com", "music.youtube.com")
+                    .replace("youtube.com", "music.youtube.com")
             }
             if (rawUrl.contains("youtu.be/")) {
                 val videoId = rawUrl.substringAfter("youtu.be/").substringBefore("?").substringBefore("&")
@@ -164,11 +168,12 @@ class OdesliRepository {
             "spotify" -> "https://open.spotify.com/search/$query"
             "tidal" -> "https://listen.tidal.com/search?q=$query"
             "deezer" -> "https://www.deezer.com/search/$query"
+            "amazonMusic" -> "https://music.amazon.com/search/$query"
             else -> "https://music.youtube.com/search?q=$query"
         }
     }
 
-    private fun queryCustomApi(apiUrl: String, url: String, targetPlatform: String): String? {
+    private fun queryCustomApi(apiUrl: String, token: String, url: String, targetPlatform: String): String? {
         return try {
             val jsonPayload = JSONObject().apply {
                 put("url", url)
@@ -176,12 +181,15 @@ class OdesliRepository {
             }.toString()
 
             val body = jsonPayload.toRequestBody("application/json; charset=utf-8".toMediaType())
-            val request = Request.Builder()
+            val requestBuilder = Request.Builder()
                 .url(apiUrl)
                 .post(body)
-                .build()
 
-            val response = client.newCall(request).execute()
+            if (token.isNotBlank()) {
+                requestBuilder.header("Authorization", "Bearer $token")
+            }
+
+            val response = client.newCall(requestBuilder.build()).execute()
             if (response.isSuccessful) {
                 val respString = response.body?.string() ?: ""
                 val respJson = JSONObject(respString)
@@ -206,10 +214,12 @@ class OdesliRepository {
 
     private fun isShortLinkDomain(url: String): Boolean {
         return url.contains("spotify.link") ||
-               url.contains("deezer.page.link") ||
-               url.contains("youtu.be") ||
-               url.contains("t.co") ||
-               url.contains("bit.ly")
+                url.contains("deezer.page.link") ||
+                url.contains("youtu.be") ||
+                url.contains("t.co") ||
+                url.contains("bit.ly") ||
+                url.contains("amzn.to") ||
+                url.contains("a.co")
     }
 
     private fun resolveCanonicalUrl(url: String): String {
@@ -233,11 +243,45 @@ class OdesliRepository {
         return try {
             var title: String? = null
 
-            // Try Spotify OEmbed API first if it's a Spotify link
+            // 1. Spotify OEmbed
             if (url.contains("spotify.com")) {
                 val encoded = URLEncoder.encode(url, "UTF-8")
                 val req = Request.Builder()
                     .url("https://open.spotify.com/oembed?url=$encoded")
+                    .get()
+                    .build()
+                val resp = client.newCall(req).execute()
+                if (resp.isSuccessful) {
+                    val body = resp.body?.string()
+                    if (!body.isNullOrEmpty()) {
+                        val json = JSONObject(body)
+                        title = json.optString("title")
+                    }
+                }
+                resp.close()
+            }
+            // 2. YouTube / YouTube Music OEmbed
+            else if (url.contains("youtube.com") || url.contains("youtu.be")) {
+                val encoded = URLEncoder.encode(url, "UTF-8")
+                val req = Request.Builder()
+                    .url("https://www.youtube.com/oembed?url=$encoded&format=json")
+                    .get()
+                    .build()
+                val resp = client.newCall(req).execute()
+                if (resp.isSuccessful) {
+                    val body = resp.body?.string()
+                    if (!body.isNullOrEmpty()) {
+                        val json = JSONObject(body)
+                        title = json.optString("title")
+                    }
+                }
+                resp.close()
+            }
+            // 3. Deezer OEmbed
+            else if (url.contains("deezer.com")) {
+                val encoded = URLEncoder.encode(url, "UTF-8")
+                val req = Request.Builder()
+                    .url("https://api.deezer.com/oembed?url=$encoded")
                     .get()
                     .build()
                 val resp = client.newCall(req).execute()

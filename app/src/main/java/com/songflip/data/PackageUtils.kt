@@ -10,7 +10,8 @@ object PackageUtils {
         "appleMusic" to "com.apple.android.music",
         "spotify" to "com.spotify.music",
         "tidal" to "com.aspiro.tidal",
-        "deezer" to "deezer.android.app"
+        "deezer" to "deezer.android.app",
+        "amazonMusic" to "com.amazon.mp3"
     )
 
     fun isAppInstalled(context: Context, platformKey: String): Boolean {

@@ -45,6 +45,35 @@
     <string name="link_copied">Link in Zwischenablage kopiert</string>
     <string name="action_paste">Aus Zwischenablage einfügen</string>
 
+    <string name="target_amazon_music">Amazon Music</string>
+
+    <string name="status_paused">SongFlip ist pausiert</string>
+    <string name="status_paused_until">Pausiert bis %1$s</string>
+    <string name="btn_resume">Jetzt fortsetzen</string>
+    <string name="btn_pause">SongFlip pausieren</string>
+    <string name="pause_dialog_title">SongFlip pausieren</string>
+    <string name="pause_dialog_subtitle">Eingehende Musik-Links öffnen während der Pause direkt im Original-Dienst/Browser ohne Umleitung.</string>
+    <string name="pause_15m">Für 15 Minuten</string>
+    <string name="pause_1h">Für 1 Stunde</string>
+    <string name="pause_tomorrow">Bis morgen früh (06:00 Uhr)</string>
+    <string name="pause_indefinitely">Dauerhaft bis zum Fortsetzen</string>
+    <string name="pause_cancel">Abbrechen</string>
+
+    <string name="tile_name">SongFlip</string>
+    <string name="tile_active">Aktiv</string>
+    <string name="tile_paused">Pausiert</string>
+
+    <string name="advanced_settings_title">Erweiterte Einstellungen</string>
+    <string name="advanced_settings_subtitle">Eigenen KI- oder n8n-Webhook-Endpunkt für die Link-Auflösung hinterlegen</string>
+    <string name="custom_api_url_label">Eigener Fallback Webhook-URL</string>
+    <string name="custom_api_url_hint">https://n8n.deinedomain.de/webhook/songflip</string>
+    <string name="custom_api_url_helper">Optional: Wird aufgerufen, falls Odesli überlastet ist oder fehlschlägt.</string>
+    <string name="custom_api_token_label">Bearer Token / API-Key (Optional)</string>
+    <string name="custom_api_token_hint">geheimer_token_hier</string>
+    <string name="btn_save">Speichern</string>
+    <string name="settings_saved">Einstellungen gespeichert</string>
+
+    <string name="share_received_toast">Verarbeite geteilten Musik-Link...</string>
     <string name="famwake_promo">VOM GLEICHEN ENTWICKLER</string>
     <string name="famwake_title">FamWake – Familienwecker</string>
     <string name="famwake_desc">FamWake koordiniert den Morgen für die ganze Familie – Bad-Zeiten, Frühstück und Aufstehen.</string>

@@ -13,7 +13,6 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.*
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -29,7 +28,12 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.PauseCircle
+import androidx.compose.material.icons.outlined.PlayCircle
+import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -37,7 +41,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -47,14 +54,14 @@ import androidx.compose.ui.unit.sp
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import com.songflip.R
 import com.songflip.data.DomainVerificationUtils
 import com.songflip.data.OdesliRepository
 import com.songflip.data.OdesliResult
 import com.songflip.data.PackageUtils
+import com.songflip.data.PauseHelper
 import com.songflip.data.SettingsRepository
-import com.songflip.ui.theme.SongFlipTheme
+import com.songflip.ui.theme.*
 import kotlinx.coroutines.launch
 
 private const val URL_FAMWAKE = "https://play.google.com/store/apps/details?id=de.familienwecker.famwake"
@@ -62,15 +69,36 @@ private const val URL_NOTTHOFF = "https://notthoff.org"
 
 class MainActivity : AppCompatActivity() {
 
+    private var initialShowPauseSheet = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initialShowPauseSheet = intent?.getBooleanExtra("show_pause_sheet", false) == true
+
         setContent {
             SongFlipTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainScreen()
+                    MainScreen(initialShowPause = initialShowPauseSheet)
+                }
+            }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        if (intent.getBooleanExtra("show_pause_sheet", false)) {
+            // Re-trigger pause sheet if invoked again via TileService
+            setContent {
+                SongFlipTheme {
+                    Surface(
+                        modifier = Modifier.fillMaxSize(),
+                        color = MaterialTheme.colorScheme.background
+                    ) {
+                        MainScreen(initialShowPause = true)
+                    }
                 }
             }
         }
@@ -91,24 +119,38 @@ data class LanguageItem(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen() {
+fun MainScreen(initialShowPause: Boolean = false) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
+    val haptic = LocalHapticFeedback.current
     val scope = rememberCoroutineScope()
     val repository = remember { OdesliRepository() }
     val settingsRepository = remember { SettingsRepository(context) }
 
     var selectedTargetKey by remember { mutableStateOf(settingsRepository.targetPlatform) }
     var selectedLanguage by remember { mutableStateOf(settingsRepository.appLanguage) }
+
+    // Dialog and Sheet States
     var showLanguageBottomSheet by remember { mutableStateOf(false) }
+    var showPauseBottomSheet by remember { mutableStateOf(initialShowPause) }
+    var showAdvancedSettingsDialog by remember { mutableStateOf(false) }
+
+    // Pause State
+    var isCurrentlyPaused by remember { mutableStateOf(PauseHelper.isCurrentlyPaused(context)) }
+    val prefs = remember { context.getSharedPreferences(SettingsRepository.PREFS_NAME, Context.MODE_PRIVATE) }
+    var pausedUntilTimestamp by remember {
+        mutableStateOf(prefs.getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L))
+    }
 
     var linksActive by remember { mutableStateOf<Boolean?>(DomainVerificationUtils.checkLinksEnabled(context)) }
 
-    // Live update when returning from system settings
+    // Live update when returning from system settings or shared preferences changes
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME) {
                 linksActive = DomainVerificationUtils.checkLinksEnabled(context)
+                isCurrentlyPaused = PauseHelper.isCurrentlyPaused(context)
+                pausedUntilTimestamp = prefs.getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L)
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
@@ -133,15 +175,18 @@ fun MainScreen() {
 
     val targetServices = remember {
         listOf(
-            ServiceInfo("youtubeMusic", R.string.target_youtube_music, Color(0xFFFF0000)),
-            ServiceInfo("appleMusic", R.string.target_apple_music, Color(0xFFFA243C)),
-            ServiceInfo("spotify", R.string.target_spotify, Color(0xFF1DB954)),
-            ServiceInfo("tidal", R.string.target_tidal, Color(0xFF00F3FF)),
-            ServiceInfo("deezer", R.string.target_deezer, Color(0xFFA238FF))
+            ServiceInfo("youtubeMusic", R.string.target_youtube_music, BrandYouTubeMusic),
+            ServiceInfo("appleMusic", R.string.target_apple_music, BrandAppleMusic),
+            ServiceInfo("spotify", R.string.target_spotify, BrandSpotify),
+            ServiceInfo("tidal", R.string.target_tidal, BrandTidal),
+            ServiceInfo("deezer", R.string.target_deezer, BrandDeezer),
+            ServiceInfo("amazonMusic", R.string.target_amazon_music, BrandAmazonMusic)
         )
     }
 
-    // Language Selector BottomSheet
+    // ─────────────────────────────────────────────────────────────────────────
+    // Language Bottom Sheet
+    // ─────────────────────────────────────────────────────────────────────────
     if (showLanguageBottomSheet) {
         ModalBottomSheet(
             onDismissRequest = { showLanguageBottomSheet = false },
@@ -155,9 +200,7 @@ fun MainScreen() {
             ) {
                 Text(
                     text = stringResource(R.string.select_language_title),
-                    style = MaterialTheme.typography.titleLarge.copy(
-                        fontWeight = FontWeight.Bold
-                    ),
+                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Spacer(modifier = Modifier.height(4.dp))
@@ -166,6 +209,7 @@ fun MainScreen() {
                     val isSelected = selectedLanguage == lang.code
                     Surface(
                         onClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                             selectedLanguage = lang.code
                             settingsRepository.appLanguage = lang.code
                             val localeList = LocaleListCompat.forLanguageTags(lang.code)
@@ -199,554 +243,894 @@ fun MainScreen() {
         }
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(scrollState)
-            .padding(20.dp),
-        verticalArrangement = Arrangement.spacedBy(20.dp)
-    ) {
-        // App Header Banner with Compact Top-Right Language Button
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(24.dp))
-                .background(
-                    Brush.horizontalGradient(
-                        colors = listOf(
-                            Color(0xFF0F172A),
-                            Color(0xFF1E293B)
-                        )
-                    )
-                )
-                .border(
-                    1.dp,
-                    Brush.horizontalGradient(
-                        colors = listOf(
-                            Color(0xFF1DB954).copy(alpha = 0.5f),
-                            Color(0xFFFF0000).copy(alpha = 0.5f)
-                        )
-                    ),
-                    RoundedCornerShape(24.dp)
-                )
-                .padding(20.dp)
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .size(52.dp)
-                            .clip(CircleShape)
-                            .background(Color(0xFF0F172A))
-                            .border(1.dp, Color(0xFF334155), CircleShape),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                            contentDescription = null,
-                            modifier = Modifier.size(44.dp)
-                        )
-                    }
-                    Column {
-                        Text(
-                            text = stringResource(R.string.app_name),
-                            style = MaterialTheme.typography.headlineMedium.copy(
-                                fontWeight = FontWeight.ExtraBold,
-                                fontSize = 28.sp
-                            ),
-                            color = Color.White
-                        )
-                        Text(
-                            text = stringResource(R.string.app_tagline),
-                            style = MaterialTheme.typography.bodySmall.copy(
-                                fontWeight = FontWeight.Medium
-                            ),
-                            color = Color(0xFF94A3B8)
-                        )
-                    }
-                }
-
-                // Compact Subtle Language Switcher Button (Analog MapFlip 🌐)
-                IconButton(
-                    onClick = { showLanguageBottomSheet = true },
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .background(Color(0xFF334155).copy(alpha = 0.5f))
-                        .size(40.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Language,
-                        contentDescription = stringResource(R.string.select_language_title),
-                        tint = Color.White,
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-            }
-        }
-
-        // Setup Card ("So geht's / How it works" - MapFlip Style)
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(20.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surface
-            )
+    // ─────────────────────────────────────────────────────────────────────────
+    // Pause Bottom Sheet
+    // ─────────────────────────────────────────────────────────────────────────
+    if (showPauseBottomSheet) {
+        ModalBottomSheet(
+            onDismissRequest = { showPauseBottomSheet = false },
+            sheetState = rememberModalBottomSheetState()
         ) {
             Column(
-                modifier = Modifier.padding(20.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(24.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Text(
-                    text = stringResource(R.string.setup_title),
-                    style = MaterialTheme.typography.titleLarge.copy(
-                        fontWeight = FontWeight.Bold
-                    ),
+                    text = stringResource(R.string.pause_dialog_title),
+                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                     color = MaterialTheme.colorScheme.onSurface
                 )
+                Text(
+                    text = stringResource(R.string.pause_dialog_subtitle),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Spacer(modifier = Modifier.height(8.dp))
 
-                SetupStepItem(number = 1, text = stringResource(R.string.step1))
-                SetupStepItem(number = 2, text = stringResource(R.string.step2))
-                SetupStepItem(number = 3, text = stringResource(R.string.step3))
+                // Option 1: 15 Minutes
+                PauseOptionItem(
+                    title = stringResource(R.string.pause_15m),
+                    onClick = {
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                        PauseHelper.setPause(context, 15 * 60 * 1000L)
+                        isCurrentlyPaused = true
+                        pausedUntilTimestamp = prefs.getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L)
+                        showPauseBottomSheet = false
+                    }
+                )
 
+                // Option 2: 1 Hour
+                PauseOptionItem(
+                    title = stringResource(R.string.pause_1h),
+                    onClick = {
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                        PauseHelper.setPause(context, 60 * 60 * 1000L)
+                        isCurrentlyPaused = true
+                        pausedUntilTimestamp = prefs.getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L)
+                        showPauseBottomSheet = false
+                    }
+                )
+
+                // Option 3: Until Tomorrow Morning (6:00 AM)
+                PauseOptionItem(
+                    title = stringResource(R.string.pause_tomorrow),
+                    onClick = {
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                        val tomorrowTimestamp = PauseHelper.getTomorrowMorningTimestamp()
+                        PauseHelper.setPauseUntil(context, tomorrowTimestamp)
+                        isCurrentlyPaused = true
+                        pausedUntilTimestamp = tomorrowTimestamp
+                        showPauseBottomSheet = false
+                    }
+                )
+
+                // Option 4: Indefinite
+                PauseOptionItem(
+                    title = stringResource(R.string.pause_indefinitely),
+                    onClick = {
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                        PauseHelper.setPause(context, 0L)
+                        isCurrentlyPaused = true
+                        pausedUntilTimestamp = 0L
+                        showPauseBottomSheet = false
+                    }
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+        }
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Advanced Settings Dialog (Custom AI / Webhook API)
+    // ─────────────────────────────────────────────────────────────────────────
+    if (showAdvancedSettingsDialog) {
+        var tempUrl by remember { mutableStateOf(settingsRepository.customApiUrl) }
+        var tempToken by remember { mutableStateOf(settingsRepository.customApiToken) }
+
+        AlertDialog(
+            onDismissRequest = { showAdvancedSettingsDialog = false },
+            title = {
+                Text(
+                    text = stringResource(R.string.advanced_settings_title),
+                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
+                )
+            },
+            text = {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp),
+                    verticalArrangement = Arrangement.spacedBy(14.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.advanced_settings_subtitle),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+
+                    OutlinedTextField(
+                        value = tempUrl,
+                        onValueChange = { tempUrl = it },
+                        label = { Text(stringResource(R.string.custom_api_url_label)) },
+                        placeholder = { Text(stringResource(R.string.custom_api_url_hint), fontSize = 12.sp) },
+                        singleLine = true,
+                        shape = RoundedCornerShape(12.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    OutlinedTextField(
+                        value = tempToken,
+                        onValueChange = { tempToken = it },
+                        label = { Text(stringResource(R.string.custom_api_token_label)) },
+                        placeholder = { Text(stringResource(R.string.custom_api_token_hint), fontSize = 12.sp) },
+                        singleLine = true,
+                        shape = RoundedCornerShape(12.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Text(
+                        text = stringResource(R.string.custom_api_url_helper),
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            },
+            confirmButton = {
                 Button(
                     onClick = {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                            try {
-                                context.startActivity(Intent(
-                                    Settings.ACTION_APP_OPEN_BY_DEFAULT_SETTINGS,
-                                    Uri.parse("package:${context.packageName}")
-                                ))
-                            } catch (e: Exception) {
+                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                        settingsRepository.customApiUrl = tempUrl.trim()
+                        settingsRepository.customApiToken = tempToken.trim()
+                        showAdvancedSettingsDialog = false
+                        Toast.makeText(context, context.getString(R.string.settings_saved), Toast.LENGTH_SHORT).show()
+                    },
+                    shape = RoundedCornerShape(10.dp)
+                ) {
+                    Text(stringResource(R.string.btn_save), fontWeight = FontWeight.Bold)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showAdvancedSettingsDialog = false }) {
+                    Text(stringResource(R.string.pause_cancel))
+                }
+            }
+        )
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Main UI Layout (Responsive Centered Container for Tablet / Foldables)
+    // ─────────────────────────────────────────────────────────────────────────
+    BoxWithConstraints(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.TopCenter
+    ) {
+        val isWideScreen = maxWidth >= 600.dp
+        val contentModifier = if (isWideScreen) {
+            Modifier
+                .width(560.dp)
+                .fillMaxHeight()
+                .verticalScroll(scrollState)
+                .padding(horizontal = 20.dp, vertical = 24.dp)
+        } else {
+            Modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+                .padding(horizontal = 20.dp, vertical = 20.dp)
+        }
+
+        Column(
+            modifier = contentModifier,
+            verticalArrangement = Arrangement.spacedBy(18.dp)
+        ) {
+            // App Header Banner with Quick Actions
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(24.dp))
+                    .background(
+                        Brush.horizontalGradient(
+                            colors = listOf(
+                                NightSlate900,
+                                NightSlate800
+                            )
+                        )
+                    )
+                    .border(
+                        1.dp,
+                        Brush.horizontalGradient(
+                            colors = listOf(
+                                BrandSpotify.copy(alpha = 0.4f),
+                                BrandAppleMusic.copy(alpha = 0.4f)
+                            )
+                        ),
+                        RoundedCornerShape(24.dp)
+                    )
+                    .padding(18.dp)
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(14.dp),
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(50.dp)
+                                .clip(CircleShape)
+                                .background(NightSlate950)
+                                .border(1.dp, NightSlate700, CircleShape),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                                contentDescription = null,
+                                modifier = Modifier.size(42.dp)
+                            )
+                        }
+                        Column {
+                            Text(
+                                text = stringResource(R.string.app_name),
+                                style = MaterialTheme.typography.headlineMedium.copy(
+                                    fontWeight = FontWeight.ExtraBold,
+                                    fontSize = 26.sp
+                                ),
+                                color = Color.White
+                            )
+                            Text(
+                                text = stringResource(R.string.app_tagline),
+                                style = MaterialTheme.typography.bodySmall.copy(
+                                    fontWeight = FontWeight.Medium
+                                ),
+                                color = NightSlate400
+                            )
+                        }
+                    }
+
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        // Advanced Settings Action Button
+                        IconButton(
+                            onClick = {
+                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                showAdvancedSettingsDialog = true
+                            },
+                            modifier = Modifier
+                                .clip(CircleShape)
+                                .background(NightSlate700.copy(alpha = 0.5f))
+                                .size(38.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Tune,
+                                contentDescription = stringResource(R.string.advanced_settings_title),
+                                tint = Color.White,
+                                modifier = Modifier.size(18.dp)
+                            )
+                        }
+
+                        // Subtle Language Switcher Button
+                        IconButton(
+                            onClick = {
+                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                showLanguageBottomSheet = true
+                            },
+                            modifier = Modifier
+                                .clip(CircleShape)
+                                .background(NightSlate700.copy(alpha = 0.5f))
+                                .size(38.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Language,
+                                contentDescription = stringResource(R.string.select_language_title),
+                                tint = Color.White,
+                                modifier = Modifier.size(18.dp)
+                            )
+                        }
+                    }
+                }
+            }
+
+            // ─────────────────────────────────────────────────────────────────
+            // Live Status & Quick Pause Banner Card
+            // ─────────────────────────────────────────────────────────────────
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(20.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = if (isCurrentlyPaused) {
+                        StatePausedAmber.copy(alpha = 0.12f)
+                    } else {
+                        StateActiveGreen.copy(alpha = 0.12f)
+                    }
+                ),
+                border = androidx.compose.foundation.BorderStroke(
+                    1.dp,
+                    if (isCurrentlyPaused) StatePausedAmber.copy(alpha = 0.4f) else StateActiveGreen.copy(alpha = 0.4f)
+                )
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 18.dp, vertical = 14.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        if (isCurrentlyPaused) {
+                            Icon(
+                                imageVector = Icons.Outlined.PauseCircle,
+                                contentDescription = null,
+                                tint = StatePausedAmber,
+                                modifier = Modifier.size(24.dp)
+                            )
+                            Column {
+                                Text(
+                                    text = stringResource(R.string.status_paused),
+                                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
+                                    color = StatePausedAmber
+                                )
+                                if (pausedUntilTimestamp > 0L) {
+                                    val timeStr = android.text.format.DateFormat.getTimeFormat(context).format(java.util.Date(pausedUntilTimestamp))
+                                    Text(
+                                        text = stringResource(R.string.status_paused_until, timeStr),
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                }
+                            }
+                        } else {
+                            val infiniteTransition = rememberInfiniteTransition(label = "pulse")
+                            val pulseAlpha by infiniteTransition.animateFloat(
+                                initialValue = 0.4f,
+                                targetValue = 1.0f,
+                                animationSpec = infiniteRepeatable(
+                                    animation = tween(1000, easing = LinearEasing),
+                                    repeatMode = RepeatMode.Reverse
+                                ),
+                                label = "pulseAlpha"
+                            )
+                            Box(
+                                modifier = Modifier
+                                    .size(12.dp)
+                                    .clip(CircleShape)
+                                    .background(StateActiveGreen.copy(alpha = pulseAlpha))
+                            )
+                            Text(
+                                text = stringResource(R.string.status_active),
+                                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
+                                color = StateActiveGreen
+                            )
+                        }
+                    }
+
+                    if (isCurrentlyPaused) {
+                        FilledTonalButton(
+                            onClick = {
+                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                PauseHelper.resume(context)
+                                isCurrentlyPaused = false
+                                pausedUntilTimestamp = 0L
+                            },
+                            shape = RoundedCornerShape(10.dp),
+                            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.PlayCircle,
+                                contentDescription = null,
+                                modifier = Modifier.size(16.dp)
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(stringResource(R.string.btn_resume), style = MaterialTheme.typography.labelMedium)
+                        }
+                    } else {
+                        OutlinedButton(
+                            onClick = {
+                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                showPauseBottomSheet = true
+                            },
+                            shape = RoundedCornerShape(10.dp),
+                            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.PauseCircle,
+                                contentDescription = null,
+                                modifier = Modifier.size(16.dp)
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(stringResource(R.string.btn_pause), style = MaterialTheme.typography.labelMedium)
+                        }
+                    }
+                }
+            }
+
+            // ─────────────────────────────────────────────────────────────────
+            // Setup Card ("How it works" - System Domain Verification)
+            // ─────────────────────────────────────────────────────────────────
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(20.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surface
+                )
+            ) {
+                Column(
+                    modifier = Modifier.padding(20.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.setup_title),
+                        style = MaterialTheme.typography.titleLarge.copy(
+                            fontWeight = FontWeight.Bold
+                        ),
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+
+                    SetupStepItem(number = 1, text = stringResource(R.string.step1))
+                    SetupStepItem(number = 2, text = stringResource(R.string.step2))
+                    SetupStepItem(number = 3, text = stringResource(R.string.step3))
+
+                    Button(
+                        onClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                                try {
+                                    context.startActivity(Intent(
+                                        Settings.ACTION_APP_OPEN_BY_DEFAULT_SETTINGS,
+                                        Uri.parse("package:${context.packageName}")
+                                    ))
+                                } catch (e: Exception) {
+                                    context.startActivity(Intent(
+                                        Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                                        Uri.parse("package:${context.packageName}")
+                                    ))
+                                }
+                            } else {
                                 context.startActivity(Intent(
                                     Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
                                     Uri.parse("package:${context.packageName}")
                                 ))
                             }
-                        } else {
-                            context.startActivity(Intent(
-                                Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                                Uri.parse("package:${context.packageName}")
-                            ))
-                        }
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(50.dp),
-                    shape = RoundedCornerShape(14.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primary
-                    )
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Settings,
-                        contentDescription = null,
-                        tint = Color.Black,
-                        modifier = Modifier.size(20.dp)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = stringResource(R.string.btn_open_settings),
-                        style = MaterialTheme.typography.labelLarge.copy(
-                            fontWeight = FontWeight.Bold
-                        ),
-                        color = Color.Black
-                    )
-                }
-
-                // Dynamic Status Badge (Exact MapFlip System Domain Status Verification)
-                when (linksActive) {
-                    true -> StatusBadge(text = stringResource(R.string.status_active), active = true)
-                    false -> StatusBadge(text = stringResource(R.string.status_inactive), active = false)
-                    null -> Text(
-                        text = stringResource(R.string.status_hint),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = Color(0xFF94A3B8)
-                    )
-                }
-            }
-        }
-
-        // Intercept Source Links Configuration Card
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(20.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surface
-            )
-        ) {
-            Column(
-                modifier = Modifier.padding(20.dp),
-                verticalArrangement = Arrangement.spacedBy(14.dp)
-            ) {
-                Column {
-                    Text(
-                        text = stringResource(R.string.input_sources_label),
-                        style = MaterialTheme.typography.titleLarge.copy(
-                            fontWeight = FontWeight.Bold
-                        ),
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                    Text(
-                        text = stringResource(R.string.input_sources_subtitle),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = Color(0xFF94A3B8)
-                    )
-                }
-
-                targetServices.forEach { service ->
-                    var isEnabled by remember {
-                        mutableStateOf(settingsRepository.isInputPlatformEnabled(service.key))
-                    }
-
-                    Row(
+                        },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(RoundedCornerShape(14.dp))
-                            .background(MaterialTheme.colorScheme.background)
-                            .padding(horizontal = 14.dp, vertical = 8.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(10.dp)
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .size(10.dp)
-                                    .clip(CircleShape)
-                                    .background(service.brandColor)
-                            )
-                            Text(
-                                text = stringResource(service.nameResId),
-                                style = MaterialTheme.typography.bodyMedium.copy(
-                                    fontWeight = FontWeight.SemiBold
-                                ),
-                                color = MaterialTheme.colorScheme.onSurface
-                            )
-                        }
-
-                        Switch(
-                            checked = isEnabled,
-                            onCheckedChange = { checked ->
-                                isEnabled = checked
-                                settingsRepository.setInputPlatformEnabled(service.key, checked)
-                            },
-                            colors = SwitchDefaults.colors(
-                                checkedThumbColor = Color.White,
-                                checkedTrackColor = service.brandColor
-                            )
+                            .height(48.dp),
+                        shape = RoundedCornerShape(14.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.primary
                         )
-                    }
-                }
-            }
-        }
-
-        // Target Service Selector Card with App Installation Detection
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(20.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surface
-            )
-        ) {
-            Column(
-                modifier = Modifier.padding(20.dp),
-                verticalArrangement = Arrangement.spacedBy(14.dp)
-            ) {
-                Column {
-                    Text(
-                        text = stringResource(R.string.target_service_label),
-                        style = MaterialTheme.typography.titleLarge.copy(
-                            fontWeight = FontWeight.Bold
-                        ),
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                    Text(
-                        text = stringResource(R.string.target_service_subtitle),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = Color(0xFF94A3B8)
-                    )
-                }
-
-                targetServices.forEach { service ->
-                    val isSelected = selectedTargetKey == service.key
-                    val isInstalled = remember(service.key) {
-                        PackageUtils.isAppInstalled(context, service.key)
-                    }
-
-                    val backgroundColor = if (isSelected) {
-                        service.brandColor.copy(alpha = 0.15f)
-                    } else {
-                        MaterialTheme.colorScheme.background
-                    }
-                    val borderColor = if (isSelected) service.brandColor else Color.Transparent
-
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(14.dp))
-                            .background(backgroundColor)
-                            .border(1.dp, borderColor, RoundedCornerShape(14.dp))
-                            .clickable {
-                                selectedTargetKey = service.key
-                                settingsRepository.targetPlatform = service.key
-                            }
-                            .padding(horizontal = 16.dp, vertical = 14.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(12.dp)
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .size(10.dp)
-                                    .clip(CircleShape)
-                                    .background(service.brandColor)
-                            )
-                            Column {
-                                Text(
-                                    text = stringResource(service.nameResId),
-                                    style = MaterialTheme.typography.bodyLarge.copy(
-                                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
-                                    ),
-                                    color = MaterialTheme.colorScheme.onSurface
-                                )
-
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.spacedBy(4.dp)
-                                ) {
-                                    if (isInstalled) {
-                                        Icon(
-                                            imageVector = Icons.Default.Check,
-                                            contentDescription = null,
-                                            tint = Color(0xFF1DB954),
-                                            modifier = Modifier.size(12.dp)
-                                        )
-                                        Text(
-                                            text = stringResource(R.string.status_installed),
-                                            style = MaterialTheme.typography.labelSmall,
-                                            color = Color(0xFF1DB954)
-                                        )
-                                    } else {
-                                        Icon(
-                                            imageVector = Icons.Default.Language,
-                                            contentDescription = null,
-                                            tint = Color(0xFF94A3B8),
-                                            modifier = Modifier.size(12.dp)
-                                        )
-                                        Text(
-                                            text = stringResource(R.string.status_browser),
-                                            style = MaterialTheme.typography.labelSmall,
-                                            color = Color(0xFF94A3B8)
-                                        )
-                                    }
-                                }
-                            }
-                        }
-
-                        if (isSelected) {
-                            Icon(
-                                imageVector = Icons.Default.CheckCircle,
-                                contentDescription = null,
-                                tint = service.brandColor,
-                                modifier = Modifier.size(20.dp)
-                            )
-                        }
-                    }
-                }
-            }
-        }
-
-        // Test Link Converter Card
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(20.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surface
-            )
-        ) {
-            Column(
-                modifier = Modifier.padding(20.dp),
-                verticalArrangement = Arrangement.spacedBy(14.dp)
-            ) {
-                Column {
-                    Text(
-                        text = stringResource(R.string.test_section_title),
-                        style = MaterialTheme.typography.titleLarge.copy(
-                            fontWeight = FontWeight.Bold
-                        ),
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                    Text(
-                        text = stringResource(R.string.test_subtitle),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = Color(0xFF94A3B8)
-                    )
-                }
-
-                OutlinedTextField(
-                    value = testInputUrl,
-                    onValueChange = { testInputUrl = it },
-                    placeholder = {
-                        Text(
-                            text = stringResource(R.string.test_placeholder),
-                            fontSize = 13.sp
-                        )
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    singleLine = true,
-                    shape = RoundedCornerShape(14.dp),
-                    trailingIcon = {
-                        if (testInputUrl.isEmpty()) {
-                            IconButton(onClick = {
-                                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                                val clipData = clipboard.primaryClip
-                                if (clipData != null && clipData.itemCount > 0) {
-                                    val text = clipData.getItemAt(0).text.toString()
-                                    if (text.startsWith("http://") || text.startsWith("https://")) {
-                                        testInputUrl = text
-                                    }
-                                }
-                            }) {
-                                Icon(
-                                    imageVector = Icons.Default.ContentPaste,
-                                    contentDescription = stringResource(R.string.action_paste),
-                                    tint = Color(0xFF94A3B8)
-                                )
-                            }
-                        } else {
-                            IconButton(onClick = { testInputUrl = "" }) {
-                                Icon(
-                                    imageVector = Icons.Default.Close,
-                                    contentDescription = null,
-                                    tint = Color(0xFF94A3B8)
-                                )
-                            }
-                        }
-                    }
-                )
-
-                Button(
-                    onClick = {
-                        if (testInputUrl.isNotBlank()) {
-                            isLoading = true
-                            conversionResult = null
-                            isError = false
-                            scope.launch {
-                                val res = repository.resolveTargetUrl(
-                                    testInputUrl.trim(),
-                                    selectedTargetKey
-                                )
-                                isLoading = false
-                                when (res) {
-                                    is OdesliResult.Success -> {
-                                        conversionResult = res.targetUrl
-                                    }
-                                    is OdesliResult.Error -> {
-                                        isError = true
-                                        conversionResult = res.message
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    enabled = testInputUrl.isNotBlank() && !isLoading,
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(14.dp)
-                ) {
-                    if (isLoading) {
-                        CircularProgressIndicator(
-                            modifier = Modifier.size(20.dp),
-                            color = Color.White,
-                            strokeWidth = 2.dp
+                        Icon(
+                            imageVector = Icons.Default.Settings,
+                            contentDescription = null,
+                            tint = Color.Black,
+                            modifier = Modifier.size(20.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(stringResource(R.string.test_converting))
-                    } else {
                         Text(
-                            text = stringResource(R.string.test_button),
-                            fontWeight = FontWeight.Bold
+                            text = stringResource(R.string.btn_open_settings),
+                            style = MaterialTheme.typography.labelLarge.copy(
+                                fontWeight = FontWeight.Bold
+                            ),
+                            color = Color.Black
+                        )
+                    }
+
+                    // System Domain Status Verification Badge
+                    when (linksActive) {
+                        true -> StatusBadge(text = stringResource(R.string.status_active), active = true)
+                        false -> StatusBadge(text = stringResource(R.string.status_inactive), active = false)
+                        null -> Text(
+                            text = stringResource(R.string.status_hint),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = NightSlate400
                         )
                     }
                 }
+            }
 
-                AnimatedVisibility(
-                    visible = conversionResult != null,
-                    enter = fadeIn(),
-                    exit = fadeOut()
+            // ─────────────────────────────────────────────────────────────────
+            // Preferred Target Player Card (With Installed App Detection)
+            // ─────────────────────────────────────────────────────────────────
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(20.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surface
+                )
+            ) {
+                Column(
+                    modifier = Modifier.padding(20.dp),
+                    verticalArrangement = Arrangement.spacedBy(14.dp)
                 ) {
-                    conversionResult?.let { result ->
-                        val textColor = if (isError) MaterialTheme.colorScheme.error else Color(0xFF1DB954)
-                        Column(
+                    Column {
+                        Text(
+                            text = stringResource(R.string.target_service_label),
+                            style = MaterialTheme.typography.titleLarge.copy(
+                                fontWeight = FontWeight.Bold
+                            ),
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Text(
+                            text = stringResource(R.string.target_service_subtitle),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = NightSlate400
+                        )
+                    }
+
+                    targetServices.forEach { service ->
+                        val isSelected = selectedTargetKey == service.key
+                        val isInstalled = remember(service.key) {
+                            PackageUtils.isAppInstalled(context, service.key)
+                        }
+
+                        val backgroundColor = if (isSelected) {
+                            service.brandColor.copy(alpha = 0.12f)
+                        } else {
+                            MaterialTheme.colorScheme.background
+                        }
+                        val borderColor = if (isSelected) service.brandColor.copy(alpha = 0.6f) else Color.Transparent
+
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(14.dp))
+                                .background(backgroundColor)
+                                .border(1.dp, borderColor, RoundedCornerShape(14.dp))
+                                .clickable {
+                                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                    selectedTargetKey = service.key
+                                    settingsRepository.targetPlatform = service.key
+                                }
+                                .padding(horizontal = 16.dp, vertical = 13.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(10.dp)
+                                        .clip(CircleShape)
+                                        .background(service.brandColor)
+                                )
+                                Column {
+                                    Text(
+                                        text = stringResource(service.nameResId),
+                                        style = MaterialTheme.typography.bodyMedium.copy(
+                                            fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
+                                        ),
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
+
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                                    ) {
+                                        if (isInstalled) {
+                                            Icon(
+                                                imageVector = Icons.Default.Check,
+                                                contentDescription = null,
+                                                tint = StateActiveGreen,
+                                                modifier = Modifier.size(12.dp)
+                                            )
+                                            Text(
+                                                text = stringResource(R.string.status_installed),
+                                                style = MaterialTheme.typography.labelSmall,
+                                                color = StateActiveGreen
+                                            )
+                                        } else {
+                                            Icon(
+                                                imageVector = Icons.Default.Language,
+                                                contentDescription = null,
+                                                tint = NightSlate400,
+                                                modifier = Modifier.size(12.dp)
+                                            )
+                                            Text(
+                                                text = stringResource(R.string.status_browser),
+                                                style = MaterialTheme.typography.labelSmall,
+                                                color = NightSlate400
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (isSelected) {
+                                Icon(
+                                    imageVector = Icons.Outlined.CheckCircle,
+                                    contentDescription = null,
+                                    tint = service.brandColor,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+
+            // ─────────────────────────────────────────────────────────────────
+            // Intercept Source Links Configuration Card
+            // ─────────────────────────────────────────────────────────────────
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(20.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surface
+                )
+            ) {
+                Column(
+                    modifier = Modifier.padding(20.dp),
+                    verticalArrangement = Arrangement.spacedBy(14.dp)
+                ) {
+                    Column {
+                        Text(
+                            text = stringResource(R.string.input_sources_label),
+                            style = MaterialTheme.typography.titleLarge.copy(
+                                fontWeight = FontWeight.Bold
+                            ),
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Text(
+                            text = stringResource(R.string.input_sources_subtitle),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = NightSlate400
+                        )
+                    }
+
+                    targetServices.forEach { service ->
+                        var isEnabled by remember {
+                            mutableStateOf(settingsRepository.isInputPlatformEnabled(service.key))
+                        }
+
+                        Row(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clip(RoundedCornerShape(14.dp))
                                 .background(MaterialTheme.colorScheme.background)
-                                .border(1.dp, textColor.copy(alpha = 0.4f), RoundedCornerShape(14.dp))
-                                .padding(16.dp),
-                            verticalArrangement = Arrangement.spacedBy(10.dp)
+                                .padding(horizontal = 14.dp, vertical = 6.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text(
-                                text = if (isError) {
-                                    stringResource(R.string.test_error, result)
-                                } else {
-                                    stringResource(R.string.test_result, result)
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(10.dp)
+                                        .clip(CircleShape)
+                                        .background(service.brandColor)
+                                )
+                                Text(
+                                    text = stringResource(service.nameResId),
+                                    style = MaterialTheme.typography.bodyMedium.copy(
+                                        fontWeight = FontWeight.SemiBold
+                                    ),
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                            }
+
+                            Switch(
+                                checked = isEnabled,
+                                onCheckedChange = { checked ->
+                                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                    isEnabled = checked
+                                    settingsRepository.setInputPlatformEnabled(service.key, checked)
                                 },
-                                color = textColor,
-                                style = MaterialTheme.typography.bodyMedium
+                                colors = SwitchDefaults.colors(
+                                    checkedThumbColor = Color.White,
+                                    checkedTrackColor = service.brandColor
+                                )
                             )
+                        }
+                    }
+                }
+            }
 
-                            if (!isError) {
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                                ) {
-                                    OutlinedButton(
-                                        onClick = {
-                                            val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                                            val clip = ClipData.newPlainText("SongFlip Link", result)
-                                            clipboard.setPrimaryClip(clip)
-                                            Toast.makeText(context, context.getString(R.string.link_copied), Toast.LENGTH_SHORT).show()
-                                        },
-                                        modifier = Modifier.weight(1f),
-                                        shape = RoundedCornerShape(10.dp)
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.Default.ContentCopy,
-                                            contentDescription = null,
-                                            modifier = Modifier.size(16.dp)
-                                        )
-                                        Spacer(modifier = Modifier.width(6.dp))
-                                        Text(stringResource(R.string.action_copy), fontSize = 12.sp)
+            // ─────────────────────────────────────────────────────────────────
+            // Test Link Converter Studio Card
+            // ─────────────────────────────────────────────────────────────────
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(20.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surface
+                )
+            ) {
+                Column(
+                    modifier = Modifier.padding(20.dp),
+                    verticalArrangement = Arrangement.spacedBy(14.dp)
+                ) {
+                    Column {
+                        Text(
+                            text = stringResource(R.string.test_section_title),
+                            style = MaterialTheme.typography.titleLarge.copy(
+                                fontWeight = FontWeight.Bold
+                            ),
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Text(
+                            text = stringResource(R.string.test_subtitle),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = NightSlate400
+                        )
+                    }
+
+                    OutlinedTextField(
+                        value = testInputUrl,
+                        onValueChange = { testInputUrl = it },
+                        placeholder = {
+                            Text(
+                                text = stringResource(R.string.test_placeholder),
+                                fontSize = 13.sp
+                            )
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        singleLine = true,
+                        shape = RoundedCornerShape(14.dp),
+                        trailingIcon = {
+                            if (testInputUrl.isEmpty()) {
+                                IconButton(onClick = {
+                                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                                    val clipData = clipboard.primaryClip
+                                    if (clipData != null && clipData.itemCount > 0) {
+                                        val text = clipData.getItemAt(0).text.toString()
+                                        if (text.startsWith("http://") || text.startsWith("https://")) {
+                                            testInputUrl = text
+                                        }
                                     }
+                                }) {
+                                    Icon(
+                                        imageVector = Icons.Default.ContentPaste,
+                                        contentDescription = stringResource(R.string.action_paste),
+                                        tint = NightSlate400
+                                    )
+                                }
+                            } else {
+                                IconButton(onClick = { testInputUrl = "" }) {
+                                    Icon(
+                                        imageVector = Icons.Default.Close,
+                                        contentDescription = null,
+                                        tint = NightSlate400
+                                    )
+                                }
+                            }
+                        }
+                    )
 
-                                    Button(
-                                        onClick = {
-                                            val viewIntent = Intent(Intent.ACTION_VIEW, Uri.parse(result))
-                                            context.startActivity(viewIntent)
-                                        },
-                                        modifier = Modifier.weight(1f),
-                                        shape = RoundedCornerShape(10.dp)
+                    Button(
+                        onClick = {
+                            if (testInputUrl.isNotBlank()) {
+                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                isLoading = true
+                                conversionResult = null
+                                isError = false
+                                scope.launch {
+                                    val res = repository.resolveTargetUrl(
+                                        inputUrl = testInputUrl.trim(),
+                                        targetPlatformKey = selectedTargetKey,
+                                        customApiUrl = settingsRepository.customApiUrl,
+                                        customApiToken = settingsRepository.customApiToken
+                                    )
+                                    isLoading = false
+                                    when (res) {
+                                        is OdesliResult.Success -> {
+                                            conversionResult = res.targetUrl
+                                        }
+                                        is OdesliResult.Error -> {
+                                            isError = true
+                                            conversionResult = res.message
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        enabled = testInputUrl.isNotBlank() && !isLoading,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(48.dp),
+                        shape = RoundedCornerShape(14.dp)
+                    ) {
+                        if (isLoading) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(20.dp),
+                                color = Color.Black,
+                                strokeWidth = 2.dp
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(stringResource(R.string.test_converting), color = Color.Black)
+                        } else {
+                            Text(
+                                text = stringResource(R.string.test_button),
+                                fontWeight = FontWeight.Bold,
+                                color = Color.Black
+                            )
+                        }
+                    }
+
+                    AnimatedVisibility(
+                        visible = conversionResult != null,
+                        enter = fadeIn(),
+                        exit = fadeOut()
+                    ) {
+                        conversionResult?.let { result ->
+                            val textColor = if (isError) StateErrorRed else StateActiveGreen
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clip(RoundedCornerShape(14.dp))
+                                    .background(MaterialTheme.colorScheme.background)
+                                    .border(1.dp, textColor.copy(alpha = 0.4f), RoundedCornerShape(14.dp))
+                                    .padding(16.dp),
+                                verticalArrangement = Arrangement.spacedBy(10.dp)
+                            ) {
+                                Text(
+                                    text = if (isError) {
+                                        stringResource(R.string.test_error, result)
+                                    } else {
+                                        stringResource(R.string.test_result, result)
+                                    },
+                                    color = textColor,
+                                    style = MaterialTheme.typography.bodyMedium
+                                )
+
+                                if (!isError) {
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.spacedBy(8.dp)
                                     ) {
-                                        Icon(
-                                            imageVector = Icons.AutoMirrored.Filled.OpenInNew,
-                                            contentDescription = null,
-                                            modifier = Modifier.size(16.dp)
-                                        )
-                                        Spacer(modifier = Modifier.width(6.dp))
-                                        Text(stringResource(R.string.action_open), fontSize = 12.sp)
+                                        OutlinedButton(
+                                            onClick = {
+                                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                                                val clip = ClipData.newPlainText("SongFlip Link", result)
+                                                clipboard.setPrimaryClip(clip)
+                                                Toast.makeText(context, context.getString(R.string.link_copied), Toast.LENGTH_SHORT).show()
+                                            },
+                                            modifier = Modifier.weight(1f),
+                                            shape = RoundedCornerShape(10.dp)
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.Default.ContentCopy,
+                                                contentDescription = null,
+                                                modifier = Modifier.size(16.dp)
+                                            )
+                                            Spacer(modifier = Modifier.width(6.dp))
+                                            Text(stringResource(R.string.action_copy), fontSize = 12.sp)
+                                        }
+
+                                        Button(
+                                            onClick = {
+                                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                                val viewIntent = Intent(Intent.ACTION_VIEW, Uri.parse(result))
+                                                context.startActivity(viewIntent)
+                                            },
+                                            modifier = Modifier.weight(1f),
+                                            shape = RoundedCornerShape(10.dp)
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.AutoMirrored.Filled.OpenInNew,
+                                                contentDescription = null,
+                                                modifier = Modifier.size(16.dp)
+                                            )
+                                            Spacer(modifier = Modifier.width(6.dp))
+                                            Text(stringResource(R.string.action_open), fontSize = 12.sp)
+                                        }
                                     }
                                 }
                             }
@@ -754,76 +1138,80 @@ fun MainScreen() {
                     }
                 }
             }
-        }
 
-        // FamWake Promo Card (MapFlip Style)
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(20.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surface
-            )
-        ) {
-            Column(
-                modifier = Modifier.padding(24.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+            // ─────────────────────────────────────────────────────────────────
+            // FamWake Promo Card (MapFlip Style)
+            // ─────────────────────────────────────────────────────────────────
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(20.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surface
+                )
             ) {
-                Text(
-                    text = stringResource(R.string.famwake_promo),
-                    style = MaterialTheme.typography.labelSmall.copy(
-                        letterSpacing = 1.5.sp,
-                        fontWeight = FontWeight.Medium
-                    ),
-                    color = Color(0xFF94A3B8)
-                )
-                Text(
-                    text = stringResource(R.string.famwake_title),
-                    style = MaterialTheme.typography.titleMedium.copy(
-                        fontWeight = FontWeight.Bold
-                    ),
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-                Text(
-                    text = stringResource(R.string.famwake_desc),
-                    style = MaterialTheme.typography.bodySmall.copy(lineHeight = 18.sp),
-                    textAlign = TextAlign.Center,
-                    color = Color(0xFF94A3B8)
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                OutlinedButton(
-                    onClick = {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URL_FAMWAKE))
-                        context.startActivity(intent)
-                    },
-                    shape = RoundedCornerShape(12.dp)
+                Column(
+                    modifier = Modifier.padding(22.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Text(
-                        text = stringResource(R.string.famwake_button),
-                        style = MaterialTheme.typography.labelMedium
+                        text = stringResource(R.string.famwake_promo),
+                        style = MaterialTheme.typography.labelSmall.copy(
+                            letterSpacing = 1.5.sp,
+                            fontWeight = FontWeight.Medium
+                        ),
+                        color = NightSlate400
                     )
+                    Text(
+                        text = stringResource(R.string.famwake_title),
+                        style = MaterialTheme.typography.titleMedium.copy(
+                            fontWeight = FontWeight.Bold
+                        ),
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Text(
+                        text = stringResource(R.string.famwake_desc),
+                        style = MaterialTheme.typography.bodySmall.copy(lineHeight = 18.sp),
+                        textAlign = TextAlign.Center,
+                        color = NightSlate400
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    OutlinedButton(
+                        onClick = {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URL_FAMWAKE))
+                            context.startActivity(intent)
+                        },
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.famwake_button),
+                            style = MaterialTheme.typography.labelMedium
+                        )
+                    }
                 }
             }
-        }
 
-        // Copyright Footer (MapFlip Style: © 2026 Daniel Notthoff • notthoff.org)
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = stringResource(R.string.copyright_text),
-                style = MaterialTheme.typography.bodySmall.copy(
-                    letterSpacing = 0.3.sp
-                ),
-                color = Color(0xFF64748B),
-                modifier = Modifier.clickable {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URL_NOTTHOFF))
-                    context.startActivity(intent)
-                }
-            )
+            // ─────────────────────────────────────────────────────────────────
+            // Copyright & Developer Footer (MapFlip Style)
+            // ─────────────────────────────────────────────────────────────────
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 12.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = stringResource(R.string.copyright_text),
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        letterSpacing = 0.3.sp
+                    ),
+                    color = NightSlate400,
+                    modifier = Modifier.clickable {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URL_NOTTHOFF))
+                        context.startActivity(intent)
+                    }
+                )
+            }
         }
     }
 }
@@ -837,7 +1225,7 @@ private fun SetupStepItem(number: Int, text: String) {
         Surface(
             shape = CircleShape,
             color = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
-            modifier = Modifier.size(30.dp)
+            modifier = Modifier.size(28.dp)
         ) {
             Box(contentAlignment = Alignment.Center) {
                 Text(
@@ -852,16 +1240,16 @@ private fun SetupStepItem(number: Int, text: String) {
         Text(
             text = text,
             style = MaterialTheme.typography.bodyMedium.copy(lineHeight = 20.sp),
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.85f),
-            modifier = Modifier.padding(top = 4.dp)
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.88f),
+            modifier = Modifier.padding(top = 3.dp)
         )
     }
 }
 
 @Composable
 private fun StatusBadge(text: String, active: Boolean) {
-    val targetBg = if (active) Color(0xFF1DB954).copy(alpha = 0.12f) else Color(0xFFFF0000).copy(alpha = 0.12f)
-    val contentColor = if (active) Color(0xFF1DB954) else Color(0xFFFF0000)
+    val targetBg = if (active) StateActiveGreen.copy(alpha = 0.12f) else StateErrorRed.copy(alpha = 0.12f)
+    val contentColor = if (active) StateActiveGreen else StateErrorRed
 
     val infiniteTransition = rememberInfiniteTransition(label = "pulse")
     val pulseAlpha by infiniteTransition.animateFloat(
@@ -889,7 +1277,7 @@ private fun StatusBadge(text: String, active: Boolean) {
                     modifier = Modifier
                         .size(10.dp)
                         .clip(CircleShape)
-                        .background(Color(0xFF1DB954).copy(alpha = pulseAlpha))
+                        .background(StateActiveGreen.copy(alpha = pulseAlpha))
                 )
             } else {
                 Icon(
@@ -905,6 +1293,39 @@ private fun StatusBadge(text: String, active: Boolean) {
                     fontWeight = FontWeight.SemiBold
                 ),
                 color = contentColor
+            )
+        }
+    }
+}
+
+@Composable
+private fun PauseOptionItem(
+    title: String,
+    onClick: () -> Unit
+) {
+    Surface(
+        onClick = onClick,
+        shape = RoundedCornerShape(12.dp),
+        color = MaterialTheme.colorScheme.surfaceVariant,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 14.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            Icon(
+                imageVector = Icons.Outlined.PauseCircle,
+                contentDescription = null,
+                tint = StatePausedAmber,
+                modifier = Modifier.size(20.dp)
             )
         }
     }

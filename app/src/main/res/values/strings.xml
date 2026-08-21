@@ -45,6 +45,35 @@
     <string name="link_copied">Link copied to clipboard</string>
     <string name="action_paste">Paste from Clipboard</string>
 
+    <string name="target_amazon_music">Amazon Music</string>
+
+    <string name="status_paused">SongFlip is paused</string>
+    <string name="status_paused_until">Paused until %1$s</string>
+    <string name="btn_resume">Resume now</string>
+    <string name="btn_pause">Pause SongFlip</string>
+    <string name="pause_dialog_title">Pause SongFlip</string>
+    <string name="pause_dialog_subtitle">Incoming music links will open in their original app/browser without conversion while paused.</string>
+    <string name="pause_15m">For 15 minutes</string>
+    <string name="pause_1h">For 1 hour</string>
+    <string name="pause_tomorrow">Until tomorrow morning (6:00 AM)</string>
+    <string name="pause_indefinitely">Until resumed manually</string>
+    <string name="pause_cancel">Cancel</string>
+
+    <string name="tile_name">SongFlip</string>
+    <string name="tile_active">Active</string>
+    <string name="tile_paused">Paused</string>
+
+    <string name="advanced_settings_title">Advanced Settings</string>
+    <string name="advanced_settings_subtitle">Configure custom AI or n8n Webhook API endpoints for link resolution</string>
+    <string name="custom_api_url_label">Custom Fallback Webhook URL</string>
+    <string name="custom_api_url_hint">https://n8n.yourdomain.com/webhook/songflip</string>
+    <string name="custom_api_url_helper">Optional: If set, SongFlip calls this webhook if Odesli rate-limits or fails.</string>
+    <string name="custom_api_token_label">Bearer Token / API Key (Optional)</string>
+    <string name="custom_api_token_hint">secret_api_token_here</string>
+    <string name="btn_save">Save</string>
+    <string name="settings_saved">Settings saved</string>
+
+    <string name="share_received_toast">Processing shared music link...</string>
     <string name="famwake_promo">FROM THE SAME DEVELOPER</string>
     <string name="famwake_title">FamWake – Family Alarm Clock</string>
     <string name="famwake_desc">FamWake coordinates the morning for the whole family – bathroom times, breakfast, and wake-up.</string>

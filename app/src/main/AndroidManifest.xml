@@ -16,6 +16,7 @@
         <package android:name="com.spotify.music" />
         <package android:name="com.aspiro.tidal" />
         <package android:name="deezer.android.app" />
+        <package android:name="com.amazon.mp3" />
     </queries>
 
     <application
@@ -45,6 +46,13 @@
             android:noHistory="true"
             android:theme="@style/Theme.SongFlip.Transparent">
 
+            <!-- Share Sheet Target (Share to SongFlip) -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
             <!-- Spotify URL Interception -->
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
@@ -64,6 +72,7 @@
                 <data android:scheme="http" />
                 <data android:scheme="https" />
                 <data android:host="music.apple.com" />
+                <data android:host="geo.music.apple.com" />
             </intent-filter>
 
             <!-- YouTube Music URL Interception -->
@@ -98,7 +107,30 @@
                 <data android:host="www.deezer.com" />
                 <data android:host="deezer.page.link" />
             </intent-filter>
+
+            <!-- Amazon Music URL Interception -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="music.amazon.com" />
+                <data android:host="music.amazon.de" />
+            </intent-filter>
         </activity>
+
+        <!-- Quick Settings Tile Service -->
+        <service
+            android:name=".service.SongFlipTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_launcher_foreground"
+            android:label="@string/tile_name"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
 
     </application>
 
