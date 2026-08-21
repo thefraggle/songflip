@@ -3,6 +3,7 @@ package com.songflip.service
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Icon
 import android.os.Build
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
@@ -52,9 +53,12 @@ class SongFlipTileService : TileService() {
         val currentlyPaused = PauseHelper.isCurrentlyPaused(this)
         val prefs = getSharedPreferences(SettingsRepository.PREFS_NAME, Context.MODE_PRIVATE)
 
+        // Set clean monochrome music note vector icon
+        tile.icon = Icon.createWithResource(this, R.drawable.ic_qs_tile)
+        tile.label = getString(R.string.app_name)
+
         if (currentlyPaused) {
             tile.state = Tile.STATE_INACTIVE
-            tile.label = getString(R.string.app_name)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 val pausedUntil = prefs.getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L)
                 if (pausedUntil > 0L) {
@@ -66,7 +70,6 @@ class SongFlipTileService : TileService() {
             }
         } else {
             tile.state = Tile.STATE_ACTIVE
-            tile.label = getString(R.string.app_name)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 tile.subtitle = getString(R.string.tile_active)
             }

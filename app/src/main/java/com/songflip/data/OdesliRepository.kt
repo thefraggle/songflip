@@ -26,6 +26,7 @@ class OdesliRepository {
         .build()
 
     private val urlPattern = Pattern.compile("(https?://[^\\s<>'\"()]+)")
+    private val ytVideoIdPattern = Pattern.compile("/watch\\?v=([a-zA-Z0-9_-]{11})")
 
     suspend fun resolveTargetUrl(
         inputUrl: String,
@@ -34,11 +35,11 @@ class OdesliRepository {
         customApiToken: String = ""
     ): OdesliResult = withContext(Dispatchers.IO) {
         try {
-            // Step 1: Extract clean URL from raw input string (removes share text)
+            // 1. Extract clean URL from raw input (removes share text)
             val cleanUrl = extractCleanUrl(inputUrl)
                 ?: return@withContext OdesliResult.Error("No valid URL found in input")
 
-            // Step 2: Try Custom API / n8n Webhook Endpoint if configured
+            // 2. Custom Webhook / AI API (if configured)
             if (customApiUrl.isNotBlank()) {
                 val customResult = queryCustomApi(customApiUrl, customApiToken, cleanUrl, targetPlatformKey)
                 if (customResult != null) {
@@ -46,80 +47,327 @@ class OdesliRepository {
                 }
             }
 
-            // Step 3: Resolve short links (spotify.link, deezer.page.link, amzn.to, etc.)
+            // 3. Resolve short links (spotify.link, deezer.page.link, amzn.to, youtu.be, etc.)
             val canonicalUrl = if (isShortLinkDomain(cleanUrl)) {
                 resolveCanonicalUrl(cleanUrl)
             } else {
                 cleanUrl
             }
 
-            // Step 4: Query Odesli API (api.song.link)
-            val encodedUrl = URLEncoder.encode(canonicalUrl, "UTF-8")
-            val apiUrl = "https://api.song.link/v1-alpha.1/links?url=$encodedUrl"
+            // 4. Try Songlink / Odesli web page metadata parsing (__NEXT_DATA__)
+            val songLinkData = fetchSongLinkData(canonicalUrl)
+            if (songLinkData != null) {
+                // If direct link for the target platform exists in song.link
+                val directUrl = songLinkData.links[targetPlatformKey]
+                    ?: if (targetPlatformKey == "youtubeMusic") songLinkData.links["youtube"] else null
 
-            val request = Request.Builder()
-                .url(apiUrl)
-                .header("User-Agent", "SongFlip-Android-App/1.0")
-                .get()
-                .build()
+                if (!directUrl.isNullOrEmpty()) {
+                    val formatted = formatTargetUrl(directUrl, targetPlatformKey)
+                    return@withContext OdesliResult.Success(formatted, targetPlatformKey)
+                }
 
-            val response = client.newCall(request).execute()
-
-            if (response.isSuccessful) {
-                val bodyString = response.body?.string()
-                if (!bodyString.isNullOrEmpty()) {
-                    val json = JSONObject(bodyString)
-                    val linksByPlatform = json.optJSONObject("linksByPlatform")
-
-                    if (linksByPlatform != null) {
-                        // Check direct platform or platform aliases
-                        val platformObj = linksByPlatform.optJSONObject(targetPlatformKey)
-                            ?: when (targetPlatformKey) {
-                                "youtubeMusic" -> linksByPlatform.optJSONObject("youtube")
-                                "amazonMusic" -> linksByPlatform.optJSONObject("amazonMusic")
-                                    ?: linksByPlatform.optJSONObject("amazon")
-                                else -> null
-                            }
-
-                        if (platformObj != null) {
-                            val rawTargetUrl = platformObj.optString("url")
-                            if (rawTargetUrl.isNotEmpty()) {
-                                val formattedUrl = formatTargetUrl(rawTargetUrl, targetPlatformKey)
-                                return@withContext OdesliResult.Success(formattedUrl, targetPlatformKey)
-                            }
-                        }
+                // If target platform link is not directly available, use the extracted track title + artist
+                if (songLinkData.title.isNotEmpty()) {
+                    val query = if (songLinkData.artist.isNotEmpty() && !songLinkData.title.contains(songLinkData.artist, ignoreCase = true)) {
+                        "${songLinkData.artist} ${songLinkData.title}"
+                    } else {
+                        songLinkData.title
                     }
 
-                    // Extract entity title if target platform wasn't directly in linksByPlatform
-                    val entityTitle = extractEntityTitle(json)
-                    if (!entityTitle.isNullOrEmpty()) {
-                        val searchUrl = buildSearchUrl(entityTitle, targetPlatformKey)
-                        return@withContext OdesliResult.Success(searchUrl, "${targetPlatformKey}_search")
-                    }
-
-                    // Fallback to Odesli song.link page only if no entity title exists
-                    val pageUrl = json.optString("pageUrl")
-                    if (pageUrl.isNotEmpty()) {
-                        return@withContext OdesliResult.Success(pageUrl, "songlink")
+                    val resolvedDirectUrl = resolveDirectPlatformUrl(query, targetPlatformKey)
+                    if (resolvedDirectUrl != null) {
+                        return@withContext OdesliResult.Success(resolvedDirectUrl, targetPlatformKey)
                     }
                 }
             }
 
-            // Step 5: Multi-Source Fallback via Spotify / Deezer / YouTube OEmbed
-            val fallbackSearchUrl = buildFallbackSearchUrl(canonicalUrl, targetPlatformKey)
-            if (fallbackSearchUrl != null) {
-                return@withContext OdesliResult.Success(fallbackSearchUrl, "${targetPlatformKey}_search")
+            // 5. Fallback Metadata Extraction via Service OEmbed / Public APIs
+            val trackInfo = extractTrackInfo(canonicalUrl)
+            if (trackInfo != null && trackInfo.isNotBlank()) {
+                val resolvedDirectUrl = resolveDirectPlatformUrl(trackInfo, targetPlatformKey)
+                if (resolvedDirectUrl != null) {
+                    return@withContext OdesliResult.Success(resolvedDirectUrl, targetPlatformKey)
+                }
+
+                // Final Fallback: Direct Search URL in target service
+                return@withContext OdesliResult.Success(buildSearchUrl(trackInfo, targetPlatformKey), "${targetPlatformKey}_search")
             }
 
-            OdesliResult.Error("Could not resolve link (HTTP ${response.code})")
+            OdesliResult.Error("Could not resolve music link")
         } catch (e: Exception) {
             val cleanUrl = extractCleanUrl(inputUrl) ?: inputUrl
-            val fallbackSearchUrl = buildFallbackSearchUrl(cleanUrl, targetPlatformKey)
-            if (fallbackSearchUrl != null) {
-                return@withContext OdesliResult.Success(fallbackSearchUrl, "${targetPlatformKey}_search")
+            val trackInfo = extractTrackInfo(cleanUrl)
+            if (trackInfo != null) {
+                val resolved = resolveDirectPlatformUrl(trackInfo, targetPlatformKey)
+                    ?: buildSearchUrl(trackInfo, targetPlatformKey)
+                return@withContext OdesliResult.Success(resolved, "${targetPlatformKey}_fallback")
             }
 
             OdesliResult.Error(e.localizedMessage ?: "Unknown network error")
+        }
+    }
+
+    private data class SongLinkData(
+        val title: String,
+        val artist: String,
+        val links: Map<String, String>
+    )
+
+    /**
+     * Queries song.link web page and extracts JSON from __NEXT_DATA__
+     */
+    private fun fetchSongLinkData(url: String): SongLinkData? {
+        return try {
+            val targetSongLink = "https://song.link/$url"
+            val req = Request.Builder()
+                .url(targetSongLink)
+                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+                .get()
+                .build()
+
+            val resp = client.newCall(req).execute()
+            if (!resp.isSuccessful) {
+                resp.close()
+                return null
+            }
+
+            val html = resp.body?.string() ?: ""
+            resp.close()
+
+            val scriptTag = "<script id=\"__NEXT_DATA__\" type=\"application/json\">"
+            if (!html.contains(scriptTag)) return null
+
+            val jsonString = html.substringAfter(scriptTag).substringBefore("</script>")
+            val json = JSONObject(jsonString)
+            val pageProps = json.optJSONObject("props")?.optJSONObject("pageProps") ?: return null
+            val pageData = pageProps.optJSONObject("pageData") ?: return null
+
+            val entityData = pageData.optJSONObject("entityData")
+            val title = entityData?.optString("title", "") ?: ""
+            val artist = entityData?.optString("artistName", "") ?: ""
+
+            val linksMap = mutableMapOf<String, String>()
+            val sections = pageData.optJSONArray("sections")
+            if (sections != null) {
+                for (i in 0 until sections.length()) {
+                    val section = sections.optJSONObject(i) ?: continue
+                    val links = section.optJSONArray("links") ?: continue
+                    for (j in 0 until links.length()) {
+                        val linkObj = links.optJSONObject(j) ?: continue
+                        val platform = linkObj.optString("platform")
+                        val linkUrl = linkObj.optString("url")
+                        if (platform.isNotEmpty() && linkUrl.isNotEmpty()) {
+                            linksMap[platform] = linkUrl
+                        }
+                    }
+                }
+            }
+
+            SongLinkData(title = title, artist = artist, links = linksMap)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    /**
+     * Resolves direct playable track link for specific target platforms (Instant Playback!)
+     */
+    private fun resolveDirectPlatformUrl(query: String, targetPlatformKey: String): String? {
+        return when (targetPlatformKey) {
+            "youtubeMusic" -> resolveYouTubeMusicDirectPlayUrl(query)
+            "appleMusic" -> resolveAppleMusicDirectUrl(query)
+            "deezer" -> resolveDeezerDirectUrl(query)
+            "spotify" -> buildSearchUrl(query, "spotify")
+            "tidal" -> buildSearchUrl(query, "tidal")
+            "amazonMusic" -> buildSearchUrl(query, "amazonMusic")
+            else -> null
+        }
+    }
+
+    /**
+     * Finds exact YouTube Video ID for instant direct playback in YouTube Music
+     */
+    private fun resolveYouTubeMusicDirectPlayUrl(query: String): String? {
+        return try {
+            val encodedQuery = URLEncoder.encode(query, "UTF-8")
+            val req = Request.Builder()
+                .url("https://www.youtube.com/results?search_query=$encodedQuery")
+                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+                .get()
+                .build()
+
+            val resp = client.newCall(req).execute()
+            if (!resp.isSuccessful) {
+                resp.close()
+                return null
+            }
+            val html = resp.body?.string() ?: ""
+            resp.close()
+
+            val matcher = ytVideoIdPattern.matcher(html)
+            if (matcher.find()) {
+                val videoId = matcher.group(1)
+                if (!videoId.isNullOrEmpty()) {
+                    return "https://music.youtube.com/watch?v=$videoId"
+                }
+            }
+            null
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    /**
+     * Resolves direct track URL on Apple Music using iTunes Public Search API
+     */
+    private fun resolveAppleMusicDirectUrl(query: String): String? {
+        return try {
+            val encoded = URLEncoder.encode(query, "UTF-8")
+            val req = Request.Builder()
+                .url("https://itunes.apple.com/search?term=$encoded&entity=song&limit=1")
+                .get()
+                .build()
+
+            val resp = client.newCall(req).execute()
+            if (resp.isSuccessful) {
+                val body = resp.body?.string() ?: ""
+                val json = JSONObject(body)
+                val results = json.optJSONArray("results")
+                if (results != null && results.length() > 0) {
+                    val track = results.getJSONObject(0)
+                    val trackViewUrl = track.optString("trackViewUrl")
+                    if (trackViewUrl.isNotEmpty()) {
+                        return trackViewUrl
+                    }
+                }
+            }
+            resp.close()
+            null
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    /**
+     * Resolves direct track URL on Deezer using Deezer Public Search API
+     */
+    private fun resolveDeezerDirectUrl(query: String): String? {
+        return try {
+            val encoded = URLEncoder.encode(query, "UTF-8")
+            val req = Request.Builder()
+                .url("https://api.deezer.com/search?q=$encoded&limit=1")
+                .get()
+                .build()
+
+            val resp = client.newCall(req).execute()
+            if (resp.isSuccessful) {
+                val body = resp.body?.string() ?: ""
+                val json = JSONObject(body)
+                val data = json.optJSONArray("data")
+                if (data != null && data.length() > 0) {
+                    val track = data.getJSONObject(0)
+                    val link = track.optString("link")
+                    if (link.isNotEmpty()) {
+                        return link
+                    }
+                }
+            }
+            resp.close()
+            null
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    /**
+     * Extracts track and artist string from incoming URLs
+     */
+    private fun extractTrackInfo(url: String): String? {
+        return try {
+            // 1. Spotify OEmbed
+            if (url.contains("spotify.com")) {
+                val encoded = URLEncoder.encode(url, "UTF-8")
+                val req = Request.Builder()
+                    .url("https://open.spotify.com/oembed?url=$encoded")
+                    .get()
+                    .build()
+                val resp = client.newCall(req).execute()
+                if (resp.isSuccessful) {
+                    val body = resp.body?.string() ?: ""
+                    val json = JSONObject(body)
+                    val title = json.optString("title")
+                    resp.close()
+                    if (title.isNotEmpty()) return title
+                }
+                resp.close()
+            }
+            // 2. Apple Music Track Lookup via iTunes
+            else if (url.contains("apple.com") && url.contains("i=")) {
+                val trackId = url.substringAfter("i=").substringBefore("&").substringBefore("?")
+                if (trackId.isNotEmpty()) {
+                    val req = Request.Builder()
+                        .url("https://itunes.apple.com/lookup?id=$trackId")
+                        .get()
+                        .build()
+                    val resp = client.newCall(req).execute()
+                    if (resp.isSuccessful) {
+                        val body = resp.body?.string() ?: ""
+                        val json = JSONObject(body)
+                        val results = json.optJSONArray("results")
+                        if (results != null && results.length() > 0) {
+                            val track = results.getJSONObject(0)
+                            val trackName = track.optString("trackName")
+                            val artistName = track.optString("artistName")
+                            resp.close()
+                            if (trackName.isNotEmpty()) {
+                                return if (artistName.isNotEmpty()) "$artistName $trackName" else trackName
+                            }
+                        }
+                    }
+                    resp.close()
+                }
+            }
+            // 3. YouTube OEmbed
+            else if (url.contains("youtube.com") || url.contains("youtu.be")) {
+                val encoded = URLEncoder.encode(url, "UTF-8")
+                val req = Request.Builder()
+                    .url("https://www.youtube.com/oembed?url=$encoded&format=json")
+                    .get()
+                    .build()
+                val resp = client.newCall(req).execute()
+                if (resp.isSuccessful) {
+                    val body = resp.body?.string() ?: ""
+                    val json = JSONObject(body)
+                    val title = json.optString("title")
+                    val author = json.optString("author_name")
+                    resp.close()
+                    if (title.isNotEmpty()) {
+                        return if (author.isNotEmpty() && !title.contains(author, ignoreCase = true)) "$author $title" else title
+                    }
+                }
+                resp.close()
+            }
+            // 4. Deezer OEmbed
+            else if (url.contains("deezer.com")) {
+                val encoded = URLEncoder.encode(url, "UTF-8")
+                val req = Request.Builder()
+                    .url("https://api.deezer.com/oembed?url=$encoded")
+                    .get()
+                    .build()
+                val resp = client.newCall(req).execute()
+                if (resp.isSuccessful) {
+                    val body = resp.body?.string() ?: ""
+                    val json = JSONObject(body)
+                    val title = json.optString("title")
+                    resp.close()
+                    if (title.isNotEmpty()) return title
+                }
+                resp.close()
+            }
+
+            null
+        } catch (e: Exception) {
+            null
         }
     }
 
@@ -139,25 +387,6 @@ class OdesliRepository {
             }
         }
         return rawUrl
-    }
-
-    private fun extractEntityTitle(json: JSONObject): String? {
-        val entities = json.optJSONObject("entitiesByUniqueId") ?: return null
-        val keys = entities.keys()
-        while (keys.hasNext()) {
-            val key = keys.next()
-            val entity = entities.optJSONObject(key) ?: continue
-            val title = entity.optString("title")
-            val artist = entity.optString("artistName")
-            if (title.isNotEmpty()) {
-                return if (artist.isNotEmpty() && !title.contains(artist, ignoreCase = true)) {
-                    "$artist $title"
-                } else {
-                    title
-                }
-            }
-        }
-        return null
     }
 
     private fun buildSearchUrl(queryText: String, targetPlatformKey: String): String {
@@ -227,7 +456,7 @@ class OdesliRepository {
             val headRequest = Request.Builder()
                 .url(url)
                 .head()
-                .header("User-Agent", "Mozilla/5.0 (Android; Mobile)")
+                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
                 .build()
 
             val response = client.newCall(headRequest).execute()
@@ -236,72 +465,6 @@ class OdesliRepository {
             finalUrl
         } catch (e: Exception) {
             url
-        }
-    }
-
-    private fun buildFallbackSearchUrl(url: String, targetPlatformKey: String): String? {
-        return try {
-            var title: String? = null
-
-            // 1. Spotify OEmbed
-            if (url.contains("spotify.com")) {
-                val encoded = URLEncoder.encode(url, "UTF-8")
-                val req = Request.Builder()
-                    .url("https://open.spotify.com/oembed?url=$encoded")
-                    .get()
-                    .build()
-                val resp = client.newCall(req).execute()
-                if (resp.isSuccessful) {
-                    val body = resp.body?.string()
-                    if (!body.isNullOrEmpty()) {
-                        val json = JSONObject(body)
-                        title = json.optString("title")
-                    }
-                }
-                resp.close()
-            }
-            // 2. YouTube / YouTube Music OEmbed
-            else if (url.contains("youtube.com") || url.contains("youtu.be")) {
-                val encoded = URLEncoder.encode(url, "UTF-8")
-                val req = Request.Builder()
-                    .url("https://www.youtube.com/oembed?url=$encoded&format=json")
-                    .get()
-                    .build()
-                val resp = client.newCall(req).execute()
-                if (resp.isSuccessful) {
-                    val body = resp.body?.string()
-                    if (!body.isNullOrEmpty()) {
-                        val json = JSONObject(body)
-                        title = json.optString("title")
-                    }
-                }
-                resp.close()
-            }
-            // 3. Deezer OEmbed
-            else if (url.contains("deezer.com")) {
-                val encoded = URLEncoder.encode(url, "UTF-8")
-                val req = Request.Builder()
-                    .url("https://api.deezer.com/oembed?url=$encoded")
-                    .get()
-                    .build()
-                val resp = client.newCall(req).execute()
-                if (resp.isSuccessful) {
-                    val body = resp.body?.string()
-                    if (!body.isNullOrEmpty()) {
-                        val json = JSONObject(body)
-                        title = json.optString("title")
-                    }
-                }
-                resp.close()
-            }
-
-            if (title.isNullOrEmpty()) {
-                return null
-            }
-
-            return buildSearchUrl(title, targetPlatformKey)
-        } catch (e: Exception) {
-            null
         }
     }
 }
