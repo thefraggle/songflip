@@ -86,8 +86,8 @@ class RedirectActivity : Activity() {
         val customApiToken = settingsRepository.customApiToken
 
         CoroutineScope(Dispatchers.Main + Job()).launch {
-            // Strict 3.5-second timeout
-            val result = withTimeoutOrNull(3500L) {
+            // Generous 5.0-second timeout to handle cold mobile network requests
+            val result = withTimeoutOrNull(5000L) {
                 odesliRepository.resolveTargetUrl(
                     inputUrl = incomingUrl,
                     targetPlatformKey = targetPlatform,

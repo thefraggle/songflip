@@ -119,7 +119,16 @@ class OdesliRepository {
      */
     private fun fetchSongLinkData(url: String): SongLinkData? {
         return try {
-            val targetSongLink = "https://song.link/$url"
+            val normalizedUrl = url
+                .replace("music.amazon.de", "music.amazon.com")
+                .replace("music.amazon.co.uk", "music.amazon.com")
+                .replace("music.amazon.fr", "music.amazon.com")
+                .replace("music.amazon.it", "music.amazon.com")
+                .replace("music.amazon.es", "music.amazon.com")
+                .replace("music.amazon.co.jp", "music.amazon.com")
+                .replace("geo.music.apple.com", "music.apple.com")
+
+            val targetSongLink = "https://song.link/$normalizedUrl"
             val req = Request.Builder()
                 .url(targetSongLink)
                 .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")

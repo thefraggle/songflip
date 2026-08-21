@@ -19,7 +19,6 @@ class OdesliRepositoryTest {
 
     @Test
     fun testSpotifyUrlDirectPlaybackResolutionToYouTubeMusic() = runBlocking {
-        // Known public track: Queen - Bohemian Rhapsody
         val spotifyUrl = "https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv"
         val result = repository.resolveTargetUrl(spotifyUrl, "youtubeMusic")
         assertTrue("Expected Success, got: $result", result is OdesliResult.Success)
@@ -42,6 +41,26 @@ class OdesliRepositoryTest {
     fun testDeezerToYouTubeMusicDirectPlay() = runBlocking {
         val deezerUrl = "https://www.deezer.com/track/9997018"
         val result = repository.resolveTargetUrl(deezerUrl, "youtubeMusic")
+        assertTrue("Expected Success, got: $result", result is OdesliResult.Success)
+        val success = result as OdesliResult.Success
+        assertTrue("Expected YouTube Music watch link, got: ${success.targetUrl}",
+            success.targetUrl.contains("music.youtube.com/watch?v="))
+    }
+
+    @Test
+    fun testTidalToYouTubeMusicDirectPlay() = runBlocking {
+        val tidalUrl = "https://listen.tidal.com/track/534050211"
+        val result = repository.resolveTargetUrl(tidalUrl, "youtubeMusic")
+        assertTrue("Expected Success, got: $result", result is OdesliResult.Success)
+        val success = result as OdesliResult.Success
+        assertTrue("Expected YouTube Music watch link, got: ${success.targetUrl}",
+            success.targetUrl.contains("music.youtube.com/watch?v="))
+    }
+
+    @Test
+    fun testAmazonMusicToYouTubeMusicDirectPlay() = runBlocking {
+        val amazonUrl = "https://music.amazon.de/albums/B004G92QE4?trackAsin=B004G8Z8UO"
+        val result = repository.resolveTargetUrl(amazonUrl, "youtubeMusic")
         assertTrue("Expected Success, got: $result", result is OdesliResult.Success)
         val success = result as OdesliResult.Success
         assertTrue("Expected YouTube Music watch link, got: ${success.targetUrl}",
