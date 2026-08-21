@@ -1,4 +1,4 @@
-package com.songflip.ui
+package de.goork.songflip.ui
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -54,14 +54,14 @@ import androidx.compose.ui.unit.sp
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
-import com.songflip.R
-import com.songflip.data.DomainVerificationUtils
-import com.songflip.data.OdesliRepository
-import com.songflip.data.OdesliResult
-import com.songflip.data.PackageUtils
-import com.songflip.data.PauseHelper
-import com.songflip.data.SettingsRepository
-import com.songflip.ui.theme.*
+import de.goork.songflip.R
+import de.goork.songflip.data.DomainVerificationUtils
+import de.goork.songflip.data.OdesliRepository
+import de.goork.songflip.data.OdesliResult
+import de.goork.songflip.data.PackageUtils
+import de.goork.songflip.data.PauseHelper
+import de.goork.songflip.data.SettingsRepository
+import de.goork.songflip.ui.theme.*
 import kotlinx.coroutines.launch
 
 private const val URL_FAMWAKE = "https://play.google.com/store/apps/details?id=de.familienwecker.famwake"

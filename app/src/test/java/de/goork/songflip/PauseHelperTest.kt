@@ -1,6 +1,6 @@
-package com.songflip
+package de.goork.songflip
 
-import com.songflip.data.PauseHelper
+import de.goork.songflip.data.PauseHelper
 import org.junit.Assert.*
 import org.junit.Test
 import java.util.Calendar

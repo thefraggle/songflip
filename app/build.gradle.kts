@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.songflip"
+    namespace = "de.goork.songflip"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.songflip"
+        applicationId = "de.goork.songflip"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

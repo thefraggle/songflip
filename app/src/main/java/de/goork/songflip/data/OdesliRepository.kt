@@ -1,4 +1,4 @@
-package com.songflip.data
+package de.goork.songflip.data
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

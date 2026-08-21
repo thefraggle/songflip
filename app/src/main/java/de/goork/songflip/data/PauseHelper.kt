@@ -1,4 +1,4 @@
-package com.songflip.data
+package de.goork.songflip.data
 
 import android.content.Context
 import java.util.Calendar

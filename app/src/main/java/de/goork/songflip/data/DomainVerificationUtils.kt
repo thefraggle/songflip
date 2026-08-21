@@ -1,4 +1,4 @@
-package com.songflip.data
+package de.goork.songflip.data
 
 import android.content.Context
 import android.content.pm.verify.domain.DomainVerificationManager

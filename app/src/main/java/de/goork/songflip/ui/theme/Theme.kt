@@ -1,4 +1,4 @@
-package com.songflip.ui.theme
+package de.goork.songflip.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

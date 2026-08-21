@@ -1,7 +1,7 @@
-package com.songflip
+package de.goork.songflip
 
-import com.songflip.data.OdesliRepository
-import com.songflip.data.OdesliResult
+import de.goork.songflip.data.OdesliRepository
+import de.goork.songflip.data.OdesliResult
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Test

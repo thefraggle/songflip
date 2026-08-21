@@ -1,4 +1,4 @@
-package com.songflip.ui.theme
+package de.goork.songflip.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

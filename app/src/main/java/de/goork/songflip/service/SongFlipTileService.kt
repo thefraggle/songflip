@@ -1,4 +1,4 @@
-package com.songflip.service
+package de.goork.songflip.service
 
 import android.app.PendingIntent
 import android.content.Context
@@ -8,10 +8,10 @@ import android.os.Build
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import androidx.annotation.RequiresApi
-import com.songflip.R
-import com.songflip.data.PauseHelper
-import com.songflip.data.SettingsRepository
-import com.songflip.ui.MainActivity
+import de.goork.songflip.R
+import de.goork.songflip.data.PauseHelper
+import de.goork.songflip.data.SettingsRepository
+import de.goork.songflip.ui.MainActivity
 
 @RequiresApi(Build.VERSION_CODES.N)
 class SongFlipTileService : TileService() {
