@@ -171,7 +171,27 @@ fun MainScreen(initialShowPause: Boolean = false) {
     val supportedLanguages = remember {
         listOf(
             LanguageItem("de", "Deutsch", "🇩🇪"),
-            LanguageItem("en", "English", "🇬🇧")
+            LanguageItem("en", "English", "🇬🇧"),
+            LanguageItem("da", "Dansk", "🇩🇰"),
+            LanguageItem("nb", "Norsk", "🇳🇴"),
+            LanguageItem("sv", "Svenska", "🇸🇪"),
+            LanguageItem("nl", "Nederlands", "🇳🇱"),
+            LanguageItem("fr", "Français", "🇫🇷"),
+            LanguageItem("es", "Español", "🇪🇸"),
+            LanguageItem("it", "Italiano", "🇮🇹"),
+            LanguageItem("pt", "Português", "🇵🇹"),
+            LanguageItem("pl", "Polski", "🇵🇱"),
+            LanguageItem("ru", "Русский", "🇷🇺"),
+            LanguageItem("tr", "Türkçe", "🇹🇷"),
+            LanguageItem("uk", "Українська", "🇺🇦"),
+            LanguageItem("ja", "日本語", "🇯🇵"),
+            LanguageItem("ko", "한국어", "🇰🇷"),
+            LanguageItem("zh", "简体中文", "🇨🇳"),
+            LanguageItem("in", "Bahasa Indonesia", "🇮🇩"),
+            LanguageItem("vi", "Tiếng Việt", "🇻🇳"),
+            LanguageItem("bn", "বাংলা", "🇧🇩"),
+            LanguageItem("hi", "हिन्दी", "🇮🇳"),
+            LanguageItem("mr", "मराठी", "🇮🇳")
         )
     }
 
@@ -197,8 +217,9 @@ fun MainScreen(initialShowPause: Boolean = false) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .verticalScroll(rememberScrollState())
                     .padding(24.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 Text(
                     text = stringResource(R.string.select_language_title),
