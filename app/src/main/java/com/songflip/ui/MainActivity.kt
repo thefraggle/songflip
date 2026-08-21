@@ -142,12 +142,14 @@ fun MainScreen(initialShowPause: Boolean = false) {
         mutableStateOf(prefs.getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L))
     }
 
+    var domainStatus by remember { mutableStateOf(DomainVerificationUtils.getDomainStatus(context)) }
     var linksActive by remember { mutableStateOf<Boolean?>(DomainVerificationUtils.checkLinksEnabled(context)) }
 
     // Live update when returning from system settings or shared preferences changes
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME) {
+                domainStatus = DomainVerificationUtils.getDomainStatus(context)
                 linksActive = DomainVerificationUtils.checkLinksEnabled(context)
                 isCurrentlyPaused = PauseHelper.isCurrentlyPaused(context)
                 pausedUntilTimestamp = prefs.getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L)
@@ -733,14 +735,42 @@ fun MainScreen(initialShowPause: Boolean = false) {
                     }
 
                     // System Domain Status Verification Badge
-                    when (linksActive) {
-                        true -> StatusBadge(text = stringResource(R.string.status_active), active = true)
-                        false -> StatusBadge(text = stringResource(R.string.status_inactive), active = false)
-                        null -> Text(
-                            text = stringResource(R.string.status_hint),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                    if (domainStatus != null) {
+                        val status = domainStatus!!
+                        if (status.isFullyEnabled) {
+                            StatusBadge(
+                                text = stringResource(R.string.status_all_active, status.totalHosts),
+                                statusType = StatusType.ACTIVE
+                            )
+                        } else if (status.isPartiallyEnabled) {
+                            val missingSample = status.unverifiedHosts.take(3).joinToString(", ")
+                            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                                StatusBadge(
+                                    text = stringResource(R.string.status_partial_active, status.enabledHosts, status.totalHosts),
+                                    statusType = StatusType.WARNING
+                                )
+                                Text(
+                                    text = stringResource(R.string.status_missing_hint, missingSample),
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        } else {
+                            StatusBadge(
+                                text = stringResource(R.string.status_inactive),
+                                statusType = StatusType.ERROR
+                            )
+                        }
+                    } else {
+                        when (linksActive) {
+                            true -> StatusBadge(text = stringResource(R.string.status_active), statusType = StatusType.ACTIVE)
+                            false -> StatusBadge(text = stringResource(R.string.status_inactive), statusType = StatusType.ERROR)
+                            null -> Text(
+                                text = stringResource(R.string.status_hint),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
                     }
                 }
             }
@@ -1255,14 +1285,25 @@ private fun SetupStepItem(number: Int, text: String) {
     }
 }
 
+enum class StatusType {
+    ACTIVE,
+    WARNING,
+    ERROR
+}
+
 @Composable
-private fun StatusBadge(text: String, active: Boolean) {
+private fun StatusBadge(text: String, statusType: StatusType) {
     val isDark = androidx.compose.foundation.isSystemInDarkTheme()
     val activeColor = if (isDark) StateActiveGreen else StateActiveGreenLight
+    val warningColor = if (isDark) StatePausedAmber else StatePausedAmberLight
     val errorColor = if (isDark) StateErrorRed else StateErrorRedLight
 
-    val targetBg = if (active) activeColor.copy(alpha = 0.12f) else errorColor.copy(alpha = 0.12f)
-    val contentColor = if (active) activeColor else errorColor
+    val contentColor = when (statusType) {
+        StatusType.ACTIVE -> activeColor
+        StatusType.WARNING -> warningColor
+        StatusType.ERROR -> errorColor
+    }
+    val targetBg = contentColor.copy(alpha = 0.12f)
 
     val infiniteTransition = rememberInfiniteTransition(label = "pulse")
     val pulseAlpha by infiniteTransition.animateFloat(
@@ -1285,20 +1326,31 @@ private fun StatusBadge(text: String, active: Boolean) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            if (active) {
-                Box(
-                    modifier = Modifier
-                        .size(10.dp)
-                        .clip(CircleShape)
-                        .background(activeColor.copy(alpha = pulseAlpha))
-                )
-            } else {
-                Icon(
-                    imageVector = Icons.Outlined.Info,
-                    contentDescription = null,
-                    tint = contentColor,
-                    modifier = Modifier.size(18.dp)
-                )
+            when (statusType) {
+                StatusType.ACTIVE -> {
+                    Box(
+                        modifier = Modifier
+                            .size(10.dp)
+                            .clip(CircleShape)
+                            .background(activeColor.copy(alpha = pulseAlpha))
+                    )
+                }
+                StatusType.WARNING -> {
+                    Icon(
+                        imageVector = Icons.Outlined.Info,
+                        contentDescription = null,
+                        tint = warningColor,
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
+                StatusType.ERROR -> {
+                    Icon(
+                        imageVector = Icons.Outlined.Info,
+                        contentDescription = null,
+                        tint = errorColor,
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
             }
             Text(
                 text = text,
