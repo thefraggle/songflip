@@ -269,7 +269,11 @@ fun SettingsBottomSheet(
                                 },
                                 shape = SegmentedButtonDefaults.itemShape(index = index, count = themeOptions.size)
                             ) {
-                                Text(label, style = MaterialTheme.typography.labelMedium)
+                                Text(
+                                    text = label,
+                                    style = MaterialTheme.typography.labelMedium,
+                                    maxLines = 1
+                                )
                             }
                         }
                     }

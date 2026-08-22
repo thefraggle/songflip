@@ -75,7 +75,7 @@
     <string name="redirect_error_toast">Kunne ikke omdirigere link. Åbner oprindeligt link.</string>
 
     <string name="theme_label">Tema</string>
-    <string name="theme_system">Systemstandard</string>
+    <string name="theme_system">System</string>
     <string name="theme_light">Lyst</string>
     <string name="theme_dark">Mørkt</string>
 </resources>

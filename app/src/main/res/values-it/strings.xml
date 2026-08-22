@@ -75,7 +75,7 @@
     <string name="redirect_error_toast">Impossibile reindirizzare il link. Apertura del link originale.</string>
 
     <string name="theme_label">Tema</string>
-    <string name="theme_system">Predefinito di sistema</string>
+    <string name="theme_system">Sistema</string>
     <string name="theme_light">Chiaro</string>
     <string name="theme_dark">Scuro</string>
 </resources>

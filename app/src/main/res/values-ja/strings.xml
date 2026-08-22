@@ -75,7 +75,7 @@
     <string name="redirect_error_toast">リンクをリダイレクトできませんでした。元のリンクを開きます。</string>
 
     <string name="theme_label">テーマ</string>
-    <string name="theme_system">システムのデフォルト</string>
+    <string name="theme_system">システム</string>
     <string name="theme_light">ライト</string>
     <string name="theme_dark">ダーク</string>
 </resources>

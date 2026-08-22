@@ -75,7 +75,7 @@
     <string name="redirect_error_toast">Bağlantı yönlendirilemedi. Orijinal bağlantı açılıyor.</string>
 
     <string name="theme_label">Tema</string>
-    <string name="theme_system">Sistem varsayılanı</string>
+    <string name="theme_system">Sistem</string>
     <string name="theme_light">Açık</string>
     <string name="theme_dark">Koyu</string>
 </resources>

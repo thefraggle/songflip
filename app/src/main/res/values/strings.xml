@@ -99,7 +99,7 @@
     <string name="playlist_not_supported_toast">Playlists cannot be converted directly. Opening original link.</string>
 
     <string name="theme_label">Theme</string>
-    <string name="theme_system">System default</string>
+    <string name="theme_system">System</string>
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
 </resources>

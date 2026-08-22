@@ -75,7 +75,7 @@
     <string name="redirect_error_toast">Nie udało się przekierować linku. Otwieranie oryginalnego linku.</string>
 
     <string name="theme_label">Motyw</string>
-    <string name="theme_system">Domyślny systemowy</string>
+    <string name="theme_system">System</string>
     <string name="theme_light">Jasny</string>
     <string name="theme_dark">Ciemny</string>
 </resources>

@@ -75,7 +75,7 @@
     <string name="redirect_error_toast">Gagal mengalihkan tautan. Membuka tautan asli.</string>
 
     <string name="theme_label">Tema</string>
-    <string name="theme_system">Default sistem</string>
+    <string name="theme_system">Sistem</string>
     <string name="theme_light">Terang</string>
     <string name="theme_dark">Gelap</string>
 </resources>

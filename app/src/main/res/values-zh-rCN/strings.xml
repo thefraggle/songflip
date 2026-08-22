@@ -75,7 +75,7 @@
     <string name="redirect_error_toast">无法重定向链接。正在打开原始链接。</string>
 
     <string name="theme_label">主题</string>
-    <string name="theme_system">系统默认</string>
+    <string name="theme_system">系统</string>
     <string name="theme_light">浅色</string>
     <string name="theme_dark">深色</string>
 </resources>

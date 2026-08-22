@@ -75,7 +75,7 @@
     <string name="redirect_error_toast">লিঙ্ক রিডাইরেক্ট করা যায়নি। আসল লিঙ্ক খোলা হচ্ছে।</string>
 
     <string name="theme_label">থিম</string>
-    <string name="theme_system">সিস্টেম ডিফল্ট</string>
+    <string name="theme_system">সিস্টেম</string>
     <string name="theme_light">হালকা</string>
     <string name="theme_dark">গাঢ়</string>
 </resources>

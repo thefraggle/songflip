@@ -75,7 +75,7 @@
     <string name="redirect_error_toast">Không thể chuyển hướng liên kết. Đang mở liên kết gốc.</string>
 
     <string name="theme_label">Giao diện</string>
-    <string name="theme_system">Mặc định hệ thống</string>
+    <string name="theme_system">Hệ thống</string>
     <string name="theme_light">Sáng</string>
     <string name="theme_dark">Tối</string>
 </resources>
