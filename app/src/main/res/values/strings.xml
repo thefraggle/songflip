@@ -27,7 +27,7 @@
 
     <string name="target_service_label">Preferred Target Player</string>
     <string name="target_service_subtitle">Select where links should open. Installed apps open directly; others open in browser.</string>
-    <string name="target_youtube_music">YouTube Music (Google Music)</string>
+    <string name="target_youtube_music">YouTube Music</string>
     <string name="target_apple_music">Apple Music</string>
     <string name="target_spotify">Spotify</string>
     <string name="target_tidal">Tidal</string>
@@ -36,11 +36,17 @@
     <string name="status_installed">App Installed</string>
     <string name="status_browser">Web Browser</string>
 
+    <string name="nav_settings">Settings</string>
+    <string name="nav_test_studio">Test Studio</string>
+    <string name="section_sources_header">Incoming Music Links</string>
+    <string name="section_advanced_header">Custom Resolver Endpoint</string>
+    <string name="section_about_header">About SongFlip</string>
+
     <string name="test_section_title">Test Link Converter</string>
     <string name="test_subtitle">Test link conversion directly inside the app</string>
     <string name="test_placeholder">Paste music link (Spotify, Apple, YT Music, Tidal...)</string>
-    <string name="test_button">Flip Link</string>
-    <string name="test_converting">Resolving via Odesli API...</string>
+    <string name="test_button">Convert Link</string>
+    <string name="test_converting">Resolving music link...</string>
     <string name="test_result">Target Link: %1$s</string>
     <string name="test_error">Could not resolve link: %1$s</string>
     <string name="action_open">Open Link</string>

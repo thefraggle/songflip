@@ -1,19 +1,17 @@
 package de.goork.songflip.ui
 
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import de.goork.songflip.R
 import de.goork.songflip.data.OdesliRepository
 import de.goork.songflip.data.OdesliResult
 import de.goork.songflip.data.PauseHelper
 import de.goork.songflip.data.SettingsRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
 
@@ -21,7 +19,7 @@ import kotlinx.coroutines.withTimeoutOrNull
  * Transparent activity that silently intercepts incoming music links (or shared URLs) in the background,
  * resolves them via the 5-tier fallback engine to the user's preferred player, and launches the target link.
  */
-class RedirectActivity : Activity() {
+class RedirectActivity : AppCompatActivity() {
 
     private val odesliRepository = OdesliRepository()
 
@@ -85,7 +83,7 @@ class RedirectActivity : Activity() {
         val customApiUrl = settingsRepository.customApiUrl
         val customApiToken = settingsRepository.customApiToken
 
-        CoroutineScope(Dispatchers.Main + Job()).launch {
+        lifecycleScope.launch {
             // Generous 5.0-second timeout to handle cold mobile network requests
             val result = withTimeoutOrNull(5000L) {
                 odesliRepository.resolveTargetUrl(

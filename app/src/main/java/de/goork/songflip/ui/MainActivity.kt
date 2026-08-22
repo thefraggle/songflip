@@ -1,21 +1,14 @@
 package de.goork.songflip.ui
 
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.*
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -26,14 +19,13 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.PauseCircle
 import androidx.compose.material.icons.outlined.PlayCircle
+import androidx.compose.material.icons.outlined.Science
 import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -48,24 +40,20 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import de.goork.songflip.R
 import de.goork.songflip.data.DomainVerificationUtils
 import de.goork.songflip.data.OdesliRepository
-import de.goork.songflip.data.OdesliResult
 import de.goork.songflip.data.PackageUtils
 import de.goork.songflip.data.PauseHelper
 import de.goork.songflip.data.SettingsRepository
+import de.goork.songflip.ui.components.PauseBottomSheet
+import de.goork.songflip.ui.components.SettingsBottomSheet
+import de.goork.songflip.ui.components.TestStudioBottomSheet
 import de.goork.songflip.ui.theme.*
-import kotlinx.coroutines.launch
-
-private const val URL_FAMWAKE = "https://play.google.com/store/apps/details?id=de.familienwecker.famwake"
-private const val URL_NOTTHOFF = "https://notthoff.org"
 
 class MainActivity : AppCompatActivity() {
 
@@ -90,7 +78,6 @@ class MainActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         if (intent.getBooleanExtra("show_pause_sheet", false)) {
-            // Re-trigger pause sheet if invoked again via TileService
             setContent {
                 SongFlipTheme {
                     Surface(
@@ -123,17 +110,16 @@ fun MainScreen(initialShowPause: Boolean = false) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val haptic = LocalHapticFeedback.current
-    val scope = rememberCoroutineScope()
     val repository = remember { OdesliRepository() }
     val settingsRepository = remember { SettingsRepository(context) }
 
     var selectedTargetKey by remember { mutableStateOf(settingsRepository.targetPlatform) }
     var selectedLanguage by remember { mutableStateOf(settingsRepository.appLanguage) }
 
-    // Dialog and Sheet States
-    var showLanguageBottomSheet by remember { mutableStateOf(false) }
+    // Bottom Sheets State
     var showPauseBottomSheet by remember { mutableStateOf(initialShowPause) }
-    var showAdvancedSettingsDialog by remember { mutableStateOf(false) }
+    var showSettingsBottomSheet by remember { mutableStateOf(false) }
+    var showTestStudioBottomSheet by remember { mutableStateOf(false) }
 
     // Pause State
     var isCurrentlyPaused by remember { mutableStateOf(PauseHelper.isCurrentlyPaused(context)) }
@@ -145,7 +131,7 @@ fun MainScreen(initialShowPause: Boolean = false) {
     var domainStatus by remember { mutableStateOf(DomainVerificationUtils.getDomainStatus(context)) }
     var linksActive by remember { mutableStateOf<Boolean?>(DomainVerificationUtils.checkLinksEnabled(context)) }
 
-    // Live update when returning from system settings or shared preferences changes
+    // Update state when resuming from system settings or external changes
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME) {
@@ -160,11 +146,6 @@ fun MainScreen(initialShowPause: Boolean = false) {
             lifecycleOwner.lifecycle.removeObserver(observer)
         }
     }
-
-    var testInputUrl by remember { mutableStateOf("") }
-    var isLoading by remember { mutableStateOf(false) }
-    var conversionResult by remember { mutableStateOf<String?>(null) }
-    var isError by remember { mutableStateOf(false) }
 
     val scrollState = rememberScrollState()
 
@@ -207,224 +188,57 @@ fun MainScreen(initialShowPause: Boolean = false) {
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    // Language Bottom Sheet
-    // ─────────────────────────────────────────────────────────────────────────
-    if (showLanguageBottomSheet) {
-        ModalBottomSheet(
-            onDismissRequest = { showLanguageBottomSheet = false },
-            sheetState = rememberModalBottomSheetState()
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .verticalScroll(rememberScrollState())
-                    .padding(24.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.select_language_title),
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-
-                supportedLanguages.forEach { lang ->
-                    val isSelected = selectedLanguage == lang.code
-                    Surface(
-                        onClick = {
-                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                            selectedLanguage = lang.code
-                            settingsRepository.appLanguage = lang.code
-                            val localeList = LocaleListCompat.forLanguageTags(lang.code)
-                            AppCompatDelegate.setApplicationLocales(localeList)
-                            showLanguageBottomSheet = false
-                        },
-                        shape = RoundedCornerShape(12.dp),
-                        color = if (isSelected) MaterialTheme.colorScheme.primary.copy(alpha = 0.15f) else Color.Transparent,
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp, vertical = 14.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(lang.flag, fontSize = 22.sp)
-                            Spacer(modifier = Modifier.width(16.dp))
-                            Text(
-                                text = lang.nativeName,
-                                style = MaterialTheme.typography.bodyLarge.copy(
-                                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
-                                ),
-                                color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
-                            )
-                        }
-                    }
-                }
-                Spacer(modifier = Modifier.height(24.dp))
-            }
-        }
-    }
-
-    // ─────────────────────────────────────────────────────────────────────────
     // Pause Bottom Sheet
     // ─────────────────────────────────────────────────────────────────────────
     if (showPauseBottomSheet) {
-        ModalBottomSheet(
+        PauseBottomSheet(
             onDismissRequest = { showPauseBottomSheet = false },
-            sheetState = rememberModalBottomSheetState()
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(24.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.pause_dialog_title),
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-                Text(
-                    text = stringResource(R.string.pause_dialog_subtitle),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-
-                // Option 1: 15 Minutes
-                PauseOptionItem(
-                    title = stringResource(R.string.pause_15m),
-                    onClick = {
-                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                        PauseHelper.setPause(context, 15 * 60 * 1000L)
-                        isCurrentlyPaused = true
-                        pausedUntilTimestamp = prefs.getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L)
-                        showPauseBottomSheet = false
-                    }
-                )
-
-                // Option 2: 1 Hour
-                PauseOptionItem(
-                    title = stringResource(R.string.pause_1h),
-                    onClick = {
-                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                        PauseHelper.setPause(context, 60 * 60 * 1000L)
-                        isCurrentlyPaused = true
-                        pausedUntilTimestamp = prefs.getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L)
-                        showPauseBottomSheet = false
-                    }
-                )
-
-                // Option 3: Until Tomorrow Morning (6:00 AM)
-                PauseOptionItem(
-                    title = stringResource(R.string.pause_tomorrow),
-                    onClick = {
-                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                        val tomorrowTimestamp = PauseHelper.getTomorrowMorningTimestamp()
-                        PauseHelper.setPauseUntil(context, tomorrowTimestamp)
-                        isCurrentlyPaused = true
-                        pausedUntilTimestamp = tomorrowTimestamp
-                        showPauseBottomSheet = false
-                    }
-                )
-
-                // Option 4: Indefinite
-                PauseOptionItem(
-                    title = stringResource(R.string.pause_indefinitely),
-                    onClick = {
-                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                        PauseHelper.setPause(context, 0L)
-                        isCurrentlyPaused = true
-                        pausedUntilTimestamp = 0L
-                        showPauseBottomSheet = false
-                    }
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-            }
-        }
-    }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // Advanced Settings Dialog (Custom AI / Webhook API)
-    // ─────────────────────────────────────────────────────────────────────────
-    if (showAdvancedSettingsDialog) {
-        var tempUrl by remember { mutableStateOf(settingsRepository.customApiUrl) }
-        var tempToken by remember { mutableStateOf(settingsRepository.customApiToken) }
-
-        AlertDialog(
-            onDismissRequest = { showAdvancedSettingsDialog = false },
-            title = {
-                Text(
-                    text = stringResource(R.string.advanced_settings_title),
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
-                )
-            },
-            text = {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp),
-                    verticalArrangement = Arrangement.spacedBy(14.dp)
-                ) {
-                    Text(
-                        text = stringResource(R.string.advanced_settings_subtitle),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-
-                    OutlinedTextField(
-                        value = tempUrl,
-                        onValueChange = { tempUrl = it },
-                        label = { Text(stringResource(R.string.custom_api_url_label)) },
-                        placeholder = { Text(stringResource(R.string.custom_api_url_hint), fontSize = 12.sp) },
-                        singleLine = true,
-                        shape = RoundedCornerShape(12.dp),
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    OutlinedTextField(
-                        value = tempToken,
-                        onValueChange = { tempToken = it },
-                        label = { Text(stringResource(R.string.custom_api_token_label)) },
-                        placeholder = { Text(stringResource(R.string.custom_api_token_hint), fontSize = 12.sp) },
-                        singleLine = true,
-                        shape = RoundedCornerShape(12.dp),
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    Text(
-                        text = stringResource(R.string.custom_api_url_helper),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+            onPauseOptionSelected = { durationMs, isUntilTomorrow ->
+                if (isUntilTomorrow) {
+                    val tomorrowTimestamp = PauseHelper.getTomorrowMorningTimestamp()
+                    PauseHelper.setPauseUntil(context, tomorrowTimestamp)
+                    isCurrentlyPaused = true
+                    pausedUntilTimestamp = tomorrowTimestamp
+                } else {
+                    PauseHelper.setPause(context, durationMs)
+                    isCurrentlyPaused = true
+                    pausedUntilTimestamp = if (durationMs > 0) prefs.getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L) else 0L
                 }
-            },
-            confirmButton = {
-                Button(
-                    onClick = {
-                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                        settingsRepository.customApiUrl = tempUrl.trim()
-                        settingsRepository.customApiToken = tempToken.trim()
-                        showAdvancedSettingsDialog = false
-                        Toast.makeText(context, context.getString(R.string.settings_saved), Toast.LENGTH_SHORT).show()
-                    },
-                    shape = RoundedCornerShape(10.dp)
-                ) {
-                    Text(stringResource(R.string.btn_save), fontWeight = FontWeight.Bold)
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { showAdvancedSettingsDialog = false }) {
-                    Text(stringResource(R.string.pause_cancel))
-                }
+                showPauseBottomSheet = false
             }
         )
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    // Main UI Layout (Responsive Centered Container for Tablet / Foldables)
+    // Test Studio Bottom Sheet
+    // ─────────────────────────────────────────────────────────────────────────
+    if (showTestStudioBottomSheet) {
+        TestStudioBottomSheet(
+            onDismissRequest = { showTestStudioBottomSheet = false },
+            selectedTargetKey = selectedTargetKey,
+            settingsRepository = settingsRepository,
+            odesliRepository = repository
+        )
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Settings Bottom Sheet
+    // ─────────────────────────────────────────────────────────────────────────
+    if (showSettingsBottomSheet) {
+        SettingsBottomSheet(
+            onDismissRequest = { showSettingsBottomSheet = false },
+            settingsRepository = settingsRepository,
+            targetServices = targetServices,
+            supportedLanguages = supportedLanguages,
+            currentLanguageCode = selectedLanguage,
+            onLanguageSelected = { newLang ->
+                selectedLanguage = newLang
+            }
+        )
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Main UI Layout
     // ─────────────────────────────────────────────────────────────────────────
     BoxWithConstraints(
         modifier = Modifier.fillMaxSize(),
@@ -448,17 +262,14 @@ fun MainScreen(initialShowPause: Boolean = false) {
             modifier = contentModifier,
             verticalArrangement = Arrangement.spacedBy(18.dp)
         ) {
-            // App Header Banner with Quick Actions
+            // App Header Banner with Quick Actions (Accessible Touch Targets >= 48dp)
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(24.dp))
                     .background(
                         Brush.horizontalGradient(
-                            colors = listOf(
-                                NightSlate900,
-                                NightSlate800
-                            )
+                            colors = listOf(NightSlate900, NightSlate800)
                         )
                     )
                     .border(
@@ -511,7 +322,7 @@ fun MainScreen(initialShowPause: Boolean = false) {
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     fontWeight = FontWeight.Medium
                                 ),
-                                color = NightSlate400
+                                color = Color.White.copy(alpha = 0.7f)
                             )
                         }
                     }
@@ -520,41 +331,41 @@ fun MainScreen(initialShowPause: Boolean = false) {
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        // Advanced Settings Action Button
+                        // Test Studio Action Button
                         IconButton(
                             onClick = {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                                showAdvancedSettingsDialog = true
+                                showTestStudioBottomSheet = true
                             },
                             modifier = Modifier
+                                .size(48.dp)
                                 .clip(CircleShape)
-                                .background(NightSlate700.copy(alpha = 0.5f))
-                                .size(38.dp)
+                                .background(NightSlate700.copy(alpha = 0.6f))
                         ) {
                             Icon(
-                                imageVector = Icons.Outlined.Tune,
-                                contentDescription = stringResource(R.string.advanced_settings_title),
+                                imageVector = Icons.Outlined.Science,
+                                contentDescription = stringResource(R.string.nav_test_studio),
                                 tint = Color.White,
-                                modifier = Modifier.size(18.dp)
+                                modifier = Modifier.size(20.dp)
                             )
                         }
 
-                        // Subtle Language Switcher Button
+                        // Settings Action Button
                         IconButton(
                             onClick = {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                                showLanguageBottomSheet = true
+                                showSettingsBottomSheet = true
                             },
                             modifier = Modifier
+                                .size(48.dp)
                                 .clip(CircleShape)
-                                .background(NightSlate700.copy(alpha = 0.5f))
-                                .size(38.dp)
+                                .background(NightSlate700.copy(alpha = 0.6f))
                         ) {
                             Icon(
-                                imageVector = Icons.Default.Language,
-                                contentDescription = stringResource(R.string.select_language_title),
+                                imageVector = Icons.Outlined.Settings,
+                                contentDescription = stringResource(R.string.nav_settings),
                                 tint = Color.White,
-                                modifier = Modifier.size(18.dp)
+                                modifier = Modifier.size(20.dp)
                             )
                         }
                     }
@@ -651,7 +462,7 @@ fun MainScreen(initialShowPause: Boolean = false) {
                                 pausedUntilTimestamp = 0L
                             },
                             shape = RoundedCornerShape(10.dp),
-                            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp)
+                            contentPadding = PaddingValues(horizontal = 14.dp, vertical = 8.dp)
                         ) {
                             Icon(
                                 imageVector = Icons.Outlined.PlayCircle,
@@ -668,7 +479,7 @@ fun MainScreen(initialShowPause: Boolean = false) {
                                 showPauseBottomSheet = true
                             },
                             shape = RoundedCornerShape(10.dp),
-                            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp)
+                            contentPadding = PaddingValues(horizontal = 14.dp, vertical = 8.dp)
                         ) {
                             Icon(
                                 imageVector = Icons.Outlined.PauseCircle,
@@ -821,7 +632,7 @@ fun MainScreen(initialShowPause: Boolean = false) {
                         Text(
                             text = stringResource(R.string.target_service_subtitle),
                             style = MaterialTheme.typography.bodySmall,
-                            color = NightSlate400
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
 
@@ -834,7 +645,7 @@ fun MainScreen(initialShowPause: Boolean = false) {
                         val backgroundColor = if (isSelected) {
                             service.brandColor.copy(alpha = 0.12f)
                         } else {
-                            MaterialTheme.colorScheme.background
+                            MaterialTheme.colorScheme.surfaceVariant
                         }
                         val borderColor = if (isSelected) service.brandColor.copy(alpha = 0.6f) else Color.Transparent
 
@@ -849,7 +660,7 @@ fun MainScreen(initialShowPause: Boolean = false) {
                                     selectedTargetKey = service.key
                                     settingsRepository.targetPlatform = service.key
                                 }
-                                .padding(horizontal = 16.dp, vertical = 13.dp),
+                                .padding(horizontal = 16.dp, vertical = 14.dp),
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
@@ -859,7 +670,7 @@ fun MainScreen(initialShowPause: Boolean = false) {
                             ) {
                                 Box(
                                     modifier = Modifier
-                                        .size(10.dp)
+                                        .size(12.dp)
                                         .clip(CircleShape)
                                         .background(service.brandColor)
                                 )
@@ -892,13 +703,13 @@ fun MainScreen(initialShowPause: Boolean = false) {
                                             Icon(
                                                 imageVector = Icons.Default.Language,
                                                 contentDescription = null,
-                                                tint = NightSlate400,
+                                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
                                                 modifier = Modifier.size(12.dp)
                                             )
                                             Text(
                                                 text = stringResource(R.string.status_browser),
                                                 style = MaterialTheme.typography.labelSmall,
-                                                color = NightSlate400
+                                                color = MaterialTheme.colorScheme.onSurfaceVariant
                                             )
                                         }
                                     }
@@ -910,7 +721,7 @@ fun MainScreen(initialShowPause: Boolean = false) {
                                     imageVector = Icons.Outlined.CheckCircle,
                                     contentDescription = null,
                                     tint = service.brandColor,
-                                    modifier = Modifier.size(20.dp)
+                                    modifier = Modifier.size(22.dp)
                                 )
                             }
                         }
@@ -918,360 +729,7 @@ fun MainScreen(initialShowPause: Boolean = false) {
                 }
             }
 
-            // ─────────────────────────────────────────────────────────────────
-            // Intercept Source Links Configuration Card
-            // ─────────────────────────────────────────────────────────────────
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(20.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surface
-                )
-            ) {
-                Column(
-                    modifier = Modifier.padding(20.dp),
-                    verticalArrangement = Arrangement.spacedBy(14.dp)
-                ) {
-                    Column {
-                        Text(
-                            text = stringResource(R.string.input_sources_label),
-                            style = MaterialTheme.typography.titleLarge.copy(
-                                fontWeight = FontWeight.Bold
-                            ),
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                        Text(
-                            text = stringResource(R.string.input_sources_subtitle),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = NightSlate400
-                        )
-                    }
-
-                    targetServices.forEach { service ->
-                        var isEnabled by remember {
-                            mutableStateOf(settingsRepository.isInputPlatformEnabled(service.key))
-                        }
-
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(14.dp))
-                                .background(MaterialTheme.colorScheme.background)
-                                .padding(horizontal = 14.dp, vertical = 6.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(10.dp)
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(10.dp)
-                                        .clip(CircleShape)
-                                        .background(service.brandColor)
-                                )
-                                Text(
-                                    text = stringResource(service.nameResId),
-                                    style = MaterialTheme.typography.bodyMedium.copy(
-                                        fontWeight = FontWeight.SemiBold
-                                    ),
-                                    color = MaterialTheme.colorScheme.onSurface
-                                )
-                            }
-
-                            Switch(
-                                checked = isEnabled,
-                                onCheckedChange = { checked ->
-                                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                                    isEnabled = checked
-                                    settingsRepository.setInputPlatformEnabled(service.key, checked)
-                                },
-                                colors = SwitchDefaults.colors(
-                                    checkedThumbColor = Color.White,
-                                    checkedTrackColor = service.brandColor
-                                )
-                            )
-                        }
-                    }
-                }
-            }
-
-            // ─────────────────────────────────────────────────────────────────
-            // Test Link Converter Studio Card
-            // ─────────────────────────────────────────────────────────────────
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(20.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surface
-                )
-            ) {
-                Column(
-                    modifier = Modifier.padding(20.dp),
-                    verticalArrangement = Arrangement.spacedBy(14.dp)
-                ) {
-                    Column {
-                        Text(
-                            text = stringResource(R.string.test_section_title),
-                            style = MaterialTheme.typography.titleLarge.copy(
-                                fontWeight = FontWeight.Bold
-                            ),
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                        Text(
-                            text = stringResource(R.string.test_subtitle),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = NightSlate400
-                        )
-                    }
-
-                    OutlinedTextField(
-                        value = testInputUrl,
-                        onValueChange = { testInputUrl = it },
-                        placeholder = {
-                            Text(
-                                text = stringResource(R.string.test_placeholder),
-                                fontSize = 13.sp
-                            )
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                        singleLine = true,
-                        shape = RoundedCornerShape(14.dp),
-                        trailingIcon = {
-                            if (testInputUrl.isEmpty()) {
-                                IconButton(onClick = {
-                                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                                    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                                    val clipData = clipboard.primaryClip
-                                    if (clipData != null && clipData.itemCount > 0) {
-                                        val text = clipData.getItemAt(0).text.toString()
-                                        if (text.startsWith("http://") || text.startsWith("https://")) {
-                                            testInputUrl = text
-                                        }
-                                    }
-                                }) {
-                                    Icon(
-                                        imageVector = Icons.Default.ContentPaste,
-                                        contentDescription = stringResource(R.string.action_paste),
-                                        tint = NightSlate400
-                                    )
-                                }
-                            } else {
-                                IconButton(onClick = { testInputUrl = "" }) {
-                                    Icon(
-                                        imageVector = Icons.Default.Close,
-                                        contentDescription = null,
-                                        tint = NightSlate400
-                                    )
-                                }
-                            }
-                        }
-                    )
-
-                    Button(
-                        onClick = {
-                            if (testInputUrl.isNotBlank()) {
-                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                                isLoading = true
-                                conversionResult = null
-                                isError = false
-                                scope.launch {
-                                    val res = repository.resolveTargetUrl(
-                                        inputUrl = testInputUrl.trim(),
-                                        targetPlatformKey = selectedTargetKey,
-                                        customApiUrl = settingsRepository.customApiUrl,
-                                        customApiToken = settingsRepository.customApiToken
-                                    )
-                                    isLoading = false
-                                    when (res) {
-                                        is OdesliResult.Success -> {
-                                            conversionResult = res.targetUrl
-                                        }
-                                        is OdesliResult.Error -> {
-                                            isError = true
-                                            conversionResult = res.message
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        enabled = testInputUrl.isNotBlank() && !isLoading,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(50.dp),
-                        shape = RoundedCornerShape(14.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primary,
-                            contentColor = MaterialTheme.colorScheme.onPrimary
-                        )
-                    ) {
-                        if (isLoading) {
-                            CircularProgressIndicator(
-                                modifier = Modifier.size(20.dp),
-                                color = MaterialTheme.colorScheme.onPrimary,
-                                strokeWidth = 2.dp
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(stringResource(R.string.test_converting), color = MaterialTheme.colorScheme.onPrimary)
-                        } else {
-                            Text(
-                                text = stringResource(R.string.test_button),
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onPrimary
-                            )
-                        }
-                    }
-
-                    AnimatedVisibility(
-                        visible = conversionResult != null,
-                        enter = fadeIn(),
-                        exit = fadeOut()
-                    ) {
-                        conversionResult?.let { result ->
-                            val textColor = if (isError) StateErrorRed else StateActiveGreen
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clip(RoundedCornerShape(14.dp))
-                                    .background(MaterialTheme.colorScheme.background)
-                                    .border(1.dp, textColor.copy(alpha = 0.4f), RoundedCornerShape(14.dp))
-                                    .padding(16.dp),
-                                verticalArrangement = Arrangement.spacedBy(10.dp)
-                            ) {
-                                Text(
-                                    text = if (isError) {
-                                        stringResource(R.string.test_error, result)
-                                    } else {
-                                        stringResource(R.string.test_result, result)
-                                    },
-                                    color = textColor,
-                                    style = MaterialTheme.typography.bodyMedium
-                                )
-
-                                if (!isError) {
-                                    Row(
-                                        modifier = Modifier.fillMaxWidth(),
-                                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                                    ) {
-                                        OutlinedButton(
-                                            onClick = {
-                                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                                                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                                                val clip = ClipData.newPlainText("SongFlip Link", result)
-                                                clipboard.setPrimaryClip(clip)
-                                                Toast.makeText(context, context.getString(R.string.link_copied), Toast.LENGTH_SHORT).show()
-                                            },
-                                            modifier = Modifier.weight(1f),
-                                            shape = RoundedCornerShape(10.dp)
-                                        ) {
-                                            Icon(
-                                                imageVector = Icons.Default.ContentCopy,
-                                                contentDescription = null,
-                                                modifier = Modifier.size(16.dp)
-                                            )
-                                            Spacer(modifier = Modifier.width(6.dp))
-                                            Text(stringResource(R.string.action_copy), fontSize = 12.sp)
-                                        }
-
-                                        Button(
-                                            onClick = {
-                                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                                                val viewIntent = Intent(Intent.ACTION_VIEW, Uri.parse(result))
-                                                context.startActivity(viewIntent)
-                                            },
-                                            modifier = Modifier.weight(1f),
-                                            shape = RoundedCornerShape(10.dp)
-                                        ) {
-                                            Icon(
-                                                imageVector = Icons.AutoMirrored.Filled.OpenInNew,
-                                                contentDescription = null,
-                                                modifier = Modifier.size(16.dp)
-                                            )
-                                            Spacer(modifier = Modifier.width(6.dp))
-                                            Text(stringResource(R.string.action_open), fontSize = 12.sp)
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            // ─────────────────────────────────────────────────────────────────
-            // FamWake Promo Card (MapFlip Style)
-            // ─────────────────────────────────────────────────────────────────
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(20.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surface
-                )
-            ) {
-                Column(
-                    modifier = Modifier.padding(22.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    Text(
-                        text = stringResource(R.string.famwake_promo),
-                        style = MaterialTheme.typography.labelSmall.copy(
-                            letterSpacing = 1.5.sp,
-                            fontWeight = FontWeight.Medium
-                        ),
-                        color = NightSlate400
-                    )
-                    Text(
-                        text = stringResource(R.string.famwake_title),
-                        style = MaterialTheme.typography.titleMedium.copy(
-                            fontWeight = FontWeight.Bold
-                        ),
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                    Text(
-                        text = stringResource(R.string.famwake_desc),
-                        style = MaterialTheme.typography.bodySmall.copy(lineHeight = 18.sp),
-                        textAlign = TextAlign.Center,
-                        color = NightSlate400
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    OutlinedButton(
-                        onClick = {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URL_FAMWAKE))
-                            context.startActivity(intent)
-                        },
-                        shape = RoundedCornerShape(12.dp)
-                    ) {
-                        Text(
-                            text = stringResource(R.string.famwake_button),
-                            style = MaterialTheme.typography.labelMedium
-                        )
-                    }
-                }
-            }
-
-            // ─────────────────────────────────────────────────────────────────
-            // Copyright & Developer Footer (MapFlip Style)
-            // ─────────────────────────────────────────────────────────────────
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 12.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = stringResource(R.string.copyright_text),
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        letterSpacing = 0.3.sp
-                    ),
-                    color = NightSlate400,
-                    modifier = Modifier.clickable {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URL_NOTTHOFF))
-                        context.startActivity(intent)
-                    }
-                )
-            }
+            Spacer(modifier = Modifier.height(10.dp))
         }
     }
 }
@@ -1379,39 +837,6 @@ private fun StatusBadge(text: String, statusType: StatusType) {
                     fontWeight = FontWeight.SemiBold
                 ),
                 color = contentColor
-            )
-        }
-    }
-}
-
-@Composable
-private fun PauseOptionItem(
-    title: String,
-    onClick: () -> Unit
-) {
-    Surface(
-        onClick = onClick,
-        shape = RoundedCornerShape(12.dp),
-        color = MaterialTheme.colorScheme.surfaceVariant,
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 14.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
-                color = MaterialTheme.colorScheme.onSurface
-            )
-            Icon(
-                imageVector = Icons.Outlined.PauseCircle,
-                contentDescription = null,
-                tint = StatePausedAmber,
-                modifier = Modifier.size(20.dp)
             )
         }
     }
