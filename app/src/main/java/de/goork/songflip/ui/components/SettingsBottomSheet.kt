@@ -367,9 +367,17 @@ fun SettingsBottomSheet(
                 }
             }
 
-            // Copyright
+            // Version & Copyright
+            val appVersion = remember {
+                try {
+                    "v" + context.packageManager.getPackageInfo(context.packageName, 0).versionName
+                } catch (e: Exception) {
+                    "v1.0.0"
+                }
+            }
+
             Text(
-                text = stringResource(R.string.copyright_text),
+                text = "${stringResource(R.string.copyright_text)} • $appVersion",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,
