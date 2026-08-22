@@ -810,7 +810,7 @@ fun MainScreen(initialShowPause: Boolean = false) {
             }
 
             Text(
-                text = "${stringResource(R.string.copyright_text)} • $appVersion",
+                text = "SongFlip $appVersion • © 2026 Daniel Notthoff • notthoff.org",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
                 textAlign = androidx.compose.ui.text.style.TextAlign.Center,

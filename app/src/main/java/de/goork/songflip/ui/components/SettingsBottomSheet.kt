@@ -377,7 +377,7 @@ fun SettingsBottomSheet(
             }
 
             Text(
-                text = "${stringResource(R.string.copyright_text)} • $appVersion",
+                text = "SongFlip $appVersion • © 2026 Daniel Notthoff • notthoff.org",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,
