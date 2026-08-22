@@ -333,7 +333,7 @@ class OdesliRepository {
                 }
                 resp.close()
             }
-            // 2. Apple Music Track Lookup via iTunes
+            // 2. Apple Music Track & Album Lookup via iTunes
             else if (url.contains("apple.com") && url.contains("i=")) {
                 val trackId = url.substringAfter("i=").substringBefore("&").substringBefore("?")
                 if (trackId.isNotEmpty()) {
@@ -353,6 +353,31 @@ class OdesliRepository {
                             resp.close()
                             if (trackName.isNotEmpty()) {
                                 return if (artistName.isNotEmpty()) "$artistName $trackName" else trackName
+                            }
+                        }
+                    }
+                    resp.close()
+                }
+            }
+            else if (url.contains("apple.com") && url.contains("/album/")) {
+                val albumId = url.substringAfterLast("/").substringBefore("?").substringBefore("&").trim()
+                if (albumId.isNotEmpty() && albumId.all { it.isDigit() }) {
+                    val req = Request.Builder()
+                        .url("https://itunes.apple.com/lookup?id=$albumId&entity=album")
+                        .get()
+                        .build()
+                    val resp = client.newCall(req).execute()
+                    if (resp.isSuccessful) {
+                        val body = resp.body?.string() ?: ""
+                        val json = JSONObject(body)
+                        val results = json.optJSONArray("results")
+                        if (results != null && results.length() > 0) {
+                            val album = results.getJSONObject(0)
+                            val collectionName = album.optString("collectionName")
+                            val artistName = album.optString("artistName")
+                            resp.close()
+                            if (collectionName.isNotEmpty()) {
+                                return if (artistName.isNotEmpty()) "$artistName $collectionName" else collectionName
                             }
                         }
                     }

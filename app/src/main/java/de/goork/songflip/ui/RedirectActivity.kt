@@ -5,7 +5,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
 import androidx.lifecycle.lifecycleScope
 import de.goork.songflip.R
 import de.goork.songflip.data.OdesliRepository
@@ -20,7 +20,7 @@ import kotlinx.coroutines.withTimeoutOrNull
  * Transparent activity that silently intercepts incoming music links (or shared URLs) in the background,
  * resolves them via the 5-tier fallback engine to the user's preferred player, and launches the target link.
  */
-class RedirectActivity : AppCompatActivity() {
+class RedirectActivity : ComponentActivity() {
 
     private val odesliRepository = OdesliRepository()
 
