@@ -1,44 +1,81 @@
 # SongFlip 🎵
 
-**SongFlip** is a transparent, open-source Android link redirector for music links (Spotify → YouTube Music / Apple Music / Tidal / Deezer).
+**SongFlip** is an automatic, zero-click music link redirector for Android (Spotify ⇄ Apple Music ⇄ YouTube Music ⇄ Tidal ⇄ Deezer ⇄ Amazon Music).
 
-Inspired by [MapFlip](https://github.com/thefraggle/mapflip), SongFlip acts completely in the background: set it up once, and whenever a friend shares a music link in WhatsApp, Telegram, or your browser, SongFlip instantly intercepts and converts it to open directly in your preferred music player without any visible app UI delay!
+Official Website: [songflip.link](https://songflip.link)
 
----
-
-## ✨ Features
-
-- **⚡ Instant & Invisible Redirect**: Intercepts `open.spotify.com`, `music.apple.com`, `music.youtube.com`, `tidal.com`, and `deezer.com` URLs transparently in the background.
-- **🌐 Powered by Odesli / Song.link**: Resolves track metadata and converts incoming links to exact streaming targets via the Odesli API.
-- **🎯 Configurable Target Player**: Support for YouTube Music (Google Music), Apple Music, Spotify, Tidal, and Deezer.
-- **🌍 Dual Language Support**: English and German UI with a compact in-app language switcher.
-- **🧪 Interactive Test Bench**: Paste any music link inside the app to test instant conversion and copy or open target links.
-- **🛡️ Offline & Error Fallback**: If network is unavailable or resolution fails, SongFlip gracefully falls back to opening the original link without infinite loops.
+Inspired by [MapFlip](https://github.com/thefraggle/mapflip), SongFlip runs completely in the background: set it up in 30 seconds, and whenever a friend shares a music link in WhatsApp, Telegram, Instagram, or your browser, SongFlip instantly intercepts and converts it to open directly in your preferred music player without any intermediate UI or manual searching.
 
 ---
 
-## 📸 Overview & Architecture
+## ✨ Key Features
 
-- **`RedirectActivity`**: Transparent activity configured with Android `IntentFilter`s for instant background handling and loop-prevention self-bypassing.
-- **`OdesliRepository`**: Asynchronous HTTP client (OkHttp + Coroutines) for querying `https://api.song.link/v1-alpha.1/links`.
-- **`MainActivity`**: Modern dark glassmorphic UI built with Jetpack Compose & Material 3.
+- **⚡ 0-Click Background Redirect**: Intercepts music links transparently and launches direct playback in your target player.
+- **🎧 Universal 6-Platform Support**: Full any-to-any redirection between:
+  - 🟢 **Spotify** (`open.spotify.com`, `spotify.link`)
+  - 🔴 **YouTube Music** (`music.youtube.com`, `youtu.be`)
+  - 🍎 **Apple Music** (`music.apple.com`, `apple.co`, `itunes.apple.com`)
+  - 🌊 **Tidal** (`tidal.com`, `listen.tidal.com`)
+  - 🟣 **Deezer** (`deezer.com`, `link.deezer.com`, `deezer.page.link`)
+  - 🔵 **Amazon Music** (`music.amazon.com`, `music.amazon.de`, `music.amazon.co.uk`, `amzn.to`, `a.co`)
+- **💿 Full Album & Artist Recognition**: Supports single songs, complete albums/EPs, and artist discography profiles.
+- **🚀 Direct Instant Playback Engine**: Extracts direct video/track IDs in the background (e.g. YouTube Music `watch?v=...`) for instant playback without search result delays.
+- **🌍 22 Languages Supported**: Fully localized in 22 languages (English, German, Spanish, French, Italian, Portuguese, Japanese, Korean, Chinese, Ukrainian, Polish, Turkish, Dutch, Arabic, Hindi, and more).
+- **⏸️ Quick Settings Status Tile & Smart Pause**: Pause redirection directly from Android's notification shade for 15 minutes, 1 hour, or until tomorrow morning (06:00).
+- **📤 Share Sheet Target (`ACTION_SEND`)**: Supports shared text containing links from WhatsApp, Instagram, and Reddit with automatic URL sanitization.
+- **🛡️ 100% Privacy & Zero Tracking**: No accounts, no logins, no advertising IDs, and no listening habits collected.
+- **🧪 Interactive Test Studio**: In-app test bench to preview conversions and inspect resolved URLs.
 
 ---
 
-## 🛠️ Building & Installation
+## 🏗️ Architecture & Resolution Engine
+
+SongFlip uses a robust 5-tier resolution pipeline:
+
+1. **Tier 1 (Direct 0-Redirect SongLink Engine)**: Normalizes incoming URLs into direct internal IDs (`/s/`, `/i/`, `/d/`, `/y/`) for instant HTTP 200 responses (~150 ms) without redirect loops.
+2. **Tier 2 (Direct Playback Extractor)**: Background video ID regex extraction for YouTube Music instant play.
+3. **Tier 3 (Local Metadata Fallback APIs)**: iTunes Search & Lookup API, Spotify oEmbed, Deezer Public API, and YouTube oEmbed.
+4. **Tier 4 (Target Catalog Search Fallback)**: Fallback search routing for obscure releases and regional variants.
+5. **Tier 5 (Custom AI / Webhook API)**: User-configurable endpoint (e.g. n8n, self-hosted webhook) for custom resolution.
+
+---
+
+## 🔮 Roadmap (SongFlip Pro)
+
+While the core 0-click redirect functionality will **always remain 100% free and ad-free**, advanced power features are planned as a one-time lifetime purchase (4.99 € Lifetime):
+
+- **👑 Lifetime Pro Supporter Status**: Golden/Emerald PRO badge & support indie development.
+- **🔄 1:1 Cross-Platform Playlist Transfer**: Transfer and sync full playlists between Spotify, Apple Music, and YouTube Music.
+- **✨ Enhanced AI Fuzzy Matching**: Powered by Gemini 2.0 Flash for rare live bootlegs, remixes, and acoustic versions.
+- **🔗 Universal Share Links (`songflip.link/s/...`)**: Generate custom shareable multi-platform links for friends.
+- **📜 Flip History & Library**: Local history of all flipped songs and albums.
+
+---
+
+## 🛠️ Building & Development
 
 ### Prerequisites
 - JDK 17+
-- Android SDK (API 26 or higher)
+- Android SDK (API 26 to 35)
 
 ### Build Debug APK
 ```bash
 ./gradlew assembleDebug
 ```
-The output APK will be located at `app/build/outputs/apk/debug/app-debug.apk`.
+The output APK will be at `app/build/outputs/apk/debug/app-debug.apk`.
+
+### Run Unit Tests
+```bash
+./gradlew test
+```
 
 ---
 
-## License
+## 📄 License
 
-[MIT](LICENSE) © 2026 Daniel Notthoff – [notthoff.org](https://notthoff.org)
+This project is licensed under the **[PolyForm Noncommercial License 1.0.0](LICENSE)**.
+
+- **Noncommercial Use**: You are free to view, inspect, test, and modify the source code for personal, noncommercial purposes.
+- **Commercial & Store Distribution**: Publishing, cloning, selling, or distributing this software or derivative works in app stores (including Google Play) is strictly prohibited.
+
+© 2026 Daniel Notthoff ([notthoff.org](https://notthoff.org))
