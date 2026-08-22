@@ -3,6 +3,12 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+val appVersionName = "1.0.2"
+val versionParts = appVersionName.split(".")
+val computedVersionCode = (versionParts.getOrElse(0) { "1" }.toInt() * 10000) +
+                          (versionParts.getOrElse(1) { "0" }.toInt() * 100) +
+                          (versionParts.getOrElse(2) { "0" }.toInt())
+
 android {
     namespace = "de.goork.songflip"
     compileSdk = 34
@@ -11,8 +17,8 @@ android {
         applicationId = "de.goork.songflip"
         minSdk = 26
         targetSdk = 34
-        versionCode = 3
-        versionName = "1.0.2"
+        versionCode = computedVersionCode
+        versionName = appVersionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
