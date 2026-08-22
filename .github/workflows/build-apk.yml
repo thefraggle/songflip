@@ -25,14 +25,30 @@ jobs:
       - name: Run Unit Tests
         run: ./gradlew test
 
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug
+      - name: Decode Signing Keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            echo "$KEYSTORE_BASE64" | base64 -d > /tmp/release.keystore
+          fi
 
-      - name: Prepare APK Asset
+      - name: Build Signed Release APK
+        env:
+          SIGNING_KEYSTORE_PATH: /tmp/release.keystore
+          SIGNING_KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          SIGNING_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
           mkdir -p dist
-          VERSION="${GITHUB_REF_NAME:-manual-build}"
-          cp app/build/outputs/apk/debug/app-debug.apk "dist/songflip-${VERSION}.apk"
+          VERSION="${GITHUB_REF_NAME:-release}"
+          if [ -f /tmp/release.keystore ]; then
+            ./gradlew assembleRelease
+            cp app/build/outputs/apk/release/app-release.apk "dist/songflip-${VERSION}.apk"
+          else
+            ./gradlew assembleDebug
+            cp app/build/outputs/apk/debug/app-debug.apk "dist/songflip-${VERSION}.apk"
+          fi
 
       - name: Upload Debug APK Artifact
         uses: actions/upload-artifact@v4
