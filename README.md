@@ -73,9 +73,9 @@ The output APK will be at `app/build/outputs/apk/debug/app-debug.apk`.
 
 ## 📄 License
 
-This project is licensed under the **[PolyForm Noncommercial License 1.0.0](LICENSE)**.
+This project is licensed under the **[GNU General Public License v3.0 (GPLv3)](LICENSE)**.
 
-- **Noncommercial Use**: You are free to view, inspect, test, and modify the source code for personal, noncommercial purposes.
-- **Commercial & Store Distribution**: Publishing, cloning, selling, or distributing this software or derivative works in app stores (including Google Play) is strictly prohibited.
+- **Freedom & Copyleft**: You are free to run, study, share, and modify this software.
+- **Copyleft Requirement**: Any distributed modifications or derivative works must also be licensed under the GNU GPLv3 with full source code made available.
 
 © 2026 Daniel Notthoff ([notthoff.org](https://notthoff.org))
