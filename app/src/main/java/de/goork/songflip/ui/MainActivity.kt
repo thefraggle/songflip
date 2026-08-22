@@ -373,21 +373,16 @@ fun MainScreen(initialShowPause: Boolean = false) {
             }
 
             // ─────────────────────────────────────────────────────────────────
-            // Live Status & Quick Pause Banner Card
+            // Live Status & Quick Pause Banner Card (Active vs. Paused only)
             // ─────────────────────────────────────────────────────────────────
             val isDarkTheme = androidx.compose.foundation.isSystemInDarkTheme()
             val activeColor = if (isDarkTheme) StateActiveGreen else StateActiveGreenLight
             val pausedColor = if (isDarkTheme) StatePausedAmber else StatePausedAmberLight
-            val errorColor = if (isDarkTheme) StateErrorRed else StateErrorRedLight
 
-            val isConfigured = domainStatus?.let { it.isFullyEnabled || it.isPartiallyEnabled } ?: (linksActive == true)
-            val isFullyActive = domainStatus?.isFullyEnabled ?: (linksActive == true)
-
-            val (bannerBgColor, bannerBorderColor) = when {
-                isCurrentlyPaused -> pausedColor.copy(alpha = 0.12f) to pausedColor.copy(alpha = 0.4f)
-                !isConfigured -> errorColor.copy(alpha = 0.12f) to errorColor.copy(alpha = 0.4f)
-                !isFullyActive -> pausedColor.copy(alpha = 0.12f) to pausedColor.copy(alpha = 0.4f)
-                else -> activeColor.copy(alpha = 0.12f) to activeColor.copy(alpha = 0.4f)
+            val (bannerBgColor, bannerBorderColor) = if (isCurrentlyPaused) {
+                pausedColor.copy(alpha = 0.12f) to pausedColor.copy(alpha = 0.4f)
+            } else {
+                activeColor.copy(alpha = 0.12f) to activeColor.copy(alpha = 0.4f)
             }
 
             Card(
@@ -430,42 +425,6 @@ fun MainScreen(initialShowPause: Boolean = false) {
                                     )
                                 }
                             }
-                        } else if (!isConfigured) {
-                            Icon(
-                                imageVector = Icons.Outlined.Info,
-                                contentDescription = null,
-                                tint = errorColor,
-                                modifier = Modifier.size(24.dp)
-                            )
-                            Column {
-                                Text(
-                                    text = stringResource(R.string.status_inactive),
-                                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
-                                    color = errorColor
-                                )
-                            }
-                        } else if (!isFullyActive && domainStatus != null) {
-                            val infiniteTransition = rememberInfiniteTransition(label = "pulse")
-                            val pulseAlpha by infiniteTransition.animateFloat(
-                                initialValue = 0.4f,
-                                targetValue = 1.0f,
-                                animationSpec = infiniteRepeatable(
-                                    animation = tween(1000, easing = LinearEasing),
-                                    repeatMode = RepeatMode.Reverse
-                                ),
-                                label = "pulseAlpha"
-                            )
-                            Box(
-                                modifier = Modifier
-                                    .size(12.dp)
-                                    .clip(CircleShape)
-                                    .background(pausedColor.copy(alpha = pulseAlpha))
-                            )
-                            Text(
-                                text = stringResource(R.string.status_partial_active, domainStatus!!.enabledHosts, domainStatus!!.totalHosts),
-                                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
-                                color = pausedColor
-                            )
                         } else {
                             val infiniteTransition = rememberInfiniteTransition(label = "pulse")
                             val pulseAlpha by infiniteTransition.animateFloat(
@@ -509,40 +468,6 @@ fun MainScreen(initialShowPause: Boolean = false) {
                             )
                             Spacer(modifier = Modifier.width(6.dp))
                             Text(stringResource(R.string.btn_resume), style = MaterialTheme.typography.labelMedium)
-                        }
-                    } else if (!isConfigured) {
-                        FilledTonalButton(
-                            onClick = {
-                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                                    try {
-                                        context.startActivity(Intent(
-                                            Settings.ACTION_APP_OPEN_BY_DEFAULT_SETTINGS,
-                                            Uri.parse("package:${context.packageName}")
-                                        ))
-                                    } catch (e: Exception) {
-                                        context.startActivity(Intent(
-                                            Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                                            Uri.parse("package:${context.packageName}")
-                                        ))
-                                    }
-                                } else {
-                                    context.startActivity(Intent(
-                                        Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                                        Uri.parse("package:${context.packageName}")
-                                    ))
-                                }
-                            },
-                            shape = RoundedCornerShape(10.dp),
-                            contentPadding = PaddingValues(horizontal = 14.dp, vertical = 8.dp)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Settings,
-                                contentDescription = null,
-                                modifier = Modifier.size(16.dp)
-                            )
-                            Spacer(modifier = Modifier.width(6.dp))
-                            Text(stringResource(R.string.btn_open_settings), style = MaterialTheme.typography.labelMedium)
                         }
                     } else {
                         OutlinedButton(

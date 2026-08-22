@@ -4,9 +4,9 @@
     <string name="app_description">Set up once – shared music links automatically open in your preferred player in the background.</string>
 
     <string name="status_title">Redirector Status</string>
-    <string name="status_active">Links are enabled &amp; active</string>
-    <string name="status_all_active">All %1$d music domains are active &amp; verified</string>
-    <string name="status_partial_active">%1$d of %2$d music domains active (New links available!)</string>
+    <string name="status_active">SongFlip is active</string>
+    <string name="status_all_active">All %1$d music domains enabled</string>
+    <string name="status_partial_active">%1$d of %2$d music domains enabled</string>
     <string name="status_inactive">Links are not yet active in system settings</string>
     <string name="status_missing_hint">Not yet enabled: %1$s</string>
     <string name="status_hint">Status cannot be checked on older Android versions.</string>

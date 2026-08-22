@@ -4,9 +4,9 @@
     <string name="app_description">Einmalig einrichten – empfangene Musik-Links öffnen sich fortan automatisch im Hintergrund in deinem Lieblings-Player.</string>
 
     <string name="status_title">Redirector Status</string>
-    <string name="status_active">Links sind aktiviert &amp; einsatzbereit</string>
-    <string name="status_all_active">Alle %1$d Musik-Dienste sind aktiv &amp; verifiziert</string>
-    <string name="status_partial_active">%1$d von %2$d Musik-Diensten aktiv (Neue Links verfügbar!)</string>
+    <string name="status_active">SongFlip ist aktiv</string>
+    <string name="status_all_active">Alle %1$d Musik-Dienste aktiviert</string>
+    <string name="status_partial_active">%1$d von %2$d Musik-Diensten aktiviert</string>
     <string name="status_inactive">Links sind noch nicht in den Einstellungen aktiviert</string>
     <string name="status_missing_hint">Noch nicht aktiviert: %1$s</string>
     <string name="status_hint">Auf älteren Android-Versionen kann der Status nicht geprüft werden.</string>

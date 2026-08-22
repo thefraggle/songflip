@@ -287,18 +287,13 @@ class OdesliRepository {
     }
 
     /**
-     * Resolves direct playable link for specific target platforms (Instant Playback for tracks; catalog search for albums)
+     * Resolves direct playable link for specific target platforms (Instant Playback for tracks; catalog search/entity lookup for albums)
      */
     private fun resolveDirectPlatformUrl(query: String, targetPlatformKey: String, isAlbum: Boolean = false): String? {
-        if (isAlbum) {
-            // For albums, always open the full album in target app (never single video)
-            return buildSearchUrl(query, targetPlatformKey)
-        }
-
         return when (targetPlatformKey) {
             "youtubeMusic" -> resolveYouTubeMusicDirectPlayUrl(query) ?: buildSearchUrl(query, "youtubeMusic")
-            "appleMusic" -> resolveAppleMusicDirectUrl(query) ?: buildSearchUrl(query, "appleMusic")
-            "deezer" -> resolveDeezerDirectUrl(query) ?: buildSearchUrl(query, "deezer")
+            "appleMusic" -> resolveAppleMusicDirectUrl(query, isAlbum) ?: buildSearchUrl(query, "appleMusic")
+            "deezer" -> resolveDeezerDirectUrl(query, isAlbum) ?: buildSearchUrl(query, "deezer")
             "spotify" -> buildSearchUrl(query, "spotify")
             "tidal" -> buildSearchUrl(query, "tidal")
             "amazonMusic" -> buildSearchUrl(query, "amazonMusic")
@@ -350,13 +345,14 @@ class OdesliRepository {
     }
 
     /**
-     * Resolves direct track URL on Apple Music using iTunes Public Search API
+     * Resolves direct track/album URL on Apple Music using iTunes Public Search API
      */
-    private fun resolveAppleMusicDirectUrl(query: String): String? {
+    private fun resolveAppleMusicDirectUrl(query: String, isAlbum: Boolean = false): String? {
         return try {
             val encoded = URLEncoder.encode(query, "UTF-8")
+            val entity = if (isAlbum) "album" else "song"
             val req = Request.Builder()
-                .url("https://itunes.apple.com/search?term=$encoded&entity=song&limit=1")
+                .url("https://itunes.apple.com/search?term=$encoded&entity=$entity&limit=1")
                 .get()
                 .build()
 
@@ -366,10 +362,10 @@ class OdesliRepository {
                 val json = JSONObject(body)
                 val results = json.optJSONArray("results")
                 if (results != null && results.length() > 0) {
-                    val track = results.getJSONObject(0)
-                    val trackViewUrl = track.optString("trackViewUrl")
-                    if (trackViewUrl.isNotEmpty()) {
-                        return trackViewUrl
+                    val item = results.getJSONObject(0)
+                    val viewUrl = if (isAlbum) item.optString("collectionViewUrl") else item.optString("trackViewUrl")
+                    if (viewUrl.isNotEmpty()) {
+                        return viewUrl
                     }
                 }
             }
@@ -381,13 +377,14 @@ class OdesliRepository {
     }
 
     /**
-     * Resolves direct track URL on Deezer using Deezer Public Search API
+     * Resolves direct track/album URL on Deezer using Deezer Public Search API
      */
-    private fun resolveDeezerDirectUrl(query: String): String? {
+    private fun resolveDeezerDirectUrl(query: String, isAlbum: Boolean = false): String? {
         return try {
             val encoded = URLEncoder.encode(query, "UTF-8")
+            val endpoint = if (isAlbum) "search/album" else "search"
             val req = Request.Builder()
-                .url("https://api.deezer.com/search?q=$encoded&limit=1")
+                .url("https://api.deezer.com/$endpoint?q=$encoded&limit=1")
                 .get()
                 .build()
 
@@ -397,8 +394,8 @@ class OdesliRepository {
                 val json = JSONObject(body)
                 val data = json.optJSONArray("data")
                 if (data != null && data.length() > 0) {
-                    val track = data.getJSONObject(0)
-                    val link = track.optString("link")
+                    val item = data.getJSONObject(0)
+                    val link = item.optString("link")
                     if (link.isNotEmpty()) {
                         return link
                     }
