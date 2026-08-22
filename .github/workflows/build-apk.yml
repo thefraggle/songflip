@@ -2,11 +2,8 @@ name: Build & Release Android APK
 
 on:
   push:
-    branches: [ main ]
     tags:
       - 'v*'
-  pull_request:
-    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -31,13 +28,13 @@ jobs:
       - name: Prepare APK Asset
         run: |
           mkdir -p dist
-          VERSION="${GITHUB_REF_NAME:-debug}"
+          VERSION="${GITHUB_REF_NAME:-manual-build}"
           cp app/build/outputs/apk/debug/app-debug.apk "dist/songflip-${VERSION}.apk"
 
       - name: Upload Debug APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: songflip-debug-apk
+          name: songflip-apk
           path: dist/*.apk
           if-no-files-found: error
           retention-days: 14
