@@ -55,6 +55,11 @@ class OdesliRepository {
                 cleanUrl
             }
 
+            // Playlist links cannot be converted 1:1 in background; reject cleanly to avoid garbage search results
+            if (isPlaylistUrl(canonicalUrl)) {
+                return@withContext OdesliResult.Error("PLAYLIST_NOT_SUPPORTED")
+            }
+
             val isExplicitAlbumUrl = isAlbumUrl(canonicalUrl)
 
             // 4. Try Songlink / Odesli web page metadata parsing (__NEXT_DATA__)
@@ -155,7 +160,14 @@ class OdesliRepository {
     }
 
     private fun isAlbumUrl(url: String): Boolean {
+        if (url.contains("i=")) return false // Apple Music track ID!
+        if (url.contains("/track/")) return false // Spotify / Deezer track!
         return url.contains("/album/") || url.contains("/album") || url.contains("album.link")
+    }
+
+    private fun isPlaylistUrl(url: String): Boolean {
+        if (url.contains("i=") || url.contains("/track/")) return false
+        return url.contains("/playlist/") || url.contains("/playlists/") || url.contains("link.deezer.com")
     }
 
     /**

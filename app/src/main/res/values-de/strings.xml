@@ -92,4 +92,5 @@
 
     <string name="redirecting_toast">Wandle Musik-Link um...</string>
     <string name="redirect_error_toast">Link konnte nicht umgewandelt werden. Öffne Original-Link.</string>
+    <string name="playlist_not_supported_toast">Playlisten können nicht direkt umgewandelt werden. Öffne Original-Link.</string>
 </resources>

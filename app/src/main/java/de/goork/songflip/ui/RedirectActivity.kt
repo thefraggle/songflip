@@ -87,9 +87,14 @@ class RedirectActivity : ComponentActivity() {
             if (result is OdesliResult.Success) {
                 openTargetUrl(result.targetUrl, targetPlatform)
             } else {
+                val errorMsg = if (result is OdesliResult.Error && result.message == "PLAYLIST_NOT_SUPPORTED") {
+                    getString(R.string.playlist_not_supported_toast)
+                } else {
+                    getString(R.string.redirect_error_toast)
+                }
                 Toast.makeText(
                     applicationContext,
-                    getString(R.string.redirect_error_toast),
+                    errorMsg,
                     Toast.LENGTH_SHORT
                 ).show()
                 forwardOriginalUrl(incomingUri)

@@ -92,4 +92,5 @@
 
     <string name="redirecting_toast">Flipping music link...</string>
     <string name="redirect_error_toast">Could not flip link. Opening original link.</string>
+    <string name="playlist_not_supported_toast">Playlists cannot be converted directly. Opening original link.</string>
 </resources>
