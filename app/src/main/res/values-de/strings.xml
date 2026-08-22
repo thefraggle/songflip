@@ -90,7 +90,11 @@
 
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
 
-    <string name="redirecting_toast">Wandle Musik-Link um...</string>
-    <string name="redirect_error_toast">Link konnte nicht umgewandelt werden. Öffne Original-Link.</string>
-    <string name="playlist_not_supported_toast">Playlisten können nicht direkt umgewandelt werden. Öffne Original-Link.</string>
+    <string name="legal_privacy">Datenschutz</string>
+    <string name="legal_imprint">Impressum</string>
+    <string name="legal_terms">Nutzungsbedingungen</string>
+
+    <string name="redirecting_toast">Musik-Link wird umgewandelt...</string>
+    <string name="redirect_error_toast">Link konnte nicht umgewandelt werden. Original-Link wird geöffnet.</string>
+    <string name="playlist_not_supported_toast">Playlisten können nicht direkt konvertiert werden. Original-Link wird geöffnet.</string>
 </resources>

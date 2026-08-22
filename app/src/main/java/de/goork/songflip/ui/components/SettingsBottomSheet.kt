@@ -38,6 +38,9 @@ import de.goork.songflip.ui.ServiceInfo
 
 private const val URL_FAMWAKE = "https://play.google.com/store/apps/details?id=de.familienwecker.famwake"
 private const val URL_NOTTHOFF = "https://notthoff.org"
+private const val URL_PRIVACY = "https://songflip.link/privacy-policy.html"
+private const val URL_IMPRINT = "https://songflip.link/imprint.html"
+private const val URL_TERMS = "https://songflip.link/terms.html"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -367,7 +370,7 @@ fun SettingsBottomSheet(
                 }
             }
 
-            // Version & Copyright
+            // Version, Copyright & Legal Links
             val appVersion = remember {
                 try {
                     "v" + context.packageManager.getPackageInfo(context.packageName, 0).versionName
@@ -376,19 +379,71 @@ fun SettingsBottomSheet(
                 }
             }
 
-            Text(
-                text = "SongFlip $appVersion • © 2026 Daniel Notthoff • notthoff.org",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                textAlign = TextAlign.Center,
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable {
+                    .padding(vertical = 12.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Text(
+                    text = "SongFlip $appVersion",
+                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Text(
+                    text = "© 2026 Daniel Notthoff",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
+                    modifier = Modifier.clickable {
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URL_NOTTHOFF))
                         context.startActivity(intent)
                     }
-                    .padding(vertical = 8.dp)
-            )
+                )
+                Spacer(modifier = Modifier.height(2.dp))
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = stringResource(R.string.legal_privacy),
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.clickable {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URL_PRIVACY))
+                            context.startActivity(intent)
+                        }
+                    )
+                    Text(
+                        text = "•",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+                    )
+                    Text(
+                        text = stringResource(R.string.legal_imprint),
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.clickable {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URL_IMPRINT))
+                            context.startActivity(intent)
+                        }
+                    )
+                    Text(
+                        text = "•",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+                    )
+                    Text(
+                        text = stringResource(R.string.legal_terms),
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.clickable {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URL_TERMS))
+                            context.startActivity(intent)
+                        }
+                    )
+                }
+            }
 
             Spacer(modifier = Modifier.height(16.dp))
         }
