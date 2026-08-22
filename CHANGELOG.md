@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-08-22
+
+### Changed
+- **Harmonized Live Status Banner**: Synchronized top status card with system domain verification state so initial setup requirements are clearly and accurately highlighted without contradictions.
+- **Legal Footer & Compliance**: Added direct links to Privacy Policy, Legal Notice (Impressum), and Terms of Service in the main UI and settings drawer.
+- **Dynamic Version Display**: Integrated dynamic app version badge into all UI footers.
+- **CI/CD Optimization**: Automated release notes parsing in GitHub Actions to extract and attach version-specific changelog notes to release tags.
+
 ## [1.0.0] - 2026-08-22
 
 ### Added
