@@ -16,6 +16,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Language
+import androidx.compose.material.icons.outlined.BrightnessAuto
+import androidx.compose.material.icons.outlined.DarkMode
+import androidx.compose.material.icons.outlined.LightMode
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -50,7 +53,9 @@ fun SettingsBottomSheet(
     targetServices: List<ServiceInfo>,
     supportedLanguages: List<LanguageItem>,
     currentLanguageCode: String,
-    onLanguageSelected: (String) -> Unit
+    onLanguageSelected: (String) -> Unit,
+    currentThemeMode: String,
+    onThemeModeSelected: (String) -> Unit
 ) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
@@ -58,6 +63,7 @@ fun SettingsBottomSheet(
     var tempCustomUrl by remember { mutableStateOf(settingsRepository.customApiUrl) }
     var tempCustomToken by remember { mutableStateOf(settingsRepository.customApiToken) }
     var showLanguagePickerSubSheet by remember { mutableStateOf(false) }
+    var selectedTheme by remember { mutableStateOf(currentThemeMode) }
 
     if (showLanguagePickerSubSheet) {
         ModalBottomSheet(
@@ -213,7 +219,64 @@ fun SettingsBottomSheet(
                 }
             }
 
-            // 2. Incoming Source Interception Toggles
+            // 2. Theme Mode Selection Card
+            Card(
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        Icon(
+                            imageVector = when (selectedTheme) {
+                                "light" -> Icons.Outlined.LightMode
+                                "dark" -> Icons.Outlined.DarkMode
+                                else -> Icons.Outlined.BrightnessAuto
+                            },
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(22.dp)
+                        )
+                        Text(
+                            text = stringResource(R.string.theme_label),
+                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+
+                    SingleChoiceSegmentedButtonRow(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        val themeOptions = listOf(
+                            "system" to stringResource(R.string.theme_system),
+                            "light" to stringResource(R.string.theme_light),
+                            "dark" to stringResource(R.string.theme_dark)
+                        )
+                        themeOptions.forEachIndexed { index, (mode, label) ->
+                            SegmentedButton(
+                                selected = selectedTheme == mode,
+                                onClick = {
+                                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                    selectedTheme = mode
+                                    settingsRepository.themeMode = mode
+                                    onThemeModeSelected(mode)
+                                },
+                                shape = SegmentedButtonDefaults.itemShape(index = index, count = themeOptions.size)
+                            ) {
+                                Text(label, style = MaterialTheme.typography.labelMedium)
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 3. Incoming Source Interception Toggles
             Card(
                 shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),

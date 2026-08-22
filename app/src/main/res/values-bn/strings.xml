@@ -73,4 +73,9 @@
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">মিউজিক লিঙ্ক রিডাইরেক্ট করা হচ্ছে...</string>
     <string name="redirect_error_toast">লিঙ্ক রিডাইরেক্ট করা যায়নি। আসল লিঙ্ক খোলা হচ্ছে।</string>
+
+    <string name="theme_label">থিম</string>
+    <string name="theme_system">সিস্টেম ডিফল্ট</string>
+    <string name="theme_light">হালকা</string>
+    <string name="theme_dark">গাঢ়</string>
 </resources>

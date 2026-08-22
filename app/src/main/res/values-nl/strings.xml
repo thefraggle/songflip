@@ -73,4 +73,9 @@
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">Muzieklink omleiden...</string>
     <string name="redirect_error_toast">Kon link niet omleiden. Oorspronkelijke link wordt geopend.</string>
+
+    <string name="theme_label">Thema</string>
+    <string name="theme_system">Systeemstandaard</string>
+    <string name="theme_light">Licht</string>
+    <string name="theme_dark">Donker</string>
 </resources>

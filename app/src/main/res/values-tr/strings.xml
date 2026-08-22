@@ -73,4 +73,9 @@
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">Müzik bağlantısı yönlendiriliyor...</string>
     <string name="redirect_error_toast">Bağlantı yönlendirilemedi. Orijinal bağlantı açılıyor.</string>
+
+    <string name="theme_label">Tema</string>
+    <string name="theme_system">Sistem varsayılanı</string>
+    <string name="theme_light">Açık</string>
+    <string name="theme_dark">Koyu</string>
 </resources>

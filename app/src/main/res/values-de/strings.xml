@@ -97,4 +97,9 @@
     <string name="redirecting_toast">Musik-Link wird umgewandelt...</string>
     <string name="redirect_error_toast">Link konnte nicht umgewandelt werden. Original-Link wird geöffnet.</string>
     <string name="playlist_not_supported_toast">Playlisten können nicht direkt konvertiert werden. Original-Link wird geöffnet.</string>
+
+    <string name="theme_label">Erscheinungsbild</string>
+    <string name="theme_system">Systemstandard</string>
+    <string name="theme_light">Hell</string>
+    <string name="theme_dark">Dunkel</string>
 </resources>

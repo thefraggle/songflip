@@ -73,4 +73,9 @@
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">Mengalihkan tautan musik...</string>
     <string name="redirect_error_toast">Gagal mengalihkan tautan. Membuka tautan asli.</string>
+
+    <string name="theme_label">Tema</string>
+    <string name="theme_system">Default sistem</string>
+    <string name="theme_light">Terang</string>
+    <string name="theme_dark">Gelap</string>
 </resources>

@@ -13,6 +13,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -64,12 +65,25 @@ class MainActivity : AppCompatActivity() {
         initialShowPauseSheet = intent?.getBooleanExtra("show_pause_sheet", false) == true
 
         setContent {
-            SongFlipTheme {
+            val settingsRepository = remember { SettingsRepository(this) }
+            var currentThemeMode by remember { mutableStateOf(settingsRepository.themeMode) }
+
+            val darkTheme = when (currentThemeMode) {
+                "light" -> false
+                "dark" -> true
+                else -> isSystemInDarkTheme()
+            }
+
+            SongFlipTheme(darkTheme = darkTheme) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainScreen(initialShowPause = initialShowPauseSheet)
+                    MainScreen(
+                        initialShowPause = initialShowPauseSheet,
+                        currentThemeMode = currentThemeMode,
+                        onThemeModeSelected = { newMode -> currentThemeMode = newMode }
+                    )
                 }
             }
         }
@@ -79,12 +93,25 @@ class MainActivity : AppCompatActivity() {
         super.onNewIntent(intent)
         if (intent.getBooleanExtra("show_pause_sheet", false)) {
             setContent {
-                SongFlipTheme {
+                val settingsRepository = remember { SettingsRepository(this) }
+                var currentThemeMode by remember { mutableStateOf(settingsRepository.themeMode) }
+
+                val darkTheme = when (currentThemeMode) {
+                    "light" -> false
+                    "dark" -> true
+                    else -> isSystemInDarkTheme()
+                }
+
+                SongFlipTheme(darkTheme = darkTheme) {
                     Surface(
                         modifier = Modifier.fillMaxSize(),
                         color = MaterialTheme.colorScheme.background
                     ) {
-                        MainScreen(initialShowPause = true)
+                        MainScreen(
+                            initialShowPause = true,
+                            currentThemeMode = currentThemeMode,
+                            onThemeModeSelected = { newMode -> currentThemeMode = newMode }
+                        )
                     }
                 }
             }
@@ -106,7 +133,11 @@ data class LanguageItem(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(initialShowPause: Boolean = false) {
+fun MainScreen(
+    initialShowPause: Boolean = false,
+    currentThemeMode: String = "system",
+    onThemeModeSelected: (String) -> Unit = {}
+) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val haptic = LocalHapticFeedback.current
@@ -233,7 +264,9 @@ fun MainScreen(initialShowPause: Boolean = false) {
             currentLanguageCode = selectedLanguage,
             onLanguageSelected = { newLang ->
                 selectedLanguage = newLang
-            }
+            },
+            currentThemeMode = currentThemeMode,
+            onThemeModeSelected = onThemeModeSelected
         )
     }
 
@@ -575,18 +608,10 @@ fun MainScreen(initialShowPause: Boolean = false) {
                                 statusType = StatusType.ACTIVE
                             )
                         } else if (status.isPartiallyEnabled) {
-                            val missingSample = status.unverifiedHosts.take(3).joinToString(", ")
-                            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                                StatusBadge(
-                                    text = stringResource(R.string.status_partial_active, status.enabledHosts, status.totalHosts),
-                                    statusType = StatusType.WARNING
-                                )
-                                Text(
-                                    text = stringResource(R.string.status_missing_hint, missingSample),
-                                    style = MaterialTheme.typography.labelSmall,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
-                            }
+                            StatusBadge(
+                                text = stringResource(R.string.status_partial_active, status.enabledHosts, status.totalHosts),
+                                statusType = StatusType.WARNING
+                            )
                         } else {
                             StatusBadge(
                                 text = stringResource(R.string.status_inactive),

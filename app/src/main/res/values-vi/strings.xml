@@ -73,4 +73,9 @@
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">Đang chuyển hướng liên kết âm nhạc...</string>
     <string name="redirect_error_toast">Không thể chuyển hướng liên kết. Đang mở liên kết gốc.</string>
+
+    <string name="theme_label">Giao diện</string>
+    <string name="theme_system">Mặc định hệ thống</string>
+    <string name="theme_light">Sáng</string>
+    <string name="theme_dark">Tối</string>
 </resources>

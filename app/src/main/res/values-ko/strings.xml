@@ -73,4 +73,9 @@
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">음악 링크 리디렉션 중...</string>
     <string name="redirect_error_toast">링크를 리디렉션할 수 없습니다. 원본 링크를 엽니다.</string>
+
+    <string name="theme_label">테마</string>
+    <string name="theme_system">시스템 기본값</string>
+    <string name="theme_light">라이트</string>
+    <string name="theme_dark">다크</string>
 </resources>

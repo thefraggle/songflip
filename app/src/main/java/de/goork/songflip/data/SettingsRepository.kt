@@ -19,6 +19,12 @@ class SettingsRepository(context: Context) {
             prefs.edit().putString(KEY_APP_LANGUAGE, value).apply()
         }
 
+    var themeMode: String
+        get() = prefs.getString(KEY_THEME_MODE, DEFAULT_THEME_MODE) ?: DEFAULT_THEME_MODE
+        set(value) {
+            prefs.edit().putString(KEY_THEME_MODE, value).apply()
+        }
+
     var customApiUrl: String
         get() = prefs.getString(KEY_CUSTOM_API_URL, "") ?: ""
         set(value) {
@@ -43,11 +49,13 @@ class SettingsRepository(context: Context) {
         const val PREFS_NAME = "songflip_settings"
         private const val KEY_TARGET_PLATFORM = "target_platform"
         private const val KEY_APP_LANGUAGE = "app_language"
+        private const val KEY_THEME_MODE = "theme_mode"
         private const val KEY_CUSTOM_API_URL = "custom_api_url"
         private const val KEY_CUSTOM_API_TOKEN = "custom_api_token"
         private const val KEY_INPUT_PREFIX = "input_enabled_"
 
         const val DEFAULT_TARGET = "youtubeMusic"
         const val DEFAULT_LANGUAGE = "de"
+        const val DEFAULT_THEME_MODE = "system"
     }
 }

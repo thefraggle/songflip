@@ -73,4 +73,9 @@
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">Redirigiendo enlace de música...</string>
     <string name="redirect_error_toast">No se pudo redirigir el enlace. Abriendo enlace original.</string>
+
+    <string name="theme_label">Tema</string>
+    <string name="theme_system">Predeterminado del sistema</string>
+    <string name="theme_light">Claro</string>
+    <string name="theme_dark">Oscuro</string>
 </resources>

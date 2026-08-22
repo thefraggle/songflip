@@ -73,4 +73,9 @@
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">Omdirigerar musiklänk...</string>
     <string name="redirect_error_toast">Kunde inte omdirigera länk. Öppnar originallänk.</string>
+
+    <string name="theme_label">Tema</string>
+    <string name="theme_system">Systemstandard</string>
+    <string name="theme_light">Ljust</string>
+    <string name="theme_dark">Mörkt</string>
 </resources>

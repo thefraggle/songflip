@@ -73,4 +73,9 @@
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">Перенаправление ссылки...</string>
     <string name="redirect_error_toast">Не удалось перенаправить ссылку. Открываем оригинал.</string>
+
+    <string name="theme_label">Тема</string>
+    <string name="theme_system">Системная</string>
+    <string name="theme_light">Светлая</string>
+    <string name="theme_dark">Тёмная</string>
 </resources>

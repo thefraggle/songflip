@@ -73,4 +73,9 @@
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">音楽リンクをリダイレクト中...</string>
     <string name="redirect_error_toast">リンクをリダイレクトできませんでした。元のリンクを開きます。</string>
+
+    <string name="theme_label">テーマ</string>
+    <string name="theme_system">システムのデフォルト</string>
+    <string name="theme_light">ライト</string>
+    <string name="theme_dark">ダーク</string>
 </resources>
