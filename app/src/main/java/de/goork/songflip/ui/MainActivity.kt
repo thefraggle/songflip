@@ -241,7 +241,10 @@ fun MainScreen(initialShowPause: Boolean = false) {
     // Main UI Layout
     // ─────────────────────────────────────────────────────────────────────────
     BoxWithConstraints(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .statusBarsPadding()
+            .navigationBarsPadding(),
         contentAlignment = Alignment.TopCenter
     ) {
         val isWideScreen = maxWidth >= 600.dp
@@ -250,12 +253,12 @@ fun MainScreen(initialShowPause: Boolean = false) {
                 .width(560.dp)
                 .fillMaxHeight()
                 .verticalScroll(scrollState)
-                .padding(horizontal = 20.dp, vertical = 24.dp)
+                .padding(horizontal = 20.dp, vertical = 12.dp)
         } else {
             Modifier
                 .fillMaxSize()
                 .verticalScroll(scrollState)
-                .padding(horizontal = 20.dp, vertical = 20.dp)
+                .padding(horizontal = 20.dp, vertical = 8.dp)
         }
 
         Column(
