@@ -1,8 +1,10 @@
-name: Build Android APK
+name: Build & Release Android APK
 
 on:
   push:
     branches: [ main ]
+    tags:
+      - 'v*'
   pull_request:
     branches: [ main ]
   workflow_dispatch:
@@ -26,10 +28,27 @@ jobs:
       - name: Build Debug APK
         run: ./gradlew assembleDebug
 
+      - name: Prepare APK Asset
+        run: |
+          mkdir -p dist
+          VERSION="${GITHUB_REF_NAME:-debug}"
+          cp app/build/outputs/apk/debug/app-debug.apk "dist/songflip-${VERSION}.apk"
+
       - name: Upload Debug APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: songflip-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: dist/*.apk
           if-no-files-found: error
           retention-days: 14
+
+      - name: Attach APK to Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.apk
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
