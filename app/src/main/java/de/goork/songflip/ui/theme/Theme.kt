@@ -11,6 +11,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
+import androidx.compose.ui.graphics.toArgb
+
 private val DarkColorScheme = darkColorScheme(
     primary = StateActiveGreen,
     onPrimary = Color(0xFF022C22),
@@ -62,6 +64,11 @@ fun SongFlipTheme(
         SideEffect {
             val window = (view.context as? Activity)?.window
             if (window != null) {
+                WindowCompat.setDecorFitsSystemWindows(window, false)
+                window.statusBarColor = android.graphics.Color.TRANSPARENT
+                window.navigationBarColor = android.graphics.Color.TRANSPARENT
+                window.decorView.setBackgroundColor(colorScheme.background.toArgb())
+
                 val insetsController = WindowCompat.getInsetsController(window, view)
                 insetsController.isAppearanceLightStatusBars = !darkTheme
                 insetsController.isAppearanceLightNavigationBars = !darkTheme

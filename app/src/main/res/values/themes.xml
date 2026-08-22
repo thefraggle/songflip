@@ -1,6 +1,8 @@
 <resources>
     <style name="Theme.SongFlip" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
     <style name="Theme.SongFlip.Transparent" parent="Theme.AppCompat.DayNight.NoActionBar">
