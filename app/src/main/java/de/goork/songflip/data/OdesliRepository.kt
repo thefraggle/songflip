@@ -19,8 +19,8 @@ sealed class OdesliResult {
 class OdesliRepository {
 
     private val client = OkHttpClient.Builder()
-        .connectTimeout(4, TimeUnit.SECONDS)
-        .readTimeout(4, TimeUnit.SECONDS)
+        .connectTimeout(5, TimeUnit.SECONDS)
+        .readTimeout(5, TimeUnit.SECONDS)
         .followRedirects(true)
         .followSslRedirects(true)
         .build()
@@ -48,12 +48,14 @@ class OdesliRepository {
                 }
             }
 
-            // 3. Resolve short links (spotify.link, deezer.page.link, amzn.to, youtu.be, etc.)
+            // 3. Resolve short links (spotify.link, link.deezer.com, deezer.page.link, amzn.to, youtu.be, etc.)
             val canonicalUrl = if (isShortLinkDomain(cleanUrl)) {
                 resolveCanonicalUrl(cleanUrl)
             } else {
                 cleanUrl
             }
+
+            val isExplicitAlbumUrl = isAlbumUrl(canonicalUrl)
 
             // 4. Try Songlink / Odesli web page metadata parsing (__NEXT_DATA__)
             val songLinkData = fetchSongLinkData(canonicalUrl)
@@ -67,7 +69,7 @@ class OdesliRepository {
                     return@withContext OdesliResult.Success(formatted, targetPlatformKey)
                 }
 
-                // If target platform link is not directly available, use the extracted track title + artist
+                // If target platform link is not directly available, use the extracted track/album title + artist
                 if (songLinkData.title.isNotEmpty()) {
                     val query = if (songLinkData.artist.isNotEmpty() && !songLinkData.title.contains(songLinkData.artist, ignoreCase = true)) {
                         "${songLinkData.artist} ${songLinkData.title}"
@@ -75,7 +77,11 @@ class OdesliRepository {
                         songLinkData.title
                     }
 
-                    val resolvedDirectUrl = resolveDirectPlatformUrl(query, targetPlatformKey)
+                    val resolvedDirectUrl = resolveDirectPlatformUrl(
+                        query = query,
+                        targetPlatformKey = targetPlatformKey,
+                        isAlbum = songLinkData.isAlbum || isExplicitAlbumUrl
+                    )
                     if (resolvedDirectUrl != null) {
                         return@withContext OdesliResult.Success(resolvedDirectUrl, targetPlatformKey)
                     }
@@ -85,12 +91,16 @@ class OdesliRepository {
             // 5. Fallback Metadata Extraction via Service OEmbed / Public APIs
             val trackInfo = extractTrackInfo(canonicalUrl)
             if (trackInfo != null && trackInfo.isNotBlank()) {
-                val resolvedDirectUrl = resolveDirectPlatformUrl(trackInfo, targetPlatformKey)
+                val resolvedDirectUrl = resolveDirectPlatformUrl(
+                    query = trackInfo,
+                    targetPlatformKey = targetPlatformKey,
+                    isAlbum = isExplicitAlbumUrl
+                )
                 if (resolvedDirectUrl != null) {
                     return@withContext OdesliResult.Success(resolvedDirectUrl, targetPlatformKey)
                 }
 
-                // Final Track Fallback: Direct Search URL in target service
+                // Final Track/Album Fallback: Direct Search URL in target service
                 return@withContext OdesliResult.Success(buildSearchUrl(trackInfo, targetPlatformKey), "${targetPlatformKey}_search")
             }
 
@@ -101,12 +111,21 @@ class OdesliRepository {
                 return@withContext OdesliResult.Success(searchUrl, "${targetPlatformKey}_artist")
             }
 
+            // 7. Fallback: Playlist Detection & Search Routing
+            val playlistInfo = extractPlaylistInfo(canonicalUrl)
+            if (playlistInfo != null && playlistInfo.isNotBlank()) {
+                val searchUrl = buildSearchUrl(playlistInfo, targetPlatformKey)
+                return@withContext OdesliResult.Success(searchUrl, "${targetPlatformKey}_playlist")
+            }
+
             OdesliResult.Error("Could not resolve music link")
         } catch (e: Exception) {
             val cleanUrl = extractCleanUrl(inputUrl) ?: inputUrl
+            val isExplicitAlbumUrl = isAlbumUrl(cleanUrl)
+
             val trackInfo = extractTrackInfo(cleanUrl)
             if (trackInfo != null) {
-                val resolved = resolveDirectPlatformUrl(trackInfo, targetPlatformKey)
+                val resolved = resolveDirectPlatformUrl(trackInfo, targetPlatformKey, isExplicitAlbumUrl)
                     ?: buildSearchUrl(trackInfo, targetPlatformKey)
                 return@withContext OdesliResult.Success(resolved, "${targetPlatformKey}_fallback")
             }
@@ -116,6 +135,11 @@ class OdesliRepository {
                 return@withContext OdesliResult.Success(buildSearchUrl(artistInfo, targetPlatformKey), "${targetPlatformKey}_artist_fallback")
             }
 
+            val playlistInfo = extractPlaylistInfo(cleanUrl)
+            if (playlistInfo != null) {
+                return@withContext OdesliResult.Success(buildSearchUrl(playlistInfo, targetPlatformKey), "${targetPlatformKey}_playlist_fallback")
+            }
+
             OdesliResult.Error(e.localizedMessage ?: "Unknown network error")
         }
     }
@@ -123,24 +147,81 @@ class OdesliRepository {
     private data class SongLinkData(
         val title: String,
         val artist: String,
+        val type: String,
         val links: Map<String, String>
-    )
+    ) {
+        val isAlbum: Boolean
+            get() = type.equals("album", ignoreCase = true) || type.equals("ep", ignoreCase = true)
+    }
+
+    private fun isAlbumUrl(url: String): Boolean {
+        return url.contains("/album/") || url.contains("/album") || url.contains("album.link")
+    }
+
+    /**
+     * Normalizes streaming URLs into direct 0-redirect Songlink/Albumlink URLs
+     */
+    private fun normalizeToSongLinkDirectUrl(url: String): String {
+        val clean = if (url.contains("?")) url.substringBefore("?") else url
+
+        // Spotify
+        if (clean.contains("open.spotify.com/track/")) {
+            val id = clean.substringAfter("/track/").substringBefore("/").trim()
+            if (id.isNotEmpty()) return "https://song.link/s/$id"
+        }
+        if (clean.contains("open.spotify.com/album/")) {
+            val id = clean.substringAfter("/album/").substringBefore("/").trim()
+            if (id.isNotEmpty()) return "https://album.link/s/$id"
+        }
+
+        // Apple Music
+        if (url.contains("apple.com") && url.contains("i=")) {
+            val id = url.substringAfter("i=").substringBefore("&").substringBefore("?").trim()
+            if (id.isNotEmpty()) return "https://song.link/i/$id"
+        }
+        if (clean.contains("apple.com") && clean.contains("/album/")) {
+            val id = clean.trimEnd('/').substringAfterLast("/").trim()
+            if (id.isNotEmpty() && id.all { it.isDigit() }) return "https://album.link/i/$id"
+        }
+
+        // Deezer
+        if (clean.contains("deezer.com") && clean.contains("/track/")) {
+            val id = clean.substringAfter("/track/").substringBefore("/").trim()
+            if (id.isNotEmpty()) return "https://song.link/d/$id"
+        }
+        if (clean.contains("deezer.com") && clean.contains("/album/")) {
+            val id = clean.substringAfter("/album/").substringBefore("/").trim()
+            if (id.isNotEmpty()) return "https://album.link/d/$id"
+        }
+
+        // YouTube
+        if (clean.contains("youtu.be/")) {
+            val id = clean.substringAfter("youtu.be/").substringBefore("/").substringBefore("?").trim()
+            if (id.isNotEmpty()) return "https://song.link/y/$id"
+        }
+        if (url.contains("youtube.com/watch") && url.contains("v=")) {
+            val id = url.substringAfter("v=").substringBefore("&").substringBefore("?").trim()
+            if (id.isNotEmpty()) return "https://song.link/y/$id"
+        }
+
+        val regionalCleaned = url
+            .replace("music.amazon.de", "music.amazon.com")
+            .replace("music.amazon.co.uk", "music.amazon.com")
+            .replace("music.amazon.fr", "music.amazon.com")
+            .replace("music.amazon.it", "music.amazon.com")
+            .replace("music.amazon.es", "music.amazon.com")
+            .replace("music.amazon.co.jp", "music.amazon.com")
+            .replace("geo.music.apple.com", "music.apple.com")
+
+        return if (clean.contains("/album/")) "https://album.link/$regionalCleaned" else "https://song.link/$regionalCleaned"
+    }
 
     /**
      * Queries song.link web page and extracts JSON from __NEXT_DATA__
      */
     private fun fetchSongLinkData(url: String): SongLinkData? {
         return try {
-            val normalizedUrl = url
-                .replace("music.amazon.de", "music.amazon.com")
-                .replace("music.amazon.co.uk", "music.amazon.com")
-                .replace("music.amazon.fr", "music.amazon.com")
-                .replace("music.amazon.it", "music.amazon.com")
-                .replace("music.amazon.es", "music.amazon.com")
-                .replace("music.amazon.co.jp", "music.amazon.com")
-                .replace("geo.music.apple.com", "music.apple.com")
-
-            val targetSongLink = "https://song.link/$normalizedUrl"
+            val targetSongLink = normalizeToSongLinkDirectUrl(url)
             val req = Request.Builder()
                 .url(targetSongLink)
                 .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
@@ -167,6 +248,7 @@ class OdesliRepository {
             val entityData = pageData.optJSONObject("entityData")
             val title = entityData?.optString("title", "") ?: ""
             val artist = entityData?.optString("artistName", "") ?: ""
+            val entityType = entityData?.optString("type", "") ?: ""
 
             val linksMap = mutableMapOf<String, String>()
             val sections = pageData.optJSONArray("sections")
@@ -185,16 +267,21 @@ class OdesliRepository {
                 }
             }
 
-            SongLinkData(title = title, artist = artist, links = linksMap)
+            SongLinkData(title = title, artist = artist, type = entityType, links = linksMap)
         } catch (e: Exception) {
             null
         }
     }
 
     /**
-     * Resolves direct playable track link for specific target platforms (Instant Playback!)
+     * Resolves direct playable link for specific target platforms (Instant Playback for tracks; catalog search for albums)
      */
-    private fun resolveDirectPlatformUrl(query: String, targetPlatformKey: String): String? {
+    private fun resolveDirectPlatformUrl(query: String, targetPlatformKey: String, isAlbum: Boolean = false): String? {
+        if (isAlbum) {
+            // For albums, always open the full album in target app (never single video)
+            return buildSearchUrl(query, targetPlatformKey)
+        }
+
         return when (targetPlatformKey) {
             "youtubeMusic" -> resolveYouTubeMusicDirectPlayUrl(query) ?: buildSearchUrl(query, "youtubeMusic")
             "appleMusic" -> resolveAppleMusicDirectUrl(query) ?: buildSearchUrl(query, "appleMusic")
@@ -469,7 +556,7 @@ class OdesliRepository {
                 }
                 resp.close()
             }
-            // 3. Apple Music Artist (e.g. music.apple.com/de/artist/queen/3296287)
+            // 3. Apple Music Artist (e.g. music.apple.com/de/artist/queen/3296287 or /artist/eminem/111051)
             else if (url.contains("apple.com") && url.contains("/artist/")) {
                 val artistId = url.substringAfterLast("/").substringBefore("?").substringBefore("&").trim()
                 if (artistId.isNotEmpty() && artistId.all { it.isDigit() }) {
@@ -534,6 +621,53 @@ class OdesliRepository {
                 } else {
                     resp.close()
                 }
+            }
+            null
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    /**
+     * Extracts playlist name from playlist URLs (Deezer, Spotify, Apple Music)
+     */
+    private fun extractPlaylistInfo(url: String): String? {
+        return try {
+            // 1. Deezer Playlist
+            if (url.contains("deezer.com") && url.contains("/playlist/")) {
+                val playlistId = url.substringAfter("/playlist/").substringBefore("?").substringBefore("/").trim()
+                if (playlistId.isNotEmpty()) {
+                    val req = Request.Builder()
+                        .url("https://api.deezer.com/playlist/$playlistId")
+                        .get()
+                        .build()
+                    val resp = client.newCall(req).execute()
+                    if (resp.isSuccessful) {
+                        val body = resp.body?.string() ?: ""
+                        val json = JSONObject(body)
+                        val title = json.optString("title")
+                        resp.close()
+                        if (title.isNotEmpty()) return title
+                    }
+                    resp.close()
+                }
+            }
+            // 2. Spotify Playlist
+            else if (url.contains("spotify.com") && url.contains("/playlist/")) {
+                val encoded = URLEncoder.encode(url, "UTF-8")
+                val req = Request.Builder()
+                    .url("https://open.spotify.com/oembed?url=$encoded")
+                    .get()
+                    .build()
+                val resp = client.newCall(req).execute()
+                if (resp.isSuccessful) {
+                    val body = resp.body?.string() ?: ""
+                    val json = JSONObject(body)
+                    val title = json.optString("title")
+                    resp.close()
+                    if (title.isNotEmpty()) return title
+                }
+                resp.close()
             }
             null
         } catch (e: Exception) {
@@ -614,11 +748,13 @@ class OdesliRepository {
     private fun isShortLinkDomain(url: String): Boolean {
         return url.contains("spotify.link") ||
                 url.contains("deezer.page.link") ||
+                url.contains("link.deezer.com") ||
                 url.contains("youtu.be") ||
                 url.contains("t.co") ||
                 url.contains("bit.ly") ||
                 url.contains("amzn.to") ||
-                url.contains("a.co")
+                url.contains("a.co") ||
+                url.contains("apple.co")
     }
 
     private fun resolveCanonicalUrl(url: String): String {
