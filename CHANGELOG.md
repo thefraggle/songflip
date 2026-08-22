@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.5] - 2026-08-22
+
+### Improvements
+- **Android 15 (Target SDK 35)**: Full compatibility with the latest Android 15 platform standards.
+- **Edge-to-Edge Experience**: Refined transparent system status bar for dark and light modes.
+
 ## [1.0.4] - 2026-08-22
 
 ### Improvements

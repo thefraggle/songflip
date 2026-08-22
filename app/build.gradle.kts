@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
-val appVersionName = "1.0.4"
+val appVersionName = "1.0.5"
 val versionParts = appVersionName.split(".")
 val computedVersionCode = (versionParts.getOrElse(0) { "1" }.toInt() * 10000) +
                           (versionParts.getOrElse(1) { "0" }.toInt() * 100) +
@@ -11,12 +11,12 @@ val computedVersionCode = (versionParts.getOrElse(0) { "1" }.toInt() * 10000) +
 
 android {
     namespace = "de.goork.songflip"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "de.goork.songflip"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
         versionCode = computedVersionCode
         versionName = appVersionName
 
