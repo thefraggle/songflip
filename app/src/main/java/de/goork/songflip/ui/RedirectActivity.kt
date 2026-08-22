@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import de.goork.songflip.R
 import de.goork.songflip.data.OdesliRepository
 import de.goork.songflip.data.OdesliResult
+import de.goork.songflip.data.PackageUtils
 import de.goork.songflip.data.PauseHelper
 import de.goork.songflip.data.SettingsRepository
 import kotlinx.coroutines.launch
@@ -27,34 +28,27 @@ class RedirectActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val settingsRepository = SettingsRepository(this)
-        val incomingUrl: String?
-        val incomingUri: Uri?
 
-        if (Intent.ACTION_SEND == intent?.action && intent?.type == "text/plain") {
-            val sharedText = intent.getStringExtra(Intent.EXTRA_TEXT) ?: ""
-            incomingUrl = sharedText
-            incomingUri = Uri.parse(sharedText)
+        val rawInput = if (Intent.ACTION_SEND == intent?.action && intent?.type == "text/plain") {
+            intent.getStringExtra(Intent.EXTRA_TEXT) ?: ""
         } else {
-            incomingUri = intent?.data
-            incomingUrl = incomingUri?.toString()
+            intent?.dataString ?: ""
         }
 
-        if (incomingUrl.isNullOrBlank()) {
+        val incomingUrl = odesliRepository.extractCleanUrl(rawInput) ?: rawInput
+        if (incomingUrl.isBlank() || (!incomingUrl.startsWith("http://") && !incomingUrl.startsWith("https://"))) {
             finish()
             suppressTransitionAnimation()
             return
         }
 
-        val host = incomingUri?.host ?: ""
+        val incomingUri = Uri.parse(incomingUrl)
+        val host = incomingUri.host ?: ""
         val sourcePlatformKey = detectSourcePlatformKey(host, incomingUrl)
 
         // 1. Check if SongFlip is currently paused
         if (PauseHelper.isCurrentlyPaused(this)) {
-            if (incomingUri != null) {
-                forwardOriginalUrl(incomingUri)
-            } else {
-                openUrl(incomingUrl)
-            }
+            forwardOriginalUrl(incomingUri)
             finish()
             suppressTransitionAnimation()
             return
@@ -62,11 +56,7 @@ class RedirectActivity : AppCompatActivity() {
 
         // 2. Check if the user has disabled link interception for this platform
         if (sourcePlatformKey != null && !settingsRepository.isInputPlatformEnabled(sourcePlatformKey)) {
-            if (incomingUri != null) {
-                forwardOriginalUrl(incomingUri)
-            } else {
-                openUrl(incomingUrl)
-            }
+            forwardOriginalUrl(incomingUri)
             finish()
             suppressTransitionAnimation()
             return
@@ -95,18 +85,14 @@ class RedirectActivity : AppCompatActivity() {
             }
 
             if (result is OdesliResult.Success) {
-                openUrl(result.targetUrl)
+                openTargetUrl(result.targetUrl, targetPlatform)
             } else {
                 Toast.makeText(
                     applicationContext,
                     getString(R.string.redirect_error_toast),
                     Toast.LENGTH_SHORT
                 ).show()
-                if (incomingUri != null) {
-                    forwardOriginalUrl(incomingUri)
-                } else {
-                    openUrl(incomingUrl)
-                }
+                forwardOriginalUrl(incomingUri)
             }
             finish()
             suppressTransitionAnimation()
@@ -126,19 +112,33 @@ class RedirectActivity : AppCompatActivity() {
         }
     }
 
-    private fun openUrl(url: String) {
-        try {
-            val viewIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    /**
+     * Opens target music link directly in target player app if installed (explicit package launch),
+     * completely eliminating intent disambiguation dialogs and infinite intercept loops.
+     */
+    private fun openTargetUrl(url: String, targetPlatformKey: String) {
+        val targetPackage = PackageUtils.packageMap[targetPlatformKey]
+        val isTargetInstalled = PackageUtils.isAppInstalled(this, targetPlatformKey)
+
+        if (isTargetInstalled && targetPackage != null) {
+            try {
+                val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+                    setPackage(targetPackage)
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+                startActivity(appIntent)
+                return
+            } catch (e: Exception) {
+                // Fallback to browser if explicit package launch fails
             }
-            startActivity(viewIntent)
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
+
+        // App not installed: open in web browser without re-triggering SongFlip
+        forwardOriginalUrl(Uri.parse(url))
     }
 
     /**
-     * Forwards original music URL to a web browser when redirect is disabled or resolution fails.
+     * Forwards original music URL to a web browser when redirect is disabled, paused, or resolution fails.
      * Queries generic HTTPS browsers and sets explicit package name to guarantee bypassing SongFlip.
      */
     private fun forwardOriginalUrl(uri: Uri) {
@@ -171,7 +171,12 @@ class RedirectActivity : AppCompatActivity() {
             }
             startActivity(browserIntent)
         } catch (e: Exception) {
-            openUrl(uri.toString())
+            try {
+                val fallbackIntent = Intent(Intent.ACTION_VIEW, uri).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+                startActivity(fallbackIntent)
+            } catch (ignored: Exception) {}
         }
     }
 

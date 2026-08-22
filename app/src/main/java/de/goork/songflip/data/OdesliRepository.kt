@@ -90,8 +90,15 @@ class OdesliRepository {
                     return@withContext OdesliResult.Success(resolvedDirectUrl, targetPlatformKey)
                 }
 
-                // Final Fallback: Direct Search URL in target service
+                // Final Track Fallback: Direct Search URL in target service
                 return@withContext OdesliResult.Success(buildSearchUrl(trackInfo, targetPlatformKey), "${targetPlatformKey}_search")
+            }
+
+            // 6. Fallback: Artist Page Detection & Direct Catalog Routing
+            val artistInfo = extractArtistInfo(canonicalUrl)
+            if (artistInfo != null && artistInfo.isNotBlank()) {
+                val searchUrl = buildSearchUrl(artistInfo, targetPlatformKey)
+                return@withContext OdesliResult.Success(searchUrl, "${targetPlatformKey}_artist")
             }
 
             OdesliResult.Error("Could not resolve music link")
@@ -102,6 +109,11 @@ class OdesliRepository {
                 val resolved = resolveDirectPlatformUrl(trackInfo, targetPlatformKey)
                     ?: buildSearchUrl(trackInfo, targetPlatformKey)
                 return@withContext OdesliResult.Success(resolved, "${targetPlatformKey}_fallback")
+            }
+
+            val artistInfo = extractArtistInfo(cleanUrl)
+            if (artistInfo != null) {
+                return@withContext OdesliResult.Success(buildSearchUrl(artistInfo, targetPlatformKey), "${targetPlatformKey}_artist_fallback")
             }
 
             OdesliResult.Error(e.localizedMessage ?: "Unknown network error")
@@ -391,6 +403,119 @@ class OdesliRepository {
         }
     }
 
+    /**
+     * Extracts artist name for artist pages across streaming services (Deezer, Spotify, Apple, YouTube, Tidal)
+     */
+    private fun extractArtistInfo(url: String): String? {
+        return try {
+            // 1. Deezer Artist (e.g. deezer.com/artist/1234 or deezer.com/en/artist/1234)
+            if (url.contains("deezer.com") && url.contains("/artist/")) {
+                val artistId = url.substringAfter("/artist/").substringBefore("?").substringBefore("/").trim()
+                if (artistId.isNotEmpty()) {
+                    val req = Request.Builder()
+                        .url("https://api.deezer.com/artist/$artistId")
+                        .get()
+                        .build()
+                    val resp = client.newCall(req).execute()
+                    if (resp.isSuccessful) {
+                        val body = resp.body?.string() ?: ""
+                        val json = JSONObject(body)
+                        val name = json.optString("name")
+                        resp.close()
+                        if (name.isNotEmpty()) return name
+                    }
+                    resp.close()
+                }
+            }
+            // 2. Spotify Artist (e.g. open.spotify.com/artist/...)
+            else if (url.contains("spotify.com") && url.contains("/artist/")) {
+                val encoded = URLEncoder.encode(url, "UTF-8")
+                val req = Request.Builder()
+                    .url("https://open.spotify.com/oembed?url=$encoded")
+                    .get()
+                    .build()
+                val resp = client.newCall(req).execute()
+                if (resp.isSuccessful) {
+                    val body = resp.body?.string() ?: ""
+                    val json = JSONObject(body)
+                    val title = json.optString("title")
+                    resp.close()
+                    if (title.isNotEmpty()) return title
+                }
+                resp.close()
+            }
+            // 3. Apple Music Artist (e.g. music.apple.com/de/artist/queen/3296287)
+            else if (url.contains("apple.com") && url.contains("/artist/")) {
+                val artistId = url.substringAfterLast("/").substringBefore("?").substringBefore("&").trim()
+                if (artistId.isNotEmpty() && artistId.all { it.isDigit() }) {
+                    val req = Request.Builder()
+                        .url("https://itunes.apple.com/lookup?id=$artistId")
+                        .get()
+                        .build()
+                    val resp = client.newCall(req).execute()
+                    if (resp.isSuccessful) {
+                        val body = resp.body?.string() ?: ""
+                        val json = JSONObject(body)
+                        val results = json.optJSONArray("results")
+                        if (results != null && results.length() > 0) {
+                            val artistObj = results.getJSONObject(0)
+                            val artistName = artistObj.optString("artistName")
+                            resp.close()
+                            if (artistName.isNotEmpty()) return artistName
+                        }
+                    }
+                    resp.close()
+                }
+                val slug = url.substringAfter("/artist/").substringBefore("/").replace("-", " ")
+                if (slug.isNotEmpty() && !slug.all { it.isDigit() }) {
+                    return slug
+                }
+            }
+            // 4. YouTube / YT Music Channel / Artist
+            else if (url.contains("youtube.com/channel/") || url.contains("youtube.com/@") || url.contains("music.youtube.com/channel/")) {
+                val encoded = URLEncoder.encode(url, "UTF-8")
+                val req = Request.Builder()
+                    .url("https://www.youtube.com/oembed?url=$encoded&format=json")
+                    .get()
+                    .build()
+                val resp = client.newCall(req).execute()
+                if (resp.isSuccessful) {
+                    val body = resp.body?.string() ?: ""
+                    val json = JSONObject(body)
+                    val authorName = json.optString("author_name")
+                    val title = json.optString("title")
+                    resp.close()
+                    if (authorName.isNotEmpty()) return authorName
+                    if (title.isNotEmpty()) return title
+                }
+                resp.close()
+            }
+            // 5. Tidal Artist
+            else if (url.contains("tidal.com") && url.contains("/artist/")) {
+                val req = Request.Builder()
+                    .url(url)
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+                    .get()
+                    .build()
+                val resp = client.newCall(req).execute()
+                if (resp.isSuccessful) {
+                    val html = resp.body?.string() ?: ""
+                    resp.close()
+                    val titleTag = "<title>"
+                    if (html.contains(titleTag)) {
+                        val title = html.substringAfter(titleTag).substringBefore("</title>").substringBefore(" on TIDAL").substringBefore(" | TIDAL").trim()
+                        if (title.isNotEmpty()) return title
+                    }
+                } else {
+                    resp.close()
+                }
+            }
+            null
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     private fun formatTargetUrl(rawUrl: String, targetPlatformKey: String): String {
         if (targetPlatformKey == "youtubeMusic") {
             if (rawUrl.contains("music.youtube.com")) return rawUrl
@@ -453,7 +578,7 @@ class OdesliRepository {
         }
     }
 
-    private fun extractCleanUrl(rawInput: String): String? {
+    fun extractCleanUrl(rawInput: String): String? {
         val matcher = urlPattern.matcher(rawInput)
         if (matcher.find()) {
             return matcher.group(1)
