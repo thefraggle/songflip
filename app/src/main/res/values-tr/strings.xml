@@ -10,7 +10,7 @@
     <string name="status_inactive">Bağlantılar henüz sistem ayarlarında etkinleştirilmedi</string>
     <string name="status_missing_hint">Henüz etkinleştirilmedi: %1$s</string>
     <string name="status_hint">Eski Android sürümlerinde durum kontrol edilemiyor.</string>
-    <string name="language_label">Dil / Language</string>
+    <string name="language_label">Dil</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="select_language_title">Dil Seçin</string>
@@ -78,4 +78,13 @@
     <string name="theme_system">Sistem</string>
     <string name="theme_light">Açık</string>
     <string name="theme_dark">Koyu</string>
+    <string name="nav_settings">Ayarlar</string>
+    <string name="nav_test_studio">Test Stüdyosu</string>
+    <string name="section_sources_header">Gelen Müzik Bağlantıları</string>
+    <string name="section_advanced_header">Özel Webhook / Yapay Zeka Uç Noktası</string>
+    <string name="section_about_header">SongFlip Hakkında</string>
+    <string name="legal_privacy">Gizlilik</string>
+    <string name="legal_imprint">Künye</string>
+    <string name="legal_terms">Hizmet Şartları</string>
+    <string name="playlist_not_supported_toast">Çalma listeleri şu anda desteklenmemektedir.</string>
 </resources>

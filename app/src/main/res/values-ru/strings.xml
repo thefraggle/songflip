@@ -10,7 +10,7 @@
     <string name="status_inactive">Ссылки еще не включены в системных настройках</string>
     <string name="status_missing_hint">Еще не включено: %1$s</string>
     <string name="status_hint">Статус невозможно проверить на старых версиях Android.</string>
-    <string name="language_label">Язык / Language</string>
+    <string name="language_label">Язык</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="select_language_title">Выберите язык</string>
@@ -78,4 +78,13 @@
     <string name="theme_system">Система</string>
     <string name="theme_light">Светлая</string>
     <string name="theme_dark">Тёмная</string>
+    <string name="nav_settings">Настройки</string>
+    <string name="nav_test_studio">Тестовая студия</string>
+    <string name="section_sources_header">Входящие музыкальные ссылки</string>
+    <string name="section_advanced_header">Собственный вебхук / ИИ-эндпоинт</string>
+    <string name="section_about_header">О SongFlip</string>
+    <string name="legal_privacy">Конфиденциальность</string>
+    <string name="legal_imprint">Выходные данные</string>
+    <string name="legal_terms">Условия использования</string>
+    <string name="playlist_not_supported_toast">Плейлисты в настоящее время не поддерживаются.</string>
 </resources>

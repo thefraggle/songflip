@@ -10,7 +10,7 @@
     <string name="status_inactive">Los enlaces aún no están activos en los ajustes del sistema</string>
     <string name="status_missing_hint">Aún no habilitado: %1$s</string>
     <string name="status_hint">El estado no se puede comprobar en versiones anteriores de Android.</string>
-    <string name="language_label">Idioma / Language</string>
+    <string name="language_label">Idioma</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="select_language_title">Seleccionar idioma</string>
@@ -78,4 +78,13 @@
     <string name="theme_system">Sistema</string>
     <string name="theme_light">Claro</string>
     <string name="theme_dark">Oscuro</string>
+    <string name="nav_settings">Ajustes</string>
+    <string name="nav_test_studio">Estudio de prueba</string>
+    <string name="section_sources_header">Enlaces de música entrantes</string>
+    <string name="section_advanced_header">Webhook personalizado / Endpoint IA</string>
+    <string name="section_about_header">Acerca de SongFlip</string>
+    <string name="legal_privacy">Privacidad</string>
+    <string name="legal_imprint">Aviso legal</string>
+    <string name="legal_terms">Términos de servicio</string>
+    <string name="playlist_not_supported_toast">Actualmente no se admiten listas de reproducción.</string>
 </resources>

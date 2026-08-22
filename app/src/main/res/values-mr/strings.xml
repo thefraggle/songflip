@@ -10,7 +10,7 @@
     <string name="status_inactive">सिस्टम सेटिंग्जमध्ये लिंक्स अद्याप सक्रिय नाहीत</string>
     <string name="status_missing_hint">अद्याप सक्षम नाही: %1$s</string>
     <string name="status_hint">जुन्या Android आवृत्त्यांवर स्थिती तपासता येत नाही.</string>
-    <string name="language_label">भाषा / Language</string>
+    <string name="language_label">भाषा</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="select_language_title">भाषा निवडा</string>
@@ -78,4 +78,13 @@
     <string name="theme_system">सिस्टम</string>
     <string name="theme_light">लाइट</string>
     <string name="theme_dark">डार्क</string>
+    <string name="nav_settings">सेटिंग्ज</string>
+    <string name="nav_test_studio">चाचणी स्टुडिओ</string>
+    <string name="section_sources_header">येणारे संगीत दुवे</string>
+    <string name="section_advanced_header">सानुकूल वेबहुक / एआय एंडपॉइंट</string>
+    <string name="section_about_header">SongFlip बद्दल</string>
+    <string name="legal_privacy">गोपनीयता</string>
+    <string name="legal_imprint">कायदेशीर सूचना</string>
+    <string name="legal_terms">सेवा अटी</string>
+    <string name="playlist_not_supported_toast">प्लेलिस्ट सध्या समर्थित नाहीत.</string>
 </resources>

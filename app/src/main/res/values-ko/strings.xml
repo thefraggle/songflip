@@ -10,7 +10,7 @@
     <string name="status_inactive">시스템 설정에서 링크가 아직 활성화되지 않았습니다</string>
     <string name="status_missing_hint">아직 활성화되지 않음: %1$s</string>
     <string name="status_hint">이전 Android 버전에서는 상태를 확인할 수 없습니다.</string>
-    <string name="language_label">언어 / Language</string>
+    <string name="language_label">언어</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="select_language_title">언어 선택</string>
@@ -78,4 +78,13 @@
     <string name="theme_system">시스템</string>
     <string name="theme_light">라이트</string>
     <string name="theme_dark">다크</string>
+    <string name="nav_settings">설정</string>
+    <string name="nav_test_studio">테스트 스튜디오</string>
+    <string name="section_sources_header">수신 음악 링크</string>
+    <string name="section_advanced_header">커스텀 웹훅 / AI 엔드포인트</string>
+    <string name="section_about_header">SongFlip 정보</string>
+    <string name="legal_privacy">개인정보처리방침</string>
+    <string name="legal_imprint">법적 고지</string>
+    <string name="legal_terms">이용약관</string>
+    <string name="playlist_not_supported_toast">재생목록은 현재 지원되지 않습니다.</string>
 </resources>

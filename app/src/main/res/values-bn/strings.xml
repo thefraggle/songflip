@@ -10,7 +10,7 @@
     <string name="status_inactive">সিস্টেম সেটিংসে লিঙ্কগুলি এখনও সক্রিয় করা হয়নি</string>
     <string name="status_missing_hint">এখনও সক্রিয় নয়: %1$s</string>
     <string name="status_hint">পুরানো অ্যান্ড্রয়েড সংস্করণে স্ট্যাটাস চেক করা যাবে না।</string>
-    <string name="language_label">ভাষা / Language</string>
+    <string name="language_label">ভাষা</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="select_language_title">ভাষা নির্বাচন করুন</string>
@@ -78,4 +78,13 @@
     <string name="theme_system">সিস্টেম</string>
     <string name="theme_light">হালকা</string>
     <string name="theme_dark">গাঢ়</string>
+    <string name="nav_settings">সেটিংস</string>
+    <string name="nav_test_studio">টেস্ট স্টুডিও</string>
+    <string name="section_sources_header">ইনকামিং মিউজিক লিঙ্ক</string>
+    <string name="section_advanced_header">কাস্টম ওয়েবহুক / এআই এন্ডপয়েন্ট</string>
+    <string name="section_about_header">SongFlip সম্পর্কে</string>
+    <string name="legal_privacy">গোপনীয়তা</string>
+    <string name="legal_imprint">আইনি বিজ্ঞপ্তি</string>
+    <string name="legal_terms">পরিষেবার শর্তাবলী</string>
+    <string name="playlist_not_supported_toast">প্লেলিস্ট বর্তমানে সমর্থিত নয়।</string>
 </resources>

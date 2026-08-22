@@ -10,7 +10,7 @@
     <string name="status_inactive">システム設定でリンクがまだ有効化されていません</string>
     <string name="status_missing_hint">未設定: %1$s</string>
     <string name="status_hint">古いAndroidバージョンでは状態を確認できません。</string>
-    <string name="language_label">言語 / Language</string>
+    <string name="language_label">言語</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="select_language_title">言語を選択</string>
@@ -78,4 +78,13 @@
     <string name="theme_system">システム</string>
     <string name="theme_light">ライト</string>
     <string name="theme_dark">ダーク</string>
+    <string name="nav_settings">設定</string>
+    <string name="nav_test_studio">テストスタジオ</string>
+    <string name="section_sources_header">受信する音楽リンク</string>
+    <string name="section_advanced_header">カスタムWebhook / AIエンドポイント</string>
+    <string name="section_about_header">SongFlip について</string>
+    <string name="legal_privacy">プライバシー</string>
+    <string name="legal_imprint">法的情報</string>
+    <string name="legal_terms">利用規約</string>
+    <string name="playlist_not_supported_toast">現在プレイリストはサポートされていません。</string>
 </resources>

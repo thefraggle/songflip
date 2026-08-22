@@ -11,7 +11,7 @@
     <string name="status_missing_hint">Noch nicht aktiviert: %1$s</string>
     <string name="status_hint">Auf älteren Android-Versionen kann der Status nicht geprüft werden.</string>
 
-    <string name="language_label">Sprache / Language</string>
+    <string name="language_label">Sprache</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="select_language_title">Sprache wählen</string>
@@ -37,7 +37,7 @@
     <string name="status_browser">Web-Browser</string>
 
     <string name="nav_settings">Einstellungen</string>
-    <string name="nav_test_studio">Test-Studio</string>
+    <string name="nav_test_studio">Test Studio</string>
     <string name="section_sources_header">Eingehende Musik-Links</string>
     <string name="section_advanced_header">Eigener Webhook / KI-Endpunkt</string>
     <string name="section_about_header">Über SongFlip</string>
@@ -96,7 +96,7 @@
 
     <string name="redirecting_toast">Musik-Link wird umgewandelt...</string>
     <string name="redirect_error_toast">Link konnte nicht umgewandelt werden. Original-Link wird geöffnet.</string>
-    <string name="playlist_not_supported_toast">Playlisten können nicht direkt konvertiert werden. Original-Link wird geöffnet.</string>
+    <string name="playlist_not_supported_toast">Playlists werden aktuell nicht unterstützt.</string>
 
     <string name="theme_label">Erscheinungsbild</string>
     <string name="theme_system">System</string>
