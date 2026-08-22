@@ -751,10 +751,15 @@ class OdesliRepository {
 
     fun extractCleanUrl(rawInput: String): String? {
         val matcher = urlPattern.matcher(rawInput)
-        if (matcher.find()) {
-            return matcher.group(1)
+        val extracted = if (matcher.find()) {
+            matcher.group(1)
+        } else if (rawInput.startsWith("http://") || rawInput.startsWith("https://")) {
+            rawInput.trim()
+        } else {
+            null
         }
-        return if (rawInput.startsWith("http://") || rawInput.startsWith("https://")) rawInput.trim() else null
+
+        return extracted?.trimEnd('.', ',', '!', '?', ';', ':', ')', '>', ']', '"', '\'', '»', '”', '“')
     }
 
     private fun isShortLinkDomain(url: String): Boolean {

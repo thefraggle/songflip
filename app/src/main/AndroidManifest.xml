@@ -109,6 +109,7 @@
                 <data android:host="deezer.com" />
                 <data android:host="www.deezer.com" />
                 <data android:host="deezer.page.link" />
+                <data android:host="link.deezer.com" />
             </intent-filter>
 
             <!-- Amazon Music URL Interception -->
@@ -120,6 +121,12 @@
                 <data android:scheme="https" />
                 <data android:host="music.amazon.com" />
                 <data android:host="music.amazon.de" />
+                <data android:host="music.amazon.co.uk" />
+                <data android:host="music.amazon.fr" />
+                <data android:host="music.amazon.it" />
+                <data android:host="music.amazon.es" />
+                <data android:host="amzn.to" />
+                <data android:host="a.co" />
             </intent-filter>
         </activity>
 
