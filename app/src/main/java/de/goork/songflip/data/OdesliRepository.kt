@@ -28,6 +28,8 @@ class OdesliRepository {
     private val urlPattern = Pattern.compile("(https?://[^\\s<>'\"()]+)")
     private val ytVideoIdJsonPattern = Pattern.compile("\"videoId\":\"([a-zA-Z0-9_-]{11})\"")
     private val ytWatchPattern = Pattern.compile("/watch\\?v=([a-zA-Z0-9_-]{11})")
+    private val ytAlbumPlaylistPattern = Pattern.compile("\"playlistId\":\"(OLAK5uy_[a-zA-Z0-9_-]+)\"")
+    private val ytGenericPlaylistPattern = Pattern.compile("\"playlistId\":\"([a-zA-Z0-9_-]{18,})\"")
 
     suspend fun resolveTargetUrl(
         inputUrl: String,
@@ -258,13 +260,27 @@ class OdesliRepository {
             val pageProps = json.optJSONObject("props")?.optJSONObject("pageProps") ?: return null
             val pageData = pageProps.optJSONObject("pageData") ?: return null
 
+            val pageId = pageData.optString("pageId", "")
+            val entityUniqueId = pageData.optString("entityUniqueId", "")
+            val isAlbumEntity = pageId.contains("|album|") || entityUniqueId.contains("|album|")
+
             val entityData = pageData.optJSONObject("entityData")
-            val title = entityData?.optString("title", "") ?: ""
-            val artist = entityData?.optString("artistName", "") ?: ""
-            val entityType = entityData?.optString("type", "") ?: ""
+            var title = entityData?.optString("title", "") ?: ""
+            var artist = entityData?.optString("artistName", "") ?: ""
+            var entityType = entityData?.optString("type", "") ?: (if (isAlbumEntity) "album" else "")
+
+            val sections = pageData.optJSONArray("sections")
+            if (sections != null && sections.length() > 0) {
+                val firstSection = sections.optJSONObject(0)
+                if (title.isEmpty() && firstSection != null) {
+                    title = firstSection.optString("title", "")
+                }
+                if (artist.isEmpty() && firstSection != null) {
+                    artist = firstSection.optString("artistName", "")
+                }
+            }
 
             val linksMap = mutableMapOf<String, String>()
-            val sections = pageData.optJSONArray("sections")
             if (sections != null) {
                 for (i in 0 until sections.length()) {
                     val section = sections.optJSONObject(i) ?: continue
@@ -291,13 +307,66 @@ class OdesliRepository {
      */
     private fun resolveDirectPlatformUrl(query: String, targetPlatformKey: String, isAlbum: Boolean = false): String? {
         return when (targetPlatformKey) {
-            "youtubeMusic" -> resolveYouTubeMusicDirectPlayUrl(query) ?: buildSearchUrl(query, "youtubeMusic")
+            "youtubeMusic" -> {
+                if (isAlbum) {
+                    resolveYouTubeMusicAlbumUrl(query)
+                        ?: resolveYouTubeMusicDirectPlayUrl(query)
+                        ?: buildSearchUrl(query, "youtubeMusic")
+                } else {
+                    resolveYouTubeMusicDirectPlayUrl(query)
+                        ?: buildSearchUrl(query, "youtubeMusic")
+                }
+            }
             "appleMusic" -> resolveAppleMusicDirectUrl(query, isAlbum) ?: buildSearchUrl(query, "appleMusic")
             "deezer" -> resolveDeezerDirectUrl(query, isAlbum) ?: buildSearchUrl(query, "deezer")
             "spotify" -> buildSearchUrl(query, "spotify")
             "tidal" -> buildSearchUrl(query, "tidal")
             "amazonMusic" -> buildSearchUrl(query, "amazonMusic")
             else -> buildSearchUrl(query, targetPlatformKey)
+        }
+    }
+
+    /**
+     * Finds exact YouTube Music Playlist / Album ID for full album playback
+     */
+    private fun resolveYouTubeMusicAlbumUrl(query: String): String? {
+        return try {
+            val encodedQuery = URLEncoder.encode(query, "UTF-8")
+            val req = Request.Builder()
+                .url("https://www.youtube.com/results?search_query=$encodedQuery&sp=EgIQAw%253D%253D")
+                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+                .get()
+                .build()
+
+            val resp = client.newCall(req).execute()
+            if (!resp.isSuccessful) {
+                resp.close()
+                return null
+            }
+            val html = resp.body?.string() ?: ""
+            resp.close()
+
+            // 1. Official YouTube Music album playlist (OLAK5uy...)
+            val olakMatcher = ytAlbumPlaylistPattern.matcher(html)
+            if (olakMatcher.find()) {
+                val playlistId = olakMatcher.group(1)
+                if (!playlistId.isNullOrEmpty()) {
+                    return "https://music.youtube.com/playlist?list=$playlistId"
+                }
+            }
+
+            // 2. Generic playlist ID (PL...)
+            val plMatcher = ytGenericPlaylistPattern.matcher(html)
+            if (plMatcher.find()) {
+                val playlistId = plMatcher.group(1)
+                if (!playlistId.isNullOrEmpty()) {
+                    return "https://music.youtube.com/playlist?list=$playlistId"
+                }
+            }
+
+            null
+        } catch (e: Exception) {
+            null
         }
     }
 
@@ -688,6 +757,11 @@ class OdesliRepository {
     private fun formatTargetUrl(rawUrl: String, targetPlatformKey: String): String {
         if (targetPlatformKey == "youtubeMusic") {
             if (rawUrl.contains("music.youtube.com")) return rawUrl
+            if (rawUrl.contains("youtube.com/playlist") || rawUrl.contains("m.youtube.com/playlist")) {
+                return rawUrl.replace("www.youtube.com", "music.youtube.com")
+                    .replace("m.youtube.com", "music.youtube.com")
+                    .replace("youtube.com", "music.youtube.com")
+            }
             if (rawUrl.contains("youtube.com/watch") || rawUrl.contains("m.youtube.com/watch")) {
                 return rawUrl.replace("www.youtube.com", "music.youtube.com")
                     .replace("m.youtube.com", "music.youtube.com")

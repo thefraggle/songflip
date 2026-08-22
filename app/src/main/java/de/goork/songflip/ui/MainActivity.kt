@@ -2,6 +2,7 @@ package de.goork.songflip.ui
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -163,7 +164,7 @@ fun MainScreen(
     var linksActive by remember { mutableStateOf<Boolean?>(DomainVerificationUtils.checkLinksEnabled(context)) }
 
     // Update state when resuming from system settings or external changes
-    DisposableEffect(lifecycleOwner) {
+    DisposableEffect(lifecycleOwner, context) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME) {
                 domainStatus = DomainVerificationUtils.getDomainStatus(context)
@@ -172,9 +173,17 @@ fun MainScreen(
                 pausedUntilTimestamp = prefs.getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L)
             }
         }
+        val prefListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+            if (key == PauseHelper.PREFS_KEY_PAUSED || key == PauseHelper.PREFS_KEY_PAUSED_UNTIL) {
+                isCurrentlyPaused = PauseHelper.isCurrentlyPaused(context)
+                pausedUntilTimestamp = prefs.getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L)
+            }
+        }
         lifecycleOwner.lifecycle.addObserver(observer)
+        prefs.registerOnSharedPreferenceChangeListener(prefListener)
         onDispose {
             lifecycleOwner.lifecycle.removeObserver(observer)
+            prefs.unregisterOnSharedPreferenceChangeListener(prefListener)
         }
     }
 

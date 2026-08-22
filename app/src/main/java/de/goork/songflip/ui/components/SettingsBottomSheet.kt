@@ -60,8 +60,6 @@ fun SettingsBottomSheet(
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
 
-    var tempCustomUrl by remember { mutableStateOf(settingsRepository.customApiUrl) }
-    var tempCustomToken by remember { mutableStateOf(settingsRepository.customApiToken) }
     var showLanguagePickerSubSheet by remember { mutableStateOf(false) }
     var selectedTheme by remember { mutableStateOf(currentThemeMode) }
 
@@ -347,64 +345,6 @@ fun SettingsBottomSheet(
                                 )
                             )
                         }
-                    }
-                }
-            }
-
-            // 3. Custom Webhook / AI API Endpoint
-            Card(
-                shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Column(
-                    modifier = Modifier.padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    Column {
-                        Text(
-                            text = stringResource(R.string.section_advanced_header),
-                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                        Text(
-                            text = stringResource(R.string.advanced_settings_subtitle),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-
-                    OutlinedTextField(
-                        value = tempCustomUrl,
-                        onValueChange = { tempCustomUrl = it },
-                        label = { Text(stringResource(R.string.custom_api_url_label)) },
-                        placeholder = { Text(stringResource(R.string.custom_api_url_hint), fontSize = 12.sp) },
-                        singleLine = true,
-                        shape = RoundedCornerShape(12.dp),
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    OutlinedTextField(
-                        value = tempCustomToken,
-                        onValueChange = { tempCustomToken = it },
-                        label = { Text(stringResource(R.string.custom_api_token_label)) },
-                        placeholder = { Text(stringResource(R.string.custom_api_token_hint), fontSize = 12.sp) },
-                        singleLine = true,
-                        shape = RoundedCornerShape(12.dp),
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    Button(
-                        onClick = {
-                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                            settingsRepository.customApiUrl = tempCustomUrl.trim()
-                            settingsRepository.customApiToken = tempCustomToken.trim()
-                            Toast.makeText(context, context.getString(R.string.settings_saved), Toast.LENGTH_SHORT).show()
-                        },
-                        modifier = Modifier.align(Alignment.End),
-                        shape = RoundedCornerShape(10.dp)
-                    ) {
-                        Text(stringResource(R.string.btn_save), fontWeight = FontWeight.Bold)
                     }
                 }
             }
