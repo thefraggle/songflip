@@ -5,7 +5,6 @@ struct ContentView: View {
     @EnvironmentObject var settings: SettingsModel
     @State private var inputUrl: String = ""
     @State private var statusMessage: String? = nil
-    @State private var showingCopiedAlert = false
 
     var body: some View {
         NavigationStack {
@@ -20,7 +19,7 @@ struct ContentView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 48, height: 48)
-                                .foregroundColor(.accentColor)
+                                .foregroundColor(.green)
                                 .padding(.top, 16)
 
                             Text("SongFlip")
@@ -56,7 +55,7 @@ struct ContentView: View {
                                             }
                                         }
                                         .padding(12)
-                                        .background(settings.targetPlatform == platform.rawValue ? Color.white.opacity(0.15) : Color.white.opacity(0.06))
+                                        .background(settings.targetPlatform == platform.rawValue ? Color.green.opacity(0.15) : Color.white.opacity(0.06))
                                         .cornerRadius(12)
                                         .foregroundColor(.white)
                                     }

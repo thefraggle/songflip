@@ -7,6 +7,10 @@ Thumbs.db
 .idea/
 *.iml
 .vscode/
+xcuserdata/
+*.xcscmblueprint
+*.xcuserstate
+DerivedData/
 
 # Gradle & Build Files
 build/

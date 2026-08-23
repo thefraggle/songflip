@@ -27,6 +27,7 @@ class SongLinkEngine(
     private val client: HttpClient = createPlatformHttpClient(),
     private val cache: LinkCache = LinkCache()
 ) {
+    constructor() : this(createPlatformHttpClient(), LinkCache())
 
     private val json = Json {
         ignoreUnknownKeys = true

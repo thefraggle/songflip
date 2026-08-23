@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 import SongFlipKit
 
 enum PlatformChoice: String, CaseIterable, Identifiable {
@@ -35,15 +36,38 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
 }
 
 class SettingsModel: ObservableObject {
-    @AppStorage("target_platform") var targetPlatform: String = "youtubeMusic"
-    @AppStorage("auto_clipboard_detect") var autoClipboardDetect: Boolean = true
-    @AppStorage("custom_api_url") var customApiUrl: String = ""
-    @AppStorage("custom_api_token") var customApiToken: String = ""
+    @Published var targetPlatform: String {
+        didSet {
+            UserDefaults.standard.set(targetPlatform, forKey: "target_platform")
+        }
+    }
+    @Published var autoClipboardDetect: Bool {
+        didSet {
+            UserDefaults.standard.set(autoClipboardDetect, forKey: "auto_clipboard_detect")
+        }
+    }
+    @Published var customApiUrl: String {
+        didSet {
+            UserDefaults.standard.set(customApiUrl, forKey: "custom_api_url")
+        }
+    }
+    @Published var customApiToken: String {
+        didSet {
+            UserDefaults.standard.set(customApiToken, forKey: "custom_api_token")
+        }
+    }
 
     @Published var lastConvertedTitle: String? = nil
     @Published var lastConvertedArtist: String? = nil
     @Published var lastTargetUrl: String? = nil
     @Published var isResolving: Bool = false
 
-    let engine = SongLinkEngine(client: HttpClientFactoryKt.createPlatformHttpClient(), cache: LinkCache(maxEntries: 200, ttlMs: 7 * 24 * 60 * 60 * 1000))
+    let engine = SongLinkEngine()
+
+    init() {
+        self.targetPlatform = UserDefaults.standard.string(forKey: "target_platform") ?? "youtubeMusic"
+        self.autoClipboardDetect = UserDefaults.standard.object(forKey: "auto_clipboard_detect") as? Bool ?? true
+        self.customApiUrl = UserDefaults.standard.string(forKey: "custom_api_url") ?? ""
+        self.customApiToken = UserDefaults.standard.string(forKey: "custom_api_token") ?? ""
+    }
 }

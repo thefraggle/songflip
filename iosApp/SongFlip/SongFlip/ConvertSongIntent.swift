@@ -22,7 +22,7 @@ struct ConvertSongIntent: AppIntent {
         let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
         let targetPlatform = defaults.string(forKey: "target_platform") ?? "youtubeMusic"
 
-        let engine = SongLinkEngine(client: HttpClientFactoryKt.createPlatformHttpClient(), cache: LinkCache(maxEntries: 200, ttlMs: 7 * 24 * 60 * 60 * 1000))
+        let engine = SongLinkEngine()
         let res = try? await engine.resolveTargetUrl(
             inputUrl: urlToConvert,
             targetPlatformKey: targetPlatform,
