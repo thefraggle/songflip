@@ -56,7 +56,7 @@ While the core 0-click redirect functionality will **always remain 100% free and
 
 ### Prerequisites
 - JDK 17+
-- Android SDK (API 26 to 35)
+- Android SDK (API 26 to 36)
 
 ### Build Debug APK
 ```bash
