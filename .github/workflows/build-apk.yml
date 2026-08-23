@@ -92,3 +92,23 @@ jobs:
           prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Prepare Play Store Release Notes
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          mkdir -p distribution/whatsnew
+          if [ -f release_notes.md ]; then
+            cp release_notes.md distribution/whatsnew/whatsnew-en-US
+            cp release_notes.md distribution/whatsnew/whatsnew-de-DE
+          fi
+
+      - name: Deploy AAB to Google Play Console (Closed Testing - Alpha)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          packageName: de.goork.songflip
+          releaseFiles: dist/*.aab
+          track: alpha
+          status: completed
+          whatsNewDirectory: distribution/whatsnew
