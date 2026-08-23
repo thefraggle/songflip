@@ -20,6 +20,8 @@ data class CachedLinkEntry(
  */
 object LinkCacheManager {
     private const val PREFS_NAME = "songflip_link_cache"
+    private const val CACHE_VERSION_KEY = "songflip_cache_version"
+    private const val CURRENT_CACHE_VERSION = 2
     private const val MAX_MEMORY_ENTRIES = 200
     private const val CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000L // 7 days
 
@@ -35,7 +37,19 @@ object LinkCacheManager {
     fun init(context: Context) {
         if (sharedPreferences == null) {
             sharedPreferences = context.applicationContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+            checkCacheVersionMigration()
             loadInitialFromPrefs()
+        }
+    }
+
+    @Synchronized
+    private fun checkCacheVersionMigration() {
+        val prefs = sharedPreferences ?: return
+        val savedVersion = prefs.getInt(CACHE_VERSION_KEY, 1)
+        if (savedVersion < CURRENT_CACHE_VERSION) {
+            // Flush all legacy/corrupt cache entries from earlier beta test versions
+            prefs.edit().clear().putInt(CACHE_VERSION_KEY, CURRENT_CACHE_VERSION).apply()
+            memoryCache.clear()
         }
     }
 
@@ -46,9 +60,10 @@ object LinkCacheManager {
             val all = prefs.all
             val now = System.currentTimeMillis()
             for ((key, value) in all) {
+                if (key == CACHE_VERSION_KEY) continue
                 if (value is String) {
                     val entry = parseEntry(value)
-                    if (entry != null && (now - entry.timestamp) < CACHE_TTL_MS) {
+                    if (entry != null && (now - entry.timestamp) < CACHE_TTL_MS && isValidTargetUrl(entry.targetUrl)) {
                         memoryCache[key] = entry
                     }
                 }
@@ -64,7 +79,7 @@ object LinkCacheManager {
         // 1. Check in-memory LRU cache
         val memEntry = memoryCache[cacheKey]
         if (memEntry != null) {
-            if (now - memEntry.timestamp < CACHE_TTL_MS) {
+            if (now - memEntry.timestamp < CACHE_TTL_MS && memEntry.targetUrl.isNotBlank() && (memEntry.targetUrl.startsWith("http") || memEntry.targetUrl.contains(":"))) {
                 return memEntry
             } else {
                 memoryCache.remove(cacheKey)
@@ -80,7 +95,7 @@ object LinkCacheManager {
             if (jsonStr != null) {
                 val entry = parseEntry(jsonStr)
                 if (entry != null) {
-                    if (now - entry.timestamp < CACHE_TTL_MS) {
+                    if (now - entry.timestamp < CACHE_TTL_MS && entry.targetUrl.isNotBlank() && (entry.targetUrl.startsWith("http") || entry.targetUrl.contains(":"))) {
                         memoryCache[cacheKey] = entry
                         return entry
                     } else {
@@ -103,6 +118,7 @@ object LinkCacheManager {
         artist: String? = null,
         isAlbum: Boolean = false
     ) {
+        if (!isValidTargetUrl(targetUrl)) return
         val cacheKey = buildCacheKey(canonicalUrl, targetPlatformKey)
         val entry = CachedLinkEntry(
             targetUrl = targetUrl,
@@ -118,9 +134,22 @@ object LinkCacheManager {
     }
 
     @Synchronized
+    fun remove(canonicalUrl: String, targetPlatformKey: String) {
+        val cacheKey = buildCacheKey(canonicalUrl, targetPlatformKey)
+        memoryCache.remove(cacheKey)
+        removePersistent(cacheKey)
+    }
+
+    @Synchronized
     fun clear() {
         memoryCache.clear()
         sharedPreferences?.edit()?.clear()?.apply()
+    }
+
+    fun isValidTargetUrl(url: String): Boolean {
+        if (url.isBlank()) return false
+        if (url.contains("spotify.link") || url.contains("deezer.page.link") || url.contains("://apple.co") || url.contains("amzn.to")) return false
+        return url.startsWith("http://") || url.startsWith("https://") || url.startsWith("spotify:") || url.startsWith("deezer://") || url.startsWith("tidal://")
     }
 
     @Synchronized

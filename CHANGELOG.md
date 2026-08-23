@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.5] - 2026-08-23
+
+### Improvements
+- **Rock-Solid App Dispatching**: 3-stage launching cascade ensures your target music player always opens reliably.
+- **Fail-Safe Search Routing**: Guaranteed fallback search if a track lacks direct catalog mapping, completely preventing dropped intents.
+- **Cache Self-Healing**: Automatically resets corrupt or legacy test cache entries on startup.
+- **Deep Share-Sheet Compatibility**: Flawless link extraction across all apps, share sheets, and clipboard sources.
+
 ## [1.1.4] - 2026-08-23
 
 ### Improvements

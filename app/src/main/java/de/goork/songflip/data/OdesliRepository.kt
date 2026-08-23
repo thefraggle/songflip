@@ -133,25 +133,24 @@ class OdesliRepository {
                         targetPlatformKey = targetPlatformKey,
                         isAlbum = isAlbum
                     )
-                    if (resolvedDirectUrl != null) {
-                        val result = OdesliResult.Success(
-                            targetUrl = resolvedDirectUrl,
-                            platform = targetPlatformKey,
-                            title = songLinkData.title.ifEmpty { null },
-                            artist = songLinkData.artist.ifEmpty { null },
-                            isAlbum = isAlbum
-                        )
-                        LinkCacheManager.put(
-                            canonicalUrl = canonicalUrl,
-                            targetPlatformKey = targetPlatformKey,
-                            targetUrl = result.targetUrl,
-                            platform = result.platform,
-                            title = result.title,
-                            artist = result.artist,
-                            isAlbum = result.isAlbum
-                        )
-                        return@withContext result
-                    }
+                    val finalTargetUrl = resolvedDirectUrl ?: buildSearchUrl(query, targetPlatformKey)
+                    val result = OdesliResult.Success(
+                        targetUrl = finalTargetUrl,
+                        platform = if (resolvedDirectUrl != null) targetPlatformKey else "${targetPlatformKey}_search",
+                        title = songLinkData.title.ifEmpty { null },
+                        artist = songLinkData.artist.ifEmpty { null },
+                        isAlbum = isAlbum
+                    )
+                    LinkCacheManager.put(
+                        canonicalUrl = canonicalUrl,
+                        targetPlatformKey = targetPlatformKey,
+                        targetUrl = result.targetUrl,
+                        platform = result.platform,
+                        title = result.title,
+                        artist = result.artist,
+                        isAlbum = result.isAlbum
+                    )
+                    return@withContext result
                 }
             }
 
@@ -991,16 +990,53 @@ class OdesliRepository {
 
     private fun resolveCanonicalUrl(url: String): String {
         return try {
-            val getRequest = Request.Builder()
+            val req = Request.Builder()
                 .url(url)
+                .header("User-Agent", "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36")
                 .get()
-                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
                 .build()
 
-            val response = client.newCall(getRequest).execute()
-            val finalUrl = response.request.url.toString()
+            val response = client.newCall(req).execute()
+            val finalHttpUrl = response.request.url.toString()
+
+            // If standard HTTP redirect successfully went to the canonical domain
+            if (!isShortLinkDomain(finalHttpUrl)) {
+                response.close()
+                return finalHttpUrl
+            }
+
+            // Otherwise inspect HTML body for og:url, canonical link, or window.location
+            val body = response.body?.string() ?: ""
             response.close()
-            finalUrl
+
+            // 1. og:url or twitter:url
+            val ogMatcher = Pattern.compile("<meta\\s+(?:property|name)=[\"'](?:og:url|twitter:url)[\"']\\s+content=[\"']([^\"']+)[\"']", Pattern.CASE_INSENSITIVE).matcher(body)
+            if (ogMatcher.find()) {
+                val ogUrl = ogMatcher.group(1)
+                if (!ogUrl.isNullOrBlank() && !isShortLinkDomain(ogUrl)) {
+                    return ogUrl
+                }
+            }
+
+            // 2. link rel="canonical"
+            val canonicalMatcher = Pattern.compile("<link\\s+rel=[\"']canonical[\"']\\s+href=[\"']([^\"']+)[\"']", Pattern.CASE_INSENSITIVE).matcher(body)
+            if (canonicalMatcher.find()) {
+                val canUrl = canonicalMatcher.group(1)
+                if (!canUrl.isNullOrBlank() && !isShortLinkDomain(canUrl)) {
+                    return canUrl
+                }
+            }
+
+            // 3. window.location or destination url in script
+            val jsMatcher = Pattern.compile("(https?://(?:open\\.spotify\\.com|www\\.deezer\\.com|music\\.apple\\.com|music\\.youtube\\.com|music\\.amazon\\.[a-z.]+)/[^\"'\\s<]+)", Pattern.CASE_INSENSITIVE).matcher(body)
+            if (jsMatcher.find()) {
+                val jsUrl = jsMatcher.group(1)
+                if (!jsUrl.isNullOrBlank()) {
+                    return jsUrl
+                }
+            }
+
+            finalHttpUrl
         } catch (e: Exception) {
             url
         }

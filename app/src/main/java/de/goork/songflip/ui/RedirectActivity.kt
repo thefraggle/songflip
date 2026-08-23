@@ -45,10 +45,16 @@ class RedirectActivity : ComponentActivity() {
             LinkCacheManager.init(this)
             val settingsRepository = SettingsRepository(this)
 
-            val rawInput = if (Intent.ACTION_SEND == intent?.action && intent?.type == "text/plain") {
-                intent.getStringExtra(Intent.EXTRA_TEXT) ?: ""
-            } else {
-                intent?.dataString ?: ""
+            // Extract raw input text from EXTRA_TEXT, ClipData, or Data URI
+            val rawInput = when {
+                Intent.ACTION_SEND == intent?.action -> {
+                    intent.getStringExtra(Intent.EXTRA_TEXT)
+                        ?: intent.clipData?.takeIf { it.itemCount > 0 }?.getItemAt(0)?.text?.toString()
+                        ?: intent.dataString
+                        ?: intent.data?.toString()
+                        ?: ""
+                }
+                else -> intent?.dataString ?: intent?.data?.toString() ?: ""
             }
 
             val incomingUrl = odesliRepository.extractCleanUrl(rawInput) ?: rawInput
@@ -72,19 +78,6 @@ class RedirectActivity : ComponentActivity() {
             val customApiUrl = settingsRepository.customApiUrl
             val customApiToken = settingsRepository.customApiToken
 
-            // 2. Offline Fast Fallback (< 50ms): If offline and link is not cached, skip network timeout
-            if (!NetworkUtils.isNetworkAvailable(this) && LinkCacheManager.get(incomingUrl, targetPlatform) == null) {
-                Toast.makeText(
-                    applicationContext,
-                    getString(R.string.redirect_error_toast),
-                    Toast.LENGTH_SHORT
-                ).show()
-                forwardOriginalUrl(incomingUri)
-                finish()
-                suppressTransitionAnimation()
-                return
-            }
-
             lifecycleScope.launch {
                 try {
                     // Generous 5.0-second timeout to handle cold mobile network requests
@@ -98,7 +91,6 @@ class RedirectActivity : ComponentActivity() {
                     }
 
                     if (result is OdesliResult.Success) {
-                        // Rich Metadata Toast / Mini-HUD (Issue #7)
                         val targetDisplayName = PackageUtils.getPlatformDisplayName(targetPlatform)
                         val feedbackText = when {
                             !result.artist.isNullOrBlank() && !result.title.isNullOrBlank() -> {
@@ -154,52 +146,62 @@ class RedirectActivity : ComponentActivity() {
         val targetPackage = PackageUtils.packageMap[targetPlatformKey]
         val isTargetInstalled = PackageUtils.isAppInstalled(this, targetPlatformKey)
 
+        // Stage 1: Explicit target app launch (fastest, zero intent disambiguation)
         if (isTargetInstalled && targetPackage != null) {
             try {
                 val targetUri = Uri.parse(PackageUtils.toNativeAppUri(url, targetPlatformKey))
 
                 val appIntent = Intent(Intent.ACTION_VIEW, targetUri).apply {
+                    addCategory(Intent.CATEGORY_BROWSABLE)
+                    addCategory(Intent.CATEGORY_DEFAULT)
                     setPackage(targetPackage)
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }
                 startActivity(appIntent)
                 return
             } catch (e: Exception) {
-                // Fallback to browser if explicit package launch fails
+                // Proceed to Stage 2
             }
         }
 
-        // App not installed: open resolved URL in web browser safely
-        forwardOriginalUrl(Uri.parse(url))
+        // Stage 2: Implicit player intent (dispatch to installed player handler excluding SongFlip)
+        try {
+            val genericIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+                addCategory(Intent.CATEGORY_BROWSABLE)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            val handlers = packageManager.queryIntentActivities(genericIntent, 0)
+                .map { it.activityInfo.packageName }
+                .filter { it != packageName }
+
+            if (handlers.isNotEmpty()) {
+                val bestHandler = if (targetPackage != null && handlers.contains(targetPackage)) {
+                    targetPackage
+                } else {
+                    handlers.first()
+                }
+                val launchIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+                    addCategory(Intent.CATEGORY_BROWSABLE)
+                    setPackage(bestHandler)
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+                startActivity(launchIntent)
+                return
+            }
+        } catch (ignored: Exception) {}
+
+        // Stage 3: Safe web browser fallback
+        openInBrowser(Uri.parse(url))
     }
 
     /**
-     * Forwards music URL when redirect is paused, unresolvable, or app is not installed.
-     * If the source URL matches an installed native music player (e.g. Apple Music / Spotify),
-     * launches that app directly. Otherwise queries web browsers with explicit package targeting
-     * to eliminate infinite redirect loops.
+     * Forwards original music URL to web browser when redirect is disabled, paused, or resolution fails.
      */
     private fun forwardOriginalUrl(uri: Uri) {
-        val uriString = uri.toString()
+        openInBrowser(uri)
+    }
 
-        // 1. Try launching native original source app if installed
-        val sourcePlatformKey = detectPlatformFromUrl(uriString)
-        if (sourcePlatformKey != null) {
-            val sourcePackage = PackageUtils.packageMap[sourcePlatformKey]
-            if (sourcePackage != null && PackageUtils.isAppInstalled(this, sourcePlatformKey)) {
-                try {
-                    val nativeUri = Uri.parse(PackageUtils.toNativeAppUri(uriString, sourcePlatformKey))
-                    val sourceIntent = Intent(Intent.ACTION_VIEW, nativeUri).apply {
-                        setPackage(sourcePackage)
-                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    }
-                    startActivity(sourceIntent)
-                    return
-                } catch (ignored: Exception) {}
-            }
-        }
-
-        // 2. Launch explicit web browser (excluding SongFlip)
+    private fun openInBrowser(uri: Uri) {
         try {
             val genericWebIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com")).apply {
                 addCategory(Intent.CATEGORY_BROWSABLE)
@@ -221,7 +223,6 @@ class RedirectActivity : ComponentActivity() {
                 return
             }
 
-            // 3. Fallback: browser selector intent
             val selectorIntent = Intent(Intent.ACTION_MAIN).apply {
                 addCategory(Intent.CATEGORY_APP_BROWSER)
             }
@@ -232,18 +233,6 @@ class RedirectActivity : ComponentActivity() {
             }
             startActivity(browserIntent)
         } catch (ignored: Exception) {}
-    }
-
-    private fun detectPlatformFromUrl(url: String): String? {
-        return when {
-            url.contains("spotify.com") || url.contains("spotify.link") -> "spotify"
-            url.contains("apple.com") || url.contains("apple.co") || url.contains("itun.es") -> "appleMusic"
-            url.contains("music.youtube.com") || url.contains("youtube.com") || url.contains("youtu.be") -> "youtubeMusic"
-            url.contains("deezer.com") || url.contains("deezer.page.link") -> "deezer"
-            url.contains("tidal.com") -> "tidal"
-            url.contains("amazon.com") || url.contains("amazon.de") || url.contains("amzn.to") || url.contains("a.co") -> "amazonMusic"
-            else -> null
-        }
     }
 
     /** Suppress enter/exit animation so the redirect is 100% invisible. */
