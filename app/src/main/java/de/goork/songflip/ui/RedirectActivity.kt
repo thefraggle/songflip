@@ -46,19 +46,9 @@ class RedirectActivity : ComponentActivity() {
         }
 
         val incomingUri = Uri.parse(incomingUrl)
-        val host = incomingUri.host ?: ""
-        val sourcePlatformKey = detectSourcePlatformKey(host, incomingUrl)
 
         // 1. Check if SongFlip is currently paused
         if (PauseHelper.isCurrentlyPaused(this)) {
-            forwardOriginalUrl(incomingUri)
-            finish()
-            suppressTransitionAnimation()
-            return
-        }
-
-        // 2. Check if the user has disabled link interception for this platform
-        if (sourcePlatformKey != null && !settingsRepository.isInputPlatformEnabled(sourcePlatformKey)) {
             forwardOriginalUrl(incomingUri)
             finish()
             suppressTransitionAnimation()
@@ -130,19 +120,6 @@ class RedirectActivity : ComponentActivity() {
             }
             finish()
             suppressTransitionAnimation()
-        }
-    }
-
-    private fun detectSourcePlatformKey(host: String, rawText: String): String? {
-        val lower = (host + " " + rawText).lowercase()
-        return when {
-            lower.contains("spotify") -> "spotify"
-            lower.contains("apple.com") || lower.contains("music.apple") -> "appleMusic"
-            lower.contains("youtube") || lower.contains("youtu.be") -> "youtubeMusic"
-            lower.contains("tidal") -> "tidal"
-            lower.contains("deezer") -> "deezer"
-            lower.contains("amazon.") || lower.contains("amzn.to") || lower.contains("a.co") -> "amazonMusic"
-            else -> null
         }
     }
 

@@ -47,14 +47,6 @@ class SettingsRepository(context: Context) {
             prefs.edit().putString(KEY_CUSTOM_API_TOKEN, value).apply()
         }
 
-    fun isInputPlatformEnabled(platformKey: String): Boolean {
-        return prefs.getBoolean(KEY_INPUT_PREFIX + platformKey, true)
-    }
-
-    fun setInputPlatformEnabled(platformKey: String, enabled: Boolean) {
-        prefs.edit().putBoolean(KEY_INPUT_PREFIX + platformKey, enabled).apply()
-    }
-
     companion object {
         const val PREFS_NAME = "songflip_settings"
         private const val KEY_TARGET_PLATFORM = "target_platform"
@@ -62,7 +54,6 @@ class SettingsRepository(context: Context) {
         private const val KEY_THEME_MODE = "theme_mode"
         private const val KEY_CUSTOM_API_URL = "custom_api_url"
         private const val KEY_CUSTOM_API_TOKEN = "custom_api_token"
-        private const val KEY_INPUT_PREFIX = "input_enabled_"
 
         const val DEFAULT_TARGET = "youtubeMusic"
         const val DEFAULT_LANGUAGE = "en"

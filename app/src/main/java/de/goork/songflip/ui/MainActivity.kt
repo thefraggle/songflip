@@ -235,7 +235,6 @@ fun MainScreen(
         SettingsBottomSheet(
             onDismissRequest = { showSettingsBottomSheet = false },
             settingsRepository = settingsRepository,
-            targetServices = targetServices,
             supportedLanguages = supportedLanguages,
             currentLanguageCode = selectedLanguage,
             onLanguageSelected = { newLang ->
