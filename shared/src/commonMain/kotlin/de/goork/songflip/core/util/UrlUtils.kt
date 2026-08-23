@@ -34,11 +34,12 @@ object UrlUtils {
         if (url.contains("i=")) return false
         if (url.contains("trackAsin=")) return false
         if (url.contains("/track/")) return false
+        if (url.contains("/song/")) return false
         return url.contains("/album/") || url.contains("/albums/") || url.contains("/album") || url.contains("album.link")
     }
 
     fun isPlaylistUrl(url: String): Boolean {
-        if (url.contains("i=") || url.contains("trackAsin=") || url.contains("/track/")) return false
+        if (url.contains("i=") || url.contains("trackAsin=") || url.contains("/track/") || url.contains("/song/")) return false
         return url.contains("/playlist/") || url.contains("/playlists/") || url.contains("link.deezer.com")
     }
 
@@ -60,8 +61,12 @@ object UrlUtils {
             val id = url.substringAfter("i=").substringBefore("&").substringBefore("?").trim()
             if (id.isNotEmpty()) return "https://song.link/i/$id"
         }
+        if (clean.contains("apple.com") && clean.contains("/song/")) {
+            val id = clean.substringAfter("/song/").substringAfterLast("/").substringBefore("?").trim()
+            if (id.isNotEmpty() && id.all { it.isDigit() }) return "https://song.link/i/$id"
+        }
         if (clean.contains("apple.com") && clean.contains("/album/")) {
-            val id = clean.trimEnd('/').substringAfterLast("/").trim()
+            val id = clean.substringAfter("/album/").substringAfterLast("/").substringBefore("?").trim()
             if (id.isNotEmpty() && id.all { it.isDigit() }) return "https://album.link/i/$id"
         }
 

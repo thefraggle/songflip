@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Browser
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.lifecycleScope
@@ -24,100 +25,121 @@ import kotlinx.coroutines.withTimeoutOrNull
  */
 class RedirectActivity : ComponentActivity() {
 
+    companion object {
+        const val EXTRA_FORWARDED_FROM_SONGFLIP = "de.goork.songflip.FORWARDED_FROM_SONGFLIP"
+    }
+
     private val odesliRepository = OdesliRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        LinkCacheManager.init(this)
-        val settingsRepository = SettingsRepository(this)
-
-        val rawInput = if (Intent.ACTION_SEND == intent?.action && intent?.type == "text/plain") {
-            intent.getStringExtra(Intent.EXTRA_TEXT) ?: ""
-        } else {
-            intent?.dataString ?: ""
-        }
-
-        val incomingUrl = odesliRepository.extractCleanUrl(rawInput) ?: rawInput
-        if (incomingUrl.isBlank() || (!incomingUrl.startsWith("http://") && !incomingUrl.startsWith("https://"))) {
+        // 0. Loop Break: If this intent was already forwarded by SongFlip, never re-intercept
+        if (intent?.getBooleanExtra(EXTRA_FORWARDED_FROM_SONGFLIP, false) == true) {
             finish()
             suppressTransitionAnimation()
             return
         }
 
-        val incomingUri = Uri.parse(incomingUrl)
+        try {
+            LinkCacheManager.init(this)
+            val settingsRepository = SettingsRepository(this)
 
-        // 1. Check if SongFlip is currently paused
-        if (PauseHelper.isCurrentlyPaused(this)) {
-            forwardOriginalUrl(incomingUri)
-            finish()
-            suppressTransitionAnimation()
-            return
-        }
-
-        val targetPlatform = settingsRepository.targetPlatform
-        val customApiUrl = settingsRepository.customApiUrl
-        val customApiToken = settingsRepository.customApiToken
-
-        // 3. Offline Fast Fallback (< 50ms): If offline and link is not cached, skip network timeout
-        if (!NetworkUtils.isNetworkAvailable(this) && LinkCacheManager.get(incomingUrl, targetPlatform) == null) {
-            Toast.makeText(
-                applicationContext,
-                getString(R.string.redirect_error_toast),
-                Toast.LENGTH_SHORT
-            ).show()
-            forwardOriginalUrl(incomingUri)
-            finish()
-            suppressTransitionAnimation()
-            return
-        }
-
-        lifecycleScope.launch {
-            // Generous 5.0-second timeout to handle cold mobile network requests
-            val result = withTimeoutOrNull(5000L) {
-                odesliRepository.resolveTargetUrl(
-                    inputUrl = incomingUrl,
-                    targetPlatformKey = targetPlatform,
-                    customApiUrl = customApiUrl,
-                    customApiToken = customApiToken
-                )
+            val rawInput = if (Intent.ACTION_SEND == intent?.action && intent?.type == "text/plain") {
+                intent.getStringExtra(Intent.EXTRA_TEXT) ?: ""
+            } else {
+                intent?.dataString ?: ""
             }
 
-            if (result is OdesliResult.Success) {
-                // Rich Metadata Toast / Mini-HUD (Issue #7)
-                val targetDisplayName = PackageUtils.getPlatformDisplayName(targetPlatform)
-                val feedbackText = when {
-                    !result.artist.isNullOrBlank() && !result.title.isNullOrBlank() -> {
-                        "🎵 ${result.artist} – ${result.title} ➔ $targetDisplayName"
-                    }
-                    !result.title.isNullOrBlank() -> {
-                        "🎵 ${result.title} ➔ $targetDisplayName"
-                    }
-                    else -> {
-                        "🎵 ➔ $targetDisplayName"
-                    }
-                }
+            val incomingUrl = odesliRepository.extractCleanUrl(rawInput) ?: rawInput
+            if (incomingUrl.isBlank() || (!incomingUrl.startsWith("http://") && !incomingUrl.startsWith("https://"))) {
+                finish()
+                suppressTransitionAnimation()
+                return
+            }
 
+            val incomingUri = Uri.parse(incomingUrl)
+
+            // 1. Check if SongFlip is currently paused
+            if (PauseHelper.isCurrentlyPaused(this)) {
+                forwardOriginalUrl(incomingUri)
+                finish()
+                suppressTransitionAnimation()
+                return
+            }
+
+            val targetPlatform = settingsRepository.targetPlatform
+            val customApiUrl = settingsRepository.customApiUrl
+            val customApiToken = settingsRepository.customApiToken
+
+            // 2. Offline Fast Fallback (< 50ms): If offline and link is not cached, skip network timeout
+            if (!NetworkUtils.isNetworkAvailable(this) && LinkCacheManager.get(incomingUrl, targetPlatform) == null) {
                 Toast.makeText(
                     applicationContext,
-                    feedbackText,
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                openTargetUrl(result.targetUrl, targetPlatform)
-            } else {
-                val errorMsg = if (result is OdesliResult.Error && result.message == "PLAYLIST_NOT_SUPPORTED") {
-                    getString(R.string.playlist_not_supported_toast)
-                } else {
-                    getString(R.string.redirect_error_toast)
-                }
-                Toast.makeText(
-                    applicationContext,
-                    errorMsg,
+                    getString(R.string.redirect_error_toast),
                     Toast.LENGTH_SHORT
                 ).show()
                 forwardOriginalUrl(incomingUri)
+                finish()
+                suppressTransitionAnimation()
+                return
             }
+
+            lifecycleScope.launch {
+                try {
+                    // Generous 5.0-second timeout to handle cold mobile network requests
+                    val result = withTimeoutOrNull(5000L) {
+                        odesliRepository.resolveTargetUrl(
+                            inputUrl = incomingUrl,
+                            targetPlatformKey = targetPlatform,
+                            customApiUrl = customApiUrl,
+                            customApiToken = customApiToken
+                        )
+                    }
+
+                    if (result is OdesliResult.Success) {
+                        // Rich Metadata Toast / Mini-HUD (Issue #7)
+                        val targetDisplayName = PackageUtils.getPlatformDisplayName(targetPlatform)
+                        val feedbackText = when {
+                            !result.artist.isNullOrBlank() && !result.title.isNullOrBlank() -> {
+                                "🎵 ${result.artist} – ${result.title} ➔ $targetDisplayName"
+                            }
+                            !result.title.isNullOrBlank() -> {
+                                "🎵 ${result.title} ➔ $targetDisplayName"
+                            }
+                            else -> {
+                                "🎵 ➔ $targetDisplayName"
+                            }
+                        }
+
+                        Toast.makeText(
+                            applicationContext,
+                            feedbackText,
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        openTargetUrl(result.targetUrl, targetPlatform)
+                    } else {
+                        val errorMsg = if (result is OdesliResult.Error && result.message == "PLAYLIST_NOT_SUPPORTED") {
+                            getString(R.string.playlist_not_supported_toast)
+                        } else {
+                            getString(R.string.redirect_error_toast)
+                        }
+                        Toast.makeText(
+                            applicationContext,
+                            errorMsg,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        forwardOriginalUrl(incomingUri)
+                    }
+                } catch (t: Throwable) {
+                    forwardOriginalUrl(incomingUri)
+                } finally {
+                    finish()
+                    suppressTransitionAnimation()
+                }
+            }
+        } catch (t: Throwable) {
             finish()
             suppressTransitionAnimation()
         }
@@ -147,15 +169,37 @@ class RedirectActivity : ComponentActivity() {
             }
         }
 
-        // App not installed: open in web browser without re-triggering SongFlip
+        // App not installed: open resolved URL in web browser safely
         forwardOriginalUrl(Uri.parse(url))
     }
 
     /**
-     * Forwards original music URL to a web browser when redirect is disabled, paused, or resolution fails.
-     * Queries generic HTTPS browsers and sets explicit package name to guarantee bypassing SongFlip.
+     * Forwards music URL when redirect is paused, unresolvable, or app is not installed.
+     * If the source URL matches an installed native music player (e.g. Apple Music / Spotify),
+     * launches that app directly. Otherwise queries web browsers with explicit package targeting
+     * to eliminate infinite redirect loops.
      */
     private fun forwardOriginalUrl(uri: Uri) {
+        val uriString = uri.toString()
+
+        // 1. Try launching native original source app if installed
+        val sourcePlatformKey = detectPlatformFromUrl(uriString)
+        if (sourcePlatformKey != null) {
+            val sourcePackage = PackageUtils.packageMap[sourcePlatformKey]
+            if (sourcePackage != null && PackageUtils.isAppInstalled(this, sourcePlatformKey)) {
+                try {
+                    val nativeUri = Uri.parse(PackageUtils.toNativeAppUri(uriString, sourcePlatformKey))
+                    val sourceIntent = Intent(Intent.ACTION_VIEW, nativeUri).apply {
+                        setPackage(sourcePackage)
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    }
+                    startActivity(sourceIntent)
+                    return
+                } catch (ignored: Exception) {}
+            }
+        }
+
+        // 2. Launch explicit web browser (excluding SongFlip)
         try {
             val genericWebIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com")).apply {
                 addCategory(Intent.CATEGORY_BROWSABLE)
@@ -169,28 +213,36 @@ class RedirectActivity : ComponentActivity() {
                 val targetIntent = Intent(Intent.ACTION_VIEW, uri).apply {
                     addCategory(Intent.CATEGORY_BROWSABLE)
                     setPackage(browserPackage)
+                    putExtra(EXTRA_FORWARDED_FROM_SONGFLIP, true)
+                    putExtra(Browser.EXTRA_APPLICATION_ID, browserPackage)
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }
                 startActivity(targetIntent)
                 return
             }
 
-            // Fallback: browser selector intent
+            // 3. Fallback: browser selector intent
             val selectorIntent = Intent(Intent.ACTION_MAIN).apply {
                 addCategory(Intent.CATEGORY_APP_BROWSER)
             }
             val browserIntent = Intent(Intent.ACTION_VIEW, uri).apply {
                 selector = selectorIntent
+                putExtra(EXTRA_FORWARDED_FROM_SONGFLIP, true)
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
             startActivity(browserIntent)
-        } catch (e: Exception) {
-            try {
-                val fallbackIntent = Intent(Intent.ACTION_VIEW, uri).apply {
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                }
-                startActivity(fallbackIntent)
-            } catch (ignored: Exception) {}
+        } catch (ignored: Exception) {}
+    }
+
+    private fun detectPlatformFromUrl(url: String): String? {
+        return when {
+            url.contains("spotify.com") || url.contains("spotify.link") -> "spotify"
+            url.contains("apple.com") || url.contains("apple.co") || url.contains("itun.es") -> "appleMusic"
+            url.contains("music.youtube.com") || url.contains("youtube.com") || url.contains("youtu.be") -> "youtubeMusic"
+            url.contains("deezer.com") || url.contains("deezer.page.link") -> "deezer"
+            url.contains("tidal.com") -> "tidal"
+            url.contains("amazon.com") || url.contains("amazon.de") || url.contains("amzn.to") || url.contains("a.co") -> "amazonMusic"
+            else -> null
         }
     }
 

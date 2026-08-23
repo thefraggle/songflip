@@ -278,11 +278,12 @@ class OdesliRepository {
         if (url.contains("i=")) return false // Apple Music track ID!
         if (url.contains("trackAsin=")) return false // Amazon Music track ID!
         if (url.contains("/track/")) return false // Spotify / Deezer / Tidal track!
+        if (url.contains("/song/")) return false // Apple Music song!
         return url.contains("/album/") || url.contains("/albums/") || url.contains("/album") || url.contains("album.link")
     }
 
     private fun isPlaylistUrl(url: String): Boolean {
-        if (url.contains("i=") || url.contains("trackAsin=") || url.contains("/track/")) return false
+        if (url.contains("i=") || url.contains("trackAsin=") || url.contains("/track/") || url.contains("/song/")) return false
         return url.contains("/playlist/") || url.contains("/playlists/") || url.contains("link.deezer.com")
     }
 
@@ -307,8 +308,12 @@ class OdesliRepository {
             val id = url.substringAfter("i=").substringBefore("&").substringBefore("?").trim()
             if (id.isNotEmpty()) return "https://song.link/i/$id"
         }
+        if (clean.contains("apple.com") && clean.contains("/song/")) {
+            val id = clean.substringAfter("/song/").substringAfterLast("/").substringBefore("?").trim()
+            if (id.isNotEmpty() && id.all { it.isDigit() }) return "https://song.link/i/$id"
+        }
         if (clean.contains("apple.com") && clean.contains("/album/")) {
-            val id = clean.trimEnd('/').substringAfterLast("/").trim()
+            val id = clean.substringAfter("/album/").substringAfterLast("/").substringBefore("?").trim()
             if (id.isNotEmpty() && id.all { it.isDigit() }) return "https://album.link/i/$id"
         }
 
@@ -638,8 +643,33 @@ class OdesliRepository {
                     resp.close()
                 }
             }
+            else if (url.contains("apple.com") && url.contains("/song/")) {
+                val trackId = url.substringAfter("/song/").substringAfterLast("/").substringBefore("?").substringBefore("&").trim()
+                if (trackId.isNotEmpty() && trackId.all { it.isDigit() }) {
+                    val req = Request.Builder()
+                        .url("https://itunes.apple.com/lookup?id=$trackId")
+                        .get()
+                        .build()
+                    val resp = client.newCall(req).execute()
+                    if (resp.isSuccessful) {
+                        val body = resp.body?.string() ?: ""
+                        val json = JSONObject(body)
+                        val results = json.optJSONArray("results")
+                        if (results != null && results.length() > 0) {
+                            val track = results.getJSONObject(0)
+                            val trackName = track.optString("trackName")
+                            val artistName = track.optString("artistName")
+                            resp.close()
+                            if (trackName.isNotEmpty()) {
+                                return if (artistName.isNotEmpty()) "$artistName $trackName" else trackName
+                            }
+                        }
+                    }
+                    resp.close()
+                }
+            }
             else if (url.contains("apple.com") && url.contains("/album/")) {
-                val albumId = url.substringAfterLast("/").substringBefore("?").substringBefore("&").trim()
+                val albumId = url.substringAfter("/album/").substringAfterLast("/").substringBefore("?").substringBefore("&").trim()
                 if (albumId.isNotEmpty() && albumId.all { it.isDigit() }) {
                     val req = Request.Builder()
                         .url("https://itunes.apple.com/lookup?id=$albumId&entity=album")
@@ -961,13 +991,13 @@ class OdesliRepository {
 
     private fun resolveCanonicalUrl(url: String): String {
         return try {
-            val headRequest = Request.Builder()
+            val getRequest = Request.Builder()
                 .url(url)
-                .head()
+                .get()
                 .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
                 .build()
 
-            val response = client.newCall(headRequest).execute()
+            val response = client.newCall(getRequest).execute()
             val finalUrl = response.request.url.toString()
             response.close()
             finalUrl

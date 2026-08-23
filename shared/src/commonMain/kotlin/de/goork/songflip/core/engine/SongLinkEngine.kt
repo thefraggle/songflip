@@ -450,8 +450,25 @@ class SongLinkEngine(
                         }
                     }
                 }
+            } else if (url.contains("apple.com") && url.contains("/song/")) {
+                val trackId = url.substringAfter("/song/").substringAfterLast("/").substringBefore("?").substringBefore("&").trim()
+                if (trackId.isNotEmpty() && trackId.all { it.isDigit() }) {
+                    val resp = client.get("https://itunes.apple.com/lookup?id=$trackId")
+                    if (resp.status.isSuccess()) {
+                        val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
+                        val results = root["results"]?.jsonArray
+                        if (results != null && results.isNotEmpty()) {
+                            val track = results[0].jsonObject
+                            val trackName = track["trackName"]?.jsonPrimitive?.content ?: ""
+                            val artistName = track["artistName"]?.jsonPrimitive?.content ?: ""
+                            if (trackName.isNotEmpty()) {
+                                return if (artistName.isNotEmpty()) "$artistName $trackName" else trackName
+                            }
+                        }
+                    }
+                }
             } else if (url.contains("apple.com") && url.contains("/album/")) {
-                val albumId = url.substringAfterLast("/").substringBefore("?").substringBefore("&").trim()
+                val albumId = url.substringAfter("/album/").substringAfterLast("/").substringBefore("?").substringBefore("&").trim()
                 if (albumId.isNotEmpty() && albumId.all { it.isDigit() }) {
                     val resp = client.get("https://itunes.apple.com/lookup?id=$albumId&entity=album")
                     if (resp.status.isSuccess()) {
@@ -563,7 +580,7 @@ class SongLinkEngine(
 
     private suspend fun resolveCanonicalUrl(url: String): String {
         return try {
-            val resp = client.head(url) {
+            val resp = client.get(url) {
                 header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
             }
             resp.request.url.toString()
