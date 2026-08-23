@@ -21,7 +21,7 @@ data class CachedLinkEntry(
 object LinkCacheManager {
     private const val PREFS_NAME = "songflip_link_cache"
     private const val CACHE_VERSION_KEY = "songflip_cache_version"
-    private const val CURRENT_CACHE_VERSION = 2
+    private const val CURRENT_CACHE_VERSION = 3
     private const val MAX_MEMORY_ENTRIES = 200
     private const val CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000L // 7 days
 

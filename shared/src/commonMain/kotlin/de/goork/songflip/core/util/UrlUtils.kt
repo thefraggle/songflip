@@ -23,11 +23,14 @@ object UrlUtils {
                 url.contains("deezer.page.link") ||
                 url.contains("link.deezer.com") ||
                 url.contains("youtu.be") ||
-                url.contains("t.co") ||
+                url.contains("t.co/") ||
+                url.contains("://t.co") ||
                 url.contains("bit.ly") ||
                 url.contains("amzn.to") ||
-                url.contains("a.co") ||
-                url.contains("apple.co")
+                url.contains("a.co/") ||
+                url.contains("://a.co") ||
+                url.contains("apple.co/") ||
+                url.contains("://apple.co")
     }
 
     fun isAlbumUrl(url: String): Boolean {

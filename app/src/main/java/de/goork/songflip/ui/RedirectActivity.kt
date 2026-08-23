@@ -78,6 +78,13 @@ class RedirectActivity : ComponentActivity() {
             val customApiUrl = settingsRepository.customApiUrl
             val customApiToken = settingsRepository.customApiToken
 
+            // Immediate user feedback in all 22 languages to bridge network resolution
+            Toast.makeText(
+                applicationContext,
+                getString(R.string.redirecting_toast),
+                Toast.LENGTH_SHORT
+            ).show()
+
             lifecycleScope.launch {
                 try {
                     // Generous 5.0-second timeout to handle cold mobile network requests

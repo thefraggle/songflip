@@ -1,14 +1,21 @@
 package de.goork.songflip
 
+import de.goork.songflip.data.LinkCacheManager
 import de.goork.songflip.data.OdesliRepository
 import de.goork.songflip.data.OdesliResult
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
+import org.junit.Before
 import org.junit.Test
 
 class OdesliRepositoryTest {
 
     private val repository = OdesliRepository()
+
+    @Before
+    fun setUp() {
+        LinkCacheManager.clear()
+    }
 
     @Test
     fun testInvalidUrlReturnsError() = runBlocking {
@@ -75,6 +82,39 @@ class OdesliRepositoryTest {
         val success = result as OdesliResult.Success
         assertTrue("Expected YouTube Music watch link, got: ${success.targetUrl}",
             success.targetUrl.contains("music.youtube.com/watch?v="))
+    }
+
+    @Test
+    fun testEngstSpotifyTrackResolvesCorrectly() = runBlocking {
+        val engstUrl = "https://open.spotify.com/track/7JRnqsOyndSyuafJxCwDXJ?si=gyfVOye7SoSdgLod0PJAew&utm_source=whatsapp&context=spotify%3Aplaylist%3A37i9dQZF1F5p3rmiWPIYgZ"
+        val result = repository.resolveTargetUrl(engstUrl, "youtubeMusic")
+        assertTrue("Expected Success, got: $result", result is OdesliResult.Success)
+        val success = result as OdesliResult.Success
+        assertTrue("Expected YouTube Music watch link, got: ${success.targetUrl}",
+            success.targetUrl.contains("music.youtube.com/watch?v="))
+        assertFalse("Expected track, not album", success.isAlbum)
+    }
+
+    @Test
+    fun testLetzterTanzSpotifyTrackResolvesCorrectly() = runBlocking {
+        val letzterTanzUrl = "https://open.spotify.com/track/5zV9lK1r4EaEWxtlLdVM73?si=xbZIM2mNQLWYg8CSC1FKvA"
+        val result = repository.resolveTargetUrl(letzterTanzUrl, "youtubeMusic")
+        assertTrue("Expected Success, got: $result", result is OdesliResult.Success)
+        val success = result as OdesliResult.Success
+        assertTrue("Expected YouTube Music watch or search link, got: ${success.targetUrl}",
+            success.targetUrl.contains("music.youtube.com/"))
+        assertFalse("Expected track, not album", success.isAlbum)
+    }
+
+    @Test
+    fun testAppleMusicTrackWithAlbumUrlResolvesAsSong() = runBlocking {
+        val appleSongWithAlbum = "https://music.apple.com/de/album/dont-look-back-in-anger-remastered/1525933483?i=1525933492"
+        val result = repository.resolveTargetUrl(appleSongWithAlbum, "youtubeMusic")
+        assertTrue("Expected Success, got: $result", result is OdesliResult.Success)
+        val success = result as OdesliResult.Success
+        assertTrue("Expected YouTube Music watch link, got: ${success.targetUrl}",
+            success.targetUrl.contains("music.youtube.com/watch?v="))
+        assertFalse("Must be recognized as a single song, not an album", success.isAlbum)
     }
 
     @Test

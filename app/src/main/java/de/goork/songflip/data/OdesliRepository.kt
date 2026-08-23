@@ -71,7 +71,8 @@ class OdesliRepository {
                 return@withContext OdesliResult.Error("PLAYLIST_NOT_SUPPORTED")
             }
 
-            val isExplicitAlbumUrl = isAlbumUrl(canonicalUrl)
+            val isExplicitTrackUrl = canonicalUrl.contains("i=") || canonicalUrl.contains("/song/") || canonicalUrl.contains("/track/")
+            val isExplicitAlbumUrl = !isExplicitTrackUrl && isAlbumUrl(canonicalUrl)
 
             // 4. L1 Cache Lookup (In-Memory LRU & Persisted - < 5ms)
             val cached = LinkCacheManager.get(canonicalUrl, targetPlatformKey)
@@ -94,18 +95,78 @@ class OdesliRepository {
                 Pair(sld, ti)
             }
             if (songLinkData != null) {
+                // If the user requested an explicit track (e.g. Apple Music with ?i=1525933492), but song.link mapped it to the whole album:
+                if (isExplicitTrackUrl && songLinkData.isAlbum) {
+                    val resolvedQuery = trackInfo ?: if (songLinkData.artist.isNotEmpty() && !songLinkData.title.contains(songLinkData.artist, ignoreCase = true)) {
+                        "${songLinkData.artist} ${songLinkData.title}"
+                    } else {
+                        songLinkData.title
+                    }
+                    val directTrackUrl = resolveDirectPlatformUrl(resolvedQuery, targetPlatformKey, isAlbum = false)
+                    val finalTargetUrl = directTrackUrl ?: buildSearchUrl(resolvedQuery, targetPlatformKey)
+                    val result = OdesliResult.Success(
+                        targetUrl = finalTargetUrl,
+                        platform = if (directTrackUrl != null) targetPlatformKey else "${targetPlatformKey}_search",
+                        title = trackInfo ?: songLinkData.title.ifEmpty { null },
+                        artist = songLinkData.artist.ifEmpty { null },
+                        isAlbum = false
+                    )
+                    LinkCacheManager.put(
+                        canonicalUrl = canonicalUrl,
+                        targetPlatformKey = targetPlatformKey,
+                        targetUrl = result.targetUrl,
+                        platform = result.platform,
+                        title = result.title,
+                        artist = result.artist,
+                        isAlbum = false
+                    )
+                    return@withContext result
+                }
+
                 // If direct link for the target platform exists in song.link
                 val directUrl = songLinkData.links[targetPlatformKey]
                     ?: if (targetPlatformKey == "youtubeMusic") songLinkData.links["youtube"] else null
 
+                val isAlbum = if (isExplicitTrackUrl) false else (songLinkData.isAlbum || isExplicitAlbumUrl)
+
                 if (!directUrl.isNullOrEmpty()) {
+                    val isAlbumPlaylist = directUrl.contains("playlist?list=") || directUrl.contains("/playlist/") || directUrl.contains("/album/") || directUrl.contains("/albums/")
+                    if (isExplicitTrackUrl && isAlbumPlaylist) {
+                        // Track was requested, but song.link returned an album playlist link -> resolve exact track direct play
+                        val trackQuery = if (songLinkData.artist.isNotEmpty() && !songLinkData.title.contains(songLinkData.artist, ignoreCase = true)) {
+                            "${songLinkData.artist} ${songLinkData.title}"
+                        } else {
+                            songLinkData.title
+                        }
+                        val resolvedDirectUrl = resolveDirectPlatformUrl(trackQuery, targetPlatformKey, isAlbum = false)
+                        if (resolvedDirectUrl != null) {
+                            val result = OdesliResult.Success(
+                                targetUrl = resolvedDirectUrl,
+                                platform = targetPlatformKey,
+                                title = songLinkData.title.ifEmpty { null },
+                                artist = songLinkData.artist.ifEmpty { null },
+                                isAlbum = false
+                            )
+                            LinkCacheManager.put(
+                                canonicalUrl = canonicalUrl,
+                                targetPlatformKey = targetPlatformKey,
+                                targetUrl = result.targetUrl,
+                                platform = result.platform,
+                                title = result.title,
+                                artist = result.artist,
+                                isAlbum = false
+                            )
+                            return@withContext result
+                        }
+                    }
+
                     val formatted = formatTargetUrl(directUrl, targetPlatformKey)
                     val result = OdesliResult.Success(
                         targetUrl = formatted,
                         platform = targetPlatformKey,
                         title = songLinkData.title.ifEmpty { null },
                         artist = songLinkData.artist.ifEmpty { null },
-                        isAlbum = songLinkData.isAlbum || isExplicitAlbumUrl
+                        isAlbum = isAlbum
                     )
                     LinkCacheManager.put(
                         canonicalUrl = canonicalUrl,
@@ -127,7 +188,6 @@ class OdesliRepository {
                         songLinkData.title
                     }
 
-                    val isAlbum = songLinkData.isAlbum || isExplicitAlbumUrl
                     val resolvedDirectUrl = resolveDirectPlatformUrl(
                         query = query,
                         targetPlatformKey = targetPlatformKey,
@@ -599,22 +659,54 @@ class OdesliRepository {
      */
     private fun extractTrackInfo(url: String): String? {
         return try {
-            // 1. Spotify OEmbed
+            // 1. Spotify Track & Album Info (Extracts Artist + Title from og:description)
             if (url.contains("spotify.com")) {
-                val encoded = URLEncoder.encode(url, "UTF-8")
+                val cleanSpotifyUrl = url.substringBefore("?").trim()
                 val req = Request.Builder()
-                    .url("https://open.spotify.com/oembed?url=$encoded")
+                    .url(cleanSpotifyUrl)
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
                     .get()
                     .build()
                 val resp = client.newCall(req).execute()
                 if (resp.isSuccessful) {
-                    val body = resp.body?.string() ?: ""
+                    val html = resp.body?.string() ?: ""
+                    resp.close()
+                    val descMatcher = Pattern.compile("<meta\\s+(?:property|name)=[\"']og:description[\"']\\s+content=[\"']([^\"']+)[\"']", Pattern.CASE_INSENSITIVE).matcher(html)
+                    if (descMatcher.find()) {
+                        val desc = descMatcher.group(1) ?: ""
+                        if (desc.contains("·")) {
+                            val parts = desc.split("·").map { it.trim() }
+                            val artist = parts.getOrNull(0) ?: ""
+                            val track = parts.getOrNull(1) ?: ""
+                            if (artist.isNotEmpty() && track.isNotEmpty()) {
+                                return "$artist $track"
+                            }
+                        }
+                    }
+                    val titleMatcher = Pattern.compile("<meta\\s+(?:property|name)=[\"']og:title[\"']\\s+content=[\"']([^\"']+)[\"']", Pattern.CASE_INSENSITIVE).matcher(html)
+                    if (titleMatcher.find()) {
+                        val title = titleMatcher.group(1) ?: ""
+                        if (title.isNotEmpty()) return title
+                    }
+                } else {
+                    resp.close()
+                }
+
+                // Fallback to oEmbed
+                val encoded = URLEncoder.encode(url, "UTF-8")
+                val oembedReq = Request.Builder()
+                    .url("https://open.spotify.com/oembed?url=$encoded")
+                    .get()
+                    .build()
+                val oembedResp = client.newCall(oembedReq).execute()
+                if (oembedResp.isSuccessful) {
+                    val body = oembedResp.body?.string() ?: ""
                     val json = JSONObject(body)
                     val title = json.optString("title")
-                    resp.close()
+                    oembedResp.close()
                     if (title.isNotEmpty()) return title
                 }
-                resp.close()
+                oembedResp.close()
             }
             // 2. Apple Music Track & Album Lookup via iTunes
             else if (url.contains("apple.com") && url.contains("i=")) {
@@ -981,14 +1073,19 @@ class OdesliRepository {
                 url.contains("deezer.page.link") ||
                 url.contains("link.deezer.com") ||
                 url.contains("youtu.be") ||
-                url.contains("t.co") ||
+                url.contains("t.co/") ||
+                url.contains("://t.co") ||
                 url.contains("bit.ly") ||
                 url.contains("amzn.to") ||
-                url.contains("a.co") ||
-                url.contains("apple.co")
+                url.contains("a.co/") ||
+                url.contains("://a.co") ||
+                url.contains("apple.co/") ||
+                url.contains("://apple.co")
     }
 
     private fun resolveCanonicalUrl(url: String): String {
+        if (!isShortLinkDomain(url)) return url
+
         return try {
             val req = Request.Builder()
                 .url(url)

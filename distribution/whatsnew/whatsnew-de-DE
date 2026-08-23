@@ -1,0 +1,4 @@
+- **Sofortiges Feedback**: Sofortige Toast-Meldung beim Antippen geteilter Musik-Links.
+- **Präzise Song-Erkennung**: Aktualisierte Metadaten für Spotify, Apple Music & Odesli.
+- **Einzelsong-Garantie**: Links mit Track-ID (`?i=...`, `/track/`) öffnen garantiert als Song, nie als Album.
+- **Lokalisierte Release Notes**: Mehrsprachige Update-Hinweise im Play Store.

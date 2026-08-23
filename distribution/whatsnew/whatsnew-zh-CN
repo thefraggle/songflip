@@ -1,0 +1,4 @@
+- **Instant Visual Feedback**: Immediate confirmation toast on incoming music links.
+- **Accurate Track Matching**: Updated metadata resolution for Spotify, Apple Music & Odesli.
+- **Single Track Protection**: Links with track IDs (`?i=...`, `/track/`) always open as single songs, never albums.
+- **Localized Release Notes**: Multi-language Play Store update notes.

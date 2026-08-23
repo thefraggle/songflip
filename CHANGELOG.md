@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.6] - 2026-08-23
+
+### English
+- **Instant Visual Feedback**: Immediate confirmation toast on incoming music links.
+- **Accurate Track Matching**: Updated metadata resolution for Spotify, Apple Music & Odesli.
+- **Single Track Protection**: Links with track IDs (`?i=...`, `/track/`) always open as single songs, never albums.
+- **Localized Release Notes**: Multi-language Play Store update notes.
+
+### Deutsch
+- **Sofortiges Feedback**: Sofortige Toast-Meldung beim Antippen geteilter Musik-Links.
+- **Präzise Song-Erkennung**: Aktualisierte Metadaten für Spotify, Apple Music & Odesli.
+- **Einzelsong-Garantie**: Links mit Track-ID (`?i=...`, `/track/`) öffnen garantiert als Song, nie als Album.
+- **Lokalisierte Release Notes**: Mehrsprachige Update-Hinweise im Play Store.
+
 ## [1.1.5] - 2026-08-23
 
 ### Improvements
