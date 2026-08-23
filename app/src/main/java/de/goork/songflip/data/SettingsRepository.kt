@@ -14,7 +14,17 @@ class SettingsRepository(context: Context) {
         }
 
     var appLanguage: String
-        get() = prefs.getString(KEY_APP_LANGUAGE, DEFAULT_LANGUAGE) ?: DEFAULT_LANGUAGE
+        get() {
+            val saved = prefs.getString(KEY_APP_LANGUAGE, null)
+            if (!saved.isNullOrBlank()) return saved
+            val currentAppLocale = androidx.appcompat.app.AppCompatDelegate.getApplicationLocales()
+            if (!currentAppLocale.isEmpty) {
+                val appLang = currentAppLocale[0]?.language
+                if (!appLang.isNullOrBlank() && SUPPORTED_LANGUAGE_CODES.contains(appLang)) return appLang
+            }
+            val sysLang = java.util.Locale.getDefault().language
+            return if (SUPPORTED_LANGUAGE_CODES.contains(sysLang)) sysLang else DEFAULT_LANGUAGE
+        }
         set(value) {
             prefs.edit().putString(KEY_APP_LANGUAGE, value).apply()
         }
@@ -55,7 +65,12 @@ class SettingsRepository(context: Context) {
         private const val KEY_INPUT_PREFIX = "input_enabled_"
 
         const val DEFAULT_TARGET = "youtubeMusic"
-        const val DEFAULT_LANGUAGE = "de"
+        const val DEFAULT_LANGUAGE = "en"
         const val DEFAULT_THEME_MODE = "system"
+
+        val SUPPORTED_LANGUAGE_CODES = setOf(
+            "de", "en", "da", "nb", "sv", "nl", "fr", "es", "it", "pt", "pl",
+            "ru", "tr", "uk", "ja", "ko", "zh", "in", "id", "vi", "bn", "hi", "mr"
+        )
     }
 }

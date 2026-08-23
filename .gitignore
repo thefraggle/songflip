@@ -13,6 +13,7 @@ build/
 .gradle/
 .gradle-cache/
 app/build/
+shared/build/
 local.properties
 captures/
 .externalNativeBuild/

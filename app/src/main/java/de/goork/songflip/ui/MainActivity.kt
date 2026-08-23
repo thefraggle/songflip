@@ -98,7 +98,8 @@ class MainActivity : AppCompatActivity() {
 data class ServiceInfo(
     val key: String,
     val nameResId: Int,
-    val brandColor: Color
+    val brandColor: Color,
+    val iconResId: Int
 )
 
 data class LanguageItem(
@@ -192,12 +193,12 @@ fun MainScreen(
 
     val targetServices = remember {
         listOf(
-            ServiceInfo("youtubeMusic", R.string.target_youtube_music, BrandYouTubeMusic),
-            ServiceInfo("appleMusic", R.string.target_apple_music, BrandAppleMusic),
-            ServiceInfo("spotify", R.string.target_spotify, BrandSpotify),
-            ServiceInfo("tidal", R.string.target_tidal, BrandTidal),
-            ServiceInfo("deezer", R.string.target_deezer, BrandDeezer),
-            ServiceInfo("amazonMusic", R.string.target_amazon_music, BrandAmazonMusic)
+            ServiceInfo("youtubeMusic", R.string.target_youtube_music, BrandYouTubeMusic, R.drawable.ic_youtube_music),
+            ServiceInfo("appleMusic", R.string.target_apple_music, BrandAppleMusic, R.drawable.ic_apple_music),
+            ServiceInfo("spotify", R.string.target_spotify, BrandSpotify, R.drawable.ic_spotify),
+            ServiceInfo("tidal", R.string.target_tidal, BrandTidal, R.drawable.ic_tidal),
+            ServiceInfo("deezer", R.string.target_deezer, BrandDeezer, R.drawable.ic_deezer),
+            ServiceInfo("amazonMusic", R.string.target_amazon_music, BrandAmazonMusic, R.drawable.ic_amazon_music)
         )
     }
 

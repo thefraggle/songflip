@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -71,11 +72,11 @@ fun TargetSelectorCard(
                 }
 
                 val backgroundColor = if (isSelected) {
-                    service.brandColor.copy(alpha = 0.12f)
+                    MaterialTheme.colorScheme.primary.copy(alpha = 0.10f)
                 } else {
                     MaterialTheme.colorScheme.surfaceVariant
                 }
-                val borderColor = if (isSelected) service.brandColor.copy(alpha = 0.6f) else Color.Transparent
+                val borderColor = if (isSelected) MaterialTheme.colorScheme.primary.copy(alpha = 0.5f) else Color.Transparent
 
                 Row(
                     modifier = Modifier
@@ -95,11 +96,11 @@ fun TargetSelectorCard(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
-                        Box(
-                            modifier = Modifier
-                                .size(12.dp)
-                                .clip(CircleShape)
-                                .background(service.brandColor)
+                        Icon(
+                            painter = painterResource(service.iconResId),
+                            contentDescription = null,
+                            tint = Color.Unspecified,
+                            modifier = Modifier.size(26.dp)
                         )
                         Column {
                             Text(
@@ -147,7 +148,7 @@ fun TargetSelectorCard(
                         Icon(
                             imageVector = Icons.Outlined.CheckCircle,
                             contentDescription = null,
-                            tint = service.brandColor,
+                            tint = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.size(22.dp)
                         )
                     }
