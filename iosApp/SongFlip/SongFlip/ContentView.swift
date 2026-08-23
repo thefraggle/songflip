@@ -5,11 +5,14 @@ struct ContentView: View {
     @EnvironmentObject var settings: SettingsModel
     @State private var inputUrl: String = ""
     @State private var statusMessage: String? = nil
+    @State private var showingSettingsSheet = false
 
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.black.ignoresSafeArea()
+                Color("BackgroundColor", bundle: nil)
+                    .background(Color.black)
+                    .ignoresSafeArea()
 
                 ScrollView {
                     VStack(spacing: 20) {
@@ -31,33 +34,49 @@ struct ContentView: View {
                                 .foregroundColor(.gray)
                         }
 
-                        // Target Selector Card
+                        // Target Selector Card with symmetric buttons
                         VStack(alignment: .leading, spacing: 14) {
                             Text("STANDARD-ZIELDIENST")
                                 .font(.caption)
                                 .fontWeight(.semibold)
                                 .foregroundColor(.gray)
 
-                            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
+                            LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
                                 ForEach(PlatformChoice.allCases) { platform in
+                                    let isSelected = settings.targetPlatform == platform.rawValue
                                     Button(action: {
                                         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                                         settings.targetPlatform = platform.rawValue
                                     }) {
-                                        HStack {
+                                        HStack(spacing: 10) {
                                             Image(systemName: platform.iconName)
+                                                .font(.system(size: 18))
+                                                .frame(width: 24, height: 24)
+                                                .foregroundColor(isSelected ? .green : .white)
+
                                             Text(platform.displayName)
-                                                .font(.system(size: 14, weight: .medium))
-                                            Spacer()
-                                            if settings.targetPlatform == platform.rawValue {
+                                                .font(.system(size: 13, weight: isSelected ? .bold : .medium))
+                                                .lineLimit(1)
+                                                .minimumScaleFactor(0.8)
+                                                .foregroundColor(.white)
+
+                                            Spacer(minLength: 0)
+
+                                            if isSelected {
                                                 Image(systemName: "checkmark.circle.fill")
+                                                    .font(.system(size: 15))
                                                     .foregroundColor(.green)
                                             }
                                         }
-                                        .padding(12)
-                                        .background(settings.targetPlatform == platform.rawValue ? Color.green.opacity(0.15) : Color.white.opacity(0.06))
+                                        .padding(.horizontal, 12)
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 54)
+                                        .background(isSelected ? Color.green.opacity(0.15) : Color.white.opacity(0.06))
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 12)
+                                                .stroke(isSelected ? Color.green.opacity(0.5) : Color.clear, lineWidth: 1)
+                                        )
                                         .cornerRadius(12)
-                                        .foregroundColor(.white)
                                     }
                                 }
                             }
@@ -157,13 +176,42 @@ struct ContentView: View {
                         .background(Color(white: 0.1))
                         .cornerRadius(16)
 
-                        Spacer(minLength: 30)
+                        // Footer Section
+                        VStack(spacing: 8) {
+                            HStack(spacing: 12) {
+                                Link("Website", destination: URL(string: "https://songflip.link")!)
+                                Text("•").foregroundColor(.gray)
+                                Link("Datenschutz", destination: URL(string: "https://songflip.link/privacy-policy.html")!)
+                                Text("•").foregroundColor(.gray)
+                                Link("Impressum", destination: URL(string: "https://songflip.link/imprint.html")!)
+                            }
+                            .font(.caption)
+                            .foregroundColor(.gray)
+
+                            Text("SongFlip v1.1.2 • © 2026 Daniel Notthoff")
+                                .font(.caption2)
+                                .foregroundColor(Color(white: 0.4))
+                        }
+                        .padding(.top, 10)
+                        .padding(.bottom, 24)
                     }
                     .padding(.horizontal, 16)
                 }
             }
             .navigationTitle("SongFlip")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: { showingSettingsSheet = true }) {
+                        Image(systemName: "gearshape.fill")
+                            .foregroundColor(.white)
+                    }
+                }
+            }
+            .sheet(isPresented: $showingSettingsSheet) {
+                SettingsSheetView()
+                    .environmentObject(settings)
+            }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                 checkClipboard()
             }
