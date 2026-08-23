@@ -7,17 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.1.0] - 2026-08-23
 
-### Added
-- **Local L1-Cache**: Two-tier high-performance caching (in-memory LRU + persistent storage) for lightning-fast link resolutions (< 5 ms for repeated links).
-- **Parallel Multi-Source Resolution**: Asynchronous race resolution via Kotlin Coroutines for faster lookups under poor mobile network conditions.
-- **Native Spotify URI Support**: Direct launching of native `spotify:track:...` and `spotify:album:...` URIs to eliminate browser redirections.
-- **Floating Metadata Mini-HUD**: Rich real-time feedback displaying track title, artist, and destination player directly in the status toast.
-- **Enhanced Security & Repo Hygiene**: Comprehensive exclusion of keystores, signing certificates, and credential files.
-
-## [1.0.6] - 2026-08-23
-
 ### Improvements
-- **Android 16 (Target SDK 36)**: Full compatibility and compliance with Google Play Android 16 requirements.
+- **Instant Link Opening**: Previously opened links now open in a fraction of a second without waiting for network requests.
+- **Fast Track Lookup**: Significantly faster song conversion, even on slower mobile connections.
+- **Direct Spotify Playback**: Links to Spotify now launch immediately inside the Spotify app without web redirects.
+- **Live Song Info**: Shows the song title and artist directly when flipping into your player.
+- **Android 16 Ready**: Fully updated and compliant with Android 16 (API 36).
 
 ## [1.0.5] - 2026-08-22
 
