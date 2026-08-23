@@ -45,11 +45,11 @@ jobs:
           mkdir -p dist
           VERSION="${GITHUB_REF_NAME:-release}"
           if [ -f /tmp/release.keystore ]; then
-            ./gradlew assembleRelease bundleRelease
+            ./gradlew :app:assembleRelease :app:bundleRelease
             cp app/build/outputs/apk/release/app-release.apk "dist/songflip-${VERSION}.apk"
             cp app/build/outputs/bundle/release/app-release.aab "dist/songflip-${VERSION}.aab"
           else
-            ./gradlew assembleDebug bundleDebug
+            ./gradlew :app:assembleDebug :app:bundleDebug
             cp app/build/outputs/apk/debug/app-debug.apk "dist/songflip-${VERSION}.apk"
             cp app/build/outputs/bundle/debug/app-debug.aab "dist/songflip-${VERSION}.aab"
           fi
