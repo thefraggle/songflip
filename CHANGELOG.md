@@ -9,8 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Improvements
 - **Instant Offline Fallback**: Shared links open immediately in your browser when offline without waiting for network timeouts.
-- **Direct Deezer & Tidal Playback**: Links to Deezer and Tidal now launch directly in their respective apps.
-- **Enhanced Stability & Performance**: Smarter background caching and resilient song resolution.
+- **Direct Deezer & Tidal Playback**: Links to Deezer and Tidal now launch directly in their apps without extra steps.
+- **Smoother & Faster Performance**: Enhanced background speed and improved overall app responsiveness.
 
 ## [1.1.0] - 2026-08-23
 
