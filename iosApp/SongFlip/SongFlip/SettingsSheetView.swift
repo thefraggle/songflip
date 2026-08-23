@@ -45,21 +45,7 @@ struct SettingsSheetView: View {
                     .tint(.green)
                 }
 
-                // 2. Active Input Platforms Section
-                Section(header: Text("AKTIVE QUELL-DIENSTE").font(.caption).fontWeight(.semibold),
-                        footer: Text("Bestimme, aus welchen Diensten Links verarbeitet werden sollen.").font(.caption2)) {
-                    ForEach(PlatformChoice.allCases) { platform in
-                        Toggle(isOn: Binding(
-                            get: { settings.isInputPlatformEnabled(key: platform.rawValue) },
-                            set: { settings.setInputPlatformEnabled(key: platform.rawValue, enabled: $0) }
-                        )) {
-                            Label(platform.displayName, systemImage: platform.iconName)
-                        }
-                        .tint(.green)
-                    }
-                }
-
-                // 3. Custom API / Webhook Section
+                // 2. Custom API / Webhook Section
                 Section(header: Text("ERWEITERT (CUSTOM API / KI)").font(.caption).fontWeight(.semibold)) {
                     VStack(alignment: .leading, spacing: 6) {
                         Text("Webhook URL")

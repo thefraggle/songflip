@@ -111,13 +111,4 @@ class SettingsModel: ObservableObject {
         self.customApiUrl = UserDefaults.standard.string(forKey: "custom_api_url") ?? ""
         self.customApiToken = UserDefaults.standard.string(forKey: "custom_api_token") ?? ""
     }
-
-    func isInputPlatformEnabled(key: String) -> Bool {
-        return UserDefaults.standard.object(forKey: "input_enabled_\(key)") as? Bool ?? true
-    }
-
-    func setInputPlatformEnabled(key: String, enabled: Bool) {
-        UserDefaults.standard.set(enabled, forKey: "input_enabled_\(key)")
-        objectWillChange.send()
-    }
 }
