@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Improvements
 - **Simplified Settings**: Streamlined settings menu with a clean, focused design and effortless navigation.
-- **Reliable Link Handling**: Seamless link interception fully synchronized with system-level preferences.
+- **Symmetric Music Grid**: Balanced and perfectly aligned service selection for a smoother look and feel.
+- **Direct Link Forwarding**: Intuitive and reliable music link redirection without unnecessary toggles.
 
 ## [1.1.2] - 2026-08-23
 
