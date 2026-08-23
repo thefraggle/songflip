@@ -1,6 +1,7 @@
 package de.goork.songflip.data
 
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -12,7 +13,13 @@ import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
 sealed class OdesliResult {
-    data class Success(val targetUrl: String, val platform: String) : OdesliResult()
+    data class Success(
+        val targetUrl: String,
+        val platform: String,
+        val title: String? = null,
+        val artist: String? = null,
+        val isAlbum: Boolean = false
+    ) : OdesliResult()
     data class Error(val message: String) : OdesliResult()
 }
 
@@ -46,7 +53,8 @@ class OdesliRepository {
             if (customApiUrl.isNotBlank()) {
                 val customResult = queryCustomApi(customApiUrl, customApiToken, cleanUrl, targetPlatformKey)
                 if (customResult != null) {
-                    return@withContext OdesliResult.Success(formatTargetUrl(customResult, targetPlatformKey), "custom_api")
+                    val formatted = formatTargetUrl(customResult, targetPlatformKey)
+                    return@withContext OdesliResult.Success(formatted, "custom_api")
                 }
             }
 
@@ -64,8 +72,23 @@ class OdesliRepository {
 
             val isExplicitAlbumUrl = isAlbumUrl(canonicalUrl)
 
-            // 4. Try Songlink / Odesli web page metadata parsing (__NEXT_DATA__)
-            val songLinkData = fetchSongLinkData(canonicalUrl)
+            // 4. L1 Cache Lookup (In-Memory LRU & Persisted - < 5ms)
+            val cached = LinkCacheManager.get(canonicalUrl, targetPlatformKey)
+            if (cached != null) {
+                return@withContext OdesliResult.Success(
+                    targetUrl = cached.targetUrl,
+                    platform = cached.platform,
+                    title = cached.title,
+                    artist = cached.artist,
+                    isAlbum = cached.isAlbum
+                )
+            }
+
+            // 5. Parallel Multi-Source Resolution (Async Songlink + OEmbed Fallback)
+            val songLinkDeferred = async { fetchSongLinkData(canonicalUrl) }
+            val fallbackTrackDeferred = async { extractTrackInfo(canonicalUrl) }
+
+            val songLinkData = songLinkDeferred.await()
             if (songLinkData != null) {
                 // If direct link for the target platform exists in song.link
                 val directUrl = songLinkData.links[targetPlatformKey]
@@ -73,7 +96,23 @@ class OdesliRepository {
 
                 if (!directUrl.isNullOrEmpty()) {
                     val formatted = formatTargetUrl(directUrl, targetPlatformKey)
-                    return@withContext OdesliResult.Success(formatted, targetPlatformKey)
+                    val result = OdesliResult.Success(
+                        targetUrl = formatted,
+                        platform = targetPlatformKey,
+                        title = songLinkData.title.ifEmpty { null },
+                        artist = songLinkData.artist.ifEmpty { null },
+                        isAlbum = songLinkData.isAlbum || isExplicitAlbumUrl
+                    )
+                    LinkCacheManager.put(
+                        canonicalUrl = canonicalUrl,
+                        targetPlatformKey = targetPlatformKey,
+                        targetUrl = result.targetUrl,
+                        platform = result.platform,
+                        title = result.title,
+                        artist = result.artist,
+                        isAlbum = result.isAlbum
+                    )
+                    return@withContext result
                 }
 
                 // If target platform link is not directly available, use the extracted track/album title + artist
@@ -84,45 +123,98 @@ class OdesliRepository {
                         songLinkData.title
                     }
 
+                    val isAlbum = songLinkData.isAlbum || isExplicitAlbumUrl
                     val resolvedDirectUrl = resolveDirectPlatformUrl(
                         query = query,
                         targetPlatformKey = targetPlatformKey,
-                        isAlbum = songLinkData.isAlbum || isExplicitAlbumUrl
+                        isAlbum = isAlbum
                     )
                     if (resolvedDirectUrl != null) {
-                        return@withContext OdesliResult.Success(resolvedDirectUrl, targetPlatformKey)
+                        val result = OdesliResult.Success(
+                            targetUrl = resolvedDirectUrl,
+                            platform = targetPlatformKey,
+                            title = songLinkData.title.ifEmpty { null },
+                            artist = songLinkData.artist.ifEmpty { null },
+                            isAlbum = isAlbum
+                        )
+                        LinkCacheManager.put(
+                            canonicalUrl = canonicalUrl,
+                            targetPlatformKey = targetPlatformKey,
+                            targetUrl = result.targetUrl,
+                            platform = result.platform,
+                            title = result.title,
+                            artist = result.artist,
+                            isAlbum = result.isAlbum
+                        )
+                        return@withContext result
                     }
                 }
             }
 
-            // 5. Fallback Metadata Extraction via Service OEmbed / Public APIs
-            val trackInfo = extractTrackInfo(canonicalUrl)
+            // 6. Fallback Metadata Extraction via Service OEmbed / Public APIs
+            val trackInfo = fallbackTrackDeferred.await()
             if (trackInfo != null && trackInfo.isNotBlank()) {
                 val resolvedDirectUrl = resolveDirectPlatformUrl(
                     query = trackInfo,
                     targetPlatformKey = targetPlatformKey,
                     isAlbum = isExplicitAlbumUrl
                 )
-                if (resolvedDirectUrl != null) {
-                    return@withContext OdesliResult.Success(resolvedDirectUrl, targetPlatformKey)
-                }
-
-                // Final Track/Album Fallback: Direct Search URL in target service
-                return@withContext OdesliResult.Success(buildSearchUrl(trackInfo, targetPlatformKey), "${targetPlatformKey}_search")
+                val targetUrl = resolvedDirectUrl ?: buildSearchUrl(trackInfo, targetPlatformKey)
+                val platform = if (resolvedDirectUrl != null) targetPlatformKey else "${targetPlatformKey}_search"
+                val result = OdesliResult.Success(
+                    targetUrl = targetUrl,
+                    platform = platform,
+                    title = trackInfo,
+                    artist = null,
+                    isAlbum = isExplicitAlbumUrl
+                )
+                LinkCacheManager.put(
+                    canonicalUrl = canonicalUrl,
+                    targetPlatformKey = targetPlatformKey,
+                    targetUrl = result.targetUrl,
+                    platform = result.platform,
+                    title = result.title,
+                    artist = result.artist,
+                    isAlbum = result.isAlbum
+                )
+                return@withContext result
             }
 
-            // 6. Fallback: Artist Page Detection & Direct Catalog Routing
+            // 7. Fallback: Artist Page Detection & Direct Catalog Routing
             val artistInfo = extractArtistInfo(canonicalUrl)
             if (artistInfo != null && artistInfo.isNotBlank()) {
                 val searchUrl = buildSearchUrl(artistInfo, targetPlatformKey)
-                return@withContext OdesliResult.Success(searchUrl, "${targetPlatformKey}_artist")
+                val result = OdesliResult.Success(
+                    targetUrl = searchUrl,
+                    platform = "${targetPlatformKey}_artist",
+                    title = null,
+                    artist = artistInfo,
+                    isAlbum = false
+                )
+                LinkCacheManager.put(
+                    canonicalUrl = canonicalUrl,
+                    targetPlatformKey = targetPlatformKey,
+                    targetUrl = result.targetUrl,
+                    platform = result.platform,
+                    title = result.title,
+                    artist = result.artist,
+                    isAlbum = result.isAlbum
+                )
+                return@withContext result
             }
 
-            // 7. Fallback: Playlist Detection & Search Routing
+            // 8. Fallback: Playlist Detection & Search Routing
             val playlistInfo = extractPlaylistInfo(canonicalUrl)
             if (playlistInfo != null && playlistInfo.isNotBlank()) {
                 val searchUrl = buildSearchUrl(playlistInfo, targetPlatformKey)
-                return@withContext OdesliResult.Success(searchUrl, "${targetPlatformKey}_playlist")
+                val result = OdesliResult.Success(
+                    targetUrl = searchUrl,
+                    platform = "${targetPlatformKey}_playlist",
+                    title = playlistInfo,
+                    artist = null,
+                    isAlbum = false
+                )
+                return@withContext result
             }
 
             OdesliResult.Error("Could not resolve music link")
@@ -134,17 +226,35 @@ class OdesliRepository {
             if (trackInfo != null) {
                 val resolved = resolveDirectPlatformUrl(trackInfo, targetPlatformKey, isExplicitAlbumUrl)
                     ?: buildSearchUrl(trackInfo, targetPlatformKey)
-                return@withContext OdesliResult.Success(resolved, "${targetPlatformKey}_fallback")
+                return@withContext OdesliResult.Success(
+                    targetUrl = resolved,
+                    platform = "${targetPlatformKey}_fallback",
+                    title = trackInfo,
+                    artist = null,
+                    isAlbum = isExplicitAlbumUrl
+                )
             }
 
             val artistInfo = extractArtistInfo(cleanUrl)
             if (artistInfo != null) {
-                return@withContext OdesliResult.Success(buildSearchUrl(artistInfo, targetPlatformKey), "${targetPlatformKey}_artist_fallback")
+                return@withContext OdesliResult.Success(
+                    targetUrl = buildSearchUrl(artistInfo, targetPlatformKey),
+                    platform = "${targetPlatformKey}_artist_fallback",
+                    title = null,
+                    artist = artistInfo,
+                    isAlbum = false
+                )
             }
 
             val playlistInfo = extractPlaylistInfo(cleanUrl)
             if (playlistInfo != null) {
-                return@withContext OdesliResult.Success(buildSearchUrl(playlistInfo, targetPlatformKey), "${targetPlatformKey}_playlist_fallback")
+                return@withContext OdesliResult.Success(
+                    targetUrl = buildSearchUrl(playlistInfo, targetPlatformKey),
+                    platform = "${targetPlatformKey}_playlist_fallback",
+                    title = playlistInfo,
+                    artist = null,
+                    isAlbum = false
+                )
             }
 
             OdesliResult.Error(e.localizedMessage ?: "Unknown network error")

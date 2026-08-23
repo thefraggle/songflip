@@ -66,4 +66,19 @@ class OdesliRepositoryTest {
         assertTrue("Expected YouTube Music watch link, got: ${success.targetUrl}",
             success.targetUrl.contains("music.youtube.com/watch?v="))
     }
+
+    @Test
+    fun testL1CacheHitReturnsInstantly() = runBlocking {
+        val testUrl = "https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv"
+        val firstResult = repository.resolveTargetUrl(testUrl, "youtubeMusic")
+        assertTrue(firstResult is OdesliResult.Success)
+        val firstSuccess = firstResult as OdesliResult.Success
+
+        // Second call should hit L1 Cache
+        val secondResult = repository.resolveTargetUrl(testUrl, "youtubeMusic")
+        assertTrue(secondResult is OdesliResult.Success)
+        val secondSuccess = secondResult as OdesliResult.Success
+        assertEquals(firstSuccess.targetUrl, secondSuccess.targetUrl)
+        assertEquals(firstSuccess.platform, secondSuccess.platform)
+    }
 }

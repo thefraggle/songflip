@@ -50,6 +50,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import de.goork.songflip.R
 import de.goork.songflip.data.DomainVerificationUtils
 import de.goork.songflip.data.OdesliRepository
+import de.goork.songflip.data.LinkCacheManager
 import de.goork.songflip.data.PackageUtils
 import de.goork.songflip.data.PauseHelper
 import de.goork.songflip.data.SettingsRepository
@@ -64,6 +65,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        LinkCacheManager.init(this)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         initialShowPauseSheet = intent?.getBooleanExtra("show_pause_sheet", false) == true
 

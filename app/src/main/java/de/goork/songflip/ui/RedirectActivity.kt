@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.lifecycleScope
 import de.goork.songflip.R
+import de.goork.songflip.data.LinkCacheManager
 import de.goork.songflip.data.OdesliRepository
 import de.goork.songflip.data.OdesliResult
 import de.goork.songflip.data.PackageUtils
@@ -27,6 +28,7 @@ class RedirectActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        LinkCacheManager.init(this)
         val settingsRepository = SettingsRepository(this)
 
         val rawInput = if (Intent.ACTION_SEND == intent?.action && intent?.type == "text/plain") {
@@ -62,13 +64,6 @@ class RedirectActivity : ComponentActivity() {
             return
         }
 
-        // Show immediate visual feedback
-        Toast.makeText(
-            applicationContext,
-            getString(R.string.redirecting_toast),
-            Toast.LENGTH_SHORT
-        ).show()
-
         val targetPlatform = settingsRepository.targetPlatform
         val customApiUrl = settingsRepository.customApiUrl
         val customApiToken = settingsRepository.customApiToken
@@ -85,6 +80,26 @@ class RedirectActivity : ComponentActivity() {
             }
 
             if (result is OdesliResult.Success) {
+                // Rich Metadata Toast / Mini-HUD (Issue #7)
+                val targetDisplayName = PackageUtils.getPlatformDisplayName(targetPlatform)
+                val feedbackText = when {
+                    !result.artist.isNullOrBlank() && !result.title.isNullOrBlank() -> {
+                        "🎵 ${result.artist} – ${result.title} ➔ $targetDisplayName"
+                    }
+                    !result.title.isNullOrBlank() -> {
+                        "🎵 ${result.title} ➔ $targetDisplayName"
+                    }
+                    else -> {
+                        "🎵 ➔ $targetDisplayName"
+                    }
+                }
+
+                Toast.makeText(
+                    applicationContext,
+                    feedbackText,
+                    Toast.LENGTH_SHORT
+                ).show()
+
                 openTargetUrl(result.targetUrl, targetPlatform)
             } else {
                 val errorMsg = if (result is OdesliResult.Error && result.message == "PLAYLIST_NOT_SUPPORTED") {
@@ -120,6 +135,7 @@ class RedirectActivity : ComponentActivity() {
     /**
      * Opens target music link directly in target player app if installed (explicit package launch),
      * completely eliminating intent disambiguation dialogs and infinite intercept loops.
+     * Uses native URI schemas for Spotify (spotify:track:..., spotify:album:...) for zero latency.
      */
     private fun openTargetUrl(url: String, targetPlatformKey: String) {
         val targetPackage = PackageUtils.packageMap[targetPlatformKey]
@@ -127,7 +143,13 @@ class RedirectActivity : ComponentActivity() {
 
         if (isTargetInstalled && targetPackage != null) {
             try {
-                val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+                val targetUri = if (targetPlatformKey == "spotify") {
+                    Uri.parse(PackageUtils.toNativeSpotifyUri(url))
+                } else {
+                    Uri.parse(url)
+                }
+
+                val appIntent = Intent(Intent.ACTION_VIEW, targetUri).apply {
                     setPackage(targetPackage)
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }

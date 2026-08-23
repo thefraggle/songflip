@@ -1,0 +1,170 @@
+package de.goork.songflip.data
+
+import android.content.Context
+import android.content.SharedPreferences
+import org.json.JSONObject
+
+data class CachedLinkEntry(
+    val targetUrl: String,
+    val platform: String,
+    val title: String? = null,
+    val artist: String? = null,
+    val isAlbum: Boolean = false,
+    val timestamp: Long = System.currentTimeMillis()
+)
+
+/**
+ * Two-tier L1 cache for fast music link resolutions:
+ * 1. Thread-safe in-memory LRU map (< 5ms access time)
+ * 2. Persistent SharedPreferences storage across app restarts
+ */
+object LinkCacheManager {
+    private const val PREFS_NAME = "songflip_link_cache"
+    private const val MAX_MEMORY_ENTRIES = 200
+    private const val CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000L // 7 days
+
+    private var sharedPreferences: SharedPreferences? = null
+
+    // Thread-safe in-memory LRU cache
+    private val memoryCache = object : LinkedHashMap<String, CachedLinkEntry>(MAX_MEMORY_ENTRIES, 0.75f, true) {
+        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, CachedLinkEntry>?): Boolean {
+            return size > MAX_MEMORY_ENTRIES
+        }
+    }
+
+    fun init(context: Context) {
+        if (sharedPreferences == null) {
+            sharedPreferences = context.applicationContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+            loadInitialFromPrefs()
+        }
+    }
+
+    @Synchronized
+    private fun loadInitialFromPrefs() {
+        val prefs = sharedPreferences ?: return
+        try {
+            val all = prefs.all
+            val now = System.currentTimeMillis()
+            for ((key, value) in all) {
+                if (value is String) {
+                    val entry = parseEntry(value)
+                    if (entry != null && (now - entry.timestamp) < CACHE_TTL_MS) {
+                        memoryCache[key] = entry
+                    }
+                }
+            }
+        } catch (ignored: Exception) {}
+    }
+
+    @Synchronized
+    fun get(canonicalUrl: String, targetPlatformKey: String): CachedLinkEntry? {
+        val cacheKey = buildCacheKey(canonicalUrl, targetPlatformKey)
+        val now = System.currentTimeMillis()
+
+        // 1. Check in-memory LRU cache
+        val memEntry = memoryCache[cacheKey]
+        if (memEntry != null) {
+            if (now - memEntry.timestamp < CACHE_TTL_MS) {
+                return memEntry
+            } else {
+                memoryCache.remove(cacheKey)
+                removePersistent(cacheKey)
+                return null
+            }
+        }
+
+        // 2. Check persistent SharedPreferences if available
+        val prefs = sharedPreferences
+        if (prefs != null && prefs.contains(cacheKey)) {
+            val jsonStr = prefs.getString(cacheKey, null)
+            if (jsonStr != null) {
+                val entry = parseEntry(jsonStr)
+                if (entry != null) {
+                    if (now - entry.timestamp < CACHE_TTL_MS) {
+                        memoryCache[cacheKey] = entry
+                        return entry
+                    } else {
+                        removePersistent(cacheKey)
+                    }
+                }
+            }
+        }
+
+        return null
+    }
+
+    @Synchronized
+    fun put(
+        canonicalUrl: String,
+        targetPlatformKey: String,
+        targetUrl: String,
+        platform: String,
+        title: String? = null,
+        artist: String? = null,
+        isAlbum: Boolean = false
+    ) {
+        val cacheKey = buildCacheKey(canonicalUrl, targetPlatformKey)
+        val entry = CachedLinkEntry(
+            targetUrl = targetUrl,
+            platform = platform,
+            title = title,
+            artist = artist,
+            isAlbum = isAlbum,
+            timestamp = System.currentTimeMillis()
+        )
+
+        memoryCache[cacheKey] = entry
+        savePersistent(cacheKey, entry)
+    }
+
+    @Synchronized
+    fun clear() {
+        memoryCache.clear()
+        sharedPreferences?.edit()?.clear()?.apply()
+    }
+
+    @Synchronized
+    fun size(): Int = memoryCache.size
+
+    private fun buildCacheKey(url: String, targetPlatformKey: String): String {
+        val normalized = url.trim()
+            .substringBefore("#")
+            .trimEnd('/')
+        return "$normalized|$targetPlatformKey"
+    }
+
+    private fun savePersistent(key: String, entry: CachedLinkEntry) {
+        val prefs = sharedPreferences ?: return
+        try {
+            val json = JSONObject().apply {
+                put("targetUrl", entry.targetUrl)
+                put("platform", entry.platform)
+                if (entry.title != null) put("title", entry.title)
+                if (entry.artist != null) put("artist", entry.artist)
+                put("isAlbum", entry.isAlbum)
+                put("timestamp", entry.timestamp)
+            }
+            prefs.edit().putString(key, json.toString()).apply()
+        } catch (ignored: Exception) {}
+    }
+
+    private fun removePersistent(key: String) {
+        sharedPreferences?.edit()?.remove(key)?.apply()
+    }
+
+    private fun parseEntry(jsonString: String): CachedLinkEntry? {
+        return try {
+            val obj = JSONObject(jsonString)
+            CachedLinkEntry(
+                targetUrl = obj.getString("targetUrl"),
+                platform = obj.optString("platform", ""),
+                title = if (obj.has("title") && !obj.isNull("title")) obj.getString("title") else null,
+                artist = if (obj.has("artist") && !obj.isNull("artist")) obj.getString("artist") else null,
+                isAlbum = obj.optBoolean("isAlbum", false),
+                timestamp = obj.optLong("timestamp", System.currentTimeMillis())
+            )
+        } catch (e: Exception) {
+            null
+        }
+    }
+}

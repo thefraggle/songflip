@@ -1,13 +1,41 @@
+# Antigravity AI Memory
 .antigravity/
+
+# OS & IDE Files
 .DS_Store
+Thumbs.db
+.idea/
+*.iml
+.vscode/
+
+# Gradle & Build Files
 build/
 .gradle/
 .gradle-cache/
 app/build/
-.idea/
 local.properties
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Keystores & Signing Certificates
 *.jks
 *.keystore
+*.p12
+*.key
+*.pem
+*.mobileprovision
+
+# Secrets, Environment & API Keys
 .env
+.env.*
+*.env
+google-services.json
+GoogleService-Info.plist
+*credentials*.json
+service-account*.json
+play-store*.json
+
+# Internal Assets & Working Documents
 internal/
 store_assets/

@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-08-23
+
+### Added
+- **Local L1-Cache**: Two-tier high-performance caching (in-memory LRU + persistent storage) for lightning-fast link resolutions (< 5 ms for repeated links).
+- **Parallel Multi-Source Resolution**: Asynchronous race resolution via Kotlin Coroutines for faster lookups under poor mobile network conditions.
+- **Native Spotify URI Support**: Direct launching of native `spotify:track:...` and `spotify:album:...` URIs to eliminate browser redirections.
+- **Floating Metadata Mini-HUD**: Rich real-time feedback displaying track title, artist, and destination player directly in the status toast.
+- **Enhanced Security & Repo Hygiene**: Comprehensive exclusion of keystores, signing certificates, and credential files.
+
 ## [1.0.6] - 2026-08-23
 
 ### Improvements
