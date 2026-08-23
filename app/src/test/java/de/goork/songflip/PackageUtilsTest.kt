@@ -49,6 +49,32 @@ class PackageUtilsTest {
     }
 
     @Test
+    fun testToNativeDeezerUri() {
+        val webTrack = "https://www.deezer.com/track/9997018"
+        assertEquals("deezer://www.deezer.com/track/9997018", PackageUtils.toNativeDeezerUri(webTrack))
+
+        val webAlbum = "https://www.deezer.com/album/12345"
+        assertEquals("deezer://www.deezer.com/album/12345", PackageUtils.toNativeDeezerUri(webAlbum))
+    }
+
+    @Test
+    fun testToNativeTidalUri() {
+        val webTrack = "https://listen.tidal.com/track/534050211"
+        assertEquals("tidal://track/534050211", PackageUtils.toNativeTidalUri(webTrack))
+
+        val webAlbum = "https://tidal.com/album/123456"
+        assertEquals("tidal://album/123456", PackageUtils.toNativeTidalUri(webAlbum))
+    }
+
+    @Test
+    fun testToNativeAppUri() {
+        assertEquals("spotify:track:123", PackageUtils.toNativeAppUri("https://open.spotify.com/track/123", "spotify"))
+        assertEquals("deezer://www.deezer.com/track/123", PackageUtils.toNativeAppUri("https://www.deezer.com/track/123", "deezer"))
+        assertEquals("tidal://track/123", PackageUtils.toNativeAppUri("https://listen.tidal.com/track/123", "tidal"))
+        assertEquals("https://music.youtube.com/watch?v=123", PackageUtils.toNativeAppUri("https://music.youtube.com/watch?v=123", "youtubeMusic"))
+    }
+
+    @Test
     fun testGetPlatformDisplayName() {
         assertEquals("YouTube Music", PackageUtils.getPlatformDisplayName("youtubeMusic"))
         assertEquals("Apple Music", PackageUtils.getPlatformDisplayName("appleMusic"))

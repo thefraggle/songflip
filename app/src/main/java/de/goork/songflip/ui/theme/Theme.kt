@@ -64,11 +64,6 @@ fun SongFlipTheme(
         SideEffect {
             val window = (view.context as? Activity)?.window
             if (window != null) {
-                WindowCompat.setDecorFitsSystemWindows(window, false)
-                window.statusBarColor = android.graphics.Color.TRANSPARENT
-                window.navigationBarColor = android.graphics.Color.TRANSPARENT
-                window.decorView.setBackgroundColor(colorScheme.background.toArgb())
-
                 val insetsController = WindowCompat.getInsetsController(window, view)
                 insetsController.isAppearanceLightStatusBars = !darkTheme
                 insetsController.isAppearanceLightNavigationBars = !darkTheme

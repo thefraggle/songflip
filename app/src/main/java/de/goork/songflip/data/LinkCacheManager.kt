@@ -133,6 +133,8 @@ object LinkCacheManager {
         return "$normalized|$targetPlatformKey"
     }
 
+    private const val MAX_PERSISTENT_ENTRIES = 500
+
     private fun savePersistent(key: String, entry: CachedLinkEntry) {
         val prefs = sharedPreferences ?: return
         try {
@@ -144,7 +146,38 @@ object LinkCacheManager {
                 put("isAlbum", entry.isAlbum)
                 put("timestamp", entry.timestamp)
             }
-            prefs.edit().putString(key, json.toString()).apply()
+            val editor = prefs.edit()
+            editor.putString(key, json.toString())
+
+            // Prune persistent cache if it exceeds maximum capacity
+            val all = prefs.all
+            if (all.size > MAX_PERSISTENT_ENTRIES) {
+                pruneOldestEntries(editor, all)
+            }
+            editor.apply()
+        } catch (ignored: Exception) {}
+    }
+
+    private fun pruneOldestEntries(editor: SharedPreferences.Editor, allEntries: Map<String, *>) {
+        try {
+            val entriesWithTime = mutableListOf<Pair<String, Long>>()
+            for ((k, v) in allEntries) {
+                if (v is String) {
+                    val entry = parseEntry(v)
+                    val time = entry?.timestamp ?: 0L
+                    entriesWithTime.add(k to time)
+                }
+            }
+            // Sort ascending by timestamp (oldest first)
+            entriesWithTime.sortBy { it.second }
+            val removeCount = entriesWithTime.size - (MAX_PERSISTENT_ENTRIES - 50)
+            if (removeCount > 0) {
+                for (i in 0 until removeCount) {
+                    val (k, _) = entriesWithTime[i]
+                    editor.remove(k)
+                    memoryCache.remove(k)
+                }
+            }
         } catch (ignored: Exception) {}
     }
 

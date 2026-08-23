@@ -2,6 +2,7 @@ package de.goork.songflip.data
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.supervisorScope
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -84,11 +85,14 @@ class OdesliRepository {
                 )
             }
 
-            // 5. Parallel Multi-Source Resolution (Async Songlink + OEmbed Fallback)
-            val songLinkDeferred = async { fetchSongLinkData(canonicalUrl) }
-            val fallbackTrackDeferred = async { extractTrackInfo(canonicalUrl) }
-
-            val songLinkData = songLinkDeferred.await()
+            // 5. Parallel Multi-Source Resolution (Async Songlink + OEmbed Fallback with supervisorScope)
+            val (songLinkData, trackInfo) = supervisorScope {
+                val songLinkDeferred = async { fetchSongLinkData(canonicalUrl) }
+                val fallbackTrackDeferred = async { extractTrackInfo(canonicalUrl) }
+                val sld = try { songLinkDeferred.await() } catch (e: Exception) { null }
+                val ti = try { fallbackTrackDeferred.await() } catch (e: Exception) { null }
+                Pair(sld, ti)
+            }
             if (songLinkData != null) {
                 // If direct link for the target platform exists in song.link
                 val directUrl = songLinkData.links[targetPlatformKey]
@@ -152,7 +156,6 @@ class OdesliRepository {
             }
 
             // 6. Fallback Metadata Extraction via Service OEmbed / Public APIs
-            val trackInfo = fallbackTrackDeferred.await()
             if (trackInfo != null && trackInfo.isNotBlank()) {
                 val resolvedDirectUrl = resolveDirectPlatformUrl(
                     query = trackInfo,

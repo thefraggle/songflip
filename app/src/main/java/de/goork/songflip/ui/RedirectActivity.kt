@@ -9,6 +9,7 @@ import androidx.activity.ComponentActivity
 import androidx.lifecycle.lifecycleScope
 import de.goork.songflip.R
 import de.goork.songflip.data.LinkCacheManager
+import de.goork.songflip.data.NetworkUtils
 import de.goork.songflip.data.OdesliRepository
 import de.goork.songflip.data.OdesliResult
 import de.goork.songflip.data.PackageUtils
@@ -67,6 +68,19 @@ class RedirectActivity : ComponentActivity() {
         val targetPlatform = settingsRepository.targetPlatform
         val customApiUrl = settingsRepository.customApiUrl
         val customApiToken = settingsRepository.customApiToken
+
+        // 3. Offline Fast Fallback (< 50ms): If offline and link is not cached, skip network timeout
+        if (!NetworkUtils.isNetworkAvailable(this) && LinkCacheManager.get(incomingUrl, targetPlatform) == null) {
+            Toast.makeText(
+                applicationContext,
+                getString(R.string.redirect_error_toast),
+                Toast.LENGTH_SHORT
+            ).show()
+            forwardOriginalUrl(incomingUri)
+            finish()
+            suppressTransitionAnimation()
+            return
+        }
 
         lifecycleScope.launch {
             // Generous 5.0-second timeout to handle cold mobile network requests
@@ -135,7 +149,7 @@ class RedirectActivity : ComponentActivity() {
     /**
      * Opens target music link directly in target player app if installed (explicit package launch),
      * completely eliminating intent disambiguation dialogs and infinite intercept loops.
-     * Uses native URI schemas for Spotify (spotify:track:..., spotify:album:...) for zero latency.
+     * Uses native URI schemas for Spotify, Deezer, Tidal for zero latency.
      */
     private fun openTargetUrl(url: String, targetPlatformKey: String) {
         val targetPackage = PackageUtils.packageMap[targetPlatformKey]
@@ -143,11 +157,7 @@ class RedirectActivity : ComponentActivity() {
 
         if (isTargetInstalled && targetPackage != null) {
             try {
-                val targetUri = if (targetPlatformKey == "spotify") {
-                    Uri.parse(PackageUtils.toNativeSpotifyUri(url))
-                } else {
-                    Uri.parse(url)
-                }
+                val targetUri = Uri.parse(PackageUtils.toNativeAppUri(url, targetPlatformKey))
 
                 val appIntent = Intent(Intent.ACTION_VIEW, targetUri).apply {
                     setPackage(targetPackage)

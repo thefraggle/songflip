@@ -25,8 +25,20 @@ object PackageUtils {
     }
 
     /**
+     * Converts standard web URLs into native app URIs (Spotify, Deezer, Tidal)
+     * for instant direct launch without browser intent filtering.
+     */
+    fun toNativeAppUri(url: String, platformKey: String): String {
+        return when (platformKey) {
+            "spotify" -> toNativeSpotifyUri(url)
+            "deezer" -> toNativeDeezerUri(url)
+            "tidal" -> toNativeTidalUri(url)
+            else -> url
+        }
+    }
+
+    /**
      * Converts standard Spotify web URLs into native Spotify URIs (spotify:track:ID, spotify:album:ID, spotify:search:query)
-     * for instant playback without browser intent filtering.
      */
     fun toNativeSpotifyUri(url: String): String {
         if (url.startsWith("spotify:")) return url
@@ -51,6 +63,52 @@ object PackageUtils {
             url.contains("open.spotify.com/search/") -> {
                 val query = url.substringAfter("open.spotify.com/search/").substringBefore("?").trim()
                 if (query.isNotEmpty()) "spotify:search:$query" else url
+            }
+            else -> url
+        }
+    }
+
+    /**
+     * Converts Deezer web URLs into native deezer:// URIs
+     */
+    fun toNativeDeezerUri(url: String): String {
+        if (url.startsWith("deezer://")) return url
+        val clean = url.trim().substringBefore("?")
+        return when {
+            clean.contains("deezer.com/track/") -> {
+                val id = clean.substringAfter("/track/").substringBefore("/").trim()
+                if (id.isNotEmpty()) "deezer://www.deezer.com/track/$id" else url
+            }
+            clean.contains("deezer.com/album/") -> {
+                val id = clean.substringAfter("/album/").substringBefore("/").trim()
+                if (id.isNotEmpty()) "deezer://www.deezer.com/album/$id" else url
+            }
+            clean.contains("deezer.com/artist/") -> {
+                val id = clean.substringAfter("/artist/").substringBefore("/").trim()
+                if (id.isNotEmpty()) "deezer://www.deezer.com/artist/$id" else url
+            }
+            else -> url
+        }
+    }
+
+    /**
+     * Converts Tidal web URLs into native tidal:// URIs
+     */
+    fun toNativeTidalUri(url: String): String {
+        if (url.startsWith("tidal://")) return url
+        val clean = url.trim().substringBefore("?")
+        return when {
+            clean.contains("tidal.com/track/") || clean.contains("tidal.com/browse/track/") -> {
+                val id = clean.substringAfter("/track/").substringBefore("/").trim()
+                if (id.isNotEmpty()) "tidal://track/$id" else url
+            }
+            clean.contains("tidal.com/album/") || clean.contains("tidal.com/browse/album/") -> {
+                val id = clean.substringAfter("/album/").substringBefore("/").trim()
+                if (id.isNotEmpty()) "tidal://album/$id" else url
+            }
+            clean.contains("tidal.com/artist/") || clean.contains("tidal.com/browse/artist/") -> {
+                val id = clean.substringAfter("/artist/").substringBefore("/").trim()
+                if (id.isNotEmpty()) "tidal://artist/$id" else url
             }
             else -> url
         }
