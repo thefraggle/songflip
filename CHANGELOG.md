@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.0] - 2026-08-24
+- **Ultra-Fast Level 2 Server Cache**: Songs resolve in milliseconds for PRO users using our new anonymous high-speed cache.
+- **Smoother Subscription Experience**: Improved purchase flow and instant restore capabilities.
+- **Optimized Link Handling**: Enhanced reliability across all supported streaming services.
+- **Self-Refreshing Cache**: Intelligent 90-day automatic metadata refresh for always-accurate links.
+
 ## [1.1.9] - 2026-08-24
 - **Faster Link Resolution**: Improved track detection for international and regional music links.
 - **Cleaner Header Layout**: Streamlined main screen with more space and a cleaner top bar.
