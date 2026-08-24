@@ -26,6 +26,7 @@ import de.goork.songflip.data.DomainVerificationUtils
 import de.goork.songflip.data.LinkCacheManager
 import de.goork.songflip.data.OdesliRepository
 import de.goork.songflip.data.PauseHelper
+import de.goork.songflip.data.ProManager
 import de.goork.songflip.data.SettingsRepository
 import de.goork.songflip.ui.components.*
 import de.goork.songflip.ui.theme.*
@@ -127,6 +128,9 @@ fun MainScreen(
     var showPauseBottomSheet by remember { mutableStateOf(initialShowPause) }
     var showSettingsBottomSheet by remember { mutableStateOf(false) }
     var showTestStudioBottomSheet by remember { mutableStateOf(false) }
+    var showProPaywall by remember { mutableStateOf(false) }
+
+    val proState by ProManager.proState.collectAsState()
 
     // Pause State
     var isCurrentlyPaused by remember { mutableStateOf(PauseHelper.isCurrentlyPaused(context)) }
@@ -241,7 +245,15 @@ fun MainScreen(
                 selectedLanguage = newLang
             },
             currentThemeMode = currentThemeMode,
-            onThemeModeSelected = onThemeModeSelected
+            onThemeModeSelected = onThemeModeSelected,
+            isPro = proState.isPro,
+            onOpenProPaywall = { showProPaywall = true }
+        )
+    }
+
+    if (showProPaywall) {
+        ProPaywallBottomSheet(
+            onDismissRequest = { showProPaywall = false }
         )
     }
 
@@ -274,7 +286,8 @@ fun MainScreen(
             // 1. Header Banner
             HeaderBanner(
                 onOpenTestStudio = { showTestStudioBottomSheet = true },
-                onOpenSettings = { showSettingsBottomSheet = true }
+                onOpenSettings = { showSettingsBottomSheet = true },
+                isPro = proState.isPro
             )
 
             // 2. Live Status & Quick Pause Card

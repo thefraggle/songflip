@@ -88,21 +88,49 @@
     <string name="legal_terms">利用規約</string>
     <string name="playlist_not_supported_toast">現在プレイリストはサポートされていません。</string>
 
-    <string name="history_title">Song History</string>
-    <string name="history_subtitle">Manage and replay recently flipped songs</string>
-    <string name="history_cached_count">%1$d songs in history</string>
-    <string name="history_empty">No converted songs yet. Flipped music links will appear here automatically.</string>
-    <string name="history_clear_all">Clear History</string>
-    <string name="history_clear_confirm_title">Clear Song History?</string>
-    <string name="history_clear_confirm_message">This will remove all converted songs from history and reset your local cache.</string>
-    <string name="history_item_deleted">Song removed from history &amp; cache</string>
-    <string name="history_all_cleared">History and cache cleared</string>
-    <string name="history_pro_teaser_title">SongFlip PRO History</string>
-    <string name="history_pro_teaser_desc">Show up to 100 songs in your history with SongFlip PRO.</string>
-    <string name="history_btn_upgrade">Upgrade to PRO</string>
-    <string name="action_delete">Delete</string>
-    <string name="time_just_now">Just now</string>
-    <string name="time_minutes_ago">%1$d min ago</string>
-    <string name="time_hours_ago">%1$d h ago</string>
-    <string name="time_days_ago">%1$d d ago</string>
+    <string name="history_title">楽曲履歴</string>
+    <string name="history_subtitle">最近変換した楽曲の確認と管理</string>
+    <string name="history_cached_count" formatted="false">履歴に %1 曲</string>
+    <string name="history_empty">変換された楽曲はまだありません。共有されたリンクがここに表示されます。</string>
+    <string name="history_clear_all">履歴を消去</string>
+    <string name="history_clear_confirm_title">楽曲履歴を消去しますか？</string>
+    <string name="history_clear_confirm_message">保存されたすべての曲が削除され、ローカルキャッシュがリセットされます。</string>
+    <string name="history_item_deleted">曲を履歴とキャッシュから削除しました</string>
+    <string name="history_all_cleared">履歴とキャッシュを消去しました</string>
+    <string name="history_pro_teaser_title">SongFlip PRO 履歴</string>
+    <string name="history_pro_teaser_desc">SongFlip PROで最大100曲の履歴を解放できます。</string>
+    <string name="history_btn_upgrade">PROにアップグレード</string>
+    <string name="action_delete">削除</string>
+    <string name="time_just_now">たった今</string>
+    <string name="time_minutes_ago" formatted="false">%1</string>
+    <string name="time_hours_ago" formatted="false">%1</string>
+    <string name="time_days_ago" formatted="false">%1</string>
+
+    <string name="pro_title">SongFlip PRO</string>
+    <string name="pro_subtitle">個人開発を支援して、限定機能をアンロック</string>
+    <string name="pro_feature_history">最大100曲の拡張履歴</string>
+    <string name="pro_feature_support">アプリの個人開発を直接サポート</string>
+    <string name="pro_feature_future">今後追加されるすべてのPRO機能を含む</string>
+    <string name="pro_tier_monthly">月額</string>
+    <string name="pro_tier_annual">年額</string>
+    <string name="pro_tier_lifetime">永久買い切り</string>
+    <string name="pro_bestseller_badge" formatted="false">一番人気 • 33%お得</string>
+    <string name="pro_lifetime_badge">買い切り</string>
+    <string name="pro_price_monthly_default">0.99 € / 月</string>
+    <string name="pro_price_annual_default">7.99 € / 年</string>
+    <string name="pro_price_annual_sub">実質 ~0.66 € / 月 (4ヶ月分無料)</string>
+    <string name="pro_price_lifetime_default">19.99 € 買い切り</string>
+    <string name="pro_btn_restore">購入を復元</string>
+    <string name="pro_coupon_toggle">プロモーションコードをお持ちですか？</string>
+    <string name="pro_coupon_hint">コードを入力</string>
+    <string name="pro_coupon_btn_redeem">適用</string>
+    <string name="pro_coupon_success_lifetime">🎉 SongFlip PRO 永久ライセンスが有効になりました！</string>
+    <string name="pro_coupon_success_1year">🎉 SongFlip PRO (1年間) が有効になりました！</string>
+    <string name="pro_coupon_invalid">無効なプロモーションコードです</string>
+    <string name="pro_coupon_already_active">PROは既に有効です</string>
+    <string name="pro_active_status">SongFlip PRO 有効</string>
+    <string name="pro_active_lifetime">永久VIPアクセス</string>
+    <string name="pro_active_annual">VIPアクセス有効期限: %1$s</string>
+    <string name="pro_btn_subscribe">SongFlip PRO を購入 (%1$s)</string>
+    <string name="pro_btn_coming_soon">SongFlip PRO – まもなく登場</string>
 </resources>

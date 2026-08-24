@@ -88,21 +88,49 @@
     <string name="legal_terms">服务条款</string>
     <string name="playlist_not_supported_toast">目前不支持播放列表。</string>
 
-    <string name="history_title">Song History</string>
-    <string name="history_subtitle">Manage and replay recently flipped songs</string>
-    <string name="history_cached_count">%1$d songs in history</string>
-    <string name="history_empty">No converted songs yet. Flipped music links will appear here automatically.</string>
-    <string name="history_clear_all">Clear History</string>
-    <string name="history_clear_confirm_title">Clear Song History?</string>
-    <string name="history_clear_confirm_message">This will remove all converted songs from history and reset your local cache.</string>
-    <string name="history_item_deleted">Song removed from history &amp; cache</string>
-    <string name="history_all_cleared">History and cache cleared</string>
-    <string name="history_pro_teaser_title">SongFlip PRO History</string>
-    <string name="history_pro_teaser_desc">Show up to 100 songs in your history with SongFlip PRO.</string>
-    <string name="history_btn_upgrade">Upgrade to PRO</string>
-    <string name="action_delete">Delete</string>
-    <string name="time_just_now">Just now</string>
-    <string name="time_minutes_ago">%1$d min ago</string>
-    <string name="time_hours_ago">%1$d h ago</string>
-    <string name="time_days_ago">%1$d d ago</string>
+    <string name="history_title">歌曲历史</string>
+    <string name="history_subtitle">查看并管理最近转换的歌曲</string>
+    <string name="history_cached_count" formatted="false">历史记录中有 %1 首歌曲</string>
+    <string name="history_empty">暂无转换记录。分享的音乐链接将显示在这里。</string>
+    <string name="history_clear_all">清除历史记录</string>
+    <string name="history_clear_confirm_title">确定清除歌曲历史？</string>
+    <string name="history_clear_confirm_message">这将删除所有已保存的歌曲并重置本地缓存。</string>
+    <string name="history_item_deleted">已从历史记录和缓存中删除</string>
+    <string name="history_all_cleared">历史记录和缓存已清除</string>
+    <string name="history_pro_teaser_title">SongFlip PRO 历史记录</string>
+    <string name="history_pro_teaser_desc">升级到 SongFlip PRO 解锁多达 100 首歌曲历史。</string>
+    <string name="history_btn_upgrade">升级到 PRO</string>
+    <string name="action_delete">删除</string>
+    <string name="time_just_now">刚刚</string>
+    <string name="time_minutes_ago" formatted="false">%1 分钟前</string>
+    <string name="time_hours_ago" formatted="false">%1 小时前</string>
+    <string name="time_days_ago" formatted="false">%1 天前</string>
+
+    <string name="pro_title">SongFlip PRO</string>
+    <string name="pro_subtitle">支持独立开发并解锁专属高级功能</string>
+    <string name="pro_feature_history">扩展至 100 首歌曲历史记录</string>
+    <string name="pro_feature_support">直接支持独立开发者的持续更新</string>
+    <string name="pro_feature_future">包含未来所有新增的 PRO 功能</string>
+    <string name="pro_tier_monthly">按月订阅</string>
+    <string name="pro_tier_annual">按年订阅</string>
+    <string name="pro_tier_lifetime">终身买断</string>
+    <string name="pro_bestseller_badge" formatted="false">最受欢迎 • 优惠 33%</string>
+    <string name="pro_lifetime_badge">一次性买断</string>
+    <string name="pro_price_monthly_default">0.99 € / 月</string>
+    <string name="pro_price_annual_default">7.99 € / 年</string>
+    <string name="pro_price_annual_sub">约 0.66 € / 月（立省 4 个月）</string>
+    <string name="pro_price_lifetime_default">19.99 € 终身</string>
+    <string name="pro_btn_restore">恢复购买</string>
+    <string name="pro_coupon_toggle">拥有优惠码？</string>
+    <string name="pro_coupon_hint">输入优惠码</string>
+    <string name="pro_coupon_btn_redeem">兑换</string>
+    <string name="pro_coupon_success_lifetime">🎉 已成功激活 SongFlip PRO 终身版！</string>
+    <string name="pro_coupon_success_1year">🎉 已成功激活 SongFlip PRO (1年版)！</string>
+    <string name="pro_coupon_invalid">无效的优惠码</string>
+    <string name="pro_coupon_already_active">PRO 已经处于激活状态</string>
+    <string name="pro_active_status">SongFlip PRO 已激活</string>
+    <string name="pro_active_lifetime">终身 VIP 会员权限</string>
+    <string name="pro_active_annual">VIP 权限有效期至 %1$s</string>
+    <string name="pro_btn_subscribe">开通 SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_coming_soon">SongFlip PRO – 即将推出</string>
 </resources>

@@ -28,11 +28,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.goork.songflip.R
 import de.goork.songflip.ui.theme.*
+import androidx.compose.material3.Surface
 
 @Composable
 fun HeaderBanner(
     onOpenTestStudio: () -> Unit,
     onOpenSettings: () -> Unit,
+    isPro: Boolean = false,
     modifier: Modifier = Modifier
 ) {
     val haptic = LocalHapticFeedback.current
@@ -83,14 +85,38 @@ fun HeaderBanner(
                     )
                 }
                 Column {
-                    Text(
-                        text = stringResource(R.string.app_name),
-                        style = MaterialTheme.typography.headlineMedium.copy(
-                            fontWeight = FontWeight.ExtraBold,
-                            fontSize = 26.sp
-                        ),
-                        color = Color.White
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.app_name),
+                            style = MaterialTheme.typography.headlineMedium.copy(
+                                fontWeight = FontWeight.ExtraBold,
+                                fontSize = 26.sp
+                            ),
+                            color = Color.White
+                        )
+                        if (isPro) {
+                            Surface(
+                                shape = RoundedCornerShape(6.dp),
+                                color = BrandSpotify.copy(alpha = 0.22f),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, BrandSpotify.copy(alpha = 0.65f)),
+                                modifier = Modifier.padding(top = 2.dp)
+                            ) {
+                                Text(
+                                    text = "PRO",
+                                    style = MaterialTheme.typography.labelSmall.copy(
+                                        fontWeight = FontWeight.ExtraBold,
+                                        letterSpacing = 1.sp,
+                                        fontSize = 11.sp
+                                    ),
+                                    color = Color.White,
+                                    modifier = Modifier.padding(horizontal = 7.dp, vertical = 2.dp)
+                                )
+                            }
+                        }
+                    }
                     Text(
                         text = stringResource(R.string.app_tagline),
                         style = MaterialTheme.typography.bodySmall.copy(

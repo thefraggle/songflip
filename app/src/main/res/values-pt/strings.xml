@@ -16,7 +16,7 @@
     <string name="select_language_title">Selecionar idioma</string>
     <string name="setup_title">Como funciona</string>
     <string name="step1">Toque no botão abaixo para abrir as definições do sistema</string>
-    <string name="step2">Ative \"Abrir links suportados\" para os domínios de música</string>
+    <string name="step2">Ative "Abrir links suportados" para os domínios de música</string>
     <string name="step3">Pronto! Links partilhados abrem automaticamente no seu reprodutor de destino em segundo plano.</string>
     <string name="btn_open_settings">Abrir definições</string>
     <string name="input_sources_label">Intercetar links de origem</string>
@@ -88,21 +88,49 @@
     <string name="legal_terms">Termos de serviço</string>
     <string name="playlist_not_supported_toast">Listas de reprodução não são suportadas no momento.</string>
 
-    <string name="history_title">Song History</string>
-    <string name="history_subtitle">Manage and replay recently flipped songs</string>
-    <string name="history_cached_count">%1$d songs in history</string>
-    <string name="history_empty">No converted songs yet. Flipped music links will appear here automatically.</string>
-    <string name="history_clear_all">Clear History</string>
-    <string name="history_clear_confirm_title">Clear Song History?</string>
-    <string name="history_clear_confirm_message">This will remove all converted songs from history and reset your local cache.</string>
-    <string name="history_item_deleted">Song removed from history &amp; cache</string>
-    <string name="history_all_cleared">History and cache cleared</string>
-    <string name="history_pro_teaser_title">SongFlip PRO History</string>
-    <string name="history_pro_teaser_desc">Show up to 100 songs in your history with SongFlip PRO.</string>
-    <string name="history_btn_upgrade">Upgrade to PRO</string>
-    <string name="action_delete">Delete</string>
-    <string name="time_just_now">Just now</string>
-    <string name="time_minutes_ago">%1$d min ago</string>
-    <string name="time_hours_ago">%1$d h ago</string>
-    <string name="time_days_ago">%1$d d ago</string>
+    <string name="history_title">Histórico de Músicas</string>
+    <string name="history_subtitle">Veja e gerencie músicas convertidas recentemente</string>
+    <string name="history_cached_count" formatted="false">%1 músicas no histórico</string>
+    <string name="history_empty">Nenhuma música convertida ainda. Links de música compartilhados aparecerão aqui.</string>
+    <string name="history_clear_all">Limpar Histórico</string>
+    <string name="history_clear_confirm_title">Limpar histórico de músicas?</string>
+    <string name="history_clear_confirm_message">Isso removerá todas as músicas salvas e redefinirá o cache local.</string>
+    <string name="history_item_deleted">Música removida do histórico e cache</string>
+    <string name="history_all_cleared">Histórico e cache limpos</string>
+    <string name="history_pro_teaser_title">Histórico SongFlip PRO</string>
+    <string name="history_pro_teaser_desc">Desbloqueie até 100 músicas no histórico com o SongFlip PRO.</string>
+    <string name="history_btn_upgrade">Fazer upgrade para PRO</string>
+    <string name="action_delete">Excluir</string>
+    <string name="time_just_now">Agora mesmo</string>
+    <string name="time_minutes_ago" formatted="false">há %1 min</string>
+    <string name="time_hours_ago" formatted="false">há %1 h</string>
+    <string name="time_days_ago" formatted="false">há %1 dias</string>
+
+    <string name="pro_title">SongFlip PRO</string>
+    <string name="pro_subtitle">Apoie o desenvolvimento independente e desbloqueie recursos exclusivos</string>
+    <string name="pro_feature_history">Histórico expandido de 100 músicas</string>
+    <string name="pro_feature_support">Apoie diretamente o desenvolvimento independente</string>
+    <string name="pro_feature_future">Todos os futuros recursos PRO incluídos</string>
+    <string name="pro_tier_monthly">Mensal</string>
+    <string name="pro_tier_annual">Anual</string>
+    <string name="pro_tier_lifetime">Vitalício</string>
+    <string name="pro_bestseller_badge" formatted="false">MAIS VENDIDO • 33% OFF</string>
+    <string name="pro_lifetime_badge">PAGAMENTO ÚNICO</string>
+    <string name="pro_price_monthly_default">0,99 € / mês</string>
+    <string name="pro_price_annual_default">7,99 € / ano</string>
+    <string name="pro_price_annual_sub">~0,66 € / mês (4 meses grátis)</string>
+    <string name="pro_price_lifetime_default">19,99 € vitalício</string>
+    <string name="pro_btn_restore">Restaurar Compras</string>
+    <string name="pro_coupon_toggle">Tem um código promocional?</string>
+    <string name="pro_coupon_hint">Digite o código</string>
+    <string name="pro_coupon_btn_redeem">Resgatar</string>
+    <string name="pro_coupon_success_lifetime">🎉 SongFlip PRO Vitalício desbloqueado!</string>
+    <string name="pro_coupon_success_1year">🎉 SongFlip PRO (1 Ano) desbloqueado!</string>
+    <string name="pro_coupon_invalid">Código promocional inválido</string>
+    <string name="pro_coupon_already_active">O PRO já está ativo</string>
+    <string name="pro_active_status">SongFlip PRO Ativo</string>
+    <string name="pro_active_lifetime">Acesso VIP Vitalício</string>
+    <string name="pro_active_annual">Acesso VIP ativo até %1$s</string>
+    <string name="pro_btn_subscribe">Obter SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_coming_soon">SongFlip PRO – Em breve</string>
 </resources>

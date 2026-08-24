@@ -66,7 +66,7 @@ class OdesliRepositoryTest {
 
     @Test
     fun testTidalToYouTubeMusicDirectPlay() = runBlocking {
-        val tidalUrl = "https://listen.tidal.com/track/534050211"
+        val tidalUrl = "https://tidal.com/browse/track/557454"
         val result = repository.resolveTargetUrl(tidalUrl, "youtubeMusic")
         assertTrue("Expected Success, got: $result", result is OdesliResult.Success)
         val success = result as OdesliResult.Success

@@ -16,7 +16,7 @@
     <string name="select_language_title">Välj språk</string>
     <string name="setup_title">Så fungerar det</string>
     <string name="step1">Tryck på knappen nedan för att öppna systeminställningarna</string>
-    <string name="step2">Aktivera \"Öppna länkar som stöds\" för musikdomäner</string>
+    <string name="step2">Aktivera "Öppna länkar som stöds" för musikdomäner</string>
     <string name="step3">Klart! Delade länkar omdirigeras automatiskt till din målspelare i bakgrunden.</string>
     <string name="btn_open_settings">Öppna inställningar</string>
     <string name="input_sources_label">Fånga käll-länkar</string>
@@ -88,21 +88,49 @@
     <string name="legal_terms">Användarvillkor</string>
     <string name="playlist_not_supported_toast">Spellistor stöds för närvarande inte.</string>
 
-    <string name="history_title">Song History</string>
-    <string name="history_subtitle">Manage and replay recently flipped songs</string>
-    <string name="history_cached_count">%1$d songs in history</string>
-    <string name="history_empty">No converted songs yet. Flipped music links will appear here automatically.</string>
-    <string name="history_clear_all">Clear History</string>
-    <string name="history_clear_confirm_title">Clear Song History?</string>
-    <string name="history_clear_confirm_message">This will remove all converted songs from history and reset your local cache.</string>
-    <string name="history_item_deleted">Song removed from history &amp; cache</string>
-    <string name="history_all_cleared">History and cache cleared</string>
-    <string name="history_pro_teaser_title">SongFlip PRO History</string>
-    <string name="history_pro_teaser_desc">Show up to 100 songs in your history with SongFlip PRO.</string>
-    <string name="history_btn_upgrade">Upgrade to PRO</string>
-    <string name="action_delete">Delete</string>
-    <string name="time_just_now">Just now</string>
-    <string name="time_minutes_ago">%1$d min ago</string>
-    <string name="time_hours_ago">%1$d h ago</string>
-    <string name="time_days_ago">%1$d d ago</string>
+    <string name="history_title">Låthistorik</string>
+    <string name="history_subtitle">Se och hantera nyligen konverterade låtar</string>
+    <string name="history_cached_count" formatted="false">%1 låtar i historiken</string>
+    <string name="history_empty">Inga konverterade låtar än. Delade musiklänkar visas här.</string>
+    <string name="history_clear_all">Rensa historik</string>
+    <string name="history_clear_confirm_title">Rensa låthistorik?</string>
+    <string name="history_clear_confirm_message">Detta raderar alla sparade låtar och återställer din lokala cache.</string>
+    <string name="history_item_deleted">Låt borttagen från historik &amp; cache</string>
+    <string name="history_all_cleared">Historik och cache rensade</string>
+    <string name="history_pro_teaser_title">SongFlip PRO Historik</string>
+    <string name="history_pro_teaser_desc">Lås upp upp till 100 låtar i historiken med SongFlip PRO.</string>
+    <string name="history_btn_upgrade">Uppgradera till PRO</string>
+    <string name="action_delete">Radera</string>
+    <string name="time_just_now">Just nu</string>
+    <string name="time_minutes_ago" formatted="false">%1 min sedan</string>
+    <string name="time_hours_ago" formatted="false">%1 tim sedan</string>
+    <string name="time_days_ago" formatted="false">%1 dagar sedan</string>
+
+    <string name="pro_title">SongFlip PRO</string>
+    <string name="pro_subtitle">Stöd oberoende utveckling &amp; lås upp exklusiva funktioner</string>
+    <string name="pro_feature_history">Utökad historik med 100 låtar</string>
+    <string name="pro_feature_support">Stöd oberoende apputveckling direkt</string>
+    <string name="pro_feature_future">Alla kommande PRO-funktioner ingår</string>
+    <string name="pro_tier_monthly">Månadsvis</string>
+    <string name="pro_tier_annual">Årsvis</string>
+    <string name="pro_tier_lifetime">Livstid</string>
+    <string name="pro_bestseller_badge" formatted="false">BÄSTSÄLJARE • 33% RABATT</string>
+    <string name="pro_lifetime_badge">ENGÅNGSKÖP</string>
+    <string name="pro_price_monthly_default">0,99 € / månad</string>
+    <string name="pro_price_annual_default">7,99 € / år</string>
+    <string name="pro_price_annual_sub">~0,66 € / månad (4 månader gratis)</string>
+    <string name="pro_price_lifetime_default">19,99 € engångs</string>
+    <string name="pro_btn_restore">Återställ köp</string>
+    <string name="pro_coupon_toggle">Har du en kampanjkod?</string>
+    <string name="pro_coupon_hint">Ange kod</string>
+    <string name="pro_coupon_btn_redeem">Lös in</string>
+    <string name="pro_coupon_success_lifetime">🎉 SongFlip PRO Livstid upplåst!</string>
+    <string name="pro_coupon_success_1year">🎉 SongFlip PRO (1 år) upplåst!</string>
+    <string name="pro_coupon_invalid">Ogiltig kampanjkod</string>
+    <string name="pro_coupon_already_active">PRO är redan aktivt</string>
+    <string name="pro_active_status">SongFlip PRO Aktiv</string>
+    <string name="pro_active_lifetime">Livstids VIP-åtkomst</string>
+    <string name="pro_active_annual">VIP-åtkomst aktiv till %1$s</string>
+    <string name="pro_btn_subscribe">Skaffa SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_coming_soon">SongFlip PRO – Kommer snart</string>
 </resources>

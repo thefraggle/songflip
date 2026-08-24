@@ -16,7 +16,7 @@
     <string name="select_language_title">Selecteer taal</string>
     <string name="setup_title">Hoe het werkt</string>
     <string name="step1">Tik op de onderstaande knop om systeeminstellingen te openen</string>
-    <string name="step2">Schakel \"Ondersteunde links openen\" in voor muziekdomeinen</string>
+    <string name="step2">Schakel "Ondersteunde links openen" in voor muziekdomeinen</string>
     <string name="step3">Klaar! Gedeelde links openen automatisch in je doelspeler op de achtergrond.</string>
     <string name="btn_open_settings">Instellingen openen</string>
     <string name="input_sources_label">Bronlinks onderscheppen</string>
@@ -88,21 +88,49 @@
     <string name="legal_terms">Gebruiksvoorwaarden</string>
     <string name="playlist_not_supported_toast">Afspeellijsten worden momenteel niet ondersteund.</string>
 
-    <string name="history_title">Song History</string>
-    <string name="history_subtitle">Manage and replay recently flipped songs</string>
-    <string name="history_cached_count">%1$d songs in history</string>
-    <string name="history_empty">No converted songs yet. Flipped music links will appear here automatically.</string>
-    <string name="history_clear_all">Clear History</string>
-    <string name="history_clear_confirm_title">Clear Song History?</string>
-    <string name="history_clear_confirm_message">This will remove all converted songs from history and reset your local cache.</string>
-    <string name="history_item_deleted">Song removed from history &amp; cache</string>
-    <string name="history_all_cleared">History and cache cleared</string>
-    <string name="history_pro_teaser_title">SongFlip PRO History</string>
-    <string name="history_pro_teaser_desc">Show up to 100 songs in your history with SongFlip PRO.</string>
-    <string name="history_btn_upgrade">Upgrade to PRO</string>
-    <string name="action_delete">Delete</string>
-    <string name="time_just_now">Just now</string>
-    <string name="time_minutes_ago">%1$d min ago</string>
-    <string name="time_hours_ago">%1$d h ago</string>
-    <string name="time_days_ago">%1$d d ago</string>
+    <string name="history_title">Nummergeschiedenis</string>
+    <string name="history_subtitle">Bekijk en beheer recent geconverteerde nummers</string>
+    <string name="history_cached_count" formatted="false">%1 nummers in geschiedenis</string>
+    <string name="history_empty">Nog geen geconverteerde nummers. Gedeelde muzieklinks verschijnen hier.</string>
+    <string name="history_clear_all">Geschiedenis wissen</string>
+    <string name="history_clear_confirm_title">Geschiedenis wissen?</string>
+    <string name="history_clear_confirm_message">Hiermee worden alle opgeslagen nummers verwijderd en de lokale cache gereset.</string>
+    <string name="history_item_deleted">Nummer verwijderd uit geschiedenis en cache</string>
+    <string name="history_all_cleared">Geschiedenis en cache gewist</string>
+    <string name="history_pro_teaser_title">SongFlip PRO Geschiedenis</string>
+    <string name="history_pro_teaser_desc">Ontgrendel tot 100 nummers in de geschiedenis met SongFlip PRO.</string>
+    <string name="history_btn_upgrade">Upgraden naar PRO</string>
+    <string name="action_delete">Verwijderen</string>
+    <string name="time_just_now">Zojuist</string>
+    <string name="time_minutes_ago" formatted="false">%1 min geleden</string>
+    <string name="time_hours_ago" formatted="false">%1 uur geleden</string>
+    <string name="time_days_ago" formatted="false">%1 dagen geleden</string>
+
+    <string name="pro_title">SongFlip PRO</string>
+    <string name="pro_subtitle">Steun onafhankelijke ontwikkeling &amp; ontgrendel functies</string>
+    <string name="pro_feature_history">Uitgebreide geschiedenis van 100 nummers</string>
+    <string name="pro_feature_support">Steun onafhankelijke app-ontwikkeling rechtstreeks</string>
+    <string name="pro_feature_future">Alle toekomstige PRO-functies inbegrepen</string>
+    <string name="pro_tier_monthly">Maandelijks</string>
+    <string name="pro_tier_annual">Jaarlijks</string>
+    <string name="pro_tier_lifetime">Levenslang</string>
+    <string name="pro_bestseller_badge" formatted="false">BESTSELLER • 33% KORTING</string>
+    <string name="pro_lifetime_badge">EENMALIG</string>
+    <string name="pro_price_monthly_default">0,99 € / maand</string>
+    <string name="pro_price_annual_default">7,99 € / jaar</string>
+    <string name="pro_price_annual_sub">~0,66 € / maand (4 maanden gratis)</string>
+    <string name="pro_price_lifetime_default">19,99 € eenmalig</string>
+    <string name="pro_btn_restore">Aankopen herstellen</string>
+    <string name="pro_coupon_toggle">Heb je een promotiecode?</string>
+    <string name="pro_coupon_hint">Voer code in</string>
+    <string name="pro_coupon_btn_redeem">Inwisselen</string>
+    <string name="pro_coupon_success_lifetime">🎉 SongFlip PRO Levenslang ontgrendeld!</string>
+    <string name="pro_coupon_success_1year">🎉 SongFlip PRO (1 jaar) ontgrendeld!</string>
+    <string name="pro_coupon_invalid">Ongeldige promotiecode</string>
+    <string name="pro_coupon_already_active">PRO is al actief</string>
+    <string name="pro_active_status">SongFlip PRO Actief</string>
+    <string name="pro_active_lifetime">Levenslange VIP-toegang</string>
+    <string name="pro_active_annual">VIP-toegang actief tot %1$s</string>
+    <string name="pro_btn_subscribe">Ontvang SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_coming_soon">SongFlip PRO – Binnenkort beschikbaar</string>
 </resources>

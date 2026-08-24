@@ -16,7 +16,7 @@
     <string name="select_language_title">언어 선택</string>
     <string name="setup_title">사용 방법</string>
     <string name="step1">아래 버튼을 눌러 시스템 설정을 엽니다</string>
-    <string name="step2">음악 도메인에 대해 \"지원되는 링크 열기\"를 활성화합니다</string>
+    <string name="step2">음악 도메인에 대해 "지원되는 링크 열기"를 활성화합니다</string>
     <string name="step3">완료! 공유된 링크는 백그라운드에서 대상 플레이어로 자동 변환됩니다.</string>
     <string name="btn_open_settings">설정 열기</string>
     <string name="input_sources_label">소스 링크 가로채기</string>
@@ -105,4 +105,31 @@
     <string name="time_minutes_ago">%1$d min ago</string>
     <string name="time_hours_ago">%1$d h ago</string>
     <string name="time_days_ago">%1$d d ago</string>
+
+    <string name="pro_title">SongFlip PRO</string>
+    <string name="pro_subtitle">Support indie development &amp; unlock exclusive features</string>
+    <string name="pro_feature_history">Expanded 100-song history</string>
+    <string name="pro_feature_support">Directly support indie development</string>
+    <string name="pro_feature_future">All upcoming PRO features included</string>
+    <string name="pro_tier_monthly">Monthly</string>
+    <string name="pro_tier_annual">Annual</string>
+    <string name="pro_tier_lifetime">Lifetime</string>
+    <string name="pro_bestseller_badge" formatted="false">BESTSELLER • 33% OFF</string>
+    <string name="pro_lifetime_badge">ONE-TIME</string>
+    <string name="pro_price_monthly_default">0.99 € / month</string>
+    <string name="pro_price_annual_default">7.99 € / year</string>
+    <string name="pro_price_annual_sub">~0.66 € / month (4 months free)</string>
+    <string name="pro_price_lifetime_default">19.99 € one-time</string>
+    <string name="pro_btn_restore">Restore Purchases</string>
+    <string name="pro_coupon_toggle">Have a promo code?</string>
+    <string name="pro_coupon_hint">Enter code</string>
+    <string name="pro_coupon_btn_redeem">Redeem</string>
+    <string name="pro_coupon_success_lifetime">🎉 SongFlip PRO Lifetime unlocked!</string>
+    <string name="pro_coupon_success_1year">🎉 SongFlip PRO (1 Year) unlocked!</string>
+    <string name="pro_coupon_invalid">Invalid promo code</string>
+    <string name="pro_coupon_already_active">PRO is already active</string>
+    <string name="pro_active_status">SongFlip PRO Active</string>
+    <string name="pro_active_lifetime">Lifetime VIP Access</string>
+    <string name="pro_active_annual">VIP Access active until %1$s</string>
+    <string name="pro_btn_coming_soon">SongFlip PRO – 곧 출시 예정</string>
 </resources>

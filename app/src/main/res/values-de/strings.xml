@@ -120,4 +120,32 @@
     <string name="time_minutes_ago">vor %1$d Min.</string>
     <string name="time_hours_ago">vor %1$d Std.</string>
     <string name="time_days_ago">vor %1$d Tagen</string>
+
+    <string name="pro_title">SongFlip PRO</string>
+    <string name="pro_subtitle">Unterstütze die Entwicklung &amp; schalte alle Features frei</string>
+    <string name="pro_feature_history">Erweiterter 100-Song-Verlauf</string>
+    <string name="pro_feature_support">Direkte Unterstützung unabhängiger App-Entwicklung</string>
+    <string name="pro_feature_future">Alle zukünftigen PRO-Features inklusive</string>
+    <string name="pro_tier_monthly">Monatlich</string>
+    <string name="pro_tier_annual">Jährlich</string>
+    <string name="pro_tier_lifetime">Lifetime</string>
+    <string name="pro_bestseller_badge" formatted="false">BESTSELLER • 33% ERSPARNIS</string>
+    <string name="pro_lifetime_badge">EINMALIG</string>
+    <string name="pro_price_monthly_default">0,99 € / Monat</string>
+    <string name="pro_price_annual_default">7,99 € / Jahr</string>
+    <string name="pro_price_annual_sub">~0,66 € / Monat (4 Monate geschenkt)</string>
+    <string name="pro_price_lifetime_default">19,99 € einmalig</string>
+    <string name="pro_btn_restore">Käufe wiederherstellen</string>
+    <string name="pro_coupon_toggle">Gutscheincode einlösen</string>
+    <string name="pro_coupon_hint">Code eingeben</string>
+    <string name="pro_coupon_btn_redeem">Einlösen</string>
+    <string name="pro_coupon_success_lifetime">🎉 SongFlip PRO Lifetime erfolgreich aktiviert!</string>
+    <string name="pro_coupon_success_1year">🎉 SongFlip PRO (1 Jahr) erfolgreich aktiviert!</string>
+    <string name="pro_coupon_invalid">Ungültiger Gutscheincode</string>
+    <string name="pro_coupon_already_active">PRO ist bereits aktiv</string>
+    <string name="pro_active_status">SongFlip PRO Aktiv</string>
+    <string name="pro_active_lifetime">Lifetime VIP Zugang</string>
+    <string name="pro_active_annual">VIP Zugang aktiv bis %1$s</string>
+    <string name="pro_btn_subscribe">SongFlip PRO freischalten (%1$s)</string>
+    <string name="pro_btn_coming_soon">SongFlip PRO – Demnächst verfügbar</string>
 </resources>

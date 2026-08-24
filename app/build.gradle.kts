@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
-val appVersionName = "1.1.7"
+val appVersionName = "1.1.8"
 val versionParts = appVersionName.split(".")
 val computedVersionCode = (versionParts.getOrElse(0) { "1" }.toInt() * 10000) +
                           (versionParts.getOrElse(1) { "0" }.toInt() * 100) +
@@ -90,6 +90,9 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.json:json:20231013")
+
+    // In-App Purchases & Billing (RevenueCat)
+    implementation("com.revenuecat.purchases:purchases:8.12.2")
 
     // Testing
     testImplementation("junit:junit:4.13.2")
