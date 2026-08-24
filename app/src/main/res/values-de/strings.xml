@@ -149,4 +149,6 @@
     <string name="pro_active_annual">VIP Zugang aktiv bis %1$s</string>
     <string name="pro_btn_subscribe">SongFlip PRO freischalten (%1$s)</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – Demnächst verfügbar</string>
+    <string name="pro_play_store_unavailable">Google Play Store auf diesem Gerät nicht verfügbar.</string>
+    <string name="pro_processing">Kauf wird verarbeitet...</string>
 </resources>

@@ -1,4 +1,4 @@
-- Förbättrade inställningar: Tydligare layout med direkt tillgång till alla apppreferenser.
-- Extended History Support: Smartare lagringshantering för större samlingar av konverterade låtar.
-- Support för kampanjkoder: Lös in kupongkoder direkt i inställningarna för att låsa upp förmåner.
-- Prestanda och stabilitet: Smidigare animationer och robust länkhantering i alla streamingtjänster.
+- Faster Link Resolution: Improved track detection for international and regional music links.
+- Cleaner Header Layout: Streamlined main screen with more space and a cleaner top bar.
+- Manual Link Converter in Settings: Easily test and convert music links directly from the settings menu.
+- High-Speed Cache Support: Optimized background resolution engine for instant playback.

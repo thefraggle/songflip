@@ -1,3 +1,4 @@
-- बेहतर सेटिंग: ऐप की सभी पसंद - नापसंद के लिए सीधे ऐक्सेस के साथ ज़्यादा साफ़ लेआउट।
-- एक्सटेंडेड हिस्ट्री सपोर्ट: कन्वर्ट किए गए गानों के बड़े कलेक्शन के लिए स्मार्ट स्टोरेज हैंडलिंग।
-- प्रोम...
+- Faster Link Resolution: Improved track detection for international and regional music links.
+- Cleaner Header Layout: Streamlined main screen with more space and a cleaner top bar.
+- Manual Link Converter in Settings: Easily test and convert music links directly from the settings menu.
+- High-Speed Cache Support: Optimized background resolution engine for instant playback.

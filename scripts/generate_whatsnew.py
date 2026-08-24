@@ -8,23 +8,21 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WHATSNEW_DIR = os.path.join(BASE_DIR, "distribution", "whatsnew")
 
 TARGET_LOCALES = {
-    'en-US': 'en-US',
+    'en-US': 'en-GB',
     'en-GB': 'en-GB',
-    'en-IN': 'en-IN',
     'de-DE': 'de-DE',
     'fr-FR': 'fr-FR',
     'fr-CA': 'fr-CA',
     'it-IT': 'it-IT',
     'es-ES': 'es-ES',
-    'es-US': 'es-US',
-    'es-419': 'es-419',
+    'es-US': 'es-ES',
+    'es-419': 'es-ES',
     'pt-PT': 'pt-PT',
     'pt-BR': 'pt-BR',
     'pl-PL': 'pl-PL',
     'nl-NL': 'nl-NL',
     'sv-SE': 'sv-SE',
     'da-DK': 'da-DK',
-    'no-NO': 'nb-NO',
     'nb-NO': 'nb-NO',
     'tr-TR': 'tr-TR',
     'ru-RU': 'ru-RU',
@@ -32,12 +30,18 @@ TARGET_LOCALES = {
     'ja-JP': 'ja-JP',
     'ko-KR': 'ko-KR',
     'zh-CN': 'zh-CN',
+    'zh-TW': 'zh-TW',
     'id': 'id-ID',
     'vi': 'vi-VN',
     'hi-IN': 'hi-IN',
     'bn-BD': 'bn-IN',
-    'bn-IN': 'bn-IN',
     'mr-IN': 'mr-IN',
+    'ar': 'ar-SA',
+    'cs-CZ': 'cs-CZ',
+    'el-GR': 'el-GR',
+    'fi-FI': 'fi-FI',
+    'hu-HU': 'hu-HU',
+    'ro': 'ro-RO',
 }
 
 def truncate_to_bytes(text, max_bytes=500, suffix="..."):
@@ -99,6 +103,9 @@ def main():
         print(f"deep-translator not available: {e}")
         translator_cls = None
 
+    import shutil
+    if os.path.exists(WHATSNEW_DIR):
+        shutil.rmtree(WHATSNEW_DIR)
     os.makedirs(WHATSNEW_DIR, exist_ok=True)
 
     for locale, target_lang in TARGET_LOCALES.items():

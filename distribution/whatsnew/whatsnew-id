@@ -1,4 +1,4 @@
-- Pengaturan yang Ditingkatkan: Tata letak yang lebih jelas dengan akses langsung ke semua preferensi aplikasi.
-- Dukungan Riwayat Diperpanjang: Penanganan penyimpanan yang lebih cerdas untuk koleksi lagu yang dikonversi lebih besar.
-- Dukungan Kode Promo: Tukarkan kode voucher secara langsung di pengaturan untuk mendapatkan manfaat.
-- Performa & Stabilitas: Animasi yang lebih halus dan penanganan tautan yang kuat di semua layanan streaming.
+- Faster Link Resolution: Improved track detection for international and regional music links.
+- Cleaner Header Layout: Streamlined main screen with more space and a cleaner top bar.
+- Manual Link Converter in Settings: Easily test and convert music links directly from the settings menu.
+- High-Speed Cache Support: Optimized background resolution engine for instant playback.

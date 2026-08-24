@@ -1,4 +1,4 @@
-- Paramètres améliorés : mise en page plus claire avec accès direct à toutes les préférences de l'application.
-- Prise en charge de l'historique étendu : gestion plus intelligente du stockage pour de plus grandes collections de chansons converties.
-- Assistance par code promotionnel : utilisez directement les codes de bon dans les paramètres pour débloquer des avantages.
-- Performances et stabilité : animations plus fluides et gestion robuste des liens sur tous les services de ...
+- Faster Link Resolution: Improved track detection for international and regional music links.
+- Cleaner Header Layout: Streamlined main screen with more space and a cleaner top bar.
+- Manual Link Converter in Settings: Easily test and convert music links directly from the settings menu.
+- High-Speed Cache Support: Optimized background resolution engine for instant playback.
