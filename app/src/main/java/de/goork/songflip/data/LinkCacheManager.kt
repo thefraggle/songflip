@@ -13,6 +13,18 @@ data class CachedLinkEntry(
     val timestamp: Long = System.currentTimeMillis()
 )
 
+data class HistoryItem(
+    val cacheKey: String,
+    val canonicalUrl: String,
+    val targetPlatformKey: String,
+    val targetUrl: String,
+    val platform: String,
+    val title: String? = null,
+    val artist: String? = null,
+    val isAlbum: Boolean = false,
+    val timestamp: Long = System.currentTimeMillis()
+)
+
 /**
  * Two-tier L1 cache for fast music link resolutions:
  * 1. Thread-safe in-memory LRU map (< 5ms access time)
@@ -141,9 +153,76 @@ object LinkCacheManager {
     }
 
     @Synchronized
+    fun removeByCacheKey(cacheKey: String) {
+        memoryCache.remove(cacheKey)
+        removePersistent(cacheKey)
+    }
+
+    @Synchronized
     fun clear() {
         memoryCache.clear()
         sharedPreferences?.edit()?.clear()?.apply()
+    }
+
+    @Synchronized
+    fun clearHistoryAndCache() {
+        clear()
+    }
+
+    @Synchronized
+    fun getHistoryEntries(limit: Int = 10): List<HistoryItem> {
+        val now = System.currentTimeMillis()
+        val allItems = mutableListOf<HistoryItem>()
+        val combinedKeys = mutableSetOf<String>()
+        combinedKeys.addAll(memoryCache.keys)
+
+        val prefs = sharedPreferences
+        if (prefs != null) {
+            combinedKeys.addAll(prefs.all.keys.filter { it != CACHE_VERSION_KEY })
+        }
+
+        for (key in combinedKeys) {
+            val entry = memoryCache[key] ?: (prefs?.getString(key, null)?.let { parseEntry(it) })
+            if (entry != null && (now - entry.timestamp) < CACHE_TTL_MS && isValidTargetUrl(entry.targetUrl)) {
+                val parts = key.split("|")
+                val canonicalUrl = parts.getOrNull(0) ?: ""
+                val targetPlatformKey = parts.getOrNull(1) ?: entry.platform
+
+                allItems.add(
+                    HistoryItem(
+                        cacheKey = key,
+                        canonicalUrl = canonicalUrl,
+                        targetPlatformKey = targetPlatformKey,
+                        targetUrl = entry.targetUrl,
+                        platform = entry.platform,
+                        title = entry.title,
+                        artist = entry.artist,
+                        isAlbum = entry.isAlbum,
+                        timestamp = entry.timestamp
+                    )
+                )
+            }
+        }
+
+        // Newest entries first
+        allItems.sortByDescending { it.timestamp }
+
+        return if (limit > 0 && allItems.size > limit) {
+            allItems.subList(0, limit)
+        } else {
+            allItems
+        }
+    }
+
+    @Synchronized
+    fun getTotalCachedCount(): Int {
+        val prefs = sharedPreferences
+        val keys = mutableSetOf<String>()
+        keys.addAll(memoryCache.keys)
+        if (prefs != null) {
+            keys.addAll(prefs.all.keys.filter { it != CACHE_VERSION_KEY })
+        }
+        return keys.size
     }
 
     fun isValidTargetUrl(url: String): Boolean {

@@ -1,4 +1,3 @@
-- **Instant Visual Feedback**: Immediate confirmation toast on incoming music links.
-- **Accurate Track Matching**: Updated metadata resolution for Spotify, Apple Music & Odesli.
-- **Single Track Protection**: Links with track IDs (`?i=...`, `/track/`) always open as single songs, never albums.
-- **Localized Release Notes**: Multi-language Play Store update notes.
+- **Song History**: View and replay your recently flipped songs anytime directly in settings.
+- **Manage History**: Copy links or remove songs from your history with a single tap.
+- **Clear All**: Reset your local song history and cache whenever you want.

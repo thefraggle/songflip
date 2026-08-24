@@ -125,4 +125,18 @@ object PackageUtils {
             else -> platformKey.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
         }
     }
+
+    fun detectPlatformFromUrl(url: String): String {
+        val lower = url.lowercase()
+        return when {
+            lower.contains("spotify.com") || lower.startsWith("spotify:") -> "spotify"
+            lower.contains("apple.com") || lower.contains("itunes.apple.com") -> "appleMusic"
+            lower.contains("music.youtube.com") -> "youtubeMusic"
+            lower.contains("youtube.com") || lower.contains("youtu.be") -> "youtubeMusic"
+            lower.contains("tidal.com") || lower.startsWith("tidal:") -> "tidal"
+            lower.contains("deezer.com") || lower.startsWith("deezer:") -> "deezer"
+            lower.contains("amazon.") || lower.contains("amzn.to") || lower.contains("a.co") -> "amazonMusic"
+            else -> ""
+        }
+    }
 }

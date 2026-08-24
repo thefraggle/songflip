@@ -87,4 +87,22 @@
     <string name="legal_imprint">Выходные данные</string>
     <string name="legal_terms">Условия использования</string>
     <string name="playlist_not_supported_toast">Плейлисты в настоящее время не поддерживаются.</string>
+
+    <string name="history_title">Song History</string>
+    <string name="history_subtitle">Manage and replay recently flipped songs</string>
+    <string name="history_cached_count">%1$d songs in history</string>
+    <string name="history_empty">No converted songs yet. Flipped music links will appear here automatically.</string>
+    <string name="history_clear_all">Clear History</string>
+    <string name="history_clear_confirm_title">Clear Song History?</string>
+    <string name="history_clear_confirm_message">This will remove all converted songs from history and reset your local cache.</string>
+    <string name="history_item_deleted">Song removed from history &amp; cache</string>
+    <string name="history_all_cleared">History and cache cleared</string>
+    <string name="history_pro_teaser_title">SongFlip PRO History</string>
+    <string name="history_pro_teaser_desc">Show up to 100 songs in your history with SongFlip PRO.</string>
+    <string name="history_btn_upgrade">Upgrade to PRO</string>
+    <string name="action_delete">Delete</string>
+    <string name="time_just_now">Just now</string>
+    <string name="time_minutes_ago">%1$d min ago</string>
+    <string name="time_hours_ago">%1$d h ago</string>
+    <string name="time_days_ago">%1$d d ago</string>
 </resources>

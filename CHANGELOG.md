@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.7] - 2026-08-24
+
+### English
+- **Song History**: View and replay your recently flipped songs anytime directly in settings.
+- **Manage History**: Copy links or remove songs from your history with a single tap.
+- **Clear All**: Reset your local song history and cache whenever you want.
+
+### Deutsch
+- **Song-Verlauf**: Zuletzt umgewandelte Songs jederzeit direkt in den Einstellungen ansehen und erneut abspielen.
+- **Verlauf verwalten**: Links kopieren oder einzelne Songs mit einem Fingertipp aus dem Verlauf entfernen.
+- **Verlauf leeren**: Den Verlauf und lokalen Speicher bei Bedarf mit einem Klick zurücksetzen.
+
 ## [1.1.6] - 2026-08-23
 
 ### English

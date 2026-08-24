@@ -102,4 +102,22 @@
     <string name="theme_system">System</string>
     <string name="theme_light">Hell</string>
     <string name="theme_dark">Dunkel</string>
+
+    <string name="history_title">Song-Verlauf</string>
+    <string name="history_subtitle">Zuletzt umgewandelte Songs ansehen &amp; verwalten</string>
+    <string name="history_cached_count">%1$d Songs im Verlauf</string>
+    <string name="history_empty">Noch keine Songs im Verlauf. Sobald du Musik-Links teilst, erscheinen sie hier.</string>
+    <string name="history_clear_all">Verlauf leeren</string>
+    <string name="history_clear_confirm_title">Verlauf wirklich leeren?</string>
+    <string name="history_clear_confirm_message">Dadurch werden alle gespeicherten Songs gelöscht und der lokale Cache zurückgesetzt.</string>
+    <string name="history_item_deleted">Song aus Verlauf &amp; Cache entfernt</string>
+    <string name="history_all_cleared">Verlauf und Cache geleert</string>
+    <string name="history_pro_teaser_title">SongFlip PRO Verlauf</string>
+    <string name="history_pro_teaser_desc">Schalte bis zu 100 Songs im Verlauf mit SongFlip PRO frei.</string>
+    <string name="history_btn_upgrade">PRO freischalten</string>
+    <string name="action_delete">Löschen</string>
+    <string name="time_just_now">Gerade eben</string>
+    <string name="time_minutes_ago">vor %1$d Min.</string>
+    <string name="time_hours_ago">vor %1$d Std.</string>
+    <string name="time_days_ago">vor %1$d Tagen</string>
 </resources>

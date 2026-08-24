@@ -40,6 +40,10 @@ import de.goork.songflip.data.SettingsRepository
 import de.goork.songflip.ui.LanguageItem
 import de.goork.songflip.ui.ServiceInfo
 
+import androidx.compose.material.icons.outlined.ChevronRight
+import androidx.compose.material.icons.outlined.History
+import de.goork.songflip.data.LinkCacheManager
+
 private const val URL_FAMWAKE = "https://play.google.com/store/apps/details?id=de.familienwecker.famwake"
 private const val URL_NOTTHOFF = "https://notthoff.org"
 private const val URL_PRIVACY = "https://songflip.link/privacy-policy.html"
@@ -55,13 +59,24 @@ fun SettingsBottomSheet(
     currentLanguageCode: String,
     onLanguageSelected: (String) -> Unit,
     currentThemeMode: String,
-    onThemeModeSelected: (String) -> Unit
+    onThemeModeSelected: (String) -> Unit,
+    isPro: Boolean = false,
+    onOpenProPaywall: () -> Unit = {}
 ) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
 
     var showLanguagePickerSubSheet by remember { mutableStateOf(false) }
+    var showHistorySubSheet by remember { mutableStateOf(false) }
     var selectedTheme by remember { mutableStateOf(currentThemeMode) }
+
+    if (showHistorySubSheet) {
+        HistoryBottomSheet(
+            onDismissRequest = { showHistorySubSheet = false },
+            isPro = isPro,
+            onOpenProPaywall = onOpenProPaywall
+        )
+    }
 
     if (showLanguagePickerSubSheet) {
         ModalBottomSheet(
@@ -217,7 +232,57 @@ fun SettingsBottomSheet(
                 }
             }
 
-            // 2. Theme Mode Selection Card
+            // 2. Song History & Cache Card
+            val cachedCount = remember(showHistorySubSheet) { LinkCacheManager.getTotalCachedCount() }
+            Card(
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                        showHistorySubSheet = true
+                    }
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.History,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.size(22.dp)
+                    )
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = stringResource(R.string.history_title),
+                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Text(
+                            text = if (cachedCount > 0) {
+                                stringResource(R.string.history_cached_count, cachedCount)
+                            } else {
+                                stringResource(R.string.history_subtitle)
+                            },
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                    Icon(
+                        imageVector = Icons.Outlined.ChevronRight,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+            }
+
+            // 3. Theme Mode Selection Card
             Card(
                 shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),

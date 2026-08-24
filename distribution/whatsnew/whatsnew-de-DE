@@ -1,4 +1,3 @@
-- **Sofortiges Feedback**: Sofortige Toast-Meldung beim Antippen geteilter Musik-Links.
-- **Präzise Song-Erkennung**: Aktualisierte Metadaten für Spotify, Apple Music & Odesli.
-- **Einzelsong-Garantie**: Links mit Track-ID (`?i=...`, `/track/`) öffnen garantiert als Song, nie als Album.
-- **Lokalisierte Release Notes**: Mehrsprachige Update-Hinweise im Play Store.
+- **Song-Verlauf**: Zuletzt umgewandelte Songs jederzeit direkt in den Einstellungen ansehen und erneut abspielen.
+- **Verlauf verwalten**: Links kopieren oder einzelne Songs mit einem Fingertipp aus dem Verlauf entfernen.
+- **Verlauf leeren**: Den Verlauf und lokalen Speicher bei Bedarf mit einem Klick zurücksetzen.
