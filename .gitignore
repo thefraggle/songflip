@@ -44,3 +44,8 @@ play-store*.json
 # Internal Assets & Working Documents
 internal/
 store_assets/
+
+# Firebase
+.firebase/
+functions/node_modules/
+functions/lib/
