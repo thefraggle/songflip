@@ -41,7 +41,7 @@ SongFlip is built as a modern **Kotlin Multiplatform (KMP)** project with a modu
 2. **Tier 2 (L2 Server-Side Cache)**: High-speed Firebase edge cache with 90-day TTL for instant sub-100ms conversions for Pro users.
 3. **Tier 3 (Direct Playback Extractor)**: Background video ID regex extraction for YouTube Music instant play.
 4. **Tier 4 (Local Metadata Fallback APIs)**: iTunes Search & Lookup API, Spotify oEmbed, Deezer Public API, and YouTube oEmbed.
-5. **Tier 5 (Target Catalog Search & Custom API)**: Fallback search routing and optional user-supplied custom API key / webhook endpoint.
+5. **Tier 5 (Target Catalog Search Fallback)**: Intelligent fallback search routing for obscure releases and regional variants.
 
 ---
 
@@ -52,7 +52,6 @@ SongFlip is **100% open source (GPLv3)** and its core 0-click redirect functiona
 For users who want the fastest possible performance or wish to support indie development, **SongFlip Pro** (one-time lifetime purchase) provides:
 
 - **⚡ L2 Server-Side Cache**: Lightning-fast resolution (~50–100 ms) via our dedicated server cache with zero rate-limiting.
-- **🔑 Custom API / Webhook Option**: Power users can also configure their own custom resolution endpoint and Bearer token (e.g. self-hosted server or n8n workflow).
 - **👑 Lifetime Supporter Status**: Golden/Emerald PRO badge & direct support for independent open-source development.
 - **🔄 Upcoming Power Features**:
   - **1:1 Playlist Transfer**: Transfer and sync full playlists across Spotify, Apple Music, and YouTube Music.
