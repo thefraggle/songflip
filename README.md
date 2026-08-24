@@ -52,7 +52,7 @@ SongFlip is **100% open source (GPLv3)** and its core 0-click redirect functiona
 For users who want the fastest possible performance or wish to support indie development, **SongFlip Pro** (one-time lifetime purchase) provides:
 
 - **⚡ L2 Server-Side Cache**: Lightning-fast resolution (~50–100 ms) via our dedicated server cache with zero rate-limiting.
-- **🔑 Custom API Token Option**: Non-Pro power users can also bring their own free Odesli API key directly in settings.
+- **🔑 Custom API / Webhook Option**: Power users can also configure their own custom resolution endpoint and Bearer token (e.g. self-hosted server or n8n workflow).
 - **👑 Lifetime Supporter Status**: Golden/Emerald PRO badge & direct support for independent open-source development.
 - **🔄 Upcoming Power Features**:
   - **1:1 Playlist Transfer**: Transfer and sync full playlists across Spotify, Apple Music, and YouTube Music.
