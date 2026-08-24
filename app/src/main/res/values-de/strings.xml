@@ -124,6 +124,7 @@
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">Unterstütze die Entwicklung &amp; schalte alle Features frei</string>
     <string name="pro_feature_history">Erweiterter 100-Song-Verlauf</string>
+    <string name="pro_feature_l2_cache">Ultraschneller L2-Server-Cache (&lt; 50 ms)</string>
     <string name="pro_feature_support">Direkte Unterstützung unabhängiger App-Entwicklung</string>
     <string name="pro_feature_future">Alle zukünftigen PRO-Features inklusive</string>
     <string name="pro_tier_monthly">Monatlich</string>

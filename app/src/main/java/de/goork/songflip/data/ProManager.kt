@@ -34,7 +34,7 @@ object ProManager {
     private const val KEY_COUPON_EXPIRATION = "pro_coupon_expiration"
 
     // RevenueCat Configuration
-    private const val REVENUECAT_API_KEY = "test_iMpTuYpDXJothYnXeLSTTSXyqHM"
+    private const val REVENUECAT_API_KEY = "goog_mzQwhCFXsoDHGcFDxkzsIqBcHfO"
     const val ENTITLEMENT_PRO = "pro"
 
     // SHA-256 Hashes of Secret Codes (Raw strings are not stored in repository)
@@ -81,7 +81,8 @@ object ProManager {
     }
 
     private fun updateFromCustomerInfo(customerInfo: CustomerInfo) {
-        val hasProEntitlement = customerInfo.entitlements[ENTITLEMENT_PRO]?.isActive == true
+        val hasProEntitlement = customerInfo.entitlements["pro"]?.isActive == true ||
+                                customerInfo.entitlements["songflip_pro"]?.isActive == true
         evaluateProState(revenueCatActive = hasProEntitlement)
     }
 

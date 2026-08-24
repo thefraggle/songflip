@@ -1,0 +1,20 @@
+Vos amis vous envoient des liens Spotify, Apple Music ou Tidal – mais vous utilisez YouTube Music, Deezer ou Amazon Music ?
+
+SongFlip est le redirecteur automatique de liens musicaux sans clic pour Android. Configurez-le en 30 secondes, et chaque lien partagé dans WhatsApp, Telegram, Instagram ou le navigateur s'ouvre instantanément dans votre application musicale préférée.
+
+🎵 Services de musique pris en charge :
+• 🟢 Spotify
+• 🔴 YouTube Music & YouTube
+• 🍎 Apple Music
+• 🌊 Tidal
+• 🟣 Deezer
+• 🔵 Amazon Music
+
+✨ Fonctionnalités clés :
+• ⚡ Redirection transparente en arrière-plan : Lance directement la lecture sans intermédiaire.
+• 💿 Détection des albums et artistes : Compatible pistes individuelles, albums complets et profils d'artistes.
+• 🚀 Moteur de lecture instantanée : Ouvre directement les identifiants sans recherche manuelle.
+• 🛡️ 100% Privé & Sans suivi : Aucun compte requis, aucun traqueur publicitaire, aucune donnée d'écoute collectée.
+• ⏸️ Tuile Paramètres rapides & Mode Pause : Suspendez la redirection facilement depuis le volet des notifications.
+• 🧪 Studio de test intégré : Testez et convertissez vos liens directement dans l'application.
+• 💎 SongFlip PRO en option : Historique étendu à 100 morceaux et cache serveur L2 ultra-rapide (< 50 ms).

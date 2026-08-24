@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.9] - 2026-08-24
+- **Faster Link Resolution**: Improved track detection for international and regional music links.
+- **Cleaner Header Layout**: Streamlined main screen with more space and a cleaner top bar.
+- **Manual Link Converter in Settings**: Easily test and convert music links directly from the settings menu.
+- **High-Speed Cache Support**: Optimized background resolution engine for instant playback.
+
 ## [1.1.8] - 2026-08-24
 - **Enhanced Settings**: Clearer layout with direct access to all app preferences.
 - **Extended History Support**: Smarter storage handling for larger collections of converted songs.

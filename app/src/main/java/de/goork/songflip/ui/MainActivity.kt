@@ -247,7 +247,8 @@ fun MainScreen(
             currentThemeMode = currentThemeMode,
             onThemeModeSelected = onThemeModeSelected,
             isPro = proState.isPro,
-            onOpenProPaywall = { showProPaywall = true }
+            onOpenProPaywall = { showProPaywall = true },
+            onOpenTestStudio = { showTestStudioBottomSheet = true }
         )
     }
 
@@ -285,7 +286,6 @@ fun MainScreen(
         ) {
             // 1. Header Banner
             HeaderBanner(
-                onOpenTestStudio = { showTestStudioBottomSheet = true },
                 onOpenSettings = { showSettingsBottomSheet = true },
                 isPro = proState.isPro
             )

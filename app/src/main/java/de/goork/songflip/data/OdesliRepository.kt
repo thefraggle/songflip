@@ -27,8 +27,8 @@ sealed class OdesliResult {
 class OdesliRepository {
 
     private val client = OkHttpClient.Builder()
-        .connectTimeout(5, TimeUnit.SECONDS)
-        .readTimeout(5, TimeUnit.SECONDS)
+        .connectTimeout(10, TimeUnit.SECONDS)
+        .readTimeout(10, TimeUnit.SECONDS)
         .followRedirects(true)
         .followSslRedirects(true)
         .build()
@@ -352,13 +352,13 @@ class OdesliRepository {
     private fun normalizeToSongLinkDirectUrl(url: String): String {
         val clean = if (url.contains("?")) url.substringBefore("?") else url
 
-        // Spotify
-        if (clean.contains("open.spotify.com/track/")) {
-            val id = clean.substringAfter("/track/").substringBefore("/").trim()
+        // Spotify (Supports standard and international /intl-*/ links)
+        if (clean.contains("spotify.com") && clean.contains("/track/")) {
+            val id = clean.substringAfter("/track/").substringBefore("/").substringBefore("?").trim()
             if (id.isNotEmpty()) return "https://song.link/s/$id"
         }
-        if (clean.contains("open.spotify.com/album/")) {
-            val id = clean.substringAfter("/album/").substringBefore("/").trim()
+        if (clean.contains("spotify.com") && clean.contains("/album/")) {
+            val id = clean.substringAfter("/album/").substringBefore("/").substringBefore("?").trim()
             if (id.isNotEmpty()) return "https://album.link/s/$id"
         }
 
@@ -378,12 +378,18 @@ class OdesliRepository {
 
         // Deezer
         if (clean.contains("deezer.com") && clean.contains("/track/")) {
-            val id = clean.substringAfter("/track/").substringBefore("/").trim()
+            val id = clean.substringAfter("/track/").substringBefore("/").substringBefore("?").trim()
             if (id.isNotEmpty()) return "https://song.link/d/$id"
         }
         if (clean.contains("deezer.com") && clean.contains("/album/")) {
-            val id = clean.substringAfter("/album/").substringBefore("/").trim()
+            val id = clean.substringAfter("/album/").substringBefore("/").substringBefore("?").trim()
             if (id.isNotEmpty()) return "https://album.link/d/$id"
+        }
+
+        // Tidal
+        if (clean.contains("tidal.com") && clean.contains("/track/")) {
+            val id = clean.substringAfter("/track/").substringBefore("/").substringBefore("?").trim()
+            if (id.isNotEmpty()) return "https://song.link/t/$id"
         }
 
         // YouTube
@@ -458,16 +464,52 @@ class OdesliRepository {
             }
 
             val linksMap = mutableMapOf<String, String>()
+
+            // 1. Check pageData.linksByPlatform
+            val linksByPlatform = pageData.optJSONObject("linksByPlatform")
+            if (linksByPlatform != null) {
+                val keys = linksByPlatform.keys()
+                while (keys.hasNext()) {
+                    val key = keys.next()
+                    val linkObj = linksByPlatform.optJSONObject(key)
+                    val urlVal = linkObj?.optString("url") ?: ""
+                    if (urlVal.isNotEmpty()) {
+                        linksMap[key] = urlVal
+                    }
+                }
+            }
+
+            // 2. Check pageData.sections
             if (sections != null) {
                 for (i in 0 until sections.length()) {
                     val section = sections.optJSONObject(i) ?: continue
-                    val links = section.optJSONArray("links") ?: continue
+                    val links = section.optJSONArray("links") ?: section.optJSONArray("items") ?: continue
                     for (j in 0 until links.length()) {
                         val linkObj = links.optJSONObject(j) ?: continue
                         val platform = linkObj.optString("platform")
                         val linkUrl = linkObj.optString("url")
                         if (platform.isNotEmpty() && linkUrl.isNotEmpty()) {
                             linksMap[platform] = linkUrl
+                        }
+                    }
+                }
+            }
+
+            // 3. Fallback: Extract platform URLs embedded directly in HTML
+            val platformPatterns = mapOf(
+                "spotify" to Pattern.compile("https://open\\.spotify\\.com/track/([a-zA-Z0-9]+)"),
+                "tidal" to Pattern.compile("https://(?:listen|www)\\.tidal\\.com/track/([0-9]+)"),
+                "deezer" to Pattern.compile("https://www\\.deezer\\.com/track/([0-9]+)"),
+                "amazonMusic" to Pattern.compile("https://music\\.amazon\\.com/albums/[a-zA-Z0-9]+\\?trackAsin=([a-zA-Z0-9]+)"),
+                "appleMusic" to Pattern.compile("https://music\\.apple\\.com/[a-z]{2}/(?:album|song)/[^\"]+")
+            )
+            for ((plat, pat) in platformPatterns) {
+                if (!linksMap.containsKey(plat)) {
+                    val m = pat.matcher(html)
+                    if (m.find()) {
+                        val matchedUrl = m.group(0)
+                        if (!matchedUrl.isNullOrEmpty()) {
+                            linksMap[plat] = matchedUrl
                         }
                     }
                 }
@@ -659,54 +701,64 @@ class OdesliRepository {
      */
     private fun extractTrackInfo(url: String): String? {
         return try {
-            // 1. Spotify Track & Album Info (Extracts Artist + Title from og:description)
+            // 1. Spotify Track & Album Info (oEmbed + HTML OpenGraph)
             if (url.contains("spotify.com")) {
                 val cleanSpotifyUrl = url.substringBefore("?").trim()
-                val req = Request.Builder()
-                    .url(cleanSpotifyUrl)
-                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
-                    .get()
-                    .build()
-                val resp = client.newCall(req).execute()
-                if (resp.isSuccessful) {
-                    val html = resp.body?.string() ?: ""
-                    resp.close()
-                    val descMatcher = Pattern.compile("<meta\\s+(?:property|name)=[\"']og:description[\"']\\s+content=[\"']([^\"']+)[\"']", Pattern.CASE_INSENSITIVE).matcher(html)
-                    if (descMatcher.find()) {
-                        val desc = descMatcher.group(1) ?: ""
-                        if (desc.contains("·")) {
-                            val parts = desc.split("·").map { it.trim() }
-                            val artist = parts.getOrNull(0) ?: ""
-                            val track = parts.getOrNull(1) ?: ""
-                            if (artist.isNotEmpty() && track.isNotEmpty()) {
-                                return "$artist $track"
+                
+                // A. Fast Public Spotify oEmbed
+                try {
+                    val encoded = URLEncoder.encode(cleanSpotifyUrl, "UTF-8")
+                    val oembedReq = Request.Builder()
+                        .url("https://open.spotify.com/oembed?url=$encoded")
+                        .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+                        .get()
+                        .build()
+                    val oembedResp = client.newCall(oembedReq).execute()
+                    if (oembedResp.isSuccessful) {
+                        val body = oembedResp.body?.string() ?: ""
+                        oembedResp.close()
+                        val json = JSONObject(body)
+                        val title = json.optString("title", "")
+                        if (title.isNotEmpty()) {
+                            return title
+                        }
+                    } else {
+                        oembedResp.close()
+                    }
+                } catch (e: Exception) { /* continue */ }
+
+                // B. Page OpenGraph metadata (Artist + Title)
+                try {
+                    val req = Request.Builder()
+                        .url(cleanSpotifyUrl)
+                        .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+                        .get()
+                        .build()
+                    val resp = client.newCall(req).execute()
+                    if (resp.isSuccessful) {
+                        val html = resp.body?.string() ?: ""
+                        resp.close()
+                        val descMatcher = Pattern.compile("<meta\\s+(?:property|name)=[\"']og:description[\"']\\s+content=[\"']([^\"']+)[\"']", Pattern.CASE_INSENSITIVE).matcher(html)
+                        if (descMatcher.find()) {
+                            val desc = descMatcher.group(1) ?: ""
+                            if (desc.contains("·")) {
+                                val parts = desc.split("·").map { it.trim() }
+                                val artist = parts.getOrNull(0) ?: ""
+                                val track = parts.getOrNull(1) ?: ""
+                                if (artist.isNotEmpty() && track.isNotEmpty()) {
+                                    return "$artist $track"
+                                }
                             }
                         }
+                        val titleMatcher = Pattern.compile("<meta\\s+(?:property|name)=[\"']og:title[\"']\\s+content=[\"']([^\"']+)[\"']", Pattern.CASE_INSENSITIVE).matcher(html)
+                        if (titleMatcher.find()) {
+                            val title = titleMatcher.group(1) ?: ""
+                            if (title.isNotEmpty()) return title
+                        }
+                    } else {
+                        resp.close()
                     }
-                    val titleMatcher = Pattern.compile("<meta\\s+(?:property|name)=[\"']og:title[\"']\\s+content=[\"']([^\"']+)[\"']", Pattern.CASE_INSENSITIVE).matcher(html)
-                    if (titleMatcher.find()) {
-                        val title = titleMatcher.group(1) ?: ""
-                        if (title.isNotEmpty()) return title
-                    }
-                } else {
-                    resp.close()
-                }
-
-                // Fallback to oEmbed
-                val encoded = URLEncoder.encode(url, "UTF-8")
-                val oembedReq = Request.Builder()
-                    .url("https://open.spotify.com/oembed?url=$encoded")
-                    .get()
-                    .build()
-                val oembedResp = client.newCall(oembedReq).execute()
-                if (oembedResp.isSuccessful) {
-                    val body = oembedResp.body?.string() ?: ""
-                    val json = JSONObject(body)
-                    val title = json.optString("title")
-                    oembedResp.close()
-                    if (title.isNotEmpty()) return title
-                }
-                oembedResp.close()
+                } catch (e: Exception) { /* continue */ }
             }
             // 2. Apple Music Track & Album Lookup via iTunes
             else if (url.contains("apple.com") && url.contains("i=")) {
