@@ -109,6 +109,7 @@ interface SongMetadata {
   isAlbum: boolean;
   links: PlatformLinks;
   updatedAt: number;
+  expiresAt: admin.firestore.Timestamp;
 }
 
 /**
@@ -141,13 +142,18 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
       amazonMusic: linksByPlatform.amazonMusic?.url || linksByPlatform.amazon?.url,
     };
 
+    const now = Date.now();
+    const ninetyDaysMs = 90 * 24 * 60 * 60 * 1000;
+    const expiresAt = admin.firestore.Timestamp.fromMillis(now + ninetyDaysMs);
+
     return {
       title,
       artist,
       thumbnailUrl,
       isAlbum,
       links,
-      updatedAt: Date.now(),
+      updatedAt: now,
+      expiresAt,
     };
   } catch (error: any) {
     console.error("Live resolution failed for:", url, error?.message);
@@ -206,14 +212,17 @@ export const resolve = onRequest(
 
     if (docSnap.exists) {
       const cachedData = docSnap.data() as SongMetadata;
-      res.setHeader("X-Cache", "HIT");
-      res.setHeader("Cache-Control", "public, max-age=86400");
-      res.status(200).json({
-        status: "success",
-        cached: true,
-        item: cachedData,
-      });
-      return;
+      const isExpired = cachedData.expiresAt && cachedData.expiresAt.toMillis() < Date.now();
+      if (!isExpired) {
+        res.setHeader("X-Cache", "HIT");
+        res.setHeader("Cache-Control", "public, max-age=86400");
+        res.status(200).json({
+          status: "success",
+          cached: true,
+          item: cachedData,
+        });
+        return;
+      }
     }
 
     // 5. Cache Miss -> Live Resolution
