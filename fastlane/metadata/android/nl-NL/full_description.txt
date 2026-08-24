@@ -1,0 +1,20 @@
+Vrienden sturen je Spotify-, Apple Music- of Tidal-links – maar jij gebruikt YouTube Music, Deezer of Amazon Music?
+
+SongFlip is de automatische 0-klik muzieklink-omleider voor Android. Stel het eenmalig in, en elke muzieklink uit WhatsApp, Telegram, Instagram of de browser opent direct in je favoriete muziek-app.
+
+🎵 Ondersteunde muziekdiensten:
+• 🟢 Spotify
+• 🔴 YouTube Music & YouTube
+• 🍎 Apple Music
+• 🌊 Tidal
+• 🟣 Deezer
+• 🔵 Amazon Music
+
+✨ Belangrijkste kenmerken:
+• ⚡ 0-klik achtergrondomleiding: Start direct met afspelen.
+• 💿 Album- & artiestenherkenning: Losse nummers, complete albums en discografieën.
+• 🚀 Direct afspeelmechanisme: Opent het exacte nummer zonder handmatig zoeken.
+• 🛡️ 100% Privacy & Geen tracking: Geen accounts, geen reclame-trackers, geen luistergedrag opgeslagen.
+• ⏸️ Snelle instellingen & Slimme pauze: Pauzeer omleidingen eenvoudig via het meldingenpaneel.
+• 🧪 Ingebouwde teststudio: Test en converteer links handmatig in de app.
+• 💎 Optioneel SongFlip PRO: Uitgebreide geschiedenis tot 100 nummers en ultrasnelle anonieme L2-servercache (< 50 ms).

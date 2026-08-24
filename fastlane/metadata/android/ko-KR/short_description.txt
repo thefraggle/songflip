@@ -1,0 +1,1 @@
+음악 링크를 Spotify, YouTube Music, Apple Music 등에서 자동으로 열기.

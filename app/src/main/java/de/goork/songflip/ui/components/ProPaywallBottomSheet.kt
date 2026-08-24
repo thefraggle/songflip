@@ -56,6 +56,8 @@ fun ProPaywallBottomSheet(
     val proState by ProManager.proState.collectAsState()
     var selectedTier by remember { mutableStateOf(SelectedProTier.ANNUAL) }
     var availablePackages by remember { mutableStateOf<List<Package>>(emptyList()) }
+    var isPurchasing by remember { mutableStateOf(false) }
+    var isRestoring by remember { mutableStateOf(false) }
 
     // Coupon code state
     var showCouponInput by remember { mutableStateOf(false) }
@@ -194,6 +196,7 @@ fun ProPaywallBottomSheet(
                         verticalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
                         ProFeatureRow(text = stringResource(R.string.pro_feature_history))
+                        ProFeatureRow(text = stringResource(R.string.pro_feature_l2_cache))
                         ProFeatureRow(text = stringResource(R.string.pro_feature_support))
                         ProFeatureRow(text = stringResource(R.string.pro_feature_future))
                     }
@@ -244,34 +247,104 @@ fun ProPaywallBottomSheet(
                     )
                 }
 
-                // Main CTA Button (Disabled / Coming Soon until products live in Play Store)
+                val selectedPackage = when (selectedTier) {
+                    SelectedProTier.ANNUAL -> availablePackages.firstOrNull { it.packageType == PackageType.ANNUAL }
+                    SelectedProTier.MONTHLY -> availablePackages.firstOrNull { it.packageType == PackageType.MONTHLY }
+                    SelectedProTier.LIFETIME -> availablePackages.firstOrNull { it.packageType == PackageType.LIFETIME }
+                }
+
+                // Main CTA Button
                 Button(
-                    onClick = { /* Disabled - Coming Soon */ },
+                    onClick = {
+                        val activity = context as? Activity
+                        if (activity != null && selectedPackage != null) {
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                            isPurchasing = true
+                            ProManager.purchase(
+                                activity = activity,
+                                packageToPurchase = selectedPackage,
+                                onSuccess = {
+                                    isPurchasing = false
+                                    Toast.makeText(context, context.getString(R.string.pro_active_status), Toast.LENGTH_SHORT).show()
+                                    onDismissRequest()
+                                },
+                                onError = { errorMsg ->
+                                    isPurchasing = false
+                                    Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
+                                }
+                            )
+                        } else if (selectedPackage == null) {
+                            Toast.makeText(context, "Loading store products...", Toast.LENGTH_SHORT).show()
+                        }
+                    },
                     shape = RoundedCornerShape(14.dp),
                     colors = ButtonDefaults.buttonColors(
-                        disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant,
-                        disabledContentColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary
                     ),
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(52.dp),
-                    enabled = false
+                    enabled = !isPurchasing && !isRestoring
                 ) {
-                    Text(
-                        text = stringResource(R.string.pro_btn_coming_soon),
-                        style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
-                    )
+                    if (isPurchasing) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(20.dp),
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            strokeWidth = 2.dp
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = "Processing...",
+                            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+                            color = MaterialTheme.colorScheme.onPrimary
+                        )
+                    } else {
+                        val priceText = selectedPackage?.product?.price?.formatted
+                            ?: when (selectedTier) {
+                                SelectedProTier.ANNUAL -> stringResource(R.string.pro_price_annual_default)
+                                SelectedProTier.MONTHLY -> stringResource(R.string.pro_price_monthly_default)
+                                SelectedProTier.LIFETIME -> stringResource(R.string.pro_price_lifetime_default)
+                            }
+                        Text(
+                            text = stringResource(R.string.pro_btn_subscribe, priceText),
+                            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+                            color = MaterialTheme.colorScheme.onPrimary
+                        )
+                    }
                 }
 
-                // Restore Purchases Button (Disabled until live)
+                // Restore Purchases Button
                 TextButton(
-                    onClick = { /* Disabled */ },
-                    enabled = false
+                    onClick = {
+                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                        isRestoring = true
+                        ProManager.restorePurchases(
+                            onSuccess = {
+                                isRestoring = false
+                                Toast.makeText(context, context.getString(R.string.pro_active_status), Toast.LENGTH_SHORT).show()
+                                onDismissRequest()
+                            },
+                            onError = { errorMsg ->
+                                isRestoring = false
+                                Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
+                            }
+                        )
+                    },
+                    enabled = !isPurchasing && !isRestoring
                 ) {
+                    if (isRestoring) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(14.dp),
+                            color = MaterialTheme.colorScheme.primary,
+                            strokeWidth = 1.5.dp
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                    }
                     Text(
                         text = stringResource(R.string.pro_btn_restore),
                         style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f)
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
 

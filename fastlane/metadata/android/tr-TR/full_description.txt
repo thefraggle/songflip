@@ -1,0 +1,20 @@
+Arkadaşlarınız Spotify, Apple Music veya Tidal bağlantıları gönderiyor ama siz YouTube Music, Deezer veya Amazon Music mi kullanıyorsunuz?
+
+SongFlip, Android için 0 tıklamalı otomatik müzik bağlantısı yönlendiricisidir. Bir kez kurun; WhatsApp, Telegram, Instagram veya tarayıcıdan gelen bağlantılar doğrudan tercih ettiğiniz müzik uygulamasında açılsın.
+
+🎵 Desteklenen Müzik Servisleri:
+• 🟢 Spotify
+• 🔴 YouTube Music & YouTube
+• 🍎 Apple Music
+• 🌊 Tidal
+• 🟣 Deezer
+• 🔵 Amazon Music
+
+✨ Temel Özellikler:
+• ⚡ 0 Tıklamalı Arka Plan Yönlendirmesi: Şarkıyı doğrudan oynatır.
+• 💿 Albüm ve Sanatçı Tanıma: Tekli şarkılar, tam albümler ve diskografiler.
+• 🚀 Doğrudan Oynatma Motoru: Arama yapmadan parçayı anında açar.
+• 🛡️ %100 Gizlilik ve Sıfır Takip: Hesap gerekmez, reklam takibi ve dinleme geçmişi kaydı yoktur.
+• ⏸️ Hızlı Ayarlar Kutucuğu ve Akıllı Duraklatma: Bildirim panelinden yönlendirmeyi duraklatın.
+• 🧪 Dahili Test Stüdyosu: Bağlantıları doğrudan uygulama içinden test edin ve dönüştürün.
+• 💎 İsteğe Bağlı SongFlip PRO: 100 şarkılık genişletilmiş geçmiş ve ultra hızlı anonim L2 sunucu önbelleği (< 50 ms).

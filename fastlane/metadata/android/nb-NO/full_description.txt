@@ -1,0 +1,20 @@
+Venner sender deg Spotify-, Apple Music- eller Tidal-lenker – men du bruker YouTube Music, Deezer eller Amazon Music?
+
+SongFlip er den automatiske musikklenke-omdirigeringen med 0 klikk for Android. Konfigurer den én gang, og hver gang noen deler en musikklenke i WhatsApp, Telegram, Instagram eller nettleseren, omdirigerer SongFlip den øyeblikkelig til din favorittspiller.
+
+🎵 Støttede musikktjenester:
+• 🟢 Spotify
+• 🔴 YouTube Music & YouTube
+• 🍎 Apple Music
+• 🌊 Tidal
+• 🟣 Deezer
+• 🔵 Amazon Music
+
+✨ Hovedfunksjoner:
+• ⚡ 0-klikk bakgrunnsomdirigering: Starter avspilling direkte.
+• 💿 Album- og artistgjenkjenning: Enkeltlåter, hele album og diskografier.
+• 🚀 Direkte avspilling: Finner eksakte spor uten manuelle søk.
+• 🛡️ 100% personvern & null sporing: Ingen kontoer, ingen sporing, ingen logging av lyttevaner.
+• ⏸️ Hurtiginnstillinger & smart pause: Pause omdirigering når som helst fra varslingspanelet.
+• 🧪 Innebygd teststudio: Test og konverter lenker manuelt i appen.
+• 💎 Valgfri SongFlip PRO: Utvidet historikk med opptil 100 låter og lynrask anonym L2-serverhurtigbuffer (< 50 ms).
