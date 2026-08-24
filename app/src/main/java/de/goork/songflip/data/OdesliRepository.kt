@@ -86,6 +86,23 @@ class OdesliRepository {
                 )
             }
 
+            // 4.5. L2 Server Cache (PRO Feature - < 30ms)
+            if (ProManager.isPro) {
+                val l2Result = queryL2ServerCache(canonicalUrl, targetPlatformKey)
+                if (l2Result != null) {
+                    LinkCacheManager.put(
+                        canonicalUrl = canonicalUrl,
+                        targetPlatformKey = targetPlatformKey,
+                        targetUrl = l2Result.targetUrl,
+                        platform = l2Result.platform,
+                        title = l2Result.title,
+                        artist = l2Result.artist,
+                        isAlbum = l2Result.isAlbum
+                    )
+                    return@withContext l2Result
+                }
+            }
+
             // 5. Parallel Multi-Source Resolution (Async Songlink + OEmbed Fallback with supervisorScope)
             val (songLinkData, trackInfo) = supervisorScope {
                 val songLinkDeferred = async { fetchSongLinkData(canonicalUrl) }
@@ -1189,5 +1206,74 @@ class OdesliRepository {
         } catch (e: Exception) {
             url
         }
+    }
+
+    private suspend fun queryL2ServerCache(
+        canonicalUrl: String,
+        targetPlatformKey: String
+    ): OdesliResult.Success? = withContext(Dispatchers.IO) {
+        val appUserId = ProManager.getAppUserId()
+        val encodedUrl = URLEncoder.encode(canonicalUrl, "UTF-8")
+        val endpoints = listOf(
+            "https://cache.songflip.link/resolve?url=$encodedUrl",
+            "https://songflip-web.web.app/resolve?url=$encodedUrl"
+        )
+
+        for (endpoint in endpoints) {
+            try {
+                val request = Request.Builder()
+                    .url(endpoint)
+                    .addHeader("Authorization", "Bearer $appUserId")
+                    .addHeader("Accept", "application/json")
+                    .build()
+
+                val fastClient = client.newBuilder()
+                    .connectTimeout(3, TimeUnit.SECONDS)
+                    .readTimeout(3, TimeUnit.SECONDS)
+                    .build()
+
+                val result = fastClient.newCall(request).execute().use { response ->
+                    if (!response.isSuccessful) return@use null
+                    val body = response.body?.string() ?: return@use null
+                    val json = JSONObject(body)
+                    if (json.optString("status") != "success") return@use null
+                    val item = json.optJSONObject("item") ?: return@use null
+                    val title = item.optString("title").ifBlank { null }
+                    val artist = item.optString("artist").ifBlank { null }
+                    val isAlbum = item.optBoolean("isAlbum", false)
+                    val links = item.optJSONObject("links") ?: JSONObject()
+
+                    val rawTarget = when (targetPlatformKey) {
+                        "spotify" -> links.optString("spotify")
+                        "appleMusic" -> links.optString("appleMusic")
+                        "youtubeMusic" -> links.optString("youtubeMusic")
+                        "deezer" -> links.optString("deezer")
+                        "tidal" -> links.optString("tidal")
+                        "amazonMusic" -> links.optString("amazonMusic")
+                        else -> ""
+                    }
+
+                    if (!rawTarget.isNullOrBlank()) {
+                        val formatted = formatTargetUrl(rawTarget, targetPlatformKey)
+                        OdesliResult.Success(
+                            targetUrl = formatted,
+                            platform = targetPlatformKey,
+                            title = title,
+                            artist = artist,
+                            isAlbum = isAlbum
+                        )
+                    } else {
+                        null
+                    }
+                }
+
+                if (result != null) {
+                    return@withContext result
+                }
+            } catch (e: Exception) {
+                // Endpoint unreachable or timed out; continue to next fallback
+            }
+        }
+        null
     }
 }

@@ -50,6 +50,14 @@ object ProManager {
     val isPro: Boolean
         get() = _proState.value.isPro
 
+    fun getAppUserId(): String {
+        return try {
+            Purchases.sharedInstance.appUserID
+        } catch (e: Exception) {
+            "anonymous_local_user"
+        }
+    }
+
     fun init(context: Context) {
         if (prefs == null) {
             prefs = context.applicationContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
