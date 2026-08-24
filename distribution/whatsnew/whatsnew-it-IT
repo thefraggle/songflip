@@ -1,4 +1,4 @@
-- Impostazioni avanzate: layout più chiaro con accesso diretto a tutte le preferenze dell'app.
-- Supporto della cronologia estesa: gestione dello spazio di archiviazione più intelligente per raccolte più ampie di brani convertiti.
-- Assistenza per i codici promozionali: riscatta direttamente i codici voucher nelle impostazioni per sbloccare i vantaggi.
-- Prestazioni e stabilità: animazioni più fluide e gestione dei collegamenti robusta su tutti i servizi di streaming.
+- Faster Link Resolution: Improved track detection for international and regional music links.
+- Cleaner Header Layout: Streamlined main screen with more space and a cleaner top bar.
+- Manual Link Converter in Settings: Easily test and convert music links directly from the settings menu.
+- High-Speed Cache Support: Optimized background resolution engine for instant playback.

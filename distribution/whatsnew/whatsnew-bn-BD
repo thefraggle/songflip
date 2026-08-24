@@ -1,3 +1,4 @@
-- বর্ধিত সেটিংস: সমস্ত অ্যাপ পছন্দগুলিতে সরাসরি অ্যাক্সেস সহ আরও পরিষ্কার লেআউট ।
-- এক্সটেন্ডেড হিস্ট্রি সাপোর্ট: রূপান্তরিত গানের বড় সংগ্রহের জন্য স্মার্ট স্টোরেজ হ্যান্ডলিং ।
-- প্রোমো ...
+- Faster Link Resolution: Improved track detection for international and regional music links.
+- Cleaner Header Layout: Streamlined main screen with more space and a cleaner top bar.
+- Manual Link Converter in Settings: Easily test and convert music links directly from the settings menu.
+- High-Speed Cache Support: Optimized background resolution engine for instant playback.

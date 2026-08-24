@@ -1,4 +1,4 @@
-- 強化された設定：すべてのアプリ設定に直接アクセスできる、より明確なレイアウト。
-- 拡張履歴サポート：変換された曲のより大きなコレクションのためのよりスマートなストレージ処理。
-- プロモーションコードのサポート：設定でバウチャーコードを直接ご利用いただくと、特典をご利用いただけます。
-- パフォーマンスと安定性：すべてのストリーミングサー...
+- Faster Link Resolution: Improved track detection for international and regional music links.
+- Cleaner Header Layout: Streamlined main screen with more space and a cleaner top bar.
+- Manual Link Converter in Settings: Easily test and convert music links directly from the settings menu.
+- High-Speed Cache Support: Optimized background resolution engine for instant playback.

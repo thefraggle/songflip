@@ -274,7 +274,7 @@ fun ProPaywallBottomSheet(
                                 }
                             )
                         } else if (selectedPackage == null) {
-                            Toast.makeText(context, "Loading store products...", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, context.getString(R.string.pro_play_store_unavailable), Toast.LENGTH_SHORT).show()
                         }
                     },
                     shape = RoundedCornerShape(14.dp),
@@ -284,7 +284,8 @@ fun ProPaywallBottomSheet(
                     ),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(52.dp),
+                        .defaultMinSize(minHeight = 54.dp),
+                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
                     enabled = !isPurchasing && !isRestoring
                 ) {
                     if (isPurchasing) {
@@ -295,7 +296,7 @@ fun ProPaywallBottomSheet(
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = "Processing...",
+                            text = stringResource(R.string.pro_processing),
                             style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
                             color = MaterialTheme.colorScheme.onPrimary
                         )
@@ -308,8 +309,9 @@ fun ProPaywallBottomSheet(
                             }
                         Text(
                             text = stringResource(R.string.pro_btn_subscribe, priceText),
-                            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
-                            color = MaterialTheme.colorScheme.onPrimary
+                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            textAlign = TextAlign.Center
                         )
                     }
                 }

@@ -1,3 +1,4 @@
-- वर्धित सेटिंग्ज: सर्व ॲप प्राधान्यांमध्ये थेट ॲक्सेससह अधिक स्पष्ट मांडणी.
-- विस्तारित इतिहास समर्थन: रूपांतरित गाण्यांच्या मोठ्या संग्रहांसाठी स्मार्ट स्टोरेज हाताळणी.
-- प्रोमो कोड सहा...
+- Faster Link Resolution: Improved track detection for international and regional music links.
+- Cleaner Header Layout: Streamlined main screen with more space and a cleaner top bar.
+- Manual Link Converter in Settings: Easily test and convert music links directly from the settings menu.
+- High-Speed Cache Support: Optimized background resolution engine for instant playback.
