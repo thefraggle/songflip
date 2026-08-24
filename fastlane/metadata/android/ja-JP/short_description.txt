@@ -1,1 +1,0 @@
-音楽リンクをSpotify、YouTube Music、Apple Music等で自動再生。

@@ -30,25 +30,34 @@ Inspired by [MapFlip](https://github.com/thefraggle/mapflip), SongFlip runs comp
 
 ## 🏗️ Architecture & Resolution Engine
 
-SongFlip uses a robust 5-tier resolution pipeline:
+SongFlip is built as a modern **Kotlin Multiplatform (KMP)** project with a modular architecture:
+- **`app/`**: Native Android app (Jetpack Compose, Material 3, Quick Settings Tile, Overlay & Notification handling).
+- **`iosApp/`**: Native iOS app (SwiftUI, Share Extension, App Intents for 0-click Siri Shortcuts).
+- **`shared/`**: Shared KMP core engine (platform parsing, URL normalization, multi-tier resolution logic, Ktor HTTP client).
+- **`functions/`**: Firebase Cloud Functions backend powering token verification and high-speed L2 link caching.
 
-1. **Tier 1 (Direct 0-Redirect SongLink Engine)**: Normalizes incoming URLs into direct internal IDs (`/s/`, `/i/`, `/d/`, `/y/`) for instant HTTP 200 responses (~150 ms) without redirect loops.
-2. **Tier 2 (Direct Playback Extractor)**: Background video ID regex extraction for YouTube Music instant play.
-3. **Tier 3 (Local Metadata Fallback APIs)**: iTunes Search & Lookup API, Spotify oEmbed, Deezer Public API, and YouTube oEmbed.
-4. **Tier 4 (Target Catalog Search Fallback)**: Fallback search routing for obscure releases and regional variants.
-5. **Tier 5 (Custom AI / Webhook API)**: User-configurable endpoint (e.g. n8n, self-hosted webhook) for custom resolution.
+### Resolution Pipeline
+1. **Tier 1 (Direct 0-Redirect SongLink Engine)**: Normalizes incoming URLs into direct internal IDs (`/s/`, `/i/`, `/d/`, `/y/`) for instant HTTP responses without redirect loops.
+2. **Tier 2 (L2 Server-Side Cache)**: High-speed Firebase edge cache with 90-day TTL for instant sub-100ms conversions for Pro users.
+3. **Tier 3 (Direct Playback Extractor)**: Background video ID regex extraction for YouTube Music instant play.
+4. **Tier 4 (Local Metadata Fallback APIs)**: iTunes Search & Lookup API, Spotify oEmbed, Deezer Public API, and YouTube oEmbed.
+5. **Tier 5 (Target Catalog Search & Custom API)**: Fallback search routing and optional user-supplied custom API key / webhook endpoint.
 
 ---
 
-## 🔮 Roadmap (SongFlip Pro)
+## 👑 SongFlip Pro & Open Source Philosophy
 
-While the core 0-click redirect functionality will **always remain 100% free and ad-free**, advanced power features are planned as a one-time lifetime purchase (4.99 € Lifetime):
+SongFlip is **100% open source (GPLv3)** and its core 0-click redirect functionality will **always remain completely free and ad-free**.
 
-- **👑 Lifetime Pro Supporter Status**: Golden/Emerald PRO badge & support indie development.
-- **🔄 1:1 Cross-Platform Playlist Transfer**: Transfer and sync full playlists between Spotify, Apple Music, and YouTube Music.
-- **✨ Enhanced AI Fuzzy Matching**: Powered by Gemini 2.0 Flash for rare live bootlegs, remixes, and acoustic versions.
-- **🔗 Universal Share Links (`songflip.link/s/...`)**: Generate custom shareable multi-platform links for friends.
-- **📜 Flip History & Library**: Local history of all flipped songs and albums.
+For users who want the fastest possible performance or wish to support indie development, **SongFlip Pro** (one-time lifetime purchase) provides:
+
+- **⚡ L2 Server-Side Cache**: Lightning-fast resolution (~50–100 ms) via our dedicated server cache with zero rate-limiting.
+- **🔑 Custom API Token Option**: Non-Pro power users can also bring their own free Odesli API key directly in settings.
+- **👑 Lifetime Supporter Status**: Golden/Emerald PRO badge & direct support for independent open-source development.
+- **🔄 Upcoming Power Features**:
+  - **1:1 Playlist Transfer**: Transfer and sync full playlists across Spotify, Apple Music, and YouTube Music.
+  - **Enhanced AI Matching**: High-accuracy fuzzy matching for rare live bootlegs, remixes, and acoustic versions.
+  - **Universal Share Links (`songflip.link`)**: Generate multi-platform web links for friends.
 
 ---
 

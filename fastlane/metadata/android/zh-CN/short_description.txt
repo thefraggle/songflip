@@ -1,1 +1,0 @@
-自动将音乐链接转换为Spotify、YouTube Music、Apple Music等播放。
