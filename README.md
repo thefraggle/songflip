@@ -48,15 +48,15 @@ SongFlip is built as a modern **Kotlin Multiplatform (KMP)** project with a modu
 
 ---
 
-## 👑 SongFlip Pro & Open Source Philosophy
+## 👑 SongFlip PRO & Open Source Philosophy
 
 SongFlip is **100% open source (GPLv3)** and its core 0-click redirect functionality will **always remain completely free and ad-free**.
 
-For users who want the fastest possible performance or wish to support indie development, **SongFlip Pro** ($0.99/mo, $7.99/yr, or $19.99 lifetime) provides:
+For users who want the fastest possible performance or wish to support indie development, **SongFlip PRO** ($0.99/mo, $7.99/yr, or $19.99 lifetime) provides:
 
 - **⚡ L2 Server-Side Cache**: Lightning-fast resolution (~30–50 ms) via our dedicated server cache with zero rate-limiting.
 - **🔗 Universal Smart Share Links**: Generate `songflip.link/s/...` landing pages directly from the app or share sheet.
-- **👑 Supporter Status**: Golden/Emerald PRO badge & direct support for independent open-source development.
+- **👑 Supporter Status**: PRO badge & direct support for independent open-source development.
 - **🔄 Upcoming Roadmap Features**:
   - **1:1 Playlist Transfer**: Transfer and sync full playlists across Spotify, Apple Music, and YouTube Music.
   - **Enhanced AI Matching**: High-accuracy fuzzy matching for rare live bootlegs, remixes, and acoustic versions.
