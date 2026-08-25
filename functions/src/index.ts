@@ -13,6 +13,30 @@ const userProCache = new LRUCache<string, boolean>({
   ttl: 1000 * 60 * 60, // 1 hour
 });
 
+// In-memory IP Rate Limiter (IP -> request count & reset timestamp)
+const rateLimitCache = new LRUCache<string, { count: number; resetAt: number }>({
+  max: 50000,
+  ttl: 1000 * 60, // 1 minute window
+});
+
+function isRateLimited(key: string, maxRequests: number, windowMs = 60000): boolean {
+  if (!key || key === "127.0.0.1" || key === "::1") return false;
+  const now = Date.now();
+  const entry = rateLimitCache.get(key);
+
+  if (!entry || now > entry.resetAt) {
+    rateLimitCache.set(key, { count: 1, resetAt: now + windowMs });
+    return false;
+  }
+
+  if (entry.count >= maxRequests) {
+    return true;
+  }
+
+  entry.count++;
+  return false;
+}
+
 const REVENUECAT_SECRET_KEY = process.env.REVENUECAT_SECRET_KEY || "";
 
 /**
@@ -562,9 +586,16 @@ export const resolve = onRequest(
     invoker: "public",
   },
   async (req, res) => {
-    // 1. Validate HTTP Method
+    // 1. Validate HTTP Method & Rate Limits
     if (req.method !== "GET") {
       res.status(405).json({ error: "METHOD_NOT_ALLOWED" });
+      return;
+    }
+
+    const clientIp = (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() || req.ip || "unknown";
+    if (isRateLimited(`resolve:${clientIp}`, 60, 60000)) {
+      res.setHeader("Retry-After", "60");
+      res.status(429).json({ error: "TOO_MANY_REQUESTS", message: "Rate limit exceeded. Please wait a moment." });
       return;
     }
 
@@ -702,6 +733,13 @@ export const redeemPromoCode = onRequest(
 
     if (req.method !== "POST") {
       res.status(405).json({ error: "METHOD_NOT_ALLOWED" });
+      return;
+    }
+
+    const clientIp = (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() || req.ip || "unknown";
+    if (isRateLimited(`promo:${clientIp}`, 10, 60000)) {
+      res.setHeader("Retry-After", "60");
+      res.status(429).json({ error: "TOO_MANY_REQUESTS", message: "Zu viele Versuche. Bitte warte eine Minute." });
       return;
     }
 
