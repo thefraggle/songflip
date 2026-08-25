@@ -39,11 +39,12 @@ SongFlip is built as a modern **Kotlin Multiplatform (KMP)** project with a modu
 - **`functions/`**: Firebase Cloud Functions backend powering token verification, SSR web-share landing pages, and high-speed L2 link caching.
 
 ### Resolution Pipeline
-1. **Tier 1 (Direct 0-Redirect SongLink Engine)**: Normalizes incoming URLs into direct internal IDs (`/s/`, `/i/`, `/d/`, `/y/`) for instant HTTP responses without redirect loops.
-2. **Tier 2 (L2 Server-Side Cache)**: High-speed Firebase edge cache with 90-day TTL for instant sub-50ms conversions for Pro users and web-share generation.
-3. **Tier 3 (Direct Playback Extractor)**: Background video ID regex extraction for YouTube Music instant play.
-4. **Tier 4 (Local & Cloud Metadata Healing)**: iTunes Search & Lookup API, Deezer Catalog API, YouTube oEmbed, and video noise sanitization.
-5. **Tier 5 (Target Catalog Deep-Search Fallback)**: Intelligent fallback search routing for obscure releases and regional variants.
+1. **Tier 1 (Local Device Memory & SQLite Cache)**: Instant sub-5ms lookup on device for previously converted songs.
+2. **Tier 2 (L2 Server-Side Cloud Cache) [PRO]**: High-speed Firebase edge cache with 90-day TTL for zero-latency (<50ms) global conversions and web-share landing page generation.
+3. **Tier 3 (Direct 0-Redirect SongLink Engine)**: Normalizes incoming URLs into direct internal IDs (`/s/`, `/i/`, `/d/`, `/y/`) for instant HTTP responses without redirect loops.
+4. **Tier 4 (Direct Playback Extractor)**: Background video ID regex extraction for YouTube Music instant play.
+5. **Tier 5 (Local & Cloud Metadata Healing)**: iTunes Search & Lookup API, Deezer Catalog API, YouTube oEmbed, and video noise sanitization.
+6. **Tier 6 (Target Catalog Deep-Search Fallback)**: Intelligent fallback search routing for obscure releases and regional variants.
 
 ---
 
