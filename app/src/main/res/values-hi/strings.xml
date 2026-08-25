@@ -141,4 +141,8 @@
     <string name="pro_coupon_inactive">यह प्रोमो कोड अब सक्रिय नहीं है।</string>
     <string name="pro_active_3months">PRO एक्सेस %1$s तक सक्रिय है</string>
     <string name="pro_active_1month">PRO एक्सेस %1$s तक सक्रिय है</string>
+    <string name="share_universal_link">यूनिवर्सल वेब लिंक साझा करें</string>
+    <string name="share_universal_link_copied">यूनिवर्सल SongFlip लिंक कॉपी किया गया!</string>
+    <string name="share_universal_link_pro">यूनिवर्सल वेब लिंक (PRO)</string>
+    <string name="pro_feature_universal_links">किसी भी प्लेयर के लिए यूनिवर्सल वेब लिंक</string>
 </resources>

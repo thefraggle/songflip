@@ -160,4 +160,8 @@
     <string name="pro_coupon_inactive">This promo code is no longer active.</string>
     <string name="pro_active_3months">PRO Access active until %1$s</string>
     <string name="pro_active_1month">PRO Access active until %1$s</string>
+    <string name="share_universal_link">Share Universal Web Link</string>
+    <string name="share_universal_link_copied">Universal SongFlip link copied!</string>
+    <string name="share_universal_link_pro">Universal Web Link (PRO)</string>
+    <string name="pro_feature_universal_links">Universal web links for any player</string>
 </resources>

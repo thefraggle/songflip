@@ -141,4 +141,8 @@
     <string name="pro_coupon_inactive">Mã khuyến mãi này không còn hoạt động.</string>
     <string name="pro_active_3months">Quyền truy cập PRO hoạt động đến %1$s</string>
     <string name="pro_active_1month">Quyền truy cập PRO hoạt động đến %1$s</string>
+    <string name="share_universal_link">Chia sẻ liên kết web đa năng</string>
+    <string name="share_universal_link_copied">Đã sao chép liên kết SongFlip đa năng!</string>
+    <string name="share_universal_link_pro">Liên kết web đa năng (PRO)</string>
+    <string name="pro_feature_universal_links">Liên kết web đa năng cho mọi trình phát</string>
 </resources>

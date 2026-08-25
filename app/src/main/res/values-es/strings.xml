@@ -142,4 +142,8 @@
     <string name="pro_coupon_inactive">Este código promocional ya no está activo.</string>
     <string name="pro_active_3months">Acceso PRO activo hasta el %1$s</string>
     <string name="pro_active_1month">Acceso PRO activo hasta el %1$s</string>
+    <string name="share_universal_link">Compartir enlace universal</string>
+    <string name="share_universal_link_copied">¡Enlace universal SongFlip copiado!</string>
+    <string name="share_universal_link_pro">Enlace universal (PRO)</string>
+    <string name="pro_feature_universal_links">Enlaces web universales para todo reproductor</string>
 </resources>

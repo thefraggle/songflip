@@ -142,4 +142,8 @@
     <string name="pro_coupon_inactive">Deze promotiecode is niet meer actief.</string>
     <string name="pro_active_3months">PRO-toegang actief tot %1$s</string>
     <string name="pro_active_1month">PRO-toegang actief tot %1$s</string>
+    <string name="share_universal_link">Universele weblink delen</string>
+    <string name="share_universal_link_copied">Universele SongFlip-link gekopieerd!</string>
+    <string name="share_universal_link_pro">Universele weblink (PRO)</string>
+    <string name="pro_feature_universal_links">Universele weblinks voor elke speler</string>
 </resources>
