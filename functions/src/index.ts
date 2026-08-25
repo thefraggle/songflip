@@ -502,3 +502,427 @@ export const health = onRequest(
     res.status(200).json({ status: "ok", service: "SongFlip L2 Cache Engine", timestamp: Date.now() });
   }
 );
+
+/**
+ * Escapes HTML characters to prevent XSS.
+ */
+function escapeHtml(str: string): string {
+  if (!str) return "";
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+/**
+ * Web-Share Landing Page: /s/:hash or /s?id=:hash
+ * Delivers instant Universal Music Link page with Open Graph preview cards for WhatsApp, Telegram, iMessage & Discord.
+ */
+export const renderWebShare = onRequest(
+  {
+    region: "europe-west3",
+    memory: "256MiB",
+    timeoutSeconds: 15,
+    cors: true,
+    invoker: "public",
+  },
+  async (req, res) => {
+    try {
+      // 1. Extract hash from path or query parameter
+      const rawPath = req.path || "";
+      const pathParts = rawPath.split("/").filter(Boolean);
+      let hash = "";
+      if (pathParts.length > 0) {
+        hash = pathParts[pathParts.length - 1];
+      }
+      if (!hash || hash === "s") {
+        hash = (req.query.id as string) || (req.query.h as string) || "";
+      }
+      hash = hash.trim();
+
+      let songData: any = null;
+
+      // 2. Fetch from Firestore Cache if hash is provided
+      if (hash) {
+        const docSnap = await db.collection("l2_song_cache").doc(hash).get();
+        if (docSnap.exists) {
+          songData = docSnap.data();
+        }
+      }
+
+      // 3. Fallback: If not found in cache and query parameter ?url= is passed, resolve live
+      if (!songData && req.query.url && typeof req.query.url === "string") {
+        const resolved = await resolveSongLive(req.query.url as string);
+        if (resolved) {
+          songData = resolved;
+          const newHash = hashUrl(req.query.url as string);
+          await db.collection("l2_song_cache").doc(newHash).set(resolved);
+        }
+      }
+
+      // 4. Render 404 / Not Found Page if song is missing
+      if (!songData || !songData.links || Object.keys(songData.links).length === 0) {
+        res.status(404).send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Song Not Found | SongFlip</title>
+  <meta name="theme-color" content="#0d1117">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: #0d1117; color: #f0f6fc; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; text-align: center; }
+    .card { background: #161b22; border: 1px solid #30363d; border-radius: 20px; padding: 40px 24px; max-width: 420px; width: 100%; box-shadow: 0 16px 32px rgba(0,0,0,0.4); }
+    h1 { font-size: 22px; margin-bottom: 8px; font-weight: 700; }
+    p { color: #8b949e; font-size: 14px; margin-bottom: 24px; line-height: 1.5; }
+    .btn { display: inline-block; background: #238636; color: #fff; text-decoration: none; padding: 12px 24px; border-radius: 12px; font-weight: 600; font-size: 14px; transition: transform 0.15s ease; }
+    .btn:active { transform: scale(0.97); }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div style="font-size: 48px; margin-bottom: 16px;">🎵</div>
+    <h1>Song Link Expired or Not Found</h1>
+    <p>We couldn't locate this song. Download SongFlip to automatically convert music links between all streaming platforms.</p>
+    <a href="https://songflip.link" class="btn">Discover SongFlip</a>
+  </div>
+</body>
+</html>`);
+        return;
+      }
+
+      // 5. Prepare Safe Data & Strings
+      const title = escapeHtml(songData.title || "Track");
+      const artist = escapeHtml(songData.artist || "Artist");
+      const coverUrl = songData.thumbnailUrl ? escapeHtml(songData.thumbnailUrl) : "https://songflip.link/icon.png";
+      const isAlbum = !!songData.isAlbum;
+      const links = songData.links || {};
+
+      const currentShareUrl = `https://songflip.link/s/${encodeURIComponent(hash)}`;
+
+      // Streaming Platform Definitions
+      const platforms = [
+        {
+          id: "spotify",
+          name: "Spotify",
+          color: "#1DB954",
+          bgHover: "#1aa34a",
+          url: links.spotify,
+          icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>`,
+        },
+        {
+          id: "appleMusic",
+          name: "Apple Music",
+          color: "#FC3C44",
+          bgHover: "#e0333b",
+          url: links.appleMusic,
+          icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.61-.75 1.04-1.8 0.92-2.87-.93.04-2.02.63-2.66 1.38-.56.65-1.06 1.71-.93 2.74 1.05.08 2.08-.55 2.67-1.25z"/></svg>`,
+        },
+        {
+          id: "youtubeMusic",
+          name: "YouTube Music",
+          color: "#FF0000",
+          bgHover: "#e60000",
+          url: links.youtubeMusic,
+          icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104-3.18 7.104-7.104 7.104zm0-11.44c-2.392 0-4.336 1.944-4.336 4.336S9.608 16.336 12 16.336s4.336-1.944 4.336-4.336S14.392 7.664 12 7.664zm-1.44 6.168V10.168l3.6 1.832-3.6 1.832z"/></svg>`,
+        },
+        {
+          id: "deezer",
+          name: "Deezer",
+          color: "#A238FF",
+          bgHover: "#8e2fe0",
+          url: links.deezer,
+          icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.8 3.8v3.4h4.4V3.8h-4.4zm0 4.6v3.4h4.4V8.4h-4.4zm0 4.6v3.4h4.4V13h-4.4zm0 4.6V21h4.4v-3.4h-4.4zm-6.2-4.6v3.4h4.4V13h-4.4zm0 4.6V21h4.4v-3.4h-4.4zm-6.4 0V21h4.4v-3.4H6.2zm-5.4 0V21h4.4v-3.4H.8z"/></svg>`,
+        },
+        {
+          id: "tidal",
+          name: "Tidal",
+          color: "#00FFFF",
+          bgHover: "#00d6d6",
+          url: links.tidal,
+          icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12.012 3.842l-3.996 4.004 4.004 3.996 3.996-4.004-4.004-3.996zm-8.016 8.008L0 7.846l4.004-4.004 3.996 4.004-4.004 4.004zm8.016 0L8.016 7.846l4.004-4.004 3.996 4.004-4.004 4.004zm8.008 0l-3.996-4.004 4.004-4.004 3.996 4.004-4.004 4.004zm-8.008 8.008l-3.996-4.004 4.004-3.996 3.996 4.004-4.004 3.996z"/></svg>`,
+        },
+        {
+          id: "amazonMusic",
+          name: "Amazon Music",
+          color: "#25D1DA",
+          bgHover: "#1fbac2",
+          url: links.amazonMusic,
+          icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M13.882 12.802c0 .914-.528 1.405-1.583 1.405-.88 0-1.391-.491-1.391-1.405 0-.915.511-1.406 1.391-1.406 1.055 0 1.583.491 1.583 1.406zm8.877 7.027c-.334.457-1.127.67-1.742.67-2.604 0-5.698-2.076-7.898-3.908-.317-.264-.07-.633.282-.44 2.833 1.565 6.474 2.972 9.074 1.495.335-.194.617-.035.284.42v.001l-.001.002-.001.001-.001.001-.001.001-.001.002zm-8.913-9.524c-2.482 0-4.085 1.495-4.085 3.872 0 2.395 1.567 3.89 4.085 3.89 2.5 0 4.103-1.495 4.103-3.89 0-2.377-1.603-3.872-4.103-3.872z"/></svg>`,
+        },
+      ];
+
+      const activeButtons = platforms
+        .filter((p) => !!p.url)
+        .map((p) => {
+          return `
+          <a href="${escapeHtml(p.url)}" target="_blank" rel="noopener noreferrer" class="platform-btn" style="--btn-brand: ${p.color}; --btn-brand-hover: ${p.bgHover};">
+            <span class="platform-icon">${p.icon}</span>
+            <span class="platform-name">${p.name}</span>
+            <span class="platform-action">Play</span>
+          </a>`;
+        })
+        .join("\n");
+
+      // Set CDN Caching header (1 hour in browser, 24 hours at edge)
+      res.setHeader("Cache-Control", "public, max-age=3600, s-maxage=86400");
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+
+      res.status(200).send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>${title} – ${artist} | SongFlip</title>
+  <meta name="description" content="Listen to ${title} by ${artist} on Spotify, Apple Music, YouTube Music, Deezer, Tidal and Amazon Music.">
+  
+  <!-- Open Graph / Social Media Preview Cards (WhatsApp, iMessage, Telegram, Discord) -->
+  <meta property="og:site_name" content="SongFlip">
+  <meta property="og:title" content="${title} – ${artist}">
+  <meta property="og:description" content="Listen on Spotify, Apple Music, YouTube Music & more.">
+  <meta property="og:image" content="${coverUrl}">
+  <meta property="og:image:width" content="640">
+  <meta property="og:image:height" content="640">
+  <meta property="og:url" content="${currentShareUrl}">
+  <meta property="og:type" content="music.song">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${title} – ${artist}">
+  <meta name="twitter:description" content="Listen on Spotify, Apple Music, YouTube Music & more.">
+  <meta name="twitter:image" content="${coverUrl}">
+  
+  <meta name="theme-color" content="#0d1117">
+  <link rel="icon" href="https://songflip.link/favicon.ico">
+  
+  <style>
+    :root {
+      --bg: #0b0f17;
+      --card-bg: rgba(22, 27, 34, 0.75);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --text-main: #f0f6fc;
+      --text-muted: #8b949e;
+      --accent: #10b981;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      position: relative;
+      overflow-x: hidden;
+    }
+    /* Ambient Ambient Blurred Glow */
+    .ambient-bg {
+      position: fixed;
+      top: -20%;
+      left: -20%;
+      width: 140%;
+      height: 140%;
+      background-image: url('${coverUrl}');
+      background-size: cover;
+      background-position: center;
+      filter: blur(80px) brightness(0.25) saturate(1.4);
+      opacity: 0.8;
+      z-index: 0;
+      pointer-events: none;
+      transform: translateZ(0);
+    }
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 440px;
+      width: 100%;
+      background: var(--card-bg);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      padding: 28px 20px;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .cover-art-container {
+      width: 220px;
+      height: 220px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .cover-art {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .type-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+    }
+    .song-title {
+      font-size: 21px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.3;
+      margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .artist-name {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .platforms-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .platform-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 12px 18px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      text-decoration: none;
+      color: #ffffff;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .platform-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+    .platform-btn:active {
+      transform: scale(0.98);
+    }
+    .platform-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--btn-brand);
+    }
+    .platform-name {
+      font-size: 15px;
+      font-weight: 600;
+      flex: 1;
+      text-align: left;
+      margin-left: 14px;
+    }
+    .platform-action {
+      font-size: 13px;
+      font-weight: 700;
+      background: var(--btn-brand);
+      color: #000000;
+      padding: 6px 14px;
+      border-radius: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .footer-app {
+      width: 100%;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .footer-text {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .footer-text strong {
+      color: #ffffff;
+    }
+    .get-app-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #34d399;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .get-app-btn:hover {
+      background: rgba(16, 185, 129, 0.25);
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient-bg"></div>
+  
+  <main class="container">
+    <div class="cover-art-container">
+      <img src="${coverUrl}" alt="${title}" class="cover-art" loading="eager" />
+    </div>
+    
+    ${isAlbum ? '<span class="type-badge">Album</span>' : ""}
+    <h1 class="song-title">${title}</h1>
+    <p class="artist-name">${artist}</p>
+    
+    <div class="platforms-list">
+      ${activeButtons}
+    </div>
+    
+    <footer class="footer-app">
+      <p class="footer-text">Flipped with <strong>SongFlip</strong> for Android</p>
+      <a href="https://play.google.com/store/apps/details?id=de.goork.songflip" target="_blank" rel="noopener noreferrer" class="get-app-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186c-.198-.124-.31-.336-.31-.568V2.382c0-.232.112-.444.31-.568zm11.235 11.237l2.257 2.258-10.99 6.273 8.733-8.531zm0-2.102L6.111 2.418l10.99 6.273-2.257 2.258zm1.052 1.051l3.528 2.016c.896.512.896 1.344 0 1.856l-3.528 2.016-1.92-1.92 1.92-1.968z"/></svg>
+        Get 0-Click Music Redirects
+      </a>
+    </footer>
+  </main>
+</body>
+</html>`);
+    } catch (err: any) {
+      console.error("Error in renderWebShare:", err);
+      res.status(500).send("Internal Server Error");
+    }
+  }
+);
+

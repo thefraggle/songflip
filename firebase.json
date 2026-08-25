@@ -44,6 +44,13 @@
           "functionId": "redeemPromoCode",
           "region": "europe-west3"
         }
+      },
+      {
+        "source": "/s/**",
+        "function": {
+          "functionId": "renderWebShare",
+          "region": "europe-west3"
+        }
       }
     ]
   }
