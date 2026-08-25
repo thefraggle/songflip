@@ -311,6 +311,19 @@ object ProManager {
         return@withContext RedeemResult.NETWORK_ERROR
     }
 
+    fun hashUrl(rawUrl: String): String {
+        val normalized = rawUrl.trim().lowercase().substringBefore("?").trimEnd('/')
+        val digest = MessageDigest.getInstance("SHA-256")
+        val hashBytes = digest.digest(normalized.toByteArray(Charsets.UTF_8))
+        return hashBytes.joinToString("") { "%02x".format(it) }
+    }
+
+    fun getUniversalWebShareUrl(rawUrl: String): String {
+        val hash = hashUrl(rawUrl)
+        val shortId = if (hash.length > 8) hash.substring(0, 8) else hash
+        return "https://songflip.link/s/$shortId"
+    }
+
     fun resetProForTesting() {
         prefs?.edit()?.clear()?.apply()
         _proState.value = ProState(isPro = false, proType = "")

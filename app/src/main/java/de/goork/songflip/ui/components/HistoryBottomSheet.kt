@@ -213,6 +213,7 @@ fun HistoryBottomSheet(
                     ) { item ->
                         HistoryItemCard(
                             item = item,
+                            isPro = isPro,
                             onPlay = {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                                 openTargetUrl(context, item.targetUrl, item.platform)
@@ -220,6 +221,21 @@ fun HistoryBottomSheet(
                             onCopy = {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                                 copyToClipboard(context, item.targetUrl)
+                            },
+                            onShareUniversal = {
+                                if (isPro) {
+                                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                    val shareUrl = de.goork.songflip.data.ProManager.getUniversalWebShareUrl(item.canonicalUrl)
+                                    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                                        type = "text/plain"
+                                        putExtra(Intent.EXTRA_TEXT, shareUrl)
+                                        putExtra(Intent.EXTRA_TITLE, item.title ?: "SongFlip Link")
+                                    }
+                                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share_universal_link)))
+                                } else {
+                                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                    onOpenProPaywall()
+                                }
                             },
                             onDelete = {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
@@ -289,8 +305,10 @@ fun HistoryBottomSheet(
 @Composable
 fun HistoryItemCard(
     item: HistoryItem,
+    isPro: Boolean = false,
     onPlay: () -> Unit,
     onCopy: () -> Unit,
+    onShareUniversal: () -> Unit,
     onDelete: () -> Unit
 ) {
     val context = LocalContext.current
@@ -408,7 +426,7 @@ fun HistoryItemCard(
                 }
             }
 
-            // Bottom Actions: Open, Copy, Delete
+            // Bottom Actions: Open, Copy, Share Universal (PRO), Delete
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End,
@@ -434,6 +452,18 @@ fun HistoryItemCard(
                         imageVector = Icons.Outlined.ContentCopy,
                         contentDescription = stringResource(R.string.action_copy),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
+                Spacer(modifier = Modifier.width(6.dp))
+                IconButton(
+                    onClick = onShareUniversal,
+                    modifier = Modifier.size(32.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Share,
+                        contentDescription = stringResource(R.string.share_universal_link),
+                        tint = if (isPro) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.tertiary,
                         modifier = Modifier.size(18.dp)
                     )
                 }

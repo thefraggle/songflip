@@ -33,8 +33,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.goork.songflip.R
+import androidx.compose.material.icons.outlined.Share
 import de.goork.songflip.data.OdesliRepository
 import de.goork.songflip.data.OdesliResult
+import de.goork.songflip.data.ProManager
 import de.goork.songflip.data.SettingsRepository
 import de.goork.songflip.ui.theme.StateActiveGreen
 import de.goork.songflip.ui.theme.StateErrorRed
@@ -46,7 +48,9 @@ fun TestStudioBottomSheet(
     onDismissRequest: () -> Unit,
     selectedTargetKey: String,
     settingsRepository: SettingsRepository,
-    odesliRepository: OdesliRepository
+    odesliRepository: OdesliRepository,
+    isPro: Boolean = false,
+    onOpenProPaywall: () -> Unit = {}
 ) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
@@ -246,6 +250,41 @@ fun TestStudioBottomSheet(
                                     Spacer(modifier = Modifier.width(6.dp))
                                     Text(stringResource(R.string.action_open), fontSize = 12.sp)
                                 }
+                            }
+
+                            // Universal Web-Link Share Action (PRO)
+                            OutlinedButton(
+                                onClick = {
+                                    if (isPro) {
+                                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                        val shareUrl = ProManager.getUniversalWebShareUrl(testInputUrl)
+                                        val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                                            type = "text/plain"
+                                            putExtra(Intent.EXTRA_TEXT, shareUrl)
+                                        }
+                                        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share_universal_link)))
+                                    } else {
+                                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                        onOpenProPaywall()
+                                    }
+                                },
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(10.dp),
+                                colors = ButtonDefaults.outlinedButtonColors(
+                                    contentColor = if (isPro) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.tertiary
+                                )
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Share,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(16.dp)
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(
+                                    text = if (isPro) stringResource(R.string.share_universal_link) else "💎 " + stringResource(R.string.share_universal_link_pro),
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
                             }
                         }
                     }
