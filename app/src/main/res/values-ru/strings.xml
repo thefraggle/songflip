@@ -129,11 +129,17 @@
     <string name="pro_coupon_invalid">Неверный промокод</string>
     <string name="pro_coupon_already_active">PRO уже активен</string>
     <string name="pro_active_status">SongFlip PRO Активен</string>
-    <string name="pro_active_lifetime">Пожизненный VIP-доступ</string>
-    <string name="pro_active_annual">VIP-доступ активен до %1$s</string>
+    <string name="pro_active_lifetime">Пожизненный PRO-доступ</string>
+    <string name="pro_active_annual">PRO-доступ активен до %1$s</string>
     <string name="pro_btn_subscribe">Получить SongFlip PRO (%1$s)</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – Скоро появится</string>
     <string name="badge_album">Альбом</string>
     <string name="badge_artist">Исполнитель</string>
     <string name="badge_playlist">Плейлист</string>
+    <string name="pro_coupon_success_3months">🎉 SongFlip PRO (3 месяца) разблокирован!</string>
+    <string name="pro_coupon_success_1month">🎉 SongFlip PRO (1 месяц) разблокирован!</string>
+    <string name="pro_coupon_max_reached">Этот промокод достиг максимального лимита использований.</string>
+    <string name="pro_coupon_inactive">Этот промокод больше не активен.</string>
+    <string name="pro_active_3months">PRO-доступ активен до %1$s</string>
+    <string name="pro_active_1month">PRO-доступ активен до %1$s</string>
 </resources>

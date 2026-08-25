@@ -129,11 +129,17 @@
     <string name="pro_coupon_invalid">Ugyldig kampanjekode</string>
     <string name="pro_coupon_already_active">PRO er allerede aktiv</string>
     <string name="pro_active_status">SongFlip PRO Aktiv</string>
-    <string name="pro_active_lifetime">Livslang VIP-tilgang</string>
-    <string name="pro_active_annual">VIP-tilgang aktiv til %1$s</string>
+    <string name="pro_active_lifetime">Livstids PRO-tilgang</string>
+    <string name="pro_active_annual">PRO-tilgang aktiv til %1$s</string>
     <string name="pro_btn_subscribe">Få SongFlip PRO (%1$s)</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – Kommer snart</string>
     <string name="badge_album">Album</string>
     <string name="badge_artist">Artist</string>
     <string name="badge_playlist">Spilleliste</string>
+    <string name="pro_coupon_success_3months">🎉 SongFlip PRO (3 måneder) låst opp!</string>
+    <string name="pro_coupon_success_1month">🎉 SongFlip PRO (1 måned) låst opp!</string>
+    <string name="pro_coupon_max_reached">Denne kampanjekoden har nådd sin maksimale grense for innløsning.</string>
+    <string name="pro_coupon_inactive">Denne kampanjekoden er ikke lenger aktiv.</string>
+    <string name="pro_active_3months">PRO-tilgang aktiv til %1$s</string>
+    <string name="pro_active_1month">PRO-tilgang aktiv til %1$s</string>
 </resources>

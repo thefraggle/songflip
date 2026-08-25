@@ -129,10 +129,16 @@
     <string name="pro_coupon_invalid">Invalid promo code</string>
     <string name="pro_coupon_already_active">PRO is already active</string>
     <string name="pro_active_status">SongFlip PRO Active</string>
-    <string name="pro_active_lifetime">Lifetime VIP Access</string>
-    <string name="pro_active_annual">VIP Access active until %1$s</string>
+    <string name="pro_active_lifetime">평생 PRO 액세스</string>
+    <string name="pro_active_annual">PRO 액세스 유효 기간: %1$s까지</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – 곧 출시 예정</string>
     <string name="badge_album">앨범</string>
     <string name="badge_artist">아티스트</string>
     <string name="badge_playlist">재생목록</string>
+    <string name="pro_coupon_success_3months">🎉 SongFlip PRO(3개월)가 잠금 해제되었습니다!</string>
+    <string name="pro_coupon_success_1month">🎉 SongFlip PRO(1개월)가 잠금 해제되었습니다!</string>
+    <string name="pro_coupon_max_reached">이 프로모션 코드의 최대 사용 한도에 도달했습니다.</string>
+    <string name="pro_coupon_inactive">이 프로모션 코드는 더 이상 활성화되지 않습니다.</string>
+    <string name="pro_active_3months">PRO 액세스 유효 기간: %1$s까지</string>
+    <string name="pro_active_1month">PRO 액세스 유효 기간: %1$s까지</string>
 </resources>

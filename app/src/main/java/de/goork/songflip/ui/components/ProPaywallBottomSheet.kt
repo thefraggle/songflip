@@ -36,6 +36,7 @@ import com.revenuecat.purchases.PackageType
 import de.goork.songflip.R
 import de.goork.songflip.data.ProManager
 import de.goork.songflip.data.RedeemResult
+import kotlinx.coroutines.launch
 import java.text.DateFormat
 import java.util.Date
 
@@ -54,6 +55,7 @@ fun ProPaywallBottomSheet(
     val haptic = LocalHapticFeedback.current
 
     val proState by ProManager.proState.collectAsState()
+    val coroutineScope = rememberCoroutineScope()
     var selectedTier by remember { mutableStateOf(SelectedProTier.ANNUAL) }
     var availablePackages by remember { mutableStateOf<List<Package>>(emptyList()) }
     var isPurchasing by remember { mutableStateOf(false) }
@@ -62,6 +64,7 @@ fun ProPaywallBottomSheet(
     // Coupon code state
     var showCouponInput by remember { mutableStateOf(false) }
     var couponCodeText by remember { mutableStateOf("") }
+    var isRedeemingCoupon by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         ProManager.getOfferings(
@@ -143,14 +146,45 @@ fun ProPaywallBottomSheet(
                             color = MaterialTheme.colorScheme.onSurface
                         )
                         val subText = when (proState.proType) {
-                            "lifetime_coupon" -> stringResource(R.string.pro_active_lifetime)
-                            "annual_coupon" -> {
+                            "lifetime_coupon", "revenuecat_lifetime" -> stringResource(R.string.pro_active_lifetime)
+                            "1year_coupon", "annual_coupon" -> {
                                 val dateStr = proState.expirationDate?.let {
                                     DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(it))
                                 } ?: ""
                                 stringResource(R.string.pro_active_annual, dateStr)
                             }
-                            else -> stringResource(R.string.pro_active_lifetime)
+                            "3months_coupon" -> {
+                                val dateStr = proState.expirationDate?.let {
+                                    DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(it))
+                                } ?: ""
+                                stringResource(R.string.pro_active_3months, dateStr)
+                            }
+                            "1month_coupon" -> {
+                                val dateStr = proState.expirationDate?.let {
+                                    DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(it))
+                                } ?: ""
+                                stringResource(R.string.pro_active_1month, dateStr)
+                            }
+                            "revenuecat_subscription", "revenuecat" -> {
+                                val dateStr = proState.expirationDate?.let {
+                                    DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(it))
+                                }
+                                if (!dateStr.isNullOrBlank()) {
+                                    stringResource(R.string.pro_active_annual, dateStr)
+                                } else {
+                                    stringResource(R.string.pro_active_lifetime)
+                                }
+                            }
+                            else -> {
+                                val dateStr = proState.expirationDate?.let {
+                                    DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(it))
+                                }
+                                if (!dateStr.isNullOrBlank()) {
+                                    stringResource(R.string.pro_active_annual, dateStr)
+                                } else {
+                                    stringResource(R.string.pro_active_lifetime)
+                                }
+                            }
                         }
                         Text(
                             text = subText,
@@ -387,28 +421,59 @@ fun ProPaywallBottomSheet(
                                 modifier = Modifier.weight(1f)
                             )
                             Button(
+                                enabled = !isRedeemingCoupon && couponCodeText.isNotBlank(),
                                 onClick = {
                                     haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                                    when (ProManager.redeemCoupon(couponCodeText)) {
-                                        RedeemResult.SUCCESS_LIFETIME -> {
-                                            Toast.makeText(context, context.getString(R.string.pro_coupon_success_lifetime), Toast.LENGTH_LONG).show()
-                                            couponCodeText = ""
-                                        }
-                                        RedeemResult.SUCCESS_1YEAR -> {
-                                            Toast.makeText(context, context.getString(R.string.pro_coupon_success_1year), Toast.LENGTH_LONG).show()
-                                            couponCodeText = ""
-                                        }
-                                        RedeemResult.ALREADY_ACTIVE -> {
-                                            Toast.makeText(context, context.getString(R.string.pro_coupon_already_active), Toast.LENGTH_SHORT).show()
-                                        }
-                                        RedeemResult.INVALID -> {
-                                            Toast.makeText(context, context.getString(R.string.pro_coupon_invalid), Toast.LENGTH_SHORT).show()
+                                    isRedeemingCoupon = true
+                                    coroutineScope.launch {
+                                        val result = ProManager.redeemCoupon(couponCodeText)
+                                        isRedeemingCoupon = false
+                                        when (result) {
+                                            RedeemResult.SUCCESS_LIFETIME -> {
+                                                Toast.makeText(context, context.getString(R.string.pro_coupon_success_lifetime), Toast.LENGTH_LONG).show()
+                                                couponCodeText = ""
+                                            }
+                                            RedeemResult.SUCCESS_1YEAR -> {
+                                                Toast.makeText(context, context.getString(R.string.pro_coupon_success_1year), Toast.LENGTH_LONG).show()
+                                                couponCodeText = ""
+                                            }
+                                            RedeemResult.SUCCESS_3MONTHS -> {
+                                                Toast.makeText(context, context.getString(R.string.pro_coupon_success_3months), Toast.LENGTH_LONG).show()
+                                                couponCodeText = ""
+                                            }
+                                            RedeemResult.SUCCESS_1MONTH -> {
+                                                Toast.makeText(context, context.getString(R.string.pro_coupon_success_1month), Toast.LENGTH_LONG).show()
+                                                couponCodeText = ""
+                                            }
+                                            RedeemResult.ALREADY_ACTIVE -> {
+                                                Toast.makeText(context, context.getString(R.string.pro_coupon_already_active), Toast.LENGTH_SHORT).show()
+                                            }
+                                            RedeemResult.MAX_REACHED -> {
+                                                Toast.makeText(context, context.getString(R.string.pro_coupon_max_reached), Toast.LENGTH_LONG).show()
+                                            }
+                                            RedeemResult.INACTIVE -> {
+                                                Toast.makeText(context, context.getString(R.string.pro_coupon_inactive), Toast.LENGTH_LONG).show()
+                                            }
+                                            RedeemResult.NETWORK_ERROR -> {
+                                                Toast.makeText(context, context.getString(R.string.pro_coupon_invalid), Toast.LENGTH_SHORT).show()
+                                            }
+                                            RedeemResult.INVALID -> {
+                                                Toast.makeText(context, context.getString(R.string.pro_coupon_invalid), Toast.LENGTH_SHORT).show()
+                                            }
                                         }
                                     }
                                 },
                                 shape = RoundedCornerShape(12.dp)
                             ) {
-                                Text(stringResource(R.string.pro_coupon_btn_redeem), fontWeight = FontWeight.Bold)
+                                if (isRedeemingCoupon) {
+                                    CircularProgressIndicator(
+                                        modifier = Modifier.size(16.dp),
+                                        color = MaterialTheme.colorScheme.onPrimary,
+                                        strokeWidth = 2.dp
+                                    )
+                                } else {
+                                    Text(stringResource(R.string.pro_coupon_btn_redeem), fontWeight = FontWeight.Bold)
+                                }
                             }
                         }
                     }

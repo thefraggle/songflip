@@ -145,8 +145,8 @@
     <string name="pro_coupon_invalid">Invalid promo code</string>
     <string name="pro_coupon_already_active">PRO is already active</string>
     <string name="pro_active_status">SongFlip PRO Active</string>
-    <string name="pro_active_lifetime">Lifetime VIP Access</string>
-    <string name="pro_active_annual">VIP Access active until %1$s</string>
+    <string name="pro_active_lifetime">Lifetime PRO Access</string>
+    <string name="pro_active_annual">PRO Access active until %1$s</string>
     <string name="pro_btn_subscribe">Get SongFlip PRO (%1$s)</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – Coming Soon</string>
     <string name="pro_play_store_unavailable">Google Play Store not available on this device.</string>
@@ -154,4 +154,10 @@
     <string name="badge_album">Album</string>
     <string name="badge_artist">Artist</string>
     <string name="badge_playlist">Playlist</string>
+    <string name="pro_coupon_success_3months">🎉 SongFlip PRO (3 Months) unlocked!</string>
+    <string name="pro_coupon_success_1month">🎉 SongFlip PRO (1 Month) unlocked!</string>
+    <string name="pro_coupon_max_reached">This promo code has reached its maximum redemptions limit.</string>
+    <string name="pro_coupon_inactive">This promo code is no longer active.</string>
+    <string name="pro_active_3months">PRO Access active until %1$s</string>
+    <string name="pro_active_1month">PRO Access active until %1$s</string>
 </resources>

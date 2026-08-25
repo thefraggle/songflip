@@ -129,10 +129,16 @@
     <string name="pro_coupon_invalid">Invalid promo code</string>
     <string name="pro_coupon_already_active">PRO is already active</string>
     <string name="pro_active_status">SongFlip PRO Active</string>
-    <string name="pro_active_lifetime">Lifetime VIP Access</string>
-    <string name="pro_active_annual">VIP Access active until %1$s</string>
+    <string name="pro_active_lifetime">Akses PRO Seumur Hidup</string>
+    <string name="pro_active_annual">Akses PRO aktif hingga %1$s</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – Segera Hadir</string>
     <string name="badge_album">Album</string>
     <string name="badge_artist">Artis</string>
     <string name="badge_playlist">Daftar Putar</string>
+    <string name="pro_coupon_success_3months">🎉 SongFlip PRO (3 Bulan) terbuka!</string>
+    <string name="pro_coupon_success_1month">🎉 SongFlip PRO (1 Bulan) terbuka!</string>
+    <string name="pro_coupon_max_reached">Kode promo ini telah mencapai batas penukaran maksimal.</string>
+    <string name="pro_coupon_inactive">Kode promo ini sudah tidak aktif.</string>
+    <string name="pro_active_3months">Akses PRO aktif hingga %1$s</string>
+    <string name="pro_active_1month">Akses PRO aktif hingga %1$s</string>
 </resources>

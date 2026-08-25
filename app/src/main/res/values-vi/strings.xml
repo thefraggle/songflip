@@ -129,10 +129,16 @@
     <string name="pro_coupon_invalid">Invalid promo code</string>
     <string name="pro_coupon_already_active">PRO is already active</string>
     <string name="pro_active_status">SongFlip PRO Active</string>
-    <string name="pro_active_lifetime">Lifetime VIP Access</string>
-    <string name="pro_active_annual">VIP Access active until %1$s</string>
+    <string name="pro_active_lifetime">Quyền truy cập PRO trọn đời</string>
+    <string name="pro_active_annual">Quyền truy cập PRO hoạt động đến %1$s</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – Sắp Ra Mắt</string>
     <string name="badge_album">Album</string>
     <string name="badge_artist">Nghệ sĩ</string>
     <string name="badge_playlist">Danh sách phát</string>
+    <string name="pro_coupon_success_3months">🎉 Đã mở khóa SongFlip PRO (3 Tháng)!</string>
+    <string name="pro_coupon_success_1month">🎉 Đã mở khóa SongFlip PRO (1 Tháng)!</string>
+    <string name="pro_coupon_max_reached">Mã khuyến mãi này đã đạt giới hạn đổi thưởng.</string>
+    <string name="pro_coupon_inactive">Mã khuyến mãi này không còn hoạt động.</string>
+    <string name="pro_active_3months">Quyền truy cập PRO hoạt động đến %1$s</string>
+    <string name="pro_active_1month">Quyền truy cập PRO hoạt động đến %1$s</string>
 </resources>

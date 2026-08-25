@@ -129,11 +129,17 @@
     <string name="pro_coupon_invalid">无效的优惠码</string>
     <string name="pro_coupon_already_active">PRO 已经处于激活状态</string>
     <string name="pro_active_status">SongFlip PRO 已激活</string>
-    <string name="pro_active_lifetime">终身 VIP 会员权限</string>
-    <string name="pro_active_annual">VIP 权限有效期至 %1$s</string>
+    <string name="pro_active_lifetime">终身 PRO 权限</string>
+    <string name="pro_active_annual">PRO 权限有效期至 %1$s</string>
     <string name="pro_btn_subscribe">开通 SongFlip PRO (%1$s)</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – 即将推出</string>
     <string name="badge_album">专辑</string>
     <string name="badge_artist">艺人</string>
     <string name="badge_playlist">播放列表</string>
+    <string name="pro_coupon_success_3months">🎉 已解锁 SongFlip PRO（3个月）！</string>
+    <string name="pro_coupon_success_1month">🎉 已解锁 SongFlip PRO（1个月）！</string>
+    <string name="pro_coupon_max_reached">此兑换码已达到最大兑换次数限制。</string>
+    <string name="pro_coupon_inactive">此兑换码已不再有效。</string>
+    <string name="pro_active_3months">PRO 权限有效期至 %1$s</string>
+    <string name="pro_active_1month">PRO 权限有效期至 %1$s</string>
 </resources>

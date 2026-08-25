@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.2] - 2026-08-25
+- **Flexible Promo Codes**: Added support for new gift codes with instant activation.
+- **Accurate Expiry Display**: Precise renewal and access dates now shown across all menus.
+- **High-Speed Cache Engine**: Faster and more reliable track conversion across all music platforms.
+- **Localization Refinements**: Polished wording and status labels in all 24 languages.
+
 ## [1.2.1] - 2026-08-25
 - **Enhanced Song History**: Clearer artist labels, playlists, and album tags in your history.
 - **Stability & Crash Fixes**: Resolved layout and language display issues across multiple languages.
