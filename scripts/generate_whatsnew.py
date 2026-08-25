@@ -45,28 +45,34 @@ TARGET_LOCALES = {
 }
 
 def truncate_to_bytes(text, max_limit=450, suffix="..."):
-    """Google Play strictly limits release notes to max 500 characters/bytes."""
+    """Google Play strictly limits release notes to max 500 characters and bytes."""
     text = text.strip()
-    if len(text) <= max_limit and len(text.encode('utf-8')) <= max_limit:
+
+    def is_safe(s):
+        return len(s) <= max_limit and len(s.encode('utf-8')) <= max_limit
+
+    if is_safe(text):
         return text
 
-    # Truncate cleanly by full lines where possible
+    # Try line by line
     lines = text.split('\n')
     result = []
     for line in lines:
         if not line.strip():
             continue
         test_text = '\n'.join(result + [line]).strip()
-        if len(test_text) > max_limit or len(test_text.encode('utf-8')) > max_limit:
-            if not result:
-                return text[:max_limit - len(suffix)] + suffix
+        if not is_safe(test_text):
             break
         result.append(line)
 
-    final_text = '\n'.join(result).strip()
-    if not final_text:
-        final_text = text[:max_limit - len(suffix)] + suffix
-    return final_text
+    if result:
+        return '\n'.join(result).strip()
+
+    # If even a single line is too long, cut byte by byte safely (respecting UTF-8 boundaries)
+    suffix_bytes = suffix.encode('utf-8')
+    raw_bytes = text.encode('utf-8')[:max_limit - len(suffix_bytes)]
+    safe_str = raw_bytes.decode('utf-8', errors='ignore') + suffix
+    return safe_str[:max_limit]
 
 def extract_changelog_for_version(version=None):
     changelog_path = os.path.join(BASE_DIR, "CHANGELOG.md")
