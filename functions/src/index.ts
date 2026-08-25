@@ -120,6 +120,7 @@ interface SongMetadata {
   artist: string;
   thumbnailUrl?: string;
   isAlbum: boolean;
+  isArtist?: boolean;
   links: PlatformLinks;
   updatedAt: number;
   expiresAt: admin.firestore.Timestamp;
@@ -217,10 +218,131 @@ function sanitizeMusicMetadata(rawTitle: string, rawArtist: string): { title: st
   return { title, artist, isGenericArtist };
 }
 
+function isArtistUrl(url: string): boolean {
+  const clean = url.toLowerCase();
+  if (clean.includes("/artist/")) return true;
+  if ((clean.includes("youtube.com") || clean.includes("youtu.be")) && (clean.includes("/@") || clean.includes("/channel/") || clean.includes("/user/"))) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Resolves artist metadata & cross-platform search links for artist profile URLs.
+ */
+async function resolveArtistLive(url: string): Promise<SongMetadata | null> {
+  try {
+    const clean = url.toLowerCase();
+    let artistName = "";
+    let thumbnailUrl = "";
+
+    // 1. Apple Music Artist
+    if (clean.includes("apple.com") && clean.includes("/artist/")) {
+      const match = clean.match(/\/artist\/([^/]+)\/(\d+)/);
+      if (match && match[1]) {
+        artistName = decodeURIComponent(match[1]).replace(/-/g, " ").trim();
+        artistName = artistName.replace(/\b\w/g, (c) => c.toUpperCase());
+      }
+    }
+
+    // 2. Deezer Artist
+    else if (clean.includes("deezer.com") && clean.includes("/artist/")) {
+      const match = clean.match(/\/artist\/(\d+)/);
+      if (match && match[1]) {
+        try {
+          const res = await axios.get(`https://api.deezer.com/artist/${match[1]}`, { timeout: 4000 });
+          if (res.data && !res.data.error) {
+            artistName = res.data.name || "";
+            thumbnailUrl = res.data.picture_xl || "";
+          }
+        } catch (_) {}
+      }
+    }
+
+    // 3. YouTube / YouTube Music Channel / Handle
+    else if (clean.includes("youtube.com") || clean.includes("youtu.be")) {
+      try {
+        const res = await axios.get(url, {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+          },
+          timeout: 5000,
+        });
+        const html = res.data;
+        if (typeof html === "string") {
+          const ogTitleMatch = html.match(/<meta property="og:title" content="(.*?)">/);
+          const ogDescMatch = html.match(/<meta property="og:description" content="(.*?)">/);
+          const ogImageMatch = html.match(/<meta property="og:image" content="(.*?)">/);
+
+          const title = ogTitleMatch ? ogTitleMatch[1] : "";
+          const desc = ogDescMatch ? ogDescMatch[1] : "";
+          thumbnailUrl = ogImageMatch ? ogImageMatch[1] : "";
+
+          const vonMatch = desc.match(/(?:von|of)\s+([a-zA-Z0-9äöüÄÖÜß\s\-]+?)(?:\.|\,|$)/i);
+          if (vonMatch && vonMatch[1] && vonMatch[1].trim().length > 2) {
+            artistName = vonMatch[1].trim();
+          } else {
+            artistName = title.replace(/\s*-\s*YouTube/gi, "").replace(/TV/gi, "").replace(/Official/gi, "").trim();
+          }
+        }
+      } catch (_) {}
+    }
+
+    // Enrich via Deezer Artist API for HD artwork and exact spelling
+    if (artistName) {
+      try {
+        const deezerRes = await axios.get(`https://api.deezer.com/search/artist?q=${encodeURIComponent(artistName)}`, { timeout: 4000 });
+        const first = deezerRes.data?.data?.[0];
+        if (first) {
+          artistName = first.name || artistName;
+          if (!thumbnailUrl || thumbnailUrl.includes("icon.png")) {
+            thumbnailUrl = first.picture_xl || thumbnailUrl;
+          }
+        }
+      } catch (_) {}
+    }
+
+    if (!artistName) return null;
+
+    const q = encodeURIComponent(artistName);
+    const linksMap: PlatformLinks = {
+      spotify: clean.includes("spotify.com") ? url : `https://open.spotify.com/search/${q}`,
+      appleMusic: clean.includes("apple.com") ? url : `https://music.apple.com/search?term=${q}`,
+      youtubeMusic: clean.includes("music.youtube.com") ? url : `https://music.youtube.com/search?q=${q}`,
+      deezer: clean.includes("deezer.com") ? url : `https://www.deezer.com/search/${q}`,
+      tidal: clean.includes("tidal.com") ? url : `https://listen.tidal.com/search?q=${q}`,
+      amazonMusic: clean.includes("amazon.") ? url : `https://music.amazon.com/search/${q}`,
+    };
+
+    const now = Date.now();
+    const ninetyDaysMs = 90 * 24 * 60 * 60 * 1000;
+    const expiresAt = admin.firestore.Timestamp.fromMillis(now + ninetyDaysMs);
+
+    return {
+      title: artistName,
+      artist: "Artist",
+      thumbnailUrl: thumbnailUrl || "https://songflip.link/icon.png",
+      isAlbum: false,
+      isArtist: true,
+      links: linksMap,
+      updatedAt: now,
+      expiresAt,
+    };
+  } catch (err: any) {
+    console.error("Artist resolution failed:", url, err?.message);
+    return null;
+  }
+}
+
 /**
  * Resolves song metadata & cross-platform links via direct SongLink engine.
  */
 async function resolveSongLive(url: string): Promise<SongMetadata | null> {
+  if (isArtistUrl(url)) {
+    return resolveArtistLive(url);
+  }
+
   try {
     const targetSongLink = normalizeToSongLinkDirectUrl(url);
     const res = await axios.get(targetSongLink, {
@@ -1073,12 +1195,13 @@ export const renderWebShare = onRequest(
 
       // 5. Prepare Safe Data & Strings
       const isAlbum = !!songData.isAlbum;
+      const isArtist = !!songData.isArtist;
       const sanitized = sanitizeMusicMetadata(songData.title || "", songData.artist || "");
       let cleanTitle = sanitized.title || "Track";
-      let cleanArtist = sanitized.artist;
+      let cleanArtist = isArtist ? "" : sanitized.artist;
 
-      // If artist is missing or generic (e.g. from older cache entry), live heal via Deezer search
-      if (!cleanArtist || cleanArtist === "Music" || cleanArtist === "Artist" || cleanArtist.toLowerCase().includes("youtube")) {
+      // If not isArtist and artist is missing or generic (e.g. from older cache entry), live heal via Deezer search
+      if (!isArtist && (!cleanArtist || cleanArtist === "Music" || cleanArtist === "Artist" || cleanArtist.toLowerCase().includes("youtube"))) {
         try {
           const deezerType = isAlbum ? "album" : "track";
           const dRes = await axios.get(`https://api.deezer.com/search/${deezerType}?q=${encodeURIComponent(cleanTitle)}`, { timeout: 3000 });
@@ -1101,7 +1224,7 @@ export const renderWebShare = onRequest(
       }
 
       const title = escapeHtml(cleanTitle);
-      const artist = escapeHtml(cleanArtist || "Music");
+      const artist = escapeHtml(isArtist ? "Artist Profile" : (cleanArtist || "Music"));
       const coverUrl = songData.thumbnailUrl ? escapeHtml(songData.thumbnailUrl) : "https://songflip.link/icon.png";
       const links = { ...(songData.links || {}) };
 
@@ -1435,7 +1558,7 @@ export const renderWebShare = onRequest(
       <img src="${coverUrl}" alt="${title}" class="cover-art" loading="eager" />
     </div>
     
-    ${isAlbum ? '<span class="type-badge">Album</span>' : ""}
+    ${isAlbum ? '<span class="type-badge">Album</span>' : (isArtist ? '<span class="type-badge">Artist</span>' : "")}
     <h1 class="song-title">${title}</h1>
     <p class="artist-name">${artist}</p>
     
