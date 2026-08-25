@@ -702,8 +702,10 @@ export const renderWebShare = onRequest(
         })
         .join("\n");
 
-      // Set CDN Caching header (1 hour in browser, 24 hours at edge)
-      res.setHeader("Cache-Control", "public, max-age=3600, s-maxage=86400");
+      // Disable cache during development/testing for instant updates
+      res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+      res.setHeader("Pragma", "no-cache");
+      res.setHeader("Expires", "0");
       res.setHeader("Content-Type", "text/html; charset=utf-8");
 
       res.status(200).send(`<!DOCTYPE html>
