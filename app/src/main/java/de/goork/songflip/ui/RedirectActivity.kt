@@ -119,6 +119,9 @@ class RedirectActivity : ComponentActivity() {
                             isAlbum = isAlbum
                         )
 
+                        // Ensure L2 Server Cache is populated in Firestore
+                        ProManager.warmupUniversalShare(incomingUrl)
+
                         // Copy to clipboard
                         val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                         val clip = ClipData.newPlainText("SongFlip Universal Link", universalUrl)
