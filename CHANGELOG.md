@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.3] - 2026-08-25
+- **Universal Web Links (PRO)**: Generate universal share links so friends on any music player can listen instantly.
+- **Direct System Sharing**: Share music links from any app to instantly copy a universal link.
+- **History Sharing**: Share universal links directly from your song history with a single tap.
+- **Fast Track Detection**: Enhanced recognition and faster matching across all music services.
+
 ## [1.2.2] - 2026-08-25
 - **Flexible Promo Codes**: Added support for new gift codes with instant activation.
 - **Accurate Expiry Display**: Precise renewal and access dates now shown across all menus.
