@@ -695,9 +695,9 @@ const DEMO_PRESETS: Record<string, any> = {
     isAlbum: false,
     links: {
       spotify: "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
-      appleMusic: "https://music.apple.com/us/album/never-gonna-give-you-up/1558533900?i=1558534271",
+      appleMusic: "https://music.apple.com/us/album/never-gonna-give-you-up/1559885420?i=1559885421",
       youtubeMusic: "https://music.youtube.com/watch?v=dQw4w9WgXcQ",
-      deezer: "https://www.deezer.com/track/70868846",
+      deezer: "https://www.deezer.com/track/14408104",
       tidal: "https://listen.tidal.com/track/105707768",
       amazonMusic: "https://music.amazon.com/albums/B07PGF8R4G?trackAsin=B07P8N5Z6H"
     }
@@ -709,9 +709,9 @@ const DEMO_PRESETS: Record<string, any> = {
     isAlbum: false,
     links: {
       spotify: "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
-      appleMusic: "https://music.apple.com/us/album/never-gonna-give-you-up/1558533900?i=1558534271",
+      appleMusic: "https://music.apple.com/us/album/never-gonna-give-you-up/1559885420?i=1559885421",
       youtubeMusic: "https://music.youtube.com/watch?v=dQw4w9WgXcQ",
-      deezer: "https://www.deezer.com/track/70868846",
+      deezer: "https://www.deezer.com/track/14408104",
       tidal: "https://listen.tidal.com/track/105707768",
       amazonMusic: "https://music.amazon.com/albums/B07PGF8R4G?trackAsin=B07P8N5Z6H"
     }
