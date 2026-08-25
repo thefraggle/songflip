@@ -649,7 +649,7 @@ const DEMO_PRESETS: Record<string, any> = {
   "9c3a1b8e": {
     title: "Get Lucky (feat. Pharrell Williams & Nile Rodgers)",
     artist: "Daft Punk",
-    thumbnailUrl: "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/09/b8/0a/09b80a37-0cfc-5a9e-8fa9-446a815a51cb/886443927087.jpg/600x600bb.jpg",
+    thumbnailUrl: "https://cdn-images.dzcdn.net/images/cover/bc49adb87758e0c8c4e508a9c5cce85d/1000x1000-000000-80-0-0.jpg",
     isAlbum: false,
     links: {
       spotify: "https://open.spotify.com/track/2Foc5Q5nqNiosCNqttzAG4",
@@ -663,7 +663,7 @@ const DEMO_PRESETS: Record<string, any> = {
   "86e847b3": {
     title: "Get Lucky (feat. Pharrell Williams & Nile Rodgers)",
     artist: "Daft Punk",
-    thumbnailUrl: "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/09/b8/0a/09b80a37-0cfc-5a9e-8fa9-446a815a51cb/886443927087.jpg/600x600bb.jpg",
+    thumbnailUrl: "https://cdn-images.dzcdn.net/images/cover/bc49adb87758e0c8c4e508a9c5cce85d/1000x1000-000000-80-0-0.jpg",
     isAlbum: false,
     links: {
       spotify: "https://open.spotify.com/track/2Foc5Q5nqNiosCNqttzAG4",
@@ -677,7 +677,7 @@ const DEMO_PRESETS: Record<string, any> = {
   "7e4d2a1f": {
     title: "BIRDS OF A FEATHER",
     artist: "Billie Eilish",
-    thumbnailUrl: "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/4a/c7/24/4ac724f7-e43a-7dbd-a0c3-f273391ba99d/24UMGIM36437.rgb.jpg/600x600bb.jpg",
+    thumbnailUrl: "https://cdn-images.dzcdn.net/images/cover/5d284b31cb9ddeb1a0c79aede5a94e1c/1000x1000-000000-80-0-0.jpg",
     isAlbum: false,
     links: {
       spotify: "https://open.spotify.com/track/6dOtVTDmmpzpEcYRQBRnh3",
