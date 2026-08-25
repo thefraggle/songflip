@@ -217,7 +217,7 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
     const entityData = pageData.entityData || {};
     let title = entityData.title || "";
     let artist = entityData.artistName || "";
-    const thumbnailUrl = entityData.thumbnailUrl;
+    let thumbnailUrl = entityData.thumbnailUrl;
 
     const sections = pageData.sections || [];
     if ((!title || !artist) && sections.length > 0) {
@@ -270,6 +270,9 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
         const first = itunesRes.data?.results?.[0];
         if (first) {
           linksMap.appleMusic = first.trackViewUrl || first.collectionViewUrl;
+          if (!thumbnailUrl && first.artworkUrl100) {
+            thumbnailUrl = first.artworkUrl100.replace("100x100bb.jpg", "600x600bb.jpg");
+          }
         }
       } catch (itunesErr: any) {
         console.warn("iTunes fallback search failed:", itunesErr?.message);
@@ -279,6 +282,71 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
     // Fallback for YouTube Music search query if not populated by SongLink
     if (!linksMap.youtubeMusic && title && artist) {
       linksMap.youtubeMusic = `https://music.youtube.com/search?q=${encodeURIComponent(artist + " " + title)}`;
+    }
+
+    // If SongLink returned no links, trigger Multi-Tier Metadata & Album Resolver
+    if (Object.keys(linksMap).length === 0) {
+      const cleanLower = url.toLowerCase();
+      const isAlbumUrl = cleanLower.includes("/album/") || cleanLower.includes("album");
+
+      // Attempt 1: Apple Music ID Lookup
+      if (cleanLower.includes("apple.com")) {
+        const idMatch = url.match(/[?&]i=(\d+)/) || url.match(/\/(\d+)(?:\?|$)/);
+        if (idMatch && idMatch[1]) {
+          try {
+            const itunesLookup = await axios.get("https://itunes.apple.com/lookup", {
+              params: { id: idMatch[1], entity: isAlbumUrl ? "album" : "song" },
+              timeout: 4000,
+            });
+            const item = itunesLookup.data?.results?.[0];
+            if (item) {
+              title = item.trackName || item.collectionName || title;
+              artist = item.artistName || artist;
+              thumbnailUrl = (item.artworkUrl100 || "").replace("100x100bb.jpg", "600x600bb.jpg");
+              linksMap.appleMusic = item.trackViewUrl || item.collectionViewUrl || url;
+            }
+          } catch (_) {}
+        }
+      }
+
+      // Attempt 2: Deezer Album / Track Lookup
+      if (cleanLower.includes("deezer.com")) {
+        const idMatch = url.match(/\/(album|track)\/(\d+)/);
+        if (idMatch && idMatch[2]) {
+          try {
+            const deezerType = idMatch[1];
+            const deezerRes = await axios.get(`https://api.deezer.com/${deezerType}/${idMatch[2]}`, { timeout: 4000 });
+            if (deezerRes.data && !deezerRes.data.error) {
+              title = deezerRes.data.title || title;
+              artist = deezerRes.data.artist?.name || artist;
+              thumbnailUrl = deezerRes.data.cover_xl || deezerRes.data.album?.cover_xl || thumbnailUrl;
+              linksMap.deezer = deezerRes.data.link || url;
+            }
+          } catch (_) {}
+        }
+      }
+
+      // If we now have title & artist, populate all streaming links
+      if (title && artist) {
+        if (!linksMap.spotify) {
+          linksMap.spotify = cleanLower.includes("spotify.com") ? url : `https://open.spotify.com/search/${encodeURIComponent(artist + " " + title)}`;
+        }
+        if (!linksMap.youtubeMusic) {
+          linksMap.youtubeMusic = cleanLower.includes("music.youtube.com") ? url : `https://music.youtube.com/search?q=${encodeURIComponent(artist + " " + title)}`;
+        }
+        if (!linksMap.appleMusic) {
+          linksMap.appleMusic = cleanLower.includes("apple.com") ? url : `https://music.apple.com/search?term=${encodeURIComponent(artist + " " + title)}`;
+        }
+        if (!linksMap.deezer) {
+          linksMap.deezer = cleanLower.includes("deezer.com") ? url : `https://www.deezer.com/search/${encodeURIComponent(artist + " " + title)}`;
+        }
+        if (!linksMap.tidal) {
+          linksMap.tidal = cleanLower.includes("tidal.com") ? url : `https://listen.tidal.com/search?q=${encodeURIComponent(artist + " " + title)}`;
+        }
+        if (!linksMap.amazonMusic) {
+          linksMap.amazonMusic = cleanLower.includes("amazon.") ? url : `https://music.amazon.com/search/${encodeURIComponent(artist + " " + title)}`;
+        }
+      }
     }
 
     if (Object.keys(linksMap).length === 0) return null;

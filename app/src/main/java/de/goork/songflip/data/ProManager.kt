@@ -11,9 +11,12 @@ import com.revenuecat.purchases.interfaces.UpdatedCustomerInfoListener
 import com.revenuecat.purchases.models.StoreTransaction
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import java.security.MessageDigest
 
 enum class RedeemResult {
@@ -322,6 +325,14 @@ object ProManager {
         val hash = hashUrl(rawUrl)
         val shortId = if (hash.length > 8) hash.substring(0, 8) else hash
         return "https://songflip.link/s/$shortId"
+    }
+
+    fun warmupUniversalShare(rawUrl: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                OdesliRepository().queryL2ServerCache(rawUrl, "universal")
+            } catch (_: Throwable) {}
+        }
     }
 
     fun resetProForTesting() {
