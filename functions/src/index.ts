@@ -355,6 +355,10 @@ export const resolve = onRequest(
       const cachedData = docSnap.data() as SongMetadata;
       const isExpired = cachedData.expiresAt && cachedData.expiresAt.toMillis() < Date.now();
       if (!isExpired) {
+        // Rolling 90-day TTL: Reset expiration timer upon each access
+        const rollingExpiresAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000);
+        cacheRef.update({ expiresAt: rollingExpiresAt, lastAccessedAt: Date.now() }).catch(() => {});
+
         res.setHeader("X-Cache", "HIT");
         res.setHeader("Cache-Control", "public, max-age=86400");
         res.status(200).json({
@@ -578,10 +582,16 @@ export const renderWebShare = onRequest(
         const docSnap = await db.collection("l2_song_cache").doc(hash).get();
         if (docSnap.exists) {
           songData = docSnap.data();
+          // Rolling 90-day TTL: Reset expiration timer upon each access
+          const rollingExpiresAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000);
+          docSnap.ref.update({ expiresAt: rollingExpiresAt, lastAccessedAt: Date.now() }).catch(() => {});
         } else if (hash.length > 8) {
           const shortSnap = await db.collection("l2_song_cache").doc(hash.substring(0, 8)).get();
           if (shortSnap.exists) {
             songData = shortSnap.data();
+            // Rolling 90-day TTL: Reset expiration timer upon each access
+            const rollingExpiresAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000);
+            shortSnap.ref.update({ expiresAt: rollingExpiresAt, lastAccessedAt: Date.now() }).catch(() => {});
           }
         }
       }
