@@ -141,4 +141,8 @@
     <string name="pro_coupon_inactive">Kode promo ini sudah tidak aktif.</string>
     <string name="pro_active_3months">Akses PRO aktif hingga %1$s</string>
     <string name="pro_active_1month">Akses PRO aktif hingga %1$s</string>
+    <string name="share_universal_link">Bagikan tautan web universal</string>
+    <string name="share_universal_link_copied">Tautan universal SongFlip disalin!</string>
+    <string name="share_universal_link_pro">Tautan web universal (PRO)</string>
+    <string name="pro_feature_universal_links">Tautan web universal untuk semua pemutar</string>
 </resources>
