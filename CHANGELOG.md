@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.1] - 2026-08-25
+- **Enhanced Song History**: Clearer artist labels, playlists, and album tags in your history.
+- **Stability & Crash Fixes**: Resolved layout and language display issues across multiple languages.
+- **Improved Purchase Reliability**: Smoother activation and instant restoration for subscriptions.
+
 ## [1.2.0] - 2026-08-24
 - **Ultra-Fast Level 2 Server Cache**: Songs resolve in milliseconds for PRO users using our new anonymous high-speed cache.
 - **Smoother Subscription Experience**: Improved purchase flow and instant restore capabilities.

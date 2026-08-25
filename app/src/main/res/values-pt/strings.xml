@@ -90,7 +90,7 @@
 
     <string name="history_title">Histórico de Músicas</string>
     <string name="history_subtitle">Veja e gerencie músicas convertidas recentemente</string>
-    <string name="history_cached_count" formatted="false">%1 músicas no histórico</string>
+    <string name="history_cached_count">%1$d músicas no histórico</string>
     <string name="history_empty">Nenhuma música convertida ainda. Links de música compartilhados aparecerão aqui.</string>
     <string name="history_clear_all">Limpar Histórico</string>
     <string name="history_clear_confirm_title">Limpar histórico de músicas?</string>
@@ -102,9 +102,9 @@
     <string name="history_btn_upgrade">Fazer upgrade para PRO</string>
     <string name="action_delete">Excluir</string>
     <string name="time_just_now">Agora mesmo</string>
-    <string name="time_minutes_ago" formatted="false">há %1 min</string>
-    <string name="time_hours_ago" formatted="false">há %1 h</string>
-    <string name="time_days_ago" formatted="false">há %1 dias</string>
+    <string name="time_minutes_ago">há %1$d min</string>
+    <string name="time_hours_ago">há %1$d h</string>
+    <string name="time_days_ago">há %1$d dias</string>
 
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">Apoie o desenvolvimento independente e desbloqueie recursos exclusivos</string>
@@ -133,4 +133,7 @@
     <string name="pro_active_annual">Acesso VIP ativo até %1$s</string>
     <string name="pro_btn_subscribe">Obter SongFlip PRO (%1$s)</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – Em breve</string>
+    <string name="badge_album">Álbum</string>
+    <string name="badge_artist">Artista</string>
+    <string name="badge_playlist">Playlist</string>
 </resources>

@@ -89,8 +89,12 @@ object ProManager {
     }
 
     private fun updateFromCustomerInfo(customerInfo: CustomerInfo) {
-        val hasProEntitlement = customerInfo.entitlements["pro"]?.isActive == true ||
-                                customerInfo.entitlements["songflip_pro"]?.isActive == true
+        val hasExplicitEntitlement = customerInfo.entitlements["pro"]?.isActive == true ||
+                                     customerInfo.entitlements["songflip_pro"]?.isActive == true
+        val hasAnyActiveEntitlement = customerInfo.entitlements.active.isNotEmpty()
+        val hasActiveSubscription = customerInfo.activeSubscriptions.isNotEmpty()
+        val hasNonSubTransaction = customerInfo.nonSubscriptionTransactions.isNotEmpty()
+        val hasProEntitlement = hasExplicitEntitlement || hasAnyActiveEntitlement || hasActiveSubscription || hasNonSubTransaction
         evaluateProState(revenueCatActive = hasProEntitlement)
     }
 
