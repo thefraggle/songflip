@@ -2,19 +2,20 @@ package de.goork.songflip
 
 import de.goork.songflip.data.ProManager
 import de.goork.songflip.data.RedeemResult
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Test
 
 class ProManagerTest {
 
     @Test
-    fun testInvalidCodeReturnsInvalid() {
+    fun testInvalidCodeReturnsInvalid() = runBlocking {
         val result = ProManager.redeemCoupon("RANDOM_INVALID_CODE_123")
         assertEquals(RedeemResult.INVALID, result)
     }
 
     @Test
-    fun testEmptyCodeReturnsInvalid() {
+    fun testEmptyCodeReturnsInvalid() = runBlocking {
         val result = ProManager.redeemCoupon("")
         assertEquals(RedeemResult.INVALID, result)
     }

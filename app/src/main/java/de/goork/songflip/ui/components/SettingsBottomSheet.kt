@@ -37,9 +37,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.os.LocaleListCompat
 import de.goork.songflip.R
+import de.goork.songflip.data.ProManager
 import de.goork.songflip.data.SettingsRepository
 import de.goork.songflip.ui.LanguageItem
 import de.goork.songflip.ui.ServiceInfo
+import java.text.DateFormat
+import java.util.Date
 
 import androidx.compose.material.icons.outlined.ChevronRight
 import androidx.compose.material.icons.outlined.History
@@ -68,6 +71,7 @@ fun SettingsBottomSheet(
 ) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
+    val proState by ProManager.proState.collectAsState()
 
     var showLanguagePickerSubSheet by remember { mutableStateOf(false) }
     var showHistorySubSheet by remember { mutableStateOf(false) }
@@ -228,8 +232,53 @@ fun SettingsBottomSheet(
                                 style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
                                 color = MaterialTheme.colorScheme.onSurface
                             )
+                            val proSubText = if (isPro) {
+                                when (proState.proType) {
+                                    "lifetime_coupon", "revenuecat_lifetime" -> stringResource(R.string.pro_active_lifetime)
+                                    "1year_coupon", "annual_coupon" -> {
+                                        val dateStr = proState.expirationDate?.let {
+                                            DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(it))
+                                        } ?: ""
+                                        stringResource(R.string.pro_active_annual, dateStr)
+                                    }
+                                    "3months_coupon" -> {
+                                        val dateStr = proState.expirationDate?.let {
+                                            DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(it))
+                                        } ?: ""
+                                        stringResource(R.string.pro_active_3months, dateStr)
+                                    }
+                                    "1month_coupon" -> {
+                                        val dateStr = proState.expirationDate?.let {
+                                            DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(it))
+                                        } ?: ""
+                                        stringResource(R.string.pro_active_1month, dateStr)
+                                    }
+                                    "revenuecat_subscription", "revenuecat" -> {
+                                        val dateStr = proState.expirationDate?.let {
+                                            DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(it))
+                                        }
+                                        if (!dateStr.isNullOrBlank()) {
+                                            stringResource(R.string.pro_active_annual, dateStr)
+                                        } else {
+                                            stringResource(R.string.pro_active_lifetime)
+                                        }
+                                    }
+                                    else -> {
+                                        val dateStr = proState.expirationDate?.let {
+                                            DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(it))
+                                        }
+                                        if (!dateStr.isNullOrBlank()) {
+                                            stringResource(R.string.pro_active_annual, dateStr)
+                                        } else {
+                                            stringResource(R.string.pro_active_lifetime)
+                                        }
+                                    }
+                                }
+                            } else {
+                                stringResource(R.string.pro_subtitle)
+                            }
                             Text(
-                                text = if (isPro) stringResource(R.string.pro_active_lifetime) else stringResource(R.string.pro_subtitle),
+                                text = proSubText,
                                 style = MaterialTheme.typography.labelMedium,
                                 color = if (isPro) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                                 maxLines = 2,

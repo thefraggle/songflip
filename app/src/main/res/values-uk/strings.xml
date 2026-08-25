@@ -129,10 +129,16 @@
     <string name="pro_coupon_invalid">Invalid promo code</string>
     <string name="pro_coupon_already_active">PRO is already active</string>
     <string name="pro_active_status">SongFlip PRO Active</string>
-    <string name="pro_active_lifetime">Lifetime VIP Access</string>
-    <string name="pro_active_annual">VIP Access active until %1$s</string>
+    <string name="pro_active_lifetime">Довічний PRO-доступ</string>
+    <string name="pro_active_annual">PRO-доступ активний до %1$s</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – Незабаром</string>
     <string name="badge_album">Альбом</string>
     <string name="badge_artist">Виконавець</string>
     <string name="badge_playlist">Плейліст</string>
+    <string name="pro_coupon_success_3months">🎉 SongFlip PRO (3 місяці) розблоковано!</string>
+    <string name="pro_coupon_success_1month">🎉 SongFlip PRO (1 місяць) розблоковано!</string>
+    <string name="pro_coupon_max_reached">Цей промокод досяг ліміту активацій.</string>
+    <string name="pro_coupon_inactive">Цей промокод більше не активний.</string>
+    <string name="pro_active_3months">PRO-доступ активний до %1$s</string>
+    <string name="pro_active_1month">PRO-доступ активний до %1$s</string>
 </resources>

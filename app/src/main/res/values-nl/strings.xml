@@ -129,11 +129,17 @@
     <string name="pro_coupon_invalid">Ongeldige promotiecode</string>
     <string name="pro_coupon_already_active">PRO is al actief</string>
     <string name="pro_active_status">SongFlip PRO Actief</string>
-    <string name="pro_active_lifetime">Levenslange VIP-toegang</string>
-    <string name="pro_active_annual">VIP-toegang actief tot %1$s</string>
+    <string name="pro_active_lifetime">Levenslange PRO-toegang</string>
+    <string name="pro_active_annual">PRO-toegang actief tot %1$s</string>
     <string name="pro_btn_subscribe">Ontvang SongFlip PRO (%1$s)</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – Binnenkort beschikbaar</string>
     <string name="badge_album">Album</string>
     <string name="badge_artist">Artiest</string>
     <string name="badge_playlist">Afspeellijst</string>
+    <string name="pro_coupon_success_3months">🎉 SongFlip PRO (3 maanden) ontgrendeld!</string>
+    <string name="pro_coupon_success_1month">🎉 SongFlip PRO (1 maand) ontgrendeld!</string>
+    <string name="pro_coupon_max_reached">Deze promotiecode heeft de maximale inwissellimiet bereikt.</string>
+    <string name="pro_coupon_inactive">Deze promotiecode is niet meer actief.</string>
+    <string name="pro_active_3months">PRO-toegang actief tot %1$s</string>
+    <string name="pro_active_1month">PRO-toegang actief tot %1$s</string>
 </resources>

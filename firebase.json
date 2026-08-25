@@ -37,6 +37,13 @@
           "functionId": "health",
           "region": "europe-west3"
         }
+      },
+      {
+        "source": "/redeemPromoCode",
+        "function": {
+          "functionId": "redeemPromoCode",
+          "region": "europe-west3"
+        }
       }
     ]
   }
