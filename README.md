@@ -19,7 +19,7 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
   - 🟣 **Deezer** (`deezer.com`, `link.deezer.com`, `deezer.page.link`)
   - 🔵 **Amazon Music** (`music.amazon.com`, `music.amazon.de`, `music.amazon.co.uk`, `amzn.to`, `a.co`)
 - **💿 Full Album & Artist Recognition**: Supports single tracks, full albums/EPs, and artist channel/discography profiles (including `@handles`).
-- **🔗 Universal Smart Share Links (`songflip.link/s/...`)**: Generate clean, lightning-fast multi-platform landing pages with rich cover art & OpenGraph preview cards for WhatsApp, Telegram, iMessage & Discord. *(Try the permanent live demo: [songflip.link/s/rickroll](https://songflip.link/s/rickroll))*.
+- **🔗 Universal Smart Share Links (`songflip.link/s/...`) [PRO]**: Generate clean, lightning-fast multi-platform landing pages with rich cover art & OpenGraph preview cards for WhatsApp, Telegram, iMessage & Discord. *(Try the permanent live demo: [songflip.link/s/rickroll](https://songflip.link/s/rickroll))*.
 - **📜 Conversion History & Quick Sharing**: Offline history log with 1-tap replay, search filter, and instant smart-link sharing.
 - **🚀 Direct Instant Playback Engine**: Extracts direct video/track IDs in the background (e.g. YouTube Music `watch?v=...`) for instant playback without search result delays.
 - **🌍 22 Languages Supported**: Fully localized in 22 languages (English, German, Spanish, French, Italian, Portuguese, Japanese, Korean, Chinese, Ukrainian, Polish, Turkish, Dutch, Arabic, Hindi, and more).
