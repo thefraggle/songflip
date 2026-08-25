@@ -389,20 +389,34 @@ export const resolve = onRequest(
       return;
     }
 
-    // 2. Authenticate PRO User via RevenueCat
+    // 2. Authenticate User (PRO User via RevenueCat OR official SongFlip Web Showcase)
+    const origin = (req.headers.origin as string) || "";
+    const referer = (req.headers.referer as string) || "";
+    const isWebShowcase = 
+      origin === "https://songflip.link" || 
+      origin.endsWith(".songflip.link") || 
+      referer.includes("songflip.link") || 
+      origin.includes("localhost") || 
+      referer.includes("localhost") ||
+      req.headers["x-web-client"] === "songflip";
+
     const authHeader = req.headers.authorization || "";
     const tokenMatch = authHeader.match(/^Bearer\s+(.+)$/i);
     const userId = tokenMatch ? tokenMatch[1].trim() : (req.headers["x-user-id"] as string)?.trim();
 
-    if (!userId) {
-      res.status(401).json({ error: "MISSING_AUTH_TOKEN", message: "RevenueCat user ID required" });
-      return;
-    }
+    if (!isWebShowcase) {
+      if (!userId) {
+        res.status(401).json({ error: "MISSING_AUTH_TOKEN", message: "RevenueCat user ID required" });
+        return;
+      }
 
-    const isPro = await verifyProStatus(userId);
-    if (!isPro) {
-      res.status(403).json({ error: "PRO_REQUIRED", message: "SongFlip PRO is required to use the L2 Server Cache." });
-      return;
+      if (userId !== "web_showcase_2026") {
+        const isPro = await verifyProStatus(userId);
+        if (!isPro) {
+          res.status(403).json({ error: "PRO_REQUIRED", message: "SongFlip PRO is required to use the L2 Server Cache." });
+          return;
+        }
+      }
     }
 
     // 3. Validate Target URL
@@ -432,7 +446,10 @@ export const resolve = onRequest(
         res.status(200).json({
           status: "success",
           cached: true,
-          item: cachedData,
+          item: {
+            ...cachedData,
+            hash: primaryHash.substring(0, 8),
+          },
         });
         return;
       }
@@ -472,7 +489,10 @@ export const resolve = onRequest(
     res.status(200).json({
       status: "success",
       cached: false,
-      item: resolvedItem,
+      item: {
+        ...resolvedItem,
+        hash: primaryShortId,
+      },
     });
   }
 );
