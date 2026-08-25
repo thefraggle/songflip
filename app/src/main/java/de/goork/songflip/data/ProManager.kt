@@ -312,7 +312,7 @@ object ProManager {
     }
 
     fun hashUrl(rawUrl: String): String {
-        val normalized = rawUrl.trim().lowercase().substringBefore("?").trimEnd('/')
+        val normalized = rawUrl.trim().lowercase()
         val digest = MessageDigest.getInstance("SHA-256")
         val hashBytes = digest.digest(normalized.toByteArray(Charsets.UTF_8))
         return hashBytes.joinToString("") { "%02x".format(it) }
