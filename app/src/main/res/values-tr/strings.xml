@@ -90,7 +90,7 @@
 
     <string name="history_title">Şarkı Geçmişi</string>
     <string name="history_subtitle">Son dönüştürülen şarkıları görüntüleyin ve yönetin</string>
-    <string name="history_cached_count" formatted="false">Geçmişte %1 şarkı</string>
+    <string name="history_cached_count">Geçmişte %1$d şarkı</string>
     <string name="history_empty">Henüz dönüştürülmüş şarkı yok. Paylaşılan müzik bağlantıları burada görünecektir.</string>
     <string name="history_clear_all">Geçmişi Temizle</string>
     <string name="history_clear_confirm_title">Şarkı geçmişi temizlensin mi?</string>
@@ -102,9 +102,9 @@
     <string name="history_btn_upgrade">PRO\'ya Yükselt</string>
     <string name="action_delete">Sil</string>
     <string name="time_just_now">Az önce</string>
-    <string name="time_minutes_ago" formatted="false">%1 dk önce</string>
-    <string name="time_hours_ago" formatted="false">%1 sa önce</string>
-    <string name="time_days_ago" formatted="false">%1 gün önce</string>
+    <string name="time_minutes_ago">%1$d dk önce</string>
+    <string name="time_hours_ago">%1$d sa önce</string>
+    <string name="time_days_ago">%1$d gün önce</string>
 
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">Bağımsız geliştirmeyi destekleyin ve ayrıcalıklı özelliklerin kilidini açın</string>
@@ -130,7 +130,10 @@
     <string name="pro_coupon_already_active">PRO zaten aktif</string>
     <string name="pro_active_status">SongFlip PRO Etkin</string>
     <string name="pro_active_lifetime">Ömür Boyu VIP Erişim</string>
-    <string name="pro_active_annual" formatted="false">VIP Erişim %1 tarihine kadar aktif</string>
+    <string name="pro_active_annual" formatted="false">VIP Erişim %1$s tarihine kadar aktif</string>
     <string name="pro_btn_subscribe">SongFlip PRO Al (%1$s)</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – Yakında</string>
+    <string name="badge_album">Albüm</string>
+    <string name="badge_artist">Sanatçı</string>
+    <string name="badge_playlist">Çalma Listesi</string>
 </resources>

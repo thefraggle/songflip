@@ -151,4 +151,7 @@
     <string name="pro_btn_coming_soon">SongFlip PRO – Demnächst verfügbar</string>
     <string name="pro_play_store_unavailable">Google Play Store auf diesem Gerät nicht verfügbar.</string>
     <string name="pro_processing">Kauf wird verarbeitet...</string>
+    <string name="badge_album">Album</string>
+    <string name="badge_artist">Künstler</string>
+    <string name="badge_playlist">Playlist</string>
 </resources>
