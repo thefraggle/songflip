@@ -129,11 +129,17 @@
     <string name="pro_coupon_invalid">Código promocional no válido</string>
     <string name="pro_coupon_already_active">PRO ya está activo</string>
     <string name="pro_active_status">SongFlip PRO Activo</string>
-    <string name="pro_active_lifetime">Acceso VIP de por vida</string>
-    <string name="pro_active_annual">Acceso VIP activo hasta el %1$s</string>
+    <string name="pro_active_lifetime">Acceso PRO de por vida</string>
+    <string name="pro_active_annual">Acceso PRO activo hasta el %1$s</string>
     <string name="pro_btn_subscribe">Obtener SongFlip PRO (%1$s)</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – Próximamente</string>
     <string name="badge_album">Álbum</string>
     <string name="badge_artist">Artista</string>
     <string name="badge_playlist">Lista de reproducción</string>
+    <string name="pro_coupon_success_3months">🎉 ¡SongFlip PRO (3 meses) desbloqueado!</string>
+    <string name="pro_coupon_success_1month">🎉 ¡SongFlip PRO (1 mes) desbloqueado!</string>
+    <string name="pro_coupon_max_reached">Este código promocional ha alcanzado su límite de canjes.</string>
+    <string name="pro_coupon_inactive">Este código promocional ya no está activo.</string>
+    <string name="pro_active_3months">Acceso PRO activo hasta el %1$s</string>
+    <string name="pro_active_1month">Acceso PRO activo hasta el %1$s</string>
 </resources>

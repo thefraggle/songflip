@@ -1212,7 +1212,7 @@ class OdesliRepository {
         canonicalUrl: String,
         targetPlatformKey: String
     ): OdesliResult.Success? = withContext(Dispatchers.IO) {
-        val appUserId = ProManager.getAppUserId()
+        val authToken = ProManager.getAuthToken()
         val encodedUrl = URLEncoder.encode(canonicalUrl, "UTF-8")
         val endpoints = listOf(
             "https://cache.songflip.link/resolve?url=$encodedUrl",
@@ -1223,7 +1223,7 @@ class OdesliRepository {
             try {
                 val request = Request.Builder()
                     .url(endpoint)
-                    .addHeader("Authorization", "Bearer $appUserId")
+                    .addHeader("Authorization", "Bearer $authToken")
                     .addHeader("Accept", "application/json")
                     .build()
 

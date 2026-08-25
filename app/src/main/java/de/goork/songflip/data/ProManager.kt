@@ -9,6 +9,8 @@ import com.revenuecat.purchases.interfaces.ReceiveCustomerInfoCallback
 import com.revenuecat.purchases.interfaces.ReceiveOfferingsCallback
 import com.revenuecat.purchases.interfaces.UpdatedCustomerInfoListener
 import com.revenuecat.purchases.models.StoreTransaction
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,13 +19,18 @@ import java.security.MessageDigest
 enum class RedeemResult {
     SUCCESS_LIFETIME,
     SUCCESS_1YEAR,
+    SUCCESS_3MONTHS,
+    SUCCESS_1MONTH,
+    ALREADY_ACTIVE,
+    MAX_REACHED,
+    INACTIVE,
     INVALID,
-    ALREADY_ACTIVE
+    NETWORK_ERROR
 }
 
 data class ProState(
     val isPro: Boolean = false,
-    val proType: String = "", // "revenuecat", "lifetime_coupon", "annual_coupon"
+    val proType: String = "", // "revenuecat", "lifetime_coupon", "1year_coupon", "3months_coupon", "1month_coupon"
     val expirationDate: Long? = null
 )
 
@@ -37,12 +44,6 @@ object ProManager {
     private const val REVENUECAT_API_KEY = "goog_mzQwhCFXsoDHGcFDxkzsIqBcHfO"
     const val ENTITLEMENT_PRO = "pro"
 
-    // SHA-256 Hashes of Secret Codes (Raw strings are not stored in repository)
-    // "SONGFLIP_FOUNDER_2026" -> Lifetime Free
-    private const val HASH_FOUNDER_LIFETIME = "b6375a62ef6661d3bfe3bcb1b54aec2812d77a288e66e2f2180f2a78c5836afe"
-    // "SONGFLIP_VIP_2026" -> 1 Year Free
-    private const val HASH_VIP_1YEAR = "f0d7b3ce7f1899be88ad44f102ad27cc9998cb501cb9bae4eeb52226923a37e6"
-
     private var prefs: SharedPreferences? = null
     private val _proState = MutableStateFlow(ProState())
     val proState: StateFlow<ProState> = _proState.asStateFlow()
@@ -55,6 +56,15 @@ object ProManager {
             Purchases.sharedInstance.appUserID
         } catch (e: Exception) {
             "anonymous_local_user"
+        }
+    }
+
+    fun getAuthToken(): String {
+        val state = _proState.value
+        return if (state.proType.endsWith("_coupon")) {
+            "coupon:${state.proType}"
+        } else {
+            getAppUserId()
         }
     }
 
@@ -95,18 +105,35 @@ object ProManager {
         val hasActiveSubscription = customerInfo.activeSubscriptions.isNotEmpty()
         val hasNonSubTransaction = customerInfo.nonSubscriptionTransactions.isNotEmpty()
         val hasProEntitlement = hasExplicitEntitlement || hasAnyActiveEntitlement || hasActiveSubscription || hasNonSubTransaction
-        evaluateProState(revenueCatActive = hasProEntitlement)
+
+        val activeEntitlement = customerInfo.entitlements["pro"] ?: customerInfo.entitlements["songflip_pro"] ?: customerInfo.entitlements.active.values.firstOrNull()
+        val expDate = activeEntitlement?.expirationDate?.time ?: customerInfo.allExpirationDatesByProduct.values.mapNotNull { it?.time }.maxOrNull()
+        val isLifetimeRc = hasNonSubTransaction || (hasProEntitlement && expDate == null)
+
+        evaluateProState(
+            revenueCatActive = hasProEntitlement,
+            rcExpirationMillis = expDate,
+            rcIsLifetime = isLifetimeRc
+        )
     }
 
     @Synchronized
-    private fun evaluateProState(revenueCatActive: Boolean) {
+    private fun evaluateProState(
+        revenueCatActive: Boolean,
+        rcExpirationMillis: Long? = null,
+        rcIsLifetime: Boolean = false
+    ) {
         val sp = prefs ?: return
         val couponType = sp.getString(KEY_COUPON_TYPE, null)
         val expiration = sp.getLong(KEY_COUPON_EXPIRATION, 0L)
         val now = System.currentTimeMillis()
 
         if (revenueCatActive) {
-            _proState.value = ProState(isPro = true, proType = "revenuecat")
+            _proState.value = ProState(
+                isPro = true,
+                proType = if (rcIsLifetime) "revenuecat_lifetime" else "revenuecat_subscription",
+                expirationDate = if (rcIsLifetime) null else rcExpirationMillis
+            )
             return
         }
 
@@ -115,8 +142,9 @@ object ProManager {
             return
         }
 
-        if (couponType == "annual" && expiration > now) {
-            _proState.value = ProState(isPro = true, proType = "annual_coupon", expirationDate = expiration)
+        if (!couponType.isNullOrBlank() && expiration > now) {
+            val normalizedType = if (couponType.endsWith("_coupon")) couponType else "${couponType}_coupon"
+            _proState.value = ProState(isPro = true, proType = normalizedType, expirationDate = expiration)
             return
         }
 
@@ -193,46 +221,98 @@ object ProManager {
         }
     }
 
-    fun redeemCoupon(code: String): RedeemResult {
+    suspend fun redeemCoupon(code: String): RedeemResult = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
         val cleanCode = code.trim().uppercase()
-        if (cleanCode.isEmpty()) return RedeemResult.INVALID
+        if (cleanCode.isEmpty()) return@withContext RedeemResult.INVALID
 
-        val hash = sha256(cleanCode)
-        val sp = prefs ?: return RedeemResult.INVALID
+        val sp = prefs ?: return@withContext RedeemResult.INVALID
 
-        if (hash == HASH_FOUNDER_LIFETIME) {
-            if (_proState.value.isPro && _proState.value.proType == "lifetime_coupon") {
-                return RedeemResult.ALREADY_ACTIVE
+        val endpoints = listOf(
+            "https://cache.songflip.link/redeemPromoCode",
+            "https://songflip-web.web.app/redeemPromoCode"
+        )
+
+        val jsonBody = org.json.JSONObject().apply {
+            put("code", cleanCode)
+        }.toString()
+
+        val mediaType = "application/json; charset=utf-8".toMediaType()
+        val requestBody = jsonBody.toRequestBody(mediaType)
+
+        val client = okhttp3.OkHttpClient.Builder()
+            .connectTimeout(6, java.util.concurrent.TimeUnit.SECONDS)
+            .readTimeout(6, java.util.concurrent.TimeUnit.SECONDS)
+            .build()
+
+        for (endpoint in endpoints) {
+            try {
+                val request = okhttp3.Request.Builder()
+                    .url(endpoint)
+                    .post(requestBody)
+                    .build()
+
+                val response = client.newCall(request).execute()
+                val bodyStr = response.body?.string() ?: ""
+                val isOk = response.isSuccessful
+                response.close()
+
+                if (isOk) {
+                    val resJson = org.json.JSONObject(bodyStr)
+                    val type = resJson.optString("type", "1month").lowercase()
+                    val expTimestamp = if (resJson.has("expirationTimestamp") && !resJson.isNull("expirationTimestamp")) {
+                        resJson.optLong("expirationTimestamp")
+                    } else null
+
+                    if (type == "lifetime") {
+                        if (_proState.value.isPro && _proState.value.proType == "lifetime_coupon") {
+                            return@withContext RedeemResult.ALREADY_ACTIVE
+                        }
+                        sp.edit()
+                            .putString(KEY_COUPON_TYPE, "lifetime")
+                            .remove(KEY_COUPON_EXPIRATION)
+                            .apply()
+                        evaluateProState(revenueCatActive = false)
+                        return@withContext RedeemResult.SUCCESS_LIFETIME
+                    } else {
+                        val durationDays = when (type) {
+                            "1year", "annual" -> 365L
+                            "3months" -> 90L
+                            else -> 30L
+                        }
+                        val expireTime = expTimestamp ?: (System.currentTimeMillis() + durationDays * 24 * 60 * 60 * 1000L)
+
+                        sp.edit()
+                            .putString(KEY_COUPON_TYPE, type)
+                            .putLong(KEY_COUPON_EXPIRATION, expireTime)
+                            .apply()
+                        evaluateProState(revenueCatActive = false)
+
+                        return@withContext when (type) {
+                            "1year", "annual" -> RedeemResult.SUCCESS_1YEAR
+                            "3months" -> RedeemResult.SUCCESS_3MONTHS
+                            else -> RedeemResult.SUCCESS_1MONTH
+                        }
+                    }
+                } else {
+                    val errJson = try { org.json.JSONObject(bodyStr) } catch (e: Exception) { null }
+                    val errCode = errJson?.optString("error", "") ?: ""
+                    return@withContext when (errCode) {
+                        "MAX_REDEMPTIONS_REACHED" -> RedeemResult.MAX_REACHED
+                        "CODE_INACTIVE" -> RedeemResult.INACTIVE
+                        "CODE_EXPIRED" -> RedeemResult.INACTIVE
+                        else -> RedeemResult.INVALID
+                    }
+                }
+            } catch (e: Exception) {
+                // Try next endpoint
             }
-            sp.edit()
-                .putString(KEY_COUPON_TYPE, "lifetime")
-                .remove(KEY_COUPON_EXPIRATION)
-                .apply()
-            evaluateProState(revenueCatActive = false)
-            return RedeemResult.SUCCESS_LIFETIME
         }
 
-        if (hash == HASH_VIP_1YEAR) {
-            val oneYearMs = 365L * 24 * 60 * 60 * 1000L
-            val expireTime = System.currentTimeMillis() + oneYearMs
-            sp.edit()
-                .putString(KEY_COUPON_TYPE, "annual")
-                .putLong(KEY_COUPON_EXPIRATION, expireTime)
-                .apply()
-            evaluateProState(revenueCatActive = false)
-            return RedeemResult.SUCCESS_1YEAR
-        }
-
-        return RedeemResult.INVALID
+        return@withContext RedeemResult.NETWORK_ERROR
     }
 
     fun resetProForTesting() {
         prefs?.edit()?.clear()?.apply()
         _proState.value = ProState(isPro = false, proType = "")
-    }
-
-    private fun sha256(input: String): String {
-        val bytes = MessageDigest.getInstance("SHA-256").digest(input.toByteArray())
-        return bytes.joinToString("") { "%02x".format(it) }
     }
 }

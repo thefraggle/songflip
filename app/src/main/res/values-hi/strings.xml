@@ -129,10 +129,16 @@
     <string name="pro_coupon_invalid">Invalid promo code</string>
     <string name="pro_coupon_already_active">PRO is already active</string>
     <string name="pro_active_status">SongFlip PRO Active</string>
-    <string name="pro_active_lifetime">Lifetime VIP Access</string>
-    <string name="pro_active_annual">VIP Access active until %1$s</string>
+    <string name="pro_active_lifetime">लाइफटाइम PRO एक्सेस</string>
+    <string name="pro_active_annual">PRO एक्सेस %1$s तक सक्रिय है</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – जल्द आ रहा है</string>
     <string name="badge_album">एल्बम</string>
     <string name="badge_artist">कलाकार</string>
     <string name="badge_playlist">प्लेलिस्ट</string>
+    <string name="pro_coupon_success_3months">🎉 SongFlip PRO (3 महीने) अनलॉक हो गया!</string>
+    <string name="pro_coupon_success_1month">🎉 SongFlip PRO (1 महीना) अनलॉक हो गया!</string>
+    <string name="pro_coupon_max_reached">यह प्रोमो कोड अपनी अधिकतम उपयोग सीमा तक पहुँच चुका है।</string>
+    <string name="pro_coupon_inactive">यह प्रोमो कोड अब सक्रिय नहीं है।</string>
+    <string name="pro_active_3months">PRO एक्सेस %1$s तक सक्रिय है</string>
+    <string name="pro_active_1month">PRO एक्सेस %1$s तक सक्रिय है</string>
 </resources>

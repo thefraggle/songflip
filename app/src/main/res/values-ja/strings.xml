@@ -129,11 +129,17 @@
     <string name="pro_coupon_invalid">無効なプロモーションコードです</string>
     <string name="pro_coupon_already_active">PROは既に有効です</string>
     <string name="pro_active_status">SongFlip PRO 有効</string>
-    <string name="pro_active_lifetime">永久VIPアクセス</string>
-    <string name="pro_active_annual">VIPアクセス有効期限: %1$s</string>
+    <string name="pro_active_lifetime">無期限PROアクセス</string>
+    <string name="pro_active_annual">PROアクセス有効期限: %1$s</string>
     <string name="pro_btn_subscribe">SongFlip PRO を購入 (%1$s)</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – まもなく登場</string>
     <string name="badge_album">アルバム</string>
     <string name="badge_artist">アーティスト</string>
     <string name="badge_playlist">プレイリスト</string>
+    <string name="pro_coupon_success_3months">🎉 SongFlip PRO（3か月）が有効化されました！</string>
+    <string name="pro_coupon_success_1month">🎉 SongFlip PRO（1か月）が有効化されました！</string>
+    <string name="pro_coupon_max_reached">このプロモーションコードの利用上限に達しました。</string>
+    <string name="pro_coupon_inactive">このプロモーションコードは現在利用できません。</string>
+    <string name="pro_active_3months">PROアクセス有効期限: %1$s</string>
+    <string name="pro_active_1month">PROアクセス有効期限: %1$s</string>
 </resources>
