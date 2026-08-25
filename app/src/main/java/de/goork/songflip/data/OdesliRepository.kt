@@ -1208,7 +1208,7 @@ class OdesliRepository {
         }
     }
 
-    private suspend fun queryL2ServerCache(
+    suspend fun queryL2ServerCache(
         canonicalUrl: String,
         targetPlatformKey: String
     ): OdesliResult.Success? = withContext(Dispatchers.IO) {

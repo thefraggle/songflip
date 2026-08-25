@@ -258,6 +258,7 @@ fun TestStudioBottomSheet(
                                     if (isPro) {
                                         haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                                         val shareUrl = ProManager.getUniversalWebShareUrl(testInputUrl)
+                                        ProManager.warmupUniversalShare(testInputUrl)
                                         val shareIntent = Intent(Intent.ACTION_SEND).apply {
                                             type = "text/plain"
                                             putExtra(Intent.EXTRA_TEXT, shareUrl)
