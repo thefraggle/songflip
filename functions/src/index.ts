@@ -731,7 +731,8 @@ export const renderWebShare = onRequest(
   <meta name="twitter:image" content="${coverUrl}">
   
   <meta name="theme-color" content="#0d1117">
-  <link rel="icon" href="https://songflip.link/favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2310b981'/%3E%3Cpath d='M16 8v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V12h4V8h-6z' fill='%23ffffff'/%3E%3C/svg%3E">
+  <link rel="alternate icon" href="https://cache.songflip.link/icon.png">
   
   <style>
     :root {
@@ -929,24 +930,6 @@ export const renderWebShare = onRequest(
     .footer-subtext {
       font-size: 12px;
       color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-    .get-app-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      color: #34d399;
-      text-decoration: none;
-      padding: 8px 16px;
-      border-radius: 12px;
-      font-size: 13px;
-      font-weight: 600;
-      transition: all 0.2s ease;
-    }
-    .get-app-btn:hover {
-      background: rgba(16, 185, 129, 0.25);
     }
   </style>
 </head>
@@ -968,14 +951,19 @@ export const renderWebShare = onRequest(
     
     <footer class="footer-app">
       <a href="https://songflip.link" target="_blank" rel="noopener noreferrer" class="brand-link">
-        <img src="https://songflip.link/icon.png" alt="SongFlip Logo" class="brand-icon" onerror="this.style.display='none'" />
+        <svg class="brand-icon" viewBox="0 0 32 32" width="22" height="22" fill="none">
+          <rect width="32" height="32" rx="7" fill="url(#brand-grad)" />
+          <path d="M16 7v11.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V11h5V7h-7z" fill="#ffffff"/>
+          <defs>
+            <linearGradient id="brand-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#10b981"/>
+              <stop offset="1" stop-color="#059669"/>
+            </linearGradient>
+          </defs>
+        </svg>
         <span class="brand-text">Flipped with <strong>SongFlip</strong></span>
       </a>
       <p class="footer-subtext">The automatic 0-click music redirector</p>
-      <a href="https://play.google.com/store/apps/details?id=de.goork.songflip" target="_blank" rel="noopener noreferrer" class="get-app-btn">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186c-.198-.124-.31-.336-.31-.568V2.382c0-.232.112-.444.31-.568zm11.235 11.237l2.257 2.258-10.99 6.273 8.733-8.531zm0-2.102L6.111 2.418l10.99 6.273-2.257 2.258zm1.052 1.051l3.528 2.016c.896.512.896 1.344 0 1.856l-3.528 2.016-1.92-1.92 1.92-1.968z"/></svg>
-        Get Android App
-      </a>
     </footer>
   </main>
 </body>
