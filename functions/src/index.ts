@@ -733,8 +733,12 @@ export const renderWebShare = onRequest(
   <meta name="twitter:image" content="${coverUrl}">
   
   <meta name="theme-color" content="#0d1117">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2310b981'/%3E%3Cpath d='M16 8v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V12h4V8h-6z' fill='%23ffffff'/%3E%3C/svg%3E">
-  <link rel="alternate icon" href="https://cache.songflip.link/icon.png">
+  <!-- Favicons (Official App Icon Suite) -->
+  <link rel="icon" type="image/svg+xml" href="https://songflip.link/images/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="https://songflip.link/images/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="https://songflip.link/images/favicon-192x192.png">
+  <link rel="shortcut icon" href="https://songflip.link/images/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://songflip.link/images/apple-touch-icon.png">
   
   <style>
     :root {
@@ -917,8 +921,8 @@ export const renderWebShare = onRequest(
       opacity: 0.85;
     }
     .brand-icon {
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
       border-radius: 6px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     }
@@ -953,16 +957,7 @@ export const renderWebShare = onRequest(
     
     <footer class="footer-app">
       <a href="https://songflip.link" target="_blank" rel="noopener noreferrer" class="brand-link">
-        <svg class="brand-icon" viewBox="0 0 32 32" width="22" height="22" fill="none">
-          <rect width="32" height="32" rx="7" fill="url(#brand-grad)" />
-          <path d="M16 7v11.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V11h5V7h-7z" fill="#ffffff"/>
-          <defs>
-            <linearGradient id="brand-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#10b981"/>
-              <stop offset="1" stop-color="#059669"/>
-            </linearGradient>
-          </defs>
-        </svg>
+        <img src="https://songflip.link/images/favicon-96x96.png" alt="SongFlip Logo" class="brand-icon" />
         <span class="brand-text">Flipped with <strong>SongFlip</strong></span>
       </a>
       <p class="footer-subtext">The automatic 0-click music redirector</p>
