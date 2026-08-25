@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.4] - 2026-08-25
+- **Universal Album Sharing (PRO)**: Full support for sharing full music albums with high-resolution artwork and direct player buttons.
+- **Instant Cloud Sync**: Shared songs and albums automatically sync to the high-speed global cache upon sharing.
+- **Rolling Cache Renewal**: Shared links now automatically extend their 90-day active window every time someone opens them.
+- **Accurate URL Matching**: Enhanced normalization and link hashing across all streaming platforms.
+- **Branded Link Experience**: Refined dark-mode landing page and informative status pages for shared music links.
+
 ## [1.2.3] - 2026-08-25
 - **Universal Web Links (PRO)**: Generate universal share links so friends on any music player can listen instantly.
 - **Direct System Sharing**: Share music links from any app to instantly copy a universal link.
