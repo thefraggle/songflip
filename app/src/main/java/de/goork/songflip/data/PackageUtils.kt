@@ -123,6 +123,7 @@ object PackageUtils {
             "tidal" -> "Tidal"
             "deezer" -> "Deezer"
             "amazonMusic" -> "Amazon Music"
+            "universal" -> "Universal Link"
             else -> cleanKey.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
         }
     }
