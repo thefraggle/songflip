@@ -599,30 +599,212 @@ export const renderWebShare = onRequest(
 
       // 4. Render 404 / Not Found Page if song is missing
       if (!songData || !songData.links || Object.keys(songData.links).length === 0) {
+        res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        res.setHeader("Pragma", "no-cache");
+        res.setHeader("Expires", "0");
+        res.setHeader("Content-Type", "text/html; charset=utf-8");
+
         res.status(404).send(`<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Song Not Found | SongFlip</title>
-  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="This shared song link is expired or not found. Open links directly with SongFlip.">
+  <meta name="theme-color" content="#0b0f17">
+  
+  <!-- Favicons (Official App Icon Suite) -->
+  <link rel="icon" type="image/svg+xml" href="https://songflip.link/images/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="https://songflip.link/images/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="https://songflip.link/images/favicon-192x192.png">
+  <link rel="shortcut icon" href="https://songflip.link/images/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://songflip.link/images/apple-touch-icon.png">
+
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background: #0d1117; color: #f0f6fc; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; text-align: center; }
-    .card { background: #161b22; border: 1px solid #30363d; border-radius: 20px; padding: 40px 24px; max-width: 420px; width: 100%; box-shadow: 0 16px 32px rgba(0,0,0,0.4); }
-    h1 { font-size: 22px; margin-bottom: 8px; font-weight: 700; }
-    p { color: #8b949e; font-size: 14px; margin-bottom: 24px; line-height: 1.5; }
-    .btn { display: inline-block; background: #238636; color: #fff; text-decoration: none; padding: 12px 24px; border-radius: 12px; font-weight: 600; font-size: 14px; transition: transform 0.15s ease; }
-    .btn:active { transform: scale(0.97); }
+    :root {
+      --bg: #0b0f17;
+      --card-bg: rgba(22, 27, 34, 0.85);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --text-main: #f0f6fc;
+      --text-muted: #8b949e;
+      --accent: #10b981;
+      --accent-glow: rgba(16, 185, 129, 0.25);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .ambient-bg {
+      position: fixed;
+      top: -30%;
+      left: -20%;
+      width: 140%;
+      height: 140%;
+      background: radial-gradient(circle at center, rgba(16, 185, 129, 0.12) 0%, rgba(139, 92, 246, 0.08) 40%, transparent 70%);
+      filter: blur(60px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 440px;
+      width: 100%;
+      background: var(--card-bg);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      padding: 36px 24px 28px 24px;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .icon-wrapper {
+      width: 80px;
+      height: 80px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+    .icon-symbol {
+      font-size: 38px;
+      line-height: 1;
+    }
+    .badge-status {
+      display: inline-block;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #f87171;
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+    .title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+    .description {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      max-width: 360px;
+    }
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+      text-decoration: none;
+      padding: 14px 20px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 15px;
+      box-shadow: 0 8px 20px var(--accent-glow);
+      transition: all 0.2s ease;
+      margin-bottom: 24px;
+    }
+    .btn-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(16, 185, 129, 0.35);
+    }
+    .btn-action:active {
+      transform: translateY(0);
+    }
+    .footer-app {
+      width: 100%;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+      color: #f0f6fc;
+      transition: opacity 0.2s ease;
+    }
+    .brand-link:hover {
+      opacity: 0.85;
+    }
+    .brand-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+    .brand-text {
+      font-size: 14px;
+      color: #e2e8f0;
+    }
+    .brand-text strong {
+      color: #34d399;
+    }
+    .footer-subtext {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div style="font-size: 48px; margin-bottom: 16px;">🎵</div>
-    <h1>Song Link Expired or Not Found</h1>
-    <p>We couldn't locate this song. Download SongFlip to automatically convert music links between all streaming platforms.</p>
-    <a href="https://songflip.link" class="btn">Discover SongFlip</a>
-  </div>
+  <div class="ambient-bg"></div>
+
+  <main class="container">
+    <div class="icon-wrapper">
+      <span class="icon-symbol">🎵</span>
+    </div>
+
+    <span class="badge-status">404 • Not Found</span>
+    <h1 class="title">Song Link Not Found</h1>
+    <p class="description">
+      This music share link is no longer available or was entered incorrectly. Open music links seamlessly with SongFlip.
+    </p>
+
+    <a href="https://songflip.link" class="btn-action">
+      <span>Discover SongFlip</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+    </a>
+
+    <footer class="footer-app">
+      <a href="https://songflip.link" class="brand-link">
+        <img src="https://songflip.link/images/favicon-96x96.png" alt="SongFlip Logo" class="brand-icon" />
+        <span class="brand-text">Powered by <strong>SongFlip</strong></span>
+      </a>
+      <p class="footer-subtext">The automatic 0-click music redirector</p>
+    </footer>
+  </main>
 </body>
 </html>`);
         return;
