@@ -256,6 +256,31 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
       }
     }
 
+    // Fallback for Apple Music via iTunes Search API if not populated by SongLink
+    if (!linksMap.appleMusic && title && artist) {
+      try {
+        const itunesRes = await axios.get("https://itunes.apple.com/search", {
+          params: {
+            term: `${artist} ${title}`,
+            entity: isAlbum ? "album" : "song",
+            limit: 1,
+          },
+          timeout: 4000,
+        });
+        const first = itunesRes.data?.results?.[0];
+        if (first) {
+          linksMap.appleMusic = first.trackViewUrl || first.collectionViewUrl;
+        }
+      } catch (itunesErr: any) {
+        console.warn("iTunes fallback search failed:", itunesErr?.message);
+      }
+    }
+
+    // Fallback for YouTube Music search query if not populated by SongLink
+    if (!linksMap.youtubeMusic && title && artist) {
+      linksMap.youtubeMusic = `https://music.youtube.com/search?q=${encodeURIComponent(artist + " " + title)}`;
+    }
+
     if (Object.keys(linksMap).length === 0) return null;
 
     const now = Date.now();
@@ -351,6 +376,9 @@ export const resolve = onRequest(
     // 6. Save in Firestore for primary URL hash and all other platform links
     const batch = db.batch();
     batch.set(cacheRef, resolvedItem);
+    // Also store short 8-char key for short URLs
+    const primaryShortId = primaryHash.substring(0, 8);
+    batch.set(db.collection("l2_song_cache").doc(primaryShortId), resolvedItem);
 
     // Also index other platform URLs for future hits
     Object.values(resolvedItem.links).forEach((platformUrl) => {
@@ -359,6 +387,7 @@ export const resolve = onRequest(
         const altHash = hashUrl(altNorm);
         if (altHash !== primaryHash) {
           batch.set(db.collection("l2_song_cache").doc(altHash), resolvedItem);
+          batch.set(db.collection("l2_song_cache").doc(altHash.substring(0, 8)), resolvedItem);
         }
       }
     });
@@ -549,6 +578,11 @@ export const renderWebShare = onRequest(
         const docSnap = await db.collection("l2_song_cache").doc(hash).get();
         if (docSnap.exists) {
           songData = docSnap.data();
+        } else if (hash.length > 8) {
+          const shortSnap = await db.collection("l2_song_cache").doc(hash.substring(0, 8)).get();
+          if (shortSnap.exists) {
+            songData = shortSnap.data();
+          }
         }
       }
 
@@ -559,6 +593,7 @@ export const renderWebShare = onRequest(
           songData = resolved;
           const newHash = hashUrl(req.query.url as string);
           await db.collection("l2_song_cache").doc(newHash).set(resolved);
+          await db.collection("l2_song_cache").doc(newHash.substring(0, 8)).set(resolved);
         }
       }
 
@@ -600,7 +635,8 @@ export const renderWebShare = onRequest(
       const isAlbum = !!songData.isAlbum;
       const links = songData.links || {};
 
-      const currentShareUrl = `https://songflip.link/s/${encodeURIComponent(hash)}`;
+      const shortId = hash ? (hash.length > 8 ? hash.substring(0, 8) : hash) : "";
+      const currentShareUrl = `https://songflip.link/s/${encodeURIComponent(shortId)}`;
 
       // Streaming Platform Definitions
       const platforms = [
