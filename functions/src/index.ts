@@ -617,6 +617,107 @@ function escapeHtml(str: string): string {
     .replace(/'/g, "&#039;");
 }
 
+const DEMO_PRESETS: Record<string, any> = {
+  "f1f28ddc": {
+    title: "Blinding Lights",
+    artist: "The Weeknd",
+    thumbnailUrl: "https://i.scdn.co/image/ab67616d0000b2738863bc11d2aa12b54f5aeb36",
+    isAlbum: false,
+    links: {
+      spotify: "https://open.spotify.com/track/0VjIjW4GlUZAMYd2vXMi3b",
+      appleMusic: "https://music.apple.com/us/album/blinding-lights/1499378108?i=1499378607",
+      youtubeMusic: "https://music.youtube.com/watch?v=4NRXx6U8ABQ",
+      deezer: "https://www.deezer.com/track/908604612",
+      tidal: "https://listen.tidal.com/track/134657499",
+      amazonMusic: "https://music.amazon.com/albums/B0855DV6QG?trackAsin=B0855DTRX6"
+    }
+  },
+  "838fa830": {
+    title: "Blinding Lights",
+    artist: "The Weeknd",
+    thumbnailUrl: "https://i.scdn.co/image/ab67616d0000b2738863bc11d2aa12b54f5aeb36",
+    isAlbum: false,
+    links: {
+      spotify: "https://open.spotify.com/track/0VjIjW4GlUZAMYd2vXMi3b",
+      appleMusic: "https://music.apple.com/us/album/blinding-lights/1499378108?i=1499378607",
+      youtubeMusic: "https://music.youtube.com/watch?v=4NRXx6U8ABQ",
+      deezer: "https://www.deezer.com/track/908604612",
+      tidal: "https://listen.tidal.com/track/134657499",
+      amazonMusic: "https://music.amazon.com/albums/B0855DV6QG?trackAsin=B0855DTRX6"
+    }
+  },
+  "9c3a1b8e": {
+    title: "Get Lucky (feat. Pharrell Williams & Nile Rodgers)",
+    artist: "Daft Punk",
+    thumbnailUrl: "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/09/b8/0a/09b80a37-0cfc-5a9e-8fa9-446a815a51cb/886443927087.jpg/600x600bb.jpg",
+    isAlbum: false,
+    links: {
+      spotify: "https://open.spotify.com/track/2Foc5Q5nqNiosCNqttzAG4",
+      appleMusic: "https://music.apple.com/us/album/get-lucky-feat-pharrell-williams-nile-rodgers/617154241?i=617154366",
+      youtubeMusic: "https://music.youtube.com/watch?v=5NV6Rdv1a3I",
+      deezer: "https://www.deezer.com/track/67238733",
+      tidal: "https://listen.tidal.com/track/19875150",
+      amazonMusic: "https://music.amazon.com/albums/B00C0641ES?trackAsin=B00C06497O"
+    }
+  },
+  "86e847b3": {
+    title: "Get Lucky (feat. Pharrell Williams & Nile Rodgers)",
+    artist: "Daft Punk",
+    thumbnailUrl: "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/09/b8/0a/09b80a37-0cfc-5a9e-8fa9-446a815a51cb/886443927087.jpg/600x600bb.jpg",
+    isAlbum: false,
+    links: {
+      spotify: "https://open.spotify.com/track/2Foc5Q5nqNiosCNqttzAG4",
+      appleMusic: "https://music.apple.com/us/album/get-lucky-feat-pharrell-williams-nile-rodgers/617154241?i=617154366",
+      youtubeMusic: "https://music.youtube.com/watch?v=5NV6Rdv1a3I",
+      deezer: "https://www.deezer.com/track/67238733",
+      tidal: "https://listen.tidal.com/track/19875150",
+      amazonMusic: "https://music.amazon.com/albums/B00C0641ES?trackAsin=B00C06497O"
+    }
+  },
+  "7e4d2a1f": {
+    title: "BIRDS OF A FEATHER",
+    artist: "Billie Eilish",
+    thumbnailUrl: "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/4a/c7/24/4ac724f7-e43a-7dbd-a0c3-f273391ba99d/24UMGIM36437.rgb.jpg/600x600bb.jpg",
+    isAlbum: false,
+    links: {
+      spotify: "https://open.spotify.com/track/6dOtVTDmmpzpEcYRQBRnh3",
+      appleMusic: "https://music.apple.com/us/album/birds-of-a-feather/1739659134?i=1739659142",
+      youtubeMusic: "https://music.youtube.com/watch?v=V9PVRfjEBTI",
+      deezer: "https://www.deezer.com/track/2798606042",
+      tidal: "https://listen.tidal.com/track/363406282",
+      amazonMusic: "https://music.amazon.com/albums/B0D18PFR2V?trackAsin=B0D18P2VFF"
+    }
+  },
+  "rickroll": {
+    title: "Never Gonna Give You Up",
+    artist: "Rick Astley",
+    thumbnailUrl: "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
+    isAlbum: false,
+    links: {
+      spotify: "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
+      appleMusic: "https://music.apple.com/us/album/never-gonna-give-you-up/1558533900?i=1558534271",
+      youtubeMusic: "https://music.youtube.com/watch?v=dQw4w9WgXcQ",
+      deezer: "https://www.deezer.com/track/70868846",
+      tidal: "https://listen.tidal.com/track/105707768",
+      amazonMusic: "https://music.amazon.com/albums/B07PGF8R4G?trackAsin=B07P8N5Z6H"
+    }
+  },
+  "2619c5f7": {
+    title: "Never Gonna Give You Up",
+    artist: "Rick Astley",
+    thumbnailUrl: "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
+    isAlbum: false,
+    links: {
+      spotify: "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
+      appleMusic: "https://music.apple.com/us/album/never-gonna-give-you-up/1558533900?i=1558534271",
+      youtubeMusic: "https://music.youtube.com/watch?v=dQw4w9WgXcQ",
+      deezer: "https://www.deezer.com/track/70868846",
+      tidal: "https://listen.tidal.com/track/105707768",
+      amazonMusic: "https://music.amazon.com/albums/B07PGF8R4G?trackAsin=B07P8N5Z6H"
+    }
+  }
+};
+
 /**
  * Web-Share Landing Page: /s/:hash or /s?id=:hash
  * Delivers instant Universal Music Link page with Open Graph preview cards for WhatsApp, Telegram, iMessage & Discord.
@@ -645,8 +746,13 @@ export const renderWebShare = onRequest(
 
       let songData: any = null;
 
-      // 2. Fetch from Firestore Cache if hash is provided
-      if (hash) {
+      // 1.5 Built-in Demo Presets for Website Showcase
+      if (hash && DEMO_PRESETS[hash.toLowerCase()]) {
+        songData = DEMO_PRESETS[hash.toLowerCase()];
+      }
+
+      // 2. Fetch from Firestore Cache if not a built-in demo preset
+      if (!songData && hash) {
         const docSnap = await db.collection("l2_song_cache").doc(hash).get();
         if (docSnap.exists) {
           songData = docSnap.data();
