@@ -141,4 +141,8 @@
     <string name="pro_coupon_inactive">이 프로모션 코드는 더 이상 활성화되지 않습니다.</string>
     <string name="pro_active_3months">PRO 액세스 유효 기간: %1$s까지</string>
     <string name="pro_active_1month">PRO 액세스 유효 기간: %1$s까지</string>
+    <string name="share_universal_link">유니버설 링크 공유</string>
+    <string name="share_universal_link_copied">SongFlip 유니버설 링크가 복사되었습니다!</string>
+    <string name="share_universal_link_pro">유니버설 웹 링크 (PRO)</string>
+    <string name="pro_feature_universal_links">모든 플레이어를 위한 유니버설 웹 링크</string>
 </resources>

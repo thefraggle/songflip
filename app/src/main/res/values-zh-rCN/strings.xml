@@ -142,4 +142,8 @@
     <string name="pro_coupon_inactive">此兑换码已不再有效。</string>
     <string name="pro_active_3months">PRO 权限有效期至 %1$s</string>
     <string name="pro_active_1month">PRO 权限有效期至 %1$s</string>
+    <string name="share_universal_link">分享通用网页链接</string>
+    <string name="share_universal_link_copied">SongFlip通用链接已复制！</string>
+    <string name="share_universal_link_pro">通用网页链接 (PRO)</string>
+    <string name="pro_feature_universal_links">适用于任何播放器的通用网页链接</string>
 </resources>

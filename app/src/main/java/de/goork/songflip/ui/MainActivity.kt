@@ -231,7 +231,9 @@ fun MainScreen(
             onDismissRequest = { showTestStudioBottomSheet = false },
             selectedTargetKey = selectedTargetKey,
             settingsRepository = settingsRepository,
-            odesliRepository = repository
+            odesliRepository = repository,
+            isPro = proState.isPro,
+            onOpenProPaywall = { showProPaywall = true }
         )
     }
 
