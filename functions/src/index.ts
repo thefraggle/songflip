@@ -183,6 +183,40 @@ function normalizeToSongLinkDirectUrl(rawUrl: string): string {
   return clean.includes("/album/") ? `https://album.link/${rawUrl}` : `https://song.link/${rawUrl}`;
 }
 
+function sanitizeMusicMetadata(rawTitle: string, rawArtist: string): { title: string; artist: string; isGenericArtist: boolean } {
+  let title = (rawTitle || "").trim();
+  let artist = (rawArtist || "").trim();
+
+  // Strip generic video & album noise
+  title = title
+    .replace(/\(Official\s+(?:Video|Audio|Music\s+Video|Lyric\s+Video|HD|4K)\)/gi, "")
+    .replace(/\[(?:Official\s+Video|Official\s+Audio|HD|4K|HQ|Lyrics)\]/gi, "")
+    .replace(/\b(?:Full\s+Album|Official\s+Audio|Official\s+Video)\b/gi, "")
+    .trim();
+
+  if (/^album\s*-\s*/i.test(title)) {
+    title = title.replace(/^album\s*-\s*/i, "").trim();
+  }
+  if (/^track\s*-\s*/i.test(title)) {
+    title = title.replace(/^track\s*-\s*/i, "").trim();
+  }
+
+  const isGenericArtist = !artist || 
+    /^(?:YouTube(?:\s+Music)?|Various\s+Artists|Topic|Auto-generated\s+by\s+YouTube|Unknown\s+Artist)$/i.test(artist);
+
+  if (isGenericArtist && title.includes(" - ")) {
+    const parts = title.split(" - ");
+    if (parts.length >= 2) {
+      artist = parts[0].trim();
+      title = parts.slice(1).join(" - ").trim();
+    }
+  } else if (isGenericArtist) {
+    artist = "";
+  }
+
+  return { title, artist, isGenericArtist };
+}
+
 /**
  * Resolves song metadata & cross-platform links via direct SongLink engine.
  */
@@ -215,16 +249,20 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
     const isAlbum = pageId.includes("|album|") || entityUniqueId.includes("|album|");
 
     const entityData = pageData.entityData || {};
-    let title = entityData.title || "";
-    let artist = entityData.artistName || "";
+    let rawTitle = entityData.title || "";
+    let rawArtist = entityData.artistName || "";
     let thumbnailUrl = entityData.thumbnailUrl;
 
     const sections = pageData.sections || [];
-    if ((!title || !artist) && sections.length > 0) {
+    if ((!rawTitle || !rawArtist) && sections.length > 0) {
       const first = sections[0];
-      if (!title) title = first.title || "";
-      if (!artist) artist = first.artistName || "";
+      if (!rawTitle) rawTitle = first.title || "";
+      if (!rawArtist) rawArtist = first.artistName || "";
     }
+
+    const sanitized = sanitizeMusicMetadata(rawTitle, rawArtist);
+    let title = sanitized.title;
+    let artist = sanitized.artist;
 
     const linksMap: PlatformLinks = {};
     const linksByPlatform = pageData.linksByPlatform || {};
@@ -256,12 +294,35 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
       }
     }
 
-    // Fallback for Apple Music via iTunes Search API if not populated by SongLink
+    // If artist is missing or generic, or few links, query Deezer to heal metadata
+    if (!artist || Object.keys(linksMap).length < 4) {
+      const query = (artist + " " + title).trim();
+      if (query) {
+        try {
+          const deezerType = isAlbum ? "album" : "track";
+          const deezerRes = await axios.get(`https://api.deezer.com/search/${deezerType}?q=${encodeURIComponent(query)}`, { timeout: 4000 });
+          const match = deezerRes.data?.data?.[0];
+          if (match) {
+            if (!artist) artist = match.artist?.name || artist;
+            if (!title) title = match.title || title;
+            if (!thumbnailUrl || thumbnailUrl.includes("icon.png")) {
+              thumbnailUrl = match.cover_xl || match.album?.cover_xl || thumbnailUrl;
+            }
+            if (!linksMap.deezer) {
+              linksMap.deezer = match.link || (isAlbum ? `https://www.deezer.com/album/${match.id}` : `https://www.deezer.com/track/${match.id}`);
+            }
+          }
+        } catch (_) {}
+      }
+    }
+
+    // Fallback for Apple Music via iTunes Search API if not populated
     if (!linksMap.appleMusic && title && artist) {
       try {
         const itunesRes = await axios.get("https://itunes.apple.com/search", {
           params: {
             term: `${artist} ${title}`,
+            media: "music",
             entity: isAlbum ? "album" : "song",
             limit: 1,
           },
@@ -1011,22 +1072,33 @@ export const renderWebShare = onRequest(
       }
 
       // 5. Prepare Safe Data & Strings
-      const title = escapeHtml(songData.title || "Track");
-      const artist = escapeHtml(songData.artist || "Artist");
+      const sanitized = sanitizeMusicMetadata(songData.title || "", songData.artist || "");
+      const cleanTitle = sanitized.title || "Track";
+      const cleanArtist = sanitized.artist;
+
+      const title = escapeHtml(cleanTitle);
+      const artist = escapeHtml(cleanArtist || "Music");
       const coverUrl = songData.thumbnailUrl ? escapeHtml(songData.thumbnailUrl) : "https://songflip.link/icon.png";
       const isAlbum = !!songData.isAlbum;
       const links = { ...(songData.links || {}) };
-      const rawTitle = songData.title || "";
-      const rawArtist = songData.artist || "";
-      if (rawTitle && rawArtist) {
-        const query = encodeURIComponent(`${rawArtist} ${rawTitle}`.trim());
-        if (!links.spotify) links.spotify = `https://open.spotify.com/search/${query}`;
-        if (!links.appleMusic) links.appleMusic = `https://music.apple.com/search?term=${query}`;
-        if (!links.youtubeMusic) links.youtubeMusic = `https://music.youtube.com/search?q=${query}`;
-        if (!links.deezer) links.deezer = `https://www.deezer.com/search/${query}`;
-        if (!links.tidal) links.tidal = `https://listen.tidal.com/search?q=${query}`;
-        if (!links.amazonMusic) links.amazonMusic = `https://music.amazon.com/search/${query}`;
-      }
+
+      // Invalidate any search links containing generic "YouTube" or "Album - " noise
+      Object.keys(links).forEach((key) => {
+        const u = links[key];
+        if (typeof u === "string" && (u.includes("/search/") || u.includes("/search?"))) {
+          if (u.includes("YouTube") || u.includes("Album%20-%20") || u.includes("Album%20%E2%80%93%20")) {
+            delete links[key];
+          }
+        }
+      });
+
+      const query = encodeURIComponent((cleanArtist ? `${cleanArtist} ${cleanTitle}` : cleanTitle).trim());
+      if (!links.spotify) links.spotify = `https://open.spotify.com/search/${query}`;
+      if (!links.appleMusic) links.appleMusic = `https://music.apple.com/search?term=${query}`;
+      if (!links.youtubeMusic) links.youtubeMusic = `https://music.youtube.com/search?q=${query}`;
+      if (!links.deezer) links.deezer = `https://www.deezer.com/search/${query}`;
+      if (!links.tidal) links.tidal = `https://listen.tidal.com/search?q=${query}`;
+      if (!links.amazonMusic) links.amazonMusic = `https://music.amazon.com/search/${query}`;
 
       const shortId = hash ? (hash.length > 8 ? hash.substring(0, 8) : hash) : "";
       const currentShareUrl = `https://songflip.link/s/${encodeURIComponent(shortId)}`;
