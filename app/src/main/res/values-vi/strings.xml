@@ -132,4 +132,7 @@
     <string name="pro_active_lifetime">Lifetime VIP Access</string>
     <string name="pro_active_annual">VIP Access active until %1$s</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – Sắp Ra Mắt</string>
+    <string name="badge_album">Album</string>
+    <string name="badge_artist">Nghệ sĩ</string>
+    <string name="badge_playlist">Danh sách phát</string>
 </resources>

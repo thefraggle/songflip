@@ -115,14 +115,15 @@ object PackageUtils {
     }
 
     fun getPlatformDisplayName(platformKey: String): String {
-        return when (platformKey) {
+        val cleanKey = platformKey.substringBefore("_")
+        return when (cleanKey) {
             "youtubeMusic" -> "YouTube Music"
             "appleMusic" -> "Apple Music"
             "spotify" -> "Spotify"
             "tidal" -> "Tidal"
             "deezer" -> "Deezer"
             "amazonMusic" -> "Amazon Music"
-            else -> platformKey.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+            else -> cleanKey.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
         }
     }
 

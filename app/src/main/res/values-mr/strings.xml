@@ -132,4 +132,7 @@
     <string name="pro_active_lifetime">Lifetime VIP Access</string>
     <string name="pro_active_annual">VIP Access active until %1$s</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – लवकरच येत आहे</string>
+    <string name="badge_album">अल्बम</string>
+    <string name="badge_artist">कलाकार</string>
+    <string name="badge_playlist">प्लेलिस्ट</string>
 </resources>

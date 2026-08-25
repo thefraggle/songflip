@@ -90,7 +90,7 @@
 
     <string name="history_title">Sanghistorikk</string>
     <string name="history_subtitle">Se og administrer nylig konverterte sanger</string>
-    <string name="history_cached_count" formatted="false">%1 sanger i historikken</string>
+    <string name="history_cached_count">%1$d sanger i historikken</string>
     <string name="history_empty">Ingen konverterte sanger ennå. Delte musikklenker vises her.</string>
     <string name="history_clear_all">Tøm historikk</string>
     <string name="history_clear_confirm_title">Tømme sanghistorikken?</string>
@@ -102,9 +102,9 @@
     <string name="history_btn_upgrade">Oppgrader til PRO</string>
     <string name="action_delete">Slett</string>
     <string name="time_just_now">Akkurat nå</string>
-    <string name="time_minutes_ago" formatted="false">%1 min siden</string>
-    <string name="time_hours_ago" formatted="false">%1 timer siden</string>
-    <string name="time_days_ago" formatted="false">%1 dager siden</string>
+    <string name="time_minutes_ago">%1$d min siden</string>
+    <string name="time_hours_ago">%1$d timer siden</string>
+    <string name="time_days_ago">%1$d dager siden</string>
 
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">Støtt uavhengig utvikling og lås opp eksklusive funksjoner</string>
@@ -133,4 +133,7 @@
     <string name="pro_active_annual">VIP-tilgang aktiv til %1$s</string>
     <string name="pro_btn_subscribe">Få SongFlip PRO (%1$s)</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – Kommer snart</string>
+    <string name="badge_album">Album</string>
+    <string name="badge_artist">Artist</string>
+    <string name="badge_playlist">Spilleliste</string>
 </resources>

@@ -76,13 +76,22 @@ async function verifyProStatus(userId: string): Promise<boolean> {
 
     const subscriber = response.data?.subscriber;
     const entitlements = subscriber?.entitlements || {};
+    const subscriptions = subscriber?.subscriptions || {};
+    const nonSubscriptions = subscriber?.non_subscriptions || {};
     
-    // Check both 'songflip_pro' and 'pro' entitlements
-    const proEntitlement = entitlements["songflip_pro"] || entitlements["pro"];
-    const isPro = !!(proEntitlement && (
-      proEntitlement.expires_date === null || // Lifetime
-      new Date(proEntitlement.expires_date).getTime() > Date.now()
-    ));
+    // Check both 'songflip_pro' and 'pro' entitlements, any active subscription or lifetime non-subscription
+    const proEntitlement = entitlements["songflip_pro"] || entitlements["pro"] || Object.values(entitlements).find((e: any) => {
+      return e.expires_date === null || new Date(e.expires_date).getTime() > Date.now();
+    });
+    const hasActiveSubscription = Object.values(subscriptions).some((s: any) => 
+      s.expires_date === null || new Date(s.expires_date).getTime() > Date.now()
+    );
+    const hasNonSubscription = Object.keys(nonSubscriptions).length > 0;
+
+    const isPro = !!(hasActiveSubscription || hasNonSubscription || (proEntitlement && (
+      (proEntitlement as any).expires_date === null ||
+      new Date((proEntitlement as any).expires_date).getTime() > Date.now()
+    )));
 
     userProCache.set(userId, isPro);
     return isPro;
