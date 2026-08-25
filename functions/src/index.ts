@@ -900,15 +900,36 @@ export const renderWebShare = onRequest(
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 6px;
     }
-    .footer-text {
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+      color: #f0f6fc;
+      transition: opacity 0.2s ease;
+    }
+    .brand-link:hover {
+      opacity: 0.85;
+    }
+    .brand-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+    .brand-text {
+      font-size: 14px;
+      color: #e2e8f0;
+    }
+    .brand-text strong {
+      color: #34d399;
+    }
+    .footer-subtext {
       font-size: 12px;
       color: var(--text-muted);
-      line-height: 1.4;
-    }
-    .footer-text strong {
-      color: #ffffff;
+      margin-bottom: 6px;
     }
     .get-app-btn {
       display: inline-flex;
@@ -946,10 +967,14 @@ export const renderWebShare = onRequest(
     </div>
     
     <footer class="footer-app">
-      <p class="footer-text">Flipped with <strong>SongFlip</strong> for Android</p>
+      <a href="https://songflip.link" target="_blank" rel="noopener noreferrer" class="brand-link">
+        <img src="https://songflip.link/icon.png" alt="SongFlip Logo" class="brand-icon" onerror="this.style.display='none'" />
+        <span class="brand-text">Flipped with <strong>SongFlip</strong></span>
+      </a>
+      <p class="footer-subtext">The automatic 0-click music redirector</p>
       <a href="https://play.google.com/store/apps/details?id=de.goork.songflip" target="_blank" rel="noopener noreferrer" class="get-app-btn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186c-.198-.124-.31-.336-.31-.568V2.382c0-.232.112-.444.31-.568zm11.235 11.237l2.257 2.258-10.99 6.273 8.733-8.531zm0-2.102L6.111 2.418l10.99 6.273-2.257 2.258zm1.052 1.051l3.528 2.016c.896.512.896 1.344 0 1.856l-3.528 2.016-1.92-1.92 1.92-1.968z"/></svg>
-        Get 0-Click Music Redirects
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186c-.198-.124-.31-.336-.31-.568V2.382c0-.232.112-.444.31-.568zm11.235 11.237l2.257 2.258-10.99 6.273 8.733-8.531zm0-2.102L6.111 2.418l10.99 6.273-2.257 2.258zm1.052 1.051l3.528 2.016c.896.512.896 1.344 0 1.856l-3.528 2.016-1.92-1.92 1.92-1.968z"/></svg>
+        Get Android App
       </a>
     </footer>
   </main>
