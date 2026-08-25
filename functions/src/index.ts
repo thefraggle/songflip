@@ -279,11 +279,6 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
       }
     }
 
-    // Fallback for YouTube Music search query if not populated by SongLink
-    if (!linksMap.youtubeMusic && title && artist) {
-      linksMap.youtubeMusic = `https://music.youtube.com/search?q=${encodeURIComponent(artist + " " + title)}`;
-    }
-
     // If SongLink returned no links, trigger Multi-Tier Metadata & Album Resolver
     if (Object.keys(linksMap).length === 0) {
       const cleanLower = url.toLowerCase();
@@ -325,27 +320,28 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
           } catch (_) {}
         }
       }
+    }
 
-      // If we now have title & artist, populate all streaming links
-      if (title && artist) {
-        if (!linksMap.spotify) {
-          linksMap.spotify = cleanLower.includes("spotify.com") ? url : `https://open.spotify.com/search/${encodeURIComponent(artist + " " + title)}`;
-        }
-        if (!linksMap.youtubeMusic) {
-          linksMap.youtubeMusic = cleanLower.includes("music.youtube.com") ? url : `https://music.youtube.com/search?q=${encodeURIComponent(artist + " " + title)}`;
-        }
-        if (!linksMap.appleMusic) {
-          linksMap.appleMusic = cleanLower.includes("apple.com") ? url : `https://music.apple.com/search?term=${encodeURIComponent(artist + " " + title)}`;
-        }
-        if (!linksMap.deezer) {
-          linksMap.deezer = cleanLower.includes("deezer.com") ? url : `https://www.deezer.com/search/${encodeURIComponent(artist + " " + title)}`;
-        }
-        if (!linksMap.tidal) {
-          linksMap.tidal = cleanLower.includes("tidal.com") ? url : `https://listen.tidal.com/search?q=${encodeURIComponent(artist + " " + title)}`;
-        }
-        if (!linksMap.amazonMusic) {
-          linksMap.amazonMusic = cleanLower.includes("amazon.") ? url : `https://music.amazon.com/search/${encodeURIComponent(artist + " " + title)}`;
-        }
+    // Always populate all 6 streaming platforms with direct or fallback search links
+    if (title && artist) {
+      const cleanLower = url.toLowerCase();
+      if (!linksMap.spotify) {
+        linksMap.spotify = cleanLower.includes("spotify.com") ? url : `https://open.spotify.com/search/${encodeURIComponent(artist + " " + title)}`;
+      }
+      if (!linksMap.appleMusic) {
+        linksMap.appleMusic = cleanLower.includes("apple.com") ? url : `https://music.apple.com/search?term=${encodeURIComponent(artist + " " + title)}`;
+      }
+      if (!linksMap.youtubeMusic) {
+        linksMap.youtubeMusic = cleanLower.includes("music.youtube.com") ? url : `https://music.youtube.com/search?q=${encodeURIComponent(artist + " " + title)}`;
+      }
+      if (!linksMap.deezer) {
+        linksMap.deezer = cleanLower.includes("deezer.com") ? url : `https://www.deezer.com/search/${encodeURIComponent(artist + " " + title)}`;
+      }
+      if (!linksMap.tidal) {
+        linksMap.tidal = cleanLower.includes("tidal.com") ? url : `https://listen.tidal.com/search?q=${encodeURIComponent(artist + " " + title)}`;
+      }
+      if (!linksMap.amazonMusic) {
+        linksMap.amazonMusic = cleanLower.includes("amazon.") ? url : `https://music.amazon.com/search/${encodeURIComponent(artist + " " + title)}`;
       }
     }
 
@@ -1019,7 +1015,18 @@ export const renderWebShare = onRequest(
       const artist = escapeHtml(songData.artist || "Artist");
       const coverUrl = songData.thumbnailUrl ? escapeHtml(songData.thumbnailUrl) : "https://songflip.link/icon.png";
       const isAlbum = !!songData.isAlbum;
-      const links = songData.links || {};
+      const links = { ...(songData.links || {}) };
+      const rawTitle = songData.title || "";
+      const rawArtist = songData.artist || "";
+      if (rawTitle && rawArtist) {
+        const query = encodeURIComponent(`${rawArtist} ${rawTitle}`.trim());
+        if (!links.spotify) links.spotify = `https://open.spotify.com/search/${query}`;
+        if (!links.appleMusic) links.appleMusic = `https://music.apple.com/search?term=${query}`;
+        if (!links.youtubeMusic) links.youtubeMusic = `https://music.youtube.com/search?q=${query}`;
+        if (!links.deezer) links.deezer = `https://www.deezer.com/search/${query}`;
+        if (!links.tidal) links.tidal = `https://listen.tidal.com/search?q=${query}`;
+        if (!links.amazonMusic) links.amazonMusic = `https://music.amazon.com/search/${query}`;
+      }
 
       const shortId = hash ? (hash.length > 8 ? hash.substring(0, 8) : hash) : "";
       const currentShareUrl = `https://songflip.link/s/${encodeURIComponent(shortId)}`;
