@@ -44,14 +44,29 @@ TARGET_LOCALES = {
     'ro': 'ro-RO',
 }
 
-def truncate_to_bytes(text, max_bytes=500, suffix="..."):
-    """Google Play counts UTF-8 bytes, not characters. Max limit is 500 bytes."""
-    encoded = text.encode('utf-8')
-    if len(encoded) <= max_bytes:
+def truncate_to_bytes(text, max_limit=450, suffix="..."):
+    """Google Play strictly limits release notes to max 500 characters/bytes."""
+    text = text.strip()
+    if len(text) <= max_limit and len(text.encode('utf-8')) <= max_limit:
         return text
-    suffix_bytes = suffix.encode('utf-8')
-    truncated = encoded[:max_bytes - len(suffix_bytes)]
-    return truncated.decode('utf-8', errors='ignore') + suffix
+
+    # Truncate cleanly by full lines where possible
+    lines = text.split('\n')
+    result = []
+    for line in lines:
+        if not line.strip():
+            continue
+        test_text = '\n'.join(result + [line]).strip()
+        if len(test_text) > max_limit or len(test_text.encode('utf-8')) > max_limit:
+            if not result:
+                return text[:max_limit - len(suffix)] + suffix
+            break
+        result.append(line)
+
+    final_text = '\n'.join(result).strip()
+    if not final_text:
+        final_text = text[:max_limit - len(suffix)] + suffix
+    return final_text
 
 def extract_changelog_for_version(version=None):
     changelog_path = os.path.join(BASE_DIR, "CHANGELOG.md")
