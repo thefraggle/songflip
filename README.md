@@ -4,7 +4,7 @@
 
 Official Website: [songflip.link](https://songflip.link)
 
-Inspired by [MapFlip](https://github.com/thefraggle/mapflip), SongFlip runs completely in the background: set it up in 30 seconds, and whenever a friend shares a music link in WhatsApp, Telegram, Instagram, or your browser, SongFlip instantly intercepts and converts it to open directly in your preferred music player without any intermediate UI or manual searching.
+SongFlip runs completely in the background: set it up in 30 seconds, and whenever a friend shares a music link in WhatsApp, Telegram, Instagram, or your browser, SongFlip instantly intercepts and converts it to open directly in your preferred music player without any intermediate UI or manual searching.
 
 ---
 
@@ -18,7 +18,9 @@ Inspired by [MapFlip](https://github.com/thefraggle/mapflip), SongFlip runs comp
   - 🌊 **Tidal** (`tidal.com`, `listen.tidal.com`)
   - 🟣 **Deezer** (`deezer.com`, `link.deezer.com`, `deezer.page.link`)
   - 🔵 **Amazon Music** (`music.amazon.com`, `music.amazon.de`, `music.amazon.co.uk`, `amzn.to`, `a.co`)
-- **💿 Full Album & Artist Recognition**: Supports single songs, complete albums/EPs, and artist discography profiles.
+- **💿 Full Album & Artist Recognition**: Supports single tracks, full albums/EPs, and artist channel/discography profiles (including `@handles`).
+- **🔗 Universal Smart Share Links (`songflip.link/s/...`)**: Generate clean, lightning-fast multi-platform landing pages with rich cover art & OpenGraph preview cards for WhatsApp, Telegram, iMessage & Discord.
+- **📜 Conversion History & Quick Sharing**: Offline history log with 1-tap replay, search filter, and instant smart-link sharing.
 - **🚀 Direct Instant Playback Engine**: Extracts direct video/track IDs in the background (e.g. YouTube Music `watch?v=...`) for instant playback without search result delays.
 - **🌍 22 Languages Supported**: Fully localized in 22 languages (English, German, Spanish, French, Italian, Portuguese, Japanese, Korean, Chinese, Ukrainian, Polish, Turkish, Dutch, Arabic, Hindi, and more).
 - **⏸️ Quick Settings Status Tile & Smart Pause**: Pause redirection directly from Android's notification shade for 15 minutes, 1 hour, or until tomorrow morning (06:00).
@@ -34,14 +36,14 @@ SongFlip is built as a modern **Kotlin Multiplatform (KMP)** project with a modu
 - **`app/`**: Native Android app (Jetpack Compose, Material 3, Quick Settings Tile, Overlay & Notification handling).
 - **`iosApp/`**: Native iOS app (SwiftUI, Share Extension, App Intents for 0-click Siri Shortcuts).
 - **`shared/`**: Shared KMP core engine (platform parsing, URL normalization, multi-tier resolution logic, Ktor HTTP client).
-- **`functions/`**: Firebase Cloud Functions backend powering token verification and high-speed L2 link caching.
+- **`functions/`**: Firebase Cloud Functions backend powering token verification, SSR web-share landing pages, and high-speed L2 link caching.
 
 ### Resolution Pipeline
 1. **Tier 1 (Direct 0-Redirect SongLink Engine)**: Normalizes incoming URLs into direct internal IDs (`/s/`, `/i/`, `/d/`, `/y/`) for instant HTTP responses without redirect loops.
-2. **Tier 2 (L2 Server-Side Cache)**: High-speed Firebase edge cache with 90-day TTL for instant sub-100ms conversions for Pro users.
+2. **Tier 2 (L2 Server-Side Cache)**: High-speed Firebase edge cache with 90-day TTL for instant sub-50ms conversions for Pro users and web-share generation.
 3. **Tier 3 (Direct Playback Extractor)**: Background video ID regex extraction for YouTube Music instant play.
-4. **Tier 4 (Local Metadata Fallback APIs)**: iTunes Search & Lookup API, Spotify oEmbed, Deezer Public API, and YouTube oEmbed.
-5. **Tier 5 (Target Catalog Search Fallback)**: Intelligent fallback search routing for obscure releases and regional variants.
+4. **Tier 4 (Local & Cloud Metadata Healing)**: iTunes Search & Lookup API, Deezer Catalog API, YouTube oEmbed, and video noise sanitization.
+5. **Tier 5 (Target Catalog Deep-Search Fallback)**: Intelligent fallback search routing for obscure releases and regional variants.
 
 ---
 
@@ -49,14 +51,14 @@ SongFlip is built as a modern **Kotlin Multiplatform (KMP)** project with a modu
 
 SongFlip is **100% open source (GPLv3)** and its core 0-click redirect functionality will **always remain completely free and ad-free**.
 
-For users who want the fastest possible performance or wish to support indie development, **SongFlip Pro** (one-time lifetime purchase) provides:
+For users who want the fastest possible performance or wish to support indie development, **SongFlip Pro** ($0.99/mo, $7.99/yr, or $19.99 lifetime) provides:
 
-- **⚡ L2 Server-Side Cache**: Lightning-fast resolution (~50–100 ms) via our dedicated server cache with zero rate-limiting.
-- **👑 Lifetime Supporter Status**: Golden/Emerald PRO badge & direct support for independent open-source development.
-- **🔄 Upcoming Power Features**:
+- **⚡ L2 Server-Side Cache**: Lightning-fast resolution (~30–50 ms) via our dedicated server cache with zero rate-limiting.
+- **🔗 Universal Smart Share Links**: Generate `songflip.link/s/...` landing pages directly from the app or share sheet.
+- **👑 Supporter Status**: Golden/Emerald PRO badge & direct support for independent open-source development.
+- **🔄 Upcoming Roadmap Features**:
   - **1:1 Playlist Transfer**: Transfer and sync full playlists across Spotify, Apple Music, and YouTube Music.
   - **Enhanced AI Matching**: High-accuracy fuzzy matching for rare live bootlegs, remixes, and acoustic versions.
-  - **Universal Share Links (`songflip.link`)**: Generate multi-platform web links for friends.
 
 ---
 
