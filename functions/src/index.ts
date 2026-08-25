@@ -1072,14 +1072,37 @@ export const renderWebShare = onRequest(
       }
 
       // 5. Prepare Safe Data & Strings
+      const isAlbum = !!songData.isAlbum;
       const sanitized = sanitizeMusicMetadata(songData.title || "", songData.artist || "");
-      const cleanTitle = sanitized.title || "Track";
-      const cleanArtist = sanitized.artist;
+      let cleanTitle = sanitized.title || "Track";
+      let cleanArtist = sanitized.artist;
+
+      // If artist is missing or generic (e.g. from older cache entry), live heal via Deezer search
+      if (!cleanArtist || cleanArtist === "Music" || cleanArtist === "Artist" || cleanArtist.toLowerCase().includes("youtube")) {
+        try {
+          const deezerType = isAlbum ? "album" : "track";
+          const dRes = await axios.get(`https://api.deezer.com/search/${deezerType}?q=${encodeURIComponent(cleanTitle)}`, { timeout: 3000 });
+          const match = dRes.data?.data?.[0];
+          if (match) {
+            cleanArtist = match.artist?.name || cleanArtist;
+            cleanTitle = match.title || cleanTitle;
+            if (!songData.thumbnailUrl || songData.thumbnailUrl.includes("icon.png")) {
+              songData.thumbnailUrl = match.cover_xl || match.album?.cover_xl || songData.thumbnailUrl;
+            }
+            if (hash) {
+              db.collection("l2_song_cache").doc(hash).set({
+                artist: cleanArtist,
+                title: cleanTitle,
+                thumbnailUrl: songData.thumbnailUrl,
+              }, { merge: true }).catch(() => {});
+            }
+          }
+        } catch (_) {}
+      }
 
       const title = escapeHtml(cleanTitle);
       const artist = escapeHtml(cleanArtist || "Music");
       const coverUrl = songData.thumbnailUrl ? escapeHtml(songData.thumbnailUrl) : "https://songflip.link/icon.png";
-      const isAlbum = !!songData.isAlbum;
       const links = { ...(songData.links || {}) };
 
       // Invalidate any search links containing generic "YouTube" or "Album - " noise
