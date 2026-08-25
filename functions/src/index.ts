@@ -870,13 +870,13 @@ export const renderWebShare = onRequest(
       This music share link is no longer available or was entered incorrectly. Open music links seamlessly with SongFlip.
     </p>
 
-    <a href="https://songflip.link" class="btn-action">
+    <a href="https://download.songflip.link" class="btn-action">
       <span>Discover SongFlip</span>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
     </a>
 
     <footer class="footer-app">
-      <a href="https://songflip.link" class="brand-link">
+      <a href="https://download.songflip.link" class="brand-link">
         <img src="https://songflip.link/images/favicon-96x96.png" alt="SongFlip Logo" class="brand-icon" />
         <span class="brand-text">Powered by <strong>SongFlip</strong></span>
       </a>
@@ -1216,7 +1216,7 @@ export const renderWebShare = onRequest(
     </div>
     
     <footer class="footer-app">
-      <a href="https://songflip.link" target="_blank" rel="noopener noreferrer" class="brand-link">
+      <a href="https://download.songflip.link" target="_blank" rel="noopener noreferrer" class="brand-link">
         <img src="https://songflip.link/images/favicon-96x96.png" alt="SongFlip Logo" class="brand-icon" />
         <span class="brand-text">Flipped with <strong>SongFlip</strong></span>
       </a>
