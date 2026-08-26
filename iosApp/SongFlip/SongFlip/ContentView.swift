@@ -362,7 +362,7 @@ struct ContentView: View {
                     .padding(.horizontal, 16)
                 }
             }
-            .navigationTitle(LocalizationManager.string(for: "app_name", lang: lang))
+            .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -389,7 +389,12 @@ struct ContentView: View {
                     .environmentObject(settings)
                     .preferredColorScheme(settings.colorScheme)
             }
+            .onAppear {
+                history.loadHistory()
+                checkClipboard()
+            }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                history.loadHistory()
                 checkClipboard()
             }
         }
