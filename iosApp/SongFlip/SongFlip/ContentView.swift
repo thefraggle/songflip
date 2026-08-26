@@ -12,6 +12,9 @@ struct ContentView: View {
     @State private var showingHistorySheet = false
 
     var lang: String { settings.selectedLanguage }
+    var appVersion: String {
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.2.4"
+    }
 
     var body: some View {
         NavigationStack {
@@ -333,7 +336,7 @@ struct ContentView: View {
 
                         // 6. Footer Section
                         VStack(spacing: 6) {
-                            Text("SongFlip v1.2.3")
+                            Text("SongFlip v\(appVersion)")
                                 .font(.caption)
                                 .fontWeight(.semibold)
                                 .foregroundColor(.primary)
