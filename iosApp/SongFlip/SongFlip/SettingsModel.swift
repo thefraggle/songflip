@@ -128,12 +128,30 @@ class SettingsModel: ObservableObject {
         if let savedLang = savedLang {
             self.selectedLanguage = savedLang
         } else {
-            let preferred = Locale.preferredLanguages.first?.prefix(2).lowercased() ?? "en"
-            let isSupported = SettingsModel.supportedLanguages.contains { $0.code == preferred }
-            self.selectedLanguage = isSupported ? String(preferred) : "en"
+            // Auto-detect system language with fallback to EN
+            var detectedLang = "en"
+            for preferred in Locale.preferredLanguages {
+                let lower = preferred.lowercased()
+                let prefix2 = String(lower.prefix(2))
+
+                if lower.starts(with: "zh") {
+                    detectedLang = "zh"
+                    break
+                } else if prefix2 == "id" || prefix2 == "in" {
+                    detectedLang = "in"
+                    break
+                } else if prefix2 == "no" || prefix2 == "nb" || prefix2 == "nn" {
+                    detectedLang = "nb"
+                    break
+                } else if SettingsModel.supportedLanguages.contains(where: { $0.code == prefix2 }) {
+                    detectedLang = prefix2
+                    break
+                }
+            }
+            self.selectedLanguage = detectedLang
         }
 
-        self.themeMode = storage.string(forKey: "theme_mode") ?? "dark"
+        self.themeMode = storage.string(forKey: "theme_mode") ?? "system"
         self.customApiUrl = storage.string(forKey: "custom_api_url") ?? ""
         self.customApiToken = storage.string(forKey: "custom_api_token") ?? ""
     }
