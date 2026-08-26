@@ -40,6 +40,28 @@ function isRateLimited(key: string, maxRequests: number, windowMs = 60000): bool
 const REVENUECAT_SECRET_KEY = process.env.REVENUECAT_SECRET_KEY || "";
 
 /**
+ * Standard API Security Headers for API JSON endpoints.
+ */
+function applyApiSecurityHeaders(res: any) {
+  res.setHeader("X-Frame-Options", "DENY");
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+}
+
+/**
+ * WebShare Landing Page Security Headers (CSP + Anti-Clickjacking).
+ */
+function applyWebShareSecurityHeaders(res: any) {
+  applyApiSecurityHeaders(res);
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self'; script-src 'self' 'unsafe-inline' https://telemetry.goork.de; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self' https://telemetry.goork.de; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;"
+  );
+}
+
+/**
  * Normalizes music URLs into clean canonical identifiers.
  */
 function normalizeMusicUrl(rawUrl: string): string {
@@ -633,6 +655,8 @@ export const resolve = onRequest(
     invoker: "public",
   },
   async (req, res) => {
+    applyApiSecurityHeaders(res);
+
     // 1. Validate HTTP Method & Rate Limits
     if (req.method !== "GET") {
       res.status(405).json({ error: "METHOD_NOT_ALLOWED" });
@@ -763,11 +787,13 @@ export const redeemPromoCode = onRequest(
     region: "europe-west3",
     memory: "256MiB",
     maxInstances: 10,
-    timeoutSeconds: 10,
+    timeoutSeconds: 15,
     cors: true,
     invoker: "public",
   },
   async (req, res) => {
+    applyApiSecurityHeaders(res);
+
     // Enable CORS manually if needed
     res.set("Access-Control-Allow-Origin", "*");
     res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
@@ -860,6 +886,8 @@ export const redeemPromoCode = onRequest(
 export const health = onRequest(
   { region: "europe-west3", memory: "128MiB", cors: true, invoker: "public" },
   async (_req, res) => {
+    applyApiSecurityHeaders(res);
+
     // Ensure initial promo codes exist in Firestore
     const initialCodes = [
       { code: "SONGFLIP_BETA_2026", type: "1month", durationDays: 30, maxRedemptions: 100 },
@@ -1016,6 +1044,8 @@ export const renderWebShare = onRequest(
   },
   async (req, res) => {
     try {
+      applyWebShareSecurityHeaders(res);
+
       // 1. Extract hash from path or query parameter
       const rawPath = req.path || "";
       const pathParts = rawPath.split("/").filter(Boolean);
