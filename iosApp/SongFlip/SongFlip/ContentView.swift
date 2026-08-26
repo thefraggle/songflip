@@ -314,20 +314,25 @@ struct ContentView: View {
                         }
 
                         // 6. Footer Section
-                        VStack(spacing: 8) {
-                            HStack(spacing: 12) {
-                                Link("Website", destination: URL(string: "https://songflip.link")!)
-                                Text("•").foregroundColor(.gray)
+                        VStack(spacing: 6) {
+                            Text("SongFlip v1.2.3")
+                                .font(.caption)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.white.opacity(0.85))
+
+                            Text("© 2026 Daniel Notthoff")
+                                .font(.caption2)
+                                .foregroundColor(.gray)
+
+                            HStack(spacing: 10) {
                                 Link("Datenschutz", destination: URL(string: "https://songflip.link/privacy-policy.html")!)
-                                Text("•").foregroundColor(.gray)
+                                Text("•").foregroundColor(.gray.opacity(0.6))
                                 Link("Impressum", destination: URL(string: "https://songflip.link/imprint.html")!)
+                                Text("•").foregroundColor(.gray.opacity(0.6))
+                                Link("Nutzungsbedingungen", destination: URL(string: "https://songflip.link/imprint.html")!)
                             }
                             .font(.caption)
                             .foregroundColor(.gray)
-
-                            Text("SongFlip v1.2.0 (iOS) • Open Source (GPLv3)")
-                                .font(.caption2)
-                                .foregroundColor(Color(white: 0.4))
                         }
                         .padding(.top, 8)
                         .padding(.bottom, 24)
