@@ -44,55 +44,6 @@ struct SettingsSheetView: View {
                     }
                     .tint(.green)
                 }
-
-                // 2. Custom API / Webhook Section
-                Section(header: Text("ERWEITERT (CUSTOM API / KI)").font(.caption).fontWeight(.semibold)) {
-                    VStack(alignment: .leading, spacing: 6) {
-                        Text("Webhook URL")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                        TextField("https://...", text: $settings.customApiUrl)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .autocapitalization(.none)
-                            .disableAutocorrection(true)
-                    }
-
-                    VStack(alignment: .leading, spacing: 6) {
-                        Text("Bearer Token (Optional)")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                        SecureField("Token...", text: $settings.customApiToken)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                    }
-                }
-
-                // 4. Legal & About Section
-                Section(header: Text("ÜBER SONGFLIP").font(.caption).fontWeight(.semibold)) {
-                    Link(destination: URL(string: "https://songflip.link")!) {
-                        HStack {
-                            Label("Website", systemImage: "safari")
-                            Spacer()
-                            Text("songflip.link")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                        }
-                    }
-
-                    Link(destination: URL(string: "https://songflip.link/privacy-policy.html")!) {
-                        Label("Datenschutzerklärung", systemImage: "hand.raised")
-                    }
-
-                    Link(destination: URL(string: "https://songflip.link/imprint.html")!) {
-                        Label("Impressum & Kontakt", systemImage: "info.circle")
-                    }
-
-                    HStack {
-                        Text("Version")
-                        Spacer()
-                        Text("1.2.0 (iOS)")
-                            .foregroundColor(.secondary)
-                    }
-                }
             }
             .navigationTitle("Einstellungen")
             .navigationBarTitleDisplayMode(.inline)
