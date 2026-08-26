@@ -109,6 +109,14 @@ class SettingsModel: ObservableObject {
     @Published var lastTargetUrl: String? = nil
     @Published var isResolving: Bool = false
 
+    var colorScheme: ColorScheme? {
+        switch themeMode {
+        case "light": return .light
+        case "dark": return .dark
+        default: return nil
+        }
+    }
+
     let engine = SongLinkEngine()
 
     init() {
