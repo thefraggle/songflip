@@ -126,6 +126,9 @@ struct HistorySheetView: View {
                 Button(LocalizationManager.string(for: "btn_cancel", lang: lang), role: .cancel) {}
             }
             .preferredColorScheme(settings.colorScheme)
+            .onAppear {
+                history.loadHistory()
+            }
         }
     }
 
