@@ -202,9 +202,10 @@ struct ContentView: View {
 
                             HStack(spacing: 8) {
                                 HStack {
-                                    TextField(LocalizationManager.string(for: "test_placeholder", lang: lang), text: $inputUrl)
+                                    TextField(lang == "de" ? "Musik-Link einfügen..." : LocalizationManager.string(for: "test_placeholder", lang: lang), text: $inputUrl)
                                         .textFieldStyle(PlainTextFieldStyle())
                                         .foregroundColor(.primary)
+                                        .font(.system(size: 15))
                                         .autocapitalization(.none)
                                         .disableAutocorrection(true)
 
@@ -220,27 +221,27 @@ struct ContentView: View {
                                         }
                                     }
                                 }
-                                .padding(12)
+                                .padding(.horizontal, 12)
+                                .frame(height: 44)
                                 .background(Color(uiColor: .secondarySystemGroupedBackground))
                                 .cornerRadius(10)
 
                                 Button(action: convertLink) {
-                                    if settings.isResolving {
-                                        ProgressView()
-                                            .progressViewStyle(CircularProgressViewStyle(tint: .black))
-                                            .padding(.horizontal, 16)
-                                            .padding(.vertical, 12)
-                                            .background(Color.green)
-                                            .cornerRadius(10)
-                                    } else {
-                                        Text(LocalizationManager.string(for: "test_button", lang: lang))
-                                            .fontWeight(.bold)
-                                            .foregroundColor(.black)
-                                            .padding(.horizontal, 18)
-                                            .padding(.vertical, 12)
-                                            .background(Color.green)
-                                            .cornerRadius(10)
+                                    HStack(spacing: 4) {
+                                        if settings.isResolving {
+                                            ProgressView()
+                                                .progressViewStyle(CircularProgressViewStyle(tint: .black))
+                                                .scaleEffect(0.85)
+                                        } else {
+                                            Text("Flip")
+                                                .font(.system(size: 15, weight: .bold))
+                                                .foregroundColor(.black)
+                                        }
                                     }
+                                    .padding(.horizontal, 18)
+                                    .frame(height: 44)
+                                    .background(Color.green.opacity(inputUrl.trimmingCharacters(in: .whitespaces).isEmpty ? 0.6 : 1.0))
+                                    .cornerRadius(10)
                                 }
                                 .disabled(inputUrl.trimmingCharacters(in: .whitespaces).isEmpty || settings.isResolving)
                             }
