@@ -1,9 +1,12 @@
 import SwiftUI
 
 struct HistorySheetView: View {
+    @EnvironmentObject var settings: SettingsModel
     @ObservedObject var history = HistoryModel.shared
     @Environment(\.dismiss) var dismiss
     @State private var showingClearConfirmation = false
+
+    var lang: String { settings.selectedLanguage }
 
     var body: some View {
         NavigationStack {
@@ -15,16 +18,16 @@ struct HistorySheetView: View {
                     VStack(spacing: 16) {
                         Image(systemName: "clock.arrow.circlepath")
                             .font(.system(size: 52))
-                            .foregroundColor(.gray.opacity(0.6))
+                            .foregroundColor(.secondary.opacity(0.6))
 
-                        Text("Noch kein Verlauf")
+                        Text(lang == "de" ? "Noch kein Verlauf" : "No history yet")
                             .font(.title3)
                             .fontWeight(.bold)
-                            .foregroundColor(.white)
+                            .foregroundColor(.primary)
 
-                        Text("Konvertierte Songs aus dem Teilen-Menü oder dem Test-Studio erscheinen automatisch hier.")
+                        Text(LocalizationManager.string(for: "history_empty", lang: lang))
                             .font(.subheadline)
-                            .foregroundColor(.gray)
+                            .foregroundColor(.secondary)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 32)
                     }
@@ -53,24 +56,24 @@ struct HistorySheetView: View {
                                     VStack(alignment: .leading, spacing: 4) {
                                         Text(item.title)
                                             .font(.system(size: 15, weight: .bold))
-                                            .foregroundColor(.white)
+                                            .foregroundColor(.primary)
                                             .lineLimit(1)
 
                                         HStack(spacing: 6) {
                                             if let artist = item.artist, !artist.isEmpty {
                                                 Text(artist)
                                                     .font(.caption)
-                                                    .foregroundColor(.gray)
+                                                    .foregroundColor(.secondary)
                                                     .lineLimit(1)
 
                                                 Text("•")
                                                     .font(.caption2)
-                                                    .foregroundColor(.gray.opacity(0.6))
+                                                    .foregroundColor(.secondary.opacity(0.6))
                                             }
 
                                             Text(item.formattedDate)
                                                 .font(.caption2)
-                                                .foregroundColor(.gray.opacity(0.8))
+                                                .foregroundColor(.secondary)
                                         }
                                     }
 
@@ -78,16 +81,16 @@ struct HistorySheetView: View {
 
                                     Image(systemName: "arrow.up.forward.app")
                                         .font(.system(size: 14, weight: .semibold))
-                                        .foregroundColor(.gray.opacity(0.7))
+                                        .foregroundColor(.secondary)
                                 }
                                 .padding(.vertical, 4)
                             }
-                            .listRowBackground(Color(white: 0.1))
+                            .listRowBackground(Color("CardBackgroundColor"))
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button(role: .destructive) {
                                     history.deleteItem(id: item.id)
                                 } label: {
-                                    Label("Löschen", systemImage: "trash")
+                                    Label(LocalizationManager.string(for: "action_delete", lang: lang), systemImage: "trash")
                                 }
                             }
                         }
@@ -95,7 +98,7 @@ struct HistorySheetView: View {
                     .scrollContentBackground(.hidden)
                 }
             }
-            .navigationTitle("Verlauf")
+            .navigationTitle(LocalizationManager.string(for: "history_title", lang: lang))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -108,17 +111,21 @@ struct HistorySheetView: View {
                 }
 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Fertig") { dismiss() }
+                    Button(lang == "de" ? "Fertig" : "Done") { dismiss() }
                         .fontWeight(.semibold)
-                        .foregroundColor(.white)
                 }
             }
-            .confirmationDialog("Verlauf wirklich leeren?", isPresented: $showingClearConfirmation, titleVisibility: .visible) {
-                Button("Alle Einträge löschen", role: .destructive) {
+            .confirmationDialog(
+                LocalizationManager.string(for: "history_clear_confirm_title", lang: lang),
+                isPresented: $showingClearConfirmation,
+                titleVisibility: .visible
+            ) {
+                Button(LocalizationManager.string(for: "history_clear_all", lang: lang), role: .destructive) {
                     history.clear()
                 }
-                Button("Abbrechen", role: .cancel) {}
+                Button(lang == "de" ? "Abbrechen" : "Cancel", role: .cancel) {}
             }
+            .preferredColorScheme(settings.colorScheme)
         }
     }
 

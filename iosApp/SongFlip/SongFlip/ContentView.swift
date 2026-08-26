@@ -11,6 +11,8 @@ struct ContentView: View {
     @State private var showingSettingsSheet = false
     @State private var showingHistorySheet = false
 
+    var lang: String { settings.selectedLanguage }
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -38,26 +40,26 @@ struct ContentView: View {
                             }
                             .padding(.top, 8)
 
-                            Text("SongFlip")
+                            Text(LocalizationManager.string(for: "app_name", lang: lang))
                                 .font(.system(size: 28, weight: .bold))
-                                .foregroundColor(.white)
+                                .foregroundColor(.primary)
 
-                            Text("Universeller Musik-Link Redirector")
+                            Text(LocalizationManager.string(for: "app_tagline", lang: lang))
                                 .font(.subheadline)
-                                .foregroundColor(.gray)
+                                .foregroundColor(.secondary)
                         }
 
                         // 2. Preferred Target Player Card (2x3 Grid with Brand Accents)
                         VStack(alignment: .leading, spacing: 12) {
                             HStack {
-                                Text("STANDARD-ZIELDIENST")
+                                Text(LocalizationManager.string(for: "target_service_label", lang: lang).uppercased())
                                     .font(.caption)
                                     .fontWeight(.bold)
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(.secondary)
 
                                 Spacer()
 
-                                Text("1-Tap Auswahl")
+                                Text(lang == "de" ? "1-Tap Auswahl" : "1-Tap Selection")
                                     .font(.caption2)
                                     .foregroundColor(.green)
                             }
@@ -75,7 +77,7 @@ struct ContentView: View {
                                         HStack(spacing: 10) {
                                             ZStack {
                                                 RoundedRectangle(cornerRadius: 8)
-                                                    .fill(platform.brandColor.opacity(isSelected ? 0.3 : 0.15))
+                                                    .fill(platform.brandColor.opacity(isSelected ? 0.35 : 0.15))
                                                     .frame(width: 32, height: 32)
 
                                                 Image(systemName: platform.iconName)
@@ -87,7 +89,7 @@ struct ContentView: View {
                                                 .font(.system(size: 13, weight: isSelected ? .bold : .medium))
                                                 .lineLimit(1)
                                                 .minimumScaleFactor(0.8)
-                                                .foregroundColor(.white)
+                                                .foregroundColor(.primary)
 
                                             Spacer(minLength: 0)
 
@@ -100,10 +102,10 @@ struct ContentView: View {
                                         .padding(.horizontal, 10)
                                         .frame(maxWidth: .infinity)
                                         .frame(height: 52)
-                                        .background(isSelected ? Color.white.opacity(0.12) : Color.white.opacity(0.05))
+                                        .background(isSelected ? platform.brandColor.opacity(0.15) : Color(uiColor: .secondarySystemGroupedBackground))
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 12)
-                                                .stroke(isSelected ? Color.green.opacity(0.6) : Color.white.opacity(0.06), lineWidth: isSelected ? 1.5 : 1)
+                                                .stroke(isSelected ? platform.brandColor : Color(uiColor: .separator).opacity(0.3), lineWidth: isSelected ? 1.5 : 1)
                                         )
                                         .cornerRadius(12)
                                     }
@@ -111,15 +113,19 @@ struct ContentView: View {
                             }
                         }
                         .padding(16)
-                        .background(Color(white: 0.1))
+                        .background(Color("CardBackgroundColor"))
                         .cornerRadius(16)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(Color(uiColor: .separator).opacity(0.25), lineWidth: 1)
+                        )
 
                         // 3. iOS Setup & How-To Card
                         VStack(alignment: .leading, spacing: 12) {
-                            Text("WIE FUNKTIONIERT ES UNTER IOS?")
+                            Text(lang == "de" ? "WIE FUNKTIONIERT ES UNTER IOS?" : "HOW DOES IT WORK ON IOS?")
                                 .font(.caption)
                                 .fontWeight(.bold)
-                                .foregroundColor(.gray)
+                                .foregroundColor(.secondary)
 
                             HStack(alignment: .top, spacing: 12) {
                                 Image(systemName: "square.and.arrow.up.fill")
@@ -128,17 +134,17 @@ struct ContentView: View {
                                     .frame(width: 28)
 
                                 VStack(alignment: .leading, spacing: 3) {
-                                    Text("1. Über das Teilen-Menü")
+                                    Text(lang == "de" ? "1. Über das Teilen-Menü" : "1. Via Share Menu")
                                         .font(.subheadline)
                                         .fontWeight(.semibold)
-                                        .foregroundColor(.white)
-                                    Text("Tippe in Spotify, Apple Music oder YouTube auf Teilen ➔ SongFlip für den sofortigen Sprung.")
+                                        .foregroundColor(.primary)
+                                    Text(lang == "de" ? "Tippe in Spotify, Apple Music oder YouTube auf Teilen ➔ SongFlip für den sofortigen Sprung." : "Tap Share in Spotify, Apple Music or YouTube ➔ SongFlip for instant playback.")
                                         .font(.caption)
-                                        .foregroundColor(.gray)
+                                        .foregroundColor(.secondary)
                                 }
                             }
 
-                            Divider().background(Color.white.opacity(0.1))
+                            Divider()
 
                             HStack(alignment: .top, spacing: 12) {
                                 Image(systemName: "button.programmable")
@@ -147,17 +153,17 @@ struct ContentView: View {
                                     .frame(width: 28)
 
                                 VStack(alignment: .leading, spacing: 3) {
-                                    Text("2. Action Button & Kurzbefehle")
+                                    Text(lang == "de" ? "2. Action Button & Kurzbefehle" : "2. Action Button & Shortcuts")
                                         .font(.subheadline)
                                         .fontWeight(.semibold)
-                                        .foregroundColor(.white)
-                                    Text("Lege den SongFlip Kurzbefehl auf deinen iPhone 15/16 Action Button für 1-Klick Konvertierung.")
+                                        .foregroundColor(.primary)
+                                    Text(lang == "de" ? "Lege den SongFlip Kurzbefehl auf deinen iPhone 15/16 Action Button für 1-Klick Konvertierung." : "Assign the SongFlip Shortcut to your Action Button for 1-click conversion.")
                                         .font(.caption)
-                                        .foregroundColor(.gray)
+                                        .foregroundColor(.secondary)
                                 }
                             }
 
-                            Divider().background(Color.white.opacity(0.1))
+                            Divider()
 
                             HStack(alignment: .top, spacing: 12) {
                                 Image(systemName: "doc.on.clipboard.fill")
@@ -166,39 +172,43 @@ struct ContentView: View {
                                     .frame(width: 28)
 
                                 VStack(alignment: .leading, spacing: 3) {
-                                    Text("3. Automatische Zwischenablage")
+                                    Text(lang == "de" ? "3. Automatische Zwischenablage" : "3. Automatic Clipboard")
                                         .font(.subheadline)
                                         .fontWeight(.semibold)
-                                        .foregroundColor(.white)
-                                    Text("Kopierte Musik-Links werden beim Öffnen der App automatisch erkannt.")
+                                        .foregroundColor(.primary)
+                                    Text(lang == "de" ? "Kopierte Musik-Links werden beim Öffnen der App automatisch erkannt." : "Copied music links are automatically detected when opening the app.")
                                         .font(.caption)
-                                        .foregroundColor(.gray)
+                                        .foregroundColor(.secondary)
                                 }
                             }
                         }
                         .padding(16)
-                        .background(Color(white: 0.1))
+                        .background(Color("CardBackgroundColor"))
                         .cornerRadius(16)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(Color(uiColor: .separator).opacity(0.25), lineWidth: 1)
+                        )
 
                         // 4. Test Studio Card
                         VStack(alignment: .leading, spacing: 12) {
-                            Text("TEST-STUDIO")
+                            Text(LocalizationManager.string(for: "nav_test_studio", lang: lang).uppercased())
                                 .font(.caption)
                                 .fontWeight(.bold)
-                                .foregroundColor(.gray)
+                                .foregroundColor(.secondary)
 
                             HStack(spacing: 8) {
                                 HStack {
-                                    TextField("Musik-Link einfügen...", text: $inputUrl)
+                                    TextField(LocalizationManager.string(for: "test_placeholder", lang: lang), text: $inputUrl)
                                         .textFieldStyle(PlainTextFieldStyle())
-                                        .foregroundColor(.white)
+                                        .foregroundColor(.primary)
                                         .autocapitalization(.none)
                                         .disableAutocorrection(true)
 
                                     if !inputUrl.isEmpty {
                                         Button(action: { inputUrl = ""; statusMessage = nil }) {
                                             Image(systemName: "xmark.circle.fill")
-                                                .foregroundColor(.gray)
+                                                .foregroundColor(.secondary)
                                         }
                                     } else {
                                         Button(action: pasteFromClipboard) {
@@ -208,7 +218,7 @@ struct ContentView: View {
                                     }
                                 }
                                 .padding(12)
-                                .background(Color.white.opacity(0.08))
+                                .background(Color(uiColor: .secondarySystemGroupedBackground))
                                 .cornerRadius(10)
 
                                 Button(action: convertLink) {
@@ -217,10 +227,10 @@ struct ContentView: View {
                                             .progressViewStyle(CircularProgressViewStyle(tint: .black))
                                             .padding(.horizontal, 16)
                                             .padding(.vertical, 12)
-                                            .background(Color.white)
+                                            .background(Color.green)
                                             .cornerRadius(10)
                                     } else {
-                                        Text("Flip")
+                                        Text(LocalizationManager.string(for: "test_button", lang: lang))
                                             .fontWeight(.bold)
                                             .foregroundColor(.black)
                                             .padding(.horizontal, 18)
@@ -245,23 +255,27 @@ struct ContentView: View {
                             }
                         }
                         .padding(16)
-                        .background(Color(white: 0.1))
+                        .background(Color("CardBackgroundColor"))
                         .cornerRadius(16)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(Color(uiColor: .separator).opacity(0.25), lineWidth: 1)
+                        )
 
                         // 5. Recent History Preview Card (if history exists)
                         if !history.items.isEmpty {
                             VStack(alignment: .leading, spacing: 12) {
                                 HStack {
-                                    Text("LETZTE SONGS")
+                                    Text(lang == "de" ? "LETZTE SONGS" : "RECENT SONGS")
                                         .font(.caption)
                                         .fontWeight(.bold)
-                                        .foregroundColor(.gray)
+                                        .foregroundColor(.secondary)
 
                                     Spacer()
 
                                     Button(action: { showingHistorySheet = true }) {
                                         HStack(spacing: 4) {
-                                            Text("Alle anzeigen")
+                                            Text(lang == "de" ? "Alle anzeigen" : "Show all")
                                             Image(systemName: "chevron.right")
                                         }
                                         .font(.caption)
@@ -287,13 +301,13 @@ struct ContentView: View {
                                             VStack(alignment: .leading, spacing: 2) {
                                                 Text(item.title)
                                                     .font(.system(size: 14, weight: .semibold))
-                                                    .foregroundColor(.white)
+                                                    .foregroundColor(.primary)
                                                     .lineLimit(1)
 
                                                 if let artist = item.artist, !artist.isEmpty {
                                                     Text(artist)
                                                         .font(.caption2)
-                                                        .foregroundColor(.gray)
+                                                        .foregroundColor(.secondary)
                                                         .lineLimit(1)
                                                 }
                                             }
@@ -302,15 +316,19 @@ struct ContentView: View {
 
                                             Image(systemName: "arrow.up.forward.app")
                                                 .font(.caption)
-                                                .foregroundColor(.gray.opacity(0.7))
+                                                .foregroundColor(.secondary)
                                         }
                                         .padding(.vertical, 4)
                                     }
                                 }
                             }
                             .padding(16)
-                            .background(Color(white: 0.1))
+                            .background(Color("CardBackgroundColor"))
                             .cornerRadius(16)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(Color(uiColor: .separator).opacity(0.25), lineWidth: 1)
+                            )
                         }
 
                         // 6. Footer Section
@@ -318,21 +336,21 @@ struct ContentView: View {
                             Text("SongFlip v1.2.3")
                                 .font(.caption)
                                 .fontWeight(.semibold)
-                                .foregroundColor(.white.opacity(0.85))
+                                .foregroundColor(.primary)
 
                             Text("© 2026 Daniel Notthoff")
                                 .font(.caption2)
-                                .foregroundColor(.gray)
+                                .foregroundColor(.secondary)
 
                             HStack(spacing: 10) {
-                                Link("Datenschutz", destination: URL(string: "https://songflip.link/privacy-policy.html")!)
-                                Text("•").foregroundColor(.gray.opacity(0.6))
-                                Link("Impressum", destination: URL(string: "https://songflip.link/imprint.html")!)
-                                Text("•").foregroundColor(.gray.opacity(0.6))
-                                Link("Nutzungsbedingungen", destination: URL(string: "https://songflip.link/imprint.html")!)
+                                Link(LocalizationManager.string(for: "legal_privacy", lang: lang), destination: URL(string: "https://songflip.link/privacy-policy.html")!)
+                                Text("•").foregroundColor(.secondary.opacity(0.6))
+                                Link(LocalizationManager.string(for: "legal_imprint", lang: lang), destination: URL(string: "https://songflip.link/imprint.html")!)
+                                Text("•").foregroundColor(.secondary.opacity(0.6))
+                                Link(LocalizationManager.string(for: "legal_terms", lang: lang), destination: URL(string: "https://songflip.link/imprint.html")!)
                             }
                             .font(.caption)
-                            .foregroundColor(.gray)
+                            .foregroundColor(.secondary)
                         }
                         .padding(.top, 8)
                         .padding(.bottom, 24)
@@ -340,29 +358,32 @@ struct ContentView: View {
                     .padding(.horizontal, 16)
                 }
             }
-            .navigationTitle("SongFlip")
+            .navigationTitle(LocalizationManager.string(for: "app_name", lang: lang))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: { showingHistorySheet = true }) {
                         Image(systemName: "clock.arrow.circlepath")
-                            .foregroundColor(.white)
+                            .foregroundColor(.primary)
                     }
                 }
 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: { showingSettingsSheet = true }) {
                         Image(systemName: "gearshape.fill")
-                            .foregroundColor(.white)
+                            .foregroundColor(.primary)
                     }
                 }
             }
             .sheet(isPresented: $showingSettingsSheet) {
                 SettingsSheetView()
                     .environmentObject(settings)
+                    .preferredColorScheme(settings.colorScheme)
             }
             .sheet(isPresented: $showingHistorySheet) {
                 HistorySheetView()
+                    .environmentObject(settings)
+                    .preferredColorScheme(settings.colorScheme)
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                 checkClipboard()
@@ -374,7 +395,7 @@ struct ContentView: View {
         if let clip = UIPasteboard.general.string {
             let clean = UrlUtils.shared.extractCleanUrl(rawInput: clip) ?? clip
             inputUrl = clean
-            statusMessage = "Link aus Zwischenablage eingefügt!"
+            statusMessage = lang == "de" ? "Link aus Zwischenablage eingefügt!" : "Link pasted from clipboard!"
             statusSuccess = true
         }
     }
@@ -384,7 +405,7 @@ struct ContentView: View {
         let clean = UrlUtils.shared.extractCleanUrl(rawInput: clip)
         if let clean = clean, clean != inputUrl, clean.contains("spotify.com") || clean.contains("apple.com") || clean.contains("youtube.com") || clean.contains("deezer.com") || clean.contains("tidal.com") || clean.contains("amazon.com") {
             inputUrl = clean
-            statusMessage = "Link aus Zwischenablage erkannt!"
+            statusMessage = lang == "de" ? "Link aus Zwischenablage erkannt!" : "Link detected from clipboard!"
             statusSuccess = true
         }
     }
@@ -392,7 +413,7 @@ struct ContentView: View {
     private func convertLink() {
         guard !inputUrl.isEmpty else { return }
         settings.isResolving = true
-        statusMessage = "Löse Link auf..."
+        statusMessage = LocalizationManager.string(for: "test_converting", lang: lang)
         statusSuccess = false
 
         Task {
@@ -406,7 +427,9 @@ struct ContentView: View {
             await MainActor.run {
                 settings.isResolving = false
                 if let success = res as? ResolutionResult.Success {
-                    statusMessage = "Gefunden: \(success.title ?? "Song") (\(success.artist ?? ""))"
+                    let songTitle = success.title ?? "Song"
+                    let artist = success.artist.map { " (\($0))" } ?? ""
+                    statusMessage = "\(songTitle)\(artist)"
                     statusSuccess = true
 
                     // Add to shared History
@@ -424,10 +447,10 @@ struct ContentView: View {
                         UIApplication.shared.open(url)
                     }
                 } else if let error = res as? ResolutionResult.Error {
-                    statusMessage = "Fehler: \(error.message)"
+                    statusMessage = error.message
                     statusSuccess = false
                 } else {
-                    statusMessage = "Konnte Link nicht auflösen."
+                    statusMessage = LocalizationManager.string(for: "redirect_error_toast", lang: lang)
                     statusSuccess = false
                 }
             }
