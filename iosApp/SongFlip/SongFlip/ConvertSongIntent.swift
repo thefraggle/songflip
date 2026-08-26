@@ -21,16 +21,29 @@ struct ConvertSongIntent: AppIntent {
 
         let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
         let targetPlatform = defaults.string(forKey: "target_platform") ?? "youtubeMusic"
+        let customUrl = defaults.string(forKey: "custom_api_url") ?? ""
+        let customToken = defaults.string(forKey: "custom_api_token") ?? ""
 
         let engine = SongLinkEngine()
         let res = try? await engine.resolveTargetUrl(
             inputUrl: urlToConvert,
             targetPlatformKey: targetPlatform,
-            customApiUrl: "",
-            customApiToken: ""
+            customApiUrl: customUrl,
+            customApiToken: customToken
         )
 
         if let success = res as? ResolutionResult.Success {
+            await MainActor.run {
+                HistoryModel.shared.add(
+                    title: success.title ?? "Song",
+                    artist: success.artist,
+                    sourceUrl: urlToConvert,
+                    targetUrl: success.targetUrl,
+                    targetPlatform: targetPlatform,
+                    isAlbum: success.isAlbum
+                )
+            }
+
             let targetString = success.nativeAppUri ?? success.targetUrl
             if let targetUrl = URL(string: targetString) {
                 await UIApplication.shared.open(targetUrl)

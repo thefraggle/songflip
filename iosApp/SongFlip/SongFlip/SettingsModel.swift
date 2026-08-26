@@ -40,9 +40,26 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
         case .amazonMusic: return "cart.fill"
         }
     }
+
+    var brandColor: Color {
+        switch self {
+        case .youtubeMusic: return Color(red: 1.0, green: 0.0, blue: 0.0)
+        case .appleMusic: return Color(red: 0.99, green: 0.24, blue: 0.27)
+        case .spotify: return Color(red: 0.11, green: 0.73, blue: 0.33)
+        case .tidal: return Color(red: 0.0, green: 0.85, blue: 0.9)
+        case .deezer: return Color(red: 0.64, green: 0.22, blue: 1.0)
+        case .amazonMusic: return Color(red: 0.15, green: 0.82, blue: 0.85)
+        }
+    }
 }
 
 class SettingsModel: ObservableObject {
+    static let appGroupId = "group.de.goork.songflip"
+
+    private var defaults: UserDefaults {
+        UserDefaults(suiteName: Self.appGroupId) ?? UserDefaults.standard
+    }
+
     static let supportedLanguages: [LanguageOption] = [
         LanguageOption(code: "de", name: "Deutsch", flag: "🇩🇪"),
         LanguageOption(code: "en", name: "English", flag: "🇬🇧"),
@@ -69,22 +86,22 @@ class SettingsModel: ObservableObject {
     ]
 
     @Published var targetPlatform: String {
-        didSet { UserDefaults.standard.set(targetPlatform, forKey: "target_platform") }
+        didSet { defaults.set(targetPlatform, forKey: "target_platform") }
     }
     @Published var autoClipboardDetect: Bool {
-        didSet { UserDefaults.standard.set(autoClipboardDetect, forKey: "auto_clipboard_detect") }
+        didSet { defaults.set(autoClipboardDetect, forKey: "auto_clipboard_detect") }
     }
     @Published var selectedLanguage: String {
-        didSet { UserDefaults.standard.set(selectedLanguage, forKey: "app_language") }
+        didSet { defaults.set(selectedLanguage, forKey: "app_language") }
     }
     @Published var themeMode: String {
-        didSet { UserDefaults.standard.set(themeMode, forKey: "theme_mode") }
+        didSet { defaults.set(themeMode, forKey: "theme_mode") }
     }
     @Published var customApiUrl: String {
-        didSet { UserDefaults.standard.set(customApiUrl, forKey: "custom_api_url") }
+        didSet { defaults.set(customApiUrl, forKey: "custom_api_url") }
     }
     @Published var customApiToken: String {
-        didSet { UserDefaults.standard.set(customApiToken, forKey: "custom_api_token") }
+        didSet { defaults.set(customApiToken, forKey: "custom_api_token") }
     }
 
     @Published var lastConvertedTitle: String? = nil
@@ -95,10 +112,11 @@ class SettingsModel: ObservableObject {
     let engine = SongLinkEngine()
 
     init() {
-        self.targetPlatform = UserDefaults.standard.string(forKey: "target_platform") ?? "youtubeMusic"
-        self.autoClipboardDetect = UserDefaults.standard.object(forKey: "auto_clipboard_detect") as? Bool ?? true
+        let storage = UserDefaults(suiteName: Self.appGroupId) ?? UserDefaults.standard
+        self.targetPlatform = storage.string(forKey: "target_platform") ?? "youtubeMusic"
+        self.autoClipboardDetect = storage.object(forKey: "auto_clipboard_detect") as? Bool ?? true
 
-        let savedLang = UserDefaults.standard.string(forKey: "app_language")
+        let savedLang = storage.string(forKey: "app_language")
         if let savedLang = savedLang {
             self.selectedLanguage = savedLang
         } else {
@@ -107,8 +125,8 @@ class SettingsModel: ObservableObject {
             self.selectedLanguage = isSupported ? String(preferred) : "en"
         }
 
-        self.themeMode = UserDefaults.standard.string(forKey: "theme_mode") ?? "dark"
-        self.customApiUrl = UserDefaults.standard.string(forKey: "custom_api_url") ?? ""
-        self.customApiToken = UserDefaults.standard.string(forKey: "custom_api_token") ?? ""
+        self.themeMode = storage.string(forKey: "theme_mode") ?? "dark"
+        self.customApiUrl = storage.string(forKey: "custom_api_url") ?? ""
+        self.customApiToken = storage.string(forKey: "custom_api_token") ?? ""
     }
 }
