@@ -360,6 +360,43 @@ async function resolveArtistLive(url: string): Promise<SongMetadata | null> {
 }
 
 /**
+ * Resolves direct YouTube video ID or Album playlist ID for instant playback.
+ */
+async function resolveYouTubeDirectPlayLive(query: string, isAlbum = false): Promise<string | null> {
+  try {
+    const encoded = encodeURIComponent(query);
+    const ytUrl = isAlbum
+      ? `https://www.youtube.com/results?search_query=${encoded}&sp=EgIQAw%253D%253D`
+      : `https://www.youtube.com/results?search_query=${encoded}`;
+
+    const res = await axios.get(ytUrl, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept-Language": "en-US,en;q=0.9",
+      },
+      timeout: 4000,
+    });
+
+    const html = typeof res.data === "string" ? res.data : "";
+    if (isAlbum) {
+      const albumMatch = html.match(/"playlistId":"(OLAK5uy_[a-zA-Z0-9_-]+)"/) || html.match(/"playlistId":"([a-zA-Z0-9_-]{18,})"/);
+      if (albumMatch && albumMatch[1]) {
+        return `https://music.youtube.com/playlist?list=${albumMatch[1]}`;
+      }
+    }
+
+    const videoMatch = html.match(/"videoId":"([a-zA-Z0-9_-]{11})"/) || html.match(/\/watch\?v=([a-zA-Z0-9_-]{11})/);
+    if (videoMatch && videoMatch[1]) {
+      return `https://music.youtube.com/watch?v=${videoMatch[1]}`;
+    }
+
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+/**
  * Resolves song metadata & cross-platform links via direct SongLink engine.
  */
 async function resolveSongLive(url: string): Promise<SongMetadata | null> {
@@ -527,6 +564,16 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
           } catch (_) {}
         }
       }
+    }
+
+    // If YouTube Music direct watch link is missing or is search-only, resolve exact video ID
+    if ((!linksMap.youtubeMusic || linksMap.youtubeMusic.includes("/search")) && title && artist) {
+      try {
+        const directYt = await resolveYouTubeDirectPlayLive(`${artist} ${title}`.trim(), isAlbum);
+        if (directYt) {
+          linksMap.youtubeMusic = directYt;
+        }
+      } catch (_) {}
     }
 
     // Always populate all 6 streaming platforms with direct or fallback search links
@@ -865,7 +912,7 @@ const DEMO_PRESETS: Record<string, any> = {
       appleMusic: "https://music.apple.com/us/album/blinding-lights/1499378108?i=1499378607",
       youtubeMusic: "https://music.youtube.com/watch?v=4NRXx6U8ABQ",
       deezer: "https://www.deezer.com/track/908604612",
-      tidal: "https://listen.tidal.com/track/134657499",
+      tidal: "https://listen.tidal.com/track/134858527",
       amazonMusic: "https://music.amazon.com/albums/B0855DV6QG?trackAsin=B0855DTRX6"
     }
   },
@@ -879,7 +926,7 @@ const DEMO_PRESETS: Record<string, any> = {
       appleMusic: "https://music.apple.com/us/album/blinding-lights/1499378108?i=1499378607",
       youtubeMusic: "https://music.youtube.com/watch?v=4NRXx6U8ABQ",
       deezer: "https://www.deezer.com/track/908604612",
-      tidal: "https://listen.tidal.com/track/134657499",
+      tidal: "https://listen.tidal.com/track/134858527",
       amazonMusic: "https://music.amazon.com/albums/B0855DV6QG?trackAsin=B0855DTRX6"
     }
   },
@@ -889,11 +936,11 @@ const DEMO_PRESETS: Record<string, any> = {
     thumbnailUrl: "https://cdn-images.dzcdn.net/images/cover/bc49adb87758e0c8c4e508a9c5cce85d/1000x1000-000000-80-0-0.jpg",
     isAlbum: false,
     links: {
-      spotify: "https://open.spotify.com/track/2Foc5Q5nqNiosCNqttzAG4",
+      spotify: "https://open.spotify.com/track/2Foc5Q5nqNiosCNqttzHof",
       appleMusic: "https://music.apple.com/us/album/get-lucky-feat-pharrell-williams-nile-rodgers/617154241?i=617154366",
       youtubeMusic: "https://music.youtube.com/watch?v=5NV6Rdv1a3I",
-      deezer: "https://www.deezer.com/track/67238733",
-      tidal: "https://listen.tidal.com/track/19875150",
+      deezer: "https://www.deezer.com/track/67238735",
+      tidal: "https://listen.tidal.com/track/20115564",
       amazonMusic: "https://music.amazon.com/albums/B00C0641ES?trackAsin=B00C06497O"
     }
   },
@@ -903,25 +950,25 @@ const DEMO_PRESETS: Record<string, any> = {
     thumbnailUrl: "https://cdn-images.dzcdn.net/images/cover/bc49adb87758e0c8c4e508a9c5cce85d/1000x1000-000000-80-0-0.jpg",
     isAlbum: false,
     links: {
-      spotify: "https://open.spotify.com/track/2Foc5Q5nqNiosCNqttzAG4",
+      spotify: "https://open.spotify.com/track/2Foc5Q5nqNiosCNqttzHof",
       appleMusic: "https://music.apple.com/us/album/get-lucky-feat-pharrell-williams-nile-rodgers/617154241?i=617154366",
       youtubeMusic: "https://music.youtube.com/watch?v=5NV6Rdv1a3I",
-      deezer: "https://www.deezer.com/track/67238733",
-      tidal: "https://listen.tidal.com/track/19875150",
+      deezer: "https://www.deezer.com/track/67238735",
+      tidal: "https://listen.tidal.com/track/20115564",
       amazonMusic: "https://music.amazon.com/albums/B00C0641ES?trackAsin=B00C06497O"
     }
   },
   "7e4d2a1f": {
     title: "BIRDS OF A FEATHER",
     artist: "Billie Eilish",
-    thumbnailUrl: "https://cdn-images.dzcdn.net/images/cover/5d284b31cb9ddeb1a0c79aede5a94e1c/1000x1000-000000-80-0-0.jpg",
+    thumbnailUrl: "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0271d62ea7ea8a5be92d3c1f62",
     isAlbum: false,
     links: {
-      spotify: "https://open.spotify.com/track/6dOtVTDmmpzpEcYRQBRnh3",
+      spotify: "https://open.spotify.com/track/6dOtVTDdiauQNBQEDOtlAB",
       appleMusic: "https://music.apple.com/us/album/birds-of-a-feather/1739659134?i=1739659142",
       youtubeMusic: "https://music.youtube.com/watch?v=V9PVRfjEBTI",
-      deezer: "https://www.deezer.com/track/2798606042",
-      tidal: "https://listen.tidal.com/track/363406282",
+      deezer: "https://www.deezer.com/track/2801558052",
+      tidal: "https://listen.tidal.com/track/363236466",
       amazonMusic: "https://music.amazon.com/albums/B0D18PFR2V?trackAsin=B0D18P2VFF"
     }
   },
