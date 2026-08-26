@@ -8,8 +8,7 @@ struct HistorySheetView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color("BackgroundColor", bundle: nil)
-                    .background(Color.black)
+                Color("BackgroundColor")
                     .ignoresSafeArea()
 
                 if history.items.isEmpty {
