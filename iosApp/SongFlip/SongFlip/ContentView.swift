@@ -62,7 +62,7 @@ struct ContentView: View {
 
                                 Spacer()
 
-                                Text(lang == "de" ? "1-Tap Auswahl" : "1-Tap Selection")
+                                Text(LocalizationManager.string(for: "one_tap_selection", lang: lang))
                                     .font(.caption2)
                                     .foregroundColor(.green)
                             }
@@ -125,7 +125,7 @@ struct ContentView: View {
 
                         // 3. iOS Setup & How-To Card
                         VStack(alignment: .leading, spacing: 12) {
-                            Text(lang == "de" ? "WIE FUNKTIONIERT ES UNTER IOS?" : "HOW DOES IT WORK ON IOS?")
+                            Text(LocalizationManager.string(for: "how_it_works_ios", lang: lang))
                                 .font(.caption)
                                 .fontWeight(.bold)
                                 .foregroundColor(.secondary)
@@ -137,11 +137,11 @@ struct ContentView: View {
                                     .frame(width: 28)
 
                                 VStack(alignment: .leading, spacing: 3) {
-                                    Text(lang == "de" ? "1. Über das Teilen-Menü" : "1. Via Share Menu")
+                                    Text(LocalizationManager.string(for: "step1_title", lang: lang))
                                         .font(.subheadline)
                                         .fontWeight(.semibold)
                                         .foregroundColor(.primary)
-                                    Text(lang == "de" ? "Tippe in Spotify, Apple Music oder YouTube auf Teilen ➔ SongFlip für den sofortigen Sprung." : "Tap Share in Spotify, Apple Music or YouTube ➔ SongFlip for instant playback.")
+                                    Text(LocalizationManager.string(for: "step1_desc", lang: lang))
                                         .font(.caption)
                                         .foregroundColor(.secondary)
                                 }
@@ -156,11 +156,11 @@ struct ContentView: View {
                                     .frame(width: 28)
 
                                 VStack(alignment: .leading, spacing: 3) {
-                                    Text(lang == "de" ? "2. Action Button & Kurzbefehle" : "2. Action Button & Shortcuts")
+                                    Text(LocalizationManager.string(for: "step2_title", lang: lang))
                                         .font(.subheadline)
                                         .fontWeight(.semibold)
                                         .foregroundColor(.primary)
-                                    Text(lang == "de" ? "Lege den SongFlip Kurzbefehl auf deinen iPhone 15/16 Action Button für 1-Klick Konvertierung." : "Assign the SongFlip Shortcut to your Action Button for 1-click conversion.")
+                                    Text(LocalizationManager.string(for: "step2_desc", lang: lang))
                                         .font(.caption)
                                         .foregroundColor(.secondary)
                                 }
@@ -175,11 +175,11 @@ struct ContentView: View {
                                     .frame(width: 28)
 
                                 VStack(alignment: .leading, spacing: 3) {
-                                    Text(lang == "de" ? "3. Automatische Zwischenablage" : "3. Automatic Clipboard")
+                                    Text(LocalizationManager.string(for: "step3_title", lang: lang))
                                         .font(.subheadline)
                                         .fontWeight(.semibold)
                                         .foregroundColor(.primary)
-                                    Text(lang == "de" ? "Kopierte Musik-Links werden beim Öffnen der App automatisch erkannt." : "Copied music links are automatically detected when opening the app.")
+                                    Text(LocalizationManager.string(for: "step3_desc", lang: lang))
                                         .font(.caption)
                                         .foregroundColor(.secondary)
                                 }
@@ -202,7 +202,7 @@ struct ContentView: View {
 
                             HStack(spacing: 8) {
                                 HStack {
-                                    TextField(lang == "de" ? "Musik-Link einfügen..." : LocalizationManager.string(for: "test_placeholder", lang: lang), text: $inputUrl)
+                                    TextField(LocalizationManager.string(for: "test_placeholder", lang: lang), text: $inputUrl)
                                         .textFieldStyle(PlainTextFieldStyle())
                                         .foregroundColor(.primary)
                                         .font(.system(size: 15))
@@ -270,7 +270,7 @@ struct ContentView: View {
                         if !history.items.isEmpty {
                             VStack(alignment: .leading, spacing: 12) {
                                 HStack {
-                                    Text(lang == "de" ? "LETZTE SONGS" : "RECENT SONGS")
+                                    Text(LocalizationManager.string(for: "recent_songs", lang: lang))
                                         .font(.caption)
                                         .fontWeight(.bold)
                                         .foregroundColor(.secondary)
@@ -279,7 +279,7 @@ struct ContentView: View {
 
                                     Button(action: { showingHistorySheet = true }) {
                                         HStack(spacing: 4) {
-                                            Text(lang == "de" ? "Alle anzeigen" : "Show all")
+                                            Text(LocalizationManager.string(for: "show_all", lang: lang))
                                             Image(systemName: "chevron.right")
                                         }
                                         .font(.caption)
@@ -399,7 +399,7 @@ struct ContentView: View {
         if let clip = UIPasteboard.general.string {
             let clean = UrlUtils.shared.extractCleanUrl(rawInput: clip) ?? clip
             inputUrl = clean
-            statusMessage = lang == "de" ? "Link aus Zwischenablage eingefügt!" : "Link pasted from clipboard!"
+            statusMessage = LocalizationManager.string(for: "clipboard_pasted", lang: lang)
             statusSuccess = true
         }
     }
@@ -409,7 +409,7 @@ struct ContentView: View {
         let clean = UrlUtils.shared.extractCleanUrl(rawInput: clip)
         if let clean = clean, clean != inputUrl, clean.contains("spotify.com") || clean.contains("apple.com") || clean.contains("youtube.com") || clean.contains("deezer.com") || clean.contains("tidal.com") || clean.contains("amazon.com") {
             inputUrl = clean
-            statusMessage = lang == "de" ? "Link aus Zwischenablage erkannt!" : "Link detected from clipboard!"
+            statusMessage = LocalizationManager.string(for: "clipboard_detected", lang: lang)
             statusSuccess = true
         }
     }
@@ -431,14 +431,14 @@ struct ContentView: View {
             await MainActor.run {
                 settings.isResolving = false
                 if let success = res as? ResolutionResult.Success {
-                    let songTitle = success.title ?? "Song"
+                    let songTitle = success.title ?? LocalizationManager.string(for: "unknown_song", lang: lang)
                     let artist = success.artist.map { " (\($0))" } ?? ""
                     statusMessage = "\(songTitle)\(artist)"
                     statusSuccess = true
 
                     // Add to shared History
                     HistoryModel.shared.add(
-                        title: success.title ?? "Unbekannter Song",
+                        title: success.title ?? LocalizationManager.string(for: "unknown_song", lang: lang),
                         artist: success.artist,
                         sourceUrl: inputUrl,
                         targetUrl: success.targetUrl,

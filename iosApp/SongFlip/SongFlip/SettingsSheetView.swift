@@ -15,7 +15,7 @@ struct SettingsSheetView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section(header: Text(LocalizationManager.string(for: "nav_settings", lang: lang).uppercased()).font(.caption).fontWeight(.semibold)) {
+                Section(header: Text(LocalizationManager.string(for: "section_general", lang: lang)).font(.caption).fontWeight(.semibold)) {
                     Button(action: { showingLanguagePicker = true }) {
                         HStack {
                             Label(LocalizationManager.string(for: "language_label", lang: lang), systemImage: "globe")
@@ -47,7 +47,7 @@ struct SettingsSheetView: View {
                     .padding(.vertical, 4)
 
                     Toggle(isOn: $settings.autoClipboardDetect) {
-                        Label(lang == "de" ? "Zwischenablage automatisch scannen" : "Auto-detect clipboard", systemImage: "doc.on.clipboard")
+                        Label(LocalizationManager.string(for: "auto_clipboard", lang: lang), systemImage: "doc.on.clipboard")
                     }
                     .tint(.green)
                 }
@@ -56,7 +56,7 @@ struct SettingsSheetView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(lang == "de" ? "Fertig" : "Done") { dismiss() }
+                    Button(LocalizationManager.string(for: "btn_done", lang: lang)) { dismiss() }
                         .fontWeight(.semibold)
                 }
             }
@@ -83,7 +83,7 @@ struct SettingsSheetView: View {
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
-                            Button(lang == "de" ? "Schließen" : "Close") { showingLanguagePicker = false }
+                            Button(LocalizationManager.string(for: "btn_close", lang: lang)) { showingLanguagePicker = false }
                         }
                     }
                     .preferredColorScheme(settings.colorScheme)

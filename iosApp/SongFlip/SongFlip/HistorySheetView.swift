@@ -20,7 +20,7 @@ struct HistorySheetView: View {
                             .font(.system(size: 52))
                             .foregroundColor(.secondary.opacity(0.6))
 
-                        Text(lang == "de" ? "Noch kein Verlauf" : "No history yet")
+                        Text(LocalizationManager.string(for: "history_empty_title", lang: lang))
                             .font(.title3)
                             .fontWeight(.bold)
                             .foregroundColor(.primary)
@@ -68,7 +68,7 @@ struct HistorySheetView: View {
 
                                                 Text("•")
                                                     .font(.caption2)
-                                                    .foregroundColor(.secondary.opacity(0.6))
+                                                    .foregroundColor(.secondary)
                                             }
 
                                             Text(item.formattedDate)
@@ -111,7 +111,7 @@ struct HistorySheetView: View {
                 }
 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(lang == "de" ? "Fertig" : "Done") { dismiss() }
+                    Button(LocalizationManager.string(for: "btn_done", lang: lang)) { dismiss() }
                         .fontWeight(.semibold)
                 }
             }
@@ -123,7 +123,7 @@ struct HistorySheetView: View {
                 Button(LocalizationManager.string(for: "history_clear_all", lang: lang), role: .destructive) {
                     history.clear()
                 }
-                Button(lang == "de" ? "Abbrechen" : "Cancel", role: .cancel) {}
+                Button(LocalizationManager.string(for: "btn_cancel", lang: lang), role: .cancel) {}
             }
             .preferredColorScheme(settings.colorScheme)
         }
