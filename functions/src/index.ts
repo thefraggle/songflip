@@ -62,7 +62,7 @@ function applyWebShareSecurityHeaders(res: any) {
   res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self'; script-src 'self' https://telemetry.goork.de; style-src 'self' https://songflip.link; font-src 'self'; img-src 'self' data: https:; connect-src 'self' https://telemetry.goork.de; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;"
+    "default-src 'self'; script-src 'self' https://telemetry.goork.de; style-src 'self' https://songflip.link; font-src 'self'; img-src 'self' data: https://songflip.link https://telemetry.goork.de https://i.scdn.co https://*.scdn.co https://*.mzstatic.com https://i.ytimg.com https://*.ytimg.com https://lh3.googleusercontent.com https://*.dzcdn.net https://resources.tidal.com https://*.tidal.com https://m.media-amazon.com https://*.media-amazon.com https://images-na.ssl-images-amazon.com; connect-src 'self' https://telemetry.goork.de; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; media-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;"
   );
 }
 
