@@ -48,16 +48,21 @@ function applyApiSecurityHeaders(res: any) {
   res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
   res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
   res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  res.setHeader("Content-Security-Policy", "default-src 'none'; frame-ancestors 'none';");
 }
 
 /**
  * WebShare Landing Page Security Headers (CSP + Anti-Clickjacking).
  */
 function applyWebShareSecurityHeaders(res: any) {
-  applyApiSecurityHeaders(res);
+  res.setHeader("X-Frame-Options", "DENY");
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self'; script-src 'self' 'unsafe-inline' https://telemetry.goork.de; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self' https://telemetry.goork.de; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;"
+    "default-src 'self'; script-src 'self' https://telemetry.goork.de; style-src 'self' https://songflip.link; font-src 'self'; img-src 'self' data: https:; connect-src 'self' https://telemetry.goork.de; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;"
   );
 }
 
@@ -418,12 +423,166 @@ async function resolveYouTubeDirectPlayLive(query: string, isAlbum = false): Pro
   }
 }
 
+function isSearchUrl(url: string): boolean {
+  const clean = url.toLowerCase();
+  return clean.includes("spotify.com/search") ||
+    (clean.includes("music.apple.com") && clean.includes("/search")) ||
+    clean.includes("music.youtube.com/search") ||
+    clean.includes("youtube.com/results") ||
+    (clean.includes("deezer.com") && clean.includes("/search")) ||
+    (clean.includes("tidal.com") && clean.includes("/search")) ||
+    (clean.includes("music.amazon.") && clean.includes("/search"));
+}
+
+function extractSearchQuery(url: string): string | null {
+  const clean = url.trim();
+  const lower = clean.toLowerCase();
+  let rawQuery: string | null = null;
+
+  if (lower.includes("spotify.com") && lower.includes("/search")) {
+    const after = clean.split("/search/")[1] || clean.split("/search?")[1] || "";
+    if (after.startsWith("q=")) {
+      rawQuery = after.substring(2).split("&")[0].split("?")[0];
+    } else {
+      rawQuery = after.split("?")[0].split("&")[0];
+    }
+  } else if (lower.includes("apple.com") && lower.includes("/search")) {
+    if (clean.includes("term=")) {
+      rawQuery = clean.split("term=")[1].split("&")[0];
+    } else if (clean.includes("q=")) {
+      rawQuery = clean.split("q=")[1].split("&")[0];
+    } else {
+      rawQuery = clean.split("/search/")[1]?.split("?")[0]?.split("&")[0] || null;
+    }
+  } else if (lower.includes("music.youtube.com/search")) {
+    rawQuery = clean.split("q=")[1]?.split("&")[0] || null;
+  } else if (lower.includes("youtube.com/results")) {
+    rawQuery = clean.split("search_query=")[1]?.split("&")[0] || null;
+  } else if (lower.includes("deezer.com") && lower.includes("/search")) {
+    const after = clean.split("/search/")[1] || clean.split("/search?")[1] || "";
+    if (after.startsWith("q=")) {
+      rawQuery = after.substring(2).split("&")[0];
+    } else {
+      rawQuery = after.split("?")[0].split("&")[0];
+    }
+  } else if (lower.includes("tidal.com") && lower.includes("/search")) {
+    if (clean.includes("q=")) {
+      rawQuery = clean.split("q=")[1].split("&")[0];
+    } else {
+      rawQuery = clean.split("/search/")[1]?.split("?")[0]?.split("&")[0] || null;
+    }
+  } else if (lower.includes("music.amazon.") && lower.includes("/search")) {
+    if (clean.includes("k=")) {
+      rawQuery = clean.split("k=")[1].split("&")[0];
+    } else if (clean.includes("keywords=")) {
+      rawQuery = clean.split("keywords=")[1].split("&")[0];
+    } else {
+      rawQuery = clean.split("/search/")[1]?.split("?")[0]?.split("&")[0] || null;
+    }
+  }
+
+  if (!rawQuery) return null;
+
+  try {
+    return decodeURIComponent(rawQuery.replace(/\+/g, " "));
+  } catch {
+    return rawQuery.replace(/\+/g, " ").replace(/%20/g, " ");
+  }
+}
+
+/**
+ * Resolves search metadata & cross-platform links for query/search URLs.
+ */
+async function resolveSearchLive(url: string, query: string): Promise<SongMetadata | null> {
+  try {
+    let title = query;
+    let artist = "";
+    let thumbnailUrl = "";
+    let deezerLink = "";
+    let appleMusicLink = "";
+
+    // 1. Try Deezer Search API for exact track/artist match & cover
+    try {
+      const deezerRes = await axios.get(`https://api.deezer.com/search?q=${encodeURIComponent(query)}&limit=1`, { timeout: 4000 });
+      const first = deezerRes.data?.data?.[0];
+      if (first) {
+        title = first.title || title;
+        artist = first.artist?.name || "";
+        thumbnailUrl = first.cover_xl || first.album?.cover_xl || "";
+        deezerLink = first.link || `https://www.deezer.com/track/${first.id}`;
+      }
+    } catch (_) {}
+
+    // 2. Try iTunes Search API
+    try {
+      const itunesRes = await axios.get("https://itunes.apple.com/search", {
+        params: { term: query, media: "music", entity: "song", limit: 1 },
+        timeout: 4000,
+      });
+      const first = itunesRes.data?.results?.[0];
+      if (first) {
+        if (!artist && first.artistName) artist = first.artistName;
+        if (title === query && first.trackName) title = first.trackName;
+        appleMusicLink = first.trackViewUrl || "";
+        if (!thumbnailUrl && first.artworkUrl100) {
+          thumbnailUrl = first.artworkUrl100.replace("100x100bb.jpg", "600x600bb.jpg");
+        }
+      }
+    } catch (_) {}
+
+    // 3. Try YouTube Direct Watch resolution
+    let youtubeMusicLink = "";
+    try {
+      const ytDirect = await resolveYouTubeDirectPlayLive(artist ? `${artist} ${title}` : query, false);
+      if (ytDirect) {
+        youtubeMusicLink = ytDirect;
+      }
+    } catch (_) {}
+
+    const qEnc = encodeURIComponent(artist ? `${artist} ${title}` : query);
+    const cleanLower = url.toLowerCase();
+
+    const linksMap: PlatformLinks = {
+      spotify: cleanLower.includes("spotify.com") ? url : `https://open.spotify.com/search/${qEnc}`,
+      appleMusic: appleMusicLink || (cleanLower.includes("apple.com") ? url : `https://music.apple.com/search?term=${qEnc}`),
+      youtubeMusic: youtubeMusicLink || (cleanLower.includes("music.youtube.com") ? url : `https://music.youtube.com/search?q=${qEnc}`),
+      deezer: deezerLink || (cleanLower.includes("deezer.com") ? url : `https://www.deezer.com/search/${qEnc}`),
+      tidal: cleanLower.includes("tidal.com") ? url : `https://listen.tidal.com/search?q=${qEnc}`,
+      amazonMusic: cleanLower.includes("amazon.") ? url : `https://music.amazon.com/search/${qEnc}`,
+    };
+
+    const now = Date.now();
+    const ninetyDaysMs = 90 * 24 * 60 * 60 * 1000;
+    const expiresAt = admin.firestore.Timestamp.fromMillis(now + ninetyDaysMs);
+
+    return {
+      title,
+      artist: artist || "Track",
+      thumbnailUrl: thumbnailUrl || "https://songflip.link/icon.png",
+      isAlbum: false,
+      links: linksMap,
+      updatedAt: now,
+      expiresAt,
+    };
+  } catch (err: any) {
+    console.error("Search resolution failed:", url, err?.message);
+    return null;
+  }
+}
+
 /**
  * Resolves song metadata & cross-platform links via direct SongLink engine.
  */
 async function resolveSongLive(url: string): Promise<SongMetadata | null> {
   if (isArtistUrl(url)) {
     return resolveArtistLive(url);
+  }
+
+  if (isSearchUrl(url)) {
+    const searchQuery = extractSearchQuery(url);
+    if (searchQuery) {
+      return resolveSearchLive(url, searchQuery);
+    }
   }
 
   try {
@@ -1118,168 +1277,12 @@ export const renderWebShare = onRequest(
   <link rel="shortcut icon" href="https://songflip.link/images/favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="https://songflip.link/images/apple-touch-icon.png">
 
-  <style>
-    :root {
-      --bg: #0b0f17;
-      --card-bg: rgba(22, 27, 34, 0.85);
-      --card-border: rgba(255, 255, 255, 0.1);
-      --text-main: #f0f6fc;
-      --text-muted: #8b949e;
-      --accent: #10b981;
-      --accent-glow: rgba(16, 185, 129, 0.25);
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
-    body {
-      background-color: var(--bg);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 24px 16px;
-      position: relative;
-      overflow-x: hidden;
-    }
-    .ambient-bg {
-      position: fixed;
-      top: -30%;
-      left: -20%;
-      width: 140%;
-      height: 140%;
-      background: radial-gradient(circle at center, rgba(16, 185, 129, 0.12) 0%, rgba(139, 92, 246, 0.08) 40%, transparent 70%);
-      filter: blur(60px);
-      pointer-events: none;
-      z-index: 0;
-    }
-    .container {
-      position: relative;
-      z-index: 1;
-      max-width: 440px;
-      width: 100%;
-      background: var(--card-bg);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid var(--card-border);
-      border-radius: 28px;
-      padding: 36px 24px 28px 24px;
-      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-    .icon-wrapper {
-      width: 80px;
-      height: 80px;
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-      position: relative;
-    }
-    .icon-symbol {
-      font-size: 38px;
-      line-height: 1;
-    }
-    .badge-status {
-      display: inline-block;
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: #f87171;
-      padding: 3px 12px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      margin-bottom: 12px;
-    }
-    .title {
-      font-size: 22px;
-      font-weight: 800;
-      color: #ffffff;
-      margin-bottom: 10px;
-      line-height: 1.3;
-    }
-    .description {
-      font-size: 14px;
-      line-height: 1.6;
-      color: var(--text-muted);
-      margin-bottom: 28px;
-      max-width: 360px;
-    }
-    .btn-action {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      color: #ffffff;
-      text-decoration: none;
-      padding: 14px 20px;
-      border-radius: 14px;
-      font-weight: 700;
-      font-size: 15px;
-      box-shadow: 0 8px 20px var(--accent-glow);
-      transition: all 0.2s ease;
-      margin-bottom: 24px;
-    }
-    .btn-action:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 28px rgba(16, 185, 129, 0.35);
-    }
-    .btn-action:active {
-      transform: translateY(0);
-    }
-    .footer-app {
-      width: 100%;
-      padding-top: 18px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-    }
-    .brand-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      text-decoration: none;
-      color: #f0f6fc;
-      transition: opacity 0.2s ease;
-    }
-    .brand-link:hover {
-      opacity: 0.85;
-    }
-    .brand-icon {
-      width: 22px;
-      height: 22px;
-      border-radius: 6px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    }
-    .brand-text {
-      font-size: 14px;
-      color: #e2e8f0;
-    }
-    .brand-text strong {
-      color: #34d399;
-    }
-    .footer-subtext {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-  </style>
+  <link rel="stylesheet" href="https://songflip.link/share.css">
 </head>
 <body>
-  <div class="ambient-bg"></div>
+  <div class="ambient-bg-404"></div>
 
-  <main class="container">
+  <main class="container container-404">
     <div class="icon-wrapper">
       <span class="icon-symbol">🎵</span>
     </div>
@@ -1420,7 +1423,7 @@ export const renderWebShare = onRequest(
         .filter((p) => !!p.url)
         .map((p) => {
           return `
-          <a href="${escapeHtml(p.url)}" target="_blank" rel="noopener noreferrer" class="platform-btn" style="--btn-brand: ${p.color}; --btn-brand-hover: ${p.bgHover};">
+          <a href="${escapeHtml(p.url)}" target="_blank" rel="noopener noreferrer" class="platform-btn platform-${p.id}">
             <span class="platform-icon">${p.icon}</span>
             <span class="platform-name">${p.name}</span>
             <span class="platform-action">Play</span>
@@ -1466,207 +1469,10 @@ export const renderWebShare = onRequest(
   <link rel="shortcut icon" href="https://songflip.link/images/favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="https://songflip.link/images/apple-touch-icon.png">
   
-  <style>
-    :root {
-      --bg: #0b0f17;
-      --card-bg: rgba(22, 27, 34, 0.75);
-      --card-border: rgba(255, 255, 255, 0.1);
-      --text-main: #f0f6fc;
-      --text-muted: #8b949e;
-      --accent: #10b981;
-    }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
-    body {
-      background-color: var(--bg);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 24px 16px;
-      position: relative;
-      overflow-x: hidden;
-    }
-    /* Ambient Ambient Blurred Glow */
-    .ambient-bg {
-      position: fixed;
-      top: -20%;
-      left: -20%;
-      width: 140%;
-      height: 140%;
-      background-image: url('${coverUrl}');
-      background-size: cover;
-      background-position: center;
-      filter: blur(80px) brightness(0.25) saturate(1.4);
-      opacity: 0.8;
-      z-index: 0;
-      pointer-events: none;
-      transform: translateZ(0);
-    }
-    .container {
-      position: relative;
-      z-index: 1;
-      max-width: 440px;
-      width: 100%;
-      background: var(--card-bg);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid var(--card-border);
-      border-radius: 28px;
-      padding: 28px 20px;
-      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-    .cover-art-container {
-      width: 220px;
-      height: 220px;
-      margin-bottom: 20px;
-      position: relative;
-    }
-    .cover-art {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 20px;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
-    .type-badge {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: #cbd5e1;
-      margin-bottom: 8px;
-    }
-    .song-title {
-      font-size: 21px;
-      font-weight: 800;
-      color: #ffffff;
-      line-height: 1.3;
-      margin-bottom: 6px;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .artist-name {
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--text-muted);
-      margin-bottom: 24px;
-      display: -webkit-box;
-      -webkit-line-clamp: 1;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .platforms-list {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 24px;
-    }
-    .platform-btn {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      padding: 12px 18px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      text-decoration: none;
-      color: #ffffff;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .platform-btn:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.2);
-      transform: translateY(-1px);
-    }
-    .platform-btn:active {
-      transform: scale(0.98);
-    }
-    .platform-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--btn-brand);
-    }
-    .platform-name {
-      font-size: 15px;
-      font-weight: 600;
-      flex: 1;
-      text-align: left;
-      margin-left: 14px;
-    }
-    .platform-action {
-      font-size: 13px;
-      font-weight: 700;
-      background: var(--btn-brand);
-      color: #000000;
-      padding: 6px 14px;
-      border-radius: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .footer-app {
-      width: 100%;
-      padding-top: 18px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-    }
-    .brand-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      text-decoration: none;
-      color: #f0f6fc;
-      transition: opacity 0.2s ease;
-    }
-    .brand-link:hover {
-      opacity: 0.85;
-    }
-    .brand-icon {
-      width: 22px;
-      height: 22px;
-      border-radius: 6px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    }
-    .brand-text {
-      font-size: 14px;
-      color: #e2e8f0;
-    }
-    .brand-text strong {
-      color: #34d399;
-    }
-    .footer-subtext {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-  </style>
+  <link rel="stylesheet" href="https://songflip.link/share.css">
 </head>
 <body>
-  <div class="ambient-bg"></div>
+  <img src="${coverUrl}" alt="" class="ambient-bg-cover" aria-hidden="true" />
   
   <main class="container">
     <div class="cover-art-container">
