@@ -5,17 +5,26 @@ import io.ktor.http.encodeURLParameter
 
 object UrlUtils {
 
-    private val urlRegex = Regex("(https?://[^\\s<>'\"()]+)")
+    private val urlRegex = Regex("(https?://[^\\s<>'\"]+)")
 
     fun extractCleanUrl(rawInput: String): String? {
         val match = urlRegex.find(rawInput)
-        val extracted = match?.value ?: if (rawInput.startsWith("http://") || rawInput.startsWith("https://")) {
+        var extracted = match?.value ?: if (rawInput.startsWith("http://") || rawInput.startsWith("https://")) {
             rawInput.trim()
         } else {
             null
         }
 
-        return extracted?.trimEnd('.', ',', '!', '?', ';', ':', ')', '>', ']', '"', '\'', '»', '”', '“')
+        if (extracted != null) {
+            extracted = extracted.trimEnd('.', ',', '!', '?', ';', ':', '>', ']', '"', '\'', '»', '”', '“')
+            val openCount = extracted.count { it == '(' }
+            val closeCount = extracted.count { it == ')' }
+            if (closeCount > openCount && extracted.endsWith(")")) {
+                extracted = extracted.substring(0, extracted.length - (closeCount - openCount))
+            }
+        }
+
+        return extracted
     }
 
     fun isShortLinkDomain(url: String): Boolean {
@@ -45,6 +54,112 @@ object UrlUtils {
         if (url.contains("i=") || url.contains("trackAsin=") || url.contains("/track/") || url.contains("/song/")) return false
         return url.contains("/playlist/") || url.contains("/playlists/") || url.contains("link.deezer.com")
     }
+
+    fun isSearchUrl(url: String): Boolean {
+        val clean = url.lowercase()
+        return clean.contains("spotify.com/search/") ||
+                (clean.contains("spotify.com") && clean.contains("/search")) ||
+                clean.contains("music.apple.com") && clean.contains("/search") ||
+                clean.contains("music.youtube.com/search") ||
+                clean.contains("youtube.com/results") ||
+                clean.contains("deezer.com") && clean.contains("/search") ||
+                clean.contains("tidal.com") && clean.contains("/search") ||
+                clean.contains("music.amazon.") && clean.contains("/search")
+    }
+
+    fun extractSearchQuery(url: String): String? {
+        val clean = url.trim()
+        val lower = clean.lowercase()
+
+        val rawQuery: String? = when {
+            // Spotify: open.spotify.com/search/Farin%20Urlaub%20Kein%20Pardon or /intl-de/search/...
+            lower.contains("spotify.com") && lower.contains("/search") -> {
+                val afterSearch = clean.substringAfter("/search/").substringAfter("/search?")
+                if (afterSearch.startsWith("q=")) {
+                    afterSearch.substringAfter("q=").substringBefore("&").substringBefore("?")
+                } else {
+                    afterSearch.substringBefore("?").substringBefore("&")
+                }
+            }
+            // Apple Music: music.apple.com/de/search?term=Farin%20Urlaub
+            lower.contains("apple.com") && lower.contains("/search") -> {
+                if (clean.contains("term=")) {
+                    clean.substringAfter("term=").substringBefore("&")
+                } else if (clean.contains("q=")) {
+                    clean.substringAfter("q=").substringBefore("&")
+                } else {
+                    clean.substringAfter("/search/").substringBefore("?").substringBefore("&")
+                }
+            }
+            // YouTube Music: music.youtube.com/search?q=Farin+Urlaub
+            lower.contains("music.youtube.com/search") -> {
+                clean.substringAfter("q=").substringBefore("&")
+            }
+            // YouTube: youtube.com/results?search_query=Farin+Urlaub
+            lower.contains("youtube.com/results") -> {
+                clean.substringAfter("search_query=").substringBefore("&")
+            }
+            // Deezer: deezer.com/search/Farin%20Urlaub or deezer.com/de/search/Farin%20Urlaub
+            lower.contains("deezer.com") && lower.contains("/search") -> {
+                val afterSearch = clean.substringAfter("/search/").substringAfter("/search?")
+                if (afterSearch.startsWith("q=")) {
+                    afterSearch.substringAfter("q=").substringBefore("&")
+                } else {
+                    afterSearch.substringBefore("?").substringBefore("&")
+                }
+            }
+            // Tidal: tidal.com/search?q=Farin%20Urlaub or listen.tidal.com/search?q=...
+            lower.contains("tidal.com") && lower.contains("/search") -> {
+                if (clean.contains("q=")) {
+                    clean.substringAfter("q=").substringBefore("&")
+                } else {
+                    clean.substringAfter("/search/").substringBefore("?").substringBefore("&")
+                }
+            }
+            // Amazon Music: music.amazon.com/search/Farin%20Urlaub or ?k=...
+            lower.contains("music.amazon.") && lower.contains("/search") -> {
+                if (clean.contains("k=")) {
+                    clean.substringAfter("k=").substringBefore("&")
+                } else if (clean.contains("keywords=")) {
+                    clean.substringAfter("keywords=").substringBefore("&")
+                } else {
+                    clean.substringAfter("/search/").substringBefore("?").substringBefore("&")
+                }
+            }
+            else -> null
+        }
+
+        if (rawQuery.isNullOrBlank()) return null
+
+        return try {
+            rawQuery.decodeUrl()
+        } catch (_: Exception) {
+            rawQuery.replace("+", " ").replace("%20", " ")
+        }
+    }
+
+    private fun String.decodeUrl(): String {
+        return this.replace("+", " ")
+            .let { s ->
+                val result = StringBuilder()
+                var i = 0
+                while (i < s.length) {
+                    if (s[i] == '%' && i + 2 < s.length) {
+                        val hex = s.substring(i + 1, i + 3)
+                        val code = hex.toIntOrNull(16)
+                        if (code != null) {
+                            result.append(code.toChar())
+                            i += 3
+                            continue
+                        }
+                    }
+                    result.append(s[i])
+                    i++
+                }
+                result.toString()
+            }
+    }
+
 
     fun normalizeToSongLinkDirectUrl(url: String): String {
         val clean = if (url.contains("?")) url.substringBefore("?") else url

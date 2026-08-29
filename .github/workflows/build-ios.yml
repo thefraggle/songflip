@@ -1,0 +1,149 @@
+name: Build & Release iOS to TestFlight / App Store Connect
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-ios:
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17 (for KMP Shared Framework)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python Dependencies
+        run: pip install deep-translator
+
+      - name: Generate iOS App Store Metadata & Release Notes
+        run: |
+          python3 scripts/generate_ios_store_listings.py "${GITHUB_REF_NAME:-latest}"
+
+      - name: Grant Execute Permission for Gradlew
+        run: chmod +x gradlew
+
+      - name: Build KMP XCFramework for iOS
+        run: |
+          ./gradlew :shared:assembleSongFlipKitReleaseXCFramework
+
+      - name: Install Apple Certificate and Provisioning Profile
+        env:
+          BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD || 'temporary-ci-password-123' }}
+        run: |
+          if [ -n "$BUILD_CERTIFICATE_BASE64" ]; then
+            CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+            PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+            KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+            echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
+            echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
+
+            security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+            security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+            security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+            security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+            security list-keychain -d user -s $KEYCHAIN_PATH
+
+            mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+            cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles/
+          else
+            echo "Signing secrets not configured. Building unsigned / simulator archive."
+          fi
+
+      - name: Build and Archive iOS App (.xcarchive)
+        run: |
+          xcodebuild archive \
+            -project iosApp/SongFlip/SongFlip.xcodeproj \
+            -scheme SongFlip \
+            -configuration Release \
+            -archivePath $RUNNER_TEMP/SongFlip.xcarchive \
+            CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_IDENTITY="Apple Distribution" \
+            PROVISIONING_PROFILE_SPECIFIER="SongFlip AppStore" \
+            -allowProvisioningUpdates || \
+          xcodebuild archive \
+            -project iosApp/SongFlip/SongFlip.xcodeproj \
+            -scheme SongFlip \
+            -configuration Release \
+            -archivePath $RUNNER_TEMP/SongFlip.xcarchive \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Export IPA
+        run: |
+          mkdir -p dist
+          cat << 'EOF' > $RUNNER_TEMP/ExportOptions.plist
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key>
+            <string>app-store</string>
+            <key>destination</key>
+            <string>export</string>
+            <key>compileBitcode</key>
+            <false/>
+            <key>signingStyle</key>
+            <string>automatic</string>
+          </dict>
+          </plist>
+          EOF
+
+          VERSION="${GITHUB_REF_NAME:-release}"
+          if xcodebuild -exportArchive \
+              -archivePath $RUNNER_TEMP/SongFlip.xcarchive \
+              -exportOptionsPlist $RUNNER_TEMP/ExportOptions.plist \
+              -exportPath dist; then
+            mv dist/SongFlip.ipa "dist/songflip-${VERSION}.ipa" || true
+          fi
+
+      - name: Upload Build Artifacts (IPA & Metadata)
+        uses: actions/upload-artifact@v4
+        with:
+          name: songflip-ios-bundle
+          path: |
+            dist/*.ipa
+            fastlane/metadata/**
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload to App Store Connect / TestFlight via xcrun altool
+        if: startsWith(github.ref, 'refs/tags/v') && env.ASC_KEY_ID != ''
+        env:
+          ASC_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          ASC_API_KEY_P8: ${{ secrets.APP_STORE_CONNECT_API_KEY_P8 }}
+        run: |
+          mkdir -p ~/.appstoreconnect/private_keys
+          echo "$ASC_API_KEY_P8" > ~/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8
+
+          IPA_FILE=$(ls dist/*.ipa | head -n 1)
+          if [ -f "$IPA_FILE" ]; then
+            echo "Uploading $IPA_FILE to TestFlight..."
+            xcrun altool --upload-app \
+              -f "$IPA_FILE" \
+              -t ios \
+              --apiKey "$ASC_KEY_ID" \
+              --apiIssuer "$ASC_ISSUER_ID"
+            echo "✓ Successfully uploaded to App Store Connect TestFlight!"
+          fi
