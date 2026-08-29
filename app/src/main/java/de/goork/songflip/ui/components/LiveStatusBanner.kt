@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Error
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.PauseCircle
 import androidx.compose.material.icons.outlined.PlayCircle
 import androidx.compose.material3.*
@@ -29,8 +31,10 @@ import de.goork.songflip.ui.theme.*
 fun LiveStatusBanner(
     isCurrentlyPaused: Boolean,
     pausedUntilTimestamp: Long,
+    isSetupRequired: Boolean = false,
     onResumeClick: () -> Unit,
     onPauseClick: () -> Unit,
+    onSetupClick: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -39,11 +43,12 @@ fun LiveStatusBanner(
 
     val activeColor = if (isDarkTheme) StateActiveGreen else StateActiveGreenLight
     val pausedColor = if (isDarkTheme) StatePausedAmber else StatePausedAmberLight
+    val errorColor = if (isDarkTheme) StateErrorRed else StateErrorRedLight
 
-    val (bannerBgColor, bannerBorderColor) = if (isCurrentlyPaused) {
-        pausedColor.copy(alpha = 0.12f) to pausedColor.copy(alpha = 0.4f)
-    } else {
-        activeColor.copy(alpha = 0.12f) to activeColor.copy(alpha = 0.4f)
+    val (bannerBgColor, bannerBorderColor) = when {
+        isCurrentlyPaused -> pausedColor.copy(alpha = 0.12f) to pausedColor.copy(alpha = 0.4f)
+        isSetupRequired -> errorColor.copy(alpha = 0.12f) to errorColor.copy(alpha = 0.4f)
+        else -> activeColor.copy(alpha = 0.12f) to activeColor.copy(alpha = 0.4f)
     }
 
     Card(
@@ -64,86 +69,130 @@ fun LiveStatusBanner(
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier.weight(1f)
             ) {
-                if (isCurrentlyPaused) {
-                    Icon(
-                        imageVector = Icons.Outlined.PauseCircle,
-                        contentDescription = null,
-                        tint = pausedColor,
-                        modifier = Modifier.size(24.dp)
-                    )
-                    Column {
-                        Text(
-                            text = stringResource(R.string.status_paused),
-                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
-                            color = pausedColor
+                when {
+                    isCurrentlyPaused -> {
+                        Icon(
+                            imageVector = Icons.Outlined.PauseCircle,
+                            contentDescription = null,
+                            tint = pausedColor,
+                            modifier = Modifier.size(24.dp)
                         )
-                        if (pausedUntilTimestamp > 0L) {
-                            val timeStr = android.text.format.DateFormat.getTimeFormat(context).format(java.util.Date(pausedUntilTimestamp))
+                        Column {
                             Text(
-                                text = stringResource(R.string.status_paused_until, timeStr),
-                                style = MaterialTheme.typography.labelSmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                text = stringResource(R.string.status_paused),
+                                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
+                                color = pausedColor
                             )
+                            if (pausedUntilTimestamp > 0L) {
+                                val timeStr = android.text.format.DateFormat.getTimeFormat(context).format(java.util.Date(pausedUntilTimestamp))
+                                Text(
+                                    text = stringResource(R.string.status_paused_until, timeStr),
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
                         }
                     }
-                } else {
-                    val infiniteTransition = rememberInfiniteTransition(label = "pulse")
-                    val pulseAlpha by infiniteTransition.animateFloat(
-                        initialValue = 0.4f,
-                        targetValue = 1.0f,
-                        animationSpec = infiniteRepeatable(
-                            animation = tween(1000, easing = LinearEasing),
-                            repeatMode = RepeatMode.Reverse
-                        ),
-                        label = "pulseAlpha"
-                    )
-                    Box(
-                        modifier = Modifier
-                            .size(12.dp)
-                            .clip(CircleShape)
-                            .background(activeColor.copy(alpha = pulseAlpha))
-                    )
-                    Text(
-                        text = stringResource(R.string.status_active),
-                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
-                        color = activeColor
-                    )
+                    isSetupRequired -> {
+                        Icon(
+                            imageVector = Icons.Default.Error,
+                            contentDescription = null,
+                            tint = errorColor,
+                            modifier = Modifier.size(24.dp)
+                        )
+                        Text(
+                            text = stringResource(R.string.status_setup_required),
+                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
+                            color = errorColor
+                        )
+                    }
+                    else -> {
+                        val infiniteTransition = rememberInfiniteTransition(label = "pulse")
+                        val pulseAlpha by infiniteTransition.animateFloat(
+                            initialValue = 0.4f,
+                            targetValue = 1.0f,
+                            animationSpec = infiniteRepeatable(
+                                animation = tween(1000, easing = LinearEasing),
+                                repeatMode = RepeatMode.Reverse
+                            ),
+                            label = "pulseAlpha"
+                        )
+                        Box(
+                            modifier = Modifier
+                                .size(12.dp)
+                                .clip(CircleShape)
+                                .background(activeColor.copy(alpha = pulseAlpha))
+                        )
+                        Text(
+                            text = stringResource(R.string.status_active),
+                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
+                            color = activeColor
+                        )
+                    }
                 }
             }
 
-            if (isCurrentlyPaused) {
-                FilledTonalButton(
-                    onClick = {
-                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                        onResumeClick()
-                    },
-                    shape = RoundedCornerShape(10.dp),
-                    contentPadding = PaddingValues(horizontal = 14.dp, vertical = 8.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.PlayCircle,
-                        contentDescription = null,
-                        modifier = Modifier.size(16.dp)
-                    )
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Text(stringResource(R.string.btn_resume), style = MaterialTheme.typography.labelMedium)
+            when {
+                isCurrentlyPaused -> {
+                    FilledTonalButton(
+                        onClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                            onResumeClick()
+                        },
+                        shape = RoundedCornerShape(10.dp),
+                        contentPadding = PaddingValues(horizontal = 14.dp, vertical = 8.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.PlayCircle,
+                            contentDescription = null,
+                            modifier = Modifier.size(16.dp)
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(stringResource(R.string.btn_resume), style = MaterialTheme.typography.labelMedium)
+                    }
                 }
-            } else {
-                OutlinedButton(
-                    onClick = {
-                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                        onPauseClick()
-                    },
-                    shape = RoundedCornerShape(10.dp),
-                    contentPadding = PaddingValues(horizontal = 14.dp, vertical = 8.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.PauseCircle,
-                        contentDescription = null,
-                        modifier = Modifier.size(16.dp)
-                    )
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Text(stringResource(R.string.btn_pause), style = MaterialTheme.typography.labelMedium)
+                isSetupRequired -> {
+                    Button(
+                        onClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                            onSetupClick()
+                        },
+                        shape = RoundedCornerShape(10.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = errorColor,
+                            contentColor = MaterialTheme.colorScheme.surface
+                        ),
+                        contentPadding = PaddingValues(horizontal = 14.dp, vertical = 8.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Settings,
+                            contentDescription = null,
+                            modifier = Modifier.size(16.dp)
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            stringResource(R.string.btn_setup),
+                            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold)
+                        )
+                    }
+                }
+                else -> {
+                    OutlinedButton(
+                        onClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                            onPauseClick()
+                        },
+                        shape = RoundedCornerShape(10.dp),
+                        contentPadding = PaddingValues(horizontal = 14.dp, vertical = 8.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.PauseCircle,
+                            contentDescription = null,
+                            modifier = Modifier.size(16.dp)
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(stringResource(R.string.btn_pause), style = MaterialTheme.typography.labelMedium)
+                    }
                 }
             }
         }

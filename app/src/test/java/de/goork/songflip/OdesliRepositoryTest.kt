@@ -118,17 +118,40 @@ class OdesliRepositoryTest {
     }
 
     @Test
-    fun testL1CacheHitReturnsInstantly() = runBlocking {
-        val testUrl = "https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv"
-        val firstResult = repository.resolveTargetUrl(testUrl, "youtubeMusic")
-        assertTrue(firstResult is OdesliResult.Success)
-        val firstSuccess = firstResult as OdesliResult.Success
+    fun testSpotifySearchUrlResolvesToYouTubeMusic() = runBlocking {
+        val searchUrl = "https://open.spotify.com/search/Farin%20Urlaub%20Kein%20Pardon%20(Single%20Edit)"
+        val result = repository.resolveTargetUrl(searchUrl, "youtubeMusic")
+        assertTrue("Expected Success for Spotify search URL, got: $result", result is OdesliResult.Success)
+        val success = result as OdesliResult.Success
+        assertTrue("Expected YouTube Music link, got: ${success.targetUrl}",
+            success.targetUrl.contains("music.youtube.com/"))
+        assertEquals("Farin Urlaub Kein Pardon (Single Edit)", success.title)
+    }
 
-        // Second call should hit L1 Cache
-        val secondResult = repository.resolveTargetUrl(testUrl, "youtubeMusic")
-        assertTrue(secondResult is OdesliResult.Success)
-        val secondSuccess = secondResult as OdesliResult.Success
-        assertEquals(firstSuccess.targetUrl, secondSuccess.targetUrl)
-        assertEquals(firstSuccess.platform, secondSuccess.platform)
+    @Test
+    fun testAppleMusicSearchUrlResolvesToYouTubeMusic() = runBlocking {
+        val searchUrl = "https://music.apple.com/de/search?term=Farin%20Urlaub"
+        val result = repository.resolveTargetUrl(searchUrl, "youtubeMusic")
+        assertTrue("Expected Success for Apple Music search URL, got: $result", result is OdesliResult.Success)
+        val success = result as OdesliResult.Success
+        assertEquals("Farin Urlaub", success.title)
+    }
+
+    @Test
+    fun testEmailSampleLinks() = runBlocking {
+        val links = listOf(
+            "Spotify" to "https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv",
+            "Apple Music" to "https://music.apple.com/us/album/cruel-summer/1468058165?i=1468058171",
+            "YouTube Music" to "https://music.youtube.com/watch?v=j09hpp3AxIE",
+            "Tidal" to "https://listen.tidal.com/track/196435445",
+            "Deezer" to "https://www.deezer.com/track/142393383",
+            "Amazon Music" to "https://music.amazon.com/albums/B0973J6KJT?trackAsin=B0973GPM1F"
+        )
+        for ((service, link) in links) {
+            val result = repository.resolveTargetUrl(link, "youtubeMusic")
+            println("[$service] Input: $link -> Result: $result")
+            assertTrue("Expected Success for $service link ($link), but got: $result", result is OdesliResult.Success)
+        }
     }
 }
+

@@ -85,6 +85,24 @@ class SongLinkEngine(
                 return cached
             }
 
+            // 4.5. Search URL Resolution (Spotify, Apple Music, YouTube, Deezer, Tidal search links)
+            val searchQuery = UrlUtils.extractSearchQuery(canonicalUrl)
+            if (searchQuery != null) {
+                val directUrl = resolveDirectPlatformUrl(searchQuery, targetPlatformKey, isAlbum = false)
+                val finalTargetUrl = directUrl ?: UrlUtils.buildSearchUrl(searchQuery, targetPlatformKey)
+                val nativeUri = UrlUtils.toNativeAppUri(finalTargetUrl, targetPlatformKey)
+                val result = ResolutionResult.Success(
+                    targetUrl = finalTargetUrl,
+                    platform = if (directUrl != null) targetPlatformKey else "${targetPlatformKey}_search",
+                    title = searchQuery,
+                    artist = null,
+                    isAlbum = false,
+                    nativeAppUri = nativeUri
+                )
+                cache.put(canonicalUrl, targetPlatformKey, result, now)
+                return result
+            }
+
             // 5. Parallel Multi-Source Resolution
             val (songLinkData, trackInfo) = supervisorScope {
                 val songLinkDeferred = async { fetchSongLinkData(canonicalUrl) }

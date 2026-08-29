@@ -3,7 +3,10 @@ package de.goork.songflip.ui
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -292,10 +295,13 @@ fun MainScreen(
                 isPro = proState.isPro
             )
 
+            val isSetupRequired = !isCurrentlyPaused && (domainStatus?.let { it.enabledHosts == 0 } ?: (linksActive == false))
+
             // 2. Live Status & Quick Pause Card
             LiveStatusBanner(
                 isCurrentlyPaused = isCurrentlyPaused,
                 pausedUntilTimestamp = pausedUntilTimestamp,
+                isSetupRequired = isSetupRequired,
                 onResumeClick = {
                     PauseHelper.resume(context)
                     isCurrentlyPaused = false
@@ -303,6 +309,32 @@ fun MainScreen(
                 },
                 onPauseClick = {
                     showPauseBottomSheet = true
+                },
+                onSetupClick = {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        try {
+                            context.startActivity(
+                                Intent(
+                                    Settings.ACTION_APP_OPEN_BY_DEFAULT_SETTINGS,
+                                    Uri.parse("package:${context.packageName}")
+                                )
+                            )
+                        } catch (e: Exception) {
+                            context.startActivity(
+                                Intent(
+                                    Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                                    Uri.parse("package:${context.packageName}")
+                                )
+                            )
+                        }
+                    } else {
+                        context.startActivity(
+                            Intent(
+                                Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                                Uri.parse("package:${context.packageName}")
+                            )
+                        )
+                    }
                 }
             )
 
