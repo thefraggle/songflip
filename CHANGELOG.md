@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.5] - 2026-08-29
+- **Live Status Indicator**: The top status banner now dynamically reflects link configuration states alongside pause controls.
+- **One-Tap System Setup**: Added an immediate configuration action directly in the status banner when setup is required.
+- **Search Link Resolution**: Improved resolution and direct catalog playback for shared music search queries.
+- **Performance & Reliability**: Enhanced link matching and faster fallback handling across all supported streaming services.
+
 ## [1.2.4] - 2026-08-25
 - **Universal Album Sharing (PRO)**: Full support for sharing full music albums with high-resolution artwork and direct player buttons.
 - **Instant Cloud Sync**: Shared songs and albums automatically sync to the high-speed global cache upon sharing.

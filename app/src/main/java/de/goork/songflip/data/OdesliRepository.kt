@@ -33,7 +33,7 @@ class OdesliRepository {
         .followSslRedirects(true)
         .build()
 
-    private val urlPattern = Pattern.compile("(https?://[^\\s<>'\"()]+)")
+    private val urlPattern = Pattern.compile("(https?://[^\\s<>'\"]+)")
     private val ytVideoIdJsonPattern = Pattern.compile("\"videoId\":\"([a-zA-Z0-9_-]{11})\"")
     private val ytWatchPattern = Pattern.compile("/watch\\?v=([a-zA-Z0-9_-]{11})")
     private val ytAlbumPlaylistPattern = Pattern.compile("\"playlistId\":\"(OLAK5uy_[a-zA-Z0-9_-]+)\"")
@@ -84,6 +84,30 @@ class OdesliRepository {
                     artist = cached.artist,
                     isAlbum = cached.isAlbum
                 )
+            }
+
+            // 4.2. Search URL Resolution (Spotify, Apple Music, YouTube, Deezer, Tidal, Amazon)
+            val searchQuery = extractSearchQuery(canonicalUrl)
+            if (searchQuery != null) {
+                val directUrl = resolveDirectPlatformUrl(searchQuery, targetPlatformKey, isAlbum = false)
+                val finalTargetUrl = directUrl ?: buildSearchUrl(searchQuery, targetPlatformKey)
+                val result = OdesliResult.Success(
+                    targetUrl = finalTargetUrl,
+                    platform = if (directUrl != null) targetPlatformKey else "${targetPlatformKey}_search",
+                    title = searchQuery,
+                    artist = null,
+                    isAlbum = false
+                )
+                LinkCacheManager.put(
+                    canonicalUrl = canonicalUrl,
+                    targetPlatformKey = targetPlatformKey,
+                    targetUrl = result.targetUrl,
+                    platform = result.platform,
+                    title = result.title,
+                    artist = null,
+                    isAlbum = false
+                )
+                return@withContext result
             }
 
             // 4.5. L2 Server Cache (PRO Feature - < 30ms)
@@ -301,6 +325,19 @@ class OdesliRepository {
             val cleanUrl = extractCleanUrl(inputUrl) ?: inputUrl
             val isExplicitAlbumUrl = isAlbumUrl(cleanUrl)
 
+            val searchQuery = extractSearchQuery(cleanUrl)
+            if (searchQuery != null) {
+                val resolved = resolveDirectPlatformUrl(searchQuery, targetPlatformKey, isAlbum = false)
+                    ?: buildSearchUrl(searchQuery, targetPlatformKey)
+                return@withContext OdesliResult.Success(
+                    targetUrl = resolved,
+                    platform = "${targetPlatformKey}_search_fallback",
+                    title = searchQuery,
+                    artist = null,
+                    isAlbum = false
+                )
+            }
+
             val trackInfo = extractTrackInfo(cleanUrl)
             if (trackInfo != null) {
                 val resolved = resolveDirectPlatformUrl(trackInfo, targetPlatformKey, isExplicitAlbumUrl)
@@ -362,6 +399,90 @@ class OdesliRepository {
         if (url.contains("i=") || url.contains("trackAsin=") || url.contains("/track/") || url.contains("/song/")) return false
         return url.contains("/playlist/") || url.contains("/playlists/") || url.contains("link.deezer.com")
     }
+
+    fun isSearchUrl(url: String): Boolean {
+        val clean = url.lowercase()
+        return clean.contains("spotify.com/search/") ||
+                (clean.contains("spotify.com") && clean.contains("/search")) ||
+                clean.contains("music.apple.com") && clean.contains("/search") ||
+                clean.contains("music.youtube.com/search") ||
+                clean.contains("youtube.com/results") ||
+                clean.contains("deezer.com") && clean.contains("/search") ||
+                clean.contains("tidal.com") && clean.contains("/search") ||
+                clean.contains("music.amazon.") && clean.contains("/search")
+    }
+
+    fun extractSearchQuery(url: String): String? {
+        val clean = url.trim()
+        val lower = clean.lowercase()
+
+        val rawQuery: String? = when {
+            // Spotify: open.spotify.com/search/Farin%20Urlaub%20Kein%20Pardon or /intl-de/search/...
+            lower.contains("spotify.com") && lower.contains("/search") -> {
+                val afterSearch = clean.substringAfter("/search/").substringAfter("/search?")
+                if (afterSearch.startsWith("q=")) {
+                    afterSearch.substringAfter("q=").substringBefore("&").substringBefore("?")
+                } else {
+                    afterSearch.substringBefore("?").substringBefore("&")
+                }
+            }
+            // Apple Music: music.apple.com/de/search?term=Farin%20Urlaub
+            lower.contains("apple.com") && lower.contains("/search") -> {
+                if (clean.contains("term=")) {
+                    clean.substringAfter("term=").substringBefore("&")
+                } else if (clean.contains("q=")) {
+                    clean.substringAfter("q=").substringBefore("&")
+                } else {
+                    clean.substringAfter("/search/").substringBefore("?").substringBefore("&")
+                }
+            }
+            // YouTube Music: music.youtube.com/search?q=Farin+Urlaub
+            lower.contains("music.youtube.com/search") -> {
+                clean.substringAfter("q=").substringBefore("&")
+            }
+            // YouTube: youtube.com/results?search_query=Farin+Urlaub
+            lower.contains("youtube.com/results") -> {
+                clean.substringAfter("search_query=").substringBefore("&")
+            }
+            // Deezer: deezer.com/search/Farin%20Urlaub or deezer.com/de/search/Farin%20Urlaub
+            lower.contains("deezer.com") && lower.contains("/search") -> {
+                val afterSearch = clean.substringAfter("/search/").substringAfter("/search?")
+                if (afterSearch.startsWith("q=")) {
+                    afterSearch.substringAfter("q=").substringBefore("&")
+                } else {
+                    afterSearch.substringBefore("?").substringBefore("&")
+                }
+            }
+            // Tidal: tidal.com/search?q=Farin%20Urlaub or listen.tidal.com/search?q=...
+            lower.contains("tidal.com") && lower.contains("/search") -> {
+                if (clean.contains("q=")) {
+                    clean.substringAfter("q=").substringBefore("&")
+                } else {
+                    clean.substringAfter("/search/").substringBefore("?").substringBefore("&")
+                }
+            }
+            // Amazon Music: music.amazon.com/search/Farin%20Urlaub or ?k=...
+            lower.contains("music.amazon.") && lower.contains("/search") -> {
+                if (clean.contains("k=")) {
+                    clean.substringAfter("k=").substringBefore("&")
+                } else if (clean.contains("keywords=")) {
+                    clean.substringAfter("keywords=").substringBefore("&")
+                } else {
+                    clean.substringAfter("/search/").substringBefore("?").substringBefore("&")
+                }
+            }
+            else -> null
+        }
+
+        if (rawQuery.isNullOrBlank()) return null
+
+        return try {
+            java.net.URLDecoder.decode(rawQuery, "UTF-8")
+        } catch (_: Exception) {
+            rawQuery.replace("+", " ").replace("%20", " ")
+        }
+    }
+
 
     /**
      * Normalizes streaming URLs into direct 0-redirect Songlink/Albumlink URLs
@@ -1126,7 +1247,7 @@ class OdesliRepository {
 
     fun extractCleanUrl(rawInput: String): String? {
         val matcher = urlPattern.matcher(rawInput)
-        val extracted = if (matcher.find()) {
+        var extracted = if (matcher.find()) {
             matcher.group(1)
         } else if (rawInput.startsWith("http://") || rawInput.startsWith("https://")) {
             rawInput.trim()
@@ -1134,7 +1255,16 @@ class OdesliRepository {
             null
         }
 
-        return extracted?.trimEnd('.', ',', '!', '?', ';', ':', ')', '>', ']', '"', '\'', '»', '”', '“')
+        if (extracted != null) {
+            extracted = extracted.trimEnd('.', ',', '!', '?', ';', ':', '>', ']', '"', '\'', '»', '”', '“')
+            val openCount = extracted.count { it == '(' }
+            val closeCount = extracted.count { it == ')' }
+            if (closeCount > openCount && extracted.endsWith(")")) {
+                extracted = extracted.substring(0, extracted.length - (closeCount - openCount))
+            }
+        }
+
+        return extracted
     }
 
     private fun isShortLinkDomain(url: String): Boolean {
