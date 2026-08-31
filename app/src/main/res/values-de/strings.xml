@@ -17,6 +17,8 @@
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="select_language_title">Sprache wählen</string>
+    <string name="settings_rate_app">SongFlip bewerten</string>
+    <string name="settings_rate_app_subtitle">Gib uns Feedback im Google Play Store</string>
 
     <string name="setup_title">So geht’s</string>
     <string name="step1">Tippe auf den Button "Einstellungen öffnen" unten</string>

@@ -8,12 +8,16 @@
     <string name="status_all_active">সমস্ত %1$dটি মিউজিক ডোমেন সক্রিয় এবং যাচাইকৃত</string>
     <string name="status_partial_active">%2$dটির মধ্যে %1$dটি মিউজিক ডোমেন সক্রিয় (নতুন লিঙ্ক উপলব্ধ!)</string>
     <string name="status_inactive">সিস্টেম সেটিংসে লিঙ্কগুলি এখনও সক্রিয় করা হয়নি</string>
+    <string name="status_setup_required">সেটআপ প্রয়োজন</string>
+    <string name="btn_setup">সেটআপ করুন</string>
     <string name="status_missing_hint">এখনও সক্রিয় নয়: %1$s</string>
     <string name="status_hint">পুরানো অ্যান্ড্রয়েড সংস্করণে স্ট্যাটাস চেক করা যাবে না।</string>
     <string name="language_label">ভাষা</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="select_language_title">ভাষা নির্বাচন করুন</string>
+    <string name="settings_rate_app">SongFlip রেট করুন</string>
+    <string name="settings_rate_app_subtitle">Google Play-তে আপনার মতামত দিন</string>
     <string name="setup_title">এটি কীভাবে কাজ করে</string>
     <string name="step1">সিস্টেম সেটিংস খুলতে নিচের বোতামে ট্যাপ করুন</string>
     <string name="step2">মিউজিক ডোমেনের জন্য "সমর্থিত লিঙ্ক খুলুন" সক্রিয় করুন</string>

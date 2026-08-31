@@ -8,12 +8,16 @@
     <string name="status_all_active">Todos os %1$d domínios de música estão ativos e verificados</string>
     <string name="status_partial_active">%1$d de %2$d domínios de música ativos (Novos links disponíveis!)</string>
     <string name="status_inactive">Os links ainda não estão ativos nas definições do sistema</string>
+    <string name="status_setup_required">Configuração necessária</string>
+    <string name="btn_setup">Configurar</string>
     <string name="status_missing_hint">Ainda não ativado: %1$s</string>
     <string name="status_hint">O estado não pode ser verificado em versões mais antigas do Android.</string>
     <string name="language_label">Idioma</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="select_language_title">Selecionar idioma</string>
+    <string name="settings_rate_app">Avaliar o SongFlip</string>
+    <string name="settings_rate_app_subtitle">Deixe sua opinião no Google Play</string>
     <string name="setup_title">Como funciona</string>
     <string name="step1">Toque no botão abaixo para abrir as definições do sistema</string>
     <string name="step2">Ative "Abrir links suportados" para os domínios de música</string>

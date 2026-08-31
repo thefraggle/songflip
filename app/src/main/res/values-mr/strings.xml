@@ -8,12 +8,16 @@
     <string name="status_all_active">सर्व %1$d संगीत डोमेन सक्रिय आणि सत्यापित आहेत</string>
     <string name="status_partial_active">%2$d पैकी %1$d संगीत डोमेन सक्रिय (नवीन लिंक्स उपलब्ध!)</string>
     <string name="status_inactive">सिस्टम सेटिंग्जमध्ये लिंक्स अद्याप सक्रिय नाहीत</string>
+    <string name="status_setup_required">सेटअप आवश्यक आहे</string>
+    <string name="btn_setup">सेटअप करा</string>
     <string name="status_missing_hint">अद्याप सक्षम नाही: %1$s</string>
     <string name="status_hint">जुन्या Android आवृत्त्यांवर स्थिती तपासता येत नाही.</string>
     <string name="language_label">भाषा</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="select_language_title">भाषा निवडा</string>
+    <string name="settings_rate_app">SongFlip ला रेट करा</string>
+    <string name="settings_rate_app_subtitle">Google Play वर तुमचा अभिप्राय द्या</string>
     <string name="setup_title">हे कसे कार्य करते</string>
     <string name="step1">सिस्टम सेटिंग्ज उघडण्यासाठी खालील बटणावर टॅप करा</string>
     <string name="step2">संगीत डोमेनसाठी "समर्थित लिंक्स उघडा" सक्षम करा</string>

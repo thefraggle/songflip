@@ -8,12 +8,16 @@
     <string name="status_all_active">Semua %1$d domain musik aktif &amp; terverifikasi</string>
     <string name="status_partial_active">%1$d dari %2$d domain musik aktif (Tautan baru tersedia!)</string>
     <string name="status_inactive">Tautan belum aktif di pengaturan sistem</string>
+    <string name="status_setup_required">Perlu Penyiapan</string>
+    <string name="btn_setup">Siapkan</string>
     <string name="status_missing_hint">Belum diaktifkan: %1$s</string>
     <string name="status_hint">Status tidak dapat diperiksa pada versi Android yang lebih lama.</string>
     <string name="language_label">Bahasa</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="select_language_title">Pilih Bahasa</string>
+    <string name="settings_rate_app">Beri Nilai SongFlip</string>
+    <string name="settings_rate_app_subtitle">Bagikan masukan Anda di Google Play</string>
     <string name="setup_title">Cara Kerja</string>
     <string name="step1">Ketuk tombol di bawah untuk membuka pengaturan sistem</string>
     <string name="step2">Aktifkan "Buka tautan yang didukung" untuk domain musik</string>
