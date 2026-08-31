@@ -8,12 +8,16 @@
     <string name="status_all_active">Tất cả %1$d tên miền âm nhạc đều hoạt động &amp; đã xác minh</string>
     <string name="status_partial_active">%1$d trên %2$d tên miền âm nhạc đang hoạt động (Có liên kết mới!)</string>
     <string name="status_inactive">Liên kết chưa được bật trong cài đặt hệ thống</string>
+    <string name="status_setup_required">Cần thiết lập</string>
+    <string name="btn_setup">Thiết lập</string>
     <string name="status_missing_hint">Chưa bật: %1$s</string>
     <string name="status_hint">Không thể kiểm tra trạng thái trên các phiên bản Android cũ hơn.</string>
     <string name="language_label">Ngôn ngữ</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="select_language_title">Chọn ngôn ngữ</string>
+    <string name="settings_rate_app">Đánh giá SongFlip</string>
+    <string name="settings_rate_app_subtitle">Chia sẻ phản hồi trên Google Play</string>
     <string name="setup_title">Cách thức hoạt động</string>
     <string name="step1">Nhấn nút bên dưới để mở cài đặt hệ thống</string>
     <string name="step2">Bật "Mở các liên kết được hỗ trợ" cho các tên miền âm nhạc</string>

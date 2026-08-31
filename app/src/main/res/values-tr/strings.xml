@@ -8,12 +8,16 @@
     <string name="status_all_active">Tüm %1$d müzik alanı etkin ve doğrulandı</string>
     <string name="status_partial_active">%1$d / %2$d müzik alanı aktif (Yeni bağlantılar mevcut!)</string>
     <string name="status_inactive">Bağlantılar henüz sistem ayarlarında etkinleştirilmedi</string>
+    <string name="status_setup_required">Kurulum gerekli</string>
+    <string name="btn_setup">Ayarla</string>
     <string name="status_missing_hint">Henüz etkinleştirilmedi: %1$s</string>
     <string name="status_hint">Eski Android sürümlerinde durum kontrol edilemiyor.</string>
     <string name="language_label">Dil</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="select_language_title">Dil Seçin</string>
+    <string name="settings_rate_app">SongFlip\'i Değerlendir</string>
+    <string name="settings_rate_app_subtitle">Google Play\'de geri bildirim bırakın</string>
     <string name="setup_title">Nasıl Çalışır?</string>
     <string name="step1">Sistem ayarlarını açmak için aşağıdaki butona dokunun</string>
     <string name="step2">Müzik alanları için "Desteklenen bağlantıları aç" seçeneğini etkinleştirin</string>

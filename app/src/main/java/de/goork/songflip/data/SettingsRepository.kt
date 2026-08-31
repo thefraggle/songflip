@@ -47,6 +47,38 @@ class SettingsRepository(context: Context) {
             prefs.edit().putString(KEY_CUSTOM_API_TOKEN, value).apply()
         }
 
+    var successfulFlipCount: Int
+        get() = prefs.getInt(KEY_SUCCESSFUL_FLIP_COUNT, 0)
+        set(value) {
+            prefs.edit().putInt(KEY_SUCCESSFUL_FLIP_COUNT, value).apply()
+        }
+
+    fun incrementSuccessfulFlips(): Int {
+        val next = successfulFlipCount + 1
+        successfulFlipCount = next
+        return next
+    }
+
+    var firstInstallTimestamp: Long
+        get() {
+            val ts = prefs.getLong(KEY_FIRST_INSTALL_TS, 0L)
+            if (ts == 0L) {
+                val now = System.currentTimeMillis()
+                prefs.edit().putLong(KEY_FIRST_INSTALL_TS, now).apply()
+                return now
+            }
+            return ts
+        }
+        set(value) {
+            prefs.edit().putLong(KEY_FIRST_INSTALL_TS, value).apply()
+        }
+
+    var lastReviewPromptTimestamp: Long
+        get() = prefs.getLong(KEY_LAST_REVIEW_PROMPT_TS, 0L)
+        set(value) {
+            prefs.edit().putLong(KEY_LAST_REVIEW_PROMPT_TS, value).apply()
+        }
+
     companion object {
         const val PREFS_NAME = "songflip_settings"
         private const val KEY_TARGET_PLATFORM = "target_platform"
@@ -54,6 +86,9 @@ class SettingsRepository(context: Context) {
         private const val KEY_THEME_MODE = "theme_mode"
         private const val KEY_CUSTOM_API_URL = "custom_api_url"
         private const val KEY_CUSTOM_API_TOKEN = "custom_api_token"
+        private const val KEY_SUCCESSFUL_FLIP_COUNT = "successful_flip_count"
+        private const val KEY_FIRST_INSTALL_TS = "first_install_timestamp"
+        private const val KEY_LAST_REVIEW_PROMPT_TS = "last_review_prompt_timestamp"
 
         const val DEFAULT_TARGET = "youtubeMusic"
         const val DEFAULT_LANGUAGE = "en"

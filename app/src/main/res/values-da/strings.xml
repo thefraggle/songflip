@@ -8,12 +8,16 @@
     <string name="status_all_active">Alle %1$d musikdomæner er aktive og bekræftede</string>
     <string name="status_partial_active">%1$d af %2$d musikdomæner er aktive (nye links tilgængelige!)</string>
     <string name="status_inactive">Links er endnu ikke aktive i systemindstillingerne</string>
+    <string name="status_setup_required">Opsætning påkrævet</string>
+    <string name="btn_setup">Konfigurer</string>
     <string name="status_missing_hint">Endnu ikke aktiveret: %1$s</string>
     <string name="status_hint">Status kan ikke kontrolleres på ældre Android-versioner.</string>
     <string name="language_label">Sprog</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="select_language_title">Vælg sprog</string>
+    <string name="settings_rate_app">Bedøm SongFlip</string>
+    <string name="settings_rate_app_subtitle">Giv din feedback i Google Play Butik</string>
     <string name="setup_title">Sådan fungerer det</string>
     <string name="step1">Tryk på knappen nedenfor for at åbne systemindstillingerne</string>
     <string name="step2">Aktivér "Åbn understøttede links" for musikdomæner</string>

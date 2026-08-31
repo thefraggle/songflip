@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.6] - 2026-08-31
+- **In-App Feedback & Rating**: Conveniently rate SongFlip and share feedback directly from settings.
+- **Complete Translations**: Fully localized all new setup actions and buttons across all 24 supported languages.
+- **Refined Share Pages**: Polished high-resolution artwork and player buttons on universal flip link pages.
+- **Smoother Experience**: Faster background redirections and improved stability.
+
 ## [1.2.5] - 2026-08-29
 - **Live Status Indicator**: The top status banner now dynamically reflects link configuration states alongside pause controls.
 - **One-Tap System Setup**: Added an immediate configuration action directly in the status banner when setup is required.
