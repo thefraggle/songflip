@@ -287,8 +287,23 @@ async function resolveArtistLive(url: string): Promise<SongMetadata | null> {
     let artistName = "";
     let thumbnailUrl = "";
 
+    // 0. Spotify Artist
+    if (clean.includes("spotify.com") && clean.includes("/artist/")) {
+      const match = url.match(/\/artist\/([a-zA-Z0-9]+)/);
+      if (match && match[1]) {
+        const spotifyId = match[1];
+        try {
+          const oembedRes = await axios.get(`https://open.spotify.com/oembed?url=https://open.spotify.com/artist/${spotifyId}`, { timeout: 4000 });
+          if (oembedRes.data && oembedRes.data.title) {
+            artistName = oembedRes.data.title;
+            thumbnailUrl = oembedRes.data.thumbnail_url || "";
+          }
+        } catch (_) {}
+      }
+    }
+
     // 1. Apple Music Artist
-    if (clean.includes("apple.com") && clean.includes("/artist/")) {
+    else if (clean.includes("apple.com") && clean.includes("/artist/")) {
       const match = clean.match(/\/artist\/([^/]+)\/(\d+)/);
       if (match && match[1]) {
         artistName = decodeURIComponent(match[1]).replace(/-/g, " ").trim();
