@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
-val appVersionName = "1.2.5"
+val appVersionName = "1.2.6"
 val versionParts = appVersionName.split(".")
 val computedVersionCode = (versionParts.getOrElse(0) { "1" }.toInt() * 10000) +
                           (versionParts.getOrElse(1) { "0" }.toInt() * 100) +
@@ -93,6 +93,9 @@ dependencies {
 
     // In-App Purchases & Billing (RevenueCat - Google Play Billing Library 8+)
     implementation("com.revenuecat.purchases:purchases:10.16.2")
+
+    // Google Play In-App Review API
+    implementation("com.google.android.play:review-ktx:2.0.2")
 
     // Testing
     testImplementation("junit:junit:4.13.2")

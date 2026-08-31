@@ -17,6 +17,8 @@
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="select_language_title">Select Language</string>
+    <string name="settings_rate_app">Rate SongFlip</string>
+    <string name="settings_rate_app_subtitle">Share your feedback on Google Play</string>
 
     <string name="setup_title">How it works</string>
     <string name="step1">Tap the button below to open system settings</string>

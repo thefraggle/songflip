@@ -8,12 +8,16 @@
     <string name="status_all_active">全 %1$d 件の音楽ドメインが有効化・確認済みです</string>
     <string name="status_partial_active">%1$d / %2$d 件のドメインが有効（新しいリンクがあります！）</string>
     <string name="status_inactive">システム設定でリンクがまだ有効化されていません</string>
+    <string name="status_setup_required">初期設定が必要です</string>
+    <string name="btn_setup">設定する</string>
     <string name="status_missing_hint">未設定: %1$s</string>
     <string name="status_hint">古いAndroidバージョンでは状態を確認できません。</string>
     <string name="language_label">言語</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="select_language_title">言語を選択</string>
+    <string name="settings_rate_app">SongFlipを評価</string>
+    <string name="settings_rate_app_subtitle">Google Playでフィードバックを共有</string>
     <string name="setup_title">使い方</string>
     <string name="step1">下のボタンをタップしてシステム設定を開きます</string>
     <string name="step2">音楽ドメインの「対応リンクを開く」を有効にします</string>

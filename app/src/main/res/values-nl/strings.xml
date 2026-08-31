@@ -8,12 +8,16 @@
     <string name="status_all_active">Alle %1$d muziekdomeinen zijn actief &amp; geverifieerd</string>
     <string name="status_partial_active">%1$d van %2$d muziekdomeinen actief (Nieuwe links beschikbaar!)</string>
     <string name="status_inactive">Links zijn nog niet actief in de systeeminstellingen</string>
+    <string name="status_setup_required">Configuratie vereist</string>
+    <string name="btn_setup">Instellen</string>
     <string name="status_missing_hint">Nog niet ingeschakeld: %1$s</string>
     <string name="status_hint">Status kan niet worden gecontroleerd op oudere Android-versies.</string>
     <string name="language_label">Taal</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="select_language_title">Selecteer taal</string>
+    <string name="settings_rate_app">Beoordeel SongFlip</string>
+    <string name="settings_rate_app_subtitle">Deel je feedback in Google Play</string>
     <string name="setup_title">Hoe het werkt</string>
     <string name="step1">Tik op de onderstaande knop om systeeminstellingen te openen</string>
     <string name="step2">Schakel "Ondersteunde links openen" in voor muziekdomeinen</string>

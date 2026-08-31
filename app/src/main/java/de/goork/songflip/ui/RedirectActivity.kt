@@ -150,6 +150,8 @@ class RedirectActivity : ComponentActivity() {
                             }
                         }
 
+                        settingsRepository.incrementSuccessfulFlips()
+
                         Toast.makeText(
                             applicationContext,
                             feedbackText,

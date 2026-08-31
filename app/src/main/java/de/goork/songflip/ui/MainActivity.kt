@@ -1,5 +1,6 @@
 package de.goork.songflip.ui
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -153,6 +154,9 @@ fun MainScreen(
                 linksActive = DomainVerificationUtils.checkLinksEnabled(context)
                 isCurrentlyPaused = PauseHelper.isCurrentlyPaused(context)
                 pausedUntilTimestamp = prefs.getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L)
+                (context as? Activity)?.let { act ->
+                    de.goork.songflip.data.ReviewHelper.maybeRequestReview(act, settingsRepository)
+                }
             }
         }
         val prefListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->

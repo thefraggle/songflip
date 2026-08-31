@@ -62,7 +62,7 @@ function applyWebShareSecurityHeaders(res: any) {
   res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self'; script-src 'self' https://telemetry.goork.de; style-src 'self' https://songflip.link; font-src 'self'; img-src 'self' data: https://songflip.link https://telemetry.goork.de https://i.scdn.co https://*.scdn.co https://*.mzstatic.com https://i.ytimg.com https://*.ytimg.com https://lh3.googleusercontent.com https://*.dzcdn.net https://resources.tidal.com https://*.tidal.com https://m.media-amazon.com https://*.media-amazon.com https://images-na.ssl-images-amazon.com; connect-src 'self' https://telemetry.goork.de; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; media-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;"
+    "default-src 'self'; script-src 'self' https://telemetry.goork.de; style-src 'self' https://songflip.link; font-src 'self'; img-src 'self' data: https://songflip.link https://telemetry.goork.de https://i.scdn.co https://*.scdn.co https://*.spotifycdn.com https://*.mzstatic.com https://i.ytimg.com https://*.ytimg.com https://lh3.googleusercontent.com https://*.dzcdn.net https://resources.tidal.com https://*.tidal.com https://m.media-amazon.com https://*.media-amazon.com https://images-na.ssl-images-amazon.com; connect-src 'self' https://telemetry.goork.de; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; media-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;"
   );
 }
 
@@ -1148,7 +1148,7 @@ const DEMO_PRESETS: Record<string, any> = {
   "7e4d2a1f": {
     title: "BIRDS OF A FEATHER",
     artist: "Billie Eilish",
-    thumbnailUrl: "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0271d62ea7ea8a5be92d3c1f62",
+    thumbnailUrl: "https://i.scdn.co/image/ab67616d0000b27371d62ea7ea8a5be92d3c1f62",
     isAlbum: false,
     links: {
       spotify: "https://open.spotify.com/track/6dOtVTDdiauQNBQEDOtlAB",

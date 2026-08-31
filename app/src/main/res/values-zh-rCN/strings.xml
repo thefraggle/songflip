@@ -8,12 +8,16 @@
     <string name="status_all_active">所有 %1$d 个音乐域名均已激活并验证</string>
     <string name="status_partial_active">%1$d / %2$d 个音乐域名已激活（有新链接可用！）</string>
     <string name="status_inactive">系统设置中尚未启用链接</string>
+    <string name="status_setup_required">需要配置</string>
+    <string name="btn_setup">立即配置</string>
     <string name="status_missing_hint">尚未启用：%1$s</string>
     <string name="status_hint">在旧版 Android 上无法检查状态。</string>
     <string name="language_label">语言</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="select_language_title">选择语言</string>
+    <string name="settings_rate_app">给 SongFlip 评分</string>
+    <string name="settings_rate_app_subtitle">在 Google Play 上分享你的使用体验</string>
     <string name="setup_title">运作方式</string>
     <string name="step1">点击下方按钮打开系统设置</string>
     <string name="step2">为音乐域名启用“打开支持的链接”</string>

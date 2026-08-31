@@ -8,12 +8,16 @@
     <string name="status_all_active">Усі %1$d музичних доменів активні та перевірені</string>
     <string name="status_partial_active">%1$d з %2$d музичних доменів активні (Доступні нові посилання!)</string>
     <string name="status_inactive">Посилання ще не активовано в системних налаштуваннях</string>
+    <string name="status_setup_required">Потрібне налаштування</string>
+    <string name="btn_setup">Налаштувати</string>
     <string name="status_missing_hint">Ще не активовано: %1$s</string>
     <string name="status_hint">Статус неможливо перевірити на старіших версіях Android.</string>
     <string name="language_label">Мова</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
     <string name="select_language_title">Оберіть мову</string>
+    <string name="settings_rate_app">Оцінити SongFlip</string>
+    <string name="settings_rate_app_subtitle">Залиште відгук у Google Play</string>
     <string name="setup_title">Як це працює</string>
     <string name="step1">Натисніть кнопку нижче, щоб відкрити системні налаштування</string>
     <string name="step2">Увімкніть «Відкривати підтримувані посилання» для музичних доменів</string>
