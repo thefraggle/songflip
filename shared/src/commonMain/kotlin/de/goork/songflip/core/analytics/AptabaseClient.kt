@@ -42,7 +42,7 @@ object AptabaseClient {
     val shared: AptabaseClient get() = this
 
     private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
-    private val client: HttpClient = createPlatformHttpClient()
+    private val client: HttpClient by lazy { createPlatformHttpClient() }
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
     private var appKey: String = ""
