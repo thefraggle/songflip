@@ -23,6 +23,13 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "redirects": [
+      {
+        "source": "/",
+        "destination": "https://songflip.link",
+        "type": 301
+      }
+    ],
     "rewrites": [
       {
         "source": "/resolve",
