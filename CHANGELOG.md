@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.7] - 2026-08-31
+- **Performance & Reliability**: Optimized background processing for faster and smoother song redirection.
+- **Stability Improvements**: General connectivity and stability enhancements.
+
 ## [1.2.6] - 2026-08-31
 - **In-App Feedback & Rating**: Conveniently rate SongFlip and share feedback directly from settings.
 - **Complete Translations**: Fully localized all new setup actions and buttons across all 24 supported languages.
