@@ -275,6 +275,7 @@ object ProManager {
                             .remove(KEY_COUPON_EXPIRATION)
                             .apply()
                         evaluateProState(revenueCatActive = false)
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemedSuccess(cleanCode)
                         return@withContext RedeemResult.SUCCESS_LIFETIME
                     } else {
                         val durationDays = when (type) {
@@ -289,6 +290,7 @@ object ProManager {
                             .putLong(KEY_COUPON_EXPIRATION, expireTime)
                             .apply()
                         evaluateProState(revenueCatActive = false)
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemedSuccess(cleanCode)
 
                         return@withContext when (type) {
                             "1year", "annual" -> RedeemResult.SUCCESS_1YEAR

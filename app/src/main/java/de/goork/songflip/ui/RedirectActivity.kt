@@ -122,6 +122,8 @@ class RedirectActivity : ComponentActivity() {
                         // Ensure L2 Server Cache is populated in Firestore
                         ProManager.warmupUniversalShare(incomingUrl)
 
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackSharePageGenerated(target = "universal")
+
                         // Copy to clipboard
                         val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                         val clip = ClipData.newPlainText("SongFlip Universal Link", universalUrl)
@@ -151,6 +153,12 @@ class RedirectActivity : ComponentActivity() {
                         }
 
                         settingsRepository.incrementSuccessfulFlips()
+
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipped(
+                            target = targetPlatform,
+                            isAlbum = result.isAlbum,
+                            isSearch = false
+                        )
 
                         Toast.makeText(
                             applicationContext,
