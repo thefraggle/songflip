@@ -1,6 +1,3 @@
-What's New in this Build:
-- Interactive setup guides for Shortcuts, Action Button, and Share Sheet
-- Full localization across all 22 languages
-- Improved search link resolution and direct playback
-- High-resolution artwork on universal flip link pages
-- Performance and stability enhancements
+- Optimized background processing for faster song conversions
+- Minor connectivity and performance enhancements
+- General stability improvements
