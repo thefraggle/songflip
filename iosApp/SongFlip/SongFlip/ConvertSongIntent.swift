@@ -44,6 +44,12 @@ struct ConvertSongIntent: AppIntent {
                 )
             }
 
+            AptabaseClient.shared.trackLinkFlipped(
+                target: targetPlatform,
+                isAlbum: success.isAlbum,
+                isSearch: false
+            )
+
             let targetString = success.nativeAppUri ?? success.targetUrl
             if let targetUrl = URL(string: targetString) {
                 await UIApplication.shared.open(targetUrl)
