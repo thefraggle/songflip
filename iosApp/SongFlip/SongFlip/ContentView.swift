@@ -10,6 +10,8 @@ struct ContentView: View {
     @State private var statusSuccess: Bool = false
     @State private var showingSettingsSheet = false
     @State private var showingHistorySheet = false
+    @State private var showingShortcutsGuide = false
+    @State private var showingShareGuide = false
 
     var lang: String { settings.selectedLanguage }
     var appVersion: String {
@@ -130,41 +132,69 @@ struct ContentView: View {
                                 .fontWeight(.bold)
                                 .foregroundColor(.secondary)
 
-                            HStack(alignment: .top, spacing: 12) {
-                                Image(systemName: "square.and.arrow.up.fill")
-                                    .font(.title3)
-                                    .foregroundColor(.blue)
-                                    .frame(width: 28)
+                            // 1. Share Sheet Action
+                            Button(action: {
+                                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                showingShareGuide = true
+                            }) {
+                                HStack(alignment: .center, spacing: 12) {
+                                    Image(systemName: "square.and.arrow.up.fill")
+                                        .font(.title3)
+                                        .foregroundColor(.blue)
+                                        .frame(width: 28)
 
-                                VStack(alignment: .leading, spacing: 3) {
-                                    Text(LocalizationManager.string(for: "step1_title", lang: lang))
-                                        .font(.subheadline)
-                                        .fontWeight(.semibold)
-                                        .foregroundColor(.primary)
-                                    Text(LocalizationManager.string(for: "step1_desc", lang: lang))
-                                        .font(.caption)
-                                        .foregroundColor(.secondary)
+                                    VStack(alignment: .leading, spacing: 3) {
+                                        Text(LocalizationManager.string(for: "step1_title", lang: lang))
+                                            .font(.subheadline)
+                                            .fontWeight(.semibold)
+                                            .foregroundColor(.primary)
+                                        Text(LocalizationManager.string(for: "step1_desc", lang: lang))
+                                            .font(.caption)
+                                            .foregroundColor(.secondary)
+                                            .multilineTextAlignment(.leading)
+                                    }
+
+                                    Spacer(minLength: 4)
+
+                                    Image(systemName: "info.circle")
+                                        .font(.system(size: 18))
+                                        .foregroundColor(.blue)
                                 }
                             }
+                            .buttonStyle(.plain)
 
                             Divider()
 
-                            HStack(alignment: .top, spacing: 12) {
-                                Image(systemName: "button.programmable")
-                                    .font(.title3)
-                                    .foregroundColor(.orange)
-                                    .frame(width: 28)
+                            // 2. Action Button & Shortcuts Action
+                            Button(action: {
+                                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                showingShortcutsGuide = true
+                            }) {
+                                HStack(alignment: .center, spacing: 12) {
+                                    Image(systemName: "button.programmable")
+                                        .font(.title3)
+                                        .foregroundColor(.orange)
+                                        .frame(width: 28)
 
-                                VStack(alignment: .leading, spacing: 3) {
-                                    Text(LocalizationManager.string(for: "step2_title", lang: lang))
-                                        .font(.subheadline)
-                                        .fontWeight(.semibold)
-                                        .foregroundColor(.primary)
-                                    Text(LocalizationManager.string(for: "step2_desc", lang: lang))
-                                        .font(.caption)
-                                        .foregroundColor(.secondary)
+                                    VStack(alignment: .leading, spacing: 3) {
+                                        Text(LocalizationManager.string(for: "step2_title", lang: lang))
+                                            .font(.subheadline)
+                                            .fontWeight(.semibold)
+                                            .foregroundColor(.primary)
+                                        Text(LocalizationManager.string(for: "step2_desc", lang: lang))
+                                            .font(.caption)
+                                            .foregroundColor(.secondary)
+                                            .multilineTextAlignment(.leading)
+                                    }
+
+                                    Spacer(minLength: 4)
+
+                                    Image(systemName: "info.circle")
+                                        .font(.system(size: 18))
+                                        .foregroundColor(.orange)
                                 }
                             }
+                            .buttonStyle(.plain)
 
                             Divider()
 
@@ -366,14 +396,20 @@ struct ContentView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: { showingHistorySheet = true }) {
+                    Button(action: {
+                        AptabaseClient.shared.trackHistoryOpened()
+                        showingHistorySheet = true
+                    }) {
                         Image(systemName: "clock.arrow.circlepath")
                             .foregroundColor(.primary)
                     }
                 }
 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: { showingSettingsSheet = true }) {
+                    Button(action: {
+                        AptabaseClient.shared.trackSettingsOpened()
+                        showingSettingsSheet = true
+                    }) {
                         Image(systemName: "gearshape.fill")
                             .foregroundColor(.primary)
                     }
@@ -389,11 +425,21 @@ struct ContentView: View {
                     .environmentObject(settings)
                     .preferredColorScheme(settings.colorScheme)
             }
+            .sheet(isPresented: $showingShortcutsGuide) {
+                ShortcutsGuideSheet(lang: lang)
+                    .preferredColorScheme(settings.colorScheme)
+            }
+            .sheet(isPresented: $showingShareGuide) {
+                ShareGuideSheet(lang: lang)
+                    .preferredColorScheme(settings.colorScheme)
+            }
             .onAppear {
+                AptabaseClient.shared.trackAppLaunched(platform: "iOS", language: lang)
                 history.loadHistory()
                 checkClipboard()
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                AptabaseClient.shared.trackAppLaunched(platform: "iOS", language: lang)
                 history.loadHistory()
                 checkClipboard()
             }
@@ -451,6 +497,12 @@ struct ContentView: View {
                         isAlbum: success.isAlbum
                     )
 
+                    AptabaseClient.shared.trackLinkFlipped(
+                        target: settings.targetPlatform,
+                        isAlbum: success.isAlbum,
+                        isSearch: false
+                    )
+
                     let target = success.nativeAppUri ?? success.targetUrl
                     if let url = URL(string: target) {
                         UIApplication.shared.open(url)
@@ -488,5 +540,232 @@ struct ContentView: View {
         case "amazonmusic", "amazon": return Color(red: 0.15, green: 0.82, blue: 0.85)
         default: return .green
         }
+    }
+}
+
+struct ShortcutsGuideSheet: View {
+    let lang: String
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 20) {
+                    VStack(spacing: 8) {
+                        ZStack {
+                            Circle()
+                                .fill(Color.orange.opacity(0.15))
+                                .frame(width: 64, height: 64)
+                            Image(systemName: "button.programmable")
+                                .font(.system(size: 30, weight: .bold))
+                                .foregroundColor(.orange)
+                        }
+                        .padding(.top, 12)
+
+                        Text(LocalizationManager.string(for: "shortcuts_guide_title", lang: lang))
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .multilineTextAlignment(.center)
+
+                        Text(LocalizationManager.string(for: "shortcuts_guide_subtitle", lang: lang))
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal)
+                    }
+
+                    VStack(spacing: 12) {
+                        GuideStepCard(
+                            stepNumber: "1",
+                            iconName: "plus.circle.fill",
+                            iconColor: .orange,
+                            title: LocalizationManager.string(for: "shortcuts_step1_title", lang: lang),
+                            description: LocalizationManager.string(for: "shortcuts_step1_desc", lang: lang)
+                        )
+
+                        GuideStepCard(
+                            stepNumber: "2",
+                            iconName: "square.stack.3d.up.fill",
+                            iconColor: .blue,
+                            title: LocalizationManager.string(for: "shortcuts_step2_title", lang: lang),
+                            description: LocalizationManager.string(for: "shortcuts_step2_desc", lang: lang)
+                        )
+
+                        GuideStepCard(
+                            stepNumber: "3",
+                            iconName: "button.programmable",
+                            iconColor: .green,
+                            title: LocalizationManager.string(for: "shortcuts_step3_title", lang: lang),
+                            description: LocalizationManager.string(for: "shortcuts_step3_desc", lang: lang)
+                        )
+                    }
+                    .padding(.horizontal, 16)
+
+                    Button(action: {
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                        dismiss()
+                    }) {
+                        Text(LocalizationManager.string(for: "btn_done", lang: lang))
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 50)
+                            .background(Color.accentColor)
+                            .cornerRadius(14)
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.top, 10)
+                }
+                .padding(.bottom, 24)
+            }
+            .background(Color("BackgroundColor").ignoresSafeArea())
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: { dismiss() }) {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(.secondary)
+                            .font(.title3)
+                    }
+                }
+            }
+        }
+        .presentationDetents([.medium, .large])
+        .presentationDragIndicator(.visible)
+    }
+}
+
+struct ShareGuideSheet: View {
+    let lang: String
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 20) {
+                    VStack(spacing: 8) {
+                        ZStack {
+                            Circle()
+                                .fill(Color.blue.opacity(0.15))
+                                .frame(width: 64, height: 64)
+                            Image(systemName: "square.and.arrow.up.fill")
+                                .font(.system(size: 30, weight: .bold))
+                                .foregroundColor(.blue)
+                        }
+                        .padding(.top, 12)
+
+                        Text(LocalizationManager.string(for: "share_guide_title", lang: lang))
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .multilineTextAlignment(.center)
+
+                        Text(LocalizationManager.string(for: "share_guide_subtitle", lang: lang))
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal)
+                    }
+
+                    VStack(spacing: 12) {
+                        GuideStepCard(
+                            stepNumber: "1",
+                            iconName: "music.note",
+                            iconColor: .blue,
+                            title: LocalizationManager.string(for: "share_step1_title", lang: lang),
+                            description: LocalizationManager.string(for: "share_step1_desc", lang: lang)
+                        )
+
+                        GuideStepCard(
+                            stepNumber: "2",
+                            iconName: "ellipsis.circle.fill",
+                            iconColor: .orange,
+                            title: LocalizationManager.string(for: "share_step2_title", lang: lang),
+                            description: LocalizationManager.string(for: "share_step2_desc", lang: lang)
+                        )
+
+                        GuideStepCard(
+                            stepNumber: "3",
+                            iconName: "star.fill",
+                            iconColor: .green,
+                            title: LocalizationManager.string(for: "share_step3_title", lang: lang),
+                            description: LocalizationManager.string(for: "share_step3_desc", lang: lang)
+                        )
+                    }
+                    .padding(.horizontal, 16)
+
+                    Button(action: {
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                        dismiss()
+                    }) {
+                        Text(LocalizationManager.string(for: "btn_done", lang: lang))
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 50)
+                            .background(Color.accentColor)
+                            .cornerRadius(14)
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.top, 10)
+                }
+                .padding(.bottom, 24)
+            }
+            .background(Color("BackgroundColor").ignoresSafeArea())
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: { dismiss() }) {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(.secondary)
+                            .font(.title3)
+                    }
+                }
+            }
+        }
+        .presentationDetents([.medium, .large])
+        .presentationDragIndicator(.visible)
+    }
+}
+
+struct GuideStepCard: View {
+    let stepNumber: String
+    let iconName: String
+    let iconColor: Color
+    let title: String
+    let description: String
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 14) {
+            ZStack {
+                Circle()
+                    .fill(iconColor.opacity(0.15))
+                    .frame(width: 36, height: 36)
+                Image(systemName: iconName)
+                    .font(.system(size: 16, weight: .bold))
+                    .foregroundColor(iconColor)
+            }
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(.subheadline)
+                    .fontWeight(.bold)
+                    .foregroundColor(.primary)
+
+                Text(description)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .lineSpacing(2)
+            }
+
+            Spacer(minLength: 0)
+        }
+        .padding(14)
+        .background(Color("CardBackgroundColor"))
+        .cornerRadius(14)
+        .overlay(
+            RoundedRectangle(cornerRadius: 14)
+                .stroke(Color(uiColor: .separator).opacity(0.25), lineWidth: 1)
+        )
     }
 }

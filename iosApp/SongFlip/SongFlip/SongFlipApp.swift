@@ -5,6 +5,31 @@ import SongFlipKit
 struct SongFlipApp: App {
     @StateObject private var settings = SettingsModel()
 
+    init() {
+        let isDebug: Bool
+        #if DEBUG
+        isDebug = true
+        #else
+        isDebug = false
+        #endif
+
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.2.6"
+        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "2"
+        let osVersion = UIDevice.current.systemVersion
+        let locale = Locale.current.identifier
+
+        AptabaseClient.shared.doInit(
+            appKey: "REPLACED_SECRET",
+            host: "https://api.aptabase.com",
+            osName: "iOS",
+            osVersion: osVersion,
+            locale: locale,
+            appVersion: appVersion,
+            appBuildNumber: buildNumber,
+            isDebug: isDebug
+        )
+    }
+
     var colorScheme: ColorScheme? {
         switch settings.themeMode {
         case "light": return .light

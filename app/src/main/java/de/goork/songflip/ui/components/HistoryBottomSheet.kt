@@ -227,6 +227,7 @@ fun HistoryBottomSheet(
                                     haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                                     val shareUrl = de.goork.songflip.data.ProManager.getUniversalWebShareUrl(item.canonicalUrl)
                                     de.goork.songflip.data.ProManager.warmupUniversalShare(item.canonicalUrl)
+                                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackSharePageGenerated(target = "history")
                                     val shareIntent = Intent(Intent.ACTION_SEND).apply {
                                         type = "text/plain"
                                         putExtra(Intent.EXTRA_TEXT, shareUrl)

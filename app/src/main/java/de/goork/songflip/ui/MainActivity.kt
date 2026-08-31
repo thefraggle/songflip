@@ -154,6 +154,10 @@ fun MainScreen(
                 linksActive = DomainVerificationUtils.checkLinksEnabled(context)
                 isCurrentlyPaused = PauseHelper.isCurrentlyPaused(context)
                 pausedUntilTimestamp = prefs.getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L)
+                de.goork.songflip.core.analytics.AptabaseClient.shared.trackAppLaunched(
+                    platform = "Android",
+                    language = settingsRepository.appLanguage
+                )
                 (context as? Activity)?.let { act ->
                     de.goork.songflip.data.ReviewHelper.maybeRequestReview(act, settingsRepository)
                 }
@@ -295,7 +299,10 @@ fun MainScreen(
         ) {
             // 1. Header Banner
             HeaderBanner(
-                onOpenSettings = { showSettingsBottomSheet = true },
+                onOpenSettings = {
+                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackSettingsOpened()
+                    showSettingsBottomSheet = true
+                },
                 isPro = proState.isPro
             )
 
