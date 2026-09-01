@@ -7,14 +7,14 @@ struct SongFlipApp: App {
 
     init() {
         let isDebug: Bool
-        #if DEBUG
+        #if DEBUG || targetEnvironment(simulator)
         isDebug = true
         #else
         isDebug = false
         #endif
 
-        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.2.6"
-        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "2"
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.2.8"
+        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "4"
         let osVersion = UIDevice.current.systemVersion
         let locale = Locale.current.identifier
 

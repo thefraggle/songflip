@@ -1,7 +1,10 @@
 package de.goork.songflip
 
+import android.app.ActivityManager
 import android.app.Application
 import android.content.pm.ApplicationInfo
+import android.os.Build
+import android.provider.Settings
 import de.goork.songflip.core.analytics.AptabaseClient
 import de.goork.songflip.data.LinkCacheManager
 import de.goork.songflip.data.ProManager
@@ -13,21 +16,48 @@ class SongFlipApp : Application() {
         LinkCacheManager.init(this)
         ProManager.init(this)
 
-        val isDebug = (applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0
+        val isDebuggable = (applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0
+        val isTestLab = try {
+            Settings.System.getString(contentResolver, "firebase.test.lab") == "true"
+        } catch (_: Exception) {
+            false
+        }
+        val isTestHarness = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && try {
+            ActivityManager.isRunningInUserTestHarness()
+        } catch (_: Exception) {
+            false
+        }
+        val isEmulator = Build.FINGERPRINT.startsWith("generic") ||
+                Build.FINGERPRINT.startsWith("unknown") ||
+                Build.MODEL.contains("google_sdk") ||
+                Build.MODEL.contains("Emulator") ||
+                Build.MODEL.contains("Android SDK built for x86") ||
+                Build.HARDWARE.contains("goldfish") ||
+                Build.HARDWARE.contains("ranchu") ||
+                Build.PRODUCT.contains("sdk_google") ||
+                Build.PRODUCT.contains("google_sdk") ||
+                Build.PRODUCT.contains("sdk") ||
+                Build.PRODUCT.contains("sdk_x86") ||
+                Build.PRODUCT.contains("vbox86p") ||
+                Build.PRODUCT.contains("emulator") ||
+                Build.PRODUCT.contains("simulator")
+
+        val isDebug = isDebuggable || isTestLab || isTestHarness || isEmulator
+
         val pInfo = try { packageManager.getPackageInfo(packageName, 0) } catch (_: Exception) { null }
-        val versionName = pInfo?.versionName ?: "1.2.6"
-        val versionCode = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
-            pInfo?.longVersionCode?.toString() ?: "10206"
+        val versionName = pInfo?.versionName ?: "1.2.8"
+        val versionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            pInfo?.longVersionCode?.toString() ?: "10208"
         } else {
             @Suppress("DEPRECATION")
-            pInfo?.versionCode?.toString() ?: "10206"
+            pInfo?.versionCode?.toString() ?: "10208"
         }
 
         AptabaseClient.shared.init(
             appKey = "A-SH-4092372492",
             host = "https://telemetry-apps.goork.de",
             osName = "Android",
-            osVersion = android.os.Build.VERSION.RELEASE ?: "",
+            osVersion = Build.VERSION.RELEASE ?: "",
             locale = Locale.getDefault().toLanguageTag(),
             appVersion = versionName,
             appBuildNumber = versionCode,
