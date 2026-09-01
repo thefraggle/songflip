@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.8] - 2026-09-01
+- **Analytics & Diagnostic Telemetry**: Enhanced anonymous diagnostics and conversion monitoring for faster issue detection.
+- **Lifecycle Optimization**: Refined activity lifecycle handling and launch detection to ensure accurate metrics.
+- **Reliability & Performance**: Optimized background conversion and error handling across all supported streaming services.
+
 ## [1.2.7] - 2026-08-31
 - **Performance & Reliability**: Optimized background processing for faster and smoother song redirection.
 - **Stability Improvements**: General connectivity and stability enhancements.
