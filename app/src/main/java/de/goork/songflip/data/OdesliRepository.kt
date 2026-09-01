@@ -38,6 +38,7 @@ class OdesliRepository {
     private val ytWatchPattern = Pattern.compile("/watch\\?v=([a-zA-Z0-9_-]{11})")
     private val ytAlbumPlaylistPattern = Pattern.compile("\"playlistId\":\"(OLAK5uy_[a-zA-Z0-9_-]+)\"")
     private val ytGenericPlaylistPattern = Pattern.compile("\"playlistId\":\"([a-zA-Z0-9_-]{18,})\"")
+    private val ytChannelIdPattern = Pattern.compile("\"channelId\":\"(UC[a-zA-Z0-9_-]{22})\"")
 
     suspend fun resolveTargetUrl(
         inputUrl: String,
@@ -286,10 +287,11 @@ class OdesliRepository {
             // 7. Fallback: Artist Page Detection & Direct Catalog Routing
             val artistInfo = extractArtistInfo(canonicalUrl)
             if (artistInfo != null && artistInfo.isNotBlank()) {
-                val searchUrl = buildSearchUrl(artistInfo, targetPlatformKey)
+                val directArtistUrl = resolveDirectArtistUrl(artistInfo, targetPlatformKey)
+                val finalTargetUrl = directArtistUrl ?: buildSearchUrl(artistInfo, targetPlatformKey)
                 val result = OdesliResult.Success(
-                    targetUrl = searchUrl,
-                    platform = "${targetPlatformKey}_artist",
+                    targetUrl = finalTargetUrl,
+                    platform = if (directArtistUrl != null) targetPlatformKey else "${targetPlatformKey}_artist",
                     title = null,
                     artist = artistInfo,
                     isAlbum = false
@@ -828,6 +830,104 @@ class OdesliRepository {
                 }
             }
             resp.close()
+            null
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    private suspend fun resolveDirectArtistUrl(artistName: String, targetPlatformKey: String): String? {
+        return when (targetPlatformKey) {
+            "deezer" -> resolveDeezerArtistUrl(artistName)
+            "appleMusic" -> resolveAppleMusicArtistUrl(artistName)
+            "youtubeMusic" -> resolveYouTubeMusicArtistUrl(artistName)
+            else -> null
+        }
+    }
+
+    private suspend fun resolveAppleMusicArtistUrl(artistName: String): String? {
+        return try {
+            val encoded = URLEncoder.encode(artistName, "UTF-8")
+            val req = Request.Builder()
+                .url("https://itunes.apple.com/search?term=$encoded&entity=musicArtist&limit=1")
+                .get()
+                .build()
+
+            val resp = client.newCall(req).execute()
+            if (resp.isSuccessful) {
+                val body = resp.body?.string() ?: ""
+                val json = JSONObject(body)
+                val results = json.optJSONArray("results")
+                if (results != null && results.length() > 0) {
+                    val item = results.getJSONObject(0)
+                    val link = item.optString("artistLinkUrl").ifEmpty { item.optString("artistViewUrl") }
+                    if (link.isNotEmpty()) {
+                        resp.close()
+                        return link
+                    }
+                }
+            }
+            resp.close()
+            null
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    private suspend fun resolveDeezerArtistUrl(artistName: String): String? {
+        return try {
+            val encoded = URLEncoder.encode(artistName, "UTF-8")
+            val req = Request.Builder()
+                .url("https://api.deezer.com/search/artist?q=$encoded&limit=1")
+                .get()
+                .build()
+
+            val resp = client.newCall(req).execute()
+            if (resp.isSuccessful) {
+                val body = resp.body?.string() ?: ""
+                val json = JSONObject(body)
+                val data = json.optJSONArray("data")
+                if (data != null && data.length() > 0) {
+                    val item = data.getJSONObject(0)
+                    val link = item.optString("link")
+                    if (link.isNotEmpty()) {
+                        resp.close()
+                        return link
+                    }
+                }
+            }
+            resp.close()
+            null
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    private suspend fun resolveYouTubeMusicArtistUrl(artistName: String): String? {
+        return try {
+            val encodedQuery = URLEncoder.encode("$artistName artist", "UTF-8")
+            val req = Request.Builder()
+                .url("https://www.youtube.com/results?search_query=$encodedQuery&sp=EgIQAg%253D%253D")
+                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+                .header("Accept-Language", "en-US,en;q=0.9")
+                .get()
+                .build()
+
+            val resp = client.newCall(req).execute()
+            if (!resp.isSuccessful) {
+                resp.close()
+                return null
+            }
+            val html = resp.body?.string() ?: ""
+            resp.close()
+
+            val channelMatcher = ytChannelIdPattern.matcher(html)
+            if (channelMatcher.find()) {
+                val channelId = channelMatcher.group(1)
+                if (!channelId.isNullOrEmpty()) {
+                    return "https://music.youtube.com/channel/$channelId"
+                }
+            }
             null
         } catch (e: Exception) {
             null
