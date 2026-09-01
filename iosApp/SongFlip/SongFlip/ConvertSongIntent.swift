@@ -54,6 +54,12 @@ struct ConvertSongIntent: AppIntent {
             if let targetUrl = URL(string: targetString) {
                 await UIApplication.shared.open(targetUrl)
             }
+        } else {
+            let reason = (res as? ResolutionResult.Error)?.message ?? "failed_or_timeout"
+            AptabaseClient.shared.trackLinkFlipFailed(
+                target: targetPlatform,
+                reason: reason
+            )
         }
 
         return .result()

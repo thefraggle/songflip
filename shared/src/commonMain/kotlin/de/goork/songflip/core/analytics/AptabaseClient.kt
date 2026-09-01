@@ -155,4 +155,40 @@ object AptabaseClient {
     fun trackPromoRedeemedSuccess(code: String) {
         trackEvent("promo_redeemed_success", mapOf("code" to code))
     }
+
+    fun trackPromoRedeemFailed(code: String, error: String) {
+        trackEvent("promo_redeem_failed", mapOf("code" to code, "error" to error))
+    }
+
+    fun trackLinkFlipFailed(target: String, reason: String) {
+        trackEvent("link_flip_failed", mapOf("target" to target, "reason" to reason))
+    }
+
+    fun trackTargetPlatformChanged(target: String) {
+        trackEvent("target_platform_changed", mapOf("target" to target))
+    }
+
+    fun trackDomainSetupClicked() {
+        trackEvent("domain_setup_clicked")
+    }
+
+    fun trackPauseStateChanged(action: String) {
+        trackEvent("pause_state_changed", mapOf("action" to action))
+    }
+
+    fun trackPaywallViewed() {
+        trackEvent("paywall_viewed")
+    }
+
+    fun trackTestStudioResolved(sourceDomain: String, success: Boolean) {
+        trackEvent("test_studio_resolved", mapOf("source_domain" to sourceDomain, "success" to success.toString()))
+    }
+
+    fun trackHistoryItemClicked(target: String) {
+        trackEvent("history_item_clicked", mapOf("target" to target))
+    }
+
+    fun trackHistoryCleared() {
+        trackEvent("history_cleared")
+    }
 }

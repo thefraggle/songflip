@@ -68,6 +68,7 @@ fun SetupCard(
             Button(
                 onClick = {
                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackDomainSetupClicked()
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                         try {
                             context.startActivity(
