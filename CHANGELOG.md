@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.9] - 2026-09-01
+- **Fair Promo Code Protection**: Enforced anonymous per-device redemption limits to prevent unauthorized duplicate activations.
+- **Enhanced Error Feedback**: Localized duplicate redemption warnings across all 24 supported languages.
+- **Backend Optimization**: Deployed atomic Firestore transaction checks for all promo code redemptions.
+
 ## [1.2.8] - 2026-09-01
 - **Zero-Delay Offline Handling**: Instantly detects offline state and forwards to original links without waiting for network timeouts.
 - **R8 Code & Resource Optimization**: Enabled R8 shrinking and resource optimization for smaller download size and faster launch times.

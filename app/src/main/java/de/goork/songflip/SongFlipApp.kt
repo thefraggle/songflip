@@ -45,12 +45,12 @@ class SongFlipApp : Application() {
         val isDebug = isDebuggable || isTestLab || isTestHarness || isEmulator
 
         val pInfo = try { packageManager.getPackageInfo(packageName, 0) } catch (_: Exception) { null }
-        val versionName = pInfo?.versionName ?: "1.2.8"
+        val versionName = pInfo?.versionName ?: "1.2.9"
         val versionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            pInfo?.longVersionCode?.toString() ?: "10208"
+            pInfo?.longVersionCode?.toString() ?: "10209"
         } else {
             @Suppress("DEPRECATION")
-            pInfo?.versionCode?.toString() ?: "10208"
+            pInfo?.versionCode?.toString() ?: "10209"
         }
 
         AptabaseClient.shared.init(
