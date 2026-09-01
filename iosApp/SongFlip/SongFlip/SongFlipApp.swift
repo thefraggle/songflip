@@ -6,12 +6,20 @@ struct SongFlipApp: App {
     @StateObject private var settings = SettingsModel()
 
     init() {
-        let isDebug: Bool
+        var isDebug = false
         #if DEBUG || targetEnvironment(simulator)
         isDebug = true
-        #else
-        isDebug = false
         #endif
+
+        // Route TestFlight beta testers, Apple reviewers, and StoreKit sandbox to debug data source
+        if Bundle.main.appStoreReceiptURL?.lastPathComponent == "sandboxReceipt" {
+            isDebug = true
+        }
+
+        // Route automated UI test harnesses to debug data source
+        if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
+            isDebug = true
+        }
 
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.2.8"
         let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "4"
