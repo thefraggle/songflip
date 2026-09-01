@@ -78,6 +78,7 @@ struct ContentView: View {
                                     Button(action: {
                                         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                                         settings.targetPlatform = platform.rawValue
+                                        AptabaseClient.shared.trackTargetPlatformChanged(target: platform.rawValue)
                                     }) {
                                         HStack(spacing: 10) {
                                             ZStack {
@@ -439,7 +440,6 @@ struct ContentView: View {
                 checkClipboard()
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-                AptabaseClient.shared.trackAppLaunched(platform: "iOS", language: lang)
                 history.loadHistory()
                 checkClipboard()
             }
@@ -508,9 +508,17 @@ struct ContentView: View {
                         UIApplication.shared.open(url)
                     }
                 } else if let error = res as? ResolutionResult.Error {
+                    AptabaseClient.shared.trackLinkFlipFailed(
+                        target: settings.targetPlatform,
+                        reason: error.message
+                    )
                     statusMessage = error.message
                     statusSuccess = false
                 } else {
+                    AptabaseClient.shared.trackLinkFlipFailed(
+                        target: settings.targetPlatform,
+                        reason: "timeout_or_unknown"
+                    )
                     statusMessage = LocalizationManager.string(for: "redirect_error_toast", lang: lang)
                     statusSuccess = false
                 }

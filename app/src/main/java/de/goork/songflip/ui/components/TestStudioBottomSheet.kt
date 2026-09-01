@@ -143,13 +143,26 @@ fun TestStudioBottomSheet(
                                 customApiToken = settingsRepository.customApiToken
                             )
                             isLoading = false
+                            val domain = try {
+                                android.net.Uri.parse(testInputUrl.trim()).host ?: "unknown"
+                            } catch (_: Exception) {
+                                "unknown"
+                            }
                             when (res) {
                                 is OdesliResult.Success -> {
                                     conversionResult = res.targetUrl
+                                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackTestStudioResolved(
+                                        sourceDomain = domain,
+                                        success = true
+                                    )
                                 }
                                 is OdesliResult.Error -> {
                                     isError = true
                                     conversionResult = res.message
+                                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackTestStudioResolved(
+                                        sourceDomain = domain,
+                                        success = false
+                                    )
                                 }
                             }
                         }

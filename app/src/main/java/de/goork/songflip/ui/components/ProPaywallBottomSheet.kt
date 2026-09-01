@@ -447,18 +447,23 @@ fun ProPaywallBottomSheet(
                                                 couponCodeText = ""
                                             }
                                             RedeemResult.ALREADY_ACTIVE -> {
+                                                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemFailed(couponCodeText, "already_active")
                                                 Toast.makeText(context, context.getString(R.string.pro_coupon_already_active), Toast.LENGTH_SHORT).show()
                                             }
                                             RedeemResult.MAX_REACHED -> {
+                                                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemFailed(couponCodeText, "max_reached")
                                                 Toast.makeText(context, context.getString(R.string.pro_coupon_max_reached), Toast.LENGTH_LONG).show()
                                             }
                                             RedeemResult.INACTIVE -> {
+                                                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemFailed(couponCodeText, "inactive")
                                                 Toast.makeText(context, context.getString(R.string.pro_coupon_inactive), Toast.LENGTH_LONG).show()
                                             }
                                             RedeemResult.NETWORK_ERROR -> {
+                                                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemFailed(couponCodeText, "network_error")
                                                 Toast.makeText(context, context.getString(R.string.pro_coupon_invalid), Toast.LENGTH_SHORT).show()
                                             }
                                             RedeemResult.INVALID -> {
+                                                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemFailed(couponCodeText, "invalid")
                                                 Toast.makeText(context, context.getString(R.string.pro_coupon_invalid), Toast.LENGTH_SHORT).show()
                                             }
                                         }

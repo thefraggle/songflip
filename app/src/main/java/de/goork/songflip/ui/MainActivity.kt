@@ -45,6 +45,12 @@ class MainActivity : AppCompatActivity() {
         LinkCacheManager.init(this)
         initialShowPauseSheet = intent?.getBooleanExtra("show_pause_sheet", false) == true
 
+        val settingsRepo = SettingsRepository(this)
+        de.goork.songflip.core.analytics.AptabaseClient.shared.trackAppLaunched(
+            platform = "Android",
+            language = settingsRepo.appLanguage
+        )
+
         setContent {
             val settingsRepository = remember { SettingsRepository(this) }
             var currentThemeMode by remember { mutableStateOf(settingsRepository.themeMode) }
@@ -154,10 +160,6 @@ fun MainScreen(
                 linksActive = DomainVerificationUtils.checkLinksEnabled(context)
                 isCurrentlyPaused = PauseHelper.isCurrentlyPaused(context)
                 pausedUntilTimestamp = prefs.getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L)
-                de.goork.songflip.core.analytics.AptabaseClient.shared.trackAppLaunched(
-                    platform = "Android",
-                    language = settingsRepository.appLanguage
-                )
                 (context as? Activity)?.let { act ->
                     de.goork.songflip.data.ReviewHelper.maybeRequestReview(act, settingsRepository)
                 }
@@ -227,10 +229,18 @@ fun MainScreen(
                     PauseHelper.setPauseUntil(context, tomorrowTimestamp)
                     isCurrentlyPaused = true
                     pausedUntilTimestamp = tomorrowTimestamp
+                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackPauseStateChanged("paused_tomorrow")
+                } else if (durationMs == 0L) {
+                    PauseHelper.setPause(context, 0L)
+                    isCurrentlyPaused = true
+                    pausedUntilTimestamp = 0L
+                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackPauseStateChanged("paused_indefinitely")
                 } else {
                     PauseHelper.setPause(context, durationMs)
                     isCurrentlyPaused = true
                     pausedUntilTimestamp = if (durationMs > 0) prefs.getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L) else 0L
+                    val durationStr = if (durationMs == 15 * 60 * 1000L) "paused_15m" else "paused_1h"
+                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackPauseStateChanged(durationStr)
                 }
                 showPauseBottomSheet = false
             }
@@ -244,7 +254,10 @@ fun MainScreen(
             settingsRepository = settingsRepository,
             odesliRepository = repository,
             isPro = proState.isPro,
-            onOpenProPaywall = { showProPaywall = true }
+            onOpenProPaywall = {
+                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed()
+                showProPaywall = true
+            }
         )
     }
 
@@ -260,7 +273,10 @@ fun MainScreen(
             currentThemeMode = currentThemeMode,
             onThemeModeSelected = onThemeModeSelected,
             isPro = proState.isPro,
-            onOpenProPaywall = { showProPaywall = true },
+            onOpenProPaywall = {
+                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed()
+                showProPaywall = true
+            },
             onOpenTestStudio = { showTestStudioBottomSheet = true }
         )
     }
@@ -317,11 +333,13 @@ fun MainScreen(
                     PauseHelper.resume(context)
                     isCurrentlyPaused = false
                     pausedUntilTimestamp = 0L
+                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackPauseStateChanged("unpaused")
                 },
                 onPauseClick = {
                     showPauseBottomSheet = true
                 },
                 onSetupClick = {
+                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackDomainSetupClicked()
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                         try {
                             context.startActivity(
@@ -362,6 +380,7 @@ fun MainScreen(
                 onTargetSelected = { key ->
                     selectedTargetKey = key
                     settingsRepository.targetPlatform = key
+                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackTargetPlatformChanged(key)
                 }
             )
 
