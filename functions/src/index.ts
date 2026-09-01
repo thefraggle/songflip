@@ -279,13 +279,64 @@ function isArtistUrl(url: string): boolean {
 }
 
 /**
- * Resolves artist metadata & cross-platform search links for artist profile URLs.
+ * Resolves direct YouTube Music Channel for artist pages.
+ */
+async function resolveYouTubeArtistChannelLive(artistName: string): Promise<string | null> {
+  try {
+    const encoded = encodeURIComponent(`${artistName} artist`);
+    const ytUrl = `https://www.youtube.com/results?search_query=${encoded}&sp=EgIQAg%253D%253D`;
+    const res = await axios.get(ytUrl, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept-Language": "en-US,en;q=0.9",
+      },
+      timeout: 4000,
+    });
+    const html = typeof res.data === "string" ? res.data : "";
+    const channelMatch = html.match(/"channelId":"(UC[a-zA-Z0-9_-]{22})"/);
+    if (channelMatch && channelMatch[1]) {
+      return `https://music.youtube.com/channel/${channelMatch[1]}`;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Resolves direct Apple Music Artist URL via iTunes Search API.
+ */
+async function resolveAppleMusicArtistLive(artistName: string): Promise<string | null> {
+  try {
+    const itunesRes = await axios.get("https://itunes.apple.com/search", {
+      params: {
+        term: artistName,
+        entity: "musicArtist",
+        limit: 1,
+      },
+      timeout: 4000,
+    });
+    const first = itunesRes.data?.results?.[0];
+    if (first && (first.artistLinkUrl || first.artistViewUrl)) {
+      return first.artistLinkUrl || first.artistViewUrl;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Resolves artist metadata & cross-platform direct links for artist profile URLs.
  */
 async function resolveArtistLive(url: string): Promise<SongMetadata | null> {
   try {
     const clean = url.toLowerCase();
     let artistName = "";
     let thumbnailUrl = "";
+    let deezerLink = clean.includes("deezer.com") ? url : "";
+    let appleMusicLink = clean.includes("apple.com") ? url : "";
+    let youtubeMusicLink = (clean.includes("music.youtube.com") || clean.includes("youtube.com")) ? url : "";
 
     // 0. Spotify Artist
     if (clean.includes("spotify.com") && clean.includes("/artist/")) {
@@ -308,6 +359,7 @@ async function resolveArtistLive(url: string): Promise<SongMetadata | null> {
       if (match && match[1]) {
         artistName = decodeURIComponent(match[1]).replace(/-/g, " ").trim();
         artistName = artistName.replace(/\b\w/g, (c) => c.toUpperCase());
+        appleMusicLink = url;
       }
     }
 
@@ -320,6 +372,7 @@ async function resolveArtistLive(url: string): Promise<SongMetadata | null> {
           if (res.data && !res.data.error) {
             artistName = res.data.name || "";
             thumbnailUrl = res.data.picture_xl || "";
+            deezerLink = res.data.link || url;
           }
         } catch (_) {}
       }
@@ -355,13 +408,16 @@ async function resolveArtistLive(url: string): Promise<SongMetadata | null> {
       } catch (_) {}
     }
 
-    // Enrich via Deezer Artist API for HD artwork and exact spelling
+    // Enrich via Deezer Artist API for direct link, HD artwork, and exact spelling
     if (artistName) {
       try {
         const deezerRes = await axios.get(`https://api.deezer.com/search/artist?q=${encodeURIComponent(artistName)}`, { timeout: 4000 });
         const first = deezerRes.data?.data?.[0];
         if (first) {
           artistName = first.name || artistName;
+          if (!deezerLink) {
+            deezerLink = first.link || `https://www.deezer.com/artist/${first.id}`;
+          }
           if (!thumbnailUrl || thumbnailUrl.includes("icon.png")) {
             thumbnailUrl = first.picture_xl || thumbnailUrl;
           }
@@ -371,12 +427,20 @@ async function resolveArtistLive(url: string): Promise<SongMetadata | null> {
 
     if (!artistName) return null;
 
+    // Resolve direct Apple Music & YouTube Music links if not already present
+    if (!appleMusicLink) {
+      appleMusicLink = (await resolveAppleMusicArtistLive(artistName)) || "";
+    }
+    if (!youtubeMusicLink) {
+      youtubeMusicLink = (await resolveYouTubeArtistChannelLive(artistName)) || "";
+    }
+
     const q = encodeURIComponent(artistName);
     const linksMap: PlatformLinks = {
       spotify: clean.includes("spotify.com") ? url : `https://open.spotify.com/search/${q}`,
-      appleMusic: clean.includes("apple.com") ? url : `https://music.apple.com/search?term=${q}`,
-      youtubeMusic: clean.includes("music.youtube.com") ? url : `https://music.youtube.com/search?q=${q}`,
-      deezer: clean.includes("deezer.com") ? url : `https://www.deezer.com/search/${q}`,
+      appleMusic: appleMusicLink || `https://music.apple.com/search?term=${q}`,
+      youtubeMusic: youtubeMusicLink || `https://music.youtube.com/search?q=${q}`,
+      deezer: deezerLink || `https://www.deezer.com/search/${q}`,
       tidal: clean.includes("tidal.com") ? url : `https://listen.tidal.com/search?q=${q}`,
       amazonMusic: clean.includes("amazon.") ? url : `https://music.amazon.com/search/${q}`,
     };
@@ -1395,6 +1459,46 @@ export const renderWebShare = onRequest(
           }
         }
       });
+
+      // If isArtist, heal Deezer, Apple Music, and YouTube Music with direct native links instead of generic search URLs
+      if (isArtist && cleanTitle) {
+        let healed = false;
+        // 1. Heal Deezer
+        if (!links.deezer || links.deezer.includes("/search/") || links.deezer.includes("/search?")) {
+          try {
+            const deezerRes = await axios.get(`https://api.deezer.com/search/artist?q=${encodeURIComponent(cleanTitle)}`, { timeout: 3000 });
+            const first = deezerRes.data?.data?.[0];
+            if (first && (first.link || first.id)) {
+              links.deezer = first.link || `https://www.deezer.com/artist/${first.id}`;
+              healed = true;
+            }
+          } catch (_) {}
+        }
+        // 2. Heal Apple Music
+        if (!links.appleMusic || links.appleMusic.includes("/search/") || links.appleMusic.includes("/search?") || links.appleMusic.includes("search?term=")) {
+          try {
+            const appleDirect = await resolveAppleMusicArtistLive(cleanTitle);
+            if (appleDirect) {
+              links.appleMusic = appleDirect;
+              healed = true;
+            }
+          } catch (_) {}
+        }
+        // 3. Heal YouTube Music
+        if (!links.youtubeMusic || links.youtubeMusic.includes("/search/") || links.youtubeMusic.includes("/search?") || links.youtubeMusic.includes("search?q=")) {
+          try {
+            const ytDirect = await resolveYouTubeArtistChannelLive(cleanTitle);
+            if (ytDirect) {
+              links.youtubeMusic = ytDirect;
+              healed = true;
+            }
+          } catch (_) {}
+        }
+        // Persist healed links to Firestore asynchronously
+        if (healed && hash) {
+          db.collection("l2_song_cache").doc(hash).set({ links }, { merge: true }).catch(() => {});
+        }
+      }
 
       const query = encodeURIComponent((cleanArtist ? `${cleanArtist} ${cleanTitle}` : cleanTitle).trim());
       if (!links.spotify) links.spotify = `https://open.spotify.com/search/${query}`;

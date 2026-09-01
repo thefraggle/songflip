@@ -38,6 +38,7 @@ class SongLinkEngine(
     private val ytWatchRegex = Regex("/watch\\?v=([a-zA-Z0-9_-]{11})")
     private val ytAlbumPlaylistRegex = Regex("\"playlistId\":\"(OLAK5uy_[a-zA-Z0-9_-]+)\"")
     private val ytGenericPlaylistRegex = Regex("\"playlistId\":\"([a-zA-Z0-9_-]{18,})\"")
+    private val ytChannelIdRegex = Regex("\"channelId\":\"(UC[a-zA-Z0-9_-]{22})\"")
 
     suspend fun resolveTargetUrl(
         inputUrl: String,
@@ -185,11 +186,12 @@ class SongLinkEngine(
             // 7. Fallback: Artist Page Detection
             val artistInfo = extractArtistInfo(canonicalUrl)
             if (artistInfo != null && artistInfo.isNotBlank()) {
-                val searchUrl = UrlUtils.buildSearchUrl(artistInfo, targetPlatformKey)
-                val nativeUri = UrlUtils.toNativeAppUri(searchUrl, targetPlatformKey)
+                val directArtistUrl = resolveDirectArtistUrl(artistInfo, targetPlatformKey)
+                val finalTargetUrl = directArtistUrl ?: UrlUtils.buildSearchUrl(artistInfo, targetPlatformKey)
+                val nativeUri = UrlUtils.toNativeAppUri(finalTargetUrl, targetPlatformKey)
                 val result = ResolutionResult.Success(
-                    targetUrl = searchUrl,
-                    platform = "${targetPlatformKey}_artist",
+                    targetUrl = finalTargetUrl,
+                    platform = if (directArtistUrl != null) targetPlatformKey else "${targetPlatformKey}_artist",
                     title = null,
                     artist = artistInfo,
                     isAlbum = false,
@@ -433,6 +435,82 @@ class SongLinkEngine(
                     if (!link.isNullOrEmpty()) {
                         return link
                     }
+                }
+            }
+            null
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    private suspend fun resolveDirectArtistUrl(artistName: String, targetPlatformKey: String): String? {
+        return when (targetPlatformKey) {
+            "deezer" -> resolveDeezerArtistUrl(artistName)
+            "appleMusic" -> resolveAppleMusicArtistUrl(artistName)
+            "youtubeMusic" -> resolveYouTubeMusicArtistUrl(artistName)
+            else -> null
+        }
+    }
+
+    private suspend fun resolveAppleMusicArtistUrl(artistName: String): String? {
+        return try {
+            val encoded = artistName.encodeURLParameter()
+            val resp = client.get("https://itunes.apple.com/search?term=$encoded&entity=musicArtist&limit=1")
+            if (resp.status.isSuccess()) {
+                val body = resp.bodyAsText()
+                val rootObj = json.parseToJsonElement(body).jsonObject
+                val results = rootObj["results"]?.jsonArray
+                if (results != null && results.isNotEmpty()) {
+                    val item = results[0].jsonObject
+                    val link = item["artistLinkUrl"]?.jsonPrimitive?.content
+                        ?: item["artistViewUrl"]?.jsonPrimitive?.content
+                    if (!link.isNullOrEmpty()) {
+                        return link
+                    }
+                }
+            }
+            null
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    private suspend fun resolveDeezerArtistUrl(artistName: String): String? {
+        return try {
+            val encoded = artistName.encodeURLParameter()
+            val resp = client.get("https://api.deezer.com/search/artist?q=$encoded&limit=1")
+            if (resp.status.isSuccess()) {
+                val body = resp.bodyAsText()
+                val rootObj = json.parseToJsonElement(body).jsonObject
+                val data = rootObj["data"]?.jsonArray
+                if (data != null && data.isNotEmpty()) {
+                    val item = data[0].jsonObject
+                    val link = item["link"]?.jsonPrimitive?.content
+                    if (!link.isNullOrEmpty()) {
+                        return link
+                    }
+                }
+            }
+            null
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    private suspend fun resolveYouTubeMusicArtistUrl(artistName: String): String? {
+        return try {
+            val encoded = "$artistName artist".encodeURLParameter()
+            val resp = client.get("https://www.youtube.com/results?search_query=$encoded&sp=EgIQAg%253D%253D") {
+                header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+                header("Accept-Language", "en-US,en;q=0.9")
+            }
+            if (!resp.status.isSuccess()) return null
+            val html = resp.bodyAsText()
+            val match = ytChannelIdRegex.find(html)
+            if (match != null) {
+                val channelId = match.groupValues[1]
+                if (channelId.isNotEmpty()) {
+                    return "https://music.youtube.com/channel/$channelId"
                 }
             }
             null
