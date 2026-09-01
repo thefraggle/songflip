@@ -168,6 +168,16 @@ class RedirectActivity : ComponentActivity() {
 
                         openTargetUrl(result.targetUrl, targetPlatform)
                     } else {
+                        val reason = when {
+                            result is OdesliResult.Error -> result.message
+                            result == null -> "timeout"
+                            else -> "not_found"
+                        }
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
+                            target = targetPlatform,
+                            reason = reason
+                        )
+
                         val errorMsg = if (result is OdesliResult.Error && result.message == "PLAYLIST_NOT_SUPPORTED") {
                             getString(R.string.playlist_not_supported_toast)
                         } else {
@@ -181,6 +191,10 @@ class RedirectActivity : ComponentActivity() {
                         forwardOriginalUrl(incomingUri)
                     }
                 } catch (t: Throwable) {
+                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
+                        target = targetPlatform,
+                        reason = t.message ?: "exception"
+                    )
                     forwardOriginalUrl(incomingUri)
                 } finally {
                     finish()

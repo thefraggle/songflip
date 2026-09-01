@@ -83,6 +83,7 @@ fun HistoryBottomSheet(
                         haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                         LinkCacheManager.clearHistoryAndCache()
                         refreshHistory()
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackHistoryCleared()
                         showClearConfirmationDialog = false
                         Toast.makeText(context, context.getString(R.string.history_all_cleared), Toast.LENGTH_SHORT).show()
                     },
@@ -216,6 +217,7 @@ fun HistoryBottomSheet(
                             isPro = isPro,
                             onPlay = {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                de.goork.songflip.core.analytics.AptabaseClient.shared.trackHistoryItemClicked(item.platform)
                                 openTargetUrl(context, item.targetUrl, item.platform)
                             },
                             onCopy = {
