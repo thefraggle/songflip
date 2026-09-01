@@ -82,7 +82,26 @@ class RedirectActivity : ComponentActivity() {
             val customApiUrl = settingsRepository.customApiUrl
             val customApiToken = settingsRepository.customApiToken
 
-            // Immediate user feedback in all 22 languages to bridge network resolution
+            // 2. Zero-Delay Offline Check: If device is offline and link is not cached, fail immediately
+            val hasNetwork = NetworkUtils.isNetworkAvailable(this)
+            val isCached = LinkCacheManager.get(incomingUrl, targetPlatform) != null
+            if (!hasNetwork && !isCached) {
+                Toast.makeText(
+                    applicationContext,
+                    getString(R.string.redirect_error_toast),
+                    Toast.LENGTH_SHORT
+                ).show()
+                de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
+                    target = targetPlatform,
+                    reason = "offline_no_network"
+                )
+                forwardOriginalUrl(incomingUri)
+                finish()
+                suppressTransitionAnimation()
+                return
+            }
+
+            // Immediate user feedback in all 24 languages to bridge network resolution
             Toast.makeText(
                 applicationContext,
                 getString(R.string.redirecting_toast),
