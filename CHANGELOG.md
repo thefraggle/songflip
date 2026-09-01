@@ -1,9 +1,11 @@
 # Changelog
 
 ## [1.2.8] - 2026-09-01
-- **Analytics & Diagnostic Telemetry**: Enhanced anonymous diagnostics and conversion monitoring for faster issue detection.
-- **Lifecycle Optimization**: Refined activity lifecycle handling and launch detection to ensure accurate metrics.
-- **Reliability & Performance**: Optimized background conversion and error handling across all supported streaming services.
+- **Zero-Delay Offline Handling**: Instantly detects offline state and forwards to original links without waiting for network timeouts.
+- **R8 Code & Resource Optimization**: Enabled R8 shrinking and resource optimization for smaller download size and faster launch times.
+- **Bot & Pre-Launch Test Isolation**: Automated test lab and emulator traffic are now cleanly routed to debug streams for precise analytics.
+- **Comprehensive Telemetry**: Added anonymous diagnostics for purchase flows, quick settings tile toggles, and review interactions.
+- **Lifecycle Stability**: Refined activity lifecycle handling to ensure accurate launch detection across configuration changes.
 
 ## [1.2.7] - 2026-08-31
 - **Performance & Reliability**: Optimized background processing for faster and smoother song redirection.
