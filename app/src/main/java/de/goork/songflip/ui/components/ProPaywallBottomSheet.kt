@@ -453,6 +453,10 @@ fun ProPaywallBottomSheet(
                                                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemFailed(couponCodeText, "already_active")
                                                 Toast.makeText(context, context.getString(R.string.pro_coupon_already_active), Toast.LENGTH_SHORT).show()
                                             }
+                                            RedeemResult.ALREADY_REDEEMED -> {
+                                                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemFailed(couponCodeText, "already_redeemed_on_device")
+                                                Toast.makeText(context, context.getString(R.string.pro_coupon_already_redeemed), Toast.LENGTH_LONG).show()
+                                            }
                                             RedeemResult.MAX_REACHED -> {
                                                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemFailed(couponCodeText, "max_reached")
                                                 Toast.makeText(context, context.getString(R.string.pro_coupon_max_reached), Toast.LENGTH_LONG).show()

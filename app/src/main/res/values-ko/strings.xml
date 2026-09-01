@@ -132,6 +132,7 @@
     <string name="pro_coupon_success_1year">🎉 SongFlip PRO (1 Year) unlocked!</string>
     <string name="pro_coupon_invalid">Invalid promo code</string>
     <string name="pro_coupon_already_active">PRO is already active</string>
+    <string name="pro_coupon_already_redeemed">이 프로모션 코드는 이 기기에서 이미 사용되었습니다.</string>
     <string name="pro_active_status">SongFlip PRO Active</string>
     <string name="pro_active_lifetime">평생 PRO 액세스</string>
     <string name="pro_active_annual">PRO 액세스 유효 기간: %1$s까지</string>

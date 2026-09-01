@@ -132,6 +132,7 @@
     <string name="pro_coupon_success_1year">🎉 SongFlip PRO (1 Ano) desbloqueado!</string>
     <string name="pro_coupon_invalid">Código promocional inválido</string>
     <string name="pro_coupon_already_active">O PRO já está ativo</string>
+    <string name="pro_coupon_already_redeemed">Este código promocional já foi resgatado neste dispositivo.</string>
     <string name="pro_active_status">SongFlip PRO Ativo</string>
     <string name="pro_active_lifetime">Acesso PRO vitalício</string>
     <string name="pro_active_annual">Acesso PRO ativo até %1$s</string>
