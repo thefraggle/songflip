@@ -132,6 +132,7 @@
     <string name="pro_coupon_success_1year">🎉 SongFlip PRO (1年間) が有効になりました！</string>
     <string name="pro_coupon_invalid">無効なプロモーションコードです</string>
     <string name="pro_coupon_already_active">PROは既に有効です</string>
+    <string name="pro_coupon_already_redeemed">このプロモーションコードはこの端末で既に使用されています。</string>
     <string name="pro_active_status">SongFlip PRO 有効</string>
     <string name="pro_active_lifetime">無期限PROアクセス</string>
     <string name="pro_active_annual">PROアクセス有効期限: %1$s</string>

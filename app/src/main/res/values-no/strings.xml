@@ -132,6 +132,7 @@
     <string name="pro_coupon_success_1year">🎉 SongFlip PRO (1 år) aktivert!</string>
     <string name="pro_coupon_invalid">Ugyldig kampanjekode</string>
     <string name="pro_coupon_already_active">PRO er allerede aktiv</string>
+    <string name="pro_coupon_already_redeemed">Denne kampanjekoden er allerede løst inn på denne enheten.</string>
     <string name="pro_active_status">SongFlip PRO Aktiv</string>
     <string name="pro_active_lifetime">Livstids PRO-tilgang</string>
     <string name="pro_active_annual">PRO-tilgang aktiv til %1$s</string>

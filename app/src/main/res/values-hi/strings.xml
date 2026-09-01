@@ -132,6 +132,7 @@
     <string name="pro_coupon_success_1year">🎉 SongFlip PRO (1 Year) unlocked!</string>
     <string name="pro_coupon_invalid">Invalid promo code</string>
     <string name="pro_coupon_already_active">PRO is already active</string>
+    <string name="pro_coupon_already_redeemed">यह प्रोमो कोड इस डिवाइस पर पहले ही रिडीम किया जा चुका है।</string>
     <string name="pro_active_status">SongFlip PRO Active</string>
     <string name="pro_active_lifetime">लाइफटाइम PRO एक्सेस</string>
     <string name="pro_active_annual">PRO एक्सेस %1$s तक सक्रिय है</string>

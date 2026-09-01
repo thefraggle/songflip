@@ -991,12 +991,15 @@ export const redeemPromoCode = onRequest(
     }
 
     const rawCode = (req.body?.code || req.query?.code) as string;
+    const rawInstallId = (req.body?.installId || req.body?.install_id || req.query?.installId || req.query?.install_id) as string;
+
     if (!rawCode || typeof rawCode !== "string") {
       res.status(400).json({ error: "INVALID_CODE", message: "Gutscheincode erforderlich." });
       return;
     }
 
     const cleanCode = rawCode.trim().toUpperCase();
+    const cleanInstallId = rawInstallId && typeof rawInstallId === "string" ? rawInstallId.trim() : null;
     const promoRef = db.collection("promo_codes").doc(cleanCode);
 
     try {
@@ -1024,7 +1027,29 @@ export const redeemPromoCode = onRequest(
           return { error: "MAX_REDEMPTIONS_REACHED", message: "Das Einlöselimit für diesen Code wurde erreicht." };
         }
 
-        // Atomically increment redemptions
+        // Per-device single redemption check
+        let redemptionRef: admin.firestore.DocumentReference | null = null;
+        if (cleanInstallId) {
+          redemptionRef = promoRef.collection("redemptions").doc(cleanInstallId);
+          const redemptionSnap = await transaction.get(redemptionRef);
+          if (redemptionSnap.exists) {
+            return {
+              error: "ALREADY_REDEEMED_ON_DEVICE",
+              message: "Dieser Gutscheincode wurde auf diesem Gerät bereits eingelöst."
+            };
+          }
+        }
+
+        // Record redemption per device
+        if (redemptionRef && cleanInstallId) {
+          transaction.set(redemptionRef, {
+            installId: cleanInstallId,
+            redeemedAt: admin.firestore.FieldValue.serverTimestamp(),
+            ip: clientIp,
+          });
+        }
+
+        // Atomically increment global redemptions
         transaction.update(promoRef, {
           currentRedemptions: currentRedemptions + 1,
           lastRedeemedAt: admin.firestore.FieldValue.serverTimestamp(),
