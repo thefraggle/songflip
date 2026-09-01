@@ -26,6 +26,7 @@ class SongFlipTileService : TileService() {
         val currentlyPaused = PauseHelper.isCurrentlyPaused(this)
         if (currentlyPaused) {
             PauseHelper.resume(this)
+            de.goork.songflip.core.analytics.AptabaseClient.shared.trackPauseStateChanged("unpaused_tile")
             updateTileState()
         } else {
             // Open MainActivity with the pause bottom sheet requested
