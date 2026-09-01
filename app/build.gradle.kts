@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
-val appVersionName = "1.2.8"
+val appVersionName = "1.2.9"
 val versionParts = appVersionName.split(".")
 val computedVersionCode = (versionParts.getOrElse(0) { "1" }.toInt() * 10000) +
                           (versionParts.getOrElse(1) { "0" }.toInt() * 100) +

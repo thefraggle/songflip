@@ -21,8 +21,8 @@ struct SongFlipApp: App {
             isDebug = true
         }
 
-        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.2.8"
-        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "4"
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.2.9"
+        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "5"
         let osVersion = UIDevice.current.systemVersion
         let locale = Locale.current.identifier
 
