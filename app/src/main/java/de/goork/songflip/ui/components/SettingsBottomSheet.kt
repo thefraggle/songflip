@@ -502,6 +502,7 @@ fun SettingsBottomSheet(
                     .fillMaxWidth()
                     .clickable {
                         haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackRateAppClicked()
                         (context as? android.app.Activity)?.let { act ->
                             de.goork.songflip.data.ReviewHelper.launchReviewFlow(act) {
                                 de.goork.songflip.data.ReviewHelper.openPlayStoreListing(context)

@@ -300,15 +300,18 @@ fun ProPaywallBottomSheet(
                                 packageToPurchase = selectedPackage,
                                 onSuccess = {
                                     isPurchasing = false
+                                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackProPurchased(selectedPackage.identifier)
                                     Toast.makeText(context, context.getString(R.string.pro_active_status), Toast.LENGTH_SHORT).show()
                                     onDismissRequest()
                                 },
                                 onError = { errorMsg ->
                                     isPurchasing = false
+                                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackProPurchaseFailed(errorMsg)
                                     Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
                                 }
                             )
                         } else if (selectedPackage == null) {
+                            de.goork.songflip.core.analytics.AptabaseClient.shared.trackProPurchaseFailed("no_package_available")
                             Toast.makeText(context, context.getString(R.string.pro_play_store_unavailable), Toast.LENGTH_SHORT).show()
                         }
                     },

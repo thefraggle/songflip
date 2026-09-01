@@ -191,4 +191,16 @@ object AptabaseClient {
     fun trackHistoryCleared() {
         trackEvent("history_cleared")
     }
+
+    fun trackProPurchased(packageId: String) {
+        trackEvent("pro_purchased", mapOf("package_id" to packageId))
+    }
+
+    fun trackProPurchaseFailed(error: String) {
+        trackEvent("pro_purchase_failed", mapOf("error" to error))
+    }
+
+    fun trackRateAppClicked() {
+        trackEvent("rate_app_clicked")
+    }
 }
