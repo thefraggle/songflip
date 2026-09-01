@@ -45,11 +45,13 @@ class MainActivity : AppCompatActivity() {
         LinkCacheManager.init(this)
         initialShowPauseSheet = intent?.getBooleanExtra("show_pause_sheet", false) == true
 
-        val settingsRepo = SettingsRepository(this)
-        de.goork.songflip.core.analytics.AptabaseClient.shared.trackAppLaunched(
-            platform = "Android",
-            language = settingsRepo.appLanguage
-        )
+        if (savedInstanceState == null) {
+            val settingsRepo = SettingsRepository(this)
+            de.goork.songflip.core.analytics.AptabaseClient.shared.trackAppLaunched(
+                platform = "Android",
+                language = settingsRepo.appLanguage
+            )
+        }
 
         setContent {
             val settingsRepository = remember { SettingsRepository(this) }
