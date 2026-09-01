@@ -25,6 +25,7 @@ enum class RedeemResult {
     SUCCESS_3MONTHS,
     SUCCESS_1MONTH,
     ALREADY_ACTIVE,
+    ALREADY_REDEEMED,
     MAX_REACHED,
     INACTIVE,
     INVALID,
@@ -42,6 +43,7 @@ object ProManager {
     private const val PREFS_NAME = "songflip_pro_prefs"
     private const val KEY_COUPON_TYPE = "pro_coupon_type"
     private const val KEY_COUPON_EXPIRATION = "pro_coupon_expiration"
+    private const val KEY_INSTALL_ID = "anonymous_install_id"
 
     // RevenueCat Configuration
     private const val REVENUECAT_API_KEY = "goog_mzQwhCFXsoDHGcFDxkzsIqBcHfO"
@@ -60,6 +62,16 @@ object ProManager {
         } catch (e: Exception) {
             "anonymous_local_user"
         }
+    }
+
+    fun getAnonymousInstallId(): String {
+        val sp = prefs ?: return java.util.UUID.randomUUID().toString()
+        var id = sp.getString(KEY_INSTALL_ID, null)
+        if (id.isNullOrBlank()) {
+            id = java.util.UUID.randomUUID().toString()
+            sp.edit().putString(KEY_INSTALL_ID, id).apply()
+        }
+        return id
     }
 
     fun getAuthToken(): String {
@@ -235,8 +247,10 @@ object ProManager {
             "https://songflip-web.web.app/redeemPromoCode"
         )
 
+        val installId = getAnonymousInstallId()
         val jsonBody = org.json.JSONObject().apply {
             put("code", cleanCode)
+            put("installId", installId)
         }.toString()
 
         val mediaType = "application/json; charset=utf-8".toMediaType()
@@ -302,6 +316,7 @@ object ProManager {
                     val errJson = try { org.json.JSONObject(bodyStr) } catch (e: Exception) { null }
                     val errCode = errJson?.optString("error", "") ?: ""
                     return@withContext when (errCode) {
+                        "ALREADY_REDEEMED_ON_DEVICE" -> RedeemResult.ALREADY_REDEEMED
                         "MAX_REDEMPTIONS_REACHED" -> RedeemResult.MAX_REACHED
                         "CODE_INACTIVE" -> RedeemResult.INACTIVE
                         "CODE_EXPIRED" -> RedeemResult.INACTIVE

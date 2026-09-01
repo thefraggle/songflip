@@ -132,6 +132,7 @@
     <string name="pro_coupon_success_1year">🎉 SongFlip PRO (1 Year) unlocked!</string>
     <string name="pro_coupon_invalid">Invalid promo code</string>
     <string name="pro_coupon_already_active">PRO is already active</string>
+    <string name="pro_coupon_already_redeemed">Mã khuyến mãi này đã được đổi trên thiết bị này.</string>
     <string name="pro_active_status">SongFlip PRO Active</string>
     <string name="pro_active_lifetime">Quyền truy cập PRO trọn đời</string>
     <string name="pro_active_annual">Quyền truy cập PRO hoạt động đến %1$s</string>

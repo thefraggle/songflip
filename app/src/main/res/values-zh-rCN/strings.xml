@@ -132,6 +132,7 @@
     <string name="pro_coupon_success_1year">🎉 已成功激活 SongFlip PRO (1年版)！</string>
     <string name="pro_coupon_invalid">无效的优惠码</string>
     <string name="pro_coupon_already_active">PRO 已经处于激活状态</string>
+    <string name="pro_coupon_already_redeemed">此兑换码已在此设备上使用过。</string>
     <string name="pro_active_status">SongFlip PRO 已激活</string>
     <string name="pro_active_lifetime">终身 PRO 权限</string>
     <string name="pro_active_annual">PRO 权限有效期至 %1$s</string>

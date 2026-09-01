@@ -132,6 +132,7 @@
     <string name="pro_coupon_success_1year">🎉 SongFlip PRO (1 Yıl) açıldı!</string>
     <string name="pro_coupon_invalid">Geçersiz promosyon kodu</string>
     <string name="pro_coupon_already_active">PRO zaten aktif</string>
+    <string name="pro_coupon_already_redeemed">Bu promosyon kodu bu cihazda zaten kullanıldı.</string>
     <string name="pro_active_status">SongFlip PRO Etkin</string>
     <string name="pro_active_lifetime">Ömür Boyu PRO Erişim</string>
     <string name="pro_active_annual">PRO Erişim %1$s tarihine kadar aktif</string>
