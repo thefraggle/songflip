@@ -151,4 +151,9 @@
     <string name="share_universal_link_copied">Universell SongFlip-länk kopierad!</string>
     <string name="share_universal_link_pro">Universell webblänk (PRO)</string>
     <string name="pro_feature_universal_links">Universella webblänkar för alla spelare</string>
+    <string name="settings_auto_clipboard_title">Identifiera urklipp automatiskt</string>
+    <string name="settings_auto_clipboard_subtitle">Visa snabbåtgärdsbanner när en musiklänk har kopierats</string>
+    <string name="clipboard_banner_title">Musiklänk upptäckt</string>
+    <string name="clipboard_banner_action_open">Öppna i %1$s</string>
+    <string name="clipboard_banner_action_share">Universell länk</string>
 </resources>

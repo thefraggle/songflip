@@ -8,9 +8,11 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.animation.*
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -22,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -154,6 +157,10 @@ fun MainScreen(
     var domainStatus by remember { mutableStateOf(DomainVerificationUtils.getDomainStatus(context)) }
     var linksActive by remember { mutableStateOf<Boolean?>(DomainVerificationUtils.checkLinksEnabled(context)) }
 
+    // Clipboard Smart-Banner State
+    var detectedClipboardUrl by remember { mutableStateOf<String?>(null) }
+    var dismissedClipboardUrl by remember { mutableStateOf<String?>(null) }
+
     // Update state when resuming from system settings or external changes
     DisposableEffect(lifecycleOwner, context) {
         val observer = LifecycleEventObserver { _, event ->
@@ -164,6 +171,19 @@ fun MainScreen(
                 pausedUntilTimestamp = prefs.getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L)
                 (context as? Activity)?.let { act ->
                     de.goork.songflip.data.ReviewHelper.maybeRequestReview(act, settingsRepository)
+                }
+
+                // Check clipboard for copied music links
+                if (settingsRepository.autoClipboardDetect) {
+                    val clipManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as? android.content.ClipboardManager
+                    val clipText = clipManager?.primaryClip?.takeIf { it.itemCount > 0 }?.getItemAt(0)?.text?.toString()?.trim() ?: ""
+                    if (isSupportedMusicUrl(clipText) && clipText != dismissedClipboardUrl) {
+                        detectedClipboardUrl = clipText
+                    } else if (!isSupportedMusicUrl(clipText)) {
+                        detectedClipboardUrl = null
+                    }
+                } else {
+                    detectedClipboardUrl = null
                 }
             }
         }
@@ -368,6 +388,41 @@ fun MainScreen(
                     }
                 }
             )
+
+            // 2.5 Clipboard Smart-Banner (when music link is copied in clipboard)
+            AnimatedVisibility(
+                visible = detectedClipboardUrl != null,
+                enter = fadeIn() + expandVertically(),
+                exit = fadeOut() + shrinkVertically()
+            ) {
+                detectedClipboardUrl?.let { clipUrl ->
+                    val targetService = targetServices.find { it.key == selectedTargetKey }
+                    val targetServiceName: String = targetService?.let { stringResource(it.nameResId) } ?: "Player"
+                    ClipboardSmartBanner(
+                        musicUrl = clipUrl,
+                        targetPlatformName = targetServiceName,
+                        onOpenInTarget = { urlToOpen ->
+                            val redirectIntent = Intent(context, RedirectActivity::class.java).apply {
+                                data = Uri.parse(urlToOpen)
+                                putExtra("from_clipboard_banner", true)
+                            }
+                            context.startActivity(redirectIntent)
+                        },
+                        onShareUniversalLink = { urlToShare ->
+                            val universalUrl = ProManager.getUniversalWebShareUrl(urlToShare)
+                            val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? android.content.ClipboardManager
+                            val clip = android.content.ClipData.newPlainText("SongFlip Universal Link", universalUrl)
+                            clipboard?.setPrimaryClip(clip)
+                            Toast.makeText(context, context.getString(R.string.share_universal_link_copied), Toast.LENGTH_SHORT).show()
+                            ProManager.warmupUniversalShare(urlToShare)
+                        },
+                        onDismiss = {
+                            dismissedClipboardUrl = clipUrl
+                            detectedClipboardUrl = null
+                        }
+                    )
+                }
+            }
 
             // 3. Domain Verification Setup Card
             SetupCard(

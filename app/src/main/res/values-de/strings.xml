@@ -169,4 +169,9 @@
     <string name="share_universal_link_copied">Universeller SongFlip-Link kopiert!</string>
     <string name="share_universal_link_pro">Universal-Weblink (PRO)</string>
     <string name="pro_feature_universal_links">Universelle Web-Links für jeden Player</string>
+    <string name="settings_auto_clipboard_title">Zwischenablage automatisch erkennen</string>
+    <string name="settings_auto_clipboard_subtitle">Aktionsbanner anzeigen, wenn ein Musik-Link kopiert wurde</string>
+    <string name="clipboard_banner_title">Musik-Link in Zwischenablage</string>
+    <string name="clipboard_banner_action_open">In %1$s öffnen</string>
+    <string name="clipboard_banner_action_share">Universal-Link</string>
 </resources>

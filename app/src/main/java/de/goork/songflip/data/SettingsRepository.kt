@@ -79,6 +79,12 @@ class SettingsRepository(context: Context) {
             prefs.edit().putLong(KEY_LAST_REVIEW_PROMPT_TS, value).apply()
         }
 
+    var autoClipboardDetect: Boolean
+        get() = prefs.getBoolean(KEY_AUTO_CLIPBOARD_DETECT, true)
+        set(value) {
+            prefs.edit().putBoolean(KEY_AUTO_CLIPBOARD_DETECT, value).apply()
+        }
+
     companion object {
         const val PREFS_NAME = "songflip_settings"
         private const val KEY_TARGET_PLATFORM = "target_platform"
@@ -89,6 +95,7 @@ class SettingsRepository(context: Context) {
         private const val KEY_SUCCESSFUL_FLIP_COUNT = "successful_flip_count"
         private const val KEY_FIRST_INSTALL_TS = "first_install_timestamp"
         private const val KEY_LAST_REVIEW_PROMPT_TS = "last_review_prompt_timestamp"
+        private const val KEY_AUTO_CLIPBOARD_DETECT = "auto_clipboard_detect"
 
         const val DEFAULT_TARGET = "youtubeMusic"
         const val DEFAULT_LANGUAGE = "en"
