@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.10] - 2026-09-02
+- **Clipboard Smart-Banner**: When you copy a music link, opening the app now displays a quick action banner to immediately play the track in your favorite player or share a universal link with a single tap.
+- **Streamlined Settings**: Reorganized settings put your most important preferences — including song history, language, and appearance — right at your fingertips.
+- **Customizable Link Detection**: You can now conveniently enable or disable automatic clipboard link detection at any time in settings.
+- **Adaptive App Icon**: The app icon now automatically matches your chosen system theme and wallpaper colors on supported devices.
+- **Polished Experience**: All new actions and options are fully translated across all 24 supported languages with smoother transitions.
+
 ## [1.2.9] - 2026-09-01
 - **Fair Promo Code Protection**: Enforced anonymous per-device redemption limits to prevent unauthorized duplicate activations.
 - **Enhanced Error Feedback**: Localized duplicate redemption warnings across all 24 supported languages.
