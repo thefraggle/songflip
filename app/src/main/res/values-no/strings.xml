@@ -151,4 +151,9 @@
     <string name="share_universal_link_copied">Universell SongFlip-lenke kopiert!</string>
     <string name="share_universal_link_pro">Universell nettlenke (PRO)</string>
     <string name="pro_feature_universal_links">Universelle nettlenker for alle spillere</string>
+    <string name="settings_auto_clipboard_title">Gjenkjenn utklippstavle automatisk</string>
+    <string name="settings_auto_clipboard_subtitle">Vis hurtighandlingsbanner når en musikklenke er kopiert</string>
+    <string name="clipboard_banner_title">Musikklenke oppdaget</string>
+    <string name="clipboard_banner_action_open">Åpne i %1$s</string>
+    <string name="clipboard_banner_action_share">Universell lenke</string>
 </resources>

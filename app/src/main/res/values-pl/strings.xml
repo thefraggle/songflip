@@ -151,4 +151,9 @@
     <string name="share_universal_link_copied">Skopiowano uniwersalny link SongFlip!</string>
     <string name="share_universal_link_pro">Uniwersalny link (PRO)</string>
     <string name="pro_feature_universal_links">Uniwersalne linki web dla każdego odtwarzacza</string>
+    <string name="settings_auto_clipboard_title">Automatyczne wykrywanie ze schowka</string>
+    <string name="settings_auto_clipboard_subtitle">Pokaż baner szybkiej akcji po skopiowaniu linku do utworu</string>
+    <string name="clipboard_banner_title">Wykryto link do muzyki</string>
+    <string name="clipboard_banner_action_open">Otwórz w %1$s</string>
+    <string name="clipboard_banner_action_share">Uniwersalny link</string>
 </resources>

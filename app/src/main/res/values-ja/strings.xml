@@ -151,4 +151,9 @@
     <string name="share_universal_link_copied">SongFlipユニバーサルリンクをコピーしました！</string>
     <string name="share_universal_link_pro">ユニバーサルWebリンク (PRO)</string>
     <string name="pro_feature_universal_links">全プレイヤー向けユニバーサルWebリンク</string>
+    <string name="settings_auto_clipboard_title">クリップボードの自動検出</string>
+    <string name="settings_auto_clipboard_subtitle">音楽リンクがコピーされた際にクイックアクションバナーを表示</string>
+    <string name="clipboard_banner_title">音楽リンクを検出しました</string>
+    <string name="clipboard_banner_action_open">%1$s で開く</string>
+    <string name="clipboard_banner_action_share">共通リンク</string>
 </resources>

@@ -151,4 +151,9 @@
     <string name="share_universal_link_copied">Universele SongFlip-link gekopieerd!</string>
     <string name="share_universal_link_pro">Universele weblink (PRO)</string>
     <string name="pro_feature_universal_links">Universele weblinks voor elke speler</string>
+    <string name="settings_auto_clipboard_title">Klembord automatisch detecteren</string>
+    <string name="settings_auto_clipboard_subtitle">Snelle actiebanner tonen als er een muzieklink is gekopieerd</string>
+    <string name="clipboard_banner_title">Muzieklink gedetecteerd</string>
+    <string name="clipboard_banner_action_open">Openen in %1$s</string>
+    <string name="clipboard_banner_action_share">Universele link</string>
 </resources>
