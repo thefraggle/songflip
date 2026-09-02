@@ -150,4 +150,9 @@
     <string name="share_universal_link_copied">সার্বজনীন SongFlip লিংক কপি করা হয়েছে!</string>
     <string name="share_universal_link_pro">সার্বজনীন ওয়েব লিংক (PRO)</string>
     <string name="pro_feature_universal_links">যেকোনো প্লেয়ারের জন্য সার্বজনীন ওয়েব লিংক</string>
+    <string name="settings_auto_clipboard_title">স্বয়ংক্রিয় ক্লিপবোর্ড শনাক্তকরণ</string>
+    <string name="settings_auto_clipboard_subtitle">মিউজিক লিংক কপি করা হলে দ্রুত অ্যাকশন ব্যানার দেখান</string>
+    <string name="clipboard_banner_title">মিউজিক লিংক শনাক্ত হয়েছে</string>
+    <string name="clipboard_banner_action_open">%1$s-এ খুলুন</string>
+    <string name="clipboard_banner_action_share">সর্বজনীন লিংক</string>
 </resources>

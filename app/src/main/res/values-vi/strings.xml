@@ -150,4 +150,9 @@
     <string name="share_universal_link_copied">Đã sao chép liên kết SongFlip đa năng!</string>
     <string name="share_universal_link_pro">Liên kết web đa năng (PRO)</string>
     <string name="pro_feature_universal_links">Liên kết web đa năng cho mọi trình phát</string>
+    <string name="settings_auto_clipboard_title">Tự động phát hiện khay nhớ tạm</string>
+    <string name="settings_auto_clipboard_subtitle">Hiển thị biểu ngữ thao tác nhanh khi liên kết nhạc được sao chép</string>
+    <string name="clipboard_banner_title">Đã phát hiện liên kết nhạc</string>
+    <string name="clipboard_banner_action_open">Mở trong %1$s</string>
+    <string name="clipboard_banner_action_share">Liên kết chung</string>
 </resources>
