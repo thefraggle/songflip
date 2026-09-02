@@ -1,11 +1,14 @@
 import SwiftUI
 import SongFlipKit
+import CryptoKit
 
 struct ContentView: View {
     @EnvironmentObject var settings: SettingsModel
     @ObservedObject var history = HistoryModel.shared
 
     @State private var inputUrl: String = ""
+    @State private var detectedClipboardUrl: String? = nil
+    @State private var dismissedClipboardUrl: String? = nil
     @State private var statusMessage: String? = nil
     @State private var statusSuccess: Bool = false
     @State private var showingSettingsSheet = false
@@ -52,6 +55,107 @@ struct ContentView: View {
                             Text(LocalizationManager.string(for: "app_tagline", lang: lang))
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
+                        }
+
+                        // 1.5 Clipboard Smart-Banner (when music link is copied)
+                        if let detectedUrl = detectedClipboardUrl {
+                            VStack(alignment: .leading, spacing: 10) {
+                                HStack {
+                                    Image(systemName: "doc.on.clipboard.fill")
+                                        .foregroundColor(.green)
+                                        .font(.system(size: 16))
+                                    Text(LocalizationManager.string(for: "clipboard_banner_title", lang: lang))
+                                        .font(.subheadline)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.primary)
+                                    Spacer()
+                                    Button(action: {
+                                        withAnimation(.easeInOut(duration: 0.2)) {
+                                            dismissedClipboardUrl = detectedUrl
+                                            detectedClipboardUrl = nil
+                                        }
+                                    }) {
+                                        Image(systemName: "xmark")
+                                            .font(.system(size: 12, weight: .bold))
+                                            .foregroundColor(.secondary)
+                                            .padding(4)
+                                    }
+                                }
+
+                                HStack(spacing: 8) {
+                                    Text(detectSourcePlatformName(url: detectedUrl))
+                                        .font(.caption2)
+                                        .fontWeight(.semibold)
+                                        .padding(.horizontal, 6)
+                                        .padding(.vertical, 2)
+                                        .background(Color.green.opacity(0.15))
+                                        .foregroundColor(.green)
+                                        .cornerRadius(6)
+
+                                    Text(detectedUrl)
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                        .lineLimit(1)
+                                        .truncationMode(.tail)
+                                }
+
+                                HStack(spacing: 8) {
+                                    let targetChoice = PlatformChoice.allCases.first { $0.rawValue == settings.targetPlatform }
+                                    let targetName = targetChoice?.displayName ?? "Player"
+                                    Button(action: {
+                                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                        inputUrl = detectedUrl
+                                        convertLink()
+                                    }) {
+                                        HStack(spacing: 6) {
+                                            Image(systemName: "play.fill")
+                                                .font(.system(size: 12))
+                                            Text(String(format: LocalizationManager.string(for: "clipboard_banner_action_open", lang: lang), targetName))
+                                                .font(.system(size: 13, weight: .bold))
+                                                .lineLimit(1)
+                                        }
+                                        .padding(.vertical, 8)
+                                        .padding(.horizontal, 12)
+                                        .frame(maxWidth: .infinity)
+                                        .background(Color.green)
+                                        .foregroundColor(.white)
+                                        .cornerRadius(10)
+                                    }
+
+                                    Button(action: {
+                                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                        let universalUrl = getUniversalWebShareUrl(for: detectedUrl)
+                                        UIPasteboard.general.string = universalUrl
+                                        statusMessage = LocalizationManager.string(for: "share_universal_link_copied", lang: lang)
+                                        statusSuccess = true
+                                    }) {
+                                        HStack(spacing: 6) {
+                                            Image(systemName: "square.and.arrow.up")
+                                                .font(.system(size: 12))
+                                            Text(LocalizationManager.string(for: "clipboard_banner_action_share", lang: lang))
+                                                .font(.system(size: 13, weight: .medium))
+                                                .lineLimit(1)
+                                        }
+                                        .padding(.vertical, 8)
+                                        .padding(.horizontal, 12)
+                                        .frame(maxWidth: .infinity)
+                                        .background(Color(uiColor: .secondarySystemGroupedBackground))
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .stroke(Color(uiColor: .separator).opacity(0.4), lineWidth: 1)
+                                        )
+                                        .cornerRadius(10)
+                                    }
+                                }
+                            }
+                            .padding(14)
+                            .background(Color.green.opacity(0.12))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(Color.green.opacity(0.35), lineWidth: 1)
+                            )
+                            .cornerRadius(16)
+                            .transition(.opacity.combined(with: .scale(scale: 0.95)))
                         }
 
                         // 2. Preferred Target Player Card (2x3 Grid with Brand Accents)
@@ -455,13 +559,44 @@ struct ContentView: View {
         }
     }
 
+    private func getUniversalWebShareUrl(for rawUrl: String) -> String {
+        let normalized = rawUrl.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        let hash = SHA256.hash(data: Data(normalized.utf8))
+        let hexString = hash.map { String(format: "%02x", $0) }.joined()
+        let shortId = String(hexString.prefix(8))
+        return "https://songflip.link/s/\(shortId)"
+    }
+
+    private func detectSourcePlatformName(url: String) -> String {
+        let lower = url.lowercased()
+        if lower.contains("spotify.com") { return "Spotify" }
+        if lower.contains("apple.com") { return "Apple Music" }
+        if lower.contains("youtube.com") || lower.contains("youtu.be") { return "YouTube Music" }
+        if lower.contains("deezer.com") { return "Deezer" }
+        if lower.contains("tidal.com") { return "Tidal" }
+        if lower.contains("amazon.") { return "Amazon Music" }
+        return "Music Link"
+    }
+
     private func checkClipboard() {
-        guard settings.autoClipboardDetect, let clip = UIPasteboard.general.string else { return }
-        let clean = UrlUtils.shared.extractCleanUrl(rawInput: clip)
-        if let clean = clean, clean != inputUrl, clean.contains("spotify.com") || clean.contains("apple.com") || clean.contains("youtube.com") || clean.contains("deezer.com") || clean.contains("tidal.com") || clean.contains("amazon.com") {
+        guard settings.autoClipboardDetect, let clip = UIPasteboard.general.string else {
+            detectedClipboardUrl = nil
+            return
+        }
+        let clean = UrlUtils.shared.extractCleanUrl(rawInput: clip) ?? clip
+        let isMusic = clean.contains("spotify.com") ||
+                      clean.contains("apple.com") ||
+                      clean.contains("youtube.com") ||
+                      clean.contains("youtu.be") ||
+                      clean.contains("deezer.com") ||
+                      clean.contains("tidal.com") ||
+                      clean.contains("amazon.")
+
+        if isMusic && clean != dismissedClipboardUrl {
+            detectedClipboardUrl = clean
             inputUrl = clean
-            statusMessage = LocalizationManager.string(for: "clipboard_detected", lang: lang)
-            statusSuccess = true
+        } else if !isMusic {
+            detectedClipboardUrl = nil
         }
     }
 
