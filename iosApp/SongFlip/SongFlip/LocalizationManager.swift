@@ -63,7 +63,11 @@ enum LocalizationManager {
             "share_step2_title": "2. Zu 'Mehr' scrollen",
             "share_step2_desc": "Wische in der App-Leiste ganz nach rechts und tippe auf 'Mehr' (⋯).",
             "share_step3_title": "3. SongFlip aktivieren",
-            "share_step3_desc": "Tippe auf 'Bearbeiten' und füge SongFlip zu deinen Favoriten hinzu."
+            "share_step3_desc": "Tippe auf 'Bearbeiten' und füge SongFlip zu deinen Favoriten hinzu.",
+            "clipboard_banner_title": "Musik-Link in Zwischenablage",
+            "clipboard_banner_action_open": "In %@ öffnen",
+            "clipboard_banner_action_share": "Universal-Link",
+            "share_universal_link_copied": "Universal SongFlip Link kopiert!",
         ],
         "en": [
             "app_name": "SongFlip",
@@ -125,7 +129,11 @@ enum LocalizationManager {
             "share_step2_title": "2. Scroll to 'More'",
             "share_step2_desc": "Swipe all the way right in the app icons row and tap 'More' (⋯).",
             "share_step3_title": "3. Enable SongFlip",
-            "share_step3_desc": "Tap 'Edit' and add SongFlip to your favorites list."
+            "share_step3_desc": "Tap 'Edit' and add SongFlip to your favorites list.",
+            "clipboard_banner_title": "Music Link in Clipboard",
+            "clipboard_banner_action_open": "Open in %@",
+            "clipboard_banner_action_share": "Universal Link",
+            "share_universal_link_copied": "Universal SongFlip link copied!",
         ],
         "da": [
             "app_name": "SongFlip",
@@ -187,7 +195,11 @@ enum LocalizationManager {
             "share_step2_title": "2. Rul til 'Mere'",
             "share_step2_desc": "Stryg helt til højre i app-rækken og tryk på 'Mere' (⋯).",
             "share_step3_title": "3. Aktivér SongFlip",
-            "share_step3_desc": "Tryk på 'Rediger' og føj SongFlip til dine favoritter."
+            "share_step3_desc": "Tryk på 'Rediger' og føj SongFlip til dine favoritter.",
+            "clipboard_banner_title": "Musiklink fundet",
+            "clipboard_banner_action_open": "Åbn i %@",
+            "clipboard_banner_action_share": "Universelt link",
+            "share_universal_link_copied": "Universelt SongFlip-link kopieret!",
         ],
         "nb": [
             "app_name": "SongFlip",
@@ -249,7 +261,11 @@ enum LocalizationManager {
             "share_step2_title": "2. Rull til 'Mer'",
             "share_step2_desc": "Sveip helt til høyre i app-raden og trykk på 'Mer' (⋯).",
             "share_step3_title": "3. Aktiver SongFlip",
-            "share_step3_desc": "Trykk på 'Rediger' og legg SongFlip til i favorittene dine."
+            "share_step3_desc": "Trykk på 'Rediger' og legg SongFlip til i favorittene dine.",
+            "clipboard_banner_title": "Musikklenke oppdaget",
+            "clipboard_banner_action_open": "Åpne i %@",
+            "clipboard_banner_action_share": "Universell lenke",
+            "share_universal_link_copied": "Universell SongFlip-lenke kopiert!",
         ],
         "sv": [
             "app_name": "SongFlip",
@@ -311,7 +327,11 @@ enum LocalizationManager {
             "share_step2_title": "2. Rulla till 'Mer'",
             "share_step2_desc": "Svep längst till höger i appraden och tryck på 'Mer' (⋯).",
             "share_step3_title": "3. Aktivera SongFlip",
-            "share_step3_desc": "Tryck på 'Ändra' och lägg till SongFlip bland dina favoriter."
+            "share_step3_desc": "Tryck på 'Ändra' och lägg till SongFlip bland dina favoriter.",
+            "clipboard_banner_title": "Musiklänk upptäckt",
+            "clipboard_banner_action_open": "Öppna i %@",
+            "clipboard_banner_action_share": "Universell länk",
+            "share_universal_link_copied": "Universell SongFlip-länk kopierad!",
         ],
         "nl": [
             "app_name": "SongFlip",
@@ -373,7 +393,11 @@ enum LocalizationManager {
             "share_step2_title": "2. Scroll naar 'Meer'",
             "share_step2_desc": "Veeg helemaal naar rechts in de app-rij en tik op 'Meer' (⋯).",
             "share_step3_title": "3. Schakel SongFlip in",
-            "share_step3_desc": "Tik op 'Wijzig' en voeg SongFlip toe aan je favorieten."
+            "share_step3_desc": "Tik op 'Wijzig' en voeg SongFlip toe aan je favorieten.",
+            "clipboard_banner_title": "Muzieklink gedetecteerd",
+            "clipboard_banner_action_open": "Openen in %@",
+            "clipboard_banner_action_share": "Universele link",
+            "share_universal_link_copied": "Universele SongFlip-link gekopieerd!",
         ],
         "fr": [
             "app_name": "SongFlip",
@@ -435,7 +459,11 @@ enum LocalizationManager {
             "share_step2_title": "2. Faire défiler jusqu'à 'Plus'",
             "share_step2_desc": "Glissez vers la droite dans la rangée d'apps et touchez 'Plus' (⋯).",
             "share_step3_title": "3. Activer SongFlip",
-            "share_step3_desc": "Touchez 'Modifier' et ajoutez SongFlip à vos favoris."
+            "share_step3_desc": "Touchez 'Modifier' et ajoutez SongFlip à vos favoris.",
+            "clipboard_banner_title": "Lien musical détecté",
+            "clipboard_banner_action_open": "Ouvrir dans %@",
+            "clipboard_banner_action_share": "Lien universel",
+            "share_universal_link_copied": "Lien universel copié !",
         ],
         "es": [
             "app_name": "SongFlip",
@@ -497,7 +525,11 @@ enum LocalizationManager {
             "share_step2_title": "2. Desplázate hasta 'Más'",
             "share_step2_desc": "Desliza a la derecha en la fila de apps y pulsa 'Más' (⋯).",
             "share_step3_title": "3. Activa SongFlip",
-            "share_step3_desc": "Pulsa 'Editar' y añade SongFlip a tus favoritos."
+            "share_step3_desc": "Pulsa 'Editar' y añade SongFlip a tus favoritos.",
+            "clipboard_banner_title": "Enlace de música detectado",
+            "clipboard_banner_action_open": "Abrir en %@",
+            "clipboard_banner_action_share": "Enlace universal",
+            "share_universal_link_copied": "¡Enlace universal copiado!",
         ],
         "it": [
             "app_name": "SongFlip",
@@ -559,7 +591,11 @@ enum LocalizationManager {
             "share_step2_title": "2. Scorri fino a 'Altro'",
             "share_step2_desc": "Scorri a destra nella riga delle app e tocca 'Altro' (⋯).",
             "share_step3_title": "3. Attiva SongFlip",
-            "share_step3_desc": "Tocca 'Modifica' e aggiungi SongFlip ai preferiti."
+            "share_step3_desc": "Tocca 'Modifica' e aggiungi SongFlip ai preferiti.",
+            "clipboard_banner_title": "Link musicale negli appunti",
+            "clipboard_banner_action_open": "Apri in %@",
+            "clipboard_banner_action_share": "Link universale",
+            "share_universal_link_copied": "Link universale copiato!",
         ],
         "pt": [
             "app_name": "SongFlip",
@@ -621,7 +657,11 @@ enum LocalizationManager {
             "share_step2_title": "2. Rolar até 'Mais'",
             "share_step2_desc": "Deslize para a direita na linha de apps e toque em 'Mais' (⋯).",
             "share_step3_title": "3. Ativar SongFlip",
-            "share_step3_desc": "Toque em 'Editar' e adicione o SongFlip aos seus favoritos."
+            "share_step3_desc": "Toque em 'Editar' e adicione o SongFlip aos seus favoritos.",
+            "clipboard_banner_title": "Link de música detetado",
+            "clipboard_banner_action_open": "Abrir no %@",
+            "clipboard_banner_action_share": "Link universal",
+            "share_universal_link_copied": "Link universal copiado!",
         ],
         "pl": [
             "app_name": "SongFlip",
@@ -683,7 +723,11 @@ enum LocalizationManager {
             "share_step2_title": "2. Przewiń do 'Więcej'",
             "share_step2_desc": "Przesuń w prawo w rzędzie aplikacji i dotknij 'Więcej' (⋯).",
             "share_step3_title": "3. Włącz SongFlip",
-            "share_step3_desc": "Dotknij 'Edycja' i dodaj SongFlip do ulubionych."
+            "share_step3_desc": "Dotknij 'Edycja' i dodaj SongFlip do ulubionych.",
+            "clipboard_banner_title": "Wykryto link do muzyki",
+            "clipboard_banner_action_open": "Otwórz w %@",
+            "clipboard_banner_action_share": "Uniwersalny link",
+            "share_universal_link_copied": "Skopiowano uniwersalny link SongFlip!",
         ],
         "ru": [
             "app_name": "SongFlip",
@@ -745,7 +789,11 @@ enum LocalizationManager {
             "share_step2_title": "2. Прокрутите до 'Еще'",
             "share_step2_desc": "Смахните вправо в строке приложений и выберите 'Еще' (⋯).",
             "share_step3_title": "3. Включите SongFlip",
-            "share_step3_desc": "Нажмите 'Править' и добавьте SongFlip в избранное."
+            "share_step3_desc": "Нажмите 'Править' и добавьте SongFlip в избранное.",
+            "clipboard_banner_title": "Музыкальная ссылка в буфере",
+            "clipboard_banner_action_open": "Открыть в %@",
+            "clipboard_banner_action_share": "Универсальная ссылка",
+            "share_universal_link_copied": "Универсальная ссылка SongFlip скопирована!",
         ],
         "tr": [
             "app_name": "SongFlip",
@@ -807,7 +855,11 @@ enum LocalizationManager {
             "share_step2_title": "2. 'Daha Fazla'ya Kaydırın",
             "share_step2_desc": "Uygulama simgeleri satırında sağa kaydırın ve 'Daha Fazla' (⋯) öğesine dokunun.",
             "share_step3_title": "3. SongFlip\'i Etkinleştirin",
-            "share_step3_desc": "'Düzenle'ye dokunun ve SongFlip\'i favorilerinize ekleyin."
+            "share_step3_desc": "'Düzenle'ye dokunun ve SongFlip\'i favorilerinize ekleyin.",
+            "clipboard_banner_title": "Müzik Bağlantısı Algılandı",
+            "clipboard_banner_action_open": "%@ ile aç",
+            "clipboard_banner_action_share": "Evrensel Bağlantı",
+            "share_universal_link_copied": "Evrensel SongFlip bağlantısı kopyalandı!",
         ],
         "uk": [
             "app_name": "SongFlip",
@@ -869,7 +921,11 @@ enum LocalizationManager {
             "share_step2_title": "2. Прокрутіть до 'Ще'",
             "share_step2_desc": "Проведіть праворуч у списку програм і торкніться 'Ще' (⋯).",
             "share_step3_title": "3. Увімкніть SongFlip",
-            "share_step3_desc": "Торкніться 'Редагувати' та додайте SongFlip до улюблених."
+            "share_step3_desc": "Торкніться 'Редагувати' та додайте SongFlip до улюблених.",
+            "clipboard_banner_title": "Музичне посилання в буфері",
+            "clipboard_banner_action_open": "Відкрити в %@",
+            "clipboard_banner_action_share": "Універсальне посилання",
+            "share_universal_link_copied": "Універсальне посилання SongFlip скопійовано!",
         ],
         "ja": [
             "app_name": "SongFlip",
@@ -931,7 +987,11 @@ enum LocalizationManager {
             "share_step2_title": "2. 「その他」までスクロール",
             "share_step2_desc": "アプリ行を右端までスワイプして「その他」(⋯) をタップします。",
             "share_step3_title": "3. SongFlipを有効化",
-            "share_step3_desc": "「編集」をタップしてSongFlipをよく使う項目に追加します。"
+            "share_step3_desc": "「編集」をタップしてSongFlipをよく使う項目に追加します。",
+            "clipboard_banner_title": "音楽リンクを検出しました",
+            "clipboard_banner_action_open": "%@ で開く",
+            "clipboard_banner_action_share": "共通リンク",
+            "share_universal_link_copied": "SongFlip共通リンクをコピーしました！",
         ],
         "ko": [
             "app_name": "SongFlip",
@@ -993,7 +1053,11 @@ enum LocalizationManager {
             "share_step2_title": "2. '더 보기'로 스크롤",
             "share_step2_desc": "앱 목록을 오른쪽 끝까지 스와이프하고 '더 보기'(⋯)를 탭하세요.",
             "share_step3_title": "3. SongFlip 활성화",
-            "share_step3_desc": "'편집'을 탭하고 SongFlip을 즐겨찾기에 추가하세요."
+            "share_step3_desc": "'편집'을 탭하고 SongFlip을 즐겨찾기에 추가하세요.",
+            "clipboard_banner_title": "음악 링크 감지됨",
+            "clipboard_banner_action_open": "%@에서 열기",
+            "clipboard_banner_action_share": "유니버설 링크",
+            "share_universal_link_copied": "SongFlip 유니버설 링크가 복사되었습니다!",
         ],
         "zh": [
             "app_name": "SongFlip",
@@ -1055,7 +1119,11 @@ enum LocalizationManager {
             "share_step2_title": "2. 滑动至“更多”",
             "share_step2_desc": "在 App 图标列表中向右滑到最末，轻点“更多”（⋯）。",
             "share_step3_title": "3. 启用 SongFlip",
-            "share_step3_desc": "轻点“编辑”，将 SongFlip 添加到常用个人收藏中。"
+            "share_step3_desc": "轻点“编辑”，将 SongFlip 添加到常用个人收藏中。",
+            "clipboard_banner_title": "检测到音乐链接",
+            "clipboard_banner_action_open": "在 %@ 中打开",
+            "clipboard_banner_action_share": "通用链接",
+            "share_universal_link_copied": "已复制 SongFlip 通用链接！",
         ],
         "in": [
             "app_name": "SongFlip",
@@ -1117,7 +1185,11 @@ enum LocalizationManager {
             "share_step2_title": "2. Geser ke 'Lainnya'",
             "share_step2_desc": "Geser ke kanan pada deretan ikon aplikasi dan ketuk 'Lainnya' (⋯).",
             "share_step3_title": "3. Aktifkan SongFlip",
-            "share_step3_desc": "Ketuk 'Edit' dan tambahkan SongFlip ke favorit Anda."
+            "share_step3_desc": "Ketuk 'Edit' dan tambahkan SongFlip ke favorit Anda.",
+            "clipboard_banner_title": "Tautan Musik Terdeteksi",
+            "clipboard_banner_action_open": "Buka di %@",
+            "clipboard_banner_action_share": "Tautan Universal",
+            "share_universal_link_copied": "Tautan universal SongFlip disalin!",
         ],
         "vi": [
             "app_name": "SongFlip",
@@ -1179,7 +1251,11 @@ enum LocalizationManager {
             "share_step2_title": "2. Cuộn đến 'Thêm'",
             "share_step2_desc": "Vuốt sang phải trong danh sách ứng dụng và chạm 'Thêm' (⋯).",
             "share_step3_title": "3. Bật SongFlip",
-            "share_step3_desc": "Chạm 'Sửa' và thêm SongFlip vào danh sách ưa thích."
+            "share_step3_desc": "Chạm 'Sửa' và thêm SongFlip vào danh sách ưa thích.",
+            "clipboard_banner_title": "Đã phát hiện liên kết nhạc",
+            "clipboard_banner_action_open": "Mở trong %@",
+            "clipboard_banner_action_share": "Liên kết chung",
+            "share_universal_link_copied": "Đã sao chép liên kết chung SongFlip!",
         ],
         "bn": [
             "app_name": "SongFlip",
@@ -1241,7 +1317,11 @@ enum LocalizationManager {
             "share_step2_title": "২. 'আরও'-তে স্ক্রোল করুন",
             "share_step2_desc": "অ্যাপ সারিতে ডানে স্ক্রোল করুন এবং 'আরও' (⋯) চাপুন।",
             "share_step3_title": "৩. SongFlip চালু করুন",
-            "share_step3_desc": "'সম্পাদনা' চাপুন এবং SongFlip-কে পছন্দের তালিকায় যুক্ত করুন।"
+            "share_step3_desc": "'সম্পাদনা' চাপুন এবং SongFlip-কে পছন্দের তালিকায় যুক্ত করুন।",
+            "clipboard_banner_title": "মিউজিক লিংক শনাক্ত হয়েছে",
+            "clipboard_banner_action_open": "%@-এ খুলুন",
+            "clipboard_banner_action_share": "সর্বজনীন লিংক",
+            "share_universal_link_copied": "SongFlip সর্বজনীন লিংক কপি করা হয়েছে!",
         ],
         "hi": [
             "app_name": "SongFlip",
@@ -1303,7 +1383,11 @@ enum LocalizationManager {
             "share_step2_title": "2. 'अधिक' पर स्क्रॉल करें",
             "share_step2_desc": "ऐप्स पंक्ति में दाईं ओर स्वाइप करें और 'अधिक' (⋯) पर टैप करें।",
             "share_step3_title": "3. SongFlip सक्षम करें",
-            "share_step3_desc": "'संपादित करें' पर टैप करें और SongFlip को पसंदीदा में जोड़ें।"
+            "share_step3_desc": "'संपादित करें' पर टैप करें और SongFlip को पसंदीदा में जोड़ें।",
+            "clipboard_banner_title": "म्यूज़िक लिंक मिला",
+            "clipboard_banner_action_open": "%@ में खोलें",
+            "clipboard_banner_action_share": "यूनिवर्सल लिंक",
+            "share_universal_link_copied": "SongFlip यूनिवर्सल लिंक कॉपी किया गया!",
         ],
         "mr": [
             "app_name": "SongFlip",
@@ -1365,7 +1449,11 @@ enum LocalizationManager {
             "share_step2_title": "२. 'अधिक' वर स्क्रोल करा",
             "share_step2_desc": "अ‍ॅप्सच्या ओळीत उजवीकडे स्वाइप करा आणि 'अधिक' (⋯) वर टॅप करा.",
             "share_step3_title": "३. SongFlip सक्षम करा",
-            "share_step3_desc": "'संपादित करा' वर टॅप करा आणि SongFlip पसंतीमध्ये जोडा."
+            "share_step3_desc": "'संपादित करा' वर टॅप करा आणि SongFlip पसंतीमध्ये जोडा.",
+            "clipboard_banner_title": "म्युझिक लिंक आढळली",
+            "clipboard_banner_action_open": "%@ मध्ये उघडा",
+            "clipboard_banner_action_share": "युनिव्हर्सल लिंक",
+            "share_universal_link_copied": "SongFlip युनिव्हर्सल लिंक कॉपी केली!",
         ]
     ]
 
