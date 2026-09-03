@@ -35,6 +35,7 @@ class OdesliRepository {
         .build()
 
     private val urlPattern = Pattern.compile("(https?://[^\\s<>'\"]+)")
+    private val ytVideoRendererPattern = Pattern.compile("\"videoRenderer\":\\{\"videoId\":\"([a-zA-Z0-9_-]{11})\"")
     private val ytVideoIdJsonPattern = Pattern.compile("\"videoId\":\"([a-zA-Z0-9_-]{11})\"")
     private val ytWatchPattern = Pattern.compile("/watch\\?v=([a-zA-Z0-9_-]{11})")
     private val ytAlbumPlaylistPattern = Pattern.compile("\"playlistId\":\"(OLAK5uy_[a-zA-Z0-9_-]+)\"")
@@ -754,7 +755,7 @@ class OdesliRepository {
         return try {
             val encodedQuery = URLEncoder.encode(query, "UTF-8")
             val req = Request.Builder()
-                .url("https://www.youtube.com/results?search_query=$encodedQuery")
+                .url("https://www.youtube.com/results?search_query=$encodedQuery&sp=EgIQAQ%253D%253D")
                 .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
                 .get()
                 .build()
@@ -767,7 +768,16 @@ class OdesliRepository {
             val html = resp.body?.string() ?: ""
             resp.close()
 
-            // Check JSON videoId first (modern desktop YT)
+            // 1. Prioritize official videoRenderer (filters out Shorts, reels, fan clips)
+            val vrMatcher = ytVideoRendererPattern.matcher(html)
+            if (vrMatcher.find()) {
+                val videoId = vrMatcher.group(1)
+                if (!videoId.isNullOrEmpty()) {
+                    return "https://music.youtube.com/watch?v=$videoId"
+                }
+            }
+
+            // 2. Check JSON videoId (desktop YT)
             val jsonMatcher = ytVideoIdJsonPattern.matcher(html)
             if (jsonMatcher.find()) {
                 val videoId = jsonMatcher.group(1)
@@ -776,7 +786,7 @@ class OdesliRepository {
                 }
             }
 
-            // Check watch?v= format
+            // 3. Check watch?v= format
             val watchMatcher = ytWatchPattern.matcher(html)
             if (watchMatcher.find()) {
                 val videoId = watchMatcher.group(1)
