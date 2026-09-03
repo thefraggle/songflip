@@ -69,41 +69,86 @@ function applyWebShareSecurityHeaders(res: any) {
 /**
  * Normalizes music URLs into clean canonical identifiers.
  */
+function cleanSearchQuery(query: string): string {
+  let cleaned = query.trim();
+  if (!cleaned) return cleaned;
+
+  cleaned = cleaned.replace(/\s*-\s*\d{4}\s+remaster(?:ed)?/gi, "");
+  cleaned = cleaned.replace(/\s*[\(\[]\s*\d{4}\s+remaster(?:ed)?\s*[\)\]]/gi, "");
+  cleaned = cleaned.replace(/\s*[\(\[]\s*remaster(?:ed)?(?:\s+\d{4})?\s*[\)\]]/gi, "");
+  cleaned = cleaned.replace(/\s*-\s*remaster(?:ed)?/gi, "");
+
+  cleaned = cleaned.replace(/\s*[\(\[]\s*(?:radio|single|album|extended|club)\s+edit\s*[\)\]]/gi, "");
+  cleaned = cleaned.replace(/\s*[\(\[]\s*(?:radio|single|album)\s+version\s*[\)\]]/gi, "");
+
+  cleaned = cleaned.replace(/\s*[\(\[]\s*live(?:\s+at[^)\]]+)?\s*[\)\]]/gi, "");
+  cleaned = cleaned.replace(/\s*-\s*live(?:\s+at[^-]+)?/gi, "");
+
+  cleaned = cleaned.replace(/\s{2,}/g, " ").trim();
+  return cleaned || query.trim();
+}
+
 function normalizeMusicUrl(rawUrl: string): string {
   try {
     const trimmed = rawUrl.trim();
-    // 1. Canonicalize Spotify URLs (remove tracking & international language prefixes)
+    // 1. Spotify
     const spotifyTrack = trimmed.match(/open\.spotify\.com(?:\/intl-[a-z-]+)?\/track\/([a-zA-Z0-9]+)/i);
-    if (spotifyTrack && spotifyTrack[1]) {
-      return `https://open.spotify.com/track/${spotifyTrack[1]}`;
-    }
+    if (spotifyTrack && spotifyTrack[1]) return `https://open.spotify.com/track/${spotifyTrack[1]}`;
     const spotifyAlbum = trimmed.match(/open\.spotify\.com(?:\/intl-[a-z-]+)?\/album\/([a-zA-Z0-9]+)/i);
-    if (spotifyAlbum && spotifyAlbum[1]) {
-      return `https://open.spotify.com/album/${spotifyAlbum[1]}`;
-    }
+    if (spotifyAlbum && spotifyAlbum[1]) return `https://open.spotify.com/album/${spotifyAlbum[1]}`;
     const spotifyArtist = trimmed.match(/open\.spotify\.com(?:\/intl-[a-z-]+)?\/artist\/([a-zA-Z0-9]+)/i);
-    if (spotifyArtist && spotifyArtist[1]) {
-      return `https://open.spotify.com/artist/${spotifyArtist[1]}`;
+    if (spotifyArtist && spotifyArtist[1]) return `https://open.spotify.com/artist/${spotifyArtist[1]}`;
+
+    // 2. Apple Music
+    if (trimmed.includes("apple.com") && trimmed.includes("i=")) {
+      const base = trimmed.split("?")[0];
+      const match = trimmed.match(/[?&]i=(\d+)/);
+      if (match && match[1]) return `${base}?i=${match[1]}`;
+    } else if (trimmed.includes("apple.com") && (trimmed.includes("/album/") || trimmed.includes("/song/"))) {
+      return trimmed.split("?")[0];
+    }
+
+    // 3. Deezer
+    const deezerMatch = trimmed.match(/deezer\.com(?:\/[a-z-]+)?\/(track|album|artist)\/(\d+)/i);
+    if (deezerMatch && deezerMatch[1] && deezerMatch[2]) {
+      return `https://www.deezer.com/${deezerMatch[1].toLowerCase()}/${deezerMatch[2]}`;
+    }
+
+    // 4. YouTube & YouTube Music
+    const ytWatchMatch = trimmed.match(/(?:music\.)?youtube\.com\/watch\?.*[?&]v=([a-zA-Z0-9_-]{11})/i);
+    if (ytWatchMatch && ytWatchMatch[1]) {
+      const host = trimmed.includes("music.youtube.com") ? "https://music.youtube.com" : "https://www.youtube.com";
+      return `${host}/watch?v=${ytWatchMatch[1]}`;
+    }
+    const ytShortMatch = trimmed.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/i);
+    if (ytShortMatch && ytShortMatch[1]) {
+      return `https://youtu.be/${ytShortMatch[1]}`;
+    }
+
+    // 5. Amazon Music
+    if (trimmed.includes("music.amazon.") && trimmed.includes("trackAsin=")) {
+      const base = trimmed.split("?")[0];
+      const asinMatch = trimmed.match(/[?&]trackAsin=([a-zA-Z0-9]+)/);
+      if (asinMatch && asinMatch[1]) return `${base}?trackAsin=${asinMatch[1]}`;
+    } else if (trimmed.includes("music.amazon.")) {
+      return trimmed.split("?")[0];
+    }
+
+    // 6. Tidal
+    const tidalMatch = trimmed.match(/(?:listen\.)?tidal\.com\/(?:browse\/)?(track|album)\/([a-zA-Z0-9-]+)/i);
+    if (tidalMatch && tidalMatch[1] && tidalMatch[2]) {
+      return `https://tidal.com/browse/${tidalMatch[1].toLowerCase()}/${tidalMatch[2]}`;
     }
 
     const url = new URL(trimmed);
-    // Strip common tracking and navigation parameters
-    url.searchParams.delete("si");
-    url.searchParams.delete("context");
-    url.searchParams.delete("rowId");
-    url.searchParams.delete("rowid");
-    url.searchParams.delete("feature");
-    url.searchParams.delete("src");
-    url.searchParams.delete("utm_source");
-    url.searchParams.delete("utm_medium");
-    url.searchParams.delete("utm_campaign");
-    url.searchParams.delete("utm_content");
-    url.searchParams.delete("utm_term");
-
-    // Remove international language paths for Spotify (e.g. /intl-de/track/...)
-    let pathname = url.pathname;
-    pathname = pathname.replace(/\/intl-[a-z]{2,3}(?:-[a-z]{2,4})?\//i, "/");
-    url.pathname = pathname;
+    const trackingKeys = [
+      "si", "context", "rowid", "rowId", "feature", "src", "ref", "ref_", "tag",
+      "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term",
+      "gclid", "fbclid", "igshid", "msclkid", "uo", "at", "ct", "app", "ls"
+    ];
+    for (const key of trackingKeys) {
+      url.searchParams.delete(key);
+    }
 
     return url.toString();
   } catch {
@@ -758,7 +803,8 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
 
     // If artist is missing or generic, or few links, query Deezer to heal metadata
     if (!artist || Object.keys(linksMap).length < 4) {
-      const query = (artist + " " + title).trim();
+      const cleanTitle = cleanSearchQuery(title);
+      const query = (artist + " " + cleanTitle).trim();
       if (query) {
         try {
           const deezerType = isAlbum ? "album" : "track";
@@ -781,9 +827,10 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
     // Fallback for Apple Music via iTunes Search API if not populated
     if (!linksMap.appleMusic && title && artist) {
       try {
+        const cleanTitle = cleanSearchQuery(title);
         const itunesRes = await axios.get("https://itunes.apple.com/search", {
           params: {
-            term: `${artist} ${title}`,
+            term: `${artist} ${cleanTitle}`,
             media: "music",
             entity: isAlbum ? "album" : "song",
             limit: 1,
@@ -848,7 +895,8 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
     // If YouTube Music direct watch link is missing or is search-only, resolve exact video ID
     if ((!linksMap.youtubeMusic || linksMap.youtubeMusic.includes("/search")) && title && artist) {
       try {
-        const directYt = await resolveYouTubeDirectPlayLive(`${artist} ${title}`.trim(), isAlbum);
+        const cleanTitle = cleanSearchQuery(title);
+        const directYt = await resolveYouTubeDirectPlayLive(`${artist} ${cleanTitle}`.trim(), isAlbum);
         if (directYt) {
           linksMap.youtubeMusic = directYt;
         }
@@ -858,23 +906,25 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
     // Always populate all 6 streaming platforms with direct or fallback search links
     if (title && artist) {
       const cleanLower = url.toLowerCase();
+      const cleanTitle = cleanSearchQuery(title);
+      const searchEncoded = encodeURIComponent(artist + " " + cleanTitle);
       if (!linksMap.spotify) {
-        linksMap.spotify = cleanLower.includes("spotify.com") ? url : `https://open.spotify.com/search/${encodeURIComponent(artist + " " + title)}`;
+        linksMap.spotify = cleanLower.includes("spotify.com") ? url : `https://open.spotify.com/search/${searchEncoded}`;
       }
       if (!linksMap.appleMusic) {
-        linksMap.appleMusic = cleanLower.includes("apple.com") ? url : `https://music.apple.com/search?term=${encodeURIComponent(artist + " " + title)}`;
+        linksMap.appleMusic = cleanLower.includes("apple.com") ? url : `https://music.apple.com/search?term=${searchEncoded}`;
       }
       if (!linksMap.youtubeMusic) {
-        linksMap.youtubeMusic = cleanLower.includes("music.youtube.com") ? url : `https://music.youtube.com/search?q=${encodeURIComponent(artist + " " + title)}`;
+        linksMap.youtubeMusic = cleanLower.includes("music.youtube.com") ? url : `https://music.youtube.com/search?q=${searchEncoded}`;
       }
       if (!linksMap.deezer) {
-        linksMap.deezer = cleanLower.includes("deezer.com") ? url : `https://www.deezer.com/search/${encodeURIComponent(artist + " " + title)}`;
+        linksMap.deezer = cleanLower.includes("deezer.com") ? url : `https://www.deezer.com/search/${searchEncoded}`;
       }
       if (!linksMap.tidal) {
-        linksMap.tidal = cleanLower.includes("tidal.com") ? url : `https://listen.tidal.com/search?q=${encodeURIComponent(artist + " " + title)}`;
+        linksMap.tidal = cleanLower.includes("tidal.com") ? url : `https://listen.tidal.com/search/${searchEncoded}`;
       }
       if (!linksMap.amazonMusic) {
-        linksMap.amazonMusic = cleanLower.includes("amazon.") ? url : `https://music.amazon.com/search/${encodeURIComponent(artist + " " + title)}`;
+        linksMap.amazonMusic = cleanLower.includes("amazon.") ? url : `https://music.amazon.com/search/${searchEncoded}`;
       }
     }
 
