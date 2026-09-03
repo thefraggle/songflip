@@ -226,18 +226,26 @@ class OdesliRepository {
 
                 // If target platform link is not directly available, use the extracted track/album title + artist
                 if (songLinkData.title.isNotEmpty()) {
-                    val query = if (songLinkData.artist.isNotEmpty() && !songLinkData.title.contains(songLinkData.artist, ignoreCase = true)) {
+                    val rawQuery = if (songLinkData.artist.isNotEmpty() && !songLinkData.title.contains(songLinkData.artist, ignoreCase = true)) {
                         "${songLinkData.artist} ${songLinkData.title}"
                     } else {
                         songLinkData.title
                     }
+                    val cleanQuery = UrlUtils.cleanSearchQuery(rawQuery)
 
                     val resolvedDirectUrl = resolveDirectPlatformUrl(
-                        query = query,
+                        query = cleanQuery,
                         targetPlatformKey = targetPlatformKey,
                         isAlbum = isAlbum
-                    )
-                    val finalTargetUrl = resolvedDirectUrl ?: buildSearchUrl(query, targetPlatformKey)
+                    ) ?: if (cleanQuery != rawQuery) {
+                        resolveDirectPlatformUrl(
+                            query = rawQuery,
+                            targetPlatformKey = targetPlatformKey,
+                            isAlbum = isAlbum
+                        )
+                    } else null
+
+                    val finalTargetUrl = resolvedDirectUrl ?: buildSearchUrl(cleanQuery, targetPlatformKey)
                     val result = OdesliResult.Success(
                         targetUrl = finalTargetUrl,
                         platform = if (resolvedDirectUrl != null) targetPlatformKey else "${targetPlatformKey}_search",
@@ -260,12 +268,20 @@ class OdesliRepository {
 
             // 6. Fallback Metadata Extraction via Service OEmbed / Public APIs
             if (trackInfo != null && trackInfo.isNotBlank()) {
+                val cleanTrack = UrlUtils.cleanSearchQuery(trackInfo)
                 val resolvedDirectUrl = resolveDirectPlatformUrl(
-                    query = trackInfo,
+                    query = cleanTrack,
                     targetPlatformKey = targetPlatformKey,
                     isAlbum = isExplicitAlbumUrl
-                )
-                val targetUrl = resolvedDirectUrl ?: buildSearchUrl(trackInfo, targetPlatformKey)
+                ) ?: if (cleanTrack != trackInfo) {
+                    resolveDirectPlatformUrl(
+                        query = trackInfo,
+                        targetPlatformKey = targetPlatformKey,
+                        isAlbum = isExplicitAlbumUrl
+                    )
+                } else null
+
+                val targetUrl = resolvedDirectUrl ?: buildSearchUrl(cleanTrack, targetPlatformKey)
                 val platform = if (resolvedDirectUrl != null) targetPlatformKey else "${targetPlatformKey}_search"
                 val result = OdesliResult.Success(
                     targetUrl = targetUrl,

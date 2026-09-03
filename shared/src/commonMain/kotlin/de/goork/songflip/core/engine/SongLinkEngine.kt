@@ -134,19 +134,27 @@ class SongLinkEngine(
                 }
 
                 if (songLinkData.title.isNotEmpty()) {
-                    val query = if (songLinkData.artist.isNotEmpty() && !songLinkData.title.contains(songLinkData.artist, ignoreCase = true)) {
+                    val rawQuery = if (songLinkData.artist.isNotEmpty() && !songLinkData.title.contains(songLinkData.artist, ignoreCase = true)) {
                         "${songLinkData.artist} ${songLinkData.title}"
                     } else {
                         songLinkData.title
                     }
+                    val cleanQuery = UrlUtils.cleanSearchQuery(rawQuery)
 
                     val isAlbum = songLinkData.isAlbum || isExplicitAlbumUrl
                     val resolvedDirectUrl = resolveDirectPlatformUrl(
-                        query = query,
+                        query = cleanQuery,
                         targetPlatformKey = targetPlatformKey,
                         isAlbum = isAlbum
-                    )
-                    val finalTargetUrl = resolvedDirectUrl ?: UrlUtils.buildSearchUrl(query, targetPlatformKey)
+                    ) ?: if (cleanQuery != rawQuery) {
+                        resolveDirectPlatformUrl(
+                            query = rawQuery,
+                            targetPlatformKey = targetPlatformKey,
+                            isAlbum = isAlbum
+                        )
+                    } else null
+
+                    val finalTargetUrl = resolvedDirectUrl ?: UrlUtils.buildSearchUrl(cleanQuery, targetPlatformKey)
                     val nativeUri = UrlUtils.toNativeAppUri(finalTargetUrl, targetPlatformKey)
                     val result = ResolutionResult.Success(
                         targetUrl = finalTargetUrl,
@@ -163,12 +171,20 @@ class SongLinkEngine(
 
             // 6. Fallback Metadata Extraction via OEmbed / Public APIs
             if (trackInfo != null && trackInfo.isNotBlank()) {
+                val cleanTrack = UrlUtils.cleanSearchQuery(trackInfo)
                 val resolvedDirectUrl = resolveDirectPlatformUrl(
-                    query = trackInfo,
+                    query = cleanTrack,
                     targetPlatformKey = targetPlatformKey,
                     isAlbum = isExplicitAlbumUrl
-                )
-                val targetUrl = resolvedDirectUrl ?: UrlUtils.buildSearchUrl(trackInfo, targetPlatformKey)
+                ) ?: if (cleanTrack != trackInfo) {
+                    resolveDirectPlatformUrl(
+                        query = trackInfo,
+                        targetPlatformKey = targetPlatformKey,
+                        isAlbum = isExplicitAlbumUrl
+                    )
+                } else null
+
+                val targetUrl = resolvedDirectUrl ?: UrlUtils.buildSearchUrl(cleanTrack, targetPlatformKey)
                 val platform = if (resolvedDirectUrl != null) targetPlatformKey else "${targetPlatformKey}_search"
                 val nativeUri = UrlUtils.toNativeAppUri(targetUrl, targetPlatformKey)
                 val result = ResolutionResult.Success(
