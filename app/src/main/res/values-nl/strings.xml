@@ -156,4 +156,7 @@
     <string name="clipboard_banner_title">Muzieklink gedetecteerd</string>
     <string name="clipboard_banner_action_open">Openen in %1$s</string>
     <string name="clipboard_banner_action_share">Universele link</string>
+    <string name="pro_play_store_unavailable">Google Play Store is momenteel niet beschikbaar.</string>
+    <string name="pro_feature_l2_cache">Snelle L2-cloudcache (&lt; 50 ms)</string>
+    <string name="pro_processing">Verwerken...</string>
 </resources>

@@ -54,8 +54,8 @@ class SongFlipApp : Application() {
         }
 
         AptabaseClient.shared.init(
-            appKey = "REPLACED_SECRET",
-            host = "https://api.aptabase.com",
+            appKey = BuildConfig.APTABASE_APP_KEY,
+            host = BuildConfig.APTABASE_HOST,
             osName = "Android",
             osVersion = Build.VERSION.RELEASE ?: "",
             locale = Locale.getDefault().toLanguageTag(),

@@ -155,4 +155,8 @@
     <string name="clipboard_banner_title">Tautan Musik Terdeteksi</string>
     <string name="clipboard_banner_action_open">Buka di %1$s</string>
     <string name="clipboard_banner_action_share">Tautan Universal</string>
+    <string name="pro_play_store_unavailable">Google Play Store saat ini tidak tersedia.</string>
+    <string name="pro_feature_l2_cache">Cache Cloud L2 Berkecepatan Tinggi (&lt;50ms)</string>
+    <string name="pro_btn_subscribe">Berlangganan</string>
+    <string name="pro_processing">Memproses...</string>
 </resources>

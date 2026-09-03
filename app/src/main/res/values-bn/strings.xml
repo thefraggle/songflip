@@ -155,4 +155,8 @@
     <string name="clipboard_banner_title">মিউজিক লিংক শনাক্ত হয়েছে</string>
     <string name="clipboard_banner_action_open">%1$s-এ খুলুন</string>
     <string name="clipboard_banner_action_share">সর্বজনীন লিংক</string>
+    <string name="pro_play_store_unavailable">Google Play Store বর্তমানে অনুপলব্ধ।</string>
+    <string name="pro_feature_l2_cache">হাই-স্পিড L2 ক্লাউড ক্যাশে (&lt;50ms)</string>
+    <string name="pro_processing">প্রক্রিয়া করা হচ্ছে...</string>
+    <string name="pro_btn_subscribe">সদস্যতা</string>
 </resources>

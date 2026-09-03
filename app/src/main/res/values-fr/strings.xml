@@ -156,4 +156,7 @@
     <string name="clipboard_banner_title">Lien musical détecté</string>
     <string name="clipboard_banner_action_open">Ouvrir dans %1$s</string>
     <string name="clipboard_banner_action_share">Lien universel</string>
+    <string name="pro_play_store_unavailable">Google Play Store est actuellement indisponible.</string>
+    <string name="pro_feature_l2_cache">Cache cloud L2 haut débit (&lt; 50 ms)</string>
+    <string name="pro_processing">Traitement...</string>
 </resources>

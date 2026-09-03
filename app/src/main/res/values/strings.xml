@@ -128,7 +128,7 @@
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">Support indie development &amp; unlock exclusive features</string>
     <string name="pro_feature_history">Expanded 100-song history</string>
-    <string name="pro_feature_l2_cache">Ultra-fast L2 server cache (&lt; 50ms)</string>
+    <string name="pro_feature_l2_cache">High-Speed L2 Cloud Cache (&lt; 50ms)</string>
     <string name="pro_feature_support">Directly support indie development</string>
     <string name="pro_feature_future">All upcoming PRO features included</string>
     <string name="pro_tier_monthly">Monthly</string>
@@ -174,4 +174,6 @@
     <string name="clipboard_banner_title">Music Link in Clipboard</string>
     <string name="clipboard_banner_action_open">Open in %1$s</string>
     <string name="clipboard_banner_action_share">Universal Link</string>
+    <string name="pro_debug_reset_status">PRO status reset (Debug)</string>
+    <string name="pro_debug_reset_button">Reset PRO status (Debug)</string>
 </resources>

@@ -156,4 +156,7 @@
     <string name="clipboard_banner_title">Музыкальная ссылка в буфере</string>
     <string name="clipboard_banner_action_open">Открыть в %1$s</string>
     <string name="clipboard_banner_action_share">Универсальная ссылка</string>
+    <string name="pro_play_store_unavailable">Google Play Store в настоящее время недоступен.</string>
+    <string name="pro_feature_l2_cache">Высокоскоростной облачный кэш L2 (&lt; 50 мс)</string>
+    <string name="pro_processing">Обработка...</string>
 </resources>
