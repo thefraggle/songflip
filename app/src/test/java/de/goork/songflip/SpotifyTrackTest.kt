@@ -33,4 +33,20 @@ class SpotifyTrackTest {
             }
         }
     }
+
+    @Test
+    fun testUserReportedSpotifyUrls() = runBlocking {
+        val urls = listOf(
+            "https://open.spotify.com/track/7JRnqsOyndSyuafJxCwDXJ?si=gyfVOye7SoSdgLod0PJAew&utm_source=whatsapp&context=spotify%3Aplaylist%3A37i9dQZF1F5p3rmiWPIYgZ&rowId=d5bd0eafe40e9b29b1d3",
+            "https://open.spotify.com/track/6SvlfrQYzUsW5UQUpUpy26?si=KuHeyiOKTQuxxlkwBALZUQ&utm_source=whatsapp&context=spotify%3Aplaylist%3A37i9dQZF1F5p3rmiWPIYgZ&rowId=8edf168a48deefb728aa",
+            "https://open.spotify.com/track/5zV9lK1r4EaEWxtlLdVM73?si=xbZIM2mNQLWYg8CSC1FKvA&utm_source=whatsapp&context=spotify%3Aplaylist%3A37i9dQZF1F5p3rmiWPIYgZ&rowId=d780a90a8985476fd2b7"
+        )
+        for (url in urls) {
+            for (target in listOf("youtubeMusic", "appleMusic", "deezer", "amazonMusic")) {
+                LinkCacheManager.clear()
+                val result = repository.resolveTargetUrl(url, target)
+                assertTrue("Expected Success for $url on $target, got: $result", result is OdesliResult.Success)
+            }
+        }
+    }
 }

@@ -24,7 +24,74 @@ object UrlUtils {
             }
         }
 
-        return extracted
+        return if (extracted != null) normalizeUrl(extracted) else null
+    }
+
+    /**
+     * Cleans tracking parameters, context query parameters, and regional prefixes
+     * from streaming URLs to guarantee maximum cache hit rates and clean provider queries.
+     */
+    fun normalizeUrl(url: String): String {
+        var clean = url.trim()
+        if (clean.isBlank()) return clean
+
+        // 1. Spotify: open.spotify.com/track/{id} or /intl-*/track/{id}
+        val spotifyTrackMatch = Regex("open\\.spotify\\.com(?:/intl-[a-zA-Z-]+)?/track/([a-zA-Z0-9]+)").find(clean)
+        if (spotifyTrackMatch != null) {
+            val id = spotifyTrackMatch.groupValues[1]
+            return "https://open.spotify.com/track/$id"
+        }
+        val spotifyAlbumMatch = Regex("open\\.spotify\\.com(?:/intl-[a-zA-Z-]+)?/album/([a-zA-Z0-9]+)").find(clean)
+        if (spotifyAlbumMatch != null) {
+            val id = spotifyAlbumMatch.groupValues[1]
+            return "https://open.spotify.com/album/$id"
+        }
+        val spotifyArtistMatch = Regex("open\\.spotify\\.com(?:/intl-[a-zA-Z-]+)?/artist/([a-zA-Z0-9]+)").find(clean)
+        if (spotifyArtistMatch != null) {
+            val id = spotifyArtistMatch.groupValues[1]
+            return "https://open.spotify.com/artist/$id"
+        }
+
+        // 2. Apple Music: Preserve base URL + exact track id parameter (?i=...)
+        if (clean.contains("apple.com") && clean.contains("i=")) {
+            val base = clean.substringBefore("?")
+            val trackId = clean.substringAfter("i=").substringBefore("&").substringBefore("?").trim()
+            if (trackId.isNotEmpty()) {
+                return "$base?i=$trackId"
+            }
+        }
+
+        // 3. Deezer: deezer.com/track/{id} or /de/track/{id}
+        val deezerMatch = Regex("deezer\\.com(?:/[a-zA-Z-]+)?/(track|album)/(\\d+)").find(clean)
+        if (deezerMatch != null) {
+            val type = deezerMatch.groupValues[1]
+            val id = deezerMatch.groupValues[2]
+            return "https://www.deezer.com/$type/$id"
+        }
+
+        // 4. YouTube: youtube.com/watch?v={id} -> keep only v parameter
+        if (clean.contains("youtube.com/watch") && clean.contains("v=")) {
+            val id = clean.substringAfter("v=").substringBefore("&").substringBefore("?").trim()
+            if (id.isNotEmpty()) {
+                return "https://www.youtube.com/watch?v=$id"
+            }
+        }
+
+        // 5. Generic Query Parameter Stripping (si, context, rowId, utm_*)
+        if (clean.contains("?")) {
+            val base = clean.substringBefore("?")
+            val query = clean.substringAfter("?")
+            val keptParams = query.split("&").filter { param ->
+                val key = param.substringBefore("=").lowercase()
+                key !in setOf(
+                    "si", "context", "rowid", "feature", "src",
+                    "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"
+                )
+            }
+            clean = if (keptParams.isEmpty()) base else "$base?${keptParams.joinToString("&")}"
+        }
+
+        return clean
     }
 
     fun isShortLinkDomain(url: String): Boolean {

@@ -110,8 +110,8 @@ class RedirectActivity : ComponentActivity() {
 
             lifecycleScope.launch {
                 try {
-                    // Generous 5.0-second timeout to handle cold mobile network requests
-                    val result = withTimeoutOrNull(5000L) {
+                    // Generous 8.0-second timeout to handle cold mobile network requests
+                    val result = withTimeoutOrNull(8000L) {
                         odesliRepository.resolveTargetUrl(
                             inputUrl = incomingUrl,
                             targetPlatformKey = targetPlatform,

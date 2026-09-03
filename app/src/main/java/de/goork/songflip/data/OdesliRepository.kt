@@ -1,5 +1,6 @@
 package de.goork.songflip.data
 
+import de.goork.songflip.core.util.UrlUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.supervisorScope
@@ -61,11 +62,12 @@ class OdesliRepository {
             }
 
             // 3. Resolve short links (spotify.link, link.deezer.com, deezer.page.link, amzn.to, youtu.be, etc.)
-            val canonicalUrl = if (isShortLinkDomain(cleanUrl)) {
+            val resolvedUrl = if (isShortLinkDomain(cleanUrl)) {
                 resolveCanonicalUrl(cleanUrl)
             } else {
                 cleanUrl
             }
+            val canonicalUrl = UrlUtils.normalizeUrl(resolvedUrl)
 
             // Playlist links cannot be converted 1:1 in background; reject cleanly to avoid garbage search results
             if (isPlaylistUrl(canonicalUrl)) {
@@ -1364,7 +1366,7 @@ class OdesliRepository {
             }
         }
 
-        return extracted
+        return if (extracted != null) UrlUtils.normalizeUrl(extracted) else null
     }
 
     private fun isShortLinkDomain(url: String): Boolean {
