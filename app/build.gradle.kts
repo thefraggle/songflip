@@ -20,11 +20,11 @@ if (localPropsFile.exists()) {
 
 val revenueCatApiKey = System.getenv("REVENUECAT_API_KEY")
     ?: localProps.getProperty("revenuecat.api.key")
-    ?: "REPLACED_SECRET"
+    ?: ""
 
 val aptabaseAppKey = System.getenv("APTABASE_APP_KEY")
     ?: localProps.getProperty("aptabase.app.key")
-    ?: "REPLACED_SECRET"
+    ?: ""
 
 val aptabaseHost = System.getenv("APTABASE_HOST")
     ?: localProps.getProperty("aptabase.host")
