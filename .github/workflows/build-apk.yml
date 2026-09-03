@@ -37,6 +37,7 @@ jobs:
 
       - name: Build Signed Release APK & AAB Bundle
         env:
+          GRADLE_OPTS: "-Dorg.gradle.jvmargs=\"-Xmx4096m -XX:MaxMetaspaceSize=1024m\""
           SIGNING_KEYSTORE_PATH: /tmp/release.keystore
           SIGNING_KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           SIGNING_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
@@ -48,7 +49,8 @@ jobs:
           mkdir -p dist
           VERSION="${GITHUB_REF_NAME:-release}"
           if [ -f /tmp/release.keystore ]; then
-            ./gradlew :app:assembleRelease :app:bundleRelease
+            ./gradlew :app:assembleRelease --no-daemon
+            ./gradlew :app:bundleRelease --no-daemon
             cp app/build/outputs/apk/release/app-release.apk "dist/songflip-${VERSION}.apk"
             cp app/build/outputs/bundle/release/app-release.aab "dist/songflip-${VERSION}.aab"
           else
