@@ -537,7 +537,7 @@ async function resolveYouTubeDirectPlayLive(query: string, isAlbum = false): Pro
     const encoded = encodeURIComponent(query);
     const ytUrl = isAlbum
       ? `https://www.youtube.com/results?search_query=${encoded}&sp=EgIQAw%253D%253D`
-      : `https://www.youtube.com/results?search_query=${encoded}`;
+      : `https://www.youtube.com/results?search_query=${encoded}&sp=EgIQAQ%253D%253D`;
 
     const res = await axios.get(ytUrl, {
       headers: {
@@ -553,6 +553,12 @@ async function resolveYouTubeDirectPlayLive(query: string, isAlbum = false): Pro
       if (albumMatch && albumMatch[1]) {
         return `https://music.youtube.com/playlist?list=${albumMatch[1]}`;
       }
+    }
+
+    // 1. Prioritize official videoRenderer (filters out Shorts, reels, fan clips)
+    const vrMatch = html.match(/"videoRenderer":\{"videoId":"([a-zA-Z0-9_-]{11})"/);
+    if (vrMatch && vrMatch[1]) {
+      return `https://music.youtube.com/watch?v=${vrMatch[1]}`;
     }
 
     const videoMatch = html.match(/"videoId":"([a-zA-Z0-9_-]{11})"/) || html.match(/\/watch\?v=([a-zA-Z0-9_-]{11})/);
@@ -1034,7 +1040,7 @@ export const resolve = onRequest(
         cacheRef.update({ expiresAt: rollingExpiresAt, lastAccessedAt: Date.now() }).catch(() => {});
 
         res.setHeader("X-Cache", "HIT");
-        res.setHeader("Cache-Control", "public, max-age=86400");
+        res.setHeader("Cache-Control", "private, no-cache, no-store, must-revalidate");
         res.status(200).json({
           status: "success",
           cached: true,
@@ -1077,7 +1083,7 @@ export const resolve = onRequest(
     batch.commit().catch((err) => console.error("Error committing L2 cache batch:", err));
 
     res.setHeader("X-Cache", "MISS");
-    res.setHeader("Cache-Control", "public, max-age=86400");
+    res.setHeader("Cache-Control", "private, no-cache, no-store, must-revalidate");
     res.status(200).json({
       status: "success",
       cached: false,
