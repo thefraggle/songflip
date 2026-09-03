@@ -34,6 +34,7 @@ class SongLinkEngine(
         isLenient = true
     }
 
+    private val ytVideoRendererRegex = Regex("\"videoRenderer\":\\{\"videoId\":\"([a-zA-Z0-9_-]{11})\"")
     private val ytVideoIdJsonRegex = Regex("\"videoId\":\"([a-zA-Z0-9_-]{11})\"")
     private val ytWatchRegex = Regex("/watch\\?v=([a-zA-Z0-9_-]{11})")
     private val ytAlbumPlaylistRegex = Regex("\"playlistId\":\"(OLAK5uy_[a-zA-Z0-9_-]+)\"")
@@ -381,12 +382,22 @@ class SongLinkEngine(
     private suspend fun resolveYouTubeMusicDirectPlayUrl(query: String): String? {
         return try {
             val encoded = query.encodeURLParameter()
-            val resp = client.get("https://www.youtube.com/results?search_query=$encoded") {
+            val resp = client.get("https://www.youtube.com/results?search_query=$encoded&sp=EgIQAQ%253D%253D") {
                 header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
             }
             if (!resp.status.isSuccess()) return null
             val html = resp.bodyAsText()
 
+            // 1. Prioritize official videoRenderer (filters out Shorts, reels, fan clips)
+            val vrMatch = ytVideoRendererRegex.find(html)
+            if (vrMatch != null) {
+                val videoId = vrMatch.groupValues[1]
+                if (videoId.isNotEmpty()) {
+                    return "https://music.youtube.com/watch?v=$videoId"
+                }
+            }
+
+            // 2. Check JSON videoId
             val jsonMatch = ytVideoIdJsonRegex.find(html)
             if (jsonMatch != null) {
                 val videoId = jsonMatch.groupValues[1]
@@ -395,6 +406,7 @@ class SongLinkEngine(
                 }
             }
 
+            // 3. Check watch?v= format
             val watchMatch = ytWatchRegex.find(html)
             if (watchMatch != null) {
                 val videoId = watchMatch.groupValues[1]
