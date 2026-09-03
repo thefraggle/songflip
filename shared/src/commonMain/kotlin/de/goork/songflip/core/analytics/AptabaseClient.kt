@@ -76,6 +76,10 @@ object AptabaseClient {
         refreshSessionId()
     }
 
+    fun setIsDebug(isDebug: Boolean) {
+        systemProps = systemProps?.copy(isDebug = isDebug)
+    }
+
     private fun refreshSessionId() {
         currentSessionId = generateRandomSessionId()
         lastEventTimestamp = getCurrentTimeMillis()

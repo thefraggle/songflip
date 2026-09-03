@@ -159,12 +159,13 @@ fun ClipboardSmartBanner(
 fun detectSourcePlatformName(url: String): String {
     val lower = url.lowercase()
     return when {
-        lower.contains("spotify.com") -> "Spotify"
-        lower.contains("apple.com") -> "Apple Music"
+        lower.contains("spotify.com") || lower.contains("spotify.link") -> "Spotify"
+        lower.contains("apple.com") || lower.contains("apple.co") -> "Apple Music"
         lower.contains("youtube.com") || lower.contains("youtu.be") -> "YouTube Music"
-        lower.contains("deezer.com") -> "Deezer"
+        lower.contains("deezer.com") || lower.contains("deezer.page.link") -> "Deezer"
         lower.contains("tidal.com") -> "Tidal"
-        lower.contains("amazon.") -> "Amazon Music"
+        lower.contains("amazon.") || lower.contains("amzn.to") || lower.contains("a.co") -> "Amazon Music"
+        lower.contains("song.link") || lower.contains("album.link") || lower.contains("odesli.co") -> "Universal Link"
         else -> "Music Link"
     }
 }
@@ -176,11 +177,22 @@ fun isSupportedMusicUrl(text: String): Boolean {
     }
     val lower = trimmed.lowercase()
     return lower.contains("spotify.com") ||
+           lower.contains("spotify.link") ||
            lower.contains("music.apple.com") ||
+           lower.contains("apple.co/") ||
+           lower.contains("://apple.co") ||
            lower.contains("music.youtube.com") ||
            lower.contains("youtube.com/watch") ||
            lower.contains("youtu.be/") ||
            lower.contains("deezer.com") ||
+           lower.contains("deezer.page.link") ||
+           lower.contains("link.deezer.com") ||
            lower.contains("tidal.com") ||
-           lower.contains("amazon.")
+           lower.contains("amazon.") ||
+           lower.contains("amzn.to") ||
+           lower.contains("a.co/") ||
+           lower.contains("://a.co") ||
+           lower.contains("song.link") ||
+           lower.contains("album.link") ||
+           lower.contains("odesli.co")
 }
