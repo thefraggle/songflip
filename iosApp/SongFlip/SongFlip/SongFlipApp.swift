@@ -1,5 +1,6 @@
 import SwiftUI
 import SongFlipKit
+import StoreKit
 
 @main
 struct SongFlipApp: App {
@@ -11,8 +12,8 @@ struct SongFlipApp: App {
         isDebug = true
         #endif
 
-        // Route TestFlight beta testers, Apple reviewers, and StoreKit sandbox to debug data source
-        if Bundle.main.appStoreReceiptURL?.lastPathComponent == "sandboxReceipt" {
+        // TestFlight & Ad-Hoc builds contain embedded.mobileprovision; App Store production releases do not
+        if Bundle.main.path(forResource: "embedded", ofType: "mobileprovision") != nil {
             isDebug = true
         }
 
@@ -36,6 +37,19 @@ struct SongFlipApp: App {
             appBuildNumber: buildNumber,
             isDebug: isDebug
         )
+
+        // StoreKit 2: Asynchronously verify sandbox environment (e.g. Apple App Store Reviewers)
+        Task {
+            do {
+                if case .verified(let appTransaction) = try await AppTransaction.shared {
+                    if appTransaction.environment == .sandbox {
+                        AptabaseClient.shared.setIsDebug(isDebug: true)
+                    }
+                }
+            } catch {
+                // Keep initial isDebug status
+            }
+        }
     }
 
     var colorScheme: ColorScheme? {

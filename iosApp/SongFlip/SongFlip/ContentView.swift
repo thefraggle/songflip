@@ -569,12 +569,13 @@ struct ContentView: View {
 
     private func detectSourcePlatformName(url: String) -> String {
         let lower = url.lowercased()
-        if lower.contains("spotify.com") { return "Spotify" }
-        if lower.contains("apple.com") { return "Apple Music" }
+        if lower.contains("spotify.com") || lower.contains("spotify.link") { return "Spotify" }
+        if lower.contains("apple.com") || lower.contains("apple.co") { return "Apple Music" }
         if lower.contains("youtube.com") || lower.contains("youtu.be") { return "YouTube Music" }
-        if lower.contains("deezer.com") { return "Deezer" }
+        if lower.contains("deezer.com") || lower.contains("deezer.page.link") { return "Deezer" }
         if lower.contains("tidal.com") { return "Tidal" }
-        if lower.contains("amazon.") { return "Amazon Music" }
+        if lower.contains("amazon.") || lower.contains("amzn.to") || lower.contains("a.co") { return "Amazon Music" }
+        if lower.contains("song.link") || lower.contains("album.link") || lower.contains("odesli.co") { return "Universal Link" }
         return "Music Link"
     }
 
@@ -585,12 +586,20 @@ struct ContentView: View {
         }
         let clean = UrlUtils.shared.extractCleanUrl(rawInput: clip) ?? clip
         let isMusic = clean.contains("spotify.com") ||
+                      clean.contains("spotify.link") ||
                       clean.contains("apple.com") ||
+                      clean.contains("apple.co") ||
                       clean.contains("youtube.com") ||
                       clean.contains("youtu.be") ||
                       clean.contains("deezer.com") ||
+                      clean.contains("deezer.page.link") ||
                       clean.contains("tidal.com") ||
-                      clean.contains("amazon.")
+                      clean.contains("amazon.") ||
+                      clean.contains("amzn.to") ||
+                      clean.contains("a.co") ||
+                      clean.contains("song.link") ||
+                      clean.contains("album.link") ||
+                      clean.contains("odesli.co")
 
         if isMusic && clean != dismissedClipboardUrl {
             detectedClipboardUrl = clean
