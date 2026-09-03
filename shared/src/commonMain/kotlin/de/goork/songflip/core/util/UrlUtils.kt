@@ -29,7 +29,8 @@ object UrlUtils {
 
     /**
      * Cleans tracking parameters, context query parameters, and regional prefixes
-     * from streaming URLs to guarantee maximum cache hit rates and clean provider queries.
+     * from streaming URLs across all supported platforms to guarantee maximum cache hit rates
+     * and clean provider queries.
      */
     fun normalizeUrl(url: String): String {
         var clean = url.trim()
@@ -59,39 +60,98 @@ object UrlUtils {
             if (trackId.isNotEmpty()) {
                 return "$base?i=$trackId"
             }
+        } else if (clean.contains("apple.com") && (clean.contains("/album/") || clean.contains("/song/"))) {
+            clean = clean.substringBefore("?")
         }
 
-        // 3. Deezer: deezer.com/track/{id} or /de/track/{id}
-        val deezerMatch = Regex("deezer\\.com(?:/[a-zA-Z-]+)?/(track|album)/(\\d+)").find(clean)
+        // 3. Deezer: deezer.com/track/{id}, album/{id}, artist/{id}
+        val deezerMatch = Regex("deezer\\.com(?:/[a-zA-Z-]+)?/(track|album|artist)/(\\d+)").find(clean)
         if (deezerMatch != null) {
             val type = deezerMatch.groupValues[1]
             val id = deezerMatch.groupValues[2]
             return "https://www.deezer.com/$type/$id"
         }
 
-        // 4. YouTube: youtube.com/watch?v={id} -> keep only v parameter
-        if (clean.contains("youtube.com/watch") && clean.contains("v=")) {
+        // 4. YouTube & YouTube Music: watch?v={id} or youtu.be/{id}
+        if (clean.contains("youtu.be/")) {
+            val id = clean.substringAfter("youtu.be/").substringBefore("/").substringBefore("?").trim()
+            if (id.isNotEmpty()) {
+                return "https://youtu.be/$id"
+            }
+        }
+        if (clean.contains("watch") && clean.contains("v=")) {
+            val isYtMusic = clean.contains("music.youtube.com")
+            val host = if (isYtMusic) "https://music.youtube.com" else "https://www.youtube.com"
             val id = clean.substringAfter("v=").substringBefore("&").substringBefore("?").trim()
             if (id.isNotEmpty()) {
-                return "https://www.youtube.com/watch?v=$id"
+                return "$host/watch?v=$id"
             }
         }
 
-        // 5. Generic Query Parameter Stripping (si, context, rowId, utm_*)
+        // 5. Amazon Music: preserve trackAsin if present, otherwise strip tracking
+        if (clean.contains("music.amazon.") && clean.contains("trackAsin=")) {
+            val base = clean.substringBefore("?")
+            val asin = clean.substringAfter("trackAsin=").substringBefore("&").substringBefore("?").trim()
+            if (asin.isNotEmpty()) {
+                return "$base?trackAsin=$asin"
+            }
+        } else if (clean.contains("music.amazon.")) {
+            clean = clean.substringBefore("?")
+        }
+
+        // 6. Tidal: track/{id} or album/{id}
+        val tidalMatch = Regex("(?:listen\\.)?tidal\\.com/(?:browse/)?(track|album)/([0-9a-zA-Z-]+)").find(clean)
+        if (tidalMatch != null) {
+            val type = tidalMatch.groupValues[1]
+            val id = tidalMatch.groupValues[2]
+            return "https://tidal.com/browse/$type/$id"
+        }
+
+        // 7. Generic Query Parameter Stripping (si, context, rowId, utm_*, ad-tracking)
         if (clean.contains("?")) {
             val base = clean.substringBefore("?")
             val query = clean.substringAfter("?")
+            val trackingKeys = setOf(
+                "si", "context", "rowid", "feature", "src", "ref", "ref_", "tag",
+                "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term",
+                "gclid", "fbclid", "igshid", "msclkid", "uo", "at", "ct", "app", "ls"
+            )
             val keptParams = query.split("&").filter { param ->
                 val key = param.substringBefore("=").lowercase()
-                key !in setOf(
-                    "si", "context", "rowid", "feature", "src",
-                    "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"
-                )
+                key !in trackingKeys
             }
             clean = if (keptParams.isEmpty()) base else "$base?${keptParams.joinToString("&")}"
         }
 
         return clean
+    }
+
+    /**
+     * Cleans metadata noise from search queries (e.g. "- 2011 Remaster", "(Radio Edit)", "[Live]")
+     * to dramatically improve direct API search matching rates across Apple Music, Deezer, and YouTube Music.
+     */
+    fun cleanSearchQuery(query: String): String {
+        var cleaned = query.trim()
+        if (cleaned.isBlank()) return cleaned
+
+        // Strip remastered suffixes
+        cleaned = cleaned.replace(Regex("(?i)\\s*-\\s*\\d{4}\\s+remaster(?:ed)?"), "")
+        cleaned = cleaned.replace(Regex("(?i)\\s*[\\(\\[]\\s*\\d{4}\\s+remaster(?:ed)?\\s*[\\)\\]]"), "")
+        cleaned = cleaned.replace(Regex("(?i)\\s*[\\(\\[]\\s*remaster(?:ed)?(?:\\s+\\d{4})?\\s*[\\)\\]]"), "")
+        cleaned = cleaned.replace(Regex("(?i)\\s*-\\s*remaster(?:ed)?"), "")
+
+        // Strip edit and version suffixes
+        cleaned = cleaned.replace(Regex("(?i)\\s*[\\(\\[]\\s*(?:radio|single|album|extended|club)\\s+edit\\s*[\\)\\]]"), "")
+        cleaned = cleaned.replace(Regex("(?i)\\s*[\\(\\[]\\s*(?:radio|single|album)\\s+version\\s*[\\)\\]]"), "")
+
+        // Strip live concert suffixes
+        cleaned = cleaned.replace(Regex("(?i)\\s*[\\(\\[]\\s*live(?:\\s+at[^)\\]]+)?\\s*[\\)\\]]"), "")
+        cleaned = cleaned.replace(Regex("(?i)\\s*-\\s*live(?:\\s+at[^-]+)?"), "")
+
+        // Clean extra internal spaces
+        cleaned = cleaned.replace(Regex("\\s{2,}"), " ").trim()
+
+        return if (cleaned.isNotBlank()) cleaned else query.trim()
     }
 
     fun isShortLinkDomain(url: String): Boolean {
