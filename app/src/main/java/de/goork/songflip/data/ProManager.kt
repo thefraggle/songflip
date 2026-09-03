@@ -89,6 +89,11 @@ object ProManager {
         }
 
         // Initialize RevenueCat SDK
+        if (REVENUECAT_API_KEY.isBlank()) {
+            evaluateProState(revenueCatActive = false)
+            return
+        }
+
         try {
             Purchases.logLevel = LogLevel.DEBUG
             Purchases.configure(

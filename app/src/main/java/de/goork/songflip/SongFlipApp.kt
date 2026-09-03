@@ -53,15 +53,17 @@ class SongFlipApp : Application() {
             pInfo?.versionCode?.toString() ?: "10211"
         }
 
-        AptabaseClient.shared.init(
-            appKey = BuildConfig.APTABASE_APP_KEY,
-            host = BuildConfig.APTABASE_HOST,
-            osName = "Android",
-            osVersion = Build.VERSION.RELEASE ?: "",
-            locale = Locale.getDefault().toLanguageTag(),
-            appVersion = versionName,
-            appBuildNumber = versionCode,
-            isDebug = isDebug
-        )
+        if (BuildConfig.APTABASE_APP_KEY.isNotBlank() && BuildConfig.APTABASE_HOST.isNotBlank()) {
+            AptabaseClient.shared.init(
+                appKey = BuildConfig.APTABASE_APP_KEY,
+                host = BuildConfig.APTABASE_HOST,
+                osName = "Android",
+                osVersion = Build.VERSION.RELEASE ?: "",
+                locale = Locale.getDefault().toLanguageTag(),
+                appVersion = versionName,
+                appBuildNumber = versionCode,
+                isDebug = isDebug
+            )
+        }
     }
 }
