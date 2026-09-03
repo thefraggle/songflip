@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.11] - 2026-09-03
+- **Broader Link Detection**: The clipboard banner now instantly recognizes compact share links from all supported music apps, including short links shared via messaging apps.
+- **Enhanced Reliability**: Refined background verification and startup checks for an even faster, smoother experience.
+
 ## [1.2.10] - 2026-09-02
 - **Clipboard Smart-Banner**: When you copy a music link, opening the app now displays a quick action banner to immediately play the track in your favorite player or share a universal link with a single tap.
 - **Streamlined Settings**: Reorganized settings put your most important preferences — including song history, language, and appearance — right at your fingertips.
