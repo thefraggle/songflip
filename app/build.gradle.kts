@@ -1,3 +1,6 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -9,6 +12,24 @@ val computedVersionCode = (versionParts.getOrElse(0) { "1" }.toInt() * 10000) +
                           (versionParts.getOrElse(1) { "0" }.toInt() * 100) +
                           (versionParts.getOrElse(2) { "0" }.toInt())
 
+val localProps = Properties()
+val localPropsFile = rootProject.file("local.properties")
+if (localPropsFile.exists()) {
+    localProps.load(FileInputStream(localPropsFile))
+}
+
+val revenueCatApiKey = System.getenv("REVENUECAT_API_KEY")
+    ?: localProps.getProperty("revenuecat.api.key")
+    ?: "goog_mzQwhCFXsoDHGcFDxkzsIqBcHfO"
+
+val aptabaseAppKey = System.getenv("APTABASE_APP_KEY")
+    ?: localProps.getProperty("aptabase.app.key")
+    ?: "A-SH-4092372492"
+
+val aptabaseHost = System.getenv("APTABASE_HOST")
+    ?: localProps.getProperty("aptabase.host")
+    ?: "https://telemetry-apps.goork.de"
+
 android {
     namespace = "de.goork.songflip"
     compileSdk = 36
@@ -19,6 +40,10 @@ android {
         targetSdk = 36
         versionCode = computedVersionCode
         versionName = appVersionName
+
+        buildConfigField("String", "REVENUECAT_API_KEY", "\"$revenueCatApiKey\"")
+        buildConfigField("String", "APTABASE_APP_KEY", "\"$aptabaseAppKey\"")
+        buildConfigField("String", "APTABASE_HOST", "\"$aptabaseHost\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -61,6 +86,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.8"

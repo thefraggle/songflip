@@ -156,4 +156,7 @@
     <string name="clipboard_banner_title">Müzik Bağlantısı Algılandı</string>
     <string name="clipboard_banner_action_open">%1$s ile aç</string>
     <string name="clipboard_banner_action_share">Evrensel Bağlantı</string>
+    <string name="pro_play_store_unavailable">Google Play Store şu anda kullanılamıyor.</string>
+    <string name="pro_feature_l2_cache">Yüksek Hızlı L2 Bulut Önbelleği (&lt; 50 ms)</string>
+    <string name="pro_processing">İşleme...</string>
 </resources>

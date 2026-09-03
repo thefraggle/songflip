@@ -155,4 +155,8 @@
     <string name="clipboard_banner_title">म्युझिक लिंक आढळली</string>
     <string name="clipboard_banner_action_open">%1$s मध्ये उघडा</string>
     <string name="clipboard_banner_action_share">युनिव्हर्सल लिंक</string>
+    <string name="pro_play_store_unavailable">Google Play Store सध्या अनुपलब्ध आहे.</string>
+    <string name="pro_feature_l2_cache">हाय-स्पीड L2 क्लाउड कॅशे (&lt;50ms)</string>
+    <string name="pro_processing">प्रक्रिया करत आहे...</string>
+    <string name="pro_btn_subscribe">सदस्यता घ्या</string>
 </resources>

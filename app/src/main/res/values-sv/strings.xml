@@ -156,4 +156,7 @@
     <string name="clipboard_banner_title">Musiklänk upptäckt</string>
     <string name="clipboard_banner_action_open">Öppna i %1$s</string>
     <string name="clipboard_banner_action_share">Universell länk</string>
+    <string name="pro_play_store_unavailable">Google Play Butik är för närvarande inte tillgänglig.</string>
+    <string name="pro_feature_l2_cache">Höghastighets L2 Cloud Cache (&lt; 50 ms)</string>
+    <string name="pro_processing">Bearbetar...</string>
 </resources>

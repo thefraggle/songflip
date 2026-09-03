@@ -54,8 +54,8 @@ class SongFlipApp : Application() {
         }
 
         AptabaseClient.shared.init(
-            appKey = "A-SH-4092372492",
-            host = "https://telemetry-apps.goork.de",
+            appKey = BuildConfig.APTABASE_APP_KEY,
+            host = BuildConfig.APTABASE_HOST,
             osName = "Android",
             osVersion = Build.VERSION.RELEASE ?: "",
             locale = Locale.getDefault().toLanguageTag(),

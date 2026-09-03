@@ -156,4 +156,7 @@
     <string name="clipboard_banner_title">Wykryto link do muzyki</string>
     <string name="clipboard_banner_action_open">Otwórz w %1$s</string>
     <string name="clipboard_banner_action_share">Uniwersalny link</string>
+    <string name="pro_play_store_unavailable">Sklep Google Play jest obecnie niedostępny.</string>
+    <string name="pro_feature_l2_cache">Szybka pamięć podręczna w chmurze L2 (&lt; 50 ms)</string>
+    <string name="pro_processing">Przetwarzanie...</string>
 </resources>

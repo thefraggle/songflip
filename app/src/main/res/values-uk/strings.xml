@@ -155,4 +155,8 @@
     <string name="clipboard_banner_title">Музичне посилання в буфері</string>
     <string name="clipboard_banner_action_open">Відкрити в %1$s</string>
     <string name="clipboard_banner_action_share">Універсальне посилання</string>
+    <string name="pro_play_store_unavailable">Google Play Store наразі недоступний.</string>
+    <string name="pro_feature_l2_cache">Високошвидкісний хмарний кеш L2 (&lt; 50 мс)</string>
+    <string name="pro_processing">Обробка...</string>
+    <string name="pro_btn_subscribe">Підпишіться</string>
 </resources>

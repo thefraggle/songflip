@@ -174,4 +174,6 @@
     <string name="clipboard_banner_title">Musik-Link in Zwischenablage</string>
     <string name="clipboard_banner_action_open">In %1$s öffnen</string>
     <string name="clipboard_banner_action_share">Universal-Link</string>
+    <string name="pro_debug_reset_status">PRO Status zurückgesetzt (Debug)</string>
+    <string name="pro_debug_reset_button">PRO-Status zurücksetzen (Debug)</string>
 </resources>

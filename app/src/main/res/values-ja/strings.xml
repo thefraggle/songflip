@@ -156,4 +156,7 @@
     <string name="clipboard_banner_title">音楽リンクを検出しました</string>
     <string name="clipboard_banner_action_open">%1$s で開く</string>
     <string name="clipboard_banner_action_share">共通リンク</string>
+    <string name="pro_play_store_unavailable">Google Play ストアは現在利用できません。</string>
+    <string name="pro_processing">処理...</string>
+    <string name="pro_feature_l2_cache">超高速 L2 クラウドキャッシュ (&lt; 50ms)</string>
 </resources>

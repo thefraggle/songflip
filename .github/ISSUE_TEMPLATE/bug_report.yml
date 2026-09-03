@@ -1,0 +1,46 @@
+name: 🐛 Bug Report
+description: File a bug report to help us improve SongFlip
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: input
+    id: song_url
+    attributes:
+      label: Music Link that Failed
+      description: The exact streaming link (Spotify, Apple Music, YouTube, Deezer, etc.) that did not convert as expected.
+      placeholder: https://open.spotify.com/track/...
+    validations:
+      required: false
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Operating System
+      options:
+        - Android (App)
+        - iOS (App / Share Sheet / Shortcut)
+        - Web (songflip.link)
+    validations:
+      required: true
+  - type: input
+    id: app_version
+    attributes:
+      label: SongFlip Version
+      placeholder: 1.2.11
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe what you observed vs. what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Log Output
+      description: Please copy and paste any relevant logs from the Test Studio or logcat.
+      render: shell
