@@ -201,11 +201,11 @@ fun ProPaywallBottomSheet(
                         onClick = {
                             haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                             ProManager.resetProForTesting()
-                            Toast.makeText(context, "PRO Status zurückgesetzt (Debug)", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, context.getString(R.string.pro_debug_reset_status), Toast.LENGTH_SHORT).show()
                         }
                     ) {
                         Text(
-                            text = "PRO-Status zurücksetzen (Debug)",
+                            text = stringResource(R.string.pro_debug_reset_button),
                             style = MaterialTheme.typography.labelMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
                         )

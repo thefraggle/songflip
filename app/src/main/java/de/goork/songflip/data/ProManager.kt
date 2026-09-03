@@ -46,7 +46,7 @@ object ProManager {
     private const val KEY_INSTALL_ID = "anonymous_install_id"
 
     // RevenueCat Configuration
-    private const val REVENUECAT_API_KEY = "goog_mzQwhCFXsoDHGcFDxkzsIqBcHfO"
+    private val REVENUECAT_API_KEY = de.goork.songflip.BuildConfig.REVENUECAT_API_KEY
     const val ENTITLEMENT_PRO = "pro"
 
     private var prefs: SharedPreferences? = null

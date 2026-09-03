@@ -156,4 +156,7 @@
     <string name="clipboard_banner_title">Musikklenke oppdaget</string>
     <string name="clipboard_banner_action_open">Åpne i %1$s</string>
     <string name="clipboard_banner_action_share">Universell lenke</string>
+    <string name="pro_play_store_unavailable">Google Play Store er for øyeblikket utilgjengelig.</string>
+    <string name="pro_feature_l2_cache">Høyhastighets L2 Cloud Cache (&lt; 50 ms)</string>
+    <string name="pro_processing">Behandling...</string>
 </resources>

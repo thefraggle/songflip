@@ -156,4 +156,7 @@
     <string name="clipboard_banner_title">检测到音乐链接</string>
     <string name="clipboard_banner_action_open">在 %1$s 中打开</string>
     <string name="clipboard_banner_action_share">通用链接</string>
+    <string name="pro_play_store_unavailable">Google Play 商店目前不可用。</string>
+    <string name="pro_feature_l2_cache">高速二级云缓存（&lt; 50ms）</string>
+    <string name="pro_processing">加工...</string>
 </resources>

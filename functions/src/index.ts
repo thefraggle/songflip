@@ -820,7 +820,9 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
               linksMap.deezer = match.link || (isAlbum ? `https://www.deezer.com/album/${match.id}` : `https://www.deezer.com/track/${match.id}`);
             }
           }
-        } catch (_) {}
+        } catch (err: any) {
+          console.debug("[Fallback/Deezer]", err?.message);
+        }
       }
     }
 
@@ -840,37 +842,35 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
         const first = itunesRes.data?.results?.[0];
         if (first) {
           linksMap.appleMusic = first.trackViewUrl || first.collectionViewUrl;
-          if (!thumbnailUrl && first.artworkUrl100) {
-            thumbnailUrl = first.artworkUrl100.replace("100x100bb.jpg", "600x600bb.jpg");
-          }
         }
-      } catch (itunesErr: any) {
-        console.warn("iTunes fallback search failed:", itunesErr?.message);
+      } catch (err: any) {
+        console.debug("[Fallback/iTunes]", err?.message);
       }
     }
 
     // If SongLink returned no links, trigger Multi-Tier Metadata & Album Resolver
     if (Object.keys(linksMap).length === 0) {
       const cleanLower = url.toLowerCase();
-      const isAlbumUrl = cleanLower.includes("/album/") || cleanLower.includes("album");
 
       // Attempt 1: Apple Music ID Lookup
-      if (cleanLower.includes("apple.com")) {
-        const idMatch = url.match(/[?&]i=(\d+)/) || url.match(/\/(\d+)(?:\?|$)/);
+      if (cleanLower.includes("apple.com") && cleanLower.includes("i=")) {
+        const idMatch = url.match(/[?&]i=(\d+)/);
         if (idMatch && idMatch[1]) {
           try {
             const itunesLookup = await axios.get("https://itunes.apple.com/lookup", {
-              params: { id: idMatch[1], entity: isAlbumUrl ? "album" : "song" },
+              params: { id: idMatch[1], entity: "song" },
               timeout: 4000,
             });
             const item = itunesLookup.data?.results?.[0];
             if (item) {
-              title = item.trackName || item.collectionName || title;
+              title = item.trackName || title;
               artist = item.artistName || artist;
               thumbnailUrl = (item.artworkUrl100 || "").replace("100x100bb.jpg", "600x600bb.jpg");
               linksMap.appleMusic = item.trackViewUrl || item.collectionViewUrl || url;
             }
-          } catch (_) {}
+          } catch (err: any) {
+            console.debug("[Fallback/AppleLookup]", err?.message);
+          }
         }
       }
 
@@ -887,7 +887,9 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
               thumbnailUrl = deezerRes.data.cover_xl || deezerRes.data.album?.cover_xl || thumbnailUrl;
               linksMap.deezer = deezerRes.data.link || url;
             }
-          } catch (_) {}
+          } catch (err: any) {
+            console.debug("[Fallback/DeezerLookup]", err?.message);
+          }
         }
       }
     }
@@ -900,7 +902,9 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
         if (directYt) {
           linksMap.youtubeMusic = directYt;
         }
-      } catch (_) {}
+      } catch (err: any) {
+        console.debug("[Fallback/YouTubeDirect]", err?.message);
+      }
     }
 
     // Always populate all 6 streaming platforms with direct or fallback search links

@@ -155,4 +155,8 @@
     <string name="clipboard_banner_title">Đã phát hiện liên kết nhạc</string>
     <string name="clipboard_banner_action_open">Mở trong %1$s</string>
     <string name="clipboard_banner_action_share">Liên kết chung</string>
+    <string name="pro_play_store_unavailable">Cửa hàng Google Play hiện không khả dụng.</string>
+    <string name="pro_feature_l2_cache">Bộ nhớ đệm đám mây L2 tốc độ cao (&lt; 50ms)</string>
+    <string name="pro_processing">Xử lý...</string>
+    <string name="pro_btn_subscribe">Đặt mua</string>
 </resources>

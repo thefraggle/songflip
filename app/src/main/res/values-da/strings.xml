@@ -156,4 +156,7 @@
     <string name="clipboard_banner_title">Musiklink fundet</string>
     <string name="clipboard_banner_action_open">Åbn i %1$s</string>
     <string name="clipboard_banner_action_share">Universelt link</string>
+    <string name="pro_play_store_unavailable">Google Play Butik er ikke tilgængelig i øjeblikket.</string>
+    <string name="pro_feature_l2_cache">High-Speed ​​L2 Cloud Cache (&lt; 50ms)</string>
+    <string name="pro_processing">Forarbejdning...</string>
 </resources>

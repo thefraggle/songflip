@@ -156,4 +156,7 @@
     <string name="clipboard_banner_title">Link musicale negli appunti</string>
     <string name="clipboard_banner_action_open">Apri in %1$s</string>
     <string name="clipboard_banner_action_share">Link universale</string>
+    <string name="pro_feature_l2_cache">Cache cloud L2 ad alta velocità (&lt; 50 ms)</string>
+    <string name="pro_processing">Elaborazione...</string>
+    <string name="pro_play_store_unavailable">Google Play Store non è al momento disponibile.</string>
 </resources>

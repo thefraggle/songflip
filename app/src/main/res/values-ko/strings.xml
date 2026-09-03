@@ -155,4 +155,8 @@
     <string name="clipboard_banner_title">음악 링크 감지됨</string>
     <string name="clipboard_banner_action_open">%1$s에서 열기</string>
     <string name="clipboard_banner_action_share">유니버설 링크</string>
+    <string name="pro_play_store_unavailable">현재 Google Play 스토어를 사용할 수 없습니다.</string>
+    <string name="pro_processing">처리 중...</string>
+    <string name="pro_btn_subscribe">구독하다</string>
+    <string name="pro_feature_l2_cache">초고속 L2 클라우드 캐시 (&lt; 50ms)</string>
 </resources>
