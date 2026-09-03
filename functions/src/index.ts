@@ -71,15 +71,34 @@ function applyWebShareSecurityHeaders(res: any) {
  */
 function normalizeMusicUrl(rawUrl: string): string {
   try {
-    const url = new URL(rawUrl.trim());
+    const trimmed = rawUrl.trim();
+    // 1. Canonicalize Spotify URLs (remove tracking & international language prefixes)
+    const spotifyTrack = trimmed.match(/open\.spotify\.com(?:\/intl-[a-z-]+)?\/track\/([a-zA-Z0-9]+)/i);
+    if (spotifyTrack && spotifyTrack[1]) {
+      return `https://open.spotify.com/track/${spotifyTrack[1]}`;
+    }
+    const spotifyAlbum = trimmed.match(/open\.spotify\.com(?:\/intl-[a-z-]+)?\/album\/([a-zA-Z0-9]+)/i);
+    if (spotifyAlbum && spotifyAlbum[1]) {
+      return `https://open.spotify.com/album/${spotifyAlbum[1]}`;
+    }
+    const spotifyArtist = trimmed.match(/open\.spotify\.com(?:\/intl-[a-z-]+)?\/artist\/([a-zA-Z0-9]+)/i);
+    if (spotifyArtist && spotifyArtist[1]) {
+      return `https://open.spotify.com/artist/${spotifyArtist[1]}`;
+    }
+
+    const url = new URL(trimmed);
     // Strip common tracking and navigation parameters
     url.searchParams.delete("si");
     url.searchParams.delete("context");
+    url.searchParams.delete("rowId");
+    url.searchParams.delete("rowid");
     url.searchParams.delete("feature");
     url.searchParams.delete("src");
     url.searchParams.delete("utm_source");
     url.searchParams.delete("utm_medium");
     url.searchParams.delete("utm_campaign");
+    url.searchParams.delete("utm_content");
+    url.searchParams.delete("utm_term");
 
     // Remove international language paths for Spotify (e.g. /intl-de/track/...)
     let pathname = url.pathname;

@@ -66,11 +66,12 @@ class SongLinkEngine(
             }
 
             // 3. Resolve short links
-            val canonicalUrl = if (UrlUtils.isShortLinkDomain(cleanUrl)) {
+            val resolvedUrl = if (UrlUtils.isShortLinkDomain(cleanUrl)) {
                 resolveCanonicalUrl(cleanUrl)
             } else {
                 cleanUrl
             }
+            val canonicalUrl = UrlUtils.normalizeUrl(resolvedUrl)
 
             // Playlist links cannot be converted 1:1 in background
             if (UrlUtils.isPlaylistUrl(canonicalUrl)) {
@@ -145,19 +146,18 @@ class SongLinkEngine(
                         targetPlatformKey = targetPlatformKey,
                         isAlbum = isAlbum
                     )
-                    if (resolvedDirectUrl != null) {
-                        val nativeUri = UrlUtils.toNativeAppUri(resolvedDirectUrl, targetPlatformKey)
-                        val result = ResolutionResult.Success(
-                            targetUrl = resolvedDirectUrl,
-                            platform = targetPlatformKey,
-                            title = songLinkData.title.ifEmpty { null },
-                            artist = songLinkData.artist.ifEmpty { null },
-                            isAlbum = isAlbum,
-                            nativeAppUri = nativeUri
-                        )
-                        cache.put(canonicalUrl, targetPlatformKey, result, now)
-                        return result
-                    }
+                    val finalTargetUrl = resolvedDirectUrl ?: UrlUtils.buildSearchUrl(query, targetPlatformKey)
+                    val nativeUri = UrlUtils.toNativeAppUri(finalTargetUrl, targetPlatformKey)
+                    val result = ResolutionResult.Success(
+                        targetUrl = finalTargetUrl,
+                        platform = if (resolvedDirectUrl != null) targetPlatformKey else "${targetPlatformKey}_search",
+                        title = songLinkData.title.ifEmpty { null },
+                        artist = songLinkData.artist.ifEmpty { null },
+                        isAlbum = isAlbum,
+                        nativeAppUri = nativeUri
+                    )
+                    cache.put(canonicalUrl, targetPlatformKey, result, now)
+                    return result
                 }
             }
 
