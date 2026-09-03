@@ -236,6 +236,7 @@ interface SongMetadata {
   thumbnailUrl?: string;
   isAlbum: boolean;
   isArtist?: boolean;
+  isFallback?: boolean;
   links: PlatformLinks;
   updatedAt: number;
   expiresAt: admin.firestore.Timestamp;
@@ -701,14 +702,15 @@ async function resolveSearchLive(url: string, query: string): Promise<SongMetada
     };
 
     const now = Date.now();
-    const ninetyDaysMs = 90 * 24 * 60 * 60 * 1000;
-    const expiresAt = admin.firestore.Timestamp.fromMillis(now + ninetyDaysMs);
+    const fourteenDaysMs = 14 * 24 * 60 * 60 * 1000;
+    const expiresAt = admin.firestore.Timestamp.fromMillis(now + fourteenDaysMs);
 
     return {
       title,
       artist: artist || "Track",
       thumbnailUrl: thumbnailUrl || "https://songflip.link/icon.png",
       isAlbum: false,
+      isFallback: true,
       links: linksMap,
       updatedAt: now,
       expiresAt,
@@ -778,6 +780,7 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
     let artist = sanitized.artist;
 
     const linksMap: PlatformLinks = {};
+    let isFallback = false;
     const linksByPlatform = pageData.linksByPlatform || {};
     Object.keys(linksByPlatform).forEach((key) => {
       const u = linksByPlatform[key]?.url;
@@ -856,6 +859,7 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
 
     // If SongLink returned no links, trigger Multi-Tier Metadata & Album Resolver
     if (Object.keys(linksMap).length === 0) {
+      isFallback = true;
       const cleanLower = url.toLowerCase();
 
       // Attempt 1: Apple Music ID Lookup
@@ -907,6 +911,7 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
         const directYt = await resolveYouTubeDirectPlayLive(`${artist} ${cleanTitle}`.trim(), isAlbum);
         if (directYt) {
           linksMap.youtubeMusic = directYt;
+          isFallback = true;
         }
       } catch (err: any) {
         console.debug("[Fallback/YouTubeDirect]", err?.message);
@@ -941,14 +946,15 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
     if (Object.keys(linksMap).length === 0) return null;
 
     const now = Date.now();
-    const ninetyDaysMs = 90 * 24 * 60 * 60 * 1000;
-    const expiresAt = admin.firestore.Timestamp.fromMillis(now + ninetyDaysMs);
+    const ttlMs = isFallback ? 14 * 24 * 60 * 60 * 1000 : 90 * 24 * 60 * 60 * 1000;
+    const expiresAt = admin.firestore.Timestamp.fromMillis(now + ttlMs);
 
     return {
       title: title || "Unknown Title",
       artist: artist || "Unknown Artist",
       thumbnailUrl,
       isAlbum,
+      isFallback,
       links: linksMap,
       updatedAt: now,
       expiresAt,
@@ -1035,9 +1041,13 @@ export const resolve = onRequest(
       const cachedData = docSnap.data() as SongMetadata;
       const isExpired = cachedData.expiresAt && cachedData.expiresAt.toMillis() < Date.now();
       if (!isExpired) {
-        // Rolling 90-day TTL: Reset expiration timer upon each access
-        const rollingExpiresAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000);
-        cacheRef.update({ expiresAt: rollingExpiresAt, lastAccessedAt: Date.now() }).catch(() => {});
+        // Rolling 90-day TTL ONLY for verified/official API results, NEVER for heuristic fallbacks
+        if (!cachedData.isFallback) {
+          const rollingExpiresAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000);
+          cacheRef.update({ expiresAt: rollingExpiresAt, lastAccessedAt: Date.now() }).catch(() => {});
+        } else {
+          cacheRef.update({ lastAccessedAt: Date.now() }).catch(() => {});
+        }
 
         res.setHeader("X-Cache", "HIT");
         res.setHeader("Cache-Control", "private, no-cache, no-store, must-revalidate");
@@ -1412,16 +1422,24 @@ export const renderWebShare = onRequest(
         const docSnap = await db.collection("l2_song_cache").doc(hash).get();
         if (docSnap.exists) {
           songData = docSnap.data();
-          // Rolling 90-day TTL: Reset expiration timer upon each access
-          const rollingExpiresAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000);
-          docSnap.ref.update({ expiresAt: rollingExpiresAt, lastAccessedAt: Date.now() }).catch(() => {});
+          // Rolling 90-day TTL ONLY for verified/official API results, NEVER for heuristic fallbacks
+          if (!songData.isFallback) {
+            const rollingExpiresAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000);
+            docSnap.ref.update({ expiresAt: rollingExpiresAt, lastAccessedAt: Date.now() }).catch(() => {});
+          } else {
+            docSnap.ref.update({ lastAccessedAt: Date.now() }).catch(() => {});
+          }
         } else if (hash.length > 8) {
           const shortSnap = await db.collection("l2_song_cache").doc(hash.substring(0, 8)).get();
           if (shortSnap.exists) {
             songData = shortSnap.data();
-            // Rolling 90-day TTL: Reset expiration timer upon each access
-            const rollingExpiresAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000);
-            shortSnap.ref.update({ expiresAt: rollingExpiresAt, lastAccessedAt: Date.now() }).catch(() => {});
+            // Rolling 90-day TTL ONLY for verified/official API results, NEVER for heuristic fallbacks
+            if (!songData.isFallback) {
+              const rollingExpiresAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000);
+              shortSnap.ref.update({ expiresAt: rollingExpiresAt, lastAccessedAt: Date.now() }).catch(() => {});
+            } else {
+              shortSnap.ref.update({ lastAccessedAt: Date.now() }).catch(() => {});
+            }
           }
         }
       }
