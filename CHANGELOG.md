@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.12] - 2026-09-03
+- **Universal Link Sanitizing**: Automatically strips tracking and referral parameters from links shared via WhatsApp, Telegram, and social media across all supported platforms.
+- **Intelligent Search Matching**: Cleans metadata noise such as remaster, live, and version tags to ensure reliable matching across music services.
+- **Complete Translations**: Finalized full translations across all 24 supported languages with complete parity.
+- **Enhanced Reliability**: Extended network tolerances and improved fallback resolution for obscure and regional releases.
+
 ## [1.2.11] - 2026-09-03
 - **Broader Link Detection**: The clipboard banner now instantly recognizes compact share links from all supported music apps, including short links shared via messaging apps.
 - **Enhanced Reliability**: Refined background verification and startup checks for an even faster, smoother experience.
