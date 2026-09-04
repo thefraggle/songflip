@@ -20,4 +20,12 @@ class PauseHelperTest {
         assertEquals(0, cal.get(Calendar.MINUTE))
         assertEquals(0, cal.get(Calendar.SECOND))
     }
+
+    @Test
+    fun testTomorrowMorningDifferenceIsWithinExpectedHours() {
+        val timestamp = PauseHelper.getTomorrowMorningTimestamp()
+        val now = System.currentTimeMillis()
+        val diffHours = (timestamp - now) / (1000 * 60 * 60)
+        assertTrue("Difference should be between 0 and 30 hours", diffHours in 0..30)
+    }
 }

@@ -142,6 +142,7 @@ object UrlUtils {
 
         // Strip edit and version suffixes
         cleaned = cleaned.replace(Regex("(?i)\\s*[\\(\\[]\\s*(?:radio|single|album|extended|club)\\s+edit\\s*[\\)\\]]"), "")
+        cleaned = cleaned.replace(Regex("(?i)\\s*-\\s*(?:radio|single|album|extended|club)\\s+edit"), "")
         cleaned = cleaned.replace(Regex("(?i)\\s*[\\(\\[]\\s*(?:radio|single|album)\\s+version\\s*[\\)\\]]"), "")
 
         // Strip live concert suffixes
@@ -179,7 +180,7 @@ object UrlUtils {
 
     fun isPlaylistUrl(url: String): Boolean {
         if (url.contains("i=") || url.contains("trackAsin=") || url.contains("/track/") || url.contains("/song/")) return false
-        return url.contains("/playlist/") || url.contains("/playlists/") || url.contains("link.deezer.com")
+        return url.contains("/playlist/") || url.contains("/playlists/") || url.contains("/playlist?") || url.contains("link.deezer.com")
     }
 
     fun isSearchUrl(url: String): Boolean {
