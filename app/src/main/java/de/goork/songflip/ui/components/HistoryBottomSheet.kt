@@ -569,7 +569,10 @@ private fun formatRelativeTime(timestamp: Long, context: Context): String {
     }
 }
 
-private fun openTargetUrl(context: Context, targetUrl: String, platformKey: String) {
+private fun openTargetUrl(context: Context, rawTargetUrl: String, platformKey: String) {
+    val targetUrl = if (rawTargetUrl.contains("music.music.youtube.com")) {
+        rawTargetUrl.replace("music.music.youtube.com", "music.youtube.com")
+    } else rawTargetUrl
     try {
         val nativeUriString = PackageUtils.toNativeAppUri(targetUrl, platformKey)
         val uri = Uri.parse(nativeUriString)
@@ -591,7 +594,10 @@ private fun openTargetUrl(context: Context, targetUrl: String, platformKey: Stri
     }
 }
 
-private fun copyToClipboard(context: Context, text: String) {
+private fun copyToClipboard(context: Context, rawText: String) {
+    val text = if (rawText.contains("music.music.youtube.com")) {
+        rawText.replace("music.music.youtube.com", "music.youtube.com")
+    } else rawText
     val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
     val clip = ClipData.newPlainText("Target Music Link", text)
     clipboard?.setPrimaryClip(clip)

@@ -362,26 +362,25 @@ object UrlUtils {
     }
 
     fun formatTargetUrl(rawUrl: String, targetPlatformKey: String): String {
+        var url = rawUrl
+        // Self-healing: fix corrupted double-domain if present from legacy cache
+        if (url.contains("music.music.youtube.com")) {
+            url = url.replace("music.music.youtube.com", "music.youtube.com")
+        }
         if (targetPlatformKey == "youtubeMusic") {
-            if (rawUrl.contains("music.youtube.com")) return rawUrl
-            if (rawUrl.contains("youtube.com/playlist") || rawUrl.contains("m.youtube.com/playlist")) {
-                return rawUrl.replace("www.youtube.com", "music.youtube.com")
-                    .replace("m.youtube.com", "music.youtube.com")
-                    .replace("youtube.com", "music.youtube.com")
-            }
-            if (rawUrl.contains("youtube.com/watch") || rawUrl.contains("m.youtube.com/watch")) {
-                return rawUrl.replace("www.youtube.com", "music.youtube.com")
-                    .replace("m.youtube.com", "music.youtube.com")
-                    .replace("youtube.com", "music.youtube.com")
-            }
-            if (rawUrl.contains("youtu.be/")) {
-                val videoId = rawUrl.substringAfter("youtu.be/").substringBefore("?").substringBefore("&")
+            if (url.contains("music.youtube.com")) return url
+            if (url.contains("youtu.be/")) {
+                val videoId = url.substringAfter("youtu.be/").substringBefore("?").substringBefore("&")
                 if (videoId.isNotEmpty()) {
                     return "https://music.youtube.com/watch?v=$videoId"
                 }
             }
+            val ytDomainRegex = Regex("^https?://(?:www\\.|m\\.)?youtube\\.com")
+            if (ytDomainRegex.containsMatchIn(url)) {
+                return url.replaceFirst(ytDomainRegex, "https://music.youtube.com")
+            }
         }
-        return rawUrl
+        return url
     }
 
     fun toNativeAppUri(url: String, platformKey: String): String {
