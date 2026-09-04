@@ -231,7 +231,11 @@ class RedirectActivity : ComponentActivity() {
      * completely eliminating intent disambiguation dialogs and infinite intercept loops.
      * Uses native URI schemas for Spotify, Deezer, Tidal for zero latency.
      */
-    private fun openTargetUrl(url: String, targetPlatformKey: String) {
+    private fun openTargetUrl(rawUrl: String, targetPlatformKey: String) {
+        val url = if (rawUrl.contains("music.music.youtube.com")) {
+            rawUrl.replace("music.music.youtube.com", "music.youtube.com")
+        } else rawUrl
+
         de.goork.songflip.data.ShortcutHelper.updateShortcuts(this)
         val targetPackage = PackageUtils.packageMap[targetPlatformKey]
         val isTargetInstalled = PackageUtils.isAppInstalled(this, targetPlatformKey)
