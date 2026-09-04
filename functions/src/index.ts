@@ -531,6 +531,30 @@ async function resolveArtistLive(url: string): Promise<SongMetadata | null> {
 }
 
 /**
+ * Dead-Link Detection & oEmbed Guard:
+ * Fast pre-validation check against YouTube oEmbed endpoint to reject deleted, private, or blocked videos.
+ */
+async function isYoutubeVideoPlayable(videoId: string): Promise<boolean> {
+  if (!videoId || videoId.length !== 11) return false;
+  try {
+    const oembedUrl = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`;
+    const res = await axios.get(oembedUrl, {
+      timeout: 2500,
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      },
+    });
+    return res.status === 200;
+  } catch (err: any) {
+    if (err.response && (err.response.status === 404 || err.response.status === 401 || err.response.status === 403)) {
+      return false;
+    }
+    // Network timeout or temporary glitch: don't falsely discard
+    return true;
+  }
+}
+
+/**
  * Resolves direct YouTube video ID or Album playlist ID for instant playback.
  */
 async function resolveYouTubeDirectPlayLive(query: string, isAlbum = false): Promise<string | null> {
@@ -556,15 +580,21 @@ async function resolveYouTubeDirectPlayLive(query: string, isAlbum = false): Pro
       }
     }
 
-    // 1. Prioritize official videoRenderer (filters out Shorts, reels, fan clips)
-    const vrMatch = html.match(/"videoRenderer":\{"videoId":"([a-zA-Z0-9_-]{11})"/);
-    if (vrMatch && vrMatch[1]) {
-      return `https://music.youtube.com/watch?v=${vrMatch[1]}`;
+    // 1. Prioritize official videoRenderer (filters out Shorts, reels, fan clips) with Dead-Link Guard
+    const vrMatches = [...html.matchAll(/"videoRenderer":\{"videoId":"([a-zA-Z0-9_-]{11})"/g)];
+    for (const match of vrMatches.slice(0, 3)) {
+      const candidateId = match[1];
+      if (await isYoutubeVideoPlayable(candidateId)) {
+        return `https://music.youtube.com/watch?v=${candidateId}`;
+      }
     }
 
-    const videoMatch = html.match(/"videoId":"([a-zA-Z0-9_-]{11})"/) || html.match(/\/watch\?v=([a-zA-Z0-9_-]{11})/);
-    if (videoMatch && videoMatch[1]) {
-      return `https://music.youtube.com/watch?v=${videoMatch[1]}`;
+    const videoMatches = [...html.matchAll(/"videoId":"([a-zA-Z0-9_-]{11})"/g)];
+    for (const match of videoMatches.slice(0, 3)) {
+      const candidateId = match[1];
+      if (await isYoutubeVideoPlayable(candidateId)) {
+        return `https://music.youtube.com/watch?v=${candidateId}`;
+      }
     }
 
     return null;
@@ -1025,6 +1055,7 @@ export const resolve = onRequest(
 
     // 3. Validate Target URL
     const targetUrl = req.query.url as string;
+    const forceRefresh = req.query.force_refresh === "true" || req.query.forceRefresh === "true";
     if (!targetUrl || typeof targetUrl !== "string") {
       res.status(400).json({ error: "INVALID_URL", message: "Parameter 'url' is required" });
       return;
@@ -1035,31 +1066,35 @@ export const resolve = onRequest(
 
     // 4. L2 Cache Lookup in Firestore
     const cacheRef = db.collection("l2_song_cache").doc(primaryHash);
-    const docSnap = await cacheRef.get();
+    if (forceRefresh) {
+      await cacheRef.delete().catch(() => {});
+    } else {
+      const docSnap = await cacheRef.get();
 
-    if (docSnap.exists) {
-      const cachedData = docSnap.data() as SongMetadata;
-      const isExpired = cachedData.expiresAt && cachedData.expiresAt.toMillis() < Date.now();
-      if (!isExpired) {
-        // Rolling 90-day TTL ONLY for verified/official API results, NEVER for heuristic fallbacks
-        if (!cachedData.isFallback) {
-          const rollingExpiresAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000);
-          cacheRef.update({ expiresAt: rollingExpiresAt, lastAccessedAt: Date.now() }).catch(() => {});
-        } else {
-          cacheRef.update({ lastAccessedAt: Date.now() }).catch(() => {});
+      if (docSnap.exists) {
+        const cachedData = docSnap.data() as SongMetadata;
+        const isExpired = cachedData.expiresAt && cachedData.expiresAt.toMillis() < Date.now();
+        if (!isExpired) {
+          // Rolling 90-day TTL ONLY for verified/official API results, NEVER for heuristic fallbacks
+          if (!cachedData.isFallback) {
+            const rollingExpiresAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000);
+            cacheRef.update({ expiresAt: rollingExpiresAt, lastAccessedAt: Date.now() }).catch(() => {});
+          } else {
+            cacheRef.update({ lastAccessedAt: Date.now() }).catch(() => {});
+          }
+
+          res.setHeader("X-Cache", "HIT");
+          res.setHeader("Cache-Control", "private, no-cache, no-store, must-revalidate");
+          res.status(200).json({
+            status: "success",
+            cached: true,
+            item: {
+              ...cachedData,
+              hash: primaryHash.substring(0, 8),
+            },
+          });
+          return;
         }
-
-        res.setHeader("X-Cache", "HIT");
-        res.setHeader("Cache-Control", "private, no-cache, no-store, must-revalidate");
-        res.status(200).json({
-          status: "success",
-          cached: true,
-          item: {
-            ...cachedData,
-            hash: primaryHash.substring(0, 8),
-          },
-        });
-        return;
       }
     }
 
@@ -1073,13 +1108,12 @@ export const resolve = onRequest(
     // 6. Save in Firestore for primary URL hash and all other platform links
     const batch = db.batch();
     batch.set(cacheRef, resolvedItem);
-    // Also store short 8-char key for short URLs
     const primaryShortId = primaryHash.substring(0, 8);
     batch.set(db.collection("l2_song_cache").doc(primaryShortId), resolvedItem);
 
     // Also index other platform URLs for future hits
     Object.values(resolvedItem.links).forEach((platformUrl) => {
-      if (platformUrl) {
+      if (typeof platformUrl === "string" && platformUrl.length > 0) {
         const altNorm = normalizeMusicUrl(platformUrl);
         const altHash = hashUrl(altNorm);
         if (altHash !== primaryHash) {
@@ -1092,7 +1126,7 @@ export const resolve = onRequest(
     // Commit batch asynchronously (non-blocking for ultra-fast response)
     batch.commit().catch((err) => console.error("Error committing L2 cache batch:", err));
 
-    res.setHeader("X-Cache", "MISS");
+    res.setHeader("X-Cache", forceRefresh ? "REFRESHED" : "MISS");
     res.setHeader("Cache-Control", "private, no-cache, no-store, must-revalidate");
     res.status(200).json({
       status: "success",
@@ -1101,6 +1135,53 @@ export const resolve = onRequest(
         ...resolvedItem,
         hash: primaryShortId,
       },
+    });
+  }
+);
+
+/**
+ * Dynamic L2 Cache Invalidation Endpoint: POST /invalidate
+ * Body: { url: string }
+ */
+export const invalidate = onRequest(
+  {
+    region: "europe-west3",
+    memory: "256MiB",
+    maxInstances: 10,
+    timeoutSeconds: 10,
+    cors: true,
+    invoker: "public",
+  },
+  async (req, res) => {
+    applyApiSecurityHeaders(res);
+    res.set("Access-Control-Allow-Origin", "*");
+    res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+    if (req.method === "OPTIONS") {
+      res.status(204).send("");
+      return;
+    }
+
+    if (req.method !== "POST") {
+      res.status(405).json({ error: "METHOD_NOT_ALLOWED" });
+      return;
+    }
+
+    const targetUrl = (req.body?.url || req.query?.url) as string;
+    if (!targetUrl || typeof targetUrl !== "string") {
+      res.status(400).json({ error: "INVALID_URL", message: "Parameter 'url' is required" });
+      return;
+    }
+
+    const normalizedUrl = normalizeMusicUrl(targetUrl);
+    const primaryHash = hashUrl(normalizedUrl);
+    await db.collection("l2_song_cache").doc(primaryHash).delete().catch(() => {});
+
+    res.status(200).json({
+      status: "success",
+      invalidated: true,
+      hash: primaryHash.substring(0, 8),
     });
   }
 );

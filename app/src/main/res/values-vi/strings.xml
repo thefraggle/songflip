@@ -159,4 +159,14 @@
     <string name="pro_feature_l2_cache">Bộ nhớ đệm đám mây L2 tốc độ cao (&lt; 50ms)</string>
     <string name="pro_processing">Xử lý...</string>
     <string name="pro_btn_subscribe">Đặt mua</string>
+
+    <string name="shortcut_last_song_short">Phát bài hát gần nhất</string>
+    <string name="shortcut_last_song_long">Phát bài hát gần nhất: %s</string>
+    <string name="shortcut_pause_1h_short">Tạm dừng 1 giờ</string>
+    <string name="shortcut_pause_1h_long">Tạm dừng SongFlip trong 1 giờ</string>
+    <string name="shortcut_pause_1h_toast">SongFlip đã tạm dừng trong 1 giờ</string>
+    <string name="shortcut_no_last_song">Chưa có bài hát nào trong lịch sử</string>
+    <string name="history_refresh_link">Làm mới liên kết</string>
+    <string name="history_link_refreshed">Đã cập nhật liên kết thành công!</string>
+    <string name="history_link_refreshing">Đang làm mới liên kết...</string>
 </resources>

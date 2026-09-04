@@ -68,6 +68,9 @@ enum LocalizationManager {
             "clipboard_banner_action_open": "In %@ öffnen",
             "clipboard_banner_action_share": "Universal-Link",
             "share_universal_link_copied": "Universal SongFlip Link kopiert!",
+            "action_refresh_link": "Link neu auflösen",
+            "link_refreshed": "Link erfolgreich aktualisiert!",
+            "link_refreshing": "Wird neu aufgelöst...",
         ],
         "en": [
             "app_name": "SongFlip",
@@ -134,6 +137,9 @@ enum LocalizationManager {
             "clipboard_banner_action_open": "Open in %@",
             "clipboard_banner_action_share": "Universal Link",
             "share_universal_link_copied": "Universal SongFlip link copied!",
+            "action_refresh_link": "Refresh Link",
+            "link_refreshed": "Link refreshed successfully!",
+            "link_refreshing": "Refreshing link...",
         ],
         "da": [
             "app_name": "SongFlip",
@@ -200,6 +206,9 @@ enum LocalizationManager {
             "clipboard_banner_action_open": "Åbn i %@",
             "clipboard_banner_action_share": "Universelt link",
             "share_universal_link_copied": "Universelt SongFlip-link kopieret!",
+            "action_refresh_link": "Genindlæs link",
+            "link_refreshed": "Link opdateret!",
+            "link_refreshing": "Genindlæser link...",
         ],
         "nb": [
             "app_name": "SongFlip",
@@ -266,6 +275,9 @@ enum LocalizationManager {
             "clipboard_banner_action_open": "Åpne i %@",
             "clipboard_banner_action_share": "Universell lenke",
             "share_universal_link_copied": "Universell SongFlip-lenke kopiert!",
+            "action_refresh_link": "Oppdater lenke",
+            "link_refreshed": "Lenke oppdatert!",
+            "link_refreshing": "Oppdaterer lenke...",
         ],
         "sv": [
             "app_name": "SongFlip",
@@ -332,6 +344,9 @@ enum LocalizationManager {
             "clipboard_banner_action_open": "Öppna i %@",
             "clipboard_banner_action_share": "Universell länk",
             "share_universal_link_copied": "Universell SongFlip-länk kopierad!",
+            "action_refresh_link": "Uppdatera länk",
+            "link_refreshed": "Länk uppdaterad!",
+            "link_refreshing": "Uppdaterar länk...",
         ],
         "nl": [
             "app_name": "SongFlip",
@@ -398,6 +413,9 @@ enum LocalizationManager {
             "clipboard_banner_action_open": "Openen in %@",
             "clipboard_banner_action_share": "Universele link",
             "share_universal_link_copied": "Universele SongFlip-link gekopieerd!",
+            "action_refresh_link": "Link vernieuwen",
+            "link_refreshed": "Link succesvol vernieuwd!",
+            "link_refreshing": "Link vernieuwen...",
         ],
         "fr": [
             "app_name": "SongFlip",
@@ -464,6 +482,9 @@ enum LocalizationManager {
             "clipboard_banner_action_open": "Ouvrir dans %@",
             "clipboard_banner_action_share": "Lien universel",
             "share_universal_link_copied": "Lien universel copié !",
+            "action_refresh_link": "Actualiser le lien",
+            "link_refreshed": "Lien actualisé avec succès !",
+            "link_refreshing": "Actualisation du lien...",
         ],
         "es": [
             "app_name": "SongFlip",
@@ -530,6 +551,9 @@ enum LocalizationManager {
             "clipboard_banner_action_open": "Abrir en %@",
             "clipboard_banner_action_share": "Enlace universal",
             "share_universal_link_copied": "¡Enlace universal copiado!",
+            "action_refresh_link": "Actualizar enlace",
+            "link_refreshed": "¡Enlace actualizado con éxito!",
+            "link_refreshing": "Actualizando enlace...",
         ],
         "it": [
             "app_name": "SongFlip",
@@ -596,6 +620,9 @@ enum LocalizationManager {
             "clipboard_banner_action_open": "Apri in %@",
             "clipboard_banner_action_share": "Link universale",
             "share_universal_link_copied": "Link universale copiato!",
+            "action_refresh_link": "Aggiorna link",
+            "link_refreshed": "Link aggiornato con successo!",
+            "link_refreshing": "Aggiornamento link in corso...",
         ],
         "pt": [
             "app_name": "SongFlip",
@@ -662,6 +689,9 @@ enum LocalizationManager {
             "clipboard_banner_action_open": "Abrir no %@",
             "clipboard_banner_action_share": "Link universal",
             "share_universal_link_copied": "Link universal copiado!",
+            "action_refresh_link": "Atualizar link",
+            "link_refreshed": "Link atualizado com sucesso!",
+            "link_refreshing": "Atualizando link...",
         ],
         "pl": [
             "app_name": "SongFlip",
@@ -728,6 +758,9 @@ enum LocalizationManager {
             "clipboard_banner_action_open": "Otwórz w %@",
             "clipboard_banner_action_share": "Uniwersalny link",
             "share_universal_link_copied": "Skopiowano uniwersalny link SongFlip!",
+            "action_refresh_link": "Odśwież link",
+            "link_refreshed": "Link zaktualizowany pomyślnie!",
+            "link_refreshing": "Odświeżanie linku...",
         ],
         "ru": [
             "app_name": "SongFlip",
@@ -794,6 +827,9 @@ enum LocalizationManager {
             "clipboard_banner_action_open": "Открыть в %@",
             "clipboard_banner_action_share": "Универсальная ссылка",
             "share_universal_link_copied": "Универсальная ссылка SongFlip скопирована!",
+            "action_refresh_link": "Обновить ссылку",
+            "link_refreshed": "Ссылка успешно обновлена!",
+            "link_refreshing": "Обновление ссылки...",
         ],
         "tr": [
             "app_name": "SongFlip",
@@ -860,6 +896,9 @@ enum LocalizationManager {
             "clipboard_banner_action_open": "%@ ile aç",
             "clipboard_banner_action_share": "Evrensel Bağlantı",
             "share_universal_link_copied": "Evrensel SongFlip bağlantısı kopyalandı!",
+            "action_refresh_link": "Bağlantıyı yenile",
+            "link_refreshed": "Bağlantı başarıyla güncellendi!",
+            "link_refreshing": "Bağlantı yenileniyor...",
         ],
         "uk": [
             "app_name": "SongFlip",
@@ -926,6 +965,9 @@ enum LocalizationManager {
             "clipboard_banner_action_open": "Відкрити в %@",
             "clipboard_banner_action_share": "Універсальне посилання",
             "share_universal_link_copied": "Універсальне посилання SongFlip скопійовано!",
+            "action_refresh_link": "Оновити посилання",
+            "link_refreshed": "Посилання успішно оновлено!",
+            "link_refreshing": "Оновлення посилання...",
         ],
         "ja": [
             "app_name": "SongFlip",
@@ -992,6 +1034,9 @@ enum LocalizationManager {
             "clipboard_banner_action_open": "%@ で開く",
             "clipboard_banner_action_share": "共通リンク",
             "share_universal_link_copied": "SongFlip共通リンクをコピーしました！",
+            "action_refresh_link": "リンクを再取得",
+            "link_refreshed": "リンクを更新しました！",
+            "link_refreshing": "リンクを再取得中...",
         ],
         "ko": [
             "app_name": "SongFlip",
@@ -1058,6 +1103,9 @@ enum LocalizationManager {
             "clipboard_banner_action_open": "%@에서 열기",
             "clipboard_banner_action_share": "유니버설 링크",
             "share_universal_link_copied": "SongFlip 유니버설 링크가 복사되었습니다!",
+            "action_refresh_link": "링크 새로고침",
+            "link_refreshed": "링크가 성공적으로 업데이트되었습니다!",
+            "link_refreshing": "링크 새로고침 중...",
         ],
         "zh": [
             "app_name": "SongFlip",
@@ -1124,6 +1172,9 @@ enum LocalizationManager {
             "clipboard_banner_action_open": "在 %@ 中打开",
             "clipboard_banner_action_share": "通用链接",
             "share_universal_link_copied": "已复制 SongFlip 通用链接！",
+            "action_refresh_link": "刷新链接",
+            "link_refreshed": "链接已成功更新！",
+            "link_refreshing": "正在刷新链接...",
         ],
         "in": [
             "app_name": "SongFlip",
@@ -1190,6 +1241,9 @@ enum LocalizationManager {
             "clipboard_banner_action_open": "Buka di %@",
             "clipboard_banner_action_share": "Tautan Universal",
             "share_universal_link_copied": "Tautan universal SongFlip disalin!",
+            "action_refresh_link": "Perbarui tautan",
+            "link_refreshed": "Tautan berhasil diperbarui!",
+            "link_refreshing": "Memperbarui tautan...",
         ],
         "vi": [
             "app_name": "SongFlip",
@@ -1256,6 +1310,9 @@ enum LocalizationManager {
             "clipboard_banner_action_open": "Mở trong %@",
             "clipboard_banner_action_share": "Liên kết chung",
             "share_universal_link_copied": "Đã sao chép liên kết chung SongFlip!",
+            "action_refresh_link": "Làm mới liên kết",
+            "link_refreshed": "Đã cập nhật liên kết thành công!",
+            "link_refreshing": "Đang làm mới liên kết...",
         ],
         "bn": [
             "app_name": "SongFlip",
@@ -1322,6 +1379,9 @@ enum LocalizationManager {
             "clipboard_banner_action_open": "%@-এ খুলুন",
             "clipboard_banner_action_share": "সর্বজনীন লিংক",
             "share_universal_link_copied": "SongFlip সর্বজনীন লিংক কপি করা হয়েছে!",
+            "action_refresh_link": "লিঙ্ক রিফ্রেশ করুন",
+            "link_refreshed": "লিঙ্ক সফলভাবে আপডেট হয়েছে!",
+            "link_refreshing": "লিঙ্ক রিফ্রেশ হচ্ছে...",
         ],
         "hi": [
             "app_name": "SongFlip",
@@ -1388,6 +1448,9 @@ enum LocalizationManager {
             "clipboard_banner_action_open": "%@ में खोलें",
             "clipboard_banner_action_share": "यूनिवर्सल लिंक",
             "share_universal_link_copied": "SongFlip यूनिवर्सल लिंक कॉपी किया गया!",
+            "action_refresh_link": "लिंक रीफ़्रेश करें",
+            "link_refreshed": "लिंक सफलतापूर्वक अपडेट हो गया!",
+            "link_refreshing": "लिंक रीफ़्रेश हो रहा है...",
         ],
         "mr": [
             "app_name": "SongFlip",

@@ -159,4 +159,14 @@
     <string name="pro_play_store_unavailable">Google Play Store er for øyeblikket utilgjengelig.</string>
     <string name="pro_feature_l2_cache">Høyhastighets L2 Cloud Cache (&lt; 50 ms)</string>
     <string name="pro_processing">Behandling...</string>
+
+    <string name="shortcut_last_song_short">Spill sist spilte sang</string>
+    <string name="shortcut_last_song_long">Spill sist spilte sang: %s</string>
+    <string name="shortcut_pause_1h_short">Pause 1t</string>
+    <string name="shortcut_pause_1h_long">Sett SongFlip på pause i 1 time</string>
+    <string name="shortcut_pause_1h_toast">SongFlip satt på pause i 1 time</string>
+    <string name="shortcut_no_last_song">Ingen sanger i loggen ennå</string>
+    <string name="history_refresh_link">Oppdater lenke</string>
+    <string name="history_link_refreshed">Lenke oppdatert!</string>
+    <string name="history_link_refreshing">Oppdaterer lenke...</string>
 </resources>

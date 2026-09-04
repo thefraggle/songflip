@@ -159,4 +159,14 @@
     <string name="pro_feature_l2_cache">Cache Cloud L2 Berkecepatan Tinggi (&lt;50ms)</string>
     <string name="pro_btn_subscribe">Berlangganan</string>
     <string name="pro_processing">Memproses...</string>
+
+    <string name="shortcut_last_song_short">Putar Lagu Terakhir</string>
+    <string name="shortcut_last_song_long">Putar lagu terakhir dikonversi: %s</string>
+    <string name="shortcut_pause_1h_short">Jeda 1 jam</string>
+    <string name="shortcut_pause_1h_long">Jeda SongFlip selama 1 jam</string>
+    <string name="shortcut_pause_1h_toast">SongFlip dijeda selama 1 jam</string>
+    <string name="shortcut_no_last_song">Belum ada lagu di riwayat</string>
+    <string name="history_refresh_link">Perbarui tautan</string>
+    <string name="history_link_refreshed">Tautan berhasil diperbarui!</string>
+    <string name="history_link_refreshing">Memperbarui tautan...</string>
 </resources>

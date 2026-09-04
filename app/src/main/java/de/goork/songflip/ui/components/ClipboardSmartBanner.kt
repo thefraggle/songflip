@@ -17,6 +17,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.sp
 import de.goork.songflip.R
 
@@ -29,6 +31,7 @@ fun ClipboardSmartBanner(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val haptic = LocalHapticFeedback.current
     val platformName = detectSourcePlatformName(musicUrl)
 
     Card(
@@ -68,7 +71,10 @@ fun ClipboardSmartBanner(
                 }
 
                 IconButton(
-                    onClick = onDismiss,
+                    onClick = {
+                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                        onDismiss()
+                    },
                     modifier = Modifier.size(28.dp)
                 ) {
                     Icon(
@@ -113,7 +119,10 @@ fun ClipboardSmartBanner(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Button(
-                    onClick = { onOpenInTarget(musicUrl) },
+                    onClick = {
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                        onOpenInTarget(musicUrl)
+                    },
                     shape = RoundedCornerShape(10.dp),
                     contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
                     modifier = Modifier.weight(1.3f)
@@ -133,7 +142,10 @@ fun ClipboardSmartBanner(
                 }
 
                 OutlinedButton(
-                    onClick = { onShareUniversalLink(musicUrl) },
+                    onClick = {
+                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                        onShareUniversalLink(musicUrl)
+                    },
                     shape = RoundedCornerShape(10.dp),
                     contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
                     modifier = Modifier.weight(1.0f)

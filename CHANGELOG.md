@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.13] - 2026-09-04
+- **Dynamic App Shortcuts**: Long-press the app icon to immediately play your last converted song or pause link redirects for 1 hour.
+- **One-Tap Cache Refresh**: Instantly refresh and re-resolve any song from your history to clear outdated links and repair playback destinations.
+- **Instant Clipboard Prefetching**: Detected music links are now pre-resolved in the background for zero-latency instant playback.
+- **Enhanced Tactile Feedback**: Added subtle haptic responses across link actions, clipboard banners, and preferences for a more responsive feel.
+- **Dead-Link Detection**: Real-time pre-validation filters out removed or restricted videos to keep resolution caches completely clean.
+
 ## [1.2.12] - 2026-09-03
 - **Universal Link Sanitizing**: Automatically strips tracking and referral parameters from links shared via WhatsApp, Telegram, and social media across all supported platforms.
 - **Intelligent Search Matching**: Cleans metadata noise such as remaster, live, and version tags to ensure reliable matching across music services.

@@ -45,7 +45,8 @@ class SongLinkEngine(
         inputUrl: String,
         targetPlatformKey: String = "youtubeMusic",
         customApiUrl: String = "",
-        customApiToken: String = ""
+        customApiToken: String = "",
+        forceRefresh: Boolean = false
     ): ResolutionResult {
         try {
             // 1. Extract clean URL
@@ -82,10 +83,14 @@ class SongLinkEngine(
             val isExplicitAlbumUrl = UrlUtils.isAlbumUrl(canonicalUrl)
             val now = getCurrentTimeMillis()
 
-            // 4. L1 Cache Lookup (< 5ms)
-            val cached = cache.get(canonicalUrl, targetPlatformKey, now)
-            if (cached != null) {
-                return cached
+            if (forceRefresh) {
+                cache.remove(canonicalUrl, targetPlatformKey)
+            } else {
+                // 4. L1 Cache Lookup (< 5ms)
+                val cached = cache.get(canonicalUrl, targetPlatformKey, now)
+                if (cached != null) {
+                    return cached
+                }
             }
 
             // 4.5. Search URL Resolution (Spotify, Apple Music, YouTube, Deezer, Tidal search links)

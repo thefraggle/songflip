@@ -159,4 +159,14 @@
     <string name="pro_processing">처리 중...</string>
     <string name="pro_btn_subscribe">구독하다</string>
     <string name="pro_feature_l2_cache">초고속 L2 클라우드 캐시 (&lt; 50ms)</string>
+
+    <string name="shortcut_last_song_short">마지막 곡 재생</string>
+    <string name="shortcut_last_song_long">마지막으로 변환된 곡 재생: %s</string>
+    <string name="shortcut_pause_1h_short">1시간 일시정지</string>
+    <string name="shortcut_pause_1h_long">SongFlip 1시간 일시정지</string>
+    <string name="shortcut_pause_1h_toast">SongFlip이 1시간 동안 일시정지되었습니다</string>
+    <string name="shortcut_no_last_song">기록에 곡이 없습니다</string>
+    <string name="history_refresh_link">링크 새로고침</string>
+    <string name="history_link_refreshed">링크가 성공적으로 업데이트되었습니다!</string>
+    <string name="history_link_refreshing">링크 새로고침 중...</string>
 </resources>

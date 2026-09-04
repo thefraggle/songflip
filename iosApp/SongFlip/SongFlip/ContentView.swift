@@ -604,6 +604,15 @@ struct ContentView: View {
         if isMusic && clean != dismissedClipboardUrl {
             detectedClipboardUrl = clean
             inputUrl = clean
+            Task {
+                _ = try? await settings.engine.resolveTargetUrl(
+                    inputUrl: clean,
+                    targetPlatformKey: settings.targetPlatform,
+                    customApiUrl: settings.customApiUrl,
+                    customApiToken: settings.customApiToken,
+                    forceRefresh: false
+                )
+            }
         } else if !isMusic {
             detectedClipboardUrl = nil
         }

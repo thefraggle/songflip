@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -50,11 +51,14 @@ fun HistoryBottomSheet(
 ) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
+    val coroutineScope = rememberCoroutineScope()
+    val odesliRepository = remember { de.goork.songflip.data.OdesliRepository() }
 
     val historyLimit = if (isPro) 100 else 10
     var historyItems by remember { mutableStateOf(LinkCacheManager.getHistoryEntries(limit = historyLimit)) }
     var totalCachedCount by remember { mutableStateOf(LinkCacheManager.getTotalCachedCount()) }
     var showClearConfirmationDialog by remember { mutableStateOf(false) }
+    var refreshingKeys by remember { mutableStateOf(setOf<String>()) }
 
     fun refreshHistory() {
         historyItems = LinkCacheManager.getHistoryEntries(limit = historyLimit)
@@ -215,6 +219,7 @@ fun HistoryBottomSheet(
                         HistoryItemCard(
                             item = item,
                             isPro = isPro,
+                            isRefreshing = refreshingKeys.contains(item.cacheKey),
                             onPlay = {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackHistoryItemClicked(item.platform)
@@ -223,6 +228,18 @@ fun HistoryBottomSheet(
                             onCopy = {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                                 copyToClipboard(context, item.targetUrl)
+                            },
+                            onRefresh = {
+                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                coroutineScope.launch {
+                                    refreshingKeys = refreshingKeys + item.cacheKey
+                                    Toast.makeText(context, context.getString(R.string.history_link_refreshing), Toast.LENGTH_SHORT).show()
+                                    odesliRepository.forceRefresh(item.canonicalUrl, item.targetPlatformKey)
+                                    refreshHistory()
+                                    refreshingKeys = refreshingKeys - item.cacheKey
+                                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                    Toast.makeText(context, context.getString(R.string.history_link_refreshed), Toast.LENGTH_SHORT).show()
+                                }
                             },
                             onShareUniversal = {
                                 if (isPro) {
@@ -310,8 +327,10 @@ fun HistoryBottomSheet(
 fun HistoryItemCard(
     item: HistoryItem,
     isPro: Boolean = false,
+    isRefreshing: Boolean = false,
     onPlay: () -> Unit,
     onCopy: () -> Unit,
+    onRefresh: () -> Unit,
     onShareUniversal: () -> Unit,
     onDelete: () -> Unit
 ) {
@@ -458,6 +477,27 @@ fun HistoryItemCard(
                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.size(18.dp)
                     )
+                }
+                Spacer(modifier = Modifier.width(6.dp))
+                IconButton(
+                    onClick = onRefresh,
+                    enabled = !isRefreshing,
+                    modifier = Modifier.size(32.dp)
+                ) {
+                    if (isRefreshing) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(16.dp),
+                            strokeWidth = 2.dp,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    } else {
+                        Icon(
+                            imageVector = Icons.Outlined.Refresh,
+                            contentDescription = stringResource(R.string.history_refresh_link),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.size(18.dp)
+                        )
+                    }
                 }
                 Spacer(modifier = Modifier.width(6.dp))
                 IconButton(

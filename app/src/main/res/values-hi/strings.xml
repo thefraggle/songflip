@@ -159,4 +159,14 @@
     <string name="pro_feature_l2_cache">हाई-स्पीड L2 क्लाउड कैश (&lt;50ms)</string>
     <string name="pro_processing">प्रसंस्करण...</string>
     <string name="pro_btn_subscribe">सदस्यता लें</string>
+
+    <string name="shortcut_last_song_short">पिछला गाना चलाएं</string>
+    <string name="shortcut_last_song_long">पिछला गाना चलाएं: %s</string>
+    <string name="shortcut_pause_1h_short">1 घंटे रोकें</string>
+    <string name="shortcut_pause_1h_long">SongFlip को 1 घंटे के लिए रोकें</string>
+    <string name="shortcut_pause_1h_toast">SongFlip को 1 घंटे के लिए रोक दिया गया है</string>
+    <string name="shortcut_no_last_song">इतिहास में अभी कोई गाना नहीं है</string>
+    <string name="history_refresh_link">लिंक रीफ़्रेश करें</string>
+    <string name="history_link_refreshed">लिंक सफलतापूर्वक अपडेट हो गया!</string>
+    <string name="history_link_refreshing">लिंक रीफ़्रेश हो रहा है...</string>
 </resources>

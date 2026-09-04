@@ -1468,13 +1468,15 @@ class OdesliRepository {
 
     suspend fun queryL2ServerCache(
         canonicalUrl: String,
-        targetPlatformKey: String
+        targetPlatformKey: String,
+        forceRefresh: Boolean = false
     ): OdesliResult.Success? = withContext(Dispatchers.IO) {
         val authToken = ProManager.getAuthToken()
         val encodedUrl = URLEncoder.encode(canonicalUrl, "UTF-8")
+        val refreshParam = if (forceRefresh) "&force_refresh=true" else ""
         val endpoints = listOf(
-            "https://cache.songflip.link/resolve?url=$encodedUrl",
-            "https://songflip-web.web.app/resolve?url=$encodedUrl"
+            "https://cache.songflip.link/resolve?url=$encodedUrl$refreshParam",
+            "https://songflip-web.web.app/resolve?url=$encodedUrl$refreshParam"
         )
 
         for (endpoint in endpoints) {
@@ -1533,5 +1535,52 @@ class OdesliRepository {
             }
         }
         null
+    }
+
+    /**
+     * Issue #13 (Self-Healing Cache):
+     * Invalidates the local L1 cache entry and forces a fresh resolution.
+     * If user is PRO, forces L2 Firestore invalidation via &force_refresh=true.
+     */
+    suspend fun forceRefresh(
+        canonicalUrl: String,
+        targetPlatformKey: String
+    ): OdesliResult = withContext(Dispatchers.IO) {
+        // 1. Invalidate local L1 cache
+        LinkCacheManager.remove(canonicalUrl, targetPlatformKey)
+
+        // 2. If PRO, invoke L2 server cache with forceRefresh=true
+        if (ProManager.isPro) {
+            val l2Result = queryL2ServerCache(canonicalUrl, targetPlatformKey, forceRefresh = true)
+            if (l2Result != null) {
+                LinkCacheManager.put(
+                    canonicalUrl = canonicalUrl,
+                    targetPlatformKey = targetPlatformKey,
+                    targetUrl = l2Result.targetUrl,
+                    platform = l2Result.platform,
+                    title = l2Result.title,
+                    artist = l2Result.artist,
+                    isAlbum = l2Result.isAlbum
+                )
+                return@withContext l2Result
+            }
+        }
+
+        // 3. Fallback: Fresh client resolution (since L1 was removed, resolveTargetUrl() will fetch fresh from Odesli / Fallback engine)
+        resolveTargetUrl(canonicalUrl, targetPlatformKey)
+    }
+
+    /**
+     * Idee 1 (Clipboard Predictive Prefetching):
+     * Silently resolves and populates L1 cache in background so 1-tap open is 0ms.
+     */
+    suspend fun prefetch(
+        canonicalUrl: String,
+        targetPlatformKey: String
+    ) = withContext(Dispatchers.IO) {
+        if (LinkCacheManager.get(canonicalUrl, targetPlatformKey) != null) return@withContext
+        try {
+            resolveTargetUrl(canonicalUrl, targetPlatformKey)
+        } catch (_: Exception) {}
     }
 }

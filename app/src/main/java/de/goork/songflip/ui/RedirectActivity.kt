@@ -232,6 +232,7 @@ class RedirectActivity : ComponentActivity() {
      * Uses native URI schemas for Spotify, Deezer, Tidal for zero latency.
      */
     private fun openTargetUrl(url: String, targetPlatformKey: String) {
+        de.goork.songflip.data.ShortcutHelper.updateShortcuts(this)
         val targetPackage = PackageUtils.packageMap[targetPlatformKey]
         val isTargetInstalled = PackageUtils.isAppInstalled(this, targetPlatformKey)
 

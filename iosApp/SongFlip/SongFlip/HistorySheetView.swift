@@ -1,12 +1,42 @@
 import SwiftUI
+import SongFlipKit
 
 struct HistorySheetView: View {
     @EnvironmentObject var settings: SettingsModel
     @ObservedObject var history = HistoryModel.shared
     @Environment(\.dismiss) var dismiss
     @State private var showingClearConfirmation = false
+    @State private var refreshingItemId: UUID? = nil
 
     var lang: String { settings.selectedLanguage }
+
+    private func refreshLink(for item: HistoryItem) async {
+        await MainActor.run { refreshingItemId = item.id }
+        let engine = SongLinkEngine()
+        do {
+            let res = try await engine.resolveTargetUrl(
+                inputUrl: item.sourceUrl,
+                targetPlatformKey: settings.targetPlatform,
+                customApiUrl: settings.customApiUrl,
+                customApiToken: settings.customApiToken,
+                forceRefresh: true
+            )
+            if let success = res as? ResolutionResult.Success {
+                await MainActor.run {
+                    history.updateItem(
+                        id: item.id,
+                        newTargetUrl: success.targetUrl,
+                        newTitle: success.title,
+                        newArtist: success.artist,
+                        isAlbum: success.isAlbum
+                    )
+                }
+            }
+        } catch {
+            // Graceful fallback
+        }
+        await MainActor.run { refreshingItemId = nil }
+    }
 
     var body: some View {
         NavigationStack {
@@ -86,8 +116,44 @@ struct HistorySheetView: View {
                                 .padding(.vertical, 4)
                             }
                             .listRowBackground(Color("CardBackgroundColor"))
+                            .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                                Button {
+                                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                    Task {
+                                        await refreshLink(for: item)
+                                    }
+                                } label: {
+                                    Label(LocalizationManager.string(for: "action_refresh_link", lang: lang), systemImage: "arrow.clockwise")
+                                }
+                                .tint(.blue)
+                            }
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button(role: .destructive) {
+                                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                    history.deleteItem(id: item.id)
+                                } label: {
+                                    Label(LocalizationManager.string(for: "action_delete", lang: lang), systemImage: "trash")
+                                }
+                            }
+                            .contextMenu {
+                                Button {
+                                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                    Task {
+                                        await refreshLink(for: item)
+                                    }
+                                } label: {
+                                    Label(LocalizationManager.string(for: "action_refresh_link", lang: lang), systemImage: "arrow.clockwise")
+                                }
+
+                                Button {
+                                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                    UIPasteboard.general.string = item.targetUrl
+                                } label: {
+                                    Label(LocalizationManager.string(for: "action_copy", lang: lang), systemImage: "doc.on.doc")
+                                }
+
+                                Button(role: .destructive) {
+                                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                                     history.deleteItem(id: item.id)
                                 } label: {
                                     Label(LocalizationManager.string(for: "action_delete", lang: lang), systemImage: "trash")

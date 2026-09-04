@@ -74,6 +74,11 @@ class LinkCache(
         }
     }
 
+    suspend fun remove(canonicalUrl: String, targetPlatformKey: String) = mutex.withLock {
+        val key = buildKey(canonicalUrl, targetPlatformKey)
+        entries.remove(key)
+    }
+
     suspend fun clear() = mutex.withLock {
         entries.clear()
     }

@@ -159,4 +159,14 @@
     <string name="pro_play_store_unavailable">Google Play Store в настоящее время недоступен.</string>
     <string name="pro_feature_l2_cache">Высокоскоростной облачный кэш L2 (&lt; 50 мс)</string>
     <string name="pro_processing">Обработка...</string>
+
+    <string name="shortcut_last_song_short">Воспроизвести трек</string>
+    <string name="shortcut_last_song_long">Воспроизвести последний трек: %s</string>
+    <string name="shortcut_pause_1h_short">Пауза на 1 час</string>
+    <string name="shortcut_pause_1h_long">Приостановить SongFlip на 1 час</string>
+    <string name="shortcut_pause_1h_toast">SongFlip приостановлен на 1 час</string>
+    <string name="shortcut_no_last_song">В истории пока нет треков</string>
+    <string name="history_refresh_link">Обновить ссылку</string>
+    <string name="history_link_refreshed">Ссылка успешно обновлена!</string>
+    <string name="history_link_refreshing">Обновление ссылки...</string>
 </resources>
