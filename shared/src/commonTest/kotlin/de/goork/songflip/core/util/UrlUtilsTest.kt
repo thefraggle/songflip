@@ -138,9 +138,33 @@ class UrlUtilsTest {
 
     @Test
     fun testNativeAppUriConversion() {
+        // Spotify
         assertEquals("spotify:track:4u7EnebtmKWzUH433cf5Qv", UrlUtils.toNativeAppUri("https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv", "spotify"))
+        assertEquals("spotify:track:4u7EnebtmKWzUH433cf5Qv", UrlUtils.toNativeAppUri("https://open.spotify.com/intl-de/track/4u7EnebtmKWzUH433cf5Qv?si=123", "spotify"))
+        assertEquals("spotify:playlist:37i9dQZF1DXcBWIGoYBM5M", UrlUtils.toNativeAppUri("https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M", "spotify"))
+
+        // Deezer
         assertEquals("deezer://www.deezer.com/track/12345", UrlUtils.toNativeAppUri("https://www.deezer.com/track/12345", "deezer"))
+        assertEquals("deezer://www.deezer.com/track/12345", UrlUtils.toNativeAppUri("https://www.deezer.com/de/track/12345?utm_source=test", "deezer"))
+        assertEquals("deezer://www.deezer.com/album/67890", UrlUtils.toNativeAppUri("https://www.deezer.com/fr/album/67890", "deezer"))
+
+        // Tidal
         assertEquals("tidal://track/12345", UrlUtils.toNativeAppUri("https://listen.tidal.com/track/12345", "tidal"))
+        assertEquals("tidal://track/12345", UrlUtils.toNativeAppUri("https://tidal.com/browse/track/12345", "tidal"))
+        assertEquals("tidal://track/12345", UrlUtils.toNativeAppUri("https://tidal.com/de/browse/track/12345", "tidal"))
+
+        // Apple Music
+        assertEquals("music://music.apple.com/de/album/test/123", UrlUtils.toNativeAppUri("https://music.apple.com/de/album/test/123", "appleMusic"))
+        assertEquals("music://music.apple.com/de/album/test/123", UrlUtils.toNativeAppUri("https://geo.music.apple.com/de/album/test/123", "appleMusic"))
+
+        // Amazon Music
+        assertEquals("amznmp3://music.amazon.com/albums/B004G92QE4", UrlUtils.toNativeAppUri("https://music.amazon.de/albums/B004G92QE4", "amazonMusic"))
+        assertEquals("amznmp3://music.amazon.com/albums/B004G92QE4", UrlUtils.toNativeAppUri("https://music.amazon.co.uk/albums/B004G92QE4", "amazonMusic"))
+
+        // YouTube Music
+        assertEquals("youtubemusic://music.youtube.com/watch?v=dQw4w9WgXcQ", UrlUtils.toNativeAppUri("https://music.youtube.com/watch?v=dQw4w9WgXcQ", "youtubeMusic"))
+        assertEquals("youtubemusic://music.youtube.com/watch?v=dQw4w9WgXcQ", UrlUtils.toNativeAppUri("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "youtubeMusic"))
+        assertEquals("youtubemusic://music.youtube.com/watch?v=dQw4w9WgXcQ", UrlUtils.toNativeAppUri("https://music.music.youtube.com/watch?v=dQw4w9WgXcQ", "youtubeMusic"))
     }
 
     @Test

@@ -39,78 +39,57 @@ object PackageUtils {
 
     /**
      * Converts standard Spotify web URLs into native Spotify URIs (spotify:track:ID, spotify:album:ID, spotify:search:query)
+     * Handles /intl-<lang>/ prefixes reliably.
      */
     fun toNativeSpotifyUri(url: String): String {
         if (url.startsWith("spotify:")) return url
         val clean = url.trim().substringBefore("?")
-        return when {
-            clean.contains("open.spotify.com/track/") -> {
-                val id = clean.substringAfter("open.spotify.com/track/").substringBefore("/").trim()
-                if (id.isNotEmpty()) "spotify:track:$id" else url
-            }
-            clean.contains("open.spotify.com/album/") -> {
-                val id = clean.substringAfter("open.spotify.com/album/").substringBefore("/").trim()
-                if (id.isNotEmpty()) "spotify:album:$id" else url
-            }
-            clean.contains("open.spotify.com/artist/") -> {
-                val id = clean.substringAfter("open.spotify.com/artist/").substringBefore("/").trim()
-                if (id.isNotEmpty()) "spotify:artist:$id" else url
-            }
-            clean.contains("open.spotify.com/playlist/") -> {
-                val id = clean.substringAfter("open.spotify.com/playlist/").substringBefore("/").trim()
-                if (id.isNotEmpty()) "spotify:playlist:$id" else url
-            }
-            url.contains("open.spotify.com/search/") -> {
-                val query = url.substringAfter("open.spotify.com/search/").substringBefore("?").trim()
-                if (query.isNotEmpty()) "spotify:search:$query" else url
-            }
-            else -> url
+        val match = Regex("open\\.spotify\\.com(?:/intl-[a-zA-Z-]+)?/(track|album|artist|playlist)/([a-zA-Z0-9]+)").find(clean)
+        if (match != null) {
+            val type = match.groupValues[1]
+            val id = match.groupValues[2]
+            return "spotify:$type:$id"
         }
+        if (clean.contains("open.spotify.com/search/")) {
+            val query = clean.substringAfter("open.spotify.com/search/").substringBefore("?").trim()
+            if (query.isNotEmpty()) return "spotify:search:$query"
+        }
+        return url
     }
 
     /**
      * Converts Deezer web URLs into native deezer:// URIs
+     * Handles regional language prefixes (/de/, /fr/, etc.) reliably.
      */
     fun toNativeDeezerUri(url: String): String {
         if (url.startsWith("deezer://")) return url
         val clean = url.trim().substringBefore("?")
-        return when {
-            clean.contains("deezer.com/track/") -> {
-                val id = clean.substringAfter("/track/").substringBefore("/").trim()
-                if (id.isNotEmpty()) "deezer://www.deezer.com/track/$id" else url
-            }
-            clean.contains("deezer.com/album/") -> {
-                val id = clean.substringAfter("/album/").substringBefore("/").trim()
-                if (id.isNotEmpty()) "deezer://www.deezer.com/album/$id" else url
-            }
-            clean.contains("deezer.com/artist/") -> {
-                val id = clean.substringAfter("/artist/").substringBefore("/").trim()
-                if (id.isNotEmpty()) "deezer://www.deezer.com/artist/$id" else url
-            }
-            else -> url
+        if (!clean.contains("deezer.com")) return url
+        val match = Regex("deezer\\.com(?:/[a-zA-Z-]+)?/(track|album|artist)/(\\d+)").find(clean)
+        return if (match != null) {
+            val type = match.groupValues[1]
+            val id = match.groupValues[2]
+            "deezer://www.deezer.com/$type/$id"
+        } else {
+            url
         }
     }
 
     /**
      * Converts Tidal web URLs into native tidal:// URIs
+     * Handles /browse/ and localized paths reliably.
      */
     fun toNativeTidalUri(url: String): String {
         if (url.startsWith("tidal://")) return url
         val clean = url.trim().substringBefore("?")
-        return when {
-            clean.contains("tidal.com/track/") || clean.contains("tidal.com/browse/track/") -> {
-                val id = clean.substringAfter("/track/").substringBefore("/").trim()
-                if (id.isNotEmpty()) "tidal://track/$id" else url
-            }
-            clean.contains("tidal.com/album/") || clean.contains("tidal.com/browse/album/") -> {
-                val id = clean.substringAfter("/album/").substringBefore("/").trim()
-                if (id.isNotEmpty()) "tidal://album/$id" else url
-            }
-            clean.contains("tidal.com/artist/") || clean.contains("tidal.com/browse/artist/") -> {
-                val id = clean.substringAfter("/artist/").substringBefore("/").trim()
-                if (id.isNotEmpty()) "tidal://artist/$id" else url
-            }
-            else -> url
+        if (!clean.contains("tidal.com")) return url
+        val match = Regex("tidal\\.com(?:/[a-zA-Z-]+)?(?:/browse)?/(track|album|artist)/([0-9a-zA-Z-]+)").find(clean)
+        return if (match != null) {
+            val type = match.groupValues[1]
+            val id = match.groupValues[2]
+            "tidal://$type/$id"
+        } else {
+            url
         }
     }
 
