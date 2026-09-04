@@ -1,8 +1,8 @@
 # Changelog
 
 ## [1.2.14] - 2026-09-04
-- **Playback Destination Repair**: Fixed target URL formatting for streaming playback to prevent invalid host prefixes.
-- **Cache Self-Healing**: Automatically sanitizes stored music links and refreshes resolution entries.
+- **Direct Music Playback**: Fixed an issue where converted songs opened the web browser with an error instead of playing directly in your music app.
+- **Automatic Link Healing**: Saved songs are automatically refreshed and repaired to ensure smooth, immediate playback.
 
 ## [1.2.13] - 2026-09-04
 - **Dynamic App Shortcuts**: Long-press the app icon to immediately play your last converted song or pause link redirects for 1 hour.

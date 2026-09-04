@@ -1,3 +1,2 @@
-- Optimized background processing for faster song conversions
-- Minor connectivity and performance enhancements
-- General stability improvements
+- Direct Music Playback: Fixed an issue where converted songs opened the browser with an error instead of opening your music app directly.
+- Automatic Link Healing: Saved songs are automatically refreshed and repaired to ensure smooth, immediate playback.
