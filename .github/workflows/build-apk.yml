@@ -35,6 +35,12 @@ jobs:
             echo "$KEYSTORE_BASE64" | base64 -d > /tmp/release.keystore
           fi
 
+      - name: Run Release Unit Tests Gate
+        env:
+          GRADLE_OPTS: "-Dorg.gradle.jvmargs=\"-Xmx4096m -XX:MaxMetaspaceSize=1024m\""
+        run: |
+          ./gradlew :shared:testReleaseUnitTest :app:testReleaseUnitTest --no-daemon
+
       - name: Build Signed Release APK & AAB Bundle
         env:
           GRADLE_OPTS: "-Dorg.gradle.jvmargs=\"-Xmx4096m -XX:MaxMetaspaceSize=1024m\""

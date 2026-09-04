@@ -15,6 +15,18 @@ object ReviewHelper {
     private const val MIN_DAYS_AFTER_INSTALL_MS = 3 * 24 * 60 * 60 * 1000L // 3 days
     private const val PROMPT_COOLDOWN_MS = 60 * 24 * 60 * 60 * 1000L // 60 days
 
+    fun isEligibleForReview(
+        now: Long,
+        flips: Int,
+        installTime: Long,
+        lastPrompt: Long
+    ): Boolean {
+        val isInstalledLongEnough = (now - installTime) >= MIN_DAYS_AFTER_INSTALL_MS
+        val isCooldownPassed = (now - lastPrompt) >= PROMPT_COOLDOWN_MS
+        val hasEnoughFlips = flips >= MIN_FLIPS_FOR_REVIEW
+        return hasEnoughFlips && isInstalledLongEnough && isCooldownPassed
+    }
+
     /**
      * Checks activity and timing criteria before requesting Google Play In-App Review.
      */
@@ -24,11 +36,7 @@ object ReviewHelper {
         val installTime = settingsRepository.firstInstallTimestamp
         val lastPrompt = settingsRepository.lastReviewPromptTimestamp
 
-        val isInstalledLongEnough = (now - installTime) >= MIN_DAYS_AFTER_INSTALL_MS
-        val isCooldownPassed = (now - lastPrompt) >= PROMPT_COOLDOWN_MS
-        val hasEnoughFlips = flips >= MIN_FLIPS_FOR_REVIEW
-
-        if (hasEnoughFlips && isInstalledLongEnough && isCooldownPassed) {
+        if (isEligibleForReview(now, flips, installTime, lastPrompt)) {
             settingsRepository.lastReviewPromptTimestamp = now
             launchReviewFlow(activity)
         }
