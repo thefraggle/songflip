@@ -159,4 +159,14 @@
     <string name="pro_play_store_unavailable">Google Play Butik er ikke tilgængelig i øjeblikket.</string>
     <string name="pro_feature_l2_cache">High-Speed ​​L2 Cloud Cache (&lt; 50ms)</string>
     <string name="pro_processing">Forarbejdning...</string>
+
+    <string name="shortcut_last_song_short">Afspil seneste sang</string>
+    <string name="shortcut_last_song_long">Afspil seneste sang: %s</string>
+    <string name="shortcut_pause_1h_short">Pause 1t</string>
+    <string name="shortcut_pause_1h_long">Sæt SongFlip på pause i 1 time</string>
+    <string name="shortcut_pause_1h_toast">SongFlip sat på pause i 1 time</string>
+    <string name="shortcut_no_last_song">Ingen sang i historikken endnu</string>
+    <string name="history_refresh_link">Genindlæs link</string>
+    <string name="history_link_refreshed">Link opdateret!</string>
+    <string name="history_link_refreshing">Genindlæser link...</string>
 </resources>

@@ -159,4 +159,14 @@
     <string name="pro_feature_l2_cache">Високошвидкісний хмарний кеш L2 (&lt; 50 мс)</string>
     <string name="pro_processing">Обробка...</string>
     <string name="pro_btn_subscribe">Підпишіться</string>
+
+    <string name="shortcut_last_song_short">Відтворити останній трек</string>
+    <string name="shortcut_last_song_long">Відтворити останній трек: %s</string>
+    <string name="shortcut_pause_1h_short">Пауза на 1 год</string>
+    <string name="shortcut_pause_1h_long">Призупинити SongFlip на 1 годину</string>
+    <string name="shortcut_pause_1h_toast">SongFlip призупинено на 1 годину</string>
+    <string name="shortcut_no_last_song">У журналі ще немає треків</string>
+    <string name="history_refresh_link">Оновити посилання</string>
+    <string name="history_link_refreshed">Посилання успішно оновлено!</string>
+    <string name="history_link_refreshing">Оновлення посилання...</string>
 </resources>

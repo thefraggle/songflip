@@ -11,6 +11,8 @@ import platform.Foundation.credentialForTrust
 import platform.Foundation.serverTrust
 import platform.Foundation.timeIntervalSince1970
 
+import kotlinx.cinterop.convert
+
 @OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 actual fun createPlatformHttpClient(): HttpClient = HttpClient(Darwin) {
     followRedirects = true
@@ -22,11 +24,11 @@ actual fun createPlatformHttpClient(): HttpClient = HttpClient(Darwin) {
                 val serverTrust = protectionSpace.serverTrust
                 if (serverTrust != null) {
                     val credential = NSURLCredential.credentialForTrust(serverTrust)
-                    completionHandler(NSURLSessionAuthChallengeUseCredential, credential)
+                    completionHandler(NSURLSessionAuthChallengeUseCredential.convert(), credential)
                     return@handleChallenge
                 }
             }
-            completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, null)
+            completionHandler(NSURLSessionAuthChallengePerformDefaultHandling.convert(), null)
         }
     }
 }

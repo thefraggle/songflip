@@ -159,4 +159,14 @@
     <string name="pro_play_store_unavailable">Google Play Store şu anda kullanılamıyor.</string>
     <string name="pro_feature_l2_cache">Yüksek Hızlı L2 Bulut Önbelleği (&lt; 50 ms)</string>
     <string name="pro_processing">İşleme...</string>
+
+    <string name="shortcut_last_song_short">Son Şarkıyı Çal</string>
+    <string name="shortcut_last_song_long">Son dönüştürülen şarkıyı çal: %s</string>
+    <string name="shortcut_pause_1h_short">1 sa duraklat</string>
+    <string name="shortcut_pause_1h_long">SongFlip\'i 1 saat duraklat</string>
+    <string name="shortcut_pause_1h_toast">SongFlip 1 saat duraklatıldı</string>
+    <string name="shortcut_no_last_song">Geçmişte henüz şarkı yok</string>
+    <string name="history_refresh_link">Bağlantıyı yenile</string>
+    <string name="history_link_refreshed">Bağlantı başarıyla güncellendi!</string>
+    <string name="history_link_refreshing">Bağlantı yenileniyor...</string>
 </resources>

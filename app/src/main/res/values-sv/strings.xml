@@ -159,4 +159,14 @@
     <string name="pro_play_store_unavailable">Google Play Butik är för närvarande inte tillgänglig.</string>
     <string name="pro_feature_l2_cache">Höghastighets L2 Cloud Cache (&lt; 50 ms)</string>
     <string name="pro_processing">Bearbetar...</string>
+
+    <string name="shortcut_last_song_short">Spela senaste låt</string>
+    <string name="shortcut_last_song_long">Spela senaste låt: %s</string>
+    <string name="shortcut_pause_1h_short">Pausa 1 tim</string>
+    <string name="shortcut_pause_1h_long">Pausa SongFlip i 1 timme</string>
+    <string name="shortcut_pause_1h_toast">SongFlip pausad i 1 timme</string>
+    <string name="shortcut_no_last_song">Ingen låt i historiken ännu</string>
+    <string name="history_refresh_link">Uppdatera länk</string>
+    <string name="history_link_refreshed">Länk uppdaterad!</string>
+    <string name="history_link_refreshing">Uppdaterar länk...</string>
 </resources>

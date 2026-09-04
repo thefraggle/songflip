@@ -159,4 +159,14 @@
     <string name="pro_feature_l2_cache">हाय-स्पीड L2 क्लाउड कॅशे (&lt;50ms)</string>
     <string name="pro_processing">प्रक्रिया करत आहे...</string>
     <string name="pro_btn_subscribe">सदस्यता घ्या</string>
+
+    <string name="shortcut_last_song_short">शेवटचे गाणे ऐका</string>
+    <string name="shortcut_last_song_long">शेवटचे गाणे प्ले करा: %s</string>
+    <string name="shortcut_pause_1h_short">१ तास थांबवा</string>
+    <string name="shortcut_pause_1h_long">SongFlip १ तासासाठी थांबवा</string>
+    <string name="shortcut_pause_1h_toast">SongFlip १ तासासाठी थांबवले आहे</string>
+    <string name="shortcut_no_last_song">इतिहासामध्ये अद्याप कोणतेही गाणे नाही</string>
+    <string name="history_refresh_link">लिंक रीफ्रेश करा</string>
+    <string name="history_link_refreshed">लिंक यशस्वीरित्या अपडेट झाली!</string>
+    <string name="history_link_refreshing">लिंक रीफ्रेश होत आहे...</string>
 </resources>

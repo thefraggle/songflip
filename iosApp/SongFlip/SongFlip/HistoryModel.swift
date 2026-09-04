@@ -79,6 +79,23 @@ class HistoryModel: ObservableObject {
         saveHistory()
     }
 
+    func updateItem(id: UUID, newTargetUrl: String, newTitle: String?, newArtist: String?, isAlbum: Bool) {
+        if let idx = items.firstIndex(where: { $0.id == id }) {
+            let old = items[idx]
+            items[idx] = HistoryItem(
+                id: old.id,
+                timestamp: Date(),
+                title: newTitle ?? old.title,
+                artist: newArtist ?? old.artist,
+                sourceUrl: old.sourceUrl,
+                targetUrl: newTargetUrl,
+                targetPlatform: old.targetPlatform,
+                isAlbum: isAlbum
+            )
+            saveHistory()
+        }
+    }
+
     func delete(at offsets: IndexSet) {
         items.remove(atOffsets: offsets)
         saveHistory()
