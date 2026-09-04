@@ -1,3 +1,2 @@
-- Optimierte Hintergrund-Verarbeitung für schnellere Song-Weiterleitungen
-- Kleinere Performance- und Verbindungsverbesserungen
-- Allgemeine Stabilitätsoptimierungen
+- Direkte Musikwiedergabe: Fehler behoben, bei dem konvertierte Songs einen Browserfehler öffneten statt direkt im gewünschten Player abzuspielen.
+- Automatische Link-Reparatur: Gespeicherte Songs werden automatisch geprüft und aktualisiert, um eine sofortige Wiedergabe sicherzustellen.
