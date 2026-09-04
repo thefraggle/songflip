@@ -19,7 +19,7 @@ If you believe you have found a security vulnerability in SongFlip (app, shared 
 
 1. **Do NOT open a public GitHub issue.**
 2. Please email the maintainer directly at:  
-   📧 **daniel@notthoff.org**  
+   📧 **daniel.notthoff@gmail.com**  
    *(Include steps to reproduce, affected versions, and any relevant logs or proof of concept).*
 3. You will receive an acknowledgment within 48 hours.
 4. We will coordinate a responsible disclosure and patch timeline before any public announcement.
