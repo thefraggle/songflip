@@ -19,6 +19,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -47,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         LinkCacheManager.init(this)
         initialShowPauseSheet = intent?.getBooleanExtra("show_pause_sheet", false) == true
+        handleShortcutIntent(intent)
 
         if (savedInstanceState == null) {
             val settingsRepo = SettingsRepository(this)
@@ -83,6 +85,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
+        handleShortcutIntent(intent)
         if (intent.getBooleanExtra("show_pause_sheet", false)) {
             setContent {
                 val settingsRepository = remember { SettingsRepository(this) }
@@ -105,6 +108,31 @@ class MainActivity : AppCompatActivity() {
                             onThemeModeSelected = { newMode -> currentThemeMode = newMode }
                         )
                     }
+                }
+            }
+        }
+    }
+
+    private fun handleShortcutIntent(intent: Intent?) {
+        if (intent == null) return
+        when (intent.action) {
+            de.goork.songflip.data.ShortcutHelper.ACTION_PAUSE_1H -> {
+                PauseHelper.setPause(this, 60 * 60 * 1000L)
+                Toast.makeText(this, getString(R.string.shortcut_pause_1h_toast), Toast.LENGTH_SHORT).show()
+            }
+            de.goork.songflip.data.ShortcutHelper.ACTION_PLAY_LAST_SONG -> {
+                val targetUrl = intent.getStringExtra(de.goork.songflip.data.ShortcutHelper.EXTRA_TARGET_URL)
+                if (!targetUrl.isNullOrBlank()) {
+                    try {
+                        val playIntent = Intent(Intent.ACTION_VIEW, Uri.parse(targetUrl)).apply {
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        }
+                        startActivity(playIntent)
+                    } catch (_: Exception) {
+                        Toast.makeText(this, getString(R.string.shortcut_no_last_song), Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(this, getString(R.string.shortcut_no_last_song), Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -133,6 +161,7 @@ fun MainScreen(
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
+    val coroutineScope = rememberCoroutineScope()
     val repository = remember { OdesliRepository() }
     val settingsRepository = remember { SettingsRepository(context) }
 
@@ -172,6 +201,7 @@ fun MainScreen(
                 (context as? Activity)?.let { act ->
                     de.goork.songflip.data.ReviewHelper.maybeRequestReview(act, settingsRepository)
                 }
+                de.goork.songflip.data.ShortcutHelper.updateShortcuts(context)
 
                 // Check clipboard for copied music links
                 if (settingsRepository.autoClipboardDetect) {
@@ -179,6 +209,10 @@ fun MainScreen(
                     val clipText = clipManager?.primaryClip?.takeIf { it.itemCount > 0 }?.getItemAt(0)?.text?.toString()?.trim() ?: ""
                     if (isSupportedMusicUrl(clipText) && clipText != dismissedClipboardUrl) {
                         detectedClipboardUrl = clipText
+                        // Predictive prefetching (Idee 1): silently warm L1 cache in background for 0ms launch
+                        coroutineScope.launch {
+                            repository.prefetch(clipText, selectedTargetKey)
+                        }
                     } else if (!isSupportedMusicUrl(clipText)) {
                         detectedClipboardUrl = null
                     }

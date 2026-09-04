@@ -159,4 +159,14 @@
     <string name="pro_play_store_unavailable">Google Play Store is momenteel niet beschikbaar.</string>
     <string name="pro_feature_l2_cache">Snelle L2-cloudcache (&lt; 50 ms)</string>
     <string name="pro_processing">Verwerken...</string>
+
+    <string name="shortcut_last_song_short">Laatste nummer afspelen</string>
+    <string name="shortcut_last_song_long">Laatste nummer afspelen: %s</string>
+    <string name="shortcut_pause_1h_short">1 uur pauzeren</string>
+    <string name="shortcut_pause_1h_long">SongFlip 1 uur pauzeren</string>
+    <string name="shortcut_pause_1h_toast">SongFlip 1 uur gepauzeerd</string>
+    <string name="shortcut_no_last_song">Nog geen nummers in de geschiedenis</string>
+    <string name="history_refresh_link">Link vernieuwen</string>
+    <string name="history_link_refreshed">Link succesvol vernieuwd!</string>
+    <string name="history_link_refreshing">Link vernieuwen...</string>
 </resources>

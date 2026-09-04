@@ -15,6 +15,7 @@ class SongFlipApp : Application() {
         super.onCreate()
         LinkCacheManager.init(this)
         ProManager.init(this)
+        de.goork.songflip.data.ShortcutHelper.updateShortcuts(this)
 
         val isDebuggable = (applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0
         val isTestLab = try {

@@ -159,4 +159,14 @@
     <string name="pro_feature_l2_cache">হাই-স্পিড L2 ক্লাউড ক্যাশে (&lt;50ms)</string>
     <string name="pro_processing">প্রক্রিয়া করা হচ্ছে...</string>
     <string name="pro_btn_subscribe">সদস্যতা</string>
+
+    <string name="shortcut_last_song_short">শেষ গানটি শুনুন</string>
+    <string name="shortcut_last_song_long">শেষ গানটি চালান: %s</string>
+    <string name="shortcut_pause_1h_short">১ ঘণ্টা বিরতি</string>
+    <string name="shortcut_pause_1h_long">SongFlip ১ ঘণ্টার জন্য বিরতি দিন</string>
+    <string name="shortcut_pause_1h_toast">SongFlip ১ ঘণ্টার জন্য বিরতি দেওয়া হয়েছে</string>
+    <string name="shortcut_no_last_song">ইতিহাসে এখনো কোনো গান নেই</string>
+    <string name="history_refresh_link">লিঙ্ক রিফ্রেশ করুন</string>
+    <string name="history_link_refreshed">লিঙ্ক সফলভাবে আপডেট হয়েছে!</string>
+    <string name="history_link_refreshing">লিঙ্ক রিফ্রেশ হচ্ছে...</string>
 </resources>

@@ -176,4 +176,14 @@
     <string name="clipboard_banner_action_share">Universal-Link</string>
     <string name="pro_debug_reset_status">PRO Status zurückgesetzt (Debug)</string>
     <string name="pro_debug_reset_button">PRO-Status zurücksetzen (Debug)</string>
+
+    <string name="shortcut_last_song_short">Letzten Song öffnen</string>
+    <string name="shortcut_last_song_long">Letzten Song abspielen: %s</string>
+    <string name="shortcut_pause_1h_short">1h pausieren</string>
+    <string name="shortcut_pause_1h_long">SongFlip für 1 Stunde pausieren</string>
+    <string name="shortcut_pause_1h_toast">SongFlip für 1 Stunde pausiert</string>
+    <string name="shortcut_no_last_song">Noch kein Song im Verlauf vorhanden</string>
+    <string name="history_refresh_link">Link neu auflösen</string>
+    <string name="history_link_refreshed">Link erfolgreich aktualisiert!</string>
+    <string name="history_link_refreshing">Wird neu aufgelöst...</string>
 </resources>

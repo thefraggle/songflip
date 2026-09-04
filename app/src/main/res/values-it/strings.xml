@@ -159,4 +159,14 @@
     <string name="pro_feature_l2_cache">Cache cloud L2 ad alta velocità (&lt; 50 ms)</string>
     <string name="pro_processing">Elaborazione...</string>
     <string name="pro_play_store_unavailable">Google Play Store non è al momento disponibile.</string>
+
+    <string name="shortcut_last_song_short">Riproduci ultimo brano</string>
+    <string name="shortcut_last_song_long">Riproduci ultimo brano: %s</string>
+    <string name="shortcut_pause_1h_short">Pausa per 1 ora</string>
+    <string name="shortcut_pause_1h_long">Metti SongFlip in pausa per 1 ora</string>
+    <string name="shortcut_pause_1h_toast">SongFlip in pausa per 1 ora</string>
+    <string name="shortcut_no_last_song">Nessun brano nella cronologia</string>
+    <string name="history_refresh_link">Aggiorna link</string>
+    <string name="history_link_refreshed">Link aggiornato con successo!</string>
+    <string name="history_link_refreshing">Aggiornamento link in corso...</string>
 </resources>

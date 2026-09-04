@@ -159,4 +159,14 @@
     <string name="pro_play_store_unavailable">Google Play ストアは現在利用できません。</string>
     <string name="pro_processing">処理...</string>
     <string name="pro_feature_l2_cache">超高速 L2 クラウドキャッシュ (&lt; 50ms)</string>
+
+    <string name="shortcut_last_song_short">最後の曲を再生</string>
+    <string name="shortcut_last_song_long">変換した最後の曲を再生: %s</string>
+    <string name="shortcut_pause_1h_short">1時間一時停止</string>
+    <string name="shortcut_pause_1h_long">SongFlipを1時間一時停止</string>
+    <string name="shortcut_pause_1h_toast">SongFlipを1時間一時停止しました</string>
+    <string name="shortcut_no_last_song">履歴に曲がありません</string>
+    <string name="history_refresh_link">リンクを再取得</string>
+    <string name="history_link_refreshed">リンクを更新しました！</string>
+    <string name="history_link_refreshing">リンクを再取得中...</string>
 </resources>
