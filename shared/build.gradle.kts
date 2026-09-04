@@ -40,6 +40,8 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(kotlin("test"))
+            implementation("io.ktor:ktor-client-mock:2.3.7")
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
         }
         androidMain.dependencies {
             implementation("io.ktor:ktor-client-okhttp:2.3.7")
