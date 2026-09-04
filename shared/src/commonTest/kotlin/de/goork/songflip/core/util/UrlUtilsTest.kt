@@ -142,4 +142,37 @@ class UrlUtilsTest {
         assertEquals("deezer://www.deezer.com/track/12345", UrlUtils.toNativeAppUri("https://www.deezer.com/track/12345", "deezer"))
         assertEquals("tidal://track/12345", UrlUtils.toNativeAppUri("https://listen.tidal.com/track/12345", "tidal"))
     }
+
+    @Test
+    fun testFormatTargetUrlYouTubeMusic() {
+        assertEquals(
+            "https://music.youtube.com/watch?v=dQw4w9WgXcQ",
+            UrlUtils.formatTargetUrl("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "youtubeMusic")
+        )
+        assertEquals(
+            "https://music.youtube.com/watch?v=dQw4w9WgXcQ",
+            UrlUtils.formatTargetUrl("https://m.youtube.com/watch?v=dQw4w9WgXcQ", "youtubeMusic")
+        )
+        assertEquals(
+            "https://music.youtube.com/watch?v=dQw4w9WgXcQ",
+            UrlUtils.formatTargetUrl("https://youtube.com/watch?v=dQw4w9WgXcQ", "youtubeMusic")
+        )
+        assertEquals(
+            "https://music.youtube.com/watch?v=dQw4w9WgXcQ",
+            UrlUtils.formatTargetUrl("https://music.youtube.com/watch?v=dQw4w9WgXcQ", "youtubeMusic")
+        )
+        assertEquals(
+            "https://music.youtube.com/watch?v=dQw4w9WgXcQ",
+            UrlUtils.formatTargetUrl("https://music.music.youtube.com/watch?v=dQw4w9WgXcQ", "youtubeMusic")
+        )
+        assertEquals(
+            "https://music.youtube.com/watch?v=dQw4w9WgXcQ",
+            UrlUtils.formatTargetUrl("https://youtu.be/dQw4w9WgXcQ", "youtubeMusic")
+        )
+        assertEquals(
+            "https://music.youtube.com/playlist?list=PL123",
+            UrlUtils.formatTargetUrl("https://www.youtube.com/playlist?list=PL123", "youtubeMusic")
+        )
+    }
 }
+

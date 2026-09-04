@@ -33,7 +33,7 @@ data class HistoryItem(
 object LinkCacheManager {
     private const val PREFS_NAME = "songflip_link_cache"
     private const val CACHE_VERSION_KEY = "songflip_cache_version"
-    private const val CURRENT_CACHE_VERSION = 3
+    private const val CURRENT_CACHE_VERSION = 4
     private const val MAX_MEMORY_ENTRIES = 200
     private const val CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000L // 7 days
 
@@ -92,6 +92,12 @@ object LinkCacheManager {
         val memEntry = memoryCache[cacheKey]
         if (memEntry != null) {
             if (now - memEntry.timestamp < CACHE_TTL_MS && memEntry.targetUrl.isNotBlank() && (memEntry.targetUrl.startsWith("http") || memEntry.targetUrl.contains(":"))) {
+                if (memEntry.targetUrl.contains("music.music.youtube.com")) {
+                    val fixed = memEntry.copy(targetUrl = memEntry.targetUrl.replace("music.music.youtube.com", "music.youtube.com"))
+                    memoryCache[cacheKey] = fixed
+                    savePersistent(cacheKey, fixed)
+                    return fixed
+                }
                 return memEntry
             } else {
                 memoryCache.remove(cacheKey)
@@ -227,6 +233,7 @@ object LinkCacheManager {
 
     fun isValidTargetUrl(url: String): Boolean {
         if (url.isBlank()) return false
+        if (url.contains("music.music.youtube.com")) return false
         if (url.contains("spotify.link") || url.contains("deezer.page.link") || url.contains("://apple.co") || url.contains("amzn.to")) return false
         return url.startsWith("http://") || url.startsWith("https://") || url.startsWith("spotify:") || url.startsWith("deezer://") || url.startsWith("tidal://")
     }
@@ -249,24 +256,22 @@ object LinkCacheManager {
             val json = JSONObject().apply {
                 put("targetUrl", entry.targetUrl)
                 put("platform", entry.platform)
-                if (entry.title != null) put("title", entry.title)
-                if (entry.artist != null) put("artist", entry.artist)
+                put("title", entry.title)
+                put("artist", entry.artist)
                 put("isAlbum", entry.isAlbum)
                 put("timestamp", entry.timestamp)
             }
             val editor = prefs.edit()
             editor.putString(key, json.toString())
-
-            // Prune persistent cache if it exceeds maximum capacity
             val all = prefs.all
             if (all.size > MAX_PERSISTENT_ENTRIES) {
-                pruneOldestEntries(editor, all)
+                prunePersistentIfNeeded(editor, all)
             }
             editor.apply()
         } catch (ignored: Exception) {}
     }
 
-    private fun pruneOldestEntries(editor: SharedPreferences.Editor, allEntries: Map<String, *>) {
+    private fun prunePersistentIfNeeded(editor: SharedPreferences.Editor, allEntries: Map<String, *>) {
         try {
             val entriesWithTime = mutableListOf<Pair<String, Long>>()
             for ((k, v) in allEntries) {
@@ -296,8 +301,12 @@ object LinkCacheManager {
     private fun parseEntry(jsonString: String): CachedLinkEntry? {
         return try {
             val obj = JSONObject(jsonString)
+            var target = obj.getString("targetUrl")
+            if (target.contains("music.music.youtube.com")) {
+                target = target.replace("music.music.youtube.com", "music.youtube.com")
+            }
             CachedLinkEntry(
-                targetUrl = obj.getString("targetUrl"),
+                targetUrl = target,
                 platform = obj.optString("platform", ""),
                 title = if (obj.has("title") && !obj.isNull("title")) obj.getString("title") else null,
                 artist = if (obj.has("artist") && !obj.isNull("artist")) obj.getString("artist") else null,
