@@ -49,9 +49,22 @@ class PackageUtilsTest {
     }
 
     @Test
+    fun testToNativeSpotifyUri_Intl() {
+        val webUrl = "https://open.spotify.com/intl-de/track/4u7EnebtmKWzUH433cf5Qv?si=12345"
+        val nativeUri = PackageUtils.toNativeSpotifyUri(webUrl)
+        assertEquals("spotify:track:4u7EnebtmKWzUH433cf5Qv", nativeUri)
+
+        val webAlbum = "https://open.spotify.com/intl-es/album/1DFixLWuPkv3KT3TnV35m3"
+        assertEquals("spotify:album:1DFixLWuPkv3KT3TnV35m3", PackageUtils.toNativeSpotifyUri(webAlbum))
+    }
+
+    @Test
     fun testToNativeDeezerUri() {
         val webTrack = "https://www.deezer.com/track/9997018"
         assertEquals("deezer://www.deezer.com/track/9997018", PackageUtils.toNativeDeezerUri(webTrack))
+
+        val localizedTrack = "https://www.deezer.com/de/track/9997018"
+        assertEquals("deezer://www.deezer.com/track/9997018", PackageUtils.toNativeDeezerUri(localizedTrack))
 
         val webAlbum = "https://www.deezer.com/album/12345"
         assertEquals("deezer://www.deezer.com/album/12345", PackageUtils.toNativeDeezerUri(webAlbum))
@@ -61,6 +74,12 @@ class PackageUtilsTest {
     fun testToNativeTidalUri() {
         val webTrack = "https://listen.tidal.com/track/534050211"
         assertEquals("tidal://track/534050211", PackageUtils.toNativeTidalUri(webTrack))
+
+        val browseTrack = "https://tidal.com/browse/track/534050211"
+        assertEquals("tidal://track/534050211", PackageUtils.toNativeTidalUri(browseTrack))
+
+        val localizedTrack = "https://tidal.com/de/browse/track/534050211"
+        assertEquals("tidal://track/534050211", PackageUtils.toNativeTidalUri(localizedTrack))
 
         val webAlbum = "https://tidal.com/album/123456"
         assertEquals("tidal://album/123456", PackageUtils.toNativeTidalUri(webAlbum))
