@@ -772,19 +772,6 @@ fun SettingsBottomSheet(
                             context.startActivity(intent)
                         }
                     )
-                    Text(
-                        text = "•",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
-                    )
-                    Text(
-                        text = stringResource(R.string.legal_contact),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.clickable {
-                            ContactHelper.sendSupportEmail(context)
-                        }
-                    )
                 }
             }
 
