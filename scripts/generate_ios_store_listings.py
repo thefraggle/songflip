@@ -36,7 +36,7 @@ Key Features:
 Built with passion for music lovers who want to enjoy songs seamlessly across platforms in their favorite player.""",
         'support_url': 'https://songflip.link',
         'marketing_url': 'https://songflip.link',
-        'privacy_url': 'https://songflip.link/privacy',
+        'privacy_url': 'https://songflip.link/privacy-policy.html',
     },
     'de-DE': {
         'name': 'SongFlip: Musik Link Umleitung',
@@ -66,7 +66,7 @@ Hauptfunktionen:
 Entwickelt für alle Musikliebhaber, die Musik ohne Plattformgrenzen in ihrer Lieblings-App genießen möchten.""",
         'support_url': 'https://songflip.link',
         'marketing_url': 'https://songflip.link',
-        'privacy_url': 'https://songflip.link/privacy',
+        'privacy_url': 'https://songflip.link/privacy-policy.html',
     }
 }
 

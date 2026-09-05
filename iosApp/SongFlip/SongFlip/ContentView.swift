@@ -487,7 +487,7 @@ struct ContentView: View {
                                 Text("•").foregroundColor(.secondary.opacity(0.6))
                                 Link(LocalizationManager.string(for: "legal_imprint", lang: lang), destination: URL(string: "https://songflip.link/imprint.html")!)
                                 Text("•").foregroundColor(.secondary.opacity(0.6))
-                                Link(LocalizationManager.string(for: "legal_terms", lang: lang), destination: URL(string: "https://songflip.link/imprint.html")!)
+                                Link(LocalizationManager.string(for: "legal_terms", lang: lang), destination: URL(string: "https://songflip.link/terms.html")!)
                             }
                             .font(.caption)
                             .foregroundColor(.secondary)
