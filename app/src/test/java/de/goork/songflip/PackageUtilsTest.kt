@@ -1,7 +1,10 @@
 package de.goork.songflip
 
 import de.goork.songflip.data.PackageUtils
+import de.goork.songflip.ui.components.isSupportedMusicUrl
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class PackageUtilsTest {
@@ -101,5 +104,29 @@ class PackageUtilsTest {
         assertEquals("Tidal", PackageUtils.getPlatformDisplayName("tidal"))
         assertEquals("Deezer", PackageUtils.getPlatformDisplayName("deezer"))
         assertEquals("Amazon Music", PackageUtils.getPlatformDisplayName("amazonMusic"))
+    }
+
+    @Test
+    fun testIsSupportedMusicUrlWithPrefixesAndRawUrls() {
+        // Direct clean URLs
+        assertTrue(isSupportedMusicUrl("https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv"))
+        assertTrue(isSupportedMusicUrl("https://music.apple.com/us/album/cruel-summer/1468058165?i=1468058171"))
+        assertTrue(isSupportedMusicUrl("https://music.youtube.com/watch?v=j09hpp3AxIE"))
+        assertTrue(isSupportedMusicUrl("https://listen.tidal.com/track/196435445"))
+        assertTrue(isSupportedMusicUrl("https://www.deezer.com/track/142393383"))
+        assertTrue(isSupportedMusicUrl("https://music.amazon.com/albums/B0973J6KJT?trackAsin=B0973GPM1F"))
+
+        // Raw copied clipboard texts with emojis and service labels
+        assertTrue(isSupportedMusicUrl("🟢 Spotify (Queen): https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv"))
+        assertTrue(isSupportedMusicUrl("🍎 Apple Music (Taylor Swift): https://music.apple.com/us/album/cruel-summer/1468058165?i=1468058171"))
+        assertTrue(isSupportedMusicUrl("▶️ YouTube Music (Die Toten Hosen): https://music.youtube.com/watch?v=j09hpp3AxIE"))
+        assertTrue(isSupportedMusicUrl("⬛ Tidal (Metallica): https://listen.tidal.com/track/196435445"))
+        assertTrue(isSupportedMusicUrl("🟣 Deezer (Die Toten Hosen): https://www.deezer.com/track/142393383"))
+        assertTrue(isSupportedMusicUrl("📦 Amazon Music (Metallica): https://music.amazon.com/albums/B0973J6KJT?trackAsin=B0973GPM1F"))
+
+        // Non-music texts
+        assertFalse(isSupportedMusicUrl("Hier ist ein Text ohne Link"))
+        assertFalse(isSupportedMusicUrl("https://google.com"))
+        assertFalse(isSupportedMusicUrl("https://github.com/thefraggle/songflip"))
     }
 }
