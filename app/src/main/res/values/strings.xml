@@ -19,6 +19,8 @@
     <string name="select_language_title">Select Language</string>
     <string name="settings_rate_app">Rate SongFlip</string>
     <string name="settings_rate_app_subtitle">Share your feedback on Google Play</string>
+    <string name="settings_feedback_support">Feedback &amp; Support</string>
+    <string name="settings_feedback_support_subtitle">Questions, ideas, or issues? Email us directly</string>
 
     <string name="setup_title">How it works</string>
     <string name="step1">Tap the button below to open system settings</string>
@@ -97,6 +99,7 @@
     <string name="legal_privacy">Privacy Policy</string>
     <string name="legal_imprint">Imprint</string>
     <string name="legal_terms">Terms of Service</string>
+    <string name="legal_contact">Contact</string>
 
     <string name="redirecting_toast">Flipping music link...</string>
     <string name="redirect_error_toast">Could not flip link. Opening original link.</string>

@@ -18,6 +18,8 @@
     <string name="select_language_title">ভাষা নির্বাচন করুন</string>
     <string name="settings_rate_app">SongFlip রেট করুন</string>
     <string name="settings_rate_app_subtitle">Google Play-তে আপনার মতামত দিন</string>
+    <string name="settings_feedback_support">মতামত ও সহায়তা</string>
+    <string name="settings_feedback_support_subtitle">প্রশ্ন, পরামর্শ বা সমস্যা? আমাদের সরাসরি ইমেল করুন</string>
     <string name="setup_title">এটি কীভাবে কাজ করে</string>
     <string name="step1">সিস্টেম সেটিংস খুলতে নিচের বোতামে ট্যাপ করুন</string>
     <string name="step2">মিউজিক ডোমেনের জন্য "সমর্থিত লিঙ্ক খুলুন" সক্রিয় করুন</string>
@@ -90,6 +92,7 @@
     <string name="legal_privacy">গোপনীয়তা</string>
     <string name="legal_imprint">আইনি বিজ্ঞপ্তি</string>
     <string name="legal_terms">পরিষেবার শর্তাবলী</string>
+    <string name="legal_contact">যোগাযোগ</string>
     <string name="playlist_not_supported_toast">প্লেলিস্ট বর্তমানে সমর্থিত নয়।</string>
 
     <string name="history_title">গানের ইতিহাস</string>

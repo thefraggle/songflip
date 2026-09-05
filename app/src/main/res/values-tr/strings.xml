@@ -18,6 +18,8 @@
     <string name="select_language_title">Dil Seçin</string>
     <string name="settings_rate_app">SongFlip\'i Değerlendir</string>
     <string name="settings_rate_app_subtitle">Google Play\'de geri bildirim bırakın</string>
+    <string name="settings_feedback_support">Geri Bildirim ve Destek</string>
+    <string name="settings_feedback_support_subtitle">Sorular, öneriler veya hatalar? Bize doğrudan yazın</string>
     <string name="setup_title">Nasıl Çalışır?</string>
     <string name="step1">Sistem ayarlarını açmak için aşağıdaki butona dokunun</string>
     <string name="step2">Müzik alanları için "Desteklenen bağlantıları aç" seçeneğini etkinleştirin</string>
@@ -90,6 +92,7 @@
     <string name="legal_privacy">Gizlilik</string>
     <string name="legal_imprint">Künye</string>
     <string name="legal_terms">Hizmet Şartları</string>
+    <string name="legal_contact">İletişim</string>
     <string name="playlist_not_supported_toast">Çalma listeleri şu anda desteklenmemektedir.</string>
 
     <string name="history_title">Şarkı Geçmişi</string>
