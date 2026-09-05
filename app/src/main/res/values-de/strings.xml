@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">SongFlip</string>
-    <string name="app_tagline">Automatischer Musik-Link Redirector</string>
+    <string name="app_tagline">Automatische Musik-Link-Weiterleitung</string>
     <string name="app_description">Einmalig einrichten – empfangene Musik-Links öffnen sich fortan automatisch im Hintergrund in deinem Lieblings-Player.</string>
 
-    <string name="status_title">Redirector Status</string>
+    <string name="status_title">Weiterleitungs-Status</string>
     <string name="status_active">SongFlip ist aktiv</string>
     <string name="status_all_active">Alle %1$d Musik-Dienste aktiviert</string>
     <string name="status_partial_active">%1$d von %2$d Musik-Diensten aktiviert</string>
