@@ -18,6 +18,8 @@
     <string name="select_language_title">Välj språk</string>
     <string name="settings_rate_app">Betygsätt SongFlip</string>
     <string name="settings_rate_app_subtitle">Dela din feedback på Google Play</string>
+    <string name="settings_feedback_support">Feedback och support</string>
+    <string name="settings_feedback_support_subtitle">Frågor, idéer eller problem? Skriv direkt till oss</string>
     <string name="setup_title">Så fungerar det</string>
     <string name="step1">Tryck på knappen nedan för att öppna systeminställningarna</string>
     <string name="step2">Aktivera "Öppna länkar som stöds" för musikdomäner</string>
@@ -90,6 +92,7 @@
     <string name="legal_privacy">Integritet</string>
     <string name="legal_imprint">Kolofon</string>
     <string name="legal_terms">Användarvillkor</string>
+    <string name="legal_contact">Kontakt</string>
     <string name="playlist_not_supported_toast">Spellistor stöds för närvarande inte.</string>
 
     <string name="history_title">Låthistorik</string>

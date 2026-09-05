@@ -18,6 +18,8 @@
     <string name="select_language_title">Chọn ngôn ngữ</string>
     <string name="settings_rate_app">Đánh giá SongFlip</string>
     <string name="settings_rate_app_subtitle">Chia sẻ phản hồi trên Google Play</string>
+    <string name="settings_feedback_support">Phản hồi &amp; Hỗ trợ</string>
+    <string name="settings_feedback_support_subtitle">Câu hỏi, ý kiến đóng góp hoặc báo lỗi? Hãy gửi email trực tiếp cho chúng tôi</string>
     <string name="setup_title">Cách thức hoạt động</string>
     <string name="step1">Nhấn nút bên dưới để mở cài đặt hệ thống</string>
     <string name="step2">Bật "Mở các liên kết được hỗ trợ" cho các tên miền âm nhạc</string>
@@ -90,6 +92,7 @@
     <string name="legal_privacy">Bảo mật</string>
     <string name="legal_imprint">Thông tin pháp lý</string>
     <string name="legal_terms">Điều khoản dịch vụ</string>
+    <string name="legal_contact">Liên hệ</string>
     <string name="playlist_not_supported_toast">Danh sách phát hiện chưa được hỗ trợ.</string>
 
     <string name="history_title">Lịch sử bài hát</string>

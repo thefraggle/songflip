@@ -51,6 +51,29 @@ struct SettingsSheetView: View {
                     }
                     .tint(.green)
                 }
+
+                Section(header: Text(LocalizationManager.string(for: "settings_feedback_support", lang: lang)).font(.caption).fontWeight(.semibold)) {
+                    Button(action: {
+                        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
+                        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
+                        let systemVersion = UIDevice.current.systemVersion
+                        let model = UIDevice.current.model
+                        let subject = "SongFlip iOS Feedback (v\(appVersion))".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "SongFlip%20Feedback"
+                        let body = "\n\n---\nApp Version: v\(appVersion) (\(buildNumber))\niOS: \(systemVersion)\nDevice: \(model)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+                        if let url = URL(string: "mailto:songflip@goork.de?subject=\(subject)&body=\(body)") {
+                            UIApplication.shared.open(url)
+                        }
+                    }) {
+                        HStack {
+                            Label(LocalizationManager.string(for: "settings_feedback_support", lang: lang), systemImage: "envelope")
+                            Spacer()
+                            Image(systemName: "arrow.up.right")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    .foregroundColor(.primary)
+                }
             }
             .navigationTitle(LocalizationManager.string(for: "nav_settings", lang: lang))
             .navigationBarTitleDisplayMode(.inline)
