@@ -169,4 +169,11 @@
     <string name="history_refresh_link">Bağlantıyı yenile</string>
     <string name="history_link_refreshed">Bağlantı başarıyla güncellendi!</string>
     <string name="history_link_refreshing">Bağlantı yenileniyor...</string>
+
+    <string name="pro_nudge_title">🎉 %1$d şarkı başarıyla dönüştürüldü!</string>
+    <string name="pro_nudge_subtitle">SongFlip PRO ile L2 yüksek hızlı önbelleğin ve genişletilmiş geçmişin kilidini açın.</string>
+    <string name="pro_nudge_action_redeem">Kuponu Kullan</string>
+    <string name="pro_nudge_action_more">Daha Fazla Bilgi</string>
+    <string name="history_capacity_free">%1$d / %2$d şarkı kaydedildi (PRO: 100\'e kadar)</string>
+    <string name="history_capacity_pro">%1$d / %2$d şarkı kaydedildi</string>
 </resources>

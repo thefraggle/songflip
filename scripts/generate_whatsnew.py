@@ -8,53 +8,49 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WHATSNEW_DIR = os.path.join(BASE_DIR, "distribution", "whatsnew")
 
 TARGET_LOCALES = {
-    'en-US': 'en-GB',
-    'en-GB': 'en-GB',
-    'de-DE': 'de-DE',
-    'fr-FR': 'fr-FR',
-    'fr-CA': 'fr-CA',
-    'it-IT': 'it-IT',
-    'es-ES': 'es-ES',
-    'es-US': 'es-ES',
-    'es-419': 'es-ES',
-    'pt-PT': 'pt-PT',
-    'pt-BR': 'pt-BR',
-    'pl-PL': 'pl-PL',
-    'nl-NL': 'nl-NL',
-    'sv-SE': 'sv-SE',
-    'da-DK': 'da-DK',
-    'nb-NO': 'nb-NO',
-    'tr-TR': 'tr-TR',
-    'ru-RU': 'ru-RU',
-    'uk': 'uk-UA',
-    'ja-JP': 'ja-JP',
-    'ko-KR': 'ko-KR',
+    'en-US': 'en',
+    'en-GB': 'en',
+    'de-DE': 'de',
+    'fr-FR': 'fr',
+    'fr-CA': 'fr',
+    'it-IT': 'it',
+    'es-ES': 'es',
+    'es-US': 'es',
+    'es-419': 'es',
+    'pt-PT': 'pt',
+    'pt-BR': 'pt',
+    'pl-PL': 'pl',
+    'nl-NL': 'nl',
+    'sv-SE': 'sv',
+    'da-DK': 'da',
+    'nb-NO': 'no',
+    'tr-TR': 'tr',
+    'ru-RU': 'ru',
+    'uk': 'uk',
+    'ja-JP': 'ja',
+    'ko-KR': 'ko',
     'zh-CN': 'zh-CN',
     'zh-TW': 'zh-TW',
-    'id': 'id-ID',
-    'vi': 'vi-VN',
-    'hi-IN': 'hi-IN',
-    'bn-BD': 'bn-IN',
-    'mr-IN': 'mr-IN',
-    'ar': 'ar-SA',
-    'cs-CZ': 'cs-CZ',
-    'el-GR': 'el-GR',
-    'fi-FI': 'fi-FI',
-    'hu-HU': 'hu-HU',
-    'ro': 'ro-RO',
+    'id': 'id',
+    'vi': 'vi',
+    'hi-IN': 'hi',
+    'bn-BD': 'bn',
+    'mr-IN': 'mr',
+    'ar': 'ar',
+    'cs-CZ': 'cs',
+    'el-GR': 'el',
+    'fi-FI': 'fi',
+    'hu-HU': 'hu',
+    'ro': 'ro',
 }
 
 def truncate_to_bytes(text, max_limit=450, suffix="..."):
-    """Google Play strictly limits release notes to max 500 characters and bytes."""
     text = text.strip()
-
     def is_safe(s):
         return len(s) <= max_limit and len(s.encode('utf-8')) <= max_limit
-
     if is_safe(text):
         return text
 
-    # Try line by line
     lines = text.split('\n')
     result = []
     for line in lines:
@@ -64,103 +60,73 @@ def truncate_to_bytes(text, max_limit=450, suffix="..."):
         if not is_safe(test_text):
             break
         result.append(line)
-
     if result:
         return '\n'.join(result).strip()
 
-    # If even a single line is too long, cut byte by byte safely (respecting UTF-8 boundaries)
     suffix_bytes = suffix.encode('utf-8')
     raw_bytes = text.encode('utf-8')[:max_limit - len(suffix_bytes)]
     safe_str = raw_bytes.decode('utf-8', errors='ignore') + suffix
     return safe_str[:max_limit]
 
-def extract_changelog_for_version(version=None):
+def extract_changelog_for_version(version="1.2.15"):
     changelog_path = os.path.join(BASE_DIR, "CHANGELOG.md")
-    if not os.path.exists(changelog_path):
-        return "Performance improvements and bug fixes."
-
     content = open(changelog_path, "r", encoding="utf-8").read()
-
-    if version:
-        clean_v = version.lstrip('v').strip()
-        pattern = r'## \[' + re.escape(clean_v) + r'\].*?\n(.*?)(?=\n## \[|\Z)'
-        match = re.search(pattern, content, re.DOTALL)
-        if match:
-            raw_body = match.group(1).strip()
-            return clean_markdown_notes(raw_body)
-
-    # Fallback to the top release
-    match = re.search(r"## \[.*?\][^\n]*\n(.*?)(?=\n## \[|\Z)", content, re.DOTALL)
+    pattern = r'## \[' + re.escape(version) + r'\].*?\n(.*?)(?=\n## \[|\Z)'
+    match = re.search(pattern, content, re.DOTALL)
     if match:
-        return clean_markdown_notes(match.group(1).strip())
+        body = match.group(1).strip()
+        lines = [re.sub(r'(\*\*|\*|__|_)', '', l.strip()) for l in body.split('\n') if l.strip()]
+        return '\n'.join([l if l.startswith('- ') else f"- {l}" for l in lines])
+    return "- Conversion Milestones: Celebrate conversion milestones with upgrade perks.\n- History Capacity: Easily track your saved song capacity.\n- Improved Clipboard Detection: Faster detection of copied links."
 
-    return "Performance improvements and bug fixes."
-
-def clean_markdown_notes(body):
-    lines = body.split('\n')
-    cleaned = []
-    for line in lines:
-        line = line.strip()
-        if not line or line.startswith('###'):
-            continue
-        line = re.sub(r'(\*\*|\*|__|_)', '', line)
-        if line.startswith('- '):
-            cleaned.append(line)
-        else:
-            cleaned.append(f"- {line}")
-    return '\n'.join(cleaned)
+def translate_with_retry(translator, text, max_retries=3):
+    for attempt in range(max_retries):
+        try:
+            return translator.translate(text)
+        except Exception as e:
+            if attempt == max_retries - 1:
+                raise e
+            time.sleep(1.0 + attempt * 1.5)
 
 def main():
-    target_version = sys.argv[1] if len(sys.argv) > 1 else os.environ.get("GITHUB_REF_NAME", "")
-    print(f"Extracting changelog for version: '{target_version or 'latest'}'")
-
+    target_version = sys.argv[1] if len(sys.argv) > 1 else "1.2.15"
     en_notes = extract_changelog_for_version(target_version)
-    print(f"Changelog content:\n{en_notes}\n")
+    print(f"Notes:\n{en_notes}\n")
 
-    try:
-        from deep_translator import MyMemoryTranslator
-        translator_cls = MyMemoryTranslator
-    except Exception as e:
-        print(f"deep-translator not available: {e}")
-        translator_cls = None
+    from deep_translator import GoogleTranslator
 
-    import shutil
-    if os.path.exists(WHATSNEW_DIR):
-        shutil.rmtree(WHATSNEW_DIR)
     os.makedirs(WHATSNEW_DIR, exist_ok=True)
+    cache = {}
 
-    for locale, target_lang in TARGET_LOCALES.items():
+    for locale, lang in TARGET_LOCALES.items():
         filepath = os.path.join(WHATSNEW_DIR, f"whatsnew-{locale}")
-
-        if locale.startswith('en'):
+        if lang in cache:
+            content = cache[lang]
+        elif lang == 'en':
             content = en_notes
-        elif translator_cls:
+            cache['en'] = content
+        else:
             try:
-                translated_lines = []
+                translator = GoogleTranslator(source='en', target=lang)
+                lines = []
                 for line in en_notes.split('\n'):
                     if line.startswith('- '):
-                        raw_text = line[2:].strip()
-                        trans = translator_cls(source='en-GB', target=target_lang).translate(raw_text)
-                        translated_lines.append(f"- {trans}")
+                        t = translate_with_retry(translator, line[2:].strip())
+                        lines.append(f"- {t}")
                     elif line.strip():
-                        trans = translator_cls(source='en-GB', target=target_lang).translate(line.strip())
-                        translated_lines.append(trans)
-                content = '\n'.join(translated_lines)
-                time.sleep(0.05)
+                        t = translate_with_retry(translator, line.strip())
+                        lines.append(t)
+                content = '\n'.join(lines)
+                cache[lang] = content
+                time.sleep(0.3)
             except Exception as e:
-                print(f"Translation failed for {locale} ({target_lang}): {e}")
+                print(f"Failed {locale} ({lang}): {e}")
                 content = en_notes
-        else:
-            content = en_notes
 
         content = truncate_to_bytes(content)
         with open(filepath, "w", encoding="utf-8") as f:
             f.write(content.strip() + "\n")
-
-        byte_len = len(content.encode('utf-8'))
-        print(f"✓ whatsnew-{locale} ({byte_len} bytes)")
-
-    print(f"\nSuccessfully generated {len(TARGET_LOCALES)} localized whatsnew files in {WHATSNEW_DIR}.")
+        print(f"✓ whatsnew-{locale} ({len(content.encode('utf-8'))} bytes)")
 
 if __name__ == "__main__":
     main()

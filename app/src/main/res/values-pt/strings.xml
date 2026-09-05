@@ -169,4 +169,11 @@
     <string name="history_refresh_link">Atualizar link</string>
     <string name="history_link_refreshed">Link atualizado com sucesso!</string>
     <string name="history_link_refreshing">Atualizando link...</string>
+
+    <string name="pro_nudge_title">🎉 %1$d músicas convertidas com sucesso!</string>
+    <string name="pro_nudge_subtitle">Desbloqueie o cache de alta velocidade L2 e histórico estendido com SongFlip PRO.</string>
+    <string name="pro_nudge_action_redeem">Resgatar cupom</string>
+    <string name="pro_nudge_action_more">Saiba mais</string>
+    <string name="history_capacity_free">%1$d de %2$d músicas salvas (PRO: até 100)</string>
+    <string name="history_capacity_pro">%1$d de %2$d músicas salvas</string>
 </resources>
