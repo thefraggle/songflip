@@ -17,6 +17,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import de.goork.songflip.R
 
+private const val URL_PRIVACY = "https://songflip.link/privacy-policy.html"
+private const val URL_IMPRINT = "https://songflip.link/imprint.html"
+private const val URL_TERMS = "https://songflip.link/terms.html"
+
 @Composable
 fun FooterSection(
     modifier: Modifier = Modifier
@@ -24,7 +28,8 @@ fun FooterSection(
     val context = LocalContext.current
     val appVersion = remember {
         try {
-            "v" + context.packageManager.getPackageInfo(context.packageName, 0).versionName
+            val pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+            "v" + (pInfo.versionName ?: "1.0.0")
         } catch (e: Exception) {
             "v1.0.0"
         }
@@ -33,7 +38,7 @@ fun FooterSection(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 14.dp),
+            .padding(vertical = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
@@ -60,7 +65,7 @@ fun FooterSection(
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.clickable {
-                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://notthoff.org/privacy-policy")))
+                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL_PRIVACY)))
                 }
             )
             Text(
@@ -73,7 +78,7 @@ fun FooterSection(
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.clickable {
-                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://notthoff.org/impressum")))
+                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL_IMPRINT)))
                 }
             )
             Text(
@@ -86,7 +91,7 @@ fun FooterSection(
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.clickable {
-                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://notthoff.org/terms")))
+                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL_TERMS)))
                 }
             )
         }
