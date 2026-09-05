@@ -16,7 +16,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import de.goork.songflip.R
-import de.goork.songflip.data.ContactHelper
 
 private const val URL_PRIVACY = "https://songflip.link/privacy-policy.html"
 private const val URL_IMPRINT = "https://songflip.link/imprint.html"
@@ -93,19 +92,6 @@ fun FooterSection(
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.clickable {
                     context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL_TERMS)))
-                }
-            )
-            Text(
-                text = "•",
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
-            )
-            Text(
-                text = stringResource(R.string.legal_contact),
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.clickable {
-                    ContactHelper.sendSupportEmail(context)
                 }
             )
         }
