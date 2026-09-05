@@ -169,4 +169,11 @@
     <string name="history_refresh_link">Odśwież link</string>
     <string name="history_link_refreshed">Link zaktualizowany pomyślnie!</string>
     <string name="history_link_refreshing">Odświeżanie linku...</string>
+
+    <string name="pro_nudge_title">🎉 Pomyślnie przekonwertowano %1$d utworów!</string>
+    <string name="pro_nudge_subtitle">Odblokuj szybką pamięć podręczną L2 i rozszerzoną historię dzięki SongFlip PRO.</string>
+    <string name="pro_nudge_action_redeem">Zrealizuj kupon</string>
+    <string name="pro_nudge_action_more">Dowiedz się więcej</string>
+    <string name="history_capacity_free">%1$d z %2$d zapisanych utworów (PRO: do 100)</string>
+    <string name="history_capacity_pro">%1$d z %2$d zapisanych utworów</string>
 </resources>

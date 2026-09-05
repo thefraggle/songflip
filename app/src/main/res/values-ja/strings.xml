@@ -169,4 +169,11 @@
     <string name="history_refresh_link">リンクを再取得</string>
     <string name="history_link_refreshed">リンクを更新しました！</string>
     <string name="history_link_refreshing">リンクを再取得中...</string>
+
+    <string name="pro_nudge_title">🎉 %1$d 曲の変換に成功しました！</string>
+    <string name="pro_nudge_subtitle">SongFlip PROでL2高速キャッシュと拡張履歴を利用可能に。</string>
+    <string name="pro_nudge_action_redeem">クーポンを利用</string>
+    <string name="pro_nudge_action_more">詳細を見る</string>
+    <string name="history_capacity_free">%1$d / %2$d 曲保存済み (PRO: 最大100曲)</string>
+    <string name="history_capacity_pro">%1$d / %2$d 曲保存済み</string>
 </resources>

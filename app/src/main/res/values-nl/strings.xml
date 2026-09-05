@@ -169,4 +169,11 @@
     <string name="history_refresh_link">Link vernieuwen</string>
     <string name="history_link_refreshed">Link succesvol vernieuwd!</string>
     <string name="history_link_refreshing">Link vernieuwen...</string>
+
+    <string name="pro_nudge_title">🎉 %1$d nummers succesvol omgezet!</string>
+    <string name="pro_nudge_subtitle">Ontgrendel L2-hogesnelheidscache &amp; uitgebreide geschiedenis met SongFlip PRO.</string>
+    <string name="pro_nudge_action_redeem">Kortingscode inwisselen</string>
+    <string name="pro_nudge_action_more">Meer informatie</string>
+    <string name="history_capacity_free">%1$d van %2$d nummers opgeslagen (PRO: tot 100)</string>
+    <string name="history_capacity_pro">%1$d van %2$d nummers opgeslagen</string>
 </resources>

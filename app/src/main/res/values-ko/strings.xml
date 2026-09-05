@@ -169,4 +169,11 @@
     <string name="history_refresh_link">링크 새로고침</string>
     <string name="history_link_refreshed">링크가 성공적으로 업데이트되었습니다!</string>
     <string name="history_link_refreshing">링크 새로고침 중...</string>
+
+    <string name="pro_nudge_title">🎉 %1$d개의 노래 전환 성공!</string>
+    <string name="pro_nudge_subtitle">SongFlip PRO로 L2 초고속 캐시 및 확장 기록을 잠금 해제하세요.</string>
+    <string name="pro_nudge_action_redeem">쿠폰 사용</string>
+    <string name="pro_nudge_action_more">자세히 알아보기</string>
+    <string name="history_capacity_free">%1$d / %2$d개 곡 저장됨 (PRO: 최대 100개)</string>
+    <string name="history_capacity_pro">%1$d / %2$d개 곡 저장됨</string>
 </resources>

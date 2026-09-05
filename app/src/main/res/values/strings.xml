@@ -186,4 +186,11 @@
     <string name="history_refresh_link">Refresh link</string>
     <string name="history_link_refreshed">Link refreshed successfully!</string>
     <string name="history_link_refreshing">Refreshing link...</string>
+
+    <string name="pro_nudge_title">🎉 %1$d songs flipped successfully!</string>
+    <string name="pro_nudge_subtitle">Unlock L2 high-speed cache &amp; extended history with SongFlip PRO.</string>
+    <string name="pro_nudge_action_redeem">Redeem Voucher</string>
+    <string name="pro_nudge_action_more">Learn More</string>
+    <string name="history_capacity_free">%1$d of %2$d songs saved (PRO: up to 100)</string>
+    <string name="history_capacity_pro">%1$d of %2$d songs saved</string>
 </resources>

@@ -169,4 +169,11 @@
     <string name="history_refresh_link">Làm mới liên kết</string>
     <string name="history_link_refreshed">Đã cập nhật liên kết thành công!</string>
     <string name="history_link_refreshing">Đang làm mới liên kết...</string>
+
+    <string name="pro_nudge_title">🎉 Đã chuyển đổi thành công %1$d bài hát!</string>
+    <string name="pro_nudge_subtitle">Mở khóa bộ nhớ đệm tốc độ cao L2 &amp; lịch sử mở rộng với SongFlip PRO.</string>
+    <string name="pro_nudge_action_redeem">Đổi mã ưu đãi</string>
+    <string name="pro_nudge_action_more">Tìm hiểu thêm</string>
+    <string name="history_capacity_free">Đã lưu %1$d trên %2$d bài hát (PRO: lên đến 100)</string>
+    <string name="history_capacity_pro">Đã lưu %1$d trên %2$d bài hát</string>
 </resources>
