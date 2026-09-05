@@ -169,4 +169,11 @@
     <string name="history_refresh_link">Refresh link</string>
     <string name="history_link_refreshed">Link refreshed successfully!</string>
     <string name="history_link_refreshing">Refreshing link...</string>
+
+    <string name="pro_nudge_title">🎉 已成功转换 %1$d 首歌曲！</string>
+    <string name="pro_nudge_subtitle">升级至 SongFlip PRO 解锁 L2 高速缓存与扩展历史记录。</string>
+    <string name="pro_nudge_action_redeem">兑换优惠券</string>
+    <string name="pro_nudge_action_more">了解更多</string>
+    <string name="history_capacity_free">已保存 %1$d / %2$d 首歌曲 (PRO: 最多 100 首)</string>
+    <string name="history_capacity_pro">已保存 %1$d / %2$d 首歌曲</string>
 </resources>

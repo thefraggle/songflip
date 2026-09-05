@@ -85,7 +85,32 @@ class SettingsRepository(context: Context) {
             prefs.edit().putBoolean(KEY_AUTO_CLIPBOARD_DETECT, value).apply()
         }
 
+    var lastDismissedProNudgeMilestone: Int
+        get() = prefs.getInt(KEY_LAST_DISMISSED_PRO_NUDGE_MILESTONE, 0)
+        set(value) {
+            prefs.edit().putInt(KEY_LAST_DISMISSED_PRO_NUDGE_MILESTONE, value).apply()
+        }
+
+    /**
+     * Calculates the active milestone (20, 50, 100, and every 50 thereafter)
+     * if the user hasn't dismissed it yet. Returns 0 if no nudge should be shown.
+     */
+    fun getActiveProNudgeMilestone(): Int = calculateActiveMilestone(successfulFlipCount, lastDismissedProNudgeMilestone)
+
+    fun dismissProNudgeMilestone(milestone: Int) {
+        lastDismissedProNudgeMilestone = milestone
+    }
+
     companion object {
+        fun calculateActiveMilestone(flips: Int, lastDismissed: Int): Int {
+            val milestone = when {
+                flips >= 100 -> (flips / 50) * 50
+                flips >= 50 -> 50
+                flips >= 20 -> 20
+                else -> 0
+            }
+            return if (milestone > 0 && lastDismissed < milestone) milestone else 0
+        }
         const val PREFS_NAME = "songflip_settings"
         private const val KEY_TARGET_PLATFORM = "target_platform"
         private const val KEY_APP_LANGUAGE = "app_language"
@@ -96,6 +121,7 @@ class SettingsRepository(context: Context) {
         private const val KEY_FIRST_INSTALL_TS = "first_install_timestamp"
         private const val KEY_LAST_REVIEW_PROMPT_TS = "last_review_prompt_timestamp"
         private const val KEY_AUTO_CLIPBOARD_DETECT = "auto_clipboard_detect"
+        private const val KEY_LAST_DISMISSED_PRO_NUDGE_MILESTONE = "last_dismissed_pro_nudge_milestone"
 
         const val DEFAULT_TARGET = "youtubeMusic"
         const val DEFAULT_LANGUAGE = "en"

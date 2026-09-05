@@ -183,8 +183,10 @@ fun MainScreen(
     var showSettingsBottomSheet by remember { mutableStateOf(false) }
     var showTestStudioBottomSheet by remember { mutableStateOf(false) }
     var showProPaywall by remember { mutableStateOf(false) }
+    var initialShowPromoInPaywall by remember { mutableStateOf(false) }
 
     val proState by ProManager.proState.collectAsState()
+    var activeMilestone by remember { mutableStateOf(settingsRepository.getActiveProNudgeMilestone()) }
 
     // Pause State
     var isCurrentlyPaused by remember { mutableStateOf(PauseHelper.isCurrentlyPaused(context)) }
@@ -246,6 +248,7 @@ fun MainScreen(
                     de.goork.songflip.data.ReviewHelper.maybeRequestReview(act, settingsRepository)
                 }
                 de.goork.songflip.data.ShortcutHelper.updateShortcuts(context)
+                activeMilestone = settingsRepository.getActiveProNudgeMilestone()
 
                 // Check clipboard on resume (with decorView.post fallback to ensure window focus)
                 checkClipboard.value()
@@ -376,7 +379,11 @@ fun MainScreen(
 
     if (showProPaywall) {
         ProPaywallBottomSheet(
-            onDismissRequest = { showProPaywall = false }
+            onDismissRequest = {
+                showProPaywall = false
+                initialShowPromoInPaywall = false
+            },
+            initialShowPromo = initialShowPromoInPaywall
         )
     }
 
@@ -493,6 +500,31 @@ fun MainScreen(
                         }
                     )
                 }
+            }
+
+            // 2.6 PRO-Upgrade Milestone Nudge
+            AnimatedVisibility(
+                visible = !proState.isPro && activeMilestone > 0,
+                enter = fadeIn() + expandVertically(),
+                exit = fadeOut() + shrinkVertically()
+            ) {
+                ProNudgeBanner(
+                    milestone = activeMilestone,
+                    onRedeemPromo = {
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed()
+                        initialShowPromoInPaywall = true
+                        showProPaywall = true
+                    },
+                    onLearnMore = {
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed()
+                        initialShowPromoInPaywall = false
+                        showProPaywall = true
+                    },
+                    onDismiss = {
+                        settingsRepository.dismissProNudgeMilestone(activeMilestone)
+                        activeMilestone = 0
+                    }
+                )
             }
 
             // 3. Domain Verification Setup Card

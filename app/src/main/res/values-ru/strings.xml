@@ -169,4 +169,11 @@
     <string name="history_refresh_link">Обновить ссылку</string>
     <string name="history_link_refreshed">Ссылка успешно обновлена!</string>
     <string name="history_link_refreshing">Обновление ссылки...</string>
+
+    <string name="pro_nudge_title">🎉 Успешно перенаправлено треков: %1$d!</string>
+    <string name="pro_nudge_subtitle">Откройте высокоскоростной кэш L2 и расширенную историю с SongFlip PRO.</string>
+    <string name="pro_nudge_action_redeem">Использовать купон</string>
+    <string name="pro_nudge_action_more">Подробнее</string>
+    <string name="history_capacity_free">%1$d из %2$d треков сохранено (PRO: до 100)</string>
+    <string name="history_capacity_pro">%1$d из %2$d треков сохранено</string>
 </resources>

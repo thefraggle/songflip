@@ -169,4 +169,11 @@
     <string name="history_refresh_link">Uppdatera länk</string>
     <string name="history_link_refreshed">Länk uppdaterad!</string>
     <string name="history_link_refreshing">Uppdaterar länk...</string>
+
+    <string name="pro_nudge_title">🎉 %1$d låtar vändes framgångsrikt!</string>
+    <string name="pro_nudge_subtitle">Lås upp L2 höghastighetscache &amp; utökad historik med SongFlip PRO.</string>
+    <string name="pro_nudge_action_redeem">Lös in kupong</string>
+    <string name="pro_nudge_action_more">Läs mer</string>
+    <string name="history_capacity_free">%1$d av %2$d låtar sparade (PRO: upp till 100)</string>
+    <string name="history_capacity_pro">%1$d av %2$d låtar sparade</string>
 </resources>

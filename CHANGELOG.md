@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.15] - 2026-09-05
+- **Conversion Milestones**: Celebrate your song conversion milestones with discreet upgrade perks and voucher redemption.
+- **History Capacity Overview**: Easily track your saved song capacity and unlock extended history with a single tap.
+- **Improved Clipboard Detection**: Faster and more reliable detection of copied music links upon opening the app.
+
 ## [1.2.14] - 2026-09-04
 - **Direct Music Playback**: Fixed an issue where converted songs opened the web browser with an error instead of playing directly in your music app.
 - **Automatic Link Healing**: Saved songs are automatically refreshed and repaired to ensure smooth, immediate playback.

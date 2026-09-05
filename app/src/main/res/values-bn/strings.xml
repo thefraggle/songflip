@@ -169,4 +169,11 @@
     <string name="history_refresh_link">লিঙ্ক রিফ্রেশ করুন</string>
     <string name="history_link_refreshed">লিঙ্ক সফলভাবে আপডেট হয়েছে!</string>
     <string name="history_link_refreshing">লিঙ্ক রিফ্রেশ হচ্ছে...</string>
+
+    <string name="pro_nudge_title">🎉 সফলভাবে %1$dটি গান রূপান্তরিত হয়েছে!</string>
+    <string name="pro_nudge_subtitle">SongFlip PRO দিয়ে L2 উচ্চ-গতির ক্যাশ এবং বর্ধিত ইতিহাস আনলক করুন।</string>
+    <string name="pro_nudge_action_redeem">কুপন রিডিম করুন</string>
+    <string name="pro_nudge_action_more">আরও জানুন</string>
+    <string name="history_capacity_free">%1$d / %2$dটি গান সংরক্ষিত (PRO: সর্বোচ্চ 100টি)</string>
+    <string name="history_capacity_pro">%1$d / %2$dটি গান সংরক্ষিত</string>
 </resources>

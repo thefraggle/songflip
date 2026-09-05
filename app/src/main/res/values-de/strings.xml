@@ -186,4 +186,11 @@
     <string name="history_refresh_link">Link neu auflösen</string>
     <string name="history_link_refreshed">Link erfolgreich aktualisiert!</string>
     <string name="history_link_refreshing">Wird neu aufgelöst...</string>
+
+    <string name="pro_nudge_title">🎉 %1$d Songs erfolgreich geflippt!</string>
+    <string name="pro_nudge_subtitle">Schalte mit SongFlip PRO den L2-Highspeed-Cache &amp; erweiterten Verlauf frei.</string>
+    <string name="pro_nudge_action_redeem">Gutschein einlösen</string>
+    <string name="pro_nudge_action_more">Mehr erfahren</string>
+    <string name="history_capacity_free">%1$d von %2$d Songs gespeichert (PRO: bis zu 100)</string>
+    <string name="history_capacity_pro">%1$d von %2$d Songs gespeichert</string>
 </resources>

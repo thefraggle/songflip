@@ -169,4 +169,11 @@
     <string name="history_refresh_link">Perbarui tautan</string>
     <string name="history_link_refreshed">Tautan berhasil diperbarui!</string>
     <string name="history_link_refreshing">Memperbarui tautan...</string>
+
+    <string name="pro_nudge_title">🎉 Berhasil mengonversi %1$d lagu!</string>
+    <string name="pro_nudge_subtitle">Buka cache berkecepatan tinggi L2 &amp; riwayat lanjutan dengan SongFlip PRO.</string>
+    <string name="pro_nudge_action_redeem">Tukarkan Kupon</string>
+    <string name="pro_nudge_action_more">Pelajari Lebih Lanjut</string>
+    <string name="history_capacity_free">%1$d dari %2$d lagu disimpan (PRO: hingga 100)</string>
+    <string name="history_capacity_pro">%1$d dari %2$d lagu disimpan</string>
 </resources>

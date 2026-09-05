@@ -169,4 +169,11 @@
     <string name="history_refresh_link">लिंक रीफ्रेश करा</string>
     <string name="history_link_refreshed">लिंक यशस्वीरित्या अपडेट झाली!</string>
     <string name="history_link_refreshing">लिंक रीफ्रेश होत आहे...</string>
+
+    <string name="pro_nudge_title">🎉 %1$d गाणी यशस्वीरित्या बदलली!</string>
+    <string name="pro_nudge_subtitle">SongFlip PRO सह L2 हाय-स्पीड कॅश आणि विस्तारित इतिहास अनलॉक करा.</string>
+    <string name="pro_nudge_action_redeem">कूपन रिडीम करा</string>
+    <string name="pro_nudge_action_more">अधिक जाणून घ्या</string>
+    <string name="history_capacity_free">%1$d / %2$d गाणी जतन केली (PRO: 100 पर्यंत)</string>
+    <string name="history_capacity_pro">%1$d / %2$d गाणी जतन केली</string>
 </resources>

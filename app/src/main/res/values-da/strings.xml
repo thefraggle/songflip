@@ -169,4 +169,11 @@
     <string name="history_refresh_link">Genindlæs link</string>
     <string name="history_link_refreshed">Link opdateret!</string>
     <string name="history_link_refreshing">Genindlæser link...</string>
+
+    <string name="pro_nudge_title">🎉 %1$d sange vendt med succes!</string>
+    <string name="pro_nudge_subtitle">Lås op for L2 højhastighedscache &amp; udvidet historik med SongFlip PRO.</string>
+    <string name="pro_nudge_action_redeem">Indløs kupon</string>
+    <string name="pro_nudge_action_more">Læs mere</string>
+    <string name="history_capacity_free">%1$d af %2$d sange gemt (PRO: op til 100)</string>
+    <string name="history_capacity_pro">%1$d af %2$d sange gemt</string>
 </resources>

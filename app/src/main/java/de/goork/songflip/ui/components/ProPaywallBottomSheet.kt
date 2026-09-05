@@ -49,7 +49,8 @@ enum class SelectedProTier {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProPaywallBottomSheet(
-    onDismissRequest: () -> Unit
+    onDismissRequest: () -> Unit,
+    initialShowPromo: Boolean = false
 ) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
@@ -62,7 +63,7 @@ fun ProPaywallBottomSheet(
     var isRestoring by remember { mutableStateOf(false) }
 
     // Coupon code state
-    var showCouponInput by remember { mutableStateOf(false) }
+    var showCouponInput by remember { mutableStateOf(initialShowPromo) }
     var couponCodeText by remember { mutableStateOf("") }
     var isRedeemingCoupon by remember { mutableStateOf(false) }
 
