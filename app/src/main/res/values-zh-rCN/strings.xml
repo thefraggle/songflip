@@ -18,6 +18,8 @@
     <string name="select_language_title">选择语言</string>
     <string name="settings_rate_app">给 SongFlip 评分</string>
     <string name="settings_rate_app_subtitle">在 Google Play 上分享你的使用体验</string>
+    <string name="settings_feedback_support">反馈与支持</string>
+    <string name="settings_feedback_support_subtitle">有疑问、建议或遇到问题？直接向我们发送邮件</string>
     <string name="setup_title">运作方式</string>
     <string name="step1">点击下方按钮打开系统设置</string>
     <string name="step2">为音乐域名启用“打开支持的链接”</string>
@@ -90,6 +92,7 @@
     <string name="legal_privacy">隐私政策</string>
     <string name="legal_imprint">版本说明</string>
     <string name="legal_terms">服务条款</string>
+    <string name="legal_contact">联系我们</string>
     <string name="playlist_not_supported_toast">目前不支持播放列表。</string>
 
     <string name="history_title">歌曲历史</string>

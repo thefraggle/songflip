@@ -18,6 +18,8 @@
     <string name="select_language_title">भाषा निवडा</string>
     <string name="settings_rate_app">SongFlip ला रेट करा</string>
     <string name="settings_rate_app_subtitle">Google Play वर तुमचा अभिप्राय द्या</string>
+    <string name="settings_feedback_support">प्रतिक्रिया आणि मदत</string>
+    <string name="settings_feedback_support_subtitle">काही प्रश्न, सूचना किंवा तक्रारी? आम्हाला थेट ईमेल पाठवा</string>
     <string name="setup_title">हे कसे कार्य करते</string>
     <string name="step1">सिस्टम सेटिंग्ज उघडण्यासाठी खालील बटणावर टॅप करा</string>
     <string name="step2">संगीत डोमेनसाठी "समर्थित लिंक्स उघडा" सक्षम करा</string>
@@ -90,6 +92,7 @@
     <string name="legal_privacy">गोपनीयता</string>
     <string name="legal_imprint">कायदेशीर सूचना</string>
     <string name="legal_terms">सेवा अटी</string>
+    <string name="legal_contact">संपर्क</string>
     <string name="playlist_not_supported_toast">प्लेलिस्ट सध्या समर्थित नाहीत.</string>
 
     <string name="history_title">गाण्यांचा इतिहास</string>

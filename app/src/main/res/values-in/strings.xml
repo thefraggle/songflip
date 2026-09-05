@@ -18,6 +18,8 @@
     <string name="select_language_title">Pilih Bahasa</string>
     <string name="settings_rate_app">Beri Nilai SongFlip</string>
     <string name="settings_rate_app_subtitle">Bagikan masukan Anda di Google Play</string>
+    <string name="settings_feedback_support">Umpan Balik &amp; Dukungan</string>
+    <string name="settings_feedback_support_subtitle">Pertanyaan, ide, atau kendala? Hubungi kami langsung</string>
     <string name="setup_title">Cara Kerja</string>
     <string name="step1">Ketuk tombol di bawah untuk membuka pengaturan sistem</string>
     <string name="step2">Aktifkan "Buka tautan yang didukung" untuk domain musik</string>
@@ -90,6 +92,7 @@
     <string name="legal_privacy">Privasi</string>
     <string name="legal_imprint">Impresum</string>
     <string name="legal_terms">Ketentuan Layanan</string>
+    <string name="legal_contact">Kontak</string>
     <string name="playlist_not_supported_toast">Daftar putar saat ini belum didukung.</string>
 
     <string name="history_title">Riwayat Lagu</string>

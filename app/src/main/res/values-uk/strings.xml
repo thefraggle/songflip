@@ -18,6 +18,8 @@
     <string name="select_language_title">Оберіть мову</string>
     <string name="settings_rate_app">Оцінити SongFlip</string>
     <string name="settings_rate_app_subtitle">Залиште відгук у Google Play</string>
+    <string name="settings_feedback_support">Відгуки та підтримка</string>
+    <string name="settings_feedback_support_subtitle">Запитання, ідеї чи помилки? Напишіть нам напряму</string>
     <string name="setup_title">Як це працює</string>
     <string name="step1">Натисніть кнопку нижче, щоб відкрити системні налаштування</string>
     <string name="step2">Увімкніть «Відкривати підтримувані посилання» для музичних доменів</string>
@@ -90,6 +92,7 @@
     <string name="legal_privacy">Конфіденційність</string>
     <string name="legal_imprint">Вихідні дані</string>
     <string name="legal_terms">Умови використання</string>
+    <string name="legal_contact">Контакти</string>
     <string name="playlist_not_supported_toast">Списки відтворення зараз не підтримуються.</string>
 
     <string name="history_title">Історія треків</string>

@@ -18,6 +18,8 @@
     <string name="select_language_title">Selecteer taal</string>
     <string name="settings_rate_app">Beoordeel SongFlip</string>
     <string name="settings_rate_app_subtitle">Deel je feedback in Google Play</string>
+    <string name="settings_feedback_support">Feedback &amp; ondersteuning</string>
+    <string name="settings_feedback_support_subtitle">Vragen, suggesties of problemen? Mail ons direct</string>
     <string name="setup_title">Hoe het werkt</string>
     <string name="step1">Tik op de onderstaande knop om systeeminstellingen te openen</string>
     <string name="step2">Schakel "Ondersteunde links openen" in voor muziekdomeinen</string>
@@ -90,6 +92,7 @@
     <string name="legal_privacy">Privacy</string>
     <string name="legal_imprint">Colofon</string>
     <string name="legal_terms">Gebruiksvoorwaarden</string>
+    <string name="legal_contact">Contact</string>
     <string name="playlist_not_supported_toast">Afspeellijsten worden momenteel niet ondersteund.</string>
 
     <string name="history_title">Nummergeschiedenis</string>

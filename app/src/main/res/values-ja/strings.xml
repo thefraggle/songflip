@@ -18,6 +18,8 @@
     <string name="select_language_title">言語を選択</string>
     <string name="settings_rate_app">SongFlipを評価</string>
     <string name="settings_rate_app_subtitle">Google Playでフィードバックを共有</string>
+    <string name="settings_feedback_support">フィードバックとサポート</string>
+    <string name="settings_feedback_support_subtitle">ご質問・ご提案・不具合報告はこちらからご連絡ください</string>
     <string name="setup_title">使い方</string>
     <string name="step1">下のボタンをタップしてシステム設定を開きます</string>
     <string name="step2">音楽ドメインの「対応リンクを開く」を有効にします</string>
@@ -90,6 +92,7 @@
     <string name="legal_privacy">プライバシー</string>
     <string name="legal_imprint">法的情報</string>
     <string name="legal_terms">利用規約</string>
+    <string name="legal_contact">お問い合わせ</string>
     <string name="playlist_not_supported_toast">現在プレイリストはサポートされていません。</string>
 
     <string name="history_title">楽曲履歴</string>
