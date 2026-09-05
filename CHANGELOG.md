@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.16] - 2026-09-05
+- **Complete 24-Language Parity**: Full native translations across all 24 supported languages, ensuring complete coverage for song history and features.
+- **Seamless Language Switching**: Instant language updates upon selection with reliable preference persistence across app launches.
+- **Refined Phrasing**: Polished localized terminology and removed residual technical jargon for a smoother, native reading experience.
+- **Updated Legal Information**: Direct access to dedicated privacy policy, imprint, and terms of service pages.
+
 ## [1.2.15] - 2026-09-05
 - **Conversion Milestones**: Celebrate your song conversion milestones with discreet upgrade perks and voucher redemption.
 - **History Capacity Overview**: Easily track your saved song capacity and unlock extended history with a single tap.
