@@ -3,6 +3,7 @@ import SongFlipKit
 import CryptoKit
 
 struct ContentView: View {
+    @Environment(\.scenePhase) private var scenePhase
     @EnvironmentObject var settings: SettingsModel
     @ObservedObject var history = HistoryModel.shared
 
@@ -541,17 +542,30 @@ struct ContentView: View {
             .onAppear {
                 AptabaseClient.shared.trackAppLaunched(platform: "iOS", language: lang)
                 history.loadHistory()
-                checkClipboard()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    checkClipboard()
+                }
             }
-            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            .onChange(of: scenePhase) { newPhase in
+                if newPhase == .active {
+                    history.loadHistory()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        checkClipboard()
+                    }
+                }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
                 history.loadHistory()
-                checkClipboard()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    checkClipboard()
+                }
             }
         }
     }
 
     private func pasteFromClipboard() {
-        if let clip = UIPasteboard.general.string {
+        let rawClip = UIPasteboard.general.string ?? UIPasteboard.general.url?.absoluteString
+        if let clip = rawClip {
             let clean = UrlUtils.shared.extractCleanUrl(rawInput: clip) ?? clip
             inputUrl = clean
             statusMessage = LocalizationManager.string(for: "clipboard_pasted", lang: lang)
@@ -580,26 +594,31 @@ struct ContentView: View {
     }
 
     private func checkClipboard() {
-        guard settings.autoClipboardDetect, let clip = UIPasteboard.general.string else {
+        guard settings.autoClipboardDetect else {
             detectedClipboardUrl = nil
             return
         }
+        let rawClip = UIPasteboard.general.string ?? UIPasteboard.general.url?.absoluteString
+        guard let clip = rawClip, !clip.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            return
+        }
         let clean = UrlUtils.shared.extractCleanUrl(rawInput: clip) ?? clip
-        let isMusic = clean.contains("spotify.com") ||
-                      clean.contains("spotify.link") ||
-                      clean.contains("apple.com") ||
-                      clean.contains("apple.co") ||
-                      clean.contains("youtube.com") ||
-                      clean.contains("youtu.be") ||
-                      clean.contains("deezer.com") ||
-                      clean.contains("deezer.page.link") ||
-                      clean.contains("tidal.com") ||
-                      clean.contains("amazon.") ||
-                      clean.contains("amzn.to") ||
-                      clean.contains("a.co") ||
-                      clean.contains("song.link") ||
-                      clean.contains("album.link") ||
-                      clean.contains("odesli.co")
+        let lower = clean.lowercased()
+        let isMusic = lower.contains("spotify.com") ||
+                      lower.contains("spotify.link") ||
+                      lower.contains("apple.com") ||
+                      lower.contains("apple.co") ||
+                      lower.contains("youtube.com") ||
+                      lower.contains("youtu.be") ||
+                      lower.contains("deezer.com") ||
+                      lower.contains("deezer.page.link") ||
+                      lower.contains("tidal.com") ||
+                      lower.contains("amazon.") ||
+                      lower.contains("amzn.to") ||
+                      lower.contains("a.co") ||
+                      lower.contains("song.link") ||
+                      lower.contains("album.link") ||
+                      lower.contains("odesli.co")
 
         if isMusic && clean != dismissedClipboardUrl {
             detectedClipboardUrl = clean

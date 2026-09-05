@@ -36,12 +36,19 @@ import de.goork.songflip.data.OdesliRepository
 import de.goork.songflip.data.PauseHelper
 import de.goork.songflip.data.ProManager
 import de.goork.songflip.data.SettingsRepository
+import de.goork.songflip.core.util.UrlUtils
 import de.goork.songflip.ui.components.*
 import de.goork.songflip.ui.theme.*
 
 class MainActivity : AppCompatActivity() {
 
     private var initialShowPauseSheet = false
+    private val windowFocusState = mutableStateOf(false)
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        windowFocusState.value = hasFocus
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -76,6 +83,7 @@ class MainActivity : AppCompatActivity() {
                     MainScreen(
                         initialShowPause = initialShowPauseSheet,
                         currentThemeMode = currentThemeMode,
+                        isWindowFocused = windowFocusState.value,
                         onThemeModeSelected = { newMode -> currentThemeMode = newMode }
                     )
                 }
@@ -105,6 +113,7 @@ class MainActivity : AppCompatActivity() {
                         MainScreen(
                             initialShowPause = true,
                             currentThemeMode = currentThemeMode,
+                            isWindowFocused = windowFocusState.value,
                             onThemeModeSelected = { newMode -> currentThemeMode = newMode }
                         )
                     }
@@ -157,6 +166,7 @@ data class LanguageItem(
 fun MainScreen(
     initialShowPause: Boolean = false,
     currentThemeMode: String = "system",
+    isWindowFocused: Boolean = false,
     onThemeModeSelected: (String) -> Unit = {}
 ) {
     val context = LocalContext.current
@@ -190,6 +200,40 @@ fun MainScreen(
     var detectedClipboardUrl by remember { mutableStateOf<String?>(null) }
     var dismissedClipboardUrl by remember { mutableStateOf<String?>(null) }
 
+    val checkClipboard = rememberUpdatedState {
+        if (!settingsRepository.autoClipboardDetect) {
+            detectedClipboardUrl = null
+            return@rememberUpdatedState
+        }
+        try {
+            val clipManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as? android.content.ClipboardManager
+            val rawClipText = clipManager?.primaryClip?.takeIf { it.itemCount > 0 }?.getItemAt(0)?.coerceToText(context)?.toString()?.trim() ?: ""
+            if (rawClipText.isNotEmpty()) {
+                val cleanUrl = UrlUtils.extractCleanUrl(rawClipText) ?: rawClipText
+                if (isSupportedMusicUrl(cleanUrl)) {
+                    if (cleanUrl != dismissedClipboardUrl) {
+                        detectedClipboardUrl = cleanUrl
+                        // Predictive prefetching (Idee 1): silently warm L1 cache in background for 0ms launch
+                        coroutineScope.launch {
+                            repository.prefetch(cleanUrl, selectedTargetKey)
+                        }
+                    }
+                } else {
+                    // Clipboard contains non-music text -> clear banner
+                    detectedClipboardUrl = null
+                }
+            }
+        } catch (e: Exception) {
+            // Focus not yet granted or security restriction
+        }
+    }
+
+    LaunchedEffect(isWindowFocused) {
+        if (isWindowFocused) {
+            checkClipboard.value()
+        }
+    }
+
     // Update state when resuming from system settings or external changes
     DisposableEffect(lifecycleOwner, context) {
         val observer = LifecycleEventObserver { _, event ->
@@ -203,21 +247,14 @@ fun MainScreen(
                 }
                 de.goork.songflip.data.ShortcutHelper.updateShortcuts(context)
 
-                // Check clipboard for copied music links
-                if (settingsRepository.autoClipboardDetect) {
-                    val clipManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as? android.content.ClipboardManager
-                    val clipText = clipManager?.primaryClip?.takeIf { it.itemCount > 0 }?.getItemAt(0)?.text?.toString()?.trim() ?: ""
-                    if (isSupportedMusicUrl(clipText) && clipText != dismissedClipboardUrl) {
-                        detectedClipboardUrl = clipText
-                        // Predictive prefetching (Idee 1): silently warm L1 cache in background for 0ms launch
-                        coroutineScope.launch {
-                            repository.prefetch(clipText, selectedTargetKey)
-                        }
-                    } else if (!isSupportedMusicUrl(clipText)) {
-                        detectedClipboardUrl = null
-                    }
-                } else {
-                    detectedClipboardUrl = null
+                // Check clipboard on resume (with decorView.post fallback to ensure window focus)
+                checkClipboard.value()
+                (context as? Activity)?.window?.decorView?.post {
+                    checkClipboard.value()
+                }
+                coroutineScope.launch {
+                    kotlinx.coroutines.delay(150)
+                    checkClipboard.value()
                 }
             }
         }

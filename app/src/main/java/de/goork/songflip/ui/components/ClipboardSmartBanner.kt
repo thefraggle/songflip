@@ -21,6 +21,7 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.sp
 import de.goork.songflip.R
+import de.goork.songflip.core.util.UrlUtils
 
 @Composable
 fun ClipboardSmartBanner(
@@ -183,11 +184,11 @@ fun detectSourcePlatformName(url: String): String {
 }
 
 fun isSupportedMusicUrl(text: String): Boolean {
-    val trimmed = text.trim()
-    if (!trimmed.startsWith("http://", ignoreCase = true) && !trimmed.startsWith("https://", ignoreCase = true)) {
+    val clean = UrlUtils.extractCleanUrl(text) ?: text.trim()
+    if (!clean.startsWith("http://", ignoreCase = true) && !clean.startsWith("https://", ignoreCase = true)) {
         return false
     }
-    val lower = trimmed.lowercase()
+    val lower = clean.lowercase()
     return lower.contains("spotify.com") ||
            lower.contains("spotify.link") ||
            lower.contains("music.apple.com") ||
