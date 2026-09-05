@@ -57,11 +57,18 @@ class MainActivity : AppCompatActivity() {
         initialShowPauseSheet = intent?.getBooleanExtra("show_pause_sheet", false) == true
         handleShortcutIntent(intent)
 
+        val settingsRepo = SettingsRepository(this)
+        val savedLang = settingsRepo.appLanguage
+        val currentLocales = androidx.appcompat.app.AppCompatDelegate.getApplicationLocales()
+        if (currentLocales.isEmpty || currentLocales[0]?.language != savedLang) {
+            val localeList = androidx.core.os.LocaleListCompat.forLanguageTags(savedLang)
+            androidx.appcompat.app.AppCompatDelegate.setApplicationLocales(localeList)
+        }
+
         if (savedInstanceState == null) {
-            val settingsRepo = SettingsRepository(this)
             de.goork.songflip.core.analytics.AptabaseClient.shared.trackAppLaunched(
                 platform = "Android",
-                language = settingsRepo.appLanguage
+                language = savedLang
             )
         }
 
