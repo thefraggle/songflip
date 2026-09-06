@@ -39,6 +39,13 @@
         }
       },
       {
+        "source": "/invalidate",
+        "function": {
+          "functionId": "invalidate",
+          "region": "europe-west3"
+        }
+      },
+      {
         "source": "/health",
         "function": {
           "functionId": "health",

@@ -246,10 +246,8 @@ class RedirectActivity : ComponentActivity() {
                 val targetUri = Uri.parse(PackageUtils.toNativeAppUri(url, targetPlatformKey))
 
                 val appIntent = Intent(Intent.ACTION_VIEW, targetUri).apply {
-                    addCategory(Intent.CATEGORY_BROWSABLE)
-                    addCategory(Intent.CATEGORY_DEFAULT)
                     setPackage(targetPackage)
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }
                 startActivity(appIntent)
                 return

@@ -1068,6 +1068,7 @@ export const resolve = onRequest(
     const cacheRef = db.collection("l2_song_cache").doc(primaryHash);
     if (forceRefresh) {
       await cacheRef.delete().catch(() => {});
+      await db.collection("l2_song_cache").doc(primaryHash.substring(0, 8)).delete().catch(() => {});
     } else {
       const docSnap = await cacheRef.get();
 
@@ -1140,8 +1141,8 @@ export const resolve = onRequest(
 );
 
 /**
- * Dynamic L2 Cache Invalidation Endpoint: POST /invalidate
- * Body: { url: string }
+ * Dynamic L2 Cache Invalidation Endpoint: POST/GET /invalidate
+ * Query/Body: { url?: string, hash?: string }
  */
 export const invalidate = onRequest(
   {
@@ -1155,7 +1156,7 @@ export const invalidate = onRequest(
   async (req, res) => {
     applyApiSecurityHeaders(res);
     res.set("Access-Control-Allow-Origin", "*");
-    res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
     res.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
     if (req.method === "OPTIONS") {
@@ -1163,20 +1164,25 @@ export const invalidate = onRequest(
       return;
     }
 
-    if (req.method !== "POST") {
+    if (req.method !== "POST" && req.method !== "GET") {
       res.status(405).json({ error: "METHOD_NOT_ALLOWED" });
       return;
     }
 
-    const targetUrl = (req.body?.url || req.query?.url) as string;
-    if (!targetUrl || typeof targetUrl !== "string") {
-      res.status(400).json({ error: "INVALID_URL", message: "Parameter 'url' is required" });
+    const target = (req.body?.url || req.query?.url || req.body?.hash || req.query?.hash) as string;
+    if (!target || typeof target !== "string") {
+      res.status(400).json({ error: "INVALID_URL", message: "Parameter 'url' or 'hash' is required" });
       return;
     }
 
-    const normalizedUrl = normalizeMusicUrl(targetUrl);
+    if (target.length === 64 || target.length === 8) {
+      await db.collection("l2_song_cache").doc(target).delete().catch(() => {});
+    }
+
+    const normalizedUrl = normalizeMusicUrl(target);
     const primaryHash = hashUrl(normalizedUrl);
     await db.collection("l2_song_cache").doc(primaryHash).delete().catch(() => {});
+    await db.collection("l2_song_cache").doc(primaryHash.substring(0, 8)).delete().catch(() => {});
 
     res.status(200).json({
       status: "success",
