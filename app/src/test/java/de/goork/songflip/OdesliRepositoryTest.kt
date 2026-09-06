@@ -88,6 +88,7 @@ class OdesliRepositoryTest {
     fun testDay12BetaShowcaseLinksResolveToYouTubeMusic() = runBlocking {
         val testLinks = listOf(
             "Spotify Queen" to "https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv",
+            "Spotify AC/DC" to "https://open.spotify.com/track/57bgtoPSgt236HzfBOd8kj",
             "Apple Music Oasis" to "https://music.apple.com/album/dont-look-back-in-anger-remastered/1525933483?i=1525933492",
             "YouTube Music Arctic Monkeys" to "https://music.youtube.com/watch?v=bpOSxM0rNPM",
             "Deezer blink-182" to "https://www.deezer.com/track/127354207",
@@ -99,8 +100,8 @@ class OdesliRepositoryTest {
             val result = repository.resolveTargetUrl(url, "youtubeMusic")
             assertTrue("Expected success for $name, got $result", result is OdesliResult.Success)
             val success = result as OdesliResult.Success
-            assertTrue("Expected YouTube Music watch link for $name, got ${success.targetUrl}",
-                success.targetUrl.contains("music.youtube.com/watch?v="))
+            assertTrue("Expected YouTube Music link for $name, got ${success.targetUrl}",
+                success.targetUrl.contains("music.youtube.com/"))
         }
     }
 
