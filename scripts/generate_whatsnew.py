@@ -68,16 +68,27 @@ def truncate_to_bytes(text, max_limit=450, suffix="..."):
     safe_str = raw_bytes.decode('utf-8', errors='ignore') + suffix
     return safe_str[:max_limit]
 
-def extract_changelog_for_version(version="1.2.15"):
+def extract_changelog_for_version(version=None):
     changelog_path = os.path.join(BASE_DIR, "CHANGELOG.md")
     content = open(changelog_path, "r", encoding="utf-8").read()
-    pattern = r'## \[' + re.escape(version) + r'\].*?\n(.*?)(?=\n## \[|\Z)'
-    match = re.search(pattern, content, re.DOTALL)
-    if match:
-        body = match.group(1).strip()
+    if version:
+        clean_version = version.lstrip('v').strip()
+        pattern = r'## \[' + re.escape(clean_version) + r'\].*?\n(.*?)(?=\n## \[|\Z)'
+        match = re.search(pattern, content, re.DOTALL)
+        if match:
+            body = match.group(1).strip()
+            lines = [re.sub(r'(\*\*|\*|__|_)', '', l.strip()) for l in body.split('\n') if l.strip()]
+            return '\n'.join([l if l.startswith('- ') else f"- {l}" for l in lines])
+
+    # Dynamic fallback to the latest version entry in CHANGELOG.md
+    fallback_pattern = r'## \[(.*?)\](?: - .*?)?\n(.*?)(?=\n## \[|\Z)'
+    fallback_match = re.search(fallback_pattern, content, re.DOTALL)
+    if fallback_match:
+        body = fallback_match.group(2).strip()
         lines = [re.sub(r'(\*\*|\*|__|_)', '', l.strip()) for l in body.split('\n') if l.strip()]
         return '\n'.join([l if l.startswith('- ') else f"- {l}" for l in lines])
-    return "- Conversion Milestones: Celebrate conversion milestones with upgrade perks.\n- History Capacity: Easily track your saved song capacity.\n- Improved Clipboard Detection: Faster detection of copied links."
+
+    return "- Bug fixes and performance improvements."
 
 def translate_with_retry(translator, text, max_retries=3):
     for attempt in range(max_retries):
@@ -89,7 +100,7 @@ def translate_with_retry(translator, text, max_retries=3):
             time.sleep(1.0 + attempt * 1.5)
 
 def main():
-    target_version = sys.argv[1] if len(sys.argv) > 1 else "1.2.15"
+    target_version = sys.argv[1] if len(sys.argv) > 1 else None
     en_notes = extract_changelog_for_version(target_version)
     print(f"Notes:\n{en_notes}\n")
 
@@ -127,6 +138,20 @@ def main():
         with open(filepath, "w", encoding="utf-8") as f:
             f.write(content.strip() + "\n")
         print(f"✓ whatsnew-{locale} ({len(content.encode('utf-8'))} bytes)")
+
+    # Synchronize iOS TestFlight WhatToTest files if directory exists
+    ios_testflight_dir = os.path.join(BASE_DIR, "iosApp", "SongFlip", "TestFlight")
+    if os.path.isdir(ios_testflight_dir):
+        en_ios_file = os.path.join(ios_testflight_dir, "WhatToTest.en-US.txt")
+        de_ios_file = os.path.join(ios_testflight_dir, "WhatToTest.de-DE.txt")
+        if 'en' in cache:
+            with open(en_ios_file, "w", encoding="utf-8") as f:
+                f.write(cache['en'].strip() + "\n")
+            print("✓ Synced iosApp/SongFlip/TestFlight/WhatToTest.en-US.txt")
+        if 'de' in cache:
+            with open(de_ios_file, "w", encoding="utf-8") as f:
+                f.write(cache['de'].strip() + "\n")
+            print("✓ Synced iosApp/SongFlip/TestFlight/WhatToTest.de-DE.txt")
 
 if __name__ == "__main__":
     main()

@@ -188,7 +188,6 @@ fun MainScreen(
     // Bottom Sheets State
     var showPauseBottomSheet by remember { mutableStateOf(initialShowPause) }
     var showSettingsBottomSheet by remember { mutableStateOf(false) }
-    var showTestStudioBottomSheet by remember { mutableStateOf(false) }
     var showProPaywall by remember { mutableStateOf(false) }
     var initialShowPromoInPaywall by remember { mutableStateOf(false) }
 
@@ -350,20 +349,6 @@ fun MainScreen(
         )
     }
 
-    if (showTestStudioBottomSheet) {
-        TestStudioBottomSheet(
-            onDismissRequest = { showTestStudioBottomSheet = false },
-            selectedTargetKey = selectedTargetKey,
-            settingsRepository = settingsRepository,
-            odesliRepository = repository,
-            isPro = proState.isPro,
-            onOpenProPaywall = {
-                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed()
-                showProPaywall = true
-            }
-        )
-    }
-
     if (showSettingsBottomSheet) {
         SettingsBottomSheet(
             onDismissRequest = { showSettingsBottomSheet = false },
@@ -379,8 +364,7 @@ fun MainScreen(
             onOpenProPaywall = {
                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed()
                 showProPaywall = true
-            },
-            onOpenTestStudio = { showTestStudioBottomSheet = true }
+            }
         )
     }
 

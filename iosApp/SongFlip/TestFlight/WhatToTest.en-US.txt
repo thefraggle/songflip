@@ -1,2 +1,3 @@
-- Direct Music Playback: Fixed an issue where converted songs opened the browser with an error instead of opening your music app directly.
-- Automatic Link Healing: Saved songs are automatically refreshed and repaired to ensure smooth, immediate playback.
+- Streamlined Preferences & Dashboard: Removed the redundant manual link tester across Android and iOS in favor of the automatic Clipboard Smart-Banner.
+- Automated Store Release Notes: Resolved tag parsing to ensure localized Play Store and TestFlight release notes always dynamically match the latest version changes.
+- Enhanced UX: Refined dashboard layout on both platforms with a clean, distraction-free view focusing on prominent 1-tap playback and song history.
