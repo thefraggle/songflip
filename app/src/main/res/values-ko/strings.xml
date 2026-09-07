@@ -72,10 +72,6 @@
     <string name="btn_save">저장</string>
     <string name="settings_saved">설정이 저장되었습니다</string>
     <string name="share_received_toast">공유된 음악 링크 처리 중...</string>
-    <string name="famwake_promo">동일 개발자의 다른 앱</string>
-    <string name="famwake_title">FamWake – 가족 알람 시계</string>
-    <string name="famwake_desc">FamWake는 온 가족의 아침을 조율합니다(욕실 시간, 아침 식사, 기상 시간).</string>
-    <string name="famwake_button">자세히 보기</string>
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">음악 링크 리디렉션 중...</string>
     <string name="redirect_error_toast">링크를 리디렉션할 수 없습니다. 원본 링크를 엽니다.</string>

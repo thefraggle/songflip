@@ -72,10 +72,6 @@
     <string name="btn_save">सहेजें</string>
     <string name="settings_saved">सेटिंग्स सहेजी गईं</string>
     <string name="share_received_toast">साझा किए गए संगीत लिंक को प्रोसेस किया जा रहा है...</string>
-    <string name="famwake_promo">उसी डेवलपर की ओर से</string>
-    <string name="famwake_title">FamWake – पारिवारिक अलार्म घड़ी</string>
-    <string name="famwake_desc">FamWake पूरे परिवार की सुबह का समन्वय करता है – बाथरूम का समय, नाश्ता और जागना।</string>
-    <string name="famwake_button">और जानें</string>
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">संगीत लिंक रीडायरेक्ट किया जा रहा है...</string>
     <string name="redirect_error_toast">लिंक रीडायरेक्ट नहीं किया जा सका। मूल लिंक खोला जा रहा है।</string>

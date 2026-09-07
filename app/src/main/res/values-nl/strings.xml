@@ -72,10 +72,6 @@
     <string name="btn_save">Opslaan</string>
     <string name="settings_saved">Instellingen opgeslagen</string>
     <string name="share_received_toast">Gedeelde muzieklink verwerken...</string>
-    <string name="famwake_promo">VAN DEZELFDE ONTWIKKELAAR</string>
-    <string name="famwake_title">FamWake – Familie Wekker</string>
-    <string name="famwake_desc">FamWake coördineert de ochtend voor het hele gezin – badkamertijden, ontbijt en opstaan.</string>
-    <string name="famwake_button">Meer info</string>
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">Muzieklink omleiden...</string>
     <string name="redirect_error_toast">Kon link niet omleiden. Oorspronkelijke link wordt geopend.</string>

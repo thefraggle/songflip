@@ -72,10 +72,6 @@
     <string name="btn_save">Spara</string>
     <string name="settings_saved">Inställningar sparade</string>
     <string name="share_received_toast">Bearbetar delad musiklänk...</string>
-    <string name="famwake_promo">FRÅN SAMMA UTVECKLARE</string>
-    <string name="famwake_title">FamWake – Familjeväckarklocka</string>
-    <string name="famwake_desc">FamWake samordnar morgonen för hela familjen – badrumstider, frukost och uppvaknande.</string>
-    <string name="famwake_button">Läs mer</string>
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">Omdirigerar musiklänk...</string>
     <string name="redirect_error_toast">Kunde inte omdirigera länk. Öppnar originallänk.</string>

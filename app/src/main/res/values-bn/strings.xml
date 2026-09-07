@@ -72,10 +72,6 @@
     <string name="btn_save">সংরক্ষণ করুন</string>
     <string name="settings_saved">সেটিংস সংরক্ষিত হয়েছে</string>
     <string name="share_received_toast">শেয়ার করা মিউজিক লিঙ্ক প্রক্রিয়া করা হচ্ছে...</string>
-    <string name="famwake_promo">একই ডেভেলপারের পক্ষ থেকে</string>
-    <string name="famwake_title">FamWake – পারিবারিক অ্যালার্ম ঘড়ি</string>
-    <string name="famwake_desc">FamWake পুরো পরিবারের সকালের সমন্বয় করে – বাথরুমের সময়, প্রাতঃরাশ এবং ঘুম থেকে ওঠা।</string>
-    <string name="famwake_button">আরও জানুন</string>
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">মিউজিক লিঙ্ক রিডাইরেক্ট করা হচ্ছে...</string>
     <string name="redirect_error_toast">লিঙ্ক রিডাইরেক্ট করা যায়নি। আসল লিঙ্ক খোলা হচ্ছে।</string>

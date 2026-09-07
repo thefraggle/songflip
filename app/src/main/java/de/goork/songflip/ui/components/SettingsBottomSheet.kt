@@ -54,7 +54,6 @@ import androidx.compose.material.icons.outlined.Science
 import androidx.compose.material.icons.outlined.Share
 import de.goork.songflip.data.LinkCacheManager
 
-private const val URL_FAMWAKE = "https://play.google.com/store/apps/details?id=de.familienwecker.famwake"
 private const val URL_NOTTHOFF = "https://notthoff.org"
 private const val URL_PRIVACY = "https://songflip.link/privacy-policy.html"
 private const val URL_IMPRINT = "https://songflip.link/imprint.html"
@@ -699,48 +698,6 @@ fun SettingsBottomSheet(
                 }
             }
 
-            // 9. About & Promo Card (FamWake)
-            Card(
-                shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Column(
-                    modifier = Modifier.padding(18.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    Text(
-                        text = stringResource(R.string.famwake_promo),
-                        style = MaterialTheme.typography.labelSmall.copy(letterSpacing = 1.2.sp, fontWeight = FontWeight.Medium),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Text(
-                        text = stringResource(R.string.famwake_title),
-                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                    Text(
-                        text = stringResource(R.string.famwake_desc),
-                        style = MaterialTheme.typography.bodySmall.copy(lineHeight = 18.sp),
-                        textAlign = TextAlign.Center,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    OutlinedButton(
-                        onClick = {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URL_FAMWAKE))
-                            context.startActivity(intent)
-                        },
-                        shape = RoundedCornerShape(12.dp)
-                    ) {
-                        Text(
-                            text = stringResource(R.string.famwake_button),
-                            style = MaterialTheme.typography.labelMedium
-                        )
-                    }
-                }
-            }
 
             // Version, Copyright & Legal Links
             val appVersion = remember {

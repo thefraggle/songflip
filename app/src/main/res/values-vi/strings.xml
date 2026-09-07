@@ -72,10 +72,6 @@
     <string name="btn_save">Lưu</string>
     <string name="settings_saved">Đã lưu cài đặt</string>
     <string name="share_received_toast">Đang xử lý liên kết âm nhạc được chia sẻ...</string>
-    <string name="famwake_promo">TỪ CÙNG NHÀ PHÁT TRIỂN</string>
-    <string name="famwake_title">FamWake – Đồng hồ báo thức gia đình</string>
-    <string name="famwake_desc">FamWake điều phối buổi sáng cho cả gia đình: thời gian tắm, ăn sáng và thức dậy.</string>
-    <string name="famwake_button">Tìm hiểu thêm</string>
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">Đang chuyển hướng liên kết âm nhạc...</string>
     <string name="redirect_error_toast">Không thể chuyển hướng liên kết. Đang mở liên kết gốc.</string>
