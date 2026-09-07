@@ -51,6 +51,7 @@ import java.util.Date
 import androidx.compose.material.icons.outlined.ChevronRight
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Science
+import androidx.compose.material.icons.outlined.Share
 import de.goork.songflip.data.LinkCacheManager
 
 private const val URL_FAMWAKE = "https://play.google.com/store/apps/details?id=de.familienwecker.famwake"
@@ -503,7 +504,48 @@ fun SettingsBottomSheet(
                 }
             }
 
-            // 5. Test Studio Card (Manual link testing)
+            // 5. Multiple Music Apps & Share Sheet Tip Card
+            Card(
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.25f)
+                ),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.2f)),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 14.dp),
+                    verticalAlignment = Alignment.Top,
+                    horizontalArrangement = Arrangement.spacedBy(14.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Share,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier
+                            .size(22.dp)
+                            .padding(top = 2.dp)
+                    )
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.settings_tip_multiple_apps_title),
+                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Text(
+                            text = stringResource(R.string.settings_tip_multiple_apps_body),
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+            }
+
+            // 6. Test Studio Card (Manual link testing)
             Card(
                 shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
@@ -548,7 +590,7 @@ fun SettingsBottomSheet(
                 }
             }
 
-            // 6. Rate App Card
+            // 7. Rate App Card
             Card(
                 shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
@@ -606,7 +648,7 @@ fun SettingsBottomSheet(
                 }
             }
 
-            // 7. Feedback & Support Card
+            // 8. Feedback & Support Card
             Card(
                 shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
@@ -657,7 +699,7 @@ fun SettingsBottomSheet(
                 }
             }
 
-            // 8. About & Promo Card (FamWake)
+            // 9. About & Promo Card (FamWake)
             Card(
                 shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),

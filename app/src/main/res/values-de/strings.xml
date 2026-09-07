@@ -196,4 +196,7 @@
     <string name="pro_nudge_action_more">Mehr erfahren</string>
     <string name="history_capacity_free">%1$d von %2$d Songs gespeichert (PRO: bis zu 100)</string>
     <string name="history_capacity_pro">%1$d von %2$d Songs gespeichert</string>
+
+    <string name="settings_tip_multiple_apps_title">Mehrere Musik-Apps installiert?</string>
+    <string name="settings_tip_multiple_apps_body">Wenn ein Dienst wie Spotify Links direkt öffnet, tippe in WhatsApp oder anderen Apps einfach auf „Teilen \u2192 SongFlip“, um Songs in deinem Wunschdienst abzuspielen.</string>
 </resources>
