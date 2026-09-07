@@ -7,11 +7,8 @@ struct ContentView: View {
     @EnvironmentObject var settings: SettingsModel
     @ObservedObject var history = HistoryModel.shared
 
-    @State private var inputUrl: String = ""
     @State private var detectedClipboardUrl: String? = nil
     @State private var dismissedClipboardUrl: String? = nil
-    @State private var statusMessage: String? = nil
-    @State private var statusSuccess: Bool = false
     @State private var showingSettingsSheet = false
     @State private var showingHistorySheet = false
     @State private var showingShortcutsGuide = false
@@ -100,53 +97,25 @@ struct ContentView: View {
                                         .truncationMode(.tail)
                                 }
 
-                                HStack(spacing: 8) {
-                                    let targetChoice = PlatformChoice.allCases.first { $0.rawValue == settings.targetPlatform }
-                                    let targetName = targetChoice?.displayName ?? "Player"
-                                    Button(action: {
-                                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                                        inputUrl = detectedUrl
-                                        convertLink()
-                                    }) {
-                                        HStack(spacing: 6) {
-                                            Image(systemName: "play.fill")
-                                                .font(.system(size: 12))
-                                            Text(String(format: LocalizationManager.string(for: "clipboard_banner_action_open", lang: lang), targetName))
-                                                .font(.system(size: 13, weight: .bold))
-                                                .lineLimit(1)
-                                        }
-                                        .padding(.vertical, 8)
-                                        .padding(.horizontal, 12)
-                                        .frame(maxWidth: .infinity)
-                                        .background(Color.green)
-                                        .foregroundColor(.white)
-                                        .cornerRadius(10)
+                                let targetChoice = PlatformChoice.allCases.first { $0.rawValue == settings.targetPlatform }
+                                let targetName = targetChoice?.displayName ?? "Player"
+                                Button(action: {
+                                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                    convertLink(urlToConvert: detectedUrl)
+                                }) {
+                                    HStack(spacing: 6) {
+                                        Image(systemName: "play.fill")
+                                            .font(.system(size: 12))
+                                        Text(String(format: LocalizationManager.string(for: "clipboard_banner_action_open", lang: lang), targetName))
+                                            .font(.system(size: 13, weight: .bold))
+                                            .lineLimit(1)
                                     }
-
-                                    Button(action: {
-                                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                                        let universalUrl = getUniversalWebShareUrl(for: detectedUrl)
-                                        UIPasteboard.general.string = universalUrl
-                                        statusMessage = LocalizationManager.string(for: "share_universal_link_copied", lang: lang)
-                                        statusSuccess = true
-                                    }) {
-                                        HStack(spacing: 6) {
-                                            Image(systemName: "square.and.arrow.up")
-                                                .font(.system(size: 12))
-                                            Text(LocalizationManager.string(for: "clipboard_banner_action_share", lang: lang))
-                                                .font(.system(size: 13, weight: .medium))
-                                                .lineLimit(1)
-                                        }
-                                        .padding(.vertical, 8)
-                                        .padding(.horizontal, 12)
-                                        .frame(maxWidth: .infinity)
-                                        .background(Color(uiColor: .secondarySystemGroupedBackground))
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 10)
-                                                .stroke(Color(uiColor: .separator).opacity(0.4), lineWidth: 1)
-                                        )
-                                        .cornerRadius(10)
-                                    }
+                                    .padding(.vertical, 8)
+                                    .padding(.horizontal, 12)
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.green)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
                                 }
                             }
                             .padding(14)
@@ -329,80 +298,7 @@ struct ContentView: View {
                                 .stroke(Color(uiColor: .separator).opacity(0.25), lineWidth: 1)
                         )
 
-                        // 4. Test Studio Card
-                        VStack(alignment: .leading, spacing: 12) {
-                            Text(LocalizationManager.string(for: "nav_test_studio", lang: lang).uppercased())
-                                .font(.caption)
-                                .fontWeight(.bold)
-                                .foregroundColor(.secondary)
-
-                            HStack(spacing: 8) {
-                                HStack {
-                                    TextField(LocalizationManager.string(for: "test_placeholder", lang: lang), text: $inputUrl)
-                                        .textFieldStyle(PlainTextFieldStyle())
-                                        .foregroundColor(.primary)
-                                        .font(.system(size: 15))
-                                        .autocapitalization(.none)
-                                        .disableAutocorrection(true)
-
-                                    if !inputUrl.isEmpty {
-                                        Button(action: { inputUrl = ""; statusMessage = nil }) {
-                                            Image(systemName: "xmark.circle.fill")
-                                                .foregroundColor(.secondary)
-                                        }
-                                    } else {
-                                        Button(action: pasteFromClipboard) {
-                                            Image(systemName: "doc.on.clipboard")
-                                                .foregroundColor(.green)
-                                        }
-                                    }
-                                }
-                                .padding(.horizontal, 12)
-                                .frame(height: 44)
-                                .background(Color(uiColor: .secondarySystemGroupedBackground))
-                                .cornerRadius(10)
-
-                                Button(action: convertLink) {
-                                    HStack(spacing: 4) {
-                                        if settings.isResolving {
-                                            ProgressView()
-                                                .progressViewStyle(CircularProgressViewStyle(tint: .black))
-                                                .scaleEffect(0.85)
-                                        } else {
-                                            Text("Flip")
-                                                .font(.system(size: 15, weight: .bold))
-                                                .foregroundColor(.black)
-                                        }
-                                    }
-                                    .padding(.horizontal, 18)
-                                    .frame(height: 44)
-                                    .background(Color.green.opacity(inputUrl.trimmingCharacters(in: .whitespaces).isEmpty ? 0.6 : 1.0))
-                                    .cornerRadius(10)
-                                }
-                                .disabled(inputUrl.trimmingCharacters(in: .whitespaces).isEmpty || settings.isResolving)
-                            }
-
-                            if let status = statusMessage {
-                                HStack(spacing: 6) {
-                                    Image(systemName: statusSuccess ? "checkmark.circle.fill" : "info.circle.fill")
-                                        .foregroundColor(statusSuccess ? .green : .orange)
-                                    Text(status)
-                                        .font(.footnote)
-                                        .foregroundColor(statusSuccess ? .green : .orange)
-                                        .lineLimit(2)
-                                }
-                                .padding(.top, 4)
-                            }
-                        }
-                        .padding(16)
-                        .background(Color("CardBackgroundColor"))
-                        .cornerRadius(16)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 16)
-                                .stroke(Color(uiColor: .separator).opacity(0.25), lineWidth: 1)
-                        )
-
-                        // 5. Recent History Preview Card (if history exists)
+                        // 4. Recent History Preview Card (if history exists)
                         if !history.items.isEmpty {
                             VStack(alignment: .leading, spacing: 12) {
                                 HStack {
@@ -563,24 +459,6 @@ struct ContentView: View {
         }
     }
 
-    private func pasteFromClipboard() {
-        let rawClip = UIPasteboard.general.string ?? UIPasteboard.general.url?.absoluteString
-        if let clip = rawClip {
-            let clean = UrlUtils.shared.extractCleanUrl(rawInput: clip) ?? clip
-            inputUrl = clean
-            statusMessage = LocalizationManager.string(for: "clipboard_pasted", lang: lang)
-            statusSuccess = true
-        }
-    }
-
-    private func getUniversalWebShareUrl(for rawUrl: String) -> String {
-        let normalized = rawUrl.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-        let hash = SHA256.hash(data: Data(normalized.utf8))
-        let hexString = hash.map { String(format: "%02x", $0) }.joined()
-        let shortId = String(hexString.prefix(8))
-        return "https://songflip.link/s/\(shortId)"
-    }
-
     private func detectSourcePlatformName(url: String) -> String {
         let lower = url.lowercased()
         if lower.contains("spotify.com") || lower.contains("spotify.link") { return "Spotify" }
@@ -622,7 +500,6 @@ struct ContentView: View {
 
         if isMusic && clean != dismissedClipboardUrl {
             detectedClipboardUrl = clean
-            inputUrl = clean
             Task {
                 _ = try? await settings.engine.resolveTargetUrl(
                     inputUrl: clean,
@@ -637,15 +514,13 @@ struct ContentView: View {
         }
     }
 
-    private func convertLink() {
-        guard !inputUrl.isEmpty else { return }
+    private func convertLink(urlToConvert: String) {
+        guard !urlToConvert.isEmpty else { return }
         settings.isResolving = true
-        statusMessage = LocalizationManager.string(for: "test_converting", lang: lang)
-        statusSuccess = false
 
         Task {
             let res = try? await settings.engine.resolveTargetUrl(
-                inputUrl: inputUrl,
+                inputUrl: urlToConvert,
                 targetPlatformKey: settings.targetPlatform,
                 customApiUrl: settings.customApiUrl,
                 customApiToken: settings.customApiToken
@@ -654,16 +529,11 @@ struct ContentView: View {
             await MainActor.run {
                 settings.isResolving = false
                 if let success = res as? ResolutionResult.Success {
-                    let songTitle = success.title ?? LocalizationManager.string(for: "unknown_song", lang: lang)
-                    let artist = success.artist.map { " (\($0))" } ?? ""
-                    statusMessage = "\(songTitle)\(artist)"
-                    statusSuccess = true
-
                     // Add to shared History
                     HistoryModel.shared.add(
                         title: success.title ?? LocalizationManager.string(for: "unknown_song", lang: lang),
                         artist: success.artist,
-                        sourceUrl: inputUrl,
+                        sourceUrl: urlToConvert,
                         targetUrl: success.targetUrl,
                         targetPlatform: settings.targetPlatform,
                         isAlbum: success.isAlbum
@@ -684,15 +554,11 @@ struct ContentView: View {
                         target: settings.targetPlatform,
                         reason: error.message
                     )
-                    statusMessage = error.message
-                    statusSuccess = false
                 } else {
                     AptabaseClient.shared.trackLinkFlipFailed(
                         target: settings.targetPlatform,
                         reason: "timeout_or_unknown"
                     )
-                    statusMessage = LocalizationManager.string(for: "redirect_error_toast", lang: lang)
-                    statusSuccess = false
                 }
             }
         }

@@ -1,2 +1,3 @@
-- Direkte Musikwiedergabe: Fehler behoben, bei dem konvertierte Songs einen Browserfehler öffneten statt direkt im gewünschten Player abzuspielen.
-- Automatische Link-Reparatur: Gespeicherte Songs werden automatisch geprüft und aktualisiert, um eine sofortige Wiedergabe sicherzustellen.
+- Aufgeräumte Einstellungen & Dashboard: Manueller Link-Tester auf Android und iOS entfernt – ersetzt durch das automatische Clipboard Smart-Banner.
+- Automatisierte Store-Versionshinweise: Versions-Tag-Erkennung behoben, sodass Release Notes für Play Store und TestFlight immer exakt zur Version passen.
+- Optimierte UX: Klares, ablenkungsfreies Design auf beiden Plattformen mit Fokus auf 1-Tap-Wiedergabe und Song-Verlauf.

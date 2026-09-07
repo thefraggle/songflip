@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.20] - 2026-09-07
+- **Streamlined Preferences & Dashboard**: Removed the redundant manual link tester across Android and iOS in favor of the automatic Clipboard Smart-Banner.
+- **Automated Store Release Notes**: Resolved tag parsing to ensure localized Play Store and TestFlight release notes always dynamically match the latest version changes.
+- **Enhanced UX**: Refined dashboard layout on both platforms with a clean, distraction-free view focusing on prominent 1-tap playback and song history.
+
 ## [1.2.19] - 2026-09-07
 - **Focused Clipboard Actions**: Streamlined the Clipboard Smart-Banner to prioritize prominent 1-tap playback, ensuring clean action button separation between free playback and PRO smart-link generation.
 - **Web-Share Landing Page Resolution**: Fixed server-side preset routing to prevent cross-song metadata collisions and ensure 100% accurate track details on universal smart links.
