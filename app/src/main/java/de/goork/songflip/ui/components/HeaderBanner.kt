@@ -82,7 +82,9 @@ fun HeaderBanner(
                         modifier = Modifier.size(42.dp)
                     )
                 }
-                Column {
+                Column(
+                    modifier = Modifier.weight(1f)
+                ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -121,10 +123,12 @@ fun HeaderBanner(
                     Text(
                         text = stringResource(R.string.app_tagline),
                         style = MaterialTheme.typography.bodySmall.copy(
-                            fontWeight = FontWeight.Medium
+                            fontWeight = FontWeight.Medium,
+                            lineHeight = 16.sp
                         ),
                         color = Color.White.copy(alpha = 0.7f),
-                        maxLines = 1
+                        maxLines = 2,
+                        overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
                     )
                 }
             }

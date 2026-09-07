@@ -72,10 +72,6 @@
     <string name="btn_save">Сохранить</string>
     <string name="settings_saved">Настройки сохранены</string>
     <string name="share_received_toast">Обработка отправленной ссылки...</string>
-    <string name="famwake_promo">ОТ ЭТОГО ЖЕ РАЗРАБОТЧИКА</string>
-    <string name="famwake_title">FamWake – Семейный будильник</string>
-    <string name="famwake_desc">FamWake координирует утро всей семьи: время в ванной, завтрак и подъем.</string>
-    <string name="famwake_button">Подробнее</string>
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">Перенаправление ссылки...</string>
     <string name="redirect_error_toast">Не удалось перенаправить ссылку. Открываем оригинал.</string>

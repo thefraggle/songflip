@@ -89,10 +89,6 @@
     <string name="settings_saved">Settings saved</string>
 
     <string name="share_received_toast">Processing shared music link...</string>
-    <string name="famwake_promo">FROM THE SAME DEVELOPER</string>
-    <string name="famwake_title">FamWake – Family Alarm Clock</string>
-    <string name="famwake_desc">FamWake coordinates the morning for the whole family – bathroom times, breakfast, and wake-up.</string>
-    <string name="famwake_button">Learn more</string>
 
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
 

@@ -89,10 +89,6 @@
     <string name="settings_saved">Einstellungen gespeichert</string>
 
     <string name="share_received_toast">Verarbeite geteilten Musik-Link...</string>
-    <string name="famwake_promo">VOM GLEICHEN ENTWICKLER</string>
-    <string name="famwake_title">FamWake – Familienwecker</string>
-    <string name="famwake_desc">FamWake koordiniert den Morgen für die ganze Familie – Bad-Zeiten, Frühstück und Aufstehen.</string>
-    <string name="famwake_button">Mehr erfahren</string>
 
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
 

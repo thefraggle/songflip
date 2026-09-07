@@ -72,10 +72,6 @@
     <string name="btn_save">Kaydet</string>
     <string name="settings_saved">Ayarlar kaydedildi</string>
     <string name="share_received_toast">Paylaşılan müzik bağlantısı işleniyor...</string>
-    <string name="famwake_promo">AYNI GELİŞTİRİCİDEN</string>
-    <string name="famwake_title">FamWake – Aile Çalar Saati</string>
-    <string name="famwake_desc">FamWake tüm aile için sabahı koordine eder: banyo sıraları, kahvaltı ve uyanma saatleri.</string>
-    <string name="famwake_button">Daha Fazla Bilgi</string>
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">Müzik bağlantısı yönlendiriliyor...</string>
     <string name="redirect_error_toast">Bağlantı yönlendirilemedi. Orijinal bağlantı açılıyor.</string>
