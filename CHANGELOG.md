@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.19] - 2026-09-07
+- **Focused Clipboard Actions**: Streamlined the Clipboard Smart-Banner to prioritize prominent 1-tap playback, ensuring clean action button separation between free playback and PRO smart-link generation.
+- **Web-Share Landing Page Resolution**: Fixed server-side preset routing to prevent cross-song metadata collisions and ensure 100% accurate track details on universal smart links.
+- **Playback Reliability**: Enhanced touch target sizing and immediate visual responsiveness when launching target players directly from copied clipboard links.
+
 ## [1.2.18] - 2026-09-07
 - **Header Subtitle Display**: Fixed an issue where the app tagline in the dashboard header was abruptly truncated after the first word across localized languages.
 - **Text Layout & Wrapping**: Enhanced header banner layout to smoothly accommodate localized descriptions on screens of all sizes with multi-line wrapping.
