@@ -196,4 +196,7 @@
     <string name="pro_nudge_action_more">Learn More</string>
     <string name="history_capacity_free">%1$d of %2$d songs saved (PRO: up to 100)</string>
     <string name="history_capacity_pro">%1$d of %2$d songs saved</string>
+
+    <string name="settings_tip_multiple_apps_title">Multiple music apps installed?</string>
+    <string name="settings_tip_multiple_apps_body">If an app like Spotify opens links directly, simply tap \"Share \u2192 SongFlip\" in WhatsApp or any app to play songs in your preferred music player.</string>
 </resources>

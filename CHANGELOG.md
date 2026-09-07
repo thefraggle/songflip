@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.17] - 2026-09-07
+- **Optimized Playback Routing**: Enhanced task stack flags and intent category handling ensure smooth, immediate playback in target music apps.
+- **Cache Auto-Purge**: Migrated link cache to v5 to automatically purge outdated or stale entries across all tester devices.
+- **Multiple Music Apps Tip**: Added a quick guidance tip in Settings explaining how to use native sharing when competing music apps claim links.
+- **Enhanced Reliability**: Strengthened link resolution pipeline and dual-hash invalidation consistency.
+
 ## [1.2.16] - 2026-09-05
 - **Complete 24-Language Parity**: Full native translations across all 24 supported languages, ensuring complete coverage for song history and features.
 - **Seamless Language Switching**: Instant language updates upon selection with reliable preference persistence across app launches.
