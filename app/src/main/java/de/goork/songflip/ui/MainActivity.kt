@@ -486,6 +486,7 @@ fun MainScreen(
                     ClipboardSmartBanner(
                         musicUrl = clipUrl,
                         targetPlatformName = targetServiceName,
+                        isPro = proState.isPro,
                         onOpenInTarget = { urlToOpen ->
                             val redirectIntent = Intent(context, RedirectActivity::class.java).apply {
                                 data = Uri.parse(urlToOpen)

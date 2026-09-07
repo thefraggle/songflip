@@ -1370,17 +1370,17 @@ function escapeHtml(str: string): string {
 
 const DEMO_PRESETS: Record<string, any> = {
   "f1f28ddc": {
-    title: "Blinding Lights",
-    artist: "The Weeknd",
-    thumbnailUrl: "https://i.scdn.co/image/ab67616d0000b2738863bc11d2aa12b54f5aeb36",
+    title: "Never Gonna Give You Up",
+    artist: "Rick Astley",
+    thumbnailUrl: "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
     isAlbum: false,
     links: {
-      spotify: "https://open.spotify.com/track/0VjIjW4GlUZAMYd2vXMi3b",
-      appleMusic: "https://music.apple.com/us/album/blinding-lights/1499378108?i=1499378607",
-      youtubeMusic: "https://music.youtube.com/watch?v=4NRXx6U8ABQ",
-      deezer: "https://www.deezer.com/track/908604612",
-      tidal: "https://listen.tidal.com/track/134858527",
-      amazonMusic: "https://music.amazon.com/albums/B0855DV6QG?trackAsin=B0855DTRX6"
+      spotify: "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
+      appleMusic: "https://music.apple.com/us/album/never-gonna-give-you-up/1559885420?i=1559885421",
+      youtubeMusic: "https://music.youtube.com/watch?v=dQw4w9WgXcQ",
+      deezer: "https://www.deezer.com/track/14408104",
+      tidal: "https://listen.tidal.com/track/105707768",
+      amazonMusic: "https://music.amazon.com/albums/B07PGF8R4G?trackAsin=B07P8N5Z6H"
     }
   },
   "838fa830": {
