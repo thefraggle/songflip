@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.18] - 2026-09-07
+- **Header Subtitle Display**: Fixed an issue where the app tagline in the dashboard header was abruptly truncated after the first word across localized languages.
+- **Text Layout & Wrapping**: Enhanced header banner layout to smoothly accommodate localized descriptions on screens of all sizes with multi-line wrapping.
+- **Streamlined Settings**: Removed third-party cross-promotional cards and purged unused localization assets for a cleaner, distraction-free preferences view.
+
 ## [1.2.17] - 2026-09-07
 - **Optimized Playback Routing**: Enhanced task stack flags and intent category handling ensure smooth, immediate playback in target music apps.
 - **Cache Auto-Purge**: Migrated link cache to v5 to automatically purge outdated or stale entries across all tester devices.

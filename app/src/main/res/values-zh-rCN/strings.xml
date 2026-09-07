@@ -72,10 +72,6 @@
     <string name="btn_save">保存</string>
     <string name="settings_saved">设置已保存</string>
     <string name="share_received_toast">正在处理分享的音乐链接...</string>
-    <string name="famwake_promo">来自同一开发者</string>
-    <string name="famwake_title">FamWake – 家庭闹钟</string>
-    <string name="famwake_desc">FamWake 协调全家人的早晨：洗漱时间、早餐和起床安排。</string>
-    <string name="famwake_button">了解更多</string>
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">正在重定向音乐链接...</string>
     <string name="redirect_error_toast">无法重定向链接。正在打开原始链接。</string>

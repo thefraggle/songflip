@@ -72,10 +72,6 @@
     <string name="btn_save">Enregistrer</string>
     <string name="settings_saved">Paramètres enregistrés</string>
     <string name="share_received_toast">Traitement du lien musical partagé...</string>
-    <string name="famwake_promo">DU MÊME DÉVELOPPEUR</string>
-    <string name="famwake_title">FamWake – Réveil Familial</string>
-    <string name="famwake_desc">FamWake coordonne la matinée de toute la famille : créneaux de salle de bain, petit-déjeuner et réveil.</string>
-    <string name="famwake_button">En savoir plus</string>
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">Redirection du lien musical...</string>
     <string name="redirect_error_toast">Impossible de rediriger le lien. Ouverture du lien d\'origine.</string>

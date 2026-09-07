@@ -72,10 +72,6 @@
     <string name="btn_save">Simpan</string>
     <string name="settings_saved">Pengaturan disimpan</string>
     <string name="share_received_toast">Memproses tautan musik yang dibagikan...</string>
-    <string name="famwake_promo">DARI PENGEMBANG YANG SAMA</string>
-    <string name="famwake_title">FamWake – Jam Alarm Keluarga</string>
-    <string name="famwake_desc">FamWake mengoordinasikan pagi hari untuk seluruh keluarga: waktu kamar mandi, sarapan, dan bangun.</string>
-    <string name="famwake_button">Pelajari Selengkapnya</string>
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">Mengalihkan tautan musik...</string>
     <string name="redirect_error_toast">Gagal mengalihkan tautan. Membuka tautan asli.</string>

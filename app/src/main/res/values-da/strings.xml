@@ -72,10 +72,6 @@
     <string name="btn_save">Gem</string>
     <string name="settings_saved">Indstillinger gemt</string>
     <string name="share_received_toast">Behandler delt musiklink...</string>
-    <string name="famwake_promo">FRA SAMME UDVIKLER</string>
-    <string name="famwake_title">FamWake – Familie Vækkeur</string>
-    <string name="famwake_desc">FamWake koordinerer morgenen for hele familien – badeværelsestider, morgenmad og opvågning.</string>
-    <string name="famwake_button">Læs mere</string>
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">Omdirigerer musiklink...</string>
     <string name="redirect_error_toast">Kunne ikke omdirigere link. Åbner oprindeligt link.</string>

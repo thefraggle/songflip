@@ -72,10 +72,6 @@
     <string name="btn_save">Zapisz</string>
     <string name="settings_saved">Ustawienia zapisane</string>
     <string name="share_received_toast">Przetwarzanie udostępnionego linku muzycznego...</string>
-    <string name="famwake_promo">OD TEGO SAMEGO TWÓRCY</string>
-    <string name="famwake_title">FamWake – Budzik Rodzinny</string>
-    <string name="famwake_desc">FamWake koordynuje poranki dla całej rodziny: czas w łazience, śniadanie i pobudkę.</string>
-    <string name="famwake_button">Dowiedz się więcej</string>
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">Przekierowywanie linku muzycznego...</string>
     <string name="redirect_error_toast">Nie udało się przekierować linku. Otwieranie oryginalnego linku.</string>

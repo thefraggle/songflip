@@ -72,10 +72,6 @@
     <string name="btn_save">Guardar</string>
     <string name="settings_saved">Definições guardadas</string>
     <string name="share_received_toast">A processar link de música partilhado...</string>
-    <string name="famwake_promo">DO MESMO PROGRAMADOR</string>
-    <string name="famwake_title">FamWake – Despertador Familiar</string>
-    <string name="famwake_desc">FamWake coordena as manhãs de toda a família: tempos de casa de banho, pequeno-almoço e despertar.</string>
-    <string name="famwake_button">Saber mais</string>
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">A redirecionar link de música...</string>
     <string name="redirect_error_toast">Não foi possível redirecionar o link. A abrir link original.</string>
