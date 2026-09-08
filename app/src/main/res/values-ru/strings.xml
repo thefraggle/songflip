@@ -15,7 +15,7 @@
 
     <!-- App Links Setup Guide -->
     <string name="app_links_setup_title">Включить ссылки на музыку в Android</string>
-    <string name="app_links_setup_subtitle">Android 12+ требует подтверждения для сторонних приложений. Выполните 3 простых шага:</string>
+    <string name="app_links_setup_subtitle">Чтобы Android автоматически перенаправлял ссылки на музыку в SongFlip, требуется единоразовое подтверждение. Выполните 3 простых шага:</string>
     <string name="app_links_step1_title">Нажмите «+ Добавить ссылку»</string>
     <string name="app_links_step1_desc">В верхней части экрана настроек системы Android.</string>
     <string name="app_links_step2_title">Выберите поддерживаемые ссылки</string>
@@ -23,7 +23,8 @@
     <string name="app_links_step3_title">Нажмите «Добавить» для подтверждения</string>
     <string name="app_links_step3_desc">Готово! SongFlip теперь автоматически перехватывает ссылки.</string>
     <string name="app_links_btn_open_settings">Открыть настройки Android</string>
-    <string name="app_links_alternative_title">Без настройки? Мгновенные альтернативы:</string>
+    <string name="app_links_btn_continue_without_setup">Продолжить без настройки</string>
+    <string name="app_links_alternative_title">Начните сразу без настройки:</string>
     <string name="app_links_alt_share">Меню «Поделиться»: нажмите «Поделиться → SongFlip» в любом приложении – работает без настройки!</string>
     <string name="app_links_alt_clipboard">Буфер обмена: скопируйте ссылку на трек – SongFlip определит её при открытии.</string>
     <string name="settings_app_links_title">Ссылки приложения и приложение по умолчанию</string>

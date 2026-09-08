@@ -15,7 +15,7 @@
 
     <!-- App Links Setup Guide -->
     <string name="app_links_setup_title">Android-এ মিউজিক লিঙ্ক সক্রিয় করুন</string>
-    <string name="app_links_setup_subtitle">Android 12+ এ তৃতীয় পক্ষের অ্যাপের জন্য নিশ্চিতকরণ প্রয়োজন। এই ৩টি ধাপ অনুসরণ করুন:</string>
+    <string name="app_links_setup_subtitle">Android যাতে মিউজিক লিঙ্ক স্বয়ংক্রিয়ভাবে SongFlip-এ পাঠাতে পারে, তার জন্য একবার নিশ্চিতকরণ প্রয়োজন। এই ৩টি ধাপ অনুসরণ করুন:</string>
     <string name="app_links_step1_title">\"+ লিঙ্ক যোগ করুন\" এ আলতো চাপুন</string>
     <string name="app_links_step1_desc">Android সিস্টেম সেটিংস স্ক্রিনের শীর্ষে।</string>
     <string name="app_links_step2_title">সমর্থিত লিঙ্ক নির্বাচন করুন</string>
@@ -23,7 +23,8 @@
     <string name="app_links_step3_title">নিশ্চিত করতে \"যোগ করুন\" এ চাপুন</string>
     <string name="app_links_step3_desc">সম্পন্ন! SongFlip এখন স্বয়ংক্রিয়ভাবে সঙ্গীত লিঙ্ক শনাক্ত করবে।</string>
     <string name="app_links_btn_open_settings">Android সেটিংস খুলুন</string>
-    <string name="app_links_alternative_title">কোনো সেটআপের ঝামেলা নেই? তাত্ক্ষণিক বিকল্প:</string>
+    <string name="app_links_btn_continue_without_setup">সেটআপ ছাড়া এগিয়ে যান</string>
+    <string name="app_links_alternative_title">সেটআপ ছাড়াই তাৎক্ষণিক শুরু করুন:</string>
     <string name="app_links_alt_share">শেয়ার শিট: যেকোনো অ্যাপে \"শেয়ার → SongFlip\" চাপুন – কোনো সেটআপ ছাড়াই কাজ করে!</string>
     <string name="app_links_alt_clipboard">ক্লিপবোর্ড: মিউজিক লিঙ্ক কপি করুন – SongFlip খোলার সাথে সাথে শনাক্ত হবে।</string>
     <string name="settings_app_links_title">অ্যাপ লিঙ্ক ও ডিফল্ট অ্যাপ</string>

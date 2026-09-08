@@ -15,7 +15,7 @@
 
     <!-- App Links Setup Guide -->
     <string name="app_links_setup_title">Muzieklinks inschakelen in Android</string>
-    <string name="app_links_setup_subtitle">Android 12+ vereist een eenmalige bevestiging voor externe apps. Volg deze 3 stappen:</string>
+    <string name="app_links_setup_subtitle">Om Android muzieklinks automatisch naar SongFlip te laten doorsturen, is een eenmalige bevestiging nodig. Volg deze 3 stappen:</string>
     <string name="app_links_step1_title">Tik op „+ Link toevoegen”</string>
     <string name="app_links_step1_desc">Bovenaan in het instellingenscherm van Android.</string>
     <string name="app_links_step2_title">Ondersteunde links selecteren</string>
@@ -23,7 +23,8 @@
     <string name="app_links_step3_title">Bevestig met „Toevoegen”</string>
     <string name="app_links_step3_desc">Klaar! SongFlip vangt muzieklinks nu automatisch af.</string>
     <string name="app_links_btn_open_settings">Android-instellingen openen</string>
-    <string name="app_links_alternative_title">Geen configuratie? Directe alternatieven:</string>
+    <string name="app_links_btn_continue_without_setup">Doorgaan zonder configuratie</string>
+    <string name="app_links_alternative_title">Direct starten zonder configuratie:</string>
     <string name="app_links_alt_share">Deelmenu: tik op „Delen → SongFlip” in elke app – werkt direct zonder configuratie!</string>
     <string name="app_links_alt_clipboard">Klembord: kopieer een muzieklink – SongFlip herkent deze direct bij het openen.</string>
     <string name="settings_app_links_title">App-links &amp; standaard-app</string>

@@ -15,7 +15,7 @@
 
     <!-- App Links Setup Guide -->
     <string name="app_links_setup_title">Enable Music Links in Android</string>
-    <string name="app_links_setup_subtitle">Android 12+ requires confirming 3rd-party music redirectors. Follow these 3 simple steps:</string>
+    <string name="app_links_setup_subtitle">To let Android automatically route music links to SongFlip, a one-time confirmation is needed. Follow these 3 simple steps:</string>
     <string name="app_links_step1_title">Tap \"+ Add link\"</string>
     <string name="app_links_step1_desc">At the top of the Android system settings screen.</string>
     <string name="app_links_step2_title">Select Supported Links</string>
@@ -23,7 +23,8 @@
     <string name="app_links_step3_title">Tap \"Add\" to Confirm</string>
     <string name="app_links_step3_desc">Done! SongFlip will now catch links automatically.</string>
     <string name="app_links_btn_open_settings">Open Android Settings</string>
-    <string name="app_links_alternative_title">No setup needed? Instant alternatives:</string>
+    <string name="app_links_btn_continue_without_setup">Continue without setup</string>
+    <string name="app_links_alternative_title">Start instantly without setup:</string>
     <string name="app_links_alt_share">Share Sheet: Tap \"Share -> SongFlip\" in any app to convert instantly without setup.</string>
     <string name="app_links_alt_clipboard">Clipboard: Just copy any music link – SongFlip detects it when opened.</string>
     <string name="settings_app_links_title">App Links &amp; Default App</string>

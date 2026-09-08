@@ -15,7 +15,7 @@
 
     <!-- App Links Setup Guide -->
     <string name="app_links_setup_title">Musik-Links in Android aktivieren</string>
-    <string name="app_links_setup_subtitle">Android 12+ erfordert für externe Apps eine einmalige Bestätigung. Folge diesen 3 Schritten:</string>
+    <string name="app_links_setup_subtitle">Damit Android Musik-Links an SongFlip weiterleitet, ist eine einmalige Bestätigung nötig. Folge diesen 3 Schritten:</string>
     <string name="app_links_step1_title">Auf „+ Link hinzufügen“ tippen</string>
     <string name="app_links_step1_desc">Oben in den Android-Systemeinstellungen die Schaltfläche antippen.</string>
     <string name="app_links_step2_title">Unterstützte Links auswählen</string>
@@ -23,7 +23,8 @@
     <string name="app_links_step3_title">Mit „Hinzufügen“ bestätigen</string>
     <string name="app_links_step3_desc">Fertig! SongFlip fängt angetippte Links nun automatisch ab.</string>
     <string name="app_links_btn_open_settings">Zu den Android-Einstellungen</string>
-    <string name="app_links_alternative_title">Kein Setup gewünscht? Sofortige Alternativen:</string>
+    <string name="app_links_btn_continue_without_setup">Weiter ohne Setup</string>
+    <string name="app_links_alternative_title">Direkt loslegen ohne Setup:</string>
     <string name="app_links_alt_share">Teilen-Menü: Tippe in Spotify oder WhatsApp auf „Teilen → SongFlip“ – funktioniert ganz ohne Setup!</string>
     <string name="app_links_alt_clipboard">Zwischenablage: Kopiere einen Song-Link – SongFlip erkennt ihn sofort beim Öffnen.</string>
     <string name="settings_app_links_title">App-Links &amp; Standard-App</string>

@@ -15,7 +15,7 @@
 
     <!-- App Links Setup Guide -->
     <string name="app_links_setup_title">Android\'de Müzik Bağlantılarını Etkinleştir</string>
-    <string name="app_links_setup_subtitle">Android 12+, harici uygulamalar için onay gerektirir. Şu 3 adımı izleyin:</string>
+    <string name="app_links_setup_subtitle">Android\'in müzik bağlantılarını SongFlip\'e otomatik yönlendirmesi için tek seferlik bir onay gereklidir. Şu 3 adımı izleyin:</string>
     <string name="app_links_step1_title">\"+ Bağlantı ekle\"ye dokunun</string>
     <string name="app_links_step1_desc">Android sistem ayarları ekranının üst kısmında.</string>
     <string name="app_links_step2_title">Desteklenen Bağlantıları Seçin</string>
@@ -23,7 +23,8 @@
     <string name="app_links_step3_title">Onaylamak için \"Ekle\"ye dokunun</string>
     <string name="app_links_step3_desc">Tamamlandı! SongFlip artık müzik bağlantılarını otomatik olarak yönlendirecek.</string>
     <string name="app_links_btn_open_settings">Android Ayarlarını Aç</string>
-    <string name="app_links_alternative_title">Kurulum istemiyor musunuz? Hızlı alternatifler:</string>
+    <string name="app_links_btn_continue_without_setup">Kurulum olmadan devam et</string>
+    <string name="app_links_alternative_title">Kurulum yapmadan hemen başlayın:</string>
     <string name="app_links_alt_share">Paylaşım Menüsü: Herhangi bir uygulamada \"Paylaş → SongFlip\"i seçin – kuruluma gerek yok!</string>
     <string name="app_links_alt_clipboard">Pano: Bir müzik bağlantısı kopyalayın – SongFlip açıldığında hemen algılar.</string>
     <string name="settings_app_links_title">Uygulama Bağlantıları ve Varsayılan Uygulama</string>

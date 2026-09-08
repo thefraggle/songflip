@@ -15,7 +15,7 @@
 
     <!-- App Links Setup Guide -->
     <string name="app_links_setup_title">Aktifkan Tautan Musik di Android</string>
-    <string name="app_links_setup_subtitle">Android 12+ memerlukan konfirmasi untuk aplikasi pihak ketiga. Ikuti 3 langkah ini:</string>
+    <string name="app_links_setup_subtitle">Agar Android dapat mengarahkan tautan musik ke SongFlip secara otomatis, diperlukan satu kali konfirmasi. Ikuti 3 langkah ini:</string>
     <string name="app_links_step1_title">\"+ Tambahkan tautan\"</string>
     <string name="app_links_step1_desc">Di bagian atas layar pengaturan sistem Android.</string>
     <string name="app_links_step2_title">Pilih Tautan yang Didukung</string>
@@ -23,7 +23,8 @@
     <string name="app_links_step3_title">Ketuk \"Tambahkan\" untuk Konfirmasi</string>
     <string name="app_links_step3_desc">Selesai! SongFlip kini akan otomatis menangkap tautan musik.</string>
     <string name="app_links_btn_open_settings">Buka Pengaturan Android</string>
-    <string name="app_links_alternative_title">Tanpa pengaturan? Alternatif instan:</string>
+    <string name="app_links_btn_continue_without_setup">Lanjut tanpa setup</string>
+    <string name="app_links_alternative_title">Mulai instan tanpa setup:</string>
     <string name="app_links_alt_share">Menu Bagikan: Ketuk \"Bagikan → SongFlip\" di aplikasi apa pun – berfungsi tanpa setup!</string>
     <string name="app_links_alt_clipboard">Papan Klip: Salin tautan musik – SongFlip langsung mendeteksinya saat dibuka.</string>
     <string name="settings_app_links_title">Tautan Aplikasi &amp; Aplikasi Default</string>
