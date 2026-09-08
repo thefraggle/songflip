@@ -6,7 +6,7 @@
     <string name="status_title">Omdirigeringsstatus</string>
     <string name="status_active">Lenker er aktivert og aktive</string>
     <string name="status_all_active">Alle %1$d musikkdomener er aktive og verifiserte</string>
-    <string name="status_partial_active">%1$d av %2$d musikkdomener aktive (Nye lenker tilgjengelige!)</string>
+    <string name="status_partial_active">%1$d av %2$d musikkdomener aktive</string>
     <string name="status_inactive">Lenker er ennå ikke aktivert i systeminnstillingene</string>
     <string name="status_setup_required">Konfigurering kreves</string>
     <string name="btn_setup">Konfigurer</string>

@@ -6,7 +6,7 @@
     <string name="status_title">Status przekierowania</string>
     <string name="status_active">Linki są włączone i aktywne</string>
     <string name="status_all_active">Wszystkie %1$d domeny muzyczne są aktywne i zweryfikowane</string>
-    <string name="status_partial_active">%1$d z %2$d domen muzycznych aktywnych (Dostępne nowe linki!)</string>
+    <string name="status_partial_active">%1$d z %2$d domen muzycznych aktywnych</string>
     <string name="status_inactive">Linki nie są jeszcze aktywne w ustawieniach systemowych</string>
     <string name="status_setup_required">Wymagana konfiguracja</string>
     <string name="btn_setup">Skonfiguruj</string>

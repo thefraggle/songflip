@@ -5,8 +5,8 @@
 
     <string name="status_title">Weiterleitungs-Status</string>
     <string name="status_active">SongFlip ist aktiv</string>
-    <string name="status_all_active">Alle %1$d Musik-Dienste aktiviert</string>
-    <string name="status_partial_active">%1$d von %2$d Musik-Diensten aktiviert</string>
+    <string name="status_all_active">Alle %1$d Musik-Domains aktiviert</string>
+    <string name="status_partial_active">%1$d von %2$d Musik-Domains aktiviert</string>
     <string name="status_inactive">Links sind noch nicht in den Einstellungen aktiviert</string>
     <string name="status_setup_required">Einrichtung erforderlich</string>
     <string name="btn_setup">Einrichten</string>

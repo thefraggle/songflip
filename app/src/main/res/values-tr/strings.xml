@@ -6,7 +6,7 @@
     <string name="status_title">Yönlendirici Durumu</string>
     <string name="status_active">Bağlantılar etkinleştirildi ve aktif</string>
     <string name="status_all_active">Tüm %1$d müzik alanı etkin ve doğrulandı</string>
-    <string name="status_partial_active">%1$d / %2$d müzik alanı aktif (Yeni bağlantılar mevcut!)</string>
+    <string name="status_partial_active">%1$d / %2$d müzik alanı aktif</string>
     <string name="status_inactive">Bağlantılar henüz sistem ayarlarında etkinleştirilmedi</string>
     <string name="status_setup_required">Kurulum gerekli</string>
     <string name="btn_setup">Ayarla</string>
