@@ -43,6 +43,15 @@
     <string name="step2">Müzik alanları için "Desteklenen bağlantıları aç" seçeneğini etkinleştirin</string>
     <string name="step3">Tamamlandı! Paylaşılan bağlantılar arka planda otomatik olarak hedef oynatıcınızda açılır.</string>
     <string name="btn_open_settings">Ayarları Aç</string>
+    
+    <!-- Dashboard Setup Card -->
+    <string name="setup_card_title">Otomatik Yönlendirmeyi Etkinleştir</string>
+    <string name="setup_card_desc">Müzik bağlantılarının doğrudan tercih ettiğiniz oynatıcıda açılması için Android\'in SongFlip\'e tek seferlik izin vermesi gerekir.</string>
+    <string name="btn_start_setup">3 Basit Adımda Ayarla</string>
+    <string name="setup_card_tip">İpucu: SongFlip, Paylaş menüsü ve pano üzerinden kurulum yapmadan da anında çalışır.</string>
+    <string name="setup_card_active_title">Otomatik Yönlendirme Etkin</string>
+    <string name="setup_card_active_desc">Desteklenen müzik bağlantıları artık arka planda otomatik olarak açılacaktır.</string>
+
     <string name="input_sources_label">Kaynak Bağlantıları Yakala</string>
     <string name="input_sources_subtitle">SongFlip\'in otomatik olarak yönlendireceği gelen müzik bağlantılarını seçin</string>
     <string name="target_service_label">Tercih Edilen Hedef Oynatıcı</string>

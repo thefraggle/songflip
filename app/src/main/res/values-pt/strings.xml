@@ -43,6 +43,15 @@
     <string name="step2">Ative "Abrir links suportados" para os domínios de música</string>
     <string name="step3">Pronto! Links partilhados abrem automaticamente no seu reprodutor de destino em segundo plano.</string>
     <string name="btn_open_settings">Abrir definições</string>
+    
+    <!-- Dashboard Setup Card -->
+    <string name="setup_card_title">Ativar redirecionamento automático</string>
+    <string name="setup_card_desc">Para que os links de música abram direto no seu player preferido, o Android precisa de uma autorização única para o SongFlip.</string>
+    <string name="btn_start_setup">Ativar em 3 passos simples</string>
+    <string name="setup_card_tip">Dica: O SongFlip também funciona instantaneamente sem configuração via menu Compartilhar e área de transferência.</string>
+    <string name="setup_card_active_title">Redirecionamento automático ativo</string>
+    <string name="setup_card_active_desc">Os links de música suportados agora abrem automaticamente em segundo plano.</string>
+
     <string name="input_sources_label">Intercetar links de origem</string>
     <string name="input_sources_subtitle">Escolha quais links de música recebidos o SongFlip deve redirecionar automaticamente</string>
     <string name="target_service_label">Reprodutor de destino preferido</string>

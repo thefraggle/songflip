@@ -43,6 +43,15 @@
     <string name="step2">Bật "Mở các liên kết được hỗ trợ" cho các tên miền âm nhạc</string>
     <string name="step3">Hoàn tất! Các liên kết được chia sẻ sẽ tự động chuyển sang trình phát mục tiêu dưới nền.</string>
     <string name="btn_open_settings">Mở cài đặt</string>
+    
+    <!-- Dashboard Setup Card -->
+    <string name="setup_card_title">Bật chuyển hướng tự động</string>
+    <string name="setup_card_desc">Để liên kết nhạc mở trực tiếp trong trình phát yêu thích, Android cần cấp quyền liên kết một lần cho SongFlip.</string>
+    <string name="btn_start_setup">Thiết lập với 3 bước đơn giản</string>
+    <string name="setup_card_tip">Mẹo: SongFlip cũng hoạt động ngay lập tức không cần cài đặt thông qua menu Chia sẻ và Khay nhớ tạm.</string>
+    <string name="setup_card_active_title">Chuyển hướng tự động đang hoạt động</string>
+    <string name="setup_card_active_desc">Các liên kết nhạc được hỗ trợ giờ đây sẽ tự động mở ở chế độ nền.</string>
+
     <string name="input_sources_label">Chặn liên kết nguồn</string>
     <string name="input_sources_subtitle">Chọn liên kết âm nhạc đến mà SongFlip sẽ tự động chuyển hướng</string>
     <string name="target_service_label">Trình phát mục tiêu ưa thích</string>

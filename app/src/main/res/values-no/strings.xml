@@ -43,6 +43,15 @@
     <string name="step2">Aktiver "Åpne støttede lenker" for musikkdomener</string>
     <string name="step3">Ferdig! Delte lenker åpnes automatisk i din valgte spiller i bakgrunnen.</string>
     <string name="btn_open_settings">Åpne innstillinger</string>
+    
+    <!-- Dashboard Setup Card -->
+    <string name="setup_card_title">Aktiver automatisk videresending</string>
+    <string name="setup_card_desc">For at musikklenker skal åpnes direkte i din favorittspiller, må Android godkjenne SongFlip én gang.</string>
+    <string name="btn_start_setup">Aktiver i 3 enkle trinn</string>
+    <string name="setup_card_tip">Tips: SongFlip fungerer også umiddelbart uten oppsett via delemenyen og utklippstavlen.</string>
+    <string name="setup_card_active_title">Automatisk videresending aktiv</string>
+    <string name="setup_card_active_desc">Støttede musikklenker åpnes nå automatisk i bakgrunnen.</string>
+
     <string name="input_sources_label">Snapp opp kildelenker</string>
     <string name="input_sources_subtitle">Velg hvilke innkommende musikklenker SongFlip automatisk skal omdirigere</string>
     <string name="target_service_label">Foretrukket målspiller</string>

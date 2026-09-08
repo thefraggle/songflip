@@ -45,6 +45,15 @@
     <string name="step3">Fertig! Empfangene Musik-Links öffnen sich ab jetzt automatisch im Hintergrund in deinem Ziel-Player.</string>
     <string name="btn_open_settings">Einstellungen öffnen</string>
 
+    
+    <!-- Dashboard Setup Card -->
+    <string name="setup_card_title">Automatische Weiterleitung aktivieren</string>
+    <string name="setup_card_desc">Damit Musik-Links aus Chats, Browser &amp; Co. automatisch in deinem Wunsch-Player starten, muss Android die Links einmalig an SongFlip übergeben.</string>
+    <string name="btn_start_setup">In 3 Schritten aktivieren</string>
+    <string name="setup_card_tip">Tipp: Über das Teilen-Menü und die Zwischenablage funktioniert SongFlip sofort ohne jedes Setup.</string>
+    <string name="setup_card_active_title">Automatische Weiterleitung aktiv</string>
+    <string name="setup_card_active_desc">Musik-Links aus allen unterstützten Streaming-Diensten öffnen sich ab jetzt automatisch im Hintergrund.</string>
+
     <string name="input_sources_label">Quell-Links abfangen</string>
     <string name="input_sources_subtitle">Wähle, welche eingehenden Musik-Links SongFlip automatisch umwandeln soll</string>
 
