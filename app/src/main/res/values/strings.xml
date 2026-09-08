@@ -45,6 +45,15 @@
     <string name="step3">Done! Shared links automatically flip into your target player in the background.</string>
     <string name="btn_open_settings">Open Settings</string>
 
+    
+    <!-- Dashboard Setup Card -->
+    <string name="setup_card_title">Enable Automatic Link Routing</string>
+    <string name="setup_card_desc">To let music links from chats, browsers, and other apps open directly in your target player, Android needs a one-time link approval.</string>
+    <string name="btn_start_setup">Set Up in 3 Simple Steps</string>
+    <string name="setup_card_tip">Tip: SongFlip also works instantly without setup via the Share Sheet and Clipboard.</string>
+    <string name="setup_card_active_title">Automatic Link Routing Active</string>
+    <string name="setup_card_active_desc">Supported music links will now automatically open in your preferred player in the background.</string>
+
     <string name="input_sources_label">Intercept Source Links</string>
     <string name="input_sources_subtitle">Choose which incoming music links SongFlip should automatically flip</string>
 

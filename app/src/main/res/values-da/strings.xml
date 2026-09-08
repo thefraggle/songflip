@@ -43,6 +43,15 @@
     <string name="step2">Aktivér "Åbn understøttede links" for musikdomæner</string>
     <string name="step3">Færdig! Delte links omdirigeres automatisk til din mål-afspiller i baggrunden.</string>
     <string name="btn_open_settings">Åbn indstillinger</string>
+    
+    <!-- Dashboard Setup Card -->
+    <string name="setup_card_title">Aktivér automatisk omdirigering</string>
+    <string name="setup_card_desc">For at musiklinks åbner direkte i din foretrukne afspiller, skal Android godkende SongFlip én gang.</string>
+    <string name="btn_start_setup">Aktivér i 3 enkle trin</string>
+    <string name="setup_card_tip">Tip: SongFlip fungerer også øjeblikkeligt uden opsætning via delingsmenuen og udklipsholderen.</string>
+    <string name="setup_card_active_title">Automatisk omdirigering aktiv</string>
+    <string name="setup_card_active_desc">Understøttede musiklinks åbnes nu automatisk i baggrunden.</string>
+
     <string name="input_sources_label">Opsnap kildelinks</string>
     <string name="input_sources_subtitle">Vælg hvilke indgående musiklinks SongFlip automatisk skal omdirigere</string>
     <string name="target_service_label">Foretrukken mål-afspiller</string>

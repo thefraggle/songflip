@@ -43,6 +43,15 @@
     <string name="step2">संगीत डोमेनसाठी "समर्थित लिंक्स उघडा" सक्षम करा</string>
     <string name="step3">झाले! शेअर केलेल्या लिंक्स पार्श्वभूमीत आपोआप तुमच्या टार्गेट प्लेअरमध्ये उघडतील.</string>
     <string name="btn_open_settings">सेटिंग्ज उघडा</string>
+    
+    <!-- Dashboard Setup Card -->
+    <string name="setup_card_title">स्वयंचलित पुनर्निर्देशन सक्षम करा</string>
+    <string name="setup_card_desc">संगीत लिंक्स थेट तुमच्या आवडत्या प्लेयरमध्ये उघडण्यासाठी, Android ला SongFlip साठी एक वेळ परवानगी आवश्यक आहे।</string>
+    <string name="btn_start_setup">3 सोप्या पायऱ्यांमध्ये सुरू करा</string>
+    <string name="setup_card_tip">टीप: शेअर मेनू आणि क्लिपबोर्डद्वारे SongFlip कोणत्याही सेटअपशिवाय त्वरित कार्य करते.</string>
+    <string name="setup_card_active_title">स्वयंचलित पुनर्निर्देशन सक्रिय</string>
+    <string name="setup_card_active_desc">समर्थित संगीत लिंक्स आता बॅकग्राउंडमध्ये आपोआप उघडतील.</string>
+
     <string name="input_sources_label">स्रोत लिंक्स इंटरसेप्ट करा</string>
     <string name="input_sources_subtitle">SongFlip ने कोणत्या येणाऱ्या संगीत लिंक्स आपोआप बदलायच्या ते निवडा</string>
     <string name="target_service_label">पसंतीचा टार्गेट प्लेअर</string>

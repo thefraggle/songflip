@@ -43,6 +43,15 @@
     <string name="step2">Activez "Ouvrir les liens compatibles" pour les domaines musicaux</string>
     <string name="step3">Terminé ! Les liens partagés basculent automatiquement vers votre lecteur cible en arrière-plan.</string>
     <string name="btn_open_settings">Ouvrir les paramètres</string>
+    
+    <!-- Dashboard Setup Card -->
+    <string name="setup_card_title">Activer la redirection automatique</string>
+    <string name="setup_card_desc">Pour que les liens musicaux reçus s\'ouvrent directement dans votre lecteur préféré, Android doit autoriser SongFlip une seule fois.</string>
+    <string name="btn_start_setup">Activer en 3 étapes simples</string>
+    <string name="setup_card_tip">Astuce : SongFlip fonctionne aussi instantanément sans configuration via le menu Partager et le presse-papiers.</string>
+    <string name="setup_card_active_title">Redirection automatique active</string>
+    <string name="setup_card_active_desc">Les liens musicaux compatibles s\'ouvriront désormais automatiquement en arrière-plan.</string>
+
     <string name="input_sources_label">Intercepter les liens sources</string>
     <string name="input_sources_subtitle">Choisissez les liens musicaux entrants que SongFlip doit rediriger automatiquement</string>
     <string name="target_service_label">Lecteur cible préféré</string>

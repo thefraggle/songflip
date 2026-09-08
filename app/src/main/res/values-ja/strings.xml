@@ -43,6 +43,15 @@
     <string name="step2">音楽ドメインの「対応リンクを開く」を有効にします</string>
     <string name="step3">完了！共有されたリンクはバックグラウンドで自動的に指定のプレーヤーで開きます。</string>
     <string name="btn_open_settings">設定を開く</string>
+    
+    <!-- Dashboard Setup Card -->
+    <string name="setup_card_title">自動リダイレクトを有効化</string>
+    <string name="setup_card_desc">音楽リンクをお好みのプレーヤーで直接開くには、Android側でSongFlipへの一度のリンク承認が必要です。</string>
+    <string name="btn_start_setup">かんたん3ステップで設定</string>
+    <string name="setup_card_tip">ヒント：共有シートやクリップボード経由なら、設定なしですぐに使えます。</string>
+    <string name="setup_card_active_title">自動リダイレクト有効</string>
+    <string name="setup_card_active_desc">対応する音楽リンクがバックグラウンドで自動的に開くようになります。</string>
+
     <string name="input_sources_label">元のリンクのインターセプト</string>
     <string name="input_sources_subtitle">SongFlipが自動的にリダイレクトする音楽リンクを選択</string>
     <string name="target_service_label">優先ターゲットプレーヤー</string>

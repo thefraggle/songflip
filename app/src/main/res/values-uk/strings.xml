@@ -43,6 +43,15 @@
     <string name="step2">Увімкніть «Відкривати підтримувані посилання» для музичних доменів</string>
     <string name="step3">Готово! Музичні посилання автоматично відкриваються у вибраному плеєрі.</string>
     <string name="btn_open_settings">Відкрити налаштування</string>
+    
+    <!-- Dashboard Setup Card -->
+    <string name="setup_card_title">Увімкнути автоперенаправлення</string>
+    <string name="setup_card_desc">Щоб музичні посилання відкривалися одразу в улюбленому плеєрі, Android вимагає одноразового дозволу для SongFlip.</string>
+    <string name="btn_start_setup">Увімкнути за 3 прості кроки</string>
+    <string name="setup_card_tip">Порада: SongFlip також працює миттєво без налаштування через меню «Поділитися» та буфер обміну.</string>
+    <string name="setup_card_active_title">Автоперенаправлення активне</string>
+    <string name="setup_card_active_desc">Підтримувані посилання відтепер відкриватимуться автоматично у фоновому режимі.</string>
+
     <string name="input_sources_label">Перехоплення вихідних посилань</string>
     <string name="input_sources_subtitle">Оберіть, які вхідні посилання SongFlip повинен автоматично перенаправляти</string>
     <string name="target_service_label">Бажаний цільовий плеєр</string>
