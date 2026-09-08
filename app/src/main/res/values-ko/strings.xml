@@ -43,6 +43,15 @@
     <string name="step2">음악 도메인에 대해 "지원되는 링크 열기"를 활성화합니다</string>
     <string name="step3">완료! 공유된 링크는 백그라운드에서 대상 플레이어로 자동 변환됩니다.</string>
     <string name="btn_open_settings">설정 열기</string>
+    
+    <!-- Dashboard Setup Card -->
+    <string name="setup_card_title">자동 링크 전환 활성화</string>
+    <string name="setup_card_desc">음악 링크를 선호하는 플레이어에서 바로 열려면 Android에서 SongFlip을 한 번 승인해야 합니다. </string>
+    <string name="btn_start_setup">간단한 3단계로 설정하기</string>
+    <string name="setup_card_tip">팁: 공유 메뉴나 클립보드를 이용하면 설정 없이도 바로 사용할 수 있습니다.</string>
+    <string name="setup_card_active_title">자동 링크 전환 활성화됨</string>
+    <string name="setup_card_active_desc">지원되는 음악 링크가 이제 백그라운드에서 자동으로 열립니다.</string>
+
     <string name="input_sources_label">소스 링크 가로채기</string>
     <string name="input_sources_subtitle">SongFlip이 자동으로 전환할 수신 음악 링크 선택</string>
     <string name="target_service_label">선호하는 대상 플레이어</string>

@@ -43,6 +43,15 @@
     <string name="step2">Schakel "Ondersteunde links openen" in voor muziekdomeinen</string>
     <string name="step3">Klaar! Gedeelde links openen automatisch in je doelspeler op de achtergrond.</string>
     <string name="btn_open_settings">Instellingen openen</string>
+    
+    <!-- Dashboard Setup Card -->
+    <string name="setup_card_title">Automatische doorsturing inschakelen</string>
+    <string name="setup_card_desc">Om muzieklinks direct in je favoriete speler te openen, moet Android links eenmalig toewijzen aan SongFlip.</string>
+    <string name="btn_start_setup">Inschakelen in 3 eenvoudige stappen</string>
+    <string name="setup_card_tip">Tip: SongFlip werkt ook direct zonder configuratie via het deelmenu en klembord.</string>
+    <string name="setup_card_active_title">Automatische doorsturing actief</string>
+    <string name="setup_card_active_desc">Ondersteunde muzieklinks openen vanaf nu automatisch op de achtergrond.</string>
+
     <string name="input_sources_label">Bronlinks onderscheppen</string>
     <string name="input_sources_subtitle">Kies welke inkomende muzieklinks SongFlip automatisch moet omleiden</string>
     <string name="target_service_label">Voorkeurs-doelspeler</string>

@@ -43,6 +43,15 @@
     <string name="step2">মিউজিক ডোমেনের জন্য "সমর্থিত লিঙ্ক খুলুন" সক্রিয় করুন</string>
     <string name="step3">সম্পন্ন! শেয়ার করা লিঙ্কগুলি ব্যাকগ্রাউন্ডে আপনার লক্ষ্য প্লেয়ারে স্বয়ংক্রিয়ভাবে চলে যাবে।</string>
     <string name="btn_open_settings">সেটিংস খুলুন</string>
+    
+    <!-- Dashboard Setup Card -->
+    <string name="setup_card_title">স্বয়ংক্রিয় লিঙ্ক পুনঃনির্দেশ সক্রিয় করুন</string>
+    <string name="setup_card_desc">মিউজিক লিঙ্ক সরাসরি আপনার প্রিয় প্লেয়ারে খুলতে, Android-এ SongFlip-এর জন্য একবার অনুমোদনের প্রয়োজন।</string>
+    <string name="btn_start_setup">৩টি সহজ ধাপে সেটআপ করুন</string>
+    <string name="setup_card_tip">পরামর্শ: শেয়ার মেনু এবং ক্লিপবোর্ডের মাধ্যমে কোনো সেটআপ ছাড়াই SongFlip তাত্ক্ষণিক কাজ করে।</string>
+    <string name="setup_card_active_title">স্বয়ংক্রিয় লিঙ্ক পুনঃনির্দেশ সক্রিয়</string>
+    <string name="setup_card_active_desc">সমর্থিত সঙ্গীত লিঙ্কগুলি এখন ব্যাকগ্রাউন্ডে স্বয়ংক্রিয়ভাবে খুলবে।</string>
+
     <string name="input_sources_label">উৎস লিঙ্ক ইন্টারসেপ্ট করুন</string>
     <string name="input_sources_subtitle">কোন ইনকামিং মিউজিক লিঙ্কগুলি SongFlip স্বয়ংক্রিয়ভাবে ফ্লিপ করবে তা বেছে নিন</string>
     <string name="target_service_label">পছন্দের লক্ষ্য প্লেয়ার</string>

@@ -43,6 +43,15 @@
     <string name="step2">Aktifkan "Buka tautan yang didukung" untuk domain musik</string>
     <string name="step3">Selesai! Tautan yang dibagikan otomatis beralih ke pemutar tujuan di latar belakang.</string>
     <string name="btn_open_settings">Buka Pengaturan</string>
+    
+    <!-- Dashboard Setup Card -->
+    <string name="setup_card_title">Aktifkan Pengalihan Otomatis</string>
+    <string name="setup_card_desc">Agar tautan musik terbuka langsung di pemutar favorit Anda, Android memerlukan konfirmasi tautan satu kali untuk SongFlip.</string>
+    <string name="btn_start_setup">Aktifkan dalam 3 Langkah Mudah</string>
+    <string name="setup_card_tip">Tips: SongFlip juga langsung bekerja tanpa setup apa pun melalui menu Bagikan dan Papan Klip.</string>
+    <string name="setup_card_active_title">Pengalihan Otomatis Aktif</string>
+    <string name="setup_card_active_desc">Tautan musik yang didukung kini akan terbuka secara otomatis di latar belakang.</string>
+
     <string name="input_sources_label">Cegat Tautan Sumber</string>
     <string name="input_sources_subtitle">Pilih tautan musik masuk mana yang harus dialihkan otomatis oleh SongFlip</string>
     <string name="target_service_label">Pemutar Tujuan Favorit</string>

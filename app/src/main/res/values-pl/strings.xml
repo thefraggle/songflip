@@ -43,6 +43,15 @@
     <string name="step2">Włącz "Otwieraj obsługiwane linki" dla domen muzycznych</string>
     <string name="step3">Gotowe! Udostępnione linki automatycznie otwierają się w Twoim odtwarzaczu docelowym w tle.</string>
     <string name="btn_open_settings">Otwórz ustawienia</string>
+    
+    <!-- Dashboard Setup Card -->
+    <string name="setup_card_title">Włącz automatyczne przekierowywanie</string>
+    <string name="setup_card_desc">Aby linki muzyczne otwierały się bezpośrednio w wybranym odtwarzaczu, Android wymaga jednorazowej zgody dla SongFlip.</string>
+    <string name="btn_start_setup">Włącz w 3 prostych krokach</string>
+    <string name="setup_card_tip">Wskazówka: SongFlip działa natychmiast bez konfiguracji za pośrednictwem menu Udostępnij i schowka.</string>
+    <string name="setup_card_active_title">Automatyczne przekierowywanie aktywne</string>
+    <string name="setup_card_active_desc">Obsługiwane linki muzyczne będą się teraz otwierać automatycznie w tle.</string>
+
     <string name="input_sources_label">Przechwytuj linki źródłowe</string>
     <string name="input_sources_subtitle">Wybierz, które przychodzące linki muzyczne SongFlip ma automatycznie przekierowywać</string>
     <string name="target_service_label">Preferowany odtwarzacz docelowy</string>

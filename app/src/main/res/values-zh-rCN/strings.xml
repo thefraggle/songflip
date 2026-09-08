@@ -43,6 +43,15 @@
     <string name="step2">为音乐域名启用“打开支持的链接”</string>
     <string name="step3">完成！分享的链接将在后台自动跳转至目标播放器。</string>
     <string name="btn_open_settings">打开设置</string>
+    
+    <!-- Dashboard Setup Card -->
+    <string name="setup_card_title">开启自动链接重定向</string>
+    <string name="setup_card_desc">要让音乐链接直接在你的常用播放器中打开，需要允许 Android 一次性将链接交由 SongFlip 处理。</string>
+    <string name="btn_start_setup">轻松 3 步完成配置</string>
+    <string name="setup_card_tip">提示：通过“分享”菜单或直接复制链接，无需任何配置即可即刻使用。</string>
+    <string name="setup_card_active_title">自动重定向已激活</string>
+    <string name="setup_card_active_desc">点击支持的音乐链接将自动在后台转换并打开。</string>
+
     <string name="input_sources_label">拦截来源链接</string>
     <string name="input_sources_subtitle">选择 SongFlip 应自动重定向的传入音乐链接</string>
     <string name="target_service_label">首选目标播放器</string>

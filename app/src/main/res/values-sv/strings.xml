@@ -43,6 +43,15 @@
     <string name="step2">Aktivera "Öppna länkar som stöds" för musikdomäner</string>
     <string name="step3">Klart! Delade länkar omdirigeras automatiskt till din målspelare i bakgrunden.</string>
     <string name="btn_open_settings">Öppna inställningar</string>
+    
+    <!-- Dashboard Setup Card -->
+    <string name="setup_card_title">Aktivera automatisk omdirigering</string>
+    <string name="setup_card_desc">För att musiklänkar ska öppnas direkt i din favoritspelare krävs ett engångsgodkännande i Android för SongFlip.</string>
+    <string name="btn_start_setup">Aktivera i 3 enkla steg</string>
+    <string name="setup_card_tip">Tips: SongFlip fungerar även direkt utan inställningar via delningsmenyn och urklipp.</string>
+    <string name="setup_card_active_title">Automatisk omdirigering aktiv</string>
+    <string name="setup_card_active_desc">Musiklänkar som stöds öppnas nu automatiskt i bakgrunden.</string>
+
     <string name="input_sources_label">Fånga käll-länkar</string>
     <string name="input_sources_subtitle">Välj vilka inkommande musiklänkar SongFlip automatiskt ska omdirigera</string>
     <string name="target_service_label">Föredragen målspelare</string>
