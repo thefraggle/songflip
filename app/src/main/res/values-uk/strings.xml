@@ -12,6 +12,23 @@
     <string name="btn_setup">Налаштувати</string>
     <string name="status_missing_hint">Ще не активовано: %1$s</string>
     <string name="status_hint">Статус неможливо перевірити на старіших версіях Android.</string>
+
+    <!-- App Links Setup Guide -->
+    <string name="app_links_setup_title">Увімкнути музичні посилання в Android</string>
+    <string name="app_links_setup_subtitle">Android 12+ вимагає підтвердження для сторонніх додатків. Виконайте ці 3 кроки:</string>
+    <string name="app_links_step1_title">Торкніться «+ Додати посилання»</string>
+    <string name="app_links_step1_desc">Угорі екрана системних налаштувань Android.</string>
+    <string name="app_links_step2_title">Виберіть підтримувані посилання</string>
+    <string name="app_links_step2_desc">Позначте всі стрімінгові платформи (Spotify, Apple Music тощо).</string>
+    <string name="app_links_step3_title">Торкніться «Додати» для підтвердження</string>
+    <string name="app_links_step3_desc">Готово! SongFlip тепер автоматично перехоплює музичні посилання.</string>
+    <string name="app_links_btn_open_settings">Відкрити налаштування Android</string>
+    <string name="app_links_alternative_title">Без налаштування? Миттєві альтернативи:</string>
+    <string name="app_links_alt_share">Меню «Поділитися»: оберіть «Поділитися → SongFlip» у будь-якій програмі – працює без налаштувань!</string>
+    <string name="app_links_alt_clipboard">Буфер обміну: скопіюйте посилання – SongFlip виявить його під час відкриття.</string>
+    <string name="settings_app_links_title">Посилання додатку та стандартний додаток</string>
+    <string name="settings_app_links_subtitle">Автоматичне перехоплення музичних посилань і налаштування</string>
+
     <string name="language_label">Мова</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>

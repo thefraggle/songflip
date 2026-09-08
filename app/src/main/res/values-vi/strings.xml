@@ -12,6 +12,23 @@
     <string name="btn_setup">Thiết lập</string>
     <string name="status_missing_hint">Chưa bật: %1$s</string>
     <string name="status_hint">Không thể kiểm tra trạng thái trên các phiên bản Android cũ hơn.</string>
+
+    <!-- App Links Setup Guide -->
+    <string name="app_links_setup_title">Bật liên kết nhạc trong Android</string>
+    <string name="app_links_setup_subtitle">Android 12+ yêu cầu xác nhận đối với ứng dụng bên thứ ba. Làm theo 3 bước sau:</string>
+    <string name="app_links_step1_title">Nhấn vào \"+ Thêm liên kết\"</string>
+    <string name="app_links_step1_desc">Ở đầu màn hình cài đặt hệ thống Android.</string>
+    <string name="app_links_step2_title">Chọn liên kết được hỗ trợ</string>
+    <string name="app_links_step2_desc">Đánh dấu tất cả dịch vụ phát nhạc (Spotify, Apple Music, v.v.).</string>
+    <string name="app_links_step3_title">Nhấn \"Thêm\" để xác nhận</string>
+    <string name="app_links_step3_desc">Hoàn tất! SongFlip giờ đây sẽ tự động bắt liên kết nhạc.</string>
+    <string name="app_links_btn_open_settings">Mở Cài đặt Android</string>
+    <string name="app_links_alternative_title">Không cần thiết lập? Giải pháp tức thì:</string>
+    <string name="app_links_alt_share">Trình đơn chia sẻ: Nhấn \"Chia sẻ → SongFlip\" trong ứng dụng bất kỳ – hoạt động ngay lập tức!</string>
+    <string name="app_links_alt_clipboard">Khay nhớ tạm: Sao chép liên kết bài hát – SongFlip sẽ phát hiện ngay khi mở.</string>
+    <string name="settings_app_links_title">Liên kết ứng dụng &amp; Ứng dụng mặc định</string>
+    <string name="settings_app_links_subtitle">Tự động bắt liên kết nhạc &amp; hướng dẫn cài đặt</string>
+
     <string name="language_label">Ngôn ngữ</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
