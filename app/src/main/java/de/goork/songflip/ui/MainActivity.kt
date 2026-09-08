@@ -188,6 +188,7 @@ fun MainScreen(
     // Bottom Sheets State
     var showPauseBottomSheet by remember { mutableStateOf(initialShowPause) }
     var showSettingsBottomSheet by remember { mutableStateOf(false) }
+    var showAppLinksSetupBottomSheet by remember { mutableStateOf(false) }
     var showProPaywall by remember { mutableStateOf(false) }
     var initialShowPromoInPaywall by remember { mutableStateOf(false) }
 
@@ -368,6 +369,39 @@ fun MainScreen(
         )
     }
 
+    if (showAppLinksSetupBottomSheet) {
+        AppLinksSetupBottomSheet(
+            onDismissRequest = { showAppLinksSetupBottomSheet = false },
+            onOpenSystemSettings = {
+                showAppLinksSetupBottomSheet = false
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    try {
+                        context.startActivity(
+                            Intent(
+                                Settings.ACTION_APP_OPEN_BY_DEFAULT_SETTINGS,
+                                Uri.parse("package:${context.packageName}")
+                            )
+                        )
+                    } catch (e: Exception) {
+                        context.startActivity(
+                            Intent(
+                                Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                                Uri.parse("package:${context.packageName}")
+                            )
+                        )
+                    }
+                } else {
+                    context.startActivity(
+                        Intent(
+                            Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                            Uri.parse("package:${context.packageName}")
+                        )
+                    )
+                }
+            }
+        )
+    }
+
     if (showProPaywall) {
         ProPaywallBottomSheet(
             onDismissRequest = {
@@ -431,30 +465,7 @@ fun MainScreen(
                 },
                 onSetupClick = {
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackDomainSetupClicked()
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                        try {
-                            context.startActivity(
-                                Intent(
-                                    Settings.ACTION_APP_OPEN_BY_DEFAULT_SETTINGS,
-                                    Uri.parse("package:${context.packageName}")
-                                )
-                            )
-                        } catch (e: Exception) {
-                            context.startActivity(
-                                Intent(
-                                    Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                                    Uri.parse("package:${context.packageName}")
-                                )
-                            )
-                        }
-                    } else {
-                        context.startActivity(
-                            Intent(
-                                Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                                Uri.parse("package:${context.packageName}")
-                            )
-                        )
-                    }
+                    showAppLinksSetupBottomSheet = true
                 }
             )
 
