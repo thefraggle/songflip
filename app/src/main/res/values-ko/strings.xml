@@ -6,7 +6,7 @@
     <string name="status_title">리디렉터 상태</string>
     <string name="status_active">링크가 활성화되어 작동 중입니다</string>
     <string name="status_all_active">모든 %1$d개 음악 도메인이 활성화 및 확인되었습니다</string>
-    <string name="status_partial_active">%1$d / %2$d개 음악 도메인 활성화됨 (새 링크 사용 가능!)</string>
+    <string name="status_partial_active">%1$d / %2$d개 음악 도메인 활성화됨</string>
     <string name="status_inactive">시스템 설정에서 링크가 아직 활성화되지 않았습니다</string>
     <string name="status_setup_required">설정 필요</string>
     <string name="btn_setup">설정하기</string>

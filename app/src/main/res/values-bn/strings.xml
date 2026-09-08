@@ -6,7 +6,7 @@
     <string name="status_title">রিডাইরেক্টর স্ট্যাটাস</string>
     <string name="status_active">লিঙ্কগুলি সক্রিয় এবং চালু আছে</string>
     <string name="status_all_active">সমস্ত %1$dটি মিউজিক ডোমেন সক্রিয় এবং যাচাইকৃত</string>
-    <string name="status_partial_active">%2$dটির মধ্যে %1$dটি মিউজিক ডোমেন সক্রিয় (নতুন লিঙ্ক উপলব্ধ!)</string>
+    <string name="status_partial_active">%2$dটির মধ্যে %1$dটি মিউজিক ডোমেন সক্রিয়</string>
     <string name="status_inactive">সিস্টেম সেটিংসে লিঙ্কগুলি এখনও সক্রিয় করা হয়নি</string>
     <string name="status_setup_required">সেটআপ প্রয়োজন</string>
     <string name="btn_setup">সেটআপ করুন</string>

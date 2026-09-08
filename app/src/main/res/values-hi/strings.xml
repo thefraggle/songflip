@@ -6,7 +6,7 @@
     <string name="status_title">रीडायरेक्टर स्थिति</string>
     <string name="status_active">लिंक सक्षम और सक्रिय हैं</string>
     <string name="status_all_active">सभी %1$d संगीत डोमेन सक्रिय और सत्यापित हैं</string>
-    <string name="status_partial_active">%2$d में से %1$d संगीत डोमेन सक्रिय (नए लिंक उपलब्ध!)</string>
+    <string name="status_partial_active">%2$d में से %1$d संगीत डोमेन सक्रिय</string>
     <string name="status_inactive">सिस्टम सेटिंग्स में लिंक अभी सक्रिय नहीं हैं</string>
     <string name="status_setup_required">सेटअप आवश्यक है</string>
     <string name="btn_setup">सेटअप करें</string>

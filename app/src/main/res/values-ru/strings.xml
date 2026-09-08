@@ -6,7 +6,7 @@
     <string name="status_title">Статус переадресации</string>
     <string name="status_active">Ссылки включены и активны</string>
     <string name="status_all_active">Все %1$d музыкальных доменов активны и проверены</string>
-    <string name="status_partial_active">%1$d из %2$d музыкальных доменов активны (Доступны новые ссылки!)</string>
+    <string name="status_partial_active">%1$d из %2$d музыкальных доменов активны</string>
     <string name="status_inactive">Ссылки еще не включены в системных настройках</string>
     <string name="status_setup_required">Требуется настройка</string>
     <string name="btn_setup">Настроить</string>

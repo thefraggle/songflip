@@ -6,7 +6,7 @@
     <string name="status_title">पुनर्निर्देशन स्थिती</string>
     <string name="status_active">लिंक्स सक्षम आणि सक्रिय आहेत</string>
     <string name="status_all_active">सर्व %1$d संगीत डोमेन सक्रिय आणि सत्यापित आहेत</string>
-    <string name="status_partial_active">%2$d पैकी %1$d संगीत डोमेन सक्रिय (नवीन लिंक्स उपलब्ध!)</string>
+    <string name="status_partial_active">%2$d पैकी %1$d संगीत डोमेन सक्रिय</string>
     <string name="status_inactive">सिस्टम सेटिंग्जमध्ये लिंक्स अद्याप सक्रिय नाहीत</string>
     <string name="status_setup_required">सेटअप आवश्यक आहे</string>
     <string name="btn_setup">सेटअप करा</string>

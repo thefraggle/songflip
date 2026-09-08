@@ -6,7 +6,7 @@
     <string name="status_title">Omleidingsstatus</string>
     <string name="status_active">Links zijn ingeschakeld &amp; actief</string>
     <string name="status_all_active">Alle %1$d muziekdomeinen zijn actief &amp; geverifieerd</string>
-    <string name="status_partial_active">%1$d van %2$d muziekdomeinen actief (Nieuwe links beschikbaar!)</string>
+    <string name="status_partial_active">%1$d van %2$d muziekdomeinen actief</string>
     <string name="status_inactive">Links zijn nog niet actief in de systeeminstellingen</string>
     <string name="status_setup_required">Configuratie vereist</string>
     <string name="btn_setup">Instellen</string>

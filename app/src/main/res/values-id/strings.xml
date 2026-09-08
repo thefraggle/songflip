@@ -6,7 +6,7 @@
     <string name="status_title">Status Pengalihan</string>
     <string name="status_active">Tautan diaktifkan &amp; aktif</string>
     <string name="status_all_active">Semua %1$d domain musik aktif &amp; terverifikasi</string>
-    <string name="status_partial_active">%1$d dari %2$d domain musik aktif (Tautan baru tersedia!)</string>
+    <string name="status_partial_active">%1$d dari %2$d domain musik aktif</string>
     <string name="status_inactive">Tautan belum aktif di pengaturan sistem</string>
     <string name="status_setup_required">Perlu Penyiapan</string>
     <string name="btn_setup">Siapkan</string>

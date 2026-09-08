@@ -6,7 +6,7 @@
     <string name="status_title">Trạng thái chuyển hướng</string>
     <string name="status_active">Liên kết đã được bật &amp; hoạt động</string>
     <string name="status_all_active">Tất cả %1$d tên miền âm nhạc đều hoạt động &amp; đã xác minh</string>
-    <string name="status_partial_active">%1$d trên %2$d tên miền âm nhạc đang hoạt động (Có liên kết mới!)</string>
+    <string name="status_partial_active">%1$d trên %2$d tên miền âm nhạc đang hoạt động</string>
     <string name="status_inactive">Liên kết chưa được bật trong cài đặt hệ thống</string>
     <string name="status_setup_required">Cần thiết lập</string>
     <string name="btn_setup">Thiết lập</string>
