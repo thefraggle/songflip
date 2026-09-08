@@ -365,6 +365,10 @@ fun MainScreen(
             onOpenProPaywall = {
                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed()
                 showProPaywall = true
+            },
+            onOpenSetupGuide = {
+                showSettingsBottomSheet = false
+                showAppLinksSetupBottomSheet = true
             }
         )
     }
@@ -533,7 +537,11 @@ fun MainScreen(
             // 3. Domain Verification Setup Card
             SetupCard(
                 domainStatus = domainStatus,
-                linksActive = linksActive
+                linksActive = linksActive,
+                onOpenSetupGuide = {
+                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackDomainSetupClicked()
+                    showAppLinksSetupBottomSheet = true
+                }
             )
 
             // 4. Preferred Target Music Player Card

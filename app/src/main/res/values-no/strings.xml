@@ -12,6 +12,23 @@
     <string name="btn_setup">Konfigurer</string>
     <string name="status_missing_hint">Ikke aktivert ennå: %1$s</string>
     <string name="status_hint">Status kan ikke kontrolleres på eldre Android-versjoner.</string>
+
+    <!-- App Links Setup Guide -->
+    <string name="app_links_setup_title">Aktiver musikklenker i Android</string>
+    <string name="app_links_setup_subtitle">Android 12+ krever en bekreftelse for tredjepartsapper. Følg disse 3 trinnene:</string>
+    <string name="app_links_step1_title">Trykk på \"+ Legg til lenke\"</string>
+    <string name="app_links_step1_desc">Øverst på skjermen for systeminnstillinger i Android.</string>
+    <string name="app_links_step2_title">Velg støttede lenker</string>
+    <string name="app_links_step2_desc">Huk av for alle strømmetjenester (Spotify, Apple Music osv.).</string>
+    <string name="app_links_step3_title">Trykk på \"Legg til\" for å bekrefte</string>
+    <string name="app_links_step3_desc">Ferdig! SongFlip fanger nå opp musikklenker automatisk.</string>
+    <string name="app_links_btn_open_settings">Åpne Android-innstillinger</string>
+    <string name="app_links_alternative_title">Ingen konfigurering? Øyeblikkelige alternativer:</string>
+    <string name="app_links_alt_share">Delemeny: Trykk på \"Del → SongFlip\" i en app – fungerer uten oppsett!</string>
+    <string name="app_links_alt_clipboard">Utklippstavle: Kopier en musikklenke – SongFlip oppdager den med en gang.</string>
+    <string name="settings_app_links_title">App-lenker &amp; standardapp</string>
+    <string name="settings_app_links_subtitle">Fang opp musikklenker automatisk &amp; oppsett</string>
+
     <string name="language_label">Språk</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
