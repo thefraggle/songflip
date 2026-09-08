@@ -26,6 +26,8 @@
     <string name="app_links_alternative_title">Kein Setup gewünscht? Sofortige Alternativen:</string>
     <string name="app_links_alt_share">Teilen-Menü: Tippe in Spotify oder WhatsApp auf „Teilen → SongFlip“ – funktioniert ganz ohne Setup!</string>
     <string name="app_links_alt_clipboard">Zwischenablage: Kopiere einen Song-Link – SongFlip erkennt ihn sofort beim Öffnen.</string>
+    <string name="settings_app_links_title">App-Links &amp; Standard-App</string>
+    <string name="settings_app_links_subtitle">Musik-Links automatisch abfangen &amp; einrichten</string>
 
     <string name="language_label">Sprache</string>
     <string name="lang_de">Deutsch</string>

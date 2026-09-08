@@ -12,6 +12,23 @@
     <string name="btn_setup">設定する</string>
     <string name="status_missing_hint">未設定: %1$s</string>
     <string name="status_hint">古いAndroidバージョンでは状態を確認できません。</string>
+
+    <!-- App Links Setup Guide -->
+    <string name="app_links_setup_title">Androidで音楽リンクを有効化</string>
+    <string name="app_links_setup_subtitle">Android 12以降ではサードパーティ製アプリの手動確認が必要です。次の3つの手順に従ってください：</string>
+    <string name="app_links_step1_title">「+ リンクを追加」をタップ</string>
+    <string name="app_links_step1_desc">Androidのシステム設定画面の上部にあるボタンをタップします。</string>
+    <string name="app_links_step2_title">対応リンクを選択</string>
+    <string name="app_links_step2_desc">各種音楽サービス（Spotify、Apple Musicなど）にチェックを入れます。</string>
+    <string name="app_links_step3_title">「追加」をタップして完了</string>
+    <string name="app_links_step3_desc">完了！SongFlipが音楽リンクを自動で開くようになります。</string>
+    <string name="app_links_btn_open_settings">Android設定を開く</string>
+    <string name="app_links_alternative_title">設定不要の便利な代替手段：</string>
+    <string name="app_links_alt_share">共有シート：任意のアプリで「共有 → SongFlip」を選ぶだけ（設定不要）。</string>
+    <string name="app_links_alt_clipboard">クリップボード：音楽リンクをコピーしてSongFlipを開くだけで即座に検出。</string>
+    <string name="settings_app_links_title">アプリリンクとデフォルトアプリ</string>
+    <string name="settings_app_links_subtitle">音楽リンクの自動転送と初期設定</string>
+
     <string name="language_label">言語</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>

@@ -26,6 +26,8 @@
     <string name="app_links_alternative_title">No setup needed? Instant alternatives:</string>
     <string name="app_links_alt_share">Share Sheet: Tap \"Share -> SongFlip\" in any app to convert instantly without setup.</string>
     <string name="app_links_alt_clipboard">Clipboard: Just copy any music link – SongFlip detects it when opened.</string>
+    <string name="settings_app_links_title">App Links &amp; Default App</string>
+    <string name="settings_app_links_subtitle">Automatically catch music links &amp; set up</string>
 
     <string name="language_label">Language</string>
     <string name="lang_de">Deutsch</string>

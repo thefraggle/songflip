@@ -1,9 +1,5 @@
 package de.goork.songflip.ui.components
 
-import android.content.Intent
-import android.net.Uri
-import android.os.Build
-import android.provider.Settings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -21,7 +17,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -37,9 +32,9 @@ enum class StatusType { ACTIVE, WARNING, ERROR }
 fun SetupCard(
     domainStatus: DomainStatusInfo?,
     linksActive: Boolean?,
+    onOpenSetupGuide: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
-    val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
 
     Card(
@@ -69,30 +64,7 @@ fun SetupCard(
                 onClick = {
                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackDomainSetupClicked()
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                        try {
-                            context.startActivity(
-                                Intent(
-                                    Settings.ACTION_APP_OPEN_BY_DEFAULT_SETTINGS,
-                                    Uri.parse("package:${context.packageName}")
-                                )
-                            )
-                        } catch (e: Exception) {
-                            context.startActivity(
-                                Intent(
-                                    Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                                    Uri.parse("package:${context.packageName}")
-                                )
-                            )
-                        }
-                    } else {
-                        context.startActivity(
-                            Intent(
-                                Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                                Uri.parse("package:${context.packageName}")
-                            )
-                        )
-                    }
+                    onOpenSetupGuide()
                 },
                 modifier = Modifier
                     .fillMaxWidth()
