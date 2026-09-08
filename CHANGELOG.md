@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.21] - 2026-09-08
+- **Interactive App Links Setup Guide**: Clear 3-step visual onboarding guide helping Android 12+ users easily add and verify supported music domains in system settings.
+- **Zero-Setup Routes Highlighted**: Prominently presented instant alternatives (native Share Sheet and Clipboard Smart-Banner) that work immediately without any setup steps.
+
 ## [1.2.20] - 2026-09-07
 - **Streamlined Preferences & Dashboard**: Removed the redundant manual link tester across Android and iOS in favor of the automatic Clipboard Smart-Banner.
 - **Automated Store Release Notes**: Resolved tag parsing to ensure localized Play Store and TestFlight release notes always dynamically match the latest version changes.
