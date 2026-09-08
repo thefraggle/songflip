@@ -15,7 +15,7 @@
 
     <!-- App Links Setup Guide -->
     <string name="app_links_setup_title">Aktivér musiklinks i Android</string>
-    <string name="app_links_setup_subtitle">Android 12+ kræver en bekræftelse for tredjepartsapps. Følg disse 3 trin:</string>
+    <string name="app_links_setup_subtitle">For at lade Android omdirigere musiklinks til SongFlip automatisk kræves en engangsbekræftelse. Følg disse 3 trin:</string>
     <string name="app_links_step1_title">Tryk på \"+ Tilføj link\"</string>
     <string name="app_links_step1_desc">Øverst på skærmen med Android-systemindstillinger.</string>
     <string name="app_links_step2_title">Vælg understøttede links</string>
@@ -23,7 +23,8 @@
     <string name="app_links_step3_title">Tryk på \"Tilføj\" for at bekræfte</string>
     <string name="app_links_step3_desc">Færdig! SongFlip opfanger nu automatisk links.</string>
     <string name="app_links_btn_open_settings">Åbn Android-indstillinger</string>
-    <string name="app_links_alternative_title">Ingen opsætning? Øjeblikkelige alternativer:</string>
+    <string name="app_links_btn_continue_without_setup">Fortsæt uden opsætning</string>
+    <string name="app_links_alternative_title">Start med det samme uden opsætning:</string>
     <string name="app_links_alt_share">Delingsmenu: Tryk på \"Del → SongFlip\" i en app – virker helt uden opsætning!</string>
     <string name="app_links_alt_clipboard">Udklipsholder: Kopiér et musiklink – SongFlip registrerer det straks ved åbning.</string>
     <string name="settings_app_links_title">App-links &amp; standardapp</string>
