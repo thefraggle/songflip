@@ -6,7 +6,7 @@
     <string name="status_title">重定向状态</string>
     <string name="status_active">链接已启用并处于活动状态</string>
     <string name="status_all_active">所有 %1$d 个音乐域名均已激活并验证</string>
-    <string name="status_partial_active">%1$d / %2$d 个音乐域名已激活（有新链接可用！）</string>
+    <string name="status_partial_active">%1$d / %2$d 个音乐域名已激活</string>
     <string name="status_inactive">系统设置中尚未启用链接</string>
     <string name="status_setup_required">需要配置</string>
     <string name="btn_setup">立即配置</string>

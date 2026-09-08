@@ -1,6 +1,7 @@
 package de.goork.songflip.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -37,7 +38,7 @@ fun SetupCard(
     modifier: Modifier = Modifier
 ) {
     val haptic = LocalHapticFeedback.current
-    val isFullyEnabled = domainStatus?.isFullyEnabled == true || linksActive == true
+    val isConfigured = domainStatus?.let { it.enabledHosts > 0 } ?: (linksActive == true)
 
     Card(
         modifier = modifier.fillMaxWidth(),
@@ -50,8 +51,8 @@ fun SetupCard(
             modifier = Modifier.padding(20.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
-            if (isFullyEnabled) {
-                // Active / Success State
+            if (isConfigured) {
+                // Active / Success State (at least 1 music domain enabled or links active)
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(10.dp)
@@ -76,13 +77,32 @@ fun SetupCard(
                 )
 
                 if (domainStatus != null) {
+                    if (domainStatus.isFullyEnabled) {
+                        StatusBadge(
+                            text = stringResource(R.string.status_all_active, domainStatus.totalHosts),
+                            statusType = StatusType.ACTIVE
+                        )
+                    } else {
+                        // Partially enabled (e.g. 2 of 22 or 21 of 22 where official YouTube Music claims its link)
+                        // Green & configured with exact count and tap to manage
+                        StatusBadge(
+                            text = stringResource(R.string.status_partial_active, domainStatus.enabledHosts, domainStatus.totalHosts),
+                            statusType = StatusType.ACTIVE,
+                            onClick = {
+                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                de.goork.songflip.core.analytics.AptabaseClient.shared.trackDomainSetupClicked()
+                                onOpenSetupGuide()
+                            }
+                        )
+                    }
+                } else {
                     StatusBadge(
-                        text = stringResource(R.string.status_all_active, domainStatus.totalHosts),
+                        text = stringResource(R.string.status_active),
                         statusType = StatusType.ACTIVE
                     )
                 }
             } else {
-                // Setup Needed State (Explaining the WHY and the benefit)
+                // Setup Needed State (0 domains enabled)
                 Text(
                     text = stringResource(R.string.setup_card_title),
                     style = MaterialTheme.typography.titleLarge.copy(
@@ -129,30 +149,11 @@ fun SetupCard(
                     )
                 }
 
-                // System Domain Status Verification Badge
-                if (domainStatus != null) {
-                    if (domainStatus.isPartiallyEnabled) {
-                        StatusBadge(
-                            text = stringResource(R.string.status_partial_active, domainStatus.enabledHosts, domainStatus.totalHosts),
-                            statusType = StatusType.WARNING
-                        )
-                    } else {
-                        StatusBadge(
-                            text = stringResource(R.string.status_inactive),
-                            statusType = StatusType.ERROR
-                        )
-                    }
-                } else {
-                    when (linksActive) {
-                        true -> StatusBadge(text = stringResource(R.string.status_active), statusType = StatusType.ACTIVE)
-                        false -> StatusBadge(text = stringResource(R.string.status_inactive), statusType = StatusType.ERROR)
-                        null -> Text(
-                            text = stringResource(R.string.status_hint),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                }
+                // Inactive Badge
+                StatusBadge(
+                    text = stringResource(R.string.status_inactive),
+                    statusType = StatusType.ERROR
+                )
 
                 // Subtle note about zero-setup alternatives (Share Sheet & Clipboard)
                 Row(
@@ -182,17 +183,29 @@ fun SetupCard(
 }
 
 @Composable
-fun StatusBadge(text: String, statusType: StatusType) {
+fun StatusBadge(
+    text: String,
+    statusType: StatusType,
+    modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null
+) {
     val (bgColor, textColor, icon: ImageVector) = when (statusType) {
         StatusType.ACTIVE -> Triple(StateActiveGreen.copy(alpha = 0.15f), StateActiveGreen, Icons.Default.CheckCircle)
         StatusType.WARNING -> Triple(StatePausedAmber.copy(alpha = 0.15f), StatePausedAmber, Icons.Default.Warning)
         StatusType.ERROR -> Triple(StateErrorRed.copy(alpha = 0.15f), StateErrorRed, Icons.Default.Error)
     }
 
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
+    val clickableModifier = if (onClick != null) {
+        modifier
             .clip(RoundedCornerShape(12.dp))
+            .clickable { onClick() }
+    } else {
+        modifier.clip(RoundedCornerShape(12.dp))
+    }
+
+    Row(
+        modifier = clickableModifier
+            .fillMaxWidth()
             .background(bgColor)
             .padding(horizontal = 14.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -207,7 +220,16 @@ fun StatusBadge(text: String, statusType: StatusType) {
         Text(
             text = text,
             style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.SemiBold),
-            color = textColor
+            color = textColor,
+            modifier = Modifier.weight(1f)
         )
+        if (onClick != null) {
+            Icon(
+                imageVector = Icons.Default.Settings,
+                contentDescription = null,
+                tint = textColor.copy(alpha = 0.7f),
+                modifier = Modifier.size(16.dp)
+            )
+        }
     }
 }

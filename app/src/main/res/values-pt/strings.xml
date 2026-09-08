@@ -6,7 +6,7 @@
     <string name="status_title">Estado do redirecionamento</string>
     <string name="status_active">Os links estão ativados e operacionais</string>
     <string name="status_all_active">Todos os %1$d domínios de música estão ativos e verificados</string>
-    <string name="status_partial_active">%1$d de %2$d domínios de música ativos (Novos links disponíveis!)</string>
+    <string name="status_partial_active">%1$d de %2$d domínios de música ativos</string>
     <string name="status_inactive">Os links ainda não estão ativos nas definições do sistema</string>
     <string name="status_setup_required">Configuração necessária</string>
     <string name="btn_setup">Configurar</string>
