@@ -177,6 +177,23 @@ fun AppLinksSetupBottomSheet(
                 }
             }
 
+            // Continue without setup
+            TextButton(
+                onClick = {
+                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                    onDismissRequest()
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(44.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.app_links_btn_continue_without_setup),
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+
             Spacer(modifier = Modifier.height(12.dp))
         }
     }

@@ -15,7 +15,7 @@
 
     <!-- App Links Setup Guide -->
     <string name="app_links_setup_title">在 Android 中启用音乐链接</string>
-    <string name="app_links_setup_subtitle">Android 12+ 需要手动确认第三方重定向应用。请按以下 3 步操作：</string>
+    <string name="app_links_setup_subtitle">要让 Android 将音乐链接自动重定向至 SongFlip，需要进行一次性确认。请按以下 3 步操作：</string>
     <string name="app_links_step1_title">点击“+ 添加链接”</string>
     <string name="app_links_step1_desc">位于 Android 系统设置界面顶部。</string>
     <string name="app_links_step2_title">选择支持的链接</string>
@@ -23,7 +23,8 @@
     <string name="app_links_step3_title">点击“添加”确认</string>
     <string name="app_links_step3_desc">完成！SongFlip 现会自动捕获点击的音乐链接。</string>
     <string name="app_links_btn_open_settings">打开 Android 设置</string>
-    <string name="app_links_alternative_title">免设置直接使用方案：</string>
+    <string name="app_links_btn_continue_without_setup">跳过设置直接进入</string>
+    <string name="app_links_alternative_title">免设置直接使用：</string>
     <string name="app_links_alt_share">分享菜单：在任何应用中点击“分享 → SongFlip”即可直接转换，无需设置！</string>
     <string name="app_links_alt_clipboard">剪贴板：只需复制音乐链接，打开 SongFlip 即可立即识别。</string>
     <string name="settings_app_links_title">应用链接与默认应用</string>
