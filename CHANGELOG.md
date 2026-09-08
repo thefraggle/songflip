@@ -1,8 +1,9 @@
 # Changelog
 
 ## [1.2.21] - 2026-09-08
-- **Interactive App Links Setup Guide**: Clear 3-step visual onboarding guide helping Android 12+ users easily add and verify supported music domains in system settings.
-- **Zero-Setup Routes Highlighted**: Prominently presented instant alternatives (native Share Sheet and Clipboard Smart-Banner) that work immediately without any setup steps.
+- **Effortless Setup**: A quick 3-step guide and clear status badge for your active music services.
+- **Smart App Detection**: Your preferred music app is now recognized automatically on first launch.
+- **Instant Alternatives**: Convert music links on the spot via share menu or clipboard without setup.
 
 ## [1.2.20] - 2026-09-07
 - **Streamlined Preferences & Dashboard**: Removed the redundant manual link tester across Android and iOS in favor of the automatic Clipboard Smart-Banner.
