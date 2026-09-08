@@ -3,12 +3,19 @@ package de.goork.songflip.data
 import android.content.Context
 import android.content.SharedPreferences
 
-class SettingsRepository(context: Context) {
+class SettingsRepository(private val context: Context) {
 
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
     var targetPlatform: String
-        get() = prefs.getString(KEY_TARGET_PLATFORM, DEFAULT_TARGET) ?: DEFAULT_TARGET
+        get() {
+            val saved = prefs.getString(KEY_TARGET_PLATFORM, null)
+            if (!saved.isNullOrBlank()) return saved
+
+            val detected = detectDefaultTargetPlatform(context)
+            prefs.edit().putString(KEY_TARGET_PLATFORM, detected).apply()
+            return detected
+        }
         set(value) {
             prefs.edit().putString(KEY_TARGET_PLATFORM, value).apply()
         }
@@ -131,5 +138,30 @@ class SettingsRepository(context: Context) {
             "de", "en", "da", "nb", "sv", "nl", "fr", "es", "it", "pt", "pl",
             "ru", "tr", "uk", "ja", "ko", "zh", "in", "id", "vi", "bn", "hi", "mr"
         )
+
+        /**
+         * Detects the optimal default music player on first launch:
+         * 1. Prioritizes user-installed third-party streaming apps (Spotify, Apple Music, Tidal, Deezer, Amazon Music).
+         * 2. If no third-party app installed, checks if pre-installed YouTube Music app exists.
+         * 3. Fallback when no music app is installed -> YouTube Music Web (works without account in browser).
+         */
+        fun detectDefaultTargetPlatform(isInstalled: (String) -> Boolean): String {
+            val preferredServices = listOf("spotify", "appleMusic", "tidal", "deezer", "amazonMusic")
+            for (service in preferredServices) {
+                if (isInstalled(service)) {
+                    return service
+                }
+            }
+            if (isInstalled("youtubeMusic")) {
+                return "youtubeMusic"
+            }
+            return DEFAULT_TARGET
+        }
+
+        fun detectDefaultTargetPlatform(context: Context): String {
+            return detectDefaultTargetPlatform { serviceKey ->
+                PackageUtils.isAppInstalled(context, serviceKey)
+            }
+        }
     }
 }
