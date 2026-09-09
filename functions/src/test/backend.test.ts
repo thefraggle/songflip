@@ -84,6 +84,7 @@ describe("Backend Helper Tests", () => {
       const i18n = getWebShareI18n("de-DE,de;q=0.9,en;q=0.8");
       assert.equal(i18n.lang, "de");
       assert.equal(i18n.shareLink, "Link teilen");
+      assert.equal(i18n.copyLink, "Link kopieren");
       assert.equal(i18n.linkCopied, "Link in Zwischenablage kopiert!");
       assert.equal(i18n.play, "Abspielen");
       assert.equal(i18n.flippedWith, "Geflippt mit");
@@ -93,6 +94,7 @@ describe("Backend Helper Tests", () => {
       const i18n = getWebShareI18n("fr-FR,fr;q=0.9");
       assert.equal(i18n.lang, "fr");
       assert.equal(i18n.shareLink, "Partager le lien");
+      assert.equal(i18n.copyLink, "Copier le lien");
       assert.equal(i18n.linkCopied, "Lien copié dans le presse-papiers !");
       assert.equal(i18n.play, "Écouter");
     });
@@ -101,6 +103,7 @@ describe("Backend Helper Tests", () => {
       const i18n = getWebShareI18n("ja-JP");
       assert.equal(i18n.lang, "ja");
       assert.equal(i18n.shareLink, "リンクを共有");
+      assert.equal(i18n.copyLink, "リンクをコピー");
       assert.equal(i18n.play, "再生");
     });
 
@@ -108,11 +111,13 @@ describe("Backend Helper Tests", () => {
       const i18nEmpty = getWebShareI18n(undefined);
       assert.equal(i18nEmpty.lang, "en");
       assert.equal(i18nEmpty.shareLink, "Share Link");
+      assert.equal(i18nEmpty.copyLink, "Copy Link");
       assert.equal(i18nEmpty.play, "Play");
 
       const i18nUnknown = getWebShareI18n("xx-YY");
       assert.equal(i18nUnknown.lang, "en");
       assert.equal(i18nUnknown.shareLink, "Share Link");
+      assert.equal(i18nUnknown.copyLink, "Copy Link");
     });
 
     it("should cover all 24 supported languages with complete translations", () => {
@@ -124,6 +129,7 @@ describe("Backend Helper Tests", () => {
       languages.forEach((lang) => {
         const i18n = getWebShareI18n(lang);
         assert.ok(i18n.shareLink && i18n.shareLink.length > 0, `shareLink missing for ${lang}`);
+        assert.ok(i18n.copyLink && i18n.copyLink.length > 0, `copyLink missing for ${lang}`);
         assert.ok(i18n.linkCopied && i18n.linkCopied.length > 0, `linkCopied missing for ${lang}`);
         assert.ok(i18n.play && i18n.play.length > 0, `play missing for ${lang}`);
         assert.ok(i18n.notFoundTitle && i18n.notFoundTitle.length > 0, `notFoundTitle missing for ${lang}`);
