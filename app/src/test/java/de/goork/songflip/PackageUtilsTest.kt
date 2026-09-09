@@ -115,6 +115,10 @@ class PackageUtilsTest {
         assertTrue(isSupportedMusicUrl("https://listen.tidal.com/track/196435445"))
         assertTrue(isSupportedMusicUrl("https://www.deezer.com/track/142393383"))
         assertTrue(isSupportedMusicUrl("https://music.amazon.com/albums/B0973J6KJT?trackAsin=B0973GPM1F"))
+        assertTrue(isSupportedMusicUrl("https://soundcloud.com/artist/track-name"))
+        assertTrue(isSupportedMusicUrl("https://on.soundcloud.com/abcd123"))
+        assertTrue(isSupportedMusicUrl("https://radiohead.bandcamp.com/track/reckoner"))
+        assertTrue(isSupportedMusicUrl("https://artist.bandcamp.com/album/greatest-hits"))
 
         // Raw copied clipboard texts with emojis and service labels
         assertTrue(isSupportedMusicUrl("🟢 Spotify (Queen): https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv"))
@@ -123,6 +127,8 @@ class PackageUtilsTest {
         assertTrue(isSupportedMusicUrl("⬛ Tidal (Metallica): https://listen.tidal.com/track/196435445"))
         assertTrue(isSupportedMusicUrl("🟣 Deezer (Die Toten Hosen): https://www.deezer.com/track/142393383"))
         assertTrue(isSupportedMusicUrl("📦 Amazon Music (Metallica): https://music.amazon.com/albums/B0973J6KJT?trackAsin=B0973GPM1F"))
+        assertTrue(isSupportedMusicUrl("🟠 SoundCloud: https://soundcloud.com/artist/track-name"))
+        assertTrue(isSupportedMusicUrl("🔷 Bandcamp: https://radiohead.bandcamp.com/track/reckoner"))
 
         // Non-music texts
         assertFalse(isSupportedMusicUrl("Hier ist ein Text ohne Link"))

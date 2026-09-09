@@ -181,6 +181,8 @@ fun detectSourcePlatformName(url: String): String {
         lower.contains("deezer.com") || lower.contains("deezer.page.link") -> "Deezer"
         lower.contains("tidal.com") -> "Tidal"
         lower.contains("amazon.") || lower.contains("amzn.to") || lower.contains("a.co") -> "Amazon Music"
+        lower.contains("soundcloud.com") || lower.contains("on.soundcloud.com") -> "SoundCloud"
+        lower.contains("bandcamp.com") -> "Bandcamp"
         lower.contains("song.link") || lower.contains("album.link") || lower.contains("odesli.co") -> "Universal Link"
         else -> "Music Link"
     }
@@ -208,6 +210,9 @@ fun isSupportedMusicUrl(text: String): Boolean {
            lower.contains("amzn.to") ||
            lower.contains("a.co/") ||
            lower.contains("://a.co") ||
+           lower.contains("soundcloud.com") ||
+           lower.contains("on.soundcloud.com") ||
+           lower.contains("bandcamp.com") ||
            lower.contains("song.link") ||
            lower.contains("album.link") ||
            lower.contains("odesli.co")
