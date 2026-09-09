@@ -780,82 +780,88 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
     }
   }
 
+  let title = "";
+  let artist = "";
+  let thumbnailUrl: string | undefined;
+  let isAlbum = false;
+  let isFallback = false;
+  const linksMap: PlatformLinks = {};
+
   try {
-    const targetSongLink = normalizeToSongLinkDirectUrl(url);
-    const res = await axios.get(targetSongLink, {
-      headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-      },
-      timeout: 7000,
-    });
+    try {
+      const targetSongLink = normalizeToSongLinkDirectUrl(url);
+      const res = await axios.get(targetSongLink, {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+          "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        },
+        timeout: 7000,
+      });
 
-    const html = res.data;
-    if (typeof html !== "string") return null;
+      const html = res.data;
+      if (typeof html === "string" && html.includes('<script id="__NEXT_DATA__" type="application/json">')) {
+        const jsonString = html.split('<script id="__NEXT_DATA__" type="application/json">')[1]?.split("</script>")[0];
+        if (jsonString) {
+          const parsed = JSON.parse(jsonString);
+          const pageData = parsed?.props?.pageProps?.pageData;
+          if (pageData) {
+            const pageId = pageData.pageId || "";
+            const entityUniqueId = pageData.entityUniqueId || "";
+            isAlbum = pageId.includes("|album|") || entityUniqueId.includes("|album|");
 
-    const scriptTag = '<script id="__NEXT_DATA__" type="application/json">';
-    if (!html.includes(scriptTag)) return null;
+            const entityData = pageData.entityData || {};
+            let rawTitle = entityData.title || "";
+            let rawArtist = entityData.artistName || "";
+            thumbnailUrl = entityData.thumbnailUrl;
 
-    const jsonString = html.split(scriptTag)[1]?.split("</script>")[0];
-    if (!jsonString) return null;
+            const sections = pageData.sections || [];
+            if ((!rawTitle || !rawArtist) && sections.length > 0) {
+              const first = sections[0];
+              if (!rawTitle) rawTitle = first.title || "";
+              if (!rawArtist) rawArtist = first.artistName || "";
+            }
 
-    const parsed = JSON.parse(jsonString);
-    const pageData = parsed?.props?.pageProps?.pageData;
-    if (!pageData) return null;
+            const sanitized = sanitizeMusicMetadata(rawTitle, rawArtist);
+            title = sanitized.title;
+            artist = sanitized.artist;
 
-    const pageId = pageData.pageId || "";
-    const entityUniqueId = pageData.entityUniqueId || "";
-    const isAlbum = pageId.includes("|album|") || entityUniqueId.includes("|album|");
+            const linksByPlatform = pageData.linksByPlatform || {};
+            Object.keys(linksByPlatform).forEach((key) => {
+              const u = linksByPlatform[key]?.url;
+              if (u) {
+                if (key === "spotify") linksMap.spotify = u;
+                else if (key === "youtubeMusic" || key === "youtube") linksMap.youtubeMusic = linksMap.youtubeMusic || u;
+                else if (key === "appleMusic" || key === "itunes") linksMap.appleMusic = linksMap.appleMusic || u;
+                else if (key === "deezer") linksMap.deezer = u;
+                else if (key === "tidal") linksMap.tidal = u;
+                else if (key === "amazonMusic" || key === "amazon") linksMap.amazonMusic = linksMap.amazonMusic || u;
+                else if (key === "soundcloud") linksMap.soundcloud = u;
+                else if (key === "bandcamp") linksMap.bandcamp = u;
+              }
+            });
 
-    const entityData = pageData.entityData || {};
-    let rawTitle = entityData.title || "";
-    let rawArtist = entityData.artistName || "";
-    let thumbnailUrl = entityData.thumbnailUrl;
-
-    const sections = pageData.sections || [];
-    if ((!rawTitle || !rawArtist) && sections.length > 0) {
-      const first = sections[0];
-      if (!rawTitle) rawTitle = first.title || "";
-      if (!rawArtist) rawArtist = first.artistName || "";
-    }
-
-    const sanitized = sanitizeMusicMetadata(rawTitle, rawArtist);
-    let title = sanitized.title;
-    let artist = sanitized.artist;
-
-    const linksMap: PlatformLinks = {};
-    let isFallback = false;
-    const linksByPlatform = pageData.linksByPlatform || {};
-    Object.keys(linksByPlatform).forEach((key) => {
-      const u = linksByPlatform[key]?.url;
-      if (u) {
-        if (key === "spotify") linksMap.spotify = u;
-        else if (key === "youtubeMusic" || key === "youtube") linksMap.youtubeMusic = linksMap.youtubeMusic || u;
-        else if (key === "appleMusic" || key === "itunes") linksMap.appleMusic = linksMap.appleMusic || u;
-        else if (key === "deezer") linksMap.deezer = u;
-        else if (key === "tidal") linksMap.tidal = u;
-        else if (key === "amazonMusic" || key === "amazon") linksMap.amazonMusic = linksMap.amazonMusic || u;
-        else if (key === "soundcloud") linksMap.soundcloud = u;
-        else if (key === "bandcamp") linksMap.bandcamp = u;
-      }
-    });
-
-    for (const section of sections) {
-      const items = section.links || section.items || [];
-      for (const item of items) {
-        const p = item.platform;
-        const u = item.url;
-        if (p && u) {
-          if (p === "spotify" && !linksMap.spotify) linksMap.spotify = u;
-          else if ((p === "youtubeMusic" || p === "youtube") && !linksMap.youtubeMusic) linksMap.youtubeMusic = u;
-          else if ((p === "appleMusic" || p === "itunes") && !linksMap.appleMusic) linksMap.appleMusic = u;
-          else if (p === "deezer" && !linksMap.deezer) linksMap.deezer = u;
-          else if (p === "tidal" && !linksMap.tidal) linksMap.tidal = u;
-          else if ((p === "amazonMusic" || p === "amazon") && !linksMap.amazonMusic) linksMap.amazonMusic = u;
-          else if (p === "soundcloud" && !linksMap.soundcloud) linksMap.soundcloud = u;
-          else if (p === "bandcamp" && !linksMap.bandcamp) linksMap.bandcamp = u;
+            for (const section of sections) {
+              const items = section.links || section.items || [];
+              for (const item of items) {
+                const p = item.platform;
+                const u = item.url;
+                if (p && u) {
+                  if (p === "spotify" && !linksMap.spotify) linksMap.spotify = u;
+                  else if ((p === "youtubeMusic" || p === "youtube") && !linksMap.youtubeMusic) linksMap.youtubeMusic = u;
+                  else if ((p === "appleMusic" || p === "itunes") && !linksMap.appleMusic) linksMap.appleMusic = u;
+                  else if (p === "deezer" && !linksMap.deezer) linksMap.deezer = u;
+                  else if (p === "tidal" && !linksMap.tidal) linksMap.tidal = u;
+                  else if ((p === "amazonMusic" || p === "amazon") && !linksMap.amazonMusic) linksMap.amazonMusic = u;
+                  else if (p === "soundcloud" && !linksMap.soundcloud) linksMap.soundcloud = u;
+                  else if (p === "bandcamp" && !linksMap.bandcamp) linksMap.bandcamp = u;
+                }
+              }
+            }
+          }
         }
       }
+    } catch (songLinkErr: any) {
+      console.debug("[SongLink] Scrape failed or not listed on song.link:", songLinkErr?.message);
     }
 
     // If artist is missing or generic, or few links, query Deezer to heal metadata
@@ -905,7 +911,7 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
       }
     }
 
-    // If SongLink returned no links, trigger Multi-Tier Metadata & Album Resolver
+    // If SongLink returned no links, trigger Multi-Tier Metadata & Fallback Resolvers
     if (Object.keys(linksMap).length === 0) {
       isFallback = true;
       const cleanLower = url.toLowerCase();
@@ -948,6 +954,61 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
           } catch (err: any) {
             console.debug("[Fallback/DeezerLookup]", err?.message);
           }
+        }
+      }
+
+      // Attempt 3: SoundCloud oEmbed
+      if (cleanLower.includes("soundcloud.com")) {
+        try {
+          const scRes = await axios.get(`https://soundcloud.com/oembed?url=${encodeURIComponent(url)}&format=json`, { timeout: 4000 });
+          if (scRes.data && scRes.data.title) {
+            title = scRes.data.title || title;
+            artist = scRes.data.author_name || artist;
+            thumbnailUrl = scRes.data.thumbnail_url || thumbnailUrl;
+            linksMap.soundcloud = url;
+          }
+        } catch (err: any) {
+          console.debug("[Fallback/SoundCloudOembed]", err?.message);
+        }
+      }
+
+      // Attempt 4: Bandcamp OpenGraph
+      if (cleanLower.includes("bandcamp.com")) {
+        try {
+          const bcRes = await axios.get(url, {
+            headers: {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            },
+            timeout: 4000,
+          });
+          const html = bcRes.data;
+          if (typeof html === "string") {
+            const ogTitleMatch = html.match(/<meta\s+property=["']og:title["']\s+content=["'](.*?)["']/i);
+            const ogSiteNameMatch = html.match(/<meta\s+property=["']og:site_name["']\s+content=["'](.*?)["']/i);
+            const ogImageMatch = html.match(/<meta\s+property=["']og:image["']\s+content=["'](.*?)["']/i);
+            if (ogTitleMatch && ogTitleMatch[1]) {
+              const fullTitle = ogTitleMatch[1];
+              if (fullTitle.includes(", by ")) {
+                const parts = fullTitle.split(", by ");
+                title = parts[0].trim();
+                artist = parts[1].trim();
+              } else {
+                title = fullTitle.trim();
+              }
+            }
+            if (ogSiteNameMatch && ogSiteNameMatch[1] && (!artist || artist === "Music")) {
+              artist = ogSiteNameMatch[1].trim();
+            }
+            if (ogImageMatch && ogImageMatch[1]) {
+              thumbnailUrl = ogImageMatch[1];
+            }
+            if (url.includes("/album/")) {
+              isAlbum = true;
+            }
+            linksMap.bandcamp = url;
+          }
+        } catch (err: any) {
+          console.debug("[Fallback/BandcampOG]", err?.message);
         }
       }
     }
