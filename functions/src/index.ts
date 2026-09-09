@@ -62,7 +62,7 @@ function applyWebShareSecurityHeaders(res: any) {
   res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self'; script-src 'self' https://telemetry.goork.de; style-src 'self' https://songflip.link; font-src 'self'; img-src 'self' data: https://songflip.link https://telemetry.goork.de https://i.scdn.co https://*.scdn.co https://*.spotifycdn.com https://*.mzstatic.com https://i.ytimg.com https://*.ytimg.com https://lh3.googleusercontent.com https://*.dzcdn.net https://resources.tidal.com https://*.tidal.com https://m.media-amazon.com https://*.media-amazon.com https://images-na.ssl-images-amazon.com; connect-src 'self' https://telemetry.goork.de; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; media-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;"
+    "default-src 'self'; script-src 'self' 'unsafe-inline' https://telemetry.goork.de; style-src 'self' 'unsafe-inline' https://songflip.link; font-src 'self'; img-src 'self' data: https://songflip.link https://telemetry.goork.de https://i.scdn.co https://*.scdn.co https://*.spotifycdn.com https://*.mzstatic.com https://i.ytimg.com https://*.ytimg.com https://lh3.googleusercontent.com https://*.dzcdn.net https://resources.tidal.com https://*.tidal.com https://m.media-amazon.com https://*.media-amazon.com https://images-na.ssl-images-amazon.com https://*.sndcdn.com https://f4.bcbits.com https://*.bcbits.com; connect-src 'self' https://telemetry.goork.de; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; media-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;"
   );
 }
 
@@ -138,6 +138,18 @@ function normalizeMusicUrl(rawUrl: string): string {
     const tidalMatch = trimmed.match(/(?:listen\.)?tidal\.com\/(?:browse\/)?(track|album)\/([a-zA-Z0-9-]+)/i);
     if (tidalMatch && tidalMatch[1] && tidalMatch[2]) {
       return `https://tidal.com/browse/${tidalMatch[1].toLowerCase()}/${tidalMatch[2]}`;
+    }
+
+    // 7. SoundCloud
+    const soundcloudMatch = trimmed.match(/(?:https?:\/\/)?(?:www\.|m\.)?soundcloud\.com\/([a-zA-Z0-9_-]+)\/([a-zA-Z0-9_-]+)/i);
+    if (soundcloudMatch && !["search", "discover", "upload", "you", "stream", "settings"].includes(soundcloudMatch[1].toLowerCase())) {
+      return `https://soundcloud.com/${soundcloudMatch[1]}/${soundcloudMatch[2]}`;
+    }
+
+    // 8. Bandcamp
+    const bandcampMatch = trimmed.match(/(?:https?:\/\/)?([a-zA-Z0-9_-]+)\.bandcamp\.com\/(track|album)\/([a-zA-Z0-9_-]+)/i);
+    if (bandcampMatch) {
+      return `https://${bandcampMatch[1]}.bandcamp.com/${bandcampMatch[2].toLowerCase()}/${bandcampMatch[3]}`;
     }
 
     const url = new URL(trimmed);
@@ -228,6 +240,8 @@ interface PlatformLinks {
   deezer?: string;
   tidal?: string;
   amazonMusic?: string;
+  soundcloud?: string;
+  bandcamp?: string;
 }
 
 interface SongMetadata {
@@ -821,6 +835,8 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
         else if (key === "deezer") linksMap.deezer = u;
         else if (key === "tidal") linksMap.tidal = u;
         else if (key === "amazonMusic" || key === "amazon") linksMap.amazonMusic = linksMap.amazonMusic || u;
+        else if (key === "soundcloud") linksMap.soundcloud = u;
+        else if (key === "bandcamp") linksMap.bandcamp = u;
       }
     });
 
@@ -836,6 +852,8 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
           else if (p === "deezer" && !linksMap.deezer) linksMap.deezer = u;
           else if (p === "tidal" && !linksMap.tidal) linksMap.tidal = u;
           else if ((p === "amazonMusic" || p === "amazon") && !linksMap.amazonMusic) linksMap.amazonMusic = u;
+          else if (p === "soundcloud" && !linksMap.soundcloud) linksMap.soundcloud = u;
+          else if (p === "bandcamp" && !linksMap.bandcamp) linksMap.bandcamp = u;
         }
       }
     }
@@ -1745,6 +1763,22 @@ export const renderWebShare = onRequest(
           url: links.amazonMusic,
           icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M13.882 12.802c0 .914-.528 1.405-1.583 1.405-.88 0-1.391-.491-1.391-1.405 0-.915.511-1.406 1.391-1.406 1.055 0 1.583.491 1.583 1.406zm8.877 7.027c-.334.457-1.127.67-1.742.67-2.604 0-5.698-2.076-7.898-3.908-.317-.264-.07-.633.282-.44 2.833 1.565 6.474 2.972 9.074 1.495.335-.194.617-.035.284.42v.001l-.001.002-.001.001-.001.001-.001.001-.001.002zm-8.913-9.524c-2.482 0-4.085 1.495-4.085 3.872 0 2.395 1.567 3.89 4.085 3.89 2.5 0 4.103-1.495 4.103-3.89 0-2.377-1.603-3.872-4.103-3.872z"/></svg>`,
         },
+        {
+          id: "soundcloud",
+          name: "SoundCloud",
+          color: "#FF5500",
+          bgHover: "#e64d00",
+          url: links.soundcloud,
+          icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M11.56 8.87V17h9.01c1.89 0 3.43-1.54 3.43-3.43 0-1.85-1.48-3.36-3.31-3.42-.32-2.73-2.62-4.86-5.44-4.86-.98 0-1.9.27-2.69.75-.38.23-.7.52-.98.86-.02-.02-.02-.03-.02-.03zm-1.5 1.74v6.39h.82v-6.6c-.29.06-.56.14-.82.21zm-1.63.81v5.58h.82v-5.87c-.29.08-.56.18-.82.29zm-1.64.44v5.14h.82v-5.38c-.28.07-.56.15-.82.24zm-1.63.15v4.99h.82v-5.18c-.28.05-.56.11-.82.19zm-1.64.42v4.57h.82v-4.73c-.28.04-.55.1-.82.16zm-1.63.48v4.09h.82v-4.22c-.28.03-.55.08-.82.13zm-1.64.67v3.42h.82v-3.51c-.28.02-.55.05-.82.09zm-1.63.78v2.64h.82v-2.71c-.28.01-.55.04-.82.07z"/></svg>`,
+        },
+        {
+          id: "bandcamp",
+          name: "Bandcamp",
+          color: "#1DA0C3",
+          bgHover: "#1789a7",
+          url: links.bandcamp,
+          icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M0 18.75l7.437-13.5h16.563l-7.438 13.5z"/></svg>`,
+        },
       ];
 
       const activeButtons = platforms
@@ -1798,6 +1832,66 @@ export const renderWebShare = onRequest(
   <link rel="apple-touch-icon" sizes="180x180" href="https://songflip.link/images/apple-touch-icon.png">
   
   <link rel="stylesheet" href="https://songflip.link/share.css">
+  <style>
+    .platform-soundcloud .platform-icon { color: #FF5500; }
+    .platform-soundcloud .platform-action { background: #FF5500; }
+    .platform-soundcloud:hover .platform-action { background: #e64d00; }
+
+    .platform-bandcamp .platform-icon { color: #1DA0C3; }
+    .platform-bandcamp .platform-action { background: #1DA0C3; }
+    .platform-bandcamp:hover .platform-action { background: #1789a7; }
+
+    .share-action-bar {
+      width: 100%;
+      margin-bottom: 22px;
+    }
+    .btn-share {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      width: 100%;
+      padding: 13px 18px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 16px;
+      color: #f0f6fc;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: inherit;
+    }
+    .btn-share:hover {
+      background: rgba(255, 255, 255, 0.13);
+      border-color: rgba(255, 255, 255, 0.24);
+      transform: translateY(-1px);
+    }
+    .btn-share:active {
+      transform: scale(0.98);
+    }
+    .share-toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(30px);
+      background: #10b981;
+      color: #0b0f17;
+      padding: 11px 22px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 10px 28px rgba(16, 185, 129, 0.4);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 9999;
+    }
+    .share-toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
 </head>
 <body>
   <img src="${coverUrl}" alt="" class="ambient-bg-cover" aria-hidden="true" />
@@ -1814,6 +1908,19 @@ export const renderWebShare = onRequest(
     <div class="platforms-list">
       ${activeButtons}
     </div>
+
+    <div class="share-action-bar">
+      <button id="shareBtn" class="btn-share" type="button" aria-label="Share page">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="18" cy="5" r="3"></circle>
+          <circle cx="6" cy="12" r="3"></circle>
+          <circle cx="18" cy="19" r="3"></circle>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+        </svg>
+        <span id="shareBtnText">Share Link</span>
+      </button>
+    </div>
     
     <footer class="footer-app">
       <a href="https://download.songflip.link" target="_blank" rel="noopener noreferrer" class="brand-link">
@@ -1823,6 +1930,69 @@ export const renderWebShare = onRequest(
       <p class="footer-subtext">The automatic 0-click music redirector</p>
     </footer>
   </main>
+
+  <div id="shareToast" class="share-toast" role="status" aria-live="polite">Link copied to clipboard!</div>
+
+  <script>
+    (function() {
+      var shareBtn = document.getElementById("shareBtn");
+      var shareToast = document.getElementById("shareToast");
+      if (!shareBtn) return;
+
+      function showToast(msg) {
+        if (!shareToast) return;
+        shareToast.textContent = msg || "Link copied to clipboard!";
+        shareToast.classList.add("show");
+        setTimeout(function() {
+          shareToast.classList.remove("show");
+        }, 2200);
+      }
+
+      function copyFallback(url) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(function() {
+            showToast("Link copied to clipboard!");
+          }).catch(function() {
+            legacyCopy(url);
+          });
+        } else {
+          legacyCopy(url);
+        }
+      }
+
+      function legacyCopy(url) {
+        var input = document.createElement("input");
+        input.value = url;
+        document.body.appendChild(input);
+        input.select();
+        try {
+          document.execCommand("copy");
+          showToast("Link copied to clipboard!");
+        } catch (e) {
+          showToast("Copy failed");
+        }
+        document.body.removeChild(input);
+      }
+
+      shareBtn.addEventListener("click", function() {
+        var url = window.location.href;
+        var title = document.title;
+        if (navigator.share) {
+          navigator.share({
+            title: title,
+            text: "Listen on SongFlip",
+            url: url
+          }).catch(function(err) {
+            if (err.name !== "AbortError") {
+              copyFallback(url);
+            }
+          });
+        } else {
+          copyFallback(url);
+        }
+      });
+    })();
+  </script>
 </body>
 </html>`);
     } catch (err: any) {

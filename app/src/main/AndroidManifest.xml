@@ -18,6 +18,8 @@
         <package android:name="com.aspiro.tidal" />
         <package android:name="deezer.android.app" />
         <package android:name="com.amazon.mp3" />
+        <package android:name="com.soundcloud.android" />
+        <package android:name="com.bandcamp.android" />
     </queries>
 
     <application
@@ -130,6 +132,29 @@
                 <data android:host="music.amazon.es" />
                 <data android:host="amzn.to" />
                 <data android:host="a.co" />
+            </intent-filter>
+
+            <!-- SoundCloud URL Interception -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="soundcloud.com" />
+                <data android:host="m.soundcloud.com" />
+                <data android:host="on.soundcloud.com" />
+            </intent-filter>
+
+            <!-- Bandcamp URL Interception -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="bandcamp.com" />
+                <data android:host="*.bandcamp.com" />
             </intent-filter>
         </activity>
 

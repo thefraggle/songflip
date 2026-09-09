@@ -1139,6 +1139,56 @@ class OdesliRepository {
                 }
                 resp.close()
             }
+            // 5. SoundCloud OEmbed
+            else if (url.contains("soundcloud.com")) {
+                val encoded = URLEncoder.encode(url, "UTF-8")
+                val req = Request.Builder()
+                    .url("https://soundcloud.com/oembed?url=$encoded&format=json")
+                    .get()
+                    .build()
+                val resp = client.newCall(req).execute()
+                if (resp.isSuccessful) {
+                    val body = resp.body?.string() ?: ""
+                    val json = JSONObject(body)
+                    val title = json.optString("title")
+                    val author = json.optString("author_name")
+                    resp.close()
+                    val cleanTitle = if (author.isNotEmpty() && title.endsWith(" by $author", ignoreCase = true)) {
+                        title.substring(0, title.length - " by $author".length).trim()
+                    } else {
+                        title
+                    }
+                    if (cleanTitle.isNotEmpty()) {
+                        return if (author.isNotEmpty() && !cleanTitle.contains(author, ignoreCase = true)) "$author $cleanTitle" else cleanTitle
+                    }
+                }
+                resp.close()
+            }
+            // 6. Bandcamp OpenGraph
+            else if (url.contains("bandcamp.com")) {
+                val req = Request.Builder()
+                    .url(url)
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+                    .get()
+                    .build()
+                val resp = client.newCall(req).execute()
+                if (resp.isSuccessful) {
+                    val html = resp.body?.string() ?: ""
+                    resp.close()
+                    val ogTitleMatch = Regex("<meta\\s+property=[\"']og:title[\"']\\s+content=[\"']([^\"']+)[\"']", RegexOption.IGNORE_CASE).find(html)
+                        ?: Regex("<meta\\s+content=[\"']([^\"']+)[\"']\\s+property=[\"']og:title[\"']", RegexOption.IGNORE_CASE).find(html)
+                    if (ogTitleMatch != null) {
+                        val ogTitle = ogTitleMatch.groupValues[1]
+                        if (ogTitle.contains(", by ")) {
+                            val track = ogTitle.substringBefore(", by ").trim()
+                            val artist = ogTitle.substringAfter(", by ").trim()
+                            return "$artist $track"
+                        }
+                        return ogTitle
+                    }
+                }
+                resp.close()
+            }
 
             null
         } catch (e: Exception) {

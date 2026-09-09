@@ -49,6 +49,19 @@ describe("Backend Helper Tests", () => {
       const deezer = "https://www.deezer.com/de/track/3506388961?utm_source=test";
       assert.equal(normalizeMusicUrl(deezer), "https://www.deezer.com/track/3506388961");
     });
+
+    it("should normalize SoundCloud URLs", () => {
+      const soundcloud = "https://soundcloud.com/octobersveryown/drake-gods-plan?si=12345&utm_source=clipboard";
+      assert.equal(normalizeMusicUrl(soundcloud), "https://soundcloud.com/octobersveryown/drake-gods-plan");
+    });
+
+    it("should normalize Bandcamp URLs", () => {
+      const bandcamp = "https://radiohead.bandcamp.com/track/reckoner?from=search";
+      assert.equal(normalizeMusicUrl(bandcamp), "https://radiohead.bandcamp.com/track/reckoner");
+
+      const album = "https://artist.bandcamp.com/album/greatest-hits?from=share";
+      assert.equal(normalizeMusicUrl(album), "https://artist.bandcamp.com/album/greatest-hits");
+    });
   });
 
   describe("isRateLimited", () => {
