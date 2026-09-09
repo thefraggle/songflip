@@ -62,7 +62,9 @@ class ShareViewController: UIViewController {
         }
 
         let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
-        let targetPlatform = defaults.string(forKey: "target_platform") ?? "youtubeMusic"
+        let rawTarget = defaults.string(forKey: "target_platform") ?? "youtubeMusic"
+        let validTargets = ["youtubeMusic", "appleMusic", "spotify", "tidal", "deezer", "amazonMusic"]
+        let targetPlatform = validTargets.contains(rawTarget) ? rawTarget : "youtubeMusic"
         let customUrl = defaults.string(forKey: "custom_api_url") ?? ""
         let customToken = defaults.string(forKey: "custom_api_token") ?? ""
 
