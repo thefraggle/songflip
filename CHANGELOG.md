@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.22] - 2026-09-09
+- **More Music Services**: Added support for SoundCloud and Bandcamp so you can open indie tracks and underground gems seamlessly in your favorite player.
+- **Easy Link Sharing**: Shared music pages now include a one-tap share button to quickly send songs to friends.
+- **Smarter Clipboard Detection**: Copied tracks from even more music apps are recognized immediately when you open the app.
+
 ## [1.2.21] - 2026-09-08
 - **Effortless Setup**: A quick 3-step guide and clear status badge for your active music services.
 - **Smart App Detection**: Your preferred music app is now recognized automatically on first launch.
