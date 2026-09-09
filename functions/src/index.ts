@@ -1487,6 +1487,69 @@ const DEMO_PRESETS: Record<string, any> = {
   }
 };
 
+interface WebShareI18n {
+  lang: string;
+  shareLink: string;
+  linkCopied: string;
+  copyFailed: string;
+  play: string;
+  album: string;
+  artist: string;
+  flippedWith: string;
+  tagline: string;
+  listenOn: string;
+  notFoundTitle: string;
+  notFoundDesc: string;
+  discoverSongFlip: string;
+}
+
+function getWebShareI18n(header?: string): WebShareI18n {
+  const code = (header || "").split(",")[0]?.split(";")[0]?.trim().toLowerCase().split("-")[0] || "en";
+  const dict: Record<string, Partial<WebShareI18n>> = {
+    de: { lang: "de", shareLink: "Link teilen", linkCopied: "Link in Zwischenablage kopiert!", copyFailed: "Kopieren fehlgeschlagen", play: "Abspielen", album: "Album", artist: "Künstler", flippedWith: "Geflippt mit", tagline: "Der automatische 0-Klick Musik-Redirector", listenOn: "Auf SongFlip anhören", notFoundTitle: "Song-Link nicht gefunden", notFoundDesc: "Dieser Musik-Share-Link ist nicht mehr verfügbar oder wurde fehlerhaft aufgerufen.", discoverSongFlip: "SongFlip entdecken" },
+    es: { lang: "es", shareLink: "Compartir enlace", linkCopied: "¡Enlace copiado al portapapeles!", copyFailed: "Error al copiar", play: "Reproducir", album: "Álbum", artist: "Artista", flippedWith: "Flipped con", tagline: "El redireccionador automático de música sin clics", listenOn: "Escuchar en SongFlip", notFoundTitle: "Enlace no encontrado", notFoundDesc: "Este enlace de música ya no está disponible o se introdujo incorrectamente.", discoverSongFlip: "Descubrir SongFlip" },
+    fr: { lang: "fr", shareLink: "Partager le lien", linkCopied: "Lien copié dans le presse-papiers !", copyFailed: "Échec de la copie", play: "Écouter", album: "Album", artist: "Artiste", flippedWith: "Flipped avec", tagline: "Le redirecteur de musique automatique 0-clic", listenOn: "Écouter sur SongFlip", notFoundTitle: "Lien de morceau introuvable", notFoundDesc: "Ce lien de partage de musique n'est plus disponible ou a été mal saisi.", discoverSongFlip: "Découvrir SongFlip" },
+    it: { lang: "it", shareLink: "Condividi link", linkCopied: "Link copiato negli appunti!", copyFailed: "Copia non riuscita", play: "Riproduci", album: "Album", artist: "Artista", flippedWith: "Flipped con", tagline: "Il redirector musicale automatico zero-clic", listenOn: "Ascolta su SongFlip", notFoundTitle: "Link non trovato", notFoundDesc: "Questo link musicale non è più disponibile o non è stato inserito correttamente.", discoverSongFlip: "Scopri SongFlip" },
+    pt: { lang: "pt", shareLink: "Compartilhar link", linkCopied: "Link copiado para a área de transferência!", copyFailed: "Falha ao copiar", play: "Tocar", album: "Álbum", artist: "Artista", flippedWith: "Flipped com", tagline: "O redirecionador de música automático de 0 cliques", listenOn: "Ouvir no SongFlip", notFoundTitle: "Link não encontrado", notFoundDesc: "Este link de música não está mais disponível ou foi digitado incorretamente.", discoverSongFlip: "Descubra o SongFlip" },
+    nl: { lang: "nl", shareLink: "Link delen", linkCopied: "Link gekopieerd naar klembord!", copyFailed: "Kopiëren mislukt", play: "Afspelen", album: "Album", artist: "Artiest", flippedWith: "Geflipt met", tagline: "De automatische 0-klik muziek-redirector", listenOn: "Luister op SongFlip", notFoundTitle: "Muzieklink niet gevonden", notFoundDesc: "Deze muzieklink is niet meer beschikbaar of onjuist ingevoerd.", discoverSongFlip: "Ontdek SongFlip" },
+    pl: { lang: "pl", shareLink: "Udostępnij link", linkCopied: "Skopiowano link do schowka!", copyFailed: "Kopiowanie nie powiodło się", play: "Odtwórz", album: "Album", artist: "Wykonawca", flippedWith: "Flipped z", tagline: "Automatyczny przekierowywacz muzyki 0-kliknięć", listenOn: "Słuchaj w SongFlip", notFoundTitle: "Nie znaleziono utworu", notFoundDesc: "Ten link muzyczny jest już niedostępny lub został nieprawidłowo wprowadzony.", discoverSongFlip: "Odkryj SongFlip" },
+    da: { lang: "da", shareLink: "Del link", linkCopied: "Link kopieret til udklipsholder!", copyFailed: "Kopiering mislykkedes", play: "Afspil", album: "Album", artist: "Kunstner", flippedWith: "Flippet med", tagline: "Den automatiske 0-klik musik-omdirigering", listenOn: "Lyt på SongFlip", notFoundTitle: "Musiklink ikke fundet", notFoundDesc: "Dette musiklink er ikke længere tilgængeligt eller blev indtastet forkert.", discoverSongFlip: "Opdag SongFlip" },
+    nb: { lang: "nb", shareLink: "Del lenke", linkCopied: "Lenke kopiert til utklippstavlen!", copyFailed: "Kopiering mislyktes", play: "Spill av", album: "Album", artist: "Artist", flippedWith: "Flippet med", tagline: "Den automatiske 0-klikk musikk-omdirigeringen", listenOn: "Lytt på SongFlip", notFoundTitle: "Musikklenke ikke funnet", notFoundDesc: "Denne musikklenken er ikke lenger tilgjengelig eller ble skrevet inn feil.", discoverSongFlip: "Oppdag SongFlip" },
+    no: { lang: "no", shareLink: "Del lenke", linkCopied: "Lenke kopiert til utklippstavlen!", copyFailed: "Kopiering mislyktes", play: "Spill av", album: "Album", artist: "Artist", flippedWith: "Flippet med", tagline: "Den automatiske 0-klikk musikk-omdirigeringen", listenOn: "Lytt på SongFlip", notFoundTitle: "Musikklenke ikke funnet", notFoundDesc: "Denne musikklenken er ikke lenger tilgjengelig eller ble skrevet inn feil.", discoverSongFlip: "Oppdag SongFlip" },
+    sv: { lang: "sv", shareLink: "Dela länk", linkCopied: "Länk kopierad till urklipp!", copyFailed: "Kopiering misslyckades", play: "Spela", album: "Album", artist: "Artist", flippedWith: "Flippad med", tagline: "Den automatiska 0-klick musik-omdirigeringen", listenOn: "Lyssna på SongFlip", notFoundTitle: "Musik-länk hittades inte", notFoundDesc: "Den här musiklänken är inte längre tillgänglig eller angavs felaktigt.", discoverSongFlip: "Upptäck SongFlip" },
+    ru: { lang: "ru", shareLink: "Поделиться ссылкой", linkCopied: "Ссылка скопирована в буфер обмена!", copyFailed: "Не удалось скопировать", play: "Слушать", album: "Альбом", artist: "Исполнитель", flippedWith: "Flipped с", tagline: "Автоматический перенаправитель музыки в 0 кликов", listenOn: "Слушать на SongFlip", notFoundTitle: "Ссылка не найдена", notFoundDesc: "Эта музыкальная ссылка больше недоступна или введена неверно.", discoverSongFlip: "Узнать о SongFlip" },
+    uk: { lang: "uk", shareLink: "Поділитися посиланням", linkCopied: "Посилання скопійовано в буфер обміну!", copyFailed: "Помилка копіювання", play: "Слухати", album: "Альбом", artist: "Виконавець", flippedWith: "Flipped з", tagline: "Автоматичний перенаправлювач музики в 0 кліків", listenOn: "Слухати на SongFlip", notFoundTitle: "Посилання не знайдено", notFoundDesc: "Це музичне посилання більше недоступне або введено неправильно.", discoverSongFlip: "Дізнатися про SongFlip" },
+    tr: { lang: "tr", shareLink: "Bağlantıyı Paylaş", linkCopied: "Bağlantı panoya kopyalandı!", copyFailed: "Kopyalama başarısız", play: "Çal", album: "Albüm", artist: "Sanatçı", flippedWith: "SongFlip ile", tagline: "Otomatik 0 tık müzik yönlendirici", listenOn: "SongFlip'te Dinle", notFoundTitle: "Bağlantı Bulunamadı", notFoundDesc: "Bu müzik paylaşım bağlantısı artık mevcut değil veya yanlış girildi.", discoverSongFlip: "SongFlip'i Keşfet" },
+    ja: { lang: "ja", shareLink: "リンクを共有", linkCopied: "クリップボードにコピーしました！", copyFailed: "コピーに失敗しました", play: "再生", album: "アルバム", artist: "アーティスト", flippedWith: "SongFlipで変換", tagline: "完全自動0クリック音楽リダイレクター", listenOn: "SongFlipで聴く", notFoundTitle: "曲が見つかりません", notFoundDesc: "このリンクは利用できないか、正しく入力されていません。", discoverSongFlip: "SongFlipを見る" },
+    ko: { lang: "ko", shareLink: "링크 공유", linkCopied: "클립보드에 복사되었습니다!", copyFailed: "복사 실패", play: "재생", album: "앨범", artist: "아티스트", flippedWith: "SongFlip으로 전환", tagline: "0클릭 자동 음악 리디렉터", listenOn: "SongFlip에서 듣기", notFoundTitle: "음악 링크를 찾을 수 없음", notFoundDesc: "이 음악 공유 링크를 더 이상 사용할 수 없거나 잘못 입력되었습니다.", discoverSongFlip: "SongFlip 알아보기" },
+    zh: { lang: "zh", shareLink: "分享链接", linkCopied: "链接已复制到剪贴板！", copyFailed: "复制失败", play: "播放", album: "专辑", artist: "艺人", flippedWith: "使用 SongFlip 转换", tagline: "零点击自动音乐重定向器", listenOn: "在 SongFlip 上收听", notFoundTitle: "未找到歌曲链接", notFoundDesc: "该音乐分享链接已失效或输入有误。", discoverSongFlip: "探索 SongFlip" },
+    id: { lang: "id", shareLink: "Bagikan Tautan", linkCopied: "Tautan disalin ke papan klip!", copyFailed: "Gagal menyalin", play: "Putar", album: "Album", artist: "Artis", flippedWith: "Flipped dengan", tagline: "Pengalih musik otomatis 0-klik", listenOn: "Dengarkan di SongFlip", notFoundTitle: "Tautan Lagu Tidak Ditemukan", notFoundDesc: "Tautan berbagi musik ini tidak lagi tersedia atau salah dimasukkan.", discoverSongFlip: "Jelajahi SongFlip" },
+    in: { lang: "id", shareLink: "Bagikan Tautan", linkCopied: "Tautan disalin ke papan klip!", copyFailed: "Gagal menyalin", play: "Putar", album: "Album", artist: "Artis", flippedWith: "Flipped dengan", tagline: "Pengalih musik otomatis 0-klik", listenOn: "Dengarkan di SongFlip", notFoundTitle: "Tautan Lagu Tidak Ditemukan", notFoundDesc: "Tautan berbagi musik ini tidak lagi tersedia atau salah dimasukkan.", discoverSongFlip: "Jelajahi SongFlip" },
+    vi: { lang: "vi", shareLink: "Chia sẻ liên kết", linkCopied: "Đã sao chép liên kết vào khay nhớ tạm!", copyFailed: "Sao chép thất bại", play: "Phát", album: "Album", artist: "Nghệ sĩ", flippedWith: "Flipped với", tagline: "Trình chuyển hướng âm nhạc 0 cú nhấp tự động", listenOn: "Nghe trên SongFlip", notFoundTitle: "Không tìm thấy liên kết", notFoundDesc: "Liên kết chia sẻ nhạc này không còn khả dụng hoặc được nhập không chính xác.", discoverSongFlip: "Khám phá SongFlip" },
+    hi: { lang: "hi", shareLink: "लिंक साझा करें", linkCopied: "लिंक क्लिपबोर्ड पर कॉपी हो गया!", copyFailed: "कॉपी विफल", play: "बजाएं", album: "एल्बम", artist: "कलाकार", flippedWith: "SongFlip द्वारा", tagline: "स्वचालित 0-क्लिक संगीत रीडायरेक्टर", listenOn: "SongFlip पर सुनें", notFoundTitle: "संगीत लिंक नहीं मिला", notFoundDesc: "यह संगीत शेयर लिंक अब उपलब्ध नहीं है या गलत दर्ज किया गया था।", discoverSongFlip: "SongFlip जानें" },
+    bn: { lang: "bn", shareLink: "লিঙ্ক শেয়ার করুন", linkCopied: "ক্লিপবোর্ডে লিঙ্ক অনুলিপি করা হয়েছে!", copyFailed: "অনুলিপি ব্যর্থ", play: "চালান", album: "অ্যালবাম", artist: "শিল্পী", flippedWith: "SongFlip দিয়ে", tagline: "স্বয়ংক্রিয় ০-ক্লিক সঙ্গীত पुनর্নির্দেশক", listenOn: "SongFlip-এ শুনুন", notFoundTitle: "গানের লিঙ্ক পাওয়া যায়নি", notFoundDesc: "এই সঙ্গীত লিঙ্কটি আর উপলব্ধ নেই বা ভুল প্রবেশ করা হয়েছে।", discoverSongFlip: "SongFlip আবিষ্কার করুন" },
+    mr: { lang: "mr", shareLink: "दुवा शेअर करा", linkCopied: "क्लिपबोर्डवर दुवा कॉपी केला!", copyFailed: "कॉपी अयशस्वी", play: "प्ले करा", album: "अल्बम", artist: "कलाकार", flippedWith: "SongFlip द्वारे", tagline: "स्वयंचलित ०-क्लिक संगीत पुनर्निर्देशन", listenOn: "SongFlip वर ऐका", notFoundTitle: "गाण्याचा दुवा सापडला नाही", notFoundDesc: "हा संगीत शेअर दुवा आता उपलब्ध नाही किंवा चुकीचा प्रविष्ट केला गेला आहे।", discoverSongFlip: "SongFlip शोधा" }
+  };
+
+  const defaults: WebShareI18n = {
+    lang: "en",
+    shareLink: "Share Link",
+    linkCopied: "Link copied to clipboard!",
+    copyFailed: "Copy failed",
+    play: "Play",
+    album: "Album",
+    artist: "Artist",
+    flippedWith: "Flipped with",
+    tagline: "The automatic 0-click music redirector",
+    listenOn: "Listen on SongFlip",
+    notFoundTitle: "Song Link Not Found",
+    notFoundDesc: "This music share link is no longer available or was entered incorrectly. Open music links seamlessly with SongFlip.",
+    discoverSongFlip: "Discover SongFlip"
+  };
+
+  return { ...defaults, ...(dict[code] || {}) };
+}
+
 /**
  * Web-Share Landing Page: /s/:hash or /s?id=:hash
  * Delivers instant Universal Music Link page with Open Graph preview cards for WhatsApp, Telegram, iMessage & Discord.
@@ -1502,6 +1565,7 @@ export const renderWebShare = onRequest(
   async (req, res) => {
     try {
       applyWebShareSecurityHeaders(res);
+      const i18n = getWebShareI18n(req.headers["accept-language"]);
 
       // 1. Extract hash from path or query parameter
       const rawPath = req.path || "";
@@ -1568,12 +1632,12 @@ export const renderWebShare = onRequest(
         res.setHeader("Content-Type", "text/html; charset=utf-8");
 
         res.status(404).send(`<!DOCTYPE html>
-<html lang="en">
+<html lang="${i18n.lang}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Song Not Found | SongFlip</title>
-  <meta name="description" content="This shared song link is expired or not found. Open links directly with SongFlip.">
+  <title>${i18n.notFoundTitle} | SongFlip</title>
+  <meta name="description" content="${i18n.notFoundDesc}">
   <meta name="theme-color" content="#0b0f17">
   
   <!-- Favicons (Official App Icon Suite) -->
@@ -1594,22 +1658,22 @@ export const renderWebShare = onRequest(
     </div>
 
     <span class="badge-status">404 • Not Found</span>
-    <h1 class="title">Song Link Not Found</h1>
+    <h1 class="title">${i18n.notFoundTitle}</h1>
     <p class="description">
-      This music share link is no longer available or was entered incorrectly. Open music links seamlessly with SongFlip.
+      ${i18n.notFoundDesc}
     </p>
 
     <a href="https://download.songflip.link" class="btn-action">
-      <span>Discover SongFlip</span>
+      <span>${i18n.discoverSongFlip}</span>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
     </a>
 
     <footer class="footer-app">
       <a href="https://download.songflip.link" class="brand-link">
         <img src="https://songflip.link/images/favicon-96x96.png" alt="SongFlip Logo" class="brand-icon" />
-        <span class="brand-text">Powered by <strong>SongFlip</strong></span>
+        <span class="brand-text">${i18n.flippedWith} <strong>SongFlip</strong></span>
       </a>
-      <p class="footer-subtext">The automatic 0-click music redirector</p>
+      <p class="footer-subtext">${i18n.tagline}</p>
     </footer>
   </main>
 </body>
@@ -1648,7 +1712,7 @@ export const renderWebShare = onRequest(
       }
 
       const title = escapeHtml(cleanTitle);
-      const artist = escapeHtml(isArtist ? "Artist Profile" : (cleanArtist || "Music"));
+      const artist = escapeHtml(isArtist ? (i18n.artist || "Artist Profile") : (cleanArtist || "Music"));
       const coverUrl = songData.thumbnailUrl ? escapeHtml(songData.thumbnailUrl) : "https://songflip.link/icon.png";
       const links = { ...(songData.links || {}) };
 
@@ -1788,7 +1852,7 @@ export const renderWebShare = onRequest(
           <a href="${escapeHtml(p.url)}" target="_blank" rel="noopener noreferrer" class="platform-btn platform-${p.id}">
             <span class="platform-icon">${p.icon}</span>
             <span class="platform-name">${p.name}</span>
-            <span class="platform-action">Play</span>
+            <span class="platform-action">${i18n.play}</span>
           </a>`;
         })
         .join("\n");
@@ -1800,17 +1864,17 @@ export const renderWebShare = onRequest(
       res.setHeader("Content-Type", "text/html; charset=utf-8");
 
       res.status(200).send(`<!DOCTYPE html>
-<html lang="en">
+<html lang="${i18n.lang}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>${title} – ${artist} | SongFlip</title>
-  <meta name="description" content="Listen to ${title} by ${artist} on Spotify, Apple Music, YouTube Music, Deezer, Tidal and Amazon Music.">
+  <meta name="description" content="${i18n.listenOn}: ${title} – ${artist}">
   
   <!-- Open Graph / Social Media Preview Cards (WhatsApp, iMessage, Telegram, Discord) -->
   <meta property="og:site_name" content="SongFlip">
   <meta property="og:title" content="${title} – ${artist}">
-  <meta property="og:description" content="Listen on Spotify, Apple Music, YouTube Music & more.">
+  <meta property="og:description" content="${i18n.listenOn}">
   <meta property="og:image" content="${coverUrl}">
   <meta property="og:image:width" content="640">
   <meta property="og:image:height" content="640">
@@ -1820,7 +1884,7 @@ export const renderWebShare = onRequest(
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${title} – ${artist}">
-  <meta name="twitter:description" content="Listen on Spotify, Apple Music, YouTube Music & more.">
+  <meta name="twitter:description" content="${i18n.listenOn}">
   <meta name="twitter:image" content="${coverUrl}">
   
   <meta name="theme-color" content="#0d1117">
@@ -1901,7 +1965,7 @@ export const renderWebShare = onRequest(
       <img src="${coverUrl}" alt="${title}" class="cover-art" loading="eager" />
     </div>
     
-    ${isAlbum ? '<span class="type-badge">Album</span>' : (isArtist ? '<span class="type-badge">Artist</span>' : "")}
+    ${isAlbum ? `<span class="type-badge">${i18n.album}</span>` : (isArtist ? `<span class="type-badge">${i18n.artist}</span>` : "")}
     <h1 class="song-title">${title}</h1>
     <p class="artist-name">${artist}</p>
     
@@ -1910,7 +1974,7 @@ export const renderWebShare = onRequest(
     </div>
 
     <div class="share-action-bar">
-      <button id="shareBtn" class="btn-share" type="button" aria-label="Share page">
+      <button id="shareBtn" class="btn-share" type="button" aria-label="${i18n.shareLink}">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="18" cy="5" r="3"></circle>
           <circle cx="6" cy="12" r="3"></circle>
@@ -1918,30 +1982,33 @@ export const renderWebShare = onRequest(
           <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
           <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
         </svg>
-        <span id="shareBtnText">Share Link</span>
+        <span id="shareBtnText">${i18n.shareLink}</span>
       </button>
     </div>
     
     <footer class="footer-app">
       <a href="https://download.songflip.link" target="_blank" rel="noopener noreferrer" class="brand-link">
         <img src="https://songflip.link/images/favicon-96x96.png" alt="SongFlip Logo" class="brand-icon" />
-        <span class="brand-text">Flipped with <strong>SongFlip</strong></span>
+        <span class="brand-text">${i18n.flippedWith} <strong>SongFlip</strong></span>
       </a>
-      <p class="footer-subtext">The automatic 0-click music redirector</p>
+      <p class="footer-subtext">${i18n.tagline}</p>
     </footer>
   </main>
 
-  <div id="shareToast" class="share-toast" role="status" aria-live="polite">Link copied to clipboard!</div>
+  <div id="shareToast" class="share-toast" role="status" aria-live="polite">${i18n.linkCopied}</div>
 
   <script>
     (function() {
       var shareBtn = document.getElementById("shareBtn");
       var shareToast = document.getElementById("shareToast");
+      var textCopied = ${JSON.stringify(i18n.linkCopied)};
+      var textFailed = ${JSON.stringify(i18n.copyFailed)};
+      var textListen = ${JSON.stringify(i18n.listenOn)};
       if (!shareBtn) return;
 
       function showToast(msg) {
         if (!shareToast) return;
-        shareToast.textContent = msg || "Link copied to clipboard!";
+        shareToast.textContent = msg || textCopied;
         shareToast.classList.add("show");
         setTimeout(function() {
           shareToast.classList.remove("show");
@@ -1951,7 +2018,7 @@ export const renderWebShare = onRequest(
       function copyFallback(url) {
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(url).then(function() {
-            showToast("Link copied to clipboard!");
+            showToast(textCopied);
           }).catch(function() {
             legacyCopy(url);
           });
@@ -1967,9 +2034,9 @@ export const renderWebShare = onRequest(
         input.select();
         try {
           document.execCommand("copy");
-          showToast("Link copied to clipboard!");
+          showToast(textCopied);
         } catch (e) {
-          showToast("Copy failed");
+          showToast(textFailed);
         }
         document.body.removeChild(input);
       }
@@ -1980,7 +2047,7 @@ export const renderWebShare = onRequest(
         if (navigator.share) {
           navigator.share({
             title: title,
-            text: "Listen on SongFlip",
+            text: textListen,
             url: url
           }).catch(function(err) {
             if (err.name !== "AbortError") {
@@ -2002,4 +2069,4 @@ export const renderWebShare = onRequest(
   }
 );
 
-export { cleanSearchQuery, normalizeMusicUrl, isRateLimited };
+export { cleanSearchQuery, normalizeMusicUrl, isRateLimited, getWebShareI18n };
