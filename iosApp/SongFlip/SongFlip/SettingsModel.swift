@@ -121,8 +121,8 @@ class SettingsModel: ObservableObject {
 
     init() {
         let storage = UserDefaults(suiteName: Self.appGroupId) ?? UserDefaults.standard
-        let savedTarget = storage.string(forKey: "target_platform") ?? "youtubeMusic"
-        let validTarget = PlatformChoice(rawValue: savedTarget) != nil ? savedTarget : "youtubeMusic"
+        let savedTarget = storage.string(forKey: "target_platform") ?? "appleMusic"
+        let validTarget = PlatformChoice(rawValue: savedTarget) != nil ? savedTarget : "appleMusic"
         self.targetPlatform = validTarget
         if savedTarget != validTarget {
             storage.set(validTarget, forKey: "target_platform")
