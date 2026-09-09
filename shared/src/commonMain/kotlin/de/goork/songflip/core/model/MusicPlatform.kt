@@ -44,6 +44,18 @@ enum class MusicPlatform(
         displayName = "Amazon Music",
         androidPackage = "com.amazon.mp3",
         iosScheme = "amznmp3://"
+    ),
+    SOUNDCLOUD(
+        key = "soundcloud",
+        displayName = "SoundCloud",
+        androidPackage = "com.soundcloud.android",
+        iosScheme = "soundcloud://"
+    ),
+    BANDCAMP(
+        key = "bandcamp",
+        displayName = "Bandcamp",
+        androidPackage = "com.bandcamp.android",
+        iosScheme = "bandcamp://"
     );
 
     companion object {

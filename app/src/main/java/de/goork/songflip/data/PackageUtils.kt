@@ -11,7 +11,9 @@ object PackageUtils {
         "spotify" to "com.spotify.music",
         "tidal" to "com.aspiro.tidal",
         "deezer" to "deezer.android.app",
-        "amazonMusic" to "com.amazon.mp3"
+        "amazonMusic" to "com.amazon.mp3",
+        "soundcloud" to "com.soundcloud.android",
+        "bandcamp" to "com.bandcamp.android"
     )
 
     fun isAppInstalled(context: Context, platformKey: String): Boolean {
@@ -102,6 +104,8 @@ object PackageUtils {
             "tidal" -> "Tidal"
             "deezer" -> "Deezer"
             "amazonMusic" -> "Amazon Music"
+            "soundcloud" -> "SoundCloud"
+            "bandcamp" -> "Bandcamp"
             "universal" -> "Universal Link"
             else -> cleanKey.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
         }
@@ -117,6 +121,8 @@ object PackageUtils {
             lower.contains("tidal.com") || lower.startsWith("tidal:") -> "tidal"
             lower.contains("deezer.com") || lower.startsWith("deezer:") -> "deezer"
             lower.contains("amazon.") || lower.contains("amzn.to") || lower.contains("a.co") -> "amazonMusic"
+            lower.contains("soundcloud.com") || lower.startsWith("soundcloud:") -> "soundcloud"
+            lower.contains("bandcamp.com") || lower.startsWith("bandcamp:") -> "bandcamp"
             else -> ""
         }
     }

@@ -68,6 +68,18 @@ class UrlUtilsTest {
     }
 
     @Test
+    fun testSoundCloudAndBandcampUrlNormalization() {
+        val dirtySoundCloud = "https://soundcloud.com/octobersveryown/drake-gods-plan?si=12345&utm_source=clipboard"
+        assertEquals("https://soundcloud.com/octobersveryown/drake-gods-plan", UrlUtils.normalizeUrl(dirtySoundCloud))
+
+        val dirtyBandcampTrack = "https://radiohead.bandcamp.com/track/reckoner?from=search&search_item_id=123"
+        assertEquals("https://radiohead.bandcamp.com/track/reckoner", UrlUtils.normalizeUrl(dirtyBandcampTrack))
+
+        val dirtyBandcampAlbum = "https://artist.bandcamp.com/album/greatest-hits?from=fanpub_fb"
+        assertEquals("https://artist.bandcamp.com/album/greatest-hits", UrlUtils.normalizeUrl(dirtyBandcampAlbum))
+    }
+
+    @Test
     fun testCleanSearchQuery() {
         assertEquals("Bohemian Rhapsody", UrlUtils.cleanSearchQuery("Bohemian Rhapsody - 2011 Remaster"))
         assertEquals("Hotel California", UrlUtils.cleanSearchQuery("Hotel California (Remastered 2013)"))
@@ -102,6 +114,7 @@ class UrlUtilsTest {
         assertTrue(UrlUtils.isShortLinkDomain("https://a.co/d/12345"))
         assertTrue(UrlUtils.isShortLinkDomain("https://deezer.page.link/xyz"))
         assertTrue(UrlUtils.isShortLinkDomain("https://apple.co/abc"))
+        assertTrue(UrlUtils.isShortLinkDomain("https://on.soundcloud.com/xyz123"))
         assertFalse(UrlUtils.isShortLinkDomain("https://open.spotify.com/track/123"))
         assertFalse(UrlUtils.isShortLinkDomain("https://music.youtube.com/watch?v=123"))
     }
@@ -111,14 +124,18 @@ class UrlUtilsTest {
         assertTrue(UrlUtils.isPlaylistUrl("https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M"))
         assertTrue(UrlUtils.isPlaylistUrl("https://music.apple.com/de/playlist/heavy-metal/pl.u-12345"))
         assertTrue(UrlUtils.isPlaylistUrl("https://music.youtube.com/playlist?list=PL12345"))
+        assertTrue(UrlUtils.isPlaylistUrl("https://soundcloud.com/octobersveryown/sets/more-life"))
         assertFalse(UrlUtils.isPlaylistUrl("https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv"))
 
         assertTrue(UrlUtils.isAlbumUrl("https://open.spotify.com/album/1DFixLWuPkv3KT3TnV35m3"))
         assertTrue(UrlUtils.isAlbumUrl("https://music.apple.com/de/album/a-night-at-the-opera/1440650428"))
+        assertTrue(UrlUtils.isAlbumUrl("https://artist.bandcamp.com/album/in-rainbows"))
         assertFalse(UrlUtils.isAlbumUrl("https://music.apple.com/de/album/a-night-at-the-opera/1440650428?i=1440650711"))
 
         assertTrue(UrlUtils.isSearchUrl("https://open.spotify.com/search/Queen"))
         assertTrue(UrlUtils.isSearchUrl("https://music.apple.com/de/search?term=queen"))
+        assertTrue(UrlUtils.isSearchUrl("https://soundcloud.com/search?q=skrillex"))
+        assertTrue(UrlUtils.isSearchUrl("https://bandcamp.com/search?q=radiohead"))
     }
 
     @Test
@@ -129,11 +146,23 @@ class UrlUtilsTest {
         val appleSearch = UrlUtils.extractSearchQuery("https://music.apple.com/de/search?term=Queen%20Bohemian")
         assertEquals("Queen Bohemian", appleSearch)
 
+        val soundCloudSearch = UrlUtils.extractSearchQuery("https://soundcloud.com/search?q=Skrillex%20Rumble")
+        assertEquals("Skrillex Rumble", soundCloudSearch)
+
+        val bandcampSearch = UrlUtils.extractSearchQuery("https://bandcamp.com/search?q=Radiohead%20Reckoner")
+        assertEquals("Radiohead Reckoner", bandcampSearch)
+
         val builtYt = UrlUtils.buildSearchUrl("Queen Bohemian", "youtubeMusic")
         assertEquals("https://music.youtube.com/search?q=Queen%20Bohemian", builtYt)
 
         val builtSpotify = UrlUtils.buildSearchUrl("Queen Bohemian", "spotify")
         assertEquals("https://open.spotify.com/search/Queen%20Bohemian", builtSpotify)
+
+        val builtSoundCloud = UrlUtils.buildSearchUrl("Skrillex Rumble", "soundcloud")
+        assertEquals("https://soundcloud.com/search?q=Skrillex%20Rumble", builtSoundCloud)
+
+        val builtBandcamp = UrlUtils.buildSearchUrl("Radiohead Reckoner", "bandcamp")
+        assertEquals("https://bandcamp.com/search?q=Radiohead%20Reckoner", builtBandcamp)
     }
 
     @Test
@@ -165,6 +194,9 @@ class UrlUtilsTest {
         assertEquals("youtubemusic://music.youtube.com/watch?v=dQw4w9WgXcQ", UrlUtils.toNativeAppUri("https://music.youtube.com/watch?v=dQw4w9WgXcQ", "youtubeMusic"))
         assertEquals("youtubemusic://music.youtube.com/watch?v=dQw4w9WgXcQ", UrlUtils.toNativeAppUri("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "youtubeMusic"))
         assertEquals("youtubemusic://music.youtube.com/watch?v=dQw4w9WgXcQ", UrlUtils.toNativeAppUri("https://music.music.youtube.com/watch?v=dQw4w9WgXcQ", "youtubeMusic"))
+
+        // SoundCloud
+        assertEquals("soundcloud://tracks/octobersveryown/drake-gods-plan", UrlUtils.toNativeAppUri("https://soundcloud.com/octobersveryown/drake-gods-plan", "soundcloud"))
     }
 
     @Test

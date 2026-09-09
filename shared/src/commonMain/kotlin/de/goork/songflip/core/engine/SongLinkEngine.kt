@@ -662,6 +662,38 @@ class SongLinkEngine(
                     val title = root["title"]?.jsonPrimitive?.content
                     if (!title.isNullOrEmpty()) return title
                 }
+            } else if (url.contains("soundcloud.com")) {
+                val encoded = url.encodeURLParameter()
+                val resp = client.get("https://soundcloud.com/oembed?url=$encoded&format=json")
+                if (resp.status.isSuccess()) {
+                    val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
+                    val title = root["title"]?.jsonPrimitive?.content ?: ""
+                    val author = root["author_name"]?.jsonPrimitive?.content ?: ""
+                    val cleanTitle = if (author.isNotEmpty() && title.endsWith(" by $author", ignoreCase = true)) {
+                        title.substring(0, title.length - " by $author".length).trim()
+                    } else {
+                        title
+                    }
+                    if (cleanTitle.isNotEmpty()) {
+                        return if (author.isNotEmpty() && !cleanTitle.contains(author, ignoreCase = true)) "$author $cleanTitle" else cleanTitle
+                    }
+                }
+            } else if (url.contains("bandcamp.com")) {
+                val resp = client.get(url)
+                if (resp.status.isSuccess()) {
+                    val html = resp.bodyAsText()
+                    val ogTitleMatch = Regex("<meta\\s+property=[\"']og:title[\"']\\s+content=[\"']([^\"']+)[\"']", RegexOption.IGNORE_CASE).find(html)
+                        ?: Regex("<meta\\s+content=[\"']([^\"']+)[\"']\\s+property=[\"']og:title[\"']", RegexOption.IGNORE_CASE).find(html)
+                    if (ogTitleMatch != null) {
+                        val ogTitle = ogTitleMatch.groupValues[1]
+                        if (ogTitle.contains(", by ")) {
+                            val track = ogTitle.substringBefore(", by ").trim()
+                            val artist = ogTitle.substringAfter(", by ").trim()
+                            return "$artist $track"
+                        }
+                        return ogTitle
+                    }
+                }
             }
             null
         } catch (e: Exception) {

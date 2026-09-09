@@ -107,7 +107,24 @@ object UrlUtils {
             return "https://tidal.com/browse/$type/$id"
         }
 
-        // 7. Generic Query Parameter Stripping (si, context, rowId, utm_*, ad-tracking)
+        // 7. SoundCloud: soundcloud.com/{artist}/{track}
+        val soundCloudMatch = Regex("(?:https?://)?(?:www\\.|m\\.)?soundcloud\\.com/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)").find(clean)
+        if (soundCloudMatch != null && soundCloudMatch.groupValues[1].lowercase() !in listOf("search", "discover", "upload", "you", "stream", "settings")) {
+            val user = soundCloudMatch.groupValues[1]
+            val track = soundCloudMatch.groupValues[2]
+            return "https://soundcloud.com/$user/$track"
+        }
+
+        // 8. Bandcamp: {subdomain}.bandcamp.com/(track|album)/{slug}
+        val bandcampMatch = Regex("(?:https?://)?([a-zA-Z0-9_-]+)\\.bandcamp\\.com/(track|album)/([a-zA-Z0-9_-]+)").find(clean)
+        if (bandcampMatch != null) {
+            val subdomain = bandcampMatch.groupValues[1]
+            val type = bandcampMatch.groupValues[2]
+            val slug = bandcampMatch.groupValues[3]
+            return "https://$subdomain.bandcamp.com/$type/$slug"
+        }
+
+        // 9. Generic Query Parameter Stripping (si, context, rowId, utm_*, ad-tracking)
         if (clean.contains("?")) {
             val base = clean.substringBefore("?")
             val query = clean.substringAfter("?")
@@ -160,6 +177,7 @@ object UrlUtils {
                 url.contains("deezer.page.link") ||
                 url.contains("link.deezer.com") ||
                 url.contains("youtu.be") ||
+                url.contains("on.soundcloud.com") ||
                 url.contains("t.co/") ||
                 url.contains("://t.co") ||
                 url.contains("bit.ly") ||
@@ -175,12 +193,13 @@ object UrlUtils {
         if (url.contains("trackAsin=")) return false
         if (url.contains("/track/")) return false
         if (url.contains("/song/")) return false
-        return url.contains("/album/") || url.contains("/albums/") || url.contains("/album") || url.contains("album.link")
+        return url.contains("/album/") || url.contains("/albums/") || url.contains("/album") || url.contains("album.link") || url.contains(".bandcamp.com/album/")
     }
 
     fun isPlaylistUrl(url: String): Boolean {
         if (url.contains("i=") || url.contains("trackAsin=") || url.contains("/track/") || url.contains("/song/")) return false
-        return url.contains("/playlist/") || url.contains("/playlists/") || url.contains("/playlist?") || url.contains("link.deezer.com")
+        return url.contains("/playlist/") || url.contains("/playlists/") || url.contains("/playlist?") || url.contains("link.deezer.com") ||
+                (url.contains("soundcloud.com/") && (url.contains("/sets/") || url.contains("/playlists/")))
     }
 
     fun isSearchUrl(url: String): Boolean {
@@ -192,7 +211,9 @@ object UrlUtils {
                 clean.contains("youtube.com/results") ||
                 clean.contains("deezer.com") && clean.contains("/search") ||
                 clean.contains("tidal.com") && clean.contains("/search") ||
-                clean.contains("music.amazon.") && clean.contains("/search")
+                clean.contains("music.amazon.") && clean.contains("/search") ||
+                clean.contains("soundcloud.com/search") ||
+                clean.contains("bandcamp.com/search")
     }
 
     fun extractSearchQuery(url: String): String? {
@@ -253,6 +274,14 @@ object UrlUtils {
                 } else {
                     clean.substringAfter("/search/").substringBefore("?").substringBefore("&")
                 }
+            }
+            // SoundCloud: soundcloud.com/search?q=...
+            lower.contains("soundcloud.com/search") -> {
+                clean.substringAfter("q=").substringBefore("&")
+            }
+            // Bandcamp: bandcamp.com/search?q=...
+            lower.contains("bandcamp.com/search") -> {
+                clean.substringAfter("q=").substringBefore("&")
             }
             else -> null
         }
@@ -357,6 +386,8 @@ object UrlUtils {
             "tidal" -> "https://listen.tidal.com/search?q=$query"
             "deezer" -> "https://www.deezer.com/search/$query"
             "amazonMusic" -> "https://music.amazon.com/search/$query"
+            "soundcloud" -> "https://soundcloud.com/search?q=$query"
+            "bandcamp" -> "https://bandcamp.com/search?q=$query"
             else -> "https://music.youtube.com/search?q=$query"
         }
     }
@@ -391,6 +422,8 @@ object UrlUtils {
             "appleMusic" -> toNativeAppleMusicUri(url)
             "youtubeMusic" -> toNativeYouTubeMusicUri(url)
             "amazonMusic" -> toNativeAmazonMusicUri(url)
+            "soundcloud" -> toNativeSoundCloudUri(url)
+            "bandcamp" -> toNativeBandcampUri(url)
             else -> url
         }
     }
@@ -475,5 +508,20 @@ object UrlUtils {
         } else {
             url
         }
+    }
+
+    fun toNativeSoundCloudUri(url: String): String {
+        if (url.startsWith("soundcloud:")) return url
+        val clean = url.trim().substringBefore("?")
+        val match = Regex("(?:https?://)?(?:www\\.|m\\.)?soundcloud\\.com/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)").find(clean)
+        return if (match != null && match.groupValues[1].lowercase() !in listOf("search", "discover", "upload", "you", "stream")) {
+            "soundcloud://tracks/${match.groupValues[1]}/${match.groupValues[2]}"
+        } else {
+            url
+        }
+    }
+
+    fun toNativeBandcampUri(url: String): String {
+        return url
     }
 }
