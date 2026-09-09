@@ -467,6 +467,8 @@ struct ContentView: View {
         if lower.contains("deezer.com") || lower.contains("deezer.page.link") { return "Deezer" }
         if lower.contains("tidal.com") { return "Tidal" }
         if lower.contains("amazon.") || lower.contains("amzn.to") || lower.contains("a.co") { return "Amazon Music" }
+        if lower.contains("soundcloud.com") || lower.contains("on.soundcloud.com") { return "SoundCloud" }
+        if lower.contains("bandcamp.com") { return "Bandcamp" }
         if lower.contains("song.link") || lower.contains("album.link") || lower.contains("odesli.co") { return "Universal Link" }
         return "Music Link"
     }
@@ -494,6 +496,9 @@ struct ContentView: View {
                       lower.contains("amazon.") ||
                       lower.contains("amzn.to") ||
                       lower.contains("a.co") ||
+                      lower.contains("soundcloud.com") ||
+                      lower.contains("on.soundcloud.com") ||
+                      lower.contains("bandcamp.com") ||
                       lower.contains("song.link") ||
                       lower.contains("album.link") ||
                       lower.contains("odesli.co")
@@ -572,6 +577,8 @@ struct ContentView: View {
         case "deezer": return "music.quarternote.3"
         case "tidal": return "waveform"
         case "amazonmusic", "amazon": return "cart.fill"
+        case "soundcloud": return "waveform"
+        case "bandcamp": return "opticaldisc"
         default: return "music.note.list"
         }
     }
@@ -584,6 +591,8 @@ struct ContentView: View {
         case "deezer": return Color(red: 0.64, green: 0.22, blue: 1.0)
         case "tidal": return Color(red: 0.0, green: 0.9, blue: 0.9)
         case "amazonmusic", "amazon": return Color(red: 0.15, green: 0.82, blue: 0.85)
+        case "soundcloud": return Color(red: 1.0, green: 0.33, blue: 0.0)
+        case "bandcamp": return Color(red: 0.11, green: 0.63, blue: 0.76)
         default: return .green
         }
     }
