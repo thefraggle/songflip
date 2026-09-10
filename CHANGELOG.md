@@ -1,19 +1,9 @@
 # Changelog
 
-## [1.2.26] - 2026-09-10
-- **Enhanced Privacy & Security**: Hardened link validation and sharing protection against invalid web addresses.
-- **Smooth Code Redemption**: Strengthened pass redemption with instant feedback and reliable verification.
-- **Safe Backups**: Excluded private app preferences and API settings from cloud device backups.
-
-## [1.2.25] - 2026-09-10
-- **Accurate History**: Converted songs now appear reliably in your history with precise timestamps.
-- **Instant Speed**: Smarter link caching ensures converted music opens instantly on repeated taps.
-- **Fresh Playback**: Refreshing songs now smoothly updates playback to your latest preferred music app.
-
 ## [1.2.24] - 2026-09-10
-- **Global Polish**: Localized shortcuts, setup tips, and share actions across all 24 supported languages.
-- **Accurate Formats**: Refined track count and history capacity formatting for every language.
-- **Typo Fixes**: Corrected minor translation text on shared music pages.
+- **Instant Speed & History**: Smarter caching and accurate history tracking ensure converted songs open instantly and appear reliably.
+- **Global Polish**: Localized shortcuts, setup tips, and share actions across all 24 supported languages with accurate plural counts.
+- **Enhanced Privacy & Security**: Strengthened link validation and protection to keep your music sharing fast, private, and secure.
 
 ## [1.2.23] - 2026-09-10
 - **Direct Playback**: Shared music links now open straight in your preferred player without detour.
