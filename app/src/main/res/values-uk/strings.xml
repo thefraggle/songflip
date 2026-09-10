@@ -157,6 +157,7 @@
     <string name="pro_coupon_success_lifetime">🎉 SongFlip PRO Назавжди розблоковано!</string>
     <string name="pro_coupon_success_1year">🎉 SongFlip PRO (1 рік) розблоковано!</string>
     <string name="pro_coupon_invalid">Недійсний промокод</string>
+    <string name="pro_coupon_network_error">Помилка мережі. Будь ласка, спробуйте ще раз.</string>
     <string name="pro_coupon_already_active">PRO вже активний</string>
     <string name="pro_coupon_already_redeemed">Цей промокод уже активовано на цьому пристрої.</string>
     <string name="pro_active_status">SongFlip PRO Активний</string>

@@ -1,8 +1,5 @@
 package de.goork.songflip.ui
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -18,7 +15,6 @@ import de.goork.songflip.data.OdesliRepository
 import de.goork.songflip.data.OdesliResult
 import de.goork.songflip.data.PackageUtils
 import de.goork.songflip.data.PauseHelper
-import de.goork.songflip.data.ProManager
 import de.goork.songflip.data.SettingsRepository
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
@@ -101,12 +97,14 @@ class RedirectActivity : ComponentActivity() {
                 return
             }
 
-            // Immediate user feedback in all 24 languages to bridge network resolution
-            Toast.makeText(
-                applicationContext,
-                getString(R.string.redirecting_toast),
-                Toast.LENGTH_SHORT
-            ).show()
+            // Immediate user feedback in all 24 languages to bridge network resolution (only if not already cached)
+            if (!isCached) {
+                Toast.makeText(
+                    applicationContext,
+                    getString(R.string.redirecting_toast),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
 
             lifecycleScope.launch {
                 try {
@@ -120,44 +118,7 @@ class RedirectActivity : ComponentActivity() {
                         )
                     }
 
-                    val isActionSend = Intent.ACTION_SEND == intent?.action
-                    if (isActionSend && ProManager.isPro) {
-                        val universalUrl = ProManager.getUniversalWebShareUrl(incomingUrl)
-                        val title = (result as? OdesliResult.Success)?.title
-                        val artist = (result as? OdesliResult.Success)?.artist
-                        val isAlbum = (result as? OdesliResult.Success)?.isAlbum ?: false
-
-                        // Add to History & Cache
-                        LinkCacheManager.put(
-                            canonicalUrl = incomingUrl,
-                            targetPlatformKey = "universal",
-                            targetUrl = universalUrl,
-                            platform = "universal",
-                            title = title,
-                            artist = artist,
-                            isAlbum = isAlbum
-                        )
-
-                        // Ensure L2 Server Cache is populated in Firestore
-                        ProManager.warmupUniversalShare(incomingUrl)
-
-                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackSharePageGenerated(target = "universal")
-
-                        // Copy to clipboard
-                        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                        val clip = ClipData.newPlainText("SongFlip Universal Link", universalUrl)
-                        clipboard.setPrimaryClip(clip)
-
-                        val songInfo = if (!artist.isNullOrBlank() && !title.isNullOrBlank()) {
-                            " ($artist – $title)"
-                        } else ""
-
-                        Toast.makeText(
-                            applicationContext,
-                            "✨ " + getString(R.string.share_universal_link_copied) + songInfo,
-                            Toast.LENGTH_LONG
-                        ).show()
-                    } else if (result is OdesliResult.Success) {
+                    if (result is OdesliResult.Success) {
                         val targetDisplayName = PackageUtils.getPlatformDisplayName(targetPlatform)
                         val feedbackText = when {
                             !result.artist.isNullOrBlank() && !result.title.isNullOrBlank() -> {
