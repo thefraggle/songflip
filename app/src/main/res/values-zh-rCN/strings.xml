@@ -117,6 +117,13 @@
     <string name="legal_terms">服务条款</string>
     <string name="legal_contact">联系我们</string>
     <string name="playlist_not_supported_toast">目前不支持播放列表。</string>
+    <string name="playlist_dialog_title">检测到播放列表</string>
+    <string name="playlist_dialog_body">SongFlip 目前仅支持单曲和专辑。完整的播放列表转换功能将在后续更新中推出！</string>
+    <string name="playlist_dialog_action_open">在 %1$s 中打开</string>
+    <string name="playlist_dialog_action_copy">复制链接</string>
+    <string name="playlist_dialog_action_close">关闭</string>
+    <string name="playlist_badge">播放列表</string>
+    <string name="playlist_banner_action_open">在 %1$s 原版中打开</string>
 
     <string name="history_title">歌曲历史</string>
     <string name="history_subtitle">查看并管理最近转换的歌曲</string>

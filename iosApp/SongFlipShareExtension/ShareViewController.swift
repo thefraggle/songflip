@@ -135,6 +135,9 @@ class ShareViewController: UIViewController {
                     let targetUri = success.nativeAppUri ?? success.targetUrl
                     let fallbackUri = success.nativeAppUri != nil ? success.targetUrl : nil
                     self.openApp(urlString: targetUri, fallbackUrlString: fallbackUri)
+                } else if let playlist = result as? ResolutionResult.Playlist {
+                    self.statusLabel.text = self.localizedText(for: "playlist_share_opening", default: "Playlist: Opening original...")
+                    self.openApp(urlString: playlist.originalUrl)
                 } else {
                     self.statusLabel.text = self.localizedText(for: "share_error_failed", default: "Could not redirect link.")
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {

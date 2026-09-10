@@ -117,6 +117,13 @@
     <string name="legal_terms">सेवा अटी</string>
     <string name="legal_contact">संपर्क</string>
     <string name="playlist_not_supported_toast">प्लेलिस्ट सध्या समर्थित नाहीत.</string>
+    <string name="playlist_dialog_title">प्लेलिस्ट आढळली</string>
+    <string name="playlist_dialog_body">SongFlip सध्या गाणी आणि अल्बमचे समर्थन करते. संपूर्ण प्लेलिस्ट रूपांतरण लवकरच येत आहे!</string>
+    <string name="playlist_dialog_action_open">%1$s मध्ये उघडा</string>
+    <string name="playlist_dialog_action_copy">लिंक कॉपी करा</string>
+    <string name="playlist_dialog_action_close">बंद करा</string>
+    <string name="playlist_badge">प्लेलिस्ट</string>
+    <string name="playlist_banner_action_open">%1$s मूळमध्ये उघडा</string>
 
     <string name="history_title">गाण्यांचा इतिहास</string>
     <string name="history_subtitle">अलीकडे रूपांतरित केलेली गाणी व्यवस्थापित करा आणि पुन्हा प्ले करा</string>

@@ -86,6 +86,15 @@ struct ConvertSongIntent: AppIntent {
             }
 
             return .result()
+        } else if let playlist = res as? ResolutionResult.Playlist {
+            AptabaseClient.shared.trackLinkFlipFailed(
+                target: targetPlatform,
+                reason: "playlist_detected"
+            )
+            if let url = URL(string: playlist.originalUrl) {
+                await UIApplication.shared.open(url)
+            }
+            return .result()
         } else {
             let defaultMsg = LocalizationManager.string(for: "intent_error_failed_to_resolve", lang: LocalizationManager.currentLanguage())
             let reason = (res as? ResolutionResult.Error)?.message ?? defaultMsg

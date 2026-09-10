@@ -22,6 +22,13 @@ sealed class ResolutionResult {
     ) : ResolutionResult()
 
     @Serializable
+    data class Playlist(
+        val originalUrl: String,
+        val platform: String,
+        val message: String? = null
+    ) : ResolutionResult()
+
+    @Serializable
     data class Error(
         val message: String,
         val isUnsupported: Boolean = false

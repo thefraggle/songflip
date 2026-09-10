@@ -13,6 +13,8 @@ struct ContentView: View {
     @State private var showingHistorySheet = false
     @State private var showingShortcutsGuide = false
     @State private var showingShareGuide = false
+    @State private var showingPlaylistNotice = false
+    @State private var playlistNoticeUrl: String? = nil
 
     var lang: String { settings.selectedLanguage }
     var appVersion: String {
@@ -57,12 +59,13 @@ struct ContentView: View {
 
                         // 1.5 Clipboard Smart-Banner (when music link is copied)
                         if let detectedUrl = detectedClipboardUrl {
+                            let isPlaylist = UrlUtils.shared.isPlaylistUrl(url: detectedUrl)
                             VStack(alignment: .leading, spacing: 10) {
                                 HStack {
-                                    Image(systemName: "doc.on.clipboard.fill")
-                                        .foregroundColor(.green)
+                                    Image(systemName: isPlaylist ? "music.note.list" : "doc.on.clipboard.fill")
+                                        .foregroundColor(isPlaylist ? .orange : .green)
                                         .font(.system(size: 16))
-                                    Text(LocalizationManager.string(for: "clipboard_banner_title", lang: lang))
+                                    Text(LocalizationManager.string(for: isPlaylist ? "playlist_dialog_title" : "clipboard_banner_title", lang: lang))
                                         .font(.subheadline)
                                         .fontWeight(.bold)
                                         .foregroundColor(.primary)
@@ -86,9 +89,20 @@ struct ContentView: View {
                                         .fontWeight(.semibold)
                                         .padding(.horizontal, 6)
                                         .padding(.vertical, 2)
-                                        .background(Color.green.opacity(0.15))
-                                        .foregroundColor(.green)
+                                        .background((isPlaylist ? Color.orange : Color.green).opacity(0.15))
+                                        .foregroundColor(isPlaylist ? .orange : .green)
                                         .cornerRadius(6)
+
+                                    if isPlaylist {
+                                        Text(LocalizationManager.string(for: "playlist_badge", lang: lang))
+                                            .font(.caption2)
+                                            .fontWeight(.bold)
+                                            .padding(.horizontal, 6)
+                                            .padding(.vertical, 2)
+                                            .background(Color.orange.opacity(0.2))
+                                            .foregroundColor(.orange)
+                                            .cornerRadius(6)
+                                    }
 
                                     Text(detectedUrl)
                                         .font(.caption)
@@ -97,32 +111,54 @@ struct ContentView: View {
                                         .truncationMode(.tail)
                                 }
 
-                                let targetChoice = PlatformChoice.allCases.first { $0.rawValue == settings.targetPlatform }
-                                let targetName = targetChoice?.displayName ?? "Player"
-                                Button(action: {
-                                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                                    convertLink(urlToConvert: detectedUrl)
-                                }) {
-                                    HStack(spacing: 6) {
-                                        Image(systemName: "play.fill")
-                                            .font(.system(size: 12))
-                                        Text(String(format: LocalizationManager.string(for: "clipboard_banner_action_open", lang: lang), targetName))
-                                            .font(.system(size: 13, weight: .bold))
-                                            .lineLimit(1)
+                                if isPlaylist {
+                                    Button(action: {
+                                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                        playlistNoticeUrl = detectedUrl
+                                        showingPlaylistNotice = true
+                                    }) {
+                                        HStack(spacing: 6) {
+                                            Image(systemName: "arrow.up.right")
+                                                .font(.system(size: 12))
+                                            Text(String(format: LocalizationManager.string(for: "playlist_banner_action_open", lang: lang), detectSourcePlatformName(url: detectedUrl)))
+                                                .font(.system(size: 13, weight: .bold))
+                                                .lineLimit(1)
+                                        }
+                                        .padding(.vertical, 8)
+                                        .padding(.horizontal, 12)
+                                        .frame(maxWidth: .infinity)
+                                        .background(Color.orange)
+                                        .foregroundColor(.white)
+                                        .cornerRadius(10)
                                     }
-                                    .padding(.vertical, 8)
-                                    .padding(.horizontal, 12)
-                                    .frame(maxWidth: .infinity)
-                                    .background(Color.green)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(10)
+                                } else {
+                                    let targetChoice = PlatformChoice.allCases.first { $0.rawValue == settings.targetPlatform }
+                                    let targetName = targetChoice?.displayName ?? "Player"
+                                    Button(action: {
+                                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                        convertLink(urlToConvert: detectedUrl)
+                                    }) {
+                                        HStack(spacing: 6) {
+                                            Image(systemName: "play.fill")
+                                                .font(.system(size: 12))
+                                            Text(String(format: LocalizationManager.string(for: "clipboard_banner_action_open", lang: lang), targetName))
+                                                .font(.system(size: 13, weight: .bold))
+                                                .lineLimit(1)
+                                        }
+                                        .padding(.vertical, 8)
+                                        .padding(.horizontal, 12)
+                                        .frame(maxWidth: .infinity)
+                                        .background(Color.green)
+                                        .foregroundColor(.white)
+                                        .cornerRadius(10)
+                                    }
                                 }
                             }
                             .padding(14)
-                            .background(Color.green.opacity(0.12))
+                            .background((isPlaylist ? Color.orange : Color.green).opacity(0.12))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 16)
-                                    .stroke(Color.green.opacity(0.35), lineWidth: 1)
+                                    .stroke((isPlaylist ? Color.orange : Color.green).opacity(0.35), lineWidth: 1)
                             )
                             .cornerRadius(16)
                             .transition(.opacity.combined(with: .scale(scale: 0.95)))
@@ -435,6 +471,16 @@ struct ContentView: View {
                 ShareGuideSheet(lang: lang)
                     .preferredColorScheme(settings.colorScheme)
             }
+            .sheet(isPresented: $showingPlaylistNotice) {
+                if let pUrl = playlistNoticeUrl {
+                    PlaylistNoticeSheetView(
+                        playlistUrl: pUrl,
+                        platformName: detectSourcePlatformName(url: pUrl),
+                        dismissAction: { showingPlaylistNotice = false }
+                    )
+                    .preferredColorScheme(settings.colorScheme)
+                }
+            }
             .onAppear {
                 AptabaseClient.shared.trackAppLaunched(platform: "iOS", language: lang)
                 history.loadHistory()
@@ -554,6 +600,13 @@ struct ContentView: View {
                     if let url = URL(string: target) {
                         UIApplication.shared.open(url)
                     }
+                } else if let playlist = res as? ResolutionResult.Playlist {
+                    AptabaseClient.shared.trackLinkFlipFailed(
+                        target: settings.targetPlatform,
+                        reason: "playlist_detected"
+                    )
+                    playlistNoticeUrl = playlist.originalUrl
+                    showingPlaylistNotice = true
                 } else if let error = res as? ResolutionResult.Error {
                     AptabaseClient.shared.trackLinkFlipFailed(
                         target: settings.targetPlatform,

@@ -29,16 +29,16 @@ class SongLinkEngineTest {
     }
 
     @Test
-    fun testPlaylistUrlReturnsUnsupportedError() = runTest {
+    fun testPlaylistUrlReturnsPlaylistResult() = runTest {
         val engine = SongLinkEngine(
             client = HttpClient(MockEngine { respond("") }),
             cache = LinkCache()
         )
         val result = engine.resolveTargetUrl("https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M", "youtubeMusic")
-        assertTrue(result is ResolutionResult.Error)
-        val error = result as ResolutionResult.Error
-        assertEquals("PLAYLIST_NOT_SUPPORTED", error.message)
-        assertTrue(error.isUnsupported)
+        assertTrue(result is ResolutionResult.Playlist)
+        val playlist = result as ResolutionResult.Playlist
+        assertEquals("spotify", playlist.platform)
+        assertEquals("https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M", playlist.originalUrl)
     }
 
     @Test

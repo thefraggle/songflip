@@ -117,6 +117,13 @@
     <string name="legal_terms">Användarvillkor</string>
     <string name="legal_contact">Kontakt</string>
     <string name="playlist_not_supported_toast">Spellistor stöds för närvarande inte.</string>
+    <string name="playlist_dialog_title">Spellista upptäckt</string>
+    <string name="playlist_dialog_body">SongFlip stöder för närvarande enskilda låtar och album. Fullständig konvertering av spellistor kommer i en framtida uppdatering!</string>
+    <string name="playlist_dialog_action_open">Öppna i %1$s</string>
+    <string name="playlist_dialog_action_copy">Kopiera länk</string>
+    <string name="playlist_dialog_action_close">Stäng</string>
+    <string name="playlist_badge">Spellista</string>
+    <string name="playlist_banner_action_open">Öppna %1$s i original</string>
 
     <string name="history_title">Låthistorik</string>
     <string name="history_subtitle">Se och hantera nyligen konverterade låtar</string>
