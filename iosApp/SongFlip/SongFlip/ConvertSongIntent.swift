@@ -50,7 +50,7 @@ struct ConvertSongIntent: AppIntent {
         let customUrl = defaults.string(forKey: "custom_api_url") ?? ""
         let customToken = defaults.string(forKey: "custom_api_token") ?? ""
 
-        let engine = SongLinkEngine()
+        let engine = SongLinkEngine.shared
         let res = try? await engine.resolveTargetUrl(
             inputUrl: urlToConvert,
             targetPlatformKey: targetPlatform,

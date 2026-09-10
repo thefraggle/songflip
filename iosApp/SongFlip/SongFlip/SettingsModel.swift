@@ -117,7 +117,7 @@ class SettingsModel: ObservableObject {
         }
     }
 
-    let engine = SongLinkEngine()
+    let engine = SongLinkEngine.shared
 
     init() {
         let storage = UserDefaults(suiteName: Self.appGroupId) ?? UserDefaults.standard

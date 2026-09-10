@@ -10,7 +10,8 @@ data class CachedLinkEntry(
     val title: String? = null,
     val artist: String? = null,
     val isAlbum: Boolean = false,
-    val timestamp: Long = System.currentTimeMillis()
+    val timestamp: Long = System.currentTimeMillis(),
+    val isHistory: Boolean = true
 )
 
 data class HistoryItem(
@@ -52,6 +53,12 @@ object LinkCacheManager {
             checkCacheVersionMigration()
             loadInitialFromPrefs()
         }
+    }
+
+    fun init(prefs: SharedPreferences) {
+        sharedPreferences = prefs
+        checkCacheVersionMigration()
+        loadInitialFromPrefs()
     }
 
     @Synchronized
@@ -134,21 +141,36 @@ object LinkCacheManager {
         platform: String,
         title: String? = null,
         artist: String? = null,
-        isAlbum: Boolean = false
+        isAlbum: Boolean = false,
+        isHistory: Boolean = true
     ) {
         if (!isValidTargetUrl(targetUrl)) return
         val cacheKey = buildCacheKey(canonicalUrl, targetPlatformKey)
+        val existing = memoryCache[cacheKey] ?: sharedPreferences?.getString(cacheKey, null)?.let { parseEntry(it) }
+        val finalIsHistory = (existing?.isHistory == true) || isHistory
         val entry = CachedLinkEntry(
             targetUrl = targetUrl,
             platform = platform,
             title = title,
             artist = artist,
             isAlbum = isAlbum,
-            timestamp = System.currentTimeMillis()
+            timestamp = System.currentTimeMillis(),
+            isHistory = finalIsHistory
         )
 
         memoryCache[cacheKey] = entry
         savePersistent(cacheKey, entry)
+    }
+
+    @Synchronized
+    fun markAsHistory(canonicalUrl: String, targetPlatformKey: String) {
+        val cacheKey = buildCacheKey(canonicalUrl, targetPlatformKey)
+        val entry = memoryCache[cacheKey] ?: sharedPreferences?.getString(cacheKey, null)?.let { parseEntry(it) }
+        if (entry != null) {
+            val updated = entry.copy(isHistory = true, timestamp = System.currentTimeMillis())
+            memoryCache[cacheKey] = updated
+            savePersistent(cacheKey, updated)
+        }
     }
 
     @Synchronized
@@ -167,7 +189,7 @@ object LinkCacheManager {
     @Synchronized
     fun clear() {
         memoryCache.clear()
-        sharedPreferences?.edit()?.clear()?.apply()
+        sharedPreferences?.edit()?.clear()?.putInt(CACHE_VERSION_KEY, CURRENT_CACHE_VERSION)?.apply()
     }
 
     @Synchronized
@@ -189,10 +211,9 @@ object LinkCacheManager {
 
         for (key in combinedKeys) {
             val entry = memoryCache[key] ?: (prefs?.getString(key, null)?.let { parseEntry(it) })
-            if (entry != null && (now - entry.timestamp) < CACHE_TTL_MS && isValidTargetUrl(entry.targetUrl)) {
-                val parts = key.split("|")
-                val canonicalUrl = parts.getOrNull(0) ?: ""
-                val targetPlatformKey = parts.getOrNull(1) ?: entry.platform
+            if (entry != null && entry.isHistory && (now - entry.timestamp) < CACHE_TTL_MS && isValidTargetUrl(entry.targetUrl)) {
+                val canonicalUrl = key.substringBeforeLast("|")
+                val targetPlatformKey = key.substringAfterLast("|", entry.platform)
 
                 allItems.add(
                     HistoryItem(
@@ -260,6 +281,7 @@ object LinkCacheManager {
                 put("artist", entry.artist)
                 put("isAlbum", entry.isAlbum)
                 put("timestamp", entry.timestamp)
+                put("isHistory", entry.isHistory)
             }
             val editor = prefs.edit()
             editor.putString(key, json.toString())
@@ -311,7 +333,8 @@ object LinkCacheManager {
                 title = if (obj.has("title") && !obj.isNull("title")) obj.getString("title") else null,
                 artist = if (obj.has("artist") && !obj.isNull("artist")) obj.getString("artist") else null,
                 isAlbum = obj.optBoolean("isAlbum", false),
-                timestamp = obj.optLong("timestamp", System.currentTimeMillis())
+                timestamp = obj.optLong("timestamp", System.currentTimeMillis()),
+                isHistory = obj.optBoolean("isHistory", true)
             )
         } catch (e: Exception) {
             null

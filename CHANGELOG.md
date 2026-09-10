@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.25] - 2026-09-10
+- **Accurate History**: Converted songs now appear reliably in your history with precise timestamps.
+- **Instant Speed**: Smarter link caching ensures converted music opens instantly on repeated taps.
+- **Fresh Playback**: Refreshing songs now smoothly updates playback to your latest preferred music app.
+
 ## [1.2.24] - 2026-09-10
 - **Global Polish**: Localized shortcuts, setup tips, and share actions across all 24 supported languages.
 - **Accurate Formats**: Refined track count and history capacity formatting for every language.

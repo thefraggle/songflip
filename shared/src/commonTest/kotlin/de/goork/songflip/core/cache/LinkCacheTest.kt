@@ -80,4 +80,34 @@ class LinkCacheTest {
         cache.clear()
         assertEquals(0, cache.size())
     }
+
+    @Test
+    fun testStoragePersistenceAcrossInstances() = runTest {
+        // In-memory fake storage simulating persistent shared storage (e.g. App Group UserDefaults)
+        val sharedStorage = object : CacheStorage {
+            val map = mutableMapOf<String, CacheEntry>()
+            override fun get(key: String): CacheEntry? = map[key]
+            override fun put(key: String, entry: CacheEntry) { map[key] = entry }
+            override fun remove(key: String) { map.remove(key) }
+            override fun clear() { map.clear() }
+            override fun loadAll(): Map<String, CacheEntry> = map.toMap()
+        }
+
+        // Process 1 (e.g. ShareExtension): resolves and caches song
+        val cache1 = LinkCache(maxEntries = 10, ttlMs = 100000L, storage = sharedStorage)
+        cache1.put(
+            canonicalUrl = "https://open.spotify.com/track/shared123",
+            targetPlatformKey = "appleMusic",
+            result = ResolutionResult.Success(targetUrl = "https://music.apple.com/song/shared123", platform = "appleMusic", title = "Shared Song"),
+            currentTimeMs = 1000L
+        )
+
+        // Process 2 (e.g. Main App or App Intent): new LinkCache instance accessing the same storage
+        val cache2 = LinkCache(maxEntries = 10, ttlMs = 100000L, storage = sharedStorage)
+        val resolvedInProcess2 = cache2.get("https://open.spotify.com/track/shared123", "appleMusic", currentTimeMs = 2000L)
+
+        assertNotNull(resolvedInProcess2, "Item cached in Process 1 must be retrievable in Process 2 from shared storage")
+        assertEquals("https://music.apple.com/song/shared123", resolvedInProcess2.targetUrl)
+        assertEquals("Shared Song", resolvedInProcess2.title)
+    }
 }
