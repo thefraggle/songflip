@@ -37,6 +37,114 @@ function isRateLimited(key: string, maxRequests: number, windowMs = 60000): bool
   return false;
 }
 
+function recordFailedAttempt(key: string, maxFailures: number, windowMs = 600000): boolean {
+  if (!key || key === "127.0.0.1" || key === "::1") return false;
+  const now = Date.now();
+  const entry = rateLimitCache.get(key);
+  if (!entry || now > entry.resetAt) {
+    rateLimitCache.set(key, { count: 1, resetAt: now + windowMs });
+    return false;
+  }
+  entry.count++;
+  return entry.count >= maxFailures;
+}
+
+function isBlockedDueToFailures(key: string, maxFailures: number): boolean {
+  if (!key || key === "127.0.0.1" || key === "::1") return false;
+  const entry = rateLimitCache.get(key);
+  if (!entry || Date.now() > entry.resetAt) return false;
+  return entry.count >= maxFailures;
+}
+
+const COUPON_SIGNING_SECRET = process.env.COUPON_SIGNING_SECRET || "songflip-coupon-hmac-2026-secure";
+
+function createSignedCouponToken(code: string, installId: string, exp: number | null, type: string): string {
+  const payload = Buffer.from(JSON.stringify({ c: code, i: installId, e: exp, t: type })).toString("base64url");
+  const signature = crypto.createHmac("sha256", COUPON_SIGNING_SECRET).update(payload).digest("base64url");
+  return `sct_${payload}.${signature}`;
+}
+
+function verifySignedCouponToken(token: string): { valid: boolean; code?: string; exp?: number | null } {
+  if (!token || !token.startsWith("sct_")) return { valid: false };
+  const raw = token.substring(4);
+  const parts = raw.split(".");
+  if (parts.length !== 2) return { valid: false };
+  const [payload, signature] = parts;
+
+  const expectedSignature = crypto.createHmac("sha256", COUPON_SIGNING_SECRET).update(payload).digest("base64url");
+  if (signature.length !== expectedSignature.length || !crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
+    return { valid: false };
+  }
+
+  try {
+    const data = JSON.parse(Buffer.from(payload, "base64url").toString("utf8"));
+    if (data.e && typeof data.e === "number" && data.e < Date.now()) {
+      return { valid: false };
+    }
+    return { valid: true, code: data.c, exp: data.e };
+  } catch {
+    return { valid: false };
+  }
+}
+
+/**
+ * Validates Bandcamp URLs strictly: protocol https, host ends with bandcamp.com or is bandcamp.com,
+ * no IP addresses, no metadata IPs, no custom non-standard ports, no credentials.
+ */
+function isValidBandcampUrl(rawUrl: string): boolean {
+  if (!rawUrl || typeof rawUrl !== "string") return false;
+  try {
+    const parsed = new URL(rawUrl.trim());
+    if (parsed.protocol !== "https:") return false;
+
+    const hostname = parsed.hostname.toLowerCase();
+    // Exclude all IP addresses, local names, and IPv6
+    if (/^(\d{1,3}\.){3}\d{1,3}$/.test(hostname) || hostname.includes(":") || hostname === "localhost") {
+      return false;
+    }
+
+    // Host validation: must be exactly bandcamp.com or *.bandcamp.com
+    const isBandcampHost = /(^|\.)bandcamp\.com$/i.test(hostname);
+    if (!isBandcampHost) return false;
+
+    // Strict subdomain structure check
+    if (hostname !== "bandcamp.com" && !/^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)*\.bandcamp\.com$/i.test(hostname)) {
+      return false;
+    }
+
+    if (parsed.username || parsed.password) return false;
+    if (parsed.port && parsed.port !== "443") return false;
+
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * General SSRF guard for incoming external music URLs.
+ */
+function isSafePublicHttpsUrl(rawUrl: string): boolean {
+  if (!rawUrl || typeof rawUrl !== "string") return false;
+  try {
+    const parsed = new URL(rawUrl.trim());
+    if (parsed.protocol !== "https:") return false;
+
+    const hostname = parsed.hostname.toLowerCase();
+    if (hostname === "localhost" || hostname.includes(":")) return false;
+    if (/^(\d{1,3}\.){3}\d{1,3}$/.test(hostname)) return false;
+    if (hostname.startsWith("169.254.") || hostname.startsWith("127.") || hostname.startsWith("10.") || hostname.startsWith("192.168.")) {
+      return false;
+    }
+    if (parsed.username || parsed.password) return false;
+    if (parsed.port && parsed.port !== "443") return false;
+
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 const REVENUECAT_SECRET_KEY = process.env.REVENUECAT_SECRET_KEY || "";
 
 /**
@@ -180,7 +288,41 @@ export function hashUrl(url: string): string {
  */
 async function verifyProStatus(userId: string): Promise<boolean> {
   if (userId.startsWith("coupon:")) {
-    return true;
+    const couponVal = userId.substring("coupon:".length).trim();
+    if (!couponVal) return false;
+
+    const cached = userProCache.get(userId);
+    if (cached !== undefined) {
+      return cached;
+    }
+
+    // 1. Verify signed HMAC coupon token
+    const tokenResult = verifySignedCouponToken(couponVal);
+    if (tokenResult.valid) {
+      userProCache.set(userId, true, { ttl: 1000 * 60 * 60 });
+      return true;
+    }
+
+    // 2. Verify active promo code document in Firestore
+    try {
+      const code = couponVal.toUpperCase();
+      const promoSnap = await db.collection("promo_codes").doc(code).get();
+      if (promoSnap.exists) {
+        const pData = promoSnap.data() || {};
+        const isActive = pData.isActive !== false;
+        const validUntil = pData.validUntil ? (pData.validUntil as admin.firestore.Timestamp).toMillis() : null;
+        if (isActive && (!validUntil || validUntil > Date.now())) {
+          userProCache.set(userId, true, { ttl: 1000 * 60 * 60 });
+          return true;
+        }
+      }
+    } catch (err: any) {
+      console.error("Firestore coupon verification error:", err?.message);
+    }
+
+    // Reject arbitrary/fake coupon strings
+    userProCache.set(userId, false, { ttl: 1000 * 60 * 5 });
+    return false;
   }
 
   const cached = userProCache.get(userId);
@@ -973,7 +1115,7 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
       }
 
       // Attempt 4: Bandcamp OpenGraph
-      if (cleanLower.includes("bandcamp.com")) {
+      if (cleanLower.includes("bandcamp.com") && isValidBandcampUrl(url)) {
         try {
           const bcRes = await axios.get(url, {
             headers: {
@@ -1102,33 +1244,26 @@ export const resolve = onRequest(
       return;
     }
 
-    // 2. Authenticate User (PRO User via RevenueCat OR official SongFlip Web Showcase)
+    // 2. Authenticate User (PRO User via RevenueCat OR valid VIP Coupon Token)
     const origin = (req.headers.origin as string) || "";
     const referer = (req.headers.referer as string) || "";
-    const isWebShowcase = 
-      origin === "https://songflip.link" || 
-      origin.endsWith(".songflip.link") || 
-      referer.includes("songflip.link") || 
-      origin.includes("localhost") || 
-      referer.includes("localhost") ||
-      req.headers["x-web-client"] === "songflip";
+    const isLocalEmulator = process.env.FUNCTIONS_EMULATOR === "true" && 
+      (origin.includes("localhost") || referer.includes("localhost") || clientIp === "127.0.0.1" || clientIp === "::1");
 
     const authHeader = req.headers.authorization || "";
     const tokenMatch = authHeader.match(/^Bearer\s+(.+)$/i);
     const userId = tokenMatch ? tokenMatch[1].trim() : (req.headers["x-user-id"] as string)?.trim();
 
-    if (!isWebShowcase) {
+    if (!isLocalEmulator) {
       if (!userId) {
-        res.status(401).json({ error: "MISSING_AUTH_TOKEN", message: "RevenueCat user ID required" });
+        res.status(401).json({ error: "MISSING_AUTH_TOKEN", message: "RevenueCat user ID or valid coupon token required" });
         return;
       }
 
-      if (userId !== "web_showcase_2026") {
-        const isPro = await verifyProStatus(userId);
-        if (!isPro) {
-          res.status(403).json({ error: "PRO_REQUIRED", message: "SongFlip PRO is required to use the L2 Server Cache." });
-          return;
-        }
+      const isPro = await verifyProStatus(userId);
+      if (!isPro) {
+        res.status(403).json({ error: "PRO_REQUIRED", message: "SongFlip PRO is required to use the L2 Server Cache." });
+        return;
       }
     }
 
@@ -1239,7 +1374,7 @@ export const invalidate = onRequest(
     applyApiSecurityHeaders(res);
     res.set("Access-Control-Allow-Origin", "*");
     res.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-    res.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.set("Access-Control-Allow-Headers", "Content-Type, Authorization, x-admin-secret, x-api-key");
 
     if (req.method === "OPTIONS") {
       res.status(204).send("");
@@ -1248,6 +1383,35 @@ export const invalidate = onRequest(
 
     if (req.method !== "POST" && req.method !== "GET") {
       res.status(405).json({ error: "METHOD_NOT_ALLOWED" });
+      return;
+    }
+
+    const clientIp = (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() || req.ip || "unknown";
+    if (isRateLimited(`invalidate:${clientIp}`, 20, 60000)) {
+      res.setHeader("Retry-After", "60");
+      res.status(429).json({ error: "TOO_MANY_REQUESTS", message: "Zu viele Anfragen. Bitte warte eine Minute." });
+      return;
+    }
+
+    // Require authorization: Admin Secret or valid PRO user token
+    const ADMIN_SECRET = process.env.ADMIN_SECRET || "songflip-admin-cache-secret-2026";
+    const adminHeader = (req.headers["x-admin-secret"] as string) || (req.headers["x-api-key"] as string);
+    const authHeader = req.headers.authorization || "";
+    const tokenMatch = authHeader.match(/^Bearer\s+(.+)$/i);
+    const userId = tokenMatch ? tokenMatch[1].trim() : (req.headers["x-user-id"] as string)?.trim();
+
+    let isAuthorized = false;
+    if (adminHeader && adminHeader === ADMIN_SECRET) {
+      isAuthorized = true;
+    } else if (userId) {
+      isAuthorized = await verifyProStatus(userId);
+    }
+
+    if (!isAuthorized) {
+      res.status(401).json({
+        error: "UNAUTHORIZED",
+        message: "Admin-Secret oder gültiges PRO Bearer-Token erforderlich.",
+      });
       return;
     }
 
@@ -1307,7 +1471,7 @@ export const redeemPromoCode = onRequest(
     }
 
     const clientIp = (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() || req.ip || "unknown";
-    if (isRateLimited(`promo:${clientIp}`, 10, 60000)) {
+    if (isRateLimited(`promo_ip:${clientIp}`, 10, 60000)) {
       res.setHeader("Retry-After", "60");
       res.status(429).json({ error: "TOO_MANY_REQUESTS", message: "Zu viele Versuche. Bitte warte eine Minute." });
       return;
@@ -1316,13 +1480,31 @@ export const redeemPromoCode = onRequest(
     const rawCode = (req.body?.code || req.query?.code) as string;
     const rawInstallId = (req.body?.installId || req.body?.install_id || req.query?.installId || req.query?.install_id) as string;
 
+    // Validate installId as mandatory field (string, >= 8 chars)
+    if (!rawInstallId || typeof rawInstallId !== "string" || rawInstallId.trim().length < 8) {
+      res.status(400).json({ error: "INVALID_INSTALL_ID", message: "Gültige installId erforderlich (mindestens 8 Zeichen)." });
+      return;
+    }
+    const cleanInstallId = rawInstallId.trim();
+
+    if (isRateLimited(`promo_id:${cleanInstallId}`, 5, 60000)) {
+      res.setHeader("Retry-After", "60");
+      res.status(429).json({ error: "TOO_MANY_REQUESTS", message: "Zu viele Versuche für dieses Gerät. Bitte warte eine Minute." });
+      return;
+    }
+
+    if (isBlockedDueToFailures(`promo_fail_ip:${clientIp}`, 5) || isBlockedDueToFailures(`promo_fail_id:${cleanInstallId}`, 5)) {
+      res.setHeader("Retry-After", "600");
+      res.status(429).json({ error: "TOO_MANY_FAILED_ATTEMPTS", message: "Zu viele Fehlversuche. Bitte warte 10 Minuten." });
+      return;
+    }
+
     if (!rawCode || typeof rawCode !== "string") {
       res.status(400).json({ error: "INVALID_CODE", message: "Gutscheincode erforderlich." });
       return;
     }
 
     const cleanCode = rawCode.trim().toUpperCase();
-    const cleanInstallId = rawInstallId && typeof rawInstallId === "string" ? rawInstallId.trim() : null;
     const promoRef = db.collection("promo_codes").doc(cleanCode);
 
     try {
@@ -1351,26 +1533,27 @@ export const redeemPromoCode = onRequest(
         }
 
         // Per-device single redemption check
-        let redemptionRef: admin.firestore.DocumentReference | null = null;
-        if (cleanInstallId) {
-          redemptionRef = promoRef.collection("redemptions").doc(cleanInstallId);
-          const redemptionSnap = await transaction.get(redemptionRef);
-          if (redemptionSnap.exists) {
-            return {
-              error: "ALREADY_REDEEMED_ON_DEVICE",
-              message: "Dieser Gutscheincode wurde auf diesem Gerät bereits eingelöst."
-            };
-          }
+        const redemptionRef = promoRef.collection("redemptions").doc(cleanInstallId);
+        const redemptionSnap = await transaction.get(redemptionRef);
+        if (redemptionSnap.exists) {
+          return {
+            error: "ALREADY_REDEEMED_ON_DEVICE",
+            message: "Dieser Gutscheincode wurde auf diesem Gerät bereits eingelöst."
+          };
         }
 
+        const type = (data.type || "1month").toLowerCase(); // "1month", "3months", "1year", "lifetime"
+        const durationDays = type === "lifetime" ? null : (data.durationDays || (type === "1year" ? 365 : type === "3months" ? 90 : 30));
+        const expirationTimestamp = durationDays ? Date.now() + durationDays * 24 * 60 * 60 * 1000 : null;
+        const token = createSignedCouponToken(cleanCode, cleanInstallId, expirationTimestamp, type);
+
         // Record redemption per device
-        if (redemptionRef && cleanInstallId) {
-          transaction.set(redemptionRef, {
-            installId: cleanInstallId,
-            redeemedAt: admin.firestore.FieldValue.serverTimestamp(),
-            ip: clientIp,
-          });
-        }
+        transaction.set(redemptionRef, {
+          installId: cleanInstallId,
+          redeemedAt: admin.firestore.FieldValue.serverTimestamp(),
+          ip: clientIp,
+          token: token,
+        });
 
         // Atomically increment global redemptions
         transaction.update(promoRef, {
@@ -1378,18 +1561,20 @@ export const redeemPromoCode = onRequest(
           lastRedeemedAt: admin.firestore.FieldValue.serverTimestamp(),
         });
 
-        const type = (data.type || "1month").toLowerCase(); // "1month", "3months", "1year", "lifetime"
-        const durationDays = type === "lifetime" ? null : (data.durationDays || (type === "1year" ? 365 : type === "3months" ? 90 : 30));
-
         return {
           status: "success",
           type: type,
           durationDays: durationDays,
-          expirationTimestamp: durationDays ? Date.now() + durationDays * 24 * 60 * 60 * 1000 : null,
+          expirationTimestamp: expirationTimestamp,
+          token: token,
         };
       });
 
       if (result.error) {
+        if (result.error === "INVALID_CODE" || result.error === "CODE_EXPIRED" || result.error === "CODE_INACTIVE") {
+          recordFailedAttempt(`promo_fail_ip:${clientIp}`, 5, 600000);
+          recordFailedAttempt(`promo_fail_id:${cleanInstallId}`, 5, 600000);
+        }
         res.status(400).json(result);
         return;
       }
@@ -1403,14 +1588,32 @@ export const redeemPromoCode = onRequest(
 );
 
 /**
- * Health check & auto-seeder endpoint
+ * Health check endpoint
  */
 export const health = onRequest(
   { region: "europe-west3", memory: "128MiB", cors: true, invoker: "public" },
   async (_req, res) => {
     applyApiSecurityHeaders(res);
+    res.status(200).json({ status: "ok", service: "SongFlip L2 Cache Engine", timestamp: Date.now() });
+  }
+);
 
-    // Ensure initial promo codes exist in Firestore
+/**
+ * Admin-protected promo code seeder endpoint
+ */
+export const seedPromoCodes = onRequest(
+  { region: "europe-west3", memory: "128MiB", cors: false, invoker: "public" },
+  async (req, res) => {
+    applyApiSecurityHeaders(res);
+
+    const ADMIN_SECRET = process.env.ADMIN_SECRET || "songflip-admin-cache-secret-2026";
+    const adminHeader = (req.headers["x-admin-secret"] as string) || (req.headers["x-api-key"] as string);
+
+    if (!adminHeader || adminHeader !== ADMIN_SECRET) {
+      res.status(401).json({ error: "UNAUTHORIZED", message: "Admin secret required." });
+      return;
+    }
+
     const initialCodes = [
       { code: "SONGFLIP_BETA_2026", type: "1month", durationDays: 30, maxRedemptions: 100 },
       { code: "SONGFLIP_LAUNCH_2026", type: "3months", durationDays: 90, maxRedemptions: 50 },
@@ -1434,7 +1637,7 @@ export const health = onRequest(
       }
     }
 
-    res.status(200).json({ status: "ok", service: "SongFlip L2 Cache Engine", timestamp: Date.now() });
+    res.status(200).json({ status: "ok", message: "Promo codes seeded successfully." });
   }
 );
 
@@ -1632,6 +1835,14 @@ export const renderWebShare = onRequest(
   async (req, res) => {
     try {
       applyWebShareSecurityHeaders(res);
+
+      const clientIp = (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() || req.ip || "unknown";
+      if (isRateLimited(`webshare:${clientIp}`, 60, 60000)) {
+        res.setHeader("Retry-After", "60");
+        res.status(429).send("Too Many Requests");
+        return;
+      }
+
       const userAgent = (req.headers["user-agent"] as string) || "";
       const isMobileUA = /Android|iPhone|iPad|iPod/i.test(userAgent);
       const i18n = getWebShareI18n(req.headers["accept-language"]);
@@ -1707,14 +1918,17 @@ export const renderWebShare = onRequest(
 
       // 3. Fallback: If not found in cache and query parameter ?url= is passed, resolve live
       if (!songData && req.query.url && typeof req.query.url === "string") {
-        const resolved = await resolveSongLive(req.query.url as string);
-        if (resolved) {
-          songData = resolved;
-          const newHash = hashUrl(req.query.url as string);
-          hash = newHash;
-          await db.collection("l2_song_cache").doc(newHash).set(resolved);
-          await db.collection("l2_song_cache").doc(newHash.substring(0, 12)).set(resolved);
-          await db.collection("l2_song_cache").doc(newHash.substring(0, 8)).set(resolved);
+        const rawTargetUrl = (req.query.url as string).trim();
+        if (isSafePublicHttpsUrl(rawTargetUrl) && !isRateLimited(`webshare_live:${clientIp}`, 10, 60000)) {
+          const resolved = await resolveSongLive(rawTargetUrl);
+          if (resolved) {
+            songData = resolved;
+            const newHash = hashUrl(rawTargetUrl);
+            hash = newHash;
+            await db.collection("l2_song_cache").doc(newHash).set(resolved);
+            await db.collection("l2_song_cache").doc(newHash.substring(0, 12)).set(resolved);
+            await db.collection("l2_song_cache").doc(newHash.substring(0, 8)).set(resolved);
+          }
         }
       }
 
@@ -2185,4 +2399,15 @@ export const renderWebShare = onRequest(
   }
 );
 
-export { cleanSearchQuery, normalizeMusicUrl, isRateLimited, getWebShareI18n };
+export {
+  cleanSearchQuery,
+  normalizeMusicUrl,
+  isRateLimited,
+  recordFailedAttempt,
+  isBlockedDueToFailures,
+  getWebShareI18n,
+  isValidBandcampUrl,
+  isSafePublicHttpsUrl,
+  createSignedCouponToken,
+  verifySignedCouponToken,
+};

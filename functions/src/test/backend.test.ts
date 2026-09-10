@@ -1,6 +1,18 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { cleanSearchQuery, normalizeMusicUrl, isRateLimited, getWebShareI18n, hashUrl } from "../index";
+import {
+  cleanSearchQuery,
+  normalizeMusicUrl,
+  isRateLimited,
+  recordFailedAttempt,
+  isBlockedDueToFailures,
+  getWebShareI18n,
+  hashUrl,
+  isValidBandcampUrl,
+  isSafePublicHttpsUrl,
+  createSignedCouponToken,
+  verifySignedCouponToken,
+} from "../index";
 
 describe("Backend Helper Tests", () => {
 
@@ -158,6 +170,102 @@ describe("Backend Helper Tests", () => {
         hashes.add(short);
       }
       assert.equal(hashes.size, 1000);
+    });
+  });
+
+  describe("SSRF & URL Validation", () => {
+    it("should accept valid Bandcamp HTTPS URLs", () => {
+      assert.equal(isValidBandcampUrl("https://radiohead.bandcamp.com/track/reckoner"), true);
+      assert.equal(isValidBandcampUrl("https://artist-name.bandcamp.com/album/greatest-hits"), true);
+      assert.equal(isValidBandcampUrl("https://bandcamp.com/track/hello"), true);
+      assert.equal(isValidBandcampUrl("https://sub.label.bandcamp.com/album/lp1"), true);
+    });
+
+    it("should reject non-HTTPS Bandcamp URLs", () => {
+      assert.equal(isValidBandcampUrl("http://radiohead.bandcamp.com/track/reckoner"), false);
+      assert.equal(isValidBandcampUrl("ftp://radiohead.bandcamp.com/track/reckoner"), false);
+      assert.equal(isValidBandcampUrl("file:///etc/passwd"), false);
+    });
+
+    it("should reject SSRF attacks targeting Cloud Metadata and Private IPs", () => {
+      assert.equal(isValidBandcampUrl("https://169.254.169.254/latest/meta-data/"), false);
+      assert.equal(isValidBandcampUrl("https://127.0.0.1/admin"), false);
+      assert.equal(isValidBandcampUrl("https://10.0.0.1/secrets"), false);
+      assert.equal(isValidBandcampUrl("https://192.168.1.1/internal"), false);
+      assert.equal(isValidBandcampUrl("https://172.16.0.1/config"), false);
+      assert.equal(isValidBandcampUrl("https://localhost/bandcamp.com"), false);
+    });
+
+    it("should reject domain spoofing and tricky hosts", () => {
+      assert.equal(isValidBandcampUrl("https://evil-bandcamp.com/track/123"), false);
+      assert.equal(isValidBandcampUrl("https://bandcamp.com.attacker.com/track/123"), false);
+      assert.equal(isValidBandcampUrl("https://attacker.com/bandcamp.com"), false);
+      assert.equal(isValidBandcampUrl("https://notbandcamp.com"), false);
+    });
+
+    it("should reject embedded credentials and non-standard ports", () => {
+      assert.equal(isValidBandcampUrl("https://user:pass@artist.bandcamp.com/track/1"), false);
+      assert.equal(isValidBandcampUrl("https://artist.bandcamp.com:8080/track/1"), false);
+    });
+
+    it("should validate general safe public HTTPS URLs", () => {
+      assert.equal(isSafePublicHttpsUrl("https://open.spotify.com/track/123"), true);
+      assert.equal(isSafePublicHttpsUrl("https://music.apple.com/album/1"), true);
+      assert.equal(isSafePublicHttpsUrl("http://open.spotify.com/track/123"), false);
+      assert.equal(isSafePublicHttpsUrl("https://169.254.169.254/"), false);
+      assert.equal(isSafePublicHttpsUrl("https://127.0.0.1/"), false);
+      assert.equal(isSafePublicHttpsUrl("https://localhost/test"), false);
+      assert.equal(isSafePublicHttpsUrl("https://admin:pass@example.com/"), false);
+    });
+  });
+
+  describe("HMAC Signed Coupon Tokens", () => {
+    it("should generate and verify valid signed coupon tokens", () => {
+      const exp = Date.now() + 1000 * 60 * 60 * 24 * 30; // 30 days
+      const token = createSignedCouponToken("TEST_CODE_2026", "install_12345678", exp, "1month");
+      assert.ok(token.startsWith("sct_"), "Token should have sct_ prefix");
+
+      const result = verifySignedCouponToken(token);
+      assert.equal(result.valid, true);
+      assert.equal(result.code, "TEST_CODE_2026");
+      assert.equal(result.exp, exp);
+    });
+
+    it("should reject expired coupon tokens", () => {
+      const pastExp = Date.now() - 1000; // expired 1s ago
+      const expiredToken = createSignedCouponToken("OLD_CODE", "install_12345678", pastExp, "1month");
+      const result = verifySignedCouponToken(expiredToken);
+      assert.equal(result.valid, false);
+    });
+
+    it("should reject tampered tokens", () => {
+      const token = createSignedCouponToken("CODE", "install_12345678", null, "lifetime");
+      const parts = token.substring(4).split(".");
+      const tampered = `sct_${parts[0]}.wrongsignature1234567890abcdef`;
+      assert.equal(verifySignedCouponToken(tampered).valid, false);
+    });
+
+    it("should reject arbitrary or malformed strings", () => {
+      assert.equal(verifySignedCouponToken("").valid, false);
+      assert.equal(verifySignedCouponToken("coupon:fake").valid, false);
+      assert.equal(verifySignedCouponToken("sct_invalidpayload.invalidsig").valid, false);
+      assert.equal(verifySignedCouponToken("sct_notenoughparts").valid, false);
+    });
+  });
+
+  describe("Failed Attempts Brute-Force Throttling", () => {
+    it("should block after reaching maxFailures threshold", () => {
+      const key = "test_promo_throttle_ip_1";
+      assert.equal(isBlockedDueToFailures(key, 3), false);
+
+      assert.equal(recordFailedAttempt(key, 3, 60000), false); // 1st
+      assert.equal(isBlockedDueToFailures(key, 3), false);
+
+      assert.equal(recordFailedAttempt(key, 3, 60000), false); // 2nd
+      assert.equal(isBlockedDueToFailures(key, 3), false);
+
+      assert.equal(recordFailedAttempt(key, 3, 60000), true);  // 3rd (reaches maxFailures)
+      assert.equal(isBlockedDueToFailures(key, 3), true);      // Now blocked
     });
   });
 });

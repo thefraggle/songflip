@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- Exclude shared preferences containing sensitive API tokens or user identifiers -->
+    <exclude domain="sharedpref" path="songflip_settings.xml"/>
+    <exclude domain="sharedpref" path="songflip_pro_prefs.xml"/>
+</full-backup-content>

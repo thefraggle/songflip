@@ -60,6 +60,13 @@
         }
       },
       {
+        "source": "/seedPromoCodes",
+        "function": {
+          "functionId": "seedPromoCodes",
+          "region": "europe-west3"
+        }
+      },
+      {
         "source": "/s/**",
         "function": {
           "functionId": "renderWebShare",

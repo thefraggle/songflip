@@ -42,6 +42,8 @@ object ProManager {
 
     private const val PREFS_NAME = "songflip_pro_prefs"
     private const val KEY_COUPON_TYPE = "pro_coupon_type"
+    private const val KEY_COUPON_CODE = "pro_coupon_code"
+    private const val KEY_COUPON_TOKEN = "pro_coupon_token"
     private const val KEY_COUPON_EXPIRATION = "pro_coupon_expiration"
     private const val KEY_INSTALL_ID = "anonymous_install_id"
 
@@ -76,7 +78,13 @@ object ProManager {
 
     fun getAuthToken(): String {
         val state = _proState.value
-        return if (state.proType.endsWith("_coupon")) {
+        val savedToken = prefs?.getString(KEY_COUPON_TOKEN, null)
+        val savedCode = prefs?.getString(KEY_COUPON_CODE, null)
+        return if (!savedToken.isNullOrBlank()) {
+            "coupon:$savedToken"
+        } else if (!savedCode.isNullOrBlank()) {
+            "coupon:$savedCode"
+        } else if (state.proType.endsWith("_coupon")) {
             "coupon:${state.proType}"
         } else {
             getAppUserId()
@@ -285,14 +293,19 @@ object ProManager {
                         resJson.optLong("expirationTimestamp")
                     } else null
 
+                    val token = resJson.optString("token", "")
                     if (type == "lifetime") {
                         if (_proState.value.isPro && _proState.value.proType == "lifetime_coupon") {
                             return@withContext RedeemResult.ALREADY_ACTIVE
                         }
-                        sp.edit()
+                        val editor = sp.edit()
                             .putString(KEY_COUPON_TYPE, "lifetime")
+                            .putString(KEY_COUPON_CODE, cleanCode)
                             .remove(KEY_COUPON_EXPIRATION)
-                            .apply()
+                        if (token.isNotBlank()) {
+                            editor.putString(KEY_COUPON_TOKEN, token)
+                        }
+                        editor.apply()
                         evaluateProState(revenueCatActive = false)
                         de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemedSuccess(cleanCode)
                         return@withContext RedeemResult.SUCCESS_LIFETIME
@@ -304,10 +317,14 @@ object ProManager {
                         }
                         val expireTime = expTimestamp ?: (System.currentTimeMillis() + durationDays * 24 * 60 * 60 * 1000L)
 
-                        sp.edit()
+                        val editor = sp.edit()
                             .putString(KEY_COUPON_TYPE, type)
+                            .putString(KEY_COUPON_CODE, cleanCode)
                             .putLong(KEY_COUPON_EXPIRATION, expireTime)
-                            .apply()
+                        if (token.isNotBlank()) {
+                            editor.putString(KEY_COUPON_TOKEN, token)
+                        }
+                        editor.apply()
                         evaluateProState(revenueCatActive = false)
                         de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemedSuccess(cleanCode)
 
