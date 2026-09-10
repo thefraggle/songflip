@@ -120,7 +120,9 @@
 
     <string name="history_title">Riwayat Lagu</string>
     <string name="history_subtitle">Kelola dan putar ulang lagu yang baru dikonversi</string>
-    <string name="history_cached_count">%1$d lagu dalam riwayat</string>
+    <plurals name="history_cached_count">
+        <item quantity="other">%1$d lagu dalam riwayat</item>
+    </plurals>
     <string name="history_empty">Belum ada lagu yang dikonversi. Tautan musik yang dialihkan akan muncul otomatis di sini.</string>
     <string name="history_clear_all">Hapus Riwayat</string>
     <string name="history_clear_confirm_title">Hapus Riwayat Lagu?</string>
@@ -197,10 +199,21 @@
     <string name="history_link_refreshed">Tautan berhasil diperbarui!</string>
     <string name="history_link_refreshing">Memperbarui tautan...</string>
 
-    <string name="pro_nudge_title">🎉 Berhasil mengonversi %1$d lagu!</string>
+    <plurals name="pro_nudge_title">
+        <item quantity="other">🎉 Berhasil mengonversi %1$d lagu!</item>
+    </plurals>
     <string name="pro_nudge_subtitle">Buka cache berkecepatan tinggi L2 &amp; riwayat lanjutan dengan SongFlip PRO.</string>
     <string name="pro_nudge_action_redeem">Tukarkan Kupon</string>
     <string name="pro_nudge_action_more">Pelajari Lebih Lanjut</string>
-    <string name="history_capacity_free">%1$d dari %2$d lagu disimpan (PRO: hingga 100)</string>
-    <string name="history_capacity_pro">%1$d dari %2$d lagu disimpan</string>
+    <plurals name="history_capacity_free">
+        <item quantity="other">%1$d dari %2$d lagu disimpan (PRO: hingga 100)</item>
+    </plurals>
+    <plurals name="history_capacity_pro">
+        <item quantity="other">%1$d dari %2$d lagu disimpan</item>
+    </plurals>
+    <string name="pro_debug_reset_status">Status PRO direset (Debug)</string>
+    <string name="pro_debug_reset_button">Reset status PRO (Debug)</string>
+
+    <string name="settings_tip_multiple_apps_title">Memasang beberapa aplikasi musik?</string>
+    <string name="settings_tip_multiple_apps_body">Jika aplikasi seperti Spotify langsung membuka tautan, cukup ketuk \"Bagikan \u2192 SongFlip\" di WhatsApp atau aplikasi apa pun untuk memutar lagu di pemutar musik pilihan Anda.</string>
 </resources>

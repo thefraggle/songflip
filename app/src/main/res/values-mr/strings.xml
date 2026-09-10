@@ -120,7 +120,10 @@
 
     <string name="history_title">गाण्यांचा इतिहास</string>
     <string name="history_subtitle">अलीकडे रूपांतरित केलेली गाणी व्यवस्थापित करा आणि पुन्हा प्ले करा</string>
-    <string name="history_cached_count">इतिहासात %1$d गाणी</string>
+    <plurals name="history_cached_count">
+        <item quantity="one">इतिहासात %1$d गाणे</item>
+        <item quantity="other">इतिहासात %1$d गाणी</item>
+    </plurals>
     <string name="history_empty">अद्याप कोणतीही गाणी रूपांतरित केलेली नाहीत. शेअर केलेल्या लिंक्स येथे आपोआप दिसतील.</string>
     <string name="history_clear_all">इतिहास साफ करा</string>
     <string name="history_clear_confirm_title">गाण्यांचा इतिहास साफ करायचा?</string>
@@ -197,10 +200,24 @@
     <string name="history_link_refreshed">लिंक यशस्वीरित्या अपडेट झाली!</string>
     <string name="history_link_refreshing">लिंक रीफ्रेश होत आहे...</string>
 
-    <string name="pro_nudge_title">🎉 %1$d गाणी यशस्वीरित्या बदलली!</string>
+    <plurals name="pro_nudge_title">
+        <item quantity="one">🎉 %1$d गाणे यशस्वीरित्या बदलले!</item>
+        <item quantity="other">🎉 %1$d गाणी यशस्वीरित्या बदलली!</item>
+    </plurals>
     <string name="pro_nudge_subtitle">SongFlip PRO सह L2 हाय-स्पीड कॅश आणि विस्तारित इतिहास अनलॉक करा.</string>
     <string name="pro_nudge_action_redeem">कूपन रिडीम करा</string>
     <string name="pro_nudge_action_more">अधिक जाणून घ्या</string>
-    <string name="history_capacity_free">%1$d / %2$d गाणी जतन केली (PRO: 100 पर्यंत)</string>
-    <string name="history_capacity_pro">%1$d / %2$d गाणी जतन केली</string>
+    <plurals name="history_capacity_free">
+        <item quantity="one">%1$d / %2$d गाणे जतन केले (PRO: 100 पर्यंत)</item>
+        <item quantity="other">%1$d / %2$d गाणी जतन केली (PRO: 100 पर्यंत)</item>
+    </plurals>
+    <plurals name="history_capacity_pro">
+        <item quantity="one">%1$d / %2$d गाणे जतन केले</item>
+        <item quantity="other">%1$d / %2$d गाणी जतन केली</item>
+    </plurals>
+    <string name="pro_debug_reset_status">PRO स्थिती रीसेट केली (डीबग)</string>
+    <string name="pro_debug_reset_button">PRO स्थिती रीसेट करा (डीबग)</string>
+
+    <string name="settings_tip_multiple_apps_title">एकाधिक संगीत अॅप्स स्थापित आहेत?</string>
+    <string name="settings_tip_multiple_apps_body">Spotify सारखे अॅप थेट लिंक्स उघडत असल्यास, आपल्या पसंतीच्या संगीत प्लेयरमध्ये गाणी प्ले करण्यासाठी WhatsApp किंवा कोणत्याही अॅपमध्ये फक्त \"शेअर करा \u2192 SongFlip\" वर टॅप करा.</string>
 </resources>

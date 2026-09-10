@@ -120,7 +120,10 @@
 
     <string name="history_title">Historial de canciones</string>
     <string name="history_subtitle">Ver y gestionar canciones convertidas recientemente</string>
-    <string name="history_cached_count">%1$d canciones en el historial</string>
+    <plurals name="history_cached_count">
+        <item quantity="one">%1$d canción en el historial</item>
+        <item quantity="other">%1$d canciones en el historial</item>
+    </plurals>
     <string name="history_empty">Aún no hay canciones convertidas. Los enlaces compartidos aparecerán aquí.</string>
     <string name="history_clear_all">Borrar historial</string>
     <string name="history_clear_confirm_title">¿Borrar historial?</string>
@@ -197,10 +200,24 @@
     <string name="history_link_refreshed">¡Enlace actualizado con éxito!</string>
     <string name="history_link_refreshing">Actualizando enlace...</string>
 
-    <string name="pro_nudge_title">🎉 ¡%1$d canciones convertidas con éxito!</string>
+    <plurals name="pro_nudge_title">
+        <item quantity="one">🎉 ¡%1$d canción convertida con éxito!</item>
+        <item quantity="other">🎉 ¡%1$d canciones convertidas con éxito!</item>
+    </plurals>
     <string name="pro_nudge_subtitle">Desbloquea la caché de alta velocidad L2 y el historial ampliado con SongFlip PRO.</string>
     <string name="pro_nudge_action_redeem">Canjear cupón</string>
     <string name="pro_nudge_action_more">Más información</string>
-    <string name="history_capacity_free">%1$d de %2$d canciones guardadas (PRO: hasta 100)</string>
-    <string name="history_capacity_pro">%1$d de %2$d canciones guardadas</string>
+    <plurals name="history_capacity_free">
+        <item quantity="one">%1$d de %2$d canciones guardadas (PRO: hasta 100)</item>
+        <item quantity="other">%1$d de %2$d canciones guardadas (PRO: hasta 100)</item>
+    </plurals>
+    <plurals name="history_capacity_pro">
+        <item quantity="one">%1$d de %2$d canciones guardadas</item>
+        <item quantity="other">%1$d de %2$d canciones guardadas</item>
+    </plurals>
+    <string name="pro_debug_reset_status">Estado PRO restablecido (Debug)</string>
+    <string name="pro_debug_reset_button">Restablecer estado PRO (Debug)</string>
+
+    <string name="settings_tip_multiple_apps_title">¿Tienes varias aplicaciones de música instaladas?</string>
+    <string name="settings_tip_multiple_apps_body">Si una app como Spotify abre enlaces directamente, simplemente pulsa \"Compartir \u2192 SongFlip\" en WhatsApp o cualquier app para escuchar canciones en tu reproductor preferido.</string>
 </resources>

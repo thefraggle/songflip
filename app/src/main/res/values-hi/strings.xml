@@ -120,7 +120,10 @@
 
     <string name="history_title">गानों का इतिहास</string>
     <string name="history_subtitle">हाल ही में कनवर्ट किए गए गानों को प्रबंधित करें और दोबारा चलाएं</string>
-    <string name="history_cached_count">इतिहास में %1$d गाने</string>
+    <plurals name="history_cached_count">
+        <item quantity="one">इतिहास में %1$d गाना</item>
+        <item quantity="other">इतिहास में %1$d गाने</item>
+    </plurals>
     <string name="history_empty">अभी तक कोई कनवर्ट किया गया गाना नहीं है। शेयर किए गए लिंक यहाँ अपने आप दिखाई देंगे।</string>
     <string name="history_clear_all">इतिहास साफ़ करें</string>
     <string name="history_clear_confirm_title">गानों का इतिहास साफ़ करें?</string>
@@ -197,10 +200,24 @@
     <string name="history_link_refreshed">लिंक सफलतापूर्वक अपडेट हो गया!</string>
     <string name="history_link_refreshing">लिंक रीफ़्रेश हो रहा है...</string>
 
-    <string name="pro_nudge_title">🎉 %1$d गाने सफलतापूर्वक बदले गए!</string>
+    <plurals name="pro_nudge_title">
+        <item quantity="one">🎉 %1$d गाना सफलतापूर्वक बदला गया!</item>
+        <item quantity="other">🎉 %1$d गाने सफलतापूर्वक बदले गए!</item>
+    </plurals>
     <string name="pro_nudge_subtitle">SongFlip PRO के साथ L2 हाई-स्पीड कैश और विस्तृत इतिहास अनलॉक करें।</string>
     <string name="pro_nudge_action_redeem">कूपन रिडीम करें</string>
     <string name="pro_nudge_action_more">और जानें</string>
-    <string name="history_capacity_free">%1$d / %2$d गाने सहेजे गए (PRO: 100 तक)</string>
-    <string name="history_capacity_pro">%1$d / %2$d गाने सहेजे गए</string>
+    <plurals name="history_capacity_free">
+        <item quantity="one">%1$d / %2$d गाने सहेजे गए (PRO: 100 तक)</item>
+        <item quantity="other">%1$d / %2$d गाने सहेजे गए (PRO: 100 तक)</item>
+    </plurals>
+    <plurals name="history_capacity_pro">
+        <item quantity="one">%1$d / %2$d गाने सहेजे गए</item>
+        <item quantity="other">%1$d / %2$d गाने सहेजे गए</item>
+    </plurals>
+    <string name="pro_debug_reset_status">PRO स्थिति रीसेट की गई (डिबग)</string>
+    <string name="pro_debug_reset_button">PRO स्थिति रीसेट करें (डिबग)</string>
+
+    <string name="settings_tip_multiple_apps_title">कई संगीत ऐप्स इंस्टॉल हैं?</string>
+    <string name="settings_tip_multiple_apps_body">यदि Spotify जैसा कोई ऐप सीधे लिंक खोलता है, तो अपने पसंदीदा संगीत प्लेयर में गाने बजाने के लिए WhatsApp या किसी भी ऐप में बस \"साझा करें \u2192 SongFlip\" पर टैप करें।</string>
 </resources>

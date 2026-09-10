@@ -6,10 +6,30 @@ import SongFlipKit
 
 class ShareViewController: UIViewController {
 
-    private let engine = SongLinkEngine(client: HttpClientFactoryKt.createPlatformHttpClient(), cache: LinkCache(maxEntries: 200, ttlMs: 7 * 24 * 60 * 60 * 1000))
+    private let engine = SongLinkEngine()
     private let activityIndicator = UIActivityIndicatorView(style: .large)
     private let statusLabel = UILabel()
     private let iconImageView = UIImageView()
+
+    private var lang: String {
+        let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
+        if let savedLang = defaults.string(forKey: "app_language") {
+            return savedLang
+        }
+        for preferred in Locale.preferredLanguages {
+            let lower = preferred.lowercased()
+            let prefix2 = String(lower.prefix(2))
+            if lower.starts(with: "zh") { return "zh" }
+            if prefix2 == "id" || prefix2 == "in" { return "in" }
+            if prefix2 == "no" || prefix2 == "nb" || prefix2 == "nn" { return "nb" }
+            return prefix2
+        }
+        return "en"
+    }
+
+    private func localizedText(for key: String, default defaultText: String) -> String {
+        LocalizationManager.string(for: key, lang: lang)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +54,7 @@ class ShareViewController: UIViewController {
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         statusLabel.textColor = .white
         statusLabel.font = .systemFont(ofSize: 15, weight: .semibold)
-        statusLabel.text = "SongFlip: Leite weiter..."
+        statusLabel.text = localizedText(for: "share_redirecting", default: "SongFlip: Redirecting...")
         statusLabel.textAlignment = .center
         statusLabel.numberOfLines = 2
         view.addSubview(statusLabel)
@@ -131,7 +151,7 @@ class ShareViewController: UIViewController {
                     let fallbackUri = success.nativeAppUri != nil ? success.targetUrl : nil
                     self.openApp(urlString: targetUri, fallbackUrlString: fallbackUri)
                 } else {
-                    self.statusLabel.text = "Konnte Link nicht weiterleiten."
+                    self.statusLabel.text = self.localizedText(for: "share_error_failed", default: "Could not redirect link.")
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                         self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
                     }
@@ -180,7 +200,7 @@ class ShareViewController: UIViewController {
 
     private func openApp(urlString: String, fallbackUrlString: String? = nil) {
         guard let url = URL(string: urlString) else {
-            if let fallback = fallbackUrlString, let fallbackUrl = URL(string: fallback) {
+            if let fallback = fallbackUrlString, let _ = URL(string: fallback) {
                 openApp(urlString: fallback)
             } else {
                 self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)

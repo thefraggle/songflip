@@ -120,7 +120,12 @@
 
     <string name="history_title">Historia utworów</string>
     <string name="history_subtitle">Przeglądaj i zarządzaj ostatnio przekonwertowanymi utworami</string>
-    <string name="history_cached_count">%1$d utworów w historii</string>
+    <plurals name="history_cached_count">
+        <item quantity="one">%1$d utwór w historii</item>
+        <item quantity="few">%1$d utwory w historii</item>
+        <item quantity="many">%1$d utworów w historii</item>
+        <item quantity="other">%1$d utworów w historii</item>
+    </plurals>
     <string name="history_empty">Brak przekonwertowanych utworów. Udostępnione linki pojawią się tutaj.</string>
     <string name="history_clear_all">Wyczyść historię</string>
     <string name="history_clear_confirm_title">Wyczyścić historię?</string>
@@ -197,10 +202,30 @@
     <string name="history_link_refreshed">Link zaktualizowany pomyślnie!</string>
     <string name="history_link_refreshing">Odświeżanie linku...</string>
 
-    <string name="pro_nudge_title">🎉 Pomyślnie przekonwertowano %1$d utworów!</string>
+    <plurals name="pro_nudge_title">
+        <item quantity="one">🎉 Pomyślnie przekonwertowano %1$d utwór!</item>
+        <item quantity="few">🎉 Pomyślnie przekonwertowano %1$d utwory!</item>
+        <item quantity="many">🎉 Pomyślnie przekonwertowano %1$d utworów!</item>
+        <item quantity="other">🎉 Pomyślnie przekonwertowano %1$d utworów!</item>
+    </plurals>
     <string name="pro_nudge_subtitle">Odblokuj szybką pamięć podręczną L2 i rozszerzoną historię dzięki SongFlip PRO.</string>
     <string name="pro_nudge_action_redeem">Zrealizuj kupon</string>
     <string name="pro_nudge_action_more">Dowiedz się więcej</string>
-    <string name="history_capacity_free">%1$d z %2$d zapisanych utworów (PRO: do 100)</string>
-    <string name="history_capacity_pro">%1$d z %2$d zapisanych utworów</string>
+    <plurals name="history_capacity_free">
+        <item quantity="one">%1$d z %2$d zapisanych utworów (PRO: do 100)</item>
+        <item quantity="few">%1$d z %2$d zapisanych utworów (PRO: do 100)</item>
+        <item quantity="many">%1$d z %2$d zapisanych utworów (PRO: do 100)</item>
+        <item quantity="other">%1$d z %2$d zapisanych utworów (PRO: do 100)</item>
+    </plurals>
+    <plurals name="history_capacity_pro">
+        <item quantity="one">%1$d z %2$d zapisanych utworów</item>
+        <item quantity="few">%1$d z %2$d zapisanych utworów</item>
+        <item quantity="many">%1$d z %2$d zapisanych utworów</item>
+        <item quantity="other">%1$d z %2$d zapisanych utworów</item>
+    </plurals>
+    <string name="pro_debug_reset_status">Zresetowano status PRO (Debug)</string>
+    <string name="pro_debug_reset_button">Zresetuj status PRO (Debug)</string>
+
+    <string name="settings_tip_multiple_apps_title">Zainstalowano kilka aplikacji muzycznych?</string>
+    <string name="settings_tip_multiple_apps_body">Jeśli aplikacja taka jak Spotify otwiera linki bezpośrednio, po prostu dotknij \"Udostępnij \u2192 SongFlip\" w WhatsAppie lub dowolnej aplikacji, aby odtwarzać utwory w wybranym odtwarzaczu.</string>
 </resources>

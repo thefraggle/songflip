@@ -120,7 +120,9 @@
 
     <string name="history_title">곡 기록</string>
     <string name="history_subtitle">최근 변환된 곡 관리 및 다시 재생</string>
-    <string name="history_cached_count">기록에 저장된 곡 %1$d개</string>
+    <plurals name="history_cached_count">
+        <item quantity="other">기록에 저장된 곡 %1$d개</item>
+    </plurals>
     <string name="history_empty">아직 변환된 곡이 없습니다. 공유된 음악 링크가 여기에 자동으로 표시됩니다.</string>
     <string name="history_clear_all">기록 지우기</string>
     <string name="history_clear_confirm_title">곡 기록을 지우시겠습니까?</string>
@@ -197,10 +199,21 @@
     <string name="history_link_refreshed">링크가 성공적으로 업데이트되었습니다!</string>
     <string name="history_link_refreshing">링크 새로고침 중...</string>
 
-    <string name="pro_nudge_title">🎉 %1$d개의 노래 전환 성공!</string>
+    <plurals name="pro_nudge_title">
+        <item quantity="other">🎉 %1$d개의 노래 전환 성공!</item>
+    </plurals>
     <string name="pro_nudge_subtitle">SongFlip PRO로 L2 초고속 캐시 및 확장 기록을 잠금 해제하세요.</string>
     <string name="pro_nudge_action_redeem">쿠폰 사용</string>
     <string name="pro_nudge_action_more">자세히 알아보기</string>
-    <string name="history_capacity_free">%1$d / %2$d개 곡 저장됨 (PRO: 최대 100개)</string>
-    <string name="history_capacity_pro">%1$d / %2$d개 곡 저장됨</string>
+    <plurals name="history_capacity_free">
+        <item quantity="other">%1$d / %2$d개 곡 저장됨 (PRO: 최대 100개)</item>
+    </plurals>
+    <plurals name="history_capacity_pro">
+        <item quantity="other">%1$d / %2$d개 곡 저장됨</item>
+    </plurals>
+    <string name="pro_debug_reset_status">PRO 상태 초기화됨 (디버그)</string>
+    <string name="pro_debug_reset_button">PRO 상태 초기화 (디버그)</string>
+
+    <string name="settings_tip_multiple_apps_title">여러 음악 앱이 설치되어 있나요?</string>
+    <string name="settings_tip_multiple_apps_body">Spotify 같은 앱이 링크를 직접 여는 경우, WhatsApp 등에서 \"공유 \u2192 SongFlip\"을 탭하기만 하면 원하는 음악 플레이어에서 곡을 재생할 수 있습니다.</string>
 </resources>

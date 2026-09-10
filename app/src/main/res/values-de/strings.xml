@@ -134,7 +134,10 @@
 
     <string name="history_title">Song-Verlauf</string>
     <string name="history_subtitle">Zuletzt umgewandelte Songs ansehen &amp; verwalten</string>
-    <string name="history_cached_count">%1$d Songs im Verlauf</string>
+    <plurals name="history_cached_count">
+        <item quantity="one">%1$d Song im Verlauf</item>
+        <item quantity="other">%1$d Songs im Verlauf</item>
+    </plurals>
     <string name="history_empty">Noch keine Songs im Verlauf. Sobald du Musik-Links teilst, erscheinen sie hier.</string>
     <string name="history_clear_all">Verlauf leeren</string>
     <string name="history_clear_confirm_title">Verlauf wirklich leeren?</string>
@@ -213,12 +216,21 @@
     <string name="history_link_refreshed">Link erfolgreich aktualisiert!</string>
     <string name="history_link_refreshing">Wird neu aufgelöst...</string>
 
-    <string name="pro_nudge_title">🎉 %1$d Songs erfolgreich geflippt!</string>
+    <plurals name="pro_nudge_title">
+        <item quantity="one">🎉 %1$d Song erfolgreich geflippt!</item>
+        <item quantity="other">🎉 %1$d Songs erfolgreich geflippt!</item>
+    </plurals>
     <string name="pro_nudge_subtitle">Schalte mit SongFlip PRO den L2-Highspeed-Cache &amp; erweiterten Verlauf frei.</string>
     <string name="pro_nudge_action_redeem">Gutschein einlösen</string>
     <string name="pro_nudge_action_more">Mehr erfahren</string>
-    <string name="history_capacity_free">%1$d von %2$d Songs gespeichert (PRO: bis zu 100)</string>
-    <string name="history_capacity_pro">%1$d von %2$d Songs gespeichert</string>
+    <plurals name="history_capacity_free">
+        <item quantity="one">%1$d von %2$d Songs gespeichert (PRO: bis zu 100)</item>
+        <item quantity="other">%1$d von %2$d Songs gespeichert (PRO: bis zu 100)</item>
+    </plurals>
+    <plurals name="history_capacity_pro">
+        <item quantity="one">%1$d von %2$d Songs gespeichert</item>
+        <item quantity="other">%1$d von %2$d Songs gespeichert</item>
+    </plurals>
 
     <string name="settings_tip_multiple_apps_title">Mehrere Musik-Apps installiert?</string>
     <string name="settings_tip_multiple_apps_body">Wenn ein Dienst wie Spotify Links direkt öffnet, tippe in WhatsApp oder anderen Apps einfach auf „Teilen \u2192 SongFlip“, um Songs in deinem Wunschdienst abzuspielen.</string>

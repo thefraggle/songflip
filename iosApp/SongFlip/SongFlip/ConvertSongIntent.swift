@@ -9,27 +9,29 @@ enum ConvertSongIntentError: Swift.Error, CustomLocalizedStringResourceConvertib
     var localizedStringResource: LocalizedStringResource {
         switch self {
         case .emptyClipboard:
-            return "Kein Musik-Link übergeben und Zwischenablage ist leer."
+            return LocalizedStringResource("intent_error_empty_clipboard", defaultValue: "No music link provided and clipboard is empty.")
         case .conversionFailed(let reason):
-            return "Fehler beim Konvertieren des Links: \(reason)"
+            return LocalizedStringResource("intent_error_failed_to_convert", defaultValue: "Error converting link: \(reason)")
         }
     }
 
     var errorDescription: String? {
+        let lang = LocalizationManager.currentLanguage()
         switch self {
         case .emptyClipboard:
-            return "Kein Musik-Link übergeben und Zwischenablage ist leer."
+            return LocalizationManager.string(for: "intent_error_empty_clipboard", lang: lang)
         case .conversionFailed(let reason):
-            return "Fehler beim Konvertieren des Links: \(reason)"
+            let format = LocalizationManager.string(for: "intent_error_failed_to_convert", lang: lang)
+            return String(format: format, reason)
         }
     }
 }
 
 struct ConvertSongIntent: AppIntent {
-    static var title: LocalizedStringResource = "Song in SongFlip öffnen"
-    static var description = IntentDescription("Konvertiert einen kopierten oder übergebenen Musik-Link und öffnet die Ziel-App.")
+    static var title: LocalizedStringResource = LocalizedStringResource("intent_title", defaultValue: "Open Song in SongFlip")
+    static var description = IntentDescription(LocalizedStringResource("intent_description", defaultValue: "Converts a copied or shared music link and opens the target app."))
 
-    @Parameter(title: "Musik Link")
+    @Parameter(title: LocalizedStringResource("intent_param_music_link", defaultValue: "Music Link"))
     var inputUrl: String?
 
     func perform() async throws -> some IntentResult {
@@ -85,7 +87,8 @@ struct ConvertSongIntent: AppIntent {
 
             return .result()
         } else {
-            let reason = (res as? ResolutionResult.Error)?.message ?? "Konnte Ziel-URL nicht auflösen."
+            let defaultMsg = LocalizationManager.string(for: "intent_error_failed_to_resolve", lang: LocalizationManager.currentLanguage())
+            let reason = (res as? ResolutionResult.Error)?.message ?? defaultMsg
             AptabaseClient.shared.trackLinkFlipFailed(
                 target: targetPlatform,
                 reason: reason

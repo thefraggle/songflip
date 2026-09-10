@@ -120,7 +120,9 @@
 
     <string name="history_title">歌曲历史</string>
     <string name="history_subtitle">查看并管理最近转换的歌曲</string>
-    <string name="history_cached_count">历史记录中有 %1$d 首歌曲</string>
+    <plurals name="history_cached_count">
+        <item quantity="other">历史记录中有 %1$d 首歌曲</item>
+    </plurals>
     <string name="history_empty">暂无转换记录。分享的音乐链接将显示在这里。</string>
     <string name="history_clear_all">清除历史记录</string>
     <string name="history_clear_confirm_title">确定清除歌曲历史？</string>
@@ -197,10 +199,21 @@
     <string name="history_link_refreshed">链接已成功更新！</string>
     <string name="history_link_refreshing">正在重新解析...</string>
 
-    <string name="pro_nudge_title">🎉 已成功转换 %1$d 首歌曲！</string>
+    <plurals name="pro_nudge_title">
+        <item quantity="other">🎉 已成功转换 %1$d 首歌曲！</item>
+    </plurals>
     <string name="pro_nudge_subtitle">升级至 SongFlip PRO 解锁 L2 高速缓存与扩展历史记录。</string>
     <string name="pro_nudge_action_redeem">兑换优惠券</string>
     <string name="pro_nudge_action_more">了解更多</string>
-    <string name="history_capacity_free">已保存 %1$d / %2$d 首歌曲 (PRO: 最多 100 首)</string>
-    <string name="history_capacity_pro">已保存 %1$d / %2$d 首歌曲</string>
+    <plurals name="history_capacity_free">
+        <item quantity="other">已保存 %1$d / %2$d 首歌曲 (PRO: 最多 100 首)</item>
+    </plurals>
+    <plurals name="history_capacity_pro">
+        <item quantity="other">已保存 %1$d / %2$d 首歌曲</item>
+    </plurals>
+    <string name="pro_debug_reset_status">PRO 状态已重置（调试）</string>
+    <string name="pro_debug_reset_button">重置 PRO 状态（调试）</string>
+
+    <string name="settings_tip_multiple_apps_title">安装了多个音乐应用？</string>
+    <string name="settings_tip_multiple_apps_body">如果像 Spotify 这样的应用直接打开链接，只需在微信、WhatsApp 或任何应用中点击“分享 \u2192 SongFlip”，即可在您首选的播放器中播放。</string>
 </resources>
