@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.24] - 2026-09-10
+- **Global Polish**: Localized shortcuts, setup tips, and share actions across all 24 supported languages.
+- **Accurate Formats**: Refined track count and history capacity formatting for every language.
+- **Typo Fixes**: Corrected minor translation text on shared music pages.
+
 ## [1.2.23] - 2026-09-10
 - **Direct Playback**: Shared music links now open straight in your preferred player without detour.
 - **Reliable Fallbacks**: If a music app is not installed, songs now open smoothly in your web browser instead.
