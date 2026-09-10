@@ -157,6 +157,7 @@
     <string name="pro_coupon_success_lifetime">🎉 SongFlip PRO लाइफटाइम अनलॉक हो गया!</string>
     <string name="pro_coupon_success_1year">🎉 SongFlip PRO (1 वर्ष) अनलॉक हो गया!</string>
     <string name="pro_coupon_invalid">अमान्य प्रोमो कोड</string>
+    <string name="pro_coupon_network_error">नेटवर्क त्रुटि। कृपया पुनः प्रयास करें।</string>
     <string name="pro_coupon_already_active">PRO पहले से ही सक्रिय है</string>
     <string name="pro_coupon_already_redeemed">यह प्रोमो कोड इस डिवाइस पर पहले ही रिडीम किया जा चुका है।</string>
     <string name="pro_active_status">SongFlip PRO सक्रिय</string>

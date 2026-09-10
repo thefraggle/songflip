@@ -157,6 +157,7 @@
     <string name="pro_coupon_success_lifetime">🎉 SongFlip PRO আজীবন আনলক করা হয়েছে!</string>
     <string name="pro_coupon_success_1year">🎉 SongFlip PRO (1 বছর) আনলক করা হয়েছে!</string>
     <string name="pro_coupon_invalid">অবৈধ প্রোমো কোড</string>
+    <string name="pro_coupon_network_error">নেটওয়ার্ক ত্রুটি। আবার চেষ্টা করুন।</string>
     <string name="pro_coupon_already_active">PRO ইতিমধ্যে সক্রিয় রয়েছে</string>
     <string name="pro_coupon_already_redeemed">এই প্রোমো কোডটি ইতিমধ্যে এই ডিভাইসে রিডিম করা হয়েছে।</string>
     <string name="pro_active_status">SongFlip PRO সক্রিয়</string>

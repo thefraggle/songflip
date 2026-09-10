@@ -128,7 +128,8 @@ class ShareViewController: UIViewController {
                     )
 
                     let targetUri = success.nativeAppUri ?? success.targetUrl
-                    self.openApp(urlString: targetUri)
+                    let fallbackUri = success.nativeAppUri != nil ? success.targetUrl : nil
+                    self.openApp(urlString: targetUri, fallbackUrlString: fallbackUri)
                 } else {
                     self.statusLabel.text = "Konnte Link nicht weiterleiten."
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
@@ -177,23 +178,43 @@ class ShareViewController: UIViewController {
         }
     }
 
-    private func openApp(urlString: String) {
+    private func openApp(urlString: String, fallbackUrlString: String? = nil) {
         guard let url = URL(string: urlString) else {
-            self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+            if let fallback = fallbackUrlString, let fallbackUrl = URL(string: fallback) {
+                openApp(urlString: fallback)
+            } else {
+                self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+            }
             return
         }
 
         var responder: UIResponder? = self
+        var application: UIApplication?
         while responder != nil {
-            if let application = responder as? UIApplication {
-                application.open(url, options: [:], completionHandler: nil)
+            if let app = responder as? UIApplication {
+                application = app
                 break
             }
             responder = responder?.next
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        guard let app = application else {
             self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+            return
+        }
+
+        app.open(url, options: [:]) { [weak self] success in
+            if !success, let fallback = fallbackUrlString, let fallbackUrl = URL(string: fallback), fallback != urlString {
+                app.open(fallbackUrl, options: [:]) { _ in
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        self?.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+                    }
+                }
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    self?.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+                }
+            }
         }
     }
 }

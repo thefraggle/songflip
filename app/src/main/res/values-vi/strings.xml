@@ -157,6 +157,7 @@
     <string name="pro_coupon_success_lifetime">🎉 Đã mở khóa SongFlip PRO Trọn đời!</string>
     <string name="pro_coupon_success_1year">🎉 Đã mở khóa SongFlip PRO (1 Năm)!</string>
     <string name="pro_coupon_invalid">Mã khuyến mãi không hợp lệ</string>
+    <string name="pro_coupon_network_error">Lỗi mạng. Vui lòng thử lại.</string>
     <string name="pro_coupon_already_active">PRO đã được kích hoạt</string>
     <string name="pro_coupon_already_redeemed">Mã khuyến mãi này đã được đổi trên thiết bị này.</string>
     <string name="pro_active_status">SongFlip PRO Đang hoạt động</string>

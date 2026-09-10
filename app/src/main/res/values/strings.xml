@@ -172,6 +172,7 @@
     <string name="pro_coupon_success_lifetime">🎉 SongFlip PRO Lifetime unlocked!</string>
     <string name="pro_coupon_success_1year">🎉 SongFlip PRO (1 Year) unlocked!</string>
     <string name="pro_coupon_invalid">Invalid promo code</string>
+    <string name="pro_coupon_network_error">Network error. Please try again.</string>
     <string name="pro_coupon_already_active">PRO is already active</string>
     <string name="pro_coupon_already_redeemed">This promo code has already been redeemed on this device.</string>
     <string name="pro_active_status">SongFlip PRO Active</string>
