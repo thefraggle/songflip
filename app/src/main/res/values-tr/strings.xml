@@ -227,4 +227,15 @@
 
     <string name="settings_tip_multiple_apps_title">Birden fazla müzik uygulaması mı yüklü?</string>
     <string name="settings_tip_multiple_apps_body">Spotify gibi bir uygulama bağlantıları doğrudan açıyorsa, şarkıları tercih ettiğiniz müzik çalarınızda dinlemek için WhatsApp veya herhangi bir uygulamada \"Paylaş \u2192 SongFlip\" seçeneğine dokunmanız yeterlidir.</string>
+    <string name="app_links_diagnosis_title">Bağlantı Tanısı</string>
+    <string name="app_links_diagnosis_subtitle">Yüklü müzik servislerinizin durumu</string>
+    <string name="app_links_status_songflip">SongFlip tarafından yönetiliyor</string>
+    <string name="app_links_status_target">Hedef oynatıcınız (hazır)</string>
+    <string name="app_links_status_blocked">Kendi bağlantılarını talep ediyor</string>
+    <string name="app_links_status_unconfigured">Atanmadı (Tarayıcı)</string>
+    <string name="app_links_btn_configure_app">%s içinde ayarla</string>
+    <string name="app_links_target_app_hint">Favori oynatıcınızdan (%s) gelen bağlantıların yönlendirilmesine gerek yoktur; yalnızca diğer servisleri yapılandırın.</string>
+    <string name="setup_card_conflict_title">Bağlantı Çakışması Algılandı</string>
+    <string name="setup_card_conflict_desc">%d yüklü uygulama, SongFlip yönlendirmeden önce bağlantıları doğrudan açıyor.</string>
+    <string name="setup_card_conflict_badge">%d çakışan servis</string>
 </resources>

@@ -227,4 +227,15 @@
 
     <string name="settings_tip_multiple_apps_title">एकाधिक संगीत अॅप्स स्थापित आहेत?</string>
     <string name="settings_tip_multiple_apps_body">Spotify सारखे अॅप थेट लिंक्स उघडत असल्यास, आपल्या पसंतीच्या संगीत प्लेयरमध्ये गाणी प्ले करण्यासाठी WhatsApp किंवा कोणत्याही अॅपमध्ये फक्त \"शेअर करा \u2192 SongFlip\" वर टॅप करा.</string>
+    <string name="app_links_diagnosis_title">लिंक निदान</string>
+    <string name="app_links_diagnosis_subtitle">आपल्या इन्स्टॉल केलेल्या संगीत सेवांची स्थिती</string>
+    <string name="app_links_status_songflip">SongFlip द्वारे हाताळले जाते</string>
+    <string name="app_links_status_target">आपला लक्ष्य प्लेअर (सज्ज)</string>
+    <string name="app_links_status_blocked">स्वतःच्या लिंक्सचा दावा करते</string>
+    <string name="app_links_status_unconfigured">अमर्यादित (ब्राउझर)</string>
+    <string name="app_links_btn_configure_app">%s मध्ये समायोजित करा</string>
+    <string name="app_links_target_app_hint">आपल्या आवडत्या प्लेअरवरून (%s) लिंक्स पुनर्निर्देशित करण्याची आवश्यकता नाही — फक्त इतर सेवा कॉन्फिगर करा.</string>
+    <string name="setup_card_conflict_title">लिंक संघर्ष आढळला</string>
+    <string name="setup_card_conflict_desc">%d इन्स्टॉल केलेले ॲप SongFlip पुनर्निर्देशित करण्यापूर्वी थेट लिंक उघडते.</string>
+    <string name="setup_card_conflict_badge">%d विरोधी सेवा</string>
 </resources>

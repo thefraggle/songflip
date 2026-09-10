@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.26] - 2026-09-10
+- **Smart Link Assistant**: An interactive setup guide checks your installed music apps and helps you resolve link conflicts with a single tap.
+- **Instant Playback**: Songs that already belong to your preferred music player now open directly without any waiting time.
+
 ## [1.2.25] - 2026-09-10
 - **Smart Playlist Handling**: When a playlist link is shared or copied, the app clearly detects it and opens the original playlist in your music app with a single tap.
 - **Link Reliability**: Improved cross-platform link detection ensures shared tracks and playlists are always handled cleanly without conversion errors.

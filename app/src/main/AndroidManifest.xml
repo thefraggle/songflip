@@ -13,6 +13,7 @@
             <data android:scheme="https" />
         </intent>
         <package android:name="com.google.android.apps.youtube.music" />
+        <package android:name="com.google.android.youtube" />
         <package android:name="com.apple.android.music" />
         <package android:name="com.spotify.music" />
         <package android:name="com.aspiro.tidal" />

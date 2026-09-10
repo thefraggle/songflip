@@ -227,4 +227,15 @@
 
     <string name="settings_tip_multiple_apps_title">Meerdere muziek-apps geïnstalleerd?</string>
     <string name="settings_tip_multiple_apps_body">Als een app zoals Spotify links direct opent, tik dan gewoon op \"Delen \u2192 SongFlip\" in WhatsApp of een willekeurige app om nummers in je favoriete muziekspeler af te spelen.</string>
+    <string name="app_links_diagnosis_title">Linkdiagnose</string>
+    <string name="app_links_diagnosis_subtitle">Status van je geïnstalleerde muziekdiensten</string>
+    <string name="app_links_status_songflip">Beheerd door SongFlip</string>
+    <string name="app_links_status_target">Je doelspeler (klaar)</string>
+    <string name="app_links_status_blocked">Claimt eigen links</string>
+    <string name="app_links_status_unconfigured">Niet toegewezen (Browser)</string>
+    <string name="app_links_btn_configure_app">Aanpassen in %s</string>
+    <string name="app_links_target_app_hint">Links van je favoriete speler (%s) hoeven niet omgeleid te worden — pas alleen andere diensten aan.</string>
+    <string name="setup_card_conflict_title">Linkconflicten gedetecteerd</string>
+    <string name="setup_card_conflict_desc">%d geïnstalleerde app(s) openen links direct voordat SongFlip ze kan omleiden.</string>
+    <string name="setup_card_conflict_badge">%d conflicterende dienst(en)</string>
 </resources>
