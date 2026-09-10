@@ -171,7 +171,7 @@ function normalizeMusicUrl(rawUrl: string): string {
 /**
  * Generates SHA-256 hash for document key.
  */
-function hashUrl(url: string): string {
+export function hashUrl(url: string): string {
   return crypto.createHash("sha256").update(url.toLowerCase()).digest("hex");
 }
 
@@ -1147,6 +1147,7 @@ export const resolve = onRequest(
     const cacheRef = db.collection("l2_song_cache").doc(primaryHash);
     if (forceRefresh) {
       await cacheRef.delete().catch(() => {});
+      await db.collection("l2_song_cache").doc(primaryHash.substring(0, 12)).delete().catch(() => {});
       await db.collection("l2_song_cache").doc(primaryHash.substring(0, 8)).delete().catch(() => {});
     } else {
       const docSnap = await cacheRef.get();
@@ -1170,7 +1171,7 @@ export const resolve = onRequest(
             cached: true,
             item: {
               ...cachedData,
-              hash: primaryHash.substring(0, 8),
+              hash: primaryHash.substring(0, 12),
             },
           });
           return;
@@ -1188,8 +1189,9 @@ export const resolve = onRequest(
     // 6. Save in Firestore for primary URL hash and all other platform links
     const batch = db.batch();
     batch.set(cacheRef, resolvedItem);
-    const primaryShortId = primaryHash.substring(0, 8);
+    const primaryShortId = primaryHash.substring(0, 12);
     batch.set(db.collection("l2_song_cache").doc(primaryShortId), resolvedItem);
+    batch.set(db.collection("l2_song_cache").doc(primaryHash.substring(0, 8)), resolvedItem);
 
     // Also index other platform URLs for future hits
     Object.values(resolvedItem.links).forEach((platformUrl) => {
@@ -1198,6 +1200,7 @@ export const resolve = onRequest(
         const altHash = hashUrl(altNorm);
         if (altHash !== primaryHash) {
           batch.set(db.collection("l2_song_cache").doc(altHash), resolvedItem);
+          batch.set(db.collection("l2_song_cache").doc(altHash.substring(0, 12)), resolvedItem);
           batch.set(db.collection("l2_song_cache").doc(altHash.substring(0, 8)), resolvedItem);
         }
       }
@@ -1254,19 +1257,20 @@ export const invalidate = onRequest(
       return;
     }
 
-    if (target.length === 64 || target.length === 8) {
+    if (target.length === 64 || target.length === 12 || target.length === 8) {
       await db.collection("l2_song_cache").doc(target).delete().catch(() => {});
     }
 
     const normalizedUrl = normalizeMusicUrl(target);
     const primaryHash = hashUrl(normalizedUrl);
     await db.collection("l2_song_cache").doc(primaryHash).delete().catch(() => {});
+    await db.collection("l2_song_cache").doc(primaryHash.substring(0, 12)).delete().catch(() => {});
     await db.collection("l2_song_cache").doc(primaryHash.substring(0, 8)).delete().catch(() => {});
 
     res.status(200).json({
       status: "success",
       invalidated: true,
-      hash: primaryHash.substring(0, 8),
+      hash: primaryHash.substring(0, 12),
     });
   }
 );
@@ -1663,6 +1667,29 @@ export const renderWebShare = onRequest(
           } else {
             docSnap.ref.update({ lastAccessedAt: Date.now() }).catch(() => {});
           }
+        } else if (hash.length > 12) {
+          const shortSnap = await db.collection("l2_song_cache").doc(hash.substring(0, 12)).get();
+          if (shortSnap.exists) {
+            songData = shortSnap.data();
+            // Rolling 90-day TTL ONLY for verified/official API results, NEVER for heuristic fallbacks
+            if (!songData.isFallback) {
+              const rollingExpiresAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000);
+              shortSnap.ref.update({ expiresAt: rollingExpiresAt, lastAccessedAt: Date.now() }).catch(() => {});
+            } else {
+              shortSnap.ref.update({ lastAccessedAt: Date.now() }).catch(() => {});
+            }
+          } else {
+            const legacySnap = await db.collection("l2_song_cache").doc(hash.substring(0, 8)).get();
+            if (legacySnap.exists) {
+              songData = legacySnap.data();
+              if (!songData.isFallback) {
+                const rollingExpiresAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000);
+                legacySnap.ref.update({ expiresAt: rollingExpiresAt, lastAccessedAt: Date.now() }).catch(() => {});
+              } else {
+                legacySnap.ref.update({ lastAccessedAt: Date.now() }).catch(() => {});
+              }
+            }
+          }
         } else if (hash.length > 8) {
           const shortSnap = await db.collection("l2_song_cache").doc(hash.substring(0, 8)).get();
           if (shortSnap.exists) {
@@ -1684,7 +1711,9 @@ export const renderWebShare = onRequest(
         if (resolved) {
           songData = resolved;
           const newHash = hashUrl(req.query.url as string);
+          hash = newHash;
           await db.collection("l2_song_cache").doc(newHash).set(resolved);
+          await db.collection("l2_song_cache").doc(newHash.substring(0, 12)).set(resolved);
           await db.collection("l2_song_cache").doc(newHash.substring(0, 8)).set(resolved);
         }
       }
@@ -1839,7 +1868,7 @@ export const renderWebShare = onRequest(
       if (!links.tidal) links.tidal = `https://listen.tidal.com/search?q=${query}`;
       if (!links.amazonMusic) links.amazonMusic = `https://music.amazon.com/search/${query}`;
 
-      const shortId = hash ? (hash.length > 8 ? hash.substring(0, 8) : hash) : "";
+      const shortId = hash ? (hash.length > 12 ? hash.substring(0, 12) : hash) : "";
       const currentShareUrl = `https://songflip.link/s/${encodeURIComponent(shortId)}`;
 
       // Streaming Platform Definitions

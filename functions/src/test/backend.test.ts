@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { cleanSearchQuery, normalizeMusicUrl, isRateLimited, getWebShareI18n } from "../index";
+import { cleanSearchQuery, normalizeMusicUrl, isRateLimited, getWebShareI18n, hashUrl } from "../index";
 
 describe("Backend Helper Tests", () => {
 
@@ -135,6 +135,29 @@ describe("Backend Helper Tests", () => {
         assert.ok(i18n.notFoundTitle && i18n.notFoundTitle.length > 0, `notFoundTitle missing for ${lang}`);
         assert.ok(i18n.discoverSongFlip && i18n.discoverSongFlip.length > 0, `discoverSongFlip missing for ${lang}`);
       });
+    });
+  });
+
+  describe("Short Hash Generation (12 Hex Characters)", () => {
+    it("should produce a 12-character short hash with 48 bits entropy", () => {
+      const url = "https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv";
+      const fullHash = hashUrl(url);
+      const shortHash = fullHash.substring(0, 12);
+
+      assert.equal(fullHash.length, 64);
+      assert.equal(shortHash.length, 12);
+      assert.match(shortHash, /^[0-9a-f]{12}$/);
+    });
+
+    it("should prevent collisions across distinct songs", () => {
+      const hashes = new Set<string>();
+      for (let i = 0; i < 1000; i++) {
+        const url = `https://music.apple.com/album/song-${i}/123456?i=789${i}`;
+        const short = hashUrl(url).substring(0, 12);
+        assert.equal(hashes.has(short), false, `Collision detected on item ${i}: ${short}`);
+        hashes.add(short);
+      }
+      assert.equal(hashes.size, 1000);
     });
   });
 });

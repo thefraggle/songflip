@@ -345,7 +345,7 @@ object ProManager {
 
     fun getUniversalWebShareUrl(rawUrl: String): String {
         val hash = hashUrl(rawUrl)
-        val shortId = if (hash.length > 8) hash.substring(0, 8) else hash
+        val shortId = if (hash.length > 12) hash.substring(0, 12) else hash
         return "https://songflip.link/s/$shortId"
     }
 

@@ -46,7 +46,8 @@ class OdesliRepository {
         inputUrl: String,
         targetPlatformKey: String = "youtubeMusic",
         customApiUrl: String = "",
-        customApiToken: String = ""
+        customApiToken: String = "",
+        isPrefetch: Boolean = false
     ): OdesliResult = withContext(Dispatchers.IO) {
         try {
             // 1. Extract clean URL from raw input (removes share text)
@@ -81,6 +82,9 @@ class OdesliRepository {
             // 4. L1 Cache Lookup (In-Memory LRU & Persisted - < 5ms)
             val cached = LinkCacheManager.get(canonicalUrl, targetPlatformKey)
             if (cached != null) {
+                if (!isPrefetch && !cached.isHistory) {
+                    LinkCacheManager.markAsHistory(canonicalUrl, targetPlatformKey)
+                }
                 return@withContext OdesliResult.Success(
                     targetUrl = cached.targetUrl,
                     platform = cached.platform,
@@ -109,7 +113,8 @@ class OdesliRepository {
                     platform = result.platform,
                     title = result.title,
                     artist = null,
-                    isAlbum = false
+                    isAlbum = false,
+                    isHistory = !isPrefetch
                 )
                 return@withContext result
             }
@@ -125,7 +130,8 @@ class OdesliRepository {
                         platform = l2Result.platform,
                         title = l2Result.title,
                         artist = l2Result.artist,
-                        isAlbum = l2Result.isAlbum
+                        isAlbum = l2Result.isAlbum,
+                        isHistory = !isPrefetch
                     )
                     return@withContext l2Result
                 }
@@ -163,7 +169,8 @@ class OdesliRepository {
                         platform = result.platform,
                         title = result.title,
                         artist = result.artist,
-                        isAlbum = false
+                        isAlbum = false,
+                        isHistory = !isPrefetch
                     )
                     return@withContext result
                 }
@@ -199,7 +206,8 @@ class OdesliRepository {
                                 platform = result.platform,
                                 title = result.title,
                                 artist = result.artist,
-                                isAlbum = false
+                                isAlbum = false,
+                                isHistory = !isPrefetch
                             )
                             return@withContext result
                         }
@@ -220,7 +228,8 @@ class OdesliRepository {
                         platform = result.platform,
                         title = result.title,
                         artist = result.artist,
-                        isAlbum = result.isAlbum
+                        isAlbum = result.isAlbum,
+                        isHistory = !isPrefetch
                     )
                     return@withContext result
                 }
@@ -261,7 +270,8 @@ class OdesliRepository {
                         platform = result.platform,
                         title = result.title,
                         artist = result.artist,
-                        isAlbum = result.isAlbum
+                        isAlbum = result.isAlbum,
+                        isHistory = !isPrefetch
                     )
                     return@withContext result
                 }
@@ -298,7 +308,8 @@ class OdesliRepository {
                     platform = result.platform,
                     title = result.title,
                     artist = result.artist,
-                    isAlbum = result.isAlbum
+                    isAlbum = result.isAlbum,
+                    isHistory = !isPrefetch
                 )
                 return@withContext result
             }
@@ -322,7 +333,8 @@ class OdesliRepository {
                     platform = result.platform,
                     title = result.title,
                     artist = result.artist,
-                    isAlbum = result.isAlbum
+                    isAlbum = result.isAlbum,
+                    isHistory = !isPrefetch
                 )
                 return@withContext result
             }
@@ -1629,7 +1641,7 @@ class OdesliRepository {
     ) = withContext(Dispatchers.IO) {
         if (LinkCacheManager.get(canonicalUrl, targetPlatformKey) != null) return@withContext
         try {
-            resolveTargetUrl(canonicalUrl, targetPlatformKey)
+            resolveTargetUrl(canonicalUrl, targetPlatformKey, isPrefetch = true)
         } catch (_: Exception) {}
     }
 }
