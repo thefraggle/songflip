@@ -157,6 +157,7 @@
     <string name="pro_coupon_success_lifetime">🎉 SongFlip PRO 평생 이용권이 잠금 해제되었습니다!</string>
     <string name="pro_coupon_success_1year">🎉 SongFlip PRO(1년)가 잠금 해제되었습니다!</string>
     <string name="pro_coupon_invalid">유효하지 않은 프로모션 코드입니다</string>
+    <string name="pro_coupon_network_error">네트워크 오류가 발생했습니다. 다시 시도해 주세요.</string>
     <string name="pro_coupon_already_active">PRO가 이미 활성화되어 있습니다</string>
     <string name="pro_coupon_already_redeemed">이 프로모션 코드는 이 기기에서 이미 사용되었습니다.</string>
     <string name="pro_active_status">SongFlip PRO 활성</string>

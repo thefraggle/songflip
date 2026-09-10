@@ -157,6 +157,7 @@
     <string name="pro_coupon_success_lifetime">🎉 SongFlip PRO Levenslang ontgrendeld!</string>
     <string name="pro_coupon_success_1year">🎉 SongFlip PRO (1 jaar) ontgrendeld!</string>
     <string name="pro_coupon_invalid">Ongeldige promotiecode</string>
+    <string name="pro_coupon_network_error">Netwerkfout. Probeer het opnieuw.</string>
     <string name="pro_coupon_already_active">PRO is al actief</string>
     <string name="pro_coupon_already_redeemed">Deze promotiecode is al ingewisseld op dit apparaat.</string>
     <string name="pro_active_status">SongFlip PRO Actief</string>

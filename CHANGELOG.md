@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.23] - 2026-09-10
+- **Direct Playback**: Shared music links now open straight in your preferred player without detour.
+- **Reliable Fallbacks**: If a music app is not installed, songs now open smoothly in your web browser instead.
+- **Helpful Alerts**: Clearer messages when redeeming codes or handling connection issues.
+
 ## [1.2.22] - 2026-09-09
 - **More Music Services**: Added support for SoundCloud and Bandcamp so you can open indie tracks and underground gems seamlessly in your favorite player.
 - **Easy Link Sharing**: Shared music pages now include a one-tap share button to quickly send songs to friends.
