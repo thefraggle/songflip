@@ -227,4 +227,15 @@
 
     <string name="settings_tip_multiple_apps_title">¿Tienes varias aplicaciones de música instaladas?</string>
     <string name="settings_tip_multiple_apps_body">Si una app como Spotify abre enlaces directamente, simplemente pulsa \"Compartir \u2192 SongFlip\" en WhatsApp o cualquier app para escuchar canciones en tu reproductor preferido.</string>
+    <string name="app_links_diagnosis_title">Diagnóstico de enlaces</string>
+    <string name="app_links_diagnosis_subtitle">Estado de tus servicios de música instalados</string>
+    <string name="app_links_status_songflip">Gestionado por SongFlip</string>
+    <string name="app_links_status_target">Tu reproductor de destino (listo)</string>
+    <string name="app_links_status_blocked">Reclama sus propios enlaces</string>
+    <string name="app_links_status_unconfigured">Sin asignar (Navegador)</string>
+    <string name="app_links_btn_configure_app">Ajustar en %s</string>
+    <string name="app_links_target_app_hint">Los enlaces de tu reproductor favorito (%s) no necesitan redirección; configura solo otros servicios.</string>
+    <string name="setup_card_conflict_title">Conflictos de enlace detectados</string>
+    <string name="setup_card_conflict_desc">%d aplicación(es) instalada(s) abren enlaces directamente antes de que SongFlip pueda redirigirlos.</string>
+    <string name="setup_card_conflict_badge">%d servicio(s) en conflicto</string>
 </resources>

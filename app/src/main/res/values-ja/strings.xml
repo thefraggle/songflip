@@ -223,4 +223,15 @@
 
     <string name="settings_tip_multiple_apps_title">複数の音楽アプリをインストールしていますか？</string>
     <string name="settings_tip_multiple_apps_body">Spotifyなどのアプリがリンクを直接開く場合は、WhatsAppなどのアプリで「共有 \u2192 SongFlip」をタップするだけで、お好みの音楽プレイヤーで曲を再生できます。</string>
+    <string name="app_links_diagnosis_title">リンク診断</string>
+    <string name="app_links_diagnosis_subtitle">インストール済み音楽サービスの状態</string>
+    <string name="app_links_status_songflip">SongFlipで処理中</string>
+    <string name="app_links_status_target">ターゲットプレーヤー (準備完了)</string>
+    <string name="app_links_status_blocked">自身のリンクを優先</string>
+    <string name="app_links_status_unconfigured">未割り当て (ブラウザ)</string>
+    <string name="app_links_btn_configure_app">%sで設定</string>
+    <string name="app_links_target_app_hint">お気に入りプレーヤー (%s) のリンクは転送不要です。他のサービスのみ設定してください。</string>
+    <string name="setup_card_conflict_title">リンクの競合を検出</string>
+    <string name="setup_card_conflict_desc">%d個のアプリがSongFlipの転送前に直接リンクを開いています。</string>
+    <string name="setup_card_conflict_badge">%d件の競合サービス</string>
 </resources>

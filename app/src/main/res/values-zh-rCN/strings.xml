@@ -223,4 +223,15 @@
 
     <string name="settings_tip_multiple_apps_title">安装了多个音乐应用？</string>
     <string name="settings_tip_multiple_apps_body">如果像 Spotify 这样的应用直接打开链接，只需在微信、WhatsApp 或任何应用中点击“分享 \u2192 SongFlip”，即可在您首选的播放器中播放。</string>
+    <string name="app_links_diagnosis_title">链接诊断</string>
+    <string name="app_links_diagnosis_subtitle">已安装音乐服务的状态</string>
+    <string name="app_links_status_songflip">由 SongFlip 处理</string>
+    <string name="app_links_status_target">您的目标播放器 (就绪)</string>
+    <string name="app_links_status_blocked">占用自身链接</string>
+    <string name="app_links_status_unconfigured">未指定 (浏览器)</string>
+    <string name="app_links_btn_configure_app">在 %s 中调整</string>
+    <string name="app_links_target_app_hint">来自首选播放器 (%s) 的链接无需重定向 — 只需配置其他服务。</string>
+    <string name="setup_card_conflict_title">检测到链接冲突</string>
+    <string name="setup_card_conflict_desc">%d 个已安装的应用在 SongFlip 重定向之前直接打开了链接。</string>
+    <string name="setup_card_conflict_badge">%d 个冲突服务</string>
 </resources>

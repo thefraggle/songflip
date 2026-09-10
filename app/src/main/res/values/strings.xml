@@ -241,4 +241,15 @@
 
     <string name="settings_tip_multiple_apps_title">Multiple music apps installed?</string>
     <string name="settings_tip_multiple_apps_body">If an app like Spotify opens links directly, simply tap \"Share \u2192 SongFlip\" in WhatsApp or any app to play songs in your preferred music player.</string>
+    <string name="app_links_diagnosis_title">Link Diagnosis</string>
+    <string name="app_links_diagnosis_subtitle">Status of your installed music services</string>
+    <string name="app_links_status_songflip">Handled by SongFlip</string>
+    <string name="app_links_status_target">Your target player (ready)</string>
+    <string name="app_links_status_blocked">Claims its own links</string>
+    <string name="app_links_status_unconfigured">Not assigned (Browser)</string>
+    <string name="app_links_btn_configure_app">Adjust in %s</string>
+    <string name="app_links_target_app_hint">Links from your favorite player (%s) don\'t need redirection — only configure other services.</string>
+    <string name="setup_card_conflict_title">Link Conflicts Detected</string>
+    <string name="setup_card_conflict_desc">%d installed app(s) open links directly before SongFlip can redirect them.</string>
+    <string name="setup_card_conflict_badge">%d conflicting service(s)</string>
 </resources>

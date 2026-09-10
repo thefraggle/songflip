@@ -241,4 +241,15 @@
 
     <string name="settings_tip_multiple_apps_title">Mehrere Musik-Apps installiert?</string>
     <string name="settings_tip_multiple_apps_body">Wenn ein Dienst wie Spotify Links direkt öffnet, tippe in WhatsApp oder anderen Apps einfach auf „Teilen \u2192 SongFlip“, um Songs in deinem Wunschdienst abzuspielen.</string>
+    <string name="app_links_diagnosis_title">Link-Diagnose</string>
+    <string name="app_links_diagnosis_subtitle">Status deiner installierten Musikdienste</string>
+    <string name="app_links_status_songflip">Bereit für SongFlip</string>
+    <string name="app_links_status_target">Deine Ziel-App (bereit)</string>
+    <string name="app_links_status_blocked">Beansprucht eigene Links</string>
+    <string name="app_links_status_unconfigured">Nicht zugewiesen (Browser)</string>
+    <string name="app_links_btn_configure_app">In %s anpassen</string>
+    <string name="app_links_target_app_hint">Links deines Lieblingsdienstes (%s) musst du nicht umleiten – passe nur die Dienste deiner Freunde an.</string>
+    <string name="setup_card_conflict_title">Link-Konflikte erkannt</string>
+    <string name="setup_card_conflict_desc">%d installierte App(s) öffnen Links direkt, bevor SongFlip sie umleiten kann.</string>
+    <string name="setup_card_conflict_badge">%d blockierte(r) Dienst(e)</string>
 </resources>

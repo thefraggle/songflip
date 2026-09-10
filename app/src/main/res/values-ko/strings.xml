@@ -223,4 +223,15 @@
 
     <string name="settings_tip_multiple_apps_title">여러 음악 앱이 설치되어 있나요?</string>
     <string name="settings_tip_multiple_apps_body">Spotify 같은 앱이 링크를 직접 여는 경우, WhatsApp 등에서 \"공유 \u2192 SongFlip\"을 탭하기만 하면 원하는 음악 플레이어에서 곡을 재생할 수 있습니다.</string>
+    <string name="app_links_diagnosis_title">링크 진단</string>
+    <string name="app_links_diagnosis_subtitle">설치된 음악 서비스 상태</string>
+    <string name="app_links_status_songflip">SongFlip에서 처리됨</string>
+    <string name="app_links_status_target">타겟 플레이어 (준비됨)</string>
+    <string name="app_links_status_blocked">자체 링크 우선 사용</string>
+    <string name="app_links_status_unconfigured">지정되지 않음 (브라우저)</string>
+    <string name="app_links_btn_configure_app">%s에서 설정</string>
+    <string name="app_links_target_app_hint">기본 플레이어(%s)의 링크는 리디렉션할 필요가 없습니다. 다른 서비스만 설정하세요.</string>
+    <string name="setup_card_conflict_title">링크 충돌 감지됨</string>
+    <string name="setup_card_conflict_desc">%d개의 설치된 앱이 SongFlip 리디렉션 전에 링크를 직접 엽니다.</string>
+    <string name="setup_card_conflict_badge">%d개 충돌 서비스</string>
 </resources>

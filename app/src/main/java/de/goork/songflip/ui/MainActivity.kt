@@ -205,6 +205,9 @@ fun MainScreen(
 
     var domainStatus by remember { mutableStateOf(DomainVerificationUtils.getDomainStatus(context)) }
     var linksActive by remember { mutableStateOf<Boolean?>(DomainVerificationUtils.checkLinksEnabled(context)) }
+    var diagnosisSummary by remember {
+        mutableStateOf(de.goork.songflip.data.LinkDiagnosisManager.runDiagnosis(context, selectedTargetKey))
+    }
 
     // Clipboard Smart-Banner State
     var detectedClipboardUrl by remember { mutableStateOf<String?>(null) }
@@ -250,6 +253,7 @@ fun MainScreen(
             if (event == Lifecycle.Event.ON_RESUME) {
                 domainStatus = DomainVerificationUtils.getDomainStatus(context)
                 linksActive = DomainVerificationUtils.checkLinksEnabled(context)
+                diagnosisSummary = de.goork.songflip.data.LinkDiagnosisManager.runDiagnosis(context, selectedTargetKey)
                 isCurrentlyPaused = PauseHelper.isCurrentlyPaused(context)
                 pausedUntilTimestamp = prefs.getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L)
                 (context as? Activity)?.let { act ->
@@ -377,6 +381,7 @@ fun MainScreen(
     if (showAppLinksSetupBottomSheet) {
         AppLinksSetupBottomSheet(
             onDismissRequest = { showAppLinksSetupBottomSheet = false },
+            targetPlatformKey = selectedTargetKey,
             onOpenSystemSettings = {
                 showAppLinksSetupBottomSheet = false
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -557,6 +562,7 @@ fun MainScreen(
             SetupCard(
                 domainStatus = domainStatus,
                 linksActive = linksActive,
+                diagnosisSummary = diagnosisSummary,
                 onOpenSetupGuide = {
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackDomainSetupClicked()
                     showAppLinksSetupBottomSheet = true
@@ -570,6 +576,7 @@ fun MainScreen(
                 onTargetSelected = { key ->
                     selectedTargetKey = key
                     settingsRepository.targetPlatform = key
+                    diagnosisSummary = de.goork.songflip.data.LinkDiagnosisManager.runDiagnosis(context, key)
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackTargetPlatformChanged(key)
                 }
             )
