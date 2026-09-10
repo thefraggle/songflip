@@ -117,6 +117,13 @@
     <string name="legal_terms">Hizmet Şartları</string>
     <string name="legal_contact">İletişim</string>
     <string name="playlist_not_supported_toast">Çalma listeleri şu anda desteklenmemektedir.</string>
+    <string name="playlist_dialog_title">Çalma Listesi Algılandı</string>
+    <string name="playlist_dialog_body">SongFlip şu anda tek parça ve albümleri desteklemektedir. Tam çalma listesi dönüştürme özelliği yakında gelecek!</string>
+    <string name="playlist_dialog_action_open">%1$s ile Aç</string>
+    <string name="playlist_dialog_action_copy">Bağlantıyı Kopyala</string>
+    <string name="playlist_dialog_action_close">Kapat</string>
+    <string name="playlist_badge">Çalma Listesi</string>
+    <string name="playlist_banner_action_open">%1$s Orijinalde Aç</string>
 
     <string name="history_title">Şarkı Geçmişi</string>
     <string name="history_subtitle">Son dönüştürülen şarkıları görüntüleyin ve yönetin</string>

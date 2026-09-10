@@ -153,6 +153,17 @@ class RedirectActivity : ComponentActivity() {
                         ).show()
 
                         openTargetUrl(result.targetUrl, targetPlatform)
+                    } else if (result is OdesliResult.Playlist) {
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
+                            target = targetPlatform,
+                            reason = "playlist_detected"
+                        )
+                        Toast.makeText(
+                            applicationContext,
+                            getString(R.string.playlist_not_supported_toast),
+                            Toast.LENGTH_LONG
+                        ).show()
+                        forwardOriginalUrl(incomingUri)
                     } else {
                         val reason = when {
                             result is OdesliResult.Error -> result.message

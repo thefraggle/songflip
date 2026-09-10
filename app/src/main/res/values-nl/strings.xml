@@ -117,6 +117,13 @@
     <string name="legal_terms">Gebruiksvoorwaarden</string>
     <string name="legal_contact">Contact</string>
     <string name="playlist_not_supported_toast">Afspeellijsten worden momenteel niet ondersteund.</string>
+    <string name="playlist_dialog_title">Afspeellijst gedetecteerd</string>
+    <string name="playlist_dialog_body">SongFlip ondersteunt momenteel losse nummers en albums. Volledige conversie van afspeellijsten komt in een toekomstige update!</string>
+    <string name="playlist_dialog_action_open">Openen in %1$s</string>
+    <string name="playlist_dialog_action_copy">Link kopiëren</string>
+    <string name="playlist_dialog_action_close">Sluiten</string>
+    <string name="playlist_badge">Afspeellijst</string>
+    <string name="playlist_banner_action_open">%1$s openen in origineel</string>
 
     <string name="history_title">Nummergeschiedenis</string>
     <string name="history_subtitle">Bekijk en beheer recent geconverteerde nummers</string>

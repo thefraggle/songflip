@@ -7,7 +7,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.ContentPaste
+import androidx.compose.material.icons.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.PlayArrow
+import androidx.compose.material.icons.outlined.QueueMusic
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -31,6 +33,8 @@ fun ClipboardSmartBanner(
     onShareUniversalLink: (String) -> Unit,
     onDismiss: () -> Unit,
     isPro: Boolean = false,
+    isPlaylist: Boolean = false,
+    onOpenPlaylist: ((String) -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     val haptic = LocalHapticFeedback.current
@@ -39,9 +43,17 @@ fun ClipboardSmartBanner(
     Card(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.35f)
+            containerColor = if (isPlaylist) {
+                MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.35f)
+            } else {
+                MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.35f)
+            }
         ),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.4f)),
+        border = BorderStroke(
+            1.dp,
+            if (isPlaylist) MaterialTheme.colorScheme.tertiary.copy(alpha = 0.4f)
+            else MaterialTheme.colorScheme.primary.copy(alpha = 0.4f)
+        ),
         modifier = modifier.fillMaxWidth()
     ) {
         Column(
@@ -60,13 +72,13 @@ fun ClipboardSmartBanner(
                     modifier = Modifier.weight(1f)
                 ) {
                     Icon(
-                        imageVector = Icons.Outlined.ContentPaste,
+                        imageVector = if (isPlaylist) Icons.Outlined.QueueMusic else Icons.Outlined.ContentPaste,
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
+                        tint = if (isPlaylist) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(20.dp)
                     )
                     Text(
-                        text = stringResource(R.string.clipboard_banner_title),
+                        text = stringResource(if (isPlaylist) R.string.playlist_dialog_title else R.string.clipboard_banner_title),
                         style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
                         color = MaterialTheme.colorScheme.onSurface
                     )
@@ -88,7 +100,7 @@ fun ClipboardSmartBanner(
                 }
             }
 
-            // URL Snippet with Platform Badge
+            // URL Snippet with Platform Badge and optional Playlist Badge
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -103,6 +115,20 @@ fun ClipboardSmartBanner(
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
                     )
+                }
+
+                if (isPlaylist) {
+                    Surface(
+                        shape = RoundedCornerShape(6.dp),
+                        color = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.2f)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.playlist_badge),
+                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                            color = MaterialTheme.colorScheme.tertiary,
+                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                        )
+                    }
                 }
 
                 Text(
@@ -120,51 +146,80 @@ fun ClipboardSmartBanner(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Button(
-                    onClick = {
-                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                        onOpenInTarget(musicUrl)
-                    },
-                    shape = RoundedCornerShape(10.dp),
-                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
-                    modifier = Modifier.weight(if (isPro) 1.3f else 1.0f)
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.PlayArrow,
-                        contentDescription = null,
-                        modifier = Modifier.size(16.dp)
-                    )
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Text(
-                        text = stringResource(R.string.clipboard_banner_action_open, targetPlatformName),
-                        style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                }
-
-                if (isPro) {
-                    OutlinedButton(
+                if (isPlaylist) {
+                    Button(
                         onClick = {
-                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                            onShareUniversalLink(musicUrl)
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                            onOpenPlaylist?.invoke(musicUrl) ?: onOpenInTarget(musicUrl)
                         },
                         shape = RoundedCornerShape(10.dp),
                         contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
-                        modifier = Modifier.weight(1.0f)
+                        colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.tertiary,
+                            contentColor = MaterialTheme.colorScheme.onTertiary
+                        ),
+                        modifier = Modifier.fillMaxWidth()
                     ) {
                         Icon(
-                            imageVector = Icons.Outlined.Share,
+                            imageVector = Icons.Outlined.OpenInNew,
                             contentDescription = null,
                             modifier = Modifier.size(16.dp)
                         )
                         Spacer(modifier = Modifier.width(6.dp))
                         Text(
-                            text = stringResource(R.string.clipboard_banner_action_share),
-                            style = MaterialTheme.typography.labelMedium,
+                            text = stringResource(R.string.playlist_banner_action_open, platformName),
+                            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
+                    }
+                } else {
+                    Button(
+                        onClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                            onOpenInTarget(musicUrl)
+                        },
+                        shape = RoundedCornerShape(10.dp),
+                        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
+                        modifier = Modifier.weight(if (isPro) 1.3f else 1.0f)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.PlayArrow,
+                            contentDescription = null,
+                            modifier = Modifier.size(16.dp)
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = stringResource(R.string.clipboard_banner_action_open, targetPlatformName),
+                            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+
+                    if (isPro) {
+                        OutlinedButton(
+                            onClick = {
+                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                onShareUniversalLink(musicUrl)
+                            },
+                            shape = RoundedCornerShape(10.dp),
+                            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
+                            modifier = Modifier.weight(1.0f)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Share,
+                                contentDescription = null,
+                                modifier = Modifier.size(16.dp)
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = stringResource(R.string.clipboard_banner_action_share),
+                                style = MaterialTheme.typography.labelMedium,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
                     }
                 }
             }

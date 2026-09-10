@@ -14,6 +14,8 @@ import {
   verifySignedCouponToken,
   isSecureMatch,
   isArtistUrl,
+  isPlaylistUrl,
+  detectPlatformFromUrl,
 } from "../index";
 
 describe("Backend Helper Tests", () => {
@@ -343,6 +345,45 @@ describe("Backend Helper Tests", () => {
 
       assert.equal(recordFailedAttempt(key, 3, 60000), true);  // 3rd (reaches maxFailures)
       assert.equal(isBlockedDueToFailures(key, 3), true);      // Now blocked
+    });
+  });
+
+  describe("Playlist URL & Platform Detection", () => {
+    it("should accurately detect playlist URLs across major platforms", () => {
+      assert.equal(isPlaylistUrl("https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M"), true);
+      assert.equal(isPlaylistUrl("https://open.spotify.com/intl-de/playlist/37i9dQZF1DXcBWIGoYBM5M"), true);
+      assert.equal(isPlaylistUrl("spotify:playlist:37i9dQZF1DXcBWIGoYBM5M"), true);
+      assert.equal(isPlaylistUrl("https://music.apple.com/us/playlist/today-hits/pl.f4d106fed2bd41149aaacabb233eb5eb"), true);
+      assert.equal(isPlaylistUrl("https://www.youtube.com/playlist?list=PL4fGSI1pDJn6puJdseH2Rt9sMvt9E2M4i"), true);
+      assert.equal(isPlaylistUrl("https://music.youtube.com/playlist?list=RDCLAK5uy_kfdjh"), true);
+      assert.equal(isPlaylistUrl("https://www.deezer.com/en/playlist/908622995"), true);
+      assert.equal(isPlaylistUrl("https://tidal.com/browse/playlist/5c868037-4bf6-4b2a-b605-7790b9687a70"), true);
+      assert.equal(isPlaylistUrl("https://music.amazon.com/playlists/B073HDFD2G"), true);
+      assert.equal(isPlaylistUrl("https://soundcloud.com/user-12345/sets/summer-vibes"), true);
+    });
+
+    it("should NOT classify single tracks or watch links as playlists", () => {
+      assert.equal(isPlaylistUrl("https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv"), false);
+      assert.equal(isPlaylistUrl("https://music.apple.com/us/album/song-name/123456?i=654321"), false);
+      assert.equal(isPlaylistUrl("https://www.youtube.com/watch?v=dQw4w9WgXcQ"), false);
+      // YouTube watch URLs with &list= param are single-track watches inside a playlist, NOT pure playlists
+      assert.equal(isPlaylistUrl("https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=PL4fGSI1pDJn6puJdseH2Rt9sMvt9E2M4i"), false);
+      assert.equal(isPlaylistUrl("https://www.deezer.com/track/1234567"), false);
+      assert.equal(isPlaylistUrl("https://tidal.com/browse/track/1234567"), false);
+      assert.equal(isPlaylistUrl("https://soundcloud.com/octobersveryown/drake-gods-plan"), false);
+    });
+
+    it("should detect platform names correctly from URLs", () => {
+      assert.equal(detectPlatformFromUrl("https://open.spotify.com/playlist/123"), "Spotify");
+      assert.equal(detectPlatformFromUrl("spotify:playlist:123"), "Spotify");
+      assert.equal(detectPlatformFromUrl("https://music.apple.com/us/playlist/123"), "Apple Music");
+      assert.equal(detectPlatformFromUrl("https://youtube.com/playlist?list=123"), "YouTube");
+      assert.equal(detectPlatformFromUrl("https://music.youtube.com/playlist?list=123"), "YouTube");
+      assert.equal(detectPlatformFromUrl("https://www.deezer.com/playlist/123"), "Deezer");
+      assert.equal(detectPlatformFromUrl("https://tidal.com/browse/playlist/123"), "Tidal");
+      assert.equal(detectPlatformFromUrl("https://music.amazon.com/playlists/123"), "Amazon Music");
+      assert.equal(detectPlatformFromUrl("https://soundcloud.com/user/sets/123"), "SoundCloud");
+      assert.equal(detectPlatformFromUrl("https://artist.bandcamp.com/album/test"), "Bandcamp");
     });
   });
 });

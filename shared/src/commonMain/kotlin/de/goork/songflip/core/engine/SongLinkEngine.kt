@@ -112,7 +112,12 @@ class SongLinkEngine(
 
             // Playlist links cannot be converted 1:1 in background
             if (UrlUtils.isPlaylistUrl(canonicalUrl)) {
-                return ResolutionResult.Error("PLAYLIST_NOT_SUPPORTED", isUnsupported = true)
+                val platformKey = UrlUtils.detectPlatform(canonicalUrl)?.key ?: "unknown"
+                return ResolutionResult.Playlist(
+                    originalUrl = canonicalUrl,
+                    platform = platformKey,
+                    message = "PLAYLIST_NOT_SUPPORTED"
+                )
             }
 
             val isExplicitAlbumUrl = UrlUtils.isAlbumUrl(canonicalUrl)

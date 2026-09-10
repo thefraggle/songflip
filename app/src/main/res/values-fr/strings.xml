@@ -117,6 +117,13 @@
     <string name="legal_terms">"Conditions d\'utilisation"</string>
     <string name="legal_contact">Contact</string>
     <string name="playlist_not_supported_toast">Les listes de lecture ne sont actuellement pas prises en charge.</string>
+    <string name="playlist_dialog_title">Playlist détectée</string>
+    <string name="playlist_dialog_body">SongFlip prend actuellement en charge les titres et les albums. La conversion complète de playlists arrive dans une prochaine mise à jour !</string>
+    <string name="playlist_dialog_action_open">Ouvrir dans %1$s</string>
+    <string name="playlist_dialog_action_copy">Copier le lien</string>
+    <string name="playlist_dialog_action_close">Fermer</string>
+    <string name="playlist_badge">Playlist</string>
+    <string name="playlist_banner_action_open">Ouvrir %1$s dans l\'original</string>
 
     <string name="history_title">Historique des morceaux</string>
     <string name="history_subtitle">Consultez et gérez vos morceaux récemment convertis</string>

@@ -1,3 +1,2 @@
-- Mühelose Einrichtung: Eine kurze 3-Schritte-Anleitung und ein klares Statusabzeichen für Ihre aktiven Musikdienste.
-- Intelligente App-Erkennung: Ihre bevorzugte Musik-App wird jetzt beim ersten Start automatisch erkannt.
-- Sofortige Alternativen: Konvertieren Sie Musiklinks sofort über das Freigabemenü oder die Zwischenablage ohne Einrichtung.
+- Intelligente Playlist-Verwaltung: Wenn ein Playlist-Link geteilt oder kopiert wird, erkennt die App dies deutlich und öffnet die Original-Playlist mit einem einzigen Tastendruck in Ihrer Musik-App.
+- Link-Zuverlässigkeit: Die verbesserte plattformübergreifende Link-Erkennung stellt sicher, dass geteilte Titel und Playlists immer sauber und ohne Konvertierungsfehler verarbeitet werden.

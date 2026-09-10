@@ -539,6 +539,48 @@ function isArtistUrl(url: string): boolean {
 }
 
 /**
+ * Detects whether a music URL points to a playlist rather than a single track or album.
+ */
+function isPlaylistUrl(url: string): boolean {
+  if (!url || typeof url !== "string") return false;
+  const lower = url.toLowerCase().trim();
+
+  // YouTube links that have both a video ID (v=) and a list ID are primarily single-song watches inside a playlist.
+  if ((lower.includes("youtube.com/watch") || lower.includes("m.youtube.com/watch")) && (lower.includes("v=") || lower.includes("?v="))) {
+    return false;
+  }
+
+  return (
+    lower.includes("/playlist") ||
+    lower.includes("spotify.com/playlist") ||
+    lower.includes("spotify:playlist:") ||
+    (lower.includes("music.apple.com/") && lower.includes("/playlist/")) ||
+    (lower.includes("deezer.com/") && lower.includes("/playlist/")) ||
+    lower.includes("tidal.com/browse/playlist") ||
+    lower.includes("tidal.com/playlist") ||
+    (lower.includes("music.amazon.") && lower.includes("/playlists/")) ||
+    (lower.includes("soundcloud.com/") && lower.includes("/sets/"))
+  );
+}
+
+/**
+ * Detects the music streaming platform from a URL.
+ */
+function detectPlatformFromUrl(url: string): string {
+  if (!url || typeof url !== "string") return "Streaming";
+  const lower = url.toLowerCase().trim();
+  if (lower.includes("spotify.com") || lower.includes("spotify:")) return "Spotify";
+  if (lower.includes("apple.com")) return "Apple Music";
+  if (lower.includes("youtube.com") || lower.includes("youtu.be")) return "YouTube";
+  if (lower.includes("deezer.com")) return "Deezer";
+  if (lower.includes("tidal.com")) return "Tidal";
+  if (lower.includes("amazon.")) return "Amazon Music";
+  if (lower.includes("soundcloud.com")) return "SoundCloud";
+  if (lower.includes("bandcamp.com")) return "Bandcamp";
+  return "Streaming";
+}
+
+/**
  * Resolves direct YouTube Music Channel for artist pages.
  */
 async function resolveYouTubeArtistChannelLive(artistName: string): Promise<string | null> {
@@ -1332,6 +1374,24 @@ export const resolve = onRequest(
     const forceRefresh = req.query.force_refresh === "true" || req.query.forceRefresh === "true";
     if (!targetUrl || typeof targetUrl !== "string") {
       res.status(400).json({ error: "INVALID_URL", message: "Parameter 'url' is required" });
+      return;
+    }
+
+    // 3a. Intercept Playlists early (Feature #16: Website & App preparation)
+    if (isPlaylistUrl(targetUrl)) {
+      res.status(200).json({
+        status: "playlist_detected",
+        isPlaylist: true,
+        entityType: "playlist",
+        originalUrl: targetUrl,
+        platform: detectPlatformFromUrl(targetUrl),
+        message: "Playlists are not currently supported for 1:1 flipping. Full playlist conversion is coming in a future update.",
+      });
+      return;
+    }
+
+    if (!isSafePublicHttpsUrl(targetUrl)) {
+      res.status(400).json({ error: "UNSAFE_URL", message: "The provided URL is not a recognized or safe streaming link" });
       return;
     }
 
@@ -2483,4 +2543,6 @@ export {
   verifySignedCouponToken,
   isSecureMatch,
   isArtistUrl,
+  isPlaylistUrl,
+  detectPlatformFromUrl,
 };

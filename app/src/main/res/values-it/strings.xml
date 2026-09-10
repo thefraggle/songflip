@@ -117,6 +117,13 @@
     <string name="legal_terms">Termini di servizio</string>
     <string name="legal_contact">Contatto</string>
     <string name="playlist_not_supported_toast">Le playlist non sono attualmente supportate.</string>
+    <string name="playlist_dialog_title">Playlist rilevata</string>
+    <string name="playlist_dialog_body">SongFlip attualmente supporta singoli brani e album. La conversione completa delle playlist arriverà in un prossimo aggiornamento!</string>
+    <string name="playlist_dialog_action_open">Apri in %1$s</string>
+    <string name="playlist_dialog_action_copy">Copia link</string>
+    <string name="playlist_dialog_action_close">Chiudi</string>
+    <string name="playlist_badge">Playlist</string>
+    <string name="playlist_banner_action_open">Apri %1$s nell\'originale</string>
 
     <string name="history_title">Cronologia brani</string>
     <string name="history_subtitle">Visualizza e gestisci i brani convertiti di recente</string>

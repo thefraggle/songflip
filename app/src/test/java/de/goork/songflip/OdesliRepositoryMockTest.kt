@@ -39,8 +39,10 @@ class OdesliRepositoryMockTest {
     @Test
     fun testPlaylistUrlReturnsPlaylistNotSupported() = runBlocking {
         val result = repository.resolveTargetUrl("https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M", "youtubeMusic")
-        assertTrue(result is OdesliResult.Error)
-        assertEquals("PLAYLIST_NOT_SUPPORTED", (result as OdesliResult.Error).message)
+        assertTrue(result is OdesliResult.Playlist)
+        val playlist = result as OdesliResult.Playlist
+        assertEquals("spotify", playlist.platform)
+        assertEquals("https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M", playlist.originalUrl)
     }
 
     @Test

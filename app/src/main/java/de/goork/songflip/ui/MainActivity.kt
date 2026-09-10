@@ -191,6 +191,7 @@ fun MainScreen(
     var showAppLinksSetupBottomSheet by remember { mutableStateOf(false) }
     var showProPaywall by remember { mutableStateOf(false) }
     var initialShowPromoInPaywall by remember { mutableStateOf(false) }
+    var showPlaylistNoticeSheet by remember { mutableStateOf<String?>(null) }
 
     val proState by ProManager.proState.collectAsState()
     var activeMilestone by remember { mutableStateOf(settingsRepository.getActiveProNudgeMilestone()) }
@@ -416,6 +417,15 @@ fun MainScreen(
         )
     }
 
+    showPlaylistNoticeSheet?.let { playlistUrl ->
+        val platformKey = UrlUtils.detectPlatform(playlistUrl)?.key ?: "unknown"
+        PlaylistNoticeBottomSheet(
+            playlistUrl = playlistUrl,
+            platformKey = platformKey,
+            onDismiss = { showPlaylistNoticeSheet = null }
+        )
+    }
+
     // Main UI Layout
     BoxWithConstraints(
         modifier = Modifier
@@ -480,18 +490,27 @@ fun MainScreen(
                 exit = fadeOut() + shrinkVertically()
             ) {
                 detectedClipboardUrl?.let { clipUrl ->
+                    val isPlaylist = UrlUtils.isPlaylistUrl(clipUrl)
                     val targetService = targetServices.find { it.key == selectedTargetKey }
                     val targetServiceName: String = targetService?.let { stringResource(it.nameResId) } ?: "Player"
                     ClipboardSmartBanner(
                         musicUrl = clipUrl,
                         targetPlatformName = targetServiceName,
                         isPro = proState.isPro,
+                        isPlaylist = isPlaylist,
+                        onOpenPlaylist = { url ->
+                            showPlaylistNoticeSheet = url
+                        },
                         onOpenInTarget = { urlToOpen ->
-                            val redirectIntent = Intent(context, RedirectActivity::class.java).apply {
-                                data = Uri.parse(urlToOpen)
-                                putExtra("from_clipboard_banner", true)
+                            if (isPlaylist) {
+                                showPlaylistNoticeSheet = urlToOpen
+                            } else {
+                                val redirectIntent = Intent(context, RedirectActivity::class.java).apply {
+                                    data = Uri.parse(urlToOpen)
+                                    putExtra("from_clipboard_banner", true)
+                                }
+                                context.startActivity(redirectIntent)
                             }
-                            context.startActivity(redirectIntent)
                         },
                         onShareUniversalLink = { urlToShare ->
                             val universalUrl = ProManager.getUniversalWebShareUrl(urlToShare)

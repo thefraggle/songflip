@@ -117,6 +117,13 @@
     <string name="legal_terms">Términos de servicio</string>
     <string name="legal_contact">Contacto</string>
     <string name="playlist_not_supported_toast">Actualmente no se admiten listas de reproducción.</string>
+    <string name="playlist_dialog_title">Lista de reproducción detectada</string>
+    <string name="playlist_dialog_body">SongFlip actualmente es compatible con canciones y álbumes. ¡La conversión completa de listas llegará en una próxima actualización!</string>
+    <string name="playlist_dialog_action_open">Abrir en %1$s</string>
+    <string name="playlist_dialog_action_copy">Copiar enlace</string>
+    <string name="playlist_dialog_action_close">Cerrar</string>
+    <string name="playlist_badge">Lista</string>
+    <string name="playlist_banner_action_open">Abrir %1$s en original</string>
 
     <string name="history_title">Historial de canciones</string>
     <string name="history_subtitle">Ver y gestionar canciones convertidas recientemente</string>

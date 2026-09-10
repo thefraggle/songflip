@@ -126,6 +126,13 @@
     <string name="redirecting_toast">Musik-Link wird umgewandelt...</string>
     <string name="redirect_error_toast">Link konnte nicht umgewandelt werden. Original-Link wird geöffnet.</string>
     <string name="playlist_not_supported_toast">Playlists werden aktuell nicht unterstützt.</string>
+    <string name="playlist_dialog_title">Playlist erkannt</string>
+    <string name="playlist_dialog_body">SongFlip unterstützt aktuell Einzelsongs und Alben. Der automatische Playlist-Konverter ist für ein kommendes Update geplant!</string>
+    <string name="playlist_dialog_action_open">In %1$s öffnen</string>
+    <string name="playlist_dialog_action_copy">Link kopieren</string>
+    <string name="playlist_dialog_action_close">Schließen</string>
+    <string name="playlist_badge">Playlist</string>
+    <string name="playlist_banner_action_open">%1$s im Original öffnen</string>
 
     <string name="theme_label">Erscheinungsbild</string>
     <string name="theme_system">System</string>

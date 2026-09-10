@@ -126,6 +126,13 @@
     <string name="redirecting_toast">Flipping music link...</string>
     <string name="redirect_error_toast">Could not flip link. Opening original link.</string>
     <string name="playlist_not_supported_toast">Playlists are not currently supported.</string>
+    <string name="playlist_dialog_title">Playlist Detected</string>
+    <string name="playlist_dialog_body">SongFlip currently supports single tracks and albums. Full playlist conversion is coming in a future update!</string>
+    <string name="playlist_dialog_action_open">Open in %1$s</string>
+    <string name="playlist_dialog_action_copy">Copy Link</string>
+    <string name="playlist_dialog_action_close">Close</string>
+    <string name="playlist_badge">Playlist</string>
+    <string name="playlist_banner_action_open">Open %1$s in Original</string>
 
     <string name="theme_label">Theme</string>
     <string name="theme_system">System</string>

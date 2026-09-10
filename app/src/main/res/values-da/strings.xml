@@ -117,6 +117,13 @@
     <string name="legal_terms">Brugsvilkår</string>
     <string name="legal_contact">Kontakt</string>
     <string name="playlist_not_supported_toast">Playlister understøttes i øjeblikket ikke.</string>
+    <string name="playlist_dialog_title">Afspilningsliste registreret</string>
+    <string name="playlist_dialog_body">SongFlip understøtter i øjeblikket enkelte numre og album. Fuld konvertering af afspilningslister kommer i en fremtidig opdatering!</string>
+    <string name="playlist_dialog_action_open">Åbn i %1$s</string>
+    <string name="playlist_dialog_action_copy">Kopier link</string>
+    <string name="playlist_dialog_action_close">Luk</string>
+    <string name="playlist_badge">Playliste</string>
+    <string name="playlist_banner_action_open">Åbn %1$s i original</string>
 
     <string name="history_title">Sanghistorik</string>
     <string name="history_subtitle">Se og administrer nyligt konverterede sange</string>

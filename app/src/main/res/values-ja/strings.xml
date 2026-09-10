@@ -117,6 +117,13 @@
     <string name="legal_terms">利用規約</string>
     <string name="legal_contact">お問い合わせ</string>
     <string name="playlist_not_supported_toast">現在プレイリストはサポートされていません。</string>
+    <string name="playlist_dialog_title">プレイリストを検出しました</string>
+    <string name="playlist_dialog_body">SongFlipは現在、シングル曲とアルバムのみに対応しています。プレイリストの一括変換は今後のアップデートで提供予定です！</string>
+    <string name="playlist_dialog_action_open">%1$sで開く</string>
+    <string name="playlist_dialog_action_copy">リンクをコピー</string>
+    <string name="playlist_dialog_action_close">閉じる</string>
+    <string name="playlist_badge">プレイリスト</string>
+    <string name="playlist_banner_action_open">%1$sで直接開く</string>
 
     <string name="history_title">楽曲履歴</string>
     <string name="history_subtitle">最近変換した楽曲の確認と管理</string>

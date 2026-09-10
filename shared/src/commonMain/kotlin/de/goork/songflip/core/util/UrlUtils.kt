@@ -1,5 +1,6 @@
 package de.goork.songflip.core.util
 
+import de.goork.songflip.core.model.MusicEntityType
 import de.goork.songflip.core.model.MusicPlatform
 import io.ktor.http.encodeURLParameter
 
@@ -198,8 +199,46 @@ object UrlUtils {
 
     fun isPlaylistUrl(url: String): Boolean {
         if (url.contains("i=") || url.contains("trackAsin=") || url.contains("/track/") || url.contains("/song/")) return false
-        return url.contains("/playlist/") || url.contains("/playlists/") || url.contains("/playlist?") || url.contains("link.deezer.com") ||
-                (url.contains("soundcloud.com/") && (url.contains("/sets/") || url.contains("/playlists/")))
+        val clean = url.lowercase()
+        // YouTube URLs with watch?v= or youtu.be/ are individual songs, even if they have a &list= parameter
+        if (clean.contains("watch?v=") || clean.contains("youtu.be/")) return false
+
+        return clean.contains("/playlist/") ||
+                clean.contains("/playlists/") ||
+                clean.contains("/playlist?") ||
+                clean.contains("youtube.com/playlist") ||
+                clean.contains("link.deezer.com") ||
+                (clean.contains("soundcloud.com/") && (clean.contains("/sets/") || clean.contains("/playlists/"))) ||
+                (clean.contains("music.amazon.") && clean.contains("/playlists/")) ||
+                clean.startsWith("spotify:playlist:")
+    }
+
+    fun detectEntityType(url: String): MusicEntityType {
+        val clean = url.lowercase()
+        return when {
+            isSearchUrl(url) -> MusicEntityType.SEARCH
+            isPlaylistUrl(url) -> MusicEntityType.PLAYLIST
+            isAlbumUrl(url) -> MusicEntityType.ALBUM
+            clean.contains("/artist/") || clean.contains("/channel/") -> MusicEntityType.ARTIST
+            clean.contains("/track/") || clean.contains("/song/") || clean.contains("youtu.be/") || clean.contains("watch?v=") || clean.contains("i=") || clean.contains("trackasin=") -> MusicEntityType.TRACK
+            else -> MusicEntityType.UNKNOWN
+        }
+    }
+
+    fun detectPlatform(url: String): MusicPlatform? {
+        val lower = url.lowercase()
+        return when {
+            lower.contains("spotify.com") || lower.startsWith("spotify:") -> MusicPlatform.SPOTIFY
+            lower.contains("apple.com") || lower.contains("itunes.apple.com") -> MusicPlatform.APPLE_MUSIC
+            lower.contains("music.youtube.com") -> MusicPlatform.YOUTUBE_MUSIC
+            lower.contains("youtube.com") || lower.contains("youtu.be") -> MusicPlatform.YOUTUBE_MUSIC
+            lower.contains("deezer.com") || lower.contains("deezer.page.link") -> MusicPlatform.DEEZER
+            lower.contains("tidal.com") -> MusicPlatform.TIDAL
+            lower.contains("music.amazon.") || lower.contains("amazon.") -> MusicPlatform.AMAZON_MUSIC
+            lower.contains("soundcloud.com") -> MusicPlatform.SOUNDCLOUD
+            lower.contains("bandcamp.com") -> MusicPlatform.BANDCAMP
+            else -> null
+        }
     }
 
     fun isSearchUrl(url: String): Boolean {
