@@ -120,7 +120,9 @@
 
     <string name="history_title">Lịch sử bài hát</string>
     <string name="history_subtitle">Quản lý và phát lại các bài hát đã chuyển đổi gần đây</string>
-    <string name="history_cached_count">%1$d bài hát trong lịch sử</string>
+    <plurals name="history_cached_count">
+        <item quantity="other">%1$d bài hát trong lịch sử</item>
+    </plurals>
     <string name="history_empty">Chưa có bài hát nào được chuyển đổi. Các liên kết âm nhạc đã chuyển đổi sẽ tự động xuất hiện tại đây.</string>
     <string name="history_clear_all">Xóa lịch sử</string>
     <string name="history_clear_confirm_title">Xóa lịch sử bài hát?</string>
@@ -197,10 +199,21 @@
     <string name="history_link_refreshed">Đã cập nhật liên kết thành công!</string>
     <string name="history_link_refreshing">Đang làm mới liên kết...</string>
 
-    <string name="pro_nudge_title">🎉 Đã chuyển đổi thành công %1$d bài hát!</string>
+    <plurals name="pro_nudge_title">
+        <item quantity="other">🎉 Đã chuyển đổi thành công %1$d bài hát!</item>
+    </plurals>
     <string name="pro_nudge_subtitle">Mở khóa bộ nhớ đệm tốc độ cao L2 &amp; lịch sử mở rộng với SongFlip PRO.</string>
     <string name="pro_nudge_action_redeem">Đổi mã ưu đãi</string>
     <string name="pro_nudge_action_more">Tìm hiểu thêm</string>
-    <string name="history_capacity_free">Đã lưu %1$d trên %2$d bài hát (PRO: lên đến 100)</string>
-    <string name="history_capacity_pro">Đã lưu %1$d trên %2$d bài hát</string>
+    <plurals name="history_capacity_free">
+        <item quantity="other">Đã lưu %1$d trên %2$d bài hát (PRO: lên đến 100)</item>
+    </plurals>
+    <plurals name="history_capacity_pro">
+        <item quantity="other">Đã lưu %1$d trên %2$d bài hát</item>
+    </plurals>
+    <string name="pro_debug_reset_status">Đã đặt lại trạng thái PRO (Debug)</string>
+    <string name="pro_debug_reset_button">Đặt lại trạng thái PRO (Debug)</string>
+
+    <string name="settings_tip_multiple_apps_title">Bạn đã cài đặt nhiều ứng dụng âm nhạc?</string>
+    <string name="settings_tip_multiple_apps_body">Nếu một ứng dụng như Spotify mở liên kết trực tiếp, bạn chỉ cần nhấn vào \"Chia sẻ \u2192 SongFlip\" trong WhatsApp hoặc bất kỳ ứng dụng nào để phát bài hát trong trình phát nhạc yêu thích.</string>
 </resources>

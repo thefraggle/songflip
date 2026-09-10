@@ -120,7 +120,12 @@
 
     <string name="history_title">Історія треків</string>
     <string name="history_subtitle">Керуйте та повторно відкривайте нещодавно перетворені треки</string>
-    <string name="history_cached_count">%1$d треків в історії</string>
+    <plurals name="history_cached_count">
+        <item quantity="one">%1$d трек в історії</item>
+        <item quantity="few">%1$d треки в історії</item>
+        <item quantity="many">%1$d треків в історії</item>
+        <item quantity="other">%1$d треків в історії</item>
+    </plurals>
     <string name="history_empty">Сконвертованих треків ще немає. Посилання з\'являться тут автоматично.</string>
     <string name="history_clear_all">Очистити історію</string>
     <string name="history_clear_confirm_title">Очистити історію треків?</string>
@@ -197,10 +202,30 @@
     <string name="history_link_refreshed">Посилання успішно оновлено!</string>
     <string name="history_link_refreshing">Оновлення посилання...</string>
 
-    <string name="pro_nudge_title">🎉 Успішно перетворено треків: %1$d!</string>
+    <plurals name="pro_nudge_title">
+        <item quantity="one">🎉 Успішно перетворено %1$d трек!</item>
+        <item quantity="few">🎉 Успішно перетворено %1$d треки!</item>
+        <item quantity="many">🎉 Успішно перетворено треків: %1$d!</item>
+        <item quantity="other">🎉 Успішно перетворено треків: %1$d!</item>
+    </plurals>
     <string name="pro_nudge_subtitle">Відкрийте високошвидкісний кеш L2 та розширену історію з SongFlip PRO.</string>
     <string name="pro_nudge_action_redeem">Використати купон</string>
     <string name="pro_nudge_action_more">Дізнатися більше</string>
-    <string name="history_capacity_free">%1$d з %2$d треків збережено (PRO: до 100)</string>
-    <string name="history_capacity_pro">%1$d з %2$d треків збережено</string>
+    <plurals name="history_capacity_free">
+        <item quantity="one">%1$d з %2$d треків збережено (PRO: до 100)</item>
+        <item quantity="few">%1$d з %2$d треків збережено (PRO: до 100)</item>
+        <item quantity="many">%1$d з %2$d треків збережено (PRO: до 100)</item>
+        <item quantity="other">%1$d з %2$d треків збережено (PRO: до 100)</item>
+    </plurals>
+    <plurals name="history_capacity_pro">
+        <item quantity="one">%1$d з %2$d треків збережено</item>
+        <item quantity="few">%1$d з %2$d треків збережено</item>
+        <item quantity="many">%1$d з %2$d треків збережено</item>
+        <item quantity="other">%1$d з %2$d треків збережено</item>
+    </plurals>
+    <string name="pro_debug_reset_status">Статус PRO скинуто (Debug)</string>
+    <string name="pro_debug_reset_button">Скинути статус PRO (Debug)</string>
+
+    <string name="settings_tip_multiple_apps_title">Встановлено кілька музичних додатків?</string>
+    <string name="settings_tip_multiple_apps_body">Якщо такий додаток, як Spotify, відкриває посилання напряму, просто натисніть \"Поділитися \u2192 SongFlip\" у WhatsApp або будь-якому додатку, щоб слухати треки в улюбленому плеєрі.</string>
 </resources>

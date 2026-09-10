@@ -120,7 +120,10 @@
 
     <string name="history_title">গানের ইতিহাস</string>
     <string name="history_subtitle">সম্প্রতি রূপান্তরিত গান পরিচালনা ও পুনরায় শুনুন</string>
-    <string name="history_cached_count">ইতিহাসে %1$dটি গান</string>
+    <plurals name="history_cached_count">
+        <item quantity="one">ইতিহাসে %1$dটি গান</item>
+        <item quantity="other">ইতিহাসে %1$dটি গান</item>
+    </plurals>
     <string name="history_empty">এখনও কোনো গান রূপান্তর করা হয়নি। শেয়ার করা লিঙ্কগুলি এখানে স্বয়ংক্রিয়ভাবে প্রদর্শিত হবে।</string>
     <string name="history_clear_all">ইতিহাস মুছে ফেলুন</string>
     <string name="history_clear_confirm_title">গানের ইতিহাস মুছে ফেলবেন?</string>
@@ -197,10 +200,24 @@
     <string name="history_link_refreshed">লিঙ্ক সফলভাবে আপডেট হয়েছে!</string>
     <string name="history_link_refreshing">লিঙ্ক রিফ্রেশ হচ্ছে...</string>
 
-    <string name="pro_nudge_title">🎉 সফলভাবে %1$dটি গান রূপান্তরিত হয়েছে!</string>
+    <plurals name="pro_nudge_title">
+        <item quantity="one">🎉 সফলভাবে %1$dটি গান রূপান্তরিত হয়েছে!</item>
+        <item quantity="other">🎉 সফলভাবে %1$dটি গান রূপান্তরিত হয়েছে!</item>
+    </plurals>
     <string name="pro_nudge_subtitle">SongFlip PRO দিয়ে L2 উচ্চ-গতির ক্যাশ এবং বর্ধিত ইতিহাস আনলক করুন।</string>
     <string name="pro_nudge_action_redeem">কুপন রিডিম করুন</string>
     <string name="pro_nudge_action_more">আরও জানুন</string>
-    <string name="history_capacity_free">%1$d / %2$dটি গান সংরক্ষিত (PRO: সর্বোচ্চ 100টি)</string>
-    <string name="history_capacity_pro">%1$d / %2$dটি গান সংরক্ষিত</string>
+    <plurals name="history_capacity_free">
+        <item quantity="one">%1$d / %2$dটি গান সংরক্ষিত (PRO: সর্বোচ্চ 100টি)</item>
+        <item quantity="other">%1$d / %2$dটি গান সংরক্ষিত (PRO: সর্বোচ্চ 100টি)</item>
+    </plurals>
+    <plurals name="history_capacity_pro">
+        <item quantity="one">%1$d / %2$dটি গান সংরক্ষিত</item>
+        <item quantity="other">%1$d / %2$dটি গান সংরক্ষিত</item>
+    </plurals>
+    <string name="pro_debug_reset_status">PRO স্ট্যাটাস রিসেট করা হয়েছে (ডিবাগ)</string>
+    <string name="pro_debug_reset_button">PRO স্ট্যাটাস রিসেট করুন (ডিবাগ)</string>
+
+    <string name="settings_tip_multiple_apps_title">একাধিক মিউজিক অ্যাপ ইনস্টল করা আছে?</string>
+    <string name="settings_tip_multiple_apps_body">যদি Spotify-এর মতো কোনও অ্যাপ সরাসরি লিঙ্ক খোলে, তবে আপনার পছন্দের মিউজিক প্লেয়ারে গান চালাতে WhatsApp বা যেকোনো অ্যাপে শুধু \"শেয়ার \u2192 SongFlip\" ট্যাপ করুন।</string>
 </resources>

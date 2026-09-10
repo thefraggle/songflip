@@ -120,7 +120,9 @@
 
     <string name="history_title">楽曲履歴</string>
     <string name="history_subtitle">最近変換した楽曲の確認と管理</string>
-    <string name="history_cached_count">履歴に %1$d 曲</string>
+    <plurals name="history_cached_count">
+        <item quantity="other">履歴に %1$d 曲</item>
+    </plurals>
     <string name="history_empty">変換された楽曲はまだありません。共有されたリンクがここに表示されます。</string>
     <string name="history_clear_all">履歴を消去</string>
     <string name="history_clear_confirm_title">楽曲履歴を消去しますか？</string>
@@ -197,10 +199,21 @@
     <string name="history_link_refreshed">リンクを更新しました！</string>
     <string name="history_link_refreshing">リンクを再取得中...</string>
 
-    <string name="pro_nudge_title">🎉 %1$d 曲の変換に成功しました！</string>
+    <plurals name="pro_nudge_title">
+        <item quantity="other">🎉 %1$d 曲の変換に成功しました！</item>
+    </plurals>
     <string name="pro_nudge_subtitle">SongFlip PROでL2高速キャッシュと拡張履歴を利用可能に。</string>
     <string name="pro_nudge_action_redeem">クーポンを利用</string>
     <string name="pro_nudge_action_more">詳細を見る</string>
-    <string name="history_capacity_free">%1$d / %2$d 曲保存済み (PRO: 最大100曲)</string>
-    <string name="history_capacity_pro">%1$d / %2$d 曲保存済み</string>
+    <plurals name="history_capacity_free">
+        <item quantity="other">%1$d / %2$d 曲保存済み (PRO: 最大100曲)</item>
+    </plurals>
+    <plurals name="history_capacity_pro">
+        <item quantity="other">%1$d / %2$d 曲保存済み</item>
+    </plurals>
+    <string name="pro_debug_reset_status">PROステータスをリセットしました（デバッグ）</string>
+    <string name="pro_debug_reset_button">PROステータスをリセット（デバッグ）</string>
+
+    <string name="settings_tip_multiple_apps_title">複数の音楽アプリをインストールしていますか？</string>
+    <string name="settings_tip_multiple_apps_body">Spotifyなどのアプリがリンクを直接開く場合は、WhatsAppなどのアプリで「共有 \u2192 SongFlip」をタップするだけで、お好みの音楽プレイヤーで曲を再生できます。</string>
 </resources>

@@ -120,7 +120,10 @@
 
     <string name="history_title">Sanghistorikk</string>
     <string name="history_subtitle">Se og administrer nylig konverterte sanger</string>
-    <string name="history_cached_count">%1$d sanger i historikken</string>
+    <plurals name="history_cached_count">
+        <item quantity="one">%1$d sang i historikken</item>
+        <item quantity="other">%1$d sanger i historikken</item>
+    </plurals>
     <string name="history_empty">Ingen konverterte sanger ennå. Delte musikklenker vises her.</string>
     <string name="history_clear_all">Tøm historikk</string>
     <string name="history_clear_confirm_title">Tømme sanghistorikken?</string>
@@ -197,10 +200,24 @@
     <string name="history_link_refreshed">Lenke oppdatert!</string>
     <string name="history_link_refreshing">Oppdaterer lenke...</string>
 
-    <string name="pro_nudge_title">🎉 %1$d sanger vendt vellykket!</string>
+    <plurals name="pro_nudge_title">
+        <item quantity="one">🎉 %1$d sang vendt vellykket!</item>
+        <item quantity="other">🎉 %1$d sanger vendt vellykket!</item>
+    </plurals>
     <string name="pro_nudge_subtitle">Lås opp L2 høyhastighets-hurtigbuffer &amp; utvidet historikk med SongFlip PRO.</string>
     <string name="pro_nudge_action_redeem">Løs inn kupong</string>
     <string name="pro_nudge_action_more">Les mer</string>
-    <string name="history_capacity_free">%1$d av %2$d sanger lagret (PRO: opptil 100)</string>
-    <string name="history_capacity_pro">%1$d av %2$d sanger lagret</string>
+    <plurals name="history_capacity_free">
+        <item quantity="one">%1$d av %2$d sanger lagret (PRO: opptil 100)</item>
+        <item quantity="other">%1$d av %2$d sanger lagret (PRO: opptil 100)</item>
+    </plurals>
+    <plurals name="history_capacity_pro">
+        <item quantity="one">%1$d av %2$d sanger lagret</item>
+        <item quantity="other">%1$d av %2$d sanger lagret</item>
+    </plurals>
+    <string name="pro_debug_reset_status">PRO-status tilbakestilt (Debug)</string>
+    <string name="pro_debug_reset_button">Tilbakestill PRO-status (Debug)</string>
+
+    <string name="settings_tip_multiple_apps_title">Flere musikk-apper installert?</string>
+    <string name="settings_tip_multiple_apps_body">Hvis en app som Spotify åpner lenker direkte, trykker du bare på \"Del \u2192 SongFlip\" i WhatsApp eller en hvilken som helst app for å spille av sanger i din foretrukne musikkspiller.</string>
 </resources>

@@ -120,7 +120,10 @@
 
     <string name="history_title">Histórico de Músicas</string>
     <string name="history_subtitle">Veja e gerencie músicas convertidas recentemente</string>
-    <string name="history_cached_count">%1$d músicas no histórico</string>
+    <plurals name="history_cached_count">
+        <item quantity="one">%1$d música no histórico</item>
+        <item quantity="other">%1$d músicas no histórico</item>
+    </plurals>
     <string name="history_empty">Nenhuma música convertida ainda. Links de música compartilhados aparecerão aqui.</string>
     <string name="history_clear_all">Limpar Histórico</string>
     <string name="history_clear_confirm_title">Limpar histórico de músicas?</string>
@@ -197,10 +200,24 @@
     <string name="history_link_refreshed">Link atualizado com sucesso!</string>
     <string name="history_link_refreshing">Atualizando link...</string>
 
-    <string name="pro_nudge_title">🎉 %1$d músicas convertidas com sucesso!</string>
+    <plurals name="pro_nudge_title">
+        <item quantity="one">🎉 %1$d música convertida com sucesso!</item>
+        <item quantity="other">🎉 %1$d músicas convertidas com sucesso!</item>
+    </plurals>
     <string name="pro_nudge_subtitle">Desbloqueie o cache de alta velocidade L2 e histórico estendido com SongFlip PRO.</string>
     <string name="pro_nudge_action_redeem">Resgatar cupom</string>
     <string name="pro_nudge_action_more">Saiba mais</string>
-    <string name="history_capacity_free">%1$d de %2$d músicas salvas (PRO: até 100)</string>
-    <string name="history_capacity_pro">%1$d de %2$d músicas salvas</string>
+    <plurals name="history_capacity_free">
+        <item quantity="one">%1$d de %2$d músicas salvas (PRO: até 100)</item>
+        <item quantity="other">%1$d de %2$d músicas salvas (PRO: até 100)</item>
+    </plurals>
+    <plurals name="history_capacity_pro">
+        <item quantity="one">%1$d de %2$d músicas salvas</item>
+        <item quantity="other">%1$d de %2$d músicas salvas</item>
+    </plurals>
+    <string name="pro_debug_reset_status">Status PRO redefinido (Debug)</string>
+    <string name="pro_debug_reset_button">Redefinir status PRO (Debug)</string>
+
+    <string name="settings_tip_multiple_apps_title">Vários apps de música instalados?</string>
+    <string name="settings_tip_multiple_apps_body">Se um app como o Spotify abrir links diretamente, basta tocar em \"Compartilhar \u2192 SongFlip\" no WhatsApp ou em qualquer app para reproduzir músicas no seu player preferido.</string>
 </resources>
