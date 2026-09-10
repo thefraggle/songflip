@@ -235,4 +235,15 @@
 
     <string name="settings_tip_multiple_apps_title">Zainstalowano kilka aplikacji muzycznych?</string>
     <string name="settings_tip_multiple_apps_body">Jeśli aplikacja taka jak Spotify otwiera linki bezpośrednio, po prostu dotknij \"Udostępnij \u2192 SongFlip\" w WhatsAppie lub dowolnej aplikacji, aby odtwarzać utwory w wybranym odtwarzaczu.</string>
+    <string name="app_links_diagnosis_title">Diagnostyka linków</string>
+    <string name="app_links_diagnosis_subtitle">Stan zainstalowanych usług muzycznych</string>
+    <string name="app_links_status_songflip">Obsługiwane przez SongFlip</string>
+    <string name="app_links_status_target">Twój odtwarzacz docelowy (gotowy)</string>
+    <string name="app_links_status_blocked">Przejmuje własne linki</string>
+    <string name="app_links_status_unconfigured">Nieprzypisany (Przeglądarka)</string>
+    <string name="app_links_btn_configure_app">Dostosuj w %s</string>
+    <string name="app_links_target_app_hint">Linki z Twojego ulubionego odtwarzacza (%s) nie wymagają przekierowania — skonfiguruj tylko inne usługi.</string>
+    <string name="setup_card_conflict_title">Wykryto konflikty linków</string>
+    <string name="setup_card_conflict_desc">%d zainstalowana/e aplikacja/e otwiera linki bezpośrednio, zanim SongFlip zdoła je przekierować.</string>
+    <string name="setup_card_conflict_badge">%d powodująca/e konflikt usługa/i</string>
 </resources>

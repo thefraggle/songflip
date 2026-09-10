@@ -223,4 +223,15 @@
 
     <string name="settings_tip_multiple_apps_title">Bạn đã cài đặt nhiều ứng dụng âm nhạc?</string>
     <string name="settings_tip_multiple_apps_body">Nếu một ứng dụng như Spotify mở liên kết trực tiếp, bạn chỉ cần nhấn vào \"Chia sẻ \u2192 SongFlip\" trong WhatsApp hoặc bất kỳ ứng dụng nào để phát bài hát trong trình phát nhạc yêu thích.</string>
+    <string name="app_links_diagnosis_title">Chẩn đoán liên kết</string>
+    <string name="app_links_diagnosis_subtitle">Trạng thái các dịch vụ nhạc đã cài đặt</string>
+    <string name="app_links_status_songflip">Được xử lý bởi SongFlip</string>
+    <string name="app_links_status_target">Trình phát mục tiêu (sẵn sàng)</string>
+    <string name="app_links_status_blocked">Chiếm quyền liên kết riêng</string>
+    <string name="app_links_status_unconfigured">Chưa chỉ định (Trình duyệt)</string>
+    <string name="app_links_btn_configure_app">Điều chỉnh trong %s</string>
+    <string name="app_links_target_app_hint">Liên kết từ trình phát yêu thích (%s) không cần chuyển hướng — chỉ cần định cấu hình các dịch vụ khác.</string>
+    <string name="setup_card_conflict_title">Phát hiện xung đột liên kết</string>
+    <string name="setup_card_conflict_desc">%d ứng dụng đã cài đặt mở liên kết trực tiếp trước khi SongFlip có thể chuyển hướng.</string>
+    <string name="setup_card_conflict_badge">%d dịch vụ xung đột</string>
 </resources>

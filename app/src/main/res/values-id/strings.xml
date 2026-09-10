@@ -223,4 +223,15 @@
 
     <string name="settings_tip_multiple_apps_title">Memasang beberapa aplikasi musik?</string>
     <string name="settings_tip_multiple_apps_body">Jika aplikasi seperti Spotify langsung membuka tautan, cukup ketuk \"Bagikan \u2192 SongFlip\" di WhatsApp atau aplikasi apa pun untuk memutar lagu di pemutar musik pilihan Anda.</string>
+    <string name="app_links_diagnosis_title">Diagnosis Tautan</string>
+    <string name="app_links_diagnosis_subtitle">Status layanan musik terinstal</string>
+    <string name="app_links_status_songflip">Dikelola oleh SongFlip</string>
+    <string name="app_links_status_target">Pemutar target Anda (siap)</string>
+    <string name="app_links_status_blocked">Mengklaim tautannya sendiri</string>
+    <string name="app_links_status_unconfigured">Tidak ditentukan (Browser)</string>
+    <string name="app_links_btn_configure_app">Sesuaikan di %s</string>
+    <string name="app_links_target_app_hint">Tautan dari pemutar favorit Anda (%s) tidak perlu dialihkan — cukup atur layanan lain.</string>
+    <string name="setup_card_conflict_title">Konflik Tautan Terdeteksi</string>
+    <string name="setup_card_conflict_desc">%d aplikasi terinstal membuka tautan langsung sebelum SongFlip dapat mengalihkannya.</string>
+    <string name="setup_card_conflict_badge">%d layanan berkonflik</string>
 </resources>

@@ -235,4 +235,15 @@
 
     <string name="settings_tip_multiple_apps_title">Встановлено кілька музичних додатків?</string>
     <string name="settings_tip_multiple_apps_body">Якщо такий додаток, як Spotify, відкриває посилання напряму, просто натисніть \"Поділитися \u2192 SongFlip\" у WhatsApp або будь-якому додатку, щоб слухати треки в улюбленому плеєрі.</string>
+    <string name="app_links_diagnosis_title">Діагностика посилань</string>
+    <string name="app_links_diagnosis_subtitle">Статус встановлених музичних сервісів</string>
+    <string name="app_links_status_songflip">Обробляється SongFlip</string>
+    <string name="app_links_status_target">Ваш цільовий плеєр (готовий)</string>
+    <string name="app_links_status_blocked">Перехоплює власні посилання</string>
+    <string name="app_links_status_unconfigured">Не призначено (Браузер)</string>
+    <string name="app_links_btn_configure_app">Налаштувати в %s</string>
+    <string name="app_links_target_app_hint">Посилання з вашого улюбленого плеєра (%s) не потребують перенаправлення — налаштуйте лише інші сервіси.</string>
+    <string name="setup_card_conflict_title">Виявлено конфлікти посилань</string>
+    <string name="setup_card_conflict_desc">%d встановл. додатків відкривають посилання напряму до перенаправлення SongFlip.</string>
+    <string name="setup_card_conflict_badge">%d конфліктних сервіси(-ів)</string>
 </resources>

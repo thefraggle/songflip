@@ -227,4 +227,15 @@
 
     <string name="settings_tip_multiple_apps_title">Flere musik-apps installeret?</string>
     <string name="settings_tip_multiple_apps_body">Hvis en app som Spotify åbner links direkte, skal du blot trykke på \"Del \u2192 SongFlip\" i WhatsApp eller en hvilken som helst app for at afspille sange i din foretrukne musikafspiller.</string>
+    <string name="app_links_diagnosis_title">Linkdiagnose</string>
+    <string name="app_links_diagnosis_subtitle">Status for dine installerede musiktjenester</string>
+    <string name="app_links_status_songflip">Håndteres af SongFlip</string>
+    <string name="app_links_status_target">Din målafspiller (klar)</string>
+    <string name="app_links_status_blocked">Overtager egne links</string>
+    <string name="app_links_status_unconfigured">Ikke tildelt (Browser)</string>
+    <string name="app_links_btn_configure_app">Juster i %s</string>
+    <string name="app_links_target_app_hint">Links fra din foretrukne afspiller (%s) behøver ikke omdirigering – konfigurer kun andre tjenester.</string>
+    <string name="setup_card_conflict_title">Linkkonflikter opdaget</string>
+    <string name="setup_card_conflict_desc">%d installeret/installerede app(s) åbner links direkte, før SongFlip kan omdirigere dem.</string>
+    <string name="setup_card_conflict_badge">%d modstridende tjeneste(r)</string>
 </resources>

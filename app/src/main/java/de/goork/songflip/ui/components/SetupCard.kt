@@ -34,6 +34,7 @@ enum class StatusType { ACTIVE, WARNING, ERROR }
 fun SetupCard(
     domainStatus: DomainStatusInfo?,
     linksActive: Boolean?,
+    diagnosisSummary: de.goork.songflip.data.DiagnosisSummary? = null,
     onOpenSetupGuide: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
@@ -99,6 +100,18 @@ fun SetupCard(
                     StatusBadge(
                         text = stringResource(R.string.status_active),
                         statusType = StatusType.ACTIVE
+                    )
+                }
+
+                if (diagnosisSummary != null && diagnosisSummary.blockedCount > 0) {
+                    StatusBadge(
+                        text = stringResource(R.string.setup_card_conflict_badge, diagnosisSummary.blockedCount),
+                        statusType = StatusType.WARNING,
+                        onClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                            de.goork.songflip.core.analytics.AptabaseClient.shared.trackDomainSetupClicked()
+                            onOpenSetupGuide()
+                        }
                     )
                 }
             } else {

@@ -16,6 +16,7 @@ import de.goork.songflip.data.OdesliResult
 import de.goork.songflip.data.PackageUtils
 import de.goork.songflip.data.PauseHelper
 import de.goork.songflip.data.SettingsRepository
+import de.goork.songflip.core.model.MusicPlatform
 import de.goork.songflip.core.util.UrlUtils
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
@@ -78,6 +79,29 @@ class RedirectActivity : ComponentActivity() {
             val targetPlatform = settingsRepository.targetPlatform
             val customApiUrl = settingsRepository.customApiUrl
             val customApiToken = settingsRepository.customApiToken
+
+            // 1b. Short-Circuit: If incoming URL is already from the user's target platform, launch directly (0 ms, no network)
+            val incomingPlatform = UrlUtils.detectPlatform(incomingUrl)
+            val isSamePlatform = when (targetPlatform) {
+                "spotify" -> incomingPlatform == MusicPlatform.SPOTIFY
+                "appleMusic" -> incomingPlatform == MusicPlatform.APPLE_MUSIC
+                "youtubeMusic" -> incomingPlatform == MusicPlatform.YOUTUBE_MUSIC
+                "deezer" -> incomingPlatform == MusicPlatform.DEEZER
+                "tidal" -> incomingPlatform == MusicPlatform.TIDAL
+                "amazonMusic" -> incomingPlatform == MusicPlatform.AMAZON_MUSIC
+                "soundcloud" -> incomingPlatform == MusicPlatform.SOUNDCLOUD
+                "bandcamp" -> incomingPlatform == MusicPlatform.BANDCAMP
+                else -> false
+            }
+
+            if (isSamePlatform) {
+                val targetDisplayName = PackageUtils.getPlatformDisplayName(targetPlatform)
+                Toast.makeText(applicationContext, "🎵 ➔ $targetDisplayName", Toast.LENGTH_SHORT).show()
+                openTargetUrl(incomingUrl, targetPlatform)
+                finish()
+                suppressTransitionAnimation()
+                return
+            }
 
             // 2. Zero-Delay Offline Check: If device is offline and link is not cached, fail immediately
             val hasNetwork = NetworkUtils.isNetworkAvailable(this)
