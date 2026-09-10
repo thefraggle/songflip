@@ -1,6 +1,7 @@
 package de.goork.songflip.core.engine
 
 import de.goork.songflip.core.cache.LinkCache
+import de.goork.songflip.core.cache.createDefaultCacheStorage
 import de.goork.songflip.core.model.ResolutionResult
 import de.goork.songflip.core.util.UrlUtils
 import io.ktor.client.HttpClient
@@ -25,9 +26,13 @@ import kotlinx.serialization.json.jsonPrimitive
 
 class SongLinkEngine(
     private val client: HttpClient = createPlatformHttpClient(),
-    private val cache: LinkCache = LinkCache()
+    private val cache: LinkCache = LinkCache(storage = createDefaultCacheStorage())
 ) {
-    constructor() : this(createPlatformHttpClient(), LinkCache())
+    constructor() : this(createPlatformHttpClient(), LinkCache(storage = createDefaultCacheStorage()))
+
+    companion object {
+        val shared: SongLinkEngine by lazy { SongLinkEngine() }
+    }
 
     private val json = Json {
         ignoreUnknownKeys = true

@@ -12,7 +12,7 @@ struct HistorySheetView: View {
 
     private func refreshLink(for item: HistoryItem) async {
         await MainActor.run { refreshingItemId = item.id }
-        let engine = SongLinkEngine()
+        let engine = SongLinkEngine.shared
         do {
             let res = try await engine.resolveTargetUrl(
                 inputUrl: item.sourceUrl,
@@ -28,6 +28,7 @@ struct HistorySheetView: View {
                         newTargetUrl: success.targetUrl,
                         newTitle: success.title,
                         newArtist: success.artist,
+                        newTargetPlatform: settings.targetPlatform,
                         isAlbum: success.isAlbum
                     )
                 }

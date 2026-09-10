@@ -16,6 +16,7 @@ import de.goork.songflip.data.OdesliResult
 import de.goork.songflip.data.PackageUtils
 import de.goork.songflip.data.PauseHelper
 import de.goork.songflip.data.SettingsRepository
+import de.goork.songflip.core.util.UrlUtils
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
 
@@ -133,6 +134,11 @@ class RedirectActivity : ComponentActivity() {
                         }
 
                         settingsRepository.incrementSuccessfulFlips()
+
+                        LinkCacheManager.markAsHistory(incomingUrl, targetPlatform)
+                        UrlUtils.extractCleanUrl(incomingUrl)?.let { clean ->
+                            LinkCacheManager.markAsHistory(UrlUtils.normalizeUrl(clean), targetPlatform)
+                        }
 
                         de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipped(
                             target = targetPlatform,

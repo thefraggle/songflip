@@ -6,7 +6,7 @@ import SongFlipKit
 
 class ShareViewController: UIViewController {
 
-    private let engine = SongLinkEngine()
+    private let engine = SongLinkEngine.shared
     private let activityIndicator = UIActivityIndicatorView(style: .large)
     private let statusLabel = UILabel()
     private let iconImageView = UIImageView()
@@ -159,7 +159,21 @@ class ShareViewController: UIViewController {
         var history: [[String: Any]] = []
         if let data = defaults.data(forKey: storageKey),
            let list = try? JSONSerialization.jsonObject(with: data) as? [[String: Any]] {
-            history = list
+            let now = Date().timeIntervalSince1970
+            let refOffset = Date.timeIntervalBetween1970AndReferenceDate
+            history = list.map { rawItem in
+                var item = rawItem
+                if let t = item["timestamp"] as? Double {
+                    if t > now + 86400 {
+                        let healed = t - refOffset
+                        item["timestamp"] = (healed > 0 && healed <= now + 86400) ? healed : now
+                    } else if t < 1_000_000_000 {
+                        let healed = t + refOffset
+                        item["timestamp"] = (healed > 0 && healed <= now + 86400) ? healed : now
+                    }
+                }
+                return item
+            }
         }
 
         let item: [String: Any] = [
@@ -222,4 +236,8 @@ class ShareViewController: UIViewController {
             }
         }
     }
+}
+
+extension SongLinkEngine {
+    public static let shared = SongLinkEngine.companion.shared
 }
