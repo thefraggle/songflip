@@ -22,6 +22,11 @@ sealed class OdesliResult {
         val artist: String? = null,
         val isAlbum: Boolean = false
     ) : OdesliResult()
+    data class Playlist(
+        val originalUrl: String,
+        val platform: String,
+        val message: String = "PLAYLIST_NOT_SUPPORTED"
+    ) : OdesliResult()
     data class Error(val message: String) : OdesliResult()
 }
 
@@ -71,9 +76,13 @@ class OdesliRepository {
             }
             val canonicalUrl = UrlUtils.normalizeUrl(resolvedUrl)
 
-            // Playlist links cannot be converted 1:1 in background; reject cleanly to avoid garbage search results
+            // Playlist links cannot be converted 1:1 in background; return Playlist result with detected platform
             if (isPlaylistUrl(canonicalUrl)) {
-                return@withContext OdesliResult.Error("PLAYLIST_NOT_SUPPORTED")
+                val detected = UrlUtils.detectPlatform(canonicalUrl)?.key ?: "unknown"
+                return@withContext OdesliResult.Playlist(
+                    originalUrl = canonicalUrl,
+                    platform = detected
+                )
             }
 
             val isExplicitTrackUrl = canonicalUrl.contains("i=") || canonicalUrl.contains("/song/") || canonicalUrl.contains("/track/")

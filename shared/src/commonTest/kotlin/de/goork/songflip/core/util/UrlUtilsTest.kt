@@ -122,10 +122,25 @@ class UrlUtilsTest {
     @Test
     fun testContentTypeDetection() {
         assertTrue(UrlUtils.isPlaylistUrl("https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M"))
+        assertTrue(UrlUtils.isPlaylistUrl("https://open.spotify.com/intl-de/playlist/37i9dQZF1DXcBWIGoYBM5M"))
+        assertTrue(UrlUtils.isPlaylistUrl("spotify:playlist:37i9dQZF1DXcBWIGoYBM5M"))
         assertTrue(UrlUtils.isPlaylistUrl("https://music.apple.com/de/playlist/heavy-metal/pl.u-12345"))
         assertTrue(UrlUtils.isPlaylistUrl("https://music.youtube.com/playlist?list=PL12345"))
+        assertTrue(UrlUtils.isPlaylistUrl("https://www.youtube.com/playlist?list=PL12345"))
+        assertTrue(UrlUtils.isPlaylistUrl("https://www.deezer.com/playlist/123456789"))
+        assertTrue(UrlUtils.isPlaylistUrl("https://tidal.com/browse/playlist/abc-123"))
+        assertTrue(UrlUtils.isPlaylistUrl("https://music.amazon.com/playlists/B07XYZ"))
         assertTrue(UrlUtils.isPlaylistUrl("https://soundcloud.com/octobersveryown/sets/more-life"))
         assertFalse(UrlUtils.isPlaylistUrl("https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv"))
+        assertFalse(UrlUtils.isPlaylistUrl("https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=PL12345"))
+
+        assertEquals(de.goork.songflip.core.model.MusicEntityType.PLAYLIST, UrlUtils.detectEntityType("https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M"))
+        assertEquals(de.goork.songflip.core.model.MusicEntityType.TRACK, UrlUtils.detectEntityType("https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv"))
+        assertEquals(de.goork.songflip.core.model.MusicEntityType.ALBUM, UrlUtils.detectEntityType("https://open.spotify.com/album/1DFixLWuPkv3KT3TnV35m3"))
+
+        assertEquals(de.goork.songflip.core.model.MusicPlatform.SPOTIFY, UrlUtils.detectPlatform("https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M"))
+        assertEquals(de.goork.songflip.core.model.MusicPlatform.APPLE_MUSIC, UrlUtils.detectPlatform("https://music.apple.com/de/playlist/heavy-metal/pl.u-12345"))
+        assertEquals(de.goork.songflip.core.model.MusicPlatform.YOUTUBE_MUSIC, UrlUtils.detectPlatform("https://music.youtube.com/playlist?list=PL12345"))
 
         assertTrue(UrlUtils.isAlbumUrl("https://open.spotify.com/album/1DFixLWuPkv3KT3TnV35m3"))
         assertTrue(UrlUtils.isAlbumUrl("https://music.apple.com/de/album/a-night-at-the-opera/1440650428"))

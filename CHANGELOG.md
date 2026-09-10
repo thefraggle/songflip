@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.25] - 2026-09-10
+- **Smart Playlist Handling**: When a playlist link is shared or copied, the app clearly detects it and opens the original playlist in your music app with a single tap.
+- **Link Reliability**: Improved cross-platform link detection ensures shared tracks and playlists are always handled cleanly without conversion errors.
+
 ## [1.2.24] - 2026-09-10
 - **Instant Speed & History**: Smarter caching and accurate history tracking ensure converted songs open instantly and appear reliably.
 - **Global Polish**: Localized shortcuts, setup tips, and share actions across all 24 supported languages with accurate plural counts.

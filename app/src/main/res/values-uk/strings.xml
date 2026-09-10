@@ -117,6 +117,13 @@
     <string name="legal_terms">Умови використання</string>
     <string name="legal_contact">Контакти</string>
     <string name="playlist_not_supported_toast">Списки відтворення зараз не підтримуються.</string>
+    <string name="playlist_dialog_title">Виявлено плейліст</string>
+    <string name="playlist_dialog_body">SongFlip наразі підтримує окремі треки та альбоми. Повна конвертація плейлістів з\'явиться в наступних оновленнях!</string>
+    <string name="playlist_dialog_action_open">Відкрити в %1$s</string>
+    <string name="playlist_dialog_action_copy">Скопіювати посилання</string>
+    <string name="playlist_dialog_action_close">Закрити</string>
+    <string name="playlist_badge">Плейліст</string>
+    <string name="playlist_banner_action_open">Відкрити %1$s в оригіналі</string>
 
     <string name="history_title">Історія треків</string>
     <string name="history_subtitle">Керуйте та повторно відкривайте нещодавно перетворені треки</string>

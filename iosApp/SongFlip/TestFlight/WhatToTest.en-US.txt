@@ -1,3 +1,2 @@
-- Effortless Setup: A quick 3-step guide and clear status badge for your active music services.
-- Smart App Detection: Your preferred music app is now recognized automatically on first launch.
-- Instant Alternatives: Convert music links on the spot via share menu or clipboard without setup.
+- Smart Playlist Handling: When a playlist link is shared or copied, the app clearly detects it and opens the original playlist in your music app with a single tap.
+- Link Reliability: Improved cross-platform link detection ensures shared tracks and playlists are always handled cleanly without conversion errors.
