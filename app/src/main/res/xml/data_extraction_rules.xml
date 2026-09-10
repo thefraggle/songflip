@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- Exclude shared preferences containing sensitive API tokens or user identifiers -->
+        <exclude domain="sharedpref" path="songflip_settings.xml"/>
+        <exclude domain="sharedpref" path="songflip_pro_prefs.xml"/>
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="sharedpref" path="songflip_settings.xml"/>
+        <exclude domain="sharedpref" path="songflip_pro_prefs.xml"/>
+    </device-transfer>
+</data-extraction-rules>
