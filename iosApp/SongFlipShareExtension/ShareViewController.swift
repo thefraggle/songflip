@@ -11,24 +11,9 @@ class ShareViewController: UIViewController {
     private let statusLabel = UILabel()
     private let iconImageView = UIImageView()
 
-    private var lang: String {
-        let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
-        if let savedLang = defaults.string(forKey: "app_language") {
-            return savedLang
-        }
-        for preferred in Locale.preferredLanguages {
-            let lower = preferred.lowercased()
-            let prefix2 = String(lower.prefix(2))
-            if lower.starts(with: "zh") { return "zh" }
-            if prefix2 == "id" || prefix2 == "in" { return "in" }
-            if prefix2 == "no" || prefix2 == "nb" || prefix2 == "nn" { return "nb" }
-            return prefix2
-        }
-        return "en"
-    }
-
     private func localizedText(for key: String, default defaultText: String) -> String {
-        LocalizationManager.string(for: key, lang: lang)
+        let val = LocalizationManager.string(for: key)
+        return val == key ? defaultText : val
     }
 
     override func viewDidLoad() {
@@ -139,7 +124,7 @@ class ShareViewController: UIViewController {
 
                     // Save to shared history via App Group
                     self.saveToSharedHistory(
-                        title: success.title ?? "Song",
+                        title: success.title ?? LocalizationManager.string(for: "unknown_song"),
                         artist: success.artist,
                         sourceUrl: inputUrl,
                         targetUrl: success.targetUrl,
