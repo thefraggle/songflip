@@ -120,7 +120,10 @@
 
     <string name="history_title">Cronologia brani</string>
     <string name="history_subtitle">Visualizza e gestisci i brani convertiti di recente</string>
-    <string name="history_cached_count">%1$d brani nella cronologia</string>
+    <plurals name="history_cached_count">
+        <item quantity="one">%1$d brano nella cronologia</item>
+        <item quantity="other">%1$d brani nella cronologia</item>
+    </plurals>
     <string name="history_empty">Nessun brano convertito. I link musicali condivisi appariranno qui.</string>
     <string name="history_clear_all">Cancella cronologia</string>
     <string name="history_clear_confirm_title">Cancellare la cronologia?</string>
@@ -197,10 +200,24 @@
     <string name="history_link_refreshed">Link aggiornato con successo!</string>
     <string name="history_link_refreshing">Aggiornamento link in corso...</string>
 
-    <string name="pro_nudge_title">🎉 %1$d brani convertiti con successo!</string>
+    <plurals name="pro_nudge_title">
+        <item quantity="one">🎉 %1$d brano convertito con successo!</item>
+        <item quantity="other">🎉 %1$d brani convertiti con successo!</item>
+    </plurals>
     <string name="pro_nudge_subtitle">Sblocca la cache ad alta velocità L2 e la cronologia estesa con SongFlip PRO.</string>
     <string name="pro_nudge_action_redeem">Riscatta coupon</string>
     <string name="pro_nudge_action_more">Scopri di più</string>
-    <string name="history_capacity_free">%1$d su %2$d brani salvati (PRO: fino a 100)</string>
-    <string name="history_capacity_pro">%1$d su %2$d brani salvati</string>
+    <plurals name="history_capacity_free">
+        <item quantity="one">%1$d su %2$d brani salvati (PRO: fino a 100)</item>
+        <item quantity="other">%1$d su %2$d brani salvati (PRO: fino a 100)</item>
+    </plurals>
+    <plurals name="history_capacity_pro">
+        <item quantity="one">%1$d su %2$d brani salvati</item>
+        <item quantity="other">%1$d su %2$d brani salvati</item>
+    </plurals>
+    <string name="pro_debug_reset_status">Stato PRO reimpostato (Debug)</string>
+    <string name="pro_debug_reset_button">Reimposta stato PRO (Debug)</string>
+
+    <string name="settings_tip_multiple_apps_title">Più app musicali installate?</string>
+    <string name="settings_tip_multiple_apps_body">Se un\'app come Spotify apre direttamente i link, tocca \"Condividi \u2192 SongFlip\" in WhatsApp o in qualsiasi app per riprodurre i brani nel tuo player preferito.</string>
 </resources>

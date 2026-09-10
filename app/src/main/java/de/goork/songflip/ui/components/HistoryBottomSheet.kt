@@ -31,6 +31,7 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -155,9 +156,9 @@ fun HistoryBottomSheet(
                     if (historyItems.isNotEmpty()) {
                         Text(
                             text = if (isPro) {
-                                stringResource(R.string.history_capacity_pro, historyItems.size, historyLimit)
+                                pluralStringResource(R.plurals.history_capacity_pro, historyItems.size, historyItems.size, historyLimit)
                             } else {
-                                stringResource(R.string.history_capacity_free, historyItems.size, historyLimit)
+                                pluralStringResource(R.plurals.history_capacity_free, historyItems.size, historyItems.size, historyLimit)
                             },
                             style = MaterialTheme.typography.bodySmall,
                             color = if (!isPro) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurfaceVariant,

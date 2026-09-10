@@ -120,7 +120,10 @@
 
     <string name="history_title">Nummergeschiedenis</string>
     <string name="history_subtitle">Bekijk en beheer recent geconverteerde nummers</string>
-    <string name="history_cached_count">%1$d nummers in geschiedenis</string>
+    <plurals name="history_cached_count">
+        <item quantity="one">%1$d nummer in geschiedenis</item>
+        <item quantity="other">%1$d nummers in geschiedenis</item>
+    </plurals>
     <string name="history_empty">Nog geen geconverteerde nummers. Gedeelde muzieklinks verschijnen hier.</string>
     <string name="history_clear_all">Geschiedenis wissen</string>
     <string name="history_clear_confirm_title">Geschiedenis wissen?</string>
@@ -197,10 +200,24 @@
     <string name="history_link_refreshed">Link succesvol vernieuwd!</string>
     <string name="history_link_refreshing">Link vernieuwen...</string>
 
-    <string name="pro_nudge_title">🎉 %1$d nummers succesvol omgezet!</string>
+    <plurals name="pro_nudge_title">
+        <item quantity="one">🎉 %1$d nummer succesvol omgezet!</item>
+        <item quantity="other">🎉 %1$d nummers succesvol omgezet!</item>
+    </plurals>
     <string name="pro_nudge_subtitle">Ontgrendel L2-hogesnelheidscache &amp; uitgebreide geschiedenis met SongFlip PRO.</string>
     <string name="pro_nudge_action_redeem">Kortingscode inwisselen</string>
     <string name="pro_nudge_action_more">Meer informatie</string>
-    <string name="history_capacity_free">%1$d van %2$d nummers opgeslagen (PRO: tot 100)</string>
-    <string name="history_capacity_pro">%1$d van %2$d nummers opgeslagen</string>
+    <plurals name="history_capacity_free">
+        <item quantity="one">%1$d van %2$d nummers opgeslagen (PRO: tot 100)</item>
+        <item quantity="other">%1$d van %2$d nummers opgeslagen (PRO: tot 100)</item>
+    </plurals>
+    <plurals name="history_capacity_pro">
+        <item quantity="one">%1$d van %2$d nummers opgeslagen</item>
+        <item quantity="other">%1$d van %2$d nummers opgeslagen</item>
+    </plurals>
+    <string name="pro_debug_reset_status">PRO-status gereset (Debug)</string>
+    <string name="pro_debug_reset_button">PRO-status resetten (Debug)</string>
+
+    <string name="settings_tip_multiple_apps_title">Meerdere muziek-apps geïnstalleerd?</string>
+    <string name="settings_tip_multiple_apps_body">Als een app zoals Spotify links direct opent, tik dan gewoon op \"Delen \u2192 SongFlip\" in WhatsApp of een willekeurige app om nummers in je favoriete muziekspeler af te spelen.</string>
 </resources>

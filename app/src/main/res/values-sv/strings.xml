@@ -120,7 +120,10 @@
 
     <string name="history_title">Låthistorik</string>
     <string name="history_subtitle">Se och hantera nyligen konverterade låtar</string>
-    <string name="history_cached_count">%1$d låtar i historiken</string>
+    <plurals name="history_cached_count">
+        <item quantity="one">%1$d låt i historiken</item>
+        <item quantity="other">%1$d låtar i historiken</item>
+    </plurals>
     <string name="history_empty">Inga konverterade låtar än. Delade musiklänkar visas här.</string>
     <string name="history_clear_all">Rensa historik</string>
     <string name="history_clear_confirm_title">Rensa låthistorik?</string>
@@ -197,10 +200,24 @@
     <string name="history_link_refreshed">Länk uppdaterad!</string>
     <string name="history_link_refreshing">Uppdaterar länk...</string>
 
-    <string name="pro_nudge_title">🎉 %1$d låtar vändes framgångsrikt!</string>
+    <plurals name="pro_nudge_title">
+        <item quantity="one">🎉 %1$d låt vändes framgångsrikt!</item>
+        <item quantity="other">🎉 %1$d låtar vändes framgångsrikt!</item>
+    </plurals>
     <string name="pro_nudge_subtitle">Lås upp L2 höghastighetscache &amp; utökad historik med SongFlip PRO.</string>
     <string name="pro_nudge_action_redeem">Lös in kupong</string>
     <string name="pro_nudge_action_more">Läs mer</string>
-    <string name="history_capacity_free">%1$d av %2$d låtar sparade (PRO: upp till 100)</string>
-    <string name="history_capacity_pro">%1$d av %2$d låtar sparade</string>
+    <plurals name="history_capacity_free">
+        <item quantity="one">%1$d av %2$d låtar sparade (PRO: upp till 100)</item>
+        <item quantity="other">%1$d av %2$d låtar sparade (PRO: upp till 100)</item>
+    </plurals>
+    <plurals name="history_capacity_pro">
+        <item quantity="one">%1$d av %2$d låtar sparade</item>
+        <item quantity="other">%1$d av %2$d låtar sparade</item>
+    </plurals>
+    <string name="pro_debug_reset_status">PRO-status återställd (Debug)</string>
+    <string name="pro_debug_reset_button">Återställ PRO-status (Debug)</string>
+
+    <string name="settings_tip_multiple_apps_title">Flera musikappar installerade?</string>
+    <string name="settings_tip_multiple_apps_body">Om en app som Spotify öppnar länkar direkt trycker du bara på \"Dela \u2192 SongFlip\" i WhatsApp eller valfri app för att spela låtar i din favoritmusikspelare.</string>
 </resources>

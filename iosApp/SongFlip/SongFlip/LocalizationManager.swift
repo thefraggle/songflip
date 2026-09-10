@@ -74,6 +74,14 @@ enum LocalizationManager {
             "action_refresh_link": "Link neu auflösen",
             "link_refreshed": "Link erfolgreich aktualisiert!",
             "link_refreshing": "Wird neu aufgelöst...",
+            "intent_title": "Song in SongFlip öffnen",
+            "intent_description": "Konvertiert einen kopierten oder übergebenen Musik-Link und öffnet die Ziel-App.",
+            "intent_param_music_link": "Musik-Link",
+            "intent_error_empty_clipboard": "Kein Musik-Link übergeben und Zwischenablage ist leer.",
+            "intent_error_failed_to_convert": "Fehler beim Konvertieren des Links: %@",
+            "intent_error_failed_to_resolve": "Konnte Ziel-URL nicht auflösen.",
+            "share_redirecting": "SongFlip: Leite weiter...",
+            "share_error_failed": "Konnte Link nicht weiterleiten.",
         ],
         "en": [
             "app_name": "SongFlip",
@@ -146,6 +154,14 @@ enum LocalizationManager {
             "action_refresh_link": "Refresh Link",
             "link_refreshed": "Link refreshed successfully!",
             "link_refreshing": "Refreshing link...",
+            "intent_title": "Open Song in SongFlip",
+            "intent_description": "Converts a copied or shared music link and opens the target app.",
+            "intent_param_music_link": "Music Link",
+            "intent_error_empty_clipboard": "No music link provided and clipboard is empty.",
+            "intent_error_failed_to_convert": "Error converting link: %@",
+            "intent_error_failed_to_resolve": "Could not resolve target URL.",
+            "share_redirecting": "SongFlip: Redirecting...",
+            "share_error_failed": "Could not redirect link.",
         ],
         "da": [
             "app_name": "SongFlip",
@@ -218,6 +234,14 @@ enum LocalizationManager {
             "action_refresh_link": "Genindlæs link",
             "link_refreshed": "Link opdateret!",
             "link_refreshing": "Genindlæser link...",
+            "intent_title": "Åbn sang i SongFlip",
+            "intent_description": "Konverterer et kopieret eller delt musiklink og åbner mål-appen.",
+            "intent_param_music_link": "Musiklink",
+            "intent_error_empty_clipboard": "Intet musiklink angivet, og udklipsholderen er tom.",
+            "intent_error_failed_to_convert": "Fejl ved konvertering af link: %@",
+            "intent_error_failed_to_resolve": "Kunne ikke løse mål-URL.",
+            "share_redirecting": "SongFlip: Omdirigerer...",
+            "share_error_failed": "Kunne ikke omdirigere link.",
         ],
         "nb": [
             "app_name": "SongFlip",
@@ -290,6 +314,14 @@ enum LocalizationManager {
             "action_refresh_link": "Oppdater lenke",
             "link_refreshed": "Lenke oppdatert!",
             "link_refreshing": "Oppdaterer lenke...",
+            "intent_title": "Åpne sang i SongFlip",
+            "intent_description": "Konverterer en kopiert eller delt musikklenke og åpner mål-appen.",
+            "intent_param_music_link": "Musikklenke",
+            "intent_error_empty_clipboard": "Ingen musikklenke oppgitt og utklippstavlen er tom.",
+            "intent_error_failed_to_convert": "Feil ved konvertering av lenke: %@",
+            "intent_error_failed_to_resolve": "Kunne ikke løse mål-URL.",
+            "share_redirecting": "SongFlip: Viderekobler...",
+            "share_error_failed": "Kunne ikke viderekoble lenke.",
         ],
         "sv": [
             "app_name": "SongFlip",
@@ -362,6 +394,14 @@ enum LocalizationManager {
             "action_refresh_link": "Uppdatera länk",
             "link_refreshed": "Länk uppdaterad!",
             "link_refreshing": "Uppdaterar länk...",
+            "intent_title": "Öppna låt i SongFlip",
+            "intent_description": "Konverterar en kopierad eller delad musiklänk och öppnar målappen.",
+            "intent_param_music_link": "Musiklänk",
+            "intent_error_empty_clipboard": "Ingen musiklänk angiven och urklipp är tomt.",
+            "intent_error_failed_to_convert": "Fel vid konvertering av länk: %@",
+            "intent_error_failed_to_resolve": "Kunde inte matcha måladress.",
+            "share_redirecting": "SongFlip: Omdirigerar...",
+            "share_error_failed": "Kunde inte vidarebefordra länken.",
         ],
         "nl": [
             "app_name": "SongFlip",
@@ -434,6 +474,14 @@ enum LocalizationManager {
             "action_refresh_link": "Link vernieuwen",
             "link_refreshed": "Link succesvol vernieuwd!",
             "link_refreshing": "Link vernieuwen...",
+            "intent_title": "Open nummer in SongFlip",
+            "intent_description": "Converteert een gekopieerde of gedeelde muzieklink en opent de doel-app.",
+            "intent_param_music_link": "Muzieklink",
+            "intent_error_empty_clipboard": "Geen muzieklink opgegeven en klembord is leeg.",
+            "intent_error_failed_to_convert": "Fout bij converteren van link: %@",
+            "intent_error_failed_to_resolve": "Kon doel-URL niet oplossen.",
+            "share_redirecting": "SongFlip: Doorsturen...",
+            "share_error_failed": "Kon link niet doorsturen.",
         ],
         "fr": [
             "app_name": "SongFlip",
@@ -506,6 +554,14 @@ enum LocalizationManager {
             "action_refresh_link": "Actualiser le lien",
             "link_refreshed": "Lien actualisé avec succès !",
             "link_refreshing": "Actualisation du lien...",
+            "intent_title": "Ouvrir le morceau dans SongFlip",
+            "intent_description": "Convertit un lien musical copié ou partagé et ouvre l'application cible.",
+            "intent_param_music_link": "Lien musical",
+            "intent_error_empty_clipboard": "Aucun lien musical fourni et le presse-papiers est vide.",
+            "intent_error_failed_to_convert": "Erreur lors de la conversion du lien : %@",
+            "intent_error_failed_to_resolve": "Impossible de résoudre l'URL cible.",
+            "share_redirecting": "SongFlip : Redirection...",
+            "share_error_failed": "Impossible de rediriger le lien.",
         ],
         "es": [
             "app_name": "SongFlip",
@@ -578,6 +634,14 @@ enum LocalizationManager {
             "action_refresh_link": "Actualizar enlace",
             "link_refreshed": "¡Enlace actualizado con éxito!",
             "link_refreshing": "Actualizando enlace...",
+            "intent_title": "Abrir canción en SongFlip",
+            "intent_description": "Convierte un enlace de música copiado o compartido y abre la app de destino.",
+            "intent_param_music_link": "Enlace de música",
+            "intent_error_empty_clipboard": "No se proporcionó enlace de música y el portapapeles está vacío.",
+            "intent_error_failed_to_convert": "Error al convertir el enlace: %@",
+            "intent_error_failed_to_resolve": "No se pudo resolver la URL de destino.",
+            "share_redirecting": "SongFlip: Redirigiendo...",
+            "share_error_failed": "No se pudo redirigir el enlace.",
         ],
         "it": [
             "app_name": "SongFlip",
@@ -650,6 +714,14 @@ enum LocalizationManager {
             "action_refresh_link": "Aggiorna link",
             "link_refreshed": "Link aggiornato con successo!",
             "link_refreshing": "Aggiornamento link in corso...",
+            "intent_title": "Apri brano in SongFlip",
+            "intent_description": "Converte un link musicale copiato o condiviso e apre l'app di destinazione.",
+            "intent_param_music_link": "Link musicale",
+            "intent_error_empty_clipboard": "Nessun link musicale fornito e gli appunti sono vuoti.",
+            "intent_error_failed_to_convert": "Errore durante la conversione del link: %@",
+            "intent_error_failed_to_resolve": "Impossibile risolvere l'URL di destinazione.",
+            "share_redirecting": "SongFlip: Reindirizzamento in corso...",
+            "share_error_failed": "Impossibile reindirizzare il link.",
         ],
         "pt": [
             "app_name": "SongFlip",
@@ -722,6 +794,14 @@ enum LocalizationManager {
             "action_refresh_link": "Atualizar link",
             "link_refreshed": "Link atualizado com sucesso!",
             "link_refreshing": "Atualizando link...",
+            "intent_title": "Abrir música no SongFlip",
+            "intent_description": "Converte um link de música copiado ou compartilhado e abre o app de destino.",
+            "intent_param_music_link": "Link de música",
+            "intent_error_empty_clipboard": "Nenhum link fornecido e a área de transferência está vazia.",
+            "intent_error_failed_to_convert": "Erro ao converter o link: %@",
+            "intent_error_failed_to_resolve": "Não foi possível resolver a URL de destino.",
+            "share_redirecting": "SongFlip: Redirecionando...",
+            "share_error_failed": "Não foi possível redirecionar o link.",
         ],
         "pl": [
             "app_name": "SongFlip",
@@ -794,6 +874,14 @@ enum LocalizationManager {
             "action_refresh_link": "Odśwież link",
             "link_refreshed": "Link zaktualizowany pomyślnie!",
             "link_refreshing": "Odświeżanie linku...",
+            "intent_title": "Otwórz utwór w SongFlip",
+            "intent_description": "Konwertuje skopiowany lub udostępniony link muzyczny i otwiera aplikację docelową.",
+            "intent_param_music_link": "Link muzyczny",
+            "intent_error_empty_clipboard": "Nie podano linku muzycznego, a schowek jest pusty.",
+            "intent_error_failed_to_convert": "Błąd podczas konwersji linku: %@",
+            "intent_error_failed_to_resolve": "Nie udało się rozwiązać adresu docelowego.",
+            "share_redirecting": "SongFlip: Przekierowywanie...",
+            "share_error_failed": "Nie udało się przekierować linku.",
         ],
         "ru": [
             "app_name": "SongFlip",
@@ -866,6 +954,14 @@ enum LocalizationManager {
             "action_refresh_link": "Обновить ссылку",
             "link_refreshed": "Ссылка успешно обновлена!",
             "link_refreshing": "Обновление ссылки...",
+            "intent_title": "Открыть трек в SongFlip",
+            "intent_description": "Преобразует скопированную или переданную музыкальную ссылку и открывает целевое приложение.",
+            "intent_param_music_link": "Музыкальная ссылка",
+            "intent_error_empty_clipboard": "Музыкальная ссылка не передана, буфер обмена пуст.",
+            "intent_error_failed_to_convert": "Ошибка при конвертации ссылки: %@",
+            "intent_error_failed_to_resolve": "Не удалось разрешить целевой URL.",
+            "share_redirecting": "SongFlip: Перенаправление...",
+            "share_error_failed": "Не удалось перенаправить ссылку.",
         ],
         "tr": [
             "app_name": "SongFlip",
@@ -938,6 +1034,14 @@ enum LocalizationManager {
             "action_refresh_link": "Bağlantıyı yenile",
             "link_refreshed": "Bağlantı başarıyla güncellendi!",
             "link_refreshing": "Bağlantı yenileniyor...",
+            "intent_title": "Şarkıyı SongFlip ile Aç",
+            "intent_description": "Kopyalanan veya paylaşılan bir müzik bağlantısını dönüştürür ve hedef uygulamayı açar.",
+            "intent_param_music_link": "Müzik Bağlantısı",
+            "intent_error_empty_clipboard": "Müzik bağlantısı sağlanmadı ve pano boş.",
+            "intent_error_failed_to_convert": "Bağlantı dönüştürülürken hata oluştu: %@",
+            "intent_error_failed_to_resolve": "Hedef URL çözülemedi.",
+            "share_redirecting": "SongFlip: Yönlendiriliyor...",
+            "share_error_failed": "Bağlantı yönlendirilemedi.",
         ],
         "uk": [
             "app_name": "SongFlip",
@@ -1010,6 +1114,14 @@ enum LocalizationManager {
             "action_refresh_link": "Оновити посилання",
             "link_refreshed": "Посилання успішно оновлено!",
             "link_refreshing": "Оновлення посилання...",
+            "intent_title": "Відкрити трек у SongFlip",
+            "intent_description": "Конвертує скопійоване або надане музичне посилання та відкриває цільовий додаток.",
+            "intent_param_music_link": "Музичне посилання",
+            "intent_error_empty_clipboard": "Музичне посилання не передано, буфер обміну порожній.",
+            "intent_error_failed_to_convert": "Помилка конвертації посилання: %@",
+            "intent_error_failed_to_resolve": "Не вдалося визначити цільову URL-адресу.",
+            "share_redirecting": "SongFlip: Перенаправлення...",
+            "share_error_failed": "Не вдалося перенаправити посилання.",
         ],
         "ja": [
             "app_name": "SongFlip",
@@ -1082,6 +1194,14 @@ enum LocalizationManager {
             "action_refresh_link": "リンクを再取得",
             "link_refreshed": "リンクを更新しました！",
             "link_refreshing": "リンクを再取得中...",
+            "intent_title": "SongFlipで曲を開く",
+            "intent_description": "コピーまたは共有された音楽リンクを変換し、対象のアプリを開きます。",
+            "intent_param_music_link": "音楽リンク",
+            "intent_error_empty_clipboard": "音楽リンクが渡されておらず、クリップボードも空です。",
+            "intent_error_failed_to_convert": "リンクの変換中にエラーが発生しました: %@",
+            "intent_error_failed_to_resolve": "対象のURLを解決できませんでした。",
+            "share_redirecting": "SongFlip: 転送中...",
+            "share_error_failed": "リンクを転送できませんでした。",
         ],
         "ko": [
             "app_name": "SongFlip",
@@ -1154,6 +1274,14 @@ enum LocalizationManager {
             "action_refresh_link": "링크 새로고침",
             "link_refreshed": "링크가 성공적으로 업데이트되었습니다!",
             "link_refreshing": "링크 새로고침 중...",
+            "intent_title": "SongFlip에서 노래 열기",
+            "intent_description": "복사되거나 공유된 음악 링크를 변환하고 대상 앱을 엽니다.",
+            "intent_param_music_link": "음악 링크",
+            "intent_error_empty_clipboard": "음악 링크가 전달되지 않았으며 클립보드가 비어 있습니다.",
+            "intent_error_failed_to_convert": "링크 변환 오류: %@",
+            "intent_error_failed_to_resolve": "대상 URL을 확인할 수 없습니다.",
+            "share_redirecting": "SongFlip: 연결 중...",
+            "share_error_failed": "링크를 연결할 수 없습니다.",
         ],
         "zh": [
             "app_name": "SongFlip",
@@ -1226,6 +1354,14 @@ enum LocalizationManager {
             "action_refresh_link": "刷新链接",
             "link_refreshed": "链接已成功更新！",
             "link_refreshing": "正在刷新链接...",
+            "intent_title": "在 SongFlip 中打开歌曲",
+            "intent_description": "转换复制或共享的音乐链接并打开目标应用。",
+            "intent_param_music_link": "音乐链接",
+            "intent_error_empty_clipboard": "未提供音乐链接且剪贴板为空。",
+            "intent_error_failed_to_convert": "转换链接时出错：%@",
+            "intent_error_failed_to_resolve": "无法解析目标 URL。",
+            "share_redirecting": "SongFlip：正在跳转...",
+            "share_error_failed": "无法跳转该链接。",
         ],
         "in": [
             "app_name": "SongFlip",
@@ -1298,6 +1434,14 @@ enum LocalizationManager {
             "action_refresh_link": "Perbarui tautan",
             "link_refreshed": "Tautan berhasil diperbarui!",
             "link_refreshing": "Memperbarui tautan...",
+            "intent_title": "Buka Lagu di SongFlip",
+            "intent_description": "Mengonversi tautan musik yang disalin atau dibagikan dan membuka aplikasi tujuan.",
+            "intent_param_music_link": "Tautan Musik",
+            "intent_error_empty_clipboard": "Tidak ada tautan musik yang diberikan dan papan klip kosong.",
+            "intent_error_failed_to_convert": "Gagal mengonversi tautan: %@",
+            "intent_error_failed_to_resolve": "Tidak dapat menyelesaikan URL tujuan.",
+            "share_redirecting": "SongFlip: Mengalihkan...",
+            "share_error_failed": "Gagal mengalihkan tautan.",
         ],
         "vi": [
             "app_name": "SongFlip",
@@ -1370,6 +1514,14 @@ enum LocalizationManager {
             "action_refresh_link": "Làm mới liên kết",
             "link_refreshed": "Đã cập nhật liên kết thành công!",
             "link_refreshing": "Đang làm mới liên kết...",
+            "intent_title": "Mở bài hát trong SongFlip",
+            "intent_description": "Chuyển đổi liên kết âm nhạc đã sao chép hoặc chia sẻ và mở ứng dụng đích.",
+            "intent_param_music_link": "Liên kết âm nhạc",
+            "intent_error_empty_clipboard": "Không có liên kết âm nhạc nào được cung cấp và khay nhớ tạm đang trống.",
+            "intent_error_failed_to_convert": "Lỗi khi chuyển đổi liên kết: %@",
+            "intent_error_failed_to_resolve": "Không thể giải quyết URL đích.",
+            "share_redirecting": "SongFlip: Đang chuyển hướng...",
+            "share_error_failed": "Không thể chuyển hướng liên kết.",
         ],
         "bn": [
             "app_name": "SongFlip",
@@ -1442,6 +1594,14 @@ enum LocalizationManager {
             "action_refresh_link": "লিঙ্ক রিফ্রেশ করুন",
             "link_refreshed": "লিঙ্ক সফলভাবে আপডেট হয়েছে!",
             "link_refreshing": "লিঙ্ক রিফ্রেশ হচ্ছে...",
+            "intent_title": "SongFlip-এ গান খুলুন",
+            "intent_description": "অনুলিপি করা বা শেয়ার করা মিউজিক লিঙ্ক রূপান্তর করে এবং লক্ষ্য অ্যাপটি খোলে।",
+            "intent_param_music_link": "মিউজিক লিঙ্ক",
+            "intent_error_empty_clipboard": "কোনও মিউজিক লিঙ্ক দেওয়া হয়নি এবং ক্লিপবোর্ড খালি।",
+            "intent_error_failed_to_convert": "লিঙ্ক রূপান্তর করতে ত্রুটি: %@",
+            "intent_error_failed_to_resolve": "টার্গেট URL সমাধান করা যায়নি।",
+            "share_redirecting": "SongFlip: পুনর্নির্দেশ করা হচ্ছে...",
+            "share_error_failed": "লিঙ্ক পুনর্নির্দেশ করা যায়নি।",
         ],
         "hi": [
             "app_name": "SongFlip",
@@ -1514,6 +1674,14 @@ enum LocalizationManager {
             "action_refresh_link": "लिंक रीफ़्रेश करें",
             "link_refreshed": "लिंक सफलतापूर्वक अपडेट हो गया!",
             "link_refreshing": "लिंक रीफ़्रेश हो रहा है...",
+            "intent_title": "SongFlip में गाना खोलें",
+            "intent_description": "कॉपी या शेयर किए गए संगीत लिंक को बदलता है और लक्षित ऐप खोलता है।",
+            "intent_param_music_link": "संगीत लिंक",
+            "intent_error_empty_clipboard": "कोई संगीत लिंक नहीं दिया गया और क्लिपबोर्ड खाली है।",
+            "intent_error_failed_to_convert": "लिंक बदलने में त्रुटि: %@",
+            "intent_error_failed_to_resolve": "लक्षित URL हल नहीं किया जा सका।",
+            "share_redirecting": "SongFlip: रीडायरेक्ट किया जा रहा है...",
+            "share_error_failed": "लिंक रीडायरेक्ट नहीं किया जा सका।",
         ],
         "mr": [
             "app_name": "SongFlip",
@@ -1586,10 +1754,38 @@ enum LocalizationManager {
             "action_refresh_link": "लिंक रिफ्रेश करा",
             "link_refreshed": "लिंक यशस्वीरित्या अपडेट झाली!",
             "link_refreshing": "लिंक रिफ्रेश होत आहे...",
+            "intent_title": "SongFlip मध्ये गाणे उघडा",
+            "intent_description": "कॉपी केलेली किंवा शेअर केलेली संगीत लिंक रूपांतरित करते आणि लक्ष्य अॅप उघडते.",
+            "intent_param_music_link": "संगीत लिंक",
+            "intent_error_empty_clipboard": "कोणतीही संगीत लिंक दिली नाही आणि क्लिपबोर्ड रिकामा आहे.",
+            "intent_error_failed_to_convert": "दुवा रूपांतरित करताना त्रुटी: %@",
+            "intent_error_failed_to_resolve": "लक्ष्य URL शोधता आले नाही.",
+            "share_redirecting": "SongFlip: पुनर्निर्देशित करत आहे...",
+            "share_error_failed": "दुवा पुनर्निर्देशित करू शकलो नाही.",
         ]
     ]
 
-    static func string(for key: String, lang: String) -> String {
+    nonisolated static func currentLanguage() -> String {
+        let storage = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
+        if let savedLang = storage.string(forKey: "app_language") {
+            return savedLang
+        }
+        for preferred in Locale.preferredLanguages {
+            let lower = preferred.lowercased()
+            let prefix2 = String(lower.prefix(2))
+            if lower.starts(with: "zh") { return "zh" }
+            if prefix2 == "id" || prefix2 == "in" { return "in" }
+            if prefix2 == "no" || prefix2 == "nb" || prefix2 == "nn" { return "nb" }
+            if translations[prefix2] != nil { return prefix2 }
+        }
+        return "en"
+    }
+
+    nonisolated static func string(for key: String) -> String {
+        string(for: key, lang: currentLanguage())
+    }
+
+    nonisolated static func string(for key: String, lang: String) -> String {
         if let dict = translations[lang], let val = dict[key] {
             return val
         }

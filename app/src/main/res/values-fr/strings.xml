@@ -120,7 +120,10 @@
 
     <string name="history_title">Historique des morceaux</string>
     <string name="history_subtitle">Consultez et gérez vos morceaux récemment convertis</string>
-    <string name="history_cached_count">%1$d morceaux dans l\'historique</string>
+    <plurals name="history_cached_count">
+        <item quantity="one">%1$d morceau dans l\'historique</item>
+        <item quantity="other">%1$d morceaux dans l\'historique</item>
+    </plurals>
     <string name="history_empty">Aucun morceau converti. Les liens partagés apparaîtront ici.</string>
     <string name="history_clear_all">Effacer l\'historique</string>
     <string name="history_clear_confirm_title">Effacer l\'historique ?</string>
@@ -197,10 +200,24 @@
     <string name="history_link_refreshed">Lien actualisé avec succès !</string>
     <string name="history_link_refreshing">Actualisation du lien...</string>
 
-    <string name="pro_nudge_title">🎉 %1$d morceaux convertis avec succès !</string>
+    <plurals name="pro_nudge_title">
+        <item quantity="one">🎉 %1$d morceau converti avec succès !</item>
+        <item quantity="other">🎉 %1$d morceaux convertis avec succès !</item>
+    </plurals>
     <string name="pro_nudge_subtitle">Débloquez le cache haute vitesse L2 et l\'historique étendu avec SongFlip PRO.</string>
     <string name="pro_nudge_action_redeem">Utiliser un code</string>
     <string name="pro_nudge_action_more">En savoir plus</string>
-    <string name="history_capacity_free">%1$d sur %2$d morceaux enregistrés (PRO : jusqu\'à 100)</string>
-    <string name="history_capacity_pro">%1$d sur %2$d morceaux enregistrés</string>
+    <plurals name="history_capacity_free">
+        <item quantity="one">%1$d sur %2$d morceaux enregistrés (PRO : jusqu\'à 100)</item>
+        <item quantity="other">%1$d sur %2$d morceaux enregistrés (PRO : jusqu\'à 100)</item>
+    </plurals>
+    <plurals name="history_capacity_pro">
+        <item quantity="one">%1$d sur %2$d morceaux enregistrés</item>
+        <item quantity="other">%1$d sur %2$d morceaux enregistrés</item>
+    </plurals>
+    <string name="pro_debug_reset_status">Statut PRO réinitialisé (Debug)</string>
+    <string name="pro_debug_reset_button">Réinitialiser le statut PRO (Debug)</string>
+
+    <string name="settings_tip_multiple_apps_title">Plusieurs applications musicales installées ?</string>
+    <string name="settings_tip_multiple_apps_body">Si une application comme Spotify ouvre directement les liens, appuyez simplement sur \"Partager \u2192 SongFlip\" dans WhatsApp ou toute autre application pour écouter des morceaux dans votre lecteur préféré.</string>
 </resources>

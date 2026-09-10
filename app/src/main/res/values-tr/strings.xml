@@ -120,7 +120,10 @@
 
     <string name="history_title">Şarkı Geçmişi</string>
     <string name="history_subtitle">Son dönüştürülen şarkıları görüntüleyin ve yönetin</string>
-    <string name="history_cached_count">Geçmişte %1$d şarkı</string>
+    <plurals name="history_cached_count">
+        <item quantity="one">Geçmişte %1$d şarkı</item>
+        <item quantity="other">Geçmişte %1$d şarkı</item>
+    </plurals>
     <string name="history_empty">Henüz dönüştürülmüş şarkı yok. Paylaşılan müzik bağlantıları burada görünecektir.</string>
     <string name="history_clear_all">Geçmişi Temizle</string>
     <string name="history_clear_confirm_title">Şarkı geçmişi temizlensin mi?</string>
@@ -197,10 +200,24 @@
     <string name="history_link_refreshed">Bağlantı başarıyla güncellendi!</string>
     <string name="history_link_refreshing">Bağlantı yenileniyor...</string>
 
-    <string name="pro_nudge_title">🎉 %1$d şarkı başarıyla dönüştürüldü!</string>
+    <plurals name="pro_nudge_title">
+        <item quantity="one">🎉 %1$d şarkı başarıyla dönüştürüldü!</item>
+        <item quantity="other">🎉 %1$d şarkı başarıyla dönüştürüldü!</item>
+    </plurals>
     <string name="pro_nudge_subtitle">SongFlip PRO ile L2 yüksek hızlı önbelleğin ve genişletilmiş geçmişin kilidini açın.</string>
     <string name="pro_nudge_action_redeem">Kuponu Kullan</string>
     <string name="pro_nudge_action_more">Daha Fazla Bilgi</string>
-    <string name="history_capacity_free">%1$d / %2$d şarkı kaydedildi (PRO: 100\'e kadar)</string>
-    <string name="history_capacity_pro">%1$d / %2$d şarkı kaydedildi</string>
+    <plurals name="history_capacity_free">
+        <item quantity="one">%1$d / %2$d şarkı kaydedildi (PRO: 100\'e kadar)</item>
+        <item quantity="other">%1$d / %2$d şarkı kaydedildi (PRO: 100\'e kadar)</item>
+    </plurals>
+    <plurals name="history_capacity_pro">
+        <item quantity="one">%1$d / %2$d şarkı kaydedildi</item>
+        <item quantity="other">%1$d / %2$d şarkı kaydedildi</item>
+    </plurals>
+    <string name="pro_debug_reset_status">PRO durumu sıfırlandı (Debug)</string>
+    <string name="pro_debug_reset_button">PRO durumunu sıfırla (Debug)</string>
+
+    <string name="settings_tip_multiple_apps_title">Birden fazla müzik uygulaması mı yüklü?</string>
+    <string name="settings_tip_multiple_apps_body">Spotify gibi bir uygulama bağlantıları doğrudan açıyorsa, şarkıları tercih ettiğiniz müzik çalarınızda dinlemek için WhatsApp veya herhangi bir uygulamada \"Paylaş \u2192 SongFlip\" seçeneğine dokunmanız yeterlidir.</string>
 </resources>
