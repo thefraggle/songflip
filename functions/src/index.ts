@@ -25,7 +25,7 @@ function isRateLimited(key: string, maxRequests: number, windowMs = 60000): bool
   const entry = rateLimitCache.get(key);
 
   if (!entry || now > entry.resetAt) {
-    rateLimitCache.set(key, { count: 1, resetAt: now + windowMs });
+    rateLimitCache.set(key, { count: 1, resetAt: now + windowMs }, { ttl: windowMs });
     return false;
   }
 
@@ -34,6 +34,7 @@ function isRateLimited(key: string, maxRequests: number, windowMs = 60000): bool
   }
 
   entry.count++;
+  rateLimitCache.set(key, entry, { ttl: Math.max(1000, entry.resetAt - now) });
   return false;
 }
 
@@ -42,10 +43,11 @@ function recordFailedAttempt(key: string, maxFailures: number, windowMs = 600000
   const now = Date.now();
   const entry = rateLimitCache.get(key);
   if (!entry || now > entry.resetAt) {
-    rateLimitCache.set(key, { count: 1, resetAt: now + windowMs });
+    rateLimitCache.set(key, { count: 1, resetAt: now + windowMs }, { ttl: windowMs });
     return false;
   }
   entry.count++;
+  rateLimitCache.set(key, entry, { ttl: Math.max(1000, entry.resetAt - now) });
   return entry.count >= maxFailures;
 }
 
@@ -54,6 +56,13 @@ function isBlockedDueToFailures(key: string, maxFailures: number): boolean {
   const entry = rateLimitCache.get(key);
   if (!entry || Date.now() > entry.resetAt) return false;
   return entry.count >= maxFailures;
+}
+
+function isSecureMatch(provided: string | undefined | null, expected: string): boolean {
+  if (!provided || typeof provided !== "string" || !expected || typeof expected !== "string") return false;
+  const hashProvided = crypto.createHash("sha256").update(provided).digest();
+  const hashExpected = crypto.createHash("sha256").update(expected).digest();
+  return crypto.timingSafeEqual(hashProvided, hashExpected);
 }
 
 const COUPON_SIGNING_SECRET = process.env.COUPON_SIGNING_SECRET || "songflip-coupon-hmac-2026-secure";
@@ -121,6 +130,20 @@ function isValidBandcampUrl(rawUrl: string): boolean {
   }
 }
 
+const ALLOWED_MUSIC_HOST_PATTERNS = [
+  /^(?:open\.)?spotify\.com$/,
+  /^spotify\.link$/,
+  /^(?:music\.|itunes\.)?apple\.com$/,
+  /^(?:(?:www\.|m\.|music\.)?youtube\.com|youtu\.be)$/,
+  /^(?:www\.)?deezer\.(?:com|page\.link)$/,
+  /^(?:listen\.)?tidal\.com$/,
+  /^(?:music\.)?amazon\.(?:com|de|co\.uk|co\.jp|fr|it|es|ca|in)$/,
+  /^(?:(?:m\.|on\.)?soundcloud\.com)$/,
+  /^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)*bandcamp\.com$/,
+  /^(?:song|album)\.link$/,
+  /^odesli\.co$/,
+];
+
 /**
  * General SSRF guard for incoming external music URLs.
  */
@@ -133,13 +156,14 @@ function isSafePublicHttpsUrl(rawUrl: string): boolean {
     const hostname = parsed.hostname.toLowerCase();
     if (hostname === "localhost" || hostname.includes(":")) return false;
     if (/^(\d{1,3}\.){3}\d{1,3}$/.test(hostname)) return false;
-    if (hostname.startsWith("169.254.") || hostname.startsWith("127.") || hostname.startsWith("10.") || hostname.startsWith("192.168.")) {
+    if (hostname.includes("metadata") || hostname.endsWith(".internal") || hostname.endsWith(".local")) {
       return false;
     }
     if (parsed.username || parsed.password) return false;
     if (parsed.port && parsed.port !== "443") return false;
 
-    return true;
+    // Must belong to a recognized music platform
+    return ALLOWED_MUSIC_HOST_PATTERNS.some((pattern) => pattern.test(hostname));
   } catch {
     return false;
   }
@@ -304,23 +328,29 @@ async function verifyProStatus(userId: string): Promise<boolean> {
     }
 
     // 2. Verify active promo code document in Firestore
-    try {
-      const code = couponVal.toUpperCase();
-      const promoSnap = await db.collection("promo_codes").doc(code).get();
-      if (promoSnap.exists) {
-        const pData = promoSnap.data() || {};
-        const isActive = pData.isActive !== false;
-        const validUntil = pData.validUntil ? (pData.validUntil as admin.firestore.Timestamp).toMillis() : null;
-        if (isActive && (!validUntil || validUntil > Date.now())) {
-          userProCache.set(userId, true, { ttl: 1000 * 60 * 60 });
-          return true;
+    if (/^[A-Z0-9_-]{3,64}$/i.test(couponVal)) {
+      try {
+        const code = couponVal.toUpperCase();
+        const promoSnap = await db.collection("promo_codes").doc(code).get();
+        if (promoSnap.exists) {
+          const pData = promoSnap.data() || {};
+          const isActive = pData.isActive !== false;
+          const validUntil = pData.validUntil ? (pData.validUntil as admin.firestore.Timestamp).toMillis() : null;
+          const maxRedemptions = typeof pData.maxRedemptions === "number" ? pData.maxRedemptions : null;
+          const currentRedemptions = typeof pData.currentRedemptions === "number" ? pData.currentRedemptions : 0;
+          const notExhausted = maxRedemptions === null || currentRedemptions < maxRedemptions;
+
+          if (isActive && notExhausted && (!validUntil || validUntil > Date.now())) {
+            userProCache.set(userId, true, { ttl: 1000 * 60 * 60 });
+            return true;
+          }
         }
+      } catch (err: any) {
+        console.error("Firestore coupon verification error:", err?.message);
       }
-    } catch (err: any) {
-      console.error("Firestore coupon verification error:", err?.message);
     }
 
-    // Reject arbitrary/fake coupon strings
+    // Reject arbitrary/fake/exhausted coupon strings
     userProCache.set(userId, false, { ttl: 1000 * 60 * 5 });
     return false;
   }
@@ -491,10 +521,19 @@ function sanitizeMusicMetadata(rawTitle: string, rawArtist: string): { title: st
 }
 
 function isArtistUrl(url: string): boolean {
-  const clean = url.toLowerCase();
-  if (clean.includes("/artist/")) return true;
-  if ((clean.includes("youtube.com") || clean.includes("youtu.be")) && (clean.includes("/@") || clean.includes("/channel/") || clean.includes("/user/"))) {
-    return true;
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.toLowerCase();
+    const path = parsed.pathname.toLowerCase();
+
+    if (path.includes("/artist/")) return true;
+
+    const isYtHost = host === "youtube.com" || host.endsWith(".youtube.com") || host === "youtu.be";
+    if (isYtHost && (path.includes("/@") || path.includes("/channel/") || path.includes("/user/"))) {
+      return true;
+    }
+  } catch {
+    return false;
   }
   return false;
 }
@@ -552,15 +591,29 @@ async function resolveAppleMusicArtistLive(artistName: string): Promise<string |
  */
 async function resolveArtistLive(url: string): Promise<SongMetadata | null> {
   try {
-    const clean = url.toLowerCase();
+    let host = "";
+    let clean = "";
+    try {
+      const parsed = new URL(url);
+      host = parsed.hostname.toLowerCase();
+      clean = url.toLowerCase();
+    } catch {
+      return null;
+    }
+
     let artistName = "";
     let thumbnailUrl = "";
-    let deezerLink = clean.includes("deezer.com") ? url : "";
-    let appleMusicLink = clean.includes("apple.com") ? url : "";
-    let youtubeMusicLink = (clean.includes("music.youtube.com") || clean.includes("youtube.com")) ? url : "";
+    const isDeezer = host === "deezer.com" || host.endsWith(".deezer.com");
+    const isApple = host === "apple.com" || host.endsWith(".apple.com");
+    const isSpotify = host === "spotify.com" || host.endsWith(".spotify.com");
+    const isYt = host === "youtube.com" || host.endsWith(".youtube.com") || host === "youtu.be";
+
+    let deezerLink = isDeezer ? url : "";
+    let appleMusicLink = isApple ? url : "";
+    let youtubeMusicLink = isYt ? url : "";
 
     // 0. Spotify Artist
-    if (clean.includes("spotify.com") && clean.includes("/artist/")) {
+    if (isSpotify && clean.includes("/artist/")) {
       const match = url.match(/\/artist\/([a-zA-Z0-9]+)/);
       if (match && match[1]) {
         const spotifyId = match[1];
@@ -575,7 +628,7 @@ async function resolveArtistLive(url: string): Promise<SongMetadata | null> {
     }
 
     // 1. Apple Music Artist
-    else if (clean.includes("apple.com") && clean.includes("/artist/")) {
+    else if (isApple && clean.includes("/artist/")) {
       const match = clean.match(/\/artist\/([^/]+)\/(\d+)/);
       if (match && match[1]) {
         artistName = decodeURIComponent(match[1]).replace(/-/g, " ").trim();
@@ -585,7 +638,7 @@ async function resolveArtistLive(url: string): Promise<SongMetadata | null> {
     }
 
     // 2. Deezer Artist
-    else if (clean.includes("deezer.com") && clean.includes("/artist/")) {
+    else if (isDeezer && clean.includes("/artist/")) {
       const match = clean.match(/\/artist\/(\d+)/);
       if (match && match[1]) {
         try {
@@ -600,7 +653,7 @@ async function resolveArtistLive(url: string): Promise<SongMetadata | null> {
     }
 
     // 3. YouTube / YouTube Music Channel / Handle
-    else if (clean.includes("youtube.com") || clean.includes("youtu.be")) {
+    else if (isYt) {
       try {
         const res = await axios.get(url, {
           headers: {
@@ -1122,6 +1175,13 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
               "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
             },
             timeout: 4000,
+            maxRedirects: 3,
+            beforeRedirect: (options: any) => {
+              const nextUrl = options.href;
+              if (!isValidBandcampUrl(nextUrl)) {
+                throw new Error("Bandcamp redirect to unsafe target blocked");
+              }
+            },
           });
           const html = bcRes.data;
           if (typeof html === "string") {
@@ -1401,7 +1461,7 @@ export const invalidate = onRequest(
     const userId = tokenMatch ? tokenMatch[1].trim() : (req.headers["x-user-id"] as string)?.trim();
 
     let isAuthorized = false;
-    if (adminHeader && adminHeader === ADMIN_SECRET) {
+    if (isSecureMatch(adminHeader, ADMIN_SECRET)) {
       isAuthorized = true;
     } else if (userId) {
       isAuthorized = await verifyProStatus(userId);
@@ -1421,7 +1481,7 @@ export const invalidate = onRequest(
       return;
     }
 
-    if (target.length === 64 || target.length === 12 || target.length === 8) {
+    if (/^[a-f0-9]{8,64}$/i.test(target)) {
       await db.collection("l2_song_cache").doc(target).delete().catch(() => {});
     }
 
@@ -1480,9 +1540,9 @@ export const redeemPromoCode = onRequest(
     const rawCode = (req.body?.code || req.query?.code) as string;
     const rawInstallId = (req.body?.installId || req.body?.install_id || req.query?.installId || req.query?.install_id) as string;
 
-    // Validate installId as mandatory field (string, >= 8 chars)
-    if (!rawInstallId || typeof rawInstallId !== "string" || rawInstallId.trim().length < 8) {
-      res.status(400).json({ error: "INVALID_INSTALL_ID", message: "Gültige installId erforderlich (mindestens 8 Zeichen)." });
+    // Validate installId as mandatory field (string, >= 8 chars, safe characters)
+    if (!rawInstallId || typeof rawInstallId !== "string" || !/^[a-zA-Z0-9_.-]{8,128}$/.test(rawInstallId.trim())) {
+      res.status(400).json({ error: "INVALID_INSTALL_ID", message: "Gültige installId erforderlich (mindestens 8 Zeichen, alphanumerisch)." });
       return;
     }
     const cleanInstallId = rawInstallId.trim();
@@ -1499,8 +1559,10 @@ export const redeemPromoCode = onRequest(
       return;
     }
 
-    if (!rawCode || typeof rawCode !== "string") {
-      res.status(400).json({ error: "INVALID_CODE", message: "Gutscheincode erforderlich." });
+    if (!rawCode || typeof rawCode !== "string" || !/^[A-Z0-9_-]{3,64}$/i.test(rawCode.trim())) {
+      recordFailedAttempt(`promo_fail_ip:${clientIp}`, 5, 600000);
+      recordFailedAttempt(`promo_fail_id:${cleanInstallId}`, 5, 600000);
+      res.status(400).json({ error: "INVALID_CODE", message: "Gültiger Gutscheincode erforderlich." });
       return;
     }
 
@@ -1579,6 +1641,10 @@ export const redeemPromoCode = onRequest(
         return;
       }
 
+      // Reset failure counters on successful redemption
+      rateLimitCache.delete(`promo_fail_ip:${clientIp}`);
+      rateLimitCache.delete(`promo_fail_id:${cleanInstallId}`);
+
       res.status(200).json(result);
     } catch (err: any) {
       console.error("Error redeeming promo code:", err);
@@ -1606,10 +1672,15 @@ export const seedPromoCodes = onRequest(
   async (req, res) => {
     applyApiSecurityHeaders(res);
 
+    if (req.method !== "POST") {
+      res.status(405).json({ error: "METHOD_NOT_ALLOWED", message: "Only POST allowed." });
+      return;
+    }
+
     const ADMIN_SECRET = process.env.ADMIN_SECRET || "songflip-admin-cache-secret-2026";
     const adminHeader = (req.headers["x-admin-secret"] as string) || (req.headers["x-api-key"] as string);
 
-    if (!adminHeader || adminHeader !== ADMIN_SECRET) {
+    if (!isSecureMatch(adminHeader, ADMIN_SECRET)) {
       res.status(401).json({ error: "UNAUTHORIZED", message: "Admin secret required." });
       return;
     }
@@ -2410,4 +2481,6 @@ export {
   isSafePublicHttpsUrl,
   createSignedCouponToken,
   verifySignedCouponToken,
+  isSecureMatch,
+  isArtistUrl,
 };

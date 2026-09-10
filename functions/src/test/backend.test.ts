@@ -12,6 +12,8 @@ import {
   isSafePublicHttpsUrl,
   createSignedCouponToken,
   verifySignedCouponToken,
+  isSecureMatch,
+  isArtistUrl,
 } from "../index";
 
 describe("Backend Helper Tests", () => {
@@ -211,11 +213,86 @@ describe("Backend Helper Tests", () => {
     it("should validate general safe public HTTPS URLs", () => {
       assert.equal(isSafePublicHttpsUrl("https://open.spotify.com/track/123"), true);
       assert.equal(isSafePublicHttpsUrl("https://music.apple.com/album/1"), true);
+      assert.equal(isSafePublicHttpsUrl("https://www.youtube.com/watch?v=dQw4w9WgXcQ"), true);
+      assert.equal(isSafePublicHttpsUrl("https://music.youtube.com/watch?v=123"), true);
+      assert.equal(isSafePublicHttpsUrl("https://www.deezer.com/track/123"), true);
+      assert.equal(isSafePublicHttpsUrl("https://listen.tidal.com/track/123"), true);
+      assert.equal(isSafePublicHttpsUrl("https://music.amazon.de/albums/B0123"), true);
+      assert.equal(isSafePublicHttpsUrl("https://soundcloud.com/artist/track"), true);
+      assert.equal(isSafePublicHttpsUrl("https://song.link/s/123"), true);
+
+      // Rejections
       assert.equal(isSafePublicHttpsUrl("http://open.spotify.com/track/123"), false);
       assert.equal(isSafePublicHttpsUrl("https://169.254.169.254/"), false);
       assert.equal(isSafePublicHttpsUrl("https://127.0.0.1/"), false);
       assert.equal(isSafePublicHttpsUrl("https://localhost/test"), false);
       assert.equal(isSafePublicHttpsUrl("https://admin:pass@example.com/"), false);
+      assert.equal(isSafePublicHttpsUrl("https://metadata.google.internal/computeMetadata/v1/"), false);
+      assert.equal(isSafePublicHttpsUrl("https://metadata/"), false);
+      assert.equal(isSafePublicHttpsUrl("https://server.local/"), false);
+      assert.equal(isSafePublicHttpsUrl("https://service.internal/"), false);
+      assert.equal(isSafePublicHttpsUrl("https://attacker.com/song"), false);
+      assert.equal(isSafePublicHttpsUrl("https://evil-spoof.org/track/1"), false);
+    });
+  });
+
+  describe("Artist URL Host Spoofing Guard", () => {
+    it("should accept authentic YouTube and Spotify artist URLs", () => {
+      assert.equal(isArtistUrl("https://www.youtube.com/@Radiohead"), true);
+      assert.equal(isArtistUrl("https://music.youtube.com/channel/UC1234567890123456789012"), true);
+      assert.equal(isArtistUrl("https://open.spotify.com/artist/4Z8W4fKeB5YxbusRsdQVPb"), true);
+    });
+
+    it("should reject SSRF spoofing targeting external hosts disguised as YouTube", () => {
+      assert.equal(isArtistUrl("https://attacker.com/@Radiohead?query=youtube.com"), false);
+      assert.equal(isArtistUrl("https://attacker.com/channel/UC123?youtube.com"), false);
+      assert.equal(isArtistUrl("https://evil.org/user/test?youtu.be"), false);
+    });
+  });
+
+  describe("Timing-Safe Secret Matching", () => {
+    it("should match identical secrets securely", () => {
+      assert.equal(isSecureMatch("super-secret-key-1234", "super-secret-key-1234"), true);
+    });
+
+    it("should reject non-matching secrets", () => {
+      assert.equal(isSecureMatch("super-secret-key-1234", "wrong-secret-key-5678"), false);
+      assert.equal(isSecureMatch("short", "longer-secret-key"), false);
+      assert.equal(isSecureMatch("", "secret"), false);
+      assert.equal(isSecureMatch(undefined, "secret"), false);
+      assert.equal(isSecureMatch(null as any, "secret"), false);
+    });
+  });
+
+  describe("Input Format Validation (Promo Codes & Install IDs)", () => {
+    const installIdRegex = /^[a-zA-Z0-9_.-]{8,128}$/;
+    const promoCodeRegex = /^[A-Z0-9_-]{3,64}$/i;
+
+    it("should validate safe installIds", () => {
+      assert.ok(installIdRegex.test("install_12345678"));
+      assert.ok(installIdRegex.test("a1b2c3d4-e5f6-7890-abcd-ef1234567890"));
+      assert.ok(installIdRegex.test("device.id.12345678"));
+    });
+
+    it("should reject invalid/dangerous installIds", () => {
+      assert.equal(installIdRegex.test("short"), false); // < 8 chars
+      assert.equal(installIdRegex.test("user/12345678"), false); // path traversal slash
+      assert.equal(installIdRegex.test("user 12345678"), false); // spaces
+      assert.equal(installIdRegex.test("../../../etc/passwd"), false);
+      assert.equal(installIdRegex.test(""), false);
+    });
+
+    it("should validate safe promo codes", () => {
+      assert.ok(promoCodeRegex.test("SONGFLIP_BETA_2026"));
+      assert.ok(promoCodeRegex.test("VIP-2026"));
+      assert.ok(promoCodeRegex.test("CODE123"));
+    });
+
+    it("should reject invalid/dangerous promo codes", () => {
+      assert.equal(promoCodeRegex.test("NO"), false); // < 3 chars
+      assert.equal(promoCodeRegex.test("CODE/SLASH"), false); // slash
+      assert.equal(promoCodeRegex.test("CODE WITH SPACES"), false);
+      assert.equal(promoCodeRegex.test("CODE$#@!"), false);
     });
   });
 
