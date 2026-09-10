@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.26] - 2026-09-10
+- **Enhanced Privacy & Security**: Hardened link validation and sharing protection against invalid web addresses.
+- **Smooth Code Redemption**: Strengthened pass redemption with instant feedback and reliable verification.
+- **Safe Backups**: Excluded private app preferences and API settings from cloud device backups.
+
 ## [1.2.25] - 2026-09-10
 - **Accurate History**: Converted songs now appear reliably in your history with precise timestamps.
 - **Instant Speed**: Smarter link caching ensures converted music opens instantly on repeated taps.
