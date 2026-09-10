@@ -61,7 +61,7 @@ struct ConvertSongIntent: AppIntent {
         if let success = res as? ResolutionResult.Success {
             await MainActor.run {
                 HistoryModel.shared.add(
-                    title: success.title ?? "Song",
+                    title: success.title ?? LocalizationManager.string(for: "unknown_song"),
                     artist: success.artist,
                     sourceUrl: urlToConvert,
                     targetUrl: success.targetUrl,

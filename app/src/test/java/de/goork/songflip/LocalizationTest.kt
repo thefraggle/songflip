@@ -10,13 +10,14 @@ class LocalizationTest {
 
     @Test
     fun testAllLocalizedFormatStringsAreValid() {
-        val resDir = File("src/main/res")
-        if (!resDir.exists()) return
+        val resDir = getResDir()
+        val valuesDirs = resDir.listFiles()?.filter { it.name.startsWith("values") && it.isDirectory } ?: emptyList()
+        assertTrue("Expected at least 24 values directories, found ${valuesDirs.size}", valuesDirs.size >= 24)
 
         val dbFactory = DocumentBuilderFactory.newInstance()
         val dBuilder = dbFactory.newDocumentBuilder()
 
-        resDir.listFiles()?.filter { it.name.startsWith("values") && it.isDirectory }?.forEach { dir ->
+        valuesDirs.forEach { dir ->
             val stringsFile = File(dir, "strings.xml")
             if (stringsFile.exists()) {
                 val doc = dBuilder.parse(stringsFile)
@@ -68,8 +69,9 @@ class LocalizationTest {
 
     @Test
     fun testRequiredKeysAndPluralsExistInAllLanguages() {
-        val resDir = File("src/main/res")
-        if (!resDir.exists()) return
+        val resDir = getResDir()
+        val valuesDirs = resDir.listFiles()?.filter { it.name.startsWith("values") && it.isDirectory } ?: emptyList()
+        assertTrue("Expected at least 24 values directories, found ${valuesDirs.size}", valuesDirs.size >= 24)
 
         val dbFactory = DocumentBuilderFactory.newInstance()
         val dBuilder = dbFactory.newDocumentBuilder()
@@ -87,7 +89,7 @@ class LocalizationTest {
             "history_capacity_pro"
         )
 
-        resDir.listFiles()?.filter { it.name.startsWith("values") && it.isDirectory }?.forEach { dir ->
+        valuesDirs.forEach { dir ->
             val stringsFile = File(dir, "strings.xml")
             if (stringsFile.exists()) {
                 val doc = dBuilder.parse(stringsFile)
@@ -113,5 +115,10 @@ class LocalizationTest {
                 }
             }
         }
+    }
+
+    private fun getResDir(): File {
+        return listOf(File("src/main/res"), File("app/src/main/res")).firstOrNull { it.exists() }
+            ?: throw AssertionError("Could not find Android res directory from working dir: ${File(".").absolutePath}")
     }
 }
