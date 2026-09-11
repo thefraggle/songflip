@@ -16,6 +16,7 @@ import {
   isArtistUrl,
   isPlaylistUrl,
   detectPlatformFromUrl,
+  normalizeYouTubeMusicUrl,
 } from "../index";
 
 describe("Backend Helper Tests", () => {
@@ -77,6 +78,29 @@ describe("Backend Helper Tests", () => {
 
       const album = "https://artist.bandcamp.com/album/greatest-hits?from=share";
       assert.equal(normalizeMusicUrl(album), "https://artist.bandcamp.com/album/greatest-hits");
+    });
+  });
+
+  describe("normalizeYouTubeMusicUrl", () => {
+    it("should rewrite standard www.youtube.com playlist links to music.youtube.com", () => {
+      assert.equal(
+        normalizeYouTubeMusicUrl("https://www.youtube.com/playlist?list=OLAK5uy_nsjKnX_j1nTWpkRshayCSCGoe_RNIn5O0"),
+        "https://music.youtube.com/playlist?list=OLAK5uy_nsjKnX_j1nTWpkRshayCSCGoe_RNIn5O0"
+      );
+    });
+
+    it("should rewrite youtu.be links to music.youtube.com/watch?v=", () => {
+      assert.equal(
+        normalizeYouTubeMusicUrl("https://youtu.be/dQw4w9WgXcQ"),
+        "https://music.youtube.com/watch?v=dQw4w9WgXcQ"
+      );
+    });
+
+    it("should preserve existing music.youtube.com links", () => {
+      assert.equal(
+        normalizeYouTubeMusicUrl("https://music.youtube.com/playlist?list=OLAK5uy_123"),
+        "https://music.youtube.com/playlist?list=OLAK5uy_123"
+      );
     });
   });
 

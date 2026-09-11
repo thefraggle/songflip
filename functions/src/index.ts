@@ -482,8 +482,19 @@ function normalizeToSongLinkDirectUrl(rawUrl: string): string {
     const id = rawUrl.split("v=")[1]?.split("&")[0]?.split("?")[0]?.trim();
     if (id) return `https://song.link/y/${id}`;
   }
+  if (rawUrl.includes("youtube.com/playlist") && rawUrl.includes("list=")) {
+    const listId = rawUrl.split("list=")[1]?.split("&")[0]?.split("?")[0]?.trim();
+    if (listId) return `https://album.link/y/${listId}`;
+  }
 
   return clean.includes("/album/") ? `https://album.link/${rawUrl}` : `https://song.link/${rawUrl}`;
+}
+
+export function normalizeYouTubeMusicUrl(url: string): string {
+  if (!url) return url;
+  return url
+    .replace(/^https?:\/\/(?:www\.)?youtube\.com\//i, "https://music.youtube.com/")
+    .replace(/^https?:\/\/youtu\.be\/([a-zA-Z0-9_-]+)/i, "https://music.youtube.com/watch?v=$1");
 }
 
 function sanitizeMusicMetadata(rawTitle: string, rawArtist: string): { title: string; artist: string; isGenericArtist: boolean } {
@@ -825,10 +836,11 @@ async function resolveYouTubeDirectPlayLive(query: string, isAlbum = false): Pro
 
     const html = typeof res.data === "string" ? res.data : "";
     if (isAlbum) {
-      const albumMatch = html.match(/"playlistId":"(OLAK5uy_[a-zA-Z0-9_-]+)"/) || html.match(/"playlistId":"([a-zA-Z0-9_-]{18,})"/);
+      const albumMatch = html.match(/"playlistId":"(OLAK5uy_[a-zA-Z0-9_-]+)"/);
       if (albumMatch && albumMatch[1]) {
         return `https://music.youtube.com/playlist?list=${albumMatch[1]}`;
       }
+      return `https://music.youtube.com/search?q=${encoded}`;
     }
 
     // 1. Prioritize official videoRenderer (filters out Shorts, reels, fan clips) with Dead-Link Guard
@@ -1067,7 +1079,8 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
               const u = linksByPlatform[key]?.url;
               if (u) {
                 if (key === "spotify") linksMap.spotify = u;
-                else if (key === "youtubeMusic" || key === "youtube") linksMap.youtubeMusic = linksMap.youtubeMusic || u;
+                else if (key === "youtubeMusic") linksMap.youtubeMusic = normalizeYouTubeMusicUrl(u);
+                else if (key === "youtube" && !linksMap.youtubeMusic) linksMap.youtubeMusic = normalizeYouTubeMusicUrl(u);
                 else if (key === "appleMusic" || key === "itunes") linksMap.appleMusic = linksMap.appleMusic || u;
                 else if (key === "deezer") linksMap.deezer = u;
                 else if (key === "tidal") linksMap.tidal = u;
@@ -1084,7 +1097,8 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
                 const u = item.url;
                 if (p && u) {
                   if (p === "spotify" && !linksMap.spotify) linksMap.spotify = u;
-                  else if ((p === "youtubeMusic" || p === "youtube") && !linksMap.youtubeMusic) linksMap.youtubeMusic = u;
+                  else if (p === "youtubeMusic") linksMap.youtubeMusic = normalizeYouTubeMusicUrl(u);
+                  else if (p === "youtube" && !linksMap.youtubeMusic) linksMap.youtubeMusic = normalizeYouTubeMusicUrl(u);
                   else if ((p === "appleMusic" || p === "itunes") && !linksMap.appleMusic) linksMap.appleMusic = u;
                   else if (p === "deezer" && !linksMap.deezer) linksMap.deezer = u;
                   else if (p === "tidal" && !linksMap.tidal) linksMap.tidal = u;
@@ -2155,6 +2169,11 @@ export const renderWebShare = onRequest(
       const coverUrl = songData.thumbnailUrl ? escapeHtml(songData.thumbnailUrl) : "https://songflip.link/icon.png";
       const links = { ...(songData.links || {}) };
 
+      // Ensure YouTube Music links always use music.youtube.com domain
+      if (links.youtubeMusic) {
+        links.youtubeMusic = normalizeYouTubeMusicUrl(links.youtubeMusic);
+      }
+
       // Invalidate any search links containing generic "YouTube" or "Album - " noise
       Object.keys(links).forEach((key) => {
         const u = links[key];
@@ -2164,6 +2183,49 @@ export const renderWebShare = onRequest(
           }
         }
       });
+
+      // If isAlbum, heal Deezer, Apple Music, and YouTube Music with direct album links
+      if (isAlbum && cleanTitle) {
+        let healed = false;
+        // 1. Heal Deezer Album
+        if (!links.deezer || links.deezer.includes("/search/") || links.deezer.includes("/search?")) {
+          try {
+            const deezerRes = await axios.get(`https://api.deezer.com/search/album?q=${encodeURIComponent(cleanArtist ? `${cleanArtist} ${cleanTitle}` : cleanTitle)}`, { timeout: 3000 });
+            const first = deezerRes.data?.data?.[0];
+            if (first && (first.link || first.id)) {
+              links.deezer = first.link || `https://www.deezer.com/album/${first.id}`;
+              healed = true;
+            }
+          } catch (_) {}
+        }
+        // 2. Heal Apple Music Album
+        if (!links.appleMusic || links.appleMusic.includes("/search/") || links.appleMusic.includes("/search?") || links.appleMusic.includes("search?term=")) {
+          try {
+            const itunesRes = await axios.get("https://itunes.apple.com/search", {
+              params: { term: `${cleanArtist} ${cleanTitle}`.trim(), media: "music", entity: "album", limit: 1 },
+              timeout: 3000,
+            });
+            const first = itunesRes.data?.results?.[0];
+            if (first?.collectionViewUrl) {
+              links.appleMusic = first.collectionViewUrl;
+              healed = true;
+            }
+          } catch (_) {}
+        }
+        // 3. Heal YouTube Music Album Playlist
+        if (!links.youtubeMusic || links.youtubeMusic.includes("watch?v=") || links.youtubeMusic.includes("/search")) {
+          try {
+            const ytAlbum = await resolveYouTubeDirectPlayLive(`${cleanArtist} ${cleanTitle}`.trim(), true);
+            if (ytAlbum && ytAlbum.includes("list=OLAK")) {
+              links.youtubeMusic = ytAlbum;
+              healed = true;
+            }
+          } catch (_) {}
+        }
+        if (healed && hash) {
+          db.collection("l2_song_cache").doc(hash).set({ links }, { merge: true }).catch(() => {});
+        }
+      }
 
       // If isArtist, heal Deezer, Apple Music, and YouTube Music with direct native links instead of generic search URLs
       if (isArtist && cleanTitle) {
@@ -2205,7 +2267,8 @@ export const renderWebShare = onRequest(
         }
       }
 
-      const query = encodeURIComponent((cleanArtist ? `${cleanArtist} ${cleanTitle}` : cleanTitle).trim());
+      const isSelfTitled = cleanArtist && cleanArtist.trim().toLowerCase() === cleanTitle.trim().toLowerCase();
+      const query = encodeURIComponent((isSelfTitled ? cleanTitle : (cleanArtist ? `${cleanArtist} ${cleanTitle}` : cleanTitle)).trim());
       if (!links.spotify) links.spotify = `https://open.spotify.com/search/${query}`;
       if (!links.appleMusic) links.appleMusic = `https://music.apple.com/search?term=${query}`;
       if (!links.youtubeMusic) links.youtubeMusic = `https://music.youtube.com/search?q=${query}`;
