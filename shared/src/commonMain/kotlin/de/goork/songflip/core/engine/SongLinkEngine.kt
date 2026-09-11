@@ -43,6 +43,7 @@ class SongLinkEngine(
     private val ytVideoIdJsonRegex = Regex("\"videoId\":\"([a-zA-Z0-9_-]{11})\"")
     private val ytWatchRegex = Regex("/watch\\?v=([a-zA-Z0-9_-]{11})")
     private val ytAlbumPlaylistRegex = Regex("\"playlistId\":\"(OLAK5uy_[a-zA-Z0-9_-]+)\"")
+    private val ytAlbumBrowseRegex = Regex("\"browseId\":\"(MPREb_[a-zA-Z0-9_-]+)\"")
     private val ytGenericPlaylistRegex = Regex("\"playlistId\":\"([a-zA-Z0-9_-]{18,})\"")
     private val ytChannelIdRegex = Regex("\"channelId\":\"(UC[a-zA-Z0-9_-]{22})\"")
 
@@ -400,6 +401,14 @@ class SongLinkEngine(
             }
             if (!resp.status.isSuccess()) return null
             val html = resp.bodyAsText()
+
+            val mpreMatch = ytAlbumBrowseRegex.find(html)
+            if (mpreMatch != null) {
+                val browseId = mpreMatch.groupValues[1]
+                if (browseId.isNotEmpty()) {
+                    return "https://music.youtube.com/browse/$browseId"
+                }
+            }
 
             val olakMatch = ytAlbumPlaylistRegex.find(html)
             if (olakMatch != null) {
