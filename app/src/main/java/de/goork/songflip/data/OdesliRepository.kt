@@ -44,6 +44,7 @@ class OdesliRepository {
     private val ytVideoIdJsonPattern = Pattern.compile("\"videoId\":\"([a-zA-Z0-9_-]{11})\"")
     private val ytWatchPattern = Pattern.compile("/watch\\?v=([a-zA-Z0-9_-]{11})")
     private val ytAlbumPlaylistPattern = Pattern.compile("\"playlistId\":\"(OLAK5uy_[a-zA-Z0-9_-]+)\"")
+    private val ytAlbumBrowsePattern = Pattern.compile("\"browseId\":\"(MPREb_[a-zA-Z0-9_-]+)\"")
     private val ytGenericPlaylistPattern = Pattern.compile("\"playlistId\":\"([a-zA-Z0-9_-]{18,})\"")
     private val ytChannelIdPattern = Pattern.compile("\"channelId\":\"(UC[a-zA-Z0-9_-]{22})\"")
 
@@ -744,7 +745,16 @@ class OdesliRepository {
             val html = resp.body?.string() ?: ""
             resp.close()
 
-            // 1. Official YouTube Music album playlist (OLAK5uy...)
+            // 1. Official YouTube Music album entity ID (MPREb...)
+            val mpreMatcher = ytAlbumBrowsePattern.matcher(html)
+            if (mpreMatcher.find()) {
+                val browseId = mpreMatcher.group(1)
+                if (!browseId.isNullOrEmpty()) {
+                    return "https://music.youtube.com/browse/$browseId"
+                }
+            }
+
+            // 2. Official YouTube Music album playlist (OLAK5uy...)
             val olakMatcher = ytAlbumPlaylistPattern.matcher(html)
             if (olakMatcher.find()) {
                 val playlistId = olakMatcher.group(1)
