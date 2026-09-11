@@ -709,7 +709,6 @@ class OdesliRepository {
             "youtubeMusic" -> {
                 if (isAlbum) {
                     resolveYouTubeMusicAlbumUrl(query)
-                        ?: resolveYouTubeMusicDirectPlayUrl(query)
                         ?: buildSearchUrl(query, "youtubeMusic")
                 } else {
                     resolveYouTubeMusicDirectPlayUrl(query)
