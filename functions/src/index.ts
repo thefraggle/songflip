@@ -836,6 +836,10 @@ async function resolveYouTubeDirectPlayLive(query: string, isAlbum = false): Pro
 
     const html = typeof res.data === "string" ? res.data : "";
     if (isAlbum) {
+      const mpreMatch = html.match(/"browseId":"(MPREb_[a-zA-Z0-9_-]+)"/);
+      if (mpreMatch && mpreMatch[1]) {
+        return `https://music.youtube.com/browse/${mpreMatch[1]}`;
+      }
       const albumMatch = html.match(/"playlistId":"(OLAK5uy_[a-zA-Z0-9_-]+)"/);
       if (albumMatch && albumMatch[1]) {
         return `https://music.youtube.com/playlist?list=${albumMatch[1]}`;
@@ -2212,11 +2216,11 @@ export const renderWebShare = onRequest(
             }
           } catch (_) {}
         }
-        // 3. Heal YouTube Music Album Playlist
-        if (!links.youtubeMusic || links.youtubeMusic.includes("watch?v=") || links.youtubeMusic.includes("/search")) {
+        // 3. Heal YouTube Music Album Playlist or Browse ID
+        if (!links.youtubeMusic || links.youtubeMusic.includes("watch?v=") || links.youtubeMusic.includes("/search") || links.youtubeMusic.includes("channel/")) {
           try {
             const ytAlbum = await resolveYouTubeDirectPlayLive(`${cleanArtist} ${cleanTitle}`.trim(), true);
-            if (ytAlbum && ytAlbum.includes("list=OLAK")) {
+            if (ytAlbum && (ytAlbum.includes("list=OLAK") || ytAlbum.includes("/browse/MPREb_"))) {
               links.youtubeMusic = ytAlbum;
               healed = true;
             }
