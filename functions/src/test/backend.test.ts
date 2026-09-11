@@ -128,6 +128,7 @@ describe("Backend Helper Tests", () => {
       assert.equal(i18n.linkCopied, "Link in Zwischenablage kopiert!");
       assert.equal(i18n.play, "Abspielen");
       assert.equal(i18n.flippedWith, "Geflippt mit");
+      assert.equal(i18n.listenOn, "Geflippt mit SongFlip");
     });
 
     it("should return French translations for fr-FR", () => {
@@ -137,6 +138,7 @@ describe("Backend Helper Tests", () => {
       assert.equal(i18n.copyLink, "Copier le lien");
       assert.equal(i18n.linkCopied, "Lien copié dans le presse-papiers !");
       assert.equal(i18n.play, "Écouter");
+      assert.equal(i18n.listenOn, "Flippé avec SongFlip");
     });
 
     it("should return Japanese translations for ja", () => {
@@ -145,6 +147,7 @@ describe("Backend Helper Tests", () => {
       assert.equal(i18n.shareLink, "リンクを共有");
       assert.equal(i18n.copyLink, "リンクをコピー");
       assert.equal(i18n.play, "再生");
+      assert.equal(i18n.listenOn, "SongFlipで変換");
     });
 
     it("should fallback to English for unknown languages or missing header", () => {
@@ -153,11 +156,13 @@ describe("Backend Helper Tests", () => {
       assert.equal(i18nEmpty.shareLink, "Share Link");
       assert.equal(i18nEmpty.copyLink, "Copy Link");
       assert.equal(i18nEmpty.play, "Play");
+      assert.equal(i18nEmpty.listenOn, "Flipped with SongFlip");
 
       const i18nUnknown = getWebShareI18n("xx-YY");
       assert.equal(i18nUnknown.lang, "en");
       assert.equal(i18nUnknown.shareLink, "Share Link");
       assert.equal(i18nUnknown.copyLink, "Copy Link");
+      assert.equal(i18nUnknown.listenOn, "Flipped with SongFlip");
     });
 
     it("should cover all 24 supported languages with complete translations", () => {
@@ -172,6 +177,7 @@ describe("Backend Helper Tests", () => {
         assert.ok(i18n.copyLink && i18n.copyLink.length > 0, `copyLink missing for ${lang}`);
         assert.ok(i18n.linkCopied && i18n.linkCopied.length > 0, `linkCopied missing for ${lang}`);
         assert.ok(i18n.play && i18n.play.length > 0, `play missing for ${lang}`);
+        assert.ok(i18n.listenOn && i18n.listenOn.length > 0, `listenOn missing for ${lang}`);
         assert.ok(i18n.notFoundTitle && i18n.notFoundTitle.length > 0, `notFoundTitle missing for ${lang}`);
         assert.ok(i18n.discoverSongFlip && i18n.discoverSongFlip.length > 0, `discoverSongFlip missing for ${lang}`);
       });
