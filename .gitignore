@@ -49,5 +49,7 @@ fastlane/
 
 # Firebase
 .firebase/
+firebase-debug.log
 functions/node_modules/
 functions/lib/
+*.log

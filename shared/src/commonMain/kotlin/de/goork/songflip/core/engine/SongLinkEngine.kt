@@ -377,7 +377,6 @@ class SongLinkEngine(
             "youtubeMusic" -> {
                 if (isAlbum) {
                     resolveYouTubeMusicAlbumUrl(query)
-                        ?: resolveYouTubeMusicDirectPlayUrl(query)
                         ?: UrlUtils.buildSearchUrl(query, "youtubeMusic")
                 } else {
                     resolveYouTubeMusicDirectPlayUrl(query)
