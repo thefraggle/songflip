@@ -1746,7 +1746,7 @@ export const health = onRequest(
  * Admin-protected promo code seeder endpoint
  */
 export const seedPromoCodes = onRequest(
-  { region: "europe-west3", memory: "128MiB", cors: false, invoker: "public" },
+  { region: "europe-west3", memory: "256MiB", cors: false, invoker: "public" },
   async (req, res) => {
     applyApiSecurityHeaders(res);
 
@@ -1765,28 +1765,39 @@ export const seedPromoCodes = onRequest(
 
     const initialCodes = [
       { code: "SONGFLIP_BETA_2026", type: "1month", durationDays: 30, maxRedemptions: 100 },
-      { code: "SONGFLIP_LAUNCH_2026", type: "3months", durationDays: 90, maxRedemptions: 50 },
+      { code: "SONGFLIP_LAUNCH_2026", type: "3months", durationDays: 90, maxRedemptions: 75 },
       { code: "SONGFLIP_VIP_2026", type: "1year", durationDays: 365, maxRedemptions: 25 },
       { code: "SONGFLIP_FOUNDER_2026", type: "lifetime", durationDays: null, maxRedemptions: 10 },
     ];
 
-    for (const item of initialCodes) {
-      const docRef = db.collection("promo_codes").doc(item.code);
-      const snap = await docRef.get();
-      if (!snap.exists) {
-        await docRef.set({
-          code: item.code,
-          type: item.type,
-          durationDays: item.durationDays,
-          maxRedemptions: item.maxRedemptions,
-          currentRedemptions: 0,
-          isActive: true,
-          createdAt: admin.firestore.FieldValue.serverTimestamp(),
-        });
+    try {
+      for (const item of initialCodes) {
+        const docRef = db.collection("promo_codes").doc(item.code);
+        const snap = await docRef.get();
+        if (!snap.exists) {
+          await docRef.set({
+            code: item.code,
+            type: item.type,
+            durationDays: item.durationDays,
+            maxRedemptions: item.maxRedemptions,
+            currentRedemptions: 0,
+            isActive: true,
+            createdAt: admin.firestore.FieldValue.serverTimestamp(),
+          });
+        } else {
+          await docRef.set({
+            maxRedemptions: item.maxRedemptions,
+            durationDays: item.durationDays,
+            isActive: true,
+          }, { merge: true });
+        }
       }
-    }
 
-    res.status(200).json({ status: "ok", message: "Promo codes seeded successfully." });
+      res.status(200).json({ status: "ok", message: "Promo codes seeded successfully." });
+    } catch (err: any) {
+      console.error("seedPromoCodes error:", err);
+      res.status(500).json({ error: "INTERNAL_ERROR", message: err?.message || "Seeding failed" });
+    }
   }
 );
 
