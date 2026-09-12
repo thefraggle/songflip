@@ -57,13 +57,13 @@ fun HistoryBottomSheet(
 
     val historyLimit = if (isPro) 100 else 10
     var historyItems by remember { mutableStateOf(LinkCacheManager.getHistoryEntries(limit = historyLimit)) }
-    var totalCachedCount by remember { mutableStateOf(LinkCacheManager.getTotalCachedCount()) }
+    var historyCount by remember { mutableStateOf(LinkCacheManager.getHistoryCount()) }
     var showClearConfirmationDialog by remember { mutableStateOf(false) }
     var refreshingKeys by remember { mutableStateOf(setOf<String>()) }
 
     fun refreshHistory() {
         historyItems = LinkCacheManager.getHistoryEntries(limit = historyLimit)
-        totalCachedCount = LinkCacheManager.getTotalCachedCount()
+        historyCount = LinkCacheManager.getHistoryCount()
     }
 
     if (showClearConfirmationDialog) {
@@ -137,7 +137,7 @@ fun HistoryBottomSheet(
                             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                             color = MaterialTheme.colorScheme.onSurface
                         )
-                        if (totalCachedCount > 0) {
+                        if (historyCount > 0 && historyItems.isNotEmpty()) {
                             Surface(
                                 shape = CircleShape,
                                 color = MaterialTheme.colorScheme.primaryContainer,
@@ -294,8 +294,8 @@ fun HistoryBottomSheet(
                         )
                     }
 
-                    // Pro Teaser Card if there are more than 10 items in cache (shown once PRO is enabled)
-                    if (showProTeaser && !isPro && totalCachedCount > 10) {
+                    // Pro Teaser Card if there are more than 10 items in history
+                    if (showProTeaser && !isPro && historyCount > 10) {
                         item {
                             Spacer(modifier = Modifier.height(6.dp))
                             Card(

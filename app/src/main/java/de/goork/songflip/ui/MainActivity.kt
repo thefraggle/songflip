@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
 
     private var initialShowPauseSheet = false
     private val windowFocusState = mutableStateOf(false)
+    private val incomingSharedUrlState = mutableStateOf<String?>(null)
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
@@ -56,6 +57,13 @@ class MainActivity : AppCompatActivity() {
         LinkCacheManager.init(this)
         initialShowPauseSheet = intent?.getBooleanExtra("show_pause_sheet", false) == true
         handleShortcutIntent(intent)
+
+        val shared = intent?.takeIf { it.action == Intent.ACTION_SEND }?.let {
+            it.getStringExtra(Intent.EXTRA_TEXT) ?: it.clipData?.takeIf { cd -> cd.itemCount > 0 }?.getItemAt(0)?.text?.toString()
+        }?.let { UrlUtils.extractCleanUrl(it) ?: it }
+        if (shared != null && isSupportedMusicUrl(shared)) {
+            incomingSharedUrlState.value = shared
+        }
 
         val settingsRepo = SettingsRepository(this)
         val savedLang = settingsRepo.appLanguage
@@ -91,6 +99,7 @@ class MainActivity : AppCompatActivity() {
                         initialShowPause = initialShowPauseSheet,
                         currentThemeMode = currentThemeMode,
                         isWindowFocused = windowFocusState.value,
+                        incomingSharedUrl = incomingSharedUrlState.value,
                         onThemeModeSelected = { newMode -> currentThemeMode = newMode }
                     )
                 }
@@ -101,6 +110,14 @@ class MainActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         handleShortcutIntent(intent)
+
+        val shared = intent.takeIf { it.action == Intent.ACTION_SEND }?.let {
+            it.getStringExtra(Intent.EXTRA_TEXT) ?: it.clipData?.takeIf { cd -> cd.itemCount > 0 }?.getItemAt(0)?.text?.toString()
+        }?.let { UrlUtils.extractCleanUrl(it) ?: it }
+        if (shared != null && isSupportedMusicUrl(shared)) {
+            incomingSharedUrlState.value = shared
+        }
+
         if (intent.getBooleanExtra("show_pause_sheet", false)) {
             setContent {
                 val settingsRepository = remember { SettingsRepository(this) }
@@ -121,6 +138,7 @@ class MainActivity : AppCompatActivity() {
                             initialShowPause = true,
                             currentThemeMode = currentThemeMode,
                             isWindowFocused = windowFocusState.value,
+                            incomingSharedUrl = incomingSharedUrlState.value,
                             onThemeModeSelected = { newMode -> currentThemeMode = newMode }
                         )
                     }
@@ -174,6 +192,7 @@ fun MainScreen(
     initialShowPause: Boolean = false,
     currentThemeMode: String = "system",
     isWindowFocused: Boolean = false,
+    incomingSharedUrl: String? = null,
     onThemeModeSelected: (String) -> Unit = {}
 ) {
     val context = LocalContext.current
@@ -210,8 +229,15 @@ fun MainScreen(
     }
 
     // Clipboard Smart-Banner State
-    var detectedClipboardUrl by remember { mutableStateOf<String?>(null) }
+    var detectedClipboardUrl by remember(incomingSharedUrl) { mutableStateOf<String?>(incomingSharedUrl) }
     var dismissedClipboardUrl by remember { mutableStateOf<String?>(null) }
+
+    LaunchedEffect(incomingSharedUrl) {
+        if (incomingSharedUrl != null) {
+            detectedClipboardUrl = incomingSharedUrl
+            repository.prefetch(incomingSharedUrl, selectedTargetKey)
+        }
+    }
 
     val checkClipboard = rememberUpdatedState {
         if (!settingsRepository.autoClipboardDetect) {

@@ -153,15 +153,18 @@ class LinkCacheManagerTest {
         assertNotNull("Prefetched item must be present in L1 cache", cached)
         assertEquals(targetUrl, cached?.targetUrl)
 
-        // Item MUST NOT appear in user history
+        // Item MUST NOT appear in user history AND getHistoryCount() must be 0
         val historyBefore = LinkCacheManager.getHistoryEntries(limit = 10)
         assertTrue("Prefetched song without user click must not appear in history", historyBefore.isEmpty())
+        assertEquals("Prefetched item must not increment historyCount", 0, LinkCacheManager.getHistoryCount())
+        assertEquals("getTotalCachedCount includes prefetch items", 1, LinkCacheManager.getTotalCachedCount())
 
         // User actually clicks / redirects: mark as history
         LinkCacheManager.markAsHistory(prefetchUrl, targetPlatform)
 
         val historyAfter = LinkCacheManager.getHistoryEntries(limit = 10)
         assertEquals("Song must now appear in history after being marked", 1, historyAfter.size)
+        assertEquals("getHistoryCount must now be 1", 1, LinkCacheManager.getHistoryCount())
         assertEquals("Prefetched Song", historyAfter.first().title)
     }
 
