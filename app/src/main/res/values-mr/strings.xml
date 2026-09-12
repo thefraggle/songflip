@@ -240,4 +240,7 @@
     <string name="setup_card_conflict_title">लिंक संघर्ष आढळला</string>
     <string name="setup_card_conflict_desc">%d इन्स्टॉल केलेले ॲप SongFlip पुनर्निर्देशित करण्यापूर्वी थेट लिंक उघडते.</string>
     <string name="setup_card_conflict_badge">%d विरोधी सेवा</string>
+    <string name="settings_ask_every_time_title">प्रत्येक वेळी टार्गेट ॲप विचारा</string>
+    <string name="settings_ask_every_time_subtitle">डिफॉल्ट प्लेअर थेट उघडण्याऐवजी जलद निवडक दाखवा</string>
+    <string name="quick_picker_title">याद्वारे उघडा …</string>
 </resources>

@@ -240,4 +240,7 @@
     <string name="setup_card_conflict_title">Lenkekonflikter oppdaget</string>
     <string name="setup_card_conflict_desc">%d installert(e) app(er) åpner lenker direkte før SongFlip kan omdirigere dem.</string>
     <string name="setup_card_conflict_badge">%d motstridende tjeneste(r)</string>
+    <string name="settings_ask_every_time_title">Spør om mål-app hver gang</string>
+    <string name="settings_ask_every_time_subtitle">Vis hurtigvalg i stedet for å åpne standardspilleren med en gang</string>
+    <string name="quick_picker_title">Åpne med …</string>
 </resources>

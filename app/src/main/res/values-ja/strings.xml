@@ -236,4 +236,7 @@
     <string name="setup_card_conflict_title">リンクの競合を検出</string>
     <string name="setup_card_conflict_desc">%d個のアプリがSongFlipの転送前に直接リンクを開いています。</string>
     <string name="setup_card_conflict_badge">%d件の競合サービス</string>
+    <string name="settings_ask_every_time_title">毎回再生アプリを確認</string>
+    <string name="settings_ask_every_time_subtitle">デフォルトのプレーヤーをすぐに開かずクイック選択を表示</string>
+    <string name="quick_picker_title">次で開く …</string>
 </resources>

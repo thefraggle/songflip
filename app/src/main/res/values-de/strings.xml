@@ -254,4 +254,7 @@
     <string name="setup_card_conflict_title">Link-Konflikte erkannt</string>
     <string name="setup_card_conflict_desc">%d installierte App(s) öffnen Links direkt, bevor SongFlip sie umleiten kann.</string>
     <string name="setup_card_conflict_badge">%d blockierte(r) Dienst(e)</string>
+    <string name="settings_ask_every_time_title">Ziel-App jedes Mal abfragen</string>
+    <string name="settings_ask_every_time_subtitle">Schnellauswahl anzeigen, anstatt sofort in den Standard-Player zu wechseln</string>
+    <string name="quick_picker_title">Öffnen mit …</string>
 </resources>

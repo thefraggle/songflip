@@ -248,4 +248,7 @@
     <string name="setup_card_conflict_title">Виявлено конфлікти посилань</string>
     <string name="setup_card_conflict_desc">%d встановл. додатків відкривають посилання напряму до перенаправлення SongFlip.</string>
     <string name="setup_card_conflict_badge">%d конфліктних сервіси(-ів)</string>
+    <string name="settings_ask_every_time_title">Запитувати цільовий додаток щоразу</string>
+    <string name="settings_ask_every_time_subtitle">Показувати швидкий вибір замість негайного відкриття типового плеєра</string>
+    <string name="quick_picker_title">Відкрити за допомогою …</string>
 </resources>

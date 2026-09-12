@@ -1,7 +1,12 @@
 # Changelog
 
+## [1.2.29] - 2026-09-12
+- **Choose Your Music App**: Added an optional "Ask every time" setting for anyone using multiple music services, letting you pick where to play each song with a single tap.
+- **Seamless Shazam Links**: Songs identified with Shazam now open instantly and reliably in your favorite music player without interruptions.
+- **Global Polish**: Quick player selection is fully translated across all 24 supported languages.
+
 ## [1.2.28] - 2026-09-12
-- **Native Player Share-Sheet Fix**: Sharing a song from within your own music player via Android Share Sheet now opens the universal smart link sheet to share with friends instead of reopening your player.
+- **Native Player Share Fix**: Sharing a song from within your music player via the system share menu now generates a universal smart link to share with friends instead of reopening your player.
 - **Accurate History Counting**: Resolved a count discrepancy where pre-cached links were counted in Settings before appearing in the history list.
 - **Seamless Share Previews**: Shared tracks now seamlessly populate the in-app action banner with instant prefetching.
 

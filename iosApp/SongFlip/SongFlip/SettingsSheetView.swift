@@ -50,6 +50,11 @@ struct SettingsSheetView: View {
                         Label(LocalizationManager.string(for: "auto_clipboard", lang: lang), systemImage: "doc.on.clipboard")
                     }
                     .tint(.green)
+
+                    Toggle(isOn: $settings.askEveryTime) {
+                        Label(LocalizationManager.string(for: "settings_ask_every_time_title", lang: lang), systemImage: "arrow.triangle.branch")
+                    }
+                    .tint(.green)
                 }
 
                 Section(header: Text(LocalizationManager.string(for: "settings_feedback_support", lang: lang)).font(.caption).fontWeight(.semibold)) {

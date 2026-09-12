@@ -92,6 +92,12 @@ class SettingsRepository(private val context: Context) {
             prefs.edit().putBoolean(KEY_AUTO_CLIPBOARD_DETECT, value).apply()
         }
 
+    var askEveryTime: Boolean
+        get() = prefs.getBoolean(KEY_ASK_EVERY_TIME, false)
+        set(value) {
+            prefs.edit().putBoolean(KEY_ASK_EVERY_TIME, value).apply()
+        }
+
     var lastDismissedProNudgeMilestone: Int
         get() = prefs.getInt(KEY_LAST_DISMISSED_PRO_NUDGE_MILESTONE, 0)
         set(value) {
@@ -128,6 +134,7 @@ class SettingsRepository(private val context: Context) {
         private const val KEY_FIRST_INSTALL_TS = "first_install_timestamp"
         private const val KEY_LAST_REVIEW_PROMPT_TS = "last_review_prompt_timestamp"
         private const val KEY_AUTO_CLIPBOARD_DETECT = "auto_clipboard_detect"
+        private const val KEY_ASK_EVERY_TIME = "ask_every_time"
         private const val KEY_LAST_DISMISSED_PRO_NUDGE_MILESTONE = "last_dismissed_pro_nudge_milestone"
 
         const val DEFAULT_TARGET = "youtubeMusic"

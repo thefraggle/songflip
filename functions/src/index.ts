@@ -140,6 +140,7 @@ const ALLOWED_MUSIC_HOST_PATTERNS = [
   /^(?:music\.)?amazon\.(?:com|de|co\.uk|co\.jp|fr|it|es|ca|in)$/,
   /^(?:(?:m\.|on\.)?soundcloud\.com)$/,
   /^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)*bandcamp\.com$/,
+  /^(?:(?:www\.|amp\.)?shazam\.com)$/,
   /^(?:song|album)\.link$/,
   /^odesli\.co$/,
 ];
@@ -282,6 +283,12 @@ function normalizeMusicUrl(rawUrl: string): string {
     const bandcampMatch = trimmed.match(/(?:https?:\/\/)?([a-zA-Z0-9_-]+)\.bandcamp\.com\/(track|album)\/([a-zA-Z0-9_-]+)/i);
     if (bandcampMatch) {
       return `https://${bandcampMatch[1]}.bandcamp.com/${bandcampMatch[2].toLowerCase()}/${bandcampMatch[3]}`;
+    }
+
+    // 9. Shazam
+    const shazamMatch = trimmed.match(/shazam\.com\/(?:[a-z]{2}(?:-[a-z]{2})?\/)?track\/(\d+)/i);
+    if (shazamMatch && shazamMatch[1]) {
+      return `https://www.shazam.com/track/${shazamMatch[1]}`;
     }
 
     const url = new URL(trimmed);
@@ -1041,6 +1048,34 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
   const linksMap: PlatformLinks = {};
 
   try {
+    // 0. Shazam Pre-Resolution to Apple Music Track ID
+    if (url.includes("shazam.com")) {
+      try {
+        const shazamMatch = url.match(/shazam\.com\/(?:[a-z]{2}(?:-[a-z]{2})?\/)?track\/(\d+)/i);
+        const trackId = shazamMatch?.[1] || url.split("/track/")[1]?.split("/")[0]?.split("?")[0]?.trim();
+        if (trackId && /^\d+$/.test(trackId)) {
+          const shazamResp = await axios.get(`https://amp.shazam.com/discovery/v5/en-US/US/web/-/track/${trackId}`, {
+            headers: {
+              "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1",
+            },
+            timeout: 4000,
+          });
+          const data = shazamResp.data;
+          if (data) {
+            if (data.title) title = data.title;
+            if (data.subtitle) artist = data.subtitle;
+            const actions = data.hub?.actions || [];
+            const appleAction = actions.find((a: any) => a.name === "apple" && a.type === "applemusicplay");
+            if (appleAction?.id) {
+              url = `https://song.link/i/${appleAction.id}`;
+            }
+          }
+        }
+      } catch (shazamErr: any) {
+        console.warn("[Shazam] Direct API resolution failed:", shazamErr?.message);
+      }
+    }
+
     try {
       const targetSongLink = normalizeToSongLinkDirectUrl(url);
       const res = await axios.get(targetSongLink, {
@@ -1701,15 +1736,16 @@ export const redeemPromoCode = onRequest(
         // Per-device single redemption check
         const redemptionRef = promoRef.collection("redemptions").doc(cleanInstallId);
         const redemptionSnap = await transaction.get(redemptionRef);
-        if (redemptionSnap.exists) {
+        const allowMultiplePerDevice = data.allowMultiplePerDevice === true;
+        if (redemptionSnap.exists && !allowMultiplePerDevice) {
           return {
             error: "ALREADY_REDEEMED_ON_DEVICE",
             message: "Dieser Gutscheincode wurde auf diesem Gerät bereits eingelöst."
           };
         }
 
-        const type = (data.type || "1month").toLowerCase(); // "1month", "3months", "1year", "lifetime"
-        const durationDays = type === "lifetime" ? null : (data.durationDays || (type === "1year" ? 365 : type === "3months" ? 90 : 30));
+        const type = (data.type || "1month").toLowerCase(); // "1month", "3months", "1year", "lifetime", "1week"
+        const durationDays = type === "lifetime" ? null : (data.durationDays || (type === "1year" ? 365 : type === "3months" ? 90 : type === "1week" ? 7 : 30));
         const expirationTimestamp = durationDays ? Date.now() + durationDays * 24 * 60 * 60 * 1000 : null;
         const token = createSignedCouponToken(cleanCode, cleanInstallId, expirationTimestamp, type);
 
@@ -1790,10 +1826,14 @@ export const seedPromoCodes = onRequest(
     }
 
     const initialCodes = [
-      { code: "SONGFLIP_BETA_2026", type: "1month", durationDays: 30, maxRedemptions: 100 },
-      { code: "SONGFLIP_LAUNCH_2026", type: "3months", durationDays: 90, maxRedemptions: 75 },
-      { code: "SONGFLIP_VIP_2026", type: "1year", durationDays: 365, maxRedemptions: 25 },
-      { code: "SONGFLIP_FOUNDER_2026", type: "lifetime", durationDays: null, maxRedemptions: 10 },
+      { code: "SONGFLIP_BETA_2026", type: "1month", durationDays: 30, maxRedemptions: 100, allowMultiplePerDevice: false },
+      { code: "SONGFLIP_LAUNCH_2026", type: "3months", durationDays: 90, maxRedemptions: 75, allowMultiplePerDevice: false },
+      { code: "SONGFLIP_VIP_2026", type: "1year", durationDays: 365, maxRedemptions: 25, allowMultiplePerDevice: false },
+      { code: "SONGFLIP_FOUNDER_2026", type: "lifetime", durationDays: null, maxRedemptions: 10, allowMultiplePerDevice: false },
+      { code: "FOUNDER-PASS", type: "1week", durationDays: 7, maxRedemptions: 999999, allowMultiplePerDevice: true },
+      { code: "FOUNDERPASS", type: "1week", durationDays: 7, maxRedemptions: 999999, allowMultiplePerDevice: true },
+      { code: "NEO-FOUNDER", type: "1week", durationDays: 7, maxRedemptions: 999999, allowMultiplePerDevice: true },
+      { code: "NEOFOUNDER", type: "1week", durationDays: 7, maxRedemptions: 999999, allowMultiplePerDevice: true },
     ];
 
     try {
@@ -1806,6 +1846,7 @@ export const seedPromoCodes = onRequest(
             type: item.type,
             durationDays: item.durationDays,
             maxRedemptions: item.maxRedemptions,
+            allowMultiplePerDevice: item.allowMultiplePerDevice === true,
             currentRedemptions: 0,
             isActive: true,
             createdAt: admin.firestore.FieldValue.serverTimestamp(),
@@ -1814,6 +1855,7 @@ export const seedPromoCodes = onRequest(
           await docRef.set({
             maxRedemptions: item.maxRedemptions,
             durationDays: item.durationDays,
+            allowMultiplePerDevice: item.allowMultiplePerDevice === true,
             isActive: true,
           }, { merge: true });
         }

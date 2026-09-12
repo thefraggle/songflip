@@ -4,6 +4,9 @@ import SwiftUI
 enum LocalizationManager {
     private static let translations: [String: [String: String]] = [
         "de": [
+            "settings_ask_every_time_title": "Ziel-App jedes Mal abfragen",
+            "settings_ask_every_time_subtitle": "Schnellauswahl anzeigen, anstatt sofort in den Standard-Player zu wechseln",
+            "quick_picker_title": "Öffnen mit …",
             "app_name": "SongFlip",
             "app_tagline": "Automatische Musik-Link-Weiterleitung",
             "target_service_label": "Bevorzugter Ziel-Player",
@@ -92,6 +95,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Playlist erkannt – öffne Original...",
         ],
         "en": [
+            "settings_ask_every_time_title": "Ask target app every time",
+            "settings_ask_every_time_subtitle": "Show quick picker instead of immediately opening default player",
+            "quick_picker_title": "Open with …",
             "app_name": "SongFlip",
             "app_tagline": "Automatic Music Link Redirector",
             "target_service_label": "Preferred Target Player",
@@ -180,6 +186,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Playlist detected – opening original...",
         ],
         "da": [
+            "settings_ask_every_time_title": "Spørg om destinationsapp hver gang",
+            "settings_ask_every_time_subtitle": "Vis hurtigvalg i stedet for straks at åbne standardafspilleren",
+            "quick_picker_title": "Åbn med …",
             "app_name": "SongFlip",
             "app_tagline": "Automatisk musik-link-omdirigering",
             "target_service_label": "Foretrukken mål-afspiller",
@@ -268,6 +277,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Playliste registreret – åbner original...",
         ],
         "nb": [
+            "settings_ask_every_time_title": "Spør om mål-app hver gang",
+            "settings_ask_every_time_subtitle": "Vis hurtigvalg i stedet for å åpne standardspilleren med en gang",
+            "quick_picker_title": "Åpne med …",
             "app_name": "SongFlip",
             "app_tagline": "Automatisk musikklenke-omdirigering",
             "target_service_label": "Foretrukket målspiller",
@@ -356,6 +368,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Spilleliste oppdaget – åpner original...",
         ],
         "sv": [
+            "settings_ask_every_time_title": "Fråga efter målapp varje gång",
+            "settings_ask_every_time_subtitle": "Visa snabbval istället för att direkt öppna standardspelaren",
+            "quick_picker_title": "Öppna med …",
             "app_name": "SongFlip",
             "app_tagline": "Automatisk musiklänks-omdirigering",
             "target_service_label": "Föredragen målspelare",
@@ -444,6 +459,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Spellista upptäckt – öppnar original...",
         ],
         "nl": [
+            "settings_ask_every_time_title": "Elke keer doel-app vragen",
+            "settings_ask_every_time_subtitle": "Snelle kiezer tonen in plaats van direct de standaardspeler te openen",
+            "quick_picker_title": "Openen met …",
             "app_name": "SongFlip",
             "app_tagline": "Automatische muzieklink-omleiding",
             "target_service_label": "Voorkeurs-doelspeler",
@@ -532,6 +550,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Afspeellijst gedetecteerd – origineel openen...",
         ],
         "fr": [
+            "settings_ask_every_time_title": "Demander l'application cible à chaque fois",
+            "settings_ask_every_time_subtitle": "Afficher un sélecteur rapide au lieu d'ouvrir immédiatement le lecteur par défaut",
+            "quick_picker_title": "Ouvrir avec …",
             "app_name": "SongFlip",
             "app_tagline": "Redirection automatique de liens musicaux",
             "target_service_label": "Lecteur cible préféré",
@@ -620,6 +641,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Playlist détectée – ouverture de l'original...",
         ],
         "es": [
+            "settings_ask_every_time_title": "Preguntar app de destino cada vez",
+            "settings_ask_every_time_subtitle": "Mostrar selector rápido en lugar de abrir directamente el reproductor predeterminado",
+            "quick_picker_title": "Abrir con …",
             "app_name": "SongFlip",
             "app_tagline": "Redirección automática de enlaces de música",
             "target_service_label": "Reproductor de destino preferido",
@@ -708,6 +732,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Lista de reproducción detectada – abriendo original...",
         ],
         "it": [
+            "settings_ask_every_time_title": "Chiedi l'app di destinazione ogni volta",
+            "settings_ask_every_time_subtitle": "Mostra selezione rapida invece di aprire subito il lettore predefinito",
+            "quick_picker_title": "Apri con …",
             "app_name": "SongFlip",
             "app_tagline": "Reindirizzamento automatico dei link musicali",
             "target_service_label": "Lettore di destinazione preferito",
@@ -796,6 +823,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Playlist rilevata – apertura dell'originale...",
         ],
         "pt": [
+            "settings_ask_every_time_title": "Perguntar app de destino sempre",
+            "settings_ask_every_time_subtitle": "Mostrar seletor rápido em vez de abrir logo o leitor padrão",
+            "quick_picker_title": "Abrir com …",
             "app_name": "SongFlip",
             "app_tagline": "Redirecionamento automático de links de música",
             "target_service_label": "Reprodutor de destino preferido",
@@ -884,6 +914,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Playlist detectada – abrindo original...",
         ],
         "pl": [
+            "settings_ask_every_time_title": "Pytaj o aplikację docelową za każdym razem",
+            "settings_ask_every_time_subtitle": "Pokaż szybki wybór zamiast natychmiastowego otwierania domyślnego odtwarzacza",
+            "quick_picker_title": "Otwórz za pomocą …",
             "app_name": "SongFlip",
             "app_tagline": "Automatyczne przekierowywanie linków muzycznych",
             "target_service_label": "Preferowany odtwarzacz docelowy",
@@ -972,6 +1005,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Wykryto playlistę – otwieranie oryginału...",
         ],
         "ru": [
+            "settings_ask_every_time_title": "Спрашивать целевое приложение каждый раз",
+            "settings_ask_every_time_subtitle": "Показывать быстрый выбор вместо немедленного открытия стандартного плеера",
+            "quick_picker_title": "Открыть с помощью …",
             "app_name": "SongFlip",
             "app_tagline": "Автоматическая переадресация музыкальных ссылок",
             "target_service_label": "Предпочитаемый плеер",
@@ -1060,6 +1096,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Обнаружен плейлист – открывается оригинал...",
         ],
         "tr": [
+            "settings_ask_every_time_title": "Hedef uygulamayı her zaman sor",
+            "settings_ask_every_time_subtitle": "Varsayılan oynatıcıyı hemen açmak yerine hızlı seçici göster",
+            "quick_picker_title": "Birlikte aç …",
             "app_name": "SongFlip",
             "app_tagline": "Otomatik Müzik Bağlantısı Yönlendirici",
             "target_service_label": "Tercih Edilen Hedef Oynatıcı",
@@ -1148,6 +1187,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Çalma listesi algılandı – orijinal açılıyor...",
         ],
         "uk": [
+            "settings_ask_every_time_title": "Запитувати цільовий додаток щоразу",
+            "settings_ask_every_time_subtitle": "Показувати швидкий вибір замість негайного відкриття типового плеєра",
+            "quick_picker_title": "Відкрити за допомогою …",
             "app_name": "SongFlip",
             "app_tagline": "Автоматична переадресація музичних посилань",
             "target_service_label": "Бажаний цільовий плеєр",
@@ -1236,6 +1278,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Виявлено плейліст – відкривається оригінал...",
         ],
         "ja": [
+            "settings_ask_every_time_title": "毎回再生アプリを確認",
+            "settings_ask_every_time_subtitle": "デフォルトのプレーヤーをすぐに開かずクイック選択を表示",
+            "quick_picker_title": "次で開く …",
             "app_name": "SongFlip",
             "app_tagline": "音楽リンク自動リダイレクター",
             "target_service_label": "優先ターゲットプレーヤー",
@@ -1324,6 +1369,9 @@ enum LocalizationManager {
             "playlist_share_opening": "プレイリストを検出しました – 元のアプリで開いています...",
         ],
         "ko": [
+            "settings_ask_every_time_title": "매번 대상 앱 묻기",
+            "settings_ask_every_time_subtitle": "기본 플레이어를 바로 열지 않고 빠른 선택 표시",
+            "quick_picker_title": "다음으로 열기 …",
             "app_name": "SongFlip",
             "app_tagline": "음악 링크 자동 리디렉터",
             "target_service_label": "선호하는 대상 플레이어",
@@ -1412,6 +1460,9 @@ enum LocalizationManager {
             "playlist_share_opening": "재생목록 감지됨 – 원본 열기 중...",
         ],
         "zh": [
+            "settings_ask_every_time_title": "每次询问目标应用",
+            "settings_ask_every_time_subtitle": "显示快捷选择器，而不是直接打开默认播放器",
+            "quick_picker_title": "打开方式 …",
             "app_name": "SongFlip",
             "app_tagline": "音乐链接自动重定向器",
             "target_service_label": "首选目标播放器",
@@ -1500,6 +1551,9 @@ enum LocalizationManager {
             "playlist_share_opening": "检测到播放列表 – 正在打开原版...",
         ],
         "in": [
+            "settings_ask_every_time_title": "Tanyakan aplikasi tujuan setiap saat",
+            "settings_ask_every_time_subtitle": "Tampilkan pemilih cepat daripada langsung membuka pemutar default",
+            "quick_picker_title": "Buka dengan …",
             "app_name": "SongFlip",
             "app_tagline": "Pengalihan Tautan Musik Otomatis",
             "target_service_label": "Pemutar Tujuan Favorit",
@@ -1588,6 +1642,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Daftar putar terdeteksi – membuka asli...",
         ],
         "vi": [
+            "settings_ask_every_time_title": "Hỏi ứng dụng phát mỗi lần",
+            "settings_ask_every_time_subtitle": "Hiển thị bộ chọn nhanh thay vì mở ngay trình phát mặc định",
+            "quick_picker_title": "Mở bằng …",
             "app_name": "SongFlip",
             "app_tagline": "Tự động chuyển hướng liên kết âm nhạc",
             "target_service_label": "Trình phát mục tiêu ưa thích",
@@ -1676,6 +1733,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Đã phát hiện danh sách phát – đang mở bản gốc...",
         ],
         "bn": [
+            "settings_ask_every_time_title": "প্রতিবার লক্ষ্য অ্যাপ জিজ্ঞাসা করুন",
+            "settings_ask_every_time_subtitle": "ডিফল্ট প্লেয়ার সরাসরি খোলার পরিবর্তে দ্রুত নির্বাচক দেখান",
+            "quick_picker_title": "এর মাধ্যমে খুলুন …",
             "app_name": "SongFlip",
             "app_tagline": "স্বয়ংক্রিয় মিউজিক লিঙ্ক রিডাইরেক্টর",
             "target_service_label": "পছন্দের লক্ষ্য প্লেয়ার",
@@ -1764,6 +1824,9 @@ enum LocalizationManager {
             "playlist_share_opening": "প্লেলিস্ট সনাক্ত হয়েছে – মূল লিঙ্ক খোলা হচ্ছে...",
         ],
         "hi": [
+            "settings_ask_every_time_title": "हर बार लक्ष्य ऐप पूछें",
+            "settings_ask_every_time_subtitle": "सीधे डिफ़ॉल्ट प्लेयर खोलने के बजाय त्वरित पिकर दिखाएं",
+            "quick_picker_title": "इसके साथ खोलें …",
             "app_name": "SongFlip",
             "app_tagline": "स्वचालित संगीत लिंक रीडायरेक्टर",
             "target_service_label": "पसंदीदा लक्ष्य प्लेयर",
@@ -1852,6 +1915,9 @@ enum LocalizationManager {
             "playlist_share_opening": "प्लेलिस्ट पहचानी गई – मूल खोला जा रहा है...",
         ],
         "mr": [
+            "settings_ask_every_time_title": "प्रत्येक वेळी टार्गेट ॲप विचारा",
+            "settings_ask_every_time_subtitle": "डिफॉल्ट प्लेअर थेट उघडण्याऐवजी जलद निवडक दाखवा",
+            "quick_picker_title": "याद्वारे उघडा …",
             "app_name": "SongFlip",
             "app_tagline": "स्वयंचलित संगीत लिंक पुनर्निर्देशन",
             "target_service_label": "पसंतीचा टार्गेट प्लेअर",

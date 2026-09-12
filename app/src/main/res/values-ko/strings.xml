@@ -236,4 +236,7 @@
     <string name="setup_card_conflict_title">링크 충돌 감지됨</string>
     <string name="setup_card_conflict_desc">%d개의 설치된 앱이 SongFlip 리디렉션 전에 링크를 직접 엽니다.</string>
     <string name="setup_card_conflict_badge">%d개 충돌 서비스</string>
+    <string name="settings_ask_every_time_title">매번 대상 앱 묻기</string>
+    <string name="settings_ask_every_time_subtitle">기본 플레이어를 바로 열지 않고 빠른 선택 표시</string>
+    <string name="quick_picker_title">다음으로 열기 …</string>
 </resources>
