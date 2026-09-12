@@ -303,7 +303,7 @@ fun SettingsBottomSheet(
             }
 
             // 1. Song History & Cache Card
-            val cachedCount = remember(showHistorySubSheet) { LinkCacheManager.getTotalCachedCount() }
+            val historyCount = remember(showHistorySubSheet) { LinkCacheManager.getHistoryCount() }
             Card(
                 shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
@@ -335,8 +335,8 @@ fun SettingsBottomSheet(
                             color = MaterialTheme.colorScheme.onSurface
                         )
                         Text(
-                            text = if (cachedCount > 0) {
-                                pluralStringResource(R.plurals.history_cached_count, cachedCount, cachedCount)
+                            text = if (historyCount > 0) {
+                                pluralStringResource(R.plurals.history_cached_count, historyCount, historyCount)
                             } else {
                                 stringResource(R.string.history_subtitle)
                             },

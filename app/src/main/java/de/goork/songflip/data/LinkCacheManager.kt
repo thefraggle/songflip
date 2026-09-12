@@ -242,6 +242,27 @@ object LinkCacheManager {
     }
 
     @Synchronized
+    fun getHistoryCount(): Int {
+        val now = System.currentTimeMillis()
+        val combinedKeys = mutableSetOf<String>()
+        combinedKeys.addAll(memoryCache.keys)
+
+        val prefs = sharedPreferences
+        if (prefs != null) {
+            combinedKeys.addAll(prefs.all.keys.filter { it != CACHE_VERSION_KEY })
+        }
+
+        var count = 0
+        for (key in combinedKeys) {
+            val entry = memoryCache[key] ?: (prefs?.getString(key, null)?.let { parseEntry(it) })
+            if (entry != null && entry.isHistory && (now - entry.timestamp) < CACHE_TTL_MS && isValidTargetUrl(entry.targetUrl)) {
+                count++
+            }
+        }
+        return count
+    }
+
+    @Synchronized
     fun getTotalCachedCount(): Int {
         val prefs = sharedPreferences
         val keys = mutableSetOf<String>()

@@ -1,5 +1,8 @@
 package de.goork.songflip.ui
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -15,6 +18,7 @@ import de.goork.songflip.data.OdesliRepository
 import de.goork.songflip.data.OdesliResult
 import de.goork.songflip.data.PackageUtils
 import de.goork.songflip.data.PauseHelper
+import de.goork.songflip.data.ProManager
 import de.goork.songflip.data.SettingsRepository
 import de.goork.songflip.core.model.MusicPlatform
 import de.goork.songflip.core.util.UrlUtils
@@ -94,7 +98,45 @@ class RedirectActivity : ComponentActivity() {
                 else -> false
             }
 
+            val isShareAction = Intent.ACTION_SEND == intent?.action
+
             if (isSamePlatform) {
+                if (isShareAction) {
+                    ProManager.init(this)
+                    val isPro = ProManager.proState.value.isPro
+                    if (isPro) {
+                        val shareUrl = ProManager.getUniversalWebShareUrl(incomingUrl)
+                        ProManager.warmupUniversalShare(incomingUrl)
+
+                        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+                        val clip = ClipData.newPlainText("SongFlip Universal Link", shareUrl)
+                        clipboard?.setPrimaryClip(clip)
+
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackSharePageGenerated(target = "share_sheet_same_platform")
+
+                        val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                            type = "text/plain"
+                            putExtra(Intent.EXTRA_TEXT, shareUrl)
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        }
+                        val chooser = Intent.createChooser(shareIntent, getString(R.string.share_universal_link)).apply {
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        }
+                        startActivity(chooser)
+                        Toast.makeText(applicationContext, getString(R.string.share_universal_link_copied), Toast.LENGTH_SHORT).show()
+                    } else {
+                        val mainIntent = Intent(this, MainActivity::class.java).apply {
+                            action = Intent.ACTION_SEND
+                            putExtra(Intent.EXTRA_TEXT, incomingUrl)
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        }
+                        startActivity(mainIntent)
+                    }
+                    finish()
+                    suppressTransitionAnimation()
+                    return
+                }
+
                 val targetDisplayName = PackageUtils.getPlatformDisplayName(targetPlatform)
                 Toast.makeText(applicationContext, "🎵 ➔ $targetDisplayName", Toast.LENGTH_SHORT).show()
                 openTargetUrl(incomingUrl, targetPlatform)

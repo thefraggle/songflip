@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.28] - 2026-09-12
+- **Native Player Share-Sheet Fix**: Sharing a song from within your own music player via Android Share Sheet now opens the universal smart link sheet to share with friends instead of reopening your player.
+- **Accurate History Counting**: Resolved a count discrepancy where pre-cached links were counted in Settings before appearing in the history list.
+- **Seamless Share Previews**: Shared tracks now seamlessly populate the in-app action banner with instant prefetching.
+
 ## [1.2.27] - 2026-09-12
 - **Material You Dynamic Theming**: Fixed the monochrome app icon on Pixel and modern Android devices to adapt beautifully and crisply to your home screen theme.
 - **Enhanced Link Interception**: Added support for Shazam links, allowing you to open identified songs directly in your preferred music player.
