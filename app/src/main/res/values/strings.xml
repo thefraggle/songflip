@@ -199,6 +199,8 @@
     <string name="pro_coupon_success_1month">🎉 SongFlip PRO (1 Month) unlocked!</string>
     <string name="pro_coupon_max_reached">This promo code has reached its maximum redemptions limit.</string>
     <string name="pro_coupon_inactive">This promo code is no longer active.</string>
+    <string name="pro_coupon_rate_limited">Too many attempts. Please wait a moment.</string>
+
     <string name="pro_active_3months">PRO Access active until %1$s</string>
     <string name="pro_active_1month">PRO Access active until %1$s</string>
     <string name="share_universal_link">Share Universal Web Link</string>

@@ -199,6 +199,8 @@
     <string name="pro_coupon_success_1month">🎉 SongFlip PRO (1 Monat) freigeschaltet!</string>
     <string name="pro_coupon_max_reached">Das Einlöselimit für diesen Gutscheincode wurde erreicht.</string>
     <string name="pro_coupon_inactive">Dieser Gutscheincode ist nicht mehr aktiv.</string>
+    <string name="pro_coupon_rate_limited">Zu viele Versuche. Bitte warte einen Moment.</string>
+
     <string name="pro_active_3months">PRO-Zugang aktiv bis %1$s</string>
     <string name="pro_active_1month">PRO-Zugang aktiv bis %1$s</string>
     <string name="share_universal_link">Universal-Weblink teilen</string>

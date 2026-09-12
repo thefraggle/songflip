@@ -1637,19 +1637,45 @@ export const redeemPromoCode = onRequest(
       return;
     }
 
-    if (!rawCode || typeof rawCode !== "string" || !/^[A-Z0-9_-]{3,64}$/i.test(rawCode.trim())) {
+    const sanitizedCode = (typeof rawCode === "string" ? rawCode : "").trim().replace(/\s+/g, "").toUpperCase();
+    if (!sanitizedCode || !/^[A-Z0-9_-]{3,64}$/i.test(sanitizedCode)) {
       recordFailedAttempt(`promo_fail_ip:${clientIp}`, 5, 600000);
       recordFailedAttempt(`promo_fail_id:${cleanInstallId}`, 5, 600000);
       res.status(400).json({ error: "INVALID_CODE", message: "Gültiger Gutscheincode erforderlich." });
       return;
     }
 
-    const cleanCode = rawCode.trim().toUpperCase();
-    const promoRef = db.collection("promo_codes").doc(cleanCode);
+    const unhyphenated = sanitizedCode.replace(/-/g, "");
+    let cleanCode = sanitizedCode;
 
     try {
       const result = await db.runTransaction(async (transaction) => {
-        const docSnap = await transaction.get(promoRef);
+        let promoRef = db.collection("promo_codes").doc(cleanCode);
+        let docSnap = await transaction.get(promoRef);
+
+        // Fallback 1: Try unhyphenated doc if direct lookup missed (e.g. FLIP-JU8X-UMC6 -> FLIPJU8XUMC6)
+        if (!docSnap.exists) {
+          const altRef = db.collection("promo_codes").doc(unhyphenated);
+          const altSnap = await transaction.get(altRef);
+          if (altSnap.exists) {
+            promoRef = altRef;
+            docSnap = altSnap;
+            cleanCode = unhyphenated;
+          }
+        }
+
+        // Fallback 2: Try standard hyphenation if 12-char FLIP code without dashes (e.g. FLIPB5FE2NYW -> FLIP-B5FE-2NYW)
+        if (!docSnap.exists && unhyphenated.startsWith("FLIP") && unhyphenated.length === 12) {
+          const hyphenated = `FLIP-${unhyphenated.substring(4, 8)}-${unhyphenated.substring(8, 12)}`;
+          const altRef = db.collection("promo_codes").doc(hyphenated);
+          const altSnap = await transaction.get(altRef);
+          if (altSnap.exists) {
+            promoRef = altRef;
+            docSnap = altSnap;
+            cleanCode = hyphenated;
+          }
+        }
+
         if (!docSnap.exists) {
           return { error: "INVALID_CODE", message: "Dieser Gutscheincode ist ungültig." };
         }

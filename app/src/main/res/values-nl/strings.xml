@@ -182,6 +182,8 @@
     <string name="pro_coupon_success_1month">🎉 SongFlip PRO (1 maand) ontgrendeld!</string>
     <string name="pro_coupon_max_reached">Deze promotiecode heeft de maximale inwissellimiet bereikt.</string>
     <string name="pro_coupon_inactive">Deze promotiecode is niet meer actief.</string>
+    <string name="pro_coupon_rate_limited">Te veel pogingen. Even geduld a.u.b.</string>
+
     <string name="pro_active_3months">PRO-toegang actief tot %1$s</string>
     <string name="pro_active_1month">PRO-toegang actief tot %1$s</string>
     <string name="share_universal_link">Universele weblink delen</string>

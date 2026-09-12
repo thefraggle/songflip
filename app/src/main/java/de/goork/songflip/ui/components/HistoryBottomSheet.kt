@@ -602,8 +602,8 @@ private fun openTargetUrl(context: Context, rawTargetUrl: String, platformKey: S
         val intent = Intent(Intent.ACTION_VIEW, uri).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }
-        val targetPackage = PackageUtils.packageMap[platformKey]
-        if (targetPackage != null && PackageUtils.isAppInstalled(context, platformKey)) {
+        val targetPackage = PackageUtils.getInstalledPackage(context, platformKey)
+        if (targetPackage != null) {
             intent.setPackage(targetPackage)
         }
         context.startActivity(intent)
