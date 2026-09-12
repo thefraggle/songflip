@@ -183,6 +183,8 @@
     <string name="pro_coupon_success_1month">🎉 SongFlip PRO (1 місяць) розблоковано!</string>
     <string name="pro_coupon_max_reached">Цей промокод досяг ліміту активацій.</string>
     <string name="pro_coupon_inactive">Цей промокод більше не активний.</string>
+    <string name="pro_coupon_rate_limited">Забагато спроб. Будь ласка, зачекайте хвилинку.</string>
+
     <string name="pro_active_3months">PRO-доступ активний до %1$s</string>
     <string name="pro_active_1month">PRO-доступ активний до %1$s</string>
     <string name="share_universal_link">Поділитися універсальним посиланням</string>

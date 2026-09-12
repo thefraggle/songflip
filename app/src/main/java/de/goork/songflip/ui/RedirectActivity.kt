@@ -239,8 +239,8 @@ class RedirectActivity : ComponentActivity() {
         } else rawUrl
 
         de.goork.songflip.data.ShortcutHelper.updateShortcuts(this)
-        val targetPackage = PackageUtils.packageMap[targetPlatformKey]
-        val isTargetInstalled = PackageUtils.isAppInstalled(this, targetPlatformKey)
+        val targetPackage = PackageUtils.getInstalledPackage(this, targetPlatformKey)
+        val isTargetInstalled = targetPackage != null
 
         // Stage 1: Explicit target app launch (fastest, zero intent disambiguation)
         if (isTargetInstalled && targetPackage != null) {

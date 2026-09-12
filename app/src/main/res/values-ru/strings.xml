@@ -184,6 +184,8 @@
     <string name="pro_coupon_success_1month">🎉 SongFlip PRO (1 месяц) разблокирован!</string>
     <string name="pro_coupon_max_reached">Этот промокод достиг максимального лимита использований.</string>
     <string name="pro_coupon_inactive">Этот промокод больше не активен.</string>
+    <string name="pro_coupon_rate_limited">Слишком много попыток. Пожалуйста, подождите немного.</string>
+
     <string name="pro_active_3months">PRO-доступ активен до %1$s</string>
     <string name="pro_active_1month">PRO-доступ активен до %1$s</string>
     <string name="share_universal_link">Поделиться универсальной ссылкой</string>

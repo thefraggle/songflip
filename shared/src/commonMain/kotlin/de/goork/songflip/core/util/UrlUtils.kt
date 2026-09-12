@@ -186,7 +186,8 @@ object UrlUtils {
                 url.contains("a.co/") ||
                 url.contains("://a.co") ||
                 url.contains("apple.co/") ||
-                url.contains("://apple.co")
+                url.contains("://apple.co") ||
+                url.contains("shazam.com")
     }
 
     fun isAlbumUrl(url: String): Boolean {

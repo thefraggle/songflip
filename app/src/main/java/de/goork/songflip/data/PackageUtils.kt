@@ -16,14 +16,29 @@ object PackageUtils {
         "bandcamp" to "com.bandcamp.android"
     )
 
-    fun isAppInstalled(context: Context, platformKey: String): Boolean {
-        val packageName = packageMap[platformKey] ?: return false
-        return try {
-            context.packageManager.getPackageInfo(packageName, 0)
-            true
-        } catch (e: PackageManager.NameNotFoundException) {
-            false
+    val fallbackPackages = mapOf(
+        "youtubeMusic" to listOf(
+            "com.google.android.apps.youtube.music",
+            "app.rvx.android.apps.youtube.music",
+            "app.revanced.android.apps.youtube.music",
+            "com.vanced.android.apps.youtube.music",
+            "com.inotia00.youtube.music"
+        )
+    )
+
+    fun getInstalledPackage(context: Context, platformKey: String): String? {
+        val candidates = fallbackPackages[platformKey] ?: listOfNotNull(packageMap[platformKey])
+        for (pkg in candidates) {
+            try {
+                context.packageManager.getPackageInfo(pkg, 0)
+                return pkg
+            } catch (_: PackageManager.NameNotFoundException) {}
         }
+        return null
+    }
+
+    fun isAppInstalled(context: Context, platformKey: String): Boolean {
+        return getInstalledPackage(context, platformKey) != null
     }
 
     /**
@@ -107,6 +122,7 @@ object PackageUtils {
             "soundcloud" -> "SoundCloud"
             "bandcamp" -> "Bandcamp"
             "universal" -> "Universal Link"
+            "shazam" -> "Shazam"
             else -> cleanKey.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
         }
     }
@@ -123,6 +139,7 @@ object PackageUtils {
             lower.contains("amazon.") || lower.contains("amzn.to") || lower.contains("a.co") -> "amazonMusic"
             lower.contains("soundcloud.com") || lower.startsWith("soundcloud:") -> "soundcloud"
             lower.contains("bandcamp.com") || lower.startsWith("bandcamp:") -> "bandcamp"
+            lower.contains("shazam.com") -> "shazam"
             else -> ""
         }
     }

@@ -182,6 +182,8 @@
     <string name="pro_coupon_success_1month">🎉 SongFlip PRO (1 månad) upplåst!</string>
     <string name="pro_coupon_max_reached">Denna kampanjkod har nått sin maximala gräns för inlösen.</string>
     <string name="pro_coupon_inactive">Denna kampanjkod är inte längre aktiv.</string>
+    <string name="pro_coupon_rate_limited">För många försök. Vänta ett ögonblick.</string>
+
     <string name="pro_active_3months">PRO-åtkomst aktiv till %1$s</string>
     <string name="pro_active_1month">PRO-åtkomst aktiv till %1$s</string>
     <string name="share_universal_link">Dela universell webblänk</string>

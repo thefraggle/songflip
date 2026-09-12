@@ -28,6 +28,7 @@ enum class RedeemResult {
     ALREADY_REDEEMED,
     MAX_REACHED,
     INACTIVE,
+    RATE_LIMITED,
     INVALID,
     NETWORK_ERROR
 }
@@ -250,7 +251,7 @@ object ProManager {
     }
 
     suspend fun redeemCoupon(code: String): RedeemResult = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
-        val cleanCode = code.trim().uppercase()
+        val cleanCode = code.trim().replace("\\s+".toRegex(), "").uppercase()
         if (cleanCode.isEmpty()) return@withContext RedeemResult.INVALID
 
         val sp = prefs ?: return@withContext RedeemResult.INVALID
@@ -284,6 +285,7 @@ object ProManager {
                 val response = client.newCall(request).execute()
                 val bodyStr = response.body?.string() ?: ""
                 val isOk = response.isSuccessful
+                val httpCode = response.code
                 response.close()
 
                 if (isOk) {
@@ -335,9 +337,13 @@ object ProManager {
                         }
                     }
                 } else {
+                    if (httpCode == 429) {
+                        return@withContext RedeemResult.RATE_LIMITED
+                    }
                     val errJson = try { org.json.JSONObject(bodyStr) } catch (e: Exception) { null }
                     val errCode = errJson?.optString("error", "") ?: ""
                     return@withContext when (errCode) {
+                        "TOO_MANY_REQUESTS", "TOO_MANY_FAILED_ATTEMPTS" -> RedeemResult.RATE_LIMITED
                         "ALREADY_REDEEMED_ON_DEVICE" -> RedeemResult.ALREADY_REDEEMED
                         "MAX_REDEMPTIONS_REACHED" -> RedeemResult.MAX_REACHED
                         "CODE_INACTIVE" -> RedeemResult.INACTIVE

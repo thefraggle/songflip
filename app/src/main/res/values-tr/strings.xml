@@ -182,6 +182,8 @@
     <string name="pro_coupon_success_1month">🎉 SongFlip PRO (1 Ay) açıldı!</string>
     <string name="pro_coupon_max_reached">Bu promosyon kodu maksimum kullanım sınırına ulaştı.</string>
     <string name="pro_coupon_inactive">Bu promosyon kodu artık aktif değil.</string>
+    <string name="pro_coupon_rate_limited">Çok fazla deneme. Lütfen biraz bekleyin.</string>
+
     <string name="pro_active_3months">PRO Erişim %1$s tarihine kadar aktif</string>
     <string name="pro_active_1month">PRO Erişim %1$s tarihine kadar aktif</string>
     <string name="share_universal_link">Evrensel web bağlantısını paylaş</string>
