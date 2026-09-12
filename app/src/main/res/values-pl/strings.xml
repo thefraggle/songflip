@@ -248,4 +248,7 @@
     <string name="setup_card_conflict_title">Wykryto konflikty linków</string>
     <string name="setup_card_conflict_desc">%d zainstalowana/e aplikacja/e otwiera linki bezpośrednio, zanim SongFlip zdoła je przekierować.</string>
     <string name="setup_card_conflict_badge">%d powodująca/e konflikt usługa/i</string>
+    <string name="settings_ask_every_time_title">Pytaj o aplikację docelową za każdym razem</string>
+    <string name="settings_ask_every_time_subtitle">Pokaż szybki wybór zamiast natychmiastowego otwierania domyślnego odtwarzacza</string>
+    <string name="quick_picker_title">Otwórz za pomocą …</string>
 </resources>

@@ -240,4 +240,7 @@
     <string name="setup_card_conflict_title">Linkconflicten gedetecteerd</string>
     <string name="setup_card_conflict_desc">%d geïnstalleerde app(s) openen links direct voordat SongFlip ze kan omleiden.</string>
     <string name="setup_card_conflict_badge">%d conflicterende dienst(en)</string>
+    <string name="settings_ask_every_time_title">Elke keer doel-app vragen</string>
+    <string name="settings_ask_every_time_subtitle">Snelle kiezer tonen in plaats van direct de standaardspeler te openen</string>
+    <string name="quick_picker_title">Openen met …</string>
 </resources>

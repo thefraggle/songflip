@@ -995,7 +995,7 @@ class OdesliRepository {
     /**
      * Extracts track and artist string from incoming URLs
      */
-    private fun extractTrackInfo(url: String): String? {
+    fun extractTrackInfo(url: String): String? {
         return try {
             // 1. Spotify Track & Album Info (oEmbed + HTML OpenGraph)
             if (url.contains("spotify.com")) {
@@ -1219,27 +1219,33 @@ class OdesliRepository {
                 }
                 resp.close()
             }
-            // 7. Shazam OpenGraph & Title Fallback
+            // 7. Shazam Official Metadata API Fallback
             else if (url.contains("shazam.com")) {
-                val req = Request.Builder()
-                    .url(url)
-                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
-                    .get()
-                    .build()
-                val resp = client.newCall(req).execute()
-                if (resp.isSuccessful) {
-                    val html = resp.body?.string() ?: ""
-                    resp.close()
-                    val titleMatcher = Pattern.compile("<title>([^<]+?)\\s*-\\s*([^<]+?)(?::\\s*Song Lyrics|\\s*\\|\\s*Shazam)", Pattern.CASE_INSENSITIVE).matcher(html)
-                    if (titleMatcher.find()) {
-                        val track = titleMatcher.group(1)?.trim()?.replace("&amp;", "&")?.replace("&#39;", "'")?.replace("&quot;", "\"") ?: ""
-                        val artist = titleMatcher.group(2)?.trim()?.replace("&amp;", "&")?.replace("&#39;", "'")?.replace("&quot;", "\"") ?: ""
+                val matcher = Pattern.compile("shazam\\.com/(?:[a-z]{2}(?:-[a-z]{2})?/)?track/([0-9]+)", Pattern.CASE_INSENSITIVE).matcher(url)
+                val trackId = if (matcher.find()) {
+                    matcher.group(1)
+                } else {
+                    url.substringAfter("/track/").substringBefore("/").substringBefore("?").trim().takeIf { it.isNotEmpty() && it.all { c -> c.isDigit() } }
+                }
+                if (!trackId.isNullOrEmpty()) {
+                    val req = Request.Builder()
+                        .url("https://amp.shazam.com/discovery/v5/en-US/US/web/-/track/$trackId")
+                        .header("User-Agent", "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1")
+                        .get()
+                        .build()
+                    val resp = client.newCall(req).execute()
+                    if (resp.isSuccessful) {
+                        val body = resp.body?.string() ?: ""
+                        resp.close()
+                        val json = JSONObject(body)
+                        val track = json.optString("title").trim()
+                        val artist = json.optString("subtitle").trim()
                         if (track.isNotEmpty() && artist.isNotEmpty()) {
                             return "$artist $track"
                         }
+                    } else {
+                        resp.close()
                     }
-                } else {
-                    resp.close()
                 }
             }
 
@@ -1513,8 +1519,58 @@ class OdesliRepository {
                 url.contains("shazam.com")
     }
 
+    private fun resolveShazamToAppleMusic(url: String): String? {
+        return try {
+            val matcher = Pattern.compile("shazam\\.com/(?:[a-z]{2}(?:-[a-z]{2})?/)?track/([0-9]+)", Pattern.CASE_INSENSITIVE).matcher(url)
+            val trackId = if (matcher.find()) {
+                matcher.group(1)
+            } else {
+                url.substringAfter("/track/").substringBefore("/").substringBefore("?").trim().takeIf { it.isNotEmpty() && it.all { c -> c.isDigit() } }
+            } ?: return null
+
+            val req = Request.Builder()
+                .url("https://amp.shazam.com/discovery/v5/en-US/US/web/-/track/$trackId")
+                .header("User-Agent", "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1")
+                .get()
+                .build()
+
+            val resp = client.newCall(req).execute()
+            if (!resp.isSuccessful) {
+                resp.close()
+                return null
+            }
+            val body = resp.body?.string() ?: ""
+            resp.close()
+            val json = JSONObject(body)
+            val hub = json.optJSONObject("hub")
+            val actions = hub?.optJSONArray("actions")
+            if (actions != null) {
+                for (i in 0 until actions.length()) {
+                    val act = actions.getJSONObject(i)
+                    if (act.optString("name") == "apple" && act.optString("type") == "applemusicplay") {
+                        val appleId = act.optString("id")
+                        if (appleId.isNotBlank()) {
+                            return "https://music.apple.com/song/$appleId"
+                        }
+                    }
+                }
+            }
+            null
+        } catch (_: Exception) {
+            null
+        }
+    }
+
     private fun resolveCanonicalUrl(url: String): String {
         if (!isShortLinkDomain(url)) return url
+
+        // 0. Shazam: Resolve via official API directly to Apple Music track
+        if (url.contains("shazam.com")) {
+            val appleMusicUrl = resolveShazamToAppleMusic(url)
+            if (appleMusicUrl != null) {
+                return appleMusicUrl
+            }
+        }
 
         return try {
             val req = Request.Builder()
@@ -1535,17 +1591,6 @@ class OdesliRepository {
             // Otherwise inspect HTML body for og:url, canonical link, or window.location
             val body = response.body?.string() ?: ""
             response.close()
-
-            // 0. Shazam: Extract embedded Apple Music link
-            if (url.contains("shazam.com")) {
-                val appleMatcher = Pattern.compile("(https?://music\\.apple\\.com/[^\"'\\s<]+)", Pattern.CASE_INSENSITIVE).matcher(body)
-                if (appleMatcher.find()) {
-                    val appleUrl = appleMatcher.group(1)?.replace("&amp;", "&")
-                    if (!appleUrl.isNullOrBlank()) {
-                        return appleUrl
-                    }
-                }
-            }
 
             // 1. og:url or twitter:url
             val ogMatcher = Pattern.compile("<meta\\s+(?:property|name)=[\"'](?:og:url|twitter:url)[\"']\\s+content=[\"']([^\"']+)[\"']", Pattern.CASE_INSENSITIVE).matcher(body)

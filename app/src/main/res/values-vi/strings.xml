@@ -236,4 +236,7 @@
     <string name="setup_card_conflict_title">Phát hiện xung đột liên kết</string>
     <string name="setup_card_conflict_desc">%d ứng dụng đã cài đặt mở liên kết trực tiếp trước khi SongFlip có thể chuyển hướng.</string>
     <string name="setup_card_conflict_badge">%d dịch vụ xung đột</string>
+    <string name="settings_ask_every_time_title">Hỏi ứng dụng phát mỗi lần</string>
+    <string name="settings_ask_every_time_subtitle">Hiển thị bộ chọn nhanh thay vì mở ngay trình phát mặc định</string>
+    <string name="quick_picker_title">Mở bằng …</string>
 </resources>

@@ -240,4 +240,7 @@
     <string name="setup_card_conflict_title">লিঙ্ক দ্বন্দ্ব সনাক্ত হয়েছে</string>
     <string name="setup_card_conflict_desc">%d ইনস্টল করা অ্যাপ সরাসরি লিঙ্ক খোলে SongFlip রিডাইরেক্ট করার আগেই।</string>
     <string name="setup_card_conflict_badge">%d বিরোধপূর্ণ পরিষেবা</string>
+    <string name="settings_ask_every_time_title">প্রতিবার লক্ষ্য অ্যাপ জিজ্ঞাসা করুন</string>
+    <string name="settings_ask_every_time_subtitle">ডিফল্ট প্লেয়ার সরাসরি খোলার পরিবর্তে দ্রুত নির্বাচক দেখান</string>
+    <string name="quick_picker_title">এর মাধ্যমে খুলুন …</string>
 </resources>

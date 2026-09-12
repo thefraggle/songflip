@@ -254,4 +254,7 @@
     <string name="setup_card_conflict_title">Link Conflicts Detected</string>
     <string name="setup_card_conflict_desc">%d installed app(s) open links directly before SongFlip can redirect them.</string>
     <string name="setup_card_conflict_badge">%d conflicting service(s)</string>
+    <string name="settings_ask_every_time_title">Ask target app every time</string>
+    <string name="settings_ask_every_time_subtitle">Show quick picker instead of immediately opening default player</string>
+    <string name="quick_picker_title">Open with …</string>
 </resources>

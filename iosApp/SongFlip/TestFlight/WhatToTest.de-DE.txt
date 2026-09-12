@@ -1,3 +1,3 @@
-- Korrektur des nativen Player-Share-Sheets: Wenn Sie einen Song aus Ihrem eigenen Musik-Player über das Android-Share-Sheet teilen, wird jetzt das universelle Smart-Link-Sheet geöffnet, um es mit Freunden zu teilen, anstatt Ihren Player erneut zu öffnen.
-- Genaue Verlaufszählung: Es wurde eine Diskrepanz bei der Zählung behoben, bei der vorab zwischengespeicherte Links in den Einstellungen gezählt wurden, bevor sie in der Verlaufsliste angezeigt wurden.
-- Nahtlose Share-Vorschauen: Geteilte Tracks füllen jetzt nahtlos das In-App-Aktionsbanner mit sofortigem Prefetching.
+- Musik-App flexibel wählen: Neue optionale Einstellung „Jedes Mal fragen“, mit der du bei jedem Musik-Link direkt auswählen kannst, in welchem Player der Song abgespielt werden soll.
+- Zuverlässige Shazam-Links: Mit Shazam erkannte Songs öffnen sich jetzt sofort und reibungslos in deinem bevorzugten Musik-Player.
+- Vollständige Übersetzung: Die neue Schnellauswahl ist in allen 24 unterstützten Sprachen verfügbar.

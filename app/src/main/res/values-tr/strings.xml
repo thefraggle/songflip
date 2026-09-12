@@ -240,4 +240,7 @@
     <string name="setup_card_conflict_title">Bağlantı Çakışması Algılandı</string>
     <string name="setup_card_conflict_desc">%d yüklü uygulama, SongFlip yönlendirmeden önce bağlantıları doğrudan açıyor.</string>
     <string name="setup_card_conflict_badge">%d çakışan servis</string>
+    <string name="settings_ask_every_time_title">Hedef uygulamayı her zaman sor</string>
+    <string name="settings_ask_every_time_subtitle">Varsayılan oynatıcıyı hemen açmak yerine hızlı seçici göster</string>
+    <string name="quick_picker_title">Birlikte aç …</string>
 </resources>

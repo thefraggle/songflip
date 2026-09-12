@@ -22,7 +22,14 @@ import de.goork.songflip.data.ProManager
 import de.goork.songflip.data.SettingsRepository
 import de.goork.songflip.core.model.MusicPlatform
 import de.goork.songflip.core.util.UrlUtils
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.*
+import de.goork.songflip.ui.components.QuickTargetPickerBottomSheet
+import de.goork.songflip.ui.theme.SongFlipTheme
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 
 /**
@@ -80,193 +87,261 @@ class RedirectActivity : ComponentActivity() {
                 return
             }
 
-            val targetPlatform = settingsRepository.targetPlatform
             val customApiUrl = settingsRepository.customApiUrl
             val customApiToken = settingsRepository.customApiToken
-
-            // 1b. Short-Circuit: If incoming URL is already from the user's target platform, launch directly (0 ms, no network)
-            val incomingPlatform = UrlUtils.detectPlatform(incomingUrl)
-            val isSamePlatform = when (targetPlatform) {
-                "spotify" -> incomingPlatform == MusicPlatform.SPOTIFY
-                "appleMusic" -> incomingPlatform == MusicPlatform.APPLE_MUSIC
-                "youtubeMusic" -> incomingPlatform == MusicPlatform.YOUTUBE_MUSIC
-                "deezer" -> incomingPlatform == MusicPlatform.DEEZER
-                "tidal" -> incomingPlatform == MusicPlatform.TIDAL
-                "amazonMusic" -> incomingPlatform == MusicPlatform.AMAZON_MUSIC
-                "soundcloud" -> incomingPlatform == MusicPlatform.SOUNDCLOUD
-                "bandcamp" -> incomingPlatform == MusicPlatform.BANDCAMP
-                else -> false
-            }
-
             val isShareAction = Intent.ACTION_SEND == intent?.action
 
-            if (isSamePlatform) {
-                if (isShareAction) {
-                    ProManager.init(this)
-                    val isPro = ProManager.proState.value.isPro
-                    if (isPro) {
-                        val shareUrl = ProManager.getUniversalWebShareUrl(incomingUrl)
-                        ProManager.warmupUniversalShare(incomingUrl)
-
-                        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
-                        val clip = ClipData.newPlainText("SongFlip Universal Link", shareUrl)
-                        clipboard?.setPrimaryClip(clip)
-
-                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackSharePageGenerated(target = "share_sheet_same_platform")
-
-                        val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                            type = "text/plain"
-                            putExtra(Intent.EXTRA_TEXT, shareUrl)
-                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        }
-                        val chooser = Intent.createChooser(shareIntent, getString(R.string.share_universal_link)).apply {
-                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        }
-                        startActivity(chooser)
-                        Toast.makeText(applicationContext, getString(R.string.share_universal_link_copied), Toast.LENGTH_SHORT).show()
-                    } else {
-                        val mainIntent = Intent(this, MainActivity::class.java).apply {
-                            action = Intent.ACTION_SEND
-                            putExtra(Intent.EXTRA_TEXT, incomingUrl)
-                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        }
-                        startActivity(mainIntent)
-                    }
-                    finish()
-                    suppressTransitionAnimation()
-                    return
-                }
-
-                val targetDisplayName = PackageUtils.getPlatformDisplayName(targetPlatform)
-                Toast.makeText(applicationContext, "🎵 ➔ $targetDisplayName", Toast.LENGTH_SHORT).show()
-                openTargetUrl(incomingUrl, targetPlatform)
-                finish()
-                suppressTransitionAnimation()
+            // 1b. Check if user prefers to pick the target player every time
+            if (settingsRepository.askEveryTime) {
+                showQuickPicker(incomingUrl, settingsRepository, customApiUrl, customApiToken)
                 return
             }
 
-            // 2. Zero-Delay Offline Check: If device is offline and link is not cached, fail immediately
-            val hasNetwork = NetworkUtils.isNetworkAvailable(this)
-            val isCached = LinkCacheManager.get(incomingUrl, targetPlatform) != null
-            if (!hasNetwork && !isCached) {
-                Toast.makeText(
-                    applicationContext,
-                    getString(R.string.redirect_error_toast),
-                    Toast.LENGTH_SHORT
-                ).show()
-                de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
-                    target = targetPlatform,
-                    reason = "offline_no_network"
-                )
-                forwardOriginalUrl(incomingUri)
-                finish()
-                suppressTransitionAnimation()
-                return
-            }
-
-            // Immediate user feedback in all 24 languages to bridge network resolution (only if not already cached)
-            if (!isCached) {
-                Toast.makeText(
-                    applicationContext,
-                    getString(R.string.redirecting_toast),
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
-            lifecycleScope.launch {
-                try {
-                    // Generous 8.0-second timeout to handle cold mobile network requests
-                    val result = withTimeoutOrNull(8000L) {
-                        odesliRepository.resolveTargetUrl(
-                            inputUrl = incomingUrl,
-                            targetPlatformKey = targetPlatform,
-                            customApiUrl = customApiUrl,
-                            customApiToken = customApiToken
-                        )
-                    }
-
-                    if (result is OdesliResult.Success) {
-                        val targetDisplayName = PackageUtils.getPlatformDisplayName(targetPlatform)
-                        val feedbackText = when {
-                            !result.artist.isNullOrBlank() && !result.title.isNullOrBlank() -> {
-                                "🎵 ${result.artist} – ${result.title} ➔ $targetDisplayName"
-                            }
-                            !result.title.isNullOrBlank() -> {
-                                "🎵 ${result.title} ➔ $targetDisplayName"
-                            }
-                            else -> {
-                                "🎵 ➔ $targetDisplayName"
-                            }
-                        }
-
-                        settingsRepository.incrementSuccessfulFlips()
-
-                        LinkCacheManager.markAsHistory(incomingUrl, targetPlatform)
-                        UrlUtils.extractCleanUrl(incomingUrl)?.let { clean ->
-                            LinkCacheManager.markAsHistory(UrlUtils.normalizeUrl(clean), targetPlatform)
-                        }
-
-                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipped(
-                            target = targetPlatform,
-                            isAlbum = result.isAlbum,
-                            isSearch = false
-                        )
-
-                        Toast.makeText(
-                            applicationContext,
-                            feedbackText,
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                        openTargetUrl(result.targetUrl, targetPlatform)
-                    } else if (result is OdesliResult.Playlist) {
-                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
-                            target = targetPlatform,
-                            reason = "playlist_detected"
-                        )
-                        Toast.makeText(
-                            applicationContext,
-                            getString(R.string.playlist_not_supported_toast),
-                            Toast.LENGTH_LONG
-                        ).show()
-                        forwardOriginalUrl(incomingUri)
-                    } else {
-                        val reason = when {
-                            result is OdesliResult.Error -> result.message
-                            result == null -> "timeout"
-                            else -> "not_found"
-                        }
-                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
-                            target = targetPlatform,
-                            reason = reason
-                        )
-
-                        val errorMsg = if (result is OdesliResult.Error && result.message == "PLAYLIST_NOT_SUPPORTED") {
-                            getString(R.string.playlist_not_supported_toast)
-                        } else {
-                            getString(R.string.redirect_error_toast)
-                        }
-                        Toast.makeText(
-                            applicationContext,
-                            errorMsg,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        forwardOriginalUrl(incomingUri)
-                    }
-                } catch (t: Throwable) {
-                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
-                        target = targetPlatform,
-                        reason = t.message ?: "exception"
-                    )
-                    forwardOriginalUrl(incomingUri)
-                } finally {
-                    finish()
-                    suppressTransitionAnimation()
-                }
-            }
+            val targetPlatform = settingsRepository.targetPlatform
+            executeRedirect(incomingUrl, targetPlatform, settingsRepository, customApiUrl, customApiToken, isShareAction)
         } catch (t: Throwable) {
             finish()
             suppressTransitionAnimation()
+        }
+    }
+
+    private fun showQuickPicker(
+        incomingUrl: String,
+        settingsRepository: SettingsRepository,
+        customApiUrl: String,
+        customApiToken: String
+    ) {
+        val isShareAction = Intent.ACTION_SEND == intent?.action
+        setContent {
+            val isDark = when (settingsRepository.themeMode) {
+                "light" -> false
+                "dark" -> true
+                else -> isSystemInDarkTheme()
+            }
+            SongFlipTheme(darkTheme = isDark) {
+                var trackTitle by remember { mutableStateOf<String?>(null) }
+                var artistName by remember { mutableStateOf<String?>(null) }
+                var isResolving by remember { mutableStateOf(true) }
+
+                LaunchedEffect(incomingUrl) {
+                    withContext(Dispatchers.IO) {
+                        try {
+                            val info = odesliRepository.extractTrackInfo(incomingUrl)
+                            if (info != null) {
+                                val parts = info.split(" - ", limit = 2)
+                                if (parts.size == 2) {
+                                    artistName = parts[0].trim()
+                                    trackTitle = parts[1].trim()
+                                } else {
+                                    trackTitle = info
+                                }
+                            }
+                        } catch (_: Exception) { }
+                        isResolving = false
+                    }
+                }
+
+                QuickTargetPickerBottomSheet(
+                    trackTitle = trackTitle,
+                    artistName = artistName,
+                    isResolving = isResolving,
+                    onPlatformSelected = { chosenPlatform ->
+                        executeRedirect(incomingUrl, chosenPlatform, settingsRepository, customApiUrl, customApiToken, isShareAction)
+                    },
+                    onDismissRequest = {
+                        finish()
+                        suppressTransitionAnimation()
+                    }
+                )
+            }
+        }
+    }
+
+    private fun executeRedirect(
+        incomingUrl: String,
+        targetPlatform: String,
+        settingsRepository: SettingsRepository,
+        customApiUrl: String,
+        customApiToken: String,
+        isShareAction: Boolean
+    ) {
+        val incomingUri = Uri.parse(incomingUrl)
+        val incomingPlatform = UrlUtils.detectPlatform(incomingUrl)
+        val isSamePlatform = when (targetPlatform) {
+            "spotify" -> incomingPlatform == MusicPlatform.SPOTIFY
+            "appleMusic" -> incomingPlatform == MusicPlatform.APPLE_MUSIC
+            "youtubeMusic" -> incomingPlatform == MusicPlatform.YOUTUBE_MUSIC
+            "deezer" -> incomingPlatform == MusicPlatform.DEEZER
+            "tidal" -> incomingPlatform == MusicPlatform.TIDAL
+            "amazonMusic" -> incomingPlatform == MusicPlatform.AMAZON_MUSIC
+            "soundcloud" -> incomingPlatform == MusicPlatform.SOUNDCLOUD
+            "bandcamp" -> incomingPlatform == MusicPlatform.BANDCAMP
+            else -> false
+        }
+
+        if (isSamePlatform) {
+            if (isShareAction) {
+                ProManager.init(this)
+                val isPro = ProManager.proState.value.isPro
+                if (isPro) {
+                    val shareUrl = ProManager.getUniversalWebShareUrl(incomingUrl)
+                    ProManager.warmupUniversalShare(incomingUrl)
+
+                    val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+                    val clip = ClipData.newPlainText("SongFlip Universal Link", shareUrl)
+                    clipboard?.setPrimaryClip(clip)
+
+                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackSharePageGenerated(target = "share_sheet_same_platform")
+
+                    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_TEXT, shareUrl)
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    }
+                    val chooser = Intent.createChooser(shareIntent, getString(R.string.share_universal_link)).apply {
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    }
+                    startActivity(chooser)
+                    Toast.makeText(applicationContext, getString(R.string.share_universal_link_copied), Toast.LENGTH_SHORT).show()
+                } else {
+                    val mainIntent = Intent(this, MainActivity::class.java).apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_TEXT, incomingUrl)
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    }
+                    startActivity(mainIntent)
+                }
+                finish()
+                suppressTransitionAnimation()
+                return
+            }
+
+            val targetDisplayName = PackageUtils.getPlatformDisplayName(targetPlatform)
+            Toast.makeText(applicationContext, "🎵 ➔ $targetDisplayName", Toast.LENGTH_SHORT).show()
+            openTargetUrl(incomingUrl, targetPlatform)
+            finish()
+            suppressTransitionAnimation()
+            return
+        }
+
+        // 2. Zero-Delay Offline Check: If device is offline and link is not cached, fail immediately
+        val hasNetwork = NetworkUtils.isNetworkAvailable(this)
+        val isCached = LinkCacheManager.get(incomingUrl, targetPlatform) != null
+        if (!hasNetwork && !isCached) {
+            Toast.makeText(
+                applicationContext,
+                getString(R.string.redirect_error_toast),
+                Toast.LENGTH_SHORT
+            ).show()
+            de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
+                target = targetPlatform,
+                reason = "offline_no_network"
+            )
+            forwardOriginalUrl(incomingUri)
+            finish()
+            suppressTransitionAnimation()
+            return
+        }
+
+        // Immediate user feedback in all 24 languages to bridge network resolution (only if not already cached)
+        if (!isCached) {
+            Toast.makeText(
+                applicationContext,
+                getString(R.string.redirecting_toast),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        lifecycleScope.launch {
+            try {
+                // Generous 8.0-second timeout to handle cold mobile network requests
+                val result = withTimeoutOrNull(8000L) {
+                    odesliRepository.resolveTargetUrl(
+                        inputUrl = incomingUrl,
+                        targetPlatformKey = targetPlatform,
+                        customApiUrl = customApiUrl,
+                        customApiToken = customApiToken
+                    )
+                }
+
+                if (result is OdesliResult.Success) {
+                    val targetDisplayName = PackageUtils.getPlatformDisplayName(targetPlatform)
+                    val feedbackText = when {
+                        !result.artist.isNullOrBlank() && !result.title.isNullOrBlank() -> {
+                            "🎵 ${result.artist} – ${result.title} ➔ $targetDisplayName"
+                        }
+                        !result.title.isNullOrBlank() -> {
+                            "🎵 ${result.title} ➔ $targetDisplayName"
+                        }
+                        else -> {
+                            "🎵 ➔ $targetDisplayName"
+                        }
+                    }
+
+                    settingsRepository.incrementSuccessfulFlips()
+
+                    LinkCacheManager.markAsHistory(incomingUrl, targetPlatform)
+                    UrlUtils.extractCleanUrl(incomingUrl)?.let { clean ->
+                        LinkCacheManager.markAsHistory(UrlUtils.normalizeUrl(clean), targetPlatform)
+                    }
+
+                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipped(
+                        target = targetPlatform,
+                        isAlbum = result.isAlbum,
+                        isSearch = false
+                    )
+
+                    Toast.makeText(
+                        applicationContext,
+                        feedbackText,
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    openTargetUrl(result.targetUrl, targetPlatform)
+                } else if (result is OdesliResult.Playlist) {
+                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
+                        target = targetPlatform,
+                        reason = "playlist_detected"
+                    )
+                    Toast.makeText(
+                        applicationContext,
+                        getString(R.string.playlist_not_supported_toast),
+                        Toast.LENGTH_LONG
+                    ).show()
+                    forwardOriginalUrl(incomingUri)
+                } else {
+                    val reason = when {
+                        result is OdesliResult.Error -> result.message
+                        result == null -> "timeout"
+                        else -> "not_found"
+                    }
+                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
+                        target = targetPlatform,
+                        reason = reason
+                    )
+
+                    val errorMsg = if (result is OdesliResult.Error && result.message == "PLAYLIST_NOT_SUPPORTED") {
+                        getString(R.string.playlist_not_supported_toast)
+                    } else {
+                        getString(R.string.redirect_error_toast)
+                    }
+                    Toast.makeText(
+                        applicationContext,
+                        errorMsg,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    forwardOriginalUrl(incomingUri)
+                }
+            } catch (t: Throwable) {
+                de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
+                    target = targetPlatform,
+                    reason = t.message ?: "exception"
+                )
+                forwardOriginalUrl(incomingUri)
+            } finally {
+                finish()
+                suppressTransitionAnimation()
+            }
         }
     }
 

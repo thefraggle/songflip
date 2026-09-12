@@ -713,17 +713,19 @@ class SongLinkEngine(
                     }
                 }
             } else if (url.contains("shazam.com")) {
-                val resp = client.get(url) {
-                    header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
-                }
-                if (resp.status.isSuccess()) {
-                    val html = resp.bodyAsText()
-                    val titleMatch = Regex("<title>([^<]+?)\\s*-\\s*([^<]+?)(?::\\s*Song Lyrics|\\s*\\|\\s*Shazam)", RegexOption.IGNORE_CASE).find(html)
-                    if (titleMatch != null) {
-                        val track = titleMatch.groupValues[1].trim().replace("&amp;", "&").replace("&#39;", "'").replace("&quot;", "\"")
-                        val artist = titleMatch.groupValues[2].trim().replace("&amp;", "&").replace("&#39;", "'").replace("&quot;", "\"")
-                        if (track.isNotEmpty() && artist.isNotEmpty()) {
-                            return "$artist $track"
+                val trackMatch = Regex("shazam\\.com/(?:[a-z]{2}(?:-[a-z]{2})?/)?track/([0-9]+)", RegexOption.IGNORE_CASE).find(url)
+                val trackId = trackMatch?.groupValues?.get(1) ?: url.substringAfter("/track/").substringBefore("/").substringBefore("?").trim().takeIf { it.isNotEmpty() && it.all { c -> c.isDigit() } }
+                if (!trackId.isNullOrEmpty()) {
+                    val resp = client.get("https://amp.shazam.com/discovery/v5/en-US/US/web/-/track/$trackId") {
+                        header("User-Agent", "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1")
+                    }
+                    if (resp.status.isSuccess()) {
+                        val body = resp.bodyAsText()
+                        val root = json.parseToJsonElement(body).jsonObject
+                        val title = root["title"]?.jsonPrimitive?.content?.trim()
+                        val artist = root["subtitle"]?.jsonPrimitive?.content?.trim()
+                        if (!title.isNullOrEmpty() && !artist.isNullOrEmpty()) {
+                            return "$artist $title"
                         }
                     }
                 }
@@ -802,21 +804,49 @@ class SongLinkEngine(
         }
     }
 
+    private suspend fun resolveShazamToAppleMusic(url: String): String? {
+        return try {
+            val trackMatch = Regex("shazam\\.com/(?:[a-z]{2}(?:-[a-z]{2})?/)?track/([0-9]+)", RegexOption.IGNORE_CASE).find(url)
+            val trackId = trackMatch?.groupValues?.get(1) ?: url.substringAfter("/track/").substringBefore("/").substringBefore("?").trim().takeIf { it.isNotEmpty() && it.all { c -> c.isDigit() } }
+            if (trackId.isNullOrEmpty()) return null
+
+            val resp = client.get("https://amp.shazam.com/discovery/v5/en-US/US/web/-/track/$trackId") {
+                header("User-Agent", "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1")
+            }
+            if (resp.status.isSuccess()) {
+                val body = resp.bodyAsText()
+                val root = json.parseToJsonElement(body).jsonObject
+                val hub = root["hub"]?.jsonObject
+                val actions = hub?.get("actions")?.jsonArray
+                if (actions != null) {
+                    for (actEl in actions) {
+                        val act = actEl.jsonObject
+                        if (act["name"]?.jsonPrimitive?.content == "apple" && act["type"]?.jsonPrimitive?.content == "applemusicplay") {
+                            val appleId = act["id"]?.jsonPrimitive?.content
+                            if (!appleId.isNullOrBlank()) {
+                                return "https://music.apple.com/song/$appleId"
+                            }
+                        }
+                    }
+                }
+            }
+            null
+        } catch (_: Exception) {
+            null
+        }
+    }
+
     private suspend fun resolveCanonicalUrl(url: String): String {
+        if (url.contains("shazam.com")) {
+            val appleUrl = resolveShazamToAppleMusic(url)
+            if (appleUrl != null) return appleUrl
+        }
+
         return try {
             val resp = client.get(url) {
                 header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
             }
-            val finalUrl = resp.request.url.toString()
-            if (url.contains("shazam.com")) {
-                val body = resp.bodyAsText()
-                val appleMatcher = Regex("(https?://music\\.apple\\.com/[^\"'\\s<]+)", RegexOption.IGNORE_CASE).find(body)
-                if (appleMatcher != null) {
-                    val appleUrl = appleMatcher.groupValues[1].replace("&amp;", "&")
-                    if (appleUrl.isNotBlank()) return appleUrl
-                }
-            }
-            finalUrl
+            resp.request.url.toString()
         } catch (e: Exception) {
             url
         }
