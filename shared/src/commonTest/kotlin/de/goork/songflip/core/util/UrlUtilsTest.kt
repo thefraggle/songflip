@@ -115,6 +115,8 @@ class UrlUtilsTest {
         assertTrue(UrlUtils.isShortLinkDomain("https://deezer.page.link/xyz"))
         assertTrue(UrlUtils.isShortLinkDomain("https://apple.co/abc"))
         assertTrue(UrlUtils.isShortLinkDomain("https://on.soundcloud.com/xyz123"))
+        assertTrue(UrlUtils.isShortLinkDomain("https://www.shazam.com/track/558906383/stay"))
+        assertTrue(UrlUtils.isShortLinkDomain("https://shazam.com/track/123"))
         assertFalse(UrlUtils.isShortLinkDomain("https://open.spotify.com/track/123"))
         assertFalse(UrlUtils.isShortLinkDomain("https://music.youtube.com/watch?v=123"))
     }

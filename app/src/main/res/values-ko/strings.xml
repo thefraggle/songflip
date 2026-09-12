@@ -180,6 +180,8 @@
     <string name="pro_coupon_success_1month">🎉 SongFlip PRO(1개월)가 잠금 해제되었습니다!</string>
     <string name="pro_coupon_max_reached">이 프로모션 코드의 최대 사용 한도에 도달했습니다.</string>
     <string name="pro_coupon_inactive">이 프로모션 코드는 더 이상 활성화되지 않습니다.</string>
+    <string name="pro_coupon_rate_limited">시도 횟수가 너무 많습니다. 잠시 후 다시 시도해 주세요.</string>
+
     <string name="pro_active_3months">PRO 액세스 유효 기간: %1$s까지</string>
     <string name="pro_active_1month">PRO 액세스 유효 기간: %1$s까지</string>
     <string name="share_universal_link">유니버설 링크 공유</string>

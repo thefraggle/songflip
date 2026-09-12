@@ -181,6 +181,8 @@
     <string name="pro_coupon_success_1month">🎉 SongFlip PRO (1 महीना) अनलॉक हो गया!</string>
     <string name="pro_coupon_max_reached">यह प्रोमो कोड अपनी अधिकतम उपयोग सीमा तक पहुँच चुका है।</string>
     <string name="pro_coupon_inactive">यह प्रोमो कोड अब सक्रिय नहीं है।</string>
+    <string name="pro_coupon_rate_limited">बहुत अधिक प्रयास। कृपया थोड़ी देर प्रतीक्षा करें।</string>
+
     <string name="pro_active_3months">PRO एक्सेस %1$s तक सक्रिय है</string>
     <string name="pro_active_1month">PRO एक्सेस %1$s तक सक्रिय है</string>
     <string name="share_universal_link">यूनिवर्सल वेब लिंक साझा करें</string>

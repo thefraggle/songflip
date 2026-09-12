@@ -180,6 +180,8 @@
     <string name="pro_coupon_success_1month">🎉 Đã mở khóa SongFlip PRO (1 Tháng)!</string>
     <string name="pro_coupon_max_reached">Mã khuyến mãi này đã đạt giới hạn đổi thưởng.</string>
     <string name="pro_coupon_inactive">Mã khuyến mãi này không còn hoạt động.</string>
+    <string name="pro_coupon_rate_limited">Quá nhiều lần thử. Vui lòng đợi một lát.</string>
+
     <string name="pro_active_3months">Quyền truy cập PRO hoạt động đến %1$s</string>
     <string name="pro_active_1month">Quyền truy cập PRO hoạt động đến %1$s</string>
     <string name="share_universal_link">Chia sẻ liên kết web đa năng</string>

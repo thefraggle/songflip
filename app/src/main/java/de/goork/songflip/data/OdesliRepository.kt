@@ -1219,6 +1219,29 @@ class OdesliRepository {
                 }
                 resp.close()
             }
+            // 7. Shazam OpenGraph & Title Fallback
+            else if (url.contains("shazam.com")) {
+                val req = Request.Builder()
+                    .url(url)
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+                    .get()
+                    .build()
+                val resp = client.newCall(req).execute()
+                if (resp.isSuccessful) {
+                    val html = resp.body?.string() ?: ""
+                    resp.close()
+                    val titleMatcher = Pattern.compile("<title>([^<]+?)\\s*-\\s*([^<]+?)(?::\\s*Song Lyrics|\\s*\\|\\s*Shazam)", Pattern.CASE_INSENSITIVE).matcher(html)
+                    if (titleMatcher.find()) {
+                        val track = titleMatcher.group(1)?.trim()?.replace("&amp;", "&")?.replace("&#39;", "'")?.replace("&quot;", "\"") ?: ""
+                        val artist = titleMatcher.group(2)?.trim()?.replace("&amp;", "&")?.replace("&#39;", "'")?.replace("&quot;", "\"") ?: ""
+                        if (track.isNotEmpty() && artist.isNotEmpty()) {
+                            return "$artist $track"
+                        }
+                    }
+                } else {
+                    resp.close()
+                }
+            }
 
             null
         } catch (e: Exception) {
@@ -1486,7 +1509,8 @@ class OdesliRepository {
                 url.contains("a.co/") ||
                 url.contains("://a.co") ||
                 url.contains("apple.co/") ||
-                url.contains("://apple.co")
+                url.contains("://apple.co") ||
+                url.contains("shazam.com")
     }
 
     private fun resolveCanonicalUrl(url: String): String {
@@ -1512,6 +1536,17 @@ class OdesliRepository {
             val body = response.body?.string() ?: ""
             response.close()
 
+            // 0. Shazam: Extract embedded Apple Music link
+            if (url.contains("shazam.com")) {
+                val appleMatcher = Pattern.compile("(https?://music\\.apple\\.com/[^\"'\\s<]+)", Pattern.CASE_INSENSITIVE).matcher(body)
+                if (appleMatcher.find()) {
+                    val appleUrl = appleMatcher.group(1)?.replace("&amp;", "&")
+                    if (!appleUrl.isNullOrBlank()) {
+                        return appleUrl
+                    }
+                }
+            }
+
             // 1. og:url or twitter:url
             val ogMatcher = Pattern.compile("<meta\\s+(?:property|name)=[\"'](?:og:url|twitter:url)[\"']\\s+content=[\"']([^\"']+)[\"']", Pattern.CASE_INSENSITIVE).matcher(body)
             if (ogMatcher.find()) {
@@ -1533,7 +1568,7 @@ class OdesliRepository {
             // 3. window.location or destination url in script
             val jsMatcher = Pattern.compile("(https?://(?:open\\.spotify\\.com|www\\.deezer\\.com|music\\.apple\\.com|music\\.youtube\\.com|music\\.amazon\\.[a-z.]+)/[^\"'\\s<]+)", Pattern.CASE_INSENSITIVE).matcher(body)
             if (jsMatcher.find()) {
-                val jsUrl = jsMatcher.group(1)
+                val jsUrl = jsMatcher.group(1)?.replace("&amp;", "&")
                 if (!jsUrl.isNullOrBlank()) {
                     return jsUrl
                 }
