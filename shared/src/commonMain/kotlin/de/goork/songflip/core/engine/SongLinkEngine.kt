@@ -712,6 +712,21 @@ class SongLinkEngine(
                         return ogTitle
                     }
                 }
+            } else if (url.contains("shazam.com")) {
+                val resp = client.get(url) {
+                    header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+                }
+                if (resp.status.isSuccess()) {
+                    val html = resp.bodyAsText()
+                    val titleMatch = Regex("<title>([^<]+?)\\s*-\\s*([^<]+?)(?::\\s*Song Lyrics|\\s*\\|\\s*Shazam)", RegexOption.IGNORE_CASE).find(html)
+                    if (titleMatch != null) {
+                        val track = titleMatch.groupValues[1].trim().replace("&amp;", "&").replace("&#39;", "'").replace("&quot;", "\"")
+                        val artist = titleMatch.groupValues[2].trim().replace("&amp;", "&").replace("&#39;", "'").replace("&quot;", "\"")
+                        if (track.isNotEmpty() && artist.isNotEmpty()) {
+                            return "$artist $track"
+                        }
+                    }
+                }
             }
             null
         } catch (e: Exception) {
@@ -792,7 +807,16 @@ class SongLinkEngine(
             val resp = client.get(url) {
                 header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
             }
-            resp.request.url.toString()
+            val finalUrl = resp.request.url.toString()
+            if (url.contains("shazam.com")) {
+                val body = resp.bodyAsText()
+                val appleMatcher = Regex("(https?://music\\.apple\\.com/[^\"'\\s<]+)", RegexOption.IGNORE_CASE).find(body)
+                if (appleMatcher != null) {
+                    val appleUrl = appleMatcher.groupValues[1].replace("&amp;", "&")
+                    if (appleUrl.isNotBlank()) return appleUrl
+                }
+            }
+            finalUrl
         } catch (e: Exception) {
             url
         }
