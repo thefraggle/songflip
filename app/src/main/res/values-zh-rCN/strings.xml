@@ -236,4 +236,7 @@
     <string name="setup_card_conflict_title">检测到链接冲突</string>
     <string name="setup_card_conflict_desc">%d 个已安装的应用在 SongFlip 重定向之前直接打开了链接。</string>
     <string name="setup_card_conflict_badge">%d 个冲突服务</string>
+    <string name="settings_ask_every_time_title">每次询问目标应用</string>
+    <string name="settings_ask_every_time_subtitle">显示快捷选择器，而不是直接打开默认播放器</string>
+    <string name="quick_picker_title">打开方式 …</string>
 </resources>

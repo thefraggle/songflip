@@ -240,4 +240,7 @@
     <string name="setup_card_conflict_title">Conflitos de links detectados</string>
     <string name="setup_card_conflict_desc">%d aplicativo(s) instalado(s) abrem links diretamente antes que o SongFlip possa redirecioná-los.</string>
     <string name="setup_card_conflict_badge">%d serviço(s) em conflito</string>
+    <string name="settings_ask_every_time_title">Perguntar app de destino sempre</string>
+    <string name="settings_ask_every_time_subtitle">Mostrar seletor rápido em vez de abrir logo o leitor padrão</string>
+    <string name="quick_picker_title">Abrir com …</string>
 </resources>

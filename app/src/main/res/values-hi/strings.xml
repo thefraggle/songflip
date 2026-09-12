@@ -240,4 +240,7 @@
     <string name="setup_card_conflict_title">लिंक विरोध का पता चला</string>
     <string name="setup_card_conflict_desc">%d इंस्टॉल किया गया ऐप SongFlip के रीडायरेक्ट करने से पहले सीधे लिंक खोलता है।</string>
     <string name="setup_card_conflict_badge">%d विरोधी सेवा(एं)</string>
+    <string name="settings_ask_every_time_title">हर बार लक्ष्य ऐप पूछें</string>
+    <string name="settings_ask_every_time_subtitle">सीधे डिफ़ॉल्ट प्लेयर खोलने के बजाय त्वरित पिकर दिखाएं</string>
+    <string name="quick_picker_title">इसके साथ खोलें …</string>
 </resources>
