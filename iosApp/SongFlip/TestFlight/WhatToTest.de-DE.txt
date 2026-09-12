@@ -1,2 +1,2 @@
-- Smart Link Assistant: Eine interaktive Einrichtungsanleitung überprüft Ihre installierten Musik-Apps und hilft Ihnen, Linkkonflikte mit einem einzigen Tastendruck zu lösen.
-- Sofortige Wiedergabe: Songs, die bereits zu Ihrem bevorzugten Musikplayer gehören, öffnen sich jetzt direkt und ohne Wartezeit.
+- Erweiterte Link-Erkennung: Shazam-Links werden jetzt nahtlos erkannt und direkt in deinem bevorzugten Musik-Player geöffnet.
+- Höhere Kompatibilität & Stabilität: Schnellere und zuverlässigere Link-Auflösung über Shortcuts, Share-Sheet und Zwischenablage.
