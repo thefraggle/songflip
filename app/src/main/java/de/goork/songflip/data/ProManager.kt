@@ -250,8 +250,28 @@ object ProManager {
         }
     }
 
+    fun extractCouponCode(rawInput: String): String {
+        val trimmed = rawInput.trim()
+        if (trimmed.isEmpty()) return ""
+
+        // Priority 1: Match standard FLIP-XXXX-YYYY or unhyphenated FLIPXXXXXXXX
+        val standardFlipRegex = Regex("""\b(FLIP-?[A-Z0-9]{4}-?[A-Z0-9]{4})\b""", RegexOption.IGNORE_CASE)
+        standardFlipRegex.find(trimmed)?.let { return it.value.uppercase() }
+
+        // Priority 2: Match custom FLIP prefix (e.g. FLIP-MARKUS, FLIP-TOOBROWN)
+        val customFlipRegex = Regex("""\b(FLIP-[A-Z0-9_-]{3,24})\b""", RegexOption.IGNORE_CASE)
+        customFlipRegex.find(trimmed)?.let { return it.value.uppercase() }
+
+        // Priority 3: Match known campaign word codes in longer text
+        val campaignRegex = Regex("""\b(BETALIST|PEERPUSH|FOUNDER-?PASS|NEO-?FOUNDER|SONGFLIP_[A-Z0-9_]+)\b""", RegexOption.IGNORE_CASE)
+        campaignRegex.find(trimmed)?.let { return it.value.uppercase() }
+
+        // Fallback: If no match inside text, return cleaned input (no whitespace)
+        return trimmed.replace("\\s+".toRegex(), "").uppercase()
+    }
+
     suspend fun redeemCoupon(code: String): RedeemResult = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
-        val cleanCode = code.trim().replace("\\s+".toRegex(), "").uppercase()
+        val cleanCode = extractCouponCode(code)
         if (cleanCode.isEmpty()) return@withContext RedeemResult.INVALID
 
         val sp = prefs ?: return@withContext RedeemResult.INVALID
