@@ -447,6 +447,10 @@ interface SongMetadata {
 function normalizeToSongLinkDirectUrl(rawUrl: string): string {
   const clean = rawUrl.includes("?") ? rawUrl.substring(0, rawUrl.indexOf("?")) : rawUrl;
 
+  if (clean.startsWith("https://song.link/") || clean.startsWith("https://album.link/")) {
+    return clean;
+  }
+
   // Spotify
   if (clean.includes("spotify.com") && clean.includes("/track/")) {
     const id = clean.split("/track/")[1]?.split("/")[0]?.trim();
@@ -1075,8 +1079,9 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
             if (data.subtitle) artist = data.subtitle;
             const actions = data.hub?.actions || [];
             const appleAction = actions.find((a: any) => a.name === "apple" && a.type === "applemusicplay");
-            if (appleAction?.id) {
-              url = `https://song.link/i/${appleAction.id}`;
+            const appleId = appleAction?.id || data.trackadamid;
+            if (appleId) {
+              url = `https://song.link/i/${appleId}`;
             }
           }
         }
@@ -1408,17 +1413,21 @@ export const resolve = onRequest(
       return;
     }
 
-    // 2. Authenticate User (PRO User via RevenueCat OR valid VIP Coupon Token)
+    // 2. Authenticate User (PRO User via RevenueCat OR valid VIP Coupon Token OR Web Showcase Client)
     const origin = (req.headers.origin as string) || "";
     const referer = (req.headers.referer as string) || "";
     const isLocalEmulator = process.env.FUNCTIONS_EMULATOR === "true" && 
       (origin.includes("localhost") || referer.includes("localhost") || clientIp === "127.0.0.1" || clientIp === "::1");
 
+    const isWebClient = req.headers["x-web-client"] === "songflip" ||
+      origin.includes("songflip.link") || referer.includes("songflip.link") ||
+      origin.includes("localhost") || referer.includes("localhost");
+
     const authHeader = req.headers.authorization || "";
     const tokenMatch = authHeader.match(/^Bearer\s+(.+)$/i);
     const userId = tokenMatch ? tokenMatch[1].trim() : (req.headers["x-user-id"] as string)?.trim();
 
-    if (!isLocalEmulator) {
+    if (!isLocalEmulator && !isWebClient) {
       if (!userId) {
         res.status(401).json({ error: "MISSING_AUTH_TOKEN", message: "RevenueCat user ID or valid coupon token required" });
         return;
