@@ -829,6 +829,10 @@ class SongLinkEngine(
                         }
                     }
                 }
+                val fallbackId = root["trackadamid"]?.jsonPrimitive?.content
+                if (!fallbackId.isNullOrBlank()) {
+                    return "https://music.apple.com/song/$fallbackId"
+                }
             }
             null
         } catch (_: Exception) {
