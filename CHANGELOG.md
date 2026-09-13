@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.30] - 2026-09-13
+- **Smarter Voucher Input**: Pasted voucher codes are now recognized automatically even when copied alongside a full message, with no manual editing needed.
+- **Reliable Music Links**: Improved link handling prevents connection errors and ensures your music opens smoothly every time.
+- **Clearer Visual Feedback**: Interactive buttons now show helpful status indicators while actions are being prepared.
+
 ## [1.2.29] - 2026-09-12
 - **Choose Your Music App**: Added an optional "Ask every time" setting for anyone using multiple music services, letting you pick where to play each song with a single tap.
 - **Seamless Shazam Links**: Songs identified with Shazam now open instantly and reliably in your favorite music player without interruptions.
