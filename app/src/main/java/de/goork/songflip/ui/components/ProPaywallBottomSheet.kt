@@ -67,12 +67,17 @@ fun ProPaywallBottomSheet(
     var couponCodeText by remember { mutableStateOf("") }
     var isRedeemingCoupon by remember { mutableStateOf(false) }
 
+    var isLoadingOfferings by remember { mutableStateOf(true) }
+
     LaunchedEffect(Unit) {
         ProManager.getOfferings(
             onSuccess = { offerings ->
                 availablePackages = offerings.current?.availablePackages ?: emptyList()
+                isLoadingOfferings = false
             },
-            onError = { /* fallback to default prices */ }
+            onError = {
+                isLoadingOfferings = false
+            }
         )
     }
 
@@ -289,6 +294,8 @@ fun ProPaywallBottomSheet(
                     SelectedProTier.LIFETIME -> availablePackages.firstOrNull { it.packageType == PackageType.LIFETIME }
                 }
 
+                val isButtonEnabled = !isPurchasing && !isRestoring && !isLoadingOfferings && selectedPackage != null
+
                 // Main CTA Button
                 Button(
                     onClick = {
@@ -325,9 +332,9 @@ fun ProPaywallBottomSheet(
                         .fillMaxWidth()
                         .defaultMinSize(minHeight = 54.dp),
                     contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
-                    enabled = !isPurchasing && !isRestoring
+                    enabled = isButtonEnabled
                 ) {
-                    if (isPurchasing) {
+                    if (isPurchasing || isLoadingOfferings) {
                         CircularProgressIndicator(
                             modifier = Modifier.size(20.dp),
                             color = MaterialTheme.colorScheme.onPrimary,
@@ -335,7 +342,7 @@ fun ProPaywallBottomSheet(
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = stringResource(R.string.pro_processing),
+                            text = if (isPurchasing) stringResource(R.string.pro_processing) else stringResource(R.string.redirecting_toast),
                             style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
                             color = MaterialTheme.colorScheme.onPrimary
                         )
@@ -419,7 +426,7 @@ fun ProPaywallBottomSheet(
                         ) {
                             OutlinedTextField(
                                 value = couponCodeText,
-                                onValueChange = { couponCodeText = it },
+                                onValueChange = { couponCodeText = ProManager.extractCouponCode(it) },
                                 placeholder = { Text(stringResource(R.string.pro_coupon_hint)) },
                                 singleLine = true,
                                 shape = RoundedCornerShape(12.dp),

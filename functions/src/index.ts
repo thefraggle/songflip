@@ -164,7 +164,16 @@ function isSafePublicHttpsUrl(rawUrl: string): boolean {
     if (parsed.port && parsed.port !== "443") return false;
 
     // Must belong to a recognized music platform
-    return ALLOWED_MUSIC_HOST_PATTERNS.some((pattern) => pattern.test(hostname));
+    if (!ALLOWED_MUSIC_HOST_PATTERNS.some((pattern) => pattern.test(hostname))) {
+      return false;
+    }
+
+    // Must have a path or query (reject bare root domains like https://music.amazon.de/)
+    if ((!parsed.pathname || parsed.pathname === "/" || parsed.pathname.length <= 1) && !parsed.search) {
+      return false;
+    }
+
+    return true;
   } catch {
     return false;
   }
@@ -1672,7 +1681,20 @@ export const redeemPromoCode = onRequest(
       return;
     }
 
-    const sanitizedCode = (typeof rawCode === "string" ? rawCode : "").trim().replace(/\s+/g, "").toUpperCase();
+    let inputStr = typeof rawCode === "string" ? rawCode : "";
+    // Smart extraction if user pasted a longer message (e.g. full Reddit DM text block)
+    const flipMatch = inputStr.match(/\b(FLIP-?[A-Z0-9]{4}-?[A-Z0-9]{4})\b/i) ||
+                     inputStr.match(/\b(FLIP-[A-Z0-9_-]{3,24})\b/i);
+    if (flipMatch) {
+      inputStr = flipMatch[1];
+    } else {
+      const knownMatch = inputStr.match(/\b(BETALIST|PEERPUSH|FOUNDER-?PASS|NEO-?FOUNDER|SONGFLIP_[A-Z0-9_]+)\b/i);
+      if (knownMatch) {
+        inputStr = knownMatch[1];
+      }
+    }
+
+    const sanitizedCode = inputStr.trim().replace(/\s+/g, "").toUpperCase();
     if (!sanitizedCode || !/^[A-Z0-9_-]{3,64}$/i.test(sanitizedCode)) {
       recordFailedAttempt(`promo_fail_ip:${clientIp}`, 5, 600000);
       recordFailedAttempt(`promo_fail_id:${cleanInstallId}`, 5, 600000);
