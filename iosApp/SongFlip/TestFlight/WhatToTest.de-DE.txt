@@ -1,3 +1,6 @@
-- Intelligentere Gutscheineingabe: Eingefügte Gutscheincodes werden automatisch erkannt, auch wenn sie in eine Nachricht kopiert werden, eine Bearbeitung ist nicht erforderlich.
-- Zuverlässige Musik-Links: Die verbesserte Link-Verwaltung verhindert Verbindungsfehler und stellt sicher, dass Ihre Musik reibungslos geöffnet wird.
-- Klareres visuelles Feedback: Interaktive Schaltflächen zeigen jetzt Statusanzeigen an, während Aktionen vorbereitet werden.
+- Weitere Musikdienste: Vollständige Unterstützung für SoundCloud und Bandcamp neben Ihren bevorzugten Streaming-Playern hinzugefügt.
+- Sofortige Shazam-Links: Mit Shazam identifizierte Songs öffnen sich jetzt direkt und zuverlässig in Ihrem bevorzugten Musikplayer.
+- Wählen Sie Ihre Musik-App: Mit der optionalen Einstellung „Jedes Mal fragen“ können Sie Ihren Player spontan auswählen, wenn Sie mehrere Musikdienste nutzen.
+- Intelligenteres Teilen: Durch das Teilen eines Songs von Ihrem Musikplayer wird jetzt ein universeller intelligenter Link für Freunde erstellt, anstatt eine Schleife zurückzuschalten.
+- Mühelose Gutscheineingabe: Eingefügte Codes werden automatisch erkannt, auch wenn sie in Chat-Nachrichten kopiert werden.
+- Reibungslosere und schnellere Wiedergabe: Verbesserte Linkverarbeitung, sofortiges Vorabrufen im Hintergrund und Vermeidung von Verbindungsfehlern in allen 24 unterstützten Sprachen.
