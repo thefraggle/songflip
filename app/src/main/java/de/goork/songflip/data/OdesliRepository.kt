@@ -1555,6 +1555,10 @@ class OdesliRepository {
                     }
                 }
             }
+            val fallbackId = json.optString("trackadamid").takeIf { it.isNotBlank() }
+            if (fallbackId != null) {
+                return "https://music.apple.com/song/$fallbackId"
+            }
             null
         } catch (_: Exception) {
             null
