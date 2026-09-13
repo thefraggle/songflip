@@ -44,11 +44,9 @@ TARGET_LOCALES = {
     'ro': 'ro',
 }
 
-def truncate_to_bytes(text, max_limit=450, suffix="..."):
+def truncate_to_limits(text, max_chars=480, suffix="..."):
     text = text.strip()
-    def is_safe(s):
-        return len(s) <= max_limit and len(s.encode('utf-8')) <= max_limit
-    if is_safe(text):
+    if len(text) <= max_chars:
         return text
 
     lines = text.split('\n')
@@ -57,16 +55,13 @@ def truncate_to_bytes(text, max_limit=450, suffix="..."):
         if not line.strip():
             continue
         test_text = '\n'.join(result + [line]).strip()
-        if not is_safe(test_text):
+        if len(test_text) > max_chars:
             break
         result.append(line)
     if result:
         return '\n'.join(result).strip()
 
-    suffix_bytes = suffix.encode('utf-8')
-    raw_bytes = text.encode('utf-8')[:max_limit - len(suffix_bytes)]
-    safe_str = raw_bytes.decode('utf-8', errors='ignore') + suffix
-    return safe_str[:max_limit]
+    return text[:max_chars - len(suffix)] + suffix
 
 def extract_changelog_for_version(version=None):
     changelog_path = os.path.join(BASE_DIR, "CHANGELOG.md")
@@ -90,21 +85,35 @@ def extract_changelog_for_version(version=None):
 
     return "- Bug fixes and performance improvements."
 
-def translate_with_retry(translator, text, max_retries=3):
+def translate_text(text, target_lang, max_retries=3):
+    if target_lang == 'en':
+        return text
+    import urllib.request
+    import urllib.parse
+    import json
+    url = f"https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl={urllib.parse.quote(target_lang)}&dt=t&q={urllib.parse.quote(text)}"
+    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
     for attempt in range(max_retries):
         try:
-            return translator.translate(text)
+            with urllib.request.urlopen(req, timeout=8) as resp:
+                data = json.loads(resp.read().decode('utf-8'))
+                translated = ''.join([part[0] for part in data[0] if part and part[0]]).strip()
+                if translated:
+                    return translated
         except Exception as e:
             if attempt == max_retries - 1:
-                raise e
+                try:
+                    from deep_translator import GoogleTranslator
+                    return GoogleTranslator(source='en', target=target_lang).translate(text)
+                except Exception:
+                    raise e
             time.sleep(1.0 + attempt * 1.5)
+    return text
 
 def main():
     target_version = sys.argv[1] if len(sys.argv) > 1 else None
     en_notes = extract_changelog_for_version(target_version)
     print(f"Notes:\n{en_notes}\n")
-
-    from deep_translator import GoogleTranslator
 
     os.makedirs(WHATSNEW_DIR, exist_ok=True)
     cache = {}
@@ -118,23 +127,22 @@ def main():
             cache['en'] = content
         else:
             try:
-                translator = GoogleTranslator(source='en', target=lang)
                 lines = []
                 for line in en_notes.split('\n'):
                     if line.startswith('- '):
-                        t = translate_with_retry(translator, line[2:].strip())
+                        t = translate_text(line[2:].strip(), lang)
                         lines.append(f"- {t}")
                     elif line.strip():
-                        t = translate_with_retry(translator, line.strip())
+                        t = translate_text(line.strip(), lang)
                         lines.append(t)
                 content = '\n'.join(lines)
                 cache[lang] = content
-                time.sleep(0.3)
+                time.sleep(0.15)
             except Exception as e:
                 print(f"Failed {locale} ({lang}): {e}")
                 content = en_notes
 
-        content = truncate_to_bytes(content)
+        content = truncate_to_limits(content)
         with open(filepath, "w", encoding="utf-8") as f:
             f.write(content.strip() + "\n")
         print(f"✓ whatsnew-{locale} ({len(content.encode('utf-8'))} bytes)")
