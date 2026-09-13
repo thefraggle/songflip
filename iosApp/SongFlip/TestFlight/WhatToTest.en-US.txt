@@ -1,3 +1,3 @@
-- Choose Your Music App: Added an optional "Ask every time" setting for anyone using multiple music services, letting you pick where to play each song with a single tap.
-- Seamless Shazam Links: Songs identified with Shazam now open instantly and reliably in your favorite music player without interruptions.
-- Global Polish: Quick player selection is fully translated across all 24 supported languages.
+- Smarter Voucher Input: Pasted voucher codes are recognized automatically even when copied within a message, no editing needed.
+- Reliable Music Links: Improved link handling prevents connection errors and ensures your music opens smoothly.
+- Clearer Visual Feedback: Interactive buttons now show status indicators while actions are being prepared.
