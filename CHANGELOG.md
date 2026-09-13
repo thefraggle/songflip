@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.0] - 2026-09-13
+- **More Music Services**: Added full support for SoundCloud and Bandcamp alongside your favorite streaming players.
+- **Instant Shazam Links**: Songs identified with Shazam now open directly and reliably in your preferred music player.
+- **Choose Your Music App**: Optional "Ask every time" setting lets you pick your player on the fly when using multiple music services.
+- **Smarter Sharing**: Sharing a song from your music player now creates a universal smart link for friends instead of looping back.
+- **Effortless Voucher Input**: Pasted codes are recognized automatically even when copied within chat messages.
+- **Smoother & Faster Playback**: Improved link handling, instant background prefetching, and connection error prevention across all 24 supported languages.
+
 ## [1.2.30] - 2026-09-13
 - **Smarter Voucher Input**: Pasted voucher codes are recognized automatically even when copied within a message, no editing needed.
 - **Reliable Music Links**: Improved link handling prevents connection errors and ensures your music opens smoothly.
