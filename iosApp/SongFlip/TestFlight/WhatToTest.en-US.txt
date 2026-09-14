@@ -1,2 +1,2 @@
-- Clearer Link Diagnosis: Your selected music player is now always confirmed as active and ready in the setup overview.
-- Polish & Stability: Optimized status indicators for installed music streaming services.
+- Clearer Setup: Your selected music player is now immediately confirmed as ready in the overview.
+- Polish: Improved status indicators and an even smoother experience.
