@@ -2104,7 +2104,8 @@ export const renderWebShare = onRequest(
 
       const userAgent = (req.headers["user-agent"] as string) || "";
       const isMobileUA = /Android|iPhone|iPad|iPod/i.test(userAgent);
-      const i18n = getWebShareI18n(req.headers["accept-language"]);
+      const queryLang = ((req.query.lang as string) || (req.query.l as string))?.trim().toLowerCase();
+      const i18n = getWebShareI18n(queryLang || req.headers["accept-language"]);
 
       // 1. Extract hash from path or query parameter
       const rawPath = req.path || "";
