@@ -10,12 +10,12 @@ IOS_METADATA_DIR = os.path.join(BASE_DIR, 'fastlane', 'metadata')
 IOS_LISTINGS = {
     'en-US': {
         'name': 'SongFlip: Music Link Redirect',
-        'subtitle': 'Open links in your music app',
+        'subtitle': 'Convert & open music links',
         'promotional_text': 'Friends send Spotify links, but you use Apple Music or YouTube Music? SongFlip instantly converts and opens shared music links in your favorite player.',
-        'keywords': 'music,link,spotify,apple music,youtube music,tidal,deezer,songlink,odesli,redirect,convert,share',
+        'keywords': 'converter,playlist,spotify,apple music,youtube music,tidal,deezer,songlink,odesli,soundcloud,shazam',
         'description': """Friends send you Spotify, Tidal, or Deezer links – but you use Apple Music, YouTube Music, or Amazon Music?
 
-SongFlip is the music link redirector for iOS. Whether via the iOS Share Sheet, Shortcuts, or the Action Button: SongFlip instantly converts shared music links and opens them directly in your preferred music app – with zero manual searching, no copying, and no friction.
+SongFlip is the music link redirector and converter for iOS. Whether via the iOS Share Sheet, Shortcuts, or the Action Button: SongFlip instantly converts shared music links and opens them directly in your preferred music app – with zero manual searching, no copying, and no friction.
 
 Supported Music Services (Any-to-Any Redirection):
 - Apple Music
@@ -24,14 +24,16 @@ Supported Music Services (Any-to-Any Redirection):
 - Tidal
 - Deezer
 - Amazon Music
+- SoundCloud
+- Bandcamp & Shazam
 
 Key Features:
 - Seamless iOS Integration: Convert links from WhatsApp, Telegram, iMessage, Instagram, or Safari directly via the native Share Sheet.
 - Direct Playback Engine: Instantly launches exact track and video IDs in your target player.
 - Albums, Playlists & Artists: Recognizes individual songs, full albums, EPs, artist profiles, and search queries.
+- Quick Player Chooser & History: Choose your target player on the fly when multiple apps are installed, and revisit your recent conversions anytime in the history sheet.
 - Shortcuts & Action Button Support: Integrate SongFlip into iOS Shortcuts or trigger instant conversion with the Action Button.
 - 100% Privacy & Zero Tracking: No account, no login required. SongFlip collects no personal data, no ad tracking IDs, and no listening habits.
-- Built-in Test Studio & History: Test music links manually and easily revisit your recent conversions in the history sheet.
 
 Built with passion for music lovers who want to enjoy songs seamlessly across platforms in their favorite player.""",
         'support_url': 'https://songflip.link',
@@ -40,12 +42,12 @@ Built with passion for music lovers who want to enjoy songs seamlessly across pl
     },
     'de-DE': {
         'name': 'SongFlip: Musik Link Umleitung',
-        'subtitle': 'Links im Wunschplayer öffnen',
+        'subtitle': 'Spotify & Apple Music Links',
         'promotional_text': 'Freunde schicken Spotify-Links, aber du nutzt Apple Music oder YouTube Music? SongFlip leitet geteilte Musiklinks blitzschnell in deinen Lieblingsplayer um.',
-        'keywords': 'musik,link,spotify,apple music,youtube music,tidal,deezer,songlink,odesli,redirect,teilen,player',
+        'keywords': 'converter,playlist,youtube music,tidal,deezer,songlink,odesli,redirect,soundcloud,shazam,bandcamp',
         'description': """Freunde schicken dir Musik-Links von Spotify, Deezer oder Tidal – aber du nutzt Apple Music, YouTube Music oder Amazon Music?
 
-SongFlip ist die Musik-Link-Umleitung für iOS. Ob über das iOS-Teilen-Menü (Share Sheet), Kurzbefehle oder den Action Button: SongFlip wandelt geteilte Musik-Links blitzschnell um und öffnet sie direkt in deiner bevorzugten Musik-App – ganz ohne lästiges Suchen, Kopieren oder manuelle Zwischenschritte.
+SongFlip ist die Musik-Link-Umleitung und der Converter für iOS. Ob über das iOS-Teilen-Menü (Share Sheet), Kurzbefehle oder den Action Button: SongFlip wandelt geteilte Musik-Links blitzschnell um und öffnet sie direkt in deiner bevorzugten Musik-App – ganz ohne lästiges Suchen, Kopieren oder manuelle Zwischenschritte.
 
 Unterstützte Musikdienste (Jeder-zu-Jeder-Umleitung):
 - Apple Music
@@ -54,14 +56,16 @@ Unterstützte Musikdienste (Jeder-zu-Jeder-Umleitung):
 - Tidal
 - Deezer
 - Amazon Music
+- SoundCloud
+- Bandcamp & Shazam
 
 Hauptfunktionen:
 - Nahtlose iOS-Integration: Öffne Links aus WhatsApp, Telegram, iMessage, Instagram oder Safari direkt über das Teilen-Menü (Share Sheet).
 - Direkte Wiedergabe: Startet exakte Titel und Videos direkt im gewünschten Player.
 - Alben, Playlists & Interpreten: Erkennt Einzelsongs, vollständige Alben, EPs, Künstlerprofile und Suchlinks.
+- Schnellauswahl & Verlauf: Wähle bei mehreren installierten Apps flexibel deinen Ziel-Player und greife jederzeit auf deinen Verlauf kürzlich geöffneter Songs zu.
 - Kurzbefehle & Action Button: Integriere SongFlip direkt in deine iOS-Kurzbefehle oder lege die Link-Umwandlung auf den Action Button.
 - 100 % Privatsphäre & Kein Tracking: Kein Account, kein Login. SongFlip sammelt keine Daten, keine Werbe-IDs und analysiert keine Hörgewohnheiten.
-- Integriertes Test-Studio & Verlauf: Probiere Musik-Links direkt in der App aus und greife jederzeit auf deinen Verlauf kürzlich geöffneter Songs zu.
 
 Entwickelt für alle Musikliebhaber, die Musik ohne Plattformgrenzen in ihrer Lieblings-App genießen möchten.""",
         'support_url': 'https://songflip.link',

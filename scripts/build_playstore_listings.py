@@ -19,9 +19,9 @@ LISTINGS["de-DE"] = (
     "Musik-Links automatisch konvertieren & in deiner Wunsch-App öffnen (0-Klick).",
     """Ein Freund schickt dir einen Song auf Spotify, du hörst Musik aber über YouTube Music, Apple Music oder Deezer?
 
-SongFlip ist dein smarter 0-Klick Musik-Link Converter für Android. Einmal eingerichtet, werden empfangene Musik-Links automatisch im Hintergrund in deinen bevorzugten Streaming-Dienst umgewandelt und direkt dort gestartet – ohne lästige Zwischenseiten, ohne Wartezeit, ohne manuelle Suche.
+SongFlip ist dein smarter 0-Klick Musik-Link Converter und Weiterleitung für Android. Einmal eingerichtet, werden empfangene Musik-Links automatisch im Hintergrund in deinen bevorzugten Streaming-Dienst umgewandelt und direkt dort gestartet – ohne lästige Zwischenseiten, ohne Wartezeit, ohne manuelle Suche.
 
-Egal ob Spotify zu YouTube Music, Spotify zu Apple Music oder Links von Shazam: SongFlip erkennt den Song und öffnet ihn sofort in deinem Wunsch-Player.
+Egal ob Spotify zu YouTube Music, Spotify zu Apple Music oder Links von Shazam: SongFlip erkennt den Song blitzschnell und fungiert als dein universeller Smart Link Converter für jeden Musik-Player.
 
 🚀 DIE WICHTIGSTEN FUNKTIONEN:
 
@@ -32,7 +32,10 @@ Konvertiert Musik-Links nahtlos zwischen Spotify, YouTube Music, Apple Music, De
 Titel starten direkt im Ziel-Player, anstatt nur eine leere Suchergebnisseite zu öffnen.
 
 • Volle Album- & Playlist-Erkennung:
-Erkennt vollständige Alben und öffnet die komplette Trackliste. Playlist-Links werden präzise erkannt und nahtlos an deinen Player übergeben.
+Erkennt vollständige Alben und öffnet die komplette Trackliste. Playlist-Links werden präzise erkannt und nahtlos übergeben – dein intelligenter Playlist Converter für geteilte Musik.
+
+• Schnellauswahl (Ask Every Time):
+Nutzt du mehrere Musik-Apps? Aktiviere die optionale Schnellauswahl, um beim Öffnen eines Musik-Links jedes Mal blitzschnell den gewünschten Ziel-Player zu wählen.
 
 • Smarter Einrichtungs-Assistent (Android 12+):
 Der integrierte Assistent prüft deine installierten Musik-Apps und hilft dir mit nur einem Fingertipp, App-Links konfliktfrei für die automatische Weiterleitung einzurichten.
@@ -67,7 +70,7 @@ EN_TUPLE = (
 
 SongFlip is your seamless, zero-click music link converter and redirector for Android. Once enabled, incoming music links automatically convert in the background and launch directly inside your preferred music player—no manual searching, no ads, no intermediate browser detours.
 
-Whether switching Spotify to YouTube Music, Spotify to Apple Music, or opening tracks identified with Shazam, SongFlip handles song links instantly.
+Whether switching Spotify to YouTube Music, Spotify to Apple Music, or opening tracks identified with Shazam, SongFlip handles song links instantly as your universal smart link converter.
 
 🚀 KEY FEATURES:
 
@@ -78,7 +81,10 @@ Seamlessly converts tracks and albums across Spotify, YouTube Music, Apple Music
 Directly triggers playback inside your target music player instead of landing on empty search result pages.
 
 • Full Album & Playlist Support:
-Recognizes entire albums and opens the full discography release. Shared playlists are cleanly detected and opened in one tap.
+Recognizes entire albums and opens the full discography release. Shared playlists are cleanly detected—your go-to playlist converter for shared music.
+
+• Quick Player Chooser (Ask Every Time):
+Using multiple music apps? Enable the optional quick player chooser to pick your target player on the fly whenever you open a music link.
 
 • Smart Link Assistant (Android 12+):
 Easily verify and configure Android Open by Default App Links with our interactive 1-tap setup assistant.
@@ -127,6 +133,9 @@ Las canciones se reproducen directamente en la app de destino en lugar de mostra
 
 • Soporte Completo para Álbumes y Playlists:
 Detecta álbumes enteros y abre la lista completa de pistas. Las listas de reproducción compartidas se abren con un solo toque.
+
+• Selector Rápido de Reproductor (Preguntar cada vez):
+¿Usas varias apps de música? Activa el selector rápido para elegir al instante tu reproductor preferido cada vez que abras un enlace musical.
 
 • Asistente de Configuración Inteligente (Android 12+):
 Verifica y configura fácilmente los enlaces predeterminados de tus apps de música con un solo toque.
@@ -1010,6 +1019,9 @@ Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud ও
 • অ্যালবাম ও প্লেলিস্ট সাপোর্ট:
 সম্পূর্ণ অ্যালবাম এবং প্লেলিস্ট এক ট্যাপে সরাসরি চালু হয়।
 
+• দ্রুত প্লেয়ার নির্বাচক (প্রতিবার জিজ্ঞাসা করুন):
+একাধিক মিউজিক অ্যাপ ব্যবহার করেন? একটি লিঙ্ক খোলার সময় অবিলম্বে আপনার লক্ষ্য প্লেয়ার বেছে নিতে দ্রুত নির্বাচক সক্রিয় করুন।
+
 • স্মার্ট সেটআপ অ্যাসিস্ট্যান্ট (Android 12+):
 এক ক্লিকেই অ্যাপ লিঙ্ক অটোমেটিক ওপেন করার সহজ সেটআপ গাইড।
 
@@ -1095,7 +1107,7 @@ for code, data in LISTINGS.items():
 md_file = os.path.join(DIST_DIR, "playstore_listings_all_languages.md")
 with open(md_file, "w", encoding="utf-8") as f:
     f.write("# 📱 SongFlip – Play Store Listings (Alle Sprachen)\n\n")
-    f.write("> **Version:** 1.2.27 | **Umfang:** 28 Store-Sprachen | **Zertifiziert:** Titel ≤ 30 Zeichen, Kurzbeschreibung ≤ 80 Zeichen, Volltext ≤ 4.000 Zeichen.\n\n")
+    f.write("> **Version:** 1.3.1 | **Umfang:** 28 Store-Sprachen | **Zertifiziert:** Titel ≤ 30 Zeichen, Kurzbeschreibung ≤ 80 Zeichen, Volltext ≤ 4.000 Zeichen.\n\n")
     f.write("---\n\n")
     for code, data in sorted(LISTINGS.items()):
         lang, title, short, full = data
@@ -1117,3 +1129,43 @@ with open(csv_file, "w", encoding="utf-8", newline="") as f:
         writer.writerow([code, title, short, full])
 
 print(f"✓ Saved CSV to {csv_file}")
+
+
+# 3. Synchronize individual fastlane metadata folders for Android
+FASTLANE_ANDROID_DIR = os.path.join(BASE_DIR, "fastlane", "metadata", "android")
+if os.path.exists(FASTLANE_ANDROID_DIR):
+    FASTLANE_DIR_MAP = {
+        "bn-BD": ["bn-IN"],
+        "id": ["id-ID"],
+        "uk": ["uk-UA"],
+        "vi": ["vi-VN"],
+        "nb-NO": ["nb-NO", "no-NO"],
+    }
+    synced_dirs = set()
+    for code, data in LISTINGS.items():
+        lang, title, short, full = data
+        target_dirs = FASTLANE_DIR_MAP.get(code, [code])
+        for target_name in target_dirs:
+            target_path = os.path.join(FASTLANE_ANDROID_DIR, target_name)
+            if os.path.exists(target_path):
+                synced_dirs.add(target_name)
+                with open(os.path.join(target_path, "title.txt"), "w", encoding="utf-8") as f:
+                    f.write(title + "\n")
+                with open(os.path.join(target_path, "short_description.txt"), "w", encoding="utf-8") as f:
+                    f.write(short + "\n")
+                with open(os.path.join(target_path, "full_description.txt"), "w", encoding="utf-8") as f:
+                    f.write(full + "\n")
+
+    # Update remaining directories with clean English text
+    en_data = LISTINGS["en-US"]
+    for d in os.listdir(FASTLANE_ANDROID_DIR):
+        full_p = os.path.join(FASTLANE_ANDROID_DIR, d)
+        if os.path.isdir(full_p) and d not in synced_dirs:
+            with open(os.path.join(full_p, "title.txt"), "w", encoding="utf-8") as f:
+                f.write(en_data[1] + "\n")
+            with open(os.path.join(full_p, "short_description.txt"), "w", encoding="utf-8") as f:
+                f.write(en_data[2] + "\n")
+            with open(os.path.join(full_p, "full_description.txt"), "w", encoding="utf-8") as f:
+                f.write(en_data[3] + "\n")
+
+    print(f"✓ Synchronized fastlane metadata in {FASTLANE_ANDROID_DIR}")
