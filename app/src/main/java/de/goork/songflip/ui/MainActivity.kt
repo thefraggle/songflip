@@ -536,6 +536,8 @@ fun MainScreen(
                             if (isPlaylist) {
                                 showPlaylistNoticeSheet = urlToOpen
                             } else {
+                                dismissedClipboardUrl = urlToOpen
+                                detectedClipboardUrl = null
                                 val redirectIntent = Intent(context, RedirectActivity::class.java).apply {
                                     data = Uri.parse(urlToOpen)
                                     putExtra("from_clipboard_banner", true)
