@@ -121,7 +121,7 @@ ES_TUPLE = (
 
 SongFlip es tu convertidor y redireccionador automático de enlaces de música para Android. Una vez configurado, los enlaces recibidos se transforman en segundo plano y se abren al instante en tu reproductor preferido: sin búsquedas manuales, sin publicidad y sin rodeos en el navegador.
 
-Ya sea de Spotify a YouTube Music, de Spotify a Apple Music o enlaces de Shazam: SongFlip abre tus canciones al instante.
+Ya sea de Spotify a YouTube Music, de Spotify a Apple Music o enlaces de Shazam: SongFlip abre tus canciones al instante como tu convertidor inteligente universal.
 
 🚀 FUNCIONES PRINCIPALES:
 
@@ -132,7 +132,7 @@ Convierte sin problemas entre Spotify, YouTube Music, Apple Music, Deezer, TIDAL
 Las canciones se reproducen directamente en la app de destino en lugar de mostrar resultados de búsqueda vacíos.
 
 • Soporte Completo para Álbumes y Playlists:
-Detecta álbumes enteros y abre la lista completa de pistas. Las listas de reproducción compartidas se abren con un solo toque.
+Detecta álbumes enteros y abre la lista completa de pistas. Las listas de reproducción compartidas se abren con un solo toque — tu convertidor inteligente de playlists para música compartida.
 
 • Selector Rápido de Reproductor (Preguntar cada vez):
 ¿Usas varias apps de música? Activa el selector rápido para elegir al instante tu reproductor preferido cada vez que abras un enlace musical.
@@ -173,7 +173,7 @@ FR_TUPLE = (
 
 SongFlip est votre convertisseur et redirecteur de liens musicaux intelligent pour Android. Une fois activé, les liens reçus sont automatiquement convertis en arrière-plan et s'ouvrent directement dans votre application musicale préférée, sans recherche manuelle ni pages intermédiaires.
 
-Que ce soit de Spotify vers YouTube Music, de Spotify vers Apple Music ou des liens Shazam : SongFlip ouvre votre musique instantanément.
+Que ce soit de Spotify vers YouTube Music, de Spotify vers Apple Music ou des liens Shazam : SongFlip traite vos liens instantanément en tant que convertisseur intelligent universel.
 
 🚀 FONCTIONNALITÉS CLÉS :
 
@@ -184,7 +184,10 @@ Convertit en toute transparence entre Spotify, YouTube Music, Apple Music, Deeze
 Lance directement la lecture du titre dans l'application cible sans vous laisser sur une page de recherche.
 
 • Prise en Charge Complète des Albums et Playlists :
-Détecte les albums complets et ouvre l'intégralité des pistes. Les playlists partagées s'ouvrent en un seul geste.
+Détecte les albums complets et ouvre l'intégralité des pistes. Les playlists partagées sont détectées avec précision — votre convertisseur de playlists idéal pour la musique partagée.
+
+• Sélecteur Rapide de Lecteur (Demander à chaque fois) :
+Vous utilisez plusieurs applications musicales ? Activez le sélecteur rapide optionnel pour choisir votre lecteur cible à la volée dès que vous ouvrez un lien.
 
 • Assistant de Configuration Intelligent (Android 12+) :
 Configurez facilement l'ouverture par défaut des liens d'application grâce à notre assistant interactif en 1 clic.
@@ -221,7 +224,7 @@ LISTINGS["it-IT"] = (
 
 SongFlip è il tuo convertitore e reindirizzatore intelligente di link musicali per Android. Una volta attivato, i link ricevuti vengono convertiti automaticamente in background e aperti all'istante nel tuo lettore musicale preferito, senza ricerche manuali o fastidiose pagine intermedie.
 
-Da Spotify a YouTube Music, da Spotify ad Apple Music o link condivisi da Shazam: SongFlip apre la tua musica all'istante.
+Da Spotify a YouTube Music, da Spotify ad Apple Music o link condivisi da Shazam: SongFlip gestisce i link all'istante come tuo convertitore smart universale.
 
 🚀 CARATTERISTICHE PRINCIPALI:
 
@@ -232,7 +235,10 @@ Converte senza problemi tra Spotify, YouTube Music, Apple Music, Deezer, TIDAL, 
 Avvia direttamente il brano nel lettore di destinazione anziché mostrare pagine di ricerca vuote.
 
 • Supporto Completo per Album e Playlist:
-Riconosce album interi e apre tutte le tracce. Le playlist condivise vengono rilevate e aperte con un solo tocco.
+Riconosce album interi e apre tutte le tracce. Le playlist condivise vengono rilevate con precisione — il tuo convertitore di playlist ideale per la musica condivisa.
+
+• Selettore Rapido del Lettore (Chiedi ogni volta):
+Usi più app musicali? Attiva il selettore rapido opzionale per scegliere al volo il tuo lettore preferito ogni volta che apri un link.
 
 • Assistente di Configurazione Intelligente (Android 12+):
 Configura facilmente i link predefiniti delle app musicali con il nostro assistente interattivo in un tocco.
@@ -267,7 +273,7 @@ PT_TUPLE = (
 
 O SongFlip é o seu conversor e redirecionador inteligente de links de música para Android. Uma vez ativado, os links recebidos são convertidos automaticamente em segundo plano e abertos direto no seu reprodutor preferido: sem buscas manuais, sem anúncios e sem páginas intermediárias.
 
-Seja do Spotify para o YouTube Music, do Spotify para o Apple Music ou links do Shazam: o SongFlip resolve na hora.
+Seja do Spotify para o YouTube Music, do Spotify para o Apple Music ou links do Shazam: o SongFlip resolve na hora como seu conversor inteligente universal de links.
 
 🚀 PRINCIPAIS RECURSOS:
 
@@ -278,7 +284,10 @@ Converte perfeitamente entre Spotify, YouTube Music, Apple Music, Deezer, TIDAL,
 Toca a faixa direto no player de destino em vez de exibir páginas de busca vazias.
 
 • Suporte Completo a Álbuns e Playlists:
-Reconhece álbuns completos e abre todas as faixas. Playlists compartilhadas são detectadas e abertas em um toque.
+Reconhece álbuns completos e abre todas as faixas. Playlists compartilhadas são detectadas com precisão — seu conversor de playlists definitivo para músicas compartilhadas.
+
+• Seletor Rápido de Player (Perguntar sempre):
+Usa vários apps de música? Ative o seletor rápido para escolher instantaneamente seu reprodutor preferido ao abrir qualquer link musical.
 
 • Assistente de Configuração Inteligente (Android 12+):
 Configure os links padrão de aplicativos com facilidade com nosso assistente em um toque.
@@ -315,7 +324,7 @@ LISTINGS["nl-NL"] = (
 
 SongFlip is jouw slimme 0-klik muzieklink converter en redirector voor Android. Eenmaal ingesteld worden ontvangen muzieklinks automatisch op de achtergrond geconverteerd en direct geopend in jouw favoriete muziek-app — zonder handmatig zoeken of tussenliggende pagina's.
 
-Of het nu gaat om Spotify naar YouTube Music, Spotify naar Apple Music of Shazam-links: SongFlip herkent het nummer direct.
+Of het nu gaat om Spotify naar YouTube Music, Spotify naar Apple Music of Shazam-links: SongFlip verwerkt links direct als jouw universele smart link converter.
 
 🚀 BELANGRIJKSTE FUNCTIES:
 
@@ -326,7 +335,10 @@ Converteert naadloos tussen Spotify, YouTube Music, Apple Music, Deezer, TIDAL, 
 Start nummers direct in de doel-app in plaats van een lege zoekpagina te tonen.
 
 • Volledige Album- & Afspeellijstondersteuning:
-Herkent complete albums en opent de volledige tracklijst. Gedeelde afspeellijsten openen met één tik.
+Herkent complete albums en opent de volledige tracklijst. Gedeelde afspeellijsten openen soepel — jouw ideale playlist-converter voor gedeelde muziek.
+
+• Snelle Spelerkiezer (Elke keer vragen):
+Gebruik je meerdere muziek-apps? Activeer de optionele snelle kiezer om direct je doelspeler te kiezen wanneer je een muzieklink opent.
 
 • Slimme Installatiewizard (Android 12+):
 Controleer en stel eenvoudig standaard app-koppelingen in met onze interactieve wizard in 1 tik.
@@ -361,7 +373,7 @@ LISTINGS["pl-PL"] = (
 
 SongFlip to Twój inteligentny konwerter i przekierowujący linki muzyczne dla Androida. Po jednorazowej konfiguracji otrzymane linki są automatycznie konwertowane w tle i otwierane w Twojej ulubionej aplikacji muzycznej — bez ręcznego wyszukiwania i bez zbędnych stron pośrednich.
 
-Niezależnie od tego, czy chodzi o Spotify na YouTube Music, Spotify na Apple Music czy utwory z Shazam: SongFlip otwiera je natychmiast.
+Niezależnie od tego, czy chodzi o Spotify na YouTube Music, Spotify na Apple Music czy utwory z Shazam: SongFlip obsługuje linki natychmiast jako Twój uniwersalny konwerter smart linków.
 
 🚀 NAJWAŻNIEJSZE FUNKCJE:
 
@@ -372,7 +384,10 @@ Płynnie konwertuje utwory i albumy między Spotify, YouTube Music, Apple Music,
 Utwory uruchamiają się bezpośrednio w aplikacji docelowej zamiast na pustej stronie wyników wyszukiwania.
 
 • Pełna Obsługa Albumów i Playlist:
-Rozpoznaje całe albumy i otwiera pełną listę utworów. Udostępnione playlisty otwierają się jednym dotknięciem.
+Rozpoznaje całe albumy i otwiera pełną listę utworów. Udostępnione playlisty są precyzyjnie wykrywane — Twój niezastąpiony konwerter playlist dla udostępnianej muzyki.
+
+• Szybki Wybór Odtwarzacza (Pytaj za każdym razem):
+Korzystasz z kilku aplikacji muzycznych? Włącz szybki selektor, aby błyskawicznie wybrać docelowy odtwarzacz przy każdym otwarciu linku.
 
 • Inteligentny Kreator Konfiguracji (Android 12+):
 Łatwo skonfiguruj domyślne linki aplikacji za pomocą interaktywnego asystenta.
@@ -407,7 +422,7 @@ LISTINGS["ru-RU"] = (
 
 SongFlip — это умный конвертер музыкальных ссылок для Android. После простой настройки входящие ссылки автоматически преобразуются в фоновом режиме и открываются в вашем любимом плеере без ручного поиска, рекламы и лишних страниц.
 
-Переход со Spotify в YouTube Music, со Spotify в Apple Music или ссылки из Shazam — SongFlip откроет трек мгновенно.
+Переход со Spotify в YouTube Music, со Spotify в Apple Music или ссылки из Shazam — SongFlip обрабатывает ссылки мгновенно как ваш универсальный смарт-конвертер.
 
 🚀 ОСНОВНЫЕ ВОЗМОЖНОСТИ:
 
@@ -418,7 +433,10 @@ SongFlip — это умный конвертер музыкальных ссы�
 Трек сразу начинает играть в целевом приложении вместо показа пустых страниц поиска.
 
 • Полная Поддержка Альбомов и Плейлистов:
-Распознает полные альбомы и дискографии. Плейлисты открываются в одно касание.
+Распознает полные альбомы и дискографии. Плейлисты открываются точно — ваш надежный конвертер плейлистов для совместной музыки.
+
+• Быстрый Выбор Плеера (Спрашивать каждый раз):
+Используете несколько музыкальных приложений? Включите быстрый выбор, чтобы мгновенно выбирать целевой плеер при открытии ссылки.
 
 • Умный Помощник Настройки (Android 12+):
 Быстрая проверка и настройка открытия ссылок по умолчанию в один клик.
@@ -453,7 +471,7 @@ LISTINGS["uk"] = (
 
 SongFlip — це розумний конвертер музичних посилань для Android. Після легкого налаштування вхідні посилання автоматично конвертуються у фоновому режимі та відкриваються у вашому улюбленому додатку без ручного пошуку, реклами та зайвих веб-сторінок.
 
-Зі Spotify в YouTube Music, зі Spotify в Apple Music або посилання з Shazam — SongFlip відкриє пісню миттєво.
+Зі Spotify в YouTube Music, зі Spotify в Apple Music або посилання з Shazam — SongFlip відкриває треки миттєво як ваш універсальний смарт-конвертер.
 
 🚀 ГОЛОВНІ ФУНКЦІЇ:
 
@@ -464,7 +482,10 @@ SongFlip — це розумний конвертер музичних поси�
 Пісня починає грати безпосередньо в обраному плеєрі без показу порожніх результатів пошуку.
 
 • Підтримка Альбомів та Плейлистів:
-Розпізнає цілі альбоми та відкриває всі треки. Спільні плейлисти відкриваються в один дотик.
+Розпізнає цілі альбоми та відкриває всі треки. Спільні плейлисти відкриваються точно — ваш надійний конвертер плейлистів для спільної музики.
+
+• Швидкий Вибір Плеєра (Запитувати щоразу):
+Користуєтеся кількома музичними додатками? Увімкніть швидкий вибір, щоб миттєво обирати цільовий плеєр під час відкриття посилання.
 
 • Розумний Помічник Налаштування (Android 12+):
 Швидко налаштуйте посилання за замовчуванням за допомогою інтерактивного помічника.
@@ -499,7 +520,7 @@ LISTINGS["tr-TR"] = (
 
 SongFlip, Android için akıllı ve sıfır tıklamalı müzik linki dönüştürücünüzdür. Kurulduktan sonra gelen müzik linkleri arka planda otomatik olarak dönüştürülür ve doğrudan tercih ettiğiniz müzik uygulamasında başlatılır.
 
-İster Spotify'dan YouTube Music'e, ister Spotify'dan Apple Music'e veya Shazam linkleri olsun: SongFlip şarkıyı anında açar.
+İster Spotify'dan YouTube Music'e, ister Spotify'dan Apple Music'e veya Shazam linkleri olsun: SongFlip evrensel akıllı link dönüştürücünüz olarak şarkıyı anında açar.
 
 🚀 ÖNE ÇIKAN ÖZELLİKLER:
 
@@ -510,7 +531,10 @@ Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud ve 
 Boş arama sayfaları göstermek yerine parçayı doğrudan hedef oynatıcıda çalmaya başlar.
 
 • Tam Albüm ve Çalma Listesi Desteği:
-Tüm albümleri tanır ve tam parça listesini açar. Çalma listeleri tek dokunuşla başlatılır.
+Tüm albümleri tanır ve tam parça listesini açar. Çalma listeleri kusursuzca aktarılır — paylaşılan müzikler için akıllı çalma listesi dönüştürücünüz.
+
+• Hızlı Oynatıcı Seçici (Her Seferinde Sor):
+Birden fazla müzik uygulaması mı kullanıyorsunuz? Müzik linki açtığınızda hedef oynatıcıyı anında seçmek için hızlı seçiciyi etkinleştirin.
 
 • Akıllı Kurulum Asistanı (Android 12+):
 Varsayılan bağlantı ayarlarını tek dokunuşla kolayca yapılandırın.
@@ -545,7 +569,7 @@ LISTINGS["ja-JP"] = (
 
 SongFlipは、Android向けのシームレスな自動音楽リンク変換リダイレクターです。一度設定すれば、受信した音楽リンクがバックグラウンドで自動的に変換され、お気に入りの音楽アプリですぐに再生されます。手動検索やブラウザの中継ページは一切不要です。
 
-SpotifyからYouTube Music、SpotifyからApple Music、Shazamの共有リンクまで、SongFlipなら瞬時に開きます。
+SpotifyからYouTube Music、SpotifyからApple Music、Shazamの共有リンクまで、SongFlipなら万能なスマートリンク変換ツールとして瞬時に開きます。
 
 🚀 主な機能：
 
@@ -556,7 +580,10 @@ Spotify、YouTube Music、Apple Music、Deezer、TIDAL、Amazon Music、SoundClo
 検索結果画面にとどまらず、目的のプレーヤー内で直接トラックを再生します。
 
 • アルバム＆プレイリストの完全サポート：
-アルバム全体を認識し、すべての収録曲を開きます。プレイリストもワンタップでスムーズに開きます。
+アルバム全体を認識し、すべての収録曲を開きます。プレイリストも正確に検出 — 共有された音楽のためのスマートなプレイリスト変換機能。
+
+• クイックプレーヤー選択（毎回確認）：
+複数の音楽アプリをお使いですか？リンクを開くたびに目的のプレーヤーを即座に選べるクイック選択機能を搭載。
 
 • スマートセットアップアシスタント（Android 12+）：
 デフォルトアプリリンクの設定を、インタラクティブなアシスタントで簡単に解決できます。
@@ -591,7 +618,7 @@ LISTINGS["ko-KR"] = (
 
 SongFlip은 Android를 위한 원클릭 자동 음악 링크 변환 앱입니다. 한 번 설정해 두면 수신된 음악 링크가 백그라운드에서 자동으로 변환되어 원하는 음악 플레이어에서 즉시 열립니다. 번거로운 검색이나 웹페이지 우회 과정이 전혀 없습니다.
 
-Spotify에서 YouTube Music으로, Spotify에서 Apple Music으로, Shazam 공유 링크까지 SongFlip이 즉시 해결합니다.
+Spotify에서 YouTube Music으로, Spotify에서 Apple Music으로, Shazam 공유 링크까지 SongFlip이 범용 스마트 링크 변환기로 즉시 해결합니다.
 
 🚀 주요 기능:
 
@@ -602,7 +629,10 @@ Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud, Ba
 빈 검색 결과 화면 대신 대상 플레이어에서 곡을 즉시 재생합니다.
 
 • 앨범 및 재생목록 완벽 지원:
-전체 앨범을 인식하여 전체 트랙 목록을 열고, 공유된 재생목록도 탭 한 번으로 바로 연결합니다.
+전체 앨범을 인식하여 전체 트랙 목록을 열고, 공유된 재생목록도 완벽 감지 — 공유된 음악을 위한 스마트 플레이리스트 변환기。
+
+• 빠른 플레이어 선택 (매번 묻기):
+여러 음악 앱을 함께 사용하시나요? 음악 링크를 열 때마다 원하는 플레이어를 즉시 선택할 수 있는 빠른 선택기를 지원합니다.
 
 • 스마트 설정 도우미 (Android 12+):
 인터랙티브 도우미를 통해 기본 앱 링크 설정을 한 번의 터치로 간편하게 구성할 수 있습니다.
@@ -637,7 +667,7 @@ ZH_CN_TUPLE = (
 
 SongFlip 是专为 Android 打造的无感音乐链接转换神器。只需一次设置，接收到的音乐链接将在后台自动转换，并直接在您偏好的音乐播放器中开启播放，无需手动搜索，告别中间跳转网页。
 
-无论是 Spotify 转 YouTube Music、Spotify 转 Apple Music，还是 Shazam 听歌识曲链接，SongFlip 都能秒级处理。
+无论是 Spotify 转 YouTube Music、Spotify 转 Apple Music，还是 Shazam 听歌识曲链接，SongFlip 都能作为您的通用智能链接转换器秒级处理。
 
 🚀 核心功能：
 
@@ -648,7 +678,10 @@ SongFlip 是专为 Android 打造的无感音乐链接转换神器。只需一�
 直接触发目标播放器开始播放，避免停留在无意义的搜索结果页面。
 
 • 完整专辑与歌单支持：
-精准识别整张专辑并打开完整曲目列表，共享歌单同样支持一键直达。
+精准识别整张专辑并打开完整曲目列表，智能识别共享歌单 — 专为分享音乐打造的智能歌单转换助手。
+
+• 快速播放器选择器（每次询问）：
+使用多个音乐应用？开启快速选择器，每次打开音乐链接时均可随心挑选目标播放器。
 
 • 智能设置向导 (Android 12+)：
 内置交互式设置助手，一键解决默认应用链接冲突，确保平滑跳转。
@@ -683,7 +716,7 @@ ZH_TW_TUPLE = (
 
 SongFlip 是專為 Android 打造的無感音樂連結轉換神器。只需一次設定，接收到的音樂連結將在後台自動轉換，並直接在您偏好的音樂播放器中開啟播放，無需手動搜尋，告別繁瑣的中轉網頁。
 
-無論是 Spotify 轉 YouTube Music、Spotify 轉 Apple Music，還是 Shazam 辨識連結，SongFlip 都能秒級處理。
+無論是 Spotify 轉 YouTube Music、Spotify 轉 Apple Music，還是 Shazam 辨識連結，SongFlip 都能作為您的通用智慧連結轉換器秒級處理。
 
 🚀 核心功能：
 
@@ -694,7 +727,10 @@ SongFlip 是專為 Android 打造的無感音樂連結轉換神器。只需一�
 直接在目標播放器中開始播放，避免停留在空白的搜尋結果頁面。
 
 • 完整專輯與播放清單支援：
-精準辨識整張專輯並開啟完整曲目清單，共享播放清單同樣支援一鍵直達。
+精準辨識整張專輯並開啟完整曲目清單，智慧辨識共享播放清單 — 專為分享音樂打造的智慧歌單轉換工具。
+
+• 快速播放器選擇器（每次詢問）：
+使用多個音樂應用程式？開啟快速選擇器，每次開啟音樂連結時均可隨心挑選目標播放器。
 
 • 智慧設定精靈 (Android 12+)：
 內建互動式設定助手，一鍵解決預設應用程式連結衝突，確保順暢跳轉。
@@ -730,7 +766,7 @@ LISTINGS["hi-IN"] = (
 
 SongFlip Android के लिए आपका स्मार्ट और स्वचालित म्यूजिक लिंक कनवर्टर है। एक बार सेट करने के बाद, प्राप्त संगीत लिंक बैकग्राउंड में अपने आप बदल जाते हैं और सीधे आपके पसंदीदा म्यूजिक प्लेयर में खुलते हैं — बिना किसी मैन्युअल खोज या विज्ञापनों के।
 
-Spotify से YouTube Music हो, Spotify से Apple Music या Shazam के लिंक: SongFlip गानों को तुरंत खोलता है।
+Spotify से YouTube Music हो, Spotify से Apple Music या Shazam के लिंक: SongFlip गानों को तुरंत आपके सार्वभौमिक स्मार्ट लिंक कनवर्टर के रूप में खोलता है।
 
 🚀 मुख्य विशेषताएं:
 
@@ -741,7 +777,10 @@ Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud औ
 खाली खोज पृष्ठों के बजाय सीधे आपके पसंदीदा म्यूजिक प्लेयर में गाना बजाना शुरू करता है।
 
 • संपूर्ण एल्बम और प्लेलिस्ट समर्थन:
-पूरे एल्बम को पहचानता है और सभी गानों की सूची खोलता है। प्लेलिस्ट भी एक टैप में खुलती हैं।
+पूरे एल्बम को पहचानता है और सभी गानों की सूची खोलता है। साझा की गई प्लेलिस्ट को आसानी से पहचानता है — साझा किए गए संगीत के लिए आपका विश्वसनीय प्लेलिस्ट कनवर्टर।
+
+• त्वरित प्लेयर चयनकर्ता (हर बार पूछें):
+क्या आप कई संगीत ऐप्स इस्तेमाल करते हैं? कोई भी संगीत लिंक खोलते समय तुरंत अपना पसंदीदा प्लेयर चुनने के लिए इस सुविधा को सक्षम करें।
 
 • स्मार्ट सेटअप सहायक (Android 12+):
 डिफ़ॉल्ट ऐप लिंक को आसानी से सेट करने के लिए हमारा इंटरैक्टिव 1-टैप सहायक।
@@ -776,7 +815,7 @@ LISTINGS["id"] = (
 
 SongFlip adalah pengalih dan konverter tautan musik otomatis untuk Android. Sekali diatur, tautan musik yang diterima akan otomatis dikonversi di latar belakang dan langsung terbuka di pemutar musik pilihanmu—tanpa pencarian manual atau halaman perantara yang mengganggu.
 
-Dari Spotify ke YouTube Music, Spotify ke Apple Music, hingga tautan Shazam: SongFlip menyelesaikannya seketika.
+Dari Spotify ke YouTube Music, Spotify ke Apple Music, hingga tautan Shazam: SongFlip menyelesaikannya seketika sebagai konverter tautan pintar universal Anda.
 
 🚀 FITUR UTAMA:
 
@@ -787,7 +826,10 @@ Konversi mulus antara Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon
 Memulai pemutaran lagu langsung di pemutar tujuan tanpa membuka halaman pencarian kosong.
 
 • Dukungan Penuh Album & Playlist:
-Mendeteksi seluruh album dan daftar lagu lengkap. Playlist terbuka mulus dalam satu ketukan.
+Mendeteksi seluruh album dan daftar lagu lengkap. Playlist bersama terdeteksi akurat — pengonversi playlist andalan Anda untuk musik bersama.
+
+• Pemilih Pemutar Cepat (Tanya setiap kali):
+Menggunakan beberapa aplikasi musik? Aktifkan pemilih cepat untuk memilih pemutar tujuan secara instan setiap kali membuka tautan musik.
 
 • Asisten Pengaturan Pintar (Android 12+):
 Konfigurasikan tautan aplikasi bawaan dengan mudah melalui asisten interaktif 1-ketukan.
@@ -822,7 +864,7 @@ LISTINGS["vi"] = (
 
 SongFlip là ứng dụng chuyển đổi liên kết âm nhạc tự động dành cho Android. Chỉ cần thiết lập một lần, các liên kết nhận được sẽ tự động chuyển đổi trong nền và mở ngay trong trình phát nhạc ưa thích của bạn mà không cần tìm kiếm thủ công hay qua trang web trung gian.
 
-Dù là Spotify sang YouTube Music, Spotify sang Apple Music hay liên kết từ Shazam: SongFlip mở bài hát ngay tức thì.
+Dù là Spotify sang YouTube Music, Spotify sang Apple Music hay liên kết từ Shazam: SongFlip mở bài hát ngay tức thì như một trình chuyển đổi liên kết thông minh vạn năng.
 
 🚀 TÍNH NĂNG CHÍNH:
 
@@ -833,7 +875,10 @@ Chuyển đổi liền mạch giữa Spotify, YouTube Music, Apple Music, Deezer
 Phát trực tiếp bài hát trong ứng dụng đích thay vì chỉ hiển thị trang kết quả tìm kiếm trống.
 
 • Hỗ trợ toàn diện Album & Danh sách phát:
-Nhận diện toàn bộ album và mở danh sách bài hát đầy đủ. Danh sách phát mở nhanh chỉ với một lần chạm.
+Nhận diện toàn bộ album và mở danh sách bài hát đầy đủ. Danh sách phát mở nhanh — trình chuyển đổi danh sách phát thông minh cho âm nhạc được chia sẻ.
+
+• Bộ Chọn Trình Phát Nhanh (Hỏi mọi lần):
+Sử dụng nhiều ứng dụng âm nhạc? Kích hoạt bộ chọn nhanh để chọn ngay trình phát mục tiêu mỗi khi bạn mở một liên kết âm nhạc.
 
 • Trợ lý Cài đặt Thông minh (Android 12+):
 Dễ dàng kiểm tra và thiết lập liên kết ứng dụng mặc định chỉ với một chạm.
@@ -868,7 +913,7 @@ LISTINGS["sv-SE"] = (
 
 SongFlip är din smarta musiklänkkonverterare och omdirigerare för Android. Efter en enkel inställning konverteras mottagna musiklänkar automatiskt i bakgrunden och öppnas direkt i din favoritapp – utan manuell sökning eller webbomvägar.
 
-Från Spotify till YouTube Music, Spotify till Apple Music eller Shazam-länkar: SongFlip fixar det direkt.
+Från Spotify till YouTube Music, Spotify till Apple Music eller Shazam-länkar: SongFlip hanterar länkar direkt som din universella smartlänkkonverterare.
 
 🚀 NYCKELFUNKTIONER:
 
@@ -879,7 +924,10 @@ Konvertera sömlöst mellan Spotify, YouTube Music, Apple Music, Deezer, TIDAL, 
 Startar låten direkt i målspelaren istället för att visa tomma söksidor.
 
 • Stöd för Album & Spellistor:
-Känner igen hela album och öppnar låtlistan. Spellistor öppnas med ett tryck.
+Känner igen hela album och öppnar låtlistan. Delade spellistor upptäcks sömlöst — din smarta spelliste-konverterare för delad musik.
+
+• Snabbspelare-väljare (Fråga varje gång):
+Använder du flera musikappar? Aktivera snabbväljaren för att direkt välja önskad spelare när du öppnar en musiklänk.
 
 • Smart Konfigurationsassistent (Android 12+):
 Ställ enkelt in standardapplänkar med vår interaktiva 1-trycksguide.
@@ -914,7 +962,7 @@ LISTINGS["da-DK"] = (
 
 SongFlip er din automatiske musiklink-konverter til Android. Når appen er sat op, konverteres modtagne musiklinks automatisk i baggrunden og åbnes direkte i din foretrukne musik-app – uden manuel søgning eller irriterende mellemsider.
 
-Uanset om det er Spotify til YouTube Music, Spotify til Apple Music eller Shazam-links: SongFlip åbner musikken med det samme.
+Uanset om det er Spotify til YouTube Music, Spotify til Apple Music eller Shazam-links: SongFlip håndterer links øjeblikkeligt som din universelle smartlink-konverter.
 
 🚀 VIGTIGSTE FUNKTIONER:
 
@@ -925,7 +973,10 @@ Konverterer gnidningsfrit mellem Spotify, YouTube Music, Apple Music, Deezer, TI
 Starter afspilningen direkte i mål-appen i stedet for at vise tomme søgeresultater.
 
 • Fuld Album- & Playliste-understøttelse:
-Genkender hele albums og åbner den fulde trackliste. Delte playlister åbnes med et enkelt tryk.
+Genkender hele albums og åbner den fulde trackliste. Delte playlister genkendes præcist — din smarte playliste-konverter til delt musik.
+
+• Hurtig Afspillervælger (Spørg hver gang):
+Bruger du flere musikapps? Aktivér hurtigvælgeren for at vælge mål-afspiller med det samme, når du åbner et musiklink.
 
 • Smart Konfigurationsguide (Android 12+):
 Bekræft og konfigurer nemt standardlinks med vores interaktive 1-tryks guide.
@@ -960,7 +1011,7 @@ LISTINGS["nb-NO"] = (
 
 SongFlip er din smarte musikklenkekonverterer for Android. Når den er aktivert, blir mottatte musikklenker automatisk konvertert i bakgrunnen og åpnet direkte i din foretrukne musikkspiller – uten manuell søking eller omveier i nettleseren.
 
-Fra Spotify til YouTube Music, Spotify til Apple Music eller Shazam-lenker: SongFlip ordner det umiddelbart.
+Fra Spotify til YouTube Music, Spotify til Apple Music eller Shazam-lenker: SongFlip ordner lenker umiddelbart som din universelle smartlenkekonverterer.
 
 🚀 NØKKELFUNKSJONER:
 
@@ -971,7 +1022,10 @@ Konverterer sømløst mellom Spotify, YouTube Music, Apple Music, Deezer, TIDAL,
 Starter avspillingen direkte i målappen i stedet for å vise tomme søkeresultatsider.
 
 • Støtte for Album & Spillelister:
-Gjenkjenner hele album og åpner hele sporlisten. Delte spillelister åpnes med ett trykk.
+Gjenkjenner hele album og åpner hele sporlisten. Delte spillelister gjenkjennes sømløst — din smarte spilleliste-konverter for delt musikk.
+
+• Hurtigspillervelger (Spør hver gang):
+Bruker du flere musikkapper? Aktiver hurtigvelgeren for å velge målspiller umiddelbart når du åpner en musikklenke.
 
 • Smart Konfigurasjonsassistent (Android 12+):
 Konfigurer standardapp-lenker enkelt med vår interaktive veiviser.
@@ -1006,7 +1060,7 @@ LISTINGS["bn-BD"] = (
 
 SongFlip হলো Android-এর জন্য স্বয়ংক্রিয় মিউজিক লিঙ্ক কনভার্টার। সেট আপ করার পর, যেকোনো মিউজিক লিঙ্ক ব্যাকগ্রাউন্ডে কনভার্ট হয়ে সরাসরি আপনার প্রিয় প্লেয়ারে চালু হয় — কোনো ম্যানুয়াল সার্চ বা বিজ্ঞাপন ছাড়াই।
 
-Spotify থেকে YouTube Music, Apple Music কিংবা Shazam-এর গান: SongFlip মুহূর্তেই সমাধান করে।
+Spotify থেকে YouTube Music, Apple Music কিংবা Shazam-এর গান: SongFlip সার্বজনীন স্মার্ট লিঙ্ক রূপান্তরকারী হিসেবে মুহূর্তেই সমাধান করে।
 
 🚀 মূল বৈশিষ্ট্য:
 
@@ -1017,7 +1071,7 @@ Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud ও
 খালি সার্চ পেজের বদলে সরাসরি প্লেয়ারে গান শুরু হয়।
 
 • অ্যালবাম ও প্লেলিস্ট সাপোর্ট:
-সম্পূর্ণ অ্যালবাম এবং প্লেলিস্ট এক ট্যাপে সরাসরি চালু হয়।
+সম্পূর্ণ অ্যালবাম এবং প্লেলিস্ট এক ট্যাপে সরাসরি চালু হয় — শেয়ার করা সঙ্গীতের জন্য আপনার স্মার্ট প্লেলিস্ট কনভার্টার।
 
 • দ্রুত প্লেয়ার নির্বাচক (প্রতিবার জিজ্ঞাসা করুন):
 একাধিক মিউজিক অ্যাপ ব্যবহার করেন? একটি লিঙ্ক খোলার সময় অবিলম্বে আপনার লক্ষ্য প্লেয়ার বেছে নিতে দ্রুত নির্বাচক সক্রিয় করুন।
@@ -1055,7 +1109,7 @@ LISTINGS["mr-IN"] = (
 
 SongFlip हे Android साठी स्वयंचलित म्युझिक लिंक कन्व्हर्टर आहे. लिंक मिळताच ती आपोआप तुमच्या आवडत्या ॲपमध्ये सुरू होते — मॅन्युअल शोध किंवा जाहिरातींशिवाय.
 
-Spotify ते YouTube Music, Apple Music किंवा Shazam: SongFlip सर्व गाणी लगेच सुरू करते.
+Spotify ते YouTube Music, Apple Music किंवा Shazam: SongFlip सर्व गाणी युनिव्हर्सल स्मार्ट लिंक कन्व्हर्टर म्हणून लगेच सुरू करते.
 
 🚀 मुख्य वैशिष्ट्ये:
 
@@ -1066,7 +1120,10 @@ Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud आ
 सर्च निकालांऐवजी गाणे थेट प्लेयरमध्ये प्ले होते.
 
 • अल्बम आणि प्लेलिस्ट सपोर्ट:
-संपूर्ण अल्बम आणि प्लेलिस्ट एका टॅपमध्ये उघडा.
+संपूर्ण अल्बम आणि प्लेलिस्ट एका टॅपमध्ये उघडा — शेअर केलेल्या संगीतासाठी तुमचे स्मार्ट प्लेलिस्ट कन्व्हर्टर.
+
+• जलद प्लेअर निवडक (प्रत्येक वेळी विचारा):
+अनेक संगीत ॲप्स वापरता? कोणताही संगीत दुवा उघडताना त्वरित तुमचे आवडते प्लेअर निवडण्यासाठी ही सुविधा सक्षम करा.
 
 • स्मार्ट सेटअप असिस्टंट (Android 12+):
 अॅप लिंक्स सहजपणे सेट करण्यासाठी १-टॅप मार्गदर्शक.
