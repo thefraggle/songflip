@@ -21,7 +21,7 @@ graph TD
 
     D --> E{"L1 Local Cache (Memory / SQLite)"}
     E -->|"Hit (<5ms)"| H["Direct Playback Launch Intent"]
-    E -->|"Miss"| F{"L2 Edge Cache (Firestore Short-Hash)"}
+    E -->|"Miss"| F{"L2 Edge Cache (Firestore Short-Hash / Pro Tier)"}
     
     F -->|"Hit (~30-50ms)"| H
     F -->|"Miss"| G["L3 Multi-Source Upstream Engine"]
@@ -46,9 +46,11 @@ Before hashing or resolving, the URL is strictly canonicalized:
 
 | Tier | Technology | Latency | Scope & Invalidation |
 |---|---|---|---|
-| **L1 (Local)** | In-Memory / SQLite Room | `< 5 ms` | Device-only. Sub-millisecond playback launch for repeated tracks. |
-| **L2 (Edge Cache)** | Serverless Firestore Edge | `~30–50 ms` | Global, indexed via 12-char SHA-256 short hashes (`/resolve`). Zero rate-limiting for viral or shared tracks. |
-| **L3 (Upstream)** | Multi-Provider Aggregator | `~200–500 ms` | Cold fallback only. Queries Odesli, iTunes Search API, Deezer Catalog API, and Shazam REST. |
+| **L1 (Local)** | In-Memory / SQLite Room | `< 5 ms` | Device-only. Sub-millisecond playback launch for repeated tracks. Always active on all devices. |
+| **L2 (Edge Cache)** | Serverless Firestore Edge *(Pro Tier)* | `~30–50 ms` | Global, indexed via 12-char SHA-256 short hashes (`/resolve`). Server infrastructure funded via SongFlip PRO to prevent rate-limiting for viral links & power web share pages. |
+| **L3 (Upstream)** | Multi-Provider Aggregator | `~200–500 ms` | Cold fallback only. Queries Odesli, iTunes Search API, Deezer Catalog API, and Shazam REST directly from the client. |
+
+> **Architectural Note on Tiering:** SongFlip's client engine is completely autonomous and operates with 100% functionality on device using L1 + L3 alone. The L2 Edge Cache is an optional, serverless performance tier that eliminates client-side network roundtrips for popular music entities.
 
 ### Step 3: Self-Healing & Edge Cases
 - **Self-Titled Albums:** Search APIs frequently map an album name (matching the artist's name) to a single track video instead of the album playlist. SongFlip enforces strict entity type validation (`music.youtube.com/playlist?list=OLAK5uy_...` for albums) to prevent single-video downgrades.
