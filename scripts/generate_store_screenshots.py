@@ -155,30 +155,31 @@ def render_screenshot(headline, subline, screen_num, lang_code="en", is_template
         draw.text(((WIDTH - (bbox2[2] - bbox2[0])) // 2, center_y), t2, font=hint_font, fill=TEXT_PRIMARY)
         draw.text(((WIDTH - (bbox3[2] - bbox3[0])) // 2, center_y + 60), t3, font=hint_font, fill=TEXT_MUTED)
     else:
-        # Composite actual graphic mockup
+        # Composite actual graphic mockup with high-quality proportional scaling
         mock_img = Image.open(mockup_path).convert("RGBA")
-        mock_img.thumbnail((mockup_box_w, mockup_box_h), Image.Resampling.LANCZOS)
-        paste_x = mockup_box_left + (mockup_box_w - mock_img.width) // 2
-        paste_y = mockup_box_top + (mockup_box_h - mock_img.height) // 2
-        img.paste(mock_img, (paste_x, paste_y), mock_img)
+        scale = min(mockup_box_w / mock_img.width, mockup_box_h / mock_img.height)
+        new_w = int(mock_img.width * scale)
+        new_h = int(mock_img.height * scale)
+        mock_resized = mock_img.resize((new_w, new_h), Image.Resampling.LANCZOS)
+        paste_x = mockup_box_left + (mockup_box_w - new_w) // 2
+        paste_y = mockup_box_top + (mockup_box_h - new_h) // 2
+        img.paste(mock_resized, (paste_x, paste_y), mock_resized)
 
     return img
 
-# Storyboard Data (German & English master definitions)
+# Storyboard Data (Reduced to 4 punchy, high-converting core screens)
 STORYBOARD = {
     "de-DE": [
         (1, "0 Klicks. Direkt Musik.", "Öffnet empfangene Musik-Links sofort in deiner Wunsch-App."),
         (2, "Alle Dienste. Shazam inklusive.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer & mehr."),
-        (3, "Schnellauswahl mit 1 Tap.", "Wähle jedes Mal spontan, wo der Song starten soll."),
-        (4, "Ein Link für alle Freunde.", "Erstelle universelle Web-Links, die überall funktionieren."),
-        (5, "100 % Privat. 0 Werbung.", "Kein Konto, kein Login, keine Analyse deines Musikgeschmacks.")
+        (3, "Ein Link für alle Freunde.", "Erstelle universelle Web-Links, die überall funktionieren."),
+        (4, "100 % Privat. 0 Werbung.", "Kein Konto, kein Login, keine Analyse deines Musikgeschmacks.")
     ],
     "en-US": [
         (1, "0 Clicks. Direct Playback.", "Instantly opens incoming music links in your preferred player."),
         (2, "All Platforms. Plus Shazam.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer & more."),
-        (3, "Quick Chooser in 1 Tap.", "Pick your target player on the fly whenever you open a link."),
-        (4, "One Link for Everyone.", "Share smart links that work seamlessly across any platform."),
-        (5, "100% Private. Zero Ads.", "No accounts, no logins, no listening habits collected.")
+        (3, "One Link for Everyone.", "Share smart links that work seamlessly across any platform."),
+        (4, "100% Private. Zero Ads.", "No accounts, no logins, no listening habits collected.")
     ]
 }
 
