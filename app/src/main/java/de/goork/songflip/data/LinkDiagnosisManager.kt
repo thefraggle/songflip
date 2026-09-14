@@ -120,10 +120,10 @@ object LinkDiagnosisManager {
             val isTargetApp = config.key == targetPlatformKey
 
             val state = when {
-                handlerPackage == myPackage -> PlatformLinkState.CAPTURED_BY_SONGFLIP
-                isTargetApp && (handlerPackage == config.packageName || (config.key == "youtubeMusic" && handlerPackage == "com.google.android.youtube")) -> PlatformLinkState.CAPTURED_BY_TARGET_APP
-                handlerPackage == config.packageName || (config.key == "youtubeMusic" && handlerPackage == "com.google.android.youtube") -> PlatformLinkState.BLOCKED_BY_THIRD_PARTY
                 !isInstalled -> PlatformLinkState.NOT_INSTALLED
+                isTargetApp -> PlatformLinkState.CAPTURED_BY_TARGET_APP
+                handlerPackage == myPackage -> PlatformLinkState.CAPTURED_BY_SONGFLIP
+                handlerPackage == config.packageName || (config.key == "youtubeMusic" && handlerPackage == "com.google.android.youtube") -> PlatformLinkState.BLOCKED_BY_THIRD_PARTY
                 else -> PlatformLinkState.UNCONFIGURED
             }
 

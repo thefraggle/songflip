@@ -311,8 +311,8 @@ private fun DiagnosisAppItem(
                         else -> Icons.Outlined.Info
                     }
                     val statusTint = when (item.state) {
-                        PlatformLinkState.CAPTURED_BY_SONGFLIP -> StateActiveGreen
-                        PlatformLinkState.CAPTURED_BY_TARGET_APP -> MaterialTheme.colorScheme.primary
+                        PlatformLinkState.CAPTURED_BY_SONGFLIP,
+                        PlatformLinkState.CAPTURED_BY_TARGET_APP -> StateActiveGreen
                         PlatformLinkState.BLOCKED_BY_THIRD_PARTY -> Color(0xFFFF9800)
                         else -> MaterialTheme.colorScheme.onSurfaceVariant
                     }
@@ -340,8 +340,8 @@ private fun DiagnosisAppItem(
                     text = statusLabel,
                     style = MaterialTheme.typography.labelSmall,
                     color = when (item.state) {
-                        PlatformLinkState.CAPTURED_BY_SONGFLIP -> StateActiveGreen
-                        PlatformLinkState.CAPTURED_BY_TARGET_APP -> MaterialTheme.colorScheme.primary
+                        PlatformLinkState.CAPTURED_BY_SONGFLIP,
+                        PlatformLinkState.CAPTURED_BY_TARGET_APP -> StateActiveGreen
                         PlatformLinkState.BLOCKED_BY_THIRD_PARTY -> Color(0xFFFF9800)
                         else -> MaterialTheme.colorScheme.onSurfaceVariant
                     }

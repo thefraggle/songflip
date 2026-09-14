@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.3.1] - 2026-09-14
+- **Klarere Einrichtung**: Dein ausgewählter Musikplayer wird in der Übersicht jetzt sofort als bereit bestätigt.
+- **Feinschliff**: Verbesserte Statusanzeigen und noch reibungslosere Bedienung.
+
 ## [1.3.0] - 2026-09-13
 - **SoundCloud & Bandcamp**: Volle Unterstützung für neue Musikdienste neben deinen bevorzugten Streaming-Playern.
 - **Sofortige Shazam-Links**: Erkannte Songs öffnen sich direkt und zuverlässig in deinem Musikplayer.

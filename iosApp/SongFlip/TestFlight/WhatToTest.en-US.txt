@@ -1,5 +1,2 @@
-- SoundCloud & Bandcamp: Full support for more music services alongside your favorite streaming players.
-- Instant Shazam Links: Identified songs open directly and reliably in your preferred music player.
-- Choose Your Music App: Pick your player on the fly with the optional "Ask every time" setting.
-- Smarter Sharing: Sharing a song creates a universal smart link for friends instead of looping back.
-- Effortless Voucher Input: Pasted codes are recognized automatically even from chat messages.
+- Clearer Link Diagnosis: Your selected music player is now always confirmed as active and ready in the setup overview.
+- Polish & Stability: Optimized status indicators for installed music streaming services.

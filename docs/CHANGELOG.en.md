@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.1] - 2026-09-14
+- **Clearer Setup**: Your selected music player is now immediately confirmed as ready in the overview.
+- **Polish**: Improved status indicators and an even smoother experience.
+
 ## [1.3.0] - 2026-09-13
 - **SoundCloud & Bandcamp**: Full support for more music services alongside your favorite streaming players.
 - **Instant Shazam Links**: Identified songs open directly and reliably in your preferred music player.
