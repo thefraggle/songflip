@@ -126,7 +126,19 @@ def translate_block(text, target_lang, max_retries=2):
         except Exception:
             time.sleep(0.5 + attempt * 0.5)
 
-    # 3. Last resort fallback
+    # 3. Fallback: MyMemory API
+    try:
+        url = f"https://api.mymemory.translated.net/get?q={urllib.parse.quote(text)}&langpair=en|{urllib.parse.quote(target_lang)}"
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req, timeout=6) as resp:
+            data = json.loads(resp.read().decode('utf-8'))
+            translated = data.get("responseData", {}).get("translatedText")
+            if translated and translated.strip():
+                return translated.strip()
+    except Exception as e:
+        print(f"  [MyMemory error for {target_lang}]: {e}")
+
+    # 4. Last resort fallback
     return text
 
 def main():
