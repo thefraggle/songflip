@@ -39,6 +39,8 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 
 ## 🏗️ Architecture & Resolution Engine
 
+> 📖 **Deep Dive**: For a comprehensive technical walkthrough of the deterministic resolution engine, tiered caching, and edge cases, see **[ARCHITECTURE.md](ARCHITECTURE.md)**.
+
 SongFlip is built as a modern **Kotlin Multiplatform (KMP)** project with a modular architecture:
 - **`app/`**: Native Android app (Jetpack Compose, Material 3, Quick Settings Tile, Overlay & Notification handling).
 - **`iosApp/`**: Native iOS app (SwiftUI, Share Extension, App Intents for 0-click Siri Shortcuts & Action Button).
