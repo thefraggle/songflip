@@ -15,10 +15,12 @@ struct ContentView: View {
     @State private var showingShareGuide = false
     @State private var showingPlaylistNotice = false
     @State private var playlistNoticeUrl: String? = nil
+    @State private var showingToast = false
+    @State private var toastMessage: String? = nil
 
     var lang: String { settings.selectedLanguage }
     var appVersion: String {
-        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.2.4"
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.3.1"
     }
 
     var body: some View {
@@ -139,8 +141,14 @@ struct ContentView: View {
                                         convertLink(urlToConvert: detectedUrl)
                                     }) {
                                         HStack(spacing: 6) {
-                                            Image(systemName: "play.fill")
-                                                .font(.system(size: 12))
+                                            if settings.isResolving {
+                                                ProgressView()
+                                                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                                    .scaleEffect(0.8)
+                                            } else {
+                                                Image(systemName: "play.fill")
+                                                    .font(.system(size: 12))
+                                            }
                                             Text(String(format: LocalizationManager.string(for: "clipboard_banner_action_open", lang: lang), targetName))
                                                 .font(.system(size: 13, weight: .bold))
                                                 .lineLimit(1)
@@ -148,10 +156,11 @@ struct ContentView: View {
                                         .padding(.vertical, 8)
                                         .padding(.horizontal, 12)
                                         .frame(maxWidth: .infinity)
-                                        .background(Color.green)
+                                        .background(settings.isResolving ? Color.green.opacity(0.6) : Color.green)
                                         .foregroundColor(.white)
                                         .cornerRadius(10)
                                     }
+                                    .disabled(settings.isResolving)
                                 }
                             }
                             .padding(14)
@@ -429,6 +438,28 @@ struct ContentView: View {
                     }
                     .padding(.horizontal, 16)
                 }
+
+                // Toast Feedback Overlay
+                if showingToast, let msg = toastMessage {
+                    VStack {
+                        Spacer()
+                        HStack(spacing: 8) {
+                            Image(systemName: "exclamationmark.circle.fill")
+                                .foregroundColor(.orange)
+                            Text(msg)
+                                .font(.footnote)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.white)
+                        }
+                        .padding(.vertical, 10)
+                        .padding(.horizontal, 16)
+                        .background(Color.black.opacity(0.85))
+                        .cornerRadius(20)
+                        .padding(.bottom, 24)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                    }
+                    .zIndex(10)
+                }
             }
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
@@ -566,7 +597,7 @@ struct ContentView: View {
     }
 
     private func convertLink(urlToConvert: String) {
-        guard !urlToConvert.isEmpty else { return }
+        guard !urlToConvert.isEmpty, !settings.isResolving else { return }
         settings.isResolving = true
 
         Task {
@@ -607,17 +638,31 @@ struct ContentView: View {
                     )
                     playlistNoticeUrl = playlist.originalUrl
                     showingPlaylistNotice = true
-                } else if let error = res as? ResolutionResult.Error {
-                    AptabaseClient.shared.trackLinkFlipFailed(
-                        target: settings.targetPlatform,
-                        reason: error.message
-                    )
                 } else {
+                    let reason = (res as? ResolutionResult.Error)?.message ?? "timeout_or_unknown"
                     AptabaseClient.shared.trackLinkFlipFailed(
                         target: settings.targetPlatform,
-                        reason: "timeout_or_unknown"
+                        reason: reason
                     )
+                    showToast(LocalizationManager.string(for: "redirect_error_toast", lang: lang))
+                    if let original = URL(string: urlToConvert) {
+                        UIApplication.shared.open(original)
+                    }
+                    dismissedClipboardUrl = urlToConvert
+                    detectedClipboardUrl = nil
                 }
+            }
+        }
+    }
+
+    private func showToast(_ message: String) {
+        toastMessage = message
+        withAnimation(.easeInOut(duration: 0.2)) {
+            showingToast = true
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                showingToast = false
             }
         }
     }
