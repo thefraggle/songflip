@@ -1,2 +1,2 @@
-- Klarere Link-Diagnose: Dein ausgewählter Ziel-Player wird in der Einrichtungsübersicht jetzt immer als aktiv und bereit bestätigt.
-- Feinschliff & Stabilität: Optimierte Statusanzeigen für installierte Streaming-Dienste.
+- Klarere Einrichtung: Dein ausgewählter Musikplayer wird in der Übersicht jetzt sofort als bereit bestätigt.
+- Feinschliff: Verbesserte Statusanzeigen und noch reibungslosere Bedienung.
