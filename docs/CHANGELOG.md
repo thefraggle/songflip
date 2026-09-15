@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.3.3] - 2026-09-15
+- **Erweiterte Player-Kompatibilität**: Verbesserte Erkennung und Priorisierung alternativer und benutzerdefinierter YouTube Music Installationen.
+- **Zuverlässiger App-Start**: Erkennt deine bevorzugte Player-Konfiguration nahtlos und leitet Musik direkt weiter.
+- **Feinschliff**: Optimierte Paket-Erkennung für reibungslose Weiterleitungen im Hintergrund.
+
 ## [1.3.2] - 2026-09-15
 - **SongFlip empfehlen**: Teile SongFlip jetzt direkt aus den Einstellungen mit Freunden und Musikliebhabern.
 - **Smart-Link Weiterleitung**: Empfänger werden über den universellen Download-Link automatisch zu ihrem passenden Store geleitet.

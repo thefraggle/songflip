@@ -12,12 +12,14 @@
             <category android:name="android.intent.category.BROWSABLE" />
             <data android:scheme="https" />
         </intent>
-        <package android:name="com.google.android.apps.youtube.music" />
-        <package android:name="com.google.android.youtube" />
-        <package android:name="app.rvx.android.apps.youtube.music" />
+        <package android:name="app.morphe.android.apps.youtube.music" />
+        <package android:name="app.morphe.android.youtube.music" />
         <package android:name="app.revanced.android.apps.youtube.music" />
+        <package android:name="app.rvx.android.apps.youtube.music" />
         <package android:name="com.vanced.android.apps.youtube.music" />
         <package android:name="com.inotia00.youtube.music" />
+        <package android:name="com.google.android.apps.youtube.music" />
+        <package android:name="com.google.android.youtube" />
         <package android:name="com.apple.android.music" />
         <package android:name="com.spotify.music" />
         <package android:name="com.aspiro.tidal" />
