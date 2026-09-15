@@ -18,11 +18,13 @@ object PackageUtils {
 
     val fallbackPackages = mapOf(
         "youtubeMusic" to listOf(
-            "com.google.android.apps.youtube.music",
-            "app.rvx.android.apps.youtube.music",
+            "app.morphe.android.apps.youtube.music",
+            "app.morphe.android.youtube.music",
             "app.revanced.android.apps.youtube.music",
+            "app.rvx.android.apps.youtube.music",
             "com.vanced.android.apps.youtube.music",
-            "com.inotia00.youtube.music"
+            "com.inotia00.youtube.music",
+            "com.google.android.apps.youtube.music"
         )
     )
 

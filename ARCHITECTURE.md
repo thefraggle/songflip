@@ -55,7 +55,7 @@ Before hashing or resolving, the URL is strictly canonicalized:
 ### Step 3: Self-Healing & Edge Cases
 - **Self-Titled Albums:** Search APIs frequently map an album name (matching the artist's name) to a single track video instead of the album playlist. SongFlip enforces strict entity type validation (`music.youtube.com/playlist?list=OLAK5uy_...` for albums) to prevent single-video downgrades.
 - **Shazam Links:** Apple's Shazam CDN blocks standard user agents with HTTP 405. SongFlip leverages the internal discovery REST endpoint (`amp.shazam.com/discovery/v5/...`) with native headers to retrieve clean Apple Music and ISRC identifiers without auth.
-- **Regional Domains & Morphe/ReVanced:** On Android, custom modded packages (e.g. `app.revanced.android.apps.youtube.music`) and regional Amazon Music domains (`music.amazon.de`, `music.amazon.co.uk`) are dynamically supported.
+- **Regional Domains & Morphe/ReVanced:** On Android, custom modded packages (e.g. `app.morphe.android.apps.youtube.music`, `app.revanced.android.apps.youtube.music`, `app.rvx...`) are prioritized and regional Amazon Music domains (`music.amazon.de`, `music.amazon.co.uk`) are dynamically supported.
 
 ### Step 4: Cross-Platform Entity Mapping & Graceful Fallback Strategy
 

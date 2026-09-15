@@ -135,4 +135,20 @@ class PackageUtilsTest {
         assertFalse(isSupportedMusicUrl("https://google.com"))
         assertFalse(isSupportedMusicUrl("https://github.com/thefraggle/songflip"))
     }
+
+    @Test
+    fun testYouTubeMusicFallbackPackagesPriority() {
+        val ytPackages = PackageUtils.fallbackPackages["youtubeMusic"]
+        org.junit.Assert.assertNotNull(ytPackages)
+        assertEquals(7, ytPackages?.size)
+        // Verify mods come before official YouTube Music package
+        assertEquals("app.morphe.android.apps.youtube.music", ytPackages?.get(0))
+        assertEquals("app.morphe.android.youtube.music", ytPackages?.get(1))
+        assertEquals("app.revanced.android.apps.youtube.music", ytPackages?.get(2))
+        assertEquals("app.rvx.android.apps.youtube.music", ytPackages?.get(3))
+        assertEquals("com.vanced.android.apps.youtube.music", ytPackages?.get(4))
+        assertEquals("com.inotia00.youtube.music", ytPackages?.get(5))
+        assertEquals("com.google.android.apps.youtube.music", ytPackages?.get(6))
+    }
 }
+

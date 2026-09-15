@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.3.3] - 2026-09-15
+- **Enhanced Player Compatibility**: Improved launch detection and priority for custom and alternative YouTube Music installations.
+- **Smarter App Routing**: Automatically recognizes your preferred player setup so music opens without delay.
+- **General Polish**: Refined package visibility and background link handling.
+
 ## [1.3.2] - 2026-09-15
 - **Share SongFlip**: Easily share SongFlip with friends and music lovers directly from settings.
 - **Smart Link Routing**: Recipients are automatically routed to their device's native app store via universal smart links.
