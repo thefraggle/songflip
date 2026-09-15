@@ -36,6 +36,9 @@
     <string name="select_language_title">Välj språk</string>
     <string name="settings_rate_app">Betygsätt SongFlip</string>
     <string name="settings_rate_app_subtitle">Dela din feedback på Google Play</string>
+    <string name="settings_share_app">Dela SongFlip</string>
+    <string name="settings_share_app_subtitle">Dela appen med vänner och musikälskare</string>
+    <string name="share_app_message">Kolla in SongFlip – öppna musiklänkar från Spotify, Apple Music och mer direkt i din favoritspelare: https://download.songflip.link</string>
     <string name="settings_feedback_support">Feedback och support</string>
     <string name="settings_feedback_support_subtitle">Frågor, idéer eller problem? Skriv direkt till oss</string>
     <string name="setup_title">Så fungerar det</string>

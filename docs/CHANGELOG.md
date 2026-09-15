@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.3.2] - 2026-09-15
+- **SongFlip empfehlen**: Teile SongFlip jetzt direkt aus den Einstellungen mit Freunden und Musikliebhabern.
+- **Smart-Link Weiterleitung**: Empfänger werden über den universellen Download-Link automatisch zu ihrem passenden Store geleitet.
+- **Mehrsprachig**: Vollständig in allen 24 unterstützten Sprachen verfügbar.
+
 ## [1.3.1] - 2026-09-14
 - **Klarere Einrichtung**: Dein ausgewählter Musikplayer wird in der Übersicht jetzt sofort als bereit bestätigt.
 - **Feinschliff**: Verbesserte Statusanzeigen und noch reibungslosere Bedienung.

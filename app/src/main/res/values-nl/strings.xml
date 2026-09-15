@@ -36,6 +36,9 @@
     <string name="select_language_title">Selecteer taal</string>
     <string name="settings_rate_app">Beoordeel SongFlip</string>
     <string name="settings_rate_app_subtitle">Deel je feedback in Google Play</string>
+    <string name="settings_share_app">Deel SongFlip</string>
+    <string name="settings_share_app_subtitle">Deel de app met vrienden &amp; muziekliefhebbers</string>
+    <string name="share_app_message">Bekijk SongFlip – open muzieklinks van Spotify, Apple Music &amp; meer direct in je favoriete speler: https://download.songflip.link</string>
     <string name="settings_feedback_support">Feedback &amp; ondersteuning</string>
     <string name="settings_feedback_support_subtitle">Vragen, suggesties of problemen? Mail ons direct</string>
     <string name="setup_title">Hoe het werkt</string>

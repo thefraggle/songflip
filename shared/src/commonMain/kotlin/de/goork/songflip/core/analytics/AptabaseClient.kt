@@ -207,4 +207,8 @@ object AptabaseClient {
     fun trackRateAppClicked() {
         trackEvent("rate_app_clicked")
     }
+
+    fun trackShareAppClicked() {
+        trackEvent("share_app_clicked")
+    }
 }

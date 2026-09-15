@@ -36,6 +36,9 @@
     <string name="select_language_title">Pilih Bahasa</string>
     <string name="settings_rate_app">Beri Nilai SongFlip</string>
     <string name="settings_rate_app_subtitle">Bagikan masukan Anda di Google Play</string>
+    <string name="settings_share_app">Bagikan SongFlip</string>
+    <string name="settings_share_app_subtitle">Bagikan aplikasi ini kepada teman &amp; penikmat musik</string>
+    <string name="share_app_message">Coba SongFlip – buka tautan musik dari Spotify, Apple Music, dan lainnya langsung di pemutar favoritmu: https://download.songflip.link</string>
     <string name="settings_feedback_support">Umpan Balik &amp; Dukungan</string>
     <string name="settings_feedback_support_subtitle">Pertanyaan, ide, atau kendala? Hubungi kami langsung</string>
     <string name="setup_title">Cara Kerja</string>
