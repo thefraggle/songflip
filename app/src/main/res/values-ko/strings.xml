@@ -36,6 +36,9 @@
     <string name="select_language_title">언어 선택</string>
     <string name="settings_rate_app">SongFlip 평가하기</string>
     <string name="settings_rate_app_subtitle">Google Play에서 의견 남기기</string>
+    <string name="settings_share_app">SongFlip 공유하기</string>
+    <string name="settings_share_app_subtitle">친구와 음악 애호가들에게 앱 공유하기</string>
+    <string name="share_app_message">SongFlip을 사용해 보세요 – Spotify, Apple Music 등의 음악リンク를 즐겨찾는 플레이어에서 바로 열 수 있습니다: https://download.songflip.link</string>
     <string name="settings_feedback_support">피드백 및 지원</string>
     <string name="settings_feedback_support_subtitle">질문, 제안 또는 버그 제보가 있으신가요? 직접 문의해 주세요</string>
     <string name="setup_title">사용 방법</string>

@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.3.2] - 2026-09-15
+- **Share SongFlip**: Easily share SongFlip with friends and music lovers directly from settings.
+- **Smart Link Routing**: Recipients are automatically routed to their device's native app store via universal smart links.
+- **Full Localization**: Completely translated across all 24 supported languages.
+
 ## [1.3.1] - 2026-09-14
 - **Clearer Setup**: Your selected music player is now immediately confirmed as ready in the overview.
 - **Polish**: Improved status indicators and an even smoother experience.

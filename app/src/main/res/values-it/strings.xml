@@ -36,6 +36,9 @@
     <string name="select_language_title">Seleziona lingua</string>
     <string name="settings_rate_app">Valuta SongFlip</string>
     <string name="settings_rate_app_subtitle">Lascia una recensione su Google Play</string>
+    <string name="settings_share_app">Condividi SongFlip</string>
+    <string name="settings_share_app_subtitle">Condividi l’app con amici e amanti della musica</string>
+    <string name="share_app_message">Scopri SongFlip: apri i link musicali di Spotify, Apple Music e altri direttamente nel tuo lettore preferito: https://download.songflip.link</string>
     <string name="settings_feedback_support">Feedback e supporto</string>
     <string name="settings_feedback_support_subtitle">Domande, idee o problemi? Scrivici direttamente</string>
     <string name="setup_title">Come funziona</string>
