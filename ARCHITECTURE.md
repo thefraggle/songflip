@@ -57,6 +57,32 @@ Before hashing or resolving, the URL is strictly canonicalized:
 - **Shazam Links:** Apple's Shazam CDN blocks standard user agents with HTTP 405. SongFlip leverages the internal discovery REST endpoint (`amp.shazam.com/discovery/v5/...`) with native headers to retrieve clean Apple Music and ISRC identifiers without auth.
 - **Regional Domains & Morphe/ReVanced:** On Android, custom modded packages (e.g. `app.revanced.android.apps.youtube.music`) and regional Amazon Music domains (`music.amazon.de`, `music.amazon.co.uk`) are dynamically supported.
 
+### Step 4: Cross-Platform Entity Mapping & Graceful Fallback Strategy
+
+SongFlip enforces deterministic 1:1 entity mapping across streaming platforms:
+- **Track $\rightarrow$ Track:** Direct playback launch (`autoplay` / native deep-link intent).
+- **Album $\rightarrow$ Album:** Direct album view (playlist / collection ID).
+- **Artist $\rightarrow$ Artist:** Direct artist profile page.
+
+When an upstream resolver (e.g. Odesli) lacks a mapping for a target platform (frequent with regional identifiers such as Amazon Music ASINs), SongFlip applies a tiered fallback rather than failing hard:
+
+1. **Secondary Auth-Free API Resolvers:**
+   - **Apple Music:** iTunes Search API directly queries collection/track IDs.
+   - **Deezer:** Deezer Public Search API resolves direct album/track URLs.
+   - **YouTube Music:** YouTube Music scraper resolves `browse/MPREb_...` album IDs and `watch?v=...` video IDs.
+2. **Deterministic Search Fallback (Graceful Degradation):**
+   Platforms without open, auth-free public search APIs (**Amazon Music**, **Spotify**, **Tidal**) gracefully fall back to pre-populated search deep-links (e.g. `amznmp3://music.amazon.com/search/<Artist>+<Album>` or `spotify:search:...`). This guarantees that the user always lands on the desired content with zero dead-ends.
+
+| Target Platform | Track Intent | Album Intent | Artist Intent | Secondary Lookup | Miss Fallback |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **YouTube Music** | `watch?v=` | `browse/MPREb_...` / `playlist?list=` | `channel/UC...` | ✅ YouTube Scraper | `music.youtube.com/search?q=` |
+| **Apple Music** | `/song/<id>` | `/album/<id>` | `/artist/<id>` | ✅ iTunes API | `music.apple.com/search?term=` |
+| **Deezer** | `deezer://.../track/` | `deezer://.../album/` | `deezer://.../artist/` | ✅ Deezer API | `deezer.com/search/` |
+| **Spotify** | `spotify:track:<id>` | `spotify:album:<id>` | `spotify:artist:<id>` | ❌ None (OAuth-only) | `spotify:search:<query>` |
+| **Amazon Music** | `amznmp3://... ?trackAsin=` | `amznmp3://.../albums/<ASIN>` | `amznmp3://.../artists/<ASIN>` | ❌ None (ASIN regional) | `amznmp3://music.amazon.com/search/` |
+| **Tidal** | `tidal://track/<id>` | `tidal://album/<id>` | `tidal://artist/<id>` | ❌ None (OAuth-only) | `listen.tidal.com/search?q=` |
+
+
 ---
 
 ## 3. Kotlin Multiplatform (KMP) Architecture
