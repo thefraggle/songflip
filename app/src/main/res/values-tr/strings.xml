@@ -36,6 +36,9 @@
     <string name="select_language_title">Dil Seçin</string>
     <string name="settings_rate_app">SongFlip\'i Değerlendir</string>
     <string name="settings_rate_app_subtitle">Google Play\'de geri bildirim bırakın</string>
+    <string name="settings_share_app">SongFlip’i Paylaş</string>
+    <string name="settings_share_app_subtitle">Uygulamayı arkadaşlarınız ve müzikseverlerle paylaşın</string>
+    <string name="share_app_message">SongFlip’i keşfedin – Spotify, Apple Music ve daha fazlasından müzik bağlantılarını doğrudan favori çalarınızda açın: https://download.songflip.link</string>
     <string name="settings_feedback_support">Geri Bildirim ve Destek</string>
     <string name="settings_feedback_support_subtitle">Sorular, öneriler veya hatalar? Bize doğrudan yazın</string>
     <string name="setup_title">Nasıl Çalışır?</string>

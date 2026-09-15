@@ -36,6 +36,9 @@
     <string name="select_language_title">Select Language</string>
     <string name="settings_rate_app">Rate SongFlip</string>
     <string name="settings_rate_app_subtitle">Share your feedback on Google Play</string>
+    <string name="settings_share_app">Share SongFlip</string>
+    <string name="settings_share_app_subtitle">Share the app with friends &amp; music lovers</string>
+    <string name="share_app_message">Check out SongFlip – open music links from Spotify, Apple Music &amp; more right in your favorite player: https://download.songflip.link</string>
     <string name="settings_feedback_support">Feedback &amp; Support</string>
     <string name="settings_feedback_support_subtitle">Questions, ideas, or issues? Email us directly</string>
 

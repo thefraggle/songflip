@@ -1,4 +1,5 @@
 import SwiftUI
+import SongFlipKit
 
 struct SettingsSheetView: View {
     @EnvironmentObject var settings: SettingsModel
@@ -58,6 +59,22 @@ struct SettingsSheetView: View {
                 }
 
                 Section(header: Text(LocalizationManager.string(for: "settings_feedback_support", lang: lang)).font(.caption).fontWeight(.semibold)) {
+                    ShareLink(
+                        item: LocalizationManager.string(for: "share_app_message", lang: lang)
+                    ) {
+                        HStack {
+                            Label(LocalizationManager.string(for: "settings_share_app", lang: lang), systemImage: "square.and.arrow.up")
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    .simultaneousGesture(TapGesture().onEnded {
+                        AptabaseClient.shared.trackShareAppClicked()
+                    })
+                    .foregroundColor(.primary)
+
                     Button(action: {
                         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
                         let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"

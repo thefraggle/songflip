@@ -4,6 +4,9 @@ import SwiftUI
 enum LocalizationManager {
     private static let translations: [String: [String: String]] = [
         "de": [
+            "settings_share_app": "SongFlip empfehlen",
+            "settings_share_app_subtitle": "Teile die App mit Freunden & Musikliebhabern",
+            "share_app_message": "Schau dir SongFlip an – öffnet Musik-Links von Spotify, Apple Music & Co. direkt in deinem Lieblings-Player: https://download.songflip.link",
             "settings_ask_every_time_title": "Ziel-App jedes Mal abfragen",
             "settings_ask_every_time_subtitle": "Schnellauswahl anzeigen, anstatt sofort in den Standard-Player zu wechseln",
             "quick_picker_title": "Öffnen mit …",
@@ -95,6 +98,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Playlist erkannt – öffne Original...",
         ],
         "en": [
+            "settings_share_app": "Share SongFlip",
+            "settings_share_app_subtitle": "Share the app with friends & music lovers",
+            "share_app_message": "Check out SongFlip – open music links from Spotify, Apple Music & more right in your favorite player: https://download.songflip.link",
             "settings_ask_every_time_title": "Ask target app every time",
             "settings_ask_every_time_subtitle": "Show quick picker instead of immediately opening default player",
             "quick_picker_title": "Open with …",
@@ -186,6 +192,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Playlist detected – opening original...",
         ],
         "da": [
+            "settings_share_app": "Del SongFlip",
+            "settings_share_app_subtitle": "Del appen med venner & musikelskere",
+            "share_app_message": "Tjek SongFlip – åbn musiklinks fra Spotify, Apple Music & flere direkte i din yndlingsafspiller: https://download.songflip.link",
             "settings_ask_every_time_title": "Spørg om destinationsapp hver gang",
             "settings_ask_every_time_subtitle": "Vis hurtigvalg i stedet for straks at åbne standardafspilleren",
             "quick_picker_title": "Åbn med …",
@@ -277,6 +286,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Playliste registreret – åbner original...",
         ],
         "nb": [
+            "settings_share_app": "Del SongFlip",
+            "settings_share_app_subtitle": "Del appen med venner og musikkelskere",
+            "share_app_message": "Sjekk ut SongFlip – åpne musikklenker fra Spotify, Apple Music og mer direkte i favorittspilleren din: https://download.songflip.link",
             "settings_ask_every_time_title": "Spør om mål-app hver gang",
             "settings_ask_every_time_subtitle": "Vis hurtigvalg i stedet for å åpne standardspilleren med en gang",
             "quick_picker_title": "Åpne med …",
@@ -368,6 +380,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Spilleliste oppdaget – åpner original...",
         ],
         "sv": [
+            "settings_share_app": "Dela SongFlip",
+            "settings_share_app_subtitle": "Dela appen med vänner och musikälskare",
+            "share_app_message": "Kolla in SongFlip – öppna musiklänkar från Spotify, Apple Music och mer direkt i din favoritspelare: https://download.songflip.link",
             "settings_ask_every_time_title": "Fråga efter målapp varje gång",
             "settings_ask_every_time_subtitle": "Visa snabbval istället för att direkt öppna standardspelaren",
             "quick_picker_title": "Öppna med …",
@@ -459,6 +474,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Spellista upptäckt – öppnar original...",
         ],
         "nl": [
+            "settings_share_app": "Deel SongFlip",
+            "settings_share_app_subtitle": "Deel de app met vrienden & muziekliefhebbers",
+            "share_app_message": "Bekijk SongFlip – open muzieklinks van Spotify, Apple Music & meer direct in je favoriete speler: https://download.songflip.link",
             "settings_ask_every_time_title": "Elke keer doel-app vragen",
             "settings_ask_every_time_subtitle": "Snelle kiezer tonen in plaats van direct de standaardspeler te openen",
             "quick_picker_title": "Openen met …",
@@ -550,6 +568,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Afspeellijst gedetecteerd – origineel openen...",
         ],
         "fr": [
+            "settings_share_app": "Partager SongFlip",
+            "settings_share_app_subtitle": "Partagez l’application avec vos proches et mélomanes",
+            "share_app_message": "Découvrez SongFlip – ouvrez les liens musicaux de Spotify, Apple Music et plus directement dans votre lecteur préféré : https://download.songflip.link",
             "settings_ask_every_time_title": "Demander l'application cible à chaque fois",
             "settings_ask_every_time_subtitle": "Afficher un sélecteur rapide au lieu d'ouvrir immédiatement le lecteur par défaut",
             "quick_picker_title": "Ouvrir avec …",
@@ -641,6 +662,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Playlist détectée – ouverture de l'original...",
         ],
         "es": [
+            "settings_share_app": "Compartir SongFlip",
+            "settings_share_app_subtitle": "Comparte la aplicación con amigos y amantes de la música",
+            "share_app_message": "Echa un vistazo a SongFlip: abre enlaces de música de Spotify, Apple Music y más directamente en tu reproductor favorito: https://download.songflip.link",
             "settings_ask_every_time_title": "Preguntar app de destino cada vez",
             "settings_ask_every_time_subtitle": "Mostrar selector rápido en lugar de abrir directamente el reproductor predeterminado",
             "quick_picker_title": "Abrir con …",
@@ -732,6 +756,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Lista de reproducción detectada – abriendo original...",
         ],
         "it": [
+            "settings_share_app": "Condividi SongFlip",
+            "settings_share_app_subtitle": "Condividi l’app con amici e amanti della musica",
+            "share_app_message": "Scopri SongFlip: apri i link musicali di Spotify, Apple Music e altri direttamente nel tuo lettore preferito: https://download.songflip.link",
             "settings_ask_every_time_title": "Chiedi l'app di destinazione ogni volta",
             "settings_ask_every_time_subtitle": "Mostra selezione rapida invece di aprire subito il lettore predefinito",
             "quick_picker_title": "Apri con …",
@@ -823,6 +850,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Playlist rilevata – apertura dell'originale...",
         ],
         "pt": [
+            "settings_share_app": "Compartilhar SongFlip",
+            "settings_share_app_subtitle": "Compartilhe o app com amigos e amantes de música",
+            "share_app_message": "Conheça o SongFlip – abra links de música do Spotify, Apple Music e mais direto no seu player favorito: https://download.songflip.link",
             "settings_ask_every_time_title": "Perguntar app de destino sempre",
             "settings_ask_every_time_subtitle": "Mostrar seletor rápido em vez de abrir logo o leitor padrão",
             "quick_picker_title": "Abrir com …",
@@ -914,6 +944,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Playlist detectada – abrindo original...",
         ],
         "pl": [
+            "settings_share_app": "Udostępnij SongFlip",
+            "settings_share_app_subtitle": "Podziel się aplikacją ze znajomymi i melomanami",
+            "share_app_message": "Sprawdź SongFlip – otwieraj linki muzyczne ze Spotify, Apple Music i innych bezpośrednio w ulubionym odtwarzaczu: https://download.songflip.link",
             "settings_ask_every_time_title": "Pytaj o aplikację docelową za każdym razem",
             "settings_ask_every_time_subtitle": "Pokaż szybki wybór zamiast natychmiastowego otwierania domyślnego odtwarzacza",
             "quick_picker_title": "Otwórz za pomocą …",
@@ -1005,6 +1038,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Wykryto playlistę – otwieranie oryginału...",
         ],
         "ru": [
+            "settings_share_app": "Поделиться SongFlip",
+            "settings_share_app_subtitle": "Поделитесь приложением с друзьями и меломанами",
+            "share_app_message": "Попробуйте SongFlip — открывайте ссылки на музыку из Spotify, Apple Music и других сервисов в любимом плеере: https://download.songflip.link",
             "settings_ask_every_time_title": "Спрашивать целевое приложение каждый раз",
             "settings_ask_every_time_subtitle": "Показывать быстрый выбор вместо немедленного открытия стандартного плеера",
             "quick_picker_title": "Открыть с помощью …",
@@ -1096,6 +1132,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Обнаружен плейлист – открывается оригинал...",
         ],
         "tr": [
+            "settings_share_app": "SongFlip’i Paylaş",
+            "settings_share_app_subtitle": "Uygulamayı arkadaşlarınız ve müzikseverlerle paylaşın",
+            "share_app_message": "SongFlip’i keşfedin – Spotify, Apple Music ve daha fazlasından müzik bağlantılarını doğrudan favori çalarınızda açın: https://download.songflip.link",
             "settings_ask_every_time_title": "Hedef uygulamayı her zaman sor",
             "settings_ask_every_time_subtitle": "Varsayılan oynatıcıyı hemen açmak yerine hızlı seçici göster",
             "quick_picker_title": "Birlikte aç …",
@@ -1187,6 +1226,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Çalma listesi algılandı – orijinal açılıyor...",
         ],
         "uk": [
+            "settings_share_app": "Поділитися SongFlip",
+            "settings_share_app_subtitle": "Поділіться застосунком із друзями та меломанами",
+            "share_app_message": "Спробуйте SongFlip — відкривайте посилання на музику зі Spotify, Apple Music та інших сервісів у улюбленому плеєрі: https://download.songflip.link",
             "settings_ask_every_time_title": "Запитувати цільовий додаток щоразу",
             "settings_ask_every_time_subtitle": "Показувати швидкий вибір замість негайного відкриття типового плеєра",
             "quick_picker_title": "Відкрити за допомогою …",
@@ -1278,6 +1320,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Виявлено плейліст – відкривається оригінал...",
         ],
         "ja": [
+            "settings_share_app": "SongFlipを共有",
+            "settings_share_app_subtitle": "友達や音楽ファンにアプリを教える",
+            "share_app_message": "SongFlipをチェック – SpotifyやApple Musicなどの音楽リンクをお気に入りのプレーヤーで直接開けます: https://download.songflip.link",
             "settings_ask_every_time_title": "毎回再生アプリを確認",
             "settings_ask_every_time_subtitle": "デフォルトのプレーヤーをすぐに開かずクイック選択を表示",
             "quick_picker_title": "次で開く …",
@@ -1369,6 +1414,9 @@ enum LocalizationManager {
             "playlist_share_opening": "プレイリストを検出しました – 元のアプリで開いています...",
         ],
         "ko": [
+            "settings_share_app": "SongFlip 공유하기",
+            "settings_share_app_subtitle": "친구와 음악 애호가들에게 앱 공유하기",
+            "share_app_message": "SongFlip을 사용해 보세요 – Spotify, Apple Music 등의 음악リンク를 즐겨찾는 플레이어에서 바로 열 수 있습니다: https://download.songflip.link",
             "settings_ask_every_time_title": "매번 대상 앱 묻기",
             "settings_ask_every_time_subtitle": "기본 플레이어를 바로 열지 않고 빠른 선택 표시",
             "quick_picker_title": "다음으로 열기 …",
@@ -1460,6 +1508,9 @@ enum LocalizationManager {
             "playlist_share_opening": "재생목록 감지됨 – 원본 열기 중...",
         ],
         "zh": [
+            "settings_share_app": "分享 SongFlip",
+            "settings_share_app_subtitle": "与好友及音乐爱好者分享此应用",
+            "share_app_message": "快来看看 SongFlip – 直接在您喜爱的播放器中打开 Spotify、Apple Music 等音乐链接：https://download.songflip.link",
             "settings_ask_every_time_title": "每次询问目标应用",
             "settings_ask_every_time_subtitle": "显示快捷选择器，而不是直接打开默认播放器",
             "quick_picker_title": "打开方式 …",
@@ -1551,6 +1602,9 @@ enum LocalizationManager {
             "playlist_share_opening": "检测到播放列表 – 正在打开原版...",
         ],
         "in": [
+            "settings_share_app": "Bagikan SongFlip",
+            "settings_share_app_subtitle": "Bagikan aplikasi ini kepada teman & penikmat musik",
+            "share_app_message": "Coba SongFlip – buka tautan musik dari Spotify, Apple Music, dan lainnya langsung di pemutar favoritmu: https://download.songflip.link",
             "settings_ask_every_time_title": "Tanyakan aplikasi tujuan setiap saat",
             "settings_ask_every_time_subtitle": "Tampilkan pemilih cepat daripada langsung membuka pemutar default",
             "quick_picker_title": "Buka dengan …",
@@ -1642,6 +1696,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Daftar putar terdeteksi – membuka asli...",
         ],
         "vi": [
+            "settings_share_app": "Chia sẻ SongFlip",
+            "settings_share_app_subtitle": "Chia sẻ ứng dụng với bạn bè và người yêu âm nhạc",
+            "share_app_message": "Khám phá SongFlip – mở liên kết nhạc từ Spotify, Apple Music và nhiều hơn nữa ngay trên trình phát yêu thích của bạn: https://download.songflip.link",
             "settings_ask_every_time_title": "Hỏi ứng dụng phát mỗi lần",
             "settings_ask_every_time_subtitle": "Hiển thị bộ chọn nhanh thay vì mở ngay trình phát mặc định",
             "quick_picker_title": "Mở bằng …",
@@ -1733,6 +1790,9 @@ enum LocalizationManager {
             "playlist_share_opening": "Đã phát hiện danh sách phát – đang mở bản gốc...",
         ],
         "bn": [
+            "settings_share_app": "SongFlip শেয়ার করুন",
+            "settings_share_app_subtitle": "বন্ধু ও সংগীতপ্রেমীদের সাথে অ্যাপটি শেয়ার করুন",
+            "share_app_message": "SongFlip দেখুন – Spotify, Apple Music ইত্যাদির মিউজিক লিংক সরাসরি আপনার প্রিয় প্লেয়ারে খুলুন: https://download.songflip.link",
             "settings_ask_every_time_title": "প্রতিবার লক্ষ্য অ্যাপ জিজ্ঞাসা করুন",
             "settings_ask_every_time_subtitle": "ডিফল্ট প্লেয়ার সরাসরি খোলার পরিবর্তে দ্রুত নির্বাচক দেখান",
             "quick_picker_title": "এর মাধ্যমে খুলুন …",
@@ -1824,6 +1884,9 @@ enum LocalizationManager {
             "playlist_share_opening": "প্লেলিস্ট সনাক্ত হয়েছে – মূল লিঙ্ক খোলা হচ্ছে...",
         ],
         "hi": [
+            "settings_share_app": "SongFlip शेयर करें",
+            "settings_share_app_subtitle": "दोस्तों और संगीत प्रेमियों के साथ ऐप साझा करें",
+            "share_app_message": "SongFlip देखें – Spotify, Apple Music आदि के म्यूज़िक लिंक सीधे अपने पसंदीदा प्लेयर में खोलें: https://download.songflip.link",
             "settings_ask_every_time_title": "हर बार लक्ष्य ऐप पूछें",
             "settings_ask_every_time_subtitle": "सीधे डिफ़ॉल्ट प्लेयर खोलने के बजाय त्वरित पिकर दिखाएं",
             "quick_picker_title": "इसके साथ खोलें …",
@@ -1915,6 +1978,9 @@ enum LocalizationManager {
             "playlist_share_opening": "प्लेलिस्ट पहचानी गई – मूल खोला जा रहा है...",
         ],
         "mr": [
+            "settings_share_app": "SongFlip शेअर करा",
+            "settings_share_app_subtitle": "मित्र आणि संगीत प्रेमींसह अॅप शेअर करा",
+            "share_app_message": "SongFlip पहा – Spotify, Apple Music इत्यादींच्या संगीत लिंक्स थेट तुमच्या आवडत्या प्लेयरमध्ये उघडा: https://download.songflip.link",
             "settings_ask_every_time_title": "प्रत्येक वेळी टार्गेट ॲप विचारा",
             "settings_ask_every_time_subtitle": "डिफॉल्ट प्लेअर थेट उघडण्याऐवजी जलद निवडक दाखवा",
             "quick_picker_title": "याद्वारे उघडा …",
