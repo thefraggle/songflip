@@ -28,15 +28,17 @@ GUIDE_ACCENT = (16, 185, 129)  # Emerald guide line
 FONT_BOLD_PATH = "/System/Library/Fonts/Supplemental/Arial Bold.ttf"
 FONT_REG_PATH = "/System/Library/Fonts/Supplemental/Arial.ttf"
 FONT_UNICODE_PATH = "/Library/Fonts/Arial Unicode.ttf"
+if not os.path.exists(FONT_UNICODE_PATH):
+    FONT_UNICODE_PATH = "/System/Library/Fonts/Supplemental/Arial Unicode.ttf"
 
 if not os.path.exists(FONT_BOLD_PATH):
     FONT_BOLD_PATH = "/System/Library/Fonts/HelveticaNeue.ttc"
     FONT_REG_PATH = "/System/Library/Fonts/HelveticaNeue.ttc"
 
-def get_fonts(bold_size=74, reg_size=40, lang="en"):
-    """Load appropriate system fonts with fallback."""
+def get_fonts(bold_size=76, reg_size=48, lang="en"):
+    """Load appropriate system fonts with fallback for international glyphs."""
     try:
-        if lang in ["zh", "zh-CN", "zh-TW", "ja", "ko", "hi", "mr", "bn", "ar"]:
+        if any(code in lang for code in ["zh", "ja", "ko", "hi", "mr", "bn", "ar", "el", "ru", "uk", "th", "vi"]):
             if os.path.exists(FONT_UNICODE_PATH):
                 return ImageFont.truetype(FONT_UNICODE_PATH, bold_size), ImageFont.truetype(FONT_UNICODE_PATH, reg_size)
         return ImageFont.truetype(FONT_BOLD_PATH, bold_size), ImageFont.truetype(FONT_REG_PATH, reg_size)
@@ -71,39 +73,58 @@ def create_background_gradient():
 
     return Image.alpha_composite(base.convert("RGBA"), glow).convert("RGB")
 
+def tokenize(text):
+    """Split text into words and individual CJK characters for proper multi-language wrapping."""
+    tokens = []
+    current_word = ""
+    for char in text:
+        if char == " ":
+            if current_word:
+                tokens.append(current_word)
+                current_word = ""
+            tokens.append(" ")
+        elif "\u4e00" <= char <= "\u9fff" or "\u3040" <= char <= "\u30ff" or "\uac00" <= char <= "\ud7af":
+            if current_word:
+                tokens.append(current_word)
+                current_word = ""
+            tokens.append(char)
+        else:
+            current_word += char
+    if current_word:
+        tokens.append(current_word)
+    return tokens
+
 def wrap_text(text, font, max_width, draw):
-    """Wrap text to fit within max_width."""
+    """Wrap text to fit within max_width across all alphabets and scripts."""
     lines = []
-    paragraphs = text.split("\n")
-    for para in paragraphs:
-        words = para.split(" ")
-        current_line = []
-        for word in words:
-            test_line = " ".join(current_line + [word])
+    for para in text.split("\n"):
+        tokens = tokenize(para)
+        current_line = ""
+        for token in tokens:
+            test_line = current_line + token
             bbox = draw.textbbox((0, 0), test_line, font=font)
-            w = bbox[2] - bbox[0]
-            if w <= max_width:
-                current_line.append(word)
+            if bbox[2] - bbox[0] <= max_width:
+                current_line = test_line
             else:
-                if current_line:
-                    lines.append(" ".join(current_line))
-                    current_line = [word]
+                if current_line.strip():
+                    lines.append(current_line.strip())
+                    current_line = token.lstrip()
                 else:
-                    lines.append(word)
-                    current_line = []
-        if current_line:
-            lines.append(" ".join(current_line))
+                    lines.append(token.strip())
+                    current_line = ""
+        if current_line.strip():
+            lines.append(current_line.strip())
     return lines
 
-def render_screenshot(headline, subline, screen_num, lang_code="en", is_template=False, mockup_path=None):
+def render_screenshot(headline, subline, screen_num, mockup_filename=None, lang_code="en", is_template=False):
     """Render a complete store screenshot with localized text and mockup area."""
     img = create_background_gradient()
     draw = ImageDraw.Draw(img)
-    font_headline, font_subline = get_fonts(bold_size=76, reg_size=38, lang=lang_code)
+    font_headline, font_subline = get_fonts(bold_size=76, reg_size=48, lang=lang_code)
 
     # 1. Header Text Layout
     max_text_width = WIDTH - 160  # 80px side margins
-    start_y = 150
+    start_y = 130
 
     headline_lines = wrap_text(headline, font_headline, max_text_width, draw)
     subline_lines = wrap_text(subline, font_subline, max_text_width, draw)
@@ -114,23 +135,25 @@ def render_screenshot(headline, subline, screen_num, lang_code="en", is_template
         line_w = bbox[2] - bbox[0]
         line_h = bbox[3] - bbox[1]
         draw.text(((WIDTH - line_w) // 2, current_y), line, font=font_headline, fill=TEXT_PRIMARY)
-        current_y += line_h + 16
+        current_y += line_h + 14
 
-    current_y += 18
+    current_y += 26
     for line in subline_lines:
         bbox = draw.textbbox((0, 0), line, font=font_subline)
         line_w = bbox[2] - bbox[0]
         line_h = bbox[3] - bbox[1]
         draw.text(((WIDTH - line_w) // 2, current_y), line, font=font_subline, fill=TEXT_MUTED)
-        current_y += line_h + 14
+        current_y += line_h + 12
 
-    # 2. Mockup / Graphic Area
-    mockup_box_top = max(current_y + 40, 560)
-    mockup_box_left = 90
-    mockup_box_right = WIDTH - 90
-    mockup_box_bottom = HEIGHT - 60
+    # 2. Mockup / Graphic Area - Adjusted for tighter spacing to text
+    mockup_box_top = max(current_y + 40, 480)
+    mockup_box_left = 70
+    mockup_box_right = WIDTH - 70
+    mockup_box_bottom = HEIGHT - 40
     mockup_box_w = mockup_box_right - mockup_box_left
     mockup_box_h = mockup_box_bottom - mockup_box_top
+
+    mockup_path = os.path.join(MOCKUPS_DIR, mockup_filename) if mockup_filename else None
 
     if is_template or not (mockup_path and os.path.exists(mockup_path)):
         # Render clean guide box with dimensions
@@ -167,30 +190,230 @@ def render_screenshot(headline, subline, screen_num, lang_code="en", is_template
 
     return img
 
-# Storyboard Data (Reduced to 4 punchy, high-converting core screens)
+# Storyboard Data across all 35 Google Play Store Locales (Order: 2 -> 1 -> 3 -> 4)
+# Tuple structure: (screen_position, headline, subline, mockup_source_file)
 STORYBOARD = {
+    "ar": [
+        (1, "كل المنصات. مع Shazam.", "Spotify، YouTube Music، Apple Music، Tidal والمزيد.", "screen_2.png"),
+        (2, "0 نقرات. تشغيل فوري.", "يفتح روابط الموسيقى المستلمة فوراً في مشغلك المفضل.", "screen_1.png"),
+        (3, "رابط واحد لجميع أصدقائك.", "أنشئ روابط ذكية تعمل بسلاسة على أي منصة.", "screen_3.png"),
+        (4, "خصوصية 100%. بدون إعلانات.", "بدون حسابات، بدون تسجيل، وبدون تتبع لسجل استماعك.", "screen_4.png")
+    ],
+    "bn-BD": [
+        (1, "সব প্ল্যাটফর্ম। সাথে Shazam।", "Spotify, YouTube Music, Apple Music, Tidal ও আরও অনেক।", "screen_2.png"),
+        (2, "০ ক্লিক। সরাসরি গান।", "যেকোনো মিউজিক লিঙ্ক স্বয়ংক্রিয়ভাবে প্রিয় অ্যাপে চালু হয়।", "screen_1.png"),
+        (3, "সবার জন্য একটি স্মার্ট লিঙ্ক।", "ইউনিভার্সাল লিঙ্ক তৈরি করুন যা সব ডিভাইসে কাজ করে।", "screen_3.png"),
+        (4, "১০০% প্রাইভেট। বিজ্ঞাপনহীন।", "কোনো অ্যাকাউন্ট বা লগইন নেই, আপনার ডেটা সুরক্ষিত।", "screen_4.png")
+    ],
+    "cs-CZ": [
+        (1, "Všechny platformy. Včetně Shazam.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer a další.", "screen_2.png"),
+        (2, "0 kliknutí. Přímo hudba.", "Otevírá přijaté hudební odkazy ihned v oblíbené aplikaci.", "screen_1.png"),
+        (3, "Jeden odkaz pro všechny přátele.", "Vytvářej univerzální chytré odkazy funkční na každém zařízení.", "screen_3.png"),
+        (4, "100% soukromí. Žádné reklamy.", "Bez účtů, bez přihlášení a bez sledování hudebního vkusu.", "screen_4.png")
+    ],
+    "da-DK": [
+        (1, "Alle platforme. Inklusiv Shazam.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer & mere.", "screen_2.png"),
+        (2, "0 klik. Direkte musik.", "Åbner automatisk modtagne musiklinks i din yndlingsapp.", "screen_1.png"),
+        (3, "Ét link til alle venner.", "Opret universelle links, der fungerer på alle platforme.", "screen_3.png"),
+        (4, "100 % privat. Ingen reklamer.", "Ingen konto, intet login, ingen sporing af dine musikvaner.", "screen_4.png")
+    ],
     "de-DE": [
-        (1, "0 Klicks. Direkt Musik.", "Öffnet empfangene Musik-Links sofort in deiner Wunsch-App."),
-        (2, "Alle Dienste. Shazam inklusive.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer & mehr."),
-        (3, "Ein Link für alle Freunde.", "Erstelle universelle Web-Links, die überall funktionieren."),
-        (4, "100 % Privat. 0 Werbung.", "Kein Konto, kein Login, keine Analyse deines Musikgeschmacks.")
+        (1, "Alle Dienste. Shazam inklusive.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer & mehr.", "screen_2.png"),
+        (2, "0 Klicks. Direkt Musik.", "Öffnet empfangene Musik-Links sofort in deiner Wunsch-App.", "screen_1.png"),
+        (3, "Ein Link für alle Freunde.", "Erstelle universelle Web-Links, die überall funktionieren.", "screen_3.png"),
+        (4, "100 % Privat. 0 Werbung.", "Kein Konto, kein Login, keine Analyse deines Musikgeschmacks.", "screen_4.png")
+    ],
+    "el-GR": [
+        (1, "Όλες οι πλατφόρμες. Και Shazam.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer & άλλα.", "screen_2.png"),
+        (2, "0 κλικ. Άμεση αναπαραγωγή.", "Ανοίγει αυτόματα συνδέσμους μουσικής στην αγαπημένη σας εφαρμογή.", "screen_1.png"),
+        (3, "Ένας σύνδεσμος για όλους.", "Δημιουργήστε έξυπνους συνδέσμους που λειτουργούν παντού.", "screen_3.png"),
+        (4, "100% απόρρητο. Χωρίς διαφημίσεις.", "Χωρίς λογαριασμούς, χωρίς σύνδεση, χωρίς καταγραφή δεδομένων.", "screen_4.png")
+    ],
+    "en-GB": [
+        (1, "All Platforms. Plus Shazam.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer & more.", "screen_2.png"),
+        (2, "0 Clicks. Direct Playback.", "Instantly opens incoming music links in your preferred player.", "screen_1.png"),
+        (3, "One Link for Everyone.", "Share smart links that work seamlessly across any platform.", "screen_3.png"),
+        (4, "100% Private. Zero Ads.", "No accounts, no logins, no listening habits collected.", "screen_4.png")
+    ],
+    "en-IN": [
+        (1, "All Platforms. Plus Shazam.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer & more.", "screen_2.png"),
+        (2, "0 Clicks. Direct Playback.", "Instantly opens incoming music links in your preferred player.", "screen_1.png"),
+        (3, "One Link for Everyone.", "Share smart links that work seamlessly across any platform.", "screen_3.png"),
+        (4, "100% Private. Zero Ads.", "No accounts, no logins, no listening habits collected.", "screen_4.png")
     ],
     "en-US": [
-        (1, "0 Clicks. Direct Playback.", "Instantly opens incoming music links in your preferred player."),
-        (2, "All Platforms. Plus Shazam.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer & more."),
-        (3, "One Link for Everyone.", "Share smart links that work seamlessly across any platform."),
-        (4, "100% Private. Zero Ads.", "No accounts, no logins, no listening habits collected.")
+        (1, "All Platforms. Plus Shazam.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer & more.", "screen_2.png"),
+        (2, "0 Clicks. Direct Playback.", "Instantly opens incoming music links in your preferred player.", "screen_1.png"),
+        (3, "One Link for Everyone.", "Share smart links that work seamlessly across any platform.", "screen_3.png"),
+        (4, "100% Private. Zero Ads.", "No accounts, no logins, no listening habits collected.", "screen_4.png")
+    ],
+    "es-419": [
+        (1, "Todas las plataformas. Shazam incluido.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer y más.", "screen_2.png"),
+        (2, "0 clics. Música al instante.", "Abre enlaces de música al instante en tu app favorita.", "screen_1.png"),
+        (3, "Un enlace para todos tus amigos.", "Crea enlaces universales que funcionan en cualquier plataforma.", "screen_3.png"),
+        (4, "100% privado. Sin anuncios.", "Sin cuentas, sin registros, sin recopilación de hábitos de escucha.", "screen_4.png")
+    ],
+    "es-ES": [
+        (1, "Todas las plataformas. Shazam incluido.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer y más.", "screen_2.png"),
+        (2, "0 clics. Música al instante.", "Abre enlaces de música al instante en tu app favorita.", "screen_1.png"),
+        (3, "Un enlace para todos tus amigos.", "Crea enlaces universales que funcionan en cualquier plataforma.", "screen_3.png"),
+        (4, "100% privado. Sin anuncios.", "Sin cuentas, sin registros, sin recopilación de hábitos de escucha.", "screen_4.png")
+    ],
+    "es-US": [
+        (1, "Todas las plataformas. Shazam incluido.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer y más.", "screen_2.png"),
+        (2, "0 clics. Música al instante.", "Abre enlaces de música al instante en tu app favorita.", "screen_1.png"),
+        (3, "Un enlace para todos tus amigos.", "Crea enlaces universales que funcionan en cualquier plataforma.", "screen_3.png"),
+        (4, "100% privado. Sin anuncios.", "Sin cuentas, sin registros, sin recopilación de hábitos de escucha.", "screen_4.png")
+    ],
+    "fi-FI": [
+        (1, "Kaikki alustat. Myös Shazam.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer & muut.", "screen_2.png"),
+        (2, "0 klikkausta. Heti musiikkia.", "Avaa vastaanotetut musiikkilinkit heti suosikkisovelluksessasi.", "screen_1.png"),
+        (3, "Yksi linkki kaikille ystäville.", "Luo älylinkkejä, jotka toimivat saumattomasti kaikkialla.", "screen_3.png"),
+        (4, "100 % yksityinen. Ei mainoksia.", "Ei tilejä, ei kirjautumista, ei kuuntelutottumusten seurantaa.", "screen_4.png")
+    ],
+    "fr-CA": [
+        (1, "Toutes les plateformes. Shazam inclus.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer et plus.", "screen_2.png"),
+        (2, "0 clic. Musique instantanée.", "Ouvre directement les liens reçus dans votre lecteur préféré.", "screen_1.png"),
+        (3, "Un lien unique pour tous vos amis.", "Partagez des liens universels compatibles avec chaque service.", "screen_3.png"),
+        (4, "100 % privé. Zéro publicité.", "Aucun compte, aucune connexion, aucun historique collecté.", "screen_4.png")
+    ],
+    "fr-FR": [
+        (1, "Toutes les plateformes. Shazam inclus.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer et plus.", "screen_2.png"),
+        (2, "0 clic. Musique instantanée.", "Ouvre directement les liens reçus dans votre lecteur préféré.", "screen_1.png"),
+        (3, "Un lien unique pour tous vos amis.", "Partagez des liens universels compatibles avec chaque service.", "screen_3.png"),
+        (4, "100 % privé. Zéro publicité.", "Aucun compte, aucune connexion, aucun historique collecté.", "screen_4.png")
+    ],
+    "hi-IN": [
+        (1, "सभी प्लेटफॉर्म। Shazam भी शामिल।", "Spotify, YouTube Music, Apple Music, Tidal, Deezer और अन्य।", "screen_2.png"),
+        (2, "0 क्लिक। सीधा संगीत।", "प्राप्त संगीत लिंक तुरंत आपके पसंदीदा प्लेयर में खुलते हैं।", "screen_1.png"),
+        (3, "सभी दोस्तों के लिए एक लिंक।", "यूनिवर्सल स्मार्ट लिंक बनाएं जो हर प्लेटफॉर्म पर काम करें।", "screen_3.png"),
+        (4, "100% निजी। विज्ञापन मुक्त।", "कोई खाता नहीं, कोई लॉगिन नहीं, कोई ट्रैकिंग नहीं।", "screen_4.png")
+    ],
+    "hu-HU": [
+        (1, "Minden platform. Shazam is.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer és mások.", "screen_2.png"),
+        (2, "0 kattintás. Azonnali zene.", "A kapott zenei linkeket azonnal a kedvenc alkalmazásodban nyitja meg.", "screen_1.png"),
+        (3, "Egyetlen link minden barátodnak.", "Hozz létre univerzális linkeket, amelyek bárhol működnek.", "screen_3.png"),
+        (4, "100% privát. Reklámmentes.", "Nincs fiók, nincs bejelentkezés, nem gyűjtünk adatokat.", "screen_4.png")
+    ],
+    "id": [
+        (1, "Semua Platform. Termasuk Shazam.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer & lainnya.", "screen_2.png"),
+        (2, "0 Klik. Musik Langsung Putar.", "Buka tautan musik langsung di pemutar musik favorit Anda.", "screen_1.png"),
+        (3, "Satu Tautan untuk Semua Teman.", "Buat tautan pintar universal yang bekerja di platform mana pun.", "screen_3.png"),
+        (4, "100% Pribadi. Bebas Iklan.", "Tanpa akun, tanpa login, tanpa pelacakan kebiasaan mendengar.", "screen_4.png")
+    ],
+    "it-IT": [
+        (1, "Tutte le piattaforme. Shazam incluso.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer e altri.", "screen_2.png"),
+        (2, "0 clic. Musica istantanea.", "Apre automaticamente i link musicali nella tua app preferita.", "screen_1.png"),
+        (3, "Un link per tutti i tuoi amici.", "Crea smart link universali che funzionano ovunque.", "screen_3.png"),
+        (4, "100% privato. Zero pubblicità.", "Nessun account, nessun login, nessun tracciamento dei tuoi ascolti.", "screen_4.png")
+    ],
+    "ja-JP": [
+        (1, "全配信サービス対応。Shazamも。", "Spotify、YouTube Music、Apple Music、Tidalなどに対応。", "screen_2.png"),
+        (2, "0クリック。即座に再生。", "受信した音楽リンクをお気に入りのプレイヤーで直接開きます。", "screen_1.png"),
+        (3, "みんなで共有できる1つのリンク。", "どの端末でも開けるユニバーサル共有リンクを作成。", "screen_3.png"),
+        (4, "完全プライベート。広告ゼロ。", "アカウント不要・ログイン不要・データ収集なし。", "screen_4.png")
+    ],
+    "ko-KR": [
+        (1, "모든 플랫폼 지원. Shazam 포함.", "Spotify, YouTube Music, Apple Music, Tidal 등 완벽 지원.", "screen_2.png"),
+        (2, "0클릭. 즉시 음악 재생.", "공유받은 음악 링크를 선호하는 앱에서 바로 재생합니다.", "screen_1.png"),
+        (3, "모두를 위한 하나의 스마트 링크.", "모든 기기와 플랫폼에서 작동하는 범용 링크 생성.", "screen_3.png"),
+        (4, "100% 개인정보 보호. 광고 없음.", "계정 및 로그인 불필요, 청취 기록 수집 없음.", "screen_4.png")
+    ],
+    "mr-IN": [
+        (1, "सर्व प्लॅटफॉर्म्स. Shazam सह.", "Spotify, YouTube Music, Apple Music, Tidal आणि इतर बरेच.", "screen_2.png"),
+        (2, "० क्लिक. थेट संगीत.", "मिळालेले म्युझिक लिंक्स थेट तुमच्या आवडत्या प्लेअरमध्ये उघडा.", "screen_1.png"),
+        (3, "सर्व मित्रांसाठी एकच स्मार्ट लिंक.", "सर्व उपकरणांवर चालणाऱ्या युनिव्हर्सल लिंक्स तयार करा.", "screen_3.png"),
+        (4, "१००% सुरक्षित. जाहिरातमुक्त.", "कोणतेही खाते नाही, लॉगिन नाही, कोणताही डेटा ट्रॅकिंग नाही.", "screen_4.png")
+    ],
+    "nb-NO": [
+        (1, "Alle plattformer. Shazam inkludert.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer & mer.", "screen_2.png"),
+        (2, "0 klikk. Direkte musikk.", "Åpner mottatte musikklenker direkte i favorittspilleren din.", "screen_1.png"),
+        (3, "Én lenke for alle venner.", "Del universelle smartlenker som fungerer på tvers av plattformer.", "screen_3.png"),
+        (4, "100 % privat. Ingen reklame.", "Ingen konto, ingen innlogging, ingen sporing av musikkvaner.", "screen_4.png")
+    ],
+    "nl-NL": [
+        (1, "Alle platformen. Shazam inbegrepen.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer & meer.", "screen_2.png"),
+        (2, "0 klikken. Direct muziek.", "Opent ontvangen muzieklinks direct in jouw favoriete app.", "screen_1.png"),
+        (3, "Eén link voor al je vrienden.", "Maak universele smart links die overal naadloos werken.", "screen_3.png"),
+        (4, "100% privé. Geen advertenties.", "Geen accounts, geen logins, geen analyse van luistergedrag.", "screen_4.png")
+    ],
+    "pl-PL": [
+        (1, "Wszystkie platformy. W tym Shazam.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer i inne.", "screen_2.png"),
+        (2, "0 kliknięć. Muzyka od razu.", "Automatycznie otwiera linki muzyczne w Twojej ulubionej aplikacji.", "screen_1.png"),
+        (3, "Jeden link dla wszystkich znajomych.", "Twórz uniwersalne smart linki działające na każdej platformie.", "screen_3.png"),
+        (4, "100% prywatności. Zero reklam.", "Bez konta, bez logowania, bez śledzenia Twoich nawyków.", "screen_4.png")
+    ],
+    "pt-BR": [
+        (1, "Todas as plataformas. Shazam incluso.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer e mais.", "screen_2.png"),
+        (2, "0 cliques. Música instantânea.", "Abre links recebidos direto no seu player favorito.", "screen_1.png"),
+        (3, "Um link para todos os amigos.", "Crie smart links universais que funcionam em qualquer serviço.", "screen_3.png"),
+        (4, "100% privado. Sem anúncios.", "Sem contas, sem login e sem rastreamento de hábitos musicais.", "screen_4.png")
+    ],
+    "pt-PT": [
+        (1, "Todas as plataformas. Shazam incluso.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer e mais.", "screen_2.png"),
+        (2, "0 cliques. Música instantânea.", "Abre links recebidos direto no seu player favorito.", "screen_1.png"),
+        (3, "Um link para todos os amigos.", "Crie smart links universais que funcionam em qualquer serviço.", "screen_3.png"),
+        (4, "100% privado. Sem anúncios.", "Sem contas, sem login e sem rastreamento de hábitos musicais.", "screen_4.png")
+    ],
+    "ro": [
+        (1, "Toate platformele. Shazam inclus.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer și altele.", "screen_2.png"),
+        (2, "0 clicuri. Muzică instant.", "Deschide linkurile primite direct în playerul tău preferat.", "screen_1.png"),
+        (3, "Un singur link pentru toți prietenii.", "Creează smart linkuri universale care funcționează oriunde.", "screen_3.png"),
+        (4, "100% privat. Fără reclame.", "Fără conturi, fără autentificare, fără colectare de date.", "screen_4.png")
+    ],
+    "ru-RU": [
+        (1, "Все платформы. Shazam включен.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer и другие.", "screen_2.png"),
+        (2, "0 кликов. Музыка сразу.", "Мгновенно открывает полученные ссылки в любимом плеере.", "screen_1.png"),
+        (3, "Одна ссылка для всех друзей.", "Создавайте универсальные смарт-ссылки для любой платформы.", "screen_3.png"),
+        (4, "100% приватность. Без рекламы.", "Без аккаунтов, без регистрации, без отслеживания истории.", "screen_4.png")
+    ],
+    "sv-SE": [
+        (1, "Alla plattformar. Shazam inkluderat.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer & mer.", "screen_2.png"),
+        (2, "0 klick. Direkt musik.", "Öppnar mottagna musiklänkar direkt i din favoritspelare.", "screen_1.png"),
+        (3, "En länk för alla vänner.", "Skapa universella smartlänkar som fungerar överallt.", "screen_3.png"),
+        (4, "100 % privat. Inga annonser.", "Inget konto, ingen inloggning, ingen spårning av musikvanor.", "screen_4.png")
+    ],
+    "tr-TR": [
+        (1, "Tüm platformlar. Shazam dahil.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer ve daha fazlası.", "screen_2.png"),
+        (2, "0 tıklama. Anında müzik.", "Gelen müzik bağlantılarını anında favori uygulamanızda açar.", "screen_1.png"),
+        (3, "Tüm arkadaşlar için tek bağlantı.", "Her platformda sorunsuz çalışan akıllı bağlantılar oluşturun.", "screen_3.png"),
+        (4, "%100 gizli. Sıfır reklam.", "Hesap yok, giriş yok, müzik zevkiniz asla takip edilmez.", "screen_4.png")
+    ],
+    "uk": [
+        (1, "Усі платформи. Shazam включно.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer та інші.", "screen_2.png"),
+        (2, "0 кліків. Музика миттєво.", "Миттєво відкриває отримані посилання у вашому плеєрі.", "screen_1.png"),
+        (3, "Одне посилання для всіх друзів.", "Створюйте універсальні смарт-посилання для будь-якої платформи.", "screen_3.png"),
+        (4, "100% приватність. Без реклами.", "Без акаунтів, без входу, без збору історії прослуховувань.", "screen_4.png")
+    ],
+    "vi": [
+        (1, "Mọi nền tảng. Bao gồm Shazam.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer và hơn thế.", "screen_2.png"),
+        (2, "0 lần chạm. Phát nhạc ngay.", "Tự động mở liên kết nhạc trong ứng dụng nghe nhạc yêu thích.", "screen_1.png"),
+        (3, "Một liên kết cho tất cả bạn bè.", "Tạo smart link thông minh hoạt động mượt mà ở mọi nơi.", "screen_3.png"),
+        (4, "100% riêng tư. Không quảng cáo.", "Không tài khoản, không đăng nhập, không thu thập dữ liệu.", "screen_4.png")
+    ],
+    "zh-CN": [
+        (1, "全音乐平台支持。包含 Shazam。", "无缝支持 Spotify、YouTube Music、Apple Music、Tidal 等。", "screen_2.png"),
+        (2, "0 次点击。直接播放音乐。", "自动识别接收的音乐链接并在您喜爱的播放器中打开。", "screen_1.png"),
+        (3, "一个通用链接，分享给所有人。", "生成可在任何设备和平台上无缝打开的智能音乐链接。", "screen_3.png"),
+        (4, "100% 隐私保护。零广告。", "无需注册账号，无需登录，绝不收集您的听歌偏好。", "screen_4.png")
+    ],
+    "zh-TW": [
+        (1, "支援各大音樂平台。包含 Shazam。", "無縫支援 Spotify、YouTube Music、Apple Music、Tidal 等。", "screen_2.png"),
+        (2, "0 次點擊。立即播放音樂。", "自動識別收到的音樂連結並在偏好的播放器中開啟。", "screen_1.png"),
+        (3, "單一智慧連結，分享給所有好友。", "建立可在任何裝置與平台上順暢開啟的通用音樂連結。", "screen_3.png"),
+        (4, "100% 隱私保護。零廣告。", "無須註冊帳號，無須登入，絕不收集您的聽歌紀錄。", "screen_4.png")
     ]
 }
 
 def main():
-    print("=== Generating Store Screenshot Templates ===")
+    print(f"=== Generating Store Screenshot Templates for {len(STORYBOARD)} Languages (Order: 2, 1, 3, 4) ===")
     
     # 1. Pure Template Guide
     template_guide = render_screenshot(
         headline="Zeile Eins: Große Headline",
         subline="Zeile Zwei: Beschreibende Subline für die wichtigste Funktion.",
         screen_num=1,
+        mockup_filename=None,
         lang_code="de",
         is_template=True
     )
@@ -198,27 +421,17 @@ def main():
     template_guide.save(guide_path, "PNG")
     print(f"✓ Created template guide: {guide_path}")
 
-    # 2. Render all 5 screens for German (de-DE)
-    de_dir = os.path.join(SCREENSHOTS_DIR, "de-DE")
-    os.makedirs(de_dir, exist_ok=True)
-    for num, h, s in STORYBOARD["de-DE"]:
-        mock_file = os.path.join(MOCKUPS_DIR, f"screen_{num}.png")
-        img = render_screenshot(h, s, num, lang_code="de", is_template=not os.path.exists(mock_file), mockup_path=mock_file)
-        out_p = os.path.join(de_dir, f"screen_{num}.png")
-        img.save(out_p, "PNG")
-        print(f"✓ Created de-DE Screen {num}: {out_p}")
+    # 2. Render all 4 screens for each language
+    for lang_code, screens in STORYBOARD.items():
+        lang_dir = os.path.join(SCREENSHOTS_DIR, lang_code)
+        os.makedirs(lang_dir, exist_ok=True)
+        for num, h, s, mock_file in screens:
+            img = render_screenshot(h, s, num, mockup_filename=mock_file, lang_code=lang_code)
+            out_p = os.path.join(lang_dir, f"screen_{num}.png")
+            img.save(out_p, "PNG")
+        print(f"✓ Created 4 screens for [{lang_code}]: {lang_dir}")
 
-    # 3. Render all 5 screens for English (en-US)
-    en_dir = os.path.join(SCREENSHOTS_DIR, "en-US")
-    os.makedirs(en_dir, exist_ok=True)
-    for num, h, s in STORYBOARD["en-US"]:
-        mock_file = os.path.join(MOCKUPS_DIR, f"screen_{num}.png")
-        img = render_screenshot(h, s, num, lang_code="en", is_template=not os.path.exists(mock_file), mockup_path=mock_file)
-        out_p = os.path.join(en_dir, f"screen_{num}.png")
-        img.save(out_p, "PNG")
-        print(f"✓ Created en-US Screen {num}: {out_p}")
-
-    print("\nAll templates ready in distribution/screenshots/!")
+    print(f"\nAll {len(STORYBOARD) * 4} screenshots ready in distribution/screenshots/!")
 
 if __name__ == "__main__":
     main()
