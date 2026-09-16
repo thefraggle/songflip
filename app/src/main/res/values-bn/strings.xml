@@ -246,4 +246,6 @@
     <string name="settings_ask_every_time_title">প্রতিবার লক্ষ্য অ্যাপ জিজ্ঞাসা করুন</string>
     <string name="settings_ask_every_time_subtitle">ডিফল্ট প্লেয়ার সরাসরি খোলার পরিবর্তে দ্রুত নির্বাচক দেখান</string>
     <string name="quick_picker_title">এর মাধ্যমে খুলুন …</string>
+    <string name="share_universal_link_title">সর্বজনীন ওয়েব লিঙ্ক শেয়ার করুন</string>
+    <string name="share_universal_link_desc">যেকোনো সঙ্গীত প্ল্যাটফর্মে বন্ধুদের জন্য সর্বজনীন songflip.link লিঙ্ক তৈরি করুন</string>
 </resources>

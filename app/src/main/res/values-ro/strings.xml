@@ -236,4 +236,6 @@
     <string name="settings_ask_every_time_title">Întreabă aplicația țintă de fiecare dată</string>
     <string name="settings_ask_every_time_subtitle">Afișează un selector rapid în loc să deschidă direct playerul implicit</string>
     <string name="quick_picker_title">Deschide cu …</string>
+    <string name="share_universal_link_title">Partajează linkuri web universale</string>
+    <string name="share_universal_link_desc">Creează linkuri universale songflip.link pentru prieteni pe orice platformă muzicală</string>
 </resources>

@@ -246,4 +246,6 @@
     <string name="settings_ask_every_time_title">Hedef uygulamayı her zaman sor</string>
     <string name="settings_ask_every_time_subtitle">Varsayılan oynatıcıyı hemen açmak yerine hızlı seçici göster</string>
     <string name="quick_picker_title">Birlikte aç …</string>
+    <string name="share_universal_link_title">Evrensel web bağlantılarını paylaşın</string>
+    <string name="share_universal_link_desc">Herhangi bir müzik platformundaki arkadaşlarınız için evrensel songflip.link bağlantıları oluşturun</string>
 </resources>

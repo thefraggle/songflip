@@ -242,4 +242,6 @@
     <string name="settings_ask_every_time_title">Tanyakan aplikasi tujuan setiap saat</string>
     <string name="settings_ask_every_time_subtitle">Tampilkan pemilih cepat daripada langsung membuka pemutar default</string>
     <string name="quick_picker_title">Buka dengan …</string>
+    <string name="share_universal_link_title">Bagikan tautan web universal</string>
+    <string name="share_universal_link_desc">Buat tautan songflip.link universal untuk teman di platform musik apa pun</string>
 </resources>

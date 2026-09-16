@@ -246,4 +246,6 @@
     <string name="settings_ask_every_time_title">प्रत्येक वेळी टार्गेट ॲप विचारा</string>
     <string name="settings_ask_every_time_subtitle">डिफॉल्ट प्लेअर थेट उघडण्याऐवजी जलद निवडक दाखवा</string>
     <string name="quick_picker_title">याद्वारे उघडा …</string>
+    <string name="share_universal_link_title">सार्वत्रिक वेब लिंक्स शेअर करा</string>
+    <string name="share_universal_link_desc">कोणत्याही म्युझिक प्लॅटफॉर्मवरील मित्रांसाठी सार्वत्रिक songflip.link लिंक्स तयार करा</string>
 </resources>

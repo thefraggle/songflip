@@ -197,29 +197,37 @@ fun ClipboardSmartBanner(
                         )
                     }
 
-                    if (isPro) {
-                        OutlinedButton(
-                            onClick = {
-                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                                onShareUniversalLink(musicUrl)
-                            },
-                            shape = RoundedCornerShape(10.dp),
-                            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
-                            modifier = Modifier.weight(1.0f)
-                        ) {
+                    OutlinedButton(
+                        onClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                            onShareUniversalLink(musicUrl)
+                        },
+                        shape = RoundedCornerShape(10.dp),
+                        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 8.dp),
+                        modifier = Modifier.weight(1.0f)
+                    ) {
+                        if (!isPro) {
+                            Text(
+                                text = "💎",
+                                fontSize = 12.sp,
+                                modifier = Modifier.padding(end = 4.dp)
+                            )
+                        } else {
                             Icon(
                                 imageVector = Icons.Outlined.Share,
                                 contentDescription = null,
                                 modifier = Modifier.size(16.dp)
                             )
-                            Spacer(modifier = Modifier.width(6.dp))
-                            Text(
-                                text = stringResource(R.string.clipboard_banner_action_share),
-                                style = MaterialTheme.typography.labelMedium,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis
-                            )
+                            Spacer(modifier = Modifier.width(4.dp))
                         }
+                        Text(
+                            text = stringResource(R.string.clipboard_banner_action_share),
+                            style = MaterialTheme.typography.labelMedium.copy(
+                                fontWeight = if (!isPro) FontWeight.SemiBold else FontWeight.Normal
+                            ),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
                     }
                 }
             }

@@ -553,12 +553,22 @@ fun MainScreen(
                             }
                         },
                         onShareUniversalLink = { urlToShare ->
-                            val universalUrl = ProManager.getUniversalWebShareUrl(urlToShare)
-                            val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? android.content.ClipboardManager
-                            val clip = android.content.ClipData.newPlainText("SongFlip Universal Link", universalUrl)
-                            clipboard?.setPrimaryClip(clip)
-                            Toast.makeText(context, context.getString(R.string.share_universal_link_copied), Toast.LENGTH_SHORT).show()
-                            ProManager.warmupUniversalShare(urlToShare)
+                            if (proState.isPro) {
+                                val universalUrl = ProManager.getUniversalWebShareUrl(urlToShare)
+                                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? android.content.ClipboardManager
+                                val clip = android.content.ClipData.newPlainText("SongFlip Universal Link", universalUrl)
+                                clipboard?.setPrimaryClip(clip)
+                                Toast.makeText(context, context.getString(R.string.share_universal_link_copied), Toast.LENGTH_SHORT).show()
+                                ProManager.warmupUniversalShare(urlToShare)
+                                val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                                    type = "text/plain"
+                                    putExtra(Intent.EXTRA_TEXT, universalUrl)
+                                }
+                                context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share_universal_link)))
+                            } else {
+                                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed()
+                                showProPaywall = true
+                            }
                         },
                         onDismiss = {
                             dismissedClipboardUrl = clipUrl

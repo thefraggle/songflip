@@ -242,4 +242,6 @@
     <string name="settings_ask_every_time_title">Hỏi ứng dụng phát mỗi lần</string>
     <string name="settings_ask_every_time_subtitle">Hiển thị bộ chọn nhanh thay vì mở ngay trình phát mặc định</string>
     <string name="quick_picker_title">Mở bằng …</string>
+    <string name="share_universal_link_title">Chia sẻ liên kết web phổ quát</string>
+    <string name="share_universal_link_desc">Tạo liên kết songflip.link phổ quát cho bạn bè trên mọi nền tảng âm nhạc</string>
 </resources>
