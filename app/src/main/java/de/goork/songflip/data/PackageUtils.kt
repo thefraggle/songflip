@@ -20,13 +20,66 @@ object PackageUtils {
         "youtubeMusic" to listOf(
             "app.morphe.android.apps.youtube.music",
             "app.morphe.android.youtube.music",
+            "app.morphe.youtube.music",
+            "app.morphe.music",
+            "app.morphe.android.apps.youtube",
+            "app.morphe.android.youtube",
+            "com.morphe.android.apps.youtube.music",
+            "com.morphe.android.youtube.music",
+            "com.morphe.youtube.music",
             "app.revanced.android.apps.youtube.music",
+            "app.revanced.android.youtube.music",
+            "app.revanced.android.youtube",
             "app.rvx.android.apps.youtube.music",
+            "app.rvx.android.youtube.music",
+            "app.rvx.android.youtube",
             "com.vanced.android.apps.youtube.music",
+            "com.vanced.android.youtube",
             "com.inotia00.youtube.music",
-            "com.google.android.apps.youtube.music"
+            "it.fast4x.rimusic",
+            "it.vfsfitvnm.vimusic",
+            "com.zionhuang.music",
+            "org.schabi.newpipe",
+            "org.schabi.newpipelegacy",
+            "com.google.android.apps.youtube.music",
+            "com.google.android.youtube"
         )
     )
+
+    val genericBrowserPackages = setOf(
+        "com.android.chrome",
+        "org.mozilla.firefox",
+        "org.mozilla.firefox_beta",
+        "org.mozilla.fenix",
+        "com.microsoft.emmx",
+        "com.opera.browser",
+        "com.opera.mini.native",
+        "com.opera.touch",
+        "com.opera.gx",
+        "com.brave.browser",
+        "com.sec.android.app.sbrowser",
+        "com.duckduckgo.mobile.android",
+        "com.vivaldi.browser",
+        "org.torproject.torbrowser",
+        "com.android.browser",
+        "mark.via.gp",
+        "com.kiwibrowser.browser",
+        "com.mi.globalbrowser",
+        "com.huawei.browser",
+        "com.google.android.webview",
+        "com.android.webview",
+        "xyz.pavelpopov.interceptor",
+        "fe.linksheet",
+        "com.trianguloy.urlcheck"
+    )
+
+    fun isGenericBrowser(packageName: String): Boolean {
+        val lower = packageName.lowercase()
+        return genericBrowserPackages.contains(lower) ||
+                lower.contains("browser") ||
+                lower.contains("webview") ||
+                lower.contains("interceptor")
+    }
 
     fun getInstalledPackage(context: Context, platformKey: String): String? {
         val candidates = fallbackPackages[platformKey] ?: listOfNotNull(packageMap[platformKey])
@@ -36,6 +89,34 @@ object PackageUtils {
                 return pkg
             } catch (_: PackageManager.NameNotFoundException) {}
         }
+
+        // Dynamic player detection for custom/modded installations
+        try {
+            val probeUrl = when (platformKey) {
+                "youtubeMusic" -> "https://music.youtube.com/watch?v=dQw4w9WgXcQ"
+                "spotify" -> "https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv"
+                "appleMusic" -> "https://music.apple.com/song/1761770183"
+                "deezer" -> "https://www.deezer.com/track/12345"
+                "tidal" -> "https://tidal.com/browse/track/12345"
+                "amazonMusic" -> "https://music.amazon.com/albums/B000000000"
+                "soundcloud" -> "https://soundcloud.com/artist/track"
+                "bandcamp" -> "https://artist.bandcamp.com/track/song"
+                else -> null
+            }
+            if (probeUrl != null) {
+                val intent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(probeUrl)).apply {
+                    addCategory(android.content.Intent.CATEGORY_BROWSABLE)
+                }
+                val resolveInfos = context.packageManager.queryIntentActivities(intent, 0)
+                for (info in resolveInfos) {
+                    val pkg = info.activityInfo.packageName
+                    if (pkg != context.packageName && !isGenericBrowser(pkg)) {
+                        return pkg
+                    }
+                }
+            }
+        } catch (_: Exception) {}
+
         return null
     }
 

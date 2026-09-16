@@ -140,15 +140,16 @@ class PackageUtilsTest {
     fun testYouTubeMusicFallbackPackagesPriority() {
         val ytPackages = PackageUtils.fallbackPackages["youtubeMusic"]
         org.junit.Assert.assertNotNull(ytPackages)
-        assertEquals(7, ytPackages?.size)
-        // Verify mods come before official YouTube Music package
-        assertEquals("app.morphe.android.apps.youtube.music", ytPackages?.get(0))
-        assertEquals("app.morphe.android.youtube.music", ytPackages?.get(1))
-        assertEquals("app.revanced.android.apps.youtube.music", ytPackages?.get(2))
-        assertEquals("app.rvx.android.apps.youtube.music", ytPackages?.get(3))
-        assertEquals("com.vanced.android.apps.youtube.music", ytPackages?.get(4))
-        assertEquals("com.inotia00.youtube.music", ytPackages?.get(5))
-        assertEquals("com.google.android.apps.youtube.music", ytPackages?.get(6))
+        assertTrue((ytPackages?.size ?: 0) >= 7)
+        // Verify Morphe and custom players are included
+        assertTrue(ytPackages!!.contains("app.morphe.android.apps.youtube.music"))
+        assertTrue(ytPackages.contains("app.morphe.youtube.music"))
+        assertTrue(ytPackages.contains("app.morphe.music"))
+        assertTrue(ytPackages.contains("it.fast4x.rimusic"))
+        // Verify custom players come before official YouTube Music package
+        val officialIndex = ytPackages.indexOf("com.google.android.apps.youtube.music")
+        val morpheIndex = ytPackages.indexOf("app.morphe.android.apps.youtube.music")
+        assertTrue(officialIndex > morpheIndex)
     }
 }
 

@@ -366,6 +366,7 @@ class RedirectActivity : ComponentActivity() {
 
                 val appIntent = Intent(Intent.ACTION_VIEW, targetUri).apply {
                     setPackage(targetPackage)
+                    putExtra(EXTRA_FORWARDED_FROM_SONGFLIP, true)
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }
                 startActivity(appIntent)
@@ -375,7 +376,7 @@ class RedirectActivity : ComponentActivity() {
             }
         }
 
-        // Stage 2: Implicit player intent (dispatch to installed player handler excluding SongFlip)
+        // Stage 2: Implicit player intent (dispatch to discovered music player handler excluding SongFlip & browsers)
         try {
             val genericIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
                 addCategory(Intent.CATEGORY_BROWSABLE)
@@ -383,7 +384,7 @@ class RedirectActivity : ComponentActivity() {
             }
             val handlers = packageManager.queryIntentActivities(genericIntent, 0)
                 .map { it.activityInfo.packageName }
-                .filter { it != packageName }
+                .filter { it != packageName && !PackageUtils.isGenericBrowser(it) }
 
             if (handlers.isNotEmpty()) {
                 val bestHandler = if (targetPackage != null && handlers.contains(targetPackage)) {
@@ -394,6 +395,7 @@ class RedirectActivity : ComponentActivity() {
                 val launchIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
                     addCategory(Intent.CATEGORY_BROWSABLE)
                     setPackage(bestHandler)
+                    putExtra(EXTRA_FORWARDED_FROM_SONGFLIP, true)
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }
                 startActivity(launchIntent)

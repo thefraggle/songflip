@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.3.6] - 2026-09-16
+- **Verbesserte Player-Erkennung**: Intelligente dynamische Erkennung deiner installierten Musik-Apps für nahtlose 1-Klick-Weiterleitungen.
+- **Zuverlässigere Link-Übergabe**: Behebt ein Problem, bei dem auf einigen Geräten wiederholte App-Auswahldialoge auftreten konnten.
+- **Stabilität & Performance**: Optimierte Intent-Verarbeitung und Fehlerbehebungen unter der Haube.
+
 ## [1.3.5] - 2026-09-16
 - **Universelle Song-Links teilen**: Teile Musik-Links direkt, sodass Freunde sie nahtlos auf jedem Streaming-Dienst öffnen können.
 - **Schnellere Musik-Erkennung**: Beliebte Songs öffnen sich dank modernem Cloud-Abgleich noch schneller und zuverlässiger.

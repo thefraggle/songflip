@@ -14,10 +14,27 @@
         </intent>
         <package android:name="app.morphe.android.apps.youtube.music" />
         <package android:name="app.morphe.android.youtube.music" />
+        <package android:name="app.morphe.youtube.music" />
+        <package android:name="app.morphe.music" />
+        <package android:name="app.morphe.android.apps.youtube" />
+        <package android:name="app.morphe.android.youtube" />
+        <package android:name="com.morphe.android.apps.youtube.music" />
+        <package android:name="com.morphe.android.youtube.music" />
+        <package android:name="com.morphe.youtube.music" />
         <package android:name="app.revanced.android.apps.youtube.music" />
+        <package android:name="app.revanced.android.youtube.music" />
+        <package android:name="app.revanced.android.youtube" />
         <package android:name="app.rvx.android.apps.youtube.music" />
+        <package android:name="app.rvx.android.youtube.music" />
+        <package android:name="app.rvx.android.youtube" />
         <package android:name="com.vanced.android.apps.youtube.music" />
+        <package android:name="com.vanced.android.youtube" />
         <package android:name="com.inotia00.youtube.music" />
+        <package android:name="it.fast4x.rimusic" />
+        <package android:name="it.vfsfitvnm.vimusic" />
+        <package android:name="com.zionhuang.music" />
+        <package android:name="org.schabi.newpipe" />
+        <package android:name="org.schabi.newpipelegacy" />
         <package android:name="com.google.android.apps.youtube.music" />
         <package android:name="com.google.android.youtube" />
         <package android:name="com.apple.android.music" />
