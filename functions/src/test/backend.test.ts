@@ -177,6 +177,7 @@ describe("Backend Helper Tests", () => {
         assert.ok(i18n.copyLink && i18n.copyLink.length > 0, `copyLink missing for ${lang}`);
         assert.ok(i18n.linkCopied && i18n.linkCopied.length > 0, `linkCopied missing for ${lang}`);
         assert.ok(i18n.play && i18n.play.length > 0, `play missing for ${lang}`);
+        assert.ok(i18n.preview && i18n.preview.length > 0, `preview missing for ${lang}`);
         assert.ok(i18n.listenOn && i18n.listenOn.length > 0, `listenOn missing for ${lang}`);
         assert.ok(i18n.notFoundTitle && i18n.notFoundTitle.length > 0, `notFoundTitle missing for ${lang}`);
         assert.ok(i18n.discoverSongFlip && i18n.discoverSongFlip.length > 0, `discoverSongFlip missing for ${lang}`);
