@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.3.5] - 2026-09-16
+- **Universal Song Sharing**: Share music links that friends can open seamlessly on any streaming service.
+- **Faster Song Lookups**: Popular tracks open even faster and more reliably with instant cloud matching.
+- **Polish & Performance**: Smoother navigation and enhanced link recognition across all 31 supported languages.
+
 ## [1.3.4] - 2026-09-16
 - **Expanded Language Support**: Added full in-app and store localization for Traditional Chinese (Taiwan/Hong Kong), Czech, Hungarian, Finnish, Greek, Romanian, and Thai.
 - **Enhanced Global Experience**: Synchronized language selection and store assets across Android and iOS.

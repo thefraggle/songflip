@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.3.5] - 2026-09-16
+- **Universelle Song-Links teilen**: Teile Musik-Links direkt, sodass Freunde sie nahtlos auf jedem Streaming-Dienst öffnen können.
+- **Schnellere Musik-Erkennung**: Beliebte Songs öffnen sich dank modernem Cloud-Abgleich noch schneller und zuverlässiger.
+- **Feinschliff & Performance**: Reibungslosere Bedienung und optimierte Erkennung in allen 31 Sprachen.
+
 ## [1.3.4] - 2026-09-16
 - **Neue Sprachen**: Vollständige Unterstützung für Traditionelles Chinesisch (Taiwan/Hongkong), Tschechisch, Ungarisch, Finnisch, Griechisch, Rumänisch und Thailändisch.
 - **Sprachauswahl & Store-Angleichung**: Nahtlose Synchronisation aller In-App-Texte und Store-Listings auf Android und iOS.
