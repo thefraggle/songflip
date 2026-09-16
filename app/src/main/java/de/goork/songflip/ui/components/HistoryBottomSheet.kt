@@ -527,12 +527,23 @@ fun HistoryItemCard(
                     onClick = onShareUniversal,
                     modifier = Modifier.size(32.dp)
                 ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Share,
-                        contentDescription = stringResource(R.string.share_universal_link),
-                        tint = if (isPro) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.tertiary,
-                        modifier = Modifier.size(18.dp)
-                    )
+                    Box(contentAlignment = Alignment.Center) {
+                        Icon(
+                            imageVector = Icons.Outlined.Share,
+                            contentDescription = stringResource(if (isPro) R.string.share_universal_link else R.string.share_universal_link_pro),
+                            tint = if (isPro) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.tertiary,
+                            modifier = Modifier.size(18.dp)
+                        )
+                        if (!isPro) {
+                            Text(
+                                text = "💎",
+                                fontSize = 8.sp,
+                                modifier = Modifier
+                                    .align(Alignment.TopEnd)
+                                    .offset(x = 4.dp, y = (-4).dp)
+                            )
+                        }
+                    }
                 }
                 Spacer(modifier = Modifier.width(6.dp))
                 IconButton(

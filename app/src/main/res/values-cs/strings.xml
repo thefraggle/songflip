@@ -236,4 +236,6 @@
     <string name="settings_ask_every_time_title">Vždy se zeptat na cílovou aplikaci</string>
     <string name="settings_ask_every_time_subtitle">Zobrazit rychlý výběr místo okamžitého otevření výchozího přehrávače</string>
     <string name="quick_picker_title">Otevřít v aplikaci …</string>
+    <string name="share_universal_link_title">Sdílet univerzální webové odkazy</string>
+    <string name="share_universal_link_desc">Vytvářejte univerzální odkazy songflip.link pro přátele na jakékoli hudební platformě</string>
 </resources>

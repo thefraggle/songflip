@@ -228,4 +228,6 @@
     <string name="settings_ask_every_time_title">ถามแอปเป้าหมายทุกครั้ง</string>
     <string name="settings_ask_every_time_subtitle">แสดงหน้าต่างเลือกด่วนแทนที่จะเปิดเครื่องเล่นเริ่มต้นทันที</string>
     <string name="quick_picker_title">เปิดด้วย …</string>
+    <string name="share_universal_link_title">แชร์ลิงก์เว็บสากล</string>
+    <string name="share_universal_link_desc">สร้างลิงก์ songflip.link สากลสำหรับเพื่อนบนทุกแพลตฟอร์มเพลง</string>
 </resources>

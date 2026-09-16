@@ -3639,6 +3639,388 @@
           }
         }
       }
+    },
+    "share_universal_link_title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Universal Song Share"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Universeller Song-Link"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Universelt sanglink"
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Universell sanglenke"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Universell sanglenke"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Universell låtlänk"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Universele songlink"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lien de chanson universel"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enlace universal de canción"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Link brano universale"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Link universal de música"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uniwersalny link do utworu"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Универсальная ссылка на трек"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Evrensel Şarkı Bağlantısı"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Універсальне посилання на трек"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ユニバーサル楽曲リンク"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "유니버설 음악 링크"
+          }
+        },
+        "zh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通用音乐链接"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通用音乐链接"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通用音樂連結"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Univerzální odkaz na skladbu"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Univerzális dalkapcsolat"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Universaali kappalelinkki"
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Καθολικός σύνδεσμος τραγουδιού"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Link universal pentru melodie"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ลิงก์เพลงสากล"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tautan Lagu Universal"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liên kết bài hát đa nền tảng"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "সর্বজনীন গান লিঙ্ক"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "यूनिवर्सल गाना लिंक"
+          }
+        },
+        "mr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "युनिव्हर्सल गाणे लिंक"
+          }
+        }
+      }
+    },
+    "share_universal_link_desc": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Share music links that open seamlessly in any streaming service."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teile Musik-Links, die sich nahtlos auf jedem Streamingdienst öffnen."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Del musiklinks, der åbner problemfrit i enhver streamingtjeneste."
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Del musikklenker som åpner sømløst i enhver strømmetjeneste."
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Del musikklenker som åpner sømløst i enhver strømmetjeneste."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dela musiklänkar som öppnas sömlöst i valfri streamingtjänst."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deel muzieklinks die naadloos openen in elke streamingdienst."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Partagez des liens musicaux qui s'ouvrent facilement sur n'importe quel service de streaming."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comparte enlaces de música que se abren perfectamente en cualquier servicio de streaming."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Condividi link musicali che si aprono perfettamente su qualsiasi servizio di streaming."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compartilhe links de músicas que abrem perfeitamente em qualquer serviço de streaming."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Udostępniaj linki do muzyki, które otwierają się płynnie w dowolnej usłudze strumieniowej."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Делитесь ссылками на музыку, которые открываются в любом стриминговом сервисе."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Herhangi bir yayın hizmetinde sorunsuz açılan müzik bağlantıları paylaşın."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Діліться посиланнями на музику, які безперешкодно відкриваються в будь-якому стрімінговому сервісі."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "どのストリーミングサービスでもスムーズに開く音楽リンクを共有。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "모든 스트리밍 서비스에서 원활하게 열리는 음악 링크를 공유하세요."
+          }
+        },
+        "zh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "分享可在任何流媒体服务中无缝打开的音乐链接。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "分享可在任何流媒体服务中无缝打开的音乐链接。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "分享可在任何串流服務中順暢開啟的音樂連結。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sdílejte hudební odkazy, které se bez problémů otevřou v jakékoli streamovací službě."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oszd meg a zenei linkeket, amelyek zökkenőmentesen megnyílnak bármely streaming szolgáltatásban."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jaa musiikkilinkkejä, jotka avautuvat saumattomasti missä tahansa suoratoistopalvelussa."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Μοιραστείτε συνδέσμους μουσικής που ανοίγουν απρόσκοπτα σε οποιαδήποτε υπηρεσία streaming."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Partajați linkuri muzicale care se deschid perfect în orice serviciu de streaming."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "แชร์ลิงก์เพลงที่เปิดได้อย่างราบรื่นในทุกบริการสตรีมมิ่ง"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bagikan tautan musik yang terbuka mulus di layanan streaming apa pun."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chia sẻ liên kết âm nhạc mở mượt mà trên mọi dịch vụ phát trực tuyến."
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "মিউজিক লিঙ্ক শেয়ার করুন যা যেকোনো স্ট্রিমিং সার্ভিসে নির্বিঘ্নে খোলে।"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ऐसे संगीत लिंक शेयर करें जो किसी भी स्ट्रीमिंग सेवा में निर्बाध रूप से खुलें।"
+          }
+        },
+        "mr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "कोणत्याही स्ट्रीमिंग सेवेमध्ये अखंडपणे उघडणारे संगीत लिंक शेअर करा."
+          }
+        }
+      }
     }
   },
   "version": "1.1"

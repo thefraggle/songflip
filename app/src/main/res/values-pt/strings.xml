@@ -246,4 +246,6 @@
     <string name="settings_ask_every_time_title">Perguntar app de destino sempre</string>
     <string name="settings_ask_every_time_subtitle">Mostrar seletor rápido em vez de abrir logo o leitor padrão</string>
     <string name="quick_picker_title">Abrir com …</string>
+    <string name="share_universal_link_title">Compartilhar links web universais</string>
+    <string name="share_universal_link_desc">Crie links universais do songflip.link para amigos em qualquer plataforma musical</string>
 </resources>

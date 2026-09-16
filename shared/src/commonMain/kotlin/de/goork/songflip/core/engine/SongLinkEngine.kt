@@ -16,13 +16,20 @@ import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.http.encodeURLParameter
 import io.ktor.http.isSuccess
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.booleanOrNull
+import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import kotlinx.serialization.json.put
+import kotlinx.serialization.json.putJsonObject
 
 class SongLinkEngine(
     private val client: HttpClient = createPlatformHttpClient(),
@@ -32,6 +39,50 @@ class SongLinkEngine(
 
     companion object {
         val shared: SongLinkEngine by lazy { SongLinkEngine() }
+    }
+
+    private val backgroundScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+
+    private fun pingCacheIngestAsync(
+        originalUrl: String,
+        targetUrl: String,
+        targetPlatform: String,
+        title: String?,
+        artist: String?,
+        isAlbum: Boolean,
+        links: Map<String, String>? = null
+    ) {
+        if (originalUrl.isBlank() || targetUrl.isBlank()) return
+
+        backgroundScope.launch {
+            try {
+                val jsonPayload = buildJsonObject {
+                    put("originalUrl", originalUrl)
+                    put("targetUrl", targetUrl)
+                    put("platform", targetPlatform)
+                    if (!title.isNullOrBlank()) put("title", title)
+                    if (!artist.isNullOrBlank()) put("artist", artist)
+                    put("isAlbum", isAlbum)
+                    if (!links.isNullOrEmpty()) {
+                        putJsonObject("links") {
+                            for ((k, v) in links) {
+                                if (k.isNotBlank() && v.isNotBlank()) {
+                                    put(k, v)
+                                }
+                            }
+                        }
+                    }
+                }.toString()
+
+                client.post("https://songflip.link/ingest") {
+                    header("Content-Type", "application/json")
+                    header("x-web-client", "songflip-app")
+                    setBody(jsonPayload)
+                }
+            } catch (_: Throwable) {
+                // Background ingestion is completely non-blocking and best-effort
+            }
+        }
     }
 
     private val json = Json {
@@ -177,6 +228,15 @@ class SongLinkEngine(
                         nativeAppUri = nativeUri
                     )
                     cache.put(canonicalUrl, targetPlatformKey, result, now)
+                    pingCacheIngestAsync(
+                        originalUrl = canonicalUrl,
+                        targetUrl = formatted,
+                        targetPlatform = targetPlatformKey,
+                        title = songLinkData.title.ifEmpty { null },
+                        artist = songLinkData.artist.ifEmpty { null },
+                        isAlbum = songLinkData.isAlbum || isExplicitAlbumUrl,
+                        links = songLinkData.links
+                    )
                     return result
                 }
 
@@ -212,6 +272,15 @@ class SongLinkEngine(
                         nativeAppUri = nativeUri
                     )
                     cache.put(canonicalUrl, targetPlatformKey, result, now)
+                    pingCacheIngestAsync(
+                        originalUrl = canonicalUrl,
+                        targetUrl = finalTargetUrl,
+                        targetPlatform = targetPlatformKey,
+                        title = songLinkData.title.ifEmpty { null },
+                        artist = songLinkData.artist.ifEmpty { null },
+                        isAlbum = isAlbum,
+                        links = songLinkData.links
+                    )
                     return result
                 }
             }
@@ -243,6 +312,14 @@ class SongLinkEngine(
                     nativeAppUri = nativeUri
                 )
                 cache.put(canonicalUrl, targetPlatformKey, result, now)
+                pingCacheIngestAsync(
+                    originalUrl = canonicalUrl,
+                    targetUrl = targetUrl,
+                    targetPlatform = platform,
+                    title = trackInfo,
+                    artist = null,
+                    isAlbum = isExplicitAlbumUrl
+                )
                 return result
             }
 
@@ -261,6 +338,14 @@ class SongLinkEngine(
                     nativeAppUri = nativeUri
                 )
                 cache.put(canonicalUrl, targetPlatformKey, result, now)
+                pingCacheIngestAsync(
+                    originalUrl = canonicalUrl,
+                    targetUrl = finalTargetUrl,
+                    targetPlatform = result.platform,
+                    title = null,
+                    artist = artistInfo,
+                    isAlbum = false
+                )
                 return result
             }
 

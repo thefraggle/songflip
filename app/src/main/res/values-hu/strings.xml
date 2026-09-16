@@ -232,4 +232,6 @@
     <string name="settings_ask_every_time_title">Célalkalmazás megkérdezése minden alkalommal</string>
     <string name="settings_ask_every_time_subtitle">Gyorsválasztó megjelenítése az alapértelmezett azonnali megnyitása helyett</string>
     <string name="quick_picker_title">Megnyitás ezzel …</string>
+    <string name="share_universal_link_title">Univerzális webes linkek megosztása</string>
+    <string name="share_universal_link_desc">Hozzon létre univerzális songflip.link linkeket barátai számára bármely zenei platformon</string>
 </resources>
