@@ -74,7 +74,7 @@ class SongLinkEngine(
                     }
                 }.toString()
 
-                client.post("https://songflip.link/ingest") {
+                client.post("https://cache.songflip.link/ingest") {
                     header("Content-Type", "application/json")
                     header("x-web-client", "songflip-app")
                     setBody(jsonPayload)
