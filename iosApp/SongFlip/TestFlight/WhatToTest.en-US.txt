@@ -1,2 +1,3 @@
-- Clearer Setup: Your selected music player is now immediately confirmed as ready in the overview.
-- Polish: Improved status indicators and an even smoother experience.
+- Expanded Language Support: Added full in-app and store localization for Traditional Chinese (Taiwan/Hong Kong), Czech, Hungarian, Finnish, Greek, Romanian, and Thai.
+- Enhanced Global Experience: Synchronized language selection and store assets across Android and iOS.
+- Store Listings & Visuals: Fully updated and certified multi-language listings and screenshot assets for 37 international markets.

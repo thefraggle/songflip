@@ -355,6 +355,12 @@ STORYBOARD = {
         (3, "Um link para todos os amigos.", "Crie smart links universais que funcionam em qualquer serviço.", "screen_3.png"),
         (4, "100% privado. Sem anúncios.", "Sem contas, sem login e sem rastreamento de hábitos musicais.", "screen_4.png")
     ],
+    "ro-RO": [
+        (1, "Toate platformele. Shazam inclus.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer și altele.", "screen_2.png"),
+        (2, "0 clicuri. Muzică instant.", "Deschide linkurile primite direct în playerul tău preferat.", "screen_1.png"),
+        (3, "Un singur link pentru toți prietenii.", "Creează smart linkuri universale care funcționează oriunde.", "screen_3.png"),
+        (4, "100% privat. Fără reclame.", "Fără conturi, fără autentificare, fără colectare de date.", "screen_4.png")
+    ],
     "ro": [
         (1, "Toate platformele. Shazam inclus.", "Spotify, YouTube Music, Apple Music, Tidal, Deezer și altele.", "screen_2.png"),
         (2, "0 clicuri. Muzică instant.", "Deschide linkurile primite direct în playerul tău preferat.", "screen_1.png"),
@@ -396,6 +402,12 @@ STORYBOARD = {
         (2, "0 次点击。直接播放音乐。", "自动识别接收的音乐链接并在您喜爱的播放器中打开。", "screen_1.png"),
         (3, "一个通用链接，分享给所有人。", "生成可在任何设备和平台上无缝打开的智能音乐链接。", "screen_3.png"),
         (4, "100% 隐私保护。零广告。", "无需注册账号，无需登录，绝不收集您的听歌偏好。", "screen_4.png")
+    ],
+    "th-TH": [
+        (1, "รองรับทุกแพลตฟอร์มเพลง รวมถึง Shazam", "Spotify, YouTube Music, Apple Music, Tidal, Deezer และอื่นๆ", "screen_2.png"),
+        (2, "0 คลิก เล่นเพลงทันที", "เปิดลิงก์เพลงที่ได้รับในแอปโปรดของคุณโดยอัตโนมัติ", "screen_1.png"),
+        (3, "ลิงก์เดียวสำหรับเพื่อนทุกคน", "สร้างสมาร์ทลิงก์สากลที่ใช้งานได้บนทุกแพลตฟอร์ม", "screen_3.png"),
+        (4, "เป็นส่วนตัว 100% ไม่มีโฆษณา", "ไม่ต้องมีบัญชี ไม่ต้องเข้าสู่ระบบ ไม่มีการติดตามข้อมูล", "screen_4.png")
     ],
     "zh-TW": [
         (1, "支援各大音樂平台。包含 Shazam。", "無縫支援 Spotify、YouTube Music、Apple Music、Tidal 等。", "screen_2.png"),

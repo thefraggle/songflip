@@ -168,6 +168,54 @@
             "state": "translated",
             "value": "转换复制或共享的音乐链接并打开目标应用。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "轉換複製或分享的音樂連結並打開目標應用程式。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Převede zkopírovaný nebo sdílený hudební odkaz a otevře cílovou aplikaci."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Átalakítja a másolt vagy megosztott zenei linket, és megnyitja a célalkalmazást."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muuntaa kopioidun tai jaetun musiikkilinkin ja avaa kohdesovelluksen."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Μετατρέπει έναν αντιγραμμένο ή κοινόχρηστο σύνδεσμο μουσικής και ανοίγει την εφαρμογή προορισμού."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Convertește un link muzical copiat sau partajat și deschide aplicația țintă."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "แปลงลิงก์เพลงที่คัดลอกหรือแชร์และเปิดแอปเป้าหมาย"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konverterer en kopiert eller delt musikklenke og åpner mål-appen."
+          }
         }
       }
     },
@@ -310,6 +358,54 @@
           "stringUnit": {
             "state": "translated",
             "value": "未提供音乐链接且剪贴板为空。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未提供音樂連結且剪貼簿為空。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nebyl zadán žádný hudební odkaz a schránka je prázdná."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nincs megadva zenei link, és a vágólap üres."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Musiikkilinkkiä ei annettu ja leikepöytä on tyhjä."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Δεν δόθηκε σύνδεσμος μουσικής και το πρόχειρο είναι κενό."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nu a fost furnizat niciun link muzical, iar clipboard-ul este gol."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ไม่ได้ระบุลิงก์เพลงและคลิปบอร์ดว่างเปล่า"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingen musikklenke oppgitt og utklippstavlen er tom."
           }
         }
       }
@@ -454,6 +550,54 @@
             "state": "translated",
             "value": "转换链接时出错：%@"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "轉換連結時出錯：%@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chyba při převodu odkazu: %@"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiba a link átalakításakor: %@"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Virhe linkin muuntamisessa: %@"
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Σφάλμα κατά τη μετατροπή του συνδέσμου: %@"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eroare la conversia linkului: %@"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "เกิดข้อผิดพลาดในการแปลงลิงก์: %@"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Feil ved konvertering av lenke: %@"
+          }
         }
       }
     },
@@ -596,6 +740,54 @@
           "stringUnit": {
             "state": "translated",
             "value": "无法解析目标 URL。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法解析目標 URL。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nelze vyřešit cílovou URL."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nem sikerült feloldani a cél URL-t."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kohde-URL-osoitetta ei voitu selvittää."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Δεν ήταν δυνατή η επίλυση της διεύθυνσης URL προορισμού."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nu s-a putut rezolva adresa URL țintă."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ไม่สามารถแก้ไข URL เป้าหมายได้"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kunne ikke løse mål-URL."
           }
         }
       }
@@ -740,6 +932,54 @@
             "state": "translated",
             "value": "音乐链接"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "音樂連結"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hudební odkaz"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zenei link"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Musiikkilinkki"
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Σύνδεσμος μουσικής"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Link muzical"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ลิงก์เพลง"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Musikklenke"
+          }
         }
       }
     },
@@ -882,6 +1122,54 @@
           "stringUnit": {
             "state": "translated",
             "value": "在 SongFlip 中打开歌曲"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在 SongFlip 中打開歌曲"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otevřít skladbu v SongFlip"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zene megnyitása a SongFlipben"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avaa kappale SongFlipissä"
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Άνοιγμα τραγουδιού στο SongFlip"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deschide melodia în SongFlip"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "เปิดเพลงใน SongFlip"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Åpne sang i SongFlip"
           }
         }
       }
@@ -1026,6 +1314,54 @@
             "state": "translated",
             "value": "播放列表"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "播放清單"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Playlist"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lejátszási lista"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Soittolista"
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Λίστα αναπαραγωγής"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Playlist"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "เพลย์ลิสต์"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spilleliste"
+          }
         }
       }
     },
@@ -1168,6 +1504,54 @@
           "stringUnit": {
             "state": "translated",
             "value": "在 %@ 原版中打开"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在原始應用中打開 %@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otevřít %@ v originále"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ megnyitása az eredetiben"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avaa %@ alkuperäisessä"
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Άνοιγμα %@ στο αρχικό"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deschide %@ în original"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "เปิด %@ ในต้นฉบับ"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Åpne %@ i original"
           }
         }
       }
@@ -1312,6 +1696,54 @@
             "state": "translated",
             "value": "关闭"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "關閉"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zavřít"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bezárás"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sulje"
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Κλείσιμο"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Închide"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ปิด"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lukk"
+          }
         }
       }
     },
@@ -1454,6 +1886,54 @@
           "stringUnit": {
             "state": "translated",
             "value": "复制链接"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "複製連結"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopírovat odkaz"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Link másolása"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopioi linkki"
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Αντιγραφή συνδέσμου"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copiază linkul"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "คัดลอกลิงก์"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopier lenke"
           }
         }
       }
@@ -1598,6 +2078,54 @@
             "state": "translated",
             "value": "在 %@ 中打开"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在 %@ 中打開"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otevřít v %@"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Megnyitás itt: %@"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avaa palvelussa %@"
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Άνοιγμα στο %@"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deschide în %@"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "เปิดใน %@"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Åpne i %@"
+          }
         }
       }
     },
@@ -1740,6 +2268,54 @@
           "stringUnit": {
             "state": "translated",
             "value": "SongFlip 目前仅支持单曲和专辑。完整的播放列表转换功能将在后续更新中推出！"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SongFlip 目前支援單曲與專輯。完整的播放清單轉換將在未來的更新中推出！"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SongFlip v současné době podporuje jednotlivé skladby a alba. Kompletní převod playlistů přijde v budoucí aktualizaci!"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A SongFlip jelenleg az egyes számokat és albumokat támogatja. A teljes lejátszási listák konvertálása egy jövőbeli frissítésben érkezik!"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SongFlip tukee tällä hetkellä yksittäisiä kappaleita ja albumeita. Täysi soittolistojen muunnos tulee tulevassa päivityksessä!"
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Το SongFlip υποστηρίζει προς το παρόν μεμονωμένα κομμάτια και άλμπουμ. Η πλήρης υποστήριξη λιστών αναπαραγωγής θα προστεθεί σε μελλοντική ενημέρωση!"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SongFlip acceptă în prezent melodii individuale și albume. Conversia completă a playlisturilor va veni într-o actualizare viitoare!"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ปัจจุบัน SongFlip รองรับเพลงเดี่ยวและอัลบั้ม การแปลงเพลย์ลิสต์เต็มรูปแบบจะมาในการอัปเดตในอนาคต!"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SongFlip støtter for øyeblikket enkeltspor og album. Full konvertering av spillelister kommer i en fremtidig oppdatering!"
           }
         }
       }
@@ -1884,6 +2460,54 @@
             "state": "translated",
             "value": "检测到播放列表"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "偵測到播放清單"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Detekován playlist"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lejátszási lista észlelve"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Soittolista havaittu"
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Εντοπίστηκε λίστα αναπαραγωγής"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Playlist detectat"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ตรวจพบเพลย์ลิสต์"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spilleliste oppdaget"
+          }
         }
       }
     },
@@ -2026,6 +2650,54 @@
           "stringUnit": {
             "state": "translated",
             "value": "检测到播放列表 – 正在打开原版..."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "偵測到播放清單 – 正在打開原始連結..."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Detekován playlist – otevírám originál..."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lejátszási lista észlelve – eredeti megnyitása..."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Soittolista havaittu – avataan alkuperäinen..."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Εντοπίστηκε λίστα αναπαραγωγής – άνοιγμα αρχικού..."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Playlist detectat – se deschide originalul..."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ตรวจพบเพลย์ลิสต์ – กำลังเปิดต้นฉบับ..."
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spilleliste oppdaget – åpner original..."
           }
         }
       }
@@ -2170,6 +2842,54 @@
             "state": "translated",
             "value": "无法跳转该链接。"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法跳轉連結。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odkaz se nepodařilo přesměrovat."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A linket nem sikerült átirányítani."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Linkkiä ei voitu uudelleenohjata."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Δεν ήταν δυνατή η ανακατεύθυνση του συνδέσμου."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nu s-a putut redirecționa linkul."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ไม่สามารถเปลี่ยนเส้นทางลิงก์ได้"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kunne ikke viderekoble lenke."
+          }
         }
       }
     },
@@ -2312,6 +3032,54 @@
           "stringUnit": {
             "state": "translated",
             "value": "SongFlip：正在跳转..."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SongFlip：正在跳轉..."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SongFlip: Přesměrovávám..."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SongFlip: Átirányítás folyamatban..."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SongFlip: Ohjataan uudelleen..."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SongFlip: Ανακατεύθυνση..."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SongFlip: Redirecționare..."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SongFlip: กำลังเปลี่ยนเส้นทาง..."
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SongFlip: Viderekobler..."
           }
         }
       }
@@ -2457,6 +3225,48 @@
             "state": "translated",
             "value": "प्रत्येक वेळी टार्गेट ॲप विचारा"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每次詢問目標應用"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vždy se zeptat na cílovou aplikaci"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Célalkalmazás megkérdezése minden alkalommal"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kysy kohdesovellusta joka kerta"
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ερώτηση για εφαρμογή προορισμού κάθε φορά"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Întreabă aplicația țintă de fiecare dată"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ถามแอปเป้าหมายทุกครั้ง"
+          }
         }
       }
     },
@@ -2600,6 +3410,48 @@
             "state": "translated",
             "value": "डिफॉल्ट प्लेअर थेट उघडण्याऐवजी जलद निवडक दाखवा"
           }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示快速選擇器，而非直接打開預設播放器"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zobrazit rychlý výběr místo okamžitého otevření výchozího přehrávače"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gyorsválasztó megjelenítése az alapértelmezett azonnali megnyitása helyett"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Näytä pikavalitsin sen sijaan, että oletussoitin avattaisiin heti"
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Εμφάνιση γρήγορης επιλογής αντί άμεσου ανοίγματος της προεπιλογής"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afișează un selector rapid în loc să deschidă direct playerul implicit"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "แสดงหน้าต่างเลือกด่วนแทนที่จะเปิดเครื่องเล่นเริ่มต้นทันที"
+          }
         }
       }
     },
@@ -2742,6 +3594,48 @@
           "stringUnit": {
             "state": "translated",
             "value": "याद्वारे उघडा …"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇打開方式 …"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otevřít v aplikaci …"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Megnyitás ezzel …"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avaa sovelluksella …"
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Άνοιγμα με …"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deschide cu …"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "เปิดด้วย …"
           }
         }
       }
