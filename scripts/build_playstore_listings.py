@@ -1487,17 +1487,19 @@ print(f"✓ Saved CSV to {csv_file}")
 FASTLANE_ANDROID_DIR = os.path.join(BASE_DIR, "fastlane", "metadata", "android")
 if os.path.exists(FASTLANE_ANDROID_DIR):
     FASTLANE_DIR_MAP = {
-        "bn-BD": ["bn-IN"],
-        "id": ["id-ID"],
-        "uk": ["uk-UA"],
-        "vi": ["vi-VN"],
+        "bn-BD": ["bn-BD", "bn-IN"],
+        "id": ["id", "id-ID"],
+        "uk": ["uk", "uk-UA"],
+        "vi": ["vi", "vi-VN"],
         "nb-NO": ["nb-NO", "no-NO"],
         "ro-RO": ["ro-RO", "ro"],
         "cs-CZ": ["cs-CZ"],
         "el-GR": ["el-GR"],
         "fi-FI": ["fi-FI"],
         "hu-HU": ["hu-HU"],
-        "th-TH": ["th-TH"],
+        "th-TH": ["th-TH", "th"],
+        "en-GB": ["en-GB"],
+        "fr-CA": ["fr-CA"],
     }
     synced_dirs = set()
     for code, data in LISTINGS.items():
@@ -1505,14 +1507,14 @@ if os.path.exists(FASTLANE_ANDROID_DIR):
         target_dirs = FASTLANE_DIR_MAP.get(code, [code])
         for target_name in target_dirs:
             target_path = os.path.join(FASTLANE_ANDROID_DIR, target_name)
-            if os.path.exists(target_path):
-                synced_dirs.add(target_name)
-                with open(os.path.join(target_path, "title.txt"), "w", encoding="utf-8") as f:
-                    f.write(title + "\n")
-                with open(os.path.join(target_path, "short_description.txt"), "w", encoding="utf-8") as f:
-                    f.write(short + "\n")
-                with open(os.path.join(target_path, "full_description.txt"), "w", encoding="utf-8") as f:
-                    f.write(full + "\n")
+            os.makedirs(target_path, exist_ok=True)
+            synced_dirs.add(target_name)
+            with open(os.path.join(target_path, "title.txt"), "w", encoding="utf-8") as f:
+                f.write(title + "\n")
+            with open(os.path.join(target_path, "short_description.txt"), "w", encoding="utf-8") as f:
+                f.write(short + "\n")
+            with open(os.path.join(target_path, "full_description.txt"), "w", encoding="utf-8") as f:
+                f.write(full + "\n")
 
     # Update remaining directories with clean English text
     en_data = LISTINGS["en-US"]
