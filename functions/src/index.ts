@@ -226,6 +226,8 @@ function cleanSearchQuery(query: string): string {
   cleaned = cleaned.replace(/\s*[\(\[]\s*live(?:\s+at[^)\]]+)?\s*[\)\]]/gi, "");
   cleaned = cleaned.replace(/\s*-\s*live(?:\s+at[^-]+)?/gi, "");
 
+  cleaned = cleaned.replace(/\s*[-–—]\s*topic$/gi, "");
+
   cleaned = cleaned.replace(/\s{2,}/g, " ").trim();
   return cleaned || query.trim();
 }
@@ -536,14 +538,20 @@ function sanitizeMusicMetadata(rawTitle: string, rawArtist: string): { title: st
     title = title.replace(/^track\s*-\s*/i, "").trim();
   }
 
+  // Strip YouTube Topic Channel suffix or middle separator (e.g. "Farin Urlaub - Topic" or "Farin Urlaub - Topic - Atem")
+  artist = artist.replace(/\s*[-–—]\s*Topic$/i, "").trim();
+  title = title.replace(/\s*[-–—]\s*Topic\s*[-–—]\s*/i, " - ").trim();
+  title = title.replace(/\s*[-–—]\s*Topic$/i, "").trim();
+
   const isGenericArtist = !artist || 
     /^(?:YouTube(?:\s+Music)?|Various\s+Artists|Topic|Auto-generated\s+by\s+YouTube|Unknown\s+Artist)$/i.test(artist);
 
-  if (isGenericArtist && title.includes(" - ")) {
-    const parts = title.split(" - ");
+  if (isGenericArtist && (title.includes(" - ") || title.includes(" – "))) {
+    const delimiter = title.includes(" – ") ? " – " : " - ";
+    const parts = title.split(delimiter);
     if (parts.length >= 2) {
-      artist = parts[0].trim();
-      title = parts.slice(1).join(" - ").trim();
+      artist = parts[0].trim().replace(/\s*[-–—]\s*Topic$/i, "").trim();
+      title = parts.slice(1).join(delimiter).trim().replace(/\s*[-–—]\s*Topic$/i, "").trim();
     }
   } else if (isGenericArtist) {
     artist = "";
@@ -3111,6 +3119,7 @@ export const renderWebShare = onRequest(
 
 export {
   cleanSearchQuery,
+  sanitizeMusicMetadata,
   normalizeMusicUrl,
   isRateLimited,
   recordFailedAttempt,

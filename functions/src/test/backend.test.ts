@@ -2,6 +2,7 @@ import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import {
   cleanSearchQuery,
+  sanitizeMusicMetadata,
   normalizeMusicUrl,
   isRateLimited,
   recordFailedAttempt,
@@ -39,9 +40,31 @@ describe("Backend Helper Tests", () => {
       assert.equal(cleanSearchQuery("Master of Puppets - Live"), "Master of Puppets");
     });
 
+    it("should remove YouTube Topic channel suffixes", () => {
+      assert.equal(cleanSearchQuery("Farin Urlaub - Topic"), "Farin Urlaub");
+      assert.equal(cleanSearchQuery("Daft Punk – Topic"), "Daft Punk");
+      assert.equal(cleanSearchQuery("Topic"), "Topic"); // Artist named "Topic" without dash
+    });
+
     it("should preserve clean titles unchanged", () => {
       assert.equal(cleanSearchQuery("Wenn du dumm bist"), "Wenn du dumm bist");
       assert.equal(cleanSearchQuery("Stairway to Heaven"), "Stairway to Heaven");
+    });
+  });
+
+  describe("sanitizeMusicMetadata", () => {
+    it("should clean YouTube Topic channel suffix from artist and title", () => {
+      const result = sanitizeMusicMetadata("Atem", "Farin Urlaub - Topic");
+      assert.equal(result.artist, "Farin Urlaub");
+      assert.equal(result.title, "Atem");
+
+      const combined = sanitizeMusicMetadata("Farin Urlaub - Topic - Atem", "");
+      assert.equal(combined.artist, "Farin Urlaub");
+      assert.equal(combined.title, "Atem");
+
+      const combinedEnDash = sanitizeMusicMetadata("Atem – Farin Urlaub - Topic", "Topic");
+      assert.equal(combinedEnDash.artist, "Atem");
+      assert.equal(combinedEnDash.title, "Farin Urlaub");
     });
   });
 
