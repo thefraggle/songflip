@@ -167,6 +167,9 @@ object UrlUtils {
         cleaned = cleaned.replace(Regex("(?i)\\s*[\\(\\[]\\s*live(?:\\s+at[^)\\]]+)?\\s*[\\)\\]]"), "")
         cleaned = cleaned.replace(Regex("(?i)\\s*-\\s*live(?:\\s+at[^-]+)?"), "")
 
+        // Strip YouTube Topic Channel suffix
+        cleaned = cleaned.replace(Regex("(?i)\\s*[-–—]\\s*topic$"), "")
+
         // Clean extra internal spaces
         cleaned = cleaned.replace(Regex("\\s{2,}"), " ").trim()
 
