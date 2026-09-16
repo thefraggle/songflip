@@ -43,6 +43,7 @@ TARGET_LOCALES = {
     'fi-FI': 'fi',
     'hu-HU': 'hu',
     'ro': 'ro',
+    'th-TH': 'th',
 }
 
 LANG_CODE_MAP = {

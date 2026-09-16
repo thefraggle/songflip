@@ -1,2 +1,3 @@
-- Klarere Einrichtung: Dein ausgewählter Musikplayer wird in der Übersicht jetzt sofort als bereit bestätigt.
-- Feinschliff: Verbesserte Statusanzeigen und noch reibungslosere Bedienung.
+- Neue Sprachen: Vollständige Unterstützung für Traditionelles Chinesisch (Taiwan/Hongkong), Tschechisch, Ungarisch, Finnisch, Griechisch, Rumänisch und Thailändisch.
+- Sprachauswahl & Store-Angleichung: Nahtlose Synchronisation aller In-App-Texte und Store-Listings auf Android und iOS.
+- Internationale Store-Assets: Aktualisierte Screenshots und zertifizierte Store-Beschreibungen für 37 weltweite Regionen.

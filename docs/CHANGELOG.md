@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.3.4] - 2026-09-16
+- **Neue Sprachen**: Vollständige Unterstützung für Traditionelles Chinesisch (Taiwan/Hongkong), Tschechisch, Ungarisch, Finnisch, Griechisch, Rumänisch und Thailändisch.
+- **Sprachauswahl & Store-Angleichung**: Nahtlose Synchronisation aller In-App-Texte und Store-Listings auf Android und iOS.
+- **Internationale Store-Assets**: Aktualisierte Screenshots und zertifizierte Store-Beschreibungen für 37 weltweite Regionen.
+
 ## [1.3.3] - 2026-09-15
 - **Erweiterte Player-Kompatibilität**: Verbesserte Erkennung und Priorisierung alternativer und benutzerdefinierter YouTube Music Installationen.
 - **Zuverlässiger App-Start**: Erkennt deine bevorzugte Player-Konfiguration nahtlos und leitet Musik direkt weiter.

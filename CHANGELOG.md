@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.3.4] - 2026-09-16
+- **Expanded Language Support**: Added full in-app and store localization for Traditional Chinese (Taiwan/Hong Kong), Czech, Hungarian, Finnish, Greek, Romanian, and Thai.
+- **Enhanced Global Experience**: Synchronized language selection and store assets across Android and iOS.
+- **Store Listings & Visuals**: Fully updated and certified multi-language listings and screenshot assets for 37 international markets.
+
 ## [1.3.3] - 2026-09-15
 - **Enhanced Player Compatibility**: Improved launch detection and priority for custom and alternative YouTube Music installations.
 - **Smarter App Routing**: Automatically recognizes your preferred player setup so music opens without delay.

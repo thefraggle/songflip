@@ -1148,6 +1148,301 @@ Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud आ
 आता SongFlip डाउनलोड करा आणि प्लॅटफॉर्मच्या बंधनांशिवाय संगीत ऐका!"""
 )
 
+
+# --- CZECH (cs-CZ) ---
+LISTINGS["cs-CZ"] = (
+    "Čeština",
+    "SongFlip: Převodník odkazů",
+    "Automaticky převádějte a otevírejte hudební odkazy v oblíbené aplikaci.",
+    """Poslal vám kamarád odkaz na skladbu ze Spotify, ale vy posloucháte na YouTube Music, Apple Music nebo Deezeru?
+
+SongFlip je váš chytrý převodník hudebních odkazů pro Android. Po jednorázovém nastavení se příchozí hudební odkazy automaticky převedou na pozadí a otevřou přímo ve vašem preferovaném přehrávači – bez ručního vyhledávání, bez reklam a bez zbytečných meziwebů.
+
+Ať už jde o převod ze Spotify do YouTube Music, Spotify do Apple Music nebo sdílené odkazy ze Shazam: SongFlip okamžitě rozpozná skladbu a poslouží jako univerzální inteligentní převodník pro jakýkoli přehrávač.
+
+🚀 KLÍČOVÉ FUNKCE:
+
+• 8 streamovacích platforem a Shazam:
+Plynule převádí skladby a alba mezi Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud a Bandcamp. Nově s okamžitou podporou pro sdílené odkazy ze Shazam!
+
+• Okamžité přehrávání (Instant Playback):
+Skladby se spustí přímo v cílovém přehrávači, namísto otevření prázdné stránky s výsledky vyhledávání.
+
+• Plná podpora alb a playlistů:
+Rozpozná celá alba a otevře kompletní diskografii. Odkazy na playlisty jsou přesně detekovány – váš chytrý převodník playlistů pro sdílenou hudbu.
+
+• Rychlý výběr přehrávače (Vždy se zeptat):
+Používáte více hudebních aplikací? Povolte volitelný rychlý výběr a zvolte cílový přehrávač při každém otevření odkazu.
+
+• Průvodce nastavením (Android 12+):
+Integrovaný průvodce zkontroluje nainstalované aplikace a pomůže vám jedním klepnutím nastavit výchozí odkazy bez konfliktů.
+
+• Chytrý banner schránky a nabídka sdílení:
+Zkopírujte odkaz nebo jej sdílejte přímo z aplikací WhatsApp, Telegram, Instagram či Reddit do SongFlip pro okamžitý převod na 1 kliknutí.
+
+• Univerzální webové odkazy (Smart Links):
+Vytvořte jedním klepnutím neutrální webové odkazy (songflip.link), které vaši přátelé mohou otevřít na libovolném zařízení a ve své oblíbené streamovací službě.
+
+• Rychlá nastavení a zkratky aplikace:
+Pozastavte automatické přesměrování flexibilně na 15 minut, 1 hodinu nebo do zítřejšího rána pomocí dlaždice Rychlého nastavení.
+
+• Material You design a tematická ikona:
+Plně přizpůsobeno barevnému schématu vašeho systému Android (Dynamic Color, světlý a AMOLED tmavý režim) včetně čisté monochromatické ikony.
+
+🔒 SOUKROMÍ, TRANSPARENTNOST A OPEN SOURCE:
+• 100% Open Source (licence GPLv3 na GitHubu)
+• Žádné uživatelské účty, registrace ani přihlašování
+• Zcela bez reklam – navždy
+• Žádné sledování, žádná analýza vašeho hudebního vkusu
+
+Kompatibilní se Songlink / Odesli. Stáhněte si SongFlip a užijte si hudební svobodu napříč všemi platformami!"""
+)
+
+# --- GREEK (el-GR) ---
+LISTINGS["el-GR"] = (
+    "Ελληνικά",
+    "SongFlip: Σύνδεσμοι Μουσικής",
+    "Αυτόματη μετατροπή και άνοιγμα συνδέσμων στην αγαπημένη σας εφαρμογή (0 κλικ).",
+    """Ένας φίλος σάς στέλνει τραγούδι στο Spotify, αλλά εσείς ακούτε μουσική στο YouTube Music, στο Apple Music ή στο Deezer;
+
+Το SongFlip είναι ο έξυπνος μετατροπέας συνδέσμων μουσικής για Android με 0 κλικ. Μόλις ρυθμιστεί, οι σύνδεσμοι μουσικής μετατρέπονται αυτόματα στο παρασκήνιο και ανοίγουν απευθείας στην εφαρμογή που προτιμάτε – χωρίς χειροκίνητη αναζήτηση, χωρίς διαφημίσεις και χωρίς ενδιάμεσες ιστοσελίδες.
+
+Είτε μετατρέπετε από Spotify σε YouTube Music, από Spotify σε Apple Music είτε ανοίγετε συνδέσμους από το Shazam: Το SongFlip διαχειρίζεται τα τραγούδια άμεσα ως ο καθολικός σας έξυπνος μετατροπέας.
+
+🚀 ΚΥΡΙΑ ΧΑΡΑΚΤΗΡΙΣΤΙΚΑ:
+
+• 8 Πλατφόρμες Streaming & Shazam:
+Ομαλή μετατροπή κομματιών και άλμπουμ σε Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud και Bandcamp. Νέα υποστήριξη για κοινόχρηστους συνδέσμους Shazam!
+
+• Άμεση αναπαραγωγή (Instant Playback):
+Ξεκινά απευθείας την αναπαραγωγή στο πρόγραμμα της επιλογής σας αντί να προσγειώνεται σε κενές σελίδες αναζήτησης.
+
+• Πλήρης υποστήριξη άλμπουμ & λιστών:
+Αναγνωρίζει ολόκληρα άλμπουμ και ανοίγει την πλήρη κυκλοφορία. Οι κοινόχρηστες λίστες αναπαραγωγής εντοπίζονται καθαρά – ο ιδανικός μετατροπέας λιστών μουσικής.
+
+• Γρήγορη επιλογή προγράμματος (Ερώτηση κάθε φορά):
+Χρησιμοποιείτε πολλές εφαρμογές μουσικής; Ενεργοποιήστε τη γρήγορη επιλογή για να διαλέγετε τον επιθυμητό προορισμό κατά το άνοιγμα συνδέσμων.
+
+• Έξυπνος οδηγός ρύθμισης (Android 12+):
+Ρυθμίστε εύκολα τους συνδέσμους εφαρμογών με ένα πάτημα χωρίς διενέξεις.
+
+• Έξυπνο banner προχείρου & Μενού κοινής χρήσης:
+Αντιγράψτε έναν σύνδεσμο ή κοινοποιήστε τον απευθείας από WhatsApp, Telegram, Instagram ή Reddit στο SongFlip για άμεση μετατροπή με 1 κλικ.
+
+• Καθολικοί σύνδεσμοι Web (Smart Links):
+Δημιουργήστε με ένα πάτημα ουδέτερους συνδέσμους ιστού (songflip.link) που οι φίλοι σας μπορούν να ανοίξουν σε οποιαδήποτε συσκευή.
+
+• Πλακίδιο γρήγορων ρυθμίσεων & Συντομεύσεις:
+Κάντε παύση της ανακατεύθυνσης για 15 λεπτά, 1 ώρα ή μέχρι το επόμενο πρωί από τις Γρήγορες ρυθμίσεις.
+
+• Σχεδίαση Material You & Θεματικό εικονίδιο:
+Πλήρης προσαρμογή στα χρώματα του συστήματός σας (Dynamic Color, Light & AMOLED Dark mode).
+
+🔒 ΑΠΟΡΡΗΤΟ & OPEN SOURCE:
+• 100% Open Source (άδεια GPLv3 στο GitHub)
+• Χωρίς λογαριασμούς, συνδέσεις ή εγγραφές
+• Εντελώς χωρίς διαφημίσεις – για πάντα
+• Μηδενική παρακολούθηση δεδομένων
+
+Συμβατό με Songlink / Odesli. Κατεβάστε το SongFlip τώρα!"""
+)
+
+# --- FINNISH (fi-FI) ---
+LISTINGS["fi-FI"] = (
+    "Suomi",
+    "SongFlip: Musiikkilinkit",
+    "Muunna ja avaa musiikkilinkit automaattisesti suosikkisoittimessasi.",
+    """Ystävä lähettää sinulle kappaleen Spotifyssa, mutta kuuntelet musiikkia YouTube Musicissa, Apple Musicissa tai Deezerissä?
+
+SongFlip on saumaton ja automaattinen musiikkilinkkien muunnin ja uudelleenohjaus Androidille. Kun asetus on tehty, vastaanotetut linkit muunnetaan automaattisesti taustalla ja avataan suoraan haluamassasi soittimessa – ilman manuaalista hakua, mainoksia tai selaimen välisivuja.
+
+Olipa kyseessä Spotify YouTube Musiciin, Spotify Apple Musiciin tai Shazam-linkkien avaaminen: SongFlip käsittelee musiikkilinkit heti universaalina älykkäänä muuntimena.
+
+🚀 TÄRKEIMMÄT OMINAISUUDET:
+
+• 8 suoratoistopalvelua & Shazam:
+Muuntaa kappaleet ja albumit saumattomasti Spotifyn, YouTube Musicin, Apple Musicin, Deezerin, TIDALin, Amazon Musicin, SoundCloudin ja Bandcampin välillä. Mukana uusi välitön tuki jaetuille Shazam-linkeille!
+
+• Välitön toisto (Instant Playback):
+Käynnistää toiston suoraan kohdesoittimessa tyhjien hakutulossivujen sijaan.
+
+• Täysi albumi- ja soittolistatuki:
+Tunnistaa kokonaiset albumit ja avaa koko julkaisun. Jaetut soittolistat havaitaan tarkasti – kätevä soittolistojen muunnin.
+
+• Nopea soittimen valitsin (Kysy joka kerta):
+Käytätkö useita musiikkisovelluksia? Ota käyttöön pikavalitsin valitaksesi kohdesoittimen lennossa aina kun avaat musiikkilinkin.
+
+• Älykäs asennusapuri (Android 12+):
+Ohjattu asennus tarkistaa asennetut sovellukset ja auttaa määrittämään oletuslinkit yhdellä napautuksella ilman ristiriitoja.
+
+• Leikepöydän älypalkki & Jaa-valikko:
+Kopioi linkki tai jaa se suoraan WhatsAppista, Telegramista, Instagramista tai Redditistä SongFlipiin välitöntä 1 klikkauksen muunnosta varten.
+
+• Universaalit verkkolinkit (Smart Links):
+Luo yhdellä napautuksella neutraaleja verkkolinkkejä (songflip.link), jotka ystäväsi voivat avata millä tahansa laitteella ja musiikkipalvelulla.
+
+• Pika-asetuskuvake & Sovelluksen pikakuvakkeet:
+Keskeytä automaattinen uudelleenohjaus kätevästi 15 minuutiksi, 1 tunniksi tai seuraavaan aamuun pika-asetuspaneelista.
+
+• Material You -muotoilu & Teemoitettu kuvake:
+Täysin Android-järjestelmäsi väreihin mukautuva ulkoasu (Dynamic Color, vaalea ja AMOLED-tumma tila).
+
+🔒 TIETOSUOJA & AVOIN LÄHDEKOODI:
+• 100 % avointa lähdekoodia (GPLv3-lisensoitu GitHubissa)
+• Ei käyttäjätilejä, rekisteröitymistä tai kirjautumista
+• Täysin mainokseton – ikuisesti
+• Ei seurantaa tai kuuntelutottumusten tallentamista
+
+Yhteensopiva Songlink / Odesli -palvelun kanssa. Lataa SongFlip nyt!"""
+)
+
+# --- HUNGARIAN (hu-HU) ---
+LISTINGS["hu-HU"] = (
+    "Magyar",
+    "SongFlip: Zenei Linkek",
+    "Zenei linkek automatikus átalakítása és megnyitása a kedvenc lejátszódban.",
+    """Egy barátod megosztott veled egy dalt a Spotifyról, de te YouTube Musicot, Apple Musicot vagy Deezert használsz?
+
+A SongFlip a te zökkenőmentes, 0-kattintásos zenei link-átalakítód és átirányítód Androidra. A beállítás után a beérkező zenei linkek automatikusan átalakulnak a háttérben, és közvetlenül a kívánt zenelejátszóban indulnak el – kézi keresés, reklámok és felesleges böngészős átirányítások nélkül.
+
+Legyen szó Spotify-ról YouTube Musicra, Spotify-ról Apple Musicra vagy megosztott Shazam-linkekről: A SongFlip azonnal felismeri a dalt univerzális intelligens link-konvertálóként.
+
+🚀 FŐBB JELLEMZŐK:
+
+• 8 zenei platform és Shazam támogatása:
+Zökkenőmentes konvertálás a Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud és Bandcamp között. Mostantól a megosztott Shazam-linkek azonnali feloldásával!
+
+• Azonnali lejátszás (Instant Playback):
+A zeneszám közvetlenül a céllejátszóban indul el, nem pedig egy üres keresési oldalon.
+
+• Teljes album- és lejátszási lista támogatás:
+Felismeri a teljes albumokat és megnyitja a teljes kiadványt. A megosztott lejátszási listákat is tisztán kezeli.
+
+• Gyors lejátszóválasztó (Kérdezzen rá minden alkalommal):
+Több zenei alkalmazást is használsz? Engedélyezd a gyorsválasztót a céllejátszó azonnali kiválasztásához a link megnyitásakor.
+
+• Intelligens beállítási varázsló (Android 12+):
+Segít egyetlen érintéssel konfliktusmentesen beállítani az alapértelmezett hivatkozásokat.
+
+• Vágólap intelligens sáv & Megosztás menü:
+Csak másolj ki egy linket, vagy oszd meg közvetlenül a WhatsApp, Telegram, Instagram vagy Reddit alkalmazásból a SongFlipbe az 1-kattintásos azonnali konvertáláshoz.
+
+• Univerzális webes okoslinkek (Smart Links):
+Hozz létre egyetlen érintéssel semleges webes linkeket (songflip.link), amelyeket a barátaid bármilyen eszközön és streaming szolgáltatásban megnyithatnak.
+
+• Gyorsbeállítások csempe & Ikon parancsikonok:
+Szüneteltesd az átirányítást rugalmasan 15 percre, 1 órára vagy másnap reggelig a Gyorsbeállítások panelen.
+
+• Material You dizájn & Tematikus ikon:
+Teljesen illeszkedik az Android rendszerszíneihez (Dynamic Color, világos és AMOLED sötét mód).
+
+🔒 ADATVÉDELEM ÉS NYÍLT FORRÁSKÓD:
+• 100% nyílt forráskód (GPLv3 licenc a GitHubon)
+• Nincsenek felhasználói fiókok, nincs regisztráció
+• Teljesen reklámmentes – örökre
+• Nulla nyomon követés, nincsenek mentett adatok
+
+Kompatibilis a Songlink / Odesli platformmal. Töltsd le a SongFlipet most!"""
+)
+
+# --- ROMANIAN (ro-RO) ---
+LISTINGS["ro-RO"] = (
+    "Română",
+    "SongFlip: Redirecționare Link",
+    "Convertește și deschide automat linkurile muzicale în playerul favorit.",
+    """Un prieten îți trimite o melodie pe Spotify, dar tu asculți pe YouTube Music, Apple Music sau Deezer?
+
+SongFlip este convertorul și redirecționerul tău inteligent de linkuri muzicale pentru Android, cu zero clicuri. Odată configurat, linkurile muzicale primite sunt convertite automat în fundal și se deschid direct în playerul tău preferat – fără căutare manuală, fără reclame și fără pagini intermediare în browser.
+
+Fie că treci de la Spotify la YouTube Music, de la Spotify la Apple Music sau deschizi piese din Shazam: SongFlip rezolvă linkurile instantaneu ca convertor universal.
+
+🚀 FUNCȚII PRINCIPALE:
+
+• 8 platforme de streaming și Shazam:
+Convertește fără efort piese și albume între Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud și Bandcamp. Nou adăugat: suport instantaneu pentru linkurile Shazam!
+
+• Redare instantanee (Instant Playback):
+Pornește redarea direct în playerul țintă, în loc să afișeze pagini goale de căutare.
+
+• Suport complet pentru albume și playlisturi:
+Recunoaște albume întregi și deschide întreaga discografie. Playlisturile partajate sunt detectate precis.
+
+• Selector rapid de player (Întreabă de fiecare dată):
+Folosești mai multe aplicații de muzică? Activează selectorul rapid pentru a alege playerul țintă din mers.
+
+• Asistent inteligent de configurare (Android 12+):
+Te ajută să configurezi linkurile implicite cu o singură atingere, fără conflicte.
+
+• Banner inteligent pentru clipboard & Meniu de partajare:
+Copiază un link sau partajează-l direct din WhatsApp, Telegram, Instagram sau Reddit în SongFlip pentru conversie instantanee cu 1 clic.
+
+• Linkuri web universale (Smart Links):
+Creează cu o singură atingere linkuri web neutre (songflip.link) pe care prietenii tăi le pot deschide pe orice dispozitiv și serviciu.
+
+• Buton în Setări Rapide & Comenzi rapide:
+Pune pe pauză redirecționarea pentru 15 minute, 1 oră sau până a doua zi dimineață din panoul de Setări Rapide.
+
+• Design Material You & Pictogramă tematică:
+Adaptat complet la culorile sistemului tău Android (Dynamic Color, mod luminos și mod întunecat AMOLED).
+
+🔒 CONFIDENȚIALITATE & OPEN SOURCE:
+• 100% Open Source (licențiat GPLv3 pe GitHub)
+• Fără conturi, fără înregistrare, fără autentificare
+• Complet fără reclame – pentru totdeauna
+• Fără urmărire sau analiză a preferințelor muzicale
+
+Compatibil cu Songlink / Odesli. Descarcă SongFlip acum!"""
+)
+
+# --- THAI (th-TH) ---
+LISTINGS["th-TH"] = (
+    "ไทย",
+    "SongFlip: ตัวแปลงลิงก์เพลง",
+    "แปลงและเปิดลิงก์เพลงในเครื่องเล่นโปรดของคุณโดยอัตโนมัติ (0 คลิก ไม่มีโฆษณา)",
+    """เพื่อนส่งลิงก์เพลงบน Spotify ให้คุณ แต่คุณฟังเพลงบน YouTube Music, Apple Music หรือ Deezer?
+
+SongFlip คือตัวแปลงและเปลี่ยนเส้นทางลิงก์เพลงอัตโนมัติแบบ 0 คลิกสำหรับ Android เมื่อตั้งค่าแล้ว ลิงก์เพลงที่ได้รับจะแปลงในเบื้องหลังโดยอัตโนมัติและเปิดเล่นในแอปเพลงที่คุณต้องการทันที – ไม่ต้องค้นหาด้วยตนเอง ไม่มีโฆษณา และไม่มีหน้าเว็บคั่นให้รำคาญใจ
+
+ไม่ว่าจะเป็นการสลับจาก Spotify ไปยัง YouTube Music, Spotify ไปยัง Apple Music หรือลิงก์ที่แชร์จาก Shazam: SongFlip จะเปิดเพลงให้ทันทีในฐานะตัวแปลงสมาร์ทลิงก์สากล
+
+🚀 ฟีเจอร์หลัก:
+
+• รองรับ 8 แพลตฟอร์มเพลงชั้นนำและ Shazam:
+แปลงแทร็กและอัลบั้มระหว่าง Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud และ Bandcamp ได้อย่างราบรื่น รองรับลิงก์เพลงที่แชร์จาก Shazam ได้ทันที!
+
+• เล่นเพลงทันที (Instant Playback):
+เปิดเล่นเพลงในเครื่องเล่นเป้าหมายโดยตรง แทนที่จะค้างอยู่ที่หน้าผลการค้นหาว่างเปล่า
+
+• รองรับทั้งอัลบั้มและเพลย์ลิสต์:
+ตรวจจับอัลบั้มเต็มและเปิดผลงานเพลงทั้งหมด ลิงก์เพลย์ลิสต์ที่แชร์จะได้รับการตรวจจับอย่างแม่นยำ
+
+• หน้าต่างเลือกเครื่องเล่นด่วน (ถามทุกครั้ง):
+ใช้แอปเพลงหลายแอปใช่ไหม? เปิดใช้งานหน้าต่างเลือกด่วนเพื่อเลือกเครื่องเล่นเป้าหมายได้ทันทีเมื่อเปิดลิงก์เพลง
+
+• ตัวช่วยตั้งค่าอัจฉริยะ (Android 12+):
+ตั้งค่าลิงก์แอปเริ่มต้นได้อย่างง่ายดายด้วยการแตะเพียงครั้งเดียว
+
+• แถบตรวจจับคลิปบอร์ด & เมนูแชร์:
+คัดลอกลิงก์หรือแชร์โดยตรงจาก WhatsApp, Telegram, Instagram, LINE หรือ Reddit ไปยัง SongFlip เพื่อแปลงได้ทันทีใน 1 คลิก
+
+• ลิงก์เว็บสากล (Smart Links):
+สร้างลิงก์เว็บที่เป็นกลาง (songflip.link) ได้ด้วยการแตะเพียงครั้งเดียว เพื่อให้เพื่อนๆ เปิดบนอุปกรณ์และแอปเพลงใดก็ได้
+
+• ไทล์การตั้งค่าด่วน & ทางลัดแอป:
+หยุดการเปลี่ยนเส้นทางชั่วคราวได้อย่างยืดหยุ่นเป็นเวลา 15 นาที 1 ชั่วโมง หรือจนถึงเช้าวันถัดไป
+
+• ดีไซน์ Material You & ไอคอนตามธีม:
+ปรับแต่งตามโทนสีของระบบ Android อย่างสมบูรณ์แบบ (Dynamic Color, โหมดสว่าง และโหมดมืด AMOLED)
+
+🔒 ความเป็นส่วนตัว & โอเพ่นซอร์ส:
+• โอเพ่นซอร์ส 100% (ลิขสิทธิ์ GPLv3 บน GitHub)
+• ไม่ต้องมีบัญชี ไม่ต้องลงทะเบียน ไม่ต้องเข้าสู่ระบบ
+• ไม่มีโฆษณาตลอดไป
+• ไม่มีการติดตามพฤติกรรมการฟังเพลง
+
+รองรับ Songlink / Odesli ดาวน์โหลด SongFlip เลยวันนี้!"""
+)
+
 print(f"Total locales mapped: {len(LISTINGS)}")
 
 # Validation check
@@ -1164,7 +1459,7 @@ for code, data in LISTINGS.items():
 md_file = os.path.join(DIST_DIR, "playstore_listings_all_languages.md")
 with open(md_file, "w", encoding="utf-8") as f:
     f.write("# 📱 SongFlip – Play Store Listings (Alle Sprachen)\n\n")
-    f.write("> **Version:** 1.3.1 | **Umfang:** 28 Store-Sprachen | **Zertifiziert:** Titel ≤ 30 Zeichen, Kurzbeschreibung ≤ 80 Zeichen, Volltext ≤ 4.000 Zeichen.\n\n")
+    f.write("> **Version:** 1.3.1 | **Umfang:** 34 Store-Sprachen | **Zertifiziert:** Titel ≤ 30 Zeichen, Kurzbeschreibung ≤ 80 Zeichen, Volltext ≤ 4.000 Zeichen.\n\n")
     f.write("---\n\n")
     for code, data in sorted(LISTINGS.items()):
         lang, title, short, full = data
@@ -1197,6 +1492,12 @@ if os.path.exists(FASTLANE_ANDROID_DIR):
         "uk": ["uk-UA"],
         "vi": ["vi-VN"],
         "nb-NO": ["nb-NO", "no-NO"],
+        "ro-RO": ["ro-RO", "ro"],
+        "cs-CZ": ["cs-CZ"],
+        "el-GR": ["el-GR"],
+        "fi-FI": ["fi-FI"],
+        "hu-HU": ["hu-HU"],
+        "th-TH": ["th-TH"],
     }
     synced_dirs = set()
     for code, data in LISTINGS.items():
