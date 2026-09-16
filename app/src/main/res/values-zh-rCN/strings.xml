@@ -242,4 +242,6 @@
     <string name="settings_ask_every_time_title">每次询问目标应用</string>
     <string name="settings_ask_every_time_subtitle">显示快捷选择器，而不是直接打开默认播放器</string>
     <string name="quick_picker_title">打开方式 …</string>
+    <string name="share_universal_link_title">分享通用网页链接</string>
+    <string name="share_universal_link_desc">为任何音乐平台上的朋友创建通用的 songflip.link 链接</string>
 </resources>

@@ -260,4 +260,6 @@
     <string name="settings_ask_every_time_title">Ask target app every time</string>
     <string name="settings_ask_every_time_subtitle">Show quick picker instead of immediately opening default player</string>
     <string name="quick_picker_title">Open with …</string>
+    <string name="share_universal_link_title">Share universal web links</string>
+    <string name="share_universal_link_desc">Create universal songflip.link links for friends on any music platform</string>
 </resources>

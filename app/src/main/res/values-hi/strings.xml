@@ -246,4 +246,6 @@
     <string name="settings_ask_every_time_title">हर बार लक्ष्य ऐप पूछें</string>
     <string name="settings_ask_every_time_subtitle">सीधे डिफ़ॉल्ट प्लेयर खोलने के बजाय त्वरित पिकर दिखाएं</string>
     <string name="quick_picker_title">इसके साथ खोलें …</string>
+    <string name="share_universal_link_title">सार्वभौमिक वेब लिंक साझा करें</string>
+    <string name="share_universal_link_desc">किसी भी संगीत प्लेटफ़ॉर्म पर दोस्तों के लिए सार्वभौमिक songflip.link लिंक बनाएं</string>
 </resources>

@@ -1549,6 +1549,125 @@ export const resolve = onRequest(
 );
 
 /**
+ * Crowdsourced L2 Cache Population Endpoint: POST /ingest (or /api/cache/ingest)
+ * Accepts resolved song links from client apps (Free & Pro) and stores them in Firestore L2 cache.
+ * Fully privacy-safe: No user ID, device ID or tracking data accepted or stored.
+ */
+export const ingest = onRequest(
+  {
+    region: "europe-west3",
+    memory: "256MiB",
+    maxInstances: 20,
+    timeoutSeconds: 15,
+    cors: true,
+    invoker: "public",
+  },
+  async (req, res) => {
+    applyApiSecurityHeaders(res);
+    res.set("Access-Control-Allow-Origin", "*");
+    res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.set("Access-Control-Allow-Headers", "Content-Type, x-web-client");
+
+    if (req.method === "OPTIONS") {
+      res.status(204).send("");
+      return;
+    }
+
+    if (req.method !== "POST") {
+      res.status(405).json({ error: "METHOD_NOT_ALLOWED" });
+      return;
+    }
+
+    const clientIp = (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() || req.ip || "unknown";
+    if (isRateLimited(`ingest:${clientIp}`, 30, 60000)) {
+      res.setHeader("Retry-After", "60");
+      res.status(429).json({ error: "TOO_MANY_REQUESTS" });
+      return;
+    }
+
+    const { originalUrl, targetUrl, platform, links, title, artist, isAlbum } = req.body || {};
+
+    if (!originalUrl || typeof originalUrl !== "string" || !isSafePublicHttpsUrl(originalUrl)) {
+      res.status(400).json({ error: "INVALID_URL", message: "Valid streaming originalUrl is required" });
+      return;
+    }
+
+    const normalizedUrl = normalizeMusicUrl(originalUrl);
+    const primaryHash = hashUrl(normalizedUrl);
+    const cacheRef = db.collection("l2_song_cache").doc(primaryHash);
+
+    // 1. Quick check if already in cache (avoid unnecessary Firestore writes)
+    const existingSnap = await cacheRef.get();
+    if (existingSnap.exists) {
+      res.status(200).json({ status: "already_cached", hash: primaryHash.substring(0, 12) });
+      return;
+    }
+
+    // 2. Prepare links map
+    const cleanLinks: Record<string, string> = {};
+    if (links && typeof links === "object") {
+      for (const [pKey, pUrl] of Object.entries(links)) {
+        if (typeof pUrl === "string" && isSafePublicHttpsUrl(pUrl)) {
+          cleanLinks[pKey] = pUrl.trim();
+        }
+      }
+    }
+    if (targetUrl && typeof targetUrl === "string" && platform && typeof platform === "string" && isSafePublicHttpsUrl(targetUrl)) {
+      cleanLinks[platform] = targetUrl.trim();
+    }
+
+    let resolvedItem: SongMetadata | null = null;
+    if (Object.keys(cleanLinks).length >= 2 && (title || artist)) {
+      const rollingExpiresAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000);
+      resolvedItem = {
+        title: typeof title === "string" ? title.trim() : "",
+        artist: typeof artist === "string" ? artist.trim() : "",
+        isAlbum: Boolean(isAlbum),
+        links: cleanLinks,
+        isFallback: false,
+        updatedAt: Date.now(),
+        expiresAt: admin.firestore.Timestamp.fromDate(rollingExpiresAt),
+      };
+    } else {
+      // Resolve live on server to get full 6-platform links
+      resolvedItem = await resolveSongLive(normalizedUrl);
+    }
+
+    if (!resolvedItem || Object.keys(resolvedItem.links || {}).length === 0) {
+      res.status(422).json({ error: "RESOLUTION_FAILED", message: "Could not verify song metadata" });
+      return;
+    }
+
+    // 3. Batch upsert into L2 cache (primary hash, 12-char ID, 8-char legacy ID, alt platform URLs)
+    const batch = db.batch();
+    const primaryShortId = primaryHash.substring(0, 12);
+    batch.set(cacheRef, resolvedItem);
+    batch.set(db.collection("l2_song_cache").doc(primaryShortId), resolvedItem);
+    batch.set(db.collection("l2_song_cache").doc(primaryHash.substring(0, 8)), resolvedItem);
+
+    Object.values(resolvedItem.links).forEach((platformUrl) => {
+      if (typeof platformUrl === "string" && platformUrl.length > 0) {
+        const altNorm = normalizeMusicUrl(platformUrl);
+        const altHash = hashUrl(altNorm);
+        if (altHash !== primaryHash) {
+          batch.set(db.collection("l2_song_cache").doc(altHash), resolvedItem);
+          batch.set(db.collection("l2_song_cache").doc(altHash.substring(0, 12)), resolvedItem);
+          batch.set(db.collection("l2_song_cache").doc(altHash.substring(0, 8)), resolvedItem);
+        }
+      }
+    });
+
+    await batch.commit();
+
+    res.status(200).json({
+      status: "ingested",
+      hash: primaryShortId,
+      platforms: Object.keys(resolvedItem.links).length,
+    });
+  }
+);
+
+/**
  * Dynamic L2 Cache Invalidation Endpoint: POST/GET /invalidate
  * Query/Body: { url?: string, hash?: string }
  */

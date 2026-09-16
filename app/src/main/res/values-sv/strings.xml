@@ -246,4 +246,6 @@
     <string name="settings_ask_every_time_title">Fråga efter målapp varje gång</string>
     <string name="settings_ask_every_time_subtitle">Visa snabbval istället för att direkt öppna standardspelaren</string>
     <string name="quick_picker_title">Öppna med …</string>
+    <string name="share_universal_link_title">Dela universella webblänkar</string>
+    <string name="share_universal_link_desc">Skapa universella songflip.link-länkar för vänner på alla musikplattformar</string>
 </resources>

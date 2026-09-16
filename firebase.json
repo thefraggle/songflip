@@ -39,6 +39,20 @@
         }
       },
       {
+        "source": "/ingest",
+        "function": {
+          "functionId": "ingest",
+          "region": "europe-west3"
+        }
+      },
+      {
+        "source": "/api/cache/ingest",
+        "function": {
+          "functionId": "ingest",
+          "region": "europe-west3"
+        }
+      },
+      {
         "source": "/invalidate",
         "function": {
           "functionId": "invalidate",

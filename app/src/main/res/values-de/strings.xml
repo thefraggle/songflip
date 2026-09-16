@@ -260,4 +260,6 @@
     <string name="settings_ask_every_time_title">Ziel-App jedes Mal abfragen</string>
     <string name="settings_ask_every_time_subtitle">Schnellauswahl anzeigen, anstatt sofort in den Standard-Player zu wechseln</string>
     <string name="quick_picker_title">Öffnen mit …</string>
+    <string name="share_universal_link_title">Universelle Web-Links teilen</string>
+    <string name="share_universal_link_desc">Erstelle universelle songflip.link-Links für Freunde auf beliebigen Musikplattformen</string>
 </resources>

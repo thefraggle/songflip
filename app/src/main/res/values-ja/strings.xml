@@ -242,4 +242,6 @@
     <string name="settings_ask_every_time_title">毎回再生アプリを確認</string>
     <string name="settings_ask_every_time_subtitle">デフォルトのプレーヤーをすぐに開かずクイック選択を表示</string>
     <string name="quick_picker_title">次で開く …</string>
+    <string name="share_universal_link_title">ユニバーサルWebリンクを共有</string>
+    <string name="share_universal_link_desc">あらゆる音楽プラットフォームの友達向けにユニバーサルな songflip.link リンクを作成</string>
 </resources>

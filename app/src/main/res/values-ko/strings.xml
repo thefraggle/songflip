@@ -242,4 +242,6 @@
     <string name="settings_ask_every_time_title">매번 대상 앱 묻기</string>
     <string name="settings_ask_every_time_subtitle">기본 플레이어를 바로 열지 않고 빠른 선택 표시</string>
     <string name="quick_picker_title">다음으로 열기 …</string>
+    <string name="share_universal_link_title">유니버설 웹 링크 공유</string>
+    <string name="share_universal_link_desc">모든 음악 플랫폼의 친구를 위해 유니버설 songflip.link 링크 생성</string>
 </resources>

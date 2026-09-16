@@ -254,4 +254,6 @@
     <string name="settings_ask_every_time_title">Спрашивать целевое приложение каждый раз</string>
     <string name="settings_ask_every_time_subtitle">Показывать быстрый выбор вместо немедленного открытия стандартного плеера</string>
     <string name="quick_picker_title">Открыть с помощью …</string>
+    <string name="share_universal_link_title">Делитесь универсальными веб-ссылками</string>
+    <string name="share_universal_link_desc">Создавайте универсальные ссылки songflip.link для друзей на любых музыкальных платформах</string>
 </resources>

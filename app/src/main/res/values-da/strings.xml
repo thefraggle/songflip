@@ -246,4 +246,6 @@
     <string name="settings_ask_every_time_title">Spørg om destinationsapp hver gang</string>
     <string name="settings_ask_every_time_subtitle">Vis hurtigvalg i stedet for straks at åbne standardafspilleren</string>
     <string name="quick_picker_title">Åbn med …</string>
+    <string name="share_universal_link_title">Del universelle weblinks</string>
+    <string name="share_universal_link_desc">Opret universelle songflip.link-links til venner på enhver musikplatform</string>
 </resources>

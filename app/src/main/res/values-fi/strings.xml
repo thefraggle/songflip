@@ -232,4 +232,6 @@
     <string name="settings_ask_every_time_title">Kysy kohdesovellusta joka kerta</string>
     <string name="settings_ask_every_time_subtitle">Näytä pikavalitsin sen sijaan, että oletussoitin avattaisiin heti</string>
     <string name="quick_picker_title">Avaa sovelluksella …</string>
+    <string name="share_universal_link_title">Jaa yleisiä verkkolinkkejä</string>
+    <string name="share_universal_link_desc">Luo yleisiä songflip.link-linkkejä ystäville millä tahansa musiikkialustalla</string>
 </resources>

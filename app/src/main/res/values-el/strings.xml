@@ -232,4 +232,6 @@
     <string name="settings_ask_every_time_title">Ερώτηση για εφαρμογή προορισμού κάθε φορά</string>
     <string name="settings_ask_every_time_subtitle">Εμφάνιση γρήγορης επιλογής αντί άμεσου ανοίγματος της προεπιλογής</string>
     <string name="quick_picker_title">Άνοιγμα με …</string>
+    <string name="share_universal_link_title">Κοινοποίηση καθολικών συνδέσμων ιστού</string>
+    <string name="share_universal_link_desc">Δημιουργήστε καθολικούς συνδέσμους songflip.link για φίλους σε οποιαδήποτε μουσική πλατφόρμα</string>
 </resources>
