@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   cleanSearchQuery,
   sanitizeMusicMetadata,
+  resolveHdSquareArtworkUrl,
   normalizeMusicUrl,
   isRateLimited,
   recordFailedAttempt,
@@ -65,6 +66,14 @@ describe("Backend Helper Tests", () => {
       const combinedEnDash = sanitizeMusicMetadata("Atem – Farin Urlaub - Topic", "Topic");
       assert.equal(combinedEnDash.artist, "Atem");
       assert.equal(combinedEnDash.title, "Farin Urlaub");
+    });
+  });
+
+  describe("resolveHdSquareArtworkUrl", () => {
+    it("should resolve a 1:1 square artwork URL for known artists", async () => {
+      const cover = await resolveHdSquareArtworkUrl("Farin Urlaub", "Atem");
+      assert.ok(cover, "Should return a cover URL");
+      assert.ok(cover.startsWith("https://"), "Should be a secure HTTPS URL");
     });
   });
 

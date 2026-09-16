@@ -1080,6 +1080,48 @@ async function resolveAudioPreviewUrl(artist: string, title: string): Promise<st
 }
 
 /**
+ * Resolves high-resolution 1:1 square album artwork from Apple iTunes or Deezer.
+ * Replaces letterboxed/cropped 16:9 YouTube video thumbnails.
+ */
+async function resolveHdSquareArtworkUrl(artist: string, title: string, isAlbum: boolean = false): Promise<string | undefined> {
+  const cleanTitle = cleanSearchQuery(title);
+  const q = `${artist} ${cleanTitle}`.trim();
+  if (!q) return undefined;
+
+  // 1. Apple iTunes Search API (Lossless high-res square artwork)
+  try {
+    const itunesRes = await axios.get("https://itunes.apple.com/search", {
+      params: {
+        term: q,
+        media: "music",
+        entity: isAlbum ? "album" : "song",
+        limit: 1,
+      },
+      timeout: 2500,
+    });
+    const first = itunesRes.data?.results?.[0];
+    if (first && typeof first.artworkUrl100 === "string") {
+      return first.artworkUrl100.replace("100x100bb", "600x600bb");
+    }
+  } catch (_) {}
+
+  // 2. Deezer Search API (1000x1000 square artwork)
+  try {
+    const deezerType = isAlbum ? "album" : "track";
+    const deezerRes = await axios.get(`https://api.deezer.com/search/${deezerType}?q=${encodeURIComponent(q)}&limit=1`, { timeout: 2500 });
+    const match = deezerRes.data?.data?.[0];
+    if (match) {
+      const cover = match.cover_xl || match.album?.cover_xl || match.picture_xl || match.cover_big || match.album?.cover_big;
+      if (typeof cover === "string" && cover.startsWith("https://")) {
+        return cover;
+      }
+    }
+  } catch (_) {}
+
+  return undefined;
+}
+
+/**
  * Resolves song metadata & cross-platform links via direct SongLink engine.
  */
 async function resolveSongLive(url: string): Promise<SongMetadata | null> {
@@ -1412,6 +1454,16 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
         previewUrl = await resolveAudioPreviewUrl(artist, title);
       } catch (err: any) {
         console.debug("[AudioPreview] Resolution failed:", err?.message);
+      }
+    }
+
+    // Upgrade YouTube video thumbnail or missing cover to 1:1 HD square artwork
+    if (title && artist && (!thumbnailUrl || thumbnailUrl.includes("ytimg.com") || thumbnailUrl.includes("youtube.com"))) {
+      try {
+        const hdCover = await resolveHdSquareArtworkUrl(artist, title, isAlbum);
+        if (hdCover) thumbnailUrl = hdCover;
+      } catch (err: any) {
+        console.debug("[HdArtwork] Resolution failed:", err?.message);
       }
     }
 
@@ -2461,7 +2513,7 @@ export const renderWebShare = onRequest(
           if (match) {
             cleanArtist = match.artist?.name || cleanArtist;
             cleanTitle = match.title || cleanTitle;
-            if (!songData.thumbnailUrl || songData.thumbnailUrl.includes("icon.png")) {
+            if (!songData.thumbnailUrl || songData.thumbnailUrl.includes("icon.png") || songData.thumbnailUrl.includes("ytimg.com") || songData.thumbnailUrl.includes("youtube.com")) {
               songData.thumbnailUrl = match.cover_xl || match.album?.cover_xl || songData.thumbnailUrl;
             }
             if (hash) {
@@ -2470,6 +2522,24 @@ export const renderWebShare = onRequest(
                 title: cleanTitle,
                 thumbnailUrl: songData.thumbnailUrl,
               }, { merge: true }).catch(() => {});
+            }
+          }
+        } catch (_) {}
+      }
+
+      // 5.2 Auto-heal non-square YouTube thumbnails or missing covers to true 1:1 HD artwork from Apple Music or Deezer
+      const isYtThumbnail = !songData.thumbnailUrl || 
+        songData.thumbnailUrl.includes("icon.png") || 
+        songData.thumbnailUrl.includes("ytimg.com") || 
+        songData.thumbnailUrl.includes("youtube.com");
+
+      if (isYtThumbnail && cleanTitle && (cleanArtist || isArtist)) {
+        try {
+          const hdCover = await resolveHdSquareArtworkUrl(cleanArtist, cleanTitle, isAlbum);
+          if (hdCover) {
+            songData.thumbnailUrl = hdCover;
+            if (hash) {
+              db.collection("l2_song_cache").doc(hash).set({ thumbnailUrl: hdCover }, { merge: true }).catch(() => {});
             }
           }
         } catch (_) {}
@@ -3120,6 +3190,7 @@ export const renderWebShare = onRequest(
 export {
   cleanSearchQuery,
   sanitizeMusicMetadata,
+  resolveHdSquareArtworkUrl,
   normalizeMusicUrl,
   isRateLimited,
   recordFailedAttempt,
