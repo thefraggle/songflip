@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.3.6] - 2026-09-16
+- **Enhanced Player Detection**: Intelligent dynamic detection of your installed music players for seamless 1-click redirects.
+- **More Reliable Link Handoff**: Fixes an issue where repeated app selection dialogs could appear on certain device setups.
+- **Stability & Performance**: Optimized background intent processing and general under-the-hood fixes.
+
 ## [1.3.5] - 2026-09-16
 - **Universal Song Sharing**: Share music links that friends can open seamlessly on any streaming service.
 - **Faster Song Lookups**: Popular tracks open even faster and more reliably with instant cloud matching.
