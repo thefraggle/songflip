@@ -2204,7 +2204,15 @@ interface WebShareI18n {
 }
 
 function getWebShareI18n(header?: string): WebShareI18n {
-  const code = (header || "").split(",")[0]?.split(";")[0]?.trim().toLowerCase().split("-")[0] || "en";
+  const normalizedHeader = (header || "").trim().toLowerCase();
+  const primaryTag = normalizedHeader.split(",")[0]?.split(";")[0]?.trim() || "en";
+  const langCode = primaryTag.split("-")[0] || "en";
+
+  let matchedKey = langCode;
+  if (langCode === "zh" && (normalizedHeader.includes("tw") || normalizedHeader.includes("hk") || normalizedHeader.includes("hant") || normalizedHeader.includes("mo"))) {
+    matchedKey = "zh-tw";
+  }
+
   const dict: Record<string, Partial<WebShareI18n>> = {
     de: { lang: "de", shareLink: "Link teilen", copyLink: "Link kopieren", linkCopied: "Link in Zwischenablage kopiert!", copyFailed: "Kopieren fehlgeschlagen", play: "Abspielen", preview: "30s Hörprobe", album: "Album", artist: "Künstler", flippedWith: "Geflippt mit", tagline: "Der automatische 0-Klick Musik-Redirector", listenOn: "Geflippt mit SongFlip", notFoundTitle: "Song-Link nicht gefunden", notFoundDesc: "Dieser Musik-Share-Link ist nicht mehr verfügbar oder wurde fehlerhaft aufgerufen.", discoverSongFlip: "SongFlip entdecken" },
     es: { lang: "es", shareLink: "Compartir enlace", copyLink: "Copiar enlace", linkCopied: "¡Enlace copiado al portapapeles!", copyFailed: "Error al copiar", play: "Reproducir", preview: "Vista previa 30s", album: "Álbum", artist: "Artista", flippedWith: "Flipped con", tagline: "El redireccionador automático de música sin clics", listenOn: "Flipped con SongFlip", notFoundTitle: "Enlace no encontrado", notFoundDesc: "Este enlace de música ya no está disponible o se introdujo incorrectamente.", discoverSongFlip: "Descubrir SongFlip" },
@@ -2215,20 +2223,27 @@ function getWebShareI18n(header?: string): WebShareI18n {
     pl: { lang: "pl", shareLink: "Udostępnij link", copyLink: "Kopiuj link", linkCopied: "Skopiowano link do schowka!", copyFailed: "Kopiowanie nie powiodło się", play: "Odtwórz", preview: "Próbka 30s", album: "Album", artist: "Wykonawca", flippedWith: "Flipped z", tagline: "Automatyczny przekierowywacz muzyki 0-kliknięć", listenOn: "Flipped z SongFlip", notFoundTitle: "Nie znaleziono utworu", notFoundDesc: "Ten link muzyczny jest już niedostępny lub został nieprawidłowo wprowadzony.", discoverSongFlip: "Odkryj SongFlip" },
     da: { lang: "da", shareLink: "Del link", copyLink: "Kopier link", linkCopied: "Link kopieret til udklipsholder!", copyFailed: "Kopiering mislykkedes", play: "Afspil", preview: "30s Forhåndsvisning", album: "Album", artist: "Kunstner", flippedWith: "Flippet med", tagline: "Den automatiske 0-klik musik-omdirigering", listenOn: "Flippet med SongFlip", notFoundTitle: "Musiklink ikke fundet", notFoundDesc: "Dette musiklink er ikke længere tilgængeligt eller blev indtastet forkert.", discoverSongFlip: "Opdag SongFlip" },
     nb: { lang: "nb", shareLink: "Del lenke", copyLink: "Kopier lenke", linkCopied: "Lenke kopiert til utklippstavlen!", copyFailed: "Kopiering mislyktes", play: "Spill av", preview: "30s Forhåndsvisning", album: "Album", artist: "Artist", flippedWith: "Flippet med", tagline: "Den automatiske 0-klikk musikk-omdirigeringen", listenOn: "Flippet med SongFlip", notFoundTitle: "Musikklenke ikke funnet", notFoundDesc: "Denne musikklenken er ikke lenger tilgjengelig eller ble skrevet inn feil.", discoverSongFlip: "Oppdag SongFlip" },
-    no: { lang: "no", shareLink: "Del lenke", copyLink: "Kopier lenke", linkCopied: "Lenke kopiert til utklippstavlen!", copyFailed: "Kopiering mislyktes", play: "Spill av", preview: "30s Forhåndsvisning", album: "Album", artist: "Artist", flippedWith: "Flippet med", tagline: "Den automatiske 0-klikk musikk-omdirigeringen", listenOn: "Flippet med SongFlip", notFoundTitle: "Musikklenke ikke funnet", notFoundDesc: "Denne musikklenken er ikke lenger tilgjengelig eller ble skrevet inn feil.", discoverSongFlip: "Oppdag SongFlip" },
+    no: { lang: "no", shareLink: "Del lenke", copyLink: "Kopier lenke", linkCopied: "Lenke kopiert til utklippstavlen!", copyFailed: "Kopiering mislyktes", play: "Spill av", preview: "30s Forhåndsvisning", album: "Album", artist: "Artist", flippedWith: "Flippet med", tagline: "Den automatiske 0-klikk musikk-omdirigeringen", listenOn: "Flippet med SongFlip", notFoundTitle: "Musikklenke nicht funnet", notFoundDesc: "Denne musikklenken er ikke lenger tilgjengelig eller ble skrevet inn feil.", discoverSongFlip: "Oppdag SongFlip" },
     sv: { lang: "sv", shareLink: "Dela länk", copyLink: "Kopiera länk", linkCopied: "Länk kopierad till urklipp!", copyFailed: "Kopiering misslyckades", play: "Spela", preview: "30s Förhandslyssning", album: "Album", artist: "Artist", flippedWith: "Flippad med", tagline: "Den automatiska 0-klick musik-omdirigeringen", listenOn: "Flippad med SongFlip", notFoundTitle: "Musik-länk hittades inte", notFoundDesc: "Den här musiklänken är inte längre tillgänglig eller angavs felaktigt.", discoverSongFlip: "Upptäck SongFlip" },
     ru: { lang: "ru", shareLink: "Поделиться ссылкой", copyLink: "Скопировать ссылку", linkCopied: "Ссылка скопирована в буфер обмена!", copyFailed: "Не удалось скопировать", play: "Слушать", preview: "Превью 30с", album: "Альбом", artist: "Исполнитель", flippedWith: "Flipped с", tagline: "Автоматический перенаправитель музыки в 0 кликов", listenOn: "Flipped с SongFlip", notFoundTitle: "Ссылка не найдена", notFoundDesc: "Эта музыкальная ссылка больше недоступна или введена неверно.", discoverSongFlip: "Узнать о SongFlip" },
     uk: { lang: "uk", shareLink: "Поділитися посиланням", copyLink: "Скопіювати посилання", linkCopied: "Посилання скопійовано в буфер обміну!", copyFailed: "Помилка копіювання", play: "Слухати", preview: "Прев'ю 30с", album: "Альбом", artist: "Виконавець", flippedWith: "Flipped з", tagline: "Автоматичний перенаправлювач музики в 0 кліків", listenOn: "Flipped з SongFlip", notFoundTitle: "Посилання не знайдено", notFoundDesc: "Це музичне посилання більше недоступне або введено неправильно.", discoverSongFlip: "Дізнатися про SongFlip" },
     tr: { lang: "tr", shareLink: "Bağlantıyı Paylaş", copyLink: "Bağlantıyı Kopyala", linkCopied: "Bağlantı panoya kopyalandı!", copyFailed: "Kopyalama başarısız", play: "Çal", preview: "30sn Önizleme", album: "Albüm", artist: "Sanatçı", flippedWith: "SongFlip ile", tagline: "Otomatik 0 tık müzik yönlendirici", listenOn: "SongFlip ile Flipped", notFoundTitle: "Bağlantı Bulunamadı", notFoundDesc: "Bu müzik paylaşım bağlantısı artık mevcut değil veya yanlış girildi.", discoverSongFlip: "SongFlip'i Keşfet" },
     ja: { lang: "ja", shareLink: "リンクを共有", copyLink: "リンクをコピー", linkCopied: "クリップボードにコピーしました！", copyFailed: "コピーに失敗しました", play: "再生", preview: "30秒 試聴", album: "アルバム", artist: "アーティスト", flippedWith: "SongFlipで変換", tagline: "完全自動0クリック音楽リダイレクター", listenOn: "SongFlipで変換", notFoundTitle: "曲が見つかりません", notFoundDesc: "このリンクは利用できないか、正しく入力されていません。", discoverSongFlip: "SongFlipを見る" },
-    ko: { lang: "ko", shareLink: "링크 공유", copyLink: "링크 복사", linkCopied: "클립보드에 복사되었습니다!", copyFailed: "복사 실패", play: "재생", preview: "30초 미리듣기", album: "앨범", artist: "아티스트", flippedWith: "SongFlip으로 전환", tagline: "0클릭 자동 음악 리디렉터", listenOn: "SongFlip으로 전환", notFoundTitle: "음악 링크를 찾을 수 없음", notFoundDesc: "이 음악 공유 링크를 더 이상 사용할 수 없거나 잘못 입력되었습니다.", discoverSongFlip: "SongFlip 알아보기" },
+    ko: { lang: "ko", shareLink: "링크 공유", copyLink: "링크 복사", linkCopied: "클립보드에 복사되었습니다!", copyFailed: "복사失敗", play: "재생", preview: "30초 미리듣기", album: "앨범", artist: "아티스트", flippedWith: "SongFlip으로 전환", tagline: "0클릭 자동 음악 리디렉터", listenOn: "SongFlip으로 전환", notFoundTitle: "음악 링크를 찾을 수 없음", notFoundDesc: "이 음악 공유 링크를 더 이상 사용할 수 없거나 잘못 입력되었습니다.", discoverSongFlip: "SongFlip 알아보기" },
     zh: { lang: "zh", shareLink: "分享链接", copyLink: "复制链接", linkCopied: "链接已复制到剪贴板！", copyFailed: "复制失败", play: "播放", preview: "30秒试听", album: "专辑", artist: "艺人", flippedWith: "使用 SongFlip 转换", tagline: "零点击自动音乐重定向器", listenOn: "使用 SongFlip 转换", notFoundTitle: "未找到歌曲链接", notFoundDesc: "该音乐分享链接已失效或输入有误。", discoverSongFlip: "探索 SongFlip" },
+    "zh-tw": { lang: "zh-TW", shareLink: "分享連結", copyLink: "複製連結", linkCopied: "連結已複製到剪貼簿！", copyFailed: "複製失敗", play: "播放", preview: "30秒試聽", album: "專輯", artist: "藝人", flippedWith: "使用 SongFlip 轉換", tagline: "零點擊自動音樂重定向器", listenOn: "使用 SongFlip 轉換", notFoundTitle: "未找到歌曲連結", notFoundDesc: "該音樂分享連結已失效或輸入有誤。", discoverSongFlip: "探索 SongFlip" },
     id: { lang: "id", shareLink: "Bagikan Tautan", copyLink: "Salin Tautan", linkCopied: "Tautan disalin ke papan klip!", copyFailed: "Gagal menyalin", play: "Putar", preview: "Pratinjau 30d", album: "Album", artist: "Artis", flippedWith: "Flipped dengan", tagline: "Pengalih musik otomatis 0-klik", listenOn: "Flipped dengan SongFlip", notFoundTitle: "Tautan Lagu Tidak Ditemukan", notFoundDesc: "Tautan berbagi musik ini tidak lagi tersedia atau salah dimasukkan.", discoverSongFlip: "Jelajahi SongFlip" },
     in: { lang: "id", shareLink: "Bagikan Tautan", copyLink: "Salin Tautan", linkCopied: "Tautan disalin ke papan klip!", copyFailed: "Gagal menyalin", play: "Putar", preview: "Pratinjau 30d", album: "Album", artist: "Artis", flippedWith: "Flipped dengan", tagline: "Pengalih musik otomatis 0-klik", listenOn: "Flipped dengan SongFlip", notFoundTitle: "Tautan Lagu Tidak Ditemukan", notFoundDesc: "Tautan berbagi musik ini tidak lagi tersedia oder salah dimasukkan.", discoverSongFlip: "Jelajahi SongFlip" },
     vi: { lang: "vi", shareLink: "Chia sẻ liên kết", copyLink: "Sao chép liên kết", linkCopied: "Đã sao chép liên kết vào khay nhớ tạm!", copyFailed: "Sao chép thất bại", play: "Phát", preview: "Nghe thử 30s", album: "Album", artist: "Nghệ sĩ", flippedWith: "Flipped với", tagline: "Trình chuyển hướng âm nhạc 0 cú nhấp tự động", listenOn: "Flipped với SongFlip", notFoundTitle: "Không tìm thấy liên kết", notFoundDesc: "Liên kết chia sẻ nhạc này không còn khả dụng hoặc được nhập không chính xác.", discoverSongFlip: "Khám phá SongFlip" },
     hi: { lang: "hi", shareLink: "लिंक साझा करें", copyLink: "लिंक कॉपी करें", linkCopied: "लिंक क्लिपबोर्ड पर कॉपी हो गया!", copyFailed: "कॉपी विफल", play: "बजाएं", preview: "30 से. पूर्वावलोकन", album: "एल्बम", artist: "कलाकार", flippedWith: "SongFlip द्वारा", tagline: "स्वचालित 0-क्लिक संगीत रीडायरेक्टर", listenOn: "SongFlip द्वारा Flipped", notFoundTitle: "संगीत लिंक नहीं मिला", notFoundDesc: "यह संगीत शेयर लिंक अब उपलब्ध नहीं है या गलत दर्ज किया गया था।", discoverSongFlip: "SongFlip जानें" },
     bn: { lang: "bn", shareLink: "লিঙ্ক শেয়ার করুন", copyLink: "লিঙ্ক অনুলিপি করুন", linkCopied: "ক্লিপবোর্ডে লিঙ্ক অনুলিপি করা হয়েছে!", copyFailed: "অনুলিপি ব্যর্থ", play: "চালান", preview: "৩০ সে. প্রিভিউ", album: "অ্যালবাম", artist: "শিল্পী", flippedWith: "SongFlip দিয়ে", tagline: "স্বয়ংক্রিয় ০-ক্লিক সঙ্গীত पुनर्নির্দেশক", listenOn: "SongFlip দিয়ে Flipped", notFoundTitle: "গানের লিঙ্ক পাওয়া যায়নি", notFoundDesc: "এই সঙ্গীত লিঙ্কটি আর উপলব্ধ নেই বা ভুল প্রবেশ করা হয়েছে।", discoverSongFlip: "SongFlip আবিষ্কার করুন" },
-    mr: { lang: "mr", shareLink: "दुवा शेअर करा", copyLink: "दुवा कॉपी करा", linkCopied: "क्लिपबोर्डवर दुवा कॉपी केला!", copyFailed: "कॉपी अयशस्वी", play: "प्ले करा", preview: "३० से. प्रिव्ह्यू", album: "अल्बम", artist: "कलाकार", flippedWith: "SongFlip द्वारे", tagline: "स्वयंचलित ०-क्लिक संगीत पुनर्निर्देशन", listenOn: "SongFlip द्वारे Flipped", notFoundTitle: "गाण्याचा दुवा सापडला नाही", notFoundDesc: "हा संगीत शेअर दुवा आता उपलब्ध नाही किंवा चुकीचा प्रविष्ट केला गेला आहे।", discoverSongFlip: "SongFlip शोधा" }
+    mr: { lang: "mr", shareLink: "दुवा शेअर करा", copyLink: "दुवा कॉपी करा", linkCopied: "क्लिपबोर्डवर दुवा कॉपी केला!", copyFailed: "कॉपी अयशस्वी", play: "प्ले करा", preview: "३० से. प्रिव्ह्यू", album: "अल्बम", artist: "कलाकार", flippedWith: "SongFlip द्वारे", tagline: "स्वयंचलित ०-क्लिक संगीत पुनर्निर्देशन", listenOn: "SongFlip द्वारे Flipped", notFoundTitle: "गाण्याचा दुवा सापडला नाही", notFoundDesc: "हा संगीत शेअर दुवा आता उपलब्ध नाही किंवा चुकीचा प्रविष्ट केला गेला आहे।", discoverSongFlip: "SongFlip शोधा" },
+    cs: { lang: "cs", shareLink: "Sdílet odkaz", copyLink: "Kopírovat odkaz", linkCopied: "Odkaz zkopírován do schránky!", copyFailed: "Kopírování selhalo", play: "Přehrát", preview: "30s ukázka", album: "Album", artist: "Umělec", flippedWith: "Flippnuto s", tagline: "Automatický 0-klikový hudební přesměrovač", listenOn: "Flippnuto s SongFlip", notFoundTitle: "Odkaz na skladbu nebyl nalezen", notFoundDesc: "Tento odkaz na sdílení hudby již není k dispozici nebo byl zadán nesprávně.", discoverSongFlip: "Objevte SongFlip" },
+    hu: { lang: "hu", shareLink: "Hivatkozás megosztása", copyLink: "Hivatkozás másolása", linkCopied: "Hivatkozás a vágólapra másolva!", copyFailed: "Másolás sikertelen", play: "Lejátszás", preview: "30 mp minta", album: "Album", artist: "Előadó", flippedWith: "Flippelve a(z)", tagline: "Az automatikus 0-kattintásos zenei átirányító", listenOn: "Flippelve SongFlip segítségével", notFoundTitle: "A szám nem található", notFoundDesc: "Ez a zenei megosztási link már nem érhető el, vagy hibásan lett megadva.", discoverSongFlip: "Fedezze fel a SongFlip-et" },
+    fi: { lang: "fi", shareLink: "Jaa linkki", copyLink: "Kopioi linkki", linkCopied: "Linkki kopioitu leikepöydälle!", copyFailed: "Kopiointi epäonnistui", play: "Toista", preview: "30 s esikuuntelu", album: "Albumi", artist: "Artisti", flippedWith: "Flippasi", tagline: "Automaattinen 0-klikkauksen musiikin uudelleenohjaus", listenOn: "Flippasi SongFlipillä", notFoundTitle: "Kappaletta ei löytynyt", notFoundDesc: "Tämä musiikin jakolinkki ei ole enää saatavilla tai se syötettiin väärin.", discoverSongFlip: "Tutustu SongFlipiin" },
+    el: { lang: "el", shareLink: "Κοινοποίηση συνδέσμου", copyLink: "Αντιγραφή συνδέσμου", linkCopied: "Ο σύνδεσμος αντιγράφηκε στο πρόχειρο!", copyFailed: "Αποτυχία αντιγραφής", play: "Αναπαραγωγή", preview: "Προεπισκόπηση 30δ", album: "Άλμπουμ", artist: "Καλλιτέχνης", flippedWith: "Flipped με", tagline: "Ο αυτόματος ανακατευθυντής μουσικής 0 κλικ", listenOn: "Flipped με SongFlip", notFoundTitle: "Το κομμάτι δεν βρέθηκε", notFoundDesc: "Αυτός ο σύνδεσμος κοινής χρήσης μουσικής δεν είναι πλέον διαθέσιμος ή πληκτρολογήθηκε εσφαλμένα.", discoverSongFlip: "Ανακαλύψτε το SongFlip" },
+    ro: { lang: "ro", shareLink: "Distribuie linkul", copyLink: "Copiază linkul", linkCopied: "Link copiat în clipboard!", copyFailed: "Copiere eșuată", play: "Redare", preview: "Previzualizare 30s", album: "Album", artist: "Artist", flippedWith: "Flipped cu", tagline: "Redirecționatorul automat de muzică cu 0 clicuri", listenOn: "Flipped cu SongFlip", notFoundTitle: "Piesa nu a fost găsită", notFoundDesc: "Acest link de partajare a muzicii nu mai este disponibil sau a fost introdus incorect.", discoverSongFlip: "Descoperă SongFlip" },
+    th: { lang: "th", shareLink: "แชร์ลิงก์", copyLink: "คัดลอกลิงก์", linkCopied: "คัดลอกลิงก์ไปยังคลิปบอร์ดแล้ว!", copyFailed: "คัดลอกไม่สำเร็จ", play: "เล่น", preview: "ตัวอย่าง 30 วินาที", album: "อัลบั้ม", artist: "ศิลปิน", flippedWith: "Flipped ด้วย", tagline: "เครื่องมือเปลี่ยนเส้นทางเพลงอัตโนมัติ 0 คลิก", listenOn: "Flipped ด้วย SongFlip", notFoundTitle: "ไม่พบลิงก์เพลง", notFoundDesc: "ลิงก์แชร์เพลงนี้ไม่พร้อมใช้งานอีกต่อไปหรือป้อนไม่ถูกต้อง", discoverSongFlip: "ค้นพบ SongFlip" }
   };
 
   const defaults: WebShareI18n = {
@@ -2249,7 +2264,7 @@ function getWebShareI18n(header?: string): WebShareI18n {
     discoverSongFlip: "Discover SongFlip"
   };
 
-  return { ...defaults, ...(dict[code] || {}) };
+  return { ...defaults, ...(dict[matchedKey] || {}) };
 }
 
 /**
@@ -2711,40 +2726,10 @@ export const renderWebShare = onRequest(
     .cover-art-container {
       position: relative;
       cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .cover-play-btn {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.92);
-      width: 58px;
-      height: 58px;
-      border-radius: 50%;
-      background: rgba(13, 17, 23, 0.78);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1.5px solid rgba(255, 255, 255, 0.3);
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55);
-      transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-      opacity: 0.9;
-      cursor: pointer;
-      z-index: 5;
-    }
-    .cover-art-container:hover .cover-play-btn {
-      transform: translate(-50%, -50%) scale(1);
-      opacity: 1;
-      background: rgba(13, 17, 23, 0.9);
-      border-color: rgba(255, 255, 255, 0.5);
-    }
-    .cover-play-btn.playing {
-      background: rgba(16, 185, 129, 0.9);
-      border-color: #10b981;
-      color: #0b0f17;
-      opacity: 1;
+    .cover-art-container:active {
+      transform: scale(0.985);
     }
 
     .audio-player-card {
@@ -2890,13 +2875,8 @@ export const renderWebShare = onRequest(
   <img src="${coverUrl}" alt="" class="ambient-bg-cover" aria-hidden="true" />
   
   <main class="container">
-    <div class="cover-art-container" id="coverArtWrap">
+    <div class="cover-art-container" id="coverArtWrap" ${songData.previewUrl ? `title="${escapeHtml(i18n.play + " " + i18n.preview)}"` : ""}>
       <img src="${coverUrl}" alt="${title}" class="cover-art" loading="eager" />
-      ${songData.previewUrl ? `
-      <button class="cover-play-btn" id="coverPlayBtn" type="button" aria-label="${i18n.play} ${i18n.preview}">
-        <svg id="coverPlayIcon" width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
-        <svg id="coverPauseIcon" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><rect x="5" y="4" width="4" height="16" rx="1"></rect><rect x="15" y="4" width="4" height="16" rx="1"></rect></svg>
-      </button>` : ""}
     </div>
     
     ${isAlbum ? `<span class="type-badge">${i18n.album}</span>` : (isArtist ? `<span class="type-badge">${i18n.artist}</span>` : "")}
@@ -2963,7 +2943,6 @@ export const renderWebShare = onRequest(
       var audio = document.getElementById("previewAudio");
       if (audio) {
         var playToggle = document.getElementById("audioPlayToggle");
-        var coverPlay = document.getElementById("coverPlayBtn");
         var coverWrap = document.getElementById("coverArtWrap");
         var progressFill = document.getElementById("audioProgressFill");
         var progressWrap = document.getElementById("audioProgressWrap");
@@ -2971,8 +2950,6 @@ export const renderWebShare = onRequest(
         var timeTotal = document.getElementById("audioTimeTotal");
         var playIcon = document.getElementById("audioPlayIcon");
         var pauseIcon = document.getElementById("audioPauseIcon");
-        var coverPlayIcon = document.getElementById("coverPlayIcon");
-        var coverPauseIcon = document.getElementById("coverPauseIcon");
 
         function formatTime(s) {
           if (isNaN(s) || !s) return "0:00";
@@ -2983,11 +2960,8 @@ export const renderWebShare = onRequest(
 
         function setPlayingState(isPlaying) {
           if (playToggle) playToggle.classList.toggle("playing", isPlaying);
-          if (coverPlay) coverPlay.classList.toggle("playing", isPlaying);
           if (playIcon) playIcon.style.display = isPlaying ? "none" : "block";
           if (pauseIcon) pauseIcon.style.display = isPlaying ? "block" : "none";
-          if (coverPlayIcon) coverPlayIcon.style.display = isPlaying ? "none" : "block";
-          if (coverPauseIcon) coverPauseIcon.style.display = isPlaying ? "block" : "none";
         }
 
         function togglePlay() {
@@ -3004,15 +2978,7 @@ export const renderWebShare = onRequest(
         }
 
         if (playToggle) playToggle.addEventListener("click", togglePlay);
-        if (coverPlay) coverPlay.addEventListener("click", function(e) {
-          e.stopPropagation();
-          togglePlay();
-        });
-        if (coverWrap) coverWrap.addEventListener("click", function(e) {
-          if (coverPlay && e.target !== coverPlay && !coverPlay.contains(e.target)) {
-            togglePlay();
-          }
-        });
+        if (coverWrap) coverWrap.addEventListener("click", togglePlay);
 
         audio.addEventListener("timeupdate", function() {
           if (!audio.duration) return;

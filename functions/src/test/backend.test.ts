@@ -165,11 +165,11 @@ describe("Backend Helper Tests", () => {
       assert.equal(i18nUnknown.listenOn, "Flipped with SongFlip");
     });
 
-    it("should cover all 24 supported languages with complete translations", () => {
+    it("should cover all 31 supported languages with complete translations", () => {
       const languages = [
         "de", "en", "es", "fr", "it", "pt", "nl", "pl", "da", "nb",
-        "no", "sv", "ru", "uk", "tr", "ja", "ko", "zh", "id", "in",
-        "vi", "hi", "bn", "mr"
+        "no", "sv", "ru", "uk", "tr", "ja", "ko", "zh", "zh-tw", "id", "in",
+        "vi", "hi", "bn", "mr", "cs", "hu", "fi", "el", "ro", "th"
       ];
       languages.forEach((lang) => {
         const i18n = getWebShareI18n(lang);
