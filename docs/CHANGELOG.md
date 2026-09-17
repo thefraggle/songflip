@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.3.7] - 2026-09-17
+- **Zuverlässigeres Teilen**: Geteilte Kurzlinks werden jetzt noch präziser verarbeitet, damit Freunde immer direkt beim richtigen Song landen.
+- **Exakte Hörproben**: Die 30-Sekunden-Vorschau auf Song-Seiten spielt jetzt noch treffsicherer die originale Tonaufnahme ab.
+- **Flüssigerer Verlauf**: Dein Song-Verlauf lädt jetzt spürbar geschmeidiger und ohne Verzögerung.
+- **Feinschliff & Performance**: Schnellere Erkennung beliebter Titel und verbesserte Stabilität im Hintergrund.
+
 ## [1.3.6] - 2026-09-16
 - **Verbesserte Player-Erkennung**: Intelligente dynamische Erkennung deiner installierten Musik-Apps für nahtlose 1-Klick-Weiterleitungen.
 - **Zuverlässigere Link-Übergabe**: Behebt ein Problem, bei dem auf einigen Geräten wiederholte App-Auswahldialoge auftreten konnten.

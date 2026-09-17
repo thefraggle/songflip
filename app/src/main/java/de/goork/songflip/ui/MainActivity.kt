@@ -19,7 +19,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -554,17 +556,24 @@ fun MainScreen(
                         },
                         onShareUniversalLink = { urlToShare ->
                             if (proState.isPro) {
-                                val universalUrl = ProManager.getUniversalWebShareUrl(urlToShare)
-                                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? android.content.ClipboardManager
-                                val clip = android.content.ClipData.newPlainText("SongFlip Universal Link", universalUrl)
-                                clipboard?.setPrimaryClip(clip)
-                                Toast.makeText(context, context.getString(R.string.share_universal_link_copied), Toast.LENGTH_SHORT).show()
-                                ProManager.warmupUniversalShare(urlToShare)
-                                val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                                    type = "text/plain"
-                                    putExtra(Intent.EXTRA_TEXT, universalUrl)
+                                coroutineScope.launch {
+                                    val canonical = if (repository.isShortLinkDomain(urlToShare)) {
+                                        withContext(Dispatchers.IO) { repository.resolveCanonicalUrl(urlToShare) }
+                                    } else {
+                                        urlToShare
+                                    }
+                                    val universalUrl = ProManager.getUniversalWebShareUrl(canonical)
+                                    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? android.content.ClipboardManager
+                                    val clip = android.content.ClipData.newPlainText("SongFlip Universal Link", universalUrl)
+                                    clipboard?.setPrimaryClip(clip)
+                                    Toast.makeText(context, context.getString(R.string.share_universal_link_copied), Toast.LENGTH_SHORT).show()
+                                    ProManager.warmupUniversalShare(canonical)
+                                    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                                        type = "text/plain"
+                                        putExtra(Intent.EXTRA_TEXT, universalUrl)
+                                    }
+                                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share_universal_link)))
                                 }
-                                context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share_universal_link)))
                             } else {
                                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed()
                                 showProPaywall = true

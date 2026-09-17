@@ -263,7 +263,7 @@ object ProManager {
         customFlipRegex.find(trimmed)?.let { return it.value.uppercase() }
 
         // Priority 3: Match known campaign word codes in longer text
-        val campaignRegex = Regex("""\b(BETALIST|PEERPUSH|FOUNDER-?PASS|NEO-?FOUNDER|SONGFLIP_[A-Z0-9_]+)\b""", RegexOption.IGNORE_CASE)
+        val campaignRegex = Regex("""\b(BETALIST|PEERPUSH|FOUNDER-?PASS|NEO-?FOUNDER|SONGFLIP_[A-Z0-9_]+|MYDEALZ)\b""", RegexOption.IGNORE_CASE)
         campaignRegex.find(trimmed)?.let { return it.value.uppercase() }
 
         // Fallback: If no match inside text, return cleaned input (no whitespace)
@@ -380,7 +380,7 @@ object ProManager {
     }
 
     fun hashUrl(rawUrl: String): String {
-        val normalized = rawUrl.trim().lowercase()
+        val normalized = de.goork.songflip.core.util.UrlUtils.normalizeUrl(rawUrl).trim().lowercase()
         val digest = MessageDigest.getInstance("SHA-256")
         val hashBytes = digest.digest(normalized.toByteArray(Charsets.UTF_8))
         return hashBytes.joinToString("") { "%02x".format(it) }
