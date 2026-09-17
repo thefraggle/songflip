@@ -1049,8 +1049,29 @@ async function resolveSearchLive(url: string, query: string): Promise<SongMetada
 
 /**
  * Resolves a 30-second official audio preview stream URL from Apple iTunes or Deezer.
+ * If appleMusicUrl is provided with an exact track ID, queries iTunes lookup for 100% precision.
  */
-async function resolveAudioPreviewUrl(artist: string, title: string): Promise<string | undefined> {
+export async function resolveAudioPreviewUrl(artist: string, title: string, appleMusicUrl?: string): Promise<string | undefined> {
+  // 0. Highest accuracy: Exact Apple Music track lookup by ID if available
+  if (appleMusicUrl && typeof appleMusicUrl === "string") {
+    let trackId = "";
+    if (appleMusicUrl.includes("i=")) {
+      trackId = appleMusicUrl.split("i=")[1]?.split("&")[0]?.split("?")[0]?.trim() || "";
+    } else if (appleMusicUrl.includes("/song/")) {
+      const parts = appleMusicUrl.split("/song/")[1]?.split("/");
+      trackId = parts?.[parts.length - 1]?.split("?")[0]?.trim() || "";
+    }
+    if (trackId && /^\d+$/.test(trackId)) {
+      try {
+        const lookupRes = await axios.get(`https://itunes.apple.com/lookup?id=${trackId}`, { timeout: 2500 });
+        const match = lookupRes.data?.results?.[0];
+        if (match && typeof match.previewUrl === "string" && match.previewUrl.startsWith("https://")) {
+          return match.previewUrl;
+        }
+      } catch (_) {}
+    }
+  }
+
   const cleanTitle = cleanSearchQuery(title);
   const q = `${artist} ${cleanTitle}`.trim();
   if (!q) return undefined;
@@ -1451,7 +1472,7 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
     // Resolve 30s Audio Preview if single track and title & artist are available
     if (!isAlbum && title && artist) {
       try {
-        previewUrl = await resolveAudioPreviewUrl(artist, title);
+        previewUrl = await resolveAudioPreviewUrl(artist, title, linksMap.appleMusic);
       } catch (err: any) {
         console.debug("[AudioPreview] Resolution failed:", err?.message);
       }
@@ -1921,7 +1942,7 @@ export const redeemPromoCode = onRequest(
     if (flipMatch) {
       inputStr = flipMatch[1];
     } else {
-      const knownMatch = inputStr.match(/\b(BETALIST|PEERPUSH|FOUNDER-?PASS|NEO-?FOUNDER|SONGFLIP_[A-Z0-9_]+)\b/i);
+      const knownMatch = inputStr.match(/\b(BETALIST|PEERPUSH|FOUNDER-?PASS|NEO-?FOUNDER|SONGFLIP_[A-Z0-9_]+|MYDEALZ)\b/i);
       if (knownMatch) {
         inputStr = knownMatch[1];
       }
@@ -2080,7 +2101,14 @@ export const seedPromoCodes = onRequest(
       return;
     }
 
-    const initialCodes = [
+    const initialCodes: Array<{
+      code: string;
+      type: string;
+      durationDays: number | null;
+      maxRedemptions: number;
+      allowMultiplePerDevice: boolean;
+      validUntil?: admin.firestore.Timestamp;
+    }> = [
       { code: "SONGFLIP_BETA_2026", type: "1month", durationDays: 30, maxRedemptions: 100, allowMultiplePerDevice: false },
       { code: "SONGFLIP_LAUNCH_2026", type: "3months", durationDays: 90, maxRedemptions: 75, allowMultiplePerDevice: false },
       { code: "SONGFLIP_VIP_2026", type: "1year", durationDays: 365, maxRedemptions: 25, allowMultiplePerDevice: false },
@@ -2089,6 +2117,14 @@ export const seedPromoCodes = onRequest(
       { code: "FOUNDERPASS", type: "1week", durationDays: 7, maxRedemptions: 999999, allowMultiplePerDevice: true },
       { code: "NEO-FOUNDER", type: "1week", durationDays: 7, maxRedemptions: 999999, allowMultiplePerDevice: true },
       { code: "NEOFOUNDER", type: "1week", durationDays: 7, maxRedemptions: 999999, allowMultiplePerDevice: true },
+      {
+        code: "MYDEALZ",
+        type: "1year",
+        durationDays: 365,
+        maxRedemptions: 5000,
+        allowMultiplePerDevice: false,
+        validUntil: admin.firestore.Timestamp.fromDate(new Date("2026-09-20T23:59:59Z")),
+      },
     ];
 
     try {
@@ -2105,6 +2141,7 @@ export const seedPromoCodes = onRequest(
             currentRedemptions: 0,
             isActive: true,
             createdAt: admin.firestore.FieldValue.serverTimestamp(),
+            ...(item.validUntil ? { validUntil: item.validUntil } : {}),
           });
         } else {
           await docRef.set({
@@ -2112,6 +2149,7 @@ export const seedPromoCodes = onRequest(
             durationDays: item.durationDays,
             allowMultiplePerDevice: item.allowMultiplePerDevice === true,
             isActive: true,
+            ...(item.validUntil ? { validUntil: item.validUntil } : {}),
           }, { merge: true });
         }
       }
@@ -2548,11 +2586,14 @@ export const renderWebShare = onRequest(
       // 5.5 Auto-enrich previewUrl for single tracks if missing from older cache
       if (!songData.previewUrl && !isAlbum && !isArtist && cleanTitle && cleanArtist) {
         try {
-          const resolvedPreview = await resolveAudioPreviewUrl(cleanArtist, cleanTitle);
+          const resolvedPreview = await resolveAudioPreviewUrl(cleanArtist, cleanTitle, songData.links?.appleMusic);
           if (resolvedPreview) {
             songData.previewUrl = resolvedPreview;
             if (hash) {
               db.collection("l2_song_cache").doc(hash).set({ previewUrl: resolvedPreview }, { merge: true }).catch(() => {});
+              if (hash.length > 12) {
+                db.collection("l2_song_cache").doc(hash.substring(0, 12)).set({ previewUrl: resolvedPreview }, { merge: true }).catch(() => {});
+              }
             }
           }
         } catch (_) {}

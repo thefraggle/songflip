@@ -19,6 +19,7 @@ import {
   isPlaylistUrl,
   detectPlatformFromUrl,
   normalizeYouTubeMusicUrl,
+  resolveAudioPreviewUrl,
 } from "../index";
 
 describe("Backend Helper Tests", () => {
@@ -447,6 +448,26 @@ describe("Backend Helper Tests", () => {
       assert.equal(detectPlatformFromUrl("https://music.amazon.com/playlists/123"), "Amazon Music");
       assert.equal(detectPlatformFromUrl("https://soundcloud.com/user/sets/123"), "SoundCloud");
       assert.equal(detectPlatformFromUrl("https://artist.bandcamp.com/album/test"), "Bandcamp");
+    });
+  });
+
+  describe("Promo Code Campaign Extraction & Apple Music Preview Lookup", () => {
+    it("should match MYDEALZ in surrounding text", () => {
+      const sentence = "Nutzt am Wochenende den Code MYDEALZ in der SongFlip App!";
+      const match = sentence.match(/\b(BETALIST|PEERPUSH|FOUNDER-?PASS|NEO-?FOUNDER|SONGFLIP_[A-Z0-9_]+|MYDEALZ)\b/i);
+      assert.ok(match, "Should match MYDEALZ in text");
+      assert.equal(match[1].toUpperCase(), "MYDEALZ");
+    });
+
+    it("should resolve audio preview via Apple Music ID lookup", async () => {
+      // Queen - Bohemian Rhapsody (Apple Music track ID 1440650711)
+      const preview = await resolveAudioPreviewUrl(
+        "Queen",
+        "Bohemian Rhapsody",
+        "https://music.apple.com/de/album/bohemian-rhapsody/1440650428?i=1440650711"
+      );
+      assert.ok(preview, "Should return audio preview URL");
+      assert.ok(preview.startsWith("https://"), "Must be a secure HTTPS URL");
     });
   });
 });
