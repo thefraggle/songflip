@@ -12,6 +12,59 @@
             <category android:name="android.intent.category.BROWSABLE" />
             <data android:scheme="https" />
         </intent>
+        <!-- Package Visibility Intent Queries for Android 11+ Dynamic Detection -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" android:host="music.youtube.com" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" android:host="www.youtube.com" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" android:host="youtube.com" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" android:host="youtu.be" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="vnd.youtube.music" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="vnd.youtube" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" android:host="open.spotify.com" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="spotify" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" android:host="music.apple.com" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" android:host="listen.tidal.com" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" android:host="deezer.com" />
+        </intent>
         <package android:name="app.morphe.android.apps.youtube.music" />
         <package android:name="app.morphe.android.youtube.music" />
         <package android:name="app.morphe.youtube.music" />
@@ -23,13 +76,23 @@
         <package android:name="com.morphe.youtube.music" />
         <package android:name="app.revanced.android.apps.youtube.music" />
         <package android:name="app.revanced.android.youtube.music" />
+        <package android:name="app.revanced.android.apps.youtube" />
         <package android:name="app.revanced.android.youtube" />
         <package android:name="app.rvx.android.apps.youtube.music" />
         <package android:name="app.rvx.android.youtube.music" />
         <package android:name="app.rvx.android.youtube" />
+        <package android:name="anddea.youtube.music" />
+        <package android:name="anddea.youtube" />
+        <package android:name="app.anddea.youtube.music" />
+        <package android:name="app.anddea.youtube" />
+        <package android:name="app.anddea.android.youtube.music" />
+        <package android:name="app.anddea.android.youtube" />
+        <package android:name="com.anddea.youtube.music" />
+        <package android:name="com.anddea.youtube" />
         <package android:name="com.vanced.android.apps.youtube.music" />
         <package android:name="com.vanced.android.youtube" />
         <package android:name="com.inotia00.youtube.music" />
+        <package android:name="com.inotia00.youtube" />
         <package android:name="it.fast4x.rimusic" />
         <package android:name="it.vfsfitvnm.vimusic" />
         <package android:name="com.zionhuang.music" />

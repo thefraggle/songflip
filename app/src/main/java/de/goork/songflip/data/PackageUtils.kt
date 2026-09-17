@@ -29,13 +29,23 @@ object PackageUtils {
             "com.morphe.youtube.music",
             "app.revanced.android.apps.youtube.music",
             "app.revanced.android.youtube.music",
+            "app.revanced.android.apps.youtube",
             "app.revanced.android.youtube",
             "app.rvx.android.apps.youtube.music",
             "app.rvx.android.youtube.music",
             "app.rvx.android.youtube",
+            "anddea.youtube.music",
+            "anddea.youtube",
+            "app.anddea.youtube.music",
+            "app.anddea.youtube",
+            "app.anddea.android.youtube.music",
+            "app.anddea.android.youtube",
+            "com.anddea.youtube.music",
+            "com.anddea.youtube",
             "com.vanced.android.apps.youtube.music",
             "com.vanced.android.youtube",
             "com.inotia00.youtube.music",
+            "com.inotia00.youtube",
             "it.fast4x.rimusic",
             "it.vfsfitvnm.vimusic",
             "com.zionhuang.music",
@@ -92,23 +102,45 @@ object PackageUtils {
 
         // Dynamic player detection for custom/modded installations
         try {
-            val probeUrl = when (platformKey) {
-                "youtubeMusic" -> "https://music.youtube.com/watch?v=dQw4w9WgXcQ"
-                "spotify" -> "https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv"
-                "appleMusic" -> "https://music.apple.com/song/1761770183"
-                "deezer" -> "https://www.deezer.com/track/12345"
-                "tidal" -> "https://tidal.com/browse/track/12345"
-                "amazonMusic" -> "https://music.amazon.com/albums/B000000000"
-                "soundcloud" -> "https://soundcloud.com/artist/track"
-                "bandcamp" -> "https://artist.bandcamp.com/track/song"
-                else -> null
+            val probeUrls = when (platformKey) {
+                "youtubeMusic" -> listOf(
+                    "https://music.youtube.com/watch?v=dQw4w9WgXcQ",
+                    "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                    "vnd.youtube.music://watch?v=dQw4w9WgXcQ"
+                )
+                "spotify" -> listOf(
+                    "https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv",
+                    "spotify:track:4u7EnebtmKWzUH433cf5Qv"
+                )
+                "appleMusic" -> listOf("https://music.apple.com/song/1761770183")
+                "deezer" -> listOf(
+                    "https://www.deezer.com/track/12345",
+                    "deezer://www.deezer.com/track/12345"
+                )
+                "tidal" -> listOf(
+                    "https://tidal.com/browse/track/12345",
+                    "tidal://track/12345"
+                )
+                "amazonMusic" -> listOf("https://music.amazon.com/albums/B000000000")
+                "soundcloud" -> listOf("https://soundcloud.com/artist/track")
+                "bandcamp" -> listOf("https://artist.bandcamp.com/track/song")
+                else -> emptyList()
             }
-            if (probeUrl != null) {
-                val intent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(probeUrl)).apply {
+            for (probeUrl in probeUrls) {
+                val browsableIntent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(probeUrl)).apply {
                     addCategory(android.content.Intent.CATEGORY_BROWSABLE)
                 }
-                val resolveInfos = context.packageManager.queryIntentActivities(intent, 0)
+                val resolveInfos = context.packageManager.queryIntentActivities(browsableIntent, 0)
                 for (info in resolveInfos) {
+                    val pkg = info.activityInfo.packageName
+                    if (pkg != context.packageName && !isGenericBrowser(pkg)) {
+                        return pkg
+                    }
+                }
+
+                val genericIntent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(probeUrl))
+                val genericInfos = context.packageManager.queryIntentActivities(genericIntent, 0)
+                for (info in genericInfos) {
                     val pkg = info.activityInfo.packageName
                     if (pkg != context.packageName && !isGenericBrowser(pkg)) {
                         return pkg

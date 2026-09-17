@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.3.8] - 2026-09-17
+- **Erweiterte Player-Erkennung**: Zuverlässige Erkennung alternativer und benutzerdefinierter YouTube Music Player (inkl. RVX und Anddea).
+- **Dynamische Intent-Sichtbarkeit**: Optimierte Paket-Sichtbarkeit für reibungslose 1-Klick-Weiterleitungen an modifizierte Musik-Apps.
+
 ## [1.3.7] - 2026-09-17
 - **Zuverlässigeres Teilen**: Geteilte Kurzlinks werden jetzt noch präziser verarbeitet, damit Freunde immer direkt beim richtigen Song landen.
 - **Exakte Hörproben**: Die 30-Sekunden-Vorschau auf Song-Seiten spielt jetzt noch treffsicherer die originale Tonaufnahme ab.

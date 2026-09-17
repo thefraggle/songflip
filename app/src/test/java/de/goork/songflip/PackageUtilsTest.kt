@@ -146,10 +146,18 @@ class PackageUtilsTest {
         assertTrue(ytPackages.contains("app.morphe.youtube.music"))
         assertTrue(ytPackages.contains("app.morphe.music"))
         assertTrue(ytPackages.contains("it.fast4x.rimusic"))
+        // Verify RVX and Anddea packages are included (Issue #2)
+        assertTrue(ytPackages.contains("anddea.youtube.music"))
+        assertTrue(ytPackages.contains("anddea.youtube"))
+        assertTrue(ytPackages.contains("app.anddea.youtube.music"))
+        assertTrue(ytPackages.contains("com.anddea.youtube.music"))
+        assertTrue(ytPackages.contains("app.rvx.android.apps.youtube.music"))
         // Verify custom players come before official YouTube Music package
         val officialIndex = ytPackages.indexOf("com.google.android.apps.youtube.music")
         val morpheIndex = ytPackages.indexOf("app.morphe.android.apps.youtube.music")
+        val anddeaIndex = ytPackages.indexOf("anddea.youtube.music")
         assertTrue(officialIndex > morpheIndex)
+        assertTrue(officialIndex > anddeaIndex)
     }
 }
 
