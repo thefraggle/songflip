@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.8] - 2026-09-17
+- **Expanded Player Compatibility**: Reliable detection and priority routing for custom and alternative YouTube Music players (including RVX and Anddea).
+- **Dynamic Intent Visibility**: Optimized package visibility queries for seamless 1-click redirects to modified music apps.
+
 ## [1.3.7] - 2026-09-17
 - **More Reliable Sharing**: Shared short links are now resolved with even higher accuracy so friends always land on the exact song.
 - **Accurate Audio Previews**: The 30-second song preview now plays the exact matching original track even more consistently.

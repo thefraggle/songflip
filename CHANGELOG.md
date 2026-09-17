@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.8] - 2026-09-17
+- **Expanded Player Compatibility**: Reliable detection and priority routing for custom and alternative YouTube Music players (including RVX and Anddea).
+- **Dynamic Intent Visibility**: Optimized package visibility queries for seamless 1-click redirects to modified music apps.
+
 ## [1.3.5] - 2026-09-16
 - **Universal Song Sharing**: Share music links that friends can open seamlessly on any streaming service.
 - **Faster Song Lookups**: Popular tracks open even faster and more reliably with instant cloud matching.
