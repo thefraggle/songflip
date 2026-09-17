@@ -2110,7 +2110,7 @@ export const seedPromoCodes = onRequest(
       validUntil?: admin.firestore.Timestamp;
     }> = [
       { code: "SONGFLIP_BETA_2026", type: "1month", durationDays: 30, maxRedemptions: 100, allowMultiplePerDevice: false },
-      { code: "SONGFLIP_LAUNCH_2026", type: "3months", durationDays: 90, maxRedemptions: 75, allowMultiplePerDevice: false },
+      { code: "SONGFLIP_LAUNCH_2026", type: "1year", durationDays: 365, maxRedemptions: 250, allowMultiplePerDevice: false },
       { code: "SONGFLIP_VIP_2026", type: "1year", durationDays: 365, maxRedemptions: 25, allowMultiplePerDevice: false },
       { code: "SONGFLIP_FOUNDER_2026", type: "lifetime", durationDays: null, maxRedemptions: 10, allowMultiplePerDevice: false },
       { code: "FOUNDER-PASS", type: "1week", durationDays: 7, maxRedemptions: 999999, allowMultiplePerDevice: true },
