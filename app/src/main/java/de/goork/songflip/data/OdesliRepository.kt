@@ -949,11 +949,26 @@ class OdesliRepository {
         }
     }
 
+    private fun isArtistNameMatch(candidate: String, target: String): Boolean {
+        fun normalize(str: String): String {
+            return str.lowercase().trim()
+                .replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
+                .replace("[^a-z0-9]".toRegex(), "")
+        }
+        val normCand = normalize(candidate)
+        val normTarget = normalize(target)
+        if (normCand.isEmpty() || normTarget.isEmpty()) return false
+        if (normCand == normTarget) return true
+        if (normCand == normTarget + "thema" || normCand == normTarget + "topic") return true
+        return false
+    }
+
     private suspend fun resolveDirectArtistUrl(artistName: String, targetPlatformKey: String): String? {
         return when (targetPlatformKey) {
             "deezer" -> resolveDeezerArtistUrl(artistName)
             "appleMusic" -> resolveAppleMusicArtistUrl(artistName)
             "youtubeMusic" -> resolveYouTubeMusicArtistUrl(artistName)
+            "tidal" -> resolveTidalArtistUrl(artistName)
             else -> null
         }
     }
@@ -962,25 +977,37 @@ class OdesliRepository {
         return try {
             val encoded = URLEncoder.encode(artistName, "UTF-8")
             val req = Request.Builder()
-                .url("https://itunes.apple.com/search?term=$encoded&entity=musicArtist&limit=1")
+                .url("https://itunes.apple.com/search?term=$encoded&entity=musicArtist&limit=25")
                 .get()
                 .build()
 
             val resp = client.newCall(req).execute()
             if (resp.isSuccessful) {
                 val body = resp.body?.string() ?: ""
+                resp.close()
                 val json = JSONObject(body)
                 val results = json.optJSONArray("results")
                 if (results != null && results.length() > 0) {
-                    val item = results.getJSONObject(0)
-                    val link = item.optString("artistLinkUrl").ifEmpty { item.optString("artistViewUrl") }
-                    if (link.isNotEmpty()) {
-                        resp.close()
-                        return link
+                    var fallbackLink: String? = null
+                    for (i in 0 until results.length()) {
+                        val item = results.getJSONObject(i)
+                        val name = item.optString("artistName")
+                        if (isArtistNameMatch(name, artistName)) {
+                            val link = item.optString("artistLinkUrl").ifEmpty { item.optString("artistViewUrl") }
+                            val genre = item.optString("primaryGenreName")
+                            if (genre.contains("rock", ignoreCase = true) || genre.contains("punk", ignoreCase = true) || genre.contains("alternative", ignoreCase = true)) {
+                                return link
+                            }
+                            if (fallbackLink == null && link.isNotEmpty()) {
+                                fallbackLink = link
+                            }
+                        }
                     }
+                    if (fallbackLink != null) return fallbackLink
                 }
+            } else {
+                resp.close()
             }
-            resp.close()
             null
         } catch (e: Exception) {
             null
@@ -991,25 +1018,79 @@ class OdesliRepository {
         return try {
             val encoded = URLEncoder.encode(artistName, "UTF-8")
             val req = Request.Builder()
-                .url("https://api.deezer.com/search/artist?q=$encoded&limit=1")
+                .url("https://api.deezer.com/search/artist?q=$encoded&limit=10")
                 .get()
                 .build()
 
             val resp = client.newCall(req).execute()
             if (resp.isSuccessful) {
                 val body = resp.body?.string() ?: ""
+                resp.close()
                 val json = JSONObject(body)
                 val data = json.optJSONArray("data")
                 if (data != null && data.length() > 0) {
-                    val item = data.getJSONObject(0)
-                    val link = item.optString("link")
-                    if (link.isNotEmpty()) {
-                        resp.close()
-                        return link
+                    var bestLink: String? = null
+                    var maxFans = -1
+                    for (i in 0 until data.length()) {
+                        val item = data.getJSONObject(i)
+                        val name = item.optString("name")
+                        if (isArtistNameMatch(name, artistName)) {
+                            val fans = item.optInt("nb_fan", 0)
+                            val link = item.optString("link")
+                            if (fans > maxFans && link.isNotEmpty()) {
+                                maxFans = fans
+                                bestLink = link
+                            }
+                        }
+                    }
+                    if (bestLink != null) return bestLink
+                }
+            } else {
+                resp.close()
+            }
+            null
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    private suspend fun resolveTidalArtistUrl(artistName: String): String? {
+        return try {
+            val encoded = URLEncoder.encode(artistName, "UTF-8")
+            val req = Request.Builder()
+                .url("https://listen.tidal.com/v1/search?query=$encoded&limit=10&countryCode=DE")
+                .header("x-tidal-token", "CzET4vdadNUFQ5JU")
+                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+                .get()
+                .build()
+
+            val resp = client.newCall(req).execute()
+            if (resp.isSuccessful) {
+                val body = resp.body?.string() ?: ""
+                resp.close()
+                val json = JSONObject(body)
+                val artists = json.optJSONObject("artists")?.optJSONArray("items")
+                if (artists != null && artists.length() > 0) {
+                    var bestId: Long? = null
+                    var highestPop = -1
+                    for (i in 0 until artists.length()) {
+                        val a = artists.getJSONObject(i)
+                        val name = a.optString("name")
+                        if (isArtistNameMatch(name, artistName)) {
+                            val pop = a.optInt("popularity", 0)
+                            if (pop > highestPop) {
+                                highestPop = pop
+                                bestId = a.optLong("id")
+                            }
+                        }
+                    }
+                    if (bestId != null && bestId > 0) {
+                        return "https://tidal.com/artist/$bestId"
                     }
                 }
+            } else {
+                resp.close()
             }
-            resp.close()
             null
         } catch (e: Exception) {
             null
@@ -1018,11 +1099,11 @@ class OdesliRepository {
 
     private suspend fun resolveYouTubeMusicArtistUrl(artistName: String): String? {
         return try {
-            val encodedQuery = URLEncoder.encode("$artistName artist", "UTF-8")
+            val encodedQuery = URLEncoder.encode("$artistName Topic", "UTF-8")
             val req = Request.Builder()
                 .url("https://www.youtube.com/results?search_query=$encodedQuery&sp=EgIQAg%253D%253D")
                 .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
-                .header("Accept-Language", "en-US,en;q=0.9")
+                .header("Accept-Language", "de,en;q=0.9")
                 .get()
                 .build()
 
@@ -1034,10 +1115,14 @@ class OdesliRepository {
             val html = resp.body?.string() ?: ""
             resp.close()
 
-            val channelMatcher = ytChannelIdPattern.matcher(html)
-            if (channelMatcher.find()) {
-                val channelId = channelMatcher.group(1)
-                if (!channelId.isNullOrEmpty()) {
+            val channelRendererPattern = java.util.regex.Pattern.compile(
+                "\"channelRenderer\":\\{\"channelId\":\"(UC[a-zA-Z0-9_-]{22})\",.*?\"title\":\\{\"simpleText\":\"(.*?)\"\\}"
+            )
+            val matcher = channelRendererPattern.matcher(html)
+            while (matcher.find()) {
+                val channelId = matcher.group(1)
+                val channelTitle = matcher.group(2)
+                if (channelId != null && channelTitle != null && isArtistNameMatch(channelTitle, artistName)) {
                     return "https://music.youtube.com/channel/$channelId"
                 }
             }
