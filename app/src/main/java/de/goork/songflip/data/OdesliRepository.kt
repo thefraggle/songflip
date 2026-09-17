@@ -1388,6 +1388,31 @@ class OdesliRepository {
                     }
                 }
             }
+            // 8. Amazon Music Track & Album Info (OpenGraph via facebookexternalhit)
+            else if (url.contains("music.amazon.")) {
+                try {
+                    val req = Request.Builder()
+                        .url(url)
+                        .header("User-Agent", "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)")
+                        .get()
+                        .build()
+                    val resp = client.newCall(req).execute()
+                    if (resp.isSuccessful) {
+                        val html = resp.body?.string() ?: ""
+                        resp.close()
+                        val ogTitleMatch = Regex("<meta\\s+(?:property|name)=[\"']og:title[\"']\\s+content=[\"']([^\"']+)[\"']", RegexOption.IGNORE_CASE).find(html)
+                            ?: Regex("<meta\\s+content=[\"']([^\"']+)[\"']\\s+(?:property|name)=[\"']og:title[\"']", RegexOption.IGNORE_CASE).find(html)
+                        if (ogTitleMatch != null) {
+                            val ogTitle = ogTitleMatch.groupValues[1].trim()
+                            if (ogTitle.isNotEmpty() && !ogTitle.equals("Amazon Music", ignoreCase = true)) {
+                                return ogTitle.replace("–", " ").replace("-", " ").trim()
+                            }
+                        }
+                    } else {
+                        resp.close()
+                    }
+                } catch (e: Exception) { /* continue */ }
+            }
 
             null
         } catch (e: Exception) {
@@ -1497,6 +1522,29 @@ class OdesliRepository {
                     if (html.contains(titleTag)) {
                         val title = html.substringAfter(titleTag).substringBefore("</title>").substringBefore(" on TIDAL").substringBefore(" | TIDAL").trim()
                         if (title.isNotEmpty()) return title
+                    }
+                } else {
+                    resp.close()
+                }
+            }
+            // 6. Amazon Music Artist
+            else if (url.contains("music.amazon.") && (url.contains("/artists/") || url.contains("/artist/"))) {
+                val req = Request.Builder()
+                    .url(url)
+                    .header("User-Agent", "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)")
+                    .get()
+                    .build()
+                val resp = client.newCall(req).execute()
+                if (resp.isSuccessful) {
+                    val html = resp.body?.string() ?: ""
+                    resp.close()
+                    val ogTitleMatch = Regex("<meta\\s+(?:property|name)=[\"']og:title[\"']\\s+content=[\"']([^\"']+)[\"']", RegexOption.IGNORE_CASE).find(html)
+                        ?: Regex("<meta\\s+content=[\"']([^\"']+)[\"']\\s+(?:property|name)=[\"']og:title[\"']", RegexOption.IGNORE_CASE).find(html)
+                    if (ogTitleMatch != null) {
+                        val title = ogTitleMatch.groupValues[1].trim()
+                        if (title.isNotEmpty() && !title.equals("Amazon Music", ignoreCase = true)) {
+                            return title
+                        }
                     }
                 } else {
                     resp.close()
