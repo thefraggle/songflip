@@ -56,14 +56,24 @@ fun HistoryBottomSheet(
     val odesliRepository = remember { de.goork.songflip.data.OdesliRepository() }
 
     val historyLimit = if (isPro) 100 else 10
-    var historyItems by remember { mutableStateOf(LinkCacheManager.getHistoryEntries(limit = historyLimit)) }
-    var historyCount by remember { mutableStateOf(LinkCacheManager.getHistoryCount()) }
+    var isLoadingHistory by remember { mutableStateOf(true) }
+    var historyItems by remember { mutableStateOf<List<HistoryItem>>(emptyList()) }
+    var historyCount by remember { mutableStateOf(0) }
     var showClearConfirmationDialog by remember { mutableStateOf(false) }
     var refreshingKeys by remember { mutableStateOf(setOf<String>()) }
 
     fun refreshHistory() {
-        historyItems = LinkCacheManager.getHistoryEntries(limit = historyLimit)
-        historyCount = LinkCacheManager.getHistoryCount()
+        coroutineScope.launch {
+            val items = LinkCacheManager.getHistoryEntriesAsync(limit = historyLimit)
+            val count = LinkCacheManager.getHistoryCountAsync()
+            historyItems = items
+            historyCount = count
+            isLoadingHistory = false
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        refreshHistory()
     }
 
     if (showClearConfirmationDialog) {
@@ -200,7 +210,20 @@ fun HistoryBottomSheet(
                 }
             }
 
-            if (historyItems.isEmpty()) {
+            if (isLoadingHistory) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(36.dp),
+                        strokeWidth = 3.dp,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
+            } else if (historyItems.isEmpty()) {
                 // Empty State
                 Box(
                     modifier = Modifier

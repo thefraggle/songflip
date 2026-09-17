@@ -19,7 +19,7 @@ graph TD
 
     C --> D["KMP Shared Core (Resolution Pipeline)"]
 
-    D --> E{"L1 Local Cache (Memory / SQLite)"}
+    D --> E{"L1 Local Cache (Memory / KV Store)"}
     E -->|"Hit (<5ms)"| H["Direct Playback Launch Intent"]
     E -->|"Miss"| F{"L2 Edge Cache (Firestore Short-Hash / Pro Tier)"}
     
@@ -46,8 +46,8 @@ Before hashing or resolving, the URL is strictly canonicalized:
 
 | Tier | Technology | Latency | Scope & Invalidation |
 |---|---|---|---|
-| **L1 (Local)** | In-Memory / SQLite Room | `< 5 ms` | Device-only. Sub-millisecond playback launch for repeated tracks. Always active on all devices. |
-| **L2 (Edge Cache)** | Serverless Firestore Edge *(Pro Tier)* | `~30–50 ms` | Global, indexed via 12-char SHA-256 short hashes (`/resolve`). Server infrastructure funded via SongFlip PRO to prevent rate-limiting for viral links & power web share pages. |
+| **L1 (Local)** | In-Memory / SharedPreferences (Android) & NSUserDefaults (iOS) | `< 5 ms` | Device-only. Sub-millisecond playback launch for repeated tracks with 90-day rolling TTL. Always active on all devices. |
+| **L2 (Edge Cache)** | Serverless Firestore Edge *(Pro Tier read / Crowdsourced write)* | `~30–50 ms` | Global, indexed via 12-char SHA-256 short hashes (`/resolve` & `/ingest`). Reading is reserved for SongFlip PRO & Web Converter (`songflip.link/s/...`), while background ingestion is crowdsourced across all platforms (Android, iOS, Web). |
 | **L3 (Upstream)** | Multi-Provider Aggregator | `~200–500 ms` | Cold fallback only. Queries Odesli, iTunes Search API, Deezer Catalog API, and Shazam REST directly from the client. |
 
 > **Architectural Note on Tiering:** SongFlip's client engine is completely autonomous and operates with 100% functionality on device using L1 + L3 alone. The L2 Edge Cache is an optional, serverless performance tier that eliminates client-side network roundtrips for popular music entities.

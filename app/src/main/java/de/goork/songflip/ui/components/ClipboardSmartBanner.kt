@@ -5,11 +5,11 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.OpenInNew
+import androidx.compose.material.icons.automirrored.outlined.QueueMusic
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.ContentPaste
-import androidx.compose.material.icons.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.PlayArrow
-import androidx.compose.material.icons.outlined.QueueMusic
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -72,7 +72,7 @@ fun ClipboardSmartBanner(
                     modifier = Modifier.weight(1f)
                 ) {
                     Icon(
-                        imageVector = if (isPlaylist) Icons.Outlined.QueueMusic else Icons.Outlined.ContentPaste,
+                        imageVector = if (isPlaylist) Icons.AutoMirrored.Outlined.QueueMusic else Icons.Outlined.ContentPaste,
                         contentDescription = null,
                         tint = if (isPlaylist) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(20.dp)
@@ -161,7 +161,7 @@ fun ClipboardSmartBanner(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Icon(
-                            imageVector = Icons.Outlined.OpenInNew,
+                            imageVector = Icons.AutoMirrored.Outlined.OpenInNew,
                             contentDescription = null,
                             modifier = Modifier.size(16.dp)
                         )

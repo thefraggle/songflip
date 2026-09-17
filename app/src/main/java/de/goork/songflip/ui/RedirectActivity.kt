@@ -184,25 +184,34 @@ class RedirectActivity : ComponentActivity() {
                 ProManager.init(this)
                 val isPro = ProManager.proState.value.isPro
                 if (isPro) {
-                    val shareUrl = ProManager.getUniversalWebShareUrl(incomingUrl)
-                    ProManager.warmupUniversalShare(incomingUrl)
+                    lifecycleScope.launch {
+                        val canonical = if (odesliRepository.isShortLinkDomain(incomingUrl)) {
+                            withContext(Dispatchers.IO) { odesliRepository.resolveCanonicalUrl(incomingUrl) }
+                        } else {
+                            incomingUrl
+                        }
+                        val shareUrl = ProManager.getUniversalWebShareUrl(canonical)
+                        ProManager.warmupUniversalShare(canonical)
 
-                    val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
-                    val clip = ClipData.newPlainText("SongFlip Universal Link", shareUrl)
-                    clipboard?.setPrimaryClip(clip)
+                        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+                        val clip = ClipData.newPlainText("SongFlip Universal Link", shareUrl)
+                        clipboard?.setPrimaryClip(clip)
 
-                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackSharePageGenerated(target = "share_sheet_same_platform")
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackSharePageGenerated(target = "share_sheet_same_platform")
 
-                    val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                        type = "text/plain"
-                        putExtra(Intent.EXTRA_TEXT, shareUrl)
-                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                            type = "text/plain"
+                            putExtra(Intent.EXTRA_TEXT, shareUrl)
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        }
+                        val chooser = Intent.createChooser(shareIntent, getString(R.string.share_universal_link)).apply {
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        }
+                        startActivity(chooser)
+                        Toast.makeText(applicationContext, getString(R.string.share_universal_link_copied), Toast.LENGTH_SHORT).show()
+                        finish()
+                        suppressTransitionAnimation()
                     }
-                    val chooser = Intent.createChooser(shareIntent, getString(R.string.share_universal_link)).apply {
-                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    }
-                    startActivity(chooser)
-                    Toast.makeText(applicationContext, getString(R.string.share_universal_link_copied), Toast.LENGTH_SHORT).show()
                 } else {
                     val mainIntent = Intent(this, MainActivity::class.java).apply {
                         action = Intent.ACTION_SEND
@@ -210,9 +219,9 @@ class RedirectActivity : ComponentActivity() {
                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     }
                     startActivity(mainIntent)
+                    finish()
+                    suppressTransitionAnimation()
                 }
-                finish()
-                suppressTransitionAnimation()
                 return
             }
 

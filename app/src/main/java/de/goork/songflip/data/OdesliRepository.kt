@@ -1,8 +1,11 @@
 package de.goork.songflip.data
 
 import de.goork.songflip.core.util.UrlUtils
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaType
@@ -31,6 +34,82 @@ sealed class OdesliResult {
 }
 
 class OdesliRepository {
+
+    private val backgroundScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+
+    fun pingCacheIngestAsync(
+        originalUrl: String,
+        targetUrl: String,
+        targetPlatform: String,
+        title: String?,
+        artist: String?,
+        isAlbum: Boolean,
+        links: Map<String, String>? = null
+    ) {
+        if (originalUrl.isBlank() || targetUrl.isBlank()) return
+
+        backgroundScope.launch {
+            try {
+                val json = JSONObject().apply {
+                    put("originalUrl", originalUrl)
+                    put("targetUrl", targetUrl)
+                    put("platform", targetPlatform)
+                    if (!title.isNullOrBlank()) put("title", title)
+                    if (!artist.isNullOrBlank()) put("artist", artist)
+                    put("isAlbum", isAlbum)
+                    if (!links.isNullOrEmpty()) {
+                        val linksObj = JSONObject()
+                        for ((k, v) in links) {
+                            if (k.isNotBlank() && v.isNotBlank()) {
+                                linksObj.put(k, v)
+                            }
+                        }
+                        put("links", linksObj)
+                    }
+                }
+
+                val mediaType = "application/json; charset=utf-8".toMediaType()
+                val requestBody = json.toString().toRequestBody(mediaType)
+                val req = Request.Builder()
+                    .url("https://cache.songflip.link/ingest")
+                    .header("x-web-client", "songflip-app")
+                    .post(requestBody)
+                    .build()
+
+                client.newCall(req).execute().close()
+            } catch (_: Throwable) {
+                // Background ingestion is best-effort and non-blocking
+            }
+        }
+    }
+
+    private fun cacheAndIngest(
+        canonicalUrl: String,
+        targetPlatformKey: String,
+        result: OdesliResult.Success,
+        isHistory: Boolean,
+        links: Map<String, String>? = null
+    ) {
+        LinkCacheManager.put(
+            canonicalUrl = canonicalUrl,
+            targetPlatformKey = targetPlatformKey,
+            targetUrl = result.targetUrl,
+            platform = result.platform,
+            title = result.title,
+            artist = result.artist,
+            isAlbum = result.isAlbum,
+            isHistory = isHistory
+        )
+        pingCacheIngestAsync(
+            originalUrl = canonicalUrl,
+            targetUrl = result.targetUrl,
+            targetPlatform = result.platform,
+            title = result.title,
+            artist = result.artist,
+            isAlbum = result.isAlbum,
+            links = links
+        )
+    }
 
     private val client = OkHttpClient.Builder()
         .connectTimeout(10, TimeUnit.SECONDS)
@@ -116,14 +195,10 @@ class OdesliRepository {
                     artist = null,
                     isAlbum = false
                 )
-                LinkCacheManager.put(
+                cacheAndIngest(
                     canonicalUrl = canonicalUrl,
                     targetPlatformKey = targetPlatformKey,
-                    targetUrl = result.targetUrl,
-                    platform = result.platform,
-                    title = result.title,
-                    artist = null,
-                    isAlbum = false,
+                    result = result,
                     isHistory = !isPrefetch
                 )
                 return@withContext result
@@ -172,15 +247,12 @@ class OdesliRepository {
                         artist = songLinkData.artist.ifEmpty { null },
                         isAlbum = false
                     )
-                    LinkCacheManager.put(
+                    cacheAndIngest(
                         canonicalUrl = canonicalUrl,
                         targetPlatformKey = targetPlatformKey,
-                        targetUrl = result.targetUrl,
-                        platform = result.platform,
-                        title = result.title,
-                        artist = result.artist,
-                        isAlbum = false,
-                        isHistory = !isPrefetch
+                        result = result,
+                        isHistory = !isPrefetch,
+                        links = songLinkData.links
                     )
                     return@withContext result
                 }
@@ -209,15 +281,12 @@ class OdesliRepository {
                                 artist = songLinkData.artist.ifEmpty { null },
                                 isAlbum = false
                             )
-                            LinkCacheManager.put(
+                            cacheAndIngest(
                                 canonicalUrl = canonicalUrl,
                                 targetPlatformKey = targetPlatformKey,
-                                targetUrl = result.targetUrl,
-                                platform = result.platform,
-                                title = result.title,
-                                artist = result.artist,
-                                isAlbum = false,
-                                isHistory = !isPrefetch
+                                result = result,
+                                isHistory = !isPrefetch,
+                                links = songLinkData.links
                             )
                             return@withContext result
                         }
@@ -231,15 +300,12 @@ class OdesliRepository {
                         artist = songLinkData.artist.ifEmpty { null },
                         isAlbum = isAlbum
                     )
-                    LinkCacheManager.put(
+                    cacheAndIngest(
                         canonicalUrl = canonicalUrl,
                         targetPlatformKey = targetPlatformKey,
-                        targetUrl = result.targetUrl,
-                        platform = result.platform,
-                        title = result.title,
-                        artist = result.artist,
-                        isAlbum = result.isAlbum,
-                        isHistory = !isPrefetch
+                        result = result,
+                        isHistory = !isPrefetch,
+                        links = songLinkData.links
                     )
                     return@withContext result
                 }
@@ -273,15 +339,12 @@ class OdesliRepository {
                         artist = songLinkData.artist.ifEmpty { null },
                         isAlbum = isAlbum
                     )
-                    LinkCacheManager.put(
+                    cacheAndIngest(
                         canonicalUrl = canonicalUrl,
                         targetPlatformKey = targetPlatformKey,
-                        targetUrl = result.targetUrl,
-                        platform = result.platform,
-                        title = result.title,
-                        artist = result.artist,
-                        isAlbum = result.isAlbum,
-                        isHistory = !isPrefetch
+                        result = result,
+                        isHistory = !isPrefetch,
+                        links = songLinkData.links
                     )
                     return@withContext result
                 }
@@ -311,14 +374,10 @@ class OdesliRepository {
                     artist = null,
                     isAlbum = isExplicitAlbumUrl
                 )
-                LinkCacheManager.put(
+                cacheAndIngest(
                     canonicalUrl = canonicalUrl,
                     targetPlatformKey = targetPlatformKey,
-                    targetUrl = result.targetUrl,
-                    platform = result.platform,
-                    title = result.title,
-                    artist = result.artist,
-                    isAlbum = result.isAlbum,
+                    result = result,
                     isHistory = !isPrefetch
                 )
                 return@withContext result
@@ -336,14 +395,10 @@ class OdesliRepository {
                     artist = artistInfo,
                     isAlbum = false
                 )
-                LinkCacheManager.put(
+                cacheAndIngest(
                     canonicalUrl = canonicalUrl,
                     targetPlatformKey = targetPlatformKey,
-                    targetUrl = result.targetUrl,
-                    platform = result.platform,
-                    title = result.title,
-                    artist = result.artist,
-                    isAlbum = result.isAlbum,
+                    result = result,
                     isHistory = !isPrefetch
                 )
                 return@withContext result
@@ -1503,7 +1558,7 @@ class OdesliRepository {
         return if (extracted != null) UrlUtils.normalizeUrl(extracted) else null
     }
 
-    private fun isShortLinkDomain(url: String): Boolean {
+    fun isShortLinkDomain(url: String): Boolean {
         return url.contains("spotify.link") ||
                 url.contains("deezer.page.link") ||
                 url.contains("link.deezer.com") ||
@@ -1565,7 +1620,7 @@ class OdesliRepository {
         }
     }
 
-    private fun resolveCanonicalUrl(url: String): String {
+    fun resolveCanonicalUrl(url: String): String {
         if (!isShortLinkDomain(url)) return url
 
         // 0. Shazam: Resolve via official API directly to Apple Music track

@@ -53,6 +53,8 @@ import java.util.Date
 
 import androidx.compose.material.icons.outlined.ChevronRight
 import androidx.compose.material.icons.outlined.History
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Link
 import androidx.compose.material.icons.outlined.Science
 import androidx.compose.material.icons.outlined.Share
 import de.goork.songflip.data.LinkCacheManager
@@ -378,7 +380,7 @@ fun SettingsBottomSheet(
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     Icon(
-                        imageVector = Icons.Outlined.Share,
+                        imageVector = Icons.Outlined.Link,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(22.dp)
@@ -682,7 +684,7 @@ fun SettingsBottomSheet(
                     horizontalArrangement = Arrangement.spacedBy(14.dp)
                 ) {
                     Icon(
-                        imageVector = Icons.Outlined.Share,
+                        imageVector = Icons.Outlined.Info,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier

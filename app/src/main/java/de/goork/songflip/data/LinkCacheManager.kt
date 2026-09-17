@@ -2,6 +2,8 @@ package de.goork.songflip.data
 
 import android.content.Context
 import android.content.SharedPreferences
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.json.JSONObject
 
 data class CachedLinkEntry(
@@ -241,6 +243,11 @@ object LinkCacheManager {
         }
     }
 
+    suspend fun getHistoryEntriesAsync(limit: Int = 10): List<HistoryItem> =
+        withContext(Dispatchers.IO) {
+            getHistoryEntries(limit)
+        }
+
     @Synchronized
     fun getHistoryCount(): Int {
         val now = System.currentTimeMillis()
@@ -261,6 +268,11 @@ object LinkCacheManager {
         }
         return count
     }
+
+    suspend fun getHistoryCountAsync(): Int =
+        withContext(Dispatchers.IO) {
+            getHistoryCount()
+        }
 
     @Synchronized
     fun getTotalCachedCount(): Int {

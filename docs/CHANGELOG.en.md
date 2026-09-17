@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.7] - 2026-09-17
+- **More Reliable Sharing**: Shared short links are now resolved with even higher accuracy so friends always land on the exact song.
+- **Accurate Audio Previews**: The 30-second song preview now plays the exact matching original track even more consistently.
+- **Smoother History**: Your song history now loads seamlessly without stutter or delays.
+- **Under-the-Hood Polish**: Faster matching for popular tracks and overall stability enhancements.
+
 ## [1.3.6] - 2026-09-16
 - **Enhanced Player Detection**: Intelligent dynamic detection of your installed music players for seamless 1-click redirects.
 - **More Reliable Link Handoff**: Fixes an issue where repeated app selection dialogs could appear on certain device setups.
