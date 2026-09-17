@@ -6,6 +6,7 @@ import { LRUCache } from "lru-cache";
 
 admin.initializeApp();
 const db = admin.firestore();
+db.settings({ ignoreUndefinedProperties: true });
 
 // 1 Hour in-memory cache for user PRO status (User ID -> boolean)
 const userProCache = new LRUCache<string, boolean>({
@@ -1431,14 +1432,15 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
     }
 
     // If artist is missing or generic, or few links, query Deezer to heal metadata
-    if (!artist || Object.keys(linksMap).length < 4) {
+    if (!artist || Object.keys(linksMap).length < 4 || (isAlbum && !linksMap.deezer)) {
       const cleanTitle = cleanSearchQuery(title);
       const query = (artist + " " + cleanTitle).trim();
       if (query) {
         try {
           const deezerType = isAlbum ? "album" : "track";
-          const deezerRes = await axios.get(`https://api.deezer.com/search/${deezerType}?q=${encodeURIComponent(query)}`, { timeout: 4000 });
-          const match = deezerRes.data?.data?.[0];
+          const deezerRes = await axios.get(`https://api.deezer.com/search/${deezerType}?q=${encodeURIComponent(query)}&limit=5`, { timeout: 4000 });
+          const matches = deezerRes.data?.data || [];
+          const match = matches.find((m: any) => isAlbum ? isArtistNameMatch(m.artist?.name || "", artist) : true) || matches[0];
           if (match) {
             if (!artist) artist = match.artist?.name || artist;
             if (!title) title = match.title || title;
@@ -1459,21 +1461,77 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
     if (!linksMap.appleMusic && title && artist) {
       try {
         const cleanTitle = cleanSearchQuery(title);
-        const itunesRes = await axios.get("https://itunes.apple.com/search", {
+        let itunesRes = await axios.get("https://itunes.apple.com/search", {
           params: {
             term: `${artist} ${cleanTitle}`,
             media: "music",
             entity: isAlbum ? "album" : "song",
-            limit: 1,
+            limit: 5,
           },
           timeout: 4000,
         });
-        const first = itunesRes.data?.results?.[0];
+        let results = itunesRes.data?.results || [];
+        if (results.length === 0 && isAlbum) {
+          // German albums or regional storefront fallback
+          itunesRes = await axios.get("https://itunes.apple.com/search", {
+            params: {
+              term: `${artist} ${cleanTitle}`,
+              media: "music",
+              entity: "album",
+              country: "DE",
+              limit: 5,
+            },
+            timeout: 4000,
+          });
+          results = itunesRes.data?.results || [];
+        }
+        const first = results.find((r: any) => isAlbum ? isArtistNameMatch(r.artistName || "", artist) : true) || results[0];
         if (first) {
-          linksMap.appleMusic = first.trackViewUrl || first.collectionViewUrl;
+          linksMap.appleMusic = first.collectionViewUrl || first.trackViewUrl;
         }
       } catch (err: any) {
         console.debug("[Fallback/iTunes]", err?.message);
+      }
+    }
+
+    // Fallback for Tidal Album
+    if (!linksMap.tidal && isAlbum && artist && title) {
+      try {
+        const q = `${artist} ${cleanSearchQuery(title)}`.trim();
+        const tRes = await axios.get(`https://listen.tidal.com/v1/search?query=${encodeURIComponent(q)}&limit=5&countryCode=DE`, {
+          headers: {
+            "x-tidal-token": "CzET4vdadNUFQ5JU",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+          },
+          timeout: 4000,
+        });
+        const albums = tRes.data?.albums?.items || [];
+        const match = albums.find((a: any) => a.artists?.some((ar: any) => isArtistNameMatch(ar.name || "", artist))) || albums[0];
+        if (match?.id) {
+          linksMap.tidal = `https://tidal.com/album/${match.id}`;
+        }
+      } catch (err: any) {
+        console.debug("[Fallback/TidalAlbum]", err?.message);
+      }
+    }
+
+    // Fallback for YouTube Music Album
+    if (!linksMap.youtubeMusic && isAlbum && artist && title) {
+      try {
+        const ytSearch = `${artist} ${cleanSearchQuery(title)}`.trim();
+        const ytRes = await axios.get(`https://www.youtube.com/results?search_query=${encodeURIComponent(ytSearch)}`, {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+            "Accept-Language": "de,en;q=0.9",
+          },
+          timeout: 4000,
+        });
+        const listMatch = (ytRes.data as string)?.match(/list=(OLAK5uy_[a-zA-Z0-9_-]{33})/);
+        if (listMatch?.[1]) {
+          linksMap.youtubeMusic = `https://music.youtube.com/playlist?list=${listMatch[1]}`;
+        }
+      } catch (err: any) {
+        console.debug("[Fallback/YTMusicAlbum]", err?.message);
       }
     }
 
@@ -1651,17 +1709,18 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
     const ttlMs = isFallback ? 14 * 24 * 60 * 60 * 1000 : 90 * 24 * 60 * 60 * 1000;
     const expiresAt = admin.firestore.Timestamp.fromMillis(now + ttlMs);
 
-    return {
+    const resolved: SongMetadata = {
       title: title || "Unknown Title",
       artist: artist || "Unknown Artist",
-      thumbnailUrl,
-      previewUrl,
       isAlbum,
       isFallback,
       links: linksMap,
       updatedAt: now,
       expiresAt,
     };
+    if (thumbnailUrl) resolved.thumbnailUrl = thumbnailUrl;
+    if (previewUrl) resolved.previewUrl = previewUrl;
+    return resolved;
   } catch (error: any) {
     console.error("Live resolution failed for:", url, error?.message);
     return null;
@@ -1796,27 +1855,31 @@ export const resolve = onRequest(
     }
 
     // 6. Save in Firestore for primary URL hash and all other platform links
-    const batch = db.batch();
-    batch.set(cacheRef, resolvedItem);
     const primaryShortId = primaryHash.substring(0, 12);
-    batch.set(db.collection("l2_song_cache").doc(primaryShortId), resolvedItem);
-    batch.set(db.collection("l2_song_cache").doc(primaryHash.substring(0, 8)), resolvedItem);
+    try {
+      const batch = db.batch();
+      batch.set(cacheRef, resolvedItem);
+      batch.set(db.collection("l2_song_cache").doc(primaryShortId), resolvedItem);
+      batch.set(db.collection("l2_song_cache").doc(primaryHash.substring(0, 8)), resolvedItem);
 
-    // Also index other platform URLs for future hits
-    Object.values(resolvedItem.links).forEach((platformUrl) => {
-      if (typeof platformUrl === "string" && platformUrl.length > 0) {
-        const altNorm = normalizeMusicUrl(platformUrl);
-        const altHash = hashUrl(altNorm);
-        if (altHash !== primaryHash) {
-          batch.set(db.collection("l2_song_cache").doc(altHash), resolvedItem);
-          batch.set(db.collection("l2_song_cache").doc(altHash.substring(0, 12)), resolvedItem);
-          batch.set(db.collection("l2_song_cache").doc(altHash.substring(0, 8)), resolvedItem);
+      // Also index other platform URLs for future hits
+      Object.values(resolvedItem.links).forEach((platformUrl) => {
+        if (typeof platformUrl === "string" && platformUrl.length > 0) {
+          const altNorm = normalizeMusicUrl(platformUrl);
+          const altHash = hashUrl(altNorm);
+          if (altHash !== primaryHash) {
+            batch.set(db.collection("l2_song_cache").doc(altHash), resolvedItem);
+            batch.set(db.collection("l2_song_cache").doc(altHash.substring(0, 12)), resolvedItem);
+            batch.set(db.collection("l2_song_cache").doc(altHash.substring(0, 8)), resolvedItem);
+          }
         }
-      }
-    });
+      });
 
-    // Commit batch asynchronously (non-blocking for ultra-fast response)
-    batch.commit().catch((err) => console.error("Error committing L2 cache batch:", err));
+      // Commit batch asynchronously (non-blocking for ultra-fast response)
+      batch.commit().catch((err) => console.error("Error committing L2 cache batch:", err));
+    } catch (batchErr: any) {
+      console.error("Error staging L2 cache batch:", batchErr?.message);
+    }
 
     res.setHeader("X-Cache", forceRefresh ? "REFRESHED" : "MISS");
     res.setHeader("Cache-Control", "private, no-cache, no-store, must-revalidate");
