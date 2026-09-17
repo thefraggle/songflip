@@ -136,7 +136,7 @@ jobs:
           retention-days: 14
 
       - name: Upload to App Store Connect / TestFlight via xcrun altool
-        if: startsWith(github.ref, 'refs/tags/') && env.ASC_KEY_ID != ''
+        if: (startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch') && env.ASC_KEY_ID != ''
         env:
           ASC_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
           ASC_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
