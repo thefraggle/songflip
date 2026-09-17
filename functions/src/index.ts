@@ -621,7 +621,7 @@ function isArtistUrl(url: string): boolean {
     const host = parsed.hostname.toLowerCase();
     const path = parsed.pathname.toLowerCase();
 
-    if (path.includes("/artist/")) return true;
+    if (path.includes("/artist/") || path.includes("/artists/")) return true;
 
     const isYtHost = host === "youtube.com" || host.endsWith(".youtube.com") || host === "youtu.be";
     if (isYtHost && (path.includes("/@") || path.includes("/channel/") || path.includes("/user/"))) {
@@ -972,6 +972,30 @@ async function resolveArtistLive(url: string): Promise<SongMetadata | null> {
           } else {
             artistName = title.replace(/\s*-\s*YouTube/gi, "").replace(/TV/gi, "").replace(/Official/gi, "").trim();
           }
+        }
+      } catch (_) {}
+    }
+
+    // 4. Amazon Music Artist
+    else if (host.includes("music.amazon.") && (clean.includes("/artists/") || clean.includes("/artist/"))) {
+      try {
+        const res = await axios.get(url, {
+          headers: {
+            "User-Agent": "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+          },
+          timeout: 4000,
+        });
+        const html = typeof res.data === "string" ? res.data : "";
+        const titleMatch = html.match(/<meta\s+(?:property|name)=["']og:title["']\s+content=["']([^"']+)["']/i)
+                        || html.match(/<meta\s+content=["']([^"']+)["']\s+(?:property|name)=["']og:title["']/i);
+        const imgMatch = html.match(/<meta\s+(?:property|name)=["']og:image["']\s+content=["']([^"']+)["']/i)
+                      || html.match(/<meta\s+content=["']([^"']+)["']\s+(?:property|name)=["']og:image["']/i);
+        if (titleMatch && titleMatch[1]) {
+          artistName = titleMatch[1].trim();
+        }
+        if (imgMatch && imgMatch[1] && !imgMatch[1].includes("rectangle_amazon_music")) {
+          thumbnailUrl = imgMatch[1];
         }
       } catch (_) {}
     }
@@ -1407,15 +1431,92 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
       }
     }
 
-    try {
-      const targetSongLink = normalizeToSongLinkDirectUrl(url);
-      const res = await axios.get(targetSongLink, {
-        headers: {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-          "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        },
-        timeout: 7000,
-      });
+    // 0.2 Amazon Music Direct OpenGraph Resolution
+    if (url.includes("music.amazon.")) {
+      try {
+        const amzResp = await axios.get(url, {
+          headers: {
+            "User-Agent": "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+          },
+          timeout: 5000,
+        });
+        const html = typeof amzResp.data === "string" ? amzResp.data : "";
+        if (html) {
+          const getOg = (prop: string): string | null => {
+            const m = html.match(new RegExp(`<meta\\s+(?:property|name)=["']${prop}["']\\s+content=["']([^"']+)["']`, "i"))
+                   || html.match(new RegExp(`<meta\\s+content=["']([^"']+)["']\\s+(?:property|name)=["']${prop}["']`, "i"));
+            return m ? m[1] : null;
+          };
+
+          const ogTitle = getOg("og:title")?.trim() || "";
+          const ogType = getOg("og:type") || "";
+          const ogImage = getOg("og:image");
+          const ogAudio = getOg("og:audio:url") || getOg("og:audio:secure_url");
+          const albumRel = getOg("music:album");
+          const musicianRel = getOg("music:musician");
+
+          if (ogImage && !ogImage.includes("rectangle_amazon_music")) {
+            thumbnailUrl = ogImage;
+          }
+          if (ogAudio) {
+            previewUrl = ogAudio.replace(/&amp;/g, "&").replace(/&#x3D;/g, "=");
+          }
+
+          if (ogType === "music.album" || (url.includes("/albums/") && !url.includes("trackAsin="))) {
+            isAlbum = true;
+            if (ogTitle) {
+              const parts = ogTitle.split(/\s+[–—-]\s+/);
+              if (parts.length >= 2) {
+                title = parts[0].trim();
+                artist = parts.slice(1).join(" – ").trim();
+              } else {
+                title = ogTitle.trim();
+              }
+            }
+          } else if (ogType === "music.song" || url.includes("trackAsin=") || url.includes("/tracks/")) {
+            isAlbum = false;
+            title = ogTitle || "";
+            if (albumRel) {
+              try {
+                const albResp = await axios.get(albumRel, { headers: { "User-Agent": "facebookexternalhit/1.1" }, timeout: 4000 });
+                const albHtml = typeof albResp.data === "string" ? albResp.data : "";
+                const m = albHtml.match(/<meta\s+(?:property|name)=["']og:title["']\s+content=["']([^"']+)["']/i)
+                       || albHtml.match(/<meta\s+content=["']([^"']+)["']\s+(?:property|name)=["']og:title["']/i);
+                if (m && m[1]) {
+                  const parts = m[1].split(/\s+[–—-]\s+/);
+                  if (parts.length >= 2) artist = parts.slice(1).join(" – ").trim();
+                }
+              } catch {}
+            }
+            if (!artist && musicianRel) {
+              try {
+                const musResp = await axios.get(musicianRel, { headers: { "User-Agent": "facebookexternalhit/1.1" }, timeout: 4000 });
+                const musHtml = typeof musResp.data === "string" ? musResp.data : "";
+                const m = musHtml.match(/<meta\s+(?:property|name)=["']og:title["']\s+content=["']([^"']+)["']/i)
+                       || musHtml.match(/<meta\s+content=["']([^"']+)["']\s+(?:property|name)=["']og:title["']/i);
+                if (m && m[1]) artist = m[1].trim();
+              } catch {}
+            }
+          }
+
+          linksMap.amazonMusic = url;
+        }
+      } catch (amzErr: any) {
+        console.warn("[AmazonMusic] Direct OpenGraph resolution failed:", amzErr?.message);
+      }
+    }
+
+    if (!url.includes("music.amazon.")) {
+      try {
+        const targetSongLink = normalizeToSongLinkDirectUrl(url);
+        const res = await axios.get(targetSongLink, {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+          },
+          timeout: 7000,
+        });
 
       const html = res.data;
       if (typeof html === "string" && html.includes('<script id="__NEXT_DATA__" type="application/json">')) {
@@ -1481,8 +1582,9 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
           }
         }
       }
-    } catch (songLinkErr: any) {
-      console.debug("[SongLink] Scrape failed or not listed on song.link:", songLinkErr?.message);
+      } catch (songLinkErr: any) {
+        console.debug("[SongLink] Scrape failed or not listed on song.link:", songLinkErr?.message);
+      }
     }
 
     // If artist is missing or generic, or few links, query Deezer to heal metadata
@@ -1503,6 +1605,25 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
             }
             if (!linksMap.deezer) {
               linksMap.deezer = match.link || (isAlbum ? `https://www.deezer.com/album/${match.id}` : `https://www.deezer.com/track/${match.id}`);
+            }
+
+            // Cross-Platform Cache Re-use: If this entity was previously cached under Deezer, merge existing platform links
+            if (linksMap.deezer) {
+              try {
+                const deezerNorm = normalizeMusicUrl(linksMap.deezer);
+                const deezerHash = hashUrl(deezerNorm).substring(0, 12);
+                const cachedSnap = await db.collection("l2_song_cache").doc(deezerHash).get();
+                if (cachedSnap.exists) {
+                  const cachedData = cachedSnap.data() as SongMetadata;
+                  if (cachedData && cachedData.links) {
+                    Object.entries(cachedData.links).forEach(([pKey, pUrl]) => {
+                      if (pUrl && !linksMap[pKey as keyof PlatformLinks]) {
+                        linksMap[pKey as keyof PlatformLinks] = pUrl;
+                      }
+                    });
+                  }
+                }
+              } catch (_) {}
             }
           }
         } catch (err: any) {
@@ -1872,7 +1993,15 @@ export const resolve = onRequest(
       await db.collection("l2_song_cache").doc(primaryHash.substring(0, 12)).delete().catch(() => {});
       await db.collection("l2_song_cache").doc(primaryHash.substring(0, 8)).delete().catch(() => {});
     } else {
-      const docSnap = await cacheRef.get();
+      let docSnap = await cacheRef.get();
+      if (!docSnap.exists && normalizedUrl.includes("music.amazon.")) {
+        const comNorm = normalizedUrl.replace(/^https?:\/\/music\.amazon\.[a-z.]+/i, "https://music.amazon.com");
+        const comHash = hashUrl(comNorm);
+        const comSnap = await db.collection("l2_song_cache").doc(comHash).get();
+        if (comSnap.exists) {
+          docSnap = comSnap;
+        }
+      }
 
       if (docSnap.exists) {
         const cachedData = docSnap.data() as SongMetadata;
@@ -1924,6 +2053,14 @@ export const resolve = onRequest(
       batch.set(db.collection("l2_song_cache").doc(primaryShortId), resolvedItem);
       batch.set(db.collection("l2_song_cache").doc(primaryHash.substring(0, 8)), resolvedItem);
 
+      if (normalizedUrl.includes("music.amazon.")) {
+        const comNorm = normalizedUrl.replace(/^https?:\/\/music\.amazon\.[a-z.]+/i, "https://music.amazon.com");
+        const comHash = hashUrl(comNorm);
+        batch.set(db.collection("l2_song_cache").doc(comHash), resolvedItem);
+        batch.set(db.collection("l2_song_cache").doc(comHash.substring(0, 12)), resolvedItem);
+        batch.set(db.collection("l2_song_cache").doc(comHash.substring(0, 8)), resolvedItem);
+      }
+
       // Also index other platform URLs for future hits
       Object.values(resolvedItem.links).forEach((platformUrl) => {
         if (typeof platformUrl === "string" && platformUrl.length > 0) {
@@ -1933,6 +2070,13 @@ export const resolve = onRequest(
             batch.set(db.collection("l2_song_cache").doc(altHash), resolvedItem);
             batch.set(db.collection("l2_song_cache").doc(altHash.substring(0, 12)), resolvedItem);
             batch.set(db.collection("l2_song_cache").doc(altHash.substring(0, 8)), resolvedItem);
+          }
+          if (altNorm.includes("music.amazon.")) {
+            const comNorm = altNorm.replace(/^https?:\/\/music\.amazon\.[a-z.]+/i, "https://music.amazon.com");
+            const comHash = hashUrl(comNorm);
+            batch.set(db.collection("l2_song_cache").doc(comHash), resolvedItem);
+            batch.set(db.collection("l2_song_cache").doc(comHash.substring(0, 12)), resolvedItem);
+            batch.set(db.collection("l2_song_cache").doc(comHash.substring(0, 8)), resolvedItem);
           }
         }
       });

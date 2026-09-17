@@ -562,6 +562,17 @@ describe("Backend Helper Tests", () => {
       // Non-Amazon URLs must remain completely untouched
       assert.equal(localizeAmazonMusicUrl("https://open.spotify.com/album/123", "de-DE"), "https://open.spotify.com/album/123");
     });
+
+    it("should recognize Amazon Music artist URLs in isArtistUrl", () => {
+      assert.equal(isArtistUrl("https://music.amazon.de/artists/B001QP2OIE"), true);
+      assert.equal(isArtistUrl("https://music.amazon.com/artists/B001QP2OIE/korsakow"), true);
+      assert.equal(isArtistUrl("https://music.amazon.de/albums/B0BL2GNMZX"), false);
+    });
+
+    it("should normalize Amazon Music URLs preserving trackAsin query", () => {
+      assert.equal(normalizeMusicUrl("https://music.amazon.de/albums/B0BL2GNMZX?ref=dm_sh_abc"), "https://music.amazon.de/albums/B0BL2GNMZX");
+      assert.equal(normalizeMusicUrl("https://music.amazon.de/albums/B0BL2GNMZX?trackAsin=B0BL2FMQ1Z&ref=dm_sh_abc"), "https://music.amazon.de/albums/B0BL2GNMZX?trackAsin=B0BL2FMQ1Z");
+    });
   });
 });
 
