@@ -521,6 +521,60 @@ export function normalizeYouTubeMusicUrl(url: string): string {
     .replace(/^https?:\/\/youtu\.be\/([a-zA-Z0-9_-]+)/i, "https://music.youtube.com/watch?v=$1");
 }
 
+function getAmazonMusicDomainForLanguage(headerOrTag?: string, countryCode?: string): string {
+  const normalized = (headerOrTag || "").trim().toLowerCase();
+  const primaryTag = normalized.split(",")[0]?.split(";")[0]?.trim() || "";
+  const langCode = primaryTag.split("-")[0] || "";
+
+  // 1. Specific language dialect matches take priority
+  if (primaryTag === "en-gb" || primaryTag === "en-uk") return "music.amazon.co.uk";
+  if (primaryTag === "en-ca" || primaryTag === "fr-ca") return "music.amazon.ca";
+  if (primaryTag === "en-au") return "music.amazon.com.au";
+  if (primaryTag === "en-in" || primaryTag === "hi-in" || langCode === "hi") return "music.amazon.in";
+  if (primaryTag === "pt-br") return "music.amazon.com.br";
+  if (primaryTag === "es-mx") return "music.amazon.com.mx";
+
+  // 2. Unambiguous non-English language codes take direct priority
+  if (langCode === "de") return "music.amazon.de";
+  if (langCode === "fr") return "music.amazon.fr";
+  if (langCode === "it") return "music.amazon.it";
+  if (langCode === "es") return "music.amazon.es";
+  if (langCode === "ja") return "music.amazon.co.jp";
+  if (langCode === "pt") return "music.amazon.com.br";
+
+  // 3. For English or missing language, use Geo-IP country code fallback
+  const country = (countryCode || "").trim().toUpperCase();
+  if (country === "DE" || country === "AT") return "music.amazon.de";
+  if (country === "GB" || country === "UK") return "music.amazon.co.uk";
+  if (country === "FR") return "music.amazon.fr";
+  if (country === "IT") return "music.amazon.it";
+  if (country === "ES") return "music.amazon.es";
+  if (country === "JP") return "music.amazon.co.jp";
+  if (country === "CA") return "music.amazon.ca";
+  if (country === "AU") return "music.amazon.com.au";
+  if (country === "IN") return "music.amazon.in";
+  if (country === "BR") return "music.amazon.com.br";
+  if (country === "MX") return "music.amazon.com.mx";
+
+  return "music.amazon.com";
+}
+
+function localizeAmazonMusicUrl(url: string, headerOrTag?: string, countryCode?: string): string {
+  if (!url || typeof url !== "string") return url;
+  if (!url.includes("music.amazon.")) return url;
+  const targetDomain = getAmazonMusicDomainForLanguage(headerOrTag, countryCode);
+  try {
+    const parsed = new URL(url);
+    if (/^music\.amazon\.[a-z.]+$/i.test(parsed.hostname)) {
+      parsed.hostname = targetDomain;
+      return parsed.toString();
+    }
+  } catch (_) {
+    return url.replace(/^https?:\/\/music\.amazon\.[a-z.]+/i, `https://${targetDomain}`);
+  }
+  return url;
+}
+
 function sanitizeMusicMetadata(rawTitle: string, rawArtist: string): { title: string; artist: string; isGenericArtist: boolean } {
   let title = (rawTitle || "").trim();
   let artist = (rawArtist || "").trim();
@@ -1834,11 +1888,19 @@ export const resolve = onRequest(
 
           res.setHeader("X-Cache", "HIT");
           res.setHeader("Cache-Control", "private, no-cache, no-store, must-revalidate");
+          const queryLang = ((req.query.lang as string) || (req.query.l as string))?.trim().toLowerCase();
+          const reqLang = queryLang || (req.headers["x-orig-accept-language"] as string) || (req.headers["accept-language"] as string);
+          const reqCountry = (req.headers["x-country-code"] as string) || (req.headers["cf-ipcountry"] as string);
+          const localizedItem = { ...cachedData, links: { ...(cachedData.links || {}) } };
+          if (localizedItem.links.amazonMusic) {
+            localizedItem.links.amazonMusic = localizeAmazonMusicUrl(localizedItem.links.amazonMusic, reqLang, reqCountry);
+          }
+
           res.status(200).json({
             status: "success",
             cached: true,
             item: {
-              ...cachedData,
+              ...localizedItem,
               hash: primaryHash.substring(0, 12),
             },
           });
@@ -1883,11 +1945,19 @@ export const resolve = onRequest(
 
     res.setHeader("X-Cache", forceRefresh ? "REFRESHED" : "MISS");
     res.setHeader("Cache-Control", "private, no-cache, no-store, must-revalidate");
+    const queryLang = ((req.query.lang as string) || (req.query.l as string))?.trim().toLowerCase();
+    const reqLang = queryLang || (req.headers["x-orig-accept-language"] as string) || (req.headers["accept-language"] as string);
+    const reqCountry = (req.headers["x-country-code"] as string) || (req.headers["cf-ipcountry"] as string);
+    const localizedResolvedItem = { ...resolvedItem, links: { ...(resolvedItem.links || {}) } };
+    if (localizedResolvedItem.links.amazonMusic) {
+      localizedResolvedItem.links.amazonMusic = localizeAmazonMusicUrl(localizedResolvedItem.links.amazonMusic, reqLang, reqCountry);
+    }
+
     res.status(200).json({
       status: "success",
       cached: false,
       item: {
-        ...resolvedItem,
+        ...localizedResolvedItem,
         hash: primaryShortId,
       },
     });
@@ -2611,7 +2681,9 @@ export const renderWebShare = onRequest(
       const userAgent = (req.headers["user-agent"] as string) || "";
       const isMobileUA = /Android|iPhone|iPad|iPod/i.test(userAgent);
       const queryLang = ((req.query.lang as string) || (req.query.l as string))?.trim().toLowerCase();
-      const i18n = getWebShareI18n(queryLang || req.headers["accept-language"]);
+      const incomingLang = queryLang || (req.headers["x-orig-accept-language"] as string) || (req.headers["accept-language"] as string);
+      const incomingCountry = (req.headers["x-country-code"] as string) || (req.headers["cf-ipcountry"] as string);
+      const i18n = getWebShareI18n(incomingLang);
 
       // 1. Extract hash from path or query parameter
       const rawPath = req.path || "";
@@ -2990,7 +3062,7 @@ export const renderWebShare = onRequest(
           name: "Amazon Music",
           color: "#25D1DA",
           bgHover: "#1fbac2",
-          url: links.amazonMusic,
+          url: links.amazonMusic ? localizeAmazonMusicUrl(links.amazonMusic, incomingLang, incomingCountry) : "",
           icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M13.882 12.802c0 .914-.528 1.405-1.583 1.405-.88 0-1.391-.491-1.391-1.405 0-.915.511-1.406 1.391-1.406 1.055 0 1.583.491 1.583 1.406zm8.877 7.027c-.334.457-1.127.67-1.742.67-2.604 0-5.698-2.076-7.898-3.908-.317-.264-.07-.633.282-.44 2.833 1.565 6.474 2.972 9.074 1.495.335-.194.617-.035.284.42v.001l-.001.002-.001.001-.001.001-.001.001-.001.002zm-8.913-9.524c-2.482 0-4.085 1.495-4.085 3.872 0 2.395 1.567 3.89 4.085 3.89 2.5 0 4.103-1.495 4.103-3.89 0-2.377-1.603-3.872-4.103-3.872z"/></svg>`,
         },
         {
@@ -3446,6 +3518,33 @@ export const renderWebShare = onRequest(
           copyFallback(url);
         }
       });
+
+      // Dynamic Amazon Music localization based on client browser language
+      try {
+        var amzBtn = document.querySelector(".platform-amazonMusic");
+        if (amzBtn && amzBtn.href && amzBtn.href.indexOf("music.amazon.") !== -1) {
+          var clientLang = ((navigator.languages && navigator.languages[0]) || navigator.language || "").toLowerCase().trim();
+          var primary = clientLang.split("-")[0];
+          var targetDomain = "music.amazon.com";
+          if (clientLang === "en-gb" || clientLang === "en-uk") targetDomain = "music.amazon.co.uk";
+          else if (clientLang === "en-ca" || clientLang === "fr-ca") targetDomain = "music.amazon.ca";
+          else if (clientLang === "en-au") targetDomain = "music.amazon.com.au";
+          else if (clientLang === "en-in" || clientLang === "hi-in" || primary === "hi") targetDomain = "music.amazon.in";
+          else if (primary === "de") targetDomain = "music.amazon.de";
+          else if (primary === "fr") targetDomain = "music.amazon.fr";
+          else if (primary === "it") targetDomain = "music.amazon.it";
+          else if (primary === "es") targetDomain = "music.amazon.es";
+          else if (primary === "ja") targetDomain = "music.amazon.co.jp";
+          else if (primary === "pt" || clientLang === "pt-br") targetDomain = "music.amazon.com.br";
+          else if (clientLang === "es-mx") targetDomain = "music.amazon.com.mx";
+
+          var amzUrl = new URL(amzBtn.href);
+          if (/^music\.amazon\.[a-z.]+$/i.test(amzUrl.hostname)) {
+            amzUrl.hostname = targetDomain;
+            amzBtn.href = amzUrl.toString();
+          }
+        }
+      } catch (_) {}
     })();
   </script>
 </body>
@@ -3479,4 +3578,6 @@ export {
   resolveDeezerArtistLive,
   resolveYouTubeArtistChannelLive,
   resolveTidalArtistLive,
+  getAmazonMusicDomainForLanguage,
+  localizeAmazonMusicUrl,
 };

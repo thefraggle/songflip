@@ -25,6 +25,8 @@ import {
   resolveDeezerArtistLive,
   resolveYouTubeArtistChannelLive,
   resolveTidalArtistLive,
+  getAmazonMusicDomainForLanguage,
+  localizeAmazonMusicUrl,
 } from "../index";
 
 describe("Backend Helper Tests", () => {
@@ -515,6 +517,50 @@ describe("Backend Helper Tests", () => {
       const tidalUrl = await resolveTidalArtistLive("Korsakow");
       assert.ok(tidalUrl, "Must resolve Tidal artist URL");
       assert.equal(tidalUrl, "https://tidal.com/artist/3529079");
+    });
+  });
+
+  describe("Amazon Music Regional Localization", () => {
+    it("should map accept-language or language tags to the correct regional Amazon domain", () => {
+      assert.equal(getAmazonMusicDomainForLanguage("de-DE,de;q=0.9,en-US;q=0.8"), "music.amazon.de");
+      assert.equal(getAmazonMusicDomainForLanguage("de"), "music.amazon.de");
+      assert.equal(getAmazonMusicDomainForLanguage("en-GB,en;q=0.8"), "music.amazon.co.uk");
+      assert.equal(getAmazonMusicDomainForLanguage("fr-FR"), "music.amazon.fr");
+      assert.equal(getAmazonMusicDomainForLanguage("it-IT"), "music.amazon.it");
+      assert.equal(getAmazonMusicDomainForLanguage("es-ES"), "music.amazon.es");
+      assert.equal(getAmazonMusicDomainForLanguage("ja-JP"), "music.amazon.co.jp");
+      assert.equal(getAmazonMusicDomainForLanguage("en-CA"), "music.amazon.ca");
+      assert.equal(getAmazonMusicDomainForLanguage("en-AU"), "music.amazon.com.au");
+      assert.equal(getAmazonMusicDomainForLanguage("en-US,en;q=0.9"), "music.amazon.com");
+      assert.equal(getAmazonMusicDomainForLanguage(""), "music.amazon.com");
+      assert.equal(getAmazonMusicDomainForLanguage(undefined), "music.amazon.com");
+
+      // CountryCode precedence for generic/English vs specific language priority
+      assert.equal(getAmazonMusicDomainForLanguage("en", "DE"), "music.amazon.de");
+      assert.equal(getAmazonMusicDomainForLanguage("en", "GB"), "music.amazon.co.uk");
+      assert.equal(getAmazonMusicDomainForLanguage("en", "FR"), "music.amazon.fr");
+      assert.equal(getAmazonMusicDomainForLanguage("de-DE", "FR"), "music.amazon.de");
+    });
+
+    it("should dynamically localize Amazon Music URLs preserving paths and queries", () => {
+      const albumUrl = "https://music.amazon.com/albums/B0BL2GNMZX";
+      assert.equal(localizeAmazonMusicUrl(albumUrl, "de-DE"), "https://music.amazon.de/albums/B0BL2GNMZX");
+      assert.equal(localizeAmazonMusicUrl(albumUrl, "en-GB"), "https://music.amazon.co.uk/albums/B0BL2GNMZX");
+      assert.equal(localizeAmazonMusicUrl(albumUrl, "fr"), "https://music.amazon.fr/albums/B0BL2GNMZX");
+      assert.equal(localizeAmazonMusicUrl(albumUrl, "ja"), "https://music.amazon.co.jp/albums/B0BL2GNMZX");
+      assert.equal(localizeAmazonMusicUrl(albumUrl, "en-US"), "https://music.amazon.com/albums/B0BL2GNMZX");
+
+      // Preserving track queries
+      const trackUrl = "https://music.amazon.de/albums/B0855DV6QG?trackAsin=B0855DTRX6";
+      assert.equal(localizeAmazonMusicUrl(trackUrl, "en-US"), "https://music.amazon.com/albums/B0855DV6QG?trackAsin=B0855DTRX6");
+      assert.equal(localizeAmazonMusicUrl(trackUrl, "de-AT"), "https://music.amazon.de/albums/B0855DV6QG?trackAsin=B0855DTRX6");
+
+      // Search links
+      const searchUrl = "https://music.amazon.com/search/Korsakow%20Anleitung";
+      assert.equal(localizeAmazonMusicUrl(searchUrl, "de-DE"), "https://music.amazon.de/search/Korsakow%20Anleitung");
+
+      // Non-Amazon URLs must remain completely untouched
+      assert.equal(localizeAmazonMusicUrl("https://open.spotify.com/album/123", "de-DE"), "https://open.spotify.com/album/123");
     });
   });
 });
