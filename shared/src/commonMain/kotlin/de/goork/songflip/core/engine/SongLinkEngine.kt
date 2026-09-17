@@ -609,11 +609,26 @@ class SongLinkEngine(
         }
     }
 
+    private fun isArtistNameMatch(candidate: String, target: String): Boolean {
+        fun normalize(str: String): String {
+            return str.lowercase().trim()
+                .replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
+                .replace("[^a-z0-9]".toRegex(), "")
+        }
+        val normCand = normalize(candidate)
+        val normTarget = normalize(target)
+        if (normCand.isEmpty() || normTarget.isEmpty()) return false
+        if (normCand == normTarget) return true
+        if (normCand == normTarget + "thema" || normCand == normTarget + "topic") return true
+        return false
+    }
+
     private suspend fun resolveDirectArtistUrl(artistName: String, targetPlatformKey: String): String? {
         return when (targetPlatformKey) {
             "deezer" -> resolveDeezerArtistUrl(artistName)
             "appleMusic" -> resolveAppleMusicArtistUrl(artistName)
             "youtubeMusic" -> resolveYouTubeMusicArtistUrl(artistName)
+            "tidal" -> resolveTidalArtistUrl(artistName)
             else -> null
         }
     }
@@ -621,18 +636,29 @@ class SongLinkEngine(
     private suspend fun resolveAppleMusicArtistUrl(artistName: String): String? {
         return try {
             val encoded = artistName.encodeURLParameter()
-            val resp = client.get("https://itunes.apple.com/search?term=$encoded&entity=musicArtist&limit=1")
+            val resp = client.get("https://itunes.apple.com/search?term=$encoded&entity=musicArtist&limit=25")
             if (resp.status.isSuccess()) {
                 val body = resp.bodyAsText()
                 val rootObj = json.parseToJsonElement(body).jsonObject
                 val results = rootObj["results"]?.jsonArray
                 if (results != null && results.isNotEmpty()) {
-                    val item = results[0].jsonObject
-                    val link = item["artistLinkUrl"]?.jsonPrimitive?.content
-                        ?: item["artistViewUrl"]?.jsonPrimitive?.content
-                    if (!link.isNullOrEmpty()) {
-                        return link
+                    var fallbackLink: String? = null
+                    for (el in results) {
+                        val item = el.jsonObject
+                        val name = item["artistName"]?.jsonPrimitive?.content ?: ""
+                        if (isArtistNameMatch(name, artistName)) {
+                            val link = item["artistLinkUrl"]?.jsonPrimitive?.content
+                                ?: item["artistViewUrl"]?.jsonPrimitive?.content
+                            val genre = item["primaryGenreName"]?.jsonPrimitive?.content ?: ""
+                            if (genre.contains("rock", ignoreCase = true) || genre.contains("punk", ignoreCase = true) || genre.contains("alternative", ignoreCase = true)) {
+                                return link
+                            }
+                            if (fallbackLink == null && !link.isNullOrEmpty()) {
+                                fallbackLink = link
+                            }
+                        }
                     }
+                    if (fallbackLink != null) return fallbackLink
                 }
             }
             null
@@ -644,16 +670,62 @@ class SongLinkEngine(
     private suspend fun resolveDeezerArtistUrl(artistName: String): String? {
         return try {
             val encoded = artistName.encodeURLParameter()
-            val resp = client.get("https://api.deezer.com/search/artist?q=$encoded&limit=1")
+            val resp = client.get("https://api.deezer.com/search/artist?q=$encoded&limit=10")
             if (resp.status.isSuccess()) {
                 val body = resp.bodyAsText()
                 val rootObj = json.parseToJsonElement(body).jsonObject
                 val data = rootObj["data"]?.jsonArray
                 if (data != null && data.isNotEmpty()) {
-                    val item = data[0].jsonObject
-                    val link = item["link"]?.jsonPrimitive?.content
-                    if (!link.isNullOrEmpty()) {
-                        return link
+                    var bestLink: String? = null
+                    var maxFans = -1
+                    for (el in data) {
+                        val item = el.jsonObject
+                        val name = item["name"]?.jsonPrimitive?.content ?: ""
+                        if (isArtistNameMatch(name, artistName)) {
+                            val fans = item["nb_fan"]?.jsonPrimitive?.content?.toIntOrNull() ?: 0
+                            val link = item["link"]?.jsonPrimitive?.content
+                            if (fans > maxFans && !link.isNullOrEmpty()) {
+                                maxFans = fans
+                                bestLink = link
+                            }
+                        }
+                    }
+                    if (bestLink != null) return bestLink
+                }
+            }
+            null
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    private suspend fun resolveTidalArtistUrl(artistName: String): String? {
+        return try {
+            val encoded = artistName.encodeURLParameter()
+            val resp = client.get("https://listen.tidal.com/v1/search?query=$encoded&limit=10&countryCode=DE") {
+                header("x-tidal-token", "CzET4vdadNUFQ5JU")
+                header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+            }
+            if (resp.status.isSuccess()) {
+                val body = resp.bodyAsText()
+                val rootObj = json.parseToJsonElement(body).jsonObject
+                val items = rootObj["artists"]?.jsonObject?.get("items")?.jsonArray
+                if (items != null && items.isNotEmpty()) {
+                    var bestId: String? = null
+                    var maxPop = -1
+                    for (el in items) {
+                        val item = el.jsonObject
+                        val name = item["name"]?.jsonPrimitive?.content ?: ""
+                        if (isArtistNameMatch(name, artistName)) {
+                            val pop = item["popularity"]?.jsonPrimitive?.content?.toIntOrNull() ?: 0
+                            if (pop > maxPop) {
+                                maxPop = pop
+                                bestId = item["id"]?.jsonPrimitive?.content
+                            }
+                        }
+                    }
+                    if (!bestId.isNullOrEmpty()) {
+                        return "https://tidal.com/artist/$bestId"
                     }
                 }
             }
@@ -665,17 +737,19 @@ class SongLinkEngine(
 
     private suspend fun resolveYouTubeMusicArtistUrl(artistName: String): String? {
         return try {
-            val encoded = "$artistName artist".encodeURLParameter()
+            val encoded = "$artistName Topic".encodeURLParameter()
             val resp = client.get("https://www.youtube.com/results?search_query=$encoded&sp=EgIQAg%253D%253D") {
                 header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
-                header("Accept-Language", "en-US,en;q=0.9")
+                header("Accept-Language", "de,en;q=0.9")
             }
             if (!resp.status.isSuccess()) return null
             val html = resp.bodyAsText()
-            val match = ytChannelIdRegex.find(html)
+            val channelRendererRegex = "\"channelRenderer\":\\{\"channelId\":\"(UC[a-zA-Z0-9_-]{22})\",.*?\"title\":\\{\"simpleText\":\"(.*?)\"\\}".toRegex()
+            val match = channelRendererRegex.find(html)
             if (match != null) {
                 val channelId = match.groupValues[1]
-                if (channelId.isNotEmpty()) {
+                val channelTitle = match.groupValues[2]
+                if (channelId.isNotEmpty() && channelTitle.isNotEmpty() && isArtistNameMatch(channelTitle, artistName)) {
                     return "https://music.youtube.com/channel/$channelId"
                 }
             }

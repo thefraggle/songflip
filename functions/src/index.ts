@@ -798,6 +798,33 @@ async function resolveDeezerArtistLive(artistName: string): Promise<{ name: stri
 }
 
 /**
+ * Resolves direct Tidal Artist URL via Tidal Search API with strict name matching.
+ */
+async function resolveTidalArtistLive(artistName: string): Promise<string | null> {
+  if (!artistName || !artistName.trim()) return null;
+  const cleanName = artistName.trim();
+
+  try {
+    const res = await axios.get(`https://listen.tidal.com/v1/search?query=${encodeURIComponent(cleanName)}&limit=10&countryCode=DE`, {
+      headers: {
+        "x-tidal-token": "CzET4vdadNUFQ5JU",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+      },
+      timeout: 4000,
+    });
+    const items = res.data?.artists?.items || [];
+    const candidates = items.filter((a: any) => isArtistNameMatch(a.name, cleanName));
+    if (candidates.length > 0) {
+      candidates.sort((a: any, b: any) => (b.popularity || 0) - (a.popularity || 0));
+      return `https://tidal.com/artist/${candidates[0].id}`;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+/**
  * Resolves artist metadata & cross-platform direct links for artist profile URLs.
  */
 async function resolveArtistLive(url: string): Promise<SongMetadata | null> {
@@ -822,6 +849,7 @@ async function resolveArtistLive(url: string): Promise<SongMetadata | null> {
     let deezerLink = isDeezer ? url : "";
     let appleMusicLink = isApple ? url : "";
     let youtubeMusicLink = isYt ? url : "";
+    let tidalLink = clean.includes("tidal.com") ? url : "";
 
     // 0. Spotify Artist
     if (isSpotify && clean.includes("/artist/")) {
@@ -909,12 +937,15 @@ async function resolveArtistLive(url: string): Promise<SongMetadata | null> {
 
     if (!artistName) return null;
 
-    // Resolve direct Apple Music & YouTube Music links if not already present with strict name validation
+    // Resolve direct Apple Music, YouTube Music & Tidal links if not already present with strict name validation
     if (!appleMusicLink) {
       appleMusicLink = (await resolveAppleMusicArtistLive(artistName)) || "";
     }
     if (!youtubeMusicLink) {
       youtubeMusicLink = (await resolveYouTubeArtistChannelLive(artistName)) || "";
+    }
+    if (!tidalLink) {
+      tidalLink = (await resolveTidalArtistLive(artistName)) || "";
     }
 
     const q = encodeURIComponent(artistName);
@@ -923,7 +954,7 @@ async function resolveArtistLive(url: string): Promise<SongMetadata | null> {
       appleMusic: appleMusicLink || `https://music.apple.com/search?term=${q}`,
       youtubeMusic: youtubeMusicLink || `https://music.youtube.com/search?q=${q}`,
       deezer: deezerLink || `https://www.deezer.com/search/${q}`,
-      tidal: clean.includes("tidal.com") ? url : `https://listen.tidal.com/search?q=${q}`,
+      tidal: tidalLink || `https://listen.tidal.com/search?q=${q}`,
       amazonMusic: clean.includes("amazon.") ? url : `https://music.amazon.com/search/${q}`,
     };
 
@@ -2821,6 +2852,16 @@ export const renderWebShare = onRequest(
             }
           } catch (_) {}
         }
+        // 4. Heal Tidal with strict name validation
+        if (!links.tidal || links.tidal.includes("/search/") || links.tidal.includes("/search?")) {
+          try {
+            const tidalDirect = await resolveTidalArtistLive(cleanTitle);
+            if (tidalDirect) {
+              links.tidal = tidalDirect;
+              healed = true;
+            }
+          } catch (_) {}
+        }
         // Persist healed links to Firestore asynchronously
         if (healed && hash) {
           db.collection("l2_song_cache").doc(hash).set({ links }, { merge: true }).catch(() => {});
@@ -3374,4 +3415,5 @@ export {
   resolveAppleMusicArtistLive,
   resolveDeezerArtistLive,
   resolveYouTubeArtistChannelLive,
+  resolveTidalArtistLive,
 };

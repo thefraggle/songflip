@@ -24,6 +24,7 @@ import {
   resolveAppleMusicArtistLive,
   resolveDeezerArtistLive,
   resolveYouTubeArtistChannelLive,
+  resolveTidalArtistLive,
 } from "../index";
 
 describe("Backend Helper Tests", () => {
@@ -508,6 +509,12 @@ describe("Backend Helper Tests", () => {
       assert.ok(ytUrl, "Must resolve YouTube Music channel URL");
       assert.ok(!ytUrl.includes("UCPURfwPsTYhENUHx1D0Ibdw"), "Must NOT link to Sergey Korsakov channel");
       assert.ok(ytUrl.includes("UC27AmlvyR6SrC3mHyV5lu-A"), "Must link to official KORSAKOW Topic channel");
+    });
+
+    it("should resolve Tidal artist to authentic profile without classical composer search collision", async () => {
+      const tidalUrl = await resolveTidalArtistLive("Korsakow");
+      assert.ok(tidalUrl, "Must resolve Tidal artist URL");
+      assert.equal(tidalUrl, "https://tidal.com/artist/3529079");
     });
   });
 });
