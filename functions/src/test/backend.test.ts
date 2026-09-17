@@ -20,6 +20,10 @@ import {
   detectPlatformFromUrl,
   normalizeYouTubeMusicUrl,
   resolveAudioPreviewUrl,
+  isArtistNameMatch,
+  resolveAppleMusicArtistLive,
+  resolveDeezerArtistLive,
+  resolveYouTubeArtistChannelLive,
 } from "../index";
 
 describe("Backend Helper Tests", () => {
@@ -470,4 +474,41 @@ describe("Backend Helper Tests", () => {
       assert.ok(preview.startsWith("https://"), "Must be a secure HTTPS URL");
     });
   });
+
+  describe("Artist Resolution & Strict Name Matching", () => {
+    it("should accurately match artist names and reject foreign/fuzzy mismatches", () => {
+      assert.equal(isArtistNameMatch("Korsakow", "Korsakow"), true);
+      assert.equal(isArtistNameMatch("KORSAKOW – Thema", "Korsakow"), true);
+      assert.equal(isArtistNameMatch("Korsakow - Topic", "Korsakow"), true);
+      assert.equal(isArtistNameMatch("korsakow", "KORSAKOW"), true);
+
+      // Foreign artists must be strictly rejected
+      assert.equal(isArtistNameMatch("Nikolai Rimsky-Korsakov", "Korsakow"), false);
+      assert.equal(isArtistNameMatch("Sergey Korsakov", "Korsakow"), false);
+      assert.equal(isArtistNameMatch("Andrei Korsakov", "Korsakow"), false);
+      assert.equal(isArtistNameMatch("Korsakov Cowboys", "Korsakow"), false);
+    });
+
+    it("should resolve Apple Music artist to authentic punk band without foreign composer collision", async () => {
+      const appleUrl = await resolveAppleMusicArtistLive("Korsakow");
+      assert.ok(appleUrl, "Must resolve Apple Music artist URL");
+      assert.ok(!appleUrl.includes("278869"), "Must NOT link to Nikolai Rimsky-Korsakov (ID 278869)");
+      assert.ok(appleUrl.includes("6797810242") || appleUrl.includes("korsakow"), "Must link to authentic Korsakow artist profile");
+    });
+
+    it("should resolve Deezer artist to authentic profile with correct fan/album weighting", async () => {
+      const deezerData = await resolveDeezerArtistLive("Korsakow");
+      assert.ok(deezerData, "Must resolve Deezer artist data");
+      assert.equal(deezerData.name, "Korsakow");
+      assert.ok(deezerData.link.includes("199943"), "Must select established Korsakow profile (ID 199943)");
+    });
+
+    it("should resolve YouTube Music channel to verified topic channel without Russian cosmonaut collision", async () => {
+      const ytUrl = await resolveYouTubeArtistChannelLive("Korsakow");
+      assert.ok(ytUrl, "Must resolve YouTube Music channel URL");
+      assert.ok(!ytUrl.includes("UCPURfwPsTYhENUHx1D0Ibdw"), "Must NOT link to Sergey Korsakov channel");
+      assert.ok(ytUrl.includes("UC27AmlvyR6SrC3mHyV5lu-A"), "Must link to official KORSAKOW Topic channel");
+    });
+  });
 });
+

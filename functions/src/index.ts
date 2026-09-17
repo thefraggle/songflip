@@ -621,23 +621,149 @@ function detectPlatformFromUrl(url: string): string {
 }
 
 /**
- * Resolves direct YouTube Music Channel for artist pages.
+ * Normalizes an artist name for strict equality comparison (removes accents, punctuation, topic suffixes).
+ */
+function normalizeArtistNameForComparison(str: string): string {
+  return (str || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]/g, "")
+    .trim();
+}
+
+/**
+ * Validates whether candidate artist name matches target artist name.
+ * Prevents false matches (e.g. Nikolai Rimsky-Korsakov or Sergey Korsakov for Korsakow).
+ */
+function isArtistNameMatch(candidate: string, target: string): boolean {
+  const normCand = normalizeArtistNameForComparison(candidate);
+  const normTarget = normalizeArtistNameForComparison(target);
+  if (!normCand || !normTarget) return false;
+  if (normCand === normTarget) return true;
+  // Also tolerate YouTube Topic channel suffix variations: e.g. "korsakowthema" or "korsakowtopic"
+  if (normCand === normTarget + "thema" || normCand === normTarget + "topic") return true;
+  return false;
+}
+
+/**
+ * Resolves direct YouTube Music Channel for artist pages with strict channel name validation.
  */
 async function resolveYouTubeArtistChannelLive(artistName: string): Promise<string | null> {
+  if (!artistName || !artistName.trim()) return null;
+  const cleanName = artistName.trim();
+
+  // Try 1: Targeted search for Official Topic Channel ("Artist Topic")
   try {
-    const encoded = encodeURIComponent(`${artistName} artist`);
-    const ytUrl = `https://www.youtube.com/results?search_query=${encoded}&sp=EgIQAg%253D%253D`;
+    const encodedTopic = encodeURIComponent(`${cleanName} Topic`);
+    const ytUrl = `https://www.youtube.com/results?search_query=${encodedTopic}&sp=EgIQAg%253D%253D`;
     const res = await axios.get(ytUrl, {
       headers: {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Accept-Language": "en-US,en;q=0.9",
+        "Accept-Language": "de,en;q=0.9",
       },
       timeout: 4000,
     });
     const html = typeof res.data === "string" ? res.data : "";
-    const channelMatch = html.match(/"channelId":"(UC[a-zA-Z0-9_-]{22})"/);
-    if (channelMatch && channelMatch[1]) {
-      return `https://music.youtube.com/channel/${channelMatch[1]}`;
+
+    // Parse channelRenderer blocks with title: simpleText or runs
+    const channelRendererSimpleRegex = /"channelRenderer":\{"channelId":"(UC[a-zA-Z0-9_-]{22})",.*?"title":\{"simpleText":"(.*?)"\}/g;
+    let match;
+    while ((match = channelRendererSimpleRegex.exec(html)) !== null) {
+      const channelId = match[1];
+      const channelTitle = match[2];
+      if (isArtistNameMatch(channelTitle, cleanName)) {
+        return `https://music.youtube.com/channel/${channelId}`;
+      }
+    }
+
+    const channelRendererRunsRegex = /"channelRenderer":\{"channelId":"(UC[a-zA-Z0-9_-]{22})",.*?"title":\{"runs":\[\{"text":"(.*?)"\}/g;
+    while ((match = channelRendererRunsRegex.exec(html)) !== null) {
+      const channelId = match[1];
+      const channelTitle = match[2];
+      if (isArtistNameMatch(channelTitle, cleanName)) {
+        return `https://music.youtube.com/channel/${channelId}`;
+      }
+    }
+  } catch (_) {}
+
+  // Try 2: Targeted search for Artist Channel without "Topic" suffix
+  try {
+    const encodedRaw = encodeURIComponent(cleanName);
+    const ytUrl = `https://www.youtube.com/results?search_query=${encodedRaw}&sp=EgIQAg%253D%253D`;
+    const res = await axios.get(ytUrl, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept-Language": "de,en;q=0.9",
+      },
+      timeout: 4000,
+    });
+    const html = typeof res.data === "string" ? res.data : "";
+
+    const channelRendererSimpleRegex = /"channelRenderer":\{"channelId":"(UC[a-zA-Z0-9_-]{22})",.*?"title":\{"simpleText":"(.*?)"\}/g;
+    let match;
+    while ((match = channelRendererSimpleRegex.exec(html)) !== null) {
+      const channelId = match[1];
+      const channelTitle = match[2];
+      if (isArtistNameMatch(channelTitle, cleanName)) {
+        return `https://music.youtube.com/channel/${channelId}`;
+      }
+    }
+
+    const channelRendererRunsRegex = /"channelRenderer":\{"channelId":"(UC[a-zA-Z0-9_-]{22})",.*?"title":\{"runs":\[\{"text":"(.*?)"\}/g;
+    while ((match = channelRendererRunsRegex.exec(html)) !== null) {
+      const channelId = match[1];
+      const channelTitle = match[2];
+      if (isArtistNameMatch(channelTitle, cleanName)) {
+        return `https://music.youtube.com/channel/${channelId}`;
+      }
+    }
+  } catch (_) {}
+
+  // NEVER return unverified random channelId; return null so clean YouTube Music search fallback is used
+  return null;
+}
+
+/**
+ * Resolves direct Apple Music Artist URL via iTunes Search API with strict name matching.
+ */
+async function resolveAppleMusicArtistLive(artistName: string): Promise<string | null> {
+  if (!artistName || !artistName.trim()) return null;
+  const cleanName = artistName.trim();
+
+  try {
+    // 1. Global search
+    const itunesRes = await axios.get("https://itunes.apple.com/search", {
+      params: {
+        term: cleanName,
+        entity: "musicArtist",
+        limit: 25,
+      },
+      timeout: 4000,
+    });
+    let candidates = (itunesRes.data?.results || []).filter((r: any) => isArtistNameMatch(r.artistName, cleanName));
+
+    // 2. Fallback search with country: DE if no candidates found
+    if (candidates.length === 0) {
+      try {
+        const deRes = await axios.get("https://itunes.apple.com/search", {
+          params: {
+            term: cleanName,
+            entity: "musicArtist",
+            country: "DE",
+            limit: 25,
+          },
+          timeout: 4000,
+        });
+        candidates = (deRes.data?.results || []).filter((r: any) => isArtistNameMatch(r.artistName, cleanName));
+      } catch (_) {}
+    }
+
+    if (candidates.length > 0) {
+      // If multiple candidates share the exact name, prefer Rock / Punk / Alternative or artist with non-dance genre
+      const rockCand = candidates.find((r: any) => r.primaryGenreName && /rock|punk|alternative/i.test(r.primaryGenreName));
+      const chosen = rockCand || candidates[0];
+      return chosen.artistLinkUrl || chosen.artistViewUrl || null;
     }
     return null;
   } catch {
@@ -646,21 +772,24 @@ async function resolveYouTubeArtistChannelLive(artistName: string): Promise<stri
 }
 
 /**
- * Resolves direct Apple Music Artist URL via iTunes Search API.
+ * Resolves direct Deezer Artist metadata & link via Deezer API with strict name matching.
  */
-async function resolveAppleMusicArtistLive(artistName: string): Promise<string | null> {
+async function resolveDeezerArtistLive(artistName: string): Promise<{ name: string; link: string; picture: string } | null> {
+  if (!artistName || !artistName.trim()) return null;
+  const cleanName = artistName.trim();
+
   try {
-    const itunesRes = await axios.get("https://itunes.apple.com/search", {
-      params: {
-        term: artistName,
-        entity: "musicArtist",
-        limit: 1,
-      },
-      timeout: 4000,
-    });
-    const first = itunesRes.data?.results?.[0];
-    if (first && (first.artistLinkUrl || first.artistViewUrl)) {
-      return first.artistLinkUrl || first.artistViewUrl;
+    const deezerRes = await axios.get(`https://api.deezer.com/search/artist?q=${encodeURIComponent(cleanName)}`, { timeout: 4000 });
+    const candidates = (deezerRes.data?.data || []).filter((c: any) => isArtistNameMatch(c.name, cleanName));
+    if (candidates.length > 0) {
+      // Sort candidates by fans descending to choose the most authentic/established artist profile
+      candidates.sort((a: any, b: any) => (b.nb_fan || 0) - (a.nb_fan || 0));
+      const best = candidates[0];
+      return {
+        name: best.name,
+        link: best.link || `https://www.deezer.com/artist/${best.id}`,
+        picture: best.picture_xl || best.picture_big || "",
+      };
     }
     return null;
   } catch {
@@ -764,26 +893,23 @@ async function resolveArtistLive(url: string): Promise<SongMetadata | null> {
       } catch (_) {}
     }
 
-    // Enrich via Deezer Artist API for direct link, HD artwork, and exact spelling
+    // Enrich via Deezer Artist API with strict name matching
     if (artistName) {
-      try {
-        const deezerRes = await axios.get(`https://api.deezer.com/search/artist?q=${encodeURIComponent(artistName)}`, { timeout: 4000 });
-        const first = deezerRes.data?.data?.[0];
-        if (first) {
-          artistName = first.name || artistName;
-          if (!deezerLink) {
-            deezerLink = first.link || `https://www.deezer.com/artist/${first.id}`;
-          }
-          if (!thumbnailUrl || thumbnailUrl.includes("icon.png")) {
-            thumbnailUrl = first.picture_xl || thumbnailUrl;
-          }
+      const deezerData = await resolveDeezerArtistLive(artistName);
+      if (deezerData) {
+        artistName = deezerData.name || artistName;
+        if (!deezerLink) {
+          deezerLink = deezerData.link;
         }
-      } catch (_) {}
+        if (!thumbnailUrl || thumbnailUrl.includes("icon.png")) {
+          thumbnailUrl = deezerData.picture || thumbnailUrl;
+        }
+      }
     }
 
     if (!artistName) return null;
 
-    // Resolve direct Apple Music & YouTube Music links if not already present
+    // Resolve direct Apple Music & YouTube Music links if not already present with strict name validation
     if (!appleMusicLink) {
       appleMusicLink = (await resolveAppleMusicArtistLive(artistName)) || "";
     }
@@ -2665,18 +2791,17 @@ export const renderWebShare = onRequest(
       // If isArtist, heal Deezer, Apple Music, and YouTube Music with direct native links instead of generic search URLs
       if (isArtist && cleanTitle) {
         let healed = false;
-        // 1. Heal Deezer
+        // 1. Heal Deezer with strict name validation
         if (!links.deezer || links.deezer.includes("/search/") || links.deezer.includes("/search?")) {
           try {
-            const deezerRes = await axios.get(`https://api.deezer.com/search/artist?q=${encodeURIComponent(cleanTitle)}`, { timeout: 3000 });
-            const first = deezerRes.data?.data?.[0];
-            if (first && (first.link || first.id)) {
-              links.deezer = first.link || `https://www.deezer.com/artist/${first.id}`;
+            const deezerData = await resolveDeezerArtistLive(cleanTitle);
+            if (deezerData && deezerData.link) {
+              links.deezer = deezerData.link;
               healed = true;
             }
           } catch (_) {}
         }
-        // 2. Heal Apple Music
+        // 2. Heal Apple Music with strict name validation
         if (!links.appleMusic || links.appleMusic.includes("/search/") || links.appleMusic.includes("/search?") || links.appleMusic.includes("search?term=")) {
           try {
             const appleDirect = await resolveAppleMusicArtistLive(cleanTitle);
@@ -2686,7 +2811,7 @@ export const renderWebShare = onRequest(
             }
           } catch (_) {}
         }
-        // 3. Heal YouTube Music
+        // 3. Heal YouTube Music with strict channel name validation
         if (!links.youtubeMusic || links.youtubeMusic.includes("/search/") || links.youtubeMusic.includes("/search?") || links.youtubeMusic.includes("search?q=")) {
           try {
             const ytDirect = await resolveYouTubeArtistChannelLive(cleanTitle);
@@ -3245,4 +3370,8 @@ export {
   isArtistUrl,
   isPlaylistUrl,
   detectPlatformFromUrl,
+  isArtistNameMatch,
+  resolveAppleMusicArtistLive,
+  resolveDeezerArtistLive,
+  resolveYouTubeArtistChannelLive,
 };
