@@ -95,16 +95,15 @@ jobs:
 
       - name: Attach APK & AAB to GitHub Release
         if: startsWith(github.ref, 'refs/tags/')
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            dist/*.apk
-            dist/*.aab
-          body_path: release_notes.md
-          draft: false
-          prerelease: false
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          gh release create "$TAG" dist/*.apk dist/*.aab \
+            --title "$TAG" \
+            --notes-file release_notes.md \
+            --clobber || \
+          gh release upload "$TAG" dist/*.apk dist/*.aab --clobber
 
       - name: Prepare Play Store Release Notes
         if: startsWith(github.ref, 'refs/tags/')
