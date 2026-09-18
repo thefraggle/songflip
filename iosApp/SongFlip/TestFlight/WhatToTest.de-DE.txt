@@ -1,2 +1,3 @@
-- Erweiterte internationale Links: Vollständige Unterstützung globaler Streaming-Domains und Kurzlinks für Spotify (spoti.fi), Tidal (www, tidal.link), Deezer sowie Amazon Music (u. a. Kanada, VAE, Saudi-Arabien, Ägypten, amzn.eu, amzn.asia).
-- Optimierte Album-Erkennung: Verbesserte Erkennung und Weiterleitung von Amazon Music Alben und Titeln.
+- Native iOS Share Extension: Musik-Links direkt aus Spotify, Apple Music, YouTube etc. über das iOS-Teilen-Menü (Share Sheet) an SongFlip übergeben und sekundenschnell im bevorzugten Player öffnen.
+- App-Gruppen-Synchronisation: Über das Teilen-Menü konvertierte Songs werden automatisch im Verlauf der Haupt-App gespeichert.
+- Erweiterte internationale Streaming-Links & optimierte Album-Erkennung.
