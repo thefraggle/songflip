@@ -1,0 +1,42 @@
+Temanmu mengirim lagu dari Spotify, tapi kamu mendengarkan di YouTube Music, Apple Music, atau Deezer?
+
+SongFlip adalah pengalih dan konverter tautan musik otomatis untuk Android. Sekali diatur, tautan musik yang diterima akan otomatis dikonversi di latar belakang dan langsung terbuka di pemutar musik pilihanmu—tanpa pencarian manual atau halaman perantara yang mengganggu.
+
+Dari Spotify ke YouTube Music, Spotify ke Apple Music, hingga tautan Shazam: SongFlip menyelesaikannya seketika sebagai konverter tautan pintar universal Anda.
+
+🚀 FITUR UTAMA:
+
+• 8 Platform Streaming & Shazam:
+Konversi mulus antara Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud, dan Bandcamp. Sekarang mendukung tautan Shazam!
+
+• Pemutaran Instan (Instant Playback):
+Memulai pemutaran lagu langsung di pemutar tujuan tanpa membuka halaman pencarian kosong.
+
+• Dukungan Penuh Album & Playlist:
+Mendeteksi seluruh album dan daftar lagu lengkap. Playlist bersama terdeteksi akurat — pengonversi playlist andalan Anda untuk musik bersama.
+
+• Pemilih Pemutar Cepat (Tanya setiap kali):
+Menggunakan beberapa aplikasi musik? Aktifkan pemilih cepat untuk memilih pemutar tujuan secara instan setiap kali membuka tautan musik.
+
+• Asisten Pengaturan Pintar (Android 12+):
+Konfigurasikan tautan aplikasi bawaan dengan mudah melalui asisten interaktif 1-ketukan.
+
+• Spanduk Pintar Papan Klip & Menu Berbagi:
+Menyalin tautan musik? Buka langsung dari spanduk pintar atau bagikan dari WhatsApp, Telegram, Reddit, atau Instagram ke SongFlip.
+
+• Tautan Pintar Web Universal (songflip.link):
+Buat tautan netral agar teman-temanmu dapat mendengarkan di layanan streaming favorit mereka.
+
+• Ubin Pengaturan Cepat & Pintasan:
+Jeda pengalihan sementara selama 15 menit, 1 jam, atau hingga besok pagi langsung dari panel setelan cepat Android.
+
+• Desain Material You & Ikon Bertema:
+Menyesuaikan warna sistem ponselmu dengan mode gelap AMOLED, mode terang, dan ikon monokrom layar utama.
+
+🔒 PRIVASI & SUMBER TERBUKA:
+• 100% Open Source (lisensi GPLv3 di GitHub)
+• Tanpa akun, tanpa registrasi, tanpa login
+• Bebas iklan selamanya
+• Tanpa pelacakan data atau kebiasaan mendengarkan
+
+Kompatibel dengan Songlink / Odesli. Unduh SongFlip sekarang dan nikmati musik tanpa batas antar-platform!

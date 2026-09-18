@@ -1,0 +1,42 @@
+Stuurt een vriend je een nummer op Spotify, maar luister jij via YouTube Music, Apple Music of Deezer?
+
+SongFlip is jouw slimme 0-klik muzieklink converter en redirector voor Android. Eenmaal ingesteld worden ontvangen muzieklinks automatisch op de achtergrond geconverteerd en direct geopend in jouw favoriete muziek-app — zonder handmatig zoeken of tussenliggende pagina's.
+
+Of het nu gaat om Spotify naar YouTube Music, Spotify naar Apple Music of Shazam-links: SongFlip verwerkt links direct als jouw universele smart link converter.
+
+🚀 BELANGRIJKSTE FUNCTIES:
+
+• 8 Streamingplatforms & Shazam:
+Converteert naadloos tussen Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud en Bandcamp. Nu ook met ondersteuning voor Shazam-links!
+
+• Directe Weergave (Instant Playback):
+Start nummers direct in de doel-app in plaats van een lege zoekpagina te tonen.
+
+• Volledige Album- & Afspeellijstondersteuning:
+Herkent complete albums en opent de volledige tracklijst. Gedeelde afspeellijsten openen soepel — jouw ideale playlist-converter voor gedeelde muziek.
+
+• Snelle Spelerkiezer (Elke keer vragen):
+Gebruik je meerdere muziek-apps? Activeer de optionele snelle kiezer om direct je doelspeler te kiezen wanneer je een muzieklink opent.
+
+• Slimme Installatiewizard (Android 12+):
+Controleer en stel eenvoudig standaard app-koppelingen in met onze interactieve wizard in 1 tik.
+
+• Klembord Smart-Banner & Deelmenu:
+Muzieklink gekopieerd? Start direct via de slimme banner of deel links vanuit WhatsApp, Telegram, Reddit of Instagram naar SongFlip.
+
+• Universele Web Smart Links:
+Maak neutrale weblinks (songflip.link) zodat je vrienden kunnen luisteren op hun favoriete streamingdienst.
+
+• Snelle Instellingen & Snelkoppelingen:
+Pauzeer de omleiding tijdelijk voor 15 minuten, 1 uur of tot morgenochtend via de Android Quick Settings.
+
+• Material You Design & Thema-icoon:
+Past naadloos bij je systeemkleuren met AMOLED-donkere modus, lichte modus en monochroom startschermpictogram.
+
+🔒 PRIVACY & OPEN SOURCE:
+• 100% Open Source (GPLv3-licentie op GitHub)
+• Geen accounts, geen registratie nodig
+• Altijd volledig advertentievrij
+• Geen tracking of gegevensverzameling
+
+Compatibel met Songlink / Odesli. Download SongFlip nu en verbind al je muziekdiensten moeiteloos!

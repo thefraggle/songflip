@@ -1,0 +1,42 @@
+Un amico ti invia un brano su Spotify, ma tu usi YouTube Music, Apple Music o Deezer?
+
+SongFlip è il tuo convertitore e reindirizzatore intelligente di link musicali per Android. Una volta attivato, i link ricevuti vengono convertiti automaticamente in background e aperti all'istante nel tuo lettore musicale preferito, senza ricerche manuali o fastidiose pagine intermedie.
+
+Da Spotify a YouTube Music, da Spotify ad Apple Music o link condivisi da Shazam: SongFlip gestisce i link all'istante come tuo convertitore smart universale.
+
+🚀 CARATTERISTICHE PRINCIPALI:
+
+• 8 Piattaforme di Streaming & Shazam:
+Converte senza problemi tra Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud e Bandcamp. Ora supporta anche i link condivisi da Shazam!
+
+• Riproduzione Immediata (Instant Playback):
+Avvia direttamente il brano nel lettore di destinazione anziché mostrare pagine di ricerca vuote.
+
+• Supporto Completo per Album e Playlist:
+Riconosce album interi e apre tutte le tracce. Le playlist condivise vengono rilevate con precisione — il tuo convertitore di playlist ideale per la musica condivisa.
+
+• Selettore Rapido del Lettore (Chiedi ogni volta):
+Usi più app musicali? Attiva il selettore rapido opzionale per scegliere al volo il tuo lettore preferito ogni volta che apri un link.
+
+• Assistente di Configurazione Intelligente (Android 12+):
+Configura facilmente i link predefiniti delle app musicali con il nostro assistente interattivo in un tocco.
+
+• Smart-Banner Appunti & Condivisione Diretta:
+Hai copiato un link? Avvialo subito dal banner intelligente o condividi brani da WhatsApp, Telegram, Reddit o Instagram su SongFlip.
+
+• Smart Link Web Universali:
+Crea link web neutri (songflip.link) affinché i tuoi amici possano ascoltare sulla loro piattaforma preferita.
+
+• Riquadro Impostazioni Rapide & Scorciatoie:
+Metti in pausa il reindirizzamento per 15 minuti, 1 ora o fino a domani direttamente dal pannello delle impostazioni rapide.
+
+• Design Material You & Icona a Tema:
+Segue i colori del tuo sistema con modalità scura AMOLED, tema chiaro e icona monocromatica per la schermata home.
+
+🔒 PRIVACY E OPEN SOURCE:
+• 100% Open Source (licenza GPLv3 su GitHub)
+• Nessun account, nessuna registrazione richiesta
+• Completamente senza pubblicità per sempre
+• Zero tracciamento, nessun dato raccolto
+
+Compatibile con Songlink / Odesli. Scarica SongFlip ora e ascolta musica senza barriere tra servizi di streaming!
