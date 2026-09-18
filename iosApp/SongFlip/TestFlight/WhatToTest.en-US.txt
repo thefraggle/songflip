@@ -1,3 +1,4 @@
 - Native iOS Share Extension: Share music links directly from Spotify, Apple Music, YouTube etc. via the iOS Share Sheet and instantly open them in your preferred music player.
 - App Group Synchronization: Converted songs from the Share Sheet are automatically saved to your history.
+- Podcasts & Audiobooks: Graceful interception and seamless one-tap redirect to the original app.
 - Expanded global music links & improved album redirect handling.

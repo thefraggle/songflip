@@ -220,6 +220,16 @@ jobs:
             exit 1
           fi
 
+      - name: Update TestFlight What to Test Notes
+        if: (startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch') && env.ASC_KEY_ID != ''
+        continue-on-error: true
+        env:
+          ASC_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          ASC_API_KEY_P8: ${{ secrets.APP_STORE_CONNECT_API_KEY_P8 }}
+        run: |
+          bundle exec fastlane set_testflight_notes
+
       # Best-effort: updates ASC store metadata (release notes, keywords, description, etc.) if an editable version exists
       # Re-run anytime independently via ios-metadata.yml
       - name: Upload Store Metadata to App Store Connect via Fastlane deliver
