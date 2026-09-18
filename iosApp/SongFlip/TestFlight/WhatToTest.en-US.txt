@@ -1,2 +1,3 @@
-- Expanded Global Music Links: Added comprehensive support for international links and shortlinks across Spotify (spoti.fi), Tidal (www, tidal.link), Deezer, and Amazon Music (Canada, Australia, Japan, UAE, Saudi Arabia, Egypt, amzn.eu, amzn.asia).
-- Smarter Album Detection: Improved recognition and multi-platform redirect handling for Amazon Music albums and tracks.
+- Native iOS Share Extension: Share music links directly from Spotify, Apple Music, YouTube etc. via the iOS Share Sheet and instantly open them in your preferred music player.
+- App Group Synchronization: Converted songs from the Share Sheet are automatically saved to your history.
+- Expanded global music links & improved album redirect handling.
