@@ -103,8 +103,7 @@ jobs:
           TAG="${GITHUB_REF_NAME}"
           gh release create "$TAG" dist/*.apk dist/*.aab \
             --title "$TAG" \
-            --notes-file release_notes.md \
-            --clobber || \
+            --notes-file release_notes.md || \
           gh release upload "$TAG" dist/*.apk dist/*.aab --clobber
 
       - name: Prepare Play Store Release Notes
