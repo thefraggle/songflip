@@ -60,6 +60,9 @@ class UrlUtilsTest {
         val dirtyAmazonTrack = "https://music.amazon.de/albums/B004G92QE4?trackAsin=B004G8Z8UO&ref=dm_sh_cp"
         assertEquals("https://music.amazon.de/albums/B004G92QE4?trackAsin=B004G8Z8UO", UrlUtils.normalizeUrl(dirtyAmazonTrack))
 
+        val dirtyAmazonCaTrack = "https://music.amazon.ca/albums/B004G92QE4?trackAsin=B004G8Z8UO&ref=dm_sh_cp"
+        assertEquals("https://music.amazon.ca/albums/B004G92QE4?trackAsin=B004G8Z8UO", UrlUtils.normalizeUrl(dirtyAmazonCaTrack))
+
         val dirtyAmazonAlbum = "https://music.amazon.de/albums/B004G92QE4?ref=dm_sh_cp"
         assertEquals("https://music.amazon.de/albums/B004G92QE4", UrlUtils.normalizeUrl(dirtyAmazonAlbum))
 
@@ -206,6 +209,7 @@ class UrlUtilsTest {
         // Amazon Music
         assertEquals("amznmp3://music.amazon.com/albums/B004G92QE4", UrlUtils.toNativeAppUri("https://music.amazon.de/albums/B004G92QE4", "amazonMusic"))
         assertEquals("amznmp3://music.amazon.com/albums/B004G92QE4", UrlUtils.toNativeAppUri("https://music.amazon.co.uk/albums/B004G92QE4", "amazonMusic"))
+        assertEquals("amznmp3://music.amazon.com/albums/B004G92QE4", UrlUtils.toNativeAppUri("https://music.amazon.ca/albums/B004G92QE4", "amazonMusic"))
 
         // YouTube Music
         assertEquals("youtubemusic://music.youtube.com/watch?v=dQw4w9WgXcQ", UrlUtils.toNativeAppUri("https://music.youtube.com/watch?v=dQw4w9WgXcQ", "youtubeMusic"))
@@ -245,6 +249,22 @@ class UrlUtilsTest {
         assertEquals(
             "https://music.youtube.com/playlist?list=PL123",
             UrlUtils.formatTargetUrl("https://www.youtube.com/playlist?list=PL123", "youtubeMusic")
+        )
+    }
+
+    @Test
+    fun testNormalizeToSongLinkDirectUrl() {
+        assertEquals(
+            "https://album.link/https://music.amazon.com/albums/B004G92QE4",
+            UrlUtils.normalizeToSongLinkDirectUrl("https://music.amazon.ca/albums/B004G92QE4")
+        )
+        assertEquals(
+            "https://album.link/https://music.amazon.com/albums/B004G92QE4",
+            UrlUtils.normalizeToSongLinkDirectUrl("https://music.amazon.de/albums/B004G92QE4")
+        )
+        assertEquals(
+            "https://song.link/https://music.amazon.com/albums/B004G92QE4?trackAsin=B004G8Z8UO",
+            UrlUtils.normalizeToSongLinkDirectUrl("https://music.amazon.ca/albums/B004G92QE4?trackAsin=B004G8Z8UO")
         )
     }
 }

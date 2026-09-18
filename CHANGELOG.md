@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.9] - 2026-09-18
+- **Expanded Regional Music Support**: Added full recognition and redirect support for international Amazon Music domains (including Canada, Australia, Japan, India, Brazil, and Mexico).
+- **Smarter Album Detection**: Improved album and track routing for Amazon Music releases with seamless multi-platform conversion.
+
 ## [1.3.8] - 2026-09-17
 - **Expanded Player Compatibility**: Reliable detection and priority routing for custom and alternative YouTube Music players (including RVX and Anddea).
 - **Dynamic Intent Visibility**: Optimized package visibility queries for seamless 1-click redirects to modified music apps.

@@ -409,15 +409,11 @@ object UrlUtils {
         }
 
         val regionalCleaned = url
-            .replace("music.amazon.de", "music.amazon.com")
-            .replace("music.amazon.co.uk", "music.amazon.com")
-            .replace("music.amazon.fr", "music.amazon.com")
-            .replace("music.amazon.it", "music.amazon.com")
-            .replace("music.amazon.es", "music.amazon.com")
-            .replace("music.amazon.co.jp", "music.amazon.com")
+            .replace(Regex("""music\.amazon\.[a-z.]+"""), "music.amazon.com")
             .replace("geo.music.apple.com", "music.apple.com")
 
-        return if (clean.contains("/album/")) "https://album.link/$regionalCleaned" else "https://song.link/$regionalCleaned"
+        val isAlbum = (clean.contains("/album/") || clean.contains("/albums/")) && !url.contains("trackAsin=")
+        return if (isAlbum) "https://album.link/$regionalCleaned" else "https://song.link/$regionalCleaned"
     }
 
     fun buildSearchUrl(queryText: String, targetPlatformKey: String): String {
