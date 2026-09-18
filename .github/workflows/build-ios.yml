@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   build-ios:
-    runs-on: macos-14
+    runs-on: macos-15
     env:
       ASC_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
       ASC_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
@@ -42,16 +42,18 @@ jobs:
         run: |
           python3 scripts/generate_ios_store_listings.py "${GITHUB_REF_NAME:-latest}"
 
-      - name: Select Xcode 16
+      - name: Select Xcode 26 (iOS 26 SDK)
         run: |
-          if [ -d "/Applications/Xcode_16.0.app" ]; then
-            sudo xcode-select -s /Applications/Xcode_16.0.app
-          elif [ -d "/Applications/Xcode_16.app" ]; then
-            sudo xcode-select -s /Applications/Xcode_16.app
-          elif [ -d "/Applications/Xcode_16.1.app" ]; then
-            sudo xcode-select -s /Applications/Xcode_16.1.app
+          LATEST_XCODE=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort -V | tail -n 1)
+          if [ -n "$LATEST_XCODE" ]; then
+            echo "Selecting $LATEST_XCODE"
+            sudo xcode-select -s "$LATEST_XCODE"
+          elif [ -d "/Applications/Xcode.app" ]; then
+            echo "Selecting default /Applications/Xcode.app"
+            sudo xcode-select -s /Applications/Xcode.app
           fi
           echo "Selected Xcode: $(xcodebuild -version | head -n 1)"
+          echo "iOS SDK Version: $(xcrun --sdk iphoneos --show-sdk-version)"
 
       - name: Grant Execute Permission for Gradlew
         run: chmod +x gradlew
