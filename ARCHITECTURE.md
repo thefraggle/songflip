@@ -103,6 +103,12 @@ The codebase separates platform-specific UI from deterministic platform-agnostic
 - **Consistent Resolver Behavior:** Both platforms share identical regex rules and parsing priority. A song resolved on Android resolves identically on iOS.
 - **Zero Drift:** Bug fixes in the resolution engine only need to be written and unit-tested once in `shared/commonMain`.
 
+### iOS Native Share Extension & App Groups:
+The iOS architecture decouples the main user interface (`de.goork.SongFlip`) from the background system extension (`de.goork.SongFlip.ShareExtension`):
+- **App Group Container (`group.de.goork.songflip`)**: Provides shared IPC storage via `UserDefaults(suiteName:)`. Both the main app and the Share Extension access identical user preferences (`target_platform`, `custom_api_url`) and the shared conversion history (`songflip_conversion_history`).
+- **Static KMP Linking**: The KMP framework (`SongFlipKit.xcframework`) is linked statically (`isStatic = true`) into both the main application and the extension bundle, preventing runtime dynamic library lookup issues across extension boundaries.
+- **Zero-Friction Sharing**: The extension intercepts incoming URLs or text from any host app (Spotify, Apple Music, Safari, WhatsApp), resolves the target stream in the background via `SongLinkEngine`, appends the conversion to the shared history, and directly triggers playback in the target player.
+
 ---
 
 ## 4. Privacy & Zero-Tracking Principles
