@@ -1,2 +1,1 @@
-- Expanded Global Music Links: Comprehensive support for international streaming links across Spotify (spoti.fi, deep-links), Tidal (www, tidal.link), Deezer, and Amazon Music (Canada, Australia, Japan, UAE, Saudi Arabia, Egypt, and global share links).
-- Smarter Album Detection: Improved album and track routing for Amazon Music releases with seamless multi-platform conversion.
+- Helpful Link Guidance: Links to podcasts and audiobooks are now clearly identified as unsupported, with direct shortcuts to open them in their original app.

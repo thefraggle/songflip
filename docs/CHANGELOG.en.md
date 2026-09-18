@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.10] - 2026-09-18
+- **Helpful Link Guidance**: Links to podcasts and audiobooks are now clearly identified as unsupported, with direct shortcuts to open them in their original app.
+
+## [1.3.9] - 2026-09-18
+- **Expanded Global Music Links**: Comprehensive support for international streaming links across Spotify, Tidal, Deezer, and Amazon Music.
+- **Smarter Album Detection**: Improved album and track routing with seamless multi-platform conversion.
+
 ## [1.3.8] - 2026-09-17
 - **Expanded Player Compatibility**: Reliable detection and priority routing for custom and alternative YouTube Music players (including RVX and Anddea).
 - **Dynamic Intent Visibility**: Optimized package visibility queries for seamless 1-click redirects to modified music apps.

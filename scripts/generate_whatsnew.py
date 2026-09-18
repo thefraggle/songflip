@@ -90,6 +90,7 @@ def extract_changelog_for_version(version=None, filepath="CHANGELOG.md"):
             body = match.group(1).strip()
             lines = [re.sub(r'(\*\*|\*|__|_)', '', l.strip()) for l in body.split('\n') if l.strip()]
             return '\n'.join([l if l.startswith('- ') else f"- {l}" for l in lines])
+        return None
 
     fallback_pattern = r'## \[(.*?)\](?: - .*?)?\n(.*?)(?=\n## \[|\Z)'
     fallback_match = re.search(fallback_pattern, content, re.DOTALL)
@@ -145,18 +146,19 @@ def translate_block(text, target_lang, max_retries=2):
 def main():
     target_version = sys.argv[1] if len(sys.argv) > 1 else None
 
-    # 1. Direct native German notes from docs/CHANGELOG.md (never machine translated)
+    # 1. Primary English notes from root CHANGELOG.md, fallback to docs/CHANGELOG.en.md
+    en_notes = extract_changelog_for_version(target_version, "CHANGELOG.md") or extract_changelog_for_version(target_version, "docs/CHANGELOG.en.md")
+
+    # 2. Native German notes from docs/CHANGELOG.md (if exists for this version)
     de_notes = extract_changelog_for_version(target_version, "docs/CHANGELOG.md")
-    # 2. English notes from docs/CHANGELOG.en.md or root CHANGELOG.md
-    en_notes = extract_changelog_for_version(target_version, "docs/CHANGELOG.en.md") or extract_changelog_for_version(target_version, "CHANGELOG.md")
 
     if not en_notes and not de_notes:
         en_notes = "- Bug fixes and performance improvements."
         de_notes = "- Fehlerbehebungen und Leistungsverbesserungen."
-    elif not en_notes:
+    elif not en_notes and de_notes:
         en_notes = de_notes
-    elif not de_notes:
-        de_notes = en_notes
+    elif not de_notes and en_notes:
+        de_notes = translate_block(en_notes, 'de')
 
     print(f"Target Version: {target_version or 'Latest'}")
     print(f"German Notes ({len(de_notes.encode('utf-8'))} bytes):\n{de_notes}\n")

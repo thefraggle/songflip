@@ -1,5 +1,12 @@
 # Changelog (Deutsch)
 
+## [1.3.10] - 2026-09-18
+- **Hilfreiche Link-Führung**: Links zu Podcasts und Hörbüchern werden jetzt klar als nicht unterstützt erkannt, mit direkten Optionen zum Öffnen in der Original-App.
+
+## [1.3.9] - 2026-09-18
+- **Erweiterte internationale Musik-Links**: Umfassende Unterstützung für weltweite Streaming-Links von Spotify, Tidal, Deezer und Amazon Music.
+- **Präzisere Album-Erkennung**: Verbesserte Zuordnung von Alben und Tracks für nahtlose plattformübergreifende Weiterleitungen.
+
 ## [1.3.8] - 2026-09-17
 - **Erweiterte Player-Erkennung**: Zuverlässige Erkennung alternativer und benutzerdefinierter YouTube Music Player (inkl. RVX und Anddea).
 - **Dynamische Intent-Sichtbarkeit**: Optimierte Paket-Sichtbarkeit für reibungslose 1-Klick-Weiterleitungen an modifizierte Musik-Apps.
