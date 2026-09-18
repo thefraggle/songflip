@@ -1,0 +1,42 @@
+Un prieten îți trimite o melodie pe Spotify, dar tu asculți pe YouTube Music, Apple Music sau Deezer?
+
+SongFlip este convertorul și redirecționerul tău inteligent de linkuri muzicale pentru Android, cu zero clicuri. Odată configurat, linkurile muzicale primite sunt convertite automat în fundal și se deschid direct în playerul tău preferat – fără căutare manuală, fără reclame și fără pagini intermediare în browser.
+
+Fie că treci de la Spotify la YouTube Music, de la Spotify la Apple Music sau deschizi piese din Shazam: SongFlip rezolvă linkurile instantaneu ca convertor universal.
+
+🚀 FUNCȚII PRINCIPALE:
+
+• 8 platforme de streaming și Shazam:
+Convertește fără efort piese și albume între Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud și Bandcamp. Nou adăugat: suport instantaneu pentru linkurile Shazam!
+
+• Redare instantanee (Instant Playback):
+Pornește redarea direct în playerul țintă, în loc să afișeze pagini goale de căutare.
+
+• Suport complet pentru albume și playlisturi:
+Recunoaște albume întregi și deschide întreaga discografie. Playlisturile partajate sunt detectate precis.
+
+• Selector rapid de player (Întreabă de fiecare dată):
+Folosești mai multe aplicații de muzică? Activează selectorul rapid pentru a alege playerul țintă din mers.
+
+• Asistent inteligent de configurare (Android 12+):
+Te ajută să configurezi linkurile implicite cu o singură atingere, fără conflicte.
+
+• Banner inteligent pentru clipboard & Meniu de partajare:
+Copiază un link sau partajează-l direct din WhatsApp, Telegram, Instagram sau Reddit în SongFlip pentru conversie instantanee cu 1 clic.
+
+• Linkuri web universale (Smart Links):
+Creează cu o singură atingere linkuri web neutre (songflip.link) pe care prietenii tăi le pot deschide pe orice dispozitiv și serviciu.
+
+• Buton în Setări Rapide & Comenzi rapide:
+Pune pe pauză redirecționarea pentru 15 minute, 1 oră sau până a doua zi dimineață din panoul de Setări Rapide.
+
+• Design Material You & Pictogramă tematică:
+Adaptat complet la culorile sistemului tău Android (Dynamic Color, mod luminos și mod întunecat AMOLED).
+
+🔒 CONFIDENȚIALITATE & OPEN SOURCE:
+• 100% Open Source (licențiat GPLv3 pe GitHub)
+• Fără conturi, fără înregistrare, fără autentificare
+• Complet fără reclame – pentru totdeauna
+• Fără urmărire sau analiză a preferințelor muzicale
+
+Compatibil cu Songlink / Odesli. Descarcă SongFlip acum!

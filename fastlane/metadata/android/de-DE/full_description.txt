@@ -1,0 +1,42 @@
+Ein Freund schickt dir einen Song auf Spotify, du hörst Musik aber über YouTube Music, Apple Music oder Deezer?
+
+SongFlip ist dein smarter 0-Klick Musik-Link Converter und Weiterleitung für Android. Einmal eingerichtet, werden empfangene Musik-Links automatisch im Hintergrund in deinen bevorzugten Streaming-Dienst umgewandelt und direkt dort gestartet – ohne lästige Zwischenseiten, ohne Wartezeit, ohne manuelle Suche.
+
+Egal ob Spotify zu YouTube Music, Spotify zu Apple Music oder Links von Shazam: SongFlip erkennt den Song blitzschnell und fungiert als dein universeller Smart Link Converter für jeden Musik-Player.
+
+🚀 DIE WICHTIGSTEN FUNKTIONEN:
+
+• 8 Streaming-Plattformen & Shazam:
+Konvertiert Musik-Links nahtlos zwischen Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music sowie SoundCloud und Bandcamp. Erkennt jetzt auch geteilte Shazam-Links blitzschnell!
+
+• Sofortige Wiedergabe (Instant Playback):
+Titel starten direkt im Ziel-Player, anstatt nur eine leere Suchergebnisseite zu öffnen.
+
+• Volle Album- & Playlist-Erkennung:
+Erkennt vollständige Alben und öffnet die komplette Trackliste. Playlist-Links werden präzise erkannt und nahtlos übergeben – dein intelligenter Playlist Converter für geteilte Musik.
+
+• Schnellauswahl (Ask Every Time):
+Nutzt du mehrere Musik-Apps? Aktiviere die optionale Schnellauswahl, um beim Öffnen eines Musik-Links jedes Mal blitzschnell den gewünschten Ziel-Player zu wählen.
+
+• Smarter Einrichtungs-Assistent (Android 12+):
+Der integrierte Assistent prüft deine installierten Musik-Apps und hilft dir mit nur einem Fingertipp, App-Links konfliktfrei für die automatische Weiterleitung einzurichten.
+
+• Clipboard Smart-Banner & Share-Menü:
+Kopiere einen Link oder teile ihn direkt aus WhatsApp, Telegram, Instagram oder Reddit mit SongFlip für eine sofortige 1-Klick-Konvertierung.
+
+• Universelle Web-Links (Smart Links):
+Erstelle mit einem Fingertipp neutrale Web-Links (songflip.link), die deine Freunde auf jedem beliebigen Gerät und Streaming-Dienst öffnen können.
+
+• Schnelleinstellungen & App-Shortcuts:
+Pausiere die automatische Umleitung flexibel für 15 Minuten, 1 Stunde oder bis zum nächsten Morgen über die praktische Quick-Settings-Kachel. Schneller Zugriff per Long-Press auf das App-Icon.
+
+• Material You Design & Themed Icon:
+Vollständig an dein Android-Systemfarbschema angepasst (Dynamic Color, Light- & AMOLED-Dark-Mode) inklusive sauberem Monochrome-Homescreen-Icon.
+
+🔒 DATENSCHUTZ, TRANSPARENZ & OPEN SOURCE:
+• 100 % Open Source (GPLv3 lizenziert auf GitHub)
+• Keine Benutzerkonten, kein Login, keine Registrierung
+• Absolut werbefrei – für immer
+• Kein Tracking, keine Analyse deines Musikgeschmacks oder Hörverhaltens
+
+Angetrieben von moderner Open-Source-Technologie und kompatibel mit Songlink / Odesli. Hol dir SongFlip und genieße Musik frei über alle Plattform-Grenzen hinweg!

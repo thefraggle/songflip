@@ -1,0 +1,42 @@
+Bạn bè gửi cho bạn một bài hát trên Spotify, nhưng bạn lại dùng YouTube Music, Apple Music hoặc Deezer?
+
+SongFlip là ứng dụng chuyển đổi liên kết âm nhạc tự động dành cho Android. Chỉ cần thiết lập một lần, các liên kết nhận được sẽ tự động chuyển đổi trong nền và mở ngay trong trình phát nhạc ưa thích của bạn mà không cần tìm kiếm thủ công hay qua trang web trung gian.
+
+Dù là Spotify sang YouTube Music, Spotify sang Apple Music hay liên kết từ Shazam: SongFlip mở bài hát ngay tức thì như một trình chuyển đổi liên kết thông minh vạn năng.
+
+🚀 TÍNH NĂNG CHÍNH:
+
+• 8 Nền tảng Âm nhạc & Shazam:
+Chuyển đổi liền mạch giữa Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud và Bandcamp. Mới: Hỗ trợ nhận diện liên kết Shazam!
+
+• Phát nhạc tức thì (Instant Playback):
+Phát trực tiếp bài hát trong ứng dụng đích thay vì chỉ hiển thị trang kết quả tìm kiếm trống.
+
+• Hỗ trợ toàn diện Album & Danh sách phát:
+Nhận diện toàn bộ album và mở danh sách bài hát đầy đủ. Danh sách phát mở nhanh — trình chuyển đổi danh sách phát thông minh cho âm nhạc được chia sẻ.
+
+• Bộ Chọn Trình Phát Nhanh (Hỏi mọi lần):
+Sử dụng nhiều ứng dụng âm nhạc? Kích hoạt bộ chọn nhanh để chọn ngay trình phát mục tiêu mỗi khi bạn mở một liên kết âm nhạc.
+
+• Trợ lý Cài đặt Thông minh (Android 12+):
+Dễ dàng kiểm tra và thiết lập liên kết ứng dụng mặc định chỉ với một chạm.
+
+• Biểu ngữ Khay nhớ tạm & Menu Chia sẻ:
+Đã sao chép liên kết? Mở ngay từ biểu ngữ thông minh hoặc chia sẻ trực tiếp từ WhatsApp, Telegram, Instagram vào SongFlip.
+
+• Liên kết Thông minh Đa năng (songflip.link):
+Tạo liên kết web trung lập để bạn bè có thể nghe trên bất kỳ nền tảng nào họ thích.
+
+• Ô Cài đặt Nhanh & Lối tắt:
+Tạm dừng chuyển hướng linh hoạt trong 15 phút, 1 giờ hoặc đến sáng hôm sau từ bảng cài đặt nhanh.
+
+• Giao diện Material You & Biểu tượng Đơn sắc:
+Tương thích hoàn hảo với màu hệ thống Android (chế độ tối AMOLED, chế độ sáng) cùng biểu tượng màn hình chính đẹp mắt.
+
+🔒 BẢO MẬT & MÃ NGUỒN MỞ:
+• 100% Mã nguồn mở (Giấy phép GPLv3 trên GitHub)
+• Không cần tài khoản, không cần đăng nhập
+• Hoàn toàn không chứa quảng cáo
+• Không theo dõi hoặc thu thập dữ liệu nghe nhạc
+
+Tương thích với Songlink / Odesli. Tải ngay SongFlip và tận hưởng âm nhạc không giới hạn nền tảng!

@@ -1,0 +1,49 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Upload multi-language release notes, keywords, and store metadata to App Store Connect"
+  lane :upload_metadata do
+    api_key = app_store_connect_api_key(
+      key_id: ENV["ASC_KEY_ID"] || ENV["APP_STORE_CONNECT_KEY_ID"],
+      issuer_id: ENV["ASC_ISSUER_ID"] || ENV["APP_STORE_CONNECT_ISSUER_ID"],
+      key_content: ENV["ASC_API_KEY_P8"] || ENV["APP_STORE_CONNECT_API_KEY_P8"],
+      is_key_content_base64: false
+    )
+
+    deliver(
+      api_key: api_key,
+      skip_binary_upload: true,
+      skip_screenshots: true,
+      skip_metadata: false,
+      force: true,
+      submit_for_review: false,
+      automatic_release: false,
+      metadata_path: "./fastlane/metadata",
+      run_precheck_before_submit: false,
+      precheck_include_in_app_purchases: false,
+      skip_app_version_update: false,
+      ignore_language_directory_validation: true
+    )
+  end
+
+  desc "Set TestFlight What to Test / Changelog for a build"
+  lane :set_testflight_notes do |options|
+    api_key = app_store_connect_api_key(
+      key_id: ENV["ASC_KEY_ID"] || ENV["APP_STORE_CONNECT_KEY_ID"],
+      issuer_id: ENV["ASC_ISSUER_ID"] || ENV["APP_STORE_CONNECT_ISSUER_ID"],
+      key_content: ENV["ASC_API_KEY_P8"] || ENV["APP_STORE_CONNECT_API_KEY_P8"],
+      is_key_content_base64: false
+    )
+
+    changelog_file = File.join(Dir.pwd, "iosApp", "SongFlip", "TestFlight", "WhatToTest.de-DE.txt")
+    changelog_text = File.exist?(changelog_file) ? File.read(changelog_file).strip : ""
+
+    set_changelog(
+      api_key: api_key,
+      app_identifier: "de.goork.SongFlip",
+      version: options[:version],
+      build_number: options[:build_number],
+      changelog: changelog_text
+    )
+  end
+end

@@ -1,0 +1,42 @@
+Skickar en vän en låt på Spotify, men du lyssnar på YouTube Music, Apple Music eller Deezer?
+
+SongFlip är din smarta musiklänkkonverterare och omdirigerare för Android. Efter en enkel inställning konverteras mottagna musiklänkar automatiskt i bakgrunden och öppnas direkt i din favoritapp – utan manuell sökning eller webbomvägar.
+
+Från Spotify till YouTube Music, Spotify till Apple Music eller Shazam-länkar: SongFlip hanterar länkar direkt som din universella smartlänkkonverterare.
+
+🚀 NYCKELFUNKTIONER:
+
+• 8 Streamingplattformar & Shazam:
+Konvertera sömlöst mellan Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud och Bandcamp. Nu även med stöd för Shazam-länkar!
+
+• Direkt Uppspelning (Instant Playback):
+Startar låten direkt i målspelaren istället för att visa tomma söksidor.
+
+• Stöd för Album & Spellistor:
+Känner igen hela album och öppnar låtlistan. Delade spellistor upptäcks sömlöst — din smarta spelliste-konverterare för delad musik.
+
+• Snabbspelare-väljare (Fråga varje gång):
+Använder du flera musikappar? Aktivera snabbväljaren för att direkt välja önskad spelare när du öppnar en musiklänk.
+
+• Smart Konfigurationsassistent (Android 12+):
+Ställ enkelt in standardapplänkar med vår interaktiva 1-trycksguide.
+
+• Urklippsbanner & Delningsmeny:
+Kopierat en länk? Öppna den direkt via instrumentpanelen eller dela från WhatsApp, Telegram eller Instagram till SongFlip.
+
+• Universella Smarta Webblänkar (songflip.link):
+Skapa neutrala länkar så att dina vänner kan lyssna på vilken musiktjänst de vill.
+
+• Snabbinställningar & Genvägar:
+Pausa omdirigeringen i 15 minuter, 1 timme eller till imorgon direkt från Androids snabbinställningar.
+
+• Material You Design & Temad Ikon:
+Anpassar sig till dina systemfärger med AMOLED-mörkt läge, ljust läge och monokrom hemskärmsikon.
+
+🔒 INTEGRITET & ÖPPEN KÄLLKOD:
+• 100% Open Source (GPLv3 på GitHub)
+• Inga konton eller inloggningar krävs
+• Helt reklamfritt för alltid
+• Noll datainsamling eller spårning
+
+Kompatibel med Songlink / Odesli. Ladda ner SongFlip nu och dela musik utan gränser!

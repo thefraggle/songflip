@@ -1,0 +1,45 @@
+name: iOS – Upload Release Notes & Store Metadata
+
+# Manual trigger: run after creating a new version in App Store Connect.
+# Generates multi-language release notes, keywords, and store metadata and uploads them via Fastlane deliver.
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  upload-metadata:
+    name: Generate & Upload iOS Store Metadata
+    runs-on: macos-15
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python Dependencies
+        run: pip install deep-translator
+
+      - name: Generate iOS Store Listings (fastlane/metadata)
+        run: |
+          python3 scripts/generate_ios_store_listings.py
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Upload Metadata to App Store Connect via Fastlane deliver
+        env:
+          ASC_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          ASC_API_KEY_P8: ${{ secrets.APP_STORE_CONNECT_API_KEY_P8 }}
+        run: |
+          bundle exec fastlane upload_metadata --verbose

@@ -1,0 +1,42 @@
+Sender en ven dig et nummer på Spotify, men du bruger YouTube Music, Apple Music eller Deezer?
+
+SongFlip er din automatiske musiklink-konverter til Android. Når appen er sat op, konverteres modtagne musiklinks automatisk i baggrunden og åbnes direkte i din foretrukne musik-app – uden manuel søgning eller irriterende mellemsider.
+
+Uanset om det er Spotify til YouTube Music, Spotify til Apple Music eller Shazam-links: SongFlip håndterer links øjeblikkeligt som din universelle smartlink-konverter.
+
+🚀 VIGTIGSTE FUNKTIONER:
+
+• 8 Streamingplatforme & Shazam:
+Konverterer gnidningsfrit mellem Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud og Bandcamp. Nu med Shazam-understøttelse!
+
+• Øjeblikkelig Afspilning (Instant Playback):
+Starter afspilningen direkte i mål-appen i stedet for at vise tomme søgeresultater.
+
+• Fuld Album- & Playliste-understøttelse:
+Genkender hele albums og åbner den fulde trackliste. Delte playlister genkendes præcist — din smarte playliste-konverter til delt musik.
+
+• Hurtig Afspillervælger (Spørg hver gang):
+Bruger du flere musikapps? Aktivér hurtigvælgeren for at vælge mål-afspiller med det samme, når du åbner et musiklink.
+
+• Smart Konfigurationsguide (Android 12+):
+Bekræft og konfigurer nemt standardlinks med vores interaktive 1-tryks guide.
+
+• Udklipsholder-banner & Delingsmenu:
+Kopieret et link? Åbn det direkte via den smarte banner eller del fra WhatsApp, Telegram eller Instagram til SongFlip.
+
+• Universelle Web Smart-links (songflip.link):
+Opret neutrale links, så dine venner kan lytte på deres foretrukne streamingtjeneste.
+
+• Hurtigindstillinger & Genveje:
+Sæt omdirigering på pause i 15 minutter, 1 time eller til i morgen direkte fra Android hurtigindstillinger.
+
+• Material You Design & Tematiseret Ikon:
+Følger dine systemfarver med AMOLED mørk tilstand, lys tilstand og monokromt ikon på startskærmen.
+
+🔒 PRIVATLIV & OPEN SOURCE:
+• 100% Open Source (GPLv3-licens på GitHub)
+• Ingen konti, intet login nødvendigt
+• Fuldstændig reklamefri for altid
+• Ingen sporing eller dataindsamling
+
+Kompatibel med Songlink / Odesli. Hent SongFlip nu og lyt til musik uden barrierer!

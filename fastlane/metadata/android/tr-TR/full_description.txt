@@ -1,0 +1,42 @@
+Bir arkadaşınız Spotify'dan bir şarkı gönderdi ama siz YouTube Music, Apple Music veya Deezer mı kullanıyorsunuz?
+
+SongFlip, Android için akıllı ve sıfır tıklamalı müzik linki dönüştürücünüzdür. Kurulduktan sonra gelen müzik linkleri arka planda otomatik olarak dönüştürülür ve doğrudan tercih ettiğiniz müzik uygulamasında başlatılır.
+
+İster Spotify'dan YouTube Music'e, ister Spotify'dan Apple Music'e veya Shazam linkleri olsun: SongFlip evrensel akıllı link dönüştürücünüz olarak şarkıyı anında açar.
+
+🚀 ÖNE ÇIKAN ÖZELLİKLER:
+
+• 8 Müzik Platformu & Shazam:
+Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud ve Bandcamp arasında sorunsuz dönüşüm. Şimdi paylaşılan Shazam linkleri desteğiyle!
+
+• Anında Oynatma (Instant Playback):
+Boş arama sayfaları göstermek yerine parçayı doğrudan hedef oynatıcıda çalmaya başlar.
+
+• Tam Albüm ve Çalma Listesi Desteği:
+Tüm albümleri tanır ve tam parça listesini açar. Çalma listeleri kusursuzca aktarılır — paylaşılan müzikler için akıllı çalma listesi dönüştürücünüz.
+
+• Hızlı Oynatıcı Seçici (Her Seferinde Sor):
+Birden fazla müzik uygulaması mı kullanıyorsunuz? Müzik linki açtığınızda hedef oynatıcıyı anında seçmek için hızlı seçiciyi etkinleştirin.
+
+• Akıllı Kurulum Asistanı (Android 12+):
+Varsayılan bağlantı ayarlarını tek dokunuşla kolayca yapılandırın.
+
+• Akıllı Pano Başlığı & Paylaşım Menüsü:
+Bir link mi kopyaladınız? Doğrudan akıllı panodan açın veya WhatsApp, Telegram, Reddit ya da Instagram'dan SongFlip'e paylaşın.
+
+• Evrensel Akıllı Web Bağlantıları:
+Arkadaşlarınızın istedikleri platformda dinleyebilmesi için tarafsız bağlantılar (songflip.link) oluşturun.
+
+• Hızlı Ayarlar Karosu & Kısayollar:
+Yönlendirmeyi 15 dakika, 1 saat veya yarına kadar Android hızlı ayarlarından kolayca duraklatın.
+
+• Material You Tasarım & Temalı Simge:
+AMOLED karanlık mod, açık mod ve tek renkli ana ekran simgesiyle sistem renklerinize tam uyum sağlar.
+
+🔒 GİZLİLİK VE AÇIK KAYNAK:
+• %100 Açık Kaynak (GitHub'da GPLv3 lisanslı)
+• Hesap, kayıt veya giriş gerekmez
+• Sonsuza kadar tamamen reklamsız
+• Sıfır izleme, dinleme alışkanlıkları kaydedilmez
+
+Songlink / Odesli uyumludur. SongFlip'i indirin ve platformlar arası müzik özgürlüğünün tadını çıkarın!

@@ -45,7 +45,9 @@ play-store*.json
 internal/
 store_assets/
 distribution/
-fastlane/
+fastlane/report.xml
+fastlane/screenshots/
+fastlane/test_output/
 
 # Firebase
 .firebase/

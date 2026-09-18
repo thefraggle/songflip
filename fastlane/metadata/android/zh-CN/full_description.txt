@@ -1,0 +1,42 @@
+朋友在 Spotify 上给您分享了一首歌，但您平时使用的是 YouTube Music、Apple Music 或 Deezer？
+
+SongFlip 是专为 Android 打造的无感音乐链接转换神器。只需一次设置，接收到的音乐链接将在后台自动转换，并直接在您偏好的音乐播放器中开启播放，无需手动搜索，告别中间跳转网页。
+
+无论是 Spotify 转 YouTube Music、Spotify 转 Apple Music，还是 Shazam 听歌识曲链接，SongFlip 都能作为您的通用智能链接转换器秒级处理。
+
+🚀 核心功能：
+
+• 8大音乐平台与 Shazam 联动：
+在 Spotify、YouTube Music、Apple Music、Deezer、TIDAL、Amazon Music、SoundCloud 和 Bandcamp 之间无缝切换。现已全新支持 Shazam 识别链接！
+
+• 即刻播放 (Instant Playback)：
+直接触发目标播放器开始播放，避免停留在无意义的搜索结果页面。
+
+• 完整专辑与歌单支持：
+精准识别整张专辑并打开完整曲目列表，智能识别共享歌单 — 专为分享音乐打造的智能歌单转换助手。
+
+• 快速播放器选择器（每次询问）：
+使用多个音乐应用？开启快速选择器，每次打开音乐链接时均可随心挑选目标播放器。
+
+• 智能设置向导 (Android 12+)：
+内置交互式设置助手，一键解决默认应用链接冲突，确保平滑跳转。
+
+• 剪贴板智能横幅与系统分享菜单：
+复制音乐链接即可在仪表盘一键开启，或从微信、Telegram、Reddit、Instagram 直接分享至 SongFlip 转换。
+
+• 通用网页智能链接 (Smart Links)：
+一键生成中立的网页分享链接 (songflip.link)，让您的好友在任何设备或平台都能轻松收听。
+
+• 快捷设置磁贴与桌面快捷方式：
+可通过下拉快捷设置磁贴，灵活暂停自动跳转 15 分钟、1 小时或直至明早。
+
+• Material You 动态主题与单色图标：
+完美适配系统取色（支持 AMOLED 深色模式、浅色模式）及 Android 桌面自适应单色图标。
+
+🔒 隐私至上与开源透明：
+• 100% 开源项目（基于 GitHub GPLv3 协议）
+• 无需注册账号，无需登录
+• 永远无任何商业广告
+• 零跟踪，绝不收集或分析您的听歌习惯
+
+兼容 Songlink / Odesli 协议。立即下载 SongFlip，打破流媒体平台壁垒，畅享自由音乐体验！
