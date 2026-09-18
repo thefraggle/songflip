@@ -21,6 +21,9 @@
     "firebase-functions": "^6.3.1",
     "lru-cache": "^11.0.2"
   },
+  "overrides": {
+    "uuid": "^11.1.1"
+  },
   "devDependencies": {
     "@types/node": "^22.13.4",
     "typescript": "^5.7.3"
