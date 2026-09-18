@@ -2377,7 +2377,7 @@ export const redeemPromoCode = onRequest(
     if (flipMatch) {
       inputStr = flipMatch[1];
     } else {
-      const knownMatch = inputStr.match(/\b(BETALIST|PEERPUSH|FOUNDER-?PASS|NEO-?FOUNDER|SONGFLIP_[A-Z0-9_]+)\b/i);
+      const knownMatch = inputStr.match(/\b(BETALIST|PEERPUSH|FOUNDER-?PASS|NEO-?FOUNDER|EXCHANGE60|SONGFLIP_[A-Z0-9_]+)\b/i);
       if (knownMatch) {
         inputStr = knownMatch[1];
       }
@@ -2544,6 +2544,7 @@ export const seedPromoCodes = onRequest(
       allowMultiplePerDevice: boolean;
       validUntil?: admin.firestore.Timestamp;
     }> = [
+      { code: "EXCHANGE60", type: "3months", durationDays: 90, maxRedemptions: 50, allowMultiplePerDevice: false },
       { code: "SONGFLIP_BETA_2026", type: "1month", durationDays: 30, maxRedemptions: 100, allowMultiplePerDevice: false },
       { code: "SONGFLIP_LAUNCH_2026", type: "1year", durationDays: 365, maxRedemptions: 250, allowMultiplePerDevice: false },
       { code: "SONGFLIP_VIP_2026", type: "1year", durationDays: 365, maxRedemptions: 25, allowMultiplePerDevice: false },
