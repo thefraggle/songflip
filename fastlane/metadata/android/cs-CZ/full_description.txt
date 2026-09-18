@@ -1,0 +1,42 @@
+Poslal vám kamarád odkaz na skladbu ze Spotify, ale vy posloucháte na YouTube Music, Apple Music nebo Deezeru?
+
+SongFlip je váš chytrý převodník hudebních odkazů pro Android. Po jednorázovém nastavení se příchozí hudební odkazy automaticky převedou na pozadí a otevřou přímo ve vašem preferovaném přehrávači – bez ručního vyhledávání, bez reklam a bez zbytečných meziwebů.
+
+Ať už jde o převod ze Spotify do YouTube Music, Spotify do Apple Music nebo sdílené odkazy ze Shazam: SongFlip okamžitě rozpozná skladbu a poslouží jako univerzální inteligentní převodník pro jakýkoli přehrávač.
+
+🚀 KLÍČOVÉ FUNKCE:
+
+• 8 streamovacích platforem a Shazam:
+Plynule převádí skladby a alba mezi Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud a Bandcamp. Nově s okamžitou podporou pro sdílené odkazy ze Shazam!
+
+• Okamžité přehrávání (Instant Playback):
+Skladby se spustí přímo v cílovém přehrávači, namísto otevření prázdné stránky s výsledky vyhledávání.
+
+• Plná podpora alb a playlistů:
+Rozpozná celá alba a otevře kompletní diskografii. Odkazy na playlisty jsou přesně detekovány – váš chytrý převodník playlistů pro sdílenou hudbu.
+
+• Rychlý výběr přehrávače (Vždy se zeptat):
+Používáte více hudebních aplikací? Povolte volitelný rychlý výběr a zvolte cílový přehrávač při každém otevření odkazu.
+
+• Průvodce nastavením (Android 12+):
+Integrovaný průvodce zkontroluje nainstalované aplikace a pomůže vám jedním klepnutím nastavit výchozí odkazy bez konfliktů.
+
+• Chytrý banner schránky a nabídka sdílení:
+Zkopírujte odkaz nebo jej sdílejte přímo z aplikací WhatsApp, Telegram, Instagram či Reddit do SongFlip pro okamžitý převod na 1 kliknutí.
+
+• Univerzální webové odkazy (Smart Links):
+Vytvořte jedním klepnutím neutrální webové odkazy (songflip.link), které vaši přátelé mohou otevřít na libovolném zařízení a ve své oblíbené streamovací službě.
+
+• Rychlá nastavení a zkratky aplikace:
+Pozastavte automatické přesměrování flexibilně na 15 minut, 1 hodinu nebo do zítřejšího rána pomocí dlaždice Rychlého nastavení.
+
+• Material You design a tematická ikona:
+Plně přizpůsobeno barevnému schématu vašeho systému Android (Dynamic Color, světlý a AMOLED tmavý režim) včetně čisté monochromatické ikony.
+
+🔒 SOUKROMÍ, TRANSPARENTNOST A OPEN SOURCE:
+• 100% Open Source (licence GPLv3 na GitHubu)
+• Žádné uživatelské účty, registrace ani přihlašování
+• Zcela bez reklam – navždy
+• Žádné sledování, žádná analýza vašeho hudebního vkusu
+
+Kompatibilní se Songlink / Odesli. Stáhněte si SongFlip a užijte si hudební svobodu napříč všemi platformami!

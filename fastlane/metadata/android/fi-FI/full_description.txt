@@ -1,0 +1,42 @@
+Ystävä lähettää sinulle kappaleen Spotifyssa, mutta kuuntelet musiikkia YouTube Musicissa, Apple Musicissa tai Deezerissä?
+
+SongFlip on saumaton ja automaattinen musiikkilinkkien muunnin ja uudelleenohjaus Androidille. Kun asetus on tehty, vastaanotetut linkit muunnetaan automaattisesti taustalla ja avataan suoraan haluamassasi soittimessa – ilman manuaalista hakua, mainoksia tai selaimen välisivuja.
+
+Olipa kyseessä Spotify YouTube Musiciin, Spotify Apple Musiciin tai Shazam-linkkien avaaminen: SongFlip käsittelee musiikkilinkit heti universaalina älykkäänä muuntimena.
+
+🚀 TÄRKEIMMÄT OMINAISUUDET:
+
+• 8 suoratoistopalvelua & Shazam:
+Muuntaa kappaleet ja albumit saumattomasti Spotifyn, YouTube Musicin, Apple Musicin, Deezerin, TIDALin, Amazon Musicin, SoundCloudin ja Bandcampin välillä. Mukana uusi välitön tuki jaetuille Shazam-linkeille!
+
+• Välitön toisto (Instant Playback):
+Käynnistää toiston suoraan kohdesoittimessa tyhjien hakutulossivujen sijaan.
+
+• Täysi albumi- ja soittolistatuki:
+Tunnistaa kokonaiset albumit ja avaa koko julkaisun. Jaetut soittolistat havaitaan tarkasti – kätevä soittolistojen muunnin.
+
+• Nopea soittimen valitsin (Kysy joka kerta):
+Käytätkö useita musiikkisovelluksia? Ota käyttöön pikavalitsin valitaksesi kohdesoittimen lennossa aina kun avaat musiikkilinkin.
+
+• Älykäs asennusapuri (Android 12+):
+Ohjattu asennus tarkistaa asennetut sovellukset ja auttaa määrittämään oletuslinkit yhdellä napautuksella ilman ristiriitoja.
+
+• Leikepöydän älypalkki & Jaa-valikko:
+Kopioi linkki tai jaa se suoraan WhatsAppista, Telegramista, Instagramista tai Redditistä SongFlipiin välitöntä 1 klikkauksen muunnosta varten.
+
+• Universaalit verkkolinkit (Smart Links):
+Luo yhdellä napautuksella neutraaleja verkkolinkkejä (songflip.link), jotka ystäväsi voivat avata millä tahansa laitteella ja musiikkipalvelulla.
+
+• Pika-asetuskuvake & Sovelluksen pikakuvakkeet:
+Keskeytä automaattinen uudelleenohjaus kätevästi 15 minuutiksi, 1 tunniksi tai seuraavaan aamuun pika-asetuspaneelista.
+
+• Material You -muotoilu & Teemoitettu kuvake:
+Täysin Android-järjestelmäsi väreihin mukautuva ulkoasu (Dynamic Color, vaalea ja AMOLED-tumma tila).
+
+🔒 TIETOSUOJA & AVOIN LÄHDEKOODI:
+• 100 % avointa lähdekoodia (GPLv3-lisensoitu GitHubissa)
+• Ei käyttäjätilejä, rekisteröitymistä tai kirjautumista
+• Täysin mainokseton – ikuisesti
+• Ei seurantaa tai kuuntelutottumusten tallentamista
+
+Yhteensopiva Songlink / Odesli -palvelun kanssa. Lataa SongFlip nyt!

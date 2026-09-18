@@ -1,0 +1,42 @@
+Sender en venn en sang på Spotify, men du bruker YouTube Music, Apple Music eller Deezer?
+
+SongFlip er din smarte musikklenkekonverterer for Android. Når den er aktivert, blir mottatte musikklenker automatisk konvertert i bakgrunnen og åpnet direkte i din foretrukne musikkspiller – uten manuell søking eller omveier i nettleseren.
+
+Fra Spotify til YouTube Music, Spotify til Apple Music eller Shazam-lenker: SongFlip ordner lenker umiddelbart som din universelle smartlenkekonverterer.
+
+🚀 NØKKELFUNKSJONER:
+
+• 8 Strømmeplattformer & Shazam:
+Konverterer sømløst mellom Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud og Bandcamp. Nå også med støtte for Shazam-lenker!
+
+• Umiddelbar Avspilling (Instant Playback):
+Starter avspillingen direkte i målappen i stedet for å vise tomme søkeresultatsider.
+
+• Støtte for Album & Spillelister:
+Gjenkjenner hele album og åpner hele sporlisten. Delte spillelister gjenkjennes sømløst — din smarte spilleliste-konverter for delt musikk.
+
+• Hurtigspillervelger (Spør hver gang):
+Bruker du flere musikkapper? Aktiver hurtigvelgeren for å velge målspiller umiddelbart når du åpner en musikklenke.
+
+• Smart Konfigurasjonsassistent (Android 12+):
+Konfigurer standardapp-lenker enkelt med vår interaktive veiviser.
+
+• Utklippstavle-banner & Delemeny:
+Kopiert en lenke? Åpne den direkte via dashbordet eller del fra WhatsApp, Telegram eller Instagram til SongFlip.
+
+• Universelle Smarte Nettlenker (songflip.link):
+Opprett nøytrale lenker slik at vennene dine kan lytte på hvilken som helst strømmetjeneste de foretrekker.
+
+• Hurtiginnstillinger & Snarveier:
+Sett viderekobling på pause i 15 minutter, 1 time eller til i morgen direkte fra Androids hurtiginnstillinger.
+
+• Material You Design & Tematisk Ikon:
+Følger systemfargene dine med AMOLED mørk modus, lys modus og monokromt startskjermikon.
+
+🔒 PERSONVERN & ÅPEN KILDEKODE:
+• 100% Open Source (GPLv3-lisens på GitHub)
+• Ingen kontoer eller pålogging nødvendig
+• Helt uten reklame for alltid
+• Null sporing eller innsamling av lyttevaner
+
+Kompatibel med Songlink / Odesli. Last ned SongFlip nå og del musikk på tvers av alle plattformer!
