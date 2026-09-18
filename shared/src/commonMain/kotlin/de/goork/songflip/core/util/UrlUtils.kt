@@ -101,7 +101,7 @@ object UrlUtils {
         }
 
         // 6. Tidal: track/{id} or album/{id}
-        val tidalMatch = Regex("(?:listen\\.)?tidal\\.com/(?:browse/)?(track|album)/([0-9a-zA-Z-]+)").find(clean)
+        val tidalMatch = Regex("(?:(?:www\\.|listen\\.)?tidal\\.com)/(?:browse/)?(track|album)/([0-9a-zA-Z-]+)").find(clean)
         if (tidalMatch != null) {
             val type = tidalMatch.groupValues[1]
             val id = tidalMatch.groupValues[2]
@@ -178,14 +178,19 @@ object UrlUtils {
 
     fun isShortLinkDomain(url: String): Boolean {
         return url.contains("spotify.link") ||
+                url.contains("spotify.app.link") ||
+                url.contains("spoti.fi") ||
                 url.contains("deezer.page.link") ||
                 url.contains("link.deezer.com") ||
+                url.contains("tidal.link") ||
                 url.contains("youtu.be") ||
                 url.contains("on.soundcloud.com") ||
                 url.contains("t.co/") ||
                 url.contains("://t.co") ||
                 url.contains("bit.ly") ||
                 url.contains("amzn.to") ||
+                url.contains("amzn.eu") ||
+                url.contains("amzn.asia") ||
                 url.contains("a.co/") ||
                 url.contains("://a.co") ||
                 url.contains("apple.co/") ||
@@ -232,14 +237,14 @@ object UrlUtils {
     fun detectPlatform(url: String): MusicPlatform? {
         val lower = url.lowercase()
         return when {
-            lower.contains("spotify.com") || lower.startsWith("spotify:") -> MusicPlatform.SPOTIFY
-            lower.contains("apple.com") || lower.contains("itunes.apple.com") -> MusicPlatform.APPLE_MUSIC
+            lower.contains("spotify.com") || lower.contains("spotify.link") || lower.contains("spotify.app.link") || lower.contains("spoti.fi") || lower.startsWith("spotify:") -> MusicPlatform.SPOTIFY
+            lower.contains("apple.com") || lower.contains("itunes.apple.com") || lower.contains("apple.co") || lower.contains("itun.es") -> MusicPlatform.APPLE_MUSIC
             lower.contains("music.youtube.com") -> MusicPlatform.YOUTUBE_MUSIC
             lower.contains("youtube.com") || lower.contains("youtu.be") -> MusicPlatform.YOUTUBE_MUSIC
-            lower.contains("deezer.com") || lower.contains("deezer.page.link") -> MusicPlatform.DEEZER
-            lower.contains("tidal.com") -> MusicPlatform.TIDAL
-            lower.contains("music.amazon.") || lower.contains("amazon.") -> MusicPlatform.AMAZON_MUSIC
-            lower.contains("soundcloud.com") -> MusicPlatform.SOUNDCLOUD
+            lower.contains("deezer.com") || lower.contains("deezer.page.link") || lower.contains("link.deezer.com") -> MusicPlatform.DEEZER
+            lower.contains("tidal.com") || lower.contains("tidal.link") -> MusicPlatform.TIDAL
+            lower.contains("music.amazon.") || lower.contains("amazon.") || lower.contains("amzn.to") || lower.contains("amzn.eu") || lower.contains("amzn.asia") || lower.contains("a.co") -> MusicPlatform.AMAZON_MUSIC
+            lower.contains("soundcloud.com") || lower.contains("on.soundcloud.com") -> MusicPlatform.SOUNDCLOUD
             lower.contains("bandcamp.com") -> MusicPlatform.BANDCAMP
             else -> null
         }

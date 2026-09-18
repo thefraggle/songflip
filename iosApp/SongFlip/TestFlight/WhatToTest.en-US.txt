@@ -1,2 +1,2 @@
-- Expanded Regional Music Support: Full support for international Amazon Music domains (Canada, Australia, Japan, India, Brazil, Mexico).
+- Expanded Global Music Links: Added comprehensive support for international links and shortlinks across Spotify (spoti.fi), Tidal (www, tidal.link), Deezer, and Amazon Music (Canada, Australia, Japan, UAE, Saudi Arabia, Egypt, amzn.eu, amzn.asia).
 - Smarter Album Detection: Improved recognition and multi-platform redirect handling for Amazon Music albums and tracks.

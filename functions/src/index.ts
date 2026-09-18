@@ -133,12 +133,13 @@ function isValidBandcampUrl(rawUrl: string): boolean {
 
 const ALLOWED_MUSIC_HOST_PATTERNS = [
   /^(?:open\.)?spotify\.com$/,
-  /^spotify\.link$/,
-  /^(?:music\.|itunes\.)?apple\.com$/,
+  /^(?:spotify\.link|spotify\.app\.link|spoti\.fi)$/,
+  /^(?:(?:geo\.|music\.|itunes\.)?apple\.com|itun\.es|apple\.co)$/,
   /^(?:(?:www\.|m\.|music\.)?youtube\.com|youtu\.be)$/,
-  /^(?:www\.)?deezer\.(?:com|page\.link)$/,
-  /^(?:listen\.)?tidal\.com$/,
-  /^(?:music\.)?amazon\.(?:com|de|co\.uk|co\.jp|fr|it|es|ca|in)$/,
+  /^(?:(?:www\.|m\.)?deezer\.com|deezer\.page\.link|link\.deezer\.com)$/,
+  /^(?:(?:www\.|listen\.)?tidal\.com|tidal\.link)$/,
+  /^(?:music\.)?amazon\.[a-z.]+$/,
+  /^(?:amzn\.(?:to|eu|asia)|a\.co)$/,
   /^(?:(?:m\.|on\.)?soundcloud\.com)$/,
   /^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)*bandcamp\.com$/,
   /^(?:(?:www\.|amp\.)?shazam\.com)$/,

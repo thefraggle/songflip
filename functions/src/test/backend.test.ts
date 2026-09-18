@@ -291,6 +291,16 @@ describe("Backend Helper Tests", () => {
       assert.equal(isSafePublicHttpsUrl("https://www.deezer.com/track/123"), true);
       assert.equal(isSafePublicHttpsUrl("https://listen.tidal.com/track/123"), true);
       assert.equal(isSafePublicHttpsUrl("https://music.amazon.de/albums/B0123"), true);
+      assert.equal(isSafePublicHttpsUrl("https://music.amazon.ca/albums/B0123"), true);
+      assert.equal(isSafePublicHttpsUrl("https://music.amazon.com.au/albums/B0123"), true);
+      assert.equal(isSafePublicHttpsUrl("https://amzn.eu/d/123"), true);
+      assert.equal(isSafePublicHttpsUrl("https://amzn.asia/d/123"), true);
+      assert.equal(isSafePublicHttpsUrl("https://spoti.fi/123"), true);
+      assert.equal(isSafePublicHttpsUrl("https://spotify.app.link/123"), true);
+      assert.equal(isSafePublicHttpsUrl("https://www.tidal.com/track/123"), true);
+      assert.equal(isSafePublicHttpsUrl("https://tidal.link/123"), true);
+      assert.equal(isSafePublicHttpsUrl("https://m.deezer.com/track/123"), true);
+      assert.equal(isSafePublicHttpsUrl("https://apple.co/123"), true);
       assert.equal(isSafePublicHttpsUrl("https://soundcloud.com/artist/track"), true);
       assert.equal(isSafePublicHttpsUrl("https://song.link/s/123"), true);
 
