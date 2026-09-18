@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.3.11] - 2026-09-18
+- **Optimized DEX Obfuscation**: Streamlined ProGuard and R8 rules for enhanced code optimization, smaller binary size, and full Google Play Vitals compliance.
+
 ## [1.3.10] - 2026-09-18
 - **Helpful Link Guidance**: Links to podcasts and audiobooks are now clearly identified as unsupported, with direct shortcuts to open them in their original app.
 
