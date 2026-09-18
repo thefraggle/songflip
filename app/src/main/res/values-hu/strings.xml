@@ -115,6 +115,14 @@
     <string name="playlist_dialog_action_close">Bezárás</string>
     <string name="playlist_badge">Lejátszási lista</string>
     <string name="playlist_banner_action_open">%1$s megnyitása az eredetiben</string>
+    <string name="podcast_not_supported_toast">A podcastok jelenleg nem támogatottak.</string>
+    <string name="audiobook_not_supported_toast">A hangoskönyvek jelenleg nem támogatottak.</string>
+    <string name="podcast_dialog_title">Podcast észlelve</string>
+    <string name="audiobook_dialog_title">Hangoskönyv észlelve</string>
+    <string name="podcast_dialog_body">A SongFlip zeneszámokra és albumokra specializálódott. A podcastok és hangoskönyvek konvertálása jelenleg nem támogatott.</string>
+    <string name="podcast_badge">Podcast</string>
+    <string name="audiobook_badge">Hangoskönyv</string>
+
     <string name="theme_label">Megjelenés</string>
     <string name="theme_system">Rendszer alapértelmezett</string>
     <string name="theme_light">Világos</string>

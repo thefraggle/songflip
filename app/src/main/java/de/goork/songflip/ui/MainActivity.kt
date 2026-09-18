@@ -213,6 +213,7 @@ fun MainScreen(
     var showProPaywall by remember { mutableStateOf(false) }
     var initialShowPromoInPaywall by remember { mutableStateOf(false) }
     var showPlaylistNoticeSheet by remember { mutableStateOf<String?>(null) }
+    var showPodcastNoticeSheet by remember { mutableStateOf<String?>(null) }
 
     val proState by ProManager.proState.collectAsState()
     var activeMilestone by remember { mutableStateOf(settingsRepository.getActiveProNudgeMilestone()) }
@@ -466,6 +467,17 @@ fun MainScreen(
         )
     }
 
+    showPodcastNoticeSheet?.let { podcastUrl ->
+        val platformKey = UrlUtils.detectPlatform(podcastUrl)?.key ?: "unknown"
+        val isAudiobook = UrlUtils.isAudiobookUrl(podcastUrl)
+        de.goork.songflip.ui.components.PodcastNoticeBottomSheet(
+            url = podcastUrl,
+            platformKey = platformKey,
+            isAudiobook = isAudiobook,
+            onDismiss = { showPodcastNoticeSheet = null }
+        )
+    }
+
     // Main UI Layout
     BoxWithConstraints(
         modifier = Modifier
@@ -531,6 +543,8 @@ fun MainScreen(
             ) {
                 detectedClipboardUrl?.let { clipUrl ->
                     val isPlaylist = UrlUtils.isPlaylistUrl(clipUrl)
+                    val isPodcastOrAudiobook = UrlUtils.isPodcastOrAudiobookUrl(clipUrl)
+                    val isAudiobook = UrlUtils.isAudiobookUrl(clipUrl)
                     val targetService = targetServices.find { it.key == selectedTargetKey }
                     val targetServiceName: String = targetService?.let { stringResource(it.nameResId) } ?: "Player"
                     ClipboardSmartBanner(
@@ -538,12 +552,19 @@ fun MainScreen(
                         targetPlatformName = targetServiceName,
                         isPro = proState.isPro,
                         isPlaylist = isPlaylist,
+                        isPodcastOrAudiobook = isPodcastOrAudiobook,
+                        isAudiobook = isAudiobook,
                         onOpenPlaylist = { url ->
                             showPlaylistNoticeSheet = url
+                        },
+                        onOpenPodcast = { url ->
+                            showPodcastNoticeSheet = url
                         },
                         onOpenInTarget = { urlToOpen ->
                             if (isPlaylist) {
                                 showPlaylistNoticeSheet = urlToOpen
+                            } else if (isPodcastOrAudiobook) {
+                                showPodcastNoticeSheet = urlToOpen
                             } else {
                                 dismissedClipboardUrl = urlToOpen
                                 detectedClipboardUrl = null

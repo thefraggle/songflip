@@ -17,6 +17,9 @@ import {
   isSecureMatch,
   isArtistUrl,
   isPlaylistUrl,
+  isPodcastUrl,
+  isAudiobookUrl,
+  isPodcastOrAudiobookUrl,
   detectPlatformFromUrl,
   normalizeYouTubeMusicUrl,
   resolveAudioPreviewUrl,
@@ -454,6 +457,26 @@ describe("Backend Helper Tests", () => {
       assert.equal(isPlaylistUrl("https://soundcloud.com/octobersveryown/drake-gods-plan"), false);
     });
 
+    it("should accurately detect podcast and audiobook URLs", () => {
+      assert.equal(isPodcastUrl("https://open.spotify.com/episode/512ZrAYQURlzyRs99vS24C"), true);
+      assert.equal(isPodcastUrl("https://open.spotify.com/show/4rOoJ6Egrf8K2IrywzwOMk"), true);
+      assert.equal(isPodcastUrl("spotify:episode:512ZrAYQURlzyRs99vS24C"), true);
+      assert.equal(isPodcastUrl("https://podcasts.apple.com/us/podcast/huberman-lab/id1545953110"), true);
+      assert.equal(isPodcastUrl("https://music.amazon.com/podcasts/b08jj8jkvx"), true);
+      assert.equal(isPodcastUrl("https://www.deezer.com/show/123456"), true);
+      assert.equal(isPodcastUrl("https://www.deezer.com/episode/987654"), true);
+
+      assert.equal(isAudiobookUrl("https://open.spotify.com/audiobook/74G4N4aA6f1GqWwZpW2J8D"), true);
+      assert.equal(isAudiobookUrl("spotify:audiobook:74G4N4aA6f1GqWwZpW2J8D"), true);
+      assert.equal(isAudiobookUrl("https://books.apple.com/us/audiobook/atomic-habits/id1440842065"), true);
+      assert.equal(isAudiobookUrl("https://www.audible.com/pd/12345"), true);
+      assert.equal(isAudiobookUrl("https://www.audible.de/pd/12345"), true);
+
+      assert.equal(isPodcastOrAudiobookUrl("https://open.spotify.com/episode/123"), true);
+      assert.equal(isPodcastOrAudiobookUrl("https://open.spotify.com/audiobook/123"), true);
+      assert.equal(isPodcastOrAudiobookUrl("https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv"), false);
+    });
+
     it("should detect platform names correctly from URLs", () => {
       assert.equal(detectPlatformFromUrl("https://open.spotify.com/playlist/123"), "Spotify");
       assert.equal(detectPlatformFromUrl("spotify:playlist:123"), "Spotify");
@@ -467,6 +490,7 @@ describe("Backend Helper Tests", () => {
       assert.equal(detectPlatformFromUrl("https://artist.bandcamp.com/album/test"), "Bandcamp");
     });
   });
+
   describe("Promo Code Campaign Extraction & Apple Music Preview Lookup", () => {
     it("should match campaign code in surrounding text", () => {
       const sentence = "Nutzt den Code BETALIST in der SongFlip App!";

@@ -127,6 +127,14 @@
     <string name="playlist_dialog_action_close">বন্ধ করুন</string>
     <string name="playlist_badge">প্লেলিস্ট</string>
     <string name="playlist_banner_action_open">%1$s মূল অ্যাপে খুলুন</string>
+    <string name="podcast_not_supported_toast">পডকাস্ট বর্তমানে সমর্থিত নয়।</string>
+    <string name="audiobook_not_supported_toast">অডিওবুক বর্তমানে সমর্থিত নয়।</string>
+    <string name="podcast_dialog_title">পডকাস্ট সনাক্ত হয়েছে</string>
+    <string name="audiobook_dialog_title">অডিওবুক সনাক্ত হয়েছে</string>
+    <string name="podcast_dialog_body">SongFlip সঙ্গীত ট্র্যাক এবং অ্যালবামে বিশেষজ্ঞ। পডকাস্ট এবং অডিওবুক বর্তমানে সমর্থিত নয়।</string>
+    <string name="podcast_badge">পডকাস্ট</string>
+    <string name="audiobook_badge">অডিওবুক</string>
+
 
     <string name="history_title">গানের ইতিহাস</string>
     <string name="history_subtitle">সম্প্রতি রূপান্তরিত গান পরিচালনা ও পুনরায় শুনুন</string>

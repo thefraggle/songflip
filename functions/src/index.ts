@@ -660,6 +660,59 @@ function isPlaylistUrl(url: string): boolean {
 }
 
 /**
+ * Detects whether a streaming URL points to a podcast show or episode.
+ */
+function isPodcastUrl(url: string): boolean {
+  if (!url || typeof url !== "string") return false;
+  const lower = url.toLowerCase().trim();
+
+  return (
+    lower.includes("/episode/") ||
+    lower.includes("/episodes/") ||
+    lower.includes("/show/") ||
+    lower.includes("/shows/") ||
+    lower.includes("/podcast/") ||
+    lower.includes("/podcasts/") ||
+    lower.includes("podcasts.apple.com") ||
+    lower.includes("podcasts.google.com") ||
+    lower.includes("pocketcasts.com") ||
+    lower.includes("castbox.fm") ||
+    lower.includes("overcast.fm") ||
+    lower.startsWith("spotify:episode:") ||
+    lower.startsWith("spotify:show:")
+  );
+}
+
+/**
+ * Detects whether a URL points to an audiobook.
+ */
+function isAudiobookUrl(url: string): boolean {
+  if (!url || typeof url !== "string") return false;
+  const lower = url.toLowerCase().trim();
+
+  return (
+    lower.includes("/audiobook/") ||
+    lower.includes("/audiobooks/") ||
+    lower.includes("books.apple.com") ||
+    lower.includes("audiobooks.apple.com") ||
+    lower.includes("audible.com") ||
+    lower.includes("audible.de") ||
+    lower.includes("audible.co.uk") ||
+    lower.includes("audible.fr") ||
+    lower.includes("audible.it") ||
+    lower.includes("audible.es") ||
+    lower.includes("audible.ca") ||
+    lower.includes("audible.in") ||
+    lower.includes("audible.com.au") ||
+    lower.startsWith("spotify:audiobook:")
+  );
+}
+
+function isPodcastOrAudiobookUrl(url: string): boolean {
+  return isPodcastUrl(url) || isAudiobookUrl(url);
+}
+
+/**
  * Detects the music streaming platform from a URL.
  */
 function detectPlatformFromUrl(url: string): string {
@@ -1975,6 +2028,21 @@ export const resolve = onRequest(
         originalUrl: targetUrl,
         platform: detectPlatformFromUrl(targetUrl),
         message: "Playlists are not currently supported for 1:1 flipping. Full playlist conversion is coming in a future update.",
+      });
+      return;
+    }
+
+    // 3b. Intercept Podcasts & Audiobooks early
+    if (isPodcastOrAudiobookUrl(targetUrl)) {
+      const isAudiobook = isAudiobookUrl(targetUrl);
+      res.status(200).json({
+        status: "podcast_detected",
+        isPodcast: !isAudiobook,
+        isAudiobook: isAudiobook,
+        entityType: isAudiobook ? "audiobook" : "podcast",
+        originalUrl: targetUrl,
+        platform: detectPlatformFromUrl(targetUrl),
+        message: "Podcasts and audiobooks are not currently supported for 1:1 flipping. SongFlip is specialized in music tracks and albums.",
       });
       return;
     }
@@ -3710,6 +3778,9 @@ export {
   isSecureMatch,
   isArtistUrl,
   isPlaylistUrl,
+  isPodcastUrl,
+  isAudiobookUrl,
+  isPodcastOrAudiobookUrl,
   detectPlatformFromUrl,
   isArtistNameMatch,
   resolveAppleMusicArtistLive,

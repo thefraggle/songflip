@@ -30,6 +30,12 @@ sealed class OdesliResult {
         val platform: String,
         val message: String = "PLAYLIST_NOT_SUPPORTED"
     ) : OdesliResult()
+    data class PodcastOrAudiobook(
+        val originalUrl: String,
+        val platform: String,
+        val isAudiobook: Boolean = false,
+        val message: String = "PODCAST_NOT_SUPPORTED"
+    ) : OdesliResult()
     data class Error(val message: String) : OdesliResult()
 }
 
@@ -167,6 +173,18 @@ class OdesliRepository(
                 return@withContext OdesliResult.Playlist(
                     originalUrl = canonicalUrl,
                     platform = detected
+                )
+            }
+
+            // Podcast & Audiobook links cannot be converted 1:1 in background
+            if (UrlUtils.isPodcastOrAudiobookUrl(canonicalUrl)) {
+                val detected = UrlUtils.detectPlatform(canonicalUrl)?.key ?: "unknown"
+                val isAudiobook = UrlUtils.isAudiobookUrl(canonicalUrl)
+                return@withContext OdesliResult.PodcastOrAudiobook(
+                    originalUrl = canonicalUrl,
+                    platform = detected,
+                    isAudiobook = isAudiobook,
+                    message = if (isAudiobook) "AUDIOBOOK_NOT_SUPPORTED" else "PODCAST_NOT_SUPPORTED"
                 )
             }
 

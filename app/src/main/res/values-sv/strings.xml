@@ -127,6 +127,14 @@
     <string name="playlist_dialog_action_close">Stäng</string>
     <string name="playlist_badge">Spellista</string>
     <string name="playlist_banner_action_open">Öppna %1$s i original</string>
+    <string name="podcast_not_supported_toast">Poddar stöds inte för närvarande.</string>
+    <string name="audiobook_not_supported_toast">Ljudböcker stöds inte för närvarande.</string>
+    <string name="podcast_dialog_title">Podd upptäckt</string>
+    <string name="audiobook_dialog_title">Ljudbok upptäckt</string>
+    <string name="podcast_dialog_body">SongFlip är specialiserat på musikspår och album. Poddar och ljudböcker stöds inte för närvarande.</string>
+    <string name="podcast_badge">Podd</string>
+    <string name="audiobook_badge">Ljudbok</string>
+
 
     <string name="history_title">Låthistorik</string>
     <string name="history_subtitle">Se och hantera nyligen konverterade låtar</string>

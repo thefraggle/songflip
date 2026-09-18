@@ -127,6 +127,14 @@
     <string name="playlist_dialog_action_close">Закрыть</string>
     <string name="playlist_badge">Плейлист</string>
     <string name="playlist_banner_action_open">Открыть %1$s в оригинале</string>
+    <string name="podcast_not_supported_toast">Подкасты в настоящее время не поддерживаются.</string>
+    <string name="audiobook_not_supported_toast">Аудиокниги в настоящее время не поддерживаются.</string>
+    <string name="podcast_dialog_title">Обнаружен подкаст</string>
+    <string name="audiobook_dialog_title">Обнаружена аудиокнига</string>
+    <string name="podcast_dialog_body">SongFlip специализируется на музыкальных треках и альбомах. Подкасты и аудиокниги в настоящее время не поддерживаются.</string>
+    <string name="podcast_badge">Подкаст</string>
+    <string name="audiobook_badge">Аудиокнига</string>
+
 
     <string name="history_title">История треков</string>
     <string name="history_subtitle">Просмотр и управление недавно сконвертированными треками</string>

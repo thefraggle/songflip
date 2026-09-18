@@ -127,6 +127,14 @@
     <string name="playlist_dialog_action_close">Luk</string>
     <string name="playlist_badge">Playliste</string>
     <string name="playlist_banner_action_open">Åbn %1$s i original</string>
+    <string name="podcast_not_supported_toast">Podcasts understøttes ikke i øjeblikket.</string>
+    <string name="audiobook_not_supported_toast">Lydbøger understøttes ikke i øjeblikket.</string>
+    <string name="podcast_dialog_title">Podcast fundet</string>
+    <string name="audiobook_dialog_title">Lydbog fundet</string>
+    <string name="podcast_dialog_body">SongFlip er specialiseret i musiknumre og albummer. Podcasts og lydbøger understøttes i øjeblikket ikke til konvertering.</string>
+    <string name="podcast_badge">Podcast</string>
+    <string name="audiobook_badge">Lydbog</string>
+
 
     <string name="history_title">Sanghistorik</string>
     <string name="history_subtitle">Se og administrer nyligt konverterede sange</string>

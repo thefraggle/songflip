@@ -222,9 +222,50 @@ object UrlUtils {
                 clean.startsWith("spotify:playlist:")
     }
 
+    fun isPodcastUrl(url: String): Boolean {
+        val clean = url.lowercase()
+        return clean.contains("/episode/") ||
+                clean.contains("/episodes/") ||
+                clean.contains("/show/") ||
+                clean.contains("/shows/") ||
+                clean.contains("/podcast/") ||
+                clean.contains("/podcasts/") ||
+                clean.contains("podcasts.apple.com") ||
+                clean.contains("podcasts.google.com") ||
+                clean.contains("pocketcasts.com") ||
+                clean.contains("castbox.fm") ||
+                clean.contains("overcast.fm") ||
+                clean.startsWith("spotify:episode:") ||
+                clean.startsWith("spotify:show:")
+    }
+
+    fun isAudiobookUrl(url: String): Boolean {
+        val clean = url.lowercase()
+        return clean.contains("/audiobook/") ||
+                clean.contains("/audiobooks/") ||
+                clean.contains("books.apple.com") ||
+                clean.contains("audiobooks.apple.com") ||
+                clean.contains("audible.com") ||
+                clean.contains("audible.de") ||
+                clean.contains("audible.co.uk") ||
+                clean.contains("audible.fr") ||
+                clean.contains("audible.it") ||
+                clean.contains("audible.es") ||
+                clean.contains("audible.ca") ||
+                clean.contains("audible.in") ||
+                clean.contains("audible.com.au") ||
+                clean.startsWith("spotify:audiobook:")
+    }
+
+    fun isPodcastOrAudiobookUrl(url: String): Boolean {
+        return isPodcastUrl(url) || isAudiobookUrl(url)
+    }
+
     fun detectEntityType(url: String): MusicEntityType {
         val clean = url.lowercase()
         return when {
+            isPodcastUrl(url) -> MusicEntityType.PODCAST
+            isAudiobookUrl(url) -> MusicEntityType.AUDIOBOOK
             isSearchUrl(url) -> MusicEntityType.SEARCH
             isPlaylistUrl(url) -> MusicEntityType.PLAYLIST
             isAlbumUrl(url) -> MusicEntityType.ALBUM

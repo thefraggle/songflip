@@ -29,6 +29,14 @@ sealed class ResolutionResult {
     ) : ResolutionResult()
 
     @Serializable
+    data class PodcastOrAudiobook(
+        val originalUrl: String,
+        val platform: String,
+        val isAudiobook: Boolean = false,
+        val message: String? = null
+    ) : ResolutionResult()
+
+    @Serializable
     data class Error(
         val message: String,
         val isUnsupported: Boolean = false
