@@ -115,6 +115,14 @@
     <string name="playlist_dialog_action_close">Zavřít</string>
     <string name="playlist_badge">Playlist</string>
     <string name="playlist_banner_action_open">Otevřít %1$s v originále</string>
+    <string name="podcast_not_supported_toast">Podcasty nejsou v současné době podporovány.</string>
+    <string name="audiobook_not_supported_toast">Audioknihy nejsou v současné době podporovány.</string>
+    <string name="podcast_dialog_title">Detekován podcast</string>
+    <string name="audiobook_dialog_title">Detekována audiokniha</string>
+    <string name="podcast_dialog_body">SongFlip se specializuje na hudební skladby a alba. Podcasty a audioknihy nejsou v současné době podporovány.</string>
+    <string name="podcast_badge">Podcast</string>
+    <string name="audiobook_badge">Audiokniha</string>
+
     <string name="theme_label">Vzhled</string>
     <string name="theme_system">Systémový</string>
     <string name="theme_light">Světlý</string>

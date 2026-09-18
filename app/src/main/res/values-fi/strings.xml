@@ -115,6 +115,14 @@
     <string name="playlist_dialog_action_close">Sulje</string>
     <string name="playlist_badge">Soittolista</string>
     <string name="playlist_banner_action_open">Avaa %1$s alkuperäisessä</string>
+    <string name="podcast_not_supported_toast">Podcasteja ei tällä hetkellä tueta.</string>
+    <string name="audiobook_not_supported_toast">Äänikirjoja ei tällä hetkellä tueta.</string>
+    <string name="podcast_dialog_title">Podcast havaittu</string>
+    <string name="audiobook_dialog_title">Äänikirja havaittu</string>
+    <string name="podcast_dialog_body">SongFlip on erikoistunut musiikkikappaleisiin ja albumeihin. Podcasteja ja äänikirjoja ei tueta muunnoksessa tällä hetkellä.</string>
+    <string name="podcast_badge">Podcast</string>
+    <string name="audiobook_badge">Äänikirja</string>
+
     <string name="theme_label">Teema</string>
     <string name="theme_system">Järjestelmä</string>
     <string name="theme_light">Vaalea</string>

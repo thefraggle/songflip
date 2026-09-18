@@ -127,6 +127,14 @@
     <string name="playlist_dialog_action_close">बंद करें</string>
     <string name="playlist_badge">प्लेलिस्ट</string>
     <string name="playlist_banner_action_open">%1$s मूल में खोलें</string>
+    <string name="podcast_not_supported_toast">पॉडकास्ट फ़िलहाल समर्थित नहीं हैं।</string>
+    <string name="audiobook_not_supported_toast">ऑडियोबुक फ़िलहाल समर्थित नहीं हैं।</string>
+    <string name="podcast_dialog_title">पॉडकास्ट पहचाना गया</string>
+    <string name="audiobook_dialog_title">ऑडियोबुक पहचानी गई</string>
+    <string name="podcast_dialog_body">SongFlip संगीत ट्रैक और एल्बम के लिए विशिष्ट है। पॉडकास्ट और ऑडियोबुक वर्तमान में समर्थित नहीं हैं।</string>
+    <string name="podcast_badge">पॉडकास्ट</string>
+    <string name="audiobook_badge">ऑडियोबुक</string>
+
 
     <string name="history_title">गानों का इतिहास</string>
     <string name="history_subtitle">हाल ही में कनवर्ट किए गए गानों को प्रबंधित करें और दोबारा चलाएं</string>

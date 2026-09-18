@@ -115,6 +115,14 @@
     <string name="playlist_dialog_action_close">Κλείσιμο</string>
     <string name="playlist_badge">Λίστα αναπαραγωγής</string>
     <string name="playlist_banner_action_open">Άνοιγμα %1$s στο αρχικό</string>
+    <string name="podcast_not_supported_toast">Τα podcast δεν υποστηρίζονται προς το παρόν.</string>
+    <string name="audiobook_not_supported_toast">Τα ηχητικά βιβλία δεν υποστηρίζονται προς το παρόν.</string>
+    <string name="podcast_dialog_title">Εντοπίστηκε podcast</string>
+    <string name="audiobook_dialog_title">Εντοπίστηκε ηχητικό βιβλίο</string>
+    <string name="podcast_dialog_body">Το SongFlip ειδικεύεται σε μουσικά κομμάτια και άλμπουμ. Τα podcast και τα ηχητικά βιβλία δεν υποστηρίζονται προς το παρόν.</string>
+    <string name="podcast_badge">Podcast</string>
+    <string name="audiobook_badge">Ηχητικό βιβλίο</string>
+
     <string name="theme_label">Εμφάνιση</string>
     <string name="theme_system">Σύστημα</string>
     <string name="theme_light">Φωτεινό</string>

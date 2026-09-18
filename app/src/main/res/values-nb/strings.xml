@@ -127,6 +127,14 @@
     <string name="playlist_dialog_action_close">Lukk</string>
     <string name="playlist_badge">Spilleliste</string>
     <string name="playlist_banner_action_open">Åpne %1$s i original</string>
+    <string name="podcast_not_supported_toast">Podkaster støttes ikke for øyeblikket.</string>
+    <string name="audiobook_not_supported_toast">Lydbøker støttes ikke for øyeblikket.</string>
+    <string name="podcast_dialog_title">Podkast oppdaget</string>
+    <string name="audiobook_dialog_title">Lydbok oppdaget</string>
+    <string name="podcast_dialog_body">SongFlip er spesialisert på musikkspor og album. Podkaster og lydbøker støttes for øyeblikket ikke for konvertering.</string>
+    <string name="podcast_badge">Podkast</string>
+    <string name="audiobook_badge">Lydbok</string>
+
 
     <string name="history_title">Sanghistorikk</string>
     <string name="history_subtitle">Se og administrer nylig konverterte sanger</string>

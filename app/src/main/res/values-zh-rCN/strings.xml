@@ -127,6 +127,14 @@
     <string name="playlist_dialog_action_close">关闭</string>
     <string name="playlist_badge">播放列表</string>
     <string name="playlist_banner_action_open">在 %1$s 原版中打开</string>
+    <string name="podcast_not_supported_toast">目前不支持播客。</string>
+    <string name="audiobook_not_supported_toast">目前不支持有声读物。</string>
+    <string name="podcast_dialog_title">检测到播客</string>
+    <string name="audiobook_dialog_title">检测到有声读物</string>
+    <string name="podcast_dialog_body">SongFlip 专注于音乐曲目和专辑。目前暂不支持播客和有声书的跨平台转换。</string>
+    <string name="podcast_badge">播客</string>
+    <string name="audiobook_badge">有声书</string>
+
 
     <string name="history_title">歌曲历史</string>
     <string name="history_subtitle">查看并管理最近转换的歌曲</string>

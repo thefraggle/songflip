@@ -136,6 +136,14 @@
     <string name="playlist_dialog_action_close">Close</string>
     <string name="playlist_badge">Playlist</string>
     <string name="playlist_banner_action_open">Open %1$s in Original</string>
+    <string name="podcast_not_supported_toast">Podcasts are not currently supported.</string>
+    <string name="audiobook_not_supported_toast">Audiobooks are not currently supported.</string>
+    <string name="podcast_dialog_title">Podcast Detected</string>
+    <string name="audiobook_dialog_title">Audiobook Detected</string>
+    <string name="podcast_dialog_body">SongFlip is specialized in music tracks and albums. Podcasts and audiobooks are not currently supported for cross-platform flipping.</string>
+    <string name="podcast_badge">Podcast</string>
+    <string name="audiobook_badge">Audiobook</string>
+
 
     <string name="theme_label">Theme</string>
     <string name="theme_system">System</string>

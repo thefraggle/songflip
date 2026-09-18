@@ -96,6 +96,13 @@ enum LocalizationManager {
             "playlist_badge": "Playlist",
             "playlist_banner_action_open": "%@ im Original öffnen",
             "playlist_share_opening": "Playlist erkannt – öffne Original...",
+            "podcast_dialog_title": "Podcast erkannt",
+            "audiobook_dialog_title": "Hörbuch erkannt",
+            "podcast_dialog_body": "SongFlip ist auf Musiktitel und Alben spezialisiert. Podcasts und Hörbücher werden derzeit nicht für die plattformübergreifende Weiterleitung unterstützt.",
+            "podcast_badge": "Podcast",
+            "audiobook_badge": "Hörbuch",
+            "podcast_share_opening": "Podcast erkannt – öffne Original...",
+        
         ],
         "en": [
             "settings_share_app": "Share SongFlip",
@@ -190,6 +197,13 @@ enum LocalizationManager {
             "playlist_badge": "Playlist",
             "playlist_banner_action_open": "Open %@ in Original",
             "playlist_share_opening": "Playlist detected – opening original...",
+            "podcast_dialog_title": "Podcast Detected",
+            "audiobook_dialog_title": "Audiobook Detected",
+            "podcast_dialog_body": "SongFlip is specialized in music tracks and albums. Podcasts and audiobooks are not currently supported for cross-platform flipping.",
+            "podcast_badge": "Podcast",
+            "audiobook_badge": "Audiobook",
+            "podcast_share_opening": "Podcast detected – opening original...",
+        
         ],
         "da": [
             "settings_share_app": "Del SongFlip",
@@ -284,6 +298,13 @@ enum LocalizationManager {
             "playlist_badge": "Playliste",
             "playlist_banner_action_open": "Åbn %@ i original",
             "playlist_share_opening": "Playliste registreret – åbner original...",
+            "podcast_dialog_title": "Podcast fundet",
+            "audiobook_dialog_title": "Lydbog fundet",
+            "podcast_dialog_body": "SongFlip er specialiseret i musiknumre og albummer. Podcasts og lydbøger understøttes i øjeblikket ikke til konvertering.",
+            "podcast_badge": "Podcast",
+            "audiobook_badge": "Lydbog",
+            "podcast_share_opening": "Podcast fundet – åbner original...",
+        
         ],
         "nb": [
             "settings_share_app": "Del SongFlip",
@@ -472,6 +493,13 @@ enum LocalizationManager {
             "playlist_badge": "Spellista",
             "playlist_banner_action_open": "Öppna %@ i original",
             "playlist_share_opening": "Spellista upptäckt – öppnar original...",
+            "podcast_dialog_title": "Podd upptäckt",
+            "audiobook_dialog_title": "Ljudbok upptäckt",
+            "podcast_dialog_body": "SongFlip är specialiserat på musikspår och album. Poddar och ljudböcker stöds inte för närvarande.",
+            "podcast_badge": "Podd",
+            "audiobook_badge": "Ljudbok",
+            "podcast_share_opening": "Podd upptäckt – öppnar original...",
+        
         ],
         "nl": [
             "settings_share_app": "Deel SongFlip",
@@ -566,6 +594,13 @@ enum LocalizationManager {
             "playlist_badge": "Afspeellijst",
             "playlist_banner_action_open": "%@ openen in origineel",
             "playlist_share_opening": "Afspeellijst gedetecteerd – origineel openen...",
+            "podcast_dialog_title": "Podcast gedetecteerd",
+            "audiobook_dialog_title": "Audioboek gedetecteerd",
+            "podcast_dialog_body": "SongFlip is gespecialiseerd in muzieknummers en albums. Podcasts en audioboeken worden momenteel niet ondersteund voor conversie.",
+            "podcast_badge": "Podcast",
+            "audiobook_badge": "Audioboek",
+            "podcast_share_opening": "Podcast gedetecteerd – origineel openen...",
+        
         ],
         "fr": [
             "settings_share_app": "Partager SongFlip",
@@ -660,6 +695,13 @@ enum LocalizationManager {
             "playlist_badge": "Playlist",
             "playlist_banner_action_open": "Ouvrir %@ dans l'original",
             "playlist_share_opening": "Playlist détectée – ouverture de l'original...",
+            "podcast_dialog_title": "Podcast détecté",
+            "audiobook_dialog_title": "Livre audio détecté",
+            "podcast_dialog_body": "SongFlip est spécialisé dans les morceaux et albums. Les podcasts et livres audio ne sont pas pris en charge pour la conversion.",
+            "podcast_badge": "Podcast",
+            "audiobook_badge": "Livre audio",
+            "podcast_share_opening": "Podcast détecté – ouverture de l'original...",
+        
         ],
         "es": [
             "settings_share_app": "Compartir SongFlip",
@@ -754,6 +796,13 @@ enum LocalizationManager {
             "playlist_badge": "Lista",
             "playlist_banner_action_open": "Abrir %@ en original",
             "playlist_share_opening": "Lista de reproducción detectada – abriendo original...",
+            "podcast_dialog_title": "Pódcast detectado",
+            "audiobook_dialog_title": "Audiolibro detectado",
+            "podcast_dialog_body": "SongFlip está especializado en canciones y álbumes. Actualmente no se admiten pódcasts ni audiolibros para conversión.",
+            "podcast_badge": "Pódcast",
+            "audiobook_badge": "Audiolibro",
+            "podcast_share_opening": "Pódcast detectado – abriendo original...",
+        
         ],
         "it": [
             "settings_share_app": "Condividi SongFlip",
@@ -848,6 +897,13 @@ enum LocalizationManager {
             "playlist_badge": "Playlist",
             "playlist_banner_action_open": "Apri %@ nell'originale",
             "playlist_share_opening": "Playlist rilevata – apertura dell'originale...",
+            "podcast_dialog_title": "Podcast rilevato",
+            "audiobook_dialog_title": "Audiolibro rilevato",
+            "podcast_dialog_body": "SongFlip è specializzato in brani musicali e album. I podcast e gli audiolibri non sono attualmente supportati per la conversione.",
+            "podcast_badge": "Podcast",
+            "audiobook_badge": "Audiolibro",
+            "podcast_share_opening": "Podcast rilevato – apertura originale...",
+        
         ],
         "pt": [
             "settings_share_app": "Compartilhar SongFlip",
@@ -942,6 +998,13 @@ enum LocalizationManager {
             "playlist_badge": "Playlist",
             "playlist_banner_action_open": "Abrir %@ no original",
             "playlist_share_opening": "Playlist detectada – abrindo original...",
+            "podcast_dialog_title": "Podcast detectado",
+            "audiobook_dialog_title": "Audiolivro detectado",
+            "podcast_dialog_body": "O SongFlip é especializado em músicas e álbuns. Podcasts e audiolivros não são suportados para conversão no momento.",
+            "podcast_badge": "Podcast",
+            "audiobook_badge": "Audiolivro",
+            "podcast_share_opening": "Podcast detectado – abrindo original...",
+        
         ],
         "pl": [
             "settings_share_app": "Udostępnij SongFlip",
@@ -1036,6 +1099,13 @@ enum LocalizationManager {
             "playlist_badge": "Playlista",
             "playlist_banner_action_open": "Otwórz %@ w oryginale",
             "playlist_share_opening": "Wykryto playlistę – otwieranie oryginału...",
+            "podcast_dialog_title": "Wykryto podcast",
+            "audiobook_dialog_title": "Wykryto audiobook",
+            "podcast_dialog_body": "SongFlip specjalizuje się w utworach muzycznych i albumach. Podcasty i audiobooki nie są obecnie obsługiwane.",
+            "podcast_badge": "Podcast",
+            "audiobook_badge": "Audiobook",
+            "podcast_share_opening": "Wykryto podcast – otwieranie oryginału...",
+        
         ],
         "ru": [
             "settings_share_app": "Поделиться SongFlip",
@@ -1130,6 +1200,13 @@ enum LocalizationManager {
             "playlist_badge": "Плейлист",
             "playlist_banner_action_open": "Открыть %@ в оригинале",
             "playlist_share_opening": "Обнаружен плейлист – открывается оригинал...",
+            "podcast_dialog_title": "Обнаружен подкаст",
+            "audiobook_dialog_title": "Обнаружена аудиокнига",
+            "podcast_dialog_body": "SongFlip специализируется на музыкальных треках и альбомах. Подкасты и аудиокниги в настоящее время не поддерживаются.",
+            "podcast_badge": "Подкаст",
+            "audiobook_badge": "Аудиокнига",
+            "podcast_share_opening": "Обнаружен подкаст – открываем оригинал...",
+        
         ],
         "tr": [
             "settings_share_app": "SongFlip’i Paylaş",
@@ -1224,6 +1301,13 @@ enum LocalizationManager {
             "playlist_badge": "Çalma Listesi",
             "playlist_banner_action_open": "%@ Orijinalde Aç",
             "playlist_share_opening": "Çalma listesi algılandı – orijinal açılıyor...",
+            "podcast_dialog_title": "Podcast Algılandı",
+            "audiobook_dialog_title": "Sesli Kitap Algılandı",
+            "podcast_dialog_body": "SongFlip müzik parçaları ve albümler konusunda uzmanlaşmıştır. Podcastler ve sesli kitaplar şu anda desteklenmemektedir.",
+            "podcast_badge": "Podcast",
+            "audiobook_badge": "Sesli Kitap",
+            "podcast_share_opening": "Podcast algılandı – orijinal açılıyor...",
+        
         ],
         "uk": [
             "settings_share_app": "Поділитися SongFlip",
@@ -1318,6 +1402,13 @@ enum LocalizationManager {
             "playlist_badge": "Плейліст",
             "playlist_banner_action_open": "Відкрити %@ в оригіналі",
             "playlist_share_opening": "Виявлено плейліст – відкривається оригінал...",
+            "podcast_dialog_title": "Виявлено подкаст",
+            "audiobook_dialog_title": "Виявлено аудіокнигу",
+            "podcast_dialog_body": "SongFlip спеціалізується на музичних треках та альбомах. Подкасти та аудіокниги наразі не підтримуються.",
+            "podcast_badge": "Подкаст",
+            "audiobook_badge": "Аудіокнига",
+            "podcast_share_opening": "Виявлено подкаст – відкриваємо оригінал...",
+        
         ],
         "ja": [
             "settings_share_app": "SongFlipを共有",
@@ -1412,6 +1503,13 @@ enum LocalizationManager {
             "playlist_badge": "プレイリスト",
             "playlist_banner_action_open": "%@で直接開く",
             "playlist_share_opening": "プレイリストを検出しました – 元のアプリで開いています...",
+            "podcast_dialog_title": "ポッドキャストを検出しました",
+            "audiobook_dialog_title": "オーディオブックを検出しました",
+            "podcast_dialog_body": "SongFlipは楽曲とアルバムに特化しています。ポッドキャストおよびオーディオブックは現在変換に対応していません。",
+            "podcast_badge": "ポッドキャスト",
+            "audiobook_badge": "オーディオブック",
+            "podcast_share_opening": "ポッドキャストを検出 – オリジナルを開いています...",
+        
         ],
         "ko": [
             "settings_share_app": "SongFlip 공유하기",
@@ -1506,6 +1604,13 @@ enum LocalizationManager {
             "playlist_badge": "재생목록",
             "playlist_banner_action_open": "%@ 원본으로 열기",
             "playlist_share_opening": "재생목록 감지됨 – 원본 열기 중...",
+            "podcast_dialog_title": "팟캐스트 감지됨",
+            "audiobook_dialog_title": "오디오북 감지됨",
+            "podcast_dialog_body": "SongFlip은 음악 트랙 및 앨범에 특화되어 있습니다. 팟캐스트와 오디오북은 현재 변환을 지원하지 않습니다.",
+            "podcast_badge": "팟캐스트",
+            "audiobook_badge": "오디오북",
+            "podcast_share_opening": "팟캐스트 감지됨 – 원본 여는 중...",
+        
         ],
         "zh": [
             "settings_share_app": "分享 SongFlip",
@@ -1788,6 +1893,13 @@ enum LocalizationManager {
             "playlist_badge": "Danh sách phát",
             "playlist_banner_action_open": "Mở %@ bản gốc",
             "playlist_share_opening": "Đã phát hiện danh sách phát – đang mở bản gốc...",
+            "podcast_dialog_title": "Đã phát hiện Podcast",
+            "audiobook_dialog_title": "Đã phát hiện Sách nói",
+            "podcast_dialog_body": "SongFlip chuyên về các bản nhạc và album. Podcast và sách nói hiện chưa được hỗ trợ chuyển đổi.",
+            "podcast_badge": "Podcast",
+            "audiobook_badge": "Sách nói",
+            "podcast_share_opening": "Đã phát hiện podcast – đang mở bản gốc...",
+        
         ],
         "bn": [
             "settings_share_app": "SongFlip শেয়ার করুন",
@@ -1882,6 +1994,13 @@ enum LocalizationManager {
             "playlist_badge": "প্লেলিস্ট",
             "playlist_banner_action_open": "%@ মূল অ্যাপে খুলুন",
             "playlist_share_opening": "প্লেলিস্ট সনাক্ত হয়েছে – মূল লিঙ্ক খোলা হচ্ছে...",
+            "podcast_dialog_title": "পডকাস্ট সনাক্ত হয়েছে",
+            "audiobook_dialog_title": "অডিওবুক সনাক্ত হয়েছে",
+            "podcast_dialog_body": "SongFlip সঙ্গীত ট্র্যাক এবং অ্যালবামে বিশেষজ্ঞ। পডকাস্ট এবং অডিওবুক বর্তমানে সমর্থित নয়।",
+            "podcast_badge": "পডকাস্ট",
+            "audiobook_badge": "অডিওবুক",
+            "podcast_share_opening": "পডকাস্ট সনাক্ত হয়েছে – মূল লিঙ্ক খোলা হচ্ছে...",
+        
         ],
         "hi": [
             "settings_share_app": "SongFlip शेयर करें",
@@ -1976,6 +2095,13 @@ enum LocalizationManager {
             "playlist_badge": "प्लेलिस्ट",
             "playlist_banner_action_open": "%@ मूल में खोलें",
             "playlist_share_opening": "प्लेलिस्ट पहचानी गई – मूल खोला जा रहा है...",
+            "podcast_dialog_title": "पॉडकास्ट पहचाना गया",
+            "audiobook_dialog_title": "ऑडियोबुक पहचानी गई",
+            "podcast_dialog_body": "SongFlip संगीत ट्रैक और एल्बम के लिए विशिष्ट है। पॉडकास्ट और ऑडियोबुक वर्तमान में समर्थित नहीं हैं।",
+            "podcast_badge": "पॉडकास्ट",
+            "audiobook_badge": "ऑडियोबुक",
+            "podcast_share_opening": "पॉडकास्ट पहचाना गया – मूल लिंक खोला जा रहा है...",
+        
         ],
         "mr": [
             "settings_share_app": "SongFlip शेअर करा",
@@ -2070,6 +2196,13 @@ enum LocalizationManager {
             "playlist_badge": "प्लेलिस्ट",
             "playlist_banner_action_open": "%@ मूळमध्ये उघडा",
             "playlist_share_opening": "प्लेलिस्ट आढळली – मूळ उघडत आहे...",
+            "podcast_dialog_title": "पॉडकास्ट आढळले",
+            "audiobook_dialog_title": "ऑडिओबुक आढळले",
+            "podcast_dialog_body": "SongFlip गाणी आणि अल्बमसाठी विशेषीकृत आहे. पॉडकास्ट आणि ऑडिओबुक सध्या समर्थित नाहीत.",
+            "podcast_badge": "पॉडकास्ट",
+            "audiobook_badge": "ऑडिओबुक",
+            "podcast_share_opening": "पॉडकास्ट आढळले – मूळ उघडत आहे...",
+        
         ]
     ]
 

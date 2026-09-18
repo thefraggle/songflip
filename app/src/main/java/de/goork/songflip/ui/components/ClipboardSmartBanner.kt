@@ -7,8 +7,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.automirrored.outlined.QueueMusic
+import androidx.compose.material.icons.outlined.AutoStories
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.ContentPaste
+import androidx.compose.material.icons.outlined.Mic
 import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.*
@@ -34,7 +36,10 @@ fun ClipboardSmartBanner(
     onDismiss: () -> Unit,
     isPro: Boolean = false,
     isPlaylist: Boolean = false,
+    isPodcastOrAudiobook: Boolean = false,
+    isAudiobook: Boolean = false,
     onOpenPlaylist: ((String) -> Unit)? = null,
+    onOpenPodcast: ((String) -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     val haptic = LocalHapticFeedback.current
@@ -43,16 +48,19 @@ fun ClipboardSmartBanner(
     Card(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
-            containerColor = if (isPlaylist) {
-                MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.35f)
-            } else {
-                MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.35f)
+            containerColor = when {
+                isPlaylist -> MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.35f)
+                isPodcastOrAudiobook -> MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.35f)
+                else -> MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.35f)
             }
         ),
         border = BorderStroke(
             1.dp,
-            if (isPlaylist) MaterialTheme.colorScheme.tertiary.copy(alpha = 0.4f)
-            else MaterialTheme.colorScheme.primary.copy(alpha = 0.4f)
+            when {
+                isPlaylist -> MaterialTheme.colorScheme.tertiary.copy(alpha = 0.4f)
+                isPodcastOrAudiobook -> MaterialTheme.colorScheme.secondary.copy(alpha = 0.4f)
+                else -> MaterialTheme.colorScheme.primary.copy(alpha = 0.4f)
+            }
         ),
         modifier = modifier.fillMaxWidth()
     ) {
@@ -71,14 +79,32 @@ fun ClipboardSmartBanner(
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
                     modifier = Modifier.weight(1f)
                 ) {
+                    val headerIcon = when {
+                        isPlaylist -> Icons.AutoMirrored.Outlined.QueueMusic
+                        isAudiobook -> Icons.Outlined.AutoStories
+                        isPodcastOrAudiobook -> Icons.Outlined.Mic
+                        else -> Icons.Outlined.ContentPaste
+                    }
+                    val headerTint = when {
+                        isPlaylist -> MaterialTheme.colorScheme.tertiary
+                        isPodcastOrAudiobook -> MaterialTheme.colorScheme.secondary
+                        else -> MaterialTheme.colorScheme.primary
+                    }
+                    val headerTitleRes = when {
+                        isPlaylist -> R.string.playlist_dialog_title
+                        isAudiobook -> R.string.audiobook_dialog_title
+                        isPodcastOrAudiobook -> R.string.podcast_dialog_title
+                        else -> R.string.clipboard_banner_title
+                    }
+
                     Icon(
-                        imageVector = if (isPlaylist) Icons.AutoMirrored.Outlined.QueueMusic else Icons.Outlined.ContentPaste,
+                        imageVector = headerIcon,
                         contentDescription = null,
-                        tint = if (isPlaylist) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary,
+                        tint = headerTint,
                         modifier = Modifier.size(20.dp)
                     )
                     Text(
-                        text = stringResource(if (isPlaylist) R.string.playlist_dialog_title else R.string.clipboard_banner_title),
+                        text = stringResource(headerTitleRes),
                         style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
                         color = MaterialTheme.colorScheme.onSurface
                     )
@@ -100,7 +126,7 @@ fun ClipboardSmartBanner(
                 }
             }
 
-            // URL Snippet with Platform Badge and optional Playlist Badge
+            // URL Snippet with Platform Badge and optional Playlist/Podcast Badge
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -126,6 +152,18 @@ fun ClipboardSmartBanner(
                             text = stringResource(R.string.playlist_badge),
                             style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
                             color = MaterialTheme.colorScheme.tertiary,
+                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                        )
+                    }
+                } else if (isPodcastOrAudiobook) {
+                    Surface(
+                        shape = RoundedCornerShape(6.dp),
+                        color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.2f)
+                    ) {
+                        Text(
+                            text = stringResource(if (isAudiobook) R.string.audiobook_badge else R.string.podcast_badge),
+                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                            color = MaterialTheme.colorScheme.secondary,
                             modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
                         )
                     }
@@ -157,6 +195,33 @@ fun ClipboardSmartBanner(
                         colors = androidx.compose.material3.ButtonDefaults.buttonColors(
                             containerColor = MaterialTheme.colorScheme.tertiary,
                             contentColor = MaterialTheme.colorScheme.onTertiary
+                        ),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Outlined.OpenInNew,
+                            contentDescription = null,
+                            modifier = Modifier.size(16.dp)
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = stringResource(R.string.playlist_banner_action_open, platformName),
+                            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                } else if (isPodcastOrAudiobook) {
+                    Button(
+                        onClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                            onOpenPodcast?.invoke(musicUrl) ?: onOpenInTarget(musicUrl)
+                        },
+                        shape = RoundedCornerShape(10.dp),
+                        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
+                        colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.secondary,
+                            contentColor = MaterialTheme.colorScheme.onSecondary
                         ),
                         modifier = Modifier.fillMaxWidth()
                     ) {
