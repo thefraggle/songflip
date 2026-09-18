@@ -1909,7 +1909,7 @@ async function resolveSongLive(url: string): Promise<SongMetadata | null> {
 export const resolve = onRequest(
   {
     region: "europe-west3",
-    memory: "256MiB",
+    memory: "512MiB",
     maxInstances: 20,
     timeoutSeconds: 15,
     cors: true,
@@ -2117,7 +2117,7 @@ export const resolve = onRequest(
 export const ingest = onRequest(
   {
     region: "europe-west3",
-    memory: "256MiB",
+    memory: "512MiB",
     maxInstances: 20,
     timeoutSeconds: 15,
     cors: true,
@@ -2508,7 +2508,7 @@ export const redeemPromoCode = onRequest(
  * Health check endpoint
  */
 export const health = onRequest(
-  { region: "europe-west3", memory: "128MiB", cors: true, invoker: "public" },
+  { region: "europe-west3", memory: "256MiB", cors: true, invoker: "public" },
   async (_req, res) => {
     applyApiSecurityHeaders(res);
     res.status(200).json({ status: "ok", service: "SongFlip L2 Cache Engine", timestamp: Date.now() });
@@ -2799,7 +2799,7 @@ function getWebShareI18n(header?: string): WebShareI18n {
 export const renderWebShare = onRequest(
   {
     region: "europe-west3",
-    memory: "256MiB",
+    memory: "512MiB",
     timeoutSeconds: 15,
     cors: true,
     invoker: "public",

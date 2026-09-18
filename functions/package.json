@@ -9,6 +9,8 @@
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
+    "postdeploy": "python3 ../scripts/warmup_backend.py",
+    "warmup": "python3 ../scripts/warmup_backend.py",
     "logs": "firebase functions:log"
   },
   "engines": {
