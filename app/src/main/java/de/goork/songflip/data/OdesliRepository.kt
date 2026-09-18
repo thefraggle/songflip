@@ -33,7 +33,19 @@ sealed class OdesliResult {
     data class Error(val message: String) : OdesliResult()
 }
 
-class OdesliRepository {
+class OdesliRepository(
+    private val client: OkHttpClient = defaultClient
+) {
+    companion object {
+        val defaultClient: OkHttpClient by lazy {
+            OkHttpClient.Builder()
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
+                .followRedirects(true)
+                .followSslRedirects(true)
+                .build()
+        }
+    }
 
     private val backgroundScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
@@ -110,13 +122,6 @@ class OdesliRepository {
             links = links
         )
     }
-
-    private val client = OkHttpClient.Builder()
-        .connectTimeout(10, TimeUnit.SECONDS)
-        .readTimeout(10, TimeUnit.SECONDS)
-        .followRedirects(true)
-        .followSslRedirects(true)
-        .build()
 
     private val urlPattern = Pattern.compile("(https?://[^\\s<>'\"]+)")
     private val ytVideoRendererPattern = Pattern.compile("\"videoRenderer\":\\{\"videoId\":\"([a-zA-Z0-9_-]{11})\"")

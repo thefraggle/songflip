@@ -4,13 +4,169 @@ import de.goork.songflip.data.LinkCacheManager
 import de.goork.songflip.data.OdesliRepository
 import de.goork.songflip.data.OdesliResult
 import kotlinx.coroutines.runBlocking
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.Protocol
+import okhttp3.Response
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 
 class OdesliRepositoryTest {
 
-    private val repository = OdesliRepository()
+    private val mockClient = OkHttpClient.Builder()
+        .addInterceptor { chain ->
+            val request = chain.request()
+            val url = request.url.toString()
+
+            val responseBody = when {
+                url.contains("song.link") || url.contains("album.link") || url.contains("odesli") -> {
+                    val isEngst = url.contains("7JRnqsOyndSyuafJxCwDXJ")
+                    val isLetzterTanz = url.contains("5zV9lK1r4EaEWxtlLdVM73")
+                    val isAppleSongAlbum = url.contains("1525933483") || url.contains("1525933492")
+                    val title = when {
+                        isEngst -> "Gästeliste + 1"
+                        isLetzterTanz -> "Letzter Tanz"
+                        isAppleSongAlbum -> "Don't Look Back In Anger"
+                        else -> "Bohemian Rhapsody"
+                    }
+                    val artist = when {
+                        isEngst -> "ENGST"
+                        isLetzterTanz -> "Sondaschule"
+                        isAppleSongAlbum -> "Oasis"
+                        else -> "Queen"
+                    }
+                    val videoId = when {
+                        isEngst -> "mock_engst_1"
+                        isLetzterTanz -> "mock_letzter"
+                        isAppleSongAlbum -> "mock_oasis_1"
+                        else -> "mock_yt_123"
+                    }
+                    val isAlbum = (url.contains("/album/") || url.contains("album.link")) && !url.contains("?i=") && !url.contains("track")
+                    val json = """
+                    {
+                      "props": {
+                        "pageProps": {
+                          "pageData": {
+                            "pageId": "s/mock",
+                            "entityUniqueId": "YOUTUBE_VIDEO::$videoId",
+                            "entityData": {
+                              "title": "$title",
+                              "artistName": "$artist",
+                              "type": "${if (isAlbum) "album" else "song"}"
+                            },
+                            "linksByPlatform": {
+                              "youtubeMusic": {
+                                "url": "https://music.youtube.com/watch?v=$videoId"
+                              },
+                              "spotify": {
+                                "url": "https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv"
+                              },
+                              "appleMusic": {
+                                "url": "https://music.apple.com/de/album/bohemian-rhapsody/1440650428?i=1440650711"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                    """.trimIndent()
+                    """
+                    <!DOCTYPE html>
+                    <html>
+                    <body>
+                      <script id="__NEXT_DATA__" type="application/json">$json</script>
+                    </body>
+                    </html>
+                    """.trimIndent()
+                }
+                url.contains("music.amazon.") -> {
+                    """
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                      <meta property="og:title" content="Get Lucky" />
+                      <meta property="og:type" content="music.song" />
+                      <meta property="music:musician" content="Daft Punk" />
+                    </head>
+                    <body></body>
+                    </html>
+                    """.trimIndent()
+                }
+                url.contains("music.youtube.com") || url.contains("youtube.com") -> {
+                    """
+                    <!DOCTYPE html>
+                    <html>
+                    <body>
+                      <script>var data = {"videoRenderer":{"videoId":"mock_yt_123"}};</script>
+                    </body>
+                    </html>
+                    """.trimIndent()
+                }
+                url.contains("itunes.apple.com") -> {
+                    """
+                    {
+                      "resultCount": 1,
+                      "results": [
+                        {
+                          "trackId": 1440650711,
+                          "trackName": "Bohemian Rhapsody",
+                          "artistName": "Queen",
+                          "collectionName": "A Night at the Opera"
+                        }
+                      ]
+                    }
+                    """.trimIndent()
+                }
+                url.contains("api.deezer.com") -> {
+                    """
+                    {
+                      "id": 9997018,
+                      "title": "Mock Song",
+                      "artist": { "name": "Mock Artist" },
+                      "album": { "title": "Mock Album" }
+                    }
+                    """.trimIndent()
+                }
+                else -> {
+                    """
+                    <!DOCTYPE html>
+                    <html>
+                    <body>
+                      <script id="__NEXT_DATA__" type="application/json">
+                      {
+                        "props": {
+                          "pageProps": {
+                            "pageData": {
+                              "entityData": { "title": "Mock Song", "artistName": "Mock Artist", "type": "song" },
+                              "linksByPlatform": {
+                                "youtubeMusic": { "url": "https://music.youtube.com/watch?v=mock_yt_123" }
+                              }
+                            }
+                          }
+                        }
+                      }
+                      </script>
+                    </body>
+                    </html>
+                    """.trimIndent()
+                }
+            }
+
+            val contentType = "text/html; charset=utf-8".toMediaType()
+
+            Response.Builder()
+                .request(request)
+                .protocol(Protocol.HTTP_1_1)
+                .code(200)
+                .message("OK")
+                .body(responseBody.toResponseBody(contentType))
+                .build()
+        }
+        .build()
+
+    private val repository = OdesliRepository(mockClient)
 
     @Before
     fun setUp() {

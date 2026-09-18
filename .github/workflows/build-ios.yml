@@ -73,6 +73,7 @@ jobs:
           BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
           P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
           BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
+          BUILD_PROVISION_PROFILE_SHARE_EXT_BASE64: ${{ secrets.BUILD_PROVISION_PROFILE_SHARE_EXT_BASE64 }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD || 'temporary-ci-password-123' }}
         run: |
           if [ -n "$BUILD_CERTIFICATE_BASE64" ] && [ -n "$BUILD_PROVISION_PROFILE_BASE64" ]; then
@@ -101,6 +102,19 @@ jobs:
 
             echo "PROVISIONING_PROFILE_UUID=$UUID" >> $GITHUB_ENV
             echo "PROVISIONING_PROFILE_NAME=$PROFILE_NAME" >> $GITHUB_ENV
+
+            if [ -n "$BUILD_PROVISION_PROFILE_SHARE_EXT_BASE64" ]; then
+              PP_EXT_PATH=$RUNNER_TEMP/build_pp_ext.mobileprovision
+              echo -n "$BUILD_PROVISION_PROFILE_SHARE_EXT_BASE64" | base64 --decode -o "$PP_EXT_PATH"
+              UUID_EXT=$(security cms -D -i "$PP_EXT_PATH" | plutil -extract UUID raw -)
+              PROFILE_EXT_NAME=$(security cms -D -i "$PP_EXT_PATH" | plutil -extract Name raw -)
+              echo "Share Extension Provisioning Profile UUID: $UUID_EXT"
+              echo "Share Extension Provisioning Profile Name: $PROFILE_EXT_NAME"
+              cp "$PP_EXT_PATH" ~/Library/MobileDevice/Provisioning\ Profiles/"${UUID_EXT}".mobileprovision
+              echo "PROVISIONING_PROFILE_EXT_UUID=$UUID_EXT" >> $GITHUB_ENV
+              echo "PROVISIONING_PROFILE_EXT_NAME=$PROFILE_EXT_NAME" >> $GITHUB_ENV
+            fi
+
             echo "HAVE_SIGNING=true" >> $GITHUB_ENV
           else
             echo "Signing secrets not configured. Building unsigned / simulator archive."
@@ -110,15 +124,14 @@ jobs:
       - name: Build and Archive iOS App (.xcarchive)
         run: |
           if [ "$HAVE_SIGNING" = "true" ]; then
-            echo "Archiving with Provisioning Profile: $PROVISIONING_PROFILE_NAME"
+            echo "Archiving with Main Profile: $PROVISIONING_PROFILE_NAME, Ext Profile: $PROVISIONING_PROFILE_EXT_NAME"
             xcodebuild archive \
               -project iosApp/SongFlip/SongFlip.xcodeproj \
               -scheme SongFlip \
               -configuration Release \
               -archivePath $RUNNER_TEMP/SongFlip.xcarchive \
               CODE_SIGN_STYLE=Manual \
-              CODE_SIGN_IDENTITY="Apple Distribution" \
-              PROVISIONING_PROFILE_SPECIFIER="$PROVISIONING_PROFILE_NAME"
+              CODE_SIGN_IDENTITY="Apple Distribution"
           else
             xcodebuild archive \
               -project iosApp/SongFlip/SongFlip.xcodeproj \
@@ -148,6 +161,8 @@ jobs:
             <dict>
               <key>de.goork.SongFlip</key>
               <string>${PROVISIONING_PROFILE_NAME}</string>
+              <key>de.goork.SongFlip.ShareExtension</key>
+              <string>${PROVISIONING_PROFILE_EXT_NAME}</string>
             </dict>
           </dict>
           </plist>
