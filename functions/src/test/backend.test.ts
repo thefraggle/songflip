@@ -467,13 +467,12 @@ describe("Backend Helper Tests", () => {
       assert.equal(detectPlatformFromUrl("https://artist.bandcamp.com/album/test"), "Bandcamp");
     });
   });
-
   describe("Promo Code Campaign Extraction & Apple Music Preview Lookup", () => {
-    it("should match MYDEALZ in surrounding text", () => {
-      const sentence = "Nutzt am Wochenende den Code MYDEALZ in der SongFlip App!";
-      const match = sentence.match(/\b(BETALIST|PEERPUSH|FOUNDER-?PASS|NEO-?FOUNDER|SONGFLIP_[A-Z0-9_]+|MYDEALZ)\b/i);
-      assert.ok(match, "Should match MYDEALZ in text");
-      assert.equal(match[1].toUpperCase(), "MYDEALZ");
+    it("should match campaign code in surrounding text", () => {
+      const sentence = "Nutzt den Code BETALIST in der SongFlip App!";
+      const match = sentence.match(/\b(BETALIST|PEERPUSH|FOUNDER-?PASS|NEO-?FOUNDER|SONGFLIP_[A-Z0-9_]+)\b/i);
+      assert.ok(match, "Should match BETALIST in text");
+      assert.equal(match[1].toUpperCase(), "BETALIST");
     });
 
     it("should resolve audio preview via Apple Music ID lookup", async () => {

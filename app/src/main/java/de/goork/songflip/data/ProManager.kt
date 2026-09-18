@@ -263,7 +263,7 @@ object ProManager {
         customFlipRegex.find(trimmed)?.let { return it.value.uppercase() }
 
         // Priority 3: Match known campaign word codes in longer text
-        val campaignRegex = Regex("""\b(BETALIST|PEERPUSH|FOUNDER-?PASS|NEO-?FOUNDER|SONGFLIP_[A-Z0-9_]+|MYDEALZ)\b""", RegexOption.IGNORE_CASE)
+        val campaignRegex = Regex("""\b(BETALIST|PEERPUSH|FOUNDER-?PASS|NEO-?FOUNDER|SONGFLIP_[A-Z0-9_]+)\b""", RegexOption.IGNORE_CASE)
         campaignRegex.find(trimmed)?.let { return it.value.uppercase() }
 
         // Fallback: If no match inside text, return cleaned input (no whitespace)

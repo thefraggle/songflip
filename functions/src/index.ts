@@ -2377,7 +2377,7 @@ export const redeemPromoCode = onRequest(
     if (flipMatch) {
       inputStr = flipMatch[1];
     } else {
-      const knownMatch = inputStr.match(/\b(BETALIST|PEERPUSH|FOUNDER-?PASS|NEO-?FOUNDER|SONGFLIP_[A-Z0-9_]+|MYDEALZ)\b/i);
+      const knownMatch = inputStr.match(/\b(BETALIST|PEERPUSH|FOUNDER-?PASS|NEO-?FOUNDER|SONGFLIP_[A-Z0-9_]+)\b/i);
       if (knownMatch) {
         inputStr = knownMatch[1];
       }
@@ -2552,14 +2552,6 @@ export const seedPromoCodes = onRequest(
       { code: "FOUNDERPASS", type: "1week", durationDays: 7, maxRedemptions: 999999, allowMultiplePerDevice: true },
       { code: "NEO-FOUNDER", type: "1week", durationDays: 7, maxRedemptions: 999999, allowMultiplePerDevice: true },
       { code: "NEOFOUNDER", type: "1week", durationDays: 7, maxRedemptions: 999999, allowMultiplePerDevice: true },
-      {
-        code: "MYDEALZ",
-        type: "1year",
-        durationDays: 365,
-        maxRedemptions: 5000,
-        allowMultiplePerDevice: false,
-        validUntil: admin.firestore.Timestamp.fromDate(new Date("2026-09-20T23:59:59Z")),
-      },
     ];
 
     try {
