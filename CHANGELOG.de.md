@@ -1,7 +1,8 @@
 # Changelog (Deutsch)
 
 ## [1.3.11] - 2026-09-18
-- **Optimierte DEX-Codeverschleierung**: ProGuard- und R8-Regeln für maximale Code-Optimierung, schlankere App-Größe und Erfüllung der Google Play Vitals Grenzwerte bereinigt.
+- **Schlanker & Schneller**: Optimierter App-Aufbau für schnellere Ladezeiten und einen noch geringeren Speicherbedarf auf deinem Gerät.
+- **Flüssigere Bedienung**: Feinschliff im Hintergrund für noch stabilere und verzögerungsfreie Weiterleitungen.
 
 ## [1.3.10] - 2026-09-18
 - **Hilfreiche Link-Führung**: Links zu Podcasts und Hörbüchern werden jetzt klar als nicht unterstützt erkannt, mit direkten Optionen zum Öffnen in der Original-App.
