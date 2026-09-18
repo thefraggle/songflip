@@ -238,12 +238,12 @@ fun ClipboardSmartBanner(
 fun detectSourcePlatformName(url: String): String {
     val lower = url.lowercase()
     return when {
-        lower.contains("spotify.com") || lower.contains("spotify.link") -> "Spotify"
-        lower.contains("apple.com") || lower.contains("apple.co") -> "Apple Music"
+        lower.contains("spotify.com") || lower.contains("spotify.link") || lower.contains("spotify.app.link") || lower.contains("spoti.fi") -> "Spotify"
+        lower.contains("apple.com") || lower.contains("apple.co") || lower.contains("itun.es") -> "Apple Music"
         lower.contains("youtube.com") || lower.contains("youtu.be") -> "YouTube Music"
-        lower.contains("deezer.com") || lower.contains("deezer.page.link") -> "Deezer"
-        lower.contains("tidal.com") -> "Tidal"
-        lower.contains("amazon.") || lower.contains("amzn.to") || lower.contains("a.co") -> "Amazon Music"
+        lower.contains("deezer.com") || lower.contains("deezer.page.link") || lower.contains("link.deezer.com") -> "Deezer"
+        lower.contains("tidal.com") || lower.contains("tidal.link") -> "Tidal"
+        lower.contains("amazon.") || lower.contains("amzn.to") || lower.contains("amzn.eu") || lower.contains("amzn.asia") || lower.contains("a.co") -> "Amazon Music"
         lower.contains("soundcloud.com") || lower.contains("on.soundcloud.com") -> "SoundCloud"
         lower.contains("bandcamp.com") -> "Bandcamp"
         lower.contains("song.link") || lower.contains("album.link") || lower.contains("odesli.co") -> "Universal Link"
@@ -259,9 +259,12 @@ fun isSupportedMusicUrl(text: String): Boolean {
     val lower = clean.lowercase()
     return lower.contains("spotify.com") ||
            lower.contains("spotify.link") ||
+           lower.contains("spotify.app.link") ||
+           lower.contains("spoti.fi") ||
            lower.contains("music.apple.com") ||
            lower.contains("apple.co/") ||
            lower.contains("://apple.co") ||
+           lower.contains("itun.es") ||
            lower.contains("music.youtube.com") ||
            lower.contains("youtube.com/watch") ||
            lower.contains("youtu.be/") ||
@@ -269,8 +272,11 @@ fun isSupportedMusicUrl(text: String): Boolean {
            lower.contains("deezer.page.link") ||
            lower.contains("link.deezer.com") ||
            lower.contains("tidal.com") ||
+           lower.contains("tidal.link") ||
            lower.contains("amazon.") ||
            lower.contains("amzn.to") ||
+           lower.contains("amzn.eu") ||
+           lower.contains("amzn.asia") ||
            lower.contains("a.co/") ||
            lower.contains("://a.co") ||
            lower.contains("soundcloud.com") ||

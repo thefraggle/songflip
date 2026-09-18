@@ -245,14 +245,14 @@ object PackageUtils {
     fun detectPlatformFromUrl(url: String): String {
         val lower = url.lowercase()
         return when {
-            lower.contains("spotify.com") || lower.startsWith("spotify:") -> "spotify"
-            lower.contains("apple.com") || lower.contains("itunes.apple.com") -> "appleMusic"
+            lower.contains("spotify.com") || lower.contains("spotify.link") || lower.contains("spotify.app.link") || lower.contains("spoti.fi") || lower.startsWith("spotify:") -> "spotify"
+            lower.contains("apple.com") || lower.contains("itunes.apple.com") || lower.contains("apple.co") || lower.contains("itun.es") -> "appleMusic"
             lower.contains("music.youtube.com") -> "youtubeMusic"
             lower.contains("youtube.com") || lower.contains("youtu.be") -> "youtubeMusic"
-            lower.contains("tidal.com") || lower.startsWith("tidal:") -> "tidal"
-            lower.contains("deezer.com") || lower.startsWith("deezer:") -> "deezer"
-            lower.contains("amazon.") || lower.contains("amzn.to") || lower.contains("a.co") -> "amazonMusic"
-            lower.contains("soundcloud.com") || lower.startsWith("soundcloud:") -> "soundcloud"
+            lower.contains("tidal.com") || lower.contains("tidal.link") || lower.startsWith("tidal:") -> "tidal"
+            lower.contains("deezer.com") || lower.contains("deezer.page.link") || lower.contains("link.deezer.com") || lower.startsWith("deezer:") -> "deezer"
+            lower.contains("amazon.") || lower.contains("amzn.to") || lower.contains("amzn.eu") || lower.contains("amzn.asia") || lower.contains("a.co") -> "amazonMusic"
+            lower.contains("soundcloud.com") || lower.contains("on.soundcloud.com") || lower.startsWith("soundcloud:") -> "soundcloud"
             lower.contains("bandcamp.com") || lower.startsWith("bandcamp:") -> "bandcamp"
             lower.contains("shazam.com") -> "shazam"
             else -> ""

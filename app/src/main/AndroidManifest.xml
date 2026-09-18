@@ -156,6 +156,8 @@
                 <data android:scheme="https" />
                 <data android:host="open.spotify.com" />
                 <data android:host="spotify.link" />
+                <data android:host="spotify.app.link" />
+                <data android:host="spoti.fi" />
             </intent-filter>
 
             <!-- Apple Music URL Interception -->
@@ -190,7 +192,9 @@
                 <data android:scheme="http" />
                 <data android:scheme="https" />
                 <data android:host="tidal.com" />
+                <data android:host="www.tidal.com" />
                 <data android:host="listen.tidal.com" />
+                <data android:host="tidal.link" />
             </intent-filter>
 
             <!-- Deezer URL Interception -->
@@ -202,6 +206,7 @@
                 <data android:scheme="https" />
                 <data android:host="deezer.com" />
                 <data android:host="www.deezer.com" />
+                <data android:host="m.deezer.com" />
                 <data android:host="deezer.page.link" />
                 <data android:host="link.deezer.com" />
             </intent-filter>
@@ -222,10 +227,16 @@
                 <data android:host="music.amazon.es" />
                 <data android:host="music.amazon.co.jp" />
                 <data android:host="music.amazon.com.au" />
+                <data android:host="music.amazon.nz" />
                 <data android:host="music.amazon.in" />
                 <data android:host="music.amazon.com.br" />
                 <data android:host="music.amazon.com.mx" />
+                <data android:host="music.amazon.ae" />
+                <data android:host="music.amazon.sa" />
+                <data android:host="music.amazon.eg" />
                 <data android:host="amzn.to" />
+                <data android:host="amzn.eu" />
+                <data android:host="amzn.asia" />
                 <data android:host="a.co" />
             </intent-filter>
 

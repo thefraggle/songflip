@@ -1,7 +1,7 @@
 # Changelog
 
 ## [1.3.9] - 2026-09-18
-- **Expanded Regional Music Support**: Added full recognition and redirect support for international Amazon Music domains (including Canada, Australia, Japan, India, Brazil, and Mexico).
+- **Expanded Global Music Links**: Comprehensive support for international streaming links across Spotify (spoti.fi, deep-links), Tidal (www, tidal.link), Deezer, and Amazon Music (Canada, Australia, Japan, UAE, Saudi Arabia, Egypt, and global share links).
 - **Smarter Album Detection**: Improved album and track routing for Amazon Music releases with seamless multi-platform conversion.
 
 ## [1.3.8] - 2026-09-17
