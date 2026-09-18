@@ -115,6 +115,14 @@
     <string name="playlist_dialog_action_close">關閉</string>
     <string name="playlist_badge">播放清單</string>
     <string name="playlist_banner_action_open">在原始應用中打開 %1$s</string>
+    <string name="podcast_not_supported_toast">目前不支援 Podcast。</string>
+    <string name="audiobook_not_supported_toast">目前不支援有聲書。</string>
+    <string name="podcast_dialog_title">偵測到 Podcast</string>
+    <string name="audiobook_dialog_title">偵測到有聲書</string>
+    <string name="podcast_dialog_body">SongFlip 專注於音樂曲目與專輯。目前暫不支援 Podcast 與有聲書的跨平台轉換。</string>
+    <string name="podcast_badge">Podcast</string>
+    <string name="audiobook_badge">有聲書</string>
+
     <string name="theme_label">主題外觀</string>
     <string name="theme_system">跟隨系統</string>
     <string name="theme_light">淺色</string>

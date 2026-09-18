@@ -172,6 +172,18 @@ class SongLinkEngine(
                 )
             }
 
+            // Podcast & Audiobook links cannot be converted 1:1 in background
+            if (UrlUtils.isPodcastOrAudiobookUrl(canonicalUrl)) {
+                val platformKey = UrlUtils.detectPlatform(canonicalUrl)?.key ?: "unknown"
+                val isAudiobook = UrlUtils.isAudiobookUrl(canonicalUrl)
+                return ResolutionResult.PodcastOrAudiobook(
+                    originalUrl = canonicalUrl,
+                    platform = platformKey,
+                    isAudiobook = isAudiobook,
+                    message = if (isAudiobook) "AUDIOBOOK_NOT_SUPPORTED" else "PODCAST_NOT_SUPPORTED"
+                )
+            }
+
             val isExplicitAlbumUrl = UrlUtils.isAlbumUrl(canonicalUrl)
             val now = getCurrentTimeMillis()
 

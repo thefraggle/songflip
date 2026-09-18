@@ -127,6 +127,14 @@
     <string name="playlist_dialog_action_close">閉じる</string>
     <string name="playlist_badge">プレイリスト</string>
     <string name="playlist_banner_action_open">%1$sで直接開く</string>
+    <string name="podcast_not_supported_toast">ポッドキャストは現在サポートされていません。</string>
+    <string name="audiobook_not_supported_toast">オーディオブックは現在サポートされていません。</string>
+    <string name="podcast_dialog_title">ポッドキャストを検出しました</string>
+    <string name="audiobook_dialog_title">オーディオブックを検出しました</string>
+    <string name="podcast_dialog_body">SongFlipは楽曲とアルバムに特化しています。ポッドキャストおよびオーディオブックは現在変換に対応していません。</string>
+    <string name="podcast_badge">ポッドキャスト</string>
+    <string name="audiobook_badge">オーディオブック</string>
+
 
     <string name="history_title">楽曲履歴</string>
     <string name="history_subtitle">最近変換した楽曲の確認と管理</string>

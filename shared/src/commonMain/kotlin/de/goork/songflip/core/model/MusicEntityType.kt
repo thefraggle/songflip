@@ -7,6 +7,8 @@ enum class MusicEntityType {
     TRACK,
     ALBUM,
     PLAYLIST,
+    PODCAST,
+    AUDIOBOOK,
     ARTIST,
     SEARCH,
     UNKNOWN

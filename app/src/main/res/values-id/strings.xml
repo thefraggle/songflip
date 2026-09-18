@@ -127,6 +127,14 @@
     <string name="playlist_dialog_action_close">Tutup</string>
     <string name="playlist_badge">Daftar Putar</string>
     <string name="playlist_banner_action_open">Buka %1$s Asli</string>
+    <string name="podcast_not_supported_toast">Podcast saat ini belum didukung.</string>
+    <string name="audiobook_not_supported_toast">Buku audio saat ini belum didukung.</string>
+    <string name="podcast_dialog_title">Podcast Terdeteksi</string>
+    <string name="audiobook_dialog_title">Buku Audio Terdeteksi</string>
+    <string name="podcast_dialog_body">SongFlip dikhususkan untuk lagu dan album musik. Podcast dan buku audio saat ini belum didukung untuk konversi.</string>
+    <string name="podcast_badge">Podcast</string>
+    <string name="audiobook_badge">Buku Audio</string>
+
 
     <string name="history_title">Riwayat Lagu</string>
     <string name="history_subtitle">Kelola dan putar ulang lagu yang baru dikonversi</string>

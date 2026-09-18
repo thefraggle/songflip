@@ -115,6 +115,14 @@
     <string name="playlist_dialog_action_close">ปิด</string>
     <string name="playlist_badge">เพลย์ลิสต์</string>
     <string name="playlist_banner_action_open">เปิด %1$s ในต้นฉบับ</string>
+    <string name="podcast_not_supported_toast">ยังไม่รองรับพอดแคสต์ในขณะนี้</string>
+    <string name="audiobook_not_supported_toast">ยังไม่รองรับหนังสือเสียงในขณะนี้</string>
+    <string name="podcast_dialog_title">ตรวจพบพอดแคสต์</string>
+    <string name="audiobook_dialog_title">ตรวจพบหนังสือเสียง</string>
+    <string name="podcast_dialog_body">SongFlip เชี่ยวชาญด้านแทร็กเพลงและอัลบั้ม ยังไม่รองรับพอดแคสต์และหนังสือเสียงสำหรับการแปลงในขณะนี้</string>
+    <string name="podcast_badge">พอดแคสต์</string>
+    <string name="audiobook_badge">หนังสือเสียง</string>
+
     <string name="theme_label">ธีม</string>
     <string name="theme_system">ตามระบบ</string>
     <string name="theme_light">สว่าง</string>

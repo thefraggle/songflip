@@ -127,6 +127,14 @@
     <string name="playlist_dialog_action_close">닫기</string>
     <string name="playlist_badge">재생목록</string>
     <string name="playlist_banner_action_open">%1$s 원본으로 열기</string>
+    <string name="podcast_not_supported_toast">팟캐스트는 현재 지원되지 않습니다.</string>
+    <string name="audiobook_not_supported_toast">오디오북은 현재 지원되지 않습니다.</string>
+    <string name="podcast_dialog_title">팟캐스트 감지됨</string>
+    <string name="audiobook_dialog_title">오디오북 감지됨</string>
+    <string name="podcast_dialog_body">SongFlip은 음악 트랙 및 앨범에 특화되어 있습니다. 팟캐스트와 오디오북은 현재 변환을 지원하지 않습니다.</string>
+    <string name="podcast_badge">팟캐스트</string>
+    <string name="audiobook_badge">오디오북</string>
+
 
     <string name="history_title">곡 기록</string>
     <string name="history_subtitle">최근 변환된 곡 관리 및 다시 재생</string>

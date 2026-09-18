@@ -318,6 +318,17 @@ class RedirectActivity : ComponentActivity() {
                         Toast.LENGTH_LONG
                     ).show()
                     forwardOriginalUrl(incomingUri)
+                } else if (result is OdesliResult.PodcastOrAudiobook) {
+                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
+                        target = targetPlatform,
+                        reason = if (result.isAudiobook) "audiobook_detected" else "podcast_detected"
+                    )
+                    Toast.makeText(
+                        applicationContext,
+                        getString(if (result.isAudiobook) R.string.audiobook_not_supported_toast else R.string.podcast_not_supported_toast),
+                        Toast.LENGTH_LONG
+                    ).show()
+                    forwardOriginalUrl(incomingUri)
                 } else {
                     val reason = when {
                         result is OdesliResult.Error -> result.message

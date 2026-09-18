@@ -127,6 +127,14 @@
     <string name="playlist_dialog_action_close">Đóng</string>
     <string name="playlist_badge">Danh sách phát</string>
     <string name="playlist_banner_action_open">Mở %1$s bản gốc</string>
+    <string name="podcast_not_supported_toast">Podcast hiện chưa được hỗ trợ.</string>
+    <string name="audiobook_not_supported_toast">Sách nói hiện chưa được hỗ trợ.</string>
+    <string name="podcast_dialog_title">Đã phát hiện Podcast</string>
+    <string name="audiobook_dialog_title">Đã phát hiện Sách nói</string>
+    <string name="podcast_dialog_body">SongFlip chuyên về các bản nhạc và album. Podcast và sách nói hiện chưa được hỗ trợ chuyển đổi.</string>
+    <string name="podcast_badge">Podcast</string>
+    <string name="audiobook_badge">Sách nói</string>
+
 
     <string name="history_title">Lịch sử bài hát</string>
     <string name="history_subtitle">Quản lý và phát lại các bài hát đã chuyển đổi gần đây</string>

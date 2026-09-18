@@ -15,6 +15,9 @@ struct ContentView: View {
     @State private var showingShareGuide = false
     @State private var showingPlaylistNotice = false
     @State private var playlistNoticeUrl: String? = nil
+    @State private var showingPodcastNotice = false
+    @State private var podcastNoticeUrl: String? = nil
+    @State private var isPodcastNoticeAudiobook = false
     @State private var showingToast = false
     @State private var toastMessage: String? = nil
 
@@ -62,12 +65,16 @@ struct ContentView: View {
                         // 1.5 Clipboard Smart-Banner (when music link is copied)
                         if let detectedUrl = detectedClipboardUrl {
                             let isPlaylist = UrlUtils.shared.isPlaylistUrl(url: detectedUrl)
+                            let isPodcast = UrlUtils.shared.isPodcastUrl(url: detectedUrl)
+                            let isAudiobook = UrlUtils.shared.isAudiobookUrl(url: detectedUrl)
+                            let isPodcastOrAudiobook = isPodcast || isAudiobook
+
                             VStack(alignment: .leading, spacing: 10) {
                                 HStack {
-                                    Image(systemName: isPlaylist ? "music.note.list" : "doc.on.clipboard.fill")
-                                        .foregroundColor(isPlaylist ? .orange : .green)
+                                    Image(systemName: isPlaylist ? "music.note.list" : (isAudiobook ? "book.closed.fill" : (isPodcast ? "mic.fill" : "doc.on.clipboard.fill")))
+                                        .foregroundColor(isPlaylist ? .orange : (isPodcastOrAudiobook ? .purple : .green))
                                         .font(.system(size: 16))
-                                    Text(LocalizationManager.string(for: isPlaylist ? "playlist_dialog_title" : "clipboard_banner_title", lang: lang))
+                                    Text(LocalizationManager.string(for: isPlaylist ? "playlist_dialog_title" : (isAudiobook ? "audiobook_dialog_title" : (isPodcast ? "podcast_dialog_title" : "clipboard_banner_title")), lang: lang))
                                         .font(.subheadline)
                                         .fontWeight(.bold)
                                         .foregroundColor(.primary)
@@ -91,8 +98,8 @@ struct ContentView: View {
                                         .fontWeight(.semibold)
                                         .padding(.horizontal, 6)
                                         .padding(.vertical, 2)
-                                        .background((isPlaylist ? Color.orange : Color.green).opacity(0.15))
-                                        .foregroundColor(isPlaylist ? .orange : .green)
+                                        .background((isPlaylist ? Color.orange : (isPodcastOrAudiobook ? Color.purple : Color.green)).opacity(0.15))
+                                        .foregroundColor(isPlaylist ? .orange : (isPodcastOrAudiobook ? .purple : .green))
                                         .cornerRadius(6)
 
                                     if isPlaylist {
@@ -103,6 +110,15 @@ struct ContentView: View {
                                             .padding(.vertical, 2)
                                             .background(Color.orange.opacity(0.2))
                                             .foregroundColor(.orange)
+                                            .cornerRadius(6)
+                                    } else if isPodcastOrAudiobook {
+                                        Text(LocalizationManager.string(for: isAudiobook ? "audiobook_badge" : "podcast_badge", lang: lang))
+                                            .font(.caption2)
+                                            .fontWeight(.bold)
+                                            .padding(.horizontal, 6)
+                                            .padding(.vertical, 2)
+                                            .background(Color.purple.opacity(0.2))
+                                            .foregroundColor(.purple)
                                             .cornerRadius(6)
                                     }
 
@@ -130,6 +146,27 @@ struct ContentView: View {
                                         .padding(.horizontal, 12)
                                         .frame(maxWidth: .infinity)
                                         .background(Color.orange)
+                                        .foregroundColor(.white)
+                                        .cornerRadius(10)
+                                    }
+                                } else if isPodcastOrAudiobook {
+                                    Button(action: {
+                                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                        podcastNoticeUrl = detectedUrl
+                                        isPodcastNoticeAudiobook = isAudiobook
+                                        showingPodcastNotice = true
+                                    }) {
+                                        HStack(spacing: 6) {
+                                            Image(systemName: "arrow.up.right")
+                                                .font(.system(size: 12))
+                                            Text(String(format: LocalizationManager.string(for: "playlist_banner_action_open", lang: lang), detectSourcePlatformName(url: detectedUrl)))
+                                                .font(.system(size: 13, weight: .bold))
+                                                .lineLimit(1)
+                                        }
+                                        .padding(.vertical, 8)
+                                        .padding(.horizontal, 12)
+                                        .frame(maxWidth: .infinity)
+                                        .background(Color.purple)
                                         .foregroundColor(.white)
                                         .cornerRadius(10)
                                     }
@@ -512,6 +549,17 @@ struct ContentView: View {
                     .preferredColorScheme(settings.colorScheme)
                 }
             }
+            .sheet(isPresented: $showingPodcastNotice) {
+                if let pUrl = podcastNoticeUrl {
+                    PodcastNoticeSheetView(
+                        url: pUrl,
+                        platformName: detectSourcePlatformName(url: pUrl),
+                        isAudiobook: isPodcastNoticeAudiobook,
+                        dismissAction: { showingPodcastNotice = false }
+                    )
+                    .preferredColorScheme(settings.colorScheme)
+                }
+            }
             .onAppear {
                 AptabaseClient.shared.trackAppLaunched(platform: "iOS", language: lang)
                 history.loadHistory()
@@ -638,6 +686,14 @@ struct ContentView: View {
                     )
                     playlistNoticeUrl = playlist.originalUrl
                     showingPlaylistNotice = true
+                } else if let podcast = res as? ResolutionResult.PodcastOrAudiobook {
+                    AptabaseClient.shared.trackLinkFlipFailed(
+                        target: settings.targetPlatform,
+                        reason: podcast.isAudiobook ? "audiobook_detected" : "podcast_detected"
+                    )
+                    podcastNoticeUrl = podcast.originalUrl
+                    isPodcastNoticeAudiobook = podcast.isAudiobook
+                    showingPodcastNotice = true
                 } else {
                     let reason = (res as? ResolutionResult.Error)?.message ?? "timeout_or_unknown"
                     AptabaseClient.shared.trackLinkFlipFailed(

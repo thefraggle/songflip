@@ -127,6 +127,14 @@
     <string name="playlist_dialog_action_close">Fechar</string>
     <string name="playlist_badge">Playlist</string>
     <string name="playlist_banner_action_open">Abrir %1$s no original</string>
+    <string name="podcast_not_supported_toast">Podcasts não são suportados no momento.</string>
+    <string name="audiobook_not_supported_toast">Audiolivros não são suportados no momento.</string>
+    <string name="podcast_dialog_title">Podcast detectado</string>
+    <string name="audiobook_dialog_title">Audiolivro detectado</string>
+    <string name="podcast_dialog_body">O SongFlip é especializado em músicas e álbuns. Podcasts e audiolivros não são suportados para conversão no momento.</string>
+    <string name="podcast_badge">Podcast</string>
+    <string name="audiobook_badge">Audiolivro</string>
+
 
     <string name="history_title">Histórico de Músicas</string>
     <string name="history_subtitle">Veja e gerencie músicas convertidas recentemente</string>

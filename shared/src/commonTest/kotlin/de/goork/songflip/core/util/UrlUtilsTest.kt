@@ -147,6 +147,28 @@ class UrlUtilsTest {
         assertFalse(UrlUtils.isPlaylistUrl("https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv"))
         assertFalse(UrlUtils.isPlaylistUrl("https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=PL12345"))
 
+        assertTrue(UrlUtils.isPodcastUrl("https://open.spotify.com/episode/512ZrAYQURlzyRs99vS24C"))
+        assertTrue(UrlUtils.isPodcastUrl("https://open.spotify.com/show/4rOoJ6Egrf8K2IrywzwOMk"))
+        assertTrue(UrlUtils.isPodcastUrl("https://open.spotify.com/intl-de/episode/512ZrAYQURlzyRs99vS24C"))
+        assertTrue(UrlUtils.isPodcastUrl("spotify:episode:512ZrAYQURlzyRs99vS24C"))
+        assertTrue(UrlUtils.isPodcastUrl("https://podcasts.apple.com/us/podcast/huberman-lab/id1545953110"))
+        assertTrue(UrlUtils.isPodcastUrl("https://music.amazon.com/podcasts/b08jj8jkvx"))
+        assertTrue(UrlUtils.isPodcastUrl("https://www.deezer.com/show/123456"))
+        assertTrue(UrlUtils.isPodcastUrl("https://www.deezer.com/episode/987654"))
+        assertTrue(UrlUtils.isPodcastUrl("https://music.youtube.com/podcast/12345"))
+
+        assertTrue(UrlUtils.isAudiobookUrl("https://open.spotify.com/audiobook/74G4N4aA6f1GqWwZpW2J8D"))
+        assertTrue(UrlUtils.isAudiobookUrl("spotify:audiobook:74G4N4aA6f1GqWwZpW2J8D"))
+        assertTrue(UrlUtils.isAudiobookUrl("https://books.apple.com/us/audiobook/atomic-habits/id1440842065"))
+        assertTrue(UrlUtils.isAudiobookUrl("https://www.audible.com/pd/Atomic-Habits-Audiobook/B07RFSSYBH"))
+        assertTrue(UrlUtils.isAudiobookUrl("https://www.audible.de/pd/12345"))
+
+        assertTrue(UrlUtils.isPodcastOrAudiobookUrl("https://open.spotify.com/episode/123"))
+        assertTrue(UrlUtils.isPodcastOrAudiobookUrl("https://open.spotify.com/audiobook/123"))
+        assertFalse(UrlUtils.isPodcastOrAudiobookUrl("https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv"))
+
+        assertEquals(de.goork.songflip.core.model.MusicEntityType.PODCAST, UrlUtils.detectEntityType("https://open.spotify.com/episode/512ZrAYQURlzyRs99vS24C"))
+        assertEquals(de.goork.songflip.core.model.MusicEntityType.AUDIOBOOK, UrlUtils.detectEntityType("https://open.spotify.com/audiobook/74G4N4aA6f1GqWwZpW2J8D"))
         assertEquals(de.goork.songflip.core.model.MusicEntityType.PLAYLIST, UrlUtils.detectEntityType("https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M"))
         assertEquals(de.goork.songflip.core.model.MusicEntityType.TRACK, UrlUtils.detectEntityType("https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv"))
         assertEquals(de.goork.songflip.core.model.MusicEntityType.ALBUM, UrlUtils.detectEntityType("https://open.spotify.com/album/1DFixLWuPkv3KT3TnV35m3"))
