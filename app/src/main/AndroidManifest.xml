@@ -214,11 +214,17 @@
                 <data android:scheme="http" />
                 <data android:scheme="https" />
                 <data android:host="music.amazon.com" />
+                <data android:host="music.amazon.ca" />
                 <data android:host="music.amazon.de" />
                 <data android:host="music.amazon.co.uk" />
                 <data android:host="music.amazon.fr" />
                 <data android:host="music.amazon.it" />
                 <data android:host="music.amazon.es" />
+                <data android:host="music.amazon.co.jp" />
+                <data android:host="music.amazon.com.au" />
+                <data android:host="music.amazon.in" />
+                <data android:host="music.amazon.com.br" />
+                <data android:host="music.amazon.com.mx" />
                 <data android:host="amzn.to" />
                 <data android:host="a.co" />
             </intent-filter>
