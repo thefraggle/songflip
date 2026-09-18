@@ -146,11 +146,11 @@ def translate_block(text, target_lang, max_retries=2):
 def main():
     target_version = sys.argv[1] if len(sys.argv) > 1 else None
 
-    # 1. Primary English notes from root CHANGELOG.md, fallback to docs/CHANGELOG.en.md
-    en_notes = extract_changelog_for_version(target_version, "CHANGELOG.md") or extract_changelog_for_version(target_version, "docs/CHANGELOG.en.md")
+    # 1. English notes from root CHANGELOG.md
+    en_notes = extract_changelog_for_version(target_version, "CHANGELOG.md")
 
-    # 2. Native German notes from docs/CHANGELOG.md (if exists for this version)
-    de_notes = extract_changelog_for_version(target_version, "docs/CHANGELOG.md")
+    # 2. Native German notes from root CHANGELOG.de.md (if present), else translate from en_notes
+    de_notes = extract_changelog_for_version(target_version, "CHANGELOG.de.md")
 
     if not en_notes and not de_notes:
         en_notes = "- Bug fixes and performance improvements."
