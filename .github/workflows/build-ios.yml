@@ -179,8 +179,8 @@ jobs:
               echo "✓ Successfully exported dist/songflip-${VERSION}.ipa"
             fi
           else
-            echo "ExportArchive returned non-zero code. Checking dist contents:"
-            ls -la dist/
+            echo "❌ ExportArchive failed!"
+            exit 1
           fi
 
       - name: Upload Build Artifacts (IPA & Metadata)
@@ -202,14 +202,20 @@ jobs:
           IPA_FILE=$(ls dist/*.ipa 2>/dev/null | head -n 1)
           if [ -n "$IPA_FILE" ] && [ -f "$IPA_FILE" ]; then
             echo "Uploading $IPA_FILE to TestFlight..."
-            xcrun altool --upload-app \
+            OUTPUT=$(xcrun altool --upload-app \
               -f "$IPA_FILE" \
               -t ios \
               --apiKey "$ASC_KEY_ID" \
-              --apiIssuer "$ASC_ISSUER_ID"
+              --apiIssuer "$ASC_ISSUER_ID" 2>&1)
+            echo "$OUTPUT"
+            if echo "$OUTPUT" | grep -q -i "UPLOAD FAILED"; then
+              echo "❌ altool upload failed!"
+              exit 1
+            fi
             echo "✓ Successfully uploaded to App Store Connect TestFlight!"
           else
-            echo "⚠ No IPA file found in dist/ to upload to TestFlight."
+            echo "❌ No IPA file found in dist/ to upload to TestFlight."
+            exit 1
           fi
 
       # Best-effort: updates ASC store metadata (release notes, keywords, description, etc.) if an editable version exists
