@@ -68,6 +68,9 @@ class UrlUtilsTest {
 
         val dirtyTidal = "https://listen.tidal.com/track/196435445?ref=share"
         assertEquals("https://tidal.com/browse/track/196435445", UrlUtils.normalizeUrl(dirtyTidal))
+
+        val dirtyTidalWww = "https://www.tidal.com/browse/track/196435445?ref=share"
+        assertEquals("https://tidal.com/browse/track/196435445", UrlUtils.normalizeUrl(dirtyTidalWww))
     }
 
     @Test
@@ -113,9 +116,14 @@ class UrlUtilsTest {
     @Test
     fun testShortLinkDetection() {
         assertTrue(UrlUtils.isShortLinkDomain("https://spotify.link/AbCdEf"))
+        assertTrue(UrlUtils.isShortLinkDomain("https://spotify.app.link/AbCdEf"))
+        assertTrue(UrlUtils.isShortLinkDomain("https://spoti.fi/3abc"))
         assertTrue(UrlUtils.isShortLinkDomain("https://amzn.to/12345"))
+        assertTrue(UrlUtils.isShortLinkDomain("https://amzn.eu/d/12345"))
+        assertTrue(UrlUtils.isShortLinkDomain("https://amzn.asia/d/12345"))
         assertTrue(UrlUtils.isShortLinkDomain("https://a.co/d/12345"))
         assertTrue(UrlUtils.isShortLinkDomain("https://deezer.page.link/xyz"))
+        assertTrue(UrlUtils.isShortLinkDomain("https://tidal.link/12345"))
         assertTrue(UrlUtils.isShortLinkDomain("https://apple.co/abc"))
         assertTrue(UrlUtils.isShortLinkDomain("https://on.soundcloud.com/xyz123"))
         assertTrue(UrlUtils.isShortLinkDomain("https://www.shazam.com/track/558906383/stay"))
