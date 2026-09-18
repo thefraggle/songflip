@@ -30,7 +30,7 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 - **🔄 Smart Share-Sheet Routing**: Sharing directly from your music player generates a universal smart link for friends instead of looping back into your player.
 - **📜 Conversion History & Quick Sharing**: Offline history log with 1-tap replay, search filter, and instant smart-link sharing.
 - **🚀 Direct Instant Playback Engine**: Extracts direct video/track IDs in the background (e.g. YouTube Music `watch?v=...`) for instant playback without search result delays.
-- **🌍 24 Languages Supported**: Fully localized across 24 languages on Android and iOS (English, German, Spanish, French, Italian, Portuguese, Japanese, Korean, Chinese, Ukrainian, Polish, Turkish, Dutch, Arabic, Hindi, and more).
+- **🌍 31 Languages Supported**: Fully localized across 31 languages on Android and iOS (English, German, Spanish, French, Italian, Portuguese, Japanese, Korean, Chinese, Ukrainian, Polish, Turkish, Dutch, Arabic, Hindi, Swedish, Danish, Norwegian, Finnish, Czech, Greek, and more).
 - **⏸️ Quick Settings Status Tile & Smart Pause**: Pause redirection directly from Android's notification shade for 15 minutes, 1 hour, or until tomorrow morning (06:00).
 - **📤 Share Sheet Target (`ACTION_SEND`)**: Supports shared text containing links from WhatsApp, Instagram, and Reddit with automatic URL sanitization.
 - **🛡️ 100% Privacy & Zero Tracking**: No accounts, no logins, no advertising IDs, and no listening habits collected.
