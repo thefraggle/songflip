@@ -35,15 +35,24 @@ platform :ios do
       is_key_content_base64: false
     )
 
-    changelog_file = File.join(Dir.pwd, "iosApp", "SongFlip", "TestFlight", "WhatToTest.de-DE.txt")
-    changelog_text = File.exist?(changelog_file) ? File.read(changelog_file).strip : ""
+    changelog_en_file = File.join(Dir.pwd, "iosApp", "SongFlip", "TestFlight", "WhatToTest.en-US.txt")
+    changelog_de_file = File.join(Dir.pwd, "iosApp", "SongFlip", "TestFlight", "WhatToTest.de-DE.txt")
 
+    changelog_en = File.exist?(changelog_en_file) ? File.read(changelog_en_file).strip : ""
+    changelog_de = File.exist?(changelog_de_file) ? File.read(changelog_de_file).strip : ""
+    changelog_text = changelog_en.empty? ? changelog_de : changelog_en
+
+    # Update TestFlight build changelog
     set_changelog(
       api_key: api_key,
       app_identifier: "de.goork.SongFlip",
       version: options[:version],
       build_number: options[:build_number],
-      changelog: changelog_text
+      changelog: {
+        "en-US" => changelog_en,
+        "de-DE" => changelog_de,
+        "default" => changelog_text
+      }
     )
   end
 end
