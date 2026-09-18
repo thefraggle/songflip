@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 enum LocalizationManager {
-    private static let translations: [String: [String: String]] = [
+    private nonisolated static let translations: [String: [String: String]] = [
         "de": [
             "settings_share_app": "SongFlip empfehlen",
             "settings_share_app_subtitle": "Teile die App mit Freunden & Musikliebhabern",
