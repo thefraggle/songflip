@@ -245,5 +245,5 @@ class ShareViewController: UIViewController {
 }
 
 extension SongLinkEngine {
-    public static let shared = SongLinkEngine.companion.shared
+    public nonisolated static let shared = SongLinkEngine.companion.shared
 }
