@@ -13,6 +13,19 @@ data class CacheEntry(
     val artist: String? = null,
     val isAlbum: Boolean = false,
     val nativeAppUri: String? = null,
+    val timestamp: Long,
+    val isHistory: Boolean = true
+)
+
+data class HistoryItem(
+    val cacheKey: String,
+    val canonicalUrl: String,
+    val targetPlatformKey: String,
+    val targetUrl: String,
+    val platform: String,
+    val title: String? = null,
+    val artist: String? = null,
+    val isAlbum: Boolean = false,
     val timestamp: Long
 )
 
@@ -120,10 +133,14 @@ class LinkCache(
         canonicalUrl: String,
         targetPlatformKey: String,
         result: ResolutionResult.Success,
-        currentTimeMs: Long
+        currentTimeMs: Long,
+        isHistory: Boolean = true
     ) = mutex.withLock {
         ensureLoaded(currentTimeMs)
         val key = buildKey(canonicalUrl, targetPlatformKey)
+        val existing = entries[key] ?: storage.get(key)
+        val finalIsHistory = (existing?.isHistory == true) || isHistory
+
         val entry = CacheEntry(
             targetUrl = result.targetUrl,
             platform = result.platform,
@@ -131,7 +148,8 @@ class LinkCache(
             artist = result.artist,
             isAlbum = result.isAlbum,
             nativeAppUri = result.nativeAppUri,
-            timestamp = currentTimeMs
+            timestamp = currentTimeMs,
+            isHistory = finalIsHistory
         )
 
         entries.remove(key)
@@ -145,10 +163,27 @@ class LinkCache(
         }
     }
 
+    suspend fun markAsHistory(canonicalUrl: String, targetPlatformKey: String, currentTimeMs: Long) = mutex.withLock {
+        ensureLoaded(currentTimeMs)
+        val key = buildKey(canonicalUrl, targetPlatformKey)
+        val existing = entries[key] ?: storage.get(key)
+        if (existing != null) {
+            val updated = existing.copy(isHistory = true, timestamp = currentTimeMs)
+            entries.remove(key)
+            entries[key] = updated
+            storage.put(key, updated)
+        }
+    }
+
     suspend fun remove(canonicalUrl: String, targetPlatformKey: String) = mutex.withLock {
         val key = buildKey(canonicalUrl, targetPlatformKey)
         entries.remove(key)
         storage.remove(key)
+    }
+
+    suspend fun removeByCacheKey(cacheKey: String) = mutex.withLock {
+        entries.remove(cacheKey)
+        storage.remove(cacheKey)
     }
 
     suspend fun clear() = mutex.withLock {
@@ -157,8 +192,64 @@ class LinkCache(
         storage.clear()
     }
 
+    suspend fun clearHistoryAndCache() = clear()
+
     suspend fun size(): Int = mutex.withLock {
         entries.size
+    }
+
+    suspend fun getHistoryEntries(limit: Int = 10, currentTimeMs: Long): List<HistoryItem> = mutex.withLock {
+        ensureLoaded(currentTimeMs)
+        val allLoaded = storage.loadAll()
+        val combinedKeys = mutableSetOf<String>()
+        combinedKeys.addAll(entries.keys)
+        combinedKeys.addAll(allLoaded.keys)
+
+        val allItems = mutableListOf<HistoryItem>()
+        for (key in combinedKeys) {
+            val entry = entries[key] ?: allLoaded[key]
+            if (entry != null && entry.isHistory && (currentTimeMs - entry.timestamp) <= ttlMs && entry.targetUrl.isNotBlank()) {
+                val canonicalUrl = key.substringBeforeLast("|")
+                val targetPlatformKey = key.substringAfterLast("|", entry.platform)
+                allItems.add(
+                    HistoryItem(
+                        cacheKey = key,
+                        canonicalUrl = canonicalUrl,
+                        targetPlatformKey = targetPlatformKey,
+                        targetUrl = entry.targetUrl,
+                        platform = entry.platform,
+                        title = entry.title,
+                        artist = entry.artist,
+                        isAlbum = entry.isAlbum,
+                        timestamp = entry.timestamp
+                    )
+                )
+            }
+        }
+
+        allItems.sortByDescending { it.timestamp }
+        if (limit > 0 && allItems.size > limit) {
+            allItems.subList(0, limit)
+        } else {
+            allItems
+        }
+    }
+
+    suspend fun getHistoryCount(currentTimeMs: Long): Int = mutex.withLock {
+        ensureLoaded(currentTimeMs)
+        val allLoaded = storage.loadAll()
+        val combinedKeys = mutableSetOf<String>()
+        combinedKeys.addAll(entries.keys)
+        combinedKeys.addAll(allLoaded.keys)
+
+        var count = 0
+        for (key in combinedKeys) {
+            val entry = entries[key] ?: allLoaded[key]
+            if (entry != null && entry.isHistory && (currentTimeMs - entry.timestamp) <= ttlMs && entry.targetUrl.isNotBlank()) {
+                count++
+            }
+        }
+        count
     }
 
     private fun buildKey(url: String, targetPlatformKey: String): String {

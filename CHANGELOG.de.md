@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.3.14] - 2026-09-19
+- **Schnellere & Präzisere Song-Erkennung**: Optimierter Abgleich für noch raschere Weiterleitungen und exakte Unterscheidung zwischen einzelnen Titeln und Alben.
+- **Zuverlässiger Song-Verlauf**: Blitzschneller und nahtloser Zugriff auf deine kürzlich umgewandelten Songs.
+
 ## [1.3.13] - 2026-09-19
 - **Präzise Preisanzeige**: Einheitliche und dynamisch lokalisierte Währungsdarstellung für Abonnement-Preise in allen Regionen weltweit.
 - **Stabilität & Zuverlässigkeit**: Allgemeine Optimierungen im Hintergrund für den täglichen Gebrauch.
