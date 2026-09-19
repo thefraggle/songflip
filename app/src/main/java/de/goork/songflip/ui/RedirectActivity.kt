@@ -93,6 +93,18 @@ class RedirectActivity : ComponentActivity() {
             val customApiToken = settingsRepository.customApiToken
             val isShareAction = Intent.ACTION_SEND == intent?.action
 
+            // 1a. Check if incoming link is a playlist -> Route to interactive Playlist Converter in MainActivity
+            if (UrlUtils.isPlaylistUrl(incomingUrl)) {
+                val mainIntent = Intent(this, MainActivity::class.java).apply {
+                    putExtra("open_playlist_url", incomingUrl)
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                }
+                startActivity(mainIntent)
+                finish()
+                suppressTransitionAnimation()
+                return
+            }
+
             // 1b. Check if user prefers to pick the target player every time
             if (settingsRepository.askEveryTime) {
                 showQuickPicker(incomingUrl, settingsRepository, customApiUrl, customApiToken)
@@ -313,16 +325,11 @@ class RedirectActivity : ComponentActivity() {
 
                     openTargetUrl(result.targetUrl, targetPlatform)
                 } else if (result is OdesliResult.Playlist) {
-                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
-                        target = targetPlatform,
-                        reason = "playlist_detected"
-                    )
-                    Toast.makeText(
-                        applicationContext,
-                        getString(R.string.playlist_not_supported_toast),
-                        Toast.LENGTH_LONG
-                    ).show()
-                    forwardOriginalUrl(incomingUri)
+                    val mainIntent = Intent(this@RedirectActivity, MainActivity::class.java).apply {
+                        putExtra("open_playlist_url", incomingUrl)
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    }
+                    startActivity(mainIntent)
                 } else if (result is OdesliResult.PodcastOrAudiobook) {
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
                         target = targetPlatform,

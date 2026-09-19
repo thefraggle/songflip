@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.4.0] - 2026-09-19
+- **Universeller Playlist-Konverter**: Wandle ganze Playlists von Freunden direkt um und öffne sie in deiner bevorzugten Musik-App.
+- **Playlists teilen**: Teile konvertierte Playlists als Web-Link, den jeder mit einem Klick ansehen und importieren kann.
+- **Flüssigere Bedienung**: Verbesserte Stabilität und Zuverlässigkeit im Hintergrund.
+
 ## [1.3.14] - 2026-09-19
 - **Schnellere & Präzisere Song-Erkennung**: Optimierter Abgleich für noch raschere Weiterleitungen und exakte Unterscheidung zwischen einzelnen Titeln und Alben.
 - **Zuverlässiger Song-Verlauf**: Blitzschneller und nahtloser Zugriff auf deine kürzlich umgewandelten Songs.

@@ -270,4 +270,21 @@
     <string name="quick_picker_title">Open with …</string>
     <string name="share_universal_link_title">Share universal web links</string>
     <string name="share_universal_link_desc">Create universal songflip.link links for friends on any music platform</string>
+
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">Playlist Converter</string>
+    <string name="playlist_converting">Converting playlist…</string>
+    <string name="playlist_converting_progress">%1$d of %2$d tracks converted</string>
+    <string name="playlist_matched_count">%1$d of %2$d tracks matched</string>
+    <string name="playlist_open_import">Open &amp; Save in %1$s</string>
+    <string name="playlist_open_in_browser">Open Web Playlist</string>
+    <string name="playlist_share_link">Share Playlist Link</string>
+    <string name="playlist_share_copied">Playlist link copied to clipboard!</string>
+    <string name="playlist_free_limit_title">5 Songs Free Conversion</string>
+    <string name="playlist_free_limit_desc">Unlock SongFlip PRO for unlimited playlist conversion up to 100 songs!</string>
+    <string name="playlist_btn_unlock_pro">Upgrade to PRO</string>
+    <string name="playlist_error_title">Playlist Conversion Failed</string>
+    <string name="playlist_error_desc">Could not extract tracks from this playlist. You can open the original link instead.</string>
+    <string name="playlist_btn_retry">Retry</string>
+    <string name="playlist_btn_open_original">Open Original Playlist</string>
 </resources>
