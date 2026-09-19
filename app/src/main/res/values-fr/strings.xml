@@ -167,10 +167,10 @@
     <string name="pro_tier_lifetime">À vie</string>
     <string name="pro_bestseller_badge" formatted="false">MEILLEURE VENTE • 33% DE RÉDUCTION</string>
     <string name="pro_lifetime_badge">PAIEMENT UNIQUE</string>
-    <string name="pro_price_monthly_default">0,99 € / mois</string>
-    <string name="pro_price_annual_default">7,99 € / an</string>
-    <string name="pro_price_annual_sub">~0,66 € / mois (4 mois offerts)</string>
-    <string name="pro_price_lifetime_default">19,99 € à vie</string>
+    <string name="pro_price_monthly_default">—</string>
+    <string name="pro_price_annual_default">—</string>
+    <string name="pro_price_annual_sub">~%1$s / mois (4 mois offerts)</string>
+    <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Restaurer les achats</string>
     <string name="pro_coupon_toggle">Vous avez un code promo ?</string>
     <string name="pro_coupon_hint">Entrez le code</string>

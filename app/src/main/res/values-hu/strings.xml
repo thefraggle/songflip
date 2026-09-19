@@ -158,10 +158,10 @@
     <string name="pro_tier_lifetime">Örökös</string>
     <string name="pro_bestseller_badge" formatted="false">LEGJOBB AJÁNLAT • 33% KEDVEZMÉNY</string>
     <string name="pro_lifetime_badge">EGYSZERI</string>
-    <string name="pro_price_monthly_default">0,99 € / hó</string>
-    <string name="pro_price_annual_default">7,99 € / év</string>
-    <string name="pro_price_annual_sub">~0,66 € / hó (4 hónap ingyen)</string>
-    <string name="pro_price_lifetime_default">19,99 € egyszeri</string>
+    <string name="pro_price_monthly_default">—</string>
+    <string name="pro_price_annual_default">—</string>
+    <string name="pro_price_annual_sub">~%1$s / hó (4 hónap ingyen)</string>
+    <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Vásárlások visszaállítása</string>
     <string name="pro_coupon_toggle">Van kuponkódja?</string>
     <string name="pro_coupon_hint">Kód megadása</string>

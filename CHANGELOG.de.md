@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.3.13] - 2026-09-19
+- **Präzise Preisanzeige**: Einheitliche und dynamisch lokalisierte Währungsdarstellung für Abonnement-Preise in allen Regionen weltweit.
+- **Stabilität & Zuverlässigkeit**: Allgemeine Optimierungen im Hintergrund für den täglichen Gebrauch.
+
 ## [1.3.12] - 2026-09-19
 - **Ausfallsicheres Öffnen**: Falls ein Song einmal nicht umgewandelt werden kann, öffnet sich automatisch dein Original-Link, damit kein Song verloren geht.
 - **Flüssigere Bedienung**: Verbesserte Zuverlässigkeit und Stabilität für den täglichen Musikgenuss.
