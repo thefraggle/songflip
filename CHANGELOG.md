@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.12] - 2026-09-19
+- **Fail-Safe Opening**: If a song cannot be switched, your original music link opens seamlessly so you never lose your music.
+- **Smoother Experience**: Stability improvements and enhanced reliability for everyday listening.
+
 ## [1.3.11] - 2026-09-18
 - **Lighter & Faster**: Streamlined app structure for faster loading times and a smaller storage footprint on your device.
 - **Smoother Experience**: Stability improvements and subtle performance enhancements for everyday music switching.

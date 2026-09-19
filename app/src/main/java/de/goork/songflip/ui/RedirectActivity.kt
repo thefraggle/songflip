@@ -54,6 +54,7 @@ class RedirectActivity : ComponentActivity() {
             return
         }
 
+        var fallbackIncomingUri: Uri? = null
         try {
             LinkCacheManager.init(this)
             val settingsRepository = SettingsRepository(this)
@@ -78,6 +79,7 @@ class RedirectActivity : ComponentActivity() {
             }
 
             val incomingUri = Uri.parse(incomingUrl)
+            fallbackIncomingUri = incomingUri
 
             // 1. Check if SongFlip is currently paused
             if (PauseHelper.isCurrentlyPaused(this)) {
@@ -100,6 +102,9 @@ class RedirectActivity : ComponentActivity() {
             val targetPlatform = settingsRepository.targetPlatform
             executeRedirect(incomingUrl, targetPlatform, settingsRepository, customApiUrl, customApiToken, isShareAction)
         } catch (t: Throwable) {
+            try {
+                fallbackIncomingUri?.let { forwardOriginalUrl(it) }
+            } catch (_: Throwable) {}
             finish()
             suppressTransitionAnimation()
         }

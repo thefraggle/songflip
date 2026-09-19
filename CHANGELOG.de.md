@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.3.12] - 2026-09-19
+- **Ausfallsicheres Öffnen**: Falls ein Song einmal nicht umgewandelt werden kann, öffnet sich automatisch dein Original-Link, damit kein Song verloren geht.
+- **Flüssigere Bedienung**: Verbesserte Zuverlässigkeit und Stabilität für den täglichen Musikgenuss.
+
 ## [1.3.11] - 2026-09-18
 - **Schlanker & Schneller**: Optimierter App-Aufbau für schnellere Ladezeiten und einen noch geringeren Speicherbedarf auf deinem Gerät.
 - **Flüssigere Bedienung**: Feinschliff im Hintergrund für noch stabilere und verzögerungsfreie Weiterleitungen.
