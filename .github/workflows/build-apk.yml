@@ -124,5 +124,4 @@ jobs:
           releaseFiles: dist/*.aab
           tracks: internal
           status: completed
-          changesNotSentForReview: true
           whatsNewDirectory: ${{ github.workspace }}/distribution/whatsnew
