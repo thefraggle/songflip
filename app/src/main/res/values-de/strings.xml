@@ -281,7 +281,7 @@
     <string name="playlist_share_link">Playlist-Link teilen</string>
     <string name="playlist_share_copied">Playlist-Link in Zwischenablage kopiert!</string>
     <string name="playlist_free_limit_title">5 Songs kostenlos konvertiert</string>
-    <string name="playlist_free_limit_desc">Schalte SongFlip PRO frei für unbegrenzte Playlist-Konvertierung bis zu 100 Songs!</string>
+    <string name="playlist_free_limit_desc">Schalte SongFlip PRO frei für unbegrenzte Playlist-Konvertierung bis zu 50 Songs!</string>
     <string name="playlist_btn_unlock_pro">Zu PRO upgraden</string>
     <string name="playlist_error_title">Playlist-Konvertierung fehlgeschlagen</string>
     <string name="playlist_error_desc">Titel konnten nicht aus dieser Playlist extrahiert werden. Du kannst stattdessen den Originallink öffnen.</string>
