@@ -104,7 +104,7 @@ class PlaylistConverterEngineTest {
 
         val url = engine.buildZeroOAuthUrl("My Mix", "youtubeMusic", tracks)
         assertNotNull(url)
-        assertEquals("https://music.youtube.com/watch_videos?video_ids=12345678901,abcdefghijk", url)
+        assertEquals("https://www.youtube.com/watch_videos?video_ids=12345678901,abcdefghijk", url)
     }
 
     @Test
