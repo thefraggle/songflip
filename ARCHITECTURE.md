@@ -53,7 +53,8 @@ Before hashing or resolving, the URL is strictly canonicalized:
 > **Architectural Note on Tiering:** SongFlip's client engine is completely autonomous and operates with 100% functionality on device using L1 + L3 alone. The L2 Edge Cache is an optional, serverless performance tier that eliminates client-side network roundtrips for popular music entities.
 
 ### Step 3: Self-Healing & Edge Cases
-- **Unsupported Entity Interception (Playlists, Podcasts, Audiobooks):** Upstream providers only resolve individual tracks, albums, or artists. Passing entire playlists, podcast episodes/shows, or audiobooks would cause 404s, wasted bandwidth, and false-positive error telemetry (`link_flip_failed`). SongFlip intercepts these entities early at Step 1 (`isPlaylistUrl()`, `isPodcastOrAudiobookUrl()`) and short-circuits the pipeline with structured graceful fallbacks (`ResolutionResult.Playlist`, `ResolutionResult.PodcastOrAudiobook`), presenting the user with direct shortcuts to open the native app or copy the link.
+- **Playlist Entity Interception:** While standard redirect flows focus on single tracks and albums, incoming playlist URLs (`/playlist/...`) are intercepted early and routed to the **Universal Playlist Converter (v1.4+)** bottom sheet in the native client rather than failing.
+- **Unsupported Audio Entities (Podcasts, Audiobooks):** Passing podcast episodes/shows or audiobooks would cause 404s and false-positive error telemetry (`link_flip_failed`). SongFlip intercepts these entities at Step 1 (`isPodcastOrAudiobookUrl()`) and short-circuits the pipeline with structured graceful fallbacks (`ResolutionResult.PodcastOrAudiobook`), presenting direct shortcuts to open the native app or copy the link.
 - **Self-Titled Albums:** Search APIs frequently map an album name (matching the artist's name) to a single track video instead of the album playlist. SongFlip enforces strict entity type validation (`music.youtube.com/playlist?list=OLAK5uy_...` for albums) to prevent single-video downgrades.
 - **Shazam Links:** Apple's Shazam CDN blocks standard user agents with HTTP 405. SongFlip leverages the internal discovery REST endpoint (`amp.shazam.com/discovery/v5/...`) with native headers to retrieve clean Apple Music and ISRC identifiers without auth.
 - **Regional Domains & Morphe/ReVanced:** On Android, custom modded packages (e.g. `app.morphe.android.apps.youtube.music`, `app.revanced.android.apps.youtube.music`, `app.rvx...`) are prioritized and regional Amazon Music domains (`music.amazon.de`, `music.amazon.co.uk`) are dynamically supported.
@@ -64,6 +65,7 @@ SongFlip enforces deterministic 1:1 entity mapping across streaming platforms:
 - **Track $\rightarrow$ Track:** Direct playback launch (`autoplay` / native deep-link intent).
 - **Album $\rightarrow$ Album:** Direct album view (playlist / collection ID).
 - **Artist $\rightarrow$ Artist:** Direct artist profile page.
+- **Playlist $\rightarrow$ Playlist:** Universal batch conversion with Zero-OAuth queue import (up to 50 tracks).
 
 When an upstream resolver (e.g. Odesli) lacks a mapping for a target platform (frequent with regional identifiers such as Amazon Music ASINs), SongFlip applies a tiered fallback rather than failing hard:
 
@@ -83,10 +85,53 @@ When an upstream resolver (e.g. Odesli) lacks a mapping for a target platform (f
 | **Amazon Music** | `amznmp3://... ?trackAsin=` | `amznmp3://.../albums/<ASIN>` | `amznmp3://.../artists/<ASIN>` | ❌ None (ASIN regional) | `amznmp3://music.amazon.com/search/` |
 | **Tidal** | `tidal://track/<id>` | `tidal://album/<id>` | `tidal://artist/<id>` | ❌ None (OAuth-only) | `listen.tidal.com/search?q=` |
 
+---
+
+## 3. Universal Playlist Conversion Architecture (Zero-OAuth Pipeline)
+
+SongFlip includes a high-performance **Universal Playlist Converter** operating without requiring user account credentials or OAuth authorizations:
+
+```mermaid
+sequenceDiagram
+    participant User as User (App / Web)
+    participant Client as SongFlip Client (KMP)
+    participant Edge as Cloud Edge (convertPlaylist)
+    participant Cache as Firestore Cache
+    participant Scraper as Platform Scrapers
+    participant Target as Target Streaming App
+
+    User->>Client: Intercept / Paste Playlist Link
+    Client->>Edge: POST /api/playlist/convert (url, target, isPro)
+    
+    alt Instant Cache Hit
+        Edge->>Cache: Lookup 10-char Playlist Hash
+        Cache-->>Edge: Cached Doc (<100ms)
+        Edge-->>Client: Return 50 Matched Tracks + Zero-OAuth URL
+    else Cold Conversion
+        Edge->>Scraper: Extract Source Tracks (Deezer/Spotify/Apple/YT)
+        Scraper-->>Edge: Raw Track Metadata
+        Edge->>Edge: Parallel Chunked Match (15/chunk)
+        Edge->>Edge: Build Zero-OAuth URI (watch_videos / trackset)
+        Edge->>Cache: Save Doc to converted_playlists & playlists
+        Edge-->>Client: Return Conversion Result
+    end
+
+    Client->>User: Render Animated Bottom Sheet (Live Match List)
+    User->>Target: Tap "Open & Save" -> Launch Native Queue Intent
+```
+
+### Core Playlist Pipeline Components:
+1. **Extraction Scrapers:** Zero-auth extraction for Deezer API (`/playlist/{id}`), Spotify embed scraper, YouTube Music initial page data, and Apple Music meta tags.
+2. **Parallel Chunk Matching:** Batch resolves track titles and artists in concurrent chunks (15 at a time) via target search scrapers and iTunes API.
+3. **Zero-OAuth Queue Generation:**
+   - **YouTube Music:** Resolves `www.youtube.com/watch_videos?video_ids=...` via HTTP 303 location redirection into a direct `music.youtube.com/watch?v={id}&list=TLGG...` queue playlist.
+   - **Spotify:** Generates `spotify:trackset:{Title}:{id1},{id2}...` URI schemes.
+4. **50-Track Sweet Spot:** Optimized to 50 tracks to align with YouTube's strict server-side `watch_videos` limit and Spotify URI length constraints.
+5. **SSR Web Sharing (`songflip.link/p/...`):** Server-rendered, localized web pages with CSP hardening, target platform color theming, and individual track preview buttons.
 
 ---
 
-## 3. Kotlin Multiplatform (KMP) Architecture
+## 4. Kotlin Multiplatform (KMP) Architecture
 
 The codebase separates platform-specific UI from deterministic platform-agnostic business logic:
 

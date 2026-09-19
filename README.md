@@ -11,6 +11,8 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 ## ✨ Key Features
 
 - **⚡ 0-Click Background Redirect**: Intercepts music links transparently and launches direct playback in your target player.
+- **📑 Universal Playlist Converter [PRO]**: Convert entire playlists (up to 50 tracks) across Spotify, YouTube Music, Deezer, Apple Music, and more with 1-click Zero-OAuth playback queue launch, live animated matching progress, and instant server-side caching.
+- **🌐 Playlist Web Sharing (`songflip.link/p/...`) [PRO]**: Share converted playlists as beautiful web landing pages with rich album artwork, 1-click import, and branded single-track preview buttons. *(Try the live demo: [songflip.link/p/76176a1354](https://songflip.link/p/76176a1354))*.
 - **🎧 Broad Multi-Service Support**: Full any-to-any redirection between:
   - 🟢 **Spotify** (`open.spotify.com`, `spotify.link`)
   - 🔴 **YouTube Music** (`music.youtube.com`, `youtu.be`)
@@ -39,13 +41,13 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 
 ## 🏗️ Architecture & Resolution Engine
 
-> 📖 **Deep Dive**: For a comprehensive technical walkthrough of the deterministic resolution engine, tiered caching, and edge cases, see **[ARCHITECTURE.md](ARCHITECTURE.md)**.
+> 📖 **Deep Dive**: For a comprehensive technical walkthrough of the deterministic resolution engine, tiered caching, playlist conversion pipeline, and edge cases, see **[ARCHITECTURE.md](ARCHITECTURE.md)**.
 
 SongFlip is built as a modern **Kotlin Multiplatform (KMP)** project with a modular architecture:
 - **`app/`**: Native Android app (Jetpack Compose, Material 3, Quick Settings Tile, Overlay & Notification handling).
 - **`iosApp/`**: Native iOS app (SwiftUI, Share Extension, App Intents for 0-click Siri Shortcuts & Action Button).
-- **`shared/`**: Shared KMP core engine (platform parsing, universal URL sanitizing, multi-tier resolution logic, Ktor HTTP client).
-- **`functions/`**: Firebase Cloud Functions backend powering token verification, SSR web-share landing pages, and high-speed L2 link caching.
+- **`shared/`**: Shared KMP core engine (platform parsing, universal URL sanitizing, multi-tier resolution logic, playlist conversion client, Ktor HTTP client).
+- **`functions/`**: Firebase Cloud Functions backend powering token verification, SSR web-share landing pages, playlist batch scrapers, and high-speed L2 link caching.
 
 ### Resolution Pipeline
 1. **Tier 1 (Local Device Memory & Storage Cache)**: Instant sub-5ms lookup on device for previously converted songs.
@@ -61,8 +63,10 @@ SongFlip is built as a modern **Kotlin Multiplatform (KMP)** project with a modu
 
 SongFlip is **100% open source (GPLv3)** and its core 0-click redirect functionality will **always remain completely free and ad-free**.
 
-For users who want the fastest possible performance or wish to support indie development, **SongFlip PRO** provides:
+For users who want the fastest possible performance, advanced playlist capabilities, or wish to support indie development, **SongFlip PRO** provides:
 
+- **📑 Universal Playlist Converter**: Convert full playlists (up to 50 songs) with 1-tap queue launch into YouTube Music & Spotify.
+- **🌐 Playlist Web Sharing**: Create beautiful, shareable web links (`songflip.link/p/...`) with cover art and individual preview player buttons.
 - **⚡ L2 Server-Side Cache**: Lightning-fast resolution (~30–50 ms) via our dedicated server cache with zero rate-limiting.
 - **🔗 Universal Smart Share Links**: Generate `songflip.link/s/...` landing pages directly from the app or share sheet.
 - **👑 Supporter Status**: PRO badge & direct support for independent open-source development.
