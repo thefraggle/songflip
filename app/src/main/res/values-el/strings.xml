@@ -158,10 +158,10 @@
     <string name="pro_tier_lifetime">Εφάπαξ</string>
     <string name="pro_bestseller_badge" formatted="false">BESTSELLER • 33% ΕΚΠΤΩΣΗ</string>
     <string name="pro_lifetime_badge">ΕΦΑΠΑΞ</string>
-    <string name="pro_price_monthly_default">0,99 € / μήνα</string>
-    <string name="pro_price_annual_default">7,99 € / έτος</string>
-    <string name="pro_price_annual_sub">~0,66 € / μήνα (4 μήνες δωρεάν)</string>
-    <string name="pro_price_lifetime_default">19,99 € εφάπαξ</string>
+    <string name="pro_price_monthly_default">—</string>
+    <string name="pro_price_annual_default">—</string>
+    <string name="pro_price_annual_sub">~%1$s / μήνα (4 μήνες δωρεάν)</string>
+    <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Επαναφορά αγορών</string>
     <string name="pro_coupon_toggle">Έχετε κωδικό προσφοράς;</string>
     <string name="pro_coupon_hint">Εισαγάγετε κωδικό</string>

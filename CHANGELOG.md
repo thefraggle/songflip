@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.13] - 2026-09-19
+- **Localized Pricing Consistency**: Dynamic and accurate currency display for subscription pricing across all regions and currencies.
+- **Stability & Performance**: General refinements and background optimizations for everyday use.
+
 ## [1.3.12] - 2026-09-19
 - **Fail-Safe Opening**: If a song cannot be switched, your original music link opens seamlessly so you never lose your music.
 - **Smoother Experience**: Stability improvements and enhanced reliability for everyday listening.

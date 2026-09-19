@@ -158,10 +158,10 @@
     <string name="pro_tier_lifetime">Elinikäinen</string>
     <string name="pro_bestseller_badge" formatted="false">SUOSITUIN • 33% ALENNUS</string>
     <string name="pro_lifetime_badge">KERTAKORVAUS</string>
-    <string name="pro_price_monthly_default">0,99 € / kk</string>
-    <string name="pro_price_annual_default">7,99 € / vuosi</string>
-    <string name="pro_price_annual_sub">~0,66 € / kk (4 kuukautta ilmaiseksi)</string>
-    <string name="pro_price_lifetime_default">19,99 € kertamaksu</string>
+    <string name="pro_price_monthly_default">—</string>
+    <string name="pro_price_annual_default">—</string>
+    <string name="pro_price_annual_sub">~%1$s / kk (4 kuukautta ilmaiseksi)</string>
+    <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Palauta ostokset</string>
     <string name="pro_coupon_toggle">Onko sinulla tarjouskoodi?</string>
     <string name="pro_coupon_hint">Syötä koodi</string>

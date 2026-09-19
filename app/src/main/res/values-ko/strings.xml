@@ -166,10 +166,10 @@
     <string name="pro_tier_lifetime">Lifetime</string>
     <string name="pro_bestseller_badge" formatted="false">BESTSELLER • 33% OFF</string>
     <string name="pro_lifetime_badge">ONE-TIME</string>
-    <string name="pro_price_monthly_default">0.99 € / month</string>
-    <string name="pro_price_annual_default">7.99 € / year</string>
-    <string name="pro_price_annual_sub">~0.66 € / month (4 months free)</string>
-    <string name="pro_price_lifetime_default">19.99 € one-time</string>
+    <string name="pro_price_monthly_default">—</string>
+    <string name="pro_price_annual_default">—</string>
+    <string name="pro_price_annual_sub">~%1$s / 월 (4개월 무료)</string>
+    <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">구매 복원</string>
     <string name="pro_coupon_toggle">프로모션 코드가 있으신가요?</string>
     <string name="pro_coupon_hint">코드 입력</string>
