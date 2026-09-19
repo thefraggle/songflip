@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.4.1] - 2026-09-19
+- **Blitzschnelle Playlist-Konvertierung**: Optimierter 50-Track-Abgleich mit intelligentem Sofort-Cache für bereits umgewandelte Playlists.
+- **Interaktive Play-Buttons**: Einzelne Titel können direkt auf der geteilten Playlist-Webseite in der Markenfarbe des Zieldienstes Probe gehört werden.
+- **Animierte Fortschrittsanzeige**: Live-Statusanzeige beim Konvertieren mit visueller Fortschrittsanzeige in der App.
+- **Feinschliff & Zuverlässigkeit**: Stabilitätsverbesserungen beim nahtlosen 1-Klick-Import in YouTube Music und Spotify.
+
 ## [1.4.0] - 2026-09-19
 - **Universeller Playlist-Konverter**: Wandle ganze Playlists von Freunden direkt um und öffne sie in deiner bevorzugten Musik-App.
 - **Playlists teilen**: Teile konvertierte Playlists als Web-Link, den jeder mit einem Klick ansehen und importieren kann.
