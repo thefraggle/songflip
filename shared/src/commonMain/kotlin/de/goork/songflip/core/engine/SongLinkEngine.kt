@@ -116,6 +116,25 @@ class SongLinkEngine(
         )
     }
 
+    suspend fun resolveTargetUrl(
+        inputUrl: String,
+        targetPlatformKey: String,
+        customApiUrl: String,
+        customApiToken: String,
+        forceRefresh: Boolean
+    ): ResolutionResult {
+        return resolveTargetUrl(
+            inputUrl = inputUrl,
+            targetPlatformKey = targetPlatformKey,
+            customApiUrl = customApiUrl,
+            customApiToken = customApiToken,
+            isPro = false,
+            authToken = "",
+            isPrefetch = false,
+            forceRefresh = forceRefresh
+        )
+    }
+
     suspend fun forceRefreshTargetUrl(
         inputUrl: String,
         targetPlatformKey: String = "youtubeMusic",
