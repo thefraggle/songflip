@@ -397,17 +397,21 @@ fun PlaylistConvertBottomSheet(
                     Spacer(modifier = Modifier.height(20.dp))
 
                     // Primary CTA: Open & Save in Target Player or Web Share Link
-                    val zeroOAuthUrl = res.zeroOAuthUrl
+                    val primaryLaunchUrl = if (!res.zeroOAuthUrl.isNullOrBlank()) {
+                        res.zeroOAuthUrl
+                    } else {
+                        res.tracks.firstOrNull { it.matched && !it.targetUrl.isNullOrBlank() }?.targetUrl
+                    }
                     val webShareUrl = res.webShareUrl ?: "https://songflip.link/p/${res.playlistId}"
 
-                    if (!zeroOAuthUrl.isNullOrBlank()) {
+                    if (!primaryLaunchUrl.isNullOrBlank()) {
                         Button(
                             onClick = {
                                 val targetPkg = PackageUtils.getInstalledPackage(context, targetPlatform.key)
                                 var launched = false
                                 if (targetPkg != null) {
                                     try {
-                                        val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse(zeroOAuthUrl)).apply {
+                                        val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse(primaryLaunchUrl)).apply {
                                             setPackage(targetPkg)
                                             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
                                         }
@@ -418,7 +422,7 @@ fun PlaylistConvertBottomSheet(
 
                                 if (!launched) {
                                     try {
-                                        val genericIntent = Intent(Intent.ACTION_VIEW, Uri.parse(zeroOAuthUrl)).apply {
+                                        val genericIntent = Intent(Intent.ACTION_VIEW, Uri.parse(primaryLaunchUrl)).apply {
                                             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                         }
                                         context.startActivity(genericIntent)
