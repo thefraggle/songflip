@@ -96,23 +96,25 @@ sequenceDiagram
     participant User as User (App / Web)
     participant Client as SongFlip Client (KMP)
     participant Edge as Cloud Edge (convertPlaylist)
-    participant Cache as Firestore Cache
-    participant Scraper as Platform Scrapers
+    participant Cache as Firestore Cache (L2)
+    participant Scraper as Platform Scrapers & APIs
     participant Target as Target Streaming App
 
     User->>Client: Intercept / Paste Playlist Link
     Client->>Edge: POST /api/playlist/convert (url, target, isPro)
     
-    alt Instant Cache Hit
+    alt Instant Playlist Cache Hit (<100ms)
         Edge->>Cache: Lookup 10-char Playlist Hash
-        Cache-->>Edge: Cached Doc (<100ms)
+        Cache-->>Edge: Cached Doc + Rolling 90-day TTL Refresh
         Edge-->>Client: Return 50 Matched Tracks + Zero-OAuth URL
     else Cold Conversion
         Edge->>Scraper: Extract Source Tracks (Deezer/Spotify/Apple/YT)
-        Scraper-->>Edge: Raw Track Metadata
-        Edge->>Edge: Parallel Chunked Match (15/chunk)
+        Scraper-->>Edge: Raw Track Metadata (up to 50 tracks)
+        Edge->>Cache: L2 Batch Lookup (db.getAll for all track SHA hashes)
+        Cache-->>Edge: Pre-resolved Target URLs for popular songs
+        Edge->>Scraper: Resolve remaining misses in parallel chunks (15/chunk)
         Edge->>Edge: Build Zero-OAuth URI (watch_videos / trackset)
-        Edge->>Cache: Save Doc to converted_playlists & playlists
+        Edge->>Cache: Save Doc with 90-Day Rolling TTL
         Edge-->>Client: Return Conversion Result
     end
 
@@ -122,12 +124,14 @@ sequenceDiagram
 
 ### Core Playlist Pipeline Components:
 1. **Extraction Scrapers:** Zero-auth extraction for Deezer API (`/playlist/{id}`), Spotify embed scraper, YouTube Music initial page data, and Apple Music meta tags.
-2. **Parallel Chunk Matching:** Batch resolves track titles and artists in concurrent chunks (15 at a time) via target search scrapers and iTunes API.
-3. **Zero-OAuth Queue Generation:**
+2. **L2 Batch Cache Acceleration:** Evaluates all track URLs simultaneously via a single Firestore batch lookup (`db.getAll(...docRefs)`) to reuse previously resolved single-track mappings in `<50ms`.
+3. **Parallel Chunk Matching:** Resolves remaining cache misses in concurrent chunks (15 at a time) via target search scrapers and iTunes API.
+4. **Zero-OAuth Queue Generation:**
    - **YouTube Music:** Resolves `www.youtube.com/watch_videos?video_ids=...` via HTTP 303 location redirection into a direct `music.youtube.com/watch?v={id}&list=TLGG...` queue playlist.
    - **Spotify:** Generates `spotify:trackset:{Title}:{id1},{id2}...` URI schemes.
-4. **50-Track Sweet Spot:** Optimized to 50 tracks to align with YouTube's strict server-side `watch_videos` limit and Spotify URI length constraints.
-5. **SSR Web Sharing (`songflip.link/p/...`):** Server-rendered, localized web pages with CSP hardening, target platform color theming, and individual track preview buttons.
+5. **50-Track Sweet Spot:** Optimized to 50 tracks to align with YouTube's strict server-side `watch_videos` limit and Spotify URI length constraints.
+6. **SSR Web Sharing (`songflip.link/p/...`):** Server-rendered, localized web pages with CSP hardening, target platform color theming, and individual track preview buttons.
+7. **90-Day Rolling TTL Lifecycle:** Playlist records are saved with an `expiresAt` timestamp and automatically refreshed on every web page view or conversion hit. Unused playlists expire cleanly via Firestore TTL policies.
 
 ---
 
