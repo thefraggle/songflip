@@ -143,8 +143,14 @@ class ShareViewController: UIViewController {
                     self.openApp(urlString: podcast.originalUrl)
                 } else {
                     self.statusLabel.text = self.localizedText(for: "share_error_failed", default: "Could not redirect link.")
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                        self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+                    let trimmedInput = inputUrl.trimmingCharacters(in: .whitespacesAndNewlines)
+                    if let fallbackUrl = URL(string: trimmedInput),
+                       fallbackUrl.scheme == "http" || fallbackUrl.scheme == "https" {
+                        self.openApp(urlString: fallbackUrl.absoluteString)
+                    } else {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                            self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+                        }
                     }
                 }
             }

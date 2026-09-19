@@ -681,14 +681,10 @@ class OdesliRepository(
                 .get()
                 .build()
 
-            val resp = client.newCall(req).execute()
-            if (!resp.isSuccessful) {
-                resp.close()
-                return null
+            val html = client.newCall(req).execute().use { resp ->
+                if (!resp.isSuccessful) return null
+                resp.body?.string() ?: ""
             }
-
-            val html = resp.body?.string() ?: ""
-            resp.close()
 
             val scriptTag = "<script id=\"__NEXT_DATA__\" type=\"application/json\">"
             if (!html.contains(scriptTag)) return null
