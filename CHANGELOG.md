@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.14] - 2026-09-19
+- **Unified Fast Link Matching**: Enhanced shared resolution engine for faster music switching and precise track-versus-album detection.
+- **Reliable Link History**: Instant, smooth access to previously converted songs with improved background synchronization.
+
 ## [1.3.13] - 2026-09-19
 - **Localized Pricing Consistency**: Dynamic and accurate currency display for subscription pricing across all regions and currencies.
 - **Stability & Performance**: General refinements and background optimizations for everyday use.

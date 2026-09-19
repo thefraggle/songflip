@@ -33,7 +33,7 @@ import kotlinx.serialization.json.putJsonObject
 
 class SongLinkEngine(
     private val client: HttpClient = createPlatformHttpClient(),
-    private val cache: LinkCache = LinkCache(storage = createDefaultCacheStorage())
+    val cache: LinkCache = LinkCache(storage = createDefaultCacheStorage())
 ) {
     constructor() : this(createPlatformHttpClient(), LinkCache(storage = createDefaultCacheStorage()))
 
@@ -109,6 +109,9 @@ class SongLinkEngine(
             targetPlatformKey = targetPlatformKey,
             customApiUrl = customApiUrl,
             customApiToken = customApiToken,
+            isPro = false,
+            authToken = "",
+            isPrefetch = false,
             forceRefresh = false
         )
     }
@@ -117,23 +120,120 @@ class SongLinkEngine(
         inputUrl: String,
         targetPlatformKey: String = "youtubeMusic",
         customApiUrl: String = "",
-        customApiToken: String = ""
+        customApiToken: String = "",
+        isPro: Boolean = false,
+        authToken: String = ""
     ): ResolutionResult {
         return resolveTargetUrl(
             inputUrl = inputUrl,
             targetPlatformKey = targetPlatformKey,
             customApiUrl = customApiUrl,
             customApiToken = customApiToken,
+            isPro = isPro,
+            authToken = authToken,
+            isPrefetch = false,
             forceRefresh = true
         )
+    }
+
+    suspend fun prefetch(
+        inputUrl: String,
+        targetPlatformKey: String = "youtubeMusic",
+        isPro: Boolean = false,
+        authToken: String = ""
+    ) {
+        val cleanUrl = UrlUtils.extractCleanUrl(inputUrl) ?: return
+        val resolvedUrl = if (UrlUtils.isShortLinkDomain(cleanUrl)) {
+            resolveCanonicalUrl(cleanUrl)
+        } else {
+            cleanUrl
+        }
+        val canonicalUrl = UrlUtils.normalizeUrl(resolvedUrl)
+        val now = getCurrentTimeMillis()
+        if (cache.get(canonicalUrl, targetPlatformKey, now) != null) return
+        try {
+            resolveTargetUrl(
+                inputUrl = canonicalUrl,
+                targetPlatformKey = targetPlatformKey,
+                isPro = isPro,
+                authToken = authToken,
+                isPrefetch = true
+            )
+        } catch (_: Exception) {}
+    }
+
+    suspend fun queryL2ServerCache(
+        canonicalUrl: String,
+        targetPlatformKey: String,
+        authToken: String,
+        forceRefresh: Boolean = false
+    ): ResolutionResult.Success? {
+        if (authToken.isBlank()) return null
+        val encodedUrl = canonicalUrl.encodeURLParameter()
+        val refreshParam = if (forceRefresh) "&force_refresh=true" else ""
+        val endpoints = listOf(
+            "https://cache.songflip.link/resolve?url=$encodedUrl$refreshParam",
+            "https://songflip-web.web.app/resolve?url=$encodedUrl$refreshParam"
+        )
+
+        for (endpoint in endpoints) {
+            try {
+                val resp = client.get(endpoint) {
+                    header("Authorization", "Bearer $authToken")
+                    header("Accept", "application/json")
+                }
+                if (resp.status.isSuccess()) {
+                    val body = resp.bodyAsText()
+                    val root = json.parseToJsonElement(body).jsonObject
+                    if (root["status"]?.jsonPrimitive?.content == "success") {
+                        val item = root["item"]?.jsonObject
+                        if (item != null) {
+                            val title = item["title"]?.jsonPrimitive?.content?.ifBlank { null }
+                            val artist = item["artist"]?.jsonPrimitive?.content?.ifBlank { null }
+                            val isAlbum = item["isAlbum"]?.jsonPrimitive?.booleanOrNull ?: false
+                            val links = item["links"]?.jsonObject
+
+                            val rawTarget = when (targetPlatformKey) {
+                                "spotify" -> links?.get("spotify")?.jsonPrimitive?.content
+                                "appleMusic" -> links?.get("appleMusic")?.jsonPrimitive?.content
+                                "youtubeMusic" -> links?.get("youtubeMusic")?.jsonPrimitive?.content ?: links?.get("youtube")?.jsonPrimitive?.content
+                                "deezer" -> links?.get("deezer")?.jsonPrimitive?.content
+                                "tidal" -> links?.get("tidal")?.jsonPrimitive?.content
+                                "amazonMusic" -> links?.get("amazonMusic")?.jsonPrimitive?.content
+                                else -> links?.get(targetPlatformKey)?.jsonPrimitive?.content
+                            }
+
+                            if (!rawTarget.isNullOrBlank()) {
+                                val formatted = UrlUtils.formatTargetUrl(rawTarget, targetPlatformKey)
+                                val nativeUri = UrlUtils.toNativeAppUri(formatted, targetPlatformKey)
+                                return ResolutionResult.Success(
+                                    targetUrl = formatted,
+                                    platform = targetPlatformKey,
+                                    title = title,
+                                    artist = artist,
+                                    isAlbum = isAlbum,
+                                    nativeAppUri = nativeUri
+                                )
+                            }
+                        }
+                    }
+                }
+            } catch (_: Exception) {
+                // Endpoint unreachable or timed out; continue to next fallback
+            }
+        }
+        return null
     }
 
     suspend fun resolveTargetUrl(
         inputUrl: String,
         targetPlatformKey: String,
-        customApiUrl: String,
-        customApiToken: String,
-        forceRefresh: Boolean
+        customApiUrl: String = "",
+        customApiToken: String = "",
+        isPro: Boolean = false,
+        authToken: String = "",
+        isPrefetch: Boolean = false,
+        forceRefresh: Boolean = false
     ): ResolutionResult {
         try {
             // 1. Extract clean URL
@@ -184,7 +284,8 @@ class SongLinkEngine(
                 )
             }
 
-            val isExplicitAlbumUrl = UrlUtils.isAlbumUrl(canonicalUrl)
+            val isExplicitTrackUrl = canonicalUrl.contains("i=") || canonicalUrl.contains("/song/") || canonicalUrl.contains("/track/")
+            val isExplicitAlbumUrl = !isExplicitTrackUrl && UrlUtils.isAlbumUrl(canonicalUrl)
             val now = getCurrentTimeMillis()
 
             if (forceRefresh) {
@@ -193,11 +294,14 @@ class SongLinkEngine(
                 // 4. L1 Cache Lookup (< 5ms)
                 val cached = cache.get(canonicalUrl, targetPlatformKey, now)
                 if (cached != null) {
+                    if (!isPrefetch) {
+                        cache.markAsHistory(canonicalUrl, targetPlatformKey, now)
+                    }
                     return cached
                 }
             }
 
-            // 4.5. Search URL Resolution (Spotify, Apple Music, YouTube, Deezer, Tidal search links)
+            // 4.2. Search URL Resolution (Spotify, Apple Music, YouTube, Deezer, Tidal search links)
             val searchQuery = UrlUtils.extractSearchQuery(canonicalUrl)
             if (searchQuery != null) {
                 val directUrl = resolveDirectPlatformUrl(searchQuery, targetPlatformKey, isAlbum = false)
@@ -211,8 +315,25 @@ class SongLinkEngine(
                     isAlbum = false,
                     nativeAppUri = nativeUri
                 )
-                cache.put(canonicalUrl, targetPlatformKey, result, now)
+                cache.put(canonicalUrl, targetPlatformKey, result, now, isHistory = !isPrefetch)
+                pingCacheIngestAsync(
+                    originalUrl = canonicalUrl,
+                    targetUrl = finalTargetUrl,
+                    targetPlatform = result.platform,
+                    title = searchQuery,
+                    artist = null,
+                    isAlbum = false
+                )
                 return result
+            }
+
+            // 4.5. L2 Server Cache (PRO Feature - < 30ms)
+            if (isPro && authToken.isNotBlank()) {
+                val l2Result = queryL2ServerCache(canonicalUrl, targetPlatformKey, authToken, forceRefresh)
+                if (l2Result != null) {
+                    cache.put(canonicalUrl, targetPlatformKey, l2Result, now, isHistory = !isPrefetch)
+                    return l2Result
+                }
             }
 
             // 5. Parallel Multi-Source Resolution
@@ -225,10 +346,75 @@ class SongLinkEngine(
             }
 
             if (songLinkData != null) {
+                // If the user requested an explicit track (e.g. Apple Music with ?i=...), but song.link mapped it to the whole album:
+                if (isExplicitTrackUrl && songLinkData.isAlbum) {
+                    val resolvedQuery = trackInfo ?: if (songLinkData.artist.isNotEmpty() && !songLinkData.title.contains(songLinkData.artist, ignoreCase = true)) {
+                        "${songLinkData.artist} ${songLinkData.title}"
+                    } else {
+                        songLinkData.title
+                    }
+                    val directTrackUrl = resolveDirectPlatformUrl(resolvedQuery, targetPlatformKey, isAlbum = false)
+                    val finalTargetUrl = directTrackUrl ?: UrlUtils.buildSearchUrl(resolvedQuery, targetPlatformKey)
+                    val nativeUri = UrlUtils.toNativeAppUri(finalTargetUrl, targetPlatformKey)
+                    val result = ResolutionResult.Success(
+                        targetUrl = finalTargetUrl,
+                        platform = if (directTrackUrl != null) targetPlatformKey else "${targetPlatformKey}_search",
+                        title = trackInfo ?: songLinkData.title.ifEmpty { null },
+                        artist = songLinkData.artist.ifEmpty { null },
+                        isAlbum = false,
+                        nativeAppUri = nativeUri
+                    )
+                    cache.put(canonicalUrl, targetPlatformKey, result, now, isHistory = !isPrefetch)
+                    pingCacheIngestAsync(
+                        originalUrl = canonicalUrl,
+                        targetUrl = finalTargetUrl,
+                        targetPlatform = result.platform,
+                        title = result.title,
+                        artist = result.artist,
+                        isAlbum = false,
+                        links = songLinkData.links
+                    )
+                    return result
+                }
+
                 val directUrl = songLinkData.links[targetPlatformKey]
                     ?: if (targetPlatformKey == "youtubeMusic") songLinkData.links["youtube"] else null
 
+                val isAlbum = if (isExplicitTrackUrl) false else (songLinkData.isAlbum || isExplicitAlbumUrl)
+
                 if (!directUrl.isNullOrEmpty()) {
+                    val isAlbumPlaylist = directUrl.contains("playlist?list=") || directUrl.contains("/playlist/") || directUrl.contains("/album/") || directUrl.contains("/albums/")
+                    if (isExplicitTrackUrl && isAlbumPlaylist) {
+                        val trackQuery = if (songLinkData.artist.isNotEmpty() && !songLinkData.title.contains(songLinkData.artist, ignoreCase = true)) {
+                            "${songLinkData.artist} ${songLinkData.title}"
+                        } else {
+                            songLinkData.title
+                        }
+                        val resolvedDirectUrl = resolveDirectPlatformUrl(trackQuery, targetPlatformKey, isAlbum = false)
+                        if (resolvedDirectUrl != null) {
+                            val nativeUri = UrlUtils.toNativeAppUri(resolvedDirectUrl, targetPlatformKey)
+                            val result = ResolutionResult.Success(
+                                targetUrl = resolvedDirectUrl,
+                                platform = targetPlatformKey,
+                                title = songLinkData.title.ifEmpty { null },
+                                artist = songLinkData.artist.ifEmpty { null },
+                                isAlbum = false,
+                                nativeAppUri = nativeUri
+                            )
+                            cache.put(canonicalUrl, targetPlatformKey, result, now, isHistory = !isPrefetch)
+                            pingCacheIngestAsync(
+                                originalUrl = canonicalUrl,
+                                targetUrl = resolvedDirectUrl,
+                                targetPlatform = targetPlatformKey,
+                                title = songLinkData.title.ifEmpty { null },
+                                artist = songLinkData.artist.ifEmpty { null },
+                                isAlbum = false,
+                                links = songLinkData.links
+                            )
+                            return result
+                        }
+                    }
+
                     val formatted = UrlUtils.formatTargetUrl(directUrl, targetPlatformKey)
                     val nativeUri = UrlUtils.toNativeAppUri(formatted, targetPlatformKey)
                     val result = ResolutionResult.Success(
@@ -236,17 +422,17 @@ class SongLinkEngine(
                         platform = targetPlatformKey,
                         title = songLinkData.title.ifEmpty { null },
                         artist = songLinkData.artist.ifEmpty { null },
-                        isAlbum = songLinkData.isAlbum || isExplicitAlbumUrl,
+                        isAlbum = isAlbum,
                         nativeAppUri = nativeUri
                     )
-                    cache.put(canonicalUrl, targetPlatformKey, result, now)
+                    cache.put(canonicalUrl, targetPlatformKey, result, now, isHistory = !isPrefetch)
                     pingCacheIngestAsync(
                         originalUrl = canonicalUrl,
                         targetUrl = formatted,
                         targetPlatform = targetPlatformKey,
                         title = songLinkData.title.ifEmpty { null },
                         artist = songLinkData.artist.ifEmpty { null },
-                        isAlbum = songLinkData.isAlbum || isExplicitAlbumUrl,
+                        isAlbum = isAlbum,
                         links = songLinkData.links
                     )
                     return result
@@ -260,7 +446,6 @@ class SongLinkEngine(
                     }
                     val cleanQuery = UrlUtils.cleanSearchQuery(rawQuery)
 
-                    val isAlbum = songLinkData.isAlbum || isExplicitAlbumUrl
                     val resolvedDirectUrl = resolveDirectPlatformUrl(
                         query = cleanQuery,
                         targetPlatformKey = targetPlatformKey,
@@ -283,7 +468,7 @@ class SongLinkEngine(
                         isAlbum = isAlbum,
                         nativeAppUri = nativeUri
                     )
-                    cache.put(canonicalUrl, targetPlatformKey, result, now)
+                    cache.put(canonicalUrl, targetPlatformKey, result, now, isHistory = !isPrefetch)
                     pingCacheIngestAsync(
                         originalUrl = canonicalUrl,
                         targetUrl = finalTargetUrl,
@@ -323,7 +508,7 @@ class SongLinkEngine(
                     isAlbum = isExplicitAlbumUrl,
                     nativeAppUri = nativeUri
                 )
-                cache.put(canonicalUrl, targetPlatformKey, result, now)
+                cache.put(canonicalUrl, targetPlatformKey, result, now, isHistory = !isPrefetch)
                 pingCacheIngestAsync(
                     originalUrl = canonicalUrl,
                     targetUrl = targetUrl,
@@ -349,7 +534,7 @@ class SongLinkEngine(
                     isAlbum = false,
                     nativeAppUri = nativeUri
                 )
-                cache.put(canonicalUrl, targetPlatformKey, result, now)
+                cache.put(canonicalUrl, targetPlatformKey, result, now, isHistory = !isPrefetch)
                 pingCacheIngestAsync(
                     originalUrl = canonicalUrl,
                     targetUrl = finalTargetUrl,
