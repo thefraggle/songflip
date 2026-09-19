@@ -62,9 +62,11 @@ fun PlaylistConvertBottomSheet(
     }
 
     var conversionState by remember { mutableStateOf<PlaylistConversionState>(PlaylistConversionState.Loading()) }
+    var conversionProgressStep by remember { mutableIntStateOf(0) }
 
     fun runConversion() {
         conversionState = PlaylistConversionState.Loading()
+        conversionProgressStep = 0
         coroutineScope.launch {
             val result = withContext(Dispatchers.IO) {
                 PlaylistConverterEngine.shared.convertPlaylist(
@@ -88,6 +90,16 @@ fun PlaylistConvertBottomSheet(
                     target = targetPlatformKey,
                     reason = "playlist_conversion_error"
                 )
+            }
+        }
+    }
+
+    LaunchedEffect(conversionState) {
+        if (conversionState is PlaylistConversionState.Loading || conversionState is PlaylistConversionState.Converting) {
+            conversionProgressStep = 0
+            while (true) {
+                kotlinx.coroutines.delay(600)
+                conversionProgressStep += 1
             }
         }
     }
@@ -157,29 +169,72 @@ fun PlaylistConvertBottomSheet(
                 }
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             when (val state = conversionState) {
                 is PlaylistConversionState.Loading, is PlaylistConversionState.Converting -> {
+                    val progressRatio = when {
+                        conversionProgressStep <= 1 -> 0.20f
+                        conversionProgressStep <= 3 -> 0.45f
+                        conversionProgressStep <= 6 -> 0.70f
+                        conversionProgressStep <= 9 -> 0.88f
+                        else -> 0.95f
+                    }
+                    val animatedProgress by androidx.compose.animation.core.animateFloatAsState(
+                        targetValue = progressRatio,
+                        animationSpec = androidx.compose.animation.core.tween(durationMillis = 400),
+                        label = "progress"
+                    )
+                    val statusText = when {
+                        conversionProgressStep <= 1 -> stringResource(R.string.playlist_converting)
+                        conversionProgressStep <= 5 -> "Suche Titel auf ${targetPlatform.displayName}…"
+                        else -> "Erstelle Playlist-Queue…"
+                    }
+
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(240.dp),
+                            .height(220.dp),
                         contentAlignment = Alignment.Center
                     ) {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.spacedBy(16.dp)
+                            verticalArrangement = Arrangement.spacedBy(16.dp),
+                            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
                         ) {
                             CircularProgressIndicator(
                                 color = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier.size(48.dp)
+                                modifier = Modifier.size(44.dp),
+                                strokeWidth = 3.5.dp
                             )
+
                             Text(
-                                text = stringResource(R.string.playlist_converting),
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                text = statusText,
+                                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
+                                color = MaterialTheme.colorScheme.onSurface,
+                                textAlign = TextAlign.Center
                             )
+
+                            Column(
+                                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.spacedBy(6.dp)
+                            ) {
+                                LinearProgressIndicator(
+                                    progress = { animatedProgress },
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(6.dp)
+                                        .clip(RoundedCornerShape(3.dp)),
+                                    color = MaterialTheme.colorScheme.primary,
+                                    trackColor = MaterialTheme.colorScheme.surfaceVariant
+                                )
+                                Text(
+                                    text = "${(animatedProgress * 100).toInt()}%",
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
                         }
                     }
                 }
@@ -348,17 +403,36 @@ fun PlaylistConvertBottomSheet(
                     if (!zeroOAuthUrl.isNullOrBlank()) {
                         Button(
                             onClick = {
-                                try {
-                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(zeroOAuthUrl)).apply {
-                                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                    }
-                                    context.startActivity(intent)
-                                } catch (e: Exception) {
-                                    // Fallback to web share
-                                    val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(webShareUrl)).apply {
-                                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                    }
-                                    context.startActivity(webIntent)
+                                val targetPkg = PackageUtils.getInstalledPackage(context, targetPlatform.key)
+                                var launched = false
+                                if (targetPkg != null) {
+                                    try {
+                                        val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse(zeroOAuthUrl)).apply {
+                                            setPackage(targetPkg)
+                                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                        }
+                                        context.startActivity(appIntent)
+                                        launched = true
+                                    } catch (_: Exception) {}
+                                }
+
+                                if (!launched) {
+                                    try {
+                                        val genericIntent = Intent(Intent.ACTION_VIEW, Uri.parse(zeroOAuthUrl)).apply {
+                                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                        }
+                                        context.startActivity(genericIntent)
+                                        launched = true
+                                    } catch (_: Exception) {}
+                                }
+
+                                if (!launched) {
+                                    try {
+                                        val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(webShareUrl)).apply {
+                                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                        }
+                                        context.startActivity(webIntent)
+                                    } catch (_: Exception) {}
                                 }
                                 onDismiss()
                             },

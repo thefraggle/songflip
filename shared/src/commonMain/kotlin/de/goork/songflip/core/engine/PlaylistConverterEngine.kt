@@ -87,7 +87,7 @@ class PlaylistConverterEngine(
                     track.targetId?.takeIf { it.length == 11 }
                 }
                 if (videoIds.isNotEmpty()) {
-                    "https://music.youtube.com/watch_videos?video_ids=${videoIds.joinToString(",")}"
+                    "https://www.youtube.com/watch_videos?video_ids=${videoIds.joinToString(",")}"
                 } else null
             }
             "spotify" -> {
