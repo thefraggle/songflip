@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.4.0] - 2026-09-19
+- **Universal Playlist Converter**: Convert entire playlists from your friends and open them directly in your preferred music player.
+- **Playlist Web Sharing**: Share converted playlists via web links that anyone can view and import in 1 tap.
+- **Smoother Experience**: Stability improvements and background performance optimizations.
+
 ## [1.3.14] - 2026-09-19
 - **Unified Fast Link Matching**: Enhanced shared resolution engine for faster music switching and precise track-versus-album detection.
 - **Reliable Link History**: Instant, smooth access to previously converted songs with improved background synchronization.

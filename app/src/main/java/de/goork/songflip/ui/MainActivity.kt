@@ -45,6 +45,7 @@ import de.goork.songflip.ui.theme.*
 class MainActivity : AppCompatActivity() {
 
     private var initialShowPauseSheet = false
+    private var initialOpenPlaylistUrl: String? = null
     private val windowFocusState = mutableStateOf(false)
     private val incomingSharedUrlState = mutableStateOf<String?>(null)
 
@@ -58,13 +59,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         LinkCacheManager.init(this)
         initialShowPauseSheet = intent?.getBooleanExtra("show_pause_sheet", false) == true
+        initialOpenPlaylistUrl = intent?.getStringExtra("open_playlist_url")
         handleShortcutIntent(intent)
 
         val shared = intent?.takeIf { it.action == Intent.ACTION_SEND }?.let {
             it.getStringExtra(Intent.EXTRA_TEXT) ?: it.clipData?.takeIf { cd -> cd.itemCount > 0 }?.getItemAt(0)?.text?.toString()
         }?.let { UrlUtils.extractCleanUrl(it) ?: it }
         if (shared != null && isSupportedMusicUrl(shared)) {
-            incomingSharedUrlState.value = shared
+            if (UrlUtils.isPlaylistUrl(shared)) {
+                initialOpenPlaylistUrl = shared
+            } else {
+                incomingSharedUrlState.value = shared
+            }
         }
 
         val settingsRepo = SettingsRepository(this)
@@ -99,6 +105,7 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     MainScreen(
                         initialShowPause = initialShowPauseSheet,
+                        initialOpenPlaylistUrl = initialOpenPlaylistUrl,
                         currentThemeMode = currentThemeMode,
                         isWindowFocused = windowFocusState.value,
                         incomingSharedUrl = incomingSharedUrlState.value,
@@ -113,14 +120,18 @@ class MainActivity : AppCompatActivity() {
         super.onNewIntent(intent)
         handleShortcutIntent(intent)
 
+        val playlistUrl = intent.getStringExtra("open_playlist_url")
         val shared = intent.takeIf { it.action == Intent.ACTION_SEND }?.let {
             it.getStringExtra(Intent.EXTRA_TEXT) ?: it.clipData?.takeIf { cd -> cd.itemCount > 0 }?.getItemAt(0)?.text?.toString()
         }?.let { UrlUtils.extractCleanUrl(it) ?: it }
-        if (shared != null && isSupportedMusicUrl(shared)) {
+
+        val newPlaylistUrl = playlistUrl ?: if (shared != null && UrlUtils.isPlaylistUrl(shared)) shared else null
+        if (shared != null && isSupportedMusicUrl(shared) && !UrlUtils.isPlaylistUrl(shared)) {
             incomingSharedUrlState.value = shared
         }
 
-        if (intent.getBooleanExtra("show_pause_sheet", false)) {
+        val showPause = intent.getBooleanExtra("show_pause_sheet", false)
+        if (showPause || newPlaylistUrl != null) {
             setContent {
                 val settingsRepository = remember { SettingsRepository(this) }
                 var currentThemeMode by remember { mutableStateOf(settingsRepository.themeMode) }
@@ -137,7 +148,8 @@ class MainActivity : AppCompatActivity() {
                         color = MaterialTheme.colorScheme.background
                     ) {
                         MainScreen(
-                            initialShowPause = true,
+                            initialShowPause = showPause,
+                            initialOpenPlaylistUrl = newPlaylistUrl,
                             currentThemeMode = currentThemeMode,
                             isWindowFocused = windowFocusState.value,
                             incomingSharedUrl = incomingSharedUrlState.value,
@@ -192,6 +204,7 @@ data class LanguageItem(
 @Composable
 fun MainScreen(
     initialShowPause: Boolean = false,
+    initialOpenPlaylistUrl: String? = null,
     currentThemeMode: String = "system",
     isWindowFocused: Boolean = false,
     incomingSharedUrl: String? = null,
@@ -212,7 +225,7 @@ fun MainScreen(
     var showAppLinksSetupBottomSheet by remember { mutableStateOf(false) }
     var showProPaywall by remember { mutableStateOf(false) }
     var initialShowPromoInPaywall by remember { mutableStateOf(false) }
-    var showPlaylistNoticeSheet by remember { mutableStateOf<String?>(null) }
+    var showPlaylistConvertSheet by remember { mutableStateOf<String?>(initialOpenPlaylistUrl) }
     var showPodcastNoticeSheet by remember { mutableStateOf<String?>(null) }
 
     val proState by ProManager.proState.collectAsState()
@@ -458,12 +471,15 @@ fun MainScreen(
         )
     }
 
-    showPlaylistNoticeSheet?.let { playlistUrl ->
-        val platformKey = UrlUtils.detectPlatform(playlistUrl)?.key ?: "unknown"
-        PlaylistNoticeBottomSheet(
+    showPlaylistConvertSheet?.let { playlistUrl ->
+        PlaylistConvertBottomSheet(
             playlistUrl = playlistUrl,
-            platformKey = platformKey,
-            onDismiss = { showPlaylistNoticeSheet = null }
+            targetPlatformKey = selectedTargetKey,
+            onDismiss = { showPlaylistConvertSheet = null },
+            onOpenPaywall = {
+                showPlaylistConvertSheet = null
+                showProPaywall = true
+            }
         )
     }
 
@@ -555,14 +571,14 @@ fun MainScreen(
                         isPodcastOrAudiobook = isPodcastOrAudiobook,
                         isAudiobook = isAudiobook,
                         onOpenPlaylist = { url ->
-                            showPlaylistNoticeSheet = url
+                            showPlaylistConvertSheet = url
                         },
                         onOpenPodcast = { url ->
                             showPodcastNoticeSheet = url
                         },
                         onOpenInTarget = { urlToOpen ->
                             if (isPlaylist) {
-                                showPlaylistNoticeSheet = urlToOpen
+                                showPlaylistConvertSheet = urlToOpen
                             } else if (isPodcastOrAudiobook) {
                                 showPodcastNoticeSheet = urlToOpen
                             } else {
