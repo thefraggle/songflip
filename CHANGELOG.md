@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.4.1] - 2026-09-19
+- **Lightning-Fast Playlist Conversion**: Optimized 50-track processing with smart instant caching for previously converted playlists.
+- **Interactive Track Play Buttons**: Play individual songs directly on shared playlist web pages in the target platform's branded style.
+- **Animated Progress Feedback**: Real-time visual progress and step indicators during playlist conversion in the app.
+- **Reliability & Refinements**: Enhanced 1-tap queue launching for YouTube Music and Spotify.
+
 ## [1.4.0] - 2026-09-19
 - **Universal Playlist Converter**: Convert entire playlists from your friends and open them directly in your preferred music player.
 - **Playlist Web Sharing**: Share converted playlists via web links that anyone can view and import in 1 tap.
