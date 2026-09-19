@@ -281,7 +281,7 @@
     <string name="playlist_share_link">Share Playlist Link</string>
     <string name="playlist_share_copied">Playlist link copied to clipboard!</string>
     <string name="playlist_free_limit_title">5 Songs Free Conversion</string>
-    <string name="playlist_free_limit_desc">Unlock SongFlip PRO for unlimited playlist conversion up to 100 songs!</string>
+    <string name="playlist_free_limit_desc">Unlock SongFlip PRO for unlimited playlist conversion up to 50 songs!</string>
     <string name="playlist_btn_unlock_pro">Upgrade to PRO</string>
     <string name="playlist_error_title">Playlist Conversion Failed</string>
     <string name="playlist_error_desc">Could not extract tracks from this playlist. You can open the original link instead.</string>
