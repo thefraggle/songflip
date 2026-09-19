@@ -6,6 +6,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 class LinkCacheTest {
 
@@ -110,4 +111,54 @@ class LinkCacheTest {
         assertEquals("https://music.apple.com/song/shared123", resolvedInProcess2.targetUrl)
         assertEquals("Shared Song", resolvedInProcess2.title)
     }
+
+    @Test
+    fun testHistoryTrackingAndPrefetch() = runTest {
+        val cache = LinkCache(maxEntries = 10, ttlMs = 100000L)
+        val now = 5000L
+
+        // 1. Put a prefetch item (isHistory = false)
+        cache.put(
+            canonicalUrl = "https://open.spotify.com/track/prefetch1",
+            targetPlatformKey = "youtubeMusic",
+            result = ResolutionResult.Success(targetUrl = "https://music.youtube.com/watch?v=pf1", platform = "youtubeMusic", title = "Prefetch Song"),
+            currentTimeMs = now,
+            isHistory = false
+        )
+
+        // History count should be 0 because it was a prefetch
+        assertEquals(0, cache.getHistoryCount(currentTimeMs = now))
+        assertTrue(cache.getHistoryEntries(limit = 10, currentTimeMs = now).isEmpty())
+
+        // Cache get still works
+        val cached = cache.get("https://open.spotify.com/track/prefetch1", "youtubeMusic", currentTimeMs = now)
+        assertNotNull(cached)
+
+        // 2. Mark as history (when user actually clicks / shares)
+        cache.markAsHistory("https://open.spotify.com/track/prefetch1", "youtubeMusic", currentTimeMs = now + 100L)
+        assertEquals(1, cache.getHistoryCount(currentTimeMs = now + 100L))
+        val historyList = cache.getHistoryEntries(limit = 10, currentTimeMs = now + 100L)
+        assertEquals(1, historyList.size)
+        assertEquals("Prefetch Song", historyList[0].title)
+
+        // 3. Put normal item (isHistory = true)
+        cache.put(
+            canonicalUrl = "https://open.spotify.com/track/normal2",
+            targetPlatformKey = "youtubeMusic",
+            result = ResolutionResult.Success(targetUrl = "https://music.youtube.com/watch?v=n2", platform = "youtubeMusic", title = "Normal Song"),
+            currentTimeMs = now + 200L,
+            isHistory = true
+        )
+
+        assertEquals(2, cache.getHistoryCount(currentTimeMs = now + 200L))
+        val updatedHistory = cache.getHistoryEntries(limit = 10, currentTimeMs = now + 200L)
+        assertEquals(2, updatedHistory.size)
+        assertEquals("Normal Song", updatedHistory[0].title) // Newer first
+
+        // 4. Clear history
+        cache.clearHistoryAndCache()
+        assertEquals(0, cache.getHistoryCount(currentTimeMs = now + 300L))
+        assertEquals(0, cache.size())
+    }
 }
+
