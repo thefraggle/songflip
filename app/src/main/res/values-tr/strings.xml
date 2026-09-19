@@ -167,10 +167,10 @@
     <string name="pro_tier_lifetime">Ömür Boyu</string>
     <string name="pro_bestseller_badge" formatted="false">EN ÇOK SATAN • %33 İNDİRİM</string>
     <string name="pro_lifetime_badge">TEK SEFERLİK</string>
-    <string name="pro_price_monthly_default">0,99 € / ay</string>
-    <string name="pro_price_annual_default">7,99 € / yıl</string>
-    <string name="pro_price_annual_sub">~0,66 € / ay (4 ay hediye)</string>
-    <string name="pro_price_lifetime_default">19,99 € tek seferlik</string>
+    <string name="pro_price_monthly_default">—</string>
+    <string name="pro_price_annual_default">—</string>
+    <string name="pro_price_annual_sub">~%1$s / ay (4 ay hediye)</string>
+    <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Satın Alımları Geri Yükle</string>
     <string name="pro_coupon_toggle">Promosyon kodunuz var mı?</string>
     <string name="pro_coupon_hint">Kodu girin</string>

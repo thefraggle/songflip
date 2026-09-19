@@ -159,10 +159,10 @@
     <string name="pro_tier_lifetime">Doživotně</string>
     <string name="pro_bestseller_badge" formatted="false">NEJPRODÁVANĚJŠÍ • SLEVA 33 %</string>
     <string name="pro_lifetime_badge">JEDNORÁZOVĚ</string>
-    <string name="pro_price_monthly_default">0,99 € / měsíc</string>
-    <string name="pro_price_annual_default">7,99 € / rok</string>
-    <string name="pro_price_annual_sub">~0,66 € / měsíc (4 měsíce zdarma)</string>
-    <string name="pro_price_lifetime_default">19,99 € jednorázově</string>
+    <string name="pro_price_monthly_default">—</string>
+    <string name="pro_price_annual_default">—</string>
+    <string name="pro_price_annual_sub">~%1$s / měsíc (4 měsíce zdarma)</string>
+    <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Obnovit nákupy</string>
     <string name="pro_coupon_toggle">Máte promo kód?</string>
     <string name="pro_coupon_hint">Zadejte kód</string>

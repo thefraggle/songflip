@@ -38,7 +38,10 @@ import de.goork.songflip.data.ProManager
 import de.goork.songflip.data.RedeemResult
 import kotlinx.coroutines.launch
 import java.text.DateFormat
+import java.text.NumberFormat
+import java.util.Currency
 import java.util.Date
+import java.util.Locale
 
 enum class SelectedProTier {
     ANNUAL,
@@ -243,6 +246,10 @@ fun ProPaywallBottomSheet(
                     }
                 }
 
+                val annualPackage = availablePackages.firstOrNull { it.packageType == PackageType.ANNUAL }
+                val monthlyPackage = availablePackages.firstOrNull { it.packageType == PackageType.MONTHLY }
+                val lifetimePackage = availablePackages.firstOrNull { it.packageType == PackageType.LIFETIME }
+
                 // 3 Tier Pricing Cards
                 Column(
                     modifier = Modifier.fillMaxWidth(),
@@ -251,8 +258,8 @@ fun ProPaywallBottomSheet(
                     // 1. Annual (Bestseller)
                     ProTierCard(
                         title = stringResource(R.string.pro_tier_annual),
-                        price = getPackagePrice(availablePackages, PackageType.ANNUAL) ?: stringResource(R.string.pro_price_annual_default),
-                        subtitle = stringResource(R.string.pro_price_annual_sub),
+                        price = annualPackage?.product?.price?.formatted ?: "—",
+                        subtitle = annualPackage?.let { stringResource(R.string.pro_price_annual_sub, formatMonthlyPrice(it)) },
                         badge = stringResource(R.string.pro_bestseller_badge),
                         isSelected = selectedTier == SelectedProTier.ANNUAL,
                         onClick = {
@@ -264,7 +271,7 @@ fun ProPaywallBottomSheet(
                     // 2. Monthly
                     ProTierCard(
                         title = stringResource(R.string.pro_tier_monthly),
-                        price = getPackagePrice(availablePackages, PackageType.MONTHLY) ?: stringResource(R.string.pro_price_monthly_default),
+                        price = monthlyPackage?.product?.price?.formatted ?: "—",
                         subtitle = null,
                         badge = null,
                         isSelected = selectedTier == SelectedProTier.MONTHLY,
@@ -277,7 +284,7 @@ fun ProPaywallBottomSheet(
                     // 3. Lifetime
                     ProTierCard(
                         title = stringResource(R.string.pro_tier_lifetime),
-                        price = getPackagePrice(availablePackages, PackageType.LIFETIME) ?: stringResource(R.string.pro_price_lifetime_default),
+                        price = lifetimePackage?.product?.price?.formatted ?: "—",
                         subtitle = null,
                         badge = stringResource(R.string.pro_lifetime_badge),
                         isSelected = selectedTier == SelectedProTier.LIFETIME,
@@ -289,9 +296,9 @@ fun ProPaywallBottomSheet(
                 }
 
                 val selectedPackage = when (selectedTier) {
-                    SelectedProTier.ANNUAL -> availablePackages.firstOrNull { it.packageType == PackageType.ANNUAL }
-                    SelectedProTier.MONTHLY -> availablePackages.firstOrNull { it.packageType == PackageType.MONTHLY }
-                    SelectedProTier.LIFETIME -> availablePackages.firstOrNull { it.packageType == PackageType.LIFETIME }
+                    SelectedProTier.ANNUAL -> annualPackage
+                    SelectedProTier.MONTHLY -> monthlyPackage
+                    SelectedProTier.LIFETIME -> lifetimePackage
                 }
 
                 val isButtonEnabled = !isPurchasing && !isRestoring && !isLoadingOfferings && selectedPackage != null
@@ -348,13 +355,12 @@ fun ProPaywallBottomSheet(
                         )
                     } else {
                         val priceText = selectedPackage?.product?.price?.formatted
-                            ?: when (selectedTier) {
-                                SelectedProTier.ANNUAL -> stringResource(R.string.pro_price_annual_default)
-                                SelectedProTier.MONTHLY -> stringResource(R.string.pro_price_monthly_default)
-                                SelectedProTier.LIFETIME -> stringResource(R.string.pro_price_lifetime_default)
-                            }
                         Text(
-                            text = stringResource(R.string.pro_btn_subscribe, priceText),
+                            text = if (!priceText.isNullOrBlank()) {
+                                stringResource(R.string.pro_btn_subscribe, priceText)
+                            } else {
+                                stringResource(R.string.pro_title)
+                            },
                             style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
                             color = MaterialTheme.colorScheme.onPrimary,
                             textAlign = TextAlign.Center
@@ -607,14 +613,19 @@ fun ProTierCard(
     }
 }
 
-private fun getPackagePrice(packages: List<Package>, type: PackageType): String? {
-    return packages.firstOrNull { it.packageType == type }?.product?.price?.formatted
-}
-
-private fun findPackageForTier(packages: List<Package>, tier: SelectedProTier): Package? {
-    return when (tier) {
-        SelectedProTier.ANNUAL -> packages.firstOrNull { it.packageType == PackageType.ANNUAL }
-        SelectedProTier.MONTHLY -> packages.firstOrNull { it.packageType == PackageType.MONTHLY }
-        SelectedProTier.LIFETIME -> packages.firstOrNull { it.packageType == PackageType.LIFETIME }
+private fun formatMonthlyPrice(annualPackage: Package): String {
+    val price = annualPackage.product.price
+    val monthlyAmount = (price.amountMicros / 12.0) / 1_000_000.0
+    return try {
+        val curr = Currency.getInstance(price.currencyCode)
+        val format = NumberFormat.getCurrencyInstance().apply {
+            currency = curr
+            val fractionDigits = curr.defaultFractionDigits.coerceAtLeast(0)
+            maximumFractionDigits = fractionDigits
+            minimumFractionDigits = fractionDigits
+        }
+        format.format(monthlyAmount)
+    } catch (_: Exception) {
+        String.format(Locale.getDefault(), "%.2f", monthlyAmount)
     }
 }
