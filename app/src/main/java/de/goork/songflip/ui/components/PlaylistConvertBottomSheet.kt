@@ -397,21 +397,18 @@ fun PlaylistConvertBottomSheet(
                     Spacer(modifier = Modifier.height(20.dp))
 
                     // Primary CTA: Open & Save in Target Player or Web Share Link
-                    val primaryLaunchUrl = if (!res.zeroOAuthUrl.isNullOrBlank()) {
-                        res.zeroOAuthUrl
-                    } else {
-                        res.tracks.firstOrNull { it.matched && !it.targetUrl.isNullOrBlank() }?.targetUrl
-                    }
+                    val zeroOAuthUrl = res.zeroOAuthUrl
                     val webShareUrl = res.webShareUrl ?: "https://songflip.link/p/${res.playlistId}"
 
-                    if (!primaryLaunchUrl.isNullOrBlank()) {
+                    if (!zeroOAuthUrl.isNullOrBlank()) {
+                        // YouTube Music & Spotify: Primary Queue Launch
                         Button(
                             onClick = {
                                 val targetPkg = PackageUtils.getInstalledPackage(context, targetPlatform.key)
                                 var launched = false
                                 if (targetPkg != null) {
                                     try {
-                                        val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse(primaryLaunchUrl)).apply {
+                                        val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse(zeroOAuthUrl)).apply {
                                             setPackage(targetPkg)
                                             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
                                         }
@@ -422,7 +419,7 @@ fun PlaylistConvertBottomSheet(
 
                                 if (!launched) {
                                     try {
-                                        val genericIntent = Intent(Intent.ACTION_VIEW, Uri.parse(primaryLaunchUrl)).apply {
+                                        val genericIntent = Intent(Intent.ACTION_VIEW, Uri.parse(zeroOAuthUrl)).apply {
                                             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                         }
                                         context.startActivity(genericIntent)
@@ -457,42 +454,110 @@ fun PlaylistConvertBottomSheet(
                             )
                         }
                         Spacer(modifier = Modifier.height(10.dp))
-                    }
 
-                    // Secondary CTA: Share Playlist Web Link
-                    OutlinedButton(
-                        onClick = {
-                            val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
-                            val clip = ClipData.newPlainText("SongFlip Playlist Link", webShareUrl)
-                            clipboard?.setPrimaryClip(clip)
-                            Toast.makeText(
-                                context,
-                                context.getString(R.string.playlist_share_copied),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                        OutlinedButton(
+                            onClick = {
+                                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+                                val clip = ClipData.newPlainText("SongFlip Playlist Link", webShareUrl)
+                                clipboard?.setPrimaryClip(clip)
+                                Toast.makeText(
+                                    context,
+                                    context.getString(R.string.playlist_share_copied),
+                                    Toast.LENGTH_SHORT
+                                ).show()
 
-                            val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                                type = "text/plain"
-                                putExtra(Intent.EXTRA_TEXT, webShareUrl)
-                                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            }
-                            context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.playlist_share_link)))
-                        },
-                        shape = RoundedCornerShape(14.dp),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(50.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.Share,
-                            contentDescription = null,
-                            modifier = Modifier.size(18.dp)
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(
-                            text = stringResource(R.string.playlist_share_link),
-                            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold)
-                        )
+                                val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                                    type = "text/plain"
+                                    putExtra(Intent.EXTRA_TEXT, webShareUrl)
+                                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                }
+                                context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.playlist_share_link)).apply {
+                                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                })
+                            },
+                            shape = RoundedCornerShape(14.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(50.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Share,
+                                contentDescription = null,
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                text = stringResource(R.string.playlist_share_link),
+                                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold)
+                            )
+                        }
+                    } else {
+                        // Apple Music, Deezer, Tidal, Amazon: Primary Share & View Web-Playlist
+                        Button(
+                            onClick = {
+                                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+                                val clip = ClipData.newPlainText("SongFlip Playlist Link", webShareUrl)
+                                clipboard?.setPrimaryClip(clip)
+                                Toast.makeText(
+                                    context,
+                                    context.getString(R.string.playlist_share_copied),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+
+                                val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                                    type = "text/plain"
+                                    putExtra(Intent.EXTRA_TEXT, webShareUrl)
+                                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                }
+                                context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.playlist_share_link)).apply {
+                                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                })
+                            },
+                            shape = RoundedCornerShape(14.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(50.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Share,
+                                contentDescription = null,
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                text = stringResource(R.string.playlist_share_link),
+                                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold)
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        OutlinedButton(
+                            onClick = {
+                                try {
+                                    val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(webShareUrl)).apply {
+                                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    }
+                                    context.startActivity(webIntent)
+                                } catch (_: Exception) {}
+                                onDismiss()
+                            },
+                            shape = RoundedCornerShape(14.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(50.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.OpenInBrowser,
+                                contentDescription = null,
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                text = stringResource(R.string.playlist_open_in_browser),
+                                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold)
+                            )
+                        }
                     }
                 }
                 else -> {}
