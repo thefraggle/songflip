@@ -17,7 +17,7 @@ data class CacheEntry(
     val isHistory: Boolean = true
 )
 
-data class HistoryItem(
+data class LinkHistoryItem(
     val cacheKey: String,
     val canonicalUrl: String,
     val targetPlatformKey: String,
@@ -198,21 +198,21 @@ class LinkCache(
         entries.size
     }
 
-    suspend fun getHistoryEntries(limit: Int = 10, currentTimeMs: Long): List<HistoryItem> = mutex.withLock {
+    suspend fun getHistoryEntries(limit: Int = 10, currentTimeMs: Long): List<LinkHistoryItem> = mutex.withLock {
         ensureLoaded(currentTimeMs)
         val allLoaded = storage.loadAll()
         val combinedKeys = mutableSetOf<String>()
         combinedKeys.addAll(entries.keys)
         combinedKeys.addAll(allLoaded.keys)
 
-        val allItems = mutableListOf<HistoryItem>()
+        val allItems = mutableListOf<LinkHistoryItem>()
         for (key in combinedKeys) {
             val entry = entries[key] ?: allLoaded[key]
             if (entry != null && entry.isHistory && (currentTimeMs - entry.timestamp) <= ttlMs && entry.targetUrl.isNotBlank()) {
                 val canonicalUrl = key.substringBeforeLast("|")
                 val targetPlatformKey = key.substringAfterLast("|", entry.platform)
                 allItems.add(
-                    HistoryItem(
+                    LinkHistoryItem(
                         cacheKey = key,
                         canonicalUrl = canonicalUrl,
                         targetPlatformKey = targetPlatformKey,
