@@ -115,6 +115,7 @@ sequenceDiagram
         Edge->>Scraper: Resolve remaining misses in parallel chunks (15/chunk)
         Edge->>Edge: Build Zero-OAuth URI (watch_videos / trackset)
         Edge->>Cache: Save Doc with 90-Day Rolling TTL
+        Edge->>Cache: Async L2 Song Cache Warmup (Batch write up to 50 resolved tracks)
         Edge-->>Client: Return Conversion Result
     end
 
@@ -132,6 +133,7 @@ sequenceDiagram
 5. **50-Track Sweet Spot:** Optimized to 50 tracks to align with YouTube's strict server-side `watch_videos` limit and Spotify URI length constraints.
 6. **SSR Web Sharing (`songflip.link/p/...`):** Server-rendered, localized web pages with CSP hardening, target platform color theming, and individual track preview buttons.
 7. **90-Day Rolling TTL Lifecycle:** Playlist records are saved with an `expiresAt` timestamp and automatically refreshed on every web page view or conversion hit. Unused playlists expire cleanly via Firestore TTL policies.
+8. **Automatic L2 Song Cache Swarm Warmup:** Every playlist conversion asynchronously writes all successfully resolved tracks into the global Firestore `l2_song_cache` (with multi-index 12-char and 8-char SHA hashes). This automatically seeds the global cache, guaranteeing sub-30ms instant resolutions for any user subsequently flipping these tracks individually.
 
 ---
 
