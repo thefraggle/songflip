@@ -3,6 +3,7 @@
 ## [1.4.3] - 2026-09-20
 - **Modern Kotlin 2.1 Engine**: Upgraded app toolchain to Kotlin 2.1, official Compose Compiler Plugin, AGP 8.5.2, and Gradle 8.9 for smoother animations and faster startup.
 - **KMP Multiplatform Refinements**: Updated Ktor, Kotlinx Coroutines, and Serialization for faster multi-platform network handling.
+- **Android 15 & 16 Edge-to-Edge Optimization**: Cleaned legacy window attributes and modernized dynamic system bar insets handling.
 
 ## [1.4.2] - 2026-09-20
 - **Playlist History & 1-Tap Replay**: Converted playlists are now automatically saved to your history with track count badges and instant 1-tap queue playback.
