@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.provider.Browser
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.enableEdgeToEdge
 import androidx.lifecycle.lifecycleScope
 import de.goork.songflip.R
 import de.goork.songflip.data.LinkCacheManager
@@ -45,6 +46,7 @@ class RedirectActivity : ComponentActivity() {
     private val odesliRepository = OdesliRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
         // 0. Loop Break: If this intent was already forwarded by SongFlip, never re-intercept
@@ -392,7 +394,7 @@ class RedirectActivity : ComponentActivity() {
         val isTargetInstalled = targetPackage != null
 
         // Stage 1: Explicit target app launch (fastest, zero intent disambiguation)
-        if (isTargetInstalled && targetPackage != null) {
+        if (targetPackage != null) {
             try {
                 val targetUri = Uri.parse(PackageUtils.toNativeAppUri(url, targetPlatformKey))
 
