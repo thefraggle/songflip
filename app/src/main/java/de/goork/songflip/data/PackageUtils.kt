@@ -92,7 +92,8 @@ object PackageUtils {
     }
 
     fun getInstalledPackage(context: Context, platformKey: String): String? {
-        val candidates = fallbackPackages[platformKey] ?: listOfNotNull(packageMap[platformKey])
+        val cleanKey = platformKey.substringBefore("_")
+        val candidates = fallbackPackages[cleanKey] ?: listOfNotNull(packageMap[cleanKey])
         for (pkg in candidates) {
             try {
                 context.packageManager.getPackageInfo(pkg, 0)
@@ -102,7 +103,7 @@ object PackageUtils {
 
         // Dynamic player detection for custom/modded installations
         try {
-            val probeUrls = when (platformKey) {
+            val probeUrls = when (cleanKey) {
                 "youtubeMusic" -> listOf(
                     "https://music.youtube.com/watch?v=dQw4w9WgXcQ",
                     "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
@@ -137,15 +138,6 @@ object PackageUtils {
                         return pkg
                     }
                 }
-
-                val genericIntent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(probeUrl))
-                val genericInfos = context.packageManager.queryIntentActivities(genericIntent, 0)
-                for (info in genericInfos) {
-                    val pkg = info.activityInfo.packageName
-                    if (pkg != context.packageName && !isGenericBrowser(pkg)) {
-                        return pkg
-                    }
-                }
             }
         } catch (_: Exception) {}
 
@@ -161,7 +153,8 @@ object PackageUtils {
      * for instant direct launch without browser intent filtering.
      */
     fun toNativeAppUri(url: String, platformKey: String): String {
-        return when (platformKey) {
+        val cleanKey = platformKey.substringBefore("_")
+        return when (cleanKey) {
             "spotify" -> toNativeSpotifyUri(url)
             "deezer" -> toNativeDeezerUri(url)
             "tidal" -> toNativeTidalUri(url)
