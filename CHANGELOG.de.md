@@ -1,9 +1,9 @@
 # Changelog (Deutsch)
 
 ## [1.4.4] - 2026-09-20
-- **Zuverlässigerer Bezahl-Ablauf**: Fehler beim Schließen des Kaufdialogs behoben – Buttons kehren beim Abbrechen sofort in den klickbaren Ausgangszustand zurück.
-- **Sichere Playlist-Konvertierung**: Cloud-Verbindung für die Playlist-Umwandlung durch verifizierte Lizenzprüfung abgesichert.
-- **Optimierte Netzwerkverbindungen**: Wiederverwendung von Verbindungspools für blitzschnelle Gutschein-Prüfung und geringere Latenz.
+- **Reibungsloser Upgrade-Ablauf**: Kauf-Buttons setzen sich beim Schließen des Bezahl-Fensters sofort wieder zurück und bleiben stets klickbar.
+- **Schnellerer App-Start**: Optimiertes Laden des Song-Verlaufs im Hintergrund für einen verzögerungsfreien Kaltstart.
+- **Bessere Bedienbarkeit**: Größere Tippflächen bei Hinweisfeldern und noch zuverlässigere Playlist-Umwandlungen.
 
 ## [1.4.3] - 2026-09-20
 - **Moderne Kotlin 2.1 Engine**: Aktualisierte Toolchain auf Kotlin 2.1, offizielles Compose Compiler Plugin und moderne Build-Tools für noch flüssigere UI-Animationen und kürzere Startzeiten.
