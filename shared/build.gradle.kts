@@ -10,10 +10,8 @@ kotlin {
     applyDefaultHierarchyTemplate()
 
     androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "17"
-            }
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
         }
     }
 
@@ -32,22 +30,22 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-            implementation("io.ktor:ktor-client-core:2.3.7")
-            implementation("io.ktor:ktor-client-content-negotiation:2.3.7")
-            implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.7")
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
+            implementation("io.ktor:ktor-client-core:2.3.13")
+            implementation("io.ktor:ktor-client-content-negotiation:2.3.13")
+            implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.13")
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
         }
         commonTest.dependencies {
             implementation(kotlin("test"))
-            implementation("io.ktor:ktor-client-mock:2.3.7")
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+            implementation("io.ktor:ktor-client-mock:2.3.13")
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
         }
         androidMain.dependencies {
-            implementation("io.ktor:ktor-client-okhttp:2.3.7")
+            implementation("io.ktor:ktor-client-okhttp:2.3.13")
         }
         iosMain.dependencies {
-            implementation("io.ktor:ktor-client-darwin:2.3.7")
+            implementation("io.ktor:ktor-client-darwin:2.3.13")
         }
     }
 }
