@@ -1,9 +1,9 @@
 # Changelog (Deutsch)
 
 ## [1.4.3] - 2026-09-20
-- **Moderne Kotlin 2.1 Engine**: Aktualisierte Toolchain auf Kotlin 2.1, offizielles Compose Compiler Plugin, AGP 8.5.2 und Gradle 8.9 für noch flüssigere UI-Animationen und kürzere Startzeiten.
-- **KMP Multiplatform-Optimierungen**: Aktualisierte Ktor-, Coroutines- und Serialisierungs-Bibliotheken für schnellere plattformübergreifende Netzwerkverarbeitung.
-- **Android 15 & 16 Randlos-Optimierung**: Veraltete Window-Attribute bereinigt und Insets-Verarbeitung für moderne randlose System-Leisten optimiert.
+- **Moderne Kotlin 2.1 Engine**: Aktualisierte Toolchain auf Kotlin 2.1, offizielles Compose Compiler Plugin und moderne Build-Tools für noch flüssigere UI-Animationen und kürzere Startzeiten.
+- **Multiplatform-Optimierungen**: Aktualisierte Netzwerk-, Coroutines- und Serialisierungs-Bibliotheken für schnellere plattformübergreifende Datenverarbeitung.
+- **Nahtlose Randlos-Darstellung**: Optimierte Anpassung an moderne Bildschirme und Systemleisten für eine noch elegantere Optik.
 
 ## [1.4.2] - 2026-09-20
 - **Playlists im Verlauf**: Konvertierte Playlists landen nun mit Titel, Song-Anzahl und speziellem Playlist-Badge in deinem Verlauf – mit 1-Klick-Replay direkt in deiner Musik-App.
@@ -66,7 +66,7 @@
 
 ## [1.3.4] - 2026-09-16
 - **Neue Sprachen**: Vollständige Unterstützung für Traditionelles Chinesisch (Taiwan/Hongkong), Tschechisch, Ungarisch, Finnisch, Griechisch, Rumänisch und Thailändisch.
-- **Sprachauswahl & Store-Angleichung**: Nahtlose Synchronisation aller In-App-Texte und Store-Listings auf Android und iOS.
+- **Sprachauswahl & Store-Angleichung**: Nahtlose Synchronisation aller In-App-Texte und Store-Listings auf allen Plattformen.
 - **Internationale Store-Assets**: Aktualisierte Screenshots und zertifizierte Store-Beschreibungen für 37 weltweite Regionen.
 
 ## [1.3.3] - 2026-09-15

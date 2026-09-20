@@ -1,9 +1,9 @@
 # Changelog
 
 ## [1.4.3] - 2026-09-20
-- **Modern Kotlin 2.1 Engine**: Upgraded app toolchain to Kotlin 2.1, official Compose Compiler Plugin, AGP 8.5.2, and Gradle 8.9 for smoother animations and faster startup.
-- **KMP Multiplatform Refinements**: Updated Ktor, Kotlinx Coroutines, and Serialization for faster multi-platform network handling.
-- **Android 15 & 16 Edge-to-Edge Optimization**: Cleaned legacy window attributes and modernized dynamic system bar insets handling.
+- **Modern Kotlin 2.1 Engine**: Upgraded app toolchain to Kotlin 2.1, official Compose Compiler Plugin, and modern build tools for smoother animations and faster startup.
+- **Multiplatform Refinements**: Updated network, coroutines, and serialization components for faster multi-platform handling.
+- **Seamless Edge-to-Edge Experience**: Modernized system bar insets and layout handling for modern device screens.
 
 ## [1.4.2] - 2026-09-20
 - **Playlist History & 1-Tap Replay**: Converted playlists are now automatically saved to your history with track count badges and instant 1-tap queue playback.
@@ -58,7 +58,7 @@
 
 ## [1.3.4] - 2026-09-16
 - **Expanded Language Support**: Added full in-app and store localization for Traditional Chinese (Taiwan/Hong Kong), Czech, Hungarian, Finnish, Greek, Romanian, and Thai.
-- **Enhanced Global Experience**: Synchronized language selection and store assets across Android and iOS.
+- **Enhanced Global Experience**: Synchronized language selection and store assets across all platforms.
 - **Store Listings & Visuals**: Fully updated and certified multi-language listings and screenshot assets for 37 international markets.
 
 ## [1.3.3] - 2026-09-15
@@ -99,7 +99,7 @@
 - **Seamless Share Previews**: Shared tracks now seamlessly populate the in-app action banner with instant prefetching.
 
 ## [1.2.27] - 2026-09-12
-- **Material You Dynamic Theming**: Fixed the monochrome app icon on Pixel and modern Android devices to adapt beautifully and crisply to your home screen theme.
+- **Dynamic Theming**: Fixed the monochrome app icon on modern devices to adapt beautifully and crisply to your home screen theme.
 - **Enhanced Link Interception**: Added support for Shazam links, allowing you to open identified songs directly in your preferred music player.
 - **Smarter Promo Code Input**: Redeeming promo codes is now more flexible and forgiving with automatic formatting, cleaner error handling, and helpful rate-limit feedback.
 - **Player Compatibility**: Improved launch detection and player compatibility across custom setups and community packages.
@@ -133,7 +133,7 @@
 - **Instant Alternatives**: Convert music links on the spot via share menu or clipboard without setup.
 
 ## [1.2.20] - 2026-09-07
-- **Streamlined Preferences & Dashboard**: Removed the redundant manual link tester across Android and iOS in favor of the automatic Clipboard Smart-Banner.
+- **Streamlined Preferences & Dashboard**: Removed the redundant manual link tester in favor of the automatic Clipboard Smart-Banner.
 - **Automated Store Release Notes**: Resolved tag parsing to ensure localized Play Store and TestFlight release notes always dynamically match the latest version changes.
 - **Enhanced UX**: Refined dashboard layout on both platforms with a clean, distraction-free view focusing on prominent 1-tap playback and song history.
 
