@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.4.2] - 2026-09-20
+- **Playlist History & 1-Tap Replay**: Converted playlists are now automatically saved to your history with track count badges and instant 1-tap queue playback.
+- **Global Swarm Cache Acceleration**: Playlist conversions automatically seed the cloud cache, enabling sub-30ms instant resolutions for all users.
+- **Enhanced Player Routing**: Smoother package detection and intent handling for alternative and modded music players.
+
 ## [1.4.1] - 2026-09-19
 - **Lightning-Fast Playlist Conversion**: Optimized 50-track processing with smart instant caching for previously converted playlists.
 - **Interactive Track Play Buttons**: Play individual songs directly on shared playlist web pages in the target platform's branded style.

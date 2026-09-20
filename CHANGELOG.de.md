@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.4.2] - 2026-09-20
+- **Playlists im Verlauf**: Konvertierte Playlists landen nun mit Titel, Song-Anzahl und speziellem Playlist-Badge in deinem Verlauf – mit 1-Klick-Replay direkt in deiner Musik-App.
+- **Automatischer Cloud-Cache-Warmup**: Konvertierte Playlist-Tracks beschleunigen automatisch künftige Weiterleitungen für alle Nutzer auf unter 30 ms.
+- **Verbessertes Player-Routing**: Zuverlässigere App-Erkennung für native und modifizierte Musik-Player bei Verlaufsaktionen.
+
 ## [1.4.1] - 2026-09-19
 - **Blitzschnelle Playlist-Konvertierung**: Optimierter 50-Track-Abgleich mit intelligentem Sofort-Cache für bereits umgewandelte Playlists.
 - **Interaktive Play-Buttons**: Einzelne Titel können direkt auf der geteilten Playlist-Webseite in der Markenfarbe des Zieldienstes Probe gehört werden.
