@@ -72,13 +72,13 @@ fun ProNudgeBanner(
                         haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                         onDismiss()
                     },
-                    modifier = Modifier.size(28.dp)
+                    modifier = Modifier.size(48.dp)
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.Close,
-                        contentDescription = null,
+                        contentDescription = stringResource(android.R.string.cancel),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.size(18.dp)
+                        modifier = Modifier.size(20.dp)
                     )
                 }
             }

@@ -115,13 +115,13 @@ fun ClipboardSmartBanner(
                         haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                         onDismiss()
                     },
-                    modifier = Modifier.size(28.dp)
+                    modifier = Modifier.size(48.dp)
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.Close,
                         contentDescription = stringResource(android.R.string.cancel),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
-                        modifier = Modifier.size(18.dp)
+                        modifier = Modifier.size(20.dp)
                     )
                 }
             }
