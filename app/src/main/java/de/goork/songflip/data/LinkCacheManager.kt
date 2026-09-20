@@ -3,6 +3,7 @@ package de.goork.songflip.data
 import android.content.Context
 import android.content.SharedPreferences
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 
@@ -49,18 +50,24 @@ object LinkCacheManager {
         }
     }
 
+    private val backgroundScope = kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.SupervisorJob() + kotlinx.coroutines.Dispatchers.IO)
+
     fun init(context: Context) {
         if (sharedPreferences == null) {
             sharedPreferences = context.applicationContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
             checkCacheVersionMigration()
-            loadInitialFromPrefs()
+            backgroundScope.launch {
+                loadInitialFromPrefs()
+            }
         }
     }
 
     fun init(prefs: SharedPreferences) {
         sharedPreferences = prefs
         checkCacheVersionMigration()
-        loadInitialFromPrefs()
+        backgroundScope.launch {
+            loadInitialFromPrefs()
+        }
     }
 
     @Synchronized
