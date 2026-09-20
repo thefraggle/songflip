@@ -77,7 +77,22 @@ fun PlaylistConvertBottomSheet(
                 )
             }
             if (result.isSuccess) {
-                conversionState = PlaylistConversionState.Success(result.getOrThrow())
+                val data = result.getOrThrow()
+                conversionState = PlaylistConversionState.Success(data)
+
+                // Save playlist entry into local history
+                val targetUrl = data.zeroOAuthUrl ?: data.webShareUrl ?: playlistUrl
+                de.goork.songflip.data.LinkCacheManager.put(
+                    canonicalUrl = playlistUrl,
+                    targetPlatformKey = targetPlatformKey,
+                    targetUrl = targetUrl,
+                    platform = "${targetPlatformKey}_playlist",
+                    title = data.title.ifBlank { "Playlist" },
+                    artist = "${data.matchedCount}/${data.totalTracks} Songs",
+                    isAlbum = false,
+                    isHistory = true
+                )
+
                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipped(
                     target = targetPlatformKey,
                     isAlbum = false,
