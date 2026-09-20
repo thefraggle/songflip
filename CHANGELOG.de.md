@@ -1,9 +1,12 @@
 # Changelog (Deutsch)
 
+## [1.4.3] - 2026-09-20
+- **Moderne Kotlin 2.1 Engine**: Aktualisierte Toolchain auf Kotlin 2.1, offizielles Compose Compiler Plugin, AGP 8.5.2 und Gradle 8.9 für noch flüssigere UI-Animationen und kürzere Startzeiten.
+- **KMP Multiplatform-Optimierungen**: Aktualisierte Ktor-, Coroutines- und Serialisierungs-Bibliotheken für schnellere plattformübergreifende Netzwerkverarbeitung.
+
 ## [1.4.2] - 2026-09-20
 - **Playlists im Verlauf**: Konvertierte Playlists landen nun mit Titel, Song-Anzahl und speziellem Playlist-Badge in deinem Verlauf – mit 1-Klick-Replay direkt in deiner Musik-App.
 - **Automatischer Cloud-Cache-Warmup**: Konvertierte Playlist-Tracks beschleunigen automatisch künftige Weiterleitungen für alle Nutzer auf unter 30 ms.
-- **Moderne Kotlin 2.1 Engine**: Aktualisierte Toolchain auf Kotlin 2.1, Compose Compiler Plugin und Gradle 8.9 für noch flüssigere UI-Animationen und kürzere Startzeiten.
 - **Verbessertes Player-Routing**: Zuverlässigere App-Erkennung für native und modifizierte Musik-Player bei Verlaufsaktionen.
 
 ## [1.4.1] - 2026-09-19
