@@ -323,6 +323,9 @@ fun ProPaywallBottomSheet(
                                     isPurchasing = false
                                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackProPurchaseFailed(errorMsg)
                                     Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
+                                },
+                                onCancelled = {
+                                    isPurchasing = false
                                 }
                             )
                         } else if (selectedPackage == null) {

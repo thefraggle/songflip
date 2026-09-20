@@ -73,7 +73,8 @@ fun PlaylistConvertBottomSheet(
                     url = playlistUrl,
                     targetPlatformKey = targetPlatformKey,
                     isPro = isPro,
-                    maxTracks = if (isPro) 50 else 5
+                    maxTracks = if (isPro) 50 else 5,
+                    authToken = ProManager.getAuthToken()
                 )
             }
             if (result.isSuccess) {
