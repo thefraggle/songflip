@@ -38,7 +38,8 @@ class PlaylistConverterEngine(
         url: String,
         targetPlatformKey: String,
         isPro: Boolean = false,
-        maxTracks: Int = 50
+        maxTracks: Int = 50,
+        authToken: String? = null
     ): Result<PlaylistConversionResult> {
         val payload = buildJsonObject {
             put("url", url)
@@ -54,6 +55,10 @@ class PlaylistConverterEngine(
                 val response = client.post(endpoint) {
                     contentType(ContentType.Application.Json)
                     header("x-web-client", "songflip-app")
+                    if (!authToken.isNullOrBlank()) {
+                        header("Authorization", "Bearer $authToken")
+                        header("x-user-id", authToken)
+                    }
                     setBody(payload)
                 }
 

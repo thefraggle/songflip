@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.4.4] - 2026-09-20
+- **Seamless Subscription Flow**: Resolved a payment dialog dismissal issue ensuring purchase buttons immediately reset to their active state upon closing the checkout dialog.
+- **Enhanced Playlist Security & Verification**: Strengthened cloud playlist conversion authentication with verified account token matching.
+- **Network Performance Optimizations**: Reused connection pools for instant promo code redemption and faster responsiveness.
+
 ## [1.4.3] - 2026-09-20
 - **Modern Kotlin 2.1 Engine**: Upgraded app toolchain to Kotlin 2.1, official Compose Compiler Plugin, and modern build tools for smoother animations and faster startup.
 - **Multiplatform Refinements**: Updated network, coroutines, and serialization components for faster multi-platform handling.

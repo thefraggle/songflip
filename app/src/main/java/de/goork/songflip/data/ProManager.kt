@@ -197,11 +197,19 @@ object ProManager {
         }
     }
 
+    private val httpClient: okhttp3.OkHttpClient by lazy {
+        okhttp3.OkHttpClient.Builder()
+            .connectTimeout(6, java.util.concurrent.TimeUnit.SECONDS)
+            .readTimeout(6, java.util.concurrent.TimeUnit.SECONDS)
+            .build()
+    }
+
     fun purchase(
         activity: Activity,
         packageToPurchase: Package,
         onSuccess: () -> Unit,
-        onError: (String) -> Unit
+        onError: (String) -> Unit,
+        onCancelled: () -> Unit = {}
     ) {
         try {
             val params = PurchaseParams.Builder(activity, packageToPurchase).build()
@@ -218,7 +226,9 @@ object ProManager {
                     }
 
                     override fun onError(error: PurchasesError, userCancelled: Boolean) {
-                        if (!userCancelled) {
+                        if (userCancelled) {
+                            onCancelled()
+                        } else {
                             onError(error.message)
                         }
                     }
@@ -290,10 +300,7 @@ object ProManager {
         val mediaType = "application/json; charset=utf-8".toMediaType()
         val requestBody = jsonBody.toRequestBody(mediaType)
 
-        val client = okhttp3.OkHttpClient.Builder()
-            .connectTimeout(6, java.util.concurrent.TimeUnit.SECONDS)
-            .readTimeout(6, java.util.concurrent.TimeUnit.SECONDS)
-            .build()
+        val client = httpClient
 
         for (endpoint in endpoints) {
             try {
