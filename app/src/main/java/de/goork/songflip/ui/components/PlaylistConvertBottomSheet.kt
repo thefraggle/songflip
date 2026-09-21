@@ -83,14 +83,16 @@ fun PlaylistConvertBottomSheet(
 
                 // Save playlist entry into local history
                 val targetUrl = data.zeroOAuthUrl ?: data.webShareUrl ?: playlistUrl
-                de.goork.songflip.data.LinkCacheManager.put(
+                de.goork.songflip.core.engine.SongLinkEngine.shared.cache.put(
                     canonicalUrl = playlistUrl,
                     targetPlatformKey = targetPlatformKey,
-                    targetUrl = targetUrl,
-                    platform = "${targetPlatformKey}_playlist",
-                    title = data.title.ifBlank { "Playlist" },
-                    artist = "${data.matchedCount}/${data.totalTracks} Songs",
-                    isAlbum = false,
+                    result = de.goork.songflip.core.model.ResolutionResult.Success(
+                        targetUrl = targetUrl,
+                        platform = "${targetPlatformKey}_playlist",
+                        title = data.title.ifBlank { "Playlist" },
+                        artist = "${data.matchedCount}/${data.totalTracks} Songs",
+                        isAlbum = false
+                    ),
                     isHistory = true
                 )
 

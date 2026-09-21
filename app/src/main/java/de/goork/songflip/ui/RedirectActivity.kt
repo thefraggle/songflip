@@ -13,10 +13,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.lifecycle.lifecycleScope
 import de.goork.songflip.R
-import de.goork.songflip.data.LinkCacheManager
+import de.goork.songflip.core.cache.AndroidSharedPreferencesCacheStorage
+import de.goork.songflip.core.engine.SongLinkEngine
+import de.goork.songflip.core.model.ResolutionResult
 import de.goork.songflip.data.NetworkUtils
-import de.goork.songflip.data.OdesliRepository
-import de.goork.songflip.data.OdesliResult
 import de.goork.songflip.data.PackageUtils
 import de.goork.songflip.data.PauseHelper
 import de.goork.songflip.data.ProManager
@@ -30,20 +30,19 @@ import de.goork.songflip.ui.components.QuickTargetPickerBottomSheet
 import de.goork.songflip.ui.theme.SongFlipTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 
 /**
  * Transparent activity that silently intercepts incoming music links (or shared URLs) in the background,
- * resolves them via the 5-tier fallback engine to the user's preferred player, and launches the target link.
+ * resolves them via the multi-tier fallback engine to the user's preferred player, and launches the target link.
  */
 class RedirectActivity : ComponentActivity() {
 
     companion object {
         const val EXTRA_FORWARDED_FROM_SONGFLIP = "de.goork.songflip.FORWARDED_FROM_SONGFLIP"
     }
-
-    private val odesliRepository = OdesliRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -58,7 +57,7 @@ class RedirectActivity : ComponentActivity() {
 
         var fallbackIncomingUri: Uri? = null
         try {
-            LinkCacheManager.init(this)
+            AndroidSharedPreferencesCacheStorage.init(this)
             val settingsRepository = SettingsRepository(this)
 
             // Extract raw input text from EXTRA_TEXT, ClipData, or Data URI
@@ -73,7 +72,7 @@ class RedirectActivity : ComponentActivity() {
                 else -> intent?.dataString ?: intent?.data?.toString() ?: ""
             }
 
-            val incomingUrl = odesliRepository.extractCleanUrl(rawInput) ?: rawInput
+            val incomingUrl = UrlUtils.extractCleanUrl(rawInput) ?: rawInput
             if (incomingUrl.isBlank() || (!incomingUrl.startsWith("http://") && !incomingUrl.startsWith("https://"))) {
                 finish()
                 suppressTransitionAnimation()
@@ -145,7 +144,7 @@ class RedirectActivity : ComponentActivity() {
                 LaunchedEffect(incomingUrl) {
                     withContext(Dispatchers.IO) {
                         try {
-                            val info = odesliRepository.extractTrackInfo(incomingUrl)
+                            val info = SongLinkEngine.shared.extractTrackInfo(incomingUrl)
                             if (info != null) {
                                 val parts = info.split(" - ", limit = 2)
                                 if (parts.size == 2) {
@@ -204,8 +203,8 @@ class RedirectActivity : ComponentActivity() {
                 val isPro = ProManager.proState.value.isPro
                 if (isPro) {
                     lifecycleScope.launch {
-                        val canonical = if (odesliRepository.isShortLinkDomain(incomingUrl)) {
-                            withContext(Dispatchers.IO) { odesliRepository.resolveCanonicalUrl(incomingUrl) }
+                        val canonical = if (UrlUtils.isShortLinkDomain(incomingUrl)) {
+                            SongLinkEngine.shared.resolveCanonicalUrl(incomingUrl)
                         } else {
                             incomingUrl
                         }
@@ -254,7 +253,9 @@ class RedirectActivity : ComponentActivity() {
 
         // 2. Zero-Delay Offline Check: If device is offline and link is not cached, fail immediately
         val hasNetwork = NetworkUtils.isNetworkAvailable(this)
-        val isCached = LinkCacheManager.get(incomingUrl, targetPlatform) != null
+        val isCached = runBlocking(Dispatchers.IO) {
+            SongLinkEngine.shared.cache.get(incomingUrl, targetPlatform) != null
+        }
         if (!hasNetwork && !isCached) {
             Toast.makeText(
                 applicationContext,
@@ -282,17 +283,23 @@ class RedirectActivity : ComponentActivity() {
 
         lifecycleScope.launch {
             try {
+                ProManager.init(this@RedirectActivity)
+                val isPro = ProManager.proState.value.isPro
+                val authToken = ProManager.getAuthToken()
+
                 // Generous 12.0-second timeout to handle slow mobile network requests & shortlink hops
                 val result = withTimeoutOrNull(12000L) {
-                    odesliRepository.resolveTargetUrl(
+                    SongLinkEngine.shared.resolveTargetUrl(
                         inputUrl = incomingUrl,
                         targetPlatformKey = targetPlatform,
                         customApiUrl = customApiUrl,
-                        customApiToken = customApiToken
+                        customApiToken = customApiToken,
+                        isPro = isPro,
+                        authToken = authToken
                     )
                 }
 
-                if (result is OdesliResult.Success) {
+                if (result is ResolutionResult.Success) {
                     val targetDisplayName = PackageUtils.getPlatformDisplayName(targetPlatform)
                     val feedbackText = when {
                         !result.artist.isNullOrBlank() && !result.title.isNullOrBlank() -> {
@@ -308,9 +315,9 @@ class RedirectActivity : ComponentActivity() {
 
                     settingsRepository.incrementSuccessfulFlips()
 
-                    LinkCacheManager.markAsHistory(incomingUrl, targetPlatform)
+                    SongLinkEngine.shared.cache.markAsHistory(incomingUrl, targetPlatform)
                     UrlUtils.extractCleanUrl(incomingUrl)?.let { clean ->
-                        LinkCacheManager.markAsHistory(UrlUtils.normalizeUrl(clean), targetPlatform)
+                        SongLinkEngine.shared.cache.markAsHistory(UrlUtils.normalizeUrl(clean), targetPlatform)
                     }
 
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipped(
@@ -326,7 +333,7 @@ class RedirectActivity : ComponentActivity() {
                     ).show()
 
                     openTargetUrl(result.targetUrl, targetPlatform)
-                } else if (result is OdesliResult.Playlist) {
+                } else if (result is ResolutionResult.Playlist) {
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackPlaylistRouted(
                         target = targetPlatform
                     )
@@ -335,7 +342,7 @@ class RedirectActivity : ComponentActivity() {
                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     }
                     startActivity(mainIntent)
-                } else if (result is OdesliResult.PodcastOrAudiobook) {
+                } else if (result is ResolutionResult.PodcastOrAudiobook) {
                     if (result.isAudiobook) {
                         de.goork.songflip.core.analytics.AptabaseClient.shared.trackAudiobookIntercepted(targetPlatform)
                     } else {
@@ -347,7 +354,7 @@ class RedirectActivity : ComponentActivity() {
                         Toast.LENGTH_LONG
                     ).show()
                     forwardOriginalUrl(incomingUri)
-                } else if (result is OdesliResult.UnsupportedEntity) {
+                } else if (result is ResolutionResult.UnsupportedEntity) {
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackUnsupportedEntityIntercepted(
                         target = targetPlatform,
                         entityType = result.entityType
@@ -355,7 +362,7 @@ class RedirectActivity : ComponentActivity() {
                     forwardOriginalUrl(incomingUri)
                 } else {
                     val reason = when {
-                        result is OdesliResult.Error -> result.message
+                        result is ResolutionResult.Error -> result.message
                         result == null -> "timeout"
                         else -> "not_found"
                     }
@@ -364,7 +371,7 @@ class RedirectActivity : ComponentActivity() {
                         reason = reason
                     )
 
-                    val errorMsg = if (result is OdesliResult.Error && result.message == "PLAYLIST_NOT_SUPPORTED") {
+                    val errorMsg = if (result is ResolutionResult.Error && result.message == "PLAYLIST_NOT_SUPPORTED") {
                         getString(R.string.playlist_not_supported_toast)
                     } else {
                         getString(R.string.redirect_error_toast)

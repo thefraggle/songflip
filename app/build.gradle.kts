@@ -7,7 +7,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
-val appVersionName = "1.4.6"
+val appVersionName = "1.4.7"
 val versionParts = appVersionName.split(".")
 val computedVersionCode = (versionParts.getOrElse(0) { "1" }.toInt() * 10000) +
                           (versionParts.getOrElse(1) { "0" }.toInt() * 100) +

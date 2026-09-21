@@ -1,5 +1,6 @@
 package de.goork.songflip.core.cache
 
+import de.goork.songflip.core.engine.getCurrentTimeMillis
 import de.goork.songflip.core.model.ResolutionResult
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -86,7 +87,7 @@ class LinkCache(
         }
     }
 
-    suspend fun get(canonicalUrl: String, targetPlatformKey: String, currentTimeMs: Long): ResolutionResult.Success? = mutex.withLock {
+    suspend fun get(canonicalUrl: String, targetPlatformKey: String, currentTimeMs: Long = getCurrentTimeMillis()): ResolutionResult.Success? = mutex.withLock {
         ensureLoaded(currentTimeMs)
         val key = buildKey(canonicalUrl, targetPlatformKey)
         var entry = entries[key]
@@ -133,7 +134,7 @@ class LinkCache(
         canonicalUrl: String,
         targetPlatformKey: String,
         result: ResolutionResult.Success,
-        currentTimeMs: Long,
+        currentTimeMs: Long = getCurrentTimeMillis(),
         isHistory: Boolean = true
     ) = mutex.withLock {
         ensureLoaded(currentTimeMs)
@@ -163,7 +164,7 @@ class LinkCache(
         }
     }
 
-    suspend fun markAsHistory(canonicalUrl: String, targetPlatformKey: String, currentTimeMs: Long) = mutex.withLock {
+    suspend fun markAsHistory(canonicalUrl: String, targetPlatformKey: String, currentTimeMs: Long = getCurrentTimeMillis()) = mutex.withLock {
         ensureLoaded(currentTimeMs)
         val key = buildKey(canonicalUrl, targetPlatformKey)
         val existing = entries[key] ?: storage.get(key)
@@ -198,7 +199,7 @@ class LinkCache(
         entries.size
     }
 
-    suspend fun getHistoryEntries(limit: Int = 10, currentTimeMs: Long): List<LinkHistoryItem> = mutex.withLock {
+    suspend fun getHistoryEntries(limit: Int = 10, currentTimeMs: Long = getCurrentTimeMillis()): List<LinkHistoryItem> = mutex.withLock {
         ensureLoaded(currentTimeMs)
         val allLoaded = storage.loadAll()
         val combinedKeys = mutableSetOf<String>()
@@ -235,7 +236,7 @@ class LinkCache(
         }
     }
 
-    suspend fun getHistoryCount(currentTimeMs: Long): Int = mutex.withLock {
+    suspend fun getHistoryCount(currentTimeMs: Long = getCurrentTimeMillis()): Int = mutex.withLock {
         ensureLoaded(currentTimeMs)
         val allLoaded = storage.loadAll()
         val combinedKeys = mutableSetOf<String>()

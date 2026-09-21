@@ -285,7 +285,7 @@ fun ProPaywallBottomSheet(
                     // 3. Lifetime
                     ProTierCard(
                         title = stringResource(R.string.pro_tier_lifetime),
-                        price = lifetimePackage?.product?.price?.formatted ?: "—",
+                        price = getEffectivePrice(lifetimePackage)?.formatted ?: "—",
                         subtitle = null,
                         badge = stringResource(R.string.pro_lifetime_badge),
                         isSelected = selectedTier == SelectedProTier.LIFETIME,

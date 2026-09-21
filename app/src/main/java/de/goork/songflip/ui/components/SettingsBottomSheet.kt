@@ -57,7 +57,7 @@ import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Link
 import androidx.compose.material.icons.outlined.Science
 import androidx.compose.material.icons.outlined.Share
-import de.goork.songflip.data.LinkCacheManager
+import de.goork.songflip.core.engine.SongLinkEngine
 
 private const val URL_NOTTHOFF = "https://notthoff.org"
 private const val URL_PRIVACY = "https://songflip.link/privacy-policy.html"
@@ -306,7 +306,9 @@ fun SettingsBottomSheet(
             }
 
             // 1. Song History & Cache Card
-            val historyCount = remember(showHistorySubSheet) { LinkCacheManager.getHistoryCount() }
+            val historyCount by produceState(initialValue = 0, showHistorySubSheet) {
+                value = SongLinkEngine.shared.cache.getHistoryCount()
+            }
             Card(
                 shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),

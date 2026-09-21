@@ -1,9 +1,10 @@
 package de.goork.songflip
 
+import de.goork.songflip.core.engine.SongLinkEngine
+import de.goork.songflip.core.model.ResolutionResult
 import de.goork.songflip.core.util.UrlUtils
-import de.goork.songflip.data.LinkCacheManager
-import de.goork.songflip.data.OdesliRepository
 import de.goork.songflip.data.RedeemResult
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
@@ -52,34 +53,36 @@ class Issue19Test {
     }
 
     @Test
-    fun testL1CacheHitDetection() {
-        LinkCacheManager.clear()
+    fun testL1CacheHitDetection() = runBlocking {
+        val cache = SongLinkEngine.shared.cache
+        cache.clear()
         val testUrl = "https://open.spotify.com/track/12345"
         val platform = "youtubeMusic"
 
         // Before caching: cache miss
-        val miss = LinkCacheManager.get(testUrl, platform) != null
+        val miss = cache.get(testUrl, platform) != null
         assertTrue("Initial link must not be cached", !miss)
 
         // Put in L1 cache
-        LinkCacheManager.put(
+        cache.put(
             canonicalUrl = testUrl,
             targetPlatformKey = platform,
-            targetUrl = "https://music.youtube.com/watch?v=12345",
-            platform = platform
+            result = ResolutionResult.Success(
+                targetUrl = "https://music.youtube.com/watch?v=12345",
+                platform = platform
+            )
         )
 
         // After caching: cache hit (< 5ms)
-        val hit = LinkCacheManager.get(testUrl, platform) != null
+        val hit = cache.get(testUrl, platform) != null
         assertTrue("Cached link must be detected as cached to suppress flicker toast", hit)
     }
 
     @Test
     fun testActionSendUrlExtractionAndTargetRoutingNotHijacked() {
-        val repo = OdesliRepository()
         val rawSharedText = "Schau mal hier: https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv?si=abc12345"
 
-        val cleanUrl = repo.extractCleanUrl(rawSharedText)
+        val cleanUrl = UrlUtils.extractCleanUrl(rawSharedText)
         assertNotNull("Clean URL must be extracted from ACTION_SEND text", cleanUrl)
         assertEquals("https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv", cleanUrl)
 
