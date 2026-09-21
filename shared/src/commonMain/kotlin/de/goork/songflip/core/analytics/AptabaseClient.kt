@@ -133,15 +133,22 @@ object AptabaseClient {
         trackEvent("app_launched", mapOf("platform" to platform, "language" to language))
     }
 
-    fun trackLinkFlipped(target: String, isAlbum: Boolean, isSearch: Boolean) {
-        trackEvent(
-            "link_flipped",
-            mapOf(
-                "target" to target,
-                "is_album" to isAlbum.toString(),
-                "is_search" to isSearch.toString()
-            )
+    fun trackLinkFlipped(
+        target: String,
+        isAlbum: Boolean,
+        isSearch: Boolean,
+        source: String? = null
+    ) {
+        val params = mutableMapOf(
+            "target" to target,
+            "is_album" to isAlbum.toString(),
+            "is_search" to isSearch.toString()
         )
+        if (!source.isNullOrBlank()) {
+            params["source"] = source
+            params["migration"] = "$source -> $target"
+        }
+        trackEvent("link_flipped", params)
     }
 
     fun trackHistoryOpened() {
@@ -180,6 +187,49 @@ object AptabaseClient {
         trackEvent("playlist_routed", mapOf("target" to target))
     }
 
+    fun trackPlaylistConversionStarted(sourcePlatform: String, targetPlatform: String, trackCount: Int) {
+        trackEvent(
+            "playlist_conversion_started",
+            mapOf(
+                "source" to sourcePlatform,
+                "target" to targetPlatform,
+                "track_count" to trackCount.toString()
+            )
+        )
+    }
+
+    fun trackPlaylistConversionCompleted(
+        sourcePlatform: String,
+        targetPlatform: String,
+        totalTracks: Int,
+        resolvedTracks: Int,
+        failedTracks: Int,
+        isBatch: Boolean = false
+    ) {
+        trackEvent(
+            "playlist_conversion_completed",
+            mapOf(
+                "source" to sourcePlatform,
+                "target" to targetPlatform,
+                "total_tracks" to totalTracks.toString(),
+                "resolved_tracks" to resolvedTracks.toString(),
+                "failed_tracks" to failedTracks.toString(),
+                "is_batch" to isBatch.toString()
+            )
+        )
+    }
+
+    fun trackPlaylistConversionFailed(sourcePlatform: String, targetPlatform: String, reason: String) {
+        trackEvent(
+            "playlist_conversion_failed",
+            mapOf(
+                "source" to sourcePlatform,
+                "target" to targetPlatform,
+                "reason" to reason
+            )
+        )
+    }
+
     fun trackUnsupportedEntityIntercepted(target: String, entityType: String) {
         trackEvent("unsupported_entity_intercepted", mapOf("target" to target, "entity_type" to entityType))
     }
@@ -196,8 +246,12 @@ object AptabaseClient {
         trackEvent("pause_state_changed", mapOf("action" to action))
     }
 
-    fun trackPaywallViewed() {
-        trackEvent("paywall_viewed")
+    fun trackPaywallViewed(source: String = "unknown") {
+        trackEvent("paywall_viewed", mapOf("source" to source))
+    }
+
+    fun trackReviewPromptTriggered(trigger: String = "auto_criteria_met") {
+        trackEvent("review_prompt_triggered", mapOf("trigger" to trigger))
     }
 
     fun trackTestStudioResolved(sourceDomain: String, success: Boolean) {

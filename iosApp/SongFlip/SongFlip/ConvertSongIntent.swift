@@ -70,10 +70,12 @@ struct ConvertSongIntent: AppIntent {
                 )
             }
 
+            let srcKey = UrlUtils.shared.detectPlatform(url: urlToConvert)?.key ?? "unknown"
             AptabaseClient.shared.trackLinkFlipped(
                 target: targetPlatform,
                 isAlbum: success.isAlbum,
-                isSearch: false
+                isSearch: false,
+                source: srcKey
             )
 
             var opened = false

@@ -417,7 +417,7 @@ fun MainScreen(
             onThemeModeSelected = onThemeModeSelected,
             isPro = proState.isPro,
             onOpenProPaywall = {
-                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed()
+                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("settings_sheet")
                 showProPaywall = true
             },
             onOpenSetupGuide = {
@@ -612,7 +612,7 @@ fun MainScreen(
                                     context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share_universal_link)))
                                 }
                             } else {
-                                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed()
+                                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("clipboard_banner_universal_share")
                                 showProPaywall = true
                             }
                         },
@@ -633,12 +633,12 @@ fun MainScreen(
                 ProNudgeBanner(
                     milestone = activeMilestone,
                     onRedeemPromo = {
-                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed()
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("milestone_${activeMilestone}_promo")
                         initialShowPromoInPaywall = true
                         showProPaywall = true
                     },
                     onLearnMore = {
-                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed()
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("milestone_${activeMilestone}_learn_more")
                         initialShowPromoInPaywall = false
                         showProPaywall = true
                     },

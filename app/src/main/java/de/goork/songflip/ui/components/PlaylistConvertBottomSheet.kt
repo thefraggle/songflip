@@ -67,13 +67,19 @@ fun PlaylistConvertBottomSheet(
     fun runConversion() {
         conversionState = PlaylistConversionState.Loading()
         conversionProgressStep = 0
+        val maxTracksToConvert = if (isPro) 50 else 5
+        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPlaylistConversionStarted(
+            sourcePlatform = sourcePlatform.key,
+            targetPlatform = targetPlatformKey,
+            trackCount = maxTracksToConvert
+        )
         coroutineScope.launch {
             val result = withContext(Dispatchers.IO) {
                 PlaylistConverterEngine.shared.convertPlaylist(
                     url = playlistUrl,
                     targetPlatformKey = targetPlatformKey,
                     isPro = isPro,
-                    maxTracks = if (isPro) 50 else 5,
+                    maxTracks = maxTracksToConvert,
                     authToken = ProManager.getAuthToken()
                 )
             }
@@ -96,14 +102,29 @@ fun PlaylistConvertBottomSheet(
                     isHistory = true
                 )
 
+                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPlaylistConversionCompleted(
+                    sourcePlatform = sourcePlatform.key,
+                    targetPlatform = targetPlatformKey,
+                    totalTracks = data.totalTracks,
+                    resolvedTracks = data.matchedCount,
+                    failedTracks = (data.totalTracks - data.matchedCount).coerceAtLeast(0),
+                    isBatch = data.totalTracks > 50
+                )
+
                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipped(
                     target = targetPlatformKey,
                     isAlbum = false,
-                    isSearch = false
+                    isSearch = false,
+                    source = sourcePlatform.key
                 )
             } else {
                 val errorMsg = result.exceptionOrNull()?.message ?: "Unknown error"
                 conversionState = PlaylistConversionState.Error(errorMsg)
+                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPlaylistConversionFailed(
+                    sourcePlatform = sourcePlatform.key,
+                    targetPlatform = targetPlatformKey,
+                    reason = errorMsg
+                )
                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
                     target = targetPlatformKey,
                     reason = "playlist_conversion_error"
@@ -397,7 +418,7 @@ fun PlaylistConvertBottomSheet(
                                 }
                                 Button(
                                     onClick = {
-                                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed()
+                                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("playlist_limit_gate")
                                         onOpenPaywall()
                                     },
                                     contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp),

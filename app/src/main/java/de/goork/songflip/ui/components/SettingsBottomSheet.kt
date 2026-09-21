@@ -369,7 +369,7 @@ fun SettingsBottomSheet(
                         if (isPro) {
                             showHistorySubSheet = true
                         } else {
-                            de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed()
+                            de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("settings_universal_share_card")
                             onOpenProPaywall()
                         }
                     }
