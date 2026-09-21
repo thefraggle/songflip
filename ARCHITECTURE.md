@@ -154,8 +154,9 @@ The codebase separates platform-specific UI from deterministic platform-agnostic
 ```
 
 ### Shared Logic Benefits:
+- **Unified Engine (v1.4.7+)**: Both Android and iOS run 100% on the identical `SongLinkEngine.shared` and `LinkCache` core. Legacy redundant Android networking and repository layers were completely eliminated.
 - **Consistent Resolver Behavior:** Both platforms share identical regex rules and parsing priority. A song resolved on Android resolves identically on iOS.
-- **Zero Drift:** Bug fixes in the resolution engine only need to be written and unit-tested once in `shared/commonMain`.
+- **Zero Drift:** Bug fixes, URL parsing rules, and caching invariants only need to be written and unit-tested once in `shared/commonMain`.
 
 ### iOS Native Share Extension & App Groups:
 The iOS architecture decouples the main user interface (`de.goork.SongFlip`) from the background system extension (`de.goork.SongFlip.ShareExtension`):
@@ -165,7 +166,7 @@ The iOS architecture decouples the main user interface (`de.goork.SongFlip`) fro
 
 ---
 
-## 4. Privacy & Zero-Tracking Principles
+## 5. Privacy & Zero-Tracking Principles
 
 SongFlip is built around strict data minimalism:
 1. **No User Accounts:** Users never log in or provide emails.
@@ -175,7 +176,7 @@ SongFlip is built around strict data minimalism:
 
 ---
 
-## 5. Security & Verification
+## 6. Security & Verification
 
 - **HMAC Signed Vouchers:** Promo codes are verified server-side with constant-time cryptographic signatures to prevent brute-force enumeration.
 - **SSRF Hardening:** Incoming URL inputs on cloud endpoints are validated against strict whitelist regexes before executing any upstream network call.
