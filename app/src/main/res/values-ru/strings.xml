@@ -264,4 +264,8 @@
     <string name="quick_picker_title">Открыть с помощью …</string>
     <string name="share_universal_link_title">Делитесь универсальными веб-ссылками</string>
     <string name="share_universal_link_desc">Создавайте универсальные ссылки songflip.link для друзей на любых музыкальных платформах</string>
+    <string name="pro_offerings_error">Не удалось загрузить цены PRO. Проверьте подключение к интернету.</string>
+    <string name="action_retry">Повторить</string>
+    <string name="pro_restore_no_subscription">Активная подписка PRO не найдена.</string>
+    <string name="pro_purchase_failed">Не удалось завершить покупку. Попробуйте еще раз.</string>
 </resources>

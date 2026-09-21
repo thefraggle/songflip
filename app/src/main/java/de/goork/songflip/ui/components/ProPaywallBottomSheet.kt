@@ -358,7 +358,14 @@ fun ProPaywallBottomSheet(
                                 onError = { errorMsg ->
                                     isPurchasing = false
                                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackProPurchaseFailed(errorMsg)
-                                    Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
+                                    val userFriendlyMsg = if (errorMsg.contains("NETWORK", ignoreCase = true) || errorMsg.contains("resolve host", ignoreCase = true)) {
+                                        context.getString(R.string.pro_coupon_network_error)
+                                    } else if (errorMsg.contains("PLAY_STORE", ignoreCase = true) || errorMsg.contains("STORE_PROBLEM", ignoreCase = true)) {
+                                        context.getString(R.string.pro_play_store_unavailable)
+                                    } else {
+                                        context.getString(R.string.pro_purchase_failed)
+                                    }
+                                    Toast.makeText(context, userFriendlyMsg, Toast.LENGTH_LONG).show()
                                 },
                                 onCancelled = {
                                     isPurchasing = false
@@ -420,7 +427,12 @@ fun ProPaywallBottomSheet(
                             },
                             onError = { errorMsg ->
                                 isRestoring = false
-                                Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
+                                val userFriendlyMsg = if (errorMsg.contains("NETWORK", ignoreCase = true)) {
+                                    context.getString(R.string.pro_coupon_network_error)
+                                } else {
+                                    context.getString(R.string.pro_restore_no_subscription)
+                                }
+                                Toast.makeText(context, userFriendlyMsg, Toast.LENGTH_LONG).show()
                             }
                         )
                     },

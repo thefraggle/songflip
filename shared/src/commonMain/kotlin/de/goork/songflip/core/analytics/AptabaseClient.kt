@@ -163,12 +163,20 @@ object AptabaseClient {
         trackEvent("share_page_generated", mapOf("target" to target))
     }
 
+    private fun anonymizePromoCode(code: String): String {
+        val clean = code.trim().uppercase()
+        if (clean.isBlank()) return "empty"
+        val prefix = clean.substringBefore("-")
+        val hash = clean.hashCode().toUInt().toString(16)
+        return if (prefix.isNotBlank() && prefix != clean) "${prefix}_$hash" else "code_$hash"
+    }
+
     fun trackPromoRedeemedSuccess(code: String) {
-        trackEvent("promo_redeemed_success", mapOf("code" to code))
+        trackEvent("promo_redeemed_success", mapOf("code_hash" to anonymizePromoCode(code)))
     }
 
     fun trackPromoRedeemFailed(code: String, error: String) {
-        trackEvent("promo_redeem_failed", mapOf("code" to code, "error" to error))
+        trackEvent("promo_redeem_failed", mapOf("code_hash" to anonymizePromoCode(code), "error" to error))
     }
 
     fun trackLinkFlipFailed(target: String, reason: String) {

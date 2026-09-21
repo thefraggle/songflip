@@ -256,4 +256,8 @@
     <string name="quick_picker_title">Öppna med …</string>
     <string name="share_universal_link_title">Dela universella webblänkar</string>
     <string name="share_universal_link_desc">Skapa universella songflip.link-länkar för vänner på alla musikplattformar</string>
+    <string name="pro_offerings_error">Kunde inte läsa in PRO-priser. Kontrollera din internetanslutning.</string>
+    <string name="action_retry">Försök igen</string>
+    <string name="pro_restore_no_subscription">Inget aktivt PRO-abonnemang hittades.</string>
+    <string name="pro_purchase_failed">Köpet kunde inte slutföras. Försök igen.</string>
 </resources>

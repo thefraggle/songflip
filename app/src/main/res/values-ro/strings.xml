@@ -246,4 +246,8 @@
     <string name="quick_picker_title">Deschide cu …</string>
     <string name="share_universal_link_title">Partajează linkuri web universale</string>
     <string name="share_universal_link_desc">Creează linkuri universale songflip.link pentru prieteni pe orice platformă muzicală</string>
+    <string name="pro_offerings_error">Prețurile PRO nu au putut fi încărcate. Verificați conexiunea la internet.</string>
+    <string name="action_retry">Reîncearcă</string>
+    <string name="pro_restore_no_subscription">Nu a fost găsit niciun abonament PRO activ.</string>
+    <string name="pro_purchase_failed">Achiziția nu a putut fi finalizată. Vă rugăm să încercați din nou.</string>
 </resources>

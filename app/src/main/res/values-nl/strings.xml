@@ -256,4 +256,8 @@
     <string name="quick_picker_title">Openen met …</string>
     <string name="share_universal_link_title">Universele weblinks delen</string>
     <string name="share_universal_link_desc">Maak universele songflip.link-links voor vrienden op elk muziekplatform</string>
+    <string name="pro_offerings_error">Kan PRO-prijzen niet laden. Controleer je internetverbinding.</string>
+    <string name="action_retry">Opnieuw proberen</string>
+    <string name="pro_restore_no_subscription">Geen actief PRO-abonnement gevonden.</string>
+    <string name="pro_purchase_failed">Aankoop kon niet worden voltooid. Probeer het opnieuw.</string>
 </resources>

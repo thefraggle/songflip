@@ -261,11 +261,11 @@ object ProManager {
         if (trimmed.isEmpty()) return ""
 
         // Priority 1: Match standard FLIP-XXXX-YYYY or unhyphenated FLIPXXXXXXXX
-        val standardFlipRegex = Regex("""\b(FLIP-?[A-Z0-9]{4}-?[A-Z0-9]{4})\b""", RegexOption.IGNORE_CASE)
+        val standardFlipRegex = Regex("""\b(FLIP-[A-Z0-9]{4}-[A-Z0-9]{4}|FLIP[A-Z0-9]{8})\b""", RegexOption.IGNORE_CASE)
         standardFlipRegex.find(trimmed)?.let { return it.value.uppercase() }
 
-        // Priority 2: Match custom FLIP prefix (e.g. FLIP-MARKUS, FLIP-TOOBROWN)
-        val customFlipRegex = Regex("""\b(FLIP-[A-Z0-9_-]{3,24})\b""", RegexOption.IGNORE_CASE)
+        // Priority 2: Match custom FLIP prefix (e.g. FLIP-MARKUS, FLIP-TOOBROWN, FLIP-LIFETIME-VIP)
+        val customFlipRegex = Regex("""\b(FLIP-[A-Z0-9_-]{3,32})\b""", RegexOption.IGNORE_CASE)
         customFlipRegex.find(trimmed)?.let { return it.value.uppercase() }
 
         // Priority 3: Match known campaign word codes in longer text
@@ -276,13 +276,24 @@ object ProManager {
         return trimmed.replace("\\s+".toRegex(), "").uppercase()
     }
 
+    @androidx.annotation.VisibleForTesting
+    var testBaseUrl: String? = null
+
+    @androidx.annotation.VisibleForTesting
+    var testHttpClient: okhttp3.OkHttpClient? = null
+
+    @androidx.annotation.VisibleForTesting
+    fun setTestSharedPreferences(sp: SharedPreferences) {
+        prefs = sp
+    }
+
     suspend fun redeemCoupon(code: String): RedeemResult = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
         val cleanCode = extractCouponCode(code)
         if (cleanCode.isEmpty()) return@withContext RedeemResult.INVALID
 
         val sp = prefs ?: return@withContext RedeemResult.INVALID
 
-        val endpoints = listOf(
+        val endpoints = testBaseUrl?.let { listOf("$it/redeemPromoCode") } ?: listOf(
             "https://cache.songflip.link/redeemPromoCode",
             "https://songflip-web.web.app/redeemPromoCode"
         )
@@ -296,7 +307,7 @@ object ProManager {
         val mediaType = "application/json; charset=utf-8".toMediaType()
         val requestBody = jsonBody.toRequestBody(mediaType)
 
-        val client = httpClient
+        val client = testHttpClient ?: httpClient
 
         for (endpoint in endpoints) {
             try {
@@ -375,7 +386,7 @@ object ProManager {
                     }
                 }
             } catch (e: Exception) {
-                // Try next endpoint
+                android.util.Log.w("ProManager", "Redeem attempt failed for endpoint $endpoint: ${e.message}")
             }
         }
 

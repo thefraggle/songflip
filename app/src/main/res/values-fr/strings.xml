@@ -256,4 +256,8 @@
     <string name="quick_picker_title">Ouvrir avec …</string>
     <string name="share_universal_link_title">Partager des liens web universels</string>
     <string name="share_universal_link_desc">Créez des liens songflip.link universels pour vos amis sur toutes les plateformes</string>
+    <string name="pro_offerings_error">Impossible de charger les tarifs PRO. Vérifiez votre connexion.</string>
+    <string name="action_retry">Réessayer</string>
+    <string name="pro_restore_no_subscription">Aucun abonnement PRO actif trouvé.</string>
+<string name="pro_purchase_failed">L\'achat n\'a pas pu être finalisé. Veuillez réessayer.</string>
 </resources>

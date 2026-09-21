@@ -256,4 +256,8 @@
     <string name="quick_picker_title">এর মাধ্যমে খুলুন …</string>
     <string name="share_universal_link_title">সর্বজনীন ওয়েব লিঙ্ক শেয়ার করুন</string>
     <string name="share_universal_link_desc">যেকোনো সঙ্গীত প্ল্যাটফর্মে বন্ধুদের জন্য সর্বজনীন songflip.link লিঙ্ক তৈরি করুন</string>
+    <string name="pro_offerings_error">PRO मूल्य লোড করা যায়নি। আপনার ইন্টারনেট সংযোগ পরীক্ষা করুন।</string>
+    <string name="action_retry">আবার চেষ্টা করুন</string>
+    <string name="pro_restore_no_subscription">কোনো সক্রিয় PRO সাবস্ক্রিপশন পাওয়া যায়নি।</string>
+    <string name="pro_purchase_failed">ক্রয় সম্পন্ন করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
 </resources>

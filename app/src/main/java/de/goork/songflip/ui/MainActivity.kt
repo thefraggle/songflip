@@ -44,9 +44,9 @@ import de.goork.songflip.ui.theme.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var initialShowPauseSheet = false
-    private var initialOpenPlaylistUrl: String? = null
-    private val windowFocusState = mutableStateOf(false)
+    private var showPauseSheetState = mutableStateOf(false)
+    private var openPlaylistUrlState = mutableStateOf<String?>(null)
+    private val windowFocusState = mutableStateOf(true)
     private val incomingSharedUrlState = mutableStateOf<String?>(null)
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -58,8 +58,8 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         AndroidSharedPreferencesCacheStorage.init(this)
-        initialShowPauseSheet = intent?.getBooleanExtra("show_pause_sheet", false) == true
-        initialOpenPlaylistUrl = intent?.getStringExtra("open_playlist_url")
+        showPauseSheetState.value = intent?.getBooleanExtra("show_pause_sheet", false) == true
+        openPlaylistUrlState.value = intent?.getStringExtra("open_playlist_url")
         handleShortcutIntent(intent)
 
         val shared = intent?.takeIf { it.action == Intent.ACTION_SEND }?.let {
@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
         }?.let { UrlUtils.extractCleanUrl(it) ?: it }
         if (shared != null && isSupportedMusicUrl(shared)) {
             if (UrlUtils.isPlaylistUrl(shared)) {
-                initialOpenPlaylistUrl = shared
+                openPlaylistUrlState.value = shared
             } else {
                 incomingSharedUrlState.value = shared
             }
@@ -104,8 +104,8 @@ class MainActivity : AppCompatActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     MainScreen(
-                        initialShowPause = initialShowPauseSheet,
-                        initialOpenPlaylistUrl = initialOpenPlaylistUrl,
+                        initialShowPause = showPauseSheetState.value,
+                        initialOpenPlaylistUrl = openPlaylistUrlState.value,
                         currentThemeMode = currentThemeMode,
                         isWindowFocused = windowFocusState.value,
                         incomingSharedUrl = incomingSharedUrlState.value,
@@ -130,34 +130,12 @@ class MainActivity : AppCompatActivity() {
             incomingSharedUrlState.value = shared
         }
 
+        if (newPlaylistUrl != null) {
+            openPlaylistUrlState.value = newPlaylistUrl
+        }
         val showPause = intent.getBooleanExtra("show_pause_sheet", false)
-        if (showPause || newPlaylistUrl != null) {
-            setContent {
-                val settingsRepository = remember { SettingsRepository(this) }
-                var currentThemeMode by remember { mutableStateOf(settingsRepository.themeMode) }
-
-                val darkTheme = when (currentThemeMode) {
-                    "light" -> false
-                    "dark" -> true
-                    else -> isSystemInDarkTheme()
-                }
-
-                SongFlipTheme(darkTheme = darkTheme) {
-                    Surface(
-                        modifier = Modifier.fillMaxSize(),
-                        color = MaterialTheme.colorScheme.background
-                    ) {
-                        MainScreen(
-                            initialShowPause = showPause,
-                            initialOpenPlaylistUrl = newPlaylistUrl,
-                            currentThemeMode = currentThemeMode,
-                            isWindowFocused = windowFocusState.value,
-                            incomingSharedUrl = incomingSharedUrlState.value,
-                            onThemeModeSelected = { newMode -> currentThemeMode = newMode }
-                        )
-                    }
-                }
-            }
+        if (showPause) {
+            showPauseSheetState.value = true
         }
     }
 
@@ -252,6 +230,18 @@ fun MainScreen(
         if (incomingSharedUrl != null) {
             detectedClipboardUrl = incomingSharedUrl
             repository.prefetch(incomingSharedUrl, selectedTargetKey)
+        }
+    }
+
+    LaunchedEffect(initialShowPause) {
+        if (initialShowPause) {
+            showPauseBottomSheet = true
+        }
+    }
+
+    LaunchedEffect(initialOpenPlaylistUrl) {
+        if (initialOpenPlaylistUrl != null) {
+            showPlaylistConvertSheet = initialOpenPlaylistUrl
         }
     }
 

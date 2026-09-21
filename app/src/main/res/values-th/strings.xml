@@ -238,4 +238,8 @@
     <string name="quick_picker_title">เปิดด้วย …</string>
     <string name="share_universal_link_title">แชร์ลิงก์เว็บสากล</string>
     <string name="share_universal_link_desc">สร้างลิงก์ songflip.link สากลสำหรับเพื่อนบนทุกแพลตฟอร์มเพลง</string>
+    <string name="pro_offerings_error">ไม่สามารถโหลดราคา PRO ได้ โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ต</string>
+    <string name="action_retry">ลองอีกครั้ง</string>
+    <string name="pro_restore_no_subscription">ไม่พบการสมัครสมาชิก PRO ที่ใช้งานอยู่</string>
+    <string name="pro_purchase_failed">ไม่สามารถทำรายการซื้อได้ โปรดลองอีกครั้ง</string>
 </resources>
