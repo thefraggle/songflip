@@ -242,4 +242,8 @@
     <string name="quick_picker_title">Άνοιγμα με …</string>
     <string name="share_universal_link_title">Κοινοποίηση καθολικών συνδέσμων ιστού</string>
     <string name="share_universal_link_desc">Δημιουργήστε καθολικούς συνδέσμους songflip.link για φίλους σε οποιαδήποτε μουσική πλατφόρμα</string>
+    <string name="pro_offerings_error">Δεν ήταν δυνατή η φόρτωση των τιμών PRO. Ελέγξτε τη σύνδεσή σας.</string>
+    <string name="action_retry">Επανάληψη</string>
+    <string name="pro_restore_no_subscription">Δεν βρέθηκε ενεργή συνδρομή PRO.</string>
+    <string name="pro_purchase_failed">Η αγορά δεν ήταν δυνατό να ολοκληρωθεί. Δοκιμάστε ξανά.</string>
 </resources>

@@ -238,4 +238,8 @@
     <string name="quick_picker_title">選擇打開方式 …</string>
     <string name="share_universal_link_title">分享通用網頁連結</string>
     <string name="share_universal_link_desc">為任何音樂平台上的朋友建立通用的 songflip.link 連結</string>
+    <string name="pro_offerings_error">無法載入 PRO 價格，請檢查網路連線。</string>
+    <string name="action_retry">重試</string>
+    <string name="pro_restore_no_subscription">未找到有效的 PRO 訂閱。</string>
+    <string name="pro_purchase_failed">購買未能完成，請重試。</string>
 </resources>

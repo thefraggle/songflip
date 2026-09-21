@@ -289,4 +289,6 @@
     <string name="playlist_error_desc">Titel konnten nicht aus dieser Playlist extrahiert werden. Du kannst stattdessen den Originallink öffnen.</string>
     <string name="playlist_btn_retry">Erneut versuchen</string>
     <string name="playlist_btn_open_original">Original-Playlist öffnen</string>
+    <string name="pro_restore_no_subscription">Kein aktives PRO-Abonnement gefunden.</string>
+    <string name="pro_purchase_failed">Kauf konnte nicht abgeschlossen werden. Bitte versuche es erneut.</string>
 </resources>

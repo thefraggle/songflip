@@ -256,4 +256,8 @@
     <string name="quick_picker_title">इसके साथ खोलें …</string>
     <string name="share_universal_link_title">सार्वभौमिक वेब लिंक साझा करें</string>
     <string name="share_universal_link_desc">किसी भी संगीत प्लेटफ़ॉर्म पर दोस्तों के लिए सार्वभौमिक songflip.link लिंक बनाएं</string>
+    <string name="pro_offerings_error">PRO कीमतें लोड करने में असमर्थ। कृपया इंटरनेट कनेक्शन जांचें।</string>
+    <string name="action_retry">पुनः प्रयास करें</string>
+    <string name="pro_restore_no_subscription">कोई सक्रिय PRO सदस्यता नहीं मिली।</string>
+    <string name="pro_purchase_failed">खरीदारी पूरी नहीं हो सकी। कृपया पुन: प्रयास करें।</string>
 </resources>

@@ -252,4 +252,8 @@
     <string name="quick_picker_title">次で開く …</string>
     <string name="share_universal_link_title">ユニバーサルWebリンクを共有</string>
     <string name="share_universal_link_desc">あらゆる音楽プラットフォームの友達向けにユニバーサルな songflip.link リンクを作成</string>
+    <string name="pro_offerings_error">PROの価格を読み込めませんでした。インターネット接続を確認してください。</string>
+    <string name="action_retry">再試行</string>
+    <string name="pro_restore_no_subscription">有効なPROサブスクリプションが見つかりませんでした。</string>
+    <string name="pro_purchase_failed">購入を完了できませんでした。もう一度お試しください。</string>
 </resources>

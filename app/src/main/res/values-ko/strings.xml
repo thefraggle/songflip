@@ -252,4 +252,8 @@
     <string name="quick_picker_title">다음으로 열기 …</string>
     <string name="share_universal_link_title">유니버설 웹 링크 공유</string>
     <string name="share_universal_link_desc">모든 음악 플랫폼의 친구를 위해 유니버설 songflip.link 링크 생성</string>
+    <string name="pro_offerings_error">PRO 가격을 불러올 수 없습니다. 인터넷 연결을 확인해 주세요.</string>
+    <string name="action_retry">다시 시도</string>
+    <string name="pro_restore_no_subscription">활성 PRO 구독을 찾을 수 없습니다.</string>
+    <string name="pro_purchase_failed">구매를 완료할 수 없습니다. 다시 시도해 주세요.</string>
 </resources>

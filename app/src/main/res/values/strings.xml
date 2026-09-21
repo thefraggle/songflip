@@ -289,4 +289,6 @@
     <string name="playlist_error_desc">Could not extract tracks from this playlist. You can open the original link instead.</string>
     <string name="playlist_btn_retry">Retry</string>
     <string name="playlist_btn_open_original">Open Original Playlist</string>
+    <string name="pro_restore_no_subscription">No active PRO subscription found.</string>
+    <string name="pro_purchase_failed">Purchase could not be completed. Please try again.</string>
 </resources>

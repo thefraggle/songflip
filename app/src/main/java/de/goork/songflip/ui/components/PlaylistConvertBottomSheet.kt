@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -331,7 +332,9 @@ fun PlaylistConvertBottomSheet(
                                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 }
                                 context.startActivity(intent)
-                            } catch (_: Exception) {}
+                            } catch (e: Exception) {
+                                Log.w("PlaylistConvert", "Failed to launch original playlist intent: ${e.message}")
+                            }
                             onDismiss()
                         },
                         modifier = Modifier.fillMaxWidth().height(48.dp),
@@ -453,7 +456,9 @@ fun PlaylistConvertBottomSheet(
                                         }
                                         context.startActivity(appIntent)
                                         launched = true
-                                    } catch (_: Exception) {}
+                                    } catch (e: Exception) {
+                                        Log.w("PlaylistConvert", "Failed to launch target app intent: ${e.message}")
+                                    }
                                 }
 
                                 if (!launched) {
@@ -463,7 +468,9 @@ fun PlaylistConvertBottomSheet(
                                         }
                                         context.startActivity(genericIntent)
                                         launched = true
-                                    } catch (_: Exception) {}
+                                    } catch (e: Exception) {
+                                        Log.w("PlaylistConvert", "Failed to launch generic intent: ${e.message}")
+                                    }
                                 }
 
                                 if (!launched) {
@@ -472,7 +479,10 @@ fun PlaylistConvertBottomSheet(
                                             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                         }
                                         context.startActivity(webIntent)
-                                    } catch (_: Exception) {}
+                                        launched = true
+                                    } catch (e: Exception) {
+                                        Log.w("PlaylistConvert", "Failed to launch web share intent: ${e.message}")
+                                    }
                                 }
                                 onDismiss()
                             },
@@ -578,7 +588,9 @@ fun PlaylistConvertBottomSheet(
                                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                     }
                                     context.startActivity(webIntent)
-                                } catch (_: Exception) {}
+                                } catch (e: Exception) {
+                                    Log.w("PlaylistConvert", "Failed to open web share in browser: ${e.message}")
+                                }
                                 onDismiss()
                             },
                             shape = RoundedCornerShape(14.dp),
