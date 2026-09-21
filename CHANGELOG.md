@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.4.5] - 2026-09-21
+- **Annual Intro Offer & Pricing Highlights**: Refined the upgrade experience to dynamically showcase first-year introductory savings and localized currency rates.
+- **Enhanced Reliability**: Smoother pricing phase resolution and everyday stability improvements.
+
 ## [1.4.4] - 2026-09-20
 - **Smoother Upgrades & Checkout**: Purchase buttons now reset instantly and reliably if you dismiss the upgrade sheet.
 - **Faster App Startup**: Optimized background history loading for an instant, lag-free startup experience.

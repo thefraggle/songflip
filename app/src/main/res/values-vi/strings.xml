@@ -164,11 +164,11 @@
     <string name="pro_tier_monthly">Hàng tháng</string>
     <string name="pro_tier_annual">Hàng năm</string>
     <string name="pro_tier_lifetime">Lifetime</string>
-    <string name="pro_bestseller_badge" formatted="false">BESTSELLER • 33% OFF</string>
+    <string name="pro_bestseller_badge" formatted="false">BESTSELLER • 50% OFF</string>
     <string name="pro_lifetime_badge">ONE-TIME</string>
     <string name="pro_price_monthly_default">—</string>
     <string name="pro_price_annual_default">—</string>
-    <string name="pro_price_annual_sub">~%1$s / tháng (4 tháng miễn phí)</string>
+    <string name="pro_price_annual_sub">~%1$s / tháng (năm đầu giảm 50%%)</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Khôi phục giao dịch mua</string>
     <string name="pro_coupon_toggle">Bạn có mã khuyến mãi?</string>
