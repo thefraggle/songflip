@@ -303,6 +303,17 @@ class SongLinkEngine(
                 )
             }
 
+            // Social & Session links (Spotify Blend, Jam, Live, User profile) cannot be converted 1:1
+            if (UrlUtils.isSocialOrSessionUrl(canonicalUrl)) {
+                val platformKey = UrlUtils.detectPlatform(canonicalUrl)?.key ?: "unknown"
+                return ResolutionResult.UnsupportedEntity(
+                    originalUrl = canonicalUrl,
+                    platform = platformKey,
+                    entityType = "social_session",
+                    message = "SOCIAL_SESSION_NOT_SUPPORTED"
+                )
+            }
+
             val isExplicitTrackUrl = canonicalUrl.contains("i=") || canonicalUrl.contains("/song/") || canonicalUrl.contains("/track/")
             val isExplicitAlbumUrl = !isExplicitTrackUrl && UrlUtils.isAlbumUrl(canonicalUrl)
             val now = getCurrentTimeMillis()
@@ -1222,12 +1233,27 @@ class SongLinkEngine(
         }
 
         return try {
-            val resp = client.get(url) {
+            val resp = client.head(url) {
                 header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
             }
-            resp.request.url.toString()
+            val location = resp.headers["Location"]
+            if (!location.isNullOrBlank()) {
+                location
+            } else {
+                val getResp = client.get(url) {
+                    header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+                }
+                getResp.request.url.toString()
+            }
         } catch (e: Exception) {
-            url
+            try {
+                val getResp = client.get(url) {
+                    header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+                }
+                getResp.request.url.toString()
+            } catch (_: Exception) {
+                url
+            }
         }
     }
 

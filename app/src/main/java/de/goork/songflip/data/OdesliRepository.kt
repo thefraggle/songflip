@@ -36,6 +36,12 @@ sealed class OdesliResult {
         val isAudiobook: Boolean = false,
         val message: String = "PODCAST_NOT_SUPPORTED"
     ) : OdesliResult()
+    data class UnsupportedEntity(
+        val originalUrl: String,
+        val platform: String,
+        val entityType: String = "unsupported",
+        val message: String = "UNSUPPORTED_ENTITY"
+    ) : OdesliResult()
     data class Error(val message: String) : OdesliResult()
 }
 
@@ -185,6 +191,16 @@ class OdesliRepository(
                     platform = detected,
                     isAudiobook = isAudiobook,
                     message = if (isAudiobook) "AUDIOBOOK_NOT_SUPPORTED" else "PODCAST_NOT_SUPPORTED"
+                )
+            }
+
+            // Social & Session links (Spotify Blend, Jam, Live, User profile) cannot be converted 1:1
+            if (UrlUtils.isSocialOrSessionUrl(canonicalUrl)) {
+                val detected = UrlUtils.detectPlatform(canonicalUrl)?.key ?: "unknown"
+                return@withContext OdesliResult.UnsupportedEntity(
+                    originalUrl = canonicalUrl,
+                    platform = detected,
+                    entityType = "social_session"
                 )
             }
 

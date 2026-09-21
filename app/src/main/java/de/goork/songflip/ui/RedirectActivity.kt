@@ -282,8 +282,8 @@ class RedirectActivity : ComponentActivity() {
 
         lifecycleScope.launch {
             try {
-                // Generous 8.0-second timeout to handle cold mobile network requests
-                val result = withTimeoutOrNull(8000L) {
+                // Generous 12.0-second timeout to handle slow mobile network requests & shortlink hops
+                val result = withTimeoutOrNull(12000L) {
                     odesliRepository.resolveTargetUrl(
                         inputUrl = incomingUrl,
                         targetPlatformKey = targetPlatform,
@@ -327,21 +327,31 @@ class RedirectActivity : ComponentActivity() {
 
                     openTargetUrl(result.targetUrl, targetPlatform)
                 } else if (result is OdesliResult.Playlist) {
+                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackPlaylistRouted(
+                        target = targetPlatform
+                    )
                     val mainIntent = Intent(this@RedirectActivity, MainActivity::class.java).apply {
                         putExtra("open_playlist_url", incomingUrl)
                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     }
                     startActivity(mainIntent)
                 } else if (result is OdesliResult.PodcastOrAudiobook) {
-                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
-                        target = targetPlatform,
-                        reason = if (result.isAudiobook) "audiobook_detected" else "podcast_detected"
-                    )
+                    if (result.isAudiobook) {
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackAudiobookIntercepted(targetPlatform)
+                    } else {
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPodcastIntercepted(targetPlatform)
+                    }
                     Toast.makeText(
                         applicationContext,
                         getString(if (result.isAudiobook) R.string.audiobook_not_supported_toast else R.string.podcast_not_supported_toast),
                         Toast.LENGTH_LONG
                     ).show()
+                    forwardOriginalUrl(incomingUri)
+                } else if (result is OdesliResult.UnsupportedEntity) {
+                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackUnsupportedEntityIntercepted(
+                        target = targetPlatform,
+                        entityType = result.entityType
+                    )
                     forwardOriginalUrl(incomingUri)
                 } else {
                     val reason = when {

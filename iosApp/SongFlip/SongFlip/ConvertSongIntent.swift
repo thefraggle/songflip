@@ -87,20 +87,29 @@ struct ConvertSongIntent: AppIntent {
 
             return .result()
         } else if let playlist = res as? ResolutionResult.Playlist {
-            AptabaseClient.shared.trackLinkFlipFailed(
-                target: targetPlatform,
-                reason: "playlist_detected"
+            AptabaseClient.shared.trackPlaylistRouted(
+                target: targetPlatform
             )
             if let url = URL(string: playlist.originalUrl) {
                 await UIApplication.shared.open(url)
             }
             return .result()
         } else if let podcast = res as? ResolutionResult.PodcastOrAudiobook {
-            AptabaseClient.shared.trackLinkFlipFailed(
-                target: targetPlatform,
-                reason: podcast.isAudiobook ? "audiobook_detected" : "podcast_detected"
-            )
+            if podcast.isAudiobook {
+                AptabaseClient.shared.trackAudiobookIntercepted(target: targetPlatform)
+            } else {
+                AptabaseClient.shared.trackPodcastIntercepted(target: targetPlatform)
+            }
             if let url = URL(string: podcast.originalUrl) {
+                await UIApplication.shared.open(url)
+            }
+            return .result()
+        } else if let unsupported = res as? ResolutionResult.UnsupportedEntity {
+            AptabaseClient.shared.trackUnsupportedEntityIntercepted(
+                target: targetPlatform,
+                entityType: unsupported.entityType
+            )
+            if let url = URL(string: unsupported.originalUrl) {
                 await UIApplication.shared.open(url)
             }
             return .result()

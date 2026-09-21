@@ -11,5 +11,6 @@ enum class MusicEntityType {
     AUDIOBOOK,
     ARTIST,
     SEARCH,
+    SOCIAL_SESSION,
     UNKNOWN
 }

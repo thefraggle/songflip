@@ -714,20 +714,30 @@ struct ContentView: View {
                         UIApplication.shared.open(url)
                     }
                 } else if let playlist = res as? ResolutionResult.Playlist {
-                    AptabaseClient.shared.trackLinkFlipFailed(
-                        target: settings.targetPlatform,
-                        reason: "playlist_detected"
+                    AptabaseClient.shared.trackPlaylistRouted(
+                        target: settings.targetPlatform
                     )
                     playlistNoticeUrl = playlist.originalUrl
                     showingPlaylistNotice = true
                 } else if let podcast = res as? ResolutionResult.PodcastOrAudiobook {
-                    AptabaseClient.shared.trackLinkFlipFailed(
-                        target: settings.targetPlatform,
-                        reason: podcast.isAudiobook ? "audiobook_detected" : "podcast_detected"
-                    )
+                    if podcast.isAudiobook {
+                        AptabaseClient.shared.trackAudiobookIntercepted(target: settings.targetPlatform)
+                    } else {
+                        AptabaseClient.shared.trackPodcastIntercepted(target: settings.targetPlatform)
+                    }
                     podcastNoticeUrl = podcast.originalUrl
                     isPodcastNoticeAudiobook = podcast.isAudiobook
                     showingPodcastNotice = true
+                } else if let unsupported = res as? ResolutionResult.UnsupportedEntity {
+                    AptabaseClient.shared.trackUnsupportedEntityIntercepted(
+                        target: settings.targetPlatform,
+                        entityType: unsupported.entityType
+                    )
+                    if let original = URL(string: urlToConvert) {
+                        UIApplication.shared.open(original)
+                    }
+                    dismissedClipboardUrl = urlToConvert
+                    detectedClipboardUrl = nil
                 } else {
                     let reason = (res as? ResolutionResult.Error)?.message ?? "timeout_or_unknown"
                     AptabaseClient.shared.trackLinkFlipFailed(

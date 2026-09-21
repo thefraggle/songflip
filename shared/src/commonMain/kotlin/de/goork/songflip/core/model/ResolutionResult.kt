@@ -37,6 +37,14 @@ sealed class ResolutionResult {
     ) : ResolutionResult()
 
     @Serializable
+    data class UnsupportedEntity(
+        val originalUrl: String,
+        val platform: String,
+        val entityType: String = "unsupported",
+        val message: String? = null
+    ) : ResolutionResult()
+
+    @Serializable
     data class Error(
         val message: String,
         val isUnsupported: Boolean = false
