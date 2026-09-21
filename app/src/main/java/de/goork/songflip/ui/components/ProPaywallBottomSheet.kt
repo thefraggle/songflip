@@ -72,17 +72,26 @@ fun ProPaywallBottomSheet(
     var isRedeemingCoupon by remember { mutableStateOf(false) }
 
     var isLoadingOfferings by remember { mutableStateOf(true) }
+    var offeringsError by remember { mutableStateOf(false) }
 
-    LaunchedEffect(Unit) {
+    fun loadOfferings() {
+        isLoadingOfferings = true
+        offeringsError = false
         ProManager.getOfferings(
             onSuccess = { offerings ->
                 availablePackages = offerings.current?.availablePackages ?: emptyList()
+                offeringsError = availablePackages.isEmpty()
                 isLoadingOfferings = false
             },
             onError = {
                 isLoadingOfferings = false
+                offeringsError = true
             }
         )
+    }
+
+    LaunchedEffect(Unit) {
+        loadOfferings()
     }
 
     ModalBottomSheet(
@@ -244,6 +253,32 @@ fun ProPaywallBottomSheet(
                         ProFeatureRow(text = stringResource(R.string.pro_feature_universal_links))
                         ProFeatureRow(text = stringResource(R.string.pro_feature_support))
                         ProFeatureRow(text = stringResource(R.string.pro_feature_future))
+                    }
+                }
+
+                if (offeringsError && availablePackages.isEmpty() && !isLoadingOfferings) {
+                    Card(
+                        shape = RoundedCornerShape(12.dp),
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.5f)),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(12.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                text = stringResource(R.string.pro_offerings_error),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onErrorContainer,
+                                modifier = Modifier.weight(1f).padding(end = 8.dp)
+                            )
+                            TextButton(onClick = { loadOfferings() }) {
+                                Text(stringResource(R.string.action_retry))
+                            }
+                        }
                     }
                 }
 
@@ -454,18 +489,22 @@ fun ProPaywallBottomSheet(
                                             RedeemResult.SUCCESS_LIFETIME -> {
                                                 Toast.makeText(context, context.getString(R.string.pro_coupon_success_lifetime), Toast.LENGTH_LONG).show()
                                                 couponCodeText = ""
+                                                onDismissRequest()
                                             }
                                             RedeemResult.SUCCESS_1YEAR -> {
                                                 Toast.makeText(context, context.getString(R.string.pro_coupon_success_1year), Toast.LENGTH_LONG).show()
                                                 couponCodeText = ""
+                                                onDismissRequest()
                                             }
                                             RedeemResult.SUCCESS_3MONTHS -> {
                                                 Toast.makeText(context, context.getString(R.string.pro_coupon_success_3months), Toast.LENGTH_LONG).show()
                                                 couponCodeText = ""
+                                                onDismissRequest()
                                             }
                                             RedeemResult.SUCCESS_1MONTH -> {
                                                 Toast.makeText(context, context.getString(R.string.pro_coupon_success_1month), Toast.LENGTH_LONG).show()
                                                 couponCodeText = ""
+                                                onDismissRequest()
                                             }
                                             RedeemResult.ALREADY_ACTIVE -> {
                                                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemFailed(couponCodeText, "already_active")
