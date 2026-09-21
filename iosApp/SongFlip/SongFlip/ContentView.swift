@@ -703,10 +703,12 @@ struct ContentView: View {
                         isAlbum: success.isAlbum
                     )
 
+                    let srcKey = UrlUtils.shared.detectPlatform(url: urlToConvert)?.key ?? "unknown"
                     AptabaseClient.shared.trackLinkFlipped(
                         target: settings.targetPlatform,
                         isAlbum: success.isAlbum,
-                        isSearch: false
+                        isSearch: false,
+                        source: srcKey
                     )
 
                     let target = success.nativeAppUri ?? success.targetUrl

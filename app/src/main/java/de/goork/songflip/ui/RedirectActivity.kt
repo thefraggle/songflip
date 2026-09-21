@@ -320,10 +320,12 @@ class RedirectActivity : ComponentActivity() {
                         SongLinkEngine.shared.cache.markAsHistory(UrlUtils.normalizeUrl(clean), targetPlatform)
                     }
 
+                    val sourcePlatformKey = UrlUtils.detectPlatform(incomingUrl)?.key ?: "unknown"
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipped(
                         target = targetPlatform,
                         isAlbum = result.isAlbum,
-                        isSearch = false
+                        isSearch = false,
+                        source = sourcePlatformKey
                     )
 
                     Toast.makeText(

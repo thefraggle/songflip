@@ -47,6 +47,7 @@ object ReviewHelper {
      */
     fun launchReviewFlow(activity: Activity, onComplete: (() -> Unit)? = null) {
         try {
+            de.goork.songflip.core.analytics.AptabaseClient.shared.trackReviewPromptTriggered("auto_criteria_met")
             val manager = ReviewManagerFactory.create(activity)
             val request = manager.requestReviewFlow()
             request.addOnCompleteListener { task ->
