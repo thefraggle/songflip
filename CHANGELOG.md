@@ -1,9 +1,9 @@
 # Changelog
 
 ## [1.4.8] - 2026-09-21
-- **Enhanced Telemetry & Migration Insights**: Added deep migration matrix diagnostics (`source -> target`) and granular paywall attribution for continuous funnel refinement.
-- **In-App Review Flow Telemetry**: Added anonymous telemetry for Google Play In-App Review prompts to monitor user satisfaction metrics.
-- **Playlist Converter Funnel Telemetry**: Added detailed funnel tracking for playlist conversions, error diagnostics, and batch completion rates.
+- **Enhanced Conversion Reliability**: Improved service routing and smart fallback handling between all supported music platforms.
+- **Playlist Converter Refinements**: Smoother progress tracking and enhanced completion handling for multi-track conversions.
+- **Under-the-Hood Improvements**: Stability optimizations and diagnostic refinements to keep link handling fast and dependable.
 
 ## [1.4.7] - 2026-09-21
 - **Unified Multiplatform Engine**: Migrated Android link conversion and caching to the shared Kotlin Multiplatform core for identical, lightning-fast resolving on Android and iOS.
