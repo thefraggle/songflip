@@ -1,1 +1,2 @@
-- Helpful Link Guidance: Links to podcasts and audiobooks are now clearly identified as unsupported, with direct shortcuts to open them in their original app.
+- Annual Intro Offer & Pricing Highlights: Refined the upgrade experience to dynamically showcase first-year introductory savings and localized currency rates.
+- Enhanced Reliability: Smoother pricing phase resolution and everyday stability improvements.
