@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.revenuecat.purchases.Package
 import com.revenuecat.purchases.PackageType
+import com.revenuecat.purchases.models.Price
 import de.goork.songflip.R
 import de.goork.songflip.data.ProManager
 import de.goork.songflip.data.RedeemResult
@@ -258,7 +259,7 @@ fun ProPaywallBottomSheet(
                     // 1. Annual (Bestseller)
                     ProTierCard(
                         title = stringResource(R.string.pro_tier_annual),
-                        price = annualPackage?.product?.price?.formatted ?: "—",
+                        price = getEffectivePrice(annualPackage)?.formatted ?: "—",
                         subtitle = annualPackage?.let { stringResource(R.string.pro_price_annual_sub, formatMonthlyPrice(it)) },
                         badge = stringResource(R.string.pro_bestseller_badge),
                         isSelected = selectedTier == SelectedProTier.ANNUAL,
@@ -357,7 +358,7 @@ fun ProPaywallBottomSheet(
                             color = MaterialTheme.colorScheme.onPrimary
                         )
                     } else {
-                        val priceText = selectedPackage?.product?.price?.formatted
+                        val priceText = getEffectivePrice(selectedPackage)?.formatted
                         Text(
                             text = if (!priceText.isNullOrBlank()) {
                                 stringResource(R.string.pro_btn_subscribe, priceText)
@@ -616,8 +617,14 @@ fun ProTierCard(
     }
 }
 
+private fun getEffectivePrice(pkg: Package?): Price? {
+    if (pkg == null) return null
+    val introPrice = pkg.product.defaultOption?.pricingPhases?.firstOrNull()?.price
+    return introPrice ?: pkg.product.price
+}
+
 private fun formatMonthlyPrice(annualPackage: Package): String {
-    val price = annualPackage.product.price
+    val price = getEffectivePrice(annualPackage) ?: annualPackage.product.price
     val monthlyAmount = (price.amountMicros / 12.0) / 1_000_000.0
     return try {
         val curr = Currency.getInstance(price.currencyCode)

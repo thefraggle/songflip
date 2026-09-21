@@ -165,11 +165,11 @@
     <string name="pro_tier_monthly">Mensal</string>
     <string name="pro_tier_annual">Anual</string>
     <string name="pro_tier_lifetime">Vitalício</string>
-    <string name="pro_bestseller_badge" formatted="false">MAIS VENDIDO • 33% OFF</string>
+    <string name="pro_bestseller_badge" formatted="false">MAIS VENDIDO • 50% OFF</string>
     <string name="pro_lifetime_badge">PAGAMENTO ÚNICO</string>
     <string name="pro_price_monthly_default">—</string>
     <string name="pro_price_annual_default">—</string>
-    <string name="pro_price_annual_sub">~%1$s / mês (4 meses grátis)</string>
+    <string name="pro_price_annual_sub">~%1$s / mês (1º ano com 50%% off)</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Restaurar Compras</string>
     <string name="pro_coupon_toggle">Tem um código promocional?</string>

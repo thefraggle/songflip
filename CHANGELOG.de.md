@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.4.5] - 2026-09-21
+- **Einführungsangebot & Preis-Highlights**: Das Jahresabo hebt nun dynamisch den 50 % Einführungsvorteil für das erste Jahr sowie lokale Währungsbeträge hervor.
+- **Stabilität & Zuverlässigkeit**: Zuverlässigere Auflösung aktiver Preisphasen und allgemeine Verfeinerungen für die tägliche Nutzung.
+
 ## [1.4.4] - 2026-09-20
 - **Reibungsloser Upgrade-Ablauf**: Kauf-Buttons setzen sich beim Schließen des Bezahl-Fensters sofort wieder zurück und bleiben stets klickbar.
 - **Schnellerer App-Start**: Optimiertes Laden des Song-Verlaufs im Hintergrund für einen verzögerungsfreien Kaltstart.
