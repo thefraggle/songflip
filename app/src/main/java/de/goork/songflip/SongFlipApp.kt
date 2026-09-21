@@ -6,14 +6,14 @@ import android.content.pm.ApplicationInfo
 import android.os.Build
 import android.provider.Settings
 import de.goork.songflip.core.analytics.AptabaseClient
-import de.goork.songflip.data.LinkCacheManager
+import de.goork.songflip.core.cache.AndroidSharedPreferencesCacheStorage
 import de.goork.songflip.data.ProManager
 import java.util.Locale
 
 class SongFlipApp : Application() {
     override fun onCreate() {
         super.onCreate()
-        LinkCacheManager.init(this)
+        AndroidSharedPreferencesCacheStorage.init(this)
         ProManager.init(this)
         de.goork.songflip.data.ShortcutHelper.updateShortcuts(this)
 

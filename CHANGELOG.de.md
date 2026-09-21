@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.4.7] - 2026-09-21
+- **Einheitliche Multiplatform-Engine**: Vollständige Umstellung der Android-Linkkonvertierung und des Cache-Systems auf den gemeinsamen Kotlin-Multiplatform-Core für identische und blitzschnelle Erkennung.
+- **Transparente Lifetime-Preise**: Die Lifetime-PRO-Preisdarstellung zeigt nun auch bei Sonder- und Einführungsangeboten immer den exakten, aktuellen Betrag.
+- **Schlankere Codebasis & Stabilität**: Entfernung redundanter Altlasten für geringeren Speicherbedarf und höhere Zuverlässigkeit bei Weiterleitungen.
+
 ## [1.4.6] - 2026-09-21
 - **YouTube Shorts Unterstützung**: Geteilte YouTube Shorts werden jetzt direkt als vollwertige Musiktitel in deinem Ziel-Player geöffnet.
 - **Bessere Erkennung von Social-Links**: Spotify Blend-, Jam-, Live- und Profil-Links werden unterbrechungsfrei an die Original-App übergeben.

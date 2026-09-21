@@ -986,7 +986,7 @@ class SongLinkEngine(
         }
     }
 
-    private suspend fun extractTrackInfo(url: String): String? {
+    suspend fun extractTrackInfo(url: String): String? {
         return try {
             if (url.contains("spotify.com")) {
                 val encoded = url.encodeURLParameter()
@@ -1226,7 +1226,7 @@ class SongLinkEngine(
         }
     }
 
-    private suspend fun resolveCanonicalUrl(url: String): String {
+    suspend fun resolveCanonicalUrl(url: String): String {
         if (url.contains("shazam.com")) {
             val appleUrl = resolveShazamToAppleMusic(url)
             if (appleUrl != null) return appleUrl

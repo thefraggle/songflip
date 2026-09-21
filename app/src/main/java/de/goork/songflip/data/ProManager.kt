@@ -402,7 +402,7 @@ object ProManager {
     fun warmupUniversalShare(rawUrl: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                OdesliRepository().queryL2ServerCache(rawUrl, "universal")
+                de.goork.songflip.core.engine.SongLinkEngine.shared.queryL2ServerCache(rawUrl, "universal", getAuthToken())
             } catch (_: Throwable) {}
         }
     }

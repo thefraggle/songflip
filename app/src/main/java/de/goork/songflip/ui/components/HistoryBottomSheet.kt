@@ -38,8 +38,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.goork.songflip.R
-import de.goork.songflip.data.HistoryItem
-import de.goork.songflip.data.LinkCacheManager
+import de.goork.songflip.core.cache.LinkHistoryItem
+import de.goork.songflip.core.engine.SongLinkEngine
 import de.goork.songflip.data.PackageUtils
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -53,19 +53,18 @@ fun HistoryBottomSheet(
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
     val coroutineScope = rememberCoroutineScope()
-    val odesliRepository = remember { de.goork.songflip.data.OdesliRepository() }
 
     val historyLimit = if (isPro) 100 else 10
     var isLoadingHistory by remember { mutableStateOf(true) }
-    var historyItems by remember { mutableStateOf<List<HistoryItem>>(emptyList()) }
+    var historyItems by remember { mutableStateOf<List<LinkHistoryItem>>(emptyList()) }
     var historyCount by remember { mutableStateOf(0) }
     var showClearConfirmationDialog by remember { mutableStateOf(false) }
     var refreshingKeys by remember { mutableStateOf(setOf<String>()) }
 
     fun refreshHistory() {
         coroutineScope.launch {
-            val items = LinkCacheManager.getHistoryEntriesAsync(limit = historyLimit)
-            val count = LinkCacheManager.getHistoryCountAsync()
+            val items = SongLinkEngine.shared.cache.getHistoryEntries(limit = historyLimit)
+            val count = SongLinkEngine.shared.cache.getHistoryCount()
             historyItems = items
             historyCount = count
             isLoadingHistory = false
@@ -96,8 +95,10 @@ fun HistoryBottomSheet(
                 TextButton(
                     onClick = {
                         haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                        LinkCacheManager.clearHistoryAndCache()
-                        refreshHistory()
+                        coroutineScope.launch {
+                            SongLinkEngine.shared.cache.clearHistoryAndCache()
+                            refreshHistory()
+                        }
                         de.goork.songflip.core.analytics.AptabaseClient.shared.trackHistoryCleared()
                         showClearConfirmationDialog = false
                         Toast.makeText(context, context.getString(R.string.history_all_cleared), Toast.LENGTH_SHORT).show()
@@ -280,7 +281,12 @@ fun HistoryBottomSheet(
                                 coroutineScope.launch {
                                     refreshingKeys = refreshingKeys + item.cacheKey
                                     Toast.makeText(context, context.getString(R.string.history_link_refreshing), Toast.LENGTH_SHORT).show()
-                                    odesliRepository.forceRefresh(item.canonicalUrl, item.targetPlatformKey)
+                                    SongLinkEngine.shared.forceRefreshTargetUrl(
+                                        inputUrl = item.canonicalUrl,
+                                        targetPlatformKey = item.targetPlatformKey,
+                                        isPro = isPro,
+                                        authToken = de.goork.songflip.data.ProManager.getAuthToken()
+                                    )
                                     refreshHistory()
                                     refreshingKeys = refreshingKeys - item.cacheKey
                                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
@@ -306,8 +312,10 @@ fun HistoryBottomSheet(
                             },
                             onDelete = {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                                LinkCacheManager.removeByCacheKey(item.cacheKey)
-                                refreshHistory()
+                                coroutineScope.launch {
+                                    SongLinkEngine.shared.cache.removeByCacheKey(item.cacheKey)
+                                    refreshHistory()
+                                }
                                 Toast.makeText(
                                     context,
                                     context.getString(R.string.history_item_deleted),
@@ -351,13 +359,11 @@ fun HistoryBottomSheet(
                                     }
                                     Button(
                                         onClick = onOpenProPaywall,
-                                        contentPadding = PaddingValues(horizontal = 14.dp, vertical = 6.dp),
-                                        shape = RoundedCornerShape(10.dp)
+                                        shape = RoundedCornerShape(10.dp),
+                                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
+                                        contentPadding = PaddingValues(horizontal = 14.dp, vertical = 8.dp)
                                     ) {
-                                        Text(
-                                            text = stringResource(R.string.history_btn_upgrade),
-                                            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold)
-                                        )
+                                        Text(stringResource(R.string.pro_title), fontWeight = FontWeight.Bold)
                                     }
                                 }
                             }
@@ -371,7 +377,7 @@ fun HistoryBottomSheet(
 
 @Composable
 fun HistoryItemCard(
-    item: HistoryItem,
+    item: LinkHistoryItem,
     isPro: Boolean = false,
     isRefreshing: Boolean = false,
     onPlay: () -> Unit,
@@ -486,7 +492,7 @@ fun HistoryItemCard(
                 )
                 if (!item.artist.isNullOrBlank()) {
                     Text(
-                        text = item.artist,
+                        text = item.artist.orEmpty(),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         maxLines = 1,

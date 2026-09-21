@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.4.7] - 2026-09-21
+- **Unified Multiplatform Engine**: Migrated Android link conversion and caching to the shared Kotlin Multiplatform core for identical, lightning-fast resolving on Android and iOS.
+- **Lifetime Offer Pricing Clarity**: Fixed Lifetime PRO pricing display to always show exact introductory discounts and localized pricing clearly.
+- **Under-the-Hood Optimizations**: Streamlined cache storage and removed legacy networking layers for higher stability and smaller app footprint.
+
 ## [1.4.6] - 2026-09-21
 - **Enhanced YouTube Shorts Support**: Convert shared YouTube Shorts directly into full music tracks in your target player.
 - **Smarter Social Link Handling**: Seamlessly opens Spotify Blend, Jam, Live, and Profile links in their original app without interruption.

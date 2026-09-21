@@ -32,9 +32,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import de.goork.songflip.R
+import de.goork.songflip.core.cache.AndroidSharedPreferencesCacheStorage
+import de.goork.songflip.core.engine.SongLinkEngine
 import de.goork.songflip.data.DomainVerificationUtils
-import de.goork.songflip.data.LinkCacheManager
-import de.goork.songflip.data.OdesliRepository
 import de.goork.songflip.data.PauseHelper
 import de.goork.songflip.data.ProManager
 import de.goork.songflip.data.SettingsRepository
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        LinkCacheManager.init(this)
+        AndroidSharedPreferencesCacheStorage.init(this)
         initialShowPauseSheet = intent?.getBooleanExtra("show_pause_sheet", false) == true
         initialOpenPlaylistUrl = intent?.getStringExtra("open_playlist_url")
         handleShortcutIntent(intent)
@@ -213,7 +213,7 @@ fun MainScreen(
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val coroutineScope = rememberCoroutineScope()
-    val repository = remember { OdesliRepository() }
+    val repository = remember { SongLinkEngine.shared }
     val settingsRepository = remember { SettingsRepository(context) }
 
     var selectedTargetKey by remember { mutableStateOf(settingsRepository.targetPlatform) }
@@ -594,8 +594,8 @@ fun MainScreen(
                         onShareUniversalLink = { urlToShare ->
                             if (proState.isPro) {
                                 coroutineScope.launch {
-                                    val canonical = if (repository.isShortLinkDomain(urlToShare)) {
-                                        withContext(Dispatchers.IO) { repository.resolveCanonicalUrl(urlToShare) }
+                                    val canonical = if (UrlUtils.isShortLinkDomain(urlToShare)) {
+                                        repository.resolveCanonicalUrl(urlToShare)
                                     } else {
                                         urlToShare
                                     }
