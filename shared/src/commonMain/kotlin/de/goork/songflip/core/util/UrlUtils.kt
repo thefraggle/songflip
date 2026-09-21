@@ -73,11 +73,17 @@ object UrlUtils {
             return "https://www.deezer.com/$type/$id"
         }
 
-        // 4. YouTube & YouTube Music: watch?v={id} or youtu.be/{id}
+        // 4. YouTube & YouTube Music: watch?v={id}, youtu.be/{id}, or /shorts/{id}
         if (clean.contains("youtu.be/")) {
             val id = clean.substringAfter("youtu.be/").substringBefore("/").substringBefore("?").trim()
             if (id.isNotEmpty()) {
                 return "https://youtu.be/$id"
+            }
+        }
+        if (clean.contains("youtube.com/shorts/")) {
+            val id = clean.substringAfter("youtube.com/shorts/").substringBefore("/").substringBefore("?").trim()
+            if (id.isNotEmpty()) {
+                return "https://www.youtube.com/watch?v=$id"
             }
         }
         if (clean.contains("watch") && clean.contains("v=")) {
@@ -261,16 +267,30 @@ object UrlUtils {
         return isPodcastUrl(url) || isAudiobookUrl(url)
     }
 
+    fun isSocialOrSessionUrl(url: String): Boolean {
+        val clean = url.lowercase()
+        return clean.contains("spotify.com/blend/") ||
+                clean.startsWith("spotify:blend:") ||
+                clean.contains("spotify.com/jam/") ||
+                clean.startsWith("spotify:jam:") ||
+                clean.contains("spotify.com/live/") ||
+                clean.startsWith("spotify:live:") ||
+                clean.contains("spotify.com/user/") ||
+                clean.startsWith("spotify:user:") ||
+                clean.contains("spotify.com/collection")
+    }
+
     fun detectEntityType(url: String): MusicEntityType {
         val clean = url.lowercase()
         return when {
             isPodcastUrl(url) -> MusicEntityType.PODCAST
             isAudiobookUrl(url) -> MusicEntityType.AUDIOBOOK
+            isSocialOrSessionUrl(url) -> MusicEntityType.SOCIAL_SESSION
             isSearchUrl(url) -> MusicEntityType.SEARCH
             isPlaylistUrl(url) -> MusicEntityType.PLAYLIST
             isAlbumUrl(url) -> MusicEntityType.ALBUM
             clean.contains("/artist/") || clean.contains("/channel/") -> MusicEntityType.ARTIST
-            clean.contains("/track/") || clean.contains("/song/") || clean.contains("youtu.be/") || clean.contains("watch?v=") || clean.contains("i=") || clean.contains("trackasin=") -> MusicEntityType.TRACK
+            clean.contains("/track/") || clean.contains("/song/") || clean.contains("youtu.be/") || clean.contains("watch?v=") || clean.contains("/shorts/") || clean.contains("i=") || clean.contains("trackasin=") -> MusicEntityType.TRACK
             else -> MusicEntityType.UNKNOWN
         }
     }
@@ -447,6 +467,10 @@ object UrlUtils {
         // YouTube
         if (clean.contains("youtu.be/")) {
             val id = clean.substringAfter("youtu.be/").substringBefore("/").substringBefore("?").trim()
+            if (id.isNotEmpty()) return "https://song.link/y/$id"
+        }
+        if (clean.contains("youtube.com/shorts/")) {
+            val id = clean.substringAfter("youtube.com/shorts/").substringBefore("/").substringBefore("?").trim()
             if (id.isNotEmpty()) return "https://song.link/y/$id"
         }
         if (url.contains("youtube.com/watch") && url.contains("v=")) {

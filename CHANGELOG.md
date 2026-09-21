@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.4.6] - 2026-09-21
+- **Higher Resolution Reliability**: Expanded network timeout tolerances and streamlined shortlink resolutions for reliable flipping on mobile data.
+- **Smart Non-Music Interception**: Seamless native pass-through for Spotify Blend, Jam, Live, and Profile links without disruption.
+- **Enhanced YouTube Shorts Support**: Instant conversion of YouTube Shorts links into full music tracks.
+- **Cleaned Telemetry & Diagnostics**: Dedicated tracking events for podcasts, audiobooks, and playlists to ensure precise failure diagnostics.
+
 ## [1.4.5] - 2026-09-21
 - **Annual Intro Offer & Pricing Highlights**: Refined the upgrade experience to dynamically showcase first-year introductory savings and localized currency rates.
 - **Enhanced Reliability**: Smoother pricing phase resolution and everyday stability improvements.

@@ -168,6 +168,22 @@ object AptabaseClient {
         trackEvent("link_flip_failed", mapOf("target" to target, "reason" to reason))
     }
 
+    fun trackPodcastIntercepted(target: String) {
+        trackEvent("podcast_intercepted", mapOf("target" to target))
+    }
+
+    fun trackAudiobookIntercepted(target: String) {
+        trackEvent("audiobook_intercepted", mapOf("target" to target))
+    }
+
+    fun trackPlaylistRouted(target: String) {
+        trackEvent("playlist_routed", mapOf("target" to target))
+    }
+
+    fun trackUnsupportedEntityIntercepted(target: String, entityType: String) {
+        trackEvent("unsupported_entity_intercepted", mapOf("target" to target, "entity_type" to entityType))
+    }
+
     fun trackTargetPlatformChanged(target: String) {
         trackEvent("target_platform_changed", mapOf("target" to target))
     }

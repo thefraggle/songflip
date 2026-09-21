@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.4.6] - 2026-09-21
+- **Höhere Auflösungs-Zuverlässigkeit**: Erweitertes Timeout-Fenster und optimierte Kurzlink-Abfrage für unterbrechungsfreie Weiterleitungen im mobilen Netz.
+- **Intelligente Erkennung von Non-Music Links**: Nahtlose Weitergabe von Spotify Blend-, Jam-, Live- und Profil-Links an die Original-App.
+- **YouTube Shorts Unterstützung**: Direkte Umwandlung von geteilten YouTube Shorts in vollständige Musiktitel.
+- **Präzise Telemetrie & Diagnose**: Dedizierte Tracking-Events für Podcasts, Hörbücher und Playlists zur exakten Fehlerraten-Analyse.
+
 ## [1.4.5] - 2026-09-21
 - **Einführungsangebot & Preis-Highlights**: Das Jahresabo hebt nun dynamisch den 50 % Einführungsvorteil für das erste Jahr sowie lokale Währungsbeträge hervor.
 - **Stabilität & Zuverlässigkeit**: Zuverlässigere Auflösung aktiver Preisphasen und allgemeine Verfeinerungen für die tägliche Nutzung.

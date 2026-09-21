@@ -292,9 +292,40 @@ class UrlUtilsTest {
             "https://album.link/https://music.amazon.com/albums/B004G92QE4",
             UrlUtils.normalizeToSongLinkDirectUrl("https://music.amazon.de/albums/B004G92QE4")
         )
+    }
+
+    @Test
+    fun testSocialSessionDetection() {
+        assertTrue(UrlUtils.isSocialOrSessionUrl("https://open.spotify.com/blend/closedinvite?blendId=123"))
+        assertTrue(UrlUtils.isSocialOrSessionUrl("https://open.spotify.com/jam/join/abc1234"))
+        assertTrue(UrlUtils.isSocialOrSessionUrl("spotify:blend:123"))
+        assertTrue(UrlUtils.isSocialOrSessionUrl("spotify:jam:abc"))
+        assertTrue(UrlUtils.isSocialOrSessionUrl("https://open.spotify.com/live/123"))
+        assertTrue(UrlUtils.isSocialOrSessionUrl("https://open.spotify.com/user/spotify_fan"))
+        assertTrue(UrlUtils.isSocialOrSessionUrl("spotify:user:12345"))
+        assertTrue(UrlUtils.isSocialOrSessionUrl("https://open.spotify.com/collection/tracks"))
+
+        assertFalse(UrlUtils.isSocialOrSessionUrl("https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv"))
+        assertFalse(UrlUtils.isSocialOrSessionUrl("https://open.spotify.com/album/1DFixLWuPkv3KT3TnV35m3"))
+
         assertEquals(
-            "https://song.link/https://music.amazon.com/albums/B004G92QE4?trackAsin=B004G8Z8UO",
-            UrlUtils.normalizeToSongLinkDirectUrl("https://music.amazon.ca/albums/B004G92QE4?trackAsin=B004G8Z8UO")
+            de.goork.songflip.core.model.MusicEntityType.SOCIAL_SESSION,
+            UrlUtils.detectEntityType("https://open.spotify.com/blend/closedinvite?blendId=123")
+        )
+    }
+
+    @Test
+    fun testYouTubeShortsSupport() {
+        val shortsUrl = "https://www.youtube.com/shorts/dQw4w9WgXcQ?feature=share"
+        val normalized = UrlUtils.normalizeUrl(shortsUrl)
+        assertEquals("https://www.youtube.com/watch?v=dQw4w9WgXcQ", normalized)
+
+        val direct = UrlUtils.normalizeToSongLinkDirectUrl(shortsUrl)
+        assertEquals("https://song.link/y/dQw4w9WgXcQ", direct)
+
+        assertEquals(
+            de.goork.songflip.core.model.MusicEntityType.TRACK,
+            UrlUtils.detectEntityType(shortsUrl)
         )
     }
 }
