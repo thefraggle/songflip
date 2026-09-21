@@ -1,10 +1,9 @@
 # Changelog (Deutsch)
 
 ## [1.4.6] - 2026-09-21
-- **Höhere Auflösungs-Zuverlässigkeit**: Erweitertes Timeout-Fenster und optimierte Kurzlink-Abfrage für unterbrechungsfreie Weiterleitungen im mobilen Netz.
-- **Intelligente Erkennung von Non-Music Links**: Nahtlose Weitergabe von Spotify Blend-, Jam-, Live- und Profil-Links an die Original-App.
-- **YouTube Shorts Unterstützung**: Direkte Umwandlung von geteilten YouTube Shorts in vollständige Musiktitel.
-- **Präzise Telemetrie & Diagnose**: Dedizierte Tracking-Events für Podcasts, Hörbücher und Playlists zur exakten Fehlerraten-Analyse.
+- **YouTube Shorts Unterstützung**: Geteilte YouTube Shorts werden jetzt direkt als vollwertige Musiktitel in deinem Ziel-Player geöffnet.
+- **Bessere Erkennung von Social-Links**: Spotify Blend-, Jam-, Live- und Profil-Links werden unterbrechungsfrei an die Original-App übergeben.
+- **Höhere Zuverlässigkeit unterwegs**: Schnellere und stabilere Link-Umwandlung bei schwacher oder wechselnder Internetverbindung.
 
 ## [1.4.5] - 2026-09-21
 - **Einführungsangebot & Preis-Highlights**: Das Jahresabo hebt nun dynamisch den 50 % Einführungsvorteil für das erste Jahr sowie lokale Währungsbeträge hervor.
