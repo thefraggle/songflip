@@ -104,7 +104,7 @@ object ProManager {
         }
 
         try {
-            Purchases.logLevel = LogLevel.DEBUG
+            Purchases.logLevel = if (de.goork.songflip.BuildConfig.DEBUG) LogLevel.DEBUG else LogLevel.WARN
             Purchases.configure(
                 PurchasesConfiguration.Builder(context.applicationContext, REVENUECAT_API_KEY).build()
             )
@@ -127,19 +127,18 @@ object ProManager {
         }
     }
 
-    private fun updateFromCustomerInfo(customerInfo: CustomerInfo) {
+    private fun updateFromCustomerInfo(customerInfo: CustomerInfo): ProState {
         val hasExplicitEntitlement = customerInfo.entitlements["pro"]?.isActive == true ||
                                      customerInfo.entitlements["songflip_pro"]?.isActive == true
-        val hasAnyActiveEntitlement = customerInfo.entitlements.active.isNotEmpty()
         val hasActiveSubscription = customerInfo.activeSubscriptions.isNotEmpty()
         val hasNonSubTransaction = customerInfo.nonSubscriptionTransactions.isNotEmpty()
-        val hasProEntitlement = hasExplicitEntitlement || hasAnyActiveEntitlement || hasActiveSubscription || hasNonSubTransaction
+        val hasProEntitlement = hasExplicitEntitlement || hasActiveSubscription || hasNonSubTransaction
 
-        val activeEntitlement = customerInfo.entitlements["pro"] ?: customerInfo.entitlements["songflip_pro"] ?: customerInfo.entitlements.active.values.firstOrNull()
+        val activeEntitlement = customerInfo.entitlements["pro"] ?: customerInfo.entitlements["songflip_pro"]
         val expDate = activeEntitlement?.expirationDate?.time ?: customerInfo.allExpirationDatesByProduct.values.mapNotNull { it?.time }.maxOrNull()
         val isLifetimeRc = hasNonSubTransaction || (hasProEntitlement && expDate == null)
 
-        evaluateProState(
+        return evaluateProState(
             revenueCatActive = hasProEntitlement,
             rcExpirationMillis = expDate,
             rcIsLifetime = isLifetimeRc
@@ -151,34 +150,31 @@ object ProManager {
         revenueCatActive: Boolean,
         rcExpirationMillis: Long? = null,
         rcIsLifetime: Boolean = false
-    ) {
-        val sp = prefs ?: return
-        val couponType = sp.getString(KEY_COUPON_TYPE, null)
-        val expiration = sp.getLong(KEY_COUPON_EXPIRATION, 0L)
+    ): ProState {
+        val sp = prefs
+        val couponType = sp?.getString(KEY_COUPON_TYPE, null)
+        val expiration = sp?.getLong(KEY_COUPON_EXPIRATION, 0L) ?: 0L
         val now = System.currentTimeMillis()
 
-        if (revenueCatActive) {
-            _proState.value = ProState(
+        val newState = when {
+            revenueCatActive -> ProState(
                 isPro = true,
                 proType = if (rcIsLifetime) "revenuecat_lifetime" else "revenuecat_subscription",
                 expirationDate = if (rcIsLifetime) null else rcExpirationMillis
             )
-            return
+            couponType == "lifetime" -> ProState(
+                isPro = true,
+                proType = "lifetime_coupon"
+            )
+            !couponType.isNullOrBlank() && expiration > now -> {
+                val normalizedType = if (couponType.endsWith("_coupon")) couponType else "${couponType}_coupon"
+                ProState(isPro = true, proType = normalizedType, expirationDate = expiration)
+            }
+            else -> ProState(isPro = false)
         }
 
-        if (couponType == "lifetime") {
-            _proState.value = ProState(isPro = true, proType = "lifetime_coupon")
-            return
-        }
-
-        if (!couponType.isNullOrBlank() && expiration > now) {
-            val normalizedType = if (couponType.endsWith("_coupon")) couponType else "${couponType}_coupon"
-            _proState.value = ProState(isPro = true, proType = normalizedType, expirationDate = expiration)
-            return
-        }
-
-        // Neither RevenueCat nor active coupon
-        _proState.value = ProState(isPro = false)
+        _proState.value = newState
+        return newState
     }
 
     fun getOfferings(onSuccess: (Offerings) -> Unit, onError: (String) -> Unit) {
@@ -217,8 +213,8 @@ object ProManager {
                 params,
                 object : com.revenuecat.purchases.interfaces.PurchaseCallback {
                     override fun onCompleted(storeTransaction: StoreTransaction, customerInfo: CustomerInfo) {
-                        updateFromCustomerInfo(customerInfo)
-                        if (isPro) {
+                        val proState = updateFromCustomerInfo(customerInfo)
+                        if (proState.isPro) {
                             onSuccess()
                         } else {
                             onError("Purchase completed but entitlement not active.")
@@ -243,8 +239,8 @@ object ProManager {
         try {
             Purchases.sharedInstance.restorePurchases(object : ReceiveCustomerInfoCallback {
                 override fun onReceived(customerInfo: CustomerInfo) {
-                    updateFromCustomerInfo(customerInfo)
-                    if (isPro) {
+                    val proState = updateFromCustomerInfo(customerInfo)
+                    if (proState.isPro) {
                         onSuccess()
                     } else {
                         onError("No active PRO subscription found.")

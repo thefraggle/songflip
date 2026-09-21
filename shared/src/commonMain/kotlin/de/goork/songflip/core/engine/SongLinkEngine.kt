@@ -39,6 +39,8 @@ class SongLinkEngine(
 
     companion object {
         val shared: SongLinkEngine by lazy { SongLinkEngine() }
+        // Public Tidal Web Client Application ID used for public catalog search
+        private const val TIDAL_CLIENT_APP_TOKEN = "CzET4vdadNUFQ5JU"
     }
 
     private val backgroundScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
@@ -930,7 +932,7 @@ class SongLinkEngine(
         return try {
             val encoded = artistName.encodeURLParameter()
             val resp = client.get("https://listen.tidal.com/v1/search?query=$encoded&limit=10&countryCode=DE") {
-                header("x-tidal-token", "CzET4vdadNUFQ5JU")
+                header("x-tidal-token", TIDAL_CLIENT_APP_TOKEN)
                 header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
             }
             if (resp.status.isSuccess()) {

@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.4.9] - 2026-09-21
+- **Backend Security & Entitlement Hardening**: Strict server-side verification of PRO entitlements, secure HMAC coupon generation, and hardened Firestore rules.
+- **Paywall & Purchase Flow Polish**: Instant automatic sheet dismissal upon coupon redemption, clear error and retry states when loading subscription options, and synchronized purchase callback handling.
+- **Stability & Performance**: Cleaned up release logging and optimized client engine token configurations.
+
 ## [1.4.8] - 2026-09-21
 - **Enhanced Conversion Reliability**: Improved service routing and smart fallback handling between all supported music platforms.
 - **Playlist Converter Refinements**: Smoother progress tracking and enhanced completion handling for multi-track conversions.

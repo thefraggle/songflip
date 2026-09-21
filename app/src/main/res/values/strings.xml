@@ -202,6 +202,8 @@
     <string name="pro_btn_subscribe">Get SongFlip PRO (%1$s)</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – Coming Soon</string>
     <string name="pro_play_store_unavailable">Google Play Store not available on this device.</string>
+    <string name="pro_offerings_error">Unable to load PRO pricing. Please check your internet connection.</string>
+    <string name="action_retry">Retry</string>
     <string name="pro_processing">Processing purchase...</string>
     <string name="badge_album">Album</string>
     <string name="badge_artist">Artist</string>
