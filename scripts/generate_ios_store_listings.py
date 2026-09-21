@@ -12,7 +12,7 @@ IOS_LISTINGS = {
         'name': 'SongFlip: Music Link Redirect',
         'subtitle': 'Convert & open music links',
         'promotional_text': 'Friends send Spotify links, but you use Apple Music or YouTube Music? SongFlip instantly converts and opens shared music links in your favorite player.',
-        'keywords': 'converter,playlist,spotify,apple music,youtube music,tidal,deezer,songlink,odesli,soundcloud,shazam',
+        'keywords': 'converter,playlist,spotify,apple,youtube,tidal,deezer,songlink,odesli,soundcloud,shazam,bandcamp,web',
         'description': """Friends send you Spotify, Tidal, or Deezer links – but you use Apple Music, YouTube Music, or Amazon Music?
 
 SongFlip is the music link redirector and converter for iOS. Whether via the iOS Share Sheet, Shortcuts, or the Action Button: SongFlip instantly converts shared music links and opens them directly in your preferred music app – with zero manual searching, no copying, and no friction.
@@ -44,7 +44,7 @@ Built with passion for music lovers who want to enjoy songs seamlessly across pl
         'name': 'SongFlip: Musik Link Umleitung',
         'subtitle': 'Spotify & Apple Music Links',
         'promotional_text': 'Freunde schicken Spotify-Links, aber du nutzt Apple Music oder YouTube Music? SongFlip leitet geteilte Musiklinks blitzschnell in deinen Lieblingsplayer um.',
-        'keywords': 'converter,playlist,youtube music,tidal,deezer,songlink,odesli,redirect,soundcloud,shazam,bandcamp',
+        'keywords': 'converter,playlist,youtube,tidal,deezer,songlink,odesli,redirect,soundcloud,shazam,bandcamp,smart',
         'description': """Freunde schicken dir Musik-Links von Spotify, Deezer oder Tidal – aber du nutzt Apple Music, YouTube Music oder Amazon Music?
 
 SongFlip ist die Musik-Link-Umleitung und der Converter für iOS. Ob über das iOS-Teilen-Menü (Share Sheet), Kurzbefehle oder den Action Button: SongFlip wandelt geteilte Musik-Links blitzschnell um und öffnet sie direkt in deiner bevorzugten Musik-App – ganz ohne lästiges Suchen, Kopieren oder manuelle Zwischenschritte.

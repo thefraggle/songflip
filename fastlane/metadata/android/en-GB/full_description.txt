@@ -1,6 +1,6 @@
 A friend sends you a song on Spotify, but you listen on YouTube Music, Apple Music, or Deezer?
 
-SongFlip is your seamless, zero-click music link converter and redirector for Android. Once enabled, incoming music links automatically convert in the background and launch directly inside your preferred music player—no manual searching, no ads, no intermediate browser detours.
+SongFlip is your seamless, zero-click music link converter and redirect tool for Android. Once enabled, incoming music links automatically convert in the background and launch directly inside your favorite music player—no manual searching, no ads, no intermediate browser detours.
 
 Whether switching Spotify to YouTube Music, Spotify to Apple Music, or opening tracks identified with Shazam, SongFlip handles song links instantly as your universal smart link converter.
 
