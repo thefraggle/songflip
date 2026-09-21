@@ -15,7 +15,7 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 - **🌐 Playlist Web Sharing (`songflip.link/p/...`) [PRO]**: Share converted playlists as beautiful web landing pages with rich album artwork, 1-click import, and branded single-track preview buttons. *(Try the live demo: [songflip.link/p/76176a1354](https://songflip.link/p/76176a1354))*.
 - **🎧 Broad Multi-Service Support**: Full any-to-any redirection between:
   - 🟢 **Spotify** (`open.spotify.com`, `spotify.link`)
-  - 🔴 **YouTube Music** (`music.youtube.com`, `youtu.be`)
+  - 🔴 **YouTube & YouTube Music** (`music.youtube.com`, `youtu.be`, `youtube.com/shorts`)
   - 🍎 **Apple Music** (`music.apple.com`, `apple.co`, `itunes.apple.com`)
   - 🌊 **Tidal** (`tidal.com`, `listen.tidal.com`)
   - 🟣 **Deezer** (`deezer.com`, `link.deezer.com`, `deezer.page.link`)
