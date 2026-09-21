@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-
-DEST_DIR="/Users/daniel.notthoff/Library/CloudStorage/OneDrive-OneWorkplace/Desktop"
+DEST_DIR="${DEST_DIR:-$HOME/Desktop}"
 
 # 1. Take-Namen ermitteln (automatisch durchnummeriert + Uhrzeit)
 if [ -n "$1" ]; then

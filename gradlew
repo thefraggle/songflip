@@ -28,8 +28,8 @@ if [ -z "$JAVA_HOME" ] && [ -d "/Library/Java/JavaVirtualMachines/microsoft-17.j
     export JAVA_HOME="/Library/Java/JavaVirtualMachines/microsoft-17.jdk/Contents/Home"
 fi
 
-if [ -z "$ANDROID_HOME" ] && [ -d "/Users/daniel.notthoff/Library/Android/sdk" ]; then
-    export ANDROID_HOME="/Users/daniel.notthoff/Library/Android/sdk"
+if [ -z "$ANDROID_HOME" ] && [ -d "$HOME/Library/Android/sdk" ]; then
+    export ANDROID_HOME="$HOME/Library/Android/sdk"
 fi
 
 # Find java
