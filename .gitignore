@@ -16,6 +16,7 @@ DerivedData/
 build/
 .gradle/
 .gradle-cache/
+.kotlin/
 app/build/
 shared/build/
 local.properties
