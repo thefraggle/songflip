@@ -1,4 +1,3 @@
-- Native iOS Share Extension: Musik-Links direkt aus Spotify, Apple Music, YouTube etc. über das iOS-Teilen-Menü (Share Sheet) an SongFlip übergeben und sekundenschnell im bevorzugten Player öffnen.
-- App-Gruppen-Synchronisation: Über das Teilen-Menü konvertierte Songs werden automatisch im Verlauf der Haupt-App gespeichert.
-- Podcasts & Hörbücher: Automatische Erkennung und gezielte Weiterleitung zur Original-App.
-- Erweiterte internationale Streaming-Links & optimierte Album-Erkennung.
+- Dynamische Lifetime-Rabatt-Anzeige: Die Paywall erkennt automatisch aktive Rabattaktionen für Lifetime PRO über RevenueCat-Metadaten oder das relative Preisverhältnis.
+- Weltweite Streichpreise: Automatische Berechnung und Anzeige des durchgestrichenen Originalpreises in allen 173 unterstützten Regionen und Währungen.
+- Aktions-Kennzeichnung: Anzeige eines `50% DEAL`-Badges und des Hinweises „Befristetes Angebot“ während aktiver Promotionen.
