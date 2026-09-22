@@ -26,9 +26,11 @@ import de.goork.songflip.core.util.UrlUtils
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.*
+import de.goork.songflip.ui.components.OfflineWaitingBottomSheet
 import de.goork.songflip.ui.components.QuickTargetPickerBottomSheet
 import de.goork.songflip.ui.theme.SongFlipTheme
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
@@ -43,6 +45,8 @@ class RedirectActivity : ComponentActivity() {
     companion object {
         const val EXTRA_FORWARDED_FROM_SONGFLIP = "de.goork.songflip.FORWARDED_FROM_SONGFLIP"
     }
+
+    private var networkRetryJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -175,6 +179,64 @@ class RedirectActivity : ComponentActivity() {
         }
     }
 
+    private fun showOfflineWaiting(
+        incomingUrl: String,
+        targetPlatform: String,
+        settingsRepository: SettingsRepository,
+        customApiUrl: String,
+        customApiToken: String,
+        isShareAction: Boolean
+    ) {
+        networkRetryJob?.cancel()
+
+        setContent {
+            val isDark = when (settingsRepository.themeMode) {
+                "light" -> false
+                "dark" -> true
+                else -> isSystemInDarkTheme()
+            }
+            SongFlipTheme(darkTheme = isDark) {
+                OfflineWaitingBottomSheet(
+                    onRetry = {
+                        networkRetryJob?.cancel()
+                        executeRedirect(
+                            incomingUrl = incomingUrl,
+                            targetPlatform = targetPlatform,
+                            settingsRepository = settingsRepository,
+                            customApiUrl = customApiUrl,
+                            customApiToken = customApiToken,
+                            isShareAction = isShareAction
+                        )
+                    },
+                    onDismissRequest = {
+                        networkRetryJob?.cancel()
+                        forwardOriginalUrl(Uri.parse(incomingUrl))
+                        finish()
+                        suppressTransitionAnimation()
+                    }
+                )
+            }
+        }
+
+        // Live auto-retry via NetworkCallback: as soon as internet connection is restored, re-trigger resolution
+        networkRetryJob = lifecycleScope.launch {
+            NetworkUtils.observeNetworkAvailability(this@RedirectActivity)
+                .collect { isAvailable ->
+                    if (isAvailable) {
+                        networkRetryJob?.cancel()
+                        executeRedirect(
+                            incomingUrl = incomingUrl,
+                            targetPlatform = targetPlatform,
+                            settingsRepository = settingsRepository,
+                            customApiUrl = customApiUrl,
+                            customApiToken = customApiToken,
+                            isShareAction = isShareAction
+                        )
+                    }
+                }
+        }
+    }
+
     private fun executeRedirect(
         incomingUrl: String,
         targetPlatform: String,
@@ -183,6 +245,7 @@ class RedirectActivity : ComponentActivity() {
         customApiToken: String,
         isShareAction: Boolean
     ) {
+        networkRetryJob?.cancel()
         val incomingUri = Uri.parse(incomingUrl)
         val incomingPlatform = UrlUtils.detectPlatform(incomingUrl)
         val isSamePlatform = when (targetPlatform) {
@@ -251,24 +314,20 @@ class RedirectActivity : ComponentActivity() {
             return
         }
 
-        // 2. Zero-Delay Offline Check: If device is offline and link is not cached, fail immediately
+        // 2. Offline / Funkloch Check: If device is offline and link is not cached, buffer & wait for connection
         val hasNetwork = NetworkUtils.isNetworkAvailable(this)
         val isCached = runBlocking(Dispatchers.IO) {
             SongLinkEngine.shared.cache.get(incomingUrl, targetPlatform) != null
         }
         if (!hasNetwork && !isCached) {
-            Toast.makeText(
-                applicationContext,
-                getString(R.string.redirect_error_toast),
-                Toast.LENGTH_SHORT
-            ).show()
-            de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
-                target = targetPlatform,
-                reason = "offline_no_network"
+            showOfflineWaiting(
+                incomingUrl = incomingUrl,
+                targetPlatform = targetPlatform,
+                settingsRepository = settingsRepository,
+                customApiUrl = customApiUrl,
+                customApiToken = customApiToken,
+                isShareAction = isShareAction
             )
-            forwardOriginalUrl(incomingUri)
-            finish()
-            suppressTransitionAnimation()
             return
         }
 
@@ -335,6 +394,8 @@ class RedirectActivity : ComponentActivity() {
                     ).show()
 
                     openTargetUrl(result.targetUrl, targetPlatform)
+                    finish()
+                    suppressTransitionAnimation()
                 } else if (result is ResolutionResult.Playlist) {
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackPlaylistRouted(
                         target = targetPlatform
@@ -344,6 +405,8 @@ class RedirectActivity : ComponentActivity() {
                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     }
                     startActivity(mainIntent)
+                    finish()
+                    suppressTransitionAnimation()
                 } else if (result is ResolutionResult.PodcastOrAudiobook) {
                     if (result.isAudiobook) {
                         de.goork.songflip.core.analytics.AptabaseClient.shared.trackAudiobookIntercepted(targetPlatform)
@@ -356,13 +419,30 @@ class RedirectActivity : ComponentActivity() {
                         Toast.LENGTH_LONG
                     ).show()
                     forwardOriginalUrl(incomingUri)
+                    finish()
+                    suppressTransitionAnimation()
                 } else if (result is ResolutionResult.UnsupportedEntity) {
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackUnsupportedEntityIntercepted(
                         target = targetPlatform,
                         entityType = result.entityType
                     )
                     forwardOriginalUrl(incomingUri)
+                    finish()
+                    suppressTransitionAnimation()
                 } else {
+                    // Check if failure is due to offline / lost network connection during request
+                    if (!NetworkUtils.isNetworkAvailable(this@RedirectActivity)) {
+                        showOfflineWaiting(
+                            incomingUrl = incomingUrl,
+                            targetPlatform = targetPlatform,
+                            settingsRepository = settingsRepository,
+                            customApiUrl = customApiUrl,
+                            customApiToken = customApiToken,
+                            isShareAction = isShareAction
+                        )
+                        return@launch
+                    }
+
                     val reason = when {
                         result is ResolutionResult.Error -> result.message
                         result == null -> "timeout"
@@ -384,19 +464,33 @@ class RedirectActivity : ComponentActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     forwardOriginalUrl(incomingUri)
+                    finish()
+                    suppressTransitionAnimation()
                 }
             } catch (t: Throwable) {
+                if (!NetworkUtils.isNetworkAvailable(this@RedirectActivity)) {
+                    showOfflineWaiting(
+                        incomingUrl = incomingUrl,
+                        targetPlatform = targetPlatform,
+                        settingsRepository = settingsRepository,
+                        customApiUrl = customApiUrl,
+                        customApiToken = customApiToken,
+                        isShareAction = isShareAction
+                    )
+                    return@launch
+                }
+
                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
                     target = targetPlatform,
                     reason = t.message ?: "exception"
                 )
                 forwardOriginalUrl(incomingUri)
-            } finally {
                 finish()
                 suppressTransitionAnimation()
             }
         }
     }
+
 
     /**
      * Opens target music link directly in target player app if installed (explicit package launch),

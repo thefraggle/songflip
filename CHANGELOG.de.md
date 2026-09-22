@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.4.15] - 2026-09-22
+- **Offline- & Funkloch-Pufferung**: Automatische Zwischenpufferung und intelligenter Retry bei unterbrochener Internetverbindung für ein nahtloses Nutzungserlebnis unterwegs.
+- **Automatische Wiederverbindung**: Setzt Link-Weiterleitungen sofort fort, sobald das Netz wieder verfügbar ist – inklusive übersichtlicher Warteanzeige und manuellem Neuversuch.
+- **Erweiterte Test-Abdeckung & Datenmodell-Sicherheit**: Umfassende Test-Suites zur Absicherung von Einstellungen, Verlaufshistorie und automatischer Zeitstempel-Korrektur in allen 24 Sprachen.
+
 ## [1.4.14] - 2026-09-22
 - **Barrierefreiheit & Screenreader-Optimierungen (WCAG AA)**: Vollständige Beschreibungen für alle interaktiven Icons, verbesserte Semantik für PRO-Tarifkarten sowie vergrößerte Klickflächen für eine komfortable Bedienung.
 - **Moderne Build- & Dependency-Basis**: Aktualisierung der zentralen Entwicklungsbibliotheken sowie gehärtete Versions- und Build-Prüfungen.

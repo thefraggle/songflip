@@ -258,4 +258,8 @@
     <string name="action_retry">Coba lagi</string>
     <string name="pro_restore_no_subscription">Tidak ada langganan PRO aktif yang ditemukan.</string>
     <string name="pro_purchase_failed">Pembelian tidak dapat diselesaikan. Silakan coba lagi.</string>
+    <string name="offline_waiting_title">Menunggu koneksi…</string>
+    <string name="offline_waiting_subtitle">SongFlip akan mengarahkan otomatis begitu koneksi pulih.</string>
+    <string name="offline_waiting_retry">Coba lagi sekarang</string>
+    <string name="offline_waiting_cancel">Batal</string>
 </resources>

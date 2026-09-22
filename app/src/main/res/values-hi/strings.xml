@@ -262,4 +262,8 @@
     <string name="action_retry">पुनः प्रयास करें</string>
     <string name="pro_restore_no_subscription">कोई सक्रिय PRO सदस्यता नहीं मिली।</string>
     <string name="pro_purchase_failed">खरीदारी पूरी नहीं हो सकी। कृपया पुन: प्रयास करें।</string>
+    <string name="offline_waiting_title">कनेक्शन की प्रतीक्षा की जा रही है…</string>
+    <string name="offline_waiting_subtitle">कनेक्शन बहाल होते ही SongFlip स्वचालित रूप से रीडायरेक्ट कर देगा।</string>
+    <string name="offline_waiting_retry">पुनः प्रयास करें</string>
+    <string name="offline_waiting_cancel">रद्द करें</string>
 </resources>
