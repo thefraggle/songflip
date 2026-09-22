@@ -167,6 +167,8 @@
     <string name="pro_tier_lifetime">Vitalício</string>
     <string name="pro_bestseller_badge" formatted="false">MAIS VENDIDO • 50% OFF</string>
     <string name="pro_lifetime_badge">PAGAMENTO ÚNICO</string>
+    <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
+    <string name="pro_lifetime_sale_sub">Oferta por tempo limitado</string>
     <string name="pro_price_monthly_default">—</string>
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_annual_sub">~%1$s / mês (1º ano com 50%% off)</string>

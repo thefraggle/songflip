@@ -166,6 +166,8 @@
     <string name="pro_tier_lifetime">永久買い切り</string>
     <string name="pro_bestseller_badge" formatted="false">一番人気 • 50%お得</string>
     <string name="pro_lifetime_badge">買い切り</string>
+    <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
+    <string name="pro_lifetime_sale_sub">期間限定オファー</string>
     <string name="pro_price_monthly_default">—</string>
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_annual_sub">実質 ~%1$s / 月 (初年度50%%OFF)</string>

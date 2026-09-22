@@ -158,6 +158,8 @@
     <string name="pro_tier_lifetime">Örökös</string>
     <string name="pro_bestseller_badge" formatted="false">LEGJOBB AJÁNLAT • 50% KEDVEZMÉNY</string>
     <string name="pro_lifetime_badge">EGYSZERI</string>
+    <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
+    <string name="pro_lifetime_sale_sub">Korlátozott idejű ajánlat</string>
     <string name="pro_price_monthly_default">—</string>
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_annual_sub">~%1$s / hó (1. évben 50%% kedvezmény)</string>
