@@ -75,25 +75,56 @@ For users who want the fastest possible performance, advanced playlist capabilit
 
 ## 🛠️ Building & Development
 
-### Prerequisites
-- **JDK 17+** (Temurin or OpenJDK)
-- **Android SDK** (API 26 to 36)
-- **Xcode 16+** (for building iOS on macOS)
+### 1. Prerequisites
+- **Java Development Kit (JDK)**: JDK 17+ (Eclipse Temurin or OpenJDK 17 recommended).
+- **Android Development**: Android Studio Ladybug / Meerkat with Android SDK (API Level 26–36) and Command-line Tools.
+- **iOS Development (macOS only)**: Xcode 16+ with Command Line Tools and iOS 17+ Simulator / Device SDKs.
+- **Node.js (for Cloud Functions)**: Node.js 20+ & npm (if running backend tests or functions).
 
-### Build Android Debug APK
-```bash
-./gradlew :app:assembleDebug
+### 2. Environment Configuration
+Copy or create `local.properties` in the project root for local Android builds:
+```properties
+sdk.dir=/Users/<username>/Library/Android/sdk
+# Optional telemetry & in-app purchase keys (falls back to safe dev defaults if omitted):
+# revenuecat.api.key=goog_...
+# aptabase.app.key=A-EU-...
 ```
-The output APK will be at `app/build/outputs/apk/debug/app-debug.apk`.
 
-### Build iOS Shared Framework
+### 3. Build & Test Commands
+
+#### Android Builds:
 ```bash
+# Build Debug APK
+./gradlew :app:assembleDebug
+
+# Build Release APK / Bundle (unsigned or signed via SIGNING_KEYSTORE_PATH env)
+./gradlew :app:assembleRelease
+./gradlew :app:bundleRelease
+```
+
+#### Shared KMP Core (iOS XCFramework):
+```bash
+# Generate the shared SongFlipKit.xcframework for iOS
 ./gradlew :shared:assembleSongFlipKitReleaseXCFramework
 ```
 
-### Run Unit Tests
+#### Run Unit Tests:
 ```bash
+# Android & Shared KMP Test Suite
 ./gradlew :shared:testReleaseUnitTest :app:testReleaseUnitTest
+
+# Cloud Functions Test Suite
+cd functions && npm test
+```
+
+### 4. Git & Submodule Management
+The hosted Cloud Functions reside in a private submodule `functions/`:
+```bash
+# Clone with submodules
+git clone --recurse-submodules https://forgejo.goork.de/thefraggle/songflip.git
+
+# Initialize submodule if cloned normally
+git submodule update --init --recursive
 ```
 
 ---

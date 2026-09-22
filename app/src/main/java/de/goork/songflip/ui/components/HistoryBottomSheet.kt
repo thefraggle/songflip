@@ -501,7 +501,7 @@ fun HistoryItemCard(
                 }
             }
 
-            // Bottom Actions: Open, Copy, Share Universal (PRO), Delete
+            // Bottom Actions: Open, Copy, Share Universal (PRO), Delete (min 44dp touch target)
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End,
@@ -509,7 +509,7 @@ fun HistoryItemCard(
             ) {
                 IconButton(
                     onClick = onPlay,
-                    modifier = Modifier.size(32.dp)
+                    modifier = Modifier.size(44.dp)
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.PlayArrow,
@@ -518,10 +518,9 @@ fun HistoryItemCard(
                         modifier = Modifier.size(20.dp)
                     )
                 }
-                Spacer(modifier = Modifier.width(6.dp))
                 IconButton(
                     onClick = onCopy,
-                    modifier = Modifier.size(32.dp)
+                    modifier = Modifier.size(44.dp)
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.ContentCopy,
@@ -530,11 +529,10 @@ fun HistoryItemCard(
                         modifier = Modifier.size(18.dp)
                     )
                 }
-                Spacer(modifier = Modifier.width(6.dp))
                 IconButton(
                     onClick = onRefresh,
                     enabled = !isRefreshing,
-                    modifier = Modifier.size(32.dp)
+                    modifier = Modifier.size(44.dp)
                 ) {
                     if (isRefreshing) {
                         CircularProgressIndicator(
@@ -551,10 +549,9 @@ fun HistoryItemCard(
                         )
                     }
                 }
-                Spacer(modifier = Modifier.width(6.dp))
                 IconButton(
                     onClick = onShareUniversal,
-                    modifier = Modifier.size(32.dp)
+                    modifier = Modifier.size(44.dp)
                 ) {
                     Box(contentAlignment = Alignment.Center) {
                         Icon(
@@ -574,10 +571,9 @@ fun HistoryItemCard(
                         }
                     }
                 }
-                Spacer(modifier = Modifier.width(6.dp))
                 IconButton(
                     onClick = onDelete,
-                    modifier = Modifier.size(32.dp)
+                    modifier = Modifier.size(44.dp)
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.DeleteOutline,

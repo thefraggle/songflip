@@ -7,11 +7,15 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
-val appVersionName = "1.4.13"
-val versionParts = appVersionName.split(".")
-val computedVersionCode = (versionParts.getOrElse(0) { "1" }.toInt() * 10000) +
-                          (versionParts.getOrElse(1) { "0" }.toInt() * 100) +
-                          (versionParts.getOrElse(2) { "0" }.toInt())
+val appVersionName = "1.4.14"
+val computedVersionCode = run {
+    val cleanVersion = appVersionName.substringBefore("-").substringBefore("+")
+    val parts = cleanVersion.split(".").mapNotNull { it.toIntOrNull() }
+    val major = parts.getOrElse(0) { 1 }
+    val minor = parts.getOrElse(1) { 0 }
+    val patch = parts.getOrElse(2) { 0 }
+    (major * 10000) + (minor * 100) + patch
+}
 
 val localProps = Properties()
 val localPropsFile = rootProject.file("local.properties")
@@ -55,11 +59,16 @@ android {
     signingConfigs {
         create("release") {
             val keystorePath = System.getenv("SIGNING_KEYSTORE_PATH")
-            if (!keystorePath.isNullOrBlank() && file(keystorePath).exists()) {
-                storeFile = file(keystorePath)
-                storePassword = System.getenv("SIGNING_KEYSTORE_PASSWORD") ?: ""
-                keyAlias = System.getenv("SIGNING_KEY_ALIAS") ?: ""
-                keyPassword = System.getenv("SIGNING_KEY_PASSWORD") ?: ""
+            if (!keystorePath.isNullOrBlank()) {
+                val keystoreFile = file(keystorePath)
+                if (keystoreFile.exists()) {
+                    storeFile = keystoreFile
+                    storePassword = System.getenv("SIGNING_KEYSTORE_PASSWORD") ?: ""
+                    keyAlias = System.getenv("SIGNING_KEY_ALIAS") ?: ""
+                    keyPassword = System.getenv("SIGNING_KEY_PASSWORD") ?: ""
+                } else {
+                    logger.warn("SIGNING_KEYSTORE_PATH is set to '$keystorePath' but file does not exist.")
+                }
             }
         }
     }
@@ -103,13 +112,13 @@ android {
 
 dependencies {
     implementation(project(":shared"))
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
-    implementation("androidx.activity:activity-compose:1.8.2")
+    implementation("androidx.core:core-ktx:1.15.0")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
+    implementation("androidx.activity:activity-compose:1.9.3")
     
     // Compose
-    implementation(platform("androidx.compose:compose-bom:2024.02.00"))
+    implementation(platform("androidx.compose:compose-bom:2024.10.01"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -133,7 +142,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2024.02.00"))
+    androidTestImplementation(platform("androidx.compose:compose-bom:2024.10.01"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
