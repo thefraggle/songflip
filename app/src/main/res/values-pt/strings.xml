@@ -262,4 +262,8 @@
     <string name="action_retry">Tentar novamente</string>
     <string name="pro_restore_no_subscription">Nenhuma assinatura PRO ativa encontrada.</string>
     <string name="pro_purchase_failed">Não foi possível concluir a compra. Tente novamente.</string>
+    <string name="offline_waiting_title">Aguardando conexão…</string>
+    <string name="offline_waiting_subtitle">O SongFlip redirecionará automaticamente assim que a conexão for restabelecida.</string>
+    <string name="offline_waiting_retry">Tentar novamente</string>
+    <string name="offline_waiting_cancel">Cancelar</string>
 </resources>

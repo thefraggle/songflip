@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.4.15] - 2026-09-22
+- **Offline & Low-Connectivity Resilience**: Introduced automatic buffering and live retry for link resolution during network interruptions, keeping the workflow seamless when moving through dead zones.
+- **Automated Reconnection Handling**: Seamlessly resumes link conversions the moment connectivity is restored, accompanied by a clean waiting indicator and manual retry options.
+- **Comprehensive Quality & Data Model Verification**: Expanded automated test coverage for settings persistence, historical conversion tracking, and resilient timestamp recovery across all supported languages.
+
 ## [1.4.14] - 2026-09-22
 - **Accessibility & Screen Reader Enhancements (WCAG AA)**: Added comprehensive descriptions across all interactive icons, upgraded PRO tier selector cards with clear selection semantics, and enlarged touch targets for effortless navigation.
 - **Build & Dependency Modernization**: Updated core libraries and internal toolchains with hardened version verification and build guards.
