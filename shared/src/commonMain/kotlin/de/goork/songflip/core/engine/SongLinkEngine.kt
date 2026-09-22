@@ -2,6 +2,13 @@ package de.goork.songflip.core.engine
 
 import de.goork.songflip.core.cache.LinkCache
 import de.goork.songflip.core.cache.createDefaultCacheStorage
+import de.goork.songflip.core.engine.resolvers.AppleMusicResolver
+import de.goork.songflip.core.engine.resolvers.DeezerResolver
+import de.goork.songflip.core.engine.resolvers.PlatformResolver
+import de.goork.songflip.core.engine.resolvers.SongLinkApiResolver
+import de.goork.songflip.core.engine.resolvers.SpotifyResolver
+import de.goork.songflip.core.engine.resolvers.TidalResolver
+import de.goork.songflip.core.engine.resolvers.YouTubeMusicResolver
 import de.goork.songflip.core.model.ResolutionResult
 import de.goork.songflip.core.util.UrlUtils
 import io.ktor.client.HttpClient
@@ -42,6 +49,19 @@ class SongLinkEngine(
         // Public Tidal Web Client Application ID used for public catalog search
         private const val TIDAL_CLIENT_APP_TOKEN = "CzET4vdadNUFQ5JU"
     }
+
+    private val json = Json {
+        ignoreUnknownKeys = true
+        isLenient = true
+    }
+
+    // Platform Resolver Strategies
+    val appleMusicResolver = AppleMusicResolver(client, json)
+    val deezerResolver = DeezerResolver(client, json)
+    val tidalResolver = TidalResolver(client, json, TIDAL_CLIENT_APP_TOKEN)
+    val youTubeMusicResolver = YouTubeMusicResolver(client)
+    val spotifyResolver = SpotifyResolver(client, json)
+    val songLinkApiResolver = SongLinkApiResolver(client, json)
 
     private val backgroundScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
@@ -86,19 +106,6 @@ class SongLinkEngine(
             }
         }
     }
-
-    private val json = Json {
-        ignoreUnknownKeys = true
-        isLenient = true
-    }
-
-    private val ytVideoRendererRegex = Regex("\"videoRenderer\":\\{\"videoId\":\"([a-zA-Z0-9_-]{11})\"")
-    private val ytVideoIdJsonRegex = Regex("\"videoId\":\"([a-zA-Z0-9_-]{11})\"")
-    private val ytWatchRegex = Regex("/watch\\?v=([a-zA-Z0-9_-]{11})")
-    private val ytAlbumPlaylistRegex = Regex("\"playlistId\":\"(OLAK5uy_[a-zA-Z0-9_-]+)\"")
-    private val ytAlbumBrowseRegex = Regex("\"browseId\":\"(MPREb_[a-zA-Z0-9_-]+)\"")
-    private val ytGenericPlaylistRegex = Regex("\"playlistId\":\"([a-zA-Z0-9_-]{18,})\"")
-    private val ytChannelIdRegex = Regex("\"channelId\":\"(UC[a-zA-Z0-9_-]{22})\"")
 
     suspend fun resolveTargetUrl(
         inputUrl: String,
@@ -372,8 +379,8 @@ class SongLinkEngine(
             val (songLinkData, trackInfo) = supervisorScope {
                 val songLinkDeferred = async { fetchSongLinkData(canonicalUrl) }
                 val fallbackTrackDeferred = async { extractTrackInfo(canonicalUrl) }
-                val sld = try { songLinkDeferred.await() } catch (e: Exception) { null }
-                val ti = try { fallbackTrackDeferred.await() } catch (e: Exception) { null }
+                val sld = try { songLinkDeferred.await() } catch (_: Exception) { null }
+                val ti = try { fallbackTrackDeferred.await() } catch (_: Exception) { null }
                 Pair(sld, ti)
             }
 
@@ -583,7 +590,7 @@ class SongLinkEngine(
             if (playlistInfo != null && playlistInfo.isNotBlank()) {
                 val searchUrl = UrlUtils.buildSearchUrl(playlistInfo, targetPlatformKey)
                 val nativeUri = UrlUtils.toNativeAppUri(searchUrl, targetPlatformKey)
-                val result = ResolutionResult.Success(
+                return ResolutionResult.Success(
                     targetUrl = searchUrl,
                     platform = "${targetPlatformKey}_playlist",
                     title = playlistInfo,
@@ -591,7 +598,6 @@ class SongLinkEngine(
                     isAlbum = false,
                     nativeAppUri = nativeUri
                 )
-                return result
             }
 
             return ResolutionResult.Error("Could not resolve music link")
@@ -652,7 +658,7 @@ class SongLinkEngine(
             val entityData = pageData["entityData"]?.jsonObject
             var title = entityData?.get("title")?.jsonPrimitive?.content ?: ""
             var artist = entityData?.get("artistName")?.jsonPrimitive?.content ?: ""
-            var entityType = entityData?.get("type")?.jsonPrimitive?.content ?: (if (isAlbumEntity) "album" else "")
+            val entityType = entityData?.get("type")?.jsonPrimitive?.content ?: (if (isAlbumEntity) "album" else "")
 
             val sections = pageData["sections"]?.jsonArray
             if (sections != null && sections.isNotEmpty()) {
@@ -682,373 +688,45 @@ class SongLinkEngine(
             }
 
             SongLinkData(title = title, artist = artist, type = entityType, links = linksMap)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             null
         }
     }
 
     private suspend fun resolveDirectPlatformUrl(query: String, targetPlatformKey: String, isAlbum: Boolean = false): String? {
-        return when (targetPlatformKey) {
-            "youtubeMusic" -> {
-                if (isAlbum) {
-                    resolveYouTubeMusicAlbumUrl(query)
-                        ?: UrlUtils.buildSearchUrl(query, "youtubeMusic")
-                } else {
-                    resolveYouTubeMusicDirectPlayUrl(query)
-                        ?: UrlUtils.buildSearchUrl(query, "youtubeMusic")
-                }
-            }
-            "appleMusic" -> resolveAppleMusicDirectUrl(query, isAlbum) ?: UrlUtils.buildSearchUrl(query, "appleMusic")
-            "deezer" -> resolveDeezerDirectUrl(query, isAlbum) ?: UrlUtils.buildSearchUrl(query, "deezer")
-            "spotify" -> UrlUtils.buildSearchUrl(query, "spotify")
-            "tidal" -> UrlUtils.buildSearchUrl(query, "tidal")
-            "amazonMusic" -> UrlUtils.buildSearchUrl(query, "amazonMusic")
-            else -> UrlUtils.buildSearchUrl(query, targetPlatformKey)
+        val cleanQuery = UrlUtils.cleanSearchQuery(query)
+        val resolver: PlatformResolver? = when (targetPlatformKey) {
+            "youtubeMusic" -> youTubeMusicResolver
+            "appleMusic" -> appleMusicResolver
+            "deezer" -> deezerResolver
+            "tidal" -> tidalResolver
+            "spotify" -> spotifyResolver
+            else -> null
         }
-    }
-
-    private suspend fun resolveYouTubeMusicAlbumUrl(query: String): String? {
-        return try {
-            val encoded = query.encodeURLParameter()
-            val resp = client.get("https://www.youtube.com/results?search_query=$encoded&sp=EgIQAw%253D%253D") {
-                header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
-            }
-            if (!resp.status.isSuccess()) return null
-            val html = resp.bodyAsText()
-
-            val mpreMatch = ytAlbumBrowseRegex.find(html)
-            if (mpreMatch != null) {
-                val browseId = mpreMatch.groupValues[1]
-                if (browseId.isNotEmpty()) {
-                    return "https://music.youtube.com/browse/$browseId"
-                }
-            }
-
-            val olakMatch = ytAlbumPlaylistRegex.find(html)
-            if (olakMatch != null) {
-                val playlistId = olakMatch.groupValues[1]
-                if (playlistId.isNotEmpty()) {
-                    return "https://music.youtube.com/playlist?list=$playlistId"
-                }
-            }
-
-            val plMatch = ytGenericPlaylistRegex.find(html)
-            if (plMatch != null) {
-                val playlistId = plMatch.groupValues[1]
-                if (playlistId.isNotEmpty()) {
-                    return "https://music.youtube.com/playlist?list=$playlistId"
-                }
-            }
-
-            null
-        } catch (e: Exception) {
-            null
+        val directMatch = if (isAlbum) {
+            resolver?.resolveAlbum(cleanQuery)
+        } else {
+            resolver?.resolveTrack(cleanQuery)
         }
-    }
-
-    private suspend fun resolveYouTubeMusicDirectPlayUrl(query: String): String? {
-        return try {
-            val encoded = query.encodeURLParameter()
-            val resp = client.get("https://www.youtube.com/results?search_query=$encoded&sp=EgIQAQ%253D%253D") {
-                header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
-            }
-            if (!resp.status.isSuccess()) return null
-            val html = resp.bodyAsText()
-
-            // 1. Prioritize official videoRenderer (filters out Shorts, reels, fan clips)
-            val vrMatch = ytVideoRendererRegex.find(html)
-            if (vrMatch != null) {
-                val videoId = vrMatch.groupValues[1]
-                if (videoId.isNotEmpty()) {
-                    return "https://music.youtube.com/watch?v=$videoId"
-                }
-            }
-
-            // 2. Check JSON videoId
-            val jsonMatch = ytVideoIdJsonRegex.find(html)
-            if (jsonMatch != null) {
-                val videoId = jsonMatch.groupValues[1]
-                if (videoId.isNotEmpty()) {
-                    return "https://music.youtube.com/watch?v=$videoId"
-                }
-            }
-
-            // 3. Check watch?v= format
-            val watchMatch = ytWatchRegex.find(html)
-            if (watchMatch != null) {
-                val videoId = watchMatch.groupValues[1]
-                if (videoId.isNotEmpty()) {
-                    return "https://music.youtube.com/watch?v=$videoId"
-                }
-            }
-
-            null
-        } catch (e: Exception) {
-            null
-        }
-    }
-
-    private suspend fun resolveAppleMusicDirectUrl(query: String, isAlbum: Boolean = false): String? {
-        return try {
-            val encoded = query.encodeURLParameter()
-            val entity = if (isAlbum) "album" else "song"
-            val resp = client.get("https://itunes.apple.com/search?term=$encoded&entity=$entity&limit=1")
-            if (resp.status.isSuccess()) {
-                val body = resp.bodyAsText()
-                val rootObj = json.parseToJsonElement(body).jsonObject
-                val results = rootObj["results"]?.jsonArray
-                if (results != null && results.isNotEmpty()) {
-                    val item = results[0].jsonObject
-                    val viewUrl = if (isAlbum) {
-                        item["collectionViewUrl"]?.jsonPrimitive?.content
-                    } else {
-                        item["trackViewUrl"]?.jsonPrimitive?.content
-                    }
-                    if (!viewUrl.isNullOrEmpty()) {
-                        return viewUrl
-                    }
-                }
-            }
-            null
-        } catch (e: Exception) {
-            null
-        }
-    }
-
-    private suspend fun resolveDeezerDirectUrl(query: String, isAlbum: Boolean = false): String? {
-        return try {
-            val encoded = query.encodeURLParameter()
-            val endpoint = if (isAlbum) "search/album" else "search"
-            val resp = client.get("https://api.deezer.com/$endpoint?q=$encoded&limit=1")
-            if (resp.status.isSuccess()) {
-                val body = resp.bodyAsText()
-                val rootObj = json.parseToJsonElement(body).jsonObject
-                val data = rootObj["data"]?.jsonArray
-                if (data != null && data.isNotEmpty()) {
-                    val item = data[0].jsonObject
-                    val link = item["link"]?.jsonPrimitive?.content
-                    if (!link.isNullOrEmpty()) {
-                        return link
-                    }
-                }
-            }
-            null
-        } catch (e: Exception) {
-            null
-        }
-    }
-
-    private fun isArtistNameMatch(candidate: String, target: String): Boolean {
-        fun normalize(str: String): String {
-            return str.lowercase().trim()
-                .replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
-                .replace("[^a-z0-9]".toRegex(), "")
-        }
-        val normCand = normalize(candidate)
-        val normTarget = normalize(target)
-        if (normCand.isEmpty() || normTarget.isEmpty()) return false
-        if (normCand == normTarget) return true
-        if (normCand == normTarget + "thema" || normCand == normTarget + "topic") return true
-        return false
+        return directMatch ?: UrlUtils.buildSearchUrl(cleanQuery, targetPlatformKey)
     }
 
     private suspend fun resolveDirectArtistUrl(artistName: String, targetPlatformKey: String): String? {
         return when (targetPlatformKey) {
-            "deezer" -> resolveDeezerArtistUrl(artistName)
-            "appleMusic" -> resolveAppleMusicArtistUrl(artistName)
-            "youtubeMusic" -> resolveYouTubeMusicArtistUrl(artistName)
-            "tidal" -> resolveTidalArtistUrl(artistName)
+            "deezer" -> deezerResolver.resolveArtist(artistName)
+            "appleMusic" -> appleMusicResolver.resolveArtist(artistName)
+            "youtubeMusic" -> youTubeMusicResolver.resolveArtist(artistName)
+            "tidal" -> tidalResolver.resolveArtist(artistName)
             else -> null
-        }
-    }
-
-    private suspend fun resolveAppleMusicArtistUrl(artistName: String): String? {
-        return try {
-            val encoded = artistName.encodeURLParameter()
-            val resp = client.get("https://itunes.apple.com/search?term=$encoded&entity=musicArtist&limit=25")
-            if (resp.status.isSuccess()) {
-                val body = resp.bodyAsText()
-                val rootObj = json.parseToJsonElement(body).jsonObject
-                val results = rootObj["results"]?.jsonArray
-                if (results != null && results.isNotEmpty()) {
-                    var fallbackLink: String? = null
-                    for (el in results) {
-                        val item = el.jsonObject
-                        val name = item["artistName"]?.jsonPrimitive?.content ?: ""
-                        if (isArtistNameMatch(name, artistName)) {
-                            val link = item["artistLinkUrl"]?.jsonPrimitive?.content
-                                ?: item["artistViewUrl"]?.jsonPrimitive?.content
-                            val genre = item["primaryGenreName"]?.jsonPrimitive?.content ?: ""
-                            if (genre.contains("rock", ignoreCase = true) || genre.contains("punk", ignoreCase = true) || genre.contains("alternative", ignoreCase = true)) {
-                                return link
-                            }
-                            if (fallbackLink == null && !link.isNullOrEmpty()) {
-                                fallbackLink = link
-                            }
-                        }
-                    }
-                    if (fallbackLink != null) return fallbackLink
-                }
-            }
-            null
-        } catch (e: Exception) {
-            null
-        }
-    }
-
-    private suspend fun resolveDeezerArtistUrl(artistName: String): String? {
-        return try {
-            val encoded = artistName.encodeURLParameter()
-            val resp = client.get("https://api.deezer.com/search/artist?q=$encoded&limit=10")
-            if (resp.status.isSuccess()) {
-                val body = resp.bodyAsText()
-                val rootObj = json.parseToJsonElement(body).jsonObject
-                val data = rootObj["data"]?.jsonArray
-                if (data != null && data.isNotEmpty()) {
-                    var bestLink: String? = null
-                    var maxFans = -1
-                    for (el in data) {
-                        val item = el.jsonObject
-                        val name = item["name"]?.jsonPrimitive?.content ?: ""
-                        if (isArtistNameMatch(name, artistName)) {
-                            val fans = item["nb_fan"]?.jsonPrimitive?.content?.toIntOrNull() ?: 0
-                            val link = item["link"]?.jsonPrimitive?.content
-                            if (fans > maxFans && !link.isNullOrEmpty()) {
-                                maxFans = fans
-                                bestLink = link
-                            }
-                        }
-                    }
-                    if (bestLink != null) return bestLink
-                }
-            }
-            null
-        } catch (e: Exception) {
-            null
-        }
-    }
-
-    private suspend fun resolveTidalArtistUrl(artistName: String): String? {
-        return try {
-            val encoded = artistName.encodeURLParameter()
-            val resp = client.get("https://listen.tidal.com/v1/search?query=$encoded&limit=10&countryCode=DE") {
-                header("x-tidal-token", TIDAL_CLIENT_APP_TOKEN)
-                header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
-            }
-            if (resp.status.isSuccess()) {
-                val body = resp.bodyAsText()
-                val rootObj = json.parseToJsonElement(body).jsonObject
-                val items = rootObj["artists"]?.jsonObject?.get("items")?.jsonArray
-                if (items != null && items.isNotEmpty()) {
-                    var bestId: String? = null
-                    var maxPop = -1
-                    for (el in items) {
-                        val item = el.jsonObject
-                        val name = item["name"]?.jsonPrimitive?.content ?: ""
-                        if (isArtistNameMatch(name, artistName)) {
-                            val pop = item["popularity"]?.jsonPrimitive?.content?.toIntOrNull() ?: 0
-                            if (pop > maxPop) {
-                                maxPop = pop
-                                bestId = item["id"]?.jsonPrimitive?.content
-                            }
-                        }
-                    }
-                    if (!bestId.isNullOrEmpty()) {
-                        return "https://tidal.com/artist/$bestId"
-                    }
-                }
-            }
-            null
-        } catch (e: Exception) {
-            null
-        }
-    }
-
-    private suspend fun resolveYouTubeMusicArtistUrl(artistName: String): String? {
-        return try {
-            val encoded = "$artistName Topic".encodeURLParameter()
-            val resp = client.get("https://www.youtube.com/results?search_query=$encoded&sp=EgIQAg%253D%253D") {
-                header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
-                header("Accept-Language", "de,en;q=0.9")
-            }
-            if (!resp.status.isSuccess()) return null
-            val html = resp.bodyAsText()
-            val channelRendererRegex = "\"channelRenderer\":\\{\"channelId\":\"(UC[a-zA-Z0-9_-]{22})\",.*?\"title\":\\{\"simpleText\":\"(.*?)\"\\}".toRegex()
-            val match = channelRendererRegex.find(html)
-            if (match != null) {
-                val channelId = match.groupValues[1]
-                val channelTitle = match.groupValues[2]
-                if (channelId.isNotEmpty() && channelTitle.isNotEmpty() && isArtistNameMatch(channelTitle, artistName)) {
-                    return "https://music.youtube.com/channel/$channelId"
-                }
-            }
-            null
-        } catch (e: Exception) {
-            null
         }
     }
 
     suspend fun extractTrackInfo(url: String): String? {
         return try {
             if (url.contains("spotify.com")) {
-                val encoded = url.encodeURLParameter()
-                val resp = client.get("https://open.spotify.com/oembed?url=$encoded")
-                if (resp.status.isSuccess()) {
-                    val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
-                    val title = root["title"]?.jsonPrimitive?.content
-                    if (!title.isNullOrEmpty()) return title
-                }
-            } else if (url.contains("apple.com") && url.contains("i=")) {
-                val trackId = url.substringAfter("i=").substringBefore("&").substringBefore("?")
-                if (trackId.isNotEmpty()) {
-                    val resp = client.get("https://itunes.apple.com/lookup?id=$trackId")
-                    if (resp.status.isSuccess()) {
-                        val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
-                        val results = root["results"]?.jsonArray
-                        if (results != null && results.isNotEmpty()) {
-                            val track = results[0].jsonObject
-                            val trackName = track["trackName"]?.jsonPrimitive?.content ?: ""
-                            val artistName = track["artistName"]?.jsonPrimitive?.content ?: ""
-                            if (trackName.isNotEmpty()) {
-                                return if (artistName.isNotEmpty()) "$artistName $trackName" else trackName
-                            }
-                        }
-                    }
-                }
-            } else if (url.contains("apple.com") && url.contains("/song/")) {
-                val trackId = url.substringAfter("/song/").substringAfterLast("/").substringBefore("?").substringBefore("&").trim()
-                if (trackId.isNotEmpty() && trackId.all { it.isDigit() }) {
-                    val resp = client.get("https://itunes.apple.com/lookup?id=$trackId")
-                    if (resp.status.isSuccess()) {
-                        val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
-                        val results = root["results"]?.jsonArray
-                        if (results != null && results.isNotEmpty()) {
-                            val track = results[0].jsonObject
-                            val trackName = track["trackName"]?.jsonPrimitive?.content ?: ""
-                            val artistName = track["artistName"]?.jsonPrimitive?.content ?: ""
-                            if (trackName.isNotEmpty()) {
-                                return if (artistName.isNotEmpty()) "$artistName $trackName" else trackName
-                            }
-                        }
-                    }
-                }
-            } else if (url.contains("apple.com") && url.contains("/album/")) {
-                val albumId = url.substringAfter("/album/").substringAfterLast("/").substringBefore("?").substringBefore("&").trim()
-                if (albumId.isNotEmpty() && albumId.all { it.isDigit() }) {
-                    val resp = client.get("https://itunes.apple.com/lookup?id=$albumId&entity=album")
-                    if (resp.status.isSuccess()) {
-                        val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
-                        val results = root["results"]?.jsonArray
-                        if (results != null && results.isNotEmpty()) {
-                            val album = results[0].jsonObject
-                            val collectionName = album["collectionName"]?.jsonPrimitive?.content ?: ""
-                            val artistName = album["artistName"]?.jsonPrimitive?.content ?: ""
-                            if (collectionName.isNotEmpty()) {
-                                return if (artistName.isNotEmpty()) "$artistName $collectionName" else collectionName
-                            }
-                        }
-                    }
-                }
+                spotifyResolver.extractMetadata(url)
+            } else if (url.contains("apple.com")) {
+                appleMusicResolver.extractMetadata(url)
             } else if (url.contains("youtube.com") || url.contains("youtu.be")) {
                 val encoded = url.encodeURLParameter()
                 val resp = client.get("https://www.youtube.com/oembed?url=$encoded&format=json")
@@ -1060,6 +738,7 @@ class SongLinkEngine(
                         return if (author.isNotEmpty() && !title.contains(author, ignoreCase = true)) "$author $title" else title
                     }
                 }
+                null
             } else if (url.contains("deezer.com")) {
                 val encoded = url.encodeURLParameter()
                 val resp = client.get("https://api.deezer.com/oembed?url=$encoded")
@@ -1068,6 +747,7 @@ class SongLinkEngine(
                     val title = root["title"]?.jsonPrimitive?.content
                     if (!title.isNullOrEmpty()) return title
                 }
+                null
             } else if (url.contains("soundcloud.com")) {
                 val encoded = url.encodeURLParameter()
                 val resp = client.get("https://soundcloud.com/oembed?url=$encoded&format=json")
@@ -1084,6 +764,7 @@ class SongLinkEngine(
                         return if (author.isNotEmpty() && !cleanTitle.contains(author, ignoreCase = true)) "$author $cleanTitle" else cleanTitle
                     }
                 }
+                null
             } else if (url.contains("bandcamp.com")) {
                 val resp = client.get(url)
                 if (resp.status.isSuccess()) {
@@ -1100,6 +781,7 @@ class SongLinkEngine(
                         return ogTitle
                     }
                 }
+                null
             } else if (url.contains("shazam.com")) {
                 val trackMatch = Regex("shazam\\.com/(?:[a-z]{2}(?:-[a-z]{2})?/)?track/([0-9]+)", RegexOption.IGNORE_CASE).find(url)
                 val trackId = trackMatch?.groupValues?.get(1) ?: url.substringAfter("/track/").substringBefore("/").substringBefore("?").trim().takeIf { it.isNotEmpty() && it.all { c -> c.isDigit() } }
@@ -1117,9 +799,11 @@ class SongLinkEngine(
                         }
                     }
                 }
+                null
+            } else {
+                null
             }
-            null
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             null
         }
     }
@@ -1160,7 +844,7 @@ class SongLinkEngine(
                 }
             }
             null
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             null
         }
     }
@@ -1187,7 +871,7 @@ class SongLinkEngine(
                 }
             }
             null
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             null
         }
     }
@@ -1247,7 +931,7 @@ class SongLinkEngine(
                 }
                 getResp.request.url.toString()
             }
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             try {
                 val getResp = client.get(url) {
                     header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
@@ -1278,7 +962,7 @@ class SongLinkEngine(
                 }
             }
             null
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             null
         }
     }

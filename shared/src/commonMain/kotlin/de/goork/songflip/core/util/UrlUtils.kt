@@ -204,12 +204,15 @@ object UrlUtils {
                 url.contains("shazam.com")
     }
 
+    private val albumPathRegex = Regex("""(?:/album/|/albums/|album\.link/|\.bandcamp\.com/album/)""", RegexOption.IGNORE_CASE)
+
     fun isAlbumUrl(url: String): Boolean {
         if (url.contains("i=")) return false
         if (url.contains("trackAsin=")) return false
         if (url.contains("/track/")) return false
         if (url.contains("/song/")) return false
-        return url.contains("/album/") || url.contains("/albums/") || url.contains("/album") || url.contains("album.link") || url.contains(".bandcamp.com/album/")
+        val clean = url.substringBefore("?")
+        return albumPathRegex.containsMatchIn(clean) || clean.endsWith("/album") || clean.endsWith("/albums")
     }
 
     fun isPlaylistUrl(url: String): Boolean {
@@ -405,25 +408,31 @@ object UrlUtils {
     }
 
     private fun String.decodeUrl(): String {
-        return this.replace("+", " ")
-            .let { s ->
-                val result = StringBuilder()
-                var i = 0
-                while (i < s.length) {
-                    if (s[i] == '%' && i + 2 < s.length) {
-                        val hex = s.substring(i + 1, i + 3)
-                        val code = hex.toIntOrNull(16)
-                        if (code != null) {
-                            result.append(code.toChar())
-                            i += 3
-                            continue
-                        }
+        return try {
+            val bytes = mutableListOf<Byte>()
+            var i = 0
+            val s = this.replace("+", " ")
+            while (i < s.length) {
+                val c = s[i]
+                if (c == '%' && i + 2 < s.length) {
+                    val hex = s.substring(i + 1, i + 3)
+                    val byteVal = hex.toIntOrNull(16)
+                    if (byteVal != null) {
+                        bytes.add(byteVal.toByte())
+                        i += 3
+                        continue
                     }
-                    result.append(s[i])
-                    i++
                 }
-                result.toString()
+                val charBytes = c.toString().encodeToByteArray()
+                for (b in charBytes) {
+                    bytes.add(b)
+                }
+                i++
             }
+            bytes.toByteArray().decodeToString()
+        } catch (_: Throwable) {
+            this.replace("+", " ").replace("%20", " ")
+        }
     }
 
 

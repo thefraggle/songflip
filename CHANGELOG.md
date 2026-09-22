@@ -1,6 +1,11 @@
 # Changelog
 
-## [1.4.9] - 2026-09-21
+## [1.4.10] - 2026-09-22
+- **Core Architecture & God-Class Decoupling**: Refactored `SongLinkEngine` to a modular strategy pattern with dedicated platform resolvers for Apple Music, Deezer, Tidal, YouTube Music, Spotify, and SongLink API.
+- **Pure Multiplatform URL Utilities**: Pure KMP multi-byte UTF-8 percent decoding and hardened regex-based album detection across iOS and Android without platform dependencies.
+- **Android Architecture & ViewModel Layer**: Introduced `MainViewModel` and `MainUiState` with unidirectional data flow, debounced clipboard inspection, thread-safe package cache, and asynchronous link diagnosis.
+- **Backend Modularization**: Extracted Firebase Cloud Functions into focused domain modules (`security.ts`, `utils.ts`, `resolvers.ts`, `webshare.ts`, `proVerification.ts`) maintaining full backward compatibility.
+
 - **Backend Security & Entitlement Hardening**: Strict server-side verification of PRO entitlements, secure HMAC coupon generation, and hardened Firestore rules.
 - **Paywall & Purchase Flow Polish**: Instant automatic sheet dismissal upon coupon redemption, clear error and retry states when loading subscription options, localized error handling across all 31 languages, and synchronized purchase callback handling.
 - **App Lifecycle & Privacy**: Smoother intent routing for incoming shared links without UI restarts, and privacy-preserving GDPR-compliant telemetry hashing for promo codes.

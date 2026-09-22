@@ -3,7 +3,6 @@ package de.goork.songflip.ui
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -11,6 +10,7 @@ import android.provider.Settings
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.*
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -19,9 +19,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,7 +32,6 @@ import androidx.lifecycle.LifecycleEventObserver
 import de.goork.songflip.R
 import de.goork.songflip.core.cache.AndroidSharedPreferencesCacheStorage
 import de.goork.songflip.core.engine.SongLinkEngine
-import de.goork.songflip.data.DomainVerificationUtils
 import de.goork.songflip.data.PauseHelper
 import de.goork.songflip.data.ProManager
 import de.goork.songflip.data.SettingsRepository
@@ -44,33 +41,35 @@ import de.goork.songflip.ui.theme.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var showPauseSheetState = mutableStateOf(false)
-    private var openPlaylistUrlState = mutableStateOf<String?>(null)
-    private val windowFocusState = mutableStateOf(true)
-    private val incomingSharedUrlState = mutableStateOf<String?>(null)
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
-        windowFocusState.value = hasFocus
+        if (hasFocus) {
+            viewModel.checkClipboardOnResume()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         AndroidSharedPreferencesCacheStorage.init(this)
-        showPauseSheetState.value = intent?.getBooleanExtra("show_pause_sheet", false) == true
-        openPlaylistUrlState.value = intent?.getStringExtra("open_playlist_url")
+
+        if (intent?.getBooleanExtra("show_pause_sheet", false) == true) {
+            viewModel.openPauseSheet()
+        }
+        val initialPlaylist = intent?.getStringExtra("open_playlist_url")
+        if (!initialPlaylist.isNullOrBlank()) {
+            viewModel.openPlaylistConvert(initialPlaylist)
+        }
         handleShortcutIntent(intent)
 
         val shared = intent?.takeIf { it.action == Intent.ACTION_SEND }?.let {
             it.getStringExtra(Intent.EXTRA_TEXT) ?: it.clipData?.takeIf { cd -> cd.itemCount > 0 }?.getItemAt(0)?.text?.toString()
         }?.let { UrlUtils.extractCleanUrl(it) ?: it }
+
         if (shared != null && isSupportedMusicUrl(shared)) {
-            if (UrlUtils.isPlaylistUrl(shared)) {
-                openPlaylistUrlState.value = shared
-            } else {
-                incomingSharedUrlState.value = shared
-            }
+            viewModel.onIncomingSharedUrl(shared)
         }
 
         val settingsRepo = SettingsRepository(this)
@@ -89,10 +88,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         setContent {
-            val settingsRepository = remember { SettingsRepository(this) }
-            var currentThemeMode by remember { mutableStateOf(settingsRepository.themeMode) }
+            val uiState by viewModel.uiState.collectAsState()
 
-            val darkTheme = when (currentThemeMode) {
+            val darkTheme = when (uiState.currentThemeMode) {
                 "light" -> false
                 "dark" -> true
                 else -> isSystemInDarkTheme()
@@ -103,14 +101,7 @@ class MainActivity : AppCompatActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainScreen(
-                        initialShowPause = showPauseSheetState.value,
-                        initialOpenPlaylistUrl = openPlaylistUrlState.value,
-                        currentThemeMode = currentThemeMode,
-                        isWindowFocused = windowFocusState.value,
-                        incomingSharedUrl = incomingSharedUrlState.value,
-                        onThemeModeSelected = { newMode -> currentThemeMode = newMode }
-                    )
+                    MainScreen(viewModel = viewModel)
                 }
             }
         }
@@ -125,17 +116,14 @@ class MainActivity : AppCompatActivity() {
             it.getStringExtra(Intent.EXTRA_TEXT) ?: it.clipData?.takeIf { cd -> cd.itemCount > 0 }?.getItemAt(0)?.text?.toString()
         }?.let { UrlUtils.extractCleanUrl(it) ?: it }
 
-        val newPlaylistUrl = playlistUrl ?: if (shared != null && UrlUtils.isPlaylistUrl(shared)) shared else null
-        if (shared != null && isSupportedMusicUrl(shared) && !UrlUtils.isPlaylistUrl(shared)) {
-            incomingSharedUrlState.value = shared
+        if (shared != null && isSupportedMusicUrl(shared)) {
+            viewModel.onIncomingSharedUrl(shared)
+        } else if (playlistUrl != null) {
+            viewModel.openPlaylistConvert(playlistUrl)
         }
 
-        if (newPlaylistUrl != null) {
-            openPlaylistUrlState.value = newPlaylistUrl
-        }
-        val showPause = intent.getBooleanExtra("show_pause_sheet", false)
-        if (showPause) {
-            showPauseSheetState.value = true
+        if (intent.getBooleanExtra("show_pause_sheet", false)) {
+            viewModel.openPauseSheet()
         }
     }
 
@@ -144,6 +132,7 @@ class MainActivity : AppCompatActivity() {
         when (intent.action) {
             de.goork.songflip.data.ShortcutHelper.ACTION_PAUSE_1H -> {
                 PauseHelper.setPause(this, 60 * 60 * 1000L)
+                viewModel.refreshStatusAndPauseState()
                 Toast.makeText(this, getString(R.string.shortcut_pause_1h_toast), Toast.LENGTH_SHORT).show()
             }
             de.goork.songflip.data.ShortcutHelper.ACTION_PLAY_LAST_SONG -> {
@@ -180,142 +169,32 @@ data class LanguageItem(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(
-    initialShowPause: Boolean = false,
-    initialOpenPlaylistUrl: String? = null,
-    currentThemeMode: String = "system",
-    isWindowFocused: Boolean = false,
-    incomingSharedUrl: String? = null,
-    onThemeModeSelected: (String) -> Unit = {}
-) {
+fun MainScreen(viewModel: MainViewModel) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val coroutineScope = rememberCoroutineScope()
     val repository = remember { SongLinkEngine.shared }
     val settingsRepository = remember { SettingsRepository(context) }
 
-    var selectedTargetKey by remember { mutableStateOf(settingsRepository.targetPlatform) }
-    var selectedLanguage by remember { mutableStateOf(settingsRepository.appLanguage) }
-
-    // Bottom Sheets State
-    var showPauseBottomSheet by remember { mutableStateOf(initialShowPause) }
-    var showSettingsBottomSheet by remember { mutableStateOf(false) }
-    var showAppLinksSetupBottomSheet by remember { mutableStateOf(false) }
-    var showProPaywall by remember { mutableStateOf(false) }
-    var initialShowPromoInPaywall by remember { mutableStateOf(false) }
-    var showPlaylistConvertSheet by remember { mutableStateOf<String?>(initialOpenPlaylistUrl) }
-    var showPodcastNoticeSheet by remember { mutableStateOf<String?>(null) }
-
+    val uiState by viewModel.uiState.collectAsState()
     val proState by ProManager.proState.collectAsState()
-    var activeMilestone by remember { mutableStateOf(settingsRepository.getActiveProNudgeMilestone()) }
-
-    // Pause State
-    var isCurrentlyPaused by remember { mutableStateOf(PauseHelper.isCurrentlyPaused(context)) }
-    val prefs = remember { context.getSharedPreferences(SettingsRepository.PREFS_NAME, Context.MODE_PRIVATE) }
-    var pausedUntilTimestamp by remember {
-        mutableStateOf(prefs.getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L))
-    }
-
-    var domainStatus by remember { mutableStateOf(DomainVerificationUtils.getDomainStatus(context)) }
-    var linksActive by remember { mutableStateOf<Boolean?>(DomainVerificationUtils.checkLinksEnabled(context)) }
-    var diagnosisSummary by remember {
-        mutableStateOf(de.goork.songflip.data.LinkDiagnosisManager.runDiagnosis(context, selectedTargetKey))
-    }
-
-    // Clipboard Smart-Banner State
-    var detectedClipboardUrl by remember(incomingSharedUrl) { mutableStateOf<String?>(incomingSharedUrl) }
-    var dismissedClipboardUrl by remember { mutableStateOf<String?>(null) }
-
-    LaunchedEffect(incomingSharedUrl) {
-        if (incomingSharedUrl != null) {
-            detectedClipboardUrl = incomingSharedUrl
-            repository.prefetch(incomingSharedUrl, selectedTargetKey)
-        }
-    }
-
-    LaunchedEffect(initialShowPause) {
-        if (initialShowPause) {
-            showPauseBottomSheet = true
-        }
-    }
-
-    LaunchedEffect(initialOpenPlaylistUrl) {
-        if (initialOpenPlaylistUrl != null) {
-            showPlaylistConvertSheet = initialOpenPlaylistUrl
-        }
-    }
-
-    val checkClipboard = rememberUpdatedState {
-        if (!settingsRepository.autoClipboardDetect) {
-            detectedClipboardUrl = null
-            return@rememberUpdatedState
-        }
-        try {
-            val clipManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as? android.content.ClipboardManager
-            val rawClipText = clipManager?.primaryClip?.takeIf { it.itemCount > 0 }?.getItemAt(0)?.coerceToText(context)?.toString()?.trim() ?: ""
-            if (rawClipText.isNotEmpty()) {
-                val cleanUrl = UrlUtils.extractCleanUrl(rawClipText) ?: rawClipText
-                if (isSupportedMusicUrl(cleanUrl)) {
-                    if (cleanUrl != dismissedClipboardUrl) {
-                        detectedClipboardUrl = cleanUrl
-                        // Predictive prefetching (Idee 1): silently warm L1 cache in background for 0ms launch
-                        coroutineScope.launch {
-                            repository.prefetch(cleanUrl, selectedTargetKey)
-                        }
-                    }
-                } else {
-                    // Clipboard contains non-music text -> clear banner
-                    detectedClipboardUrl = null
-                }
-            }
-        } catch (e: Exception) {
-            // Focus not yet granted or security restriction
-        }
-    }
-
-    LaunchedEffect(isWindowFocused) {
-        if (isWindowFocused) {
-            checkClipboard.value()
-        }
-    }
 
     // Update state when resuming from system settings or external changes
     DisposableEffect(lifecycleOwner, context) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME) {
-                domainStatus = DomainVerificationUtils.getDomainStatus(context)
-                linksActive = DomainVerificationUtils.checkLinksEnabled(context)
-                diagnosisSummary = de.goork.songflip.data.LinkDiagnosisManager.runDiagnosis(context, selectedTargetKey)
-                isCurrentlyPaused = PauseHelper.isCurrentlyPaused(context)
-                pausedUntilTimestamp = prefs.getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L)
+                viewModel.refreshStatusAndPauseState()
+                viewModel.refreshDiagnosis()
                 (context as? Activity)?.let { act ->
                     de.goork.songflip.data.ReviewHelper.maybeRequestReview(act, settingsRepository)
                 }
                 de.goork.songflip.data.ShortcutHelper.updateShortcuts(context)
-                activeMilestone = settingsRepository.getActiveProNudgeMilestone()
-
-                // Check clipboard on resume (with decorView.post fallback to ensure window focus)
-                checkClipboard.value()
-                (context as? Activity)?.window?.decorView?.post {
-                    checkClipboard.value()
-                }
-                coroutineScope.launch {
-                    kotlinx.coroutines.delay(150)
-                    checkClipboard.value()
-                }
-            }
-        }
-        val prefListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
-            if (key == PauseHelper.PREFS_KEY_PAUSED || key == PauseHelper.PREFS_KEY_PAUSED_UNTIL) {
-                isCurrentlyPaused = PauseHelper.isCurrentlyPaused(context)
-                pausedUntilTimestamp = prefs.getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L)
+                viewModel.checkClipboardOnResume()
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
-        prefs.registerOnSharedPreferenceChangeListener(prefListener)
         onDispose {
             lifecycleOwner.lifecycle.removeObserver(observer)
-            prefs.unregisterOnSharedPreferenceChangeListener(prefListener)
         }
     }
 
@@ -367,62 +246,59 @@ fun MainScreen(
     }
 
     // Bottom Sheets
-    if (showPauseBottomSheet) {
+    if (uiState.showPauseBottomSheet) {
         PauseBottomSheet(
-            onDismissRequest = { showPauseBottomSheet = false },
+            onDismissRequest = { viewModel.closePauseSheet() },
             onPauseOptionSelected = { durationMs, isUntilTomorrow ->
                 if (isUntilTomorrow) {
                     val tomorrowTimestamp = PauseHelper.getTomorrowMorningTimestamp()
                     PauseHelper.setPauseUntil(context, tomorrowTimestamp)
-                    isCurrentlyPaused = true
-                    pausedUntilTimestamp = tomorrowTimestamp
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackPauseStateChanged("paused_tomorrow")
                 } else if (durationMs == 0L) {
                     PauseHelper.setPause(context, 0L)
-                    isCurrentlyPaused = true
-                    pausedUntilTimestamp = 0L
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackPauseStateChanged("paused_indefinitely")
                 } else {
                     PauseHelper.setPause(context, durationMs)
-                    isCurrentlyPaused = true
-                    pausedUntilTimestamp = if (durationMs > 0) prefs.getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L) else 0L
                     val durationStr = if (durationMs == 15 * 60 * 1000L) "paused_15m" else "paused_1h"
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackPauseStateChanged(durationStr)
                 }
-                showPauseBottomSheet = false
+                viewModel.refreshStatusAndPauseState()
+                viewModel.closePauseSheet()
             }
         )
     }
 
-    if (showSettingsBottomSheet) {
+    if (uiState.showSettingsBottomSheet) {
         SettingsBottomSheet(
-            onDismissRequest = { showSettingsBottomSheet = false },
+            onDismissRequest = { viewModel.closeSettings() },
             settingsRepository = settingsRepository,
             supportedLanguages = supportedLanguages,
-            currentLanguageCode = selectedLanguage,
+            currentLanguageCode = uiState.selectedLanguage,
             onLanguageSelected = { newLang ->
-                selectedLanguage = newLang
+                viewModel.setAppLanguage(newLang)
             },
-            currentThemeMode = currentThemeMode,
-            onThemeModeSelected = onThemeModeSelected,
+            currentThemeMode = uiState.currentThemeMode,
+            onThemeModeSelected = { newMode ->
+                viewModel.setThemeMode(newMode)
+            },
             isPro = proState.isPro,
             onOpenProPaywall = {
                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("settings_sheet")
-                showProPaywall = true
+                viewModel.openProPaywall()
             },
             onOpenSetupGuide = {
-                showSettingsBottomSheet = false
-                showAppLinksSetupBottomSheet = true
+                viewModel.closeSettings()
+                viewModel.openAppLinksSetup()
             }
         )
     }
 
-    if (showAppLinksSetupBottomSheet) {
+    if (uiState.showAppLinksSetupBottomSheet) {
         AppLinksSetupBottomSheet(
-            onDismissRequest = { showAppLinksSetupBottomSheet = false },
-            targetPlatformKey = selectedTargetKey,
+            onDismissRequest = { viewModel.closeAppLinksSetup() },
+            targetPlatformKey = uiState.selectedTargetKey,
             onOpenSystemSettings = {
-                showAppLinksSetupBottomSheet = false
+                viewModel.closeAppLinksSetup()
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                     try {
                         context.startActivity(
@@ -431,7 +307,7 @@ fun MainScreen(
                                 Uri.parse("package:${context.packageName}")
                             )
                         )
-                    } catch (e: Exception) {
+                    } catch (_: Exception) {
                         context.startActivity(
                             Intent(
                                 Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
@@ -451,36 +327,35 @@ fun MainScreen(
         )
     }
 
-    if (showProPaywall) {
+    if (uiState.showProPaywall) {
         ProPaywallBottomSheet(
             onDismissRequest = {
-                showProPaywall = false
-                initialShowPromoInPaywall = false
+                viewModel.closeProPaywall()
             },
-            initialShowPromo = initialShowPromoInPaywall
+            initialShowPromo = uiState.initialShowPromoInPaywall
         )
     }
 
-    showPlaylistConvertSheet?.let { playlistUrl ->
+    uiState.showPlaylistConvertSheet?.let { playlistUrl ->
         PlaylistConvertBottomSheet(
             playlistUrl = playlistUrl,
-            targetPlatformKey = selectedTargetKey,
-            onDismiss = { showPlaylistConvertSheet = null },
+            targetPlatformKey = uiState.selectedTargetKey,
+            onDismiss = { viewModel.closePlaylistConvert() },
             onOpenPaywall = {
-                showPlaylistConvertSheet = null
-                showProPaywall = true
+                viewModel.closePlaylistConvert()
+                viewModel.openProPaywall()
             }
         )
     }
 
-    showPodcastNoticeSheet?.let { podcastUrl ->
+    uiState.showPodcastNoticeSheet?.let { podcastUrl ->
         val platformKey = UrlUtils.detectPlatform(podcastUrl)?.key ?: "unknown"
         val isAudiobook = UrlUtils.isAudiobookUrl(podcastUrl)
-        de.goork.songflip.ui.components.PodcastNoticeBottomSheet(
+        PodcastNoticeBottomSheet(
             url = podcastUrl,
             platformKey = platformKey,
             isAudiobook = isAudiobook,
-            onDismiss = { showPodcastNoticeSheet = null }
+            onDismiss = { viewModel.closePodcastNotice() }
         )
     }
 
@@ -514,44 +389,43 @@ fun MainScreen(
             HeaderBanner(
                 onOpenSettings = {
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackSettingsOpened()
-                    showSettingsBottomSheet = true
+                    viewModel.openSettings()
                 },
                 isPro = proState.isPro
             )
 
-            val isSetupRequired = !isCurrentlyPaused && (domainStatus?.let { it.enabledHosts == 0 } ?: (linksActive == false))
+            val isSetupRequired = !uiState.isCurrentlyPaused && ((uiState.domainStatus?.enabledHosts == 0) || (uiState.linksActive == false))
 
             // 2. Live Status & Quick Pause Card
             LiveStatusBanner(
-                isCurrentlyPaused = isCurrentlyPaused,
-                pausedUntilTimestamp = pausedUntilTimestamp,
+                isCurrentlyPaused = uiState.isCurrentlyPaused,
+                pausedUntilTimestamp = uiState.pausedUntilTimestamp,
                 isSetupRequired = isSetupRequired,
                 onResumeClick = {
                     PauseHelper.resume(context)
-                    isCurrentlyPaused = false
-                    pausedUntilTimestamp = 0L
+                    viewModel.refreshStatusAndPauseState()
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackPauseStateChanged("unpaused")
                 },
                 onPauseClick = {
-                    showPauseBottomSheet = true
+                    viewModel.openPauseSheet()
                 },
                 onSetupClick = {
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackDomainSetupClicked()
-                    showAppLinksSetupBottomSheet = true
+                    viewModel.openAppLinksSetup()
                 }
             )
 
             // 2.5 Clipboard Smart-Banner (when music link is copied in clipboard)
             AnimatedVisibility(
-                visible = detectedClipboardUrl != null,
+                visible = uiState.detectedClipboardUrl != null,
                 enter = fadeIn() + expandVertically(),
                 exit = fadeOut() + shrinkVertically()
             ) {
-                detectedClipboardUrl?.let { clipUrl ->
+                uiState.detectedClipboardUrl?.let { clipUrl ->
                     val isPlaylist = UrlUtils.isPlaylistUrl(clipUrl)
                     val isPodcastOrAudiobook = UrlUtils.isPodcastOrAudiobookUrl(clipUrl)
                     val isAudiobook = UrlUtils.isAudiobookUrl(clipUrl)
-                    val targetService = targetServices.find { it.key == selectedTargetKey }
+                    val targetService = targetServices.find { it.key == uiState.selectedTargetKey }
                     val targetServiceName: String = targetService?.let { stringResource(it.nameResId) } ?: "Player"
                     ClipboardSmartBanner(
                         musicUrl = clipUrl,
@@ -561,19 +435,18 @@ fun MainScreen(
                         isPodcastOrAudiobook = isPodcastOrAudiobook,
                         isAudiobook = isAudiobook,
                         onOpenPlaylist = { url ->
-                            showPlaylistConvertSheet = url
+                            viewModel.openPlaylistConvert(url)
                         },
                         onOpenPodcast = { url ->
-                            showPodcastNoticeSheet = url
+                            viewModel.openPodcastNotice(url)
                         },
                         onOpenInTarget = { urlToOpen ->
                             if (isPlaylist) {
-                                showPlaylistConvertSheet = urlToOpen
+                                viewModel.openPlaylistConvert(urlToOpen)
                             } else if (isPodcastOrAudiobook) {
-                                showPodcastNoticeSheet = urlToOpen
+                                viewModel.openPodcastNotice(urlToOpen)
                             } else {
-                                dismissedClipboardUrl = urlToOpen
-                                detectedClipboardUrl = null
+                                viewModel.dismissClipboardBanner(urlToOpen)
                                 val redirectIntent = Intent(context, RedirectActivity::class.java).apply {
                                     data = Uri.parse(urlToOpen)
                                     putExtra("from_clipboard_banner", true)
@@ -603,12 +476,11 @@ fun MainScreen(
                                 }
                             } else {
                                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("clipboard_banner_universal_share")
-                                showProPaywall = true
+                                viewModel.openProPaywall()
                             }
                         },
                         onDismiss = {
-                            dismissedClipboardUrl = clipUrl
-                            detectedClipboardUrl = null
+                            viewModel.dismissClipboardBanner(clipUrl)
                         }
                     )
                 }
@@ -616,48 +488,43 @@ fun MainScreen(
 
             // 2.6 PRO-Upgrade Milestone Nudge
             AnimatedVisibility(
-                visible = !proState.isPro && activeMilestone > 0,
+                visible = !proState.isPro && uiState.activeMilestone > 0,
                 enter = fadeIn() + expandVertically(),
                 exit = fadeOut() + shrinkVertically()
             ) {
                 ProNudgeBanner(
-                    milestone = activeMilestone,
+                    milestone = uiState.activeMilestone,
                     onRedeemPromo = {
-                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("milestone_${activeMilestone}_promo")
-                        initialShowPromoInPaywall = true
-                        showProPaywall = true
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("milestone_${uiState.activeMilestone}_promo")
+                        viewModel.openProPaywall(showPromo = true)
                     },
                     onLearnMore = {
-                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("milestone_${activeMilestone}_learn_more")
-                        initialShowPromoInPaywall = false
-                        showProPaywall = true
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("milestone_${uiState.activeMilestone}_learn_more")
+                        viewModel.openProPaywall(showPromo = false)
                     },
                     onDismiss = {
-                        settingsRepository.dismissProNudgeMilestone(activeMilestone)
-                        activeMilestone = 0
+                        viewModel.dismissMilestone(uiState.activeMilestone)
                     }
                 )
             }
 
             // 3. Domain Verification Setup Card
             SetupCard(
-                domainStatus = domainStatus,
-                linksActive = linksActive,
-                diagnosisSummary = diagnosisSummary,
+                domainStatus = uiState.domainStatus,
+                linksActive = uiState.linksActive,
+                diagnosisSummary = uiState.diagnosisSummary,
                 onOpenSetupGuide = {
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackDomainSetupClicked()
-                    showAppLinksSetupBottomSheet = true
+                    viewModel.openAppLinksSetup()
                 }
             )
 
             // 4. Preferred Target Music Player Card
             TargetSelectorCard(
                 targetServices = targetServices,
-                selectedTargetKey = selectedTargetKey,
+                selectedTargetKey = uiState.selectedTargetKey,
                 onTargetSelected = { key ->
-                    selectedTargetKey = key
-                    settingsRepository.targetPlatform = key
-                    diagnosisSummary = de.goork.songflip.data.LinkDiagnosisManager.runDiagnosis(context, key)
+                    viewModel.setTargetPlatform(key)
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackTargetPlatformChanged(key)
                 }
             )

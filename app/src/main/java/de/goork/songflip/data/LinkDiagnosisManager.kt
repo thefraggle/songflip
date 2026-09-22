@@ -148,4 +148,9 @@ object LinkDiagnosisManager {
             targetAppKey = targetPlatformKey
         )
     }
+
+    suspend fun runDiagnosisAsync(context: Context, targetPlatformKey: String): DiagnosisSummary =
+        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+            runDiagnosis(context, targetPlatformKey)
+        }
 }

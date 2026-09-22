@@ -91,8 +91,24 @@ object PackageUtils {
                 lower.contains("interceptor")
     }
 
+    private val packageCache = java.util.concurrent.ConcurrentHashMap<String, String?>()
+
+    fun invalidateCache() {
+        packageCache.clear()
+    }
+
     fun getInstalledPackage(context: Context, platformKey: String): String? {
         val cleanKey = platformKey.substringBefore("_")
+        if (packageCache.containsKey(cleanKey)) {
+            return packageCache[cleanKey]
+        }
+
+        val resolved = resolveInstalledPackageInternal(context, cleanKey)
+        packageCache[cleanKey] = resolved
+        return resolved
+    }
+
+    private fun resolveInstalledPackageInternal(context: Context, cleanKey: String): String? {
         val candidates = fallbackPackages[cleanKey] ?: listOfNotNull(packageMap[cleanKey])
         for (pkg in candidates) {
             try {
