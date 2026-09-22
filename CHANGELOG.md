@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.4.12] - 2026-09-22
+- **Startup & Stability Hotfix**: Resolved an issue that could cause unexpected crashes during app launch.
+- **Enhanced Performance**: Streamlined state management for a faster, more reliable user experience.
+
 ## [1.4.11] - 2026-09-22
 - **Clearer Pricing & Promo Display**: Improved visibility for special promotions and limited-time deals on SongFlip PRO.
 - **Refined Upgrade Experience**: Smarter calculation and display of regional currencies and regular comparison prices.

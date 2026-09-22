@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.4.12] - 2026-09-22
+- **Stabilitäts-Hotfix beim Start**: Behebt ein Problem, das beim Start der App zu unerwarteten Abstürzen führen konnte.
+- **Verbesserte Zuverlässigkeit**: Optimierte interne Zustandsverwaltung für eine noch schnellere und stabilere Nutzung.
+
 ## [1.4.11] - 2026-09-22
 - **Transparente Preis- und Rabattanzeige**: Verbesserte Darstellung von Aktionspreisen und befristeten Angeboten für SongFlip PRO.
 - **Optimierte Upgrade-Ansicht**: Zuverlässigere Anzeige regionaler Währungsformate und durchgestrichener Vorher-Preise.
