@@ -1,9 +1,9 @@
 # Changelog (Deutsch)
 
 ## [1.4.11] - 2026-09-22
-- **Dynamische Lifetime-Rabatt-Anzeige**: Die Paywall erkennt automatisch aktive Rabattaktionen für Lifetime PRO über RevenueCat-Metadaten oder das relative Preisverhältnis.
-- **Weltweite Streichpreise**: Automatische Berechnung und Anzeige des durchgestrichenen Originalpreises in allen 173 unterstützten Regionen und Währungen.
-- **Aktions-Kennzeichnung**: Anzeige eines `50% DEAL`-Badges und des Hinweises „Befristetes Angebot“ während aktiver Promotionen.
+- **Transparente Preis- und Rabattanzeige**: Verbesserte Darstellung von Aktionspreisen und befristeten Angeboten für SongFlip PRO.
+- **Optimierte Upgrade-Ansicht**: Zuverlässigere Anzeige regionaler Währungsformate und durchgestrichener Vorher-Preise.
+- **Feinschliff & Detailverbesserungen**: Allgemeine Stabilitäts- und Darstellungsoptimierungen.
 
 ## [1.4.7] - 2026-09-21
 - **Einheitliche Multiplatform-Engine**: Vollständige Umstellung der Android-Linkkonvertierung und des Cache-Systems auf den gemeinsamen Kotlin-Multiplatform-Core für identische und blitzschnelle Erkennung.
