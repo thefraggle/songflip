@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.4.13] - 2026-09-22
+- **App Detection & Launch Hotfix**: Fixed a critical crash on devices where certain music players are not installed.
+- **Reliability Enhancements**: Hardened cache and system inspection routines for seamless performance across all environments.
+
 ## [1.4.12] - 2026-09-22
 - **Startup & Stability Hotfix**: Resolved an issue that could cause unexpected crashes during app launch.
 - **Enhanced Performance**: Streamlined state management for a faster, more reliable user experience.

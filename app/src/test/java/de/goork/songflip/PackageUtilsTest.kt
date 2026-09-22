@@ -159,5 +159,12 @@ class PackageUtilsTest {
         assertTrue(officialIndex > morpheIndex)
         assertTrue(officialIndex > anddeaIndex)
     }
+
+    @Test
+    fun testCacheInvalidation() {
+        PackageUtils.invalidateCache()
+        // Ensure invalidateCache runs without exceptions
+        assertTrue(true)
+    }
 }
 

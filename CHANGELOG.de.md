@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.4.13] - 2026-09-22
+- **Player-Erkennung & Start-Hotfix**: Behebt einen kritischen Absturz auf Geräten, auf denen bestimmte Musik-Apps nicht installiert sind.
+- **Höhere Ausfallsicherheit**: Gehärtete System- und Cache-Prüfungen für einen unterbrechungsfreien Betrieb auf allen Geräten.
+
 ## [1.4.12] - 2026-09-22
 - **Stabilitäts-Hotfix beim Start**: Behebt ein Problem, das beim Start der App zu unerwarteten Abstürzen führen konnte.
 - **Verbesserte Zuverlässigkeit**: Optimierte interne Zustandsverwaltung für eine noch schnellere und stabilere Nutzung.
