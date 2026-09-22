@@ -1,9 +1,9 @@
 # Changelog
 
 ## [1.4.11] - 2026-09-22
-- **Dynamic Lifetime Promo & Deal Display**: Paywall dynamically detects active discounts on Lifetime PRO via RevenueCat offering metadata or relative tier price ratios.
-- **Global Strikethrough Pricing**: Automatically calculates and renders formatted regular strikethrough prices across all 173 supported regions and currencies.
-- **Localized Sale Badging**: Displays a prominent `50% DEAL` badge and `Limited time offer` subtitle during active promotions.
+- **Clearer Pricing & Promo Display**: Improved visibility for special promotions and limited-time deals on SongFlip PRO.
+- **Refined Upgrade Experience**: Smarter calculation and display of regional currencies and regular comparison prices.
+- **General Polish & Improvements**: Minor visual and stability enhancements across the app.
 
 ## [1.4.10] - 2026-09-22
 - **Core Architecture & God-Class Decoupling**: Refactored `SongLinkEngine` to a modular strategy pattern with dedicated platform resolvers for Apple Music, Deezer, Tidal, YouTube Music, Spotify, and SongLink API.
