@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.4.11] - 2026-09-22
+- **Dynamic Lifetime Promo & Deal Display**: Paywall dynamically detects active discounts on Lifetime PRO via RevenueCat offering metadata or relative tier price ratios.
+- **Global Strikethrough Pricing**: Automatically calculates and renders formatted regular strikethrough prices across all 173 supported regions and currencies.
+- **Localized Sale Badging**: Displays a prominent `50% DEAL` badge and `Limited time offer` subtitle during active promotions.
+
 ## [1.4.10] - 2026-09-22
 - **Core Architecture & God-Class Decoupling**: Refactored `SongLinkEngine` to a modular strategy pattern with dedicated platform resolvers for Apple Music, Deezer, Tidal, YouTube Music, Spotify, and SongLink API.
 - **Pure Multiplatform URL Utilities**: Pure KMP multi-byte UTF-8 percent decoding and hardened regex-based album detection across iOS and Android without platform dependencies.

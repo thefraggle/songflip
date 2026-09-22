@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.4.11] - 2026-09-22
+- **Dynamische Lifetime-Rabatt-Anzeige**: Die Paywall erkennt automatisch aktive Rabattaktionen für Lifetime PRO über RevenueCat-Metadaten oder das relative Preisverhältnis.
+- **Weltweite Streichpreise**: Automatische Berechnung und Anzeige des durchgestrichenen Originalpreises in allen 173 unterstützten Regionen und Währungen.
+- **Aktions-Kennzeichnung**: Anzeige eines `50% DEAL`-Badges und des Hinweises „Befristetes Angebot“ während aktiver Promotionen.
+
 ## [1.4.7] - 2026-09-21
 - **Einheitliche Multiplatform-Engine**: Vollständige Umstellung der Android-Linkkonvertierung und des Cache-Systems auf den gemeinsamen Kotlin-Multiplatform-Core für identische und blitzschnelle Erkennung.
 - **Transparente Lifetime-Preise**: Die Lifetime-PRO-Preisdarstellung zeigt nun auch bei Sonder- und Einführungsangeboten immer den exakten, aktuellen Betrag.

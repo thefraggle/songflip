@@ -29,8 +29,10 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.revenuecat.purchases.Offering
 import com.revenuecat.purchases.Package
 import com.revenuecat.purchases.PackageType
 import com.revenuecat.purchases.models.Price
@@ -62,6 +64,7 @@ fun ProPaywallBottomSheet(
     val proState by ProManager.proState.collectAsState()
     val coroutineScope = rememberCoroutineScope()
     var selectedTier by remember { mutableStateOf(SelectedProTier.ANNUAL) }
+    var currentOffering by remember { mutableStateOf<Offering?>(null) }
     var availablePackages by remember { mutableStateOf<List<Package>>(emptyList()) }
     var isPurchasing by remember { mutableStateOf(false) }
     var isRestoring by remember { mutableStateOf(false) }
@@ -79,6 +82,7 @@ fun ProPaywallBottomSheet(
         offeringsError = false
         ProManager.getOfferings(
             onSuccess = { offerings ->
+                currentOffering = offerings.current
                 availablePackages = offerings.current?.availablePackages ?: emptyList()
                 offeringsError = availablePackages.isEmpty()
                 isLoadingOfferings = false
@@ -286,6 +290,9 @@ fun ProPaywallBottomSheet(
                 val monthlyPackage = availablePackages.firstOrNull { it.packageType == PackageType.MONTHLY }
                 val lifetimePackage = availablePackages.firstOrNull { it.packageType == PackageType.LIFETIME }
 
+                val isLifetimeSale = isLifetimeSaleActive(lifetimePackage, annualPackage, currentOffering)
+                val lifetimeOriginalStrike = if (isLifetimeSale) formatOriginalStrikePrice(lifetimePackage) else null
+
                 // 3 Tier Pricing Cards
                 Column(
                     modifier = Modifier.fillMaxWidth(),
@@ -321,8 +328,9 @@ fun ProPaywallBottomSheet(
                     ProTierCard(
                         title = stringResource(R.string.pro_tier_lifetime),
                         price = getEffectivePrice(lifetimePackage)?.formatted ?: "—",
-                        subtitle = null,
-                        badge = stringResource(R.string.pro_lifetime_badge),
+                        originalPrice = lifetimeOriginalStrike,
+                        subtitle = if (isLifetimeSale) stringResource(R.string.pro_lifetime_sale_sub) else null,
+                        badge = if (isLifetimeSale) stringResource(R.string.pro_lifetime_sale_badge) else stringResource(R.string.pro_lifetime_badge),
                         isSelected = selectedTier == SelectedProTier.LIFETIME,
                         onClick = {
                             haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
@@ -603,6 +611,7 @@ fun ProFeatureRow(text: String) {
 fun ProTierCard(
     title: String,
     price: String,
+    originalPrice: String? = null,
     subtitle: String?,
     badge: String?,
     isSelected: Boolean,
@@ -626,7 +635,10 @@ fun ProTierCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            Column(
+                modifier = Modifier.weight(1f, fill = false),
+                verticalArrangement = Arrangement.spacedBy(2.dp)
+            ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -659,12 +671,66 @@ fun ProTierCard(
                 }
             }
 
-            Text(
-                text = price,
-                style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
-                color = MaterialTheme.colorScheme.onSurface
-            )
+            Column(
+                horizontalAlignment = Alignment.End,
+                verticalArrangement = Arrangement.spacedBy(2.dp),
+                modifier = Modifier.padding(start = 8.dp)
+            ) {
+                if (originalPrice != null) {
+                    Text(
+                        text = originalPrice,
+                        style = MaterialTheme.typography.labelSmall.copy(
+                            textDecoration = TextDecoration.LineThrough
+                        ),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+                    )
+                }
+                Text(
+                    text = price,
+                    style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            }
         }
+    }
+}
+
+private fun isLifetimeSaleActive(
+    lifetimePackage: Package?,
+    annualPackage: Package?,
+    currentOffering: Offering? = null
+): Boolean {
+    if (lifetimePackage == null) return false
+    // 1. Offering Metadata check from RevenueCat Dashboard
+    val metaSale = currentOffering?.metadata?.get("is_lifetime_sale") as? Boolean
+        ?: (currentOffering?.metadata?.get("is_lifetime_sale") as? String)?.toBooleanStrictOrNull()
+    if (metaSale == true) return true
+
+    // 2. Relative price check against annual package (regular lifetime is ~2x annual; on sale it is <= 1.25x annual)
+    val lifetimeMicros = getEffectivePrice(lifetimePackage)?.amountMicros ?: return false
+    val annualMicros = annualPackage?.let { getEffectivePrice(it)?.amountMicros }
+
+    if (annualMicros != null && annualMicros > 0) {
+        if (lifetimeMicros <= (annualMicros * 1.25)) return true
+    }
+    return false
+}
+
+private fun formatOriginalStrikePrice(pkg: Package?): String? {
+    val price = getEffectivePrice(pkg) ?: return null
+    // Assuming 50% discount -> original regular price is 2x
+    val originalAmount = (price.amountMicros * 2.0) / 1_000_000.0
+    return try {
+        val curr = Currency.getInstance(price.currencyCode)
+        val format = NumberFormat.getCurrencyInstance().apply {
+            currency = curr
+            val fractionDigits = curr.defaultFractionDigits.coerceAtLeast(0)
+            maximumFractionDigits = fractionDigits
+            minimumFractionDigits = fractionDigits
+        }
+        format.format(originalAmount)
+    } catch (_: Exception) {
+        String.format(Locale.getDefault(), "%.2f", originalAmount)
     }
 }
 
