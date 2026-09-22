@@ -11,6 +11,7 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 ## ✨ Key Features
 
 - **⚡ 0-Click Background Redirect**: Intercepts music links transparently and launches direct playback in your target player.
+- **📶 Offline Resilience & Auto-Retry Queue**: If you tap a music link while in a subway, elevator, or spotty coverage, SongFlip holds the intent and automatically resolves and plays the song the second connectivity is restored.
 - **📑 Universal Playlist Converter [PRO]**: Convert entire playlists (up to 50 tracks) across Spotify, YouTube Music, Deezer, Apple Music, and more with 1-click Zero-OAuth playback queue launch, live animated matching progress, and instant server-side caching.
 - **🌐 Playlist Web Sharing (`songflip.link/p/...`) [PRO]**: Share converted playlists as beautiful web landing pages with rich album artwork, 1-click import, and branded single-track preview buttons. *(Try the live demo: [songflip.link/p/76176a1354](https://songflip.link/p/76176a1354))*.
 - **🎧 Broad Multi-Service Support**: Full any-to-any redirection between:
