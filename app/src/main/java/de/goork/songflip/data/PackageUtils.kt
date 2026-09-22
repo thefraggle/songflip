@@ -91,7 +91,8 @@ object PackageUtils {
                 lower.contains("interceptor")
     }
 
-    private val packageCache = java.util.concurrent.ConcurrentHashMap<String, String?>()
+    private const val NOT_INSTALLED_SENTINEL = "__SF_NOT_INSTALLED__"
+    private val packageCache = java.util.concurrent.ConcurrentHashMap<String, String>()
 
     fun invalidateCache() {
         packageCache.clear()
@@ -99,12 +100,13 @@ object PackageUtils {
 
     fun getInstalledPackage(context: Context, platformKey: String): String? {
         val cleanKey = platformKey.substringBefore("_")
-        if (packageCache.containsKey(cleanKey)) {
-            return packageCache[cleanKey]
+        val cached = packageCache[cleanKey]
+        if (cached != null) {
+            return if (cached == NOT_INSTALLED_SENTINEL) null else cached
         }
 
         val resolved = resolveInstalledPackageInternal(context, cleanKey)
-        packageCache[cleanKey] = resolved
+        packageCache[cleanKey] = resolved ?: NOT_INSTALLED_SENTINEL
         return resolved
     }
 
