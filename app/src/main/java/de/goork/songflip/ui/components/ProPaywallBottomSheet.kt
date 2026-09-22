@@ -712,15 +712,16 @@ private fun isLifetimeSaleActive(
     // 2. Compare against BASE regular annual price (product.price, ignoring 1st year intro 50% discount)
     val regularAnnualMicros = annualPackage?.product?.price?.amountMicros
     if (regularAnnualMicros != null && regularAnnualMicros > 0) {
-        // Regular lifetime (~19.99€) is ~2x-2.5x regular annual (~7.99€-9.99€).
-        // Discounted lifetime (~9.99€) is <= 1.35x regular annual.
-        if (lifetimeMicros <= (regularAnnualMicros * 1.35)) return true
+        // Regular lifetime (~19.99€) is ~2.5x regular annual (~7.99€-9.99€).
+        // Discounted lifetime (~9.99€) is <= 1.5x regular annual (~11.98€).
+        if (lifetimeMicros <= (regularAnnualMicros * 1.5)) return true
     }
 
-    // 3. Fallback comparison against monthly price (regular lifetime is ~10-12x monthly; on sale it is <= 6.5x monthly)
+    // 3. Fallback comparison against monthly price (regular lifetime 19.99€ is ~20x of 0.99€ monthly; on sale 9.99€ it is ~10x)
     val regularMonthlyMicros = monthlyPackage?.product?.price?.amountMicros
     if (regularMonthlyMicros != null && regularMonthlyMicros > 0) {
-        if (lifetimeMicros <= (regularMonthlyMicros * 6.5)) return true
+        // On sale (10x monthly), lifetime is <= 13x monthly (~12.87€)
+        if (lifetimeMicros <= (regularMonthlyMicros * 13.0)) return true
     }
 
     return false
