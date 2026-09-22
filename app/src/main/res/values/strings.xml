@@ -182,6 +182,8 @@
     <string name="pro_tier_lifetime">Lifetime</string>
     <string name="pro_bestseller_badge" formatted="false">BESTSELLER • 50% OFF</string>
     <string name="pro_lifetime_badge">ONE-TIME</string>
+    <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
+    <string name="pro_lifetime_sale_sub">Limited time offer</string>
     <string name="pro_price_monthly_default">—</string>
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_annual_sub">~%1$s / month (1st year 50%% off)</string>
