@@ -46,12 +46,12 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 SongFlip is built as a modern **Kotlin Multiplatform (KMP)** project with a modular architecture:
 - **`app/`**: Native Android app (Jetpack Compose, Material 3, Quick Settings Tile, Overlay & Notification handling).
 - **`iosApp/`**: Native iOS app (SwiftUI, Share Extension, App Intents for 0-click Siri Shortcuts & Action Button).
-- **`shared/`**: Shared KMP core engine (platform parsing, universal URL sanitizing, multi-tier resolution logic, playlist conversion client, Ktor HTTP client).
-- **`functions/`**: Firebase Cloud Functions backend powering token verification, SSR web-share landing pages, playlist batch scrapers, and high-speed L2 link caching.
+- **`shared/`**: Shared KMP core engine (platform parsing, universal URL sanitizing, multi-tier on-device resolution logic, playlist conversion client, Ktor HTTP client).
+- **`functions/`**: Hosted cloud backend (Firebase Cloud Functions / private submodule) powering token verification, SSR web-share landing pages, playlist batch scrapers, and global L2 link caching.
 
 ### Resolution Pipeline
 1. **Tier 1 (Local Device Memory & Storage Cache)**: Instant sub-5ms lookup on device for previously converted songs.
-2. **Tier 2 (L2 Server-Side Cloud Cache) [PRO]**: High-speed Firebase edge cache with 90-day TTL for zero-latency (<50ms) global conversions and web-share landing page generation.
+2. **Tier 2 (L2 Server-Side Cloud Cache) [PRO]**: High-speed Firebase edge cache with 90-day TTL for zero-latency (<50ms) global conversions and web-share landing page generation (gracefully bypassed on network misses or local builds).
 3. **Tier 3 (Direct 0-Redirect SongLink Engine)**: Normalizes incoming URLs into direct internal IDs for instant HTTP responses without redirect loops.
 4. **Tier 4 (Direct Playback Extractor)**: Background video/track ID regex extraction for YouTube Music instant play.
 5. **Tier 5 (Shazam & Catalog Discovery APIs)**: Shazam Discovery REST API (`amp.shazam.com`) for direct Apple Music IDs, iTunes Search & Lookup, Deezer Catalog API, and YouTube oEmbed.
@@ -61,7 +61,7 @@ SongFlip is built as a modern **Kotlin Multiplatform (KMP)** project with a modu
 
 ## 👑 SongFlip PRO & Open Source Philosophy
 
-SongFlip is **100% open source (GPLv3)** and its core 0-click redirect functionality will **always remain completely free and ad-free**.
+The **SongFlip client app (Android & iOS) is 100% open source (GPLv3)** and operates completely autonomously on your device. Its core 0-click redirect functionality will **always remain completely free, ad-free, and tracker-free**.
 
 For users who want the fastest possible performance, advanced playlist capabilities, or wish to support indie development, **SongFlip PRO** provides:
 

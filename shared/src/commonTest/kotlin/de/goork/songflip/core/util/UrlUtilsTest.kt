@@ -181,6 +181,8 @@ class UrlUtilsTest {
         assertTrue(UrlUtils.isAlbumUrl("https://music.apple.com/de/album/a-night-at-the-opera/1440650428"))
         assertTrue(UrlUtils.isAlbumUrl("https://artist.bandcamp.com/album/in-rainbows"))
         assertFalse(UrlUtils.isAlbumUrl("https://music.apple.com/de/album/a-night-at-the-opera/1440650428?i=1440650711"))
+        assertFalse(UrlUtils.isAlbumUrl("https://example.com/album-reviews/queen"))
+        assertFalse(UrlUtils.isAlbumUrl("https://example.com/albumart.jpg"))
 
         assertTrue(UrlUtils.isSearchUrl("https://open.spotify.com/search/Queen"))
         assertTrue(UrlUtils.isSearchUrl("https://music.apple.com/de/search?term=queen"))
@@ -192,6 +194,9 @@ class UrlUtilsTest {
     fun testSearchQueryExtractionAndBuilding() {
         val spotifySearch = UrlUtils.extractSearchQuery("https://open.spotify.com/search/Queen%20Bohemian%20Rhapsody")
         assertEquals("Queen Bohemian Rhapsody", spotifySearch)
+
+        val utf8UmlautSearch = UrlUtils.extractSearchQuery("https://open.spotify.com/search/%C3%84rzte%20Schrei%20nach%20Liebe")
+        assertEquals("Ärzte Schrei nach Liebe", utf8UmlautSearch)
 
         val appleSearch = UrlUtils.extractSearchQuery("https://music.apple.com/de/search?term=Queen%20Bohemian")
         assertEquals("Queen Bohemian", appleSearch)

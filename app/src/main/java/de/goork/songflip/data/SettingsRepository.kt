@@ -60,9 +60,10 @@ class SettingsRepository(private val context: Context) {
             prefs.edit().putInt(KEY_SUCCESSFUL_FLIP_COUNT, value).apply()
         }
 
+    @Synchronized
     fun incrementSuccessfulFlips(): Int {
-        val next = successfulFlipCount + 1
-        successfulFlipCount = next
+        val next = prefs.getInt(KEY_SUCCESSFUL_FLIP_COUNT, 0) + 1
+        prefs.edit().putInt(KEY_SUCCESSFUL_FLIP_COUNT, next).apply()
         return next
     }
 
