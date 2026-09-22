@@ -1,9 +1,9 @@
 # Changelog (Deutsch)
 
 ## [1.4.14] - 2026-09-22
-- **Barrierefreiheit & Screenreader-Optimierungen (WCAG AA)**: Vollständige Beschreibungen für interaktive Icons, Radio-Button-Semantik für PRO-Tarifkarten (TalkBack/VoiceOver) sowie vergrößerte Klickflächen (min. 48dp Touch-Targets).
-- **Moderne Build- & Dependency-Basis**: Aktualisierung der zentralen Android- & Compose-Bibliotheken sowie gehärtete Versions- und Signing-Guards.
-- **Architektur & Entwickler-Dokumentation**: Dokumentation der Latenz- & Timeout-Budgets in `ARCHITECTURE.md` und erweiterter Setup-Leitfaden in der `README.md`.
+- **Barrierefreiheit & Screenreader-Optimierungen (WCAG AA)**: Vollständige Beschreibungen für alle interaktiven Icons, verbesserte Semantik für PRO-Tarifkarten sowie vergrößerte Klickflächen für eine komfortable Bedienung.
+- **Moderne Build- & Dependency-Basis**: Aktualisierung der zentralen Entwicklungsbibliotheken sowie gehärtete Versions- und Build-Prüfungen.
+- **Architektur & Entwickler-Dokumentation**: Dokumentation von Latenz- & Timeout-Budgets sowie erweiterter Setup-Leitfaden im Projekt.
 
 ## [1.4.13] - 2026-09-22
 - **Player-Erkennung & Start-Hotfix**: Behebt einen kritischen Absturz auf Geräten, auf denen bestimmte Musik-Apps nicht installiert sind.
