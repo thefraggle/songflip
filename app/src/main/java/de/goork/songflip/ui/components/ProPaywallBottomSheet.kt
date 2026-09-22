@@ -290,7 +290,7 @@ fun ProPaywallBottomSheet(
                 val monthlyPackage = availablePackages.firstOrNull { it.packageType == PackageType.MONTHLY }
                 val lifetimePackage = availablePackages.firstOrNull { it.packageType == PackageType.LIFETIME }
 
-                val isLifetimeSale = isLifetimeSaleActive(lifetimePackage, annualPackage, currentOffering)
+                val isLifetimeSale = isLifetimeSaleActive(lifetimePackage, annualPackage, monthlyPackage, currentOffering)
                 val lifetimeOriginalStrike = if (isLifetimeSale) formatOriginalStrikePrice(lifetimePackage) else null
 
                 // 3 Tier Pricing Cards
@@ -698,21 +698,31 @@ fun ProTierCard(
 private fun isLifetimeSaleActive(
     lifetimePackage: Package?,
     annualPackage: Package?,
+    monthlyPackage: Package?,
     currentOffering: Offering? = null
 ): Boolean {
     if (lifetimePackage == null) return false
-    // 1. Offering Metadata check from RevenueCat Dashboard
+    // 1. Offering Metadata check from RevenueCat Dashboard (Master Switch)
     val metaSale = currentOffering?.metadata?.get("is_lifetime_sale") as? Boolean
         ?: (currentOffering?.metadata?.get("is_lifetime_sale") as? String)?.toBooleanStrictOrNull()
     if (metaSale == true) return true
 
-    // 2. Relative price check against annual package (regular lifetime is ~2x annual; on sale it is <= 1.25x annual)
     val lifetimeMicros = getEffectivePrice(lifetimePackage)?.amountMicros ?: return false
-    val annualMicros = annualPackage?.let { getEffectivePrice(it)?.amountMicros }
 
-    if (annualMicros != null && annualMicros > 0) {
-        if (lifetimeMicros <= (annualMicros * 1.25)) return true
+    // 2. Compare against BASE regular annual price (product.price, ignoring 1st year intro 50% discount)
+    val regularAnnualMicros = annualPackage?.product?.price?.amountMicros
+    if (regularAnnualMicros != null && regularAnnualMicros > 0) {
+        // Regular lifetime (~19.99€) is ~2x-2.5x regular annual (~7.99€-9.99€).
+        // Discounted lifetime (~9.99€) is <= 1.35x regular annual.
+        if (lifetimeMicros <= (regularAnnualMicros * 1.35)) return true
     }
+
+    // 3. Fallback comparison against monthly price (regular lifetime is ~10-12x monthly; on sale it is <= 6.5x monthly)
+    val regularMonthlyMicros = monthlyPackage?.product?.price?.amountMicros
+    if (regularMonthlyMicros != null && regularMonthlyMicros > 0) {
+        if (lifetimeMicros <= (regularMonthlyMicros * 6.5)) return true
+    }
+
     return false
 }
 
