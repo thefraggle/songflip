@@ -57,16 +57,18 @@ fun FooterSection(
         )
         Spacer(modifier = Modifier.height(2.dp))
         Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
                 text = stringResource(R.string.legal_privacy),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.clickable {
-                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL_PRIVACY)))
-                }
+                modifier = Modifier
+                    .clickable(role = androidx.compose.ui.semantics.Role.Button) {
+                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL_PRIVACY)))
+                    }
+                    .padding(horizontal = 6.dp, vertical = 8.dp)
             )
             Text(
                 text = "•",
@@ -77,9 +79,11 @@ fun FooterSection(
                 text = stringResource(R.string.legal_imprint),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.clickable {
-                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL_IMPRINT)))
-                }
+                modifier = Modifier
+                    .clickable(role = androidx.compose.ui.semantics.Role.Button) {
+                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL_IMPRINT)))
+                    }
+                    .padding(horizontal = 6.dp, vertical = 8.dp)
             )
             Text(
                 text = "•",
@@ -90,9 +94,11 @@ fun FooterSection(
                 text = stringResource(R.string.legal_terms),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.clickable {
-                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL_TERMS)))
-                }
+                modifier = Modifier
+                    .clickable(role = androidx.compose.ui.semantics.Role.Button) {
+                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL_TERMS)))
+                    }
+                    .padding(horizontal = 6.dp, vertical = 8.dp)
             )
         }
     }

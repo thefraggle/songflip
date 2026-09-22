@@ -239,7 +239,7 @@ fun StatusBadge(
         if (onClick != null) {
             Icon(
                 imageVector = Icons.Default.Settings,
-                contentDescription = null,
+                contentDescription = stringResource(R.string.nav_settings),
                 tint = textColor.copy(alpha = 0.7f),
                 modifier = Modifier.size(16.dp)
             )

@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.4.14] - 2026-09-22
+- **Accessibility & Screen Reader Enhancements (WCAG AA)**: Added comprehensive content descriptions across all interactive icons, upgraded PRO tier selector cards with radio button semantics for TalkBack/VoiceOver, and enlarged action touch targets to minimum 48dp.
+- **Build & Dependency Modernization**: Updated core Android and Compose dependencies (`compose-bom`, `core-ktx`, `lifecycle`, `appcompat`, `activity-compose`) with hardened version parsing and keystore guards.
+- **Architecture & Setup Documentation**: Documented pipeline latency guarantees, timeout budgets, and expanded developer setup guidance in repository documentation.
+
 ## [1.4.13] - 2026-09-22
 - **App Detection & Launch Hotfix**: Fixed a critical crash on devices where certain music players are not installed.
 - **Reliability Enhancements**: Hardened cache and system inspection routines for seamless performance across all environments.
