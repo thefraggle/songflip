@@ -202,7 +202,7 @@ To ensure sub-50ms user experience for cached items and prevent hanging UI on fl
 
 ## 8. Testing & Quality Assurance Architecture
 
-SongFlip enforces automated test coverage across all layers to ensure zero regressions in the 0-click redirect pipeline:
+SongFlip enforces automated test coverage across all client layers to ensure zero regressions in the 0-click redirect pipeline:
 
 ### Test Suites & Scopes:
 
@@ -210,14 +210,13 @@ SongFlip enforces automated test coverage across all layers to ensure zero regre
 | :--- | :--- | :--- | :--- |
 | **Shared KMP Core** | `shared/src/commonTest/` | Kotlin Test, Ktor `MockEngine`, Coroutines Test | URL normalization, entity type & platform detection, L1 cache TTL & eviction, all 6 platform resolvers (Spotify, Apple Music, Deezer, Tidal, YouTube Music, SongLink API), Aptabase analytics client. |
 | **Android Client** | `app/src/test/` | JUnit 4, OkHttp `MockWebServer`, Coroutines Test | Domain verification info, quick settings tile states, dynamic app shortcuts, coupon redemption & error handling, review prompt rules, L1 hit detection, 24+ locale string formats (`strings.xml`). |
-| **Backend Functions** | `functions/src/test/` | Node.js `node:test`, `assert/strict` | Metadata sanitization, SSRF IP blocking, timing-safe HMAC voucher verification, playlist batch conversion & Zero-OAuth encoding, WebShare SSR & crawler bot detection (WhatsApp, Telegram, Twitterbot, Discord). |
 
 ### Deterministic Mocking & Isolation:
 - **No Live Network Dependencies:** KMP and Android unit tests mock external endpoints using Ktor's `MockEngine` and OkHttp's `MockWebServer` for instant (< 5s), repeatable execution without flaky upstream API rate limits.
 - **Fail-Open Network Safety:** System network manager fallbacks are tested to ensure the app never crashes or hangs when connectivity services are unavailable.
 
 ### Automated CI/CD Gates & Abort Triggers:
-1. **GitHub Actions CI (`.github/workflows/ci.yml`):** Runs `./gradlew test` and `npm test` on every `push` to `main` and on every `pull_request`. Any failure immediately blocks merge.
+1. **GitHub Actions CI (`.github/workflows/ci.yml`):** Runs `./gradlew test` on every `push` to `main` and on every `pull_request`. Any failure immediately blocks merge.
 2. **Release Build Pipeline (`.github/workflows/build-apk.yml`):** Executes `./gradlew :shared:testReleaseUnitTest :app:testReleaseUnitTest` as a strict gate before building or signing binaries. A single test failure aborts APK/AAB generation and Play Store upload completely.
-3. **Backend Predeploy Hook (`functions/firebase.json`):** Executes `npm test` prior to deploying Cloud Functions. If tests fail, Firebase CLI aborts the deployment and no code is deployed.
+
 

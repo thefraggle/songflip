@@ -113,9 +113,6 @@ sdk.dir=/Users/<username>/Library/Android/sdk
 ```bash
 # Android & Shared KMP Test Suites (all debug & release unit tests)
 ./gradlew test
-
-# Cloud Functions Test Suite (SSRF, crawler detection, resolvers, HMAC vouchers)
-cd functions && npm test
 ```
 
 ### 4. Git & Submodule Management
