@@ -48,7 +48,7 @@ SongFlip is built as a modern **Kotlin Multiplatform (KMP)** project with a modu
 - **`app/`**: Native Android app (Jetpack Compose, Material 3, Quick Settings Tile, Overlay & Notification handling).
 - **`iosApp/`**: Native iOS app (SwiftUI, Share Extension, App Intents for 0-click Siri Shortcuts & Action Button).
 - **`shared/`**: Shared KMP core engine (platform parsing, universal URL sanitizing, multi-tier on-device resolution logic, playlist conversion client, Ktor HTTP client).
-- **`functions/`**: Hosted cloud backend (Firebase Cloud Functions / private submodule) powering token verification, SSR web-share landing pages, playlist batch scrapers, and global L2 link caching.
+- **`functions/`**: Hosted cloud backend (Firebase Cloud Functions) powering token verification, SSR web-share landing pages, playlist batch scrapers, and global L2 link caching.
 
 ### Resolution Pipeline
 1. **Tier 1 (Local Device Memory & Storage Cache)**: Instant sub-5ms lookup on device for previously converted songs.
@@ -113,16 +113,6 @@ sdk.dir=/Users/<username>/Library/Android/sdk
 ```bash
 # Android & Shared KMP Test Suites (all debug & release unit tests)
 ./gradlew test
-```
-
-### 4. Git & Submodule Management
-The hosted Cloud Functions reside in a private submodule `functions/`:
-```bash
-# Clone with submodules
-git clone --recurse-submodules https://forgejo.goork.de/thefraggle/songflip.git
-
-# Initialize submodule if cloned normally
-git submodule update --init --recursive
 ```
 
 ---
