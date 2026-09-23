@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.4.16] - 2026-09-23
+- **Full Multi-Language Support for Playlist Converter**: Completely localized all interactive playlist conversion steps, progress statuses, and sharing dialogs across all 31 supported languages.
+- **Enhanced Conversion Status Feedback**: Fixed missing translations during track searching and queue building, ensuring a consistent native experience worldwide.
+- **Everyday Polish & Reliability**: Minor visual and interface refinements across the app.
+
 ## [1.4.15] - 2026-09-22
 - **Offline & Low-Connectivity Resilience**: Introduced automatic buffering and live retry for link resolution during network interruptions, keeping the workflow seamless when moving through dead zones.
 - **Automated Reconnection Handling**: Seamlessly resumes link conversions the moment connectivity is restored, accompanied by a clean waiting indicator and manual retry options.

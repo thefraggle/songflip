@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.4.16] - 2026-09-23
+- **Vollständige Lokalisierung für den Playlist-Konverter**: Sämtliche Konvertierungsschritte, Statusmeldungen und Teilen-Dialoge stehen nun nahtlos in allen 31 unterstützten Sprachen bereit.
+- **Verbesserte Statusanzeige beim Konvertieren**: Behebt hardcodierte Sprachfragmente während der Titelsuche und Queue-Erstellung für ein konsistentes weltweites Nutzungserlebnis.
+- **Feinschliff & Zuverlässigkeit**: Allgemeine Optimierungen für eine flüssige und verlässliche Nutzung im Alltag.
+
 ## [1.4.15] - 2026-09-22
 - **Offline- & Funkloch-Pufferung**: Automatische Zwischenpufferung und intelligenter Retry bei unterbrochener Internetverbindung für ein nahtloses Nutzungserlebnis unterwegs.
 - **Automatische Wiederverbindung**: Setzt Link-Weiterleitungen sofort fort, sobald das Netz wieder verfügbar ist – inklusive übersichtlicher Warteanzeige und manuellem Neuversuch.
