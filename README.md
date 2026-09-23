@@ -109,12 +109,12 @@ sdk.dir=/Users/<username>/Library/Android/sdk
 ./gradlew :shared:assembleSongFlipKitReleaseXCFramework
 ```
 
-#### Run Unit Tests:
+#### Run Automated Tests:
 ```bash
-# Android & Shared KMP Test Suite
-./gradlew :shared:testReleaseUnitTest :app:testReleaseUnitTest
+# Android & Shared KMP Test Suites (all debug & release unit tests)
+./gradlew test
 
-# Cloud Functions Test Suite
+# Cloud Functions Test Suite (SSRF, crawler detection, resolvers, HMAC vouchers)
 cd functions && npm test
 ```
 
