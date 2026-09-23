@@ -260,7 +260,25 @@
     <string name="share_universal_link_desc">किसी भी संगीत प्लेटफ़ॉर्म पर दोस्तों के लिए सार्वभौमिक songflip.link लिंक बनाएं</string>
     <string name="pro_offerings_error">PRO कीमतें लोड करने में असमर्थ। कृपया इंटरनेट कनेक्शन जांचें।</string>
     <string name="action_retry">पुनः प्रयास करें</string>
-    <string name="pro_restore_no_subscription">कोई सक्रिय PRO सदस्यता नहीं मिली।</string>
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">प्लेलिस्ट कनवर्टर</string>
+    <string name="playlist_converting">प्लेलिस्ट कनवर्ट की जा रही है…</string>
+    <string name="playlist_converting_progress">%2$d में से %1$d गाने कनवर्ट किए गए</string>
+    <string name="playlist_searching_tracks">%1$s पर गाने खोजे जा रहे हैं…</string>
+    <string name="playlist_creating_queue">प्लेलिस्ट कतार बनाई जा रही है…</string>
+    <string name="playlist_matched_count">%2$d में से %1$d गाने मिले</string>
+    <string name="playlist_open_import">%1$s में खोलें और सहेजें</string>
+    <string name="playlist_open_in_browser">वेब प्लेलिस्ट खोलें</string>
+    <string name="playlist_share_link">प्लेलिस्ट लिंक साझा करें</string>
+    <string name="playlist_share_copied">प्लेलिस्ट लिंक क्लिपबोर्ड पर कॉपी किया गया!</string>
+    <string name="playlist_free_limit_title">5 गाने मुफ़्त में कनवर्ट किए गए</string>
+    <string name="playlist_free_limit_desc">50 गानों तक असीमित प्लेलिस्ट रूपांतरण के लिए SongFlip PRO अनलॉक करें!</string>
+    <string name="playlist_btn_unlock_pro">PRO में अपग्रेड करें</string>
+    <string name="playlist_error_title">प्लेलिस्ट रूपांतरण विफल</string>
+    <string name="playlist_error_desc">इस प्लेलिस्ट से गाने निकाले नहीं जा सके। इसके बजाय आप मूल लिंक खोल सकते हैं।</string>
+    <string name="playlist_btn_retry">पुनः प्रयास करें</string>
+    <string name="playlist_btn_open_original">मूल प्लेलिस्ट खोलें</string>
+<string name="pro_restore_no_subscription">कोई सक्रिय PRO सदस्यता नहीं मिली।</string>
     <string name="pro_purchase_failed">खरीदारी पूरी नहीं हो सकी। कृपया पुन: प्रयास करें।</string>
     <string name="offline_waiting_title">कनेक्शन की प्रतीक्षा की जा रही है…</string>
     <string name="offline_waiting_subtitle">कनेक्शन बहाल होते ही SongFlip स्वचालित रूप से रीडायरेक्ट कर देगा।</string>

@@ -256,7 +256,25 @@
     <string name="share_universal_link_desc">为任何音乐平台上的朋友创建通用的 songflip.link 链接</string>
     <string name="pro_offerings_error">无法加载 PRO 价格，请检查网络连接。</string>
     <string name="action_retry">重试</string>
-    <string name="pro_restore_no_subscription">未找到有效的 PRO 订阅。</string>
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">歌单转换器</string>
+    <string name="playlist_converting">正在转换歌单…</string>
+    <string name="playlist_converting_progress">已转换 %1$d / %2$d 首曲目</string>
+    <string name="playlist_searching_tracks">正在 %1$s 上搜索曲目…</string>
+    <string name="playlist_creating_queue">正在创建播放队列…</string>
+    <string name="playlist_matched_count">已匹配 %1$d / %2$d 首曲目</string>
+    <string name="playlist_open_import">在 %1$s 中打开并保存</string>
+    <string name="playlist_open_in_browser">打开网页歌单</string>
+    <string name="playlist_share_link">分享歌单链接</string>
+    <string name="playlist_share_copied">歌单链接已复制到剪贴板！</string>
+    <string name="playlist_free_limit_title">已免费转换 5 首歌曲</string>
+    <string name="playlist_free_limit_desc">解锁 SongFlip PRO，畅享多达 50 首歌曲的无限歌单转换！</string>
+    <string name="playlist_btn_unlock_pro">升级到 PRO</string>
+    <string name="playlist_error_title">歌单转换失败</string>
+    <string name="playlist_error_desc">无法从该歌单中提取曲目。您可以打开原始链接。</string>
+    <string name="playlist_btn_retry">重试</string>
+    <string name="playlist_btn_open_original">打开原始歌单</string>
+<string name="pro_restore_no_subscription">未找到有效的 PRO 订阅。</string>
     <string name="pro_purchase_failed">购买未能完成，请重试。</string>
     <string name="offline_waiting_title">等待网络连接…</string>
     <string name="offline_waiting_subtitle">网络恢复后，SongFlip 将自动重定向。</string>

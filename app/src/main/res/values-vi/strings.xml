@@ -256,7 +256,25 @@
     <string name="share_universal_link_desc">Tạo liên kết songflip.link phổ quát cho bạn bè trên mọi nền tảng âm nhạc</string>
     <string name="pro_offerings_error">Không thể tải giá PRO. Vui lòng kiểm tra kết nối internet của bạn.</string>
     <string name="action_retry">Thử lại</string>
-    <string name="pro_restore_no_subscription">Không tìm thấy gói đăng ký PRO đang hoạt động.</string>
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">Bộ chuyển đổi danh sách phát</string>
+    <string name="playlist_converting">Đang chuyển đổi danh sách phát…</string>
+    <string name="playlist_converting_progress">Đã chuyển đổi %1$d / %2$d bài hát</string>
+    <string name="playlist_searching_tracks">Đang tìm bài hát trên %1$s…</string>
+    <string name="playlist_creating_queue">Đang tạo hàng đợi danh sách phát…</string>
+    <string name="playlist_matched_count">Đã tìm thấy %1$d / %2$d bài hát</string>
+    <string name="playlist_open_import">Mở &amp; Lưu trong %1$s</string>
+    <string name="playlist_open_in_browser">Mở danh sách phát web</string>
+    <string name="playlist_share_link">Chia sẻ liên kết danh sách phát</string>
+    <string name="playlist_share_copied">Đã sao chép liên kết danh sách phát vào khay nhớ tạm!</string>
+    <string name="playlist_free_limit_title">Đã chuyển đổi 5 bài hát miễn phí</string>
+    <string name="playlist_free_limit_desc">Mở khóa SongFlip PRO để chuyển đổi danh sách phát không giới hạn lên đến 50 bài hát!</string>
+    <string name="playlist_btn_unlock_pro">Nâng cấp lên PRO</string>
+    <string name="playlist_error_title">Chuyển đổi danh sách phát thất bại</string>
+    <string name="playlist_error_desc">Không thể trích xuất bài hát từ danh sách phát này. Bạn có thể mở liên kết gốc thay thế.</string>
+    <string name="playlist_btn_retry">Thử lại</string>
+    <string name="playlist_btn_open_original">Mở danh sách phát gốc</string>
+<string name="pro_restore_no_subscription">Không tìm thấy gói đăng ký PRO đang hoạt động.</string>
     <string name="pro_purchase_failed">Không thể hoàn tất giao dịch mua. Vui lòng thử lại.</string>
     <string name="offline_waiting_title">Đang chờ kết nối…</string>
     <string name="offline_waiting_subtitle">SongFlip sẽ tự động chuyển hướng ngay khi có kết nối trở lại.</string>

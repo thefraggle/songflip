@@ -260,7 +260,25 @@
     <string name="share_universal_link_desc">Crea link universali songflip.link per amici su qualsiasi piattaforma musicale</string>
     <string name="pro_offerings_error">Impossibile caricare i prezzi PRO. Controlla la connessione.</string>
     <string name="action_retry">Riprova</string>
-    <string name="pro_restore_no_subscription">Nessun abbonamento PRO attivo trovato.</string>
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">Convertitore di playlist</string>
+    <string name="playlist_converting">Conversione playlist…</string>
+    <string name="playlist_converting_progress">%1$d di %2$d brani convertiti</string>
+    <string name="playlist_searching_tracks">Ricerca brani su %1$s…</string>
+    <string name="playlist_creating_queue">Creazione coda di riproduzione…</string>
+    <string name="playlist_matched_count">%1$d di %2$d brani trovati</string>
+    <string name="playlist_open_import">Apri e salva in %1$s</string>
+    <string name="playlist_open_in_browser">Apri playlist web</string>
+    <string name="playlist_share_link">Condividi link playlist</string>
+    <string name="playlist_share_copied">Link della playlist copiato negli appunti!</string>
+    <string name="playlist_free_limit_title">5 brani convertiti gratis</string>
+    <string name="playlist_free_limit_desc">Sblocca SongFlip PRO per convertire playlist senza limiti fino a 50 brani!</string>
+    <string name="playlist_btn_unlock_pro">Passa a PRO</string>
+    <string name="playlist_error_title">Conversione playlist non riuscita</string>
+    <string name="playlist_error_desc">Impossibile estrarre i brani da questa playlist. Puoi aprire il link originale.</string>
+    <string name="playlist_btn_retry">Riprova</string>
+    <string name="playlist_btn_open_original">Apri playlist originale</string>
+<string name="pro_restore_no_subscription">Nessun abbonamento PRO attivo trovato.</string>
 <string name="pro_purchase_failed">Impossibile completare l\'acquisto. Riprova.</string>
     <string name="offline_waiting_title">In attesa di connessione…</string>
     <string name="offline_waiting_subtitle">SongFlip reindirizzerà automaticamente non appena la connessione sarà ripristinata.</string>

@@ -246,7 +246,25 @@
     <string name="share_universal_link_desc">Luo yleisiä songflip.link-linkkejä ystäville millä tahansa musiikkialustalla</string>
     <string name="pro_offerings_error">PRO-hintoja ei voitu ladata. Tarkista internetyhteytesi.</string>
     <string name="action_retry">Yritä uudelleen</string>
-    <string name="pro_restore_no_subscription">Aktiivista PRO-tilausta ei löytynyt.</string>
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">Soittolistamuunnin</string>
+    <string name="playlist_converting">Muunnetaan soittolistaa…</string>
+    <string name="playlist_converting_progress">%1$d/%2$d kappaletta muunnettu</string>
+    <string name="playlist_searching_tracks">Etsitään kappaleita palvelusta %1$s…</string>
+    <string name="playlist_creating_queue">Luodaan toistojonoa…</string>
+    <string name="playlist_matched_count">%1$d/%2$d kappaletta löydetty</string>
+    <string name="playlist_open_import">Avaa ja tallenna kohteessa %1$s</string>
+    <string name="playlist_open_in_browser">Avaa verkko-soittolista</string>
+    <string name="playlist_share_link">Jaa soittolistan linkki</string>
+    <string name="playlist_share_copied">Soittolistan linkki kopioitu leikepöydälle!</string>
+    <string name="playlist_free_limit_title">5 kappaletta muunnettu ilmaiseksi</string>
+    <string name="playlist_free_limit_desc">Avaa SongFlip PRO rajattomaan soittolistojen muuntamiseen jopa 50 kappaleeseen asti!</string>
+    <string name="playlist_btn_unlock_pro">Päivitä PRO-versioon</string>
+    <string name="playlist_error_title">Soittolistan muuntaminen epäonnistui</string>
+    <string name="playlist_error_desc">Kappaleita ei voitu hakea tästä soittolistasta. Voit avata alkuperäisen linkin.</string>
+    <string name="playlist_btn_retry">Yritä uudelleen</string>
+    <string name="playlist_btn_open_original">Avaa alkuperäinen soittolista</string>
+<string name="pro_restore_no_subscription">Aktiivista PRO-tilausta ei löytynyt.</string>
     <string name="pro_purchase_failed">Ostoa ei voitu suorittaa loppuun. Yritä uudelleen.</string>
     <string name="offline_waiting_title">Odotetaan yhteyttä…</string>
     <string name="offline_waiting_subtitle">SongFlip ohjaa automaattisesti eteenpäin heti, kun yhteys palautuu.</string>

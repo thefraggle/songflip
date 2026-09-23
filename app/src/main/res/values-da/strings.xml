@@ -260,7 +260,25 @@
     <string name="share_universal_link_desc">Opret universelle songflip.link-links til venner på enhver musikplatform</string>
     <string name="pro_offerings_error">Kunne ikke indlæse PRO-priser. Tjek din internetforbindelse.</string>
     <string name="action_retry">Prøv igen</string>
-    <string name="pro_restore_no_subscription">Intet aktivt PRO-abonnement fundet.</string>
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">Afspilningsliste-konverter</string>
+    <string name="playlist_converting">Konverterer afspilningsliste…</string>
+    <string name="playlist_converting_progress">%1$d af %2$d numre konverteret</string>
+    <string name="playlist_searching_tracks">Søger efter numre på %1$s…</string>
+    <string name="playlist_creating_queue">Opretter afspilningskø…</string>
+    <string name="playlist_matched_count">%1$d af %2$d numre fundet</string>
+    <string name="playlist_open_import">Åbn og gem i %1$s</string>
+    <string name="playlist_open_in_browser">Åbn web-afspilningsliste</string>
+    <string name="playlist_share_link">Del link til afspilningsliste</string>
+    <string name="playlist_share_copied">Link til afspilningsliste kopieret til udklipsholder!</string>
+    <string name="playlist_free_limit_title">5 sange konverteret gratis</string>
+    <string name="playlist_free_limit_desc">Lås op for SongFlip PRO for ubegrænset konvertering af afspilningslister op til 50 sange!</string>
+    <string name="playlist_btn_unlock_pro">Opgrader til PRO</string>
+    <string name="playlist_error_title">Konvertering af afspilningsliste mislykkedes</string>
+    <string name="playlist_error_desc">Kunne ikke udtrække numre fra denne afspilningsliste. Du kan åbne det oprindelige link.</string>
+    <string name="playlist_btn_retry">Prøv igen</string>
+    <string name="playlist_btn_open_original">Åbn oprindelig afspilningsliste</string>
+<string name="pro_restore_no_subscription">Intet aktivt PRO-abonnement fundet.</string>
     <string name="pro_purchase_failed">Købet kunne ikke gennemføres. Prøv igen.</string>
     <string name="offline_waiting_title">Venter på forbindelse…</string>
     <string name="offline_waiting_subtitle">SongFlip omdirigerer automatisk, så snart forbindelsen er genoprettet.</string>

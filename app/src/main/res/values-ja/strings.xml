@@ -256,7 +256,25 @@
     <string name="share_universal_link_desc">あらゆる音楽プラットフォームの友達向けにユニバーサルな songflip.link リンクを作成</string>
     <string name="pro_offerings_error">PROの価格を読み込めませんでした。インターネット接続を確認してください。</string>
     <string name="action_retry">再試行</string>
-    <string name="pro_restore_no_subscription">有効なPROサブスクリプションが見つかりませんでした。</string>
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">プレイリスト変換</string>
+    <string name="playlist_converting">プレイリストを変換中…</string>
+    <string name="playlist_converting_progress">%2$d曲中%1$d曲を変換しました</string>
+    <string name="playlist_searching_tracks">%1$sで曲を検索中…</string>
+    <string name="playlist_creating_queue">再生キューを作成中…</string>
+    <string name="playlist_matched_count">%2$d曲中%1$d曲が見つかりました</string>
+    <string name="playlist_open_import">%1$sで開いて保存</string>
+    <string name="playlist_open_in_browser">Webプレイリストを開く</string>
+    <string name="playlist_share_link">プレイリストのリンクを共有</string>
+    <string name="playlist_share_copied">プレイリストのリンクをクリップボードにコピーしました！</string>
+    <string name="playlist_free_limit_title">5曲を無料変換しました</string>
+    <string name="playlist_free_limit_desc">SongFlip PROに登録して最大50曲までのプレイリスト変換を無制限に利用しましょう！</string>
+    <string name="playlist_btn_unlock_pro">PROにアップグレード</string>
+    <string name="playlist_error_title">プレイリストの変換に失敗しました</string>
+    <string name="playlist_error_desc">このプレイリストから曲を抽出できませんでした。元のリンクを開くことができます。</string>
+    <string name="playlist_btn_retry">再試行</string>
+    <string name="playlist_btn_open_original">元のプレイリストを開く</string>
+<string name="pro_restore_no_subscription">有効なPROサブスクリプションが見つかりませんでした。</string>
     <string name="pro_purchase_failed">購入を完了できませんでした。もう一度お試しください。</string>
     <string name="offline_waiting_title">接続を待機中…</string>
     <string name="offline_waiting_subtitle">接続が回復すると、SongFlipが自動的にリダイレクトします。</string>

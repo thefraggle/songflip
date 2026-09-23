@@ -250,7 +250,25 @@
     <string name="share_universal_link_desc">Creează linkuri universale songflip.link pentru prieteni pe orice platformă muzicală</string>
     <string name="pro_offerings_error">Prețurile PRO nu au putut fi încărcate. Verificați conexiunea la internet.</string>
     <string name="action_retry">Reîncearcă</string>
-    <string name="pro_restore_no_subscription">Nu a fost găsit niciun abonament PRO activ.</string>
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">Convertor de playlisturi</string>
+    <string name="playlist_converting">Se convertește playlistul…</string>
+    <string name="playlist_converting_progress">%1$d din %2$d piese convertite</string>
+    <string name="playlist_searching_tracks">Se caută piese pe %1$s…</string>
+    <string name="playlist_creating_queue">Se creează coada playlistului…</string>
+    <string name="playlist_matched_count">%1$d din %2$d piese găsite</string>
+    <string name="playlist_open_import">Deschide și salvează în %1$s</string>
+    <string name="playlist_open_in_browser">Deschide playlistul web</string>
+    <string name="playlist_share_link">Distribuie linkul playlistului</string>
+    <string name="playlist_share_copied">Linkul playlistului a fost copiat în clipboard!</string>
+    <string name="playlist_free_limit_title">5 melodii convertite gratuit</string>
+    <string name="playlist_free_limit_desc">Deblochează SongFlip PRO pentru conversie nelimitată de playlisturi până la 50 de melodii!</string>
+    <string name="playlist_btn_unlock_pro">Treci la PRO</string>
+    <string name="playlist_error_title">Conversia playlistului a eșuat</string>
+    <string name="playlist_error_desc">Nu s-au putut extrage piesele din acest playlist. Poți deschide linkul original.</string>
+    <string name="playlist_btn_retry">Reîncearcă</string>
+    <string name="playlist_btn_open_original">Deschide playlistul original</string>
+<string name="pro_restore_no_subscription">Nu a fost găsit niciun abonament PRO activ.</string>
     <string name="pro_purchase_failed">Achiziția nu a putut fi finalizată. Vă rugăm să încercați din nou.</string>
     <string name="offline_waiting_title">Se așteaptă conexiunea…</string>
     <string name="offline_waiting_subtitle">SongFlip va redirecționa automat de îndată ce conexiunea este restabilită.</string>

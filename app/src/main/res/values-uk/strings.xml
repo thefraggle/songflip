@@ -268,7 +268,25 @@
     <string name="share_universal_link_desc">Створюйте універсальні посилання songflip.link для друзів на будь-якій музичній платформі</string>
     <string name="pro_offerings_error">Не вдалося завантажити ціни PRO. Перевірте підключення до інтернету.</string>
     <string name="action_retry">Повторити</string>
-    <string name="pro_restore_no_subscription">Активну підписку PRO не знайдено.</string>
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">Конвертер плейлістів</string>
+    <string name="playlist_converting">Конвертація плейліста…</string>
+    <string name="playlist_converting_progress">Конвертовано %1$d з %2$d треків</string>
+    <string name="playlist_searching_tracks">Пошук треків у %1$s…</string>
+    <string name="playlist_creating_queue">Створення черги плейліста…</string>
+    <string name="playlist_matched_count">Знайдено %1$d з %2$d треків</string>
+    <string name="playlist_open_import">Відкрити та зберегти в %1$s</string>
+    <string name="playlist_open_in_browser">Відкрити веб-плейліст</string>
+    <string name="playlist_share_link">Поділитися посиланням на плейліст</string>
+    <string name="playlist_share_copied">Посилання на плейліст скопійовано в буфер обміну!</string>
+    <string name="playlist_free_limit_title">5 треків конвертовано безкоштовно</string>
+    <string name="playlist_free_limit_desc">Розблокуйте SongFlip PRO для необмеженої конвертації плейлістів до 50 треків!</string>
+    <string name="playlist_btn_unlock_pro">Перейти на PRO</string>
+    <string name="playlist_error_title">Помилка конвертації плейліста</string>
+    <string name="playlist_error_desc">Не вдалося витягти треки з цього плейліста. Ви можете відкрити оригінальне посилання.</string>
+    <string name="playlist_btn_retry">Повторити</string>
+    <string name="playlist_btn_open_original">Відкрити оригінальний плейліст</string>
+<string name="pro_restore_no_subscription">Активну підписку PRO не знайдено.</string>
     <string name="pro_purchase_failed">Не вдалося завершити покупку. Спробуйте ще раз.</string>
     <string name="offline_waiting_title">Очікування зʼєднання…</string>
     <string name="offline_waiting_subtitle">SongFlip автоматично перенаправить, щойно звʼязок відновиться.</string>

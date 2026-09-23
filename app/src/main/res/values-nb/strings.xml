@@ -260,7 +260,25 @@
     <string name="share_universal_link_desc">Opprett universelle songflip.link-lenker for venner på alle musikkplattformer</string>
     <string name="pro_offerings_error">Kunne ikke laste PRO-priser. Sjekk internettforbindelsen din.</string>
     <string name="action_retry">Prøv igjen</string>
-    <string name="pro_restore_no_subscription">Fant ikke noe aktivt PRO-abonnement.</string>
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">Spilleliste-konverterer</string>
+    <string name="playlist_converting">Konverterer spilleliste…</string>
+    <string name="playlist_converting_progress">%1$d av %2$d spor konvertert</string>
+    <string name="playlist_searching_tracks">Søker etter spor på %1$s…</string>
+    <string name="playlist_creating_queue">Oppretter spillelistekø…</string>
+    <string name="playlist_matched_count">%1$d av %2$d spor funnet</string>
+    <string name="playlist_open_import">Åpne og lagre i %1$s</string>
+    <string name="playlist_open_in_browser">Åpne web-spilleliste</string>
+    <string name="playlist_share_link">Del spillelistelenke</string>
+    <string name="playlist_share_copied">Spillelistelenke kopiert til utklippstavlen!</string>
+    <string name="playlist_free_limit_title">5 sanger konvertert gratis</string>
+    <string name="playlist_free_limit_desc">Lås opp SongFlip PRO for ubegrenset konvertering av spillelister opptil 50 sanger!</string>
+    <string name="playlist_btn_unlock_pro">Oppgrader til PRO</string>
+    <string name="playlist_error_title">Konvertering av spilleliste mislyktes</string>
+    <string name="playlist_error_desc">Kunne ikke hente spor fra denne spillelisten. Du kan åpne den opprinnelige lenken.</string>
+    <string name="playlist_btn_retry">Prøv igjen</string>
+    <string name="playlist_btn_open_original">Åpne opprinnelig spilleliste</string>
+<string name="pro_restore_no_subscription">Fant ikke noe aktivt PRO-abonnement.</string>
     <string name="pro_purchase_failed">Kjøpet kunne ikke fullføres. Vennligst prøv igjen.</string>
     <string name="offline_waiting_title">Venter på tilkobling…</string>
     <string name="offline_waiting_subtitle">SongFlip omdirigerer automatisk så snart tilkoblingen er gjenopprettet.</string>

@@ -242,7 +242,25 @@
     <string name="share_universal_link_desc">สร้างลิงก์ songflip.link สากลสำหรับเพื่อนบนทุกแพลตฟอร์มเพลง</string>
     <string name="pro_offerings_error">ไม่สามารถโหลดราคา PRO ได้ โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ต</string>
     <string name="action_retry">ลองอีกครั้ง</string>
-    <string name="pro_restore_no_subscription">ไม่พบการสมัครสมาชิก PRO ที่ใช้งานอยู่</string>
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">ตัวแปลงเพลย์ลิสต์</string>
+    <string name="playlist_converting">กำลังแปลงเพลย์ลิสต์…</string>
+    <string name="playlist_converting_progress">แปลงแล้ว %1$d จาก %2$d เพลง</string>
+    <string name="playlist_searching_tracks">กำลังค้นหาเพลงบน %1$s…</string>
+    <string name="playlist_creating_queue">กำลังสร้างคิวเพลย์ลิสต์…</string>
+    <string name="playlist_matched_count">พบ %1$d จาก %2$d เพลง</string>
+    <string name="playlist_open_import">เปิดและบันทึกใน %1$s</string>
+    <string name="playlist_open_in_browser">เปิดเพลย์ลิสต์บนเว็บ</string>
+    <string name="playlist_share_link">แชร์ลิงก์เพลย์ลิสต์</string>
+    <string name="playlist_share_copied">คัดลอกลิงก์เพลย์ลิสต์ไปยังคลิปบอร์ดแล้ว!</string>
+    <string name="playlist_free_limit_title">แปลงฟรี 5 เพลง</string>
+    <string name="playlist_free_limit_desc">ปลดล็อก SongFlip PRO สำหรับการแปลงเพลย์ลิสต์ไม่จำกัดสูงสุด 50 เพลง!</string>
+    <string name="playlist_btn_unlock_pro">อัปเกรดเป็น PRO</string>
+    <string name="playlist_error_title">การแปลงเพลย์ลิสต์ล้มเหลว</string>
+    <string name="playlist_error_desc">ไม่สามารถดึงเพลงจากเพลย์ลิสต์นี้ คุณสามารถเปิดลิงก์เดิมแทนได้</string>
+    <string name="playlist_btn_retry">ลองอีกครั้ง</string>
+    <string name="playlist_btn_open_original">เปิดเพลย์ลิสต์เดิม</string>
+<string name="pro_restore_no_subscription">ไม่พบการสมัครสมาชิก PRO ที่ใช้งานอยู่</string>
     <string name="pro_purchase_failed">ไม่สามารถทำรายการซื้อได้ โปรดลองอีกครั้ง</string>
     <string name="offline_waiting_title">กำลังรอการเชื่อมต่อ…</string>
     <string name="offline_waiting_subtitle">SongFlip จะเปลี่ยนเส้นทางโดยอัตโนมัติทันทีที่การเชื่อมต่อกลับมา</string>

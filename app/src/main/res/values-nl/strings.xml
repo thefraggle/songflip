@@ -260,7 +260,25 @@
     <string name="share_universal_link_desc">Maak universele songflip.link-links voor vrienden op elk muziekplatform</string>
     <string name="pro_offerings_error">Kan PRO-prijzen niet laden. Controleer je internetverbinding.</string>
     <string name="action_retry">Opnieuw proberen</string>
-    <string name="pro_restore_no_subscription">Geen actief PRO-abonnement gevonden.</string>
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">Afspeellijst-converter</string>
+    <string name="playlist_converting">Afspeellijst converteren…</string>
+    <string name="playlist_converting_progress">%1$d van %2$d nummers geconverteerd</string>
+    <string name="playlist_searching_tracks">Nummers zoeken op %1$s…</string>
+    <string name="playlist_creating_queue">Afspeellijst-wachtrij maken…</string>
+    <string name="playlist_matched_count">%1$d van %2$d nummers gevonden</string>
+    <string name="playlist_open_import">Openen en opslaan in %1$s</string>
+    <string name="playlist_open_in_browser">Web-afspeellijst openen</string>
+    <string name="playlist_share_link">Afspeellijst-link delen</string>
+    <string name="playlist_share_copied">Afspeellijst-link gekopieerd naar klembord!</string>
+    <string name="playlist_free_limit_title">5 nummers gratis geconverteerd</string>
+    <string name="playlist_free_limit_desc">Ontgrendel SongFlip PRO voor onbeperkte conversie van afspeellijsten tot 50 nummers!</string>
+    <string name="playlist_btn_unlock_pro">Upgraden naar PRO</string>
+    <string name="playlist_error_title">Conversie van afspeellijst mislukt</string>
+    <string name="playlist_error_desc">Kon nummers niet uit deze afspeellijst halen. Je kunt de originele link openen.</string>
+    <string name="playlist_btn_retry">Opnieuw proberen</string>
+    <string name="playlist_btn_open_original">Originele afspeellijst openen</string>
+<string name="pro_restore_no_subscription">Geen actief PRO-abonnement gevonden.</string>
     <string name="pro_purchase_failed">Aankoop kon niet worden voltooid. Probeer het opnieuw.</string>
     <string name="offline_waiting_title">Wachten op verbinding…</string>
     <string name="offline_waiting_subtitle">SongFlip stuurt automatisch door zodra de verbinding is hersteld.</string>

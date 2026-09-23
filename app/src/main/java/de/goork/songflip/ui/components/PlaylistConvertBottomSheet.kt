@@ -227,8 +227,8 @@ fun PlaylistConvertBottomSheet(
                     )
                     val statusText = when {
                         conversionProgressStep <= 1 -> stringResource(R.string.playlist_converting)
-                        conversionProgressStep <= 5 -> "Suche Titel auf ${targetPlatform.displayName}…"
-                        else -> "Erstelle Playlist-Queue…"
+                        conversionProgressStep <= 5 -> stringResource(R.string.playlist_searching_tracks, targetPlatform.displayName)
+                        else -> stringResource(R.string.playlist_creating_queue)
                     }
 
                     Box(

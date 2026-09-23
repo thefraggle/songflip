@@ -250,7 +250,25 @@
     <string name="share_universal_link_desc">Vytvářejte univerzální odkazy songflip.link pro přátele na jakékoli hudební platformě</string>
     <string name="pro_offerings_error">Nepodařilo se načíst ceny PRO. Zkontrolujte připojení k internetu.</string>
     <string name="action_retry">Zkusit znovu</string>
-    <string name="pro_restore_no_subscription">Nebylo nalezeno žádné aktivní předplatné PRO.</string>
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">Převodník playlistů</string>
+    <string name="playlist_converting">Převádění playlistu…</string>
+    <string name="playlist_converting_progress">Převedeno %1$d z %2$d skladeb</string>
+    <string name="playlist_searching_tracks">Hledání skladeb na %1$s…</string>
+    <string name="playlist_creating_queue">Vytváření fronty playlistu…</string>
+    <string name="playlist_matched_count">Nalezeno %1$d z %2$d skladeb</string>
+    <string name="playlist_open_import">Otevřít a uložit v %1$s</string>
+    <string name="playlist_open_in_browser">Otevřít webový playlist</string>
+    <string name="playlist_share_link">Sdílet odkaz na playlist</string>
+    <string name="playlist_share_copied">Odkaz na playlist byl zkopírován do schránky!</string>
+    <string name="playlist_free_limit_title">5 skladeb převedeno zdarma</string>
+    <string name="playlist_free_limit_desc">Odemkněte SongFlip PRO pro neomezený převod playlistů až do 50 skladeb!</string>
+    <string name="playlist_btn_unlock_pro">Přejít na PRO</string>
+    <string name="playlist_error_title">Převod playlistu se nezdařil</string>
+    <string name="playlist_error_desc">Z tohoto playlistu se nepodařilo extrahovat skladby. Můžete otevřít původní odkaz.</string>
+    <string name="playlist_btn_retry">Zkusit znovu</string>
+    <string name="playlist_btn_open_original">Otevřít původní playlist</string>
+<string name="pro_restore_no_subscription">Nebylo nalezeno žádné aktivní předplatné PRO.</string>
     <string name="pro_purchase_failed">Nákup se nepodařilo dokončit. Zkuste to prosím znovu.</string>
     <string name="offline_waiting_title">Čekání na připojení…</string>
     <string name="offline_waiting_subtitle">SongFlip automaticky přesměruje, jakmile se obnoví připojení.</string>

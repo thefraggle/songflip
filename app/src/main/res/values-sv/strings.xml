@@ -260,7 +260,25 @@
     <string name="share_universal_link_desc">Skapa universella songflip.link-länkar för vänner på alla musikplattformar</string>
     <string name="pro_offerings_error">Kunde inte läsa in PRO-priser. Kontrollera din internetanslutning.</string>
     <string name="action_retry">Försök igen</string>
-    <string name="pro_restore_no_subscription">Inget aktivt PRO-abonnemang hittades.</string>
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">Spelliste-konverterare</string>
+    <string name="playlist_converting">Konverterar spellista…</string>
+    <string name="playlist_converting_progress">%1$d av %2$d spår konverterade</string>
+    <string name="playlist_searching_tracks">Söker spår på %1$s…</string>
+    <string name="playlist_creating_queue">Skapar spellistekö…</string>
+    <string name="playlist_matched_count">%1$d av %2$d spår matchade</string>
+    <string name="playlist_open_import">Öppna och spara i %1$s</string>
+    <string name="playlist_open_in_browser">Öppna webbspellista</string>
+    <string name="playlist_share_link">Dela spellistelänk</string>
+    <string name="playlist_share_copied">Spellistelänk kopierad till urklipp!</string>
+    <string name="playlist_free_limit_title">5 låtar konverterade gratis</string>
+    <string name="playlist_free_limit_desc">Lås upp SongFlip PRO för obegränsad spellistekonvertering upp till 50 låtar!</string>
+    <string name="playlist_btn_unlock_pro">Uppgradera till PRO</string>
+    <string name="playlist_error_title">Spellistekonvertering misslyckades</string>
+    <string name="playlist_error_desc">Kunde inte hämta spår från denna spellista. Du kan öppna ursprungslänken istället.</string>
+    <string name="playlist_btn_retry">Försök igen</string>
+    <string name="playlist_btn_open_original">Öppna ursprunglig spellista</string>
+<string name="pro_restore_no_subscription">Inget aktivt PRO-abonnemang hittades.</string>
     <string name="pro_purchase_failed">Köpet kunde inte slutföras. Försök igen.</string>
     <string name="offline_waiting_title">Väntar på anslutning…</string>
     <string name="offline_waiting_subtitle">SongFlip omdirigerar automatiskt så snart anslutningen återställs.</string>
