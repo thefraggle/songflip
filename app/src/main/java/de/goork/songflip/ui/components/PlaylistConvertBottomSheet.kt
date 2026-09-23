@@ -386,7 +386,7 @@ fun PlaylistConvertBottomSheet(
                     }
 
                     // Freemium Pro Banner
-                    if (res.isLimited) {
+                    if (!isPro && res.isLimited) {
                         Spacer(modifier = Modifier.height(12.dp))
                         Surface(
                             shape = RoundedCornerShape(12.dp),
