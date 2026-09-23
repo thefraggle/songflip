@@ -260,7 +260,25 @@
     <string name="share_universal_link_desc">Herhangi bir müzik platformundaki arkadaşlarınız için evrensel songflip.link bağlantıları oluşturun</string>
     <string name="pro_offerings_error">PRO fiyatları yüklenemedi. Lütfen internet bağlantınızı kontrol edin.</string>
     <string name="action_retry">Tekrar dene</string>
-    <string name="pro_restore_no_subscription">Aktif PRO aboneliği bulunamadı.</string>
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">Çalma Listesi Dönüştürücü</string>
+    <string name="playlist_converting">Çalma listesi dönüştürülüyor…</string>
+    <string name="playlist_converting_progress">%1$d / %2$d parça dönüştürüldü</string>
+    <string name="playlist_searching_tracks">%1$s üzerinde parçalar aranıyor…</string>
+    <string name="playlist_creating_queue">Çalma listesi sırası oluşturuluyor…</string>
+    <string name="playlist_matched_count">%1$d / %2$d parça eşleşti</string>
+    <string name="playlist_open_import">%1$s içinde Aç ve Kaydet</string>
+    <string name="playlist_open_in_browser">Web Çalma Listesini Aç</string>
+    <string name="playlist_share_link">Çalma Listesi Bağlantısını Paylaş</string>
+    <string name="playlist_share_copied">Çalma listesi bağlantısı panoya kopyalandı!</string>
+    <string name="playlist_free_limit_title">5 Parça Ücretsiz Dönüştürüldü</string>
+    <string name="playlist_free_limit_desc">50 parçaya kadar sınırsız çalma listesi dönüştürme için SongFlip PRO\'ya geçin!</string>
+    <string name="playlist_btn_unlock_pro">PRO\'ya Yükselt</string>
+    <string name="playlist_error_title">Çalma Listesi Dönüştürülemedi</string>
+    <string name="playlist_error_desc">Bu çalma listesinden parçalar alınamadı. Orijinal bağlantıyı açabilirsiniz.</string>
+    <string name="playlist_btn_retry">Tekrar dene</string>
+    <string name="playlist_btn_open_original">Orijinal Çalma Listesini Aç</string>
+<string name="pro_restore_no_subscription">Aktif PRO aboneliği bulunamadı.</string>
     <string name="pro_purchase_failed">Satın alma tamamlanamadı. Lütfen tekrar deneyin.</string>
     <string name="offline_waiting_title">Bağlantı bekleniyor…</string>
     <string name="offline_waiting_subtitle">Bağlantı geri geldiğinde SongFlip otomatik olarak yönlendirecektir.</string>

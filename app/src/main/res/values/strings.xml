@@ -274,11 +274,12 @@
     <string name="quick_picker_title">Open with …</string>
     <string name="share_universal_link_title">Share universal web links</string>
     <string name="share_universal_link_desc">Create universal songflip.link links for friends on any music platform</string>
-
     <!-- Playlist Converter Strings -->
     <string name="playlist_converter_title">Playlist Converter</string>
     <string name="playlist_converting">Converting playlist…</string>
     <string name="playlist_converting_progress">%1$d of %2$d tracks converted</string>
+    <string name="playlist_searching_tracks">Searching tracks on %1$s…</string>
+    <string name="playlist_creating_queue">Creating playlist queue…</string>
     <string name="playlist_matched_count">%1$d of %2$d tracks matched</string>
     <string name="playlist_open_import">Open &amp; Save in %1$s</string>
     <string name="playlist_open_in_browser">Open Web Playlist</string>
@@ -291,7 +292,7 @@
     <string name="playlist_error_desc">Could not extract tracks from this playlist. You can open the original link instead.</string>
     <string name="playlist_btn_retry">Retry</string>
     <string name="playlist_btn_open_original">Open Original Playlist</string>
-    <string name="pro_restore_no_subscription">No active PRO subscription found.</string>
+<string name="pro_restore_no_subscription">No active PRO subscription found.</string>
     <string name="pro_purchase_failed">Purchase could not be completed. Please try again.</string>
     <string name="offline_waiting_title">Waiting for connection…</string>
     <string name="offline_waiting_subtitle">SongFlip will redirect automatically once the connection is restored.</string>

@@ -256,7 +256,25 @@
     <string name="share_universal_link_desc">모든 음악 플랫폼의 친구를 위해 유니버설 songflip.link 링크 생성</string>
     <string name="pro_offerings_error">PRO 가격을 불러올 수 없습니다. 인터넷 연결을 확인해 주세요.</string>
     <string name="action_retry">다시 시도</string>
-    <string name="pro_restore_no_subscription">활성 PRO 구독을 찾을 수 없습니다.</string>
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">재생목록 변환기</string>
+    <string name="playlist_converting">재생목록 변환 중…</string>
+    <string name="playlist_converting_progress">%2$d곡 중 %1$d곡 변환됨</string>
+    <string name="playlist_searching_tracks">%1$s에서 트랙 검색 중…</string>
+    <string name="playlist_creating_queue">재생목록 대기열 생성 중…</string>
+    <string name="playlist_matched_count">%2$d곡 중 %1$d곡 일치함</string>
+    <string name="playlist_open_import">%1$s에서 열기 및 저장</string>
+    <string name="playlist_open_in_browser">웹 재생목록 열기</string>
+    <string name="playlist_share_link">재생목록 링크 공유</string>
+    <string name="playlist_share_copied">재생목록 링크가 클립보드에 복사되었습니다!</string>
+    <string name="playlist_free_limit_title">5곡 무료 변환 완료</string>
+    <string name="playlist_free_limit_desc">최대 50곡까지 무제한 재생목록 변환을 위해 SongFlip PRO를 잠금 해제하세요!</string>
+    <string name="playlist_btn_unlock_pro">PRO로 업그레이드</string>
+    <string name="playlist_error_title">재생목록 변환 실패</string>
+    <string name="playlist_error_desc">이 재생목록에서 트랙을 추출할 수 없습니다. 원본 링크를 열 수 있습니다.</string>
+    <string name="playlist_btn_retry">다시 시도</string>
+    <string name="playlist_btn_open_original">원본 재생목록 열기</string>
+<string name="pro_restore_no_subscription">활성 PRO 구독을 찾을 수 없습니다.</string>
     <string name="pro_purchase_failed">구매를 완료할 수 없습니다. 다시 시도해 주세요.</string>
     <string name="offline_waiting_title">연결 대기 중…</string>
     <string name="offline_waiting_subtitle">연결이 복구되면 SongFlip이 자동으로 리디렉션합니다.</string>

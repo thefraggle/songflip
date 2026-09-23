@@ -246,7 +246,25 @@
     <string name="share_universal_link_desc">Δημιουργήστε καθολικούς συνδέσμους songflip.link για φίλους σε οποιαδήποτε μουσική πλατφόρμα</string>
     <string name="pro_offerings_error">Δεν ήταν δυνατή η φόρτωση των τιμών PRO. Ελέγξτε τη σύνδεσή σας.</string>
     <string name="action_retry">Επανάληψη</string>
-    <string name="pro_restore_no_subscription">Δεν βρέθηκε ενεργή συνδρομή PRO.</string>
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">Μετατροπέας λίστας αναπαραγωγής</string>
+    <string name="playlist_converting">Μετατροπή λίστας αναπαραγωγής…</string>
+    <string name="playlist_converting_progress">Μετατράπηκαν %1$d από %2$d κομμάτια</string>
+    <string name="playlist_searching_tracks">Αναζήτηση κομματιών στο %1$s…</string>
+    <string name="playlist_creating_queue">Δημιουργία ουράς αναπαραγωγής…</string>
+    <string name="playlist_matched_count">Βρέθηκαν %1$d από %2$d κομμάτια</string>
+    <string name="playlist_open_import">Άνοιγμα και αποθήκευση στο %1$s</string>
+    <string name="playlist_open_in_browser">Άνοιγμα λίστας στο web</string>
+    <string name="playlist_share_link">Κοινοποίηση συνδέσμου λίστας</string>
+    <string name="playlist_share_copied">Ο σύνδεσμος της λίστας αντιγράφηκε στο πρόχειρο!</string>
+    <string name="playlist_free_limit_title">5 τραγούδια μετατράπηκαν δωρεάν</string>
+    <string name="playlist_free_limit_desc">Ξεκλειδώστε το SongFlip PRO για απεριόριστη μετατροπή λιστών έως 50 τραγούδια!</string>
+    <string name="playlist_btn_unlock_pro">Αναβάθμιση σε PRO</string>
+    <string name="playlist_error_title">Η μετατροπή της λίστας απέτυχε</string>
+    <string name="playlist_error_desc">Δεν ήταν δυνατή η εξαγωγή κομματιών από αυτή τη λίστα. Μπορείτε να ανοίξετε τον αρχικό σύνδεσμο.</string>
+    <string name="playlist_btn_retry">Επανάληψη</string>
+    <string name="playlist_btn_open_original">Άνοιγμα αρχικής λίστας</string>
+<string name="pro_restore_no_subscription">Δεν βρέθηκε ενεργή συνδρομή PRO.</string>
     <string name="pro_purchase_failed">Η αγορά δεν ήταν δυνατό να ολοκληρωθεί. Δοκιμάστε ξανά.</string>
     <string name="offline_waiting_title">Αναμονή σύνδεσης…</string>
     <string name="offline_waiting_subtitle">Το SongFlip θα ανακατευθύνει αυτόματα μόλις αποκατασταθεί η σύνδεση.</string>

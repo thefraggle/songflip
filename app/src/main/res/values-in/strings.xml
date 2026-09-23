@@ -256,7 +256,25 @@
     <string name="share_universal_link_desc">Buat tautan songflip.link universal untuk teman di platform musik apa pun</string>
     <string name="pro_offerings_error">Gagal memuat harga PRO. Periksa koneksi internet Anda.</string>
     <string name="action_retry">Coba lagi</string>
-    <string name="pro_restore_no_subscription">Tidak ada langganan PRO aktif yang ditemukan.</string>
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">Pengonversi Daftar Putar</string>
+    <string name="playlist_converting">Mengonversi daftar putar…</string>
+    <string name="playlist_converting_progress">%1$d dari %2$d trek dikonversi</string>
+    <string name="playlist_searching_tracks">Mencari trek di %1$s…</string>
+    <string name="playlist_creating_queue">Membuat antrean daftar putar…</string>
+    <string name="playlist_matched_count">%1$d dari %2$d trek cocok</string>
+    <string name="playlist_open_import">Buka &amp; Simpan di %1$s</string>
+    <string name="playlist_open_in_browser">Buka Daftar Putar Web</string>
+    <string name="playlist_share_link">Bagikan Tautan Daftar Putar</string>
+    <string name="playlist_share_copied">Tautan daftar putar disalin ke papan klip!</string>
+    <string name="playlist_free_limit_title">5 Lagu Dikonversi Gratis</string>
+    <string name="playlist_free_limit_desc">Buka kunci SongFlip PRO untuk konversi daftar putar tanpa batas hingga 50 lagu!</string>
+    <string name="playlist_btn_unlock_pro">Tingkatkan ke PRO</string>
+    <string name="playlist_error_title">Konversi Daftar Putar Gagal</string>
+    <string name="playlist_error_desc">Tidak dapat mengekstrak trek dari daftar putar ini. Anda dapat membuka tautan asli sebagai gantinya.</string>
+    <string name="playlist_btn_retry">Coba lagi</string>
+    <string name="playlist_btn_open_original">Buka Daftar Putar Asli</string>
+<string name="pro_restore_no_subscription">Tidak ada langganan PRO aktif yang ditemukan.</string>
     <string name="pro_purchase_failed">Pembelian tidak dapat diselesaikan. Silakan coba lagi.</string>
     <string name="offline_waiting_title">Menunggu koneksi…</string>
     <string name="offline_waiting_subtitle">SongFlip akan mengarahkan otomatis begitu koneksi pulih.</string>

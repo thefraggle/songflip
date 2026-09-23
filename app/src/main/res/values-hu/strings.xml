@@ -246,7 +246,25 @@
     <string name="share_universal_link_desc">Hozzon létre univerzális songflip.link linkeket barátai számára bármely zenei platformon</string>
     <string name="pro_offerings_error">A PRO árakat nem sikerült betölteni. Kérjük, ellenőrizze internetkapcsolatát.</string>
     <string name="action_retry">Újra</string>
-    <string name="pro_restore_no_subscription">Nem található aktív PRO előfizetés.</string>
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">Lejátszásilista-átalakító</string>
+    <string name="playlist_converting">Lejátszási lista konvertálása…</string>
+    <string name="playlist_converting_progress">%1$d / %2$d dal konvertálva</string>
+    <string name="playlist_searching_tracks">Dalok keresése itt: %1$s…</string>
+    <string name="playlist_creating_queue">Lejátszási sor létrehozása…</string>
+    <string name="playlist_matched_count">%1$d / %2$d dal megtalálva</string>
+    <string name="playlist_open_import">Megnyitás és mentés itt: %1$s</string>
+    <string name="playlist_open_in_browser">Webes lejátszási lista megnyitása</string>
+    <string name="playlist_share_link">Lejátszásilista-link megosztása</string>
+    <string name="playlist_share_copied">A lejátszási lista linkje a vágólapra másolva!</string>
+    <string name="playlist_free_limit_title">5 dal ingyenesen konvertálva</string>
+    <string name="playlist_free_limit_desc">Oldja fel a SongFlip PRO verziót a korlátlan lejátszási lista konvertáláshoz akár 50 dalig!</string>
+    <string name="playlist_btn_unlock_pro">Frissítés PRO verzióra</string>
+    <string name="playlist_error_title">A lejátszási lista konvertálása sikertelen</string>
+    <string name="playlist_error_desc">Nem sikerült kinyerni a dalokat ebből a lejátszási listából. Megnyithatja az eredeti linket.</string>
+    <string name="playlist_btn_retry">Újra</string>
+    <string name="playlist_btn_open_original">Eredeti lejátszási lista megnyitása</string>
+<string name="pro_restore_no_subscription">Nem található aktív PRO előfizetés.</string>
     <string name="pro_purchase_failed">A vásárlást nem sikerült befejezni. Kérjük, próbálja újra.</string>
     <string name="offline_waiting_title">Várakozás a kapcsolatra…</string>
     <string name="offline_waiting_subtitle">A SongFlip automatikusan átirányít, amint a kapcsolat helyreáll.</string>

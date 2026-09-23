@@ -274,11 +274,12 @@
     <string name="quick_picker_title">Öffnen mit …</string>
     <string name="share_universal_link_title">Universelle Web-Links teilen</string>
     <string name="share_universal_link_desc">Erstelle universelle songflip.link-Links für Freunde auf beliebigen Musikplattformen</string>
-
     <!-- Playlist Converter Strings -->
     <string name="playlist_converter_title">Playlist-Konverter</string>
     <string name="playlist_converting">Konvertiere Playlist…</string>
     <string name="playlist_converting_progress">%1$d von %2$d Titeln konvertiert</string>
+    <string name="playlist_searching_tracks">Suche Titel auf %1$s…</string>
+    <string name="playlist_creating_queue">Erstelle Playlist-Queue…</string>
     <string name="playlist_matched_count">%1$d von %2$d Titeln gefunden</string>
     <string name="playlist_open_import">In %1$s öffnen &amp; speichern</string>
     <string name="playlist_open_in_browser">Web-Playlist öffnen</string>
@@ -291,7 +292,7 @@
     <string name="playlist_error_desc">Titel konnten nicht aus dieser Playlist extrahiert werden. Du kannst stattdessen den Originallink öffnen.</string>
     <string name="playlist_btn_retry">Erneut versuchen</string>
     <string name="playlist_btn_open_original">Original-Playlist öffnen</string>
-    <string name="pro_restore_no_subscription">Kein aktives PRO-Abonnement gefunden.</string>
+<string name="pro_restore_no_subscription">Kein aktives PRO-Abonnement gefunden.</string>
     <string name="pro_purchase_failed">Kauf konnte nicht abgeschlossen werden. Bitte versuche es erneut.</string>
     <string name="offline_waiting_title">Warte auf Verbindung…</string>
     <string name="offline_waiting_subtitle">SongFlip leitet automatisch weiter, sobald das Netz wieder da ist.</string>

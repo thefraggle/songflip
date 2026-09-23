@@ -268,7 +268,25 @@
     <string name="share_universal_link_desc">Twórz uniwersalne linki songflip.link dla znajomych na dowolnej platformie muzycznej</string>
     <string name="pro_offerings_error">Nie udało się załadować cen PRO. Sprawdź połączenie z internetem.</string>
     <string name="action_retry">Ponów próbę</string>
-    <string name="pro_restore_no_subscription">Nie znaleziono aktywnej subskrypcji PRO.</string>
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">Konwerter playlist</string>
+    <string name="playlist_converting">Konwertowanie playlisty…</string>
+    <string name="playlist_converting_progress">Skonwertowano %1$d z %2$d utworów</string>
+    <string name="playlist_searching_tracks">Szukanie utworów w %1$s…</string>
+    <string name="playlist_creating_queue">Tworzenie kolejki playlisty…</string>
+    <string name="playlist_matched_count">Znaleziono %1$d z %2$d utworów</string>
+    <string name="playlist_open_import">Otwórz i zapisz w %1$s</string>
+    <string name="playlist_open_in_browser">Otwórz playlistę w przeglądarce</string>
+    <string name="playlist_share_link">Udostępnij link do playlisty</string>
+    <string name="playlist_share_copied">Link do playlisty skopiowany do schowka!</string>
+    <string name="playlist_free_limit_title">5 utworów skonwertowanych bezpłatnie</string>
+    <string name="playlist_free_limit_desc">Odblokuj SongFlip PRO, aby konwertować playlisty bez limitu do 50 utworów!</string>
+    <string name="playlist_btn_unlock_pro">Przejdź na PRO</string>
+    <string name="playlist_error_title">Konwersja playlisty nie powiodła się</string>
+    <string name="playlist_error_desc">Nie udało się wyodrębnić utworów z tej playlisty. Możesz otworzyć oryginalny link.</string>
+    <string name="playlist_btn_retry">Ponów próbę</string>
+    <string name="playlist_btn_open_original">Otwórz oryginalną playlistę</string>
+<string name="pro_restore_no_subscription">Nie znaleziono aktywnej subskrypcji PRO.</string>
     <string name="pro_purchase_failed">Nie udało się dokończyć zakupu. Spróbuj ponownie.</string>
     <string name="offline_waiting_title">Oczekiwanie na połączenie…</string>
     <string name="offline_waiting_subtitle">SongFlip przekieruje automatycznie, gdy tylko połączenie zostanie przywrócone.</string>

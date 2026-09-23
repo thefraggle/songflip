@@ -268,7 +268,25 @@
     <string name="share_universal_link_desc">Создавайте универсальные ссылки songflip.link для друзей на любых музыкальных платформах</string>
     <string name="pro_offerings_error">Не удалось загрузить цены PRO. Проверьте подключение к интернету.</string>
     <string name="action_retry">Повторить</string>
-    <string name="pro_restore_no_subscription">Активная подписка PRO не найдена.</string>
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">Конвертер плейлистов</string>
+    <string name="playlist_converting">Конвертация плейлиста…</string>
+    <string name="playlist_converting_progress">Конвертировано %1$d из %2$d треков</string>
+    <string name="playlist_searching_tracks">Поиск треков в %1$s…</string>
+    <string name="playlist_creating_queue">Создание очереди плейлиста…</string>
+    <string name="playlist_matched_count">Найдено %1$d из %2$d треков</string>
+    <string name="playlist_open_import">Открыть и сохранить в %1$s</string>
+    <string name="playlist_open_in_browser">Открыть веб-плейлист</string>
+    <string name="playlist_share_link">Поделиться ссылкой на плейлист</string>
+    <string name="playlist_share_copied">Ссылка на плейлист скопирована в буфер обмена!</string>
+    <string name="playlist_free_limit_title">5 треков конвертировано бесплатно</string>
+    <string name="playlist_free_limit_desc">Разблокируйте SongFlip PRO для конвертации плейлистов до 50 треков!</string>
+    <string name="playlist_btn_unlock_pro">Перейти на PRO</string>
+    <string name="playlist_error_title">Не удалось сконвертировать плейлист</string>
+    <string name="playlist_error_desc">Не удалось извлечь треки из этого плейлиста. Вы можете открыть исходную ссылку.</string>
+    <string name="playlist_btn_retry">Повторить</string>
+    <string name="playlist_btn_open_original">Открыть исходный плейлист</string>
+<string name="pro_restore_no_subscription">Активная подписка PRO не найдена.</string>
     <string name="pro_purchase_failed">Не удалось завершить покупку. Попробуйте еще раз.</string>
     <string name="offline_waiting_title">Ожидание соединения…</string>
     <string name="offline_waiting_subtitle">SongFlip автоматически перенаправит, как только связь восстановится.</string>

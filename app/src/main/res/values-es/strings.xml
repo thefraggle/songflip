@@ -260,7 +260,25 @@
     <string name="share_universal_link_desc">Crea enlaces universales de songflip.link para amigos en cualquier plataforma musical</string>
     <string name="pro_offerings_error">No se pudieron cargar los precios de PRO. Comprueba tu conexión.</string>
     <string name="action_retry">Reintentar</string>
-    <string name="pro_restore_no_subscription">No se encontró ninguna suscripción PRO activa.</string>
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">Conversor de listas</string>
+    <string name="playlist_converting">Convirtiendo lista de reproducción…</string>
+    <string name="playlist_converting_progress">%1$d de %2$d canciones convertidas</string>
+    <string name="playlist_searching_tracks">Buscando canciones en %1$s…</string>
+    <string name="playlist_creating_queue">Creando cola de reproducción…</string>
+    <string name="playlist_matched_count">%1$d de %2$d canciones encontradas</string>
+    <string name="playlist_open_import">Abrir y guardar en %1$s</string>
+    <string name="playlist_open_in_browser">Abrir lista web</string>
+    <string name="playlist_share_link">Compartir enlace de lista</string>
+    <string name="playlist_share_copied">¡Enlace de la lista copiado al portapapeles!</string>
+    <string name="playlist_free_limit_title">5 canciones convertidas gratis</string>
+    <string name="playlist_free_limit_desc">¡Desbloquea SongFlip PRO para convertir listas ilimitadas de hasta 50 canciones!</string>
+    <string name="playlist_btn_unlock_pro">Mejorar a PRO</string>
+    <string name="playlist_error_title">Error al convertir la lista</string>
+    <string name="playlist_error_desc">No se pudieron extraer canciones de esta lista. Puedes abrir el enlace original.</string>
+    <string name="playlist_btn_retry">Reintentar</string>
+    <string name="playlist_btn_open_original">Abrir lista original</string>
+<string name="pro_restore_no_subscription">No se encontró ninguna suscripción PRO activa.</string>
     <string name="pro_purchase_failed">No se pudo completar la compra. Inténtalo de nuevo.</string>
     <string name="offline_waiting_title">Esperando conexión…</string>
     <string name="offline_waiting_subtitle">SongFlip redirigirá automáticamente en cuanto se restablezca la conexión.</string>

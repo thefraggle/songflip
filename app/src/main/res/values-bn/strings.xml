@@ -260,7 +260,25 @@
     <string name="share_universal_link_desc">যেকোনো সঙ্গীত প্ল্যাটফর্মে বন্ধুদের জন্য সর্বজনীন songflip.link লিঙ্ক তৈরি করুন</string>
     <string name="pro_offerings_error">PRO मूल्य লোড করা যায়নি। আপনার ইন্টারনেট সংযোগ পরীক্ষা করুন।</string>
     <string name="action_retry">আবার চেষ্টা করুন</string>
-    <string name="pro_restore_no_subscription">কোনো সক্রিয় PRO সাবস্ক্রিপশন পাওয়া যায়নি।</string>
+    <!-- Playlist Converter Strings -->
+    <string name="playlist_converter_title">প্লেলিস্ট কনভার্টার</string>
+    <string name="playlist_converting">প্লেলিস্ট রূপান্তর করা হচ্ছে…</string>
+    <string name="playlist_converting_progress">%2$d টির মধ্যে %1$d টি গান রূপান্তর হয়েছে</string>
+    <string name="playlist_searching_tracks">%1$s এ গান খোঁজা হচ্ছে…</string>
+    <string name="playlist_creating_queue">প্লেলিস্টের সারি তৈরি করা হচ্ছে…</string>
+    <string name="playlist_matched_count">%2$d টির মধ্যে %1$d টি গান মিলেছে</string>
+    <string name="playlist_open_import">%1$s এ খুলুন ও সংরক্ষণ করুন</string>
+    <string name="playlist_open_in_browser">ওয়েব প্লেলিস্ট খুলুন</string>
+    <string name="playlist_share_link">প্লেলিস্ট লিঙ্ক শেয়ার করুন</string>
+    <string name="playlist_share_copied">প্লেলিস্ট লিঙ্ক ক্লিপবোর্ডে কপি করা হয়েছে!</string>
+    <string name="playlist_free_limit_title">৫টি গান বিনামূল্যে রূপান্তর করা হয়েছে</string>
+    <string name="playlist_free_limit_desc">৫০টি গান পর্যন্ত সীমাহীন প্লেলিস্ট রূপান্তরের জন্য SongFlip PRO আনলক করুন!</string>
+    <string name="playlist_btn_unlock_pro">PRO-তে আপগ্রেড করুন</string>
+    <string name="playlist_error_title">প্লেলিস্ট রূপান্তর ব্যর্থ হয়েছে</string>
+    <string name="playlist_error_desc">এই প্লেলিস্ট থেকে গানগুলো নেওয়া যায়নি। আপনি চাইলে মূল লিঙ্কটি খুলতে পারেন।</string>
+    <string name="playlist_btn_retry">আবার চেষ্টা করুন</string>
+    <string name="playlist_btn_open_original">মূল প্লেলিস্ট খুলুন</string>
+<string name="pro_restore_no_subscription">কোনো সক্রিয় PRO সাবস্ক্রিপশন পাওয়া যায়নি।</string>
     <string name="pro_purchase_failed">ক্রয় সম্পন্ন করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
     <string name="offline_waiting_title">সংযোগের জন্য অপেক্ষা করা হচ্ছে…</string>
     <string name="offline_waiting_subtitle">সংযোগ ফিরে এলে SongFlip স্বয়ংক্রিয়ভাবে পুনর্নির্দেশ করবে।</string>
