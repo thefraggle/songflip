@@ -290,6 +290,14 @@
     <string name="playlist_btn_unlock_pro">Upgrade to PRO</string>
     <string name="playlist_error_title">Playlist Conversion Failed</string>
     <string name="playlist_error_desc">Could not extract tracks from this playlist. You can open the original link instead.</string>
+    <string name="playlist_error_private_title">Private or Personalized Playlist</string>
+    <string name="playlist_error_private_desc">Personalized mixes (such as Daily Mix) or private playlists cannot be read automatically. Please share a public playlist.</string>
+    <string name="playlist_error_unsupported_title">Platform Not Supported for Playlists</string>
+    <string name="playlist_error_unsupported_desc">SongFlip currently supports playlists for Spotify, Apple Music, YouTube Music, and Deezer. Single songs from this platform still work.</string>
+    <string name="playlist_error_timeout_title">Connection Timeout</string>
+    <string name="playlist_error_timeout_desc">The music service did not respond in time. Please try again shortly.</string>
+    <string name="playlist_error_empty_title">Empty Playlist</string>
+    <string name="playlist_error_empty_desc">This playlist does not contain any playable tracks.</string>
     <string name="playlist_btn_retry">Retry</string>
     <string name="playlist_btn_open_original">Open Original Playlist</string>
 <string name="pro_restore_no_subscription">No active PRO subscription found.</string>
