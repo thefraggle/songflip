@@ -504,7 +504,6 @@ fun MainScreen(
             // 1. Header Banner
             HeaderBanner(
                 onOpenSettings = {
-                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackSettingsOpened()
                     showSettingsBottomSheet = true
                 },
                 isPro = proState.isPro
@@ -646,12 +645,14 @@ fun MainScreen(
                 targetServices = targetServices,
                 selectedTargetKey = selectedTargetKey,
                 onTargetSelected = { key ->
-                    selectedTargetKey = key
-                    settingsRepository.targetPlatform = key
-                    coroutineScope.launch(Dispatchers.IO) {
-                        diagnosisSummary = de.goork.songflip.data.LinkDiagnosisManager.runDiagnosis(context, key)
+                    if (key != selectedTargetKey) {
+                        selectedTargetKey = key
+                        settingsRepository.targetPlatform = key
+                        coroutineScope.launch(Dispatchers.IO) {
+                            diagnosisSummary = de.goork.songflip.data.LinkDiagnosisManager.runDiagnosis(context, key)
+                        }
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackTargetPlatformChanged(key)
                     }
-                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackTargetPlatformChanged(key)
                 }
             )
 

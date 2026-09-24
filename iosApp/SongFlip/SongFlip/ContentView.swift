@@ -60,7 +60,6 @@ struct ContentView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
-                        AptabaseClient.shared.trackHistoryOpened()
                         showingHistorySheet = true
                     }) {
                         Image(systemName: "clock.arrow.circlepath")
@@ -70,7 +69,6 @@ struct ContentView: View {
 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        AptabaseClient.shared.trackSettingsOpened()
                         showingSettingsSheet = true
                     }) {
                         Image(systemName: "gearshape.fill")
@@ -349,8 +347,10 @@ struct ContentView: View {
                     let isSelected = settings.targetPlatform == platform.rawValue
                     Button(action: {
                         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                        settings.targetPlatform = platform.rawValue
-                        AptabaseClient.shared.trackTargetPlatformChanged(target: platform.rawValue)
+                        if settings.targetPlatform != platform.rawValue {
+                            settings.targetPlatform = platform.rawValue
+                            AptabaseClient.shared.trackTargetPlatformChanged(target: platform.rawValue)
+                        }
                     }) {
                         HStack(spacing: 10) {
                             ZStack {
