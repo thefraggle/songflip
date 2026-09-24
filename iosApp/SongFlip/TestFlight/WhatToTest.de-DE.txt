@@ -1,3 +1,2 @@
-- Transparente Preis- und Rabattanzeige: Verbesserte Darstellung von Aktionspreisen und befristeten Angeboten für SongFlip PRO.
-- Optimierte Upgrade-Ansicht: Zuverlässigere Anzeige regionaler Währungsformate und durchgestrichener Vorher-Preise.
-- Feinschliff & Detailverbesserungen: Allgemeine Stabilitäts- und Darstellungsoptimierungen.
+- Differenzierte Playlist-Diagnose: Automatische Erkennung von privaten oder personalisierten Playlists (z. B. Daily Mix), nicht unterstützten Plattformen und Verbindungs-Timeouts mit klaren Hinweistexten und 1-Klick-Weiterleitung zur Original-Playlist.
+- Zuverlässigere Link-Weiterleitung: Optimierte Erkennung geteilter Musik-Links von Drittanbieter-Diensten für eine noch stabilere Übergabe an die Ziel-App.
