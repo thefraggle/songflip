@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.*
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -119,16 +120,25 @@ fun PlaylistConvertBottomSheet(
                     source = sourcePlatform.key
                 )
             } else {
-                val errorMsg = result.exceptionOrNull()?.message ?: "Unknown error"
-                conversionState = PlaylistConversionState.Error(errorMsg)
+                val exception = result.exceptionOrNull()
+                val playlistEx = exception as? de.goork.songflip.core.model.PlaylistConversionException
+                val errorCode = playlistEx?.errorCode ?: de.goork.songflip.core.model.PlaylistErrorCode.UNKNOWN_ERROR
+                val reason = playlistEx?.reason ?: errorCode.name.lowercase()
+                val errorMsg = playlistEx?.message ?: exception?.message ?: "Unknown error"
+
+                conversionState = PlaylistConversionState.Error(
+                    message = errorMsg,
+                    errorCode = errorCode,
+                    reason = reason
+                )
                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackPlaylistConversionFailed(
                     sourcePlatform = sourcePlatform.key,
                     targetPlatform = targetPlatformKey,
-                    reason = errorMsg
+                    reason = reason
                 )
                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
                     target = targetPlatformKey,
-                    reason = "playlist_conversion_error"
+                    reason = "playlist_$reason"
                 )
             }
         }
@@ -280,6 +290,38 @@ fun PlaylistConvertBottomSheet(
                 }
 
                 is PlaylistConversionState.Error -> {
+                    val isPermanentFailure = state.errorCode == de.goork.songflip.core.model.PlaylistErrorCode.UNSUPPORTED_PLATFORM ||
+                            state.errorCode == de.goork.songflip.core.model.PlaylistErrorCode.PRIVATE_OR_RESTRICTED
+
+                    val (errorIcon, titleRes, descRes) = when (state.errorCode) {
+                        de.goork.songflip.core.model.PlaylistErrorCode.PRIVATE_OR_RESTRICTED -> Triple(
+                            Icons.Outlined.Lock,
+                            R.string.playlist_error_private_title,
+                            R.string.playlist_error_private_desc
+                        )
+                        de.goork.songflip.core.model.PlaylistErrorCode.UNSUPPORTED_PLATFORM -> Triple(
+                            Icons.Outlined.Info,
+                            R.string.playlist_error_unsupported_title,
+                            R.string.playlist_error_unsupported_desc
+                        )
+                        de.goork.songflip.core.model.PlaylistErrorCode.EMPTY_PLAYLIST -> Triple(
+                            Icons.AutoMirrored.Outlined.QueueMusic,
+                            R.string.playlist_error_empty_title,
+                            R.string.playlist_error_empty_desc
+                        )
+                        de.goork.songflip.core.model.PlaylistErrorCode.UPSTREAM_TIMEOUT,
+                        de.goork.songflip.core.model.PlaylistErrorCode.RATE_LIMITED -> Triple(
+                            Icons.Outlined.Timer,
+                            R.string.playlist_error_timeout_title,
+                            R.string.playlist_error_timeout_desc
+                        )
+                        else -> Triple(
+                            Icons.Outlined.ErrorOutline,
+                            R.string.playlist_error_title,
+                            R.string.playlist_error_desc
+                        )
+                    }
+
                     Box(
                         modifier = Modifier
                             .size(56.dp)
@@ -288,7 +330,7 @@ fun PlaylistConvertBottomSheet(
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
-                            imageVector = Icons.Outlined.ErrorOutline,
+                            imageVector = errorIcon,
                             contentDescription = null,
                             tint = MaterialTheme.colorScheme.onErrorContainer,
                             modifier = Modifier.size(32.dp)
@@ -298,7 +340,7 @@ fun PlaylistConvertBottomSheet(
                     Spacer(modifier = Modifier.height(14.dp))
 
                     Text(
-                        text = stringResource(R.string.playlist_error_title),
+                        text = stringResource(titleRes),
                         style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                         color = MaterialTheme.colorScheme.onSurface,
                         textAlign = TextAlign.Center
@@ -307,7 +349,7 @@ fun PlaylistConvertBottomSheet(
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
-                        text = stringResource(R.string.playlist_error_desc),
+                        text = stringResource(descRes),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = TextAlign.Center
@@ -315,32 +357,64 @@ fun PlaylistConvertBottomSheet(
 
                     Spacer(modifier = Modifier.height(24.dp))
 
-                    Button(
-                        onClick = { runConversion() },
-                        modifier = Modifier.fillMaxWidth().height(48.dp),
-                        shape = RoundedCornerShape(12.dp)
-                    ) {
-                        Text(stringResource(R.string.playlist_btn_retry))
-                    }
-
-                    Spacer(modifier = Modifier.height(10.dp))
-
-                    OutlinedButton(
-                        onClick = {
-                            try {
-                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(playlistUrl)).apply {
-                                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    if (isPermanentFailure) {
+                        // For permanent errors (private playlist / unsupported platform), primary action is opening original link
+                        Button(
+                            onClick = {
+                                try {
+                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(playlistUrl)).apply {
+                                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    }
+                                    context.startActivity(intent)
+                                } catch (e: Exception) {
+                                    Log.w("PlaylistConvert", "Failed to launch original playlist intent: ${e.message}")
                                 }
-                                context.startActivity(intent)
-                            } catch (e: Exception) {
-                                Log.w("PlaylistConvert", "Failed to launch original playlist intent: ${e.message}")
-                            }
-                            onDismiss()
-                        },
-                        modifier = Modifier.fillMaxWidth().height(48.dp),
-                        shape = RoundedCornerShape(12.dp)
-                    ) {
-                        Text(stringResource(R.string.playlist_btn_open_original))
+                                onDismiss()
+                            },
+                            modifier = Modifier.fillMaxWidth().height(48.dp),
+                            shape = RoundedCornerShape(12.dp)
+                        ) {
+                            Text(stringResource(R.string.playlist_btn_open_original))
+                        }
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        OutlinedButton(
+                            onClick = { runConversion() },
+                            modifier = Modifier.fillMaxWidth().height(48.dp),
+                            shape = RoundedCornerShape(12.dp)
+                        ) {
+                            Text(stringResource(R.string.playlist_btn_retry))
+                        }
+                    } else {
+                        // For transient errors (timeout / generic), primary action is retry
+                        Button(
+                            onClick = { runConversion() },
+                            modifier = Modifier.fillMaxWidth().height(48.dp),
+                            shape = RoundedCornerShape(12.dp)
+                        ) {
+                            Text(stringResource(R.string.playlist_btn_retry))
+                        }
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        OutlinedButton(
+                            onClick = {
+                                try {
+                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(playlistUrl)).apply {
+                                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    }
+                                    context.startActivity(intent)
+                                } catch (e: Exception) {
+                                    Log.w("PlaylistConvert", "Failed to launch original playlist intent: ${e.message}")
+                                }
+                                onDismiss()
+                            },
+                            modifier = Modifier.fillMaxWidth().height(48.dp),
+                            shape = RoundedCornerShape(12.dp)
+                        ) {
+                            Text(stringResource(R.string.playlist_btn_open_original))
+                        }
                     }
                 }
 

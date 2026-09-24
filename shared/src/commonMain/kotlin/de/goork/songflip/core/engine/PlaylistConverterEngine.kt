@@ -1,6 +1,9 @@
 package de.goork.songflip.core.engine
 
+import de.goork.songflip.core.model.PlaylistConversionException
 import de.goork.songflip.core.model.PlaylistConversionResult
+import de.goork.songflip.core.model.PlaylistErrorCode
+import de.goork.songflip.core.model.PlaylistErrorPayload
 import de.goork.songflip.core.model.PlaylistTrackItem
 import io.ktor.client.HttpClient
 import io.ktor.client.request.header
@@ -68,14 +71,47 @@ class PlaylistConverterEngine(
                     return Result.success(result)
                 } else {
                     val errorBody = response.bodyAsText()
-                    lastException = Exception("HTTP ${response.status.value}: $errorBody")
+                    val parsedException = parseErrorPayload(errorBody, response.status.value)
+                    lastException = parsedException
                 }
             } catch (t: Throwable) {
                 lastException = t
             }
         }
 
-        return Result.failure(lastException ?: Exception("Failed to convert playlist"))
+        return Result.failure(lastException ?: PlaylistConversionException(
+            errorCode = de.goork.songflip.core.model.PlaylistErrorCode.UNKNOWN_ERROR,
+            message = "Failed to convert playlist"
+        ))
+    }
+
+    internal fun parseErrorPayload(errorBody: String, statusCode: Int): Throwable {
+        return try {
+            val payload = json.decodeFromString<de.goork.songflip.core.model.PlaylistErrorPayload>(errorBody)
+            val rawCode = payload.code ?: payload.error ?: ""
+            val errorCode = when (rawCode.uppercase()) {
+                "UNSUPPORTED_PLATFORM" -> de.goork.songflip.core.model.PlaylistErrorCode.UNSUPPORTED_PLATFORM
+                "PRIVATE_OR_RESTRICTED" -> de.goork.songflip.core.model.PlaylistErrorCode.PRIVATE_OR_RESTRICTED
+                "EMPTY_PLAYLIST" -> de.goork.songflip.core.model.PlaylistErrorCode.EMPTY_PLAYLIST
+                "UPSTREAM_TIMEOUT" -> de.goork.songflip.core.model.PlaylistErrorCode.UPSTREAM_TIMEOUT
+                "RATE_LIMITED" -> de.goork.songflip.core.model.PlaylistErrorCode.RATE_LIMITED
+                "EXTRACTION_FAILED" -> de.goork.songflip.core.model.PlaylistErrorCode.EXTRACTION_FAILED
+                else -> de.goork.songflip.core.model.PlaylistErrorCode.UNKNOWN_ERROR
+            }
+            val reason = payload.reason ?: errorCode.name.lowercase()
+            val message = payload.message ?: "HTTP $statusCode: $rawCode"
+            de.goork.songflip.core.model.PlaylistConversionException(
+                errorCode = errorCode,
+                message = message,
+                reason = reason
+            )
+        } catch (_: Throwable) {
+            de.goork.songflip.core.model.PlaylistConversionException(
+                errorCode = de.goork.songflip.core.model.PlaylistErrorCode.UNKNOWN_ERROR,
+                message = "HTTP $statusCode: $errorBody",
+                reason = "http_$statusCode"
+            )
+        }
     }
 
     fun buildZeroOAuthUrl(

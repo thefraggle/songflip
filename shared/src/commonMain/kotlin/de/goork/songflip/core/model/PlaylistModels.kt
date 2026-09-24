@@ -30,10 +30,39 @@ data class PlaylistConversionResult(
     val tracks: List<PlaylistTrackItem> = emptyList()
 )
 
+@Serializable
+enum class PlaylistErrorCode {
+    UNSUPPORTED_PLATFORM,
+    PRIVATE_OR_RESTRICTED,
+    EMPTY_PLAYLIST,
+    UPSTREAM_TIMEOUT,
+    RATE_LIMITED,
+    EXTRACTION_FAILED,
+    UNKNOWN_ERROR
+}
+
+@Serializable
+data class PlaylistErrorPayload(
+    val error: String? = null,
+    val code: String? = null,
+    val message: String? = null,
+    val reason: String? = null
+)
+
+class PlaylistConversionException(
+    val errorCode: PlaylistErrorCode,
+    override val message: String,
+    val reason: String? = null
+) : Exception(message)
+
 sealed class PlaylistConversionState {
     data object Idle : PlaylistConversionState()
     data class Loading(val message: String? = null) : PlaylistConversionState()
     data class Converting(val current: Int, val total: Int) : PlaylistConversionState()
     data class Success(val result: PlaylistConversionResult) : PlaylistConversionState()
-    data class Error(val message: String) : PlaylistConversionState()
+    data class Error(
+        val message: String,
+        val errorCode: PlaylistErrorCode = PlaylistErrorCode.UNKNOWN_ERROR,
+        val reason: String? = null
+    ) : PlaylistConversionState()
 }

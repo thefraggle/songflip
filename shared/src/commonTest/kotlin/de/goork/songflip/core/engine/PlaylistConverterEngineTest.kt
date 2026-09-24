@@ -130,4 +130,35 @@ class PlaylistConverterEngineTest {
         val url = engine.buildZeroOAuthUrl("Empty", "youtubeMusic", tracks)
         assertNull(url)
     }
+
+    @Test
+    fun testParseErrorPayloadUnsupportedPlatform() {
+        val engine = PlaylistConverterEngine()
+        val json = """{"error": "UNSUPPORTED_PLATFORM", "code": "UNSUPPORTED_PLATFORM", "reason": "unsupported_platform", "message": "Plattform für Playlists noch nicht unterstützt"}"""
+        val ex = engine.parseErrorPayload(json, 422) as de.goork.songflip.core.model.PlaylistConversionException
+        assertEquals(de.goork.songflip.core.model.PlaylistErrorCode.UNSUPPORTED_PLATFORM, ex.errorCode)
+        assertEquals("unsupported_platform", ex.reason)
+        assertEquals("Plattform für Playlists noch nicht unterstützt", ex.message)
+    }
+
+    @Test
+    fun testParseErrorPayloadPrivateOrRestricted() {
+        val engine = PlaylistConverterEngine()
+        val json = """{"error": "PRIVATE_OR_RESTRICTED", "code": "PRIVATE_OR_RESTRICTED", "reason": "private_playlist", "message": "Private oder personalisierte Playlist"}"""
+        val ex = engine.parseErrorPayload(json, 422) as de.goork.songflip.core.model.PlaylistConversionException
+        assertEquals(de.goork.songflip.core.model.PlaylistErrorCode.PRIVATE_OR_RESTRICTED, ex.errorCode)
+        assertEquals("private_playlist", ex.reason)
+    }
+
+    @Test
+    fun testParseErrorPayloadTimeoutAndRateLimit() {
+        val engine = PlaylistConverterEngine()
+        val timeoutJson = """{"error": "UPSTREAM_TIMEOUT", "code": "UPSTREAM_TIMEOUT", "reason": "timeout", "message": "Timeout"}"""
+        val timeoutEx = engine.parseErrorPayload(timeoutJson, 504) as de.goork.songflip.core.model.PlaylistConversionException
+        assertEquals(de.goork.songflip.core.model.PlaylistErrorCode.UPSTREAM_TIMEOUT, timeoutEx.errorCode)
+
+        val rateLimitJson = """{"error": "RATE_LIMITED", "code": "RATE_LIMITED", "reason": "rate_limited", "message": "Too many requests"}"""
+        val rateLimitEx = engine.parseErrorPayload(rateLimitJson, 429) as de.goork.songflip.core.model.PlaylistConversionException
+        assertEquals(de.goork.songflip.core.model.PlaylistErrorCode.RATE_LIMITED, rateLimitEx.errorCode)
+    }
 }
