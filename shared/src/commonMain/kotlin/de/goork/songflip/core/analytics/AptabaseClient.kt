@@ -151,12 +151,14 @@ object AptabaseClient {
         trackEvent("link_flipped", params)
     }
 
+    @Deprecated("Removed to reduce telemetry noise and preserve quota")
     fun trackHistoryOpened() {
-        trackEvent("history_opened")
+        // No-op: UI sheet noise removed
     }
 
+    @Deprecated("Removed to reduce telemetry noise and preserve quota")
     fun trackSettingsOpened() {
-        trackEvent("settings_opened")
+        // No-op: UI sheet noise removed
     }
 
     fun trackSharePageGenerated(target: String) {

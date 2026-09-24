@@ -316,7 +316,6 @@ fun SettingsBottomSheet(
                     .fillMaxWidth()
                     .clickable {
                         haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackHistoryOpened()
                         showHistorySubSheet = true
                     }
             ) {

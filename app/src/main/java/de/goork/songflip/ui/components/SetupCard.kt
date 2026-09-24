@@ -91,7 +91,6 @@ fun SetupCard(
                             statusType = StatusType.ACTIVE,
                             onClick = {
                                 haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                                de.goork.songflip.core.analytics.AptabaseClient.shared.trackDomainSetupClicked()
                                 onOpenSetupGuide()
                             }
                         )
@@ -109,7 +108,6 @@ fun SetupCard(
                         statusType = StatusType.WARNING,
                         onClick = {
                             haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                            de.goork.songflip.core.analytics.AptabaseClient.shared.trackDomainSetupClicked()
                             onOpenSetupGuide()
                         }
                     )
@@ -134,7 +132,6 @@ fun SetupCard(
                 Button(
                     onClick = {
                         haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackDomainSetupClicked()
                         onOpenSetupGuide()
                     },
                     modifier = Modifier
