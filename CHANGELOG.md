@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.4.17] - 2026-09-24
+- **Differentiated Playlist Diagnostics**: Automatic detection for private or personalized playlists (e.g. Daily Mix), unsupported platforms, and connection timeouts with clear guidance and 1-tap original playlist launch.
+- **Reliable Link Resolution**: Optimized handling and routing for shared music links across supported music services.
+- **Background & Resource Optimizations**: Streamlined event processing and smarter state checks when selecting target music players for reduced background activity.
+
 ## [1.4.16] - 2026-09-23
 - **Full Multi-Language Support for Playlist Converter**: Completely localized all interactive playlist conversion steps, progress statuses, and sharing dialogs across all 31 supported languages.
 - **Enhanced Conversion Status Feedback**: Fixed missing translations during track searching and queue building, ensuring a consistent native experience worldwide.

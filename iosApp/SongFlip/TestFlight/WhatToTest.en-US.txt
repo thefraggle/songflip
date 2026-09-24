@@ -1,3 +1,3 @@
-- Clearer Pricing & Promo Display: Improved visibility for special promotions and limited-time deals on SongFlip PRO.
-- Refined Upgrade Experience: Smarter calculation and display of regional currencies and regular comparison prices.
-- General Polish & Improvements: Minor visual and stability enhancements across the app.
+- Differentiated Playlist Diagnostics: Automatic detection for private or personalized playlists (e.g. Daily Mix), unsupported platforms, and connection timeouts with clear guidance and 1-tap original playlist launch.
+- Reliable Link Resolution: Optimized handling and routing for shared music links across supported music services.
+- Background & Resource Optimizations: Streamlined event processing and smarter state checks when selecting target music players for reduced background activity.

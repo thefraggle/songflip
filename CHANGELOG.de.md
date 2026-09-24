@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.4.17] - 2026-09-24
+- **Differenzierte Playlist-Diagnose**: Automatische Erkennung von privaten oder personalisierten Playlists (z. B. Daily Mix), nicht unterstützten Plattformen und Verbindungs-Timeouts mit klaren Hinweistexten und 1-Klick-Weiterleitung zur Original-Playlist.
+- **Zuverlässigere Link-Weiterleitung**: Optimierte Erkennung geteilter Musik-Links von Drittanbieter-Diensten für eine noch stabilere Übergabe an die Ziel-App.
+- **Hintergrund- & Ressourcenoptimierung**: Bereinigung interner Ereignisabläufe und intelligentere Statusprüfungen bei der Player-Auswahl für eine sparsamere Ressourcennutzung.
+
 ## [1.4.16] - 2026-09-23
 - **Vollständige Lokalisierung für den Playlist-Konverter**: Sämtliche Konvertierungsschritte, Statusmeldungen und Teilen-Dialoge stehen nun nahtlos in allen 31 unterstützten Sprachen bereit.
 - **Verbesserte Statusanzeige beim Konvertieren**: Behebt hardcodierte Sprachfragmente während der Titelsuche und Queue-Erstellung für ein konsistentes weltweites Nutzungserlebnis.
