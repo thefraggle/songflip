@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.4.18] - 2026-09-25
+- **Direkte Playlist-Wiedergabe**: Der große Abspielen-Button auf geteilten Playlists startet ab sofort zuverlässig direkt in deiner bevorzugten Musik-App, ganz ohne störende Fehlerseiten oder Unterbrechungen.
+- **Schnellere Ladezeiten beim Teilen**: Geteilte Song- und Playlist-Links öffnen sich spürbar schneller, wenn du Musik mit Freunden oder in Social Media teilst.
+- **Präzisere Musik-Erkennung**: Verbesserte Zuverlässigkeit beim Finden passender Titel und Künstler über alle Musikdienste hinweg.
+- **Feinschliff im Alltag**: Allgemeine Stabilitätsverbesserungen für eine flüssige und verzögerungsfreie Nutzung.
+
 ## [1.4.17] - 2026-09-24
 - **Differenzierte Playlist-Diagnose**: Automatische Erkennung von privaten oder personalisierten Playlists (z. B. Daily Mix), nicht unterstützten Plattformen und Verbindungs-Timeouts mit klaren Hinweistexten und 1-Klick-Weiterleitung zur Original-Playlist.
 - **Zuverlässigere Link-Weiterleitung**: Optimierte Erkennung geteilter Musik-Links von Drittanbieter-Diensten für eine noch stabilere Übergabe an die Ziel-App.
