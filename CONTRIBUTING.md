@@ -40,7 +40,7 @@ SongFlip is built as a Kotlin Multiplatform (KMP) project:
 
 3. Run Tests:
    ```bash
-   ./gradlew :shared:allTests :app:testDebugUnitTest
+   ./gradlew test
    ```
 
 4. Build Debug APK:
@@ -57,7 +57,7 @@ SongFlip is built as a Kotlin Multiplatform (KMP) project:
 
 ## 🌍 Adding or Updating Translations
 
-SongFlip supports 22+ languages!
+SongFlip supports 31+ languages!
 - **Android**: Add or update strings in `app/src/main/res/values-<lang>/strings.xml`.
 - **iOS**: Add or update entries in `iosApp/SongFlip/SongFlip/LocalizationManager.swift`.
 
@@ -72,7 +72,7 @@ Please ensure all string keys present in `app/src/main/res/values/strings.xml` a
    - `fix(android): resolve orientation glitch on tablet`
    - `docs: update translation guide`
 2. **Clean Commits**: Run `git diff` before submitting to ensure no temporary logs or keys are committed.
-3. **Tests**: Ensure `./gradlew testDebugUnitTest` and `:shared:allTests` pass cleanly.
+3. **Tests**: Ensure `./gradlew test` passes cleanly.
 
 ---
 
