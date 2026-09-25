@@ -131,7 +131,7 @@ sequenceDiagram
 2. **L2 Batch Cache Acceleration:** Evaluates all track URLs simultaneously via a single Firestore batch lookup (`db.getAll(...docRefs)`) to reuse previously resolved single-track mappings in `<50ms`.
 3. **Parallel Chunk Matching:** Resolves remaining cache misses in concurrent chunks (15 at a time) via target search scrapers and iTunes API.
 4. **Zero-OAuth Queue Generation:**
-   - **YouTube Music:** Resolves `www.youtube.com/watch_videos?video_ids=...` via HTTP 303 location redirection into a direct `music.youtube.com/watch?v={id}&list=TLGG...` queue playlist.
+   - **YouTube Music:** Resolves `www.youtube.com/watch_videos?video_ids=...` via HTTP 303 location redirection into a direct `music.youtube.com/watch?v={id}&list=TLGG...` queue playlist, with intelligent direct-track fallback (`music.youtube.com/watch?v={firstId}`) to prevent automated bot traffic blocks.
    - **Spotify:** Generates `spotify:trackset:{Title}:{id1},{id2}...` URI schemes.
 5. **50-Track Sweet Spot:** Optimized to 50 tracks to align with YouTube's strict server-side `watch_videos` limit and Spotify URI length constraints.
 6. **SSR Web Sharing (`songflip.link/p/...`):** Server-rendered, localized web pages with CSP hardening, target platform color theming, and individual track preview buttons.
@@ -209,7 +209,8 @@ SongFlip enforces automated test coverage across all client layers to ensure zer
 | Test Scope | Location | Framework | What is Covered |
 | :--- | :--- | :--- | :--- |
 | **Shared KMP Core** | `shared/src/commonTest/` | Kotlin Test, Ktor `MockEngine`, Coroutines Test | URL normalization, entity type & platform detection, L1 cache TTL & eviction, all 6 platform resolvers (Spotify, Apple Music, Deezer, Tidal, YouTube Music, SongLink API), Aptabase analytics client. |
-| **Android Client** | `app/src/test/` | JUnit 4, OkHttp `MockWebServer`, Coroutines Test | Domain verification info, quick settings tile states, dynamic app shortcuts, coupon redemption & error handling, review prompt rules, L1 hit detection, 24+ locale string formats (`strings.xml`). |
+| **Android Client** | `app/src/test/` | JUnit 4, OkHttp `MockWebServer`, Coroutines Test | Domain verification info, quick settings tile states, dynamic app shortcuts, coupon redemption & error handling, review prompt rules, L1 hit detection, 31+ locale string formats (`strings.xml`). |
+| **Backend Functions** | `functions/src/test/` | Node.js Test Runner, TypeScript | 75 automated tests covering SSR crawler rendering, Zero-OAuth playlist generation, HMAC signed coupons, promo code rate-limiting, and artist resolution. |
 
 ### Deterministic Mocking & Isolation:
 - **No Live Network Dependencies:** KMP and Android unit tests mock external endpoints using Ktor's `MockEngine` and OkHttp's `MockWebServer` for instant (< 5s), repeatable execution without flaky upstream API rate limits.
