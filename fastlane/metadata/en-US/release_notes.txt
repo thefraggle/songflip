@@ -1,2 +1,4 @@
-- Annual Intro Offer & Pricing Highlights: Refined the upgrade experience to dynamically showcase first-year introductory savings and localized currency rates.
-- Enhanced Reliability: Smoother pricing phase resolution and everyday stability improvements.
+- Direct Playlist Playback: Tapping the main play button on shared playlists now opens directly in your favorite music app without any errors or verification screens.
+- Faster Shared Link Loading: Shared song and playlist pages now load significantly faster and more reliably when sharing music with friends.
+- Smarter Music Matching: Improved accuracy and reliability when finding matching tracks and artists across all supported streaming services.
+- Everyday Polish & Reliability: General performance and stability enhancements for seamless, zero-delay redirects.

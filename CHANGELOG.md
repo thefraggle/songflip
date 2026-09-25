@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.4.18] - 2026-09-25
+- **Direct Playlist Playback**: Tapping the main play button on shared playlists now opens directly in your favorite music app without any errors or verification screens.
+- **Faster Shared Link Loading**: Shared song and playlist pages now load significantly faster and more reliably when sharing music with friends.
+- **Smarter Music Matching**: Improved accuracy and reliability when finding matching tracks and artists across all supported streaming services.
+- **Everyday Polish & Reliability**: General performance and stability enhancements for seamless, zero-delay redirects.
+
 ## [1.4.17] - 2026-09-24
 - **Differentiated Playlist Diagnostics**: Automatic detection for private or personalized playlists (e.g. Daily Mix), unsupported platforms, and connection timeouts with clear guidance and 1-tap original playlist launch.
 - **Reliable Link Resolution**: Optimized handling and routing for shared music links across supported music services.

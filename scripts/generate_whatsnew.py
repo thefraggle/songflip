@@ -101,47 +101,64 @@ def extract_changelog_for_version(version=None, filepath="CHANGELOG.md"):
 
     return None
 
-def translate_block(text, target_lang, max_retries=2):
-    """Translate an entire text block in one single request to prevent 429 rate-limiting."""
-    # 1. Primary: deep-translator
-    try:
-        from deep_translator import GoogleTranslator
-        translated = GoogleTranslator(source='en', target=target_lang).translate(text)
-        if translated and translated.strip():
-            return translated.strip()
-    except Exception as e:
-        print(f"  [deep-translator error for {target_lang}]: {e}")
+def is_valid_translation(text):
+    if not text or not text.strip():
+        return False
+    lower = text.lower()
+    if "query length limit" in lower or "mymemory warning" in lower or "server error" in lower or "too many requests" in lower:
+        return False
+    return True
 
-    # 2. Fallback: urllib gtx endpoint
+def translate_single_line(text, target_lang, max_retries=2):
+    # 1. Fallback: urllib gtx endpoint (fastest, high limit)
     import urllib.request
     import urllib.parse
     import json
     for attempt in range(max_retries):
         try:
             url = f"https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl={urllib.parse.quote(target_lang)}&dt=t&q={urllib.parse.quote(text)}"
-            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
             with urllib.request.urlopen(req, timeout=6) as resp:
                 data = json.loads(resp.read().decode('utf-8'))
                 translated = ''.join([part[0] for part in data[0] if part and part[0]]).strip()
-                if translated:
+                if is_valid_translation(translated):
                     return translated
         except Exception:
-            time.sleep(0.5 + attempt * 0.5)
+            time.sleep(0.3 + attempt * 0.3)
 
-    # 3. Fallback: MyMemory API
+    # 2. deep-translator
     try:
-        url = f"https://api.mymemory.translated.net/get?q={urllib.parse.quote(text)}&langpair=en|{urllib.parse.quote(target_lang)}"
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req, timeout=6) as resp:
-            data = json.loads(resp.read().decode('utf-8'))
-            translated = data.get("responseData", {}).get("translatedText")
-            if translated and translated.strip():
-                return translated.strip()
-    except Exception as e:
-        print(f"  [MyMemory error for {target_lang}]: {e}")
+        from deep_translator import GoogleTranslator
+        translated = GoogleTranslator(source='en', target=target_lang).translate(text)
+        if is_valid_translation(translated):
+            return translated.strip()
+    except Exception:
+        pass
 
-    # 4. Last resort fallback
+    # 3. Fallback: MyMemory API (short segments)
+    if len(text) < 400:
+        try:
+            url = f"https://api.mymemory.translated.net/get?q={urllib.parse.quote(text)}&langpair=en|{urllib.parse.quote(target_lang)}"
+            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+            with urllib.request.urlopen(req, timeout=6) as resp:
+                data = json.loads(resp.read().decode('utf-8'))
+                translated = data.get("responseData", {}).get("translatedText")
+                if is_valid_translation(translated):
+                    return translated.strip()
+        except Exception:
+            pass
+
     return text
+
+def translate_block(text, target_lang, max_retries=2):
+    lines = [l.strip() for l in text.split('\n') if l.strip()]
+    translated_lines = []
+    for line in lines:
+        prefix = "- " if line.startswith("- ") else ""
+        content = line[2:] if line.startswith("- ") else line
+        trans = translate_single_line(content, target_lang, max_retries=max_retries)
+        translated_lines.append(f"{prefix}{trans}")
+    return '\n'.join(translated_lines)
 
 def main():
     target_version = sys.argv[1] if len(sys.argv) > 1 else None
