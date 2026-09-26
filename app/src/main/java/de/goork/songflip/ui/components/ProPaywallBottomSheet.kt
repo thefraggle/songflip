@@ -295,6 +295,20 @@ fun ProPaywallBottomSheet(
                 val isLifetimeSale = isLifetimeSaleActive(lifetimePackage, annualPackage, monthlyPackage, currentOffering)
                 val lifetimeOriginalStrike = if (isLifetimeSale) formatOriginalStrikePrice(lifetimePackage) else null
 
+                val isAnnualIntro = isAnnualIntroOfferActive(annualPackage)
+                val annualBadge = if (isAnnualIntro) {
+                    stringResource(R.string.pro_bestseller_intro_badge)
+                } else {
+                    stringResource(R.string.pro_bestseller_badge)
+                }
+                val annualSub = annualPackage?.let {
+                    if (isAnnualIntro) {
+                        stringResource(R.string.pro_price_annual_sub_intro, formatMonthlyPrice(it))
+                    } else {
+                        stringResource(R.string.pro_price_annual_sub, formatMonthlyPrice(it))
+                    }
+                }
+
                 // 3 Tier Pricing Cards
                 Column(
                     modifier = Modifier.fillMaxWidth(),
@@ -304,8 +318,8 @@ fun ProPaywallBottomSheet(
                     ProTierCard(
                         title = stringResource(R.string.pro_tier_annual),
                         price = getEffectivePrice(annualPackage)?.formatted ?: "—",
-                        subtitle = annualPackage?.let { stringResource(R.string.pro_price_annual_sub, formatMonthlyPrice(it)) },
-                        badge = stringResource(R.string.pro_bestseller_badge),
+                        subtitle = annualSub,
+                        badge = annualBadge,
                         isSelected = selectedTier == SelectedProTier.ANNUAL,
                         onClick = {
                             haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
@@ -757,6 +771,23 @@ private fun getEffectivePrice(pkg: Package?): Price? {
     return introPrice ?: pkg.product.price
 }
 
+private fun isAnnualIntroOfferActive(annualPackage: Package?): Boolean {
+    if (annualPackage == null) return false
+    val defaultOption = annualPackage.product.defaultOption ?: return false
+    val introPhase = defaultOption.introPhase
+    if (introPhase != null && introPhase.price.amountMicros < annualPackage.product.price.amountMicros) {
+        return true
+    }
+    val phases = defaultOption.pricingPhases
+    if (phases.size > 1) {
+        val firstPhase = phases.firstOrNull()
+        if (firstPhase != null && firstPhase.price.amountMicros < annualPackage.product.price.amountMicros) {
+            return true
+        }
+    }
+    return false
+}
+
 private fun formatMonthlyPrice(annualPackage: Package): String {
     val price = getEffectivePrice(annualPackage) ?: annualPackage.product.price
     val monthlyAmount = (price.amountMicros / 12.0) / 1_000_000.0
@@ -773,3 +804,4 @@ private fun formatMonthlyPrice(annualPackage: Package): String {
         String.format(Locale.getDefault(), "%.2f", monthlyAmount)
     }
 }
+

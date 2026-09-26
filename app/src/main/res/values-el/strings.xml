@@ -156,13 +156,15 @@
     <string name="pro_tier_monthly">Μηνιαία</string>
     <string name="pro_tier_annual">Ετήσια</string>
     <string name="pro_tier_lifetime">Εφάπαξ</string>
-    <string name="pro_bestseller_badge" formatted="false">BESTSELLER • 50% ΕΚΠΤΩΣΗ</string>
+    <string name="pro_bestseller_badge" formatted="false">BESTSELLER • 33% ΕΚΠΤΩΣΗ</string>
+    <string name="pro_bestseller_intro_badge" formatted="false">BESTSELLER • 50% ΕΚΠΤΩΣΗ</string>
     <string name="pro_lifetime_badge">ΕΦΑΠΑΞ</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">Προσφορά περιορισμένου χρόνου</string>
     <string name="pro_price_monthly_default">—</string>
     <string name="pro_price_annual_default">—</string>
-    <string name="pro_price_annual_sub">~%1$s / μήνα (1ος χρόνος 50%% έκπτωση)</string>
+    <string name="pro_price_annual_sub">~%1$s / μήνα (4 μήνες δωρεάν)</string>
+    <string name="pro_price_annual_sub_intro">~%1$s / μήνα (1ος χρόνος 50%% έκπτωση)</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Επαναφορά αγορών</string>
     <string name="pro_coupon_toggle">Έχετε κωδικό προσφοράς;</string>

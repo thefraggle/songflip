@@ -155,13 +155,15 @@
     <string name="pro_tier_monthly">รายเดือน</string>
     <string name="pro_tier_annual">รายปี</string>
     <string name="pro_tier_lifetime">ตลอดชีพ</string>
-    <string name="pro_bestseller_badge" formatted="false">ขายดีที่สุด • ลด 50%</string>
+    <string name="pro_bestseller_badge" formatted="false">ขายดีที่สุด • ลด 33%</string>
+    <string name="pro_bestseller_intro_badge" formatted="false">ขายดีที่สุด • ลด 50%</string>
     <string name="pro_lifetime_badge">จ่ายครั้งเดียว</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">ข้อเสนอมีเวลาจำกัด</string>
     <string name="pro_price_monthly_default">—</string>
     <string name="pro_price_annual_default">—</string>
-    <string name="pro_price_annual_sub">~%1$s / เดือน (ปีแรก ลด 50%%)</string>
+    <string name="pro_price_annual_sub">~%1$s / เดือน (ฟรี 4 เดือน)</string>
+    <string name="pro_price_annual_sub_intro">~%1$s / เดือน (ปีแรก ลด 50%%)</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">กู้คืนการซื้อ</string>
     <string name="pro_coupon_toggle">มีรหัสโปรโมชั่นหรือไม่?</string>
