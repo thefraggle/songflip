@@ -80,7 +80,11 @@ class LocalizationTest {
             "settings_tip_multiple_apps_title",
             "settings_tip_multiple_apps_body",
             "pro_debug_reset_status",
-            "pro_debug_reset_button"
+            "pro_debug_reset_button",
+            "pro_bestseller_badge",
+            "pro_bestseller_intro_badge",
+            "pro_price_annual_sub",
+            "pro_price_annual_sub_intro"
         )
         val requiredPluralKeys = listOf(
             "history_cached_count",

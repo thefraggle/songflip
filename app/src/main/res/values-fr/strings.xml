@@ -165,13 +165,15 @@
     <string name="pro_tier_monthly">Mensuel</string>
     <string name="pro_tier_annual">Annuel</string>
     <string name="pro_tier_lifetime">À vie</string>
-    <string name="pro_bestseller_badge" formatted="false">MEILLEURE VENTE • 50% DE RÉDUCTION</string>
+    <string name="pro_bestseller_badge" formatted="false">MEILLEURE VENTE • 33% DE RÉDUCTION</string>
+    <string name="pro_bestseller_intro_badge" formatted="false">MEILLEURE VENTE • 50% DE RÉDUCTION</string>
     <string name="pro_lifetime_badge">PAIEMENT UNIQUE</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">Offre à durée limitée</string>
     <string name="pro_price_monthly_default">—</string>
     <string name="pro_price_annual_default">—</string>
-    <string name="pro_price_annual_sub">~%1$s / mois (1ère année -50%%)</string>
+    <string name="pro_price_annual_sub">~%1$s / mois (4 mois offerts)</string>
+    <string name="pro_price_annual_sub_intro">~%1$s / mois (1ère année -50%%)</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Restaurer les achats</string>
     <string name="pro_coupon_toggle">Vous avez un code promo ?</string>
