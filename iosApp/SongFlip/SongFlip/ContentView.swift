@@ -23,7 +23,7 @@ struct ContentView: View {
 
     var lang: String { settings.selectedLanguage }
     var appVersion: String {
-        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.4.18"
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.5.0"
     }
 
     var body: some View {

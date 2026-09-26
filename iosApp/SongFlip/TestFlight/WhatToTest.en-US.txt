@@ -1,3 +1,4 @@
-- Direct Playlist Playback: Tapping the main play button on shared playlists now opens directly in your favorite music app without any errors or verification screens.
-- Faster Shared Link Loading: Shared song and playlist pages now load significantly faster and more reliably when sharing music with friends.
-- Smarter Music Matching: Improved accuracy and reliability when finding matching tracks and artists across all supported streaming services.
+- Playlist Conversion & Sharing: Convert entire playlists, open them directly in your preferred music player, or share them via web links.
+- Faster & More Reliable: Lightning-fast link resolution, instant redirects, and automatic retry on unstable network connections.
+- Smarter Music Matching: Even more accurate matching for songs, albums, shorts, and links across all supported services.
+- Complete Localization: All conversion steps and dialogs fully translated across 31 languages.
