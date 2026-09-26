@@ -1,2 +1,4 @@
-- Direkte Playlist-Wiedergabe: Der große Abspielen-Button auf geteilten Playlists startet ab sofort zuverlässig direkt in deiner bevorzugten Musik-App, ganz ohne störende Fehlerseiten oder Unterbrechungen.
-- Schnellere Ladezeiten beim Teilen: Geteilte Song- und Playlist-Links öffnen sich spürbar schneller, wenn du Musik mit Freunden oder in Social Media teilst.
+- Playlists konvertieren & teilen: Ganze Playlists umwandeln, direkt im eigenen Musik-Player öffnen oder als Web-Link mit Freunden teilen.
+- Schneller & Zuverlässiger: Blitzschnelle Link-Erkennung, sofortige Weiterleitung und automatische Wiederholung bei schwachem Netz.
+- Präziseres Music-Matching: Noch zuverlässigere Zuordnung von Songs, Alben, Shorts und Links über alle Musikdienste hinweg.
+- Volle Sprachunterstützung: Alle Schritte und Dialoge vollständig in 31 Sprachen übersetzt.
