@@ -30,7 +30,8 @@ struct HistorySheetView: View {
                         newTitle: success.title,
                         newArtist: success.artist,
                         newTargetPlatform: settings.targetPlatform,
-                        isAlbum: success.isAlbum
+                        isAlbum: success.isAlbum,
+                        thumbnailUrl: success.thumbnailUrl
                     )
                 }
             }

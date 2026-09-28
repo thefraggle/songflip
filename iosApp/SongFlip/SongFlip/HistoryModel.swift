@@ -152,6 +152,49 @@ class HistoryModel: ObservableObject {
         } else {
             self.items = []
         }
+
+        // Auto-hydrate missing cover artwork for legacy history entries
+        Task { [weak self] in
+            await self?.hydrateMissingThumbnails()
+        }
+    }
+
+    func hydrateMissingThumbnails() async {
+        let missing = items.filter { $0.thumbnailUrl == nil || $0.thumbnailUrl?.isEmpty == true }
+        guard !missing.isEmpty else { return }
+
+        for item in missing {
+            do {
+                let res = try await SongLinkEngine.shared.resolveTargetUrl(
+                    inputUrl: item.sourceUrl,
+                    targetPlatformKey: item.targetPlatform,
+                    customApiUrl: "",
+                    customApiToken: "",
+                    forceRefresh: true
+                )
+                if let success = res as? ResolutionResult.Success, let thumb = success.thumbnailUrl, !thumb.isEmpty {
+                    await MainActor.run {
+                        if let idx = self.items.firstIndex(where: { $0.id == item.id }) {
+                            let old = self.items[idx]
+                            self.items[idx] = HistoryItem(
+                                id: old.id,
+                                timestamp: old.timestamp,
+                                title: success.title ?? old.title,
+                                artist: success.artist ?? old.artist,
+                                sourceUrl: old.sourceUrl,
+                                targetUrl: success.targetUrl,
+                                targetPlatform: success.platform,
+                                isAlbum: success.isAlbum,
+                                thumbnailUrl: thumb
+                            )
+                            self.saveHistory()
+                        }
+                    }
+                }
+            } catch {
+                // Ignore background hydration failures
+            }
+        }
     }
 
     func add(
