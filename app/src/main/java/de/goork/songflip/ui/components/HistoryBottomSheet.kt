@@ -74,6 +74,34 @@ fun HistoryBottomSheet(
             historyItems = items
             historyCount = count
             isLoadingHistory = false
+
+            // Auto-hydrate cover artwork for older history entries in background
+            val missingCoverItems = items.filter { it.thumbnailUrl.isNullOrBlank() }
+            if (missingCoverItems.isNotEmpty()) {
+                launch(kotlinx.coroutines.Dispatchers.IO) {
+                    var hasUpdates = false
+                    for (missing in missingCoverItems) {
+                        try {
+                            val res = SongLinkEngine.shared.resolveTargetUrl(
+                                inputUrl = missing.canonicalUrl,
+                                targetPlatformKey = missing.targetPlatformKey,
+                                isPro = isPro,
+                                authToken = de.goork.songflip.data.ProManager.getAuthToken(),
+                                isPrefetch = true
+                            )
+                            if (res is de.goork.songflip.core.model.ResolutionResult.Success && !res.thumbnailUrl.isNullOrBlank()) {
+                                hasUpdates = true
+                            }
+                        } catch (_: Throwable) {}
+                    }
+                    if (hasUpdates) {
+                        val updated = SongLinkEngine.shared.cache.getHistoryEntries(limit = historyLimit)
+                        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                            historyItems = updated
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -506,7 +534,9 @@ fun HistoryItemCard(
                                 text = stringResource(R.string.badge_album),
                                 style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, fontSize = 9.sp),
                                 color = MaterialTheme.colorScheme.onSecondaryContainer,
-                                modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp)
+                                maxLines = 1,
+                                softWrap = false,
+                                modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
                             )
                         }
                     }
@@ -519,7 +549,9 @@ fun HistoryItemCard(
                                 text = stringResource(R.string.badge_playlist),
                                 style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, fontSize = 9.sp),
                                 color = MaterialTheme.colorScheme.onSecondaryContainer,
-                                modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp)
+                                maxLines = 1,
+                                softWrap = false,
+                                modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
                             )
                         }
                     }
@@ -532,7 +564,9 @@ fun HistoryItemCard(
                                 text = stringResource(R.string.badge_artist),
                                 style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, fontSize = 9.sp),
                                 color = MaterialTheme.colorScheme.onTertiaryContainer,
-                                modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp)
+                                maxLines = 1,
+                                softWrap = false,
+                                modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
                             )
                         }
                     }
