@@ -282,4 +282,6 @@
     <string name="offline_waiting_subtitle">接続が回復すると、SongFlipが自動的にリダイレクトします。</string>
     <string name="offline_waiting_retry">今すぐ再試行</string>
     <string name="offline_waiting_cancel">キャンセル</string>
+    <string name="history_empty_title">履歴がありません</string>
+    <string name="history_empty_hint">ヒント: 音楽リンクを開くか共有すると、ここに表示されます。</string>
 </resources>

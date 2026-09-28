@@ -311,4 +311,6 @@
     <string name="offline_waiting_subtitle">SongFlip leitet automatisch weiter, sobald das Netz wieder da ist.</string>
     <string name="offline_waiting_retry">Erneut versuchen</string>
     <string name="offline_waiting_cancel">Abbrechen</string>
+    <string name="history_empty_title">Noch kein Verlauf</string>
+    <string name="history_empty_hint">Tipp: Öffne oder teile einen Musik-Link, um ihn hier zu sehen.</string>
 </resources>

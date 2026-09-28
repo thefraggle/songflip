@@ -294,4 +294,6 @@
     <string name="offline_waiting_subtitle">SongFlip автоматически перенаправит, как только связь восстановится.</string>
     <string name="offline_waiting_retry">Повторить</string>
     <string name="offline_waiting_cancel">Отмена</string>
+    <string name="history_empty_title">История пуста</string>
+    <string name="history_empty_hint">Совет: Откройте или поделитесь музыкальной ссылкой, чтобы увидеть её здесь.</string>
 </resources>

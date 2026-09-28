@@ -282,4 +282,6 @@
     <string name="offline_waiting_subtitle">SongFlip sẽ tự động chuyển hướng ngay khi có kết nối trở lại.</string>
     <string name="offline_waiting_retry">Thử lại ngay</string>
     <string name="offline_waiting_cancel">Hủy</string>
+    <string name="history_empty_title">Chưa có lịch sử</string>
+    <string name="history_empty_hint">Mẹo: Mở hoặc chia sẻ liên kết âm nhạc để xem tại đây.</string>
 </resources>

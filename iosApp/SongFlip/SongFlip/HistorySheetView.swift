@@ -48,22 +48,48 @@ struct HistorySheetView: View {
                     .ignoresSafeArea()
 
                 if history.items.isEmpty {
-                    VStack(spacing: 16) {
-                        Image(systemName: "clock.arrow.circlepath")
-                            .font(.system(size: 52))
-                            .foregroundColor(.secondary.opacity(0.6))
+                    VStack(spacing: 20) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 24, style: .continuous)
+                                .fill(Color("AccentColor").opacity(0.12))
+                                .frame(width: 84, height: 84)
 
-                        Text(LocalizationManager.string(for: "history_empty_title", lang: lang))
-                            .font(.title3)
-                            .fontWeight(.bold)
-                            .foregroundColor(.primary)
+                            Image(systemName: "music.note.list")
+                                .font(.system(size: 38))
+                                .foregroundColor(Color("AccentColor"))
+                        }
 
-                        Text(LocalizationManager.string(for: "history_empty", lang: lang))
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 32)
+                        VStack(spacing: 6) {
+                            Text(LocalizationManager.string(for: "history_empty_title", lang: lang))
+                                .font(.title3)
+                                .fontWeight(.bold)
+                                .foregroundColor(.primary)
+
+                            Text(LocalizationManager.string(for: "history_empty", lang: lang))
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal, 24)
+                        }
+
+                        HStack(spacing: 10) {
+                            Text("💡")
+                                .font(.system(size: 16))
+
+                            Text(LocalizationManager.string(for: "history_empty_hint", lang: lang))
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                                .multilineTextAlignment(.leading)
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 12)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                .fill(Color("CardBackgroundColor").opacity(0.8))
+                        )
+                        .padding(.horizontal, 28)
                     }
+                    .padding(.vertical, 32)
                 } else {
                     List {
                         ForEach(history.items) { item in

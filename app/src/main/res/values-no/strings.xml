@@ -286,4 +286,6 @@
     <string name="offline_waiting_subtitle">SongFlip omdirigerer automatisk så snart tilkoblingen er gjenopprettet.</string>
     <string name="offline_waiting_retry">Prøv igjen nå</string>
     <string name="offline_waiting_cancel">Avbryt</string>
+    <string name="history_empty_title">Ingen historikk ennå</string>
+    <string name="history_empty_hint">Tips: Åpne eller del en musikklenke for å se den her.</string>
 </resources>

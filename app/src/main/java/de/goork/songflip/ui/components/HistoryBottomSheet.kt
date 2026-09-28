@@ -258,7 +258,7 @@ fun HistoryBottomSheet(
                     )
                 }
             } else if (historyItems.isEmpty()) {
-                // Empty State
+                // Modern Empty State with Decorative Badge + Title + Description + Helpful Tip
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -267,21 +267,69 @@ fun HistoryBottomSheet(
                 ) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(12.dp),
-                        modifier = Modifier.padding(32.dp)
+                        verticalArrangement = Arrangement.spacedBy(18.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 28.dp, vertical = 24.dp)
                     ) {
-                        Icon(
-                            imageVector = Icons.Outlined.History,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
-                            modifier = Modifier.size(64.dp)
-                        )
-                        Text(
-                            text = stringResource(R.string.history_empty),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            textAlign = androidx.compose.ui.text.style.TextAlign.Center
-                        )
+                        // Decorative Icon Badge with Layered Depth
+                        Box(
+                            modifier = Modifier
+                                .size(84.dp)
+                                .clip(RoundedCornerShape(24.dp))
+                                .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.12f)),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.MusicNote,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(40.dp)
+                            )
+                        }
+
+                        // Title & Description
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            Text(
+                                text = stringResource(R.string.history_empty_title),
+                                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                                color = MaterialTheme.colorScheme.onSurface,
+                                textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                            )
+                            Text(
+                                text = stringResource(R.string.history_empty),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                                modifier = Modifier.widthIn(max = 290.dp)
+                            )
+                        }
+
+                        // Helpful Tip Banner
+                        Surface(
+                            shape = RoundedCornerShape(12.dp),
+                            color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.55f),
+                            modifier = Modifier.widthIn(max = 340.dp)
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                            ) {
+                                Text(
+                                    text = "💡",
+                                    fontSize = 16.sp
+                                )
+                                Text(
+                                    text = stringResource(R.string.history_empty_hint),
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
                     }
                 }
             } else {

@@ -294,4 +294,6 @@
     <string name="offline_waiting_subtitle">SongFlip przekieruje automatycznie, gdy tylko połączenie zostanie przywrócone.</string>
     <string name="offline_waiting_retry">Ponów teraz</string>
     <string name="offline_waiting_cancel">Anuluj</string>
+    <string name="history_empty_title">Brak historii</string>
+    <string name="history_empty_hint">Wskazówka: Otwórz lub udostępnij link muzyczny, aby zobaczyć go tutaj.</string>
 </resources>

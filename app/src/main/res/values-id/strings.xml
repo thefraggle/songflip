@@ -282,4 +282,6 @@
     <string name="offline_waiting_subtitle">SongFlip akan mengarahkan otomatis begitu koneksi pulih.</string>
     <string name="offline_waiting_retry">Coba lagi sekarang</string>
     <string name="offline_waiting_cancel">Batal</string>
+    <string name="history_empty_title">Belum ada riwayat</string>
+    <string name="history_empty_hint">Tips: Buka atau bagikan tautan musik untuk melihatnya di sini.</string>
 </resources>
