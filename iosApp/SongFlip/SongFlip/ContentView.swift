@@ -777,8 +777,6 @@ struct ContentView: View {
             }
         }
     }
-
-    }
 }
 
 struct ShortcutsGuideSheet: View {
