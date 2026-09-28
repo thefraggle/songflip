@@ -1,4 +1,3 @@
-- Direct Playlist Playback: Tapping the main play button on shared playlists now opens directly in your favorite music app without any errors or verification screens.
-- Faster Shared Link Loading: Shared song and playlist pages now load significantly faster and more reliably when sharing music with friends.
-- Smarter Music Matching: Improved accuracy and reliability when finding matching tracks and artists across all supported streaming services.
-- Everyday Polish & Reliability: General performance and stability enhancements for seamless, zero-delay redirects.
+- Cover Artwork in History: Your history now displays song and album artwork with an instant play button.
+- Streamlined History: Redesigned entries with easy one-tap sharing and quick link copying.
+- Instant Loading: Cover artwork and track details load smoothly and without delay.
