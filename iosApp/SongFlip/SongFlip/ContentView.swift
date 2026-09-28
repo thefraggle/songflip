@@ -742,10 +742,18 @@ struct ContentView: View {
                     dismissedClipboardUrl = urlToConvert
                     detectedClipboardUrl = nil
                 } else {
-                    let reason = (res as? ResolutionResult.Error)?.message ?? "timeout_or_unknown"
+                    let err = res as? ResolutionResult.Error
+                    let reason = err?.message ?? "timeout_or_unknown"
+                    let errorReason = err?.errorReason ?? "no_match_found"
+                    let sourceDomain = UrlUtils.shared.extractDomain(url: urlToConvert)
+                    let sourcePlatform = UrlUtils.shared.detectPlatform(url: urlToConvert)?.key ?? "unknown"
+
                     AptabaseClient.shared.trackLinkFlipFailed(
                         target: settings.targetPlatform,
-                        reason: reason
+                        reason: reason,
+                        sourceDomain: sourceDomain,
+                        sourcePlatform: sourcePlatform,
+                        errorReason: errorReason
                     )
                     showToast(LocalizationManager.string(for: "redirect_error_toast", lang: lang))
                     if let original = URL(string: urlToConvert) {

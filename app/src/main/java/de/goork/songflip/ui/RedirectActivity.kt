@@ -443,14 +443,19 @@ class RedirectActivity : ComponentActivity() {
                         return@launch
                     }
 
-                    val reason = when {
-                        result is ResolutionResult.Error -> result.message
-                        result == null -> "timeout"
-                        else -> "not_found"
+                    val sourceDomain = UrlUtils.extractDomain(incomingUrl)
+                    val sourcePlatform = UrlUtils.detectPlatform(incomingUrl)?.key ?: "unknown"
+                    val (reason, errorReason) = when {
+                        result is ResolutionResult.Error -> result.message to (result.errorReason ?: result.message)
+                        result == null -> "timeout" to "timeout"
+                        else -> "not_found" to "not_found"
                     }
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
                         target = targetPlatform,
-                        reason = reason
+                        reason = reason,
+                        sourceDomain = sourceDomain,
+                        sourcePlatform = sourcePlatform,
+                        errorReason = errorReason
                     )
 
                     val errorMsg = if (result is ResolutionResult.Error && result.message == "PLAYLIST_NOT_SUPPORTED") {
@@ -480,9 +485,20 @@ class RedirectActivity : ComponentActivity() {
                     return@launch
                 }
 
+                val sourceDomain = UrlUtils.extractDomain(incomingUrl)
+                val sourcePlatform = UrlUtils.detectPlatform(incomingUrl)?.key ?: "unknown"
+                val errorReason = when {
+                    t is java.net.SocketTimeoutException || t is java.net.ConnectException -> "socket_timeout"
+                    t is java.net.UnknownHostException -> "unknown_host"
+                    else -> t::class.simpleName ?: "exception"
+                }
+
                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
                     target = targetPlatform,
-                    reason = t.message ?: "exception"
+                    reason = t.message ?: errorReason,
+                    sourceDomain = sourceDomain,
+                    sourcePlatform = sourcePlatform,
+                    errorReason = errorReason
                 )
                 forwardOriginalUrl(incomingUri)
                 finish()

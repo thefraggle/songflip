@@ -136,9 +136,13 @@ fun PlaylistConvertBottomSheet(
                     targetPlatform = targetPlatformKey,
                     reason = reason
                 )
+                val sourceDomain = de.goork.songflip.core.util.UrlUtils.extractDomain(playlistUrl)
                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
                     target = targetPlatformKey,
-                    reason = "playlist_$reason"
+                    reason = "playlist_$reason",
+                    sourceDomain = sourceDomain,
+                    sourcePlatform = sourcePlatform.key,
+                    errorReason = "playlist_$reason"
                 )
             }
         }

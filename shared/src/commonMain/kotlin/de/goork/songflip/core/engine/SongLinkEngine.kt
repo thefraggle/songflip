@@ -269,7 +269,7 @@ class SongLinkEngine(
         try {
             // 1. Extract clean URL
             val cleanUrl = UrlUtils.extractCleanUrl(inputUrl)
-                ?: return ResolutionResult.Error("No valid URL found in input")
+                ?: return ResolutionResult.Error("No valid URL found in input", errorReason = "invalid_url")
 
             // 2. Custom API / Webhook (if configured)
             if (customApiUrl.isNotBlank()) {
@@ -607,7 +607,7 @@ class SongLinkEngine(
                 )
             }
 
-            return ResolutionResult.Error("Could not resolve music link")
+            return ResolutionResult.Error("Could not resolve music link", errorReason = "no_match_found")
         } catch (e: Exception) {
             val cleanUrl = UrlUtils.extractCleanUrl(inputUrl) ?: inputUrl
             val isExplicitAlbumUrl = UrlUtils.isAlbumUrl(cleanUrl)
@@ -627,7 +627,12 @@ class SongLinkEngine(
                 )
             }
 
-            return ResolutionResult.Error(e.message ?: "Unknown network error")
+            val errorReason = if (e is io.ktor.client.plugins.HttpRequestTimeoutException || e is kotlinx.coroutines.TimeoutCancellationException) {
+                "timeout"
+            } else {
+                "network_error"
+            }
+            return ResolutionResult.Error(e.message ?: "Unknown network error", errorReason = errorReason)
         }
     }
 

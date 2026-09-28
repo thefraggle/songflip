@@ -49,6 +49,7 @@ sealed class ResolutionResult {
     @Serializable
     data class Error(
         val message: String,
-        val isUnsupported: Boolean = false
+        val isUnsupported: Boolean = false,
+        val errorReason: String? = null
     ) : ResolutionResult()
 }

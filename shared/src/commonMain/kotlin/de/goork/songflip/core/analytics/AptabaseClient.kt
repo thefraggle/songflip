@@ -181,8 +181,27 @@ object AptabaseClient {
         trackEvent("promo_redeem_failed", mapOf("code_hash" to anonymizePromoCode(code), "error" to error))
     }
 
-    fun trackLinkFlipFailed(target: String, reason: String) {
-        trackEvent("link_flip_failed", mapOf("target" to target, "reason" to reason))
+    fun trackLinkFlipFailed(
+        target: String,
+        reason: String,
+        sourceDomain: String? = null,
+        sourcePlatform: String? = null,
+        errorReason: String? = null
+    ) {
+        val effectiveReason = (errorReason ?: reason).take(64)
+        val params = mutableMapOf(
+            "target" to target,
+            "reason" to effectiveReason,
+            "error_reason" to effectiveReason
+        )
+        if (!sourceDomain.isNullOrBlank()) {
+            params["source_domain"] = sourceDomain.take(64)
+        }
+        if (!sourcePlatform.isNullOrBlank()) {
+            params["source"] = sourcePlatform
+            params["migration"] = "$sourcePlatform -> $target"
+        }
+        trackEvent("link_flip_failed", params)
     }
 
     fun trackPodcastIntercepted(target: String) {

@@ -333,5 +333,14 @@ class UrlUtilsTest {
             UrlUtils.detectEntityType(shortsUrl)
         )
     }
+
+    @Test
+    fun testExtractDomain() {
+        assertEquals("open.spotify.com", UrlUtils.extractDomain("https://open.spotify.com/track/123?si=abc"))
+        assertEquals("music.apple.com", UrlUtils.extractDomain("https://music.apple.com/album/456"))
+        assertEquals("youtu.be", UrlUtils.extractDomain("http://youtu.be/abc"))
+        assertEquals("deezer.page.link", UrlUtils.extractDomain("https://deezer.page.link/xyz"))
+        assertEquals("unknown", UrlUtils.extractDomain(""))
+    }
 }
 
