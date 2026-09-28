@@ -19,23 +19,23 @@ LISTINGS["de-DE"] = (
     "Song-Links automatisch konvertieren & in deiner Wunsch-App öffnen (0-Klick).",
     """Ein Freund schickt dir einen Song auf Spotify, du hörst Musik aber über YouTube Music, Apple Music oder Deezer?
 
-SongFlip ist dein smarter 0-Klick Musik-Link Converter und Redirect für Android. Empfangene Links automatisch konvertieren und direkt im Wunsch-Player öffnen. Einmal eingerichtet, werden empfangene Musik-Links automatisch im Hintergrund in deinen bevorzugten Streaming-Dienst umgewandelt und direkt dort gestartet – ohne lästige Zwischenseiten, ohne Wartezeit, ohne manuelle Suche.
+SongFlip ist dein smarter 0-Klick Musik-Link Converter und Redirect für Android. Empfangene Titel automatisch konvertieren und direkt im Wunsch-Player öffnen. Einmal eingerichtet, werden empfangene Musik-Links automatisch im Hintergrund in deinen bevorzugten Streaming-Dienst umgewandelt und direkt dort gestartet – ohne lästige Zwischenseiten, ohne Wartezeit, ohne manuelle Suche.
 
-Egal ob Spotify zu YouTube Music, Spotify zu Apple Music oder Links von Shazam: SongFlip erkennt den Song blitzschnell und fungiert als dein universeller Smart Link Converter für jeden Musik-Player.
+Egal ob Spotify zu YouTube Music, Spotify zu Apple Music oder geteilte Shazam-Tracks: SongFlip erkennt den Song blitzschnell und fungiert als dein universeller Smart Link Converter für jeden Musik-Player.
 
 🚀 DIE WICHTIGSTEN FUNKTIONEN:
 
 • 8 Streaming-Plattformen & Shazam:
-Konvertiert Musik-Links nahtlos zwischen Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music sowie SoundCloud und Bandcamp. Erkennt jetzt auch geteilte Shazam-Links blitzschnell!
+Konvertiert Musik-Links nahtlos zwischen Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music sowie SoundCloud und Bandcamp. Erkennt jetzt auch geteilte Shazam-Ergebnisse blitzschnell!
 
 • Sofortige Wiedergabe (Instant Playback):
 Titel starten direkt im Ziel-Player, anstatt nur eine leere Suchergebnisseite zu öffnen.
 
 • Volle Album- & Playlist-Erkennung:
-Erkennt vollständige Alben und öffnet die komplette Trackliste. Playlist-Links werden präzise erkannt und nahtlos übergeben – dein intelligenter Playlist Converter für geteilte Musik.
+Erkennt vollständige Alben und öffnet die komplette Trackliste. Playlists werden präzise erkannt und nahtlos übergeben – dein intelligenter Playlist Converter für geteilte Musik.
 
 • Schnellauswahl (Ask Every Time):
-Nutzt du mehrere Musik-Apps? Aktiviere die optionale Schnellauswahl, um beim Öffnen eines Musik-Links jedes Mal blitzschnell den gewünschten Ziel-Player zu wählen.
+Nutzt du mehrere Musik-Apps? Aktiviere die optionale Schnellauswahl, um beim Öffnen eines Songs jedes Mal blitzschnell den gewünschten Ziel-Player zu wählen.
 
 • Smarter Einrichtungs-Assistent (Android 12+):
 Der integrierte Assistent prüft deine installierten Musik-Apps und hilft dir mit nur einem Fingertipp, App-Links konfliktfrei für die automatische Weiterleitung einzurichten.
@@ -44,7 +44,7 @@ Der integrierte Assistent prüft deine installierten Musik-Apps und hilft dir mi
 Kopiere einen Link oder teile ihn direkt aus WhatsApp, Telegram, Instagram oder Reddit mit SongFlip für eine sofortige 1-Klick-Konvertierung.
 
 • Universelle Web-Links (Smart Links):
-Erstelle mit einem Fingertipp neutrale Web-Links (songflip.link), die deine Freunde auf jedem beliebigen Gerät und Streaming-Dienst öffnen können.
+Erstelle mit einem Fingertipp neutrale Smart-Links (songflip.link), die deine Freunde auf jedem beliebigen Gerät und Streaming-Dienst öffnen können.
 
 • Schnelleinstellungen & App-Shortcuts:
 Pausiere die automatische Umleitung flexibel für 15 Minuten, 1 Stunde oder bis zum nächsten Morgen über die praktische Quick-Settings-Kachel. Schneller Zugriff per Long-Press auf das App-Icon.
@@ -68,7 +68,7 @@ EN_TUPLE = (
     "Automatically convert and open song links in your favorite player. Zero-click.",
     """A friend sends you a song on Spotify, but you listen on YouTube Music, Apple Music, or Deezer?
 
-SongFlip is your seamless, zero-click music link converter and redirect tool for Android. Once enabled, incoming music links automatically convert in the background and launch directly inside your favorite music player—no manual searching, no ads, no intermediate browser detours.
+SongFlip is your seamless, zero-click music link converter and redirect tool for Android. Once enabled, incoming music links automatically convert in the background and launch directly inside your favorite audio player—no manual searching, no ads, no intermediate browser detours.
 
 Whether switching Spotify to YouTube Music, Spotify to Apple Music, or opening tracks identified with Shazam, SongFlip handles song links instantly as your universal smart link converter.
 
@@ -78,19 +78,19 @@ Whether switching Spotify to YouTube Music, Spotify to Apple Music, or opening t
 Seamlessly converts tracks and albums across Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud, and Bandcamp. Newly added: instant resolution for shared Shazam links!
 
 • Instant Track Playback:
-Directly triggers playback inside your target music player instead of landing on empty search result pages.
+Directly triggers playback inside your target player instead of landing on empty search result pages.
 
 • Full Album & Playlist Support:
-Recognizes entire albums and opens the full discography release. Shared playlists are cleanly detected—your go-to playlist converter for shared music.
+Recognizes entire albums and opens the full discography release. Shared playlists are cleanly detected—your go-to playlist converter for shared tracks.
 
 • Quick Player Chooser (Ask Every Time):
-Using multiple music apps? Enable the optional quick player chooser to pick your target player on the fly whenever you open a music link.
+Using multiple streaming apps? Enable the optional quick player chooser to pick your target player on the fly whenever you open a shared song.
 
 • Smart Link Assistant (Android 12+):
 Easily verify and configure Android Open by Default App Links with our interactive 1-tap setup assistant.
 
 • Clipboard Smart-Banner & Native Sharing:
-Copied a music link? Launch it instantly via the smart dashboard banner, or share links directly from WhatsApp, Telegram, Reddit, or Instagram into SongFlip.
+Copied a song link? Launch it instantly via the smart dashboard banner, or share links directly from WhatsApp, Telegram, Reddit, or Instagram into SongFlip.
 
 • Universal Web Smart Links:
 Generate neutral, universal web-share links (songflip.link) so your friends can listen on whichever streaming platform they prefer.
@@ -107,7 +107,7 @@ Beautifully follows your system accent colors with full AMOLED dark mode, light 
 • Completely ad-free forever
 • Zero tracking, no data harvesting, no listening habits logged
 
-Compatible with universal music protocols including Songlink / Odesli. Download SongFlip now and bridge music links across all streaming services effortlessly!"""
+Compatible with universal protocols including Songlink / Odesli. Download SongFlip now and bridge song links across all streaming services effortlessly!"""
 )
 LISTINGS["en-US"] = ("English (United States)", EN_TUPLE[1], EN_TUPLE[2], EN_TUPLE[3])
 LISTINGS["en-GB"] = ("English (United Kingdom)", EN_TUPLE[1], EN_TUPLE[2], EN_TUPLE[3])
