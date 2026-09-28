@@ -220,6 +220,8 @@ class SongLinkEngine(
                             val artist = item["artist"]?.jsonPrimitive?.content?.ifBlank { null }
                             val isAlbum = item["isAlbum"]?.jsonPrimitive?.booleanOrNull ?: false
                             val links = item["links"]?.jsonObject
+                            val thumbnailUrl = item["thumbnailUrl"]?.jsonPrimitive?.content?.ifBlank { null }
+                                ?: root["thumbnailUrl"]?.jsonPrimitive?.content?.ifBlank { null }
 
                             val rawTarget = when (targetPlatformKey) {
                                 "spotify" -> links?.get("spotify")?.jsonPrimitive?.content
@@ -240,7 +242,8 @@ class SongLinkEngine(
                                     title = title,
                                     artist = artist,
                                     isAlbum = isAlbum,
-                                    nativeAppUri = nativeUri
+                                    nativeAppUri = nativeUri,
+                                    thumbnailUrl = thumbnailUrl
                                 )
                             }
                         }
@@ -401,7 +404,8 @@ class SongLinkEngine(
                         title = trackInfo ?: songLinkData.title.ifEmpty { null },
                         artist = songLinkData.artist.ifEmpty { null },
                         isAlbum = false,
-                        nativeAppUri = nativeUri
+                        nativeAppUri = nativeUri,
+                        thumbnailUrl = songLinkData.thumbnailUrl
                     )
                     cache.put(canonicalUrl, targetPlatformKey, result, now, isHistory = !isPrefetch)
                     pingCacheIngestAsync(
@@ -438,7 +442,8 @@ class SongLinkEngine(
                                 title = songLinkData.title.ifEmpty { null },
                                 artist = songLinkData.artist.ifEmpty { null },
                                 isAlbum = false,
-                                nativeAppUri = nativeUri
+                                nativeAppUri = nativeUri,
+                                thumbnailUrl = songLinkData.thumbnailUrl
                             )
                             cache.put(canonicalUrl, targetPlatformKey, result, now, isHistory = !isPrefetch)
                             pingCacheIngestAsync(
@@ -462,7 +467,8 @@ class SongLinkEngine(
                         title = songLinkData.title.ifEmpty { null },
                         artist = songLinkData.artist.ifEmpty { null },
                         isAlbum = isAlbum,
-                        nativeAppUri = nativeUri
+                        nativeAppUri = nativeUri,
+                        thumbnailUrl = songLinkData.thumbnailUrl
                     )
                     cache.put(canonicalUrl, targetPlatformKey, result, now, isHistory = !isPrefetch)
                     pingCacheIngestAsync(
@@ -505,7 +511,8 @@ class SongLinkEngine(
                         title = songLinkData.title.ifEmpty { null },
                         artist = songLinkData.artist.ifEmpty { null },
                         isAlbum = isAlbum,
-                        nativeAppUri = nativeUri
+                        nativeAppUri = nativeUri,
+                        thumbnailUrl = songLinkData.thumbnailUrl
                     )
                     cache.put(canonicalUrl, targetPlatformKey, result, now, isHistory = !isPrefetch)
                     pingCacheIngestAsync(
@@ -628,7 +635,8 @@ class SongLinkEngine(
         val title: String,
         val artist: String,
         val type: String,
-        val links: Map<String, String>
+        val links: Map<String, String>,
+        val thumbnailUrl: String? = null
     ) {
         val isAlbum: Boolean
             get() = type.equals("album", ignoreCase = true) || type.equals("ep", ignoreCase = true)
@@ -659,6 +667,7 @@ class SongLinkEngine(
             var title = entityData?.get("title")?.jsonPrimitive?.content ?: ""
             var artist = entityData?.get("artistName")?.jsonPrimitive?.content ?: ""
             val entityType = entityData?.get("type")?.jsonPrimitive?.content ?: (if (isAlbumEntity) "album" else "")
+            var thumbnailUrl = entityData?.get("thumbnailUrl")?.jsonPrimitive?.content
 
             val sections = pageData["sections"]?.jsonArray
             if (sections != null && sections.isNotEmpty()) {
@@ -668,6 +677,9 @@ class SongLinkEngine(
                 }
                 if (artist.isEmpty()) {
                     artist = firstSection["artistName"]?.jsonPrimitive?.content ?: ""
+                }
+                if (thumbnailUrl.isNullOrBlank()) {
+                    thumbnailUrl = firstSection["thumbnailUrl"]?.jsonPrimitive?.content
                 }
             }
 
@@ -687,7 +699,7 @@ class SongLinkEngine(
                 }
             }
 
-            SongLinkData(title = title, artist = artist, type = entityType, links = linksMap)
+            SongLinkData(title = title, artist = artist, type = entityType, links = linksMap, thumbnailUrl = thumbnailUrl)
         } catch (_: Exception) {
             null
         }

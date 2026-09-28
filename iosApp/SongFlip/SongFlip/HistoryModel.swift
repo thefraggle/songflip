@@ -12,6 +12,7 @@ struct HistoryItem: Identifiable, Codable, Equatable {
     let targetUrl: String
     let targetPlatform: String
     let isAlbum: Bool
+    let thumbnailUrl: String?
 
     var formattedDate: String {
         let formatter = RelativeDateTimeFormatter()
@@ -20,7 +21,7 @@ struct HistoryItem: Identifiable, Codable, Equatable {
     }
 
     enum CodingKeys: String, CodingKey {
-        case id, timestamp, title, artist, sourceUrl, targetUrl, targetPlatform, isAlbum
+        case id, timestamp, title, artist, sourceUrl, targetUrl, targetPlatform, isAlbum, thumbnailUrl
     }
 
     init(
@@ -31,7 +32,8 @@ struct HistoryItem: Identifiable, Codable, Equatable {
         sourceUrl: String,
         targetUrl: String,
         targetPlatform: String,
-        isAlbum: Bool = false
+        isAlbum: Bool = false,
+        thumbnailUrl: String? = nil
     ) {
         self.id = id
         self.timestamp = timestamp
@@ -41,6 +43,7 @@ struct HistoryItem: Identifiable, Codable, Equatable {
         self.targetUrl = targetUrl
         self.targetPlatform = targetPlatform
         self.isAlbum = isAlbum
+        self.thumbnailUrl = thumbnailUrl
     }
 
     init(from decoder: Decoder) throws {
@@ -60,6 +63,7 @@ struct HistoryItem: Identifiable, Codable, Equatable {
         self.targetUrl = try container.decode(String.self, forKey: .targetUrl)
         self.targetPlatform = try container.decode(String.self, forKey: .targetPlatform)
         self.isAlbum = (try? container.decodeIfPresent(Bool.self, forKey: .isAlbum)) ?? false
+        self.thumbnailUrl = try? container.decodeIfPresent(String.self, forKey: .thumbnailUrl)
 
         // Self-healing timestamp (Fix for Issue #21 / 2057 bug):
         // Apple reference date is 2001-01-01 00:00:00 UTC (978,307,200 seconds after 1970).
@@ -156,7 +160,8 @@ class HistoryModel: ObservableObject {
         sourceUrl: String,
         targetUrl: String,
         targetPlatform: String,
-        isAlbum: Bool = false
+        isAlbum: Bool = false,
+        thumbnailUrl: String? = nil
     ) {
         // Avoid duplicate consecutive identical items
         if let first = items.first, first.targetUrl == targetUrl {
@@ -171,7 +176,8 @@ class HistoryModel: ObservableObject {
             sourceUrl: sourceUrl,
             targetUrl: targetUrl,
             targetPlatform: targetPlatform,
-            isAlbum: isAlbum
+            isAlbum: isAlbum,
+            thumbnailUrl: thumbnailUrl
         )
 
         var current = items
@@ -192,7 +198,8 @@ class HistoryModel: ObservableObject {
         newTitle: String?,
         newArtist: String?,
         newTargetPlatform: String? = nil,
-        isAlbum: Bool
+        isAlbum: Bool,
+        thumbnailUrl: String? = nil
     ) {
         if let idx = items.firstIndex(where: { $0.id == id }) {
             let old = items[idx]
@@ -204,7 +211,8 @@ class HistoryModel: ObservableObject {
                 sourceUrl: old.sourceUrl,
                 targetUrl: newTargetUrl,
                 targetPlatform: newTargetPlatform ?? old.targetPlatform,
-                isAlbum: isAlbum
+                isAlbum: isAlbum,
+                thumbnailUrl: thumbnailUrl ?? old.thumbnailUrl
             )
             saveHistory()
         }

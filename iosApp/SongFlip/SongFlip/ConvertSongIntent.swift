@@ -66,7 +66,8 @@ struct ConvertSongIntent: AppIntent {
                     sourceUrl: urlToConvert,
                     targetUrl: success.targetUrl,
                     targetPlatform: targetPlatform,
-                    isAlbum: success.isAlbum
+                    isAlbum: success.isAlbum,
+                    thumbnailUrl: success.thumbnailUrl
                 )
             }
 

@@ -700,7 +700,8 @@ struct ContentView: View {
                         sourceUrl: urlToConvert,
                         targetUrl: success.targetUrl,
                         targetPlatform: settings.targetPlatform,
-                        isAlbum: success.isAlbum
+                        isAlbum: success.isAlbum,
+                        thumbnailUrl: success.thumbnailUrl
                     )
 
                     let srcKey = UrlUtils.shared.detectPlatform(url: urlToConvert)?.key ?? "unknown"
