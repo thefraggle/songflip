@@ -82,12 +82,11 @@ fun HistoryBottomSheet(
                     var hasUpdates = false
                     for (missing in missingCoverItems) {
                         try {
-                            val res = SongLinkEngine.shared.resolveTargetUrl(
+                            val res = SongLinkEngine.shared.forceRefreshTargetUrl(
                                 inputUrl = missing.canonicalUrl,
                                 targetPlatformKey = missing.targetPlatformKey,
                                 isPro = isPro,
-                                authToken = de.goork.songflip.data.ProManager.getAuthToken(),
-                                isPrefetch = true
+                                authToken = de.goork.songflip.data.ProManager.getAuthToken()
                             )
                             if (res is de.goork.songflip.core.model.ResolutionResult.Success && !res.thumbnailUrl.isNullOrBlank()) {
                                 hasUpdates = true
@@ -490,6 +489,30 @@ fun HistoryItemCard(
                     )
                 }
 
+                // Media type icon badge (Playlist / Album / Artist) top-start
+                if (isPlaylist || item.isAlbum || isArtist) {
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.TopStart)
+                            .padding(2.dp)
+                            .size(18.dp)
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.88f)),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = when {
+                                isArtist -> Icons.Outlined.Person
+                                isPlaylist -> Icons.AutoMirrored.Outlined.QueueMusic
+                                else -> Icons.Outlined.Album
+                            },
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(11.dp)
+                        )
+                    }
+                }
+
                 // Subtiles Play-Indicator Overlay unten rechts auf dem Cover
                 Box(
                     modifier = Modifier
@@ -509,11 +532,12 @@ fun HistoryItemCard(
                 }
             }
 
-            // 2. Middle Column: Platform Tag + Title + Artist
+            // 2. Middle Column: Platform Tag + Title + Artist / Metadata
             Column(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(2.dp)
             ) {
+                // Platform Transition Tag Row
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
@@ -525,53 +549,9 @@ fun HistoryItemCard(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     PlatformTag(name = targetDisplayName, isSource = false)
-                    if (item.isAlbum) {
-                        Surface(
-                            shape = RoundedCornerShape(4.dp),
-                            color = MaterialTheme.colorScheme.secondaryContainer
-                        ) {
-                            Text(
-                                text = stringResource(R.string.badge_album),
-                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, fontSize = 9.sp),
-                                color = MaterialTheme.colorScheme.onSecondaryContainer,
-                                maxLines = 1,
-                                softWrap = false,
-                                modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
-                            )
-                        }
-                    }
-                    if (isPlaylist) {
-                        Surface(
-                            shape = RoundedCornerShape(4.dp),
-                            color = MaterialTheme.colorScheme.secondaryContainer
-                        ) {
-                            Text(
-                                text = stringResource(R.string.badge_playlist),
-                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, fontSize = 9.sp),
-                                color = MaterialTheme.colorScheme.onSecondaryContainer,
-                                maxLines = 1,
-                                softWrap = false,
-                                modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
-                            )
-                        }
-                    }
-                    if (isArtist) {
-                        Surface(
-                            shape = RoundedCornerShape(4.dp),
-                            color = MaterialTheme.colorScheme.tertiaryContainer
-                        ) {
-                            Text(
-                                text = stringResource(R.string.badge_artist),
-                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, fontSize = 9.sp),
-                                color = MaterialTheme.colorScheme.onTertiaryContainer,
-                                maxLines = 1,
-                                softWrap = false,
-                                modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
-                            )
-                        }
-                    }
                 }
 
+                // Title
                 Text(
                     text = item.title ?: item.targetUrl,
                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
@@ -580,27 +560,63 @@ fun HistoryItemCard(
                     overflow = TextOverflow.Ellipsis
                 )
 
+                // Subtitle: Artist/Track count • Type • Relative Time
+                val typeLabel = when {
+                    isPlaylist -> stringResource(R.string.badge_playlist)
+                    item.isAlbum -> stringResource(R.string.badge_album)
+                    isArtist -> stringResource(R.string.badge_artist)
+                    else -> null
+                }
+                val subtitlePrefix = item.artist?.takeIf { it.isNotBlank() }
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
-                        text = item.artist?.takeIf { it.isNotBlank() } ?: relativeTime,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.weight(1f, fill = false)
-                    )
-                    if (!item.artist.isNullOrBlank()) {
+                    if (subtitlePrefix != null) {
                         Text(
-                            text = " • $relativeTime",
+                            text = subtitlePrefix,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.weight(1f, fill = false)
+                        )
+                        Text(
+                            text = "•",
                             style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
-                            maxLines = 1
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
                         )
                     }
+
+                    if (typeLabel != null) {
+                        Surface(
+                            shape = RoundedCornerShape(4.dp),
+                            color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.7f)
+                        ) {
+                            Text(
+                                text = typeLabel,
+                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold, fontSize = 9.sp),
+                                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                maxLines = 1,
+                                softWrap = false,
+                                modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp)
+                            )
+                        }
+                        Text(
+                            text = "•",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+                        )
+                    }
+
+                    Text(
+                        text = relativeTime,
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                        maxLines = 1
+                    )
                 }
             }
 
