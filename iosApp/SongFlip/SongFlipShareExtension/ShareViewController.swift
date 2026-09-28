@@ -129,7 +129,8 @@ class ShareViewController: UIViewController {
                         sourceUrl: inputUrl,
                         targetUrl: success.targetUrl,
                         targetPlatform: targetPlatform,
-                        isAlbum: success.isAlbum
+                        isAlbum: success.isAlbum,
+                        thumbnailUrl: success.thumbnailUrl
                     )
 
                     let targetUri = success.nativeAppUri ?? success.targetUrl
@@ -163,7 +164,8 @@ class ShareViewController: UIViewController {
         sourceUrl: String,
         targetUrl: String,
         targetPlatform: String,
-        isAlbum: Bool
+        isAlbum: Bool,
+        thumbnailUrl: String? = nil
     ) {
         let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
         let storageKey = "songflip_conversion_history"
@@ -188,7 +190,7 @@ class ShareViewController: UIViewController {
             }
         }
 
-        let item: [String: Any] = [
+        var item: [String: Any] = [
             "id": UUID().uuidString,
             "timestamp": Date().timeIntervalSince1970,
             "title": title,
@@ -198,6 +200,9 @@ class ShareViewController: UIViewController {
             "targetPlatform": targetPlatform,
             "isAlbum": isAlbum
         ]
+        if let thumb = thumbnailUrl, !thumb.isEmpty {
+            item["thumbnailUrl"] = thumb
+        }
 
         history.insert(item, at: 0)
         if history.count > 50 {

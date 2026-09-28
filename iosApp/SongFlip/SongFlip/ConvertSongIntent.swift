@@ -121,8 +121,8 @@ struct ConvertSongIntent: AppIntent {
             let err = res as? ResolutionResult.Error
             let reason = err?.message ?? defaultMsg
             let errorReason = err?.errorReason ?? "no_match_found"
-            let sourceDomain = UrlUtils.shared.extractDomain(url: cleanUrl)
-            let sourcePlatform = UrlUtils.shared.detectPlatform(url: cleanUrl)?.key ?? "unknown"
+            let sourceDomain = UrlUtils.shared.extractDomain(url: urlToConvert)
+            let sourcePlatform = UrlUtils.shared.detectPlatform(url: urlToConvert)?.key ?? "unknown"
 
             AptabaseClient.shared.trackLinkFlipFailed(
                 target: targetPlatform,

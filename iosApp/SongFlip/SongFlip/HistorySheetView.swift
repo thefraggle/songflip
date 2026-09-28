@@ -265,20 +265,6 @@ struct HistorySheetView: View {
         }
     }
 
-    private func platformIcon(for key: String) -> String {
-        switch key.lowercased() {
-        case "spotify": return "dot.radiowaves.left.and.right"
-        case "applemusic", "apple": return "music.note"
-        case "youtubemusic", "youtube": return "play.rectangle.fill"
-        case "deezer": return "music.quarternote.3"
-        case "tidal": return "waveform"
-        case "amazonmusic", "amazon": return "cart.fill"
-        case "soundcloud": return "waveform"
-        case "bandcamp": return "opticaldisc"
-        default: return "music.note.list"
-        }
-    }
-
     @ViewBuilder
     private func fallbackCoverView(for item: HistoryItem) -> some View {
         ZStack {
