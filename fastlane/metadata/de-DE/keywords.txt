@@ -1,1 +1,1 @@
-converter,playlist,youtube,tidal,deezer,songlink,odesli,redirect,soundcloud,shazam,bandcamp,smart
+spotify,apple,youtube,tidal,deezer,songlink,odesli,redirect,soundcloud,shazam,bandcamp,smart,teilen
