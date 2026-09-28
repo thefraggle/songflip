@@ -272,4 +272,6 @@
     <string name="offline_waiting_subtitle">SongFlip ohjaa automaattisesti eteenpäin heti, kun yhteys palautuu.</string>
     <string name="offline_waiting_retry">Yritä uudelleen</string>
     <string name="offline_waiting_cancel">Peruuta</string>
+    <string name="history_empty_title">Ei historiaa vielä</string>
+    <string name="history_empty_hint">Vinkki: Avaa tai jaa musiikkilinkki nähdäksesi sen täällä.</string>
 </resources>

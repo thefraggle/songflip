@@ -286,4 +286,6 @@
     <string name="offline_waiting_subtitle">সংযোগ ফিরে এলে SongFlip স্বয়ংক্রিয়ভাবে পুনর্নির্দেশ করবে।</string>
     <string name="offline_waiting_retry">এখন পুনরায় চেষ্টা করুন</string>
     <string name="offline_waiting_cancel">বাতিল করুন</string>
+    <string name="history_empty_title">কোনো ইতিহাস নেই</string>
+    <string name="history_empty_hint">পরামর্শ: এখানে দেখতে একটি সঙ্গীত লিঙ্ক খুলুন বা শেয়ার করুন।</string>
 </resources>

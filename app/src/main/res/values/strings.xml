@@ -311,4 +311,6 @@
     <string name="offline_waiting_subtitle">SongFlip will redirect automatically once the connection is restored.</string>
     <string name="offline_waiting_retry">Retry now</string>
     <string name="offline_waiting_cancel">Cancel</string>
+    <string name="history_empty_title">No history yet</string>
+    <string name="history_empty_hint">Tip: Open or share a music link to see it here.</string>
 </resources>

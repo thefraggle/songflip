@@ -272,4 +272,6 @@
     <string name="offline_waiting_subtitle">Το SongFlip θα ανακατευθύνει αυτόματα μόλις αποκατασταθεί η σύνδεση.</string>
     <string name="offline_waiting_retry">Δοκιμάστε ξανά</string>
     <string name="offline_waiting_cancel">Ακύρωση</string>
+    <string name="history_empty_title">Δεν υπάρχει ιστορικό ακόμα</string>
+    <string name="history_empty_hint">Συμβουλή: Ανοίξτε ή μοιραστείτε έναν σύνδεσμο μουσικής για να εμφανιστεί εδώ.</string>
 </resources>

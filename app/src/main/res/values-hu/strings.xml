@@ -272,4 +272,6 @@
     <string name="offline_waiting_subtitle">A SongFlip automatikusan átirányít, amint a kapcsolat helyreáll.</string>
     <string name="offline_waiting_retry">Újrapróbálkozás</string>
     <string name="offline_waiting_cancel">Mégse</string>
+    <string name="history_empty_title">Még nincsenek előzmények</string>
+    <string name="history_empty_hint">Tipp: Nyiss meg vagy ossz meg egy zenei linket, hogy itt lásd.</string>
 </resources>

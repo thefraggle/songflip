@@ -286,4 +286,6 @@
     <string name="offline_waiting_subtitle">कनेक्शन पूर्ववत होताच SongFlip स्वयंचलितपणे पुनर्निर्देशित करेल.</string>
     <string name="offline_waiting_retry">पुन्हा प्रयत्न करा</string>
     <string name="offline_waiting_cancel">रद्द करा</string>
+    <string name="history_empty_title">अद्याप इतिहास नाही</string>
+    <string name="history_empty_hint">टीप: येथे पाहण्यासाठी संगीत लिंक उघडा किंवा शेअर करा.</string>
 </resources>

@@ -276,4 +276,6 @@
     <string name="offline_waiting_subtitle">SongFlip va redirecționa automat de îndată ce conexiunea este restabilită.</string>
     <string name="offline_waiting_retry">Reîncearcă acum</string>
     <string name="offline_waiting_cancel">Anulează</string>
+    <string name="history_empty_title">Niciun istoric încă</string>
+    <string name="history_empty_hint">Sfat: Deschide sau distribuie un link muzical pentru a-l vedea aici.</string>
 </resources>

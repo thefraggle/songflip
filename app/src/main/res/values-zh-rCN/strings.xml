@@ -282,4 +282,6 @@
     <string name="offline_waiting_subtitle">网络恢复后，SongFlip 将自动重定向。</string>
     <string name="offline_waiting_retry">重试</string>
     <string name="offline_waiting_cancel">取消</string>
+    <string name="history_empty_title">暂无转换记录</string>
+    <string name="history_empty_hint">提示：打开或分享音乐链接后即可在此查看。</string>
 </resources>

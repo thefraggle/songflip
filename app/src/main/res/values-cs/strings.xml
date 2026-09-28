@@ -276,4 +276,6 @@
     <string name="offline_waiting_subtitle">SongFlip automaticky přesměruje, jakmile se obnoví připojení.</string>
     <string name="offline_waiting_retry">Zkusit znovu</string>
     <string name="offline_waiting_cancel">Zrušit</string>
+    <string name="history_empty_title">Zatím žádná historie</string>
+    <string name="history_empty_hint">Tip: Otevřete nebo sdílejte hudební odkaz, aby se zde zobrazil.</string>
 </resources>

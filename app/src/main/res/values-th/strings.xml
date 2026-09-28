@@ -268,4 +268,6 @@
     <string name="offline_waiting_subtitle">SongFlip จะเปลี่ยนเส้นทางโดยอัตโนมัติทันทีที่การเชื่อมต่อกลับมา</string>
     <string name="offline_waiting_retry">ลองอีกครั้ง</string>
     <string name="offline_waiting_cancel">ยกเลิก</string>
+    <string name="history_empty_title">ยังไม่มีประวัติ</string>
+    <string name="history_empty_hint">เคล็ดลับ: เปิดหรือแชร์ลิงก์เพลงเพื่อดูที่นี่</string>
 </resources>

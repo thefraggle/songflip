@@ -286,4 +286,6 @@
     <string name="offline_waiting_subtitle">Bağlantı geri geldiğinde SongFlip otomatik olarak yönlendirecektir.</string>
     <string name="offline_waiting_retry">Şimdi yeniden dene</string>
     <string name="offline_waiting_cancel">İptal</string>
+    <string name="history_empty_title">Henüz geçmiş yok</string>
+    <string name="history_empty_hint">İpucu: Burada görmek için bir müzik bağlantısı açın veya paylaşın.</string>
 </resources>

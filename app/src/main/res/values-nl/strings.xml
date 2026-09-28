@@ -286,4 +286,6 @@
     <string name="offline_waiting_subtitle">SongFlip stuurt automatisch door zodra de verbinding is hersteld.</string>
     <string name="offline_waiting_retry">Nu opnieuw proberen</string>
     <string name="offline_waiting_cancel">Annuleren</string>
+    <string name="history_empty_title">Nog geen geschiedenis</string>
+    <string name="history_empty_hint">Tip: Open of deel een muzieklink om deze hier te zien.</string>
 </resources>

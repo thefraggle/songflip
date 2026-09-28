@@ -286,4 +286,6 @@
     <string name="offline_waiting_subtitle">SongFlip redirigera automatiquement dès que la connexion sera rétablie.</string>
     <string name="offline_waiting_retry">Réessayer</string>
     <string name="offline_waiting_cancel">Annuler</string>
+    <string name="history_empty_title">Aucun historique pour le moment</string>
+    <string name="history_empty_hint">Astuce : Ouvrez ou partagez un lien musical pour le voir ici.</string>
 </resources>
