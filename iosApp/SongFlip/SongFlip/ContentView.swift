@@ -778,32 +778,6 @@ struct ContentView: View {
         }
     }
 
-    private func platformIcon(for key: String) -> String {
-        switch key.lowercased() {
-        case "spotify": return "dot.radiowaves.left.and.right"
-        case "applemusic", "apple": return "music.note"
-        case "youtubemusic", "youtube": return "play.rectangle.fill"
-        case "deezer": return "music.quarternote.3"
-        case "tidal": return "waveform"
-        case "amazonmusic", "amazon": return "cart.fill"
-        case "soundcloud": return "waveform"
-        case "bandcamp": return "opticaldisc"
-        default: return "music.note.list"
-        }
-    }
-
-    private func platformColor(for key: String) -> Color {
-        switch key.lowercased() {
-        case "spotify": return Color(red: 0.11, green: 0.73, blue: 0.33)
-        case "applemusic", "apple": return Color(red: 0.99, green: 0.24, blue: 0.27)
-        case "youtubemusic", "youtube": return Color(red: 1.0, green: 0.0, blue: 0.0)
-        case "deezer": return Color(red: 0.64, green: 0.22, blue: 1.0)
-        case "tidal": return Color(red: 0.0, green: 0.9, blue: 0.9)
-        case "amazonmusic", "amazon": return Color(red: 0.15, green: 0.82, blue: 0.85)
-        case "soundcloud": return Color(red: 1.0, green: 0.33, blue: 0.0)
-        case "bandcamp": return Color(red: 0.11, green: 0.63, blue: 0.76)
-        default: return .green
-        }
     }
 }
 
