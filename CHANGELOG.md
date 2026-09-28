@@ -1,9 +1,9 @@
 # Changelog
 
 ## [1.5.1] - 2026-09-28
-- **Cover Artwork in Song History**: History entries now showcase beautiful song & album artwork thumbnails with an intuitive play indicator.
-- **Streamlined History Design**: Redesigned history items with dedicated one-tap FlipPage sharing, copy options for both target and original links, and an uncluttered overflow menu.
-- **Shared Multiplatform Cache**: Synchronized artwork metadata resolution across Android and iOS with zero memory bloat.
+- **Cover Artwork in History**: Your history now displays song and album artwork with an instant play button.
+- **Streamlined History**: Redesigned entries with easy one-tap sharing and quick link copying.
+- **Instant Loading**: Cover artwork and track details load smoothly and without delay.
 
 ## [1.5.0] - 2026-09-26
 - **Playlist Conversion & Sharing**: Convert entire playlists, open them directly in your preferred music player, or share them via web links.

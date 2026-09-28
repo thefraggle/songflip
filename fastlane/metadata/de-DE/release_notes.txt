@@ -1,4 +1,3 @@
-- Direkte Playlist-Wiedergabe: Der große Abspielen-Button auf geteilten Playlists startet ab sofort zuverlässig direkt in deiner bevorzugten Musik-App, ganz ohne störende Fehlerseiten oder Unterbrechungen.
-- Schnellere Ladezeiten beim Teilen: Geteilte Song- und Playlist-Links öffnen sich spürbar schneller, wenn du Musik mit Freunden oder in Social Media teilst.
-- Präzisere Musik-Erkennung: Verbesserte Zuverlässigkeit beim Finden passender Titel und Künstler über alle Musikdienste hinweg.
-- Feinschliff im Alltag: Allgemeine Stabilitätsverbesserungen für eine flüssige und verzögerungsfreie Nutzung.
+- Cover-Bilder im Verlauf: Dein Verlauf zeigt jetzt Album- und Song-Cover mit direktem Play-Button.
+- Aufgeräumter Verlauf: Neu gestaltete Einträge mit 1-Klick-Teilen und schnellem Kopieren von Links.
+- Schnellere Anzeige: Cover und Song-Infos laden sofort und ohne Verzögerung.
