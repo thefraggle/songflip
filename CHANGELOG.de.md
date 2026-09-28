@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.5.1] - 2026-09-28
+- **Cover-Artwork im Verlauf**: Der Song-Verlauf zeigt nun hochauflösende Album- und Track-Cover mit intuitivem Play-Indikator.
+- **Entschlacktes Verlaufs-Design**: Aufgeräumtes 3-Zonen-Layout mit direktem FlipPage-Share (1-Tap), getrennter Kopierfunktion für Ziel- und Originallinks sowie dezentem Aktionsmenü.
+- **Plattformübergreifender Metadaten-Cache**: Optimierte Cover-Auflösung für Android und iOS bei minimalem Speicherbedarf.
+
 ## [1.5.0] - 2026-09-26
 - **Playlists konvertieren & teilen**: Ganze Playlists umwandeln, direkt im eigenen Musik-Player öffnen oder als Web-Link mit Freunden teilen.
 - **Schneller & Zuverlässiger**: Blitzschnelle Link-Erkennung, sofortige Weiterleitung und automatische Wiederholung bei schwachem Netz.

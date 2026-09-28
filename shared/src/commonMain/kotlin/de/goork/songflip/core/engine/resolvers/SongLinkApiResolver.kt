@@ -54,6 +54,7 @@ class SongLinkApiResolver(
                 var title: String? = null
                 var artist: String? = null
                 var isAlbum = false
+                var thumbnailUrl: String? = null
 
                 if (targetEntityId != null) {
                     val entitiesByUniqueId = rootObj["entitiesByUniqueId"]?.jsonObject
@@ -61,6 +62,7 @@ class SongLinkApiResolver(
                     title = entity?.get("title")?.jsonPrimitive?.content
                     artist = entity?.get("artistName")?.jsonPrimitive?.content
                     isAlbum = entity?.get("isAlbum")?.jsonPrimitive?.booleanOrNull ?: false
+                    thumbnailUrl = entity?.get("thumbnailUrl")?.jsonPrimitive?.content
                 }
 
                 if (title == null && rootObj.containsKey("entityUniqueId")) {
@@ -70,6 +72,9 @@ class SongLinkApiResolver(
                         title = entity?.get("title")?.jsonPrimitive?.content
                         artist = entity?.get("artistName")?.jsonPrimitive?.content
                         isAlbum = entity?.get("isAlbum")?.jsonPrimitive?.booleanOrNull ?: false
+                        if (thumbnailUrl == null) {
+                            thumbnailUrl = entity?.get("thumbnailUrl")?.jsonPrimitive?.content
+                        }
                     }
                 }
 
@@ -82,7 +87,8 @@ class SongLinkApiResolver(
                         title = title,
                         artist = artist,
                         isAlbum = isAlbum,
-                        nativeAppUri = nativeUri
+                        nativeAppUri = nativeUri,
+                        thumbnailUrl = thumbnailUrl
                     )
                 }
 

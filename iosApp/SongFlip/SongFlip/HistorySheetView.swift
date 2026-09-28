@@ -1,4 +1,5 @@
 import SwiftUI
+import CryptoKit
 import SongFlipKit
 
 struct HistorySheetView: View {
@@ -71,26 +72,48 @@ struct HistorySheetView: View {
                                     UIApplication.shared.open(url)
                                 }
                             }) {
-                                HStack(spacing: 14) {
-                                    // Platform Icon
-                                    ZStack {
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .fill(platformColor(for: item.targetPlatform).opacity(0.2))
-                                            .frame(width: 44, height: 44)
+                                HStack(spacing: 12) {
+                                    // 1. Cover Artwork (48x48dp) with Play Indicator
+                                    ZStack(alignment: .bottomTrailing) {
+                                        if let thumbStr = item.thumbnailUrl, let thumbUrl = URL(string: thumbStr) {
+                                            AsyncImage(url: thumbUrl) { phase in
+                                                switch phase {
+                                                case .success(let image):
+                                                    image
+                                                        .resizable()
+                                                        .scaledToFill()
+                                                        .frame(width: 48, height: 48)
+                                                        .clipped()
+                                                case .failure, .empty:
+                                                    fallbackCoverView(for: item)
+                                                @unknown default:
+                                                    fallbackCoverView(for: item)
+                                                }
+                                            }
+                                            .frame(width: 48, height: 48)
+                                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                                        } else {
+                                            fallbackCoverView(for: item)
+                                                .frame(width: 48, height: 48)
+                                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                                        }
 
-                                        Image(systemName: platformIcon(for: item.targetPlatform))
-                                            .font(.system(size: 20))
-                                            .foregroundColor(platformColor(for: item.targetPlatform))
+                                        // Subtle Play Indicator Badge
+                                        Image(systemName: "play.circle.fill")
+                                            .font(.system(size: 14))
+                                            .foregroundColor(.white)
+                                            .background(Circle().fill(Color.black.opacity(0.4)).frame(width: 14, height: 14))
+                                            .offset(x: 2, y: 2)
                                     }
 
-                                    // Song & Artist Info
-                                    VStack(alignment: .leading, spacing: 4) {
+                                    // 2. Song & Artist Info
+                                    VStack(alignment: .leading, spacing: 3) {
                                         Text(item.title)
                                             .font(.system(size: 15, weight: .bold))
                                             .foregroundColor(.primary)
                                             .lineLimit(1)
 
-                                        HStack(spacing: 6) {
+                                        HStack(spacing: 4) {
                                             if let artist = item.artist, !artist.isEmpty {
                                                 Text(artist)
                                                     .font(.caption)
@@ -110,9 +133,16 @@ struct HistorySheetView: View {
 
                                     Spacer()
 
-                                    Image(systemName: "arrow.up.forward.app")
-                                        .font(.system(size: 14, weight: .semibold))
-                                        .foregroundColor(.secondary)
+                                    // 3. Share FlipPage Button
+                                    if let shareUrl = universalShareUrl(for: item.sourceUrl) {
+                                        ShareLink(item: shareUrl, message: Text(item.title)) {
+                                            Image(systemName: "square.and.arrow.up")
+                                                .font(.system(size: 15, weight: .semibold))
+                                                .foregroundColor(Color("AccentColor"))
+                                                .frame(width: 32, height: 32)
+                                        }
+                                        .buttonStyle(.borderless)
+                                    }
                                 }
                                 .padding(.vertical, 4)
                             }
@@ -138,6 +168,20 @@ struct HistorySheetView: View {
                             }
                             .contextMenu {
                                 Button {
+                                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                    UIPasteboard.general.string = item.targetUrl
+                                } label: {
+                                    Label(LocalizationManager.string(for: "action_copy", lang: lang), systemImage: "doc.on.doc")
+                                }
+
+                                Button {
+                                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                    UIPasteboard.general.string = item.sourceUrl
+                                } label: {
+                                    Label(LocalizationManager.string(for: "action_copy_source", lang: lang), systemImage: "link")
+                                }
+
+                                Button {
                                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                                     Task {
                                         await refreshLink(for: item)
@@ -146,12 +190,7 @@ struct HistorySheetView: View {
                                     Label(LocalizationManager.string(for: "action_refresh_link", lang: lang), systemImage: "arrow.clockwise")
                                 }
 
-                                Button {
-                                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                                    UIPasteboard.general.string = item.targetUrl
-                                } label: {
-                                    Label(LocalizationManager.string(for: "action_copy", lang: lang), systemImage: "doc.on.doc")
-                                }
+                                Divider()
 
                                 Button(role: .destructive) {
                                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
@@ -213,17 +252,24 @@ struct HistorySheetView: View {
         }
     }
 
-    private func platformColor(for key: String) -> Color {
-        switch key.lowercased() {
-        case "spotify": return Color(red: 0.11, green: 0.73, blue: 0.33)
-        case "applemusic", "apple": return Color(red: 0.99, green: 0.24, blue: 0.27)
-        case "youtubemusic", "youtube": return Color(red: 1.0, green: 0.0, blue: 0.0)
-        case "deezer": return Color(red: 0.64, green: 0.22, blue: 1.0)
-        case "tidal": return Color(red: 0.0, green: 0.9, blue: 0.9)
-        case "amazonmusic", "amazon": return Color(red: 0.15, green: 0.82, blue: 0.85)
-        case "soundcloud": return Color(red: 1.0, green: 0.33, blue: 0.0)
-        case "bandcamp": return Color(red: 0.11, green: 0.63, blue: 0.76)
-        default: return .green
+    @ViewBuilder
+    private func fallbackCoverView(for item: HistoryItem) -> some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 8)
+                .fill(platformColor(for: item.targetPlatform).opacity(0.18))
+                .frame(width: 48, height: 48)
+
+            Image(systemName: item.isAlbum ? "opticaldisc" : platformIcon(for: item.targetPlatform))
+                .font(.system(size: 20))
+                .foregroundColor(platformColor(for: item.targetPlatform))
         }
+    }
+
+    private func universalShareUrl(for sourceUrl: String) -> URL? {
+        let normalized = sourceUrl.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        let digest = SHA256.hash(data: Data(normalized.utf8))
+        let hex = digest.map { String(format: "%02x", $0) }.joined()
+        let shortId = String(hex.prefix(12))
+        return URL(string: "https://songflip.link/s/\(shortId)")
     }
 }

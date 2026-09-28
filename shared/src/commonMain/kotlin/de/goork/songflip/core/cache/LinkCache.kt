@@ -15,7 +15,8 @@ data class CacheEntry(
     val isAlbum: Boolean = false,
     val nativeAppUri: String? = null,
     val timestamp: Long,
-    val isHistory: Boolean = true
+    val isHistory: Boolean = true,
+    val thumbnailUrl: String? = null
 )
 
 data class LinkHistoryItem(
@@ -27,7 +28,8 @@ data class LinkHistoryItem(
     val title: String? = null,
     val artist: String? = null,
     val isAlbum: Boolean = false,
-    val timestamp: Long
+    val timestamp: Long,
+    val thumbnailUrl: String? = null
 )
 
 interface CacheStorage {
@@ -126,7 +128,8 @@ class LinkCache(
             title = entry.title,
             artist = entry.artist,
             isAlbum = entry.isAlbum,
-            nativeAppUri = entry.nativeAppUri
+            nativeAppUri = entry.nativeAppUri,
+            thumbnailUrl = entry.thumbnailUrl
         )
     }
 
@@ -150,7 +153,8 @@ class LinkCache(
             isAlbum = result.isAlbum,
             nativeAppUri = result.nativeAppUri,
             timestamp = currentTimeMs,
-            isHistory = finalIsHistory
+            isHistory = finalIsHistory,
+            thumbnailUrl = result.thumbnailUrl ?: existing?.thumbnailUrl
         )
 
         entries.remove(key)
@@ -222,7 +226,8 @@ class LinkCache(
                         title = entry.title,
                         artist = entry.artist,
                         isAlbum = entry.isAlbum,
-                        timestamp = entry.timestamp
+                        timestamp = entry.timestamp,
+                        thumbnailUrl = entry.thumbnailUrl
                     )
                 )
             }

@@ -241,6 +241,9 @@
     <string name="history_refresh_link">Refresh link</string>
     <string name="history_link_refreshed">Link refreshed successfully!</string>
     <string name="history_link_refreshing">Refreshing link...</string>
+    <string name="history_copy_target">Copy %1$s link</string>
+    <string name="history_copy_source">Copy original %1$s link</string>
+    <string name="action_more_options">More options</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d song flipped successfully!</item>

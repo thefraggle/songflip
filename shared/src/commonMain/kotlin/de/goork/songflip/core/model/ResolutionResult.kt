@@ -6,7 +6,8 @@ import kotlinx.serialization.Serializable
 data class SongMetadata(
     val title: String? = null,
     val artist: String? = null,
-    val isAlbum: Boolean = false
+    val isAlbum: Boolean = false,
+    val thumbnailUrl: String? = null
 )
 
 @Serializable
@@ -18,7 +19,8 @@ sealed class ResolutionResult {
         val title: String? = null,
         val artist: String? = null,
         val isAlbum: Boolean = false,
-        val nativeAppUri: String? = null
+        val nativeAppUri: String? = null,
+        val thumbnailUrl: String? = null
     ) : ResolutionResult()
 
     @Serializable
