@@ -92,12 +92,17 @@ class SongLinkApiResolver(
                     )
                 }
 
-                return ResolutionResult.Error("Target platform URL not found in API response", isUnsupported = false)
+                return ResolutionResult.Error("Target platform URL not found in API response", isUnsupported = false, errorReason = "target_not_found")
             } else {
-                ResolutionResult.Error("API returned ${resp.status.value}", isUnsupported = false)
+                ResolutionResult.Error("API returned ${resp.status.value}", isUnsupported = false, errorReason = "upstream_${resp.status.value}")
             }
         } catch (e: Throwable) {
-            ResolutionResult.Error(e.message ?: "Network error", isUnsupported = false)
+            val errorReason = if (e is io.ktor.client.plugins.HttpRequestTimeoutException || e is kotlinx.coroutines.TimeoutCancellationException) {
+                "timeout"
+            } else {
+                "network_error"
+            }
+            ResolutionResult.Error(e.message ?: "Network error", isUnsupported = false, errorReason = errorReason)
         }
     }
 }

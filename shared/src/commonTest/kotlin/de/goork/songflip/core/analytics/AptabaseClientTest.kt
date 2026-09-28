@@ -51,8 +51,14 @@ class AptabaseClientTest {
         AptabaseClient.trackSettingsOpened()
         AptabaseClient.trackSharePageGenerated("spotify")
         AptabaseClient.trackPromoRedeemedSuccess("FLIP-PRO-2026")
-        AptabaseClient.trackPromoRedeemFailed("BADCODE", "INVALID_CODE")
         AptabaseClient.trackLinkFlipFailed("deezer", "TIMEOUT")
+        AptabaseClient.trackLinkFlipFailed(
+            target = "youtubeMusic",
+            reason = "Could not resolve music link",
+            sourceDomain = "open.spotify.com",
+            sourcePlatform = "spotify",
+            errorReason = "no_match_found"
+        )
         AptabaseClient.trackPodcastIntercepted("spotify")
         AptabaseClient.trackAudiobookIntercepted("spotify")
         AptabaseClient.trackPlaylistRouted("appleMusic")

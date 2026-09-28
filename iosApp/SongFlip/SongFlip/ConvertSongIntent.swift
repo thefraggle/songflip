@@ -118,10 +118,18 @@ struct ConvertSongIntent: AppIntent {
             return .result()
         } else {
             let defaultMsg = LocalizationManager.string(for: "intent_error_failed_to_resolve", lang: LocalizationManager.currentLanguage())
-            let reason = (res as? ResolutionResult.Error)?.message ?? defaultMsg
+            let err = res as? ResolutionResult.Error
+            let reason = err?.message ?? defaultMsg
+            let errorReason = err?.errorReason ?? "no_match_found"
+            let sourceDomain = UrlUtils.shared.extractDomain(url: cleanUrl)
+            let sourcePlatform = UrlUtils.shared.detectPlatform(url: cleanUrl)?.key ?? "unknown"
+
             AptabaseClient.shared.trackLinkFlipFailed(
                 target: targetPlatform,
-                reason: reason
+                reason: reason,
+                sourceDomain: sourceDomain,
+                sourcePlatform: sourcePlatform,
+                errorReason: errorReason
             )
             throw ConvertSongIntentError.conversionFailed(reason)
         }

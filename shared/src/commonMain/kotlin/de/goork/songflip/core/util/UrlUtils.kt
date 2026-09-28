@@ -298,6 +298,17 @@ object UrlUtils {
         }
     }
 
+    fun extractDomain(url: String): String {
+        val clean = url.trim()
+        val afterScheme = when {
+            clean.startsWith("https://", ignoreCase = true) -> clean.substring(8)
+            clean.startsWith("http://", ignoreCase = true) -> clean.substring(7)
+            else -> clean
+        }
+        val host = afterScheme.substringBefore("/").substringBefore("?").substringBefore("#").substringBefore(":").trim().lowercase()
+        return host.ifBlank { "unknown" }
+    }
+
     fun detectPlatform(url: String): MusicPlatform? {
         val lower = url.lowercase()
         return when {
