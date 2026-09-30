@@ -156,6 +156,8 @@ class UrlUtilsTest {
         assertTrue(UrlUtils.isPodcastUrl("https://www.deezer.com/show/123456"))
         assertTrue(UrlUtils.isPodcastUrl("https://www.deezer.com/episode/987654"))
         assertTrue(UrlUtils.isPodcastUrl("https://music.youtube.com/podcast/12345"))
+        assertTrue(UrlUtils.isPodcastUrl("https://pca.st/episode/12345"))
+        assertTrue(UrlUtils.isPodcastUrl("https://pca.st/12345"))
 
         assertTrue(UrlUtils.isAudiobookUrl("https://open.spotify.com/audiobook/74G4N4aA6f1GqWwZpW2J8D"))
         assertTrue(UrlUtils.isAudiobookUrl("spotify:audiobook:74G4N4aA6f1GqWwZpW2J8D"))
@@ -375,6 +377,27 @@ class UrlUtilsTest {
             "https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv",
             UrlUtils.toWebFallbackUrl("https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv", "spotify")
         )
+    }
+
+    @Test
+    fun testPodcastUrlBuilders() {
+        val searchUrl = UrlUtils.buildPodcastSearchUrl("Huberman Lab Strength", "spotify")
+        assertEquals("https://open.spotify.com/search/Huberman%20Lab%20Strength", searchUrl)
+
+        val appleSearch = UrlUtils.buildPodcastSearchUrl("Huberman Lab Strength", "appleMusic")
+        assertEquals("https://podcasts.apple.com/search?term=Huberman%20Lab%20Strength", appleSearch)
+
+        val pocketCastsSearch = UrlUtils.buildPodcastSearchUrl("Huberman Lab", "pocketCasts")
+        assertEquals("https://play.pocketcasts.com/podcasts/search?q=Huberman%20Lab", pocketCastsSearch)
+
+        val spotifyNative = UrlUtils.toPodcastNativeAppUri("spotify", "Huberman Lab")
+        assertEquals("spotify:search:Huberman%20Lab", spotifyNative)
+
+        val appleNative = UrlUtils.toPodcastNativeAppUri("applePodcasts", "Huberman Lab")
+        assertEquals("podcast://podcasts.apple.com/search?term=Huberman%20Lab", appleNative)
+
+        val pcNative = UrlUtils.toPodcastNativeAppUri("pocketCasts", "Huberman Lab")
+        assertEquals("pocketcasts://search?q=Huberman%20Lab", pcNative)
     }
 }
 

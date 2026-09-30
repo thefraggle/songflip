@@ -89,6 +89,17 @@ struct ConvertSongIntent: AppIntent {
             }
 
             return .result()
+        } else if let podcast = res as? ResolutionResult.Podcast {
+            AptabaseClient.shared.trackPodcastFlipped(
+                source: UrlUtils.shared.detectPlatform(url: urlToConvert)?.key ?? "unknown",
+                target: targetPlatform,
+                isDeepSearch: podcast.isDeepSearch
+            )
+            let target = podcast.nativeAppUri ?? podcast.targetUrl
+            if let url = URL(string: target) {
+                await UIApplication.shared.open(url)
+            }
+            return .result()
         } else if let playlist = res as? ResolutionResult.Playlist {
             AptabaseClient.shared.trackPlaylistRouted(
                 target: targetPlatform

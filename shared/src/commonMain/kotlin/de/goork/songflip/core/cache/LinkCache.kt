@@ -168,6 +168,41 @@ class LinkCache(
         }
     }
 
+    suspend fun putPodcast(
+        canonicalUrl: String,
+        targetPlatformKey: String,
+        result: ResolutionResult.Podcast,
+        currentTimeMs: Long = getCurrentTimeMillis(),
+        isHistory: Boolean = true
+    ) = mutex.withLock {
+        ensureLoaded(currentTimeMs)
+        val key = buildKey(canonicalUrl, targetPlatformKey)
+        val existing = entries[key] ?: storage.get(key)
+        val finalIsHistory = (existing?.isHistory == true) || isHistory
+
+        val entry = CacheEntry(
+            targetUrl = result.targetUrl,
+            platform = result.platform,
+            title = result.episodeTitle ?: result.showTitle,
+            artist = if (result.episodeTitle != null) result.showTitle else null,
+            isAlbum = false,
+            nativeAppUri = result.nativeAppUri,
+            timestamp = currentTimeMs,
+            isHistory = finalIsHistory,
+            thumbnailUrl = result.thumbnailUrl ?: existing?.thumbnailUrl
+        )
+
+        entries.remove(key)
+        entries[key] = entry
+        storage.put(key, entry)
+
+        while (entries.size > maxEntries) {
+            val oldestKey = entries.keys.firstOrNull() ?: break
+            entries.remove(oldestKey)
+            storage.remove(oldestKey)
+        }
+    }
+
     suspend fun markAsHistory(canonicalUrl: String, targetPlatformKey: String, currentTimeMs: Long = getCurrentTimeMillis()) = mutex.withLock {
         ensureLoaded(currentTimeMs)
         val key = buildKey(canonicalUrl, targetPlatformKey)

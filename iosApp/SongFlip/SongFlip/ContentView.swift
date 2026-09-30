@@ -716,6 +716,18 @@ struct ContentView: View {
                     if let url = URL(string: target) {
                         UIApplication.shared.open(url)
                     }
+                } else if let podcast = res as? ResolutionResult.Podcast {
+                    AptabaseClient.shared.trackPodcastFlipped(
+                        source: UrlUtils.shared.detectPlatform(url: urlToConvert)?.key ?? "unknown",
+                        target: settings.targetPlatform,
+                        isDeepSearch: podcast.isDeepSearch
+                    )
+                    let target = podcast.nativeAppUri ?? podcast.targetUrl
+                    if let url = URL(string: target) {
+                        UIApplication.shared.open(url)
+                    }
+                    dismissedClipboardUrl = urlToConvert
+                    detectedClipboardUrl = nil
                 } else if let playlist = res as? ResolutionResult.Playlist {
                     AptabaseClient.shared.trackPlaylistRouted(
                         target: settings.targetPlatform

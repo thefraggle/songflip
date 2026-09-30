@@ -31,6 +31,20 @@ sealed class ResolutionResult {
     ) : ResolutionResult()
 
     @Serializable
+    data class Podcast(
+        val originalUrl: String,
+        val targetUrl: String,
+        val platform: String,
+        val showTitle: String? = null,
+        val episodeTitle: String? = null,
+        val nativeAppUri: String? = null,
+        val thumbnailUrl: String? = null,
+        val isEpisode: Boolean = true,
+        val isDeepSearch: Boolean = true,
+        val message: String? = null
+    ) : ResolutionResult()
+
+    @Serializable
     data class PodcastOrAudiobook(
         val originalUrl: String,
         val platform: String,
