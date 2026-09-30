@@ -60,7 +60,7 @@ object PromoBannerManager {
     }
 
     fun fetchPromoBanner(
-        endpointUrl: String = "https://songflip.link/api/promo-banner",
+        endpointUrl: String = "https://songflip-web.web.app/api/promo-banner",
         currentTimeMs: Long = 0L,
         forceRefresh: Boolean = false
     ) {
@@ -70,7 +70,7 @@ object PromoBannerManager {
     }
 
     suspend fun fetchPromoBannerDirect(
-        endpointUrl: String = "https://songflip.link/api/promo-banner",
+        endpointUrl: String = "https://songflip-web.web.app/api/promo-banner",
         currentTimeMs: Long = 0L,
         forceRefresh: Boolean = false
     ): PromoBannerConfig? {
