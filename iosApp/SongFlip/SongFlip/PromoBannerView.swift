@@ -2,16 +2,24 @@ import SwiftUI
 import SongFlipKit
 
 struct PromoBannerView: View {
+    @Environment(\.colorScheme) var colorScheme
     let config: PromoBannerConfig
     let lang: String
     let onAction: () -> Void
     let onDismiss: () -> Void
+
+    var isDark: Boolean {
+        colorScheme == .dark
+    }
 
     var body: some View {
         let badge = config.getLocalizedBadge(locale: lang)
         let title = config.getLocalizedTitle(locale: lang)
         let subtitle = config.getLocalizedSubtitle(locale: lang)
         let buttonText = config.getLocalizedButtonText(locale: lang)
+
+        let goldPrimary = Color(red: 0.96, green: 0.62, blue: 0.04) // #F59E0B
+        let goldDark = Color(red: 0.85, green: 0.47, blue: 0.02)    // #D97706
 
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .center) {
@@ -23,7 +31,7 @@ struct PromoBannerView: View {
                         .padding(.vertical, 3)
                         .background(
                             LinearGradient(
-                                colors: [Color(red: 0.06, green: 0.73, blue: 0.51), Color(red: 0.02, green: 0.59, blue: 0.41)],
+                                colors: [goldPrimary, goldDark],
                                 startPoint: .leading,
                                 endPoint: .trailing
                             )
@@ -31,8 +39,8 @@ struct PromoBannerView: View {
                         .cornerRadius(6)
                 }
 
-                Image(systemName: "tag.fill")
-                    .foregroundColor(Color(red: 0.06, green: 0.73, blue: 0.51))
+                Image(systemName: "sparkles")
+                    .foregroundColor(goldPrimary)
                     .font(.system(size: 13))
 
                 Spacer()
@@ -51,12 +59,12 @@ struct PromoBannerView: View {
             Text(title)
                 .font(.subheadline)
                 .fontWeight(.bold)
-                .foregroundColor(.white)
+                .foregroundColor(isDark ? .white : Color(red: 0.06, green: 0.09, blue: 0.16))
 
             if !subtitle.isEmpty {
                 Text(subtitle)
                     .font(.caption)
-                    .foregroundColor(Color.secondary)
+                    .foregroundColor(isDark ? Color.secondary : Color(red: 0.28, green: 0.33, blue: 0.41))
                     .lineLimit(2)
             }
 
@@ -73,20 +81,32 @@ struct PromoBannerView: View {
                         Image(systemName: "arrow.right")
                             .font(.system(size: 11, weight: .bold))
                     }
-                    .foregroundColor(.black)
+                    .foregroundColor(isDark ? Color(red: 0.11, green: 0.10, blue: 0.09) : .white)
                     .padding(.horizontal, 14)
                     .padding(.vertical, 7)
-                    .background(Color(red: 0.06, green: 0.73, blue: 0.51))
+                    .background(isDark ? goldPrimary : goldDark)
                     .cornerRadius(8)
                 }
             }
         }
         .padding(14)
-        .background(Color(red: 0.05, green: 0.11, blue: 0.09))
+        .background(
+            isDark
+                ? LinearGradient(
+                    colors: [Color(red: 0.13, green: 0.10, blue: 0.06), Color(red: 0.08, green: 0.10, blue: 0.14)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                : LinearGradient(
+                    colors: [Color(red: 1.0, green: 0.98, blue: 0.92), Color(red: 0.99, green: 0.95, blue: 0.78)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+        )
         .cornerRadius(16)
         .overlay(
             RoundedRectangle(cornerRadius: 16)
-                .stroke(Color(red: 0.06, green: 0.73, blue: 0.51).opacity(0.3), lineWidth: 1)
+                .stroke(goldPrimary.opacity(isDark ? 0.35 : 0.45), lineWidth: 1)
         )
     }
 }
