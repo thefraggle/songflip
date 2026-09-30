@@ -303,16 +303,20 @@ class SongLinkEngine(
                 )
             }
 
-            // Podcast & Audiobook links cannot be converted 1:1 in background
-            if (UrlUtils.isPodcastOrAudiobookUrl(canonicalUrl)) {
+            // Audiobook links cannot be converted due to DRM and platform barriers
+            if (UrlUtils.isAudiobookUrl(canonicalUrl)) {
                 val platformKey = UrlUtils.detectPlatform(canonicalUrl)?.key ?: "unknown"
-                val isAudiobook = UrlUtils.isAudiobookUrl(canonicalUrl)
                 return ResolutionResult.PodcastOrAudiobook(
                     originalUrl = canonicalUrl,
                     platform = platformKey,
-                    isAudiobook = isAudiobook,
-                    message = if (isAudiobook) "AUDIOBOOK_NOT_SUPPORTED" else "PODCAST_NOT_SUPPORTED"
+                    isAudiobook = true,
+                    message = "AUDIOBOOK_NOT_SUPPORTED"
                 )
+            }
+
+            // Dynamic Podcast Resolution (Issue #31)
+            if (UrlUtils.isPodcastUrl(canonicalUrl)) {
+                return resolvePodcast(canonicalUrl, targetPlatformKey, isPrefetch, forceRefresh)
             }
 
             // Social & Session links (Spotify Blend, Jam, Live, User profile) cannot be converted 1:1
@@ -981,6 +985,108 @@ class SongLinkEngine(
             null
         } catch (_: Exception) {
             null
+        }
+    }
+
+    suspend fun resolvePodcast(
+        canonicalUrl: String,
+        targetPlatformKey: String,
+        isPrefetch: Boolean = false,
+        forceRefresh: Boolean = false
+    ): ResolutionResult.Podcast {
+        val now = getCurrentTimeMillis()
+        if (!forceRefresh) {
+            val cached = cache.get(canonicalUrl, targetPlatformKey, now)
+            if (cached is ResolutionResult.Podcast) {
+                if (!isPrefetch) {
+                    cache.markAsHistory(canonicalUrl, targetPlatformKey, now)
+                }
+                return cached
+            }
+        }
+
+        // 1. Try Backend /resolve for high-accuracy metadata & direct links
+        val encodedUrl = canonicalUrl.encodeURLParameter()
+        val refreshParam = if (forceRefresh) "&force_refresh=true" else ""
+        val endpoints = listOf(
+            "https://cache.songflip.link/resolve?url=$encodedUrl&platform=$targetPlatformKey$refreshParam",
+            "https://songflip-web.web.app/resolve?url=$encodedUrl&platform=$targetPlatformKey$refreshParam"
+        )
+
+        for (endpoint in endpoints) {
+            try {
+                val resp = client.get(endpoint) {
+                    header("Accept", "application/json")
+                }
+                if (resp.status.isSuccess()) {
+                    val body = resp.bodyAsText()
+                    val root = json.parseToJsonElement(body).jsonObject
+                    if (root["status"]?.jsonPrimitive?.content == "success" && (root["isPodcast"]?.jsonPrimitive?.booleanOrNull == true || root["entityType"]?.jsonPrimitive?.content == "podcast")) {
+                        val item = root["item"]?.jsonObject
+                        if (item != null) {
+                            val showTitle = item["showTitle"]?.jsonPrimitive?.content?.ifBlank { null } ?: "Podcast"
+                            val episodeTitle = item["episodeTitle"]?.jsonPrimitive?.content?.ifBlank { null }
+                            val thumbnailUrl = item["thumbnailUrl"]?.jsonPrimitive?.content?.ifBlank { null }
+                            val isEpisode = item["isEpisode"]?.jsonPrimitive?.booleanOrNull ?: true
+                            val queryText = episodeTitle?.let { "$showTitle $it" } ?: showTitle
+                            val targetUrl = item["targetUrl"]?.jsonPrimitive?.content
+                                ?: UrlUtils.buildPodcastSearchUrl(queryText, targetPlatformKey)
+                            val nativeAppUri = item["nativeAppUri"]?.jsonPrimitive?.content
+                                ?: UrlUtils.toPodcastNativeAppUri(targetPlatformKey, queryText)
+
+                            val result = ResolutionResult.Podcast(
+                                originalUrl = canonicalUrl,
+                                targetUrl = targetUrl,
+                                platform = targetPlatformKey,
+                                showTitle = showTitle,
+                                episodeTitle = episodeTitle,
+                                nativeAppUri = nativeAppUri,
+                                thumbnailUrl = thumbnailUrl,
+                                isEpisode = isEpisode,
+                                isDeepSearch = true
+                            )
+                            cache.putPodcast(canonicalUrl, targetPlatformKey, result, now, isHistory = !isPrefetch)
+                            return result
+                        }
+                    }
+                }
+            } catch (_: Exception) {}
+        }
+
+        // 2. Offline Fallback: Extract Show / Episode slug and generate Deep-Search Intent
+        val fallbackQuery = extractPodcastFallbackQuery(canonicalUrl)
+        val targetUrl = UrlUtils.buildPodcastSearchUrl(fallbackQuery, targetPlatformKey)
+        val nativeUri = UrlUtils.toPodcastNativeAppUri(targetPlatformKey, fallbackQuery)
+        val fallbackResult = ResolutionResult.Podcast(
+            originalUrl = canonicalUrl,
+            targetUrl = targetUrl,
+            platform = targetPlatformKey,
+            showTitle = fallbackQuery,
+            episodeTitle = null,
+            nativeAppUri = nativeUri,
+            thumbnailUrl = null,
+            isEpisode = false,
+            isDeepSearch = true
+        )
+        cache.putPodcast(canonicalUrl, targetPlatformKey, fallbackResult, now, isHistory = !isPrefetch)
+        return fallbackResult
+    }
+
+    private fun extractPodcastFallbackQuery(url: String): String {
+        return try {
+            val clean = url.substringBefore("?").substringBefore("#").trimEnd('/')
+            val slug = clean.substringAfterLast("/")
+                .replace("-", " ")
+                .replace("_", " ")
+                .replace(Regex("""\bid\d+\b""", RegexOption.IGNORE_CASE), "")
+                .trim()
+            if (slug.isNotBlank() && slug.length > 2 && !slug.all { it.isDigit() }) {
+                slug
+            } else {
+                "Podcast"
+            }
+        } catch (_: Exception) {
+            "Podcast"
         }
     }
 }

@@ -242,6 +242,7 @@ object UrlUtils {
                 clean.contains("podcasts.apple.com") ||
                 clean.contains("podcasts.google.com") ||
                 clean.contains("pocketcasts.com") ||
+                clean.contains("pca.st") ||
                 clean.contains("castbox.fm") ||
                 clean.contains("overcast.fm") ||
                 clean.startsWith("spotify:episode:") ||
@@ -518,6 +519,30 @@ object UrlUtils {
             "soundcloud" -> "https://soundcloud.com/search?q=$query"
             "bandcamp" -> "https://bandcamp.com/search?q=$query"
             else -> "https://music.youtube.com/search?q=$query"
+        }
+    }
+
+    fun buildPodcastSearchUrl(queryText: String, targetPlatformKey: String): String {
+        val query = queryText.encodeURLParameter()
+        return when (targetPlatformKey) {
+            "spotify" -> "https://open.spotify.com/search/$query"
+            "appleMusic", "applePodcasts" -> "https://podcasts.apple.com/search?term=$query"
+            "youtubeMusic" -> "https://music.youtube.com/search?q=$query"
+            "pocketCasts" -> "https://play.pocketcasts.com/podcasts/search?q=$query"
+            "amazonMusic" -> "https://music.amazon.com/search/$query"
+            "deezer" -> "https://www.deezer.com/search/$query"
+            else -> "https://open.spotify.com/search/$query"
+        }
+    }
+
+    fun toPodcastNativeAppUri(targetPlatformKey: String, queryText: String): String? {
+        val query = queryText.encodeURLParameter()
+        return when (targetPlatformKey) {
+            "spotify" -> if (query.isNotBlank()) "spotify:search:$query" else "spotify:"
+            "appleMusic", "applePodcasts" -> if (query.isNotBlank()) "podcast://podcasts.apple.com/search?term=$query" else "podcast://"
+            "pocketCasts" -> if (query.isNotBlank()) "pocketcasts://search?q=$query" else "pocketcasts://"
+            "youtubeMusic" -> if (query.isNotBlank()) "https://music.youtube.com/search?q=$query" else null
+            else -> null
         }
     }
 

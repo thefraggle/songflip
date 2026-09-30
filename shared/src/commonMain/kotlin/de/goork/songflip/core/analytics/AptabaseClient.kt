@@ -204,6 +204,18 @@ object AptabaseClient {
         trackEvent("link_flip_failed", params)
     }
 
+    fun trackPodcastFlipped(source: String, target: String, isDeepSearch: Boolean = true) {
+        trackEvent(
+            "podcast_flipped",
+            mapOf(
+                "source" to source,
+                "target" to target,
+                "migration" to "$source -> $target",
+                "is_deep_search" to isDeepSearch.toString()
+            )
+        )
+    }
+
     fun trackPodcastIntercepted(target: String) {
         trackEvent("podcast_intercepted", mapOf("target" to target))
     }

@@ -7,7 +7,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
-val appVersionName = "1.5.4"
+val appVersionName = "1.6.0"
 val computedVersionCode = run {
     val cleanVersion = appVersionName.substringBefore("-").substringBefore("+")
     val parts = cleanVersion.split(".").mapNotNull { it.toIntOrNull() }
@@ -129,7 +129,7 @@ dependencies {
     // Networking
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
-    implementation("org.json:json:20231013")
+    implementation("org.json:json:20260719")
 
     // In-App Purchases & Billing (RevenueCat - Google Play Billing Library 8+)
     implementation("com.revenuecat.purchases:purchases:10.16.2")

@@ -407,6 +407,39 @@ class RedirectActivity : ComponentActivity() {
                     startActivity(mainIntent)
                     finish()
                     suppressTransitionAnimation()
+                } else if (result is ResolutionResult.Podcast) {
+                    val targetDisplayName = PackageUtils.getPlatformDisplayName(targetPlatform)
+                    val feedbackText = when {
+                        !result.showTitle.isNullOrBlank() && !result.episodeTitle.isNullOrBlank() -> {
+                            "🎙️ ${result.showTitle} – ${result.episodeTitle} ➔ $targetDisplayName"
+                        }
+                        !result.showTitle.isNullOrBlank() -> {
+                            "🎙️ ${result.showTitle} ➔ $targetDisplayName"
+                        }
+                        else -> {
+                            "🎙️ ➔ $targetDisplayName"
+                        }
+                    }
+
+                    settingsRepository.incrementSuccessfulFlips()
+                    SongLinkEngine.shared.cache.markAsHistory(incomingUrl, targetPlatform)
+
+                    val sourcePlatformKey = UrlUtils.detectPlatform(incomingUrl)?.key ?: "unknown"
+                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackPodcastFlipped(
+                        source = sourcePlatformKey,
+                        target = targetPlatform,
+                        isDeepSearch = result.isDeepSearch
+                    )
+
+                    Toast.makeText(
+                        applicationContext,
+                        feedbackText,
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    openTargetUrl(result.targetUrl, targetPlatform)
+                    finish()
+                    suppressTransitionAnimation()
                 } else if (result is ResolutionResult.PodcastOrAudiobook) {
                     if (result.isAudiobook) {
                         de.goork.songflip.core.analytics.AptabaseClient.shared.trackAudiobookIntercepted(targetPlatform)
