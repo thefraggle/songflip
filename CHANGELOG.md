@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.5.4] - 2026-09-30
+- **Refined Campaign Banners**: Polished visual design with warm adaptive accents for special events.
+- **Reliable Link Conversions**: Faster, uninterrupted redirects across all music services.
+- **Everyday Polish & Stability**: Visual adjustments and stability enhancements for everyday use.
+
 ## [1.5.3] - 2026-09-30
 - **Seasonal Specials & Announcements**: Support for timely community events and special offers in your language.
 - **Enhanced Link Handling**: Smoother and faster redirect experience across all supported music services.
