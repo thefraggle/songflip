@@ -1,42 +1,48 @@
-朋友在 Spotify 上與您分享了一首歌，但您平時使用的是 YouTube Music、Apple Music 或 Deezer？
+朋友在 Spotify 上傳了一首歌曲或 Podcast，但您使用的是 YouTube Music、Apple Podcasts 或 Deezer？
 
-SongFlip 是專為 Android 打造的無感音樂連結轉換神器。只需一次設定，接收到的音樂連結將在後台自動轉換，並直接在您偏好的音樂播放器中開啟播放，無需手動搜尋，告別繁瑣的中轉網頁。
+SongFlip 是專為 Android 設計的智慧音樂與 Podcast 連結轉換工具。設定完成後，收到的音訊連結將在背景自動轉換並直接在您偏好的播放器中播放——免手動搜尋、無廣告打擾、告別中轉頁面。
 
-無論是 Spotify 轉 YouTube Music、Spotify 轉 Apple Music，還是 Shazam 辨識連結，SongFlip 都能作為您的通用智慧連結轉換器秒級處理。
+無論是 Spotify 轉 YouTube Music、Apple Podcasts 轉 Spotify，還是 Shazam 辨識的歌曲，SongFlip 都能以全能智慧連結轉換器瞬間為您處理。
 
-🚀 核心功能：
+🚀 主要功能：
 
-• 8大音樂平台與 Shazam 支援：
-在 Spotify、YouTube Music、Apple Music、Deezer、TIDAL、Amazon Music、SoundCloud 和 Bandcamp 之間無縫轉換。現已全新支援 Shazam 歌曲連結！
+• 10 大串流與 Podcast 平台 & Shazam：
+在 Spotify、YouTube Music、Apple Music、Apple Podcasts、Pocket Casts、Deezer、TIDAL、Amazon Music、SoundCloud 與 Bandcamp 之間無縫轉換。現已支援 Shazam 分享連結！
 
-• 即刻播放 (Instant Playback)：
-直接在目標播放器中開始播放，避免停留在空白的搜尋結果頁面。
+• Podcast 轉換引擎：
+跨平台分享 Podcast 節目與單集。SongFlip 會自動解析單集標題，並在您喜愛的 Podcast 應用程式中直接播放。
 
-• 完整專輯與播放清單支援：
-精準辨識整張專輯並開啟完整曲目清單，智慧辨識共享播放清單 — 專為分享音樂打造的智慧歌單轉換工具。
+• 全能播放清單轉換器：
+透過極速多層快取，在 Spotify、Apple Music 與 YouTube Music 之間逐首轉換完整歌單。
+
+• 即時播放 (Instant Playback)：
+直接在目標播放器中播放歌曲或單集，無需停留在搜尋結果頁。
 
 • 快速播放器選擇器（每次詢問）：
-使用多個音樂應用程式？開啟快速選擇器，每次開啟音樂連結時均可隨心挑選目標播放器。
+使用多個音訊應用程式？啟用快速選擇器，在每次開啟連結時自由選擇目標播放器。
 
-• 智慧設定精靈 (Android 12+)：
-內建互動式設定助手，一鍵解決預設應用程式連結衝突，確保順暢跳轉。
+• 智慧設定小幫手 (Android 12+)：
+一鍵式互動設定，輕鬆配置預設應用程式連結。
 
-• 剪貼簿智慧橫幅與系統分享選單：
-複製音樂連結即可在儀表板一鍵開啟，或從通訊軟體、Instagram 直接分享至 SongFlip 轉換。
+• 剪貼簿智慧橫幅與分享選單：
+複製連結後即可透過橫幅一鍵啟動，或從 LINE、WhatsApp、Telegram、Instagram 分享至 SongFlip。
 
-• 通用網頁智慧連結 (Smart Links)：
-一鍵產生中立的網頁分享連結 (songflip.link)，讓您的好友在任何設備或平台都能輕鬆收聽。
+• 通用網頁智慧連結與網頁播放器 (songflip.link)：
+產生內建播放器的中立連結，讓朋友在任何裝置上都能直接收聽。
 
-• 快捷設定磁貼與桌面捷徑：
-可透過下拉快捷設定磁貼，靈活暫停自動跳轉 15 分鐘、1 小時或直至明晨。
+• 快速設定圖塊與捷徑：
+透過通知列快速設定將重定向暫停 15 分鐘、1 小時或至隔天早晨。
 
-• Material You 動態主題與單色圖示：
-完美適配系統色彩（支援 AMOLED 深色模式、淺色模式）及 Android 桌面單色圖示。
+• Material You 設計與主題圖示：
+完美支援 Dynamic Color、AMOLED 深色模式及單色桌面圖示。
 
-🔒 隱私至上與開源透明：
-• 100% 開源專案（基於 GitHub GPLv3 協議）
-• 無需註冊帳號，無需登入
-• 永遠完全無廣告
-• 零追蹤，絕不收集或記錄您的聆聽習慣
+• 優惠代碼與兌換券支援：
+直接在應用程式中兌換優惠代碼，解鎖 PRO 高級功能。
 
-相容於 Songlink / Odesli 協議。立即下載 SongFlip，打破串流平台壁壘，自由享受音樂！
+🔒 隱私優先與開源透明：
+• 100% 開源（GitHub GPLv3 授權）
+• 無需註冊、無需登入、無帳號負擔
+• 永久完全無廣告
+• 零數據追蹤，絕不記錄個人聆聽偏好
+
+相容於 Songlink / Odesli 協議。立即下載 SongFlip，跨越平台限制，自在享受音樂與 Podcast！

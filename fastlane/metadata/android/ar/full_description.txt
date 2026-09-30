@@ -1,31 +1,34 @@
-A friend sends you a song on Spotify, but you listen on YouTube Music, Apple Music, or Deezer?
+A friend sends you a song or podcast on Spotify, but you listen on YouTube Music, Apple Podcasts, or Deezer?
 
-SongFlip is your seamless, zero-click music link converter and redirect tool for Android. Once enabled, incoming music links automatically convert in the background and launch directly inside your favorite audio player—no manual searching, no ads, no intermediate browser detours.
+SongFlip is your seamless, zero-click music and podcast link converter and redirect tool for Android. Once enabled, incoming audio links automatically convert in the background and launch directly inside your favorite audio player—no manual searching, no ads, no intermediate browser detours.
 
-Whether switching Spotify to YouTube Music, Spotify to Apple Music, or opening tracks identified with Shazam, SongFlip handles song links instantly as your universal smart link converter.
+Whether switching Spotify to YouTube Music, Apple Podcasts to Pocket Casts, Spotify to Apple Music, or opening tracks identified with Shazam, SongFlip handles audio links instantly as your universal smart link converter.
 
 🚀 KEY FEATURES:
 
-• Universal 8-Platform Redirection & Shazam:
-Seamlessly converts tracks and albums across Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud, and Bandcamp. Newly added: instant resolution for shared Shazam links!
+• 10 Streaming Platforms, Podcasts & Shazam:
+Seamlessly converts music and podcasts across Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud, and Bandcamp. Includes instant resolution for shared Shazam links!
 
-• Instant Track Playback:
+• Podcast Converter Engine:
+Share full podcast shows or individual episodes across different platforms. SongFlip resolves episode titles automatically and starts playback right inside your favorite podcast player.
+
+• Universal Playlist Converter:
+Transfer entire playlists track-by-track between Spotify, Apple Music, and YouTube Music—accelerated by our high-speed multi-tier cache.
+
+• Instant Track & Episode Playback:
 Directly triggers playback inside your target player instead of landing on empty search result pages.
 
-• Full Album & Playlist Support:
-Recognizes entire albums and opens the full discography release. Shared playlists are cleanly detected—your go-to playlist converter for shared tracks.
-
 • Quick Player Chooser (Ask Every Time):
-Using multiple streaming apps? Enable the optional quick player chooser to pick your target player on the fly whenever you open a shared song.
+Using multiple audio apps? Enable the optional quick player chooser to pick your target player on the fly whenever you open a shared link.
 
 • Smart Link Assistant (Android 12+):
 Easily verify and configure Android Open by Default App Links with our interactive 1-tap setup assistant.
 
 • Clipboard Smart-Banner & Native Sharing:
-Copied a song link? Launch it instantly via the smart dashboard banner, or share links directly from WhatsApp, Telegram, Reddit, or Instagram into SongFlip.
+Copied a link? Launch it instantly via the smart dashboard banner, or share links directly from WhatsApp, Telegram, Reddit, or Instagram into SongFlip.
 
-• Universal Web Smart Links:
-Generate neutral, universal web-share links (songflip.link) so your friends can listen on whichever streaming platform they prefer.
+• Universal Web Smart Links & HTML5 Player:
+Generate neutral web-share links (songflip.link) featuring an embedded webplayer so friends can listen on any device or browser.
 
 • Quick Settings Tile & App Shortcuts:
 Temporarily pause redirection for 15 minutes, 1 hour, or until tomorrow morning directly from your Android Quick Settings shade or home screen long-press.
@@ -33,10 +36,13 @@ Temporarily pause redirection for 15 minutes, 1 hour, or until tomorrow morning 
 • Material You Dynamic Color & Themed Icon:
 Beautifully follows your system accent colors with full AMOLED dark mode, light mode, and a crisp monochrome Material You home screen icon.
 
+• Promo Code & Voucher Redemption:
+Easily redeem promo codes and vouchers directly in the app to unlock PRO perks and extended history.
+
 🔒 PRIVACY & OPEN SOURCE FIRST:
 • 100% Open Source (GPLv3 licensed on GitHub)
 • No accounts, no sign-ups, no logins required
 • Completely ad-free forever
 • Zero tracking, no data harvesting, no listening habits logged
 
-Compatible with universal protocols including Songlink / Odesli. Download SongFlip now and bridge song links across all streaming services effortlessly!
+Compatible with universal protocols including Songlink / Odesli. Download SongFlip now and bridge music & podcasts across all streaming services effortlessly!

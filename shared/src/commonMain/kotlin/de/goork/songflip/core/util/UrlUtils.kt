@@ -176,6 +176,12 @@ object UrlUtils {
         // Strip YouTube Topic Channel suffix
         cleaned = cleaned.replace(Regex("(?i)\\s*[-–—]\\s*topic$"), "")
 
+        // Replace disruptive punctuation & symbols with spaces (e.g. +, &, #, |, :, quotes)
+        cleaned = cleaned.replace(Regex("""[+&/\\|•~^*#:_"'`]"""), " ")
+
+        // Remove emojis, variation selectors, and miscellaneous decorative symbols
+        cleaned = cleaned.replace(Regex("""[\uD83C-\uDBFF\uDC00-\uDFFF\u2600-\u27BF\uFE00-\uFE0F]"""), " ")
+
         // Clean extra internal spaces
         cleaned = cleaned.replace(Regex("\\s{2,}"), " ").trim()
 
@@ -508,7 +514,8 @@ object UrlUtils {
     }
 
     fun buildSearchUrl(queryText: String, targetPlatformKey: String): String {
-        val query = queryText.encodeURLParameter()
+        val clean = cleanSearchQuery(queryText)
+        val query = clean.encodeURLParameter()
         return when (targetPlatformKey) {
             "youtubeMusic" -> "https://music.youtube.com/search?q=$query"
             "appleMusic" -> "https://music.apple.com/search?term=$query"
@@ -523,7 +530,8 @@ object UrlUtils {
     }
 
     fun buildPodcastSearchUrl(queryText: String, targetPlatformKey: String): String {
-        val query = queryText.encodeURLParameter()
+        val clean = cleanSearchQuery(queryText)
+        val query = clean.encodeURLParameter()
         return when (targetPlatformKey) {
             "spotify" -> "https://open.spotify.com/search/$query"
             "appleMusic", "applePodcasts" -> "https://podcasts.apple.com/search?term=$query"
@@ -536,7 +544,8 @@ object UrlUtils {
     }
 
     fun toPodcastNativeAppUri(targetPlatformKey: String, queryText: String): String? {
-        val query = queryText.encodeURLParameter()
+        val clean = cleanSearchQuery(queryText)
+        val query = clean.encodeURLParameter()
         return when (targetPlatformKey) {
             "spotify" -> if (query.isNotBlank()) "spotify:search:$query" else "spotify:"
             "appleMusic", "applePodcasts" -> if (query.isNotBlank()) "podcast://podcasts.apple.com/search?term=$query" else "podcast://"

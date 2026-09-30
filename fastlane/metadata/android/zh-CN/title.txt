@@ -1,1 +1,1 @@
-SongFlip: 音乐链接自动跳转
+SongFlip: 音乐链接重定向

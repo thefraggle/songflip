@@ -1,1 +1,1 @@
-spotify,apple,youtube,tidal,deezer,songlink,odesli,soundcloud,shazam,bandcamp,smart,share,song,open
+spotify,apple,youtube,podcast,deezer,songlink,odesli,pocketcasts,soundcloud,shazam,bandcamp,share

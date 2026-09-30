@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.6.2] - 2026-09-30
+- **Robust Search Matching**: Special characters (`+`, `&`, `#`), colons, quotes, and emojis in podcast and song titles are cleanly filtered for accurate search results across all platforms (Pocket Casts, Apple, Spotify, etc.).
+- **Reliable Fallbacks**: Enhanced search URL builders prevent empty results when opening complex titles.
+- **Everyday Polish & Stability**: Visual adjustments and stability enhancements for everyday use.
+
 ## [1.6.1] - 2026-09-30
 - **Clipboard Podcasts**: Copied podcast links can now be directly converted and opened in your preferred player with a single tap.
 - **Enhanced Podcast Matching**: More accurate recognition of podcast shows and episode titles.

@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.6.2] - 2026-09-30
+- **Präzisere Suche & Sonderzeichen**: Sonderzeichen (`+`, `&`, `#`), Doppelpunkte, Anführungszeichen und Emojis in Podcast- und Songtiteln werden jetzt sauber bereinigt, damit Suchergebnisse auf allen Plattformen (Pocket Casts, Apple, Spotify etc.) zuverlässig gefunden werden.
+- **Zuverlässigere Weiterleitung**: Verbesserte Fallback-Suchlinks verhindern leere Trefferlisten bei komplexen Titeln.
+- **Feinschliff & Stabilität**: Visuelle Anpassungen und optimierte Zuverlässigkeit im Alltag.
+
 ## [1.6.1] - 2026-09-30
 - **Podcasts aus Zwischenablage**: Kopierte Podcast-Links lassen sich nun direkt mit einem Fingertipp in deinen bevorzugten Player umwandeln und öffnen.
 - **Präzisere Podcast-Erkennung**: Zuverlässigere Zuordnung von Podcast-Sendungen und Episodentiteln.

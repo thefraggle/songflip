@@ -1,42 +1,48 @@
-Temanmu mengirim lagu dari Spotify, tapi kamu mendengarkan di YouTube Music, Apple Music, atau Deezer?
+Teman mengirimi Anda lagu atau podcast di Spotify, tetapi Anda menggunakan YouTube Music, Apple Podcasts, atau Deezer?
 
-SongFlip adalah pengalih dan konverter tautan musik otomatis untuk Android. Sekali diatur, tautan musik yang diterima akan otomatis dikonversi di latar belakang dan langsung terbuka di pemutar musik pilihanmu—tanpa pencarian manual atau halaman perantara yang mengganggu.
+SongFlip adalah pengonversi dan pengalih tautan musik & podcast cerdas tanpa klik untuk Android. Setelah diatur, tautan yang diterima otomatis dikonversi di latar belakang dan langsung diputar di pemutar audio favorit Anda — tanpa pencarian manual atau iklan.
 
-Dari Spotify ke YouTube Music, Spotify ke Apple Music, hingga tautan Shazam: SongFlip menyelesaikannya seketika sebagai konverter tautan pintar universal Anda.
+Dari Spotify ke YouTube Music, Apple Podcasts ke Spotify, hingga lagu Shazam: SongFlip menyelesaikannya secara instan sebagai pengonversi smart link universal Anda.
 
 🚀 FITUR UTAMA:
 
-• 8 Platform Streaming & Shazam:
-Konversi mulus antara Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud, dan Bandcamp. Sekarang mendukung tautan Shazam!
+• 10 Platform Musik, Podcast & Shazam:
+Konversi mulus antara Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud, dan Bandcamp. Mendukung tautan Shazam!
+
+• Mesin Konverter Podcast:
+Bagikan acara podcast dan episode antar platform berbeda. SongFlip menemukan episode dan memutarnya langsung di aplikasi podcast pilihan Anda.
+
+• Pengonversi Playlist Universal:
+Transfer seluruh daftar putar lagu demi lagu antara Spotify, Apple Music, dan YouTube Music dengan cache berkecepatan tinggi.
 
 • Pemutaran Instan (Instant Playback):
-Memulai pemutaran lagu langsung di pemutar tujuan tanpa membuka halaman pencarian kosong.
+Memulai lagu atau episode langsung di pemutar tujuan alih-alih menampilkan halaman pencarian kosong.
 
-• Dukungan Penuh Album & Playlist:
-Mendeteksi seluruh album dan daftar lagu lengkap. Playlist bersama terdeteksi akurat — pengonversi playlist andalan Anda untuk musik bersama.
-
-• Pemilih Pemutar Cepat (Tanya setiap kali):
-Menggunakan beberapa aplikasi musik? Aktifkan pemilih cepat untuk memilih pemutar tujuan secara instan setiap kali membuka tautan musik.
+• Pemilih Pemutar Cepat (Tanya Setiap Saat):
+Menggunakan beberapa aplikasi audio? Aktifkan pemilih cepat untuk memilih pemutar tujuan secara instan setiap kali membuka tautan.
 
 • Asisten Pengaturan Pintar (Android 12+):
-Konfigurasikan tautan aplikasi bawaan dengan mudah melalui asisten interaktif 1-ketukan.
+Konfigurasikan tautan aplikasi default dengan mudah melalui asisten interaktif 1 ketukan.
 
-• Spanduk Pintar Papan Klip & Menu Berbagi:
-Menyalin tautan musik? Buka langsung dari spanduk pintar atau bagikan dari WhatsApp, Telegram, Reddit, atau Instagram ke SongFlip.
+• Smart-Banner Papan Klip & Menu Berbagi:
+Salin tautan musik atau bagikan langsung dari WhatsApp, Telegram, Reddit, atau Instagram ke SongFlip.
 
-• Tautan Pintar Web Universal (songflip.link):
-Buat tautan netral agar teman-temanmu dapat mendengarkan di layanan streaming favorit mereka.
+• Smart Link Web Universal & Pemutar Web (songflip.link):
+Buat tautan netral dengan pemutar web bawaan agar teman dapat mendengarkan di perangkat apa pun.
 
-• Ubin Pengaturan Cepat & Pintasan:
-Jeda pengalihan sementara selama 15 menit, 1 jam, atau hingga besok pagi langsung dari panel setelan cepat Android.
+• Tombol Pengaturan Cepat & Pintasan:
+Jeda pengalihan selama 15 menit, 1 jam, atau hingga besok pagi langsung dari panel Pengaturan Cepat.
 
 • Desain Material You & Ikon Bertema:
-Menyesuaikan warna sistem ponselmu dengan mode gelap AMOLED, mode terang, dan ikon monokrom layar utama.
+Mendukung mode gelap AMOLED dan warna dinamis yang menyatu indah dengan sistem Anda.
+
+• Penukaran Kode Promo & Voucher:
+Tukarkan kode promo langsung di aplikasi untuk membuka fitur PRO.
 
 🔒 PRIVASI & SUMBER TERBUKA:
-• 100% Open Source (lisensi GPLv3 di GitHub)
+• 100% Sumber Terbuka (lisensi GPLv3 di GitHub)
 • Tanpa akun, tanpa registrasi, tanpa login
-• Bebas iklan selamanya
-• Tanpa pelacakan data atau kebiasaan mendengarkan
+• Sepenuhnya bebas iklan selamanya
+• Tanpa pelacakan atau pengumpulan data
 
-Kompatibel dengan Songlink / Odesli. Unduh SongFlip sekarang dan nikmati musik tanpa batas antar-platform!
+Kompatibel dengan Songlink / Odesli. Unduh SongFlip sekarang dan nikmati musik serta podcast lintas platform tanpa batas!

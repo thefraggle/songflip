@@ -1,42 +1,48 @@
-Bạn bè gửi cho bạn một bài hát trên Spotify, nhưng bạn lại dùng YouTube Music, Apple Music hoặc Deezer?
+Bạn bè gửi cho bạn một bài hát hoặc podcast trên Spotify, nhưng bạn lại dùng YouTube Music, Apple Podcasts hay Deezer?
 
-SongFlip là ứng dụng chuyển đổi liên kết âm nhạc tự động dành cho Android. Chỉ cần thiết lập một lần, các liên kết nhận được sẽ tự động chuyển đổi trong nền và mở ngay trong trình phát nhạc ưa thích của bạn mà không cần tìm kiếm thủ công hay qua trang web trung gian.
+SongFlip là công cụ chuyển đổi và chuyển hướng liên kết âm nhạc & podcast thông minh không cần chạm cho Android. Sau khi thiết lập, các liên kết nhận được sẽ tự động chuyển đổi ở chế độ nền và mở ngay trong trình phát yêu thích của bạn — không cần tìm kiếm thủ công, không quảng cáo và không qua trang trung gian.
 
-Dù là Spotify sang YouTube Music, Spotify sang Apple Music hay liên kết từ Shazam: SongFlip mở bài hát ngay tức thì như một trình chuyển đổi liên kết thông minh vạn năng.
+Từ Spotify sang YouTube Music, Apple Podcasts sang Spotify hay nhận diện qua Shazam: SongFlip xử lý nhanh chóng như một công cụ chuyển đổi liên kết thông minh vạn năng.
 
 🚀 TÍNH NĂNG CHÍNH:
 
-• 8 Nền tảng Âm nhạc & Shazam:
-Chuyển đổi liền mạch giữa Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud và Bandcamp. Mới: Hỗ trợ nhận diện liên kết Shazam!
+• 10 Nền Tảng Âm Nhạc, Podcast & Shazam:
+Chuyển đổi mượt mà giữa Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud và Bandcamp. Hỗ trợ liên kết chia sẻ từ Shazam!
 
-• Phát nhạc tức thì (Instant Playback):
-Phát trực tiếp bài hát trong ứng dụng đích thay vì chỉ hiển thị trang kết quả tìm kiếm trống.
+• Trình Chuyển Đổi Podcast:
+Chia sẻ chương trình và từng tập podcast qua lại giữa các ứng dụng. SongFlip tự động nhận diện tập và mở ngay trong trình phát podcast của bạn.
 
-• Hỗ trợ toàn diện Album & Danh sách phát:
-Nhận diện toàn bộ album và mở danh sách bài hát đầy đủ. Danh sách phát mở nhanh — trình chuyển đổi danh sách phát thông minh cho âm nhạc được chia sẻ.
+• Chuyển Đổi Danh Sách Phát Toàn Diện:
+Chuyển đổi toàn bộ playlist từng bài một giữa Spotify, Apple Music và YouTube Music với bộ nhớ đệm tốc độ cao.
 
-• Bộ Chọn Trình Phát Nhanh (Hỏi mọi lần):
-Sử dụng nhiều ứng dụng âm nhạc? Kích hoạt bộ chọn nhanh để chọn ngay trình phát mục tiêu mỗi khi bạn mở một liên kết âm nhạc.
+• Phát Ngay Lập Tức (Instant Playback):
+Phát trực tiếp bài hát hoặc tập podcast trong trình phát đích thay vì hiển thị trang tìm kiếm trống.
 
-• Trợ lý Cài đặt Thông minh (Android 12+):
-Dễ dàng kiểm tra và thiết lập liên kết ứng dụng mặc định chỉ với một chạm.
+• Trình Chọn Nhanh Trình Phát (Hỏi mọi lần):
+Bạn dùng nhiều ứng dụng âm thanh? Bật trình chọn nhanh để chọn trình phát mong muốn mỗi khi mở liên kết.
 
-• Biểu ngữ Khay nhớ tạm & Menu Chia sẻ:
-Đã sao chép liên kết? Mở ngay từ biểu ngữ thông minh hoặc chia sẻ trực tiếp từ WhatsApp, Telegram, Instagram vào SongFlip.
+• Trợ Lý Cài Đặt Thông Minh (Android 12+):
+Dễ dàng thiết lập liên kết ứng dụng mặc định chỉ với 1 lần chạm.
 
-• Liên kết Thông minh Đa năng (songflip.link):
-Tạo liên kết web trung lập để bạn bè có thể nghe trên bất kỳ nền tảng nào họ thích.
+• Banner Bảng Tạm Thông Minh & Menu Chia Sẻ:
+Sao chép liên kết hoặc chia sẻ trực tiếp từ WhatsApp, Telegram, Instagram sang SongFlip để chuyển đổi ngay.
 
-• Ô Cài đặt Nhanh & Lối tắt:
-Tạm dừng chuyển hướng linh hoạt trong 15 phút, 1 giờ hoặc đến sáng hôm sau từ bảng cài đặt nhanh.
+• Liên Kết Web Đa Năng & Web Player (songflip.link):
+Tạo liên kết trung lập tích hợp trình phát web để bạn bè có thể nghe trên mọi thiết bị.
 
-• Giao diện Material You & Biểu tượng Đơn sắc:
-Tương thích hoàn hảo với màu hệ thống Android (chế độ tối AMOLED, chế độ sáng) cùng biểu tượng màn hình chính đẹp mắt.
+• Ô Cài Đặt Nhanh & Lối Tắt:
+Tạm dừng chuyển hướng trong 15 phút, 1 giờ hoặc đến sáng mai từ bảng cài đặt nhanh.
 
-🔒 BẢO MẬT & MÃ NGUỒN MỞ:
+• Thiết Kế Material You & Biểu Tượng Theo Chủ Đề:
+Tương thích hoàn hảo với Dynamic Color, chế độ tối AMOLED và biểu tượng đơn sắc.
+
+• Đổi Mã Khuyến Mãi & Voucher:
+Nhập mã ưu đãi trực tiếp trong ứng dụng để mở khóa các tính năng PRO.
+
+🔒 QUYỀN RIÊNG TƯ & MÃ NGUỒN MỞ:
 • 100% Mã nguồn mở (Giấy phép GPLv3 trên GitHub)
-• Không cần tài khoản, không cần đăng nhập
-• Hoàn toàn không chứa quảng cáo
-• Không theo dõi hoặc thu thập dữ liệu nghe nhạc
+• Không cần tài khoản hay đăng nhập
+• Hoàn toàn không có quảng cáo
+• Không theo dõi thói quen nghe nhạc
 
-Tương thích với Songlink / Odesli. Tải ngay SongFlip và tận hưởng âm nhạc không giới hạn nền tảng!
+Tương thích với Songlink / Odesli. Tải ngay SongFlip để thưởng thức âm nhạc và podcast không giới hạn nền tảng!

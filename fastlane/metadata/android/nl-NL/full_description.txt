@@ -1,42 +1,48 @@
-Stuurt een vriend je een nummer op Spotify, maar luister jij via YouTube Music, Apple Music of Deezer?
+Stuurt een vriend je een nummer of podcast op Spotify, maar luister jij via YouTube Music, Apple Podcasts of Deezer?
 
-SongFlip is jouw slimme 0-klik muzieklink converter en redirector voor Android. Eenmaal ingesteld worden ontvangen muzieklinks automatisch op de achtergrond geconverteerd en direct geopend in jouw favoriete muziek-app — zonder handmatig zoeken of tussenliggende pagina's.
+SongFlip is jouw slimme 0-klik muziek- en podcastlink converter en redirector voor Android. Eenmaal ingesteld worden ontvangen links automatisch op de achtergrond geconverteerd en direct geopend in jouw favoriete audio-app — zonder handmatig zoeken of tussenliggende pagina's.
 
-Of het nu gaat om Spotify naar YouTube Music, Spotify naar Apple Music of Shazam-links: SongFlip verwerkt links direct als jouw universele smart link converter.
+Of het nu gaat om Spotify naar YouTube Music, Apple Podcasts naar Spotify of Shazam-links: SongFlip verwerkt links direct als jouw universele smart link converter.
 
 🚀 BELANGRIJKSTE FUNCTIES:
 
-• 8 Streamingplatforms & Shazam:
-Converteert naadloos tussen Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud en Bandcamp. Nu ook met ondersteuning voor Shazam-links!
+• 10 Streaming- & Podcastplatforms & Shazam:
+Converteert naadloos tussen Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud en Bandcamp. Nu ook met ondersteuning voor Shazam-links!
+
+• Podcast Converter Engine:
+Deel complete shows of afzonderlijke afleveringen tussen verschillende platforms. SongFlip start afleveringen direct in je favoriete podcast-app.
+
+• Universele Playlist Converter:
+Zet volledige afspeellijsten nummer voor nummer over tussen Spotify, Apple Music en YouTube Music via onze snelle multi-tier cache.
 
 • Directe Weergave (Instant Playback):
-Start nummers direct in de doel-app in plaats van een lege zoekpagina te tonen.
-
-• Volledige Album- & Afspeellijstondersteuning:
-Herkent complete albums en opent de volledige tracklijst. Gedeelde afspeellijsten openen soepel — jouw ideale playlist-converter voor gedeelde muziek.
+Start nummers en afleveringen direct in de doel-app in plaats van een lege zoekpagina te tonen.
 
 • Snelle Spelerkiezer (Elke keer vragen):
-Gebruik je meerdere muziek-apps? Activeer de optionele snelle kiezer om direct je doelspeler te kiezen wanneer je een muzieklink opent.
+Gebruik je meerdere audio-apps? Activeer de optionele snelle kiezer om direct je doelspeler te kiezen wanneer je een link opent.
 
 • Slimme Installatiewizard (Android 12+):
 Controleer en stel eenvoudig standaard app-koppelingen in met onze interactieve wizard in 1 tik.
 
 • Klembord Smart-Banner & Deelmenu:
-Muzieklink gekopieerd? Start direct via de slimme banner of deel links vanuit WhatsApp, Telegram, Reddit of Instagram naar SongFlip.
+Link gekopieerd? Start direct via de slimme banner of deel links vanuit WhatsApp, Telegram, Reddit of Instagram naar SongFlip.
 
-• Universele Web Smart Links:
-Maak neutrale weblinks (songflip.link) zodat je vrienden kunnen luisteren op hun favoriete streamingdienst.
+• Universele Web Smart Links & Webplayer:
+Maak neutrale weblinks (songflip.link) met ingebouwde webplayer zodat je vrienden direct op elk apparaat kunnen luisteren.
 
 • Snelle Instellingen & Snelkoppelingen:
-Pauzeer de omleiding tijdelijk voor 15 minuten, 1 uur of tot morgenochtend via de Android Quick Settings.
+Pauzeer de omleiding tijdelijk voor 15 minuten, 1 uur of tot morgenochtend via de tegel Snelle Instellingen.
 
 • Material You Design & Thema-icoon:
-Past naadloos bij je systeemkleuren met AMOLED-donkere modus, lichte modus en monochroom startschermpictogram.
+Volgt je systeemkleuren met AMOLED-donkere modus, lichte modus en een stijlvol monochroom pictogram.
+
+• Vouchercodes Inwisselen:
+Wissel promotiecodes direct in de app in voor PRO-functies.
 
 🔒 PRIVACY & OPEN SOURCE:
 • 100% Open Source (GPLv3-licentie op GitHub)
-• Geen accounts, geen registratie nodig
-• Altijd volledig advertentievrij
+• Geen account of registratie vereist
+• Volledig advertentievrij voor altijd
 • Geen tracking of gegevensverzameling
 
-Compatibel met Songlink / Odesli. Download SongFlip nu en verbind al je muziekdiensten moeiteloos!
+Compatibel met Songlink / Odesli. Download SongFlip nu en geniet van muziek en podcasts over alle platformgrenzen heen!
