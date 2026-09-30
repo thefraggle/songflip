@@ -543,6 +543,37 @@ object UrlUtils {
         return url
     }
 
+    /**
+     * Converts native/specialized player URLs into universal, non-paywalled web URLs
+     * when the native target app is missing on the device.
+     * E.g. converts music.youtube.com URLs to youtube.com URLs so mobile web users
+     * land directly on the playable song rather than the "Music Premium" subscription paywall.
+     */
+    fun toWebFallbackUrl(rawUrl: String, targetPlatformKey: String): String {
+        var url = rawUrl
+        if (url.contains("music.music.youtube.com")) {
+            url = url.replace("music.music.youtube.com", "music.youtube.com")
+        }
+        val cleanKey = targetPlatformKey.substringBefore("_")
+        if (cleanKey == "youtubeMusic") {
+            if (url.startsWith("youtubemusic://")) {
+                url = url.replace("youtubemusic://", "https://")
+            }
+            if (url.startsWith("vnd.youtube.music://")) {
+                url = url.replace("vnd.youtube.music://", "https://www.youtube.com/")
+            }
+            if (url.contains("music.youtube.com/search") && url.contains("q=")) {
+                val query = url.substringAfter("q=").substringBefore("&").substringBefore("#")
+                return "https://www.youtube.com/results?search_query=$query"
+            }
+            val musicYtRegex = Regex("^https?://music\\.youtube\\.com")
+            if (musicYtRegex.containsMatchIn(url)) {
+                return url.replaceFirst(musicYtRegex, "https://www.youtube.com")
+            }
+        }
+        return url
+    }
+
     fun toNativeAppUri(url: String, platformKey: String): String {
         return when (platformKey) {
             "spotify" -> toNativeSpotifyUri(url)

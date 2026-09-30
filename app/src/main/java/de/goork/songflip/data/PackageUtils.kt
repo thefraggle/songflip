@@ -22,37 +22,26 @@ object PackageUtils {
             "app.morphe.android.youtube.music",
             "app.morphe.youtube.music",
             "app.morphe.music",
-            "app.morphe.android.apps.youtube",
-            "app.morphe.android.youtube",
             "com.morphe.android.apps.youtube.music",
             "com.morphe.android.youtube.music",
             "com.morphe.youtube.music",
             "app.revanced.android.apps.youtube.music",
             "app.revanced.android.youtube.music",
-            "app.revanced.android.apps.youtube",
-            "app.revanced.android.youtube",
             "app.rvx.android.apps.youtube.music",
             "app.rvx.android.youtube.music",
-            "app.rvx.android.youtube",
             "anddea.youtube.music",
-            "anddea.youtube",
             "app.anddea.youtube.music",
-            "app.anddea.youtube",
             "app.anddea.android.youtube.music",
-            "app.anddea.android.youtube",
             "com.anddea.youtube.music",
-            "com.anddea.youtube",
             "com.vanced.android.apps.youtube.music",
-            "com.vanced.android.youtube",
             "com.inotia00.youtube.music",
-            "com.inotia00.youtube",
             "it.fast4x.rimusic",
             "it.vfsfitvnm.vimusic",
             "com.zionhuang.music",
-            "org.schabi.newpipe",
-            "org.schabi.newpipelegacy",
-            "com.google.android.apps.youtube.music",
-            "com.google.android.youtube"
+            "com.metareal.innertune",
+            "com.kashike.simpmusic",
+            "com.github.brahmkshatriya.echo",
+            "com.google.android.apps.youtube.music"
         )
     )
 
@@ -124,7 +113,6 @@ object PackageUtils {
             val probeUrls = when (cleanKey) {
                 "youtubeMusic" -> listOf(
                     "https://music.youtube.com/watch?v=dQw4w9WgXcQ",
-                    "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
                     "vnd.youtube.music://watch?v=dQw4w9WgXcQ"
                 )
                 "spotify" -> listOf(
@@ -164,6 +152,15 @@ object PackageUtils {
 
     fun isAppInstalled(context: Context, platformKey: String): Boolean {
         return getInstalledPackage(context, platformKey) != null
+    }
+
+    /**
+     * Converts a platform URL into a safe web/universal fallback URL when the native app is not installed.
+     * E.g. converts music.youtube.com URLs to youtube.com URLs so non-Premium mobile web users
+     * land directly on the playable song rather than the YouTube Music subscription paywall.
+     */
+    fun toWebFallbackUrl(url: String, platformKey: String): String {
+        return de.goork.songflip.core.util.UrlUtils.toWebFallbackUrl(url, platformKey)
     }
 
     /**

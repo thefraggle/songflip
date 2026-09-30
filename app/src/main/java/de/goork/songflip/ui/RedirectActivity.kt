@@ -539,9 +539,12 @@ class RedirectActivity : ComponentActivity() {
             }
         }
 
+        // When target app is missing (e.g. YouTube Music app not installed), adapt URL for web / generic fallback
+        val effectiveUrl = PackageUtils.toWebFallbackUrl(url, targetPlatformKey)
+
         // Stage 2: Implicit player intent (dispatch to discovered music player handler excluding SongFlip & browsers)
         try {
-            val genericIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+            val genericIntent = Intent(Intent.ACTION_VIEW, Uri.parse(effectiveUrl)).apply {
                 addCategory(Intent.CATEGORY_BROWSABLE)
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
@@ -555,7 +558,7 @@ class RedirectActivity : ComponentActivity() {
                 } else {
                     handlers.first()
                 }
-                val launchIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+                val launchIntent = Intent(Intent.ACTION_VIEW, Uri.parse(effectiveUrl)).apply {
                     addCategory(Intent.CATEGORY_BROWSABLE)
                     setPackage(bestHandler)
                     putExtra(EXTRA_FORWARDED_FROM_SONGFLIP, true)
@@ -567,7 +570,7 @@ class RedirectActivity : ComponentActivity() {
         } catch (ignored: Exception) {}
 
         // Stage 3: Safe web browser fallback
-        openInBrowser(Uri.parse(url))
+        openInBrowser(Uri.parse(effectiveUrl))
     }
 
     /**
