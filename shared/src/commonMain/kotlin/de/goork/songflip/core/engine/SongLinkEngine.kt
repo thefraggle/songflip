@@ -1037,6 +1037,7 @@ class SongLinkEngine(
                             val showTitle = item["showTitle"]?.jsonPrimitive?.content?.ifBlank { null } ?: "Podcast"
                             val episodeTitle = item["episodeTitle"]?.jsonPrimitive?.content?.ifBlank { null }
                             val thumbnailUrl = item["thumbnailUrl"]?.jsonPrimitive?.content?.ifBlank { null }
+                            val isEpisode = item["isEpisode"]?.jsonPrimitive?.booleanOrNull ?: (episodeTitle != null)
                             val queryText = if (episodeTitle != null) {
                                 if (showTitle.equals("Podcast", ignoreCase = true) || episodeTitle.contains(showTitle, ignoreCase = true)) {
                                     episodeTitle
