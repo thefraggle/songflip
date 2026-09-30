@@ -164,7 +164,7 @@ struct ContentView: View {
     }
 
     private func updatePromoBanner() {
-        PromoBannerManager.shared.fetchPromoBanner(endpointUrl: "https://songflip.link/api/promo-banner", currentTimeMs: 0, forceRefresh: false)
+        PromoBannerManager.shared.fetchPromoBanner(endpointUrl: "https://songflip-web.web.app/api/promo-banner", currentTimeMs: 0, forceRefresh: false)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.promoBannerConfig = PromoBannerManager.shared.config.value
         }
