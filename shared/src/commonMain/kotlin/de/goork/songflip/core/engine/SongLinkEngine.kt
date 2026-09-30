@@ -1037,8 +1037,15 @@ class SongLinkEngine(
                             val showTitle = item["showTitle"]?.jsonPrimitive?.content?.ifBlank { null } ?: "Podcast"
                             val episodeTitle = item["episodeTitle"]?.jsonPrimitive?.content?.ifBlank { null }
                             val thumbnailUrl = item["thumbnailUrl"]?.jsonPrimitive?.content?.ifBlank { null }
-                            val isEpisode = item["isEpisode"]?.jsonPrimitive?.booleanOrNull ?: true
-                            val queryText = episodeTitle?.let { "$showTitle $it" } ?: showTitle
+                            val queryText = if (episodeTitle != null) {
+                                if (showTitle.equals("Podcast", ignoreCase = true) || episodeTitle.contains(showTitle, ignoreCase = true)) {
+                                    episodeTitle
+                                } else {
+                                    "$showTitle $episodeTitle"
+                                }
+                            } else {
+                                showTitle
+                            }
                             val targetUrl = item["targetUrl"]?.jsonPrimitive?.content
                                 ?: UrlUtils.buildPodcastSearchUrl(queryText, targetPlatformKey)
                             val nativeAppUri = item["nativeAppUri"]?.jsonPrimitive?.content
@@ -1063,8 +1070,42 @@ class SongLinkEngine(
             } catch (_: Exception) {}
         }
 
-        // 2. Direct Client-Side oEmbed Fallback for Spotify Podcasts
+        // 2. Direct Client-Side Spotify Scraping (Bot UA + oEmbed Fallback)
         if (canonicalUrl.contains("spotify.com") || canonicalUrl.startsWith("spotify:")) {
+            try {
+                val sResp = client.get(canonicalUrl) {
+                    header("User-Agent", "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)")
+                }
+                if (sResp.status.isSuccess()) {
+                    val html = sResp.bodyAsText()
+                    val titleMatch = Regex("<meta\\s+(?:property|name)=[\"'](?:og:title|twitter:title)[\"']\\s+content=[\"']([^\"']+)[\"']", RegexOption.IGNORE_CASE).find(html)
+                        ?: Regex("<meta\\s+content=[\"']([^\"']+)[\"']\\s+(?:property|name)=[\"'](?:og:title|twitter:title)[\"']", RegexOption.IGNORE_CASE).find(html)
+                        ?: Regex("<title>([^<]+)</title>", RegexOption.IGNORE_CASE).find(html)
+                    val rawTitle = titleMatch?.groupValues?.get(1)
+                        ?.replace(Regex("\\s*\\|\\s*Podcast on Spotify", RegexOption.IGNORE_CASE), "")
+                        ?.replace(Regex("\\s*\\|\\s*Spotify", RegexOption.IGNORE_CASE), "")
+                        ?.trim()
+                    if (!rawTitle.isNullOrBlank() && !rawTitle.contains("Spotify – Web Player")) {
+                        val isEp = canonicalUrl.contains("/episode/") || canonicalUrl.startsWith("spotify:episode:")
+                        val targetUrl = UrlUtils.buildPodcastSearchUrl(rawTitle, targetPlatformKey)
+                        val nativeUri = UrlUtils.toPodcastNativeAppUri(targetPlatformKey, rawTitle)
+                        val sResult = ResolutionResult.Podcast(
+                            originalUrl = canonicalUrl,
+                            targetUrl = targetUrl,
+                            platform = targetPlatformKey,
+                            showTitle = rawTitle,
+                            episodeTitle = if (isEp) rawTitle else null,
+                            nativeAppUri = nativeUri,
+                            thumbnailUrl = null,
+                            isEpisode = isEp,
+                            isDeepSearch = true
+                        )
+                        cache.putPodcast(canonicalUrl, targetPlatformKey, sResult, now, isHistory = !isPrefetch)
+                        return sResult
+                    }
+                }
+            } catch (_: Exception) {}
+
             try {
                 val oembedUrl = "https://open.spotify.com/oembed?url=${canonicalUrl.encodeURLParameter()}"
                 val oResp = client.get(oembedUrl)
