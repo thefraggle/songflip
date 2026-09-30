@@ -1,3 +1,3 @@
-- Zuverlässige App-Erkennung: Verbesserte Erkennung installierter Musik-Apps für eine stets exakte Auswahl deines Lieblings-Players.
-- Unterbrechungsfreie Musikwiedergabe: Geteilte Links öffnen Songs jetzt direkt und ohne störende Abo-Hinweise oder Umwege.
-- Schnellere Weiterleitung: Allgemeine Optimierungen für ein flüssiges und direktes Abspielen geteilter Musik.
+- Aktionen & Neuigkeiten: Unterstützung für zeitlich begrenzte Specials und Ankündigungen direkt in deiner Sprache.
+- Verbesserte Weiterleitung: Noch schnellere und reibungslosere Übergabe von Musik-Links an deinen Lieblings-Player.
+- Feinschliff & Stabilität: Visuelle Verfeinerungen und optimierte Zuverlässigkeit im Alltag.

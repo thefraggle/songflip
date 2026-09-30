@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.5.3] - 2026-09-30
+- **Seasonal Specials & Announcements**: Support for timely community events and special offers in your language.
+- **Enhanced Link Handling**: Smoother and faster redirect experience across all supported music services.
+- **Performance & Polish**: Subtle visual refinements and reliability updates for daily use.
+
 ## [1.5.2] - 2026-09-30
 - **Accurate Player Detection**: Improved detection of installed music apps so your selected player is always matched correctly.
 - **Seamless Music Playback**: Shared links open directly to the song without unwanted subscription prompts or landing pages.

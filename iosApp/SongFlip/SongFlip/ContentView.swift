@@ -20,6 +20,7 @@ struct ContentView: View {
     @State private var isPodcastNoticeAudiobook = false
     @State private var showingToast = false
     @State private var toastMessage: String? = nil
+    @State private var promoBannerConfig: PromoBannerConfig? = nil
 
     var lang: String { settings.selectedLanguage }
     var appVersion: String {
@@ -35,6 +36,26 @@ struct ContentView: View {
                 ScrollView {
                     VStack(spacing: 18) {
                         headerBannerView
+
+                        if let promoConfig = promoBannerConfig,
+                           PromoBannerManager.shared.isBannerVisible(isPro: false, currentTimeMs: Int64(Date().timeIntervalSince1970 * 1000)) {
+                            PromoBannerView(
+                                config: promoConfig,
+                                lang: lang,
+                                onAction: {
+                                    AptabaseClient.shared.trackEvent(eventName: "promo_banner_clicked", props: ["campaign": promoConfig.campaignId])
+                                    if let url = URL(string: "https://songflip.link") {
+                                        UIApplication.shared.open(url)
+                                    }
+                                },
+                                onDismiss: {
+                                    withAnimation(.easeInOut(duration: 0.2)) {
+                                        PromoBannerManager.shared.dismiss()
+                                        promoBannerConfig = nil
+                                    }
+                                }
+                            )
+                        }
 
                         if let detectedUrl = detectedClipboardUrl {
                             clipboardSmartBannerView(detectedUrl: detectedUrl)
@@ -118,6 +139,7 @@ struct ContentView: View {
             .onAppear {
                 AptabaseClient.shared.trackAppLaunched(platform: "iOS", language: lang)
                 history.loadHistory()
+                updatePromoBanner()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     checkClipboard()
                 }
@@ -125,6 +147,7 @@ struct ContentView: View {
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .active {
                     history.loadHistory()
+                    updatePromoBanner()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         checkClipboard()
                     }
@@ -132,10 +155,18 @@ struct ContentView: View {
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
                 history.loadHistory()
+                updatePromoBanner()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     checkClipboard()
                 }
             }
+        }
+    }
+
+    private func updatePromoBanner() {
+        PromoBannerManager.shared.fetchPromoBanner(endpointUrl: "https://songflip.link/api/promo-banner", currentTimeMs: 0, forceRefresh: false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.promoBannerConfig = PromoBannerManager.shared.config.value
         }
     }
 
