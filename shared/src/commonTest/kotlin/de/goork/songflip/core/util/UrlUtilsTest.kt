@@ -342,5 +342,40 @@ class UrlUtilsTest {
         assertEquals("deezer.page.link", UrlUtils.extractDomain("https://deezer.page.link/xyz"))
         assertEquals("unknown", UrlUtils.extractDomain(""))
     }
+
+    @Test
+    fun testToWebFallbackUrl() {
+        // YouTube Music watch link converted to non-paywalled standard YouTube
+        assertEquals(
+            "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+            UrlUtils.toWebFallbackUrl("https://music.youtube.com/watch?v=dQw4w9WgXcQ", "youtubeMusic")
+        )
+        // YouTube Music playlist link converted to standard YouTube playlist
+        assertEquals(
+            "https://www.youtube.com/playlist?list=PL12345",
+            UrlUtils.toWebFallbackUrl("https://music.youtube.com/playlist?list=PL12345", "youtubeMusic")
+        )
+        // YouTube Music search converted to standard YouTube results
+        assertEquals(
+            "https://www.youtube.com/results?search_query=Queen%20Bohemian",
+            UrlUtils.toWebFallbackUrl("https://music.youtube.com/search?q=Queen%20Bohemian", "youtubeMusic")
+        )
+        // YouTube Music queue / zeroOAuth link converted to standard YouTube
+        assertEquals(
+            "https://www.youtube.com/watch_videos?video_ids=vid1,vid2",
+            UrlUtils.toWebFallbackUrl("https://music.youtube.com/watch_videos?video_ids=vid1,vid2", "youtubeMusic")
+        )
+        // Native scheme converted to standard YouTube web
+        assertEquals(
+            "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+            UrlUtils.toWebFallbackUrl("youtubemusic://music.youtube.com/watch?v=dQw4w9WgXcQ", "youtubeMusic")
+        )
+        // Other platforms remain untouched
+        assertEquals(
+            "https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv",
+            UrlUtils.toWebFallbackUrl("https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv", "spotify")
+        )
+    }
 }
+
 

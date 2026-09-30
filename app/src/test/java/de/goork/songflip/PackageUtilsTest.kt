@@ -146,18 +146,38 @@ class PackageUtilsTest {
         assertTrue(ytPackages.contains("app.morphe.youtube.music"))
         assertTrue(ytPackages.contains("app.morphe.music"))
         assertTrue(ytPackages.contains("it.fast4x.rimusic"))
-        // Verify RVX and Anddea packages are included (Issue #2)
+        assertTrue(ytPackages.contains("it.vfsfitvnm.vimusic"))
+        assertTrue(ytPackages.contains("com.metareal.innertune"))
+        // Verify RVX and Anddea YT Music packages are included
         assertTrue(ytPackages.contains("anddea.youtube.music"))
-        assertTrue(ytPackages.contains("anddea.youtube"))
         assertTrue(ytPackages.contains("app.anddea.youtube.music"))
         assertTrue(ytPackages.contains("com.anddea.youtube.music"))
         assertTrue(ytPackages.contains("app.rvx.android.apps.youtube.music"))
+        // Verify standard YouTube packages are NOT included
+        assertFalse(ytPackages.contains("com.google.android.youtube"))
+        assertFalse(ytPackages.contains("anddea.youtube"))
+        assertFalse(ytPackages.contains("app.revanced.android.youtube"))
+        assertFalse(ytPackages.contains("org.schabi.newpipe"))
         // Verify custom players come before official YouTube Music package
         val officialIndex = ytPackages.indexOf("com.google.android.apps.youtube.music")
         val morpheIndex = ytPackages.indexOf("app.morphe.android.apps.youtube.music")
         val anddeaIndex = ytPackages.indexOf("anddea.youtube.music")
         assertTrue(officialIndex > morpheIndex)
         assertTrue(officialIndex > anddeaIndex)
+    }
+
+    @Test
+    fun testToWebFallbackUrl() {
+        val ytMusicUrl = "https://music.youtube.com/watch?v=dQw4w9WgXcQ"
+        assertEquals(
+            "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+            PackageUtils.toWebFallbackUrl(ytMusicUrl, "youtubeMusic")
+        )
+        val spotifyUrl = "https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv"
+        assertEquals(
+            spotifyUrl,
+            PackageUtils.toWebFallbackUrl(spotifyUrl, "spotify")
+        )
     }
 
     @Test

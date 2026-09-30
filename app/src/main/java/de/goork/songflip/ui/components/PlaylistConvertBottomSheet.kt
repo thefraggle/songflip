@@ -541,7 +541,8 @@ fun PlaylistConvertBottomSheet(
 
                                 if (!launched) {
                                     try {
-                                        val genericIntent = Intent(Intent.ACTION_VIEW, Uri.parse(zeroOAuthUrl)).apply {
+                                        val fallbackUrl = PackageUtils.toWebFallbackUrl(zeroOAuthUrl, targetPlatform.key)
+                                        val genericIntent = Intent(Intent.ACTION_VIEW, Uri.parse(fallbackUrl)).apply {
                                             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                         }
                                         context.startActivity(genericIntent)

@@ -806,25 +806,27 @@ private fun openTargetUrl(context: Context, rawTargetUrl: String, platformKey: S
     val targetUrl = if (rawTargetUrl.contains("music.music.youtube.com")) {
         rawTargetUrl.replace("music.music.youtube.com", "music.youtube.com")
     } else rawTargetUrl
+    val targetPackage = PackageUtils.getInstalledPackage(context, platformKey)
+    if (targetPackage != null) {
+        try {
+            val nativeUriString = PackageUtils.toNativeAppUri(targetUrl, platformKey)
+            val uri = Uri.parse(nativeUriString)
+            val intent = Intent(Intent.ACTION_VIEW, uri).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                setPackage(targetPackage)
+            }
+            context.startActivity(intent)
+            return
+        } catch (_: Exception) {}
+    }
+
+    val fallbackUrl = PackageUtils.toWebFallbackUrl(targetUrl, platformKey)
     try {
-        val nativeUriString = PackageUtils.toNativeAppUri(targetUrl, platformKey)
-        val uri = Uri.parse(nativeUriString)
-        val intent = Intent(Intent.ACTION_VIEW, uri).apply {
+        val fallback = Intent(Intent.ACTION_VIEW, Uri.parse(fallbackUrl)).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }
-        val targetPackage = PackageUtils.getInstalledPackage(context, platformKey)
-        if (targetPackage != null) {
-            intent.setPackage(targetPackage)
-        }
-        context.startActivity(intent)
-    } catch (e: Exception) {
-        try {
-            val fallback = Intent(Intent.ACTION_VIEW, Uri.parse(targetUrl)).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            }
-            context.startActivity(fallback)
-        } catch (ignored: Exception) {}
-    }
+        context.startActivity(fallback)
+    } catch (ignored: Exception) {}
 }
 
 private fun copyToClipboard(context: Context, rawText: String) {
