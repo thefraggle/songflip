@@ -35,12 +35,13 @@ graph TD
 
 ## 2. The Resolution Pipeline (Step-by-Step)
 
-### Step 1: Deterministic URL Sanitization
+### Step 1: Deterministic URL Sanitization & Robust Search Normalization
 Music streaming services append aggressive tracking clutters to share links (e.g. `?si=...`, `?context=...`, `?utm_source=...`, `intl-*` subdomains).
 Before hashing or resolving, the URL is strictly canonicalized:
 - Tracking query parameters are stripped.
-- Canonical entity types (`track`, `album`, `artist`, `playlist`) and platform IDs are extracted via regex guards.
+- Canonical entity types (`track`, `album`, `artist`, `playlist`, `podcast`) and platform IDs are extracted via regex guards.
 - Eliminating tracking parameters maximizes cache hit rates across different social networks.
+- **Search Query & Symbol Sanitization (`cleanSearchQuery`):** Fallback and deep-search queries are automatically sanitized across KMP and backend pipelines—stripping noise tags (`- 2011 Remaster`, `(Radio Edit)`, `[Live]`), disruptive search-breaking symbols (`+`, `&`, `#`, `|`, `/`, `:`, quotes), variation selectors, and emojis (`🎙️`, `🔥`) into clean whitespace. This prevents index failures on strict full-text search engines (such as Pocket Casts, Apple Podcasts, Spotify search operators, Tidal, and Deezer).
 
 ### Step 2: Tiered Caching Architecture
 

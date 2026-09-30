@@ -28,6 +28,7 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 - **⚡ Shazam Link Interception**: Songs identified with Shazam open directly and reliably in your preferred music player.
 - **🎯 Quick Player Picker ("Ask every time")**: Optional setting for users with multiple streaming apps to pick where each song should play with a single tap.
 - **💿 Full Album, Artist & Podcast Recognition**: Supports single tracks, full albums/EPs, artist channel/discography profiles (including `@handles`), and podcast shows/episodes.
+- **🔍 Robust Search Sanitization**: Automatically filters punctuation noise, disruptive symbols (`+`, `&`, `#`, `:`), quotes, and emojis from podcast and track queries so deep searches land accurately on every target player.
 - **📋 Clipboard Smart-Banner**: 1-tap player launch and universal link copying when music links are copied on Android & iOS.
 - **🍎 iOS Deep Integration**: Native Share Extension, Action Button support, and Siri App Intents (`ConvertSongIntent`).
 - **🎨 Material You Themed Icon (Android 13+)**: Clean vector alpha silhouette dynamically adapting to your launcher wallpaper palette.
