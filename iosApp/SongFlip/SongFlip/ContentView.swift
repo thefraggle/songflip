@@ -262,11 +262,11 @@ struct ContentView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }
-            } else if isPodcastOrAudiobook {
+            } else if isAudiobook {
                 Button(action: {
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                     podcastNoticeUrl = detectedUrl
-                    isPodcastNoticeAudiobook = isAudiobook
+                    isPodcastNoticeAudiobook = true
                     showingPodcastNotice = true
                 }) {
                     HStack(spacing: 6) {
