@@ -54,7 +54,8 @@ Before hashing or resolving, the URL is strictly canonicalized:
 
 ### Step 3: Self-Healing & Edge Cases
 - **Playlist Entity Interception:** While standard redirect flows focus on single tracks and albums, incoming playlist URLs (`/playlist/...`) are intercepted early and routed to the **Universal Playlist Converter (v1.4+)** bottom sheet in the native client rather than failing (tracked via `playlist_routed`).
-- **Unsupported Audio Entities (Podcasts, Audiobooks):** Passing podcast episodes/shows or audiobooks would cause 404s and false-positive error telemetry (`link_flip_failed`). SongFlip intercepts these entities at Step 1 (`isPodcastOrAudiobookUrl()`) and short-circuits the pipeline with structured graceful fallbacks (`ResolutionResult.PodcastOrAudiobook`), presenting direct shortcuts to open the native app or copy the link with clean telemetry (`podcast_intercepted` / `audiobook_intercepted`).
+- **Dedicated Cross-Platform Podcast Resolution (v1.6+):** Shared podcast episodes and shows (Spotify, Apple Podcasts, YouTube Music, Pocket Casts, Deezer, Amazon Music) are resolved via a dedicated pipeline (`isPodcastUrl()`) using iTunes Lookup API metadata, OpenGraph scraping, serverless L2 caching (`l2_podcast_cache`), and direct deep-search intents (`ResolutionResult.Podcast`), complete with emerald FlipPages and embedded audio playback.
+- **Audiobook Interception & Notice:** Due to closed ecosystems and DRM restrictions, audiobooks (e.g. `open.spotify.com/audiobook/...`) are intercepted early (`isAudiobookUrl()`) and short-circuited with a structured explanation (`ResolutionResult.PodcastOrAudiobook`) to prevent 404s or broken redirects.
 - **Social Sessions & Personal Profiles (Spotify Blend, Jam, Live, Users):** Non-music session links (such as `open.spotify.com/blend/` or `/jam/`) cannot be converted across providers. SongFlip intercepts these via `isSocialOrSessionUrl()` and seamlessly forwards them directly to the native host app (`ResolutionResult.UnsupportedEntity`), tracking `unsupported_entity_intercepted` instead of error events.
 - **YouTube Shorts Normalization:** Shared YouTube Shorts links (`youtube.com/shorts/{id}`) are automatically canonicalized into full video/track links (`music.youtube.com/watch?v={id}`), enabling immediate cross-platform flipping without failure.
 - **Self-Titled Albums:** Search APIs frequently map an album name (matching the artist's name) to a single track video instead of the album playlist. SongFlip enforces strict entity type validation (`music.youtube.com/playlist?list=OLAK5uy_...` for albums) to prevent single-video downgrades.
@@ -69,6 +70,7 @@ SongFlip enforces deterministic 1:1 entity mapping across streaming platforms:
 - **Track $\rightarrow$ Track:** Direct playback launch (`autoplay` / native deep-link intent).
 - **Album $\rightarrow$ Album:** Direct album view (playlist / collection ID).
 - **Artist $\rightarrow$ Artist:** Direct artist profile page.
+- **Podcast $\rightarrow$ Podcast:** Direct show/episode deep search and launch (`podcast://`, `spotify:search:`, `pocketcasts://`).
 - **Playlist $\rightarrow$ Playlist:** Universal batch conversion with Zero-OAuth queue import (up to 50 tracks).
 
 When an upstream resolver (e.g. Odesli) lacks a mapping for a target platform (frequent with regional identifiers such as Amazon Music ASINs), SongFlip applies a tiered fallback rather than failing hard:
@@ -78,16 +80,17 @@ When an upstream resolver (e.g. Odesli) lacks a mapping for a target platform (f
    - **Deezer:** Deezer Public Search API resolves direct album/track URLs.
    - **YouTube Music:** YouTube Music scraper resolves `browse/MPREb_...` album IDs and `watch?v=...` video IDs.
 2. **Deterministic Search Fallback (Graceful Degradation):**
-   Platforms without open, auth-free public search APIs (**Amazon Music**, **Spotify**, **Tidal**) gracefully fall back to pre-populated search deep-links (e.g. `amznmp3://music.amazon.com/search/<Artist>+<Album>` or `spotify:search:...`). This guarantees that the user always lands on the desired content with zero dead-ends.
+   Platforms without open, auth-free public search APIs (**Amazon Music**, **Spotify**, **Tidal**, **Pocket Casts**) gracefully fall back to pre-populated search deep-links (e.g. `amznmp3://music.amazon.com/search/<Artist>+<Album>`, `spotify:search:...`, `podcast://...`). This guarantees that the user always lands on the desired content with zero dead-ends.
 
-| Target Platform | Track Intent | Album Intent | Artist Intent | Secondary Lookup | Miss Fallback |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **YouTube Music** | `watch?v=` | `browse/MPREb_...` / `playlist?list=` | `channel/UC...` | ✅ YouTube Scraper | `music.youtube.com/search?q=` |
-| **Apple Music** | `/song/<id>` | `/album/<id>` | `/artist/<id>` | ✅ iTunes API | `music.apple.com/search?term=` |
-| **Deezer** | `deezer://.../track/` | `deezer://.../album/` | `deezer://.../artist/` | ✅ Deezer API | `deezer.com/search/` |
-| **Spotify** | `spotify:track:<id>` | `spotify:album:<id>` | `spotify:artist:<id>` | ❌ None (OAuth-only) | `spotify:search:<query>` |
-| **Amazon Music** | `amznmp3://... ?trackAsin=` | `amznmp3://.../albums/<ASIN>` | `amznmp3://.../artists/<ASIN>` | ❌ None (ASIN regional) | `amznmp3://music.amazon.com/search/` |
-| **Tidal** | `tidal://track/<id>` | `tidal://album/<id>` | `tidal://artist/<id>` | ❌ None (OAuth-only) | `listen.tidal.com/search?q=` |
+| Target Platform | Track Intent | Album Intent | Artist Intent | Podcast Intent | Secondary Lookup | Miss Fallback |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **YouTube Music** | `watch?v=` | `browse/MPREb_...` / `playlist?list=` | `channel/UC...` | `search?q=` | ✅ YouTube Scraper | `music.youtube.com/search?q=` |
+| **Apple Music / Podcasts** | `/song/<id>` | `/album/<id>` | `/artist/<id>` | `podcast://podcasts.apple.com/search` | ✅ iTunes API | `music.apple.com/search?term=` |
+| **Deezer** | `deezer://.../track/` | `deezer://.../album/` | `deezer://.../artist/` | `deezer.com/search/` | ✅ Deezer API | `deezer.com/search/` |
+| **Pocket Casts** | — | — | — | `pocketcasts://search?q=` | ❌ None (Search intent) | `play.pocketcasts.com/podcasts/search?q=` |
+| **Spotify** | `spotify:track:<id>` | `spotify:album:<id>` | `spotify:artist:<id>` | `spotify:search:<query>` | ❌ None (OAuth-only) | `spotify:search:<query>` |
+| **Amazon Music** | `amznmp3://... ?trackAsin=` | `amznmp3://.../albums/<ASIN>` | `amznmp3://.../artists/<ASIN>` | `music.amazon.com/search/` | ❌ None (ASIN regional) | `amznmp3://music.amazon.com/search/` |
+| **Tidal** | `tidal://track/<id>` | `tidal://album/<id>` | `tidal://artist/<id>` | — | ❌ None (OAuth-only) | `listen.tidal.com/search?q=` |
 
 ---
 

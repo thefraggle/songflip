@@ -14,18 +14,20 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 - **📶 Offline Resilience & Auto-Retry Queue**: If you tap a music link while in a subway, elevator, or spotty coverage, SongFlip holds the intent and automatically resolves and plays the song the second connectivity is restored.
 - **📑 Universal Playlist Converter [PRO]**: Convert entire playlists (up to 50 tracks) across Spotify, YouTube Music, Deezer, Apple Music, and more with 1-click Zero-OAuth playback queue launch, live animated matching progress, and instant server-side caching.
 - **🌐 Playlist Web Sharing (`songflip.link/p/...`) [PRO]**: Share converted playlists as beautiful web landing pages with rich album artwork, 1-click import, and branded single-track preview buttons. *(Try the live demo: [songflip.link/p/76176a1354](https://songflip.link/p/76176a1354))*.
+- **🎙️ Cross-Platform Podcast Support**: Seamlessly convert and launch podcast shows and episodes across Spotify, Apple Podcasts, YouTube Music, Pocket Casts, Deezer, and Amazon Music with zero-delay app deep-search and web playback.
 - **🎧 Broad Multi-Service Support**: Full any-to-any redirection between:
   - 🟢 **Spotify** (`open.spotify.com`, `spotify.link`)
   - 🔴 **YouTube & YouTube Music** (`music.youtube.com`, `youtu.be`, `youtube.com/shorts`)
-  - 🍎 **Apple Music** (`music.apple.com`, `apple.co`, `itunes.apple.com`)
+  - 🍎 **Apple Music & Podcasts** (`music.apple.com`, `podcasts.apple.com`, `apple.co`, `itunes.apple.com`)
   - 🌊 **Tidal** (`tidal.com`, `listen.tidal.com`)
   - 🟣 **Deezer** (`deezer.com`, `link.deezer.com`, `deezer.page.link`)
   - 🔵 **Amazon Music** (`music.amazon.com`, `music.amazon.de`, `music.amazon.co.uk`, `amzn.to`, `a.co`)
+  - 🎙️ **Pocket Casts** (`pocketcasts.com`, `pca.st`)
   - 🟠 **SoundCloud** (`soundcloud.com`, `on.soundcloud.com`)
   - 🎸 **Bandcamp** (`bandcamp.com`, `*.bandcamp.com`)
 - **⚡ Shazam Link Interception**: Songs identified with Shazam open directly and reliably in your preferred music player.
 - **🎯 Quick Player Picker ("Ask every time")**: Optional setting for users with multiple streaming apps to pick where each song should play with a single tap.
-- **💿 Full Album & Artist Recognition**: Supports single tracks, full albums/EPs, and artist channel/discography profiles (including `@handles`).
+- **💿 Full Album, Artist & Podcast Recognition**: Supports single tracks, full albums/EPs, artist channel/discography profiles (including `@handles`), and podcast shows/episodes.
 - **📋 Clipboard Smart-Banner**: 1-tap player launch and universal link copying when music links are copied on Android & iOS.
 - **🍎 iOS Deep Integration**: Native Share Extension, Action Button support, and Siri App Intents (`ConvertSongIntent`).
 - **🎨 Material You Themed Icon (Android 13+)**: Clean vector alpha silhouette dynamically adapting to your launcher wallpaper palette.

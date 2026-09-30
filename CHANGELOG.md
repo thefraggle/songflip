@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.6.0] - 2026-09-30
+- **Podcasts Support**: Shared podcast episodes and shows now open directly in your preferred player.
+- **Faster Link Handling**: Smoother and quicker redirects across your favorite apps.
+- **Performance & Polish**: Visual refinements and everyday reliability updates.
+
 ## [1.5.4] - 2026-09-30
 - **Refined Campaign Banners**: Polished visual design with warm adaptive accents for special events.
 - **Reliable Link Conversions**: Faster, uninterrupted redirects across all music services.

@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.6.0] - 2026-09-30
+- **Podcasts teilen & anhören**: Geteilte Podcast-Links (Episoden & Shows) öffnen sich ab sofort direkt in deiner bevorzugten App.
+- **Zuverlässigere Weiterleitung**: Schnellere und reibungslose Übergabe von Links an deinen Lieblings-Player.
+- **Feinschliff & Performance**: Optimierte Ladezeiten und flüssiges Abspielen im Alltag.
+
 ## [1.5.4] - 2026-09-30
 - **Elegante Aktions-Banner**: Überarbeitetes, dezentes Design mit warmen Gold-Akzenten für saisonale Aktionen.
 - **Zuverlässige Weiterleitung**: Schnellere und reibungslose Übergabe von Musik-Links an deinen Lieblings-Player.
