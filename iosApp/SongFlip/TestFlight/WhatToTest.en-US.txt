@@ -1,3 +1,3 @@
-- Accurate Player Detection: Improved detection of installed music apps so your selected player is always matched correctly.
-- Seamless Music Playback: Shared links open directly to the song without unwanted subscription prompts or landing pages.
-- Smoother Music Redirects: General refinements for instant and reliable song playback.
+- Seasonal Specials & Announcements: Support for timely community events and special offers in your language.
+- Enhanced Link Handling: Smoother and faster redirect experience across all supported music services.
+- Performance & Polish: Subtle visual refinements and reliability updates for daily use.

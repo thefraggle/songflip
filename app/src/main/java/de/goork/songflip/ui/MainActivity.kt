@@ -33,6 +33,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import de.goork.songflip.R
 import de.goork.songflip.core.cache.AndroidSharedPreferencesCacheStorage
+import de.goork.songflip.core.engine.PromoBannerManager
 import de.goork.songflip.core.engine.SongLinkEngine
 import de.goork.songflip.data.DomainVerificationUtils
 import de.goork.songflip.data.PauseHelper
@@ -229,6 +230,13 @@ fun MainScreen(
     }
 
     val proState by ProManager.proState.collectAsState()
+    val promoBannerConfig by PromoBannerManager.config.collectAsState()
+
+    LaunchedEffect(proState.isPro) {
+        if (!proState.isPro) {
+            PromoBannerManager.fetchPromoBanner()
+        }
+    }
 
     var showPauseBottomSheet by remember { mutableStateOf(showPauseSheetOnStart) }
     var showSettingsBottomSheet by remember { mutableStateOf(false) }
@@ -625,6 +633,31 @@ fun MainScreen(
                     onDismiss = {
                         settingsRepository.dismissProNudgeMilestone(activeMilestone)
                         activeMilestone = 0
+                    }
+                )
+            }
+
+            // 2.7 Remote Campaign Promo Banner (e.g. World Music Day Flash Sale)
+            val isPromoBannerVisible = PromoBannerManager.isBannerVisible(
+                isPro = proState.isPro,
+                currentTimeMs = System.currentTimeMillis()
+            )
+            AnimatedVisibility(
+                visible = isPromoBannerVisible,
+                enter = fadeIn() + expandVertically(),
+                exit = fadeOut() + shrinkVertically()
+            ) {
+                PromoBannerCard(
+                    config = promoBannerConfig,
+                    onClick = {
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed(
+                            "promo_banner_${promoBannerConfig.campaignId}"
+                        )
+                        initialShowPromoInPaywall = false
+                        showProPaywall = true
+                    },
+                    onDismiss = {
+                        PromoBannerManager.dismiss()
                     }
                 )
             }

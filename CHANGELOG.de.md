@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.5.3] - 2026-09-30
+- **Aktionen & Neuigkeiten**: Unterstützung für zeitlich begrenzte Specials und Ankündigungen direkt in deiner Sprache.
+- **Verbesserte Weiterleitung**: Noch schnellere und reibungslosere Übergabe von Musik-Links an deinen Lieblings-Player.
+- **Feinschliff & Stabilität**: Visuelle Verfeinerungen und optimierte Zuverlässigkeit im Alltag.
+
 ## [1.5.2] - 2026-09-30
 - **Zuverlässige App-Erkennung**: Verbesserte Erkennung installierter Musik-Apps für eine stets exakte Auswahl deines Lieblings-Players.
 - **Unterbrechungsfreie Musikwiedergabe**: Geteilte Links öffnen Songs jetzt direkt und ohne störende Abo-Hinweise oder Umwege.
