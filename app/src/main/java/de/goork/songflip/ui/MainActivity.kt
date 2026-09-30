@@ -89,6 +89,8 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
+        PromoBannerManager.fetchPromoBanner()
+
         setContent {
             val themeMode = remember { mutableStateOf(settingsRepo.themeMode) }
 
@@ -230,9 +232,10 @@ fun MainScreen(
     }
 
     val proState by ProManager.proState.collectAsState()
+    val isPromoDismissed by PromoBannerManager.isDismissed.collectAsState()
     val promoBannerConfig by PromoBannerManager.config.collectAsState()
 
-    LaunchedEffect(proState.isPro) {
+    LaunchedEffect(Unit) {
         if (!proState.isPro) {
             PromoBannerManager.fetchPromoBanner()
         }
@@ -638,10 +641,7 @@ fun MainScreen(
             }
 
             // 2.7 Remote Campaign Promo Banner (e.g. World Music Day Flash Sale)
-            val isPromoBannerVisible = PromoBannerManager.isBannerVisible(
-                isPro = proState.isPro,
-                currentTimeMs = System.currentTimeMillis()
-            )
+            val isPromoBannerVisible = !proState.isPro && !isPromoDismissed && promoBannerConfig.isValid(System.currentTimeMillis())
             AnimatedVisibility(
                 visible = isPromoBannerVisible,
                 enter = fadeIn() + expandVertically(),
