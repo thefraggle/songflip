@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.5.2] - 2026-09-30
+- **Accurate Player Detection**: Improved detection of installed music apps so your selected player is always matched correctly.
+- **Seamless Music Playback**: Shared links open directly to the song without unwanted subscription prompts or landing pages.
+- **Smoother Music Redirects**: General refinements for instant and reliable song playback.
+
 ## [1.5.1] - 2026-09-28
 - **Cover Artwork in History**: Your history now displays song and album artwork with an instant play button.
 - **Streamlined History**: Redesigned entries with easy one-tap sharing and quick link copying.

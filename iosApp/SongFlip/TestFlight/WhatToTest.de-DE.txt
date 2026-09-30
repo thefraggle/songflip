@@ -1,4 +1,3 @@
-- Playlists konvertieren & teilen: Ganze Playlists umwandeln, direkt im eigenen Musik-Player öffnen oder als Web-Link mit Freunden teilen.
-- Schneller & Zuverlässiger: Blitzschnelle Link-Erkennung, sofortige Weiterleitung und automatische Wiederholung bei schwachem Netz.
-- Präziseres Music-Matching: Noch zuverlässigere Zuordnung von Songs, Alben, Shorts und Links über alle Musikdienste hinweg.
-- Volle Sprachunterstützung: Alle Schritte und Dialoge vollständig in 31 Sprachen übersetzt.
+- Zuverlässige App-Erkennung: Verbesserte Erkennung installierter Musik-Apps für eine stets exakte Auswahl deines Lieblings-Players.
+- Unterbrechungsfreie Musikwiedergabe: Geteilte Links öffnen Songs jetzt direkt und ohne störende Abo-Hinweise oder Umwege.
+- Schnellere Weiterleitung: Allgemeine Optimierungen für ein flüssiges und direktes Abspielen geteilter Musik.

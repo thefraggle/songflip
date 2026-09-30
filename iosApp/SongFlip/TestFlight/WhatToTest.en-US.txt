@@ -1,4 +1,3 @@
-- Playlist Conversion & Sharing: Convert entire playlists, open them directly in your preferred music player, or share them via web links.
-- Faster & More Reliable: Lightning-fast link resolution, instant redirects, and automatic retry on unstable network connections.
-- Smarter Music Matching: Even more accurate matching for songs, albums, shorts, and links across all supported services.
-- Complete Localization: All conversion steps and dialogs fully translated across 31 languages.
+- Accurate Player Detection: Improved detection of installed music apps so your selected player is always matched correctly.
+- Seamless Music Playback: Shared links open directly to the song without unwanted subscription prompts or landing pages.
+- Smoother Music Redirects: General refinements for instant and reliable song playback.
