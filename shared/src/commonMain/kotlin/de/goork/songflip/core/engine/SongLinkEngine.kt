@@ -997,11 +997,21 @@ class SongLinkEngine(
         val now = getCurrentTimeMillis()
         if (!forceRefresh) {
             val cached = cache.get(canonicalUrl, targetPlatformKey, now)
-            if (cached is ResolutionResult.Podcast) {
+            if (cached != null) {
                 if (!isPrefetch) {
                     cache.markAsHistory(canonicalUrl, targetPlatformKey, now)
                 }
-                return cached
+                return ResolutionResult.Podcast(
+                    originalUrl = canonicalUrl,
+                    targetUrl = cached.targetUrl,
+                    platform = cached.platform,
+                    showTitle = cached.artist ?: cached.title ?: "Podcast",
+                    episodeTitle = if (cached.artist != null) cached.title else null,
+                    nativeAppUri = cached.nativeAppUri,
+                    thumbnailUrl = cached.thumbnailUrl,
+                    isEpisode = cached.artist != null,
+                    isDeepSearch = true
+                )
             }
         }
 
@@ -1053,7 +1063,39 @@ class SongLinkEngine(
             } catch (_: Exception) {}
         }
 
-        // 2. Offline Fallback: Extract Show / Episode slug and generate Deep-Search Intent
+        // 2. Direct Client-Side oEmbed Fallback for Spotify Podcasts
+        if (canonicalUrl.contains("spotify.com") || canonicalUrl.startsWith("spotify:")) {
+            try {
+                val oembedUrl = "https://open.spotify.com/oembed?url=${canonicalUrl.encodeURLParameter()}"
+                val oResp = client.get(oembedUrl)
+                if (oResp.status.isSuccess()) {
+                    val oBody = oResp.bodyAsText()
+                    val oRoot = json.parseToJsonElement(oBody).jsonObject
+                    val title = oRoot["title"]?.jsonPrimitive?.content?.ifBlank { null }
+                    val thumb = oRoot["thumbnail_url"]?.jsonPrimitive?.content?.ifBlank { null }
+                    if (title != null) {
+                        val isEp = canonicalUrl.contains("/episode/") || canonicalUrl.startsWith("spotify:episode:")
+                        val targetUrl = UrlUtils.buildPodcastSearchUrl(title, targetPlatformKey)
+                        val nativeUri = UrlUtils.toPodcastNativeAppUri(targetPlatformKey, title)
+                        val oResult = ResolutionResult.Podcast(
+                            originalUrl = canonicalUrl,
+                            targetUrl = targetUrl,
+                            platform = targetPlatformKey,
+                            showTitle = title,
+                            episodeTitle = if (isEp) title else null,
+                            nativeAppUri = nativeUri,
+                            thumbnailUrl = thumb,
+                            isEpisode = isEp,
+                            isDeepSearch = true
+                        )
+                        cache.putPodcast(canonicalUrl, targetPlatformKey, oResult, now, isHistory = !isPrefetch)
+                        return oResult
+                    }
+                }
+            } catch (_: Exception) {}
+        }
+
+        // 3. Offline Fallback: Extract Show / Episode slug and generate Deep-Search Intent
         val fallbackQuery = extractPodcastFallbackQuery(canonicalUrl)
         val targetUrl = UrlUtils.buildPodcastSearchUrl(fallbackQuery, targetPlatformKey)
         val nativeUri = UrlUtils.toPodcastNativeAppUri(targetPlatformKey, fallbackQuery)
@@ -1075,7 +1117,12 @@ class SongLinkEngine(
     private fun extractPodcastFallbackQuery(url: String): String {
         return try {
             val clean = url.substringBefore("?").substringBefore("#").trimEnd('/')
-            val slug = clean.substringAfterLast("/")
+            val rawSlug = clean.substringAfterLast("/")
+            // If slug looks like a raw alphanumeric Base62 ID (e.g. 22 chars without hyphens/spaces like 7BTOsF2boKmlYr76BelijW)
+            if (rawSlug.length in 18..30 && rawSlug.matches(Regex("""^[a-zA-Z0-9]+$"""))) {
+                return "Podcast"
+            }
+            val slug = rawSlug
                 .replace("-", " ")
                 .replace("_", " ")
                 .replace(Regex("""\bid\d+\b""", RegexOption.IGNORE_CASE), "")
