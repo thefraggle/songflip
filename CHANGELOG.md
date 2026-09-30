@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.6.1] - 2026-09-30
+- **Clipboard Podcasts**: Copied podcast links can now be directly converted and opened in your preferred player with a single tap.
+- **Enhanced Podcast Matching**: More accurate recognition of podcast shows and episode titles.
+- **Everyday Polish & Stability**: Faster loading and smooth playback for daily use.
+
 ## [1.6.0] - 2026-09-30
 - **Podcasts Support**: Shared podcast episodes and shows now open directly in your preferred player.
 - **Faster Link Handling**: Smoother and quicker redirects across your favorite apps.

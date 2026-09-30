@@ -565,12 +565,22 @@ fun MainScreen(
                             showPlaylistConvertSheet = url
                         },
                         onOpenPodcast = { url ->
-                            showPodcastNoticeSheet = url
+                            if (isAudiobook) {
+                                showPodcastNoticeSheet = url
+                            } else {
+                                dismissedClipboardUrl = url
+                                detectedClipboardUrl = null
+                                val redirectIntent = Intent(context, RedirectActivity::class.java).apply {
+                                    data = Uri.parse(url)
+                                    putExtra("from_clipboard_banner", true)
+                                }
+                                context.startActivity(redirectIntent)
+                            }
                         },
                         onOpenInTarget = { urlToOpen ->
                             if (isPlaylist) {
                                 showPlaylistConvertSheet = urlToOpen
-                            } else if (isPodcastOrAudiobook) {
+                            } else if (isAudiobook) {
                                 showPodcastNoticeSheet = urlToOpen
                             } else {
                                 dismissedClipboardUrl = urlToOpen

@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.6.1] - 2026-09-30
+- **Podcasts aus Zwischenablage**: Kopierte Podcast-Links lassen sich nun direkt mit einem Fingertipp in deinen bevorzugten Player umwandeln und öffnen.
+- **Präzisere Podcast-Erkennung**: Zuverlässigere Zuordnung von Podcast-Sendungen und Episodentiteln.
+- **Feinschliff & Stabilität**: Optimierte Ladezeiten und flüssiges Abspielen im Alltag.
+
 ## [1.6.0] - 2026-09-30
 - **Podcasts teilen & anhören**: Geteilte Podcast-Links (Episoden & Shows) öffnen sich ab sofort direkt in deiner bevorzugten App.
 - **Zuverlässigere Weiterleitung**: Schnellere und reibungslose Übergabe von Links an deinen Lieblings-Player.

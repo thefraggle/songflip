@@ -211,7 +211,7 @@ fun ClipboardSmartBanner(
                             overflow = TextOverflow.Ellipsis
                         )
                     }
-                } else if (isPodcastOrAudiobook) {
+                } else if (isAudiobook) {
                     Button(
                         onClick = {
                             haptic.performHapticFeedback(HapticFeedbackType.LongPress)
