@@ -19,7 +19,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
@@ -29,13 +28,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.goork.songflip.core.model.PromoBannerConfig
+import de.goork.songflip.ui.theme.StatePausedAmber
+import de.goork.songflip.ui.theme.StatePausedAmberLight
 import java.util.Locale
-
-// Warm Gold / Amber Accent Palette
-private val GoldLight = Color(0xFFFBBF24)
-private val GoldPrimary = Color(0xFFF59E0B)
-private val GoldDark = Color(0xFFD97706)
-private val GoldDeep = Color(0xFFB45309)
 
 @Composable
 fun PromoBannerCard(
@@ -68,54 +63,29 @@ fun PromoBannerCard(
     val isPressed by interactionSource.collectIsPressedAsState()
     val isHovered by interactionSource.collectIsHoveredAsState()
 
-    // Adaptive Theme Colors (Gold / Champagne Glassmorphism)
-    val cardBackgroundBrush = if (isDark) {
-        Brush.linearGradient(
-            listOf(
-                Color(0xFF221A0F), // Subtiles warmes Dunkelbraun/Gold-Schwarz
-                Color(0xFF141923)  // Sanfter Übergang in SongFlip Slate
-            )
-        )
-    } else {
-        Brush.linearGradient(
-            listOf(
-                Color(0xFFFFFBEB), // Helles Creme-Gold
-                Color(0xFFFEF3C7)  // Zartes Warmgold
-            )
-        )
-    }
-
-    val defaultBorderColor = if (isDark) {
-        GoldPrimary.copy(alpha = 0.35f)
-    } else {
-        GoldDark.copy(alpha = 0.40f)
-    }
+    // Harmonic Translucent Gold / Amber Palette (matches LiveStatusBanner pattern)
+    val accentColor = if (isDark) StatePausedAmber else StatePausedAmberLight
+    val cardBgColor = if (isDark) StatePausedAmber.copy(alpha = 0.12f) else StatePausedAmber.copy(alpha = 0.08f)
+    val defaultBorderColor = if (isDark) StatePausedAmber.copy(alpha = 0.35f) else StatePausedAmber.copy(alpha = 0.40f)
 
     val animatedBorderColor by animateColorAsState(
         targetValue = when {
-            isPressed -> if (isDark) GoldLight else GoldDeep
-            isHovered -> if (isDark) GoldPrimary else GoldDark
+            isPressed -> accentColor
+            isHovered -> accentColor.copy(alpha = 0.75f)
             else -> defaultBorderColor
         },
         label = "promoBannerBorderColor"
     )
 
-    val titleColor = if (isDark) Color.White else Color(0xFF0F172A)
-    val subtitleColor = if (isDark) MaterialTheme.colorScheme.onSurfaceVariant else Color(0xFF475569)
-    val iconTint = if (isDark) GoldPrimary else GoldDark
-    val buttonContainerColor = if (isDark) GoldPrimary else GoldDark
-    val buttonTextColor = if (isDark) Color(0xFF1C1917) else Color.White
-
     Card(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color.Transparent
+            containerColor = cardBgColor
         ),
         border = BorderStroke(1.dp, animatedBorderColor),
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
-            .background(cardBackgroundBrush)
             .clickable(
                 interactionSource = interactionSource,
                 indication = ripple(),
@@ -129,7 +99,7 @@ fun PromoBannerCard(
             modifier = Modifier.padding(14.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            // Header Row: Badge Pill + Icon + Close Button
+            // Header Row: Badge Pill + Sparkle Icon + Close Button
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -140,23 +110,19 @@ fun PromoBannerCard(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     if (badgeText.isNotBlank()) {
-                        Box(
-                            modifier = Modifier
-                                .clip(RoundedCornerShape(6.dp))
-                                .background(
-                                    Brush.horizontalGradient(
-                                        listOf(GoldPrimary, GoldDark)
-                                    )
-                                )
-                                .padding(horizontal = 8.dp, vertical = 3.dp)
+                        Surface(
+                            shape = RoundedCornerShape(6.dp),
+                            color = accentColor.copy(alpha = if (isDark) 0.22f else 0.16f),
+                            border = BorderStroke(1.dp, accentColor.copy(alpha = 0.45f))
                         ) {
                             Text(
                                 text = badgeText,
                                 style = MaterialTheme.typography.labelSmall.copy(
-                                    fontWeight = FontWeight.Black,
+                                    fontWeight = FontWeight.Bold,
                                     letterSpacing = 0.5.sp
                                 ),
-                                color = Color.White
+                                color = accentColor,
+                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
                             )
                         }
                     }
@@ -164,7 +130,7 @@ fun PromoBannerCard(
                     Icon(
                         imageVector = Icons.Outlined.AutoAwesome,
                         contentDescription = null,
-                        tint = iconTint,
+                        tint = accentColor,
                         modifier = Modifier.size(16.dp)
                     )
                 }
@@ -179,11 +145,7 @@ fun PromoBannerCard(
                     Icon(
                         imageVector = Icons.Outlined.Close,
                         contentDescription = stringResource(android.R.string.cancel),
-                        tint = if (isDark) {
-                            MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
-                        } else {
-                            Color(0xFF64748B)
-                        },
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
                         modifier = Modifier.size(18.dp)
                     )
                 }
@@ -193,7 +155,7 @@ fun PromoBannerCard(
             Text(
                 text = titleText,
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                color = titleColor
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             // Subtitle Description
@@ -201,22 +163,23 @@ fun PromoBannerCard(
                 Text(
                     text = subtitleText,
                     style = MaterialTheme.typography.bodySmall,
-                    color = subtitleColor,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     lineHeight = 18.sp
                 )
             }
 
-            // Primary Action Button
-            Button(
+            // Primary Action Button (Translucent Tonal Gold)
+            FilledTonalButton(
                 onClick = {
                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                     onClick()
                 },
                 shape = RoundedCornerShape(10.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = buttonContainerColor,
-                    contentColor = buttonTextColor
+                colors = ButtonDefaults.filledTonalButtonColors(
+                    containerColor = accentColor.copy(alpha = if (isDark) 0.25f else 0.18f),
+                    contentColor = accentColor
                 ),
+                border = BorderStroke(1.dp, accentColor.copy(alpha = 0.5f)),
                 contentPadding = PaddingValues(horizontal = 14.dp, vertical = 8.dp),
                 modifier = Modifier.align(Alignment.End)
             ) {
