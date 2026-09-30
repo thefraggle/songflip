@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.5.2] - 2026-09-30
+- **Zuverlässige App-Erkennung**: Verbesserte Erkennung installierter Musik-Apps für eine stets exakte Auswahl deines Lieblings-Players.
+- **Unterbrechungsfreie Musikwiedergabe**: Geteilte Links öffnen Songs jetzt direkt und ohne störende Abo-Hinweise oder Umwege.
+- **Schnellere Weiterleitung**: Allgemeine Optimierungen für ein flüssiges und direktes Abspielen geteilter Musik.
+
 ## [1.5.1] - 2026-09-28
 - **Cover-Bilder im Verlauf**: Dein Verlauf zeigt jetzt Album- und Song-Cover mit direktem Play-Button.
 - **Aufgeräumter Verlauf**: Neu gestaltete Einträge mit 1-Klick-Teilen und schnellem Kopieren von Links.
