@@ -7,12 +7,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.interaction.collectIsPressedAsState
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.Close
-import androidx.compose.material.icons.outlined.LocalOffer
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -30,10 +31,11 @@ import androidx.compose.ui.unit.sp
 import de.goork.songflip.core.model.PromoBannerConfig
 import java.util.Locale
 
-private val EmeraldAccent = Color(0xFF10B981)
-private val EmeraldAccentDark = Color(0xFF059669)
-private val BannerCardBackground = Color(0xFF0D1B17)
-private val BannerBorderColor = Color(0x3310B981)
+// Warm Gold / Amber Accent Palette
+private val GoldLight = Color(0xFFFBBF24)
+private val GoldPrimary = Color(0xFFF59E0B)
+private val GoldDark = Color(0xFFD97706)
+private val GoldDeep = Color(0xFFB45309)
 
 @Composable
 fun PromoBannerCard(
@@ -44,6 +46,8 @@ fun PromoBannerCard(
 ) {
     val haptic = LocalHapticFeedback.current
     val context = LocalContext.current
+    val isDark = isSystemInDarkTheme()
+
     val currentLocale = remember {
         val conf = context.resources.configuration
         val loc = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
@@ -64,24 +68,54 @@ fun PromoBannerCard(
     val isPressed by interactionSource.collectIsPressedAsState()
     val isHovered by interactionSource.collectIsHoveredAsState()
 
+    // Adaptive Theme Colors (Gold / Champagne Glassmorphism)
+    val cardBackgroundBrush = if (isDark) {
+        Brush.linearGradient(
+            listOf(
+                Color(0xFF221A0F), // Subtiles warmes Dunkelbraun/Gold-Schwarz
+                Color(0xFF141923)  // Sanfter Übergang in SongFlip Slate
+            )
+        )
+    } else {
+        Brush.linearGradient(
+            listOf(
+                Color(0xFFFFFBEB), // Helles Creme-Gold
+                Color(0xFFFEF3C7)  // Zartes Warmgold
+            )
+        )
+    }
+
+    val defaultBorderColor = if (isDark) {
+        GoldPrimary.copy(alpha = 0.35f)
+    } else {
+        GoldDark.copy(alpha = 0.40f)
+    }
+
     val animatedBorderColor by animateColorAsState(
         targetValue = when {
-            isPressed -> EmeraldAccent
-            isHovered -> EmeraldAccent.copy(alpha = 0.8f)
-            else -> BannerBorderColor
+            isPressed -> if (isDark) GoldLight else GoldDeep
+            isHovered -> if (isDark) GoldPrimary else GoldDark
+            else -> defaultBorderColor
         },
         label = "promoBannerBorderColor"
     )
 
+    val titleColor = if (isDark) Color.White else Color(0xFF0F172A)
+    val subtitleColor = if (isDark) MaterialTheme.colorScheme.onSurfaceVariant else Color(0xFF475569)
+    val iconTint = if (isDark) GoldPrimary else GoldDark
+    val buttonContainerColor = if (isDark) GoldPrimary else GoldDark
+    val buttonTextColor = if (isDark) Color(0xFF1C1917) else Color.White
+
     Card(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
-            containerColor = BannerCardBackground
+            containerColor = Color.Transparent
         ),
         border = BorderStroke(1.dp, animatedBorderColor),
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
+            .background(cardBackgroundBrush)
             .clickable(
                 interactionSource = interactionSource,
                 indication = ripple(),
@@ -111,7 +145,7 @@ fun PromoBannerCard(
                                 .clip(RoundedCornerShape(6.dp))
                                 .background(
                                     Brush.horizontalGradient(
-                                        listOf(EmeraldAccent, EmeraldAccentDark)
+                                        listOf(GoldPrimary, GoldDark)
                                     )
                                 )
                                 .padding(horizontal = 8.dp, vertical = 3.dp)
@@ -128,9 +162,9 @@ fun PromoBannerCard(
                     }
 
                     Icon(
-                        imageVector = Icons.Outlined.LocalOffer,
+                        imageVector = Icons.Outlined.AutoAwesome,
                         contentDescription = null,
-                        tint = EmeraldAccent,
+                        tint = iconTint,
                         modifier = Modifier.size(16.dp)
                     )
                 }
@@ -145,7 +179,11 @@ fun PromoBannerCard(
                     Icon(
                         imageVector = Icons.Outlined.Close,
                         contentDescription = stringResource(android.R.string.cancel),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                        tint = if (isDark) {
+                            MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+                        } else {
+                            Color(0xFF64748B)
+                        },
                         modifier = Modifier.size(18.dp)
                     )
                 }
@@ -155,7 +193,7 @@ fun PromoBannerCard(
             Text(
                 text = titleText,
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                color = Color.White
+                color = titleColor
             )
 
             // Subtitle Description
@@ -163,7 +201,7 @@ fun PromoBannerCard(
                 Text(
                     text = subtitleText,
                     style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = subtitleColor,
                     lineHeight = 18.sp
                 )
             }
@@ -176,8 +214,8 @@ fun PromoBannerCard(
                 },
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = EmeraldAccent,
-                    contentColor = Color.Black
+                    containerColor = buttonContainerColor,
+                    contentColor = buttonTextColor
                 ),
                 contentPadding = PaddingValues(horizontal = 14.dp, vertical = 8.dp),
                 modifier = Modifier.align(Alignment.End)
