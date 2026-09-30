@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.5.4] - 2026-09-30
+- **Elegante Aktions-Banner**: Überarbeitetes, dezentes Design mit warmen Gold-Akzenten für saisonale Aktionen.
+- **Zuverlässige Weiterleitung**: Schnellere und reibungslose Übergabe von Musik-Links an deinen Lieblings-Player.
+- **Feinschliff & Stabilität**: Visuelle Anpassungen und optimierte Zuverlässigkeit im Alltag.
+
 ## [1.5.3] - 2026-09-30
 - **Aktionen & Neuigkeiten**: Unterstützung für zeitlich begrenzte Specials und Ankündigungen direkt in deiner Sprache.
 - **Verbesserte Weiterleitung**: Noch schnellere und reibungslosere Übergabe von Musik-Links an deinen Lieblings-Player.
