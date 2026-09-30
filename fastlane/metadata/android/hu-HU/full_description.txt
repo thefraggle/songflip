@@ -1,42 +1,48 @@
-Egy barátod megosztott veled egy dalt a Spotifyról, de te YouTube Musicot, Apple Musicot vagy Deezert használsz?
+Egy barátod átküldött egy dalt vagy podcastot Spotifyon, de te YouTube Musicot, Apple Podcastst vagy Deezert használsz?
 
-A SongFlip a te zökkenőmentes, 0-kattintásos zenei link-átalakítód és átirányítód Androidra. A beállítás után a beérkező zenei linkek automatikusan átalakulnak a háttérben, és közvetlenül a kívánt zenelejátszóban indulnak el – kézi keresés, reklámok és felesleges böngészős átirányítások nélkül.
+A SongFlip egy intelligens, 0-kattintásos zenei és podcast linkátalakító és átirányító Androidra. A beállítás után a kapott linkek a háttérben automatikusan átalakulnak és közvetlenül a kedvenc lejátszódban indulnak el — kézi keresés, hirdetések és idegesítő köztes oldalak nélkül.
 
-Legyen szó Spotify-ról YouTube Musicra, Spotify-ról Apple Musicra vagy megosztott Shazam-linkekről: A SongFlip azonnal felismeri a dalt univerzális intelligens link-konvertálóként.
+Legyen szó Spotifyról YouTube Musicra, Apple Podcastsról Spotifyra vagy megosztott Shazam zenékről: a SongFlip azonnal megoldja univerzális okoslink-átalakítóként.
 
-🚀 FŐBB JELLEMZŐK:
+🚀 FŐBB FUNKCIÓK:
 
-• 8 zenei platform és Shazam támogatása:
-Zökkenőmentes konvertálás a Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud és Bandcamp között. Mostantól a megosztott Shazam-linkek azonnali feloldásával!
+• 10 Zenei és Podcast Platform & Shazam:
+Zökkenőmentes átalakítás a Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud és Bandcamp között. Shazam linkeket is támogat!
 
-• Azonnali lejátszás (Instant Playback):
-A zeneszám közvetlenül a céllejátszóban indul el, nem pedig egy üres keresési oldalon.
+• Podcast Átalakító Motor:
+Oszd meg a podcast műsorokat és egyes epizódokat a különböző platformok között. A SongFlip megkeresi az epizódot és elindítja a kedvenc podcast appodban.
 
-• Teljes album- és lejátszási lista támogatás:
-Felismeri a teljes albumokat és megnyitja a teljes kiadványt. A megosztott lejátszási listákat is tisztán kezeli.
+• Univerzális Lejátszási Lista Átalakító:
+Másolj át teljes lejátszási listákat számról számra a Spotify, Apple Music és YouTube Music között a szupergyors gyorsítótár segítségével.
 
-• Gyors lejátszóválasztó (Kérdezzen rá minden alkalommal):
-Több zenei alkalmazást is használsz? Engedélyezd a gyorsválasztót a céllejátszó azonnali kiválasztásához a link megnyitásakor.
+• Azonnali Lejátszás (Instant Playback):
+A szám vagy epizód közvetlenül a céllejátszóban indul el az üres keresési oldalak helyett.
 
-• Intelligens beállítási varázsló (Android 12+):
-Segít egyetlen érintéssel konfliktusmentesen beállítani az alapértelmezett hivatkozásokat.
+• Gyors Lejátszóválasztó (Kérdezzen minden alkalommal):
+Több audio appot használsz? Válaszd ki azonnal a kívánt lejátszót minden link megnyitásakor.
 
-• Vágólap intelligens sáv & Megosztás menü:
-Csak másolj ki egy linket, vagy oszd meg közvetlenül a WhatsApp, Telegram, Instagram vagy Reddit alkalmazásból a SongFlipbe az 1-kattintásos azonnali konvertáláshoz.
+• Intelligens Beállítási Segéd (Android 12+):
+Állítsd be az alapértelmezett alkalmazáslinkeket könnyedén, 1 érintéssel.
 
-• Univerzális webes okoslinkek (Smart Links):
-Hozz létre egyetlen érintéssel semleges webes linkeket (songflip.link), amelyeket a barátaid bármilyen eszközön és streaming szolgáltatásban megnyithatnak.
+• Vágólap Okos-Szalagcím & Megosztás Menü:
+Kimásoltál egy linket? Nyisd meg azonnal az okos-szalagcímről vagy oszd meg WhatsAppból, Telegramból vagy Instagramból a SongFlipbe.
 
-• Gyorsbeállítások csempe & Ikon parancsikonok:
-Szüneteltesd az átirányítást rugalmasan 15 percre, 1 órára vagy másnap reggelig a Gyorsbeállítások panelen.
+• Univerzális Webes Okoslinkek & Weblejátszó (songflip.link):
+Hozz létre semleges linkeket beépített weblejátszóval, hogy barátaid bármilyen eszközön meghallgathassák.
 
-• Material You dizájn & Tematikus ikon:
-Teljesen illeszkedik az Android rendszerszíneihez (Dynamic Color, világos és AMOLED sötét mód).
+• Gyorsbeállítások Csempe & Parancsikonok:
+Szüneteltesd az átirányítást 15 percre, 1 órára vagy holnap reggelig a gyorsbeállítások panelről.
+
+• Material You Design & Téma Ikon:
+Tökéletesen illeszkedik a rendszer színeihez AMOLED sötét móddal és monokróm ikonnal.
+
+• Promóciós Kódok & Kuponok Beváltása:
+Válts be kuponkódokat közvetlenül az alkalmazásban a PRO funkciók feloldásához.
 
 🔒 ADATVÉDELEM ÉS NYÍLT FORRÁSKÓD:
-• 100% nyílt forráskód (GPLv3 licenc a GitHubon)
-• Nincsenek felhasználói fiókok, nincs regisztráció
-• Teljesen reklámmentes – örökre
-• Nulla nyomon követés, nincsenek mentett adatok
+• 100% Nyílt forráskód (GPLv3 licenc a GitHubon)
+• Nincs felhasználói fiók vagy regisztráció
+• Teljesen reklámmentes örökre
+• Nulla adatkövetés és szokáselemzés
 
-Kompatibilis a Songlink / Odesli platformmal. Töltsd le a SongFlipet most!
+Kompatibilis a Songlink / Odesli szabvánnyal. Töltsd le a SongFlipet most, és élvezd a zenéket és podcastokat határok nélkül!

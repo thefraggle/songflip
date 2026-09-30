@@ -1,42 +1,48 @@
-Sender en venn en sang på Spotify, men du bruker YouTube Music, Apple Music eller Deezer?
+Sender en venn deg en sang eller podcast på Spotify, men du bruker YouTube Music, Apple Podcasts eller Deezer?
 
-SongFlip er din smarte musikklenkekonverterer for Android. Når den er aktivert, blir mottatte musikklenker automatisk konvertert i bakgrunnen og åpnet direkte i din foretrukne musikkspiller – uten manuell søking eller omveier i nettleseren.
+SongFlip er din sømløse 0-klikks musikk- og podcastlenkekonverterer for Android. Når den er aktivert, konverteres mottatte lenker automatisk i bakgrunnen og åpnes direkte i din favorittspiller — uten manuell søking, reklame eller mellomliggende nettlesersider.
 
-Fra Spotify til YouTube Music, Spotify til Apple Music eller Shazam-lenker: SongFlip ordner lenker umiddelbart som din universelle smartlenkekonverterer.
+Enten det gjelder Spotify til YouTube Music, Apple Podcasts til Spotify eller delte Shazam-spor: SongFlip ordner det umiddelbart som din universelle smarte lenkekonverterer.
 
 🚀 NØKKELFUNKSJONER:
 
-• 8 Strømmeplattformer & Shazam:
-Konverterer sømløst mellom Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud og Bandcamp. Nå også med støtte for Shazam-lenker!
+• 10 Musikk- og Podcastplattformer samt Shazam:
+Konverterer sømløst mellom Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud og Bandcamp. Støtter også Shazam-lenker!
 
-• Umiddelbar Avspilling (Instant Playback):
-Starter avspillingen direkte i målappen i stedet for å vise tomme søkeresultatsider.
+• Podcast-Konvertering:
+Del podcastserier og enkeltepisoder på tvers av ulike plattformer. SongFlip finner episoden og starter den direkte i din foretrukne podcast-app.
 
-• Støtte for Album & Spillelister:
-Gjenkjenner hele album og åpner hele sporlisten. Delte spillelister gjenkjennes sømløst — din smarte spilleliste-konverter for delt musikk.
+• Universell Spillelistekonverterer:
+Overfør hele spillelister spor for spor mellom Spotify, Apple Music og YouTube Music med lynrask hurtigbuffer.
 
-• Hurtigspillervelger (Spør hver gang):
-Bruker du flere musikkapper? Aktiver hurtigvelgeren for å velge målspiller umiddelbart når du åpner en musikklenke.
+• Øyeblikkelig Avspilling (Instant Playback):
+Starter avspillingen direkte i målspilleren i stedet for å åpne en tom søkeside.
 
-• Smart Konfigurasjonsassistent (Android 12+):
-Konfigurer standardapp-lenker enkelt med vår interaktive veiviser.
+• Hurtigvalg av Spiller (Spør hver gang):
+Bruker du flere lydapper? Aktiver hurtigvelgeren for å velge målspiller raskt når du åpner en lenke.
 
-• Utklippstavle-banner & Delemeny:
-Kopiert en lenke? Åpne den direkte via dashbordet eller del fra WhatsApp, Telegram eller Instagram til SongFlip.
+• Smart Oppsettassistent (Android 12+):
+Konfigurer standard app-lenker enkelt med et enkelt trykk.
 
-• Universelle Smarte Nettlenker (songflip.link):
-Opprett nøytrale lenker slik at vennene dine kan lytte på hvilken som helst strømmetjeneste de foretrekker.
+• Utklippstavle Smart-Banner & Delemeny:
+Kopierte du en lenke? Åpne den direkte via det smarte banneret eller del fra WhatsApp, Telegram eller Instagram til SongFlip.
+
+• Universelle Smarte Nettlenker & Nettspiller (songflip.link):
+Opprett nøytrale lenker med innebygd nettspiller slik at vennene dine kan lytte på hvilken som helst enhet.
 
 • Hurtiginnstillinger & Snarveier:
-Sett viderekobling på pause i 15 minutter, 1 time eller til i morgen direkte fra Androids hurtiginnstillinger.
+Sett viderekoblingen på pause i 15 minutter, 1 time eller til i morgen tidlig direkte fra hurtiginnstillingene.
 
-• Material You Design & Tematisk Ikon:
-Følger systemfargene dine med AMOLED mørk modus, lys modus og monokromt startskjermikon.
+• Material You Design & Temaikon:
+Følger systemfargene dine med AMOLED mørk modus og monokromt app-ikon.
+
+• Rabattkoder & Kuponger:
+Løs inn kampanjekoder direkte i appen for å låse opp PRO-fordeler.
 
 🔒 PERSONVERN & ÅPEN KILDEKODE:
-• 100% Open Source (GPLv3-lisens på GitHub)
-• Ingen kontoer eller pålogging nødvendig
-• Helt uten reklame for alltid
-• Null sporing eller innsamling av lyttevaner
+• 100% Åpen kildekode (GPLv3-lisensiert på GitHub)
+• Ingen kontoer, ingen registrering eller innlogging
+• Helt fri for reklame for alltid
+• Ingen sporing av data eller lyttevaner
 
-Kompatibel med Songlink / Odesli. Last ned SongFlip nå og del musikk på tvers av alle plattformer!
+Kompatibel med Songlink / Odesli. Last ned SongFlip nå og nyt musikk og podcaster på tvers av alle plattformer!

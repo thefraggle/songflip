@@ -1,31 +1,34 @@
-Un amico ti invia un brano su Spotify, ma tu usi YouTube Music, Apple Music o Deezer?
+Un amico ti invia un brano o un podcast su Spotify, ma tu usi YouTube Music, Apple Podcasts o Deezer?
 
-SongFlip è il tuo convertitore e reindirizzatore intelligente di link musicali per Android. Una volta attivato, i link ricevuti vengono convertiti automaticamente in background e aperti all'istante nel tuo lettore musicale preferito, senza ricerche manuali o fastidiose pagine intermedie.
+SongFlip è il tuo convertitore e reindirizzatore intelligente di link musicali e podcast per Android. Una volta attivato, i link ricevuti vengono convertiti automaticamente in background e aperti all'istante nel tuo lettore preferito, senza ricerche manuali o fastidiose pagine intermedie.
 
-Da Spotify a YouTube Music, da Spotify ad Apple Music o link condivisi da Shazam: SongFlip gestisce i link all'istante come tuo convertitore smart universale.
+Da Spotify a YouTube Music, da Apple Podcasts a Spotify o link condivisi da Shazam: SongFlip gestisce i link all'istante come tuo convertitore smart universale.
 
 🚀 CARATTERISTICHE PRINCIPALI:
 
-• 8 Piattaforme di Streaming & Shazam:
-Converte senza problemi tra Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud e Bandcamp. Ora supporta anche i link condivisi da Shazam!
+• 10 Piattaforme di Streaming, Podcast & Shazam:
+Converte senza problemi tra Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud e Bandcamp. Ora supporta anche i link condivisi da Shazam!
+
+• Motore di Conversione Podcast:
+Condividi show completi ed episodi singoli tra diverse piattaforme. SongFlip trova automaticamente l'episodio e lo avvia direttamente nella tua app podcast preferita.
+
+• Convertitore Universale di Playlist:
+Trasferisci intere playlist brano per brano tra Spotify, Apple Music e YouTube Music grazie alla nostra cache multi-tier ad alta velocità.
 
 • Riproduzione Immediata (Instant Playback):
-Avvia direttamente il brano nel lettore di destinazione anziché mostrare pagine di ricerca vuote.
-
-• Supporto Completo per Album e Playlist:
-Riconosce album interi e apre tutte le tracce. Le playlist condivise vengono rilevate con precisione — il tuo convertitore di playlist ideale per la musica condivisa.
+Avvia direttamente il brano o l'episodio nel lettore di destinazione anziché mostrare pagine di ricerca vuote.
 
 • Selettore Rapido del Lettore (Chiedi ogni volta):
-Usi più app musicali? Attiva il selettore rapido opzionale per scegliere al volo il tuo lettore preferito ogni volta che apri un link.
+Usi più app audio? Attiva il selettore rapido opzionale per scegliere al volo il tuo lettore preferito ogni volta che apri un link.
 
 • Assistente di Configurazione Intelligente (Android 12+):
-Configura facilmente i link predefiniti delle app musicali con il nostro assistente interattivo in un tocco.
+Configura facilmente i link predefiniti delle app con il nostro assistente interattivo in un tocco.
 
 • Smart-Banner Appunti & Condivisione Diretta:
 Hai copiato un link? Avvialo subito dal banner intelligente o condividi brani da WhatsApp, Telegram, Reddit o Instagram su SongFlip.
 
-• Smart Link Web Universali:
-Crea link web neutri (songflip.link) affinché i tuoi amici possano ascoltare sulla loro piattaforma preferita.
+• Smart Link Web Universali & Web Player:
+Crea link web neutri (songflip.link) con lettore integrato affinché i tuoi amici possano ascoltare su qualsiasi dispositivo.
 
 • Riquadro Impostazioni Rapide & Scorciatoie:
 Metti in pausa il reindirizzamento per 15 minuti, 1 ora o fino a domani direttamente dal pannello delle impostazioni rapide.
@@ -33,10 +36,13 @@ Metti in pausa il reindirizzamento per 15 minuti, 1 ora o fino a domani direttam
 • Design Material You & Icona a Tema:
 Segue i colori del tuo sistema con modalità scura AMOLED, tema chiaro e icona monocromatica per la schermata home.
 
+• Riscatto Codici Promozionali & Voucher:
+Inserisci i tuoi codici promo direttamente nell'app per sbloccare i vantaggi PRO.
+
 🔒 PRIVACY E OPEN SOURCE:
 • 100% Open Source (licenza GPLv3 su GitHub)
 • Nessun account, nessuna registrazione richiesta
 • Completamente senza pubblicità per sempre
 • Zero tracciamento, nessun dato raccolto
 
-Compatibile con Songlink / Odesli. Scarica SongFlip ora e ascolta musica senza barriere tra servizi di streaming!
+Compatibile con Songlink / Odesli. Scarica SongFlip ora e ascolta musica e podcast senza barriere tra servizi di streaming!

@@ -1,1 +1,1 @@
-Zenei linkek automatikus átalakítása és megnyitása a kedvenc lejátszódban.
+Nyisd meg a zenei és podcast linkeket kedvenc lejátszódban automatikusan.

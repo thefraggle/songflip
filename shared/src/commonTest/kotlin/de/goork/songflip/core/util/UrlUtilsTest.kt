@@ -94,6 +94,11 @@ class UrlUtilsTest {
         assertEquals("Wenn du dumm bist", UrlUtils.cleanSearchQuery("Wenn du dumm bist"))
         assertEquals("In The End", UrlUtils.cleanSearchQuery("In The End (Album Version)"))
         assertEquals("Du Hast", UrlUtils.cleanSearchQuery("Du Hast - Radio Edit"))
+        assertEquals("Lanz Precht", UrlUtils.cleanSearchQuery("Lanz + Precht"))
+        assertEquals("Fest Flauschig", UrlUtils.cleanSearchQuery("Fest & Flauschig"))
+        assertEquals("Folge 1 Titel", UrlUtils.cleanSearchQuery("Folge 1: \"Titel\""))
+        assertEquals("Huberman Lab 124", UrlUtils.cleanSearchQuery("🎙️ Huberman Lab #124 🔥"))
+        assertEquals("Huberman Lab", UrlUtils.cleanSearchQuery("🎙️ Huberman Lab 🔥"))
     }
 
     @Test
@@ -389,6 +394,9 @@ class UrlUtilsTest {
 
         val pocketCastsSearch = UrlUtils.buildPodcastSearchUrl("Huberman Lab", "pocketCasts")
         assertEquals("https://play.pocketcasts.com/podcasts/search?q=Huberman%20Lab", pocketCastsSearch)
+
+        val pocketCastsWithSpecialChars = UrlUtils.buildPodcastSearchUrl("Lanz + Precht", "pocketCasts")
+        assertEquals("https://play.pocketcasts.com/podcasts/search?q=Lanz%20Precht", pocketCastsWithSpecialChars)
 
         val spotifyNative = UrlUtils.toPodcastNativeAppUri("spotify", "Huberman Lab")
         assertEquals("spotify:search:Huberman%20Lab", spotifyNative)

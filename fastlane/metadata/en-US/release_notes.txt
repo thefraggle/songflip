@@ -1,3 +1,3 @@
-- Cover Artwork in History: Your history now displays song and album artwork with an instant play button.
-- Streamlined History: Redesigned entries with easy one-tap sharing and quick link copying.
-- Instant Loading: Cover artwork and track details load smoothly and without delay.
+- Robust Search Matching: Special characters (`+`, `&`, `#`), colons, quotes, and emojis in podcast and song titles are cleanly filtered for accurate search results across all platforms (Pocket Casts, Apple, Spotify, etc.).
+- Reliable Fallbacks: Enhanced search URL builders prevent empty results when opening complex titles.
+- Everyday Polish & Stability: Visual adjustments and stability enhancements for everyday use.

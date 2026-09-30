@@ -1,1 +1,1 @@
-Müzik linklerini otomatik dönüştürün ve favori oynatıcınızda 0 tıkla açın.
+Müzik ve podcast bağlantılarını favori oynatıcınızda otomatik açın (0 tık).

@@ -1,42 +1,48 @@
-Znajomy wysyła Ci utwór ze Spotify, ale Ty używasz YouTube Music, Apple Music lub Deezer?
+Znajomy przesyła Ci utwór lub podcast na Spotify, a Ty korzystasz z YouTube Music, Apple Podcasts lub Deezer?
 
-SongFlip to Twój inteligentny konwerter i przekierowujący linki muzyczne dla Androida. Po jednorazowej konfiguracji otrzymane linki są automatycznie konwertowane w tle i otwierane w Twojej ulubionej aplikacji muzycznej — bez ręcznego wyszukiwania i bez zbędnych stron pośrednich.
+SongFlip to inteligentny konwerter i automatyczne przekierowanie linków muzycznych i podcastów dla systemu Android. Po skonfigurowaniu, otrzymane linki audio są natychmiast konwertowane w tle i otwierane w Twoim ulubionym odtwarzaczu — bez ręcznego wyszukiwania, bez reklam i bez zbędnych stron pośrednich.
 
-Niezależnie od tego, czy chodzi o Spotify na YouTube Music, Spotify na Apple Music czy utwory z Shazam: SongFlip obsługuje linki natychmiast jako Twój uniwersalny konwerter smart linków.
+Niezależnie od tego, czy chodzi o Spotify na YouTube Music, Apple Podcasts na Spotify czy linki z Shazam: SongFlip błyskawicznie obsługuje linki jako Twój uniwersalny konwerter smart linków.
 
-🚀 NAJWAŻNIEJSZE FUNKCJE:
+🚀 GŁÓWNE FUNKCJE:
 
-• 8 Platform Streamingowych i Shazam:
-Płynnie konwertuje utwory i albumy między Spotify, YouTube Music, Apple Music, Deezer, TIDAL, Amazon Music, SoundCloud oraz Bandcamp. Nowość: obsługa udostępnionych linków Shazam!
+• 10 Platform Muzycznych, Podcastów i Shazam:
+Płynna konwersja między Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud i Bandcamp. Obsługuje także linki z Shazam!
+
+• Silnik Konwersji Podcastów:
+Udostępniaj całe audycje i pojedyncze odcinki między platformami. SongFlip automatycznie rozpoznaje odcinek i uruchamia go w Twojej ulubionej aplikacji do podcastów.
+
+• Uniwersalny Konwerter Playlist:
+Przenoś całe playlisty utwór po utworze między Spotify, Apple Music i YouTube Music dzięki superszybkiej pamięci podręcznej.
 
 • Natychmiastowe Odtwarzanie (Instant Playback):
-Utwory uruchamiają się bezpośrednio w aplikacji docelowej zamiast na pustej stronie wyników wyszukiwania.
-
-• Pełna Obsługa Albumów i Playlist:
-Rozpoznaje całe albumy i otwiera pełną listę utworów. Udostępnione playlisty są precyzyjnie wykrywane — Twój niezastąpiony konwerter playlist dla udostępnianej muzyki.
+Uruchamia utwór lub odcinek bezpośrednio w wybranym odtwarzaczu zamiast wyświetlać pustą stronę wyszukiwania.
 
 • Szybki Wybór Odtwarzacza (Pytaj za każdym razem):
-Korzystasz z kilku aplikacji muzycznych? Włącz szybki selektor, aby błyskawicznie wybrać docelowy odtwarzacz przy każdym otwarciu linku.
+Używasz kilku aplikacji audio? Włącz opcjonalny selektor, aby błyskawicznie wybrać docelowy odtwarzacz przy otwieraniu linku.
 
-• Inteligentny Kreator Konfiguracji (Android 12+):
-Łatwo skonfiguruj domyślne linki aplikacji za pomocą interaktywnego asystenta.
+• Inteligentny Asystent Konfiguracji (Android 12+):
+Łatwo sprawdzaj i konfiguruj domyślne linki aplikacji za pomocą 1 dotknięcia.
 
 • Inteligentny Baner Schowka i Menu Udostępniania:
-Skopiowałeś link? Uruchom go błyskawicznie z poziomu banera lub udostępnij link bezpośrednio z WhatsApp, Telegrama, Reddita lub Instagrama do SongFlip.
+Skopiowałeś link? Otwórz go od razu z banera lub udostępnij z WhatsApp, Telegram, Reddit lub Instagram do SongFlip.
 
-• Uniwersalne Linki Internetowe (Smart Links):
-Generuj neutralne linki (songflip.link), aby Twoi znajomi mogli słuchać muzyki w wybranej przez siebie usłudze.
+• Uniwersalne Linki Webowe i Odtwarzacz Web (Smart Links):
+Generuj neutralne linki (songflip.link) z wbudowanym odtwarzaczem, aby znajomi mogli słuchać na dowolnym urządzeniu.
 
-• Kafelek Szybkich Ustawień i Skróty:
-Wstrzymaj przekierowywanie na 15 minut, 1 godzinę lub do rana bezpośrednio z panelu szybkich ustawień Androida.
+• Kafelki Szybkich Ustawień i Skróty:
+Wstrzymaj przekierowywanie na 15 minut, 1 godzinę lub do rana bezpośrednio z panelu szybkich ustawień.
 
-• Wygląd Material You i Ikona Motywu:
-Dopasowuje się do kolorów systemu (tryb ciemny AMOLED, tryb jasny) wraz z monochromatyczną ikoną na ekranie głównym.
+• Styl Material You i Ikona z Motywem:
+Dopasowuje się do kolorów Twojego systemu z trybem ciemnym AMOLED, trybem jasnym i monochromatyczną ikoną.
+
+• Realizacja Kodów Promocyjnych i Voucherów:
+Wpisz kod promocyjny w aplikacji, aby odblokować funkcje PRO.
 
 🔒 PRYWATNOŚĆ I OPEN SOURCE:
-• 100% Open Source (licencja GPLv3 na GitHubie)
-• Bez kont, bez rejestracji i logowania
-• Całkowicie bez reklam na zawsze
-• Brak śledzenia i zbierania danych o gustach muzycznych
+• 100% Open Source (licencja GPLv3 na GitHub)
+• Bez kont, bez logowania i rejestracji
+• Całkowicie bez reklam — na zawsze
+• Zero śledzenia i gromadzenia danych
 
-Kompatybilny z Songlink / Odesli. Pobierz SongFlip i ciesz się muzyką bez barier między platformami!
+Kompatybilny z protokołami Songlink / Odesli. Pobierz SongFlip i ciesz się muzyką oraz podcastami bez żadnych ograniczeń!
