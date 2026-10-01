@@ -39,6 +39,7 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 - **🌍 31 Languages Supported**: Fully localized across 31 languages on Android and iOS (English, German, Spanish, French, Italian, Portuguese, Japanese, Korean, Chinese, Ukrainian, Polish, Turkish, Dutch, Arabic, Hindi, Swedish, Danish, Norwegian, Finnish, Czech, Greek, and more).
 - **⏸️ Quick Settings Status Tile & Smart Pause**: Pause redirection directly from Android's notification shade for 15 minutes, 1 hour, or until tomorrow morning (06:00).
 - **📤 Share Sheet Target (`ACTION_SEND`)**: Supports shared text containing links from WhatsApp, Instagram, and Reddit with automatic URL sanitization.
+- **♿ Accessible UI & 5-State Component Feedback**: All bottom sheets and interactive controls adhere to WCAG AA minimum 48dp touch targets and explicitly handle 5 UI states (Default, Hover, Active/Focus, Disabled, Loading) for instant visual feedback.
 - **🛡️ 100% Privacy & Zero Tracking**: No accounts, no logins, no advertising IDs, and no listening habits collected.
 
 ---
@@ -48,9 +49,9 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 > 📖 **Deep Dive**: For a comprehensive technical walkthrough of the deterministic resolution engine, tiered caching, playlist conversion pipeline, and edge cases, see **[ARCHITECTURE.md](ARCHITECTURE.md)**.
 
 SongFlip is built as a modern **Kotlin Multiplatform (KMP)** project with a modular architecture:
-- **`app/`**: Native Android app (Jetpack Compose, Material 3, Quick Settings Tile, Overlay & Notification handling).
+- **`app/`**: Native Android app (Jetpack Compose, MVVM architecture with ViewModels & StateFlow, Material 3, Quick Settings Tile, Overlay & Notification handling).
 - **`iosApp/`**: Native iOS app (SwiftUI, Share Extension, App Intents for 0-click Siri Shortcuts & Action Button).
-- **`shared/`**: Shared KMP core engine (platform parsing, universal URL sanitizing, multi-tier on-device resolution logic, playlist conversion client, Ktor HTTP client).
+- **`shared/`**: Shared KMP core engine (platform parsing, universal URL sanitizing, multi-tier on-device resolution logic, playlist conversion client, Ktor HTTP client, strict Structured Concurrency).
 - **`functions/`**: Hosted cloud backend (Firebase Cloud Functions) powering token verification, SSR web-share landing pages, playlist batch scrapers, and global L2 link caching.
 
 ### Resolution Pipeline
