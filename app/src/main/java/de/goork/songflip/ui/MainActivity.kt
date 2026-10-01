@@ -42,6 +42,8 @@ import de.goork.songflip.data.SettingsRepository
 import de.goork.songflip.core.util.UrlUtils
 import de.goork.songflip.ui.components.*
 import de.goork.songflip.ui.theme.*
+import de.goork.songflip.ui.viewmodel.MainViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 class MainActivity : AppCompatActivity() {
 
@@ -193,7 +195,8 @@ fun MainScreen(
     windowFocused: Boolean = true,
     incomingSharedUrl: String? = null,
     onIncomingSharedUrlHandled: () -> Unit = {},
-    onThemeModeChanged: (String) -> Unit = {}
+    onThemeModeChanged: (String) -> Unit = {},
+    viewModel: MainViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -201,34 +204,18 @@ fun MainScreen(
     val repository = remember { SongLinkEngine.shared }
     val settingsRepository = remember { SettingsRepository(context) }
 
-    var selectedTargetKey by remember { mutableStateOf(settingsRepository.targetPlatform) }
-    var selectedLanguage by remember { mutableStateOf(settingsRepository.appLanguage) }
-    var currentThemeMode by remember { mutableStateOf(settingsRepository.themeMode) }
-
-    var isCurrentlyPaused by remember { mutableStateOf(PauseHelper.isCurrentlyPaused(context)) }
-    var pausedUntilTimestamp by remember {
-        mutableStateOf(
-            context.getSharedPreferences(SettingsRepository.PREFS_NAME, Context.MODE_PRIVATE)
-                .getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L)
-        )
-    }
-
-    var domainStatus by remember { mutableStateOf(DomainVerificationUtils.getDomainStatus(context)) }
-    var linksActive by remember { mutableStateOf(DomainVerificationUtils.checkLinksEnabled(context)) }
-    var diagnosisSummary by remember { mutableStateOf<de.goork.songflip.data.DiagnosisSummary?>(null) }
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val selectedTargetKey = uiState.targetPlatform
+    val selectedLanguage = uiState.appLanguage
+    val currentThemeMode = uiState.themeMode
+    val isCurrentlyPaused = uiState.isCurrentlyPaused
+    val pausedUntilTimestamp = uiState.pausedUntilTimestamp
+    val domainStatus = uiState.domainStatus
+    val linksActive = uiState.linksActive
+    val diagnosisSummary = uiState.diagnosisSummary
 
     fun refreshStatus() {
-        isCurrentlyPaused = PauseHelper.isCurrentlyPaused(context)
-        pausedUntilTimestamp = context.getSharedPreferences(SettingsRepository.PREFS_NAME, Context.MODE_PRIVATE)
-            .getLong(PauseHelper.PREFS_KEY_PAUSED_UNTIL, 0L)
-        domainStatus = DomainVerificationUtils.getDomainStatus(context)
-        linksActive = DomainVerificationUtils.checkLinksEnabled(context)
-    }
-
-    LaunchedEffect(selectedTargetKey) {
-        withContext(Dispatchers.IO) {
-            diagnosisSummary = de.goork.songflip.data.LinkDiagnosisManager.runDiagnosis(context, selectedTargetKey)
-        }
+        viewModel.refreshStatus()
     }
 
     val proState by ProManager.proState.collectAsState()
@@ -406,14 +393,13 @@ fun MainScreen(
                     PauseHelper.setPauseUntil(context, tomorrowTimestamp)
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackPauseStateChanged("paused_tomorrow")
                 } else if (durationMs == 0L) {
-                    PauseHelper.setPause(context, 0L)
+                    viewModel.setPause(0L)
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackPauseStateChanged("paused_indefinitely")
                 } else {
-                    PauseHelper.setPause(context, durationMs)
+                    viewModel.setPause(durationMs)
                     val durationStr = if (durationMs == 15 * 60 * 1000L) "paused_15m" else "paused_1h"
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackPauseStateChanged(durationStr)
                 }
-                refreshStatus()
                 showPauseBottomSheet = false
             }
         )
@@ -426,11 +412,11 @@ fun MainScreen(
             supportedLanguages = supportedLanguages,
             currentLanguageCode = selectedLanguage,
             onLanguageSelected = { newLang ->
-                selectedLanguage = newLang
+                viewModel.setAppLanguage(newLang)
             },
             currentThemeMode = currentThemeMode,
             onThemeModeSelected = { newMode ->
-                currentThemeMode = newMode
+                viewModel.setThemeMode(newMode)
                 onThemeModeChanged(newMode)
             },
             isPro = proState.isPro,
@@ -528,9 +514,7 @@ fun MainScreen(
                 pausedUntilTimestamp = pausedUntilTimestamp,
                 isSetupRequired = isSetupRequired,
                 onResumeClick = {
-                    PauseHelper.resume(context)
-                    isCurrentlyPaused = false
-                    pausedUntilTimestamp = 0L
+                    viewModel.cancelPause()
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackPauseStateChanged("unpaused")
                 },
                 onPauseClick = {
@@ -689,11 +673,7 @@ fun MainScreen(
                 selectedTargetKey = selectedTargetKey,
                 onTargetSelected = { key ->
                     if (key != selectedTargetKey) {
-                        selectedTargetKey = key
-                        settingsRepository.targetPlatform = key
-                        coroutineScope.launch(Dispatchers.IO) {
-                            diagnosisSummary = de.goork.songflip.data.LinkDiagnosisManager.runDiagnosis(context, key)
-                        }
+                        viewModel.setTargetPlatform(key)
                         de.goork.songflip.core.analytics.AptabaseClient.shared.trackTargetPlatformChanged(key)
                     }
                 }

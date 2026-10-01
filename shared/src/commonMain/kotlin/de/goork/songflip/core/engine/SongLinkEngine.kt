@@ -23,6 +23,7 @@ import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.http.encodeURLParameter
 import io.ktor.http.isSuccess
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -101,7 +102,8 @@ class SongLinkEngine(
                     header("x-web-client", "songflip-app")
                     setBody(jsonPayload)
                 }
-            } catch (_: Throwable) {
+            } catch (t: Throwable) {
+                if (t is CancellationException) throw t
                 // Background ingestion is completely non-blocking and best-effort
             }
         }
@@ -187,7 +189,9 @@ class SongLinkEngine(
                 authToken = authToken,
                 isPrefetch = true
             )
-        } catch (_: Exception) {}
+        } catch (e: Exception) {
+            if (e is CancellationException) throw e
+        }
     }
 
     suspend fun queryL2ServerCache(
@@ -249,7 +253,8 @@ class SongLinkEngine(
                         }
                     }
                 }
-            } catch (_: Exception) {
+            } catch (e: Exception) {
+                if (e is CancellationException) throw e
                 // Endpoint unreachable or timed out; continue to next fallback
             }
         }
@@ -386,8 +391,8 @@ class SongLinkEngine(
             val (songLinkData, trackInfo) = supervisorScope {
                 val songLinkDeferred = async { fetchSongLinkData(canonicalUrl) }
                 val fallbackTrackDeferred = async { extractTrackInfo(canonicalUrl) }
-                val sld = try { songLinkDeferred.await() } catch (_: Exception) { null }
-                val ti = try { fallbackTrackDeferred.await() } catch (_: Exception) { null }
+                val sld = try { songLinkDeferred.await() } catch (e: Exception) { if (e is CancellationException) throw e; null }
+                val ti = try { fallbackTrackDeferred.await() } catch (e: Exception) { if (e is CancellationException) throw e; null }
                 Pair(sld, ti)
             }
 
@@ -613,6 +618,9 @@ class SongLinkEngine(
 
             return ResolutionResult.Error("Could not resolve music link", errorReason = "no_match_found")
         } catch (e: Exception) {
+            if (e is CancellationException && e !is kotlinx.coroutines.TimeoutCancellationException) {
+                throw e
+            }
             val cleanUrl = UrlUtils.extractCleanUrl(inputUrl) ?: inputUrl
             val isExplicitAlbumUrl = UrlUtils.isAlbumUrl(cleanUrl)
 
@@ -709,7 +717,8 @@ class SongLinkEngine(
             }
 
             SongLinkData(title = title, artist = artist, type = entityType, links = linksMap, thumbnailUrl = thumbnailUrl)
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            if (e is CancellationException) throw e
             null
         }
     }
@@ -824,7 +833,8 @@ class SongLinkEngine(
             } else {
                 null
             }
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            if (e is CancellationException) throw e
             null
         }
     }
@@ -865,7 +875,8 @@ class SongLinkEngine(
                 }
             }
             null
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            if (e is CancellationException) throw e
             null
         }
     }
@@ -892,7 +903,8 @@ class SongLinkEngine(
                 }
             }
             null
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            if (e is CancellationException) throw e
             null
         }
     }
@@ -928,7 +940,8 @@ class SongLinkEngine(
                 }
             }
             null
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            if (e is CancellationException) throw e
             null
         }
     }
@@ -952,13 +965,15 @@ class SongLinkEngine(
                 }
                 getResp.request.url.toString()
             }
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            if (e is CancellationException) throw e
             try {
                 val getResp = client.get(url) {
                     header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
                 }
                 getResp.request.url.toString()
-            } catch (_: Exception) {
+            } catch (inner: Exception) {
+                if (inner is CancellationException) throw inner
                 url
             }
         }
@@ -983,7 +998,8 @@ class SongLinkEngine(
                 }
             }
             null
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            if (e is CancellationException) throw e
             null
         }
     }
@@ -1068,7 +1084,9 @@ class SongLinkEngine(
                         }
                     }
                 }
-            } catch (_: Exception) {}
+            } catch (e: Exception) {
+                if (e is CancellationException) throw e
+            }
         }
 
         // 2. Direct Client-Side Spotify Scraping (Bot UA + oEmbed Fallback)
@@ -1105,7 +1123,9 @@ class SongLinkEngine(
                         return sResult
                     }
                 }
-            } catch (_: Exception) {}
+            } catch (e: Exception) {
+                if (e is CancellationException) throw e
+            }
 
             try {
                 val oembedUrl = "https://open.spotify.com/oembed?url=${canonicalUrl.encodeURLParameter()}"
@@ -1134,7 +1154,9 @@ class SongLinkEngine(
                         return oResult
                     }
                 }
-            } catch (_: Exception) {}
+            } catch (e: Exception) {
+                if (e is CancellationException) throw e
+            }
         }
 
         // 3. Offline Fallback: Extract Show / Episode slug and generate Deep-Search Intent

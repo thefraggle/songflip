@@ -31,7 +31,8 @@ import de.goork.songflip.R
 fun OfflineWaitingBottomSheet(
     onRetry: () -> Unit,
     onDismissRequest: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isRetrying: Boolean = false
 ) {
     val haptic = LocalHapticFeedback.current
 
@@ -62,7 +63,7 @@ fun OfflineWaitingBottomSheet(
                         onDismissRequest()
                     },
                     modifier = Modifier
-                        .size(36.dp)
+                        .size(48.dp)
                         .clip(CircleShape)
                         .background(MaterialTheme.colorScheme.surfaceVariant)
                 ) {
@@ -70,7 +71,7 @@ fun OfflineWaitingBottomSheet(
                         imageVector = Icons.Rounded.Close,
                         contentDescription = stringResource(R.string.offline_waiting_cancel),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.size(18.dp)
+                        modifier = Modifier.size(20.dp)
                     )
                 }
             }
@@ -136,20 +137,31 @@ fun OfflineWaitingBottomSheet(
                         haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                         onRetry()
                     },
+                    enabled = !isRetrying,
                     modifier = Modifier
                         .fillMaxWidth()
                         .heightIn(min = 48.dp),
                     shape = RoundedCornerShape(14.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.primary,
-                        contentColor = MaterialTheme.colorScheme.onPrimary
+                        contentColor = MaterialTheme.colorScheme.onPrimary,
+                        disabledContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f),
+                        disabledContentColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f)
                     )
                 ) {
-                    Icon(
-                        imageVector = Icons.Rounded.Refresh,
-                        contentDescription = null,
-                        modifier = Modifier.size(18.dp)
-                    )
+                    if (isRetrying) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(18.dp),
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            strokeWidth = 2.dp
+                        )
+                    } else {
+                        Icon(
+                            imageVector = Icons.Rounded.Refresh,
+                            contentDescription = null,
+                            modifier = Modifier.size(18.dp)
+                        )
+                    }
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
                         text = stringResource(R.string.offline_waiting_retry),
@@ -163,6 +175,7 @@ fun OfflineWaitingBottomSheet(
                         haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                         onDismissRequest()
                     },
+                    enabled = !isRetrying,
                     modifier = Modifier
                         .fillMaxWidth()
                         .heightIn(min = 48.dp),

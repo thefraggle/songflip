@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.6.4] - 2026-10-01
+- **Flüssigere Link-Auflösung**: Optimiertes Abbruch- und Hintergrund-Handling sorgt dafür, dass Weiterleitungen ohne Unterbrechung oder Verzögerung ausgeführt werden.
+- **Höhere Zuverlässigkeit**: Strengeres Fehlerhandling und Hintergrund-Diagnosen garantieren verlässliche Musik-Übergaben.
+- **Verbesserte Barrierefreiheit & Touch-Flächen**: Dialoge und interaktive Bedienelemente bieten jetzt noch klareres visuelles Feedback und komfortable Touch-Bereiche.
+- **Feinschliff & Stabilität**: Visuelle Anpassungen und optimierte Zuverlässigkeit im Alltag.
+
 ## [1.6.3] - 2026-10-01
 - **Glasklares Link-Setup**: Präzisere Anleitung zur Android-Einrichtung – transparente Erklärung, warum dein installierter Wunsch-Player (z. B. Spotify) in den Systemeinstellungen ausgegraut ist und nicht angewählt werden muss.
 - **Transparente Playlist-Hilfe**: Verständliche Erklärung, warum algorithmische Feeds (z. B. Daily Mix) durch SongFlips konsequenten Datenschutz ohne Login nicht umgewandelt werden können, inklusive 5-Sekunden-Tipp.

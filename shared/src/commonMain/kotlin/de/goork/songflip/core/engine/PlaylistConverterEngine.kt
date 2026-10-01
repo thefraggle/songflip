@@ -75,6 +75,7 @@ class PlaylistConverterEngine(
                     lastException = parsedException
                 }
             } catch (t: Throwable) {
+                if (t is kotlinx.coroutines.CancellationException) throw t
                 lastException = t
             }
         }

@@ -39,6 +39,7 @@ fun QuickTargetPickerBottomSheet(
     trackTitle: String?,
     artistName: String?,
     isResolving: Boolean,
+    selectedPlatformKey: String? = null,
     onPlatformSelected: (String) -> Unit,
     onDismissRequest: () -> Unit
 ) {
@@ -93,7 +94,7 @@ fun QuickTargetPickerBottomSheet(
                         onDismissRequest()
                     },
                     modifier = Modifier
-                        .size(36.dp)
+                        .size(48.dp)
                         .clip(CircleShape)
                         .background(MaterialTheme.colorScheme.surfaceVariant)
                 ) {
@@ -101,7 +102,7 @@ fun QuickTargetPickerBottomSheet(
                         imageVector = Icons.Default.Close,
                         contentDescription = stringResource(R.string.pause_cancel),
                         tint = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier.size(18.dp)
+                        modifier = Modifier.size(20.dp)
                     )
                 }
             }
@@ -178,23 +179,34 @@ fun QuickTargetPickerBottomSheet(
                     val isInstalled = remember(service.key) {
                         PackageUtils.isAppInstalled(context, service.key)
                     }
+                    val isSelected = selectedPlatformKey == service.key
+                    val isAnySelected = selectedPlatformKey != null
+                    val isRowEnabled = !isAnySelected || isSelected
 
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
+                            .heightIn(min = 52.dp)
                             .clip(RoundedCornerShape(14.dp))
-                            .background(MaterialTheme.colorScheme.surfaceVariant)
-                            .clickable {
-                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                                onPlatformSelected(service.key)
-                            }
+                            .background(
+                                if (isSelected) MaterialTheme.colorScheme.primary.copy(alpha = 0.12f)
+                                else MaterialTheme.colorScheme.surfaceVariant
+                            )
+                            .clickable(
+                                enabled = isRowEnabled,
+                                onClick = {
+                                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                    onPlatformSelected(service.key)
+                                }
+                            )
                             .padding(horizontal = 16.dp, vertical = 12.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            modifier = Modifier.weight(1f)
                         ) {
                             Icon(
                                 painter = painterResource(service.iconResId),
@@ -208,7 +220,8 @@ fun QuickTargetPickerBottomSheet(
                                     style = MaterialTheme.typography.bodyMedium.copy(
                                         fontWeight = FontWeight.SemiBold
                                     ),
-                                    color = MaterialTheme.colorScheme.onSurface
+                                    color = if (isRowEnabled) MaterialTheme.colorScheme.onSurface
+                                           else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
                                 )
                                 Row(
                                     verticalAlignment = Alignment.CenterVertically,
@@ -218,29 +231,37 @@ fun QuickTargetPickerBottomSheet(
                                         Icon(
                                             imageVector = Icons.Default.Check,
                                             contentDescription = null,
-                                            tint = StateActiveGreen,
+                                            tint = if (isRowEnabled) StateActiveGreen else StateActiveGreen.copy(alpha = 0.38f),
                                             modifier = Modifier.size(12.dp)
                                         )
                                         Text(
                                             text = stringResource(R.string.status_installed),
                                             style = MaterialTheme.typography.labelSmall,
-                                            color = StateActiveGreen
+                                            color = if (isRowEnabled) StateActiveGreen else StateActiveGreen.copy(alpha = 0.38f)
                                         )
                                     } else {
                                         Icon(
                                             imageVector = Icons.Default.Language,
                                             contentDescription = null,
-                                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = if (isRowEnabled) 1f else 0.38f),
                                             modifier = Modifier.size(12.dp)
                                         )
                                         Text(
                                             text = stringResource(R.string.status_browser),
                                             style = MaterialTheme.typography.labelSmall,
-                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = if (isRowEnabled) 1f else 0.38f)
                                         )
                                     }
                                 }
                             }
+                        }
+
+                        if (isSelected) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(20.dp),
+                                color = MaterialTheme.colorScheme.primary,
+                                strokeWidth = 2.dp
+                            )
                         }
                     }
                 }

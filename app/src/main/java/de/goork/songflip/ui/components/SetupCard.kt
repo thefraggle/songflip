@@ -207,10 +207,13 @@ fun StatusBadge(
 
     val clickableModifier = if (onClick != null) {
         modifier
+            .heightIn(min = 48.dp)
             .clip(RoundedCornerShape(12.dp))
             .clickable { onClick() }
     } else {
-        modifier.clip(RoundedCornerShape(12.dp))
+        modifier
+            .heightIn(min = 48.dp)
+            .clip(RoundedCornerShape(12.dp))
     }
 
     Row(

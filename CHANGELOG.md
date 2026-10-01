@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.6.4] - 2026-10-01
+- **Instant & Responsive Link Resolution**: Cancellation and interruption handling has been hardened so switching apps or tapping away never hangs or delays your music redirects.
+- **Enhanced Reliability & Diagnostics**: Stricter background error handling and diagnostics keep redirects smooth and dependable.
+- **Accessibility & Polished Touch Targets**: UI controls and interactive sheets now feature clearer states, accessible feedback, and effortless touch targets.
+- **Everyday Polish & Stability**: Visual adjustments and stability enhancements for everyday use.
+
 ## [1.6.3] - 2026-10-01
 - **Crystal-Clear Link Setup**: Clarified Android setup instructions for link routing — explained why installed players (like Spotify) are intentionally greyed out in system settings.
 - **Transparent Playlist Guidance**: Added clear explanations for why personalized mixes (e.g. Daily Mix) require a public playlist due to SongFlip's strict no-login privacy model.
