@@ -150,7 +150,7 @@ sequenceDiagram
 The codebase separates platform-specific UI from deterministic platform-agnostic business logic:
 
 ```text
-├── app/                  # Native Android App (Jetpack Compose, Material 3, Quick Settings Tile)
+├── app/                  # Native Android App (Jetpack Compose, MVVM ViewModels, Material 3, Quick Settings Tile)
 ├── iosApp/               # Native iOS App (SwiftUI, Share Extension, App Intents)
 ├── shared/               # Kotlin Multiplatform Core (Shared by Android & iOS)
 │   ├── commonMain/       # Shared URL sanitizers, cache manager, HTTP engine (Ktor), models
@@ -163,6 +163,20 @@ The codebase separates platform-specific UI from deterministic platform-agnostic
 - **Unified Engine (v1.4.7+)**: Both Android and iOS run 100% on the identical `SongLinkEngine.shared` and `LinkCache` core. Legacy redundant Android networking and repository layers were completely eliminated.
 - **Consistent Resolver Behavior:** Both platforms share identical regex rules and parsing priority. A song resolved on Android resolves identically on iOS.
 - **Zero Drift:** Bug fixes, URL parsing rules, and caching invariants only need to be written and unit-tested once in `shared/commonMain`.
+
+### Android Architecture: MVVM & Reactive StateFlow (v1.6.4+):
+- **ViewModel Decoupling:** Activities and Composables (`RedirectActivity`, `MainActivity`) delegate all business logic, preference mutations, and asynchronous I/O to dedicated ViewModels (`RedirectViewModel`, `MainViewModel`).
+- **Reactive State Observation:** UI components observe immutable states exposed as `StateFlow` via `collectAsStateWithLifecycle()`, guaranteeing safe state recreation and preventing leaks during configuration changes or background transitions.
+
+### Concurrency Invariant: Strict Structured Concurrency:
+- **`CancellationException` Re-Throwing:** In Kotlin Coroutines, `CancellationException` is a subtype of `Exception` / `Throwable`. All shared engines (`PlaylistConverterEngine`, `SongLinkEngine`) and platform resolvers (`SpotifyResolver`, `AppleMusicResolver`, `DeezerResolver`, `TidalResolver`, `YouTubeMusicResolver`, `SongLinkApiResolver`) strictly re-throw `CancellationException`. This ensures parent coroutine scopes cancel cleanly, preventing orphaned HTTP jobs and deadlock states when redirects are dismissed.
+
+### UI/UX Invariant: 5-State Component Contract & WCAG AA:
+- **5 Component States:** All interactive sheets and UI controls (`QuickTargetPickerBottomSheet`, `OfflineWaitingBottomSheet`, `SetupCard`) explicitly support 5 visual states: *Default*, *Hover*, *Active/Focus*, *Disabled*, and *Loading* (with inline progress spinners).
+- **Accessible Touch Targets:** All tap targets conform to WCAG AA guidelines with a minimum height and width of 48dp (`Modifier.heightIn(min = 48.dp)`).
+
+### Backend Reliability Invariant: No Silent Failures:
+- All Cloud Functions catch blocks strictly prohibit silent discarding (`catch (_) {}`). Any caught non-fatal exception (e.g. background TTL refresh failure or secondary preview lookup miss) is logged with structured diagnostic context (`console.warn`) for seamless production observability.
 
 ### iOS Native Share Extension & App Groups:
 The iOS architecture decouples the main user interface (`de.goork.SongFlip`) from the background system extension (`de.goork.SongFlip.ShareExtension`):
@@ -215,7 +229,7 @@ SongFlip enforces automated test coverage across all client layers to ensure zer
 | :--- | :--- | :--- | :--- |
 | **Shared KMP Core** | `shared/src/commonTest/` | Kotlin Test, Ktor `MockEngine`, Coroutines Test | URL normalization, entity type & platform detection, L1 cache TTL & eviction, all 6 platform resolvers (Spotify, Apple Music, Deezer, Tidal, YouTube Music, SongLink API), Aptabase analytics client. |
 | **Android Client** | `app/src/test/` | JUnit 4, OkHttp `MockWebServer`, Coroutines Test | Domain verification info, quick settings tile states, dynamic app shortcuts, coupon redemption & error handling, review prompt rules, L1 hit detection, 31+ locale string formats (`strings.xml`). |
-| **Backend Functions** | `functions/src/test/` | Node.js Test Runner, TypeScript | 75 automated tests covering SSR crawler rendering, Zero-OAuth playlist generation, HMAC signed coupons, promo code rate-limiting, and artist resolution. |
+| **Backend Functions** | `functions/src/test/` | Node.js Test Runner, TypeScript | 81 automated tests covering SSR crawler rendering, Zero-OAuth playlist generation, HMAC signed coupons, promo code rate-limiting, and artist resolution. |
 
 ### Deterministic Mocking & Isolation:
 - **No Live Network Dependencies:** KMP and Android unit tests mock external endpoints using Ktor's `MockEngine` and OkHttp's `MockWebServer` for instant (< 5s), repeatable execution without flaky upstream API rate limits.
