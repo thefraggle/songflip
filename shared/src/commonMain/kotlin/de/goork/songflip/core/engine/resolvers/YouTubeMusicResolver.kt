@@ -11,6 +11,7 @@ import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.http.encodeURLParameter
 import io.ktor.http.isSuccess
+import kotlinx.coroutines.CancellationException
 
 class YouTubeMusicResolver(
     private val client: HttpClient
@@ -84,7 +85,8 @@ class YouTubeMusicResolver(
                 }
             }
             null
-        } catch (_: Throwable) {
+        } catch (t: Throwable) {
+            if (t is CancellationException) throw t
             null
         }
     }
@@ -109,7 +111,8 @@ class YouTubeMusicResolver(
                 }
             }
             null
-        } catch (_: Throwable) {
+        } catch (t: Throwable) {
+            if (t is CancellationException) throw t
             null
         }
     }
@@ -149,7 +152,8 @@ class YouTubeMusicResolver(
                 }
             }
             null
-        } catch (_: Throwable) {
+        } catch (t: Throwable) {
+            if (t is CancellationException) throw t
             null
         }
     }
@@ -169,7 +173,8 @@ class YouTubeMusicResolver(
                 }
             }
             null
-        } catch (_: Throwable) {
+        } catch (t: Throwable) {
+            if (t is CancellationException) throw t
             null
         }
     }
@@ -193,7 +198,8 @@ class YouTubeMusicResolver(
                 }
             }
             null
-        } catch (_: Throwable) {
+        } catch (t: Throwable) {
+            if (t is CancellationException) throw t
             null
         }
     }

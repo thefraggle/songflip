@@ -6,6 +6,7 @@ import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.encodeURLParameter
 import io.ktor.http.isSuccess
+import kotlinx.coroutines.CancellationException
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -37,7 +38,8 @@ class SpotifyResolver(
                 if (!title.isNullOrEmpty()) return title
             }
             null
-        } catch (_: Throwable) {
+        } catch (t: Throwable) {
+            if (t is CancellationException) throw t
             null
         }
     }

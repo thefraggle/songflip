@@ -97,6 +97,9 @@ class SongLinkApiResolver(
                 ResolutionResult.Error("API returned ${resp.status.value}", isUnsupported = false, errorReason = "upstream_${resp.status.value}")
             }
         } catch (e: Throwable) {
+            if (e is kotlinx.coroutines.CancellationException && e !is kotlinx.coroutines.TimeoutCancellationException) {
+                throw e
+            }
             val errorReason = if (e is io.ktor.client.plugins.HttpRequestTimeoutException || e is kotlinx.coroutines.TimeoutCancellationException) {
                 "timeout"
             } else {
