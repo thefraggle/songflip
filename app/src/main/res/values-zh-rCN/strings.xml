@@ -18,8 +18,8 @@
     <string name="app_links_setup_subtitle">要让 Android 将音乐链接自动重定向至 SongFlip，需要进行一次性确认。请按以下 3 步操作：</string>
     <string name="app_links_step1_title">点击“+ 添加链接”</string>
     <string name="app_links_step1_desc">位于 Android 系统设置界面顶部。</string>
-    <string name="app_links_step2_title">选择支持的链接</string>
-    <string name="app_links_step2_desc">勾选所有音乐平台域名（Spotify、Apple Music 等）。</string>
+    <string name="app_links_step2_title">选择要重定向的链接</string>
+    <string name="app_links_step2_desc">勾选可用的音乐平台。（您已安装的播放器会被 Android 设为灰色，这是完全正常的且符合预期！）</string>
     <string name="app_links_step3_title">点击“添加”确认</string>
     <string name="app_links_step3_desc">完成！SongFlip 现会自动捕获点击的音乐链接。</string>
     <string name="app_links_btn_open_settings">打开 Android 设置</string>
@@ -274,6 +274,8 @@
     <string name="playlist_btn_unlock_pro">升级到 PRO</string>
     <string name="playlist_error_title">歌单转换失败</string>
     <string name="playlist_error_desc">无法从该歌单中提取曲目。您可以打开原始链接。</string>
+    <string name="playlist_error_private_title">私人或个性化歌单</string>
+    <string name="playlist_error_private_desc">SongFlip 100%% 保护隐私，无需账号或登录。因此无法访问个性化推荐歌单（例如 Spotify Daily Mix）及私人歌单。提示：可将歌曲复制到公开歌单，或直接分享专辑/公开歌单。</string>
     <string name="playlist_btn_retry">重试</string>
     <string name="playlist_btn_open_original">打开原始歌单</string>
 <string name="pro_restore_no_subscription">未找到有效的 PRO 订阅。</string>

@@ -18,8 +18,8 @@
     <string name="app_links_setup_subtitle">För att Android automatiskt ska vidarebefordra musiklänkar till SongFlip krävs en engångsbekräftelse. Följ dessa 3 steg:</string>
     <string name="app_links_step1_title">Tryck på \"+ Lägg till länk\"</string>
     <string name="app_links_step1_desc">Längst upp på skärmen för Android-systeminställningar.</string>
-    <string name="app_links_step2_title">Välj länkar som stöds</string>
-    <string name="app_links_step2_desc">Markera alla streamingtjänster (Spotify, Apple Music osv.).</string>
+    <string name="app_links_step2_title">Välj länkar att omdirigera</string>
+    <string name="app_links_step2_desc">Markera tillgängliga musiktjänster. (Din installerade musikspelare är gråmarkerad av Android – det är helt normalt och optimalt!)</string>
     <string name="app_links_step3_title">Tryck på \"Lägg till\" för att bekräfta</string>
     <string name="app_links_step3_desc">Klart! SongFlip fångar nu automatiskt upp musiklänkar.</string>
     <string name="app_links_btn_open_settings">Öppna Android-inställningar</string>
@@ -278,6 +278,8 @@
     <string name="playlist_btn_unlock_pro">Uppgradera till PRO</string>
     <string name="playlist_error_title">Spellistekonvertering misslyckades</string>
     <string name="playlist_error_desc">Kunde inte hämta spår från denna spellista. Du kan öppna ursprungslänken istället.</string>
+    <string name="playlist_error_private_title">Privat eller anpassad spellista</string>
+    <string name="playlist_error_private_desc">SongFlip fungerar 100%% privat utan användarkonton eller inloggning. Personliga algoritmiska mixar (som Spotify Daily Mix eller Discover Weekly) och privata spellistor kan därför inte hämtas. Tips: Kopiera låtarna till en offentlig spellista eller dela ett album/en offentlig spellista.</string>
     <string name="playlist_btn_retry">Försök igen</string>
     <string name="playlist_btn_open_original">Öppna ursprunglig spellista</string>
 <string name="pro_restore_no_subscription">Inget aktivt PRO-abonnemang hittades.</string>

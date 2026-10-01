@@ -18,8 +18,8 @@
     <string name="app_links_setup_subtitle">Щоб Android автоматично перенаправляв музичні посилання в SongFlip, потрібне одноразове підтвердження. Виконайте ці 3 прості кроки:</string>
     <string name="app_links_step1_title">Торкніться «+ Додати посилання»</string>
     <string name="app_links_step1_desc">Угорі екрана системних налаштувань Android.</string>
-    <string name="app_links_step2_title">Виберіть підтримувані посилання</string>
-    <string name="app_links_step2_desc">Позначте всі стрімінгові платформи (Spotify, Apple Music тощо).</string>
+    <string name="app_links_step2_title">Виберіть посилання для перенаправлення</string>
+    <string name="app_links_step2_desc">Позначте доступні сервіси. (Ваш встановлений плеєр виділений сірим в Android — це абсолютно нормально й правильно!)</string>
     <string name="app_links_step3_title">Торкніться «Додати» для підтвердження</string>
     <string name="app_links_step3_desc">Готово! SongFlip тепер автоматично перехоплює музичні посилання.</string>
     <string name="app_links_btn_open_settings">Відкрити налаштування Android</string>
@@ -286,6 +286,8 @@
     <string name="playlist_btn_unlock_pro">Перейти на PRO</string>
     <string name="playlist_error_title">Помилка конвертації плейліста</string>
     <string name="playlist_error_desc">Не вдалося витягти треки з цього плейліста. Ви можете відкрити оригінальне посилання.</string>
+    <string name="playlist_error_private_title">Приватний або персоналізований плейліст</string>
+    <string name="playlist_error_private_desc">SongFlip працює на 100%% конфіденційно без акаунтів та входу. Персональні алгоритмічні мікси (наприклад, Spotify Daily Mix) та приватні плейлісти недоступні. Порада: скопіюйте треки до публічного плейліста або поділіться альбомом/публічним плейлістом.</string>
     <string name="playlist_btn_retry">Повторити</string>
     <string name="playlist_btn_open_original">Відкрити оригінальний плейліст</string>
 <string name="pro_restore_no_subscription">Активну підписку PRO не знайдено.</string>

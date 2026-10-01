@@ -15,8 +15,8 @@
     <string name="app_links_setup_subtitle">Για να δρομολογεί το Android αυτόματα τους συνδέσμους στο SongFlip, απαιτείται εφάπαξ επιβεβαίωση. Ακολουθήστε 3 απλά βήματα:</string>
     <string name="app_links_step1_title">Πατήστε "+ Προσθήκη συνδέσμου"</string>
     <string name="app_links_step1_desc">Στο επάνω μέρος της οθόνης ρυθμίσεων συστήματος Android.</string>
-    <string name="app_links_step2_title">Επιλέξτε υποστηριζόμενους συνδέσμους</string>
-    <string name="app_links_step2_desc">Επιλέξτε όλους τους τομείς streaming (Spotify, Apple Music κ.λπ.).</string>
+    <string name="app_links_step2_title">Επιλέξτε συνδέσμους για ανακατεύθυνση</string>
+    <string name="app_links_step2_desc">Επιλέξτε τις διαθέσιμες υπηρεσίες. (Η εγκατεστημένη εφαρμογή σας είναι απενεργοποιημένη από το Android — αυτό είναι απολύτως φυσιολογικό!)</string>
     <string name="app_links_step3_title">Πατήστε "Προσθήκη" για επιβεβαίωση</string>
     <string name="app_links_step3_desc">Έτοιμο! Το SongFlip θα λαμβάνει τώρα τους συνδέσμους αυτόματα.</string>
     <string name="app_links_btn_open_settings">Άνοιγμα ρυθμίσεων Android</string>
@@ -264,6 +264,8 @@
     <string name="playlist_btn_unlock_pro">Αναβάθμιση σε PRO</string>
     <string name="playlist_error_title">Η μετατροπή της λίστας απέτυχε</string>
     <string name="playlist_error_desc">Δεν ήταν δυνατή η εξαγωγή κομματιών από αυτή τη λίστα. Μπορείτε να ανοίξετε τον αρχικό σύνδεσμο.</string>
+    <string name="playlist_error_private_title">Ιδιωτική ή εξατομικευμένη λίστα αναπαραγωγής</string>
+    <string name="playlist_error_private_desc">Το SongFlip λειτουργεί 100%% ιδιωτικά χωρίς λογαριασμούς ή σύνδεση. Προσωπικά αλγοριθμικά μείγματα (όπως το Spotify Daily Mix) και ιδιωτικές λίστες δεν μπορούν να φορτωθούν. Συμβουλή: Αντιγράψτε τα κομμάτια σε μια δημόσια λίστα ή μοιραστείτε ένα άλμπουμ/δημόσια λίστα.</string>
     <string name="playlist_btn_retry">Επανάληψη</string>
     <string name="playlist_btn_open_original">Άνοιγμα αρχικής λίστας</string>
 <string name="pro_restore_no_subscription">Δεν βρέθηκε ενεργή συνδρομή PRO.</string>

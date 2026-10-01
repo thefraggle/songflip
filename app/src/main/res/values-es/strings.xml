@@ -18,8 +18,8 @@
     <string name="app_links_setup_subtitle">Para que Android redirija enlaces de música a SongFlip, se requiere una confirmación única. Sigue estos 3 pasos:</string>
     <string name="app_links_step1_title">Tocar «+ Añadir enlace»</string>
     <string name="app_links_step1_desc">En la parte superior de los ajustes del sistema Android.</string>
-    <string name="app_links_step2_title">Seleccionar enlaces admitidos</string>
-    <string name="app_links_step2_desc">Marca todos los dominios de streaming (Spotify, Apple Music, etc.).</string>
+    <string name="app_links_step2_title">Seleccionar enlaces para redirigir</string>
+    <string name="app_links_step2_desc">Marca los servicios disponibles. (Tu reproductor instalado aparece atenuado por Android: ¡es totalmente normal y óptimo!)</string>
     <string name="app_links_step3_title">Confirmar con «Añadir»</string>
     <string name="app_links_step3_desc">¡Listo! SongFlip interceptará los enlaces automáticamente.</string>
     <string name="app_links_btn_open_settings">Abrir ajustes de Android</string>
@@ -278,6 +278,8 @@
     <string name="playlist_btn_unlock_pro">Mejorar a PRO</string>
     <string name="playlist_error_title">Error al convertir la lista</string>
     <string name="playlist_error_desc">No se pudieron extraer canciones de esta lista. Puedes abrir el enlace original.</string>
+    <string name="playlist_error_private_title">Playlist privada o personalizada</string>
+    <string name="playlist_error_private_desc">SongFlip funciona 100%% privado sin cuenta ni inicio de sesión. Por tanto, los mixes algorítmicos personales (como Spotify Daily Mix o Discover Weekly) y las playlists privadas no se pueden cargar. Consejo: copia las canciones a una playlist pública o comparte un álbum/playlist pública.</string>
     <string name="playlist_btn_retry">Reintentar</string>
     <string name="playlist_btn_open_original">Abrir lista original</string>
 <string name="pro_restore_no_subscription">No se encontró ninguna suscripción PRO activa.</string>

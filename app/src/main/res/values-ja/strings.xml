@@ -18,8 +18,8 @@
     <string name="app_links_setup_subtitle">Androidが音楽リンクを自動でSongFlipに転送するには、一度だけ確認が必要です。次の3つの手順に従ってください：</string>
     <string name="app_links_step1_title">「+ リンクを追加」をタップ</string>
     <string name="app_links_step1_desc">Androidのシステム設定画面の上部にあるボタンをタップします。</string>
-    <string name="app_links_step2_title">対応リンクを選択</string>
-    <string name="app_links_step2_desc">各種音楽サービス（Spotify、Apple Musicなど）にチェックを入れます。</string>
+    <string name="app_links_step2_title">転送するリンクを選択</string>
+    <string name="app_links_step2_desc">利用可能なサービスにチェックを入れます（インストール済みの再生アプリはAndroidによりグレーアウトされますが、正常な動作です）。</string>
     <string name="app_links_step3_title">「追加」をタップして完了</string>
     <string name="app_links_step3_desc">完了！SongFlipが音楽リンクを自動で開くようになります。</string>
     <string name="app_links_btn_open_settings">Android設定を開く</string>
@@ -274,6 +274,8 @@
     <string name="playlist_btn_unlock_pro">PROにアップグレード</string>
     <string name="playlist_error_title">プレイリストの変換に失敗しました</string>
     <string name="playlist_error_desc">このプレイリストから曲を抽出できませんでした。元のリンクを開くことができます。</string>
+    <string name="playlist_error_private_title">非公開またはパーソナライズされたプレイリスト</string>
+    <string name="playlist_error_private_desc">SongFlipはログイン不要・アカウント不要で100%%プライベートに動作します。そのため、個人用ミックス（Spotify Daily Mixなど）や非公開プレイリストは読み込めません。ヒント：曲を公開プレイリストにコピーするか、アルバムや公開プレイリストを共有してください。</string>
     <string name="playlist_btn_retry">再試行</string>
     <string name="playlist_btn_open_original">元のプレイリストを開く</string>
 <string name="pro_restore_no_subscription">有効なPROサブスクリプションが見つかりませんでした。</string>

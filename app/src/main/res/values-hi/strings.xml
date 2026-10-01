@@ -18,8 +18,8 @@
     <string name="app_links_setup_subtitle">Android को म्यूजिक लिंक SongFlip पर स्वचालित रूप से भेजने के लिए एक बार पुष्टि आवश्यक है। इन 3 चरणों का पालन करें:</string>
     <string name="app_links_step1_title">\"+ लिंक जोड़ें\" पर टैप करें</string>
     <string name="app_links_step1_desc">Android सिस्टम सेटिंग्स स्क्रीन के शीर्ष पर।</string>
-    <string name="app_links_step2_title">समर्थित लिंक चुनें</string>
-    <string name="app_links_step2_desc">सभी स्ट्रीमिंग डोमेन (Spotify, Apple Music आदि) को टिक करें।</string>
+    <string name="app_links_step2_title">रीडायरेक्ट करने के लिए लिंक चुनें</string>
+    <string name="app_links_step2_desc">उपलब्ध सेवाओं को टिक करें। (आपका इंस्टॉल किया गया प्लेयर Android द्वारा धूसर (greyed out) है — यह बिल्कुल सामान्य और सही है!)</string>
     <string name="app_links_step3_title">पुष्टि के लिए \"जोड़ें\" पर टैप करें</string>
     <string name="app_links_step3_desc">हो गया! SongFlip अब स्वचालित रूप से लिंक खोल देगा।</string>
     <string name="app_links_btn_open_settings">Android सेटिंग्स खोलें</string>
@@ -278,6 +278,8 @@
     <string name="playlist_btn_unlock_pro">PRO में अपग्रेड करें</string>
     <string name="playlist_error_title">प्लेलिस्ट रूपांतरण विफल</string>
     <string name="playlist_error_desc">इस प्लेलिस्ट से गाने निकाले नहीं जा सके। इसके बजाय आप मूल लिंक खोल सकते हैं।</string>
+    <string name="playlist_error_private_title">निजी या व्यक्तिगत प्लेलिस्ट</string>
+    <string name="playlist_error_private_desc">SongFlip बिना किसी खाते या लॉगिन के 100%% निजी रूप से काम करता है। इसलिए व्यक्तिगत एल्गोरिथम मिक्स (जैसे Spotify Daily Mix) और निजी प्लेलिस्ट लोड नहीं हो सकती हैं। सुझाव: गानों को किसी सार्वजनिक प्लेलिस्ट में कॉपी करें या एल्बम/सार्वजनिक प्लेलिस्ट साझा करें।</string>
     <string name="playlist_btn_retry">पुनः प्रयास करें</string>
     <string name="playlist_btn_open_original">मूल प्लेलिस्ट खोलें</string>
 <string name="pro_restore_no_subscription">कोई सक्रिय PRO सदस्यता नहीं मिली।</string>

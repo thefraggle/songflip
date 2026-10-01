@@ -15,8 +15,8 @@
     <string name="app_links_setup_subtitle">Ahhoz, hogy az Android automatikusan a SongFlip felé irányítsa a zenei linkeket, egyszeri megerősítés szükséges. Kövesse ezt a 3 lépést:</string>
     <string name="app_links_step1_title">Koppintson a "+ Hivatkozás hozzáadása" gombra</string>
     <string name="app_links_step1_desc">Az Android rendszerbeállítások képernyő tetején.</string>
-    <string name="app_links_step2_title">Válassza ki a támogatott linkeket</string>
-    <string name="app_links_step2_desc">Jelölje be az összes streaming domaint (Spotify, Apple Music stb.).</string>
+    <string name="app_links_step2_title">Átirányítandó linkek kiválasztása</string>
+    <string name="app_links_step2_desc">Jelölje be az elérhető szolgáltatásokat. (A telepített lejátszója szürkén jelenik meg az Androidban — ez teljesen normális és így a helyes!)</string>
     <string name="app_links_step3_title">Koppintson a "Hozzáadás" gombra a megerősítéshez</string>
     <string name="app_links_step3_desc">Kész! A SongFlip mostantól automatikusan átveszi a linkeket.</string>
     <string name="app_links_btn_open_settings">Android beállítások megnyitása</string>
@@ -264,6 +264,8 @@
     <string name="playlist_btn_unlock_pro">Frissítés PRO verzióra</string>
     <string name="playlist_error_title">A lejátszási lista konvertálása sikertelen</string>
     <string name="playlist_error_desc">Nem sikerült kinyerni a dalokat ebből a lejátszási listából. Megnyithatja az eredeti linket.</string>
+    <string name="playlist_error_private_title">Privát vagy személyre szabott lejátszási lista</string>
+    <string name="playlist_error_private_desc">A SongFlip 100%%-ban privát módon működik, fiókok vagy bejelentkezés nélkül. A személyes algoritmikus mixek (mint a Spotify Daily Mix) és a privát listák ezért nem tölthetők be. Tipp: Másolja a számokat egy nyilvános lejátszási listába, vagy osszon meg egy albumot/nyilvános listát.</string>
     <string name="playlist_btn_retry">Újra</string>
     <string name="playlist_btn_open_original">Eredeti lejátszási lista megnyitása</string>
 <string name="pro_restore_no_subscription">Nem található aktív PRO előfizetés.</string>

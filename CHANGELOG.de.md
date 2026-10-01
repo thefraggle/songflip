@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.6.3] - 2026-10-01
+- **Glasklares Link-Setup**: Präzisere Anleitung zur Android-Einrichtung – transparente Erklärung, warum dein installierter Wunsch-Player (z. B. Spotify) in den Systemeinstellungen ausgegraut ist und nicht angewählt werden muss.
+- **Transparente Playlist-Hilfe**: Verständliche Erklärung, warum algorithmische Feeds (z. B. Daily Mix) durch SongFlips konsequenten Datenschutz ohne Login nicht umgewandelt werden können, inklusive 5-Sekunden-Tipp.
+- **Feinschliff & Stabilität**: Visuelle Anpassungen und optimierte Zuverlässigkeit in allen 31 Sprachen.
+
 ## [1.6.2] - 2026-09-30
 - **Präzisere Suche & Sonderzeichen**: Sonderzeichen (`+`, `&`, `#`), Doppelpunkte, Anführungszeichen und Emojis in Podcast- und Songtiteln werden jetzt sauber bereinigt, damit Suchergebnisse auf allen Plattformen (Pocket Casts, Apple, Spotify etc.) zuverlässig gefunden werden.
 - **Zuverlässigere Weiterleitung**: Verbesserte Fallback-Suchlinks verhindern leere Trefferlisten bei komplexen Titeln.

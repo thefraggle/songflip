@@ -15,8 +15,8 @@
     <string name="app_links_setup_subtitle">Jotta Android voi ohjata musiikkilinkit automaattisesti SongFlipiin, tarvitaan kertaluonteinen vahvistus. Seuraa näitä 3 helppoa vaihetta:</string>
     <string name="app_links_step1_title">Napauta "+ Lisää linkki"</string>
     <string name="app_links_step1_desc">Androidin järjestelmäasetusnäytön yläreunassa.</string>
-    <string name="app_links_step2_title">Valitse tuetut linkit</string>
-    <string name="app_links_step2_desc">Valitse kaikki suoratoistoverkkotunnukset (Spotify, Apple Music jne.).</string>
+    <string name="app_links_step2_title">Valitse uudelleenohjattavat linkit</string>
+    <string name="app_links_step2_desc">Valitse saatavilla olevat palvelut. (Asennettu musiikkisoittimesi on Androidissa harmaana — se on täysin normaalia ja toivottua!)</string>
     <string name="app_links_step3_title">Vahvista napauttamalla "Lisää"</string>
     <string name="app_links_step3_desc">Valmis! SongFlip nappaa linkit nyt automaattisesti.</string>
     <string name="app_links_btn_open_settings">Avaa Androidin asetukset</string>
@@ -264,6 +264,8 @@
     <string name="playlist_btn_unlock_pro">Päivitä PRO-versioon</string>
     <string name="playlist_error_title">Soittolistan muuntaminen epäonnistui</string>
     <string name="playlist_error_desc">Kappaleita ei voitu hakea tästä soittolistasta. Voit avata alkuperäisen linkin.</string>
+    <string name="playlist_error_private_title">Yksityinen tai henkilökohtainen soittolista</string>
+    <string name="playlist_error_private_desc">SongFlip toimii 100%% yksityisesti ilman käyttäjätilejä tai kirjautumista. Algoritmisia henkilökohtaisia miksauksia (kuten Spotify Daily Mix) tai yksityisiä soittolistoja ei siksi voi avata. Vinkki: Kopioi kappaleet julkiselle soittolistalle tai jaa albumi/julkinen lista.</string>
     <string name="playlist_btn_retry">Yritä uudelleen</string>
     <string name="playlist_btn_open_original">Avaa alkuperäinen soittolista</string>
 <string name="pro_restore_no_subscription">Aktiivista PRO-tilausta ei löytynyt.</string>

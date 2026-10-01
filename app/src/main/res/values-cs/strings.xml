@@ -15,8 +15,8 @@
     <string name="app_links_setup_subtitle">Aby Android mohl automaticky směrovat hudební odkazy do SongFlip, je nutné jednorázové potvrzení. Postupujte podle 3 kroků:</string>
     <string name="app_links_step1_title">Klepněte na "+ Přidat odkaz"</string>
     <string name="app_links_step1_desc">V horní části systémového nastavení Androidu.</string>
-    <string name="app_links_step2_title">Vyberte podporované odkazy</string>
-    <string name="app_links_step2_desc">Zaškrtněte všechny streamovací domény (Spotify, Apple Music atd.).</string>
+    <string name="app_links_step2_title">Vyberte odkazy k přesměrování</string>
+    <string name="app_links_step2_desc">Zaškrtněte dostupné služby. (Váš nainstalovaný přehrávač je v Androidu zašedlý — to je zcela normální a žádoucí!)</string>
     <string name="app_links_step3_title">Klepněte na "Přidat" pro potvrzení</string>
     <string name="app_links_step3_desc">Hotovo! SongFlip nyní zachytí odkazy automaticky.</string>
     <string name="app_links_btn_open_settings">Otevřít nastavení Androidu</string>
@@ -268,6 +268,8 @@
     <string name="playlist_btn_unlock_pro">Přejít na PRO</string>
     <string name="playlist_error_title">Převod playlistu se nezdařil</string>
     <string name="playlist_error_desc">Z tohoto playlistu se nepodařilo extrahovat skladby. Můžete otevřít původní odkaz.</string>
+    <string name="playlist_error_private_title">Soukromý nebo personalizovaný playlist</string>
+    <string name="playlist_error_private_desc">SongFlip funguje 100%% soukromě bez uživatelských účtů nebo přihlašování. Osobní algoritmické mixy (jako Spotify Daily Mix) a soukromé playlisty proto nelze načíst. Tip: Zkopírujte skladby do veřejného playlistu nebo sdílejte album/veřejný playlist.</string>
     <string name="playlist_btn_retry">Zkusit znovu</string>
     <string name="playlist_btn_open_original">Otevřít původní playlist</string>
 <string name="pro_restore_no_subscription">Nebylo nalezeno žádné aktivní předplatné PRO.</string>

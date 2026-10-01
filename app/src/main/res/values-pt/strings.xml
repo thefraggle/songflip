@@ -18,8 +18,8 @@
     <string name="app_links_setup_subtitle">Para que o Android encaminhe links de música para o SongFlip, é necessária uma confirmação única. Siga estes 3 passos:</string>
     <string name="app_links_step1_title">Toque em «+ Adicionar link»</string>
     <string name="app_links_step1_desc">No topo das configurações do sistema Android.</string>
-    <string name="app_links_step2_title">Selecionar links suportados</string>
-    <string name="app_links_step2_desc">Marque todos os domínios de streaming (Spotify, Apple Music, etc.).</string>
+    <string name="app_links_step2_title">Selecionar links para redirecionar</string>
+    <string name="app_links_step2_desc">Marque os serviços disponíveis. (O seu reprodutor instalado aparece desativado pelo Android — isso é totalmente normal e ideal!)</string>
     <string name="app_links_step3_title">Confirmar em «Adicionar»</string>
     <string name="app_links_step3_desc">Pronto! O SongFlip capturará os links automaticamente.</string>
     <string name="app_links_btn_open_settings">Abrir configurações do Android</string>
@@ -278,6 +278,8 @@
     <string name="playlist_btn_unlock_pro">Fazer upgrade para PRO</string>
     <string name="playlist_error_title">Falha na conversão da playlist</string>
     <string name="playlist_error_desc">Não foi possível extrair as faixas desta playlist. Você pode abrir o link original.</string>
+    <string name="playlist_error_private_title">Playlist privada ou personalizada</string>
+    <string name="playlist_error_private_desc">O SongFlip funciona 100%% privado sem contas nem login. Portanto, mixes algorítmicos pessoais (como Spotify Daily Mix ou Discover Weekly) e playlists privadas não podem ser acessados. Dica: copie as músicas para uma playlist pública ou compartilhe um álbum/playlist pública.</string>
     <string name="playlist_btn_retry">Tentar novamente</string>
     <string name="playlist_btn_open_original">Abrir playlist original</string>
 <string name="pro_restore_no_subscription">Nenhuma assinatura PRO ativa encontrada.</string>

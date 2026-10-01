@@ -18,8 +18,8 @@
     <string name="app_links_setup_subtitle">Để Android tự động chuyển hướng liên kết nhạc sang SongFlip, bạn cần xác nhận một lần. Làm theo 3 bước sau:</string>
     <string name="app_links_step1_title">Nhấn vào \"+ Thêm liên kết\"</string>
     <string name="app_links_step1_desc">Ở đầu màn hình cài đặt hệ thống Android.</string>
-    <string name="app_links_step2_title">Chọn liên kết được hỗ trợ</string>
-    <string name="app_links_step2_desc">Đánh dấu tất cả dịch vụ phát nhạc (Spotify, Apple Music, v.v.).</string>
+    <string name="app_links_step2_title">Chọn liên kết để chuyển hướng</string>
+    <string name="app_links_step2_desc">Đánh dấu các dịch vụ khả dụng. (Trình phát đã cài đặt của bạn bị làm mờ bởi Android — điều đó hoàn toàn bình thường và tối ưu!)</string>
     <string name="app_links_step3_title">Nhấn \"Thêm\" để xác nhận</string>
     <string name="app_links_step3_desc">Hoàn tất! SongFlip giờ đây sẽ tự động bắt liên kết nhạc.</string>
     <string name="app_links_btn_open_settings">Mở Cài đặt Android</string>
@@ -274,6 +274,8 @@
     <string name="playlist_btn_unlock_pro">Nâng cấp lên PRO</string>
     <string name="playlist_error_title">Chuyển đổi danh sách phát thất bại</string>
     <string name="playlist_error_desc">Không thể trích xuất bài hát từ danh sách phát này. Bạn có thể mở liên kết gốc thay thế.</string>
+    <string name="playlist_error_private_title">Danh sách phát riêng tư hoặc cá nhân hóa</string>
+    <string name="playlist_error_private_desc">SongFlip hoạt động riêng tư 100%% không cần tài khoản hay đăng nhập. Do đó, các danh sách kết hợp thuật toán cá nhân (như Spotify Daily Mix) và playlist riêng tư không thể truy cập. Mẹo: Sao chép bài hát vào danh sách phát công khai hoặc chia sẻ album/playlist công khai.</string>
     <string name="playlist_btn_retry">Thử lại</string>
     <string name="playlist_btn_open_original">Mở danh sách phát gốc</string>
 <string name="pro_restore_no_subscription">Không tìm thấy gói đăng ký PRO đang hoạt động.</string>
