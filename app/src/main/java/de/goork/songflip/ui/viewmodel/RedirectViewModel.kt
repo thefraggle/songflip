@@ -53,7 +53,9 @@ sealed interface RedirectUiState {
     ) : RedirectUiState
 
     data class ForwardOriginal(
-        val uri: Uri
+        val uri: Uri,
+        val showErrorToast: Boolean = false,
+        val isPlaylistNotSupported: Boolean = false
     ) : RedirectUiState
 
     object Dismiss : RedirectUiState
@@ -349,14 +351,50 @@ class RedirectViewModel : ViewModel() {
                         _uiState.value = RedirectUiState.ForwardOriginal(Uri.parse(incomingUrl))
                     }
                     else -> {
-                        _uiState.value = RedirectUiState.ForwardOriginal(Uri.parse(incomingUrl))
+                        val sourceDomain = UrlUtils.extractDomain(incomingUrl)
+                        val sourcePlatform = UrlUtils.detectPlatform(incomingUrl)?.key ?: "unknown"
+                        val (reason, errorReason) = when {
+                            result is ResolutionResult.Error -> result.message to (result.errorReason ?: result.message)
+                            result == null -> "timeout" to "timeout"
+                            else -> "not_found" to "not_found"
+                        }
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
+                            target = targetPlatform,
+                            reason = reason,
+                            sourceDomain = sourceDomain,
+                            sourcePlatform = sourcePlatform,
+                            errorReason = errorReason
+                        )
+                        _uiState.value = RedirectUiState.ForwardOriginal(
+                            uri = Uri.parse(incomingUrl),
+                            showErrorToast = true,
+                            isPlaylistNotSupported = (result is ResolutionResult.Error && result.message == "PLAYLIST_NOT_SUPPORTED")
+                        )
                     }
                 }
             }
         } catch (t: Throwable) {
             if (t is kotlinx.coroutines.CancellationException) throw t
+            val sourceDomain = UrlUtils.extractDomain(incomingUrl)
+            val sourcePlatform = UrlUtils.detectPlatform(incomingUrl)?.key ?: "unknown"
+            val errorReason = when {
+                t is java.net.SocketTimeoutException || t is java.net.ConnectException -> "socket_timeout"
+                t is java.net.UnknownHostException -> "unknown_host"
+                else -> t::class.simpleName ?: "exception"
+            }
+
+            de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
+                target = targetPlatform,
+                reason = t.message ?: errorReason,
+                sourceDomain = sourceDomain,
+                sourcePlatform = sourcePlatform,
+                errorReason = errorReason
+            )
             withContext(Dispatchers.Main) {
-                _uiState.value = RedirectUiState.ForwardOriginal(Uri.parse(incomingUrl))
+                _uiState.value = RedirectUiState.ForwardOriginal(
+                    uri = Uri.parse(incomingUrl),
+                    showErrorToast = true
+                )
             }
         }
     }
