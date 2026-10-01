@@ -18,8 +18,8 @@
     <string name="app_links_setup_subtitle">For at Android skal videresende musikklenker til SongFlip automatisk, kreves en engangsbekreftelse. Følg disse 3 trinnene:</string>
     <string name="app_links_step1_title">Trykk på \"+ Legg til lenke\"</string>
     <string name="app_links_step1_desc">Øverst på skjermen for systeminnstillinger i Android.</string>
-    <string name="app_links_step2_title">Velg støttede lenker</string>
-    <string name="app_links_step2_desc">Huk av for alle strømmetjenester (Spotify, Apple Music osv.).</string>
+    <string name="app_links_step2_title">Velg lenker som skal omdirigeres</string>
+    <string name="app_links_step2_desc">Huk av for tilgjengelige musikktjenester. (Din installerte musikkspiller er grået ut av Android – dette er helt normalt og optimalt!)</string>
     <string name="app_links_step3_title">Trykk på \"Legg til\" for å bekrefte</string>
     <string name="app_links_step3_desc">Ferdig! SongFlip fanger nå opp musikklenker automatisk.</string>
     <string name="app_links_btn_open_settings">Åpne Android-innstillinger</string>
@@ -278,6 +278,8 @@
     <string name="playlist_btn_unlock_pro">Oppgrader til PRO</string>
     <string name="playlist_error_title">Konvertering av spilleliste mislyktes</string>
     <string name="playlist_error_desc">Kunne ikke hente spor fra denne spillelisten. Du kan åpne den opprinnelige lenken.</string>
+    <string name="playlist_error_private_title">Privat eller personlig spilleliste</string>
+    <string name="playlist_error_private_desc">SongFlip fungerer 100%% privat uten brukerkonto eller pålogging. Personlige algoritmiske mikser (som Spotify Daily Mix eller Discover Weekly) og private spillelister kan derfor ikke leses. Tips: Kopier sangene til en offentlig spilleliste eller del et album/en offentlig spilleliste.</string>
     <string name="playlist_btn_retry">Prøv igjen</string>
     <string name="playlist_btn_open_original">Åpne opprinnelig spilleliste</string>
 <string name="pro_restore_no_subscription">Fant ikke noe aktivt PRO-abonnement.</string>

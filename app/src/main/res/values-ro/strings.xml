@@ -15,8 +15,8 @@
     <string name="app_links_setup_subtitle">Pentru ca Android să redirecționeze automat linkurile muzicale către SongFlip, este necesară o confirmare unică. Urmați acești 3 pași simpli:</string>
     <string name="app_links_step1_title">Atingeți "+ Adăugare link"</string>
     <string name="app_links_step1_desc">În partea de sus a ecranului de setări de sistem Android.</string>
-    <string name="app_links_step2_title">Selectați linkurile acceptate</string>
-    <string name="app_links_step2_desc">Bifați toate domeniile de streaming (Spotify, Apple Music etc.).</string>
+    <string name="app_links_step2_title">Selectați linkurile de redirecționat</string>
+    <string name="app_links_step2_desc">Bifați serviciile disponibile. (Playerul dvs. instalat este estompat de Android — este absolut normal și corect!)</string>
     <string name="app_links_step3_title">Atingeți "Adăugare" pentru a confirma</string>
     <string name="app_links_step3_desc">Gata! SongFlip va prelua acum linkurile automat.</string>
     <string name="app_links_btn_open_settings">Deschide setările Android</string>
@@ -268,6 +268,8 @@
     <string name="playlist_btn_unlock_pro">Treci la PRO</string>
     <string name="playlist_error_title">Conversia playlistului a eșuat</string>
     <string name="playlist_error_desc">Nu s-au putut extrage piesele din acest playlist. Poți deschide linkul original.</string>
+    <string name="playlist_error_private_title">Playlist privat sau personalizat</string>
+    <string name="playlist_error_private_desc">SongFlip funcționează 100%% privat, fără conturi sau autentificare. Mixurile algoritmice personale (cum ar fi Spotify Daily Mix) și playlisturile private nu pot fi accesate. Sfat: Copiați piesele într-un playlist public sau partajați un album/playlist public.</string>
     <string name="playlist_btn_retry">Reîncearcă</string>
     <string name="playlist_btn_open_original">Deschide playlistul original</string>
 <string name="pro_restore_no_subscription">Nu a fost găsit niciun abonament PRO activ.</string>

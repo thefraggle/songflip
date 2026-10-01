@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.6.3] - 2026-10-01
+- **Crystal-Clear Link Setup**: Clarified Android setup instructions for link routing — explained why installed players (like Spotify) are intentionally greyed out in system settings.
+- **Transparent Playlist Guidance**: Added clear explanations for why personalized mixes (e.g. Daily Mix) require a public playlist due to SongFlip's strict no-login privacy model.
+- **Everyday Polish & Stability**: Visual adjustments and stability enhancements across all 31 languages.
+
 ## [1.6.2] - 2026-09-30
 - **Robust Search Matching**: Special characters (`+`, `&`, `#`), colons, quotes, and emojis in podcast and song titles are cleanly filtered for accurate search results across all platforms (Pocket Casts, Apple, Spotify, etc.).
 - **Reliable Fallbacks**: Enhanced search URL builders prevent empty results when opening complex titles.

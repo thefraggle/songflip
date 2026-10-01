@@ -18,8 +18,8 @@
     <string name="app_links_setup_subtitle">Damit Android Musik-Links an SongFlip weiterleitet, ist eine einmalige Bestätigung nötig. Folge diesen 3 Schritten:</string>
     <string name="app_links_step1_title">Auf „+ Link hinzufügen“ tippen</string>
     <string name="app_links_step1_desc">Oben in den Android-Systemeinstellungen die Schaltfläche antippen.</string>
-    <string name="app_links_step2_title">Unterstützte Links auswählen</string>
-    <string name="app_links_step2_desc">Haken bei allen Streaming-Diensten (Spotify, Apple Music etc.) setzen.</string>
+    <string name="app_links_step2_title">Umzuleitende Links auswählen</string>
+    <string name="app_links_step2_desc">Hake verfügbare Streaming-Dienste an. (Dein installierter Musik-Player ist von Android ausgegraut — das ist völlig normal und gewollt!)</string>
     <string name="app_links_step3_title">Mit „Hinzufügen“ bestätigen</string>
     <string name="app_links_step3_desc">Fertig! SongFlip fängt angetippte Links nun automatisch ab.</string>
     <string name="app_links_btn_open_settings">Zu den Android-Einstellungen</string>
@@ -296,7 +296,7 @@
     <string name="playlist_error_title">Playlist-Konvertierung fehlgeschlagen</string>
     <string name="playlist_error_desc">Titel konnten nicht aus dieser Playlist extrahiert werden. Du kannst stattdessen den Originallink öffnen.</string>
     <string name="playlist_error_private_title">Private oder personalisierte Playlist</string>
-    <string name="playlist_error_private_desc">Personalisierte Mixe (z. B. Daily Mix) oder private Playlists können nicht automatisch gelesen werden. Bitte teile eine öffentliche Playlist.</string>
+    <string name="playlist_error_private_desc">SongFlip arbeitet 100%% privat ohne Benutzerkonto oder Login. Daher können persönliche algorithmische Mixe (wie Spotify Daily Mix oder Discover Weekly) und private Playlists nicht geladen werden. Tipp: Kopiere die Songs in eine öffentliche Playlist oder teile ein Album/eine öffentliche Playlist.</string>
     <string name="playlist_error_unsupported_title">Plattform für Playlists noch nicht unterstützt</string>
     <string name="playlist_error_unsupported_desc">SongFlip unterstützt Playlists aktuell für Spotify, Apple Music, YouTube Music und Deezer. Einzelsongs dieser Plattform funktionieren weiterhin.</string>
     <string name="playlist_error_timeout_title">Verbindungs-Timeout</string>

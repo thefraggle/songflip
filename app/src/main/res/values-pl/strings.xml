@@ -18,8 +18,8 @@
     <string name="app_links_setup_subtitle">Aby Android automatycznie przekierowywał linki muzyczne do SongFlip, wymagane jest jednorazowe potwierdzenie. Wykonaj te 3 proste kroki:</string>
     <string name="app_links_step1_title">Dotknij „+ Dodaj link”</string>
     <string name="app_links_step1_desc">Na górze ekranu ustawień systemowych Androida.</string>
-    <string name="app_links_step2_title">Wybierz obsługiwane linki</string>
-    <string name="app_links_step2_desc">Zaznacz wszystkie usługi streamingowe (Spotify, Apple Music itp.).</string>
+    <string name="app_links_step2_title">Wybierz linki do przekierowania</string>
+    <string name="app_links_step2_desc">Zaznacz dostępne serwisy. (Twój zainstalowany odtwarzacz jest wyszarzony przez system Android — to całkowicie normalne i prawidłowe!)</string>
     <string name="app_links_step3_title">Dotknij „Dodaj”, aby potwierdzić</string>
     <string name="app_links_step3_desc">Gotowe! SongFlip od teraz automatycznie przechwytuje linki muzyczne.</string>
     <string name="app_links_btn_open_settings">Otwórz ustawienia Androida</string>
@@ -286,6 +286,8 @@
     <string name="playlist_btn_unlock_pro">Przejdź na PRO</string>
     <string name="playlist_error_title">Konwersja playlisty nie powiodła się</string>
     <string name="playlist_error_desc">Nie udało się wyodrębnić utworów z tej playlisty. Możesz otworzyć oryginalny link.</string>
+    <string name="playlist_error_private_title">Playlista prywatna lub spersonalizowana</string>
+    <string name="playlist_error_private_desc">SongFlip działa w 100%% prywatnie bez kont i logowania. Osobiste składanki algorytmiczne (np. Spotify Daily Mix czy Odkryj w tym tygodniu) i prywatne playlisty nie mogą zostać pobrane. Wskazówka: skopiuj utwory do publicznej playlisty lub udostępnij album/publiczną playlistę.</string>
     <string name="playlist_btn_retry">Ponów próbę</string>
     <string name="playlist_btn_open_original">Otwórz oryginalną playlistę</string>
 <string name="pro_restore_no_subscription">Nie znaleziono aktywnej subskrypcji PRO.</string>

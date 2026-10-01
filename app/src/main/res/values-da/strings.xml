@@ -18,8 +18,8 @@
     <string name="app_links_setup_subtitle">For at lade Android omdirigere musiklinks til SongFlip automatisk kræves en engangsbekræftelse. Følg disse 3 trin:</string>
     <string name="app_links_step1_title">Tryk på \"+ Tilføj link\"</string>
     <string name="app_links_step1_desc">Øverst på skærmen med Android-systemindstillinger.</string>
-    <string name="app_links_step2_title">Vælg understøttede links</string>
-    <string name="app_links_step2_desc">Markér alle streamingtjenester (Spotify, Apple Music osv.).</string>
+    <string name="app_links_step2_title">Vælg links, der skal omdirigeres</string>
+    <string name="app_links_step2_desc">Markér tilgængelige musiktjenester. (Din installerede musikafspiller er nedtonet af Android – det er helt normalt og optimalt!)</string>
     <string name="app_links_step3_title">Tryk på \"Tilføj\" for at bekræfte</string>
     <string name="app_links_step3_desc">Færdig! SongFlip opfanger nu automatisk links.</string>
     <string name="app_links_btn_open_settings">Åbn Android-indstillinger</string>
@@ -278,6 +278,8 @@
     <string name="playlist_btn_unlock_pro">Opgrader til PRO</string>
     <string name="playlist_error_title">Konvertering af afspilningsliste mislykkedes</string>
     <string name="playlist_error_desc">Kunne ikke udtrække numre fra denne afspilningsliste. Du kan åbne det oprindelige link.</string>
+    <string name="playlist_error_private_title">Privat eller personlig playliste</string>
+    <string name="playlist_error_private_desc">SongFlip fungerer 100%% privat uden brugerkonto eller login. Personlige algoritmiske mix (som Spotify Daily Mix eller Discover Weekly) og private playlister kan derfor ikke indlæses. Tip: Kopiér numrene til en offentlig playliste eller del et album/en offentlig playliste.</string>
     <string name="playlist_btn_retry">Prøv igen</string>
     <string name="playlist_btn_open_original">Åbn oprindelig afspilningsliste</string>
 <string name="pro_restore_no_subscription">Intet aktivt PRO-abonnement fundet.</string>

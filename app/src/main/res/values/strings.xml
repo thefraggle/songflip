@@ -18,8 +18,8 @@
     <string name="app_links_setup_subtitle">To let Android automatically route music links to SongFlip, a one-time confirmation is needed. Follow these 3 simple steps:</string>
     <string name="app_links_step1_title">Tap \"+ Add link\"</string>
     <string name="app_links_step1_desc">At the top of the Android system settings screen.</string>
-    <string name="app_links_step2_title">Select Supported Links</string>
-    <string name="app_links_step2_desc">Tick all streaming domains (Spotify, Apple Music, etc.).</string>
+    <string name="app_links_step2_title">Select Links to Redirect</string>
+    <string name="app_links_step2_desc">Tick available streaming services. (Your installed music player is greyed out by Android — that is normal and optimal!)</string>
     <string name="app_links_step3_title">Tap \"Add\" to Confirm</string>
     <string name="app_links_step3_desc">Done! SongFlip will now catch links automatically.</string>
     <string name="app_links_btn_open_settings">Open Android Settings</string>
@@ -296,7 +296,7 @@
     <string name="playlist_error_title">Playlist Conversion Failed</string>
     <string name="playlist_error_desc">Could not extract tracks from this playlist. You can open the original link instead.</string>
     <string name="playlist_error_private_title">Private or Personalized Playlist</string>
-    <string name="playlist_error_private_desc">Personalized mixes (such as Daily Mix) or private playlists cannot be read automatically. Please share a public playlist.</string>
+    <string name="playlist_error_private_desc">SongFlip operates 100%% private without user accounts or login. Therefore, personal algorithmic mixes (such as Spotify Daily Mix or Discover Weekly) and private playlists cannot be accessed. Tip: Copy the tracks to a public playlist or share an album/public playlist.</string>
     <string name="playlist_error_unsupported_title">Platform Not Supported for Playlists</string>
     <string name="playlist_error_unsupported_desc">SongFlip currently supports playlists for Spotify, Apple Music, YouTube Music, and Deezer. Single songs from this platform still work.</string>
     <string name="playlist_error_timeout_title">Connection Timeout</string>

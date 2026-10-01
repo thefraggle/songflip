@@ -15,8 +15,8 @@
     <string name="app_links_setup_subtitle">เพื่อให้ Android ส่งต่อลิงก์เพลงไปยัง SongFlip โดยอัตโนมัติ จำเป็นต้องยืนยันหนึ่งครั้ง ทำตาม 3 ขั้นตอนง่ายๆ:</string>
     <string name="app_links_step1_title">แตะ "+ เพิ่มลิงก์"</string>
     <string name="app_links_step1_desc">ที่ด้านบนของหน้าจอการตั้งค่าระบบ Android</string>
-    <string name="app_links_step2_title">เลือกลิงก์ที่รองรับ</string>
-    <string name="app_links_step2_desc">เลือกโดเมนสตรีมมิ่งทั้งหมด (Spotify, Apple Music ฯลฯ)</string>
+    <string name="app_links_step2_title">เลือกลิงก์ที่จะเปลี่ยนเส้นทาง</string>
+    <string name="app_links_step2_desc">เลือกบริการที่มีให้ใช้งาน (เครื่องเล่นเพลงที่คุณติดตั้งไว้จะแสดงเป็นสีเทาใน Android ซึ่งเป็นเรื่องปกติและถูกต้องแล้ว!)</string>
     <string name="app_links_step3_title">แตะ "เพิ่ม" เพื่อยืนยัน</string>
     <string name="app_links_step3_desc">เสร็จสิ้น! ตอนนี้ SongFlip จะดักจับลิงก์โดยอัตโนมัติ</string>
     <string name="app_links_btn_open_settings">เปิดการตั้งค่า Android</string>
@@ -260,6 +260,8 @@
     <string name="playlist_btn_unlock_pro">อัปเกรดเป็น PRO</string>
     <string name="playlist_error_title">การแปลงเพลย์ลิสต์ล้มเหลว</string>
     <string name="playlist_error_desc">ไม่สามารถดึงเพลงจากเพลย์ลิสต์นี้ คุณสามารถเปิดลิงก์เดิมแทนได้</string>
+    <string name="playlist_error_private_title">เพลย์ลิสต์ส่วนตัวหรือเพลย์ลิสต์เฉพาะบุคคล</string>
+    <string name="playlist_error_private_desc">SongFlip ทำงานอย่างเป็นส่วนตัว 100%% โดยไม่ต้องมีบัญชีหรือเข้าสู่ระบบ ดังนั้นมิกซ์อัลกอริทึมส่วนบุคคล (เช่น Spotify Daily Mix) และเพลย์ลิสต์ส่วนตัวจึงไม่สามารถเข้าถึงได้ คำแนะนำ: คัดลอกแทร็กไปยังเพลย์ลิสต์สาธารณะหรือแชร์อัลบั้ม/เพลย์ลิสต์สาธารณะ</string>
     <string name="playlist_btn_retry">ลองอีกครั้ง</string>
     <string name="playlist_btn_open_original">เปิดเพลย์ลิสต์เดิม</string>
 <string name="pro_restore_no_subscription">ไม่พบการสมัครสมาชิก PRO ที่ใช้งานอยู่</string>

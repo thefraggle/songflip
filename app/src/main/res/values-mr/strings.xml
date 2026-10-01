@@ -18,8 +18,8 @@
     <string name="app_links_setup_subtitle">Android ने संगीत लिंक्स SongFlip कडे स्वयंचलितपणे पाठवण्यासाठी एकदा पुष्टीकरण आवश्यक आहे. या 3 पायऱ्या फॉलो करा:</string>
     <string name="app_links_step1_title">\"+ लिंक जोडा\" वर टॅप करा</string>
     <string name="app_links_step1_desc">Android प्रणाली सेटिंग्ज स्क्रीनच्या शीर्षस्थानी.</string>
-    <string name="app_links_step2_title">समर्थित लिंक्स निवडा</string>
-    <string name="app_links_step2_desc">सर्व संगीत स्ट्रीमिंग डोमेन (Spotify, Apple Music इ.) निवडा.</string>
+    <string name="app_links_step2_title">रीडायरेक्ट करण्यासाठी लिंक निवडा</string>
+    <string name="app_links_step2_desc">उपलब्ध सेवा निवडा. (तुमचा इन्स्टॉल केलेला म्युझिक प्लेअर Android द्वारे ग्रे (निष्क्रिय) दिसेल — हे पूर्णपणे सामान्य आहे!)</string>
     <string name="app_links_step3_title">पुष्टी करण्यासाठी \"जोडा\" वर टॅप करा</string>
     <string name="app_links_step3_desc">झाले! SongFlip आता स्वयंचलितपणे संगीत लिंक्स उघडेल.</string>
     <string name="app_links_btn_open_settings">Android सेटिंग्ज उघडा</string>
@@ -278,6 +278,8 @@
     <string name="playlist_btn_unlock_pro">PRO मध्ये अपग्रेड करा</string>
     <string name="playlist_error_title">प्लेलिस्ट रूपांतरण अयशस्वी</string>
     <string name="playlist_error_desc">या प्लेलिस्टवरून गाणी मिळवता आली नाहीत. आपण त्याऐवजी मूळ लिंक उघडू शकता.</string>
+    <string name="playlist_error_private_title">खाजगी किंवा वैयक्तिकृत प्लेलिस्ट</string>
+    <string name="playlist_error_private_desc">SongFlip कोणत्याही खात्याशिवाय किंवा लॉगिनशिवाय 100%% खाजगीरित्या कार्य करते. त्यामुळे वैयक्तिक अल्गोरिदम मिक्स (जसे की Spotify Daily Mix) आणि खाजगी प्लेलिस्ट उघडता येत नाहीत. टीप: गाणी सार्वजनिक प्लेलिस्टमध्ये कॉपी करा किंवा अल्बम/सार्वजनिक प्लेलिस्ट शेअर करा.</string>
     <string name="playlist_btn_retry">पुन्हा प्रयत्न करा</string>
     <string name="playlist_btn_open_original">मूळ प्लेलिस्ट उघडा</string>
 <string name="pro_restore_no_subscription">कोणतीही सक्रिय PRO सदस्यता आढळली नाही.</string>

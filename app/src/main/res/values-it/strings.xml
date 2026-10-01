@@ -18,8 +18,8 @@
     <string name="app_links_setup_subtitle">Per consentire ad Android di inoltrare i link musicali a SongFlip, è richiesta una conferma una tantum. Segui questi 3 passaggi:</string>
     <string name="app_links_step1_title">Tocca «+ Aggiungi link»</string>
     <string name="app_links_step1_desc">Nella parte superiore della schermata impostazioni di sistema.</string>
-    <string name="app_links_step2_title">Seleziona i link supportati</string>
-    <string name="app_links_step2_desc">Seleziona tutti i domini di streaming (Spotify, Apple Music, ecc.).</string>
+    <string name="app_links_step2_title">Seleziona i link da reindirizzare</string>
+    <string name="app_links_step2_desc">Seleziona i servizi musicali disponibili. (Il tuo lettore installato è disattivato da Android: è assolutamente normale e corretto!)</string>
     <string name="app_links_step3_title">Tocca «Aggiungi» per confermare</string>
     <string name="app_links_step3_desc">Fatto! SongFlip intercetta ora i link automaticamente.</string>
     <string name="app_links_btn_open_settings">Apri impostazioni Android</string>
@@ -278,6 +278,8 @@
     <string name="playlist_btn_unlock_pro">Passa a PRO</string>
     <string name="playlist_error_title">Conversione playlist non riuscita</string>
     <string name="playlist_error_desc">Impossibile estrarre i brani da questa playlist. Puoi aprire il link originale.</string>
+    <string name="playlist_error_private_title">Playlist privata o personalizzata</string>
+    <string name="playlist_error_private_desc">SongFlip funziona al 100%% privato senza account né accesso. Pertanto, i mix algoritmici personali (come Spotify Daily Mix o Discover Weekly) e le playlist private non possono essere aperti. Consiglio: copia i brani in una playlist pubblica o condividi un album/playlist pubblica.</string>
     <string name="playlist_btn_retry">Riprova</string>
     <string name="playlist_btn_open_original">Apri playlist originale</string>
 <string name="pro_restore_no_subscription">Nessun abbonamento PRO attivo trovato.</string>

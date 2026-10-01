@@ -18,8 +18,8 @@
     <string name="app_links_setup_subtitle">Pour qu\'Android redirige automatiquement les liens musicaux vers SongFlip, une confirmation unique est requise. Suivez ces 3 étapes :</string>
     <string name="app_links_step1_title">Appuyer sur « + Ajouter un lien »</string>
     <string name="app_links_step1_desc">En haut dans l\'écran des paramètres système Android.</string>
-    <string name="app_links_step2_title">Sélectionner les liens pris en charge</string>
-    <string name="app_links_step2_desc">Cochez tous les domaines de streaming (Spotify, Apple Music, etc.).</string>
+    <string name="app_links_step2_title">Sélectionner les liens à rediriger</string>
+    <string name="app_links_step2_desc">Cochez les services disponibles. (Votre lecteur installé est grisé par Android — c\'est tout à fait normal et optimal !)</string>
     <string name="app_links_step3_title">Confirmer avec « Ajouter »</string>
     <string name="app_links_step3_desc">Terminé ! SongFlip intercepte désormais les liens automatiquement.</string>
     <string name="app_links_btn_open_settings">Ouvrir les paramètres Android</string>
@@ -278,6 +278,8 @@
     <string name="playlist_btn_unlock_pro">Passer à PRO</string>
     <string name="playlist_error_title">Échec de la conversion de la playlist</string>
     <string name="playlist_error_desc">Impossible d\'extraire les titres de cette playlist. Vous pouvez ouvrir le lien d\'origine.</string>
+    <string name="playlist_error_private_title">Playlist privée ou personnalisée</string>
+    <string name="playlist_error_private_desc">SongFlip fonctionne à 100%% privé sans compte ni connexion. Les mix algorithmiques personnels (comme Daily Mix de Spotify ou Discover Weekly) et les playlists privées ne peuvent donc pas être chargés. Astuce : copiez les morceaux dans une playlist publique ou partagez un album/une playlist publique.</string>
     <string name="playlist_btn_retry">Réessayer</string>
     <string name="playlist_btn_open_original">Ouvrir la playlist d\'origine</string>
 <string name="pro_restore_no_subscription">Aucun abonnement PRO actif trouvé.</string>

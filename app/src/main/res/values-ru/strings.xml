@@ -18,8 +18,8 @@
     <string name="app_links_setup_subtitle">Чтобы Android автоматически перенаправлял ссылки на музыку в SongFlip, требуется единоразовое подтверждение. Выполните 3 простых шага:</string>
     <string name="app_links_step1_title">Нажмите «+ Добавить ссылку»</string>
     <string name="app_links_step1_desc">В верхней части экрана настроек системы Android.</string>
-    <string name="app_links_step2_title">Выберите поддерживаемые ссылки</string>
-    <string name="app_links_step2_desc">Отметьте все стриминговые сервисы (Spotify, Apple Music и т. д.).</string>
+    <string name="app_links_step2_title">Выберите ссылки для перенаправления</string>
+    <string name="app_links_step2_desc">Отметьте доступные сервисы. (Ваш установленный плеер выделен серым в Android — это абсолютно нормально и правильно!)</string>
     <string name="app_links_step3_title">Нажмите «Добавить» для подтверждения</string>
     <string name="app_links_step3_desc">Готово! SongFlip теперь автоматически перехватывает ссылки.</string>
     <string name="app_links_btn_open_settings">Открыть настройки Android</string>
@@ -286,6 +286,8 @@
     <string name="playlist_btn_unlock_pro">Перейти на PRO</string>
     <string name="playlist_error_title">Не удалось сконвертировать плейлист</string>
     <string name="playlist_error_desc">Не удалось извлечь треки из этого плейлиста. Вы можете открыть исходную ссылку.</string>
+    <string name="playlist_error_private_title">Приватный или персонализированный плейлист</string>
+    <string name="playlist_error_private_desc">SongFlip работает на 100%% конфиденциально без аккаунтов и входа. Персональные алгоритмические миксы (например, Spotify Daily Mix) и приватные плейлисты недоступны. Совет: скопируйте треки в публичный плейлист или поделитесь альбомом/публичным плейлистом.</string>
     <string name="playlist_btn_retry">Повторить</string>
     <string name="playlist_btn_open_original">Открыть исходный плейлист</string>
 <string name="pro_restore_no_subscription">Активная подписка PRO не найдена.</string>

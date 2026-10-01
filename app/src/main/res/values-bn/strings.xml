@@ -18,8 +18,8 @@
     <string name="app_links_setup_subtitle">Android যাতে মিউজিক লিঙ্ক স্বয়ংক্রিয়ভাবে SongFlip-এ পাঠাতে পারে, তার জন্য একবার নিশ্চিতকরণ প্রয়োজন। এই ৩টি ধাপ অনুসরণ করুন:</string>
     <string name="app_links_step1_title">\"+ লিঙ্ক যোগ করুন\" এ আলতো চাপুন</string>
     <string name="app_links_step1_desc">Android সিস্টেম সেটিংস স্ক্রিনের শীর্ষে।</string>
-    <string name="app_links_step2_title">সমর্থিত লিঙ্ক নির্বাচন করুন</string>
-    <string name="app_links_step2_desc">সমস্ত স্ট্রিমিং ডোমেন (Spotify, Apple Music ইত্যাদি) টিক দিন।</string>
+    <string name="app_links_step2_title">রিডাইরেক্ট করার জন্য লিঙ্ক নির্বাচন করুন</string>
+    <string name="app_links_step2_desc">উপলব্ধ পরিষেবাগুলিতে টিক দিন। (আপনার ইনস্টল করা প্লেয়ারটি Android দ্বারা ধূসর দেখাবে — এটি সম্পূর্ণ স্বাভাবিক এবং সঠিক!)</string>
     <string name="app_links_step3_title">নিশ্চিত করতে \"যোগ করুন\" এ চাপুন</string>
     <string name="app_links_step3_desc">সম্পন্ন! SongFlip এখন স্বয়ংক্রিয়ভাবে সঙ্গীত লিঙ্ক শনাক্ত করবে।</string>
     <string name="app_links_btn_open_settings">Android সেটিংস খুলুন</string>
@@ -278,6 +278,8 @@
     <string name="playlist_btn_unlock_pro">PRO-তে আপগ্রেড করুন</string>
     <string name="playlist_error_title">প্লেলিস্ট রূপান্তর ব্যর্থ হয়েছে</string>
     <string name="playlist_error_desc">এই প্লেলিস্ট থেকে গানগুলো নেওয়া যায়নি। আপনি চাইলে মূল লিঙ্কটি খুলতে পারেন।</string>
+    <string name="playlist_error_private_title">ব্যক্তিগত বা নিজস্ব প্লেলিস্ট</string>
+    <string name="playlist_error_private_desc">SongFlip কোনও অ্যাকাউন্ট বা লগইন ছাড়াই 100%% ব্যক্তিগতভাবে কাজ করে। তাই ব্যক্তিগত অ্যালগরিদম মিক্স (যেমন Spotify Daily Mix) এবং ব্যক্তিগত প্লেলিস্ট লোড করা যায় না। পরামর্শ: গানগুলি একটি সর্বজনীন প্লেলিস্টে অনুলিপি করুন বা অ্যালবাম/সর্বজনীন প্লেলিস্ট শেয়ার করুন। </string>
     <string name="playlist_btn_retry">আবার চেষ্টা করুন</string>
     <string name="playlist_btn_open_original">মূল প্লেলিস্ট খুলুন</string>
 <string name="pro_restore_no_subscription">কোনো সক্রিয় PRO সাবস্ক্রিপশন পাওয়া যায়নি।</string>

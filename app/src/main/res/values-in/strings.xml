@@ -18,8 +18,8 @@
     <string name="app_links_setup_subtitle">Agar Android dapat mengarahkan tautan musik ke SongFlip secara otomatis, diperlukan satu kali konfirmasi. Ikuti 3 langkah ini:</string>
     <string name="app_links_step1_title">\"+ Tambahkan tautan\"</string>
     <string name="app_links_step1_desc">Di bagian atas layar pengaturan sistem Android.</string>
-    <string name="app_links_step2_title">Pilih Tautan yang Didukung</string>
-    <string name="app_links_step2_desc">Centang semua domain streaming (Spotify, Apple Music, dll.).</string>
+    <string name="app_links_step2_title">Pilih Tautan untuk Dialihkan</string>
+    <string name="app_links_step2_desc">Centang layanan yang tersedia. (Pemutar musik Anda yang terinstal berwarna abu-abu oleh Android — itu normal dan memang semestinya!)</string>
     <string name="app_links_step3_title">Ketuk \"Tambahkan\" untuk Konfirmasi</string>
     <string name="app_links_step3_desc">Selesai! SongFlip kini akan otomatis menangkap tautan musik.</string>
     <string name="app_links_btn_open_settings">Buka Pengaturan Android</string>
@@ -274,6 +274,8 @@
     <string name="playlist_btn_unlock_pro">Tingkatkan ke PRO</string>
     <string name="playlist_error_title">Konversi Daftar Putar Gagal</string>
     <string name="playlist_error_desc">Tidak dapat mengekstrak trek dari daftar putar ini. Anda dapat membuka tautan asli sebagai gantinya.</string>
+    <string name="playlist_error_private_title">Daftar Putar Pribadi atau Dipersonalisasi</string>
+    <string name="playlist_error_private_desc">SongFlip beroperasi 100%% privat tanpa akun atau login. Oleh karena itu, mix algoritmik pribadi (seperti Spotify Daily Mix) dan playlist privat tidak dapat diakses. Tips: Salin lagu ke playlist publik atau bagikan album/playlist publik.</string>
     <string name="playlist_btn_retry">Coba lagi</string>
     <string name="playlist_btn_open_original">Buka Daftar Putar Asli</string>
 <string name="pro_restore_no_subscription">Tidak ada langganan PRO aktif yang ditemukan.</string>
