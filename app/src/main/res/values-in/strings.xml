@@ -158,9 +158,6 @@
 
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">Dukung pengembang independen &amp; buka fitur eksklusif</string>
-    <string name="pro_feature_history">Riwayat diperluas hingga 100 lagu</string>
-    <string name="pro_feature_support">Dukung langsung pengembangan independen</string>
-    <string name="pro_feature_future">Semua fitur PRO mendatang sudah termasuk</string>
     <string name="pro_tier_monthly">Bulanan</string>
     <string name="pro_tier_annual">Tahunan</string>
     <string name="pro_tier_lifetime">Lifetime</string>
@@ -202,14 +199,12 @@
     <string name="share_universal_link">Bagikan tautan web universal</string>
     <string name="share_universal_link_copied">Tautan universal SongFlip disalin!</string>
     <string name="share_universal_link_pro">Tautan web universal (PRO)</string>
-    <string name="pro_feature_universal_links">Tautan web universal untuk semua pemutar</string>
     <string name="settings_auto_clipboard_title">Deteksi papan klip otomatis</string>
     <string name="settings_auto_clipboard_subtitle">Tampilkan banner tindakan cepat saat tautan musik disalin</string>
     <string name="clipboard_banner_title">Tautan Musik Terdeteksi</string>
     <string name="clipboard_banner_action_open">Buka di %1$s</string>
     <string name="clipboard_banner_action_share">Tautan Universal</string>
     <string name="pro_play_store_unavailable">Google Play Store saat ini tidak tersedia.</string>
-    <string name="pro_feature_l2_cache">Cache Cloud L2 Berkecepatan Tinggi (&lt;50ms)</string>
     <string name="pro_btn_subscribe">Dapatkan SongFlip PRO (%1$s)</string>
     <string name="pro_processing">Memproses...</string>
 
@@ -286,4 +281,16 @@
     <string name="offline_waiting_cancel">Batal</string>
     <string name="history_empty_title">Belum ada riwayat</string>
     <string name="history_empty_hint">Tips: Buka atau bagikan tautan musik untuk melihatnya di sini.</string>
+
+    <!-- Pro Features -->
+    <string name="pro_feature_playlists_title">Konversi Daftar Putar</string>
+    <string name="pro_feature_playlists_desc">Transfer seluruh daftar putar dengan mudah</string>
+    <string name="pro_feature_history_title">Riwayat</string>
+    <string name="pro_feature_history_desc">Kapasitas diperluas hingga 100 lagu</string>
+    <string name="pro_feature_cache_title">Cache</string>
+    <string name="pro_feature_cache_desc">Cache cloud L2 super cepat (&lt; 50 ms)</string>
+    <string name="pro_feature_links_title">Tautan Web</string>
+    <string name="pro_feature_links_desc">Tautan universal untuk semua pemutar</string>
+    <string name="pro_feature_future_title">Fitur PRO Mendatang</string>
+    <string name="pro_feature_future_desc">Termasuk semua pembaruan yang akan datang</string>
 </resources>

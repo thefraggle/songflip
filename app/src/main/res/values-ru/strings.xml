@@ -161,9 +161,6 @@
 
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">Поддержите независимую разработку и откройте функции</string>
-    <string name="pro_feature_history">Расширенная история на 100 треков</string>
-    <string name="pro_feature_support">Прямая поддержка независимого разработчика</string>
-    <string name="pro_feature_future">Все будущие функции PRO включены</string>
     <string name="pro_tier_monthly">Ежемесячно</string>
     <string name="pro_tier_annual">Ежегодно</string>
     <string name="pro_tier_lifetime">Навсегда</string>
@@ -206,14 +203,12 @@
     <string name="share_universal_link">Поделиться универсальной ссылкой</string>
     <string name="share_universal_link_copied">Универсальная ссылка SongFlip скопирована!</string>
     <string name="share_universal_link_pro">Универсальная ссылка (PRO)</string>
-    <string name="pro_feature_universal_links">Универсальные веб-ссылки для всех плееров</string>
     <string name="settings_auto_clipboard_title">Автоопределение буфера обмена</string>
     <string name="settings_auto_clipboard_subtitle">Показывать баннер быстрого действия при копировании ссылки</string>
     <string name="clipboard_banner_title">Музыкальная ссылка в буфере</string>
     <string name="clipboard_banner_action_open">Открыть в %1$s</string>
     <string name="clipboard_banner_action_share">Универсальная ссылка</string>
     <string name="pro_play_store_unavailable">Google Play Store в настоящее время недоступен.</string>
-    <string name="pro_feature_l2_cache">Высокоскоростной облачный кэш L2 (&lt; 50 мс)</string>
     <string name="pro_processing">Обработка...</string>
 
     <string name="shortcut_last_song_short">Воспроизвести трек</string>
@@ -298,4 +293,16 @@
     <string name="offline_waiting_cancel">Отмена</string>
     <string name="history_empty_title">История пуста</string>
     <string name="history_empty_hint">Совет: Откройте или поделитесь музыкальной ссылкой, чтобы увидеть её здесь.</string>
+
+    <!-- Pro Features -->
+    <string name="pro_feature_playlists_title">Конвертация плейлистов</string>
+    <string name="pro_feature_playlists_desc">Переносите полные плейлисты без ограничений</string>
+    <string name="pro_feature_history_title">История</string>
+    <string name="pro_feature_history_desc">Расширенная память на 100 треков</string>
+    <string name="pro_feature_cache_title">Кэш</string>
+    <string name="pro_feature_cache_desc">Сверхбыстрый облачный кэш L2 (&lt; 50 мс)</string>
+    <string name="pro_feature_links_title">Веб-ссылки</string>
+    <string name="pro_feature_links_desc">Универсальные ссылки для любого плеера</string>
+    <string name="pro_feature_future_title">Будущие функции PRO</string>
+    <string name="pro_feature_future_desc">Все предстоящие обновления включены</string>
 </resources>

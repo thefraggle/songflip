@@ -159,9 +159,6 @@
 
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">Steun onafhankelijke ontwikkeling &amp; ontgrendel functies</string>
-    <string name="pro_feature_history">Uitgebreide geschiedenis van 100 nummers</string>
-    <string name="pro_feature_support">Steun onafhankelijke app-ontwikkeling rechtstreeks</string>
-    <string name="pro_feature_future">Alle toekomstige PRO-functies inbegrepen</string>
     <string name="pro_tier_monthly">Maandelijks</string>
     <string name="pro_tier_annual">Jaarlijks</string>
     <string name="pro_tier_lifetime">Levenslang</string>
@@ -204,14 +201,12 @@
     <string name="share_universal_link">Universele weblink delen</string>
     <string name="share_universal_link_copied">Universele SongFlip-link gekopieerd!</string>
     <string name="share_universal_link_pro">Universele weblink (PRO)</string>
-    <string name="pro_feature_universal_links">Universele weblinks voor elke speler</string>
     <string name="settings_auto_clipboard_title">Klembord automatisch detecteren</string>
     <string name="settings_auto_clipboard_subtitle">Snelle actiebanner tonen als er een muzieklink is gekopieerd</string>
     <string name="clipboard_banner_title">Muzieklink gedetecteerd</string>
     <string name="clipboard_banner_action_open">Openen in %1$s</string>
     <string name="clipboard_banner_action_share">Universele link</string>
     <string name="pro_play_store_unavailable">Google Play Store is momenteel niet beschikbaar.</string>
-    <string name="pro_feature_l2_cache">Snelle L2-cloudcache (&lt; 50 ms)</string>
     <string name="pro_processing">Verwerken...</string>
 
     <string name="shortcut_last_song_short">Laatste nummer afspelen</string>
@@ -290,4 +285,16 @@
     <string name="offline_waiting_cancel">Annuleren</string>
     <string name="history_empty_title">Nog geen geschiedenis</string>
     <string name="history_empty_hint">Tip: Open of deel een muzieklink om deze hier te zien.</string>
+
+    <!-- Pro Features -->
+    <string name="pro_feature_playlists_title">Playlists converteren</string>
+    <string name="pro_feature_playlists_desc">Zet complete afspeellijsten naadloos over</string>
+    <string name="pro_feature_history_title">Geschiedenis</string>
+    <string name="pro_feature_history_desc">Uitgebreide capaciteit van 100 nummers</string>
+    <string name="pro_feature_cache_title">Cache</string>
+    <string name="pro_feature_cache_desc">Supersnelle L2-cloudcache (&lt; 50 ms)</string>
+    <string name="pro_feature_links_title">Weblinks</string>
+    <string name="pro_feature_links_desc">Universele links voor elke speler</string>
+    <string name="pro_feature_future_title">Toekomstige PRO-functies</string>
+    <string name="pro_feature_future_desc">Alle komende updates inbegrepen</string>
 </resources>

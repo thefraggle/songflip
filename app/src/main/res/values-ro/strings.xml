@@ -150,10 +150,6 @@
     <string name="time_days_ago">Acum %1$d zile</string>
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">Susțineți dezvoltarea independentă și deblocați funcții exclusive</string>
-    <string name="pro_feature_history">Istoric extins de 100 de melodii</string>
-    <string name="pro_feature_l2_cache">Memorie cache Cloud L2 de mare viteză (&lt; 50ms)</string>
-    <string name="pro_feature_support">Susținere directă a dezvoltării independente</string>
-    <string name="pro_feature_future">Toate funcțiile PRO viitoare incluse</string>
     <string name="pro_tier_monthly">Lunar</string>
     <string name="pro_tier_annual">Anual</string>
     <string name="pro_tier_lifetime">Pe viață</string>
@@ -197,7 +193,6 @@
     <string name="share_universal_link">Partajează link web universal</string>
     <string name="share_universal_link_copied">Link universal SongFlip copiat!</string>
     <string name="share_universal_link_pro">Link web universal (PRO)</string>
-    <string name="pro_feature_universal_links">Linkuri web universale pentru orice player</string>
     <string name="settings_auto_clipboard_title">Detectare automată a clipboard-ului</string>
     <string name="settings_auto_clipboard_subtitle">Afișează un banner de acțiune rapidă când este copiat un link muzical</string>
     <string name="clipboard_banner_title">Link muzical în clipboard</string>
@@ -280,4 +275,16 @@
     <string name="offline_waiting_cancel">Anulează</string>
     <string name="history_empty_title">Niciun istoric încă</string>
     <string name="history_empty_hint">Sfat: Deschide sau distribuie un link muzical pentru a-l vedea aici.</string>
+
+    <!-- Pro Features -->
+    <string name="pro_feature_playlists_title">Conversie playlisturi</string>
+    <string name="pro_feature_playlists_desc">Transferă playlisturi întregi cu ușurință</string>
+    <string name="pro_feature_history_title">Istoric</string>
+    <string name="pro_feature_history_desc">Capacitate extinsă la 100 de melodii</string>
+    <string name="pro_feature_cache_title">Cache</string>
+    <string name="pro_feature_cache_desc">Cache cloud L2 ultrarapid (&lt; 50 ms)</string>
+    <string name="pro_feature_links_title">Linkuri web</string>
+    <string name="pro_feature_links_desc">Linkuri universale pentru orice player</string>
+    <string name="pro_feature_future_title">Funcții PRO viitoare</string>
+    <string name="pro_feature_future_desc">Toate actualizările viitoare incluse</string>
 </resources>

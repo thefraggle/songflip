@@ -149,10 +149,6 @@
     <string name="time_days_ago">Πριν %1$d ημέρες</string>
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">Υποστηρίξτε την ανεξάρτητη ανάπτυξη &amp; ξεκλειδώστε αποκλειστικές λειτουργίες</string>
-    <string name="pro_feature_history">Επεκταμένο ιστορικό 100 κομματιών</string>
-    <string name="pro_feature_l2_cache">Εξαιρετικά γρήγορη προσωρινή μνήμη Cloud L2 (&lt; 50ms)</string>
-    <string name="pro_feature_support">Άμεση υποστήριξη της ανεξάρτητης ανάπτυξης</string>
-    <string name="pro_feature_future">Περιλαμβάνονται όλες οι μελλοντικές λειτουργίες PRO</string>
     <string name="pro_tier_monthly">Μηνιαία</string>
     <string name="pro_tier_annual">Ετήσια</string>
     <string name="pro_tier_lifetime">Εφάπαξ</string>
@@ -196,7 +192,6 @@
     <string name="share_universal_link">Κοινοποίηση καθολικού συνδέσμου Web</string>
     <string name="share_universal_link_copied">Ο καθολικός σύνδεσμος SongFlip αντιγράφηκε!</string>
     <string name="share_universal_link_pro">Καθολικός σύνδεσμος Web (PRO)</string>
-    <string name="pro_feature_universal_links">Καθολικοί σύνδεσμοι για οποιαδήποτε εφαρμογή αναπαραγωγής</string>
     <string name="settings_auto_clipboard_title">Αυτόματος εντοπισμός προχείρου</string>
     <string name="settings_auto_clipboard_subtitle">Εμφάνιση banner γρήγορης ενέργειας κατά την αντιγραφή συνδέσμου</string>
     <string name="clipboard_banner_title">Σύνδεσμος μουσικής στο πρόχειρο</string>
@@ -276,4 +271,16 @@
     <string name="offline_waiting_cancel">Ακύρωση</string>
     <string name="history_empty_title">Δεν υπάρχει ιστορικό ακόμα</string>
     <string name="history_empty_hint">Συμβουλή: Ανοίξτε ή μοιραστείτε έναν σύνδεσμο μουσικής για να εμφανιστεί εδώ.</string>
+
+    <!-- Pro Features -->
+    <string name="pro_feature_playlists_title">Μετατροπή λιστών</string>
+    <string name="pro_feature_playlists_desc">Μεταφέρετε ολόκληρες λίστες απρόσκοπτα</string>
+    <string name="pro_feature_history_title">Ιστορικό</string>
+    <string name="pro_feature_history_desc">Επεκταμένη χωρητικότητα 100 κομματιών</string>
+    <string name="pro_feature_cache_title">Προσωρινή μνήμη</string>
+    <string name="pro_feature_cache_desc">Εξαιρετικά γρήγορη μνήμη cloud L2 (&lt; 50 ms)</string>
+    <string name="pro_feature_links_title">Σύνδεσμοι ιστού</string>
+    <string name="pro_feature_links_desc">Καθολικοί σύνδεσμοι για κάθε πρόγραμμα αναπαραγωγής</string>
+    <string name="pro_feature_future_title">Μελλοντικές λειτουργίες PRO</string>
+    <string name="pro_feature_future_desc">Περιλαμβάνονται όλες οι επόμενες ενημερώσεις</string>
 </resources>

@@ -149,10 +149,6 @@
     <string name="time_days_ago">%1$d napja</string>
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">Támogassa a független fejlesztést és oldjon fel prémium funkciókat</string>
-    <string name="pro_feature_history">Bővített 100 zenés előzmények</string>
-    <string name="pro_feature_l2_cache">Villámgyors L2 felhő-gyorsítótár (&lt; 50ms)</string>
-    <string name="pro_feature_support">Független fejlesztés közvetlen támogatása</string>
-    <string name="pro_feature_future">Minden jövőbeli PRO funkciót tartalmaz</string>
     <string name="pro_tier_monthly">Havi</string>
     <string name="pro_tier_annual">Éves</string>
     <string name="pro_tier_lifetime">Örökös</string>
@@ -196,7 +192,6 @@
     <string name="share_universal_link">Univerzális weblink megosztása</string>
     <string name="share_universal_link_copied">Univerzális SongFlip link kimásolva!</string>
     <string name="share_universal_link_pro">Univerzális weblink (PRO)</string>
-    <string name="pro_feature_universal_links">Univerzális weblinkek bármelyik lejátszóhoz</string>
     <string name="settings_auto_clipboard_title">Vágólap automatikus észlelése</string>
     <string name="settings_auto_clipboard_subtitle">Gyors műveleti sáv megjelenítése zenei link másolásakor</string>
     <string name="clipboard_banner_title">Zenei link a vágólapon</string>
@@ -276,4 +271,16 @@
     <string name="offline_waiting_cancel">Mégse</string>
     <string name="history_empty_title">Még nincsenek előzmények</string>
     <string name="history_empty_hint">Tipp: Nyiss meg vagy ossz meg egy zenei linket, hogy itt lásd.</string>
+
+    <!-- Pro Features -->
+    <string name="pro_feature_playlists_title">Lejátszási listák konvertálása</string>
+    <string name="pro_feature_playlists_desc">Teljes listák zökkenőmentes átvitele</string>
+    <string name="pro_feature_history_title">Előzmények</string>
+    <string name="pro_feature_history_desc">Bővített 100 zenés tárhely</string>
+    <string name="pro_feature_cache_title">Gyorsítótár</string>
+    <string name="pro_feature_cache_desc">Villámgyors L2 felhő-gyorsítótár (&lt; 50 ms)</string>
+    <string name="pro_feature_links_title">Webes hivatkozások</string>
+    <string name="pro_feature_links_desc">Univerzális linkek bármelyik lejátszóhoz</string>
+    <string name="pro_feature_future_title">Jövőbeli PRO funkciók</string>
+    <string name="pro_feature_future_desc">Minden jövőbeli frissítést tartalmaz</string>
 </resources>

@@ -159,9 +159,6 @@
 
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">स्वतंत्र विकासास समर्थन द्या आणि विशेष वैशिष्ट्ये अनलॉक करा</string>
-    <string name="pro_feature_history">100 गाण्यांचा विस्तारित इतिहास</string>
-    <string name="pro_feature_support">स्वतंत्र डेव्हलपरला थेट पाठिंबा</string>
-    <string name="pro_feature_future">भविष्यातील सर्व PRO वैशिष्ट्ये समाविष्ट</string>
     <string name="pro_tier_monthly">मासिक</string>
     <string name="pro_tier_annual">वार्षिक</string>
     <string name="pro_tier_lifetime">Lifetime</string>
@@ -203,14 +200,12 @@
     <string name="share_universal_link">युनिव्हर्सल वेब लिंक शेअर करा</string>
     <string name="share_universal_link_copied">युनिव्हर्सल SongFlip लिंक कॉपी केली!</string>
     <string name="share_universal_link_pro">युनिव्हर्सल वेब लिंक (PRO)</string>
-    <string name="pro_feature_universal_links">कोणत्याही प्लेयरसाठी युनिव्हर्सल वेब लिंक</string>
     <string name="settings_auto_clipboard_title">क्लिपबोर्ड आपोआप शोधा</string>
     <string name="settings_auto_clipboard_subtitle">गाण्याची लिंक कॉपी केल्यावर त्वरित कृती बॅनर दाखवा</string>
     <string name="clipboard_banner_title">म्युझिक लिंक आढळली</string>
     <string name="clipboard_banner_action_open">%1$s मध्ये उघडा</string>
     <string name="clipboard_banner_action_share">युनिव्हर्सल लिंक</string>
     <string name="pro_play_store_unavailable">Google Play Store सध्या अनुपलब्ध आहे.</string>
-    <string name="pro_feature_l2_cache">हाय-स्पीड L2 क्लाउड कॅशे (&lt;50ms)</string>
     <string name="pro_processing">प्रक्रिया करत आहे...</string>
     <string name="pro_btn_subscribe">SongFlip PRO मिळवा (%1$s)</string>
 
@@ -290,4 +285,16 @@
     <string name="offline_waiting_cancel">रद्द करा</string>
     <string name="history_empty_title">अद्याप इतिहास नाही</string>
     <string name="history_empty_hint">टीप: येथे पाहण्यासाठी संगीत लिंक उघडा किंवा शेअर करा.</string>
+
+    <!-- Pro Features -->
+    <string name="pro_feature_playlists_title">प्लेलिस्ट रूपांतरित करा</string>
+    <string name="pro_feature_playlists_desc">संपूर्ण प्लेलिस्ट सहजपणे ट्रान्सफर करा</string>
+    <string name="pro_feature_history_title">इतिहास</string>
+    <string name="pro_feature_history_desc">100 गाण्यांपर्यंत विस्तारित क्षमता</string>
+    <string name="pro_feature_cache_title">कॅश</string>
+    <string name="pro_feature_cache_desc">अल्ट्रा-फास्ट L2 क्लाउड कॅश (&lt; 50 ms)</string>
+    <string name="pro_feature_links_title">वेब लिंक्स</string>
+    <string name="pro_feature_links_desc">कोणत्याही प्लेयरसाठी युनिव्हर्सल लिंक्स</string>
+    <string name="pro_feature_future_title">भविष्यातील PRO वैशिष्ट्ये</string>
+    <string name="pro_feature_future_desc">पुढील सर्व अपडेट्स समाविष्ट</string>
 </resources>
