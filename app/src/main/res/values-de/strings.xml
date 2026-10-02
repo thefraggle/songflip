@@ -200,6 +200,9 @@
     <string name="pro_active_lifetime">Lifetime PRO-Zugang</string>
     <string name="pro_active_annual">PRO-Zugang aktiv bis %1$s</string>
     <string name="pro_btn_subscribe">SongFlip PRO freischalten (%1$s)</string>
+    <string name="pro_btn_lifetime">SongFlip PRO freischalten (%1$s)</string>
+    <string name="pro_btn_annual">Abonnieren für %1$s / Jahr</string>
+    <string name="pro_btn_monthly">Abonnieren für %1$s / Monat</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – Demnächst verfügbar</string>
     <string name="pro_play_store_unavailable">Google Play Store auf diesem Gerät nicht verfügbar.</string>
     <string name="pro_offerings_error">Preise konnten nicht geladen werden. Bitte Verbindung prüfen.</string>

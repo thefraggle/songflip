@@ -176,6 +176,9 @@
     <string name="pro_active_lifetime">Örökös PRO hozzáférés</string>
     <string name="pro_active_annual">PRO hozzáférés érvényes eddig: %1$s</string>
     <string name="pro_btn_subscribe">SongFlip PRO beszerzése (%1$s)</string>
+    <string name="pro_btn_lifetime">SongFlip PRO beszerzése (%1$s)</string>
+    <string name="pro_btn_annual">Előfizetés: %1$s / év</string>
+    <string name="pro_btn_monthly">Előfizetés: %1$s / hó</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – Hamarosan</string>
     <string name="pro_play_store_unavailable">A Google Play Áruház nem érhető el ezen az eszközön.</string>
     <string name="pro_processing">Vásárlás feldolgozása folyamatban...</string>

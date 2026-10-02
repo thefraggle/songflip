@@ -94,7 +94,10 @@ class LocalizationTest {
             "pro_feature_links_title",
             "pro_feature_links_desc",
             "pro_feature_future_title",
-            "pro_feature_future_desc"
+            "pro_feature_future_desc",
+            "pro_btn_lifetime",
+            "pro_btn_annual",
+            "pro_btn_monthly"
         )
         val requiredPluralKeys = listOf(
             "history_cached_count",

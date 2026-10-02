@@ -176,6 +176,9 @@
     <string name="pro_active_lifetime">Elinikäinen PRO-käyttöoikeus</string>
     <string name="pro_active_annual">PRO-käyttöoikeus voimassa asti: %1$s</string>
     <string name="pro_btn_subscribe">Hanki SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_lifetime">Hanki SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_annual">Tilaa hintaan %1$s / vuosi</string>
+    <string name="pro_btn_monthly">Tilaa hintaan %1$s / kk</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – Tulossa pian</string>
     <string name="pro_play_store_unavailable">Google Play Kauppa ei ole käytettävissä tällä laitteella.</string>
     <string name="pro_processing">Käsitellään ostoa...</string>

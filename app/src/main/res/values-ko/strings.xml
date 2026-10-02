@@ -207,6 +207,9 @@
     <string name="pro_play_store_unavailable">현재 Google Play 스토어를 사용할 수 없습니다.</string>
     <string name="pro_processing">처리 중...</string>
     <string name="pro_btn_subscribe">SongFlip PRO 받기 (%1$s)</string>
+    <string name="pro_btn_lifetime">SongFlip PRO 받기 (%1$s)</string>
+    <string name="pro_btn_annual">구독하기 (%1$s / 년)</string>
+    <string name="pro_btn_monthly">구독하기 (%1$s / 월)</string>
 
     <string name="shortcut_last_song_short">마지막 곡 재생</string>
     <string name="shortcut_last_song_long">마지막으로 변환된 곡 재생: %s</string>

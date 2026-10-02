@@ -177,6 +177,9 @@
     <string name="pro_active_lifetime">Acces PRO pe viață</string>
     <string name="pro_active_annual">Acces PRO activ până la %1$s</string>
     <string name="pro_btn_subscribe">Obțineți SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_lifetime">Obțineți SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_annual">Abonați-vă pentru %1$s / an</string>
+    <string name="pro_btn_monthly">Abonați-vă pentru %1$s / lună</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – În curând</string>
     <string name="pro_play_store_unavailable">Google Play Store nu este disponibil pe acest dispozitiv.</string>
     <string name="pro_processing">Se procesează achiziția...</string>

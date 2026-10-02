@@ -177,6 +177,9 @@
     <string name="pro_active_lifetime">Doživotní přístup PRO</string>
     <string name="pro_active_annual">Přístup PRO aktivní do %1$s</string>
     <string name="pro_btn_subscribe">Získat SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_lifetime">Získat SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_annual">Předplatit za %1$s / rok</string>
+    <string name="pro_btn_monthly">Předplatit za %1$s / měsíc</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – již brzy</string>
     <string name="pro_play_store_unavailable">Obchod Google Play není na tomto zařízení k dispozici.</string>
     <string name="pro_processing">Zpracovávám nákup...</string>

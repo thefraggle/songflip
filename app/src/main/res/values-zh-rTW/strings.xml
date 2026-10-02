@@ -175,6 +175,9 @@
     <string name="pro_active_lifetime">終身 PRO 存取權限</string>
     <string name="pro_active_annual">PRO 權限有效至 %1$s</string>
     <string name="pro_btn_subscribe">獲取 SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_lifetime">獲取 SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_annual">按年訂閱 (%1$s / 年)</string>
+    <string name="pro_btn_monthly">按月訂閱 (%1$s / 月)</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – 即將推出</string>
     <string name="pro_play_store_unavailable">此裝置上無法使用 Google Play 商店。</string>
     <string name="pro_processing">正在處理購買...</string>

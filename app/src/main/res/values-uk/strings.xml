@@ -210,6 +210,9 @@
     <string name="pro_play_store_unavailable">Google Play Store наразі недоступний.</string>
     <string name="pro_processing">Обробка...</string>
     <string name="pro_btn_subscribe">Отримати SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_lifetime">Отримати SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_annual">Підписатися за %1$s / рік</string>
+    <string name="pro_btn_monthly">Підписатися за %1$s / місяць</string>
 
     <string name="shortcut_last_song_short">Відтворити останній трек</string>
     <string name="shortcut_last_song_long">Відтворити останній трек: %s</string>

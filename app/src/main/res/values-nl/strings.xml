@@ -186,6 +186,9 @@
     <string name="pro_active_lifetime">Levenslange PRO-toegang</string>
     <string name="pro_active_annual">PRO-toegang actief tot %1$s</string>
     <string name="pro_btn_subscribe">Ontvang SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_lifetime">Ontvang SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_annual">Abonneren voor %1$s / jaar</string>
+    <string name="pro_btn_monthly">Abonneren voor %1$s / maand</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – Binnenkort beschikbaar</string>
     <string name="badge_album">Album</string>
     <string name="badge_artist">Artiest</string>
