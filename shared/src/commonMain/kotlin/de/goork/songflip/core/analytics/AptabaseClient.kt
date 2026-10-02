@@ -311,8 +311,19 @@ object AptabaseClient {
         trackEvent("pro_purchased", mapOf("package_id" to packageId))
     }
 
-    fun trackProPurchaseFailed(error: String) {
-        trackEvent("pro_purchase_failed", mapOf("error" to error))
+    fun trackProPurchaseFailed(
+        error: String,
+        errorCode: String? = null,
+        underlyingError: String? = null
+    ) {
+        val props = mutableMapOf<String, String>("error" to error)
+        if (!errorCode.isNullOrBlank()) {
+            props["error_code"] = errorCode
+        }
+        if (!underlyingError.isNullOrBlank()) {
+            props["underlying_error"] = underlyingError
+        }
+        trackEvent("pro_purchase_failed", props)
     }
 
     fun trackRateAppClicked() {

@@ -1,9 +1,9 @@
 # Changelog (Deutsch)
 
 ## [1.6.5] - 2026-10-02
-- **Optimierte PRO-Paywall**: Klare Übersicht der Kernfunktionen (Playlists konvertieren, Verlauf, Server-Cache, Web-Links, künftige Features) mit Lifetime-Option als erste Wahl.
-- **Zuverlässigerer Kauf-Flow**: Robuste Android-Activity-Ermittlung verhindert Unterbrechungen beim Starten des Bezahlvorgangs.
-- **Feinschliff & Stabilität**: Aktualisierte Lokalisierung in allen 31 Sprachen und verbesserte UI-Ergonomie.
+- **Optimierte Funktionsübersicht**: Übersichtlicher gestaltete Menüs und präzisere Beschreibungen aller Kernfunktionen.
+- **Fehlerbehebungen & Stabilität**: Zuverlässigere Aktionsabläufe und geschärfte Fehlerdiagnosen im Hintergrund.
+- **Feinschliff**: Aktualisierte Übersetzungen in allen 31 Sprachen und verbesserte Bedienbarkeit im Alltag.
 
 ## [1.6.4] - 2026-10-01
 - **Flüssigere Link-Auflösung**: Optimiertes Abbruch- und Hintergrund-Handling sorgt dafür, dass Weiterleitungen ohne Unterbrechung oder Verzögerung ausgeführt werden.

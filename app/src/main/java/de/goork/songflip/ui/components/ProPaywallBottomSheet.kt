@@ -399,12 +399,16 @@ fun ProPaywallBottomSheet(
                                     Toast.makeText(context, context.getString(R.string.pro_active_status), Toast.LENGTH_SHORT).show()
                                     onDismissRequest()
                                 },
-                                onError = { errorMsg ->
+                                onError = { errorMsg, errorCode, underlyingMsg ->
                                     isPurchasing = false
-                                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackProPurchaseFailed(errorMsg)
-                                    val userFriendlyMsg = if (errorMsg.contains("NETWORK", ignoreCase = true) || errorMsg.contains("resolve host", ignoreCase = true)) {
+                                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackProPurchaseFailed(
+                                        error = errorMsg,
+                                        errorCode = errorCode,
+                                        underlyingError = underlyingMsg
+                                    )
+                                    val userFriendlyMsg = if (errorMsg.contains("NETWORK", ignoreCase = true) || errorMsg.contains("resolve host", ignoreCase = true) || errorCode == "NetworkError") {
                                         context.getString(R.string.pro_coupon_network_error)
-                                    } else if (errorMsg.contains("PLAY_STORE", ignoreCase = true) || errorMsg.contains("STORE_PROBLEM", ignoreCase = true)) {
+                                    } else if (errorMsg.contains("PLAY_STORE", ignoreCase = true) || errorMsg.contains("STORE_PROBLEM", ignoreCase = true) || errorCode == "StoreProblemError") {
                                         context.getString(R.string.pro_play_store_unavailable)
                                     } else {
                                         context.getString(R.string.pro_purchase_failed)
@@ -416,10 +420,16 @@ fun ProPaywallBottomSheet(
                                 }
                             )
                         } else if (activity == null) {
-                            de.goork.songflip.core.analytics.AptabaseClient.shared.trackProPurchaseFailed("activity_not_found")
+                            de.goork.songflip.core.analytics.AptabaseClient.shared.trackProPurchaseFailed(
+                                error = "activity_not_found",
+                                errorCode = "ACTIVITY_NOT_FOUND"
+                            )
                             Toast.makeText(context, context.getString(R.string.pro_purchase_failed), Toast.LENGTH_SHORT).show()
                         } else if (selectedPackage == null) {
-                            de.goork.songflip.core.analytics.AptabaseClient.shared.trackProPurchaseFailed("no_package_available")
+                            de.goork.songflip.core.analytics.AptabaseClient.shared.trackProPurchaseFailed(
+                                error = "no_package_available",
+                                errorCode = "NO_PACKAGE_AVAILABLE"
+                            )
                             Toast.makeText(context, context.getString(R.string.pro_play_store_unavailable), Toast.LENGTH_SHORT).show()
                         }
                     },
