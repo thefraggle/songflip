@@ -188,6 +188,9 @@
     <string name="pro_active_lifetime">Пожизненный PRO-доступ</string>
     <string name="pro_active_annual">PRO-доступ активен до %1$s</string>
     <string name="pro_btn_subscribe">Получить SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_lifetime">Получить SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_annual">Подписаться за %1$s / год</string>
+    <string name="pro_btn_monthly">Подписаться за %1$s / месяц</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – Скоро появится</string>
     <string name="badge_album">Альбом</string>
     <string name="badge_artist">Исполнитель</string>

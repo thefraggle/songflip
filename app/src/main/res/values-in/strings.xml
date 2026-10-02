@@ -206,6 +206,9 @@
     <string name="clipboard_banner_action_share">Tautan Universal</string>
     <string name="pro_play_store_unavailable">Google Play Store saat ini tidak tersedia.</string>
     <string name="pro_btn_subscribe">Dapatkan SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_lifetime">Dapatkan SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_annual">Langganan seharga %1$s / tahun</string>
+    <string name="pro_btn_monthly">Langganan seharga %1$s / bulan</string>
     <string name="pro_processing">Memproses...</string>
 
     <string name="shortcut_last_song_short">Putar Lagu Terakhir</string>

@@ -458,12 +458,17 @@ fun ProPaywallBottomSheet(
                         )
                     } else {
                         val priceText = getEffectivePrice(selectedPackage)?.formatted
+                        val buttonText = if (!priceText.isNullOrBlank()) {
+                            when (selectedTier) {
+                                SelectedProTier.LIFETIME -> stringResource(R.string.pro_btn_lifetime, priceText)
+                                SelectedProTier.ANNUAL -> stringResource(R.string.pro_btn_annual, priceText)
+                                SelectedProTier.MONTHLY -> stringResource(R.string.pro_btn_monthly, priceText)
+                            }
+                        } else {
+                            stringResource(R.string.pro_title)
+                        }
                         Text(
-                            text = if (!priceText.isNullOrBlank()) {
-                                stringResource(R.string.pro_btn_subscribe, priceText)
-                            } else {
-                                stringResource(R.string.pro_title)
-                            },
+                            text = buttonText,
                             style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
                             color = MaterialTheme.colorScheme.onPrimary,
                             textAlign = TextAlign.Center

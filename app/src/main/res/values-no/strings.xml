@@ -186,6 +186,9 @@
     <string name="pro_active_lifetime">Livstids PRO-tilgang</string>
     <string name="pro_active_annual">PRO-tilgang aktiv til %1$s</string>
     <string name="pro_btn_subscribe">Få SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_lifetime">Få SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_annual">Abonner for %1$s / år</string>
+    <string name="pro_btn_monthly">Abonner for %1$s / måned</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – Kommer snart</string>
     <string name="badge_album">Album</string>
     <string name="badge_artist">Artist</string>

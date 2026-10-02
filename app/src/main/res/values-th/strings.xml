@@ -175,6 +175,9 @@
     <string name="pro_active_lifetime">สิทธิ์เข้าถึง PRO ตลอดชีพ</string>
     <string name="pro_active_annual">สิทธิ์ PRO ใช้งานได้ถึง %1$s</string>
     <string name="pro_btn_subscribe">รับ SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_lifetime">รับ SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_annual">สมัครสมาชิก %1$s / ปี</string>
+    <string name="pro_btn_monthly">สมัครสมาชิก %1$s / เดือน</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – เร็วๆ นี้</string>
     <string name="pro_play_store_unavailable">Google Play Store ไม่พร้อมใช้งานบนอุปกรณ์นี้</string>
     <string name="pro_processing">กำลังดำเนินการซื้อ...</string>

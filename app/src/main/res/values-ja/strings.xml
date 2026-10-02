@@ -185,6 +185,9 @@
     <string name="pro_active_lifetime">無期限PROアクセス</string>
     <string name="pro_active_annual">PROアクセス有効期限: %1$s</string>
     <string name="pro_btn_subscribe">SongFlip PRO を購入 (%1$s)</string>
+    <string name="pro_btn_lifetime">SongFlip PRO を購入 (%1$s)</string>
+    <string name="pro_btn_annual">登録する (%1$s / 年)</string>
+    <string name="pro_btn_monthly">登録する (%1$s / 月)</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – まもなく登場</string>
     <string name="badge_album">アルバム</string>
     <string name="badge_artist">アーティスト</string>

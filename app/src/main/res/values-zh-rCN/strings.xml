@@ -185,6 +185,9 @@
     <string name="pro_active_lifetime">终身 PRO 权限</string>
     <string name="pro_active_annual">PRO 权限有效期至 %1$s</string>
     <string name="pro_btn_subscribe">开通 SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_lifetime">开通 SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_annual">按年订阅 (%1$s / 年)</string>
+    <string name="pro_btn_monthly">按月订阅 (%1$s / 月)</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – 即将推出</string>
     <string name="badge_album">专辑</string>
     <string name="badge_artist">艺人</string>

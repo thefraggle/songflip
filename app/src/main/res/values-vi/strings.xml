@@ -207,6 +207,9 @@
     <string name="pro_play_store_unavailable">Cửa hàng Google Play hiện không khả dụng.</string>
     <string name="pro_processing">Xử lý...</string>
     <string name="pro_btn_subscribe">Nhận SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_lifetime">Nhận SongFlip PRO (%1$s)</string>
+    <string name="pro_btn_annual">Đăng ký với %1$s / năm</string>
+    <string name="pro_btn_monthly">Đăng ký với %1$s / tháng</string>
 
     <string name="shortcut_last_song_short">Phát bài hát gần nhất</string>
     <string name="shortcut_last_song_long">Phát bài hát gần nhất: %s</string>

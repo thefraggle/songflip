@@ -208,6 +208,9 @@
     <string name="pro_play_store_unavailable">Google Play Store বর্তমানে অনুপলব্ধ।</string>
     <string name="pro_processing">প্রক্রিয়া করা হচ্ছে...</string>
     <string name="pro_btn_subscribe">SongFlip PRO পান (%1$s)</string>
+    <string name="pro_btn_lifetime">SongFlip PRO পান (%1$s)</string>
+    <string name="pro_btn_annual">সাবস্ক্রাইব করুন %1$s / বছর</string>
+    <string name="pro_btn_monthly">সাবস্ক্রাইব করুন %1$s / মাস</string>
 
     <string name="shortcut_last_song_short">শেষ গানটি শুনুন</string>
     <string name="shortcut_last_song_long">শেষ গানটি চালান: %s</string>

@@ -186,6 +186,9 @@
     <string name="pro_active_lifetime">Ömür Boyu PRO Erişim</string>
     <string name="pro_active_annual">PRO Erişim %1$s tarihine kadar aktif</string>
     <string name="pro_btn_subscribe">SongFlip PRO Al (%1$s)</string>
+    <string name="pro_btn_lifetime">SongFlip PRO Al (%1$s)</string>
+    <string name="pro_btn_annual">%1$s / yıl ile Abone Ol</string>
+    <string name="pro_btn_monthly">%1$s / ay ile Abone Ol</string>
     <string name="pro_btn_coming_soon">SongFlip PRO – Yakında</string>
     <string name="badge_album">Albüm</string>
     <string name="badge_artist">Sanatçı</string>
