@@ -204,7 +204,7 @@ object ProManager {
         activity: Activity,
         packageToPurchase: Package,
         onSuccess: () -> Unit,
-        onError: (String) -> Unit,
+        onError: (errorMsg: String, errorCode: String?, underlyingMsg: String?) -> Unit,
         onCancelled: () -> Unit = {}
     ) {
         try {
@@ -217,7 +217,7 @@ object ProManager {
                         if (proState.isPro) {
                             onSuccess()
                         } else {
-                            onError("Purchase completed but entitlement not active.")
+                            onError("Purchase completed but entitlement not active.", "ENTITLEMENT_NOT_ACTIVE", null)
                         }
                     }
 
@@ -225,13 +225,13 @@ object ProManager {
                         if (userCancelled) {
                             onCancelled()
                         } else {
-                            onError(error.message)
+                            onError(error.message, error.code.name, error.underlyingErrorMessage)
                         }
                     }
                 }
             )
         } catch (e: Exception) {
-            onError(e.message ?: "Purchase error")
+            onError(e.message ?: "Purchase error", "EXCEPTION", e.cause?.message)
         }
     }
 
