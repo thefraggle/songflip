@@ -1,6 +1,8 @@
 package de.goork.songflip.ui.components
 
 import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
@@ -29,9 +31,12 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.revenuecat.purchases.Offering
@@ -65,7 +70,7 @@ fun ProPaywallBottomSheet(
 
     val proState by ProManager.proState.collectAsState()
     val coroutineScope = rememberCoroutineScope()
-    var selectedTier by remember { mutableStateOf(SelectedProTier.ANNUAL) }
+    var selectedTier by remember { mutableStateOf(SelectedProTier.LIFETIME) }
     var currentOffering by remember { mutableStateOf<Offering?>(null) }
     var availablePackages by remember { mutableStateOf<List<Package>>(emptyList()) }
     var isPurchasing by remember { mutableStateOf(false) }
@@ -254,11 +259,26 @@ fun ProPaywallBottomSheet(
                         modifier = Modifier.padding(16.dp),
                         verticalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
-                        ProFeatureRow(text = stringResource(R.string.pro_feature_history))
-                        ProFeatureRow(text = stringResource(R.string.pro_feature_l2_cache))
-                        ProFeatureRow(text = stringResource(R.string.pro_feature_universal_links))
-                        ProFeatureRow(text = stringResource(R.string.pro_feature_support))
-                        ProFeatureRow(text = stringResource(R.string.pro_feature_future))
+                        ProFeatureRow(
+                            title = stringResource(R.string.pro_feature_playlists_title),
+                            description = stringResource(R.string.pro_feature_playlists_desc)
+                        )
+                        ProFeatureRow(
+                            title = stringResource(R.string.pro_feature_history_title),
+                            description = stringResource(R.string.pro_feature_history_desc)
+                        )
+                        ProFeatureRow(
+                            title = stringResource(R.string.pro_feature_cache_title),
+                            description = stringResource(R.string.pro_feature_cache_desc)
+                        )
+                        ProFeatureRow(
+                            title = stringResource(R.string.pro_feature_links_title),
+                            description = stringResource(R.string.pro_feature_links_desc)
+                        )
+                        ProFeatureRow(
+                            title = stringResource(R.string.pro_feature_future_title),
+                            description = stringResource(R.string.pro_feature_future_desc)
+                        )
                     }
                 }
 
@@ -309,38 +329,12 @@ fun ProPaywallBottomSheet(
                     }
                 }
 
-                // 3 Tier Pricing Cards
+                // 3 Tier Pricing Cards (Lifetime -> Annual -> Monthly)
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    // 1. Annual (Bestseller)
-                    ProTierCard(
-                        title = stringResource(R.string.pro_tier_annual),
-                        price = getEffectivePrice(annualPackage)?.formatted ?: "—",
-                        subtitle = annualSub,
-                        badge = annualBadge,
-                        isSelected = selectedTier == SelectedProTier.ANNUAL,
-                        onClick = {
-                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                            selectedTier = SelectedProTier.ANNUAL
-                        }
-                    )
-
-                    // 2. Monthly
-                    ProTierCard(
-                        title = stringResource(R.string.pro_tier_monthly),
-                        price = monthlyPackage?.product?.price?.formatted ?: "—",
-                        subtitle = null,
-                        badge = null,
-                        isSelected = selectedTier == SelectedProTier.MONTHLY,
-                        onClick = {
-                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                            selectedTier = SelectedProTier.MONTHLY
-                        }
-                    )
-
-                    // 3. Lifetime
+                    // 1. Lifetime
                     ProTierCard(
                         title = stringResource(R.string.pro_tier_lifetime),
                         price = getEffectivePrice(lifetimePackage)?.formatted ?: "—",
@@ -353,12 +347,38 @@ fun ProPaywallBottomSheet(
                             selectedTier = SelectedProTier.LIFETIME
                         }
                     )
+
+                    // 2. Annual (Yearly)
+                    ProTierCard(
+                        title = stringResource(R.string.pro_tier_annual),
+                        price = getEffectivePrice(annualPackage)?.formatted ?: "—",
+                        subtitle = annualSub,
+                        badge = annualBadge,
+                        isSelected = selectedTier == SelectedProTier.ANNUAL,
+                        onClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                            selectedTier = SelectedProTier.ANNUAL
+                        }
+                    )
+
+                    // 3. Monthly
+                    ProTierCard(
+                        title = stringResource(R.string.pro_tier_monthly),
+                        price = monthlyPackage?.product?.price?.formatted ?: "—",
+                        subtitle = null,
+                        badge = null,
+                        isSelected = selectedTier == SelectedProTier.MONTHLY,
+                        onClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                            selectedTier = SelectedProTier.MONTHLY
+                        }
+                    )
                 }
 
                 val selectedPackage = when (selectedTier) {
+                    SelectedProTier.LIFETIME -> lifetimePackage
                     SelectedProTier.ANNUAL -> annualPackage
                     SelectedProTier.MONTHLY -> monthlyPackage
-                    SelectedProTier.LIFETIME -> lifetimePackage
                 }
 
                 val isButtonEnabled = !isPurchasing && !isRestoring && !isLoadingOfferings && selectedPackage != null
@@ -366,7 +386,7 @@ fun ProPaywallBottomSheet(
                 // Main CTA Button
                 Button(
                     onClick = {
-                        val activity = context as? Activity
+                        val activity = context.findActivity()
                         if (activity != null && selectedPackage != null) {
                             haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                             isPurchasing = true
@@ -395,6 +415,9 @@ fun ProPaywallBottomSheet(
                                     isPurchasing = false
                                 }
                             )
+                        } else if (activity == null) {
+                            de.goork.songflip.core.analytics.AptabaseClient.shared.trackProPurchaseFailed("activity_not_found")
+                            Toast.makeText(context, context.getString(R.string.pro_purchase_failed), Toast.LENGTH_SHORT).show()
                         } else if (selectedPackage == null) {
                             de.goork.songflip.core.analytics.AptabaseClient.shared.trackProPurchaseFailed("no_package_available")
                             Toast.makeText(context, context.getString(R.string.pro_play_store_unavailable), Toast.LENGTH_SHORT).show()
@@ -595,11 +618,23 @@ fun ProPaywallBottomSheet(
     }
 }
 
+private fun Context.findActivity(): Activity? {
+    var currentContext = this
+    while (currentContext is ContextWrapper) {
+        if (currentContext is Activity) {
+            return currentContext
+        }
+        currentContext = currentContext.baseContext
+    }
+    return null
+}
+
 @Composable
-fun ProFeatureRow(text: String) {
+fun ProFeatureRow(title: String, description: String) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        modifier = Modifier.fillMaxWidth()
     ) {
         Surface(
             shape = CircleShape,
@@ -616,7 +651,13 @@ fun ProFeatureRow(text: String) {
             }
         }
         Text(
-            text = text,
+            text = buildAnnotatedString {
+                withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                    append(title)
+                }
+                append(": ")
+                append(description)
+            },
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurface
         )

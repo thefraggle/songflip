@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.6.5] - 2026-10-02
+- **Streamlined PRO Paywall**: Highlighted core benefits (Playlist Conversion, Extended History, High-Speed Cache, Web Links, Future PRO updates) with the Lifetime option upfront.
+- **Reliable Purchase Flow**: Defensive Activity resolution prevents silent failures during checkout initialization.
+- **Polish & Stability**: Refreshed localizations across all 31 languages and improved UI ergonomics.
+
 ## [1.6.4] - 2026-10-01
 - **Instant & Responsive Link Resolution**: Cancellation and interruption handling has been hardened so switching apps or tapping away never hangs or delays your music redirects.
 - **Enhanced Reliability & Diagnostics**: Stricter background error handling and diagnostics keep redirects smooth and dependable.

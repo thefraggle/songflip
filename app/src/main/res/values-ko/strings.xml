@@ -158,9 +158,6 @@
 
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">개인 개발을 후원하고 독점 기능을 잠금 해제하세요</string>
-    <string name="pro_feature_history">최대 100곡 확장 기록</string>
-    <string name="pro_feature_support">개인 개발자 직접 후원</string>
-    <string name="pro_feature_future">향후 추가될 모든 PRO 기능 포함</string>
     <string name="pro_tier_monthly">월간</string>
     <string name="pro_tier_annual">연간</string>
     <string name="pro_tier_lifetime">Lifetime</string>
@@ -202,7 +199,6 @@
     <string name="share_universal_link">유니버설 링크 공유</string>
     <string name="share_universal_link_copied">SongFlip 유니버설 링크가 복사되었습니다!</string>
     <string name="share_universal_link_pro">유니버설 웹 링크 (PRO)</string>
-    <string name="pro_feature_universal_links">모든 플레이어를 위한 유니버설 웹 링크</string>
     <string name="settings_auto_clipboard_title">클립보드 자동 감지</string>
     <string name="settings_auto_clipboard_subtitle">음악 링크 복사 시 빠른 변환 배너 표시</string>
     <string name="clipboard_banner_title">음악 링크 감지됨</string>
@@ -211,7 +207,6 @@
     <string name="pro_play_store_unavailable">현재 Google Play 스토어를 사용할 수 없습니다.</string>
     <string name="pro_processing">처리 중...</string>
     <string name="pro_btn_subscribe">SongFlip PRO 받기 (%1$s)</string>
-    <string name="pro_feature_l2_cache">초고속 L2 클라우드 캐시 (&lt; 50ms)</string>
 
     <string name="shortcut_last_song_short">마지막 곡 재생</string>
     <string name="shortcut_last_song_long">마지막으로 변환된 곡 재생: %s</string>
@@ -286,4 +281,16 @@
     <string name="offline_waiting_cancel">취소</string>
     <string name="history_empty_title">변환 기록이 없습니다</string>
     <string name="history_empty_hint">팁: 음악 링크를 열거나 공유하면 여기에 표시됩니다.</string>
+
+    <!-- Pro Features -->
+    <string name="pro_feature_playlists_title">재생목록 변환</string>
+    <string name="pro_feature_playlists_desc">전체 재생목록을 간편하게 전송</string>
+    <string name="pro_feature_history_title">기록</string>
+    <string name="pro_feature_history_desc">100곡으로 확장된 기록 보관</string>
+    <string name="pro_feature_cache_title">캐시</string>
+    <string name="pro_feature_cache_desc">초고속 L2 클라우드 캐시 (&lt; 50ms)</string>
+    <string name="pro_feature_links_title">웹 링크</string>
+    <string name="pro_feature_links_desc">모든 플레이어를 위한 범용 링크</string>
+    <string name="pro_feature_future_title">향후 PRO 기능</string>
+    <string name="pro_feature_future_desc">향후 제공될 모든 업데이트 포함</string>
 </resources>

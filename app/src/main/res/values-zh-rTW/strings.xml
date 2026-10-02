@@ -148,10 +148,6 @@
     <string name="time_days_ago">%1$d 天前</string>
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">支持獨立開發者並解鎖專屬功能</string>
-    <string name="pro_feature_history">擴展至 100 首歌曲歷史記錄</string>
-    <string name="pro_feature_l2_cache">極速 L2 雲端快取 (&lt; 50ms)</string>
-    <string name="pro_feature_support">直接支持獨立軟體開發</string>
-    <string name="pro_feature_future">包含所有未來即將推出的 PRO 功能</string>
     <string name="pro_tier_monthly">按月訂閱</string>
     <string name="pro_tier_annual">按年訂閱</string>
     <string name="pro_tier_lifetime">終身買斷</string>
@@ -195,7 +191,6 @@
     <string name="share_universal_link">分享通用網頁連結</string>
     <string name="share_universal_link_copied">通用 SongFlip 連結已複製！</string>
     <string name="share_universal_link_pro">通用網頁連結 (PRO)</string>
-    <string name="pro_feature_universal_links">適用於任何播放器的通用網頁連結</string>
     <string name="settings_auto_clipboard_title">自動偵測剪貼簿</string>
     <string name="settings_auto_clipboard_subtitle">複製音樂連結時顯示捷徑橫幅</string>
     <string name="clipboard_banner_title">剪貼簿中發現音樂連結</string>
@@ -272,4 +267,16 @@
     <string name="offline_waiting_cancel">取消</string>
     <string name="history_empty_title">尚無轉換紀錄</string>
     <string name="history_empty_hint">提示：開啟或分享音樂連結後即可在此查看。</string>
+
+    <!-- Pro Features -->
+    <string name="pro_feature_playlists_title">轉換播放清單</string>
+    <string name="pro_feature_playlists_desc">無縫遷移完整播放清單</string>
+    <string name="pro_feature_history_title">歷史記錄</string>
+    <string name="pro_feature_history_desc">擴展至 100 首歌曲容量</string>
+    <string name="pro_feature_cache_title">快取</string>
+    <string name="pro_feature_cache_desc">超快 L2 雲端快取（&lt; 50 毫秒）</string>
+    <string name="pro_feature_links_title">網頁連結</string>
+    <string name="pro_feature_links_desc">適用於任何播放器的通用連結</string>
+    <string name="pro_feature_future_title">未來 PRO 功能</string>
+    <string name="pro_feature_future_desc">包含所有後續更新</string>
 </resources>

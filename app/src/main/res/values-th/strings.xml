@@ -148,10 +148,6 @@
     <string name="time_days_ago">%1$d วันที่แล้ว</string>
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">สนับสนุนการพัฒนาอิสระและปลดล็อกฟีเจอร์พิเศษ</string>
-    <string name="pro_feature_history">ประวัติเพลงขยายเป็น 100 เพลง</string>
-    <string name="pro_feature_l2_cache">แคชคลาวด์ความเร็วสูง L2 (&lt; 50ms)</string>
-    <string name="pro_feature_support">สนับสนุนการพัฒนาอิสระโดยตรง</string>
-    <string name="pro_feature_future">รวมฟีเจอร์ PRO ในอนาคตทั้งหมด</string>
     <string name="pro_tier_monthly">รายเดือน</string>
     <string name="pro_tier_annual">รายปี</string>
     <string name="pro_tier_lifetime">ตลอดชีพ</string>
@@ -195,7 +191,6 @@
     <string name="share_universal_link">แชร์ลิงก์เว็บสากล</string>
     <string name="share_universal_link_copied">คัดลอกลิงก์ SongFlip สากลแล้ว!</string>
     <string name="share_universal_link_pro">ลิงก์เว็บสากล (PRO)</string>
-    <string name="pro_feature_universal_links">ลิงก์เว็บสากลสำหรับเครื่องเล่นเพลงทุกค่าย</string>
     <string name="settings_auto_clipboard_title">ตรวจหาคลิปบอร์ดอัตโนมัติ</string>
     <string name="settings_auto_clipboard_subtitle">แสดงแถบการดำเนินการด่วนเมื่อคัดลอกลิงก์เพลง</string>
     <string name="clipboard_banner_title">มีลิงก์เพลงในคลิปบอร์ด</string>
@@ -272,4 +267,16 @@
     <string name="offline_waiting_cancel">ยกเลิก</string>
     <string name="history_empty_title">ยังไม่มีประวัติ</string>
     <string name="history_empty_hint">เคล็ดลับ: เปิดหรือแชร์ลิงก์เพลงเพื่อดูที่นี่</string>
+
+    <!-- Pro Features -->
+    <string name="pro_feature_playlists_title">แปลงเพลย์ลิสต์</string>
+    <string name="pro_feature_playlists_desc">ถ่ายโอนเพลย์ลิสต์ทั้งหมดได้อย่างราบรื่น</string>
+    <string name="pro_feature_history_title">ประวัติ</string>
+    <string name="pro_feature_history_desc">ขยายความจุประวัติเป็น 100 เพลง</string>
+    <string name="pro_feature_cache_title">แคช</string>
+    <string name="pro_feature_cache_desc">L2 Cloud Cache ความเร็วสูงพิเศษ (&lt; 50 ms)</string>
+    <string name="pro_feature_links_title">เว็บลิงก์</string>
+    <string name="pro_feature_links_desc">ลิงก์สากลสำหรับเครื่องเล่นทุกตัว</string>
+    <string name="pro_feature_future_title">ฟีเจอร์ PRO ในอนาคต</string>
+    <string name="pro_feature_future_desc">รวมการอัปเดตในอนาคตทั้งหมด</string>
 </resources>

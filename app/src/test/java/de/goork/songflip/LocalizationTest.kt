@@ -84,7 +84,17 @@ class LocalizationTest {
             "pro_bestseller_badge",
             "pro_bestseller_intro_badge",
             "pro_price_annual_sub",
-            "pro_price_annual_sub_intro"
+            "pro_price_annual_sub_intro",
+            "pro_feature_playlists_title",
+            "pro_feature_playlists_desc",
+            "pro_feature_history_title",
+            "pro_feature_history_desc",
+            "pro_feature_cache_title",
+            "pro_feature_cache_desc",
+            "pro_feature_links_title",
+            "pro_feature_links_desc",
+            "pro_feature_future_title",
+            "pro_feature_future_desc"
         )
         val requiredPluralKeys = listOf(
             "history_cached_count",

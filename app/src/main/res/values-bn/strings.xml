@@ -159,9 +159,6 @@
 
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">স্বাধীন বিকাশ সমর্থন করুন এবং বিশেষ বৈশিষ্ট্যগুলি আনলক করুন</string>
-    <string name="pro_feature_history">100 গানের বর্ধিত ইতিহাস</string>
-    <string name="pro_feature_support">সরাসরি স্বাধীন বিকাশকারীকে সমর্থন করুন</string>
-    <string name="pro_feature_future">ভবিষ্যতের সমস্ত PRO বৈশিষ্ট্য অন্তর্ভুক্ত</string>
     <string name="pro_tier_monthly">মাসিক</string>
     <string name="pro_tier_annual">বার্ষিক</string>
     <string name="pro_tier_lifetime">Lifetime</string>
@@ -203,14 +200,12 @@
     <string name="share_universal_link">সার্বজনীন ওয়েব লিংক শেয়ার করুন</string>
     <string name="share_universal_link_copied">সার্বজনীন SongFlip লিংক কপি করা হয়েছে!</string>
     <string name="share_universal_link_pro">সার্বজনীন ওয়েব লিংক (PRO)</string>
-    <string name="pro_feature_universal_links">যেকোনো প্লেয়ারের জন্য সার্বজনীন ওয়েব লিংক</string>
     <string name="settings_auto_clipboard_title">স্বয়ংক্রিয় ক্লিপবোর্ড শনাক্তকরণ</string>
     <string name="settings_auto_clipboard_subtitle">মিউজিক লিংক কপি করা হলে দ্রুত অ্যাকশন ব্যানার দেখান</string>
     <string name="clipboard_banner_title">মিউজিক লিংক শনাক্ত হয়েছে</string>
     <string name="clipboard_banner_action_open">%1$s-এ খুলুন</string>
     <string name="clipboard_banner_action_share">সর্বজনীন লিংক</string>
     <string name="pro_play_store_unavailable">Google Play Store বর্তমানে অনুপলব্ধ।</string>
-    <string name="pro_feature_l2_cache">হাই-স্পিড L2 ক্লাউড ক্যাশে (&lt;50ms)</string>
     <string name="pro_processing">প্রক্রিয়া করা হচ্ছে...</string>
     <string name="pro_btn_subscribe">SongFlip PRO পান (%1$s)</string>
 
@@ -290,4 +285,16 @@
     <string name="offline_waiting_cancel">বাতিল করুন</string>
     <string name="history_empty_title">কোনো ইতিহাস নেই</string>
     <string name="history_empty_hint">পরামর্শ: এখানে দেখতে একটি সঙ্গীত লিঙ্ক খুলুন বা শেয়ার করুন।</string>
+
+    <!-- Pro Features -->
+    <string name="pro_feature_playlists_title">প্লেলিস্ট রূপান্তর</string>
+    <string name="pro_feature_playlists_desc">সহজেই সম্পূর্ণ প্লেলিস্ট স্থানান্তর করুন</string>
+    <string name="pro_feature_history_title">ইতিহাস</string>
+    <string name="pro_feature_history_desc">100 গানের বর্ধিত ইতিহাস</string>
+    <string name="pro_feature_cache_title">ক্যাশ</string>
+    <string name="pro_feature_cache_desc">আল্ট্রা-ফাস্ট L2 ক্লাউড ক্যাশ (&lt; 50 ms)</string>
+    <string name="pro_feature_links_title">ওয়েব লিঙ্ক</string>
+    <string name="pro_feature_links_desc">যেকোনো প্লেয়ারের জন্য সর্বজনীন লিঙ্ক</string>
+    <string name="pro_feature_future_title">ভবিষ্যতের PRO বৈশিষ্ট্য</string>
+    <string name="pro_feature_future_desc">সমস্ত আসন্ন আপডেট অন্তর্ভুক্ত</string>
 </resources>

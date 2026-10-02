@@ -173,10 +173,6 @@
 
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">Support indie development &amp; unlock exclusive features</string>
-    <string name="pro_feature_history">Expanded 100-song history</string>
-    <string name="pro_feature_l2_cache">High-Speed L2 Cloud Cache (&lt; 50ms)</string>
-    <string name="pro_feature_support">Directly support indie development</string>
-    <string name="pro_feature_future">All upcoming PRO features included</string>
     <string name="pro_tier_monthly">Monthly</string>
     <string name="pro_tier_annual">Annual</string>
     <string name="pro_tier_lifetime">Lifetime</string>
@@ -223,7 +219,6 @@
     <string name="share_universal_link">Share Universal Web Link</string>
     <string name="share_universal_link_copied">Universal SongFlip link copied!</string>
     <string name="share_universal_link_pro">Universal Web Link (PRO)</string>
-    <string name="pro_feature_universal_links">Universal web links for any player</string>
     <string name="settings_auto_clipboard_title">Auto-detect clipboard</string>
     <string name="settings_auto_clipboard_subtitle">Show quick action banner when a music link is copied</string>
     <string name="clipboard_banner_title">Music Link in Clipboard</string>
@@ -313,4 +308,16 @@
     <string name="offline_waiting_cancel">Cancel</string>
     <string name="history_empty_title">No history yet</string>
     <string name="history_empty_hint">Tip: Open or share a music link to see it here.</string>
+
+    <!-- Pro Features -->
+    <string name="pro_feature_playlists_title">Convert Playlists</string>
+    <string name="pro_feature_playlists_desc">Transfer full playlists seamlessly</string>
+    <string name="pro_feature_history_title">History</string>
+    <string name="pro_feature_history_desc">Expanded 100-song capacity</string>
+    <string name="pro_feature_cache_title">Cache</string>
+    <string name="pro_feature_cache_desc">High-Speed L2 Cloud Cache (&lt; 50ms)</string>
+    <string name="pro_feature_links_title">Web Links</string>
+    <string name="pro_feature_links_desc">Universal links for any player</string>
+    <string name="pro_feature_future_title">Future PRO Features</string>
+    <string name="pro_feature_future_desc">All upcoming updates included</string>
 </resources>
