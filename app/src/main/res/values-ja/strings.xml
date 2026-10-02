@@ -157,13 +157,13 @@
     <string name="time_days_ago">%1$d 日前</string>
 
     <string name="pro_title">SongFlip PRO</string>
-    <string name="pro_subtitle">個人開発を支援して、限定機能をアンロック</string>
+    <string name="pro_subtitle">すべてのPRO機能を解放して、制限なしで音楽を共有しよう</string>
     <string name="pro_tier_monthly">月額</string>
     <string name="pro_tier_annual">年額</string>
     <string name="pro_tier_lifetime">永久買い切り</string>
-    <string name="pro_bestseller_badge" formatted="false">一番人気 • 33%お得</string>
-    <string name="pro_bestseller_intro_badge" formatted="false">一番人気 • 50%お得</string>
-    <string name="pro_lifetime_badge">買い切り</string>
+    <string name="pro_bestseller_badge" formatted="false">33% OFF</string>
+    <string name="pro_bestseller_intro_badge" formatted="false">50% OFF</string>
+    <string name="pro_lifetime_badge">人気 • 買い切り</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">期間限定オファー</string>
     <string name="pro_price_monthly_default">—</string>

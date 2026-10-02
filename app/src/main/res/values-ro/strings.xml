@@ -149,13 +149,13 @@
     <string name="time_hours_ago">Acum %1$d ore</string>
     <string name="time_days_ago">Acum %1$d zile</string>
     <string name="pro_title">SongFlip PRO</string>
-    <string name="pro_subtitle">Susțineți dezvoltarea independentă și deblocați funcții exclusive</string>
+    <string name="pro_subtitle">Deblochează toate funcțiile PRO și distribuie muzică fără limite</string>
     <string name="pro_tier_monthly">Lunar</string>
     <string name="pro_tier_annual">Anual</string>
     <string name="pro_tier_lifetime">Pe viață</string>
-    <string name="pro_bestseller_badge" formatted="false">CEL MAI VÂNDUT • 33% REDUCERE</string>
-    <string name="pro_bestseller_intro_badge" formatted="false">CEL MAI VÂNDUT • 50% REDUCERE</string>
-    <string name="pro_lifetime_badge">O SINGURĂ DATĂ</string>
+    <string name="pro_bestseller_badge" formatted="false">33% REDUCERE</string>
+    <string name="pro_bestseller_intro_badge" formatted="false">50% REDUCERE</string>
+    <string name="pro_lifetime_badge">POPULAR • PLATĂ UNICĂ</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">Ofertă pe timp limitat</string>
     <string name="pro_price_monthly_default">—</string>

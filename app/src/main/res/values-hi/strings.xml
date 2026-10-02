@@ -158,13 +158,13 @@
     <string name="time_days_ago">%1$d दिन पहले</string>
 
     <string name="pro_title">SongFlip PRO</string>
-    <string name="pro_subtitle">स्वतंत्र विकास का समर्थन करें और विशेष सुविधाएं अनलॉक करें</string>
+    <string name="pro_subtitle">सभी PRO सुविधाएं अनलॉक करें और बिना किसी सीमा के संगीत साझा करें</string>
     <string name="pro_tier_monthly">मासिक</string>
     <string name="pro_tier_annual">वार्षिक</string>
     <string name="pro_tier_lifetime">Lifetime</string>
-    <string name="pro_bestseller_badge" formatted="false">BESTSELLER • 33% OFF</string>
-    <string name="pro_bestseller_intro_badge" formatted="false">BESTSELLER • 50% OFF</string>
-    <string name="pro_lifetime_badge">ONE-TIME</string>
+    <string name="pro_bestseller_badge" formatted="false">33% की बचत</string>
+    <string name="pro_bestseller_intro_badge" formatted="false">50% की बचत</string>
+    <string name="pro_lifetime_badge">लोकप्रिय • एकमुश्त</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">सीमित समय का ऑफर</string>
     <string name="pro_price_monthly_default">—</string>

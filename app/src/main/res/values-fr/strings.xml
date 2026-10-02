@@ -158,13 +158,13 @@
     <string name="time_days_ago">il y a %1$d j</string>
 
     <string name="pro_title">SongFlip PRO</string>
-    <string name="pro_subtitle">Soutenez le développement indépendant et débloquez les fonctionnalités</string>
+    <string name="pro_subtitle">Débloquez toutes les fonctionnalités PRO et partagez votre musique sans limites</string>
     <string name="pro_tier_monthly">Mensuel</string>
     <string name="pro_tier_annual">Annuel</string>
     <string name="pro_tier_lifetime">À vie</string>
-    <string name="pro_bestseller_badge" formatted="false">MEILLEURE VENTE • 33% DE RÉDUCTION</string>
-    <string name="pro_bestseller_intro_badge" formatted="false">MEILLEURE VENTE • 50% DE RÉDUCTION</string>
-    <string name="pro_lifetime_badge">PAIEMENT UNIQUE</string>
+    <string name="pro_bestseller_badge" formatted="false">33% DE RÉDUCTION</string>
+    <string name="pro_bestseller_intro_badge" formatted="false">50% DE RÉDUCTION</string>
+    <string name="pro_lifetime_badge">POPULAIRE • PAIEMENT UNIQUE</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">Offre à durée limitée</string>
     <string name="pro_price_monthly_default">—</string>
