@@ -158,13 +158,13 @@
     <string name="time_days_ago">%1$d dagen geleden</string>
 
     <string name="pro_title">SongFlip PRO</string>
-    <string name="pro_subtitle">Steun onafhankelijke ontwikkeling &amp; ontgrendel functies</string>
+    <string name="pro_subtitle">Ontgrendel alle PRO-functies &amp; deel muziek zonder limieten</string>
     <string name="pro_tier_monthly">Maandelijks</string>
     <string name="pro_tier_annual">Jaarlijks</string>
     <string name="pro_tier_lifetime">Levenslang</string>
-    <string name="pro_bestseller_badge" formatted="false">BESTSELLER • 33% KORTING</string>
-    <string name="pro_bestseller_intro_badge" formatted="false">BESTSELLER • 50% KORTING</string>
-    <string name="pro_lifetime_badge">EENMALIG</string>
+    <string name="pro_bestseller_badge" formatted="false">BESPAAR 33%</string>
+    <string name="pro_bestseller_intro_badge" formatted="false">BESPAAR 50%</string>
+    <string name="pro_lifetime_badge">POPULAIR • EENMALIG</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">Tijdelijke aanbieding</string>
     <string name="pro_price_monthly_default">—</string>

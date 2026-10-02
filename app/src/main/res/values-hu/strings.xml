@@ -148,13 +148,13 @@
     <string name="time_hours_ago">%1$d órája</string>
     <string name="time_days_ago">%1$d napja</string>
     <string name="pro_title">SongFlip PRO</string>
-    <string name="pro_subtitle">Támogassa a független fejlesztést és oldjon fel prémium funkciókat</string>
+    <string name="pro_subtitle">Oldd fel az összes PRO funkciót, és oszd meg a zenéket korlátok nélkül</string>
     <string name="pro_tier_monthly">Havi</string>
     <string name="pro_tier_annual">Éves</string>
     <string name="pro_tier_lifetime">Örökös</string>
-    <string name="pro_bestseller_badge" formatted="false">LEGJOBB AJÁNLAT • 33% KEDVEZMÉNY</string>
-    <string name="pro_bestseller_intro_badge" formatted="false">LEGJOBB AJÁNLAT • 50% KEDVEZMÉNY</string>
-    <string name="pro_lifetime_badge">EGYSZERI</string>
+    <string name="pro_bestseller_badge" formatted="false">33% MEGTAKARÍTÁS</string>
+    <string name="pro_bestseller_intro_badge" formatted="false">50% MEGTAKARÍTÁS</string>
+    <string name="pro_lifetime_badge">NÉPSZERŰ • EGYSZERI</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">Korlátozott idejű ajánlat</string>
     <string name="pro_price_monthly_default">—</string>
