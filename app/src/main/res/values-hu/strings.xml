@@ -212,6 +212,9 @@
     <string name="history_refresh_link">Link frissítése</string>
     <string name="history_link_refreshed">Link sikeresen frissítve!</string>
     <string name="history_link_refreshing">Link frissítése folyamatban...</string>
+    <string name="history_copy_target">%1$s-link másolása</string>
+    <string name="history_copy_source">Eredeti %1$s-link másolása</string>
+    <string name="action_more_options">További lehetőségek</string>
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d szám sikeresen átirányítva!</item>
         <item quantity="other">🎉 %1$d szám sikeresen átirányítva!</item>
@@ -265,6 +268,12 @@
     <string name="playlist_error_desc">Nem sikerült kinyerni a dalokat ebből a lejátszási listából. Megnyithatja az eredeti linket.</string>
     <string name="playlist_error_private_title">Privát vagy személyre szabott lejátszási lista</string>
     <string name="playlist_error_private_desc">A SongFlip 100%%-ban privát módon működik, fiókok vagy bejelentkezés nélkül. A személyes algoritmikus mixek (mint a Spotify Daily Mix) és a privát listák ezért nem tölthetők be. Tipp: Másolja a számokat egy nyilvános lejátszási listába, vagy osszon meg egy albumot/nyilvános listát.</string>
+    <string name="playlist_error_unsupported_title">A platform nem támogatja a lejátszási listákat</string>
+    <string name="playlist_error_unsupported_desc">A SongFlip jelenleg a Spotify, az Apple Music, a YouTube Music és a Deezer lejátszási listáit támogatja. Az egyes dalok erről a platformról továbbra is működnek.</string>
+    <string name="playlist_error_timeout_title">Időtúllépés a kapcsolatban</string>
+    <string name="playlist_error_timeout_desc">A zenei szolgáltatás nem válaszolt időben. Kérjük, próbáld újra egy kicsit később.</string>
+    <string name="playlist_error_empty_title">Üres lejátszási lista</string>
+    <string name="playlist_error_empty_desc">Ez a lejátszási lista nem tartalmaz lejátszható dalokat.</string>
     <string name="playlist_btn_retry">Újra</string>
     <string name="playlist_btn_open_original">Eredeti lejátszási lista megnyitása</string>
 <string name="pro_restore_no_subscription">Nem található aktív PRO előfizetés.</string>

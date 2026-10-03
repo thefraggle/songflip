@@ -224,6 +224,9 @@
     <string name="history_refresh_link">Оновити посилання</string>
     <string name="history_link_refreshed">Посилання успішно оновлено!</string>
     <string name="history_link_refreshing">Оновлення посилання...</string>
+    <string name="history_copy_target">Копіювати посилання %1$s</string>
+    <string name="history_copy_source">Копіювати оригінальне посилання %1$s</string>
+    <string name="action_more_options">Інші дії</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 Успішно перетворено %1$d трек!</item>
@@ -287,6 +290,12 @@
     <string name="playlist_error_desc">Не вдалося витягти треки з цього плейліста. Ви можете відкрити оригінальне посилання.</string>
     <string name="playlist_error_private_title">Приватний або персоналізований плейліст</string>
     <string name="playlist_error_private_desc">SongFlip працює на 100%% конфіденційно без акаунтів та входу. Персональні алгоритмічні мікси (наприклад, Spotify Daily Mix) та приватні плейлісти недоступні. Порада: скопіюйте треки до публічного плейліста або поділіться альбомом/публічним плейлістом.</string>
+    <string name="playlist_error_unsupported_title">Плейлисти цієї платформи не підтримуються</string>
+    <string name="playlist_error_unsupported_desc">Зараз SongFlip підтримує плейлисти Spotify, Apple Music, YouTube Music і Deezer. Окремі треки з цієї платформи й надалі працюють.</string>
+    <string name="playlist_error_timeout_title">Час очікування вичерпано</string>
+    <string name="playlist_error_timeout_desc">Музичний сервіс не відповів вчасно. Спробуйте ще раз трохи згодом.</string>
+    <string name="playlist_error_empty_title">Порожній плейлист</string>
+    <string name="playlist_error_empty_desc">У цьому плейлисті немає доступних для відтворення треків.</string>
     <string name="playlist_btn_retry">Повторити</string>
     <string name="playlist_btn_open_original">Відкрити оригінальний плейліст</string>
 <string name="pro_restore_no_subscription">Активну підписку PRO не знайдено.</string>

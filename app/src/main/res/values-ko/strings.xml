@@ -221,6 +221,9 @@
     <string name="history_refresh_link">링크 새로고침</string>
     <string name="history_link_refreshed">링크가 성공적으로 업데이트되었습니다!</string>
     <string name="history_link_refreshing">링크 새로고침 중...</string>
+    <string name="history_copy_target">%1$s 링크 복사</string>
+    <string name="history_copy_source">원본 %1$s 링크 복사</string>
+    <string name="action_more_options">더보기</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="other">🎉 %1$d개의 노래 전환 성공!</item>
@@ -275,6 +278,12 @@
     <string name="playlist_error_desc">이 재생목록에서 트랙을 추출할 수 없습니다. 원본 링크를 열 수 있습니다.</string>
     <string name="playlist_error_private_title">비공개 또는 맞춤형 재생목록</string>
     <string name="playlist_error_private_desc">SongFlip은 로그인이나 계정 없이 100%% 비공개로 작동합니다. 따라서 개인 맞춤 믹스(Spotify Daily Mix 등)나 비공개 재생목록은 불러올 수 없습니다. 팁: 곡을 공개 재생목록에 복사하거나 앨범/공개 재생목록을 공유하세요.</string>
+    <string name="playlist_error_unsupported_title">이 플랫폼은 플레이리스트를 지원하지 않습니다</string>
+    <string name="playlist_error_unsupported_desc">SongFlip은 현재 Spotify, Apple Music, YouTube Music, Deezer의 플레이리스트를 지원합니다. 이 플랫폼의 개별 곡은 계속 사용할 수 있습니다.</string>
+    <string name="playlist_error_timeout_title">연결 시간 초과</string>
+    <string name="playlist_error_timeout_desc">음악 서비스가 제때 응답하지 않았습니다. 잠시 후 다시 시도해 주세요.</string>
+    <string name="playlist_error_empty_title">빈 플레이리스트</string>
+    <string name="playlist_error_empty_desc">이 플레이리스트에는 재생 가능한 곡이 없습니다.</string>
     <string name="playlist_btn_retry">다시 시도</string>
     <string name="playlist_btn_open_original">원본 재생목록 열기</string>
 <string name="pro_restore_no_subscription">활성 PRO 구독을 찾을 수 없습니다.</string>

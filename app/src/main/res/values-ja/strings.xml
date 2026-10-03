@@ -221,6 +221,9 @@
     <string name="history_refresh_link">リンクを再取得</string>
     <string name="history_link_refreshed">リンクを更新しました！</string>
     <string name="history_link_refreshing">リンクを再取得中...</string>
+    <string name="history_copy_target">%1$sのリンクをコピー</string>
+    <string name="history_copy_source">元の%1$sリンクをコピー</string>
+    <string name="action_more_options">その他のオプション</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="other">🎉 %1$d 曲の変換に成功しました！</item>
@@ -275,6 +278,12 @@
     <string name="playlist_error_desc">このプレイリストから曲を抽出できませんでした。元のリンクを開くことができます。</string>
     <string name="playlist_error_private_title">非公開またはパーソナライズされたプレイリスト</string>
     <string name="playlist_error_private_desc">SongFlipはログイン不要・アカウント不要で100%%プライベートに動作します。そのため、個人用ミックス（Spotify Daily Mixなど）や非公開プレイリストは読み込めません。ヒント：曲を公開プレイリストにコピーするか、アルバムや公開プレイリストを共有してください。</string>
+    <string name="playlist_error_unsupported_title">このサービスのプレイリストは未対応です</string>
+    <string name="playlist_error_unsupported_desc">SongFlipは現在、Spotify、Apple Music、YouTube Music、Deezerのプレイリストに対応しています。このサービスの単曲は引き続き利用できます。</string>
+    <string name="playlist_error_timeout_title">接続がタイムアウトしました</string>
+    <string name="playlist_error_timeout_desc">音楽サービスが時間内に応答しませんでした。しばらくしてから再度お試しください。</string>
+    <string name="playlist_error_empty_title">空のプレイリスト</string>
+    <string name="playlist_error_empty_desc">このプレイリストには再生可能な曲がありません。</string>
     <string name="playlist_btn_retry">再試行</string>
     <string name="playlist_btn_open_original">元のプレイリストを開く</string>
 <string name="pro_restore_no_subscription">有効なPROサブスクリプションが見つかりませんでした。</string>

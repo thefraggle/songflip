@@ -222,6 +222,9 @@
     <string name="history_refresh_link">Bağlantıyı yenile</string>
     <string name="history_link_refreshed">Bağlantı başarıyla güncellendi!</string>
     <string name="history_link_refreshing">Bağlantı yenileniyor...</string>
+    <string name="history_copy_target">%1$s bağlantısını kopyala</string>
+    <string name="history_copy_source">Orijinal %1$s bağlantısını kopyala</string>
+    <string name="action_more_options">Diğer seçenekler</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d şarkı başarıyla dönüştürüldü!</item>
@@ -279,6 +282,12 @@
     <string name="playlist_error_desc">Bu çalma listesinden parçalar alınamadı. Orijinal bağlantıyı açabilirsiniz.</string>
     <string name="playlist_error_private_title">Özel veya Kişiselleştirilmiş Çalma Listesi</string>
     <string name="playlist_error_private_desc">SongFlip hesap veya giriş gerektirmeden %%100 gizli çalışır. Bu nedenle kişisel algoritmik miksler (Spotify Daily Mix veya Haftalık Keşif gibi) ve gizli çalma listeleri yüklenemez. İpucu: Şarkıları herkese açık bir listeye kopyalayın veya bir albüm/açık liste paylaşın.</string>
+    <string name="playlist_error_unsupported_title">Platform çalma listelerini desteklemiyor</string>
+    <string name="playlist_error_unsupported_desc">SongFlip şu anda Spotify, Apple Music, YouTube Music ve Deezer çalma listelerini destekliyor. Bu platformdaki tekil şarkılar çalışmaya devam ediyor.</string>
+    <string name="playlist_error_timeout_title">Bağlantı zaman aşımı</string>
+    <string name="playlist_error_timeout_desc">Müzik servisi zamanında yanıt vermedi. Lütfen birazdan tekrar dene.</string>
+    <string name="playlist_error_empty_title">Boş çalma listesi</string>
+    <string name="playlist_error_empty_desc">Bu çalma listesinde oynatılabilir şarkı yok.</string>
     <string name="playlist_btn_retry">Tekrar dene</string>
     <string name="playlist_btn_open_original">Orijinal Çalma Listesini Aç</string>
 <string name="pro_restore_no_subscription">Aktif PRO aboneliği bulunamadı.</string>

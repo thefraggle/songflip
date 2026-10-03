@@ -212,6 +212,9 @@
     <string name="history_refresh_link">Päivitä linkki</string>
     <string name="history_link_refreshed">Linkki päivitetty onnistuneesti!</string>
     <string name="history_link_refreshing">Päivitetään linkkiä...</string>
+    <string name="history_copy_target">Kopioi %1$s-linkki</string>
+    <string name="history_copy_source">Kopioi alkuperäinen %1$s-linkki</string>
+    <string name="action_more_options">Lisää vaihtoehtoja</string>
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d kappale muunnettu onnistuneesti!</item>
         <item quantity="other">🎉 %1$d kappaletta muunnettu onnistuneesti!</item>
@@ -265,6 +268,12 @@
     <string name="playlist_error_desc">Kappaleita ei voitu hakea tästä soittolistasta. Voit avata alkuperäisen linkin.</string>
     <string name="playlist_error_private_title">Yksityinen tai henkilökohtainen soittolista</string>
     <string name="playlist_error_private_desc">SongFlip toimii 100%% yksityisesti ilman käyttäjätilejä tai kirjautumista. Algoritmisia henkilökohtaisia miksauksia (kuten Spotify Daily Mix) tai yksityisiä soittolistoja ei siksi voi avata. Vinkki: Kopioi kappaleet julkiselle soittolistalle tai jaa albumi/julkinen lista.</string>
+    <string name="playlist_error_unsupported_title">Alusta ei tue soittolistoja</string>
+    <string name="playlist_error_unsupported_desc">SongFlip tukee tällä hetkellä soittolistoja Spotifysta, Apple Musicista, YouTube Musicista ja Deezeristä. Yksittäiset kappaleet tältä alustalta toimivat edelleen.</string>
+    <string name="playlist_error_timeout_title">Yhteys aikakatkaistiin</string>
+    <string name="playlist_error_timeout_desc">Musiikkipalvelu ei vastannut ajoissa. Yritä hetken kuluttua uudelleen.</string>
+    <string name="playlist_error_empty_title">Tyhjä soittolista</string>
+    <string name="playlist_error_empty_desc">Tällä soittolistalla ei ole toistettavia kappaleita.</string>
     <string name="playlist_btn_retry">Yritä uudelleen</string>
     <string name="playlist_btn_open_original">Avaa alkuperäinen soittolista</string>
 <string name="pro_restore_no_subscription">Aktiivista PRO-tilausta ei löytynyt.</string>

@@ -212,6 +212,9 @@
     <string name="history_refresh_link">Ανανέωση συνδέσμου</string>
     <string name="history_link_refreshed">Ο σύνδεσμος ανανεώθηκε επιτυχώς!</string>
     <string name="history_link_refreshing">Ανανέωση συνδέσμου...</string>
+    <string name="history_copy_target">Αντιγραφή συνδέσμου %1$s</string>
+    <string name="history_copy_source">Αντιγραφή αρχικού συνδέσμου %1$s</string>
+    <string name="action_more_options">Περισσότερες επιλογές</string>
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d κομμάτι μετατράπηκε επιτυχώς!</item>
         <item quantity="other">🎉 %1$d κομμάτια μετατράπηκαν επιτυχώς!</item>
@@ -265,6 +268,12 @@
     <string name="playlist_error_desc">Δεν ήταν δυνατή η εξαγωγή κομματιών από αυτή τη λίστα. Μπορείτε να ανοίξετε τον αρχικό σύνδεσμο.</string>
     <string name="playlist_error_private_title">Ιδιωτική ή εξατομικευμένη λίστα αναπαραγωγής</string>
     <string name="playlist_error_private_desc">Το SongFlip λειτουργεί 100%% ιδιωτικά χωρίς λογαριασμούς ή σύνδεση. Προσωπικά αλγοριθμικά μείγματα (όπως το Spotify Daily Mix) και ιδιωτικές λίστες δεν μπορούν να φορτωθούν. Συμβουλή: Αντιγράψτε τα κομμάτια σε μια δημόσια λίστα ή μοιραστείτε ένα άλμπουμ/δημόσια λίστα.</string>
+    <string name="playlist_error_unsupported_title">Η πλατφόρμα δεν υποστηρίζει λίστες</string>
+    <string name="playlist_error_unsupported_desc">Το SongFlip υποστηρίζει προς το παρόν λίστες από Spotify, Apple Music, YouTube Music και Deezer. Μεμονωμένα τραγούδια από αυτή την πλατφόρμα λειτουργούν κανονικά.</string>
+    <string name="playlist_error_timeout_title">Λήξη χρόνου σύνδεσης</string>
+    <string name="playlist_error_timeout_desc">Η υπηρεσία μουσικής δεν απάντησε εγκαίρως. Δοκίμασε ξανά σε λίγο.</string>
+    <string name="playlist_error_empty_title">Κενή λίστα</string>
+    <string name="playlist_error_empty_desc">Αυτή η λίστα δεν περιέχει τραγούδια που μπορούν να αναπαραχθούν.</string>
     <string name="playlist_btn_retry">Επανάληψη</string>
     <string name="playlist_btn_open_original">Άνοιγμα αρχικής λίστας</string>
 <string name="pro_restore_no_subscription">Δεν βρέθηκε ενεργή συνδρομή PRO.</string>

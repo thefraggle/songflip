@@ -224,6 +224,9 @@
     <string name="history_refresh_link">Odśwież link</string>
     <string name="history_link_refreshed">Link zaktualizowany pomyślnie!</string>
     <string name="history_link_refreshing">Odświeżanie linku...</string>
+    <string name="history_copy_target">Kopiuj link %1$s</string>
+    <string name="history_copy_source">Kopiuj oryginalny link %1$s</string>
+    <string name="action_more_options">Więcej opcji</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 Pomyślnie przekonwertowano %1$d utwór!</item>
@@ -287,6 +290,12 @@
     <string name="playlist_error_desc">Nie udało się wyodrębnić utworów z tej playlisty. Możesz otworzyć oryginalny link.</string>
     <string name="playlist_error_private_title">Playlista prywatna lub spersonalizowana</string>
     <string name="playlist_error_private_desc">SongFlip działa w 100%% prywatnie bez kont i logowania. Osobiste składanki algorytmiczne (np. Spotify Daily Mix czy Odkryj w tym tygodniu) i prywatne playlisty nie mogą zostać pobrane. Wskazówka: skopiuj utwory do publicznej playlisty lub udostępnij album/publiczną playlistę.</string>
+    <string name="playlist_error_unsupported_title">Platforma nie obsługuje playlist</string>
+    <string name="playlist_error_unsupported_desc">SongFlip obsługuje obecnie playlisty ze Spotify, Apple Music, YouTube Music i Deezer. Pojedyncze utwory z tej platformy nadal działają.</string>
+    <string name="playlist_error_timeout_title">Przekroczono limit czasu połączenia</string>
+    <string name="playlist_error_timeout_desc">Serwis muzyczny nie odpowiedział na czas. Spróbuj ponownie za chwilę.</string>
+    <string name="playlist_error_empty_title">Pusta playlista</string>
+    <string name="playlist_error_empty_desc">Ta playlista nie zawiera utworów do odtworzenia.</string>
     <string name="playlist_btn_retry">Ponów próbę</string>
     <string name="playlist_btn_open_original">Otwórz oryginalną playlistę</string>
 <string name="pro_restore_no_subscription">Nie znaleziono aktywnej subskrypcji PRO.</string>

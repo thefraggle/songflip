@@ -222,6 +222,9 @@
     <string name="history_refresh_link">लिंक रीफ़्रेश करें</string>
     <string name="history_link_refreshed">लिंक सफलतापूर्वक अपडेट हो गया!</string>
     <string name="history_link_refreshing">लिंक रीफ़्रेश हो रहा है...</string>
+    <string name="history_copy_target">%1$s लिंक कॉपी करें</string>
+    <string name="history_copy_source">मूल %1$s लिंक कॉपी करें</string>
+    <string name="action_more_options">और विकल्प</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d गाना सफलतापूर्वक बदला गया!</item>
@@ -279,6 +282,12 @@
     <string name="playlist_error_desc">इस प्लेलिस्ट से गाने निकाले नहीं जा सके। इसके बजाय आप मूल लिंक खोल सकते हैं।</string>
     <string name="playlist_error_private_title">निजी या व्यक्तिगत प्लेलिस्ट</string>
     <string name="playlist_error_private_desc">SongFlip बिना किसी खाते या लॉगिन के 100%% निजी रूप से काम करता है। इसलिए व्यक्तिगत एल्गोरिथम मिक्स (जैसे Spotify Daily Mix) और निजी प्लेलिस्ट लोड नहीं हो सकती हैं। सुझाव: गानों को किसी सार्वजनिक प्लेलिस्ट में कॉपी करें या एल्बम/सार्वजनिक प्लेलिस्ट साझा करें।</string>
+    <string name="playlist_error_unsupported_title">इस प्लेटफ़ॉर्म पर प्लेलिस्ट समर्थित नहीं</string>
+    <string name="playlist_error_unsupported_desc">SongFlip अभी Spotify, Apple Music, YouTube Music और Deezer की प्लेलिस्ट सपोर्ट करता है। इस प्लेटफ़ॉर्म के एकल गाने अब भी काम करते हैं।</string>
+    <string name="playlist_error_timeout_title">कनेक्शन टाइमआउट</string>
+    <string name="playlist_error_timeout_desc">म्यूज़िक सेवा ने समय पर जवाब नहीं दिया। कृपया थोड़ी देर में फिर कोशिश करें।</string>
+    <string name="playlist_error_empty_title">खाली प्लेलिस्ट</string>
+    <string name="playlist_error_empty_desc">इस प्लेलिस्ट में चलाने योग्य कोई गाना नहीं है।</string>
     <string name="playlist_btn_retry">पुनः प्रयास करें</string>
     <string name="playlist_btn_open_original">मूल प्लेलिस्ट खोलें</string>
 <string name="pro_restore_no_subscription">कोई सक्रिय PRO सदस्यता नहीं मिली।</string>

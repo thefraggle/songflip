@@ -222,6 +222,9 @@
     <string name="history_refresh_link">Actualizar enlace</string>
     <string name="history_link_refreshed">¡Enlace actualizado con éxito!</string>
     <string name="history_link_refreshing">Actualizando enlace...</string>
+    <string name="history_copy_target">Copiar enlace de %1$s</string>
+    <string name="history_copy_source">Copiar enlace original de %1$s</string>
+    <string name="action_more_options">Más opciones</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 ¡%1$d canción convertida con éxito!</item>
@@ -279,6 +282,12 @@
     <string name="playlist_error_desc">No se pudieron extraer canciones de esta lista. Puedes abrir el enlace original.</string>
     <string name="playlist_error_private_title">Playlist privada o personalizada</string>
     <string name="playlist_error_private_desc">SongFlip funciona 100%% privado sin cuenta ni inicio de sesión. Por tanto, los mixes algorítmicos personales (como Spotify Daily Mix o Discover Weekly) y las playlists privadas no se pueden cargar. Consejo: copia las canciones a una playlist pública o comparte un álbum/playlist pública.</string>
+    <string name="playlist_error_unsupported_title">Plataforma no compatible con playlists</string>
+    <string name="playlist_error_unsupported_desc">SongFlip admite actualmente playlists de Spotify, Apple Music, YouTube Music y Deezer. Las canciones sueltas de esta plataforma siguen funcionando.</string>
+    <string name="playlist_error_timeout_title">Tiempo de conexión agotado</string>
+    <string name="playlist_error_timeout_desc">El servicio de música no respondió a tiempo. Inténtalo de nuevo en un momento.</string>
+    <string name="playlist_error_empty_title">Playlist vacía</string>
+    <string name="playlist_error_empty_desc">Esta playlist no contiene canciones reproducibles.</string>
     <string name="playlist_btn_retry">Reintentar</string>
     <string name="playlist_btn_open_original">Abrir lista original</string>
 <string name="pro_restore_no_subscription">No se encontró ninguna suscripción PRO activa.</string>

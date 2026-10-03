@@ -222,6 +222,9 @@
     <string name="history_refresh_link">Aggiorna link</string>
     <string name="history_link_refreshed">Link aggiornato con successo!</string>
     <string name="history_link_refreshing">Aggiornamento link in corso...</string>
+    <string name="history_copy_target">Copia link %1$s</string>
+    <string name="history_copy_source">Copia link %1$s originale</string>
+    <string name="action_more_options">Altre opzioni</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d brano convertito con successo!</item>
@@ -279,6 +282,12 @@
     <string name="playlist_error_desc">Impossibile estrarre i brani da questa playlist. Puoi aprire il link originale.</string>
     <string name="playlist_error_private_title">Playlist privata o personalizzata</string>
     <string name="playlist_error_private_desc">SongFlip funziona al 100%% privato senza account né accesso. Pertanto, i mix algoritmici personali (come Spotify Daily Mix o Discover Weekly) e le playlist private non possono essere aperti. Consiglio: copia i brani in una playlist pubblica o condividi un album/playlist pubblica.</string>
+    <string name="playlist_error_unsupported_title">Piattaforma non supportata per le playlist</string>
+    <string name="playlist_error_unsupported_desc">SongFlip supporta attualmente le playlist di Spotify, Apple Music, YouTube Music e Deezer. I singoli brani di questa piattaforma funzionano comunque.</string>
+    <string name="playlist_error_timeout_title">Timeout della connessione</string>
+    <string name="playlist_error_timeout_desc">Il servizio musicale non ha risposto in tempo. Riprova tra poco.</string>
+    <string name="playlist_error_empty_title">Playlist vuota</string>
+    <string name="playlist_error_empty_desc">Questa playlist non contiene brani riproducibili.</string>
     <string name="playlist_btn_retry">Riprova</string>
     <string name="playlist_btn_open_original">Apri playlist originale</string>
 <string name="pro_restore_no_subscription">Nessun abbonamento PRO attivo trovato.</string>

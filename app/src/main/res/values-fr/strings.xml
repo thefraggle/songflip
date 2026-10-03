@@ -222,6 +222,9 @@
     <string name="history_refresh_link">Actualiser le lien</string>
     <string name="history_link_refreshed">Lien actualisé avec succès !</string>
     <string name="history_link_refreshing">Actualisation du lien...</string>
+    <string name="history_copy_target">Copier le lien %1$s</string>
+    <string name="history_copy_source">Copier le lien %1$s d\'origine</string>
+    <string name="action_more_options">Plus d\'options</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d morceau converti avec succès !</item>
@@ -279,6 +282,12 @@
     <string name="playlist_error_desc">Impossible d\'extraire les titres de cette playlist. Vous pouvez ouvrir le lien d\'origine.</string>
     <string name="playlist_error_private_title">Playlist privée ou personnalisée</string>
     <string name="playlist_error_private_desc">SongFlip fonctionne à 100%% privé sans compte ni connexion. Les mix algorithmiques personnels (comme Daily Mix de Spotify ou Discover Weekly) et les playlists privées ne peuvent donc pas être chargés. Astuce : copiez les morceaux dans une playlist publique ou partagez un album/une playlist publique.</string>
+    <string name="playlist_error_unsupported_title">Plateforme non prise en charge pour les playlists</string>
+    <string name="playlist_error_unsupported_desc">SongFlip prend actuellement en charge les playlists Spotify, Apple Music, YouTube Music et Deezer. Les titres individuels de cette plateforme fonctionnent toujours.</string>
+    <string name="playlist_error_timeout_title">Délai de connexion dépassé</string>
+    <string name="playlist_error_timeout_desc">Le service de musique n\'a pas répondu à temps. Réessayez dans un instant.</string>
+    <string name="playlist_error_empty_title">Playlist vide</string>
+    <string name="playlist_error_empty_desc">Cette playlist ne contient aucun titre lisible.</string>
     <string name="playlist_btn_retry">Réessayer</string>
     <string name="playlist_btn_open_original">Ouvrir la playlist d\'origine</string>
 <string name="pro_restore_no_subscription">Aucun abonnement PRO actif trouvé.</string>
