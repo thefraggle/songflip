@@ -172,6 +172,7 @@
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">恢复购买</string>
+    <string name="pro_subscription_terms">订阅将自动续订。可随时在订阅设置中取消。</string>
     <string name="pro_coupon_toggle">拥有优惠码？</string>
     <string name="pro_coupon_hint">输入优惠码</string>
     <string name="pro_coupon_btn_redeem">兑换</string>

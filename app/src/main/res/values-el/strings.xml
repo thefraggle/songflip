@@ -163,6 +163,7 @@
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Επαναφορά αγορών</string>
+    <string name="pro_subscription_terms">Οι συνδρομές ανανεώνονται αυτόματα. Ακυρώστε οποτεδήποτε από τις ρυθμίσεις συνδρομής.</string>
     <string name="pro_coupon_toggle">Έχετε κωδικό προσφοράς;</string>
     <string name="pro_coupon_hint">Εισαγάγετε κωδικό</string>
     <string name="pro_coupon_btn_redeem">Εξαργύρωση</string>

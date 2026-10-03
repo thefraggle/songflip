@@ -187,6 +187,7 @@
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Käufe wiederherstellen</string>
+    <string name="pro_subscription_terms">Abos verlängern sich automatisch. Jederzeit in deinen Abo-Einstellungen kündbar.</string>
     <string name="pro_coupon_toggle">Gutscheincode einlösen</string>
     <string name="pro_coupon_hint">Code eingeben</string>
     <string name="pro_coupon_btn_redeem">Einlösen</string>

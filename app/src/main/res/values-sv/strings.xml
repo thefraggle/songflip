@@ -173,6 +173,7 @@
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Återställ köp</string>
+    <string name="pro_subscription_terms">Prenumerationer förnyas automatiskt. Avsluta när som helst i dina prenumerationsinställningar.</string>
     <string name="pro_coupon_toggle">Har du en kampanjkod?</string>
     <string name="pro_coupon_hint">Ange kod</string>
     <string name="pro_coupon_btn_redeem">Lös in</string>

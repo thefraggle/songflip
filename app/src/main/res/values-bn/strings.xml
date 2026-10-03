@@ -173,6 +173,7 @@
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">কেনাকাটা পুনরুদ্ধার করুন</string>
+    <string name="pro_subscription_terms">সাবস্ক্রিপশন স্বয়ংক্রিয়ভাবে নবায়ন হয়। সাবস্ক্রিপশন সেটিংসে যেকোনো সময় বাতিল করুন।</string>
     <string name="pro_coupon_toggle">আপনার কি প্রোমো কোড আছে?</string>
     <string name="pro_coupon_hint">কোড লিখুন</string>
     <string name="pro_coupon_btn_redeem">রিডিম করুন</string>

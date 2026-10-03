@@ -173,6 +173,7 @@
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Restaurar Compras</string>
+    <string name="pro_subscription_terms">As assinaturas são renovadas automaticamente. Cancele quando quiser nas configurações de assinatura.</string>
     <string name="pro_coupon_toggle">Tem um código promocional?</string>
     <string name="pro_coupon_hint">Digite o código</string>
     <string name="pro_coupon_btn_redeem">Resgatar</string>

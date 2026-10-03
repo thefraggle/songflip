@@ -162,6 +162,7 @@
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">กู้คืนการซื้อ</string>
+    <string name="pro_subscription_terms">การสมัครสมาชิกจะต่ออายุโดยอัตโนมัติ ยกเลิกได้ทุกเมื่อในการตั้งค่าการสมัครสมาชิก</string>
     <string name="pro_coupon_toggle">มีรหัสโปรโมชั่นหรือไม่?</string>
     <string name="pro_coupon_hint">กรอกรหัส</string>
     <string name="pro_coupon_btn_redeem">แลกรับ</string>

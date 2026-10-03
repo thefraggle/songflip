@@ -163,6 +163,7 @@
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Palauta ostokset</string>
+    <string name="pro_subscription_terms">Tilaukset uusiutuvat automaattisesti. Voit peruuttaa milloin tahansa tilausasetuksista.</string>
     <string name="pro_coupon_toggle">Onko sinulla tarjouskoodi?</string>
     <string name="pro_coupon_hint">Syötä koodi</string>
     <string name="pro_coupon_btn_redeem">Lunasta</string>

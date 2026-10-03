@@ -164,6 +164,7 @@
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Restaurează achizițiile</string>
+    <string name="pro_subscription_terms">Abonamentele se reînnoiesc automat. Le poți anula oricând din setările abonamentului.</string>
     <string name="pro_coupon_toggle">Aveți un cod promoțional?</string>
     <string name="pro_coupon_hint">Introduceți codul</string>
     <string name="pro_coupon_btn_redeem">Revendică</string>

@@ -163,6 +163,7 @@
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Vásárlások visszaállítása</string>
+    <string name="pro_subscription_terms">Az előfizetések automatikusan megújulnak. Bármikor lemondhatod az előfizetési beállításokban.</string>
     <string name="pro_coupon_toggle">Van kuponkódja?</string>
     <string name="pro_coupon_hint">Kód megadása</string>
     <string name="pro_coupon_btn_redeem">Beváltás</string>

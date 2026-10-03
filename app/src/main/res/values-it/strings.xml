@@ -173,6 +173,7 @@
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Ripristina acquisti</string>
+    <string name="pro_subscription_terms">Gli abbonamenti si rinnovano automaticamente. Puoi disdire in qualsiasi momento nelle impostazioni dell\'abbonamento.</string>
     <string name="pro_coupon_toggle">Hai un codice promozionale?</string>
     <string name="pro_coupon_hint">Inserisci codice</string>
     <string name="pro_coupon_btn_redeem">Riscatta</string>

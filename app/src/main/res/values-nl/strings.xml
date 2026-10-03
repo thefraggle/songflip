@@ -173,6 +173,7 @@
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Aankopen herstellen</string>
+    <string name="pro_subscription_terms">Abonnementen worden automatisch verlengd. Op elk moment opzegbaar in je abonnementsinstellingen.</string>
     <string name="pro_coupon_toggle">Heb je een promotiecode?</string>
     <string name="pro_coupon_hint">Voer code in</string>
     <string name="pro_coupon_btn_redeem">Inwisselen</string>
