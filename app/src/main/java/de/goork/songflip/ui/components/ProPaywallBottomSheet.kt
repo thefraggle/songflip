@@ -315,17 +315,26 @@ fun ProPaywallBottomSheet(
                 val lifetimeOriginalStrike = if (isLifetimeSale) formatOriginalStrikePrice(lifetimePackage) else null
 
                 val isAnnualIntro = isAnnualIntroOfferActive(annualPackage)
-                val annualBadge = if (isAnnualIntro) {
-                    stringResource(R.string.pro_bestseller_intro_badge)
-                } else {
-                    stringResource(R.string.pro_bestseller_badge)
-                }
-                val annualSub = annualPackage?.let {
+                val annualEffectivePrice = getEffectivePrice(annualPackage)
+                val monthlyRegularPrice = monthlyPackage?.product?.price
+                // One clear message: savings badge + "x / month (instead of y)". The old
+                // "33 % OFF" + "4 months free" pair said the same thing twice and was hardcoded.
+                val annualSavingsPercent = PaywallPricing.annualSavingsPercent(
+                    annualMicros = annualEffectivePrice?.amountMicros,
+                    annualCurrency = annualEffectivePrice?.currencyCode,
+                    monthlyMicros = monthlyRegularPrice?.amountMicros,
+                    monthlyCurrency = monthlyRegularPrice?.currencyCode
+                )
+                val annualBadge = annualSavingsPercent?.let { stringResource(R.string.pro_save_badge, it) }
+                val annualSub = if (annualPackage != null && monthlyRegularPrice != null && annualSavingsPercent != null) {
+                    val perMonth = formatMonthlyPrice(annualPackage)
                     if (isAnnualIntro) {
-                        stringResource(R.string.pro_price_annual_sub_intro, formatMonthlyPrice(it))
+                        stringResource(R.string.pro_price_annual_vs_monthly_intro, perMonth, monthlyRegularPrice.formatted)
                     } else {
-                        stringResource(R.string.pro_price_annual_sub, formatMonthlyPrice(it))
+                        stringResource(R.string.pro_price_annual_vs_monthly, perMonth, monthlyRegularPrice.formatted)
                     }
+                } else {
+                    null
                 }
 
                 // 3 Tier Pricing Cards (Lifetime -> Annual -> Monthly)
