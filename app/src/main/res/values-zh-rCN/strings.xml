@@ -286,14 +286,14 @@
     <string name="history_empty_hint">提示：打开或分享音乐链接后即可在此查看。</string>
 
     <!-- Pro Features -->
-    <string name="pro_feature_playlists_title">转换播放列表</string>
-    <string name="pro_feature_playlists_desc">无缝迁移完整歌单</string>
-    <string name="pro_feature_history_title">历史记录</string>
-    <string name="pro_feature_history_desc">扩展至 100 首歌曲容量</string>
-    <string name="pro_feature_cache_title">高速缓存</string>
-    <string name="pro_feature_cache_desc">超快 L2 云端缓存（&lt; 50 毫秒）</string>
-    <string name="pro_feature_links_title">网页链接</string>
-    <string name="pro_feature_links_desc">适用于任何播放器的通用链接</string>
-    <string name="pro_feature_future_title">未来 PRO 功能</string>
-    <string name="pro_feature_future_desc">包含所有后续更新</string>
+    <string name="pro_feature_playlists_title">迁移歌单</string>
+    <string name="pro_feature_playlists_desc">将完整歌单转移到你的音乐服务</string>
+    <string name="pro_feature_history_title">更大的历史记录</string>
+    <string name="pro_feature_history_desc">保存 100 首而非 10 首</string>
+    <string name="pro_feature_cache_title">更快打开</string>
+    <string name="pro_feature_cache_desc">热门歌曲无需等待即可打开</string>
+    <string name="pro_feature_links_title">分享给所有人</string>
+    <string name="pro_feature_links_desc">一个链接，每个人都能在自己的播放器中打开</string>
+    <string name="pro_feature_future_title">未来功能</string>
+    <string name="pro_feature_future_desc">新的 PRO 功能无需额外付费</string>
 </resources>

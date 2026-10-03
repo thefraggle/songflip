@@ -290,14 +290,14 @@
     <string name="history_empty_hint">İpucu: Burada görmek için bir müzik bağlantısı açın veya paylaşın.</string>
 
     <!-- Pro Features -->
-    <string name="pro_feature_playlists_title">Çalma listelerini dönüştür</string>
-    <string name="pro_feature_playlists_desc">Tüm çalma listelerini sorunsuzca aktarın</string>
-    <string name="pro_feature_history_title">Geçmiş</string>
-    <string name="pro_feature_history_desc">100 şarkıya genişletilmiş kapasite</string>
-    <string name="pro_feature_cache_title">Önbellek</string>
-    <string name="pro_feature_cache_desc">Ultra hızlı L2 bulut önbelleği (&lt; 50 ms)</string>
-    <string name="pro_feature_links_title">Web bağlantıları</string>
-    <string name="pro_feature_links_desc">Her oynatıcı için evrensel bağlantılar</string>
-    <string name="pro_feature_future_title">Gelecekteki PRO özellikleri</string>
-    <string name="pro_feature_future_desc">Gelecek tüm güncellemeler dahil</string>
+    <string name="pro_feature_playlists_title">Çalma listelerini taşıyın</string>
+    <string name="pro_feature_playlists_desc">Tüm çalma listelerini kendi servisinize aktarın</string>
+    <string name="pro_feature_history_title">Geniş geçmiş</string>
+    <string name="pro_feature_history_desc">10 yerine 100 şarkı her an elinizde</string>
+    <string name="pro_feature_cache_title">Daha hızlı açılış</string>
+    <string name="pro_feature_cache_desc">Popüler şarkılar beklemeden açılır</string>
+    <string name="pro_feature_links_title">Herkesle paylaşın</string>
+    <string name="pro_feature_links_desc">Herkesin kendi oynatıcısında açtığı tek bir bağlantı</string>
+    <string name="pro_feature_future_title">Gelecek her şey</string>
+    <string name="pro_feature_future_desc">Yeni PRO özellikleri ek ücret olmadan</string>
 </resources>

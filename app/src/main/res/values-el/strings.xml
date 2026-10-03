@@ -276,14 +276,14 @@
     <string name="history_empty_hint">Συμβουλή: Ανοίξτε ή μοιραστείτε έναν σύνδεσμο μουσικής για να εμφανιστεί εδώ.</string>
 
     <!-- Pro Features -->
-    <string name="pro_feature_playlists_title">Μετατροπή λιστών</string>
-    <string name="pro_feature_playlists_desc">Μεταφέρετε ολόκληρες λίστες απρόσκοπτα</string>
-    <string name="pro_feature_history_title">Ιστορικό</string>
-    <string name="pro_feature_history_desc">Επεκταμένη χωρητικότητα 100 κομματιών</string>
-    <string name="pro_feature_cache_title">Προσωρινή μνήμη</string>
-    <string name="pro_feature_cache_desc">Εξαιρετικά γρήγορη μνήμη cloud L2 (&lt; 50 ms)</string>
-    <string name="pro_feature_links_title">Σύνδεσμοι ιστού</string>
-    <string name="pro_feature_links_desc">Καθολικοί σύνδεσμοι για κάθε πρόγραμμα αναπαραγωγής</string>
-    <string name="pro_feature_future_title">Μελλοντικές λειτουργίες PRO</string>
-    <string name="pro_feature_future_desc">Περιλαμβάνονται όλες οι επόμενες ενημερώσεις</string>
+    <string name="pro_feature_playlists_title">Μεταφορά λιστών</string>
+    <string name="pro_feature_playlists_desc">Μεταφέρετε ολόκληρες λίστες αναπαραγωγής στην υπηρεσία σας</string>
+    <string name="pro_feature_history_title">Μεγαλύτερο ιστορικό</string>
+    <string name="pro_feature_history_desc">100 αντί για 10 τραγούδια πάντα διαθέσιμα</string>
+    <string name="pro_feature_cache_title">Ταχύτερο άνοιγμα</string>
+    <string name="pro_feature_cache_desc">Τα δημοφιλή τραγούδια ανοίγουν χωρίς αναμονή</string>
+    <string name="pro_feature_links_title">Κοινοποίηση σε όλους</string>
+    <string name="pro_feature_links_desc">Ένας σύνδεσμος που ο καθένας ανοίγει στη δική του εφαρμογή</string>
+    <string name="pro_feature_future_title">Ό,τι έρχεται</string>
+    <string name="pro_feature_future_desc">Νέες λειτουργίες PRO χωρίς επιπλέον κόστος</string>
 </resources>

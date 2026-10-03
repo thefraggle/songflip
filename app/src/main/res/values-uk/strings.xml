@@ -298,14 +298,14 @@
     <string name="history_empty_hint">Порада: Відкрийте або поділіться музичним посиланням, щоб побачити його тут.</string>
 
     <!-- Pro Features -->
-    <string name="pro_feature_playlists_title">Конвертація плейлістів</string>
-    <string name="pro_feature_playlists_desc">Переносьте повні плейлісти без обмежень</string>
-    <string name="pro_feature_history_title">Історія</string>
-    <string name="pro_feature_history_desc">Розширена памʼять на 100 треків</string>
-    <string name="pro_feature_cache_title">Кеш</string>
-    <string name="pro_feature_cache_desc">Надшвидкий хмарний кеш L2 (&lt; 50 мс)</string>
-    <string name="pro_feature_links_title">Веб-посилання</string>
-    <string name="pro_feature_links_desc">Універсальні посилання для будь-якого плеєра</string>
-    <string name="pro_feature_future_title">Майбутні функції PRO</string>
-    <string name="pro_feature_future_desc">Усі наступні оновлення включено</string>
+    <string name="pro_feature_playlists_title">Перенесення плейлістів</string>
+    <string name="pro_feature_playlists_desc">Переносьте цілі плейлісти у свій сервіс</string>
+    <string name="pro_feature_history_title">Більша історія</string>
+    <string name="pro_feature_history_desc">100 треків замість 10 завжди під рукою</string>
+    <string name="pro_feature_cache_title">Швидке відкриття</string>
+    <string name="pro_feature_cache_desc">Популярні треки відкриваються без очікування</string>
+    <string name="pro_feature_links_title">Посилання для всіх</string>
+    <string name="pro_feature_links_desc">Одне посилання, яке кожен відкриє у своєму плеєрі</string>
+    <string name="pro_feature_future_title">Усе, що попереду</string>
+    <string name="pro_feature_future_desc">Нові функції PRO без доплати</string>
 </resources>

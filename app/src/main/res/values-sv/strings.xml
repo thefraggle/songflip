@@ -290,14 +290,14 @@
     <string name="history_empty_hint">Tips: Öppna eller dela en musiklänk för att se den här.</string>
 
     <!-- Pro Features -->
-    <string name="pro_feature_playlists_title">Konvertera spellistor</string>
-    <string name="pro_feature_playlists_desc">Överför hela spellistor smidigt</string>
-    <string name="pro_feature_history_title">Historik</string>
-    <string name="pro_feature_history_desc">Utökad kapacitet för 100 låtar</string>
-    <string name="pro_feature_cache_title">Cache</string>
-    <string name="pro_feature_cache_desc">Blixtsnabb L2-molncache (&lt; 50 ms)</string>
-    <string name="pro_feature_links_title">Webblänkar</string>
-    <string name="pro_feature_links_desc">Universella länkar för alla spelare</string>
-    <string name="pro_feature_future_title">Framtida PRO-funktioner</string>
-    <string name="pro_feature_future_desc">Alla kommande uppdateringar ingår</string>
+    <string name="pro_feature_playlists_title">Flytta spellistor</string>
+    <string name="pro_feature_playlists_desc">För över hela spellistor till din tjänst</string>
+    <string name="pro_feature_history_title">Större historik</string>
+    <string name="pro_feature_history_desc">100 i stället för 10 låtar nära till hands</string>
+    <string name="pro_feature_cache_title">Snabbare öppning</string>
+    <string name="pro_feature_cache_desc">Populära låtar öppnas utan väntan</string>
+    <string name="pro_feature_links_title">Dela med alla</string>
+    <string name="pro_feature_links_desc">En länk som alla öppnar i sin egen spelare</string>
+    <string name="pro_feature_future_title">Allt som kommer</string>
+    <string name="pro_feature_future_desc">Nya PRO-funktioner utan extra kostnad</string>
 </resources>

@@ -280,14 +280,14 @@
     <string name="history_empty_hint">Tip: Otevřete nebo sdílejte hudební odkaz, aby se zde zobrazil.</string>
 
     <!-- Pro Features -->
-    <string name="pro_feature_playlists_title">Převod playlistů</string>
-    <string name="pro_feature_playlists_desc">Snadný přenos celých playlistů</string>
-    <string name="pro_feature_history_title">Historie</string>
-    <string name="pro_feature_history_desc">Rozšířená kapacita na 100 skladeb</string>
-    <string name="pro_feature_cache_title">Mezipaměť</string>
-    <string name="pro_feature_cache_desc">Vysokorychlostní cloudová mezipaměť L2 (&lt; 50 ms)</string>
-    <string name="pro_feature_links_title">Webové odkazy</string>
-    <string name="pro_feature_links_desc">Univerzální odkazy pro jakýkoli přehrávač</string>
-    <string name="pro_feature_future_title">Budoucí funkce PRO</string>
-    <string name="pro_feature_future_desc">Všechny nadcházející aktualizace v ceně</string>
+    <string name="pro_feature_playlists_title">Přesuňte playlisty</string>
+    <string name="pro_feature_playlists_desc">Přeneste celé playlisty do své služby</string>
+    <string name="pro_feature_history_title">Větší historie</string>
+    <string name="pro_feature_history_desc">100 místo 10 skladeb po ruce</string>
+    <string name="pro_feature_cache_title">Rychlejší otevírání</string>
+    <string name="pro_feature_cache_desc">Oblíbené skladby se otevřou bez čekání</string>
+    <string name="pro_feature_links_title">Sdílení pro všechny</string>
+    <string name="pro_feature_links_desc">Jeden odkaz, který každý otevře ve svém přehrávači</string>
+    <string name="pro_feature_future_title">Vše, co přijde</string>
+    <string name="pro_feature_future_desc">Nové funkce PRO bez příplatku</string>
 </resources>
