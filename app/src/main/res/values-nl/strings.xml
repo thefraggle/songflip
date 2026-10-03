@@ -290,14 +290,14 @@
     <string name="history_empty_hint">Tip: Open of deel een muzieklink om deze hier te zien.</string>
 
     <!-- Pro Features -->
-    <string name="pro_feature_playlists_title">Playlists converteren</string>
-    <string name="pro_feature_playlists_desc">Zet complete afspeellijsten naadloos over</string>
-    <string name="pro_feature_history_title">Geschiedenis</string>
-    <string name="pro_feature_history_desc">Uitgebreide capaciteit van 100 nummers</string>
-    <string name="pro_feature_cache_title">Cache</string>
-    <string name="pro_feature_cache_desc">Supersnelle L2-cloudcache (&lt; 50 ms)</string>
-    <string name="pro_feature_links_title">Weblinks</string>
-    <string name="pro_feature_links_desc">Universele links voor elke speler</string>
-    <string name="pro_feature_future_title">Toekomstige PRO-functies</string>
-    <string name="pro_feature_future_desc">Alle komende updates inbegrepen</string>
+    <string name="pro_feature_playlists_title">Playlists verhuizen</string>
+    <string name="pro_feature_playlists_desc">Zet hele playlists over naar jouw dienst</string>
+    <string name="pro_feature_history_title">Grote geschiedenis</string>
+    <string name="pro_feature_history_desc">100 in plaats van 10 nummers bij de hand</string>
+    <string name="pro_feature_cache_title">Sneller openen</string>
+    <string name="pro_feature_cache_desc">Populaire nummers openen zonder wachten</string>
+    <string name="pro_feature_links_title">Delen met iedereen</string>
+    <string name="pro_feature_links_desc">Eén link die iedereen in zijn eigen speler opent</string>
+    <string name="pro_feature_future_title">Alles wat nog komt</string>
+    <string name="pro_feature_future_desc">Nieuwe PRO-functies zonder meerprijs</string>
 </resources>

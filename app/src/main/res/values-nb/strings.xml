@@ -290,14 +290,14 @@
     <string name="history_empty_hint">Tips: Åpne eller del en musikklenke for å se den her.</string>
 
     <!-- Pro Features -->
-    <string name="pro_feature_playlists_title">Konverter spillelister</string>
-    <string name="pro_feature_playlists_desc">Overfør hele spillelister sømløst</string>
-    <string name="pro_feature_history_title">Historikk</string>
-    <string name="pro_feature_history_desc">Utvidet kapasitet til 100 sanger</string>
-    <string name="pro_feature_cache_title">Hurtigbuffer</string>
-    <string name="pro_feature_cache_desc">Lynrask L2-skybuffer (&lt; 50 ms)</string>
-    <string name="pro_feature_links_title">Nettlenker</string>
-    <string name="pro_feature_links_desc">Universelle lenker for enhver avspiller</string>
-    <string name="pro_feature_future_title">Fremtidige PRO-funksjoner</string>
-    <string name="pro_feature_future_desc">Alle kommende oppdateringer inkludert</string>
+    <string name="pro_feature_playlists_title">Flytt spillelister</string>
+    <string name="pro_feature_playlists_desc">Overfør hele spillelister til din tjeneste</string>
+    <string name="pro_feature_history_title">Større historikk</string>
+    <string name="pro_feature_history_desc">100 i stedet for 10 sanger lett tilgjengelig</string>
+    <string name="pro_feature_cache_title">Raskere åpning</string>
+    <string name="pro_feature_cache_desc">Populære sanger åpnes uten venting</string>
+    <string name="pro_feature_links_title">Del med alle</string>
+    <string name="pro_feature_links_desc">Én lenke som alle åpner i sin egen avspiller</string>
+    <string name="pro_feature_future_title">Alt som kommer</string>
+    <string name="pro_feature_future_desc">Nye PRO-funksjoner uten ekstra kostnad</string>
 </resources>

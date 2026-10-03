@@ -290,14 +290,14 @@
     <string name="history_empty_hint">Tip: Åbn eller del et musiklink for at se det her.</string>
 
     <!-- Pro Features -->
-    <string name="pro_feature_playlists_title">Konverter afspilningslister</string>
-    <string name="pro_feature_playlists_desc">Overfør hele afspilningslister problemfrit</string>
-    <string name="pro_feature_history_title">Historik</string>
-    <string name="pro_feature_history_desc">Udvidet kapacitet til 100 sange</string>
-    <string name="pro_feature_cache_title">Cache</string>
-    <string name="pro_feature_cache_desc">Lynhurtig L2-cloudcache (&lt; 50 ms)</string>
-    <string name="pro_feature_links_title">Weblinks</string>
-    <string name="pro_feature_links_desc">Universelle links til enhver afspiller</string>
-    <string name="pro_feature_future_title">Fremtidige PRO-funktioner</string>
-    <string name="pro_feature_future_desc">Alle kommende opdateringer inkluderet</string>
+    <string name="pro_feature_playlists_title">Flyt playlister</string>
+    <string name="pro_feature_playlists_desc">Overfør hele playlister til din tjeneste</string>
+    <string name="pro_feature_history_title">Større historik</string>
+    <string name="pro_feature_history_desc">100 i stedet for 10 sange lige ved hånden</string>
+    <string name="pro_feature_cache_title">Hurtigere åbning</string>
+    <string name="pro_feature_cache_desc">Populære sange åbner uden ventetid</string>
+    <string name="pro_feature_links_title">Del med alle</string>
+    <string name="pro_feature_links_desc">Ét link, som alle åbner i deres egen afspiller</string>
+    <string name="pro_feature_future_title">Alt, hvad der kommer</string>
+    <string name="pro_feature_future_desc">Nye PRO-funktioner uden merpris</string>
 </resources>

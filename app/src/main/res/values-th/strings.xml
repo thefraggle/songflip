@@ -272,14 +272,14 @@
     <string name="history_empty_hint">เคล็ดลับ: เปิดหรือแชร์ลิงก์เพลงเพื่อดูที่นี่</string>
 
     <!-- Pro Features -->
-    <string name="pro_feature_playlists_title">แปลงเพลย์ลิสต์</string>
-    <string name="pro_feature_playlists_desc">ถ่ายโอนเพลย์ลิสต์ทั้งหมดได้อย่างราบรื่น</string>
-    <string name="pro_feature_history_title">ประวัติ</string>
-    <string name="pro_feature_history_desc">ขยายความจุประวัติเป็น 100 เพลง</string>
-    <string name="pro_feature_cache_title">แคช</string>
-    <string name="pro_feature_cache_desc">L2 Cloud Cache ความเร็วสูงพิเศษ (&lt; 50 ms)</string>
-    <string name="pro_feature_links_title">เว็บลิงก์</string>
-    <string name="pro_feature_links_desc">ลิงก์สากลสำหรับเครื่องเล่นทุกตัว</string>
-    <string name="pro_feature_future_title">ฟีเจอร์ PRO ในอนาคต</string>
-    <string name="pro_feature_future_desc">รวมการอัปเดตในอนาคตทั้งหมด</string>
+    <string name="pro_feature_playlists_title">ย้ายเพลย์ลิสต์</string>
+    <string name="pro_feature_playlists_desc">ย้ายเพลย์ลิสต์ทั้งหมดไปยังบริการของคุณ</string>
+    <string name="pro_feature_history_title">ประวัติที่ใหญ่ขึ้น</string>
+    <string name="pro_feature_history_desc">เก็บได้ 100 เพลงแทน 10 เพลง</string>
+    <string name="pro_feature_cache_title">เปิดได้เร็วขึ้น</string>
+    <string name="pro_feature_cache_desc">เพลงยอดนิยมเปิดได้โดยไม่ต้องรอ</string>
+    <string name="pro_feature_links_title">แชร์ให้ทุกคน</string>
+    <string name="pro_feature_links_desc">ลิงก์เดียวที่ทุกคนเปิดในเครื่องเล่นของตัวเองได้</string>
+    <string name="pro_feature_future_title">ทุกอย่างที่จะมา</string>
+    <string name="pro_feature_future_desc">ฟีเจอร์ PRO ใหม่โดยไม่มีค่าใช้จ่ายเพิ่ม</string>
 </resources>

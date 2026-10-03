@@ -286,14 +286,14 @@
     <string name="history_empty_hint">Mẹo: Mở hoặc chia sẻ liên kết âm nhạc để xem tại đây.</string>
 
     <!-- Pro Features -->
-    <string name="pro_feature_playlists_title">Chuyển đổi danh sách phát</string>
-    <string name="pro_feature_playlists_desc">Chuyển toàn bộ danh sách phát dễ dàng</string>
-    <string name="pro_feature_history_title">Lịch sử</string>
-    <string name="pro_feature_history_desc">Dung lượng mở rộng 100 bài hát</string>
-    <string name="pro_feature_cache_title">Bộ nhớ đệm</string>
-    <string name="pro_feature_cache_desc">Bộ nhớ đệm đám mây L2 siêu nhanh (&lt; 50 ms)</string>
-    <string name="pro_feature_links_title">Liên kết web</string>
-    <string name="pro_feature_links_desc">Liên kết phổ quát cho mọi trình phát</string>
-    <string name="pro_feature_future_title">Tính năng PRO tương lai</string>
-    <string name="pro_feature_future_desc">Bao gồm tất cả các bản cập nhật sắp tới</string>
+    <string name="pro_feature_playlists_title">Chuyển danh sách phát</string>
+    <string name="pro_feature_playlists_desc">Chuyển toàn bộ danh sách phát sang dịch vụ của bạn</string>
+    <string name="pro_feature_history_title">Lịch sử lớn hơn</string>
+    <string name="pro_feature_history_desc">Lưu 100 bài thay vì 10</string>
+    <string name="pro_feature_cache_title">Mở nhanh hơn</string>
+    <string name="pro_feature_cache_desc">Bài hát phổ biến mở ngay không cần chờ</string>
+    <string name="pro_feature_links_title">Chia sẻ cho mọi người</string>
+    <string name="pro_feature_links_desc">Một liên kết ai cũng mở được trong trình phát của mình</string>
+    <string name="pro_feature_future_title">Mọi thứ sắp tới</string>
+    <string name="pro_feature_future_desc">Tính năng PRO mới không tốn thêm phí</string>
 </resources>

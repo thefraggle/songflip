@@ -286,14 +286,14 @@
     <string name="history_empty_hint">Tips: Buka atau bagikan tautan musik untuk melihatnya di sini.</string>
 
     <!-- Pro Features -->
-    <string name="pro_feature_playlists_title">Konversi Daftar Putar</string>
-    <string name="pro_feature_playlists_desc">Transfer seluruh daftar putar dengan mudah</string>
-    <string name="pro_feature_history_title">Riwayat</string>
-    <string name="pro_feature_history_desc">Kapasitas diperluas hingga 100 lagu</string>
-    <string name="pro_feature_cache_title">Cache</string>
-    <string name="pro_feature_cache_desc">Cache cloud L2 super cepat (&lt; 50 ms)</string>
-    <string name="pro_feature_links_title">Tautan Web</string>
-    <string name="pro_feature_links_desc">Tautan universal untuk semua pemutar</string>
-    <string name="pro_feature_future_title">Fitur PRO Mendatang</string>
-    <string name="pro_feature_future_desc">Termasuk semua pembaruan yang akan datang</string>
+    <string name="pro_feature_playlists_title">Pindahkan playlist</string>
+    <string name="pro_feature_playlists_desc">Pindahkan seluruh playlist ke layananmu</string>
+    <string name="pro_feature_history_title">Riwayat lebih besar</string>
+    <string name="pro_feature_history_desc">Simpan 100 lagu, bukan hanya 10</string>
+    <string name="pro_feature_cache_title">Buka lebih cepat</string>
+    <string name="pro_feature_cache_desc">Lagu populer terbuka tanpa menunggu</string>
+    <string name="pro_feature_links_title">Bagikan ke siapa saja</string>
+    <string name="pro_feature_links_desc">Satu tautan yang dibuka semua orang di pemutarnya sendiri</string>
+    <string name="pro_feature_future_title">Semua yang akan datang</string>
+    <string name="pro_feature_future_desc">Fitur PRO baru tanpa biaya tambahan</string>
 </resources>

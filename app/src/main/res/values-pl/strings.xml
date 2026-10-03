@@ -298,14 +298,14 @@
     <string name="history_empty_hint">Wskazówka: Otwórz lub udostępnij link muzyczny, aby zobaczyć go tutaj.</string>
 
     <!-- Pro Features -->
-    <string name="pro_feature_playlists_title">Konwertuj playlisty</string>
-    <string name="pro_feature_playlists_desc">Przenoś całe playlisty bez ograniczeń</string>
-    <string name="pro_feature_history_title">Historia</string>
-    <string name="pro_feature_history_desc">Rozszerzona pamięć na 100 utworów</string>
-    <string name="pro_feature_cache_title">Pamięć podręczna</string>
-    <string name="pro_feature_cache_desc">Ultraszybka pamięć podręczna L2 w chmurze (&lt; 50 ms)</string>
-    <string name="pro_feature_links_title">Linki internetowe</string>
-    <string name="pro_feature_links_desc">Uniwersalne linki do każdego odtwarzacza</string>
-    <string name="pro_feature_future_title">Przyszłe funkcje PRO</string>
-    <string name="pro_feature_future_desc">Wszystkie nadchodzące aktualizacje w cenie</string>
+    <string name="pro_feature_playlists_title">Przenieś playlisty</string>
+    <string name="pro_feature_playlists_desc">Przenoś całe playlisty do swojego serwisu</string>
+    <string name="pro_feature_history_title">Większa historia</string>
+    <string name="pro_feature_history_desc">100 zamiast 10 utworów pod ręką</string>
+    <string name="pro_feature_cache_title">Szybsze otwieranie</string>
+    <string name="pro_feature_cache_desc">Popularne utwory otwierają się bez czekania</string>
+    <string name="pro_feature_links_title">Udostępniaj wszystkim</string>
+    <string name="pro_feature_links_desc">Jeden link, który każdy otworzy w swoim odtwarzaczu</string>
+    <string name="pro_feature_future_title">Wszystko, co nadejdzie</string>
+    <string name="pro_feature_future_desc">Nowe funkcje PRO bez dopłat</string>
 </resources>

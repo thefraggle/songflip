@@ -280,14 +280,14 @@
     <string name="history_empty_hint">Sfat: Deschide sau distribuie un link muzical pentru a-l vedea aici.</string>
 
     <!-- Pro Features -->
-    <string name="pro_feature_playlists_title">Conversie playlisturi</string>
-    <string name="pro_feature_playlists_desc">Transferă playlisturi întregi cu ușurință</string>
-    <string name="pro_feature_history_title">Istoric</string>
-    <string name="pro_feature_history_desc">Capacitate extinsă la 100 de melodii</string>
-    <string name="pro_feature_cache_title">Cache</string>
-    <string name="pro_feature_cache_desc">Cache cloud L2 ultrarapid (&lt; 50 ms)</string>
-    <string name="pro_feature_links_title">Linkuri web</string>
-    <string name="pro_feature_links_desc">Linkuri universale pentru orice player</string>
-    <string name="pro_feature_future_title">Funcții PRO viitoare</string>
-    <string name="pro_feature_future_desc">Toate actualizările viitoare incluse</string>
+    <string name="pro_feature_playlists_title">Mută playlisturile</string>
+    <string name="pro_feature_playlists_desc">Transferă playlisturi întregi în serviciul tău</string>
+    <string name="pro_feature_history_title">Istoric mai mare</string>
+    <string name="pro_feature_history_desc">100 de melodii în loc de 10 la îndemână</string>
+    <string name="pro_feature_cache_title">Deschidere mai rapidă</string>
+    <string name="pro_feature_cache_desc">Melodiile populare se deschid fără așteptare</string>
+    <string name="pro_feature_links_title">Distribuie oricui</string>
+    <string name="pro_feature_links_desc">Un link pe care fiecare îl deschide în playerul său</string>
+    <string name="pro_feature_future_title">Tot ce urmează</string>
+    <string name="pro_feature_future_desc">Funcții PRO noi fără cost suplimentar</string>
 </resources>

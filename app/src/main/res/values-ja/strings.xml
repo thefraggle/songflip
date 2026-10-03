@@ -286,14 +286,14 @@
     <string name="history_empty_hint">ヒント: 音楽リンクを開くか共有すると、ここに表示されます。</string>
 
     <!-- Pro Features -->
-    <string name="pro_feature_playlists_title">プレイリスト変換</string>
-    <string name="pro_feature_playlists_desc">プレイリスト全体をスムーズに移行</string>
-    <string name="pro_feature_history_title">履歴</string>
-    <string name="pro_feature_history_desc">100曲まで拡張された保存履歴</string>
-    <string name="pro_feature_cache_title">キャッシュ</string>
-    <string name="pro_feature_cache_desc">超高速L2クラウドキャッシュ（50ミリ秒未満）</string>
-    <string name="pro_feature_links_title">Webリンク</string>
-    <string name="pro_feature_links_desc">あらゆるプレーヤーに対応するユニバーサルリンク</string>
-    <string name="pro_feature_future_title">将来のPRO機能</string>
-    <string name="pro_feature_future_desc">今後のすべてのアップデートが含まれます</string>
+    <string name="pro_feature_playlists_title">プレイリストを移行</string>
+    <string name="pro_feature_playlists_desc">プレイリストをまるごと好きなサービスへ</string>
+    <string name="pro_feature_history_title">大きな履歴</string>
+    <string name="pro_feature_history_desc">10曲ではなく100曲を保存</string>
+    <string name="pro_feature_cache_title">すばやく開く</string>
+    <string name="pro_feature_cache_desc">人気の曲は待ち時間なしで開けます</string>
+    <string name="pro_feature_links_title">誰とでも共有</string>
+    <string name="pro_feature_links_desc">受け取った人がそれぞれのプレーヤーで開けるリンク</string>
+    <string name="pro_feature_future_title">今後の機能も</string>
+    <string name="pro_feature_future_desc">新しいPRO機能も追加料金なし</string>
 </resources>

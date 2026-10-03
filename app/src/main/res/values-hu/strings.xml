@@ -276,14 +276,14 @@
     <string name="history_empty_hint">Tipp: Nyiss meg vagy ossz meg egy zenei linket, hogy itt lásd.</string>
 
     <!-- Pro Features -->
-    <string name="pro_feature_playlists_title">Lejátszási listák konvertálása</string>
-    <string name="pro_feature_playlists_desc">Teljes listák zökkenőmentes átvitele</string>
-    <string name="pro_feature_history_title">Előzmények</string>
-    <string name="pro_feature_history_desc">Bővített 100 zenés tárhely</string>
-    <string name="pro_feature_cache_title">Gyorsítótár</string>
-    <string name="pro_feature_cache_desc">Villámgyors L2 felhő-gyorsítótár (&lt; 50 ms)</string>
-    <string name="pro_feature_links_title">Webes hivatkozások</string>
-    <string name="pro_feature_links_desc">Univerzális linkek bármelyik lejátszóhoz</string>
-    <string name="pro_feature_future_title">Jövőbeli PRO funkciók</string>
-    <string name="pro_feature_future_desc">Minden jövőbeli frissítést tartalmaz</string>
+    <string name="pro_feature_playlists_title">Listák költöztetése</string>
+    <string name="pro_feature_playlists_desc">Vidd át a teljes lejátszási listákat a saját szolgáltatásodba</string>
+    <string name="pro_feature_history_title">Nagyobb előzmények</string>
+    <string name="pro_feature_history_desc">10 helyett 100 dal mindig kéznél</string>
+    <string name="pro_feature_cache_title">Gyorsabb megnyitás</string>
+    <string name="pro_feature_cache_desc">A népszerű dalok várakozás nélkül nyílnak meg</string>
+    <string name="pro_feature_links_title">Megosztás bárkivel</string>
+    <string name="pro_feature_links_desc">Egy link, amit mindenki a saját lejátszójában nyit meg</string>
+    <string name="pro_feature_future_title">Minden, ami jön</string>
+    <string name="pro_feature_future_desc">Új PRO funkciók felár nélkül</string>
 </resources>

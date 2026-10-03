@@ -290,14 +290,14 @@
     <string name="history_empty_hint">टीप: येथे पाहण्यासाठी संगीत लिंक उघडा किंवा शेअर करा.</string>
 
     <!-- Pro Features -->
-    <string name="pro_feature_playlists_title">प्लेलिस्ट रूपांतरित करा</string>
-    <string name="pro_feature_playlists_desc">संपूर्ण प्लेलिस्ट सहजपणे ट्रान्सफर करा</string>
-    <string name="pro_feature_history_title">इतिहास</string>
-    <string name="pro_feature_history_desc">100 गाण्यांपर्यंत विस्तारित क्षमता</string>
-    <string name="pro_feature_cache_title">कॅश</string>
-    <string name="pro_feature_cache_desc">अल्ट्रा-फास्ट L2 क्लाउड कॅश (&lt; 50 ms)</string>
-    <string name="pro_feature_links_title">वेब लिंक्स</string>
-    <string name="pro_feature_links_desc">कोणत्याही प्लेयरसाठी युनिव्हर्सल लिंक्स</string>
-    <string name="pro_feature_future_title">भविष्यातील PRO वैशिष्ट्ये</string>
-    <string name="pro_feature_future_desc">पुढील सर्व अपडेट्स समाविष्ट</string>
+    <string name="pro_feature_playlists_title">प्लेलिस्ट हलवा</string>
+    <string name="pro_feature_playlists_desc">संपूर्ण प्लेलिस्ट तुमच्या सेवेवर हलवा</string>
+    <string name="pro_feature_history_title">मोठा इतिहास</string>
+    <string name="pro_feature_history_desc">10 ऐवजी 100 गाणी जतन करा</string>
+    <string name="pro_feature_cache_title">जलद उघडा</string>
+    <string name="pro_feature_cache_desc">लोकप्रिय गाणी प्रतीक्षा न करता उघडतात</string>
+    <string name="pro_feature_links_title">सर्वांसोबत शेअर करा</string>
+    <string name="pro_feature_links_desc">एक लिंक जी प्रत्येकजण आपल्या प्लेयरमध्ये उघडू शकतो</string>
+    <string name="pro_feature_future_title">येणारे सर्व काही</string>
+    <string name="pro_feature_future_desc">नवीन PRO वैशिष्ट्ये अतिरिक्त शुल्काशिवाय</string>
 </resources>

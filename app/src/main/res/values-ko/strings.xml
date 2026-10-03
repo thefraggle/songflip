@@ -286,14 +286,14 @@
     <string name="history_empty_hint">팁: 음악 링크를 열거나 공유하면 여기에 표시됩니다.</string>
 
     <!-- Pro Features -->
-    <string name="pro_feature_playlists_title">재생목록 변환</string>
-    <string name="pro_feature_playlists_desc">전체 재생목록을 간편하게 전송</string>
-    <string name="pro_feature_history_title">기록</string>
-    <string name="pro_feature_history_desc">100곡으로 확장된 기록 보관</string>
-    <string name="pro_feature_cache_title">캐시</string>
-    <string name="pro_feature_cache_desc">초고속 L2 클라우드 캐시 (&lt; 50ms)</string>
-    <string name="pro_feature_links_title">웹 링크</string>
-    <string name="pro_feature_links_desc">모든 플레이어를 위한 범용 링크</string>
-    <string name="pro_feature_future_title">향후 PRO 기능</string>
-    <string name="pro_feature_future_desc">향후 제공될 모든 업데이트 포함</string>
+    <string name="pro_feature_playlists_title">플레이리스트 옮기기</string>
+    <string name="pro_feature_playlists_desc">플레이리스트 전체를 내 서비스로 옮기세요</string>
+    <string name="pro_feature_history_title">더 큰 기록</string>
+    <string name="pro_feature_history_desc">10곡 대신 100곡까지 보관</string>
+    <string name="pro_feature_cache_title">더 빠른 열기</string>
+    <string name="pro_feature_cache_desc">인기 곡은 기다림 없이 열립니다</string>
+    <string name="pro_feature_links_title">누구에게나 공유</string>
+    <string name="pro_feature_links_desc">받는 사람마다 자기 플레이어에서 열리는 링크</string>
+    <string name="pro_feature_future_title">앞으로의 모든 기능</string>
+    <string name="pro_feature_future_desc">새로운 PRO 기능을 추가 비용 없이</string>
 </resources>

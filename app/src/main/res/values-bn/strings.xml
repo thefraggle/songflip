@@ -290,14 +290,14 @@
     <string name="history_empty_hint">পরামর্শ: এখানে দেখতে একটি সঙ্গীত লিঙ্ক খুলুন বা শেয়ার করুন।</string>
 
     <!-- Pro Features -->
-    <string name="pro_feature_playlists_title">প্লেলিস্ট রূপান্তর</string>
-    <string name="pro_feature_playlists_desc">সহজেই সম্পূর্ণ প্লেলিস্ট স্থানান্তর করুন</string>
-    <string name="pro_feature_history_title">ইতিহাস</string>
-    <string name="pro_feature_history_desc">100 গানের বর্ধিত ইতিহাস</string>
-    <string name="pro_feature_cache_title">ক্যাশ</string>
-    <string name="pro_feature_cache_desc">আল্ট্রা-ফাস্ট L2 ক্লাউড ক্যাশ (&lt; 50 ms)</string>
-    <string name="pro_feature_links_title">ওয়েব লিঙ্ক</string>
-    <string name="pro_feature_links_desc">যেকোনো প্লেয়ারের জন্য সর্বজনীন লিঙ্ক</string>
-    <string name="pro_feature_future_title">ভবিষ্যতের PRO বৈশিষ্ট্য</string>
-    <string name="pro_feature_future_desc">সমস্ত আসন্ন আপডেট অন্তর্ভুক্ত</string>
+    <string name="pro_feature_playlists_title">প্লেলিস্ট সরান</string>
+    <string name="pro_feature_playlists_desc">পুরো প্লেলিস্ট আপনার সার্ভিসে নিয়ে যান</string>
+    <string name="pro_feature_history_title">বড় ইতিহাস</string>
+    <string name="pro_feature_history_desc">10টির বদলে 100টি গান সংরক্ষণ করুন</string>
+    <string name="pro_feature_cache_title">দ্রুত খুলুন</string>
+    <string name="pro_feature_cache_desc">জনপ্রিয় গান অপেক্ষা ছাড়াই খোলে</string>
+    <string name="pro_feature_links_title">সবার সাথে শেয়ার করুন</string>
+    <string name="pro_feature_links_desc">একটি লিঙ্ক যা প্রত্যেকে নিজের প্লেয়ারে খুলতে পারে</string>
+    <string name="pro_feature_future_title">আসন্ন সবকিছু</string>
+    <string name="pro_feature_future_desc">নতুন PRO ফিচার কোনো অতিরিক্ত খরচ ছাড়াই</string>
 </resources>

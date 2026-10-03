@@ -276,14 +276,14 @@
     <string name="history_empty_hint">Vinkki: Avaa tai jaa musiikkilinkki nähdäksesi sen täällä.</string>
 
     <!-- Pro Features -->
-    <string name="pro_feature_playlists_title">Muunna soittolistoja</string>
-    <string name="pro_feature_playlists_desc">Siirrä kokonaiset soittolistat saumattomasti</string>
-    <string name="pro_feature_history_title">Historia</string>
-    <string name="pro_feature_history_desc">Laajennettu 100 kappaleen kapasiteetti</string>
-    <string name="pro_feature_cache_title">Välimuisti</string>
-    <string name="pro_feature_cache_desc">Huippunopea L2-pilvivälimuisti (&lt; 50 ms)</string>
-    <string name="pro_feature_links_title">Verkkolinkit</string>
-    <string name="pro_feature_links_desc">Yleislinkit mihin tahansa soittimeen</string>
-    <string name="pro_feature_future_title">Tulevat PRO-ominaisuudet</string>
-    <string name="pro_feature_future_desc">Kaikki tulevat päivitykset sisältyvät</string>
+    <string name="pro_feature_playlists_title">Siirrä soittolistat</string>
+    <string name="pro_feature_playlists_desc">Siirrä kokonaiset soittolistat omaan palveluusi</string>
+    <string name="pro_feature_history_title">Laajempi historia</string>
+    <string name="pro_feature_history_desc">100 kappaletta 10:n sijaan tallessa</string>
+    <string name="pro_feature_cache_title">Nopeampi avaus</string>
+    <string name="pro_feature_cache_desc">Suositut kappaleet avautuvat ilman odottelua</string>
+    <string name="pro_feature_links_title">Jaa kaikille</string>
+    <string name="pro_feature_links_desc">Yksi linkki, jonka jokainen avaa omassa soittimessaan</string>
+    <string name="pro_feature_future_title">Kaikki tuleva</string>
+    <string name="pro_feature_future_desc">Uudet PRO-ominaisuudet ilman lisähintaa</string>
 </resources>

@@ -313,14 +313,14 @@
     <string name="history_empty_hint">Tip: Open or share a music link to see it here.</string>
 
     <!-- Pro Features -->
-    <string name="pro_feature_playlists_title">Convert Playlists</string>
-    <string name="pro_feature_playlists_desc">Transfer full playlists seamlessly</string>
-    <string name="pro_feature_history_title">History</string>
-    <string name="pro_feature_history_desc">Expanded 100-song capacity</string>
-    <string name="pro_feature_cache_title">Cache</string>
-    <string name="pro_feature_cache_desc">High-Speed L2 Cloud Cache (&lt; 50ms)</string>
-    <string name="pro_feature_links_title">Web Links</string>
-    <string name="pro_feature_links_desc">Universal links for any player</string>
-    <string name="pro_feature_future_title">Future PRO Features</string>
-    <string name="pro_feature_future_desc">All upcoming updates included</string>
+    <string name="pro_feature_playlists_title">Move playlists</string>
+    <string name="pro_feature_playlists_desc">Transfer whole playlists to your service</string>
+    <string name="pro_feature_history_title">Bigger history</string>
+    <string name="pro_feature_history_desc">Keep 100 songs instead of 10</string>
+    <string name="pro_feature_cache_title">Faster opening</string>
+    <string name="pro_feature_cache_desc">Popular songs open without waiting</string>
+    <string name="pro_feature_links_title">Share with anyone</string>
+    <string name="pro_feature_links_desc">One link that opens in everyone\'s player</string>
+    <string name="pro_feature_future_title">Everything to come</string>
+    <string name="pro_feature_future_desc">New PRO features at no extra cost</string>
 </resources>
