@@ -313,4 +313,10 @@
     <string name="pro_feature_links_desc">En länk som alla öppnar i sin egen spelare</string>
     <string name="pro_feature_future_title">Allt som kommer</string>
     <string name="pro_feature_future_desc">Nya PRO-funktioner utan extra kostnad</string>
+    <!-- Pre-Release Notice -->
+    <string name="prerelease_sheet_title">Inte släppt än</string>
+    <string name="prerelease_sheet_desc">Detta album har inte släppts på streamingtjänster än.</string>
+    <string name="prerelease_btn_presave_spotify">Förhandsspara på Spotify</string>
+    <string name="prerelease_btn_search_target">Sök efter singlar i %1$s</string>
+    <string name="prerelease_btn_cancel">Avbryt</string>
 </resources>

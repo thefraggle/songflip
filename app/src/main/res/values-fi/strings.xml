@@ -299,4 +299,10 @@
     <string name="pro_feature_links_desc">Yksi linkki, jonka jokainen avaa omassa soittimessaan</string>
     <string name="pro_feature_future_title">Kaikki tuleva</string>
     <string name="pro_feature_future_desc">Uudet PRO-ominaisuudet ilman lisähintaa</string>
+    <!-- Pre-Release Notice -->
+    <string name="prerelease_sheet_title">Ei vielä julkaistu</string>
+    <string name="prerelease_sheet_desc">Tätä albumia ei ole vielä julkaistu suoratoistopalveluissa.</string>
+    <string name="prerelease_btn_presave_spotify">Ennakkotallenna Spotifyssa</string>
+    <string name="prerelease_btn_search_target">Etsi singlejä palvelussa %1$s</string>
+    <string name="prerelease_btn_cancel">Peruuta</string>
 </resources>

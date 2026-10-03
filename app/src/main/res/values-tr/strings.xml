@@ -313,4 +313,10 @@
     <string name="pro_feature_links_desc">Herkesin kendi oynatıcısında açtığı tek bir bağlantı</string>
     <string name="pro_feature_future_title">Gelecek her şey</string>
     <string name="pro_feature_future_desc">Yeni PRO özellikleri ek ücret olmadan</string>
+    <!-- Pre-Release Notice -->
+    <string name="prerelease_sheet_title">Henüz Yayınlanmadı</string>
+    <string name="prerelease_sheet_desc">Bu albüm henüz yayın akışı platformlarında yayınlanmadı.</string>
+    <string name="prerelease_btn_presave_spotify">Spotify\'da önceden kaydet</string>
+    <string name="prerelease_btn_search_target">%1$s içinde teklileri ara</string>
+    <string name="prerelease_btn_cancel">İptal</string>
 </resources>

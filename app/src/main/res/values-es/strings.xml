@@ -313,4 +313,10 @@
     <string name="pro_feature_links_desc">Un enlace que cada uno abre en su reproductor</string>
     <string name="pro_feature_future_title">Todo lo que viene</string>
     <string name="pro_feature_future_desc">Nuevas funciones PRO sin coste extra</string>
+    <!-- Pre-Release Notice -->
+    <string name="prerelease_sheet_title">Álbum no publicado</string>
+    <string name="prerelease_sheet_desc">Este álbum aún no está disponible en las plataformas de streaming.</string>
+    <string name="prerelease_btn_presave_spotify">Guardar por adelantado en Spotify</string>
+    <string name="prerelease_btn_search_target">Buscar singles en %1$s</string>
+    <string name="prerelease_btn_cancel">Cancelar</string>
 </resources>

@@ -313,4 +313,10 @@
     <string name="pro_feature_links_desc">एक लिंक जी प्रत्येकजण आपल्या प्लेयरमध्ये उघडू शकतो</string>
     <string name="pro_feature_future_title">येणारे सर्व काही</string>
     <string name="pro_feature_future_desc">नवीन PRO वैशिष्ट्ये अतिरिक्त शुल्काशिवाय</string>
+    <!-- Pre-Release Notice -->
+    <string name="prerelease_sheet_title">अद्याप रिलीज झाले नाही</string>
+    <string name="prerelease_sheet_desc">हा अल्बम अद्याप स्ट्रीमिंग प्लॅटफॉर्मवर उपलब्ध नाही.</string>
+    <string name="prerelease_btn_presave_spotify">Spotify वर प्री-सेव्ह करा</string>
+    <string name="prerelease_btn_search_target">%1$s मध्ये सिंगल्स शोधा</string>
+    <string name="prerelease_btn_cancel">रद्द करा</string>
 </resources>

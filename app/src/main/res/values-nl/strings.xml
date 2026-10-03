@@ -313,4 +313,10 @@
     <string name="pro_feature_links_desc">Eén link die iedereen in zijn eigen speler opent</string>
     <string name="pro_feature_future_title">Alles wat nog komt</string>
     <string name="pro_feature_future_desc">Nieuwe PRO-functies zonder meerprijs</string>
+    <!-- Pre-Release Notice -->
+    <string name="prerelease_sheet_title">Nog niet verschenen</string>
+    <string name="prerelease_sheet_desc">Dit album is nog niet uitgebracht op streamingplatforms.</string>
+    <string name="prerelease_btn_presave_spotify">Vooraf opslaan op Spotify</string>
+    <string name="prerelease_btn_search_target">Singles zoeken in %1$s</string>
+    <string name="prerelease_btn_cancel">Annuleren</string>
 </resources>

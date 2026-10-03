@@ -295,4 +295,10 @@
     <string name="pro_feature_links_desc">ลิงก์เดียวที่ทุกคนเปิดในเครื่องเล่นของตัวเองได้</string>
     <string name="pro_feature_future_title">ทุกอย่างที่จะมา</string>
     <string name="pro_feature_future_desc">ฟีเจอร์ PRO ใหม่โดยไม่มีค่าใช้จ่ายเพิ่ม</string>
+    <!-- Pre-Release Notice -->
+    <string name="prerelease_sheet_title">ยังไม่วางจำหน่าย</string>
+    <string name="prerelease_sheet_desc">อัลบั้มนี้ยังไม่เปิดให้ฟังบนแพลตฟอร์มสตรีมมิง</string>
+    <string name="prerelease_btn_presave_spotify">บันทึกล่วงหน้าบน Spotify</string>
+    <string name="prerelease_btn_search_target">ค้นหาซิงเกิลใน %1$s</string>
+    <string name="prerelease_btn_cancel">ยกเลิก</string>
 </resources>

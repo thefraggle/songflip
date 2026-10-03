@@ -309,4 +309,10 @@
     <string name="pro_feature_links_desc">Một liên kết ai cũng mở được trong trình phát của mình</string>
     <string name="pro_feature_future_title">Mọi thứ sắp tới</string>
     <string name="pro_feature_future_desc">Tính năng PRO mới không tốn thêm phí</string>
+    <!-- Pre-Release Notice -->
+    <string name="prerelease_sheet_title">Chưa phát hành</string>
+    <string name="prerelease_sheet_desc">Album này chưa được phát hành trên các nền tảng phát trực tuyến.</string>
+    <string name="prerelease_btn_presave_spotify">Lưu trước trên Spotify</string>
+    <string name="prerelease_btn_search_target">Tìm đĩa đơn trên %1$s</string>
+    <string name="prerelease_btn_cancel">Hủy</string>
 </resources>
