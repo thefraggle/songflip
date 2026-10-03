@@ -1,3 +1,3 @@
-- Elegante Aktions-Banner: Überarbeitetes, dezentes Design mit warmen Gold-Akzenten für saisonale Aktionen.
-- Zuverlässige Weiterleitung: Schnellere und reibungslose Übergabe von Musik-Links an deinen Lieblings-Player.
-- Feinschliff & Stabilität: Visuelle Anpassungen und optimierte Zuverlässigkeit im Alltag.
+- Zuverlässigere Link-Erkennung: Eigene App-Links werden jetzt abgefangen und mit einem hilfreichen Hinweis versehen, stattdessen einen Musiklink zu teilen.
+- Verbesserte Synchronisierung: Automatische Hintergrund-Wiederherstellung für bestehende Kontostatus und Berechtigungen.
+- Fehlerbehebungen & Stabilität: Allgemeine Stabilitätsverbesserungen und zuverlässigere Fehlerbehandlung im Hintergrund.

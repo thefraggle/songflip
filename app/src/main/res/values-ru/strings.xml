@@ -327,4 +327,5 @@
     <string name="prerelease_btn_presave_spotify">Добавить предзаказ в Spotify</string>
     <string name="prerelease_btn_search_target">Искать синглы в %1$s</string>
     <string name="prerelease_btn_cancel">Отмена</string>
+    <string name="share_self_link_notice">Это ссылка SongFlip. Пожалуйста, поделитесь ссылкой на музыку.</string>
 </resources>

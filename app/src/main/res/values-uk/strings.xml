@@ -327,4 +327,5 @@
     <string name="prerelease_btn_presave_spotify">Зберегти заздалегідь у Spotify</string>
     <string name="prerelease_btn_search_target">Шукати сингли в %1$s</string>
     <string name="prerelease_btn_cancel">Скасувати</string>
+    <string name="share_self_link_notice">Це посилання SongFlip. Будь ласка, поділіться музичним посиланням.</string>
 </resources>

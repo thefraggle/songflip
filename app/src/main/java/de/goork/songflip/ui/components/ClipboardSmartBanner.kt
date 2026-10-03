@@ -326,6 +326,9 @@ fun isSupportedMusicUrl(text: String): Boolean {
     if (!clean.startsWith("http://", ignoreCase = true) && !clean.startsWith("https://", ignoreCase = true)) {
         return false
     }
+    if (UrlUtils.isSongFlipUrl(clean)) {
+        return false
+    }
     val lower = clean.lowercase()
     return lower.contains("spotify.com") ||
            lower.contains("spotify.link") ||

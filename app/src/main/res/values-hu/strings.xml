@@ -305,4 +305,5 @@
     <string name="prerelease_btn_presave_spotify">Előzetes mentés a Spotify-on</string>
     <string name="prerelease_btn_search_target">Kislemez keresése itt: %1$s</string>
     <string name="prerelease_btn_cancel">Mégse</string>
+    <string name="share_self_link_notice">Ez egy SongFlip link. Kérjük, osszon meg egy zenei linket.</string>
 </resources>

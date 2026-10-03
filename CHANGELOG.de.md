@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.6.8] - 2026-10-03
+- **Zuverlässigere Link-Erkennung**: Eigene App-Links werden jetzt abgefangen und mit einem hilfreichen Hinweis versehen, stattdessen einen Musiklink zu teilen.
+- **Verbesserte Synchronisierung**: Automatische Hintergrund-Wiederherstellung für bestehende Kontostatus und Berechtigungen.
+- **Fehlerbehebungen & Stabilität**: Allgemeine Stabilitätsverbesserungen und zuverlässigere Fehlerbehandlung im Hintergrund.
+
 ## [1.6.7] - 2026-10-03
 - **Spotify Pre-Releases**: Countdown- und Pre-Release-Links von Spotify werden jetzt erkannt. Du kannst das Album direkt in Spotify vormerken oder nach bereits veröffentlichten Singles in deinem Ziel-Player suchen.
 - **Präzisere Album-Erkennung**: Offizielle Alben auf YouTube Music werden zuverlässig erkannt und von inoffiziellen Video-Playlists unterschieden.

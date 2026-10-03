@@ -319,4 +319,5 @@
     <string name="prerelease_btn_presave_spotify">Forhåndslagre på Spotify</string>
     <string name="prerelease_btn_search_target">Søk etter singler i %1$s</string>
     <string name="prerelease_btn_cancel">Avbryt</string>
+    <string name="share_self_link_notice">Dette er en SongFlip-lenke. Vennligst del en musikklenke.</string>
 </resources>

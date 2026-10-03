@@ -319,4 +319,5 @@
     <string name="prerelease_btn_presave_spotify">Spotify\'da önceden kaydet</string>
     <string name="prerelease_btn_search_target">%1$s içinde teklileri ara</string>
     <string name="prerelease_btn_cancel">İptal</string>
+    <string name="share_self_link_notice">Bu bir SongFlip bağlantısıdır. Lütfen bir müzik bağlantısı paylaşın.</string>
 </resources>

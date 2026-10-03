@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.6.8] - 2026-10-03
+- **Enhanced Link Detection**: Self-referential app links are now recognized and filtered with a helpful hint to share a music link instead.
+- **Improved Synchronization**: Automatic background recovery for existing account entitlements and status synchronization.
+- **Bug Fixes & Stability**: General stability improvements and more dependable error recovery.
+
 ## [1.6.7] - 2026-10-03
 - **Spotify Pre-Release Handling**: Spotify countdown pre-release links are now intelligently recognized. You can pre-save the album directly in Spotify or search for already released singles in your target player.
 - **Accurate Album Matching**: Fixed YouTube Music matching for newly released official albums to avoid user-generated video playlists.

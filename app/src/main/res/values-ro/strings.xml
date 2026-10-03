@@ -309,4 +309,5 @@
     <string name="prerelease_btn_presave_spotify">Pre-salvează pe Spotify</string>
     <string name="prerelease_btn_search_target">Caută single-uri pe %1$s</string>
     <string name="prerelease_btn_cancel">Anulează</string>
+    <string name="share_self_link_notice">Acesta este un link SongFlip. Vă rugăm să partajați un link muzical.</string>
 </resources>

@@ -84,6 +84,14 @@ class RedirectActivity : ComponentActivity() {
                 return
             }
 
+            // 0a. Check if incoming link is SongFlip's own domain (defensive loop & invalid share guard)
+            if (UrlUtils.isSongFlipUrl(incomingUrl)) {
+                Toast.makeText(this, getString(R.string.share_self_link_notice), Toast.LENGTH_LONG).show()
+                finish()
+                suppressTransitionAnimation()
+                return
+            }
+
             val incomingUri = Uri.parse(incomingUrl)
             fallbackIncomingUri = incomingUri
 

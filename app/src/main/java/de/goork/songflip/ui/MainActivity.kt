@@ -68,11 +68,15 @@ class MainActivity : AppCompatActivity() {
         val shared = intent?.takeIf { it.action == Intent.ACTION_SEND }?.let {
             it.getStringExtra(Intent.EXTRA_TEXT) ?: it.clipData?.takeIf { cd -> cd.itemCount > 0 }?.getItemAt(0)?.text?.toString()
         }?.let { UrlUtils.extractCleanUrl(it) ?: it }
-        if (shared != null && isSupportedMusicUrl(shared)) {
-            if (UrlUtils.isPlaylistUrl(shared)) {
-                openPlaylistUrlState.value = shared
-            } else {
-                incomingSharedUrlState.value = shared
+        if (shared != null) {
+            if (UrlUtils.isSongFlipUrl(shared)) {
+                android.widget.Toast.makeText(this, getString(R.string.share_self_link_notice), android.widget.Toast.LENGTH_LONG).show()
+            } else if (isSupportedMusicUrl(shared)) {
+                if (UrlUtils.isPlaylistUrl(shared)) {
+                    openPlaylistUrlState.value = shared
+                } else {
+                    incomingSharedUrlState.value = shared
+                }
             }
         }
 
@@ -131,11 +135,15 @@ class MainActivity : AppCompatActivity() {
             it.getStringExtra(Intent.EXTRA_TEXT) ?: it.clipData?.takeIf { cd -> cd.itemCount > 0 }?.getItemAt(0)?.text?.toString()
         }?.let { UrlUtils.extractCleanUrl(it) ?: it }
 
-        if (shared != null && isSupportedMusicUrl(shared)) {
-            if (UrlUtils.isPlaylistUrl(shared)) {
-                openPlaylistUrlState.value = shared
-            } else {
-                incomingSharedUrlState.value = shared
+        if (shared != null) {
+            if (UrlUtils.isSongFlipUrl(shared)) {
+                android.widget.Toast.makeText(this, getString(R.string.share_self_link_notice), android.widget.Toast.LENGTH_LONG).show()
+            } else if (isSupportedMusicUrl(shared)) {
+                if (UrlUtils.isPlaylistUrl(shared)) {
+                    openPlaylistUrlState.value = shared
+                } else {
+                    incomingSharedUrlState.value = shared
+                }
             }
         } else if (playlistUrl != null) {
             openPlaylistUrlState.value = playlistUrl

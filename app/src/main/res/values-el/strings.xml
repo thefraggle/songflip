@@ -305,4 +305,5 @@
     <string name="prerelease_btn_presave_spotify">Προ-αποθήκευση στο Spotify</string>
     <string name="prerelease_btn_search_target">Αναζήτηση singles στο %1$s</string>
     <string name="prerelease_btn_cancel">Ακύρωση</string>
+    <string name="share_self_link_notice">Αυτός είναι ένας σύνδεσμος SongFlip. Μοιραστείτε έναν σύνδεσμο μουσικής.</string>
 </resources>
