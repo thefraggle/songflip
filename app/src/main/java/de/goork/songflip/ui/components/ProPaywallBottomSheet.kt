@@ -502,15 +502,22 @@ fun ProPaywallBottomSheet(
                     }
                 }
 
-                // Restore + legal links in one quiet row. FlowRow wraps for long translations
-                // (FR/EL/HU) instead of truncating. Material's 48 dp layout minimum made the wrapped
+                // Legal links first, restore last: when long translations (FR/EL/HU) wrap, restore lands
+                // alone on the second line instead of splitting the two legal links. FlowRow wraps
+                // instead of truncating. Material's 48 dp layout minimum made the wrapped
                 // lines look detached, so the layout minimum is lifted here: rows are 40 dp, and
                 // Compose still extends the hit area of smaller clickables to 48 dp.
                 CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides Dp.Unspecified) {
                 FlowRow(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
+                    horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)
                 ) {
+                    PaywallLegalLink(text = stringResource(R.string.legal_terms)) {
+                        LegalLinks.open(context, LegalLinks.TERMS)
+                    }
+                    PaywallLegalLink(text = stringResource(R.string.legal_privacy)) {
+                        LegalLinks.open(context, LegalLinks.PRIVACY)
+                    }
                     TextButton(
                         onClick = {
                             haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
@@ -548,12 +555,6 @@ fun ProPaywallBottomSheet(
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
-                    }
-                    PaywallLegalLink(text = stringResource(R.string.legal_terms)) {
-                        LegalLinks.open(context, LegalLinks.TERMS)
-                    }
-                    PaywallLegalLink(text = stringResource(R.string.legal_privacy)) {
-                        LegalLinks.open(context, LegalLinks.PRIVACY)
                     }
                 }
                 }
