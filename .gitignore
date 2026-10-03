@@ -56,3 +56,8 @@ firebase-debug.log
 functions/node_modules/
 functions/lib/
 *.log
+
+# Python / Ruby tooling
+__pycache__/
+*.pyc
+.bundle/
