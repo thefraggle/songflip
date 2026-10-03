@@ -92,6 +92,8 @@ When an upstream resolver (e.g. Odesli) lacks a mapping for a target platform (f
 | **Spotify** | `spotify:track:<id>` | `spotify:album:<id>` | `spotify:artist:<id>` | `spotify:search:<query>` | ❌ None (OAuth-only) | `spotify:search:<query>` |
 | **Amazon Music** | `amznmp3://... ?trackAsin=` | `amznmp3://.../albums/<ASIN>` | `amznmp3://.../artists/<ASIN>` | `music.amazon.com/search/` | ❌ None (ASIN regional) | `amznmp3://music.amazon.com/search/` |
 | **Tidal** | `tidal://track/<id>` | `tidal://album/<id>` | `tidal://artist/<id>` | — | ❌ None (OAuth-only) | `listen.tidal.com/search?q=` |
+| **SoundCloud** | `soundcloud://sounds:<id>` | `soundcloud://sets:<id>` | `soundcloud://users:<id>` | — | ❌ None (Web only) | `soundcloud.com/search?q=` |
+| **Bandcamp** | `bandcamp://...` | `bandcamp://...` | `bandcamp://...` | — | ❌ None (Web only) | `bandcamp.com/search?q=` |
 
 ---
 
@@ -238,5 +240,3 @@ SongFlip enforces automated test coverage across all client layers to ensure zer
 ### Automated CI/CD Gates & Abort Triggers:
 1. **GitHub Actions CI (`.github/workflows/ci.yml`):** Runs `./gradlew test` on every `push` to `main` and on every `pull_request`. Any failure immediately blocks merge.
 2. **Release Build Pipeline (`.github/workflows/build-apk.yml`):** Executes `./gradlew :shared:testReleaseUnitTest :app:testReleaseUnitTest` as a strict gate before building or signing binaries. A single test failure aborts APK/AAB generation and Play Store upload completely.
-
-

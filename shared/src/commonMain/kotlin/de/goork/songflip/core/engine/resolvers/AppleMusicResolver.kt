@@ -64,23 +64,17 @@ class AppleMusicResolver(
                 val rootObj = json.parseToJsonElement(body).jsonObject
                 val results = rootObj["results"]?.jsonArray
                 if (results != null && results.isNotEmpty()) {
-                    var fallbackLink: String? = null
                     for (el in results) {
                         val item = el.jsonObject
                         val name = item["artistName"]?.jsonPrimitive?.content ?: ""
                         if (isArtistNameMatch(name, artistName)) {
                             val link = item["artistLinkUrl"]?.jsonPrimitive?.content
                                 ?: item["artistViewUrl"]?.jsonPrimitive?.content
-                            val genre = item["primaryGenreName"]?.jsonPrimitive?.content ?: ""
-                            if (genre.contains("rock", ignoreCase = true) || genre.contains("punk", ignoreCase = true) || genre.contains("alternative", ignoreCase = true)) {
+                            if (!link.isNullOrEmpty()) {
                                 return link
-                            }
-                            if (fallbackLink == null && !link.isNullOrEmpty()) {
-                                fallbackLink = link
                             }
                         }
                     }
-                    if (fallbackLink != null) return fallbackLink
                 }
             }
             null
