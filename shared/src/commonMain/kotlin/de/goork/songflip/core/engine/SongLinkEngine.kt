@@ -104,7 +104,8 @@ class SongLinkEngine(
                 }
             } catch (t: Throwable) {
                 if (t is CancellationException) throw t
-                // Background ingestion is completely non-blocking and best-effort
+                // Background ingestion is non-blocking and best-effort, but log for diagnostics
+                println("SongLinkEngine: Background cache ingest failed for $originalUrl: ${t.message ?: t::class.simpleName}")
             }
         }
     }
