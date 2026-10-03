@@ -216,6 +216,9 @@
     <string name="history_copy_target">Copiază linkul %1$s</string>
     <string name="history_copy_source">Copiază linkul %1$s original</string>
     <string name="action_more_options">Mai multe opțiuni</string>
+    <string name="platform_label_unknown">Link muzical</string>
+    <string name="platform_label_universal">Link universal</string>
+    <string name="history_copy_source_generic">Copiază linkul original</string>
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d melodie redirecționată cu succes!</item>
         <item quantity="few">🎉 %1$d melodii redirecționate cu succes!</item>

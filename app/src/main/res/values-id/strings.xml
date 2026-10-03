@@ -224,6 +224,9 @@
     <string name="history_copy_target">Salin tautan %1$s</string>
     <string name="history_copy_source">Salin tautan %1$s asli</string>
     <string name="action_more_options">Opsi lainnya</string>
+    <string name="platform_label_unknown">Tautan musik</string>
+    <string name="platform_label_universal">Tautan universal</string>
+    <string name="history_copy_source_generic">Salin tautan asli</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="other">🎉 Berhasil mengonversi %1$d lagu!</item>

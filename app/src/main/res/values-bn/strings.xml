@@ -225,6 +225,9 @@
     <string name="history_copy_target">%1$s লিংক কপি করুন</string>
     <string name="history_copy_source">মূল %1$s লিংক কপি করুন</string>
     <string name="action_more_options">আরও বিকল্প</string>
+    <string name="platform_label_unknown">মিউজিক লিংক</string>
+    <string name="platform_label_universal">ইউনিভার্সাল লিংক</string>
+    <string name="history_copy_source_generic">মূল লিংক কপি করুন</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 সফলভাবে %1$dটি গান রূপান্তরিত হয়েছে!</item>

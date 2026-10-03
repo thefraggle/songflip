@@ -481,8 +481,9 @@ fun HistoryItemCard(
     val sourcePlatformKey = remember(item.canonicalUrl) {
         PackageUtils.detectPlatformFromUrl(item.canonicalUrl)
     }
-    val sourceDisplayName = remember(sourcePlatformKey) {
-        if (sourcePlatformKey.isNotEmpty()) PackageUtils.getPlatformDisplayName(sourcePlatformKey) else "Music Link"
+    val unknownSourceLabel = stringResource(R.string.platform_label_unknown)
+    val sourceDisplayName = remember(sourcePlatformKey, unknownSourceLabel) {
+        if (sourcePlatformKey.isNotEmpty()) PackageUtils.getPlatformDisplayName(sourcePlatformKey) else unknownSourceLabel
     }
     val targetDisplayName = remember(item.platform) {
         PackageUtils.getPlatformDisplayName(item.platform)
@@ -734,7 +735,13 @@ fun HistoryItemCard(
                             }
                         )
                         DropdownMenuItem(
-                            text = { Text(stringResource(R.string.history_copy_source, sourceDisplayName)) },
+                            text = {
+                                // "Copy original Music link link" reads badly, so unknown sources get their own phrase.
+                                Text(
+                                    if (sourcePlatformKey.isNotEmpty()) stringResource(R.string.history_copy_source, sourceDisplayName)
+                                    else stringResource(R.string.history_copy_source_generic)
+                                )
+                            },
                             leadingIcon = { Icon(Icons.Outlined.Link, contentDescription = null, modifier = Modifier.size(18.dp)) },
                             onClick = {
                                 showMenu = false

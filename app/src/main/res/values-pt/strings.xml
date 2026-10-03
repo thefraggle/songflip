@@ -225,6 +225,9 @@
     <string name="history_copy_target">Copiar link do %1$s</string>
     <string name="history_copy_source">Copiar link original do %1$s</string>
     <string name="action_more_options">Mais opções</string>
+    <string name="platform_label_unknown">Link de música</string>
+    <string name="platform_label_universal">Link universal</string>
+    <string name="history_copy_source_generic">Copiar link original</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d música convertida com sucesso!</item>

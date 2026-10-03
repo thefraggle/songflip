@@ -217,6 +217,9 @@
     <string name="history_copy_target">Kopírovat odkaz %1$s</string>
     <string name="history_copy_source">Kopírovat původní odkaz %1$s</string>
     <string name="action_more_options">Další možnosti</string>
+    <string name="platform_label_unknown">Hudební odkaz</string>
+    <string name="platform_label_universal">Univerzální odkaz</string>
+    <string name="history_copy_source_generic">Kopírovat původní odkaz</string>
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d skladba úspěšně převedena!</item>
         <item quantity="few">🎉 %1$d skladby úspěšně převedeny!</item>

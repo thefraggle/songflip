@@ -227,6 +227,9 @@
     <string name="history_copy_target">Копіювати посилання %1$s</string>
     <string name="history_copy_source">Копіювати оригінальне посилання %1$s</string>
     <string name="action_more_options">Інші дії</string>
+    <string name="platform_label_unknown">Музичне посилання</string>
+    <string name="platform_label_universal">Універсальне посилання</string>
+    <string name="history_copy_source_generic">Копіювати оригінальне посилання</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 Успішно перетворено %1$d трек!</item>

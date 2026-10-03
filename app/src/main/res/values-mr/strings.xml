@@ -225,6 +225,9 @@
     <string name="history_copy_target">%1$s लिंक कॉपी करा</string>
     <string name="history_copy_source">मूळ %1$s लिंक कॉपी करा</string>
     <string name="action_more_options">आणखी पर्याय</string>
+    <string name="platform_label_unknown">संगीत लिंक</string>
+    <string name="platform_label_universal">युनिव्हर्सल लिंक</string>
+    <string name="history_copy_source_generic">मूळ लिंक कॉपी करा</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d गाणे यशस्वीरित्या बदलले!</item>

@@ -43,7 +43,11 @@ fun ClipboardSmartBanner(
     modifier: Modifier = Modifier
 ) {
     val haptic = LocalHapticFeedback.current
-    val platformName = detectSourcePlatformName(musicUrl)
+    val platformName = detectSourcePlatformName(
+        url = musicUrl,
+        universalLabel = stringResource(R.string.platform_label_universal),
+        unknownLabel = stringResource(R.string.platform_label_unknown)
+    )
 
     Card(
         shape = RoundedCornerShape(16.dp),
@@ -300,7 +304,8 @@ fun ClipboardSmartBanner(
     }
 }
 
-fun detectSourcePlatformName(url: String): String {
+/** Brand names stay as-is; only the generic fallbacks are localized and passed in by the caller. */
+fun detectSourcePlatformName(url: String, universalLabel: String, unknownLabel: String): String {
     val lower = url.lowercase()
     return when {
         lower.contains("spotify.com") || lower.contains("spotify.link") || lower.contains("spotify.app.link") || lower.contains("spoti.fi") -> "Spotify"
@@ -311,8 +316,8 @@ fun detectSourcePlatformName(url: String): String {
         lower.contains("amazon.") || lower.contains("amzn.to") || lower.contains("amzn.eu") || lower.contains("amzn.asia") || lower.contains("a.co") -> "Amazon Music"
         lower.contains("soundcloud.com") || lower.contains("on.soundcloud.com") -> "SoundCloud"
         lower.contains("bandcamp.com") -> "Bandcamp"
-        lower.contains("song.link") || lower.contains("album.link") || lower.contains("odesli.co") -> "Universal Link"
-        else -> "Music Link"
+        lower.contains("song.link") || lower.contains("album.link") || lower.contains("odesli.co") -> universalLabel
+        else -> unknownLabel
     }
 }
 

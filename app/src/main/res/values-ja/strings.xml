@@ -224,6 +224,9 @@
     <string name="history_copy_target">%1$sのリンクをコピー</string>
     <string name="history_copy_source">元の%1$sリンクをコピー</string>
     <string name="action_more_options">その他のオプション</string>
+    <string name="platform_label_unknown">音楽リンク</string>
+    <string name="platform_label_universal">ユニバーサルリンク</string>
+    <string name="history_copy_source_generic">元のリンクをコピー</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="other">🎉 %1$d 曲の変換に成功しました！</item>

@@ -215,6 +215,9 @@
     <string name="history_copy_target">%1$s-link másolása</string>
     <string name="history_copy_source">Eredeti %1$s-link másolása</string>
     <string name="action_more_options">További lehetőségek</string>
+    <string name="platform_label_unknown">Zenei link</string>
+    <string name="platform_label_universal">Univerzális link</string>
+    <string name="history_copy_source_generic">Eredeti link másolása</string>
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d szám sikeresen átirányítva!</item>
         <item quantity="other">🎉 %1$d szám sikeresen átirányítva!</item>

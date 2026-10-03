@@ -224,6 +224,9 @@
     <string name="history_copy_target">复制 %1$s 链接</string>
     <string name="history_copy_source">复制原始 %1$s 链接</string>
     <string name="action_more_options">更多选项</string>
+    <string name="platform_label_unknown">音乐链接</string>
+    <string name="platform_label_universal">通用链接</string>
+    <string name="history_copy_source_generic">复制原始链接</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="other">🎉 已成功转换 %1$d 首歌曲！</item>

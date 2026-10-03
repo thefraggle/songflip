@@ -214,6 +214,9 @@
     <string name="history_copy_target">複製 %1$s 連結</string>
     <string name="history_copy_source">複製原始 %1$s 連結</string>
     <string name="action_more_options">更多選項</string>
+    <string name="platform_label_unknown">音樂連結</string>
+    <string name="platform_label_universal">通用連結</string>
+    <string name="history_copy_source_generic">複製原始連結</string>
     <plurals name="pro_nudge_title">
         <item quantity="other">🎉 成功跳轉了 %1$d 首歌曲！</item>
     </plurals>

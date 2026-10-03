@@ -224,6 +224,9 @@
     <string name="history_copy_target">Sao chép liên kết %1$s</string>
     <string name="history_copy_source">Sao chép liên kết %1$s gốc</string>
     <string name="action_more_options">Tùy chọn khác</string>
+    <string name="platform_label_unknown">Liên kết nhạc</string>
+    <string name="platform_label_universal">Liên kết chung</string>
+    <string name="history_copy_source_generic">Sao chép liên kết gốc</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="other">🎉 Đã chuyển đổi thành công %1$d bài hát!</item>
