@@ -186,7 +186,8 @@ object AptabaseClient {
         reason: String,
         sourceDomain: String? = null,
         sourcePlatform: String? = null,
-        errorReason: String? = null
+        errorReason: String? = null,
+        errorDetail: String? = null
     ) {
         val effectiveReason = (errorReason ?: reason).take(64)
         val params = mutableMapOf(
@@ -194,6 +195,9 @@ object AptabaseClient {
             "reason" to effectiveReason,
             "error_reason" to effectiveReason
         )
+        if (!errorDetail.isNullOrBlank()) {
+            params["error_detail"] = errorDetail.take(64)
+        }
         if (!sourceDomain.isNullOrBlank()) {
             params["source_domain"] = sourceDomain.take(64)
         }

@@ -59,6 +59,12 @@ class AptabaseClientTest {
             sourcePlatform = "spotify",
             errorReason = "no_match_found"
         )
+        AptabaseClient.trackLinkFlipFailed(
+            target = "spotify",
+            reason = "parse_error",
+            errorReason = "parse_error",
+            errorDetail = "Unexpected JSON token at offset 0"
+        )
         AptabaseClient.trackPodcastIntercepted("spotify")
         AptabaseClient.trackAudiobookIntercepted("spotify")
         AptabaseClient.trackPlaylistRouted("appleMusic")

@@ -410,7 +410,11 @@ object ProManager {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 de.goork.songflip.core.engine.SongLinkEngine.shared.queryL2ServerCache(rawUrl, "universal", getAuthToken())
-            } catch (_: Throwable) {}
+            } catch (t: Throwable) {
+                if (t is kotlinx.coroutines.CancellationException) throw t
+                // Warmup only pre-fills the cache; the share link works without it.
+                android.util.Log.w("ProManager", "Universal share warmup failed: ${t.message}")
+            }
         }
     }
 

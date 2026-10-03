@@ -91,7 +91,11 @@ fun HistoryBottomSheet(
                             if (res is de.goork.songflip.core.model.ResolutionResult.Success && !res.thumbnailUrl.isNullOrBlank()) {
                                 hasUpdates = true
                             }
-                        } catch (_: Throwable) {}
+                        } catch (t: Throwable) {
+                            if (t is kotlinx.coroutines.CancellationException) throw t
+                            // Thumbnail backfill is best-effort; one failing entry must not stop the rest.
+                            android.util.Log.w("HistoryBottomSheet", "Thumbnail refresh failed: ${t.message}")
+                        }
                     }
                     if (hasUpdates) {
                         val updated = SongLinkEngine.shared.cache.getHistoryEntries(limit = historyLimit)

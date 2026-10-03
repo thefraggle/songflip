@@ -3,6 +3,7 @@ package de.goork.songflip.ui.viewmodel
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import de.goork.songflip.core.analytics.FlipErrorClassifier
 import de.goork.songflip.core.engine.SongLinkEngine
 import de.goork.songflip.core.model.MusicPlatform
 import de.goork.songflip.core.model.ResolutionResult
@@ -298,7 +299,7 @@ class RedirectViewModel : ViewModel() {
                         de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipped(
                             target = targetPlatform,
                             isAlbum = result.isAlbum,
-                            isSearch = false,
+                            isSearch = result.isSearchFallback,
                             source = sourcePlatformKey
                         )
 
@@ -377,18 +378,21 @@ class RedirectViewModel : ViewModel() {
             if (t is kotlinx.coroutines.CancellationException) throw t
             val sourceDomain = UrlUtils.extractDomain(incomingUrl)
             val sourcePlatform = UrlUtils.detectPlatform(incomingUrl)?.key ?: "unknown"
-            val errorReason = when {
-                t is java.net.SocketTimeoutException || t is java.net.ConnectException -> "socket_timeout"
-                t is java.net.UnknownHostException -> "unknown_host"
-                else -> t::class.simpleName ?: "exception"
+            // No t::class.simpleName here: R8 renames classes in release builds ("f0", #59).
+            val errorReason = when (t) {
+                is java.net.SocketTimeoutException, is java.net.ConnectException -> "socket_timeout"
+                is java.net.UnknownHostException -> "unknown_host"
+                is javax.net.ssl.SSLException -> "ssl_error"
+                else -> FlipErrorClassifier.classify(t)
             }
 
             de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
                 target = targetPlatform,
-                reason = t.message ?: errorReason,
+                reason = errorReason,
                 sourceDomain = sourceDomain,
                 sourcePlatform = sourcePlatform,
-                errorReason = errorReason
+                errorReason = errorReason,
+                errorDetail = FlipErrorClassifier.detail(t)
             )
             withContext(Dispatchers.Main) {
                 _uiState.value = RedirectUiState.ForwardOriginal(

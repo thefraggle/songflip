@@ -708,7 +708,7 @@ struct ContentView: View {
                     AptabaseClient.shared.trackLinkFlipped(
                         target: settings.targetPlatform,
                         isAlbum: success.isAlbum,
-                        isSearch: false,
+                        isSearch: success.isSearchFallback,
                         source: srcKey
                     )
 
@@ -765,7 +765,8 @@ struct ContentView: View {
                         reason: reason,
                         sourceDomain: sourceDomain,
                         sourcePlatform: sourcePlatform,
-                        errorReason: errorReason
+                        errorReason: errorReason,
+                        errorDetail: nil
                     )
                     showToast(LocalizationManager.string(for: "redirect_error_toast", lang: lang))
                     if let original = URL(string: urlToConvert) {

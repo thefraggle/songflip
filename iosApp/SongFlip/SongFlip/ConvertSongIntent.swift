@@ -75,7 +75,7 @@ struct ConvertSongIntent: AppIntent {
             AptabaseClient.shared.trackLinkFlipped(
                 target: targetPlatform,
                 isAlbum: success.isAlbum,
-                isSearch: false,
+                isSearch: success.isSearchFallback,
                 source: srcKey
             )
 
@@ -140,7 +140,8 @@ struct ConvertSongIntent: AppIntent {
                 reason: reason,
                 sourceDomain: sourceDomain,
                 sourcePlatform: sourcePlatform,
-                errorReason: errorReason
+                errorReason: errorReason,
+                errorDetail: nil
             )
             throw ConvertSongIntentError.conversionFailed(reason)
         }

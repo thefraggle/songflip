@@ -270,7 +270,10 @@ class RedirectActivity : ComponentActivity() {
             if (t is kotlinx.coroutines.CancellationException) throw t
             try {
                 fallbackIncomingUri?.let { forwardOriginalUrl(it) }
-            } catch (_: Throwable) {}
+            } catch (forwardError: Throwable) {
+                // Last resort already failed; log so it shows up instead of vanishing silently.
+                android.util.Log.w("RedirectActivity", "Forwarding original URL after error failed", forwardError)
+            }
             finish()
             suppressTransitionAnimation()
         }

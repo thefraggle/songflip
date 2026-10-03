@@ -21,7 +21,16 @@ sealed class ResolutionResult {
         val isAlbum: Boolean = false,
         val nativeAppUri: String? = null,
         val thumbnailUrl: String? = null
-    ) : ResolutionResult()
+    ) : ResolutionResult() {
+        /**
+         * True when no direct match was found and the engine fell back to a search page
+         * (platform suffix `_fallback` or a search URL). Feeds `link_flipped.is_search`, which
+         * was hardcoded to false and made the success rate look better than it is (#59).
+         * Getter-only, so it is not part of the serialized form.
+         */
+        val isSearchFallback: Boolean
+            get() = platform.endsWith("_fallback") || de.goork.songflip.core.util.UrlUtils.isSearchUrl(targetUrl)
+    }
 
     @Serializable
     data class Playlist(
