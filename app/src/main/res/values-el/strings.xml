@@ -215,6 +215,9 @@
     <string name="history_copy_target">Αντιγραφή συνδέσμου %1$s</string>
     <string name="history_copy_source">Αντιγραφή αρχικού συνδέσμου %1$s</string>
     <string name="action_more_options">Περισσότερες επιλογές</string>
+    <string name="platform_label_unknown">Σύνδεσμος μουσικής</string>
+    <string name="platform_label_universal">Καθολικός σύνδεσμος</string>
+    <string name="history_copy_source_generic">Αντιγραφή αρχικού συνδέσμου</string>
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d κομμάτι μετατράπηκε επιτυχώς!</item>
         <item quantity="other">🎉 %1$d κομμάτια μετατράπηκαν επιτυχώς!</item>

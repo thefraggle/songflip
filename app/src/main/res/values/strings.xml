@@ -243,6 +243,9 @@
     <string name="history_copy_target">Copy %1$s link</string>
     <string name="history_copy_source">Copy original %1$s link</string>
     <string name="action_more_options">More options</string>
+    <string name="platform_label_unknown">Music link</string>
+    <string name="platform_label_universal">Universal link</string>
+    <string name="history_copy_source_generic">Copy original link</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d song flipped successfully!</item>

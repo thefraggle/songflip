@@ -227,6 +227,9 @@
     <string name="history_copy_target">Копировать ссылку %1$s</string>
     <string name="history_copy_source">Копировать исходную ссылку %1$s</string>
     <string name="action_more_options">Другие действия</string>
+    <string name="platform_label_unknown">Музыкальная ссылка</string>
+    <string name="platform_label_universal">Универсальная ссылка</string>
+    <string name="history_copy_source_generic">Копировать исходную ссылку</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 Успешно перенаправлен %1$d трек!</item>

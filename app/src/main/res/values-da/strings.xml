@@ -225,6 +225,9 @@
     <string name="history_copy_target">Kopiér %1$s-link</string>
     <string name="history_copy_source">Kopiér originalt %1$s-link</string>
     <string name="action_more_options">Flere muligheder</string>
+    <string name="platform_label_unknown">Musiklink</string>
+    <string name="platform_label_universal">Universelt link</string>
+    <string name="history_copy_source_generic">Kopiér originalt link</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d sang vendt med succes!</item>

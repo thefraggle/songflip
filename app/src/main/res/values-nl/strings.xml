@@ -225,6 +225,9 @@
     <string name="history_copy_target">%1$s-link kopiëren</string>
     <string name="history_copy_source">Originele %1$s-link kopiëren</string>
     <string name="action_more_options">Meer opties</string>
+    <string name="platform_label_unknown">Muzieklink</string>
+    <string name="platform_label_universal">Universele link</string>
+    <string name="history_copy_source_generic">Originele link kopiëren</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d nummer succesvol omgezet!</item>

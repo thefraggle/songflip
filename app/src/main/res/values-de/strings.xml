@@ -243,6 +243,9 @@
     <string name="history_copy_target">%1$s-Link kopieren</string>
     <string name="history_copy_source">Originalen %1$s-Link kopieren</string>
     <string name="action_more_options">Weitere Optionen</string>
+    <string name="platform_label_unknown">Musik-Link</string>
+    <string name="platform_label_universal">Universal-Link</string>
+    <string name="history_copy_source_generic">Original-Link kopieren</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d Song erfolgreich geflippt!</item>

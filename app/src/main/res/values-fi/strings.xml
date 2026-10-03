@@ -215,6 +215,9 @@
     <string name="history_copy_target">Kopioi %1$s-linkki</string>
     <string name="history_copy_source">Kopioi alkuperäinen %1$s-linkki</string>
     <string name="action_more_options">Lisää vaihtoehtoja</string>
+    <string name="platform_label_unknown">Musiikkilinkki</string>
+    <string name="platform_label_universal">Yleislinkki</string>
+    <string name="history_copy_source_generic">Kopioi alkuperäinen linkki</string>
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d kappale muunnettu onnistuneesti!</item>
         <item quantity="other">🎉 %1$d kappaletta muunnettu onnistuneesti!</item>

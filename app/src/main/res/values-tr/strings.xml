@@ -225,6 +225,9 @@
     <string name="history_copy_target">%1$s bağlantısını kopyala</string>
     <string name="history_copy_source">Orijinal %1$s bağlantısını kopyala</string>
     <string name="action_more_options">Diğer seçenekler</string>
+    <string name="platform_label_unknown">Müzik bağlantısı</string>
+    <string name="platform_label_universal">Evrensel bağlantı</string>
+    <string name="history_copy_source_generic">Orijinal bağlantıyı kopyala</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d şarkı başarıyla dönüştürüldü!</item>

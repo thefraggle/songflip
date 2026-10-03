@@ -224,6 +224,9 @@
     <string name="history_copy_target">%1$s 링크 복사</string>
     <string name="history_copy_source">원본 %1$s 링크 복사</string>
     <string name="action_more_options">더보기</string>
+    <string name="platform_label_unknown">음악 링크</string>
+    <string name="platform_label_universal">유니버설 링크</string>
+    <string name="history_copy_source_generic">원본 링크 복사</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="other">🎉 %1$d개의 노래 전환 성공!</item>

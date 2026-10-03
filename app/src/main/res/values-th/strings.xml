@@ -214,6 +214,9 @@
     <string name="history_copy_target">คัดลอกลิงก์ %1$s</string>
     <string name="history_copy_source">คัดลอกลิงก์ %1$s ต้นฉบับ</string>
     <string name="action_more_options">ตัวเลือกเพิ่มเติม</string>
+    <string name="platform_label_unknown">ลิงก์เพลง</string>
+    <string name="platform_label_universal">ลิงก์สากล</string>
+    <string name="history_copy_source_generic">คัดลอกลิงก์ต้นฉบับ</string>
     <plurals name="pro_nudge_title">
         <item quantity="other">🎉 แปลงลิงก์เพลงสำเร็จแล้ว %1$d เพลง!</item>
     </plurals>
