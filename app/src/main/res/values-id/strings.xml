@@ -315,4 +315,5 @@
     <string name="prerelease_btn_presave_spotify">Pra-simpan di Spotify</string>
     <string name="prerelease_btn_search_target">Cari single di %1$s</string>
     <string name="prerelease_btn_cancel">Batal</string>
+    <string name="share_self_link_notice">Ini adalah tautan SongFlip. Silakan bagikan tautan musik.</string>
 </resources>

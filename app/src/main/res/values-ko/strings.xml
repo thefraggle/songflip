@@ -315,4 +315,5 @@
     <string name="prerelease_btn_presave_spotify">Spotify에서 사전 저장</string>
     <string name="prerelease_btn_search_target">%1$s에서 싱글 검색</string>
     <string name="prerelease_btn_cancel">취소</string>
+    <string name="share_self_link_notice">SongFlip 링크입니다. 음악 링크를 공유해 주세요.</string>
 </resources>

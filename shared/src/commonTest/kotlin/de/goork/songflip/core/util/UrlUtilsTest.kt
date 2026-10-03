@@ -413,6 +413,24 @@ class UrlUtilsTest {
         val pcNative = UrlUtils.toPodcastNativeAppUri("pocketCasts", "Huberman Lab")
         assertEquals("pocketcasts://search?q=Huberman%20Lab", pcNative)
     }
+
+    @Test
+    fun testIsSongFlipUrl() {
+        assertTrue(UrlUtils.isSongFlipUrl("https://download.songflip.link"))
+        assertTrue(UrlUtils.isSongFlipUrl("https://download.songflip.link/promo"))
+        assertTrue(UrlUtils.isSongFlipUrl("https://songflip.link/s/abc123def456"))
+        assertTrue(UrlUtils.isSongFlipUrl("https://share.songflip.link/abc"))
+        assertTrue(UrlUtils.isSongFlipUrl("http://songflip.de"))
+        assertTrue(UrlUtils.isSongFlipUrl("https://songflip.app/terms"))
+        assertTrue(UrlUtils.isSongFlipUrl("https://songflip-web.web.app/redeemPromoCode"))
+        assertTrue(UrlUtils.isSongFlipUrl("https://songflip-web.firebaseapp.com"))
+
+        assertFalse(UrlUtils.isSongFlipUrl("https://open.spotify.com/track/123"))
+        assertFalse(UrlUtils.isSongFlipUrl("https://music.apple.com/album/123"))
+        assertFalse(UrlUtils.isSongFlipUrl("https://youtube.com/watch?v=123"))
+        assertFalse(UrlUtils.isSongFlipUrl("https://google.com"))
+        assertFalse(UrlUtils.isSongFlipUrl(""))
+    }
 }
 
 

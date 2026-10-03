@@ -730,4 +730,26 @@ object UrlUtils {
     fun toNativeBandcampUri(url: String): String {
         return url
     }
+
+    /**
+     * Checks if a URL belongs to SongFlip's own domains (e.g. download.songflip.link, share.songflip.link).
+     * Used as a defensive guard to prevent self-referential flips and guide users to share authentic music links.
+     */
+    fun isSongFlipUrl(url: String): Boolean {
+        val clean = url.trim().lowercase()
+        if (clean.isBlank()) return false
+        val host = clean
+            .substringAfter("://")
+            .substringBefore("/")
+            .substringBefore(":")
+            .substringBefore("?")
+            .trim()
+        if (host.isEmpty()) return false
+        return host == "songflip.link" || host.endsWith(".songflip.link") ||
+               host == "songflip.de" || host.endsWith(".songflip.de") ||
+               host == "songflip.app" || host.endsWith(".songflip.app") ||
+               host == "songflip-web.web.app" ||
+               host == "songflip-web.firebaseapp.com"
+    }
 }
+

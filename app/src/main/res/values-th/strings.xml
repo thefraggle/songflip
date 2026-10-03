@@ -301,4 +301,5 @@
     <string name="prerelease_btn_presave_spotify">บันทึกล่วงหน้าบน Spotify</string>
     <string name="prerelease_btn_search_target">ค้นหาซิงเกิลใน %1$s</string>
     <string name="prerelease_btn_cancel">ยกเลิก</string>
+    <string name="share_self_link_notice">นี่คือลิงก์ SongFlip โปรดแชร์ลิงก์เพลงแทน</string>
 </resources>

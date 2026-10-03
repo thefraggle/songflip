@@ -319,4 +319,5 @@
     <string name="prerelease_btn_presave_spotify">Pré-salvar no Spotify</string>
     <string name="prerelease_btn_search_target">Buscar singles no %1$s</string>
     <string name="prerelease_btn_cancel">Cancelar</string>
+    <string name="share_self_link_notice">Este é um link do SongFlip. Compartilhe um link de música.</string>
 </resources>

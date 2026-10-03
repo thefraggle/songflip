@@ -315,4 +315,5 @@
     <string name="prerelease_btn_presave_spotify">Lưu trước trên Spotify</string>
     <string name="prerelease_btn_search_target">Tìm đĩa đơn trên %1$s</string>
     <string name="prerelease_btn_cancel">Hủy</string>
+    <string name="share_self_link_notice">Đây là liên kết SongFlip. Vui lòng chia sẻ liên kết âm nhạc.</string>
 </resources>

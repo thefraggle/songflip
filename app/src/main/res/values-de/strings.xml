@@ -334,4 +334,5 @@
     <string name="prerelease_btn_presave_spotify">In Spotify vorab speichern</string>
     <string name="prerelease_btn_search_target">Vorab-Singles in %1$s suchen</string>
     <string name="prerelease_btn_cancel">Abbrechen</string>
+    <string name="share_self_link_notice">Das ist ein SongFlip-Link. Bitte teile einen Musiklink.</string>
 </resources>

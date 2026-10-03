@@ -313,4 +313,5 @@
     <string name="prerelease_btn_presave_spotify">Uložit předem na Spotify</string>
     <string name="prerelease_btn_search_target">Hledat singly v %1$s</string>
     <string name="prerelease_btn_cancel">Zrušit</string>
+    <string name="share_self_link_notice">Toto je odkaz SongFlip. Sdílejte prosím odkaz na hudbu.</string>
 </resources>

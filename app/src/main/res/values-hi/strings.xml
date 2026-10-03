@@ -319,4 +319,5 @@
     <string name="prerelease_btn_presave_spotify">Spotify पर प्री-सेव करें</string>
     <string name="prerelease_btn_search_target">%1$s में सिंगल्स खोजें</string>
     <string name="prerelease_btn_cancel">रद्द करें</string>
+    <string name="share_self_link_notice">यह एक SongFlip लिंक है। कृपया संगीत लिंक साझा करें।</string>
 </resources>

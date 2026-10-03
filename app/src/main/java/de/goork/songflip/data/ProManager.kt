@@ -7,6 +7,7 @@ import com.revenuecat.purchases.*
 import com.revenuecat.purchases.interfaces.PurchaseCallback
 import com.revenuecat.purchases.interfaces.ReceiveCustomerInfoCallback
 import com.revenuecat.purchases.interfaces.ReceiveOfferingsCallback
+import com.revenuecat.purchases.interfaces.SyncPurchasesCallback
 import com.revenuecat.purchases.interfaces.UpdatedCustomerInfoListener
 import com.revenuecat.purchases.models.StoreTransaction
 import okhttp3.MediaType.Companion.toMediaType
@@ -224,6 +225,39 @@ object ProManager {
                     override fun onError(error: PurchasesError, userCancelled: Boolean) {
                         if (userCancelled) {
                             onCancelled()
+                        } else if (error.code == PurchasesErrorCode.ProductAlreadyPurchasedError) {
+                            // Automatically sync purchases when Google Play reports the product is already owned
+                            Purchases.sharedInstance.syncPurchases(object : SyncPurchasesCallback {
+                                override fun onSuccess(customerInfo: CustomerInfo) {
+                                    val syncedState = updateFromCustomerInfo(customerInfo)
+                                    if (syncedState.isPro) {
+                                        onSuccess()
+                                    } else {
+                                        // As a secondary recovery attempt, invoke restorePurchases
+                                        Purchases.sharedInstance.restorePurchases(object : ReceiveCustomerInfoCallback {
+                                            override fun onReceived(restoredInfo: CustomerInfo) {
+                                                val restoredState = updateFromCustomerInfo(restoredInfo)
+                                                if (restoredState.isPro) {
+                                                    onSuccess()
+                                                } else {
+                                                    onError(error.message, error.code.name, error.underlyingErrorMessage)
+                                                }
+                                            }
+
+                                            override fun onError(restoreErr: PurchasesError) {
+                                                onError(error.message, error.code.name, error.underlyingErrorMessage)
+                                            }
+                                        })
+                                    }
+                                }
+
+                                override fun onError(error: PurchasesError) {
+                                    this@ProManager.restorePurchases(
+                                        onSuccess = onSuccess,
+                                        onError = { _ -> onError(error.message, error.code.name, error.underlyingErrorMessage) }
+                                    )
+                                }
+                            })
                         } else {
                             onError(error.message, error.code.name, error.underlyingErrorMessage)
                         }
@@ -243,12 +277,39 @@ object ProManager {
                     if (proState.isPro) {
                         onSuccess()
                     } else {
-                        onError("No active PRO subscription found.")
+                        // Fallback: syncPurchases to catch unacknowledged/out-of-sync store purchases
+                        Purchases.sharedInstance.syncPurchases(object : SyncPurchasesCallback {
+                            override fun onSuccess(customerInfo: CustomerInfo) {
+                                val syncedState = updateFromCustomerInfo(customerInfo)
+                                if (syncedState.isPro) {
+                                    onSuccess()
+                                } else {
+                                    onError("No active PRO subscription found.")
+                                }
+                            }
+
+                            override fun onError(error: PurchasesError) {
+                                onError("No active PRO subscription found.")
+                            }
+                        })
                     }
                 }
 
                 override fun onError(error: PurchasesError) {
-                    onError(error.message)
+                    Purchases.sharedInstance.syncPurchases(object : SyncPurchasesCallback {
+                        override fun onSuccess(customerInfo: CustomerInfo) {
+                            val syncedState = updateFromCustomerInfo(customerInfo)
+                            if (syncedState.isPro) {
+                                onSuccess()
+                            } else {
+                                onError(error.message)
+                            }
+                        }
+
+                        override fun onError(error: PurchasesError) {
+                            onError(error.message)
+                        }
+                    })
                 }
             })
         } catch (e: Exception) {
