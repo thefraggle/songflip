@@ -45,4 +45,29 @@ object PaywallPricing {
      */
     fun formatSaleOriginal(saleMicros: Long, currencyCode: String, locale: Locale = Locale.getDefault()): String? =
         formatAmount(saleMicros * 2.0, currencyCode, locale)
+
+    /** Below this, a "save X %" badge looks petty rather than persuasive. */
+    const val MIN_SAVINGS_PERCENT = 5
+
+    /**
+     * Savings of the annual plan vs. paying monthly for 12 months, rounded to whole percent.
+     *
+     * Computed from live store prices because regional pricing (MX, IN, AR …) does not keep the
+     * 7.99 / 0.99 ratio – a hardcoded "33 %" would be wrong there.
+     * Returns null when no honest comparison is possible (missing prices, currency mismatch,
+     * or savings below [MIN_SAVINGS_PERCENT]).
+     */
+    fun annualSavingsPercent(
+        annualMicros: Long?,
+        annualCurrency: String?,
+        monthlyMicros: Long?,
+        monthlyCurrency: String?
+    ): Int? {
+        if (annualMicros == null || monthlyMicros == null) return null
+        if (annualMicros <= 0 || monthlyMicros <= 0) return null
+        if (annualCurrency == null || annualCurrency != monthlyCurrency) return null
+        val yearlyViaMonthly = monthlyMicros * 12.0
+        val percent = Math.round((1.0 - annualMicros / yearlyViaMonthly) * 100.0).toInt()
+        return percent.takeIf { it >= MIN_SAVINGS_PERCENT }
+    }
 }

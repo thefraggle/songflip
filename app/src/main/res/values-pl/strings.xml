@@ -164,15 +164,14 @@
     <string name="pro_tier_monthly">Miesięcznie</string>
     <string name="pro_tier_annual">Rocznie</string>
     <string name="pro_tier_lifetime">Dożywotnio</string>
-    <string name="pro_bestseller_badge" formatted="false">33% TANIEJ</string>
-    <string name="pro_bestseller_intro_badge" formatted="false">50% TANIEJ</string>
     <string name="pro_lifetime_badge">POPULARNE • JEDNORAZOWO</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">Oferta ograniczona czasowo</string>
+    <string name="pro_save_badge">OSZCZĘDŹ %1$d%%</string>
+    <string name="pro_price_annual_vs_monthly">%1$s / miesiąc (zamiast %2$s)</string>
+    <string name="pro_price_annual_vs_monthly_intro">%1$s / miesiąc w 1. roku (zamiast %2$s)</string>
     <string name="pro_price_monthly_default">—</string>
     <string name="pro_price_annual_default">—</string>
-    <string name="pro_price_annual_sub">~%1$s / miesiąc (4 miesiące gratis)</string>
-    <string name="pro_price_annual_sub_intro">~%1$s / miesiąc (1. rok 50%% taniej)</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Przywróć zakupy</string>
     <string name="pro_coupon_toggle">Masz kod promocyjny?</string>

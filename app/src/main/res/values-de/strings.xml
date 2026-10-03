@@ -176,15 +176,14 @@
     <string name="pro_tier_monthly">Monatlich</string>
     <string name="pro_tier_annual">Jährlich</string>
     <string name="pro_tier_lifetime">Lifetime</string>
-    <string name="pro_bestseller_badge" formatted="false">33% ERSPARNIS</string>
-    <string name="pro_bestseller_intro_badge" formatted="false">50% ERSPARNIS</string>
     <string name="pro_lifetime_badge">BELIEBT • EINMALIG</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">Befristetes Angebot</string>
+    <string name="pro_save_badge">%1$d %% SPAREN</string>
+    <string name="pro_price_annual_vs_monthly">%1$s / Monat (statt %2$s)</string>
+    <string name="pro_price_annual_vs_monthly_intro">%1$s / Monat im 1. Jahr (statt %2$s)</string>
     <string name="pro_price_monthly_default">—</string>
     <string name="pro_price_annual_default">—</string>
-    <string name="pro_price_annual_sub">~%1$s / Monat (4 Monate geschenkt)</string>
-    <string name="pro_price_annual_sub_intro">~%1$s / Monat (1. Jahr 50%% Rabatt)</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Käufe wiederherstellen</string>
     <string name="pro_coupon_toggle">Gutscheincode einlösen</string>
