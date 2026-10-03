@@ -303,4 +303,10 @@
     <string name="pro_feature_links_desc">Un link pe care fiecare îl deschide în playerul său</string>
     <string name="pro_feature_future_title">Tot ce urmează</string>
     <string name="pro_feature_future_desc">Funcții PRO noi fără cost suplimentar</string>
+    <!-- Pre-Release Notice -->
+    <string name="prerelease_sheet_title">Album nelansat încă</string>
+    <string name="prerelease_sheet_desc">Acest album nu este încă disponibil pe platformele de streaming.</string>
+    <string name="prerelease_btn_presave_spotify">Pre-salvează pe Spotify</string>
+    <string name="prerelease_btn_search_target">Caută single-uri pe %1$s</string>
+    <string name="prerelease_btn_cancel">Anulează</string>
 </resources>

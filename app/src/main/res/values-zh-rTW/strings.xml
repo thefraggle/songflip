@@ -295,4 +295,10 @@
     <string name="pro_feature_links_desc">一個連結，每個人都能在自己的播放器中開啟</string>
     <string name="pro_feature_future_title">未來功能</string>
     <string name="pro_feature_future_desc">新的 PRO 功能無需額外付費</string>
+    <!-- Pre-Release Notice -->
+    <string name="prerelease_sheet_title">尚未發行</string>
+    <string name="prerelease_sheet_desc">該專輯尚未在串流平台上架。</string>
+    <string name="prerelease_btn_presave_spotify">在 Spotify 上預存</string>
+    <string name="prerelease_btn_search_target">在 %1$s 中搜尋單曲</string>
+    <string name="prerelease_btn_cancel">取消</string>
 </resources>

@@ -321,4 +321,10 @@
     <string name="pro_feature_links_desc">Одне посилання, яке кожен відкриє у своєму плеєрі</string>
     <string name="pro_feature_future_title">Усе, що попереду</string>
     <string name="pro_feature_future_desc">Нові функції PRO без доплати</string>
+    <!-- Pre-Release Notice -->
+    <string name="prerelease_sheet_title">Ще не вийшов</string>
+    <string name="prerelease_sheet_desc">Цей альбом ще не опублікований на стримінгових платформах.</string>
+    <string name="prerelease_btn_presave_spotify">Зберегти заздалегідь у Spotify</string>
+    <string name="prerelease_btn_search_target">Шукати сингли в %1$s</string>
+    <string name="prerelease_btn_cancel">Скасувати</string>
 </resources>

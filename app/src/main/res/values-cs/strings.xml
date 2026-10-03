@@ -307,4 +307,10 @@
     <string name="pro_feature_links_desc">Jeden odkaz, který každý otevře ve svém přehrávači</string>
     <string name="pro_feature_future_title">Vše, co přijde</string>
     <string name="pro_feature_future_desc">Nové funkce PRO bez příplatku</string>
+    <!-- Pre-Release Notice -->
+    <string name="prerelease_sheet_title">Dosud nevydané album</string>
+    <string name="prerelease_sheet_desc">Toto album zatím nebylo vydáno na streamovacích platformách.</string>
+    <string name="prerelease_btn_presave_spotify">Uložit předem na Spotify</string>
+    <string name="prerelease_btn_search_target">Hledat singly v %1$s</string>
+    <string name="prerelease_btn_cancel">Zrušit</string>
 </resources>

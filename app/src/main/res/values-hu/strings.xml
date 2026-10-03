@@ -299,4 +299,10 @@
     <string name="pro_feature_links_desc">Egy link, amit mindenki a saját lejátszójában nyit meg</string>
     <string name="pro_feature_future_title">Minden, ami jön</string>
     <string name="pro_feature_future_desc">Új PRO funkciók felár nélkül</string>
+    <!-- Pre-Release Notice -->
+    <string name="prerelease_sheet_title">Még nem jelent meg</string>
+    <string name="prerelease_sheet_desc">Ez az album még nem jelent meg a streaming felületeken.</string>
+    <string name="prerelease_btn_presave_spotify">Előzetes mentés a Spotify-on</string>
+    <string name="prerelease_btn_search_target">Kislemez keresése itt: %1$s</string>
+    <string name="prerelease_btn_cancel">Mégse</string>
 </resources>
