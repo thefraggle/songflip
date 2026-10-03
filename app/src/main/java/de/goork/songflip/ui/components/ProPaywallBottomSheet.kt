@@ -38,6 +38,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.revenuecat.purchases.Offering
@@ -331,10 +332,16 @@ fun ProPaywallBottomSheet(
                 val annualBadge = annualSavingsPercent?.let { stringResource(R.string.pro_save_badge, it) }
                 val annualSub = if (annualPackage != null && monthlyRegularPrice != null && annualSavingsPercent != null) {
                     val perMonth = formatMonthlyPrice(annualPackage)
+                    // Same formatter as perMonth: the store string may use a different locale
+                    // (seen on FR device: "0,67 € … au lieu de €0.99").
+                    val monthly = PaywallPricing.formatAmount(monthlyRegularPrice.amountMicros.toDouble(), monthlyRegularPrice.currencyCode)
+                        ?: monthlyRegularPrice.formatted.also {
+                            Log.w(PAYWALL_TAG, "Unknown currency '${monthlyRegularPrice.currencyCode}', using store-formatted monthly price")
+                        }
                     if (isAnnualIntro) {
-                        stringResource(R.string.pro_price_annual_vs_monthly_intro, perMonth, monthlyRegularPrice.formatted)
+                        stringResource(R.string.pro_price_annual_vs_monthly_intro, perMonth, monthly)
                     } else {
-                        stringResource(R.string.pro_price_annual_vs_monthly, perMonth, monthlyRegularPrice.formatted)
+                        stringResource(R.string.pro_price_annual_vs_monthly, perMonth, monthly)
                     }
                 } else {
                     null
@@ -496,7 +503,10 @@ fun ProPaywallBottomSheet(
                 }
 
                 // Restore + legal links in one quiet row. FlowRow wraps for long translations
-                // (FR/EL/HU) instead of truncating; every item keeps a 48 dp touch target.
+                // (FR/EL/HU) instead of truncating. Material's 48 dp layout minimum made the wrapped
+                // lines look detached, so the layout minimum is lifted here: rows are 40 dp, and
+                // Compose still extends the hit area of smaller clickables to 48 dp.
+                CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides Dp.Unspecified) {
                 FlowRow(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center
@@ -523,7 +533,7 @@ fun ProPaywallBottomSheet(
                             )
                         },
                         enabled = !isPurchasing && !isRestoring,
-                        modifier = Modifier.heightIn(min = 48.dp)
+                        contentPadding = PaywallLinkPadding
                     ) {
                         if (isRestoring) {
                             CircularProgressIndicator(
@@ -545,6 +555,7 @@ fun ProPaywallBottomSheet(
                     PaywallLegalLink(text = stringResource(R.string.legal_privacy)) {
                         LegalLinks.open(context, LegalLinks.PRIVACY)
                     }
+                }
                 }
 
                 // Store policies expect renewal and cancellation terms next to subscription offers.
@@ -685,9 +696,12 @@ private fun Context.findActivity(): Activity? {
     return null
 }
 
+/** Tighter than TextButton's default 12 dp so three links fit one line in more languages. */
+private val PaywallLinkPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+
 @Composable
 private fun PaywallLegalLink(text: String, onClick: () -> Unit) {
-    TextButton(onClick = onClick, modifier = Modifier.heightIn(min = 48.dp)) {
+    TextButton(onClick = onClick, contentPadding = PaywallLinkPadding) {
         Text(
             text = text,
             style = MaterialTheme.typography.bodySmall,
