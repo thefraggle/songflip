@@ -84,7 +84,7 @@ For users who want the fastest possible performance, advanced playlist capabilit
 - **Java Development Kit (JDK)**: JDK 17+ (Eclipse Temurin or OpenJDK 17 recommended).
 - **Android Development**: Android Studio Ladybug / Meerkat with Android SDK (API Level 26–36) and Command-line Tools.
 - **iOS Development (macOS only)**: Xcode 16+ with Command Line Tools and iOS 17+ Simulator / Device SDKs.
-- **Node.js (for Cloud Functions)**: Node.js 20+ & npm (if running backend tests or functions).
+- **Node.js (for Cloud Functions)**: Node.js 22+ & npm (if running backend tests or functions).
 
 ### 2. Environment Configuration
 Copy or create `local.properties` in the project root for local Android builds:
