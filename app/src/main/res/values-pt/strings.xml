@@ -163,6 +163,7 @@
     <string name="pro_tier_annual">Anual</string>
     <string name="pro_tier_lifetime">Vitalício</string>
     <string name="pro_lifetime_badge">POPULAR • PAGAMENTO ÚNICO</string>
+    <string name="pro_lifetime_onetime_badge">PAGAMENTO ÚNICO</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">Oferta por tempo limitado</string>
     <string name="pro_save_badge">ECONOMIZE %1$d%%</string>

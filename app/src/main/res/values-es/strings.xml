@@ -163,6 +163,7 @@
     <string name="pro_tier_annual">Anual</string>
     <string name="pro_tier_lifetime">De por vida</string>
     <string name="pro_lifetime_badge">POPULAR • PAGO ÚNICO</string>
+    <string name="pro_lifetime_onetime_badge">PAGO ÚNICO</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">Oferta por tiempo limitado</string>
     <string name="pro_save_badge">AHORRA %1$d %%</string>

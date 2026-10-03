@@ -162,6 +162,7 @@
     <string name="pro_tier_annual">年額</string>
     <string name="pro_tier_lifetime">永久買い切り</string>
     <string name="pro_lifetime_badge">人気 • 買い切り</string>
+    <string name="pro_lifetime_onetime_badge">買い切り</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">期間限定オファー</string>
     <string name="pro_save_badge">%1$d%%お得</string>

@@ -163,6 +163,7 @@
     <string name="pro_tier_annual">বার্ষিক</string>
     <string name="pro_tier_lifetime">Lifetime</string>
     <string name="pro_lifetime_badge">জনপ্রিয় • এককালীন</string>
+    <string name="pro_lifetime_onetime_badge">এককালীন কেনা</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">সীমিত সময়ের অফার</string>
     <string name="pro_save_badge">%1$d%% সাশ্রয়</string>

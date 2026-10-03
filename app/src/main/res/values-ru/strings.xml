@@ -165,6 +165,7 @@
     <string name="pro_tier_annual">Ежегодно</string>
     <string name="pro_tier_lifetime">Навсегда</string>
     <string name="pro_lifetime_badge">ПОПУЛЯРНО • НАВСЕГДА</string>
+    <string name="pro_lifetime_onetime_badge">РАЗОВАЯ ПОКУПКА</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">Ограниченное предложение</string>
     <string name="pro_save_badge">ЭКОНОМИЯ %1$d%%</string>

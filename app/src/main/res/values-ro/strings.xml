@@ -154,6 +154,7 @@
     <string name="pro_tier_annual">Anual</string>
     <string name="pro_tier_lifetime">Pe viață</string>
     <string name="pro_lifetime_badge">POPULAR • PLATĂ UNICĂ</string>
+    <string name="pro_lifetime_onetime_badge">PLATĂ UNICĂ</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">Ofertă pe timp limitat</string>
     <string name="pro_save_badge">ECONOMISEȘTI %1$d%%</string>

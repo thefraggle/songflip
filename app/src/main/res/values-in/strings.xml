@@ -162,6 +162,7 @@
     <string name="pro_tier_annual">Tahunan</string>
     <string name="pro_tier_lifetime">Lifetime</string>
     <string name="pro_lifetime_badge">POPULER • SEKALI BAYAR</string>
+    <string name="pro_lifetime_onetime_badge">SEKALI BELI</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">Penawaran terbatas</string>
     <string name="pro_save_badge">HEMAT %1$d%%</string>

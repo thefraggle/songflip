@@ -84,6 +84,7 @@ class LocalizationTest {
             "pro_save_badge",
             "pro_price_annual_vs_monthly",
             "pro_price_annual_vs_monthly_intro",
+            "pro_lifetime_onetime_badge",
             "pro_feature_playlists_title",
             "pro_feature_playlists_desc",
             "pro_feature_history_title",

@@ -163,6 +163,7 @@
     <string name="pro_tier_annual">Jaarlijks</string>
     <string name="pro_tier_lifetime">Levenslang</string>
     <string name="pro_lifetime_badge">POPULAIR • EENMALIG</string>
+    <string name="pro_lifetime_onetime_badge">EENMALIG</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">Tijdelijke aanbieding</string>
     <string name="pro_save_badge">BESPAAR %1$d%%</string>
