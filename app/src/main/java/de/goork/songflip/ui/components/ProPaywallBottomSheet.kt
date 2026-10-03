@@ -3,6 +3,7 @@ package de.goork.songflip.ui.components
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
@@ -48,8 +49,6 @@ import de.goork.songflip.data.ProManager
 import de.goork.songflip.data.RedeemResult
 import kotlinx.coroutines.launch
 import java.text.DateFormat
-import java.text.NumberFormat
-import java.util.Currency
 import java.util.Date
 import java.util.Locale
 
@@ -803,22 +802,16 @@ private fun isLifetimeSaleActive(
     return false
 }
 
+private const val PAYWALL_TAG = "ProPaywall"
+
 private fun formatOriginalStrikePrice(pkg: Package?): String? {
     val price = getEffectivePrice(pkg) ?: return null
-    // Assuming 50% discount -> original regular price is 2x
-    val originalAmount = (price.amountMicros * 2.0) / 1_000_000.0
-    return try {
-        val curr = Currency.getInstance(price.currencyCode)
-        val format = NumberFormat.getCurrencyInstance().apply {
-            currency = curr
-            val fractionDigits = curr.defaultFractionDigits.coerceAtLeast(0)
-            maximumFractionDigits = fractionDigits
-            minimumFractionDigits = fractionDigits
+    return PaywallPricing.formatSaleOriginal(price.amountMicros, price.currencyCode)
+        ?: run {
+            // Without a valid currency we cannot render a trustworthy strike price → hide it.
+            Log.w(PAYWALL_TAG, "Unknown currency '${price.currencyCode}', hiding lifetime strike price")
+            null
         }
-        format.format(originalAmount)
-    } catch (_: Exception) {
-        String.format(Locale.getDefault(), "%.2f", originalAmount)
-    }
 }
 
 private fun getEffectivePrice(pkg: Package?): Price? {
@@ -846,18 +839,10 @@ private fun isAnnualIntroOfferActive(annualPackage: Package?): Boolean {
 
 private fun formatMonthlyPrice(annualPackage: Package): String {
     val price = getEffectivePrice(annualPackage) ?: annualPackage.product.price
-    val monthlyAmount = (price.amountMicros / 12.0) / 1_000_000.0
-    return try {
-        val curr = Currency.getInstance(price.currencyCode)
-        val format = NumberFormat.getCurrencyInstance().apply {
-            currency = curr
-            val fractionDigits = curr.defaultFractionDigits.coerceAtLeast(0)
-            maximumFractionDigits = fractionDigits
-            minimumFractionDigits = fractionDigits
+    return PaywallPricing.formatPerMonth(price.amountMicros, price.currencyCode)
+        ?: run {
+            Log.w(PAYWALL_TAG, "Unknown currency '${price.currencyCode}', falling back to plain monthly amount")
+            String.format(Locale.getDefault(), "%.2f %s", price.amountMicros / 12.0 / 1_000_000.0, price.currencyCode)
         }
-        format.format(monthlyAmount)
-    } catch (_: Exception) {
-        String.format(Locale.getDefault(), "%.2f", monthlyAmount)
-    }
 }
 

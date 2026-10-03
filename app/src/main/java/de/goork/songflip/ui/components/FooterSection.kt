@@ -16,10 +16,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import de.goork.songflip.R
+import de.goork.songflip.data.LegalLinks
 
-private const val URL_PRIVACY = "https://songflip.link/privacy-policy.html"
-private const val URL_IMPRINT = "https://songflip.link/imprint.html"
-private const val URL_TERMS = "https://songflip.link/terms.html"
 
 @Composable
 fun FooterSection(
@@ -66,7 +64,7 @@ fun FooterSection(
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
                     .clickable(role = androidx.compose.ui.semantics.Role.Button) {
-                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL_PRIVACY)))
+                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(LegalLinks.PRIVACY)))
                     }
                     .padding(horizontal = 6.dp, vertical = 8.dp)
             )
@@ -81,7 +79,7 @@ fun FooterSection(
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
                     .clickable(role = androidx.compose.ui.semantics.Role.Button) {
-                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL_IMPRINT)))
+                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(LegalLinks.IMPRINT)))
                     }
                     .padding(horizontal = 6.dp, vertical = 8.dp)
             )
@@ -96,7 +94,7 @@ fun FooterSection(
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
                     .clickable(role = androidx.compose.ui.semantics.Role.Button) {
-                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL_TERMS)))
+                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(LegalLinks.TERMS)))
                     }
                     .padding(horizontal = 6.dp, vertical = 8.dp)
             )

@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.os.LocaleListCompat
 import de.goork.songflip.R
+import de.goork.songflip.data.LegalLinks
 import de.goork.songflip.data.ContactHelper
 import de.goork.songflip.data.ProManager
 import de.goork.songflip.data.SettingsRepository
@@ -60,9 +61,6 @@ import androidx.compose.material.icons.outlined.Share
 import de.goork.songflip.core.engine.SongLinkEngine
 
 private const val URL_NOTTHOFF = "https://notthoff.org"
-private const val URL_PRIVACY = "https://songflip.link/privacy-policy.html"
-private const val URL_IMPRINT = "https://songflip.link/imprint.html"
-private const val URL_TERMS = "https://songflip.link/terms.html"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -913,7 +911,7 @@ fun SettingsBottomSheet(
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.clickable {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URL_PRIVACY))
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(LegalLinks.PRIVACY))
                             context.startActivity(intent)
                         }
                     )
@@ -927,7 +925,7 @@ fun SettingsBottomSheet(
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.clickable {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URL_IMPRINT))
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(LegalLinks.IMPRINT))
                             context.startActivity(intent)
                         }
                     )
@@ -941,7 +939,7 @@ fun SettingsBottomSheet(
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.clickable {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URL_TERMS))
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(LegalLinks.TERMS))
                             context.startActivity(intent)
                         }
                     )
