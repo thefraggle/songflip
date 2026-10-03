@@ -1,3 +1,3 @@
-- Spotify Pre-Releases: Pre-release countdown links are now intelligently detected. Pre-save albums directly in Spotify or find released singles in your player.
-- Accurate Album Matching: Official albums on YouTube Music are prioritized over unofficial video playlists.
-- Stability & Polish: Faster background link resolution and improved normalization.
+- Improved Link Recognition: Shared SongFlip app links are now intercepted with a helpful prompt to share music links instead.
+- Enhanced Account Sync: Automatic background recovery and verification for existing account statuses and entitlements.
+- Bug Fixes & Stability: General stability improvements and more resilient background handling.

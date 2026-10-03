@@ -1,3 +1,3 @@
-- Spotify Pre-Releases: Pre-Release- und Countdown-Links werden jetzt erkannt. Alben direkt in Spotify vormerken oder nach Singles im Ziel-Player suchen.
-- Präzise Album-Erkennung: Offizielle YouTube Music Alben werden vor inoffiziellen Video-Playlists priorisiert.
-- Stabilität & Feinschliff: Schnellere Link-Auflösung im Hintergrund und optimierte Bereinigung.
+- Zuverlässigere Link-Erkennung: Eigene App-Links werden jetzt abgefangen und mit einem hilfreichen Hinweis versehen, stattdessen einen Musiklink zu teilen.
+- Verbesserte Synchronisierung: Automatische Hintergrund-Wiederherstellung für bestehende Kontostatus und Berechtigungen.
+- Fehlerbehebungen & Stabilität: Allgemeine Stabilitätsverbesserungen und zuverlässigere Fehlerbehandlung im Hintergrund.
