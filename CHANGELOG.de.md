@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.6.7] - 2026-10-03
+- **Spotify Pre-Releases**: Countdown- und Pre-Release-Links von Spotify werden jetzt erkannt. Du kannst das Album direkt in Spotify vormerken oder nach bereits veröffentlichten Singles in deinem Ziel-Player suchen.
+- **Präzisere Album-Erkennung**: Offizielle Alben auf YouTube Music werden zuverlässig erkannt und von inoffiziellen Video-Playlists unterschieden.
+- **Feinschliff & Stabilität**: Optimierte Link-Bereinigung und schnellere Hintergrund-Auflösung.
+
 ## [1.6.6] - 2026-10-03
 - **Verständlichere Beschreibungen**: Funktionen erklären jetzt klar, was sie dir bringen – in allen 31 Sprachen.
 - **Korrekte Anzeige in jeder Region**: Behoben, dass einige Angaben in manchen Ländern nicht genau stimmten.

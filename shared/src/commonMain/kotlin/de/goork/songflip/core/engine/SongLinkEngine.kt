@@ -335,6 +335,34 @@ class SongLinkEngine(
                 )
             }
 
+            // Spotify Pre-Releases (Unreleased albums/singles with countdown)
+            if (UrlUtils.isPreReleaseUrl(canonicalUrl)) {
+                if (targetPlatformKey == "spotify") {
+                    val nativeUri = UrlUtils.toNativeSpotifyUri(canonicalUrl)
+                    return ResolutionResult.Success(
+                        targetUrl = canonicalUrl,
+                        platform = "spotify",
+                        isAlbum = true,
+                        nativeAppUri = nativeUri
+                    )
+                }
+                val info = spotifyResolver.extractPreReleaseInfo(canonicalUrl)
+                val title = info.title
+                val artist = info.artist
+                val query = listOfNotNull(artist, title).joinToString(" ").ifBlank { "music" }
+                val targetSearchUrl = UrlUtils.buildSearchUrl(query, targetPlatformKey)
+                val nativeSpotifyUri = UrlUtils.toNativeSpotifyUri(canonicalUrl)
+                return ResolutionResult.PreRelease(
+                    originalUrl = canonicalUrl,
+                    platform = targetPlatformKey,
+                    title = title,
+                    artist = artist,
+                    targetSearchUrl = targetSearchUrl,
+                    nativeSpotifyUri = nativeSpotifyUri,
+                    message = "PRE_RELEASE_NOT_YET_AVAILABLE"
+                )
+            }
+
             val isExplicitTrackUrl = canonicalUrl.contains("i=") || canonicalUrl.contains("/song/") || canonicalUrl.contains("/track/")
             val isExplicitAlbumUrl = !isExplicitTrackUrl && UrlUtils.isAlbumUrl(canonicalUrl)
             val now = getCurrentTimeMillis()

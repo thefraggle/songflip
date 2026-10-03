@@ -19,12 +19,11 @@ class YouTubeMusicResolver(
 
     override val platform: MusicPlatform = MusicPlatform.YOUTUBE_MUSIC
 
-    private val ytVideoRendererRegex = Regex("\"videoRenderer\":\\{\"videoId\":\"([a-zA-Z0-9_-]{11})\"")
-    private val ytVideoIdJsonRegex = Regex("\"videoId\":\"([a-zA-Z0-9_-]{11})\"")
+    private val ytVideoRendererRegex = Regex("\"videoRenderer\":\\s*\\{\"videoId\":\\s*\"([a-zA-Z0-9_-]{11})\"")
+    private val ytVideoIdJsonRegex = Regex("\"videoId\":\\s*\"([a-zA-Z0-9_-]{11})\"")
     private val ytWatchRegex = Regex("/watch\\?v=([a-zA-Z0-9_-]{11})")
-    private val ytAlbumPlaylistRegex = Regex("\"playlistId\":\"(OLAK5uy_[a-zA-Z0-9_-]+)\"")
-    private val ytAlbumBrowseRegex = Regex("\"browseId\":\"(MPREb_[a-zA-Z0-9_-]+)\"")
-    private val ytGenericPlaylistRegex = Regex("\"playlistId\":\"([a-zA-Z0-9_-]{18,})\"")
+    private val ytAlbumPlaylistRegex = Regex("\"playlistId\":\\s*\"(OLAK5uy_[a-zA-Z0-9_-]+)\"")
+    private val ytAlbumBrowseRegex = Regex("\"browseId\":\\s*\"(MPREb_[a-zA-Z0-9_-]+)\"")
 
     override suspend fun resolveTrack(query: String): String? {
         // Strategy 1: YouTube Music Innertube Web Client Search (Primary)
@@ -118,7 +117,8 @@ class YouTubeMusicResolver(
     }
 
     private suspend fun searchYouTubeMusicAlbumInnertube(query: String): String? {
-        return try {
+        suspend fun executeSearch(params: String?): String? {
+            val paramsClause = if (params != null) ",\n                    \"params\": \"$params\"" else ""
             val payload = """
                 {
                     "context": {
@@ -129,8 +129,7 @@ class YouTubeMusicResolver(
                             "gl": "US"
                         }
                     },
-                    "query": "${query.replace("\"", "\\\"")}",
-                    "params": "Eg-KAQwIABAAGAAgACgAMABqChAMEAMQBBAFEAo%3D"
+                    "query": "${query.replace("\"", "\\\"")}"$paramsClause
                 }
             """.trimIndent()
 
@@ -151,7 +150,12 @@ class YouTubeMusicResolver(
                     return "https://music.youtube.com/browse/${browseMatch.groupValues[1]}"
                 }
             }
-            null
+            return null
+        }
+
+        return try {
+            // First attempt with specific album filter param, fallback to unparameterized search
+            executeSearch("Eg-KAQwIABAAGAAgACgAMABqChAMEAMQBBAFEAo%3D") ?: executeSearch(null)
         } catch (t: Throwable) {
             if (t is CancellationException) throw t
             null
@@ -167,9 +171,13 @@ class YouTubeMusicResolver(
 
             if (resp.status.isSuccess()) {
                 val body = resp.bodyAsText()
-                val albumMatch = ytAlbumPlaylistRegex.find(body) ?: ytGenericPlaylistRegex.find(body)
+                val albumMatch = ytAlbumPlaylistRegex.find(body)
                 if (albumMatch != null) {
                     return "https://music.youtube.com/playlist?list=${albumMatch.groupValues[1]}"
+                }
+                val browseMatch = ytAlbumBrowseRegex.find(body)
+                if (browseMatch != null) {
+                    return "https://music.youtube.com/browse/${browseMatch.groupValues[1]}"
                 }
             }
             null

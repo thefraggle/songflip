@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.6.7] - 2026-10-03
+- **Spotify Pre-Release Handling**: Spotify countdown pre-release links are now intelligently recognized. You can pre-save the album directly in Spotify or search for already released singles in your target player.
+- **Accurate Album Matching**: Fixed YouTube Music matching for newly released official albums to avoid user-generated video playlists.
+- **Polish & Stability**: Improved link normalization and faster background resolution.
+
 ## [1.6.6] - 2026-10-03
 - **Clearer Descriptions**: Features now explain what they do for you – in all 31 languages.
 - **Accurate Display in Every Region**: Fixed some details not showing correctly in certain countries.

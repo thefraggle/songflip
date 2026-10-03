@@ -27,6 +27,7 @@ import de.goork.songflip.data.PauseHelper
 import de.goork.songflip.data.ProManager
 import de.goork.songflip.data.SettingsRepository
 import de.goork.songflip.ui.components.OfflineWaitingBottomSheet
+import de.goork.songflip.ui.components.PreReleaseBottomSheet
 import de.goork.songflip.ui.components.QuickTargetPickerBottomSheet
 import de.goork.songflip.ui.theme.SongFlipTheme
 import de.goork.songflip.ui.viewmodel.RedirectUiState
@@ -192,6 +193,29 @@ class RedirectActivity : ComponentActivity() {
                                 },
                                 onDismissRequest = {
                                     networkRetryJob?.cancel()
+                                    forwardOriginalUrl(incomingUri)
+                                    finish()
+                                    suppressTransitionAnimation()
+                                }
+                            )
+                        }
+                        is RedirectUiState.PreReleaseDetected -> {
+                            PreReleaseBottomSheet(
+                                title = state.title,
+                                artist = state.artist,
+                                targetPlatformKey = state.targetPlatform,
+                                onPreSaveSpotify = {
+                                    val spotifyUri = state.nativeSpotifyUri ?: state.originalUrl
+                                    openTargetUrl(spotifyUri, "spotify")
+                                    finish()
+                                    suppressTransitionAnimation()
+                                },
+                                onSearchTarget = {
+                                    openTargetUrl(state.targetSearchUrl, state.targetPlatform)
+                                    finish()
+                                    suppressTransitionAnimation()
+                                },
+                                onDismiss = {
                                     forwardOriginalUrl(incomingUri)
                                     finish()
                                     suppressTransitionAnimation()
