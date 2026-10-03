@@ -49,6 +49,15 @@ sealed interface RedirectUiState {
         val playlistUrl: String
     ) : RedirectUiState
 
+    data class PreReleaseDetected(
+        val originalUrl: String,
+        val targetPlatform: String,
+        val title: String? = null,
+        val artist: String? = null,
+        val targetSearchUrl: String,
+        val nativeSpotifyUri: String? = null
+    ) : RedirectUiState
+
     data class DirectShareUniversal(
         val shareUrl: String
     ) : RedirectUiState
@@ -350,6 +359,16 @@ class RedirectViewModel : ViewModel() {
                             de.goork.songflip.core.analytics.AptabaseClient.shared.trackPodcastIntercepted(targetPlatform)
                         }
                         _uiState.value = RedirectUiState.ForwardOriginal(Uri.parse(incomingUrl))
+                    }
+                    is ResolutionResult.PreRelease -> {
+                        _uiState.value = RedirectUiState.PreReleaseDetected(
+                            originalUrl = result.originalUrl,
+                            targetPlatform = result.platform,
+                            title = result.title,
+                            artist = result.artist,
+                            targetSearchUrl = result.targetSearchUrl,
+                            nativeSpotifyUri = result.nativeSpotifyUri
+                        )
                     }
                     else -> {
                         val sourceDomain = UrlUtils.extractDomain(incomingUrl)

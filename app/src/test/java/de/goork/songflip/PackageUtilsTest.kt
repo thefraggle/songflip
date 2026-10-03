@@ -59,6 +59,9 @@ class PackageUtilsTest {
 
         val webAlbum = "https://open.spotify.com/intl-es/album/1DFixLWuPkv3KT3TnV35m3"
         assertEquals("spotify:album:1DFixLWuPkv3KT3TnV35m3", PackageUtils.toNativeSpotifyUri(webAlbum))
+
+        val webPrerelease = "https://open.spotify.com/intl-de/prerelease/1W89OcXOpDWuI5FQrmrHvt?si=938321d2091446c0"
+        assertEquals("spotify:prerelease:1W89OcXOpDWuI5FQrmrHvt", PackageUtils.toNativeSpotifyUri(webPrerelease))
     }
 
     @Test

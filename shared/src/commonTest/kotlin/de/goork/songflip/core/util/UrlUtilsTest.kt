@@ -20,6 +20,9 @@ class UrlUtilsTest {
 
         val artistUrl = "https://open.spotify.com/artist/0OdUWJ0sBjDrqHygGUXeCF?si=xyz"
         assertEquals("https://open.spotify.com/artist/0OdUWJ0sBjDrqHygGUXeCF", UrlUtils.normalizeUrl(artistUrl))
+
+        val prereleaseUrl = "https://open.spotify.com/intl-de/prerelease/1W89OcXOpDWuI5FQrmrHvt?si=938321d2091446c0"
+        assertEquals("https://open.spotify.com/prerelease/1W89OcXOpDWuI5FQrmrHvt", UrlUtils.normalizeUrl(prereleaseUrl))
     }
 
     @Test
@@ -179,6 +182,8 @@ class UrlUtilsTest {
         assertEquals(de.goork.songflip.core.model.MusicEntityType.PLAYLIST, UrlUtils.detectEntityType("https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M"))
         assertEquals(de.goork.songflip.core.model.MusicEntityType.TRACK, UrlUtils.detectEntityType("https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv"))
         assertEquals(de.goork.songflip.core.model.MusicEntityType.ALBUM, UrlUtils.detectEntityType("https://open.spotify.com/album/1DFixLWuPkv3KT3TnV35m3"))
+        assertTrue(UrlUtils.isPreReleaseUrl("https://open.spotify.com/prerelease/1W89OcXOpDWuI5FQrmrHvt?si=123"))
+        assertEquals(de.goork.songflip.core.model.MusicEntityType.PRE_RELEASE, UrlUtils.detectEntityType("https://open.spotify.com/prerelease/1W89OcXOpDWuI5FQrmrHvt"))
 
         assertEquals(de.goork.songflip.core.model.MusicPlatform.SPOTIFY, UrlUtils.detectPlatform("https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M"))
         assertEquals(de.goork.songflip.core.model.MusicPlatform.APPLE_MUSIC, UrlUtils.detectPlatform("https://music.apple.com/de/playlist/heavy-metal/pl.u-12345"))
@@ -233,6 +238,7 @@ class UrlUtilsTest {
         assertEquals("spotify:track:4u7EnebtmKWzUH433cf5Qv", UrlUtils.toNativeAppUri("https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv", "spotify"))
         assertEquals("spotify:track:4u7EnebtmKWzUH433cf5Qv", UrlUtils.toNativeAppUri("https://open.spotify.com/intl-de/track/4u7EnebtmKWzUH433cf5Qv?si=123", "spotify"))
         assertEquals("spotify:playlist:37i9dQZF1DXcBWIGoYBM5M", UrlUtils.toNativeAppUri("https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M", "spotify"))
+        assertEquals("spotify:prerelease:1W89OcXOpDWuI5FQrmrHvt", UrlUtils.toNativeAppUri("https://open.spotify.com/prerelease/1W89OcXOpDWuI5FQrmrHvt?si=123", "spotify"))
 
         // Deezer
         assertEquals("deezer://www.deezer.com/track/12345", UrlUtils.toNativeAppUri("https://www.deezer.com/track/12345", "deezer"))

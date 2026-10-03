@@ -184,7 +184,7 @@ object PackageUtils {
     fun toNativeSpotifyUri(url: String): String {
         if (url.startsWith("spotify:")) return url
         val clean = url.trim().substringBefore("?")
-        val match = Regex("open\\.spotify\\.com(?:/intl-[a-zA-Z-]+)?/(track|album|artist|playlist)/([a-zA-Z0-9]+)").find(clean)
+        val match = Regex("open\\.spotify\\.com(?:/intl-[a-zA-Z-]+)?/(track|album|artist|playlist|prerelease)/([a-zA-Z0-9]+)").find(clean)
         if (match != null) {
             val type = match.groupValues[1]
             val id = match.groupValues[2]

@@ -70,6 +70,17 @@ sealed class ResolutionResult {
     ) : ResolutionResult()
 
     @Serializable
+    data class PreRelease(
+        val originalUrl: String,
+        val platform: String,
+        val title: String? = null,
+        val artist: String? = null,
+        val targetSearchUrl: String,
+        val nativeSpotifyUri: String? = null,
+        val message: String? = null
+    ) : ResolutionResult()
+
+    @Serializable
     data class Error(
         val message: String,
         val isUnsupported: Boolean = false,

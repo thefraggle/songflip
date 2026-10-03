@@ -12,5 +12,6 @@ enum class MusicEntityType {
     ARTIST,
     SEARCH,
     SOCIAL_SESSION,
+    PRE_RELEASE,
     UNKNOWN
 }

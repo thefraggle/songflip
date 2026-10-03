@@ -53,6 +53,11 @@ object UrlUtils {
             val id = spotifyArtistMatch.groupValues[1]
             return "https://open.spotify.com/artist/$id"
         }
+        val spotifyPrereleaseMatch = Regex("open\\.spotify\\.com(?:/intl-[a-zA-Z-]+)?/prerelease/([a-zA-Z0-9]+)").find(clean)
+        if (spotifyPrereleaseMatch != null) {
+            val id = spotifyPrereleaseMatch.groupValues[1]
+            return "https://open.spotify.com/prerelease/$id"
+        }
 
         // 2. Apple Music: Preserve base URL + exact track id parameter (?i=...)
         if (clean.contains("apple.com") && clean.contains("i=")) {
@@ -290,12 +295,19 @@ object UrlUtils {
                 clean.contains("spotify.com/collection")
     }
 
+    fun isPreReleaseUrl(url: String): Boolean {
+        val clean = url.lowercase()
+        return clean.contains("spotify.com/prerelease/") ||
+                clean.startsWith("spotify:prerelease:")
+    }
+
     fun detectEntityType(url: String): MusicEntityType {
         val clean = url.lowercase()
         return when {
             isPodcastUrl(url) -> MusicEntityType.PODCAST
             isAudiobookUrl(url) -> MusicEntityType.AUDIOBOOK
             isSocialOrSessionUrl(url) -> MusicEntityType.SOCIAL_SESSION
+            isPreReleaseUrl(url) -> MusicEntityType.PRE_RELEASE
             isSearchUrl(url) -> MusicEntityType.SEARCH
             isPlaylistUrl(url) -> MusicEntityType.PLAYLIST
             isAlbumUrl(url) -> MusicEntityType.ALBUM
@@ -625,7 +637,7 @@ object UrlUtils {
     fun toNativeSpotifyUri(url: String): String {
         if (url.startsWith("spotify:")) return url
         val clean = url.trim().substringBefore("?")
-        val match = Regex("open\\.spotify\\.com(?:/intl-[a-zA-Z-]+)?/(track|album|artist|playlist)/([a-zA-Z0-9]+)").find(clean)
+        val match = Regex("open\\.spotify\\.com(?:/intl-[a-zA-Z-]+)?/(track|album|artist|playlist|prerelease)/([a-zA-Z0-9]+)").find(clean)
         if (match != null) {
             val type = match.groupValues[1]
             val id = match.groupValues[2]
