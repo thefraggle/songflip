@@ -70,7 +70,9 @@ fun ProPaywallBottomSheet(
     val proState by ProManager.proState.collectAsState()
     val coroutineScope = rememberCoroutineScope()
     var selectedTier by remember { mutableStateOf(SelectedProTier.LIFETIME) }
+    var hasUserChosenTier by remember { mutableStateOf(false) }
     var currentOffering by remember { mutableStateOf<Offering?>(null) }
+    val paywallLayout = PaywallPricing.resolveLayout(currentOffering?.metadata?.get(PaywallPricing.LAYOUT_METADATA_KEY))
     var availablePackages by remember { mutableStateOf<List<Package>>(emptyList()) }
     var isPurchasing by remember { mutableStateOf(false) }
     var isRestoring by remember { mutableStateOf(false) }
@@ -337,50 +339,58 @@ fun ProPaywallBottomSheet(
                     null
                 }
 
-                // 3 Tier Pricing Cards (Lifetime -> Annual -> Monthly)
+                val tierOrder = PaywallPricing.resolveTierOrder(paywallLayout, isLifetimeSale)
+                // Preselect the leading card once offerings arrive, but never override a user's tap.
+                LaunchedEffect(tierOrder.first()) {
+                    if (!hasUserChosenTier) selectedTier = tierOrder.first()
+                }
+
+                // Lifetime keeps "POPULAR • ONE-TIME" only while it leads; at the bottom "POPULAR" would
+                // compete with the highlighted annual card, so it just states the purchase type.
+                val lifetimeBadge = when {
+                    isLifetimeSale -> stringResource(R.string.pro_lifetime_sale_badge)
+                    tierOrder.first() == SelectedProTier.LIFETIME -> stringResource(R.string.pro_lifetime_badge)
+                    else -> stringResource(R.string.pro_lifetime_onetime_badge)
+                }
+
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    // 1. Lifetime
-                    ProTierCard(
-                        title = stringResource(R.string.pro_tier_lifetime),
-                        price = getEffectivePrice(lifetimePackage)?.formatted ?: "—",
-                        originalPrice = lifetimeOriginalStrike,
-                        subtitle = if (isLifetimeSale) stringResource(R.string.pro_lifetime_sale_sub) else null,
-                        badge = if (isLifetimeSale) stringResource(R.string.pro_lifetime_sale_badge) else stringResource(R.string.pro_lifetime_badge),
-                        isSelected = selectedTier == SelectedProTier.LIFETIME,
-                        onClick = {
+                    tierOrder.forEach { tier ->
+                        val onTierClick = {
                             haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                            selectedTier = SelectedProTier.LIFETIME
+                            hasUserChosenTier = true
+                            selectedTier = tier
                         }
-                    )
-
-                    // 2. Annual (Yearly)
-                    ProTierCard(
-                        title = stringResource(R.string.pro_tier_annual),
-                        price = getEffectivePrice(annualPackage)?.formatted ?: "—",
-                        subtitle = annualSub,
-                        badge = annualBadge,
-                        isSelected = selectedTier == SelectedProTier.ANNUAL,
-                        onClick = {
-                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                            selectedTier = SelectedProTier.ANNUAL
+                        when (tier) {
+                            SelectedProTier.LIFETIME -> ProTierCard(
+                                title = stringResource(R.string.pro_tier_lifetime),
+                                price = getEffectivePrice(lifetimePackage)?.formatted ?: "—",
+                                originalPrice = lifetimeOriginalStrike,
+                                subtitle = if (isLifetimeSale) stringResource(R.string.pro_lifetime_sale_sub) else null,
+                                badge = lifetimeBadge,
+                                isSelected = selectedTier == SelectedProTier.LIFETIME,
+                                onClick = onTierClick
+                            )
+                            SelectedProTier.ANNUAL -> ProTierCard(
+                                title = stringResource(R.string.pro_tier_annual),
+                                price = getEffectivePrice(annualPackage)?.formatted ?: "—",
+                                subtitle = annualSub,
+                                badge = annualBadge,
+                                isSelected = selectedTier == SelectedProTier.ANNUAL,
+                                onClick = onTierClick
+                            )
+                            SelectedProTier.MONTHLY -> ProTierCard(
+                                title = stringResource(R.string.pro_tier_monthly),
+                                price = monthlyPackage?.product?.price?.formatted ?: "—",
+                                subtitle = null,
+                                badge = null,
+                                isSelected = selectedTier == SelectedProTier.MONTHLY,
+                                onClick = onTierClick
+                            )
                         }
-                    )
-
-                    // 3. Monthly
-                    ProTierCard(
-                        title = stringResource(R.string.pro_tier_monthly),
-                        price = monthlyPackage?.product?.price?.formatted ?: "—",
-                        subtitle = null,
-                        badge = null,
-                        isSelected = selectedTier == SelectedProTier.MONTHLY,
-                        onClick = {
-                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                            selectedTier = SelectedProTier.MONTHLY
-                        }
-                    )
+                    }
                 }
 
                 val selectedPackage = when (selectedTier) {
@@ -403,7 +413,7 @@ fun ProPaywallBottomSheet(
                                 packageToPurchase = selectedPackage,
                                 onSuccess = {
                                     isPurchasing = false
-                                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackProPurchased(selectedPackage.identifier)
+                                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackProPurchased(selectedPackage.identifier, layout = paywallLayout.metadataValue)
                                     Toast.makeText(context, context.getString(R.string.pro_active_status), Toast.LENGTH_SHORT).show()
                                     onDismissRequest()
                                 },

@@ -152,6 +152,7 @@
     <string name="pro_tier_annual">รายปี</string>
     <string name="pro_tier_lifetime">ตลอดชีพ</string>
     <string name="pro_lifetime_badge">ยอดนิยม • จ่ายครั้งเดียว</string>
+    <string name="pro_lifetime_onetime_badge">ซื้อครั้งเดียว</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">ข้อเสนอมีเวลาจำกัด</string>
     <string name="pro_save_badge">ประหยัด %1$d%%</string>

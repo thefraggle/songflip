@@ -70,4 +70,33 @@ object PaywallPricing {
         val percent = Math.round((1.0 - annualMicros / yearlyViaMonthly) * 100.0).toInt()
         return percent.takeIf { it >= MIN_SAVINGS_PERCENT }
     }
+
+    /** RevenueCat offering metadata key, set in the dashboard: `{ "paywall_layout": "annual_first" }`. */
+    const val LAYOUT_METADATA_KEY = "paywall_layout"
+
+    /**
+     * Unknown or missing values fall back to [PaywallLayout.LIFETIME_FIRST]: in Sept 2026 lifetime
+     * made up 8 of 11 purchases and 93 % of revenue, so it stays the default until data says otherwise.
+     */
+    fun resolveLayout(rawMetadataValue: Any?): PaywallLayout {
+        val value = (rawMetadataValue as? String)?.trim()?.lowercase()
+        return PaywallLayout.entries.firstOrNull { it.metadataValue == value } ?: PaywallLayout.LIFETIME_FIRST
+    }
+
+    /**
+     * Card order; the first entry is preselected.
+     * An active lifetime sale overrides the layout – a time-limited deal buried at the bottom
+     * would defeat the purpose of running it.
+     */
+    fun resolveTierOrder(layout: PaywallLayout, isLifetimeSale: Boolean): List<SelectedProTier> =
+        if (layout == PaywallLayout.ANNUAL_FIRST && !isLifetimeSale) {
+            listOf(SelectedProTier.ANNUAL, SelectedProTier.MONTHLY, SelectedProTier.LIFETIME)
+        } else {
+            listOf(SelectedProTier.LIFETIME, SelectedProTier.ANNUAL, SelectedProTier.MONTHLY)
+        }
+}
+
+enum class PaywallLayout(val metadataValue: String) {
+    LIFETIME_FIRST("lifetime_first"),
+    ANNUAL_FIRST("annual_first")
 }

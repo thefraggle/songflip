@@ -1,6 +1,8 @@
 package de.goork.songflip
 
+import de.goork.songflip.ui.components.PaywallLayout
 import de.goork.songflip.ui.components.PaywallPricing
+import de.goork.songflip.ui.components.SelectedProTier
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
@@ -63,5 +65,39 @@ class PaywallPricingTest {
         assertNull(PaywallPricing.annualSavingsPercent(7_990_000L, "EUR", null, "EUR"))
         assertNull(PaywallPricing.annualSavingsPercent(7_990_000L, "EUR", 0L, "EUR"))
         assertNull(PaywallPricing.annualSavingsPercent(7_990_000L, "EUR", 990_000L, "USD"))
+    }
+
+    @Test
+    fun resolveLayout_defaultsToLifetimeFirst() {
+        assertEquals(PaywallLayout.LIFETIME_FIRST, PaywallPricing.resolveLayout(null))
+        assertEquals(PaywallLayout.LIFETIME_FIRST, PaywallPricing.resolveLayout("lifetime_first"))
+        assertEquals(PaywallLayout.LIFETIME_FIRST, PaywallPricing.resolveLayout("something_else"))
+        assertEquals(PaywallLayout.LIFETIME_FIRST, PaywallPricing.resolveLayout(true))
+    }
+
+    @Test
+    fun resolveLayout_acceptsAnnualFirstLeniently() {
+        assertEquals(PaywallLayout.ANNUAL_FIRST, PaywallPricing.resolveLayout("annual_first"))
+        assertEquals(PaywallLayout.ANNUAL_FIRST, PaywallPricing.resolveLayout("  Annual_First "))
+    }
+
+    @Test
+    fun resolveTierOrder_followsLayout() {
+        assertEquals(
+            listOf(SelectedProTier.LIFETIME, SelectedProTier.ANNUAL, SelectedProTier.MONTHLY),
+            PaywallPricing.resolveTierOrder(PaywallLayout.LIFETIME_FIRST, isLifetimeSale = false)
+        )
+        assertEquals(
+            listOf(SelectedProTier.ANNUAL, SelectedProTier.MONTHLY, SelectedProTier.LIFETIME),
+            PaywallPricing.resolveTierOrder(PaywallLayout.ANNUAL_FIRST, isLifetimeSale = false)
+        )
+    }
+
+    @Test
+    fun resolveTierOrder_lifetimeSaleWinsOverAnnualFirst() {
+        assertEquals(
+            SelectedProTier.LIFETIME,
+            PaywallPricing.resolveTierOrder(PaywallLayout.ANNUAL_FIRST, isLifetimeSale = true).first()
+        )
     }
 }

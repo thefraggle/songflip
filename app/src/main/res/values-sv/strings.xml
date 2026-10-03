@@ -163,6 +163,7 @@
     <string name="pro_tier_annual">Årsvis</string>
     <string name="pro_tier_lifetime">Livstid</string>
     <string name="pro_lifetime_badge">POPULÄR • ENGÅNGS</string>
+    <string name="pro_lifetime_onetime_badge">ENGÅNGSKÖP</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">Tidsbegränsat erbjudande</string>
     <string name="pro_save_badge">SPARA %1$d %%</string>

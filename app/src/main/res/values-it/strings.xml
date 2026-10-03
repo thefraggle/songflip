@@ -163,6 +163,7 @@
     <string name="pro_tier_annual">Annuale</string>
     <string name="pro_tier_lifetime">A vita</string>
     <string name="pro_lifetime_badge">POPOLARE • UNA TANTUM</string>
+    <string name="pro_lifetime_onetime_badge">UNA TANTUM</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">Offerta a tempo limitato</string>
     <string name="pro_save_badge">RISPARMIA %1$d%%</string>

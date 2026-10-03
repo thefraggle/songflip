@@ -153,6 +153,7 @@
     <string name="pro_tier_annual">Éves</string>
     <string name="pro_tier_lifetime">Örökös</string>
     <string name="pro_lifetime_badge">NÉPSZERŰ • EGYSZERI</string>
+    <string name="pro_lifetime_onetime_badge">EGYSZERI</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">Korlátozott idejű ajánlat</string>
     <string name="pro_save_badge">%1$d%% MEGTAKARÍTÁS</string>

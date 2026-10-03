@@ -163,6 +163,7 @@
     <string name="pro_tier_annual">वार्षिक</string>
     <string name="pro_tier_lifetime">Lifetime</string>
     <string name="pro_lifetime_badge">लोकप्रिय • एकवेळ</string>
+    <string name="pro_lifetime_onetime_badge">एकदाच खरेदी</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">मर्यादित वेळेची ऑफर</string>
     <string name="pro_save_badge">%1$d%% बचत</string>

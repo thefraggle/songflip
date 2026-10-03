@@ -154,6 +154,7 @@
     <string name="pro_tier_annual">Ročně</string>
     <string name="pro_tier_lifetime">Doživotně</string>
     <string name="pro_lifetime_badge">POPULÁRNÍ • JEDNORÁZOVĚ</string>
+    <string name="pro_lifetime_onetime_badge">JEDNORÁZOVĚ</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">Časově omezená nabídka</string>
     <string name="pro_save_badge">UŠETŘETE %1$d %%</string>

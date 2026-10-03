@@ -307,8 +307,11 @@ object AptabaseClient {
         trackEvent("history_cleared")
     }
 
-    fun trackProPurchased(packageId: String) {
-        trackEvent("pro_purchased", mapOf("package_id" to packageId))
+    fun trackProPurchased(packageId: String, layout: String? = null) {
+        val props = mutableMapOf("package_id" to packageId)
+        // Layout is switchable remotely; without it purchases of both variants are indistinguishable.
+        if (!layout.isNullOrBlank()) props["layout"] = layout
+        trackEvent("pro_purchased", props)
     }
 
     fun trackProPurchaseFailed(

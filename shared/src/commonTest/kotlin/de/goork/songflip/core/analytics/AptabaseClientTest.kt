@@ -75,6 +75,7 @@ class AptabaseClientTest {
         AptabaseClient.trackHistoryItemClicked("spotify")
         AptabaseClient.trackHistoryCleared()
         AptabaseClient.trackProPurchased("lifetime_pro")
+        AptabaseClient.trackProPurchased("annual_pro", layout = "annual_first")
         AptabaseClient.trackProPurchaseFailed("USER_CANCELLED")
         AptabaseClient.trackProPurchaseFailed("Payment declined", "StoreProblemError", "BillingResponseCode.ITEM_UNAVAILABLE")
         AptabaseClient.trackRateAppClicked()

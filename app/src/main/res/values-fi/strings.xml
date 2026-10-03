@@ -153,6 +153,7 @@
     <string name="pro_tier_annual">Vuosittain</string>
     <string name="pro_tier_lifetime">Elinikäinen</string>
     <string name="pro_lifetime_badge">SUOSITTU • KERTAKORVAUS</string>
+    <string name="pro_lifetime_onetime_badge">KERTAOSTOS</string>
     <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
     <string name="pro_lifetime_sale_sub">Rajoitetun ajan tarjous</string>
     <string name="pro_save_badge">SÄÄSTÄ %1$d %%</string>
