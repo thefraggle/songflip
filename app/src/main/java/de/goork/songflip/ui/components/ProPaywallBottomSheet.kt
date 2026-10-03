@@ -45,6 +45,7 @@ import com.revenuecat.purchases.Package
 import com.revenuecat.purchases.PackageType
 import com.revenuecat.purchases.models.Price
 import de.goork.songflip.R
+import de.goork.songflip.data.LegalLinks
 import de.goork.songflip.data.ProManager
 import de.goork.songflip.data.RedeemResult
 import kotlinx.coroutines.launch
@@ -58,7 +59,7 @@ enum class SelectedProTier {
     LIFETIME
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun ProPaywallBottomSheet(
     onDismissRequest: () -> Unit,
@@ -494,44 +495,66 @@ fun ProPaywallBottomSheet(
                     }
                 }
 
-                // Restore Purchases Button
-                TextButton(
-                    onClick = {
-                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                        isRestoring = true
-                        ProManager.restorePurchases(
-                            onSuccess = {
-                                isRestoring = false
-                                Toast.makeText(context, context.getString(R.string.pro_active_status), Toast.LENGTH_SHORT).show()
-                                onDismissRequest()
-                            },
-                            onError = { errorMsg ->
-                                isRestoring = false
-                                val userFriendlyMsg = if (errorMsg.contains("NETWORK", ignoreCase = true)) {
-                                    context.getString(R.string.pro_coupon_network_error)
-                                } else {
-                                    context.getString(R.string.pro_restore_no_subscription)
-                                }
-                                Toast.makeText(context, userFriendlyMsg, Toast.LENGTH_LONG).show()
-                            }
-                        )
-                    },
-                    enabled = !isPurchasing && !isRestoring
+                // Restore + legal links in one quiet row. FlowRow wraps for long translations
+                // (FR/EL/HU) instead of truncating; every item keeps a 48 dp touch target.
+                FlowRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
                 ) {
-                    if (isRestoring) {
-                        CircularProgressIndicator(
-                            modifier = Modifier.size(14.dp),
-                            color = MaterialTheme.colorScheme.primary,
-                            strokeWidth = 1.5.dp
+                    TextButton(
+                        onClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                            isRestoring = true
+                            ProManager.restorePurchases(
+                                onSuccess = {
+                                    isRestoring = false
+                                    Toast.makeText(context, context.getString(R.string.pro_active_status), Toast.LENGTH_SHORT).show()
+                                    onDismissRequest()
+                                },
+                                onError = { errorMsg ->
+                                    isRestoring = false
+                                    val userFriendlyMsg = if (errorMsg.contains("NETWORK", ignoreCase = true)) {
+                                        context.getString(R.string.pro_coupon_network_error)
+                                    } else {
+                                        context.getString(R.string.pro_restore_no_subscription)
+                                    }
+                                    Toast.makeText(context, userFriendlyMsg, Toast.LENGTH_LONG).show()
+                                }
+                            )
+                        },
+                        enabled = !isPurchasing && !isRestoring,
+                        modifier = Modifier.heightIn(min = 48.dp)
+                    ) {
+                        if (isRestoring) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(14.dp),
+                                color = MaterialTheme.colorScheme.primary,
+                                strokeWidth = 1.5.dp
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                        }
+                        Text(
+                            text = stringResource(R.string.pro_btn_restore),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
-                        Spacer(modifier = Modifier.width(6.dp))
                     }
-                    Text(
-                        text = stringResource(R.string.pro_btn_restore),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                    PaywallLegalLink(text = stringResource(R.string.legal_terms)) {
+                        LegalLinks.open(context, LegalLinks.TERMS)
+                    }
+                    PaywallLegalLink(text = stringResource(R.string.legal_privacy)) {
+                        LegalLinks.open(context, LegalLinks.PRIVACY)
+                    }
                 }
+
+                // Store policies expect renewal and cancellation terms next to subscription offers.
+                Text(
+                    text = stringResource(R.string.pro_subscription_terms),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)
+                )
 
                 // Expandable Promo Code Section
                 Column(
@@ -660,6 +683,17 @@ private fun Context.findActivity(): Activity? {
         currentContext = currentContext.baseContext
     }
     return null
+}
+
+@Composable
+private fun PaywallLegalLink(text: String, onClick: () -> Unit) {
+    TextButton(onClick = onClick, modifier = Modifier.heightIn(min = 48.dp)) {
+        Text(
+            text = text,
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+    }
 }
 
 @Composable

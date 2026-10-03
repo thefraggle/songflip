@@ -173,6 +173,7 @@
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Gendan køb</string>
+    <string name="pro_subscription_terms">Abonnementer fornyes automatisk. Kan opsiges når som helst i dine abonnementsindstillinger.</string>
     <string name="pro_coupon_toggle">Har du en rabatkode?</string>
     <string name="pro_coupon_hint">Indtast kode</string>
     <string name="pro_coupon_btn_redeem">Indløs</string>

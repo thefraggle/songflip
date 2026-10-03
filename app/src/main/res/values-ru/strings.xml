@@ -175,6 +175,7 @@
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Восстановить покупки</string>
+    <string name="pro_subscription_terms">Подписки продлеваются автоматически. Отменить можно в любой момент в настройках подписки.</string>
     <string name="pro_coupon_toggle">Есть промокод?</string>
     <string name="pro_coupon_hint">Введите код</string>
     <string name="pro_coupon_btn_redeem">Применить</string>

@@ -172,6 +172,7 @@
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Khôi phục giao dịch mua</string>
+    <string name="pro_subscription_terms">Gói đăng ký tự động gia hạn. Hủy bất cứ lúc nào trong phần cài đặt gói đăng ký.</string>
     <string name="pro_coupon_toggle">Bạn có mã khuyến mãi?</string>
     <string name="pro_coupon_hint">Nhập mã</string>
     <string name="pro_coupon_btn_redeem">Đổi mã</string>

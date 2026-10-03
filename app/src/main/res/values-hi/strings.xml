@@ -173,6 +173,7 @@
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">खरीदारी पुनर्स्थापित करें</string>
+    <string name="pro_subscription_terms">सब्सक्रिप्शन अपने आप रिन्यू होते हैं। सब्सक्रिप्शन सेटिंग्स में कभी भी रद्द करें।</string>
     <string name="pro_coupon_toggle">क्या आपके पास प्रोमो कोड है?</string>
     <string name="pro_coupon_hint">कोड दर्ज करें</string>
     <string name="pro_coupon_btn_redeem">रिडीम करें</string>

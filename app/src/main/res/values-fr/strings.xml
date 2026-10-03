@@ -173,6 +173,7 @@
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Restaurer les achats</string>
+    <string name="pro_subscription_terms">Les abonnements se renouvellent automatiquement. Résiliable à tout moment dans les réglages d\'abonnement.</string>
     <string name="pro_coupon_toggle">Vous avez un code promo ?</string>
     <string name="pro_coupon_hint">Entrez le code</string>
     <string name="pro_coupon_btn_redeem">Utiliser</string>

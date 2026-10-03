@@ -173,6 +173,7 @@
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">खरेदी पुनर्संचयित करा</string>
+    <string name="pro_subscription_terms">सदस्यता आपोआप नूतनीकृत होते. सदस्यता सेटिंग्जमध्ये कधीही रद्द करा.</string>
     <string name="pro_coupon_toggle">तुमच्याकडे प्रोमो कोड आहे का?</string>
     <string name="pro_coupon_hint">कोड प्रविष्ट करा</string>
     <string name="pro_coupon_btn_redeem">रिडीम करा</string>

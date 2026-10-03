@@ -172,6 +172,7 @@
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Pulihkan Pembelian</string>
+    <string name="pro_subscription_terms">Langganan diperpanjang otomatis. Batalkan kapan saja di pengaturan langganan.</string>
     <string name="pro_coupon_toggle">Punya kode promo?</string>
     <string name="pro_coupon_hint">Masukkan kode</string>
     <string name="pro_coupon_btn_redeem">Tukarkan</string>

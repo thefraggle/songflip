@@ -173,6 +173,7 @@
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Satın Alımları Geri Yükle</string>
+    <string name="pro_subscription_terms">Abonelikler otomatik olarak yenilenir. Abonelik ayarlarından istediğiniz zaman iptal edebilirsiniz.</string>
     <string name="pro_coupon_toggle">Promosyon kodunuz var mı?</string>
     <string name="pro_coupon_hint">Kodu girin</string>
     <string name="pro_coupon_btn_redeem">Kullan</string>

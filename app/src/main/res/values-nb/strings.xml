@@ -173,6 +173,7 @@
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Gjenopprett kjøp</string>
+    <string name="pro_subscription_terms">Abonnementer fornyes automatisk. Kan sies opp når som helst i abonnementsinnstillingene.</string>
     <string name="pro_coupon_toggle">Har du en kampanjekode?</string>
     <string name="pro_coupon_hint">Skriv inn kode</string>
     <string name="pro_coupon_btn_redeem">Løs inn</string>

@@ -164,6 +164,7 @@
     <string name="pro_price_annual_default">—</string>
     <string name="pro_price_lifetime_default">—</string>
     <string name="pro_btn_restore">Obnovit nákupy</string>
+    <string name="pro_subscription_terms">Předplatné se automaticky obnovuje. Zrušit ho můžete kdykoli v nastavení předplatného.</string>
     <string name="pro_coupon_toggle">Máte promo kód?</string>
     <string name="pro_coupon_hint">Zadejte kód</string>
     <string name="pro_coupon_btn_redeem">Uplatnit</string>
