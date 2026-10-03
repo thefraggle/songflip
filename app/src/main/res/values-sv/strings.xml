@@ -222,6 +222,9 @@
     <string name="history_refresh_link">Uppdatera länk</string>
     <string name="history_link_refreshed">Länk uppdaterad!</string>
     <string name="history_link_refreshing">Uppdaterar länk...</string>
+    <string name="history_copy_target">Kopiera %1$s-länk</string>
+    <string name="history_copy_source">Kopiera original-%1$s-länk</string>
+    <string name="action_more_options">Fler alternativ</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d låt vändes framgångsrikt!</item>
@@ -279,6 +282,12 @@
     <string name="playlist_error_desc">Kunde inte hämta spår från denna spellista. Du kan öppna ursprungslänken istället.</string>
     <string name="playlist_error_private_title">Privat eller anpassad spellista</string>
     <string name="playlist_error_private_desc">SongFlip fungerar 100%% privat utan användarkonton eller inloggning. Personliga algoritmiska mixar (som Spotify Daily Mix eller Discover Weekly) och privata spellistor kan därför inte hämtas. Tips: Kopiera låtarna till en offentlig spellista eller dela ett album/en offentlig spellista.</string>
+    <string name="playlist_error_unsupported_title">Plattformen stöder inte spellistor</string>
+    <string name="playlist_error_unsupported_desc">SongFlip stöder för närvarande spellistor från Spotify, Apple Music, YouTube Music och Deezer. Enskilda låtar från den här plattformen fungerar fortfarande.</string>
+    <string name="playlist_error_timeout_title">Anslutningen tog för lång tid</string>
+    <string name="playlist_error_timeout_desc">Musiktjänsten svarade inte i tid. Försök igen om en stund.</string>
+    <string name="playlist_error_empty_title">Tom spellista</string>
+    <string name="playlist_error_empty_desc">Den här spellistan innehåller inga spelbara låtar.</string>
     <string name="playlist_btn_retry">Försök igen</string>
     <string name="playlist_btn_open_original">Öppna ursprunglig spellista</string>
 <string name="pro_restore_no_subscription">Inget aktivt PRO-abonnemang hittades.</string>

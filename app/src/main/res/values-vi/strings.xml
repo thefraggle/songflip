@@ -221,6 +221,9 @@
     <string name="history_refresh_link">Làm mới liên kết</string>
     <string name="history_link_refreshed">Đã cập nhật liên kết thành công!</string>
     <string name="history_link_refreshing">Đang làm mới liên kết...</string>
+    <string name="history_copy_target">Sao chép liên kết %1$s</string>
+    <string name="history_copy_source">Sao chép liên kết %1$s gốc</string>
+    <string name="action_more_options">Tùy chọn khác</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="other">🎉 Đã chuyển đổi thành công %1$d bài hát!</item>
@@ -275,6 +278,12 @@
     <string name="playlist_error_desc">Không thể trích xuất bài hát từ danh sách phát này. Bạn có thể mở liên kết gốc thay thế.</string>
     <string name="playlist_error_private_title">Danh sách phát riêng tư hoặc cá nhân hóa</string>
     <string name="playlist_error_private_desc">SongFlip hoạt động riêng tư 100%% không cần tài khoản hay đăng nhập. Do đó, các danh sách kết hợp thuật toán cá nhân (như Spotify Daily Mix) và playlist riêng tư không thể truy cập. Mẹo: Sao chép bài hát vào danh sách phát công khai hoặc chia sẻ album/playlist công khai.</string>
+    <string name="playlist_error_unsupported_title">Nền tảng chưa hỗ trợ danh sách phát</string>
+    <string name="playlist_error_unsupported_desc">SongFlip hiện hỗ trợ danh sách phát từ Spotify, Apple Music, YouTube Music và Deezer. Các bài hát lẻ từ nền tảng này vẫn hoạt động bình thường.</string>
+    <string name="playlist_error_timeout_title">Hết thời gian kết nối</string>
+    <string name="playlist_error_timeout_desc">Dịch vụ nhạc không phản hồi kịp thời. Vui lòng thử lại sau giây lát.</string>
+    <string name="playlist_error_empty_title">Danh sách phát trống</string>
+    <string name="playlist_error_empty_desc">Danh sách phát này không có bài hát nào có thể phát.</string>
     <string name="playlist_btn_retry">Thử lại</string>
     <string name="playlist_btn_open_original">Mở danh sách phát gốc</string>
 <string name="pro_restore_no_subscription">Không tìm thấy gói đăng ký PRO đang hoạt động.</string>

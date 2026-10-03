@@ -43,7 +43,9 @@ class SongFlipTileService : TileService() {
                 )
                 startActivityAndCollapse(pendingIntent)
             } else {
-                @Suppress("DEPRECATION")
+                // Only reached below API 34, where the Intent overload is still supported.
+                // Lint doesn't follow the SDK_INT gate, hence the explicit lint-ID suppression.
+                @Suppress("DEPRECATION", "StartActivityAndCollapseDeprecated")
                 startActivityAndCollapse(intent)
             }
         }

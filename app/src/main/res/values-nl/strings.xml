@@ -222,6 +222,9 @@
     <string name="history_refresh_link">Link vernieuwen</string>
     <string name="history_link_refreshed">Link succesvol vernieuwd!</string>
     <string name="history_link_refreshing">Link vernieuwen...</string>
+    <string name="history_copy_target">%1$s-link kopiëren</string>
+    <string name="history_copy_source">Originele %1$s-link kopiëren</string>
+    <string name="action_more_options">Meer opties</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d nummer succesvol omgezet!</item>
@@ -279,6 +282,12 @@
     <string name="playlist_error_desc">Kon nummers niet uit deze afspeellijst halen. Je kunt de originele link openen.</string>
     <string name="playlist_error_private_title">Privé of gepersonaliseerde afspeellijst</string>
     <string name="playlist_error_private_desc">SongFlip werkt 100%% privé zonder gebruikersaccounts of login. Persoonlijke algoritmische mixen (zoals Spotify Daily Mix of Discover Weekly) en privé-afspeellijsten kunnen daarom niet worden geopend. Tip: Kopieer de nummers naar een openbare afspeellijst of deel een album/openbare afspeellijst.</string>
+    <string name="playlist_error_unsupported_title">Platform ondersteunt geen playlists</string>
+    <string name="playlist_error_unsupported_desc">SongFlip ondersteunt momenteel playlists van Spotify, Apple Music, YouTube Music en Deezer. Losse nummers van dit platform werken nog steeds.</string>
+    <string name="playlist_error_timeout_title">Time-out van verbinding</string>
+    <string name="playlist_error_timeout_desc">De muziekdienst reageerde niet op tijd. Probeer het zo meteen opnieuw.</string>
+    <string name="playlist_error_empty_title">Lege playlist</string>
+    <string name="playlist_error_empty_desc">Deze playlist bevat geen afspeelbare nummers.</string>
     <string name="playlist_btn_retry">Opnieuw proberen</string>
     <string name="playlist_btn_open_original">Originele afspeellijst openen</string>
 <string name="pro_restore_no_subscription">Geen actief PRO-abonnement gevonden.</string>

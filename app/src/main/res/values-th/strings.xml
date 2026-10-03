@@ -211,6 +211,9 @@
     <string name="history_refresh_link">รีเฟรชลิงก์</string>
     <string name="history_link_refreshed">รีเฟรชลิงก์สำเร็จแล้ว!</string>
     <string name="history_link_refreshing">กำลังรีเฟรชลิงก์...</string>
+    <string name="history_copy_target">คัดลอกลิงก์ %1$s</string>
+    <string name="history_copy_source">คัดลอกลิงก์ %1$s ต้นฉบับ</string>
+    <string name="action_more_options">ตัวเลือกเพิ่มเติม</string>
     <plurals name="pro_nudge_title">
         <item quantity="other">🎉 แปลงลิงก์เพลงสำเร็จแล้ว %1$d เพลง!</item>
     </plurals>
@@ -261,6 +264,12 @@
     <string name="playlist_error_desc">ไม่สามารถดึงเพลงจากเพลย์ลิสต์นี้ คุณสามารถเปิดลิงก์เดิมแทนได้</string>
     <string name="playlist_error_private_title">เพลย์ลิสต์ส่วนตัวหรือเพลย์ลิสต์เฉพาะบุคคล</string>
     <string name="playlist_error_private_desc">SongFlip ทำงานอย่างเป็นส่วนตัว 100%% โดยไม่ต้องมีบัญชีหรือเข้าสู่ระบบ ดังนั้นมิกซ์อัลกอริทึมส่วนบุคคล (เช่น Spotify Daily Mix) และเพลย์ลิสต์ส่วนตัวจึงไม่สามารถเข้าถึงได้ คำแนะนำ: คัดลอกแทร็กไปยังเพลย์ลิสต์สาธารณะหรือแชร์อัลบั้ม/เพลย์ลิสต์สาธารณะ</string>
+    <string name="playlist_error_unsupported_title">แพลตฟอร์มนี้ยังไม่รองรับเพลย์ลิสต์</string>
+    <string name="playlist_error_unsupported_desc">ขณะนี้ SongFlip รองรับเพลย์ลิสต์จาก Spotify, Apple Music, YouTube Music และ Deezer เพลงเดี่ยวจากแพลตฟอร์มนี้ยังใช้งานได้ตามปกติ</string>
+    <string name="playlist_error_timeout_title">การเชื่อมต่อหมดเวลา</string>
+    <string name="playlist_error_timeout_desc">บริการเพลงไม่ตอบสนองทันเวลา โปรดลองอีกครั้งในอีกสักครู่</string>
+    <string name="playlist_error_empty_title">เพลย์ลิสต์ว่างเปล่า</string>
+    <string name="playlist_error_empty_desc">เพลย์ลิสต์นี้ไม่มีเพลงที่เล่นได้</string>
     <string name="playlist_btn_retry">ลองอีกครั้ง</string>
     <string name="playlist_btn_open_original">เปิดเพลย์ลิสต์เดิม</string>
 <string name="pro_restore_no_subscription">ไม่พบการสมัครสมาชิก PRO ที่ใช้งานอยู่</string>

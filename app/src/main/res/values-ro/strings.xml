@@ -213,6 +213,9 @@
     <string name="history_refresh_link">Reîmprospătează linkul</string>
     <string name="history_link_refreshed">Link reîmprospătat cu succes!</string>
     <string name="history_link_refreshing">Se reîmprospătează linkul...</string>
+    <string name="history_copy_target">Copiază linkul %1$s</string>
+    <string name="history_copy_source">Copiază linkul %1$s original</string>
+    <string name="action_more_options">Mai multe opțiuni</string>
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d melodie redirecționată cu succes!</item>
         <item quantity="few">🎉 %1$d melodii redirecționate cu succes!</item>
@@ -269,6 +272,12 @@
     <string name="playlist_error_desc">Nu s-au putut extrage piesele din acest playlist. Poți deschide linkul original.</string>
     <string name="playlist_error_private_title">Playlist privat sau personalizat</string>
     <string name="playlist_error_private_desc">SongFlip funcționează 100%% privat, fără conturi sau autentificare. Mixurile algoritmice personale (cum ar fi Spotify Daily Mix) și playlisturile private nu pot fi accesate. Sfat: Copiați piesele într-un playlist public sau partajați un album/playlist public.</string>
+    <string name="playlist_error_unsupported_title">Platforma nu acceptă playlisturi</string>
+    <string name="playlist_error_unsupported_desc">SongFlip acceptă în prezent playlisturi din Spotify, Apple Music, YouTube Music și Deezer. Melodiile individuale de pe această platformă funcționează în continuare.</string>
+    <string name="playlist_error_timeout_title">Conexiunea a expirat</string>
+    <string name="playlist_error_timeout_desc">Serviciul de muzică nu a răspuns la timp. Încearcă din nou în scurt timp.</string>
+    <string name="playlist_error_empty_title">Playlist gol</string>
+    <string name="playlist_error_empty_desc">Acest playlist nu conține melodii care pot fi redate.</string>
     <string name="playlist_btn_retry">Reîncearcă</string>
     <string name="playlist_btn_open_original">Deschide playlistul original</string>
 <string name="pro_restore_no_subscription">Nu a fost găsit niciun abonament PRO activ.</string>

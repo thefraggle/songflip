@@ -222,6 +222,9 @@
     <string name="history_refresh_link">Genindlæs link</string>
     <string name="history_link_refreshed">Link opdateret!</string>
     <string name="history_link_refreshing">Genindlæser link...</string>
+    <string name="history_copy_target">Kopiér %1$s-link</string>
+    <string name="history_copy_source">Kopiér originalt %1$s-link</string>
+    <string name="action_more_options">Flere muligheder</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d sang vendt med succes!</item>
@@ -279,6 +282,12 @@
     <string name="playlist_error_desc">Kunne ikke udtrække numre fra denne afspilningsliste. Du kan åbne det oprindelige link.</string>
     <string name="playlist_error_private_title">Privat eller personlig playliste</string>
     <string name="playlist_error_private_desc">SongFlip fungerer 100%% privat uden brugerkonto eller login. Personlige algoritmiske mix (som Spotify Daily Mix eller Discover Weekly) og private playlister kan derfor ikke indlæses. Tip: Kopiér numrene til en offentlig playliste eller del et album/en offentlig playliste.</string>
+    <string name="playlist_error_unsupported_title">Platformen understøtter ikke playlister</string>
+    <string name="playlist_error_unsupported_desc">SongFlip understøtter i øjeblikket playlister fra Spotify, Apple Music, YouTube Music og Deezer. Enkelte sange fra denne platform virker stadig.</string>
+    <string name="playlist_error_timeout_title">Forbindelsen fik timeout</string>
+    <string name="playlist_error_timeout_desc">Musiktjenesten svarede ikke i tide. Prøv igen om lidt.</string>
+    <string name="playlist_error_empty_title">Tom playliste</string>
+    <string name="playlist_error_empty_desc">Denne playliste indeholder ingen afspilbare numre.</string>
     <string name="playlist_btn_retry">Prøv igen</string>
     <string name="playlist_btn_open_original">Åbn oprindelig afspilningsliste</string>
 <string name="pro_restore_no_subscription">Intet aktivt PRO-abonnement fundet.</string>

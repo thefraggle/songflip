@@ -132,6 +132,7 @@
     <plurals name="history_cached_count">
         <item quantity="one">%1$d skladba v historii</item>
         <item quantity="few">%1$d skladby v historii</item>
+        <item quantity="many">%1$d skladby v historii</item>
         <item quantity="other">%1$d skladeb v historii</item>
     </plurals>
     <string name="history_empty">Zatím žádné převedené skladby. Otevřené hudební odkazy se zde automaticky zobrazí.</string>
@@ -213,9 +214,13 @@
     <string name="history_refresh_link">Obnovit odkaz</string>
     <string name="history_link_refreshed">Odkaz byl úspěšně obnoven!</string>
     <string name="history_link_refreshing">Obnovuji odkaz...</string>
+    <string name="history_copy_target">Kopírovat odkaz %1$s</string>
+    <string name="history_copy_source">Kopírovat původní odkaz %1$s</string>
+    <string name="action_more_options">Další možnosti</string>
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d skladba úspěšně převedena!</item>
         <item quantity="few">🎉 %1$d skladby úspěšně převedeny!</item>
+        <item quantity="many">🎉 %1$d skladby úspěšně převedeny!</item>
         <item quantity="other">🎉 %1$d skladeb úspěšně převedeno!</item>
     </plurals>
     <string name="pro_nudge_subtitle">Odemkněte vysokorychlostní mezipaměť L2 a rozšířenou historii se SongFlip PRO.</string>
@@ -224,11 +229,13 @@
     <plurals name="history_capacity_free">
         <item quantity="one">Uložena %1$d z %2$d skladeb (PRO: až 100)</item>
         <item quantity="few">Uloženy %1$d z %2$d skladeb (PRO: až 100)</item>
+        <item quantity="many">Uloženy %1$d z %2$d skladeb (PRO: až 100)</item>
         <item quantity="other">Uloženo %1$d z %2$d skladeb (PRO: až 100)</item>
     </plurals>
     <plurals name="history_capacity_pro">
         <item quantity="one">Uložena %1$d z %2$d skladeb</item>
         <item quantity="few">Uloženy %1$d z %2$d skladeb</item>
+        <item quantity="many">Uloženy %1$d z %2$d skladeb</item>
         <item quantity="other">Uloženo %1$d z %2$d skladeb</item>
     </plurals>
     <string name="settings_tip_multiple_apps_title">Máte nainstalováno více hudebních aplikací?</string>
@@ -269,6 +276,12 @@
     <string name="playlist_error_desc">Z tohoto playlistu se nepodařilo extrahovat skladby. Můžete otevřít původní odkaz.</string>
     <string name="playlist_error_private_title">Soukromý nebo personalizovaný playlist</string>
     <string name="playlist_error_private_desc">SongFlip funguje 100%% soukromě bez uživatelských účtů nebo přihlašování. Osobní algoritmické mixy (jako Spotify Daily Mix) a soukromé playlisty proto nelze načíst. Tip: Zkopírujte skladby do veřejného playlistu nebo sdílejte album/veřejný playlist.</string>
+    <string name="playlist_error_unsupported_title">Platforma zatím nepodporuje playlisty</string>
+    <string name="playlist_error_unsupported_desc">SongFlip aktuálně podporuje playlisty ze Spotify, Apple Music, YouTube Music a Deezer. Jednotlivé skladby z této platformy fungují dál.</string>
+    <string name="playlist_error_timeout_title">Vypršel časový limit připojení</string>
+    <string name="playlist_error_timeout_desc">Hudební služba neodpověděla včas. Zkuste to prosím za chvíli znovu.</string>
+    <string name="playlist_error_empty_title">Prázdný playlist</string>
+    <string name="playlist_error_empty_desc">Tento playlist neobsahuje žádné přehratelné skladby.</string>
     <string name="playlist_btn_retry">Zkusit znovu</string>
     <string name="playlist_btn_open_original">Otevřít původní playlist</string>
 <string name="pro_restore_no_subscription">Nebylo nalezeno žádné aktivní předplatné PRO.</string>

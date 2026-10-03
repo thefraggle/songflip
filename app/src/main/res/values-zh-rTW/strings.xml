@@ -211,6 +211,9 @@
     <string name="history_refresh_link">重新整理連結</string>
     <string name="history_link_refreshed">連結重新整理成功！</string>
     <string name="history_link_refreshing">正在重新整理連結...</string>
+    <string name="history_copy_target">複製 %1$s 連結</string>
+    <string name="history_copy_source">複製原始 %1$s 連結</string>
+    <string name="action_more_options">更多選項</string>
     <plurals name="pro_nudge_title">
         <item quantity="other">🎉 成功跳轉了 %1$d 首歌曲！</item>
     </plurals>
@@ -261,6 +264,12 @@
     <string name="playlist_error_desc">無法從此播放清單擷取曲目。您可以開啟原始連結。</string>
     <string name="playlist_error_private_title">私人或個人化播放清單</string>
     <string name="playlist_error_private_desc">SongFlip 100%% 保障隱私，無須帳號或登入。因此無法讀取個人演算法推薦（如 Spotify Daily Mix）及私人播放清單。提示：可將曲目複製到公開播放清單，或直接分享專輯/公開播放清單。</string>
+    <string name="playlist_error_unsupported_title">此平台暫不支援播放清單</string>
+    <string name="playlist_error_unsupported_desc">SongFlip 目前支援 Spotify、Apple Music、YouTube Music 和 Deezer 的播放清單。此平台的單曲仍可正常使用。</string>
+    <string name="playlist_error_timeout_title">連線逾時</string>
+    <string name="playlist_error_timeout_desc">音樂服務未及時回應，請稍後再試。</string>
+    <string name="playlist_error_empty_title">空的播放清單</string>
+    <string name="playlist_error_empty_desc">此播放清單中沒有可播放的歌曲。</string>
     <string name="playlist_btn_retry">重試</string>
     <string name="playlist_btn_open_original">開啟原始播放清單</string>
 <string name="pro_restore_no_subscription">未找到有效的 PRO 訂閱。</string>

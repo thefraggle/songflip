@@ -222,6 +222,9 @@
     <string name="history_refresh_link">Oppdater lenke</string>
     <string name="history_link_refreshed">Lenke oppdatert!</string>
     <string name="history_link_refreshing">Oppdaterer lenke...</string>
+    <string name="history_copy_target">Kopier %1$s-lenke</string>
+    <string name="history_copy_source">Kopier original %1$s-lenke</string>
+    <string name="action_more_options">Flere alternativer</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d sang vendt vellykket!</item>
@@ -279,6 +282,12 @@
     <string name="playlist_error_desc">Kunne ikke hente spor fra denne spillelisten. Du kan åpne den opprinnelige lenken.</string>
     <string name="playlist_error_private_title">Privat eller personlig spilleliste</string>
     <string name="playlist_error_private_desc">SongFlip fungerer 100%% privat uten brukerkonto eller pålogging. Personlige algoritmiske mikser (som Spotify Daily Mix eller Discover Weekly) og private spillelister kan derfor ikke leses. Tips: Kopier sangene til en offentlig spilleliste eller del et album/en offentlig spilleliste.</string>
+    <string name="playlist_error_unsupported_title">Plattformen støtter ikke spillelister</string>
+    <string name="playlist_error_unsupported_desc">SongFlip støtter for øyeblikket spillelister fra Spotify, Apple Music, YouTube Music og Deezer. Enkeltsanger fra denne plattformen fungerer fortsatt.</string>
+    <string name="playlist_error_timeout_title">Tidsavbrudd for tilkobling</string>
+    <string name="playlist_error_timeout_desc">Musikktjenesten svarte ikke i tide. Prøv igjen om litt.</string>
+    <string name="playlist_error_empty_title">Tom spilleliste</string>
+    <string name="playlist_error_empty_desc">Denne spillelisten inneholder ingen spillbare sanger.</string>
     <string name="playlist_btn_retry">Prøv igjen</string>
     <string name="playlist_btn_open_original">Åpne opprinnelig spilleliste</string>
 <string name="pro_restore_no_subscription">Fant ikke noe aktivt PRO-abonnement.</string>

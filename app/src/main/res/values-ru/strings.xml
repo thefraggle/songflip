@@ -224,6 +224,9 @@
     <string name="history_refresh_link">Обновить ссылку</string>
     <string name="history_link_refreshed">Ссылка успешно обновлена!</string>
     <string name="history_link_refreshing">Обновление ссылки...</string>
+    <string name="history_copy_target">Копировать ссылку %1$s</string>
+    <string name="history_copy_source">Копировать исходную ссылку %1$s</string>
+    <string name="action_more_options">Другие действия</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 Успешно перенаправлен %1$d трек!</item>
@@ -287,6 +290,12 @@
     <string name="playlist_error_desc">Не удалось извлечь треки из этого плейлиста. Вы можете открыть исходную ссылку.</string>
     <string name="playlist_error_private_title">Приватный или персонализированный плейлист</string>
     <string name="playlist_error_private_desc">SongFlip работает на 100%% конфиденциально без аккаунтов и входа. Персональные алгоритмические миксы (например, Spotify Daily Mix) и приватные плейлисты недоступны. Совет: скопируйте треки в публичный плейлист или поделитесь альбомом/публичным плейлистом.</string>
+    <string name="playlist_error_unsupported_title">Плейлисты этой платформы не поддерживаются</string>
+    <string name="playlist_error_unsupported_desc">Сейчас SongFlip поддерживает плейлисты Spotify, Apple Music, YouTube Music и Deezer. Отдельные треки с этой платформы по-прежнему работают.</string>
+    <string name="playlist_error_timeout_title">Время ожидания истекло</string>
+    <string name="playlist_error_timeout_desc">Музыкальный сервис не ответил вовремя. Попробуйте ещё раз чуть позже.</string>
+    <string name="playlist_error_empty_title">Пустой плейлист</string>
+    <string name="playlist_error_empty_desc">В этом плейлисте нет доступных для воспроизведения треков.</string>
     <string name="playlist_btn_retry">Повторить</string>
     <string name="playlist_btn_open_original">Открыть исходный плейлист</string>
 <string name="pro_restore_no_subscription">Активная подписка PRO не найдена.</string>

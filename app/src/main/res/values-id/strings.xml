@@ -221,6 +221,9 @@
     <string name="history_refresh_link">Perbarui tautan</string>
     <string name="history_link_refreshed">Tautan berhasil diperbarui!</string>
     <string name="history_link_refreshing">Memperbarui tautan...</string>
+    <string name="history_copy_target">Salin tautan %1$s</string>
+    <string name="history_copy_source">Salin tautan %1$s asli</string>
+    <string name="action_more_options">Opsi lainnya</string>
 
     <plurals name="pro_nudge_title">
         <item quantity="other">🎉 Berhasil mengonversi %1$d lagu!</item>
@@ -275,6 +278,12 @@
     <string name="playlist_error_desc">Tidak dapat mengekstrak trek dari daftar putar ini. Anda dapat membuka tautan asli sebagai gantinya.</string>
     <string name="playlist_error_private_title">Daftar Putar Pribadi atau Dipersonalisasi</string>
     <string name="playlist_error_private_desc">SongFlip beroperasi 100%% privat tanpa akun atau login. Oleh karena itu, mix algoritmik pribadi (seperti Spotify Daily Mix) dan playlist privat tidak dapat diakses. Tips: Salin lagu ke playlist publik atau bagikan album/playlist publik.</string>
+    <string name="playlist_error_unsupported_title">Platform belum mendukung playlist</string>
+    <string name="playlist_error_unsupported_desc">SongFlip saat ini mendukung playlist dari Spotify, Apple Music, YouTube Music, dan Deezer. Lagu satuan dari platform ini tetap berfungsi.</string>
+    <string name="playlist_error_timeout_title">Waktu koneksi habis</string>
+    <string name="playlist_error_timeout_desc">Layanan musik tidak merespons tepat waktu. Silakan coba lagi sebentar lagi.</string>
+    <string name="playlist_error_empty_title">Playlist kosong</string>
+    <string name="playlist_error_empty_desc">Playlist ini tidak berisi lagu yang dapat diputar.</string>
     <string name="playlist_btn_retry">Coba lagi</string>
     <string name="playlist_btn_open_original">Buka Daftar Putar Asli</string>
 <string name="pro_restore_no_subscription">Tidak ada langganan PRO aktif yang ditemukan.</string>
