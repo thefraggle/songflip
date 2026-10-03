@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.6.6] - 2026-10-03
+- **Verständlichere Beschreibungen**: Funktionen erklären jetzt klar, was sie dir bringen – in allen 31 Sprachen.
+- **Korrekte Anzeige in jeder Region**: Behoben, dass einige Angaben in manchen Ländern nicht genau stimmten.
+- **Rechtliches schneller erreichbar**: Nutzungsbedingungen und Datenschutz sind jetzt an mehr Stellen direkt verlinkt.
+- **Feinschliff & Stabilität**: Kleinere Fehlerbehebungen.
+
 ## [1.6.5] - 2026-10-02
 - **Optimierte Funktionsübersicht**: Übersichtlicher gestaltete Menüs und präzisere Beschreibungen aller Kernfunktionen.
 - **Fehlerbehebungen & Stabilität**: Zuverlässigere Aktionsabläufe und geschärfte Fehlerdiagnosen im Hintergrund.
