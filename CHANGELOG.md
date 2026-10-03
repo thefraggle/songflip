@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.6.6] - 2026-10-03
+- **Clearer Descriptions**: Features now explain what they do for you – in all 31 languages.
+- **Accurate Display in Every Region**: Fixed some details not showing correctly in certain countries.
+- **Easier Access to Legal Info**: Terms and privacy policy are now linked in more places.
+- **Polish & Stability**: Minor bug fixes.
+
 ## [1.6.5] - 2026-10-02
 - **Streamlined Feature Overview**: Cleaner layout and more concise descriptions across core features.
 - **Bug Fixes & Stability**: Hardened background diagnostics and more reliable action handling.
