@@ -226,9 +226,10 @@ class HistoryModel: ObservableObject {
         var current = items
         current.insert(newItem, at: 0)
 
-        // Limit history to 50 items (Free version)
-        if current.count > 50 {
-            current = Array(current.prefix(50))
+        // Limit history: 10 items for Free, 100 items for PRO
+        let maxLimit = ProManager.shared.isPro ? 100 : 10
+        if current.count > maxLimit {
+            current = Array(current.prefix(maxLimit))
         }
 
         self.items = current

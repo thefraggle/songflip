@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0] - 2026-10-04
+- **Podcasts Support**: Shared podcast episodes and shows now open directly in your preferred player with accurate show matching.
+- **Instant & Responsive Link Resolution**: Immediate, latency-free clipboard detection right when launching the app or returning to the home screen.
+- **Accurate Search & Album Matching**: Improved matching for special characters, emojis, Spotify pre-release countdowns, and official albums.
+- **Direct In-App Feedback**: Share feedback, report bugs, or suggest features directly inside the app with zero tracking.
+- **Bug Fixes & Stability**: Comprehensive stability improvements, reliable cancellation handling, and smoother screen transitions.
+
 ## [1.6.9] - 2026-10-04
 - **Instant Link Detection**: Immediate, latency-free clipboard detection right when launching the app or returning to the home screen (#60).
 - **Direct In-App Feedback**: Share feedback, report bugs, or suggest features directly inside the app with zero tracking (#61).

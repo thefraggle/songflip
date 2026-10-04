@@ -38,6 +38,8 @@ struct SongFlipApp: App {
             isDebug: isDebug
         )
 
+        ProManager.shared.configure(isDebug: isDebug)
+
         // StoreKit 2: Asynchronously verify sandbox environment (e.g. Apple App Store Reviewers)
         Task {
             do {

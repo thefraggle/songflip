@@ -6,11 +6,13 @@ struct ContentView: View {
     @Environment(\.scenePhase) private var scenePhase
     @EnvironmentObject var settings: SettingsModel
     @ObservedObject var history = HistoryModel.shared
+    @ObservedObject var proManager = ProManager.shared
 
     @State private var detectedClipboardUrl: String? = nil
     @State private var dismissedClipboardUrl: String? = nil
     @State private var showingSettingsSheet = false
     @State private var showingHistorySheet = false
+    @State private var showingPaywallSheet = false
     @State private var showingShortcutsGuide = false
     @State private var showingShareGuide = false
     @State private var showingPlaylistNotice = false
@@ -96,10 +98,14 @@ struct ContentView: View {
             }
             .sheet(isPresented: $showingPlaylistNotice) {
                 if let pUrl = playlistNoticeUrl {
-                    PlaylistNoticeSheetView(
+                    PlaylistConverterView(
                         playlistUrl: pUrl,
-                        platformName: detectSourcePlatformName(url: pUrl),
-                        dismissAction: { showingPlaylistNotice = false }
+                        targetPlatformKey: settings.targetPlatform,
+                        dismissAction: { showingPlaylistNotice = false },
+                        onOpenPaywall: {
+                            showingPlaylistNotice = false
+                            showingPaywallSheet = true
+                        }
                     )
                     .preferredColorScheme(settings.colorScheme)
                 }
@@ -114,6 +120,10 @@ struct ContentView: View {
                     )
                     .preferredColorScheme(settings.colorScheme)
                 }
+            }
+            .sheet(isPresented: $showingPaywallSheet) {
+                ProPaywallSheetView()
+                    .preferredColorScheme(settings.colorScheme)
             }
             .onAppear {
                 AptabaseClient.shared.trackAppLaunched(platform: "iOS", language: lang)
@@ -161,9 +171,25 @@ struct ContentView: View {
             }
             .padding(.top, 8)
 
-            Text(LocalizationManager.string(for: "app_name", lang: lang))
-                .font(.system(size: 28, weight: .bold))
-                .foregroundColor(.primary)
+            HStack(spacing: 8) {
+                Text(LocalizationManager.string(for: "app_name", lang: lang))
+                    .font(.system(size: 28, weight: .bold))
+                    .foregroundColor(.primary)
+
+                if proManager.isPro {
+                    Text("PRO")
+                        .font(.system(size: 11, weight: .black))
+                        .foregroundColor(.green)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(Color.green.opacity(0.18))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 6)
+                                .stroke(Color.green.opacity(0.6), lineWidth: 1)
+                        )
+                        .cornerRadius(6)
+                }
+            }
 
             Text(LocalizationManager.string(for: "app_tagline", lang: lang))
                 .font(.subheadline)

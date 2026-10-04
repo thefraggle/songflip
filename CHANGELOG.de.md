@@ -1,5 +1,12 @@
 # Changelog (Deutsch)
 
+## [1.7.0] - 2026-10-04
+- **Podcast-Unterstützung**: Geteilte Podcast-Episoden und Shows öffnen jetzt direkt in deinem bevorzugten Player mit präziser Show-Erkennung.
+- **Schnellere & verlässlichere Link-Erkennung**: Verzögerungsfreie Zwischenablage-Erkennung direkt beim Öffnen der App oder beim Zurückkehren.
+- **Präzises Such- & Album-Matching**: Verbessertes Matching bei Titeln mit Sonderzeichen, Emojis, Spotify-Countdowns und offiziellen Alben.
+- **Direkter Feedback-Kanal**: Fehlerberichte, Ideen und Vorschläge direkt in der App teilen – datensparsam und ohne Tracking.
+- **Fehlerbehebungen & Stabilität**: Umfangreiche Stabilitätsverbesserungen, sauberes Abbruch-Handling und flüssigere Ansichten.
+
 ## [1.6.9] - 2026-10-04
 - **Schnellere Link-Erkennung**: Verzögerungsfreie Erkennung von Musiklinks in der Zwischenablage direkt beim Öffnen der App oder beim Zurückkehren (#60).
 - **Direkter Feedback-Kanal**: Fehlerberichte, Ideen und Feedback direkt in der App absenden – datensparsam und ohne Tracking (#61).

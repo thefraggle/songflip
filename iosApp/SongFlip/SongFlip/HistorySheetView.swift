@@ -5,8 +5,10 @@ import SongFlipKit
 struct HistorySheetView: View {
     @EnvironmentObject var settings: SettingsModel
     @ObservedObject var history = HistoryModel.shared
+    @ObservedObject var proManager = ProManager.shared
     @Environment(\.dismiss) var dismiss
     @State private var showingClearConfirmation = false
+    @State private var showingPaywallSheet = false
     @State private var refreshingItemId: UUID? = nil
 
     var lang: String { settings.selectedLanguage }
@@ -91,8 +93,26 @@ struct HistorySheetView: View {
                     }
                     .padding(.vertical, 32)
                 } else {
+                    let maxLimit = proManager.isPro ? 100 : 10
                     List {
-                        ForEach(history.items) { item in
+                        Section(header: HStack {
+                            Text(String(format: proManager.isPro ? LocalizationManager.string(for: "history_capacity_pro", lang: lang) : LocalizationManager.string(for: "history_capacity_free", lang: lang), history.items.count, maxLimit))
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                            Spacer()
+                            if !proManager.isPro {
+                                Button(action: {
+                                    AptabaseClient.shared.trackEvent("paywall_viewed", properties: ["source": "history_header"])
+                                    showingPaywallSheet = true
+                                }) {
+                                    Text("💎 PRO")
+                                        .font(.caption2)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.green)
+                                }
+                            }
+                        }) {
+                            ForEach(history.items) { item in
                             Button(action: {
                                 if let url = URL(string: item.targetUrl) {
                                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
@@ -227,6 +247,38 @@ struct HistorySheetView: View {
                                 }
                             }
                         }
+
+                        if !proManager.isPro && history.items.count >= 10 {
+                            Button(action: {
+                                AptabaseClient.shared.trackEvent("paywall_viewed", properties: ["source": "history_teaser_bottom"])
+                                showingPaywallSheet = true
+                            }) {
+                                HStack(spacing: 12) {
+                                    Text("💎")
+                                        .font(.title2)
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text(LocalizationManager.string(for: "history_pro_teaser_title", lang: lang))
+                                            .font(.subheadline)
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.primary)
+                                        Text(LocalizationManager.string(for: "history_pro_teaser_desc", lang: lang))
+                                            .font(.caption)
+                                            .foregroundColor(.secondary)
+                                    }
+                                    Spacer()
+                                    Text(LocalizationManager.string(for: "history_btn_upgrade", lang: lang))
+                                        .font(.caption)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                        .padding(.horizontal, 10)
+                                        .padding(.vertical, 6)
+                                        .background(Color.green)
+                                        .cornerRadius(8)
+                                }
+                                .padding(.vertical, 6)
+                            }
+                            .listRowBackground(Color.green.opacity(0.12))
+                        }
                     }
                     .scrollContentBackground(.hidden)
                 }
@@ -257,6 +309,10 @@ struct HistorySheetView: View {
                     history.clear()
                 }
                 Button(LocalizationManager.string(for: "btn_cancel", lang: lang), role: .cancel) {}
+            }
+            .sheet(isPresented: $showingPaywallSheet) {
+                ProPaywallSheetView()
+                    .preferredColorScheme(settings.colorScheme)
             }
             .preferredColorScheme(settings.colorScheme)
             .onAppear {
