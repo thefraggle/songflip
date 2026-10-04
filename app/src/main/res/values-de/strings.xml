@@ -335,4 +335,10 @@
     <string name="prerelease_btn_search_target">Vorab-Singles in %1$s suchen</string>
     <string name="prerelease_btn_cancel">Abbrechen</string>
     <string name="share_self_link_notice">Das ist ein SongFlip-Link. Bitte teile einen Musiklink.</string>
+    <!-- Free Trial Offer -->
+    <string name="pro_trial_badge">%1$d TAGE GRATIS</string>
+    <string name="pro_price_annual_trial">%1$d Tage kostenlos, danach %2$s / Monat (statt %3$s)</string>
+    <string name="pro_price_annual_trial_intro">%1$d Tage kostenlos, danach %2$s / Monat im 1. Jahr (statt %3$s)</string>
+    <string name="pro_price_annual_trial_simple">%1$d Tage kostenlos, danach %2$s / Jahr</string>
+    <string name="pro_btn_annual_trial">%1$d Tage kostenlos testen</string>
 </resources>

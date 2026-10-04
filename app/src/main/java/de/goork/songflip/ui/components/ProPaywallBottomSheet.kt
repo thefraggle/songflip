@@ -319,6 +319,8 @@ fun ProPaywallBottomSheet(
                 val lifetimeOriginalStrike = if (isLifetimeSale) formatOriginalStrikePrice(lifetimePackage) else null
 
                 val isAnnualIntro = isAnnualIntroOfferActive(annualPackage)
+                val annualTrialDays = getFreeTrialDays(annualPackage)
+                val hasAnnualFreeTrial = annualTrialDays != null
                 val annualEffectivePrice = getEffectivePrice(annualPackage)
                 val monthlyRegularPrice = monthlyPackage?.product?.price
                 // One clear message: savings badge + "x / month (instead of y)". The old
@@ -329,7 +331,11 @@ fun ProPaywallBottomSheet(
                     monthlyMicros = monthlyRegularPrice?.amountMicros,
                     monthlyCurrency = monthlyRegularPrice?.currencyCode
                 )
-                val annualBadge = annualSavingsPercent?.let { stringResource(R.string.pro_save_badge, it) }
+                val annualBadge = if (hasAnnualFreeTrial) {
+                    stringResource(R.string.pro_trial_badge, annualTrialDays ?: 7)
+                } else {
+                    annualSavingsPercent?.let { stringResource(R.string.pro_save_badge, it) }
+                }
                 val annualSub = if (annualPackage != null && monthlyRegularPrice != null && annualSavingsPercent != null) {
                     val perMonth = formatMonthlyPrice(annualPackage)
                     // Same formatter as perMonth: the store string may use a different locale
@@ -338,11 +344,19 @@ fun ProPaywallBottomSheet(
                         ?: monthlyRegularPrice.formatted.also {
                             Log.w(PAYWALL_TAG, "Unknown currency '${monthlyRegularPrice.currencyCode}', using store-formatted monthly price")
                         }
-                    if (isAnnualIntro) {
+                    if (hasAnnualFreeTrial) {
+                        if (isAnnualIntro) {
+                            stringResource(R.string.pro_price_annual_trial_intro, annualTrialDays ?: 7, perMonth, monthly)
+                        } else {
+                            stringResource(R.string.pro_price_annual_trial, annualTrialDays ?: 7, perMonth, monthly)
+                        }
+                    } else if (isAnnualIntro) {
                         stringResource(R.string.pro_price_annual_vs_monthly_intro, perMonth, monthly)
                     } else {
                         stringResource(R.string.pro_price_annual_vs_monthly, perMonth, monthly)
                     }
+                } else if (hasAnnualFreeTrial && annualEffectivePrice != null) {
+                    stringResource(R.string.pro_price_annual_trial_simple, annualTrialDays ?: 7, annualEffectivePrice.formatted)
                 } else {
                     null
                 }
@@ -487,7 +501,13 @@ fun ProPaywallBottomSheet(
                         val buttonText = if (!priceText.isNullOrBlank()) {
                             when (selectedTier) {
                                 SelectedProTier.LIFETIME -> stringResource(R.string.pro_btn_lifetime, priceText)
-                                SelectedProTier.ANNUAL -> stringResource(R.string.pro_btn_annual, priceText)
+                                SelectedProTier.ANNUAL -> {
+                                    if (hasAnnualFreeTrial) {
+                                        stringResource(R.string.pro_btn_annual_trial, annualTrialDays ?: 7)
+                                    } else {
+                                        stringResource(R.string.pro_btn_annual, priceText)
+                                    }
+                                }
                                 SelectedProTier.MONTHLY -> stringResource(R.string.pro_btn_monthly, priceText)
                             }
                         } else {
@@ -882,27 +902,49 @@ private fun formatOriginalStrikePrice(pkg: Package?): String? {
         }
 }
 
+private fun getFreeTrialDays(pkg: Package?): Int? {
+    if (pkg == null) return null
+    val defaultOption = pkg.product.defaultOption ?: return null
+    val freePhase = defaultOption.freePhase
+        ?: defaultOption.pricingPhases.firstOrNull { it.price.amountMicros == 0L }
+        ?: return null
+    val period = freePhase.billingPeriod
+    val days = when (period.unit) {
+        com.revenuecat.purchases.models.Period.Unit.DAY -> period.value
+        com.revenuecat.purchases.models.Period.Unit.WEEK -> period.value * 7
+        com.revenuecat.purchases.models.Period.Unit.MONTH -> period.value * 30
+        else -> 7
+    }
+    return if (days > 0) days else 7
+}
+
 private fun getEffectivePrice(pkg: Package?): Price? {
     if (pkg == null) return null
-    val introPrice = pkg.product.defaultOption?.pricingPhases?.firstOrNull()?.price
-    return introPrice ?: pkg.product.price
+    val defaultOption = pkg.product.defaultOption
+    if (defaultOption != null) {
+        val introPhase = defaultOption.introPhase
+        if (introPhase != null && introPhase.price.amountMicros > 0) {
+            return introPhase.price
+        }
+        val fullPrice = defaultOption.fullPricePhase?.price
+        if (fullPrice != null) return fullPrice
+        val paidPhase = defaultOption.pricingPhases.firstOrNull { it.price.amountMicros > 0 }?.price
+        if (paidPhase != null) return paidPhase
+    }
+    return pkg.product.price
 }
 
 private fun isAnnualIntroOfferActive(annualPackage: Package?): Boolean {
     if (annualPackage == null) return false
     val defaultOption = annualPackage.product.defaultOption ?: return false
     val introPhase = defaultOption.introPhase
-    if (introPhase != null && introPhase.price.amountMicros < annualPackage.product.price.amountMicros) {
+    if (introPhase != null && introPhase.price.amountMicros > 0 && introPhase.price.amountMicros < annualPackage.product.price.amountMicros) {
         return true
     }
-    val phases = defaultOption.pricingPhases
-    if (phases.size > 1) {
-        val firstPhase = phases.firstOrNull()
-        if (firstPhase != null && firstPhase.price.amountMicros < annualPackage.product.price.amountMicros) {
-            return true
-        }
+    val paidDiscountedPhase = defaultOption.pricingPhases.firstOrNull {
+        it.price.amountMicros > 0 && it.price.amountMicros < annualPackage.product.price.amountMicros
     }
-    return false
+    return paidDiscountedPhase != null
 }
 
 private fun formatMonthlyPrice(annualPackage: Package): String {

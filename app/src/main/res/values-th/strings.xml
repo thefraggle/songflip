@@ -302,4 +302,10 @@
     <string name="prerelease_btn_search_target">ค้นหาซิงเกิลใน %1$s</string>
     <string name="prerelease_btn_cancel">ยกเลิก</string>
     <string name="share_self_link_notice">นี่คือลิงก์ SongFlip โปรดแชร์ลิงก์เพลงแทน</string>
+    <!-- Free Trial Offer -->
+    <string name="pro_trial_badge">ทดลองฟรี %1$d วัน</string>
+    <string name="pro_price_annual_trial">ทดลองฟรี %1$d วัน หลังจากนั้น %2$s / เดือน (จากปกติ %3$s)</string>
+    <string name="pro_price_annual_trial_intro">ทดลองฟรี %1$d วัน หลังจากนั้น %2$s / เดือน ในปีแรก (จากปกติ %3$s)</string>
+    <string name="pro_price_annual_trial_simple">ทดลองฟรี %1$d วัน หลังจากนั้น %2$s / ปี</string>
+    <string name="pro_btn_annual_trial">ทดลองใช้ฟรี %1$d วัน</string>
 </resources>

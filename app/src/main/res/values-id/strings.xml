@@ -316,4 +316,10 @@
     <string name="prerelease_btn_search_target">Cari single di %1$s</string>
     <string name="prerelease_btn_cancel">Batal</string>
     <string name="share_self_link_notice">Ini adalah tautan SongFlip. Silakan bagikan tautan musik.</string>
+    <!-- Free Trial Offer -->
+    <string name="pro_trial_badge">%1$d HARI GRATIS</string>
+    <string name="pro_price_annual_trial">Gratis %1$d hari, lalu %2$s / bulan (bukan %3$s)</string>
+    <string name="pro_price_annual_trial_intro">Gratis %1$d hari, lalu %2$s / bulan di tahun ke-1 (bukan %3$s)</string>
+    <string name="pro_price_annual_trial_simple">Gratis %1$d hari, lalu %2$s / tahun</string>
+    <string name="pro_btn_annual_trial">Coba gratis %1$d hari</string>
 </resources>

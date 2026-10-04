@@ -316,4 +316,10 @@
     <string name="prerelease_btn_search_target">%1$s에서 싱글 검색</string>
     <string name="prerelease_btn_cancel">취소</string>
     <string name="share_self_link_notice">SongFlip 링크입니다. 음악 링크를 공유해 주세요.</string>
+    <!-- Free Trial Offer -->
+    <string name="pro_trial_badge">%1$d일 무료 체험</string>
+    <string name="pro_price_annual_trial">%1$d일 무료 체험 후 %2$s / 월 (정가 %3$s)</string>
+    <string name="pro_price_annual_trial_intro">%1$d일 무료 체험 후 1년차 %2$s / 월 (정가 %3$s)</string>
+    <string name="pro_price_annual_trial_simple">%1$d일 무료 체험 후 %2$s / 년</string>
+    <string name="pro_btn_annual_trial">%1$d일 무료 체험 시작</string>
 </resources>

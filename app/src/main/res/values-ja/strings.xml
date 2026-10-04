@@ -316,4 +316,10 @@
     <string name="prerelease_btn_search_target">%1$sでシングルを検索</string>
     <string name="prerelease_btn_cancel">キャンセル</string>
     <string name="share_self_link_notice">これはSongFlipのリンクです。音楽リンクを共有してください。</string>
+    <!-- Free Trial Offer -->
+    <string name="pro_trial_badge">%1$d日間無料</string>
+    <string name="pro_price_annual_trial">%1$d日間無料、その後 %2$s / 月（通常 %3$s）</string>
+    <string name="pro_price_annual_trial_intro">%1$d日間無料、その後初年度 %2$s / 月（通常 %3$s）</string>
+    <string name="pro_price_annual_trial_simple">%1$d日間無料、その後 %2$s / 年</string>
+    <string name="pro_btn_annual_trial">%1$d日間無料で試す</string>
 </resources>

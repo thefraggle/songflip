@@ -320,4 +320,10 @@
     <string name="prerelease_btn_search_target">%1$s içinde teklileri ara</string>
     <string name="prerelease_btn_cancel">İptal</string>
     <string name="share_self_link_notice">Bu bir SongFlip bağlantısıdır. Lütfen bir müzik bağlantısı paylaşın.</string>
+    <!-- Free Trial Offer -->
+    <string name="pro_trial_badge">%1$d GÜN ÜCRETSİZ</string>
+    <string name="pro_price_annual_trial">%1$d gün ücretsiz, sonra %2$s / ay (%3$s yerine)</string>
+    <string name="pro_price_annual_trial_intro">%1$d gün ücretsiz, sonra 1. yıl %2$s / ay (%3$s yerine)</string>
+    <string name="pro_price_annual_trial_simple">%1$d gün ücretsiz, sonra %2$s / yıl</string>
+    <string name="pro_btn_annual_trial">%1$d gün ücretsiz dene</string>
 </resources>

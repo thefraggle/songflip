@@ -310,4 +310,10 @@
     <string name="prerelease_btn_search_target">Caută single-uri pe %1$s</string>
     <string name="prerelease_btn_cancel">Anulează</string>
     <string name="share_self_link_notice">Acesta este un link SongFlip. Vă rugăm să partajați un link muzical.</string>
+    <!-- Free Trial Offer -->
+    <string name="pro_trial_badge">%1$d ZILE GRATIS</string>
+    <string name="pro_price_annual_trial">%1$d zile gratuit, apoi %2$s / lună (în loc de %3$s)</string>
+    <string name="pro_price_annual_trial_intro">%1$d zile gratuit, apoi %2$s / lună în primul an (în loc de %3$s)</string>
+    <string name="pro_price_annual_trial_simple">%1$d zile gratuit, apoi %2$s / an</string>
+    <string name="pro_btn_annual_trial">Încearcă gratuit %1$d zile</string>
 </resources>

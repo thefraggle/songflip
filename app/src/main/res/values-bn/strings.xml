@@ -320,4 +320,10 @@
     <string name="prerelease_btn_search_target">%1$s-এ একক গান খুঁজুন</string>
     <string name="prerelease_btn_cancel">বাতিল</string>
     <string name="share_self_link_notice">এটি একটি SongFlip লিঙ্ক। অনুগ্রহ করে একটি মিউজিক লিঙ্ক শেয়ার করুন।</string>
+    <!-- Free Trial Offer -->
+    <string name="pro_trial_badge">%1$d দিন বিনামূল্যে</string>
+    <string name="pro_price_annual_trial">%1$d দিন বিনামূল্যে, তারপর %2$s / মাস (%3$s-এর পরিবর্তে)</string>
+    <string name="pro_price_annual_trial_intro">%1$d দিন বিনামূল্যে, তারপর ১ম বছরে %2$s / মাস (%3$s-এর পরিবর্তে)</string>
+    <string name="pro_price_annual_trial_simple">%1$d দিন বিনামূল্যে, তারপর %2$s / বছর</string>
+    <string name="pro_btn_annual_trial">%1$d দিন বিনামূল্যে ট্রায়াল করুন</string>
 </resources>

@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.6.9] - 2026-10-04
+- **Dynamic Free Trial Support**: Automatically detects and highlights introductory free trials across all subscriptions.
+- **Paywall Polish**: Clearer pricing breakdown and dynamic action states across all 31 supported languages.
+- **Bug Fixes & Stability**: General stability improvements and billing flow optimizations.
+
 ## [1.6.8] - 2026-10-03
 - **Enhanced Link Detection**: Self-referential app links are now recognized and filtered with a helpful hint to share a music link instead.
 - **Improved Synchronization**: Automatic background recovery for existing account entitlements and status synchronization.

@@ -113,6 +113,11 @@ class LocalizationTest {
             "pro_feature_future_desc",
             "pro_btn_lifetime",
             "pro_btn_annual",
+            "pro_trial_badge",
+            "pro_price_annual_trial",
+            "pro_price_annual_trial_intro",
+            "pro_price_annual_trial_simple",
+            "pro_btn_annual_trial",
             "pro_btn_monthly"
         )
         val requiredPluralKeys = listOf(

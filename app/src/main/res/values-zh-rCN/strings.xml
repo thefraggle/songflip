@@ -316,4 +316,10 @@
     <string name="prerelease_btn_search_target">在 %1$s 中搜索单曲</string>
     <string name="prerelease_btn_cancel">取消</string>
     <string name="share_self_link_notice">这是SongFlip链接，请分享音乐链接。</string>
+    <!-- Free Trial Offer -->
+    <string name="pro_trial_badge">免费试用 %1$d 天</string>
+    <string name="pro_price_annual_trial">免费试用 %1$d 天，之后 %2$s / 月（原价 %3$s）</string>
+    <string name="pro_price_annual_trial_intro">免费试用 %1$d 天，首年 %2$s / 月（原价 %3$s）</string>
+    <string name="pro_price_annual_trial_simple">免费试用 %1$d 天，之后 %2$s / 年</string>
+    <string name="pro_btn_annual_trial">免费试用 %1$d 天</string>
 </resources>
