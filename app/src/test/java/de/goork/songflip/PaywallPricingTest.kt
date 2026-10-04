@@ -25,12 +25,6 @@ class PaywallPricingTest {
     }
 
     @Test
-    fun formatSaleOriginal_doublesSalePrice() {
-        val result = PaywallPricing.formatSaleOriginal(9_990_000L, "USD", Locale.US)
-        assertEquals("$19.98", result)
-    }
-
-    @Test
     fun formatAmount_returnsNullForUnknownCurrency() {
         assertNull(PaywallPricing.formatAmount(1_000_000.0, "XXXX", Locale.US))
     }

@@ -34,7 +34,109 @@ struct ProPaywallSheetView: View {
     }
 
     var selectedPackage: Package? {
-        packages.first { $0.packageType == selectedPackageType } ?? lifetimePackage ?? packages.first
+        packages.first { $0.packageType == selectedPackageType } ?? (shouldShowAnnualFirst ? annualPackage : lifetimePackage) ?? packages.first
+    }
+
+    var isLifetimeSale: Bool {
+        guard let lifetime = lifetimePackage else { return false }
+        // 1. Offering Metadata check from RevenueCat Dashboard (Master Switch)
+        if let metaSale = proManager.currentOffering?.metadata["is_lifetime_sale"] as? Bool, metaSale {
+            return true
+        }
+        if let metaSaleStr = proManager.currentOffering?.metadata["is_lifetime_sale"] as? String, metaSaleStr.lowercased() == "true" {
+            return true
+        }
+        // 2. Compare against regular annual price (threshold 1.6x)
+        if let annual = annualPackage {
+            let lifetimePrice = lifetime.storeProduct.price as Decimal
+            let annualPrice = annual.storeProduct.price as Decimal
+            if annualPrice > 0 && lifetimePrice <= (annualPrice * 1.6) {
+                return true
+            }
+        }
+        // 3. Fallback comparison against monthly price (regular lifetime is ~20x monthly; on sale it is <= 13x)
+        if let monthly = monthlyPackage {
+            let lifetimePrice = lifetime.storeProduct.price as Decimal
+            let monthlyPrice = monthly.storeProduct.price as Decimal
+            if monthlyPrice > 0 && lifetimePrice <= (monthlyPrice * 13.0) {
+                return true
+            }
+        }
+        return false
+    }
+
+    var paywallLayout: String {
+        let metaLayout = (proManager.currentOffering?.metadata["paywall_layout"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        return metaLayout == "annual_first" ? "annual_first" : "lifetime_first"
+    }
+
+    var shouldShowAnnualFirst: Bool {
+        // Active sale always forces lifetime to the top
+        !isLifetimeSale && paywallLayout == "annual_first"
+    }
+
+    var lifetimeBadge: String {
+        if isLifetimeSale {
+            return LocalizationManager.string(for: "pro_lifetime_sale_badge", lang: lang)
+        }
+        if !shouldShowAnnualFirst {
+            return LocalizationManager.string(for: "pro_lifetime_badge", lang: lang)
+        }
+        return LocalizationManager.string(for: "pro_lifetime_onetime_badge", lang: lang)
+    }
+
+    var lifetimeSubtitle: String? {
+        if isLifetimeSale {
+            return LocalizationManager.string(for: "pro_lifetime_sale_sub", lang: lang)
+        }
+        return LocalizationManager.string(for: "pro_lifetime_onetime_badge", lang: lang)
+    }
+
+    @ViewBuilder
+    private var lifetimeTierCard: some View {
+        if let pkg = lifetimePackage {
+            tierCard(
+                package: pkg,
+                title: LocalizationManager.string(for: "pro_tier_lifetime", lang: lang),
+                badge: lifetimeBadge,
+                subtitle: lifetimeSubtitle,
+                isSelected: selectedPackageType == .lifetime
+            ) {
+                selectedPackageType = .lifetime
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var annualTierCard: some View {
+        if let pkg = annualPackage {
+            let trialDays = proManager.getFreeTrialDays(for: pkg)
+            let trialBadge = trialDays != nil ? String(format: LocalizationManager.string(for: "pro_trial_badge", lang: lang), trialDays!) : nil
+            tierCard(
+                package: pkg,
+                title: LocalizationManager.string(for: "pro_tier_annual", lang: lang),
+                badge: trialBadge,
+                subtitle: pkg.storeProduct.localizedPriceString,
+                isSelected: selectedPackageType == .annual
+            ) {
+                selectedPackageType = .annual
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var monthlyTierCard: some View {
+        if let pkg = monthlyPackage {
+            tierCard(
+                package: pkg,
+                title: LocalizationManager.string(for: "pro_tier_monthly", lang: lang),
+                badge: nil,
+                subtitle: nil,
+                isSelected: selectedPackageType == .monthly
+            ) {
+                selectedPackageType = .monthly
+            }
+        }
     }
 
     var body: some View {
@@ -58,45 +160,14 @@ struct ProPaywallSheetView: View {
 
                     // Pricing Tiers
                     VStack(spacing: 12) {
-                        // 1. Lifetime Card
-                        if let pkg = lifetimePackage {
-                            tierCard(
-                                package: pkg,
-                                title: LocalizationManager.string(for: "pro_tier_lifetime", lang: lang),
-                                badge: LocalizationManager.string(for: "pro_lifetime_badge", lang: lang),
-                                subtitle: LocalizationManager.string(for: "pro_lifetime_onetime_badge", lang: lang),
-                                isSelected: selectedPackageType == .lifetime
-                            ) {
-                                selectedPackageType = .lifetime
-                            }
-                        }
-
-                        // 2. Annual Card
-                        if let pkg = annualPackage {
-                            let trialDays = proManager.getFreeTrialDays(for: pkg)
-                            let trialBadge = trialDays != nil ? String(format: LocalizationManager.string(for: "pro_trial_badge", lang: lang), trialDays!) : LocalizationManager.string(for: "pro_save_badge", lang: lang)
-                            tierCard(
-                                package: pkg,
-                                title: LocalizationManager.string(for: "pro_tier_annual", lang: lang),
-                                badge: trialBadge,
-                                subtitle: pkg.storeProduct.localizedPriceString,
-                                isSelected: selectedPackageType == .annual
-                            ) {
-                                selectedPackageType = .annual
-                            }
-                        }
-
-                        // 3. Monthly Card
-                        if let pkg = monthlyPackage {
-                            tierCard(
-                                package: pkg,
-                                title: LocalizationManager.string(for: "pro_tier_monthly", lang: lang),
-                                badge: nil,
-                                subtitle: pkg.storeProduct.localizedPriceString,
-                                isSelected: selectedPackageType == .monthly
-                            ) {
-                                selectedPackageType = .monthly
-                            }
+                        if shouldShowAnnualFirst {
+                            annualTierCard
+                            monthlyTierCard
+                            lifetimeTierCard
+                        } else {
+                            lifetimeTierCard
+                            annualTierCard
+                            monthlyTierCard
                         }
                     }
                     .padding(.horizontal)
@@ -225,6 +296,15 @@ struct ProPaywallSheetView: View {
                     dismissButton: .default(Text("OK"))
                 )
             }
+            .onAppear {
+                let initialType: PackageType = shouldShowAnnualFirst ? .annual : .lifetime
+                selectedPackageType = initialType
+                AptabaseClient.shared.trackEvent(eventName: "paywall_viewed", props: [
+                    "source": "paywall_sheet",
+                    "layout": shouldShowAnnualFirst ? "annual_first" : "lifetime_first",
+                    "is_sale": isLifetimeSale ? "true" : "false"
+                ])
+            }
             .preferredColorScheme(settings.colorScheme)
         }
     }
@@ -255,7 +335,7 @@ struct ProPaywallSheetView: View {
         package: Package,
         title: String,
         badge: String?,
-        subtitle: String,
+        subtitle: String?,
         isSelected: Bool,
         onSelect: @escaping () -> Void
     ) -> some View {
@@ -279,9 +359,11 @@ struct ProPaywallSheetView: View {
                                 .cornerRadius(6)
                         }
                     }
-                    Text(subtitle)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
+                    if let subtitle = subtitle, !subtitle.isEmpty {
+                        Text(subtitle)
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                    }
                 }
                 Spacer()
                 Text(package.storeProduct.localizedPriceString)
@@ -323,7 +405,13 @@ struct ProPaywallSheetView: View {
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         Task {
             do {
-                let success = try await proManager.purchase(package: pkg)
+                let success = try await proManager.purchase(
+                    package: pkg,
+                    extraProps: [
+                        "layout": shouldShowAnnualFirst ? "annual_first" : "lifetime_first",
+                        "is_sale": isLifetimeSale ? "true" : "false"
+                    ]
+                )
                 if success {
                     dismiss()
                 }

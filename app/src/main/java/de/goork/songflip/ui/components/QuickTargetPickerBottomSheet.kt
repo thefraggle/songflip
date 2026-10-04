@@ -71,6 +71,7 @@ fun QuickTargetPickerBottomSheet(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .closeOnEsc(onDismissRequest)
                 .padding(horizontal = 20.dp, vertical = 8.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {

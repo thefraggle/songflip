@@ -164,7 +164,7 @@
     <string name="pro_tier_lifetime">Livstid</string>
     <string name="pro_lifetime_badge">POPULÆR • ENGANGS</string>
     <string name="pro_lifetime_onetime_badge">ENGANGSKJØP</string>
-    <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
+    <string name="pro_lifetime_sale_badge" formatted="false">SPECIAL DEAL</string>
     <string name="pro_lifetime_sale_sub">Tidsbegrenset tilbud</string>
     <string name="pro_save_badge">SPAR %1$d %%</string>
     <string name="pro_price_annual_vs_monthly">%1$s / måned (i stedet for %2$s)</string>

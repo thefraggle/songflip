@@ -9,6 +9,7 @@ import de.goork.songflip.core.engine.resolvers.SongLinkApiResolver
 import de.goork.songflip.core.engine.resolvers.SpotifyResolver
 import de.goork.songflip.core.engine.resolvers.TidalResolver
 import de.goork.songflip.core.engine.resolvers.YouTubeMusicResolver
+import de.goork.songflip.core.model.MusicPlatform
 import de.goork.songflip.core.model.ResolutionResult
 import de.goork.songflip.core.util.UrlUtils
 import io.ktor.client.HttpClient
@@ -782,85 +783,91 @@ class SongLinkEngine(
 
     suspend fun extractTrackInfo(url: String): String? {
         return try {
-            if (url.contains("spotify.com")) {
-                spotifyResolver.extractMetadata(url)
-            } else if (url.contains("apple.com")) {
-                appleMusicResolver.extractMetadata(url)
-            } else if (url.contains("youtube.com") || url.contains("youtu.be")) {
-                val encoded = url.encodeURLParameter()
-                val resp = client.get("https://www.youtube.com/oembed?url=$encoded&format=json")
-                if (resp.status.isSuccess()) {
-                    val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
-                    val title = root["title"]?.jsonPrimitive?.content ?: ""
-                    val author = root["author_name"]?.jsonPrimitive?.content ?: ""
-                    if (title.isNotEmpty()) {
-                        return if (author.isNotEmpty() && !title.contains(author, ignoreCase = true)) "$author $title" else title
-                    }
-                }
-                null
-            } else if (url.contains("deezer.com")) {
-                val encoded = url.encodeURLParameter()
-                val resp = client.get("https://api.deezer.com/oembed?url=$encoded")
-                if (resp.status.isSuccess()) {
-                    val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
-                    val title = root["title"]?.jsonPrimitive?.content
-                    if (!title.isNullOrEmpty()) return title
-                }
-                null
-            } else if (url.contains("soundcloud.com")) {
-                val encoded = url.encodeURLParameter()
-                val resp = client.get("https://soundcloud.com/oembed?url=$encoded&format=json")
-                if (resp.status.isSuccess()) {
-                    val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
-                    val title = root["title"]?.jsonPrimitive?.content ?: ""
-                    val author = root["author_name"]?.jsonPrimitive?.content ?: ""
-                    val cleanTitle = if (author.isNotEmpty() && title.endsWith(" by $author", ignoreCase = true)) {
-                        title.substring(0, title.length - " by $author".length).trim()
-                    } else {
-                        title
-                    }
-                    if (cleanTitle.isNotEmpty()) {
-                        return if (author.isNotEmpty() && !cleanTitle.contains(author, ignoreCase = true)) "$author $cleanTitle" else cleanTitle
-                    }
-                }
-                null
-            } else if (url.contains("bandcamp.com")) {
-                val resp = client.get(url)
-                if (resp.status.isSuccess()) {
-                    val html = resp.bodyAsText()
-                    val ogTitleMatch = Regex("<meta\\s+property=[\"']og:title[\"']\\s+content=[\"']([^\"']+)[\"']", RegexOption.IGNORE_CASE).find(html)
-                        ?: Regex("<meta\\s+content=[\"']([^\"']+)[\"']\\s+property=[\"']og:title[\"']", RegexOption.IGNORE_CASE).find(html)
-                    if (ogTitleMatch != null) {
-                        val ogTitle = ogTitleMatch.groupValues[1]
-                        if (ogTitle.contains(", by ")) {
-                            val track = ogTitle.substringBefore(", by ").trim()
-                            val artist = ogTitle.substringAfter(", by ").trim()
-                            return "$artist $track"
-                        }
-                        return ogTitle
-                    }
-                }
-                null
-            } else if (url.contains("shazam.com")) {
-                val trackMatch = Regex("shazam\\.com/(?:[a-z]{2}(?:-[a-z]{2})?/)?track/([0-9]+)", RegexOption.IGNORE_CASE).find(url)
-                val trackId = trackMatch?.groupValues?.get(1) ?: url.substringAfter("/track/").substringBefore("/").substringBefore("?").trim().takeIf { it.isNotEmpty() && it.all { c -> c.isDigit() } }
-                if (!trackId.isNullOrEmpty()) {
-                    val resp = client.get("https://amp.shazam.com/discovery/v5/en-US/US/web/-/track/$trackId") {
-                        header("User-Agent", "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1")
-                    }
+            when (UrlUtils.detectPlatform(url)) {
+                MusicPlatform.SPOTIFY -> spotifyResolver.extractMetadata(url)
+                MusicPlatform.APPLE_MUSIC -> appleMusicResolver.extractMetadata(url)
+                MusicPlatform.YOUTUBE_MUSIC -> {
+                    val encoded = url.encodeURLParameter()
+                    val resp = client.get("https://www.youtube.com/oembed?url=$encoded&format=json")
                     if (resp.status.isSuccess()) {
-                        val body = resp.bodyAsText()
-                        val root = json.parseToJsonElement(body).jsonObject
-                        val title = root["title"]?.jsonPrimitive?.content?.trim()
-                        val artist = root["subtitle"]?.jsonPrimitive?.content?.trim()
-                        if (!title.isNullOrEmpty() && !artist.isNullOrEmpty()) {
-                            return "$artist $title"
+                        val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
+                        val title = root["title"]?.jsonPrimitive?.content ?: ""
+                        val author = root["author_name"]?.jsonPrimitive?.content ?: ""
+                        if (title.isNotEmpty()) {
+                            return if (author.isNotEmpty() && !title.contains(author, ignoreCase = true)) "$author $title" else title
                         }
                     }
+                    null
                 }
-                null
-            } else {
-                null
+                MusicPlatform.DEEZER -> {
+                    val encoded = url.encodeURLParameter()
+                    val resp = client.get("https://api.deezer.com/oembed?url=$encoded")
+                    if (resp.status.isSuccess()) {
+                        val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
+                        val title = root["title"]?.jsonPrimitive?.content
+                        if (!title.isNullOrEmpty()) return title
+                    }
+                    null
+                }
+                MusicPlatform.SOUNDCLOUD -> {
+                    val encoded = url.encodeURLParameter()
+                    val resp = client.get("https://soundcloud.com/oembed?url=$encoded&format=json")
+                    if (resp.status.isSuccess()) {
+                        val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
+                        val title = root["title"]?.jsonPrimitive?.content ?: ""
+                        val author = root["author_name"]?.jsonPrimitive?.content ?: ""
+                        val cleanTitle = if (author.isNotEmpty() && title.endsWith(" by $author", ignoreCase = true)) {
+                            title.substring(0, title.length - " by $author".length).trim()
+                        } else {
+                            title
+                        }
+                        if (cleanTitle.isNotEmpty()) {
+                            return if (author.isNotEmpty() && !cleanTitle.contains(author, ignoreCase = true)) "$author $cleanTitle" else cleanTitle
+                        }
+                    }
+                    null
+                }
+                MusicPlatform.BANDCAMP -> {
+                    val resp = client.get(url)
+                    if (resp.status.isSuccess()) {
+                        val html = resp.bodyAsText()
+                        val ogTitleMatch = Regex("<meta\\s+property=[\"']og:title[\"']\\s+content=[\"']([^\"']+)[\"']", RegexOption.IGNORE_CASE).find(html)
+                            ?: Regex("<meta\\s+content=[\"']([^\"']+)[\"']\\s+property=[\"']og:title[\"']", RegexOption.IGNORE_CASE).find(html)
+                        if (ogTitleMatch != null) {
+                            val ogTitle = ogTitleMatch.groupValues[1]
+                            if (ogTitle.contains(", by ")) {
+                                val track = ogTitle.substringBefore(", by ").trim()
+                                val artist = ogTitle.substringAfter(", by ").trim()
+                                return "$artist $track"
+                            }
+                            return ogTitle
+                        }
+                    }
+                    null
+                }
+                else -> {
+                    if (url.contains("shazam.com")) {
+                        val trackMatch = Regex("shazam\\.com/(?:[a-z]{2}(?:-[a-z]{2})?/)?track/([0-9]+)", RegexOption.IGNORE_CASE).find(url)
+                        val trackId = trackMatch?.groupValues?.get(1) ?: url.substringAfter("/track/").substringBefore("/").substringBefore("?").trim().takeIf { it.isNotEmpty() && it.all { c -> c.isDigit() } }
+                        if (!trackId.isNullOrEmpty()) {
+                            val resp = client.get("https://amp.shazam.com/discovery/v5/en-US/US/web/-/track/$trackId") {
+                                header("User-Agent", "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1")
+                            }
+                            if (resp.status.isSuccess()) {
+                                val body = resp.bodyAsText()
+                                val root = json.parseToJsonElement(body).jsonObject
+                                val title = root["title"]?.jsonPrimitive?.content?.trim()
+                                val artist = root["subtitle"]?.jsonPrimitive?.content?.trim()
+                                if (!title.isNullOrEmpty() && !artist.isNullOrEmpty()) {
+                                    return "$artist $title"
+                                }
+                            }
+                        }
+                        null
+                    } else {
+                        null
+                    }
+                }
             }
         } catch (e: Exception) {
             if (e is CancellationException) throw e
@@ -880,7 +887,10 @@ class SongLinkEngine(
                         if (!name.isNullOrEmpty()) return name
                     }
                 }
-            } else if (url.contains("spotify.com") && url.contains("/artist/")) {
+            }
+            val platform = UrlUtils.detectPlatform(url)
+            val lower = url.lowercase()
+            if (platform == MusicPlatform.SPOTIFY && lower.contains("/artist/")) {
                 val encoded = url.encodeURLParameter()
                 val resp = client.get("https://open.spotify.com/oembed?url=$encoded")
                 if (resp.status.isSuccess()) {
@@ -888,7 +898,7 @@ class SongLinkEngine(
                     val title = root["title"]?.jsonPrimitive?.content
                     if (!title.isNullOrEmpty()) return title
                 }
-            } else if (url.contains("apple.com") && url.contains("/artist/")) {
+            } else if (platform == MusicPlatform.APPLE_MUSIC && lower.contains("/artist/")) {
                 val artistId = url.substringAfterLast("/").substringBefore("?").substringBefore("&").trim()
                 if (artistId.isNotEmpty() && artistId.all { it.isDigit() }) {
                     val resp = client.get("https://itunes.apple.com/lookup?id=$artistId")
@@ -912,7 +922,9 @@ class SongLinkEngine(
 
     private suspend fun extractPlaylistInfo(url: String): String? {
         return try {
-            if (url.contains("deezer.com") && url.contains("/playlist/")) {
+            val platform = UrlUtils.detectPlatform(url)
+            val lower = url.lowercase()
+            if (platform == MusicPlatform.DEEZER && lower.contains("/playlist/")) {
                 val playlistId = url.substringAfter("/playlist/").substringBefore("?").substringBefore("/").trim()
                 if (playlistId.isNotEmpty()) {
                     val resp = client.get("https://api.deezer.com/playlist/$playlistId")
@@ -922,7 +934,7 @@ class SongLinkEngine(
                         if (!title.isNullOrEmpty()) return title
                     }
                 }
-            } else if (url.contains("spotify.com") && url.contains("/playlist/")) {
+            } else if (platform == MusicPlatform.SPOTIFY && lower.contains("/playlist/")) {
                 val encoded = url.encodeURLParameter()
                 val resp = client.get("https://open.spotify.com/oembed?url=$encoded")
                 if (resp.status.isSuccess()) {
@@ -1119,7 +1131,7 @@ class SongLinkEngine(
         }
 
         // 2. Direct Client-Side Spotify Scraping (Bot UA + oEmbed Fallback)
-        if (canonicalUrl.contains("spotify.com") || canonicalUrl.startsWith("spotify:")) {
+        if (UrlUtils.detectPlatform(canonicalUrl) == MusicPlatform.SPOTIFY) {
             try {
                 val sResp = client.get(canonicalUrl) {
                     header("User-Agent", "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)")

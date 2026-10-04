@@ -328,43 +328,51 @@ object UrlUtils {
         return host.ifBlank { "unknown" }
     }
 
+    private fun isHostOrSubdomain(host: String, vararg domains: String): Boolean {
+        return domains.any { domain ->
+            host == domain || host.endsWith(".$domain")
+        }
+    }
+
     fun detectPlatform(url: String): MusicPlatform? {
-        val lower = url.lowercase()
+        val lower = url.trim().lowercase()
+        val host = extractDomain(lower)
         return when {
-            lower.contains("spotify.com") || lower.contains("spotify.link") || lower.contains("spotify.app.link") || lower.contains("spoti.fi") || lower.startsWith("spotify:") -> MusicPlatform.SPOTIFY
-            lower.contains("apple.com") || lower.contains("itunes.apple.com") || lower.contains("apple.co") || lower.contains("itun.es") -> MusicPlatform.APPLE_MUSIC
-            lower.contains("music.youtube.com") -> MusicPlatform.YOUTUBE_MUSIC
-            lower.contains("youtube.com") || lower.contains("youtu.be") -> MusicPlatform.YOUTUBE_MUSIC
-            lower.contains("deezer.com") || lower.contains("deezer.page.link") || lower.contains("link.deezer.com") -> MusicPlatform.DEEZER
-            lower.contains("tidal.com") || lower.contains("tidal.link") -> MusicPlatform.TIDAL
-            lower.contains("music.amazon.") || lower.contains("amazon.") || lower.contains("amzn.to") || lower.contains("amzn.eu") || lower.contains("amzn.asia") || lower.contains("a.co") -> MusicPlatform.AMAZON_MUSIC
-            lower.contains("soundcloud.com") || lower.contains("on.soundcloud.com") -> MusicPlatform.SOUNDCLOUD
-            lower.contains("bandcamp.com") -> MusicPlatform.BANDCAMP
+            isHostOrSubdomain(host, "spotify.com", "spotify.link", "spotify.app.link", "spoti.fi") || lower.startsWith("spotify:") -> MusicPlatform.SPOTIFY
+            isHostOrSubdomain(host, "apple.com", "apple.co", "itun.es") -> MusicPlatform.APPLE_MUSIC
+            host == "music.youtube.com" -> MusicPlatform.YOUTUBE_MUSIC
+            isHostOrSubdomain(host, "youtube.com", "youtu.be") -> MusicPlatform.YOUTUBE_MUSIC
+            isHostOrSubdomain(host, "deezer.com", "deezer.page.link") -> MusicPlatform.DEEZER
+            isHostOrSubdomain(host, "tidal.com", "tidal.link") -> MusicPlatform.TIDAL
+            isHostOrSubdomain(host, "amzn.to", "amzn.eu", "amzn.asia", "a.co") || host.startsWith("music.amazon.") || host.startsWith("amazon.") || host.contains(".amazon.") -> MusicPlatform.AMAZON_MUSIC
+            isHostOrSubdomain(host, "soundcloud.com") -> MusicPlatform.SOUNDCLOUD
+            isHostOrSubdomain(host, "bandcamp.com") -> MusicPlatform.BANDCAMP
             else -> null
         }
     }
 
     fun isSearchUrl(url: String): Boolean {
-        val clean = url.lowercase()
-        return clean.contains("spotify.com/search/") ||
-                (clean.contains("spotify.com") && clean.contains("/search")) ||
-                clean.contains("music.apple.com") && clean.contains("/search") ||
-                clean.contains("music.youtube.com/search") ||
-                clean.contains("youtube.com/results") ||
-                clean.contains("deezer.com") && clean.contains("/search") ||
-                clean.contains("tidal.com") && clean.contains("/search") ||
-                clean.contains("music.amazon.") && clean.contains("/search") ||
-                clean.contains("soundcloud.com/search") ||
-                clean.contains("bandcamp.com/search")
+        val clean = url.trim().lowercase()
+        val host = extractDomain(clean)
+        val path = clean.substringAfter(host, "")
+        return (isHostOrSubdomain(host, "spotify.com") && path.contains("/search")) ||
+                (isHostOrSubdomain(host, "apple.com") && path.contains("/search")) ||
+                (isHostOrSubdomain(host, "youtube.com") && (path.contains("/search") || path.contains("/results"))) ||
+                (isHostOrSubdomain(host, "deezer.com") && path.contains("/search")) ||
+                (isHostOrSubdomain(host, "tidal.com") && path.contains("/search")) ||
+                ((host.contains("amazon.") || isHostOrSubdomain(host, "amzn.to")) && path.contains("/search")) ||
+                (isHostOrSubdomain(host, "soundcloud.com") && path.contains("/search")) ||
+                (isHostOrSubdomain(host, "bandcamp.com") && path.contains("/search"))
     }
 
     fun extractSearchQuery(url: String): String? {
         val clean = url.trim()
         val lower = clean.lowercase()
+        val host = extractDomain(lower)
 
         val rawQuery: String? = when {
             // Spotify: open.spotify.com/search/Farin%20Urlaub%20Kein%20Pardon or /intl-de/search/...
-            lower.contains("spotify.com") && lower.contains("/search") -> {
+            isHostOrSubdomain(host, "spotify.com") && lower.contains("/search") -> {
                 val afterSearch = clean.substringAfter("/search/").substringAfter("/search?")
                 if (afterSearch.startsWith("q=")) {
                     afterSearch.substringAfter("q=").substringBefore("&").substringBefore("?")
@@ -373,7 +381,7 @@ object UrlUtils {
                 }
             }
             // Apple Music: music.apple.com/de/search?term=Farin%20Urlaub
-            lower.contains("apple.com") && lower.contains("/search") -> {
+            isHostOrSubdomain(host, "apple.com") && lower.contains("/search") -> {
                 if (clean.contains("term=")) {
                     clean.substringAfter("term=").substringBefore("&")
                 } else if (clean.contains("q=")) {
@@ -383,15 +391,15 @@ object UrlUtils {
                 }
             }
             // YouTube Music: music.youtube.com/search?q=Farin+Urlaub
-            lower.contains("music.youtube.com/search") -> {
+            host == "music.youtube.com" && lower.contains("/search") -> {
                 clean.substringAfter("q=").substringBefore("&")
             }
             // YouTube: youtube.com/results?search_query=Farin+Urlaub
-            lower.contains("youtube.com/results") -> {
+            isHostOrSubdomain(host, "youtube.com") && lower.contains("/results") -> {
                 clean.substringAfter("search_query=").substringBefore("&")
             }
             // Deezer: deezer.com/search/Farin%20Urlaub or deezer.com/de/search/Farin%20Urlaub
-            lower.contains("deezer.com") && lower.contains("/search") -> {
+            isHostOrSubdomain(host, "deezer.com") && lower.contains("/search") -> {
                 val afterSearch = clean.substringAfter("/search/").substringAfter("/search?")
                 if (afterSearch.startsWith("q=")) {
                     afterSearch.substringAfter("q=").substringBefore("&")
@@ -400,7 +408,7 @@ object UrlUtils {
                 }
             }
             // Tidal: tidal.com/search?q=Farin%20Urlaub or listen.tidal.com/search?q=...
-            lower.contains("tidal.com") && lower.contains("/search") -> {
+            isHostOrSubdomain(host, "tidal.com") && lower.contains("/search") -> {
                 if (clean.contains("q=")) {
                     clean.substringAfter("q=").substringBefore("&")
                 } else {
@@ -408,7 +416,7 @@ object UrlUtils {
                 }
             }
             // Amazon Music: music.amazon.com/search/Farin%20Urlaub or ?k=...
-            lower.contains("music.amazon.") && lower.contains("/search") -> {
+            (host.contains("amazon.") || isHostOrSubdomain(host, "amzn.to")) && lower.contains("/search") -> {
                 if (clean.contains("k=")) {
                     clean.substringAfter("k=").substringBefore("&")
                 } else if (clean.contains("keywords=")) {
@@ -418,11 +426,11 @@ object UrlUtils {
                 }
             }
             // SoundCloud: soundcloud.com/search?q=...
-            lower.contains("soundcloud.com/search") -> {
+            isHostOrSubdomain(host, "soundcloud.com") && lower.contains("/search") -> {
                 clean.substringAfter("q=").substringBefore("&")
             }
             // Bandcamp: bandcamp.com/search?q=...
-            lower.contains("bandcamp.com/search") -> {
+            isHostOrSubdomain(host, "bandcamp.com") && lower.contains("/search") -> {
                 clean.substringAfter("q=").substringBefore("&")
             }
             else -> null

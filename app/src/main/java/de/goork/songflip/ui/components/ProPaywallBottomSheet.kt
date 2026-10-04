@@ -117,6 +117,7 @@ fun ProPaywallBottomSheet(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .closeOnEsc(onDismissRequest)
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 24.dp, vertical = 8.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -316,7 +317,6 @@ fun ProPaywallBottomSheet(
                 val lifetimePackage = availablePackages.firstOrNull { it.packageType == PackageType.LIFETIME }
 
                 val isLifetimeSale = isLifetimeSaleActive(lifetimePackage, annualPackage, monthlyPackage, currentOffering)
-                val lifetimeOriginalStrike = if (isLifetimeSale) formatOriginalStrikePrice(lifetimePackage) else null
 
                 val isAnnualIntro = isAnnualIntroOfferActive(annualPackage)
                 val annualTrialDays = getFreeTrialDays(annualPackage)
@@ -389,7 +389,6 @@ fun ProPaywallBottomSheet(
                             SelectedProTier.LIFETIME -> ProTierCard(
                                 title = stringResource(R.string.pro_tier_lifetime),
                                 price = getEffectivePrice(lifetimePackage)?.formatted ?: "—",
-                                originalPrice = lifetimeOriginalStrike,
                                 subtitle = if (isLifetimeSale) stringResource(R.string.pro_lifetime_sale_sub) else null,
                                 badge = lifetimeBadge,
                                 isSelected = selectedTier == SelectedProTier.LIFETIME,
@@ -875,9 +874,9 @@ private fun isLifetimeSaleActive(
     // 2. Compare against BASE regular annual price (product.price, ignoring 1st year intro 50% discount)
     val regularAnnualMicros = annualPackage?.product?.price?.amountMicros
     if (regularAnnualMicros != null && regularAnnualMicros > 0) {
-        // Regular lifetime (~19.99€) is ~2.5x regular annual (~7.99€-9.99€).
-        // Discounted lifetime (~9.99€) is <= 1.5x regular annual (~11.98€).
-        if (lifetimeMicros <= (regularAnnualMicros * 1.5)) return true
+        // Regular lifetime (~19.99€/24.99€) is ~2.5x regular annual (~7.99€-9.99€).
+        // Discounted lifetime (~9.99€/14.99€) is <= 1.6x regular annual (~12.78€-15.98€).
+        if (lifetimeMicros <= (regularAnnualMicros * 1.6)) return true
     }
 
     // 3. Fallback comparison against monthly price (regular lifetime 19.99€ is ~20x of 0.99€ monthly; on sale 9.99€ it is ~10x)
@@ -891,16 +890,6 @@ private fun isLifetimeSaleActive(
 }
 
 private const val PAYWALL_TAG = "ProPaywall"
-
-private fun formatOriginalStrikePrice(pkg: Package?): String? {
-    val price = getEffectivePrice(pkg) ?: return null
-    return PaywallPricing.formatSaleOriginal(price.amountMicros, price.currencyCode)
-        ?: run {
-            // Without a valid currency we cannot render a trustworthy strike price → hide it.
-            Log.w(PAYWALL_TAG, "Unknown currency '${price.currencyCode}', hiding lifetime strike price")
-            null
-        }
-}
 
 private fun getFreeTrialDays(pkg: Package?): Int? {
     if (pkg == null) return null

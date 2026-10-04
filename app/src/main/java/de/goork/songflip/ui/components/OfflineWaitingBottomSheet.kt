@@ -46,6 +46,7 @@ fun OfflineWaitingBottomSheet(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .closeOnEsc(onDismissRequest)
                 .padding(horizontal = 24.dp, vertical = 12.dp)
                 .navigationBarsPadding(),
             horizontalAlignment = Alignment.CenterHorizontally,

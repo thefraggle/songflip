@@ -166,7 +166,7 @@
     <string name="pro_tier_lifetime">Dożywotnio</string>
     <string name="pro_lifetime_badge">POPULARNE • JEDNORAZOWO</string>
     <string name="pro_lifetime_onetime_badge">JEDNORAZOWO</string>
-    <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
+    <string name="pro_lifetime_sale_badge" formatted="false">SPECIAL DEAL</string>
     <string name="pro_lifetime_sale_sub">Oferta ograniczona czasowo</string>
     <string name="pro_save_badge">OSZCZĘDŹ %1$d%%</string>
     <string name="pro_price_annual_vs_monthly">%1$s / miesiąc (zamiast %2$s)</string>

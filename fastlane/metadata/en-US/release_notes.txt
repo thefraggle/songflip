@@ -1,4 +1,4 @@
-- Faster Link Detection: Immediate clipboard link detection right when launching the app.
-- Direct Feedback Channel: Report issues or share feedback directly within the app with zero tracking.
-- Display Fixes: Resolved currency and offer display edge cases across various regions.
+- Enhanced Keyboard Navigation: Dialogs and sheets can now be closed instantly with the Escape key (ESC).
+- Hardened Link Verification: Strict domain checks protect against spoofed or malformed music links.
+- Transparent Offer Details: Clear and consistent presentation of special highlights across all regions.
 - Bug Fixes & Stability: General stability enhancements and bug fixes.

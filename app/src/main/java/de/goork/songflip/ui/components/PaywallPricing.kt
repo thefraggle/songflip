@@ -39,12 +39,6 @@ object PaywallPricing {
     fun formatPerMonth(annualMicros: Long, currencyCode: String, locale: Locale = Locale.getDefault()): String? =
         formatAmount(annualMicros / 12.0, currencyCode, locale)
 
-    /**
-     * Strike-through price for a lifetime sale.
-     * Assumes the sale is exactly 50 % (matching the "50 % DEAL" badge copy) → original = 2 × sale price.
-     */
-    fun formatSaleOriginal(saleMicros: Long, currencyCode: String, locale: Locale = Locale.getDefault()): String? =
-        formatAmount(saleMicros * 2.0, currencyCode, locale)
 
     /** Below this, a "save X %" badge looks petty rather than persuasive. */
     const val MIN_SAVINGS_PERCENT = 5
