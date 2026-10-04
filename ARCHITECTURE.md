@@ -182,9 +182,11 @@ The codebase separates platform-specific UI from deterministic platform-agnostic
 
 ### iOS Native Share Extension & App Groups:
 The iOS architecture decouples the main user interface (`de.goork.SongFlip`) from the background system extension (`de.goork.SongFlip.ShareExtension`):
-- **App Group Container (`group.de.goork.songflip`)**: Provides shared IPC storage via `UserDefaults(suiteName:)`. Both the main app and the Share Extension access identical user preferences (`target_platform`, `custom_api_url`) and the shared conversion history (`songflip_conversion_history`).
+- **App Group Container (`group.de.goork.songflip`)**: Provides shared IPC storage via `UserDefaults(suiteName:)`. Both the main app and the Share Extension access identical user preferences (`target_platform`, `custom_api_url`), cached PRO entitlements (`is_pro_cached`), and the shared conversion history (`songflip_conversion_history`).
 - **Static KMP Linking**: The KMP framework (`SongFlipKit.xcframework`) is linked statically (`isStatic = true`) into both the main application and the extension bundle, preventing runtime dynamic library lookup issues across extension boundaries.
 - **Zero-Friction Sharing**: The extension intercepts incoming URLs or text from any host app (Spotify, Apple Music, Safari, WhatsApp), resolves the target stream in the background via `SongLinkEngine`, appends the conversion to the shared history, and directly triggers playback in the target player.
+- **StoreKit 2 & RevenueCat Architecture (`ProManager.swift`)**: Uses RevenueCat iOS SDK (v5 SPM) to manage subscriptions (`songflip_pro_annual`, `songflip_pro_monthly`) and non-consumable lifetime purchases (`songflip_pro_lifetime`). Supports 7-day free trial on annual subscriptions, dynamic 50% discount promotions, offline coupon verification via `/redeemPromoCode`, and cross-process App Group entitlement caching.
+- **Interactive Playlist & History Parity**: Full feature parity with Android via native SwiftUI components: `PlaylistConverterView` (live progress, match detection, Zero-OAuth queue launch for Spotify/YouTube Music, 5-song free limit gating), `HistorySheetView` (10 free / 100 PRO capacity indicator), and `FeedbackSheetView` (zero-tracking Firestore feedback with mail fallback).
 
 ---
 
