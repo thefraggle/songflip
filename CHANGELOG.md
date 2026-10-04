@@ -1,6 +1,8 @@
 # Changelog
 
 ## [1.6.9] - 2026-10-04
+- **In-App Feedback Dialog**: Submit bug reports and feature ideas directly inside the app with zero tracking and full privacy (#61).
+- **Instant Clipboard & Promo Banner**: Instant, latency-free clipboard link detection on app launch and window focus without race conditions (#60).
 - **Dynamic Free Trial Support**: Automatically detects and highlights introductory free trials across all subscriptions.
 - **Paywall Polish**: Clearer pricing breakdown and dynamic action states across all 31 supported languages.
 - **Bug Fixes & Stability**: General stability improvements and billing flow optimizations.

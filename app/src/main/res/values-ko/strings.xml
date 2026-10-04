@@ -322,4 +322,17 @@
     <string name="pro_price_annual_trial_intro">%1$d일 무료 체험 후 1년차 %2$s / 월 (정가 %3$s)</string>
     <string name="pro_price_annual_trial_simple">%1$d일 무료 체험 후 %2$s / 년</string>
     <string name="pro_btn_annual_trial">%1$d일 무료 체험 시작</string>
+    <!-- In-App Feedback Dialog -->
+    <string name="feedback_title">피드백 및 지원</string>
+    <string name="feedback_cat_bug">🐛 버그</string>
+    <string name="feedback_cat_feature">💡 제안</string>
+    <string name="feedback_cat_general">💬 일반</string>
+    <string name="feedback_message_hint">문제, 제안 또는 의견을 입력해주세요...</string>
+    <string name="feedback_email_hint">이메일 (답변 희망 시 입력)</string>
+    <string name="feedback_privacy_note">제로 트래킹: 앱 버전과 기기 모델 정보만 전송됩니다.</string>
+    <string name="feedback_btn_send">피드백 보내기</string>
+    <string name="feedback_btn_mail_fallback">이메일로 보내기</string>
+    <string name="feedback_success">소중한 피드백 감사합니다!</string>
+    <string name="feedback_error_empty">최소 10자 이상 입력해주세요.</string>
+    <string name="feedback_error_network">전송에 실패했습니다. 이메일로 문의해주세요.</string>
 </resources>

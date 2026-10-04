@@ -49,12 +49,16 @@ class MainActivity : AppCompatActivity() {
 
     private var showPauseSheetState = mutableStateOf(false)
     private var openPlaylistUrlState = mutableStateOf<String?>(null)
-    private val windowFocusState = mutableStateOf(true)
+    private val windowFocusState = mutableStateOf(false)
+    private val windowFocusEpoch = mutableStateOf(0L)
     private val incomingSharedUrlState = mutableStateOf<String?>(null)
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         windowFocusState.value = hasFocus
+        if (hasFocus) {
+            windowFocusEpoch.value = System.currentTimeMillis()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,7 +99,16 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        PromoBannerManager.fetchPromoBanner()
+        val cachedPromo = settingsRepo.cachedPromoBannerJson
+        if (!cachedPromo.isNullOrBlank()) {
+            PromoBannerManager.initFromCachedJson(cachedPromo, System.currentTimeMillis())
+        }
+        PromoBannerManager.fetchPromoBanner(
+            currentTimeMs = System.currentTimeMillis(),
+            onSuccess = { rawJson ->
+                settingsRepo.cachedPromoBannerJson = rawJson
+            }
+        )
 
         setContent {
             val themeMode = remember { mutableStateOf(settingsRepo.themeMode) }
@@ -117,6 +130,7 @@ class MainActivity : AppCompatActivity() {
                         initialPlaylistUrl = openPlaylistUrlState.value,
                         onPlaylistSheetDismissed = { openPlaylistUrlState.value = null },
                         windowFocused = windowFocusState.value,
+                        windowFocusEpoch = windowFocusEpoch.value,
                         incomingSharedUrl = incomingSharedUrlState.value,
                         onIncomingSharedUrlHandled = { incomingSharedUrlState.value = null },
                         onThemeModeChanged = { newMode -> themeMode.value = newMode }
@@ -201,6 +215,7 @@ fun MainScreen(
     initialPlaylistUrl: String? = null,
     onPlaylistSheetDismissed: () -> Unit = {},
     windowFocused: Boolean = true,
+    windowFocusEpoch: Long = 0L,
     incomingSharedUrl: String? = null,
     onIncomingSharedUrlHandled: () -> Unit = {},
     onThemeModeChanged: (String) -> Unit = {},
@@ -232,7 +247,16 @@ fun MainScreen(
 
     LaunchedEffect(Unit) {
         if (!proState.isPro) {
-            PromoBannerManager.fetchPromoBanner()
+            val cachedJson = settingsRepository.cachedPromoBannerJson
+            if (!cachedJson.isNullOrBlank()) {
+                PromoBannerManager.initFromCachedJson(cachedJson, System.currentTimeMillis())
+            }
+            PromoBannerManager.fetchPromoBanner(
+                currentTimeMs = System.currentTimeMillis(),
+                onSuccess = { rawJson ->
+                    settingsRepository.cachedPromoBannerJson = rawJson
+                }
+            )
         }
     }
 
@@ -252,9 +276,9 @@ fun MainScreen(
     // Milestone Promo Nudge State
     var activeMilestone by remember { mutableStateOf(settingsRepository.getActiveProNudgeMilestone()) }
 
-    fun checkClipboard() {
+    fun checkClipboard(force: Boolean = false) {
         val now = System.currentTimeMillis()
-        if (now - lastClipboardCheckTimestamp < 800L) {
+        if (!force && now - lastClipboardCheckTimestamp < 800L) {
             return
         }
         lastClipboardCheckTimestamp = now
@@ -329,7 +353,9 @@ fun MainScreen(
                     de.goork.songflip.data.ReviewHelper.maybeRequestReview(act, settingsRepository)
                 }
                 de.goork.songflip.data.ShortcutHelper.updateShortcuts(context)
-                checkClipboard()
+                if ((context as? Activity)?.hasWindowFocus() == true) {
+                    checkClipboard(force = true)
+                }
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
@@ -338,9 +364,15 @@ fun MainScreen(
         }
     }
 
+    LaunchedEffect(windowFocusEpoch) {
+        if (windowFocusEpoch > 0L) {
+            checkClipboard(force = true)
+        }
+    }
+
     LaunchedEffect(windowFocused) {
         if (windowFocused) {
-            checkClipboard()
+            checkClipboard(force = true)
         }
     }
 

@@ -308,4 +308,17 @@
     <string name="pro_price_annual_trial_intro">免費試用 %1$d 天，首年 %2$s / 月（原價 %3$s）</string>
     <string name="pro_price_annual_trial_simple">免費試用 %1$d 天，之後 %2$s / 年</string>
     <string name="pro_btn_annual_trial">免費試用 %1$d 天</string>
+    <!-- In-App Feedback Dialog -->
+    <string name="feedback_title">回饋與支援</string>
+    <string name="feedback_cat_bug">🐛 問題回報</string>
+    <string name="feedback_cat_feature">💡 功能建議</string>
+    <string name="feedback_cat_general">💬 其他意見</string>
+    <string name="feedback_message_hint">請描述您遇到的問題、建議或意見...</string>
+    <string name="feedback_email_hint">您的電子郵件（選填，便於回覆）</string>
+    <string name="feedback_privacy_note">零追蹤：僅傳送應用程式版本和裝置型號以利問題排查。</string>
+    <string name="feedback_btn_send">送出回饋</string>
+    <string name="feedback_btn_mail_fallback">改用電子郵件傳送</string>
+    <string name="feedback_success">感謝您的回饋！</string>
+    <string name="feedback_error_empty">請輸入至少10個字元。</string>
+    <string name="feedback_error_network">傳送失敗，請嘗試使用電子郵件。</string>
 </resources>

@@ -326,4 +326,17 @@
     <string name="pro_price_annual_trial_intro">%1$d दिन निःशुल्क, फिर पहले वर्ष %2$s / माह (%3$s के बजाय)</string>
     <string name="pro_price_annual_trial_simple">%1$d दिन निःशुल्क, फिर %2$s / वर्ष</string>
     <string name="pro_btn_annual_trial">%1$d दिन का निःशुल्क परीक्षण</string>
+    <!-- In-App Feedback Dialog -->
+    <string name="feedback_title">प्रतिक्रिया और सहायता</string>
+    <string name="feedback_cat_bug">🐛 बग</string>
+    <string name="feedback_cat_feature">💡 विचार</string>
+    <string name="feedback_cat_general">💬 सामान्य</string>
+    <string name="feedback_message_hint">अपनी समस्या, विचार या प्रतिक्रिया बताएं...</string>
+    <string name="feedback_email_hint">आपका ईमेल (वैकल्पिक, उत्तर के लिए)</string>
+    <string name="feedback_privacy_note">शून्य ट्रैकिंग: समस्या निवारण के लिए केवल ऐप संस्करण और डिवाइस मॉडल भेजा जाता है।</string>
+    <string name="feedback_btn_send">प्रतिक्रिया भेजें</string>
+    <string name="feedback_btn_mail_fallback">इसके बजाय ईमेल लिखें</string>
+    <string name="feedback_success">आपकी प्रतिक्रिया के लिए धन्यवाद!</string>
+    <string name="feedback_error_empty">कृपया कम से कम 10 वर्ण दर्ज करें।</string>
+    <string name="feedback_error_network">भेजने में असमर्थ। कृपया ईमेल का उपयोग करें।</string>
 </resources>

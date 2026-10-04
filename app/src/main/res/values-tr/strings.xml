@@ -326,4 +326,17 @@
     <string name="pro_price_annual_trial_intro">%1$d gün ücretsiz, sonra 1. yıl %2$s / ay (%3$s yerine)</string>
     <string name="pro_price_annual_trial_simple">%1$d gün ücretsiz, sonra %2$s / yıl</string>
     <string name="pro_btn_annual_trial">%1$d gün ücretsiz dene</string>
+    <!-- In-App Feedback Dialog -->
+    <string name="feedback_title">Geri Bildirim ve Destek</string>
+    <string name="feedback_cat_bug">🐛 Hata</string>
+    <string name="feedback_cat_feature">💡 Fikir</string>
+    <string name="feedback_cat_general">💬 Genel</string>
+    <string name="feedback_message_hint">Sorununuzu, fikrinizi veya geri bildiriminizi açıklayın...</string>
+    <string name="feedback_email_hint">E-postanız (isteğe bağlı, yanıt için)</string>
+    <string name="feedback_privacy_note">Sıfır takip: Yalnızca uygulama sürümü ve cihaz modeli gönderilir.</string>
+    <string name="feedback_btn_send">Geri Bildirim Gönder</string>
+    <string name="feedback_btn_mail_fallback">E-posta ile yazmayı tercih et</string>
+    <string name="feedback_success">Geri bildiriminiz için teşekkürler!</string>
+    <string name="feedback_error_empty">Lütfen en az 10 karakter girin.</string>
+    <string name="feedback_error_network">Gönderilemedi. Lütfen e-posta ile deneyin.</string>
 </resources>

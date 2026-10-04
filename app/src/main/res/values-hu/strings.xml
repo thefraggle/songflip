@@ -312,4 +312,17 @@
     <string name="pro_price_annual_trial_intro">%1$d nap ingyen, utána %2$s / hó az 1. évben (%3$s helyett)</string>
     <string name="pro_price_annual_trial_simple">%1$d nap ingyen, utána %2$s / év</string>
     <string name="pro_btn_annual_trial">Próbáld ki %1$d napig ingyen</string>
+    <!-- In-App Feedback Dialog -->
+    <string name="feedback_title">Visszajelzés és Támogatás</string>
+    <string name="feedback_cat_bug">🐛 Hiba</string>
+    <string name="feedback_cat_feature">💡 Ötlet</string>
+    <string name="feedback_cat_general">💬 Általános</string>
+    <string name="feedback_message_hint">Írja le a problémát, ötletet vagy észrevételt...</string>
+    <string name="feedback_email_hint">Az Ön e-mailje (opcionális, válaszhoz)</string>
+    <string name="feedback_privacy_note">Nulla követés: Csak az alkalmazásverzió és a készüléktípus kerül továbbításra.</string>
+    <string name="feedback_btn_send">Visszajelzés küldése</string>
+    <string name="feedback_btn_mail_fallback">Inkább e-mailt írok</string>
+    <string name="feedback_success">Köszönjük a visszajelzést!</string>
+    <string name="feedback_error_empty">Kérjük, írjon be legalább 10 karaktert.</string>
+    <string name="feedback_error_network">Nem sikerült elküldeni. Kérjük, próbálja e-mailben.</string>
 </resources>

@@ -326,4 +326,17 @@
     <string name="pro_price_annual_trial_intro">%1$d dage gratis, derefter %2$s / måned i 1. år (i stedet for %3$s)</string>
     <string name="pro_price_annual_trial_simple">%1$d dage gratis, derefter %2$s / år</string>
     <string name="pro_btn_annual_trial">Prøv %1$d dage gratis</string>
+    <!-- In-App Feedback Dialog -->
+    <string name="feedback_title">Feedback &amp; Support</string>
+    <string name="feedback_cat_bug">🐛 Fejl</string>
+    <string name="feedback_cat_feature">💡 Idé</string>
+    <string name="feedback_cat_general">💬 Generelt</string>
+    <string name="feedback_message_hint">Beskriv dit problem, din idé eller feedback...</string>
+    <string name="feedback_email_hint">Din e-mail (valgfrit, for svar)</string>
+    <string name="feedback_privacy_note">Nul sporing: Kun appversion og enhedsmodel sendes.</string>
+    <string name="feedback_btn_send">Send feedback</string>
+    <string name="feedback_btn_mail_fallback">Skriv hellere en e-mail</string>
+    <string name="feedback_success">Tak for din feedback!</string>
+    <string name="feedback_error_empty">Indtast mindst 10 tegn.</string>
+    <string name="feedback_error_network">Kunne ikke sende. Prøv venligst via e-mail.</string>
 </resources>

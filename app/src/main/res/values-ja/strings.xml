@@ -322,4 +322,17 @@
     <string name="pro_price_annual_trial_intro">%1$d日間無料、その後初年度 %2$s / 月（通常 %3$s）</string>
     <string name="pro_price_annual_trial_simple">%1$d日間無料、その後 %2$s / 年</string>
     <string name="pro_btn_annual_trial">%1$d日間無料で試す</string>
+    <!-- In-App Feedback Dialog -->
+    <string name="feedback_title">フィードバックとサポート</string>
+    <string name="feedback_cat_bug">🐛 不具合</string>
+    <string name="feedback_cat_feature">💡 アイデア</string>
+    <string name="feedback_cat_general">💬 その他</string>
+    <string name="feedback_message_hint">問題、ご要望、ご意見をご記入ください...</string>
+    <string name="feedback_email_hint">メールアドレス（返信をご希望の場合）</string>
+    <string name="feedback_privacy_note">トラッキングゼロ：アプリのバージョンと端末モデルのみ送信されます。</string>
+    <string name="feedback_btn_send">フィードバックを送信</string>
+    <string name="feedback_btn_mail_fallback">メールで送信する</string>
+    <string name="feedback_success">フィードバックありがとうございます！</string>
+    <string name="feedback_error_empty">10文字以上入力してください。</string>
+    <string name="feedback_error_network">送信できませんでした。メールでお試しください。</string>
 </resources>

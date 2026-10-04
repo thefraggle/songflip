@@ -316,4 +316,17 @@
     <string name="pro_price_annual_trial_intro">%1$d zile gratuit, apoi %2$s / lună în primul an (în loc de %3$s)</string>
     <string name="pro_price_annual_trial_simple">%1$d zile gratuit, apoi %2$s / an</string>
     <string name="pro_btn_annual_trial">Încearcă gratuit %1$d zile</string>
+    <!-- In-App Feedback Dialog -->
+    <string name="feedback_title">Feedback și Asistență</string>
+    <string name="feedback_cat_bug">🐛 Problemă</string>
+    <string name="feedback_cat_feature">💡 Idee</string>
+    <string name="feedback_cat_general">💬 General</string>
+    <string name="feedback_message_hint">Descrieți problema, ideea sau sugestia dvs...</string>
+    <string name="feedback_email_hint">E-mailul dvs. (opțional, pentru răspuns)</string>
+    <string name="feedback_privacy_note">Fără urmărire: Se trimit doar versiunea aplicației și modelul dispozitivului.</string>
+    <string name="feedback_btn_send">Trimite feedback</string>
+    <string name="feedback_btn_mail_fallback">Prefer să scriu un e-mail</string>
+    <string name="feedback_success">Vă mulțumim pentru feedback!</string>
+    <string name="feedback_error_empty">Introduceți cel puțin 10 caractere.</string>
+    <string name="feedback_error_network">Trimiterea a eșuat. Încercați prin e-mail.</string>
 </resources>

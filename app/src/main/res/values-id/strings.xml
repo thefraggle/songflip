@@ -322,4 +322,17 @@
     <string name="pro_price_annual_trial_intro">Gratis %1$d hari, lalu %2$s / bulan di tahun ke-1 (bukan %3$s)</string>
     <string name="pro_price_annual_trial_simple">Gratis %1$d hari, lalu %2$s / tahun</string>
     <string name="pro_btn_annual_trial">Coba gratis %1$d hari</string>
+    <!-- In-App Feedback Dialog -->
+    <string name="feedback_title">Masukan &amp; Dukungan</string>
+    <string name="feedback_cat_bug">🐛 Masalah</string>
+    <string name="feedback_cat_feature">💡 Ide</string>
+    <string name="feedback_cat_general">💬 Umum</string>
+    <string name="feedback_message_hint">Jelaskan masalah, ide, atau saran Anda...</string>
+    <string name="feedback_email_hint">Email Anda (opsional, untuk balasan)</string>
+    <string name="feedback_privacy_note">Nol pelacakan: Hanya versi aplikasi dan model perangkat yang dikirim.</string>
+    <string name="feedback_btn_send">Kirim Masukan</string>
+    <string name="feedback_btn_mail_fallback">Lebih suka kirim email</string>
+    <string name="feedback_success">Terima kasih atas masukan Anda!</string>
+    <string name="feedback_error_empty">Masukkan minimal 10 karakter.</string>
+    <string name="feedback_error_network">Gagal mengirim masukan. Silakan coba lewat email.</string>
 </resources>

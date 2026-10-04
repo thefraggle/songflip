@@ -82,7 +82,14 @@ fun SettingsBottomSheet(
 
     var showLanguagePickerSubSheet by remember { mutableStateOf(false) }
     var showHistorySubSheet by remember { mutableStateOf(false) }
+    var showFeedbackSubSheet by remember { mutableStateOf(false) }
     var selectedTheme by remember { mutableStateOf(currentThemeMode) }
+
+    if (showFeedbackSubSheet) {
+        FeedbackBottomSheet(
+            onDismissRequest = { showFeedbackSubSheet = false }
+        )
+    }
 
     if (showHistorySubSheet) {
         HistoryBottomSheet(
@@ -827,7 +834,7 @@ fun SettingsBottomSheet(
                     .fillMaxWidth()
                     .clickable {
                         haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                        ContactHelper.sendSupportEmail(context)
+                        showFeedbackSubSheet = true
                     }
             ) {
                 Row(
