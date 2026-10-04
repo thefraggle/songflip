@@ -1,11 +1,10 @@
 # Changelog
 
 ## [1.6.9] - 2026-10-04
-- **In-App Feedback Dialog**: Submit bug reports and feature ideas directly inside the app with zero tracking and full privacy (#61).
-- **Instant Clipboard & Promo Banner**: Instant, latency-free clipboard link detection on app launch and window focus without race conditions (#60).
-- **Dynamic Free Trial Support**: Automatically detects and highlights introductory free trials across all subscriptions.
-- **Paywall Polish**: Clearer pricing breakdown and dynamic action states across all 31 supported languages.
-- **Bug Fixes & Stability**: General stability improvements and billing flow optimizations.
+- **Instant Link Detection**: Immediate, latency-free clipboard detection right when launching the app or returning to the home screen (#60).
+- **Direct In-App Feedback**: Share feedback, report bugs, or suggest features directly inside the app with zero tracking (#61).
+- **Display & Regional Price Fixes**: Resolved edge cases where promotional pricing and offer terms were displayed inconsistently in certain regions.
+- **Bug Fixes & Stability**: General stability improvements and smoother screen transitions.
 
 ## [1.6.8] - 2026-10-03
 - **Enhanced Link Detection**: Self-referential app links are now recognized and filtered with a helpful hint to share a music link instead.

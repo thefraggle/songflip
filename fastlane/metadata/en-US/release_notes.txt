@@ -1,3 +1,4 @@
-- Improved Link Recognition: Shared SongFlip app links are now intercepted with a helpful prompt to share music links instead.
-- Enhanced Account Sync: Automatic background recovery and verification for existing account statuses and entitlements.
-- Bug Fixes & Stability: General stability improvements and more resilient background handling.
+- Faster Link Detection: Immediate clipboard link detection right when launching the app.
+- Direct Feedback Channel: Report issues or share feedback directly within the app with zero tracking.
+- Display Fixes: Resolved currency and offer display edge cases across various regions.
+- Bug Fixes & Stability: General stability enhancements and bug fixes.

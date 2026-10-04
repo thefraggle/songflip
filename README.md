@@ -29,7 +29,8 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 - **🎯 Quick Player Picker ("Ask every time")**: Optional setting for users with multiple streaming apps to pick where each song should play with a single tap.
 - **💿 Full Album, Artist & Podcast Recognition**: Supports single tracks, full albums/EPs, artist channel/discography profiles (including `@handles`), and podcast shows/episodes.
 - **🔍 Robust Search Sanitization**: Automatically filters punctuation noise, disruptive symbols (`+`, `&`, `#`, `:`), quotes, and emojis from podcast and track queries so deep searches land accurately on every target player.
-- **📋 Clipboard Smart-Banner**: 1-tap player launch and universal link copying when music links are copied on Android & iOS.
+- **📋 Clipboard Smart-Banner & Instant Detection**: Immediate 1-tap player launch and universal link copying when music links are copied on Android & iOS, with latency-free window focus detection.
+- **💬 Direct In-App Feedback & Zero-Tracking Support**: Submit bug reports, feature suggestions, or general feedback directly within the app without account requirements or tracking, with automatic email fallback.
 - **🍎 iOS Deep Integration**: Native Share Extension, Action Button support, and Siri App Intents (`ConvertSongIntent`).
 - **🎨 Material You Themed Icon (Android 13+)**: Clean vector alpha silhouette dynamically adapting to your launcher wallpaper palette.
 - **🔗 Universal Smart Share Links (`songflip.link/s/...`) [PRO]**: Generate clean, lightning-fast multi-platform landing pages with rich cover art & OpenGraph preview cards for WhatsApp, Telegram, iMessage & Discord. *(Try the permanent live demo: [songflip.link/s/rickroll](https://songflip.link/s/rickroll))*.
