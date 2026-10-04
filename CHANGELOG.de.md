@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.6.9] - 2026-10-04
+- **Dynamische Testphasen-Unterstützung**: Erkennt und visualisiert kostenlose Testzeiträume für Abonnements automatisch.
+- **Paywall-Optimierung**: Präzisere Preisaufschlüsselung und dynamische Aktions-Buttons in allen 31 unterstützten Sprachen.
+- **Fehlerbehebungen & Stabilität**: Allgemeine Stabilitätsverbesserungen und optimierte Abo-Abläufe.
+
 ## [1.6.8] - 2026-10-03
 - **Zuverlässigere Link-Erkennung**: Eigene App-Links werden jetzt abgefangen und mit einem hilfreichen Hinweis versehen, stattdessen einen Musiklink zu teilen.
 - **Verbesserte Synchronisierung**: Automatische Hintergrund-Wiederherstellung für bestehende Kontostatus und Berechtigungen.

@@ -320,4 +320,10 @@
     <string name="prerelease_btn_search_target">Søg efter singler i %1$s</string>
     <string name="prerelease_btn_cancel">Annuller</string>
     <string name="share_self_link_notice">Dette er et SongFlip-link. Del venligst et musiklink.</string>
+    <!-- Free Trial Offer -->
+    <string name="pro_trial_badge">%1$d DAGE GRATIS</string>
+    <string name="pro_price_annual_trial">%1$d dage gratis, derefter %2$s / måned (i stedet for %3$s)</string>
+    <string name="pro_price_annual_trial_intro">%1$d dage gratis, derefter %2$s / måned i 1. år (i stedet for %3$s)</string>
+    <string name="pro_price_annual_trial_simple">%1$d dage gratis, derefter %2$s / år</string>
+    <string name="pro_btn_annual_trial">Prøv %1$d dage gratis</string>
 </resources>

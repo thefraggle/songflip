@@ -320,4 +320,10 @@
     <string name="prerelease_btn_search_target">Buscar singles no %1$s</string>
     <string name="prerelease_btn_cancel">Cancelar</string>
     <string name="share_self_link_notice">Este é um link do SongFlip. Compartilhe um link de música.</string>
+    <!-- Free Trial Offer -->
+    <string name="pro_trial_badge">%1$d DIAS GRÁTIS</string>
+    <string name="pro_price_annual_trial">%1$d dias grátis, depois %2$s / mês (em vez de %3$s)</string>
+    <string name="pro_price_annual_trial_intro">%1$d dias grátis, depois %2$s / mês no 1.º ano (em vez de %3$s)</string>
+    <string name="pro_price_annual_trial_simple">%1$d dias grátis, depois %2$s / ano</string>
+    <string name="pro_btn_annual_trial">Testar por %1$d dias grátis</string>
 </resources>

@@ -320,4 +320,10 @@
     <string name="prerelease_btn_search_target">%1$s मध्ये सिंगल्स शोधा</string>
     <string name="prerelease_btn_cancel">रद्द करा</string>
     <string name="share_self_link_notice">हा SongFlip दुवा आहे. कृपया संगीत दुवा शेअर करा.</string>
+    <!-- Free Trial Offer -->
+    <string name="pro_trial_badge">%1$d दिवस विनामूल्य</string>
+    <string name="pro_price_annual_trial">%1$d दिवस विनामूल्य, नंतर %2$s / महिना (%3$s ऐवजी)</string>
+    <string name="pro_price_annual_trial_intro">%1$d दिवस विनामूल्य, नंतर पहिल्या वर्षी %2$s / महिना (%3$s ऐवजी)</string>
+    <string name="pro_price_annual_trial_simple">%1$d दिवस विनामूल्य, नंतर %2$s / वर्ष</string>
+    <string name="pro_btn_annual_trial">%1$d दिवस विनामूल्य वापरा</string>
 </resources>

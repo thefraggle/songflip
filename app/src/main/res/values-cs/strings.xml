@@ -314,4 +314,10 @@
     <string name="prerelease_btn_search_target">Hledat singly v %1$s</string>
     <string name="prerelease_btn_cancel">Zrušit</string>
     <string name="share_self_link_notice">Toto je odkaz SongFlip. Sdílejte prosím odkaz na hudbu.</string>
+    <!-- Free Trial Offer -->
+    <string name="pro_trial_badge">%1$d DNÍ ZDARMA</string>
+    <string name="pro_price_annual_trial">%1$d dní zdarma, poté %2$s / měsíc (místo %3$s)</string>
+    <string name="pro_price_annual_trial_intro">%1$d dní zdarma, poté %2$s / měsíc v 1. roce (místo %3$s)</string>
+    <string name="pro_price_annual_trial_simple">%1$d dní zdarma, poté %2$s / rok</string>
+    <string name="pro_btn_annual_trial">Vyzkoušet na %1$d dní zdarma</string>
 </resources>

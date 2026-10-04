@@ -320,4 +320,10 @@
     <string name="prerelease_btn_search_target">Singles zoeken in %1$s</string>
     <string name="prerelease_btn_cancel">Annuleren</string>
     <string name="share_self_link_notice">Dit is een SongFlip-link. Deel een muzieklink.</string>
+    <!-- Free Trial Offer -->
+    <string name="pro_trial_badge">%1$d DAGEN GRATIS</string>
+    <string name="pro_price_annual_trial">%1$d dagen gratis, daarna %2$s / maand (in plaats van %3$s)</string>
+    <string name="pro_price_annual_trial_intro">%1$d dagen gratis, daarna %2$s / maand in het 1e jaar (in plaats van %3$s)</string>
+    <string name="pro_price_annual_trial_simple">%1$d dagen gratis, daarna %2$s / jaar</string>
+    <string name="pro_btn_annual_trial">%1$d dagen gratis proberen</string>
 </resources>

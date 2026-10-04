@@ -328,4 +328,10 @@
     <string name="prerelease_btn_search_target">Шукати сингли в %1$s</string>
     <string name="prerelease_btn_cancel">Скасувати</string>
     <string name="share_self_link_notice">Це посилання SongFlip. Будь ласка, поділіться музичним посиланням.</string>
+    <!-- Free Trial Offer -->
+    <string name="pro_trial_badge">%1$d ДНІВ БЕЗКОШТОВНО</string>
+    <string name="pro_price_annual_trial">%1$d днів безкоштовно, потім %2$s / міс. (замість %3$s)</string>
+    <string name="pro_price_annual_trial_intro">%1$d днів безкоштовно, потім %2$s / міс. у 1-й рік (замість %3$s)</string>
+    <string name="pro_price_annual_trial_simple">%1$d днів безкоштовно, потім %2$s / рік</string>
+    <string name="pro_btn_annual_trial">Спробувати %1$d днів безкоштовно</string>
 </resources>

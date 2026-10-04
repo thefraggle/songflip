@@ -335,4 +335,10 @@
     <string name="prerelease_btn_search_target">Search singles in %1$s</string>
     <string name="prerelease_btn_cancel">Cancel</string>
     <string name="share_self_link_notice">This is a SongFlip link. Please share a music link instead.</string>
+    <!-- Free Trial Offer -->
+    <string name="pro_trial_badge">%1$d DAYS FREE</string>
+    <string name="pro_price_annual_trial">%1$d days free, then %2$s / month (instead of %3$s)</string>
+    <string name="pro_price_annual_trial_intro">%1$d days free, then %2$s / month in year 1 (instead of %3$s)</string>
+    <string name="pro_price_annual_trial_simple">%1$d days free, then %2$s / year</string>
+    <string name="pro_btn_annual_trial">Try %1$d days free</string>
 </resources>
