@@ -7,6 +7,7 @@ struct ContentView: View {
     @EnvironmentObject var settings: SettingsModel
     @ObservedObject var history = HistoryModel.shared
     @ObservedObject var proManager = ProManager.shared
+    @ObservedObject var promoBannerManager = PromoBannerManager.shared
 
     @State private var detectedClipboardUrl: String? = nil
     @State private var dismissedClipboardUrl: String? = nil
@@ -40,6 +41,27 @@ struct ContentView: View {
 
                         if let detectedUrl = detectedClipboardUrl {
                             clipboardSmartBannerView(detectedUrl: detectedUrl)
+                        }
+
+                        if promoBannerManager.isBannerVisible(isPro: proManager.isPro) {
+                            PromoBannerCardView(
+                                config: promoBannerManager.config,
+                                lang: lang,
+                                onClick: {
+                                    AptabaseClient.shared.trackEvent(eventName: "paywall_viewed", props: [
+                                        "source": "promo_banner_\(promoBannerManager.config.campaignId)",
+                                        "layout": "lifetime_first",
+                                        "is_sale": "true"
+                                    ])
+                                    showingPaywallSheet = true
+                                },
+                                onDismiss: {
+                                    withAnimation(.easeInOut(duration: 0.25)) {
+                                        promoBannerManager.dismiss()
+                                    }
+                                }
+                            )
+                            .transition(.opacity.combined(with: .scale(scale: 0.96)))
                         }
 
                         platformPickerSection
@@ -128,6 +150,9 @@ struct ContentView: View {
             .onAppear {
                 AptabaseClient.shared.trackAppLaunched(platform: "iOS", language: lang)
                 history.loadHistory()
+                Task {
+                    await promoBannerManager.fetchPromoBanner()
+                }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     checkClipboard()
                 }
@@ -135,6 +160,9 @@ struct ContentView: View {
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .active {
                     history.loadHistory()
+                    Task {
+                        await promoBannerManager.fetchPromoBanner()
+                    }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         checkClipboard()
                     }
