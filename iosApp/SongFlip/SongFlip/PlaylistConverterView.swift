@@ -424,7 +424,7 @@ struct PlaylistConverterView: View {
                                         isAlbum: false,
                                         thumbnailUrl: decoded.thumbnailUrl
                                     )
-                                    AptabaseClient.shared.trackEvent("playlist_converted_ios", properties: [
+                                    AptabaseClient.shared.trackEvent(eventName: "playlist_converted_ios", props: [
                                         "source": sourcePlatformName,
                                         "target": targetPlatformKey,
                                         "matched": "\(decoded.matchedCount)",

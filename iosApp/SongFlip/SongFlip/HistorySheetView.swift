@@ -102,7 +102,7 @@ struct HistorySheetView: View {
                             Spacer()
                             if !proManager.isPro {
                                 Button(action: {
-                                    AptabaseClient.shared.trackEvent("paywall_viewed", properties: ["source": "history_header"])
+                                    AptabaseClient.shared.trackEvent(eventName: "paywall_viewed", props: ["source": "history_header"])
                                     showingPaywallSheet = true
                                 }) {
                                     Text("💎 PRO")
@@ -250,7 +250,7 @@ struct HistorySheetView: View {
 
                         if !proManager.isPro && history.items.count >= 10 {
                             Button(action: {
-                                AptabaseClient.shared.trackEvent("paywall_viewed", properties: ["source": "history_teaser_bottom"])
+                                AptabaseClient.shared.trackEvent(eventName: "paywall_viewed", props: ["source": "history_teaser_bottom"])
                                 showingPaywallSheet = true
                             }) {
                                 HStack(spacing: 12) {

@@ -141,7 +141,7 @@ final class ProManager: NSObject, ObservableObject {
             let result = try await Purchases.shared.purchase(package: package)
             if !result.userCancelled {
                 updateFromCustomerInfo(result.customerInfo)
-                AptabaseClient.shared.trackEvent("pro_purchased", properties: [
+                AptabaseClient.shared.trackEvent(eventName: "pro_purchased", props: [
                     "package": package.identifier,
                     "store": "app_store"
                 ])
@@ -216,7 +216,7 @@ final class ProManager: NSObject, ObservableObject {
                         self.isPro = true
                         self.proType = "lifetime_coupon"
                         self.expirationDate = nil
-                        AptabaseClient.shared.trackEvent("promo_redeemed", properties: ["code": cleanCode, "type": "lifetime"])
+                        AptabaseClient.shared.trackEvent(eventName: "promo_redeemed", props: ["code": cleanCode, "type": "lifetime"])
                         return .successLifetime
                     } else {
                         let durationDays: Double = (type == "1year" || type == "annual") ? 365 : ((type == "3months") ? 90 : 30)
@@ -232,7 +232,7 @@ final class ProManager: NSObject, ObservableObject {
                         self.proType = "\(type)_coupon"
                         self.expirationDate = Date(timeIntervalSince1970: expireTime / 1000)
 
-                        AptabaseClient.shared.trackEvent("promo_redeemed", properties: ["code": cleanCode, "type": type])
+                        AptabaseClient.shared.trackEvent(eventName: "promo_redeemed", props: ["code": cleanCode, "type": type])
                         if type == "1year" || type == "annual" {
                             return .success1Year
                         } else if type == "3months" {
