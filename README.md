@@ -40,7 +40,7 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 - **🌍 31 Languages Supported**: Fully localized across 31 languages on Android and iOS (English, German, Spanish, French, Italian, Portuguese, Japanese, Korean, Chinese, Ukrainian, Polish, Turkish, Dutch, Arabic, Hindi, Swedish, Danish, Norwegian, Finnish, Czech, Greek, and more).
 - **⏸️ Quick Settings Status Tile & Smart Pause**: Pause redirection directly from Android's notification shade for 15 minutes, 1 hour, or until tomorrow morning (06:00).
 - **📤 Share Sheet Target (`ACTION_SEND`)**: Supports shared text containing links from WhatsApp, Instagram, and Reddit with automatic URL sanitization.
-- **♿ Accessible UI & 5-State Component Feedback**: All bottom sheets and interactive controls adhere to WCAG AA minimum 48dp touch targets and explicitly handle 5 UI states (Default, Hover, Active/Focus, Disabled, Loading) for instant visual feedback.
+- **♿ Accessible UI & 5-State Component Feedback**: All bottom sheets and interactive controls adhere to WCAG AA minimum 48dp touch targets, support instant dismissal via the Escape (ESC) key and backdrop clicks, and explicitly handle 5 UI states (Default, Hover, Active/Focus, Disabled, Loading) for instant visual feedback.
 - **🛡️ 100% Privacy & Zero Tracking**: No accounts, no logins, no advertising IDs, and no listening habits collected.
 
 ---

@@ -153,7 +153,7 @@
     <string name="pro_tier_lifetime">終身買斷</string>
     <string name="pro_lifetime_badge">最受歡迎 • 永久買斷</string>
     <string name="pro_lifetime_onetime_badge">一次性買斷</string>
-    <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
+    <string name="pro_lifetime_sale_badge" formatted="false">SPECIAL DEAL</string>
     <string name="pro_lifetime_sale_sub">限時特惠</string>
     <string name="pro_save_badge">省下 %1$d%%</string>
     <string name="pro_price_annual_vs_monthly">%1$s / 月（月繳 %2$s）</string>

@@ -132,7 +132,7 @@ final class ProManager: NSObject, ObservableObject {
         defaults.set(false, forKey: Self.keyIsProCached)
     }
 
-    func purchase(package: Package) async throws -> Bool {
+    func purchase(package: Package, extraProps: [String: String] = [:]) async throws -> Bool {
         isLoading = true
         lastErrorMessage = nil
         defer { isLoading = false }
@@ -141,10 +141,14 @@ final class ProManager: NSObject, ObservableObject {
             let result = try await Purchases.shared.purchase(package: package)
             if !result.userCancelled {
                 updateFromCustomerInfo(result.customerInfo)
-                AptabaseClient.shared.trackEvent(eventName: "pro_purchased", props: [
+                var props = [
                     "package": package.identifier,
                     "store": "app_store"
-                ])
+                ]
+                for (k, v) in extraProps {
+                    props[k] = v
+                }
+                AptabaseClient.shared.trackEvent(eventName: "pro_purchased", props: props)
                 return isPro
             }
             return false

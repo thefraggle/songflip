@@ -178,7 +178,7 @@
     <string name="pro_tier_lifetime">Lifetime</string>
     <string name="pro_lifetime_badge">BELIEBT • EINMALIG</string>
     <string name="pro_lifetime_onetime_badge">EINMALKAUF</string>
-    <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
+    <string name="pro_lifetime_sale_badge" formatted="false">SPECIAL DEAL</string>
     <string name="pro_lifetime_sale_sub">Befristetes Angebot</string>
     <string name="pro_save_badge">%1$d %% SPAREN</string>
     <string name="pro_price_annual_vs_monthly">%1$s / Monat (statt %2$s)</string>

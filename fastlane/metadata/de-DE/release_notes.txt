@@ -1,4 +1,4 @@
-- Schnellere Link-Erkennung: Sofortige Erkennung von Musiklinks in der Zwischenablage beim Öffnen der App.
-- Direkter Feedback-Kanal: Feedback und Fehlerberichte direkt in der App teilen – schnell und ohne Tracking.
-- Anzeige-Korrekturen: Darstellungs- und Preisangaben in regionalen Währungen korrigiert.
-- Fehlerbehebungen & Stabilität: Allgemeine Fehlerkorrekturen und Stabilitätsverbesserungen.
+- Komfortable Tastatur-Bedienung: Dialoge lassen sich jetzt bequem per Escape-Taste (ESC) schließen.
+- Gehärtete Link-Prüfung: Strikte Domain-Prüfung schützt vor manipulierten Musiklinks.
+- Transparente Aktionsanzeige: Eindeutige und verlässliche Darstellung von Aktionsvorteilen.
+- Feinschliff & Stabilität: Allgemeine Fehlerkorrekturen und Stabilitätsverbesserungen.

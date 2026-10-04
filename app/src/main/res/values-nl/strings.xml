@@ -164,7 +164,7 @@
     <string name="pro_tier_lifetime">Levenslang</string>
     <string name="pro_lifetime_badge">POPULAIR • EENMALIG</string>
     <string name="pro_lifetime_onetime_badge">EENMALIG</string>
-    <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
+    <string name="pro_lifetime_sale_badge" formatted="false">SPECIAL DEAL</string>
     <string name="pro_lifetime_sale_sub">Tijdelijke aanbieding</string>
     <string name="pro_save_badge">BESPAAR %1$d%%</string>
     <string name="pro_price_annual_vs_monthly">%1$s / maand (i.p.v. %2$s)</string>

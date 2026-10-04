@@ -163,7 +163,7 @@
     <string name="pro_tier_lifetime">Lifetime</string>
     <string name="pro_lifetime_badge">PHỔ BIẾN • MỘT LẦN</string>
     <string name="pro_lifetime_onetime_badge">MUA MỘT LẦN</string>
-    <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
+    <string name="pro_lifetime_sale_badge" formatted="false">SPECIAL DEAL</string>
     <string name="pro_lifetime_sale_sub">Ưu đãi có thời hạn</string>
     <string name="pro_save_badge">TIẾT KIỆM %1$d%%</string>
     <string name="pro_price_annual_vs_monthly">%1$s / tháng (thay vì %2$s)</string>

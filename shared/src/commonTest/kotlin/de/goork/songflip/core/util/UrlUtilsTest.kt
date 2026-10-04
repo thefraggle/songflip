@@ -200,6 +200,12 @@ class UrlUtilsTest {
         assertTrue(UrlUtils.isSearchUrl("https://music.apple.com/de/search?term=queen"))
         assertTrue(UrlUtils.isSearchUrl("https://soundcloud.com/search?q=skrillex"))
         assertTrue(UrlUtils.isSearchUrl("https://bandcamp.com/search?q=radiohead"))
+
+        // Strict domain matching (Issue #57 M3)
+        assertNull(UrlUtils.detectPlatform("https://notspotify.com/track/123"))
+        assertNull(UrlUtils.detectPlatform("https://fake-apple.com/album/123"))
+        assertNull(UrlUtils.detectPlatform("https://evil-deezer.com/track/123"))
+        assertFalse(UrlUtils.isSearchUrl("https://evil-spotify.com/search/queen"))
     }
 
     @Test

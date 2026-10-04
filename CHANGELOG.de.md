@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.7.1] - 2026-10-04
+- **Komfortable Tastatur-Bedienung**: Alle Dialoge und Einblendungen lassen sich jetzt bequem mit der Escape-Taste (ESC) schließen.
+- **Gehärtete Link- & Domain-Prüfung**: Strikte Domain-Prüfungen verhindern zuverlässig, dass manipulierte oder ungültige Musiklinks die Weiterleitung stören.
+- **Transparente Angebotsanzeige**: Eindeutige und einheitliche Darstellung von Aktions- und Vorteilshinweisen in allen Regionen.
+- **Feinschliff & Stabilität**: Optimierte Zuverlässigkeit, flüssigere Übergänge und verbesserte Diagnose im Hintergrund.
+
 ## [1.7.0] - 2026-10-04
 - **Podcast-Unterstützung**: Geteilte Podcast-Episoden und Shows öffnen jetzt direkt in deinem bevorzugten Player mit präziser Show-Erkennung.
 - **Schnellere & verlässlichere Link-Erkennung**: Verzögerungsfreie Zwischenablage-Erkennung direkt beim Öffnen der App oder beim Zurückkehren.

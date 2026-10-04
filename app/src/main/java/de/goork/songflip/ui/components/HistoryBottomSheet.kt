@@ -163,6 +163,7 @@ fun HistoryBottomSheet(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.88f)
+                .closeOnEsc(onDismissRequest)
                 .padding(horizontal = 20.dp, vertical = 8.dp)
         ) {
             // Header Row

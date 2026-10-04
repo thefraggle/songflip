@@ -154,7 +154,7 @@
     <string name="pro_tier_lifetime">Εφάπαξ</string>
     <string name="pro_lifetime_badge">ΔΗΜΟΦΙΛΕΣ • ΕΦΑΠΑΞ</string>
     <string name="pro_lifetime_onetime_badge">ΕΦΑΠΑΞ</string>
-    <string name="pro_lifetime_sale_badge" formatted="false">50% DEAL</string>
+    <string name="pro_lifetime_sale_badge" formatted="false">SPECIAL DEAL</string>
     <string name="pro_lifetime_sale_sub">Προσφορά περιορισμένου χρόνου</string>
     <string name="pro_save_badge">ΕΞΟΙΚΟΝΟΜΗΣΗ %1$d%%</string>
     <string name="pro_price_annual_vs_monthly">%1$s / μήνα (αντί για %2$s)</string>

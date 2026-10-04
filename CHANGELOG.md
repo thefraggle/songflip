@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.7.1] - 2026-10-04
+- **Enhanced Keyboard Navigation**: Dialogs and sheets can now be closed immediately using the Escape key (ESC) for more comfortable navigation and ergonomics.
+- **Hardened Link & Domain Validation**: Strict domain verification prevents spoofed or malicious music links from interfering with redirect resolution.
+- **Transparent Offer Details**: Clearer and more consistent pricing and deal highlights across all regions.
+- **Everyday Polish & Stability**: Performance improvements, smoother transitions, and enriched diagnostic reliability.
+
 ## [1.7.0] - 2026-10-04
 - **Podcasts Support**: Shared podcast episodes and shows now open directly in your preferred player with accurate show matching.
 - **Instant & Responsive Link Resolution**: Immediate, latency-free clipboard detection right when launching the app or returning to the home screen.
