@@ -320,6 +320,7 @@ struct HistorySheetView: View {
             }
         }
     }
+}
 
     @ViewBuilder
     private func fallbackCoverView(for item: HistoryItem) -> some View {
