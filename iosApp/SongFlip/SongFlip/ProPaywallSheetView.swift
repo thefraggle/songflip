@@ -260,7 +260,7 @@ struct ProPaywallSheetView: View {
         onSelect: @escaping () -> Void
     ) -> some View {
         Button(action: {
-            UIImpactFeedbackGenerator(style: .selection).impactOccurred()
+            UISelectionFeedbackGenerator().selectionChanged()
             onSelect()
         }) {
             HStack {

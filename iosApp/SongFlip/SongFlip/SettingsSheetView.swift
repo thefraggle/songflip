@@ -40,7 +40,7 @@ struct SettingsSheetView: View {
                 // 0. SongFlip PRO Card
                 Section {
                     Button(action: {
-                        AptabaseClient.shared.trackEvent("paywall_viewed", properties: ["source": "settings_card"])
+                        AptabaseClient.shared.trackEvent(eventName: "paywall_viewed", props: ["source": "settings_card"])
                         showingPaywallSheet = true
                     }) {
                         HStack(spacing: 14) {
