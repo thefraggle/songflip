@@ -308,4 +308,17 @@
     <string name="pro_price_annual_trial_intro">ทดลองฟรี %1$d วัน หลังจากนั้น %2$s / เดือน ในปีแรก (จากปกติ %3$s)</string>
     <string name="pro_price_annual_trial_simple">ทดลองฟรี %1$d วัน หลังจากนั้น %2$s / ปี</string>
     <string name="pro_btn_annual_trial">ทดลองใช้ฟรี %1$d วัน</string>
+    <!-- In-App Feedback Dialog -->
+    <string name="feedback_title">ข้อเสนอแนะและความช่วยเหลือ</string>
+    <string name="feedback_cat_bug">🐛 ปัญหา</string>
+    <string name="feedback_cat_feature">💡 ไอเดีย</string>
+    <string name="feedback_cat_general">💬 ทั่วไป</string>
+    <string name="feedback_message_hint">อธิบายปัญหา ไอเดีย หรือข้อเสนอแนะของคุณ...</string>
+    <string name="feedback_email_hint">อีเมลของคุณ (ไม่บังคับ เพื่อรอการตอบกลับ)</string>
+    <string name="feedback_privacy_note">ไม่มีการติดตาม: ส่งเฉพาะเวอร์ชันแอปและรุ่นอุปกรณ์เท่านั้น</string>
+    <string name="feedback_btn_send">ส่งข้อเสนอแนะ</string>
+    <string name="feedback_btn_mail_fallback">ส่งทางอีเมลแทน</string>
+    <string name="feedback_success">ขอบคุณสำหรับข้อเสนอแนะของคุณ!</string>
+    <string name="feedback_error_empty">โปรดระบุอย่างน้อย 10 ตัวอักษร</string>
+    <string name="feedback_error_network">ส่งไม่สำเร็จ โปรดส่งทางอีเมลแทน</string>
 </resources>

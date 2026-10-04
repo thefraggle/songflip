@@ -320,4 +320,17 @@
     <string name="pro_price_annual_trial_intro">%1$d dní zdarma, poté %2$s / měsíc v 1. roce (místo %3$s)</string>
     <string name="pro_price_annual_trial_simple">%1$d dní zdarma, poté %2$s / rok</string>
     <string name="pro_btn_annual_trial">Vyzkoušet na %1$d dní zdarma</string>
+    <!-- In-App Feedback Dialog -->
+    <string name="feedback_title">Zpětná vazba a Podpora</string>
+    <string name="feedback_cat_bug">🐛 Chyba</string>
+    <string name="feedback_cat_feature">💡 Nápad</string>
+    <string name="feedback_cat_general">💬 Obecné</string>
+    <string name="feedback_message_hint">Popište svůj problém, nápad nebo připomínku...</string>
+    <string name="feedback_email_hint">Váš e-mail (volitelné, pro odpověď)</string>
+    <string name="feedback_privacy_note">Nulové sledování: Odesílá se pouze verze aplikace a model zařízení.</string>
+    <string name="feedback_btn_send">Odeslat zpětnou vazbu</string>
+    <string name="feedback_btn_mail_fallback">Raději napsat e-mail</string>
+    <string name="feedback_success">Děkujeme za vaši zpětnou vazbu!</string>
+    <string name="feedback_error_empty">Zadejte alespoň 10 znaků.</string>
+    <string name="feedback_error_network">Odeslání se nezdařilo. Zkuste to e-mailem.</string>
 </resources>

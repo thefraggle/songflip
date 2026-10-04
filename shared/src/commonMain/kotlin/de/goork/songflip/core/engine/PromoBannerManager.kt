@@ -59,24 +59,35 @@ object PromoBannerManager {
         return _config.value.isValid(currentTimeMs)
     }
 
-    fun fetchPromoBanner(
-        endpointUrl: String = "https://songflip-web.web.app/api/promo-banner",
-        currentTimeMs: Long = 0L,
-        forceRefresh: Boolean = false
-    ) {
-        scope.launch {
-            fetchPromoBannerDirect(endpointUrl, currentTimeMs, forceRefresh)
+    fun initFromCachedJson(cachedJson: String, currentTimeMs: Long = 0L) {
+        val parsed = parsePromoBannerJson(cachedJson)
+        if (parsed != null && parsed.isValid(currentTimeMs)) {
+            _config.value = parsed
         }
     }
 
-    suspend fun fetchPromoBannerDirect(
+    fun fetchPromoBanner(
+        endpointUrl: String = "https://songflip-web.web.app/api/promo-banner",
+        currentTimeMs: Long = 0L,
+        forceRefresh: Boolean = false,
+        onSuccess: ((String) -> Unit)? = null
+    ) {
+        scope.launch {
+            val raw = fetchPromoBannerRaw(endpointUrl, currentTimeMs, forceRefresh)
+            if (raw != null) {
+                onSuccess?.invoke(raw)
+            }
+        }
+    }
+
+    suspend fun fetchPromoBannerRaw(
         endpointUrl: String = "https://songflip-web.web.app/api/promo-banner",
         currentTimeMs: Long = 0L,
         forceRefresh: Boolean = false
-    ): PromoBannerConfig? {
+    ): String? {
         val now = if (currentTimeMs > 0L) currentTimeMs else 0L
         if (!forceRefresh && now > 0L && (now - lastFetchTimeMs) < CACHE_TTL_MS) {
-            return _config.value
+            return null
         }
 
         return try {
@@ -86,11 +97,22 @@ object PromoBannerManager {
             if (parsed != null) {
                 _config.value = parsed
                 lastFetchTimeMs = if (currentTimeMs > 0L) currentTimeMs else 0L
+                body
+            } else {
+                null
             }
-            parsed
         } catch (_: Exception) {
             null
         }
+    }
+
+    suspend fun fetchPromoBannerDirect(
+        endpointUrl: String = "https://songflip-web.web.app/api/promo-banner",
+        currentTimeMs: Long = 0L,
+        forceRefresh: Boolean = false
+    ): PromoBannerConfig? {
+        fetchPromoBannerRaw(endpointUrl, currentTimeMs, forceRefresh)
+        return _config.value
     }
 
     fun parsePromoBannerJson(jsonString: String): PromoBannerConfig? {

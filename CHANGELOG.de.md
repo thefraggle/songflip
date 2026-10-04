@@ -1,6 +1,8 @@
 # Changelog (Deutsch)
 
 ## [1.6.9] - 2026-10-04
+- **In-App Feedback-Dialog**: Fehlerberichte und Feature-Vorschläge direkt in der App absenden – datensparsam und ohne Tracking (#61).
+- **Sofortige Zwischenablage & Promo-Banner**: Verzögerungsfreie Erkennung von Musiklinks in der Zwischenablage direkt beim App-Start (#60).
 - **Dynamische Testphasen-Unterstützung**: Erkennt und visualisiert kostenlose Testzeiträume für Abonnements automatisch.
 - **Paywall-Optimierung**: Präzisere Preisaufschlüsselung und dynamische Aktions-Buttons in allen 31 unterstützten Sprachen.
 - **Fehlerbehebungen & Stabilität**: Allgemeine Stabilitätsverbesserungen und optimierte Abo-Abläufe.

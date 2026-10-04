@@ -326,4 +326,17 @@
     <string name="pro_price_annual_trial_intro">%1$d dagen gratis, daarna %2$s / maand in het 1e jaar (in plaats van %3$s)</string>
     <string name="pro_price_annual_trial_simple">%1$d dagen gratis, daarna %2$s / jaar</string>
     <string name="pro_btn_annual_trial">%1$d dagen gratis proberen</string>
+    <!-- In-App Feedback Dialog -->
+    <string name="feedback_title">Feedback &amp; Ondersteuning</string>
+    <string name="feedback_cat_bug">🐛 Fout</string>
+    <string name="feedback_cat_feature">💡 Idee</string>
+    <string name="feedback_cat_general">💬 Algemeen</string>
+    <string name="feedback_message_hint">Beschrijf je probleem, idee of feedback...</string>
+    <string name="feedback_email_hint">Je e-mailadres (optioneel, voor reactie)</string>
+    <string name="feedback_privacy_note">Nul tracking: Alleen appversie en apparaatmodel worden verzonden.</string>
+    <string name="feedback_btn_send">Feedback verzenden</string>
+    <string name="feedback_btn_mail_fallback">Liever via e-mail sturen</string>
+    <string name="feedback_success">Bedankt voor je feedback!</string>
+    <string name="feedback_error_empty">Voer minimaal 10 tekens in.</string>
+    <string name="feedback_error_network">Verzenden mislukt. Probeer het via e-mail.</string>
 </resources>

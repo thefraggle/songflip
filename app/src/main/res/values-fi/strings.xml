@@ -312,4 +312,17 @@
     <string name="pro_price_annual_trial_intro">%1$d päivää ilmaiseksi, sitten %2$s / kk 1. vuonna (norm. %3$s)</string>
     <string name="pro_price_annual_trial_simple">%1$d päivää ilmaiseksi, sitten %2$s / vuosi</string>
     <string name="pro_btn_annual_trial">Kokeile %1$d päivää ilmaiseksi</string>
+    <!-- In-App Feedback Dialog -->
+    <string name="feedback_title">Palaute ja Tuki</string>
+    <string name="feedback_cat_bug">🐛 Virhe</string>
+    <string name="feedback_cat_feature">💡 Idea</string>
+    <string name="feedback_cat_general">💬 Yleinen</string>
+    <string name="feedback_message_hint">Kuvaile ongelmasi, ideasi tai palautteesi...</string>
+    <string name="feedback_email_hint">Sähköpostisi (valinnainen, vastausta varten)</string>
+    <string name="feedback_privacy_note">Nolla seurantaa: Vain sovelluksen versio ja laitemalli lähetetään.</string>
+    <string name="feedback_btn_send">Lähetä palaute</string>
+    <string name="feedback_btn_mail_fallback">Kirjoita mieluummin sähköpostia</string>
+    <string name="feedback_success">Kiitos palautteestasi!</string>
+    <string name="feedback_error_empty">Kirjoita vähintään 10 merkkiä.</string>
+    <string name="feedback_error_network">Lähetys epäonnistui. Kokeile sähköpostilla.</string>
 </resources>

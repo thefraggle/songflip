@@ -334,4 +334,17 @@
     <string name="pro_price_annual_trial_intro">%1$d dni za darmo, potem %2$s / mies. w 1. roku (zamiast %3$s)</string>
     <string name="pro_price_annual_trial_simple">%1$d dni za darmo, potem %2$s / rok</string>
     <string name="pro_btn_annual_trial">Wypróbuj %1$d dni za darmo</string>
+    <!-- In-App Feedback Dialog -->
+    <string name="feedback_title">Opinie i Pomoc</string>
+    <string name="feedback_cat_bug">🐛 Błąd</string>
+    <string name="feedback_cat_feature">💡 Pomysł</string>
+    <string name="feedback_cat_general">💬 Ogólne</string>
+    <string name="feedback_message_hint">Opisz problem, pomysł lub opinię...</string>
+    <string name="feedback_email_hint">Twój e-mail (opcjonalnie, do odpowiedzi)</string>
+    <string name="feedback_privacy_note">Zero śledzenia: Przesyłana jest tylko wersja aplikacji i model urządzenia.</string>
+    <string name="feedback_btn_send">Wyślij opinię</string>
+    <string name="feedback_btn_mail_fallback">Wolisz napisać e-mail?</string>
+    <string name="feedback_success">Dziękujemy za Twoją opinię!</string>
+    <string name="feedback_error_empty">Wpisz co najmniej 10 znaków.</string>
+    <string name="feedback_error_network">Nie udało się wysłać. Spróbuj przez e-mail.</string>
 </resources>

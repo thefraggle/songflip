@@ -118,7 +118,19 @@ class LocalizationTest {
             "pro_price_annual_trial_intro",
             "pro_price_annual_trial_simple",
             "pro_btn_annual_trial",
-            "pro_btn_monthly"
+            "pro_btn_monthly",
+            "feedback_title",
+            "feedback_cat_bug",
+            "feedback_cat_feature",
+            "feedback_cat_general",
+            "feedback_message_hint",
+            "feedback_email_hint",
+            "feedback_privacy_note",
+            "feedback_btn_send",
+            "feedback_btn_mail_fallback",
+            "feedback_success",
+            "feedback_error_empty",
+            "feedback_error_network"
         )
         val requiredPluralKeys = listOf(
             "history_cached_count",

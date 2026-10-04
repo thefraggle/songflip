@@ -105,6 +105,12 @@ class SettingsRepository(private val context: Context) {
             prefs.edit().putInt(KEY_LAST_DISMISSED_PRO_NUDGE_MILESTONE, value).apply()
         }
 
+    var cachedPromoBannerJson: String?
+        get() = prefs.getString(KEY_CACHED_PROMO_BANNER, null)
+        set(value) {
+            prefs.edit().putString(KEY_CACHED_PROMO_BANNER, value).apply()
+        }
+
     /**
      * Calculates the active milestone (20, 50, 100, and every 50 thereafter)
      * if the user hasn't dismissed it yet. Returns 0 if no nudge should be shown.
@@ -137,6 +143,7 @@ class SettingsRepository(private val context: Context) {
         private const val KEY_AUTO_CLIPBOARD_DETECT = "auto_clipboard_detect"
         private const val KEY_ASK_EVERY_TIME = "ask_every_time"
         private const val KEY_LAST_DISMISSED_PRO_NUDGE_MILESTONE = "last_dismissed_pro_nudge_milestone"
+        private const val KEY_CACHED_PROMO_BANNER = "cached_promo_banner_json"
 
         const val DEFAULT_TARGET = "youtubeMusic"
         const val DEFAULT_LANGUAGE = "en"
