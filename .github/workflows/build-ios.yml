@@ -96,14 +96,17 @@ jobs:
 
             UUID=$(security cms -D -i "$PP_PATH" | plutil -extract UUID raw -)
             PROFILE_NAME=$(security cms -D -i "$PP_PATH" | plutil -extract Name raw -)
+            TEAM_ID=$(security cms -D -i "$PP_PATH" | plutil -extract TeamIdentifier.0 raw - 2>/dev/null || echo "296C735W8C")
             echo "Provisioning Profile UUID: $UUID"
             echo "Provisioning Profile Name: $PROFILE_NAME"
+            echo "Team ID: $TEAM_ID"
 
             mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
             cp "$PP_PATH" ~/Library/MobileDevice/Provisioning\ Profiles/"${UUID}".mobileprovision
 
             echo "PROVISIONING_PROFILE_UUID=$UUID" >> $GITHUB_ENV
             echo "PROVISIONING_PROFILE_NAME=$PROFILE_NAME" >> $GITHUB_ENV
+            echo "DEVELOPMENT_TEAM=$TEAM_ID" >> $GITHUB_ENV
 
             if [ -n "$BUILD_PROVISION_PROFILE_SHARE_EXT_BASE64" ]; then
               PP_EXT_PATH=$RUNNER_TEMP/build_pp_ext.mobileprovision
@@ -126,12 +129,13 @@ jobs:
       - name: Build and Archive iOS App (.xcarchive)
         run: |
           if [ "$HAVE_SIGNING" = "true" ]; then
-            echo "Archiving with Main Profile: $PROVISIONING_PROFILE_NAME, Ext Profile: $PROVISIONING_PROFILE_EXT_NAME"
+            echo "Archiving with Main Profile: $PROVISIONING_PROFILE_NAME, Ext Profile: $PROVISIONING_PROFILE_EXT_NAME, Team: ${DEVELOPMENT_TEAM:-296C735W8C}"
             xcodebuild archive \
               -project iosApp/SongFlip/SongFlip.xcodeproj \
               -scheme SongFlip \
               -configuration Release \
               -archivePath $RUNNER_TEMP/SongFlip.xcarchive \
+              DEVELOPMENT_TEAM="${DEVELOPMENT_TEAM:-296C735W8C}" \
               CODE_SIGN_STYLE=Manual \
               CODE_SIGN_IDENTITY="Apple Distribution"
           else
@@ -153,6 +157,8 @@ jobs:
           <dict>
             <key>method</key>
             <string>app-store</string>
+            <key>teamID</key>
+            <string>${DEVELOPMENT_TEAM:-296C735W8C}</string>
             <key>destination</key>
             <string>export</string>
             <key>compileBitcode</key>
