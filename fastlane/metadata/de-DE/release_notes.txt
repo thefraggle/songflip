@@ -1,3 +1,4 @@
-- Zuverlässigere Link-Erkennung: Eigene App-Links werden jetzt abgefangen und mit einem hilfreichen Hinweis versehen, stattdessen einen Musiklink zu teilen.
-- Verbesserte Synchronisierung: Automatische Hintergrund-Wiederherstellung für bestehende Kontostatus und Berechtigungen.
-- Fehlerbehebungen & Stabilität: Allgemeine Stabilitätsverbesserungen und zuverlässigere Fehlerbehandlung im Hintergrund.
+- Schnellere Link-Erkennung: Sofortige Erkennung von Musiklinks in der Zwischenablage beim Öffnen der App.
+- Direkter Feedback-Kanal: Feedback und Fehlerberichte direkt in der App teilen – schnell und ohne Tracking.
+- Anzeige-Korrekturen: Darstellungs- und Preisangaben in regionalen Währungen korrigiert.
+- Fehlerbehebungen & Stabilität: Allgemeine Fehlerkorrekturen und Stabilitätsverbesserungen.
