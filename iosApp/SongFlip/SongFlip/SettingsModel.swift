@@ -81,6 +81,20 @@ func platformIcon(for key: String) -> String {
     }
 }
 
+func detectSourcePlatformName(url: String) -> String {
+    let lower = url.lowercased()
+    if lower.contains("spotify.com") || lower.contains("spotify.link") { return "Spotify" }
+    if lower.contains("apple.com") || lower.contains("apple.co") { return "Apple Music" }
+    if lower.contains("youtube.com") || lower.contains("youtu.be") { return "YouTube Music" }
+    if lower.contains("deezer.com") || lower.contains("deezer.page.link") { return "Deezer" }
+    if lower.contains("tidal.com") { return "Tidal" }
+    if lower.contains("amazon.") || lower.contains("amzn.to") || lower.contains("a.co") { return "Amazon Music" }
+    if lower.contains("soundcloud.com") || lower.contains("on.soundcloud.com") { return "SoundCloud" }
+    if lower.contains("bandcamp.com") { return "Bandcamp" }
+    if lower.contains("song.link") || lower.contains("album.link") || lower.contains("odesli.co") { return "Universal Link" }
+    return "Music Link"
+}
+
 class SettingsModel: ObservableObject {
     static let appGroupId = "group.de.goork.songflip"
 

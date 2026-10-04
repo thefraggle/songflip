@@ -90,7 +90,7 @@ final class PromoBannerManager: ObservableObject {
     func loadCachedConfig() {
         if let rawJson = defaults.string(forKey: cacheKey),
            let data = rawJson.data(using: .utf8),
-           let decoded = try? JSONDecoder().decode(PromoBannerConfig.self, data: data),
+           let decoded = try? JSONDecoder().decode(PromoBannerConfig.self, from: data),
            decoded.isValid() {
             self.config = decoded
         }
@@ -111,7 +111,7 @@ final class PromoBannerManager: ObservableObject {
                 return
             }
 
-            let decoded = try JSONDecoder().decode(PromoBannerConfig.self, data: data)
+            let decoded = try JSONDecoder().decode(PromoBannerConfig.self, from: data)
             self.config = decoded
             self.lastFetchTime = Date()
 

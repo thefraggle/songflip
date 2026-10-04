@@ -283,11 +283,12 @@ struct HistorySheetView: View {
                     .scrollContentBackground(.hidden)
                 }
             }
-            .navigationTitle(LocalizationManager.string(for: "history_title", lang: lang))
+        }
+        .navigationTitle(LocalizationManager.string(for: "history_title", lang: lang))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    if !history.items.isEmpty {
+                if !history.items.isEmpty {
+                    ToolbarItem(placement: .navigationBarLeading) {
                         Button(role: .destructive, action: { showingClearConfirmation = true }) {
                             Image(systemName: "trash")
                                 .foregroundColor(.red.opacity(0.85))
@@ -320,7 +321,6 @@ struct HistorySheetView: View {
             }
         }
     }
-}
 
     @ViewBuilder
     private func fallbackCoverView(for item: HistoryItem) -> some View {
