@@ -1,10 +1,10 @@
 # Changelog
 
 ## [1.7.2] - 2026-10-05
-- **Faster Link Resolution**: Optimized caching and resolution logic open songs faster and more reliably.
-- **Smarter Playlist Handling**: Playlists from your active music service open directly without conversion detours; failed attempts provide clear guidance.
-- **Improved Connection Recovery**: Temporary network interruptions or timeouts now offer an instant retry option instead of opening the browser unprompted.
-- **Enhanced Keyboard Navigation**: Dialogs, sheets, and setup screens can now be closed immediately with the Escape key (ESC).
+- **Faster Resolution**: Optimized caching opens songs faster and more reliably.
+- **Smarter Playlists**: Playlists from your active service open directly without conversion detours.
+- **Connection Recovery**: Temporary network timeouts now offer an instant retry option.
+- **Keyboard Navigation**: All dialogs and sheets can now be closed via Escape key (ESC).
 - **Stability & Polish**: Refined URL parsing and background performance improvements.
 
 ## [1.7.1] - 2026-10-04

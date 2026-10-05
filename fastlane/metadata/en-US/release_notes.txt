@@ -1,4 +1,5 @@
-- Enhanced Keyboard Navigation: Dialogs and sheets can now be closed instantly with the Escape key (ESC).
-- Hardened Link Verification: Strict domain checks protect against spoofed or malformed music links.
-- Transparent Offer Details: Clear and consistent presentation of special highlights across all regions.
-- Bug Fixes & Stability: General stability enhancements and bug fixes.
+- Faster Resolution: Optimized caching opens songs faster and more reliably.
+- Smarter Playlists: Playlists from your active service open directly without conversion detours.
+- Connection Recovery: Temporary network timeouts now offer an instant retry option.
+- Keyboard Navigation: All dialogs and sheets can now be closed via Escape key (ESC).
+- Stability & Polish: Refined URL parsing and background performance improvements.
