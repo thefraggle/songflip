@@ -7,10 +7,22 @@ import io.ktor.client.statement.bodyAsText
 import io.ktor.http.encodeURLParameter
 import io.ktor.http.isSuccess
 import kotlinx.coroutines.CancellationException
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.jsonArray
-import kotlinx.serialization.json.jsonObject
-import kotlinx.serialization.json.jsonPrimitive
+
+@Serializable
+internal data class DeezerSearchResponse(
+    val data: List<DeezerItem> = emptyList()
+)
+
+@Serializable
+internal data class DeezerItem(
+    val link: String? = null,
+    val name: String? = null,
+    @SerialName("nb_fan")
+    val nbFan: Int? = null
+)
 
 class DeezerResolver(
     private val client: HttpClient,
@@ -33,15 +45,10 @@ class DeezerResolver(
             val endpoint = if (isAlbum) "search/album" else "search"
             val resp = client.get("https://api.deezer.com/$endpoint?q=$encoded&limit=1")
             if (resp.status.isSuccess()) {
-                val body = resp.bodyAsText()
-                val rootObj = json.parseToJsonElement(body).jsonObject
-                val data = rootObj["data"]?.jsonArray
-                if (data != null && data.isNotEmpty()) {
-                    val item = data[0].jsonObject
-                    val link = item["link"]?.jsonPrimitive?.content
-                    if (!link.isNullOrEmpty()) {
-                        return link
-                    }
+                val parsed = json.decodeFromString<DeezerSearchResponse>(resp.bodyAsText())
+                val link = parsed.data.firstOrNull()?.link
+                if (!link.isNullOrEmpty()) {
+                    return link
                 }
             }
             null
@@ -56,26 +63,21 @@ class DeezerResolver(
             val encoded = artistName.encodeURLParameter()
             val resp = client.get("https://api.deezer.com/search/artist?q=$encoded&limit=10")
             if (resp.status.isSuccess()) {
-                val body = resp.bodyAsText()
-                val rootObj = json.parseToJsonElement(body).jsonObject
-                val data = rootObj["data"]?.jsonArray
-                if (data != null && data.isNotEmpty()) {
-                    var bestLink: String? = null
-                    var maxFans = -1
-                    for (el in data) {
-                        val item = el.jsonObject
-                        val name = item["name"]?.jsonPrimitive?.content ?: ""
-                        if (isArtistNameMatch(name, artistName)) {
-                            val fans = item["nb_fan"]?.jsonPrimitive?.content?.toIntOrNull() ?: 0
-                            val link = item["link"]?.jsonPrimitive?.content
-                            if (fans > maxFans && !link.isNullOrEmpty()) {
-                                maxFans = fans
-                                bestLink = link
-                            }
+                val parsed = json.decodeFromString<DeezerSearchResponse>(resp.bodyAsText())
+                var bestLink: String? = null
+                var maxFans = -1
+                for (item in parsed.data) {
+                    val name = item.name ?: ""
+                    if (isArtistNameMatch(name, artistName)) {
+                        val fans = item.nbFan ?: 0
+                        val link = item.link
+                        if (fans > maxFans && !link.isNullOrEmpty()) {
+                            maxFans = fans
+                            bestLink = link
                         }
                     }
-                    if (bestLink != null) return bestLink
                 }
+                if (bestLink != null) return bestLink
             }
             null
         } catch (t: Throwable) {

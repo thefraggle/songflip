@@ -8,9 +8,16 @@ import io.ktor.http.encodeURLParameter
 import io.ktor.http.isSuccess
 import io.ktor.util.decodeBase64String
 import kotlinx.coroutines.CancellationException
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.jsonObject
-import kotlinx.serialization.json.jsonPrimitive
+
+@Serializable
+internal data class SpotifyOembedResponse(
+    val title: String? = null,
+    @SerialName("thumbnail_url")
+    val thumbnailUrl: String? = null
+)
 
 data class SpotifyPreReleaseInfo(
     val title: String?,
@@ -39,8 +46,8 @@ class SpotifyResolver(
             val encoded = url.encodeURLParameter()
             val resp = client.get("https://open.spotify.com/oembed?url=$encoded")
             if (resp.status.isSuccess()) {
-                val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
-                val title = root["title"]?.jsonPrimitive?.content
+                val parsed = json.decodeFromString<SpotifyOembedResponse>(resp.bodyAsText())
+                val title = parsed.title
                 if (!title.isNullOrEmpty()) return title
             }
             null

@@ -8,10 +8,39 @@ import io.ktor.client.request.header
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.encodeURLParameter
 import io.ktor.http.isSuccess
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.booleanOrNull
-import kotlinx.serialization.json.jsonObject
-import kotlinx.serialization.json.jsonPrimitive
+
+@Serializable
+internal data class SongLinkApiResponse(
+    val entityUniqueId: String? = null,
+    val userCountry: String? = null,
+    val linksByPlatform: Map<String, SongLinkPlatformLink> = emptyMap(),
+    val entitiesByUniqueId: Map<String, SongLinkEntity> = emptyMap()
+)
+
+@Serializable
+internal data class SongLinkPlatformLink(
+    val country: String? = null,
+    val url: String? = null,
+    val nativeAppUriMobile: String? = null,
+    val nativeAppUriDesktop: String? = null,
+    val entityUniqueId: String? = null
+)
+
+@Serializable
+internal data class SongLinkEntity(
+    val id: String? = null,
+    val type: String? = null,
+    val title: String? = null,
+    val artistName: String? = null,
+    val thumbnailUrl: String? = null,
+    val thumbnailWidth: Int? = null,
+    val thumbnailHeight: Int? = null,
+    val apiProvider: String? = null,
+    val platforms: List<String> = emptyList(),
+    val isAlbum: Boolean? = null
+)
 
 class SongLinkApiResolver(
     private val client: HttpClient,
@@ -41,15 +70,12 @@ class SongLinkApiResolver(
             }
 
             if (resp.status.isSuccess()) {
-                val body = resp.bodyAsText()
-                val rootObj = json.parseToJsonElement(body).jsonObject
+                val parsed = json.decodeFromString<SongLinkApiResponse>(resp.bodyAsText())
+                val targetObj = parsed.linksByPlatform[targetPlatformKey]
+                    ?: if (targetPlatformKey == "youtubeMusic") parsed.linksByPlatform["youtube"] else null
 
-                val linksByPlatform = rootObj["linksByPlatform"]?.jsonObject
-                val targetObj = linksByPlatform?.get(targetPlatformKey)?.jsonObject
-                    ?: if (targetPlatformKey == "youtubeMusic") linksByPlatform?.get("youtube")?.jsonObject else null
-
-                val targetPageUrl = targetObj?.get("url")?.jsonPrimitive?.content
-                val targetEntityId = targetObj?.get("entityUniqueId")?.jsonPrimitive?.content
+                val targetPageUrl = targetObj?.url
+                val targetEntityId = targetObj?.entityUniqueId
 
                 var title: String? = null
                 var artist: String? = null
@@ -57,24 +83,20 @@ class SongLinkApiResolver(
                 var thumbnailUrl: String? = null
 
                 if (targetEntityId != null) {
-                    val entitiesByUniqueId = rootObj["entitiesByUniqueId"]?.jsonObject
-                    val entity = entitiesByUniqueId?.get(targetEntityId)?.jsonObject
-                    title = entity?.get("title")?.jsonPrimitive?.content
-                    artist = entity?.get("artistName")?.jsonPrimitive?.content
-                    isAlbum = entity?.get("isAlbum")?.jsonPrimitive?.booleanOrNull ?: false
-                    thumbnailUrl = entity?.get("thumbnailUrl")?.jsonPrimitive?.content
+                    val entity = parsed.entitiesByUniqueId[targetEntityId]
+                    title = entity?.title
+                    artist = entity?.artistName
+                    isAlbum = entity?.isAlbum ?: false
+                    thumbnailUrl = entity?.thumbnailUrl
                 }
 
-                if (title == null && rootObj.containsKey("entityUniqueId")) {
-                    val fallbackId = rootObj["entityUniqueId"]?.jsonPrimitive?.content
-                    if (fallbackId != null) {
-                        val entity = rootObj["entitiesByUniqueId"]?.jsonObject?.get(fallbackId)?.jsonObject
-                        title = entity?.get("title")?.jsonPrimitive?.content
-                        artist = entity?.get("artistName")?.jsonPrimitive?.content
-                        isAlbum = entity?.get("isAlbum")?.jsonPrimitive?.booleanOrNull ?: false
-                        if (thumbnailUrl == null) {
-                            thumbnailUrl = entity?.get("thumbnailUrl")?.jsonPrimitive?.content
-                        }
+                if (title == null && parsed.entityUniqueId != null) {
+                    val entity = parsed.entitiesByUniqueId[parsed.entityUniqueId]
+                    title = entity?.title
+                    artist = entity?.artistName
+                    isAlbum = entity?.isAlbum ?: false
+                    if (thumbnailUrl == null) {
+                        thumbnailUrl = entity?.thumbnailUrl
                     }
                 }
 

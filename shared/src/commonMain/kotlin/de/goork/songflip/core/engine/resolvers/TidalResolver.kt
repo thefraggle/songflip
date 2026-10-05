@@ -8,10 +8,27 @@ import io.ktor.client.statement.bodyAsText
 import io.ktor.http.encodeURLParameter
 import io.ktor.http.isSuccess
 import kotlinx.coroutines.CancellationException
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.jsonArray
-import kotlinx.serialization.json.jsonObject
-import kotlinx.serialization.json.jsonPrimitive
+
+@Serializable
+internal data class TidalSearchResponse(
+    val tracks: TidalItemsContainer? = null,
+    val albums: TidalItemsContainer? = null,
+    val artists: TidalItemsContainer? = null
+)
+
+@Serializable
+internal data class TidalItemsContainer(
+    val items: List<TidalItem> = emptyList()
+)
+
+@Serializable
+internal data class TidalItem(
+    val id: String? = null,
+    val name: String? = null,
+    val popularity: Int? = null
+)
 
 class TidalResolver(
     private val client: HttpClient,
@@ -37,17 +54,12 @@ class TidalResolver(
                 header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
             }
             if (resp.status.isSuccess()) {
-                val body = resp.bodyAsText()
-                val rootObj = json.parseToJsonElement(body).jsonObject
-                val key = if (isAlbum) "albums" else "tracks"
-                val items = rootObj[key]?.jsonObject?.get("items")?.jsonArray
-                if (items != null && items.isNotEmpty()) {
-                    val firstItem = items[0].jsonObject
-                    val id = firstItem["id"]?.jsonPrimitive?.content
-                    if (!id.isNullOrEmpty()) {
-                        val path = if (isAlbum) "album" else "track"
-                        return "https://tidal.com/browse/$path/$id"
-                    }
+                val parsed = json.decodeFromString<TidalSearchResponse>(resp.bodyAsText())
+                val container = if (isAlbum) parsed.albums else parsed.tracks
+                val id = container?.items?.firstOrNull()?.id
+                if (!id.isNullOrEmpty()) {
+                    val path = if (isAlbum) "album" else "track"
+                    return "https://tidal.com/browse/$path/$id"
                 }
             }
             null
@@ -65,20 +77,18 @@ class TidalResolver(
                 header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
             }
             if (resp.status.isSuccess()) {
-                val body = resp.bodyAsText()
-                val rootObj = json.parseToJsonElement(body).jsonObject
-                val items = rootObj["artists"]?.jsonObject?.get("items")?.jsonArray
-                if (items != null && items.isNotEmpty()) {
+                val parsed = json.decodeFromString<TidalSearchResponse>(resp.bodyAsText())
+                val items = parsed.artists?.items
+                if (!items.isNullOrEmpty()) {
                     var bestId: String? = null
                     var maxPop = -1
-                    for (el in items) {
-                        val item = el.jsonObject
-                        val name = item["name"]?.jsonPrimitive?.content ?: ""
+                    for (item in items) {
+                        val name = item.name ?: ""
                         if (isArtistNameMatch(name, artistName)) {
-                            val pop = item["popularity"]?.jsonPrimitive?.content?.toIntOrNull() ?: 0
+                            val pop = item.popularity ?: 0
                             if (pop > maxPop) {
                                 maxPop = pop
-                                bestId = item["id"]?.jsonPrimitive?.content
+                                bestId = item.id
                             }
                         }
                     }

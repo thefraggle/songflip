@@ -108,6 +108,7 @@ fun SettingsBottomSheet(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .closeOnEsc { showLanguagePickerSubSheet = false }
                     .verticalScroll(rememberScrollState())
                     .padding(24.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp)

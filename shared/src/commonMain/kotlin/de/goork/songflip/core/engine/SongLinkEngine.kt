@@ -31,6 +31,8 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.booleanOrNull
 import kotlinx.serialization.json.buildJsonObject
@@ -781,6 +783,22 @@ class SongLinkEngine(
         }
     }
 
+@Serializable
+internal data class CommonOEmbedDto(
+    val title: String? = null,
+    @SerialName("author_name")
+    val authorName: String? = null,
+    @SerialName("thumbnail_url")
+    val thumbnailUrl: String? = null
+)
+
+@Serializable
+internal data class SpotifyPodcastOEmbedDto(
+    val title: String? = null,
+    @SerialName("thumbnail_url")
+    val thumbnailUrl: String? = null
+)
+
     suspend fun extractTrackInfo(url: String): String? {
         return try {
             when (UrlUtils.detectPlatform(url)) {
@@ -790,9 +808,9 @@ class SongLinkEngine(
                     val encoded = url.encodeURLParameter()
                     val resp = client.get("https://www.youtube.com/oembed?url=$encoded&format=json")
                     if (resp.status.isSuccess()) {
-                        val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
-                        val title = root["title"]?.jsonPrimitive?.content ?: ""
-                        val author = root["author_name"]?.jsonPrimitive?.content ?: ""
+                        val oembed = json.decodeFromString<CommonOEmbedDto>(resp.bodyAsText())
+                        val title = oembed.title ?: ""
+                        val author = oembed.authorName ?: ""
                         if (title.isNotEmpty()) {
                             return if (author.isNotEmpty() && !title.contains(author, ignoreCase = true)) "$author $title" else title
                         }
@@ -803,8 +821,8 @@ class SongLinkEngine(
                     val encoded = url.encodeURLParameter()
                     val resp = client.get("https://api.deezer.com/oembed?url=$encoded")
                     if (resp.status.isSuccess()) {
-                        val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
-                        val title = root["title"]?.jsonPrimitive?.content
+                        val oembed = json.decodeFromString<CommonOEmbedDto>(resp.bodyAsText())
+                        val title = oembed.title
                         if (!title.isNullOrEmpty()) return title
                     }
                     null
@@ -813,9 +831,9 @@ class SongLinkEngine(
                     val encoded = url.encodeURLParameter()
                     val resp = client.get("https://soundcloud.com/oembed?url=$encoded&format=json")
                     if (resp.status.isSuccess()) {
-                        val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
-                        val title = root["title"]?.jsonPrimitive?.content ?: ""
-                        val author = root["author_name"]?.jsonPrimitive?.content ?: ""
+                        val oembed = json.decodeFromString<CommonOEmbedDto>(resp.bodyAsText())
+                        val title = oembed.title ?: ""
+                        val author = oembed.authorName ?: ""
                         val cleanTitle = if (author.isNotEmpty() && title.endsWith(" by $author", ignoreCase = true)) {
                             title.substring(0, title.length - " by $author".length).trim()
                         } else {
@@ -1130,52 +1148,15 @@ class SongLinkEngine(
             }
         }
 
-        // 2. Direct Client-Side Spotify Scraping (Bot UA + oEmbed Fallback)
+        // 2. Direct Spotify Resolution via Official oEmbed API
         if (UrlUtils.detectPlatform(canonicalUrl) == MusicPlatform.SPOTIFY) {
-            try {
-                val sResp = client.get(canonicalUrl) {
-                    header("User-Agent", "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)")
-                }
-                if (sResp.status.isSuccess()) {
-                    val html = sResp.bodyAsText()
-                    val titleMatch = Regex("<meta\\s+(?:property|name)=[\"'](?:og:title|twitter:title)[\"']\\s+content=[\"']([^\"']+)[\"']", RegexOption.IGNORE_CASE).find(html)
-                        ?: Regex("<meta\\s+content=[\"']([^\"']+)[\"']\\s+(?:property|name)=[\"'](?:og:title|twitter:title)[\"']", RegexOption.IGNORE_CASE).find(html)
-                        ?: Regex("<title>([^<]+)</title>", RegexOption.IGNORE_CASE).find(html)
-                    val rawTitle = titleMatch?.groupValues?.get(1)
-                        ?.replace(Regex("\\s*\\|\\s*Podcast on Spotify", RegexOption.IGNORE_CASE), "")
-                        ?.replace(Regex("\\s*\\|\\s*Spotify", RegexOption.IGNORE_CASE), "")
-                        ?.trim()
-                    if (!rawTitle.isNullOrBlank() && !rawTitle.contains("Spotify – Web Player")) {
-                        val isEp = canonicalUrl.contains("/episode/") || canonicalUrl.startsWith("spotify:episode:")
-                        val targetUrl = UrlUtils.buildPodcastSearchUrl(rawTitle, targetPlatformKey)
-                        val nativeUri = UrlUtils.toPodcastNativeAppUri(targetPlatformKey, rawTitle)
-                        val sResult = ResolutionResult.Podcast(
-                            originalUrl = canonicalUrl,
-                            targetUrl = targetUrl,
-                            platform = targetPlatformKey,
-                            showTitle = rawTitle,
-                            episodeTitle = if (isEp) rawTitle else null,
-                            nativeAppUri = nativeUri,
-                            thumbnailUrl = null,
-                            isEpisode = isEp,
-                            isDeepSearch = true
-                        )
-                        cache.putPodcast(canonicalUrl, targetPlatformKey, sResult, now, isHistory = !isPrefetch)
-                        return sResult
-                    }
-                }
-            } catch (e: Exception) {
-                if (e is CancellationException) throw e
-            }
-
             try {
                 val oembedUrl = "https://open.spotify.com/oembed?url=${canonicalUrl.encodeURLParameter()}"
                 val oResp = client.get(oembedUrl)
                 if (oResp.status.isSuccess()) {
-                    val oBody = oResp.bodyAsText()
-                    val oRoot = json.parseToJsonElement(oBody).jsonObject
-                    val title = oRoot["title"]?.jsonPrimitive?.content?.ifBlank { null }
-                    val thumb = oRoot["thumbnail_url"]?.jsonPrimitive?.content?.ifBlank { null }
+                    val oembed = json.decodeFromString<SpotifyPodcastOEmbedDto>(oResp.bodyAsText())
+                    val title = oembed.title?.ifBlank { null }
+                    val thumb = oembed.thumbnailUrl?.ifBlank { null }
                     if (title != null) {
                         val isEp = canonicalUrl.contains("/episode/") || canonicalUrl.startsWith("spotify:episode:")
                         val targetUrl = UrlUtils.buildPodcastSearchUrl(title, targetPlatformKey)
