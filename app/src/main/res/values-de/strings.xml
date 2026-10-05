@@ -307,6 +307,8 @@
     <string name="playlist_error_empty_desc">Diese Playlist enthält keine abspielbaren Titel.</string>
     <string name="playlist_btn_retry">Erneut versuchen</string>
     <string name="playlist_btn_open_original">Original-Playlist öffnen</string>
+    <string name="playlist_same_platform_title">Bereits in %1$s</string>
+    <string name="playlist_same_platform_desc">Diese Playlist stammt bereits von deinem ausgewählten Musikdienst. Du kannst sie direkt in der App öffnen.</string>
 <string name="pro_restore_no_subscription">Kein aktives PRO-Abonnement gefunden.</string>
     <string name="pro_purchase_failed">Kauf konnte nicht abgeschlossen werden. Bitte versuche es erneut.</string>
     <string name="offline_waiting_title">Warte auf Verbindung…</string>

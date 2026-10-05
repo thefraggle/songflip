@@ -2,6 +2,7 @@
 
 ## [1.7.2] - 2026-10-05
 - **Schnellere Link-Weiterleitung**: Optimierte Zwischenspeicherung und Auflösung öffnen Songs spürbar schneller und zuverlässiger.
+- **Intelligente Playlist-Übergabe**: Playlists deines aktiven Musikdienstes öffnen ohne Umwege direkt im Player; bei nicht konvertierbaren Listen gibt es klare Hilfestellung.
 - **Bessere Verbindungswiederherstellung**: Bei kurzen Verbindungsunterbrechungen oder Zeitüberschreitungen kannst du den Vorgang direkt wiederholen, statt unbemerkt im Browser zu landen.
 - **Erweiterte Tastatur-Bedienung**: Alle Dialoge, Menüs und Einblendungen lassen sich nun durchgehend mit der Escape-Taste (ESC) schließen.
 - **Feinschliff & Stabilität**: Zuverlässigere Link-Erkennung und verbesserte Leistung im Hintergrund.

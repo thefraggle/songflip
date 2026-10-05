@@ -103,8 +103,29 @@ class RedirectActivity : ComponentActivity() {
                 return
             }
 
-            // 1a. Check if incoming link is a playlist -> Route to interactive Playlist Converter in MainActivity
+            // 1a. Check if incoming link is a playlist
             if (UrlUtils.isPlaylistUrl(incomingUrl)) {
+                val incomingPlatform = UrlUtils.detectPlatform(incomingUrl)
+                val targetPlatform = settingsRepository.targetPlatform
+                val isSamePlatform = when (targetPlatform) {
+                    "spotify" -> incomingPlatform == de.goork.songflip.core.model.MusicPlatform.SPOTIFY
+                    "appleMusic" -> incomingPlatform == de.goork.songflip.core.model.MusicPlatform.APPLE_MUSIC
+                    "youtubeMusic" -> incomingPlatform == de.goork.songflip.core.model.MusicPlatform.YOUTUBE_MUSIC
+                    "deezer" -> incomingPlatform == de.goork.songflip.core.model.MusicPlatform.DEEZER
+                    "tidal" -> incomingPlatform == de.goork.songflip.core.model.MusicPlatform.TIDAL
+                    "amazonMusic" -> incomingPlatform == de.goork.songflip.core.model.MusicPlatform.AMAZON_MUSIC
+                    "soundcloud" -> incomingPlatform == de.goork.songflip.core.model.MusicPlatform.SOUNDCLOUD
+                    "bandcamp" -> incomingPlatform == de.goork.songflip.core.model.MusicPlatform.BANDCAMP
+                    else -> false
+                }
+                if (isSamePlatform) {
+                    // Issue #63: Same platform -> Open directly in target player without detour to converter
+                    openTargetUrl(incomingUrl, targetPlatform)
+                    finish()
+                    suppressTransitionAnimation()
+                    return
+                }
+
                 val mainIntent = Intent(this, MainActivity::class.java).apply {
                     putExtra("open_playlist_url", incomingUrl)
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)

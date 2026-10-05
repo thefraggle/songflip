@@ -63,7 +63,16 @@ fun PlaylistConvertBottomSheet(
         MusicPlatform.fromKey(targetPlatformKey)
     }
 
-    var conversionState by remember { mutableStateOf<PlaylistConversionState>(PlaylistConversionState.Loading()) }
+    val isSamePlatform = remember(sourcePlatform, targetPlatformKey) {
+        sourcePlatform.key == targetPlatformKey
+    }
+
+    var conversionState by remember(playlistUrl, targetPlatformKey) {
+        mutableStateOf<PlaylistConversionState>(
+            if (isSamePlatform) PlaylistConversionState.SamePlatform
+            else PlaylistConversionState.Loading()
+        )
+    }
     var conversionProgressStep by remember { mutableIntStateOf(0) }
 
     fun runConversion() {
@@ -159,7 +168,11 @@ fun PlaylistConvertBottomSheet(
     }
 
     LaunchedEffect(playlistUrl, targetPlatformKey, isPro) {
-        runConversion()
+        if (isSamePlatform) {
+            conversionState = PlaylistConversionState.SamePlatform
+        } else {
+            runConversion()
+        }
     }
 
     ModalBottomSheet(
@@ -296,7 +309,8 @@ fun PlaylistConvertBottomSheet(
 
                 is PlaylistConversionState.Error -> {
                     val isPermanentFailure = state.errorCode == de.goork.songflip.core.model.PlaylistErrorCode.UNSUPPORTED_PLATFORM ||
-                            state.errorCode == de.goork.songflip.core.model.PlaylistErrorCode.PRIVATE_OR_RESTRICTED
+                            state.errorCode == de.goork.songflip.core.model.PlaylistErrorCode.PRIVATE_OR_RESTRICTED ||
+                            state.errorCode == de.goork.songflip.core.model.PlaylistErrorCode.EMPTY_PLAYLIST
 
                     val (errorIcon, titleRes, descRes) = when (state.errorCode) {
                         de.goork.songflip.core.model.PlaylistErrorCode.PRIVATE_OR_RESTRICTED -> Triple(
@@ -363,7 +377,8 @@ fun PlaylistConvertBottomSheet(
                     Spacer(modifier = Modifier.height(24.dp))
 
                     if (isPermanentFailure) {
-                        // For permanent errors (private playlist / unsupported platform), primary action is opening original link
+                        // For permanent errors (private playlist / unsupported platform / empty playlist), primary action is opening original link.
+                        // Strictly NO retry button rendered (Issue #62) to prevent repetitive failed API calls and user frustration.
                         Button(
                             onClick = {
                                 try {
@@ -385,11 +400,11 @@ fun PlaylistConvertBottomSheet(
                         Spacer(modifier = Modifier.height(10.dp))
 
                         OutlinedButton(
-                            onClick = { runConversion() },
+                            onClick = onDismiss,
                             modifier = Modifier.fillMaxWidth().height(48.dp),
                             shape = RoundedCornerShape(12.dp)
                         ) {
-                            Text(stringResource(R.string.playlist_btn_retry))
+                            Text(stringResource(R.string.playlist_dialog_action_close))
                         }
                     } else {
                         // For transient errors (timeout / generic), primary action is retry
@@ -689,6 +704,81 @@ fun PlaylistConvertBottomSheet(
                                 style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold)
                             )
                         }
+                    }
+                }
+
+                is PlaylistConversionState.SamePlatform -> {
+                    val targetDisplayName = PackageUtils.getPlatformDisplayName(targetPlatformKey)
+                    Box(
+                        modifier = Modifier
+                            .size(56.dp)
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colorScheme.primaryContainer),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Check,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                            modifier = Modifier.size(32.dp)
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(14.dp))
+
+                    Text(
+                        text = stringResource(R.string.playlist_same_platform_title, targetDisplayName),
+                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                        color = MaterialTheme.colorScheme.onSurface,
+                        textAlign = TextAlign.Center
+                    )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Text(
+                        text = stringResource(R.string.playlist_same_platform_desc),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        textAlign = TextAlign.Center
+                    )
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    Button(
+                        onClick = {
+                            try {
+                                val targetUri = Uri.parse(PackageUtils.toNativeAppUri(playlistUrl, targetPlatformKey))
+                                val intent = Intent(Intent.ACTION_VIEW, targetUri).apply {
+                                    PackageUtils.getInstalledPackage(context, targetPlatformKey)?.let { pkg ->
+                                        setPackage(pkg)
+                                    }
+                                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                }
+                                context.startActivity(intent)
+                            } catch (e: Exception) {
+                                try {
+                                    val fallbackIntent = Intent(Intent.ACTION_VIEW, Uri.parse(playlistUrl)).apply {
+                                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    }
+                                    context.startActivity(fallbackIntent)
+                                } catch (ignored: Exception) {}
+                            }
+                            onDismiss()
+                        },
+                        modifier = Modifier.fillMaxWidth().height(48.dp),
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Text(stringResource(R.string.playlist_dialog_action_open, targetDisplayName))
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    OutlinedButton(
+                        onClick = onDismiss,
+                        modifier = Modifier.fillMaxWidth().height(48.dp),
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Text(stringResource(R.string.playlist_dialog_action_close))
                     }
                 }
                 else -> {}

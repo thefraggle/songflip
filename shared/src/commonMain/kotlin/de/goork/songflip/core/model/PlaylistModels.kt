@@ -65,4 +65,5 @@ sealed class PlaylistConversionState {
         val errorCode: PlaylistErrorCode = PlaylistErrorCode.UNKNOWN_ERROR,
         val reason: String? = null
     ) : PlaylistConversionState()
+    data object SamePlatform : PlaylistConversionState()
 }

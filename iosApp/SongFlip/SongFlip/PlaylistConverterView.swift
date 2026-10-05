@@ -208,16 +208,18 @@ struct PlaylistConverterView: View {
                         .cornerRadius(12)
                 }
 
-                Button(action: {
-                    startConversion()
-                }) {
-                    Text(LocalizationManager.string(for: "playlist_btn_retry", lang: lang))
-                        .font(.headline)
-                        .foregroundColor(.primary)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 14)
-                        .background(Color(uiColor: .secondarySystemBackground))
-                        .cornerRadius(12)
+                if type != .privateOrRestricted && type != .unsupportedPlatform && type != .empty {
+                    Button(action: {
+                        startConversion()
+                    }) {
+                        Text(LocalizationManager.string(for: "playlist_btn_retry", lang: lang))
+                            .font(.headline)
+                            .foregroundColor(.primary)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 14)
+                            .background(Color(uiColor: .secondarySystemBackground))
+                            .cornerRadius(12)
+                    }
                 }
             }
             .padding(.horizontal, 20)
