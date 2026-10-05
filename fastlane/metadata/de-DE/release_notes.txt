@@ -1,4 +1,5 @@
-- Komfortable Tastatur-Bedienung: Dialoge lassen sich jetzt bequem per Escape-Taste (ESC) schließen.
-- Gehärtete Link-Prüfung: Strikte Domain-Prüfung schützt vor manipulierten Musiklinks.
-- Transparente Aktionsanzeige: Eindeutige und verlässliche Darstellung von Aktionsvorteilen.
-- Feinschliff & Stabilität: Allgemeine Fehlerkorrekturen und Stabilitätsverbesserungen.
+- Schnellere Weiterleitung: Optimierte Zwischenspeicherung öffnet Songs spürbar schneller.
+- Intelligente Playlists: Eigene Playlists öffnen direkt ohne Konvertierungsumweg; klare Hilfe bei Fehlern.
+- Verbindungsaufbau: Zeitüberschreitungen bieten nun eine direkte Wiederholen-Option.
+- Tastatur-Bedienung: Alle Dialoge schließen nun per Escape-Taste (ESC).
+- Feinschliff: Zuverlässigere Link-Erkennung und Stabilitätsverbesserungen.

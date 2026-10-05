@@ -1,11 +1,11 @@
 # Changelog (Deutsch)
 
 ## [1.7.2] - 2026-10-05
-- **Schnellere Link-Weiterleitung**: Optimierte Zwischenspeicherung und Auflösung öffnen Songs spürbar schneller und zuverlässiger.
-- **Intelligente Playlist-Übergabe**: Playlists deines aktiven Musikdienstes öffnen ohne Umwege direkt im Player; bei nicht konvertierbaren Listen gibt es klare Hilfestellung.
-- **Bessere Verbindungswiederherstellung**: Bei kurzen Verbindungsunterbrechungen oder Zeitüberschreitungen kannst du den Vorgang direkt wiederholen, statt unbemerkt im Browser zu landen.
-- **Erweiterte Tastatur-Bedienung**: Alle Dialoge, Menüs und Einblendungen lassen sich nun durchgehend mit der Escape-Taste (ESC) schließen.
-- **Feinschliff & Stabilität**: Zuverlässigere Link-Erkennung und verbesserte Leistung im Hintergrund.
+- **Schnellere Weiterleitung**: Optimierte Zwischenspeicherung öffnet Songs spürbar schneller.
+- **Intelligente Playlists**: Eigene Playlists öffnen direkt ohne Konvertierungsumweg; klare Hilfe bei Fehlern.
+- **Verbindungsaufbau**: Zeitüberschreitungen bieten nun eine direkte Wiederholen-Option.
+- **Tastatur-Bedienung**: Alle Dialoge schließen nun per Escape-Taste (ESC).
+- **Feinschliff**: Zuverlässigere Link-Erkennung und Stabilitätsverbesserungen.
 
 ## [1.7.1] - 2026-10-04
 - **Komfortable Tastatur-Bedienung**: Alle Dialoge und Einblendungen lassen sich jetzt bequem mit der Escape-Taste (ESC) schließen.
