@@ -56,6 +56,7 @@ fun AppLinksSetupBottomSheet(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .closeOnEsc(onDismissRequest)
                 .navigationBarsPadding()
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 24.dp, vertical = 8.dp),

@@ -385,11 +385,20 @@ class RedirectViewModel : ViewModel() {
                             sourcePlatform = sourcePlatform,
                             errorReason = errorReason
                         )
-                        _uiState.value = RedirectUiState.ForwardOriginal(
-                            uri = Uri.parse(incomingUrl),
-                            showErrorToast = true,
-                            isPlaylistNotSupported = (result is ResolutionResult.Error && result.message == "PLAYLIST_NOT_SUPPORTED")
-                        )
+                        if (result == null) {
+                            // Timeout: give user a chance to retry or wait instead of abrupt browser forward
+                            _uiState.value = RedirectUiState.OfflineWaiting(
+                                incomingUrl = incomingUrl,
+                                targetPlatform = targetPlatform,
+                                isRetrying = false
+                            )
+                        } else {
+                            _uiState.value = RedirectUiState.ForwardOriginal(
+                                uri = Uri.parse(incomingUrl),
+                                showErrorToast = true,
+                                isPlaylistNotSupported = (result is ResolutionResult.Error && result.message == "PLAYLIST_NOT_SUPPORTED")
+                            )
+                        }
                     }
                 }
             }
@@ -414,10 +423,22 @@ class RedirectViewModel : ViewModel() {
                 errorDetail = FlipErrorClassifier.detail(t)
             )
             withContext(Dispatchers.Main) {
-                _uiState.value = RedirectUiState.ForwardOriginal(
-                    uri = Uri.parse(incomingUrl),
-                    showErrorToast = true
-                )
+                val isNetworkIssue = t is java.net.SocketTimeoutException ||
+                    t is java.net.ConnectException ||
+                    t is java.net.UnknownHostException ||
+                    t is javax.net.ssl.SSLException
+                if (isNetworkIssue) {
+                    _uiState.value = RedirectUiState.OfflineWaiting(
+                        incomingUrl = incomingUrl,
+                        targetPlatform = targetPlatform,
+                        isRetrying = false
+                    )
+                } else {
+                    _uiState.value = RedirectUiState.ForwardOriginal(
+                        uri = Uri.parse(incomingUrl),
+                        showErrorToast = true
+                    )
+                }
             }
         }
     }

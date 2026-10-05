@@ -59,14 +59,16 @@ object UrlUtils {
             return "https://open.spotify.com/prerelease/$id"
         }
 
+        val host = extractDomain(clean)
+
         // 2. Apple Music: Preserve base URL + exact track id parameter (?i=...)
-        if (clean.contains("apple.com") && clean.contains("i=")) {
+        if (isHostOrSubdomain(host, "apple.com", "music.apple.com") && clean.contains("i=")) {
             val base = clean.substringBefore("?")
             val trackId = clean.substringAfter("i=").substringBefore("&").substringBefore("?").trim()
             if (trackId.isNotEmpty()) {
                 return "$base?i=$trackId"
             }
-        } else if (clean.contains("apple.com") && (clean.contains("/album/") || clean.contains("/song/"))) {
+        } else if (isHostOrSubdomain(host, "apple.com", "music.apple.com") && (clean.contains("/album/") || clean.contains("/song/"))) {
             clean = clean.substringBefore("?")
         }
 
@@ -79,35 +81,35 @@ object UrlUtils {
         }
 
         // 4. YouTube & YouTube Music: watch?v={id}, youtu.be/{id}, or /shorts/{id}
-        if (clean.contains("youtu.be/")) {
+        if (host == "youtu.be") {
             val id = clean.substringAfter("youtu.be/").substringBefore("/").substringBefore("?").trim()
             if (id.isNotEmpty()) {
                 return "https://youtu.be/$id"
             }
         }
-        if (clean.contains("youtube.com/shorts/")) {
-            val id = clean.substringAfter("youtube.com/shorts/").substringBefore("/").substringBefore("?").trim()
+        if (isHostOrSubdomain(host, "youtube.com") && clean.contains("/shorts/")) {
+            val id = clean.substringAfter("/shorts/").substringBefore("/").substringBefore("?").trim()
             if (id.isNotEmpty()) {
                 return "https://www.youtube.com/watch?v=$id"
             }
         }
-        if (clean.contains("watch") && clean.contains("v=")) {
-            val isYtMusic = clean.contains("music.youtube.com")
-            val host = if (isYtMusic) "https://music.youtube.com" else "https://www.youtube.com"
+        if (isHostOrSubdomain(host, "youtube.com") && clean.contains("watch") && clean.contains("v=")) {
+            val isYtMusic = host == "music.youtube.com"
+            val schemeHost = if (isYtMusic) "https://music.youtube.com" else "https://www.youtube.com"
             val id = clean.substringAfter("v=").substringBefore("&").substringBefore("?").trim()
             if (id.isNotEmpty()) {
-                return "$host/watch?v=$id"
+                return "$schemeHost/watch?v=$id"
             }
         }
 
         // 5. Amazon Music: preserve trackAsin if present, otherwise strip tracking
-        if (clean.contains("music.amazon.") && clean.contains("trackAsin=")) {
+        if ((host.startsWith("music.amazon.") || host.contains(".amazon.")) && clean.contains("trackAsin=")) {
             val base = clean.substringBefore("?")
             val asin = clean.substringAfter("trackAsin=").substringBefore("&").substringBefore("?").trim()
             if (asin.isNotEmpty()) {
                 return "$base?trackAsin=$asin"
             }
-        } else if (clean.contains("music.amazon.")) {
+        } else if (host.startsWith("music.amazon.") || host.contains(".amazon.")) {
             clean = clean.substringBefore("?")
         }
 
@@ -194,25 +196,26 @@ object UrlUtils {
     }
 
     fun isShortLinkDomain(url: String): Boolean {
-        return url.contains("spotify.link") ||
-                url.contains("spotify.app.link") ||
-                url.contains("spoti.fi") ||
-                url.contains("deezer.page.link") ||
-                url.contains("link.deezer.com") ||
-                url.contains("tidal.link") ||
-                url.contains("youtu.be") ||
-                url.contains("on.soundcloud.com") ||
-                url.contains("t.co/") ||
-                url.contains("://t.co") ||
-                url.contains("bit.ly") ||
-                url.contains("amzn.to") ||
-                url.contains("amzn.eu") ||
-                url.contains("amzn.asia") ||
-                url.contains("a.co/") ||
-                url.contains("://a.co") ||
-                url.contains("apple.co/") ||
-                url.contains("://apple.co") ||
-                url.contains("shazam.com")
+        val host = extractDomain(url)
+        return isHostOrSubdomain(
+            host,
+            "spotify.link",
+            "spotify.app.link",
+            "spoti.fi",
+            "deezer.page.link",
+            "link.deezer.com",
+            "tidal.link",
+            "youtu.be",
+            "on.soundcloud.com",
+            "t.co",
+            "bit.ly",
+            "amzn.to",
+            "amzn.eu",
+            "amzn.asia",
+            "a.co",
+            "apple.co",
+            "shazam.com"
+        )
     }
 
     private val albumPathRegex = Regex("""(?:/album/|/albums/|album\.link/|\.bandcamp\.com/album/)""", RegexOption.IGNORE_CASE)
@@ -232,30 +235,27 @@ object UrlUtils {
         // YouTube URLs with watch?v= or youtu.be/ are individual songs, even if they have a &list= parameter
         if (clean.contains("watch?v=") || clean.contains("youtu.be/")) return false
 
-        return clean.contains("/playlist/") ||
-                clean.contains("/playlists/") ||
-                clean.contains("/playlist?") ||
-                clean.contains("youtube.com/playlist") ||
-                clean.contains("link.deezer.com") ||
-                (clean.contains("soundcloud.com/") && (clean.contains("/sets/") || clean.contains("/playlists/"))) ||
-                (clean.contains("music.amazon.") && clean.contains("/playlists/")) ||
+        val host = extractDomain(clean)
+        val path = clean.substringAfter(host, "")
+
+        return (isHostOrSubdomain(host, "spotify.com") && (path.contains("/playlist/") || path.contains("/playlists/"))) ||
+                (isHostOrSubdomain(host, "apple.com") && (path.contains("/playlist/") || path.contains("/playlists/"))) ||
+                (isHostOrSubdomain(host, "youtube.com") && (path.contains("/playlist") || path.contains("list="))) ||
+                (isHostOrSubdomain(host, "deezer.com", "link.deezer.com") && (path.contains("/playlist/") || host == "link.deezer.com")) ||
+                (isHostOrSubdomain(host, "tidal.com") && (path.contains("/playlist/") || path.contains("/playlists/"))) ||
+                (isHostOrSubdomain(host, "soundcloud.com") && (path.contains("/sets/") || path.contains("/playlists/"))) ||
+                ((host.startsWith("music.amazon.") || host.contains(".amazon.")) && path.contains("/playlists/")) ||
                 clean.startsWith("spotify:playlist:")
     }
 
     fun isPodcastUrl(url: String): Boolean {
         val clean = url.lowercase()
-        return clean.contains("/episode/") ||
-                clean.contains("/episodes/") ||
-                clean.contains("/show/") ||
-                clean.contains("/shows/") ||
-                clean.contains("/podcast/") ||
-                clean.contains("/podcasts/") ||
-                clean.contains("podcasts.apple.com") ||
-                clean.contains("podcasts.google.com") ||
-                clean.contains("pocketcasts.com") ||
-                clean.contains("pca.st") ||
-                clean.contains("castbox.fm") ||
-                clean.contains("overcast.fm") ||
+        val host = extractDomain(clean)
+        val path = clean.substringAfter(host, "")
+
+        return isHostOrSubdomain(host, "podcasts.apple.com", "podcasts.google.com", "pocketcasts.com", "pca.st", "castbox.fm", "overcast.fm") ||
+                ((isHostOrSubdomain(host, "spotify.com", "deezer.com", "tidal.com", "youtube.com", "apple.com") || host.startsWith("music.amazon.") || host.contains(".amazon.")) &&
+                        (path.contains("/show/") || path.contains("/shows/") || path.contains("/episode/") || path.contains("/episodes/") || path.contains("/podcast/") || path.contains("/podcasts/"))) ||
                 clean.startsWith("spotify:episode:") ||
                 clean.startsWith("spotify:show:")
     }

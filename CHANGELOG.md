@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.7.2] - 2026-10-05
+- **Faster Link Resolution**: Optimized caching and resolution logic open songs faster and more reliably.
+- **Improved Connection Recovery**: Temporary network interruptions or timeouts now offer an instant retry option instead of opening the browser unprompted.
+- **Enhanced Keyboard Navigation**: Dialogs, sheets, and setup screens can now be closed immediately with the Escape key (ESC).
+- **Stability & Polish**: Refined URL parsing and background performance improvements.
+
 ## [1.7.1] - 2026-10-04
 - **Enhanced Keyboard Navigation**: Dialogs and sheets can now be closed immediately using the Escape key (ESC) for more comfortable navigation and ergonomics.
 - **Hardened Link & Domain Validation**: Strict domain verification prevents spoofed or malicious music links from interfering with redirect resolution.

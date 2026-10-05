@@ -7,10 +7,25 @@ import io.ktor.client.statement.bodyAsText
 import io.ktor.http.encodeURLParameter
 import io.ktor.http.isSuccess
 import kotlinx.coroutines.CancellationException
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.jsonArray
-import kotlinx.serialization.json.jsonObject
-import kotlinx.serialization.json.jsonPrimitive
+
+@Serializable
+internal data class ITunesResponse(
+    val resultCount: Int = 0,
+    val results: List<ITunesItem> = emptyList()
+)
+
+@Serializable
+internal data class ITunesItem(
+    val artistName: String? = null,
+    val trackName: String? = null,
+    val collectionName: String? = null,
+    val trackViewUrl: String? = null,
+    val collectionViewUrl: String? = null,
+    val artistLinkUrl: String? = null,
+    val artistViewUrl: String? = null
+)
 
 class AppleMusicResolver(
     private val client: HttpClient,
@@ -33,19 +48,11 @@ class AppleMusicResolver(
             val entity = if (isAlbum) "album" else "song"
             val resp = client.get("https://itunes.apple.com/search?term=$encoded&entity=$entity&limit=1")
             if (resp.status.isSuccess()) {
-                val body = resp.bodyAsText()
-                val rootObj = json.parseToJsonElement(body).jsonObject
-                val results = rootObj["results"]?.jsonArray
-                if (results != null && results.isNotEmpty()) {
-                    val item = results[0].jsonObject
-                    val viewUrl = if (isAlbum) {
-                        item["collectionViewUrl"]?.jsonPrimitive?.content
-                    } else {
-                        item["trackViewUrl"]?.jsonPrimitive?.content
-                    }
-                    if (!viewUrl.isNullOrEmpty()) {
-                        return viewUrl
-                    }
+                val parsed = json.decodeFromString<ITunesResponse>(resp.bodyAsText())
+                val item = parsed.results.firstOrNull()
+                val viewUrl = if (isAlbum) item?.collectionViewUrl else item?.trackViewUrl
+                if (!viewUrl.isNullOrEmpty()) {
+                    return viewUrl
                 }
             }
             null
@@ -60,19 +67,13 @@ class AppleMusicResolver(
             val encoded = artistName.encodeURLParameter()
             val resp = client.get("https://itunes.apple.com/search?term=$encoded&entity=musicArtist&limit=25")
             if (resp.status.isSuccess()) {
-                val body = resp.bodyAsText()
-                val rootObj = json.parseToJsonElement(body).jsonObject
-                val results = rootObj["results"]?.jsonArray
-                if (results != null && results.isNotEmpty()) {
-                    for (el in results) {
-                        val item = el.jsonObject
-                        val name = item["artistName"]?.jsonPrimitive?.content ?: ""
-                        if (isArtistNameMatch(name, artistName)) {
-                            val link = item["artistLinkUrl"]?.jsonPrimitive?.content
-                                ?: item["artistViewUrl"]?.jsonPrimitive?.content
-                            if (!link.isNullOrEmpty()) {
-                                return link
-                            }
+                val parsed = json.decodeFromString<ITunesResponse>(resp.bodyAsText())
+                for (item in parsed.results) {
+                    val name = item.artistName ?: ""
+                    if (isArtistNameMatch(name, artistName)) {
+                        val link = item.artistLinkUrl ?: item.artistViewUrl
+                        if (!link.isNullOrEmpty()) {
+                            return link
                         }
                     }
                 }
@@ -91,15 +92,12 @@ class AppleMusicResolver(
                 if (trackId.isNotEmpty()) {
                     val resp = client.get("https://itunes.apple.com/lookup?id=$trackId")
                     if (resp.status.isSuccess()) {
-                        val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
-                        val results = root["results"]?.jsonArray
-                        if (results != null && results.isNotEmpty()) {
-                            val track = results[0].jsonObject
-                            val trackName = track["trackName"]?.jsonPrimitive?.content ?: ""
-                            val artistName = track["artistName"]?.jsonPrimitive?.content ?: ""
-                            if (trackName.isNotEmpty()) {
-                                return if (artistName.isNotEmpty()) "$artistName $trackName" else trackName
-                            }
+                        val parsed = json.decodeFromString<ITunesResponse>(resp.bodyAsText())
+                        val track = parsed.results.firstOrNull()
+                        val trackName = track?.trackName ?: ""
+                        val artistName = track?.artistName ?: ""
+                        if (trackName.isNotEmpty()) {
+                            return if (artistName.isNotEmpty()) "$artistName $trackName" else trackName
                         }
                     }
                 }
@@ -108,15 +106,12 @@ class AppleMusicResolver(
                 if (trackId.isNotEmpty() && trackId.all { it.isDigit() }) {
                     val resp = client.get("https://itunes.apple.com/lookup?id=$trackId")
                     if (resp.status.isSuccess()) {
-                        val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
-                        val results = root["results"]?.jsonArray
-                        if (results != null && results.isNotEmpty()) {
-                            val track = results[0].jsonObject
-                            val trackName = track["trackName"]?.jsonPrimitive?.content ?: ""
-                            val artistName = track["artistName"]?.jsonPrimitive?.content ?: ""
-                            if (trackName.isNotEmpty()) {
-                                return if (artistName.isNotEmpty()) "$artistName $trackName" else trackName
-                            }
+                        val parsed = json.decodeFromString<ITunesResponse>(resp.bodyAsText())
+                        val track = parsed.results.firstOrNull()
+                        val trackName = track?.trackName ?: ""
+                        val artistName = track?.artistName ?: ""
+                        if (trackName.isNotEmpty()) {
+                            return if (artistName.isNotEmpty()) "$artistName $trackName" else trackName
                         }
                     }
                 }
@@ -125,15 +120,12 @@ class AppleMusicResolver(
                 if (albumId.isNotEmpty() && albumId.all { it.isDigit() }) {
                     val resp = client.get("https://itunes.apple.com/lookup?id=$albumId&entity=album")
                     if (resp.status.isSuccess()) {
-                        val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
-                        val results = root["results"]?.jsonArray
-                        if (results != null && results.isNotEmpty()) {
-                            val album = results[0].jsonObject
-                            val collectionName = album["collectionName"]?.jsonPrimitive?.content ?: ""
-                            val artistName = album["artistName"]?.jsonPrimitive?.content ?: ""
-                            if (collectionName.isNotEmpty()) {
-                                return if (artistName.isNotEmpty()) "$artistName $collectionName" else collectionName
-                            }
+                        val parsed = json.decodeFromString<ITunesResponse>(resp.bodyAsText())
+                        val album = parsed.results.firstOrNull()
+                        val collectionName = album?.collectionName ?: ""
+                        val artistName = album?.artistName ?: ""
+                        if (collectionName.isNotEmpty()) {
+                            return if (artistName.isNotEmpty()) "$artistName $collectionName" else collectionName
                         }
                     }
                 }

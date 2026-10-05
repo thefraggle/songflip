@@ -53,16 +53,21 @@ class PlaylistConverterEngine(
 
         var lastException: Throwable? = null
 
-        for (endpoint in ENDPOINTS) {
+        for ((index, endpoint) in ENDPOINTS.withIndex()) {
             try {
-                val response = client.post(endpoint) {
-                    contentType(ContentType.Application.Json)
-                    header("x-web-client", "songflip-app")
-                    if (!authToken.isNullOrBlank()) {
-                        header("Authorization", "Bearer $authToken")
-                        header("x-user-id", authToken)
+                val timeoutMs = if (index == 0 && ENDPOINTS.size > 1) 6000L else 15000L
+                val response = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+                    kotlinx.coroutines.withTimeout(timeoutMs) {
+                        client.post(endpoint) {
+                            contentType(ContentType.Application.Json)
+                            header("x-web-client", "songflip-app")
+                            if (!authToken.isNullOrBlank()) {
+                                header("Authorization", "Bearer $authToken")
+                                header("x-user-id", authToken)
+                            }
+                            setBody(payload)
+                        }
                     }
-                    setBody(payload)
                 }
 
                 if (response.status.isSuccess()) {
@@ -75,6 +80,10 @@ class PlaylistConverterEngine(
                     lastException = parsedException
                 }
             } catch (t: Throwable) {
+                if (t is kotlinx.coroutines.TimeoutCancellationException) {
+                    lastException = t
+                    continue
+                }
                 if (t is kotlinx.coroutines.CancellationException) throw t
                 lastException = t
             }

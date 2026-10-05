@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.7.2] - 2026-10-05
+- **Schnellere Link-Weiterleitung**: Optimierte Zwischenspeicherung und Auflösung öffnen Songs spürbar schneller und zuverlässiger.
+- **Bessere Verbindungswiederherstellung**: Bei kurzen Verbindungsunterbrechungen oder Zeitüberschreitungen kannst du den Vorgang direkt wiederholen, statt unbemerkt im Browser zu landen.
+- **Erweiterte Tastatur-Bedienung**: Alle Dialoge, Menüs und Einblendungen lassen sich nun durchgehend mit der Escape-Taste (ESC) schließen.
+- **Feinschliff & Stabilität**: Zuverlässigere Link-Erkennung und verbesserte Leistung im Hintergrund.
+
 ## [1.7.1] - 2026-10-04
 - **Komfortable Tastatur-Bedienung**: Alle Dialoge und Einblendungen lassen sich jetzt bequem mit der Escape-Taste (ESC) schließen.
 - **Gehärtete Link- & Domain-Prüfung**: Strikte Domain-Prüfungen verhindern zuverlässig, dass manipulierte oder ungültige Musiklinks die Weiterleitung stören.
