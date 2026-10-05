@@ -1,13 +1,13 @@
 A friend sends you a song or podcast on Spotify, but you listen on YouTube Music, Apple Podcasts, or Deezer?
 
-SongFlip is your seamless, zero-click music and podcast link converter and redirect tool for Android. Once enabled, incoming audio links automatically convert in the background and launch directly inside your favorite audio player—no manual searching, no ads, no intermediate browser detours.
+SongFlip is your seamless, zero-click song and podcast link converter and redirect tool for Android. Once enabled, incoming audio links automatically convert in the background and launch directly inside your favorite audio player—no manual searching, no ads, no intermediate browser detours.
 
 Whether switching Spotify to YouTube Music, Apple Podcasts to Pocket Casts, Spotify to Apple Music, or opening tracks identified with Shazam, SongFlip handles audio links instantly as your universal smart link converter.
 
 🚀 KEY FEATURES:
 
 • 10 Streaming Platforms, Podcasts & Shazam:
-Seamlessly converts music and podcasts across Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud, and Bandcamp. Includes instant resolution for shared Shazam links!
+Seamlessly converts songs and podcasts across Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud, and Bandcamp. Includes instant resolution for shared Shazam links!
 
 • Podcast Converter Engine:
 Share full podcast shows or individual episodes across different platforms. SongFlip resolves episode titles automatically and starts playback right inside your favorite podcast player.
@@ -45,4 +45,4 @@ Easily redeem promo codes and vouchers directly in the app to unlock PRO perks a
 • Completely ad-free forever
 • Zero tracking, no data harvesting, no listening habits logged
 
-Compatible with universal protocols including Songlink / Odesli. Download SongFlip now and bridge music & podcasts across all streaming services effortlessly!
+Compatible with universal protocols including Songlink / Odesli. Download SongFlip now and bridge songs & podcasts across all streaming services effortlessly!
