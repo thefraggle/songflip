@@ -282,6 +282,8 @@
     <string name="share_universal_link_title">Universelle Web-Links teilen</string>
     <string name="share_universal_link_desc">Erstelle universelle songflip.link-Links für Freunde auf beliebigen Musikplattformen</string>
     <!-- Playlist Converter Strings -->
+        <string name="playlist_large_notice_title">Große Playlist (%1$d Songs)</string>
+    <string name="playlist_large_notice_desc">Ohne Login werden aktuell die ersten 50 Songs übertragen. Unterstützung für mehrteilige Playlists folgt in Kürze.</string>
     <string name="playlist_converter_title">Playlist-Konverter</string>
     <string name="playlist_converting">Konvertiere Playlist…</string>
     <string name="playlist_converting_progress">%1$d von %2$d Titeln konvertiert</string>
@@ -302,7 +304,7 @@
     <string name="playlist_error_unsupported_title">Plattform für Playlists noch nicht unterstützt</string>
     <string name="playlist_error_unsupported_desc">SongFlip unterstützt Playlists aktuell für Spotify, Apple Music, YouTube Music und Deezer. Einzelsongs dieser Plattform funktionieren weiterhin.</string>
     <string name="playlist_error_timeout_title">Verbindungs-Timeout</string>
-    <string name="playlist_error_timeout_desc">Der Musikdienst hat nicht rechtzeitig geantwortet. Bitte versuche es in Kürze erneut.</string>
+    <string name="playlist_error_timeout_desc">Der Musikdienst hat nicht rechtzeitig geantwortet. Bei großen Playlists (>50 Songs) kann es zu Zeitüberschreitungen kommen. Bitte versuche es erneut oder öffne das Original.</string>
     <string name="playlist_error_empty_title">Leere Playlist</string>
     <string name="playlist_error_empty_desc">Diese Playlist enthält keine abspielbaren Titel.</string>
     <string name="playlist_btn_retry">Erneut versuchen</string>

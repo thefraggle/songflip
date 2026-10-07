@@ -268,6 +268,8 @@
     <string name="pro_offerings_error">Impossibile caricare i prezzi PRO. Controlla la connessione.</string>
     <string name="action_retry">Riprova</string>
     <!-- Playlist Converter Strings -->
+        <string name="playlist_large_notice_title">Playlist grande (%1$d brani)</string>
+    <string name="playlist_large_notice_desc">Senza accesso, vengono attualmente trasferiti i primi 50 brani. Il supporto per playlist multiparte arriverà presto.</string>
     <string name="playlist_converter_title">Convertitore di playlist</string>
     <string name="playlist_converting">Conversione playlist…</string>
     <string name="playlist_converting_progress">%1$d di %2$d brani convertiti</string>
@@ -288,7 +290,7 @@
     <string name="playlist_error_unsupported_title">Piattaforma non supportata per le playlist</string>
     <string name="playlist_error_unsupported_desc">SongFlip supporta attualmente le playlist di Spotify, Apple Music, YouTube Music e Deezer. I singoli brani di questa piattaforma funzionano comunque.</string>
     <string name="playlist_error_timeout_title">Timeout della connessione</string>
-    <string name="playlist_error_timeout_desc">Il servizio musicale non ha risposto in tempo. Riprova tra poco.</string>
+    <string name="playlist_error_timeout_desc">Il servizio musicale non ha risposto in tempo. Per playlist grandi (>50 brani) potrebbero verificarsi timeout. Riprova a breve o apri l\'originale.</string>
     <string name="playlist_error_empty_title">Playlist vuota</string>
     <string name="playlist_error_empty_desc">Questa playlist non contiene brani riproducibili.</string>
     <string name="playlist_btn_retry">Riprova</string>

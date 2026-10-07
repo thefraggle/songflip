@@ -24,6 +24,7 @@ struct SwiftPlaylistConversionResult: Codable {
     let targetPlatform: String?
     let thumbnailUrl: String?
     let totalTracks: Int
+    let originalTotalTracks: Int?
     let convertedTracks: Int
     let matchedCount: Int
     let zeroOAuthUrl: String?
@@ -285,6 +286,35 @@ struct PlaylistConverterView: View {
             }
             .listStyle(.plain)
             .frame(maxHeight: 220)
+
+            // Large Playlist Notice Banner (Issue #36 short-term notice)
+            let isLargePlaylist = (result.originalTotalTracks ?? 0) > 50 || (result.convertedTracks >= 50 && (result.originalTotalTracks ?? 0) >= 50)
+            if isLargePlaylist {
+                let origCount = (result.originalTotalTracks ?? 0) > 0 ? (result.originalTotalTracks ?? 0) : result.totalTracks
+                let titleMsg = String(format: LocalizationManager.string(for: "playlist_large_notice_title", lang: lang), origCount)
+                HStack(alignment: .top, spacing: 10) {
+                    Image(systemName: "info.circle.fill")
+                        .font(.body)
+                        .foregroundColor(.blue)
+                        .padding(.top, 2)
+
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(titleMsg)
+                            .font(.caption)
+                            .fontWeight(.bold)
+                            .foregroundColor(.primary)
+                        Text(LocalizationManager.string(for: "playlist_large_notice_desc", lang: lang))
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                    }
+
+                    Spacer()
+                }
+                .padding(12)
+                .background(Color.blue.opacity(0.1))
+                .cornerRadius(12)
+                .padding(.horizontal, 20)
+            }
 
             // Freemium Pro Banner
             if !proManager.isPro && result.isLimited {

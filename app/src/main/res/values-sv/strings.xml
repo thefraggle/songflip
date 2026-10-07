@@ -268,6 +268,8 @@
     <string name="pro_offerings_error">Kunde inte läsa in PRO-priser. Kontrollera din internetanslutning.</string>
     <string name="action_retry">Försök igen</string>
     <!-- Playlist Converter Strings -->
+        <string name="playlist_large_notice_title">Stor spellista (%1$d låtar)</string>
+    <string name="playlist_large_notice_desc">Utan inloggning överförs de första 50 låtarna för närvarande. Stöd för uppdelade spellistor kommer snart.</string>
     <string name="playlist_converter_title">Spelliste-konverterare</string>
     <string name="playlist_converting">Konverterar spellista…</string>
     <string name="playlist_converting_progress">%1$d av %2$d spår konverterade</string>
@@ -288,7 +290,7 @@
     <string name="playlist_error_unsupported_title">Plattformen stöder inte spellistor</string>
     <string name="playlist_error_unsupported_desc">SongFlip stöder för närvarande spellistor från Spotify, Apple Music, YouTube Music och Deezer. Enskilda låtar från den här plattformen fungerar fortfarande.</string>
     <string name="playlist_error_timeout_title">Anslutningen tog för lång tid</string>
-    <string name="playlist_error_timeout_desc">Musiktjänsten svarade inte i tid. Försök igen om en stund.</string>
+    <string name="playlist_error_timeout_desc">Musiktjänsten svarade inte i tid. För stora spellistor (>50 låtar) kan timeout uppstå. Försök igen snart eller öppna originalet.</string>
     <string name="playlist_error_empty_title">Tom spellista</string>
     <string name="playlist_error_empty_desc">Den här spellistan innehåller inga spelbara låtar.</string>
     <string name="playlist_btn_retry">Försök igen</string>

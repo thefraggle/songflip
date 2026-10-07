@@ -268,6 +268,8 @@
     <string name="pro_offerings_error">Kan PRO-prijzen niet laden. Controleer je internetverbinding.</string>
     <string name="action_retry">Opnieuw proberen</string>
     <!-- Playlist Converter Strings -->
+        <string name="playlist_large_notice_title">Grote afspeellijst (%1$d nummers)</string>
+    <string name="playlist_large_notice_desc">Zonder inloggen worden momenteel de eerste 50 nummers overgezet. Ondersteuning voor meerdelige afspeellijsten volgt binnenkort.</string>
     <string name="playlist_converter_title">Afspeellijst-converter</string>
     <string name="playlist_converting">Afspeellijst converteren…</string>
     <string name="playlist_converting_progress">%1$d van %2$d nummers geconverteerd</string>
@@ -288,7 +290,7 @@
     <string name="playlist_error_unsupported_title">Platform ondersteunt geen playlists</string>
     <string name="playlist_error_unsupported_desc">SongFlip ondersteunt momenteel playlists van Spotify, Apple Music, YouTube Music en Deezer. Losse nummers van dit platform werken nog steeds.</string>
     <string name="playlist_error_timeout_title">Time-out van verbinding</string>
-    <string name="playlist_error_timeout_desc">De muziekdienst reageerde niet op tijd. Probeer het zo meteen opnieuw.</string>
+    <string name="playlist_error_timeout_desc">De muziekdienst reageerde niet op tijd. Bij grote afspeellijsten (>50 nummers) kunnen timeouts optreden. Probeer het snel opnieuw of open het origineel.</string>
     <string name="playlist_error_empty_title">Lege playlist</string>
     <string name="playlist_error_empty_desc">Deze playlist bevat geen afspeelbare nummers.</string>
     <string name="playlist_btn_retry">Opnieuw proberen</string>

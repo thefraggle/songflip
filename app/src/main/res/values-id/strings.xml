@@ -264,6 +264,8 @@
     <string name="pro_offerings_error">Gagal memuat harga PRO. Periksa koneksi internet Anda.</string>
     <string name="action_retry">Coba lagi</string>
     <!-- Playlist Converter Strings -->
+        <string name="playlist_large_notice_title">Daftar Putar Besar (%1$d lagu)</string>
+    <string name="playlist_large_notice_desc">Tanpa login, saat ini 50 lagu pertama yang ditransfer. Dukungan daftar putar multi-bagian segera hadir.</string>
     <string name="playlist_converter_title">Pengonversi Daftar Putar</string>
     <string name="playlist_converting">Mengonversi daftar putar…</string>
     <string name="playlist_converting_progress">%1$d dari %2$d trek dikonversi</string>
@@ -284,7 +286,7 @@
     <string name="playlist_error_unsupported_title">Platform belum mendukung playlist</string>
     <string name="playlist_error_unsupported_desc">SongFlip saat ini mendukung playlist dari Spotify, Apple Music, YouTube Music, dan Deezer. Lagu satuan dari platform ini tetap berfungsi.</string>
     <string name="playlist_error_timeout_title">Waktu koneksi habis</string>
-    <string name="playlist_error_timeout_desc">Layanan musik tidak merespons tepat waktu. Silakan coba lagi sebentar lagi.</string>
+    <string name="playlist_error_timeout_desc">Layanan musik tidak merespons tepat waktu. Untuk daftar putar besar (>50 lagu), waktu habis dapat terjadi. Silakan coba lagi sebentar lagi atau buka yang asli.</string>
     <string name="playlist_error_empty_title">Playlist kosong</string>
     <string name="playlist_error_empty_desc">Playlist ini tidak berisi lagu yang dapat diputar.</string>
     <string name="playlist_btn_retry">Coba lagi</string>

@@ -1,4 +1,3 @@
-- Transparent Pricing: The annual plan now displays the computed monthly breakdown and savings compared to the monthly plan.
-- Milestone Celebrations: Discrete milestone cards celebrate your song flips with direct access to voucher redemptions.
-- Polished Reviews: Timely and respectful in-app review requests at happy conversion moments.
-- Stability improvements and general bug fixes.
+- Large Playlist Guidance: Informative notice explaining the 50-song transfer limit without account requirements.
+- Timeout Recovery: Extended connection time limits for converting extensive playlists.
+- Performance & Polish: Improved error diagnostics and updated translations.

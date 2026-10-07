@@ -276,6 +276,8 @@
     <string name="pro_offerings_error">Не удалось загрузить цены PRO. Проверьте подключение к интернету.</string>
     <string name="action_retry">Повторить</string>
     <!-- Playlist Converter Strings -->
+        <string name="playlist_large_notice_title">Большой плейлист (%1$d треков)</string>
+    <string name="playlist_large_notice_desc">Без входа сейчас переносятся первые 50 треков. Поддержка составных плейлистов появится в ближайшее время.</string>
     <string name="playlist_converter_title">Конвертер плейлистов</string>
     <string name="playlist_converting">Конвертация плейлиста…</string>
     <string name="playlist_converting_progress">Конвертировано %1$d из %2$d треков</string>
@@ -296,7 +298,7 @@
     <string name="playlist_error_unsupported_title">Плейлисты этой платформы не поддерживаются</string>
     <string name="playlist_error_unsupported_desc">Сейчас SongFlip поддерживает плейлисты Spotify, Apple Music, YouTube Music и Deezer. Отдельные треки с этой платформы по-прежнему работают.</string>
     <string name="playlist_error_timeout_title">Время ожидания истекло</string>
-    <string name="playlist_error_timeout_desc">Музыкальный сервис не ответил вовремя. Попробуйте ещё раз чуть позже.</string>
+    <string name="playlist_error_timeout_desc">Музыкальный сервис не ответил вовремя. Для больших плейлистов (>50 треков) возможно превышение времени ожидания. Повторите попытку позже или откройте оригинал.</string>
     <string name="playlist_error_empty_title">Пустой плейлист</string>
     <string name="playlist_error_empty_desc">В этом плейлисте нет доступных для воспроизведения треков.</string>
     <string name="playlist_btn_retry">Повторить</string>

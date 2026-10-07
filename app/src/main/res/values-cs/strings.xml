@@ -262,6 +262,8 @@
     <string name="pro_offerings_error">Nepodařilo se načíst ceny PRO. Zkontrolujte připojení k internetu.</string>
     <string name="action_retry">Zkusit znovu</string>
     <!-- Playlist Converter Strings -->
+        <string name="playlist_large_notice_title">Velký playlist (%1$d skladeb)</string>
+    <string name="playlist_large_notice_desc">Bez přihlášení se momentálně přenáší prvních 50 skladeb. Podpora vícedílných playlistů již brzy.</string>
     <string name="playlist_converter_title">Převodník playlistů</string>
     <string name="playlist_converting">Převádění playlistu…</string>
     <string name="playlist_converting_progress">Převedeno %1$d z %2$d skladeb</string>
@@ -282,7 +284,7 @@
     <string name="playlist_error_unsupported_title">Platforma zatím nepodporuje playlisty</string>
     <string name="playlist_error_unsupported_desc">SongFlip aktuálně podporuje playlisty ze Spotify, Apple Music, YouTube Music a Deezer. Jednotlivé skladby z této platformy fungují dál.</string>
     <string name="playlist_error_timeout_title">Vypršel časový limit připojení</string>
-    <string name="playlist_error_timeout_desc">Hudební služba neodpověděla včas. Zkuste to prosím za chvíli znovu.</string>
+    <string name="playlist_error_timeout_desc">Hudební služba neodpověděla včas. U velkých playlistů (>50 skladeb) může dojít k vypršení časového limitu. Zkuste to prosím brzy znovu nebo otevřete originál.</string>
     <string name="playlist_error_empty_title">Prázdný playlist</string>
     <string name="playlist_error_empty_desc">Tento playlist neobsahuje žádné přehratelné skladby.</string>
     <string name="playlist_btn_retry">Zkusit znovu</string>

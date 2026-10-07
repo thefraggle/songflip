@@ -22,6 +22,7 @@ data class PlaylistConversionResult(
     val targetPlatform: String = "",
     val thumbnailUrl: String? = null,
     val totalTracks: Int = 0,
+    val originalTotalTracks: Int = 0,
     val convertedTracks: Int = 0,
     val matchedCount: Int = 0,
     val zeroOAuthUrl: String? = null,

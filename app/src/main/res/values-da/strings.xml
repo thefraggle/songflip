@@ -268,6 +268,8 @@
     <string name="pro_offerings_error">Kunne ikke indlæse PRO-priser. Tjek din internetforbindelse.</string>
     <string name="action_retry">Prøv igen</string>
     <!-- Playlist Converter Strings -->
+        <string name="playlist_large_notice_title">Stor afspilningsliste (%1$d sange)</string>
+    <string name="playlist_large_notice_desc">Uden login overføres de første 50 sange i øjeblikket. Understøttelse af opdelte lister kommer snart.</string>
     <string name="playlist_converter_title">Afspilningsliste-konverter</string>
     <string name="playlist_converting">Konverterer afspilningsliste…</string>
     <string name="playlist_converting_progress">%1$d af %2$d numre konverteret</string>
@@ -288,7 +290,7 @@
     <string name="playlist_error_unsupported_title">Platformen understøtter ikke playlister</string>
     <string name="playlist_error_unsupported_desc">SongFlip understøtter i øjeblikket playlister fra Spotify, Apple Music, YouTube Music og Deezer. Enkelte sange fra denne platform virker stadig.</string>
     <string name="playlist_error_timeout_title">Forbindelsen fik timeout</string>
-    <string name="playlist_error_timeout_desc">Musiktjenesten svarede ikke i tide. Prøv igen om lidt.</string>
+    <string name="playlist_error_timeout_desc">Musiktjenesten svarede ikke i tide. For store afspilningslister (>50 sange) kan der opstå timeout. Prøv igen snart eller åbn originalen.</string>
     <string name="playlist_error_empty_title">Tom playliste</string>
     <string name="playlist_error_empty_desc">Denne playliste indeholder ingen afspilbare numre.</string>
     <string name="playlist_btn_retry">Prøv igen</string>
