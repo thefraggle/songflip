@@ -1,6 +1,8 @@
 # Changelog
 
 ## [1.7.3] - 2026-10-07
+- **Smarter Service Selection**: Installed music apps are now prioritized at the top of the main screen for quicker 1-tap switching.
+- **Alternative Player Support**: Seamless support for privacy-friendly community players like RiMusic, ViMusic, and InnerTune.
 - **Clearer Pricing**: Annual plans now show the computed monthly price and your actual savings upfront.
 - **Milestone Celebrations**: Milestone cards celebrate your music sharing with direct access to special discounts.
 - **Thoughtful Feedback**: Review prompts now appear at more natural moments without interrupting your listening flow.
