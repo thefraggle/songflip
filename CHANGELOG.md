@@ -1,10 +1,10 @@
 # Changelog
 
 ## [1.7.3] - 2026-10-07
-- **Transparent Paywall Pricing (iOS)**: Annual tier displays computed monthly breakdown and real savings percentage vs. monthly plan (#74).
-- **Hardened In-App Reviews (Android & iOS)**: Optimized 21-day cooldown, decoupled from upgrade nudges, and timely prompts after successful conversions (#71, #64).
-- **Milestone Nudge Banner (iOS)**: Subtle celebratory milestones on reaching 20, 50, and 100 successful song flips with quick access to voucher redemption (#64).
-- **Stability & Polish**: Turkish localization format string fix and smoother sheet transitions.
+- **Clearer Pricing**: Annual plans now show the computed monthly price and your actual savings upfront.
+- **Milestone Celebrations**: Milestone cards celebrate your music sharing with direct access to special discounts.
+- **Thoughtful Feedback**: Review prompts now appear at more natural moments without interrupting your listening flow.
+- **Polish & Stability**: Improved translations and smoother transitions.
 
 ## [1.7.2] - 2026-10-05
 - **Faster Resolution**: Optimized caching opens songs faster and more reliably.
