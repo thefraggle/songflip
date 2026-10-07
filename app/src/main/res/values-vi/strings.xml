@@ -264,6 +264,8 @@
     <string name="pro_offerings_error">Không thể tải giá PRO. Vui lòng kiểm tra kết nối internet của bạn.</string>
     <string name="action_retry">Thử lại</string>
     <!-- Playlist Converter Strings -->
+        <string name="playlist_large_notice_title">Danh sách phát lớn (%1$d bài hát)</string>
+    <string name="playlist_large_notice_desc">Không cần đăng nhập, hiện tại 50 bài hát đầu tiên được chuyển. Hỗ trợ danh sách phát nhiều phần sẽ sớm ra mắt.</string>
     <string name="playlist_converter_title">Bộ chuyển đổi danh sách phát</string>
     <string name="playlist_converting">Đang chuyển đổi danh sách phát…</string>
     <string name="playlist_converting_progress">Đã chuyển đổi %1$d / %2$d bài hát</string>
@@ -284,7 +286,7 @@
     <string name="playlist_error_unsupported_title">Nền tảng chưa hỗ trợ danh sách phát</string>
     <string name="playlist_error_unsupported_desc">SongFlip hiện hỗ trợ danh sách phát từ Spotify, Apple Music, YouTube Music và Deezer. Các bài hát lẻ từ nền tảng này vẫn hoạt động bình thường.</string>
     <string name="playlist_error_timeout_title">Hết thời gian kết nối</string>
-    <string name="playlist_error_timeout_desc">Dịch vụ nhạc không phản hồi kịp thời. Vui lòng thử lại sau giây lát.</string>
+    <string name="playlist_error_timeout_desc">Dịch vụ âm nhạc không phản hồi kịp thời. Đối với danh sách phát lớn (>50 bài hát), có thể xảy ra thời gian chờ. Vui lòng thử lại sau hoặc mở bản gốc.</string>
     <string name="playlist_error_empty_title">Danh sách phát trống</string>
     <string name="playlist_error_empty_desc">Danh sách phát này không có bài hát nào có thể phát.</string>
     <string name="playlist_btn_retry">Thử lại</string>

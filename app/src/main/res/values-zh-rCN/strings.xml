@@ -264,6 +264,8 @@
     <string name="pro_offerings_error">无法加载 PRO 价格，请检查网络连接。</string>
     <string name="action_retry">重试</string>
     <!-- Playlist Converter Strings -->
+        <string name="playlist_large_notice_title">大型播放列表（%1$d首）</string>
+    <string name="playlist_large_notice_desc">无需登录，目前仅转换前50首歌曲。多段播放列表支持即将推出。</string>
     <string name="playlist_converter_title">歌单转换器</string>
     <string name="playlist_converting">正在转换歌单…</string>
     <string name="playlist_converting_progress">已转换 %1$d / %2$d 首曲目</string>
@@ -284,7 +286,7 @@
     <string name="playlist_error_unsupported_title">该平台暂不支持歌单</string>
     <string name="playlist_error_unsupported_desc">SongFlip 目前支持 Spotify、Apple Music、YouTube Music 和 Deezer 的歌单。该平台的单曲仍可正常使用。</string>
     <string name="playlist_error_timeout_title">连接超时</string>
-    <string name="playlist_error_timeout_desc">音乐服务未及时响应，请稍后重试。</string>
+    <string name="playlist_error_timeout_desc">音乐服务未及时响应。对于大型播放列表（超过50首），可能会发生超时。请稍后重试或打开原始链接。</string>
     <string name="playlist_error_empty_title">空歌单</string>
     <string name="playlist_error_empty_desc">此歌单中没有可播放的歌曲。</string>
     <string name="playlist_btn_retry">重试</string>

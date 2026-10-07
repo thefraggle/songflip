@@ -258,6 +258,8 @@
     <string name="pro_offerings_error">Prețurile PRO nu au putut fi încărcate. Verificați conexiunea la internet.</string>
     <string name="action_retry">Reîncearcă</string>
     <!-- Playlist Converter Strings -->
+        <string name="playlist_large_notice_title">Playlist mare (%1$d melodii)</string>
+    <string name="playlist_large_notice_desc">Fără autentificare, în prezent sunt transferate primele 50 de melodii. Suportul pentru playlisturi în mai multe părți vine în curând.</string>
     <string name="playlist_converter_title">Convertor de playlisturi</string>
     <string name="playlist_converting">Se convertește playlistul…</string>
     <string name="playlist_converting_progress">%1$d din %2$d piese convertite</string>
@@ -278,7 +280,7 @@
     <string name="playlist_error_unsupported_title">Platforma nu acceptă playlisturi</string>
     <string name="playlist_error_unsupported_desc">SongFlip acceptă în prezent playlisturi din Spotify, Apple Music, YouTube Music și Deezer. Melodiile individuale de pe această platformă funcționează în continuare.</string>
     <string name="playlist_error_timeout_title">Conexiunea a expirat</string>
-    <string name="playlist_error_timeout_desc">Serviciul de muzică nu a răspuns la timp. Încearcă din nou în scurt timp.</string>
+    <string name="playlist_error_timeout_desc">Serviciul muzical nu a răspuns la timp. Pentru playlisturi mari (>50 melodii) pot apărea expirări de timp. Vă rugăm să încercați din nou în curând sau deschideți originalul.</string>
     <string name="playlist_error_empty_title">Playlist gol</string>
     <string name="playlist_error_empty_desc">Acest playlist nu conține melodii care pot fi redate.</string>
     <string name="playlist_btn_retry">Reîncearcă</string>

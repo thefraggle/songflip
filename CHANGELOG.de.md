@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.7.5] - 2026-10-07
+- **Transparente Playlist-Hinweise**: Eindeutiger Hinweis bei großen Playlists zur aktuellen Obergrenze von 50 Songs ohne Nutzer-Login.
+- **Verlässlichere Playlist-Übertragung**: Längere Zeitfenster bei der Konvertierung verhindern vorzeitige Verbindungsabbrüche bei umfangreichen Listen.
+- **Feinschliff & Stabilität**: Aussagekräftigere Fehlermeldungen und optimierte Übersetzungen in allen unterstützten Sprachen.
+
 ## [1.7.4] - 2026-10-07
 - **Flexible Player-Wahl**: Mit der Option „Jedes Mal fragen“ kannst du beim Öffnen oder Teilen eines Songs nun spontan per Schnellauswahl entscheiden, in welcher Musik-App der Titel abgespielt werden soll.
 - **Feinschliff & Stabilität**: Flüssigere Bedienung und noch verlässlichere Weiterleitung beim Teilen von Links.

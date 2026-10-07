@@ -264,6 +264,8 @@
     <string name="pro_offerings_error">PROの価格を読み込めませんでした。インターネット接続を確認してください。</string>
     <string name="action_retry">再試行</string>
     <!-- Playlist Converter Strings -->
+        <string name="playlist_large_notice_title">大容量プレイリスト（%1$d曲）</string>
+    <string name="playlist_large_notice_desc">ログイン不要で、現在は最初の50曲が転送されます。分割プレイリスト対応は近日公開予定です。</string>
     <string name="playlist_converter_title">プレイリスト変換</string>
     <string name="playlist_converting">プレイリストを変換中…</string>
     <string name="playlist_converting_progress">%2$d曲中%1$d曲を変換しました</string>
@@ -284,7 +286,7 @@
     <string name="playlist_error_unsupported_title">このサービスのプレイリストは未対応です</string>
     <string name="playlist_error_unsupported_desc">SongFlipは現在、Spotify、Apple Music、YouTube Music、Deezerのプレイリストに対応しています。このサービスの単曲は引き続き利用できます。</string>
     <string name="playlist_error_timeout_title">接続がタイムアウトしました</string>
-    <string name="playlist_error_timeout_desc">音楽サービスが時間内に応答しませんでした。しばらくしてから再度お試しください。</string>
+    <string name="playlist_error_timeout_desc">音楽サービスの応答がタイムアウトしました。大容量プレイリスト（50曲超）ではタイムアウトが発生する場合があります。しばらくしてから再試行するか、元のリンクを開いてください。</string>
     <string name="playlist_error_empty_title">空のプレイリスト</string>
     <string name="playlist_error_empty_desc">このプレイリストには再生可能な曲がありません。</string>
     <string name="playlist_btn_retry">再試行</string>

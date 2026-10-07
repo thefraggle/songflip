@@ -268,6 +268,8 @@
     <string name="pro_offerings_error">PRO किंमत लोड करता आली नाही. कृपया इंटरनेट कनेक्शन तपासा.</string>
     <string name="action_retry">पुन्हा प्रयत्न करा</string>
     <!-- Playlist Converter Strings -->
+        <string name="playlist_large_notice_title">मोठी प्लेलिस्ट (%1$d गाणी)</string>
+    <string name="playlist_large_notice_desc">लॉगिनशिवाय सध्या पहिली 50 गाणी ट्रान्सफर केली जात आहेत. मल्टि-पार्ट प्लेलिस्ट समर्थन लवकरच येत आहे.</string>
     <string name="playlist_converter_title">प्लेलिस्ट कन्व्हर्टर</string>
     <string name="playlist_converting">प्लेलिस्ट रूपांतरित केली जात आहे…</string>
     <string name="playlist_converting_progress">%2$d पैकी %1$d गाणी रूपांतरित केली</string>
@@ -288,7 +290,7 @@
     <string name="playlist_error_unsupported_title">या प्लॅटफॉर्मवर प्लेलिस्ट समर्थित नाही</string>
     <string name="playlist_error_unsupported_desc">SongFlip सध्या Spotify, Apple Music, YouTube Music आणि Deezer च्या प्लेलिस्टना समर्थन देते. या प्लॅटफॉर्मवरील एकल गाणी अजूनही चालतात.</string>
     <string name="playlist_error_timeout_title">कनेक्शन टाइमआउट</string>
-    <string name="playlist_error_timeout_desc">संगीत सेवेने वेळेत प्रतिसाद दिला नाही. कृपया थोड्या वेळाने पुन्हा प्रयत्न करा.</string>
+    <string name="playlist_error_timeout_desc">संगीत सेवेने वेळेत प्रतिसाद दिला नाही. मोठ्या प्लेलिस्टसाठी (>50 गाणी) कालबाह्य होऊ शकते. कृपया लवकरच पुन्हा प्रयत्न करा किंवा मूळ उघडा.</string>
     <string name="playlist_error_empty_title">रिकामी प्लेलिस्ट</string>
     <string name="playlist_error_empty_desc">या प्लेलिस्टमध्ये वाजवता येणारी कोणतीही गाणी नाहीत.</string>
     <string name="playlist_btn_retry">पुन्हा प्रयत्न करा</string>

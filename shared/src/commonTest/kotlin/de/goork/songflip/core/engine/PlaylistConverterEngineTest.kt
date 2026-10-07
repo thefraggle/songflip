@@ -28,6 +28,7 @@ class PlaylistConverterEngineTest {
                 "targetPlatform": "youtubeMusic",
                 "thumbnailUrl": "https://example.com/cover.jpg",
                 "totalTracks": 2,
+                "originalTotalTracks": 120,
                 "convertedTracks": 2,
                 "matchedCount": 2,
                 "zeroOAuthUrl": "https://music.youtube.com/watch_videos?video_ids=vid1,vid2",
@@ -70,6 +71,7 @@ class PlaylistConverterEngineTest {
         assertEquals("abc1234567", data.playlistId)
         assertEquals("Summer Vibes", data.title)
         assertEquals(2, data.matchedCount)
+        assertEquals(120, data.originalTotalTracks)
         assertEquals(2, data.tracks.size)
         assertEquals("https://music.youtube.com/watch_videos?video_ids=vid1,vid2", data.zeroOAuthUrl)
     }

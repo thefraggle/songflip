@@ -250,6 +250,8 @@
     <string name="pro_offerings_error">無法載入 PRO 價格，請檢查網路連線。</string>
     <string name="action_retry">重試</string>
     <!-- Playlist Converter Strings -->
+        <string name="playlist_large_notice_title">大型播放清單（%1$d首）</string>
+    <string name="playlist_large_notice_desc">無需登入，目前僅轉換前50首歌曲。多段播放清單支援即將推出。</string>
     <string name="playlist_converter_title">播放清單轉換器</string>
     <string name="playlist_converting">正在轉換播放清單…</string>
     <string name="playlist_converting_progress">已轉換 %1$d / %2$d 首曲目</string>
@@ -270,7 +272,7 @@
     <string name="playlist_error_unsupported_title">此平台暫不支援播放清單</string>
     <string name="playlist_error_unsupported_desc">SongFlip 目前支援 Spotify、Apple Music、YouTube Music 和 Deezer 的播放清單。此平台的單曲仍可正常使用。</string>
     <string name="playlist_error_timeout_title">連線逾時</string>
-    <string name="playlist_error_timeout_desc">音樂服務未及時回應，請稍後再試。</string>
+    <string name="playlist_error_timeout_desc">音樂服務未及時回應。對於大型播放清單（超過50首），可能會發生逾時。請稍後重試或開啟原始連結。</string>
     <string name="playlist_error_empty_title">空的播放清單</string>
     <string name="playlist_error_empty_desc">此播放清單中沒有可播放的歌曲。</string>
     <string name="playlist_btn_retry">重試</string>

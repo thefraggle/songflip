@@ -490,6 +490,47 @@ fun PlaylistConvertBottomSheet(
                         }
                     }
 
+                    // Large Playlist Notice Banner (Issue #36 short-term notice)
+                    val isLargePlaylist = res.originalTotalTracks > 50 || (res.convertedTracks >= 50 && res.originalTotalTracks >= 50)
+                    if (isLargePlaylist) {
+                        Spacer(modifier = Modifier.height(12.dp))
+                        Surface(
+                            shape = RoundedCornerShape(12.dp),
+                            color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                            border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f)),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(12.dp),
+                                verticalAlignment = Alignment.Top,
+                                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Info,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier.size(20.dp).padding(top = 2.dp)
+                                )
+                                Column(modifier = Modifier.weight(1f)) {
+                                    val originalCount = if (res.originalTotalTracks > 0) res.originalTotalTracks else res.totalTracks
+                                    Text(
+                                        text = stringResource(R.string.playlist_large_notice_title, originalCount),
+                                        style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
+                                    Spacer(modifier = Modifier.height(2.dp))
+                                    Text(
+                                        text = stringResource(R.string.playlist_large_notice_desc),
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                }
+                            }
+                        }
+                    }
+
                     // Freemium Pro Banner
                     if (!isPro && res.isLimited) {
                         Spacer(modifier = Modifier.height(12.dp))

@@ -55,7 +55,7 @@ class PlaylistConverterEngine(
 
         for ((index, endpoint) in ENDPOINTS.withIndex()) {
             try {
-                val timeoutMs = if (index == 0 && ENDPOINTS.size > 1) 6000L else 15000L
+                val timeoutMs = if (index == 0 && ENDPOINTS.size > 1) 12000L else 25000L
                 val response = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
                     kotlinx.coroutines.withTimeout(timeoutMs) {
                         client.post(endpoint) {

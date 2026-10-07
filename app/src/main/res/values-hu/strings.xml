@@ -254,6 +254,8 @@
     <string name="pro_offerings_error">A PRO árakat nem sikerült betölteni. Kérjük, ellenőrizze internetkapcsolatát.</string>
     <string name="action_retry">Újra</string>
     <!-- Playlist Converter Strings -->
+        <string name="playlist_large_notice_title">Nagy lejátszási lista (%1$d dal)</string>
+    <string name="playlist_large_notice_desc">Bejelentkezés nélkül jelenleg az első 50 dal kerül átvitelre. A több részből álló listák támogatása hamarosan érkezik.</string>
     <string name="playlist_converter_title">Lejátszásilista-átalakító</string>
     <string name="playlist_converting">Lejátszási lista konvertálása…</string>
     <string name="playlist_converting_progress">%1$d / %2$d dal konvertálva</string>
@@ -274,7 +276,7 @@
     <string name="playlist_error_unsupported_title">A platform nem támogatja a lejátszási listákat</string>
     <string name="playlist_error_unsupported_desc">A SongFlip jelenleg a Spotify, az Apple Music, a YouTube Music és a Deezer lejátszási listáit támogatja. Az egyes dalok erről a platformról továbbra is működnek.</string>
     <string name="playlist_error_timeout_title">Időtúllépés a kapcsolatban</string>
-    <string name="playlist_error_timeout_desc">A zenei szolgáltatás nem válaszolt időben. Kérjük, próbáld újra egy kicsit később.</string>
+    <string name="playlist_error_timeout_desc">A zenei szolgáltatás nem válaszolt időben. Nagy lejátszási listáknál (>50 dal) időtúllépés léphet fel. Kérjük, próbálja újra hamarosan, vagy nyissa meg az eredetit.</string>
     <string name="playlist_error_empty_title">Üres lejátszási lista</string>
     <string name="playlist_error_empty_desc">Ez a lejátszási lista nem tartalmaz lejátszható dalokat.</string>
     <string name="playlist_btn_retry">Újra</string>

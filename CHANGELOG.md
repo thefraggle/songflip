@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.7.5] - 2026-10-07
+- **Clear Playlist Guidance**: Transparent notice for large playlists explaining the current 50-track limit without account requirements.
+- **Enhanced Connection Reliability**: Increased timeout tolerances for comprehensive playlist conversions to prevent connection drops.
+- **Polish & Stability**: Improved error explanations and updated translations across all supported languages.
+
 ## [1.7.4] - 2026-10-07
 - **Flexible Player Choice**: With "Ask every time" enabled, you can now pick your preferred music service on the fly whenever opening or sharing songs.
 - **Polish & Stability**: Smoother sharing workflow and improved link redirection reliability.

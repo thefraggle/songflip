@@ -268,6 +268,8 @@
     <string name="pro_offerings_error">PRO मूल्य লোড করা যায়নি। আপনার ইন্টারনেট সংযোগ পরীক্ষা করুন।</string>
     <string name="action_retry">আবার চেষ্টা করুন</string>
     <!-- Playlist Converter Strings -->
+        <string name="playlist_large_notice_title">বড় প্লেলিস্ট (%1$d গান)</string>
+    <string name="playlist_large_notice_desc">লগইন ছাড়া বর্তমানে প্রথম ৫০টি গান স্থানান্তরিত হচ্ছে। বহু-অংশের প্লেলিস্ট সমর্থন শীঘ্রই আসছে।</string>
     <string name="playlist_converter_title">প্লেলিস্ট কনভার্টার</string>
     <string name="playlist_converting">প্লেলিস্ট রূপান্তর করা হচ্ছে…</string>
     <string name="playlist_converting_progress">%2$d টির মধ্যে %1$d টি গান রূপান্তর হয়েছে</string>
@@ -288,7 +290,7 @@
     <string name="playlist_error_unsupported_title">এই প্ল্যাটফর্মে প্লেলিস্ট সমর্থিত নয়</string>
     <string name="playlist_error_unsupported_desc">SongFlip বর্তমানে Spotify, Apple Music, YouTube Music এবং Deezer-এর প্লেলিস্ট সমর্থন করে। এই প্ল্যাটফর্মের একক গান এখনও কাজ করে।</string>
     <string name="playlist_error_timeout_title">সংযোগের সময় শেষ</string>
-    <string name="playlist_error_timeout_desc">মিউজিক সার্ভিস সময়মতো সাড়া দেয়নি। একটু পরে আবার চেষ্টা করুন।</string>
+    <string name="playlist_error_timeout_desc">সঙ্গীত পরিষেবা সময়মতো সাড়া দেয়নি। বড় প্লেলিস্টের (>৫০ গান) ক্ষেত্রে সময়সীমা শেষ হতে পারে। অনুগ্রহ করে শীঘ্রই আবার চেষ্টা করুন বা আসলটি খুলুন।</string>
     <string name="playlist_error_empty_title">খালি প্লেলিস্ট</string>
     <string name="playlist_error_empty_desc">এই প্লেলিস্টে চালানোর মতো কোনো গান নেই।</string>
     <string name="playlist_btn_retry">আবার চেষ্টা করুন</string>

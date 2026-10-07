@@ -276,6 +276,8 @@
     <string name="pro_offerings_error">Nie udało się załadować cen PRO. Sprawdź połączenie z internetem.</string>
     <string name="action_retry">Ponów próbę</string>
     <!-- Playlist Converter Strings -->
+        <string name="playlist_large_notice_title">Duża playlista (%1$d utworów)</string>
+    <string name="playlist_large_notice_desc">Bez logowania przesyłanych jest obecnie pierwszych 50 utworów. Obsługa playlist wieloczęściowych już wkrótce.</string>
     <string name="playlist_converter_title">Konwerter playlist</string>
     <string name="playlist_converting">Konwertowanie playlisty…</string>
     <string name="playlist_converting_progress">Skonwertowano %1$d z %2$d utworów</string>
@@ -296,7 +298,7 @@
     <string name="playlist_error_unsupported_title">Platforma nie obsługuje playlist</string>
     <string name="playlist_error_unsupported_desc">SongFlip obsługuje obecnie playlisty ze Spotify, Apple Music, YouTube Music i Deezer. Pojedyncze utwory z tej platformy nadal działają.</string>
     <string name="playlist_error_timeout_title">Przekroczono limit czasu połączenia</string>
-    <string name="playlist_error_timeout_desc">Serwis muzyczny nie odpowiedział na czas. Spróbuj ponownie za chwilę.</string>
+    <string name="playlist_error_timeout_desc">Usługa muzyczna nie odpowiedziała na czas. W przypadku dużych playlist (>50 utworów) może wystąpić limit czasu. Spróbuj ponownie wkrótce lub otwórz oryginał.</string>
     <string name="playlist_error_empty_title">Pusta playlista</string>
     <string name="playlist_error_empty_desc">Ta playlista nie zawiera utworów do odtworzenia.</string>
     <string name="playlist_btn_retry">Ponów próbę</string>
