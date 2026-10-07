@@ -24,6 +24,8 @@ struct ContentView: View {
     @State private var showingToast = false
     @State private var toastMessage: String? = nil
     @State private var activeMilestone: Int = 0
+    @State private var showingQuickPicker = false
+    @State private var quickPickerUrl: String? = nil
 
     var lang: String { settings.selectedLanguage }
     var appVersion: String {
@@ -174,6 +176,21 @@ struct ContentView: View {
             .sheet(isPresented: $showingPaywallSheet) {
                 ProPaywallSheetView()
                     .preferredColorScheme(settings.colorScheme)
+            }
+            .sheet(isPresented: $showingQuickPicker) {
+                if let pUrl = quickPickerUrl ?? detectedClipboardUrl {
+                    QuickTargetPickerSheetView(
+                        url: pUrl,
+                        lang: lang,
+                        onSelectTarget: { chosenPlatform in
+                            convertLink(urlToConvert: pUrl, overrideTarget: chosenPlatform)
+                        },
+                        onDismiss: {
+                            showingQuickPicker = false
+                        }
+                    )
+                    .preferredColorScheme(settings.colorScheme)
+                }
             }
             .onAppear {
                 AptabaseClient.shared.trackAppLaunched(platform: "iOS", language: lang)
@@ -373,7 +390,12 @@ struct ContentView: View {
                 let targetName = targetChoice?.displayName ?? "Player"
                 Button(action: {
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                    convertLink(urlToConvert: detectedUrl)
+                    if settings.askEveryTime {
+                        quickPickerUrl = detectedUrl
+                        showingQuickPicker = true
+                    } else {
+                        convertLink(urlToConvert: detectedUrl)
+                    }
                 }) {
                     HStack(spacing: 6) {
                         if settings.isResolving {
@@ -381,10 +403,12 @@ struct ContentView: View {
                                 .progressViewStyle(CircularProgressViewStyle(tint: .white))
                                 .scaleEffect(0.8)
                         } else {
-                            Image(systemName: "play.fill")
+                            Image(systemName: settings.askEveryTime ? "arrow.triangle.branch" : "play.fill")
                                 .font(.system(size: 12))
                         }
-                        Text(String(format: LocalizationManager.string(for: "clipboard_banner_action_open", lang: lang), targetName))
+                        Text(settings.askEveryTime 
+                            ? LocalizationManager.string(for: "quick_picker_title", lang: lang) 
+                            : String(format: LocalizationManager.string(for: "clipboard_banner_action_open", lang: lang), targetName))
                             .font(.system(size: 13, weight: .bold))
                             .lineLimit(1)
                     }
@@ -749,14 +773,15 @@ struct ContentView: View {
         }
     }
 
-    private func convertLink(urlToConvert: String) {
+    private func convertLink(urlToConvert: String, overrideTarget: String? = nil) {
         guard !urlToConvert.isEmpty, !settings.isResolving else { return }
         settings.isResolving = true
+        let effectiveTarget = overrideTarget ?? settings.targetPlatform
 
         Task {
             let res = try? await settings.engine.resolveTargetUrl(
                 inputUrl: urlToConvert,
-                targetPlatformKey: settings.targetPlatform,
+                targetPlatformKey: effectiveTarget,
                 customApiUrl: settings.customApiUrl,
                 customApiToken: settings.customApiToken
             )
@@ -770,14 +795,14 @@ struct ContentView: View {
                         artist: success.artist,
                         sourceUrl: urlToConvert,
                         targetUrl: success.targetUrl,
-                        targetPlatform: settings.targetPlatform,
+                        targetPlatform: effectiveTarget,
                         isAlbum: success.isAlbum,
                         thumbnailUrl: success.thumbnailUrl
                     )
 
                     let srcKey = UrlUtils.shared.detectPlatform(url: urlToConvert)?.key ?? "unknown"
                     AptabaseClient.shared.trackLinkFlipped(
-                        target: settings.targetPlatform,
+                        target: effectiveTarget,
                         isAlbum: success.isAlbum,
                         isSearch: success.isSearchFallback,
                         source: srcKey
@@ -796,7 +821,7 @@ struct ContentView: View {
                 } else if let podcast = res as? ResolutionResult.Podcast {
                     AptabaseClient.shared.trackPodcastFlipped(
                         source: UrlUtils.shared.detectPlatform(url: urlToConvert)?.key ?? "unknown",
-                        target: settings.targetPlatform,
+                        target: effectiveTarget,
                         isDeepSearch: podcast.isDeepSearch
                     )
                     let target = podcast.nativeAppUri ?? podcast.targetUrl
@@ -807,22 +832,22 @@ struct ContentView: View {
                     detectedClipboardUrl = nil
                 } else if let playlist = res as? ResolutionResult.Playlist {
                     AptabaseClient.shared.trackPlaylistRouted(
-                        target: settings.targetPlatform
+                        target: effectiveTarget
                     )
                     playlistNoticeUrl = playlist.originalUrl
                     showingPlaylistNotice = true
                 } else if let podcast = res as? ResolutionResult.PodcastOrAudiobook {
                     if podcast.isAudiobook {
-                        AptabaseClient.shared.trackAudiobookIntercepted(target: settings.targetPlatform)
+                        AptabaseClient.shared.trackAudiobookIntercepted(target: effectiveTarget)
                     } else {
-                        AptabaseClient.shared.trackPodcastIntercepted(target: settings.targetPlatform)
+                        AptabaseClient.shared.trackPodcastIntercepted(target: effectiveTarget)
                     }
                     podcastNoticeUrl = podcast.originalUrl
                     isPodcastNoticeAudiobook = podcast.isAudiobook
                     showingPodcastNotice = true
                 } else if let unsupported = res as? ResolutionResult.UnsupportedEntity {
                     AptabaseClient.shared.trackUnsupportedEntityIntercepted(
-                        target: settings.targetPlatform,
+                        target: effectiveTarget,
                         entityType: unsupported.entityType
                     )
                     if let original = URL(string: urlToConvert) {
@@ -838,7 +863,7 @@ struct ContentView: View {
                     let sourcePlatform = UrlUtils.shared.detectPlatform(url: urlToConvert)?.key ?? "unknown"
 
                     AptabaseClient.shared.trackLinkFlipFailed(
-                        target: settings.targetPlatform,
+                        target: effectiveTarget,
                         reason: reason,
                         sourceDomain: sourceDomain,
                         sourcePlatform: sourcePlatform,

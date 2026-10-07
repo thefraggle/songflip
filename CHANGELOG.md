@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.7.4] - 2026-10-07
+- **Flexible Player Choice**: With "Ask every time" enabled, you can now pick your preferred music service on the fly whenever opening or sharing songs.
+- **Polish & Stability**: Smoother sharing workflow and improved link redirection reliability.
+
 ## [1.7.3] - 2026-10-07
 - **Smarter Service Selection**: Installed music apps are now prioritized at the top of the main screen for quicker 1-tap switching.
 - **Alternative Player Support**: Seamless support for privacy-friendly community players like RiMusic, ViMusic, and InnerTune.

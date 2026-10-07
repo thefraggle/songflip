@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.7.4] - 2026-10-07
+- **Flexible Player-Wahl**: Mit der Option „Jedes Mal fragen“ kannst du beim Öffnen oder Teilen eines Songs nun spontan per Schnellauswahl entscheiden, in welcher Musik-App der Titel abgespielt werden soll.
+- **Feinschliff & Stabilität**: Flüssigere Bedienung und noch verlässlichere Weiterleitung beim Teilen von Links.
+
 ## [1.7.3] - 2026-10-07
 - **Intelligente Zielauswahl**: Installierte Musik-Apps stehen auf der Startseite jetzt automatisch oben für noch schnellere Auswahl.
 - **Alternative Musikplayer**: Nahtlose Unterstützung für freie Player wie RiMusic, ViMusic und InnerTune.
