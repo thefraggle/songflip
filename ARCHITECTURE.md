@@ -141,7 +141,7 @@ sequenceDiagram
 4. **Zero-OAuth Queue Generation:**
    - **YouTube Music:** Resolves `www.youtube.com/watch_videos?video_ids=...` via HTTP 303 location redirection into a direct `music.youtube.com/watch?v={id}&list=TLGG...` queue playlist, with intelligent direct-track fallback (`music.youtube.com/watch?v={firstId}`) to prevent automated bot traffic blocks.
    - **Spotify:** Generates `spotify:trackset:{Title}:{id1},{id2}...` URI schemes.
-5. **50-Track Sweet Spot:** Optimized to 50 tracks to align with YouTube's strict server-side `watch_videos` limit and Spotify URI length constraints.
+5. **50-Track Sweet Spot & Large-Playlist Guidance (v1.7.5):** Optimized to 50 tracks to align with YouTube's strict server-side `watch_videos` limit and Spotify URI length constraints. When converting playlists exceeding 50 songs, an informative guidance card is rendered across Android and iOS in 34 languages, explaining the current zero-account transfer limit while multi-chunk pagination (#36) is in development.
 6. **SSR Web Sharing (`songflip.link/p/...`):** Server-rendered, localized web pages with CSP hardening, target platform color theming, and individual track preview buttons.
 7. **90-Day Rolling TTL Lifecycle:** Playlist records are saved with an `expiresAt` timestamp and automatically refreshed on every web page view or conversion hit. Unused playlists expire cleanly via Firestore TTL policies.
 8. **Automatic L2 Song Cache Swarm Warmup:** Every playlist conversion asynchronously writes all successfully resolved tracks into the global Firestore `l2_song_cache` (with multi-index 12-char and 8-char SHA hashes). This automatically seeds the global cache, guaranteeing sub-30ms instant resolutions for any user subsequently flipping these tracks individually.
@@ -213,6 +213,7 @@ To ensure sub-50ms user experience for cached items and prevent hanging UI on fl
 | **KMP Client Upstream (Ktor)** | `5,000 ms` | Socket & request timeout for Odesli / Shazam / Deezer / YouTube scrapers. |
 | **Secondary Fast-Fail Probes** | `2,500 ms` | Fast fallback to deterministic deep-search URL on API timeout. |
 | **Cloud Function `/resolve`** | `15 s` | Enforces parallel upstream racing and returns cached response or structured error. |
+| **Playlist Converter Client (KMP)** | `12 s` (primary) / `25 s` (fallback) | Client-side timeout tolerances for multi-batch matching before fallback or error reporting. |
 | **Cloud Function `/convertPlaylist`** | `60 s` | Max execution budget for batch-scraping playlists up to 50 tracks. |
 | **Cloud Function `/api/feedback`** | `15 s` | Rate-limited feedback submission with Firestore persistence and fallback to native email intent. |
 | **SSR `/renderWebShare`** | `10 s` | Fast server-side rendering for OpenGraph preview tags. |
