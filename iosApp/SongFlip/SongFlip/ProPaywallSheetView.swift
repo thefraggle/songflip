@@ -89,7 +89,7 @@ struct ProPaywallSheetView: View {
         if isLifetimeSale {
             return LocalizationManager.string(for: "pro_lifetime_sale_sub", lang: lang)
         }
-        return LocalizationManager.string(for: "pro_lifetime_onetime_badge", lang: lang)
+        return nil
     }
 
     @ViewBuilder
@@ -111,12 +111,43 @@ struct ProPaywallSheetView: View {
     private var annualTierCard: some View {
         if let pkg = annualPackage {
             let trialDays = proManager.getFreeTrialDays(for: pkg)
-            let trialBadge = trialDays != nil ? String(format: LocalizationManager.string(for: "pro_trial_badge", lang: lang), trialDays!) : nil
+            let savingsPercent: Int? = {
+                guard let monthlyPkg = monthlyPackage else { return nil }
+                return PaywallPricing.annualSavingsPercent(
+                    annualPrice: pkg.storeProduct.price as Decimal,
+                    monthlyPrice: monthlyPkg.storeProduct.price as Decimal
+                )
+            }()
+
+            let annualBadge: String? = {
+                if let trial = trialDays {
+                    return String(format: LocalizationManager.string(for: "pro_trial_badge", lang: lang), trial)
+                } else if let savings = savingsPercent {
+                    return String(format: LocalizationManager.string(for: "pro_save_badge", lang: lang), savings)
+                }
+                return nil
+            }()
+
+            let annualSubtitle: String? = {
+                if let monthlyPkg = monthlyPackage, savingsPercent != nil {
+                    let perMonth = PaywallPricing.formatMonthlyPrice(for: pkg.storeProduct)
+                    let monthly = monthlyPkg.storeProduct.localizedPriceString
+                    if let trial = trialDays {
+                        return String(format: LocalizationManager.string(for: "pro_price_annual_trial", lang: lang), trial, perMonth, monthly)
+                    } else {
+                        return String(format: LocalizationManager.string(for: "pro_price_annual_vs_monthly", lang: lang), perMonth, monthly)
+                    }
+                } else if let trial = trialDays {
+                    return String(format: LocalizationManager.string(for: "pro_price_annual_trial_simple", lang: lang), trial, pkg.storeProduct.localizedPriceString)
+                }
+                return nil
+            }()
+
             tierCard(
                 package: pkg,
                 title: LocalizationManager.string(for: "pro_tier_annual", lang: lang),
-                badge: trialBadge,
-                subtitle: pkg.storeProduct.localizedPriceString,
+                badge: annualBadge,
+                subtitle: annualSubtitle,
                 isSelected: selectedPackageType == .annual
             ) {
                 selectedPackageType = .annual

@@ -205,5 +205,61 @@ class SettingsModel: ObservableObject {
         self.themeMode = storage.string(forKey: "theme_mode") ?? "system"
         self.customApiUrl = storage.string(forKey: "custom_api_url") ?? ""
         self.customApiToken = storage.string(forKey: "custom_api_token") ?? ""
+
+        self.successfulFlipCount = storage.integer(forKey: Self.keySuccessfulFlipCount)
+        self.lastDismissedProNudgeMilestone = storage.integer(forKey: Self.keyLastDismissedProNudgeMilestone)
+        let savedInstall = storage.double(forKey: Self.keyFirstInstallTimestamp)
+        if savedInstall == 0 {
+            let now = Date().timeIntervalSince1970 * 1000
+            storage.set(now, forKey: Self.keyFirstInstallTimestamp)
+            self.firstInstallTimestamp = now
+        } else {
+            self.firstInstallTimestamp = savedInstall
+        }
+        self.lastReviewPromptTimestamp = storage.double(forKey: Self.keyLastReviewPromptTimestamp)
+    }
+
+    static let keySuccessfulFlipCount = "successful_flip_count"
+    static let keyLastDismissedProNudgeMilestone = "last_dismissed_pro_nudge_milestone"
+    static let keyFirstInstallTimestamp = "first_install_timestamp"
+    static let keyLastReviewPromptTimestamp = "last_review_prompt_timestamp"
+
+    @Published var successfulFlipCount: Int {
+        didSet { defaults.set(successfulFlipCount, forKey: Self.keySuccessfulFlipCount) }
+    }
+    @Published var lastDismissedProNudgeMilestone: Int {
+        didSet { defaults.set(lastDismissedProNudgeMilestone, forKey: Self.keyLastDismissedProNudgeMilestone) }
+    }
+    @Published var firstInstallTimestamp: Double {
+        didSet { defaults.set(firstInstallTimestamp, forKey: Self.keyFirstInstallTimestamp) }
+    }
+    @Published var lastReviewPromptTimestamp: Double {
+        didSet { defaults.set(lastReviewPromptTimestamp, forKey: Self.keyLastReviewPromptTimestamp) }
+    }
+
+    @discardableResult
+    func incrementSuccessfulFlipCount() -> Int {
+        successfulFlipCount += 1
+        return successfulFlipCount
+    }
+
+    func getActiveProNudgeMilestone() -> Int {
+        let flips = successfulFlipCount
+        let milestone: Int
+        switch flips {
+        case 100...:
+            milestone = (flips / 50) * 50
+        case 50..<100:
+            milestone = 50
+        case 20..<50:
+            milestone = 20
+        default:
+            milestone = 0
+        }
+        return (milestone > 0 && lastDismissedProNudgeMilestone < milestone) ? milestone : 0
+    }
+
+    func dismissProNudgeMilestone(_ milestone: Int) {
+        lastDismissedProNudgeMilestone = milestone
     }
 }

@@ -349,8 +349,10 @@ fun MainScreen(
             if (event == Lifecycle.Event.ON_RESUME) {
                 refreshStatus()
                 activeMilestone = settingsRepository.getActiveProNudgeMilestone()
-                (context as? Activity)?.let { act ->
-                    de.goork.songflip.data.ReviewHelper.maybeRequestReview(act, settingsRepository)
+                if (activeMilestone <= 0) {
+                    (context as? Activity)?.let { act ->
+                        de.goork.songflip.data.ReviewHelper.maybeRequestReview(act, settingsRepository, trigger = "resume_milestone_idle")
+                    }
                 }
                 de.goork.songflip.data.ShortcutHelper.updateShortcuts(context)
                 if ((context as? Activity)?.hasWindowFocus() == true) {

@@ -1,3 +1,4 @@
-- Zuverlässigere Link-Erkennung: Eigene App-Links werden jetzt abgefangen und mit einem hilfreichen Hinweis versehen, stattdessen einen Musiklink zu teilen.
-- Verbesserte Synchronisierung: Automatische Hintergrund-Wiederherstellung für bestehende Kontostatus und Berechtigungen.
-- Fehlerbehebungen & Stabilität: Allgemeine Stabilitätsverbesserungen und zuverlässigere Fehlerbehandlung im Hintergrund.
+- Transparente Preisübersicht: Das Jahresabo zeigt nun direkt den berechneten Monatspreis und die Ersparnis gegenüber dem Monatsabo.
+- Meilenstein-Erfolge: Nach erfolgreichen Song-Konvertierungen feiern diskrete Meilenstein-Karten deine Treue mit direktem Zugang zu Rabattaktionen.
+- Optimiertes Feedback: Schnellerer und besser getimter In-App-Bewertungsdialog nach erfolgreichen Aktionen.
+- Stabilitätsverbesserungen & Fehlerbehebungen im Hintergrund.

@@ -13,7 +13,7 @@ object ReviewHelper {
 
     private const val MIN_FLIPS_FOR_REVIEW = 5
     private const val MIN_DAYS_AFTER_INSTALL_MS = 3 * 24 * 60 * 60 * 1000L // 3 days
-    private const val PROMPT_COOLDOWN_MS = 60 * 24 * 60 * 60 * 1000L // 60 days
+    private const val PROMPT_COOLDOWN_MS = 21 * 24 * 60 * 60 * 1000L // 21 days (aligned with healthy store quotas)
 
     fun isEligibleForReview(
         now: Long,
@@ -30,7 +30,11 @@ object ReviewHelper {
     /**
      * Checks activity and timing criteria before requesting Google Play In-App Review.
      */
-    fun maybeRequestReview(activity: Activity, settingsRepository: SettingsRepository) {
+    fun maybeRequestReview(
+        activity: Activity,
+        settingsRepository: SettingsRepository,
+        trigger: String = "auto_criteria_met"
+    ) {
         val now = System.currentTimeMillis()
         val flips = settingsRepository.successfulFlipCount
         val installTime = settingsRepository.firstInstallTimestamp
@@ -38,16 +42,20 @@ object ReviewHelper {
 
         if (isEligibleForReview(now, flips, installTime, lastPrompt)) {
             settingsRepository.lastReviewPromptTimestamp = now
-            launchReviewFlow(activity)
+            launchReviewFlow(activity, trigger = trigger)
         }
     }
 
     /**
      * Directly triggers the In-App Review Flow.
      */
-    fun launchReviewFlow(activity: Activity, onComplete: (() -> Unit)? = null) {
+    fun launchReviewFlow(
+        activity: Activity,
+        trigger: String = "auto_criteria_met",
+        onComplete: (() -> Unit)? = null
+    ) {
         try {
-            de.goork.songflip.core.analytics.AptabaseClient.shared.trackReviewPromptTriggered("auto_criteria_met")
+            de.goork.songflip.core.analytics.AptabaseClient.shared.trackReviewPromptTriggered(trigger)
             val manager = ReviewManagerFactory.create(activity)
             val request = manager.requestReviewFlow()
             request.addOnCompleteListener { task ->

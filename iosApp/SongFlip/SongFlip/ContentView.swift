@@ -23,6 +23,7 @@ struct ContentView: View {
     @State private var isPodcastNoticeAudiobook = false
     @State private var showingToast = false
     @State private var toastMessage: String? = nil
+    @State private var activeMilestone: Int = 0
 
     var lang: String { settings.selectedLanguage }
     var appVersion: String {
@@ -58,6 +59,33 @@ struct ContentView: View {
                                 onDismiss: {
                                     withAnimation(.easeInOut(duration: 0.25)) {
                                         promoBannerManager.dismiss()
+                                    }
+                                }
+                            )
+                            .transition(.opacity.combined(with: .scale(scale: 0.96)))
+                        }
+
+                        // PRO Upgrade Milestone Nudge Banner
+                        if !proManager.isPro && activeMilestone > 0 {
+                            ProNudgeBannerCardView(
+                                milestone: activeMilestone,
+                                lang: lang,
+                                onRedeemPromo: {
+                                    AptabaseClient.shared.trackEvent(eventName: "paywall_viewed", props: [
+                                        "source": "milestone_\(activeMilestone)_promo"
+                                    ])
+                                    showingPaywallSheet = true
+                                },
+                                onLearnMore: {
+                                    AptabaseClient.shared.trackEvent(eventName: "paywall_viewed", props: [
+                                        "source": "milestone_\(activeMilestone)_learn_more"
+                                    ])
+                                    showingPaywallSheet = true
+                                },
+                                onDismiss: {
+                                    withAnimation(.easeInOut(duration: 0.25)) {
+                                        settings.dismissProNudgeMilestone(activeMilestone)
+                                        activeMilestone = 0
                                     }
                                 }
                             )
@@ -150,6 +178,7 @@ struct ContentView: View {
             .onAppear {
                 AptabaseClient.shared.trackAppLaunched(platform: "iOS", language: lang)
                 history.loadHistory()
+                activeMilestone = settings.getActiveProNudgeMilestone()
                 Task {
                     await promoBannerManager.fetchPromoBanner()
                 }
@@ -160,6 +189,7 @@ struct ContentView: View {
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .active {
                     history.loadHistory()
+                    activeMilestone = settings.getActiveProNudgeMilestone()
                     Task {
                         await promoBannerManager.fetchPromoBanner()
                     }
@@ -170,6 +200,7 @@ struct ContentView: View {
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
                 history.loadHistory()
+                activeMilestone = settings.getActiveProNudgeMilestone()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     checkClipboard()
                 }
@@ -755,6 +786,12 @@ struct ContentView: View {
                     let target = success.nativeAppUri ?? success.targetUrl
                     if let url = URL(string: target) {
                         UIApplication.shared.open(url)
+                    }
+
+                    settings.incrementSuccessfulFlipCount()
+                    activeMilestone = settings.getActiveProNudgeMilestone()
+                    if activeMilestone == 0 {
+                        ReviewManager.shared.maybeRequestReview(trigger: "flip_success", settings: settings)
                     }
                 } else if let podcast = res as? ResolutionResult.Podcast {
                     AptabaseClient.shared.trackPodcastFlipped(

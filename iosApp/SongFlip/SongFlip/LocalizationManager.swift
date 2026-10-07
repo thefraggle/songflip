@@ -4578,7 +4578,7 @@ enum LocalizationManager {
             "pro_processing": "İşleme...",
             "pro_purchase_failed": "Satın alma tamamlanamadı. Lütfen tekrar deneyin.",
             "pro_restore_no_subscription": "Aktif PRO aboneliği bulunamadı.",
-            "pro_save_badge": "%%1$d TASARRUF",
+            "pro_save_badge": "%%%1$d TASARRUF",
             "pro_subscription_terms": "Abonelikler otomatik olarak yenilenir. Abonelik ayarlarından istediğiniz zaman iptal edebilirsiniz.",
             "pro_subtitle": "Tüm PRO özelliklerinin kilidini açın ve müziği sınırsızca paylaşın",
             "pro_tier_annual": "Yıllık",
