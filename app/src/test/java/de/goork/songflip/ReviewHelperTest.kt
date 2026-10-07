@@ -43,20 +43,20 @@ class ReviewHelperTest {
     @Test
     fun testNotEligibleDuringCooldown() {
         val installTime = now - (90 * dayMs)
-        val lastPrompt = now - (20 * dayMs) // Prompted 20 days ago (cooldown is 60 days)
+        val lastPrompt = now - (15 * dayMs) // Prompted 15 days ago (cooldown is 21 days)
         val flips = 25
 
         val eligible = ReviewHelper.isEligibleForReview(now, flips, installTime, lastPrompt)
-        assertFalse("Should not prompt during 60-day cooldown", eligible)
+        assertFalse("Should not prompt during 21-day cooldown", eligible)
     }
 
     @Test
     fun testEligibleAfterCooldownPassed() {
         val installTime = now - (90 * dayMs)
-        val lastPrompt = now - (61 * dayMs) // 61 days ago (cooldown expired)
+        val lastPrompt = now - (22 * dayMs) // 22 days ago (cooldown expired)
         val flips = 25
 
         val eligible = ReviewHelper.isEligibleForReview(now, flips, installTime, lastPrompt)
-        assertTrue("Should prompt after 60-day cooldown expires", eligible)
+        assertTrue("Should prompt after 21-day cooldown expires", eligible)
     }
 }

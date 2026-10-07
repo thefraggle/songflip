@@ -432,6 +432,9 @@ struct PlaylistConverterView: View {
                                         "matched": "\(decoded.matchedCount)",
                                         "total": "\(decoded.totalTracks)"
                                     ])
+                                    if decoded.matchedCount > 0 {
+                                        ReviewManager.shared.maybeRequestReview(trigger: "playlist_success", settings: self.settings)
+                                    }
                                 }
                                 return
                             }

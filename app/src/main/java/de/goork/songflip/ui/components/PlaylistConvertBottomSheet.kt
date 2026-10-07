@@ -128,6 +128,17 @@ fun PlaylistConvertBottomSheet(
                     isSearch = false,
                     source = sourcePlatform.key
                 )
+
+                // Request In-App Review at this happy moment if eligible
+                if (data.matchedCount > 0) {
+                    (context as? android.app.Activity)?.let { act ->
+                        de.goork.songflip.data.ReviewHelper.maybeRequestReview(
+                            activity = act,
+                            settingsRepository = de.goork.songflip.data.SettingsRepository(context),
+                            trigger = "playlist_success"
+                        )
+                    }
+                }
             } else {
                 val exception = result.exceptionOrNull()
                 val playlistEx = exception as? de.goork.songflip.core.model.PlaylistConversionException

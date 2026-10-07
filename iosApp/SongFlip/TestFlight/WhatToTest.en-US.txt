@@ -1,3 +1,4 @@
-- Enhanced Link Detection: Self-referential app links are now recognized and filtered with a helpful hint to share a music link instead.
-- Improved Synchronization: Automatic background recovery for existing account entitlements and status synchronization.
-- Bug Fixes & Stability: General stability improvements and more dependable error recovery.
+- Transparent Pricing: The annual plan now displays the computed monthly breakdown and savings compared to the monthly plan.
+- Milestone Celebrations: Discrete milestone cards celebrate your song flips with direct access to voucher redemptions.
+- Polished Reviews: Timely and respectful in-app review requests at happy conversion moments.
+- Stability improvements and general bug fixes.

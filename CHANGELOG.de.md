@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.7.3] - 2026-10-07
+- **Transparente Preisübersicht (iOS)**: Jährlicher Tarif zeigt berechneten Monatspreis und reale prozentuale Ersparnis gegenüber dem Monatsabo (#74).
+- **Gehärtete In-App-Bewertungen (Android & iOS)**: 21-Tage-Cooldown, Entkopplung von Upgrade-Bannern und gezielte Abfrage nach erfolgreichen Konvertierungen (#71, #64).
+- **Meilenstein-Banner (iOS)**: Diskrete Meilenstein-Würdigung nach 20, 50 und 100 erfolgreichen Song-Flips mit Direkteinstieg zur Gutscheineinlösung (#64).
+- **Feinschliff & Lokalisierung**: Formatierungs-Korrektur in der türkischen Übersetzung und flüssigere Ansichten.
+
 ## [1.7.2] - 2026-10-05
 - **Schnellere Weiterleitung**: Optimierte Zwischenspeicherung öffnet Songs spürbar schneller.
 - **Intelligente Playlists**: Eigene Playlists öffnen direkt ohne Konvertierungsumweg; klare Hilfe bei Fehlern.
