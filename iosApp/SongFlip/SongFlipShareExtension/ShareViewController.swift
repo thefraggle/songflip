@@ -10,6 +10,24 @@ class ShareViewController: UIViewController {
     private let activityIndicator = UIActivityIndicatorView(style: .large)
     private let statusLabel = UILabel()
     private let iconImageView = UIImageView()
+    private let pickerContainerView = UIView()
+    private var isPickerVisible = false
+
+    private struct TargetPlatformItem {
+        let key: String
+        let name: String
+        let iconSystemName: String
+        let color: UIColor
+    }
+
+    private let targetPlatforms: [TargetPlatformItem] = [
+        TargetPlatformItem(key: "appleMusic", name: "Apple Music", iconSystemName: "music.note", color: UIColor(red: 0.99, green: 0.24, blue: 0.27, alpha: 1.0)),
+        TargetPlatformItem(key: "spotify", name: "Spotify", iconSystemName: "dot.radiowaves.left.and.right", color: UIColor(red: 0.11, green: 0.73, blue: 0.33, alpha: 1.0)),
+        TargetPlatformItem(key: "youtubeMusic", name: "YouTube Music", iconSystemName: "play.rectangle.fill", color: UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)),
+        TargetPlatformItem(key: "tidal", name: "Tidal", iconSystemName: "waveform", color: UIColor(red: 0.0, green: 0.85, blue: 0.9, alpha: 1.0)),
+        TargetPlatformItem(key: "deezer", name: "Deezer", iconSystemName: "music.quarternote.3", color: UIColor(red: 0.64, green: 0.22, blue: 1.0, alpha: 1.0)),
+        TargetPlatformItem(key: "amazonMusic", name: "Amazon Music", iconSystemName: "cart.fill", color: UIColor(red: 0.15, green: 0.82, blue: 0.85, alpha: 1.0))
+    ]
 
     private func localizedText(for key: String, default defaultText: String) -> String {
         let val = LocalizationManager.string(for: key)
@@ -24,6 +42,10 @@ class ShareViewController: UIViewController {
 
     private func setupUI() {
         view.backgroundColor = UIColor(white: 0.08, alpha: 0.95)
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleBackdropTap(_:)))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
 
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
         iconImageView.image = UIImage(systemName: "music.note.list")
@@ -59,6 +81,14 @@ class ShareViewController: UIViewController {
         ])
     }
 
+    @objc private func handleBackdropTap(_ gesture: UITapGestureRecognizer) {
+        guard isPickerVisible else { return }
+        let location = gesture.location(in: view)
+        if !pickerContainerView.frame.contains(location) {
+            self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+        }
+    }
+
     private func processSharedItem() {
         guard let item = extensionContext?.inputItems.first as? NSExtensionItem,
               let attachments = item.attachments else {
@@ -70,36 +100,203 @@ class ShareViewController: UIViewController {
         let rawTarget = defaults.string(forKey: "target_platform") ?? "appleMusic"
         let validTargets = ["youtubeMusic", "appleMusic", "spotify", "tidal", "deezer", "amazonMusic"]
         let targetPlatform = validTargets.contains(rawTarget) ? rawTarget : "appleMusic"
+        let askEveryTime = defaults.bool(forKey: "ask_every_time")
         let customUrl = defaults.string(forKey: "custom_api_url") ?? ""
         let customToken = defaults.string(forKey: "custom_api_token") ?? ""
 
+        let handleUrl: (String) -> Void = { [weak self] urlString in
+            guard let self = self else { return }
+            if askEveryTime {
+                DispatchQueue.main.async {
+                    self.showQuickPicker(
+                        inputUrl: urlString,
+                        customUrl: customUrl,
+                        customToken: customToken
+                    )
+                }
+            } else {
+                self.resolveAndOpen(
+                    inputUrl: urlString,
+                    targetPlatform: targetPlatform,
+                    customUrl: customUrl,
+                    customToken: customToken
+                )
+            }
+        }
+
         for provider in attachments {
             if provider.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
-                provider.loadItem(forTypeIdentifier: UTType.url.identifier, options: nil) { [weak self] (item, error) in
+                provider.loadItem(forTypeIdentifier: UTType.url.identifier, options: nil) { (item, error) in
                     if let url = item as? URL {
-                        self?.resolveAndOpen(
-                            inputUrl: url.absoluteString,
-                            targetPlatform: targetPlatform,
-                            customUrl: customUrl,
-                            customToken: customToken
-                        )
+                        handleUrl(url.absoluteString)
                     }
                 }
                 return
             } else if provider.hasItemConformingToTypeIdentifier(UTType.plainText.identifier) {
-                provider.loadItem(forTypeIdentifier: UTType.plainText.identifier, options: nil) { [weak self] (item, error) in
+                provider.loadItem(forTypeIdentifier: UTType.plainText.identifier, options: nil) { (item, error) in
                     if let text = item as? String {
-                        self?.resolveAndOpen(
-                            inputUrl: text,
-                            targetPlatform: targetPlatform,
-                            customUrl: customUrl,
-                            customToken: customToken
-                        )
+                        handleUrl(text)
                     }
                 }
                 return
             }
         }
+    }
+
+    private func showQuickPicker(
+        inputUrl: String,
+        customUrl: String,
+        customToken: String
+    ) {
+        isPickerVisible = true
+        iconImageView.isHidden = true
+        activityIndicator.stopAnimating()
+        statusLabel.isHidden = true
+
+        pickerContainerView.subviews.forEach { $0.removeFromSuperview() }
+        pickerContainerView.translatesAutoresizingMaskIntoConstraints = false
+        pickerContainerView.backgroundColor = UIColor(red: 0.12, green: 0.12, blue: 0.15, alpha: 0.98)
+        pickerContainerView.layer.cornerRadius = 20
+        pickerContainerView.layer.borderWidth = 1
+        pickerContainerView.layer.borderColor = UIColor(white: 1.0, alpha: 0.12).cgColor
+        pickerContainerView.clipsToBounds = true
+        view.addSubview(pickerContainerView)
+
+        let contentStack = UIStackView()
+        contentStack.translatesAutoresizingMaskIntoConstraints = false
+        contentStack.axis = .vertical
+        contentStack.spacing = 10
+        contentStack.alignment = .fill
+        contentStack.isLayoutMarginsRelativeArrangement = true
+        contentStack.layoutMargins = UIEdgeInsets(top: 18, left: 16, bottom: 12, right: 16)
+        pickerContainerView.addSubview(contentStack)
+
+        // Header Title
+        let titleLabel = UILabel()
+        titleLabel.text = localizedText(for: "quick_picker_title", default: "Open with …")
+        titleLabel.font = .systemFont(ofSize: 18, weight: .bold)
+        titleLabel.textColor = .white
+        titleLabel.textAlignment = .center
+        contentStack.addArrangedSubview(titleLabel)
+
+        // Preview snippet
+        let urlSnippetLabel = UILabel()
+        urlSnippetLabel.text = inputUrl.trimmingCharacters(in: .whitespacesAndNewlines)
+        urlSnippetLabel.font = .systemFont(ofSize: 11, weight: .regular)
+        urlSnippetLabel.textColor = .lightGray
+        urlSnippetLabel.textAlignment = .center
+        urlSnippetLabel.lineBreakMode = .byTruncatingMiddle
+        contentStack.addArrangedSubview(urlSnippetLabel)
+
+        contentStack.setCustomSpacing(14, after: urlSnippetLabel)
+
+        // Service Buttons
+        for platform in targetPlatforms {
+            let button = UIButton(type: .system)
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.heightAnchor.constraint(equalToConstant: 44).isActive = true
+            button.backgroundColor = UIColor(white: 0.20, alpha: 1.0)
+            button.layer.cornerRadius = 12
+            button.layer.borderWidth = 1
+            button.layer.borderColor = UIColor(white: 1.0, alpha: 0.08).cgColor
+
+            let rowStack = UIStackView()
+            rowStack.translatesAutoresizingMaskIntoConstraints = false
+            rowStack.axis = .horizontal
+            rowStack.spacing = 12
+            rowStack.alignment = .center
+            rowStack.isUserInteractionEnabled = false
+
+            // Icon container
+            let iconContainer = UIView()
+            iconContainer.translatesAutoresizingMaskIntoConstraints = false
+            iconContainer.backgroundColor = platform.color.withAlphaComponent(0.2)
+            iconContainer.layer.cornerRadius = 8
+            iconContainer.widthAnchor.constraint(equalToConstant: 32).isActive = true
+            iconContainer.heightAnchor.constraint(equalToConstant: 32).isActive = true
+
+            let iconView = UIImageView(image: UIImage(systemName: platform.iconSystemName))
+            iconView.translatesAutoresizingMaskIntoConstraints = false
+            iconView.tintColor = platform.color
+            iconView.contentMode = .scaleAspectFit
+            iconContainer.addSubview(iconView)
+            NSLayoutConstraint.activate([
+                iconView.centerXAnchor.constraint(equalTo: iconContainer.centerXAnchor),
+                iconView.centerYAnchor.constraint(equalTo: iconContainer.centerYAnchor),
+                iconView.widthAnchor.constraint(equalToConstant: 18),
+                iconView.heightAnchor.constraint(equalToConstant: 18)
+            ])
+
+            rowStack.addArrangedSubview(iconContainer)
+
+            let nameLabel = UILabel()
+            nameLabel.text = platform.name
+            nameLabel.font = .systemFont(ofSize: 15, weight: .semibold)
+            nameLabel.textColor = .white
+            rowStack.addArrangedSubview(nameLabel)
+
+            let spacer = UIView()
+            spacer.isUserInteractionEnabled = false
+            rowStack.addArrangedSubview(spacer)
+
+            let arrowView = UIImageView(image: UIImage(systemName: "arrow.up.right"))
+            arrowView.translatesAutoresizingMaskIntoConstraints = false
+            arrowView.tintColor = .systemGray
+            arrowView.contentMode = .scaleAspectFit
+            arrowView.widthAnchor.constraint(equalToConstant: 14).isActive = true
+            arrowView.heightAnchor.constraint(equalToConstant: 14).isActive = true
+            rowStack.addArrangedSubview(arrowView)
+
+            button.addSubview(rowStack)
+            NSLayoutConstraint.activate([
+                rowStack.leadingAnchor.constraint(equalTo: button.leadingAnchor, constant: 12),
+                rowStack.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: -12),
+                rowStack.centerYAnchor.constraint(equalTo: button.centerYAnchor)
+            ])
+
+            button.addAction(UIAction { [weak self] _ in
+                guard let self = self else { return }
+                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                self.isPickerVisible = false
+                self.pickerContainerView.removeFromSuperview()
+                self.iconImageView.isHidden = false
+                self.activityIndicator.startAnimating()
+                self.statusLabel.isHidden = false
+                self.statusLabel.text = self.localizedText(for: "share_redirecting", default: "SongFlip: Redirecting...")
+                self.resolveAndOpen(
+                    inputUrl: inputUrl,
+                    targetPlatform: platform.key,
+                    customUrl: customUrl,
+                    customToken: customToken
+                )
+            }, for: .touchUpInside)
+
+            contentStack.addArrangedSubview(button)
+        }
+
+        // Cancel Button
+        let cancelButton = UIButton(type: .system)
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        cancelButton.heightAnchor.constraint(equalToConstant: 38).isActive = true
+        cancelButton.setTitle(localizedText(for: "btn_cancel", default: "Cancel"), for: .normal)
+        cancelButton.setTitleColor(.systemGray, for: .normal)
+        cancelButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
+        cancelButton.addAction(UIAction { [weak self] _ in
+            self?.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+        }, for: .touchUpInside)
+        contentStack.addArrangedSubview(cancelButton)
+
+        NSLayoutConstraint.activate([
+            pickerContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            pickerContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            pickerContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -36),
+            pickerContainerView.widthAnchor.constraint(lessThanOrEqualToConstant: 380),
+
+            contentStack.topAnchor.constraint(equalTo: pickerContainerView.topAnchor),
+            contentStack.leadingAnchor.constraint(equalTo: pickerContainerView.leadingAnchor),
+            contentStack.trailingAnchor.constraint(equalTo: pickerContainerView.trailingAnchor),
+            contentStack.bottomAnchor.constraint(equalTo: pickerContainerView.bottomAnchor)
+        ])
     }
 
     private func resolveAndOpen(
