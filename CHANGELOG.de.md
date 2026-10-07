@@ -1,6 +1,8 @@
 # Changelog (Deutsch)
 
 ## [1.7.3] - 2026-10-07
+- **Intelligente Zielauswahl**: Installierte Musik-Apps stehen auf der Startseite jetzt automatisch oben für noch schnellere Auswahl.
+- **Alternative Musikplayer**: Nahtlose Unterstützung für freie Player wie RiMusic, ViMusic und InnerTune.
 - **Transparentere Preise**: Jahresangebote zeigen jetzt direkt den rechnerischen Monatspreis und deine tatsächliche Ersparnis an.
 - **Meilenstein-Erfolge**: Nach fleißigem Teilen feiern kleine Meilenstein-Karten deine Treue mit direktem Zugang zu Rabattaktionen.
 - **Besseres Feedback**: Der Bewertungsdialog erscheint jetzt zu passenderen Momenten und unterbricht dich nicht mehr beim Musikhören.

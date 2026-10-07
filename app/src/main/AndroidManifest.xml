@@ -95,7 +95,11 @@
         <package android:name="com.inotia00.youtube" />
         <package android:name="it.fast4x.rimusic" />
         <package android:name="it.vfsfitvnm.vimusic" />
+        <package android:name="vimusic.app" />
         <package android:name="com.zionhuang.music" />
+        <package android:name="com.metareal.innertune" />
+        <package android:name="com.kashike.simpmusic" />
+        <package android:name="com.github.brahmkshatriya.echo" />
         <package android:name="org.schabi.newpipe" />
         <package android:name="org.schabi.newpipelegacy" />
         <package android:name="com.google.android.apps.youtube.music" />

@@ -39,6 +39,11 @@ fun TargetSelectorCard(
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
 
+    val sortedServices = remember(context, targetServices) {
+        val installedMap = targetServices.associate { it.key to PackageUtils.isAppInstalled(context, it.key) }
+        targetServices.sortedByDescending { installedMap[it.key] == true }
+    }
+
     Card(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(20.dp),
@@ -65,7 +70,7 @@ fun TargetSelectorCard(
                 )
             }
 
-            targetServices.forEach { service ->
+            sortedServices.forEach { service ->
                 val isSelected = selectedTargetKey == service.key
                 val isInstalled = remember(service.key) {
                     PackageUtils.isAppInstalled(context, service.key)

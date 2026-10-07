@@ -150,7 +150,11 @@ class PackageUtilsTest {
         assertTrue(ytPackages.contains("app.morphe.music"))
         assertTrue(ytPackages.contains("it.fast4x.rimusic"))
         assertTrue(ytPackages.contains("it.vfsfitvnm.vimusic"))
+        assertTrue(ytPackages.contains("vimusic.app"))
+        assertTrue(ytPackages.contains("com.zionhuang.music"))
         assertTrue(ytPackages.contains("com.metareal.innertune"))
+        assertTrue(ytPackages.contains("com.kashike.simpmusic"))
+        assertTrue(ytPackages.contains("com.github.brahmkshatriya.echo"))
         // Verify RVX and Anddea YT Music packages are included
         assertTrue(ytPackages.contains("anddea.youtube.music"))
         assertTrue(ytPackages.contains("app.anddea.youtube.music"))

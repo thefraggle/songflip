@@ -37,6 +37,7 @@ object PackageUtils {
             "com.inotia00.youtube.music",
             "it.fast4x.rimusic",
             "it.vfsfitvnm.vimusic",
+            "vimusic.app",
             "com.zionhuang.music",
             "com.metareal.innertune",
             "com.kashike.simpmusic",
