@@ -337,4 +337,10 @@
     <string name="playlist_active_banner_details">Tiedot</string>
     <string name="playlist_active_banner_open">Avaa kohteessa %1$s</string>
     <string name="playlist_active_banner_dismiss">Sulje</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">Ensisijainen soitin</string>
+    <string name="settings_preferred_player_subtitle">Valitse sovellus toistoa varten</string>
+    <string name="settings_preferred_player_auto">Automaattinen</string>
+    <string name="settings_preferred_player_auto_desc">Suositus: käyttää oletussovellusta</string>
 </resources>

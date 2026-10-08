@@ -337,4 +337,10 @@
     <string name="playlist_active_banner_details">Részletek</string>
     <string name="playlist_active_banner_open">Megnyitás itt: %1$s</string>
     <string name="playlist_active_banner_dismiss">Bezárás</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">Előnyben részesített lejátszó</string>
+    <string name="settings_preferred_player_subtitle">Alkalmazás kiválasztása zenelejátszáshoz</string>
+    <string name="settings_preferred_player_auto">Automatikus</string>
+    <string name="settings_preferred_player_auto_desc">Ajánlott: az alapértelmezett alkalmazást használja</string>
 </resources>

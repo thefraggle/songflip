@@ -359,4 +359,10 @@
     <string name="playlist_active_banner_details">Szczegóły</string>
     <string name="playlist_active_banner_open">Otwórz w %1$s</string>
     <string name="playlist_active_banner_dismiss">Zamknij</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">Preferowany odtwarzacz</string>
+    <string name="settings_preferred_player_subtitle">Wybierz aplikację do odtwarzania</string>
+    <string name="settings_preferred_player_auto">Automatycznie</string>
+    <string name="settings_preferred_player_auto_desc">Zalecane: używa domyślnej aplikacji</string>
 </resources>

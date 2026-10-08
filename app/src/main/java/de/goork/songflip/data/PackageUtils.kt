@@ -3,6 +3,12 @@ package de.goork.songflip.data
 import android.content.Context
 import android.content.pm.PackageManager
 
+data class AppPlayerOption(
+    val packageName: String,
+    val appName: String,
+    val isOfficial: Boolean
+)
+
 object PackageUtils {
 
     val packageMap = mapOf(
@@ -41,7 +47,10 @@ object PackageUtils {
             "com.zionhuang.music",
             "com.metareal.innertune",
             "com.kashike.simpmusic",
+            "com.maxrave.simpmusic",
             "com.github.brahmkshatriya.echo",
+            "com.aleixrodriala.newtube",
+            "com.craftworks.music",
             "com.google.android.apps.youtube.music"
         )
     )
@@ -100,7 +109,36 @@ object PackageUtils {
         return resolved
     }
 
+    fun getInstalledPlayersForPlatform(context: Context, platformKey: String): List<AppPlayerOption> {
+        val cleanKey = platformKey.substringBefore("_")
+        val candidates = fallbackPackages[cleanKey] ?: listOfNotNull(packageMap[cleanKey])
+        val result = mutableListOf<AppPlayerOption>()
+        val pm = context.packageManager
+        val seen = mutableSetOf<String>()
+
+        for (pkg in candidates) {
+            if (!seen.add(pkg)) continue
+            try {
+                val appInfo = pm.getApplicationInfo(pkg, 0)
+                val label = pm.getApplicationLabel(appInfo).toString()
+                val isOfficial = (pkg == packageMap[cleanKey])
+                result.add(AppPlayerOption(packageName = pkg, appName = label, isOfficial = isOfficial))
+            } catch (_: PackageManager.NameNotFoundException) {}
+        }
+        return result
+    }
+
     private fun resolveInstalledPackageInternal(context: Context, cleanKey: String): String? {
+        if (cleanKey == "youtubeMusic") {
+            val preferred = SettingsRepository(context).preferredYouTubePlayerPackage
+            if (!preferred.isNullOrBlank()) {
+                try {
+                    context.packageManager.getPackageInfo(preferred, 0)
+                    return preferred
+                } catch (_: PackageManager.NameNotFoundException) {}
+            }
+        }
+
         val candidates = fallbackPackages[cleanKey] ?: listOfNotNull(packageMap[cleanKey])
         for (pkg in candidates) {
             try {

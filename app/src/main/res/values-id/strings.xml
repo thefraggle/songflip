@@ -347,4 +347,10 @@
     <string name="playlist_active_banner_details">Detail</string>
     <string name="playlist_active_banner_open">Buka di %1$s</string>
     <string name="playlist_active_banner_dismiss">Tutup</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">Pemutar Pilihan</string>
+    <string name="settings_preferred_player_subtitle">Pilih aplikasi untuk memutar musik</string>
+    <string name="settings_preferred_player_auto">Otomatis</string>
+    <string name="settings_preferred_player_auto_desc">Disarankan: gunakan aplikasi default</string>
 </resources>

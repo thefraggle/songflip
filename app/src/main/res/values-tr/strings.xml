@@ -351,4 +351,10 @@
     <string name="playlist_active_banner_details">Ayrıntılar</string>
     <string name="playlist_active_banner_open">%1$s ile Aç</string>
     <string name="playlist_active_banner_dismiss">Kapat</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">Tercih edilen oynatıcı</string>
+    <string name="settings_preferred_player_subtitle">Müzik çalmak için uygulama seçin</string>
+    <string name="settings_preferred_player_auto">Otomatik</string>
+    <string name="settings_preferred_player_auto_desc">Önerilen: Varsayılan uygulamayı kullanır</string>
 </resources>

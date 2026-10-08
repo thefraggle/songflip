@@ -345,4 +345,10 @@
     <string name="playlist_active_banner_details">Podrobnosti</string>
     <string name="playlist_active_banner_open">Otevřít v %1$s</string>
     <string name="playlist_active_banner_dismiss">Zavřít</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">Preferovaný přehrávač</string>
+    <string name="settings_preferred_player_subtitle">Zvolte aplikaci pro přehrávání</string>
+    <string name="settings_preferred_player_auto">Automaticky</string>
+    <string name="settings_preferred_player_auto_desc">Doporučeno: použije výchozí aplikaci</string>
 </resources>

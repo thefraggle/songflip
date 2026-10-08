@@ -351,4 +351,10 @@
     <string name="playlist_active_banner_details">Detaljer</string>
     <string name="playlist_active_banner_open">Åbn i %1$s</string>
     <string name="playlist_active_banner_dismiss">Luk</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">Foretrukken afspiller</string>
+    <string name="settings_preferred_player_subtitle">Vælg app til musikafspilning</string>
+    <string name="settings_preferred_player_auto">Automatisk</string>
+    <string name="settings_preferred_player_auto_desc">Anbefalet: bruger standardappen</string>
 </resources>

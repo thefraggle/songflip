@@ -351,4 +351,10 @@
     <string name="playlist_active_banner_details">Detaljer</string>
     <string name="playlist_active_banner_open">Öppna i %1$s</string>
     <string name="playlist_active_banner_dismiss">Stäng</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">Föredragen spelare</string>
+    <string name="settings_preferred_player_subtitle">Välj app för musikuppspelning</string>
+    <string name="settings_preferred_player_auto">Automatiskt</string>
+    <string name="settings_preferred_player_auto_desc">Rekommenderas: använder standardappen</string>
 </resources>

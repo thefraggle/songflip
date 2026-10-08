@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.8.3] - 2026-10-08
+- **Flexiblere Player-Wahl**: Wenn mehrere kompatible Musik-Apps auf deinem Gerät installiert sind, kannst du deinen bevorzugten Standard-Player nun direkt in den Einstellungen festlegen.
+- **Erweiterte App-Unterstützung**: Musik-Links öffnen sich jetzt noch zuverlässiger in deinen installierten Lieblings-Apps.
+
 ## [1.8.2] - 2026-10-08
 - **Stabilitäts-Hotfix**: Ein unerwartetes Problem beim Starten der App wurde behoben, um eine durchgehend zuverlässige Nutzung sicherzustellen.
 

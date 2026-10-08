@@ -351,4 +351,10 @@
     <string name="playlist_active_banner_details">Details</string>
     <string name="playlist_active_banner_open">Openen in %1$s</string>
     <string name="playlist_active_banner_dismiss">Sluiten</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">Voorkeursspeler</string>
+    <string name="settings_preferred_player_subtitle">Kies app om muziek af te spelen</string>
+    <string name="settings_preferred_player_auto">Automatisch</string>
+    <string name="settings_preferred_player_auto_desc">Aanbevolen: gebruikt de standaard-app</string>
 </resources>

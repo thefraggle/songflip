@@ -333,4 +333,10 @@
     <string name="playlist_active_banner_details">詳細資訊</string>
     <string name="playlist_active_banner_open">在%1$s中開啟</string>
     <string name="playlist_active_banner_dismiss">關閉</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">慣用播放器</string>
+    <string name="settings_preferred_player_subtitle">選取用來播放的音樂應用程式</string>
+    <string name="settings_preferred_player_auto">自動</string>
+    <string name="settings_preferred_player_auto_desc">建議：使用預設應用程式</string>
 </resources>

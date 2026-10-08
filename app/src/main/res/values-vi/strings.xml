@@ -347,4 +347,10 @@
     <string name="playlist_active_banner_details">Chi tiết</string>
     <string name="playlist_active_banner_open">Mở trong %1$s</string>
     <string name="playlist_active_banner_dismiss">Đóng</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">Trình phát ưu tiên</string>
+    <string name="settings_preferred_player_subtitle">Chọn ứng dụng để phát nhạc</string>
+    <string name="settings_preferred_player_auto">Tự động</string>
+    <string name="settings_preferred_player_auto_desc">Được đề xuất: sử dụng ứng dụng mặc định</string>
 </resources>

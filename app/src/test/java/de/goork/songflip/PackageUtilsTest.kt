@@ -165,12 +165,16 @@ class PackageUtilsTest {
         assertFalse(ytPackages.contains("anddea.youtube"))
         assertFalse(ytPackages.contains("app.revanced.android.youtube"))
         assertFalse(ytPackages.contains("org.schabi.newpipe"))
+        assertTrue(ytPackages.contains("com.aleixrodriala.newtube"))
+        assertTrue(ytPackages.contains("com.craftworks.music"))
         // Verify custom players come before official YouTube Music package
         val officialIndex = ytPackages.indexOf("com.google.android.apps.youtube.music")
         val morpheIndex = ytPackages.indexOf("app.morphe.android.apps.youtube.music")
         val anddeaIndex = ytPackages.indexOf("anddea.youtube.music")
+        val newtubeIndex = ytPackages.indexOf("com.aleixrodriala.newtube")
         assertTrue(officialIndex > morpheIndex)
         assertTrue(officialIndex > anddeaIndex)
+        assertTrue(officialIndex > newtubeIndex)
     }
 
     @Test

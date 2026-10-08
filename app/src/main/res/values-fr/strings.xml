@@ -351,4 +351,10 @@
     <string name="playlist_active_banner_details">Détails</string>
     <string name="playlist_active_banner_open">Ouvrir dans %1$s</string>
     <string name="playlist_active_banner_dismiss">Fermer</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">Lecteur préféré</string>
+    <string name="settings_preferred_player_subtitle">Choisir l\'application de lecture</string>
+    <string name="settings_preferred_player_auto">Automatique</string>
+    <string name="settings_preferred_player_auto_desc">Recommandé : utilise l\'application par défaut</string>
 </resources>
