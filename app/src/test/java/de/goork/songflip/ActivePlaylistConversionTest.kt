@@ -59,4 +59,21 @@ class ActivePlaylistConversionTest {
         assertEquals(PlaylistErrorCode.PRIVATE_OR_RESTRICTED, state.errorCode)
         assertEquals("private_playlist", state.reason)
     }
+
+    @Test
+    fun testActivePlaylistConversionPropertyDeclarationOrder() {
+        val fields = de.goork.songflip.ui.viewmodel.MainViewModel::class.java.declaredFields.map { it.name }
+        val activeFieldIdx = fields.indexOf("_activePlaylistConversion")
+        val activeFlowIdx = fields.indexOf("activePlaylistConversion")
+        val uiStateIdx = fields.indexOf("_uiState")
+
+        assertTrue("Field _uiState must be declared in MainViewModel", uiStateIdx >= 0)
+        assertTrue("Field _activePlaylistConversion must be declared in MainViewModel", activeFieldIdx >= 0)
+        assertTrue("Field activePlaylistConversion must be declared in MainViewModel", activeFlowIdx >= 0)
+        assertTrue(
+            "_activePlaylistConversion must be declared near the top alongside _uiState before init block",
+            activeFieldIdx < fields.size && activeFieldIdx in (uiStateIdx - 2)..(uiStateIdx + 3)
+        )
+    }
 }
+

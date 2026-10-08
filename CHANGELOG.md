@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.8.2] - 2026-10-08
+- **Stability Hotfix**: Resolved an unexpected startup issue to ensure smooth and reliable app opening.
+
 ## [1.8.1] - 2026-10-08
 - **Instant Full Loading**: Unlocked playlists now refresh automatically without needing to re-open or convert again.
 - **Enhanced Playlist Reach**: Large playlists reliably retrieve the full available tracklist with up to 200 songs.

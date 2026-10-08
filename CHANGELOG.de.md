@@ -1,5 +1,8 @@
 # Changelog (Deutsch)
 
+## [1.8.2] - 2026-10-08
+- **Stabilitäts-Hotfix**: Ein unerwartetes Problem beim Starten der App wurde behoben, um eine durchgehend zuverlässige Nutzung sicherzustellen.
+
 ## [1.8.1] - 2026-10-08
 - **Automatische Aktualisierung**: Nach dem Freischalten aller Funktionen wird eine aktive Playlist sofort nahtlos vollständig geladen, ohne erneutes Antippen.
 - **Erweiterte Playlist-Erkennung**: Umfangreiche Playlists schöpfen die Obergrenze von bis zu 200 Titeln noch zuverlässiger aus.
