@@ -347,4 +347,10 @@
     <string name="playlist_active_banner_details">세부정보</string>
     <string name="playlist_active_banner_open">%1$s에서 열기</string>
     <string name="playlist_active_banner_dismiss">닫기</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">선호하는 플레이어</string>
+    <string name="settings_preferred_player_subtitle">음악 재생에 사용할 앱 선택</string>
+    <string name="settings_preferred_player_auto">자동</string>
+    <string name="settings_preferred_player_auto_desc">권장: 기본 앱 사용</string>
 </resources>

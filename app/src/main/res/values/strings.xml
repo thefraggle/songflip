@@ -369,4 +369,10 @@
     <string name="feedback_success">Thank you for your feedback!</string>
     <string name="feedback_error_empty">Please enter at least 10 characters.</string>
     <string name="feedback_error_network">Unable to send feedback. Please try email instead.</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">Preferred Player</string>
+    <string name="settings_preferred_player_subtitle">Choose app to play music links</string>
+    <string name="settings_preferred_player_auto">Automatic</string>
+    <string name="settings_preferred_player_auto_desc">Recommended: Uses default music app</string>
 </resources>

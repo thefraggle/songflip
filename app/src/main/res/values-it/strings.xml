@@ -351,4 +351,10 @@
     <string name="playlist_active_banner_details">Dettagli</string>
     <string name="playlist_active_banner_open">Apri in %1$s</string>
     <string name="playlist_active_banner_dismiss">Chiudi</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">Player preferito</string>
+    <string name="settings_preferred_player_subtitle">Scegli l\'app per riprodurre i brani</string>
+    <string name="settings_preferred_player_auto">Automatico</string>
+    <string name="settings_preferred_player_auto_desc">Consigliato: usa l\'app predefinita</string>
 </resources>

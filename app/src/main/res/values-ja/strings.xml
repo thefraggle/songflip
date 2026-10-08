@@ -347,4 +347,10 @@
     <string name="playlist_active_banner_details">詳細</string>
     <string name="playlist_active_banner_open">%1$sで開く</string>
     <string name="playlist_active_banner_dismiss">閉じる</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">優先プレーヤー</string>
+    <string name="settings_preferred_player_subtitle">再生に使用するアプリを選択</string>
+    <string name="settings_preferred_player_auto">自動</string>
+    <string name="settings_preferred_player_auto_desc">推奨: デフォルトアプリを使用</string>
 </resources>

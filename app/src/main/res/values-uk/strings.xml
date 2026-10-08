@@ -359,4 +359,10 @@
     <string name="playlist_active_banner_details">Деталі</string>
     <string name="playlist_active_banner_open">Відкрити в %1$s</string>
     <string name="playlist_active_banner_dismiss">Закрити</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">Бажаний плеєр</string>
+    <string name="settings_preferred_player_subtitle">Оберіть застосунок для відтворення</string>
+    <string name="settings_preferred_player_auto">Автоматично</string>
+    <string name="settings_preferred_player_auto_desc">Рекомендовано: стандартний застосунок</string>
 </resources>

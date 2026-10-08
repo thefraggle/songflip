@@ -351,4 +351,10 @@
     <string name="playlist_active_banner_details">तपशील</string>
     <string name="playlist_active_banner_open">%1$s मध्ये उघडा</string>
     <string name="playlist_active_banner_dismiss">बंद करा</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">पसंतीचे प्लेअर</string>
+    <string name="settings_preferred_player_subtitle">गाणी प्ले करण्यासाठी ॲप निवडा</string>
+    <string name="settings_preferred_player_auto">स्वयंचलित</string>
+    <string name="settings_preferred_player_auto_desc">शिफारस केलेले: डीफॉल्ट ॲप वापरते</string>
 </resources>

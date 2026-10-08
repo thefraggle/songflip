@@ -333,4 +333,10 @@
     <string name="playlist_active_banner_details">รายละเอียด</string>
     <string name="playlist_active_banner_open">เปิดใน %1$s</string>
     <string name="playlist_active_banner_dismiss">ปิด</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">เครื่องเล่นที่ต้องการ</string>
+    <string name="settings_preferred_player_subtitle">เลือกแอปสำหรับเล่นเพลง</string>
+    <string name="settings_preferred_player_auto">อัตโนมัติ</string>
+    <string name="settings_preferred_player_auto_desc">แนะนำ: ใช้แอปเริ่มต้น</string>
 </resources>

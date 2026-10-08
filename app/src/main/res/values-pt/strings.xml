@@ -351,4 +351,10 @@
     <string name="playlist_active_banner_details">Detalhes</string>
     <string name="playlist_active_banner_open">Abrir no %1$s</string>
     <string name="playlist_active_banner_dismiss">Fechar</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">Reprodutor preferido</string>
+    <string name="settings_preferred_player_subtitle">Escolha o app para reproduzir músicas</string>
+    <string name="settings_preferred_player_auto">Automático</string>
+    <string name="settings_preferred_player_auto_desc">Recomendado: usa o app padrão</string>
 </resources>

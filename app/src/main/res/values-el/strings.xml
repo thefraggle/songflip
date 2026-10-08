@@ -337,4 +337,10 @@
     <string name="playlist_active_banner_details">Λεπτομέρειες</string>
     <string name="playlist_active_banner_open">Άνοιγμα σε %1$s</string>
     <string name="playlist_active_banner_dismiss">Κλείσιμο</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">Προτιμώμενη εφαρμογή αναπαραγωγής</string>
+    <string name="settings_preferred_player_subtitle">Επιλέξτε εφαρμογή για αναπαραγωγή μουσικής</string>
+    <string name="settings_preferred_player_auto">Αυτόματα</string>
+    <string name="settings_preferred_player_auto_desc">Συνιστάται: χρήση προεπιλεγμένης εφαρμογής</string>
 </resources>

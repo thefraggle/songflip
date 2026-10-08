@@ -368,4 +368,10 @@
     <string name="feedback_success">Vielen Dank für dein Feedback!</string>
     <string name="feedback_error_empty">Bitte gib mindestens 10 Zeichen ein.</string>
     <string name="feedback_error_network">Senden fehlgeschlagen. Bitte nutze stattdessen E-Mail.</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">Bevorzugter Player</string>
+    <string name="settings_preferred_player_subtitle">App für die Musikwiedergabe wählen</string>
+    <string name="settings_preferred_player_auto">Automatisch</string>
+    <string name="settings_preferred_player_auto_desc">Empfohlen: Nutzt die Standard-App</string>
 </resources>

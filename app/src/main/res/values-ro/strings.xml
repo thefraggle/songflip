@@ -341,4 +341,10 @@
     <string name="playlist_active_banner_details">Detalii</string>
     <string name="playlist_active_banner_open">Deschide în %1$s</string>
     <string name="playlist_active_banner_dismiss">Închide</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">Player preferat</string>
+    <string name="settings_preferred_player_subtitle">Alegeți aplicația pentru redare</string>
+    <string name="settings_preferred_player_auto">Automat</string>
+    <string name="settings_preferred_player_auto_desc">Recomandat: folosește aplicația prestabilită</string>
 </resources>

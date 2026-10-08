@@ -99,7 +99,16 @@
         <package android:name="com.zionhuang.music" />
         <package android:name="com.metareal.innertune" />
         <package android:name="com.kashike.simpmusic" />
+        <package android:name="com.maxrave.simpmusic" />
         <package android:name="com.github.brahmkshatriya.echo" />
+        <package android:name="com.aleixrodriala.newtube" />
+        <package android:name="org.polymorphicshade.tubular" />
+        <package android:name="com.github.libretube" />
+        <package android:name="DualDual.PipePipe" />
+        <package android:name="com.songtube" />
+        <package android:name="free.rm.skytube.oss" />
+        <package android:name="free.rm.skytube.extra" />
+        <package android:name="com.craftworks.music" />
         <package android:name="org.schabi.newpipe" />
         <package android:name="org.schabi.newpipelegacy" />
         <package android:name="com.google.android.apps.youtube.music" />

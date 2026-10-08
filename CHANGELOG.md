@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.8.3] - 2026-10-08
+- **Flexible Player Selection**: When multiple compatible music apps are installed on your device, you can now choose your preferred default player directly in Settings.
+- **Broader App Compatibility**: Music links now open even more seamlessly in your favorite installed media players.
+
 ## [1.8.2] - 2026-10-08
 - **Stability Hotfix**: Resolved an unexpected startup issue to ensure smooth and reliable app opening.
 

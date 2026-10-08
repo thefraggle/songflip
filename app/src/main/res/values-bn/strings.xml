@@ -351,4 +351,10 @@
     <string name="playlist_active_banner_details">বিবরণ</string>
     <string name="playlist_active_banner_open">%1$s-এ খুলুন</string>
     <string name="playlist_active_banner_dismiss">বন্ধ করুন</string>
+
+    <!-- Preferred Player Selection -->
+    <string name="settings_preferred_player_title">পছন্দের প্লেয়ার</string>
+    <string name="settings_preferred_player_subtitle">গান চালানোর জন্য অ্যাপ নির্বাচন করুন</string>
+    <string name="settings_preferred_player_auto">স্বয়ংক্রিয়</string>
+    <string name="settings_preferred_player_auto_desc">প্রস্তাবিত: ডিফল্ট অ্যাপ ব্যবহার করে</string>
 </resources>
