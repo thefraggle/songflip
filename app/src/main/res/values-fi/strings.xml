@@ -256,6 +256,7 @@
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Suuri soittolista (%1$d kappaletta)</string>
     <string name="playlist_large_notice_desc">Ilman kirjautumista ensimmäiset 200 kappaletta siirretään osissa.</string>
+    <string name="playlist_spotify_limit_notice">Huomautus: Ilman tiliyhteyttä Spotify tarjoaa julkisesti enintään soittolistan ensimmäiset 100 kappaletta.</string>
     <string name="playlist_converter_title">Soittolistamuunnin</string>
     <string name="playlist_converting">Muunnetaan soittolistaa…</string>
     <string name="playlist_converting_progress">%1$d/%2$d kappaletta muunnettu</string>
@@ -272,7 +273,7 @@
     <string name="playlist_share_link">Jaa soittolistan linkki</string>
     <string name="playlist_share_copied">Soittolistan linkki kopioitu leikepöydälle!</string>
     <string name="playlist_free_limit_title">5 kappaletta muunnettu ilmaiseksi</string>
-    <string name="playlist_free_limit_desc">Avaa SongFlip PRO rajattomaan soittolistojen muuntamiseen jopa 50 kappaleeseen asti!</string>
+    <string name="playlist_free_limit_desc">Avaa SongFlip PRO rajattomaan soittolistojen muuntamiseen jopa 200 kappaleeseen asti!</string>
     <string name="playlist_btn_unlock_pro">Päivitä PRO-versioon</string>
     <string name="playlist_error_title">Soittolistan muuntaminen epäonnistui</string>
     <string name="playlist_error_desc">Kappaleita ei voitu hakea tästä soittolistasta. Voit avata alkuperäisen linkin.</string>
@@ -281,7 +282,7 @@
     <string name="playlist_error_unsupported_title">Alusta ei tue soittolistoja</string>
     <string name="playlist_error_unsupported_desc">SongFlip tukee tällä hetkellä soittolistoja Spotifysta, Apple Musicista, YouTube Musicista ja Deezeristä. Yksittäiset kappaleet tältä alustalta toimivat edelleen.</string>
     <string name="playlist_error_timeout_title">Yhteys aikakatkaistiin</string>
-    <string name="playlist_error_timeout_desc">Musiikkipalvelu ei vastannut ajoissa. Suurilla soittolistoilla (>50 kappaletta) voi ilmetä aikakatkaisuja. Yritä pian uudelleen tai avaa alkuperäinen.</string>
+    <string name="playlist_error_timeout_desc">Musiikkipalvelu ei vastannut ajoissa. Erittäin suurilla soittolistoilla voi ilmetä aikakatkaisuja. Yritä pian uudelleen tai avaa alkuperäinen.</string>
     <string name="playlist_error_empty_title">Tyhjä soittolista</string>
     <string name="playlist_error_empty_desc">Tällä soittolistalla ei ole toistettavia kappaleita.</string>
     <string name="playlist_btn_retry">Yritä uudelleen</string>

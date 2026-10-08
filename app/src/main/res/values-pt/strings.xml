@@ -270,6 +270,7 @@
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Playlist grande (%1$d faixas)</string>
     <string name="playlist_large_notice_desc">Sem login, as primeiras 200 músicas são transferidas em partes.</string>
+    <string name="playlist_spotify_limit_notice">Nota: Sem conectar uma conta, o Spotify disponibiliza publicamente no máximo as primeiras 100 músicas de uma playlist.</string>
     <string name="playlist_converter_title">Conversor de Playlist</string>
     <string name="playlist_converting">Convertendo playlist…</string>
     <string name="playlist_converting_progress">%1$d de %2$d faixas convertidas</string>
@@ -286,7 +287,7 @@
     <string name="playlist_share_link">Compartilhar link da playlist</string>
     <string name="playlist_share_copied">Link da playlist copiado para a área de transferência!</string>
     <string name="playlist_free_limit_title">5 músicas convertidas grátis</string>
-    <string name="playlist_free_limit_desc">Desbloqueie o SongFlip PRO para conversão ilimitada de playlists até 50 músicas!</string>
+    <string name="playlist_free_limit_desc">Desbloqueie o SongFlip PRO para conversão ilimitada de playlists até 200 músicas!</string>
     <string name="playlist_btn_unlock_pro">Fazer upgrade para PRO</string>
     <string name="playlist_error_title">Falha na conversão da playlist</string>
     <string name="playlist_error_desc">Não foi possível extrair as faixas desta playlist. Você pode abrir o link original.</string>
@@ -295,7 +296,7 @@
     <string name="playlist_error_unsupported_title">Plataforma não suportada para playlists</string>
     <string name="playlist_error_unsupported_desc">O SongFlip suporta atualmente playlists do Spotify, Apple Music, YouTube Music e Deezer. Músicas individuais desta plataforma continuam a funcionar.</string>
     <string name="playlist_error_timeout_title">Tempo de conexão esgotado</string>
-    <string name="playlist_error_timeout_desc">O serviço de música não respondeu a tempo. Para playlists grandes (>50 faixas), podem ocorrer tempos limite. Tente novamente em breve ou abra o original.</string>
+    <string name="playlist_error_timeout_desc">O serviço de música não respondeu a tempo. Para playlists muito grandes, podem ocorrer tempos limite. Tente novamente em breve ou abra o original.</string>
     <string name="playlist_error_empty_title">Playlist vazia</string>
     <string name="playlist_error_empty_desc">Esta playlist não contém músicas reproduzíveis.</string>
     <string name="playlist_btn_retry">Tentar novamente</string>

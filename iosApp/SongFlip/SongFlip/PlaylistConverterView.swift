@@ -441,6 +441,26 @@ struct PlaylistConverterView: View {
                 .padding(.horizontal, 20)
             }
 
+            // Spotify 100-Track Limit Notice (shown when Spotify playlist reaches public 100-track boundary)
+            let isSpotify100Limit = (result.sourcePlatform == "spotify") && (result.tracks.count >= 100)
+            if isSpotify100Limit && !isLargePlaylist {
+                HStack(alignment: .center, spacing: 10) {
+                    Image(systemName: "info.circle.fill")
+                        .font(.body)
+                        .foregroundColor(.secondary)
+
+                    Text(LocalizationManager.string(for: "playlist_spotify_limit_notice", lang: lang))
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+
+                    Spacer()
+                }
+                .padding(12)
+                .background(Color.secondary.opacity(0.08))
+                .cornerRadius(12)
+                .padding(.horizontal, 20)
+            }
+
             // Freemium Pro Banner
             if !proManager.isPro && result.isLimited {
                 HStack(spacing: 12) {

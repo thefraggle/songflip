@@ -270,6 +270,7 @@
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Büyük Çalma Listesi (%1$d şarkı)</string>
     <string name="playlist_large_notice_desc">Giriş yapmadan ilk 200 şarkı bölümler halinde aktarılır.</string>
+    <string name="playlist_spotify_limit_notice">Not: Hesap bağlantısı olmadan Spotify, bir çalma listesinin herkese açık olarak en fazla ilk 100 şarkısını sunar.</string>
     <string name="playlist_converter_title">Çalma Listesi Dönüştürücü</string>
     <string name="playlist_converting">Çalma listesi dönüştürülüyor…</string>
     <string name="playlist_converting_progress">%1$d / %2$d parça dönüştürüldü</string>
@@ -286,7 +287,7 @@
     <string name="playlist_share_link">Çalma Listesi Bağlantısını Paylaş</string>
     <string name="playlist_share_copied">Çalma listesi bağlantısı panoya kopyalandı!</string>
     <string name="playlist_free_limit_title">5 Parça Ücretsiz Dönüştürüldü</string>
-    <string name="playlist_free_limit_desc">50 parçaya kadar sınırsız çalma listesi dönüştürme için SongFlip PRO\'ya geçin!</string>
+    <string name="playlist_free_limit_desc">200 parçaya kadar sınırsız çalma listesi dönüştürme için SongFlip PRO\'ya geçin!</string>
     <string name="playlist_btn_unlock_pro">PRO\'ya Yükselt</string>
     <string name="playlist_error_title">Çalma Listesi Dönüştürülemedi</string>
     <string name="playlist_error_desc">Bu çalma listesinden parçalar alınamadı. Orijinal bağlantıyı açabilirsiniz.</string>
@@ -295,7 +296,7 @@
     <string name="playlist_error_unsupported_title">Platform çalma listelerini desteklemiyor</string>
     <string name="playlist_error_unsupported_desc">SongFlip şu anda Spotify, Apple Music, YouTube Music ve Deezer çalma listelerini destekliyor. Bu platformdaki tekil şarkılar çalışmaya devam ediyor.</string>
     <string name="playlist_error_timeout_title">Bağlantı zaman aşımı</string>
-    <string name="playlist_error_timeout_desc">Müzik servisi zamanında yanıt vermedi. Büyük çalma listelerinde (>50 şarkı) zaman aşımı oluşabilir. Lütfen birazdan tekrar deneyin veya orijinali açın.</string>
+    <string name="playlist_error_timeout_desc">Müzik servisi zamanında yanıt vermedi. Çok büyük çalma listelerinde zaman aşımı oluşabilir. Lütfen birazdan tekrar deneyin veya orijinali açın.</string>
     <string name="playlist_error_empty_title">Boş çalma listesi</string>
     <string name="playlist_error_empty_desc">Bu çalma listesinde oynatılabilir şarkı yok.</string>
     <string name="playlist_btn_retry">Tekrar dene</string>

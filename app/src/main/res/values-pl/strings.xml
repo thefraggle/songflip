@@ -278,6 +278,7 @@
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Duża playlista (%1$d utworów)</string>
     <string name="playlist_large_notice_desc">Bez logowania pierwsze 200 utworów jest przesyłanych w częściach.</string>
+    <string name="playlist_spotify_limit_notice">Uwaga: Bez połączenia z kontem Spotify udostępnia publicznie maksymalnie 100 pierwszych utworów z playlisty.</string>
     <string name="playlist_converter_title">Konwerter playlist</string>
     <string name="playlist_converting">Konwertowanie playlisty…</string>
     <string name="playlist_converting_progress">Skonwertowano %1$d z %2$d utworów</string>
@@ -294,7 +295,7 @@
     <string name="playlist_share_link">Udostępnij link do playlisty</string>
     <string name="playlist_share_copied">Link do playlisty skopiowany do schowka!</string>
     <string name="playlist_free_limit_title">5 utworów skonwertowanych bezpłatnie</string>
-    <string name="playlist_free_limit_desc">Odblokuj SongFlip PRO, aby konwertować playlisty bez limitu do 50 utworów!</string>
+    <string name="playlist_free_limit_desc">Odblokuj SongFlip PRO, aby konwertować playlisty bez limitu do 200 utworów!</string>
     <string name="playlist_btn_unlock_pro">Przejdź na PRO</string>
     <string name="playlist_error_title">Konwersja playlisty nie powiodła się</string>
     <string name="playlist_error_desc">Nie udało się wyodrębnić utworów z tej playlisty. Możesz otworzyć oryginalny link.</string>
@@ -303,7 +304,7 @@
     <string name="playlist_error_unsupported_title">Platforma nie obsługuje playlist</string>
     <string name="playlist_error_unsupported_desc">SongFlip obsługuje obecnie playlisty ze Spotify, Apple Music, YouTube Music i Deezer. Pojedyncze utwory z tej platformy nadal działają.</string>
     <string name="playlist_error_timeout_title">Przekroczono limit czasu połączenia</string>
-    <string name="playlist_error_timeout_desc">Usługa muzyczna nie odpowiedziała na czas. W przypadku dużych playlist (>50 utworów) może wystąpić limit czasu. Spróbuj ponownie wkrótce lub otwórz oryginał.</string>
+    <string name="playlist_error_timeout_desc">Usługa muzyczna nie odpowiedziała na czas. W przypadku bardzo dużych playlist może wystąpić limit czasu. Spróbuj ponownie wkrótce lub otwórz oryginał.</string>
     <string name="playlist_error_empty_title">Pusta playlista</string>
     <string name="playlist_error_empty_desc">Ta playlista nie zawiera utworów do odtworzenia.</string>
     <string name="playlist_btn_retry">Ponów próbę</string>

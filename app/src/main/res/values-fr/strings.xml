@@ -270,6 +270,7 @@
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Grande playlist (%1$d titres)</string>
     <string name="playlist_large_notice_desc">Sans connexion, les 200 premiers morceaux sont transférés par parties.</string>
+    <string name="playlist_spotify_limit_notice">Remarque : Sans connexion de compte, Spotify ne met publiquement à disposition que les 100 premiers titres d\'une playlist.</string>
     <string name="playlist_converter_title">Convertisseur de playlist</string>
     <string name="playlist_converting">Conversion de la playlist…</string>
     <string name="playlist_converting_progress">%1$d sur %2$d titres convertis</string>
@@ -286,7 +287,7 @@
     <string name="playlist_share_link">Partager le lien de la playlist</string>
     <string name="playlist_share_copied">Lien de la playlist copié dans le presse-papiers !</string>
     <string name="playlist_free_limit_title">5 morceaux convertis gratuitement</string>
-    <string name="playlist_free_limit_desc">Débloquez SongFlip PRO pour une conversion illimitée de playlists jusqu\'à 50 morceaux !</string>
+    <string name="playlist_free_limit_desc">Débloquez SongFlip PRO pour une conversion illimitée de playlists jusqu\'à 200 morceaux !</string>
     <string name="playlist_btn_unlock_pro">Passer à PRO</string>
     <string name="playlist_error_title">Échec de la conversion de la playlist</string>
     <string name="playlist_error_desc">Impossible d\'extraire les titres de cette playlist. Vous pouvez ouvrir le lien d\'origine.</string>
@@ -295,7 +296,7 @@
     <string name="playlist_error_unsupported_title">Plateforme non prise en charge pour les playlists</string>
     <string name="playlist_error_unsupported_desc">SongFlip prend actuellement en charge les playlists Spotify, Apple Music, YouTube Music et Deezer. Les titres individuels de cette plateforme fonctionnent toujours.</string>
     <string name="playlist_error_timeout_title">Délai de connexion dépassé</string>
-    <string name="playlist_error_timeout_desc">Le service musical n\'a pas répondu à temps. Pour les grandes playlists (>50 titres), des délais d\'attente peuvent survenir. Veuillez réessayer bientôt ou ouvrir l\'original.</string>
+    <string name="playlist_error_timeout_desc">Le service musical n\'a pas répondu à temps. Pour les très grandes playlists, des délais d\'attente peuvent survenir. Veuillez réessayer bientôt ou ouvrir l\'original.</string>
     <string name="playlist_error_empty_title">Playlist vide</string>
     <string name="playlist_error_empty_desc">Cette playlist ne contient aucun titre lisible.</string>
     <string name="playlist_btn_retry">Réessayer</string>

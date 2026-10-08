@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.8.4] - 2026-10-08
+- **Transparente Playlist-Infos**: Bei der Übertragung umfangreicher Playlists wird jetzt transparent über plattformspezifische Obergrenzen informiert.
+- **Präzisere Meldungen**: Verbesserte und verständlichere Hinweise bei Zeitüberschreitungen und großen Titellisten.
+- **Korrekturen & Feinschliff**: Aktualisierte Hinweistexte und Fehlerbeschreibungen in allen unterstützten Sprachen.
+
 ## [1.8.3] - 2026-10-08
 - **Flexiblere Player-Wahl**: Wenn mehrere kompatible Musik-Apps auf deinem Gerät installiert sind, kannst du deinen bevorzugten Standard-Player nun direkt in den Einstellungen festlegen.
 - **Erweiterte App-Unterstützung**: Musik-Links öffnen sich jetzt noch zuverlässiger in deinen installierten Lieblings-Apps.

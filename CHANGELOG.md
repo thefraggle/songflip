@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.8.4] - 2026-10-08
+- **Transparent Playlist Guidance**: When transferring extensive playlists, helpful guidance clarifies platform-specific public boundaries.
+- **Clearer Status Messages**: Improved explanations for connection timeouts and long tracklists.
+- **Fixes & Polish**: Updated informational messages and status descriptions across all supported languages.
+
 ## [1.8.3] - 2026-10-08
 - **Flexible Player Selection**: When multiple compatible music apps are installed on your device, you can now choose your preferred default player directly in Settings.
 - **Broader App Compatibility**: Music links now open even more seamlessly in your favorite installed media players.
