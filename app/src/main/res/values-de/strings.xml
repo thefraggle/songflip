@@ -296,6 +296,11 @@
     <string name="playlist_creating_queue">Erstelle Playlist-Queue…</string>
     <string name="playlist_matched_count">%1$d von %2$d Titeln gefunden</string>
     <string name="playlist_open_import">In %1$s öffnen &amp; speichern</string>
+    <string name="playlist_part_chip">Teil %1$d (%2$d–%3$d)</string>
+    <string name="playlist_open_import_part">Teil %1$d in %2$s abspielen</string>
+    <string name="playlist_export_title">Playlist exportieren</string>
+    <string name="playlist_export_m3u8">Als .M3U8 exportieren</string>
+    <string name="playlist_export_csv">Als CSV exportieren</string>
     <string name="playlist_open_in_browser">Web-Playlist öffnen</string>
     <string name="playlist_share_link">Playlist-Link teilen</string>
     <string name="playlist_share_copied">Playlist-Link in Zwischenablage kopiert!</string>

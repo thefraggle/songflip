@@ -11,6 +11,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,6 +19,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.*
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
+import de.goork.songflip.core.engine.PlaylistExporter
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -479,6 +481,48 @@ fun PlaylistConvertBottomSheet(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
+                    val chunks = remember(res.tracks, res.title, targetPlatform) {
+                        if (res.parts.isNotEmpty()) res.parts else PlaylistExporter.calculateChunks(
+                            tracks = res.tracks,
+                            chunkSize = 50,
+                            targetPlatform = targetPlatform.key,
+                            playlistTitle = res.title
+                        )
+                    }
+                    var selectedPartIndex by remember { mutableIntStateOf(0) }
+                    val currentChunk = chunks.getOrNull(selectedPartIndex)
+                    val displayedTracks = if (chunks.size > 1 && currentChunk != null) {
+                        val fromIdx = (currentChunk.rangeStart - 1).coerceIn(0, res.tracks.size)
+                        val toIdx = currentChunk.rangeEnd.coerceIn(fromIdx, res.tracks.size)
+                        res.tracks.subList(fromIdx, toIdx)
+                    } else {
+                        res.tracks
+                    }
+                    val trackOffset = if (chunks.size > 1 && currentChunk != null) (currentChunk.rangeStart - 1).coerceAtLeast(0) else 0
+
+                    if (chunks.size > 1) {
+                        LazyRow(
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 10.dp)
+                        ) {
+                            itemsIndexed(chunks) { idx, chunk ->
+                                FilterChip(
+                                    selected = selectedPartIndex == idx,
+                                    onClick = { selectedPartIndex = idx },
+                                    label = {
+                                        Text(
+                                            text = stringResource(R.string.playlist_part_chip, chunk.partIndex, chunk.rangeStart, chunk.rangeEnd),
+                                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold)
+                                        )
+                                    },
+                                    shape = RoundedCornerShape(10.dp)
+                                )
+                            }
+                        }
+                    }
+
                     // Track list card
                     Surface(
                         shape = RoundedCornerShape(14.dp),
@@ -491,14 +535,14 @@ fun PlaylistConvertBottomSheet(
                             contentPadding = PaddingValues(horizontal = 14.dp, vertical = 8.dp),
                             verticalArrangement = Arrangement.spacedBy(6.dp)
                         ) {
-                            itemsIndexed(res.tracks) { index, track ->
-                                TrackRowItem(index = index + 1, track = track)
+                            itemsIndexed(displayedTracks) { index, track ->
+                                TrackRowItem(index = trackOffset + index + 1, track = track)
                             }
                         }
                     }
 
-                    // Large Playlist Notice Banner (Issue #36 short-term notice)
-                    val isLargePlaylist = res.originalTotalTracks > 50 || (res.convertedTracks >= 50 && res.originalTotalTracks >= 50)
+                    // Large Playlist Notice Banner (only shown if total tracks exceeds 200)
+                    val isLargePlaylist = res.originalTotalTracks > 200
                     if (isLargePlaylist) {
                         Spacer(modifier = Modifier.height(12.dp))
                         Surface(
@@ -592,8 +636,13 @@ fun PlaylistConvertBottomSheet(
                     Spacer(modifier = Modifier.height(20.dp))
 
                     // Primary CTA: Open & Save in Target Player or Web Share Link
-                    val zeroOAuthUrl = res.zeroOAuthUrl
+                    val zeroOAuthUrl = if (chunks.size > 1 && currentChunk?.zeroOAuthUrl != null) currentChunk.zeroOAuthUrl else res.zeroOAuthUrl
                     val webShareUrl = res.webShareUrl ?: "https://songflip.link/p/${res.playlistId}"
+                    val ctaText = if (chunks.size > 1 && currentChunk != null) {
+                        stringResource(R.string.playlist_open_import_part, currentChunk.partIndex, targetPlatform.displayName)
+                    } else {
+                        stringResource(R.string.playlist_open_import, targetPlatform.displayName)
+                    }
 
                     if (!zeroOAuthUrl.isNullOrBlank()) {
                         // YouTube Music & Spotify: Primary Queue Launch
@@ -652,10 +701,59 @@ fun PlaylistConvertBottomSheet(
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = stringResource(R.string.playlist_open_import, targetPlatform.displayName),
+                                text = ctaText,
                                 style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold)
                             )
                         }
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        // File Export Options (M3U8 & CSV)
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            OutlinedButton(
+                                onClick = {
+                                    PlaylistShareHelper.shareM3u8(context, res.title, res.tracks)
+                                },
+                                shape = RoundedCornerShape(12.dp),
+                                modifier = Modifier.weight(1f).height(46.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.FileDownload,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(
+                                    text = stringResource(R.string.playlist_export_m3u8),
+                                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
+                                    maxLines = 1
+                                )
+                            }
+
+                            OutlinedButton(
+                                onClick = {
+                                    PlaylistShareHelper.shareCsv(context, res.title, res.tracks)
+                                },
+                                shape = RoundedCornerShape(12.dp),
+                                modifier = Modifier.weight(1f).height(46.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Share,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(
+                                    text = stringResource(R.string.playlist_export_csv),
+                                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
+                                    maxLines = 1
+                                )
+                            }
+                        }
+
                         Spacer(modifier = Modifier.height(10.dp))
 
                         OutlinedButton(
@@ -731,6 +829,54 @@ fun PlaylistConvertBottomSheet(
                                 text = stringResource(R.string.playlist_share_link),
                                 style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold)
                             )
+                        }
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        // File Export Options (M3U8 & CSV)
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            OutlinedButton(
+                                onClick = {
+                                    PlaylistShareHelper.shareM3u8(context, res.title, res.tracks)
+                                },
+                                shape = RoundedCornerShape(12.dp),
+                                modifier = Modifier.weight(1f).height(46.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.FileDownload,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(
+                                    text = stringResource(R.string.playlist_export_m3u8),
+                                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
+                                    maxLines = 1
+                                )
+                            }
+
+                            OutlinedButton(
+                                onClick = {
+                                    PlaylistShareHelper.shareCsv(context, res.title, res.tracks)
+                                },
+                                shape = RoundedCornerShape(12.dp),
+                                modifier = Modifier.weight(1f).height(46.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Share,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(
+                                    text = stringResource(R.string.playlist_export_csv),
+                                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
+                                    maxLines = 1
+                                )
+                            }
                         }
 
                         Spacer(modifier = Modifier.height(10.dp))

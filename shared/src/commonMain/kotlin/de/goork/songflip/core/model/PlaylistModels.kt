@@ -14,6 +14,16 @@ data class PlaylistTrackItem(
 )
 
 @Serializable
+data class PlaylistChunk(
+    val partIndex: Int,
+    val rangeStart: Int,
+    val rangeEnd: Int,
+    val zeroOAuthUrl: String? = null,
+    val matchedCount: Int = 0,
+    val totalTracks: Int = 0
+)
+
+@Serializable
 data class PlaylistConversionResult(
     val status: String = "success",
     val playlistId: String = "",
@@ -28,7 +38,8 @@ data class PlaylistConversionResult(
     val zeroOAuthUrl: String? = null,
     val webShareUrl: String? = null,
     val isLimited: Boolean = false,
-    val tracks: List<PlaylistTrackItem> = emptyList()
+    val tracks: List<PlaylistTrackItem> = emptyList(),
+    val parts: List<PlaylistChunk> = emptyList()
 )
 
 @Serializable

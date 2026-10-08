@@ -1,5 +1,3 @@
-- Schnellere Weiterleitung: Optimierte Zwischenspeicherung öffnet Songs spürbar schneller.
-- Intelligente Playlists: Eigene Playlists öffnen direkt ohne Konvertierungsumweg; klare Hilfe bei Fehlern.
-- Verbindungsaufbau: Zeitüberschreitungen bieten nun eine direkte Wiederholen-Option.
-- Tastatur-Bedienung: Alle Dialoge schließen nun per Escape-Taste (ESC).
-- Feinschliff: Zuverlässigere Link-Erkennung und Stabilitätsverbesserungen.
+- Große Playlists: Playlists mit bis zu 200 Titeln werden jetzt in übersichtlichen Teilen umgewandelt.
+- Neuer Dateiexport: Playlists lassen sich direkt als M3U8 oder CSV exportieren und sichern.
+- Nahtlose Wiedergabe: Starte jeden Teil mit einem Fingertipp in deinem Musikdienst.

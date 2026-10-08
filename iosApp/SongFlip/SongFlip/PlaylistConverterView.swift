@@ -17,6 +17,32 @@ struct SwiftPlaylistTrackItem: Codable, Identifiable {
     }
 }
 
+struct SwiftPlaylistChunk: Codable, Identifiable {
+    var id: Int { partIndex }
+    let partIndex: Int
+    let rangeStart: Int
+    let rangeEnd: Int
+    let zeroOAuthUrl: String?
+    let matchedCount: Int
+    let totalTracks: Int
+}
+
+struct ShareSheetItem: Identifiable {
+    var id: String { url.absoluteString }
+    let url: URL
+}
+
+struct ActivityViewController: UIViewControllerRepresentable {
+    var activityItems: [Any]
+    var applicationActivities: [UIActivity]? = nil
+
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ActivityViewController>) -> UIActivityViewController {
+        UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: UIViewControllerRepresentableContext<ActivityViewController>) {}
+}
+
 struct SwiftPlaylistConversionResult: Codable {
     let status: String?
     let playlistId: String?
@@ -32,6 +58,7 @@ struct SwiftPlaylistConversionResult: Codable {
     let webShareUrl: String?
     let isLimited: Bool
     let tracks: [SwiftPlaylistTrackItem]
+    let parts: [SwiftPlaylistChunk]?
 }
 
 enum PlaylistErrorType {
@@ -82,6 +109,8 @@ struct PlaylistConverterView: View {
     @State private var errorType: PlaylistErrorType? = nil
     @State private var errorMessage: String? = nil
     @State private var showCopiedAlert = false
+    @State private var selectedPartIndex = 0
+    @State private var shareFileItem: ShareSheetItem? = nil
 
     var lang: String { settings.selectedLanguage }
 
@@ -147,6 +176,9 @@ struct PlaylistConverterView: View {
             }
             .background(Color(uiColor: .systemBackground))
             .navigationBarHidden(true)
+            .sheet(item: $shareFileItem) { item in
+                ActivityViewController(activityItems: [item.url])
+            }
             .onAppear {
                 if let current = ActivePlaylistModel.shared.current,
                    current.playlistUrl == playlistUrl,
@@ -290,11 +322,54 @@ struct PlaylistConverterView: View {
                     .foregroundColor(.secondary)
             }
 
+            let chunks: [SwiftPlaylistChunk] = {
+                if let p = result.parts, !p.isEmpty {
+                    return p
+                }
+                return calculateChunks(tracks: result.tracks, targetPlatform: targetPlatformKey, playlistTitle: result.title ?? "")
+            }()
+            let currentChunk = chunks.indices.contains(selectedPartIndex) ? chunks[selectedPartIndex] : nil
+            let displayedTracks: [SwiftPlaylistTrackItem] = {
+                if chunks.count > 1, let c = currentChunk {
+                    let fromIdx = max(0, c.rangeStart - 1)
+                    let toIdx = min(result.tracks.count, c.rangeEnd)
+                    if fromIdx < toIdx {
+                        return Array(result.tracks[fromIdx..<toIdx])
+                    }
+                }
+                return result.tracks
+            }()
+            let trackOffset = (chunks.count > 1 && currentChunk != nil) ? max(0, currentChunk!.rangeStart - 1) : 0
+
+            // Part selector chips (when playlist has multiple chunks)
+            if chunks.count > 1 {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 8) {
+                        ForEach(chunks) { chunk in
+                            let isSelected = selectedPartIndex == (chunk.partIndex - 1)
+                            Button(action: {
+                                selectedPartIndex = chunk.partIndex - 1
+                            }) {
+                                let partFmt = LocalizationManager.string(for: "playlist_part_chip", lang: lang)
+                                Text(String(format: partFmt, chunk.partIndex, chunk.rangeStart, chunk.rangeEnd))
+                                    .font(.system(size: 13, weight: .semibold))
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 6)
+                                    .background(isSelected ? Color.green : Color.secondary.opacity(0.15))
+                                    .foregroundColor(isSelected ? .white : .primary)
+                                    .cornerRadius(10)
+                            }
+                        }
+                    }
+                    .padding(.horizontal, 20)
+                }
+            }
+
             // Track list
             List {
-                ForEach(Array(result.tracks.enumerated()), id: \.offset) { index, track in
+                ForEach(Array(displayedTracks.enumerated()), id: \.offset) { index, track in
                     HStack(spacing: 12) {
-                        Text("\(index + 1)")
+                        Text("\(trackOffset + index + 1)")
                             .font(.caption)
                             .foregroundColor(.secondary)
                             .frame(width: 24, alignment: .trailing)
@@ -329,8 +404,8 @@ struct PlaylistConverterView: View {
             .listStyle(.plain)
             .frame(maxHeight: 220)
 
-            // Large Playlist Notice Banner (Issue #36 short-term notice)
-            let isLargePlaylist = (result.originalTotalTracks ?? 0) > 50 || (result.convertedTracks >= 50 && (result.originalTotalTracks ?? 0) >= 50)
+            // Large Playlist Notice Banner (only shown if total tracks exceeds 200)
+            let isLargePlaylist = (result.originalTotalTracks ?? 0) > 200
             if isLargePlaylist {
                 let origCount = (result.originalTotalTracks ?? 0) > 0 ? (result.originalTotalTracks ?? 0) : result.totalTracks
                 let titleMsg = String(format: LocalizationManager.string(for: "playlist_large_notice_title", lang: lang), origCount)
@@ -398,14 +473,23 @@ struct PlaylistConverterView: View {
 
             // Action Buttons
             VStack(spacing: 10) {
+                let ctaText: String = {
+                    if chunks.count > 1, let c = currentChunk {
+                        let partFmt = LocalizationManager.string(for: "playlist_open_import_part", lang: lang)
+                        return String(format: partFmt, c.partIndex, targetPlatformName)
+                    }
+                    return String(format: LocalizationManager.string(for: "playlist_open_import", lang: lang), targetPlatformName)
+                }()
+                let activeZeroUrl = (chunks.count > 1 && currentChunk?.zeroOAuthUrl != nil) ? currentChunk?.zeroOAuthUrl : result.zeroOAuthUrl
+
                 // Primary: Open in Target Player
                 Button(action: {
-                    openInTargetPlayer(result: result)
+                    openInTargetPlayer(result: result, customZeroUrl: activeZeroUrl)
                 }) {
                     HStack(spacing: 8) {
                         Image(systemName: "play.circle.fill")
                             .font(.headline)
-                        Text(String(format: LocalizationManager.string(for: "playlist_open_import", lang: lang), targetPlatformName))
+                        Text(ctaText)
                             .font(.headline)
                     }
                     .foregroundColor(.white)
@@ -413,6 +497,47 @@ struct PlaylistConverterView: View {
                     .padding(.vertical, 14)
                     .background(Color.green)
                     .cornerRadius(14)
+                }
+
+                // File Export Row (M3U8 & CSV)
+                HStack(spacing: 10) {
+                    Button(action: {
+                        if let url = exportM3U8(title: result.title ?? "Playlist", tracks: result.tracks) {
+                            shareFileItem = ShareSheetItem(url: url)
+                        }
+                    }) {
+                        HStack(spacing: 6) {
+                            Image(systemName: "arrow.down.doc")
+                                .font(.subheadline)
+                            Text(LocalizationManager.string(for: "playlist_export_m3u8", lang: lang))
+                                .font(.system(size: 13, weight: .semibold))
+                                .lineLimit(1)
+                        }
+                        .foregroundColor(.primary)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 44)
+                        .background(Color(uiColor: .secondarySystemBackground))
+                        .cornerRadius(12)
+                    }
+
+                    Button(action: {
+                        if let url = exportCSV(title: result.title ?? "Playlist", tracks: result.tracks) {
+                            shareFileItem = ShareSheetItem(url: url)
+                        }
+                    }) {
+                        HStack(spacing: 6) {
+                            Image(systemName: "tablecells")
+                                .font(.subheadline)
+                            Text(LocalizationManager.string(for: "playlist_export_csv", lang: lang))
+                                .font(.system(size: 13, weight: .semibold))
+                                .lineLimit(1)
+                        }
+                        .foregroundColor(.primary)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 44)
+                        .background(Color(uiColor: .secondarySystemBackground))
+                        .cornerRadius(12)
+                    }
                 }
 
                 // Secondary: Copy / Share Web Link
@@ -556,9 +681,10 @@ struct PlaylistConverterView: View {
         }
     }
 
-    private func openInTargetPlayer(result: SwiftPlaylistConversionResult) {
+    private func openInTargetPlayer(result: SwiftPlaylistConversionResult, customZeroUrl: String? = nil) {
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-        if let zeroUrl = result.zeroOAuthUrl, let url = URL(string: zeroUrl) {
+        let targetZeroUrl = customZeroUrl ?? result.zeroOAuthUrl
+        if let zeroUrl = targetZeroUrl, let url = URL(string: zeroUrl) {
             UIApplication.shared.open(url) { success in
                 if !success, let web = result.webShareUrl, let webUrl = URL(string: web) {
                     UIApplication.shared.open(webUrl)
@@ -569,6 +695,93 @@ struct PlaylistConverterView: View {
         }
         dismissAction()
         dismiss()
+    }
+
+    private func calculateChunks(tracks: [SwiftPlaylistTrackItem], targetPlatform: String, playlistTitle: String) -> [SwiftPlaylistChunk] {
+        guard !tracks.isEmpty else { return [] }
+        let chunkSize = 50
+        var chunks: [SwiftPlaylistChunk] = []
+        let total = tracks.count
+        let numChunks = (total + chunkSize - 1) / chunkSize
+
+        for i in 0..<numChunks {
+            let start = i * chunkSize + 1
+            let end = min((i + 1) * chunkSize, total)
+            let chunkTracks = Array(tracks[(start - 1)..<end])
+            let matched = chunkTracks.filter { $0.matched }.count
+
+            var zeroUrl: String? = nil
+            let matchedWithIds = chunkTracks.filter { $0.matched }
+            let platform = targetPlatform.lowercased()
+            if platform == "spotify" {
+                let ids = matchedWithIds.compactMap { $0.targetId }
+                if !ids.isEmpty {
+                    let safeTitle = playlistTitle.isEmpty ? "SongFlip Playlist" : playlistTitle
+                    zeroUrl = "spotify:trackset:\(safeTitle) (Part \(i + 1)):\(ids.joined(separator: ","))"
+                }
+            } else if platform.contains("youtube") {
+                let videoIds = matchedWithIds.compactMap { $0.targetId }
+                if !videoIds.isEmpty {
+                    zeroUrl = "https://music.youtube.com/watch_videos?video_ids=\(videoIds.joined(separator: ","))"
+                }
+            } else {
+                zeroUrl = matchedWithIds.first?.targetUrl
+            }
+
+            chunks.append(SwiftPlaylistChunk(
+                partIndex: i + 1,
+                rangeStart: start,
+                rangeEnd: end,
+                zeroOAuthUrl: zeroUrl,
+                matchedCount: matched,
+                totalTracks: chunkTracks.count
+            ))
+        }
+        return chunks
+    }
+
+    private func exportM3U8(title: String, tracks: [SwiftPlaylistTrackItem]) -> URL? {
+        let safeTitle = title.isEmpty ? "SongFlip Playlist" : title
+        var content = "#EXTM3U\n#EXTENC:UTF-8\n#PLAYLIST:\(safeTitle)\n\n"
+        for track in tracks {
+            let artist = track.artist.isEmpty ? "Unknown Artist" : track.artist
+            let tTitle = track.title.isEmpty ? "Unknown Title" : track.title
+            let url = track.targetUrl ?? track.sourceUrl ?? ""
+            content += "#EXTINF:-1,\(artist) - \(tTitle)\n\(url)\n"
+        }
+        let tempDir = FileManager.default.temporaryDirectory
+        let fileUrl = tempDir.appendingPathComponent("\(sanitizeFilename(safeTitle)).m3u8")
+        do {
+            try content.write(to: fileUrl, atomically: true, encoding: .utf8)
+            return fileUrl
+        } catch {
+            return nil
+        }
+    }
+
+    private func exportCSV(title: String, tracks: [SwiftPlaylistTrackItem]) -> URL? {
+        let safeTitle = title.isEmpty ? "SongFlip Playlist" : title
+        var content = "\"Index\",\"Title\",\"Artist\",\"Matched\",\"TargetUrl\",\"SourceUrl\"\n"
+        for (index, track) in tracks.enumerated() {
+            let cleanTitle = track.title.replacingOccurrences(of: "\"", with: "\"\"")
+            let cleanArtist = track.artist.replacingOccurrences(of: "\"", with: "\"\"")
+            let matched = track.matched ? "true" : "false"
+            let tUrl = (track.targetUrl ?? "").replacingOccurrences(of: "\"", with: "\"\"")
+            let sUrl = (track.sourceUrl ?? "").replacingOccurrences(of: "\"", with: "\"\"")
+            content += "\"\(index + 1)\",\"\(cleanTitle)\",\"\(cleanArtist)\",\"\(matched)\",\"\(tUrl)\",\"\(sUrl)\"\n"
+        }
+        let tempDir = FileManager.default.temporaryDirectory
+        let fileUrl = tempDir.appendingPathComponent("\(sanitizeFilename(safeTitle)).csv")
+        do {
+            try content.write(to: fileUrl, atomically: true, encoding: .utf8)
+            return fileUrl
+        } catch {
+            return nil
+        }
+    }
+
+    private func sanitizeFilename(_ input: String) -> String {
+        return input.components(separatedBy: CharacterSet.alphanumerics.inverted).joined(separator: "_").prefix(50).description
     }
 
     private func statusTextForStep(_ step: Int) -> String {
