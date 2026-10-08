@@ -277,7 +277,7 @@
     <string name="action_retry">Повторити</string>
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Великий плейліст (%1$d треків)</string>
-    <string name="playlist_large_notice_desc">Без входу наразі переносяться перші 50 треків. Підтримка багаточастинних плейлістів з\'явиться незабаром.</string>
+    <string name="playlist_large_notice_desc">Без входу перші 200 треків переносяться частинами.</string>
     <string name="playlist_converter_title">Конвертер плейлістів</string>
     <string name="playlist_converting">Конвертація плейліста…</string>
     <string name="playlist_converting_progress">Конвертовано %1$d з %2$d треків</string>
@@ -285,6 +285,11 @@
     <string name="playlist_creating_queue">Створення черги плейліста…</string>
     <string name="playlist_matched_count">Знайдено %1$d з %2$d треків</string>
     <string name="playlist_open_import">Відкрити та зберегти в %1$s</string>
+    <string name="playlist_part_chip">Частина %1$d (%2$d–%3$d)</string>
+    <string name="playlist_open_import_part">Слухати частину %1$d у %2$s</string>
+    <string name="playlist_export_title">Експорт списку відтворення</string>
+    <string name="playlist_export_m3u8">Експорт у .M3U8</string>
+    <string name="playlist_export_csv">Експорт у CSV</string>
     <string name="playlist_open_in_browser">Відкрити веб-плейліст</string>
     <string name="playlist_share_link">Поділитися посиланням на плейліст</string>
     <string name="playlist_share_copied">Посилання на плейліст скопійовано в буфер обміну!</string>

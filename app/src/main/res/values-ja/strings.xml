@@ -265,7 +265,7 @@
     <string name="action_retry">再試行</string>
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">大容量プレイリスト（%1$d曲）</string>
-    <string name="playlist_large_notice_desc">ログイン不要で、現在は最初の50曲が転送されます。分割プレイリスト対応は近日公開予定です。</string>
+    <string name="playlist_large_notice_desc">ログイン不要で、最初の200曲がパート分けされて転送されます。</string>
     <string name="playlist_converter_title">プレイリスト変換</string>
     <string name="playlist_converting">プレイリストを変換中…</string>
     <string name="playlist_converting_progress">%2$d曲中%1$d曲を変換しました</string>
@@ -273,6 +273,11 @@
     <string name="playlist_creating_queue">再生キューを作成中…</string>
     <string name="playlist_matched_count">%2$d曲中%1$d曲が見つかりました</string>
     <string name="playlist_open_import">%1$sで開いて保存</string>
+    <string name="playlist_part_chip">パート %1$d (%2$d〜%3$d)</string>
+    <string name="playlist_open_import_part">パート %1$d を再生 (%2$s)</string>
+    <string name="playlist_export_title">プレイリストをエクスポート</string>
+    <string name="playlist_export_m3u8">.M3U8として書き出し</string>
+    <string name="playlist_export_csv">CSVとして書き出し</string>
     <string name="playlist_open_in_browser">Webプレイリストを開く</string>
     <string name="playlist_share_link">プレイリストのリンクを共有</string>
     <string name="playlist_share_copied">プレイリストのリンクをクリップボードにコピーしました！</string>

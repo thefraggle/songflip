@@ -269,7 +269,7 @@
     <string name="action_retry">আবার চেষ্টা করুন</string>
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">বড় প্লেলিস্ট (%1$d গান)</string>
-    <string name="playlist_large_notice_desc">লগইন ছাড়া বর্তমানে প্রথম ৫০টি গান স্থানান্তরিত হচ্ছে। বহু-অংশের প্লেলিস্ট সমর্থন শীঘ্রই আসছে।</string>
+    <string name="playlist_large_notice_desc">লগইন ছাড়াই প্রথম 200টি গান অংশে স্থানান্তরিত হয়।</string>
     <string name="playlist_converter_title">প্লেলিস্ট কনভার্টার</string>
     <string name="playlist_converting">প্লেলিস্ট রূপান্তর করা হচ্ছে…</string>
     <string name="playlist_converting_progress">%2$d টির মধ্যে %1$d টি গান রূপান্তর হয়েছে</string>
@@ -277,6 +277,11 @@
     <string name="playlist_creating_queue">প্লেলিস্টের সারি তৈরি করা হচ্ছে…</string>
     <string name="playlist_matched_count">%2$d টির মধ্যে %1$d টি গান মিলেছে</string>
     <string name="playlist_open_import">%1$s এ খুলুন ও সংরক্ষণ করুন</string>
+    <string name="playlist_part_chip">অংশ %1$d (%2$d–%3$d)</string>
+    <string name="playlist_open_import_part">অংশ %1$d চালান (%2$s)</string>
+    <string name="playlist_export_title">প্লেলিস্ট এক্সপোর্ট করুন</string>
+    <string name="playlist_export_m3u8">.M3U8 হিসেবে এক্সপোর্ট করুন</string>
+    <string name="playlist_export_csv">CSV হিসেবে এক্সপোর্ট করুন</string>
     <string name="playlist_open_in_browser">ওয়েব প্লেলিস্ট খুলুন</string>
     <string name="playlist_share_link">প্লেলিস্ট লিঙ্ক শেয়ার করুন</string>
     <string name="playlist_share_copied">প্লেলিস্ট লিঙ্ক ক্লিপবোর্ডে কপি করা হয়েছে!</string>

@@ -277,7 +277,7 @@
     <string name="action_retry">Повторить</string>
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Большой плейлист (%1$d треков)</string>
-    <string name="playlist_large_notice_desc">Без входа сейчас переносятся первые 50 треков. Поддержка составных плейлистов появится в ближайшее время.</string>
+    <string name="playlist_large_notice_desc">Без входа первые 200 треков переносятся частями.</string>
     <string name="playlist_converter_title">Конвертер плейлистов</string>
     <string name="playlist_converting">Конвертация плейлиста…</string>
     <string name="playlist_converting_progress">Конвертировано %1$d из %2$d треков</string>
@@ -285,6 +285,11 @@
     <string name="playlist_creating_queue">Создание очереди плейлиста…</string>
     <string name="playlist_matched_count">Найдено %1$d из %2$d треков</string>
     <string name="playlist_open_import">Открыть и сохранить в %1$s</string>
+    <string name="playlist_part_chip">Часть %1$d (%2$d–%3$d)</string>
+    <string name="playlist_open_import_part">Слушать часть %1$d в %2$s</string>
+    <string name="playlist_export_title">Экспорт плейлиста</string>
+    <string name="playlist_export_m3u8">Экспорт в .M3U8</string>
+    <string name="playlist_export_csv">Экспорт в CSV</string>
     <string name="playlist_open_in_browser">Открыть веб-плейлист</string>
     <string name="playlist_share_link">Поделиться ссылкой на плейлист</string>
     <string name="playlist_share_copied">Ссылка на плейлист скопирована в буфер обмена!</string>

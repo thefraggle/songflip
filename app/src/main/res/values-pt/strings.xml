@@ -269,7 +269,7 @@
     <string name="action_retry">Tentar novamente</string>
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Playlist grande (%1$d faixas)</string>
-    <string name="playlist_large_notice_desc">Sem login, as primeiras 50 faixas são transferidas atualmente. O suporte a playlists em várias partes chegará em breve.</string>
+    <string name="playlist_large_notice_desc">Sem login, as primeiras 200 músicas são transferidas em partes.</string>
     <string name="playlist_converter_title">Conversor de Playlist</string>
     <string name="playlist_converting">Convertendo playlist…</string>
     <string name="playlist_converting_progress">%1$d de %2$d faixas convertidas</string>
@@ -277,6 +277,11 @@
     <string name="playlist_creating_queue">Criando fila da playlist…</string>
     <string name="playlist_matched_count">%1$d de %2$d faixas encontradas</string>
     <string name="playlist_open_import">Abrir e salvar no %1$s</string>
+    <string name="playlist_part_chip">Parte %1$d (%2$d–%3$d)</string>
+    <string name="playlist_open_import_part">Tocar parte %1$d no %2$s</string>
+    <string name="playlist_export_title">Exportar playlist</string>
+    <string name="playlist_export_m3u8">Exportar como .M3U8</string>
+    <string name="playlist_export_csv">Exportar como CSV</string>
     <string name="playlist_open_in_browser">Abrir playlist na web</string>
     <string name="playlist_share_link">Compartilhar link da playlist</string>
     <string name="playlist_share_copied">Link da playlist copiado para a área de transferência!</string>
