@@ -585,6 +585,38 @@ fun PlaylistConvertBottomSheet(
                         }
                     }
 
+                    // Spotify 100-Track Limit Notice (shown when Spotify playlist reaches public 100-track boundary)
+                    val isSpotify100Limit = sourcePlatform.key == "spotify" && res.tracks.size >= 100
+                    if (isSpotify100Limit && !isLargePlaylist) {
+                        Spacer(modifier = Modifier.height(12.dp))
+                        Surface(
+                            shape = RoundedCornerShape(12.dp),
+                            color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                            border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f)),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(12.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Info,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                                Text(
+                                    text = stringResource(R.string.playlist_spotify_limit_notice),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
+                    }
+
                     // Freemium Pro Banner
                     if (!isPro && res.isLimited) {
                         Spacer(modifier = Modifier.height(12.dp))

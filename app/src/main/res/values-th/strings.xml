@@ -252,6 +252,7 @@
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">เพลย์ลิสต์ขนาดใหญ่ (%1$d เพลง)</string>
     <string name="playlist_large_notice_desc">ไม่ต้องเข้าสู่ระบบ โดยจะโอนย้ายเพลง 200 เพลงแรกเป็นส่วนๆ</string>
+    <string name="playlist_spotify_limit_notice">หมายเหตุ: หากไม่มีการเชื่อมต่อบัญชี Spotify จะเปิดเผยเพลย์ลิสต์สูงสุดเพียง 100 เพลงแรกเท่านั้น</string>
     <string name="playlist_converter_title">ตัวแปลงเพลย์ลิสต์</string>
     <string name="playlist_converting">กำลังแปลงเพลย์ลิสต์…</string>
     <string name="playlist_converting_progress">แปลงแล้ว %1$d จาก %2$d เพลง</string>
@@ -268,7 +269,7 @@
     <string name="playlist_share_link">แชร์ลิงก์เพลย์ลิสต์</string>
     <string name="playlist_share_copied">คัดลอกลิงก์เพลย์ลิสต์ไปยังคลิปบอร์ดแล้ว!</string>
     <string name="playlist_free_limit_title">แปลงฟรี 5 เพลง</string>
-    <string name="playlist_free_limit_desc">ปลดล็อก SongFlip PRO สำหรับการแปลงเพลย์ลิสต์ไม่จำกัดสูงสุด 50 เพลง!</string>
+    <string name="playlist_free_limit_desc">ปลดล็อก SongFlip PRO สำหรับการแปลงเพลย์ลิสต์ไม่จำกัดสูงสุด 200 เพลง!</string>
     <string name="playlist_btn_unlock_pro">อัปเกรดเป็น PRO</string>
     <string name="playlist_error_title">การแปลงเพลย์ลิสต์ล้มเหลว</string>
     <string name="playlist_error_desc">ไม่สามารถดึงเพลงจากเพลย์ลิสต์นี้ คุณสามารถเปิดลิงก์เดิมแทนได้</string>
@@ -277,7 +278,7 @@
     <string name="playlist_error_unsupported_title">แพลตฟอร์มนี้ยังไม่รองรับเพลย์ลิสต์</string>
     <string name="playlist_error_unsupported_desc">ขณะนี้ SongFlip รองรับเพลย์ลิสต์จาก Spotify, Apple Music, YouTube Music และ Deezer เพลงเดี่ยวจากแพลตฟอร์มนี้ยังใช้งานได้ตามปกติ</string>
     <string name="playlist_error_timeout_title">การเชื่อมต่อหมดเวลา</string>
-    <string name="playlist_error_timeout_desc">บริการเพลงไม่ตอบสนองทันเวลา สำหรับเพลย์ลิสต์ขนาดใหญ่ (>50 เพลง) อาจหมดเวลาได้ โปรดลองอีกครั้งในเร็วๆ นี้ หรือเปิดเพลงต้นฉบับ</string>
+    <string name="playlist_error_timeout_desc">บริการเพลงไม่ตอบสนองทันเวลา สำหรับเพลย์ลิสต์ขนาดใหญ่มาก อาจหมดเวลาได้ โปรดลองอีกครั้งในเร็วๆ นี้ หรือเปิดเพลงต้นฉบับ</string>
     <string name="playlist_error_empty_title">เพลย์ลิสต์ว่างเปล่า</string>
     <string name="playlist_error_empty_desc">เพลย์ลิสต์นี้ไม่มีเพลงที่เล่นได้</string>
     <string name="playlist_btn_retry">ลองอีกครั้ง</string>

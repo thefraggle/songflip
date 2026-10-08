@@ -270,6 +270,7 @@
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Grote afspeellijst (%1$d nummers)</string>
     <string name="playlist_large_notice_desc">Zonder inloggen worden de eerste 200 nummers in delen overgezet.</string>
+    <string name="playlist_spotify_limit_notice">Opmerking: Zonder gekoppeld account stelt Spotify openbaar maximaal de eerste 100 nummers beschikbaar.</string>
     <string name="playlist_converter_title">Afspeellijst-converter</string>
     <string name="playlist_converting">Afspeellijst converteren…</string>
     <string name="playlist_converting_progress">%1$d van %2$d nummers geconverteerd</string>
@@ -286,7 +287,7 @@
     <string name="playlist_share_link">Afspeellijst-link delen</string>
     <string name="playlist_share_copied">Afspeellijst-link gekopieerd naar klembord!</string>
     <string name="playlist_free_limit_title">5 nummers gratis geconverteerd</string>
-    <string name="playlist_free_limit_desc">Ontgrendel SongFlip PRO voor onbeperkte conversie van afspeellijsten tot 50 nummers!</string>
+    <string name="playlist_free_limit_desc">Ontgrendel SongFlip PRO voor onbeperkte conversie van afspeellijsten tot 200 nummers!</string>
     <string name="playlist_btn_unlock_pro">Upgraden naar PRO</string>
     <string name="playlist_error_title">Conversie van afspeellijst mislukt</string>
     <string name="playlist_error_desc">Kon nummers niet uit deze afspeellijst halen. Je kunt de originele link openen.</string>
@@ -295,7 +296,7 @@
     <string name="playlist_error_unsupported_title">Platform ondersteunt geen playlists</string>
     <string name="playlist_error_unsupported_desc">SongFlip ondersteunt momenteel playlists van Spotify, Apple Music, YouTube Music en Deezer. Losse nummers van dit platform werken nog steeds.</string>
     <string name="playlist_error_timeout_title">Time-out van verbinding</string>
-    <string name="playlist_error_timeout_desc">De muziekdienst reageerde niet op tijd. Bij grote afspeellijsten (>50 nummers) kunnen timeouts optreden. Probeer het snel opnieuw of open het origineel.</string>
+    <string name="playlist_error_timeout_desc">De muziekdienst reageerde niet op tijd. Bij zeer grote afspeellijsten kunnen timeouts optreden. Probeer het snel opnieuw of open het origineel.</string>
     <string name="playlist_error_empty_title">Lege playlist</string>
     <string name="playlist_error_empty_desc">Deze playlist bevat geen afspeelbare nummers.</string>
     <string name="playlist_btn_retry">Opnieuw proberen</string>

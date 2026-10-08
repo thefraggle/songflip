@@ -260,6 +260,7 @@
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Playlist mare (%1$d melodii)</string>
     <string name="playlist_large_notice_desc">Fără autentificare, primele 200 de melodii sunt transferate pe părți.</string>
+    <string name="playlist_spotify_limit_notice">Notă: Fără conectarea unui cont, Spotify oferă public maximum primele 100 de melodii ale unui playlist.</string>
     <string name="playlist_converter_title">Convertor de playlisturi</string>
     <string name="playlist_converting">Se convertește playlistul…</string>
     <string name="playlist_converting_progress">%1$d din %2$d piese convertite</string>
@@ -276,7 +277,7 @@
     <string name="playlist_share_link">Distribuie linkul playlistului</string>
     <string name="playlist_share_copied">Linkul playlistului a fost copiat în clipboard!</string>
     <string name="playlist_free_limit_title">5 melodii convertite gratuit</string>
-    <string name="playlist_free_limit_desc">Deblochează SongFlip PRO pentru conversie nelimitată de playlisturi până la 50 de melodii!</string>
+    <string name="playlist_free_limit_desc">Deblochează SongFlip PRO pentru conversie nelimitată de playlisturi până la 200 de melodii!</string>
     <string name="playlist_btn_unlock_pro">Treci la PRO</string>
     <string name="playlist_error_title">Conversia playlistului a eșuat</string>
     <string name="playlist_error_desc">Nu s-au putut extrage piesele din acest playlist. Poți deschide linkul original.</string>
@@ -285,7 +286,7 @@
     <string name="playlist_error_unsupported_title">Platforma nu acceptă playlisturi</string>
     <string name="playlist_error_unsupported_desc">SongFlip acceptă în prezent playlisturi din Spotify, Apple Music, YouTube Music și Deezer. Melodiile individuale de pe această platformă funcționează în continuare.</string>
     <string name="playlist_error_timeout_title">Conexiunea a expirat</string>
-    <string name="playlist_error_timeout_desc">Serviciul muzical nu a răspuns la timp. Pentru playlisturi mari (>50 melodii) pot apărea expirări de timp. Vă rugăm să încercați din nou în curând sau deschideți originalul.</string>
+    <string name="playlist_error_timeout_desc">Serviciul muzical nu a răspuns la timp. Pentru playlisturi foarte mari pot apărea expirări de timp. Vă rugăm să încercați din nou în curând sau deschideți originalul.</string>
     <string name="playlist_error_empty_title">Playlist gol</string>
     <string name="playlist_error_empty_desc">Acest playlist nu conține melodii care pot fi redate.</string>
     <string name="playlist_btn_retry">Reîncearcă</string>

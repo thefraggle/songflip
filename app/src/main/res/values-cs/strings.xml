@@ -264,6 +264,7 @@
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Velký playlist (%1$d skladeb)</string>
     <string name="playlist_large_notice_desc">Bez přihlášení je prvních 200 skladeb převedeno po částech.</string>
+    <string name="playlist_spotify_limit_notice">Upozornění: Bez propojení účtu poskytuje Spotify veřejně maximálně prvních 100 skladeb playlistu.</string>
     <string name="playlist_converter_title">Převodník playlistů</string>
     <string name="playlist_converting">Převádění playlistu…</string>
     <string name="playlist_converting_progress">Převedeno %1$d z %2$d skladeb</string>
@@ -280,7 +281,7 @@
     <string name="playlist_share_link">Sdílet odkaz na playlist</string>
     <string name="playlist_share_copied">Odkaz na playlist byl zkopírován do schránky!</string>
     <string name="playlist_free_limit_title">5 skladeb převedeno zdarma</string>
-    <string name="playlist_free_limit_desc">Odemkněte SongFlip PRO pro neomezený převod playlistů až do 50 skladeb!</string>
+    <string name="playlist_free_limit_desc">Odemkněte SongFlip PRO pro neomezený převod playlistů až do 200 skladeb!</string>
     <string name="playlist_btn_unlock_pro">Přejít na PRO</string>
     <string name="playlist_error_title">Převod playlistu se nezdařil</string>
     <string name="playlist_error_desc">Z tohoto playlistu se nepodařilo extrahovat skladby. Můžete otevřít původní odkaz.</string>
@@ -289,7 +290,7 @@
     <string name="playlist_error_unsupported_title">Platforma zatím nepodporuje playlisty</string>
     <string name="playlist_error_unsupported_desc">SongFlip aktuálně podporuje playlisty ze Spotify, Apple Music, YouTube Music a Deezer. Jednotlivé skladby z této platformy fungují dál.</string>
     <string name="playlist_error_timeout_title">Vypršel časový limit připojení</string>
-    <string name="playlist_error_timeout_desc">Hudební služba neodpověděla včas. U velkých playlistů (>50 skladeb) může dojít k vypršení časového limitu. Zkuste to prosím brzy znovu nebo otevřete originál.</string>
+    <string name="playlist_error_timeout_desc">Hudební služba neodpověděla včas. U velmi velkých playlistů může dojít k vypršení časového limitu. Zkuste to prosím brzy znovu nebo otevřete originál.</string>
     <string name="playlist_error_empty_title">Prázdný playlist</string>
     <string name="playlist_error_empty_desc">Tento playlist neobsahuje žádné přehratelné skladby.</string>
     <string name="playlist_btn_retry">Zkusit znovu</string>

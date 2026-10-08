@@ -256,6 +256,7 @@
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Nagy lejátszási lista (%1$d dal)</string>
     <string name="playlist_large_notice_desc">Bejelentkezés nélkül az első 200 dal részekben kerül átvitelre.</string>
+    <string name="playlist_spotify_limit_notice">Megjegyzés: Fiók csatlakoztatása nélkül a Spotify nyilvánosan legfeljebb a lejátszási lista első 100 dalát biztosítja.</string>
     <string name="playlist_converter_title">Lejátszásilista-átalakító</string>
     <string name="playlist_converting">Lejátszási lista konvertálása…</string>
     <string name="playlist_converting_progress">%1$d / %2$d dal konvertálva</string>
@@ -272,7 +273,7 @@
     <string name="playlist_share_link">Lejátszásilista-link megosztása</string>
     <string name="playlist_share_copied">A lejátszási lista linkje a vágólapra másolva!</string>
     <string name="playlist_free_limit_title">5 dal ingyenesen konvertálva</string>
-    <string name="playlist_free_limit_desc">Oldja fel a SongFlip PRO verziót a korlátlan lejátszási lista konvertáláshoz akár 50 dalig!</string>
+    <string name="playlist_free_limit_desc">Oldja fel a SongFlip PRO verziót a korlátlan lejátszási lista konvertáláshoz akár 200 dalig!</string>
     <string name="playlist_btn_unlock_pro">Frissítés PRO verzióra</string>
     <string name="playlist_error_title">A lejátszási lista konvertálása sikertelen</string>
     <string name="playlist_error_desc">Nem sikerült kinyerni a dalokat ebből a lejátszási listából. Megnyithatja az eredeti linket.</string>
@@ -281,7 +282,7 @@
     <string name="playlist_error_unsupported_title">A platform nem támogatja a lejátszási listákat</string>
     <string name="playlist_error_unsupported_desc">A SongFlip jelenleg a Spotify, az Apple Music, a YouTube Music és a Deezer lejátszási listáit támogatja. Az egyes dalok erről a platformról továbbra is működnek.</string>
     <string name="playlist_error_timeout_title">Időtúllépés a kapcsolatban</string>
-    <string name="playlist_error_timeout_desc">A zenei szolgáltatás nem válaszolt időben. Nagy lejátszási listáknál (>50 dal) időtúllépés léphet fel. Kérjük, próbálja újra hamarosan, vagy nyissa meg az eredetit.</string>
+    <string name="playlist_error_timeout_desc">A zenei szolgáltatás nem válaszolt időben. Nagyon nagy lejátszási listáknál időtúllépés léphet fel. Kérjük, próbálja újra hamarosan, vagy nyissa meg az eredetit.</string>
     <string name="playlist_error_empty_title">Üres lejátszási lista</string>
     <string name="playlist_error_empty_desc">Ez a lejátszási lista nem tartalmaz lejátszható dalokat.</string>
     <string name="playlist_btn_retry">Újra</string>

@@ -252,6 +252,7 @@
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">大型播放清單（%1$d首）</string>
     <string name="playlist_large_notice_desc">免登入模式下，前200首歌曲將分段傳輸。</string>
+    <string name="playlist_spotify_limit_notice">提示：在未連結帳戶的情況下，Spotify 公開最多僅提供播放清單的前 100 首歌曲。</string>
     <string name="playlist_converter_title">播放清單轉換器</string>
     <string name="playlist_converting">正在轉換播放清單…</string>
     <string name="playlist_converting_progress">已轉換 %1$d / %2$d 首曲目</string>
@@ -268,7 +269,7 @@
     <string name="playlist_share_link">分享播放清單連結</string>
     <string name="playlist_share_copied">播放清單連結已複製到剪貼簿！</string>
     <string name="playlist_free_limit_title">已免費轉換 5 首歌曲</string>
-    <string name="playlist_free_limit_desc">解鎖 SongFlip PRO，享受最多 50 首歌曲的無限制播放清單轉換！</string>
+    <string name="playlist_free_limit_desc">解鎖 SongFlip PRO，享受最多 200 首歌曲的無限制播放清單轉換！</string>
     <string name="playlist_btn_unlock_pro">升級至 PRO</string>
     <string name="playlist_error_title">播放清單轉換失敗</string>
     <string name="playlist_error_desc">無法從此播放清單擷取曲目。您可以開啟原始連結。</string>
@@ -277,7 +278,7 @@
     <string name="playlist_error_unsupported_title">此平台暫不支援播放清單</string>
     <string name="playlist_error_unsupported_desc">SongFlip 目前支援 Spotify、Apple Music、YouTube Music 和 Deezer 的播放清單。此平台的單曲仍可正常使用。</string>
     <string name="playlist_error_timeout_title">連線逾時</string>
-    <string name="playlist_error_timeout_desc">音樂服務未及時回應。對於大型播放清單（超過50首），可能會發生逾時。請稍後重試或開啟原始連結。</string>
+    <string name="playlist_error_timeout_desc">音樂服務未及時回應。對於超大型播放清單，可能會發生逾時。請稍後重試或開啟原始連結。</string>
     <string name="playlist_error_empty_title">空的播放清單</string>
     <string name="playlist_error_empty_desc">此播放清單中沒有可播放的歌曲。</string>
     <string name="playlist_btn_retry">重試</string>

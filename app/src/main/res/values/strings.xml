@@ -290,6 +290,7 @@
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Large Playlist (%1$d songs)</string>
     <string name="playlist_large_notice_desc">Without login, the first 200 songs are transferred in parts.</string>
+    <string name="playlist_spotify_limit_notice">Notice: Without an account connection, Spotify publicly provides a maximum of the first 100 songs of a playlist.</string>
     <string name="playlist_converter_title">Playlist Converter</string>
     <string name="playlist_converting">Converting playlist…</string>
     <string name="playlist_converting_progress">%1$d of %2$d tracks converted</string>
@@ -306,7 +307,7 @@
     <string name="playlist_share_link">Share Playlist Link</string>
     <string name="playlist_share_copied">Playlist link copied to clipboard!</string>
     <string name="playlist_free_limit_title">5 Songs Free Conversion</string>
-    <string name="playlist_free_limit_desc">Unlock SongFlip PRO for unlimited playlist conversion up to 50 songs!</string>
+    <string name="playlist_free_limit_desc">Unlock SongFlip PRO for unlimited playlist conversion up to 200 songs!</string>
     <string name="playlist_btn_unlock_pro">Upgrade to PRO</string>
     <string name="playlist_error_title">Playlist Conversion Failed</string>
     <string name="playlist_error_desc">Could not extract tracks from this playlist. You can open the original link instead.</string>
@@ -315,7 +316,7 @@
     <string name="playlist_error_unsupported_title">Platform Not Supported for Playlists</string>
     <string name="playlist_error_unsupported_desc">SongFlip currently supports playlists for Spotify, Apple Music, YouTube Music, and Deezer. Single songs from this platform still work.</string>
     <string name="playlist_error_timeout_title">Connection Timeout</string>
-    <string name="playlist_error_timeout_desc">The music service did not respond in time. For large playlists (>50 songs), timeouts may occur. Please try again shortly or open the original.</string>
+    <string name="playlist_error_timeout_desc">The music service did not respond in time. For very large playlists, timeouts may occur. Please try again shortly or open the original.</string>
     <string name="playlist_error_empty_title">Empty Playlist</string>
     <string name="playlist_error_empty_desc">This playlist does not contain any playable tracks.</string>
     <string name="playlist_btn_retry">Retry</string>

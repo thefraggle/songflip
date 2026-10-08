@@ -266,6 +266,7 @@
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Danh sách phát lớn (%1$d bài hát)</string>
     <string name="playlist_large_notice_desc">Không cần đăng nhập, 200 bài hát đầu tiên được chuyển theo từng phần.</string>
+    <string name="playlist_spotify_limit_notice">Lưu ý: Nếu không kết nối tài khoản, Spotify chỉ cung cấp công khai tối đa 100 bài hát đầu tiên của danh sách phát.</string>
     <string name="playlist_converter_title">Bộ chuyển đổi danh sách phát</string>
     <string name="playlist_converting">Đang chuyển đổi danh sách phát…</string>
     <string name="playlist_converting_progress">Đã chuyển đổi %1$d / %2$d bài hát</string>
@@ -282,7 +283,7 @@
     <string name="playlist_share_link">Chia sẻ liên kết danh sách phát</string>
     <string name="playlist_share_copied">Đã sao chép liên kết danh sách phát vào khay nhớ tạm!</string>
     <string name="playlist_free_limit_title">Đã chuyển đổi 5 bài hát miễn phí</string>
-    <string name="playlist_free_limit_desc">Mở khóa SongFlip PRO để chuyển đổi danh sách phát không giới hạn lên đến 50 bài hát!</string>
+    <string name="playlist_free_limit_desc">Mở khóa SongFlip PRO để chuyển đổi danh sách phát không giới hạn lên đến 200 bài hát!</string>
     <string name="playlist_btn_unlock_pro">Nâng cấp lên PRO</string>
     <string name="playlist_error_title">Chuyển đổi danh sách phát thất bại</string>
     <string name="playlist_error_desc">Không thể trích xuất bài hát từ danh sách phát này. Bạn có thể mở liên kết gốc thay thế.</string>
@@ -291,7 +292,7 @@
     <string name="playlist_error_unsupported_title">Nền tảng chưa hỗ trợ danh sách phát</string>
     <string name="playlist_error_unsupported_desc">SongFlip hiện hỗ trợ danh sách phát từ Spotify, Apple Music, YouTube Music và Deezer. Các bài hát lẻ từ nền tảng này vẫn hoạt động bình thường.</string>
     <string name="playlist_error_timeout_title">Hết thời gian kết nối</string>
-    <string name="playlist_error_timeout_desc">Dịch vụ âm nhạc không phản hồi kịp thời. Đối với danh sách phát lớn (>50 bài hát), có thể xảy ra thời gian chờ. Vui lòng thử lại sau hoặc mở bản gốc.</string>
+    <string name="playlist_error_timeout_desc">Dịch vụ âm nhạc không phản hồi kịp thời. Đối với danh sách phát rất lớn, có thể xảy ra thời gian chờ. Vui lòng thử lại sau hoặc mở bản gốc.</string>
     <string name="playlist_error_empty_title">Danh sách phát trống</string>
     <string name="playlist_error_empty_desc">Danh sách phát này không có bài hát nào có thể phát.</string>
     <string name="playlist_btn_retry">Thử lại</string>

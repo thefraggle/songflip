@@ -270,6 +270,7 @@
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Stor spilleliste (%1$d sanger)</string>
     <string name="playlist_large_notice_desc">Uten innlogging overføres de første 200 sangene i deler.</string>
+    <string name="playlist_spotify_limit_notice">Merk: Uten en kontotilkobling gjør Spotify offentlig tilgjengelig maksimalt de første 100 sangene.</string>
     <string name="playlist_converter_title">Spilleliste-konverterer</string>
     <string name="playlist_converting">Konverterer spilleliste…</string>
     <string name="playlist_converting_progress">%1$d av %2$d spor konvertert</string>
@@ -286,7 +287,7 @@
     <string name="playlist_share_link">Del spillelistelenke</string>
     <string name="playlist_share_copied">Spillelistelenke kopiert til utklippstavlen!</string>
     <string name="playlist_free_limit_title">5 sanger konvertert gratis</string>
-    <string name="playlist_free_limit_desc">Lås opp SongFlip PRO for ubegrenset konvertering av spillelister opptil 50 sanger!</string>
+    <string name="playlist_free_limit_desc">Lås opp SongFlip PRO for ubegrenset konvertering av spillelister opptil 200 sanger!</string>
     <string name="playlist_btn_unlock_pro">Oppgrader til PRO</string>
     <string name="playlist_error_title">Konvertering av spilleliste mislyktes</string>
     <string name="playlist_error_desc">Kunne ikke hente spor fra denne spillelisten. Du kan åpne den opprinnelige lenken.</string>
@@ -295,7 +296,7 @@
     <string name="playlist_error_unsupported_title">Plattformen støtter ikke spillelister</string>
     <string name="playlist_error_unsupported_desc">SongFlip støtter for øyeblikket spillelister fra Spotify, Apple Music, YouTube Music og Deezer. Enkeltsanger fra denne plattformen fungerer fortsatt.</string>
     <string name="playlist_error_timeout_title">Tidsavbrudd for tilkobling</string>
-    <string name="playlist_error_timeout_desc">Musikktjenesten svarte ikke i tide. For store spillelister (>50 sanger) kan tidsavbrudd forekomme. Prøv igjen snart eller åpne originalen.</string>
+    <string name="playlist_error_timeout_desc">Musikktjenesten svarte ikke i tide. For svært store spillelister kan tidsavbrudd forekomme. Prøv igjen snart eller åpne originalen.</string>
     <string name="playlist_error_empty_title">Tom spilleliste</string>
     <string name="playlist_error_empty_desc">Denne spillelisten inneholder ingen spillbare sanger.</string>
     <string name="playlist_btn_retry">Prøv igjen</string>

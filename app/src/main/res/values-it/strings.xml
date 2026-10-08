@@ -270,6 +270,7 @@
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Playlist grande (%1$d brani)</string>
     <string name="playlist_large_notice_desc">Senza accesso, i primi 200 brani vengono trasferiti in parti.</string>
+    <string name="playlist_spotify_limit_notice">Nota: Senza collegare un account, Spotify rende disponibili pubblicamente al massimo i primi 100 brani di una playlist.</string>
     <string name="playlist_converter_title">Convertitore di playlist</string>
     <string name="playlist_converting">Conversione playlist…</string>
     <string name="playlist_converting_progress">%1$d di %2$d brani convertiti</string>
@@ -286,7 +287,7 @@
     <string name="playlist_share_link">Condividi link playlist</string>
     <string name="playlist_share_copied">Link della playlist copiato negli appunti!</string>
     <string name="playlist_free_limit_title">5 brani convertiti gratis</string>
-    <string name="playlist_free_limit_desc">Sblocca SongFlip PRO per convertire playlist senza limiti fino a 50 brani!</string>
+    <string name="playlist_free_limit_desc">Sblocca SongFlip PRO per convertire playlist senza limiti fino a 200 brani!</string>
     <string name="playlist_btn_unlock_pro">Passa a PRO</string>
     <string name="playlist_error_title">Conversione playlist non riuscita</string>
     <string name="playlist_error_desc">Impossibile estrarre i brani da questa playlist. Puoi aprire il link originale.</string>
@@ -295,7 +296,7 @@
     <string name="playlist_error_unsupported_title">Piattaforma non supportata per le playlist</string>
     <string name="playlist_error_unsupported_desc">SongFlip supporta attualmente le playlist di Spotify, Apple Music, YouTube Music e Deezer. I singoli brani di questa piattaforma funzionano comunque.</string>
     <string name="playlist_error_timeout_title">Timeout della connessione</string>
-    <string name="playlist_error_timeout_desc">Il servizio musicale non ha risposto in tempo. Per playlist grandi (>50 brani) potrebbero verificarsi timeout. Riprova a breve o apri l\'originale.</string>
+    <string name="playlist_error_timeout_desc">Il servizio musicale non ha risposto in tempo. Per playlist molto grandi potrebbero verificarsi timeout. Riprova a breve o apri l\'originale.</string>
     <string name="playlist_error_empty_title">Playlist vuota</string>
     <string name="playlist_error_empty_desc">Questa playlist non contiene brani riproducibili.</string>
     <string name="playlist_btn_retry">Riprova</string>

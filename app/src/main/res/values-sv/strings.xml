@@ -270,6 +270,7 @@
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Stor spellista (%1$d låtar)</string>
     <string name="playlist_large_notice_desc">Utan inloggning överförs de första 200 låtarna i delar.</string>
+    <string name="playlist_spotify_limit_notice">Obs: Utan ett anslutet konto tillhandahåller Spotify offentligt maximalt de första 100 låtarna.</string>
     <string name="playlist_converter_title">Spelliste-konverterare</string>
     <string name="playlist_converting">Konverterar spellista…</string>
     <string name="playlist_converting_progress">%1$d av %2$d spår konverterade</string>
@@ -286,7 +287,7 @@
     <string name="playlist_share_link">Dela spellistelänk</string>
     <string name="playlist_share_copied">Spellistelänk kopierad till urklipp!</string>
     <string name="playlist_free_limit_title">5 låtar konverterade gratis</string>
-    <string name="playlist_free_limit_desc">Lås upp SongFlip PRO för obegränsad spellistekonvertering upp till 50 låtar!</string>
+    <string name="playlist_free_limit_desc">Lås upp SongFlip PRO för obegränsad spellistekonvertering upp till 200 låtar!</string>
     <string name="playlist_btn_unlock_pro">Uppgradera till PRO</string>
     <string name="playlist_error_title">Spellistekonvertering misslyckades</string>
     <string name="playlist_error_desc">Kunde inte hämta spår från denna spellista. Du kan öppna ursprungslänken istället.</string>
@@ -295,7 +296,7 @@
     <string name="playlist_error_unsupported_title">Plattformen stöder inte spellistor</string>
     <string name="playlist_error_unsupported_desc">SongFlip stöder för närvarande spellistor från Spotify, Apple Music, YouTube Music och Deezer. Enskilda låtar från den här plattformen fungerar fortfarande.</string>
     <string name="playlist_error_timeout_title">Anslutningen tog för lång tid</string>
-    <string name="playlist_error_timeout_desc">Musiktjänsten svarade inte i tid. För stora spellistor (>50 låtar) kan timeout uppstå. Försök igen snart eller öppna originalet.</string>
+    <string name="playlist_error_timeout_desc">Musiktjänsten svarade inte i tid. För mycket stora spellistor kan timeout uppstå. Försök igen snart eller öppna originalet.</string>
     <string name="playlist_error_empty_title">Tom spellista</string>
     <string name="playlist_error_empty_desc">Den här spellistan innehåller inga spelbara låtar.</string>
     <string name="playlist_btn_retry">Försök igen</string>

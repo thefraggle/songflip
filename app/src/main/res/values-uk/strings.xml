@@ -278,6 +278,7 @@
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Великий плейліст (%1$d треків)</string>
     <string name="playlist_large_notice_desc">Без входу перші 200 треків переносяться частинами.</string>
+    <string name="playlist_spotify_limit_notice">Примітка: Без підключення облікового запису Spotify публічно надає щонайбільше перші 100 треків списку.</string>
     <string name="playlist_converter_title">Конвертер плейлістів</string>
     <string name="playlist_converting">Конвертація плейліста…</string>
     <string name="playlist_converting_progress">Конвертовано %1$d з %2$d треків</string>
@@ -294,7 +295,7 @@
     <string name="playlist_share_link">Поділитися посиланням на плейліст</string>
     <string name="playlist_share_copied">Посилання на плейліст скопійовано в буфер обміну!</string>
     <string name="playlist_free_limit_title">5 треків конвертовано безкоштовно</string>
-    <string name="playlist_free_limit_desc">Розблокуйте SongFlip PRO для необмеженої конвертації плейлістів до 50 треків!</string>
+    <string name="playlist_free_limit_desc">Розблокуйте SongFlip PRO для необмеженої конвертації плейлістів до 200 треків!</string>
     <string name="playlist_btn_unlock_pro">Перейти на PRO</string>
     <string name="playlist_error_title">Помилка конвертації плейліста</string>
     <string name="playlist_error_desc">Не вдалося витягти треки з цього плейліста. Ви можете відкрити оригінальне посилання.</string>
@@ -303,7 +304,7 @@
     <string name="playlist_error_unsupported_title">Плейлисти цієї платформи не підтримуються</string>
     <string name="playlist_error_unsupported_desc">Зараз SongFlip підтримує плейлисти Spotify, Apple Music, YouTube Music і Deezer. Окремі треки з цієї платформи й надалі працюють.</string>
     <string name="playlist_error_timeout_title">Час очікування вичерпано</string>
-    <string name="playlist_error_timeout_desc">Музичний сервіс не відповів вчасно. Для великих плейлістів (>50 треків) може виникнути тайм-аут. Спробуйте ще раз незабаром або відкрийте оригінал.</string>
+    <string name="playlist_error_timeout_desc">Музичний сервіс не відповів вчасно. Для дуже великих плейлістів може виникнути тайм-аут. Спробуйте ще раз незабаром або відкрийте оригінал.</string>
     <string name="playlist_error_empty_title">Порожній плейлист</string>
     <string name="playlist_error_empty_desc">У цьому плейлисті немає доступних для відтворення треків.</string>
     <string name="playlist_btn_retry">Повторити</string>
