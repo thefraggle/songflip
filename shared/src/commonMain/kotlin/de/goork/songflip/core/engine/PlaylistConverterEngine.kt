@@ -41,7 +41,7 @@ class PlaylistConverterEngine(
         url: String,
         targetPlatformKey: String,
         isPro: Boolean = false,
-        maxTracks: Int = 50,
+        maxTracks: Int = 200,
         authToken: String? = null
     ): Result<PlaylistConversionResult> {
         val payload = buildJsonObject {

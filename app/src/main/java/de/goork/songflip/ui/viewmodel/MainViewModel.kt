@@ -64,6 +64,24 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         refreshStatus()
+        viewModelScope.launch {
+            ProManager.proState.collect { proState ->
+                if (proState.isPro) {
+                    val current = _activePlaylistConversion.value
+                    if (current != null && current.state is PlaylistConversionState.Success) {
+                        val res = (current.state as PlaylistConversionState.Success).result
+                        if (res.isLimited || res.totalTracks <= 5) {
+                            startPlaylistConversion(
+                                playlistUrl = current.playlistUrl,
+                                targetPlatformKey = current.targetPlatformKey,
+                                isPro = true,
+                                force = true
+                            )
+                        }
+                    }
+                }
+            }
+        }
     }
 
     fun refreshStatus() {
@@ -127,7 +145,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun startPlaylistConversion(
         playlistUrl: String,
         targetPlatformKey: String,
-        isPro: Boolean
+        isPro: Boolean,
+        force: Boolean = false
     ) {
         val sourcePlatform = UrlUtils.detectPlatform(playlistUrl) ?: MusicPlatform.YOUTUBE_MUSIC
         if (sourcePlatform.key == targetPlatformKey) {
@@ -140,9 +159,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
 
         val current = _activePlaylistConversion.value
-        if (current != null && current.playlistUrl == playlistUrl && current.targetPlatformKey == targetPlatformKey) {
-            if (current.state is PlaylistConversionState.Loading || current.state is PlaylistConversionState.Converting || current.state is PlaylistConversionState.Success) {
+        if (!force && current != null && current.playlistUrl == playlistUrl && current.targetPlatformKey == targetPlatformKey) {
+            if (current.state is PlaylistConversionState.Loading || current.state is PlaylistConversionState.Converting) {
                 return
+            }
+            if (current.state is PlaylistConversionState.Success) {
+                val successData = (current.state as PlaylistConversionState.Success).result
+                if (!isPro || !successData.isLimited) {
+                    return
+                }
             }
         }
 
@@ -153,7 +178,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         )
 
         viewModelScope.launch(Dispatchers.IO) {
-            val maxTracksToConvert = if (isPro) 50 else 5
+            val maxTracksToConvert = if (isPro) 200 else 5
             AptabaseClient.shared.trackPlaylistConversionStarted(
                 sourcePlatform = sourcePlatform.key,
                 targetPlatform = targetPlatformKey,
