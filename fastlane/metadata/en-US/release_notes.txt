@@ -1,5 +1,3 @@
-- Faster Resolution: Optimized caching opens songs faster and more reliably.
-- Smarter Playlists: Playlists from your active service open directly without conversion detours.
-- Connection Recovery: Temporary network timeouts now offer an instant retry option.
-- Keyboard Navigation: All dialogs and sheets can now be closed via Escape key (ESC).
-- Stability & Polish: Refined URL parsing and background performance improvements.
+- Large Playlists: Playlists with up to 200 tracks can now be converted and played in convenient parts.
+- File Export: Export playlists directly as M3U8 or CSV to save them or use in external media players.
+- Seamless Playback: Start each part with a single tap in your chosen music service.

@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.8.0] - 2026-10-08
+- **Large Playlist Support**: Playlists with up to 200 songs can now be converted smoothly and navigated in convenient parts.
+- **Playlist File Export**: Save and share entire playlists directly as M3U8 or CSV files to open them in your favorite media player or desktop app.
+- **Smoother Playback Launch**: Start listening to each part with a single tap, with full control over all converted tracks.
+
 ## [1.7.6] - 2026-10-08
 - **Persistent Playlist Conversions**: Converted playlists now remain available as a dashboard card until explicitly dismissed — preventing accidental loss if you close the details sheet.
 - **Direct History Access**: A dedicated history icon in the header lets you jump straight to your recent tracks and playlists in a single tap.
