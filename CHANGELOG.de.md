@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.8.1] - 2026-10-08
+- **Automatische Aktualisierung**: Nach dem Freischalten aller Funktionen wird eine aktive Playlist sofort nahtlos vollständig geladen, ohne erneutes Antippen.
+- **Erweiterte Playlist-Erkennung**: Umfangreiche Playlists schöpfen die Obergrenze von bis zu 200 Titeln noch zuverlässiger aus.
+- **Flüssigere Wiedergabe**: Zuverlässigere und schnellere Bereitstellung aller Playlist-Teile.
+
 ## [1.8.0] - 2026-10-08
 - **Große Playlists übertragen**: Playlists mit bis zu 200 Titeln werden jetzt zuverlässig umgewandelt und in handlichen Teilen bereitgestellt.
 - **Neuer Dateiexport**: Playlists lassen sich ab sofort als M3U8- oder CSV-Datei sichern und flexibel in externen Media-Playern öffnen.

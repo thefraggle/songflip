@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.8.1] - 2026-10-08
+- **Instant Full Loading**: Unlocked playlists now refresh automatically without needing to re-open or convert again.
+- **Enhanced Playlist Reach**: Large playlists reliably retrieve the full available tracklist with up to 200 songs.
+- **Smoother Playback**: Faster and more consistent loading for long tracklists.
+
 ## [1.8.0] - 2026-10-08
 - **Large Playlist Support**: Playlists with up to 200 songs can now be converted smoothly and navigated in convenient parts.
 - **Playlist File Export**: Save and share entire playlists directly as M3U8 or CSV files to open them in your favorite media player or desktop app.
