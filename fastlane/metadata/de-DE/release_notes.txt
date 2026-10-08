@@ -1,3 +1,2 @@
-- Flexiblere Player-Wahl: Bevorzugte Musik-App bei mehreren installierten Playern in den Einstellungen wählbar.
-- Erweiterte Kompatibilität: Musik-Links öffnen sich noch verlässlicher in deinen Lieblings-Apps.
-- Stabilitäts-Hotfix: Behebt einen unerwarteten Fehler direkt beim Öffnen der App.
+- Fehlerbehebungen: Zuverlässigere Erkennung kompatibler Musik-Player.
+- Stabilitätsverbesserungen: Reibungslosere Weiterleitungen und optimiertes Zusammenspiel mit installierten Musik-Apps.

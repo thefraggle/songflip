@@ -101,6 +101,7 @@
         <package android:name="com.kashike.simpmusic" />
         <package android:name="com.maxrave.simpmusic" />
         <package android:name="com.github.brahmkshatriya.echo" />
+        <package android:name="io.github.aleixrodriala.arc" />
         <package android:name="com.aleixrodriala.newtube" />
         <package android:name="org.polymorphicshade.tubular" />
         <package android:name="com.github.libretube" />

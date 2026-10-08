@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.8.6] - 2026-10-09
+- **Fehlerbehebungen & Feinschliff**: Verbesserte Erkennung und zuverlässigere Weiterleitung an kompatible Musik-Player.
+- **Stabilitätsverbesserungen**: Allgemeine interne Optimierungen für reibungslose Weiterleitungen und Zuverlässigkeit.
+
 ## [1.8.5] - 2026-10-08
 - **Playlist-Details im Verlauf**: Das Antippen einer Playlist im Verlauf öffnet jetzt wieder die vollständige Übersicht mit allen Teilen und Dateiexport-Optionen, während das Wiedergabe-Symbol auf dem Cover weiterhin die direkte Wiedergabe startet.
 - **Playlist-Coveranzeige**: Das Coverbild konvertierter Playlists wird nun zuverlässig im Verlauf und direkt im Kopfbereich des Konvertierungsfensters angezeigt.
