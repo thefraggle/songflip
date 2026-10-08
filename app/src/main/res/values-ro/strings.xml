@@ -259,7 +259,7 @@
     <string name="action_retry">Reîncearcă</string>
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Playlist mare (%1$d melodii)</string>
-    <string name="playlist_large_notice_desc">Fără autentificare, în prezent sunt transferate primele 50 de melodii. Suportul pentru playlisturi în mai multe părți vine în curând.</string>
+    <string name="playlist_large_notice_desc">Fără autentificare, primele 200 de melodii sunt transferate pe părți.</string>
     <string name="playlist_converter_title">Convertor de playlisturi</string>
     <string name="playlist_converting">Se convertește playlistul…</string>
     <string name="playlist_converting_progress">%1$d din %2$d piese convertite</string>
@@ -267,6 +267,11 @@
     <string name="playlist_creating_queue">Se creează coada playlistului…</string>
     <string name="playlist_matched_count">%1$d din %2$d piese găsite</string>
     <string name="playlist_open_import">Deschide și salvează în %1$s</string>
+    <string name="playlist_part_chip">Partea %1$d (%2$d–%3$d)</string>
+    <string name="playlist_open_import_part">Redă partea %1$d în %2$s</string>
+    <string name="playlist_export_title">Exportă playlistul</string>
+    <string name="playlist_export_m3u8">Exportă ca .M3U8</string>
+    <string name="playlist_export_csv">Exportă ca CSV</string>
     <string name="playlist_open_in_browser">Deschide playlistul web</string>
     <string name="playlist_share_link">Distribuie linkul playlistului</string>
     <string name="playlist_share_copied">Linkul playlistului a fost copiat în clipboard!</string>

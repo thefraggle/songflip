@@ -288,7 +288,7 @@
     <string name="share_universal_link_desc">Erstelle universelle songflip.link-Links für Freunde auf beliebigen Musikplattformen</string>
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Große Playlist (%1$d Songs)</string>
-    <string name="playlist_large_notice_desc">Ohne Login werden aktuell die ersten 50 Songs übertragen. Unterstützung für mehrteilige Playlists folgt in Kürze.</string>
+    <string name="playlist_large_notice_desc">Ohne Login werden die ersten 200 Songs in Teilen übertragen.</string>
     <string name="playlist_converter_title">Playlist-Konverter</string>
     <string name="playlist_converting">Konvertiere Playlist…</string>
     <string name="playlist_converting_progress">%1$d von %2$d Titeln konvertiert</string>

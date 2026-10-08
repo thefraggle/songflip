@@ -255,7 +255,7 @@
     <string name="action_retry">Újra</string>
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Nagy lejátszási lista (%1$d dal)</string>
-    <string name="playlist_large_notice_desc">Bejelentkezés nélkül jelenleg az első 50 dal kerül átvitelre. A több részből álló listák támogatása hamarosan érkezik.</string>
+    <string name="playlist_large_notice_desc">Bejelentkezés nélkül az első 200 dal részekben kerül átvitelre.</string>
     <string name="playlist_converter_title">Lejátszásilista-átalakító</string>
     <string name="playlist_converting">Lejátszási lista konvertálása…</string>
     <string name="playlist_converting_progress">%1$d / %2$d dal konvertálva</string>
@@ -263,6 +263,11 @@
     <string name="playlist_creating_queue">Lejátszási sor létrehozása…</string>
     <string name="playlist_matched_count">%1$d / %2$d dal megtalálva</string>
     <string name="playlist_open_import">Megnyitás és mentés itt: %1$s</string>
+    <string name="playlist_part_chip">%1$d. rész (%2$d–%3$d)</string>
+    <string name="playlist_open_import_part">%1$d. rész lejátszása itt: %2$s</string>
+    <string name="playlist_export_title">Lejátszási lista exportálása</string>
+    <string name="playlist_export_m3u8">Exportálás .M3U8 formátumban</string>
+    <string name="playlist_export_csv">Exportálás CSV-ként</string>
     <string name="playlist_open_in_browser">Webes lejátszási lista megnyitása</string>
     <string name="playlist_share_link">Lejátszásilista-link megosztása</string>
     <string name="playlist_share_copied">A lejátszási lista linkje a vágólapra másolva!</string>

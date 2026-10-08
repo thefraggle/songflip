@@ -263,7 +263,7 @@
     <string name="action_retry">Zkusit znovu</string>
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Velký playlist (%1$d skladeb)</string>
-    <string name="playlist_large_notice_desc">Bez přihlášení se momentálně přenáší prvních 50 skladeb. Podpora vícedílných playlistů již brzy.</string>
+    <string name="playlist_large_notice_desc">Bez přihlášení je prvních 200 skladeb převedeno po částech.</string>
     <string name="playlist_converter_title">Převodník playlistů</string>
     <string name="playlist_converting">Převádění playlistu…</string>
     <string name="playlist_converting_progress">Převedeno %1$d z %2$d skladeb</string>
@@ -271,6 +271,11 @@
     <string name="playlist_creating_queue">Vytváření fronty playlistu…</string>
     <string name="playlist_matched_count">Nalezeno %1$d z %2$d skladeb</string>
     <string name="playlist_open_import">Otevřít a uložit v %1$s</string>
+    <string name="playlist_part_chip">Část %1$d (%2$d–%3$d)</string>
+    <string name="playlist_open_import_part">Přehrát část %1$d v %2$s</string>
+    <string name="playlist_export_title">Exportovat playlist</string>
+    <string name="playlist_export_m3u8">Exportovat jako .M3U8</string>
+    <string name="playlist_export_csv">Exportovat jako CSV</string>
     <string name="playlist_open_in_browser">Otevřít webový playlist</string>
     <string name="playlist_share_link">Sdílet odkaz na playlist</string>
     <string name="playlist_share_copied">Odkaz na playlist byl zkopírován do schránky!</string>

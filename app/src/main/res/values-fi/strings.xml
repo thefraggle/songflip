@@ -255,7 +255,7 @@
     <string name="action_retry">Yritä uudelleen</string>
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Suuri soittolista (%1$d kappaletta)</string>
-    <string name="playlist_large_notice_desc">Ilman kirjautumista siirretään tällä hetkellä ensimmäiset 50 kappaletta. Moniosaisten soittolistojen tuki tulossa pian.</string>
+    <string name="playlist_large_notice_desc">Ilman kirjautumista ensimmäiset 200 kappaletta siirretään osissa.</string>
     <string name="playlist_converter_title">Soittolistamuunnin</string>
     <string name="playlist_converting">Muunnetaan soittolistaa…</string>
     <string name="playlist_converting_progress">%1$d/%2$d kappaletta muunnettu</string>
@@ -263,6 +263,11 @@
     <string name="playlist_creating_queue">Luodaan toistojonoa…</string>
     <string name="playlist_matched_count">%1$d/%2$d kappaletta löydetty</string>
     <string name="playlist_open_import">Avaa ja tallenna kohteessa %1$s</string>
+    <string name="playlist_part_chip">Osa %1$d (%2$d–%3$d)</string>
+    <string name="playlist_open_import_part">Toista osa %1$d kohteessa %2$s</string>
+    <string name="playlist_export_title">Vie soittolista</string>
+    <string name="playlist_export_m3u8">Vie .M3U8-muodossa</string>
+    <string name="playlist_export_csv">Vie CSV-muodossa</string>
     <string name="playlist_open_in_browser">Avaa verkko-soittolista</string>
     <string name="playlist_share_link">Jaa soittolistan linkki</string>
     <string name="playlist_share_copied">Soittolistan linkki kopioitu leikepöydälle!</string>

@@ -269,7 +269,7 @@
     <string name="action_retry">Opnieuw proberen</string>
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Grote afspeellijst (%1$d nummers)</string>
-    <string name="playlist_large_notice_desc">Zonder inloggen worden momenteel de eerste 50 nummers overgezet. Ondersteuning voor meerdelige afspeellijsten volgt binnenkort.</string>
+    <string name="playlist_large_notice_desc">Zonder inloggen worden de eerste 200 nummers in delen overgezet.</string>
     <string name="playlist_converter_title">Afspeellijst-converter</string>
     <string name="playlist_converting">Afspeellijst converteren…</string>
     <string name="playlist_converting_progress">%1$d van %2$d nummers geconverteerd</string>
@@ -277,6 +277,11 @@
     <string name="playlist_creating_queue">Afspeellijst-wachtrij maken…</string>
     <string name="playlist_matched_count">%1$d van %2$d nummers gevonden</string>
     <string name="playlist_open_import">Openen en opslaan in %1$s</string>
+    <string name="playlist_part_chip">Deel %1$d (%2$d–%3$d)</string>
+    <string name="playlist_open_import_part">Deel %1$d afspelen in %2$s</string>
+    <string name="playlist_export_title">Afspeellijst exporteren</string>
+    <string name="playlist_export_m3u8">Exporteren als .M3U8</string>
+    <string name="playlist_export_csv">Exporteren als CSV</string>
     <string name="playlist_open_in_browser">Web-afspeellijst openen</string>
     <string name="playlist_share_link">Afspeellijst-link delen</string>
     <string name="playlist_share_copied">Afspeellijst-link gekopieerd naar klembord!</string>

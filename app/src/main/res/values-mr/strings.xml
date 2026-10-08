@@ -269,7 +269,7 @@
     <string name="action_retry">पुन्हा प्रयत्न करा</string>
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">मोठी प्लेलिस्ट (%1$d गाणी)</string>
-    <string name="playlist_large_notice_desc">लॉगिनशिवाय सध्या पहिली 50 गाणी ट्रान्सफर केली जात आहेत. मल्टि-पार्ट प्लेलिस्ट समर्थन लवकरच येत आहे.</string>
+    <string name="playlist_large_notice_desc">लॉगिनशिवाय पहिली 200 गाणी भागांमध्ये हस्तांतरित केली जातात.</string>
     <string name="playlist_converter_title">प्लेलिस्ट कन्व्हर्टर</string>
     <string name="playlist_converting">प्लेलिस्ट रूपांतरित केली जात आहे…</string>
     <string name="playlist_converting_progress">%2$d पैकी %1$d गाणी रूपांतरित केली</string>
@@ -277,6 +277,11 @@
     <string name="playlist_creating_queue">प्लेलिस्ट रांग तयार करत आहे…</string>
     <string name="playlist_matched_count">%2$d पैकी %1$d गाणी सापडली</string>
     <string name="playlist_open_import">%1$s मध्ये उघडा आणि सेव्ह करा</string>
+    <string name="playlist_part_chip">भाग %1$d (%2$d–%3$d)</string>
+    <string name="playlist_open_import_part">भाग %1$d प्ले करा (%2$s)</string>
+    <string name="playlist_export_title">प्लेलिस्ट निर्यात करा</string>
+    <string name="playlist_export_m3u8">.M3U8 म्हणून निर्यात करा</string>
+    <string name="playlist_export_csv">CSV म्हणून निर्यात करा</string>
     <string name="playlist_open_in_browser">वेब प्लेलिस्ट उघडा</string>
     <string name="playlist_share_link">प्लेलिस्ट लिंक शेअर करा</string>
     <string name="playlist_share_copied">प्लेलिस्ट लिंक क्लिपबोर्डवर कॉपी केली!</string>

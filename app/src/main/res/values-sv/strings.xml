@@ -269,7 +269,7 @@
     <string name="action_retry">Försök igen</string>
     <!-- Playlist Converter Strings -->
         <string name="playlist_large_notice_title">Stor spellista (%1$d låtar)</string>
-    <string name="playlist_large_notice_desc">Utan inloggning överförs de första 50 låtarna för närvarande. Stöd för uppdelade spellistor kommer snart.</string>
+    <string name="playlist_large_notice_desc">Utan inloggning överförs de första 200 låtarna i delar.</string>
     <string name="playlist_converter_title">Spelliste-konverterare</string>
     <string name="playlist_converting">Konverterar spellista…</string>
     <string name="playlist_converting_progress">%1$d av %2$d spår konverterade</string>
@@ -277,6 +277,11 @@
     <string name="playlist_creating_queue">Skapar spellistekö…</string>
     <string name="playlist_matched_count">%1$d av %2$d spår matchade</string>
     <string name="playlist_open_import">Öppna och spara i %1$s</string>
+    <string name="playlist_part_chip">Del %1$d (%2$d–%3$d)</string>
+    <string name="playlist_open_import_part">Spela del %1$d i %2$s</string>
+    <string name="playlist_export_title">Exportera spellista</string>
+    <string name="playlist_export_m3u8">Exportera som .M3U8</string>
+    <string name="playlist_export_csv">Exportera som CSV</string>
     <string name="playlist_open_in_browser">Öppna webbspellista</string>
     <string name="playlist_share_link">Dela spellistelänk</string>
     <string name="playlist_share_copied">Spellistelänk kopierad till urklipp!</string>
