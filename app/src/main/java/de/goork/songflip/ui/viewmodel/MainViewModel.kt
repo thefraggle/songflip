@@ -62,6 +62,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     )
     val uiState: StateFlow<MainUiState> = _uiState.asStateFlow()
 
+    private val _activePlaylistConversion = MutableStateFlow<ActivePlaylistConversion?>(null)
+    val activePlaylistConversion: StateFlow<ActivePlaylistConversion?> = _activePlaylistConversion.asStateFlow()
+
     init {
         refreshStatus()
         viewModelScope.launch {
@@ -138,9 +141,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         PauseHelper.resume(app)
         refreshStatus()
     }
-
-    private val _activePlaylistConversion = MutableStateFlow<ActivePlaylistConversion?>(null)
-    val activePlaylistConversion: StateFlow<ActivePlaylistConversion?> = _activePlaylistConversion.asStateFlow()
 
     fun startPlaylistConversion(
         playlistUrl: String,
