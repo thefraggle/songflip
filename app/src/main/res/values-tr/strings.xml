@@ -220,6 +220,7 @@
     <string name="shortcut_pause_1h_toast">SongFlip 1 saat duraklatıldı</string>
     <string name="shortcut_no_last_song">Geçmişte henüz şarkı yok</string>
     <string name="history_refresh_link">Bağlantıyı yenile</string>
+    <string name="history_open_playlist_details">Çalma listesi ayrıntılarını görüntüle</string>
     <string name="history_link_refreshed">Bağlantı başarıyla güncellendi!</string>
     <string name="history_link_refreshing">Bağlantı yenileniyor...</string>
     <string name="history_copy_target">%1$s bağlantısını kopyala</string>

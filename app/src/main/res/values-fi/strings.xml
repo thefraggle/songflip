@@ -210,6 +210,7 @@
     <string name="shortcut_pause_1h_toast">SongFlip asetettu tauolle 1 tunniksi</string>
     <string name="shortcut_no_last_song">Historiassa ei ole vielä muunnettua kappaletta</string>
     <string name="history_refresh_link">Päivitä linkki</string>
+    <string name="history_open_playlist_details">Näytä soittolistan tiedot</string>
     <string name="history_link_refreshed">Linkki päivitetty onnistuneesti!</string>
     <string name="history_link_refreshing">Päivitetään linkkiä...</string>
     <string name="history_copy_target">Kopioi %1$s-linkki</string>

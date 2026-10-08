@@ -220,6 +220,7 @@
     <string name="shortcut_pause_1h_toast">SongFlip pausado por 1 hora</string>
     <string name="shortcut_no_last_song">Nenhuma música no histórico ainda</string>
     <string name="history_refresh_link">Atualizar link</string>
+    <string name="history_open_playlist_details">Ver detalhes da playlist</string>
     <string name="history_link_refreshed">Link atualizado com sucesso!</string>
     <string name="history_link_refreshing">Atualizando link...</string>
     <string name="history_copy_target">Copiar link do %1$s</string>

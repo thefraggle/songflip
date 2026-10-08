@@ -25,7 +25,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -117,7 +120,8 @@ fun PlaylistConvertBottomSheet(
                         platform = "${targetPlatformKey}_playlist",
                         title = data.title.ifBlank { "Playlist" },
                         artist = "${data.matchedCount}/${data.totalTracks} Songs",
-                        isAlbum = false
+                        isAlbum = false,
+                        thumbnailUrl = data.thumbnailUrl
                     ),
                     isHistory = true
                 )
@@ -464,6 +468,27 @@ fun PlaylistConvertBottomSheet(
                 is PlaylistConversionState.Success -> {
                     val res = state.result
                     val title = res.title.ifBlank { stringResource(R.string.playlist_converter_title) }
+
+                    if (!res.thumbnailUrl.isNullOrBlank()) {
+                        Box(
+                            modifier = Modifier
+                                .size(76.dp)
+                                .clip(RoundedCornerShape(16.dp))
+                                .background(MaterialTheme.colorScheme.surfaceVariant),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            AsyncImage(
+                                model = ImageRequest.Builder(LocalContext.current)
+                                    .data(res.thumbnailUrl)
+                                    .crossfade(true)
+                                    .build(),
+                                contentDescription = title,
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier.fillMaxSize()
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(12.dp))
+                    }
 
                     Text(
                         text = title,

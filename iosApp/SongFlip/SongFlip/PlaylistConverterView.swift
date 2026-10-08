@@ -314,6 +314,24 @@ struct PlaylistConverterView: View {
     @ViewBuilder
     private func successView(result: SwiftPlaylistConversionResult) -> some View {
         VStack(spacing: 16) {
+            // Cover Artwork (if available)
+            if let thumbStr = result.thumbnailUrl, let thumbUrl = URL(string: thumbStr) {
+                AsyncImage(url: thumbUrl) { phase in
+                    switch phase {
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 76, height: 76)
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                    default:
+                        EmptyView()
+                    }
+                }
+                .frame(width: 76, height: 76)
+                .padding(.top, 8)
+            }
+
             // Title & Matched Count
             VStack(spacing: 4) {
                 Text(result.title?.isEmpty == false ? result.title! : LocalizationManager.string(for: "playlist_converter_title", lang: lang))
@@ -322,7 +340,6 @@ struct PlaylistConverterView: View {
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
                     .padding(.horizontal, 20)
-                    .padding(.top, 12)
 
                 let matchedMsg = String(format: LocalizationManager.string(for: "playlist_matched_count", lang: lang), result.matchedCount, result.totalTracks)
                 Text(matchedMsg)

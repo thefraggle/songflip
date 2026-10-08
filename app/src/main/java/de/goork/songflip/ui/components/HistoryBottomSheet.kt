@@ -54,7 +54,8 @@ fun HistoryBottomSheet(
     onDismissRequest: () -> Unit,
     isPro: Boolean = false,
     showProTeaser: Boolean = false,
-    onOpenProPaywall: () -> Unit = {}
+    onOpenProPaywall: () -> Unit = {},
+    onOpenPlaylist: ((playlistUrl: String, targetPlatformKey: String) -> Unit)? = null
 ) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
@@ -358,6 +359,13 @@ fun HistoryBottomSheet(
                                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackHistoryItemClicked(item.platform)
                                 openTargetUrl(context, item.targetUrl, item.platform)
                             },
+                            onOpenPlaylist = onOpenPlaylist?.let { cb ->
+                                {
+                                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                    val targetKey = item.targetPlatformKey.ifBlank { item.platform.removeSuffix("_playlist") }
+                                    cb(item.canonicalUrl, targetKey)
+                                }
+                            },
                             onCopyTarget = {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                                 copyToClipboard(context, item.targetUrl)
@@ -386,9 +394,17 @@ fun HistoryBottomSheet(
                             onShareUniversal = {
                                 if (isPro) {
                                     haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                                    val shareUrl = de.goork.songflip.data.ProManager.getUniversalWebShareUrl(item.canonicalUrl)
-                                    de.goork.songflip.data.ProManager.warmupUniversalShare(item.canonicalUrl)
-                                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackSharePageGenerated(target = "history")
+                                    val isPl = item.platform.contains("_playlist")
+                                    val shareUrl = if (isPl) {
+                                        val targetKey = item.targetPlatformKey.ifBlank { item.platform.removeSuffix("_playlist") }
+                                        de.goork.songflip.data.ProManager.getPlaylistWebShareUrl(item.canonicalUrl, targetKey)
+                                    } else {
+                                        de.goork.songflip.data.ProManager.getUniversalWebShareUrl(item.canonicalUrl)
+                                    }
+                                    if (!isPl) {
+                                        de.goork.songflip.data.ProManager.warmupUniversalShare(item.canonicalUrl)
+                                    }
+                                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackSharePageGenerated(target = if (isPl) "history_playlist" else "history")
                                     val shareIntent = Intent(Intent.ACTION_SEND).apply {
                                         type = "text/plain"
                                         putExtra(Intent.EXTRA_TEXT, shareUrl)
@@ -471,6 +487,7 @@ fun HistoryItemCard(
     isPro: Boolean = false,
     isRefreshing: Boolean = false,
     onPlay: () -> Unit,
+    onOpenPlaylist: (() -> Unit)? = null,
     onCopyTarget: () -> Unit,
     onCopySource: () -> Unit,
     onRefresh: () -> Unit,
@@ -501,7 +518,13 @@ fun HistoryItemCard(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.65f)),
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onPlay() }
+            .clickable {
+                if (isPlaylist && onOpenPlaylist != null) {
+                    onOpenPlaylist()
+                } else {
+                    onPlay()
+                }
+            }
     ) {
         Row(
             modifier = Modifier
@@ -567,21 +590,22 @@ fun HistoryItemCard(
                     }
                 }
 
-                // Subtiles Play-Indicator Overlay unten rechts auf dem Cover
+                // Subtiles Play-Indicator Overlay unten rechts auf dem Cover (1-Tap-Schnellzugriff auf Playback)
                 Box(
                     modifier = Modifier
                         .align(Alignment.BottomEnd)
                         .padding(2.dp)
-                        .size(18.dp)
+                        .size(20.dp)
                         .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.92f)),
+                        .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.95f))
+                        .clickable { onPlay() },
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         imageVector = Icons.Filled.PlayArrow,
                         contentDescription = stringResource(R.string.action_open),
                         tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                        modifier = Modifier.size(12.dp)
+                        modifier = Modifier.size(13.dp)
                     )
                 }
             }
@@ -727,6 +751,16 @@ fun HistoryItemCard(
                         expanded = showMenu,
                         onDismissRequest = { showMenu = false }
                     ) {
+                        if (isPlaylist && onOpenPlaylist != null) {
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.history_open_playlist_details)) },
+                                leadingIcon = { Icon(Icons.AutoMirrored.Outlined.QueueMusic, contentDescription = null, modifier = Modifier.size(18.dp)) },
+                                onClick = {
+                                    showMenu = false
+                                    onOpenPlaylist()
+                                }
+                            )
+                        }
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.history_copy_target, targetDisplayName)) },
                             leadingIcon = { Icon(Icons.Outlined.ContentCopy, contentDescription = null, modifier = Modifier.size(18.dp)) },

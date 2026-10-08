@@ -220,6 +220,7 @@
     <string name="shortcut_pause_1h_toast">SongFlip sat på pause i 1 time</string>
     <string name="shortcut_no_last_song">Ingen sang i historikken endnu</string>
     <string name="history_refresh_link">Genindlæs link</string>
+    <string name="history_open_playlist_details">Vis detaljer om afspilningsliste</string>
     <string name="history_link_refreshed">Link opdateret!</string>
     <string name="history_link_refreshing">Genindlæser link...</string>
     <string name="history_copy_target">Kopiér %1$s-link</string>

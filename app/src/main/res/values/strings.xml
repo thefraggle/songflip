@@ -244,6 +244,7 @@
     <string name="shortcut_pause_1h_toast">SongFlip paused for 1 hour</string>
     <string name="shortcut_no_last_song">No converted song in history yet</string>
     <string name="history_refresh_link">Refresh link</string>
+    <string name="history_open_playlist_details">View Playlist Details</string>
     <string name="history_link_refreshed">Link refreshed successfully!</string>
     <string name="history_link_refreshing">Refreshing link...</string>
     <string name="history_copy_target">Copy %1$s link</string>

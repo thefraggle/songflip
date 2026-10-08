@@ -141,7 +141,13 @@ struct ContentView: View {
                     .preferredColorScheme(settings.colorScheme)
             }
             .sheet(isPresented: $showingHistorySheet) {
-                HistorySheetView()
+                HistorySheetView(onOpenPlaylist: { url, _ in
+                    showingHistorySheet = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                        playlistNoticeUrl = url
+                        showingPlaylistNotice = true
+                    }
+                })
                     .environmentObject(settings)
                     .preferredColorScheme(settings.colorScheme)
             }

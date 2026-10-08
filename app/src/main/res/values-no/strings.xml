@@ -220,6 +220,7 @@
     <string name="shortcut_pause_1h_toast">SongFlip satt på pause i 1 time</string>
     <string name="shortcut_no_last_song">Ingen sanger i loggen ennå</string>
     <string name="history_refresh_link">Oppdater lenke</string>
+    <string name="history_open_playlist_details">Vis spillelistedetaljer</string>
     <string name="history_link_refreshed">Lenke oppdatert!</string>
     <string name="history_link_refreshing">Oppdaterer lenke...</string>
     <string name="history_copy_target">Kopier %1$s-lenke</string>

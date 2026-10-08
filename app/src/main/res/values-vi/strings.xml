@@ -219,6 +219,7 @@
     <string name="shortcut_pause_1h_toast">SongFlip đã tạm dừng trong 1 giờ</string>
     <string name="shortcut_no_last_song">Chưa có bài hát nào trong lịch sử</string>
     <string name="history_refresh_link">Làm mới liên kết</string>
+    <string name="history_open_playlist_details">Xem chi tiết danh sách phát</string>
     <string name="history_link_refreshed">Đã cập nhật liên kết thành công!</string>
     <string name="history_link_refreshing">Đang làm mới liên kết...</string>
     <string name="history_copy_target">Sao chép liên kết %1$s</string>

@@ -10,6 +10,7 @@ struct HistorySheetView: View {
     @State private var showingClearConfirmation = false
     @State private var showingPaywallSheet = false
     @State private var refreshingItemId: UUID? = nil
+    var onOpenPlaylist: ((String, String) -> Void)? = nil
 
     var lang: String { settings.selectedLanguage }
 
@@ -112,9 +113,14 @@ struct HistorySheetView: View {
                                 }
                             }
                         }) {
-                            ForEach(history.items) { item in
+                        ForEach(history.items) { item in
+                            let isPlaylist = item.targetPlatform.contains("_playlist")
+                            let cleanPlatform = item.targetPlatform.replacingOccurrences(of: "_playlist", with: "")
                             Button(action: {
-                                if let url = URL(string: item.targetUrl) {
+                                if isPlaylist, let onOpenPlaylist = onOpenPlaylist {
+                                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                    onOpenPlaylist(item.sourceUrl, cleanPlatform)
+                                } else if let url = URL(string: item.targetUrl) {
                                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                                     UIApplication.shared.open(url)
                                 }
@@ -145,12 +151,20 @@ struct HistorySheetView: View {
                                                 .clipShape(RoundedRectangle(cornerRadius: 8))
                                         }
 
-                                        // Subtle Play Indicator Badge
-                                        Image(systemName: "play.circle.fill")
-                                            .font(.system(size: 14))
-                                            .foregroundColor(.white)
-                                            .background(Circle().fill(Color.black.opacity(0.4)).frame(width: 14, height: 14))
-                                            .offset(x: 2, y: 2)
+                                        // Subtle Play Indicator Badge (1-tap quick playback to player)
+                                        Button(action: {
+                                            if let url = URL(string: item.targetUrl) {
+                                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                                UIApplication.shared.open(url)
+                                            }
+                                        }) {
+                                            Image(systemName: "play.circle.fill")
+                                                .font(.system(size: 14))
+                                                .foregroundColor(.white)
+                                                .background(Circle().fill(Color.black.opacity(0.4)).frame(width: 14, height: 14))
+                                                .offset(x: 2, y: 2)
+                                        }
+                                        .buttonStyle(.plain)
                                     }
 
                                     // 2. Song & Artist Info
@@ -181,7 +195,7 @@ struct HistorySheetView: View {
                                     Spacer()
 
                                     // 3. Share FlipPage Button
-                                    if let shareUrl = universalShareUrl(for: item.sourceUrl) {
+                                    if let shareUrl = universalShareUrl(for: item) {
                                         ShareLink(item: shareUrl, message: Text(item.title)) {
                                             Image(systemName: "square.and.arrow.up")
                                                 .font(.system(size: 15, weight: .semibold))
@@ -214,6 +228,15 @@ struct HistorySheetView: View {
                                 }
                             }
                             .contextMenu {
+                                if isPlaylist, let onOpenPlaylist = onOpenPlaylist {
+                                    Button {
+                                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                        onOpenPlaylist(item.sourceUrl, cleanPlatform)
+                                    } label: {
+                                        Label(LocalizationManager.string(for: "history_open_playlist_details", lang: lang), systemImage: "music.note.list")
+                                    }
+                                }
+
                                 Button {
                                     UIImpactFeedbackGenerator(style: .light).impactOccurred()
                                     UIPasteboard.general.string = item.targetUrl
@@ -335,11 +358,21 @@ struct HistorySheetView: View {
         }
     }
 
-    private func universalShareUrl(for sourceUrl: String) -> URL? {
-        let normalized = sourceUrl.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-        let digest = SHA256.hash(data: Data(normalized.utf8))
-        let hex = digest.map { String(format: "%02x", $0) }.joined()
-        let shortId = String(hex.prefix(12))
-        return URL(string: "https://songflip.link/s/\(shortId)")
+    private func universalShareUrl(for item: HistoryItem) -> URL? {
+        let isPlaylist = item.targetPlatform.contains("_playlist")
+        if isPlaylist {
+            let cleanPlatform = item.targetPlatform.replacingOccurrences(of: "_playlist", with: "")
+            let key = "\(item.sourceUrl.trimmingCharacters(in: .whitespacesAndNewlines))|\(cleanPlatform)"
+            let digest = SHA256.hash(data: Data(key.utf8))
+            let hex = digest.map { String(format: "%02x", $0) }.joined()
+            let shortId = String(hex.prefix(10))
+            return URL(string: "https://songflip.link/p/\(shortId)")
+        } else {
+            let normalized = item.sourceUrl.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+            let digest = SHA256.hash(data: Data(normalized.utf8))
+            let hex = digest.map { String(format: "%02x", $0) }.joined()
+            let shortId = String(hex.prefix(12))
+            return URL(string: "https://songflip.link/s/\(shortId)")
+        }
     }
 }

@@ -211,7 +211,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         platform = "${targetPlatformKey}_playlist",
                         title = data.title.ifBlank { "Playlist" },
                         artist = "${data.matchedCount}/${data.totalTracks} Songs",
-                        isAlbum = false
+                        isAlbum = false,
+                        thumbnailUrl = data.thumbnailUrl
                     ),
                     isHistory = true
                 )
