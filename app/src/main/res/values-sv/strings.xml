@@ -220,6 +220,7 @@
     <string name="shortcut_pause_1h_toast">SongFlip pausad i 1 timme</string>
     <string name="shortcut_no_last_song">Ingen låt i historiken ännu</string>
     <string name="history_refresh_link">Uppdatera länk</string>
+    <string name="history_open_playlist_details">Visa spellistedetaljer</string>
     <string name="history_link_refreshed">Länk uppdaterad!</string>
     <string name="history_link_refreshing">Uppdaterar länk...</string>
     <string name="history_copy_target">Kopiera %1$s-länk</string>

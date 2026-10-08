@@ -219,6 +219,7 @@
     <string name="shortcut_pause_1h_toast">SongFlip dijeda selama 1 jam</string>
     <string name="shortcut_no_last_song">Belum ada lagu di riwayat</string>
     <string name="history_refresh_link">Perbarui tautan</string>
+    <string name="history_open_playlist_details">Lihat detail daftar putar</string>
     <string name="history_link_refreshed">Tautan berhasil diperbarui!</string>
     <string name="history_link_refreshing">Memperbarui tautan...</string>
     <string name="history_copy_target">Salin tautan %1$s</string>

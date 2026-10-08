@@ -467,6 +467,14 @@ object ProManager {
         return "https://songflip.link/s/$shortId"
     }
 
+    fun getPlaylistWebShareUrl(rawUrl: String, targetPlatform: String): String {
+        val cleanUrl = rawUrl.trim()
+        val cleanPlatform = targetPlatform.removeSuffix("_playlist").trim()
+        val hash = hashUrl("$cleanUrl|$cleanPlatform")
+        val shortId = if (hash.length > 10) hash.substring(0, 10) else hash
+        return "https://songflip.link/p/$shortId"
+    }
+
     fun warmupUniversalShare(rawUrl: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {

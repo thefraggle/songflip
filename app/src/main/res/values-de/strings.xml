@@ -243,6 +243,7 @@
     <string name="shortcut_pause_1h_toast">SongFlip für 1 Stunde pausiert</string>
     <string name="shortcut_no_last_song">Noch kein Song im Verlauf vorhanden</string>
     <string name="history_refresh_link">Link neu auflösen</string>
+    <string name="history_open_playlist_details">Playlist-Details anzeigen</string>
     <string name="history_link_refreshed">Link erfolgreich aktualisiert!</string>
     <string name="history_link_refreshing">Wird neu aufgelöst...</string>
     <string name="history_copy_target">%1$s-Link kopieren</string>

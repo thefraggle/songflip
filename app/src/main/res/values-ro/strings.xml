@@ -211,6 +211,7 @@
     <string name="shortcut_pause_1h_toast">SongFlip a fost pus pe pauză timp de 1 oră</string>
     <string name="shortcut_no_last_song">Nicio melodie convertită în istoric</string>
     <string name="history_refresh_link">Reîmprospătează linkul</string>
+    <string name="history_open_playlist_details">Afișează detaliile playlistului</string>
     <string name="history_link_refreshed">Link reîmprospătat cu succes!</string>
     <string name="history_link_refreshing">Se reîmprospătează linkul...</string>
     <string name="history_copy_target">Copiază linkul %1$s</string>

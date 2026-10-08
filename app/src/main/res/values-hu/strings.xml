@@ -210,6 +210,7 @@
     <string name="shortcut_pause_1h_toast">SongFlip 1 órára szüneteltetve</string>
     <string name="shortcut_no_last_song">Még nincs konvertált zene az előzményekben</string>
     <string name="history_refresh_link">Link frissítése</string>
+    <string name="history_open_playlist_details">Lejátszási lista adatainak megtekintése</string>
     <string name="history_link_refreshed">Link sikeresen frissítve!</string>
     <string name="history_link_refreshing">Link frissítése folyamatban...</string>
     <string name="history_copy_target">%1$s-link másolása</string>

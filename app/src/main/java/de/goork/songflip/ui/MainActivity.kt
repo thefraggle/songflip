@@ -534,6 +534,10 @@ fun MainScreen(
             onOpenProPaywall = {
                 showHistoryBottomSheet = false
                 showProPaywall = true
+            },
+            onOpenPlaylist = { playlistUrl, _ ->
+                showHistoryBottomSheet = false
+                showPlaylistConvertSheet = playlistUrl
             }
         )
     }

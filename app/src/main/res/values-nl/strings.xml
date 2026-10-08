@@ -220,6 +220,7 @@
     <string name="shortcut_pause_1h_toast">SongFlip 1 uur gepauzeerd</string>
     <string name="shortcut_no_last_song">Nog geen nummers in de geschiedenis</string>
     <string name="history_refresh_link">Link vernieuwen</string>
+    <string name="history_open_playlist_details">Afspeellijstdetails bekijken</string>
     <string name="history_link_refreshed">Link succesvol vernieuwd!</string>
     <string name="history_link_refreshing">Link vernieuwen...</string>
     <string name="history_copy_target">%1$s-link kopiëren</string>

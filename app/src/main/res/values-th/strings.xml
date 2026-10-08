@@ -209,6 +209,7 @@
     <string name="shortcut_pause_1h_toast">หยุด SongFlip ชั่วคราว 1 ชั่วโมงแล้ว</string>
     <string name="shortcut_no_last_song">ยังไม่มีเพลงที่แปลงในประวัติ</string>
     <string name="history_refresh_link">รีเฟรชลิงก์</string>
+    <string name="history_open_playlist_details">ดูรายละเอียดเพลย์ลิสต์</string>
     <string name="history_link_refreshed">รีเฟรชลิงก์สำเร็จแล้ว!</string>
     <string name="history_link_refreshing">กำลังรีเฟรชลิงก์...</string>
     <string name="history_copy_target">คัดลอกลิงก์ %1$s</string>

@@ -210,6 +210,7 @@
     <string name="shortcut_pause_1h_toast">Το SongFlip τέθηκε σε παύση για 1 ώρα</string>
     <string name="shortcut_no_last_song">Δεν υπάρχει ακόμη κομμάτι στο ιστορικό</string>
     <string name="history_refresh_link">Ανανέωση συνδέσμου</string>
+    <string name="history_open_playlist_details">Προβολή λεπτομερειών λίστας</string>
     <string name="history_link_refreshed">Ο σύνδεσμος ανανεώθηκε επιτυχώς!</string>
     <string name="history_link_refreshing">Ανανέωση συνδέσμου...</string>
     <string name="history_copy_target">Αντιγραφή συνδέσμου %1$s</string>

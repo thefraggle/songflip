@@ -212,6 +212,7 @@
     <string name="shortcut_pause_1h_toast">SongFlip pozastaven na 1 hodinu</string>
     <string name="shortcut_no_last_song">V historii zatím není žádná převedená skladba</string>
     <string name="history_refresh_link">Obnovit odkaz</string>
+    <string name="history_open_playlist_details">Zobrazit podrobnosti playlistu</string>
     <string name="history_link_refreshed">Odkaz byl úspěšně obnoven!</string>
     <string name="history_link_refreshing">Obnovuji odkaz...</string>
     <string name="history_copy_target">Kopírovat odkaz %1$s</string>

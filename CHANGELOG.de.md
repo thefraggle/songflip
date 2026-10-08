@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.8.5] - 2026-10-08
+- **Playlist-Details im Verlauf**: Das Antippen einer Playlist im Verlauf öffnet jetzt wieder die vollständige Übersicht mit allen Teilen und Dateiexport-Optionen, während das Wiedergabe-Symbol auf dem Cover weiterhin die direkte Wiedergabe startet.
+- **Playlist-Coveranzeige**: Das Coverbild konvertierter Playlists wird nun zuverlässig im Verlauf und direkt im Kopfbereich des Konvertierungsfensters angezeigt.
+- **Teilen & Feinschliff**: Schneller Zugriff auf Playlist-Details über das Menü und aktualisierte Texte in allen unterstützten Sprachen.
+
 ## [1.8.4] - 2026-10-08
 - **Transparente Playlist-Infos**: Bei der Übertragung umfangreicher Playlists wird jetzt transparent über plattformspezifische Obergrenzen informiert.
 - **Präzisere Meldungen**: Verbesserte und verständlichere Hinweise bei Zeitüberschreitungen und großen Titellisten.

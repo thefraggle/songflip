@@ -219,6 +219,7 @@
     <string name="shortcut_pause_1h_toast">SongFlip 已暂停 1 小时</string>
     <string name="shortcut_no_last_song">历史记录中暂无转换歌曲</string>
     <string name="history_refresh_link">重新解析链接</string>
+    <string name="history_open_playlist_details">查看播放列表详情</string>
     <string name="history_link_refreshed">链接已成功更新！</string>
     <string name="history_link_refreshing">正在重新解析...</string>
     <string name="history_copy_target">复制 %1$s 链接</string>

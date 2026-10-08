@@ -219,6 +219,7 @@
     <string name="shortcut_pause_1h_toast">SongFlip이 1시간 동안 일시정지되었습니다</string>
     <string name="shortcut_no_last_song">기록에 곡이 없습니다</string>
     <string name="history_refresh_link">링크 새로고침</string>
+    <string name="history_open_playlist_details">재생목록 세부정보 보기</string>
     <string name="history_link_refreshed">링크가 성공적으로 업데이트되었습니다!</string>
     <string name="history_link_refreshing">링크 새로고침 중...</string>
     <string name="history_copy_target">%1$s 링크 복사</string>

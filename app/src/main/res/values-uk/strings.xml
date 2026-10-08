@@ -222,6 +222,7 @@
     <string name="shortcut_pause_1h_toast">SongFlip призупинено на 1 годину</string>
     <string name="shortcut_no_last_song">У журналі ще немає треків</string>
     <string name="history_refresh_link">Оновити посилання</string>
+    <string name="history_open_playlist_details">Переглянути деталі списку відтворення</string>
     <string name="history_link_refreshed">Посилання успішно оновлено!</string>
     <string name="history_link_refreshing">Оновлення посилання...</string>
     <string name="history_copy_target">Копіювати посилання %1$s</string>
