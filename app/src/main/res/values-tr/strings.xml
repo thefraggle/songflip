@@ -341,4 +341,9 @@
     <string name="feedback_success">Geri bildiriminiz için teşekkürler!</string>
     <string name="feedback_error_empty">Lütfen en az 10 karakter girin.</string>
     <string name="feedback_error_network">Gönderilemedi. Lütfen e-posta ile deneyin.</string>
+
+    <string name="playlist_active_banner_title">Aktif Çalma Listesi</string>
+    <string name="playlist_active_banner_details">Ayrıntılar</string>
+    <string name="playlist_active_banner_open">%1$s ile Aç</string>
+    <string name="playlist_active_banner_dismiss">Kapat</string>
 </resources>

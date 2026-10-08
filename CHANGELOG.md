@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.7.6] - 2026-10-08
+- **Persistent Playlist Conversions**: Converted playlists now remain available as a dashboard card until explicitly dismissed — preventing accidental loss if you close the details sheet.
+- **Direct History Access**: A dedicated history icon in the header lets you jump straight to your recent tracks and playlists in a single tap.
+- **Background Conversion Reliability**: Playlist transfers continue smoothly even if you close the sheet, change orientation, or switch app settings.
+- **Bug Fix**: Resolved an issue where changing the app language could re-trigger the playlist sheet unexpectedly.
+
 ## [1.7.5] - 2026-10-07
 - **Clear Playlist Guidance**: Transparent notice for large playlists explaining the current 50-track limit without account requirements.
 - **Enhanced Connection Reliability**: Increased timeout tolerances for comprehensive playlist conversions to prevent connection drops.

@@ -230,6 +230,11 @@
     <string name="clipboard_banner_action_share">Universal-Link</string>
     <string name="pro_debug_reset_status">PRO Status zurückgesetzt (Debug)</string>
     <string name="pro_debug_reset_button">PRO-Status zurücksetzen (Debug)</string>
+    <!-- Active Playlist Banner -->
+    <string name="playlist_active_banner_title">Aktive Playlist</string>
+    <string name="playlist_active_banner_details">Details</string>
+    <string name="playlist_active_banner_open">In %1$s öffnen</string>
+    <string name="playlist_active_banner_dismiss">Schließen</string>
 
     <string name="shortcut_last_song_short">Letzten Song öffnen</string>
     <string name="shortcut_last_song_long">Letzten Song abspielen: %s</string>

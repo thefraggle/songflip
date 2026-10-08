@@ -335,4 +335,9 @@
     <string name="feedback_success">Děkujeme za vaši zpětnou vazbu!</string>
     <string name="feedback_error_empty">Zadejte alespoň 10 znaků.</string>
     <string name="feedback_error_network">Odeslání se nezdařilo. Zkuste to e-mailem.</string>
+
+    <string name="playlist_active_banner_title">Aktivní playlist</string>
+    <string name="playlist_active_banner_details">Podrobnosti</string>
+    <string name="playlist_active_banner_open">Otevřít v %1$s</string>
+    <string name="playlist_active_banner_dismiss">Zavřít</string>
 </resources>

@@ -47,7 +47,9 @@ fun PlaylistConvertBottomSheet(
     playlistUrl: String,
     targetPlatformKey: String,
     onDismiss: () -> Unit,
-    onOpenPaywall: () -> Unit
+    onOpenPaywall: () -> Unit,
+    externalConversionState: PlaylistConversionState? = null,
+    onRetryConversion: (() -> Unit)? = null
 ) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
@@ -67,16 +69,21 @@ fun PlaylistConvertBottomSheet(
         sourcePlatform.key == targetPlatformKey
     }
 
-    var conversionState by remember(playlistUrl, targetPlatformKey) {
+    var internalConversionState by remember(playlistUrl, targetPlatformKey) {
         mutableStateOf<PlaylistConversionState>(
             if (isSamePlatform) PlaylistConversionState.SamePlatform
-            else PlaylistConversionState.Loading()
+            else externalConversionState ?: PlaylistConversionState.Loading()
         )
     }
+    val conversionState = externalConversionState ?: internalConversionState
     var conversionProgressStep by remember { mutableIntStateOf(0) }
 
     fun runConversion() {
-        conversionState = PlaylistConversionState.Loading()
+        if (onRetryConversion != null) {
+            onRetryConversion()
+            return
+        }
+        internalConversionState = PlaylistConversionState.Loading()
         conversionProgressStep = 0
         val maxTracksToConvert = if (isPro) 50 else 5
         de.goork.songflip.core.analytics.AptabaseClient.shared.trackPlaylistConversionStarted(
@@ -96,7 +103,7 @@ fun PlaylistConvertBottomSheet(
             }
             if (result.isSuccess) {
                 val data = result.getOrThrow()
-                conversionState = PlaylistConversionState.Success(data)
+                internalConversionState = PlaylistConversionState.Success(data)
 
                 // Save playlist entry into local history
                 val targetUrl = data.zeroOAuthUrl ?: data.webShareUrl ?: playlistUrl
@@ -146,7 +153,7 @@ fun PlaylistConvertBottomSheet(
                 val reason = playlistEx?.reason ?: errorCode.name.lowercase()
                 val errorMsg = playlistEx?.message ?: exception?.message ?: "Unknown error"
 
-                conversionState = PlaylistConversionState.Error(
+                internalConversionState = PlaylistConversionState.Error(
                     message = errorMsg,
                     errorCode = errorCode,
                     reason = reason
@@ -180,8 +187,8 @@ fun PlaylistConvertBottomSheet(
 
     LaunchedEffect(playlistUrl, targetPlatformKey, isPro) {
         if (isSamePlatform) {
-            conversionState = PlaylistConversionState.SamePlatform
-        } else {
+            internalConversionState = PlaylistConversionState.SamePlatform
+        } else if (externalConversionState == null) {
             runConversion()
         }
     }

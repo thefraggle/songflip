@@ -349,4 +349,9 @@
     <string name="feedback_success">Dziękujemy za Twoją opinię!</string>
     <string name="feedback_error_empty">Wpisz co najmniej 10 znaków.</string>
     <string name="feedback_error_network">Nie udało się wysłać. Spróbuj przez e-mail.</string>
+
+    <string name="playlist_active_banner_title">Aktywna playlista</string>
+    <string name="playlist_active_banner_details">Szczegóły</string>
+    <string name="playlist_active_banner_open">Otwórz w %1$s</string>
+    <string name="playlist_active_banner_dismiss">Zamknij</string>
 </resources>

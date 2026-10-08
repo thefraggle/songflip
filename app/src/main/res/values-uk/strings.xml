@@ -349,4 +349,9 @@
     <string name="feedback_success">Дякуємо за ваш відгук!</string>
     <string name="feedback_error_empty">Введіть щонайменше 10 символів.</string>
     <string name="feedback_error_network">Не вдалося надіслати. Спробуйте через e-mail.</string>
+
+    <string name="playlist_active_banner_title">Активний плейлист</string>
+    <string name="playlist_active_banner_details">Деталі</string>
+    <string name="playlist_active_banner_open">Відкрити в %1$s</string>
+    <string name="playlist_active_banner_dismiss">Закрити</string>
 </resources>

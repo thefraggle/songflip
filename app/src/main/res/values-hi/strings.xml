@@ -341,4 +341,9 @@
     <string name="feedback_success">आपकी प्रतिक्रिया के लिए धन्यवाद!</string>
     <string name="feedback_error_empty">कृपया कम से कम 10 वर्ण दर्ज करें।</string>
     <string name="feedback_error_network">भेजने में असमर्थ। कृपया ईमेल का उपयोग करें।</string>
+
+    <string name="playlist_active_banner_title">सक्रिय प्लेलिस्ट</string>
+    <string name="playlist_active_banner_details">विवरण</string>
+    <string name="playlist_active_banner_open">%1$s में खोलें</string>
+    <string name="playlist_active_banner_dismiss">बंद करें</string>
 </resources>

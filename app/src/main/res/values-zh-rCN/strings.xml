@@ -337,4 +337,9 @@
     <string name="feedback_success">感谢您的反馈！</string>
     <string name="feedback_error_empty">请输入至少10个字符。</string>
     <string name="feedback_error_network">发送失败，请尝试使用邮件发送。</string>
+
+    <string name="playlist_active_banner_title">活跃播放列表</string>
+    <string name="playlist_active_banner_details">详情</string>
+    <string name="playlist_active_banner_open">在%1$s中打开</string>
+    <string name="playlist_active_banner_dismiss">关闭</string>
 </resources>

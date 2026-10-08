@@ -361,6 +361,12 @@ enum LocalizationManager {
             "time_hours_ago": "vor %1$d Std.",
             "time_just_now": "Gerade eben",
             "time_minutes_ago": "vor %1$d Min.",
+            "playlist_active_banner_details": "Details",
+            "playlist_active_banner_dismiss": "Schließen",
+            "playlist_active_banner_open": "In %1$@ öffnen",
+            "playlist_active_banner_title": "Aktive Playlist",
+            "playlist_same_platform_desc": "Diese Playlist stammt bereits von deinem ausgewählten Musikdienst. Du kannst sie direkt in der App öffnen.",
+            "playlist_same_platform_title": "Bereits in %1$@",
         
         ],
         "en": [
@@ -721,6 +727,12 @@ enum LocalizationManager {
             "time_hours_ago": "%1$d h ago",
             "time_just_now": "Just now",
             "time_minutes_ago": "%1$d min ago",
+            "playlist_active_banner_details": "Details",
+            "playlist_active_banner_dismiss": "Dismiss",
+            "playlist_active_banner_open": "Open in %1$@",
+            "playlist_active_banner_title": "Active Playlist",
+            "playlist_same_platform_desc": "This playlist is already from your selected music service. You can open it directly in the app.",
+            "playlist_same_platform_title": "Already in %1$@",
         
         ],
         "da": [
@@ -1081,6 +1093,12 @@ enum LocalizationManager {
             "time_hours_ago": "%1$d timer siden",
             "time_just_now": "Lige nu",
             "time_minutes_ago": "%1$d min siden",
+            "playlist_active_banner_details": "Detaljer",
+            "playlist_active_banner_dismiss": "Luk",
+            "playlist_active_banner_open": "Åbn i %1$@",
+            "playlist_active_banner_title": "Aktiv playliste",
+            "playlist_same_platform_desc": "This playlist is already from your selected music service. You can open it directly in the app.",
+            "playlist_same_platform_title": "Already in %1$@",
         
         ],
         "nb": [
@@ -1441,6 +1459,12 @@ enum LocalizationManager {
             "time_hours_ago": "%1$d timer siden",
             "time_just_now": "Akkurat nå",
             "time_minutes_ago": "%1$d min siden",
+            "playlist_active_banner_details": "Detaljer",
+            "playlist_active_banner_dismiss": "Lukk",
+            "playlist_active_banner_open": "Åpne i %1$@",
+            "playlist_active_banner_title": "Aktiv spilleliste",
+            "playlist_same_platform_desc": "This playlist is already from your selected music service. You can open it directly in the app.",
+            "playlist_same_platform_title": "Already in %1$@",
         ],
         "sv": [
             "settings_share_app": "Dela SongFlip",
@@ -1800,6 +1824,12 @@ enum LocalizationManager {
             "time_hours_ago": "%1$d tim sedan",
             "time_just_now": "Just nu",
             "time_minutes_ago": "%1$d min sedan",
+            "playlist_active_banner_details": "Detaljer",
+            "playlist_active_banner_dismiss": "Stäng",
+            "playlist_active_banner_open": "Öppna i %1$@",
+            "playlist_active_banner_title": "Aktiv spellista",
+            "playlist_same_platform_desc": "This playlist is already from your selected music service. You can open it directly in the app.",
+            "playlist_same_platform_title": "Already in %1$@",
         
         ],
         "nl": [
@@ -2160,6 +2190,12 @@ enum LocalizationManager {
             "time_hours_ago": "%1$d uur geleden",
             "time_just_now": "Zojuist",
             "time_minutes_ago": "%1$d min geleden",
+            "playlist_active_banner_details": "Details",
+            "playlist_active_banner_dismiss": "Sluiten",
+            "playlist_active_banner_open": "Openen in %1$@",
+            "playlist_active_banner_title": "Actieve afspeellijst",
+            "playlist_same_platform_desc": "This playlist is already from your selected music service. You can open it directly in the app.",
+            "playlist_same_platform_title": "Already in %1$@",
         
         ],
         "fr": [
@@ -2520,6 +2556,12 @@ enum LocalizationManager {
             "time_hours_ago": "il y a %1$d h",
             "time_just_now": "À l'instant",
             "time_minutes_ago": "il y a %1$d min",
+            "playlist_active_banner_details": "Détails",
+            "playlist_active_banner_dismiss": "Fermer",
+            "playlist_active_banner_open": "Ouvrir dans %1$@",
+            "playlist_active_banner_title": "Playlist active",
+            "playlist_same_platform_desc": "This playlist is already from your selected music service. You can open it directly in the app.",
+            "playlist_same_platform_title": "Already in %1$@",
         
         ],
         "es": [
@@ -2880,6 +2922,12 @@ enum LocalizationManager {
             "time_hours_ago": "hace %1$d h",
             "time_just_now": "Ahora mismo",
             "time_minutes_ago": "hace %1$d min",
+            "playlist_active_banner_details": "Detalles",
+            "playlist_active_banner_dismiss": "Cerrar",
+            "playlist_active_banner_open": "Abrir en %1$@",
+            "playlist_active_banner_title": "Lista activa",
+            "playlist_same_platform_desc": "This playlist is already from your selected music service. You can open it directly in the app.",
+            "playlist_same_platform_title": "Already in %1$@",
         
         ],
         "it": [
@@ -3240,6 +3288,12 @@ enum LocalizationManager {
             "time_hours_ago": "%1$d ore fa",
             "time_just_now": "Proprio ora",
             "time_minutes_ago": "%1$d min fa",
+            "playlist_active_banner_details": "Dettagli",
+            "playlist_active_banner_dismiss": "Chiudi",
+            "playlist_active_banner_open": "Apri in %1$@",
+            "playlist_active_banner_title": "Playlist attiva",
+            "playlist_same_platform_desc": "This playlist is already from your selected music service. You can open it directly in the app.",
+            "playlist_same_platform_title": "Already in %1$@",
         
         ],
         "pt": [
@@ -3600,6 +3654,12 @@ enum LocalizationManager {
             "time_hours_ago": "há %1$d h",
             "time_just_now": "Agora mesmo",
             "time_minutes_ago": "há %1$d min",
+            "playlist_active_banner_details": "Detalhes",
+            "playlist_active_banner_dismiss": "Fechar",
+            "playlist_active_banner_open": "Abrir no %1$@",
+            "playlist_active_banner_title": "Playlist ativa",
+            "playlist_same_platform_desc": "This playlist is already from your selected music service. You can open it directly in the app.",
+            "playlist_same_platform_title": "Already in %1$@",
         
         ],
         "pl": [
@@ -3960,6 +4020,12 @@ enum LocalizationManager {
             "time_hours_ago": "%1$d godz. temu",
             "time_just_now": "Przed chwilą",
             "time_minutes_ago": "%1$d min temu",
+            "playlist_active_banner_details": "Szczegóły",
+            "playlist_active_banner_dismiss": "Zamknij",
+            "playlist_active_banner_open": "Otwórz w %1$@",
+            "playlist_active_banner_title": "Aktywna playlista",
+            "playlist_same_platform_desc": "This playlist is already from your selected music service. You can open it directly in the app.",
+            "playlist_same_platform_title": "Already in %1$@",
         
         ],
         "ru": [
@@ -4320,6 +4386,12 @@ enum LocalizationManager {
             "time_hours_ago": "%1$d ч. назад",
             "time_just_now": "Только что",
             "time_minutes_ago": "%1$d мин. назад",
+            "playlist_active_banner_details": "Подробности",
+            "playlist_active_banner_dismiss": "Закрыть",
+            "playlist_active_banner_open": "Открыть в %1$@",
+            "playlist_active_banner_title": "Активный плейлист",
+            "playlist_same_platform_desc": "This playlist is already from your selected music service. You can open it directly in the app.",
+            "playlist_same_platform_title": "Already in %1$@",
         
         ],
         "tr": [
@@ -4680,6 +4752,12 @@ enum LocalizationManager {
             "time_hours_ago": "%1$d sa önce",
             "time_just_now": "Az önce",
             "time_minutes_ago": "%1$d dk önce",
+            "playlist_active_banner_details": "Ayrıntılar",
+            "playlist_active_banner_dismiss": "Kapat",
+            "playlist_active_banner_open": "%1$@ ile Aç",
+            "playlist_active_banner_title": "Aktif Çalma Listesi",
+            "playlist_same_platform_desc": "This playlist is already from your selected music service. You can open it directly in the app.",
+            "playlist_same_platform_title": "Already in %1$@",
         
         ],
         "uk": [
@@ -5040,6 +5118,12 @@ enum LocalizationManager {
             "time_hours_ago": "%1$d год тому",
             "time_just_now": "Щойно",
             "time_minutes_ago": "%1$d хв тому",
+            "playlist_active_banner_details": "Деталі",
+            "playlist_active_banner_dismiss": "Закрити",
+            "playlist_active_banner_open": "Відкрити в %1$@",
+            "playlist_active_banner_title": "Активний плейлист",
+            "playlist_same_platform_desc": "This playlist is already from your selected music service. You can open it directly in the app.",
+            "playlist_same_platform_title": "Already in %1$@",
         
         ],
         "ja": [
@@ -5400,6 +5484,12 @@ enum LocalizationManager {
             "time_hours_ago": "%1$d 時間前",
             "time_just_now": "たった今",
             "time_minutes_ago": "%1$d 分前",
+            "playlist_active_banner_details": "詳細",
+            "playlist_active_banner_dismiss": "閉じる",
+            "playlist_active_banner_open": "%1$@で開く",
+            "playlist_active_banner_title": "アクティブなプレイリスト",
+            "playlist_same_platform_desc": "This playlist is already from your selected music service. You can open it directly in the app.",
+            "playlist_same_platform_title": "Already in %1$@",
         
         ],
         "ko": [
@@ -5760,6 +5850,12 @@ enum LocalizationManager {
             "time_hours_ago": "%1$d시간 전",
             "time_just_now": "방금 전",
             "time_minutes_ago": "%1$d분 전",
+            "playlist_active_banner_details": "세부정보",
+            "playlist_active_banner_dismiss": "닫기",
+            "playlist_active_banner_open": "%1$@에서 열기",
+            "playlist_active_banner_title": "활성 재생목록",
+            "playlist_same_platform_desc": "This playlist is already from your selected music service. You can open it directly in the app.",
+            "playlist_same_platform_title": "Already in %1$@",
         
         ],
         "zh": [
@@ -6120,6 +6216,12 @@ enum LocalizationManager {
             "time_hours_ago": "%1$d h ago",
             "time_just_now": "Just now",
             "time_minutes_ago": "%1$d min ago",
+            "playlist_active_banner_details": "Details",
+            "playlist_active_banner_dismiss": "Dismiss",
+            "playlist_active_banner_open": "Open in %1$@",
+            "playlist_active_banner_title": "Active Playlist",
+            "playlist_same_platform_desc": "This playlist is already from your selected music service. You can open it directly in the app.",
+            "playlist_same_platform_title": "Already in %1$@",
         ],
         "in": [
             "settings_share_app": "Bagikan SongFlip",
@@ -6479,6 +6581,12 @@ enum LocalizationManager {
             "time_hours_ago": "%1$d jam lalu",
             "time_just_now": "Baru saja",
             "time_minutes_ago": "%1$d mnt lalu",
+            "playlist_active_banner_details": "Detail",
+            "playlist_active_banner_dismiss": "Tutup",
+            "playlist_active_banner_open": "Buka di %1$@",
+            "playlist_active_banner_title": "Daftar Putar Aktif",
+            "playlist_same_platform_desc": "This playlist is already from your selected music service. You can open it directly in the app.",
+            "playlist_same_platform_title": "Already in %1$@",
         ],
         "vi": [
             "settings_share_app": "Chia sẻ SongFlip",
@@ -6838,6 +6946,12 @@ enum LocalizationManager {
             "time_hours_ago": "%1$d giờ trước",
             "time_just_now": "Vừa xong",
             "time_minutes_ago": "%1$d phút trước",
+            "playlist_active_banner_details": "Chi tiết",
+            "playlist_active_banner_dismiss": "Đóng",
+            "playlist_active_banner_open": "Mở trong %1$@",
+            "playlist_active_banner_title": "Danh sách phát đang hoạt động",
+            "playlist_same_platform_desc": "This playlist is already from your selected music service. You can open it directly in the app.",
+            "playlist_same_platform_title": "Already in %1$@",
         
         ],
         "bn": [
@@ -7198,6 +7312,12 @@ enum LocalizationManager {
             "time_hours_ago": "%1$d ঘণ্টা আগে",
             "time_just_now": "এইমাত্র",
             "time_minutes_ago": "%1$d মিনিট আগে",
+            "playlist_active_banner_details": "বিবরণ",
+            "playlist_active_banner_dismiss": "বন্ধ করুন",
+            "playlist_active_banner_open": "%1$@-এ খুলুন",
+            "playlist_active_banner_title": "সক্রিয় প্লেলিস্ট",
+            "playlist_same_platform_desc": "This playlist is already from your selected music service. You can open it directly in the app.",
+            "playlist_same_platform_title": "Already in %1$@",
         
         ],
         "hi": [
@@ -7558,6 +7678,12 @@ enum LocalizationManager {
             "time_hours_ago": "%1$d घंटे पहले",
             "time_just_now": "अभी-अभी",
             "time_minutes_ago": "%1$d मिनट पहले",
+            "playlist_active_banner_details": "विवरण",
+            "playlist_active_banner_dismiss": "बंद करें",
+            "playlist_active_banner_open": "%1$@ में खोलें",
+            "playlist_active_banner_title": "सक्रिय प्लेलिस्ट",
+            "playlist_same_platform_desc": "This playlist is already from your selected music service. You can open it directly in the app.",
+            "playlist_same_platform_title": "Already in %1$@",
         
         ],
         "mr": [
@@ -7918,6 +8044,12 @@ enum LocalizationManager {
             "time_hours_ago": "%1$d तासांपूर्वी",
             "time_just_now": "नुकतेच",
             "time_minutes_ago": "%1$d मिनिटांपूर्वी",
+            "playlist_active_banner_details": "तपशील",
+            "playlist_active_banner_dismiss": "बंद करा",
+            "playlist_active_banner_open": "%1$@ मध्ये उघडा",
+            "playlist_active_banner_title": "सक्रिय प्लेलिस्ट",
+            "playlist_same_platform_desc": "This playlist is already from your selected music service. You can open it directly in the app.",
+            "playlist_same_platform_title": "Already in %1$@",
         
         ]
     ]

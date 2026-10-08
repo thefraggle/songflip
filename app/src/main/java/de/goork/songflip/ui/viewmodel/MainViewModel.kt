@@ -4,11 +4,22 @@ import android.app.Application
 import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import de.goork.songflip.core.analytics.AptabaseClient
+import de.goork.songflip.core.engine.PlaylistConverterEngine
+import de.goork.songflip.core.engine.SongLinkEngine
+import de.goork.songflip.core.model.MusicPlatform
+import de.goork.songflip.core.model.PlaylistConversionException
+import de.goork.songflip.core.model.PlaylistConversionResult
+import de.goork.songflip.core.model.PlaylistConversionState
+import de.goork.songflip.core.model.PlaylistErrorCode
+import de.goork.songflip.core.model.ResolutionResult
+import de.goork.songflip.core.util.UrlUtils
+import de.goork.songflip.data.DiagnosisSummary
 import de.goork.songflip.data.DomainStatusInfo
 import de.goork.songflip.data.DomainVerificationUtils
-import de.goork.songflip.data.DiagnosisSummary
 import de.goork.songflip.data.LinkDiagnosisManager
 import de.goork.songflip.data.PauseHelper
+import de.goork.songflip.data.ProManager
 import de.goork.songflip.data.SettingsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,6 +27,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+
+data class ActivePlaylistConversion(
+    val playlistUrl: String,
+    val targetPlatformKey: String,
+    val state: PlaylistConversionState
+)
 
 data class MainUiState(
     val targetPlatform: String = "youtubeMusic",
@@ -102,5 +119,128 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val app = getApplication<Application>()
         PauseHelper.resume(app)
         refreshStatus()
+    }
+
+    private val _activePlaylistConversion = MutableStateFlow<ActivePlaylistConversion?>(null)
+    val activePlaylistConversion: StateFlow<ActivePlaylistConversion?> = _activePlaylistConversion.asStateFlow()
+
+    fun startPlaylistConversion(
+        playlistUrl: String,
+        targetPlatformKey: String,
+        isPro: Boolean
+    ) {
+        val sourcePlatform = UrlUtils.detectPlatform(playlistUrl) ?: MusicPlatform.YOUTUBE_MUSIC
+        if (sourcePlatform.key == targetPlatformKey) {
+            _activePlaylistConversion.value = ActivePlaylistConversion(
+                playlistUrl = playlistUrl,
+                targetPlatformKey = targetPlatformKey,
+                state = PlaylistConversionState.SamePlatform
+            )
+            return
+        }
+
+        val current = _activePlaylistConversion.value
+        if (current != null && current.playlistUrl == playlistUrl && current.targetPlatformKey == targetPlatformKey) {
+            if (current.state is PlaylistConversionState.Loading || current.state is PlaylistConversionState.Converting || current.state is PlaylistConversionState.Success) {
+                return
+            }
+        }
+
+        _activePlaylistConversion.value = ActivePlaylistConversion(
+            playlistUrl = playlistUrl,
+            targetPlatformKey = targetPlatformKey,
+            state = PlaylistConversionState.Loading()
+        )
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val maxTracksToConvert = if (isPro) 50 else 5
+            AptabaseClient.shared.trackPlaylistConversionStarted(
+                sourcePlatform = sourcePlatform.key,
+                targetPlatform = targetPlatformKey,
+                trackCount = maxTracksToConvert
+            )
+
+            val result = PlaylistConverterEngine.shared.convertPlaylist(
+                url = playlistUrl,
+                targetPlatformKey = targetPlatformKey,
+                isPro = isPro,
+                maxTracks = maxTracksToConvert,
+                authToken = ProManager.getAuthToken()
+            )
+
+            if (result.isSuccess) {
+                val data = result.getOrThrow()
+                _activePlaylistConversion.value = ActivePlaylistConversion(
+                    playlistUrl = playlistUrl,
+                    targetPlatformKey = targetPlatformKey,
+                    state = PlaylistConversionState.Success(data)
+                )
+
+                // Save playlist entry into local history
+                val targetUrl = data.zeroOAuthUrl ?: data.webShareUrl ?: playlistUrl
+                SongLinkEngine.shared.cache.put(
+                    canonicalUrl = playlistUrl,
+                    targetPlatformKey = targetPlatformKey,
+                    result = ResolutionResult.Success(
+                        targetUrl = targetUrl,
+                        platform = "${targetPlatformKey}_playlist",
+                        title = data.title.ifBlank { "Playlist" },
+                        artist = "${data.matchedCount}/${data.totalTracks} Songs",
+                        isAlbum = false
+                    ),
+                    isHistory = true
+                )
+
+                AptabaseClient.shared.trackPlaylistConversionCompleted(
+                    sourcePlatform = sourcePlatform.key,
+                    targetPlatform = targetPlatformKey,
+                    totalTracks = data.totalTracks,
+                    resolvedTracks = data.matchedCount,
+                    failedTracks = (data.totalTracks - data.matchedCount).coerceAtLeast(0),
+                    isBatch = data.totalTracks > 50
+                )
+
+                AptabaseClient.shared.trackLinkFlipped(
+                    target = targetPlatformKey,
+                    isAlbum = false,
+                    isSearch = false,
+                    source = sourcePlatform.key
+                )
+            } else {
+                val exception = result.exceptionOrNull()
+                val playlistEx = exception as? PlaylistConversionException
+                val errorCode = playlistEx?.errorCode ?: PlaylistErrorCode.UNKNOWN_ERROR
+                val reason = playlistEx?.reason ?: errorCode.name.lowercase()
+                val errorMsg = playlistEx?.message ?: exception?.message ?: "Unknown error"
+
+                _activePlaylistConversion.value = ActivePlaylistConversion(
+                    playlistUrl = playlistUrl,
+                    targetPlatformKey = targetPlatformKey,
+                    state = PlaylistConversionState.Error(
+                        message = errorMsg,
+                        errorCode = errorCode,
+                        reason = reason
+                    )
+                )
+
+                AptabaseClient.shared.trackPlaylistConversionFailed(
+                    sourcePlatform = sourcePlatform.key,
+                    targetPlatform = targetPlatformKey,
+                    reason = reason
+                )
+                val sourceDomain = UrlUtils.extractDomain(playlistUrl)
+                AptabaseClient.shared.trackLinkFlipFailed(
+                    target = targetPlatformKey,
+                    reason = "playlist_$reason",
+                    sourceDomain = sourceDomain,
+                    sourcePlatform = sourcePlatform.key,
+                    errorReason = "playlist_$reason"
+                )
+            }
+        }
+    }
+
+    fun dismissActivePlaylistConversion() {
+        _activePlaylistConversion.value = null
     }
 }

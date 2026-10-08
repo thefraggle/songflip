@@ -341,4 +341,9 @@
     <string name="feedback_success">Obrigado pelo seu feedback!</string>
     <string name="feedback_error_empty">Digite pelo menos 10 caracteres.</string>
     <string name="feedback_error_network">Não foi possível enviar. Tente por e-mail.</string>
+
+    <string name="playlist_active_banner_title">Playlist ativa</string>
+    <string name="playlist_active_banner_details">Detalhes</string>
+    <string name="playlist_active_banner_open">Abrir no %1$s</string>
+    <string name="playlist_active_banner_dismiss">Fechar</string>
 </resources>

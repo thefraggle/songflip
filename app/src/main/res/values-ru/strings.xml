@@ -349,4 +349,9 @@
     <string name="feedback_success">Спасибо за ваш отзыв!</string>
     <string name="feedback_error_empty">Введите не менее 10 символов.</string>
     <string name="feedback_error_network">Не удалось отправить. Попробуйте через e-mail.</string>
+
+    <string name="playlist_active_banner_title">Активный плейлист</string>
+    <string name="playlist_active_banner_details">Подробности</string>
+    <string name="playlist_active_banner_open">Открыть в %1$s</string>
+    <string name="playlist_active_banner_dismiss">Закрыть</string>
 </resources>

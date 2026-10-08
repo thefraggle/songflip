@@ -341,4 +341,9 @@
     <string name="feedback_success">Tack för din feedback!</string>
     <string name="feedback_error_empty">Ange minst 10 tecken.</string>
     <string name="feedback_error_network">Kunde inte skicka. Försök via e-post istället.</string>
+
+    <string name="playlist_active_banner_title">Aktiv spellista</string>
+    <string name="playlist_active_banner_details">Detaljer</string>
+    <string name="playlist_active_banner_open">Öppna i %1$s</string>
+    <string name="playlist_active_banner_dismiss">Stäng</string>
 </resources>

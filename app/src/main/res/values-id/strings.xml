@@ -337,4 +337,9 @@
     <string name="feedback_success">Terima kasih atas masukan Anda!</string>
     <string name="feedback_error_empty">Masukkan minimal 10 karakter.</string>
     <string name="feedback_error_network">Gagal mengirim masukan. Silakan coba lewat email.</string>
+
+    <string name="playlist_active_banner_title">Daftar Putar Aktif</string>
+    <string name="playlist_active_banner_details">Detail</string>
+    <string name="playlist_active_banner_open">Buka di %1$s</string>
+    <string name="playlist_active_banner_dismiss">Tutup</string>
 </resources>
