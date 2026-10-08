@@ -49,6 +49,7 @@ object PackageUtils {
             "com.kashike.simpmusic",
             "com.maxrave.simpmusic",
             "com.github.brahmkshatriya.echo",
+            "io.github.aleixrodriala.arc",
             "com.aleixrodriala.newtube",
             "com.craftworks.music",
             "com.google.android.apps.youtube.music"

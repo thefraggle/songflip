@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.8.6] - 2026-10-09
+- **Bugfixes & Polish**: Improved detection and launch reliability for compatible music player apps.
+- **Stability Improvements**: Under-the-hood fixes for link handling and overall app reliability.
+
 ## [1.8.5] - 2026-10-08
 - **Playlist Details in History**: Tapping a converted playlist in your history now re-opens the complete track view with all parts and file export options, while the play icon on the cover starts instant playback.
 - **Playlist Artwork**: Restored cover artwork displays for playlists in your history and added the artwork directly into the conversion header.

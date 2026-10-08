@@ -1,3 +1,2 @@
-- Flexible Player Selection: Choose your preferred music player in Settings when multiple apps are installed.
-- Broader Compatibility: Music links open even more reliably in your favorite apps.
-- Stability Hotfix: Resolves an unexpected issue right when opening the app.
+- Bugfixes: Improved detection and launch reliability for compatible music players.
+- Stability Improvements: Smoother redirects and enhanced compatibility with installed music apps.
