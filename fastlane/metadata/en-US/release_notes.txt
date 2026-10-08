@@ -1,3 +1,3 @@
-- Large Playlists: Playlists with up to 200 tracks can now be converted and played in convenient parts.
-- File Export: Export playlists directly as M3U8 or CSV to save them or use in external media players.
-- Seamless Playback: Start each part with a single tap in your chosen music service.
+- Instant Loading: Unlocked playlists refresh immediately and seamlessly.
+- Larger Reach: Extensive playlists reliably load up to 200 songs.
+- Smoother Playback: More reliable delivery of all playlist parts.
