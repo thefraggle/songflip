@@ -337,4 +337,9 @@
     <string name="feedback_success">フィードバックありがとうございます！</string>
     <string name="feedback_error_empty">10文字以上入力してください。</string>
     <string name="feedback_error_network">送信できませんでした。メールでお試しください。</string>
+
+    <string name="playlist_active_banner_title">アクティブなプレイリスト</string>
+    <string name="playlist_active_banner_details">詳細</string>
+    <string name="playlist_active_banner_open">%1$sで開く</string>
+    <string name="playlist_active_banner_dismiss">閉じる</string>
 </resources>

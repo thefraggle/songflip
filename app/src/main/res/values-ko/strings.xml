@@ -337,4 +337,9 @@
     <string name="feedback_success">소중한 피드백 감사합니다!</string>
     <string name="feedback_error_empty">최소 10자 이상 입력해주세요.</string>
     <string name="feedback_error_network">전송에 실패했습니다. 이메일로 문의해주세요.</string>
+
+    <string name="playlist_active_banner_title">활성 재생목록</string>
+    <string name="playlist_active_banner_details">세부정보</string>
+    <string name="playlist_active_banner_open">%1$s에서 열기</string>
+    <string name="playlist_active_banner_dismiss">닫기</string>
 </resources>

@@ -341,4 +341,9 @@
     <string name="feedback_success">Bedankt voor je feedback!</string>
     <string name="feedback_error_empty">Voer minimaal 10 tekens in.</string>
     <string name="feedback_error_network">Verzenden mislukt. Probeer het via e-mail.</string>
+
+    <string name="playlist_active_banner_title">Actieve afspeellijst</string>
+    <string name="playlist_active_banner_details">Details</string>
+    <string name="playlist_active_banner_open">Openen in %1$s</string>
+    <string name="playlist_active_banner_dismiss">Sluiten</string>
 </resources>

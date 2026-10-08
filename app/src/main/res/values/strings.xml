@@ -231,6 +231,12 @@
     <string name="pro_debug_reset_status">PRO status reset (Debug)</string>
     <string name="pro_debug_reset_button">Reset PRO status (Debug)</string>
 
+    <!-- Active Playlist Banner -->
+    <string name="playlist_active_banner_title">Active Playlist</string>
+    <string name="playlist_active_banner_details">Details</string>
+    <string name="playlist_active_banner_open">Open in %1$s</string>
+    <string name="playlist_active_banner_dismiss">Dismiss</string>
+
     <string name="shortcut_last_song_short">Play Last Song</string>
     <string name="shortcut_last_song_long">Play last converted song: %s</string>
     <string name="shortcut_pause_1h_short">Pause 1h</string>

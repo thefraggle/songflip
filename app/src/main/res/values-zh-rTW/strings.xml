@@ -323,4 +323,9 @@
     <string name="feedback_success">感謝您的回饋！</string>
     <string name="feedback_error_empty">請輸入至少10個字元。</string>
     <string name="feedback_error_network">傳送失敗，請嘗試使用電子郵件。</string>
+
+    <string name="playlist_active_banner_title">進行中的播放清單</string>
+    <string name="playlist_active_banner_details">詳細資訊</string>
+    <string name="playlist_active_banner_open">在%1$s中開啟</string>
+    <string name="playlist_active_banner_dismiss">關閉</string>
 </resources>

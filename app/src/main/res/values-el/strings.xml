@@ -327,4 +327,9 @@
     <string name="feedback_success">Ευχαριστούμε για τα σχόλιά σας!</string>
     <string name="feedback_error_empty">Παρακαλούμε εισάγετε τουλάχιστον 10 χαρακτήρες.</string>
     <string name="feedback_error_network">Αποτυχία αποστολής. Δοκιμάστε μέσω email.</string>
+
+    <string name="playlist_active_banner_title">Ενεργή λίστα αναπαραγωγής</string>
+    <string name="playlist_active_banner_details">Λεπτομέρειες</string>
+    <string name="playlist_active_banner_open">Άνοιγμα σε %1$s</string>
+    <string name="playlist_active_banner_dismiss">Κλείσιμο</string>
 </resources>

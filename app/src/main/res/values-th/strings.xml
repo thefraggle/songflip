@@ -323,4 +323,9 @@
     <string name="feedback_success">ขอบคุณสำหรับข้อเสนอแนะของคุณ!</string>
     <string name="feedback_error_empty">โปรดระบุอย่างน้อย 10 ตัวอักษร</string>
     <string name="feedback_error_network">ส่งไม่สำเร็จ โปรดส่งทางอีเมลแทน</string>
+
+    <string name="playlist_active_banner_title">เพลย์ลิสต์ที่ใช้งานอยู่</string>
+    <string name="playlist_active_banner_details">รายละเอียด</string>
+    <string name="playlist_active_banner_open">เปิดใน %1$s</string>
+    <string name="playlist_active_banner_dismiss">ปิด</string>
 </resources>

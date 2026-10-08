@@ -327,4 +327,9 @@
     <string name="feedback_success">Köszönjük a visszajelzést!</string>
     <string name="feedback_error_empty">Kérjük, írjon be legalább 10 karaktert.</string>
     <string name="feedback_error_network">Nem sikerült elküldeni. Kérjük, próbálja e-mailben.</string>
+
+    <string name="playlist_active_banner_title">Aktív lejátszási lista</string>
+    <string name="playlist_active_banner_details">Részletek</string>
+    <string name="playlist_active_banner_open">Megnyitás itt: %1$s</string>
+    <string name="playlist_active_banner_dismiss">Bezárás</string>
 </resources>

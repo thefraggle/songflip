@@ -341,4 +341,9 @@
     <string name="feedback_success">तुमच्या अभिप्रायाबद्दल धन्यवाद!</string>
     <string name="feedback_error_empty">कृपया किमान १० वर्ण प्रविष्ट करा.</string>
     <string name="feedback_error_network">पाठवता आले नाही. कृपया ईमेलद्वारे प्रयत्न करा.</string>
+
+    <string name="playlist_active_banner_title">सक्रिय प्लेलिस्ट</string>
+    <string name="playlist_active_banner_details">तपशील</string>
+    <string name="playlist_active_banner_open">%1$s मध्ये उघडा</string>
+    <string name="playlist_active_banner_dismiss">बंद करा</string>
 </resources>

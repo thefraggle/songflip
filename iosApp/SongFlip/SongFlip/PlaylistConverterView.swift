@@ -41,6 +41,30 @@ enum PlaylistErrorType {
     case generic
 }
 
+enum ActivePlaylistState {
+    case loading(step: Int)
+    case success(result: SwiftPlaylistConversionResult)
+    case error(type: PlaylistErrorType, message: String)
+}
+
+struct ActivePlaylistData {
+    let playlistUrl: String
+    let targetPlatformKey: String
+    let state: ActivePlaylistState
+}
+
+class ActivePlaylistModel: ObservableObject {
+    static let shared = ActivePlaylistModel()
+
+    @Published var current: ActivePlaylistData? = nil
+
+    private init() {}
+
+    func clear() {
+        current = nil
+    }
+}
+
 struct PlaylistConverterView: View {
     let playlistUrl: String
     let targetPlatformKey: String
@@ -123,6 +147,23 @@ struct PlaylistConverterView: View {
             .background(Color(uiColor: .systemBackground))
             .navigationBarHidden(true)
             .onAppear {
+                if let current = ActivePlaylistModel.shared.current,
+                   current.playlistUrl == playlistUrl,
+                   current.targetPlatformKey == targetPlatformKey {
+                    switch current.state {
+                    case .success(let res):
+                        self.conversionResult = res
+                        self.isLoading = false
+                        return
+                    case .error(let type, let msg):
+                        self.errorType = type
+                        self.errorMessage = msg
+                        self.isLoading = false
+                        return
+                    case .loading:
+                        break
+                    }
+                }
                 startConversion()
             }
         }
@@ -403,6 +444,12 @@ struct PlaylistConverterView: View {
         conversionResult = nil
         progressStep = 0
 
+        ActivePlaylistModel.shared.current = ActivePlaylistData(
+            playlistUrl: playlistUrl,
+            targetPlatformKey: targetPlatformKey,
+            state: .loading(step: 0)
+        )
+
         // Progress timer
         Timer.scheduledTimer(withTimeInterval: 0.6, repeats: true) { timer in
             if !isLoading {
@@ -445,6 +492,11 @@ struct PlaylistConverterView: View {
                                 await MainActor.run {
                                     self.conversionResult = decoded
                                     self.isLoading = false
+                                    ActivePlaylistModel.shared.current = ActivePlaylistData(
+                                        playlistUrl: playlistUrl,
+                                        targetPlatformKey: targetPlatformKey,
+                                        state: .success(result: decoded)
+                                    )
                                     // Save to history
                                     let targetLink = decoded.zeroOAuthUrl ?? decoded.webShareUrl ?? playlistUrl
                                     HistoryModel.shared.add(
@@ -473,8 +525,14 @@ struct PlaylistConverterView: View {
                             if let errJson = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
                                 let code = ((errJson["code"] as? String) ?? (errJson["error"] as? String) ?? "").uppercased()
                                 await MainActor.run {
-                                    self.errorType = mapErrorCode(code)
+                                    let mapped = mapErrorCode(code)
+                                    self.errorType = mapped
                                     self.isLoading = false
+                                    ActivePlaylistModel.shared.current = ActivePlaylistData(
+                                        playlistUrl: playlistUrl,
+                                        targetPlatformKey: targetPlatformKey,
+                                        state: .error(type: mapped, message: errorDescription(for: mapped))
+                                    )
                                 }
                                 return
                             }
@@ -488,6 +546,11 @@ struct PlaylistConverterView: View {
             await MainActor.run {
                 self.errorType = .generic
                 self.isLoading = false
+                ActivePlaylistModel.shared.current = ActivePlaylistData(
+                    playlistUrl: playlistUrl,
+                    targetPlatformKey: targetPlatformKey,
+                    state: .error(type: .generic, message: errorDescription(for: .generic))
+                )
             }
         }
     }

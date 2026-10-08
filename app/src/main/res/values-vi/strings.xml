@@ -337,4 +337,9 @@
     <string name="feedback_success">Cảm ơn bạn đã gửi phản hồi!</string>
     <string name="feedback_error_empty">Vui lòng nhập ít nhất 10 ký tự.</string>
     <string name="feedback_error_network">Không thể gửi phản hồi. Vui lòng thử qua email.</string>
+
+    <string name="playlist_active_banner_title">Danh sách phát đang hoạt động</string>
+    <string name="playlist_active_banner_details">Chi tiết</string>
+    <string name="playlist_active_banner_open">Mở trong %1$s</string>
+    <string name="playlist_active_banner_dismiss">Đóng</string>
 </resources>

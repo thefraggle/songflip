@@ -341,4 +341,9 @@
     <string name="feedback_success">আপনার প্রতিক্রিয়ার জন্য ধন্যবাদ!</string>
     <string name="feedback_error_empty">অনুগ্রহ করে কমপক্ষে ১০টি অক্ষর লিখুন।</string>
     <string name="feedback_error_network">পাঠানো সম্ভব হয়নি। অনুগ্রহ করে ইমেলের মাধ্যমে চেষ্টা করুন।</string>
+
+    <string name="playlist_active_banner_title">সক্রিয় প্লেলিস্ট</string>
+    <string name="playlist_active_banner_details">বিবরণ</string>
+    <string name="playlist_active_banner_open">%1$s-এ খুলুন</string>
+    <string name="playlist_active_banner_dismiss">বন্ধ করুন</string>
 </resources>

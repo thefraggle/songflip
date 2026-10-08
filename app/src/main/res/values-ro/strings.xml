@@ -331,4 +331,9 @@
     <string name="feedback_success">Vă mulțumim pentru feedback!</string>
     <string name="feedback_error_empty">Introduceți cel puțin 10 caractere.</string>
     <string name="feedback_error_network">Trimiterea a eșuat. Încercați prin e-mail.</string>
+
+    <string name="playlist_active_banner_title">Playlist activ</string>
+    <string name="playlist_active_banner_details">Detalii</string>
+    <string name="playlist_active_banner_open">Deschide în %1$s</string>
+    <string name="playlist_active_banner_dismiss">Închide</string>
 </resources>

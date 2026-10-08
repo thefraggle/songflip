@@ -84,6 +84,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Consume intent extras to prevent re-triggering upon activity recreate (e.g. language/theme change)
+        intent?.removeExtra("open_playlist_url")
+        intent?.removeExtra("show_pause_sheet")
+        if (intent?.action == Intent.ACTION_SEND) {
+            intent?.action = null
+            intent?.removeExtra(Intent.EXTRA_TEXT)
+        }
+
         val settingsRepo = SettingsRepository(this)
         val savedLang = settingsRepo.appLanguage
         val currentLocales = androidx.appcompat.app.AppCompatDelegate.getApplicationLocales()
@@ -165,6 +173,14 @@ class MainActivity : AppCompatActivity() {
 
         if (intent.getBooleanExtra("show_pause_sheet", false)) {
             showPauseSheetState.value = true
+        }
+
+        // Consume intent extras
+        intent.removeExtra("open_playlist_url")
+        intent.removeExtra("show_pause_sheet")
+        if (intent.action == Intent.ACTION_SEND) {
+            intent.action = null
+            intent.removeExtra(Intent.EXTRA_TEXT)
         }
     }
 
@@ -262,11 +278,13 @@ fun MainScreen(
 
     var showPauseBottomSheet by remember { mutableStateOf(showPauseSheetOnStart) }
     var showSettingsBottomSheet by remember { mutableStateOf(false) }
+    var showHistoryBottomSheet by remember { mutableStateOf(false) }
     var showAppLinksSetupBottomSheet by remember { mutableStateOf(false) }
     var showProPaywall by remember { mutableStateOf(false) }
     var initialShowPromoInPaywall by remember { mutableStateOf(false) }
     var showPlaylistConvertSheet by remember { mutableStateOf(initialPlaylistUrl) }
     var showPodcastNoticeSheet by remember { mutableStateOf<String?>(null) }
+    val activePlaylistConversion by viewModel.activePlaylistConversion.collectAsState()
 
     // Clipboard Smart-Banner State
     var detectedClipboardUrl by remember { mutableStateOf<String?>(null) }
@@ -325,6 +343,7 @@ fun MainScreen(
     LaunchedEffect(initialPlaylistUrl) {
         if (!initialPlaylistUrl.isNullOrBlank()) {
             showPlaylistConvertSheet = initialPlaylistUrl
+            viewModel.startPlaylistConversion(initialPlaylistUrl, selectedTargetKey, proState.isPro)
             onPlaylistSheetDismissed()
         }
     }
@@ -333,6 +352,7 @@ fun MainScreen(
         if (!incomingSharedUrl.isNullOrBlank()) {
             if (UrlUtils.isPlaylistUrl(incomingSharedUrl)) {
                 showPlaylistConvertSheet = incomingSharedUrl
+                viewModel.startPlaylistConversion(incomingSharedUrl, selectedTargetKey, proState.isPro)
             } else {
                 detectedClipboardUrl = incomingSharedUrl
                 coroutineScope.launch(Dispatchers.IO) {
@@ -506,6 +526,18 @@ fun MainScreen(
         )
     }
 
+    if (showHistoryBottomSheet) {
+        HistoryBottomSheet(
+            onDismissRequest = { showHistoryBottomSheet = false },
+            isPro = proState.isPro,
+            showProTeaser = !proState.isPro,
+            onOpenProPaywall = {
+                showHistoryBottomSheet = false
+                showProPaywall = true
+            }
+        )
+    }
+
     showPlaylistConvertSheet?.let { playlistUrl ->
         PlaylistConvertBottomSheet(
             playlistUrl = playlistUrl,
@@ -513,6 +545,10 @@ fun MainScreen(
             onDismiss = { showPlaylistConvertSheet = null },
             onOpenPaywall = {
                 showProPaywall = true
+            },
+            externalConversionState = activePlaylistConversion?.takeIf { it.playlistUrl == playlistUrl }?.state,
+            onRetryConversion = {
+                viewModel.startPlaylistConversion(playlistUrl, selectedTargetKey, proState.isPro)
             }
         )
     }
@@ -545,6 +581,9 @@ fun MainScreen(
                 onOpenSettings = {
                     showSettingsBottomSheet = true
                 },
+                onOpenHistory = {
+                    showHistoryBottomSheet = true
+                },
                 isPro = proState.isPro
             )
 
@@ -568,6 +607,45 @@ fun MainScreen(
                 }
             )
 
+            // 2.4 Persistent Active Playlist Banner (Issue #62 / 1.7.6)
+            AnimatedVisibility(
+                visible = activePlaylistConversion != null,
+                enter = fadeIn() + expandVertically(),
+                exit = fadeOut() + shrinkVertically()
+            ) {
+                activePlaylistConversion?.let { activeConversion ->
+                    PlaylistActiveBanner(
+                        activeConversion = activeConversion,
+                        isPro = proState.isPro,
+                        onOpenTarget = { targetUrl ->
+                            val redirectIntent = Intent(Intent.ACTION_VIEW, Uri.parse(targetUrl)).apply {
+                                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            }
+                            context.startActivity(redirectIntent)
+                        },
+                        onOpenOriginal = { originalUrl ->
+                            val redirectIntent = Intent(Intent.ACTION_VIEW, Uri.parse(originalUrl)).apply {
+                                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            }
+                            context.startActivity(redirectIntent)
+                        },
+                        onOpenDetails = {
+                            showPlaylistConvertSheet = activeConversion.playlistUrl
+                        },
+                        onRetry = {
+                            viewModel.startPlaylistConversion(
+                                activeConversion.playlistUrl,
+                                selectedTargetKey,
+                                proState.isPro
+                            )
+                        },
+                        onDismiss = {
+                            viewModel.dismissActivePlaylistConversion()
+                        }
+                    )
+                }
+            }
+
             // 2.5 Clipboard Smart-Banner (when music link is copied in clipboard)
             AnimatedVisibility(
                 visible = detectedClipboardUrl != null,
@@ -588,6 +666,7 @@ fun MainScreen(
                         isPodcastOrAudiobook = isPodcastOrAudiobook,
                         isAudiobook = isAudiobook,
                         onOpenPlaylist = { url ->
+                            viewModel.startPlaylistConversion(url, selectedTargetKey, proState.isPro)
                             showPlaylistConvertSheet = url
                         },
                         onOpenPodcast = { url ->
@@ -605,6 +684,7 @@ fun MainScreen(
                         },
                         onOpenInTarget = { urlToOpen ->
                             if (isPlaylist) {
+                                viewModel.startPlaylistConversion(urlToOpen, selectedTargetKey, proState.isPro)
                                 showPlaylistConvertSheet = urlToOpen
                             } else if (isAudiobook) {
                                 showPodcastNoticeSheet = urlToOpen

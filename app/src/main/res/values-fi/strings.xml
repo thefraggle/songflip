@@ -327,4 +327,9 @@
     <string name="feedback_success">Kiitos palautteestasi!</string>
     <string name="feedback_error_empty">Kirjoita vähintään 10 merkkiä.</string>
     <string name="feedback_error_network">Lähetys epäonnistui. Kokeile sähköpostilla.</string>
+
+    <string name="playlist_active_banner_title">Aktiivinen soittolista</string>
+    <string name="playlist_active_banner_details">Tiedot</string>
+    <string name="playlist_active_banner_open">Avaa kohteessa %1$s</string>
+    <string name="playlist_active_banner_dismiss">Sulje</string>
 </resources>

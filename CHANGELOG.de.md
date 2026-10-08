@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.7.6] - 2026-10-08
+- **Persistente Playlist-Konvertierung**: Konvertierte Playlists bleiben jetzt als praktische Karte auf der Startseite sichtbar, bis du sie wegklickst – kein versehentlicher Verlust mehr beim Schließen des Fensters.
+- **Direkter Verlaufszugriff**: Ein neues Verlauf-Symbol in der Kopfzeile ermöglicht jetzt den schnellen 1-Tap-Zugriff auf deine zuletzt übertragenen Songs und Playlists.
+- **Hintergrund-Sicherheit**: Playlist-Übertragungen laufen auch beim Schließen des Fensters oder bei Sprach- und Designwechseln zuverlässig weiter.
+- **Fehlerbehebung**: Ein Problem wurde behoben, durch das das Playlist-Fenster nach dem Wechseln der App-Sprache fälschlicherweise erneut aufpoppte.
+
 ## [1.7.5] - 2026-10-07
 - **Transparente Playlist-Hinweise**: Eindeutiger Hinweis bei großen Playlists zur aktuellen Obergrenze von 50 Songs ohne Nutzer-Login.
 - **Verlässlichere Playlist-Übertragung**: Längere Zeitfenster bei der Konvertierung verhindern vorzeitige Verbindungsabbrüche bei umfangreichen Listen.

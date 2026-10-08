@@ -341,4 +341,9 @@
     <string name="feedback_success">Tak for din feedback!</string>
     <string name="feedback_error_empty">Indtast mindst 10 tegn.</string>
     <string name="feedback_error_network">Kunne ikke sende. Prøv venligst via e-mail.</string>
+
+    <string name="playlist_active_banner_title">Aktiv playliste</string>
+    <string name="playlist_active_banner_details">Detaljer</string>
+    <string name="playlist_active_banner_open">Åbn i %1$s</string>
+    <string name="playlist_active_banner_dismiss">Luk</string>
 </resources>

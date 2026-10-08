@@ -341,4 +341,9 @@
     <string name="feedback_success">Merci pour vos commentaires !</string>
     <string name="feedback_error_empty">Veuillez saisir au moins 10 caractères.</string>
     <string name="feedback_error_network">Échec de l\'envoi. Veuillez utiliser l\'e-mail.</string>
+
+    <string name="playlist_active_banner_title">Playlist active</string>
+    <string name="playlist_active_banner_details">Détails</string>
+    <string name="playlist_active_banner_open">Ouvrir dans %1$s</string>
+    <string name="playlist_active_banner_dismiss">Fermer</string>
 </resources>
