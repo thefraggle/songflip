@@ -87,7 +87,7 @@ fun PlaylistConvertBottomSheet(
         }
         internalConversionState = PlaylistConversionState.Loading()
         conversionProgressStep = 0
-        val maxTracksToConvert = if (isPro) 50 else 5
+        val maxTracksToConvert = if (isPro) 200 else 5
         de.goork.songflip.core.analytics.AptabaseClient.shared.trackPlaylistConversionStarted(
             sourcePlatform = sourcePlatform.key,
             targetPlatform = targetPlatformKey,
@@ -190,8 +190,11 @@ fun PlaylistConvertBottomSheet(
     LaunchedEffect(playlistUrl, targetPlatformKey, isPro) {
         if (isSamePlatform) {
             internalConversionState = PlaylistConversionState.SamePlatform
-        } else if (externalConversionState == null) {
-            runConversion()
+        } else {
+            val isCurrentlyLimited = (conversionState is PlaylistConversionState.Success && (conversionState as PlaylistConversionState.Success).result.isLimited)
+            if (externalConversionState == null || (isPro && isCurrentlyLimited)) {
+                runConversion()
+            }
         }
     }
 

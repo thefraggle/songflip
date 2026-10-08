@@ -185,6 +185,9 @@ struct PlaylistConverterView: View {
                    current.targetPlatformKey == targetPlatformKey {
                     switch current.state {
                     case .success(let res):
+                        if proManager.isPro && res.isLimited {
+                            break
+                        }
                         self.conversionResult = res
                         self.isLoading = false
                         return
@@ -198,6 +201,11 @@ struct PlaylistConverterView: View {
                     }
                 }
                 startConversion()
+            }
+            .onChange(of: proManager.isPro) { isPro in
+                if isPro && (conversionResult?.isLimited == true) {
+                    startConversion()
+                }
             }
         }
     }
@@ -585,7 +593,7 @@ struct PlaylistConverterView: View {
             }
         }
 
-        let maxTracks = proManager.isPro ? 50 : 5
+        let maxTracks = proManager.isPro ? 200 : 5
         let endpoints = [
             "https://songflip.link/api/playlist/convert",
             "https://songflip-web.web.app/api/playlist/convert"
