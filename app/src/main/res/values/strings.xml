@@ -377,4 +377,15 @@
     <string name="settings_preferred_player_subtitle">Choose app to play music links</string>
     <string name="settings_preferred_player_auto">Automatic</string>
     <string name="settings_preferred_player_auto_desc">Recommended: Uses default music app</string>
+
+    <!-- QR Code & Favorites & Quick Player Selection -->
+    <string name="qr_code_title">QR Code</string>
+    <string name="qr_code_hint">Scan to open link on any device</string>
+    <string name="action_close">Close</string>
+    <string name="favorite_add">Add to Favorites</string>
+    <string name="favorite_remove">Remove from Favorites</string>
+    <string name="history_filter_all">All</string>
+    <string name="history_filter_favorites">Favorites</string>
+    <string name="history_qr_action">Show QR Code</string>
+    <string name="target_player_chip">Player: %1$s</string>
 </resources>

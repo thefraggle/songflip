@@ -34,10 +34,12 @@ fun TargetSelectorCard(
     targetServices: List<ServiceInfo>,
     selectedTargetKey: String,
     onTargetSelected: (String) -> Unit,
+    onOpenPlayerPicker: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
+    val settingsRepository = remember { de.goork.songflip.data.SettingsRepository(context) }
 
     val sortedServices = remember(context, targetServices) {
         val installedMap = targetServices.associate { it.key to PackageUtils.isAppInstalled(context, it.key) }
@@ -99,7 +101,8 @@ fun TargetSelectorCard(
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        modifier = Modifier.weight(1f)
                     ) {
                         Icon(
                             painter = painterResource(service.iconResId),
@@ -107,7 +110,7 @@ fun TargetSelectorCard(
                             tint = Color.Unspecified,
                             modifier = Modifier.size(26.dp)
                         )
-                        Column {
+                        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                             Text(
                                 text = stringResource(service.nameResId),
                                 style = MaterialTheme.typography.bodyMedium.copy(
@@ -118,32 +121,68 @@ fun TargetSelectorCard(
 
                             Row(
                                 verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
-                                if (isInstalled) {
-                                    Icon(
-                                        imageVector = Icons.Default.Check,
-                                        contentDescription = null,
-                                        tint = StateActiveGreen,
-                                        modifier = Modifier.size(12.dp)
-                                    )
-                                    Text(
-                                        text = stringResource(R.string.status_installed),
-                                        style = MaterialTheme.typography.labelSmall,
-                                        color = StateActiveGreen
-                                    )
-                                } else {
-                                    Icon(
-                                        imageVector = Icons.Default.Language,
-                                        contentDescription = null,
-                                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                        modifier = Modifier.size(12.dp)
-                                    )
-                                    Text(
-                                        text = stringResource(R.string.status_browser),
-                                        style = MaterialTheme.typography.labelSmall,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                                ) {
+                                    if (isInstalled) {
+                                        Icon(
+                                            imageVector = Icons.Default.Check,
+                                            contentDescription = null,
+                                            tint = StateActiveGreen,
+                                            modifier = Modifier.size(12.dp)
+                                        )
+                                        Text(
+                                            text = stringResource(R.string.status_installed),
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = StateActiveGreen
+                                        )
+                                    } else {
+                                        Icon(
+                                            imageVector = Icons.Default.Language,
+                                            contentDescription = null,
+                                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                            modifier = Modifier.size(12.dp)
+                                        )
+                                        Text(
+                                            text = stringResource(R.string.status_browser),
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+                                    }
+                                }
+
+                                // Quick Player Picker Badge for services with multiple players (Issue #76)
+                                if (service.key == "youtubeMusic" && onOpenPlayerPicker != null) {
+                                    val players = remember(context) {
+                                        PackageUtils.getInstalledPlayersForPlatform(context, "youtubeMusic")
+                                    }
+                                    if (players.size > 1) {
+                                        val preferredPkg = settingsRepository.preferredYouTubePlayerPackage
+                                        val currentLabel = if (preferredPkg == null) {
+                                            stringResource(R.string.settings_preferred_player_auto)
+                                        } else {
+                                            players.find { it.packageName == preferredPkg }?.appName
+                                                ?: stringResource(R.string.settings_preferred_player_auto)
+                                        }
+                                        Surface(
+                                            shape = RoundedCornerShape(6.dp),
+                                            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
+                                            modifier = Modifier.clickable {
+                                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                                onOpenPlayerPicker()
+                                            }
+                                        ) {
+                                            Text(
+                                                text = stringResource(R.string.target_player_chip, currentLabel) + " ▾",
+                                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
+                                                color = MaterialTheme.colorScheme.primary,
+                                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                                            )
+                                        }
+                                    }
                                 }
                             }
                         }

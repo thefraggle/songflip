@@ -22,6 +22,9 @@ import androidx.compose.material.icons.automirrored.outlined.*
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.StarBorder
+import androidx.compose.material.icons.outlined.QrCode
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -67,6 +70,8 @@ fun HistoryBottomSheet(
     var historyCount by remember { mutableStateOf(0) }
     var showClearConfirmationDialog by remember { mutableStateOf(false) }
     var refreshingKeys by remember { mutableStateOf(setOf<String>()) }
+    var qrCodeItem by remember { mutableStateOf<LinkHistoryItem?>(null) }
+    var showOnlyFavorites by remember { mutableStateOf(false) }
 
     fun refreshHistory() {
         coroutineScope.launch {
@@ -151,6 +156,22 @@ fun HistoryBottomSheet(
                     Text(stringResource(R.string.pause_cancel))
                 }
             }
+        )
+    }
+
+    qrCodeItem?.let { item ->
+        val isPl = item.platform.contains("_playlist")
+        val shareUrl = if (isPl) {
+            val targetKey = item.targetPlatformKey.ifBlank { item.platform.removeSuffix("_playlist") }
+            de.goork.songflip.data.ProManager.getPlaylistWebShareUrl(item.canonicalUrl, targetKey)
+        } else {
+            de.goork.songflip.data.ProManager.getUniversalWebShareUrl(item.canonicalUrl)
+        }
+        QRCodeDialog(
+            url = shareUrl,
+            title = item.title,
+            artist = item.artist,
+            onDismissRequest = { qrCodeItem = null }
         )
     }
 
@@ -339,6 +360,43 @@ fun HistoryBottomSheet(
                     }
                 }
             } else {
+                val favoriteCount = remember(historyItems) { historyItems.count { it.isFavorite } }
+                val displayedItems = if (showOnlyFavorites) historyItems.filter { it.isFavorite } else historyItems
+
+                if (favoriteCount > 0) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 10.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        FilterChip(
+                            selected = !showOnlyFavorites,
+                            onClick = {
+                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                showOnlyFavorites = false
+                            },
+                            label = { Text(stringResource(R.string.history_filter_all)) }
+                        )
+                        FilterChip(
+                            selected = showOnlyFavorites,
+                            onClick = {
+                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                showOnlyFavorites = true
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = Icons.Filled.Star,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(16.dp),
+                                    tint = Color(0xFFFFB800)
+                                )
+                            },
+                            label = { Text("${stringResource(R.string.history_filter_favorites)} ($favoriteCount)") }
+                        )
+                    }
+                }
+
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -347,13 +405,24 @@ fun HistoryBottomSheet(
                     contentPadding = PaddingValues(bottom = 24.dp)
                 ) {
                     items(
-                        items = historyItems,
+                        items = displayedItems,
                         key = { it.cacheKey }
                     ) { item ->
                         HistoryItemCard(
                             item = item,
                             isPro = isPro,
                             isRefreshing = refreshingKeys.contains(item.cacheKey),
+                            onToggleFavorite = {
+                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                coroutineScope.launch {
+                                    SongLinkEngine.shared.cache.toggleFavorite(item.cacheKey)
+                                    refreshHistory()
+                                }
+                            },
+                            onShowQrCode = {
+                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                qrCodeItem = item
+                            },
                             onPlay = {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackHistoryItemClicked(item.platform)
@@ -488,6 +557,8 @@ fun HistoryItemCard(
     isRefreshing: Boolean = false,
     onPlay: () -> Unit,
     onOpenPlaylist: (() -> Unit)? = null,
+    onToggleFavorite: () -> Unit = {},
+    onShowQrCode: () -> Unit = {},
     onCopyTarget: () -> Unit,
     onCopySource: () -> Unit,
     onRefresh: () -> Unit,
@@ -698,14 +769,26 @@ fun HistoryItemCard(
                 }
             }
 
-            // 3. Right Actions: Share (FlipPage) + Overflow Menu (⋮)
+            // 3. Right Actions: Favorite (Star) + Share (FlipPage) + Overflow Menu (⋮)
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(0.dp)
             ) {
                 IconButton(
+                    onClick = onToggleFavorite,
+                    modifier = Modifier.size(36.dp)
+                ) {
+                    Icon(
+                        imageVector = if (item.isFavorite) Icons.Filled.Star else Icons.Outlined.StarBorder,
+                        contentDescription = stringResource(if (item.isFavorite) R.string.favorite_remove else R.string.favorite_add),
+                        tint = if (item.isFavorite) Color(0xFFFFB800) else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+
+                IconButton(
                     onClick = onShareUniversal,
-                    modifier = Modifier.size(40.dp)
+                    modifier = Modifier.size(38.dp)
                 ) {
                     Box(contentAlignment = Alignment.Center) {
                         Icon(
@@ -729,7 +812,7 @@ fun HistoryItemCard(
                 Box {
                     IconButton(
                         onClick = { showMenu = true },
-                        modifier = Modifier.size(40.dp)
+                        modifier = Modifier.size(38.dp)
                     ) {
                         if (isRefreshing) {
                             CircularProgressIndicator(
@@ -761,6 +844,14 @@ fun HistoryItemCard(
                                 }
                             )
                         }
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.history_qr_action)) },
+                            leadingIcon = { Icon(Icons.Outlined.QrCode, contentDescription = null, modifier = Modifier.size(18.dp)) },
+                            onClick = {
+                                showMenu = false
+                                onShowQrCode()
+                            }
+                        )
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.history_copy_target, targetDisplayName)) },
                             leadingIcon = { Icon(Icons.Outlined.ContentCopy, contentDescription = null, modifier = Modifier.size(18.dp)) },

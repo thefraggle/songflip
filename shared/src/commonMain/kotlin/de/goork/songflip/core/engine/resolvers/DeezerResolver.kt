@@ -20,8 +20,17 @@ internal data class DeezerSearchResponse(
 internal data class DeezerItem(
     val link: String? = null,
     val name: String? = null,
+    val title: String? = null,
+    @SerialName("title_short")
+    val titleShort: String? = null,
+    val artist: DeezerArtist? = null,
     @SerialName("nb_fan")
     val nbFan: Int? = null
+)
+
+@Serializable
+internal data class DeezerArtist(
+    val name: String? = null
 )
 
 class DeezerResolver(
@@ -43,10 +52,15 @@ class DeezerResolver(
         return try {
             val encoded = query.encodeURLParameter()
             val endpoint = if (isAlbum) "search/album" else "search"
-            val resp = client.get("https://api.deezer.com/$endpoint?q=$encoded&limit=1")
+            val resp = client.get("https://api.deezer.com/$endpoint?q=$encoded&limit=5")
             if (resp.status.isSuccess()) {
                 val parsed = json.decodeFromString<DeezerSearchResponse>(resp.bodyAsText())
-                val link = parsed.data.firstOrNull()?.link
+                val match = parsed.data.firstOrNull { item ->
+                    val candidateTitle = item.title ?: item.titleShort ?: item.name
+                    val candidateArtist = item.artist?.name
+                    ResolverUtils.isMatch(query, candidateArtist, candidateTitle)
+                }
+                val link = match?.link
                 if (!link.isNullOrEmpty()) {
                     return link
                 }

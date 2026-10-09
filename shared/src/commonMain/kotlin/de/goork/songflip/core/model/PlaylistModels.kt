@@ -39,8 +39,38 @@ data class PlaylistConversionResult(
     val webShareUrl: String? = null,
     val isLimited: Boolean = false,
     val tracks: List<PlaylistTrackItem> = emptyList(),
-    val parts: List<PlaylistChunk> = emptyList()
+    val parts: List<PlaylistChunk> = emptyList(),
+    val duplicateTracksRemoved: Int = 0
 )
+
+fun PlaylistConversionResult.deduplicated(): PlaylistConversionResult {
+    if (tracks.isEmpty()) return this
+    val seen = mutableSetOf<String>()
+    val uniqueTracks = mutableListOf<PlaylistTrackItem>()
+    for (t in tracks) {
+        val normTitle = t.title.lowercase().trim()
+            .replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
+            .replace("[^a-z0-9]".toRegex(), "")
+        val normArtist = t.artist.lowercase().trim()
+            .replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
+            .replace("[^a-z0-9]".toRegex(), "")
+        val key = "${normArtist}_${normTitle}"
+        if (seen.add(key)) {
+            uniqueTracks.add(t)
+        }
+    }
+    val removed = tracks.size - uniqueTracks.size
+    return if (removed > 0) {
+        copy(
+            tracks = uniqueTracks,
+            convertedTracks = uniqueTracks.size,
+            matchedCount = uniqueTracks.count { it.matched },
+            duplicateTracksRemoved = duplicateTracksRemoved + removed
+        )
+    } else {
+        this
+    }
+}
 
 @Serializable
 enum class PlaylistErrorCode {

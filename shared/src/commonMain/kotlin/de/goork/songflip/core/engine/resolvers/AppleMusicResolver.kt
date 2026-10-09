@@ -46,11 +46,14 @@ class AppleMusicResolver(
         return try {
             val encoded = query.encodeURLParameter()
             val entity = if (isAlbum) "album" else "song"
-            val resp = client.get("https://itunes.apple.com/search?term=$encoded&entity=$entity&limit=1")
+            val resp = client.get("https://itunes.apple.com/search?term=$encoded&entity=$entity&limit=5")
             if (resp.status.isSuccess()) {
                 val parsed = json.decodeFromString<ITunesResponse>(resp.bodyAsText())
-                val item = parsed.results.firstOrNull()
-                val viewUrl = if (isAlbum) item?.collectionViewUrl else item?.trackViewUrl
+                val validItem = parsed.results.firstOrNull { item ->
+                    val title = if (isAlbum) item.collectionName else item.trackName
+                    ResolverUtils.isMatch(query, item.artistName, title)
+                }
+                val viewUrl = if (isAlbum) validItem?.collectionViewUrl else validItem?.trackViewUrl
                 if (!viewUrl.isNullOrEmpty()) {
                     return viewUrl
                 }

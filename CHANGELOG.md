@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.7] - 2026-10-09
+- **Quick Player Selection**: Easily switch between your installed music players right from the main player card.
+- **1-Tap Favorites**: Pin your favorite songs and playlists with a single tap in your history and filter them instantly.
+- **QR Code Sharing**: Generate and scan QR codes for universal music links to share songs across devices effortlessly.
+- **Smart Playlist Cleaning**: Duplicate tracks are automatically detected and cleaned before playlist transfers.
+- **Precision Matching**: Enhanced title and album resolution across music streaming services for more accurate song playback.
+
 ## [1.8.6] - 2026-10-09
 - **Bugfixes & Polish**: Improved detection and launch reliability for compatible music player apps.
 - **Stability Improvements**: Under-the-hood fixes for link handling and overall app reliability.

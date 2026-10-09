@@ -16,7 +16,8 @@ data class CacheEntry(
     val nativeAppUri: String? = null,
     val timestamp: Long,
     val isHistory: Boolean = true,
-    val thumbnailUrl: String? = null
+    val thumbnailUrl: String? = null,
+    val isFavorite: Boolean = false
 )
 
 data class LinkHistoryItem(
@@ -29,7 +30,8 @@ data class LinkHistoryItem(
     val artist: String? = null,
     val isAlbum: Boolean = false,
     val timestamp: Long,
-    val thumbnailUrl: String? = null
+    val thumbnailUrl: String? = null,
+    val isFavorite: Boolean = false
 )
 
 interface CacheStorage {
@@ -262,17 +264,43 @@ class LinkCache(
                         artist = entry.artist,
                         isAlbum = entry.isAlbum,
                         timestamp = entry.timestamp,
-                        thumbnailUrl = entry.thumbnailUrl
+                        thumbnailUrl = entry.thumbnailUrl,
+                        isFavorite = entry.isFavorite
                     )
                 )
             }
         }
 
-        allItems.sortByDescending { it.timestamp }
+        // Favorites pinned to the top, then sorted by timestamp descending
+        allItems.sortWith(compareByDescending<LinkHistoryItem> { it.isFavorite }.thenByDescending { it.timestamp })
         if (limit > 0 && allItems.size > limit) {
             allItems.subList(0, limit)
         } else {
             allItems
+        }
+    }
+
+    suspend fun toggleFavorite(cacheKey: String, currentTimeMs: Long = getCurrentTimeMillis()): Boolean = mutex.withLock {
+        ensureLoaded(currentTimeMs)
+        val existing = entries[cacheKey] ?: storage.get(cacheKey)
+        if (existing != null) {
+            val newFav = !existing.isFavorite
+            val updated = existing.copy(isFavorite = newFav)
+            entries[cacheKey] = updated
+            storage.put(cacheKey, updated)
+            newFav
+        } else {
+            false
+        }
+    }
+
+    suspend fun setFavorite(cacheKey: String, isFavorite: Boolean, currentTimeMs: Long = getCurrentTimeMillis()) = mutex.withLock {
+        ensureLoaded(currentTimeMs)
+        val existing = entries[cacheKey] ?: storage.get(cacheKey)
+        if (existing != null) {
+            val updated = existing.copy(isFavorite = isFavorite)
+            entries[cacheKey] = updated
+            storage.put(cacheKey, updated)
         }
     }
 

@@ -1,2 +1,5 @@
-- Bugfixes: Improved detection and launch reliability for compatible music players.
-- Stability Improvements: Smoother redirects and enhanced compatibility with installed music apps.
+- Quick player selection directly from the main card.
+- 1-Tap favorites in history for quick access.
+- QR codes for universal music links to share songs effortlessly.
+- Automatic playlist duplicate detection and cleanup.
+- Improved title and album matching accuracy across music services.
