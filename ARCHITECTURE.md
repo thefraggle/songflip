@@ -146,7 +146,7 @@ sequenceDiagram
    - **Track Deduplication:** Case- and whitespace-insensitive deduplication removes duplicate titles before matching.
    - **Part Chunking (`PlaylistChunk`):** Automatically segments large playlists into 50-track sub-queues (`Part 1`, `Part 2`...), each playable with a single tap in YouTube Music and Spotify.
    - **Universal File Export:** Generates Extended M3U8 (`audio/x-mpegurl`) and RFC 4180 CSV files directly on-device for desktop media players and cloud libraries.
-6. **SSR Web Sharing (`songflip.link/s/...` & `songflip.link/p/...`):** Server-rendered, localized web pages with CSP hardening, contextual client-device prioritization (e.g. Apple Music first on iOS/macOS, YouTube Music/Spotify first on Android), individual track preview audio players, and built-in scannable QR code generator modals.
+6. **SSR Web Sharing (`songflip.link/s/...` & `songflip.link/p/...`):** Server-rendered, localized web pages with strict CSP hardening, CDN edge-cache resilient client-device prioritization (synchronous DOM reordering via `navigator.userAgent` ensuring visitors on Android see YouTube Music & Spotify first while iOS/macOS users see Apple Music first, even when pages are globally cached at the edge), embedded 30-second audio previews, and built-in scannable QR code generator modals (with in-app QR code generation in history strictly scoped to Pro users without disruptive paywall prompts for free users).
 7. **90-Day Rolling TTL Lifecycle:** Playlist records are saved with an `expiresAt` timestamp and automatically refreshed on every web page view or conversion hit. Unused playlists expire cleanly via Firestore TTL policies.
 8. **Automatic L2 Song Cache Swarm Warmup:** Every playlist conversion asynchronously writes all successfully resolved tracks into the global Firestore `l2_song_cache` (with multi-index 12-char and 8-char SHA hashes). This automatically seeds the global cache, guaranteeing sub-30ms instant resolutions for any user subsequently flipping these tracks individually.
 
@@ -218,7 +218,7 @@ To ensure sub-50ms user experience for cached items and prevent hanging UI on fl
 | **Secondary Fast-Fail Probes** | `2,500 ms` | Fast fallback to deterministic deep-search URL on API timeout. |
 | **Cloud Function `/resolve`** | `15 s` | Enforces parallel upstream racing and returns cached response or structured error. |
 | **Playlist Converter Client (KMP)** | `12 s` (primary) / `25 s` (fallback) | Client-side timeout tolerances for multi-batch matching before fallback or error reporting. |
-| **Cloud Function `/convertPlaylist`** | `60 s` | Max execution budget for batch-scraping playlists up to 50 tracks. |
+| **Cloud Function `/convertPlaylist`** | `60 s` | Max execution budget for batch-scraping playlists up to 200 tracks (multi-chunking). |
 | **Cloud Function `/api/feedback`** | `15 s` | Rate-limited feedback submission with Firestore persistence and fallback to native email intent. |
 | **SSR `/renderWebShare`** | `10 s` | Fast server-side rendering for OpenGraph preview tags. |
 | **Cache Retention (L1 / L2)** | `90 Days` | Rolling 90-day TTL refreshed on each access. |

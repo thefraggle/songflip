@@ -39,7 +39,7 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 - **🍎 iOS Deep Integration**: Native Share Extension, Action Button support, and Siri App Intents (`ConvertSongIntent`).
 - **🎨 Material You Themed Icon (Android 13+)**: Clean vector alpha silhouette dynamically adapting to your launcher wallpaper palette.
 - **🔗 Universal Smart Share Links (`songflip.link/s/...`) [PRO]**: Generate clean, lightning-fast multi-platform landing pages with rich cover art & OpenGraph preview cards for WhatsApp, Telegram, iMessage & Discord. *(Try the permanent live demo: [songflip.link/s/rickroll](https://songflip.link/s/rickroll))*.
-- **📱 QR-Code Generator & Sharing**: Generate and scan QR codes for universal smart links directly in the app and on web share pages to share songs across devices effortlessly.
+- **📱 QR-Code Generator & Sharing [PRO]**: Generate and scan QR codes for universal smart links directly in the app (seamlessly available in history for Pro users) and on web share pages to share songs across devices effortlessly.
 - **⭐ 1-Tap Favorites & History Filtering**: Pin favorite songs and playlists with a single tap in your conversion history and filter them instantly.
 - **🔄 Smart Share-Sheet Routing**: Sharing directly from your music player generates a universal smart link for friends instead of looping back into your player.
 - **📜 Conversion History & Quick Sharing**: Offline history log with cover artwork thumbnails, 1-tap replay, search filter, and instant smart-link sharing.
