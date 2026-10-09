@@ -306,8 +306,8 @@
     <string name="pro_feature_cache_desc">Suositut kappaleet avautuvat ilman odottelua</string>
     <string name="pro_feature_links_title">Jaa kaikille</string>
     <string name="pro_feature_links_desc">Yksi linkki, jonka jokainen avaa omassa soittimessaan</string>
-    <string name="pro_feature_future_title">Kaikki tuleva</string>
-    <string name="pro_feature_future_desc">Uudet PRO-ominaisuudet ilman lisähintaa</string>
+    <string name="pro_feature_review_title">Tarkenna osumia</string>
+    <string name="pro_feature_review_desc">Valitse vaihtoehtoiset versiot manuaalisesti</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Ei vielä julkaistu</string>
     <string name="prerelease_sheet_desc">Tätä albumia ei ole vielä julkaistu suoratoistopalveluissa.</string>
@@ -345,4 +345,18 @@
     <string name="settings_preferred_player_subtitle">Valitse sovellus toistoa varten</string>
     <string name="settings_preferred_player_auto">Automaattinen</string>
     <string name="settings_preferred_player_auto_desc">Suositus: käyttää oletussovellusta</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">Hae ja muunna</string>
+    <string name="search_hint">Etsi kappaletta tai artistia…</string>
+    <string name="search_initial_prompt">Kirjoita kappale tai artisti</string>
+    <string name="search_empty">Kappaleita ei löytynyt</string>
+    <string name="search_error">Haku epäonnistui</string>
+    <string name="disambiguate_action">Muokkaa osumaa</string>
+    <string name="disambiguate_title">Muokkaa osumaa</string>
+    <string name="disambiguate_subtitle">Valitse oikea versio palvelulle %1$s</string>
+    <string name="disambiguate_current">Nykyinen osuma</string>
+    <string name="disambiguate_success">Osuma päivitetty</string>
+    <string name="disambiguate_empty">Vaihtoehtoisia versioita ei löytynyt</string>
+    <string name="disambiguate_error">Versioita ei voitu ladata</string>
 </resources>

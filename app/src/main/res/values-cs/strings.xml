@@ -314,8 +314,8 @@
     <string name="pro_feature_cache_desc">Oblíbené skladby se otevřou bez čekání</string>
     <string name="pro_feature_links_title">Sdílení pro všechny</string>
     <string name="pro_feature_links_desc">Jeden odkaz, který každý otevře ve svém přehrávači</string>
-    <string name="pro_feature_future_title">Vše, co přijde</string>
-    <string name="pro_feature_future_desc">Nové funkce PRO bez příplatku</string>
+    <string name="pro_feature_review_title">Upřesnit shody</string>
+    <string name="pro_feature_review_desc">Ruční výběr alternativních verzí skladeb</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Dosud nevydané album</string>
     <string name="prerelease_sheet_desc">Toto album zatím nebylo vydáno na streamovacích platformách.</string>
@@ -353,4 +353,18 @@
     <string name="settings_preferred_player_subtitle">Zvolte aplikaci pro přehrávání</string>
     <string name="settings_preferred_player_auto">Automaticky</string>
     <string name="settings_preferred_player_auto_desc">Doporučeno: použije výchozí aplikaci</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">Hledat a převést</string>
+    <string name="search_hint">Hledat skladbu nebo interpreta…</string>
+    <string name="search_initial_prompt">Zadejte název skladby nebo interpreta</string>
+    <string name="search_empty">Nenalezeny žádné skladby</string>
+    <string name="search_error">Vyhledávání se nezdařilo</string>
+    <string name="disambiguate_action">Upravit shodu</string>
+    <string name="disambiguate_title">Upravit shodu</string>
+    <string name="disambiguate_subtitle">Vyberte správnou verzi pro %1$s</string>
+    <string name="disambiguate_current">Aktuální shoda</string>
+    <string name="disambiguate_success">Shoda aktualizována</string>
+    <string name="disambiguate_empty">Nebyly nalezeny žádné alternativní verze</string>
+    <string name="disambiguate_error">Verze se nepodařilo načíst</string>
 </resources>

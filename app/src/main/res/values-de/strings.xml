@@ -341,8 +341,8 @@
     <string name="pro_feature_cache_desc">Beliebte Songs ohne Wartezeit</string>
     <string name="pro_feature_links_title">Teilen für alle</string>
     <string name="pro_feature_links_desc">Ein Link, den jeder in seinem Player öffnet</string>
-    <string name="pro_feature_future_title">Alles, was kommt</string>
-    <string name="pro_feature_future_desc">Neue PRO-Funktionen ohne Aufpreis</string>
+    <string name="pro_feature_review_title">Treffer verfeinern</string>
+    <string name="pro_feature_review_desc">Alternative Versionen manuell auswählen</string>
 
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Noch nicht erschienen</string>
@@ -387,4 +387,18 @@
     <string name="history_filter_favorites">Favoriten</string>
     <string name="history_qr_action">QR-Code anzeigen</string>
     <string name="target_player_chip">Player: %1$s</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">Search &amp; Flip</string>
+    <string name="search_hint">Song oder Künstler suchen …</string>
+    <string name="search_initial_prompt">Tippe einen Titel oder Interpreten ein</string>
+    <string name="search_empty">Keine Treffer gefunden</string>
+    <string name="search_error">Suche fehlgeschlagen</string>
+    <string name="disambiguate_action">Treffer anpassen</string>
+    <string name="disambiguate_title">Treffer anpassen</string>
+    <string name="disambiguate_subtitle">Wähle die passende Version für %1$s</string>
+    <string name="disambiguate_current">Aktueller Treffer</string>
+    <string name="disambiguate_success">Treffer aktualisiert</string>
+    <string name="disambiguate_empty">Keine alternativen Versionen gefunden</string>
+    <string name="disambiguate_error">Versionen konnten nicht geladen werden</string>
 </resources>

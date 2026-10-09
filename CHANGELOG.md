@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.8.9] - 2026-10-09
+- **Direct Song Search**: Search for songs directly in the app and open them in your favourite player with one tap.
+- **Refine Matches**: Easily choose alternative song versions or recordings whenever needed.
+- **More Playlist Services**: Convert and transfer playlists with TIDAL and Deezer.
+
 ## [1.8.8] - 2026-10-09
 - **QR Code Sharing**: QR code generation for sharing music links is now seamlessly aligned with advanced link sharing options.
 - **Polish & Refinements**: Cleaner menu options and overall interface improvements.

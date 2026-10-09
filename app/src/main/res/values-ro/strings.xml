@@ -310,8 +310,8 @@
     <string name="pro_feature_cache_desc">Melodiile populare se deschid fără așteptare</string>
     <string name="pro_feature_links_title">Distribuie oricui</string>
     <string name="pro_feature_links_desc">Un link pe care fiecare îl deschide în playerul său</string>
-    <string name="pro_feature_future_title">Tot ce urmează</string>
-    <string name="pro_feature_future_desc">Funcții PRO noi fără cost suplimentar</string>
+    <string name="pro_feature_review_title">Rafinare rezultate</string>
+    <string name="pro_feature_review_desc">Selectează manual versiuni alternative</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Album nelansat încă</string>
     <string name="prerelease_sheet_desc">Acest album nu este încă disponibil pe platformele de streaming.</string>
@@ -349,4 +349,18 @@
     <string name="settings_preferred_player_subtitle">Alegeți aplicația pentru redare</string>
     <string name="settings_preferred_player_auto">Automat</string>
     <string name="settings_preferred_player_auto_desc">Recomandat: folosește aplicația prestabilită</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">Caută și convertește</string>
+    <string name="search_hint">Caută piesă sau artist…</string>
+    <string name="search_initial_prompt">Scrie o piesă sau un artist</string>
+    <string name="search_empty">Nu au fost găsite piese</string>
+    <string name="search_error">Căutare eșuată</string>
+    <string name="disambiguate_action">Ajustează rezultatul</string>
+    <string name="disambiguate_title">Ajustează rezultatul</string>
+    <string name="disambiguate_subtitle">Alege versiunea corectă pentru %1$s</string>
+    <string name="disambiguate_current">Rezultat actual</string>
+    <string name="disambiguate_success">Rezultat actualizat</string>
+    <string name="disambiguate_empty">Nu s-au găsit versiuni alternative</string>
+    <string name="disambiguate_error">Nu s-au putut încărca versiunile</string>
 </resources>

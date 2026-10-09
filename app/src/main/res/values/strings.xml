@@ -342,8 +342,8 @@
     <string name="pro_feature_cache_desc">Popular songs open without waiting</string>
     <string name="pro_feature_links_title">Share with anyone</string>
     <string name="pro_feature_links_desc">One link that opens in everyone\'s player</string>
-    <string name="pro_feature_future_title">Everything to come</string>
-    <string name="pro_feature_future_desc">New PRO features at no extra cost</string>
+    <string name="pro_feature_review_title">Refine matches</string>
+    <string name="pro_feature_review_desc">Manually select alternative song versions</string>
 
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Unreleased Album</string>
@@ -388,4 +388,18 @@
     <string name="history_filter_favorites">Favorites</string>
     <string name="history_qr_action">Show QR Code</string>
     <string name="target_player_chip">Player: %1$s</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">Search &amp; Flip</string>
+    <string name="search_hint">Search song or artist…</string>
+    <string name="search_initial_prompt">Type a song title or artist</string>
+    <string name="search_empty">No tracks found</string>
+    <string name="search_error">Search failed</string>
+    <string name="disambiguate_action">Refine match</string>
+    <string name="disambiguate_title">Refine match</string>
+    <string name="disambiguate_subtitle">Choose the right version for %1$s</string>
+    <string name="disambiguate_current">Current match</string>
+    <string name="disambiguate_success">Match updated</string>
+    <string name="disambiguate_empty">No alternative versions found</string>
+    <string name="disambiguate_error">Could not load versions</string>
 </resources>

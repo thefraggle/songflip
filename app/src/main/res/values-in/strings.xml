@@ -316,8 +316,8 @@
     <string name="pro_feature_cache_desc">Lagu populer terbuka tanpa menunggu</string>
     <string name="pro_feature_links_title">Bagikan ke siapa saja</string>
     <string name="pro_feature_links_desc">Satu tautan yang dibuka semua orang di pemutarnya sendiri</string>
-    <string name="pro_feature_future_title">Semua yang akan datang</string>
-    <string name="pro_feature_future_desc">Fitur PRO baru tanpa biaya tambahan</string>
+    <string name="pro_feature_review_title">Sesuaikan kecocokan</string>
+    <string name="pro_feature_review_desc">Pilih versi lagu alternatif secara manual</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Belum Dirilis</string>
     <string name="prerelease_sheet_desc">Album ini belum dirilis di platform streaming.</string>
@@ -355,4 +355,18 @@
     <string name="settings_preferred_player_subtitle">Pilih aplikasi untuk memutar musik</string>
     <string name="settings_preferred_player_auto">Otomatis</string>
     <string name="settings_preferred_player_auto_desc">Disarankan: gunakan aplikasi default</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">Cari &amp; Konversi</string>
+    <string name="search_hint">Cari lagu atau artis…</string>
+    <string name="search_initial_prompt">Ketik judul lagu atau artis</string>
+    <string name="search_empty">Lagu tidak ditemukan</string>
+    <string name="search_error">Pencarian gagal</string>
+    <string name="disambiguate_action">Sesuaikan kecocokan</string>
+    <string name="disambiguate_title">Sesuaikan kecocokan</string>
+    <string name="disambiguate_subtitle">Pilih versi yang tepat untuk %1$s</string>
+    <string name="disambiguate_current">Kecocokan saat ini</string>
+    <string name="disambiguate_success">Kecocokan diperbarui</string>
+    <string name="disambiguate_empty">Tidak ada versi alternatif yang ditemukan</string>
+    <string name="disambiguate_error">Gagal memuat versi</string>
 </resources>

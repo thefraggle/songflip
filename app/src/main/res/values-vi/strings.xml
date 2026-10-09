@@ -316,8 +316,8 @@
     <string name="pro_feature_cache_desc">Bài hát phổ biến mở ngay không cần chờ</string>
     <string name="pro_feature_links_title">Chia sẻ cho mọi người</string>
     <string name="pro_feature_links_desc">Một liên kết ai cũng mở được trong trình phát của mình</string>
-    <string name="pro_feature_future_title">Mọi thứ sắp tới</string>
-    <string name="pro_feature_future_desc">Tính năng PRO mới không tốn thêm phí</string>
+    <string name="pro_feature_review_title">Tinh chỉnh kết quả</string>
+    <string name="pro_feature_review_desc">Tự chọn phiên bản bài hát thay thế</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Chưa phát hành</string>
     <string name="prerelease_sheet_desc">Album này chưa được phát hành trên các nền tảng phát trực tuyến.</string>
@@ -355,4 +355,18 @@
     <string name="settings_preferred_player_subtitle">Chọn ứng dụng để phát nhạc</string>
     <string name="settings_preferred_player_auto">Tự động</string>
     <string name="settings_preferred_player_auto_desc">Được đề xuất: sử dụng ứng dụng mặc định</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">Tìm kiếm &amp; Chuyển đổi</string>
+    <string name="search_hint">Tìm bài hát hoặc nghệ sĩ…</string>
+    <string name="search_initial_prompt">Nhập tên bài hát hoặc nghệ sĩ</string>
+    <string name="search_empty">Không tìm thấy bài hát</string>
+    <string name="search_error">Tìm kiếm thất bại</string>
+    <string name="disambiguate_action">Chỉnh kết quả</string>
+    <string name="disambiguate_title">Chỉnh kết quả</string>
+    <string name="disambiguate_subtitle">Chọn phiên bản phù hợp cho %1$s</string>
+    <string name="disambiguate_current">Kết quả hiện tại</string>
+    <string name="disambiguate_success">Đã cập nhật kết quả</string>
+    <string name="disambiguate_empty">Không tìm thấy phiên bản thay thế</string>
+    <string name="disambiguate_error">Không thể tải phiên bản</string>
 </resources>

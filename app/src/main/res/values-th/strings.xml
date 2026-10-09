@@ -302,8 +302,8 @@
     <string name="pro_feature_cache_desc">เพลงยอดนิยมเปิดได้โดยไม่ต้องรอ</string>
     <string name="pro_feature_links_title">แชร์ให้ทุกคน</string>
     <string name="pro_feature_links_desc">ลิงก์เดียวที่ทุกคนเปิดในเครื่องเล่นของตัวเองได้</string>
-    <string name="pro_feature_future_title">ทุกอย่างที่จะมา</string>
-    <string name="pro_feature_future_desc">ฟีเจอร์ PRO ใหม่โดยไม่มีค่าใช้จ่ายเพิ่ม</string>
+    <string name="pro_feature_review_title">ปรับแต่งผลลัพธ์</string>
+    <string name="pro_feature_review_desc">เลือกเวอร์ชันเพลงอื่นด้วยตนเอง</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">ยังไม่วางจำหน่าย</string>
     <string name="prerelease_sheet_desc">อัลบั้มนี้ยังไม่เปิดให้ฟังบนแพลตฟอร์มสตรีมมิง</string>
@@ -341,4 +341,18 @@
     <string name="settings_preferred_player_subtitle">เลือกแอปสำหรับเล่นเพลง</string>
     <string name="settings_preferred_player_auto">อัตโนมัติ</string>
     <string name="settings_preferred_player_auto_desc">แนะนำ: ใช้แอปเริ่มต้น</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">ค้นหาและแปลงลิงก์</string>
+    <string name="search_hint">ค้นหาเพลงหรือศิลปิน…</string>
+    <string name="search_initial_prompt">พิมพ์ชื่อเพลงหรือศิลปิน</string>
+    <string name="search_empty">ไม่พบเพลง</string>
+    <string name="search_error">การค้นหาล้มเหลว</string>
+    <string name="disambiguate_action">ปรับแต่งผลลัพธ์</string>
+    <string name="disambiguate_title">ปรับแต่งผลลัพธ์</string>
+    <string name="disambiguate_subtitle">เลือกเวอร์ชันที่ถูกต้องสำหรับ %1$s</string>
+    <string name="disambiguate_current">ผลลัพธ์ปัจจุบัน</string>
+    <string name="disambiguate_success">อัปเดตผลลัพธ์แล้ว</string>
+    <string name="disambiguate_empty">ไม่พบเวอร์ชันอื่น</string>
+    <string name="disambiguate_error">ไม่สามารถโหลดเวอร์ชันได้</string>
 </resources>

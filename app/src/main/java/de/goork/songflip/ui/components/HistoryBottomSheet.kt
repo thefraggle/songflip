@@ -71,6 +71,7 @@ fun HistoryBottomSheet(
     var showClearConfirmationDialog by remember { mutableStateOf(false) }
     var refreshingKeys by remember { mutableStateOf(setOf<String>()) }
     var qrCodeItem by remember { mutableStateOf<LinkHistoryItem?>(null) }
+    var disambiguateItem by remember { mutableStateOf<LinkHistoryItem?>(null) }
     var showOnlyFavorites by remember { mutableStateOf(false) }
 
     fun refreshHistory() {
@@ -175,6 +176,21 @@ fun HistoryBottomSheet(
                 onDismissRequest = { qrCodeItem = null }
             )
         }
+    }
+
+    if (disambiguateItem != null) {
+        val item = disambiguateItem!!
+        DisambiguationBottomSheet(
+            cacheKey = item.cacheKey,
+            title = item.title ?: "",
+            artist = item.artist ?: "",
+            targetPlatformKey = item.targetPlatformKey,
+            currentMatchedUrl = item.targetUrl,
+            onDismissRequest = { disambiguateItem = null },
+            onMatchUpdated = {
+                refreshHistory()
+            }
+        )
     }
 
     ModalBottomSheet(
@@ -425,6 +441,10 @@ fun HistoryBottomSheet(
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                                 qrCodeItem = item
                             },
+                            onDisambiguate = {
+                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                disambiguateItem = item
+                            },
                             onPlay = {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackHistoryItemClicked(item.platform)
@@ -561,6 +581,7 @@ fun HistoryItemCard(
     onOpenPlaylist: (() -> Unit)? = null,
     onToggleFavorite: () -> Unit = {},
     onShowQrCode: () -> Unit = {},
+    onDisambiguate: () -> Unit = {},
     onCopyTarget: () -> Unit,
     onCopySource: () -> Unit,
     onRefresh: () -> Unit,
@@ -855,6 +876,16 @@ fun HistoryItemCard(
                                     onShowQrCode()
                                 }
                             )
+                            if (!isPlaylist) {
+                                DropdownMenuItem(
+                                    text = { Text(stringResource(R.string.disambiguate_title)) },
+                                    leadingIcon = { Icon(Icons.Outlined.Tune, contentDescription = null, modifier = Modifier.size(18.dp)) },
+                                    onClick = {
+                                        showMenu = false
+                                        onDisambiguate()
+                                    }
+                                )
+                            }
                         }
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.history_copy_target, targetDisplayName)) },

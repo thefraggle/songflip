@@ -306,8 +306,8 @@
     <string name="pro_feature_cache_desc">A népszerű dalok várakozás nélkül nyílnak meg</string>
     <string name="pro_feature_links_title">Megosztás bárkivel</string>
     <string name="pro_feature_links_desc">Egy link, amit mindenki a saját lejátszójában nyit meg</string>
-    <string name="pro_feature_future_title">Minden, ami jön</string>
-    <string name="pro_feature_future_desc">Új PRO funkciók felár nélkül</string>
+    <string name="pro_feature_review_title">Találatok pontosítása</string>
+    <string name="pro_feature_review_desc">Alternatív verziók manuális kiválasztása</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Még nem jelent meg</string>
     <string name="prerelease_sheet_desc">Ez az album még nem jelent meg a streaming felületeken.</string>
@@ -345,4 +345,18 @@
     <string name="settings_preferred_player_subtitle">Alkalmazás kiválasztása zenelejátszáshoz</string>
     <string name="settings_preferred_player_auto">Automatikus</string>
     <string name="settings_preferred_player_auto_desc">Ajánlott: az alapértelmezett alkalmazást használja</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">Keresés és átváltás</string>
+    <string name="search_hint">Dal vagy előadó keresése…</string>
+    <string name="search_initial_prompt">Írj be egy dalt vagy előadót</string>
+    <string name="search_empty">Nem található dal</string>
+    <string name="search_error">A keresés sikertelen</string>
+    <string name="disambiguate_action">Találat módosítása</string>
+    <string name="disambiguate_title">Találat módosítása</string>
+    <string name="disambiguate_subtitle">Válaszd ki a megfelelő verziót: %1$s</string>
+    <string name="disambiguate_current">Jelenlegi találat</string>
+    <string name="disambiguate_success">Találat frissítve</string>
+    <string name="disambiguate_empty">Nem található alternatív verzió</string>
+    <string name="disambiguate_error">Nem sikerült betölteni a verziókat</string>
 </resources>

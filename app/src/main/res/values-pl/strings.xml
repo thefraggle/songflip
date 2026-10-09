@@ -328,8 +328,8 @@
     <string name="pro_feature_cache_desc">Popularne utwory otwierają się bez czekania</string>
     <string name="pro_feature_links_title">Udostępniaj wszystkim</string>
     <string name="pro_feature_links_desc">Jeden link, który każdy otworzy w swoim odtwarzaczu</string>
-    <string name="pro_feature_future_title">Wszystko, co nadejdzie</string>
-    <string name="pro_feature_future_desc">Nowe funkcje PRO bez dopłat</string>
+    <string name="pro_feature_review_title">Dopasuj wersję</string>
+    <string name="pro_feature_review_desc">Ręcznie wybieraj alternatywne wersje utworów</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Album jeszcze niewydany</string>
     <string name="prerelease_sheet_desc">Ten album nie jest jeszcze dostępny na platformach streamingowych.</string>
@@ -367,4 +367,18 @@
     <string name="settings_preferred_player_subtitle">Wybierz aplikację do odtwarzania</string>
     <string name="settings_preferred_player_auto">Automatycznie</string>
     <string name="settings_preferred_player_auto_desc">Zalecane: używa domyślnej aplikacji</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">Szukaj i konwertuj</string>
+    <string name="search_hint">Szukaj utworu lub wykonawcy…</string>
+    <string name="search_initial_prompt">Wpisz tytuł lub wykonawcę</string>
+    <string name="search_empty">Nie znaleziono utworów</string>
+    <string name="search_error">Wyszukiwanie nie powiodło się</string>
+    <string name="disambiguate_action">Dopasuj wersję</string>
+    <string name="disambiguate_title">Dopasuj wersję</string>
+    <string name="disambiguate_subtitle">Wybierz właściwą wersję dla %1$s</string>
+    <string name="disambiguate_current">Bieżące dopasowanie</string>
+    <string name="disambiguate_success">Dopasowanie zaktualizowane</string>
+    <string name="disambiguate_empty">Nie znaleziono alternatywnych wersji</string>
+    <string name="disambiguate_error">Nie udało się załadować wersji</string>
 </resources>

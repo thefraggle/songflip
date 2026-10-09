@@ -320,8 +320,8 @@
     <string name="pro_feature_cache_desc">लोकप्रिय गाने बिना इंतज़ार खुलते हैं</string>
     <string name="pro_feature_links_title">सबके साथ शेयर करें</string>
     <string name="pro_feature_links_desc">एक लिंक जिसे हर कोई अपने प्लेयर में खोल सके</string>
-    <string name="pro_feature_future_title">आने वाला सब कुछ</string>
-    <string name="pro_feature_future_desc">नए PRO फ़ीचर बिना अतिरिक्त कीमत</string>
+    <string name="pro_feature_review_title">सटीक परिणाम चुनें</string>
+    <string name="pro_feature_review_desc">वैकल्पिक गीत संस्करण मैन्युअल रूप से चुनें</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">अभी रिलीज़ नहीं हुआ</string>
     <string name="prerelease_sheet_desc">यह एल्बम अभी स्ट्रीमिंग प्लेटफ़ॉर्म पर उपलब्ध नहीं है।</string>
@@ -359,4 +359,18 @@
     <string name="settings_preferred_player_subtitle">संगीत चलाने के लिए ऐप चुनें</string>
     <string name="settings_preferred_player_auto">स्वचालित</string>
     <string name="settings_preferred_player_auto_desc">अनुशंसित: डिफ़ॉल्ट ऐप का उपयोग करता है</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">खोजें और बदलें</string>
+    <string name="search_hint">गीत या कलाकार खोजें…</string>
+    <string name="search_initial_prompt">गीत या कलाकार का नाम लिखें</string>
+    <string name="search_empty">कोई गीत नहीं मिला</string>
+    <string name="search_error">खोज विफल रही</string>
+    <string name="disambiguate_action">परिणाम बदलें</string>
+    <string name="disambiguate_title">परिणाम बदलें</string>
+    <string name="disambiguate_subtitle">%1$s के लिए सही संस्करण चुनें</string>
+    <string name="disambiguate_current">वर्तमान परिणाम</string>
+    <string name="disambiguate_success">परिणाम अपडेट किया गया</string>
+    <string name="disambiguate_empty">कोई वैकल्पिक संस्करण नहीं मिला</string>
+    <string name="disambiguate_error">संस्करण लोड नहीं हो सके</string>
 </resources>

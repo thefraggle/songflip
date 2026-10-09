@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
@@ -34,6 +35,7 @@ import de.goork.songflip.ui.theme.*
 fun HeaderBanner(
     onOpenSettings: () -> Unit,
     onOpenHistory: () -> Unit = {},
+    onOpenSearch: () -> Unit = {},
     isPro: Boolean = false,
     modifier: Modifier = Modifier
 ) {
@@ -139,6 +141,25 @@ fun HeaderBanner(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
+                // Search Action Button
+                IconButton(
+                    onClick = {
+                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                        onOpenSearch()
+                    },
+                    modifier = Modifier
+                        .size(44.dp)
+                        .clip(CircleShape)
+                        .background(NightSlate700.copy(alpha = 0.6f))
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Search,
+                        contentDescription = stringResource(R.string.search_title),
+                        tint = Color.White,
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+
                 // History Action Button
                 IconButton(
                     onClick = {

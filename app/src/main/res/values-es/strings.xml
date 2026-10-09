@@ -320,8 +320,8 @@
     <string name="pro_feature_cache_desc">Las canciones populares se abren sin esperas</string>
     <string name="pro_feature_links_title">Comparte con todos</string>
     <string name="pro_feature_links_desc">Un enlace que cada uno abre en su reproductor</string>
-    <string name="pro_feature_future_title">Todo lo que viene</string>
-    <string name="pro_feature_future_desc">Nuevas funciones PRO sin coste extra</string>
+    <string name="pro_feature_review_title">Ajustar resultados</string>
+    <string name="pro_feature_review_desc">Selecciona versiones alternativas manualmente</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Álbum no publicado</string>
     <string name="prerelease_sheet_desc">Este álbum aún no está disponible en las plataformas de streaming.</string>
@@ -359,4 +359,18 @@
     <string name="settings_preferred_player_subtitle">Elegir app para reproducir enlaces</string>
     <string name="settings_preferred_player_auto">Automático</string>
     <string name="settings_preferred_player_auto_desc">Recomendado: usa la app predeterminada</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">Buscar y cambiar</string>
+    <string name="search_hint">Buscar canción o artista…</string>
+    <string name="search_initial_prompt">Escribe una canción o artista</string>
+    <string name="search_empty">No se encontraron canciones</string>
+    <string name="search_error">Error en la búsqueda</string>
+    <string name="disambiguate_action">Ajustar resultado</string>
+    <string name="disambiguate_title">Ajustar resultado</string>
+    <string name="disambiguate_subtitle">Elige la versión correcta para %1$s</string>
+    <string name="disambiguate_current">Resultado actual</string>
+    <string name="disambiguate_success">Resultado actualizado</string>
+    <string name="disambiguate_empty">No se encontraron versiones alternativas</string>
+    <string name="disambiguate_error">No se pudieron cargar las versiones</string>
 </resources>

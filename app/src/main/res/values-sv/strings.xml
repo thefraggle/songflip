@@ -320,8 +320,8 @@
     <string name="pro_feature_cache_desc">Populära låtar öppnas utan väntan</string>
     <string name="pro_feature_links_title">Dela med alla</string>
     <string name="pro_feature_links_desc">En länk som alla öppnar i sin egen spelare</string>
-    <string name="pro_feature_future_title">Allt som kommer</string>
-    <string name="pro_feature_future_desc">Nya PRO-funktioner utan extra kostnad</string>
+    <string name="pro_feature_review_title">Finjustera matchningar</string>
+    <string name="pro_feature_review_desc">Välj alternativa versioner manuellt</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Inte släppt än</string>
     <string name="prerelease_sheet_desc">Detta album har inte släppts på streamingtjänster än.</string>
@@ -359,4 +359,18 @@
     <string name="settings_preferred_player_subtitle">Välj app för musikuppspelning</string>
     <string name="settings_preferred_player_auto">Automatiskt</string>
     <string name="settings_preferred_player_auto_desc">Rekommenderas: använder standardappen</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">Sök och konvertera</string>
+    <string name="search_hint">Sök efter låt eller artist…</string>
+    <string name="search_initial_prompt">Skriv en låt eller artist</string>
+    <string name="search_empty">Inga låtar hittades</string>
+    <string name="search_error">Sökningen misslyckades</string>
+    <string name="disambiguate_action">Anpassa matchning</string>
+    <string name="disambiguate_title">Anpassa matchning</string>
+    <string name="disambiguate_subtitle">Välj rätt version för %1$s</string>
+    <string name="disambiguate_current">Nuvarande matchning</string>
+    <string name="disambiguate_success">Matchning uppdaterad</string>
+    <string name="disambiguate_empty">Inga alternativa versioner hittades</string>
+    <string name="disambiguate_error">Kunde inte ladda versioner</string>
 </resources>

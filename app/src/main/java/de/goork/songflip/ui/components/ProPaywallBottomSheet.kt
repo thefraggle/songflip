@@ -280,8 +280,8 @@ fun ProPaywallBottomSheet(
                             description = stringResource(R.string.pro_feature_links_desc)
                         )
                         ProFeatureRow(
-                            title = stringResource(R.string.pro_feature_future_title),
-                            description = stringResource(R.string.pro_feature_future_desc)
+                            title = stringResource(R.string.pro_feature_review_title),
+                            description = stringResource(R.string.pro_feature_review_desc)
                         )
                     }
                 }

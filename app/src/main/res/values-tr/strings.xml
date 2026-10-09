@@ -320,8 +320,8 @@
     <string name="pro_feature_cache_desc">Popüler şarkılar beklemeden açılır</string>
     <string name="pro_feature_links_title">Herkesle paylaşın</string>
     <string name="pro_feature_links_desc">Herkesin kendi oynatıcısında açtığı tek bir bağlantı</string>
-    <string name="pro_feature_future_title">Gelecek her şey</string>
-    <string name="pro_feature_future_desc">Yeni PRO özellikleri ek ücret olmadan</string>
+    <string name="pro_feature_review_title">Eşleşmeyi düzelt</string>
+    <string name="pro_feature_review_desc">Alternatif şarkı sürümlerini manuel seçin</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Henüz Yayınlanmadı</string>
     <string name="prerelease_sheet_desc">Bu albüm henüz yayın akışı platformlarında yayınlanmadı.</string>
@@ -359,4 +359,18 @@
     <string name="settings_preferred_player_subtitle">Müzik çalmak için uygulama seçin</string>
     <string name="settings_preferred_player_auto">Otomatik</string>
     <string name="settings_preferred_player_auto_desc">Önerilen: Varsayılan uygulamayı kullanır</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">Ara ve Çevir</string>
+    <string name="search_hint">Şarkı veya sanatçı ara…</string>
+    <string name="search_initial_prompt">Bir şarkı veya sanatçı yazın</string>
+    <string name="search_empty">Parça bulunamadı</string>
+    <string name="search_error">Arama başarısız</string>
+    <string name="disambiguate_action">Eşleşmeyi düzelt</string>
+    <string name="disambiguate_title">Eşleşmeyi düzelt</string>
+    <string name="disambiguate_subtitle">%1$s için doğru sürümü seçin</string>
+    <string name="disambiguate_current">Mevcut eşleşme</string>
+    <string name="disambiguate_success">Eşleşme güncellendi</string>
+    <string name="disambiguate_empty">Alternatif sürüm bulunamadı</string>
+    <string name="disambiguate_error">Sürümler yüklenemedi</string>
 </resources>

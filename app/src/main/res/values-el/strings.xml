@@ -306,8 +306,8 @@
     <string name="pro_feature_cache_desc">Τα δημοφιλή τραγούδια ανοίγουν χωρίς αναμονή</string>
     <string name="pro_feature_links_title">Κοινοποίηση σε όλους</string>
     <string name="pro_feature_links_desc">Ένας σύνδεσμος που ο καθένας ανοίγει στη δική του εφαρμογή</string>
-    <string name="pro_feature_future_title">Ό,τι έρχεται</string>
-    <string name="pro_feature_future_desc">Νέες λειτουργίες PRO χωρίς επιπλέον κόστος</string>
+    <string name="pro_feature_review_title">Βελτίωση αποτελεσμάτων</string>
+    <string name="pro_feature_review_desc">Μη αυτόματη επιλογή εναλλακτικών εκδόσεων τραγουδιών</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Άλμπουμ που δεν έχει κυκλοφορήσει</string>
     <string name="prerelease_sheet_desc">Αυτό το άλμπουμ δεν έχει κυκλοφορήσει ακόμη στις πλατφόρμες streaming.</string>
@@ -345,4 +345,18 @@
     <string name="settings_preferred_player_subtitle">Επιλέξτε εφαρμογή για αναπαραγωγή μουσικής</string>
     <string name="settings_preferred_player_auto">Αυτόματα</string>
     <string name="settings_preferred_player_auto_desc">Συνιστάται: χρήση προεπιλεγμένης εφαρμογής</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">Αναζήτηση &amp; Μετατροπή</string>
+    <string name="search_hint">Αναζήτηση τραγουδιού ή καλλιτέχνη…</string>
+    <string name="search_initial_prompt">Πληκτρολογήστε τίτλο ή καλλιτέχνη</string>
+    <string name="search_empty">Δεν βρέθηκαν κομμάτια</string>
+    <string name="search_error">Η αναζήτηση απέτυχε</string>
+    <string name="disambiguate_action">Προσαρμογή αποτελέσματος</string>
+    <string name="disambiguate_title">Προσαρμογή αποτελέσματος</string>
+    <string name="disambiguate_subtitle">Επιλέξτε τη σωστή έκδοση για %1$s</string>
+    <string name="disambiguate_current">Τρέχον αποτέλεσμα</string>
+    <string name="disambiguate_success">Το αποτέλεσμα ενημερώθηκε</string>
+    <string name="disambiguate_empty">Δεν βρέθηκαν εναλλακτικές εκδόσεις</string>
+    <string name="disambiguate_error">Δεν ήταν δυνατή η φόρτωση των εκδόσεων</string>
 </resources>

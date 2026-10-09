@@ -248,7 +248,7 @@ struct ProPaywallSheetView: View {
                         featureRow(icon: "clock.arrow.circlepath", title: LocalizationManager.string(for: "pro_feature_history_title", lang: lang), desc: LocalizationManager.string(for: "pro_feature_history_desc", lang: lang))
                         featureRow(icon: "bolt.fill", title: LocalizationManager.string(for: "pro_feature_cache_title", lang: lang), desc: LocalizationManager.string(for: "pro_feature_cache_desc", lang: lang))
                         featureRow(icon: "link", title: LocalizationManager.string(for: "pro_feature_links_title", lang: lang), desc: LocalizationManager.string(for: "pro_feature_links_desc", lang: lang))
-                        featureRow(icon: "sparkles", title: LocalizationManager.string(for: "pro_feature_future_title", lang: lang), desc: LocalizationManager.string(for: "pro_feature_future_desc", lang: lang))
+                        featureRow(icon: "slider.horizontal.3", title: LocalizationManager.string(for: "pro_feature_review_title", lang: lang), desc: LocalizationManager.string(for: "pro_feature_review_desc", lang: lang))
                     }
                     .padding(.horizontal, 20)
 
