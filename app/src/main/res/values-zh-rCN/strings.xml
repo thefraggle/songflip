@@ -316,8 +316,8 @@
     <string name="pro_feature_cache_desc">热门歌曲无需等待即可打开</string>
     <string name="pro_feature_links_title">分享给所有人</string>
     <string name="pro_feature_links_desc">一个链接，每个人都能在自己的播放器中打开</string>
-    <string name="pro_feature_future_title">未来功能</string>
-    <string name="pro_feature_future_desc">新的 PRO 功能无需额外付费</string>
+    <string name="pro_feature_review_title">优化匹配结果</string>
+    <string name="pro_feature_review_desc">手动挑选其他歌曲版本</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">尚未发行</string>
     <string name="prerelease_sheet_desc">该专辑尚未在流媒体平台上架。</string>
@@ -355,4 +355,18 @@
     <string name="settings_preferred_player_subtitle">选择用于播放的音乐应用</string>
     <string name="settings_preferred_player_auto">自动</string>
     <string name="settings_preferred_player_auto_desc">推荐：使用默认应用</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">搜索与转换</string>
+    <string name="search_hint">搜索歌曲或音乐人…</string>
+    <string name="search_initial_prompt">输入歌曲名或歌手</string>
+    <string name="search_empty">未找到相关歌曲</string>
+    <string name="search_error">搜索失败</string>
+    <string name="disambiguate_action">调整匹配</string>
+    <string name="disambiguate_title">调整匹配</string>
+    <string name="disambiguate_subtitle">为 %1$s 选择正确的版本</string>
+    <string name="disambiguate_current">当前匹配</string>
+    <string name="disambiguate_success">匹配已更新</string>
+    <string name="disambiguate_empty">未找到其他替代版本</string>
+    <string name="disambiguate_error">无法加载版本</string>
 </resources>

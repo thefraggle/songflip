@@ -320,8 +320,8 @@
     <string name="pro_feature_cache_desc">Les titres populaires s\'ouvrent sans attendre</string>
     <string name="pro_feature_links_title">Partage pour tous</string>
     <string name="pro_feature_links_desc">Un lien que chacun ouvre dans son propre lecteur</string>
-    <string name="pro_feature_future_title">Tout ce qui arrive</string>
-    <string name="pro_feature_future_desc">Les nouvelles fonctions PRO sans surcoût</string>
+    <string name="pro_feature_review_title">Affiner les correspondances</string>
+    <string name="pro_feature_review_desc">Sélectionnez manuellement des versions alternatives</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Album pas encore sorti</string>
     <string name="prerelease_sheet_desc">Cet album n\'est pas encore disponible sur les plateformes de streaming.</string>
@@ -359,4 +359,18 @@
     <string name="settings_preferred_player_subtitle">Choisir l\'application de lecture</string>
     <string name="settings_preferred_player_auto">Automatique</string>
     <string name="settings_preferred_player_auto_desc">Recommandé : utilise l\'application par défaut</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">Rechercher &amp; Convertir</string>
+    <string name="search_hint">Rechercher un titre ou un artiste…</string>
+    <string name="search_initial_prompt">Entrez un titre ou un artiste</string>
+    <string name="search_empty">Aucun titre trouvé</string>
+    <string name="search_error">Échec de la recherche</string>
+    <string name="disambiguate_action">Ajuster la correspondance</string>
+    <string name="disambiguate_title">Ajuster la correspondance</string>
+    <string name="disambiguate_subtitle">Choisissez la bonne version pour %1$s</string>
+    <string name="disambiguate_current">Version actuelle</string>
+    <string name="disambiguate_success">Correspondance mise à jour</string>
+    <string name="disambiguate_empty">Aucune version alternative trouvée</string>
+    <string name="disambiguate_error">Impossible de charger les versions</string>
 </resources>

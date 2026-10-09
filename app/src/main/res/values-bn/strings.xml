@@ -320,8 +320,8 @@
     <string name="pro_feature_cache_desc">জনপ্রিয় গান অপেক্ষা ছাড়াই খোলে</string>
     <string name="pro_feature_links_title">সবার সাথে শেয়ার করুন</string>
     <string name="pro_feature_links_desc">একটি লিঙ্ক যা প্রত্যেকে নিজের প্লেয়ারে খুলতে পারে</string>
-    <string name="pro_feature_future_title">আসন্ন সবকিছু</string>
-    <string name="pro_feature_future_desc">নতুন PRO ফিচার কোনো অতিরিক্ত খরচ ছাড়াই</string>
+    <string name="pro_feature_review_title">ফলাফল পরিবর্তন</string>
+    <string name="pro_feature_review_desc">ম্যানুয়ালি বিকল্প গানের সংস্করণ নির্বাচন করুন</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">এখনও মুক্তি পায়নি</string>
     <string name="prerelease_sheet_desc">এই অ্যালবামটি এখনও স্ট্রিমিং প্ল্যাটফর্মে প্রকাশিত হয়নি।</string>
@@ -359,4 +359,18 @@
     <string name="settings_preferred_player_subtitle">গান চালানোর জন্য অ্যাপ নির্বাচন করুন</string>
     <string name="settings_preferred_player_auto">স্বয়ংক্রিয়</string>
     <string name="settings_preferred_player_auto_desc">প্রস্তাবিত: ডিফল্ট অ্যাপ ব্যবহার করে</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">খুঁজুন এবং পরিবর্তন করুন</string>
+    <string name="search_hint">গান বা শিল্পী অনুসন্ধান করুন…</string>
+    <string name="search_initial_prompt">গানের নাম বা শিল্পী লিখুন</string>
+    <string name="search_empty">কোনো গান পাওয়া যায়নি</string>
+    <string name="search_error">অনুসন্ধান ব্যর্থ হয়েছে</string>
+    <string name="disambiguate_action">ফলাফল মানানসই করুন</string>
+    <string name="disambiguate_title">ফলাফল মানানসই করুন</string>
+    <string name="disambiguate_subtitle">%1$s এর জন্য সঠিক সংস্করণ বেছে নিন</string>
+    <string name="disambiguate_current">বর্তমান ফলাফল</string>
+    <string name="disambiguate_success">ফলাফল আপডেট করা হয়েছে</string>
+    <string name="disambiguate_empty">কোনো বিকল্প সংস্করণ পাওয়া যায়নি</string>
+    <string name="disambiguate_error">সংস্করণ লোড করা যায়নি</string>
 </resources>

@@ -328,8 +328,8 @@
     <string name="pro_feature_cache_desc">Популярные треки открываются без ожидания</string>
     <string name="pro_feature_links_title">Ссылки для всех</string>
     <string name="pro_feature_links_desc">Одна ссылка, которую каждый откроет в своём плеере</string>
-    <string name="pro_feature_future_title">Всё, что впереди</string>
-    <string name="pro_feature_future_desc">Новые функции PRO без доплаты</string>
+    <string name="pro_feature_review_title">Уточнение треков</string>
+    <string name="pro_feature_review_desc">Выбирайте альтернативные версии песен вручную</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Ещё не вышел</string>
     <string name="prerelease_sheet_desc">Этот альбом ещё не доступен на стриминговых платформах.</string>
@@ -367,4 +367,18 @@
     <string name="settings_preferred_player_subtitle">Выберите приложение для воспроизведения</string>
     <string name="settings_preferred_player_auto">Автоматически</string>
     <string name="settings_preferred_player_auto_desc">Рекомендуется: использовать стандартное приложение</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">Поиск и конвертация</string>
+    <string name="search_hint">Поиск песни или исполнителя…</string>
+    <string name="search_initial_prompt">Введите название или исполнителя</string>
+    <string name="search_empty">Треки не найдены</string>
+    <string name="search_error">Ошибка поиска</string>
+    <string name="disambiguate_action">Уточнить трек</string>
+    <string name="disambiguate_title">Уточнить трек</string>
+    <string name="disambiguate_subtitle">Выберите подходящую версию для %1$s</string>
+    <string name="disambiguate_current">Текущий трек</string>
+    <string name="disambiguate_success">Трек обновлен</string>
+    <string name="disambiguate_empty">Альтернативные версии не найдены</string>
+    <string name="disambiguate_error">Не удалось загрузить версии</string>
 </resources>

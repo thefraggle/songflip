@@ -320,8 +320,8 @@
     <string name="pro_feature_cache_desc">Populære sanger åpnes uten venting</string>
     <string name="pro_feature_links_title">Del med alle</string>
     <string name="pro_feature_links_desc">Én lenke som alle åpner i sin egen avspiller</string>
-    <string name="pro_feature_future_title">Alt som kommer</string>
-    <string name="pro_feature_future_desc">Nye PRO-funksjoner uten ekstra kostnad</string>
+    <string name="pro_feature_review_title">Finjuster treff</string>
+    <string name="pro_feature_review_desc">Velg alternative sangversjoner manuelt</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Ikke utgitt ennå</string>
     <string name="prerelease_sheet_desc">Dette albumet er ennå ikke tilgjengelig på strømmetjenestene.</string>
@@ -359,4 +359,18 @@
     <string name="settings_preferred_player_subtitle">Velg app for musikkavspilling</string>
     <string name="settings_preferred_player_auto">Automatisk</string>
     <string name="settings_preferred_player_auto_desc">Anbefalt: bruker standardappen</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">Søk og konverter</string>
+    <string name="search_hint">Søk etter sang eller artist…</string>
+    <string name="search_initial_prompt">Skriv inn en sang eller artist</string>
+    <string name="search_empty">Ingen sanger funnet</string>
+    <string name="search_error">Søket mislyktes</string>
+    <string name="disambiguate_action">Tilpass treff</string>
+    <string name="disambiguate_title">Tilpass treff</string>
+    <string name="disambiguate_subtitle">Velg riktig versjon for %1$s</string>
+    <string name="disambiguate_current">Nåværende treff</string>
+    <string name="disambiguate_success">Treff oppdatert</string>
+    <string name="disambiguate_empty">Ingen alternative versjoner funnet</string>
+    <string name="disambiguate_error">Kunne ikke laste versjoner</string>
 </resources>

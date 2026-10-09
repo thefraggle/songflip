@@ -279,6 +279,7 @@ fun MainScreen(
     var showPauseBottomSheet by remember { mutableStateOf(showPauseSheetOnStart) }
     var showSettingsBottomSheet by remember { mutableStateOf(false) }
     var showHistoryBottomSheet by remember { mutableStateOf(false) }
+    var showSearchBottomSheet by remember { mutableStateOf(false) }
     var showPlayerPickerSheet by remember { mutableStateOf(false) }
     var showAppLinksSetupBottomSheet by remember { mutableStateOf(false) }
     var showProPaywall by remember { mutableStateOf(false) }
@@ -543,6 +544,13 @@ fun MainScreen(
         )
     }
 
+    if (showSearchBottomSheet) {
+        SearchBottomSheet(
+            targetPlatformKey = selectedTargetKey,
+            onDismissRequest = { showSearchBottomSheet = false }
+        )
+    }
+
     if (showPlayerPickerSheet) {
         PlayerPickerBottomSheet(
             onDismissRequest = { showPlayerPickerSheet = false },
@@ -595,6 +603,9 @@ fun MainScreen(
                 },
                 onOpenHistory = {
                     showHistoryBottomSheet = true
+                },
+                onOpenSearch = {
+                    showSearchBottomSheet = true
                 },
                 isPro = proState.isPro
             )

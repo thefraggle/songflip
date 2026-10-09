@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.8.9] - 2026-10-09
+- **Direkte Songsuche**: Finde Songs direkt in der App per Titelsuche und öffne sie mit einem Fingertipp in deinem Lieblings-Player.
+- **Treffer anpassen**: Wähle bei Bedarf ganz einfach eine alternative Version oder Aufnahme eines Titels aus.
+- **Mehr Playlist-Dienste**: Playlists lassen sich jetzt auch für TIDAL und Deezer übertragen.
+
 ## [1.8.8] - 2026-10-09
 - **QR-Code Freigabe**: Die Anzeige von QR-Codes zum Teilen von Musik-Links steht jetzt wie vorgesehen bei aktivierten erweiterten Funktionen zur Verfügung.
 - **Feinschliff & Optimierungen**: Verbesserte Menüführung und Anpassungen für ein noch aufgeräumteres Erscheinungsbild.

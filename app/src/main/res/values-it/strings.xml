@@ -320,8 +320,8 @@
     <string name="pro_feature_cache_desc">I brani più popolari si aprono senza attese</string>
     <string name="pro_feature_links_title">Condividi con tutti</string>
     <string name="pro_feature_links_desc">Un link che ognuno apre nel proprio player</string>
-    <string name="pro_feature_future_title">Tutto ciò che arriverà</string>
-    <string name="pro_feature_future_desc">Nuove funzioni PRO senza costi aggiuntivi</string>
+    <string name="pro_feature_review_title">Perfeziona corrispondenze</string>
+    <string name="pro_feature_review_desc">Seleziona versioni alternative manualmente</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Album non ancora pubblicato</string>
     <string name="prerelease_sheet_desc">Questo album non è ancora disponibile sulle piattaforme di streaming.</string>
@@ -359,4 +359,18 @@
     <string name="settings_preferred_player_subtitle">Scegli l\'app per riprodurre i brani</string>
     <string name="settings_preferred_player_auto">Automatico</string>
     <string name="settings_preferred_player_auto_desc">Consigliato: usa l\'app predefinita</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">Cerca e converti</string>
+    <string name="search_hint">Cerca brano o artista…</string>
+    <string name="search_initial_prompt">Digita un titolo o un artista</string>
+    <string name="search_empty">Nessun brano trovato</string>
+    <string name="search_error">Ricerca non riuscita</string>
+    <string name="disambiguate_action">Adatta corrispondenza</string>
+    <string name="disambiguate_title">Adatta corrispondenza</string>
+    <string name="disambiguate_subtitle">Scegli la versione corretta per %1$s</string>
+    <string name="disambiguate_current">Corrispondenza attuale</string>
+    <string name="disambiguate_success">Corrispondenza aggiornata</string>
+    <string name="disambiguate_empty">Nessuna versione alternativa trovata</string>
+    <string name="disambiguate_error">Impossibile caricare le versioni</string>
 </resources>

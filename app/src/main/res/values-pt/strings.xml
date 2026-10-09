@@ -320,8 +320,8 @@
     <string name="pro_feature_cache_desc">Músicas populares abrem sem espera</string>
     <string name="pro_feature_links_title">Compartilhe com todos</string>
     <string name="pro_feature_links_desc">Um link que cada um abre no próprio player</string>
-    <string name="pro_feature_future_title">Tudo o que vem por aí</string>
-    <string name="pro_feature_future_desc">Novos recursos PRO sem custo extra</string>
+    <string name="pro_feature_review_title">Refinar resultados</string>
+    <string name="pro_feature_review_desc">Selecione manualmente versões alternativas</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Álbum ainda não lançado</string>
     <string name="prerelease_sheet_desc">Este álbum ainda não está disponível nas plataformas de streaming.</string>
@@ -359,4 +359,18 @@
     <string name="settings_preferred_player_subtitle">Escolha o app para reproduzir músicas</string>
     <string name="settings_preferred_player_auto">Automático</string>
     <string name="settings_preferred_player_auto_desc">Recomendado: usa o app padrão</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">Buscar e converter</string>
+    <string name="search_hint">Buscar música ou artista…</string>
+    <string name="search_initial_prompt">Digite uma música ou artista</string>
+    <string name="search_empty">Nenhuma música encontrada</string>
+    <string name="search_error">Falha na busca</string>
+    <string name="disambiguate_action">Ajustar resultado</string>
+    <string name="disambiguate_title">Ajustar resultado</string>
+    <string name="disambiguate_subtitle">Escolha a versão certa para %1$s</string>
+    <string name="disambiguate_current">Resultado atual</string>
+    <string name="disambiguate_success">Resultado atualizado</string>
+    <string name="disambiguate_empty">Nenhuma versão alternativa encontrada</string>
+    <string name="disambiguate_error">Não foi possível carregar as versões</string>
 </resources>

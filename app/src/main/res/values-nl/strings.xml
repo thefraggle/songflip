@@ -320,8 +320,8 @@
     <string name="pro_feature_cache_desc">Populaire nummers openen zonder wachten</string>
     <string name="pro_feature_links_title">Delen met iedereen</string>
     <string name="pro_feature_links_desc">Eén link die iedereen in zijn eigen speler opent</string>
-    <string name="pro_feature_future_title">Alles wat nog komt</string>
-    <string name="pro_feature_future_desc">Nieuwe PRO-functies zonder meerprijs</string>
+    <string name="pro_feature_review_title">Matches verfijnen</string>
+    <string name="pro_feature_review_desc">Selecteer handmatig alternatieve nummers</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Nog niet verschenen</string>
     <string name="prerelease_sheet_desc">Dit album is nog niet uitgebracht op streamingplatforms.</string>
@@ -359,4 +359,18 @@
     <string name="settings_preferred_player_subtitle">Kies app om muziek af te spelen</string>
     <string name="settings_preferred_player_auto">Automatisch</string>
     <string name="settings_preferred_player_auto_desc">Aanbevolen: gebruikt de standaard-app</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">Zoeken &amp; Converteren</string>
+    <string name="search_hint">Zoek nummer of artiest…</string>
+    <string name="search_initial_prompt">Typ een titel of artiest</string>
+    <string name="search_empty">Geen nummers gevonden</string>
+    <string name="search_error">Zoeken mislukt</string>
+    <string name="disambiguate_action">Match aanpassen</string>
+    <string name="disambiguate_title">Match aanpassen</string>
+    <string name="disambiguate_subtitle">Kies de juiste versie voor %1$s</string>
+    <string name="disambiguate_current">Huidige match</string>
+    <string name="disambiguate_success">Match bijgewerkt</string>
+    <string name="disambiguate_empty">Geen alternatieve versies gevonden</string>
+    <string name="disambiguate_error">Kan versies niet laden</string>
 </resources>

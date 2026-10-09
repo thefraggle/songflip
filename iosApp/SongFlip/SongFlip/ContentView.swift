@@ -13,6 +13,7 @@ struct ContentView: View {
     @State private var detectedClipboardUrl: String? = nil
     @State private var dismissedClipboardUrl: String? = nil
     @State private var showingSettingsSheet = false
+    @State private var showingSearchSheet = false
     @State private var showingHistorySheet = false
     @State private var showingPaywallSheet = false
     @State private var showingShortcutsGuide = false
@@ -127,13 +128,27 @@ struct ContentView: View {
                 }
 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        showingSettingsSheet = true
-                    }) {
-                        Image(systemName: "gearshape.fill")
-                            .foregroundColor(.primary)
+                    HStack(spacing: 14) {
+                        Button(action: {
+                            showingSearchSheet = true
+                        }) {
+                            Image(systemName: "magnifyingglass")
+                                .foregroundColor(.primary)
+                        }
+
+                        Button(action: {
+                            showingSettingsSheet = true
+                        }) {
+                            Image(systemName: "gearshape.fill")
+                                .foregroundColor(.primary)
+                        }
                     }
                 }
+            }
+            .sheet(isPresented: $showingSearchSheet) {
+                SearchSheetView()
+                    .environmentObject(settings)
+                    .preferredColorScheme(settings.colorScheme)
             }
             .sheet(isPresented: $showingSettingsSheet) {
                 SettingsSheetView()

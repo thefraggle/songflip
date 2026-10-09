@@ -316,8 +316,8 @@
     <string name="pro_feature_cache_desc">人気の曲は待ち時間なしで開けます</string>
     <string name="pro_feature_links_title">誰とでも共有</string>
     <string name="pro_feature_links_desc">受け取った人がそれぞれのプレーヤーで開けるリンク</string>
-    <string name="pro_feature_future_title">今後の機能も</string>
-    <string name="pro_feature_future_desc">新しいPRO機能も追加料金なし</string>
+    <string name="pro_feature_review_title">楽曲のマッチ調整</string>
+    <string name="pro_feature_review_desc">別バージョンを手動で選択して修正</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">未リリースのアルバム</string>
     <string name="prerelease_sheet_desc">このアルバムはまだストリーミング配信されていません。</string>
@@ -355,4 +355,18 @@
     <string name="settings_preferred_player_subtitle">再生に使用するアプリを選択</string>
     <string name="settings_preferred_player_auto">自動</string>
     <string name="settings_preferred_player_auto_desc">推奨: デフォルトアプリを使用</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">検索＆変換</string>
+    <string name="search_hint">曲名やアーティストを検索…</string>
+    <string name="search_initial_prompt">曲名またはアーティストを入力</string>
+    <string name="search_empty">楽曲が見つかりませんでした</string>
+    <string name="search_error">検索に失敗しました</string>
+    <string name="disambiguate_action">マッチを調整</string>
+    <string name="disambiguate_title">マッチを調整</string>
+    <string name="disambiguate_subtitle">%1$s の適切なバージョンを選択</string>
+    <string name="disambiguate_current">現在のマッチ</string>
+    <string name="disambiguate_success">マッチを更新しました</string>
+    <string name="disambiguate_empty">別バージョンが見つかりませんでした</string>
+    <string name="disambiguate_error">バージョンを読み込めませんでした</string>
 </resources>

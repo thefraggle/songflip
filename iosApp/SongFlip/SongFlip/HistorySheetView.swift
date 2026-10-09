@@ -10,6 +10,7 @@ struct HistorySheetView: View {
     @State private var showingClearConfirmation = false
     @State private var showingPaywallSheet = false
     @State private var refreshingItemId: UUID? = nil
+    @State private var disambiguateItem: HistoryItem? = nil
     var onOpenPlaylist: ((String, String) -> Void)? = nil
 
     var lang: String { settings.selectedLanguage }
@@ -260,6 +261,20 @@ struct HistorySheetView: View {
                                     Label(LocalizationManager.string(for: "action_refresh_link", lang: lang), systemImage: "arrow.clockwise")
                                 }
 
+                                if !isPlaylist {
+                                    Button {
+                                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                        if proManager.isPro {
+                                            disambiguateItem = item
+                                        } else {
+                                            AptabaseClient.shared.trackEvent(eventName: "paywall_viewed", props: ["source": "history_disambiguate_pro"])
+                                            showingPaywallSheet = true
+                                        }
+                                    } label: {
+                                        Label(LocalizationManager.string(for: "disambiguate_action", lang: lang), systemImage: "slider.horizontal.3")
+                                    }
+                                }
+
                                 Divider()
 
                                 Button(role: .destructive) {
@@ -337,6 +352,13 @@ struct HistorySheetView: View {
             .sheet(isPresented: $showingPaywallSheet) {
                 ProPaywallSheetView()
                     .preferredColorScheme(settings.colorScheme)
+            }
+            .sheet(item: $disambiguateItem) { targetItem in
+                DisambiguationSheetView(item: targetItem, onMatchUpdated: { _ in
+                    history.loadHistory()
+                })
+                .environmentObject(settings)
+                .preferredColorScheme(settings.colorScheme)
             }
             .preferredColorScheme(settings.colorScheme)
             .onAppear {

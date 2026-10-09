@@ -302,8 +302,8 @@
     <string name="pro_feature_cache_desc">熱門歌曲無需等待即可開啟</string>
     <string name="pro_feature_links_title">分享給所有人</string>
     <string name="pro_feature_links_desc">一個連結，每個人都能在自己的播放器中開啟</string>
-    <string name="pro_feature_future_title">未來功能</string>
-    <string name="pro_feature_future_desc">新的 PRO 功能無需額外付費</string>
+    <string name="pro_feature_review_title">最佳化比對結果</string>
+    <string name="pro_feature_review_desc">手動挑選其他歌曲版本</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">尚未發行</string>
     <string name="prerelease_sheet_desc">該專輯尚未在串流平台上架。</string>
@@ -341,4 +341,18 @@
     <string name="settings_preferred_player_subtitle">選取用來播放的音樂應用程式</string>
     <string name="settings_preferred_player_auto">自動</string>
     <string name="settings_preferred_player_auto_desc">建議：使用預設應用程式</string>
+
+    <!-- In-App Search & Disambiguation -->
+    <string name="search_title">搜尋與轉換</string>
+    <string name="search_hint">搜尋歌曲或演出者…</string>
+    <string name="search_initial_prompt">輸入歌曲名或歌手</string>
+    <string name="search_empty">找不到相關歌曲</string>
+    <string name="search_error">搜尋失敗</string>
+    <string name="disambiguate_action">調整比對</string>
+    <string name="disambiguate_title">調整比對</string>
+    <string name="disambiguate_subtitle">為 %1$s 選擇正確的版本</string>
+    <string name="disambiguate_current">目前比對</string>
+    <string name="disambiguate_success">比對已更新</string>
+    <string name="disambiguate_empty">找不到其他替代版本</string>
+    <string name="disambiguate_error">無法載入版本</string>
 </resources>

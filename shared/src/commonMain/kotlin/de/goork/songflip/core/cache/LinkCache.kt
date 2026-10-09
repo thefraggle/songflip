@@ -304,6 +304,28 @@ class LinkCache(
         }
     }
 
+    suspend fun updateTargetUrl(
+        cacheKey: String,
+        newTargetUrl: String,
+        newNativeAppUri: String? = null,
+        currentTimeMs: Long = getCurrentTimeMillis()
+    ): Boolean = mutex.withLock {
+        ensureLoaded(currentTimeMs)
+        val existing = entries[cacheKey] ?: storage.get(cacheKey)
+        if (existing != null) {
+            val updated = existing.copy(
+                targetUrl = newTargetUrl,
+                nativeAppUri = newNativeAppUri,
+                timestamp = currentTimeMs
+            )
+            entries[cacheKey] = updated
+            storage.put(cacheKey, updated)
+            true
+        } else {
+            false
+        }
+    }
+
     suspend fun getHistoryCount(currentTimeMs: Long = getCurrentTimeMillis()): Int = mutex.withLock {
         ensureLoaded(currentTimeMs)
         val allLoaded = storage.loadAll()
