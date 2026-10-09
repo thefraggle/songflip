@@ -62,32 +62,20 @@ fun HeaderBanner(
             )
             .padding(18.dp)
     ) {
-        Row(
+        Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
+            // Top Row: App Title & Tagline (Left) + Utility Icons (Right)
             Row(
+                modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(14.dp),
-                modifier = Modifier.weight(1f)
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Box(
-                    modifier = Modifier
-                        .size(50.dp)
-                        .clip(CircleShape)
-                        .background(NightSlate950)
-                        .border(1.dp, NightSlate700, CircleShape),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                        contentDescription = null,
-                        modifier = Modifier.size(42.dp)
-                    )
-                }
                 Column(
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 12.dp)
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -135,66 +123,84 @@ fun HeaderBanner(
                         overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
                     )
                 }
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    // History Action Button
+                    IconButton(
+                        onClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                            onOpenHistory()
+                        },
+                        modifier = Modifier
+                            .size(44.dp)
+                            .clip(CircleShape)
+                            .background(NightSlate700.copy(alpha = 0.6f))
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.History,
+                            contentDescription = stringResource(R.string.history_title),
+                            tint = Color.White,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+
+                    // Settings Action Button
+                    IconButton(
+                        onClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                            onOpenSettings()
+                        },
+                        modifier = Modifier
+                            .size(44.dp)
+                            .clip(CircleShape)
+                            .background(NightSlate700.copy(alpha = 0.6f))
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Settings,
+                            contentDescription = stringResource(R.string.nav_settings),
+                            tint = Color.White,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+                }
             }
 
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            // Bottom: Prominent In-App Search Bar (Feature #77)
+            Surface(
+                onClick = {
+                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                    onOpenSearch()
+                },
+                shape = RoundedCornerShape(14.dp),
+                color = NightSlate950.copy(alpha = 0.6f),
+                border = androidx.compose.foundation.BorderStroke(1.dp, NightSlate700.copy(alpha = 0.7f)),
+                modifier = Modifier.fillMaxWidth()
             ) {
-                // Search Action Button
-                IconButton(
-                    onClick = {
-                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                        onOpenSearch()
-                    },
+                Row(
                     modifier = Modifier
-                        .size(44.dp)
-                        .clip(CircleShape)
-                        .background(NightSlate700.copy(alpha = 0.6f))
+                        .fillMaxWidth()
+                        .padding(horizontal = 14.dp, vertical = 11.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     Icon(
                         imageVector = Icons.Filled.Search,
-                        contentDescription = stringResource(R.string.search_title),
-                        tint = Color.White,
-                        modifier = Modifier.size(20.dp)
+                        contentDescription = null,
+                        tint = Color.White.copy(alpha = 0.6f),
+                        modifier = Modifier.size(18.dp)
                     )
-                }
-
-                // History Action Button
-                IconButton(
-                    onClick = {
-                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                        onOpenHistory()
-                    },
-                    modifier = Modifier
-                        .size(44.dp)
-                        .clip(CircleShape)
-                        .background(NightSlate700.copy(alpha = 0.6f))
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.History,
-                        contentDescription = stringResource(R.string.history_title),
-                        tint = Color.White,
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-
-                // Settings Action Button
-                IconButton(
-                    onClick = {
-                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                        onOpenSettings()
-                    },
-                    modifier = Modifier
-                        .size(44.dp)
-                        .clip(CircleShape)
-                        .background(NightSlate700.copy(alpha = 0.6f))
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Settings,
-                        contentDescription = stringResource(R.string.nav_settings),
-                        tint = Color.White,
-                        modifier = Modifier.size(20.dp)
+                    Text(
+                        text = stringResource(R.string.search_hint),
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 14.sp
+                        ),
+                        color = Color.White.copy(alpha = 0.55f),
+                        maxLines = 1,
+                        overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
                     )
                 }
             }
