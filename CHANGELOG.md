@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.8.8] - 2026-10-09
+- **QR Code Sharing**: QR code generation for sharing music links is now seamlessly aligned with advanced link sharing options.
+- **Polish & Refinements**: Cleaner menu options and overall interface improvements.
+
 ## [1.8.7] - 2026-10-09
 - **Quick Player Selection**: Easily switch between your installed music players right from the main player card.
 - **1-Tap Favorites**: Pin your favorite songs and playlists with a single tap in your history and filter them instantly.

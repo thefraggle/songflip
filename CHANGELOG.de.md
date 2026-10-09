@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.8.8] - 2026-10-09
+- **QR-Code Freigabe**: Die Anzeige von QR-Codes zum Teilen von Musik-Links steht jetzt wie vorgesehen bei aktivierten erweiterten Funktionen zur Verfügung.
+- **Feinschliff & Optimierungen**: Verbesserte Menüführung und Anpassungen für ein noch aufgeräumteres Erscheinungsbild.
+
 ## [1.8.7] - 2026-10-09
 - **Schnellere Player-Auswahl**: Wechsle deinen bevorzugten Musik-Player jetzt direkt über die Startkarte, wenn mehrere kompatible Apps installiert sind.
 - **1-Tap Favoriten**: Markiere Lieblings-Songs und Playlists mit einem Fingertipp im Verlauf und filtere sie im Handumdrehen.

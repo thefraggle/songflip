@@ -1,5 +1,2 @@
-- Schnellere Player-Auswahl direkt auf der Startkarte.
-- 1-Tap Favoriten im Verlauf zum schnellen Wiederfinden.
-- QR-Codes für universelle Musik-Links zum einfachen Teilen.
-- Automatische Erkennung und Bereinigung von Playlist-Duplikaten.
-- Noch präzisere Zuordnung von Titeln und Alben.
+- QR-Code Freigabe: Die Anzeige von QR-Codes zum Teilen von Musik-Links steht jetzt wie vorgesehen bei aktivierten erweiterten Funktionen zur Verfügung.
+- Feinschliff & Optimierungen: Verbesserte Menüführung und Anpassungen für ein noch aufgeräumteres Erscheinungsbild.

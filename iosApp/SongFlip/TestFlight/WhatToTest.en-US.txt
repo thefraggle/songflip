@@ -1,3 +1,2 @@
-- Large Playlist Guidance: Informative notice explaining the 50-song transfer limit without account requirements.
-- Timeout Recovery: Extended connection time limits for converting extensive playlists.
-- Performance & Polish: Improved error diagnostics and updated translations.
+- QR Code Sharing: QR code generation for sharing music links is now seamlessly aligned with advanced link sharing options.
+- Polish & Refinements: Cleaner menu options and overall interface improvements.

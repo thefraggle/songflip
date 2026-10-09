@@ -1,5 +1,2 @@
-- Quick player selection directly from the main card.
-- 1-Tap favorites in history for quick access.
-- QR codes for universal music links to share songs effortlessly.
-- Automatic playlist duplicate detection and cleanup.
-- Improved title and album matching accuracy across music services.
+- QR Code Sharing: QR code generation for sharing music links is now seamlessly aligned with advanced link sharing options.
+- Polish & Refinements: Cleaner menu options and overall interface improvements.

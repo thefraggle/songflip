@@ -159,20 +159,22 @@ fun HistoryBottomSheet(
         )
     }
 
-    qrCodeItem?.let { item ->
-        val isPl = item.platform.contains("_playlist")
-        val shareUrl = if (isPl) {
-            val targetKey = item.targetPlatformKey.ifBlank { item.platform.removeSuffix("_playlist") }
-            de.goork.songflip.data.ProManager.getPlaylistWebShareUrl(item.canonicalUrl, targetKey)
-        } else {
-            de.goork.songflip.data.ProManager.getUniversalWebShareUrl(item.canonicalUrl)
+    if (isPro) {
+        qrCodeItem?.let { item ->
+            val isPl = item.platform.contains("_playlist")
+            val shareUrl = if (isPl) {
+                val targetKey = item.targetPlatformKey.ifBlank { item.platform.removeSuffix("_playlist") }
+                de.goork.songflip.data.ProManager.getPlaylistWebShareUrl(item.canonicalUrl, targetKey)
+            } else {
+                de.goork.songflip.data.ProManager.getUniversalWebShareUrl(item.canonicalUrl)
+            }
+            QRCodeDialog(
+                url = shareUrl,
+                title = item.title,
+                artist = item.artist,
+                onDismissRequest = { qrCodeItem = null }
+            )
         }
-        QRCodeDialog(
-            url = shareUrl,
-            title = item.title,
-            artist = item.artist,
-            onDismissRequest = { qrCodeItem = null }
-        )
     }
 
     ModalBottomSheet(
@@ -844,14 +846,16 @@ fun HistoryItemCard(
                                 }
                             )
                         }
-                        DropdownMenuItem(
-                            text = { Text(stringResource(R.string.history_qr_action)) },
-                            leadingIcon = { Icon(Icons.Outlined.QrCode, contentDescription = null, modifier = Modifier.size(18.dp)) },
-                            onClick = {
-                                showMenu = false
-                                onShowQrCode()
-                            }
-                        )
+                        if (isPro) {
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.history_qr_action)) },
+                                leadingIcon = { Icon(Icons.Outlined.QrCode, contentDescription = null, modifier = Modifier.size(18.dp)) },
+                                onClick = {
+                                    showMenu = false
+                                    onShowQrCode()
+                                }
+                            )
+                        }
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.history_copy_target, targetDisplayName)) },
                             leadingIcon = { Icon(Icons.Outlined.ContentCopy, contentDescription = null, modifier = Modifier.size(18.dp)) },

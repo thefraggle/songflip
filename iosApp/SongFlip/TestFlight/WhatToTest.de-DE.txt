@@ -1,4 +1,2 @@
-- Transparente Preisübersicht: Das Jahresabo zeigt nun direkt den berechneten Monatspreis und die Ersparnis gegenüber dem Monatsabo.
-- Meilenstein-Erfolge: Nach erfolgreichen Song-Konvertierungen feiern diskrete Meilenstein-Karten deine Treue mit direktem Zugang zu Rabattaktionen.
-- Optimiertes Feedback: Schnellerer und besser getimter In-App-Bewertungsdialog nach erfolgreichen Aktionen.
-- Stabilitätsverbesserungen & Fehlerbehebungen im Hintergrund.
+- QR-Code Freigabe: Die Anzeige von QR-Codes zum Teilen von Musik-Links steht jetzt wie vorgesehen bei aktivierten erweiterten Funktionen zur Verfügung.
+- Feinschliff & Optimierungen: Verbesserte Menüführung und Anpassungen für ein noch aufgeräumteres Erscheinungsbild.
