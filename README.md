@@ -16,7 +16,7 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 
 - **⚡ 0-Click Background Redirect**: Intercepts music links transparently and launches direct playback in your target player.
 - **📶 Offline Resilience & Auto-Retry Queue**: If you tap a music link while in a subway, elevator, or spotty coverage, SongFlip holds the intent and automatically resolves and plays the song the second connectivity is restored.
-- **📑 Universal Playlist Converter [PRO]**: Convert entire playlists (up to 50 tracks) across Spotify, YouTube Music, Deezer, Apple Music, and more with 1-click Zero-OAuth playback queue launch, transparent large-playlist guidance, live animated matching progress, and instant server-side caching.
+- **📑 Universal Playlist Converter [PRO]**: Convert entire playlists (up to 200 tracks) across Spotify, YouTube Music, Deezer, Apple Music, and more with 1-click Zero-OAuth playback queue launch, automatic duplicate track cleaning, multi-part chunk navigation, universal .M3U8 & .CSV file export, and instant server-side caching.
 - **🌐 Playlist Web Sharing (`songflip.link/p/...`) [PRO]**: Share converted playlists as beautiful web landing pages with rich album artwork, 1-click import, and branded single-track preview buttons. *(Try the live demo: [songflip.link/p/76176a1354](https://songflip.link/p/76176a1354))*.
 - **🎙️ Cross-Platform Podcast Support**: Seamlessly convert and launch podcast shows and episodes across Spotify, Apple Podcasts, YouTube Music, Pocket Casts, Deezer, and Amazon Music with zero-delay app deep-search and web playback.
 - **🎧 Broad Multi-Service Support**: Full any-to-any redirection between:
@@ -29,6 +29,7 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
   - 🎙️ **Pocket Casts** (`pocketcasts.com`, `pca.st`)
   - 🟠 **SoundCloud** (`soundcloud.com`, `on.soundcloud.com`)
   - 🎸 **Bandcamp** (`bandcamp.com`, `*.bandcamp.com`)
+- **📱 Flexible Player Selection**: When multiple compatible players are installed on your device (e.g. YouTube Music, NewTube, RiMusic, etc.), choose your preferred default player in Settings or switch directly with a single tap from the main player card.
 - **⚡ Shazam Link Interception**: Songs identified with Shazam open directly and reliably in your preferred music player.
 - **🎯 Quick Player Picker ("Ask every time")**: Optional setting for users with multiple streaming apps to pick where each song should play with a single tap.
 - **💿 Full Album, Artist & Podcast Recognition**: Supports single tracks, full albums/EPs, artist channel/discography profiles (including `@handles`), and podcast shows/episodes.
@@ -38,6 +39,8 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 - **🍎 iOS Deep Integration**: Native Share Extension, Action Button support, and Siri App Intents (`ConvertSongIntent`).
 - **🎨 Material You Themed Icon (Android 13+)**: Clean vector alpha silhouette dynamically adapting to your launcher wallpaper palette.
 - **🔗 Universal Smart Share Links (`songflip.link/s/...`) [PRO]**: Generate clean, lightning-fast multi-platform landing pages with rich cover art & OpenGraph preview cards for WhatsApp, Telegram, iMessage & Discord. *(Try the permanent live demo: [songflip.link/s/rickroll](https://songflip.link/s/rickroll))*.
+- **📱 QR-Code Generator & Sharing**: Generate and scan QR codes for universal smart links directly in the app and on web share pages to share songs across devices effortlessly.
+- **⭐ 1-Tap Favorites & History Filtering**: Pin favorite songs and playlists with a single tap in your conversion history and filter them instantly.
 - **🔄 Smart Share-Sheet Routing**: Sharing directly from your music player generates a universal smart link for friends instead of looping back into your player.
 - **📜 Conversion History & Quick Sharing**: Offline history log with cover artwork thumbnails, 1-tap replay, search filter, and instant smart-link sharing.
 - **🚀 Direct Instant Playback Engine**: Extracts direct video/track IDs in the background (e.g. YouTube Music `watch?v=...`) for instant playback without search delays, with automatic paywall-free web fallbacks when dedicated apps are missing.
@@ -75,7 +78,7 @@ The **SongFlip client app (Android & iOS) is 100% open source (GPLv3)** and oper
 
 For users who want the fastest possible performance, advanced playlist capabilities, or wish to support indie development, **SongFlip PRO** provides:
 
-- **📑 Universal Playlist Converter**: Convert full playlists (up to 50 songs) with 1-tap queue launch into YouTube Music & Spotify.
+- **📑 Universal Playlist Converter**: Convert full playlists (up to 200 songs) with 1-tap queue launch into YouTube Music & Spotify, multi-part chunking, duplicate cleaning, and .M3U8/.CSV export.
 - **🌐 Playlist Web Sharing**: Create beautiful, shareable web links (`songflip.link/p/...`) with cover art and individual preview player buttons.
 - **⚡ L2 Server-Side Cache**: Lightning-fast resolution (~30–50 ms) via our dedicated server cache with zero rate-limiting.
 - **🔗 Universal Smart Share Links**: Generate `songflip.link/s/...` landing pages directly from the app or share sheet.
