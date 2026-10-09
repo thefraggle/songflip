@@ -128,20 +128,11 @@ struct ContentView: View {
                 }
 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    HStack(spacing: 14) {
-                        Button(action: {
-                            showingSearchSheet = true
-                        }) {
-                            Image(systemName: "magnifyingglass")
-                                .foregroundColor(.primary)
-                        }
-
-                        Button(action: {
-                            showingSettingsSheet = true
-                        }) {
-                            Image(systemName: "gearshape.fill")
-                                .foregroundColor(.primary)
-                        }
+                    Button(action: {
+                        showingSettingsSheet = true
+                    }) {
+                        Image(systemName: "gearshape.fill")
+                            .foregroundColor(.primary)
                     }
                 }
             }
@@ -296,6 +287,30 @@ struct ContentView: View {
             Text(LocalizationManager.string(for: "app_tagline", lang: lang))
                 .font(.subheadline)
                 .foregroundColor(.secondary)
+
+            // Prominent In-App Search Bar (Feature #77)
+            Button(action: {
+                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                showingSearchSheet = true
+            }) {
+                HStack(spacing: 10) {
+                    Image(systemName: "magnifyingglass")
+                        .font(.system(size: 15))
+                        .foregroundColor(.secondary)
+
+                    Text(LocalizationManager.string(for: "search_hint", lang: lang))
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+
+                    Spacer()
+                }
+                .padding(.horizontal, 14)
+                .padding(.vertical, 12)
+                .background(Color(uiColor: .secondarySystemBackground))
+                .cornerRadius(12)
+            }
+            .buttonStyle(.plain)
+            .padding(.top, 6)
         }
     }
 
