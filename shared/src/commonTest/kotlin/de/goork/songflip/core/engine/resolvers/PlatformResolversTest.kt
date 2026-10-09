@@ -381,4 +381,77 @@ class PlatformResolversTest {
         assertTrue(httpError is ResolutionResult.Error)
         assertTrue((httpError as ResolutionResult.Error).message.contains("404"))
     }
+
+    @Test
+    fun testResolversRejectUnrelatedFallbackMatchesIssue87() = runTest {
+        // Apple Music Mock returning completely unrelated album (e.g. John Williams instead of April Art)
+        val appleMock = MockEngine {
+            respond(
+                content = """
+                {
+                    "resultCount": 1,
+                    "results": [
+                        {
+                            "artistName": "John Williams & London Symphony Orchestra",
+                            "collectionName": "The Great Movie Soundtracks",
+                            "collectionViewUrl": "https://music.apple.com/de/album/great-movie/999"
+                        }
+                    ]
+                }
+                """.trimIndent(),
+                status = HttpStatusCode.OK,
+                headers = headersOf(HttpHeaders.ContentType, "application/json")
+            )
+        }
+        val appleResolver = AppleMusicResolver(client = HttpClient(appleMock))
+        val appleResult = appleResolver.resolveAlbum("April Art RED")
+        assertNull(appleResult, "AppleMusicResolver must reject completely unrelated album match")
+
+        // Deezer Mock returning completely unrelated album
+        val deezerMock = MockEngine {
+            respond(
+                content = """
+                {
+                    "data": [
+                        {
+                            "name": "The Great Movie Soundtracks",
+                            "title": "The Great Movie Soundtracks",
+                            "artist": { "name": "John Williams" },
+                            "link": "https://www.deezer.com/album/999"
+                        }
+                    ]
+                }
+                """.trimIndent(),
+                status = HttpStatusCode.OK,
+                headers = headersOf(HttpHeaders.ContentType, "application/json")
+            )
+        }
+        val deezerResolver = DeezerResolver(client = HttpClient(deezerMock))
+        val deezerResult = deezerResolver.resolveAlbum("April Art RED")
+        assertNull(deezerResult, "DeezerResolver must reject completely unrelated album match")
+
+        // Tidal Mock returning completely unrelated track
+        val tidalMock = MockEngine {
+            respond(
+                content = """
+                {
+                    "tracks": {
+                        "items": [
+                            {
+                                "id": "999",
+                                "title": "Star Wars Theme",
+                                "artist": { "name": "John Williams" }
+                            }
+                        ]
+                    }
+                }
+                """.trimIndent(),
+                status = HttpStatusCode.OK,
+                headers = headersOf(HttpHeaders.ContentType, "application/json")
+            )
+        }
+        val tidalResolver = TidalResolver(client = HttpClient(tidalMock))
+        val tidalResult = tidalResolver.resolveTrack("April Art RED")
+        assertNull(tidalResult, "TidalResolver must reject completely unrelated track match")
+    }
 }

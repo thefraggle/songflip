@@ -279,6 +279,7 @@ fun MainScreen(
     var showPauseBottomSheet by remember { mutableStateOf(showPauseSheetOnStart) }
     var showSettingsBottomSheet by remember { mutableStateOf(false) }
     var showHistoryBottomSheet by remember { mutableStateOf(false) }
+    var showPlayerPickerSheet by remember { mutableStateOf(false) }
     var showAppLinksSetupBottomSheet by remember { mutableStateOf(false) }
     var showProPaywall by remember { mutableStateOf(false) }
     var initialShowPromoInPaywall by remember { mutableStateOf(false) }
@@ -542,6 +543,13 @@ fun MainScreen(
         )
     }
 
+    if (showPlayerPickerSheet) {
+        PlayerPickerBottomSheet(
+            onDismissRequest = { showPlayerPickerSheet = false },
+            platformKey = selectedTargetKey
+        )
+    }
+
     showPlaylistConvertSheet?.let { playlistUrl ->
         PlaylistConvertBottomSheet(
             playlistUrl = playlistUrl,
@@ -797,6 +805,7 @@ fun MainScreen(
             TargetSelectorCard(
                 targetServices = targetServices,
                 selectedTargetKey = selectedTargetKey,
+                onOpenPlayerPicker = { showPlayerPickerSheet = true },
                 onTargetSelected = { key ->
                     if (key != selectedTargetKey) {
                         viewModel.setTargetPlatform(key)

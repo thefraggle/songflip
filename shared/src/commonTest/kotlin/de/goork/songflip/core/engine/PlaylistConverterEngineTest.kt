@@ -1,6 +1,7 @@
 package de.goork.songflip.core.engine
 
 import de.goork.songflip.core.model.PlaylistTrackItem
+import de.goork.songflip.core.model.deduplicated
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
@@ -162,5 +163,28 @@ class PlaylistConverterEngineTest {
         val rateLimitJson = """{"error": "RATE_LIMITED", "code": "RATE_LIMITED", "reason": "rate_limited", "message": "Too many requests"}"""
         val rateLimitEx = engine.parseErrorPayload(rateLimitJson, 429) as de.goork.songflip.core.model.PlaylistConversionException
         assertEquals(de.goork.songflip.core.model.PlaylistErrorCode.RATE_LIMITED, rateLimitEx.errorCode)
+    }
+
+    @Test
+    fun testDeduplicatePlaylistTracksIssue81() {
+        val tracks = listOf(
+            PlaylistTrackItem(title = "Song A", artist = "Artist X", matched = true),
+            PlaylistTrackItem(title = "Song B", artist = "Artist Y", matched = true),
+            PlaylistTrackItem(title = "song a", artist = "artist x", matched = true), // Exact duplicate (case-insensitive)
+            PlaylistTrackItem(title = "Song A ", artist = "Artist X", matched = true), // Duplicate with whitespace
+            PlaylistTrackItem(title = "Song C", artist = "Artist Z", matched = false)
+        )
+        val initial = de.goork.songflip.core.model.PlaylistConversionResult(
+            tracks = tracks,
+            totalTracks = tracks.size,
+            convertedTracks = tracks.size,
+            matchedCount = 4
+        )
+        val deduplicated = initial.deduplicated()
+
+        assertEquals(3, deduplicated.tracks.size)
+        assertEquals(2, deduplicated.duplicateTracksRemoved)
+        assertEquals(3, deduplicated.convertedTracks)
+        assertEquals(2, deduplicated.matchedCount)
     }
 }

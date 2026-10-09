@@ -1,2 +1,5 @@
-- Fehlerbehebungen: Zuverlässigere Erkennung kompatibler Musik-Player.
-- Stabilitätsverbesserungen: Reibungslosere Weiterleitungen und optimiertes Zusammenspiel mit installierten Musik-Apps.
+- Schnellere Player-Auswahl direkt auf der Startkarte.
+- 1-Tap Favoriten im Verlauf zum schnellen Wiederfinden.
+- QR-Codes für universelle Musik-Links zum einfachen Teilen.
+- Automatische Erkennung und Bereinigung von Playlist-Duplikaten.
+- Noch präzisere Zuordnung von Titeln und Alben.

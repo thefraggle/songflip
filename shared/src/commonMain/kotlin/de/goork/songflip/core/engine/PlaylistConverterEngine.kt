@@ -5,6 +5,7 @@ import de.goork.songflip.core.model.PlaylistConversionResult
 import de.goork.songflip.core.model.PlaylistErrorCode
 import de.goork.songflip.core.model.PlaylistErrorPayload
 import de.goork.songflip.core.model.PlaylistTrackItem
+import de.goork.songflip.core.model.deduplicated
 import io.ktor.client.HttpClient
 import io.ktor.client.request.header
 import io.ktor.client.request.post
@@ -72,7 +73,7 @@ class PlaylistConverterEngine(
 
                 if (response.status.isSuccess()) {
                     val body = response.bodyAsText()
-                    val result = json.decodeFromString<PlaylistConversionResult>(body)
+                    val result = json.decodeFromString<PlaylistConversionResult>(body).deduplicated()
                     return Result.success(result)
                 } else {
                     val errorBody = response.bodyAsText()

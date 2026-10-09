@@ -26,8 +26,16 @@ internal data class TidalItemsContainer(
 @Serializable
 internal data class TidalItem(
     val id: String? = null,
+    val title: String? = null,
     val name: String? = null,
+    val artist: TidalArtist? = null,
+    val artists: List<TidalArtist> = emptyList(),
     val popularity: Int? = null
+)
+
+@Serializable
+internal data class TidalArtist(
+    val name: String? = null
 )
 
 class TidalResolver(
@@ -56,7 +64,12 @@ class TidalResolver(
             if (resp.status.isSuccess()) {
                 val parsed = json.decodeFromString<TidalSearchResponse>(resp.bodyAsText())
                 val container = if (isAlbum) parsed.albums else parsed.tracks
-                val id = container?.items?.firstOrNull()?.id
+                val validItem = container?.items?.firstOrNull { item ->
+                    val candidateTitle = item.title ?: item.name
+                    val candidateArtist = item.artist?.name ?: item.artists.firstOrNull()?.name
+                    ResolverUtils.isMatch(query, candidateArtist, candidateTitle)
+                }
+                val id = validItem?.id
                 if (!id.isNullOrEmpty()) {
                     val path = if (isAlbum) "album" else "track"
                     return "https://tidal.com/browse/$path/$id"

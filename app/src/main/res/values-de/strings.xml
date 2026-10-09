@@ -376,4 +376,15 @@
     <string name="settings_preferred_player_subtitle">App für die Musikwiedergabe wählen</string>
     <string name="settings_preferred_player_auto">Automatisch</string>
     <string name="settings_preferred_player_auto_desc">Empfohlen: Nutzt die Standard-App</string>
+
+    <!-- QR Code & Favorites & Quick Player Selection -->
+    <string name="qr_code_title">QR-Code</string>
+    <string name="qr_code_hint">Scannen, um den Link auf jedem Gerät zu öffnen</string>
+    <string name="action_close">Schließen</string>
+    <string name="favorite_add">Zu Favoriten hinzufügen</string>
+    <string name="favorite_remove">Aus Favoriten entfernen</string>
+    <string name="history_filter_all">Alle</string>
+    <string name="history_filter_favorites">Favoriten</string>
+    <string name="history_qr_action">QR-Code anzeigen</string>
+    <string name="target_player_chip">Player: %1$s</string>
 </resources>

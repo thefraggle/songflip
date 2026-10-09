@@ -1,5 +1,12 @@
 # Changelog (Deutsch)
 
+## [1.8.7] - 2026-10-09
+- **Schnellere Player-Auswahl**: Wechsle deinen bevorzugten Musik-Player jetzt direkt über die Startkarte, wenn mehrere kompatible Apps installiert sind.
+- **1-Tap Favoriten**: Markiere Lieblings-Songs und Playlists mit einem Fingertipp im Verlauf und filtere sie im Handumdrehen.
+- **QR-Code zum Teilen**: Rufe universelle Musik-Links als praktischen QR-Code auf, um Songs noch einfacher auf anderen Geräten abzuspielen.
+- **Intelligente Playlist-Bereinigung**: Doppelte Songs in Playlists werden vor der Übertragung automatisch erkannt und zusammengefasst.
+- **Präzisere Song-Zuordnung**: Verbesserte Treffergenauigkeit bei der Suche nach Titeln und Alben über verschiedene Musikdienste hinweg.
+
 ## [1.8.6] - 2026-10-09
 - **Fehlerbehebungen & Feinschliff**: Verbesserte Erkennung und zuverlässigere Weiterleitung an kompatible Musik-Player.
 - **Stabilitätsverbesserungen**: Allgemeine interne Optimierungen für reibungslose Weiterleitungen und Zuverlässigkeit.
