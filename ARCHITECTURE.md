@@ -73,16 +73,17 @@ SongFlip enforces deterministic 1:1 entity mapping across streaming platforms:
 - **Album $\rightarrow$ Album:** Direct album view (playlist / collection ID).
 - **Artist $\rightarrow$ Artist:** Direct artist profile page.
 - **Podcast $\rightarrow$ Podcast:** Direct show/episode deep search and launch (`podcast://`, `spotify:search:`, `pocketcasts://`).
-- **Playlist $\rightarrow$ Playlist:** Universal batch conversion with Zero-OAuth queue import (up to 50 tracks).
+- **Playlist $\rightarrow$ Playlist:** Universal batch conversion with Zero-OAuth queue import (up to 200 tracks with multi-chunking & deduplication).
 
 When an upstream resolver (e.g. Odesli) lacks a mapping for a target platform (frequent with regional identifiers such as Amazon Music ASINs), SongFlip applies a tiered fallback rather than failing hard:
 
-1. **Secondary Auth-Free API Resolvers:**
-   - **Apple Music:** iTunes Search API directly queries collection/track IDs.
-   - **Deezer:** Deezer Public Search API resolves direct album/track URLs.
+1. **Secondary Auth-Free API Resolvers with Strict Similarity Matching (`ResolverUtils`):**
+   - **Apple Music:** iTunes Search API queries collection/track IDs with strict title/artist token overlap verification (rejecting false-positive compilations).
+   - **Deezer:** Deezer Public Search API resolves direct album/track URLs with fuzzy name matching.
+   - **Tidal:** Tidal Public Search API queries direct track/album IDs with token consistency checks.
    - **YouTube Music:** YouTube Music scraper resolves `browse/MPREb_...` album IDs and `watch?v=...` video IDs.
 2. **Deterministic Search Fallback (Graceful Degradation):**
-   Platforms without open, auth-free public search APIs (**Amazon Music**, **Spotify**, **Tidal**, **Pocket Casts**) gracefully fall back to pre-populated search deep-links (e.g. `amznmp3://music.amazon.com/search/<Artist>+<Album>`, `spotify:search:...`, `podcast://...`). This guarantees that the user always lands on the desired content with zero dead-ends.
+   Platforms without open, auth-free public search APIs (**Amazon Music**, **Spotify**, **Pocket Casts**) or when candidate metadata diverges significantly gracefully fall back to pre-populated search deep-links (e.g. `amznmp3://music.amazon.com/search/<Artist>+<Album>`, `spotify:search:...`, `podcast://...`). This guarantees that the user always lands on the desired content with zero dead-ends and zero wrong-track misdirects.
 
 | Target Platform | Track Intent | Album Intent | Artist Intent | Podcast Intent | Secondary Lookup | Miss Fallback |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -141,8 +142,11 @@ sequenceDiagram
 4. **Zero-OAuth Queue Generation:**
    - **YouTube Music:** Resolves `www.youtube.com/watch_videos?video_ids=...` via HTTP 303 location redirection into a direct `music.youtube.com/watch?v={id}&list=TLGG...` queue playlist, with intelligent direct-track fallback (`music.youtube.com/watch?v={firstId}`) to prevent automated bot traffic blocks.
    - **Spotify:** Generates `spotify:trackset:{Title}:{id1},{id2}...` URI schemes.
-5. **50-Track Sweet Spot & Large-Playlist Guidance (v1.7.5):** Optimized to 50 tracks to align with YouTube's strict server-side `watch_videos` limit and Spotify URI length constraints. When converting playlists exceeding 50 songs, an informative guidance card is rendered across Android and iOS in 34 languages, explaining the current zero-account transfer limit while multi-chunk pagination (#36) is in development.
-6. **SSR Web Sharing (`songflip.link/p/...`):** Server-rendered, localized web pages with CSP hardening, target platform color theming, and individual track preview buttons.
+5. **Multi-Chunk Scaling (up to 200 tracks), Deduplication & File Export (v1.8.0+):** Extended beyond the 50-track limit to handle large playlists with up to 200 songs.
+   - **Track Deduplication:** Case- and whitespace-insensitive deduplication removes duplicate titles before matching.
+   - **Part Chunking (`PlaylistChunk`):** Automatically segments large playlists into 50-track sub-queues (`Part 1`, `Part 2`...), each playable with a single tap in YouTube Music and Spotify.
+   - **Universal File Export:** Generates Extended M3U8 (`audio/x-mpegurl`) and RFC 4180 CSV files directly on-device for desktop media players and cloud libraries.
+6. **SSR Web Sharing (`songflip.link/s/...` & `songflip.link/p/...`):** Server-rendered, localized web pages with CSP hardening, contextual client-device prioritization (e.g. Apple Music first on iOS/macOS, YouTube Music/Spotify first on Android), individual track preview audio players, and built-in scannable QR code generator modals.
 7. **90-Day Rolling TTL Lifecycle:** Playlist records are saved with an `expiresAt` timestamp and automatically refreshed on every web page view or conversion hit. Unused playlists expire cleanly via Firestore TTL policies.
 8. **Automatic L2 Song Cache Swarm Warmup:** Every playlist conversion asynchronously writes all successfully resolved tracks into the global Firestore `l2_song_cache` (with multi-index 12-char and 8-char SHA hashes). This automatically seeds the global cache, guaranteeing sub-30ms instant resolutions for any user subsequently flipping these tracks individually.
 
@@ -237,7 +241,7 @@ SongFlip enforces automated test coverage across all client layers to ensure zer
 | :--- | :--- | :--- | :--- |
 | **Shared KMP Core** | `shared/src/commonTest/` | Kotlin Test, Ktor `MockEngine`, Coroutines Test | URL normalization, entity type & platform detection, L1 cache TTL & eviction, all 6 platform resolvers (Spotify, Apple Music, Deezer, Tidal, YouTube Music, SongLink API), Aptabase analytics client. |
 | **Android Client** | `app/src/test/` | JUnit 4, OkHttp `MockWebServer`, Coroutines Test | Domain verification info, quick settings tile states, dynamic app shortcuts, coupon redemption & error handling, review prompt rules, L1 hit detection, 31+ locale string formats (`strings.xml`). |
-| **Backend Functions** | `functions/src/test/` | Node.js Test Runner, TypeScript | 81 automated tests covering SSR crawler rendering, Zero-OAuth playlist generation, HMAC signed coupons, promo code rate-limiting, and artist resolution. |
+| **Backend Functions** | `functions/src/test/` | Node.js Test Runner, TypeScript | 85 automated tests covering SSR crawler rendering, Zero-OAuth playlist generation, HMAC signed coupons, promo code rate-limiting, and artist resolution. |
 
 ### Deterministic Mocking & Isolation:
 - **No Live Network Dependencies:** KMP and Android unit tests mock external endpoints using Ktor's `MockEngine` and OkHttp's `MockWebServer` for instant (< 5s), repeatable execution without flaky upstream API rate limits.
