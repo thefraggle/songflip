@@ -373,4 +373,5 @@
     <string name="disambiguate_success">Matchning uppdaterad</string>
     <string name="disambiguate_empty">Inga alternativa versioner hittades</string>
     <string name="disambiguate_error">Kunde inte ladda versioner</string>
+    <string name="history_qr_action">Visa QR-kod</string>
 </resources>

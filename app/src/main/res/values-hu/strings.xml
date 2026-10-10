@@ -359,4 +359,5 @@
     <string name="disambiguate_success">Találat frissítve</string>
     <string name="disambiguate_empty">Nem található alternatív verzió</string>
     <string name="disambiguate_error">Nem sikerült betölteni a verziókat</string>
+    <string name="history_qr_action">QR-kód megjelenítése</string>
 </resources>

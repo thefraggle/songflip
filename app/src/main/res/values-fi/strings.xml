@@ -359,4 +359,5 @@
     <string name="disambiguate_success">Osuma päivitetty</string>
     <string name="disambiguate_empty">Vaihtoehtoisia versioita ei löytynyt</string>
     <string name="disambiguate_error">Versioita ei voitu ladata</string>
+    <string name="history_qr_action">Näytä QR-koodi</string>
 </resources>

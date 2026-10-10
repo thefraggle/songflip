@@ -373,4 +373,5 @@
     <string name="disambiguate_success">Resultado atualizado</string>
     <string name="disambiguate_empty">Nenhuma versão alternativa encontrada</string>
     <string name="disambiguate_error">Não foi possível carregar as versões</string>
+    <string name="history_qr_action">Mostrar código QR</string>
 </resources>

@@ -369,4 +369,5 @@
     <string name="disambiguate_success">匹配已更新</string>
     <string name="disambiguate_empty">未找到其他替代版本</string>
     <string name="disambiguate_error">无法加载版本</string>
+    <string name="history_qr_action">显示二维码</string>
 </resources>

@@ -355,4 +355,5 @@
     <string name="disambiguate_success">比對已更新</string>
     <string name="disambiguate_empty">找不到其他替代版本</string>
     <string name="disambiguate_error">無法載入版本</string>
+    <string name="history_qr_action">顯示二維碼</string>
 </resources>

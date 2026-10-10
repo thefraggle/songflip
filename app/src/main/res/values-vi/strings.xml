@@ -369,4 +369,5 @@
     <string name="disambiguate_success">Đã cập nhật kết quả</string>
     <string name="disambiguate_empty">Không tìm thấy phiên bản thay thế</string>
     <string name="disambiguate_error">Không thể tải phiên bản</string>
+    <string name="history_qr_action">Hiển thị mã QR</string>
 </resources>

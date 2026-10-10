@@ -1,3 +1,3 @@
-- Direkte Songsuche: Finde Songs direkt in der App per Titelsuche und öffne sie mit einem Fingertipp in deinem Lieblings-Player.
-- Treffer anpassen: Wähle bei Bedarf ganz einfach eine alternative Version oder Aufnahme eines Titels aus.
-- Mehr Playlist-Dienste: Playlists lassen sich jetzt auch für TIDAL und Deezer übertragen.
+- Aufgeräumte Suche & Verlauf: Titel- und Verlaufslisten bieten jetzt ein übersichtliches Aktionsmenü für Teilen, Favoriten und schnelles Kopieren.
+- Direkter Fast Flip: Ein Fingertipp auf Cover oder Songzeile startet den Track sofort in deinem bevorzugten Musik-Player.
+- Flüssigere Navigation: Die Tastatur klappt beim Scrollen durch Suchergebnisse automatisch ein.

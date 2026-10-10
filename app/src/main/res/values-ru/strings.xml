@@ -381,4 +381,5 @@
     <string name="disambiguate_success">Трек обновлен</string>
     <string name="disambiguate_empty">Альтернативные версии не найдены</string>
     <string name="disambiguate_error">Не удалось загрузить версии</string>
+    <string name="history_qr_action">Показать QR-код</string>
 </resources>

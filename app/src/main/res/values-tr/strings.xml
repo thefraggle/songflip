@@ -373,4 +373,5 @@
     <string name="disambiguate_success">Eşleşme güncellendi</string>
     <string name="disambiguate_empty">Alternatif sürüm bulunamadı</string>
     <string name="disambiguate_error">Sürümler yüklenemedi</string>
+    <string name="history_qr_action">QR kodunu göster</string>
 </resources>

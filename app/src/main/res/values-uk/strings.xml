@@ -381,4 +381,5 @@
     <string name="disambiguate_success">Трек оновлено</string>
     <string name="disambiguate_empty">Альтернативні версії не знайдені</string>
     <string name="disambiguate_error">Не вдалося завантажити версії</string>
+    <string name="history_qr_action">Показати QR-код</string>
 </resources>

@@ -1,8 +1,9 @@
 package de.goork.songflip.ui.components
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
-import android.media.AudioAttributes
-import android.media.MediaPlayer
 import android.net.Uri
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
@@ -11,10 +12,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -26,6 +30,7 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -34,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import de.goork.songflip.R
+import de.goork.songflip.core.analytics.AptabaseClient
 import de.goork.songflip.core.engine.CatalogSearchEngine
 import de.goork.songflip.core.engine.SearchTrackResult
 import de.goork.songflip.core.engine.SongLinkEngine
@@ -49,12 +55,14 @@ import kotlinx.coroutines.withContext
 @Composable
 fun SearchBottomSheet(
     targetPlatformKey: String,
-    onDismissRequest: () -> Unit
+    onDismissRequest: () -> Unit,
+    onOpenProPaywall: () -> Unit = {}
 ) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
     val coroutineScope = rememberCoroutineScope()
     val proState by ProManager.proState.collectAsState()
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     var searchQuery by remember { mutableStateOf("") }
     var searchResults by remember { mutableStateOf<List<SearchTrackResult>>(emptyList()) }
@@ -62,55 +70,15 @@ fun SearchBottomSheet(
     var errorMessage by remember { mutableStateOf<String?>(null) }
     var resolvingTrackId by remember { mutableStateOf<String?>(null) }
 
-    // Audio preview state
-    var playingPreviewUrl by remember { mutableStateOf<String?>(null) }
-    var mediaPlayer by remember { mutableStateOf<MediaPlayer?>(null) }
+    var qrCodeTrack by remember { mutableStateOf<SearchTrackResult?>(null) }
+    var pickerTrack by remember { mutableStateOf<SearchTrackResult?>(null) }
 
-    DisposableEffect(Unit) {
-        onDispose {
-            try {
-                mediaPlayer?.stop()
-                mediaPlayer?.release()
-            } catch (_: Exception) {}
-            mediaPlayer = null
-        }
-    }
+    val listState = rememberLazyListState()
 
-    fun togglePreview(url: String?) {
-        if (url.isNullOrBlank()) return
-        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-        try {
-            if (playingPreviewUrl == url) {
-                mediaPlayer?.stop()
-                mediaPlayer?.release()
-                mediaPlayer = null
-                playingPreviewUrl = null
-            } else {
-                mediaPlayer?.stop()
-                mediaPlayer?.release()
-                val player = MediaPlayer().apply {
-                    setAudioAttributes(
-                        AudioAttributes.Builder()
-                            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                            .setUsage(AudioAttributes.USAGE_MEDIA)
-                            .build()
-                    )
-                    setDataSource(url)
-                    setOnCompletionListener {
-                        playingPreviewUrl = null
-                    }
-                    setOnErrorListener { _, _, _ ->
-                        playingPreviewUrl = null
-                        true
-                    }
-                    prepareAsync()
-                    setOnPreparedListener { start() }
-                }
-                mediaPlayer = player
-                playingPreviewUrl = url
-            }
-        } catch (_: Exception) {
-            playingPreviewUrl = null
+    // Dismiss keyboard automatically when user scrolls the results list
+    LaunchedEffect(listState.isScrollInProgress) {
+        if (listState.isScrollInProgress) {
+            keyboardController?.hide()
         }
     }
 
@@ -142,6 +110,46 @@ fun SearchBottomSheet(
 
     val targetDisplayName = remember(targetPlatformKey) {
         PackageUtils.getPlatformDisplayName(targetPlatformKey)
+    }
+
+    fun flipTrack(track: SearchTrackResult) {
+        val sourceUrl = track.sourceUrl
+        if (sourceUrl.isNullOrBlank() || resolvingTrackId != null) return
+        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+        resolvingTrackId = track.id
+        coroutineScope.launch {
+            val res = withContext(Dispatchers.IO) {
+                SongLinkEngine.shared.resolveTargetUrl(
+                    inputUrl = sourceUrl,
+                    targetPlatformKey = targetPlatformKey,
+                    isPro = proState.isPro
+                )
+            }
+            resolvingTrackId = null
+            when (res) {
+                is ResolutionResult.Success -> {
+                    SongLinkEngine.shared.cache.markAsHistory(sourceUrl, targetPlatformKey)
+                    AptabaseClient.shared.trackLinkFlipped(
+                        target = targetPlatformKey,
+                        isAlbum = res.isAlbum,
+                        isSearch = res.isSearchFallback,
+                        source = "in_app_search"
+                    )
+                    try {
+                        val playIntent = Intent(Intent.ACTION_VIEW, Uri.parse(res.targetUrl)).apply {
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        }
+                        context.startActivity(playIntent)
+                        onDismissRequest()
+                    } catch (_: Exception) {
+                        Toast.makeText(context, context.getString(R.string.redirect_error_toast), Toast.LENGTH_SHORT).show()
+                    }
+                }
+                else -> {
+                    Toast.makeText(context, context.getString(R.string.redirect_error_toast), Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     ModalBottomSheet(
@@ -262,13 +270,14 @@ fun SearchBottomSheet(
                 }
             } else {
                 LazyColumn(
+                    state = listState,
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(10.dp),
                     contentPadding = PaddingValues(bottom = 24.dp)
                 ) {
                     items(searchResults, key = { it.id }) { track ->
                         val isResolving = resolvingTrackId == track.id
-                        val isPlayingThis = playingPreviewUrl == track.previewUrl && !track.previewUrl.isNullOrBlank()
+                        var showMenu by remember { mutableStateOf(false) }
 
                         Card(
                             shape = RoundedCornerShape(14.dp),
@@ -278,44 +287,7 @@ fun SearchBottomSheet(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable(enabled = !isResolving) {
-                                    val sourceUrl = track.sourceUrl
-                                    if (!sourceUrl.isNullOrBlank()) {
-                                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                                        resolvingTrackId = track.id
-                                        coroutineScope.launch {
-                                            val res = withContext(Dispatchers.IO) {
-                                                SongLinkEngine.shared.resolveTargetUrl(
-                                                    inputUrl = sourceUrl,
-                                                    targetPlatformKey = targetPlatformKey,
-                                                    isPro = proState.isPro
-                                                )
-                                            }
-                                            resolvingTrackId = null
-                                            when (res) {
-                                                is ResolutionResult.Success -> {
-                                                    SongLinkEngine.shared.cache.markAsHistory(sourceUrl, targetPlatformKey)
-                                                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipped(
-                                                        target = targetPlatformKey,
-                                                        isAlbum = res.isAlbum,
-                                                        isSearch = res.isSearchFallback,
-                                                        source = "in_app_search"
-                                                    )
-                                                    try {
-                                                        val playIntent = Intent(Intent.ACTION_VIEW, Uri.parse(res.targetUrl)).apply {
-                                                            flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                                                        }
-                                                        context.startActivity(playIntent)
-                                                        onDismissRequest()
-                                                    } catch (_: Exception) {
-                                                        Toast.makeText(context, context.getString(R.string.redirect_error_toast), Toast.LENGTH_SHORT).show()
-                                                    }
-                                                }
-                                                else -> {
-                                                    Toast.makeText(context, context.getString(R.string.redirect_error_toast), Toast.LENGTH_SHORT).show()
-                                                }
-                                            }
-                                        }
-                                    }
+                                    flipTrack(track)
                                 }
                         ) {
                             Row(
@@ -325,12 +297,15 @@ fun SearchBottomSheet(
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(12.dp)
                             ) {
-                                // Cover Art
+                                // Cover Art mit Play-Overlay
                                 Box(
                                     modifier = Modifier
                                         .size(52.dp)
                                         .clip(RoundedCornerShape(10.dp))
-                                        .background(MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)),
+                                        .background(MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp))
+                                        .clickable(enabled = !isResolving) {
+                                            flipTrack(track)
+                                        },
                                     contentAlignment = Alignment.Center
                                 ) {
                                     if (!track.coverUrl.isNullOrBlank()) {
@@ -349,6 +324,24 @@ fun SearchBottomSheet(
                                             contentDescription = null,
                                             tint = MaterialTheme.colorScheme.onSurfaceVariant,
                                             modifier = Modifier.size(24.dp)
+                                        )
+                                    }
+
+                                    // Subtle Play Indicator Badge (unten rechts auf dem Cover)
+                                    Box(
+                                        modifier = Modifier
+                                            .align(Alignment.BottomEnd)
+                                            .padding(2.dp)
+                                            .size(20.dp)
+                                            .clip(CircleShape)
+                                            .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.95f)),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Filled.PlayArrow,
+                                            contentDescription = stringResource(R.string.action_open),
+                                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                                            modifier = Modifier.size(13.dp)
                                         )
                                     }
 
@@ -397,32 +390,219 @@ fun SearchBottomSheet(
                                     )
                                 }
 
-                                // Preview or Action Button
-                                if (!track.previewUrl.isNullOrBlank()) {
+                                // Option A: Aufgeräumtes 3-Punkte-Aktionsmenü (⋮)
+                                Box {
                                     IconButton(
-                                        onClick = { togglePreview(track.previewUrl) },
+                                        onClick = { showMenu = true },
                                         modifier = Modifier.size(38.dp)
                                     ) {
                                         Icon(
-                                            imageVector = if (isPlayingThis) Icons.Outlined.PauseCircle else Icons.Outlined.PlayCircle,
-                                            contentDescription = null,
-                                            tint = MaterialTheme.colorScheme.primary,
-                                            modifier = Modifier.size(26.dp)
+                                            imageVector = Icons.Default.MoreVert,
+                                            contentDescription = stringResource(R.string.action_more_options),
+                                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                            modifier = Modifier.size(20.dp)
+                                        )
+                                    }
+
+                                    DropdownMenu(
+                                        expanded = showMenu,
+                                        onDismissRequest = { showMenu = false }
+                                    ) {
+                                        // 1. Teilen / FlipPage (mit 💎 bei Free)
+                                        DropdownMenuItem(
+                                            text = {
+                                                Row(
+                                                    verticalAlignment = Alignment.CenterVertically,
+                                                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                                                ) {
+                                                    Text(stringResource(R.string.share_universal_link))
+                                                    if (!proState.isPro) {
+                                                        Text("💎", fontSize = 12.sp)
+                                                    }
+                                                }
+                                            },
+                                            leadingIcon = {
+                                                Icon(
+                                                    imageVector = Icons.Outlined.Share,
+                                                    contentDescription = null,
+                                                    tint = if (proState.isPro) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.tertiary,
+                                                    modifier = Modifier.size(18.dp)
+                                                )
+                                            },
+                                            onClick = {
+                                                showMenu = false
+                                                val sUrl = track.sourceUrl
+                                                if (sUrl.isNullOrBlank()) return@DropdownMenuItem
+                                                if (proState.isPro) {
+                                                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                                    val shareUrl = ProManager.getUniversalWebShareUrl(sUrl)
+                                                    ProManager.warmupUniversalShare(sUrl)
+                                                    AptabaseClient.shared.trackSharePageGenerated(target = "search")
+                                                    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                                                        type = "text/plain"
+                                                        putExtra(Intent.EXTRA_TEXT, shareUrl)
+                                                        putExtra(Intent.EXTRA_TITLE, track.title)
+                                                    }
+                                                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share_universal_link)))
+                                                } else {
+                                                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                                    onOpenProPaywall()
+                                                }
+                                            }
+                                        )
+
+                                        // 2. QR-Code zur FlipPage (NUR bei Pro sichtbar!)
+                                        if (proState.isPro) {
+                                            DropdownMenuItem(
+                                                text = { Text(stringResource(R.string.history_qr_action)) },
+                                                leadingIcon = {
+                                                    Icon(
+                                                        imageVector = Icons.Outlined.QrCode,
+                                                        contentDescription = null,
+                                                        modifier = Modifier.size(18.dp)
+                                                    )
+                                                },
+                                                onClick = {
+                                                    showMenu = false
+                                                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                                    qrCodeTrack = track
+                                                }
+                                            )
+                                        }
+
+                                        // 3. In anderem Player öffnen
+                                        DropdownMenuItem(
+                                            text = { Text(stringResource(R.string.quick_picker_title)) },
+                                            leadingIcon = {
+                                                Icon(
+                                                    imageVector = Icons.Outlined.Tune,
+                                                    contentDescription = null,
+                                                    modifier = Modifier.size(18.dp)
+                                                )
+                                            },
+                                            onClick = {
+                                                showMenu = false
+                                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                                pickerTrack = track
+                                            }
+                                        )
+
+                                        // 4. Link kopieren
+                                        DropdownMenuItem(
+                                            text = { Text(stringResource(R.string.action_copy)) },
+                                            leadingIcon = {
+                                                Icon(
+                                                    imageVector = Icons.Outlined.ContentCopy,
+                                                    contentDescription = null,
+                                                    modifier = Modifier.size(18.dp)
+                                                )
+                                            },
+                                            onClick = {
+                                                showMenu = false
+                                                val sUrl = track.sourceUrl
+                                                if (!sUrl.isNullOrBlank()) {
+                                                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                                    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                                                    clipboard.setPrimaryClip(ClipData.newPlainText("SongFlip Link", sUrl))
+                                                    Toast.makeText(context, context.getString(R.string.link_copied), Toast.LENGTH_SHORT).show()
+                                                }
+                                            }
+                                        )
+
+                                        // 5. Zu Favoriten hinzufügen
+                                        DropdownMenuItem(
+                                            text = { Text(stringResource(R.string.favorite_add)) },
+                                            leadingIcon = {
+                                                Icon(
+                                                    imageVector = Icons.Outlined.StarBorder,
+                                                    contentDescription = null,
+                                                    tint = Color(0xFFFFB800),
+                                                    modifier = Modifier.size(18.dp)
+                                                )
+                                            },
+                                            onClick = {
+                                                showMenu = false
+                                                val sUrl = track.sourceUrl
+                                                if (!sUrl.isNullOrBlank()) {
+                                                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                                    coroutineScope.launch {
+                                                        val res = withContext(Dispatchers.IO) {
+                                                            SongLinkEngine.shared.resolveTargetUrl(
+                                                                inputUrl = sUrl,
+                                                                targetPlatformKey = targetPlatformKey,
+                                                                isPro = proState.isPro
+                                                            )
+                                                        }
+                                                        if (res is ResolutionResult.Success) {
+                                                            SongLinkEngine.shared.cache.markAsHistory(sUrl, targetPlatformKey)
+                                                            SongLinkEngine.shared.cache.setFavoriteForUrl(sUrl, targetPlatformKey, true)
+                                                            Toast.makeText(context, context.getString(R.string.favorite_add), Toast.LENGTH_SHORT).show()
+                                                        }
+                                                    }
+                                                }
+                                            }
                                         )
                                     }
                                 }
-
-                                Icon(
-                                    imageVector = Icons.Outlined.OpenInNew,
-                                    contentDescription = targetDisplayName,
-                                    tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
-                                    modifier = Modifier.size(18.dp)
-                                )
                             }
                         }
                     }
                 }
             }
         }
+    }
+
+    // QR-Code Dialog (nur Pro)
+    qrCodeTrack?.let { tr ->
+        val sUrl = tr.sourceUrl
+        if (!sUrl.isNullOrBlank()) {
+            val shareUrl = ProManager.getUniversalWebShareUrl(sUrl)
+            QRCodeDialog(
+                url = shareUrl,
+                title = tr.title,
+                artist = tr.artist,
+                onDismissRequest = { qrCodeTrack = null }
+            )
+        }
+    }
+
+    // Quick Target Picker Sheet
+    pickerTrack?.let { tr ->
+        val sUrl = tr.sourceUrl
+        QuickTargetPickerBottomSheet(
+            trackTitle = tr.title,
+            artistName = tr.artist,
+            isResolving = resolvingTrackId == tr.id,
+            selectedPlatformKey = targetPlatformKey,
+            onDismissRequest = { pickerTrack = null },
+            onPlatformSelected = { pickedTarget ->
+                pickerTrack = null
+                if (!sUrl.isNullOrBlank()) {
+                    resolvingTrackId = tr.id
+                    coroutineScope.launch {
+                        val res = withContext(Dispatchers.IO) {
+                            SongLinkEngine.shared.resolveTargetUrl(
+                                inputUrl = sUrl,
+                                targetPlatformKey = pickedTarget,
+                                isPro = proState.isPro
+                            )
+                        }
+                        resolvingTrackId = null
+                        if (res is ResolutionResult.Success) {
+                            SongLinkEngine.shared.cache.markAsHistory(sUrl, pickedTarget)
+                            try {
+                                val playIntent = Intent(Intent.ACTION_VIEW, Uri.parse(res.targetUrl)).apply {
+                                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                                }
+                                context.startActivity(playIntent)
+                                onDismissRequest()
+                            } catch (_: Exception) {
+                                Toast.makeText(context, context.getString(R.string.redirect_error_toast), Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
+            }
+        )
     }
 }

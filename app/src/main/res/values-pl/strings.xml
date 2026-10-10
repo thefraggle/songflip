@@ -381,4 +381,5 @@
     <string name="disambiguate_success">Dopasowanie zaktualizowane</string>
     <string name="disambiguate_empty">Nie znaleziono alternatywnych wersji</string>
     <string name="disambiguate_error">Nie udało się załadować wersji</string>
+    <string name="history_qr_action">Pokaż kod QR</string>
 </resources>

@@ -369,4 +369,5 @@
     <string name="disambiguate_success">Kecocokan diperbarui</string>
     <string name="disambiguate_empty">Tidak ada versi alternatif yang ditemukan</string>
     <string name="disambiguate_error">Gagal memuat versi</string>
+    <string name="history_qr_action">Tampilkan kode QR</string>
 </resources>
