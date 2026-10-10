@@ -67,7 +67,9 @@ class AndroidSharedPreferencesCacheStorage(
                 pruneIfNeeded(editor, all)
             }
             editor.apply()
-        } catch (_: Throwable) {}
+        } catch (t: Throwable) {
+            println("AndroidCacheStorage: Failed to persist cache entry for $key: ${t.message}")
+        }
     }
 
     private fun pruneIfNeeded(editor: SharedPreferences.Editor, allEntries: Map<String, *>) {
@@ -76,7 +78,10 @@ class AndroidSharedPreferencesCacheStorage(
             for ((k, v) in allEntries) {
                 if (k == CACHE_VERSION_KEY) continue
                 if (v is String) {
-                    val entry = try { json.decodeFromString<CacheEntry>(v) } catch (_: Throwable) { null }
+                    val entry = try { json.decodeFromString<CacheEntry>(v) } catch (t: Throwable) {
+                        println("AndroidCacheStorage: Corrupt entry during prune $k: ${t.message}")
+                        null
+                    }
                     val time = entry?.timestamp ?: 0L
                     entriesWithTime.add(k to time)
                 }
@@ -88,7 +93,9 @@ class AndroidSharedPreferencesCacheStorage(
                     editor.remove(entriesWithTime[i].first)
                 }
             }
-        } catch (_: Throwable) {}
+        } catch (t: Throwable) {
+            println("AndroidCacheStorage: Prune failed: ${t.message}")
+        }
     }
 
     override fun remove(key: String) {
@@ -109,7 +116,9 @@ class AndroidSharedPreferencesCacheStorage(
                 try {
                     val entry = json.decodeFromString<CacheEntry>(v)
                     result[k] = entry
-                } catch (_: Throwable) {}
+                } catch (t: Throwable) {
+                    println("AndroidCacheStorage: Failed to decode entry $k: ${t.message}")
+                }
             }
         }
         return result

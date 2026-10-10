@@ -22,14 +22,17 @@ struct SongFlipApp: App {
             isDebug = true
         }
 
-        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.2.11"
-        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "7"
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.8.11"
+        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "71"
         let osVersion = UIDevice.current.systemVersion
         let locale = Locale.current.identifier
 
+        let aptabaseKey = Bundle.main.infoDictionary?["APTABASE_APP_KEY"] as? String ?? "REPLACED_SECRET"
+        let aptabaseHost = Bundle.main.infoDictionary?["APTABASE_HOST"] as? String ?? "https://api.aptabase.com"
+
         AptabaseClient.shared.doInit(
-            appKey: "REPLACED_SECRET",
-            host: "https://api.aptabase.com",
+            appKey: aptabaseKey,
+            host: aptabaseHost,
             osName: "iOS",
             osVersion: osVersion,
             locale: locale,

@@ -9,11 +9,20 @@ Olipa kyseessä Spotify YouTube Musiciin, Apple Podcasts Spotifyyn tai Shazamin 
 • 10 Suoratoisto- ja Podcast-alustaa sekä Shazam:
 Muunna saumattomasti Spotifyn, YouTube Musicin, Apple Musicin, Apple Podcastsin, Pocket Castsin, Deezerin, TIDALin, Amazon Musicin, SoundCloudin ja Bandcampin välillä. Tukee myös Shazam-linkkejä!
 
+• Suora kappalehaku (sovelluksen sisäinen haku):
+Etsi kappaleita ja artisteja suoraan SongFlipistä ja aloita toisto välittömästi haluamassasi musiikkisovelluksessa yhdellä napautuksella Fast Flipillä – olemassa olevaa linkkiä ei tarvita.
+
+• QR-koodin musiikin jakaminen ja skannaus:
+Luo ja skannaa yleisiä QR-koodeja kappaleille ja albumeille. Jaa musiikkia vaivattomasti ystävien kanssa henkilökohtaisesti riippumatta siitä, minkä suoratoistopalvelun he tilaavat.
+
 • Podcast-Muunnin:
 Jaa podcast-ohjelmia ja yksittäisiä jaksoja eri alustojen välillä. SongFlip löytää jakson ja käynnistää sen suosikkipodcast-sovelluksessasi.
 
 • Universaali Soittolistamuunnin:
-Siirrä kokonaisia soittolistoja kappale kappaleelta Spotifyn, Apple Musicin ja YouTube Musicin välillä huippunopean välimuistin avulla.
+Siirrä kokonaisia ​​soittolistoja kappaleittain Spotifyn, Apple Musicin, YouTube Musicin, TIDALin ja Deezerin välillä – automaattinen kaksoispuhdistus, jopa 200 raitaa ja nopea monitasoinen välimuisti.
+
+• Tarkenna osumia ja yhden napautuksen suosikkeja:
+Valitse helposti live-tallenteiden, remasterien tai vaihtoehtoisten versioiden välillä. Kiinnitä suosikkikappaleesi historiaan yhdellä napautuksella ja hallitse niitä virtaviivaistetun pikatoimintovalikon kautta.
 
 • Välitön Toisto (Instant Playback):
 Käynnistää kappaleen tai jakson suoraan kohdesoittimessa tyhjien hakutulossivujen sijaan.

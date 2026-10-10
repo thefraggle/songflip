@@ -1,0 +1,4 @@
+node_modules/
+exports/
+.cache/
+assets.lock

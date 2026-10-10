@@ -27,7 +27,9 @@ class IosUserDefaultsCacheStorage(
         try {
             val encoded = json.encodeToString(entry)
             defaults.setObject(encoded, forKey = "$keyPrefix$key")
-        } catch (_: Throwable) {}
+        } catch (t: Throwable) {
+            println("IosCacheStorage: Failed to put entry $key: ${t.message}")
+        }
     }
 
     override fun remove(key: String) {
@@ -55,7 +57,9 @@ class IosUserDefaultsCacheStorage(
                     val entry = json.decodeFromString<CacheEntry>(raw)
                     val realKey = strKey.removePrefix(keyPrefix)
                     result[realKey] = entry
-                } catch (_: Throwable) {}
+                } catch (t: Throwable) {
+                    println("IosCacheStorage: Failed to decode entry $strKey: ${t.message}")
+                }
             }
         }
         return result

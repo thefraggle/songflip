@@ -9,11 +9,20 @@ Spotify'dan YouTube Music'e, Apple Podcasts'ten Spotify'a veya Shazam şarkılar
 • 10 Akış Platformu, Podcast'ler ve Shazam:
 Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud ve Bandcamp arasında sorunsuz dönüşüm. Shazam bağlantılarını da destekler!
 
+• Doğrudan Şarkı Arama (Uygulama İçi Arama):
+Şarkıları ve sanatçıları doğrudan SongFlip'in içinde arayın ve tek dokunuşla Hızlı Çevirme ile tercih ettiğiniz müzik uygulamasında oynatmayı anında başlatın; mevcut bağlantıya gerek yoktur.
+
+• QR Kod Müzik Paylaşımı ve Tarama:
+Şarkılar ve albümler için evrensel QR kodları oluşturun ve tarayın. Hangi yayın hizmetine abone olurlarsa olsunlar, arkadaşlarınızla şahsen zahmetsizce müzik paylaşın.
+
 • Podcast Dönüştürme Motoru:
 Podcast programlarını ve tekil bölümleri platformlar arasında paylaşın. SongFlip bölümü otomatik olarak bulur ve favori podcast uygulamanızda başlatır.
 
 • Evrensel Çalma Listesi Dönüştürücü:
-Tüm çalma listelerini Spotify, Apple Music ve YouTube Music arasında şarkı şarkı yüksek hızlı önbellekle aktarın.
+Otomatik kopya temizleme, 200'e kadar parça ve yüksek hızlı çok katmanlı önbelleğe alma özellikleriyle tüm çalma listelerini Spotify, Apple Music, YouTube Music, TIDAL ve Deezer arasında parça parça aktarın.
+
+• Eşleşmeleri ve Tek Dokunuşla Favorileri İyileştirin:
+Canlı kayıtlar, remaster'lar veya alternatif versiyonlar arasında kolayca seçim yapın. Favori parçalarınızı tek bir dokunuşla geçmişe sabitleyin ve bunları basitleştirilmiş hızlı işlem menüsü aracılığıyla yönetin.
 
 • Anında Oynatma (Instant Playback):
 Boş arama sonuçları yerine parçayı doğrudan hedef oynatıcıda başlatır.

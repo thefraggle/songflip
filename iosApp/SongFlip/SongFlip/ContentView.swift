@@ -1008,6 +1008,11 @@ struct ContentView: View {
 
     private func convertLink(urlToConvert: String, overrideTarget: String? = nil) {
         guard !urlToConvert.isEmpty, !settings.isResolving else { return }
+        if overrideTarget == nil && settings.askEveryTime {
+            quickPickerUrl = urlToConvert
+            showingQuickPicker = true
+            return
+        }
         settings.isResolving = true
         let effectiveTarget = overrideTarget ?? settings.targetPlatform
 

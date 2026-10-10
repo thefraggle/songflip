@@ -1,13 +1,13 @@
 Freunde schicken dir Musik- oder Podcast-Links von Spotify, Deezer oder Apple Podcasts – aber du nutzt Apple Music, YouTube Music oder Pocket Casts?
 
-SongFlip ist die smarte Musik- & Podcast-Link-Umleitung und der Converter für iOS. Ob über das iOS-Teilen-Menü (Share Sheet), Kurzbefehle oder den Action Button: SongFlip wandelt geteilte Audio-Links blitzschnell um und öffnet sie direkt in deiner bevorzugten App – ganz ohne lästiges Suchen, Kopieren oder manuelle Zwischenschritte.
+SongFlip ist die smarte Musik- & Podcast-Link-Umleitung und dein universeller Converter für iOS. Ob über das native Teilen-Menü (Share Sheet), die direkte Titelsuche, universelle QR-Codes, Kurzbefehle oder den Action Button: SongFlip wandelt Audio-Links blitzschnell um und öffnet sie direkt in deiner bevorzugten App – ganz ohne lästiges Suchen, Kopieren oder manuelle Zwischenschritte.
 
 Unterstützte Musik- & Podcastdienste (Jeder-zu-Jeder-Umleitung):
 - Apple Music & Apple Podcasts
 - YouTube Music & YouTube
 - Spotify
 - Pocket Casts
-- Tidal
+- TIDAL
 - Deezer
 - Amazon Music
 - SoundCloud
@@ -15,9 +15,12 @@ Unterstützte Musik- & Podcastdienste (Jeder-zu-Jeder-Umleitung):
 
 Hauptfunktionen:
 - Nahtlose iOS-Integration: Öffne Musik- und Podcast-Links aus WhatsApp, Telegram, iMessage, Instagram oder Safari direkt über das Teilen-Menü (Share Sheet).
-- Podcast Converter Engine: Plattformübergreifende Auflösung für Shows und Einzelepisoden.
-- Universal Playlist Converter: Erkennt und überträgt Playlists und Alben sauber zwischen deinen Lieblings-Apps.
-- Direkte Wiedergabe: Startet exakte Titel, Episoden und Videos direkt im gewünschten Player.
+- Direkte Titelsuche (Neu): Suche Songs und Künstler direkt in SongFlip und starte sie mit einem Fingertipp (Fast Flip) sofort in deinem Lieblings-Player.
+- Musik per QR-Code teilen: Erstelle und scanne universelle QR-Codes für Songs und Alben – ideal zum Teilen mit Freunden vor Ort, egal welchen Musikdienst sie nutzen.
+- Universal Playlist Converter: Erkennt und überträgt Playlists und Alben sauber zwischen Spotify, Apple Music, YouTube Music, TIDAL und Deezer – inklusive Duplikat-Bereinigung und bis zu 200 Titeln.
+- Treffer verfeinern & Favoriten: Wähle bei Bedarf gezielt zwischen Live-, Remaster- oder Studio-Versionen und pinne deine Lieblingstracks im Verlauf mit 1-Tap als Favorit an.
+- Podcast Converter Engine: Plattformübergreifende Auflösung für Shows und Einzelepisoden direkt in deiner bevorzugten Podcast-App.
+- Direkte Wiedergabe: Startet exakte Titel, Episoden und Videos sofort im gewünschten Player.
 - Schnellauswahl & Verlauf: Wähle bei mehreren installierten Apps flexibel deinen Ziel-Player und greife jederzeit auf deinen Verlauf kürzlich geöffneter Links zu.
 - Kurzbefehle & Action Button: Integriere SongFlip direkt in deine iOS-Kurzbefehle oder lege die Link-Umwandlung auf den Action Button.
 - 100 % Privatsphäre & Kein Tracking: Kein Account, kein Login. SongFlip sammelt keine Daten, keine Werbe-IDs und analysiert keine Hörgewohnheiten.

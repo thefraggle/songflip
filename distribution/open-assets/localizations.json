@@ -1,0 +1,2305 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "s1_prefix": {
+      "localizations": {
+        "ar": {
+          "value": "0 نقرات. "
+        },
+        "bn-BD": {
+          "value": "০ ক্লিক। "
+        },
+        "cs-CZ": {
+          "value": "0 kliknutí. "
+        },
+        "da-DK": {
+          "value": "0 klik. "
+        },
+        "de-DE": {
+          "value": "0 Klicks. "
+        },
+        "el-GR": {
+          "value": "0 κλικ. "
+        },
+        "en-GB": {
+          "value": "0 Clicks. "
+        },
+        "en-IN": {
+          "value": "0 Clicks. "
+        },
+        "en-US": {
+          "value": "0 Clicks. "
+        },
+        "es-419": {
+          "value": "0 clics. "
+        },
+        "es-ES": {
+          "value": "0 clics. "
+        },
+        "es-US": {
+          "value": "0 clics. "
+        },
+        "fi-FI": {
+          "value": "0 klikkausta. "
+        },
+        "fr-CA": {
+          "value": "0 clic. "
+        },
+        "fr-FR": {
+          "value": "0 clic. "
+        },
+        "hi-IN": {
+          "value": "0 क्लिक। "
+        },
+        "hu-HU": {
+          "value": "0 kattintás. "
+        },
+        "id": {
+          "value": "0 Klik. "
+        },
+        "it-IT": {
+          "value": "0 clic. "
+        },
+        "ja-JP": {
+          "value": "0クリック。"
+        },
+        "ko-KR": {
+          "value": "0클릭. "
+        },
+        "mr-IN": {
+          "value": "० क्लिक. "
+        },
+        "nb-NO": {
+          "value": "0 klikk. "
+        },
+        "nl-NL": {
+          "value": "0 klikken. "
+        },
+        "pl-PL": {
+          "value": "0 kliknięć. "
+        },
+        "pt-BR": {
+          "value": "0 cliques. "
+        },
+        "pt-PT": {
+          "value": "0 cliques. "
+        },
+        "ro-RO": {
+          "value": "0 clicuri. "
+        },
+        "ro": {
+          "value": "0 clicuri. "
+        },
+        "ru-RU": {
+          "value": "0 кликов. "
+        },
+        "sv-SE": {
+          "value": "0 klick. "
+        },
+        "tr-TR": {
+          "value": "0 tıklama. "
+        },
+        "uk": {
+          "value": "0 кліків. "
+        },
+        "vi": {
+          "value": "0 lần chạm. "
+        },
+        "zh-CN": {
+          "value": "0 次点击。"
+        },
+        "th-TH": {
+          "value": "0 คลิก "
+        },
+        "zh-TW": {
+          "value": "0 次點擊。"
+        }
+      }
+    },
+    "s1_accent": {
+      "localizations": {
+        "ar": {
+          "value": "تشغيل فوري."
+        },
+        "bn-BD": {
+          "value": "সরাসরি গান।"
+        },
+        "cs-CZ": {
+          "value": "Přímo hudba."
+        },
+        "da-DK": {
+          "value": "Direkte musik."
+        },
+        "de-DE": {
+          "value": "Direkt Musik."
+        },
+        "el-GR": {
+          "value": "Άμεση αναπαραγωγή."
+        },
+        "en-GB": {
+          "value": "Direct Playback."
+        },
+        "en-IN": {
+          "value": "Direct Playback."
+        },
+        "en-US": {
+          "value": "Instant Playback."
+        },
+        "es-419": {
+          "value": "Música al instante."
+        },
+        "es-ES": {
+          "value": "Música al instante."
+        },
+        "es-US": {
+          "value": "Música al instante."
+        },
+        "fi-FI": {
+          "value": "Heti musiikkia."
+        },
+        "fr-CA": {
+          "value": "Musique instantanée."
+        },
+        "fr-FR": {
+          "value": "Musique instantanée."
+        },
+        "hi-IN": {
+          "value": "सीधा संगीत।"
+        },
+        "hu-HU": {
+          "value": "Azonnali zene."
+        },
+        "id": {
+          "value": "Musik Langsung Putar."
+        },
+        "it-IT": {
+          "value": "Musica istantanea."
+        },
+        "ja-JP": {
+          "value": "即座に再生。"
+        },
+        "ko-KR": {
+          "value": "즉시 음악 재생."
+        },
+        "mr-IN": {
+          "value": "थेट संगीत."
+        },
+        "nb-NO": {
+          "value": "Direkte musikk."
+        },
+        "nl-NL": {
+          "value": "Direct muziek."
+        },
+        "pl-PL": {
+          "value": "Muzyka od razu."
+        },
+        "pt-BR": {
+          "value": "Música instantânea."
+        },
+        "pt-PT": {
+          "value": "Música instantânea."
+        },
+        "ro-RO": {
+          "value": "Muzică instant."
+        },
+        "ro": {
+          "value": "Muzică instant."
+        },
+        "ru-RU": {
+          "value": "Музыка сразу."
+        },
+        "sv-SE": {
+          "value": "Direkt musik."
+        },
+        "tr-TR": {
+          "value": "Anında müzik."
+        },
+        "uk": {
+          "value": "Музика миттєво."
+        },
+        "vi": {
+          "value": "Phát nhạc ngay."
+        },
+        "zh-CN": {
+          "value": "直接播放音乐。"
+        },
+        "th-TH": {
+          "value": "เล่นเพลงทันที"
+        },
+        "zh-TW": {
+          "value": "立即播放音樂。"
+        }
+      }
+    },
+    "s1_suffix": {
+      "localizations": {
+        "ar": {
+          "value": ""
+        },
+        "bn-BD": {
+          "value": ""
+        },
+        "cs-CZ": {
+          "value": ""
+        },
+        "da-DK": {
+          "value": ""
+        },
+        "de-DE": {
+          "value": ""
+        },
+        "el-GR": {
+          "value": ""
+        },
+        "en-GB": {
+          "value": ""
+        },
+        "en-IN": {
+          "value": ""
+        },
+        "en-US": {
+          "value": ""
+        },
+        "es-419": {
+          "value": ""
+        },
+        "es-ES": {
+          "value": ""
+        },
+        "es-US": {
+          "value": ""
+        },
+        "fi-FI": {
+          "value": ""
+        },
+        "fr-CA": {
+          "value": ""
+        },
+        "fr-FR": {
+          "value": ""
+        },
+        "hi-IN": {
+          "value": ""
+        },
+        "hu-HU": {
+          "value": ""
+        },
+        "id": {
+          "value": ""
+        },
+        "it-IT": {
+          "value": ""
+        },
+        "ja-JP": {
+          "value": ""
+        },
+        "ko-KR": {
+          "value": ""
+        },
+        "mr-IN": {
+          "value": ""
+        },
+        "nb-NO": {
+          "value": ""
+        },
+        "nl-NL": {
+          "value": ""
+        },
+        "pl-PL": {
+          "value": ""
+        },
+        "pt-BR": {
+          "value": ""
+        },
+        "pt-PT": {
+          "value": ""
+        },
+        "ro-RO": {
+          "value": ""
+        },
+        "ro": {
+          "value": ""
+        },
+        "ru-RU": {
+          "value": ""
+        },
+        "sv-SE": {
+          "value": ""
+        },
+        "tr-TR": {
+          "value": ""
+        },
+        "uk": {
+          "value": ""
+        },
+        "vi": {
+          "value": ""
+        },
+        "zh-CN": {
+          "value": ""
+        },
+        "th-TH": {
+          "value": ""
+        },
+        "zh-TW": {
+          "value": ""
+        }
+      }
+    },
+    "s1_subline": {
+      "localizations": {
+        "ar": {
+          "value": "يفتح روابط الموسيقى المستلمة فوراً في مشغلك المفضل."
+        },
+        "bn-BD": {
+          "value": "যেকোনো মিউজিক লিঙ্ক স্বয়ংক্রিয়ভাবে প্রিয় অ্যাপে চালু হয়।"
+        },
+        "cs-CZ": {
+          "value": "Otevírá přijaté hudební odkazy ihned v oblíbené aplikaci."
+        },
+        "da-DK": {
+          "value": "Åbner automatisk modtagne musiklinks i din yndlingsapp."
+        },
+        "de-DE": {
+          "value": "Öffnet empfangene Links zu Songs & Podcasts sofort in deiner Wunsch-App."
+        },
+        "el-GR": {
+          "value": "Ανοίγει αυτόματα συνδέσμους μουσικής στην αγαπημένη σας εφαρμογή."
+        },
+        "en-GB": {
+          "value": "Instantly opens incoming music links in your preferred player."
+        },
+        "en-IN": {
+          "value": "Instantly opens incoming music links in your preferred player."
+        },
+        "en-US": {
+          "value": "Opens incoming music & podcast links instantly in your preferred player."
+        },
+        "es-419": {
+          "value": "Abre enlaces de música al instante en tu app favorita."
+        },
+        "es-ES": {
+          "value": "Abre enlaces de música al instante en tu app favorita."
+        },
+        "es-US": {
+          "value": "Abre enlaces de música al instante en tu app favorita."
+        },
+        "fi-FI": {
+          "value": "Avaa vastaanotetut musiikkilinkit heti suosikkisovelluksessasi."
+        },
+        "fr-CA": {
+          "value": "Ouvre directement les liens reçus dans votre lecteur préféré."
+        },
+        "fr-FR": {
+          "value": "Ouvre directement les liens reçus dans votre lecteur préféré."
+        },
+        "hi-IN": {
+          "value": "प्राप्त संगीत लिंक तुरंत आपके पसंदीदा प्लेयर में खुलते हैं।"
+        },
+        "hu-HU": {
+          "value": "A kapott zenei linkeket azonnal a kedvenc alkalmazásodban nyitja meg."
+        },
+        "id": {
+          "value": "Buka tautan musik langsung di pemutar musik favorit Anda."
+        },
+        "it-IT": {
+          "value": "Apre automaticamente i link musicali nella tua app preferita."
+        },
+        "ja-JP": {
+          "value": "受信した音楽リンクをお気に入りのプレイヤーで直接開きます。"
+        },
+        "ko-KR": {
+          "value": "공유받은 음악 링크를 선호하는 앱에서 바로 재생합니다."
+        },
+        "mr-IN": {
+          "value": "मिळालेले म्युझिक लिंक्स थेट तुमच्या आवडत्या प्लेअरमध्ये उघडा."
+        },
+        "nb-NO": {
+          "value": "Åpner mottatte musikklenker direkte i favorittspilleren din."
+        },
+        "nl-NL": {
+          "value": "Opent ontvangen muzieklinks direct in jouw favoriete app."
+        },
+        "pl-PL": {
+          "value": "Automatycznie otwiera linki muzyczne w Twojej ulubionej aplikacji."
+        },
+        "pt-BR": {
+          "value": "Abre links recebidos direto no seu player favorito."
+        },
+        "pt-PT": {
+          "value": "Abre links recebidos direto no seu player favorito."
+        },
+        "ro-RO": {
+          "value": "Deschide linkurile primite direct în playerul tău preferat."
+        },
+        "ro": {
+          "value": "Deschide linkurile primite direct în playerul tău preferat."
+        },
+        "ru-RU": {
+          "value": "Мгновенно открывает полученные ссылки в любимом плеере."
+        },
+        "sv-SE": {
+          "value": "Öppnar mottagna musiklänkar direkt i din favoritspelare."
+        },
+        "tr-TR": {
+          "value": "Gelen müzik bağlantılarını anında favori uygulamanızda açar."
+        },
+        "uk": {
+          "value": "Миттєво відкриває отримані посилання у вашому плеєрі."
+        },
+        "vi": {
+          "value": "Tự động mở liên kết nhạc trong ứng dụng nghe nhạc yêu thích."
+        },
+        "zh-CN": {
+          "value": "自动识别接收的音乐链接并在您喜爱的播放器中打开。"
+        },
+        "th-TH": {
+          "value": "เปิดลิงก์เพลงที่ได้รับในแอปโปรดของคุณโดยอัตโนมัติ"
+        },
+        "zh-TW": {
+          "value": "自動識別收到的音樂連結並在偏好的播放器中開啟。"
+        }
+      }
+    },
+    "s2_prefix": {
+      "localizations": {
+        "ar": {
+          "value": ""
+        },
+        "bn-BD": {
+          "value": ""
+        },
+        "cs-CZ": {
+          "value": ""
+        },
+        "da-DK": {
+          "value": ""
+        },
+        "de-DE": {
+          "value": "Alle Dienste. "
+        },
+        "el-GR": {
+          "value": ""
+        },
+        "en-GB": {
+          "value": ""
+        },
+        "en-IN": {
+          "value": ""
+        },
+        "en-US": {
+          "value": "All Platforms. "
+        },
+        "es-419": {
+          "value": ""
+        },
+        "es-ES": {
+          "value": ""
+        },
+        "es-US": {
+          "value": ""
+        },
+        "fi-FI": {
+          "value": ""
+        },
+        "fr-CA": {
+          "value": ""
+        },
+        "fr-FR": {
+          "value": ""
+        },
+        "hi-IN": {
+          "value": ""
+        },
+        "hu-HU": {
+          "value": ""
+        },
+        "id": {
+          "value": ""
+        },
+        "it-IT": {
+          "value": ""
+        },
+        "ja-JP": {
+          "value": ""
+        },
+        "ko-KR": {
+          "value": ""
+        },
+        "mr-IN": {
+          "value": ""
+        },
+        "nb-NO": {
+          "value": ""
+        },
+        "nl-NL": {
+          "value": ""
+        },
+        "pl-PL": {
+          "value": ""
+        },
+        "pt-BR": {
+          "value": ""
+        },
+        "pt-PT": {
+          "value": ""
+        },
+        "ro-RO": {
+          "value": ""
+        },
+        "ro": {
+          "value": ""
+        },
+        "ru-RU": {
+          "value": ""
+        },
+        "sv-SE": {
+          "value": ""
+        },
+        "tr-TR": {
+          "value": ""
+        },
+        "uk": {
+          "value": ""
+        },
+        "vi": {
+          "value": ""
+        },
+        "zh-CN": {
+          "value": ""
+        },
+        "th-TH": {
+          "value": ""
+        },
+        "zh-TW": {
+          "value": ""
+        }
+      }
+    },
+    "s2_accent": {
+      "localizations": {
+        "ar": {
+          "value": "كل المنصات."
+        },
+        "bn-BD": {
+          "value": "সব প্ল্যাটফর্ম।"
+        },
+        "cs-CZ": {
+          "value": "Všechny platformy."
+        },
+        "da-DK": {
+          "value": "Alle platforme."
+        },
+        "de-DE": {
+          "value": "Songs & Podcasts."
+        },
+        "el-GR": {
+          "value": "Όλες οι πλατφόρμες."
+        },
+        "en-GB": {
+          "value": "All Platforms."
+        },
+        "en-IN": {
+          "value": "All Platforms."
+        },
+        "en-US": {
+          "value": "Songs & Podcasts."
+        },
+        "es-419": {
+          "value": "Todas las plataformas."
+        },
+        "es-ES": {
+          "value": "Todas las plataformas."
+        },
+        "es-US": {
+          "value": "Todas las plataformas."
+        },
+        "fi-FI": {
+          "value": "Kaikki alustat."
+        },
+        "fr-CA": {
+          "value": "Toutes les plateformes."
+        },
+        "fr-FR": {
+          "value": "Toutes les plateformes."
+        },
+        "hi-IN": {
+          "value": "सभी प्लेटफॉर्म।"
+        },
+        "hu-HU": {
+          "value": "Minden platform."
+        },
+        "id": {
+          "value": "Semua Platform."
+        },
+        "it-IT": {
+          "value": "Tutte le piattaforme."
+        },
+        "ja-JP": {
+          "value": "全配信サービス対応。"
+        },
+        "ko-KR": {
+          "value": "모든 플랫폼 지원."
+        },
+        "mr-IN": {
+          "value": "सर्व प्लॅटफॉर्म्स."
+        },
+        "nb-NO": {
+          "value": "Alle plattformer."
+        },
+        "nl-NL": {
+          "value": "Alle platformen."
+        },
+        "pl-PL": {
+          "value": "Wszystkie platformy."
+        },
+        "pt-BR": {
+          "value": "Todas as plataformas."
+        },
+        "pt-PT": {
+          "value": "Todas as plataformas."
+        },
+        "ro-RO": {
+          "value": "Toate platformele."
+        },
+        "ro": {
+          "value": "Toate platformele."
+        },
+        "ru-RU": {
+          "value": "Все платформы."
+        },
+        "sv-SE": {
+          "value": "Alla plattformar."
+        },
+        "tr-TR": {
+          "value": "Tüm platformlar."
+        },
+        "uk": {
+          "value": "Усі платформи."
+        },
+        "vi": {
+          "value": "Mọi nền tảng."
+        },
+        "zh-CN": {
+          "value": "全音乐平台支持。"
+        },
+        "th-TH": {
+          "value": "รองรับทุกแพลตฟอร์มเพลง"
+        },
+        "zh-TW": {
+          "value": "支援各大音樂平台。"
+        }
+      }
+    },
+    "s2_suffix": {
+      "localizations": {
+        "ar": {
+          "value": ""
+        },
+        "bn-BD": {
+          "value": ""
+        },
+        "cs-CZ": {
+          "value": ""
+        },
+        "da-DK": {
+          "value": ""
+        },
+        "de-DE": {
+          "value": ""
+        },
+        "el-GR": {
+          "value": ""
+        },
+        "en-GB": {
+          "value": ""
+        },
+        "en-IN": {
+          "value": ""
+        },
+        "en-US": {
+          "value": ""
+        },
+        "es-419": {
+          "value": ""
+        },
+        "es-ES": {
+          "value": ""
+        },
+        "es-US": {
+          "value": ""
+        },
+        "fi-FI": {
+          "value": ""
+        },
+        "fr-CA": {
+          "value": ""
+        },
+        "fr-FR": {
+          "value": ""
+        },
+        "hi-IN": {
+          "value": ""
+        },
+        "hu-HU": {
+          "value": ""
+        },
+        "id": {
+          "value": ""
+        },
+        "it-IT": {
+          "value": ""
+        },
+        "ja-JP": {
+          "value": ""
+        },
+        "ko-KR": {
+          "value": ""
+        },
+        "mr-IN": {
+          "value": ""
+        },
+        "nb-NO": {
+          "value": ""
+        },
+        "nl-NL": {
+          "value": ""
+        },
+        "pl-PL": {
+          "value": ""
+        },
+        "pt-BR": {
+          "value": ""
+        },
+        "pt-PT": {
+          "value": ""
+        },
+        "ro-RO": {
+          "value": ""
+        },
+        "ro": {
+          "value": ""
+        },
+        "ru-RU": {
+          "value": ""
+        },
+        "sv-SE": {
+          "value": ""
+        },
+        "tr-TR": {
+          "value": ""
+        },
+        "uk": {
+          "value": ""
+        },
+        "vi": {
+          "value": ""
+        },
+        "zh-CN": {
+          "value": ""
+        },
+        "th-TH": {
+          "value": ""
+        },
+        "zh-TW": {
+          "value": ""
+        }
+      }
+    },
+    "s2_subline": {
+      "localizations": {
+        "ar": {
+          "value": "Spotify، YouTube Music، Apple Music، Tidal والمزيد."
+        },
+        "bn-BD": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal ও আরও অনেক।"
+        },
+        "cs-CZ": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer a další."
+        },
+        "da-DK": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer & mere."
+        },
+        "de-DE": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer & Amazon Music."
+        },
+        "el-GR": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer & άλλα."
+        },
+        "en-GB": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer & more."
+        },
+        "en-IN": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer & more."
+        },
+        "en-US": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer & Amazon Music."
+        },
+        "es-419": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer y más."
+        },
+        "es-ES": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer y más."
+        },
+        "es-US": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer y más."
+        },
+        "fi-FI": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer & muut."
+        },
+        "fr-CA": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer et plus."
+        },
+        "fr-FR": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer et plus."
+        },
+        "hi-IN": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer और अन्य।"
+        },
+        "hu-HU": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer és mások."
+        },
+        "id": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer & lainnya."
+        },
+        "it-IT": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer e altri."
+        },
+        "ja-JP": {
+          "value": "Spotify、YouTube Music、Apple Music、Tidalなどに対応。"
+        },
+        "ko-KR": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal 등 완벽 지원."
+        },
+        "mr-IN": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal आणि इतर बरेच."
+        },
+        "nb-NO": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer & mer."
+        },
+        "nl-NL": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer & meer."
+        },
+        "pl-PL": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer i inne."
+        },
+        "pt-BR": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer e mais."
+        },
+        "pt-PT": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer e mais."
+        },
+        "ro-RO": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer și altele."
+        },
+        "ro": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer și altele."
+        },
+        "ru-RU": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer и другие."
+        },
+        "sv-SE": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer & mer."
+        },
+        "tr-TR": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer ve daha fazlası."
+        },
+        "uk": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer та інші."
+        },
+        "vi": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer và hơn thế."
+        },
+        "zh-CN": {
+          "value": "无缝支持 Spotify、YouTube Music、Apple Music、Tidal 等。"
+        },
+        "th-TH": {
+          "value": "Spotify, YouTube Music, Apple Music, Tidal, Deezer และอื่นๆ"
+        },
+        "zh-TW": {
+          "value": "無縫支援 Spotify、YouTube Music、Apple Music、Tidal 等。"
+        }
+      }
+    },
+    "s3_prefix": {
+      "localizations": {
+        "ar": {
+          "value": "رابط واحد ل"
+        },
+        "bn-BD": {
+          "value": ""
+        },
+        "cs-CZ": {
+          "value": "Jeden odkaz pro "
+        },
+        "da-DK": {
+          "value": "Ét link til "
+        },
+        "de-DE": {
+          "value": "Ein Link für "
+        },
+        "el-GR": {
+          "value": "Ένας σύνδεσμος για "
+        },
+        "en-GB": {
+          "value": "One Link for "
+        },
+        "en-IN": {
+          "value": "One Link for "
+        },
+        "en-US": {
+          "value": "One Link for "
+        },
+        "es-419": {
+          "value": "Un enlace para "
+        },
+        "es-ES": {
+          "value": "Un enlace para "
+        },
+        "es-US": {
+          "value": "Un enlace para "
+        },
+        "fi-FI": {
+          "value": "Yksi linkki "
+        },
+        "fr-CA": {
+          "value": "Un lien unique pour "
+        },
+        "fr-FR": {
+          "value": "Un lien unique pour "
+        },
+        "hi-IN": {
+          "value": ""
+        },
+        "hu-HU": {
+          "value": "Egyetlen link "
+        },
+        "id": {
+          "value": "Satu Tautan untuk "
+        },
+        "it-IT": {
+          "value": "Un link per "
+        },
+        "ja-JP": {
+          "value": ""
+        },
+        "ko-KR": {
+          "value": ""
+        },
+        "mr-IN": {
+          "value": ""
+        },
+        "nb-NO": {
+          "value": "Én lenke for "
+        },
+        "nl-NL": {
+          "value": "Eén link voor "
+        },
+        "pl-PL": {
+          "value": "Jeden link dla "
+        },
+        "pt-BR": {
+          "value": "Um link para "
+        },
+        "pt-PT": {
+          "value": "Um link para "
+        },
+        "ro-RO": {
+          "value": "Un singur link pentru "
+        },
+        "ro": {
+          "value": "Un singur link pentru "
+        },
+        "ru-RU": {
+          "value": "Одна ссылка для "
+        },
+        "sv-SE": {
+          "value": "En länk för "
+        },
+        "tr-TR": {
+          "value": "Tüm arkadaşlar için tek bağlantı."
+        },
+        "uk": {
+          "value": "Одне посилання для "
+        },
+        "vi": {
+          "value": "Một liên kết cho "
+        },
+        "zh-CN": {
+          "value": "一个通用链接，分享给"
+        },
+        "th-TH": {
+          "value": "ลิงก์เดียวสำหรับ"
+        },
+        "zh-TW": {
+          "value": "單一智慧連結，分享給"
+        }
+      }
+    },
+    "s3_accent": {
+      "localizations": {
+        "ar": {
+          "value": "جميع أصدقائك"
+        },
+        "bn-BD": {
+          "value": "সবার"
+        },
+        "cs-CZ": {
+          "value": "všechny přátele"
+        },
+        "da-DK": {
+          "value": "alle venner"
+        },
+        "de-DE": {
+          "value": "alle Freunde"
+        },
+        "el-GR": {
+          "value": "όλους"
+        },
+        "en-GB": {
+          "value": "Everyone"
+        },
+        "en-IN": {
+          "value": "Everyone"
+        },
+        "en-US": {
+          "value": "Everyone"
+        },
+        "es-419": {
+          "value": "todos tus amigos"
+        },
+        "es-ES": {
+          "value": "todos tus amigos"
+        },
+        "es-US": {
+          "value": "todos tus amigos"
+        },
+        "fi-FI": {
+          "value": "kaikille ystäville"
+        },
+        "fr-CA": {
+          "value": "tous vos amis"
+        },
+        "fr-FR": {
+          "value": "tous vos amis"
+        },
+        "hi-IN": {
+          "value": "सभी दोस्तों"
+        },
+        "hu-HU": {
+          "value": "minden barátodnak"
+        },
+        "id": {
+          "value": "Semua Teman"
+        },
+        "it-IT": {
+          "value": "tutti i tuoi amici"
+        },
+        "ja-JP": {
+          "value": "みんなで共有"
+        },
+        "ko-KR": {
+          "value": "모두를 위한"
+        },
+        "mr-IN": {
+          "value": "सर्व मित्रांसाठी"
+        },
+        "nb-NO": {
+          "value": "alle venner"
+        },
+        "nl-NL": {
+          "value": "al je vrienden"
+        },
+        "pl-PL": {
+          "value": "wszystkich znajomych"
+        },
+        "pt-BR": {
+          "value": "todos os amigos"
+        },
+        "pt-PT": {
+          "value": "todos os amigos"
+        },
+        "ro-RO": {
+          "value": "toți prietenii"
+        },
+        "ro": {
+          "value": "toți prietenii"
+        },
+        "ru-RU": {
+          "value": "всех друзей"
+        },
+        "sv-SE": {
+          "value": "alla vänner"
+        },
+        "tr-TR": {
+          "value": ""
+        },
+        "uk": {
+          "value": "всіх друзів"
+        },
+        "vi": {
+          "value": "tất cả bạn bè"
+        },
+        "zh-CN": {
+          "value": "所有人"
+        },
+        "th-TH": {
+          "value": "เพื่อนทุกคน"
+        },
+        "zh-TW": {
+          "value": "所有好友"
+        }
+      }
+    },
+    "s3_suffix": {
+      "localizations": {
+        "ar": {
+          "value": "."
+        },
+        "bn-BD": {
+          "value": " জন্য একটি স্মার্ট লিঙ্ক।"
+        },
+        "cs-CZ": {
+          "value": "."
+        },
+        "da-DK": {
+          "value": "."
+        },
+        "de-DE": {
+          "value": "."
+        },
+        "el-GR": {
+          "value": "."
+        },
+        "en-GB": {
+          "value": "."
+        },
+        "en-IN": {
+          "value": "."
+        },
+        "en-US": {
+          "value": "."
+        },
+        "es-419": {
+          "value": "."
+        },
+        "es-ES": {
+          "value": "."
+        },
+        "es-US": {
+          "value": "."
+        },
+        "fi-FI": {
+          "value": "."
+        },
+        "fr-CA": {
+          "value": "."
+        },
+        "fr-FR": {
+          "value": "."
+        },
+        "hi-IN": {
+          "value": " के लिए एक लिंक।"
+        },
+        "hu-HU": {
+          "value": "."
+        },
+        "id": {
+          "value": "."
+        },
+        "it-IT": {
+          "value": "."
+        },
+        "ja-JP": {
+          "value": "できる1つのリンク。"
+        },
+        "ko-KR": {
+          "value": " 하나의 스마트 링크."
+        },
+        "mr-IN": {
+          "value": " एकच स्मार्ट लिंक."
+        },
+        "nb-NO": {
+          "value": "."
+        },
+        "nl-NL": {
+          "value": "."
+        },
+        "pl-PL": {
+          "value": "."
+        },
+        "pt-BR": {
+          "value": "."
+        },
+        "pt-PT": {
+          "value": "."
+        },
+        "ro-RO": {
+          "value": "."
+        },
+        "ro": {
+          "value": "."
+        },
+        "ru-RU": {
+          "value": "."
+        },
+        "sv-SE": {
+          "value": "."
+        },
+        "tr-TR": {
+          "value": ""
+        },
+        "uk": {
+          "value": "."
+        },
+        "vi": {
+          "value": "."
+        },
+        "zh-CN": {
+          "value": "。"
+        },
+        "th-TH": {
+          "value": ""
+        },
+        "zh-TW": {
+          "value": "。"
+        }
+      }
+    },
+    "s3_subline": {
+      "localizations": {
+        "ar": {
+          "value": "أنشئ روابط ذكية تعمل بسلاسة على أي منصة."
+        },
+        "bn-BD": {
+          "value": "ইউনিভার্সাল লিঙ্ক তৈরি করুন যা সব ডিভাইসে কাজ করে।"
+        },
+        "cs-CZ": {
+          "value": "Vytvářej univerzální chytré odkazy funkční na každém zařízení."
+        },
+        "da-DK": {
+          "value": "Opret universelle links, der fungerer på alle platforme."
+        },
+        "de-DE": {
+          "value": "Erstelle universelle Web-Links, die überall funktionieren."
+        },
+        "el-GR": {
+          "value": "Δημιουργήστε έξυπνους συνδέσμους που λειτουργούν παντού."
+        },
+        "en-GB": {
+          "value": "Share smart links that work seamlessly across any platform."
+        },
+        "en-IN": {
+          "value": "Share smart links that work seamlessly across any platform."
+        },
+        "en-US": {
+          "value": "Share smart links that work seamlessly across any platform."
+        },
+        "es-419": {
+          "value": "Crea enlaces universales que funcionan en cualquier plataforma."
+        },
+        "es-ES": {
+          "value": "Crea enlaces universales que funcionan en cualquier plataforma."
+        },
+        "es-US": {
+          "value": "Crea enlaces universales que funcionan en cualquier plataforma."
+        },
+        "fi-FI": {
+          "value": "Luo älylinkkejä, jotka toimivat saumattomasti kaikkialla."
+        },
+        "fr-CA": {
+          "value": "Partagez des liens universels compatibles avec chaque service."
+        },
+        "fr-FR": {
+          "value": "Partagez des liens universels compatibles avec chaque service."
+        },
+        "hi-IN": {
+          "value": "यूनिवर्सल स्मार्ट लिंक बनाएं जो हर प्लेटफॉर्म पर काम करें।"
+        },
+        "hu-HU": {
+          "value": "Hozz létre univerzális linkeket, amelyek bárhol működnek."
+        },
+        "id": {
+          "value": "Buat tautan pintar universal yang bekerja di platform mana pun."
+        },
+        "it-IT": {
+          "value": "Crea smart link universali che funzionano ovunque."
+        },
+        "ja-JP": {
+          "value": "どの端末でも開けるユニバーサル共有リンクを作成。"
+        },
+        "ko-KR": {
+          "value": "모든 기기와 플랫폼에서 작동하는 범용 링크 생성."
+        },
+        "mr-IN": {
+          "value": "सर्व उपकरणांवर चालणाऱ्या युनिव्हर्सल लिंक्स तयार करा."
+        },
+        "nb-NO": {
+          "value": "Del universelle smartlenker som fungerer på tvers av plattformer."
+        },
+        "nl-NL": {
+          "value": "Maak universele smart links die overal naadloos werken."
+        },
+        "pl-PL": {
+          "value": "Twórz uniwersalne smart linki działające na każdej platformie."
+        },
+        "pt-BR": {
+          "value": "Crie smart links universais que funcionam em qualquer serviço."
+        },
+        "pt-PT": {
+          "value": "Crie smart links universais que funcionam em qualquer serviço."
+        },
+        "ro-RO": {
+          "value": "Creează smart linkuri universale care funcționează oriunde."
+        },
+        "ro": {
+          "value": "Creează smart linkuri universale care funcționează oriunde."
+        },
+        "ru-RU": {
+          "value": "Создавайте универсальные смарт-ссылки для любой платформы."
+        },
+        "sv-SE": {
+          "value": "Skapa universella smartlänkar som fungerar överallt."
+        },
+        "tr-TR": {
+          "value": "Her platformda sorunsuz çalışan akıllı bağlantılar oluşturun."
+        },
+        "uk": {
+          "value": "Створюйте універсальні смарт-посилання для будь-якої платформи."
+        },
+        "vi": {
+          "value": "Tạo smart link thông minh hoạt động mượt mà ở mọi nơi."
+        },
+        "zh-CN": {
+          "value": "生成可在任何设备和平台上无缝打开的智能音乐链接。"
+        },
+        "th-TH": {
+          "value": "สร้างสมาร์ทลิงก์สากลที่ใช้งานได้บนทุกแพลตฟอร์ม"
+        },
+        "zh-TW": {
+          "value": "建立可在任何裝置與平台上順暢開啟的通用音樂連結。"
+        }
+      }
+    },
+    "s4_prefix": {
+      "localizations": {
+        "ar": {
+          "value": "تحويل "
+        },
+        "bn-BD": {
+          "value": ""
+        },
+        "cs-CZ": {
+          "value": "Převod "
+        },
+        "da-DK": {
+          "value": "Konverter "
+        },
+        "de-DE": {
+          "value": "Ganze "
+        },
+        "el-GR": {
+          "value": "Μετατροπή "
+        },
+        "en-GB": {
+          "value": "Convert "
+        },
+        "en-IN": {
+          "value": "Convert "
+        },
+        "en-US": {
+          "value": "Convert "
+        },
+        "es-419": {
+          "value": "Convierte "
+        },
+        "es-ES": {
+          "value": "Convierte "
+        },
+        "es-US": {
+          "value": "Convierte "
+        },
+        "fi-FI": {
+          "value": "Muunna "
+        },
+        "fr-CA": {
+          "value": "Convertissez des "
+        },
+        "fr-FR": {
+          "value": "Convertissez des "
+        },
+        "hi-IN": {
+          "value": ""
+        },
+        "hu-HU": {
+          "value": "Teljes "
+        },
+        "id": {
+          "value": "Konversi "
+        },
+        "it-IT": {
+          "value": "Converti "
+        },
+        "ja-JP": {
+          "value": ""
+        },
+        "ko-KR": {
+          "value": ""
+        },
+        "mr-IN": {
+          "value": ""
+        },
+        "nb-NO": {
+          "value": "Konverter "
+        },
+        "nl-NL": {
+          "value": "Zet hele "
+        },
+        "pl-PL": {
+          "value": "Konwertuj "
+        },
+        "pt-BR": {
+          "value": "Converta "
+        },
+        "pt-PT": {
+          "value": "Converta "
+        },
+        "ro-RO": {
+          "value": "Convertește "
+        },
+        "ro": {
+          "value": "Convertește "
+        },
+        "ru-RU": {
+          "value": "Конвертируйте "
+        },
+        "sv-SE": {
+          "value": "Konvertera "
+        },
+        "tr-TR": {
+          "value": "Tüm "
+        },
+        "uk": {
+          "value": "Конвертуйте "
+        },
+        "vi": {
+          "value": "Chuyển đổi toàn bộ "
+        },
+        "zh-CN": {
+          "value": "一键转换"
+        },
+        "th-TH": {
+          "value": "แปลง"
+        },
+        "zh-TW": {
+          "value": "一鍵轉換"
+        }
+      }
+    },
+    "s4_accent": {
+      "localizations": {
+        "ar": {
+          "value": "قوائم التشغيل كاملة"
+        },
+        "bn-BD": {
+          "value": "সম্পূর্ণ প্লেলিস্ট"
+        },
+        "cs-CZ": {
+          "value": "celých playlistů"
+        },
+        "da-DK": {
+          "value": "hele playlister"
+        },
+        "de-DE": {
+          "value": "Playlists"
+        },
+        "el-GR": {
+          "value": "ολόκληρων playlist"
+        },
+        "en-GB": {
+          "value": "Entire Playlists"
+        },
+        "en-IN": {
+          "value": "Entire Playlists"
+        },
+        "en-US": {
+          "value": "Entire Playlists"
+        },
+        "es-419": {
+          "value": "playlists enteras"
+        },
+        "es-ES": {
+          "value": "playlists enteras"
+        },
+        "es-US": {
+          "value": "playlists enteras"
+        },
+        "fi-FI": {
+          "value": "kokonaisia soittolistoja"
+        },
+        "fr-CA": {
+          "value": "playlists entières"
+        },
+        "fr-FR": {
+          "value": "playlists entières"
+        },
+        "hi-IN": {
+          "value": "पूरी प्लेलिस्ट"
+        },
+        "hu-HU": {
+          "value": "lejátszási listák"
+        },
+        "id": {
+          "value": "Seluruh Playlist"
+        },
+        "it-IT": {
+          "value": "intere playlist"
+        },
+        "ja-JP": {
+          "value": "プレイリスト"
+        },
+        "ko-KR": {
+          "value": "플레이리스트 전체"
+        },
+        "mr-IN": {
+          "value": "संपूर्ण प्लेलिस्ट"
+        },
+        "nb-NO": {
+          "value": "hele spillelister"
+        },
+        "nl-NL": {
+          "value": "afspeellijsten"
+        },
+        "pl-PL": {
+          "value": "całe playlisty"
+        },
+        "pt-BR": {
+          "value": "playlists inteiras"
+        },
+        "pt-PT": {
+          "value": "playlists inteiras"
+        },
+        "ro-RO": {
+          "value": "playlisturi întregi"
+        },
+        "ro": {
+          "value": "playlisturi întregi"
+        },
+        "ru-RU": {
+          "value": "целые плейлисты"
+        },
+        "sv-SE": {
+          "value": "hela spellistor"
+        },
+        "tr-TR": {
+          "value": "çalma listelerini"
+        },
+        "uk": {
+          "value": "цілі плейлисти"
+        },
+        "vi": {
+          "value": "danh sách phát"
+        },
+        "zh-CN": {
+          "value": "整份歌单"
+        },
+        "th-TH": {
+          "value": "เพลย์ลิสต์ทั้งชุด"
+        },
+        "zh-TW": {
+          "value": "整份播放清單"
+        }
+      }
+    },
+    "s4_suffix": {
+      "localizations": {
+        "ar": {
+          "value": "."
+        },
+        "bn-BD": {
+          "value": " রূপান্তর।"
+        },
+        "cs-CZ": {
+          "value": "."
+        },
+        "da-DK": {
+          "value": "."
+        },
+        "de-DE": {
+          "value": " umwandeln."
+        },
+        "el-GR": {
+          "value": "."
+        },
+        "en-GB": {
+          "value": "."
+        },
+        "en-IN": {
+          "value": "."
+        },
+        "en-US": {
+          "value": "."
+        },
+        "es-419": {
+          "value": "."
+        },
+        "es-ES": {
+          "value": "."
+        },
+        "es-US": {
+          "value": "."
+        },
+        "fi-FI": {
+          "value": "."
+        },
+        "fr-CA": {
+          "value": "."
+        },
+        "fr-FR": {
+          "value": "."
+        },
+        "hi-IN": {
+          "value": " कन्वर्ट करें।"
+        },
+        "hu-HU": {
+          "value": " konvertálása."
+        },
+        "id": {
+          "value": "."
+        },
+        "it-IT": {
+          "value": "."
+        },
+        "ja-JP": {
+          "value": "を一括変換。"
+        },
+        "ko-KR": {
+          "value": " 변환."
+        },
+        "mr-IN": {
+          "value": " रूपांतरित करा."
+        },
+        "nb-NO": {
+          "value": "."
+        },
+        "nl-NL": {
+          "value": " om."
+        },
+        "pl-PL": {
+          "value": "."
+        },
+        "pt-BR": {
+          "value": "."
+        },
+        "pt-PT": {
+          "value": "."
+        },
+        "ro-RO": {
+          "value": "."
+        },
+        "ro": {
+          "value": "."
+        },
+        "ru-RU": {
+          "value": "."
+        },
+        "sv-SE": {
+          "value": "."
+        },
+        "tr-TR": {
+          "value": " dönüştürün."
+        },
+        "uk": {
+          "value": "."
+        },
+        "vi": {
+          "value": "."
+        },
+        "zh-CN": {
+          "value": "。"
+        },
+        "th-TH": {
+          "value": ""
+        },
+        "zh-TW": {
+          "value": "。"
+        }
+      }
+    },
+    "s4_subline": {
+      "localizations": {
+        "ar": {
+          "value": "من Spotify إلى YouTube Music والمزيد بنقرة واحدة."
+        },
+        "bn-BD": {
+          "value": "Spotify থেকে YouTube Music ও আরও অনেক, ১-ট্যাপে सीधे।"
+        },
+        "cs-CZ": {
+          "value": "Spotify do YouTube Music a další. Až 50 skladeb na jedno kliknutí."
+        },
+        "da-DK": {
+          "value": "Spotify til YouTube Music & mere. Op til 50 sange med 1 klik."
+        },
+        "de-DE": {
+          "value": "Spotify zu YouTube Music & mehr. Bis zu 50 Songs mit einem Klick."
+        },
+        "el-GR": {
+          "value": "Spotify σε YouTube Music & άλλα με 1 πάτημα."
+        },
+        "en-GB": {
+          "value": "Spotify to YouTube Music & more. Up to 50 tracks with one click."
+        },
+        "en-IN": {
+          "value": "Spotify to YouTube Music & more. Up to 50 tracks with one click."
+        },
+        "en-US": {
+          "value": "Spotify to YouTube Music & more. Up to 50 tracks with one click."
+        },
+        "es-419": {
+          "value": "Spotify a YouTube Music y más. Hasta 50 canciones con un toque."
+        },
+        "es-ES": {
+          "value": "Spotify a YouTube Music y más. Hasta 50 canciones con un toque."
+        },
+        "es-US": {
+          "value": "Spotify a YouTube Music y más. Hasta 50 canciones con un toque."
+        },
+        "fi-FI": {
+          "value": "Spotifysta YouTube Musiciin & muut yhdellä napautuksella."
+        },
+        "fr-CA": {
+          "value": "Spotify vers YouTube Music et plus. Jusqu'à 50 titres en un clic."
+        },
+        "fr-FR": {
+          "value": "Spotify vers YouTube Music et plus. Jusqu'à 50 titres en un clic."
+        },
+        "hi-IN": {
+          "value": "Spotify से YouTube Music और अन्य। 1-टैप में आसान ट्रांसफर।"
+        },
+        "hu-HU": {
+          "value": "Spotify-ról YouTube Music-ra és mások 1 koppintással."
+        },
+        "id": {
+          "value": "Spotify ke YouTube Music & lainnya hingga 50 lagu."
+        },
+        "it-IT": {
+          "value": "Spotify su YouTube Music e altri. Fino a 50 brani con 1 tocco."
+        },
+        "ja-JP": {
+          "value": "SpotifyからYouTube Musicなどへ最大50曲を1タップで転送。"
+        },
+        "ko-KR": {
+          "value": "Spotify에서 YouTube Music 등 최대 50곡을 원탭으로 변환."
+        },
+        "mr-IN": {
+          "value": "Spotify ते YouTube Music आणि इतर. १-टॅपमध्ये सोपे ट्रान्सफर."
+        },
+        "nb-NO": {
+          "value": "Spotify til YouTube Music & mer. Opptil 50 sanger med 1 trykk."
+        },
+        "nl-NL": {
+          "value": "Spotify naar YouTube Music & meer. Tot 50 nummers in 1 klik."
+        },
+        "pl-PL": {
+          "value": "Spotify do YouTube Music i inne. Do 50 utworów jednym kliknięciem."
+        },
+        "pt-BR": {
+          "value": "Spotify para YouTube Music e mais. Até 50 músicas com un toque."
+        },
+        "pt-PT": {
+          "value": "Spotify para YouTube Music e mais. Até 50 músicas com un toque."
+        },
+        "ro-RO": {
+          "value": "Spotify în YouTube Music și altele. Până la 50 de piese cu one click."
+        },
+        "ro": {
+          "value": "Spotify în YouTube Music și altele. Până la 50 de piese cu one click."
+        },
+        "ru-RU": {
+          "value": "Spotify в YouTube Music и другие. До 50 треков в 1 касание."
+        },
+        "sv-SE": {
+          "value": "Spotify till YouTube Music & mer. Upp till 50 låtar med 1 tryck."
+        },
+        "tr-TR": {
+          "value": "Spotify'dan YouTube Music'e ve daha fazlası. Tek dokunuşla 50 şarkı."
+        },
+        "uk": {
+          "value": "Spotify в YouTube Music та інші. До 50 треків в 1 дотик."
+        },
+        "vi": {
+          "value": "Spotify sang YouTube Music & hơn thế. Tối đa 50 bài hát với 1 chạm."
+        },
+        "zh-CN": {
+          "value": "Spotify 转 YouTube Music 等平台，支持最多 50 首单曲一键导入。"
+        },
+        "th-TH": {
+          "value": "Spotify ไปยัง YouTube Music และอื่นๆ สูงสุด 50 เพลงใน 1 แตะ"
+        },
+        "zh-TW": {
+          "value": "Spotify 轉 YouTube Music 等平台，支援最多 50 首歌曲一鍵導入。"
+        }
+      }
+    },
+    "s5_prefix": {
+      "localizations": {
+        "ar": {
+          "value": "خصوصية 100%. "
+        },
+        "bn-BD": {
+          "value": "১০০% প্রাইভেট। "
+        },
+        "cs-CZ": {
+          "value": "100% soukromí. "
+        },
+        "da-DK": {
+          "value": "100 % privat. "
+        },
+        "de-DE": {
+          "value": "100 % Privat. "
+        },
+        "el-GR": {
+          "value": "100% απόρρητο. "
+        },
+        "en-GB": {
+          "value": "100% Private. "
+        },
+        "en-IN": {
+          "value": "100% Private. "
+        },
+        "en-US": {
+          "value": "100% Private. "
+        },
+        "es-419": {
+          "value": "100% privado. "
+        },
+        "es-ES": {
+          "value": "100% privado. "
+        },
+        "es-US": {
+          "value": "100% privado. "
+        },
+        "fi-FI": {
+          "value": "100 % yksityinen. "
+        },
+        "fr-CA": {
+          "value": "100 % privé. "
+        },
+        "fr-FR": {
+          "value": "100 % privé. "
+        },
+        "hi-IN": {
+          "value": "100% निजी। "
+        },
+        "hu-HU": {
+          "value": "100% privát. "
+        },
+        "id": {
+          "value": "100% Pribadi. "
+        },
+        "it-IT": {
+          "value": "100% privato. "
+        },
+        "ja-JP": {
+          "value": "完全プライベート。"
+        },
+        "ko-KR": {
+          "value": "100% 개인정보 보호. "
+        },
+        "mr-IN": {
+          "value": "१००% सुरक्षित. "
+        },
+        "nb-NO": {
+          "value": "100 % privat. "
+        },
+        "nl-NL": {
+          "value": "100% privé. "
+        },
+        "pl-PL": {
+          "value": "100% prywatności. "
+        },
+        "pt-BR": {
+          "value": "100% privado. "
+        },
+        "pt-PT": {
+          "value": "100% privado. "
+        },
+        "ro-RO": {
+          "value": "100% privat. "
+        },
+        "ro": {
+          "value": "100% privat. "
+        },
+        "ru-RU": {
+          "value": "100% приватность. "
+        },
+        "sv-SE": {
+          "value": "100 % privat. "
+        },
+        "tr-TR": {
+          "value": "%100 gizli. "
+        },
+        "uk": {
+          "value": "100% приватність. "
+        },
+        "vi": {
+          "value": "100% riêng tư. "
+        },
+        "zh-CN": {
+          "value": "100% 隐私保护。"
+        },
+        "th-TH": {
+          "value": "เป็นส่วนตัว 100% "
+        },
+        "zh-TW": {
+          "value": "100% 隱私保護。"
+        }
+      }
+    },
+    "s5_accent": {
+      "localizations": {
+        "ar": {
+          "value": "بدون إعلانات."
+        },
+        "bn-BD": {
+          "value": "বিজ্ঞাপনহীন।"
+        },
+        "cs-CZ": {
+          "value": "Žádné reklamy."
+        },
+        "da-DK": {
+          "value": "Ingen reklamer."
+        },
+        "de-DE": {
+          "value": "Keine Werbung."
+        },
+        "el-GR": {
+          "value": "Χωρίς διαφημίσεις."
+        },
+        "en-GB": {
+          "value": "Zero Ads."
+        },
+        "en-IN": {
+          "value": "Zero Ads."
+        },
+        "en-US": {
+          "value": "Zero Ads."
+        },
+        "es-419": {
+          "value": "Sin anuncios."
+        },
+        "es-ES": {
+          "value": "Sin anuncios."
+        },
+        "es-US": {
+          "value": "Sin anuncios."
+        },
+        "fi-FI": {
+          "value": "Ei mainoksia."
+        },
+        "fr-CA": {
+          "value": "Sans publicité."
+        },
+        "fr-FR": {
+          "value": "Sans publicité."
+        },
+        "hi-IN": {
+          "value": "विज्ञापन मुक्त।"
+        },
+        "hu-HU": {
+          "value": "Reklámmentes."
+        },
+        "id": {
+          "value": "Bebas Iklan."
+        },
+        "it-IT": {
+          "value": "Zero pubblicità."
+        },
+        "ja-JP": {
+          "value": "広告ゼロ。"
+        },
+        "ko-KR": {
+          "value": "광고 없음."
+        },
+        "mr-IN": {
+          "value": "जाहिरातमुक्त."
+        },
+        "nb-NO": {
+          "value": "Ingen reklame."
+        },
+        "nl-NL": {
+          "value": "Geen advertenties."
+        },
+        "pl-PL": {
+          "value": "Zero reklam."
+        },
+        "pt-BR": {
+          "value": "Sem anúncios."
+        },
+        "pt-PT": {
+          "value": "Sem anúncios."
+        },
+        "ro-RO": {
+          "value": "Fără reclame."
+        },
+        "ro": {
+          "value": "Fără reclame."
+        },
+        "ru-RU": {
+          "value": "Без рекламы."
+        },
+        "sv-SE": {
+          "value": "Inga annonser."
+        },
+        "tr-TR": {
+          "value": "Sıfır reklam."
+        },
+        "uk": {
+          "value": "Без реклами."
+        },
+        "vi": {
+          "value": "Không quảng cáo."
+        },
+        "zh-CN": {
+          "value": "零广告。"
+        },
+        "th-TH": {
+          "value": "ไม่มีโฆษณา"
+        },
+        "zh-TW": {
+          "value": "零廣告。"
+        }
+      }
+    },
+    "s5_suffix": {
+      "localizations": {
+        "ar": {
+          "value": ""
+        },
+        "bn-BD": {
+          "value": ""
+        },
+        "cs-CZ": {
+          "value": ""
+        },
+        "da-DK": {
+          "value": ""
+        },
+        "de-DE": {
+          "value": ""
+        },
+        "el-GR": {
+          "value": ""
+        },
+        "en-GB": {
+          "value": ""
+        },
+        "en-IN": {
+          "value": ""
+        },
+        "en-US": {
+          "value": ""
+        },
+        "es-419": {
+          "value": ""
+        },
+        "es-ES": {
+          "value": ""
+        },
+        "es-US": {
+          "value": ""
+        },
+        "fi-FI": {
+          "value": ""
+        },
+        "fr-CA": {
+          "value": ""
+        },
+        "fr-FR": {
+          "value": ""
+        },
+        "hi-IN": {
+          "value": ""
+        },
+        "hu-HU": {
+          "value": ""
+        },
+        "id": {
+          "value": ""
+        },
+        "it-IT": {
+          "value": ""
+        },
+        "ja-JP": {
+          "value": ""
+        },
+        "ko-KR": {
+          "value": ""
+        },
+        "mr-IN": {
+          "value": ""
+        },
+        "nb-NO": {
+          "value": ""
+        },
+        "nl-NL": {
+          "value": ""
+        },
+        "pl-PL": {
+          "value": ""
+        },
+        "pt-BR": {
+          "value": ""
+        },
+        "pt-PT": {
+          "value": ""
+        },
+        "ro-RO": {
+          "value": ""
+        },
+        "ro": {
+          "value": ""
+        },
+        "ru-RU": {
+          "value": ""
+        },
+        "sv-SE": {
+          "value": ""
+        },
+        "tr-TR": {
+          "value": ""
+        },
+        "uk": {
+          "value": ""
+        },
+        "vi": {
+          "value": ""
+        },
+        "zh-CN": {
+          "value": ""
+        },
+        "th-TH": {
+          "value": ""
+        },
+        "zh-TW": {
+          "value": ""
+        }
+      }
+    },
+    "s5_subline": {
+      "localizations": {
+        "ar": {
+          "value": "بدون حسابات، بدون تسجيل، وبدون تتبع لسجل استماعك."
+        },
+        "bn-BD": {
+          "value": "কোনো অ্যাকাউন্ট বা লগইন নেই, আপনার ডেটা সুরক্ষিত।"
+        },
+        "cs-CZ": {
+          "value": "Bez účtů, bez přihlášení a bez sledování hudebního vkusu."
+        },
+        "da-DK": {
+          "value": "Ingen konto, intet login, ingen sporing af dine musikvaner."
+        },
+        "de-DE": {
+          "value": "Kein Konto, kein Login, keine Analyse deines Musikgeschmacks."
+        },
+        "el-GR": {
+          "value": "Χωρίς λογαριασμούς, χωρίς σύνδεση, χωρίς καταγραφή δεδομένων."
+        },
+        "en-GB": {
+          "value": "No accounts, no logins, no listening habits collected."
+        },
+        "en-IN": {
+          "value": "No accounts, no logins, no listening habits collected."
+        },
+        "en-US": {
+          "value": "No accounts, no logins, no listening habits collected."
+        },
+        "es-419": {
+          "value": "Sin cuentas, sin registros, sin recopilación de hábitos de escucha."
+        },
+        "es-ES": {
+          "value": "Sin cuentas, sin registros, sin recopilación de hábitos de escucha."
+        },
+        "es-US": {
+          "value": "Sin cuentas, sin registros, sin recopilación de hábitos de escucha."
+        },
+        "fi-FI": {
+          "value": "Ei tilejä, ei kirjautumista, ei kuuntelutottumusten seurantaa."
+        },
+        "fr-CA": {
+          "value": "Aucun compte, aucune connexion, aucun historique collecté."
+        },
+        "fr-FR": {
+          "value": "Aucun compte, aucune connexion, aucun historique collecté."
+        },
+        "hi-IN": {
+          "value": "कोई खाता नहीं, कोई लॉगिन नहीं, कोई ट्रैकिंग नहीं।"
+        },
+        "hu-HU": {
+          "value": "Nincs fiók, nincs bejelentkezés, nem gyűjtünk adatokat."
+        },
+        "id": {
+          "value": "Tanpa akun, tanpa login, tanpa pelacakan kebiasaan mendengar."
+        },
+        "it-IT": {
+          "value": "Nessun account, nessun login, nessun tracciamento dei tuoi ascolti."
+        },
+        "ja-JP": {
+          "value": "アカウント不要・ログイン不要・データ収集なし。"
+        },
+        "ko-KR": {
+          "value": "계정 및 로그인 불필요, 청취 기록 수집 없음."
+        },
+        "mr-IN": {
+          "value": "कोणतेही खाते नाही, लॉगिन नाही, कोणताही डेटा ट्रॅकिंग नाही."
+        },
+        "nb-NO": {
+          "value": "Ingen konto, ingen innlogging, ingen sporing av musikkvaner."
+        },
+        "nl-NL": {
+          "value": "Geen accounts, geen logins, geen analyse van luistergedrag."
+        },
+        "pl-PL": {
+          "value": "Bez konta, bez logowania, bez śledzenia Twoich nawyków."
+        },
+        "pt-BR": {
+          "value": "Sem contas, sem login e sem rastreamento de hábitos musicais."
+        },
+        "pt-PT": {
+          "value": "Sem contas, sem login e sem rastreamento de hábitos musicais."
+        },
+        "ro-RO": {
+          "value": "Fără conturi, fără autentificare, fără colectare de date."
+        },
+        "ro": {
+          "value": "Fără conturi, fără autentificare, fără colectare de date."
+        },
+        "ru-RU": {
+          "value": "Без аккаунтов, без регистрации, без отслеживания истории."
+        },
+        "sv-SE": {
+          "value": "Inget konto, ingen inloggning, ingen spårning av musikvanor."
+        },
+        "tr-TR": {
+          "value": "Hesap yok, giriş yok, müzik zevkiniz asla takip edilmez."
+        },
+        "uk": {
+          "value": "Без акаунтів, без входу, без збору історії прослуховувань."
+        },
+        "vi": {
+          "value": "Không tài khoản, không đăng nhập, không thu thập dữ liệu."
+        },
+        "zh-CN": {
+          "value": "无需注册账号，无需登录，绝不收集您的听歌偏好。"
+        },
+        "th-TH": {
+          "value": "ไม่ต้องมีบัญชี ไม่ต้องเข้าสู่ระบบ ไม่มีการติดตามข้อมูล"
+        },
+        "zh-TW": {
+          "value": "無須註冊帳號，無須登入，絕不收集您的聽歌紀錄。"
+        }
+      }
+    }
+  }
+}

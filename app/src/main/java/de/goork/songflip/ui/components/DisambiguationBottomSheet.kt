@@ -218,7 +218,9 @@ fun DisambiguationBottomSheet(
                                                     flags = Intent.FLAG_ACTIVITY_NEW_TASK
                                                 }
                                                 context.startActivity(playIntent)
-                                            } catch (_: Exception) {}
+                                            } catch (e: Exception) {
+                                                android.util.Log.w("Disambiguation", "Could not launch updated match URL: ${e.message}")
+                                            }
                                             onDismissRequest()
                                         } else {
                                             Toast.makeText(context, context.getString(R.string.redirect_error_toast), Toast.LENGTH_SHORT).show()

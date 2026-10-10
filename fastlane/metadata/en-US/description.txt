@@ -1,25 +1,28 @@
 Friends send you Spotify, Tidal, or Apple Podcasts links – but you use Apple Music, YouTube Music, or Pocket Casts?
- 
-SongFlip is the universal music and podcast link redirector and converter for iOS. Whether via the iOS Share Sheet, Shortcuts, or the Action Button: SongFlip instantly converts shared music and podcast links and opens them directly in your preferred app – with zero manual searching, no copying, and no friction.
- 
+
+SongFlip is the universal music and podcast link redirector and converter for iOS. Whether via the iOS Share Sheet, direct song search, universal QR codes, Shortcuts, or the Action Button: SongFlip instantly converts shared audio links and opens them directly in your preferred app – with zero manual searching, no copying, and no friction.
+
 Supported Audio & Podcast Services (Any-to-Any Redirection):
 - Apple Music & Apple Podcasts
 - YouTube Music & YouTube
 - Spotify
 - Pocket Casts
-- Tidal
+- TIDAL
 - Deezer
 - Amazon Music
 - SoundCloud
 - Bandcamp & Shazam
- 
+
 Key Features:
 - Seamless iOS Integration: Convert music and podcast links from WhatsApp, Telegram, iMessage, Instagram, or Safari directly via the native Share Sheet.
-- Podcast Converter Engine: Cross-platform resolution for full podcast shows and individual episodes.
-- Universal Playlist Converter: Detects and transfers playlist releases and full albums cleanly across services.
+- Direct Song Search (New): Search for tracks and artists directly inside SongFlip and launch playback instantly in your favorite player with 1-tap Fast Flip.
+- QR Code Music Sharing: Generate and scan universal QR codes for songs and albums – perfect for sharing music in person across different streaming services.
+- Universal Playlist Converter: Detects and transfers playlists and full albums across Spotify, Apple Music, YouTube Music, TIDAL, and Deezer – featuring duplicate cleaning and up to 200 tracks.
+- Refine Matches & 1-Tap Favorites: Choose between live recordings, remasters, or alternative versions, and pin your favorite tracks in history with a single tap.
+- Podcast Converter Engine: Cross-platform resolution for full podcast shows and individual episodes in your favorite podcast app.
 - Direct Playback Engine: Instantly launches exact track, episode, and video IDs in your target player.
 - Quick Player Chooser & History: Choose your target player on the fly when multiple apps are installed, and revisit your recent conversions anytime in the history sheet.
 - Shortcuts & Action Button Support: Integrate SongFlip into iOS Shortcuts or trigger instant conversion with the Action Button.
 - 100% Privacy & Zero Tracking: No account, no login required. SongFlip collects no personal data, no ad tracking IDs, and no listening habits.
- 
+
 Built with passion for music and podcast lovers who want to enjoy audio seamlessly across platforms in their favorite player.

@@ -9,11 +9,20 @@ Legyen szó Spotifyról YouTube Musicra, Apple Podcastsról Spotifyra vagy megos
 • 10 Zenei és Podcast Platform & Shazam:
 Zökkenőmentes átalakítás a Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud és Bandcamp között. Shazam linkeket is támogat!
 
+• Közvetlen dalkeresés (alkalmazáson belüli keresés):
+Keressen számokat és előadókat közvetlenül a SongFlipben, és azonnal indítsa el a lejátszást kedvenc zenei alkalmazásában az 1 érintéssel történő Fast Flip funkcióval – nincs szükség meglévő hivatkozásra.
+
+• QR kódos zenemegosztás és beolvasás:
+Generáljon és olvasson be univerzális QR-kódokat dalokhoz és albumokhoz. Könnyedén megoszthat zenét barátaival személyesen, függetlenül attól, hogy melyik streaming szolgáltatásra fizetnek elő.
+
 • Podcast Átalakító Motor:
 Oszd meg a podcast műsorokat és egyes epizódokat a különböző platformok között. A SongFlip megkeresi az epizódot és elindítja a kedvenc podcast appodban.
 
 • Univerzális Lejátszási Lista Átalakító:
-Másolj át teljes lejátszási listákat számról számra a Spotify, Apple Music és YouTube Music között a szupergyors gyorsítótár segítségével.
+A teljes lejátszási listákat sávonként vigye át a Spotify, az Apple Music, a YouTube Music, a TIDAL és a Deezer között – automatikus duplikált tisztítással, akár 200 számmal és nagy sebességű, többszintű gyorsítótárazással.
+
+• Egyezések finomítása és kedvencek egy koppintással:
+Könnyedén választhat az élő felvételek, a remasterek vagy az alternatív verziók között. Rögzítse kedvenc zeneszámait a történelemben egyetlen érintéssel, és kezelje őket az egyszerűsített gyorsműveleti menün keresztül.
 
 • Azonnali Lejátszás (Instant Playback):
 A szám vagy epizód közvetlenül a céllejátszóban indul el az üres keresési oldalak helyett.

@@ -45,7 +45,10 @@ play-store*.json
 # Internal Assets & Working Documents
 internal/
 store_assets/
-distribution/
+distribution/open-assets/node_modules/
+distribution/open-assets/exports/
+distribution/screenshots/
+distribution/screenshots-ios/
 fastlane/report.xml
 fastlane/screenshots/
 fastlane/test_output/

@@ -178,8 +178,7 @@ fun HistoryBottomSheet(
         }
     }
 
-    if (disambiguateItem != null) {
-        val item = disambiguateItem!!
+    disambiguateItem?.let { item ->
         DisambiguationBottomSheet(
             cacheKey = item.cacheKey,
             title = item.title ?: "",
@@ -1000,7 +999,9 @@ private fun openTargetUrl(context: Context, rawTargetUrl: String, platformKey: S
             }
             context.startActivity(intent)
             return
-        } catch (_: Exception) {}
+        } catch (e: Exception) {
+            android.util.Log.w("HistoryBottomSheet", "Failed to start target app $targetPackage: ${e.message}")
+        }
     }
 
     val fallbackUrl = PackageUtils.toWebFallbackUrl(targetUrl, platformKey)
@@ -1009,7 +1010,9 @@ private fun openTargetUrl(context: Context, rawTargetUrl: String, platformKey: S
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }
         context.startActivity(fallback)
-    } catch (ignored: Exception) {}
+    } catch (e: Exception) {
+        android.util.Log.e("HistoryBottomSheet", "Failed to open fallback URL $fallbackUrl: ${e.message}", e)
+    }
 }
 
 private fun copyToClipboard(context: Context, rawText: String) {

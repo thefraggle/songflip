@@ -390,7 +390,9 @@ class RedirectActivity : ComponentActivity() {
                 startActivity(launchIntent)
                 return
             }
-        } catch (ignored: Exception) {}
+        } catch (e: Exception) {
+            android.util.Log.w("RedirectActivity", "Explicit player launch failed, falling back to browser: ${e.message}")
+        }
 
         // Stage 3: Safe web browser fallback
         openInBrowser(Uri.parse(effectiveUrl))
@@ -434,7 +436,9 @@ class RedirectActivity : ComponentActivity() {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
             startActivity(browserIntent)
-        } catch (ignored: Exception) {}
+        } catch (e: Exception) {
+            android.util.Log.e("RedirectActivity", "Failed to launch web browser fallback: ${e.message}", e)
+        }
     }
 
     private fun suppressTransitionAnimation() {

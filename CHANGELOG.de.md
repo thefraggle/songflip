@@ -1,5 +1,16 @@
 # Changelog (Deutsch)
 
+## [1.8.11] - 2026-10-10
+- **Mehr Sprachen**: Volle Sprachunterstützung für Tschechisch, Finnisch, Ungarisch, Griechisch, Rumänisch und Thailändisch.
+- **Verlässliche Player-Auswahl**: Die Schnellauswahl des bevorzugten Musik-Players öffnet sich nun direkt und zuverlässig vor dem Abspielen von Titeln.
+- **Stabilere Musik-Wiedergabe**: Verbesserte Weiterleitung und reibungslosere Übergabe an deine Musik-Apps.
+- **Sicherheit & Zuverlässigkeit**: Erweiterte Absicherung der gespeicherten Einstellungen und optimierte Fehlerbehandlung im Hintergrund.
+
+## [1.8.10] - 2026-10-10
+- **Aufgeräumte Suche & Verlauf**: Song-Einträge in der Suche und im Verlauf bieten jetzt ein übersichtliches Aktionsmenü zum Teilen, Favorisieren und schnellen Kopieren.
+- **Direktes Abspielen**: Ein Fingertipp auf Cover oder Titel startet den Song sofort in deinem bevorzugten Musik-Player.
+- **Komfortablere Bedienung**: Die Tastatur schließt sich beim Scrollen durch Suchergebnisse jetzt automatisch.
+
 ## [1.8.9] - 2026-10-09
 - **Direkte Songsuche**: Finde Songs direkt in der App per Titelsuche und öffne sie mit einem Fingertipp in deinem Lieblings-Player.
 - **Treffer anpassen**: Wähle bei Bedarf ganz einfach eine alternative Version oder Aufnahme eines Titels aus.

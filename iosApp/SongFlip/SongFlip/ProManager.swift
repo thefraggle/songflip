@@ -3,6 +3,7 @@ import SwiftUI
 import Combine
 import RevenueCat
 import SongFlipKit
+import CryptoKit
 
 enum RedeemResult {
     case successLifetime
@@ -26,6 +27,7 @@ final class ProManager: NSObject, ObservableObject {
     private static let keyCouponExpiration = "pro_coupon_expiration"
     private static let keyCouponToken = "pro_coupon_token"
     private static let keyIsProCached = "is_pro_cached"
+    private static let keyCacheSignature = "pro_cache_signature"
 
     @Published var isPro: Bool = false
     @Published var proType: String? = nil
@@ -43,6 +45,22 @@ final class ProManager: NSObject, ObservableObject {
         loadCachedState()
     }
 
+    private func getDeviceFingerprint() -> String {
+        return UIDevice.current.identifierForVendor?.uuidString ?? "generic_device_id"
+    }
+
+    private func computeSignature(isPro: Bool, proType: String?, expiration: Double?) -> String {
+        let raw = "\(isPro):\(proType ?? ""):\(expiration ?? 0):\(getDeviceFingerprint()):songflip_secure_salt_8f92"
+        let digest = SHA256.hash(data: Data(raw.utf8))
+        return digest.map { String(format: "%02x", $0) }.joined()
+    }
+
+    private func persistProState(isPro: Bool, proType: String?, expiration: Double? = nil) {
+        defaults.set(isPro, forKey: Self.keyIsProCached)
+        let sig = computeSignature(isPro: isPro, proType: proType, expiration: expiration)
+        defaults.set(sig, forKey: Self.keyCacheSignature)
+    }
+
     func configure(isDebug: Bool = false) {
         Purchases.logLevel = isDebug ? .debug : .warn
         Purchases.configure(withAPIKey: Self.apiKey)
@@ -58,6 +76,20 @@ final class ProManager: NSObject, ObservableObject {
         let cachedIsPro = defaults.bool(forKey: Self.keyIsProCached)
         let couponType = defaults.string(forKey: Self.keyCouponType)
         let couponExpiration = defaults.double(forKey: Self.keyCouponExpiration)
+        let storedSignature = defaults.string(forKey: Self.keyCacheSignature)
+
+        let expValue: Double? = (couponExpiration > 0) ? couponExpiration : nil
+        let expectedSignature = computeSignature(isPro: cachedIsPro, proType: couponType, expiration: expValue)
+
+        // Enforce cryptographic integrity: if Pro is claimed but signature doesn't match, reject state
+        if cachedIsPro && storedSignature != expectedSignature {
+            self.isPro = false
+            self.proType = nil
+            self.expirationDate = nil
+            defaults.set(false, forKey: Self.keyIsProCached)
+            defaults.removeObject(forKey: Self.keyCacheSignature)
+            return
+        }
 
         if let couponType = couponType {
             if couponType == "lifetime" {
@@ -102,7 +134,8 @@ final class ProManager: NSObject, ObservableObject {
             let isLifetime = proEntitlement?.periodType == .normal && proEntitlement?.expirationDate == nil
             self.proType = isLifetime ? "revenuecat_lifetime" : "revenuecat_subscription"
             self.expirationDate = proEntitlement?.expirationDate
-            defaults.set(true, forKey: Self.keyIsProCached)
+            let expMillis = proEntitlement?.expirationDate.map { $0.timeIntervalSince1970 * 1000 }
+            persistProState(isPro: true, proType: self.proType, expiration: expMillis)
             return
         }
 
@@ -115,13 +148,13 @@ final class ProManager: NSObject, ObservableObject {
                 self.isPro = true
                 self.proType = "lifetime_coupon"
                 self.expirationDate = nil
-                defaults.set(true, forKey: Self.keyIsProCached)
+                persistProState(isPro: true, proType: "lifetime_coupon", expiration: nil)
                 return
             } else if couponExpiration > Date().timeIntervalSince1970 * 1000 {
                 self.isPro = true
                 self.proType = "\(couponType)_coupon"
                 self.expirationDate = Date(timeIntervalSince1970: couponExpiration / 1000)
-                defaults.set(true, forKey: Self.keyIsProCached)
+                persistProState(isPro: true, proType: couponType, expiration: couponExpiration)
                 return
             }
         }
@@ -129,7 +162,7 @@ final class ProManager: NSObject, ObservableObject {
         self.isPro = false
         self.proType = nil
         self.expirationDate = nil
-        defaults.set(false, forKey: Self.keyIsProCached)
+        persistProState(isPro: false, proType: nil, expiration: nil)
     }
 
     func purchase(package: Package, extraProps: [String: String] = [:]) async throws -> Bool {
@@ -216,7 +249,7 @@ final class ProManager: NSObject, ObservableObject {
                         defaults.set(cleanCode, forKey: Self.keyCouponCode)
                         defaults.set(token, forKey: Self.keyCouponToken)
                         defaults.removeObject(forKey: Self.keyCouponExpiration)
-                        defaults.set(true, forKey: Self.keyIsProCached)
+                        persistProState(isPro: true, proType: "lifetime_coupon", expiration: nil)
                         self.isPro = true
                         self.proType = "lifetime_coupon"
                         self.expirationDate = nil
@@ -230,7 +263,7 @@ final class ProManager: NSObject, ObservableObject {
                         defaults.set(cleanCode, forKey: Self.keyCouponCode)
                         defaults.set(token, forKey: Self.keyCouponToken)
                         defaults.set(expireTime, forKey: Self.keyCouponExpiration)
-                        defaults.set(true, forKey: Self.keyIsProCached)
+                        persistProState(isPro: true, proType: type, expiration: expireTime)
 
                         self.isPro = true
                         self.proType = "\(type)_coupon"

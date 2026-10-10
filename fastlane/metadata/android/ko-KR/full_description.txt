@@ -9,11 +9,20 @@ Spotify에서 YouTube Music으로, Apple Podcasts에서 Spotify로, Shazam 공�
 • 10개 오디오 플랫폼, 팟캐스트 및 Shazam 지원:
 Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud, Bandcamp 간에 자유롭게 변환합니다. Shazam 링크도 지원!
 
+• 직접 노래 검색(인앱 검색):
+SongFlip 내에서 바로 트랙과 아티스트를 검색하고 탭 한 번으로 Fast Flip을 통해 선호하는 음악 앱에서 즉시 재생을 시작할 수 있습니다. 기존 링크가 필요하지 않습니다.
+
+• QR 코드 음악 공유 및 스캔:
+노래와 앨범에 대한 범용 QR 코드를 생성하고 스캔하세요. 어떤 스트리밍 서비스를 구독하든 친구와 직접 음악을 쉽게 공유할 수 있습니다.
+
 • 팟캐스트 변환 엔진:
 팟캐스트 방송 및 개별 에피소드를 여러 플랫폼 간에 공유하세요. 에피소드 제목을 분석하여 원하는 팟캐스트 앱에서 즉시 재생합니다.
 
 • 유니버설 플레이리스트 변환기:
-고속 멀티 티어 캐시를 통해 전체 재생목록을 Spotify, Apple Music, YouTube Music 간에 트랙별로 간편하게 변환합니다.
+자동 중복 정리, 최대 200개 트랙 및 고속 다중 계층 캐싱 기능을 통해 Spotify, Apple Music, YouTube Music, TIDAL 및 Deezer 간에 전체 재생 목록을 트랙별로 전송할 수 있습니다.
+
+• 일치 항목 수정 및 1탭 즐겨찾기:
+라이브 녹음, 리마스터 또는 대체 버전 중에서 쉽게 선택할 수 있습니다. 한 번의 탭으로 좋아하는 트랙을 기록에 고정하고 간소화된 빠른 작업 메뉴를 통해 관리하세요.
 
 • 즉시 재생 (Instant Playback):
 빈 검색 결과 대신 대상 플레이어에서 곡이나 에피소드를 바로 재생합니다.
