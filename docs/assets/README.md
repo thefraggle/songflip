@@ -9,7 +9,9 @@ The full localization suite (34 languages for Google Play & iOS App Store) is ge
 - Outputs are saved to `distribution/screenshots/` (Android) and `distribution/screenshots-ios/` (iOS).
 
 ## Showcase Previews (DE & EN)
-- **Feature Graphic (1024x500)**:
+- **Feature & Social OG Graphic (1200x630)**:
+  - `og-image-de.png` / `og-image-en.png`
+- **Store Feature Graphic (1024x500)**:
   - `feature_graphic_de.png` / `feature_graphic_en.png`
 - **Android Screenshots (1080x2400)**:
   - `android_screen_1_chat_*.png`: Screen 1 – Instant 0-click redirect with incoming chat link
