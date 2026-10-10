@@ -373,4 +373,5 @@
     <string name="disambiguate_success">Treff oppdatert</string>
     <string name="disambiguate_empty">Ingen alternative versjoner funnet</string>
     <string name="disambiguate_error">Kunne ikke laste versjoner</string>
+    <string name="history_qr_action">Vis QR-kode</string>
 </resources>

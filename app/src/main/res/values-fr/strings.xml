@@ -373,4 +373,5 @@
     <string name="disambiguate_success">Correspondance mise à jour</string>
     <string name="disambiguate_empty">Aucune version alternative trouvée</string>
     <string name="disambiguate_error">Impossible de charger les versions</string>
+    <string name="history_qr_action">Afficher le code QR</string>
 </resources>

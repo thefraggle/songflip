@@ -373,4 +373,5 @@
     <string name="disambiguate_success">Match bijgewerkt</string>
     <string name="disambiguate_empty">Geen alternatieve versies gevonden</string>
     <string name="disambiguate_error">Kan versies niet laden</string>
+    <string name="history_qr_action">Toon QR-code</string>
 </resources>

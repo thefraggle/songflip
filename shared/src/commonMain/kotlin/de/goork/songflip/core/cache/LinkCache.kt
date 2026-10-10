@@ -343,8 +343,12 @@ class LinkCache(
         count
     }
 
-    private fun buildKey(url: String, targetPlatformKey: String): String {
+    fun buildKey(url: String, targetPlatformKey: String): String {
         val normalized = url.trim().substringBefore("#").trimEnd('/')
         return "$normalized|$targetPlatformKey"
+    }
+
+    suspend fun setFavoriteForUrl(url: String, targetPlatformKey: String, isFavorite: Boolean) {
+        setFavorite(buildKey(url, targetPlatformKey), isFavorite)
     }
 }

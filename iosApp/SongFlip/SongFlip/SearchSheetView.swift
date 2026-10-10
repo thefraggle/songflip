@@ -1,5 +1,4 @@
 import SwiftUI
-import AVFoundation
 import SongFlipKit
 
 struct SearchTrackItem: Identifiable, Equatable {
@@ -8,7 +7,6 @@ struct SearchTrackItem: Identifiable, Equatable {
     let artist: String
     let album: String?
     let coverUrl: String?
-    let previewUrl: String?
     let sourceUrl: String
     let durationSec: Int
 
@@ -30,9 +28,17 @@ struct SearchSheetView: View {
     @State private var errorMessage: String? = nil
     @State private var resolvingTrackId: String? = nil
 
-    // Audio Preview playback
-    @State private var player: AVPlayer? = nil
-    @State private var playingPreviewUrl: String? = nil
+    // Sheets
+    @State private var showingPaywallSheet: Bool = false
+    @State private var qrCodePayload: QRCodePayload? = nil
+    @State private var pickerTrack: SearchTrackItem? = nil
+
+    struct QRCodePayload: Identifiable {
+        let id = UUID()
+        let url: String
+        let title: String
+        let artist: String?
+    }
 
     var lang: String { settings.selectedLanguage }
 
@@ -64,7 +70,6 @@ struct SearchSheetView: View {
                             Button(action: {
                                 searchQuery = ""
                                 searchResults = []
-                                stopPreview()
                             }) {
                                 Image(systemName: "xmark.circle.fill")
                                     .foregroundColor(.secondary)
@@ -139,6 +144,7 @@ struct SearchSheetView: View {
                             }
                         }
                         .listStyle(.insetGrouped)
+                        .scrollDismissesKeyboard(.immediately)
                     }
                 }
             }
@@ -147,7 +153,6 @@ struct SearchSheetView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        stopPreview()
                         dismiss()
                     }) {
                         Image(systemName: "xmark.circle.fill")
@@ -159,8 +164,27 @@ struct SearchSheetView: View {
             .onChange(of: searchQuery) { query in
                 performSearch(query: query)
             }
-            .onDisappear {
-                stopPreview()
+            .sheet(isPresented: $showingPaywallSheet) {
+                ProPaywallSheetView()
+                    .preferredColorScheme(settings.colorScheme)
+            }
+            .sheet(item: $qrCodePayload) { payload in
+                QRCodeSheetView(url: payload.url, title: payload.title, artist: payload.artist, lang: lang)
+                    .preferredColorScheme(settings.colorScheme)
+            }
+            .sheet(item: $pickerTrack) { tr in
+                QuickTargetPickerSheetView(
+                    url: tr.sourceUrl,
+                    lang: lang,
+                    onSelectTarget: { pickedTarget in
+                        pickerTrack = nil
+                        flipTrack(tr, targetOverride: pickedTarget)
+                    },
+                    onDismiss: {
+                        pickerTrack = nil
+                    }
+                )
+                .preferredColorScheme(settings.colorScheme)
             }
         }
     }
@@ -168,10 +192,10 @@ struct SearchSheetView: View {
     @ViewBuilder
     private func trackRow(track: SearchTrackItem) -> some View {
         let isResolving = resolvingTrackId == track.id
-        let isPlaying = playingPreviewUrl == track.previewUrl && track.previewUrl != nil
+        let universalShareUrl = URL(string: "https://songflip.link/s/" + (track.sourceUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")) ?? URL(string: track.sourceUrl)!
 
         HStack(spacing: 12) {
-            // Cover Image with 1-tap Preview Button
+            // Cover Image with subtle Play Badge
             ZStack(alignment: .bottomTrailing) {
                 if let coverStr = track.coverUrl, let url = URL(string: coverStr) {
                     AsyncImage(url: url) { phase in
@@ -194,18 +218,12 @@ struct SearchSheetView: View {
                     fallbackArtwork
                 }
 
-                if let preview = track.previewUrl, !preview.isEmpty {
-                    Button(action: {
-                        togglePreview(url: preview)
-                    }) {
-                        Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                            .font(.system(size: 15))
-                            .foregroundColor(.white)
-                            .background(Circle().fill(Color.black.opacity(0.55)).frame(width: 15, height: 15))
-                            .offset(x: 2, y: 2)
-                    }
-                    .buttonStyle(.plain)
-                }
+                // Subtle Play Indicator Badge (unten rechts auf dem Cover)
+                Image(systemName: "play.circle.fill")
+                    .font(.system(size: 14))
+                    .foregroundColor(.white)
+                    .background(Circle().fill(Color.black.opacity(0.4)).frame(width: 14, height: 14))
+                    .offset(x: 2, y: 2)
             }
 
             // Title & Artist
@@ -239,9 +257,54 @@ struct SearchSheetView: View {
                     .progressViewStyle(CircularProgressViewStyle())
                     .scaleEffect(0.9)
             } else {
-                Image(systemName: "arrow.right.circle.fill")
-                    .font(.system(size: 20))
-                    .foregroundColor(.green)
+                // Option A: 3-Punkte-Aktionsmenü (⋮)
+                Menu {
+                    // 1. Teilen / FlipPage (mit 💎 bei Free)
+                    if proManager.isPro {
+                        ShareLink(item: universalShareUrl, message: Text(track.title)) {
+                            Label(LocalizationManager.string(for: "share_universal_link", lang: lang), systemImage: "square.and.arrow.up")
+                        }
+                    } else {
+                        Button {
+                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                            showingPaywallSheet = true
+                        } label: {
+                            Label("\(LocalizationManager.string(for: "share_universal_link", lang: lang)) 💎", systemImage: "square.and.arrow.up")
+                        }
+                    }
+
+                    // 2. QR Code (nur bei Pro sichtbar!)
+                    if proManager.isPro {
+                        Button {
+                            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                            qrCodePayload = QRCodePayload(url: universalShareUrl.absoluteString, title: track.title, artist: track.artist)
+                        } label: {
+                            Label(LocalizationManager.string(for: "history_qr_action", lang: lang), systemImage: "qrcode")
+                        }
+                    }
+
+                    // 3. In anderem Player öffnen
+                    Button {
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                        pickerTrack = track
+                    } label: {
+                        Label(LocalizationManager.string(for: "quick_picker_title", lang: lang), systemImage: "arrow.triangle.branch")
+                    }
+
+                    // 4. Link kopieren
+                    Button {
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                        UIPasteboard.general.string = track.sourceUrl
+                    } label: {
+                        Label(LocalizationManager.string(for: "action_copy", lang: lang), systemImage: "doc.on.doc")
+                    }
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundColor(.secondary)
+                        .frame(width: 32, height: 32)
+                        .contentShape(Rectangle())
+                }
             }
         }
         .contentShape(Rectangle())
@@ -305,7 +368,6 @@ struct SearchSheetView: View {
                         let rawArt = (r["artworkUrl100"] as? String) ?? (r["artworkUrl60"] as? String)
                         let cover = rawArt?.replacingOccurrences(of: "100x100bb", with: "300x300bb")
                             .replacingOccurrences(of: "60x60bb", with: "300x300bb")
-                        let preview = r["previewUrl"] as? String
                         let trackViewUrl = (r["trackViewUrl"] as? String) ?? ""
                         let millis = (r["trackTimeMillis"] as? Int) ?? 0
 
@@ -315,7 +377,6 @@ struct SearchSheetView: View {
                             artist: artist,
                             album: album,
                             coverUrl: cover,
-                            previewUrl: preview,
                             sourceUrl: trackViewUrl,
                             durationSec: millis / 1000
                         ))
@@ -344,9 +405,9 @@ struct SearchSheetView: View {
     }
 
     // MARK: - Track Flip & Open
-    private func flipTrack(_ track: SearchTrackItem) {
+    private func flipTrack(_ track: SearchTrackItem, targetOverride: String? = nil) {
         guard !track.sourceUrl.isEmpty else { return }
-        stopPreview()
+        let targetKey = targetOverride ?? settings.targetPlatform
         resolvingTrackId = track.id
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
 
@@ -354,7 +415,7 @@ struct SearchSheetView: View {
             do {
                 let res = try await SongLinkEngine.shared.resolveTargetUrl(
                     inputUrl: track.sourceUrl,
-                    targetPlatformKey: settings.targetPlatform,
+                    targetPlatformKey: targetKey,
                     customApiUrl: settings.customApiUrl,
                     customApiToken: settings.customApiToken,
                     forceRefresh: false
@@ -366,7 +427,7 @@ struct SearchSheetView: View {
                        let targetUrl = URL(string: success.targetUrl) {
                         // Track in Aptabase
                         AptabaseClient.shared.trackLinkFlipped(
-                            target: settings.targetPlatform,
+                            target: targetKey,
                             isAlbum: success.isAlbum,
                             isSearch: success.isSearchFallback,
                             source: "in_app_search"
@@ -378,7 +439,7 @@ struct SearchSheetView: View {
                             artist: success.artist ?? track.artist,
                             sourceUrl: track.sourceUrl,
                             targetUrl: success.targetUrl,
-                            targetPlatform: settings.targetPlatform,
+                            targetPlatform: targetKey,
                             isAlbum: success.isAlbum,
                             thumbnailUrl: success.thumbnailUrl ?? track.coverUrl
                         )
@@ -394,35 +455,5 @@ struct SearchSheetView: View {
                 }
             }
         }
-    }
-
-    // MARK: - Audio Preview
-    private func togglePreview(url: String) {
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
-        if playingPreviewUrl == url {
-            stopPreview()
-        } else {
-            stopPreview()
-            guard let audioUrl = URL(string: url) else { return }
-            let item = AVPlayerItem(url: audioUrl)
-            let newPlayer = AVPlayer(playerItem: item)
-            self.player = newPlayer
-            self.playingPreviewUrl = url
-            newPlayer.play()
-
-            NotificationCenter.default.addObserver(
-                forName: .AVPlayerItemDidPlayToEndTime,
-                object: item,
-                queue: .main
-            ) { _ in
-                self.stopPreview()
-            }
-        }
-    }
-
-    private func stopPreview() {
-        player?.pause()
-        player = nil
-        playingPreviewUrl = nil
     }
 }

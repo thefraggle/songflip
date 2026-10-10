@@ -373,4 +373,5 @@
     <string name="disambiguate_success">परिणाम अपडेट केला</string>
     <string name="disambiguate_empty">कोणतीही पर्यायी आवृत्ती आढळली नाही</string>
     <string name="disambiguate_error">आवृत्त्या लोड होऊ शकल्या नाहीत</string>
+    <string name="history_qr_action">QR कोड दाखवा</string>
 </resources>

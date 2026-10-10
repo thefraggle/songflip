@@ -714,6 +714,14 @@ fun HistoryItemCard(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
+                    if (item.isFavorite) {
+                        Icon(
+                            imageVector = Icons.Filled.Star,
+                            contentDescription = stringResource(R.string.favorite_remove),
+                            tint = Color(0xFFFFB800),
+                            modifier = Modifier.size(13.dp)
+                        )
+                    }
                     PlatformTag(name = sourceDisplayName, isSource = true)
                     Text(
                         text = "➔",
@@ -792,71 +800,75 @@ fun HistoryItemCard(
                 }
             }
 
-            // 3. Right Actions: Favorite (Star) + Share (FlipPage) + Overflow Menu (⋮)
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(0.dp)
-            ) {
+            // 3. Right Action: Overflow Menu (⋮)
+            Box {
                 IconButton(
-                    onClick = onToggleFavorite,
-                    modifier = Modifier.size(36.dp)
-                ) {
-                    Icon(
-                        imageVector = if (item.isFavorite) Icons.Filled.Star else Icons.Outlined.StarBorder,
-                        contentDescription = stringResource(if (item.isFavorite) R.string.favorite_remove else R.string.favorite_add),
-                        tint = if (item.isFavorite) Color(0xFFFFB800) else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-
-                IconButton(
-                    onClick = onShareUniversal,
+                    onClick = { showMenu = true },
                     modifier = Modifier.size(38.dp)
                 ) {
-                    Box(contentAlignment = Alignment.Center) {
-                        Icon(
-                            imageVector = Icons.Outlined.Share,
-                            contentDescription = stringResource(if (isPro) R.string.share_universal_link else R.string.share_universal_link_pro),
-                            tint = if (isPro) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.tertiary,
-                            modifier = Modifier.size(19.dp)
+                    if (isRefreshing) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(16.dp),
+                            strokeWidth = 2.dp,
+                            color = MaterialTheme.colorScheme.primary
                         )
-                        if (!isPro) {
-                            Text(
-                                text = "💎",
-                                fontSize = 8.sp,
-                                modifier = Modifier
-                                    .align(Alignment.TopEnd)
-                                    .offset(x = 4.dp, y = (-4).dp)
-                            )
-                        }
+                    } else {
+                        Icon(
+                            imageVector = Icons.Default.MoreVert,
+                            contentDescription = stringResource(R.string.action_more_options),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.size(20.dp)
+                        )
                     }
                 }
 
-                Box {
-                    IconButton(
-                        onClick = { showMenu = true },
-                        modifier = Modifier.size(38.dp)
-                    ) {
-                        if (isRefreshing) {
-                            CircularProgressIndicator(
-                                modifier = Modifier.size(16.dp),
-                                strokeWidth = 2.dp,
-                                color = MaterialTheme.colorScheme.primary
-                            )
-                        } else {
+                DropdownMenu(
+                    expanded = showMenu,
+                    onDismissRequest = { showMenu = false }
+                ) {
+                    // 1. Favorite toggle
+                    DropdownMenuItem(
+                        text = { Text(stringResource(if (item.isFavorite) R.string.favorite_remove else R.string.favorite_add)) },
+                        leadingIcon = {
                             Icon(
-                                imageVector = Icons.Default.MoreVert,
-                                contentDescription = stringResource(R.string.action_more_options),
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                modifier = Modifier.size(20.dp)
+                                imageVector = if (item.isFavorite) Icons.Filled.Star else Icons.Outlined.StarBorder,
+                                contentDescription = null,
+                                tint = if (item.isFavorite) Color(0xFFFFB800) else MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.size(18.dp)
                             )
+                        },
+                        onClick = {
+                            showMenu = false
+                            onToggleFavorite()
                         }
-                    }
+                    )
 
-                    DropdownMenu(
-                        expanded = showMenu,
-                        onDismissRequest = { showMenu = false }
-                    ) {
+                    // 2. Share / FlipPage (mit 💎 bei Free)
+                    DropdownMenuItem(
+                        text = {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(6.dp)
+                            ) {
+                                Text(stringResource(R.string.share_universal_link))
+                                if (!isPro) {
+                                    Text("💎", fontSize = 12.sp)
+                                }
+                            }
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Outlined.Share,
+                                contentDescription = null,
+                                tint = if (isPro) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.tertiary,
+                                modifier = Modifier.size(18.dp)
+                            )
+                        },
+                        onClick = {
+                            showMenu = false
+                            onShareUniversal()
+                        }
+                    )
                         if (isPlaylist && onOpenPlaylist != null) {
                             DropdownMenuItem(
                                 text = { Text(stringResource(R.string.history_open_playlist_details)) },
@@ -931,7 +943,6 @@ fun HistoryItemCard(
             }
         }
     }
-}
 
 @Composable
 fun PlatformTag(name: String, isSource: Boolean) {

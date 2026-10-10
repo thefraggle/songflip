@@ -363,4 +363,5 @@
     <string name="disambiguate_success">Rezultat actualizat</string>
     <string name="disambiguate_empty">Nu s-au găsit versiuni alternative</string>
     <string name="disambiguate_error">Nu s-au putut încărca versiunile</string>
+    <string name="history_qr_action">Arată codul QR</string>
 </resources>

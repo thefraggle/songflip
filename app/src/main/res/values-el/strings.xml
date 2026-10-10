@@ -359,4 +359,5 @@
     <string name="disambiguate_success">Το αποτέλεσμα ενημερώθηκε</string>
     <string name="disambiguate_empty">Δεν βρέθηκαν εναλλακτικές εκδόσεις</string>
     <string name="disambiguate_error">Δεν ήταν δυνατή η φόρτωση των εκδόσεων</string>
+    <string name="history_qr_action">Εμφάνιση κωδικού QR</string>
 </resources>

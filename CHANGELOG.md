@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.8.10] - 2026-10-10
+- **Cleaner Search & History**: Song cards in search and history now feature a streamlined action menu for sharing, favorites, and quick link copying.
+- **Instant Fast Flip**: Tapping any cover or track opens the song directly in your favorite music player without delay.
+- **Smoother Navigation**: The search keyboard automatically dismisses when scrolling through search results.
+
 ## [1.8.9] - 2026-10-09
 - **Direct Song Search**: Search for songs directly in the app and open them in your favourite player with one tap.
 - **Refine Matches**: Easily choose alternative song versions or recordings whenever needed.

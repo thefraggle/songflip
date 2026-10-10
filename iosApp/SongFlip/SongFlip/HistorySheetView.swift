@@ -11,7 +11,15 @@ struct HistorySheetView: View {
     @State private var showingPaywallSheet = false
     @State private var refreshingItemId: UUID? = nil
     @State private var disambiguateItem: HistoryItem? = nil
+    @State private var qrCodePayload: QRCodePayload? = nil
     var onOpenPlaylist: ((String, String) -> Void)? = nil
+
+    struct QRCodePayload: Identifiable {
+        let id = UUID()
+        let url: String
+        let title: String
+        let artist: String?
+    }
 
     var lang: String { settings.selectedLanguage }
 
@@ -195,15 +203,96 @@ struct HistorySheetView: View {
 
                                     Spacer()
 
-                                    // 3. Share FlipPage Button
-                                    if let shareUrl = universalShareUrl(for: item) {
-                                        ShareLink(item: shareUrl, message: Text(item.title)) {
-                                            Image(systemName: "square.and.arrow.up")
-                                                .font(.system(size: 15, weight: .semibold))
-                                                .foregroundColor(Color("AccentColor"))
-                                                .frame(width: 32, height: 32)
+                                    // 3. Right Action: Overflow Menu (⋮)
+                                    Menu {
+                                        // 1. Share FlipPage
+                                        if proManager.isPro, let shareUrl = universalShareUrl(for: item) {
+                                            ShareLink(item: shareUrl, message: Text(item.title)) {
+                                                Label(LocalizationManager.string(for: "share_universal_link", lang: lang), systemImage: "square.and.arrow.up")
+                                            }
+                                        } else {
+                                            Button {
+                                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                                showingPaywallSheet = true
+                                            } label: {
+                                                Label("\(LocalizationManager.string(for: "share_universal_link", lang: lang)) 💎", systemImage: "square.and.arrow.up")
+                                            }
                                         }
-                                        .buttonStyle(.borderless)
+
+                                        // 2. QR Code (nur bei Pro sichtbar!)
+                                        if proManager.isPro, let shareUrl = universalShareUrl(for: item) {
+                                            Button {
+                                                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                                qrCodePayload = QRCodePayload(url: shareUrl.absoluteString, title: item.title, artist: item.artist)
+                                            } label: {
+                                                Label(LocalizationManager.string(for: "history_qr_action", lang: lang), systemImage: "qrcode")
+                                            }
+                                        }
+
+                                        // 3. Copy target link
+                                        Button {
+                                            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                            UIPasteboard.general.string = item.targetUrl
+                                        } label: {
+                                            Label(LocalizationManager.string(for: "action_copy", lang: lang), systemImage: "doc.on.doc")
+                                        }
+
+                                        // 4. Copy source link
+                                        Button {
+                                            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                            UIPasteboard.general.string = item.sourceUrl
+                                        } label: {
+                                            Label(LocalizationManager.string(for: "action_copy_source", lang: lang), systemImage: "link")
+                                        }
+
+                                        // 5. Refresh link
+                                        Button {
+                                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                            Task {
+                                                await refreshLink(for: item)
+                                            }
+                                        } label: {
+                                            Label(LocalizationManager.string(for: "action_refresh_link", lang: lang), systemImage: "arrow.clockwise")
+                                        }
+
+                                        // 6. Disambiguate (if Pro)
+                                        if !isPlaylist {
+                                            Button {
+                                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                                if proManager.isPro {
+                                                    disambiguateItem = item
+                                                } else {
+                                                    showingPaywallSheet = true
+                                                }
+                                            } label: {
+                                                Label(LocalizationManager.string(for: "disambiguate_action", lang: lang), systemImage: "slider.horizontal.3")
+                                            }
+                                        }
+
+                                        if isPlaylist, let onOpenPlaylist = onOpenPlaylist {
+                                            Button {
+                                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                                onOpenPlaylist(item.sourceUrl, cleanPlatform)
+                                            } label: {
+                                                Label(LocalizationManager.string(for: "history_open_playlist_details", lang: lang), systemImage: "music.note.list")
+                                            }
+                                        }
+
+                                        Divider()
+
+                                        // 7. Delete
+                                        Button(role: .destructive) {
+                                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                            history.deleteItem(id: item.id)
+                                        } label: {
+                                            Label(LocalizationManager.string(for: "action_delete", lang: lang), systemImage: "trash")
+                                        }
+                                    } label: {
+                                        Image(systemName: "ellipsis")
+                                            .font(.system(size: 15, weight: .semibold))
+                                            .foregroundColor(.secondary)
+                                            .frame(width: 32, height: 32)
+                                            .contentShape(Rectangle())
                                     }
                                 }
                                 .padding(.vertical, 4)
@@ -359,6 +448,10 @@ struct HistorySheetView: View {
                 })
                 .environmentObject(settings)
                 .preferredColorScheme(settings.colorScheme)
+            }
+            .sheet(item: $qrCodePayload) { payload in
+                QRCodeSheetView(url: payload.url, title: payload.title, artist: payload.artist, lang: lang)
+                    .preferredColorScheme(settings.colorScheme)
             }
             .preferredColorScheme(settings.colorScheme)
             .onAppear {

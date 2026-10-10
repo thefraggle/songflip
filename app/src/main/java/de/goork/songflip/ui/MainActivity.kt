@@ -547,7 +547,11 @@ fun MainScreen(
     if (showSearchBottomSheet) {
         SearchBottomSheet(
             targetPlatformKey = selectedTargetKey,
-            onDismissRequest = { showSearchBottomSheet = false }
+            onDismissRequest = { showSearchBottomSheet = false },
+            onOpenProPaywall = {
+                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("search_universal_share")
+                showProPaywall = true
+            }
         )
     }
 

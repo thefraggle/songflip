@@ -367,4 +367,5 @@
     <string name="disambiguate_success">Shoda aktualizována</string>
     <string name="disambiguate_empty">Nebyly nalezeny žádné alternativní verze</string>
     <string name="disambiguate_error">Verze se nepodařilo načíst</string>
+    <string name="history_qr_action">Zobrazit QR kód</string>
 </resources>

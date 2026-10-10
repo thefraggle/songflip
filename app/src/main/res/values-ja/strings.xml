@@ -369,4 +369,5 @@
     <string name="disambiguate_success">マッチを更新しました</string>
     <string name="disambiguate_empty">別バージョンが見つかりませんでした</string>
     <string name="disambiguate_error">バージョンを読み込めませんでした</string>
+    <string name="history_qr_action">QRコードを表示</string>
 </resources>

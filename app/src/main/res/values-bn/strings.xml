@@ -373,4 +373,5 @@
     <string name="disambiguate_success">ফলাফল আপডেট করা হয়েছে</string>
     <string name="disambiguate_empty">কোনো বিকল্প সংস্করণ পাওয়া যায়নি</string>
     <string name="disambiguate_error">সংস্করণ লোড করা যায়নি</string>
+    <string name="history_qr_action">QR কোড দেখান</string>
 </resources>
