@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1290, height=2796" />
+  <link rel="stylesheet" href="../styles-ios.css" />
+</head>
+<body>
+  <div class="screenshot-container">
+    <div class="ambient-glow"></div>
+    <div class="header-area">
+      <h1 class="headline">{{s1_prefix}}<span class="accent">{{s1_accent}}</span>{{s1_suffix}}</h1>
+      <p class="subline">{{s1_subline}}</p>
+    </div>
+    <div class="mockup-area">
+      <div class="hero-container">
+        <!-- Dynamic HTML Chat Bubble (WhatsApp / iMessage Style) -->
+        <div class="chat-bubble">
+          <div class="chat-avatar">L</div>
+          <div class="chat-content">
+            <div class="chat-meta">
+              <span class="chat-sender">{{s1_chat_sender}}</span>
+              <span class="chat-time">{{s1_chat_time}}</span>
+            </div>
+            <div class="chat-message">{{s1_chat_text}}</div>
+            <span class="chat-link">{{s1_chat_link}}</span>
+          </div>
+        </div>
+
+        <!-- Large Hero Player in Unified iPhone Frame with Dynamic Island -->
+        <div class="hero-player-wrapper">
+          <div class="iphone-frame yt-player-frame">
+            <!-- Dynamic Island -->
+            <div class="dynamic-island">
+              <div class="camera-sensor"></div>
+            </div>
+
+            <!-- iOS Status Bar -->
+            <div class="ios-status-bar">
+              <div class="status-left">
+                <span class="status-time">9:41</span>
+                <div class="yt-music-app-badge">
+                  <img class="yt-music-badge-logo" src="../../public/logos/youtube_music.svg" alt="YouTube Music" />
+                  <span class="yt-music-badge-text">YouTube Music</span>
+                </div>
+              </div>
+              <div class="status-icons">
+                <!-- Cellular Signal -->
+                <svg width="24" height="20" viewBox="0 0 24 20">
+                  <rect x="1" y="14" width="3" height="6" rx="1"/>
+                  <rect x="6" y="10" width="3" height="10" rx="1"/>
+                  <rect x="11" y="6" width="3" height="14" rx="1"/>
+                  <rect x="16" y="2" width="3" height="18" rx="1"/>
+                </svg>
+                <!-- WiFi -->
+                <svg width="24" height="20" viewBox="0 0 24 20">
+                  <path d="M12 16.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm-5.5-4a7.8 7.8 0 0 1 11 0l-1.4 1.4a5.8 5.8 0 0 0-8.2 0L6.5 12.5zm-3.5-3.5a12.8 12.8 0 0 1 18 0l-1.4 1.4a10.8 10.8 0 0 0-15.2 0L3 9z" fill-rule="evenodd"/>
+                </svg>
+                <!-- Battery -->
+                <svg width="32" height="18" viewBox="0 0 32 18">
+                  <rect x="1" y="1" width="26" height="16" rx="4" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+                  <rect x="3" y="3" width="20" height="12" rx="2" fill="#FFFFFF"/>
+                  <path d="M29 6v6c1 0 1.5-.7 1.5-1.5v-3c0-.8-.5-1.5-1.5-1.5z" fill="#FFFFFF"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- YT Music Player Content -->
+            <div class="yt-content-box">
+              <img class="yt-content-img" src="../../public/mockups/content_yt_music.png" alt="Player Content" />
+            </div>
+
+            <!-- iOS Home Indicator -->
+            <div class="home-indicator"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -9,11 +9,20 @@ Ze Spotify na YouTube Music, z Apple Podcasts na Spotify nebo skladby ze Shazam:
 • 10 Streamovacích Platforem, Podcasty a Shazam:
 Plynulý převod mezi Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud a Bandcamp. Podporuje i odkazy ze Shazam!
 
+• Přímé vyhledávání skladeb (vyhledávání v aplikaci):
+Vyhledejte skladby a interprety přímo v aplikaci SongFlip a okamžitě spusťte přehrávání ve vaší oblíbené hudební aplikaci pomocí funkce Rychlé přetáčení jedním klepnutím – není potřeba žádný existující odkaz.
+
+• Sdílení a skenování QR kódu hudby:
+Generujte a skenujte univerzální QR kódy pro skladby a alba. Sdílejte hudbu s přáteli bez námahy osobně, bez ohledu na to, kterou streamovací službu si předplatí.
+
 • Podcastový Konvertor:
 Sdílejte podcastové pořady a jednotlivé epizody napříč platformami. SongFlip epizodu automaticky vyhledá a spustí přímo ve vaší aplikaci.
 
 • Univerzální Převodník Playlistů:
-Přenášejte celé playlisty skladbu po skladbě mezi Spotify, Apple Music a YouTube Music díky rychlé mezipaměti.
+Přenášejte celé seznamy stop po stopách mezi Spotify, Apple Music, YouTube Music, TIDAL a Deezer – s automatickým čištěním duplicit, až 200 stopami a vysokorychlostním vícevrstvým ukládáním do mezipaměti.
+
+• Upřesnit shody a oblíbené položky jedním klepnutím:
+Snadno si vyberte mezi živými nahrávkami, remastery nebo alternativními verzemi. Připněte si své oblíbené skladby do historie jediným klepnutím a spravujte je prostřednictvím efektivní nabídky rychlých akcí.
 
 • Okamžité Přehrávání (Instant Playback):
 Spustí skladbu nebo epizodu přímo v cílovém přehrávači místo zobrazení prázdného vyhledávání.

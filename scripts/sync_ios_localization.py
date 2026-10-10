@@ -35,6 +35,12 @@ LANG_MAP = {
     "bn": "values-bn",
     "hi": "values-hi",
     "mr": "values-mr",
+    "cs": "values-cs",
+    "el": "values-el",
+    "fi": "values-fi",
+    "hu": "values-hu",
+    "ro": "values-ro",
+    "th": "values-th",
 }
 
 def clean_android_text(text):

@@ -185,7 +185,9 @@ object PackageUtils {
                     }
                 }
             }
-        } catch (_: Exception) {}
+        } catch (e: Exception) {
+            android.util.Log.d("PackageUtils", "Dynamic player probe failed: ${e.message}")
+        }
 
         return null
     }
@@ -319,7 +321,9 @@ object PackageUtils {
                 }
                 context.startActivity(intent)
                 return
-            } catch (e: Exception) {}
+            } catch (e: Exception) {
+                android.util.Log.d("PackageUtils", "Open by default settings intent not supported: ${e.message}")
+            }
         }
         try {
             val intent = android.content.Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
@@ -327,6 +331,8 @@ object PackageUtils {
                 addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
             }
             context.startActivity(intent)
-        } catch (e: Exception) {}
+        } catch (e: Exception) {
+            android.util.Log.w("PackageUtils", "Application details settings intent failed: ${e.message}")
+        }
     }
 }

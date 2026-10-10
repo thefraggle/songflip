@@ -69,7 +69,9 @@ object NetworkUtils {
         awaitClose {
             try {
                 connectivityManager.unregisterNetworkCallback(callback)
-            } catch (_: Exception) {}
+            } catch (e: Exception) {
+                android.util.Log.d("NetworkUtils", "Callback already unregistered: ${e.message}")
+            }
         }
     }.distinctUntilChanged()
 }

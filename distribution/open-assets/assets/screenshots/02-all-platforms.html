@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080, height=2400" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div class="screenshot-container">
+    <div class="ambient-glow"></div>
+    <div class="header-area">
+      <h1 class="headline">{{s2_prefix}}<span class="accent">{{s2_accent}}</span>{{s2_suffix}}</h1>
+      <p class="subline">{{s2_subline}}</p>
+    </div>
+    <div class="mockup-area">
+      <div class="phone-frame">
+        <!-- Status Bar -->
+        <div class="status-bar">
+          <span>12:00</span>
+          <div class="punch-hole"></div>
+          <div class="status-battery">
+            <svg viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 1.5C4 0.95 4.45 0.5 5 0.5H7C7.55 0.5 8 0.95 8 1.5V2H4V1.5Z" fill="#E2E8F0"/>
+              <rect x="1" y="2" width="10" height="17" rx="2.5" fill="#E2E8F0"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- 1. App Header Card -->
+        <div class="app-header">
+          <div class="app-brand">
+            <div class="app-icon-box">
+              <img class="app-icon" src="../../public/songflip_icon.png" alt="SongFlip Icon" />
+            </div>
+            <div>
+              <div class="app-name">{{s2_app_title}}</div>
+              <div class="app-tagline">{{s2_app_subtitle}}</div>
+            </div>
+          </div>
+          <div class="gear-btn">
+            <svg class="gear-icon" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- 2. Live Status Banner -->
+        <div class="status-pill-box">
+          <div class="status-active-group">
+            <div class="status-dot"></div>
+            <span class="status-active-text">{{s2_status_active}}</span>
+          </div>
+          <div class="status-pause-btn">
+            <span>⏸</span>
+            <span>{{s2_status_pause}}</span>
+          </div>
+        </div>
+
+        <!-- 3. Domain Routing Status Card (Real App Feature) -->
+        <div class="domain-card">
+          <div class="domain-card-header">
+            <span class="domain-check-icon">✓</span>
+            <span class="domain-title">{{s2_routing_title}}</span>
+          </div>
+          <div class="domain-desc">{{s2_routing_desc}}</div>
+          <div class="domain-pill-btn">
+            <div class="domain-pill-content">
+              <span class="domain-pill-check">✓</span>
+              <span>{{s2_routing_domains}}</span>
+            </div>
+            <svg class="domain-gear-icon" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- 4. Bevorzugter Ziel-Player Card -->
+        <div class="player-list-card">
+          <div>
+            <div class="player-list-title">{{s2_target_title}}</div>
+            <div class="player-list-desc">{{s2_target_subtitle}}</div>
+          </div>
+
+          <!-- YouTube Music (Selected) -->
+          <div class="service-row selected">
+            <div class="service-info">
+              <img class="service-logo" src="../../public/logos/youtube_music.svg" alt="YouTube Music" />
+              <div class="service-text">
+                <span class="service-name">YouTube Music</span>
+                <span class="service-status green">✓ {{s2_installed}}</span>
+              </div>
+            </div>
+            <div class="check-circle">✓</div>
+          </div>
+
+          <!-- Apple Music -->
+          <div class="service-row">
+            <div class="service-info">
+              <img class="service-logo" src="../../public/logos/apple_music.svg" alt="Apple Music" />
+              <div class="service-text">
+                <span class="service-name">Apple Music</span>
+                <span class="service-status">🌐 {{s2_browser}}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Spotify -->
+          <div class="service-row">
+            <div class="service-info">
+              <img class="service-logo" src="../../public/logos/spotify.svg" alt="Spotify" />
+              <div class="service-text">
+                <span class="service-name">Spotify</span>
+                <span class="service-status">🌐 {{s2_browser}}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pocket Casts (Podcasts!) -->
+          <div class="service-row">
+            <div class="service-info">
+              <img class="service-logo" src="../../public/logos/pocket_casts.svg" alt="Pocket Casts" />
+              <div class="service-text">
+                <span class="service-name">Pocket Casts</span>
+                <span class="service-status green">✓ {{s2_installed}}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tidal -->
+          <div class="service-row">
+            <div class="service-info">
+              <img class="service-logo" src="../../public/logos/tidal.svg" alt="Tidal" />
+              <div class="service-text">
+                <span class="service-name">Tidal</span>
+                <span class="service-status">🌐 {{s2_browser}}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Deezer -->
+          <div class="service-row">
+            <div class="service-info">
+              <img class="service-logo" src="../../public/logos/deezer.svg" alt="Deezer" />
+              <div class="service-text">
+                <span class="service-name">Deezer</span>
+                <span class="service-status">🌐 {{s2_browser}}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Amazon Music -->
+          <div class="service-row">
+            <div class="service-info">
+              <img class="service-logo" src="../../public/logos/amazon_music.svg" alt="Amazon Music" />
+              <div class="service-text">
+                <span class="service-name">Amazon Music</span>
+                <span class="service-status">🌐 {{s2_browser}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Android Bottom Gesture Bar -->
+        <div class="bottom-nav-bar">
+          <div class="gesture-pill"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

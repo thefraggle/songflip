@@ -9,11 +9,20 @@ Từ Spotify sang YouTube Music, Apple Podcasts sang Spotify hay nhận diện q
 • 10 Nền Tảng Âm Nhạc, Podcast & Shazam:
 Chuyển đổi mượt mà giữa Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud và Bandcamp. Hỗ trợ liên kết chia sẻ từ Shazam!
 
+• Tìm kiếm bài hát trực tiếp (Tìm kiếm trong ứng dụng):
+Tìm kiếm các bản nhạc và nghệ sĩ trực tiếp trong SongFlip và khởi chạy phát lại ngay lập tức trong ứng dụng âm nhạc ưa thích của bạn với Fast Flip chỉ bằng 1 lần nhấn—không cần liên kết hiện có.
+
+• Chia sẻ và quét nhạc mã QR:
+Tạo và quét mã QR phổ biến cho các bài hát và album. Dễ dàng chia sẻ âm nhạc trực tiếp với bạn bè, bất kể họ đăng ký dịch vụ phát trực tuyến nào.
+
 • Trình Chuyển Đổi Podcast:
 Chia sẻ chương trình và từng tập podcast qua lại giữa các ứng dụng. SongFlip tự động nhận diện tập và mở ngay trong trình phát podcast của bạn.
 
 • Chuyển Đổi Danh Sách Phát Toàn Diện:
-Chuyển đổi toàn bộ playlist từng bài một giữa Spotify, Apple Music và YouTube Music với bộ nhớ đệm tốc độ cao.
+Chuyển toàn bộ danh sách phát theo từng bản nhạc giữa Spotify, Apple Music, YouTube Music, TIDAL và Deezer—có tính năng dọn dẹp trùng lặp tự động, tối đa 200 bản nhạc và bộ nhớ đệm nhiều tầng tốc độ cao.
+
+• Tinh chỉnh các kết quả phù hợp & Mục yêu thích bằng 1 lần nhấn:
+Dễ dàng chọn giữa các bản ghi trực tiếp, bản remaster hoặc phiên bản thay thế. Ghim các bản nhạc yêu thích của bạn vào lịch sử chỉ bằng một cú chạm và quản lý chúng thông qua menu hành động nhanh được sắp xếp hợp lý.
 
 • Phát Ngay Lập Tức (Instant Playback):
 Phát trực tiếp bài hát hoặc tập podcast trong trình phát đích thay vì hiển thị trang tìm kiếm trống.

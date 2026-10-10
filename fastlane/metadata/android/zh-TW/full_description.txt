@@ -9,11 +9,20 @@ SongFlip 是專為 Android 設計的智慧音樂與 Podcast 連結轉換工具�
 • 10 大串流與 Podcast 平台 & Shazam：
 在 Spotify、YouTube Music、Apple Music、Apple Podcasts、Pocket Casts、Deezer、TIDAL、Amazon Music、SoundCloud 與 Bandcamp 之間無縫轉換。現已支援 Shazam 分享連結！
 
+• 直接歌曲搜尋（應用程式內搜尋）：
+直接在 SongFlip 中搜尋曲目和藝術家，並透過一鍵快速翻轉在您喜歡的音樂應用程式中立即啟動播放，無需現有連結。
+
+• 二維碼音樂分享及掃描：
+產生並掃描歌曲和專輯的通用二維碼。輕鬆與朋友親自分享音樂，無論他們訂閱了哪種串流媒體服務。
+
 • Podcast 轉換引擎：
 跨平台分享 Podcast 節目與單集。SongFlip 會自動解析單集標題，並在您喜愛的 Podcast 應用程式中直接播放。
 
 • 全能播放清單轉換器：
-透過極速多層快取，在 Spotify、Apple Music 與 YouTube Music 之間逐首轉換完整歌單。
+在 Spotify、Apple Music、YouTube Music、TIDAL 和 Deezer 之間逐首傳輸整個播放列表，具有自動重複清理、最多 200 首曲目和高速多層緩存的功能。
+
+• 優化匹配和一鍵收藏：
+在現場錄音、重製版或替代版本之間輕鬆進行選擇。只需輕按一下即可將您最喜歡的曲目固定在歷史記錄中，並透過簡化的快速操作選單進行管理。
 
 • 即時播放 (Instant Playback)：
 直接在目標播放器中播放歌曲或單集，無需停留在搜尋結果頁。

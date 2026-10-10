@@ -9,11 +9,20 @@ Da Spotify a YouTube Music, da Apple Podcasts a Spotify o link condivisi da Shaz
 • 10 Piattaforme di Streaming, Podcast & Shazam:
 Converte senza problemi tra Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud e Bandcamp. Ora supporta anche i link condivisi da Shazam!
 
+• Ricerca diretta dei brani (ricerca in-app):
+Cerca brani e artisti direttamente all'interno di SongFlip e avvia immediatamente la riproduzione nella tua app musicale preferita con Fast Flip con un solo tocco: non è richiesto alcun collegamento esistente.
+
+• Condivisione e scansione di musica con codice QR:
+Genera e scansiona codici QR universali per brani e album. Condividi facilmente la musica con gli amici di persona, indipendentemente dal servizio di streaming a cui sono abbonati.
+
 • Motore di Conversione Podcast:
 Condividi show completi ed episodi singoli tra diverse piattaforme. SongFlip trova automaticamente l'episodio e lo avvia direttamente nella tua app podcast preferita.
 
 • Convertitore Universale di Playlist:
-Trasferisci intere playlist brano per brano tra Spotify, Apple Music e YouTube Music grazie alla nostra cache multi-tier ad alta velocità.
+Trasferisci intere playlist traccia per traccia tra Spotify, Apple Music, YouTube Music, TIDAL e Deezer, con pulizia automatica dei duplicati, fino a 200 tracce e caching multilivello ad alta velocità.
+
+• Perfeziona corrispondenze e preferiti con un solo tocco:
+Scegli facilmente tra registrazioni dal vivo, rimasterizzazioni o versioni alternative. Appunta i tuoi brani preferiti nella cronologia con un solo tocco e gestiscili tramite il menu di azione rapida semplificato.
 
 • Riproduzione Immediata (Instant Playback):
 Avvia direttamente il brano o l'episodio nel lettore di destinazione anziché mostrare pagine di ricerca vuote.

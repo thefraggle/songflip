@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "name": "SongFlip",
+  "publicDir": "public",
+  "collections": [
+    {
+      "id": "screenshots",
+      "label": "Store Screenshots",
+      "sourceSize": { "width": 1080, "height": 2400 },
+      "localizations": "localizations.json",
+      "locales": [
+        "de-DE",
+        "en-US"
+      ],
+      "templates": [
+        { "src": "assets/screenshots/01-instant-playback.html", "name": "screen_1", "label": "01 - Instant Playback" },
+        { "src": "assets/screenshots/02-all-platforms.html", "name": "screen_2", "label": "02 - All Platforms" },
+        { "src": "assets/screenshots/03-smart-links.html", "name": "screen_3", "label": "03 - Smart Links" },
+        { "src": "assets/screenshots/04-playlist-conversion.html", "name": "screen_4", "label": "04 - Playlist Conversion" },
+        { "src": "assets/screenshots/05-privacy.html", "name": "screen_5", "label": "05 - 100% Private" }
+      ],
+      "export": [
+        { "name": "playstore", "label": "Google Play (1080x2400)", "size": { "width": 1080, "height": 2400 } },
+        { "name": "iphone-6.9", "label": "iPhone 6.9\" (1320x2868)", "size": { "width": 1320, "height": 2868 } },
+        { "name": "iphone-6.7", "label": "iPhone 6.7\" (1290x2796)", "size": { "width": 1290, "height": 2796 } }
+      ]
+    }
+  ]
+}

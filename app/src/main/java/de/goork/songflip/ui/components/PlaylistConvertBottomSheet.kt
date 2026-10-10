@@ -1026,7 +1026,9 @@ fun PlaylistConvertBottomSheet(
                                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                     }
                                     context.startActivity(fallbackIntent)
-                                } catch (ignored: Exception) {}
+                                } catch (fallbackError: Exception) {
+                                    android.util.Log.e("PlaylistConvert", "Fallback intent launch failed: ${fallbackError.message}", fallbackError)
+                                }
                             }
                             onDismiss()
                         },

@@ -124,7 +124,13 @@ class SettingsModel: ObservableObject {
         LanguageOption(code: "vi", name: "Tiếng Việt", flag: "🇻🇳"),
         LanguageOption(code: "bn", name: "বাংলা", flag: "🇧🇩"),
         LanguageOption(code: "hi", name: "हिन्दी", flag: "🇮🇳"),
-        LanguageOption(code: "mr", name: "मराठी", flag: "🇮🇳")
+        LanguageOption(code: "mr", name: "मराठी", flag: "🇮🇳"),
+        LanguageOption(code: "cs", name: "Čeština", flag: "🇨🇿"),
+        LanguageOption(code: "el", name: "Ελληνικά", flag: "🇬🇷"),
+        LanguageOption(code: "fi", name: "Suomi", flag: "🇫🇮"),
+        LanguageOption(code: "hu", name: "Magyar", flag: "🇭🇺"),
+        LanguageOption(code: "ro", name: "Română", flag: "🇷🇴"),
+        LanguageOption(code: "th", name: "ไทย", flag: "🇹🇭")
     ]
 
     @Published var targetPlatform: String {

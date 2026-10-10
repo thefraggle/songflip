@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1290, height=2796" />
+  <link rel="stylesheet" href="../styles-ios.css" />
+</head>
+<body>
+  <div class="screenshot-container">
+    <div class="ambient-glow"></div>
+    <div class="header-area">
+      <h1 class="headline">{{s4_prefix}}<span class="accent">{{s4_accent}}</span>{{s4_suffix}}</h1>
+      <p class="subline">{{s4_subline}}</p>
+    </div>
+    <div class="mockup-area">
+      <!-- Dedicated Privacy Trust Card -->
+      <div class="privacy-card-container">
+        <!-- Shield Icon Box -->
+        <div class="shield-icon-box">
+          <svg class="shield-svg" viewBox="0 0 24 24">
+            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" />
+          </svg>
+        </div>
+
+        <div class="privacy-card-title">{{s4_card_title}}</div>
+
+        <!-- 3 Trust Points -->
+        <div class="trust-list">
+          <!-- 1: No Account -->
+          <div class="trust-item">
+            <div class="trust-icon-box">👤</div>
+            <div class="trust-text">
+              <div class="trust-heading">{{s4_t1_title}}</div>
+              <div class="trust-desc">{{s4_t1_desc}}</div>
+            </div>
+          </div>
+
+          <!-- 2: No Ads -->
+          <div class="trust-item">
+            <div class="trust-icon-box">🚫</div>
+            <div class="trust-text">
+              <div class="trust-heading">{{s4_t2_title}}</div>
+              <div class="trust-desc">{{s4_t2_desc}}</div>
+            </div>
+          </div>
+
+          <!-- 3: Zero Tracking & Profiling -->
+          <div class="trust-item">
+            <div class="trust-icon-box">🔒</div>
+            <div class="trust-text">
+              <div class="trust-heading">{{s4_t3_title}}</div>
+              <div class="trust-desc">{{s4_t3_desc}}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Verification Badge -->
+        <div class="privacy-badge">
+          <span>{{s4_card_badge}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,3 +1,4 @@
-- Cleaner Search & History: Song cards in search and history now feature a streamlined action menu for sharing, favorites, and quick link copying.
-- Instant Fast Flip: Tapping any cover or track opens the song directly in your favorite music player without delay.
-- Smoother Navigation: The search keyboard automatically dismisses when scrolling through search results.
+- More Languages: Added full language support for Czech, Finnish, Hungarian, Greek, Romanian, and Thai across the entire app.
+- Reliable Player Selection: When set to ask every time, the quick player picker opens promptly and reliably before opening any music link.
+- Playback Stability: Improved music link resolution and seamless playback fallbacks when music apps are busy.
+- Security & Reliability: Enhanced internal settings verification and robust background error handling.

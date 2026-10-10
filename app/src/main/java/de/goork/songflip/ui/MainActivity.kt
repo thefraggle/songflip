@@ -331,7 +331,9 @@ fun MainScreen(
                     }
                 }
             }
-        } catch (_: Exception) {}
+        } catch (e: Exception) {
+            android.util.Log.d("MainActivity", "Clipboard check ignored: ${e.message}")
+        }
         detectedClipboardUrl = null
     }
 

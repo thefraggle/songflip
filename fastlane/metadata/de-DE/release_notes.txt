@@ -1,3 +1,4 @@
-- Aufgeräumte Suche & Verlauf: Titel- und Verlaufslisten bieten jetzt ein übersichtliches Aktionsmenü für Teilen, Favoriten und schnelles Kopieren.
-- Direkter Fast Flip: Ein Fingertipp auf Cover oder Songzeile startet den Track sofort in deinem bevorzugten Musik-Player.
-- Flüssigere Navigation: Die Tastatur klappt beim Scrollen durch Suchergebnisse automatisch ein.
+- Mehr Sprachen: Volle Sprachunterstützung für Tschechisch, Finnisch, Ungarisch, Griechisch, Rumänisch und Thailändisch.
+- Verlässliche Player-Auswahl: Die Schnellauswahl des bevorzugten Musik-Players öffnet sich nun direkt und zuverlässig vor dem Abspielen von Titeln.
+- Stabilere Musik-Wiedergabe: Verbesserte Weiterleitung und reibungslosere Übergabe an deine Musik-Apps.
+- Sicherheit & Zuverlässigkeit: Erweiterte Absicherung der gespeicherten Einstellungen und optimierte Fehlerbehandlung im Hintergrund.

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080, height=2400" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div class="screenshot-container">
+    <div class="ambient-glow"></div>
+    <div class="header-area">
+      <h1 class="headline">{{s3_prefix}}<span class="accent">{{s3_accent}}</span>{{s3_suffix}}</h1>
+      <p class="subline">{{s3_subline}}</p>
+    </div>
+    <div class="mockup-area">
+      <div class="phone-frame flippage-frame">
+        <!-- Status Bar -->
+        <div class="status-bar">
+          <span>12:00</span>
+          <div class="punch-hole"></div>
+          <div class="status-battery">
+            <svg viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 1.5C4 0.95 4.45 0.5 5 0.5H7C7.55 0.5 8 0.95 8 1.5V2H4V1.5Z" fill="#E2E8F0"/>
+              <rect x="1" y="2" width="10" height="17" rx="2.5" fill="#E2E8F0"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- FlipPage Browser Content -->
+        <div class="flippage-content-box">
+          <img class="flippage-content-img" src="../../public/mockups/content_flippage.png" alt="FlipPage Smart Link" />
+        </div>
+
+        <!-- Android Bottom Gesture Bar -->
+        <div class="bottom-nav-bar">
+          <div class="gesture-pill"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
