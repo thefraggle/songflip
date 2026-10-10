@@ -388,17 +388,21 @@ struct DisambiguationSheetView: View {
                 }
             }
 
-            await MainActor.run {
-                applyingCandidateId = nil
-
-                // Update LinkCache
-                let cacheKey = "\(item.sourceUrl)|\(item.targetPlatform)"
-                SongLinkEngine.shared.cache.updateTargetUrl(
+            // Update LinkCache
+            let cacheKey = "\(item.sourceUrl)|\(item.targetPlatform)"
+            do {
+                try await SongLinkEngine.shared.cache.updateTargetUrl(
                     cacheKey: cacheKey,
                     newTargetUrl: finalTargetUrl,
                     newNativeAppUri: nil,
                     currentTimeMs: Int64(Date().timeIntervalSince1970 * 1000)
                 )
+            } catch {
+                print("[DisambiguationSheet] Failed to update target url in cache: \(error)")
+            }
+
+            await MainActor.run {
+                applyingCandidateId = nil
 
                 // Update HistoryModel
                 history.updateItem(
