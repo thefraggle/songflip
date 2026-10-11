@@ -241,7 +241,7 @@ object UrlUtils {
         return (isHostOrSubdomain(host, "spotify.com") && (path.contains("/playlist/") || path.contains("/playlists/"))) ||
                 (isHostOrSubdomain(host, "apple.com") && (path.contains("/playlist/") || path.contains("/playlists/"))) ||
                 (isHostOrSubdomain(host, "youtube.com") && (path.contains("/playlist") || path.contains("list="))) ||
-                (isHostOrSubdomain(host, "deezer.com", "link.deezer.com") && (path.contains("/playlist/") || host == "link.deezer.com")) ||
+                (isHostOrSubdomain(host, "deezer.com", "link.deezer.com") && (path.contains("/playlist/") || path.contains("/playlists/"))) ||
                 (isHostOrSubdomain(host, "tidal.com") && (path.contains("/playlist/") || path.contains("/playlists/"))) ||
                 (isHostOrSubdomain(host, "soundcloud.com") && (path.contains("/sets/") || path.contains("/playlists/"))) ||
                 ((host.startsWith("music.amazon.") || host.contains(".amazon.")) && path.contains("/playlists/")) ||
