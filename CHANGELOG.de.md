@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.8.12] - 2026-10-11
+- **Zuverlässigere Deezer-Weiterleitung**: Geteilte Deezer-Links öffnen jetzt direkt als Song im gewünschten Musik-Player.
+- **Aufgeräumte Suche**: Aktionen im Suchmenü wurden optimiert und für eine klarere Bedienung vereinfacht.
+- **Bessere Playlist-Hinweise**: Klare Rückmeldungen und hilfreiche Tipps beim Konvertieren geschützter oder persönlicher Playlists.
+- **Fehlerbehebungen & Stabilität**: Allgemeine Verbesserungen für eine reibungslose Musik-Wiedergabe.
+
 ## [1.8.11] - 2026-10-10
 - **Mehr Sprachen**: Volle Sprachunterstützung für Tschechisch, Finnisch, Ungarisch, Griechisch, Rumänisch und Thailändisch.
 - **Verlässliche Player-Auswahl**: Die Schnellauswahl des bevorzugten Musik-Players öffnet sich nun direkt und zuverlässig vor dem Abspielen von Titeln.

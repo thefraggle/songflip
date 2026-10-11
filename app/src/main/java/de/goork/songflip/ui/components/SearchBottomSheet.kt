@@ -508,40 +508,6 @@ fun SearchBottomSheet(
                                                 }
                                             }
                                         )
-
-                                        // 5. Zu Favoriten hinzufügen
-                                        DropdownMenuItem(
-                                            text = { Text(stringResource(R.string.favorite_add)) },
-                                            leadingIcon = {
-                                                Icon(
-                                                    imageVector = Icons.Outlined.StarBorder,
-                                                    contentDescription = null,
-                                                    tint = Color(0xFFFFB800),
-                                                    modifier = Modifier.size(18.dp)
-                                                )
-                                            },
-                                            onClick = {
-                                                showMenu = false
-                                                val sUrl = track.sourceUrl
-                                                if (!sUrl.isNullOrBlank()) {
-                                                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                                                    coroutineScope.launch {
-                                                        val res = withContext(Dispatchers.IO) {
-                                                            SongLinkEngine.shared.resolveTargetUrl(
-                                                                inputUrl = sUrl,
-                                                                targetPlatformKey = targetPlatformKey,
-                                                                isPro = proState.isPro
-                                                            )
-                                                        }
-                                                        if (res is ResolutionResult.Success) {
-                                                            SongLinkEngine.shared.cache.markAsHistory(sUrl, targetPlatformKey)
-                                                            SongLinkEngine.shared.cache.setFavoriteForUrl(sUrl, targetPlatformKey, true)
-                                                            Toast.makeText(context, context.getString(R.string.favorite_add), Toast.LENGTH_SHORT).show()
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        )
                                     }
                                 }
                             }

@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.8.12] - 2026-10-11
+- **Reliable Deezer Redirection**: Shared Deezer links now resolve directly to individual songs in your preferred music player without detour.
+- **Streamlined Search**: Simplified and cleaner actions menu when browsing song search results.
+- **Clearer Playlist Guidance**: Informative tips and guidance when converting restricted or personal playlists.
+- **Stability & Polish**: General bugfixes and improvements for smoother music playback.
+
 ## [1.8.11] - 2026-10-10
 - **More Languages**: Added full language support for Czech, Finnish, Hungarian, Greek, Romanian, and Thai across the entire app.
 - **Reliable Player Selection**: When set to ask every time, the quick player picker opens promptly and reliably before opening any music link.

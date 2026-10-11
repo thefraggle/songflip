@@ -169,14 +169,6 @@ fun PlaylistConvertBottomSheet(
                     targetPlatform = targetPlatformKey,
                     reason = reason
                 )
-                val sourceDomain = de.goork.songflip.core.util.UrlUtils.extractDomain(playlistUrl)
-                de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipFailed(
-                    target = targetPlatformKey,
-                    reason = "playlist_$reason",
-                    sourceDomain = sourceDomain,
-                    sourcePlatform = sourcePlatform.key,
-                    errorReason = "playlist_$reason"
-                )
             }
         }
     }
@@ -385,21 +377,79 @@ fun PlaylistConvertBottomSheet(
 
                     Spacer(modifier = Modifier.height(14.dp))
 
-                    Text(
-                        text = stringResource(titleRes),
-                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                        color = MaterialTheme.colorScheme.onSurface,
-                        textAlign = TextAlign.Center
-                    )
+                    if (state.errorCode == de.goork.songflip.core.model.PlaylistErrorCode.PRIVATE_OR_RESTRICTED) {
+                        Card(
+                            shape = RoundedCornerShape(16.dp),
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f)
+                            ),
+                            border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)),
+                            modifier = Modifier.fillMaxWidth().padding(horizontal = 4.dp)
+                        ) {
+                            Column(
+                                modifier = Modifier.padding(16.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Text(
+                                    text = stringResource(R.string.playlist_error_private_title),
+                                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                                    color = MaterialTheme.colorScheme.onSurface,
+                                    textAlign = TextAlign.Center
+                                )
+                                Text(
+                                    text = stringResource(R.string.playlist_error_private_desc),
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+                        }
+                    } else {
+                        Text(
+                            text = stringResource(titleRes),
+                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                            color = MaterialTheme.colorScheme.onSurface,
+                            textAlign = TextAlign.Center
+                        )
 
-                    Spacer(modifier = Modifier.height(8.dp))
+                        Spacer(modifier = Modifier.height(8.dp))
 
-                    Text(
-                        text = stringResource(descRes),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        textAlign = TextAlign.Center
-                    )
+                        Text(
+                            text = stringResource(descRes),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            textAlign = TextAlign.Center
+                        )
+
+                        Spacer(modifier = Modifier.height(12.dp))
+
+                        Card(
+                            shape = RoundedCornerShape(12.dp),
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.35f)
+                            ),
+                            modifier = Modifier.fillMaxWidth().padding(horizontal = 4.dp)
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(12.dp),
+                                verticalAlignment = Alignment.Top,
+                                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Info,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.secondary,
+                                    modifier = Modifier.size(18.dp).padding(top = 2.dp)
+                                )
+                                Text(
+                                    text = stringResource(R.string.playlist_error_private_desc),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
+                    }
 
                     Spacer(modifier = Modifier.height(24.dp))
 

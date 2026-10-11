@@ -255,20 +255,58 @@ struct PlaylistConverterView: View {
         VStack(spacing: 20) {
             Spacer()
 
-            Image(systemName: "exclamationmark.triangle.fill")
-                .font(.system(size: 48))
-                .foregroundColor(.orange)
+            if type == .privateOrRestricted {
+                Image(systemName: "lock.shield.fill")
+                    .font(.system(size: 48))
+                    .foregroundColor(.orange)
 
-            VStack(spacing: 8) {
-                Text(errorTitle(for: type))
-                    .font(.headline)
-                    .multilineTextAlignment(.center)
+                VStack(spacing: 10) {
+                    Text(errorTitle(for: type))
+                        .font(.headline)
+                        .multilineTextAlignment(.center)
 
-                Text(errorDescription(for: type))
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 24)
+                    Text(errorDescription(for: type))
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                }
+                .padding(16)
+                .background(Color(uiColor: .secondarySystemBackground))
+                .cornerRadius(16)
+                .padding(.horizontal, 20)
+            } else {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .font(.system(size: 48))
+                    .foregroundColor(.orange)
+
+                VStack(spacing: 8) {
+                    Text(errorTitle(for: type))
+                        .font(.headline)
+                        .multilineTextAlignment(.center)
+
+                    Text(errorDescription(for: type))
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 24)
+                }
+
+                HStack(alignment: .top, spacing: 10) {
+                    Image(systemName: "info.circle.fill")
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                        .padding(.top, 2)
+
+                    Text(LocalizationManager.string(for: "playlist_error_private_desc", lang: lang))
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+
+                    Spacer()
+                }
+                .padding(12)
+                .background(Color(uiColor: .secondarySystemBackground))
+                .cornerRadius(12)
+                .padding(.horizontal, 20)
             }
 
             Spacer()
