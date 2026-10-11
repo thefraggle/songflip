@@ -1,7 +1,7 @@
 # Changelog
 
 ## [1.8.12] - 2026-10-11
-- **Reliable Deezer Redirection**: Shared Deezer links now resolve directly to individual songs in your preferred music player without detour.
+- **Reliable Deezer Redirection**: Shared Deezer music links now open directly as songs in your preferred music player.
 - **Streamlined Search**: Simplified and cleaner actions menu when browsing song search results.
 - **Clearer Playlist Guidance**: Informative tips and guidance when converting restricted or personal playlists.
 - **Stability & Polish**: General bugfixes and improvements for smoother music playback.

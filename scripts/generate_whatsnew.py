@@ -52,30 +52,34 @@ LANG_CODE_MAP = {
     'es': 'es',
 }
 
-def truncate_to_bytes(text, max_bytes=500, suffix="..."):
-    """Google Play restricts release notes to 500 UTF-8 bytes, not characters.
-    Multibyte characters (e.g. umlauts, CJK) consume 2-4 bytes each.
-    This cleanly keeps complete bullet lines without truncating mid-character."""
+def truncate_release_notes(text, max_limit=495):
+    """Google Play restricts release notes to at most 500 characters and 500 UTF-8 bytes.
+    Enforces a strict upper bound (default 495) on BOTH characters and bytes to prevent overflow.
+    Keeps complete bullet lines when possible.
+    """
     text = text.strip()
-    if len(text.encode('utf-8')) <= max_bytes:
+    if len(text) <= max_limit and len(text.encode('utf-8')) <= max_limit:
         return text
 
-    lines = text.split('\n')
+    lines = [l.strip() for l in text.split('\n') if l.strip()]
     result = []
     for line in lines:
-        if not line.strip():
-            continue
         test_text = '\n'.join(result + [line]).strip()
-        if len(test_text.encode('utf-8')) > max_bytes:
+        if len(test_text) > max_limit or len(test_text.encode('utf-8')) > max_limit:
             break
         result.append(line)
 
     if result:
         return '\n'.join(result).strip()
 
-    suffix_bytes = suffix.encode('utf-8')
-    encoded = text.encode('utf-8')[:max_bytes - len(suffix_bytes)]
-    return encoded.decode('utf-8', errors='ignore') + suffix
+    suffix = "..."
+    candidate = text[:max_limit - len(suffix)]
+    while candidate and (len(candidate + suffix) > max_limit or len((candidate + suffix).encode('utf-8')) > max_limit):
+        candidate = candidate[:-1]
+    return (candidate.strip() + suffix).strip()
+
+def truncate_to_bytes(text, max_bytes=495, suffix="..."):
+    return truncate_release_notes(text, max_limit=max_bytes)
 
 def extract_changelog_for_version(version=None, filepath="CHANGELOG.md"):
     full_path = os.path.join(BASE_DIR, filepath)
@@ -203,14 +207,28 @@ def main():
             cache[lang] = content
             time.sleep(0.1)
 
-        # Truncate to Google Play hard limit (500 bytes)
-        content = truncate_to_bytes(content, max_bytes=500)
+        # Truncate to Google Play hard limit (strictly <= 495 chars and bytes)
+        content = truncate_release_notes(content, max_limit=495)
 
         with open(filepath, "w", encoding="utf-8") as f:
-            f.write(content.strip() + "\n")
+            f.write(content.strip())
 
-        byte_len = len(content.encode('utf-8'))
-        print(f"✓ whatsnew-{locale} ({byte_len} bytes)")
+        char_len = len(content.strip())
+        byte_len = len(content.strip().encode('utf-8'))
+        print(f"✓ whatsnew-{locale} ({char_len} chars, {byte_len} bytes)")
+
+    # Strict validation gate for Google Play requirements
+    for loc in TARGET_LOCALES:
+        fpath = os.path.join(WHATSNEW_DIR, f"whatsnew-{loc}")
+        if not os.path.exists(fpath):
+            raise FileNotFoundError(f"Missing release notes file for locale {loc}: {fpath}")
+        with open(fpath, "r", encoding="utf-8") as f:
+            val = f.read()
+        c_len = len(val)
+        b_len = len(val.encode("utf-8"))
+        if c_len > 500 or b_len > 500:
+            raise ValueError(f"CRITICAL: {fpath} exceeds Google Play limit (chars={c_len}, bytes={b_len}, max=500)")
+    print("✓ All whatsnew files strictly verified (<= 500 chars & bytes)")
 
     # Synchronize iOS TestFlight WhatToTest files if directory exists
     ios_testflight_dir = os.path.join(BASE_DIR, "iosApp", "SongFlip", "TestFlight")
@@ -218,10 +236,10 @@ def main():
         en_ios_file = os.path.join(ios_testflight_dir, "WhatToTest.en-US.txt")
         de_ios_file = os.path.join(ios_testflight_dir, "WhatToTest.de-DE.txt")
         with open(en_ios_file, "w", encoding="utf-8") as f:
-            f.write(truncate_to_bytes(en_notes, max_bytes=500).strip() + "\n")
+            f.write(truncate_release_notes(en_notes, max_limit=495).strip())
         print("✓ Synced iosApp/SongFlip/TestFlight/WhatToTest.en-US.txt")
         with open(de_ios_file, "w", encoding="utf-8") as f:
-            f.write(truncate_to_bytes(de_notes, max_bytes=500).strip() + "\n")
+            f.write(truncate_release_notes(de_notes, max_limit=495).strip())
         print("✓ Synced iosApp/SongFlip/TestFlight/WhatToTest.de-DE.txt")
 
 if __name__ == "__main__":

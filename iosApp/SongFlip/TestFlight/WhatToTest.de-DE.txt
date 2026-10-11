@@ -1,3 +1,4 @@
-- Direkte Songsuche: Finde Songs direkt in der App per Titelsuche und öffne sie mit einem Fingertipp in deinem Lieblings-Player.
-- Treffer anpassen: Wähle bei Bedarf ganz einfach eine alternative Version oder Aufnahme eines Titels aus.
-- Mehr Playlist-Dienste: Playlists lassen sich jetzt auch für TIDAL und Deezer übertragen.
+- Zuverlässigere Deezer-Weiterleitung: Geteilte Deezer-Links öffnen jetzt direkt als Song im gewünschten Musik-Player.
+- Aufgeräumte Suche: Aktionen im Suchmenü wurden optimiert und für eine klarere Bedienung vereinfacht.
+- Bessere Playlist-Hinweise: Klare Rückmeldungen und hilfreiche Tipps beim Konvertieren geschützter oder persönlicher Playlists.
+- Fehlerbehebungen & Stabilität: Allgemeine Verbesserungen für eine reibungslose Musik-Wiedergabe.

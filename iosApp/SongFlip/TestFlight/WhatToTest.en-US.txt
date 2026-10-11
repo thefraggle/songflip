@@ -1,3 +1,4 @@
-- Direct Song Search: Search for songs directly in the app and open them in your favourite player with one tap.
-- Refine Matches: Easily choose alternative song versions or recordings whenever needed.
-- More Playlist Services: Convert and transfer playlists with TIDAL and Deezer.
+- Reliable Deezer Redirection: Shared Deezer music links now open directly as songs in your preferred music player.
+- Streamlined Search: Simplified and cleaner actions menu when browsing song search results.
+- Clearer Playlist Guidance: Informative tips and guidance when converting restricted or personal playlists.
+- Stability & Polish: General bugfixes and improvements for smoother music playback.
