@@ -84,9 +84,16 @@ For users who want the fastest possible performance, advanced playlist capabilit
 - **🌐 Playlist Web Sharing**: Create beautiful, shareable web links (`songflip.link/p/...`) with cover art and individual preview player buttons.
 - **⚡ L2 Server-Side Cache**: Lightning-fast resolution (~30–50 ms) via our dedicated server cache with zero rate-limiting.
 - **🔗 Universal Smart Share Links**: Generate `songflip.link/s/...` landing pages directly from the app or share sheet.
+- **📱 QR-Code Sharing**: Generate high-resolution scannable QR codes in history for quick physical sharing.
 - **👑 Supporter Status**: PRO badge & direct support for independent open-source development.
 
----
+### 💳 In-App Purchases & Billing Architecture
+Purchases are powered by **RevenueCat** with native store backends:
+- **Android**: Google Play Billing Library 8+ via `com.revenuecat.purchases:purchases` (`ProManager.kt`)
+- **iOS**: StoreKit 2 via RevenueCat iOS SDK v5 (`ProManager.swift`)
+- **Options**: Non-consumable Lifetime purchase (`songflip_pro_lifetime`), Annual subscription with 7-day free trial (`songflip_pro_annual`), and Monthly subscription (`songflip_pro_monthly`).
+- **Security & Offline Caching**: Cryptographic HMAC-SHA256 entitlement signature verification (`pro_cache_signature`) to protect offline state across app restarts without plaintext privilege escalation.
+
 
 ## 🛠️ Building & Development
 

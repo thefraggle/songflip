@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.8.13] - 2026-10-12
+- **Zuverlässigere Playlist-Übertragung**: Deutlich verbesserte Stabilität beim Konvertieren großer Playlists (>50 Songs) durch optimiertes Zeitlimit-Handling und schonende Anfragen-Taktung.
+- **Schutz vor Abbrüchen**: Bisher gefundene Titel bleiben auch bei unbeständiger Internetverbindung erhalten, anstatt die Übertragung komplett zu verwerfen.
+- **Schnellere Übernahme**: Sofortige Zuordnung von Titeln bei übereinstimmendem Quell- und Ziel-Streamingdienst.
+- **Fehlerbehebungen & Stabilität**: Allgemeine Optimierungen für eine flüssige Verbindung zu allen unterstützten Musik-Plattformen.
+
 ## [1.8.12] - 2026-10-11
 - **Zuverlässigere Deezer-Weiterleitung**: Geteilte Deezer-Links öffnen jetzt direkt als Song im gewünschten Musik-Player.
 - **Aufgeräumte Suche**: Aktionen im Suchmenü wurden optimiert und für eine klarere Bedienung vereinfacht.
