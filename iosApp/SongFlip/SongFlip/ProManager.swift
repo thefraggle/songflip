@@ -40,6 +40,16 @@ final class ProManager: NSObject, ObservableObject {
         UserDefaults(suiteName: Self.appGroupId) ?? UserDefaults.standard
     }
 
+    var authToken: String {
+        if let token = defaults.string(forKey: Self.keyCouponToken), !token.isEmpty {
+            return "coupon:\(token)"
+        }
+        if Purchases.isConfigured {
+            return Purchases.shared.appUserID
+        }
+        return getDeviceFingerprint()
+    }
+
     private override init() {
         super.init()
         loadCachedState()
