@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.8.14] - 2026-10-12
+- **Favoriten bleiben erhalten**: Gespeicherte Favoriten bleiben dauerhaft bestehen – auch wenn derselbe Link erneut geflippt wird.
+- **Längerer Verlauf**: Dein Verlauf wird bis zu 90 Tage aufbewahrt.
+- **Stabilität & Sicherheit**: Flüssigeres Fortsetzen der App, sicherer Umgang mit gespeicherten Daten und allgemeine Härtung.
+
 ## [1.8.13] - 2026-10-12
 - **Zuverlässigere Playlist-Übertragung**: Deutlich verbesserte Stabilität beim Konvertieren großer Playlists (>50 Songs) durch optimiertes Zeitlimit-Handling und schonende Anfragen-Taktung.
 - **Schutz vor Abbrüchen**: Bisher gefundene Titel bleiben auch bei unbeständiger Internetverbindung erhalten, anstatt die Übertragung komplett zu verwerfen.

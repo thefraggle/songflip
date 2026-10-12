@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.8.14] - 2026-10-12
+- **Favorites Stay Put**: Saved favorites are now kept permanently and survive re-flipping the same link.
+- **Longer History**: Your flip history is kept for up to 90 days.
+- **Stability & Security**: Smoother app resume, safer handling of saved data and general hardening.
+
 ## [1.8.13] - 2026-10-12
 - **Large Playlist Reliability**: Significantly enhanced conversion and transfer stability for playlists with 50+ tracks, including resilient timeout handling and adaptive request pacing.
 - **Graceful Conversion Recovery**: Playlists now preserve all matched tracks even under spotty network conditions, avoiding abrupt transfer aborts.
