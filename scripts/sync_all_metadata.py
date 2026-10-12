@@ -143,7 +143,7 @@ def main():
     print(f"Generating clean Markdown file at {MD_PATH}...")
     with open(MD_PATH, 'w', encoding='utf-8') as f:
         f.write("# 📱 SongFlip – Play Store Listings (Alle Sprachen)\n")
-        f.write("> **Version:** 1.8.10 | **Umfang:** 34 Store-Sprachen | **Zertifiziert:** Titel ≤ 30 Zeichen, Kurzbeschreibung ≤ 80 Zeichen, Volltext ≤ 4.000 Zeichen.\n")
+        f.write("> **Version:** 1.8.12 | **Umfang:** 34 Store-Sprachen | **Zertifiziert:** Titel ≤ 30 Zeichen, Kurzbeschreibung ≤ 80 Zeichen, Volltext ≤ 4.000 Zeichen.\n")
         f.write("---\n\n")
         for r in rows:
             loc = r['Language']
@@ -159,6 +159,7 @@ def main():
 
     # Update individual fastlane/metadata/android files
     print("Syncing fastlane/metadata/android files...")
+    row_map = {r['Language']: r for r in rows}
     for r in rows:
         loc = r['Language']
         loc_dir = os.path.join(ANDROID_METADATA_DIR, loc)
@@ -169,6 +170,29 @@ def main():
                 f.write(r['Short description'].strip() + "\n")
             with open(os.path.join(loc_dir, "title.txt"), 'w', encoding='utf-8') as f:
                 f.write(r['Title'].strip() + "\n")
+
+    # Sync regional and alias locales
+    ALIAS_LOCALES = {
+        'bn-IN': 'bn-BD',
+        'id-ID': 'id',
+        'no-NO': 'nb-NO',
+        'ro': 'ro-RO',
+        'th': 'th-TH',
+        'uk-UA': 'uk',
+        'vi-VN': 'vi',
+    }
+    print("Syncing alias locales in fastlane/metadata/android...")
+    for alias, source in ALIAS_LOCALES.items():
+        if source in row_map:
+            src_data = row_map[source]
+            alias_dir = os.path.join(ANDROID_METADATA_DIR, alias)
+            if os.path.exists(alias_dir):
+                with open(os.path.join(alias_dir, "full_description.txt"), 'w', encoding='utf-8') as f:
+                    f.write(src_data['Full description'].strip() + "\n")
+                with open(os.path.join(alias_dir, "short_description.txt"), 'w', encoding='utf-8') as f:
+                    f.write(src_data['Short description'].strip() + "\n")
+                with open(os.path.join(alias_dir, "title.txt"), 'w', encoding='utf-8') as f:
+                    f.write(src_data['Title'].strip() + "\n")
 
     # Update iOS metadata
     print("Syncing iOS fastlane metadata...")

@@ -12,7 +12,7 @@ IOS_LISTINGS = {
         'name': 'SongFlip: Music Link Redirect',
         'subtitle': 'Podcast & Playlist Converter',
         'promotional_text': 'Friends send Spotify or Apple Podcasts links, but you use YouTube Music or Pocket Casts? SongFlip instantly converts and opens shared audio links in your favorite player.',
-        'keywords': 'spotify,apple,youtube,podcast,deezer,songlink,odesli,pocketcasts,soundcloud,shazam,bandcamp,share',
+        'keywords': 'spotify,apple,youtube,transfer,deezer,songlink,odesli,tidal,soundcloud,shazam,bandcamp,share,song',
         'description': """Friends send you Spotify, Tidal, or Apple Podcasts links – but you use Apple Music, YouTube Music, or Pocket Casts?
 
 SongFlip is the universal music and podcast link redirector and converter for iOS. Whether via the iOS Share Sheet, direct song search, universal QR codes, Shortcuts, or the Action Button: SongFlip instantly converts shared audio links and opens them directly in your preferred app – with zero manual searching, no copying, and no friction.
@@ -49,7 +49,7 @@ Built with passion for music and podcast lovers who want to enjoy audio seamless
         'name': 'SongFlip: Musik Link Umleitung',
         'subtitle': 'Podcast & Playlist Converter',
         'promotional_text': 'Freunde schicken Spotify- oder Apple Podcasts-Links, aber du nutzt YouTube Music oder Pocket Casts? SongFlip leitet Audio-Links blitzschnell in deinen Wunsch-Player um.',
-        'keywords': 'spotify,apple,youtube,podcast,deezer,songlink,odesli,pocketcasts,soundcloud,shazam,bandcamp,smart',
+        'keywords': 'spotify,apple,youtube,transfer,deezer,songlink,odesli,tidal,soundcloud,shazam,bandcamp,smart,song',
         'description': """Freunde schicken dir Musik- oder Podcast-Links von Spotify, Deezer oder Apple Podcasts – aber du nutzt Apple Music, YouTube Music oder Pocket Casts?
 
 SongFlip ist die smarte Musik- & Podcast-Link-Umleitung und dein universeller Converter für iOS. Ob über das native Teilen-Menü (Share Sheet), die direkte Titelsuche, universelle QR-Codes, Kurzbefehle oder den Action Button: SongFlip wandelt Audio-Links blitzschnell um und öffnet sie direkt in deiner bevorzugten App – ganz ohne lästiges Suchen, Kopieren oder manuelle Zwischenschritte.
