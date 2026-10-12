@@ -55,39 +55,51 @@ expect fun createDefaultCacheStorage(): CacheStorage
 class LinkCache(
     private val maxEntries: Int = 200,
     private val ttlMs: Long = 7 * 24 * 60 * 60 * 1000L,
-    private val storage: CacheStorage = NoOpCacheStorage()
+    private val storage: CacheStorage = NoOpCacheStorage(),
+    // History is user data, the TTL above only governs resolver freshness (#105)
+    private val historyRetentionMs: Long = 90 * 24 * 60 * 60 * 1000L
 ) {
     private val mutex = Mutex()
     private val entries = LinkedHashMap<String, CacheEntry>()
     private var initialized = false
 
+    /** Whether a cached resolution may be reused without hitting the network. */
+    private fun CacheEntry.isFresh(now: Long) = (now - timestamp) <= ttlMs
+
+    /** Whether the entry must be kept on disk. Favorites are pinned forever. */
+    private fun CacheEntry.isRetained(now: Long) = when {
+        isFavorite -> true
+        isHistory -> (now - timestamp) <= historyRetentionMs
+        else -> isFresh(now)
+    }
+
+    /** Evicts the least recently used non-favorite entries; favorites never count against the limit. */
+    private fun evictOverflow() {
+        var evictable = entries.count { !it.value.isFavorite }
+        while (evictable > maxEntries) {
+            val oldestKey = entries.entries.firstOrNull { !it.value.isFavorite }?.key ?: break
+            entries.remove(oldestKey)
+            storage.remove(oldestKey)
+            evictable--
+        }
+    }
+
     private fun ensureLoaded(currentTimeMs: Long) {
         if (!initialized) {
             initialized = true
             val loaded = storage.loadAll()
-            val valid = loaded.entries
-                .filter { (currentTimeMs - it.value.timestamp) <= ttlMs }
-                .sortedBy { it.value.timestamp }
-
             for ((k, v) in loaded) {
-                if ((currentTimeMs - v.timestamp) > ttlMs) {
+                if (!v.isRetained(currentTimeMs)) {
                     storage.remove(k)
                 }
             }
 
-            val toKeep = if (valid.size > maxEntries) {
-                val excess = valid.take(valid.size - maxEntries)
-                for ((k, _) in excess) {
-                    storage.remove(k)
-                }
-                valid.drop(valid.size - maxEntries)
-            } else {
-                valid
-            }
+            loaded.entries
+                .filter { it.value.isRetained(currentTimeMs) }
+                .sortedBy { it.value.timestamp }
+                .forEach { (k, v) -> entries[k] = v }
 
-            for ((k, v) in toKeep) {
-                entries[k] = v
-            }
+            evictOverflow()
         }
     }
 
@@ -98,14 +110,10 @@ class LinkCache(
         if (entry == null) {
             val stored = storage.get(key)
             if (stored != null) {
-                if ((currentTimeMs - stored.timestamp) <= ttlMs) {
+                if (stored.isRetained(currentTimeMs)) {
                     entries[key] = stored
                     entry = stored
-                    while (entries.size > maxEntries) {
-                        val oldestKey = entries.keys.firstOrNull() ?: break
-                        entries.remove(oldestKey)
-                        storage.remove(oldestKey)
-                    }
+                    evictOverflow()
                 } else {
                     storage.remove(key)
                 }
@@ -114,9 +122,12 @@ class LinkCache(
 
         if (entry == null) return@withLock null
 
-        if ((currentTimeMs - entry.timestamp) > ttlMs) {
-            entries.remove(key)
-            storage.remove(key)
+        if (!entry.isFresh(currentTimeMs)) {
+            // Stale resolution: force a re-resolve, but keep history/favorites intact
+            if (!entry.isRetained(currentTimeMs)) {
+                entries.remove(key)
+                storage.remove(key)
+            }
             return@withLock null
         }
 
@@ -156,18 +167,16 @@ class LinkCache(
             nativeAppUri = result.nativeAppUri,
             timestamp = currentTimeMs,
             isHistory = finalIsHistory,
-            thumbnailUrl = result.thumbnailUrl ?: existing?.thumbnailUrl
+            thumbnailUrl = result.thumbnailUrl ?: existing?.thumbnailUrl,
+            // Re-flipping a favorite must not silently unpin it (#105)
+            isFavorite = existing?.isFavorite == true
         )
 
         entries.remove(key)
         entries[key] = entry
         storage.put(key, entry)
 
-        while (entries.size > maxEntries) {
-            val oldestKey = entries.keys.firstOrNull() ?: break
-            entries.remove(oldestKey)
-            storage.remove(oldestKey)
-        }
+        evictOverflow()
     }
 
     suspend fun putPodcast(
@@ -191,18 +200,15 @@ class LinkCache(
             nativeAppUri = result.nativeAppUri,
             timestamp = currentTimeMs,
             isHistory = finalIsHistory,
-            thumbnailUrl = result.thumbnailUrl ?: existing?.thumbnailUrl
+            thumbnailUrl = result.thumbnailUrl ?: existing?.thumbnailUrl,
+            isFavorite = existing?.isFavorite == true
         )
 
         entries.remove(key)
         entries[key] = entry
         storage.put(key, entry)
 
-        while (entries.size > maxEntries) {
-            val oldestKey = entries.keys.firstOrNull() ?: break
-            entries.remove(oldestKey)
-            storage.remove(oldestKey)
-        }
+        evictOverflow()
     }
 
     suspend fun markAsHistory(canonicalUrl: String, targetPlatformKey: String, currentTimeMs: Long = getCurrentTimeMillis()) = mutex.withLock {
@@ -250,7 +256,7 @@ class LinkCache(
         val allItems = mutableListOf<LinkHistoryItem>()
         for (key in combinedKeys) {
             val entry = entries[key] ?: allLoaded[key]
-            if (entry != null && entry.isHistory && (currentTimeMs - entry.timestamp) <= ttlMs && entry.targetUrl.isNotBlank()) {
+            if (entry != null && entry.isHistory && entry.isRetained(currentTimeMs) && entry.targetUrl.isNotBlank()) {
                 val canonicalUrl = key.substringBeforeLast("|")
                 val targetPlatformKey = key.substringAfterLast("|", entry.platform)
                 allItems.add(
@@ -336,7 +342,7 @@ class LinkCache(
         var count = 0
         for (key in combinedKeys) {
             val entry = entries[key] ?: allLoaded[key]
-            if (entry != null && entry.isHistory && (currentTimeMs - entry.timestamp) <= ttlMs && entry.targetUrl.isNotBlank()) {
+            if (entry != null && entry.isHistory && entry.isRetained(currentTimeMs) && entry.targetUrl.isNotBlank()) {
                 count++
             }
         }
