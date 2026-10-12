@@ -57,6 +57,7 @@ struct SwiftPlaylistConversionResult: Codable {
     let zeroOAuthUrl: String?
     let webShareUrl: String?
     let isLimited: Bool
+    let isPartial: Bool?
     let tracks: [SwiftPlaylistTrackItem]
     let parts: [SwiftPlaylistChunk]?
 }
@@ -682,13 +683,16 @@ struct PlaylistConverterView: View {
         ]
 
         Task {
+            var lastErrorType: PlaylistErrorType? = nil
+            let timeoutInterval: TimeInterval = (proManager.isPro || maxTracks > 20) ? 45 : 25
+
             for endpoint in endpoints {
                 guard let url = URL(string: endpoint) else { continue }
                 var request = URLRequest(url: url)
                 request.httpMethod = "POST"
                 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
                 request.setValue("songflip-app", forHTTPHeaderField: "x-web-client")
-                request.timeoutInterval = 25
+                request.timeoutInterval = timeoutInterval
 
                 do {
                     request.httpBody = try JSONSerialization.data(withJSONObject: payload)
@@ -724,7 +728,7 @@ struct PlaylistConverterView: View {
                                         "total": "\(decoded.totalTracks)"
                                     ])
                                     if decoded.matchedCount > 0 {
-                                        ReviewManager.shared.maybeRequestReview(trigger: "playlist_success", settings: self.settings)
+                                         ReviewManager.shared.maybeRequestReview(trigger: "playlist_success", settings: self.settings)
                                     }
                                 }
                                 return
@@ -748,17 +752,21 @@ struct PlaylistConverterView: View {
                         }
                     }
                 } catch {
+                    if let urlErr = error as? URLError, urlErr.code == .timedOut {
+                        lastErrorType = .timeout
+                    }
                     // Try next endpoint
                 }
             }
 
             await MainActor.run {
-                self.errorType = .generic
+                let resolvedErrorType = lastErrorType ?? .generic
+                self.errorType = resolvedErrorType
                 self.isLoading = false
                 ActivePlaylistModel.shared.current = ActivePlaylistData(
                     playlistUrl: playlistUrl,
                     targetPlatformKey: targetPlatformKey,
-                    state: .error(type: .generic, message: errorDescription(for: .generic))
+                    state: .error(type: resolvedErrorType, message: errorDescription(for: resolvedErrorType))
                 )
             }
         }
