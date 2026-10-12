@@ -56,8 +56,8 @@ class LinkCache(
     private val maxEntries: Int = 200,
     private val ttlMs: Long = 7 * 24 * 60 * 60 * 1000L,
     private val storage: CacheStorage = NoOpCacheStorage(),
-    // History is user data, the TTL above only governs resolver freshness (#105)
-    private val historyRetentionMs: Long = 90 * 24 * 60 * 60 * 1000L
+    // History is user data and retained indefinitely by default (#105)
+    private val historyRetentionMs: Long = Long.MAX_VALUE
 ) {
     private val mutex = Mutex()
     private val entries = LinkedHashMap<String, CacheEntry>()
@@ -66,10 +66,10 @@ class LinkCache(
     /** Whether a cached resolution may be reused without hitting the network. */
     private fun CacheEntry.isFresh(now: Long) = (now - timestamp) <= ttlMs
 
-    /** Whether the entry must be kept on disk. Favorites are pinned forever. */
+    /** Whether the entry must be kept on disk. Favorites and history are kept indefinitely. */
     private fun CacheEntry.isRetained(now: Long) = when {
         isFavorite -> true
-        isHistory -> (now - timestamp) <= historyRetentionMs
+        isHistory -> historyRetentionMs == Long.MAX_VALUE || (now - timestamp) <= historyRetentionMs
         else -> isFresh(now)
     }
 
