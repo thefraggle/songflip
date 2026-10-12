@@ -37,7 +37,9 @@ class LinkCacheTest {
             platform = "youtubeMusic"
         )
 
-        cache.put("https://open.spotify.com/track/123", "youtubeMusic", result, currentTimeMs = 1000L)
+        // Pure cache entry (prefetch). History entries are retained longer by design (#105),
+        // see testHistoryOutlivesResolverTtl.
+        cache.put("https://open.spotify.com/track/123", "youtubeMusic", result, currentTimeMs = 1000L, isHistory = false)
 
         // After 1001ms, it should be expired
         val expired = cache.get("https://open.spotify.com/track/123", "youtubeMusic", currentTimeMs = 2001L)
@@ -159,6 +161,81 @@ class LinkCacheTest {
         cache.clearHistoryAndCache()
         assertEquals(0, cache.getHistoryCount(currentTimeMs = now + 300L))
         assertEquals(0, cache.size())
+    }
+
+    // --- #105: favorites & history are user data, not disposable cache ---
+
+    private fun inMemoryStorage() = object : CacheStorage {
+        val map = mutableMapOf<String, CacheEntry>()
+        override fun get(key: String): CacheEntry? = map[key]
+        override fun put(key: String, entry: CacheEntry) { map[key] = entry }
+        override fun remove(key: String) { map.remove(key) }
+        override fun clear() { map.clear() }
+        override fun loadAll(): Map<String, CacheEntry> = map.toMap()
+    }
+
+    private fun song(i: Int) = ResolutionResult.Success(
+        targetUrl = "https://music.youtube.com/watch?v=$i",
+        platform = "youtubeMusic",
+        title = "Song $i"
+    )
+
+    @Test
+    fun testFavoriteSurvivesTtlAndRestart() = runTest {
+        val day = 24 * 60 * 60 * 1000L
+        val storage = inMemoryStorage()
+        val cache = LinkCache(maxEntries = 10, ttlMs = 7 * day, storage = storage)
+        cache.put("https://open.spotify.com/track/fav", "youtubeMusic", song(1), currentTimeMs = 0L)
+        cache.setFavoriteForUrl("https://open.spotify.com/track/fav", "youtubeMusic", true)
+
+        // Fresh instance a year later simulates an app restart
+        val later = 365 * day
+        val restarted = LinkCache(maxEntries = 10, ttlMs = 7 * day, storage = storage)
+        val history = restarted.getHistoryEntries(limit = 10, currentTimeMs = later)
+
+        assertEquals(1, history.size, "Favorite must not expire with the resolver TTL")
+        assertTrue(history[0].isFavorite)
+        // Stale resolution is not reused, but the favorite itself stays on disk
+        assertNull(restarted.get("https://open.spotify.com/track/fav", "youtubeMusic", currentTimeMs = later))
+        assertEquals(1, restarted.getHistoryCount(currentTimeMs = later))
+    }
+
+    @Test
+    fun testFavoriteIsNeverEvictedByLru() = runTest {
+        val cache = LinkCache(maxEntries = 3, ttlMs = 100_000L)
+        cache.put("https://open.spotify.com/track/0", "youtubeMusic", song(0), currentTimeMs = 0L)
+        cache.setFavoriteForUrl("https://open.spotify.com/track/0", "youtubeMusic", true)
+
+        for (i in 1..10) {
+            cache.put("https://open.spotify.com/track/$i", "youtubeMusic", song(i), currentTimeMs = i.toLong())
+        }
+
+        val history = cache.getHistoryEntries(limit = 0, currentTimeMs = 20L)
+        assertTrue(history.any { it.isFavorite && it.title == "Song 0" }, "Favorite must survive LRU eviction")
+        assertEquals(3, history.count { !it.isFavorite }, "Non-favorites are still capped at maxEntries")
+    }
+
+    @Test
+    fun testReFlipKeepsFavorite() = runTest {
+        val cache = LinkCache(maxEntries = 10, ttlMs = 100_000L)
+        cache.put("https://open.spotify.com/track/1", "youtubeMusic", song(1), currentTimeMs = 0L)
+        cache.setFavoriteForUrl("https://open.spotify.com/track/1", "youtubeMusic", true)
+
+        // Resolving the same link again must not unpin it
+        cache.put("https://open.spotify.com/track/1", "youtubeMusic", song(1), currentTimeMs = 50L)
+
+        val history = cache.getHistoryEntries(limit = 10, currentTimeMs = 60L)
+        assertTrue(history.single().isFavorite)
+    }
+
+    @Test
+    fun testHistoryOutlivesResolverTtl() = runTest {
+        val day = 24 * 60 * 60 * 1000L
+        val cache = LinkCache(maxEntries = 10, ttlMs = 7 * day, historyRetentionMs = 90 * day)
+        cache.put("https://open.spotify.com/track/h", "youtubeMusic", song(1), currentTimeMs = 0L)
+
+        assertEquals(1, cache.getHistoryCount(currentTimeMs = 30 * day), "History stays visible after cache TTL")
+        assertEquals(0, cache.getHistoryCount(currentTimeMs = 91 * day), "History expires after retention window")
     }
 }
 

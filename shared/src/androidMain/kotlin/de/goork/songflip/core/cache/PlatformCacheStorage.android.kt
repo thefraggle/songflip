@@ -74,7 +74,7 @@ class AndroidSharedPreferencesCacheStorage(
 
     private fun pruneIfNeeded(editor: SharedPreferences.Editor, allEntries: Map<String, *>) {
         try {
-            val entriesWithTime = mutableListOf<Pair<String, Long>>()
+            val prunable = mutableListOf<Pair<String, Long>>()
             for ((k, v) in allEntries) {
                 if (k == CACHE_VERSION_KEY) continue
                 if (v is String) {
@@ -82,16 +82,15 @@ class AndroidSharedPreferencesCacheStorage(
                         println("AndroidCacheStorage: Corrupt entry during prune $k: ${t.message}")
                         null
                     }
-                    val time = entry?.timestamp ?: 0L
-                    entriesWithTime.add(k to time)
+                    // Favorites are user data and must survive storage pruning (#105)
+                    if (entry?.isFavorite == true) continue
+                    prunable.add(k to (entry?.timestamp ?: 0L))
                 }
             }
-            entriesWithTime.sortBy { it.second }
-            val removeCount = entriesWithTime.size - (MAX_PERSISTENT_ENTRIES - 50)
-            if (removeCount > 0) {
-                for (i in 0 until removeCount) {
-                    editor.remove(entriesWithTime[i].first)
-                }
+            prunable.sortBy { it.second }
+            val removeCount = allEntries.size - (MAX_PERSISTENT_ENTRIES - 50)
+            for (i in 0 until minOf(removeCount, prunable.size)) {
+                editor.remove(prunable[i].first)
             }
         } catch (t: Throwable) {
             println("AndroidCacheStorage: Prune failed: ${t.message}")
