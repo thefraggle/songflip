@@ -237,5 +237,14 @@ class LinkCacheTest {
         assertEquals(1, cache.getHistoryCount(currentTimeMs = 30 * day), "History stays visible after cache TTL")
         assertEquals(0, cache.getHistoryCount(currentTimeMs = 91 * day), "History expires after retention window")
     }
+
+    @Test
+    fun testHistoryIsRetainedIndefinitelyByDefault() = runTest {
+        val day = 24 * 60 * 60 * 1000L
+        val cache = LinkCache(maxEntries = 10, ttlMs = 7 * day) // default retention: unlimited
+        cache.put("https://open.spotify.com/track/h", "youtubeMusic", song(1), currentTimeMs = 0L)
+
+        assertEquals(1, cache.getHistoryCount(currentTimeMs = 365 * day), "History stays visible indefinitely by default")
+    }
 }
 
