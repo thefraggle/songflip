@@ -32,6 +32,9 @@ struct HistorySheetView: View {
                 targetPlatformKey: settings.targetPlatform,
                 customApiUrl: settings.customApiUrl,
                 customApiToken: settings.customApiToken,
+                isPro: proManager.isPro,
+                authToken: proManager.authToken,
+                isPrefetch: false,
                 forceRefresh: true
             )
             if let success = res as? ResolutionResult.Success {

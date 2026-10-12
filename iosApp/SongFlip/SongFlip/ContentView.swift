@@ -993,6 +993,9 @@ struct ContentView: View {
                     targetPlatformKey: settings.targetPlatform,
                     customApiUrl: settings.customApiUrl,
                     customApiToken: settings.customApiToken,
+                    isPro: proManager.isPro,
+                    authToken: proManager.authToken,
+                    isPrefetch: true,
                     forceRefresh: false
                 )
             }
@@ -1016,7 +1019,11 @@ struct ContentView: View {
                 inputUrl: urlToConvert,
                 targetPlatformKey: effectiveTarget,
                 customApiUrl: settings.customApiUrl,
-                customApiToken: settings.customApiToken
+                customApiToken: settings.customApiToken,
+                isPro: proManager.isPro,
+                authToken: proManager.authToken,
+                isPrefetch: false,
+                forceRefresh: false
             )
 
             await MainActor.run {

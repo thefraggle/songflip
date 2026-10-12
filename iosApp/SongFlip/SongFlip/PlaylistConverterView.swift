@@ -692,6 +692,10 @@ struct PlaylistConverterView: View {
                 request.httpMethod = "POST"
                 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
                 request.setValue("songflip-app", forHTTPHeaderField: "x-web-client")
+                let token = proManager.authToken
+                if !token.isEmpty {
+                    request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+                }
                 request.timeoutInterval = timeoutInterval
 
                 do {
