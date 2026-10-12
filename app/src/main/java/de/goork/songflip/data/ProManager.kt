@@ -83,15 +83,9 @@ object ProManager {
     }
 
     fun getAuthToken(): String {
-        val state = _proState.value
         val savedToken = prefs?.getString(KEY_COUPON_TOKEN, null)
-        val savedCode = prefs?.getString(KEY_COUPON_CODE, null)
         return if (!savedToken.isNullOrBlank()) {
             "coupon:$savedToken"
-        } else if (!savedCode.isNullOrBlank()) {
-            "coupon:$savedCode"
-        } else if (state.proType.endsWith("_coupon")) {
-            "coupon:${state.proType}"
         } else {
             getAppUserId()
         }
@@ -133,15 +127,11 @@ object ProManager {
     }
 
     private fun updateFromCustomerInfo(customerInfo: CustomerInfo): ProState {
-        val hasExplicitEntitlement = customerInfo.entitlements["pro"]?.isActive == true ||
-                                     customerInfo.entitlements["songflip_pro"]?.isActive == true
-        val hasActiveSubscription = customerInfo.activeSubscriptions.isNotEmpty()
-        val hasNonSubTransaction = customerInfo.nonSubscriptionTransactions.isNotEmpty()
-        val hasProEntitlement = hasExplicitEntitlement || hasActiveSubscription || hasNonSubTransaction
-
+        // Strictly verify 'pro' or 'songflip_pro' entitlement. Other purchases (tips/consumables) do not grant Pro (#108).
         val activeEntitlement = customerInfo.entitlements["pro"] ?: customerInfo.entitlements["songflip_pro"]
-        val expDate = activeEntitlement?.expirationDate?.time ?: customerInfo.allExpirationDatesByProduct.values.mapNotNull { it?.time }.maxOrNull()
-        val isLifetimeRc = hasNonSubTransaction || (hasProEntitlement && expDate == null)
+        val hasProEntitlement = activeEntitlement?.isActive == true
+        val expDate = activeEntitlement?.expirationDate?.time
+        val isLifetimeRc = hasProEntitlement && expDate == null
 
         return evaluateProState(
             revenueCatActive = hasProEntitlement,
