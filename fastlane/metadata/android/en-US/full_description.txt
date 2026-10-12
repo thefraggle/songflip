@@ -10,10 +10,10 @@ Whether switching Spotify to YouTube Music, Apple Podcasts to Pocket Casts, Spot
 Seamlessly converts songs and podcasts across Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud, and Bandcamp. Includes instant resolution for shared Shazam links!
 
 • Direct Song Search (In-App Search):
-Search for tracks and artists directly inside SongFlip and launch playback instantly in your preferred music app with 1-tap Fast Flip—no existing link required.
+Search for tracks and artists directly inside SongFlip and launch playback instantly in your preferred streaming app with 1-tap Fast Flip—no existing link required.
 
-• QR Code Music Sharing & Scanning:
-Generate and scan universal QR codes for songs and albums. Effortlessly share music with friends in person, no matter which streaming service they subscribe to.
+• QR Code Song Sharing & Scanning:
+Generate and scan universal QR codes for songs and albums. Effortlessly share songs with friends in person, no matter which streaming service they subscribe to.
 
 • Podcast Converter Engine:
 Share full podcast shows or individual episodes across different platforms. SongFlip resolves episode titles automatically and starts playback right inside your favorite podcast player.
