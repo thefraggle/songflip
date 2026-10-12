@@ -38,6 +38,7 @@ data class PlaylistConversionResult(
     val zeroOAuthUrl: String? = null,
     val webShareUrl: String? = null,
     val isLimited: Boolean = false,
+    val isPartial: Boolean = false,
     val tracks: List<PlaylistTrackItem> = emptyList(),
     val parts: List<PlaylistChunk> = emptyList(),
     val duplicateTracksRemoved: Int = 0

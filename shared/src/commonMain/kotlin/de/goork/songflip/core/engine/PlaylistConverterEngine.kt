@@ -53,10 +53,11 @@ class PlaylistConverterEngine(
         }.toString()
 
         var lastException: Throwable? = null
+        val baseTimeout = if (isPro || maxTracks > 20) 45000L else 25000L
 
         for ((index, endpoint) in ENDPOINTS.withIndex()) {
             try {
-                val timeoutMs = if (index == 0 && ENDPOINTS.size > 1) 12000L else 25000L
+                val timeoutMs = if (index == 0 && ENDPOINTS.size > 1) baseTimeout else (baseTimeout + 10000L)
                 val response = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
                     kotlinx.coroutines.withTimeout(timeoutMs) {
                         client.post(endpoint) {
@@ -88,6 +89,14 @@ class PlaylistConverterEngine(
                 if (t is kotlinx.coroutines.CancellationException) throw t
                 lastException = t
             }
+        }
+
+        if (lastException is kotlinx.coroutines.TimeoutCancellationException) {
+            return Result.failure(PlaylistConversionException(
+                errorCode = PlaylistErrorCode.UPSTREAM_TIMEOUT,
+                message = "Die Playlist-Konvertierung hat das Zeitlimit überschritten.",
+                reason = "timeout"
+            ))
         }
 
         return Result.failure(lastException ?: PlaylistConversionException(
