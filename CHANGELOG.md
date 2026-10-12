@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.8.13] - 2026-10-12
+- **Large Playlist Reliability**: Significantly enhanced conversion and transfer stability for playlists with 50+ tracks, including resilient timeout handling and adaptive request pacing.
+- **Graceful Conversion Recovery**: Playlists now preserve all matched tracks even under spotty network conditions, avoiding abrupt transfer aborts.
+- **Fast Same-Platform Transfers**: Instantaneous track matching when source and target streaming services align.
+- **Stability & Performance**: General bugfixes and connection optimizations across all supported music services.
+
 ## [1.8.12] - 2026-10-11
 - **Reliable Deezer Redirection**: Shared Deezer music links now open directly as songs in your preferred music player.
 - **Streamlined Search**: Simplified and cleaner actions menu when browsing song search results.
