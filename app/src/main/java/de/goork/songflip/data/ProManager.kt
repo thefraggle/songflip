@@ -14,6 +14,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -56,6 +57,9 @@ object ProManager {
     private var prefs: SharedPreferences? = null
     private val _proState = MutableStateFlow(ProState())
     val proState: StateFlow<ProState> = _proState.asStateFlow()
+
+    // Process-wide scope (ProManager is a singleton); SupervisorJob isolates failing fire-and-forget work
+    private val backgroundScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     val isPro: Boolean
         get() = _proState.value.isPro
@@ -377,11 +381,10 @@ object ProManager {
                     .post(requestBody)
                     .build()
 
-                val response = client.newCall(request).execute()
-                val bodyStr = response.body?.string() ?: ""
-                val isOk = response.isSuccessful
-                val httpCode = response.code
-                response.close()
+                // use{} guarantees the connection is released even if body reading throws
+                val (bodyStr, isOk, httpCode) = client.newCall(request).execute().use { response ->
+                    Triple(response.body?.string() ?: "", response.isSuccessful, response.code)
+                }
 
                 if (isOk) {
                     val resJson = org.json.JSONObject(bodyStr)
@@ -476,7 +479,7 @@ object ProManager {
     }
 
     fun warmupUniversalShare(rawUrl: String) {
-        CoroutineScope(Dispatchers.IO).launch {
+        backgroundScope.launch {
             try {
                 de.goork.songflip.core.engine.SongLinkEngine.shared.queryL2ServerCache(rawUrl, "universal", getAuthToken())
             } catch (t: Throwable) {
