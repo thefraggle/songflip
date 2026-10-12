@@ -220,6 +220,8 @@ struct ContentView: View {
                     checkClipboard()
                 }
             }
+            // Single foreground hook: a parallel didBecomeActive observer caused double reloads
+            // and duplicate pasteboard access prompts (#116).
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .active {
                     history.loadHistory()
@@ -230,13 +232,6 @@ struct ContentView: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         checkClipboard()
                     }
-                }
-            }
-            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
-                history.loadHistory()
-                activeMilestone = settings.getActiveProNudgeMilestone()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    checkClipboard()
                 }
             }
         }
