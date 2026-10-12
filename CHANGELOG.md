@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.8.15] - 2026-10-12
+- **Reliable Link Resolution**: Faster and more consistent music link matching with enhanced caching.
+- **Playlist Stability**: Improved transfer handling and robust connection management for shared playlists.
+- **Security & Hardening**: Fortified license validation and strengthened internal data checks.
+
 ## [1.8.14] - 2026-10-12
 - **Favorites Stay Put**: Saved favorites are now kept permanently and survive re-flipping the same link.
 - **Permanent History**: Your flip history is now kept permanently without expiring after a week.
