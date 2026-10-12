@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.8.15] - 2026-10-12
+- **Verlässliche Weiterleitung**: Schnellere und gleichmäßigere Auflösung von Musik-Links durch optimierten Zwischenspeicher.
+- **Stabilere Playlists**: Verbesserte Übertragung und zuverlässigere Verbindungsverwaltung beim Teilen von Playlists.
+- **Sicherheit & Härtung**: Erweiterte Absicherung der Lizenzprüfungen und geschützte interne Datenverarbeitung.
+
 ## [1.8.14] - 2026-10-12
 - **Favoriten bleiben erhalten**: Gespeicherte Favoriten bleiben dauerhaft bestehen – auch wenn derselbe Link erneut geflippt wird.
 - **Dauerhafter Verlauf**: Dein Verlauf bleibt nun dauerhaft erhalten und läuft nicht mehr nach einer Woche ab.
