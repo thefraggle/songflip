@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import Combine
+import os
 import SongFlipKit
 
 struct HistoryItem: Identifiable, Codable, Equatable {
@@ -110,6 +111,8 @@ class HistoryModel: ObservableObject {
     static let shared = HistoryModel()
     private static let storageKey = "songflip_conversion_history"
     private static let appGroupId = "group.de.goork.songflip"
+    private static let corruptBackupKey = "songflip_conversion_history_corrupt_backup"
+    private static let logger = Logger(subsystem: "de.goork.songflip", category: "History")
 
     @Published var items: [HistoryItem] = []
 
@@ -130,27 +133,34 @@ class HistoryModel: ObservableObject {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
 
-        if let decoded = try? decoder.decode([HistoryItem].self, from: data) {
-            self.items = decoded
+        do {
+            self.items = try decoder.decode([HistoryItem].self, from: data)
             // Self-healing: persist cleaned timestamps so future decodes are clean
             saveHistory()
-        } else if let array = try? JSONSerialization.jsonObject(with: data) as? [[String: Any]] {
-            // Resilient fallback: decode element-by-element so one bad item doesn't drop the entire history
-            var recovered: [HistoryItem] = []
-            for dict in array {
-                if let itemData = try? JSONSerialization.data(withJSONObject: dict),
-                   let item = try? decoder.decode(HistoryItem.self, from: itemData) {
-                    recovered.append(item)
+        } catch {
+            Self.logger.error("History decode failed, trying per-item recovery: \(error.localizedDescription, privacy: .public)")
+            // Back up the raw blob BEFORE anything can overwrite it, so a decoder bug
+            // in a future update never silently wipes the user's history.
+            backupCorruptData(data)
+
+            if let array = try? JSONSerialization.jsonObject(with: data) as? [[String: Any]] {
+                // Resilient fallback: decode element-by-element so one bad item doesn't drop the entire history
+                var recovered: [HistoryItem] = []
+                for dict in array {
+                    if let itemData = try? JSONSerialization.data(withJSONObject: dict),
+                       let item = try? decoder.decode(HistoryItem.self, from: itemData) {
+                        recovered.append(item)
+                    }
                 }
-            }
-            if !recovered.isEmpty {
+                Self.logger.notice("History recovery: \(recovered.count, privacy: .public)/\(array.count, privacy: .public) items restored")
                 self.items = recovered
-                saveHistory()
+                if !recovered.isEmpty {
+                    saveHistory()
+                }
             } else {
+                Self.logger.error("History blob is not a JSON array, raw data kept in backup key")
                 self.items = []
             }
-        } else {
-            self.items = []
         }
 
         // Auto-hydrate missing cover artwork for legacy history entries
@@ -192,7 +202,8 @@ class HistoryModel: ObservableObject {
                     }
                 }
             } catch {
-                // Ignore background hydration failures
+                // Non-fatal: entry keeps working without artwork, retried on next launch
+                Self.logger.debug("Thumbnail hydration failed: \(error.localizedDescription, privacy: .public)")
             }
         }
     }
@@ -280,9 +291,22 @@ class HistoryModel: ObservableObject {
     private func saveHistory() {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .secondsSince1970
-        if let encoded = try? encoder.encode(items) {
-            defaults.set(encoded, forKey: Self.storageKey)
+        do {
+            defaults.set(try encoder.encode(items), forKey: Self.storageKey)
+        } catch {
+            Self.logger.error("History encode failed, keeping previous data: \(error.localizedDescription, privacy: .public)")
         }
+    }
+
+    /// Keeps the first corrupt snapshot only: a later corruption must not replace
+    /// the oldest (most complete) raw data we could still recover from.
+    private func backupCorruptData(_ data: Data) {
+        guard defaults.data(forKey: Self.corruptBackupKey) == nil else {
+            Self.logger.notice("History backup already exists, not overwriting")
+            return
+        }
+        defaults.set(data, forKey: Self.corruptBackupKey)
+        Self.logger.notice("History raw data backed up (\(data.count, privacy: .public) bytes)")
     }
 }
 
