@@ -2,7 +2,7 @@
 
 ## [1.8.14] - 2026-10-12
 - **Favorites Stay Put**: Saved favorites are now kept permanently and survive re-flipping the same link.
-- **Longer History**: Your flip history is kept for up to 90 days.
+- **Permanent History**: Your flip history is now kept permanently without expiring after a week.
 - **Stability & Security**: Smoother app resume, safer handling of saved data and general hardening.
 
 ## [1.8.13] - 2026-10-12
