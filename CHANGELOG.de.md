@@ -2,7 +2,7 @@
 
 ## [1.8.14] - 2026-10-12
 - **Favoriten bleiben erhalten**: Gespeicherte Favoriten bleiben dauerhaft bestehen – auch wenn derselbe Link erneut geflippt wird.
-- **Längerer Verlauf**: Dein Verlauf wird bis zu 90 Tage aufbewahrt.
+- **Dauerhafter Verlauf**: Dein Verlauf bleibt nun dauerhaft erhalten und läuft nicht mehr nach einer Woche ab.
 - **Stabilität & Sicherheit**: Flüssigeres Fortsetzen der App, sicherer Umgang mit gespeicherten Daten und allgemeine Härtung.
 
 ## [1.8.13] - 2026-10-12
