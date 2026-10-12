@@ -9,11 +9,20 @@ Enten det gjelder Spotify til YouTube Music, Apple Podcasts til Spotify eller de
 • 10 Musikk- og Podcastplattformer samt Shazam:
 Konverterer sømløst mellom Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud og Bandcamp. Støtter også Shazam-lenker!
 
+• Direkte sangsøk (søk i app):
+Søk etter spor og artister direkte inne i SongFlip og start avspilling umiddelbart i din foretrukne musikkapp med 1-tapps Fast Flip – ingen eksisterende kobling kreves.
+
+• QR-kode musikkdeling og skanning:
+Generer og skann universelle QR-koder for sanger og album. Del musikk enkelt med venner, uansett hvilken strømmetjeneste de abonnerer på.
+
 • Podcast-Konvertering:
 Del podcastserier og enkeltepisoder på tvers av ulike plattformer. SongFlip finner episoden og starter den direkte i din foretrukne podcast-app.
 
 • Universell Spillelistekonverterer:
-Overfør hele spillelister spor for spor mellom Spotify, Apple Music og YouTube Music med lynrask hurtigbuffer.
+Overfør hele spillelister spor for spor mellom Spotify, Apple Music, YouTube Music, TIDAL og Deezer – med automatisk duplikatrensing, opptil 200 spor og høyhastighets bufring i flere lag.
+
+• Avgrens kamper og 1-trykks favoritter:
+Velg enkelt mellom liveopptak, remastere eller alternative versjoner. Fest favorittlåtene dine i historien med ett enkelt trykk og administrer dem via den strømlinjeformede hurtighandlingsmenyen.
 
 • Øyeblikkelig Avspilling (Instant Playback):
 Starter avspillingen direkte i målspilleren i stedet for å åpne en tom søkeside.

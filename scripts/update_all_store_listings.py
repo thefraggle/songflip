@@ -56,10 +56,10 @@ LOCALE_TO_TRANSLATE_LANG = {
 MASTER_CONTENT = {
     'en': {
         'search_title': "Direct Song Search (In-App Search):",
-        'search_body': "Search for tracks and artists directly inside SongFlip and launch playback instantly in your preferred music app with 1-tap Fast Flip—no existing link required.",
+        'search_body': "Search for tracks and artists directly inside SongFlip and launch playback instantly in your preferred streaming app with 1-tap Fast Flip—no existing link required.",
         
-        'qr_title': "QR Code Music Sharing & Scanning:",
-        'qr_body': "Generate and scan universal QR codes for songs and albums. Effortlessly share music with friends in person, no matter which streaming service they subscribe to.",
+        'qr_title': "QR Code Song Sharing & Scanning:",
+        'qr_body': "Generate and scan universal QR codes for songs and albums. Effortlessly share songs with friends in person, no matter which streaming service they subscribe to.",
         
         'playlist_body': "Transfer entire playlists track-by-track between Spotify, Apple Music, YouTube Music, TIDAL, and Deezer—featuring automatic duplicate cleaning, up to 200 tracks, and high-speed multi-tier caching.",
         
@@ -240,7 +240,7 @@ def main():
     print(f"Writing updated Markdown to {MD_PATH}...")
     with open(MD_PATH, 'w', encoding='utf-8') as f:
         f.write("# 📱 SongFlip – Play Store Listings (Alle Sprachen)\n")
-        f.write("> **Version:** 1.8.10 | **Umfang:** 34 Store-Sprachen | **Zertifiziert:** Titel ≤ 30 Zeichen, Kurzbeschreibung ≤ 80 Zeichen, Volltext ≤ 4.000 Zeichen.\n")
+        f.write("> **Version:** 1.8.12 | **Umfang:** 34 Store-Sprachen | **Zertifiziert:** Titel ≤ 30 Zeichen, Kurzbeschreibung ≤ 80 Zeichen, Volltext ≤ 4.000 Zeichen.\n")
         f.write("---\n\n")
         for row in updated_rows:
             loc = row['Language']

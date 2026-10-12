@@ -9,11 +9,20 @@ Dari Spotify ke YouTube Music, Apple Podcasts ke Spotify, hingga lagu Shazam: So
 • 10 Platform Musik, Podcast & Shazam:
 Konversi mulus antara Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud, dan Bandcamp. Mendukung tautan Shazam!
 
+• Pencarian Lagu Langsung (Pencarian Dalam Aplikasi):
+Cari lagu dan artis langsung di dalam SongFlip dan luncurkan pemutaran secara instan di aplikasi musik pilihan Anda dengan Fast Flip 1-ketuk—tidak perlu tautan apa pun.
+
+• Berbagi & Memindai Musik Kode QR:
+Hasilkan dan pindai kode QR universal untuk lagu dan album. Berbagi musik dengan mudah kepada teman secara langsung, apa pun layanan streaming langganan mereka.
+
 • Mesin Konverter Podcast:
 Bagikan acara podcast dan episode antar platform berbeda. SongFlip menemukan episode dan memutarnya langsung di aplikasi podcast pilihan Anda.
 
 • Pengonversi Playlist Universal:
-Transfer seluruh daftar putar lagu demi lagu antara Spotify, Apple Music, dan YouTube Music dengan cache berkecepatan tinggi.
+Transfer seluruh daftar putar lagu demi lagu antara Spotify, Apple Music, YouTube Music, TIDAL, dan Deezer—dengan fitur pembersihan duplikat otomatis, hingga 200 lagu, dan caching multi-tingkat berkecepatan tinggi.
+
+• Perbaiki Kecocokan & Favorit 1-Ketuk:
+Pilih dengan mudah antara rekaman live, remaster, atau versi alternatif. Sematkan trek favorit Anda dalam riwayat dengan satu ketukan dan kelola melalui menu tindakan cepat yang disederhanakan.
 
 • Pemutaran Instan (Instant Playback):
 Memulai lagu atau episode langsung di pemutar tujuan alih-alih menampilkan halaman pencarian kosong.

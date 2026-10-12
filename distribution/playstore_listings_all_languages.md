@@ -1,5 +1,5 @@
 # 📱 SongFlip – Play Store Listings (Alle Sprachen)
-> **Version:** 1.8.10 | **Umfang:** 34 Store-Sprachen | **Zertifiziert:** Titel ≤ 30 Zeichen, Kurzbeschreibung ≤ 80 Zeichen, Volltext ≤ 4.000 Zeichen.
+> **Version:** 1.8.12 | **Umfang:** 34 Store-Sprachen | **Zertifiziert:** Titel ≤ 30 Zeichen, Kurzbeschreibung ≤ 80 Zeichen, Volltext ≤ 4.000 Zeichen.
 ---
 
 ## বাংলা (bn-BD)
@@ -389,7 +389,7 @@ SongFlip: Music Link Redirect
 Automatically convert & open song and podcast links in your favorite player.
 ```
 
-### Ausführliche Beschreibung (3699/4000 Zeichen)
+### Ausführliche Beschreibung (3702/4000 Zeichen)
 ```text
 A friend sends you a song or podcast on Spotify, but you listen on YouTube Music, Apple Podcasts, or Deezer?
 
@@ -403,10 +403,10 @@ Whether switching Spotify to YouTube Music, Apple Podcasts to Pocket Casts, Spot
 Seamlessly converts songs and podcasts across Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud, and Bandcamp. Includes instant resolution for shared Shazam links!
 
 • Direct Song Search (In-App Search):
-Search for tracks and artists directly inside SongFlip and launch playback instantly in your preferred music app with 1-tap Fast Flip—no existing link required.
+Search for tracks and artists directly inside SongFlip and launch playback instantly in your preferred streaming app with 1-tap Fast Flip—no existing link required.
 
-• QR Code Music Sharing & Scanning:
-Generate and scan universal QR codes for songs and albums. Effortlessly share music with friends in person, no matter which streaming service they subscribe to.
+• QR Code Song Sharing & Scanning:
+Generate and scan universal QR codes for songs and albums. Effortlessly share songs with friends in person, no matter which streaming service they subscribe to.
 
 • Podcast Converter Engine:
 Share full podcast shows or individual episodes across different platforms. SongFlip resolves episode titles automatically and starts playback right inside your favorite podcast player.
@@ -464,7 +464,7 @@ SongFlip: Music Link Redirect
 Automatically convert & open song and podcast links in your favorite player.
 ```
 
-### Ausführliche Beschreibung (3699/4000 Zeichen)
+### Ausführliche Beschreibung (3702/4000 Zeichen)
 ```text
 A friend sends you a song or podcast on Spotify, but you listen on YouTube Music, Apple Podcasts, or Deezer?
 
@@ -478,10 +478,10 @@ Whether switching Spotify to YouTube Music, Apple Podcasts to Pocket Casts, Spot
 Seamlessly converts songs and podcasts across Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud, and Bandcamp. Includes instant resolution for shared Shazam links!
 
 • Direct Song Search (In-App Search):
-Search for tracks and artists directly inside SongFlip and launch playback instantly in your preferred music app with 1-tap Fast Flip—no existing link required.
+Search for tracks and artists directly inside SongFlip and launch playback instantly in your preferred streaming app with 1-tap Fast Flip—no existing link required.
 
-• QR Code Music Sharing & Scanning:
-Generate and scan universal QR codes for songs and albums. Effortlessly share music with friends in person, no matter which streaming service they subscribe to.
+• QR Code Song Sharing & Scanning:
+Generate and scan universal QR codes for songs and albums. Effortlessly share songs with friends in person, no matter which streaming service they subscribe to.
 
 • Podcast Converter Engine:
 Share full podcast shows or individual episodes across different platforms. SongFlip resolves episode titles automatically and starts playback right inside your favorite podcast player.
