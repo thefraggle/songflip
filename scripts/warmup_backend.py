@@ -5,7 +5,7 @@ import sys
 
 TARGETS = [
     ("L2 Cache Health", "https://cache.songflip.link/health", {}),
-    ("L2 Cache Resolver", "https://cache.songflip.link/resolve?url=https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT", {"x-web-client": "songflip"}),
+    ("L2 Cache Resolver", "https://cache.songflip.link/resolve?url=https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT", {"Origin": "https://songflip.link"}),
     ("Web Share SSR", "https://songflip.link/s/rickroll", {"User-Agent": "SongFlip-Warmup/1.0"}),
 ]
 
