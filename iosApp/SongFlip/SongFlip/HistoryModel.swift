@@ -208,6 +208,38 @@ class HistoryModel: ObservableObject {
         }
     }
 
+    @discardableResult
+    func reloadFromDefaults() -> [HistoryItem] {
+        guard let data = defaults.data(forKey: Self.storageKey) else {
+            self.items = []
+            return []
+        }
+
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .secondsSince1970
+
+        if let list = try? decoder.decode([HistoryItem].self, from: data) {
+            self.items = list
+            return list
+        }
+
+        if let array = try? JSONSerialization.jsonObject(with: data) as? [[String: Any]] {
+            var recovered: [HistoryItem] = []
+            for dict in array {
+                if let itemData = try? JSONSerialization.data(withJSONObject: dict),
+                   let item = try? decoder.decode(HistoryItem.self, from: itemData) {
+                    recovered.append(item)
+                }
+            }
+            if !recovered.isEmpty {
+                self.items = recovered
+                return recovered
+            }
+        }
+
+        return self.items
+    }
+
     func add(
         title: String,
         artist: String?,
@@ -217,6 +249,9 @@ class HistoryModel: ObservableObject {
         isAlbum: Bool = false,
         thumbnailUrl: String? = nil
     ) {
+        // Prevent lost updates by syncing with shared App Group storage first (#113)
+        reloadFromDefaults()
+
         // Avoid duplicate consecutive identical items
         if let first = items.first, first.targetUrl == targetUrl {
             return
@@ -256,6 +291,9 @@ class HistoryModel: ObservableObject {
         isAlbum: Bool,
         thumbnailUrl: String? = nil
     ) {
+        // Prevent lost updates by syncing with shared App Group storage first (#113)
+        reloadFromDefaults()
+
         if let idx = items.firstIndex(where: { $0.id == id }) {
             let old = items[idx]
             items[idx] = HistoryItem(
@@ -274,16 +312,19 @@ class HistoryModel: ObservableObject {
     }
 
     func delete(at offsets: IndexSet) {
+        reloadFromDefaults()
         items.remove(atOffsets: offsets)
         saveHistory()
     }
 
     func deleteItem(id: UUID) {
+        reloadFromDefaults()
         items.removeAll { $0.id == id }
         saveHistory()
     }
 
     func clear() {
+        reloadFromDefaults()
         items.removeAll()
         saveHistory()
     }

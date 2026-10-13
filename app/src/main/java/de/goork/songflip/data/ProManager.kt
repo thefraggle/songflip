@@ -49,6 +49,9 @@ object ProManager {
     private const val KEY_COUPON_TOKEN = "pro_coupon_token"
     private const val KEY_COUPON_EXPIRATION = "pro_coupon_expiration"
     private const val KEY_INSTALL_ID = "anonymous_install_id"
+    private const val KEY_RC_IS_PRO = "rc_is_pro"
+    private const val KEY_RC_TYPE = "rc_pro_type"
+    private const val KEY_RC_EXPIRATION = "rc_pro_expiration"
 
     // RevenueCat Configuration
     private val REVENUECAT_API_KEY = de.goork.songflip.BuildConfig.REVENUECAT_API_KEY
@@ -91,14 +94,34 @@ object ProManager {
         }
     }
 
+    fun hydrateLocalProState(): ProState {
+        val cachedRcPro = prefs?.getBoolean(KEY_RC_IS_PRO, false) ?: false
+        val cachedRcType = prefs?.getString(KEY_RC_TYPE, "revenuecat_subscription") ?: "revenuecat_subscription"
+        val cachedRcExp = prefs?.getLong(KEY_RC_EXPIRATION, 0L) ?: 0L
+        val isLifetime = cachedRcType == "revenuecat_lifetime"
+        val isExpired = !isLifetime && cachedRcExp > 0L && cachedRcExp <= System.currentTimeMillis()
+
+        return if (cachedRcPro && !isExpired) {
+            evaluateProState(
+                revenueCatActive = true,
+                rcExpirationMillis = if (isLifetime) null else cachedRcExp,
+                rcIsLifetime = isLifetime
+            )
+        } else {
+            evaluateProState(revenueCatActive = false)
+        }
+    }
+
     fun init(context: Context) {
         if (prefs == null) {
             prefs = context.applicationContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         }
 
+        // Fast offline hydration from local preferences before network responds (#110)
+        hydrateLocalProState()
+
         // Initialize RevenueCat SDK
         if (REVENUECAT_API_KEY.isBlank()) {
-            evaluateProState(revenueCatActive = false)
             return
         }
 
@@ -118,11 +141,23 @@ object ProManager {
                 }
 
                 override fun onError(error: PurchasesError) {
+                    // Do NOT revoke Pro entitlement on network timeout or temporary error (#110).
+                    // If user already had a valid Pro entitlement, preserve it while offline.
+                    val current = _proState.value
+                    if (current.isPro && current.proType.startsWith("revenuecat")) {
+                        val exp = current.expirationDate
+                        if (exp == null || exp > System.currentTimeMillis()) {
+                            return
+                        }
+                    }
                     evaluateProState(revenueCatActive = false)
                 }
             })
         } catch (e: Exception) {
-            evaluateProState(revenueCatActive = false)
+            val current = _proState.value
+            if (!current.isPro || !current.proType.startsWith("revenuecat")) {
+                evaluateProState(revenueCatActive = false)
+            }
         }
     }
 
@@ -136,7 +171,8 @@ object ProManager {
         return evaluateProState(
             revenueCatActive = hasProEntitlement,
             rcExpirationMillis = expDate,
-            rcIsLifetime = isLifetimeRc
+            rcIsLifetime = isLifetimeRc,
+            isExplicitRcCheck = true
         )
     }
 
@@ -144,12 +180,26 @@ object ProManager {
     private fun evaluateProState(
         revenueCatActive: Boolean,
         rcExpirationMillis: Long? = null,
-        rcIsLifetime: Boolean = false
+        rcIsLifetime: Boolean = false,
+        isExplicitRcCheck: Boolean = false
     ): ProState {
         val sp = prefs
         val couponType = sp?.getString(KEY_COUPON_TYPE, null)
         val expiration = sp?.getLong(KEY_COUPON_EXPIRATION, 0L) ?: 0L
         val now = System.currentTimeMillis()
+
+        if (revenueCatActive) {
+            sp?.edit()
+                ?.putBoolean(KEY_RC_IS_PRO, true)
+                ?.putString(KEY_RC_TYPE, if (rcIsLifetime) "revenuecat_lifetime" else "revenuecat_subscription")
+                ?.putLong(KEY_RC_EXPIRATION, rcExpirationMillis ?: 0L)
+                ?.apply()
+        } else if (isExplicitRcCheck) {
+            sp?.edit()
+                ?.putBoolean(KEY_RC_IS_PRO, false)
+                ?.remove(KEY_RC_EXPIRATION)
+                ?.apply()
+        }
 
         val newState = when {
             revenueCatActive -> ProState(
