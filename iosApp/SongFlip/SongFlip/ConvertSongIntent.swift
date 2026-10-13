@@ -117,7 +117,7 @@ struct ConvertSongIntent: AppIntent {
                 errorReason = "engine_error"
             }
             bridgeErrorDetail = error.localizedDescription
-            res = ResolutionResult.Error(message: error.localizedDescription, errorReason: errorReason)
+            res = ResolutionResult.Error(message: error.localizedDescription, isUnsupported: false, errorReason: errorReason)
         }
 
         if let success = res as? ResolutionResult.Success {
