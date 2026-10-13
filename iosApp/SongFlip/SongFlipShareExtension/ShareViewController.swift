@@ -370,7 +370,7 @@ class ShareViewController: UIViewController {
                     errorReason = "engine_error"
                 }
                 bridgeErrorDetail = error.localizedDescription
-                result = ResolutionResult.Error(message: error.localizedDescription, errorReason: errorReason)
+                result = ResolutionResult.Error(message: error.localizedDescription, isUnsupported: false, errorReason: errorReason)
             }
 
             await MainActor.run {
