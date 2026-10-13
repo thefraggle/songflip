@@ -496,6 +496,12 @@ struct ProPaywallSheetView: View {
                 couponStatusMessage = LocalizationManager.string(for: "pro_coupon_already_active", lang: lang)
             case .alreadyRedeemed:
                 couponStatusMessage = LocalizationManager.string(for: "pro_coupon_already_redeemed", lang: lang)
+            case .maxReached:
+                couponStatusMessage = LocalizationManager.string(for: "pro_coupon_max_reached", lang: lang)
+            case .inactive:
+                couponStatusMessage = LocalizationManager.string(for: "pro_coupon_inactive", lang: lang)
+            case .rateLimited:
+                couponStatusMessage = LocalizationManager.string(for: "pro_coupon_rate_limited", lang: lang)
             case .invalid:
                 couponStatusMessage = LocalizationManager.string(for: "pro_coupon_invalid", lang: lang)
             case .networkError:

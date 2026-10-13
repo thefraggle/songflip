@@ -1,0 +1,9 @@
+// Base configuration for SongFlip iOS targets
+// Default production keys are defined here as fallbacks.
+// To override keys locally, create Config.xcconfig (gitignored, see Config.example.xcconfig).
+
+REVENUECAT_PUBLIC_KEY = REPLACED_SECRET
+APTABASE_APP_KEY = REPLACED_SECRET
+APTABASE_HOST = https://api.aptabase.com
+
+#include? "Config.xcconfig"

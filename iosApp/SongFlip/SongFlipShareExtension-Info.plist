@@ -20,6 +20,10 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>APTABASE_APP_KEY</key>
+	<string>$(APTABASE_APP_KEY)</string>
+	<key>APTABASE_HOST</key>
+	<string>$(APTABASE_HOST)</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionPointIdentifier</key>
