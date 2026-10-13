@@ -8,10 +8,16 @@ import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
+import kotlin.concurrent.Volatile
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
@@ -45,13 +51,20 @@ object AptabaseClient {
     private val client: HttpClient by lazy { createPlatformHttpClient() }
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
+    @Volatile
     private var appKey: String = ""
+    @Volatile
     private var host: String = ""
+    @Volatile
     private var systemProps: SystemProps? = null
 
+    private val sessionMutex = Mutex()
     private var currentSessionId: String = ""
     private var lastEventTimestamp: Long = 0
     private val sessionTimeoutMs = 60 * 60 * 1000L // 1 hour
+
+    val isInitialized: Boolean
+        get() = appKey.isNotEmpty() && host.isNotEmpty() && systemProps != null
 
     fun init(
         appKey: String,
@@ -73,61 +86,88 @@ object AptabaseClient {
             appVersion = appVersion,
             appBuildNumber = appBuildNumber
         )
-        refreshSessionId()
+        this.currentSessionId = generateRandomSessionId()
+        this.lastEventTimestamp = getCurrentTimeMillis()
     }
 
     fun setIsDebug(isDebug: Boolean) {
         systemProps = systemProps?.copy(isDebug = isDebug)
     }
 
-    private fun refreshSessionId() {
-        currentSessionId = generateRandomSessionId()
-        lastEventTimestamp = getCurrentTimeMillis()
-    }
-
-    private fun getValidSessionId(): String {
+    private fun getValidSessionIdLocked(): String {
         val now = getCurrentTimeMillis()
         if (currentSessionId.isEmpty() || (now - lastEventTimestamp) > sessionTimeoutMs) {
-            refreshSessionId()
+            currentSessionId = generateRandomSessionId()
         }
         lastEventTimestamp = now
         return currentSessionId
     }
 
-    fun trackEvent(eventName: String, props: Map<String, String> = emptyMap()) {
+    suspend fun trackEventAwait(
+        eventName: String,
+        props: Map<String, String> = emptyMap(),
+        timeoutMs: Long = 1500L
+    ): Boolean {
         val key = appKey
         val h = host
-        val sys = systemProps ?: return
-        if (key.isEmpty() || h.isEmpty()) return
+        val sys = systemProps
+        if (key.isEmpty() || h.isEmpty() || sys == null) return false
 
-        val jsonProps = buildJsonObject {
-            props.forEach { (k, v) ->
-                put(k, JsonPrimitive(v))
+        val event = sessionMutex.withLock {
+            val sessionId = getValidSessionIdLocked()
+            val jsonProps = buildJsonObject {
+                props.forEach { (k, v) ->
+                    put(k, JsonPrimitive(v))
+                }
             }
+            AptabaseEvent(
+                timestamp = getIso8601Timestamp(),
+                sessionId = sessionId,
+                eventName = eventName,
+                systemProps = sys,
+                props = jsonProps
+            )
         }
 
-        val event = AptabaseEvent(
-            timestamp = getIso8601Timestamp(),
-            sessionId = getValidSessionId(),
-            eventName = eventName,
-            systemProps = sys,
-            props = jsonProps
-        )
-
-        scope.launch {
-            try {
+        return try {
+            withTimeoutOrNull(timeoutMs) {
                 val url = "$h/api/v0/event"
                 val bodyText = json.encodeToString(AptabaseEvent.serializer(), event)
-                client.post(url) {
+                val response = client.post(url) {
                     header("App-Key", key)
                     contentType(ContentType.Application.Json)
                     setBody(bodyText)
                 }
-            } catch (_: Throwable) {
-                // Silently swallow analytics dispatch errors to never disrupt app UX
-            }
+                response.status.value in 200..299
+            } ?: false
+        } catch (t: Throwable) {
+            println("AptabaseClient: dispatch error for event '$eventName': ${t.message ?: t::class.simpleName}")
+            false
         }
     }
+
+    suspend fun trackEventAwait(eventName: String): Boolean = trackEventAwait(eventName, emptyMap(), 1500L)
+    suspend fun trackEventAwait(eventName: String, props: Map<String, String>): Boolean = trackEventAwait(eventName, props, 1500L)
+
+    fun trackEvent(eventName: String, props: Map<String, String> = emptyMap()) {
+        scope.launch {
+            trackEventAwait(eventName, props)
+        }
+    }
+
+    suspend fun flush(timeoutMs: Long = 1500L): Boolean {
+        return try {
+            withTimeoutOrNull(timeoutMs) {
+                val children = scope.coroutineContext[Job]?.children?.toList() ?: emptyList()
+                children.joinAll()
+            } != null
+        } catch (t: Throwable) {
+            println("AptabaseClient: flush error: ${t.message ?: t::class.simpleName}")
+            false
+        }
+    }
+
+    suspend fun flush(): Boolean = flush(1500L)
 
     fun trackAppLaunched(platform: String, language: String) {
         trackEvent("app_launched", mapOf("platform" to platform, "language" to language))

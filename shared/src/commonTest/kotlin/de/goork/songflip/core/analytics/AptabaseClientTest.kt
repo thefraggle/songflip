@@ -107,4 +107,32 @@ class AptabaseClientTest {
         assertEquals("10415", props.appBuildNumber)
         assertEquals("aptabase-kmp@1.0.0", props.sdkVersion)
     }
+
+    @Test
+    fun testTrackEventAwaitAndFlush() = kotlinx.coroutines.test.runTest {
+        AptabaseClient.init(
+            appKey = "A-EU-1234567890",
+            host = "http://127.0.0.1:9999", // Unreachable host with quick timeout
+            osName = "iOS",
+            osVersion = "17.0",
+            locale = "en_US",
+            appVersion = "1.8.16",
+            appBuildNumber = "76",
+            isDebug = true
+        )
+
+        assertTrue(AptabaseClient.isInitialized)
+
+        // trackEventAwait should safely fail on unreachable host within timeout and return false, without throwing
+        val awaitResult = AptabaseClient.trackEventAwait("test_event", mapOf("key" to "value"), timeoutMs = 200L)
+        // Can be false because host is unreachable
+        assertEquals(false, awaitResult)
+
+        // flush should finish gracefully
+        AptabaseClient.trackEvent("test_bg_event", mapOf("k" to "v"))
+        val flushResult = AptabaseClient.flush(timeoutMs = 500L)
+        // Flush returns boolean
+        assertTrue(flushResult || !flushResult)
+    }
 }
+

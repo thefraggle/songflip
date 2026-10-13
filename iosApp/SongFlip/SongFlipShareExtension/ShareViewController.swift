@@ -299,12 +299,42 @@ class ShareViewController: UIViewController {
         ])
     }
 
+    private func ensureAptabaseInitialized() {
+        if AptabaseClient.shared.isInitialized { return }
+        let isDebug: Bool = {
+            #if DEBUG
+            return true
+            #else
+            return false
+            #endif
+        }()
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.8.16"
+        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "76"
+        let osVersion = UIDevice.current.systemVersion
+        let locale = Locale.current.identifier
+
+        let aptabaseKey = Bundle.main.infoDictionary?["APTABASE_APP_KEY"] as? String ?? "A-SH-4092372492"
+        let aptabaseHost = Bundle.main.infoDictionary?["APTABASE_HOST"] as? String ?? "https://telemetry-apps.goork.de"
+
+        AptabaseClient.shared.doInit(
+            appKey: aptabaseKey,
+            host: aptabaseHost,
+            osName: "iOS",
+            osVersion: osVersion,
+            locale: locale,
+            appVersion: appVersion,
+            appBuildNumber: buildNumber,
+            isDebug: isDebug
+        )
+    }
+
     private func resolveAndOpen(
         inputUrl: String,
         targetPlatform: String,
         customUrl: String,
         customToken: String
     ) {
+        ensureAptabaseInitialized()
         Task {
             let result = try? await engine.resolveTargetUrl(
                 inputUrl: inputUrl,
@@ -330,29 +360,72 @@ class ShareViewController: UIViewController {
                         thumbnailUrl: success.thumbnailUrl
                     )
 
+                    let srcKey = UrlUtils.shared.detectPlatform(url: inputUrl)?.key ?? "unknown"
+                    AptabaseClient.shared.trackLinkFlipped(
+                        target: targetPlatform,
+                        isAlbum: success.isAlbum,
+                        isSearch: success.isSearchFallback,
+                        source: srcKey
+                    )
+
                     let targetUri = success.nativeAppUri ?? success.targetUrl
                     let fallbackUri = success.nativeAppUri != nil ? success.targetUrl : nil
                     self.openApp(urlString: targetUri, fallbackUrlString: fallbackUri)
                 } else if let podcast = result as? ResolutionResult.Podcast {
                     self.statusLabel.text = self.localizedText(for: "podcast_badge", default: "Podcast")
+
+                    let srcKey = UrlUtils.shared.detectPlatform(url: inputUrl)?.key ?? "unknown"
+                    AptabaseClient.shared.trackPodcastFlipped(
+                        source: srcKey,
+                        target: targetPlatform,
+                        isDeepSearch: podcast.isDeepSearch
+                    )
+
                     let targetUri = podcast.nativeAppUri ?? podcast.targetUrl
                     let fallbackUri = podcast.nativeAppUri != nil ? podcast.targetUrl : nil
                     self.openApp(urlString: targetUri, fallbackUrlString: fallbackUri)
                 } else if let playlist = result as? ResolutionResult.Playlist {
                     self.statusLabel.text = self.localizedText(for: "playlist_share_opening", default: "Playlist: Opening original...")
+                    AptabaseClient.shared.trackPlaylistRouted(target: targetPlatform)
                     self.openApp(urlString: playlist.originalUrl)
                 } else if let podcast = result as? ResolutionResult.PodcastOrAudiobook {
                     self.statusLabel.text = self.localizedText(for: "podcast_share_opening", default: "Podcast: Opening original...")
+                    if podcast.isAudiobook {
+                        AptabaseClient.shared.trackAudiobookIntercepted(target: targetPlatform)
+                    } else {
+                        AptabaseClient.shared.trackPodcastIntercepted(target: targetPlatform)
+                    }
                     self.openApp(urlString: podcast.originalUrl)
+                } else if let unsupported = result as? ResolutionResult.UnsupportedEntity {
+                    AptabaseClient.shared.trackUnsupportedEntityIntercepted(
+                        target: targetPlatform,
+                        entityType: unsupported.entityType
+                    )
+                    self.openApp(urlString: unsupported.originalUrl)
                 } else {
                     self.statusLabel.text = self.localizedText(for: "share_error_failed", default: "Could not redirect link.")
+
+                    let srcKey = UrlUtils.shared.detectPlatform(url: inputUrl)?.key ?? "unknown"
+                    let srcDomain = UrlUtils.shared.extractDomain(url: inputUrl)
+                    let err = result as? ResolutionResult.Error
+                    let reason = err?.message ?? self.localizedText(for: "share_error_failed", default: "Could not redirect link.")
+                    let errorReason = err?.errorReason ?? "no_match_found"
+                    AptabaseClient.shared.trackLinkFlipFailed(
+                        target: targetPlatform,
+                        reason: reason,
+                        sourceDomain: srcDomain,
+                        sourcePlatform: srcKey,
+                        errorReason: errorReason,
+                        errorDetail: nil
+                    )
+
                     let trimmedInput = inputUrl.trimmingCharacters(in: .whitespacesAndNewlines)
                     if let fallbackUrl = URL(string: trimmedInput),
                        fallbackUrl.scheme == "http" || fallbackUrl.scheme == "https" {
                         self.openApp(urlString: fallbackUrl.absoluteString)
                     } else {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                            self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+                            self.completeExtension()
                         }
                     }
                 }
@@ -416,12 +489,21 @@ class ShareViewController: UIViewController {
         }
     }
 
+    private func completeExtension() {
+        Task {
+            _ = try? await AptabaseClient.shared.flush(timeoutMs: 1500)
+            await MainActor.run {
+                self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+            }
+        }
+    }
+
     private func openApp(urlString: String, fallbackUrlString: String? = nil) {
         guard let url = URL(string: urlString) else {
             if let fallback = fallbackUrlString, let _ = URL(string: fallback) {
                 openApp(urlString: fallback)
             } else {
-                self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+                completeExtension()
             }
             return
         }
@@ -437,7 +519,7 @@ class ShareViewController: UIViewController {
         }
 
         guard let app = application else {
-            self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+            completeExtension()
             return
         }
 
@@ -445,12 +527,12 @@ class ShareViewController: UIViewController {
             if !success, let fallback = fallbackUrlString, let fallbackUrl = URL(string: fallback), fallback != urlString {
                 app.open(fallbackUrl, options: [:]) { _ in
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        self?.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+                        self?.completeExtension()
                     }
                 }
             } else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    self?.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+                    self?.completeExtension()
                 }
             }
         }

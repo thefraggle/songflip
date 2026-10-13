@@ -34,7 +34,38 @@ struct ConvertSongIntent: AppIntent {
     @Parameter(title: LocalizedStringResource("intent_param_music_link", defaultValue: "Music Link"))
     var inputUrl: String?
 
+    private func ensureAptabaseInitialized() {
+        if AptabaseClient.shared.isInitialized { return }
+        let isDebug: Bool = {
+            #if DEBUG
+            return true
+            #else
+            return false
+            #endif
+        }()
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.8.16"
+        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "76"
+        let osVersion = UIDevice.current.systemVersion
+        let locale = Locale.current.identifier
+
+        let aptabaseKey = Bundle.main.infoDictionary?["APTABASE_APP_KEY"] as? String ?? "A-SH-4092372492"
+        let aptabaseHost = Bundle.main.infoDictionary?["APTABASE_HOST"] as? String ?? "https://telemetry-apps.goork.de"
+
+        AptabaseClient.shared.doInit(
+            appKey: aptabaseKey,
+            host: aptabaseHost,
+            osName: "iOS",
+            osVersion: osVersion,
+            locale: locale,
+            appVersion: appVersion,
+            appBuildNumber: buildNumber,
+            isDebug: isDebug
+        )
+    }
+
     func perform() async throws -> some IntentResult {
+        ensureAptabaseInitialized()
+
         let urlToConvert: String
         if let input = inputUrl?.trimmingCharacters(in: .whitespacesAndNewlines), !input.isEmpty {
             urlToConvert = input
@@ -88,6 +119,7 @@ struct ConvertSongIntent: AppIntent {
                 await UIApplication.shared.open(webUrl)
             }
 
+            _ = try? await AptabaseClient.shared.flush(timeoutMs: 1500)
             return .result()
         } else if let podcast = res as? ResolutionResult.Podcast {
             AptabaseClient.shared.trackPodcastFlipped(
@@ -99,6 +131,7 @@ struct ConvertSongIntent: AppIntent {
             if let url = URL(string: target) {
                 await UIApplication.shared.open(url)
             }
+            _ = try? await AptabaseClient.shared.flush(timeoutMs: 1500)
             return .result()
         } else if let playlist = res as? ResolutionResult.Playlist {
             AptabaseClient.shared.trackPlaylistRouted(
@@ -107,6 +140,7 @@ struct ConvertSongIntent: AppIntent {
             if let url = URL(string: playlist.originalUrl) {
                 await UIApplication.shared.open(url)
             }
+            _ = try? await AptabaseClient.shared.flush(timeoutMs: 1500)
             return .result()
         } else if let podcast = res as? ResolutionResult.PodcastOrAudiobook {
             if podcast.isAudiobook {
@@ -117,6 +151,7 @@ struct ConvertSongIntent: AppIntent {
             if let url = URL(string: podcast.originalUrl) {
                 await UIApplication.shared.open(url)
             }
+            _ = try? await AptabaseClient.shared.flush(timeoutMs: 1500)
             return .result()
         } else if let unsupported = res as? ResolutionResult.UnsupportedEntity {
             AptabaseClient.shared.trackUnsupportedEntityIntercepted(
@@ -126,6 +161,7 @@ struct ConvertSongIntent: AppIntent {
             if let url = URL(string: unsupported.originalUrl) {
                 await UIApplication.shared.open(url)
             }
+            _ = try? await AptabaseClient.shared.flush(timeoutMs: 1500)
             return .result()
         } else {
             let defaultMsg = LocalizationManager.string(for: "intent_error_failed_to_resolve", lang: LocalizationManager.currentLanguage())
@@ -143,6 +179,7 @@ struct ConvertSongIntent: AppIntent {
                 errorReason: errorReason,
                 errorDetail: nil
             )
+            _ = try? await AptabaseClient.shared.flush(timeoutMs: 1500)
             throw ConvertSongIntentError.conversionFailed(reason)
         }
     }

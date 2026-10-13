@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.8.16] - 2026-10-13
+- **Zuverlässiger Offline-Zugriff**: Unterbrechungsfreie Nutzung aller Funktionen auch bei Verbindungsausfällen oder im Funkloch.
+- **Lückenloser Verlauf**: Vollständige Synchronisation beim Weiterleiten über das Teilen-Menü, Kurzbefehle oder direkt in der App ohne verlorene Einträge.
+- **Mehr Stabilität & Performance**: Optimierte interne Datensynchronisation und verbesserte Hintergrundverarbeitung.
+
 ## [1.8.15] - 2026-10-12
 - **Verlässliche Weiterleitung**: Schnellere und gleichmäßigere Auflösung von Musik-Links durch optimierten Zwischenspeicher.
 - **Stabilere Playlists**: Verbesserte Übertragung und zuverlässigere Verbindungsverwaltung beim Teilen von Playlists.

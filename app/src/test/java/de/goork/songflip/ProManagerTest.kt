@@ -110,6 +110,23 @@ class ProManagerTest {
         assertEquals("BETALIST", ProManager.extractCouponCode("Hey, try code BETALIST now!"))
         assertEquals("MYCODE123", ProManager.extractCouponCode("  my code 123  "))
     }
+
+    @Test
+    fun testOfflineRevenueCatProResilience() {
+        // Pre-populate SharedPreferences with cached active Pro state
+        inMemoryPrefs.edit()
+            .putBoolean("rc_is_pro", true)
+            .putString("rc_pro_type", "revenuecat_subscription")
+            .putLong("rc_pro_expiration", System.currentTimeMillis() + 86400000L)
+            .apply()
+
+        // Fast hydration without network should immediately restore isPro
+        val state = ProManager.hydrateLocalProState()
+
+        assertTrue("Pro state should be restored from offline local cache", state.isPro)
+        assertTrue("ProManager.isPro should be true", ProManager.isPro)
+        assertEquals("revenuecat_subscription", state.proType)
+    }
 }
 
 class InMemorySharedPreferences : SharedPreferences {
