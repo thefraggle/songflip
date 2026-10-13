@@ -1,0 +1,9 @@
+// Base configuration for SongFlip iOS targets
+// Default production keys are defined here as fallbacks.
+// To override keys locally, create Config.xcconfig (gitignored, see Config.example.xcconfig).
+
+REVENUECAT_PUBLIC_KEY = appl_yaWywAHSMSWeevrQKcyjtHeNedw
+APTABASE_APP_KEY = A-SH-4092372492
+APTABASE_HOST = https://telemetry-apps.goork.de
+
+#include? "Config.xcconfig"

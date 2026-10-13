@@ -63,3 +63,8 @@ functions/lib/
 __pycache__/
 *.pyc
 .bundle/
+
+# iOS Configuration
+**/Config.xcconfig
+Config.xcconfig
+!*.example.xcconfig

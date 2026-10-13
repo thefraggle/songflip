@@ -1,6 +1,7 @@
 import SwiftUI
 import AVFoundation
 import SongFlipKit
+import os
 
 struct DisambiguationCandidateItem: Identifiable, Equatable {
     let id: String
@@ -21,6 +22,7 @@ struct DisambiguationCandidateItem: Identifiable, Equatable {
 }
 
 struct DisambiguationSheetView: View {
+    private static let logger = Logger(subsystem: "de.goork.songflip", category: "Disambiguation")
     let item: HistoryItem
     var onMatchUpdated: (String) -> Void
 
@@ -398,7 +400,7 @@ struct DisambiguationSheetView: View {
                     currentTimeMs: Int64(Date().timeIntervalSince1970 * 1000)
                 )
             } catch {
-                print("[DisambiguationSheet] Failed to update target url in cache: \(error)")
+                Self.logger.error("[DisambiguationSheet] Failed to update target url in cache: \(error.localizedDescription)")
             }
 
             await MainActor.run {

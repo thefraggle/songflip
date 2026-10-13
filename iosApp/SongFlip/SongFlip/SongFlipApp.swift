@@ -1,9 +1,11 @@
 import SwiftUI
 import SongFlipKit
 import StoreKit
+import os
 
 @main
 struct SongFlipApp: App {
+    private static let logger = Logger(subsystem: "de.goork.songflip", category: "App")
     @StateObject private var settings = SettingsModel()
 
     init() {
@@ -22,13 +24,19 @@ struct SongFlipApp: App {
             isDebug = true
         }
 
-        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.8.11"
-        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "71"
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.8.17"
+        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "77"
         let osVersion = UIDevice.current.systemVersion
         let locale = Locale.current.identifier
 
         let aptabaseKey = Bundle.main.infoDictionary?["APTABASE_APP_KEY"] as? String ?? "A-SH-4092372492"
         let aptabaseHost = Bundle.main.infoDictionary?["APTABASE_HOST"] as? String ?? "https://telemetry-apps.goork.de"
+
+        #if DEBUG
+        if aptabaseKey.isEmpty {
+            Self.logger.error("[SongFlipApp] APTABASE_APP_KEY missing in Info.plist! Check Config.xcconfig")
+        }
+        #endif
 
         AptabaseClient.shared.doInit(
             appKey: aptabaseKey,

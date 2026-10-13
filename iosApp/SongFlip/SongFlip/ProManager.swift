@@ -4,6 +4,7 @@ import Combine
 import RevenueCat
 import SongFlipKit
 import CryptoKit
+import os
 
 enum RedeemResult {
     case successLifetime
@@ -13,14 +14,26 @@ enum RedeemResult {
     case invalid
     case alreadyRedeemed
     case alreadyActive
+    case maxReached
+    case inactive
+    case rateLimited
     case networkError
 }
 
 @MainActor
 final class ProManager: NSObject, ObservableObject {
     static let shared = ProManager()
+    private static let logger = Logger(subsystem: "de.goork.songflip", category: "ProManager")
 
-    private static let apiKey = "appl_yaWywAHSMSWeevrQKcyjtHeNedw"
+    private static var apiKey: String {
+        let key = Bundle.main.infoDictionary?["REVENUECAT_PUBLIC_KEY"] as? String ?? ""
+        #if DEBUG
+        if key.isEmpty {
+            logger.error("[ProManager] REVENUECAT_PUBLIC_KEY is not configured! Check Config.xcconfig")
+        }
+        #endif
+        return key
+    }
     private static let appGroupId = "group.de.goork.songflip"
     private static let keyCouponType = "pro_coupon_type"
     private static let keyCouponCode = "pro_coupon_code"
@@ -122,7 +135,7 @@ final class ProManager: NSObject, ObservableObject {
             let offerings = try await Purchases.shared.offerings()
             self.currentOffering = offerings.current ?? offerings["default"]
         } catch {
-            print("[ProManager] Failed to fetch offerings: \(error)")
+            Self.logger.error("[ProManager] Failed to fetch offerings: \(error.localizedDescription)")
         }
     }
 
@@ -131,7 +144,7 @@ final class ProManager: NSObject, ObservableObject {
             let customerInfo = try await Purchases.shared.customerInfo()
             updateFromCustomerInfo(customerInfo)
         } catch {
-            print("[ProManager] Failed to fetch customer info: \(error)")
+            Self.logger.error("[ProManager] Failed to fetch customer info: \(error.localizedDescription)")
         }
     }
 
@@ -216,89 +229,134 @@ final class ProManager: NSObject, ObservableObject {
         }
     }
 
+    func extractCouponCode(from input: String) -> String {
+        let trimmed = input.trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmed.isEmpty { return "" }
+
+        // Extract promo query param from full URL: https://songflip.link?promo=CODE
+        if let url = URL(string: trimmed), let components = URLComponents(url: url, resolvingAgainstBaseURL: false) {
+            if let promo = components.queryItems?.first(where: { $0.name.lowercased() == "promo" || $0.name.lowercased() == "code" })?.value,
+               !promo.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                return promo.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+            }
+        }
+
+        var candidate = trimmed
+        let prefixes = ["code:", "promo:", "coupon:", "gutschein:", "code ", "promo "]
+        for p in prefixes {
+            if candidate.lowercased().hasPrefix(p) {
+                candidate = String(candidate.dropFirst(p.count)).trimmingCharacters(in: .whitespacesAndNewlines)
+                break
+            }
+        }
+
+        if let range = candidate.range(of: #"[A-Za-z0-9_-]{3,32}"#, options: .regularExpression) {
+            return String(candidate[range]).uppercased()
+        }
+        return candidate.uppercased()
+    }
+
     func redeemCoupon(code: String) async -> RedeemResult {
-        let cleanCode = code.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        let cleanCode = extractCouponCode(from: code)
         if cleanCode.count < 3 { return .invalid }
 
         isLoading = true
         defer { isLoading = false }
 
-        guard let url = URL(string: "https://songflip-web.web.app/redeemPromoCode") else {
-            return .networkError
-        }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let endpoints: [URL] = [
+            URL(string: "https://cache.songflip.link/redeemPromoCode")!,
+            URL(string: "https://songflip-web.web.app/redeemPromoCode")!
+        ]
 
         let installId = (UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString).lowercased()
         let body: [String: Any] = [
             "code": cleanCode,
             "installId": installId
         ]
-
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: body)
-            let (data, response) = try await URLSession.shared.data(for: request)
-
-            guard let httpResponse = response as? HTTPURLResponse else {
-                return .networkError
-            }
-
-            if httpResponse.statusCode == 200 {
-                if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
-                    let type = (json["type"] as? String)?.lowercased() ?? "1month"
-                    let expTimestamp = json["expirationTimestamp"] as? Double
-                    let token = json["token"] as? String ?? ""
-
-                    if type == "lifetime" {
-                        if self.isPro && self.proType == "lifetime_coupon" {
-                            return .alreadyActive
-                        }
-                        defaults.set("lifetime", forKey: Self.keyCouponType)
-                        defaults.set(cleanCode, forKey: Self.keyCouponCode)
-                        defaults.set(token, forKey: Self.keyCouponToken)
-                        defaults.removeObject(forKey: Self.keyCouponExpiration)
-                        persistProState(isPro: true, proType: "lifetime_coupon", expiration: nil)
-                        self.isPro = true
-                        self.proType = "lifetime_coupon"
-                        self.expirationDate = nil
-                        AptabaseClient.shared.trackEvent(eventName: "promo_redeemed", props: ["code": cleanCode, "type": "lifetime"])
-                        return .successLifetime
-                    } else {
-                        let durationDays: Double = (type == "1year" || type == "annual") ? 365 : ((type == "3months") ? 90 : 30)
-                        let expireTime = expTimestamp ?? (Date().timeIntervalSince1970 * 1000 + durationDays * 24 * 60 * 60 * 1000)
-
-                        defaults.set(type, forKey: Self.keyCouponType)
-                        defaults.set(cleanCode, forKey: Self.keyCouponCode)
-                        defaults.set(token, forKey: Self.keyCouponToken)
-                        defaults.set(expireTime, forKey: Self.keyCouponExpiration)
-                        persistProState(isPro: true, proType: type, expiration: expireTime)
-
-                        self.isPro = true
-                        self.proType = "\(type)_coupon"
-                        self.expirationDate = Date(timeIntervalSince1970: expireTime / 1000)
-
-                        AptabaseClient.shared.trackEvent(eventName: "promo_redeemed", props: ["code": cleanCode, "type": type])
-                        if type == "1year" || type == "annual" {
-                            return .success1Year
-                        } else if type == "3months" {
-                            return .success3Months
-                        } else {
-                            return .success1Month
-                        }
-                    }
-                }
-            } else if httpResponse.statusCode == 409 {
-                return .alreadyRedeemed
-            } else {
-                return .invalid
-            }
-        } catch {
-            return .networkError
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: body) else {
+            return .invalid
         }
 
-        return .networkError
+        var lastResult: RedeemResult = .networkError
+
+        for url in endpoints {
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = httpBody
+            request.timeoutInterval = 7.0
+
+            do {
+                let (data, response) = try await URLSession.shared.data(for: request)
+                guard let httpResponse = response as? HTTPURLResponse else { continue }
+
+                if httpResponse.statusCode == 200 {
+                    if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                        let type = (json["type"] as? String)?.lowercased() ?? "1month"
+                        let expTimestamp = json["expirationTimestamp"] as? Double
+                        let token = json["token"] as? String ?? ""
+
+                        if type == "lifetime" {
+                            if self.isPro && self.proType == "lifetime_coupon" {
+                                return .alreadyActive
+                            }
+                            defaults.set("lifetime", forKey: Self.keyCouponType)
+                            defaults.set(cleanCode, forKey: Self.keyCouponCode)
+                            defaults.set(token, forKey: Self.keyCouponToken)
+                            defaults.removeObject(forKey: Self.keyCouponExpiration)
+                            persistProState(isPro: true, proType: "lifetime_coupon", expiration: nil)
+                            self.isPro = true
+                            self.proType = "lifetime_coupon"
+                            self.expirationDate = nil
+                            AptabaseClient.shared.trackEvent(eventName: "promo_redeemed", props: ["code": cleanCode, "type": "lifetime"])
+                            return .successLifetime
+                        } else {
+                            let durationDays: Double = (type == "1year" || type == "annual") ? 365 : ((type == "3months") ? 90 : 30)
+                            let expireTime = expTimestamp ?? (Date().timeIntervalSince1970 * 1000 + durationDays * 24 * 60 * 60 * 1000)
+
+                            defaults.set(type, forKey: Self.keyCouponType)
+                            defaults.set(cleanCode, forKey: Self.keyCouponCode)
+                            defaults.set(token, forKey: Self.keyCouponToken)
+                            defaults.set(expireTime, forKey: Self.keyCouponExpiration)
+                            persistProState(isPro: true, proType: type, expiration: expireTime)
+
+                            self.isPro = true
+                            self.proType = "\(type)_coupon"
+                            self.expirationDate = Date(timeIntervalSince1970: expireTime / 1000)
+
+                            AptabaseClient.shared.trackEvent(eventName: "promo_redeemed", props: ["code": cleanCode, "type": type])
+                            if type == "1year" || type == "annual" {
+                                return .success1Year
+                            } else if type == "3months" {
+                                return .success3Months
+                            } else {
+                                return .success1Month
+                            }
+                        }
+                    }
+                } else if httpResponse.statusCode == 429 {
+                    return .rateLimited
+                } else if httpResponse.statusCode == 409 {
+                    return .alreadyRedeemed
+                } else {
+                    let errObj = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any]
+                    let errorStr = errObj?["error"] as? String ?? ""
+                    if errorStr == "MAX_REDEMPTIONS_REACHED" {
+                        return .maxReached
+                    } else if errorStr == "CODE_EXPIRED" || errorStr == "CODE_INACTIVE" {
+                        return .inactive
+                    } else if errorStr == "ALREADY_ACTIVE" {
+                        return .alreadyActive
+                    }
+                    return .invalid
+                }
+            } catch {
+                lastResult = .networkError
+                continue
+            }
+        }
+
+        return lastResult
     }
 
     // Helper: Detect introductory free trial in days

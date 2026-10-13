@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.8.17] - 2026-10-13
+- **Intelligentere Code-Einlösung**: Automatische Erkennung geteilter Aktionscodes aus Links, mit klareren Statusmeldungen und ausfallsicherem Server-Fallback.
+- **Zuverlässigere Verbindung**: Schnelle automatische Fehlerbehandlung und saubere Wiederherstellung bei Netzwerkunterbrechungen.
+- **Stabilität & Performance**: Bereinigte Systemprotokolle und optimierte interne Konfigurationsverwaltung.
+
 ## [1.8.16] - 2026-10-13
 - **Zuverlässiger Offline-Zugriff**: Unterbrechungsfreie Nutzung aller Funktionen auch bei Verbindungsausfällen oder im Funkloch.
 - **Lückenloser Verlauf**: Vollständige Synchronisation beim Weiterleiten über das Teilen-Menü, Kurzbefehle oder direkt in der App ohne verlorene Einträge.

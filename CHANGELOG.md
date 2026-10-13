@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.8.17] - 2026-10-13
+- **Smarter Code Redemption**: Smarter recognition of shared promotional codes from links, with clearer status feedback and multi-server redundancy.
+- **Enhanced Connection Reliability**: Direct diagnostics and automatic recovery when link redirection encounters connectivity dropouts.
+- **Stability & Performance**: Cleaned up system logging and refined internal configuration management.
+
 ## [1.8.16] - 2026-10-13
 - **Rock-Solid Offline Access**: Uninterrupted access to all features even during network dropouts or offline mode.
 - **Reliable History Sync**: Seamless history updates when converting links from share menus, shortcuts, or within the app without losing entries.

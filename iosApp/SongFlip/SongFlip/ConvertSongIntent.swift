@@ -1,6 +1,7 @@
 import AppIntents
 import UIKit
 import SongFlipKit
+import os
 
 enum ConvertSongIntentError: Swift.Error, CustomLocalizedStringResourceConvertible, LocalizedError {
     case emptyClipboard
@@ -28,6 +29,8 @@ enum ConvertSongIntentError: Swift.Error, CustomLocalizedStringResourceConvertib
 }
 
 struct ConvertSongIntent: AppIntent {
+    private static let logger = Logger(subsystem: "de.goork.songflip", category: "AppIntent")
+
     static var title: LocalizedStringResource = LocalizedStringResource("intent_title", defaultValue: "Open Song in SongFlip")
     static var description = IntentDescription(LocalizedStringResource("intent_description", defaultValue: "Converts a copied or shared music link and opens the target app."))
 
@@ -43,13 +46,19 @@ struct ConvertSongIntent: AppIntent {
             return false
             #endif
         }()
-        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.8.16"
-        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "76"
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.8.17"
+        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "77"
         let osVersion = UIDevice.current.systemVersion
         let locale = Locale.current.identifier
 
         let aptabaseKey = Bundle.main.infoDictionary?["APTABASE_APP_KEY"] as? String ?? "A-SH-4092372492"
         let aptabaseHost = Bundle.main.infoDictionary?["APTABASE_HOST"] as? String ?? "https://telemetry-apps.goork.de"
+
+        #if DEBUG
+        if aptabaseKey.isEmpty {
+            Self.logger.error("[AppIntent] APTABASE_APP_KEY missing in Info.plist! Check Config.xcconfig")
+        }
+        #endif
 
         AptabaseClient.shared.doInit(
             appKey: aptabaseKey,
@@ -82,12 +91,34 @@ struct ConvertSongIntent: AppIntent {
         let customToken = defaults.string(forKey: "custom_api_token") ?? ""
 
         let engine = SongLinkEngine.shared
-        let res = try? await engine.resolveTargetUrl(
-            inputUrl: urlToConvert,
-            targetPlatformKey: targetPlatform,
-            customApiUrl: customUrl,
-            customApiToken: customToken
-        )
+        let res: ResolutionResult
+        var bridgeErrorDetail: String? = nil
+        do {
+            res = try await engine.resolveTargetUrl(
+                inputUrl: urlToConvert,
+                targetPlatformKey: targetPlatform,
+                customApiUrl: customUrl,
+                customApiToken: customToken
+            )
+        } catch {
+            Self.logger.error("[AppIntent] Resolution threw error: \(error.localizedDescription)")
+            let nsError = error as NSError
+            let errorReason: String
+            if nsError.domain == NSURLErrorDomain {
+                switch nsError.code {
+                case NSURLErrorTimedOut:
+                    errorReason = "timeout"
+                case NSURLErrorCannotConnectToHost, NSURLErrorNetworkConnectionLost, NSURLErrorNotConnectedToInternet:
+                    errorReason = "io_error"
+                default:
+                    errorReason = "network_error"
+                }
+            } else {
+                errorReason = "engine_error"
+            }
+            bridgeErrorDetail = error.localizedDescription
+            res = ResolutionResult.Error(message: error.localizedDescription, errorReason: errorReason)
+        }
 
         if let success = res as? ResolutionResult.Success {
             await MainActor.run {
@@ -177,7 +208,7 @@ struct ConvertSongIntent: AppIntent {
                 sourceDomain: sourceDomain,
                 sourcePlatform: sourcePlatform,
                 errorReason: errorReason,
-                errorDetail: nil
+                errorDetail: bridgeErrorDetail
             )
             _ = try? await AptabaseClient.shared.flush(timeoutMs: 1500)
             throw ConvertSongIntentError.conversionFailed(reason)

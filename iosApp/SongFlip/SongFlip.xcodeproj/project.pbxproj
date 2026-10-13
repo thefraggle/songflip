@@ -41,6 +41,7 @@
 		C2069B89303B3CE60063B778 /* SongFlipKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SongFlipKit.xcframework; path = ../../shared/build/XCFrameworks/release/SongFlipKit.xcframework; sourceTree = "<group>"; };
 		C26C54A4303B3BE3000F0D16 /* SongFlip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SongFlip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C26C54B9303B4000000F0D16 /* SongFlipShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SongFlipShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C26C54CF303B4100000F0D16 /* SongFlip.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = SongFlip.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -91,6 +92,7 @@
 				C26C54A6303B3BE3000F0D16 /* SongFlip */,
 				C26C54BC303B4000000F0D16 /* SongFlipShareExtension */,
 				C2069B88303B3CE60063B778 /* Frameworks */,
+				C26C54CF303B4100000F0D16 /* SongFlip.xcconfig */,
 				C26C54A5303B3BE3000F0D16 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -240,6 +242,7 @@
 /* Begin XCBuildConfiguration section */
 		C26C54AD303B3BE4000F0D16 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C26C54CF303B4100000F0D16 /* SongFlip.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -304,6 +307,7 @@
 		};
 		C26C54AE303B3BE4000F0D16 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C26C54CF303B4100000F0D16 /* SongFlip.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -366,11 +370,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SongFlip/SongFlip.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 76;
+				CURRENT_PROJECT_VERSION = 77;
 				DEVELOPMENT_TEAM = 296C735W8C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_APTABASE_APP_KEY = "$(APTABASE_APP_KEY)";
+				INFOPLIST_KEY_APTABASE_HOST = "$(APTABASE_HOST)";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_REVENUECAT_PUBLIC_KEY = "$(REVENUECAT_PUBLIC_KEY)";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -380,7 +387,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.16;
+				MARKETING_VERSION = 1.8.17;
 				PRODUCT_BUNDLE_IDENTIFIER = de.goork.SongFlip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "$(PROVISIONING_PROFILE_NAME)";
@@ -401,11 +408,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SongFlip/SongFlip.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 76;
+				CURRENT_PROJECT_VERSION = 77;
 				DEVELOPMENT_TEAM = 296C735W8C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_APTABASE_APP_KEY = "$(APTABASE_APP_KEY)";
+				INFOPLIST_KEY_APTABASE_HOST = "$(APTABASE_HOST)";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_REVENUECAT_PUBLIC_KEY = "$(REVENUECAT_PUBLIC_KEY)";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -415,7 +425,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.16;
+				MARKETING_VERSION = 1.8.17;
 				PRODUCT_BUNDLE_IDENTIFIER = de.goork.SongFlip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "$(PROVISIONING_PROFILE_NAME)";
@@ -435,7 +445,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SongFlipShareExtension/SongFlipShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 76;
+				CURRENT_PROJECT_VERSION = 77;
 				DEVELOPMENT_TEAM = 296C735W8C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -445,7 +455,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.8.16;
+				MARKETING_VERSION = 1.8.17;
 				PRODUCT_BUNDLE_IDENTIFIER = de.goork.SongFlip.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "$(PROVISIONING_PROFILE_EXT_NAME)";
@@ -466,7 +476,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SongFlipShareExtension/SongFlipShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 76;
+				CURRENT_PROJECT_VERSION = 77;
 				DEVELOPMENT_TEAM = 296C735W8C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -476,7 +486,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.8.16;
+				MARKETING_VERSION = 1.8.17;
 				PRODUCT_BUNDLE_IDENTIFIER = de.goork.SongFlip.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "$(PROVISIONING_PROFILE_EXT_NAME)";

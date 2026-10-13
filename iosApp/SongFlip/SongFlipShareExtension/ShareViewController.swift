@@ -3,8 +3,10 @@ import Social
 import MobileCoreServices
 import UniformTypeIdentifiers
 import SongFlipKit
+import os
 
 class ShareViewController: UIViewController {
+    private static let logger = Logger(subsystem: "de.goork.songflip", category: "ShareExtension")
 
     private let engine = SongLinkEngine.shared
     private let activityIndicator = UIActivityIndicatorView(style: .large)
@@ -308,13 +310,19 @@ class ShareViewController: UIViewController {
             return false
             #endif
         }()
-        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.8.16"
-        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "76"
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.8.17"
+        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "77"
         let osVersion = UIDevice.current.systemVersion
         let locale = Locale.current.identifier
 
         let aptabaseKey = Bundle.main.infoDictionary?["APTABASE_APP_KEY"] as? String ?? "A-SH-4092372492"
         let aptabaseHost = Bundle.main.infoDictionary?["APTABASE_HOST"] as? String ?? "https://telemetry-apps.goork.de"
+
+        #if DEBUG
+        if aptabaseKey.isEmpty {
+            Self.logger.error("[ShareExtension] APTABASE_APP_KEY missing in Info.plist! Check Config.xcconfig")
+        }
+        #endif
 
         AptabaseClient.shared.doInit(
             appKey: aptabaseKey,
@@ -336,12 +344,34 @@ class ShareViewController: UIViewController {
     ) {
         ensureAptabaseInitialized()
         Task {
-            let result = try? await engine.resolveTargetUrl(
-                inputUrl: inputUrl,
-                targetPlatformKey: targetPlatform,
-                customApiUrl: customUrl,
-                customApiToken: customToken
-            )
+            let result: ResolutionResult
+            var bridgeErrorDetail: String? = nil
+            do {
+                result = try await engine.resolveTargetUrl(
+                    inputUrl: inputUrl,
+                    targetPlatformKey: targetPlatform,
+                    customApiUrl: customUrl,
+                    customApiToken: customToken
+                )
+            } catch {
+                Self.logger.error("[ShareExtension] Resolution threw error: \(error.localizedDescription)")
+                let nsError = error as NSError
+                let errorReason: String
+                if nsError.domain == NSURLErrorDomain {
+                    switch nsError.code {
+                    case NSURLErrorTimedOut:
+                        errorReason = "timeout"
+                    case NSURLErrorCannotConnectToHost, NSURLErrorNetworkConnectionLost, NSURLErrorNotConnectedToInternet:
+                        errorReason = "io_error"
+                    default:
+                        errorReason = "network_error"
+                    }
+                } else {
+                    errorReason = "engine_error"
+                }
+                bridgeErrorDetail = error.localizedDescription
+                result = ResolutionResult.Error(message: error.localizedDescription, errorReason: errorReason)
+            }
 
             await MainActor.run {
                 if let success = result as? ResolutionResult.Success {
@@ -416,7 +446,7 @@ class ShareViewController: UIViewController {
                         sourceDomain: srcDomain,
                         sourcePlatform: srcKey,
                         errorReason: errorReason,
-                        errorDetail: nil
+                        errorDetail: bridgeErrorDetail
                     )
 
                     let trimmedInput = inputUrl.trimmingCharacters(in: .whitespacesAndNewlines)

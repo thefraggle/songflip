@@ -1,0 +1,6 @@
+// Configuration settings for SongFlip iOS (Example Template)
+// Duplicate this file to Config.xcconfig and configure appropriate keys.
+
+REVENUECAT_PUBLIC_KEY = appl_your_revenuecat_key_here
+APTABASE_APP_KEY = A-SH-0000000000
+APTABASE_HOST = https://telemetry-apps.goork.de
