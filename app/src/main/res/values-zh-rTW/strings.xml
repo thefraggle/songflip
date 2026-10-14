@@ -76,6 +76,8 @@
     <string name="link_copied">連結已複製到剪貼簿</string>
     <string name="action_paste">從剪貼簿貼上</string>
     <string name="target_amazon_music">Amazon Music</string>
+    <string name="target_soundcloud">SoundCloud</string>
+    <string name="soundcloud_target_hint">SoundCloud 主打混音與獨立音樂。未直接匹配的歌曲將自動在 SoundCloud 搜尋中開啟。</string>
     <string name="status_paused">SongFlip 已暫停</string>
     <string name="status_paused_until">暫停至 %1$s</string>
     <string name="btn_resume">立即恢復</string>

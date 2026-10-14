@@ -76,6 +76,8 @@
     <string name="link_copied">Ο σύνδεσμος αντιγράφηκε στο πρόχειρο</string>
     <string name="action_paste">Επικόλληση από το πρόχειρο</string>
     <string name="target_amazon_music">Amazon Music</string>
+    <string name="target_soundcloud">SoundCloud</string>
+    <string name="soundcloud_target_hint">Το SoundCloud εστιάζει σε remix και indie κομμάτια. Τραγούδια χωρίς άμεση αντιστοιχία ανοίγουν στην αναζήτηση του SoundCloud.</string>
     <string name="status_paused">Το SongFlip βρίσκεται σε παύση</string>
     <string name="status_paused_until">Σε παύση έως %1$s</string>
     <string name="btn_resume">Συνέχιση τώρα</string>

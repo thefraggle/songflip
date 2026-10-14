@@ -46,8 +46,8 @@ struct ConvertSongIntent: AppIntent {
             return false
             #endif
         }()
-        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.8.17"
-        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "77"
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.8.18"
+        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "78"
         let osVersion = UIDevice.current.systemVersion
         let locale = Locale.current.identifier
 

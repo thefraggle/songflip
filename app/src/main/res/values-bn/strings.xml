@@ -65,6 +65,8 @@
     <string name="target_tidal">Tidal</string>
     <string name="target_deezer">Deezer</string>
     <string name="target_amazon_music">Amazon Music</string>
+    <string name="target_soundcloud">SoundCloud</string>
+    <string name="soundcloud_target_hint">SoundCloud মূলত রিমিক্স ও ইন্ডি ট্র্যাকের জন্য পরিচিত। সরাসরি মিল না থাকা গানগুলো স্বয়ংক্রিয়ভাবে SoundCloud অনুসন্ধানে খুলবে।</string>
     <string name="status_installed">অ্যাপ ইনস্টল করা আছে</string>
     <string name="status_browser">ওয়েব ব্রাউজার</string>
     <string name="test_section_title">লিঙ্ক রূপান্তরকারী পরীক্ষা করুন</string>

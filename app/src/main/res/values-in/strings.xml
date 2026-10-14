@@ -65,6 +65,8 @@
     <string name="target_tidal">Tidal</string>
     <string name="target_deezer">Deezer</string>
     <string name="target_amazon_music">Amazon Music</string>
+    <string name="target_soundcloud">SoundCloud</string>
+    <string name="soundcloud_target_hint">SoundCloud berfokus pada remix &amp; lagu indie. Lagu tanpa kecocokan langsung akan dibuka di pencarian SoundCloud.</string>
     <string name="status_installed">Aplikasi Terpasang</string>
     <string name="status_browser">Browser Web</string>
     <string name="test_section_title">Uji Pengonversi Tautan</string>

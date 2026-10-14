@@ -76,6 +76,8 @@
     <string name="link_copied">Link copiat în clipboard</string>
     <string name="action_paste">Lipește din clipboard</string>
     <string name="target_amazon_music">Amazon Music</string>
+    <string name="target_soundcloud">SoundCloud</string>
+    <string name="soundcloud_target_hint">SoundCloud se concentrează pe remixuri și piese indie. Melodiile fără corespondent direct se deschid în căutarea SoundCloud.</string>
     <string name="status_paused">SongFlip este pus pe pauză</string>
     <string name="status_paused_until">Pauză până la %1$s</string>
     <string name="btn_resume">Reia acum</string>

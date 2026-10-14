@@ -16,6 +16,7 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
     case tidal = "tidal"
     case deezer = "deezer"
     case amazonMusic = "amazonMusic"
+    case soundcloud = "soundcloud"
 
     var id: String { rawValue }
 
@@ -27,6 +28,7 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
         case .tidal: return "Tidal"
         case .deezer: return "Deezer"
         case .amazonMusic: return "Amazon Music"
+        case .soundcloud: return "SoundCloud"
         }
     }
 
@@ -38,6 +40,7 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
         case .tidal: return "waveform"
         case .deezer: return "music.quarternote.3"
         case .amazonMusic: return "cart.fill"
+        case .soundcloud: return "cloud.fill"
         }
     }
 
@@ -49,6 +52,7 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
         case .tidal: return Color(red: 0.0, green: 0.85, blue: 0.9)
         case .deezer: return Color(red: 0.64, green: 0.22, blue: 1.0)
         case .amazonMusic: return Color(red: 0.15, green: 0.82, blue: 0.85)
+        case .soundcloud: return Color(red: 1.0, green: 0.33, blue: 0.0)
         }
     }
 }

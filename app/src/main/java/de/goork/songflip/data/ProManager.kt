@@ -58,6 +58,7 @@ object ProManager {
     const val ENTITLEMENT_PRO = "pro"
 
     private var prefs: SharedPreferences? = null
+    private var stableAndroidId: String? = null
     private val _proState = MutableStateFlow(ProState())
     val proState: StateFlow<ProState> = _proState.asStateFlow()
 
@@ -76,6 +77,10 @@ object ProManager {
     }
 
     fun getAnonymousInstallId(): String {
+        val hwId = stableAndroidId
+        if (!hwId.isNullOrBlank()) {
+            return hwId
+        }
         val sp = prefs ?: return java.util.UUID.randomUUID().toString()
         var id = sp.getString(KEY_INSTALL_ID, null)
         if (id.isNullOrBlank()) {
@@ -115,6 +120,19 @@ object ProManager {
     fun init(context: Context) {
         if (prefs == null) {
             prefs = context.applicationContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        }
+        if (stableAndroidId == null) {
+            try {
+                val rawAndroidId = android.provider.Settings.Secure.getString(
+                    context.applicationContext.contentResolver,
+                    android.provider.Settings.Secure.ANDROID_ID
+                )
+                if (!rawAndroidId.isNullOrBlank() && rawAndroidId != "9774d56d682e549c") {
+                    stableAndroidId = rawAndroidId.lowercase()
+                }
+            } catch (_: Exception) {
+                // Fallback to SharedPreferences UUID in unit tests or restricted environments
+            }
         }
 
         // Fast offline hydration from local preferences before network responds (#110)

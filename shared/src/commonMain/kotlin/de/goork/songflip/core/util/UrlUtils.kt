@@ -726,7 +726,14 @@ object UrlUtils {
 
     fun toNativeSoundCloudUri(url: String): String {
         if (url.startsWith("soundcloud:")) return url
-        val clean = url.trim().substringBefore("?")
+        val trimmed = url.trim()
+        if (trimmed.contains("soundcloud.com/search") && trimmed.contains("q=")) {
+            val query = trimmed.substringAfter("q=").substringBefore("&").substringBefore("#").trim()
+            if (query.isNotEmpty()) {
+                return "soundcloud://search?q=$query"
+            }
+        }
+        val clean = trimmed.substringBefore("?")
         val match = Regex("(?:https?://)?(?:www\\.|m\\.)?soundcloud\\.com/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)").find(clean)
         return if (match != null && match.groupValues[1].lowercase() !in listOf("search", "discover", "upload", "you", "stream")) {
             "soundcloud://tracks/${match.groupValues[1]}/${match.groupValues[2]}"

@@ -678,7 +678,6 @@ struct PlaylistConverterView: View {
         let payload: [String: Any] = [
             "url": playlistUrl,
             "targetPlatform": targetPlatformKey,
-            "isPro": proManager.isPro,
             "maxTracks": maxTracks
         ]
 

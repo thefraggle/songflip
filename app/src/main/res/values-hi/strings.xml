@@ -65,6 +65,8 @@
     <string name="target_tidal">Tidal</string>
     <string name="target_deezer">Deezer</string>
     <string name="target_amazon_music">Amazon Music</string>
+    <string name="target_soundcloud">SoundCloud</string>
+    <string name="soundcloud_target_hint">SoundCloud मुख्य रूप से रीमिक्स और इंडी ट्रैक पर केंद्रित है। सीधे मिलान न होने वाले गाने SoundCloud खोज में खुलते हैं।</string>
     <string name="status_installed">ऐप इंस्टॉल है</string>
     <string name="status_browser">वेब ब्राउज़र</string>
     <string name="test_section_title">लिंक कनवर्टर का परीक्षण करें</string>
