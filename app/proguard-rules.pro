@@ -24,4 +24,7 @@
 -dontwarn io.ktor.**
 -dontwarn com.google.android.play.core.**
 -dontwarn com.revenuecat.purchases.**
+-dontwarn java.sql.**
+-dontwarn javax.sql.**
+-dontwarn org.sqlite.**
 
