@@ -246,6 +246,11 @@ class LinkCache(
         entries.size
     }
 
+    suspend fun syncFromStorage(): Unit = mutex.withLock {
+        ensureLoaded(getCurrentTimeMillis())
+        syncFromStorage(getCurrentTimeMillis())
+    }
+
     private fun syncFromStorage(currentTimeMs: Long): Map<String, CacheEntry> {
         val allLoaded = storage.loadAll()
         for ((k, loadedEntry) in allLoaded) {
@@ -299,6 +304,12 @@ class LinkCache(
         }
     }
 
+    suspend fun getHistoryEntries(limit: Int): List<LinkHistoryItem> =
+        getHistoryEntries(limit = limit, currentTimeMs = getCurrentTimeMillis())
+
+    suspend fun getHistoryEntries(): List<LinkHistoryItem> =
+        getHistoryEntries(limit = 10, currentTimeMs = getCurrentTimeMillis())
+
     private fun countFavoritesInternal(currentTimeMs: Long): Int {
         val allLoaded = syncFromStorage(currentTimeMs)
         val combinedKeys = mutableSetOf<String>()
@@ -320,6 +331,9 @@ class LinkCache(
         countFavoritesInternal(currentTimeMs)
     }
 
+    suspend fun getFavoriteCount(): Int =
+        getFavoriteCount(getCurrentTimeMillis())
+
     suspend fun toggleFavorite(cacheKey: String, currentTimeMs: Long = getCurrentTimeMillis()): Boolean = mutex.withLock {
         ensureLoaded(currentTimeMs)
         val existing = entries[cacheKey] ?: storage.get(cacheKey)
@@ -333,6 +347,9 @@ class LinkCache(
             false
         }
     }
+
+    suspend fun toggleFavorite(cacheKey: String): Boolean =
+        toggleFavorite(cacheKey = cacheKey, currentTimeMs = getCurrentTimeMillis())
 
     suspend fun toggleFavoriteWithLimit(
         cacheKey: String,
@@ -361,6 +378,17 @@ class LinkCache(
         storage.put(cacheKey, updated)
         FavoriteToggleResult.ADDED
     }
+
+    suspend fun toggleFavoriteWithLimit(
+        cacheKey: String,
+        isPro: Boolean,
+        maxFreeFavorites: Int = 10
+    ): FavoriteToggleResult = toggleFavoriteWithLimit(
+        cacheKey = cacheKey,
+        isPro = isPro,
+        maxFreeFavorites = maxFreeFavorites,
+        currentTimeMs = getCurrentTimeMillis()
+    )
 
     suspend fun setFavorite(cacheKey: String, isFavorite: Boolean, currentTimeMs: Long = getCurrentTimeMillis()) = mutex.withLock {
         ensureLoaded(currentTimeMs)
@@ -409,6 +437,47 @@ class LinkCache(
         key
     }
 
+    suspend fun addHistoryEntry(
+        sourceUrl: String,
+        targetPlatformKey: String,
+        targetUrl: String,
+        title: String? = null,
+        artist: String? = null,
+        isAlbum: Boolean = false,
+        thumbnailUrl: String? = null,
+        currentTimeMs: Long = getCurrentTimeMillis()
+    ): String = addHistoryEntry(
+        canonicalUrl = sourceUrl,
+        targetPlatformKey = targetPlatformKey,
+        targetUrl = targetUrl,
+        platform = targetPlatformKey,
+        title = title,
+        artist = artist,
+        isAlbum = isAlbum,
+        thumbnailUrl = thumbnailUrl,
+        timestamp = currentTimeMs,
+        isFavorite = null
+    )
+
+    suspend fun addHistoryEntry(
+        sourceUrl: String,
+        targetPlatformKey: String,
+        targetUrl: String,
+        title: String?,
+        artist: String?,
+        isAlbum: Boolean,
+        thumbnailUrl: String?
+    ): String = addHistoryEntry(
+        sourceUrl = sourceUrl,
+        targetPlatformKey = targetPlatformKey,
+        targetUrl = targetUrl,
+        title = title,
+        artist = artist,
+        isAlbum = isAlbum,
+        thumbnailUrl = thumbnailUrl,
+        currentTimeMs = getCurrentTimeMillis()
+    )
+
     suspend fun updateHistoryEntry(
         cacheKey: String,
         newTargetUrl: String,
@@ -436,6 +505,25 @@ class LinkCache(
         true
     }
 
+    suspend fun updateHistoryEntry(
+        cacheKey: String,
+        newTargetUrl: String,
+        newTitle: String?,
+        newArtist: String?,
+        newPlatform: String?,
+        isAlbum: Boolean?,
+        thumbnailUrl: String?
+    ): Boolean = updateHistoryEntry(
+        cacheKey = cacheKey,
+        newTargetUrl = newTargetUrl,
+        newTitle = newTitle,
+        newArtist = newArtist,
+        newPlatform = newPlatform,
+        isAlbum = isAlbum,
+        thumbnailUrl = thumbnailUrl,
+        currentTimeMs = getCurrentTimeMillis()
+    )
+
     suspend fun updateTargetUrl(
         cacheKey: String,
         newTargetUrl: String,
@@ -458,6 +546,17 @@ class LinkCache(
         }
     }
 
+    suspend fun updateTargetUrl(
+        cacheKey: String,
+        newTargetUrl: String,
+        newNativeAppUri: String?
+    ): Boolean = updateTargetUrl(
+        cacheKey = cacheKey,
+        newTargetUrl = newTargetUrl,
+        newNativeAppUri = newNativeAppUri,
+        currentTimeMs = getCurrentTimeMillis()
+    )
+
     suspend fun getHistoryCount(currentTimeMs: Long = getCurrentTimeMillis()): Int = mutex.withLock {
         ensureLoaded(currentTimeMs)
         val allLoaded = syncFromStorage(currentTimeMs)
@@ -474,6 +573,9 @@ class LinkCache(
         }
         count
     }
+
+    suspend fun getHistoryCount(): Int =
+        getHistoryCount(getCurrentTimeMillis())
 
     fun buildKey(url: String, targetPlatformKey: String): String {
         val normalized = url.trim().substringBefore("#").trimEnd('/')

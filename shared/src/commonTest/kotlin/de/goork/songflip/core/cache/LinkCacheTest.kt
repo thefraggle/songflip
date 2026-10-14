@@ -4,6 +4,7 @@ import de.goork.songflip.core.model.ResolutionResult
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
@@ -366,6 +367,52 @@ class LinkCacheTest {
         assertEquals(FavoriteToggleResult.ADDED, res12Pro)
         assertEquals(12, cache.getFavoriteCount())
     }
+
+    @Test
+    fun testSwiftConvenienceOverloads() = runTest {
+        val cache = LinkCache(maxEntries = 10)
+        val key = cache.addHistoryEntry(
+            sourceUrl = "https://open.spotify.com/track/swift_overload",
+            targetPlatformKey = "appleMusic",
+            targetUrl = "https://music.apple.com/song",
+            title = "Swift Title",
+            artist = "Swift Artist",
+            isAlbum = false,
+            thumbnailUrl = "https://img.com/art.jpg",
+            currentTimeMs = 123456L
+        )
+
+        assertEquals("https://open.spotify.com/track/swift_overload|appleMusic", key)
+        assertEquals(1, cache.getHistoryCount())
+        val entries = cache.getHistoryEntries(limit = 5)
+        assertEquals(1, entries.size)
+        assertEquals("Swift Title", entries[0].title)
+
+        cache.syncFromStorage()
+        val toggleRes = cache.toggleFavoriteWithLimit(key, isPro = false, maxFreeFavorites = 10)
+        assertEquals(FavoriteToggleResult.ADDED, toggleRes)
+        assertFalse(cache.toggleFavorite(key)) // toggled from true to false
+        assertTrue(cache.toggleFavorite(key))  // toggled from false to true
+
+        val updated = cache.updateHistoryEntry(
+            cacheKey = key,
+            newTargetUrl = "https://music.apple.com/updated",
+            newTitle = "Updated Title",
+            newArtist = "Updated Artist",
+            newPlatform = "appleMusic",
+            isAlbum = false,
+            thumbnailUrl = null
+        )
+        assertTrue(updated)
+
+        val targetUpdated = cache.updateTargetUrl(
+            cacheKey = key,
+            newTargetUrl = "https://music.apple.com/target2",
+            newNativeAppUri = "music://target2"
+        )
+        assertTrue(targetUpdated)
+    }
 }
+
 
 
