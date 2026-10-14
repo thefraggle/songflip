@@ -317,7 +317,7 @@
     <string name="pro_feature_playlists_title">प्लेलिस्ट ट्रांसफ़र करें</string>
     <string name="pro_feature_playlists_desc">पूरी प्लेलिस्ट अपनी सर्विस पर ले जाएं</string>
     <string name="pro_feature_history_title">बड़ी हिस्ट्री</string>
-    <string name="pro_feature_history_desc">10 की जगह 100 गाने सेव रखें</string>
+    <string name="pro_feature_history_desc">100 हिस्ट्री एंट्री और असीमित पसंदीदा</string>
     <string name="pro_feature_cache_title">तेज़ी से खोलें</string>
     <string name="pro_feature_cache_desc">लोकप्रिय गाने बिना इंतज़ार खुलते हैं</string>
     <string name="pro_feature_links_title">सबके साथ शेयर करें</string>
@@ -376,4 +376,5 @@
     <string name="disambiguate_empty">कोई वैकल्पिक संस्करण नहीं मिला</string>
     <string name="disambiguate_error">संस्करण लोड नहीं हो सके</string>
     <string name="history_qr_action">QR कोड दिखाएं</string>
+    <string name="favorite_limit_reached">आपने अपने 10 मुफ़्त पसंदीदा पूरे कर लिए हैं। असीमित पसंदीदा और 100 हिस्ट्री एंट्री के लिए SongFlip PRO प्राप्त करें।</string>
 </resources>

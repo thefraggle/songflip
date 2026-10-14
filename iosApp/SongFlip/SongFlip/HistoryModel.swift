@@ -6,6 +6,7 @@ import SongFlipKit
 
 struct HistoryItem: Identifiable, Codable, Equatable {
     var id: UUID = UUID()
+    var cacheKey: String
     let timestamp: Date
     let title: String
     let artist: String?
@@ -14,6 +15,7 @@ struct HistoryItem: Identifiable, Codable, Equatable {
     let targetPlatform: String
     let isAlbum: Bool
     let thumbnailUrl: String?
+    var isFavorite: Bool
 
     var formattedDate: String {
         let formatter = RelativeDateTimeFormatter()
@@ -22,11 +24,12 @@ struct HistoryItem: Identifiable, Codable, Equatable {
     }
 
     enum CodingKeys: String, CodingKey {
-        case id, timestamp, title, artist, sourceUrl, targetUrl, targetPlatform, isAlbum, thumbnailUrl
+        case id, cacheKey, timestamp, title, artist, sourceUrl, targetUrl, targetPlatform, isAlbum, thumbnailUrl, isFavorite
     }
 
     init(
         id: UUID = UUID(),
+        cacheKey: String? = nil,
         timestamp: Date = Date(),
         title: String,
         artist: String?,
@@ -34,9 +37,13 @@ struct HistoryItem: Identifiable, Codable, Equatable {
         targetUrl: String,
         targetPlatform: String,
         isAlbum: Bool = false,
-        thumbnailUrl: String? = nil
+        thumbnailUrl: String? = nil,
+        isFavorite: Bool = false
     ) {
         self.id = id
+        let cleanSource = UrlUtils.shared.extractCleanUrl(rawInput: sourceUrl) ?? sourceUrl
+        let canonical = UrlUtils.shared.normalizeUrl(url: cleanSource)
+        self.cacheKey = cacheKey ?? "\(canonical)|\(targetPlatform)"
         self.timestamp = timestamp
         self.title = title
         self.artist = artist
@@ -45,6 +52,7 @@ struct HistoryItem: Identifiable, Codable, Equatable {
         self.targetPlatform = targetPlatform
         self.isAlbum = isAlbum
         self.thumbnailUrl = thumbnailUrl
+        self.isFavorite = isFavorite
     }
 
     init(from decoder: Decoder) throws {
@@ -65,11 +73,16 @@ struct HistoryItem: Identifiable, Codable, Equatable {
         self.targetPlatform = try container.decode(String.self, forKey: .targetPlatform)
         self.isAlbum = (try? container.decodeIfPresent(Bool.self, forKey: .isAlbum)) ?? false
         self.thumbnailUrl = try? container.decodeIfPresent(String.self, forKey: .thumbnailUrl)
+        self.isFavorite = (try? container.decodeIfPresent(Bool.self, forKey: .isFavorite)) ?? false
 
-        // Self-healing timestamp (Fix for Issue #21 / 2057 bug):
-        // Apple reference date is 2001-01-01 00:00:00 UTC (978,307,200 seconds after 1970).
-        // If secondsSince1970 (~1.7e9) was interpreted as reference date, timestamp becomes ~2057 (~2.7e9 epoch).
-        // If reference date (~8e8) is interpreted as epoch, timestamp becomes ~1995.
+        if let explicitKey = try? container.decodeIfPresent(String.self, forKey: .cacheKey), !explicitKey.isEmpty {
+            self.cacheKey = explicitKey
+        } else {
+            let cleanSource = UrlUtils.shared.extractCleanUrl(rawInput: self.sourceUrl) ?? self.sourceUrl
+            let canonical = UrlUtils.shared.normalizeUrl(url: cleanSource)
+            self.cacheKey = "\(canonical)|\(self.targetPlatform)"
+        }
+
         let now = Date()
         let refOffset = Date.timeIntervalBetween1970AndReferenceDate
 
@@ -83,7 +96,6 @@ struct HistoryItem: Identifiable, Codable, Equatable {
         if let date = parsedDate {
             let t = date.timeIntervalSince1970
             if t > now.timeIntervalSince1970 + 86400 {
-                // Year 2057 bug healing: epoch was offset by reference date
                 let healed = t - refOffset
                 if healed > 0 && healed <= now.timeIntervalSince1970 + 86400 {
                     self.timestamp = Date(timeIntervalSince1970: healed)
@@ -91,7 +103,6 @@ struct HistoryItem: Identifiable, Codable, Equatable {
                     self.timestamp = now
                 }
             } else if t < 1_000_000_000 {
-                // Reference date (seconds since 2001) stored raw: add reference date offset
                 let healed = t + refOffset
                 if healed > 0 && healed <= now.timeIntervalSince1970 + 86400 {
                     self.timestamp = Date(timeIntervalSince1970: healed)
@@ -105,16 +116,46 @@ struct HistoryItem: Identifiable, Codable, Equatable {
             self.timestamp = now
         }
     }
+
+    init(from kmpItem: LinkHistoryItem) {
+        self.id = Self.deterministicUUID(from: kmpItem.cacheKey)
+        self.cacheKey = kmpItem.cacheKey
+        self.timestamp = Date(timeIntervalSince1970: Double(kmpItem.timestamp) / 1000.0)
+        self.title = kmpItem.title?.isEmpty == false ? kmpItem.title! : kmpItem.canonicalUrl
+        self.artist = kmpItem.artist
+        self.sourceUrl = kmpItem.canonicalUrl
+        self.targetUrl = kmpItem.targetUrl
+        self.targetPlatform = kmpItem.targetPlatformKey
+        self.isAlbum = kmpItem.isAlbum
+        self.thumbnailUrl = kmpItem.thumbnailUrl
+        self.isFavorite = kmpItem.isFavorite
+    }
+
+    static func deterministicUUID(from key: String) -> UUID {
+        var bytes = [UInt8](repeating: 0, count: 16)
+        let utf8 = Array(key.utf8)
+        for (i, b) in utf8.enumerated() {
+            bytes[i % 16] = bytes[i % 16] ^ b &+ UInt8((i * 31) & 0xFF)
+        }
+        bytes[6] = (bytes[6] & 0x0F) | 0x40
+        bytes[8] = (bytes[8] & 0x3F) | 0x80
+        return UUID(uuid: (
+            bytes[0], bytes[1], bytes[2], bytes[3],
+            bytes[4], bytes[5], bytes[6], bytes[7],
+            bytes[8], bytes[9], bytes[10], bytes[11],
+            bytes[12], bytes[13], bytes[14], bytes[15]
+        ))
+    }
 }
 
 class HistoryModel: ObservableObject {
     static let shared = HistoryModel()
     private static let storageKey = "songflip_conversion_history"
     private static let appGroupId = "group.de.goork.songflip"
-    private static let corruptBackupKey = "songflip_conversion_history_corrupt_backup"
     private static let logger = Logger(subsystem: "de.goork.songflip", category: "History")
 
     @Published var items: [HistoryItem] = []
+    @Published var totalHistoryCount: Int = 0
 
     private var defaults: UserDefaults {
         UserDefaults(suiteName: Self.appGroupId) ?? UserDefaults.standard
@@ -125,55 +166,70 @@ class HistoryModel: ObservableObject {
     }
 
     func loadHistory() {
-        guard let data = defaults.data(forKey: Self.storageKey) else {
-            self.items = []
-            return
+        Task { [weak self] in
+            guard let self = self else { return }
+            await self.migrateRemainingUserDefaultsIfNeeded()
+            await self.syncFromKmpStore()
+            await self.hydrateMissingThumbnails()
         }
+    }
 
+    private func migrateRemainingUserDefaultsIfNeeded() async {
+        guard let data = defaults.data(forKey: Self.storageKey) else { return }
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
+        var legacyItems: [HistoryItem] = []
 
-        do {
-            self.items = try decoder.decode([HistoryItem].self, from: data)
-            // Self-healing: persist cleaned timestamps so future decodes are clean
-            saveHistory()
-        } catch {
-            Self.logger.error("History decode failed, trying per-item recovery: \(error.localizedDescription, privacy: .public)")
-            // Back up the raw blob BEFORE anything can overwrite it, so a decoder bug
-            // in a future update never silently wipes the user's history.
-            backupCorruptData(data)
-
-            if let array = try? JSONSerialization.jsonObject(with: data) as? [[String: Any]] {
-                // Resilient fallback: decode element-by-element so one bad item doesn't drop the entire history
-                var recovered: [HistoryItem] = []
-                for dict in array {
-                    if let itemData = try? JSONSerialization.data(withJSONObject: dict),
-                       let item = try? decoder.decode(HistoryItem.self, from: itemData) {
-                        recovered.append(item)
-                    }
+        if let decoded = try? decoder.decode([HistoryItem].self, from: data) {
+            legacyItems = decoded
+        } else if let array = try? JSONSerialization.jsonObject(with: data) as? [[String: Any]] {
+            for dict in array {
+                if let itemData = try? JSONSerialization.data(withJSONObject: dict),
+                   let item = try? decoder.decode(HistoryItem.self, from: itemData) {
+                    legacyItems.append(item)
                 }
-                Self.logger.notice("History recovery: \(recovered.count, privacy: .public)/\(array.count, privacy: .public) items restored")
-                self.items = recovered
-                if !recovered.isEmpty {
-                    saveHistory()
-                }
-            } else {
-                Self.logger.error("History blob is not a JSON array, raw data kept in backup key")
-                self.items = []
             }
         }
 
-        // Auto-hydrate missing cover artwork for legacy history entries
-        Task { [weak self] in
-            await self?.hydrateMissingThumbnails()
+        if !legacyItems.isEmpty {
+            for item in legacyItems.reversed() {
+                try? await SongLinkEngine.shared.cache.addHistoryEntry(
+                    sourceUrl: item.sourceUrl,
+                    targetPlatformKey: item.targetPlatform,
+                    targetUrl: item.targetUrl,
+                    title: item.title,
+                    artist: item.artist,
+                    isAlbum: item.isAlbum,
+                    thumbnailUrl: item.thumbnailUrl,
+                    currentTimeMs: Int64(item.timestamp.timeIntervalSince1970 * 1000)
+                )
+            }
+        }
+        defaults.removeObject(forKey: Self.storageKey)
+    }
+
+    @MainActor
+    func syncFromKmpStore() async {
+        do {
+            try await SongLinkEngine.shared.cache.syncFromStorage()
+            let maxLimit: Int32 = ProManager.shared.isPro ? 100 : 10
+            let kmpEntries = try await SongLinkEngine.shared.cache.getHistoryEntries(limit: maxLimit)
+            let count = try await SongLinkEngine.shared.cache.getHistoryCount()
+            self.items = kmpEntries.map { HistoryItem(from: $0) }
+            self.totalHistoryCount = Int(count)
+        } catch {
+            Self.logger.error("Failed to sync history from KMP SQLDelight store: \(error.localizedDescription, privacy: .public)")
         }
     }
 
     func hydrateMissingThumbnails() async {
-        let missing = items.filter { $0.thumbnailUrl == nil || $0.thumbnailUrl?.isEmpty == true }
+        let currentItems = await MainActor.run { self.items }
+        let missing = currentItems.filter { $0.thumbnailUrl == nil || $0.thumbnailUrl?.isEmpty == true }
         guard !missing.isEmpty else { return }
 
+        var hasUpdates = false
         for item in missing {
+            if item.targetPlatform.contains("_playlist") { continue }
             do {
                 let res = try await SongLinkEngine.shared.resolveTargetUrl(
                     inputUrl: item.sourceUrl,
@@ -183,61 +239,15 @@ class HistoryModel: ObservableObject {
                     forceRefresh: true
                 )
                 if let success = res as? ResolutionResult.Success, let thumb = success.thumbnailUrl, !thumb.isEmpty {
-                    await MainActor.run {
-                        if let idx = self.items.firstIndex(where: { $0.id == item.id }) {
-                            let old = self.items[idx]
-                            self.items[idx] = HistoryItem(
-                                id: old.id,
-                                timestamp: old.timestamp,
-                                title: success.title ?? old.title,
-                                artist: success.artist ?? old.artist,
-                                sourceUrl: old.sourceUrl,
-                                targetUrl: success.targetUrl,
-                                targetPlatform: success.platform,
-                                isAlbum: success.isAlbum,
-                                thumbnailUrl: thumb
-                            )
-                            self.saveHistory()
-                        }
-                    }
+                    hasUpdates = true
                 }
             } catch {
-                // Non-fatal: entry keeps working without artwork, retried on next launch
                 Self.logger.debug("Thumbnail hydration failed: \(error.localizedDescription, privacy: .public)")
             }
         }
-    }
-
-    @discardableResult
-    func reloadFromDefaults() -> [HistoryItem] {
-        guard let data = defaults.data(forKey: Self.storageKey) else {
-            self.items = []
-            return []
+        if hasUpdates {
+            await syncFromKmpStore()
         }
-
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .secondsSince1970
-
-        if let list = try? decoder.decode([HistoryItem].self, from: data) {
-            self.items = list
-            return list
-        }
-
-        if let array = try? JSONSerialization.jsonObject(with: data) as? [[String: Any]] {
-            var recovered: [HistoryItem] = []
-            for dict in array {
-                if let itemData = try? JSONSerialization.data(withJSONObject: dict),
-                   let item = try? decoder.decode(HistoryItem.self, from: itemData) {
-                    recovered.append(item)
-                }
-            }
-            if !recovered.isEmpty {
-                self.items = recovered
-                return recovered
-            }
-        }
-
-        return self.items
     }
 
     func add(
@@ -249,37 +259,23 @@ class HistoryModel: ObservableObject {
         isAlbum: Bool = false,
         thumbnailUrl: String? = nil
     ) {
-        // Prevent lost updates by syncing with shared App Group storage first (#113)
-        reloadFromDefaults()
-
-        // Avoid duplicate consecutive identical items
-        if let first = items.first, first.targetUrl == targetUrl {
-            return
+        Task { [weak self] in
+            do {
+                try await SongLinkEngine.shared.cache.addHistoryEntry(
+                    sourceUrl: sourceUrl,
+                    targetPlatformKey: targetPlatform,
+                    targetUrl: targetUrl,
+                    title: title,
+                    artist: artist,
+                    isAlbum: isAlbum,
+                    thumbnailUrl: thumbnailUrl,
+                    currentTimeMs: Int64(Date().timeIntervalSince1970 * 1000)
+                )
+                await self?.syncFromKmpStore()
+            } catch {
+                Self.logger.error("Failed to add history entry: \(error.localizedDescription, privacy: .public)")
+            }
         }
-
-        let newItem = HistoryItem(
-            id: UUID(),
-            timestamp: Date(),
-            title: title,
-            artist: artist,
-            sourceUrl: sourceUrl,
-            targetUrl: targetUrl,
-            targetPlatform: targetPlatform,
-            isAlbum: isAlbum,
-            thumbnailUrl: thumbnailUrl
-        )
-
-        var current = items
-        current.insert(newItem, at: 0)
-
-        // Limit history: 10 items for Free, 100 items for PRO
-        let maxLimit = ProManager.shared.isPro ? 100 : 10
-        if current.count > maxLimit {
-            current = Array(current.prefix(maxLimit))
-        }
-
-        self.items = current
-        saveHistory()
     }
 
     func updateItem(
@@ -291,63 +287,73 @@ class HistoryModel: ObservableObject {
         isAlbum: Bool,
         thumbnailUrl: String? = nil
     ) {
-        // Prevent lost updates by syncing with shared App Group storage first (#113)
-        reloadFromDefaults()
+        guard let existing = items.first(where: { $0.id == id }) else { return }
+        let cacheKey = existing.cacheKey
+        Task { [weak self] in
+            do {
+                try await SongLinkEngine.shared.cache.updateHistoryEntry(
+                    cacheKey: cacheKey,
+                    newTargetUrl: newTargetUrl,
+                    newTitle: newTitle,
+                    newArtist: newArtist,
+                    newPlatform: newTargetPlatform,
+                    isAlbum: KotlinBoolean(bool: isAlbum),
+                    thumbnailUrl: thumbnailUrl,
+                    currentTimeMs: Int64(Date().timeIntervalSince1970 * 1000)
+                )
+                await self?.syncFromKmpStore()
+            } catch {
+                Self.logger.error("Failed to update history entry: \(error.localizedDescription, privacy: .public)")
+            }
+        }
+    }
 
-        if let idx = items.firstIndex(where: { $0.id == id }) {
-            let old = items[idx]
-            items[idx] = HistoryItem(
-                id: old.id,
-                timestamp: Date(),
-                title: newTitle ?? old.title,
-                artist: newArtist ?? old.artist,
-                sourceUrl: old.sourceUrl,
-                targetUrl: newTargetUrl,
-                targetPlatform: newTargetPlatform ?? old.targetPlatform,
-                isAlbum: isAlbum,
-                thumbnailUrl: thumbnailUrl ?? old.thumbnailUrl
+    func toggleFavorite(item: HistoryItem, isPro: Bool) async -> FavoriteToggleResult {
+        do {
+            let result = try await SongLinkEngine.shared.cache.toggleFavoriteWithLimit(
+                cacheKey: item.cacheKey,
+                isPro: isPro,
+                maxFreeFavorites: 10
             )
-            saveHistory()
+            await syncFromKmpStore()
+            return result
+        } catch {
+            Self.logger.error("Failed to toggle favorite: \(error.localizedDescription, privacy: .public)")
+            return .notFound
         }
     }
 
     func delete(at offsets: IndexSet) {
-        reloadFromDefaults()
+        let keysToDelete = offsets.compactMap { idx -> String? in
+            guard idx < items.count else { return nil }
+            return items[idx].cacheKey
+        }
         items.remove(atOffsets: offsets)
-        saveHistory()
+        Task { [weak self] in
+            for key in keysToDelete {
+                try? await SongLinkEngine.shared.cache.removeByCacheKey(cacheKey: key)
+            }
+            await self?.syncFromKmpStore()
+        }
     }
 
     func deleteItem(id: UUID) {
-        reloadFromDefaults()
+        guard let existing = items.first(where: { $0.id == id }) else { return }
+        let key = existing.cacheKey
         items.removeAll { $0.id == id }
-        saveHistory()
+        Task { [weak self] in
+            try? await SongLinkEngine.shared.cache.removeByCacheKey(cacheKey: key)
+            await self?.syncFromKmpStore()
+        }
     }
 
     func clear() {
-        reloadFromDefaults()
         items.removeAll()
-        saveHistory()
-    }
-
-    private func saveHistory() {
-        let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .secondsSince1970
-        do {
-            defaults.set(try encoder.encode(items), forKey: Self.storageKey)
-        } catch {
-            Self.logger.error("History encode failed, keeping previous data: \(error.localizedDescription, privacy: .public)")
+        totalHistoryCount = 0
+        Task { [weak self] in
+            try? await SongLinkEngine.shared.cache.clearHistoryAndCache()
+            await self?.syncFromKmpStore()
         }
-    }
-
-    /// Keeps the first corrupt snapshot only: a later corruption must not replace
-    /// the oldest (most complete) raw data we could still recover from.
-    private func backupCorruptData(_ data: Data) {
-        guard defaults.data(forKey: Self.corruptBackupKey) == nil else {
-            Self.logger.notice("History backup already exists, not overwriting")
-            return
-        }
-        defaults.set(data, forKey: Self.corruptBackupKey)
-        Self.logger.notice("History raw data backed up (\(data.count, privacy: .public) bytes)")
     }
 }
 

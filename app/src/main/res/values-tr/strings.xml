@@ -317,7 +317,7 @@
     <string name="pro_feature_playlists_title">Çalma listelerini taşıyın</string>
     <string name="pro_feature_playlists_desc">Tüm çalma listelerini kendi servisinize aktarın</string>
     <string name="pro_feature_history_title">Geniş geçmiş</string>
-    <string name="pro_feature_history_desc">10 yerine 100 şarkı her an elinizde</string>
+    <string name="pro_feature_history_desc">100 geçmiş kaydı ve sınırsız favori</string>
     <string name="pro_feature_cache_title">Daha hızlı açılış</string>
     <string name="pro_feature_cache_desc">Popüler şarkılar beklemeden açılır</string>
     <string name="pro_feature_links_title">Herkesle paylaşın</string>
@@ -376,4 +376,5 @@
     <string name="disambiguate_empty">Alternatif sürüm bulunamadı</string>
     <string name="disambiguate_error">Sürümler yüklenemedi</string>
     <string name="history_qr_action">QR kodunu göster</string>
+    <string name="favorite_limit_reached">10 ücretsiz favori sınırına ulaştınız. Sınırsız favori ve 100 geçmiş kaydı için SongFlip PRO edinin.</string>
 </resources>

@@ -317,7 +317,7 @@
     <string name="pro_feature_playlists_title">Flytta spellistor</string>
     <string name="pro_feature_playlists_desc">För över hela spellistor till din tjänst</string>
     <string name="pro_feature_history_title">Större historik</string>
-    <string name="pro_feature_history_desc">100 i stället för 10 låtar nära till hands</string>
+    <string name="pro_feature_history_desc">100 historikposter &amp; obegränsade favoriter</string>
     <string name="pro_feature_cache_title">Snabbare öppning</string>
     <string name="pro_feature_cache_desc">Populära låtar öppnas utan väntan</string>
     <string name="pro_feature_links_title">Dela med alla</string>
@@ -376,4 +376,5 @@
     <string name="disambiguate_empty">Inga alternativa versioner hittades</string>
     <string name="disambiguate_error">Kunde inte ladda versioner</string>
     <string name="history_qr_action">Visa QR-kod</string>
+    <string name="favorite_limit_reached">Du har nått dina 10 gratisfavoriter. Skaffa SongFlip PRO för obegränsade favoriter och 100 historikposter.</string>
 </resources>

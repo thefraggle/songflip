@@ -54,7 +54,7 @@ final class ProManager: NSObject, ObservableObject {
     }
 
     var authToken: String {
-        if let token = defaults.string(forKey: Self.keyCouponToken), !token.isEmpty {
+        if let token = getStoredCouponToken(), !token.isEmpty {
             return "coupon:\(token)"
         }
         if Purchases.isConfigured {
@@ -70,12 +70,15 @@ final class ProManager: NSObject, ObservableObject {
 
     private static let keychainService = "de.goork.songflip.install"
     private static let keychainAccountInstallId = "persistent_install_id"
+    private static let keychainAccountCouponToken = "pro_coupon_token_v2"
+    private static let keychainAccountLastSeenTime = "last_seen_server_time_v2"
+    private static let keychainAccountRcState = "rc_pro_state_v2"
 
-    private func getPersistentInstallId() -> String {
+    private func readKeychainString(account: String) -> String? {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: Self.keychainService,
-            kSecAttrAccount as String: Self.keychainAccountInstallId,
+            kSecAttrAccount as String: account,
             kSecReturnData as String: true,
             kSecMatchLimit as String: kSecMatchLimitOne
         ]
@@ -83,23 +86,39 @@ final class ProManager: NSObject, ObservableObject {
         let status = SecItemCopyMatching(query as CFDictionary, &dataTypeRef)
         if status == errSecSuccess,
            let data = dataTypeRef as? Data,
-           let existing = String(data: data, encoding: .utf8),
-           !existing.isEmpty {
+           let value = String(data: data, encoding: .utf8),
+           !value.isEmpty {
+            return value
+        }
+        return nil
+    }
+
+    private func writeKeychainString(account: String, value: String?) {
+        let deleteQuery: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: Self.keychainService,
+            kSecAttrAccount as String: account
+        ]
+        SecItemDelete(deleteQuery as CFDictionary)
+        guard let value = value, !value.isEmpty, let data = value.data(using: .utf8) else {
+            return
+        }
+        let addQuery: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: Self.keychainService,
+            kSecAttrAccount as String: account,
+            kSecValueData as String: data,
+            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
+        ]
+        SecItemAdd(addQuery as CFDictionary, nil)
+    }
+
+    private func getPersistentInstallId() -> String {
+        if let existing = readKeychainString(account: Self.keychainAccountInstallId) {
             return existing
         }
-
         let newId = (UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString).lowercased()
-        if let data = newId.data(using: .utf8) {
-            let addQuery: [String: Any] = [
-                kSecClass as String: kSecClassGenericPassword,
-                kSecAttrService as String: Self.keychainService,
-                kSecAttrAccount as String: Self.keychainAccountInstallId,
-                kSecValueData as String: data,
-                kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
-            ]
-            SecItemDelete(addQuery as CFDictionary)
-            SecItemAdd(addQuery as CFDictionary, nil)
-        }
+        writeKeychainString(account: Self.keychainAccountInstallId, value: newId)
         return newId
     }
 
@@ -107,16 +126,51 @@ final class ProManager: NSObject, ObservableObject {
         return getPersistentInstallId()
     }
 
-    private func computeSignature(isPro: Bool, proType: String?, expiration: Double?) -> String {
-        let raw = "\(isPro):\(proType ?? ""):\(expiration ?? 0):\(getDeviceFingerprint()):songflip_secure_salt_8f92"
-        let digest = SHA256.hash(data: Data(raw.utf8))
-        return digest.map { String(format: "%02x", $0) }.joined()
+    private func getStoredCouponToken() -> String? {
+        if let kcToken = readKeychainString(account: Self.keychainAccountCouponToken) {
+            return kcToken
+        }
+        // One-time migration from legacy UserDefaults token storage
+        if let legacyToken = defaults.string(forKey: Self.keyCouponToken), !legacyToken.isEmpty {
+            writeKeychainString(account: Self.keychainAccountCouponToken, value: legacyToken)
+            defaults.removeObject(forKey: Self.keyCouponToken)
+            defaults.removeObject(forKey: Self.keyCacheSignature)
+            return legacyToken
+        }
+        return nil
     }
 
-    private func persistProState(isPro: Bool, proType: String?, expiration: Double? = nil) {
+    private func saveStoredCouponToken(_ token: String) {
+        writeKeychainString(account: Self.keychainAccountCouponToken, value: token)
+        defaults.removeObject(forKey: Self.keyCouponToken)
+        defaults.removeObject(forKey: Self.keyCacheSignature)
+    }
+
+    private func getLastSeenServerTime() -> Int64 {
+        if let raw = readKeychainString(account: Self.keychainAccountLastSeenTime),
+           let ts = Int64(raw), ts > 0 {
+            return ts
+        }
+        return 0
+    }
+
+    private func updateLastSeenServerTime(_ timestampMs: Int64) {
+        let current = getLastSeenServerTime()
+        if timestampMs > current {
+            writeKeychainString(account: Self.keychainAccountLastSeenTime, value: String(timestampMs))
+        }
+    }
+
+    private func persistRevenueCatProState(isPro: Bool, proType: String?, expiration: Double? = nil) {
+        defaults.removeObject(forKey: Self.keyCacheSignature)
         defaults.set(isPro, forKey: Self.keyIsProCached)
-        let sig = computeSignature(isPro: isPro, proType: proType, expiration: expiration)
-        defaults.set(sig, forKey: Self.keyCacheSignature)
+        if isPro {
+            let expMs = Int64(expiration ?? 0)
+            let stateStr = "1|\(proType ?? "revenuecat_subscription")|\(expMs)"
+            writeKeychainString(account: Self.keychainAccountRcState, value: stateStr)
+        } else {
+            writeKeychainString(account: Self.keychainAccountRcState, value: nil)
+        }
     }
 
     func configure(isDebug: Bool = false) {
@@ -130,39 +184,66 @@ final class ProManager: NSObject, ObservableObject {
         }
     }
 
-    private func loadCachedState() {
-        let cachedIsPro = defaults.bool(forKey: Self.keyIsProCached)
-        let couponType = defaults.string(forKey: Self.keyCouponType)
-        let couponExpiration = defaults.double(forKey: Self.keyCouponExpiration)
-        let storedSignature = defaults.string(forKey: Self.keyCacheSignature)
-
-        let expValue: Double? = (couponExpiration > 0) ? couponExpiration : nil
-        let expectedSignature = computeSignature(isPro: cachedIsPro, proType: couponType, expiration: expValue)
-
-        // Enforce cryptographic integrity: if Pro is claimed but signature doesn't match, reject state
-        if cachedIsPro && storedSignature != expectedSignature {
-            self.isPro = false
-            self.proType = nil
+    private func evaluateVerifiedCouponState() -> Bool {
+        let nowMs = Int64(Date().timeIntervalSince1970 * 1000)
+        let verified = CouponService.companion.shared.verifyCouponToken(
+            token: getStoredCouponToken(),
+            expectedInstallId: getPersistentInstallId(),
+            currentTimeMs: nowMs,
+            lastSeenServerTimeMs: getLastSeenServerTime()
+        )
+        guard verified.valid else {
+            return false
+        }
+        if let iat = verified.issuedAtTimestamp?.int64Value {
+            updateLastSeenServerTime(iat)
+        }
+        if verified.type == "lifetime" {
+            self.isPro = true
+            self.proType = "lifetime_coupon"
             self.expirationDate = nil
-            defaults.set(false, forKey: Self.keyIsProCached)
-            defaults.removeObject(forKey: Self.keyCacheSignature)
+            defaults.set(true, forKey: Self.keyIsProCached)
+            return true
+        }
+        let labelType = defaults.string(forKey: Self.keyCouponType) ?? verified.type
+        let normalizedType = labelType.hasSuffix("_coupon") ? labelType : "\(labelType)_coupon"
+        self.isPro = true
+        self.proType = normalizedType
+        if let expMs = verified.expirationTimestamp?.doubleValue, expMs > 0 {
+            self.expirationDate = Date(timeIntervalSince1970: expMs / 1000)
+        } else {
+            self.expirationDate = nil
+        }
+        defaults.set(true, forKey: Self.keyIsProCached)
+        return true
+    }
+
+    private func loadCachedState() {
+        // 1. Check Ed25519-verified coupon token in Keychain (#109)
+        if evaluateVerifiedCouponState() {
             return
         }
 
-        if let couponType = couponType {
-            if couponType == "lifetime" {
-                self.isPro = true
-                self.proType = "lifetime_coupon"
-                return
-            } else if couponExpiration > Date().timeIntervalSince1970 * 1000 {
-                self.isPro = true
-                self.proType = "\(couponType)_coupon"
-                self.expirationDate = Date(timeIntervalSince1970: couponExpiration / 1000)
-                return
+        // 2. Check Keychain-backed RevenueCat cached entitlement
+        if let rcState = readKeychainString(account: Self.keychainAccountRcState) {
+            let parts = rcState.split(separator: "|", omittingEmptySubsequences: false).map(String.init)
+            if parts.count >= 3, parts[0] == "1" {
+                let rcType = parts[1]
+                let expMs = Double(parts[2]) ?? 0
+                let nowMs = Date().timeIntervalSince1970 * 1000
+                if rcType == "revenuecat_lifetime" || expMs <= 0 || expMs > nowMs {
+                    self.isPro = true
+                    self.proType = rcType
+                    self.expirationDate = expMs > 0 ? Date(timeIntervalSince1970: expMs / 1000) : nil
+                    return
+                }
             }
         }
 
-        self.isPro = cachedIsPro
+        self.isPro = false
+        self.proType = nil
+        self.expirationDate = nil
+        defaults.set(false, forKey: Self.keyIsProCached)
     }
 
     func refreshOfferings() async {
@@ -193,34 +274,19 @@ final class ProManager: NSObject, ObservableObject {
             self.proType = isLifetime ? "revenuecat_lifetime" : "revenuecat_subscription"
             self.expirationDate = proEntitlement?.expirationDate
             let expMillis = proEntitlement?.expirationDate.map { $0.timeIntervalSince1970 * 1000 }
-            persistProState(isPro: true, proType: self.proType, expiration: expMillis)
+            persistRevenueCatProState(isPro: true, proType: self.proType, expiration: expMillis)
             return
         }
 
-        // Fallback: check valid coupon
-        let couponType = defaults.string(forKey: Self.keyCouponType)
-        let couponExpiration = defaults.double(forKey: Self.keyCouponExpiration)
-
-        if let couponType = couponType {
-            if couponType == "lifetime" {
-                self.isPro = true
-                self.proType = "lifetime_coupon"
-                self.expirationDate = nil
-                persistProState(isPro: true, proType: "lifetime_coupon", expiration: nil)
-                return
-            } else if couponExpiration > Date().timeIntervalSince1970 * 1000 {
-                self.isPro = true
-                self.proType = "\(couponType)_coupon"
-                self.expirationDate = Date(timeIntervalSince1970: couponExpiration / 1000)
-                persistProState(isPro: true, proType: couponType, expiration: couponExpiration)
-                return
-            }
+        // Fallback: check Ed25519-verified coupon token (#109)
+        if evaluateVerifiedCouponState() {
+            return
         }
 
         self.isPro = false
         self.proType = nil
         self.expirationDate = nil
-        persistProState(isPro: false, proType: nil, expiration: nil)
+        persistRevenueCatProState(isPro: false, proType: nil, expiration: nil)
     }
 
     func purchase(package: Package, extraProps: [String: String] = [:]) async throws -> Bool {
@@ -265,30 +331,7 @@ final class ProManager: NSObject, ObservableObject {
     }
 
     func extractCouponCode(from input: String) -> String {
-        let trimmed = input.trimmingCharacters(in: .whitespacesAndNewlines)
-        if trimmed.isEmpty { return "" }
-
-        // Extract promo query param from full URL: https://songflip.link?promo=CODE
-        if let url = URL(string: trimmed), let components = URLComponents(url: url, resolvingAgainstBaseURL: false) {
-            if let promo = components.queryItems?.first(where: { $0.name.lowercased() == "promo" || $0.name.lowercased() == "code" })?.value,
-               !promo.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                return promo.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-            }
-        }
-
-        var candidate = trimmed
-        let prefixes = ["code:", "promo:", "coupon:", "gutschein:", "code ", "promo "]
-        for p in prefixes {
-            if candidate.lowercased().hasPrefix(p) {
-                candidate = String(candidate.dropFirst(p.count)).trimmingCharacters(in: .whitespacesAndNewlines)
-                break
-            }
-        }
-
-        if let range = candidate.range(of: #"[A-Za-z0-9_-]{3,32}"#, options: .regularExpression) {
-            return String(candidate[range]).uppercased()
-        }
-        return candidate.uppercased()
+        return CouponService.companion.shared.extractCouponCode(rawInput: input)
     }
 
     func redeemCoupon(code: String) async -> RedeemResult {
@@ -298,100 +341,68 @@ final class ProManager: NSObject, ObservableObject {
         isLoading = true
         defer { isLoading = false }
 
-        let endpoints: [URL] = [
-            URL(string: "https://cache.songflip.link/redeemPromoCode")!,
-            URL(string: "https://songflip-web.web.app/redeemPromoCode")!
-        ]
-
         let installId = getPersistentInstallId()
-        let body: [String: Any] = [
-            "code": cleanCode,
-            "installId": installId
-        ]
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: body) else {
-            return .invalid
-        }
+        let isAlreadyLifetime = self.isPro && self.proType == "lifetime_coupon"
 
-        var lastResult: RedeemResult = .networkError
+        do {
+            let outcome = try await CouponService.companion.shared.redeemCoupon(
+                rawCode: cleanCode,
+                installId: installId,
+                isAlreadyLifetimeCoupon: isAlreadyLifetime,
+                customEndpoints: nil
+            )
 
-        for url in endpoints {
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpBody = httpBody
-            request.timeoutInterval = 7.0
-
-            do {
-                let (data, response) = try await URLSession.shared.data(for: request)
-                guard let httpResponse = response as? HTTPURLResponse else { continue }
-
-                if httpResponse.statusCode == 200 {
-                    if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
-                        let type = (json["type"] as? String)?.lowercased() ?? "1month"
-                        let expTimestamp = json["expirationTimestamp"] as? Double
-                        let token = json["token"] as? String ?? ""
-
-                        if type == "lifetime" {
-                            if self.isPro && self.proType == "lifetime_coupon" {
-                                return .alreadyActive
-                            }
-                            defaults.set("lifetime", forKey: Self.keyCouponType)
-                            defaults.set(cleanCode, forKey: Self.keyCouponCode)
-                            defaults.set(token, forKey: Self.keyCouponToken)
-                            defaults.removeObject(forKey: Self.keyCouponExpiration)
-                            persistProState(isPro: true, proType: "lifetime_coupon", expiration: nil)
-                            self.isPro = true
-                            self.proType = "lifetime_coupon"
-                            self.expirationDate = nil
-                            AptabaseClient.shared.trackEvent(eventName: "promo_redeemed", props: ["code": cleanCode, "type": "lifetime"])
-                            return .successLifetime
-                        } else {
-                            let durationDays: Double = (type == "1year" || type == "annual") ? 365 : ((type == "3months") ? 90 : 30)
-                            let expireTime = expTimestamp ?? (Date().timeIntervalSince1970 * 1000 + durationDays * 24 * 60 * 60 * 1000)
-
-                            defaults.set(type, forKey: Self.keyCouponType)
-                            defaults.set(cleanCode, forKey: Self.keyCouponCode)
-                            defaults.set(token, forKey: Self.keyCouponToken)
-                            defaults.set(expireTime, forKey: Self.keyCouponExpiration)
-                            persistProState(isPro: true, proType: type, expiration: expireTime)
-
-                            self.isPro = true
-                            self.proType = "\(type)_coupon"
-                            self.expirationDate = Date(timeIntervalSince1970: expireTime / 1000)
-
-                            AptabaseClient.shared.trackEvent(eventName: "promo_redeemed", props: ["code": cleanCode, "type": type])
-                            if type == "1year" || type == "annual" {
-                                return .success1Year
-                            } else if type == "3months" {
-                                return .success3Months
-                            } else {
-                                return .success1Month
-                            }
-                        }
-                    }
-                } else if httpResponse.statusCode == 429 {
-                    return .rateLimited
-                } else if httpResponse.statusCode == 409 {
-                    return .alreadyRedeemed
-                } else {
-                    let errObj = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any]
-                    let errorStr = errObj?["error"] as? String ?? ""
-                    if errorStr == "MAX_REDEMPTIONS_REACHED" {
-                        return .maxReached
-                    } else if errorStr == "CODE_EXPIRED" || errorStr == "CODE_INACTIVE" {
-                        return .inactive
-                    } else if errorStr == "ALREADY_ACTIVE" {
-                        return .alreadyActive
-                    }
-                    return .invalid
+            switch outcome.status {
+            case .successLifetime:
+                saveStoredCouponToken(outcome.token)
+                if let iat = outcome.issuedAtTimestamp?.int64Value {
+                    updateLastSeenServerTime(iat)
                 }
-            } catch {
-                lastResult = .networkError
-                continue
-            }
-        }
+                defaults.set("lifetime", forKey: Self.keyCouponType)
+                defaults.set(outcome.code, forKey: Self.keyCouponCode)
+                defaults.removeObject(forKey: Self.keyCouponExpiration)
+                _ = evaluateVerifiedCouponState()
+                AptabaseClient.shared.trackEvent(eventName: "promo_redeemed", props: ["code": outcome.code, "type": "lifetime"])
+                return .successLifetime
 
-        return lastResult
+            case .success1year, .success3months, .success1month:
+                saveStoredCouponToken(outcome.token)
+                if let iat = outcome.issuedAtTimestamp?.int64Value {
+                    updateLastSeenServerTime(iat)
+                }
+                let expireTime = outcome.expirationTimestamp?.doubleValue
+                    ?? (Date().timeIntervalSince1970 * 1000 + 30 * 24 * 60 * 60 * 1000)
+                defaults.set(outcome.type, forKey: Self.keyCouponType)
+                defaults.set(outcome.code, forKey: Self.keyCouponCode)
+                defaults.set(expireTime, forKey: Self.keyCouponExpiration)
+                _ = evaluateVerifiedCouponState()
+                AptabaseClient.shared.trackEvent(eventName: "promo_redeemed", props: ["code": outcome.code, "type": outcome.type])
+                if outcome.status == .success1year {
+                    return .success1Year
+                } else if outcome.status == .success3months {
+                    return .success3Months
+                } else {
+                    return .success1Month
+                }
+
+            case .alreadyActive:
+                return .alreadyActive
+            case .alreadyRedeemed:
+                return .alreadyRedeemed
+            case .maxReached:
+                return .maxReached
+            case .inactive:
+                return .inactive
+            case .rateLimited:
+                return .rateLimited
+            case .invalid:
+                return .invalid
+            default:
+                return .networkError
+            }
+        } catch {
+            return .networkError
+        }
     }
 
     // Helper: Detect introductory free trial in days

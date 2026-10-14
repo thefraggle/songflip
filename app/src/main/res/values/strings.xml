@@ -339,7 +339,7 @@
     <string name="pro_feature_playlists_title">Move playlists</string>
     <string name="pro_feature_playlists_desc">Transfer whole playlists to your service</string>
     <string name="pro_feature_history_title">Bigger history</string>
-    <string name="pro_feature_history_desc">Keep 100 songs instead of 10</string>
+    <string name="pro_feature_history_desc">100 history entries &amp; unlimited favorites</string>
     <string name="pro_feature_cache_title">Faster opening</string>
     <string name="pro_feature_cache_desc">Popular songs open without waiting</string>
     <string name="pro_feature_links_title">Share with anyone</string>
@@ -404,4 +404,5 @@
     <string name="disambiguate_success">Match updated</string>
     <string name="disambiguate_empty">No alternative versions found</string>
     <string name="disambiguate_error">Could not load versions</string>
+    <string name="favorite_limit_reached">You have reached your 10 free favorites. Get SongFlip PRO for unlimited favorites &amp; 100 history entries.</string>
 </resources>

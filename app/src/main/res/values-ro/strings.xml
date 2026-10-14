@@ -307,7 +307,7 @@
     <string name="pro_feature_playlists_title">Mută playlisturile</string>
     <string name="pro_feature_playlists_desc">Transferă playlisturi întregi în serviciul tău</string>
     <string name="pro_feature_history_title">Istoric mai mare</string>
-    <string name="pro_feature_history_desc">100 de melodii în loc de 10 la îndemână</string>
+    <string name="pro_feature_history_desc">100 de intrări în istoric și favorite nelimitate</string>
     <string name="pro_feature_cache_title">Deschidere mai rapidă</string>
     <string name="pro_feature_cache_desc">Melodiile populare se deschid fără așteptare</string>
     <string name="pro_feature_links_title">Distribuie oricui</string>
@@ -366,4 +366,5 @@
     <string name="disambiguate_empty">Nu s-au găsit versiuni alternative</string>
     <string name="disambiguate_error">Nu s-au putut încărca versiunile</string>
     <string name="history_qr_action">Arată codul QR</string>
+    <string name="favorite_limit_reached">Ai atins limita de 10 favorite gratuite. Obține SongFlip PRO pentru favorite nelimitate și 100 de intrări în istoric.</string>
 </resources>

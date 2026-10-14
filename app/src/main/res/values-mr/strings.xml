@@ -317,7 +317,7 @@
     <string name="pro_feature_playlists_title">प्लेलिस्ट हलवा</string>
     <string name="pro_feature_playlists_desc">संपूर्ण प्लेलिस्ट तुमच्या सेवेवर हलवा</string>
     <string name="pro_feature_history_title">मोठा इतिहास</string>
-    <string name="pro_feature_history_desc">10 ऐवजी 100 गाणी जतन करा</string>
+    <string name="pro_feature_history_desc">१०० हिस्ट्री नोंदी आणि अमर्यादित फेव्हरेट्स</string>
     <string name="pro_feature_cache_title">जलद उघडा</string>
     <string name="pro_feature_cache_desc">लोकप्रिय गाणी प्रतीक्षा न करता उघडतात</string>
     <string name="pro_feature_links_title">सर्वांसोबत शेअर करा</string>
@@ -376,4 +376,5 @@
     <string name="disambiguate_empty">कोणतीही पर्यायी आवृत्ती आढळली नाही</string>
     <string name="disambiguate_error">आवृत्त्या लोड होऊ शकल्या नाहीत</string>
     <string name="history_qr_action">QR कोड दाखवा</string>
+    <string name="favorite_limit_reached">तुमचे १० मोफत फेव्हरेट्स पूर्ण झाले आहेत. अमर्यादित फेव्हरेट्स आणि १०० हिस्ट्री नोंदींसाठी SongFlip PRO घ्या.</string>
 </resources>

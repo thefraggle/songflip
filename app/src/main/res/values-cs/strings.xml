@@ -311,7 +311,7 @@
     <string name="pro_feature_playlists_title">Přesuňte playlisty</string>
     <string name="pro_feature_playlists_desc">Přeneste celé playlisty do své služby</string>
     <string name="pro_feature_history_title">Větší historie</string>
-    <string name="pro_feature_history_desc">100 místo 10 skladeb po ruce</string>
+    <string name="pro_feature_history_desc">100 položek v historii a neomezené oblíbené</string>
     <string name="pro_feature_cache_title">Rychlejší otevírání</string>
     <string name="pro_feature_cache_desc">Oblíbené skladby se otevřou bez čekání</string>
     <string name="pro_feature_links_title">Sdílení pro všechny</string>
@@ -370,4 +370,5 @@
     <string name="disambiguate_empty">Nebyly nalezeny žádné alternativní verze</string>
     <string name="disambiguate_error">Verze se nepodařilo načíst</string>
     <string name="history_qr_action">Zobrazit QR kód</string>
+    <string name="favorite_limit_reached">Dosáhli jste limitu 10 bezplatných oblíbených. Pořiďte si SongFlip PRO pro neomezené oblíbené a 100 položek v historii.</string>
 </resources>

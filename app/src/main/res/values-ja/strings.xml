@@ -313,7 +313,7 @@
     <string name="pro_feature_playlists_title">プレイリストを移行</string>
     <string name="pro_feature_playlists_desc">プレイリストをまるごと好きなサービスへ</string>
     <string name="pro_feature_history_title">大きな履歴</string>
-    <string name="pro_feature_history_desc">10曲ではなく100曲を保存</string>
+    <string name="pro_feature_history_desc">履歴100件＆お気に入り無制限</string>
     <string name="pro_feature_cache_title">すばやく開く</string>
     <string name="pro_feature_cache_desc">人気の曲は待ち時間なしで開けます</string>
     <string name="pro_feature_links_title">誰とでも共有</string>
@@ -372,4 +372,5 @@
     <string name="disambiguate_empty">別バージョンが見つかりませんでした</string>
     <string name="disambiguate_error">バージョンを読み込めませんでした</string>
     <string name="history_qr_action">QRコードを表示</string>
+    <string name="favorite_limit_reached">無料のお気に入り上限（10件）に達しました。SongFlip PROでお気に入り無制限と履歴100件をアンロックしましょう。</string>
 </resources>

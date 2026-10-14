@@ -1,0 +1,115 @@
+CREATE TABLE history (
+    cache_key TEXT NOT NULL PRIMARY KEY,
+    canonical_url TEXT NOT NULL,
+    target_platform_key TEXT NOT NULL,
+    target_url TEXT NOT NULL,
+    platform TEXT NOT NULL,
+    title TEXT,
+    artist TEXT,
+    is_album INTEGER NOT NULL DEFAULT 0,
+    native_app_uri TEXT,
+    timestamp INTEGER NOT NULL,
+    thumbnail_url TEXT,
+    is_favorite INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE INDEX idx_history_fav_time ON history(is_favorite DESC, timestamp DESC);
+
+CREATE TABLE resolver_cache (
+    cache_key TEXT NOT NULL PRIMARY KEY,
+    target_url TEXT NOT NULL,
+    platform TEXT NOT NULL,
+    title TEXT,
+    artist TEXT,
+    is_album INTEGER NOT NULL DEFAULT 0,
+    native_app_uri TEXT,
+    timestamp INTEGER NOT NULL,
+    thumbnail_url TEXT
+);
+
+CREATE INDEX idx_resolver_cache_time ON resolver_cache(timestamp ASC);
+
+CREATE TABLE store_metadata (
+    meta_key TEXT NOT NULL PRIMARY KEY,
+    meta_value TEXT NOT NULL
+);
+
+-- History Queries
+getHistoryByKey:
+SELECT * FROM history WHERE cache_key = ?;
+
+upsertHistory:
+INSERT OR REPLACE INTO history(
+    cache_key, canonical_url, target_platform_key, target_url, platform,
+    title, artist, is_album, native_app_uri, timestamp, thumbnail_url, is_favorite
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+deleteHistoryByKey:
+DELETE FROM history WHERE cache_key = ?;
+
+clearAllHistory:
+DELETE FROM history;
+
+getAllHistoryOrdered:
+SELECT * FROM history
+WHERE target_url != ''
+ORDER BY is_favorite DESC, timestamp DESC;
+
+getHistoryOrderedWithLimit:
+SELECT * FROM history
+WHERE target_url != ''
+ORDER BY is_favorite DESC, timestamp DESC
+LIMIT :limit;
+
+countHistory:
+SELECT COUNT(*) FROM history WHERE target_url != '';
+
+countFavorites:
+SELECT COUNT(*) FROM history WHERE is_favorite = 1 AND target_url != '';
+
+updateFavoriteFlag:
+UPDATE history SET is_favorite = :isFavorite WHERE cache_key = :cacheKey;
+
+updateHistoryTargetUrl:
+UPDATE history
+SET target_url = :targetUrl, native_app_uri = :nativeAppUri, timestamp = :timestamp
+WHERE cache_key = :cacheKey;
+
+-- Resolver L1 Cache Queries
+getResolverCacheByKey:
+SELECT * FROM resolver_cache WHERE cache_key = ?;
+
+upsertResolverCache:
+INSERT OR REPLACE INTO resolver_cache(
+    cache_key, target_url, platform, title, artist, is_album, native_app_uri, timestamp, thumbnail_url
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+deleteResolverCacheByKey:
+DELETE FROM resolver_cache WHERE cache_key = ?;
+
+deleteExpiredResolverCache:
+DELETE FROM resolver_cache WHERE timestamp < :minTimestamp;
+
+clearAllResolverCache:
+DELETE FROM resolver_cache;
+
+getAllResolverCache:
+SELECT * FROM resolver_cache;
+
+countResolverCache:
+SELECT COUNT(*) FROM resolver_cache;
+
+pruneOldestResolverCache:
+DELETE FROM resolver_cache
+WHERE cache_key IN (
+    SELECT cache_key FROM resolver_cache
+    ORDER BY timestamp ASC
+    LIMIT :removeCount
+);
+
+-- Metadata Queries
+getMetaValue:
+SELECT meta_value FROM store_metadata WHERE meta_key = ?;
+
+setMetaValue:
+INSERT OR REPLACE INTO store_metadata(meta_key, meta_value) VALUES (?, ?);

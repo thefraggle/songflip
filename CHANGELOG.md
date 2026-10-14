@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.9.0] - 2026-10-14
+- **Favorites Everywhere**: Pin favorite songs with one tap in your history and filter your saved favorites at any time.
+- **Faster & More Reliable History**: Rebuilt local history and song storage for instant loading and rock-solid synchronization across share menus and shortcuts.
+- **Unified Search & Playlists**: Smoother song search, match selection, and playlist conversion with stronger security for promotional codes.
+
 ## [1.8.18] - 2026-10-14
 - **SoundCloud as Target Player**: Select SoundCloud as your preferred music player to open shared tracks and searches directly in the SoundCloud app.
 - **Rich Link Previews**: Shared music and playlist links now display richer social previews with audio playback support in messaging apps and social feeds.

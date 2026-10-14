@@ -311,8 +311,8 @@ class ShareViewController: UIViewController {
             return false
             #endif
         }()
-        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.8.17"
-        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "77"
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.9.0"
+        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "79"
         let osVersion = UIDevice.current.systemVersion
         let locale = Locale.current.identifier
 
@@ -380,16 +380,19 @@ class ShareViewController: UIViewController {
                         self.statusLabel.text = "🎵 \(title)"
                     }
 
-                    // Save to shared history via App Group
-                    self.saveToSharedHistory(
-                        title: success.title ?? LocalizationManager.string(for: "unknown_song"),
-                        artist: success.artist,
-                        sourceUrl: inputUrl,
-                        targetUrl: success.targetUrl,
-                        targetPlatform: targetPlatform,
-                        isAlbum: success.isAlbum,
-                        thumbnailUrl: success.thumbnailUrl
-                    )
+                    // Save to shared SQLDelight history via App Group
+                    Task {
+                        try? await self.engine.cache.addHistoryEntry(
+                            sourceUrl: inputUrl,
+                            targetPlatformKey: targetPlatform,
+                            targetUrl: success.targetUrl,
+                            title: success.title ?? LocalizationManager.string(for: "unknown_song"),
+                            artist: success.artist,
+                            isAlbum: success.isAlbum,
+                            thumbnailUrl: success.thumbnailUrl,
+                            currentTimeMs: Int64(Date().timeIntervalSince1970 * 1000)
+                        )
+                    }
 
                     let srcKey = UrlUtils.shared.detectPlatform(url: inputUrl)?.key ?? "unknown"
                     AptabaseClient.shared.trackLinkFlipped(
@@ -461,62 +464,6 @@ class ShareViewController: UIViewController {
                     }
                 }
             }
-        }
-    }
-
-    private func saveToSharedHistory(
-        title: String,
-        artist: String?,
-        sourceUrl: String,
-        targetUrl: String,
-        targetPlatform: String,
-        isAlbum: Bool,
-        thumbnailUrl: String? = nil
-    ) {
-        let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
-        let storageKey = "songflip_conversion_history"
-
-        var history: [[String: Any]] = []
-        if let data = defaults.data(forKey: storageKey),
-           let list = try? JSONSerialization.jsonObject(with: data) as? [[String: Any]] {
-            let now = Date().timeIntervalSince1970
-            let refOffset = Date.timeIntervalBetween1970AndReferenceDate
-            history = list.map { rawItem in
-                var item = rawItem
-                if let t = item["timestamp"] as? Double {
-                    if t > now + 86400 {
-                        let healed = t - refOffset
-                        item["timestamp"] = (healed > 0 && healed <= now + 86400) ? healed : now
-                    } else if t < 1_000_000_000 {
-                        let healed = t + refOffset
-                        item["timestamp"] = (healed > 0 && healed <= now + 86400) ? healed : now
-                    }
-                }
-                return item
-            }
-        }
-
-        var item: [String: Any] = [
-            "id": UUID().uuidString,
-            "timestamp": Date().timeIntervalSince1970,
-            "title": title,
-            "artist": artist ?? "",
-            "sourceUrl": sourceUrl,
-            "targetUrl": targetUrl,
-            "targetPlatform": targetPlatform,
-            "isAlbum": isAlbum
-        ]
-        if let thumb = thumbnailUrl, !thumb.isEmpty {
-            item["thumbnailUrl"] = thumb
-        }
-
-        history.insert(item, at: 0)
-        if history.count > 50 {
-            history = Array(history.prefix(50))
-        }
-
-        if let encoded = try? JSONSerialization.data(withJSONObject: history) {
-            defaults.set(encoded, forKey: storageKey)
         }
     }
 

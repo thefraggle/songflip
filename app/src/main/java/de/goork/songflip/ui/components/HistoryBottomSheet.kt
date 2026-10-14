@@ -432,8 +432,21 @@ fun HistoryBottomSheet(
                             onToggleFavorite = {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                                 coroutineScope.launch {
-                                    SongLinkEngine.shared.cache.toggleFavorite(item.cacheKey)
-                                    refreshHistory()
+                                    val result = SongLinkEngine.shared.cache.toggleFavoriteWithLimit(
+                                        cacheKey = item.cacheKey,
+                                        isPro = isPro,
+                                        maxFreeFavorites = 10
+                                    )
+                                    if (result == de.goork.songflip.core.cache.FavoriteToggleResult.LIMIT_REACHED) {
+                                        Toast.makeText(
+                                            context,
+                                            context.getString(R.string.favorite_limit_reached),
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                        onOpenProPaywall()
+                                    } else {
+                                        refreshHistory()
+                                    }
                                 }
                             },
                             onShowQrCode = {

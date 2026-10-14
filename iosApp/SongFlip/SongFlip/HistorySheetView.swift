@@ -9,6 +9,8 @@ struct HistorySheetView: View {
     @Environment(\.dismiss) var dismiss
     @State private var showingClearConfirmation = false
     @State private var showingPaywallSheet = false
+    @State private var showingFavoriteLimitAlert = false
+    @State private var showOnlyFavorites = false
     @State private var refreshingItemId: UUID? = nil
     @State private var disambiguateItem: HistoryItem? = nil
     @State private var qrCodePayload: QRCodePayload? = nil
@@ -22,6 +24,27 @@ struct HistorySheetView: View {
     }
 
     var lang: String { settings.selectedLanguage }
+
+    private var favoriteCount: Int {
+        history.items.filter { $0.isFavorite }.count
+    }
+
+    private var displayedItems: [HistoryItem] {
+        showOnlyFavorites ? history.items.filter { $0.isFavorite } : history.items
+    }
+
+    private func toggleFavorite(for item: HistoryItem) {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        Task {
+            let result = await history.toggleFavorite(item: item, isPro: proManager.isPro)
+            await MainActor.run {
+                if result == .limitReached {
+                    AptabaseClient.shared.trackEvent(eventName: "paywall_viewed", props: ["source": "favorite_limit_reached"])
+                    showingFavoriteLimitAlert = true
+                }
+            }
+        }
+    }
 
     private func refreshLink(for item: HistoryItem) async {
         await MainActor.run { refreshingItemId = item.id }
@@ -108,24 +131,64 @@ struct HistorySheetView: View {
                 } else {
                     let maxLimit = proManager.isPro ? 100 : 10
                     List {
-                        Section(header: HStack {
-                            Text(String(format: proManager.isPro ? LocalizationManager.string(for: "history_capacity_pro", lang: lang) : LocalizationManager.string(for: "history_capacity_free", lang: lang), history.items.count, maxLimit))
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                            Spacer()
-                            if !proManager.isPro {
-                                Button(action: {
-                                    AptabaseClient.shared.trackEvent(eventName: "paywall_viewed", props: ["source": "history_header"])
-                                    showingPaywallSheet = true
-                                }) {
-                                    Text("💎 PRO")
-                                        .font(.caption2)
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.green)
+                        Section(header: VStack(alignment: .leading, spacing: 10) {
+                            HStack {
+                                Text(String(format: proManager.isPro ? LocalizationManager.string(for: "history_capacity_pro", lang: lang) : LocalizationManager.string(for: "history_capacity_free", lang: lang), history.items.count, maxLimit))
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                                Spacer()
+                                if !proManager.isPro {
+                                    Button(action: {
+                                        AptabaseClient.shared.trackEvent(eventName: "paywall_viewed", props: ["source": "history_header"])
+                                        showingPaywallSheet = true
+                                    }) {
+                                        Text("💎 PRO")
+                                            .font(.caption2)
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.green)
+                                    }
                                 }
                             }
+
+                            if favoriteCount > 0 {
+                                HStack(spacing: 8) {
+                                    Button(action: {
+                                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                        showOnlyFavorites = false
+                                    }) {
+                                        Text(LocalizationManager.string(for: "history_filter_all", lang: lang))
+                                            .font(.caption.weight(.semibold))
+                                            .padding(.horizontal, 12)
+                                            .padding(.vertical, 6)
+                                            .background(!showOnlyFavorites ? Color.green.opacity(0.2) : Color(uiColor: .secondarySystemGroupedBackground))
+                                            .foregroundColor(!showOnlyFavorites ? .green : .secondary)
+                                            .cornerRadius(16)
+                                    }
+                                    .buttonStyle(.plain)
+
+                                    Button(action: {
+                                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                        showOnlyFavorites = true
+                                    }) {
+                                        HStack(spacing: 4) {
+                                            Image(systemName: "star.fill")
+                                                .font(.system(size: 11))
+                                                .foregroundColor(.yellow)
+                                            Text("\(LocalizationManager.string(for: "history_filter_favorites", lang: lang)) (\(favoriteCount))")
+                                                .font(.caption.weight(.semibold))
+                                        }
+                                        .padding(.horizontal, 12)
+                                        .padding(.vertical, 6)
+                                        .background(showOnlyFavorites ? Color.green.opacity(0.2) : Color(uiColor: .secondarySystemGroupedBackground))
+                                        .foregroundColor(showOnlyFavorites ? .green : .secondary)
+                                        .cornerRadius(16)
+                                    }
+                                    .buttonStyle(.plain)
+                                }
+                                .textCase(nil)
+                            }
                         }) {
-                        ForEach(history.items) { item in
+                        ForEach(displayedItems) { item in
                             let isPlaylist = item.targetPlatform.contains("_playlist")
                             let cleanPlatform = item.targetPlatform.replacingOccurrences(of: "_playlist", with: "")
                             Button(action: {
@@ -181,10 +244,17 @@ struct HistorySheetView: View {
 
                                     // 2. Song & Artist Info
                                     VStack(alignment: .leading, spacing: 3) {
-                                        Text(item.title)
-                                            .font(.system(size: 15, weight: .bold))
-                                            .foregroundColor(.primary)
-                                            .lineLimit(1)
+                                        HStack(spacing: 5) {
+                                            if item.isFavorite {
+                                                Image(systemName: "star.fill")
+                                                    .font(.system(size: 11))
+                                                    .foregroundColor(.yellow)
+                                            }
+                                            Text(item.title)
+                                                .font(.system(size: 15, weight: .bold))
+                                                .foregroundColor(.primary)
+                                                .lineLimit(1)
+                                        }
 
                                         HStack(spacing: 4) {
                                             if let artist = item.artist, !artist.isEmpty {
@@ -206,8 +276,30 @@ struct HistorySheetView: View {
 
                                     Spacer()
 
-                                    // 3. Right Action: Overflow Menu (⋮)
+                                    // 3. Favorite Star Toggle Button
+                                    Button(action: {
+                                        toggleFavorite(for: item)
+                                    }) {
+                                        Image(systemName: item.isFavorite ? "star.fill" : "star")
+                                            .font(.system(size: 16, weight: .medium))
+                                            .foregroundColor(item.isFavorite ? .yellow : .secondary.opacity(0.6))
+                                            .frame(width: 28, height: 28)
+                                            .contentShape(Rectangle())
+                                    }
+                                    .buttonStyle(.plain)
+
+                                    // 4. Right Action: Overflow Menu (⋮)
                                     Menu {
+                                        // 0. Favorite toggle
+                                        Button {
+                                            toggleFavorite(for: item)
+                                        } label: {
+                                            Label(
+                                                LocalizationManager.string(for: item.isFavorite ? "favorite_remove" : "favorite_add", lang: lang),
+                                                systemImage: item.isFavorite ? "star.slash" : "star"
+                                            )
+                                        }
+
                                         // 1. Share FlipPage
                                         if proManager.isPro, let shareUrl = universalShareUrl(for: item) {
                                             ShareLink(item: shareUrl, message: Text(item.title)) {
@@ -303,6 +395,16 @@ struct HistorySheetView: View {
                             .listRowBackground(Color("CardBackgroundColor"))
                             .swipeActions(edge: .leading, allowsFullSwipe: false) {
                                 Button {
+                                    toggleFavorite(for: item)
+                                } label: {
+                                    Label(
+                                        LocalizationManager.string(for: item.isFavorite ? "favorite_remove" : "favorite_add", lang: lang),
+                                        systemImage: item.isFavorite ? "star.slash" : "star.fill"
+                                    )
+                                }
+                                .tint(.yellow)
+
+                                Button {
                                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                                     Task {
                                         await refreshLink(for: item)
@@ -321,6 +423,15 @@ struct HistorySheetView: View {
                                 }
                             }
                             .contextMenu {
+                                Button {
+                                    toggleFavorite(for: item)
+                                } label: {
+                                    Label(
+                                        LocalizationManager.string(for: item.isFavorite ? "favorite_remove" : "favorite_add", lang: lang),
+                                        systemImage: item.isFavorite ? "star.slash" : "star"
+                                    )
+                                }
+
                                 if isPlaylist, let onOpenPlaylist = onOpenPlaylist {
                                     Button {
                                         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
@@ -378,7 +489,7 @@ struct HistorySheetView: View {
                             }
                         }
 
-                        if !proManager.isPro && history.items.count >= 10 {
+                        if !proManager.isPro && (history.items.count >= 10 || history.totalHistoryCount > 10) {
                             Button(action: {
                                 AptabaseClient.shared.trackEvent(eventName: "paywall_viewed", props: ["source": "history_teaser_bottom"])
                                 showingPaywallSheet = true
@@ -440,6 +551,17 @@ struct HistorySheetView: View {
                     history.clear()
                 }
                 Button(LocalizationManager.string(for: "btn_cancel", lang: lang), role: .cancel) {}
+            }
+            .alert(
+                "💎 SongFlip PRO",
+                isPresented: $showingFavoriteLimitAlert
+            ) {
+                Button(LocalizationManager.string(for: "history_btn_upgrade", lang: lang)) {
+                    showingPaywallSheet = true
+                }
+                Button(LocalizationManager.string(for: "btn_cancel", lang: lang), role: .cancel) {}
+            } message: {
+                Text(LocalizationManager.string(for: "favorite_limit_reached", lang: lang))
             }
             .sheet(isPresented: $showingPaywallSheet) {
                 ProPaywallSheetView()

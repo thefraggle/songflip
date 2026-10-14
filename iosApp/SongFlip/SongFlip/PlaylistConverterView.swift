@@ -669,108 +669,103 @@ struct PlaylistConverterView: View {
             }
         }
 
-        let maxTracks = proManager.isPro ? 200 : 5
-        let endpoints = [
-            "https://songflip.link/api/playlist/convert",
-            "https://songflip-web.web.app/api/playlist/convert"
-        ]
-
-        let payload: [String: Any] = [
-            "url": playlistUrl,
-            "targetPlatform": targetPlatformKey,
-            "maxTracks": maxTracks
-        ]
+        let maxTracks: Int32 = proManager.isPro ? 200 : 5
+        let token = proManager.authToken
 
         Task {
-            var lastErrorType: PlaylistErrorType? = nil
-            let timeoutInterval: TimeInterval = (proManager.isPro || maxTracks > 20) ? 45 : 25
-
-            for endpoint in endpoints {
-                guard let url = URL(string: endpoint) else { continue }
-                var request = URLRequest(url: url)
-                request.httpMethod = "POST"
-                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-                request.setValue("songflip-app", forHTTPHeaderField: "x-web-client")
-                let token = proManager.authToken
-                if !token.isEmpty {
-                    request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-                }
-                request.timeoutInterval = timeoutInterval
-
-                do {
-                    request.httpBody = try JSONSerialization.data(withJSONObject: payload)
-                    let (data, response) = try await URLSession.shared.data(for: request)
-
-                    if let http = response as? HTTPURLResponse {
-                        if http.statusCode == 200 {
-                            let decoder = JSONDecoder()
-                            if let decoded = try? decoder.decode(SwiftPlaylistConversionResult.self, from: data) {
-                                await MainActor.run {
-                                    self.conversionResult = decoded
-                                    self.isLoading = false
-                                    ActivePlaylistModel.shared.current = ActivePlaylistData(
-                                        playlistUrl: playlistUrl,
-                                        targetPlatformKey: targetPlatformKey,
-                                        state: .success(result: decoded)
-                                    )
-                                    // Save to history
-                                    let targetLink = decoded.zeroOAuthUrl ?? decoded.webShareUrl ?? playlistUrl
-                                    HistoryModel.shared.add(
-                                        title: decoded.title?.isEmpty == false ? decoded.title! : "Playlist",
-                                        artist: "\(decoded.matchedCount)/\(decoded.totalTracks) Songs",
-                                        sourceUrl: playlistUrl,
-                                        targetUrl: targetLink,
-                                        targetPlatform: "\(targetPlatformKey)_playlist",
-                                        isAlbum: false,
-                                        thumbnailUrl: decoded.thumbnailUrl
-                                    )
-                                    AptabaseClient.shared.trackEvent(eventName: "playlist_converted_ios", props: [
-                                        "source": sourcePlatformName,
-                                        "target": targetPlatformKey,
-                                        "matched": "\(decoded.matchedCount)",
-                                        "total": "\(decoded.totalTracks)"
-                                    ])
-                                    if decoded.matchedCount > 0 {
-                                         ReviewManager.shared.maybeRequestReview(trigger: "playlist_success", settings: self.settings)
-                                    }
-                                }
-                                return
-                            }
-                        } else {
-                            // Parse error code
-                            if let errJson = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
-                                let code = ((errJson["code"] as? String) ?? (errJson["error"] as? String) ?? "").uppercased()
-                                await MainActor.run {
-                                    let mapped = mapErrorCode(code)
-                                    self.errorType = mapped
-                                    self.isLoading = false
-                                    ActivePlaylistModel.shared.current = ActivePlaylistData(
-                                        playlistUrl: playlistUrl,
-                                        targetPlatformKey: targetPlatformKey,
-                                        state: .error(type: mapped, message: errorDescription(for: mapped))
-                                    )
-                                }
-                                return
-                            }
-                        }
-                    }
-                } catch {
-                    if let urlErr = error as? URLError, urlErr.code == .timedOut {
-                        lastErrorType = .timeout
-                    }
-                    // Try next endpoint
-                }
-            }
-
-            await MainActor.run {
-                let resolvedErrorType = lastErrorType ?? .generic
-                self.errorType = resolvedErrorType
-                self.isLoading = false
-                ActivePlaylistModel.shared.current = ActivePlaylistData(
-                    playlistUrl: playlistUrl,
+            do {
+                let kmpResult = try await PlaylistConverterEngine.companion.shared.convertPlaylistOrThrow(
+                    url: playlistUrl,
                     targetPlatformKey: targetPlatformKey,
-                    state: .error(type: resolvedErrorType, message: errorDescription(for: resolvedErrorType))
+                    isPro: proManager.isPro,
+                    maxTracks: maxTracks,
+                    authToken: token.isEmpty ? nil : token
                 )
+
+                let mappedTracks = kmpResult.tracks.map { t in
+                    SwiftPlaylistTrackItem(
+                        title: t.title,
+                        artist: t.artist,
+                        matched: t.matched,
+                        targetUrl: t.targetUrl,
+                        targetId: t.targetId,
+                        sourceUrl: t.sourceUrl,
+                        thumbnailUrl: t.thumbnailUrl
+                    )
+                }
+                let mappedParts = kmpResult.parts.map { p in
+                    SwiftPlaylistChunk(
+                        partIndex: Int(p.partIndex),
+                        rangeStart: Int(p.rangeStart),
+                        rangeEnd: Int(p.rangeEnd),
+                        zeroOAuthUrl: p.zeroOAuthUrl,
+                        matchedCount: Int(p.matchedCount),
+                        totalTracks: Int(p.totalTracks)
+                    )
+                }
+
+                let decoded = SwiftPlaylistConversionResult(
+                    status: kmpResult.status,
+                    playlistId: kmpResult.playlistId,
+                    title: kmpResult.title,
+                    sourcePlatform: kmpResult.sourcePlatform,
+                    targetPlatform: kmpResult.targetPlatform,
+                    thumbnailUrl: kmpResult.thumbnailUrl,
+                    totalTracks: Int(kmpResult.totalTracks),
+                    originalTotalTracks: kmpResult.originalTotalTracks > 0 ? Int(kmpResult.originalTotalTracks) : nil,
+                    convertedTracks: Int(kmpResult.convertedTracks),
+                    matchedCount: Int(kmpResult.matchedCount),
+                    zeroOAuthUrl: kmpResult.zeroOAuthUrl,
+                    webShareUrl: kmpResult.webShareUrl,
+                    isLimited: kmpResult.isLimited,
+                    isPartial: kmpResult.isPartial,
+                    tracks: mappedTracks,
+                    parts: mappedParts
+                )
+
+                await MainActor.run {
+                    self.conversionResult = decoded
+                    self.isLoading = false
+                    ActivePlaylistModel.shared.current = ActivePlaylistData(
+                        playlistUrl: playlistUrl,
+                        targetPlatformKey: targetPlatformKey,
+                        state: .success(result: decoded)
+                    )
+                    // Save to history
+                    let targetLink = decoded.zeroOAuthUrl ?? decoded.webShareUrl ?? playlistUrl
+                    HistoryModel.shared.add(
+                        title: decoded.title?.isEmpty == false ? decoded.title! : "Playlist",
+                        artist: "\(decoded.matchedCount)/\(decoded.totalTracks) Songs",
+                        sourceUrl: playlistUrl,
+                        targetUrl: targetLink,
+                        targetPlatform: "\(targetPlatformKey)_playlist",
+                        isAlbum: false,
+                        thumbnailUrl: decoded.thumbnailUrl
+                    )
+                    AptabaseClient.shared.trackEvent(eventName: "playlist_converted_ios", props: [
+                        "source": sourcePlatformName,
+                        "target": targetPlatformKey,
+                        "matched": "\(decoded.matchedCount)",
+                        "total": "\(decoded.totalTracks)"
+                    ])
+                    if decoded.matchedCount > 0 {
+                        ReviewManager.shared.maybeRequestReview(trigger: "playlist_success", settings: self.settings)
+                    }
+                }
+            } catch {
+                let nsError = error as NSError
+                let kmpException = nsError.userInfo["KotlinException"] as? PlaylistConversionException
+                let codeName = kmpException?.errorCode.name ?? ""
+                let resolvedErrorType = mapErrorCode(codeName)
+                await MainActor.run {
+                    self.errorType = resolvedErrorType
+                    self.isLoading = false
+                    ActivePlaylistModel.shared.current = ActivePlaylistData(
+                        playlistUrl: playlistUrl,
+                        targetPlatformKey: targetPlatformKey,
+                        state: .error(type: resolvedErrorType, message: errorDescription(for: resolvedErrorType))
+                    )
+                }
             }
         }
     }
@@ -791,58 +786,42 @@ struct PlaylistConverterView: View {
         dismiss()
     }
 
-    private func calculateChunks(tracks: [SwiftPlaylistTrackItem], targetPlatform: String, playlistTitle: String) -> [SwiftPlaylistChunk] {
-        guard !tracks.isEmpty else { return [] }
-        let chunkSize = 50
-        var chunks: [SwiftPlaylistChunk] = []
-        let total = tracks.count
-        let numChunks = (total + chunkSize - 1) / chunkSize
-
-        for i in 0..<numChunks {
-            let start = i * chunkSize + 1
-            let end = min((i + 1) * chunkSize, total)
-            let chunkTracks = Array(tracks[(start - 1)..<end])
-            let matched = chunkTracks.filter { $0.matched }.count
-
-            var zeroUrl: String? = nil
-            let matchedWithIds = chunkTracks.filter { $0.matched }
-            let platform = targetPlatform.lowercased()
-            if platform == "spotify" {
-                let ids = matchedWithIds.compactMap { $0.targetId }
-                if !ids.isEmpty {
-                    let safeTitle = playlistTitle.isEmpty ? "SongFlip Playlist" : playlistTitle
-                    zeroUrl = "spotify:trackset:\(safeTitle) (Part \(i + 1)):\(ids.joined(separator: ","))"
-                }
-            } else if platform.contains("youtube") {
-                let videoIds = matchedWithIds.compactMap { $0.targetId }
-                if !videoIds.isEmpty {
-                    zeroUrl = "https://music.youtube.com/watch_videos?video_ids=\(videoIds.joined(separator: ","))"
-                }
-            } else {
-                zeroUrl = matchedWithIds.first?.targetUrl
-            }
-
-            chunks.append(SwiftPlaylistChunk(
-                partIndex: i + 1,
-                rangeStart: start,
-                rangeEnd: end,
-                zeroOAuthUrl: zeroUrl,
-                matchedCount: matched,
-                totalTracks: chunkTracks.count
-            ))
+    private func toKmpTracks(_ tracks: [SwiftPlaylistTrackItem]) -> [PlaylistTrackItem] {
+        return tracks.map { t in
+            PlaylistTrackItem(
+                title: t.title,
+                artist: t.artist,
+                matched: t.matched,
+                targetUrl: t.targetUrl,
+                targetId: t.targetId,
+                sourceUrl: t.sourceUrl,
+                thumbnailUrl: t.thumbnailUrl
+            )
         }
-        return chunks
+    }
+
+    private func calculateChunks(tracks: [SwiftPlaylistTrackItem], targetPlatform: String, playlistTitle: String) -> [SwiftPlaylistChunk] {
+        let kmpChunks = PlaylistExporter.shared.calculateChunks(
+            tracks: toKmpTracks(tracks),
+            chunkSize: PlaylistExporter.shared.DEFAULT_CHUNK_SIZE,
+            targetPlatform: targetPlatform,
+            playlistTitle: playlistTitle
+        )
+        return kmpChunks.map { c in
+            SwiftPlaylistChunk(
+                partIndex: Int(c.partIndex),
+                rangeStart: Int(c.rangeStart),
+                rangeEnd: Int(c.rangeEnd),
+                zeroOAuthUrl: c.zeroOAuthUrl,
+                matchedCount: Int(c.matchedCount),
+                totalTracks: Int(c.totalTracks)
+            )
+        }
     }
 
     private func exportM3U8(title: String, tracks: [SwiftPlaylistTrackItem]) -> URL? {
         let safeTitle = title.isEmpty ? "SongFlip Playlist" : title
-        var content = "#EXTM3U\n#EXTENC:UTF-8\n#PLAYLIST:\(safeTitle)\n\n"
-        for track in tracks {
-            let artist = track.artist.isEmpty ? "Unknown Artist" : track.artist
-            let tTitle = track.title.isEmpty ? "Unknown Title" : track.title
-            let url = track.targetUrl ?? track.sourceUrl ?? ""
-            content += "#EXTINF:-1,\(artist) - \(tTitle)\n\(url)\n"
-        }
+        let content = PlaylistExporter.shared.exportToM3u8(title: safeTitle, tracks: toKmpTracks(tracks))
         let tempDir = FileManager.default.temporaryDirectory
         let fileUrl = tempDir.appendingPathComponent("\(sanitizeFilename(safeTitle)).m3u8")
         do {
@@ -855,15 +834,7 @@ struct PlaylistConverterView: View {
 
     private func exportCSV(title: String, tracks: [SwiftPlaylistTrackItem]) -> URL? {
         let safeTitle = title.isEmpty ? "SongFlip Playlist" : title
-        var content = "\"Index\",\"Title\",\"Artist\",\"Matched\",\"TargetUrl\",\"SourceUrl\"\n"
-        for (index, track) in tracks.enumerated() {
-            let cleanTitle = track.title.replacingOccurrences(of: "\"", with: "\"\"")
-            let cleanArtist = track.artist.replacingOccurrences(of: "\"", with: "\"\"")
-            let matched = track.matched ? "true" : "false"
-            let tUrl = (track.targetUrl ?? "").replacingOccurrences(of: "\"", with: "\"\"")
-            let sUrl = (track.sourceUrl ?? "").replacingOccurrences(of: "\"", with: "\"\"")
-            content += "\"\(index + 1)\",\"\(cleanTitle)\",\"\(cleanArtist)\",\"\(matched)\",\"\(tUrl)\",\"\(sUrl)\"\n"
-        }
+        let content = PlaylistExporter.shared.exportToCsv(title: safeTitle, tracks: toKmpTracks(tracks))
         let tempDir = FileManager.default.temporaryDirectory
         let fileUrl = tempDir.appendingPathComponent("\(sanitizeFilename(safeTitle)).csv")
         do {

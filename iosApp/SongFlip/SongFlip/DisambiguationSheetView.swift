@@ -290,64 +290,47 @@ struct DisambiguationSheetView: View {
         isLoading = true
         errorMessage = nil
 
-        let query = "\(item.artist ?? "") \(item.title)".trimmingCharacters(in: .whitespacesAndNewlines)
-        guard let encoded = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: "https://itunes.apple.com/search?term=\(encoded)&entity=song&limit=10") else {
-            isLoading = false
-            return
-        }
+        let cleanPlatform = item.targetPlatform.replacingOccurrences(of: "_playlist", with: "")
 
         Task {
             do {
-                let (data, _) = try await URLSession.shared.data(from: url)
-                if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-                   let results = json["results"] as? [[String: Any]] {
-                    var list: [DisambiguationCandidateItem] = []
-                    for r in results {
-                        let trackId = "\(r["trackId"] ?? UUID().uuidString)"
-                        let name = (r["trackName"] as? String) ?? ""
-                        let artist = (r["artistName"] as? String) ?? ""
-                        if name.isEmpty { continue }
+                let kmpCandidates = try await DisambiguationEngine.companion.shared.getCandidatesOrThrow(
+                    title: item.title,
+                    artist: item.artist ?? "",
+                    targetPlatformKey: cleanPlatform,
+                    currentMatchedUrl: item.targetUrl,
+                    limit: 10
+                )
 
-                        let album = r["collectionName"] as? String
-                        let rawArt = (r["artworkUrl100"] as? String) ?? (r["artworkUrl60"] as? String)
-                        let cover = rawArt?.replacingOccurrences(of: "100x100bb", with: "300x300bb")
-                        let preview = r["previewUrl"] as? String
-                        let trackViewUrl = (r["trackViewUrl"] as? String) ?? ""
-                        let millis = (r["trackTimeMillis"] as? Int) ?? 0
+                var list: [DisambiguationCandidateItem] = kmpCandidates.map { c in
+                    let durationSec = Int((c.durationMs?.int64Value ?? 0) / 1000)
+                    let isCurrent = c.isCurrentMatch || (!item.targetUrl.isEmpty && (
+                        c.targetUrl == item.targetUrl ||
+                        item.targetUrl.contains(c.id)
+                    ))
+                    return DisambiguationCandidateItem(
+                        id: c.id,
+                        title: c.title,
+                        artist: c.artist,
+                        album: c.album,
+                        targetUrl: c.targetUrl,
+                        coverUrl: c.coverUrl,
+                        previewUrl: c.previewUrl,
+                        durationSec: durationSec,
+                        isCurrentMatch: isCurrent
+                    )
+                }
 
-                        let isCurrent = !item.targetUrl.isEmpty && (
-                            trackViewUrl == item.targetUrl ||
-                            item.targetUrl.contains(trackId)
-                        )
+                if !list.isEmpty && !list.contains(where: { $0.isCurrentMatch }) {
+                    list[0].isCurrentMatch = true
+                }
 
-                        list.append(DisambiguationCandidateItem(
-                            id: trackId,
-                            title: name,
-                            artist: artist,
-                            album: album,
-                            targetUrl: trackViewUrl,
-                            coverUrl: cover,
-                            previewUrl: preview,
-                            durationSec: millis / 1000,
-                            isCurrentMatch: isCurrent
-                        ))
+                await MainActor.run {
+                    self.candidates = list
+                    self.isLoading = false
+                    if list.isEmpty {
+                        self.errorMessage = LocalizationManager.string(for: "disambiguate_empty", lang: lang)
                     }
-
-                    // Fallback to current item if empty or make sure at least one is matched
-                    if !list.isEmpty && !list.contains(where: { $0.isCurrentMatch }) {
-                        list[0].isCurrentMatch = true
-                    }
-
-                    await MainActor.run {
-                        self.candidates = list
-                        self.isLoading = false
-                        if list.isEmpty {
-                            self.errorMessage = LocalizationManager.string(for: "disambiguate_empty", lang: lang)
-                        }
-                    }
-                } else {
-                    await MainActor.run { self.isLoading = false }
                 }
             } catch {
                 await MainActor.run {
@@ -369,7 +352,7 @@ struct DisambiguationSheetView: View {
             let finalTargetUrl: String
             let cleanPlatform = item.targetPlatform.replacingOccurrences(of: "_playlist", with: "")
 
-            if cleanPlatform == "appleMusic" || cleanPlatform == "itunes" {
+            if cleanPlatform == "appleMusic" || cleanPlatform == "itunes" || cleanPlatform == "deezer" {
                 finalTargetUrl = candidate.targetUrl
             } else {
                 do {
@@ -391,7 +374,7 @@ struct DisambiguationSheetView: View {
             }
 
             // Update LinkCache
-            let cacheKey = "\(item.sourceUrl)|\(item.targetPlatform)"
+            let cacheKey = item.cacheKey
             do {
                 try await SongLinkEngine.shared.cache.updateTargetUrl(
                     cacheKey: cacheKey,

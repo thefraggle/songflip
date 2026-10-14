@@ -317,7 +317,7 @@
     <string name="pro_feature_playlists_title">প্লেলিস্ট সরান</string>
     <string name="pro_feature_playlists_desc">পুরো প্লেলিস্ট আপনার সার্ভিসে নিয়ে যান</string>
     <string name="pro_feature_history_title">বড় ইতিহাস</string>
-    <string name="pro_feature_history_desc">10টির বদলে 100টি গান সংরক্ষণ করুন</string>
+    <string name="pro_feature_history_desc">১০০টি হিস্ট্রি এন্ট্রি ও আনলিমিটেড ফেভারিট</string>
     <string name="pro_feature_cache_title">দ্রুত খুলুন</string>
     <string name="pro_feature_cache_desc">জনপ্রিয় গান অপেক্ষা ছাড়াই খোলে</string>
     <string name="pro_feature_links_title">সবার সাথে শেয়ার করুন</string>
@@ -376,4 +376,5 @@
     <string name="disambiguate_empty">কোনো বিকল্প সংস্করণ পাওয়া যায়নি</string>
     <string name="disambiguate_error">সংস্করণ লোড করা যায়নি</string>
     <string name="history_qr_action">QR কোড দেখান</string>
+    <string name="favorite_limit_reached">আপনি আপনার ১০টি ফ্রি ফেভারিট পূর্ণ করেছেন। আনলিমিটেড ফেভারিট ও ১০০টি হিস্ট্রি এন্ট্রির জন্য SongFlip PRO নিন।</string>
 </resources>

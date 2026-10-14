@@ -303,7 +303,7 @@
     <string name="pro_feature_playlists_title">Listák költöztetése</string>
     <string name="pro_feature_playlists_desc">Vidd át a teljes lejátszási listákat a saját szolgáltatásodba</string>
     <string name="pro_feature_history_title">Nagyobb előzmények</string>
-    <string name="pro_feature_history_desc">10 helyett 100 dal mindig kéznél</string>
+    <string name="pro_feature_history_desc">100 előzmény és korlátlan kedvenc</string>
     <string name="pro_feature_cache_title">Gyorsabb megnyitás</string>
     <string name="pro_feature_cache_desc">A népszerű dalok várakozás nélkül nyílnak meg</string>
     <string name="pro_feature_links_title">Megosztás bárkivel</string>
@@ -362,4 +362,5 @@
     <string name="disambiguate_empty">Nem található alternatív verzió</string>
     <string name="disambiguate_error">Nem sikerült betölteni a verziókat</string>
     <string name="history_qr_action">QR-kód megjelenítése</string>
+    <string name="favorite_limit_reached">Elérted a 10 ingyenes kedvencet. Szerezd meg a SongFlip PRO-t a korlátlan kedvencekért és 100 előzményért.</string>
 </resources>

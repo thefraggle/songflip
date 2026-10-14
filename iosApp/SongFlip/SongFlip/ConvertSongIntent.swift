@@ -46,8 +46,8 @@ struct ConvertSongIntent: AppIntent {
             return false
             #endif
         }()
-        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.8.18"
-        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "78"
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.9.0"
+        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "79"
         let osVersion = UIDevice.current.systemVersion
         let locale = Locale.current.identifier
 
@@ -121,16 +121,18 @@ struct ConvertSongIntent: AppIntent {
         }
 
         if let success = res as? ResolutionResult.Success {
+            try? await engine.cache.addHistoryEntry(
+                sourceUrl: urlToConvert,
+                targetPlatformKey: targetPlatform,
+                targetUrl: success.targetUrl,
+                title: success.title ?? LocalizationManager.string(for: "unknown_song"),
+                artist: success.artist,
+                isAlbum: success.isAlbum,
+                thumbnailUrl: success.thumbnailUrl,
+                currentTimeMs: Int64(Date().timeIntervalSince1970 * 1000)
+            )
             await MainActor.run {
-                HistoryModel.shared.add(
-                    title: success.title ?? LocalizationManager.string(for: "unknown_song"),
-                    artist: success.artist,
-                    sourceUrl: urlToConvert,
-                    targetUrl: success.targetUrl,
-                    targetPlatform: targetPlatform,
-                    isAlbum: success.isAlbum,
-                    thumbnailUrl: success.thumbnailUrl
-                )
+                HistoryModel.shared.loadHistory()
             }
 
             let srcKey = UrlUtils.shared.detectPlatform(url: urlToConvert)?.key ?? "unknown"

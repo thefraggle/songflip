@@ -325,7 +325,7 @@
     <string name="pro_feature_playlists_title">Перенесення плейлістів</string>
     <string name="pro_feature_playlists_desc">Переносьте цілі плейлісти у свій сервіс</string>
     <string name="pro_feature_history_title">Більша історія</string>
-    <string name="pro_feature_history_desc">100 треків замість 10 завжди під рукою</string>
+    <string name="pro_feature_history_desc">100 записів в історії та необмежені обрані</string>
     <string name="pro_feature_cache_title">Швидке відкриття</string>
     <string name="pro_feature_cache_desc">Популярні треки відкриваються без очікування</string>
     <string name="pro_feature_links_title">Посилання для всіх</string>
@@ -384,4 +384,5 @@
     <string name="disambiguate_empty">Альтернативні версії не знайдені</string>
     <string name="disambiguate_error">Не вдалося завантажити версії</string>
     <string name="history_qr_action">Показати QR-код</string>
+    <string name="favorite_limit_reached">Ви досягли ліміту в 10 безкоштовних обраних. Отримайте SongFlip PRO для необмежених обраних та 100 записів в історії.</string>
 </resources>

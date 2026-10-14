@@ -4,6 +4,7 @@ plugins {
     id("org.jetbrains.kotlin.multiplatform")
     id("com.android.library")
     id("org.jetbrains.kotlin.plugin.serialization")
+    id("app.cash.sqldelight")
 }
 
 kotlin {
@@ -25,6 +26,7 @@ kotlin {
             baseName = "SongFlipKit"
             xcf.add(this)
             isStatic = true
+            linkerOpts("-lsqlite3")
         }
     }
 
@@ -35,6 +37,8 @@ kotlin {
             implementation("io.ktor:ktor-client-content-negotiation:2.3.13")
             implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.13")
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+            implementation("app.cash.sqldelight:runtime:2.0.2")
+            implementation("app.cash.sqldelight:coroutines-extensions:2.0.2")
         }
         commonTest.dependencies {
             implementation(kotlin("test"))
@@ -43,9 +47,20 @@ kotlin {
         }
         androidMain.dependencies {
             implementation("io.ktor:ktor-client-okhttp:2.3.13")
+            implementation("app.cash.sqldelight:android-driver:2.0.2")
+            implementation("app.cash.sqldelight:sqlite-driver:2.0.2")
         }
         iosMain.dependencies {
             implementation("io.ktor:ktor-client-darwin:2.3.13")
+            implementation("app.cash.sqldelight:native-driver:2.0.2")
+        }
+    }
+}
+
+sqldelight {
+    databases {
+        create("SongFlipDatabase") {
+            packageName.set("de.goork.songflip.core.db")
         }
     }
 }
