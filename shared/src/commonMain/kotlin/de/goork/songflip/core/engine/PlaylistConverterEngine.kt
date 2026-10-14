@@ -48,7 +48,6 @@ class PlaylistConverterEngine(
         val payload = buildJsonObject {
             put("url", url)
             put("targetPlatform", targetPlatformKey)
-            put("isPro", isPro)
             put("maxTracks", maxTracks)
         }.toString()
 

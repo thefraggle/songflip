@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.8.18] - 2026-10-14
+- **SoundCloud als Ziel-Player**: Wähle SoundCloud als bevorzugten Musik-Player aus, um geteilte Songs direkt in der SoundCloud-App zu öffnen.
+- **Reichhaltige Link-Vorschauen**: Geteilte Song- und Playlist-Links zeigen in Messengern und sozialen Netzwerken jetzt noch ansprechendere Vorschauen mit direkter Hörprobe.
+- **Zuverlässigkeit & Stabilität**: Verbesserte Beständigkeit deiner Einstellungen nach einer Neuinstallation und optimierte Playlist-Übertragung.
+
 ## [1.8.17] - 2026-10-13
 - **Intelligentere Code-Einlösung**: Automatische Erkennung geteilter Aktionscodes aus Links, mit klareren Statusmeldungen und ausfallsicherem Server-Fallback.
 - **Zuverlässigere Verbindung**: Schnelle automatische Fehlerbehandlung und saubere Wiederherstellung bei Netzwerkunterbrechungen.

@@ -76,6 +76,8 @@
     <string name="link_copied">Odkaz zkopírován do schránky</string>
     <string name="action_paste">Vložit ze schránky</string>
     <string name="target_amazon_music">Amazon Music</string>
+    <string name="target_soundcloud">SoundCloud</string>
+    <string name="soundcloud_target_hint">SoundCloud se zaměřuje na remixy a indie skladby. Skladby bez přímé shody se automaticky otevřou ve vyhledávání SoundCloud.</string>
     <string name="status_paused">SongFlip je pozastaven</string>
     <string name="status_paused_until">Pozastaveno do %1$s</string>
     <string name="btn_resume">Obnovit nyní</string>

@@ -22,6 +22,7 @@ val BrandYouTubeMusic = Color(0xFFFF0000)
 val BrandTidal        = Color(0xFF00F3FF)
 val BrandDeezer       = Color(0xFFA238FF)
 val BrandAmazonMusic  = Color(0xFF00A8E1)
+val BrandSoundCloud   = Color(0xFFFF5500)
 
 // State Colors & WCAG AA Contrast Tokens
 val StateActiveGreen = Color(0xFF10B981)

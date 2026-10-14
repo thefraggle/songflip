@@ -85,6 +85,12 @@ object LinkDiagnosisManager {
             displayName = "Amazon Music",
             packageName = "com.amazon.mp3",
             sampleUrl = "https://music.amazon.com/albums/B07XYZ"
+        ),
+        PlatformConfig(
+            key = "soundcloud",
+            displayName = "SoundCloud",
+            packageName = "com.soundcloud.android",
+            sampleUrl = "https://soundcloud.com/octobersveryown/drake-gods-plan"
         )
     )
 

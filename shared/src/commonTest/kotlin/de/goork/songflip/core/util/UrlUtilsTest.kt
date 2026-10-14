@@ -275,6 +275,7 @@ class UrlUtilsTest {
 
         // SoundCloud
         assertEquals("soundcloud://tracks/octobersveryown/drake-gods-plan", UrlUtils.toNativeAppUri("https://soundcloud.com/octobersveryown/drake-gods-plan", "soundcloud"))
+        assertEquals("soundcloud://search?q=Skrillex%20Rumble", UrlUtils.toNativeAppUri("https://soundcloud.com/search?q=Skrillex%20Rumble", "soundcloud"))
     }
 
     @Test

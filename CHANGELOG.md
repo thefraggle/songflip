@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.8.18] - 2026-10-14
+- **SoundCloud as Target Player**: Select SoundCloud as your preferred music player to open shared tracks and searches directly in the SoundCloud app.
+- **Rich Link Previews**: Shared music and playlist links now display richer social previews with audio playback support in messaging apps and social feeds.
+- **Reliability & Stability**: Improved settings persistence across app reinstalls and refined playlist conversion stability.
+
 ## [1.8.17] - 2026-10-13
 - **Smarter Code Redemption**: Smarter recognition of shared promotional codes from links, with clearer status feedback and multi-server redundancy.
 - **Enhanced Connection Reliability**: Direct diagnostics and automatic recovery when link redirection encounters connectivity dropouts.

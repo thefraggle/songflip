@@ -65,6 +65,8 @@
     <string name="target_tidal">Tidal</string>
     <string name="target_deezer">Deezer</string>
     <string name="target_amazon_music">Amazon Music</string>
+    <string name="target_soundcloud">SoundCloud</string>
+    <string name="soundcloud_target_hint">SoundCloud спеціалізується на реміксах та інді-треках. Пісні без прямого збігу відкриваються в пошуку SoundCloud.</string>
     <string name="status_installed">Додаток встановлено</string>
     <string name="status_browser">Веб-браузер</string>
     <string name="test_section_title">Тестування конвертера</string>

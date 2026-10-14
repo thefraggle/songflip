@@ -198,6 +198,21 @@ fun TargetSelectorCard(
                     }
                 }
             }
+
+            if (selectedTargetKey == "soundcloud") {
+                Surface(
+                    shape = RoundedCornerShape(12.dp),
+                    color = BrandSoundCloud.copy(alpha = 0.10f),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = stringResource(R.string.soundcloud_target_hint),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp)
+                    )
+                }
+            }
         }
     }
 }

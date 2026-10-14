@@ -29,7 +29,7 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
   - 🟣 **Deezer** (`deezer.com`, `link.deezer.com`, `deezer.page.link`)
   - 🔵 **Amazon Music** (`music.amazon.com`, `music.amazon.de`, `music.amazon.co.uk`, `amzn.to`, `a.co`)
   - 🎙️ **Pocket Casts** (`pocketcasts.com`, `pca.st`)
-  - 🟠 **SoundCloud** (`soundcloud.com`, `on.soundcloud.com`)
+  - 🟠 **SoundCloud** (`soundcloud.com`, `on.soundcloud.com` — full source & target player support with `soundcloud://` deep-links)
   - 🎸 **Bandcamp** (`bandcamp.com`, `*.bandcamp.com`)
 - **📱 Flexible Player Selection**: When multiple compatible players are installed on your device (e.g. YouTube Music, NewTube, RiMusic, etc.), choose your preferred default player in Settings or switch directly with a single tap from the main player card.
 - **⚡ Shazam Link Interception**: Songs identified with Shazam open directly and reliably in your preferred music player.
@@ -40,7 +40,7 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 - **💬 Direct In-App Feedback & Zero-Tracking Support**: Submit bug reports, feature suggestions, or general feedback directly within the app without account requirements or tracking, with automatic email fallback.
 - **🍎 iOS Deep Integration**: Native Share Extension, Action Button support, and Siri App Intents (`ConvertSongIntent`).
 - **🎨 Material You Themed Icon (Android 13+)**: Clean vector alpha silhouette dynamically adapting to your launcher wallpaper palette.
-- **🔗 Universal Smart Share Links (`songflip.link/s/...`) [PRO]**: Generate clean, lightning-fast multi-platform landing pages with rich cover art & OpenGraph preview cards for WhatsApp, Telegram, iMessage & Discord. *(Try the permanent live demo: [songflip.link/s/rickroll](https://songflip.link/s/rickroll))*.
+- **🔗 Universal Smart Share Links (`songflip.link/s/...`) & oEmbed [PRO]**: Generate clean, lightning-fast multi-platform landing pages with rich cover art, `og:audio` previews, and oEmbed 1.0 cards for WhatsApp, Telegram, iMessage, Discord, Slack & Reddit. *(Try the permanent live demo: [songflip.link/s/rickroll](https://songflip.link/s/rickroll))*.
 - **📱 QR-Code Generator & Sharing [PRO]**: Generate and scan QR codes for universal smart links directly in the app (seamlessly available in history for Pro users) and on web share pages to share songs across devices effortlessly.
 - **⭐ 1-Tap Favorites & History Filtering**: Pin favorite songs and playlists with a single tap in your conversion history and filter them instantly. Favorites and conversion history are kept permanently.
 - **🔄 Smart Share-Sheet Routing**: Sharing directly from your music player generates a universal smart link for friends instead of looping back into your player.

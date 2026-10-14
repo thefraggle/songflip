@@ -726,6 +726,17 @@ struct ContentView: View {
                     }
                 }
             }
+
+            if settings.targetPlatform == "soundcloud" {
+                Text(LocalizationManager.string(for: "soundcloud_target_hint", lang: lang))
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color(red: 1.0, green: 0.33, blue: 0.0).opacity(0.10))
+                    .cornerRadius(10)
+            }
         }
         .padding(16)
         .background(Color("CardBackgroundColor"))

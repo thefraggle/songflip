@@ -65,6 +65,8 @@
     <string name="target_tidal">Tidal</string>
     <string name="target_deezer">Deezer</string>
     <string name="target_amazon_music">Amazon Music</string>
+    <string name="target_soundcloud">SoundCloud</string>
+    <string name="soundcloud_target_hint">SoundCloud ağırlıklı olarak remiks ve bağımsız parçalar sunar. Doğrudan eşleşmeyen şarkılar SoundCloud aramasında açılır.</string>
     <string name="status_installed">Uygulama Yüklü</string>
     <string name="status_browser">Web Tarayıcısı</string>
     <string name="test_section_title">Bağlantı Dönüştürücüyü Test Et</string>

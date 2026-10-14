@@ -68,8 +68,43 @@ final class ProManager: NSObject, ObservableObject {
         loadCachedState()
     }
 
+    private static let keychainService = "de.goork.songflip.install"
+    private static let keychainAccountInstallId = "persistent_install_id"
+
+    private func getPersistentInstallId() -> String {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: Self.keychainService,
+            kSecAttrAccount as String: Self.keychainAccountInstallId,
+            kSecReturnData as String: true,
+            kSecMatchLimit as String: kSecMatchLimitOne
+        ]
+        var dataTypeRef: AnyObject?
+        let status = SecItemCopyMatching(query as CFDictionary, &dataTypeRef)
+        if status == errSecSuccess,
+           let data = dataTypeRef as? Data,
+           let existing = String(data: data, encoding: .utf8),
+           !existing.isEmpty {
+            return existing
+        }
+
+        let newId = (UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString).lowercased()
+        if let data = newId.data(using: .utf8) {
+            let addQuery: [String: Any] = [
+                kSecClass as String: kSecClassGenericPassword,
+                kSecAttrService as String: Self.keychainService,
+                kSecAttrAccount as String: Self.keychainAccountInstallId,
+                kSecValueData as String: data,
+                kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
+            ]
+            SecItemDelete(addQuery as CFDictionary)
+            SecItemAdd(addQuery as CFDictionary, nil)
+        }
+        return newId
+    }
+
     private func getDeviceFingerprint() -> String {
-        return UIDevice.current.identifierForVendor?.uuidString ?? "generic_device_id"
+        return getPersistentInstallId()
     }
 
     private func computeSignature(isPro: Bool, proType: String?, expiration: Double?) -> String {
@@ -268,7 +303,7 @@ final class ProManager: NSObject, ObservableObject {
             URL(string: "https://songflip-web.web.app/redeemPromoCode")!
         ]
 
-        let installId = (UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString).lowercased()
+        let installId = getPersistentInstallId()
         let body: [String: Any] = [
             "code": cleanCode,
             "installId": installId

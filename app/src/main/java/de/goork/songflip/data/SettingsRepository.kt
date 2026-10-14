@@ -173,7 +173,7 @@ class SettingsRepository(private val context: Context) {
          * 3. Fallback when no music app is installed -> YouTube Music Web (works without account in browser).
          */
         fun detectDefaultTargetPlatform(isInstalled: (String) -> Boolean): String {
-            val preferredServices = listOf("spotify", "appleMusic", "tidal", "deezer", "amazonMusic")
+            val preferredServices = listOf("spotify", "appleMusic", "tidal", "deezer", "amazonMusic", "soundcloud")
             for (service in preferredServices) {
                 if (isInstalled(service)) {
                     return service
