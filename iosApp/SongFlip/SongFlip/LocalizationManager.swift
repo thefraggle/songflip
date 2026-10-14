@@ -9017,7 +9017,7 @@ enum LocalizationManager {
             "time_days_ago": "Před %1$d d",
             "time_hours_ago": "Před %1$d h",
             "time_just_now": "Právě teď",
-            "time_minutes_ago": "Před %1$d min",,
+            "time_minutes_ago": "Před %1$d min",
             "favorite_limit_reached": "Dosáhli jste limitu 10 bezplatných oblíbených. Pořiďte si SongFlip PRO pro neomezené oblíbené a 100 položek v historii."
         ],
         "el": [
@@ -9369,7 +9369,7 @@ enum LocalizationManager {
             "time_days_ago": "Πριν %1$d ημέρες",
             "time_hours_ago": "Πριν %1$d ώρες",
             "time_just_now": "Μόλις τώρα",
-            "time_minutes_ago": "Πριν %1$d λεπτά",,
+            "time_minutes_ago": "Πριν %1$d λεπτά",
             "favorite_limit_reached": "Φτάσατε τα 10 δωρεάν αγαπημένα σας. Αποκτήστε το SongFlip PRO για απεριόριστα αγαπημένα και 100 εγγραφές ιστορικού."
         ],
         "fi": [
@@ -9721,7 +9721,7 @@ enum LocalizationManager {
             "time_days_ago": "%1$d pv sitten",
             "time_hours_ago": "%1$d t sitten",
             "time_just_now": "Juuri nyt",
-            "time_minutes_ago": "%1$d min sitten",,
+            "time_minutes_ago": "%1$d min sitten",
             "favorite_limit_reached": "Olet saavuttanut 10 ilmaisen suosikin rajan. Hanki SongFlip PRO saadaksesi rajattomat suosikit ja 100 historiamerkintää."
         ],
         "hu": [
@@ -10073,7 +10073,7 @@ enum LocalizationManager {
             "time_days_ago": "%1$d napja",
             "time_hours_ago": "%1$d órája",
             "time_just_now": "Épp most",
-            "time_minutes_ago": "%1$d perce",,
+            "time_minutes_ago": "%1$d perce",
             "favorite_limit_reached": "Elérted a 10 ingyenes kedvencet. Szerezd meg a SongFlip PRO-t a korlátlan kedvencekért és 100 előzményért."
         ],
         "ro": [
@@ -10425,7 +10425,7 @@ enum LocalizationManager {
             "time_days_ago": "Acum %1$d zile",
             "time_hours_ago": "Acum %1$d ore",
             "time_just_now": "Chiar acum",
-            "time_minutes_ago": "Acum %1$d min",,
+            "time_minutes_ago": "Acum %1$d min",
             "favorite_limit_reached": "Ai atins limita de 10 favorite gratuite. Obține SongFlip PRO pentru favorite nelimitate și 100 de intrări în istoric."
         ],
         "th": [
@@ -10777,7 +10777,7 @@ enum LocalizationManager {
             "time_days_ago": "%1$d วันที่แล้ว",
             "time_hours_ago": "%1$d ชม. ที่แล้ว",
             "time_just_now": "เมื่อสักครู่",
-            "time_minutes_ago": "%1$d นาทีที่แล้ว",,
+            "time_minutes_ago": "%1$d นาทีที่แล้ว",
             "favorite_limit_reached": "คุณใช้รายการโปรดฟรีครบ 10 รายการแล้ว อัปเกรดเป็น SongFlip PRO เพื่อปลดล็อกรายการโปรดไม่จำกัดและประวัติ 100 รายการ"
         ],
     ]
