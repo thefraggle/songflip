@@ -6,4 +6,7 @@ REVENUECAT_PUBLIC_KEY = REPLACED_SECRET
 APTABASE_APP_KEY = REPLACED_SECRET
 APTABASE_HOST = https://api.aptabase.com
 
+OTHER_LDFLAGS = $(inherited) -lsqlite3
+
 #include? "Config.xcconfig"
+
