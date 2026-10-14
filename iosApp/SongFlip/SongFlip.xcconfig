@@ -6,4 +6,7 @@ REVENUECAT_PUBLIC_KEY = appl_yaWywAHSMSWeevrQKcyjtHeNedw
 APTABASE_APP_KEY = A-SH-4092372492
 APTABASE_HOST = https://telemetry-apps.goork.de
 
+OTHER_LDFLAGS = $(inherited) -lsqlite3
+
 #include? "Config.xcconfig"
+
