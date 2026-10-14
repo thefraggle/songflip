@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.9.0] - 2026-10-14
+- **Favoriten im Verlauf**: Markiere Lieblingssongs direkt im Verlauf mit einem Stern und filtere deine Favoriten jederzeit mit einem Fingertipp.
+- **Schnellerer & zuverlässigerer Verlauf**: Grundlegend erneuerte lokale Speicherung für sofortiges Laden und lückenlose Synchronisation über das Teilen-Menü und Kurzbefehle.
+- **Einheitliche Suche & Playlists**: Flüssigere Songsuche, Trefferauswahl und Playlist-Übertragung sowie verbesserte Sicherheit bei Aktionscodes.
+
 ## [1.8.18] - 2026-10-14
 - **SoundCloud als Ziel-Player**: Wähle SoundCloud als bevorzugten Musik-Player aus, um geteilte Songs direkt in der SoundCloud-App zu öffnen.
 - **Reichhaltige Link-Vorschauen**: Geteilte Song- und Playlist-Links zeigen in Messengern und sozialen Netzwerken jetzt noch ansprechendere Vorschauen mit direkter Hörprobe.

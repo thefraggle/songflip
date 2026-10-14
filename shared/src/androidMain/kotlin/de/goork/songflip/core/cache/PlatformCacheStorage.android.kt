@@ -2,6 +2,10 @@ package de.goork.songflip.core.cache
 
 import android.content.Context
 import android.content.SharedPreferences
+import app.cash.sqldelight.db.SqlDriver
+import app.cash.sqldelight.driver.android.AndroidSqliteDriver
+import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
+import de.goork.songflip.core.db.SongFlipDatabase
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -14,19 +18,72 @@ class AndroidSharedPreferencesCacheStorage(
         private const val CACHE_VERSION_KEY = "songflip_cache_version"
         private const val CURRENT_CACHE_VERSION = 5
         private const val MAX_PERSISTENT_ENTRIES = 500
+        private const val DB_NAME = "songflip_store.db"
+        private const val MIGRATION_KEY_ANDROID = "android_prefs_v1"
 
         private var appContext: Context? = null
         private var sharedPrefs: SharedPreferences? = null
+        private var sqlDelightStorage: SqlDelightCacheStorage? = null
 
+        @Synchronized
         fun init(context: Context) {
             appContext = context.applicationContext
             sharedPrefs = appContext?.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
             checkCacheVersionMigration()
+            // Trigger database creation and one-time migration if not yet initialized
+            getOrCreateSqlDelightStorage().getDatabase()
         }
 
+        @Synchronized
         fun init(prefs: SharedPreferences) {
             sharedPrefs = prefs
             checkCacheVersionMigration()
+            sqlDelightStorage = createInMemorySqlDelightStorage(prefs)
+        }
+
+        @Synchronized
+        fun getOrCreateSqlDelightStorage(): SqlDelightCacheStorage {
+            sqlDelightStorage?.let { return it }
+            val created = SqlDelightCacheStorage(
+                driverProvider = {
+                    val ctx = appContext
+                    if (ctx != null) {
+                        AndroidSqliteDriver(SongFlipDatabase.Schema, ctx, DB_NAME)
+                    } else {
+                        JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY).also {
+                            SongFlipDatabase.Schema.create(it)
+                        }
+                    }
+                },
+                onDatabaseReady = { storage, _ ->
+                    val legacyEntries = AndroidSharedPreferencesCacheStorage().loadAll()
+                    if (legacyEntries.isNotEmpty()) {
+                        storage.migrateLegacyEntries(legacyEntries, MIGRATION_KEY_ANDROID)
+                    } else {
+                        storage.migrateLegacyEntries(emptyMap(), MIGRATION_KEY_ANDROID)
+                    }
+                }
+            )
+            sqlDelightStorage = created
+            return created
+        }
+
+        fun createInMemorySqlDelightStorage(legacyPrefs: SharedPreferences? = null): SqlDelightCacheStorage {
+            return SqlDelightCacheStorage(
+                driverProvider = {
+                    JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY).also {
+                        SongFlipDatabase.Schema.create(it)
+                    }
+                },
+                onDatabaseReady = { storage, _ ->
+                    val legacy = if (legacyPrefs != null) {
+                        AndroidSharedPreferencesCacheStorage { legacyPrefs }.loadAll()
+                    } else {
+                        emptyMap()
+                    }
+                    storage.migrateLegacyEntries(legacy, MIGRATION_KEY_ANDROID)
+                }
+            )
         }
 
         private fun checkCacheVersionMigration() {
@@ -125,4 +182,6 @@ class AndroidSharedPreferencesCacheStorage(
 }
 
 actual fun createDefaultCacheStorage(): CacheStorage =
-    AndroidSharedPreferencesCacheStorage()
+    AndroidSharedPreferencesCacheStorage.getOrCreateSqlDelightStorage()
+
+

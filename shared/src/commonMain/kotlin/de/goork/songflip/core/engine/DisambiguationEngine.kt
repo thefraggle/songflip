@@ -20,6 +20,7 @@ data class DisambiguationCandidate(
     val targetUrl: String,
     val nativeAppUri: String? = null,
     val coverUrl: String? = null,
+    val previewUrl: String? = null,
     val isCurrentMatch: Boolean = false
 )
 
@@ -29,6 +30,17 @@ class DisambiguationEngine(
 ) {
     companion object {
         val shared: DisambiguationEngine by lazy { DisambiguationEngine() }
+    }
+
+    @Throws(Throwable::class)
+    suspend fun getCandidatesOrThrow(
+        title: String,
+        artist: String,
+        targetPlatformKey: String,
+        currentMatchedUrl: String? = null,
+        limit: Int = 10
+    ): List<DisambiguationCandidate> {
+        return getCandidates(title, artist, targetPlatformKey, currentMatchedUrl, limit).getOrThrow()
     }
 
     suspend fun getCandidates(
@@ -64,6 +76,7 @@ class DisambiguationEngine(
                                         durationMs = item.trackTimeMillis,
                                         targetUrl = url,
                                         coverUrl = highResCover ?: item.artworkUrl100,
+                                        previewUrl = item.previewUrl,
                                         isCurrentMatch = currentMatchedUrl != null && (url.contains(currentMatchedUrl) || currentMatchedUrl.contains(url))
                                     )
                                 )
@@ -89,6 +102,7 @@ class DisambiguationEngine(
                                         durationMs = item.duration?.let { it * 1000L },
                                         targetUrl = url,
                                         coverUrl = item.album?.cover_medium,
+                                        previewUrl = item.preview,
                                         isCurrentMatch = currentMatchedUrl != null && (url.contains(currentMatchedUrl) || currentMatchedUrl.contains(url))
                                     )
                                 )
@@ -119,6 +133,7 @@ class DisambiguationEngine(
                                         durationMs = item.duration?.let { it * 1000L },
                                         targetUrl = url,
                                         coverUrl = item.album?.cover_medium,
+                                        previewUrl = item.preview,
                                         isCurrentMatch = currentMatchedUrl != null && (url.contains(currentMatchedUrl) || currentMatchedUrl.contains(url))
                                     )
                                 )

@@ -317,7 +317,7 @@
     <string name="pro_feature_playlists_title">Sposta le playlist</string>
     <string name="pro_feature_playlists_desc">Trasferisci playlist intere sul tuo servizio</string>
     <string name="pro_feature_history_title">Cronologia ampia</string>
-    <string name="pro_feature_history_desc">100 brani invece di 10 sempre a portata di mano</string>
+    <string name="pro_feature_history_desc">100 voci in cronologia e preferiti illimitati</string>
     <string name="pro_feature_cache_title">Apertura più rapida</string>
     <string name="pro_feature_cache_desc">I brani più popolari si aprono senza attese</string>
     <string name="pro_feature_links_title">Condividi con tutti</string>
@@ -376,4 +376,5 @@
     <string name="disambiguate_empty">Nessuna versione alternativa trovata</string>
     <string name="disambiguate_error">Impossibile caricare le versioni</string>
     <string name="history_qr_action">Mostra codice QR</string>
+    <string name="favorite_limit_reached">Hai raggiunto i tuoi 10 preferiti gratuiti. Ottieni SongFlip PRO per preferiti illimitati e 100 voci in cronologia.</string>
 </resources>

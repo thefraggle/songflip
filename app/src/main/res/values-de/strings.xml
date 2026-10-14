@@ -338,7 +338,7 @@
     <string name="pro_feature_playlists_title">Playlists umziehen</string>
     <string name="pro_feature_playlists_desc">Ganze Playlists auf deinen Dienst übertragen</string>
     <string name="pro_feature_history_title">Großer Verlauf</string>
-    <string name="pro_feature_history_desc">100 statt 10 Songs griffbereit</string>
+    <string name="pro_feature_history_desc">100 Verlaufs-Einträge &amp; unbegrenzte Favoriten</string>
     <string name="pro_feature_cache_title">Schneller öffnen</string>
     <string name="pro_feature_cache_desc">Beliebte Songs ohne Wartezeit</string>
     <string name="pro_feature_links_title">Teilen für alle</string>
@@ -403,4 +403,5 @@
     <string name="disambiguate_success">Treffer aktualisiert</string>
     <string name="disambiguate_empty">Keine alternativen Versionen gefunden</string>
     <string name="disambiguate_error">Versionen konnten nicht geladen werden</string>
+    <string name="favorite_limit_reached">Du hast deine 10 kostenlosen Favoriten erreicht. Sichere dir SongFlip PRO für unbegrenzte Favoriten &amp; 100 Verlaufs-Einträge.</string>
 </resources>

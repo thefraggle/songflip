@@ -16,12 +16,21 @@ class ProManagerTest {
     private lateinit var server: MockWebServer
     private lateinit var inMemoryPrefs: InMemorySharedPreferences
 
+    // Valid Ed25519 tokens signed with the test environment key for installId = "install-123"
+    private val validLifetimeToken =
+        "sct_v2_eyJjIjoiVklQLUxJRkUiLCJpIjoiaW5zdGFsbC0xMjMiLCJlIjowLCJ0IjoibGlmZXRpbWUiLCJpYXQiOjE3MDAwMDAwMDAwMDB9.DEBFd4HtxJ_0VFIFgAAcwXLb0f8p2a8TnNAegvy-NnLwFD18kvKkgo91bIC0BoQbKI9qUE06Ss_3K9RcXmk-BA"
+    private val validAnnualToken =
+        "sct_v2_eyJjIjoiQU5OVUFMMjAyNiIsImkiOiJpbnN0YWxsLTEyMyIsImUiOjIwMDAwMDAwMDAwMDAsInQiOiJ0aW1lX2xpbWl0ZWQiLCJpYXQiOjE3MDAwMDAwMDAwMDB9.rrEMwtIUR1auVbgNq0iXGBnqbuII_rS8L7Hm_6J9vxgJcN19ceTk9wpqsdisDtHKhqJklGgyy22uuOXc1VocAw"
+
     @Before
     fun setup() {
         server = MockWebServer()
         server.start()
         inMemoryPrefs = InMemorySharedPreferences()
+        inMemoryPrefs.edit().putString("anonymous_install_id", "install-123").apply()
         ProManager.setTestSharedPreferences(inMemoryPrefs)
+        ProManager.resetProForTesting()
+        inMemoryPrefs.edit().putString("anonymous_install_id", "install-123").apply()
         ProManager.testBaseUrl = server.url("").toString().removeSuffix("/")
     }
 
@@ -43,7 +52,7 @@ class ProManagerTest {
         server.enqueue(
             MockResponse()
                 .setResponseCode(200)
-                .setBody("""{"status":"success","type":"lifetime","token":"sct_test_token"}""")
+                .setBody("""{"status":"success","type":"lifetime","token":"$validLifetimeToken"}""")
         )
 
         val result = ProManager.redeemCoupon("FLIP-LIFETIME-VIP")
@@ -55,17 +64,44 @@ class ProManagerTest {
 
     @Test
     fun testValidAnnualCouponRedeemSuccess() = runBlocking {
-        val exp = System.currentTimeMillis() + 365L * 24 * 60 * 60 * 1000L
+        val exp = 2000000000000L
         server.enqueue(
             MockResponse()
                 .setResponseCode(200)
-                .setBody("""{"status":"success","type":"1year","expirationTimestamp":$exp,"token":"sct_annual"}""")
+                .setBody("""{"status":"success","type":"1year","expirationTimestamp":$exp,"token":"$validAnnualToken"}""")
         )
 
         val result = ProManager.redeemCoupon("FLIP-ANNUAL-2026")
         assertEquals(RedeemResult.SUCCESS_1YEAR, result)
         assertEquals("1year", inMemoryPrefs.getString("pro_coupon_type", null))
         assertTrue(ProManager.isPro)
+    }
+
+    @Test
+    fun testTamperedLocalPrefsWithoutSignedTokenRejected() {
+        // Simulate rooted user editing SharedPreferences to set pro_coupon_type = "lifetime" without a valid Ed25519 token
+        inMemoryPrefs.edit()
+            .putString("pro_coupon_type", "lifetime")
+            .putString("pro_coupon_code", "HACKED")
+            .putString("pro_coupon_token", "sct_fake_forged_token")
+            .apply()
+
+        val state = ProManager.hydrateLocalProState()
+        assertFalse("Tampered SharedPreferences without valid Ed25519 signature must not grant Pro", state.isPro)
+        assertFalse(ProManager.isPro)
+    }
+
+    @Test
+    fun testForgedTokenInRedeemResponseRejected() = runBlocking {
+        server.enqueue(
+            MockResponse()
+                .setResponseCode(200)
+                .setBody("""{"status":"success","type":"lifetime","token":"sct_forged"}""")
+        )
+
+        val result = ProManager.redeemCoupon("FLIP-LIFETIME-VIP")
+        assertEquals(RedeemResult.INVALID, result)
+        assertFalse(ProManager.isPro)
     }
 
     @Test

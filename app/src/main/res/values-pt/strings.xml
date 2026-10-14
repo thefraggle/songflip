@@ -317,7 +317,7 @@
     <string name="pro_feature_playlists_title">Leve suas playlists</string>
     <string name="pro_feature_playlists_desc">Transfira playlists inteiras para o seu serviço</string>
     <string name="pro_feature_history_title">Histórico maior</string>
-    <string name="pro_feature_history_desc">100 músicas em vez de 10 sempre à mão</string>
+    <string name="pro_feature_history_desc">100 entradas no histórico e favoritos ilimitados</string>
     <string name="pro_feature_cache_title">Abertura mais rápida</string>
     <string name="pro_feature_cache_desc">Músicas populares abrem sem espera</string>
     <string name="pro_feature_links_title">Compartilhe com todos</string>
@@ -376,4 +376,5 @@
     <string name="disambiguate_empty">Nenhuma versão alternativa encontrada</string>
     <string name="disambiguate_error">Não foi possível carregar as versões</string>
     <string name="history_qr_action">Mostrar código QR</string>
+    <string name="favorite_limit_reached">Você atingiu seus 10 favoritos gratuitos. Obtenha o SongFlip PRO para favoritos ilimitados e 100 entradas no histórico.</string>
 </resources>

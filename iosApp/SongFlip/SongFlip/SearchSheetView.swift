@@ -345,52 +345,32 @@ struct SearchSheetView: View {
             try? await Task.sleep(nanoseconds: 350_000_000)
             if Task.isCancelled { return }
 
-            guard let encoded = trimmed.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-                  let url = URL(string: "https://itunes.apple.com/search?term=\(encoded)&entity=song&limit=20") else {
-                await MainActor.run { isLoading = false }
-                return
-            }
-
             do {
-                let (data, _) = try await URLSession.shared.data(from: url)
+                let kmpResults = try await CatalogSearchEngine.companion.shared.searchOrThrow(
+                    query: trimmed,
+                    limit: 20
+                )
                 if Task.isCancelled { return }
 
-                if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-                   let results = json["results"] as? [[String: Any]] {
-                    var items: [SearchTrackItem] = []
-                    for r in results {
-                        let trackId = "\(r["trackId"] ?? UUID().uuidString)"
-                        let name = (r["trackName"] as? String) ?? ""
-                        let artist = (r["artistName"] as? String) ?? ""
-                        if name.isEmpty { continue }
+                let items: [SearchTrackItem] = kmpResults.compactMap { r in
+                    guard let sourceUrl = r.sourceUrl, !sourceUrl.isEmpty else { return nil }
+                    let durationSec = Int((r.durationMs?.int64Value ?? 0) / 1000)
+                    return SearchTrackItem(
+                        id: r.id,
+                        title: r.title,
+                        artist: r.artist,
+                        album: r.album,
+                        coverUrl: r.coverUrl,
+                        sourceUrl: sourceUrl,
+                        durationSec: durationSec
+                    )
+                }
 
-                        let album = r["collectionName"] as? String
-                        let rawArt = (r["artworkUrl100"] as? String) ?? (r["artworkUrl60"] as? String)
-                        let cover = rawArt?.replacingOccurrences(of: "100x100bb", with: "300x300bb")
-                            .replacingOccurrences(of: "60x60bb", with: "300x300bb")
-                        let trackViewUrl = (r["trackViewUrl"] as? String) ?? ""
-                        let millis = (r["trackTimeMillis"] as? Int) ?? 0
-
-                        items.append(SearchTrackItem(
-                            id: trackId,
-                            title: name,
-                            artist: artist,
-                            album: album,
-                            coverUrl: cover,
-                            sourceUrl: trackViewUrl,
-                            durationSec: millis / 1000
-                        ))
-                    }
-                    await MainActor.run {
-                        self.searchResults = items
-                        self.isLoading = false
-                        if items.isEmpty {
-                            self.errorMessage = LocalizationManager.string(for: "search_empty", lang: lang)
-                        }
-                    }
-                } else {
-                    await MainActor.run {
-                        self.isLoading = false
+                await MainActor.run {
+                    self.searchResults = items
+                    self.isLoading = false
+                    if items.isEmpty {
+                        self.errorMessage = LocalizationManager.string(for: "search_empty", lang: lang)
                     }
                 }
             } catch {

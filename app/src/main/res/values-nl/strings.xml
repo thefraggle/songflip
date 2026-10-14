@@ -317,7 +317,7 @@
     <string name="pro_feature_playlists_title">Playlists verhuizen</string>
     <string name="pro_feature_playlists_desc">Zet hele playlists over naar jouw dienst</string>
     <string name="pro_feature_history_title">Grote geschiedenis</string>
-    <string name="pro_feature_history_desc">100 in plaats van 10 nummers bij de hand</string>
+    <string name="pro_feature_history_desc">100 geschiedenisitems &amp; onbeperkte favorieten</string>
     <string name="pro_feature_cache_title">Sneller openen</string>
     <string name="pro_feature_cache_desc">Populaire nummers openen zonder wachten</string>
     <string name="pro_feature_links_title">Delen met iedereen</string>
@@ -376,4 +376,5 @@
     <string name="disambiguate_empty">Geen alternatieve versies gevonden</string>
     <string name="disambiguate_error">Kan versies niet laden</string>
     <string name="history_qr_action">Toon QR-code</string>
+    <string name="favorite_limit_reached">Je hebt je 10 gratis favorieten bereikt. Neem SongFlip PRO voor onbeperkte favorieten &amp; 100 geschiedenisitems.</string>
 </resources>

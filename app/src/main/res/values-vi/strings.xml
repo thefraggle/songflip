@@ -313,7 +313,7 @@
     <string name="pro_feature_playlists_title">Chuyển danh sách phát</string>
     <string name="pro_feature_playlists_desc">Chuyển toàn bộ danh sách phát sang dịch vụ của bạn</string>
     <string name="pro_feature_history_title">Lịch sử lớn hơn</string>
-    <string name="pro_feature_history_desc">Lưu 100 bài thay vì 10</string>
+    <string name="pro_feature_history_desc">100 mục lịch sử &amp; mục yêu thích không giới hạn</string>
     <string name="pro_feature_cache_title">Mở nhanh hơn</string>
     <string name="pro_feature_cache_desc">Bài hát phổ biến mở ngay không cần chờ</string>
     <string name="pro_feature_links_title">Chia sẻ cho mọi người</string>
@@ -372,4 +372,5 @@
     <string name="disambiguate_empty">Không tìm thấy phiên bản thay thế</string>
     <string name="disambiguate_error">Không thể tải phiên bản</string>
     <string name="history_qr_action">Hiển thị mã QR</string>
+    <string name="favorite_limit_reached">Bạn đã đạt giới hạn 10 mục yêu thích miễn phí. Nâng cấp SongFlip PRO để mở khóa yêu thích không giới hạn &amp; 100 mục lịch sử.</string>
 </resources>

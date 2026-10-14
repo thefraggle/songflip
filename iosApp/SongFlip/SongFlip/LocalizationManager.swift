@@ -265,7 +265,7 @@ enum LocalizationManager {
             "pro_feature_cache_title": "Schneller öffnen",
             "pro_feature_review_desc": "Alternative Versionen manuell auswählen",
             "pro_feature_review_title": "Treffer verfeinern",
-            "pro_feature_history_desc": "100 statt 10 Songs griffbereit",
+            "pro_feature_history_desc": "100 Verlaufs-Einträge & unbegrenzte Favoriten",
             "pro_feature_history_title": "Großer Verlauf",
             "pro_feature_links_desc": "Ein Link, den jeder in seinem Player öffnet",
             "pro_feature_links_title": "Teilen für alle",
@@ -389,7 +389,12 @@ enum LocalizationManager {
             "disambiguate_current": "Aktueller Treffer",
             "disambiguate_success": "Treffer aktualisiert",
             "disambiguate_empty": "Keine alternativen Versionen gefunden",
-            "disambiguate_error": "Versionen konnten nicht geladen werden" 
+            "disambiguate_error": "Versionen konnten nicht geladen werden",
+            "favorite_limit_reached": "Du hast deine 10 kostenlosen Favoriten erreicht. Sichere dir SongFlip PRO für unbegrenzte Favoriten & 100 Verlaufs-Einträge.",
+            "favorite_add": "Zu Favoriten hinzufügen",
+            "favorite_remove": "Aus Favoriten entfernen",
+            "history_filter_all": "Alle",
+            "history_filter_favorites": "Favoriten"
         
         ],
         "en": [
@@ -654,7 +659,7 @@ enum LocalizationManager {
             "pro_feature_cache_title": "Faster opening",
             "pro_feature_review_desc": "Manually select alternative song versions",
             "pro_feature_review_title": "Refine matches",
-            "pro_feature_history_desc": "Keep 100 songs instead of 10",
+            "pro_feature_history_desc": "100 history entries & unlimited favorites",
             "pro_feature_history_title": "Bigger history",
             "pro_feature_links_desc": "One link that opens in everyone's player",
             "pro_feature_links_title": "Share with anyone",
@@ -778,7 +783,12 @@ enum LocalizationManager {
             "disambiguate_current": "Current match",
             "disambiguate_success": "Match updated",
             "disambiguate_empty": "No alternative versions found",
-            "disambiguate_error": "Could not load versions" 
+            "disambiguate_error": "Could not load versions",
+            "favorite_limit_reached": "You have reached your 10 free favorites. Get SongFlip PRO for unlimited favorites & 100 history entries.",
+            "favorite_add": "Add to Favorites",
+            "favorite_remove": "Remove from Favorites",
+            "history_filter_all": "All",
+            "history_filter_favorites": "Favorites"
         
         ],
         "da": [
@@ -1043,7 +1053,7 @@ enum LocalizationManager {
             "pro_feature_cache_title": "Hurtigere åbning",
             "pro_feature_review_desc": "Vælg alternative sangversioner manuelt",
             "pro_feature_review_title": "Finjuster matches",
-            "pro_feature_history_desc": "100 i stedet for 10 sange lige ved hånden",
+            "pro_feature_history_desc": "100 historikposter & ubegrænsede favoritter",
             "pro_feature_history_title": "Større historik",
             "pro_feature_links_desc": "Ét link, som alle åbner i deres egen afspiller",
             "pro_feature_links_title": "Del med alle",
@@ -1167,7 +1177,12 @@ enum LocalizationManager {
             "disambiguate_current": "Nuværende match",
             "disambiguate_success": "Match opdateret",
             "disambiguate_empty": "Ingen alternative versioner fundet",
-            "disambiguate_error": "Kunne ikke hente versioner" 
+            "disambiguate_error": "Kunne ikke hente versioner",
+            "favorite_limit_reached": "Du har nået dine 10 gratis favoritter. Få SongFlip PRO for ubegrænsede favoritter og 100 historikposter.",
+            "favorite_add": "Føj til favoritter",
+            "favorite_remove": "Fjern fra favoritter",
+            "history_filter_all": "Alle",
+            "history_filter_favorites": "Favoritter"
         
         ],
         "nb": [
@@ -1432,7 +1447,7 @@ enum LocalizationManager {
             "pro_feature_cache_title": "Raskere åpning",
             "pro_feature_review_desc": "Velg alternative sangversjoner manuelt",
             "pro_feature_review_title": "Finjuster treff",
-            "pro_feature_history_desc": "100 i stedet for 10 sanger lett tilgjengelig",
+            "pro_feature_history_desc": "100 historikkoppføringer og ubegrensede favoritter",
             "pro_feature_history_title": "Større historikk",
             "pro_feature_links_desc": "Én lenke som alle åpner i sin egen avspiller",
             "pro_feature_links_title": "Del med alle",
@@ -1556,7 +1571,12 @@ enum LocalizationManager {
             "disambiguate_current": "Nåværende treff",
             "disambiguate_success": "Treff oppdatert",
             "disambiguate_empty": "Ingen alternative versjoner funnet",
-            "disambiguate_error": "Kunne ikke laste versjoner" 
+            "disambiguate_error": "Kunne ikke laste versjoner",
+            "favorite_limit_reached": "Du har nådd dine 10 gratis favoritter. Skaff deg SongFlip PRO for ubegrensede favoritter og 100 historikkoppføringer.",
+            "favorite_add": "Legg til i favoritter",
+            "favorite_remove": "Fjern fra favoritter",
+            "history_filter_all": "Alle",
+            "history_filter_favorites": "Favoritter"
         ],
         "sv": [
             "settings_share_app": "Dela SongFlip",
@@ -1820,7 +1840,7 @@ enum LocalizationManager {
             "pro_feature_cache_title": "Snabbare öppning",
             "pro_feature_review_desc": "Välj alternativa versioner manuellt",
             "pro_feature_review_title": "Finjustera matchningar",
-            "pro_feature_history_desc": "100 i stället för 10 låtar nära till hands",
+            "pro_feature_history_desc": "100 historikposter & obegränsade favoriter",
             "pro_feature_history_title": "Större historik",
             "pro_feature_links_desc": "En länk som alla öppnar i sin egen spelare",
             "pro_feature_links_title": "Dela med alla",
@@ -1944,7 +1964,12 @@ enum LocalizationManager {
             "disambiguate_current": "Nuvarande matchning",
             "disambiguate_success": "Matchning uppdaterad",
             "disambiguate_empty": "Inga alternativa versioner hittades",
-            "disambiguate_error": "Kunde inte ladda versioner" 
+            "disambiguate_error": "Kunde inte ladda versioner",
+            "favorite_limit_reached": "Du har nått dina 10 gratisfavoriter. Skaffa SongFlip PRO för obegränsade favoriter och 100 historikposter.",
+            "favorite_add": "Lägg till i favoriter",
+            "favorite_remove": "Ta bort från favoriter",
+            "history_filter_all": "Alla",
+            "history_filter_favorites": "Favoriter"
         
         ],
         "nl": [
@@ -2209,7 +2234,7 @@ enum LocalizationManager {
             "pro_feature_cache_title": "Sneller openen",
             "pro_feature_review_desc": "Selecteer handmatig alternatieve nummers",
             "pro_feature_review_title": "Matches verfijnen",
-            "pro_feature_history_desc": "100 in plaats van 10 nummers bij de hand",
+            "pro_feature_history_desc": "100 geschiedenisitems & onbeperkte favorieten",
             "pro_feature_history_title": "Grote geschiedenis",
             "pro_feature_links_desc": "Eén link die iedereen in zijn eigen speler opent",
             "pro_feature_links_title": "Delen met iedereen",
@@ -2333,7 +2358,12 @@ enum LocalizationManager {
             "disambiguate_current": "Huidige match",
             "disambiguate_success": "Match bijgewerkt",
             "disambiguate_empty": "Geen alternatieve versies gevonden",
-            "disambiguate_error": "Kan versies niet laden" 
+            "disambiguate_error": "Kan versies niet laden",
+            "favorite_limit_reached": "Je hebt je 10 gratis favorieten bereikt. Neem SongFlip PRO voor onbeperkte favorieten & 100 geschiedenisitems.",
+            "favorite_add": "Toevoegen aan favorieten",
+            "favorite_remove": "Verwijderen uit favorieten",
+            "history_filter_all": "Alle",
+            "history_filter_favorites": "Favorieten"
         
         ],
         "fr": [
@@ -2598,7 +2628,7 @@ enum LocalizationManager {
             "pro_feature_cache_title": "Ouverture plus rapide",
             "pro_feature_review_desc": "Sélectionnez manuellement des versions alternatives",
             "pro_feature_review_title": "Affiner les correspondances",
-            "pro_feature_history_desc": "100 titres au lieu de 10 à portée de main",
+            "pro_feature_history_desc": "100 entrées d'historique et favoris illimités",
             "pro_feature_history_title": "Historique étendu",
             "pro_feature_links_desc": "Un lien que chacun ouvre dans son propre lecteur",
             "pro_feature_links_title": "Partage pour tous",
@@ -2722,7 +2752,12 @@ enum LocalizationManager {
             "disambiguate_current": "Version actuelle",
             "disambiguate_success": "Correspondance mise à jour",
             "disambiguate_empty": "Aucune version alternative trouvée",
-            "disambiguate_error": "Impossible de charger les versions" 
+            "disambiguate_error": "Impossible de charger les versions",
+            "favorite_limit_reached": "Vous avez atteint vos 10 favoris gratuits. Passez à SongFlip PRO pour des favoris illimités et 100 entrées d'historique.",
+            "favorite_add": "Ajouter aux favoris",
+            "favorite_remove": "Retirer des favoris",
+            "history_filter_all": "Tous",
+            "history_filter_favorites": "Favoris"
         
         ],
         "es": [
@@ -2987,7 +3022,7 @@ enum LocalizationManager {
             "pro_feature_cache_title": "Abre más rápido",
             "pro_feature_review_desc": "Selecciona versiones alternativas manualmente",
             "pro_feature_review_title": "Ajustar resultados",
-            "pro_feature_history_desc": "Guarda 100 canciones en lugar de 10",
+            "pro_feature_history_desc": "100 entradas en el historial y favoritos ilimitados",
             "pro_feature_history_title": "Historial amplio",
             "pro_feature_links_desc": "Un enlace que cada uno abre en su reproductor",
             "pro_feature_links_title": "Comparte con todos",
@@ -3111,7 +3146,12 @@ enum LocalizationManager {
             "disambiguate_current": "Resultado actual",
             "disambiguate_success": "Resultado actualizado",
             "disambiguate_empty": "No se encontraron versiones alternativas",
-            "disambiguate_error": "No se pudieron cargar las versiones" 
+            "disambiguate_error": "No se pudieron cargar las versiones",
+            "favorite_limit_reached": "Has alcanzado tus 10 favoritos gratuitos. Consigue SongFlip PRO para tener favoritos ilimitados y 100 entradas en el historial.",
+            "favorite_add": "Añadir a favoritos",
+            "favorite_remove": "Quitar de favoritos",
+            "history_filter_all": "Todos",
+            "history_filter_favorites": "Favoritos"
         
         ],
         "it": [
@@ -3376,7 +3416,7 @@ enum LocalizationManager {
             "pro_feature_cache_title": "Apertura più rapida",
             "pro_feature_review_desc": "Seleziona versioni alternative manualmente",
             "pro_feature_review_title": "Perfeziona corrispondenze",
-            "pro_feature_history_desc": "100 brani invece di 10 sempre a portata di mano",
+            "pro_feature_history_desc": "100 voci in cronologia e preferiti illimitati",
             "pro_feature_history_title": "Cronologia ampia",
             "pro_feature_links_desc": "Un link che ognuno apre nel proprio player",
             "pro_feature_links_title": "Condividi con tutti",
@@ -3500,7 +3540,12 @@ enum LocalizationManager {
             "disambiguate_current": "Corrispondenza attuale",
             "disambiguate_success": "Corrispondenza aggiornata",
             "disambiguate_empty": "Nessuna versione alternativa trovata",
-            "disambiguate_error": "Impossibile caricare le versioni" 
+            "disambiguate_error": "Impossibile caricare le versioni",
+            "favorite_limit_reached": "Hai raggiunto i tuoi 10 preferiti gratuiti. Ottieni SongFlip PRO per preferiti illimitati e 100 voci in cronologia.",
+            "favorite_add": "Aggiungi ai preferiti",
+            "favorite_remove": "Rimuovi dai preferiti",
+            "history_filter_all": "Tutti",
+            "history_filter_favorites": "Preferiti"
         
         ],
         "pt": [
@@ -3765,7 +3810,7 @@ enum LocalizationManager {
             "pro_feature_cache_title": "Abertura mais rápida",
             "pro_feature_review_desc": "Selecione manualmente versões alternativas",
             "pro_feature_review_title": "Refinar resultados",
-            "pro_feature_history_desc": "100 músicas em vez de 10 sempre à mão",
+            "pro_feature_history_desc": "100 entradas no histórico e favoritos ilimitados",
             "pro_feature_history_title": "Histórico maior",
             "pro_feature_links_desc": "Um link que cada um abre no próprio player",
             "pro_feature_links_title": "Compartilhe com todos",
@@ -3889,7 +3934,12 @@ enum LocalizationManager {
             "disambiguate_current": "Resultado atual",
             "disambiguate_success": "Resultado atualizado",
             "disambiguate_empty": "Nenhuma versão alternativa encontrada",
-            "disambiguate_error": "Não foi possível carregar as versões" 
+            "disambiguate_error": "Não foi possível carregar as versões",
+            "favorite_limit_reached": "Você atingiu seus 10 favoritos gratuitos. Obtenha o SongFlip PRO para favoritos ilimitados e 100 entradas no histórico.",
+            "favorite_add": "Adicionar aos favoritos",
+            "favorite_remove": "Remover dos favoritos",
+            "history_filter_all": "Todos",
+            "history_filter_favorites": "Favoritos"
         
         ],
         "pl": [
@@ -4154,7 +4204,7 @@ enum LocalizationManager {
             "pro_feature_cache_title": "Szybsze otwieranie",
             "pro_feature_review_desc": "Ręcznie wybieraj alternatywne wersje utworów",
             "pro_feature_review_title": "Dopasuj wersję",
-            "pro_feature_history_desc": "100 zamiast 10 utworów pod ręką",
+            "pro_feature_history_desc": "100 wpisów w historii i nielimitowane ulubione",
             "pro_feature_history_title": "Większa historia",
             "pro_feature_links_desc": "Jeden link, który każdy otworzy w swoim odtwarzaczu",
             "pro_feature_links_title": "Udostępniaj wszystkim",
@@ -4278,7 +4328,12 @@ enum LocalizationManager {
             "disambiguate_current": "Bieżące dopasowanie",
             "disambiguate_success": "Dopasowanie zaktualizowane",
             "disambiguate_empty": "Nie znaleziono alternatywnych wersji",
-            "disambiguate_error": "Nie udało się załadować wersji" 
+            "disambiguate_error": "Nie udało się załadować wersji",
+            "favorite_limit_reached": "Osiągnięto limit 10 darmowych ulubionych. Odblokuj SongFlip PRO, aby zyskać nielimitowane ulubione i 100 wpisów w historii.",
+            "favorite_add": "Dodaj do ulubionych",
+            "favorite_remove": "Usuń z ulubionych",
+            "history_filter_all": "Wszystkie",
+            "history_filter_favorites": "Ulubione"
         
         ],
         "ru": [
@@ -4543,7 +4598,7 @@ enum LocalizationManager {
             "pro_feature_cache_title": "Быстрое открытие",
             "pro_feature_review_desc": "Выбирайте альтернативные версии песен вручную",
             "pro_feature_review_title": "Уточнение треков",
-            "pro_feature_history_desc": "100 треков вместо 10 всегда под рукой",
+            "pro_feature_history_desc": "100 записей в истории и безлимитное избранное",
             "pro_feature_history_title": "Большая история",
             "pro_feature_links_desc": "Одна ссылка, которую каждый откроет в своём плеере",
             "pro_feature_links_title": "Ссылки для всех",
@@ -4667,7 +4722,12 @@ enum LocalizationManager {
             "disambiguate_current": "Текущий трек",
             "disambiguate_success": "Трек обновлен",
             "disambiguate_empty": "Альтернативные версии не найдены",
-            "disambiguate_error": "Не удалось загрузить версии" 
+            "disambiguate_error": "Не удалось загрузить версии",
+            "favorite_limit_reached": "Вы достигли лимита в 10 бесплатных избранных треков. Перейдите на SongFlip PRO для безлимитного избранного и 100 записей в истории.",
+            "favorite_add": "Добавить в избранное",
+            "favorite_remove": "Удалить из избранного",
+            "history_filter_all": "Все",
+            "history_filter_favorites": "Избранное"
         
         ],
         "tr": [
@@ -4932,7 +4992,7 @@ enum LocalizationManager {
             "pro_feature_cache_title": "Daha hızlı açılış",
             "pro_feature_review_desc": "Alternatif şarkı sürümlerini manuel seçin",
             "pro_feature_review_title": "Eşleşmeyi düzelt",
-            "pro_feature_history_desc": "10 yerine 100 şarkı her an elinizde",
+            "pro_feature_history_desc": "100 geçmiş kaydı ve sınırsız favori",
             "pro_feature_history_title": "Geniş geçmiş",
             "pro_feature_links_desc": "Herkesin kendi oynatıcısında açtığı tek bir bağlantı",
             "pro_feature_links_title": "Herkesle paylaşın",
@@ -5056,7 +5116,12 @@ enum LocalizationManager {
             "disambiguate_current": "Mevcut eşleşme",
             "disambiguate_success": "Eşleşme güncellendi",
             "disambiguate_empty": "Alternatif sürüm bulunamadı",
-            "disambiguate_error": "Sürümler yüklenemedi" 
+            "disambiguate_error": "Sürümler yüklenemedi",
+            "favorite_limit_reached": "10 ücretsiz favori sınırına ulaştınız. Sınırsız favori ve 100 geçmiş kaydı için SongFlip PRO edinin.",
+            "favorite_add": "Favorilere ekle",
+            "favorite_remove": "Favorilerden çıkar",
+            "history_filter_all": "Tümü",
+            "history_filter_favorites": "Favoriler"
         
         ],
         "uk": [
@@ -5321,7 +5386,7 @@ enum LocalizationManager {
             "pro_feature_cache_title": "Швидке відкриття",
             "pro_feature_review_desc": "Вибирайте альтернативні версії пісень вручну",
             "pro_feature_review_title": "Уточнення треків",
-            "pro_feature_history_desc": "100 треків замість 10 завжди під рукою",
+            "pro_feature_history_desc": "100 записів в історії та необмежені обрані",
             "pro_feature_history_title": "Більша історія",
             "pro_feature_links_desc": "Одне посилання, яке кожен відкриє у своєму плеєрі",
             "pro_feature_links_title": "Посилання для всіх",
@@ -5445,7 +5510,12 @@ enum LocalizationManager {
             "disambiguate_current": "Поточний трек",
             "disambiguate_success": "Трек оновлено",
             "disambiguate_empty": "Альтернативні версії не знайдені",
-            "disambiguate_error": "Не вдалося завантажити версії" 
+            "disambiguate_error": "Не вдалося завантажити версії",
+            "favorite_limit_reached": "Ви досягли ліміту в 10 безкоштовних обраних. Отримайте SongFlip PRO для необмежених обраних та 100 записів в історії.",
+            "favorite_add": "Додати в обране",
+            "favorite_remove": "Видалити з обраного",
+            "history_filter_all": "Усі",
+            "history_filter_favorites": "Обране"
         
         ],
         "ja": [
@@ -5710,7 +5780,7 @@ enum LocalizationManager {
             "pro_feature_cache_title": "すばやく開く",
             "pro_feature_review_desc": "別バージョンを手動で選択して修正",
             "pro_feature_review_title": "楽曲のマッチ調整",
-            "pro_feature_history_desc": "10曲ではなく100曲を保存",
+            "pro_feature_history_desc": "履歴100件＆お気に入り無制限",
             "pro_feature_history_title": "大きな履歴",
             "pro_feature_links_desc": "受け取った人がそれぞれのプレーヤーで開けるリンク",
             "pro_feature_links_title": "誰とでも共有",
@@ -5834,7 +5904,12 @@ enum LocalizationManager {
             "disambiguate_current": "現在のマッチ",
             "disambiguate_success": "マッチを更新しました",
             "disambiguate_empty": "別バージョンが見つかりませんでした",
-            "disambiguate_error": "バージョンを読み込めませんでした" 
+            "disambiguate_error": "バージョンを読み込めませんでした",
+            "favorite_limit_reached": "無料のお気に入り上限（10件）に達しました。SongFlip PROでお気に入り無制限と履歴100件をアンロックしましょう。",
+            "favorite_add": "お気に入りに追加",
+            "favorite_remove": "お気に入りから削除",
+            "history_filter_all": "すべて",
+            "history_filter_favorites": "お気に入り"
         
         ],
         "ko": [
@@ -6099,7 +6174,7 @@ enum LocalizationManager {
             "pro_feature_cache_title": "더 빠른 열기",
             "pro_feature_review_desc": "대체 음원 버전을 수동으로 선택",
             "pro_feature_review_title": "매칭 결과 수정",
-            "pro_feature_history_desc": "10곡 대신 100곡까지 보관",
+            "pro_feature_history_desc": "기록 100개 및 무제한 즐겨찾기",
             "pro_feature_history_title": "더 큰 기록",
             "pro_feature_links_desc": "받는 사람마다 자기 플레이어에서 열리는 링크",
             "pro_feature_links_title": "누구에게나 공유",
@@ -6223,7 +6298,12 @@ enum LocalizationManager {
             "disambiguate_current": "현재 매칭",
             "disambiguate_success": "매칭이 업데이트되었습니다",
             "disambiguate_empty": "대체 버전을 찾을 수 없습니다",
-            "disambiguate_error": "버전을 불러올 수 없습니다" 
+            "disambiguate_error": "버전을 불러올 수 없습니다",
+            "favorite_limit_reached": "무료 즐겨찾기 10개 한도에 도달했습니다. SongFlip PRO로 무제한 즐겨찾기와 기록 100개를 이용하세요.",
+            "favorite_add": "즐겨찾기에 추가",
+            "favorite_remove": "즐겨찾기에서 제거",
+            "history_filter_all": "전체",
+            "history_filter_favorites": "즐겨찾기"
         
         ],
         "zh": [
@@ -6488,7 +6568,7 @@ enum LocalizationManager {
             "pro_feature_cache_title": "Faster opening",
             "pro_feature_review_desc": "手动挑选其他歌曲版本",
             "pro_feature_review_title": "优化匹配结果",
-            "pro_feature_history_desc": "Keep 100 songs instead of 10",
+            "pro_feature_history_desc": "100 history entries & unlimited favorites",
             "pro_feature_history_title": "Bigger history",
             "pro_feature_links_desc": "One link that opens in everyone's player",
             "pro_feature_links_title": "Share with anyone",
@@ -6612,7 +6692,12 @@ enum LocalizationManager {
             "disambiguate_current": "当前匹配",
             "disambiguate_success": "匹配已更新",
             "disambiguate_empty": "未找到其他替代版本",
-            "disambiguate_error": "无法加载版本" 
+            "disambiguate_error": "无法加载版本",
+            "favorite_limit_reached": "You have reached your 10 free favorites. Get SongFlip PRO for unlimited favorites & 100 history entries.",
+            "favorite_add": "Add to Favorites",
+            "favorite_remove": "Remove from Favorites",
+            "history_filter_all": "All",
+            "history_filter_favorites": "Favorites"
         ],
         "in": [
             "settings_share_app": "Bagikan SongFlip",
@@ -6876,7 +6961,7 @@ enum LocalizationManager {
             "pro_feature_cache_title": "Buka lebih cepat",
             "pro_feature_review_desc": "Pilih versi lagu alternatif secara manual",
             "pro_feature_review_title": "Sesuaikan kecocokan",
-            "pro_feature_history_desc": "Simpan 100 lagu, bukan hanya 10",
+            "pro_feature_history_desc": "100 entri riwayat & favorit tanpa batas",
             "pro_feature_history_title": "Riwayat lebih besar",
             "pro_feature_links_desc": "Satu tautan yang dibuka semua orang di pemutarnya sendiri",
             "pro_feature_links_title": "Bagikan ke siapa saja",
@@ -7000,7 +7085,12 @@ enum LocalizationManager {
             "disambiguate_current": "Kecocokan saat ini",
             "disambiguate_success": "Kecocokan diperbarui",
             "disambiguate_empty": "Tidak ada versi alternatif yang ditemukan",
-            "disambiguate_error": "Gagal memuat versi" 
+            "disambiguate_error": "Gagal memuat versi",
+            "favorite_limit_reached": "Anda telah mencapai batas 10 favorit gratis. Dapatkan SongFlip PRO untuk favorit tanpa batas & 100 entri riwayat.",
+            "favorite_add": "Tambahkan ke Favorit",
+            "favorite_remove": "Hapus dari Favorit",
+            "history_filter_all": "Semua",
+            "history_filter_favorites": "Favorit"
         ],
         "vi": [
             "settings_share_app": "Chia sẻ SongFlip",
@@ -7264,7 +7354,7 @@ enum LocalizationManager {
             "pro_feature_cache_title": "Mở nhanh hơn",
             "pro_feature_review_desc": "Tự chọn phiên bản bài hát thay thế",
             "pro_feature_review_title": "Tinh chỉnh kết quả",
-            "pro_feature_history_desc": "Lưu 100 bài thay vì 10",
+            "pro_feature_history_desc": "100 mục lịch sử & mục yêu thích không giới hạn",
             "pro_feature_history_title": "Lịch sử lớn hơn",
             "pro_feature_links_desc": "Một liên kết ai cũng mở được trong trình phát của mình",
             "pro_feature_links_title": "Chia sẻ cho mọi người",
@@ -7388,7 +7478,12 @@ enum LocalizationManager {
             "disambiguate_current": "Kết quả hiện tại",
             "disambiguate_success": "Đã cập nhật kết quả",
             "disambiguate_empty": "Không tìm thấy phiên bản thay thế",
-            "disambiguate_error": "Không thể tải phiên bản" 
+            "disambiguate_error": "Không thể tải phiên bản",
+            "favorite_limit_reached": "Bạn đã đạt giới hạn 10 mục yêu thích miễn phí. Nâng cấp SongFlip PRO để mở khóa yêu thích không giới hạn & 100 mục lịch sử.",
+            "favorite_add": "Thêm vào Yêu thích",
+            "favorite_remove": "Xóa khỏi Yêu thích",
+            "history_filter_all": "Tất cả",
+            "history_filter_favorites": "Yêu thích"
         
         ],
         "bn": [
@@ -7653,7 +7748,7 @@ enum LocalizationManager {
             "pro_feature_cache_title": "দ্রুত খুলুন",
             "pro_feature_review_desc": "ম্যানুয়ালি বিকল্প গানের সংস্করণ নির্বাচন করুন",
             "pro_feature_review_title": "ফলাফল পরিবর্তন",
-            "pro_feature_history_desc": "10টির বদলে 100টি গান সংরক্ষণ করুন",
+            "pro_feature_history_desc": "১০০টি হিস্ট্রি এন্ট্রি ও আনলিমিটেড ফেভারিট",
             "pro_feature_history_title": "বড় ইতিহাস",
             "pro_feature_links_desc": "একটি লিঙ্ক যা প্রত্যেকে নিজের প্লেয়ারে খুলতে পারে",
             "pro_feature_links_title": "সবার সাথে শেয়ার করুন",
@@ -7777,7 +7872,12 @@ enum LocalizationManager {
             "disambiguate_current": "বর্তমান ফলাফল",
             "disambiguate_success": "ফলাফল আপডেট করা হয়েছে",
             "disambiguate_empty": "কোনো বিকল্প সংস্করণ পাওয়া যায়নি",
-            "disambiguate_error": "সংস্করণ লোড করা যায়নি" 
+            "disambiguate_error": "সংস্করণ লোড করা যায়নি",
+            "favorite_limit_reached": "আপনি আপনার ১০টি ফ্রি ফেভারিট পূর্ণ করেছেন। আনলিমিটেড ফেভারিট ও ১০০টি হিস্ট্রি এন্ট্রির জন্য SongFlip PRO নিন।",
+            "favorite_add": "ফেভারিটে যোগ করুন",
+            "favorite_remove": "ফেভারিট থেকে সরান",
+            "history_filter_all": "সব",
+            "history_filter_favorites": "ফেভারিট"
         
         ],
         "hi": [
@@ -8042,7 +8142,7 @@ enum LocalizationManager {
             "pro_feature_cache_title": "तेज़ी से खोलें",
             "pro_feature_review_desc": "वैकल्पिक गीत संस्करण मैन्युअल रूप से चुनें",
             "pro_feature_review_title": "सटीक परिणाम चुनें",
-            "pro_feature_history_desc": "10 की जगह 100 गाने सेव रखें",
+            "pro_feature_history_desc": "100 हिस्ट्री एंट्री और असीमित पसंदीदा",
             "pro_feature_history_title": "बड़ी हिस्ट्री",
             "pro_feature_links_desc": "एक लिंक जिसे हर कोई अपने प्लेयर में खोल सके",
             "pro_feature_links_title": "सबके साथ शेयर करें",
@@ -8166,7 +8266,12 @@ enum LocalizationManager {
             "disambiguate_current": "वर्तमान परिणाम",
             "disambiguate_success": "परिणाम अपडेट किया गया",
             "disambiguate_empty": "कोई वैकल्पिक संस्करण नहीं मिला",
-            "disambiguate_error": "संस्करण लोड नहीं हो सके" 
+            "disambiguate_error": "संस्करण लोड नहीं हो सके",
+            "favorite_limit_reached": "आपने अपने 10 मुफ़्त पसंदीदा पूरे कर लिए हैं। असीमित पसंदीदा और 100 हिस्ट्री एंट्री के लिए SongFlip PRO प्राप्त करें।",
+            "favorite_add": "पसंदीदा में जोड़ें",
+            "favorite_remove": "पसंदीदा से हटाएं",
+            "history_filter_all": "सभी",
+            "history_filter_favorites": "पसंदीदा"
         
         ],
         "mr": [
@@ -8431,7 +8536,7 @@ enum LocalizationManager {
             "pro_feature_cache_title": "जलद उघडा",
             "pro_feature_review_desc": "पर्यायी गाण्यांची आवृत्ती मॅन्युअली निवडा",
             "pro_feature_review_title": "परिणाम सुधारा",
-            "pro_feature_history_desc": "10 ऐवजी 100 गाणी जतन करा",
+            "pro_feature_history_desc": "१०० हिस्ट्री नोंदी आणि अमर्यादित फेव्हरेट्स",
             "pro_feature_history_title": "मोठा इतिहास",
             "pro_feature_links_desc": "एक लिंक जी प्रत्येकजण आपल्या प्लेयरमध्ये उघडू शकतो",
             "pro_feature_links_title": "सर्वांसोबत शेअर करा",
@@ -8555,7 +8660,12 @@ enum LocalizationManager {
             "disambiguate_current": "सध्याचा परिणाम",
             "disambiguate_success": "परिणाम अपडेट केला",
             "disambiguate_empty": "कोणतीही पर्यायी आवृत्ती आढळली नाही",
-            "disambiguate_error": "आवृत्त्या लोड होऊ शकल्या नाहीत" 
+            "disambiguate_error": "आवृत्त्या लोड होऊ शकल्या नाहीत",
+            "favorite_limit_reached": "तुमचे १० मोफत फेव्हरेट्स पूर्ण झाले आहेत. अमर्यादित फेव्हरेट्स आणि १०० हिस्ट्री नोंदींसाठी SongFlip PRO घ्या.",
+            "favorite_add": "फेव्हरेट्समध्ये जोडा",
+            "favorite_remove": "फेव्हरेट्समधून काढा",
+            "history_filter_all": "सर्व",
+            "history_filter_favorites": "फेव्हरेट्स"
         
         ],
         "cs": [
@@ -8620,8 +8730,8 @@ enum LocalizationManager {
             "disambiguate_subtitle": "Vyberte správnou verzi pro %1$s",
             "disambiguate_success": "Shoda aktualizována",
             "disambiguate_title": "Upravit shodu",
-            "favorite_add": "Add to Favorites",
-            "favorite_remove": "Remove from Favorites",
+            "favorite_add": "Přidat do oblíbených",
+            "favorite_remove": "Odebrat z oblíbených",
             "feedback_btn_mail_fallback": "Raději napsat e-mail",
             "feedback_btn_send": "Odeslat zpětnou vazbu",
             "feedback_cat_bug": "🐛 Chyba",
@@ -8648,8 +8758,8 @@ enum LocalizationManager {
             "history_empty": "Zatím žádné převedené skladby. Otevřené hudební odkazy se zde automaticky zobrazí.",
             "history_empty_hint": "Tip: Otevřete nebo sdílejte hudební odkaz, aby se zde zobrazil.",
             "history_empty_title": "Zatím žádná historie",
-            "history_filter_all": "All",
-            "history_filter_favorites": "Favorites",
+            "history_filter_all": "Vše",
+            "history_filter_favorites": "Oblíbené",
             "history_item_deleted": "Skladba odstraněna z historie a mezipaměti",
             "history_link_refreshed": "Odkaz byl úspěšně obnoven!",
             "history_link_refreshing": "Obnovuji odkaz...",
@@ -8771,7 +8881,7 @@ enum LocalizationManager {
             "pro_debug_reset_status": "Stav PRO resetován (Debug)",
             "pro_feature_cache_desc": "Oblíbené skladby se otevřou bez čekání",
             "pro_feature_cache_title": "Rychlejší otevírání",
-            "pro_feature_history_desc": "100 místo 10 skladeb po ruce",
+            "pro_feature_history_desc": "100 položek v historii a neomezené oblíbené",
             "pro_feature_history_title": "Větší historie",
             "pro_feature_links_desc": "Jeden odkaz, který každý otevře ve svém přehrávači",
             "pro_feature_links_title": "Sdílení pro všechny",
@@ -8907,7 +9017,8 @@ enum LocalizationManager {
             "time_days_ago": "Před %1$d d",
             "time_hours_ago": "Před %1$d h",
             "time_just_now": "Právě teď",
-            "time_minutes_ago": "Před %1$d min",
+            "time_minutes_ago": "Před %1$d min",,
+            "favorite_limit_reached": "Dosáhli jste limitu 10 bezplatných oblíbených. Pořiďte si SongFlip PRO pro neomezené oblíbené a 100 položek v historii."
         ],
         "el": [
             "action_close": "Close",
@@ -8971,8 +9082,8 @@ enum LocalizationManager {
             "disambiguate_subtitle": "Επιλέξτε τη σωστή έκδοση για %1$s",
             "disambiguate_success": "Το αποτέλεσμα ενημερώθηκε",
             "disambiguate_title": "Προσαρμογή αποτελέσματος",
-            "favorite_add": "Add to Favorites",
-            "favorite_remove": "Remove from Favorites",
+            "favorite_add": "Προσθήκη στα αγαπημένα",
+            "favorite_remove": "Αφαίρεση από τα αγαπημένα",
             "feedback_btn_mail_fallback": "Προτιμάτε να στείλετε email;",
             "feedback_btn_send": "Αποστολή σχολίων",
             "feedback_cat_bug": "🐛 Σφάλμα",
@@ -8999,8 +9110,8 @@ enum LocalizationManager {
             "history_empty": "Δεν υπάρχουν ακόμη κομμάτια. Οι ανακατευθυνόμενοι σύνδεσμοι θα εμφανίζονται αυτόματα εδώ.",
             "history_empty_hint": "Συμβουλή: Ανοίξτε ή μοιραστείτε έναν σύνδεσμο μουσικής για να εμφανιστεί εδώ.",
             "history_empty_title": "Δεν υπάρχει ιστορικό ακόμα",
-            "history_filter_all": "All",
-            "history_filter_favorites": "Favorites",
+            "history_filter_all": "Όλα",
+            "history_filter_favorites": "Αγαπημένα",
             "history_item_deleted": "Το κομμάτι αφαιρέθηκε από το ιστορικό & την προσωρινή μνήμη",
             "history_link_refreshed": "Ο σύνδεσμος ανανεώθηκε επιτυχώς!",
             "history_link_refreshing": "Ανανέωση συνδέσμου...",
@@ -9122,7 +9233,7 @@ enum LocalizationManager {
             "pro_debug_reset_status": "Κατάσταση PRO επαναφέρθηκε (Debug)",
             "pro_feature_cache_desc": "Τα δημοφιλή τραγούδια ανοίγουν χωρίς αναμονή",
             "pro_feature_cache_title": "Ταχύτερο άνοιγμα",
-            "pro_feature_history_desc": "100 αντί για 10 τραγούδια πάντα διαθέσιμα",
+            "pro_feature_history_desc": "100 εγγραφές ιστορικού & απεριόριστα αγαπημένα",
             "pro_feature_history_title": "Μεγαλύτερο ιστορικό",
             "pro_feature_links_desc": "Ένας σύνδεσμος που ο καθένας ανοίγει στη δική του εφαρμογή",
             "pro_feature_links_title": "Κοινοποίηση σε όλους",
@@ -9258,7 +9369,8 @@ enum LocalizationManager {
             "time_days_ago": "Πριν %1$d ημέρες",
             "time_hours_ago": "Πριν %1$d ώρες",
             "time_just_now": "Μόλις τώρα",
-            "time_minutes_ago": "Πριν %1$d λεπτά",
+            "time_minutes_ago": "Πριν %1$d λεπτά",,
+            "favorite_limit_reached": "Φτάσατε τα 10 δωρεάν αγαπημένα σας. Αποκτήστε το SongFlip PRO για απεριόριστα αγαπημένα και 100 εγγραφές ιστορικού."
         ],
         "fi": [
             "action_close": "Close",
@@ -9322,8 +9434,8 @@ enum LocalizationManager {
             "disambiguate_subtitle": "Valitse oikea versio palvelulle %1$s",
             "disambiguate_success": "Osuma päivitetty",
             "disambiguate_title": "Muokkaa osumaa",
-            "favorite_add": "Add to Favorites",
-            "favorite_remove": "Remove from Favorites",
+            "favorite_add": "Lisää suosikkeihin",
+            "favorite_remove": "Poista suosikeista",
             "feedback_btn_mail_fallback": "Kirjoita mieluummin sähköpostia",
             "feedback_btn_send": "Lähetä palaute",
             "feedback_cat_bug": "🐛 Virhe",
@@ -9350,8 +9462,8 @@ enum LocalizationManager {
             "history_empty": "Ei vielä muunnettuja kappaleita. Uudelleenohjatut linkit tulevat näkyviin tänne automaattisesti.",
             "history_empty_hint": "Vinkki: Avaa tai jaa musiikkilinkki nähdäksesi sen täällä.",
             "history_empty_title": "Ei historiaa vielä",
-            "history_filter_all": "All",
-            "history_filter_favorites": "Favorites",
+            "history_filter_all": "Kaikki",
+            "history_filter_favorites": "Suosikit",
             "history_item_deleted": "Kappale poistettu historiasta ja välimuistista",
             "history_link_refreshed": "Linkki päivitetty onnistuneesti!",
             "history_link_refreshing": "Päivitetään linkkiä...",
@@ -9473,7 +9585,7 @@ enum LocalizationManager {
             "pro_debug_reset_status": "PRO-tila nollattu (Debug)",
             "pro_feature_cache_desc": "Suositut kappaleet avautuvat ilman odottelua",
             "pro_feature_cache_title": "Nopeampi avaus",
-            "pro_feature_history_desc": "100 kappaletta 10:n sijaan tallessa",
+            "pro_feature_history_desc": "100 historiamerkintää ja rajattomat suosikit",
             "pro_feature_history_title": "Laajempi historia",
             "pro_feature_links_desc": "Yksi linkki, jonka jokainen avaa omassa soittimessaan",
             "pro_feature_links_title": "Jaa kaikille",
@@ -9609,7 +9721,8 @@ enum LocalizationManager {
             "time_days_ago": "%1$d pv sitten",
             "time_hours_ago": "%1$d t sitten",
             "time_just_now": "Juuri nyt",
-            "time_minutes_ago": "%1$d min sitten",
+            "time_minutes_ago": "%1$d min sitten",,
+            "favorite_limit_reached": "Olet saavuttanut 10 ilmaisen suosikin rajan. Hanki SongFlip PRO saadaksesi rajattomat suosikit ja 100 historiamerkintää."
         ],
         "hu": [
             "action_close": "Close",
@@ -9673,8 +9786,8 @@ enum LocalizationManager {
             "disambiguate_subtitle": "Válaszd ki a megfelelő verziót: %1$s",
             "disambiguate_success": "Találat frissítve",
             "disambiguate_title": "Találat módosítása",
-            "favorite_add": "Add to Favorites",
-            "favorite_remove": "Remove from Favorites",
+            "favorite_add": "Hozzáadás a kedvencekhez",
+            "favorite_remove": "Eltávolítás a kedvencekből",
             "feedback_btn_mail_fallback": "Inkább e-mailt írok",
             "feedback_btn_send": "Visszajelzés küldése",
             "feedback_cat_bug": "🐛 Hiba",
@@ -9701,8 +9814,8 @@ enum LocalizationManager {
             "history_empty": "Még nincsenek átalakított zenék. Az átirányított linkek automatikusan itt jelennek meg.",
             "history_empty_hint": "Tipp: Nyiss meg vagy ossz meg egy zenei linket, hogy itt lásd.",
             "history_empty_title": "Még nincsenek előzmények",
-            "history_filter_all": "All",
-            "history_filter_favorites": "Favorites",
+            "history_filter_all": "Összes",
+            "history_filter_favorites": "Kedvencek",
             "history_item_deleted": "Zene eltávolítva az előzményekből és gyorsítótárból",
             "history_link_refreshed": "Link sikeresen frissítve!",
             "history_link_refreshing": "Link frissítése folyamatban...",
@@ -9824,7 +9937,7 @@ enum LocalizationManager {
             "pro_debug_reset_status": "PRO állapot visszaállítva (Debug)",
             "pro_feature_cache_desc": "A népszerű dalok várakozás nélkül nyílnak meg",
             "pro_feature_cache_title": "Gyorsabb megnyitás",
-            "pro_feature_history_desc": "10 helyett 100 dal mindig kéznél",
+            "pro_feature_history_desc": "100 előzmény és korlátlan kedvenc",
             "pro_feature_history_title": "Nagyobb előzmények",
             "pro_feature_links_desc": "Egy link, amit mindenki a saját lejátszójában nyit meg",
             "pro_feature_links_title": "Megosztás bárkivel",
@@ -9960,7 +10073,8 @@ enum LocalizationManager {
             "time_days_ago": "%1$d napja",
             "time_hours_ago": "%1$d órája",
             "time_just_now": "Épp most",
-            "time_minutes_ago": "%1$d perce",
+            "time_minutes_ago": "%1$d perce",,
+            "favorite_limit_reached": "Elérted a 10 ingyenes kedvencet. Szerezd meg a SongFlip PRO-t a korlátlan kedvencekért és 100 előzményért."
         ],
         "ro": [
             "action_close": "Close",
@@ -10024,8 +10138,8 @@ enum LocalizationManager {
             "disambiguate_subtitle": "Alege versiunea corectă pentru %1$s",
             "disambiguate_success": "Rezultat actualizat",
             "disambiguate_title": "Ajustează rezultatul",
-            "favorite_add": "Add to Favorites",
-            "favorite_remove": "Remove from Favorites",
+            "favorite_add": "Adaugă la favorite",
+            "favorite_remove": "Elimină de la favorite",
             "feedback_btn_mail_fallback": "Prefer să scriu un e-mail",
             "feedback_btn_send": "Trimite feedback",
             "feedback_cat_bug": "🐛 Problemă",
@@ -10052,8 +10166,8 @@ enum LocalizationManager {
             "history_empty": "Nicio melodie convertită încă. Linkurile redirecționate vor apărea automat aici.",
             "history_empty_hint": "Sfat: Deschide sau distribuie un link muzical pentru a-l vedea aici.",
             "history_empty_title": "Niciun istoric încă",
-            "history_filter_all": "All",
-            "history_filter_favorites": "Favorites",
+            "history_filter_all": "Toate",
+            "history_filter_favorites": "Favorite",
             "history_item_deleted": "Melodia a fost eliminată din istoric și cache",
             "history_link_refreshed": "Link reîmprospătat cu succes!",
             "history_link_refreshing": "Se reîmprospătează linkul...",
@@ -10175,7 +10289,7 @@ enum LocalizationManager {
             "pro_debug_reset_status": "Stare PRO resetată (Debug)",
             "pro_feature_cache_desc": "Melodiile populare se deschid fără așteptare",
             "pro_feature_cache_title": "Deschidere mai rapidă",
-            "pro_feature_history_desc": "100 de melodii în loc de 10 la îndemână",
+            "pro_feature_history_desc": "100 de intrări în istoric și favorite nelimitate",
             "pro_feature_history_title": "Istoric mai mare",
             "pro_feature_links_desc": "Un link pe care fiecare îl deschide în playerul său",
             "pro_feature_links_title": "Distribuie oricui",
@@ -10311,7 +10425,8 @@ enum LocalizationManager {
             "time_days_ago": "Acum %1$d zile",
             "time_hours_ago": "Acum %1$d ore",
             "time_just_now": "Chiar acum",
-            "time_minutes_ago": "Acum %1$d min",
+            "time_minutes_ago": "Acum %1$d min",,
+            "favorite_limit_reached": "Ai atins limita de 10 favorite gratuite. Obține SongFlip PRO pentru favorite nelimitate și 100 de intrări în istoric."
         ],
         "th": [
             "action_close": "Close",
@@ -10375,8 +10490,8 @@ enum LocalizationManager {
             "disambiguate_subtitle": "เลือกเวอร์ชันที่ถูกต้องสำหรับ %1$s",
             "disambiguate_success": "อัปเดตผลลัพธ์แล้ว",
             "disambiguate_title": "ปรับแต่งผลลัพธ์",
-            "favorite_add": "Add to Favorites",
-            "favorite_remove": "Remove from Favorites",
+            "favorite_add": "เพิ่มในรายการโปรด",
+            "favorite_remove": "ลบออกจากรายการโปรด",
             "feedback_btn_mail_fallback": "ส่งทางอีเมลแทน",
             "feedback_btn_send": "ส่งข้อเสนอแนะ",
             "feedback_cat_bug": "🐛 ปัญหา",
@@ -10403,8 +10518,8 @@ enum LocalizationManager {
             "history_empty": "ยังไม่มีเพลงที่แปลง ลิงก์ที่เปิดจะปรากฏที่นี่โดยอัตโนมัติ",
             "history_empty_hint": "เคล็ดลับ: เปิดหรือแชร์ลิงก์เพลงเพื่อดูที่นี่",
             "history_empty_title": "ยังไม่มีประวัติ",
-            "history_filter_all": "All",
-            "history_filter_favorites": "Favorites",
+            "history_filter_all": "ทั้งหมด",
+            "history_filter_favorites": "รายการโปรด",
             "history_item_deleted": "ลบเพลงออกจากประวัติและแคชแล้ว",
             "history_link_refreshed": "รีเฟรชลิงก์สำเร็จแล้ว!",
             "history_link_refreshing": "กำลังรีเฟรชลิงก์...",
@@ -10526,7 +10641,7 @@ enum LocalizationManager {
             "pro_debug_reset_status": "รีเซ็ตสถานะ PRO แล้ว (Debug)",
             "pro_feature_cache_desc": "เพลงยอดนิยมเปิดได้โดยไม่ต้องรอ",
             "pro_feature_cache_title": "เปิดได้เร็วขึ้น",
-            "pro_feature_history_desc": "เก็บได้ 100 เพลงแทน 10 เพลง",
+            "pro_feature_history_desc": "ประวัติ 100 รายการและรายการโปรดไม่จำกัด",
             "pro_feature_history_title": "ประวัติที่ใหญ่ขึ้น",
             "pro_feature_links_desc": "ลิงก์เดียวที่ทุกคนเปิดในเครื่องเล่นของตัวเองได้",
             "pro_feature_links_title": "แชร์ให้ทุกคน",
@@ -10662,7 +10777,8 @@ enum LocalizationManager {
             "time_days_ago": "%1$d วันที่แล้ว",
             "time_hours_ago": "%1$d ชม. ที่แล้ว",
             "time_just_now": "เมื่อสักครู่",
-            "time_minutes_ago": "%1$d นาทีที่แล้ว",
+            "time_minutes_ago": "%1$d นาทีที่แล้ว",,
+            "favorite_limit_reached": "คุณใช้รายการโปรดฟรีครบ 10 รายการแล้ว อัปเกรดเป็น SongFlip PRO เพื่อปลดล็อกรายการโปรดไม่จำกัดและประวัติ 100 รายการ"
         ],
     ]
 

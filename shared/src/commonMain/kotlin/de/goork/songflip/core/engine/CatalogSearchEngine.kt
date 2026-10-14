@@ -77,6 +77,11 @@ class CatalogSearchEngine(
         val shared: CatalogSearchEngine by lazy { CatalogSearchEngine() }
     }
 
+    @Throws(Throwable::class)
+    suspend fun searchOrThrow(query: String, limit: Int = 20): List<SearchTrackResult> {
+        return search(query, limit).getOrThrow()
+    }
+
     suspend fun search(query: String, limit: Int = 15): Result<List<SearchTrackResult>> {
         val trimmed = query.trim()
         if (trimmed.isEmpty()) return Result.success(emptyList())

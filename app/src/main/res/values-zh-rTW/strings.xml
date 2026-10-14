@@ -299,7 +299,7 @@
     <string name="pro_feature_playlists_title">轉移播放清單</string>
     <string name="pro_feature_playlists_desc">將完整播放清單轉移到你的音樂服務</string>
     <string name="pro_feature_history_title">更大的歷史記錄</string>
-    <string name="pro_feature_history_desc">保存 100 首而非 10 首</string>
+    <string name="pro_feature_history_desc">100 筆歷史記錄與無限收藏</string>
     <string name="pro_feature_cache_title">更快開啟</string>
     <string name="pro_feature_cache_desc">熱門歌曲無需等待即可開啟</string>
     <string name="pro_feature_links_title">分享給所有人</string>
@@ -358,4 +358,5 @@
     <string name="disambiguate_empty">找不到其他替代版本</string>
     <string name="disambiguate_error">無法載入版本</string>
     <string name="history_qr_action">顯示二維碼</string>
+    <string name="favorite_limit_reached">您已達到 10 個免費收藏上限。升級 SongFlip PRO 解鎖無限收藏與 100 筆歷史記錄。</string>
 </resources>

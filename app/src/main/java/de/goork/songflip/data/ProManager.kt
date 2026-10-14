@@ -48,10 +48,13 @@ object ProManager {
     private const val KEY_COUPON_CODE = "pro_coupon_code"
     private const val KEY_COUPON_TOKEN = "pro_coupon_token"
     private const val KEY_COUPON_EXPIRATION = "pro_coupon_expiration"
+    private const val KEY_LAST_SEEN_SERVER_TIME = "last_seen_server_time"
     private const val KEY_INSTALL_ID = "anonymous_install_id"
     private const val KEY_RC_IS_PRO = "rc_is_pro"
     private const val KEY_RC_TYPE = "rc_pro_type"
     private const val KEY_RC_EXPIRATION = "rc_pro_expiration"
+    private const val KEYSTORE_ALIAS = "songflip_coupon_keystore_key_v1"
+    private const val ENC_PREFIX = "enc_v1:"
 
     // RevenueCat Configuration
     private val REVENUECAT_API_KEY = de.goork.songflip.BuildConfig.REVENUECAT_API_KEY
@@ -67,6 +70,95 @@ object ProManager {
 
     val isPro: Boolean
         get() = _proState.value.isPro
+
+    private fun encryptForStorage(plainText: String): String {
+        return try {
+            val keyStore = java.security.KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
+            val secretKey = if (keyStore.containsAlias(KEYSTORE_ALIAS)) {
+                (keyStore.getEntry(KEYSTORE_ALIAS, null) as java.security.KeyStore.SecretKeyEntry).secretKey
+            } else {
+                val keyGen = javax.crypto.KeyGenerator.getInstance(
+                    android.security.keystore.KeyProperties.KEY_ALGORITHM_AES,
+                    "AndroidKeyStore"
+                )
+                val spec = android.security.keystore.KeyGenParameterSpec.Builder(
+                    KEYSTORE_ALIAS,
+                    android.security.keystore.KeyProperties.PURPOSE_ENCRYPT or
+                        android.security.keystore.KeyProperties.PURPOSE_DECRYPT
+                )
+                    .setBlockModes(android.security.keystore.KeyProperties.BLOCK_MODE_GCM)
+                    .setEncryptionPaddings(android.security.keystore.KeyProperties.ENCRYPTION_PADDING_NONE)
+                    .setKeySize(256)
+                    .build()
+                keyGen.init(spec)
+                keyGen.generateKey()
+            }
+            val cipher = javax.crypto.Cipher.getInstance("AES/GCM/NoPadding")
+            cipher.init(javax.crypto.Cipher.ENCRYPT_MODE, secretKey)
+            val iv = cipher.iv
+            val encrypted = cipher.doFinal(plainText.toByteArray(Charsets.UTF_8))
+            val combined = ByteArray(1 + iv.size + encrypted.size)
+            combined[0] = iv.size.toByte()
+            System.arraycopy(iv, 0, combined, 1, iv.size)
+            System.arraycopy(encrypted, 0, combined, 1 + iv.size, encrypted.size)
+            ENC_PREFIX + java.util.Base64.getEncoder().encodeToString(combined)
+        } catch (_: Throwable) {
+            // Fallback in JVM unit tests where AndroidKeyStore provider is unavailable
+            plainText
+        }
+    }
+
+    private fun decryptFromStorage(stored: String?): String? {
+        if (stored.isNullOrBlank()) return null
+        if (!stored.startsWith(ENC_PREFIX)) return stored
+        return try {
+            val raw = java.util.Base64.getDecoder().decode(stored.removePrefix(ENC_PREFIX))
+            if (raw.size < 14) return null
+            val ivLen = raw[0].toInt() and 0xff
+            if (ivLen <= 0 || raw.size <= 1 + ivLen) return null
+            val iv = raw.copyOfRange(1, 1 + ivLen)
+            val cipherBytes = raw.copyOfRange(1 + ivLen, raw.size)
+            val keyStore = java.security.KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
+            val entry = keyStore.getEntry(KEYSTORE_ALIAS, null) as? java.security.KeyStore.SecretKeyEntry
+                ?: return null
+            val cipher = javax.crypto.Cipher.getInstance("AES/GCM/NoPadding")
+            cipher.init(
+                javax.crypto.Cipher.DECRYPT_MODE,
+                entry.secretKey,
+                javax.crypto.spec.GCMParameterSpec(128, iv)
+            )
+            String(cipher.doFinal(cipherBytes), Charsets.UTF_8)
+        } catch (_: Throwable) {
+            null
+        }
+    }
+
+    private fun getStoredCouponToken(): String? {
+        val raw = prefs?.getString(KEY_COUPON_TOKEN, null)
+        return decryptFromStorage(raw)
+    }
+
+    private fun saveStoredCouponToken(editor: SharedPreferences.Editor, token: String) {
+        editor.putString(KEY_COUPON_TOKEN, encryptForStorage(token))
+    }
+
+    private fun getLastSeenServerTime(): Long {
+        val sp = prefs ?: return 0L
+        val rawStr = sp.getString(KEY_LAST_SEEN_SERVER_TIME, null)
+        if (!rawStr.isNullOrBlank()) {
+            val dec = decryptFromStorage(rawStr)?.toLongOrNull()
+            if (dec != null && dec > 0L) return dec
+        }
+        return 0L
+    }
+
+    private fun updateLastSeenServerTime(timestampMs: Long) {
+        val sp = prefs ?: return
+        val current = getLastSeenServerTime()
+        if (timestampMs > current) {
+            sp.edit().putString(KEY_LAST_SEEN_SERVER_TIME, encryptForStorage(timestampMs.toString())).apply()
+        }
+    }
 
     fun getAppUserId(): String {
         return try {
@@ -91,7 +183,7 @@ object ProManager {
     }
 
     fun getAuthToken(): String {
-        val savedToken = prefs?.getString(KEY_COUPON_TOKEN, null)
+        val savedToken = getStoredCouponToken()
         return if (!savedToken.isNullOrBlank()) {
             "coupon:$savedToken"
         } else {
@@ -202,9 +294,17 @@ object ProManager {
         isExplicitRcCheck: Boolean = false
     ): ProState {
         val sp = prefs
-        val couponType = sp?.getString(KEY_COUPON_TYPE, null)
-        val expiration = sp?.getLong(KEY_COUPON_EXPIRATION, 0L) ?: 0L
         val now = System.currentTimeMillis()
+        val storedToken = getStoredCouponToken()
+        val verified = de.goork.songflip.core.engine.CouponService.shared.verifyCouponToken(
+            token = storedToken,
+            expectedInstallId = getAnonymousInstallId(),
+            currentTimeMs = now,
+            lastSeenServerTimeMs = getLastSeenServerTime()
+        )
+        if (verified.valid && verified.issuedAtTimestamp != null) {
+            updateLastSeenServerTime(verified.issuedAtTimestamp!!)
+        }
 
         if (revenueCatActive) {
             sp?.edit()
@@ -225,13 +325,20 @@ object ProManager {
                 proType = if (rcIsLifetime) "revenuecat_lifetime" else "revenuecat_subscription",
                 expirationDate = if (rcIsLifetime) null else rcExpirationMillis
             )
-            couponType == "lifetime" -> ProState(
+            verified.valid && verified.type == "lifetime" -> ProState(
                 isPro = true,
                 proType = "lifetime_coupon"
             )
-            !couponType.isNullOrBlank() && expiration > now -> {
-                val normalizedType = if (couponType.endsWith("_coupon")) couponType else "${couponType}_coupon"
-                ProState(isPro = true, proType = normalizedType, expirationDate = expiration)
+            verified.valid -> {
+                val labelType = sp?.getString(KEY_COUPON_TYPE, null)
+                    ?.takeIf { it.isNotBlank() && it != "lifetime" }
+                    ?: verified.type
+                val normalizedType = if (labelType.endsWith("_coupon")) labelType else "${labelType}_coupon"
+                ProState(
+                    isPro = true,
+                    proType = normalizedType,
+                    expirationDate = verified.expirationTimestamp
+                )
             }
             else -> ProState(isPro = false)
         }
@@ -380,23 +487,7 @@ object ProManager {
     }
 
     fun extractCouponCode(rawInput: String): String {
-        val trimmed = rawInput.trim()
-        if (trimmed.isEmpty()) return ""
-
-        // Priority 1: Match standard FLIP-XXXX-YYYY or unhyphenated FLIPXXXXXXXX
-        val standardFlipRegex = Regex("""\b(FLIP-[A-Z0-9]{4}-[A-Z0-9]{4}|FLIP[A-Z0-9]{8})\b""", RegexOption.IGNORE_CASE)
-        standardFlipRegex.find(trimmed)?.let { return it.value.uppercase() }
-
-        // Priority 2: Match custom FLIP prefix (e.g. FLIP-MARKUS, FLIP-TOOBROWN, FLIP-LIFETIME-VIP)
-        val customFlipRegex = Regex("""\b(FLIP-[A-Z0-9_-]{3,32})\b""", RegexOption.IGNORE_CASE)
-        customFlipRegex.find(trimmed)?.let { return it.value.uppercase() }
-
-        // Priority 3: Match known campaign word codes in longer text
-        val campaignRegex = Regex("""\b(BETALIST|PEERPUSH|FOUNDER-?PASS|NEO-?FOUNDER|EXCHANGE60|SONGFLIP_[A-Z0-9_]+)\b""", RegexOption.IGNORE_CASE)
-        campaignRegex.find(trimmed)?.let { return it.value.uppercase() }
-
-        // Fallback: If no match inside text, return cleaned input (no whitespace)
-        return trimmed.replace("\\s+".toRegex(), "").uppercase()
+        return de.goork.songflip.core.engine.CouponService.shared.extractCouponCode(rawInput)
     }
 
     @androidx.annotation.VisibleForTesting
@@ -452,7 +543,18 @@ object ProManager {
                     } else null
 
                     val token = resJson.optString("token", "")
-                    if (type == "lifetime") {
+                    val verified = de.goork.songflip.core.engine.CouponService.shared.verifyCouponToken(
+                        token = token,
+                        expectedInstallId = installId,
+                        currentTimeMs = System.currentTimeMillis(),
+                        lastSeenServerTimeMs = getLastSeenServerTime()
+                    )
+                    if (!verified.valid) {
+                        return@withContext RedeemResult.INVALID
+                    }
+                    updateLastSeenServerTime(verified.issuedAtTimestamp ?: System.currentTimeMillis())
+
+                    if (type == "lifetime" || verified.type == "lifetime") {
                         if (_proState.value.isPro && _proState.value.proType == "lifetime_coupon") {
                             return@withContext RedeemResult.ALREADY_ACTIVE
                         }
@@ -460,9 +562,7 @@ object ProManager {
                             .putString(KEY_COUPON_TYPE, "lifetime")
                             .putString(KEY_COUPON_CODE, cleanCode)
                             .remove(KEY_COUPON_EXPIRATION)
-                        if (token.isNotBlank()) {
-                            editor.putString(KEY_COUPON_TOKEN, token)
-                        }
+                        saveStoredCouponToken(editor, token)
                         editor.apply()
                         evaluateProState(revenueCatActive = false)
                         de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemedSuccess(cleanCode)
@@ -473,15 +573,15 @@ object ProManager {
                             "3months" -> 90L
                             else -> 30L
                         }
-                        val expireTime = expTimestamp ?: (System.currentTimeMillis() + durationDays * 24 * 60 * 60 * 1000L)
+                        val expireTime = verified.expirationTimestamp
+                            ?: expTimestamp
+                            ?: (System.currentTimeMillis() + durationDays * 24 * 60 * 60 * 1000L)
 
                         val editor = sp.edit()
                             .putString(KEY_COUPON_TYPE, type)
                             .putString(KEY_COUPON_CODE, cleanCode)
                             .putLong(KEY_COUPON_EXPIRATION, expireTime)
-                        if (token.isNotBlank()) {
-                            editor.putString(KEY_COUPON_TOKEN, token)
-                        }
+                        saveStoredCouponToken(editor, token)
                         editor.apply()
                         evaluateProState(revenueCatActive = false)
                         de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemedSuccess(cleanCode)

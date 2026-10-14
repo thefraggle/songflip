@@ -317,7 +317,7 @@
     <string name="pro_feature_playlists_title">Flyt playlister</string>
     <string name="pro_feature_playlists_desc">Overfør hele playlister til din tjeneste</string>
     <string name="pro_feature_history_title">Større historik</string>
-    <string name="pro_feature_history_desc">100 i stedet for 10 sange lige ved hånden</string>
+    <string name="pro_feature_history_desc">100 historikposter &amp; ubegrænsede favoritter</string>
     <string name="pro_feature_cache_title">Hurtigere åbning</string>
     <string name="pro_feature_cache_desc">Populære sange åbner uden ventetid</string>
     <string name="pro_feature_links_title">Del med alle</string>
@@ -376,4 +376,5 @@
     <string name="disambiguate_empty">Ingen alternative versioner fundet</string>
     <string name="disambiguate_error">Kunne ikke hente versioner</string>
     <string name="history_qr_action">Vis QR-kode</string>
+    <string name="favorite_limit_reached">Du har nået dine 10 gratis favoritter. Få SongFlip PRO for ubegrænsede favoritter og 100 historikposter.</string>
 </resources>

@@ -246,5 +246,126 @@ class LinkCacheTest {
 
         assertEquals(1, cache.getHistoryCount(currentTimeMs = 365 * day), "History stays visible indefinitely by default")
     }
+
+    // --- #107 & #115: SQLDelight Store, Legacy Migration, and 10-Favorite Free Limit ---
+
+    @Test
+    fun testSqlDelightPlatformStorageSeparatesHistoryAndResolverCache() = runTest {
+        val storage = createDefaultCacheStorage()
+        storage.clear()
+
+        val cache = LinkCache(maxEntries = 10, ttlMs = 1000L, storage = storage)
+        cache.put("https://open.spotify.com/track/prefetch_only", "youtubeMusic", song(1), currentTimeMs = 100L, isHistory = false)
+        cache.put("https://open.spotify.com/track/history_item", "youtubeMusic", song(2), currentTimeMs = 200L, isHistory = true)
+        cache.setFavoriteForUrl("https://open.spotify.com/track/history_item", "youtubeMusic", true)
+
+        val reloaded = LinkCache(maxEntries = 10, ttlMs = 1000L, storage = storage)
+        assertEquals(1, reloaded.getHistoryCount(currentTimeMs = 5000L), "Only history item should appear in history count")
+        val historyEntries = reloaded.getHistoryEntries(limit = 10, currentTimeMs = 5000L)
+        assertEquals(1, historyEntries.size)
+        assertEquals("Song 2", historyEntries[0].title)
+        assertTrue(historyEntries[0].isFavorite)
+
+        // Prefetch item expired after TTL (1000ms)
+        assertNull(reloaded.get("https://open.spotify.com/track/prefetch_only", "youtubeMusic", currentTimeMs = 5000L))
+        storage.clear()
+    }
+
+    @Test
+    fun testLegacyIosHistoryJsonMigrationPreservesDataAndHealsTimestamps() = runTest {
+        val storage = createDefaultCacheStorage() as? SqlDelightCacheStorage
+        assertNotNull(storage, "Platform storage should be SqlDelightCacheStorage")
+        storage.clear()
+
+        val legacyIosJson = """
+            [
+                {
+                    "id": "11111111-2222-3333-4444-555555555555",
+                    "timestamp": 1710000000.0,
+                    "title": "Legacy iOS Song",
+                    "artist": "Legacy Artist",
+                    "sourceUrl": "https://open.spotify.com/track/ios123?si=abc",
+                    "targetUrl": "https://music.apple.com/us/album/ios123",
+                    "targetPlatform": "appleMusic",
+                    "isAlbum": false,
+                    "thumbnailUrl": "https://example.com/cover.jpg",
+                    "isFavorite": true
+                },
+                {
+                    "id": "22222222-2222-3333-4444-555555555555",
+                    "timestamp": 2688307200.0,
+                    "title": "Year 2055 Bug Song",
+                    "artist": "Healed Artist",
+                    "sourceUrl": "https://open.spotify.com/track/ios2055",
+                    "targetUrl": "https://music.apple.com/us/album/ios2055",
+                    "targetPlatform": "appleMusic",
+                    "isAlbum": true
+                }
+            ]
+        """.trimIndent()
+
+        val parsed = SqlDelightCacheStorage.parseLegacyIosHistoryJson(legacyIosJson, currentTimeMs = 1720000000000L)
+        assertEquals(2, parsed.size)
+
+        val migrated = storage.migrateLegacyEntries(parsed, "test_ios_migration_v1")
+        assertTrue(migrated, "First migration should execute and return true")
+
+        // Second call with same migration key must be idempotent no-op
+        val secondRun = storage.migrateLegacyEntries(parsed, "test_ios_migration_v1")
+        assertTrue(!secondRun, "Second migration call with same key should be skipped")
+
+        val cache = LinkCache(maxEntries = 20, storage = storage)
+        val entries = cache.getHistoryEntries(limit = 10)
+        assertEquals(2, entries.size)
+        val favItem = entries.first { it.title == "Legacy iOS Song" }
+        assertTrue(favItem.isFavorite)
+        assertEquals("Legacy Artist", favItem.artist)
+        assertEquals("https://open.spotify.com/track/ios123?si=abc", favItem.canonicalUrl)
+
+        val healedItem = entries.first { it.title == "Year 2055 Bug Song" }
+        assertEquals(1710000000000L, healedItem.timestamp, "2057/2055 reference date offset should be healed to 1710000000000ms")
+        storage.clear()
+    }
+
+    @Test
+    fun testFreeFavoriteLimitEnforcedAt10AndUnlimitedForPro() = runTest {
+        val cache = LinkCache(maxEntries = 50, ttlMs = 100_000L)
+        for (i in 1..12) {
+            cache.put("https://open.spotify.com/track/$i", "youtubeMusic", song(i), currentTimeMs = i.toLong())
+        }
+
+        // Free user can favorite 10 items
+        for (i in 1..10) {
+            val key = "https://open.spotify.com/track/$i|youtubeMusic"
+            val res = cache.toggleFavoriteWithLimit(key, isPro = false, maxFreeFavorites = 10)
+            assertEquals(FavoriteToggleResult.ADDED, res, "Item $i should be added as favorite for Free user")
+        }
+        assertEquals(10, cache.getFavoriteCount())
+
+        // 11th favorite for Free user must return LIMIT_REACHED and not be added
+        val key11 = "https://open.spotify.com/track/11|youtubeMusic"
+        val res11 = cache.toggleFavoriteWithLimit(key11, isPro = false, maxFreeFavorites = 10)
+        assertEquals(FavoriteToggleResult.LIMIT_REACHED, res11, "11th favorite must be blocked for Free user")
+        assertEquals(10, cache.getFavoriteCount())
+
+        // Unfavoriting an existing favorite is always allowed for Free user
+        val key1 = "https://open.spotify.com/track/1|youtubeMusic"
+        val resRemove = cache.toggleFavoriteWithLimit(key1, isPro = false, maxFreeFavorites = 10)
+        assertEquals(FavoriteToggleResult.REMOVED, resRemove)
+        assertEquals(9, cache.getFavoriteCount())
+
+        // Now Free user can add 11th since count is 9
+        val res11Retry = cache.toggleFavoriteWithLimit(key11, isPro = false, maxFreeFavorites = 10)
+        assertEquals(FavoriteToggleResult.ADDED, res11Retry)
+        assertEquals(10, cache.getFavoriteCount())
+
+        // Pro user can add 11th and 12th without limit
+        val res1Pro = cache.toggleFavoriteWithLimit(key1, isPro = true, maxFreeFavorites = 10)
+        val res12Pro = cache.toggleFavoriteWithLimit("https://open.spotify.com/track/12|youtubeMusic", isPro = true, maxFreeFavorites = 10)
+        assertEquals(FavoriteToggleResult.ADDED, res1Pro)
+        assertEquals(FavoriteToggleResult.ADDED, res12Pro)
+        assertEquals(12, cache.getFavoriteCount())
+    }
 }
+
 

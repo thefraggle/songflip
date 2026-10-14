@@ -303,7 +303,7 @@
     <string name="pro_feature_playlists_title">Siirrä soittolistat</string>
     <string name="pro_feature_playlists_desc">Siirrä kokonaiset soittolistat omaan palveluusi</string>
     <string name="pro_feature_history_title">Laajempi historia</string>
-    <string name="pro_feature_history_desc">100 kappaletta 10:n sijaan tallessa</string>
+    <string name="pro_feature_history_desc">100 historiamerkintää ja rajattomat suosikit</string>
     <string name="pro_feature_cache_title">Nopeampi avaus</string>
     <string name="pro_feature_cache_desc">Suositut kappaleet avautuvat ilman odottelua</string>
     <string name="pro_feature_links_title">Jaa kaikille</string>
@@ -362,4 +362,5 @@
     <string name="disambiguate_empty">Vaihtoehtoisia versioita ei löytynyt</string>
     <string name="disambiguate_error">Versioita ei voitu ladata</string>
     <string name="history_qr_action">Näytä QR-koodi</string>
+    <string name="favorite_limit_reached">Olet saavuttanut 10 ilmaisen suosikin rajan. Hanki SongFlip PRO saadaksesi rajattomat suosikit ja 100 historiamerkintää.</string>
 </resources>

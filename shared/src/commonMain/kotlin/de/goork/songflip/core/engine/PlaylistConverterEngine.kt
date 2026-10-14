@@ -38,6 +38,17 @@ class PlaylistConverterEngine(
         isLenient = true
     }
 
+    @Throws(Throwable::class)
+    suspend fun convertPlaylistOrThrow(
+        url: String,
+        targetPlatformKey: String,
+        isPro: Boolean = false,
+        maxTracks: Int = 200,
+        authToken: String? = null
+    ): PlaylistConversionResult {
+        return convertPlaylist(url, targetPlatformKey, isPro, maxTracks, authToken).getOrThrow()
+    }
+
     suspend fun convertPlaylist(
         url: String,
         targetPlatformKey: String,

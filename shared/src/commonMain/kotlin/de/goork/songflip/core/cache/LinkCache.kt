@@ -246,9 +246,22 @@ class LinkCache(
         entries.size
     }
 
+    private fun syncFromStorage(currentTimeMs: Long): Map<String, CacheEntry> {
+        val allLoaded = storage.loadAll()
+        for ((k, loadedEntry) in allLoaded) {
+            if (loadedEntry.isRetained(currentTimeMs)) {
+                val memEntry = entries[k]
+                if (memEntry == null || loadedEntry.timestamp >= memEntry.timestamp || loadedEntry.isFavorite != memEntry.isFavorite) {
+                    entries[k] = loadedEntry
+                }
+            }
+        }
+        return allLoaded
+    }
+
     suspend fun getHistoryEntries(limit: Int = 10, currentTimeMs: Long = getCurrentTimeMillis()): List<LinkHistoryItem> = mutex.withLock {
         ensureLoaded(currentTimeMs)
-        val allLoaded = storage.loadAll()
+        val allLoaded = syncFromStorage(currentTimeMs)
         val combinedKeys = mutableSetOf<String>()
         combinedKeys.addAll(entries.keys)
         combinedKeys.addAll(allLoaded.keys)
@@ -286,6 +299,27 @@ class LinkCache(
         }
     }
 
+    private fun countFavoritesInternal(currentTimeMs: Long): Int {
+        val allLoaded = syncFromStorage(currentTimeMs)
+        val combinedKeys = mutableSetOf<String>()
+        combinedKeys.addAll(entries.keys)
+        combinedKeys.addAll(allLoaded.keys)
+
+        var count = 0
+        for (key in combinedKeys) {
+            val entry = entries[key] ?: allLoaded[key]
+            if (entry != null && entry.isFavorite && entry.targetUrl.isNotBlank()) {
+                count++
+            }
+        }
+        return count
+    }
+
+    suspend fun getFavoriteCount(currentTimeMs: Long = getCurrentTimeMillis()): Int = mutex.withLock {
+        ensureLoaded(currentTimeMs)
+        countFavoritesInternal(currentTimeMs)
+    }
+
     suspend fun toggleFavorite(cacheKey: String, currentTimeMs: Long = getCurrentTimeMillis()): Boolean = mutex.withLock {
         ensureLoaded(currentTimeMs)
         val existing = entries[cacheKey] ?: storage.get(cacheKey)
@@ -300,6 +334,34 @@ class LinkCache(
         }
     }
 
+    suspend fun toggleFavoriteWithLimit(
+        cacheKey: String,
+        isPro: Boolean,
+        maxFreeFavorites: Int = 10,
+        currentTimeMs: Long = getCurrentTimeMillis()
+    ): FavoriteToggleResult = mutex.withLock {
+        ensureLoaded(currentTimeMs)
+        val existing = entries[cacheKey] ?: storage.get(cacheKey) ?: return@withLock FavoriteToggleResult.NOT_FOUND
+        if (existing.isFavorite) {
+            val updated = existing.copy(isFavorite = false)
+            entries[cacheKey] = updated
+            storage.put(cacheKey, updated)
+            return@withLock FavoriteToggleResult.REMOVED
+        }
+
+        if (!isPro && maxFreeFavorites > 0) {
+            val currentFavCount = countFavoritesInternal(currentTimeMs)
+            if (currentFavCount >= maxFreeFavorites) {
+                return@withLock FavoriteToggleResult.LIMIT_REACHED
+            }
+        }
+
+        val updated = existing.copy(isFavorite = true, isHistory = true)
+        entries[cacheKey] = updated
+        storage.put(cacheKey, updated)
+        FavoriteToggleResult.ADDED
+    }
+
     suspend fun setFavorite(cacheKey: String, isFavorite: Boolean, currentTimeMs: Long = getCurrentTimeMillis()) = mutex.withLock {
         ensureLoaded(currentTimeMs)
         val existing = entries[cacheKey] ?: storage.get(cacheKey)
@@ -308,6 +370,70 @@ class LinkCache(
             entries[cacheKey] = updated
             storage.put(cacheKey, updated)
         }
+    }
+
+    suspend fun addHistoryEntry(
+        canonicalUrl: String,
+        targetPlatformKey: String,
+        targetUrl: String,
+        platform: String,
+        title: String? = null,
+        artist: String? = null,
+        isAlbum: Boolean = false,
+        thumbnailUrl: String? = null,
+        timestamp: Long = getCurrentTimeMillis(),
+        isFavorite: Boolean? = null
+    ): String = mutex.withLock {
+        ensureLoaded(timestamp)
+        val key = buildKey(canonicalUrl, targetPlatformKey)
+        val existing = entries[key] ?: storage.get(key)
+        val resolvedFav = isFavorite ?: (existing?.isFavorite == true)
+
+        val entry = CacheEntry(
+            targetUrl = targetUrl,
+            platform = platform,
+            title = title ?: existing?.title,
+            artist = artist ?: existing?.artist,
+            isAlbum = isAlbum,
+            nativeAppUri = existing?.nativeAppUri,
+            timestamp = timestamp,
+            isHistory = true,
+            thumbnailUrl = thumbnailUrl ?: existing?.thumbnailUrl,
+            isFavorite = resolvedFav
+        )
+
+        entries.remove(key)
+        entries[key] = entry
+        storage.put(key, entry)
+        evictOverflow()
+        key
+    }
+
+    suspend fun updateHistoryEntry(
+        cacheKey: String,
+        newTargetUrl: String,
+        newTitle: String? = null,
+        newArtist: String? = null,
+        newPlatform: String? = null,
+        isAlbum: Boolean? = null,
+        thumbnailUrl: String? = null,
+        currentTimeMs: Long = getCurrentTimeMillis()
+    ): Boolean = mutex.withLock {
+        ensureLoaded(currentTimeMs)
+        val existing = entries[cacheKey] ?: storage.get(cacheKey) ?: return@withLock false
+        val updated = existing.copy(
+            targetUrl = newTargetUrl,
+            platform = newPlatform ?: existing.platform,
+            title = newTitle ?: existing.title,
+            artist = newArtist ?: existing.artist,
+            isAlbum = isAlbum ?: existing.isAlbum,
+            thumbnailUrl = thumbnailUrl ?: existing.thumbnailUrl,
+            timestamp = currentTimeMs,
+            isHistory = true
+        )
+        entries[cacheKey] = updated
+        storage.put(cacheKey, updated)
+        true
     }
 
     suspend fun updateTargetUrl(
@@ -334,7 +460,7 @@ class LinkCache(
 
     suspend fun getHistoryCount(currentTimeMs: Long = getCurrentTimeMillis()): Int = mutex.withLock {
         ensureLoaded(currentTimeMs)
-        val allLoaded = storage.loadAll()
+        val allLoaded = syncFromStorage(currentTimeMs)
         val combinedKeys = mutableSetOf<String>()
         combinedKeys.addAll(entries.keys)
         combinedKeys.addAll(allLoaded.keys)
@@ -357,4 +483,11 @@ class LinkCache(
     suspend fun setFavoriteForUrl(url: String, targetPlatformKey: String, isFavorite: Boolean) {
         setFavorite(buildKey(url, targetPlatformKey), isFavorite)
     }
+}
+
+enum class FavoriteToggleResult {
+    ADDED,
+    REMOVED,
+    LIMIT_REACHED,
+    NOT_FOUND
 }
