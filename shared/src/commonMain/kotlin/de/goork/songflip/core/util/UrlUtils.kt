@@ -138,7 +138,24 @@ object UrlUtils {
             return "https://$subdomain.bandcamp.com/$type/$slug"
         }
 
-        // 9. Generic Query Parameter Stripping (si, context, rowId, utm_*, ad-tracking)
+        // 9. Beatport: beatport.com/(?:[a-z]{2}/)?(track|release)/{slug}/{id}
+        val beatportMatch = Regex("(?:https?://)?(?:www\\.)?beatport\\.com(?:/[a-z]{2})?/(track|release)/([a-zA-Z0-9_-]+)/(\\d+)").find(clean)
+        if (beatportMatch != null) {
+            val type = beatportMatch.groupValues[1]
+            val slug = beatportMatch.groupValues[2]
+            val id = beatportMatch.groupValues[3]
+            return "https://www.beatport.com/$type/$slug/$id"
+        }
+
+        // 10. Qobuz: (open|play|www).qobuz.com/(?:[a-z]{2}-[a-z]{2}/)?(track|album)/([a-zA-Z0-9_-]+/)?(\\d+)
+        val qobuzMatch = Regex("(?:https?://)?(?:open|play|www)\\.qobuz\\.com(?:/[a-z]{2}(?:-[a-z]{2})?)?/(track|album)/(?:[a-zA-Z0-9_-]+/)?([0-9a-zA-Z]+)").find(clean)
+        if (qobuzMatch != null) {
+            val type = qobuzMatch.groupValues[1]
+            val id = qobuzMatch.groupValues[2]
+            return "https://open.qobuz.com/$type/$id"
+        }
+
+        // 11. Generic Query Parameter Stripping (si, context, rowId, utm_*, ad-tracking)
         if (clean.contains("?")) {
             val base = clean.substringBefore("?")
             val query = clean.substringAfter("?")
@@ -347,6 +364,8 @@ object UrlUtils {
             isHostOrSubdomain(host, "amzn.to", "amzn.eu", "amzn.asia", "a.co") || host.startsWith("music.amazon.") || host.startsWith("amazon.") || host.contains(".amazon.") -> MusicPlatform.AMAZON_MUSIC
             isHostOrSubdomain(host, "soundcloud.com") -> MusicPlatform.SOUNDCLOUD
             isHostOrSubdomain(host, "bandcamp.com") -> MusicPlatform.BANDCAMP
+            isHostOrSubdomain(host, "qobuz.com") -> MusicPlatform.QOBUZ
+            isHostOrSubdomain(host, "beatport.com") -> MusicPlatform.BEATPORT
             else -> null
         }
     }
@@ -362,7 +381,9 @@ object UrlUtils {
                 (isHostOrSubdomain(host, "tidal.com") && path.contains("/search")) ||
                 ((host.contains("amazon.") || isHostOrSubdomain(host, "amzn.to")) && path.contains("/search")) ||
                 (isHostOrSubdomain(host, "soundcloud.com") && path.contains("/search")) ||
-                (isHostOrSubdomain(host, "bandcamp.com") && path.contains("/search"))
+                (isHostOrSubdomain(host, "bandcamp.com") && path.contains("/search")) ||
+                (isHostOrSubdomain(host, "qobuz.com") && path.contains("/search")) ||
+                (isHostOrSubdomain(host, "beatport.com") && path.contains("/search"))
     }
 
     fun extractSearchQuery(url: String): String? {
@@ -432,6 +453,22 @@ object UrlUtils {
             // Bandcamp: bandcamp.com/search?q=...
             isHostOrSubdomain(host, "bandcamp.com") && lower.contains("/search") -> {
                 clean.substringAfter("q=").substringBefore("&")
+            }
+            // Qobuz: open.qobuz.com/search/{query} or ?q=...
+            isHostOrSubdomain(host, "qobuz.com") && lower.contains("/search") -> {
+                if (clean.contains("q=")) {
+                    clean.substringAfter("q=").substringBefore("&")
+                } else {
+                    clean.substringAfter("/search/").substringBefore("?").substringBefore("&")
+                }
+            }
+            // Beatport: beatport.com/search?q={query}
+            isHostOrSubdomain(host, "beatport.com") && lower.contains("/search") -> {
+                if (clean.contains("q=")) {
+                    clean.substringAfter("q=").substringBefore("&")
+                } else {
+                    clean.substringAfter("/search/").substringBefore("?").substringBefore("&")
+                }
             }
             else -> null
         }
@@ -545,6 +582,8 @@ object UrlUtils {
             "amazonMusic" -> "https://music.amazon.com/search/$query"
             "soundcloud" -> "https://soundcloud.com/search?q=$query"
             "bandcamp" -> "https://bandcamp.com/search?q=$query"
+            "qobuz" -> "https://open.qobuz.com/search/$query"
+            "beatport" -> "https://www.beatport.com/search?q=$query"
             else -> "https://music.youtube.com/search?q=$query"
         }
     }
@@ -638,8 +677,26 @@ object UrlUtils {
             "amazonMusic" -> toNativeAmazonMusicUri(url)
             "soundcloud" -> toNativeSoundCloudUri(url)
             "bandcamp" -> toNativeBandcampUri(url)
+            "qobuz" -> toNativeQobuzUri(url)
+            "beatport" -> toNativeBeatportUri(url)
             else -> url
         }
+    }
+
+    fun toNativeQobuzUri(url: String): String {
+        if (url.startsWith("qobuz://")) return url
+        val clean = url.trim().substringBefore("?")
+        val match = Regex("(?:open|play|www)\\.qobuz\\.com(?:/[a-z]{2}(?:-[a-z]{2})?)?/(track|album)/([0-9a-zA-Z]+)").find(clean)
+        if (match != null) {
+            val type = match.groupValues[1]
+            val id = match.groupValues[2]
+            return "qobuz://$type/$id"
+        }
+        return url
+    }
+
+    fun toNativeBeatportUri(url: String): String {
+        return url
     }
 
     fun toNativeSpotifyUri(url: String): String {

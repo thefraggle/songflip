@@ -66,6 +66,7 @@
     <string name="target_deezer">Deezer</string>
     <string name="target_amazon_music">Amazon Music</string>
     <string name="target_soundcloud">SoundCloud</string>
+    <string name="target_qobuz">Qobuz</string>
     <string name="soundcloud_target_hint">SoundCloud se centra en remixes y pistas indie. Las canciones sin coincidencia directa se abren en la búsqueda de SoundCloud.</string>
     <string name="status_installed">App instalada</string>
     <string name="status_browser">Navegador web</string>

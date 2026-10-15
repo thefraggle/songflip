@@ -77,6 +77,7 @@
     <string name="action_paste">Beillesztés a vágólapról</string>
     <string name="target_amazon_music">Amazon Music</string>
     <string name="target_soundcloud">SoundCloud</string>
+    <string name="target_qobuz">Qobuz</string>
     <string name="soundcloud_target_hint">A SoundCloud főként remixekre és indie dalokra épül. A közvetlen egyezés nélküli dalok a SoundCloud keresőjében nyílnak meg.</string>
     <string name="status_paused">A SongFlip szüneteltetve van</string>
     <string name="status_paused_until">Szüneteltetve eddig: %1$s</string>

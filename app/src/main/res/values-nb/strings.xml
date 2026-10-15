@@ -66,6 +66,7 @@
     <string name="target_deezer">Deezer</string>
     <string name="target_amazon_music">Amazon Music</string>
     <string name="target_soundcloud">SoundCloud</string>
+    <string name="target_qobuz">Qobuz</string>
     <string name="soundcloud_target_hint">SoundCloud fokuserer på remikser og indie-låter. Sanger uten direkte treff åpnes automatisk i SoundCloud-søket.</string>
     <string name="status_installed">App installert</string>
     <string name="status_browser">Nettleser</string>

@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.9.1] - 2026-10-15
+- **Neue Musikdienste**: Volle Unterstützung für Musik-Links von Qobuz und Beatport – entdecke und teile Songs aus noch mehr Quellen.
+- **Qobuz als Ziel-Player**: Wähle Qobuz als bevorzugten Musik-Player aus, um weitergeleitete Songs direkt in bester Klangqualität zu genießen.
+- **Schnellere Weiterleitung**: Optimierte Erkennung von Musiktiteln und zuverlässigere Vorschauen für geteilte Links.
+
 ## [1.9.0] - 2026-10-14
 - **Favoriten im Verlauf**: Markiere Lieblingssongs direkt im Verlauf mit einem Stern und filtere deine Favoriten jederzeit mit einem Fingertipp.
 - **Schnellerer & zuverlässigerer Verlauf**: Grundlegend erneuerte lokale Speicherung für sofortiges Laden und lückenlose Synchronisation über das Teilen-Menü und Kurzbefehle.

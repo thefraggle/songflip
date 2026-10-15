@@ -121,6 +121,7 @@
         <package android:name="com.amazon.mp3" />
         <package android:name="com.soundcloud.android" />
         <package android:name="com.bandcamp.android" />
+        <package android:name="com.qobuz.music" />
     </queries>
 
     <application
@@ -287,6 +288,30 @@
                 <data android:scheme="https" />
                 <data android:host="shazam.com" />
                 <data android:host="www.shazam.com" />
+            </intent-filter>
+
+            <!-- Beatport URL Interception -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="beatport.com" />
+                <data android:host="www.beatport.com" />
+            </intent-filter>
+
+            <!-- Qobuz URL Interception -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="qobuz.com" />
+                <data android:host="open.qobuz.com" />
+                <data android:host="play.qobuz.com" />
+                <data android:host="www.qobuz.com" />
             </intent-filter>
         </activity>
 

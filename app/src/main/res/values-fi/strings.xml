@@ -77,6 +77,7 @@
     <string name="action_paste">Liitä leikepöydältä</string>
     <string name="target_amazon_music">Amazon Music</string>
     <string name="target_soundcloud">SoundCloud</string>
+    <string name="target_qobuz">Qobuz</string>
     <string name="soundcloud_target_hint">SoundCloud keskittyy remikseihin ja indie-kappaleisiin. Kappaleet, joille ei löydy suoraa vastinetta, avataan SoundCloud-haussa.</string>
     <string name="status_paused">SongFlip on tauolla</string>
     <string name="status_paused_until">Tauolla asti: %1$s</string>

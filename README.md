@@ -4,7 +4,7 @@
   <img src="docs/assets/store/og-image-en.png" alt="SongFlip Feature Graphic" width="100%">
 </p>
 
-**SongFlip** is an automatic, zero-click music link redirector for Android & iOS (Spotify ⇄ Apple Music ⇄ YouTube Music ⇄ Tidal ⇄ Deezer ⇄ Amazon Music ⇄ SoundCloud ⇄ Bandcamp).
+**SongFlip** is an automatic, zero-click music link redirector for Android & iOS (Spotify ⇄ Apple Music ⇄ YouTube Music ⇄ Tidal ⇄ Deezer ⇄ Amazon Music ⇄ SoundCloud ⇄ Bandcamp ⇄ Qobuz ⇄ Beatport).
 
 Official Website: [songflip.link](https://songflip.link)
 
@@ -31,6 +31,8 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
   - 🎙️ **Pocket Casts** (`pocketcasts.com`, `pca.st`)
   - 🟠 **SoundCloud** (`soundcloud.com`, `on.soundcloud.com` — full source & target player support with `soundcloud://` deep-links)
   - 🎸 **Bandcamp** (`bandcamp.com`, `*.bandcamp.com`)
+  - 🎶 **Qobuz** (`qobuz.com`, `open.qobuz.com` — full source & target player support with Hi-Res playback)
+  - 🎧 **Beatport** (`beatport.com` — source link recognition & instant redirection)
 - **📱 Flexible Player Selection**: When multiple compatible players are installed on your device (e.g. YouTube Music, NewTube, RiMusic, etc.), choose your preferred default player in Settings or switch directly with a single tap from the main player card.
 - **⚡ Shazam Link Interception**: Songs identified with Shazam open directly and reliably in your preferred music player.
 - **🎯 Quick Player Picker ("Ask every time")**: Optional setting for users with multiple streaming apps to pick where each song should play with a single tap.
