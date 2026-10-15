@@ -1,10 +1,10 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
-    id("org.jetbrains.kotlin.multiplatform")
-    id("com.android.library")
-    id("org.jetbrains.kotlin.plugin.serialization")
-    id("app.cash.sqldelight")
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.sqldelight)
 }
 
 kotlin {
@@ -32,27 +32,27 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
-            implementation("io.ktor:ktor-client-core:2.3.13")
-            implementation("io.ktor:ktor-client-content-negotiation:2.3.13")
-            implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.13")
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
-            implementation("app.cash.sqldelight:runtime:2.0.2")
-            implementation("app.cash.sqldelight:coroutines-extensions:2.0.2")
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.sqldelight.runtime)
+            implementation(libs.sqldelight.coroutines)
         }
         commonTest.dependencies {
             implementation(kotlin("test"))
-            implementation("io.ktor:ktor-client-mock:2.3.13")
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
+            implementation(libs.ktor.client.mock)
+            implementation(libs.kotlinx.coroutines.test)
         }
         androidMain.dependencies {
-            implementation("io.ktor:ktor-client-okhttp:2.3.13")
-            implementation("app.cash.sqldelight:android-driver:2.0.2")
-            implementation("app.cash.sqldelight:sqlite-driver:2.0.2")
+            implementation(libs.ktor.client.okhttp)
+            implementation(libs.sqldelight.driver.android)
+            implementation(libs.sqldelight.driver.sqlite)
         }
         iosMain.dependencies {
-            implementation("io.ktor:ktor-client-darwin:2.3.13")
-            implementation("app.cash.sqldelight:native-driver:2.0.2")
+            implementation(libs.ktor.client.darwin)
+            implementation(libs.sqldelight.driver.native)
         }
     }
 }
