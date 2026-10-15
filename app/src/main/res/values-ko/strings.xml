@@ -66,6 +66,7 @@
     <string name="target_deezer">Deezer</string>
     <string name="target_amazon_music">Amazon Music</string>
     <string name="target_soundcloud">SoundCloud</string>
+    <string name="target_qobuz">Qobuz</string>
     <string name="soundcloud_target_hint">SoundCloud는 리믹스 및 인디 트랙 중심입니다. 직접 일치하지 않는 곡은 자동으로 SoundCloud 검색으로 열립니다.</string>
     <string name="status_installed">앱 설치됨</string>
     <string name="status_browser">웹 브라우저</string>

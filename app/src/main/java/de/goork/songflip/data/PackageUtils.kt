@@ -19,7 +19,8 @@ object PackageUtils {
         "deezer" to "deezer.android.app",
         "amazonMusic" to "com.amazon.mp3",
         "soundcloud" to "com.soundcloud.android",
-        "bandcamp" to "com.bandcamp.android"
+        "bandcamp" to "com.bandcamp.android",
+        "qobuz" to "com.qobuz.music"
     )
 
     val fallbackPackages = mapOf(
@@ -171,6 +172,7 @@ object PackageUtils {
                 "amazonMusic" -> listOf("https://music.amazon.com/albums/B000000000")
                 "soundcloud" -> listOf("https://soundcloud.com/artist/track")
                 "bandcamp" -> listOf("https://artist.bandcamp.com/track/song")
+                "qobuz" -> listOf("https://open.qobuz.com/track/1068442", "qobuz://track/1068442")
                 else -> emptyList()
             }
             for (probeUrl in probeUrls) {
@@ -286,6 +288,8 @@ object PackageUtils {
             "amazonMusic" -> "Amazon Music"
             "soundcloud" -> "SoundCloud"
             "bandcamp" -> "Bandcamp"
+            "qobuz" -> "Qobuz"
+            "beatport" -> "Beatport"
             "universal" -> "Universal Link"
             "shazam" -> "Shazam"
             else -> cleanKey.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
@@ -304,6 +308,8 @@ object PackageUtils {
             lower.contains("amazon.") || lower.contains("amzn.to") || lower.contains("amzn.eu") || lower.contains("amzn.asia") || lower.contains("a.co") -> "amazonMusic"
             lower.contains("soundcloud.com") || lower.contains("on.soundcloud.com") || lower.startsWith("soundcloud:") -> "soundcloud"
             lower.contains("bandcamp.com") || lower.startsWith("bandcamp:") -> "bandcamp"
+            lower.contains("qobuz.com") || lower.startsWith("qobuz:") -> "qobuz"
+            lower.contains("beatport.com") || lower.startsWith("beatport:") -> "beatport"
             lower.contains("shazam.com") -> "shazam"
             else -> ""
         }

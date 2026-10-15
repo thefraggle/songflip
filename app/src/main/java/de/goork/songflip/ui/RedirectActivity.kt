@@ -116,6 +116,7 @@ class RedirectActivity : ComponentActivity() {
                     "amazonMusic" -> incomingPlatform == de.goork.songflip.core.model.MusicPlatform.AMAZON_MUSIC
                     "soundcloud" -> incomingPlatform == de.goork.songflip.core.model.MusicPlatform.SOUNDCLOUD
                     "bandcamp" -> incomingPlatform == de.goork.songflip.core.model.MusicPlatform.BANDCAMP
+                    "qobuz" -> incomingPlatform == de.goork.songflip.core.model.MusicPlatform.QOBUZ
                     else -> false
                 }
                 if (isSamePlatform) {

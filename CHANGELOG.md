@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.9.1] - 2026-10-15
+- **New Music Services**: Full support for shared Qobuz and Beatport links – open music from even more sources seamlessly.
+- **Qobuz as Target Player**: Set Qobuz as your preferred music player to open incoming links and searches directly in high-res audio.
+- **Faster Link Resolution**: Refined song matching and improved reliability across web previews and shared music pages.
+
 ## [1.9.0] - 2026-10-14
 - **Favorites Everywhere**: Pin favorite songs with one tap in your history and filter your saved favorites at any time.
 - **Faster & More Reliable History**: Rebuilt local history and song storage for instant loading and rock-solid synchronization across share menus and shortcuts.

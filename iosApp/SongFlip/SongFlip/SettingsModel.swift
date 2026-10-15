@@ -17,6 +17,7 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
     case deezer = "deezer"
     case amazonMusic = "amazonMusic"
     case soundcloud = "soundcloud"
+    case qobuz = "qobuz"
 
     var id: String { rawValue }
 
@@ -29,6 +30,7 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
         case .deezer: return "Deezer"
         case .amazonMusic: return "Amazon Music"
         case .soundcloud: return "SoundCloud"
+        case .qobuz: return "Qobuz"
         }
     }
 
@@ -41,6 +43,7 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
         case .deezer: return "music.quarternote.3"
         case .amazonMusic: return "cart.fill"
         case .soundcloud: return "cloud.fill"
+        case .qobuz: return "waveform.circle.fill"
         }
     }
 
@@ -53,6 +56,7 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
         case .deezer: return Color(red: 0.64, green: 0.22, blue: 1.0)
         case .amazonMusic: return Color(red: 0.15, green: 0.82, blue: 0.85)
         case .soundcloud: return Color(red: 1.0, green: 0.33, blue: 0.0)
+        case .qobuz: return Color(red: 0.0, green: 0.45, blue: 0.82)
         }
     }
 }
@@ -67,6 +71,8 @@ func platformColor(for key: String) -> Color {
     case "amazonmusic", "amazon": return Color(red: 0.15, green: 0.82, blue: 0.85)
     case "soundcloud": return Color(red: 1.0, green: 0.33, blue: 0.0)
     case "bandcamp": return Color(red: 0.11, green: 0.63, blue: 0.76)
+    case "qobuz": return Color(red: 0.0, green: 0.45, blue: 0.82)
+    case "beatport": return Color(red: 0.0, green: 0.85, blue: 0.5)
     default: return .green
     }
 }
@@ -81,6 +87,8 @@ func platformIcon(for key: String) -> String {
     case "amazonmusic", "amazon": return "cart.fill"
     case "soundcloud": return "waveform"
     case "bandcamp": return "opticaldisc"
+    case "qobuz": return "waveform.circle.fill"
+    case "beatport": return "headphones"
     default: return "music.note.list"
     }
 }
@@ -95,6 +103,8 @@ func detectSourcePlatformName(url: String) -> String {
     if lower.contains("amazon.") || lower.contains("amzn.to") || lower.contains("a.co") { return "Amazon Music" }
     if lower.contains("soundcloud.com") || lower.contains("on.soundcloud.com") { return "SoundCloud" }
     if lower.contains("bandcamp.com") { return "Bandcamp" }
+    if lower.contains("qobuz.com") { return "Qobuz" }
+    if lower.contains("beatport.com") { return "Beatport" }
     if lower.contains("song.link") || lower.contains("album.link") || lower.contains("odesli.co") { return "Universal Link" }
     return "Music Link"
 }

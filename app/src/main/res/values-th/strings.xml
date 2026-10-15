@@ -77,6 +77,7 @@
     <string name="action_paste">วางจากคลิปบอร์ด</string>
     <string name="target_amazon_music">Amazon Music</string>
     <string name="target_soundcloud">SoundCloud</string>
+    <string name="target_qobuz">Qobuz</string>
     <string name="soundcloud_target_hint">SoundCloud เน้นเพลงรีมิกซ์และอินดี้ เพลงที่ไม่มีลิงก์ตรงจะถูกเปิดในหน้าค้นหาของ SoundCloud โดยอัตโนมัติ</string>
     <string name="status_paused">SongFlip หยุดชั่วคราว</string>
     <string name="status_paused_until">หยุดชั่วคราวถึง %1$s</string>

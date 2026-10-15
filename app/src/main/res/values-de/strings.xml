@@ -91,6 +91,7 @@
 
     <string name="target_amazon_music">Amazon Music</string>
     <string name="target_soundcloud">SoundCloud</string>
+    <string name="target_qobuz">Qobuz</string>
     <string name="soundcloud_target_hint">SoundCloud bietet vor allem Remixe &amp; Indie-Tracks. Nicht direkt gelistete Songs werden automatisch in der SoundCloud-Suche geöffnet.</string>
 
     <string name="status_paused">SongFlip ist pausiert</string>

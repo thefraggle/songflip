@@ -66,6 +66,7 @@
     <string name="target_deezer">Deezer</string>
     <string name="target_amazon_music">Amazon Music</string>
     <string name="target_soundcloud">SoundCloud</string>
+    <string name="target_qobuz">Qobuz</string>
     <string name="soundcloud_target_hint">SoundCloudはリミックスやインディーズ曲が中心です。直接一致しない曲は自動的にSoundCloud検索で開きます。</string>
     <string name="status_installed">アプリインストール済み</string>
     <string name="status_browser">ウェブブラウザ</string>

@@ -56,6 +56,18 @@ enum class MusicPlatform(
         displayName = "Bandcamp",
         androidPackage = "com.bandcamp.android",
         iosScheme = "bandcamp://"
+    ),
+    QOBUZ(
+        key = "qobuz",
+        displayName = "Qobuz",
+        androidPackage = "com.qobuz.music",
+        iosScheme = "qobuz://"
+    ),
+    BEATPORT(
+        key = "beatport",
+        displayName = "Beatport",
+        androidPackage = "com.beatport.mobile",
+        iosScheme = "beatport://"
     );
 
     companion object {

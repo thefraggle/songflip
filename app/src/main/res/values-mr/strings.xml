@@ -66,6 +66,7 @@
     <string name="target_deezer">Deezer</string>
     <string name="target_amazon_music">Amazon Music</string>
     <string name="target_soundcloud">SoundCloud</string>
+    <string name="target_qobuz">Qobuz</string>
     <string name="soundcloud_target_hint">SoundCloud प्रामुख्याने रीमिक्स आणि इंडी ट्रॅकवर लक्ष केंद्रित करते. थेट न जुळणारी गाणी आपोआप SoundCloud शोधामध्ये उघडतात.</string>
     <string name="status_installed">ॲप इन्स्टॉल आहे</string>
     <string name="status_browser">वेब ब्राउझर</string>

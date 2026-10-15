@@ -3,8 +3,10 @@ package de.goork.songflip.core.engine
 import de.goork.songflip.core.cache.LinkCache
 import de.goork.songflip.core.cache.createDefaultCacheStorage
 import de.goork.songflip.core.engine.resolvers.AppleMusicResolver
+import de.goork.songflip.core.engine.resolvers.BeatportResolver
 import de.goork.songflip.core.engine.resolvers.DeezerResolver
 import de.goork.songflip.core.engine.resolvers.PlatformResolver
+import de.goork.songflip.core.engine.resolvers.QobuzResolver
 import de.goork.songflip.core.engine.resolvers.SongLinkApiResolver
 import de.goork.songflip.core.engine.resolvers.SpotifyResolver
 import de.goork.songflip.core.engine.resolvers.TidalResolver
@@ -66,6 +68,8 @@ class SongLinkEngine(
     val youTubeMusicResolver = YouTubeMusicResolver(client)
     val spotifyResolver = SpotifyResolver(client, json)
     val songLinkApiResolver = SongLinkApiResolver(client, json)
+    val qobuzResolver = QobuzResolver(client, json)
+    val beatportResolver = BeatportResolver(client)
 
     private val backgroundScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
@@ -763,6 +767,7 @@ class SongLinkEngine(
             "deezer" -> deezerResolver
             "tidal" -> tidalResolver
             "spotify" -> spotifyResolver
+            "qobuz" -> qobuzResolver
             else -> null
         }
         val directMatch = if (isAlbum) {
@@ -779,6 +784,7 @@ class SongLinkEngine(
             "appleMusic" -> appleMusicResolver.resolveArtist(artistName)
             "youtubeMusic" -> youTubeMusicResolver.resolveArtist(artistName)
             "tidal" -> tidalResolver.resolveArtist(artistName)
+            "qobuz" -> qobuzResolver.resolveArtist(artistName)
             else -> null
         }
     }
@@ -863,6 +869,8 @@ internal data class SpotifyPodcastOEmbedDto(
                     }
                     null
                 }
+                MusicPlatform.QOBUZ -> qobuzResolver.extractMetadata(url)
+                MusicPlatform.BEATPORT -> beatportResolver.extractMetadata(url)
                 else -> {
                     if (url.contains("shazam.com")) {
                         val trackMatch = Regex("shazam\\.com/(?:[a-z]{2}(?:-[a-z]{2})?/)?track/([0-9]+)", RegexOption.IGNORE_CASE).find(url)
