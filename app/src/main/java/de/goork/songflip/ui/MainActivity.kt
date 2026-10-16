@@ -489,7 +489,6 @@ fun MainScreen(
             },
             isPro = proState.isPro,
             onOpenProPaywall = {
-                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("settings_sheet")
                 showProPaywall = true
             },
             onOpenSetupGuide = {
@@ -614,6 +613,12 @@ fun MainScreen(
                 },
                 onOpenSearch = {
                     showSearchBottomSheet = true
+                },
+                onOpenProPaywall = {
+                    if (!proState.isPro) {
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("header_pro_badge")
+                    }
+                    showProPaywall = true
                 },
                 isPro = proState.isPro
             )

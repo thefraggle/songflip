@@ -166,6 +166,7 @@ struct SearchSheetView: View {
             }
             .sheet(isPresented: $showingPaywallSheet) {
                 ProPaywallSheetView()
+                    .environmentObject(settings)
                     .preferredColorScheme(settings.colorScheme)
             }
             .sheet(item: $qrCodePayload) { payload in
@@ -267,6 +268,7 @@ struct SearchSheetView: View {
                     } else {
                         Button {
                             UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                            AptabaseClient.shared.trackEvent(eventName: "paywall_viewed", props: ["source": "search_universal_share"])
                             showingPaywallSheet = true
                         } label: {
                             Label("\(LocalizationManager.string(for: "share_universal_link", lang: lang)) 💎", systemImage: "square.and.arrow.up")

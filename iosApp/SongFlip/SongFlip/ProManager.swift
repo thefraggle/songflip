@@ -246,7 +246,13 @@ final class ProManager: NSObject, ObservableObject {
         defaults.set(false, forKey: Self.keyIsProCached)
     }
 
+    func trackPaywallImpression() {
+        guard Purchases.isConfigured else { return }
+        Purchases.shared.trackCustomPaywallImpression()
+    }
+
     func refreshOfferings() async {
+        guard Purchases.isConfigured else { return }
         do {
             let offerings = try await Purchases.shared.offerings()
             self.currentOffering = offerings.current ?? offerings["default"]

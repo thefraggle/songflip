@@ -340,6 +340,9 @@ fun SettingsBottomSheet(
                     .fillMaxWidth()
                     .clickable {
                         haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                        if (!isPro) {
+                            de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("settings_sheet")
+                        }
                         onOpenProPaywall()
                     }
             ) {

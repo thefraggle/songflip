@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.9.2] - 2026-10-16
+- **Manual Match Correction in History**: Quickly access manual song match selection directly from the history menu whenever a converted track needs a different version.
+- **Quick Header Navigation**: Open your account status and feature overview directly by tapping the header badge on the home screen.
+- **Localization & Stability**: Fixed a crash when opening nested sheets in certain languages and improved formatting reliability across all supported translations.
+
 ## [1.9.1] - 2026-10-15
 - **New Music Services**: Full support for shared Qobuz and Beatport links – open music from even more sources seamlessly.
 - **Qobuz as Target Player**: Set Qobuz as your preferred music player to open incoming links and searches directly in high-res audio.

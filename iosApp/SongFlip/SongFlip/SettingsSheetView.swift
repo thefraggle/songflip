@@ -176,10 +176,12 @@ struct SettingsSheetView: View {
             }
             .sheet(isPresented: $showingPaywallSheet) {
                 ProPaywallSheetView()
+                    .environmentObject(settings)
                     .preferredColorScheme(settings.colorScheme)
             }
             .sheet(isPresented: $showingFeedbackSheet) {
                 FeedbackSheetView()
+                    .environmentObject(settings)
                     .preferredColorScheme(settings.colorScheme)
             }
             .preferredColorScheme(settings.colorScheme)

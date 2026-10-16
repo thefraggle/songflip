@@ -84,18 +84,35 @@ fun ProPaywallBottomSheet(
     var couponCodeText by remember { mutableStateOf("") }
     var isRedeemingCoupon by remember { mutableStateOf(false) }
 
-    var isLoadingOfferings by remember { mutableStateOf(true) }
+    var isLoadingOfferings by remember { mutableStateOf(!proState.isPro) }
     var offeringsError by remember { mutableStateOf(false) }
+    var hasTrackedSheetImpression by remember { mutableStateOf(false) }
 
     fun loadOfferings() {
         isLoadingOfferings = true
         offeringsError = false
         ProManager.getOfferings(
             onSuccess = { offerings ->
-                currentOffering = offerings.current
-                availablePackages = offerings.current?.availablePackages ?: emptyList()
-                offeringsError = availablePackages.isEmpty()
+                val current = offerings.current
+                val pkgs = current?.availablePackages ?: emptyList()
+                currentOffering = current
+                availablePackages = pkgs
+                offeringsError = pkgs.isEmpty()
                 isLoadingOfferings = false
+
+                if (!proState.isPro && !hasTrackedSheetImpression) {
+                    hasTrackedSheetImpression = true
+                    val resolvedLayout = PaywallPricing.resolveLayout(current?.metadata?.get(PaywallPricing.LAYOUT_METADATA_KEY))
+                    val annualPkg = pkgs.firstOrNull { it.packageType == PackageType.ANNUAL }
+                    val monthlyPkg = pkgs.firstOrNull { it.packageType == PackageType.MONTHLY }
+                    val lifetimePkg = pkgs.firstOrNull { it.packageType == PackageType.LIFETIME }
+                    val saleActive = isLifetimeSaleActive(lifetimePkg, annualPkg, monthlyPkg, current)
+                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed(
+                        source = "paywall_sheet",
+                        layout = resolvedLayout.metadataValue,
+                        isSale = saleActive
+                    )
+                }
             },
             onError = {
                 isLoadingOfferings = false
@@ -105,7 +122,10 @@ fun ProPaywallBottomSheet(
     }
 
     LaunchedEffect(Unit) {
-        loadOfferings()
+        if (!proState.isPro) {
+            ProManager.trackPaywallImpression()
+            loadOfferings()
+        }
     }
 
     ModalBottomSheet(
@@ -434,7 +454,11 @@ fun ProPaywallBottomSheet(
                                 packageToPurchase = selectedPackage,
                                 onSuccess = {
                                     isPurchasing = false
-                                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackProPurchased(selectedPackage.identifier, layout = paywallLayout.metadataValue)
+                                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackProPurchased(
+                                        packageId = selectedPackage.identifier,
+                                        layout = paywallLayout.metadataValue,
+                                        isSale = isLifetimeSale
+                                    )
                                     Toast.makeText(context, context.getString(R.string.pro_active_status), Toast.LENGTH_SHORT).show()
                                     onDismissRequest()
                                 },
