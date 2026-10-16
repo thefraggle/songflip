@@ -328,6 +328,15 @@ struct ProPaywallSheetView: View {
                 )
             }
             .onAppear {
+                if !proManager.isPro {
+                    proManager.trackPaywallImpression()
+                }
+                if proManager.currentOffering == nil {
+                    Task {
+                        await proManager.refreshOfferings()
+                        selectedPackageType = shouldShowAnnualFirst ? .annual : .lifetime
+                    }
+                }
                 let initialType: PackageType = shouldShowAnnualFirst ? .annual : .lifetime
                 selectedPackageType = initialType
                 AptabaseClient.shared.trackEvent(eventName: "paywall_viewed", props: [

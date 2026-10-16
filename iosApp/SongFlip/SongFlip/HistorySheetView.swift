@@ -308,6 +308,7 @@ struct HistorySheetView: View {
                                         } else {
                                             Button {
                                                 UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                                AptabaseClient.shared.trackEvent(eventName: "paywall_viewed", props: ["source": "history_universal_share"])
                                                 showingPaywallSheet = true
                                             } label: {
                                                 Label("\(LocalizationManager.string(for: "share_universal_link", lang: lang)) 💎", systemImage: "square.and.arrow.up")
@@ -357,6 +358,7 @@ struct HistorySheetView: View {
                                                 if proManager.isPro {
                                                     disambiguateItem = item
                                                 } else {
+                                                    AptabaseClient.shared.trackEvent(eventName: "paywall_viewed", props: ["source": "history_disambiguate_pro"])
                                                     showingPaywallSheet = true
                                                 }
                                             } label: {
@@ -565,6 +567,7 @@ struct HistorySheetView: View {
             }
             .sheet(isPresented: $showingPaywallSheet) {
                 ProPaywallSheetView()
+                    .environmentObject(settings)
                     .preferredColorScheme(settings.colorScheme)
             }
             .sheet(item: $disambiguateItem) { targetItem in

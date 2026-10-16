@@ -535,6 +535,7 @@ struct PlaylistConverterView: View {
                     Spacer()
 
                     Button(action: {
+                        AptabaseClient.shared.trackEvent(eventName: "paywall_viewed", props: ["source": "playlist_limit_gate"])
                         onOpenPaywall()
                     }) {
                         Text(LocalizationManager.string(for: "playlist_btn_unlock_pro", lang: lang))

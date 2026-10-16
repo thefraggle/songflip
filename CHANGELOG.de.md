@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.9.2] - 2026-10-16
+- **Manuelle Treffer-Korrektur im Verlauf**: Korrigiere die Song-Zuordnung jetzt direkt über das Drei-Punkte-Menü im Verlauf, falls du eine bestimmte Version oder einen anderen Remix auswählen möchtest.
+- **Schnellzugriff im Kopfbereich**: Öffne deine Status- und Funktionsübersicht direkt per Fingertipp auf das Badge oben auf dem Startbildschirm.
+- **Übersetzungen & Stabilität**: Absturz beim Öffnen von Untermenüs in bestimmten Spracheinstellungen behoben sowie Formatierungen in allen unterstützten Sprachen korrigiert.
+
 ## [1.9.1] - 2026-10-15
 - **Neue Musikdienste**: Volle Unterstützung für Musik-Links von Qobuz und Beatport – entdecke und teile Songs aus noch mehr Quellen.
 - **Qobuz als Ziel-Player**: Wähle Qobuz als bevorzugten Musik-Player aus, um weitergeleitete Songs direkt in bester Klangqualität zu genießen.

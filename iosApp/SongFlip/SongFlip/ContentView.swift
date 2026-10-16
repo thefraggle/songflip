@@ -176,6 +176,7 @@ struct ContentView: View {
                             showingPaywallSheet = true
                         }
                     )
+                    .environmentObject(settings)
                     .preferredColorScheme(settings.colorScheme)
                 }
             }
@@ -192,6 +193,7 @@ struct ContentView: View {
             }
             .sheet(isPresented: $showingPaywallSheet) {
                 ProPaywallSheetView()
+                    .environmentObject(settings)
                     .preferredColorScheme(settings.colorScheme)
             }
             .sheet(isPresented: $showingQuickPicker) {
@@ -264,12 +266,18 @@ struct ContentView: View {
                     .font(.system(size: 28, weight: .bold))
                     .foregroundColor(.primary)
 
-                if proManager.isPro {
-                    Text("PRO")
+                Button(action: {
+                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    if !proManager.isPro {
+                        AptabaseClient.shared.trackEvent(eventName: "paywall_viewed", props: ["source": "header_pro_badge"])
+                    }
+                    showingPaywallSheet = true
+                }) {
+                    Text(proManager.isPro ? "PRO" : "💎 PRO")
                         .font(.system(size: 11, weight: .black))
                         .foregroundColor(.green)
-                        .padding(.horizontal, 6)
-                        .padding(.vertical, 2)
+                        .padding(.horizontal, 7)
+                        .padding(.vertical, 3)
                         .background(Color.green.opacity(0.18))
                         .overlay(
                             RoundedRectangle(cornerRadius: 6)
@@ -277,6 +285,7 @@ struct ContentView: View {
                         )
                         .cornerRadius(6)
                 }
+                .buttonStyle(.plain)
             }
 
             Text(LocalizationManager.string(for: "app_tagline", lang: lang))

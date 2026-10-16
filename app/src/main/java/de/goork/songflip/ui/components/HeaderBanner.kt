@@ -36,6 +36,7 @@ fun HeaderBanner(
     onOpenSettings: () -> Unit,
     onOpenHistory: () -> Unit = {},
     onOpenSearch: () -> Unit = {},
+    onOpenProPaywall: () -> Unit = {},
     isPro: Boolean = false,
     modifier: Modifier = Modifier
 ) {
@@ -90,26 +91,31 @@ fun HeaderBanner(
                             color = Color.White,
                             maxLines = 1
                         )
-                        if (isPro) {
-                            Surface(
-                                shape = RoundedCornerShape(6.dp),
-                                color = BrandSpotify.copy(alpha = 0.22f),
-                                border = androidx.compose.foundation.BorderStroke(1.dp, BrandSpotify.copy(alpha = 0.65f)),
-                                modifier = Modifier.padding(top = 2.dp)
-                            ) {
-                                Text(
-                                    text = "PRO",
-                                    style = MaterialTheme.typography.labelSmall.copy(
-                                        fontWeight = FontWeight.ExtraBold,
-                                        letterSpacing = 1.sp,
-                                        fontSize = 11.sp
-                                    ),
-                                    color = Color.White,
-                                    maxLines = 1,
-                                    softWrap = false,
-                                    modifier = Modifier.padding(horizontal = 7.dp, vertical = 2.dp)
-                                )
-                            }
+                        Surface(
+                            onClick = {
+                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                onOpenProPaywall()
+                            },
+                            shape = RoundedCornerShape(6.dp),
+                            color = if (isPro) BrandSpotify.copy(alpha = 0.22f) else NightSlate700.copy(alpha = 0.75f),
+                            border = androidx.compose.foundation.BorderStroke(
+                                1.dp,
+                                if (isPro) BrandSpotify.copy(alpha = 0.65f) else BrandSpotify.copy(alpha = 0.45f)
+                            ),
+                            modifier = Modifier.padding(top = 2.dp)
+                        ) {
+                            Text(
+                                text = if (isPro) "PRO" else "💎 PRO",
+                                style = MaterialTheme.typography.labelSmall.copy(
+                                    fontWeight = FontWeight.ExtraBold,
+                                    letterSpacing = 0.8.sp,
+                                    fontSize = 11.sp
+                                ),
+                                color = Color.White,
+                                maxLines = 1,
+                                softWrap = false,
+                                modifier = Modifier.padding(horizontal = 7.dp, vertical = 2.dp)
+                            )
                         }
                     }
                     Text(

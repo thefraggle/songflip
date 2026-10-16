@@ -253,6 +253,7 @@ fun HistoryBottomSheet(
                             modifier = if (!isPro) {
                                 Modifier.clickable {
                                     haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("history_header")
                                     onOpenProPaywall()
                                 }
                             } else Modifier
@@ -443,6 +444,7 @@ fun HistoryBottomSheet(
                                             context.getString(R.string.favorite_limit_reached),
                                             Toast.LENGTH_LONG
                                         ).show()
+                                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("favorite_limit_reached")
                                         onOpenProPaywall()
                                     } else {
                                         refreshHistory()
@@ -455,7 +457,12 @@ fun HistoryBottomSheet(
                             },
                             onDisambiguate = {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                                disambiguateItem = item
+                                if (isPro) {
+                                    disambiguateItem = item
+                                } else {
+                                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("history_disambiguate_pro")
+                                    onOpenProPaywall()
+                                }
                             },
                             onPlay = {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
@@ -516,6 +523,7 @@ fun HistoryBottomSheet(
                                     context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share_universal_link)))
                                 } else {
                                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("history_universal_share")
                                     onOpenProPaywall()
                                 }
                             },
@@ -545,7 +553,10 @@ fun HistoryBottomSheet(
                                 ),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .clickable { onOpenProPaywall() }
+                                    .clickable {
+                                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("history_teaser_bottom")
+                                        onOpenProPaywall()
+                                    }
                             ) {
                                 Row(
                                     modifier = Modifier
@@ -567,7 +578,10 @@ fun HistoryBottomSheet(
                                         )
                                     }
                                     Button(
-                                        onClick = onOpenProPaywall,
+                                        onClick = {
+                                            de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("history_teaser_bottom")
+                                            onOpenProPaywall()
+                                        },
                                         shape = RoundedCornerShape(10.dp),
                                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
                                         contentPadding = PaddingValues(horizontal = 14.dp, vertical = 8.dp)
@@ -900,16 +914,33 @@ fun HistoryItemCard(
                                     onShowQrCode()
                                 }
                             )
-                            if (!isPlaylist) {
-                                DropdownMenuItem(
-                                    text = { Text(stringResource(R.string.disambiguate_title)) },
-                                    leadingIcon = { Icon(Icons.Outlined.Tune, contentDescription = null, modifier = Modifier.size(18.dp)) },
-                                    onClick = {
-                                        showMenu = false
-                                        onDisambiguate()
+                        }
+                        if (!isPlaylist) {
+                            DropdownMenuItem(
+                                text = {
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                                    ) {
+                                        Text(stringResource(R.string.disambiguate_title))
+                                        if (!isPro) {
+                                            Text("💎", fontSize = 12.sp)
+                                        }
                                     }
-                                )
-                            }
+                                },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Outlined.Tune,
+                                        contentDescription = null,
+                                        tint = if (isPro) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.tertiary,
+                                        modifier = Modifier.size(18.dp)
+                                    )
+                                },
+                                onClick = {
+                                    showMenu = false
+                                    onDisambiguate()
+                                }
+                            )
                         }
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.history_copy_target, targetDisplayName)) },

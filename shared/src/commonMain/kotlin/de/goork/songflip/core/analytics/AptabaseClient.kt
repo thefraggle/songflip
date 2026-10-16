@@ -335,6 +335,13 @@ object AptabaseClient {
         trackEvent("paywall_viewed", mapOf("source" to source))
     }
 
+    fun trackPaywallViewed(source: String, layout: String?, isSale: Boolean? = null) {
+        val props = mutableMapOf("source" to source)
+        if (!layout.isNullOrBlank()) props["layout"] = layout
+        if (isSale != null) props["is_sale"] = isSale.toString()
+        trackEvent("paywall_viewed", props)
+    }
+
     fun trackReviewPromptTriggered(trigger: String = "auto_criteria_met") {
         trackEvent("review_prompt_triggered", mapOf("trigger" to trigger))
     }
@@ -351,10 +358,11 @@ object AptabaseClient {
         trackEvent("history_cleared")
     }
 
-    fun trackProPurchased(packageId: String, layout: String? = null) {
+    fun trackProPurchased(packageId: String, layout: String? = null, isSale: Boolean? = null) {
         val props = mutableMapOf("package_id" to packageId)
         // Layout is switchable remotely; without it purchases of both variants are indistinguishable.
         if (!layout.isNullOrBlank()) props["layout"] = layout
+        if (isSale != null) props["is_sale"] = isSale.toString()
         trackEvent("pro_purchased", props)
     }
 

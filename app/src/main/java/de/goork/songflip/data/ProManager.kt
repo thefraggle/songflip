@@ -347,6 +347,16 @@ object ProManager {
         return newState
     }
 
+    fun trackPaywallImpression() {
+        try {
+            if (Purchases.isConfigured) {
+                Purchases.sharedInstance.trackCustomPaywallImpression()
+            }
+        } catch (_: Exception) {
+            // Safe no-op in unit tests or when SDK is uninitialized
+        }
+    }
+
     fun getOfferings(onSuccess: (Offerings) -> Unit, onError: (String) -> Unit) {
         try {
             Purchases.sharedInstance.getOfferings(object : ReceiveOfferingsCallback {
