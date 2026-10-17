@@ -40,7 +40,10 @@ Key Features:
 - Shortcuts & Action Button Support: Integrate SongFlip into iOS Shortcuts or trigger instant conversion with the Action Button.
 - 100% Privacy & Zero Tracking: No account, no login required. SongFlip collects no personal data, no ad tracking IDs, and no listening habits.
 
-Built with passion for music and podcast lovers who want to enjoy audio seamlessly across platforms in their favorite player.""",
+Built with passion for music and podcast lovers who want to enjoy audio seamlessly across platforms in their favorite player.
+
+Terms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Privacy Policy: https://songflip.link/privacy""",
         'support_url': 'https://songflip.link',
         'marketing_url': 'https://songflip.link',
         'privacy_url': 'https://songflip.link/privacy-policy.html',
@@ -77,7 +80,10 @@ Hauptfunktionen:
 - Kurzbefehle & Action Button: Integriere SongFlip direkt in deine iOS-Kurzbefehle oder lege die Link-Umwandlung auf den Action Button.
 - 100 % Privatsphäre & Kein Tracking: Kein Account, kein Login. SongFlip sammelt keine Daten, keine Werbe-IDs und analysiert keine Hörgewohnheiten.
 
-Entwickelt für alle Musik- und Podcast-Liebhaber, die Audio-Inhalte ohne Plattformgrenzen in ihrer Lieblings-App genießen möchten.""",
+Entwickelt für alle Musik- und Podcast-Liebhaber, die Audio-Inhalte ohne Plattformgrenzen in ihrer Lieblings-App genießen möchten.
+
+Nutzungsbedingungen (Terms of Use / EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Datenschutzrichtlinie (Privacy Policy): https://songflip.link/privacy""",
         'support_url': 'https://songflip.link',
         'marketing_url': 'https://songflip.link',
         'privacy_url': 'https://songflip.link/privacy-policy.html',

@@ -26,3 +26,6 @@ Hauptfunktionen:
 - 100 % Privatsphäre & Kein Tracking: Kein Account, kein Login. SongFlip sammelt keine Daten, keine Werbe-IDs und analysiert keine Hörgewohnheiten.
 
 Entwickelt für alle Musik- und Podcast-Liebhaber, die Audio-Inhalte ohne Plattformgrenzen in ihrer Lieblings-App genießen möchten.
+
+Nutzungsbedingungen (Terms of Use / EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Datenschutzrichtlinie (Privacy Policy): https://songflip.link/privacy

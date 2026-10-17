@@ -26,3 +26,6 @@ Key Features:
 - 100% Privacy & Zero Tracking: No account, no login required. SongFlip collects no personal data, no ad tracking IDs, and no listening habits.
 
 Built with passion for music and podcast lovers who want to enjoy audio seamlessly across platforms in their favorite player.
+
+Terms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Privacy Policy: https://songflip.link/privacy

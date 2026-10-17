@@ -1,4 +1,3 @@
-- Reliable Deezer Redirection: Shared Deezer music links now open directly as songs in your preferred music player.
-- Streamlined Search: Cleaner action menu in search results for a simpler experience.
-- Clearer Playlist Guidance: Helpful feedback and tips when converting restricted or personal playlists.
-- Fixes & Stability: General improvements for seamless music playback.
+- Manual Match Correction in History: Quickly access manual song match selection directly from the history menu whenever a converted track needs a different version.
+- Quick Header Navigation: Open your account status and feature overview directly by tapping the header badge on the home screen.
+- Localization & Stability: Fixed a crash when opening nested sheets in certain languages and improved formatting reliability across all supported translations.
