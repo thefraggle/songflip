@@ -1,4 +1,3 @@
-- Zuverlässigere Deezer-Weiterleitung: Geteilte Deezer-Links öffnen jetzt direkt als Song im gewünschten Player.
-- Aufgeräumte Suche: Aktionen im Suchmenü wurden optimiert und für eine klarere Bedienung vereinfacht.
-- Bessere Playlist-Hinweise: Klare Rückmeldungen und hilfreiche Tipps beim Konvertieren geschützter Playlists.
-- Fehlerbehebungen & Stabilität: Allgemeine Verbesserungen für eine reibungslose Musik-Wiedergabe.
+- Manuelle Match-Korrektur im Verlauf: Greifen Sie schnell auf die manuelle Song-Match-Auswahl direkt aus dem Verlaufsmenü zu, wenn ein konvertierter Track eine andere Version benötigt.
+- Schnelle Kopfzeilen-Navigation: Öffne deinen Kontostatus und die Funktionsübersicht direkt, indem du auf das Kopfzeilen-Badge auf dem Startbildschirm tippst.
+- Lokalisierung und Stabilität: Es wurde ein Absturz beim Öffnen verschachtelter Tabellen in bestimmten Sprachen behoben und die Formatierungszuverlässigkeit für alle unterstützten Übersetzungen verbessert.
