@@ -49,11 +49,11 @@ LOCALE_NAMES = {
 }
 
 # Updated iOS descriptions
-IOS_DE_DESC = """Freunde schicken dir Musik- oder Podcast-Links von Spotify, Deezer oder Apple Podcasts – aber du nutzt Apple Music, YouTube Music oder Pocket Casts?
+IOS_DE_DESC = """Freunde schicken dir einen Song-Link oder Podcast-Link von Spotify, Deezer oder Apple Podcasts – aber du nutzt Apple Music, YouTube Music oder Pocket Casts?
 
-SongFlip ist die smarte Musik- & Podcast-Link-Umleitung und dein universeller Converter für iOS. Ob über das native Teilen-Menü (Share Sheet), die direkte Titelsuche, universelle QR-Codes, Kurzbefehle oder den Action Button: SongFlip wandelt Audio-Links blitzschnell um und öffnet sie direkt in deiner bevorzugten App – ganz ohne lästiges Suchen, Kopieren oder manuelle Zwischenschritte.
+SongFlip ist deine smarte Musik-Link-Umleitung (Music Link Redirect) sowie dein universeller Song- und Podcast-Link Converter für iOS. Ob über das native Teilen-Menü (Share Sheet), die direkte Titelsuche, universelle QR-Codes, Kurzbefehle oder den Action Button: SongFlip lässt dich geteilte Musik-Links und Podcast-Links blitzschnell konvertieren und direkt im Wunsch-Player öffnen – ganz ohne manuelles Suchen oder Kopieren.
 
-Unterstützte Musik- & Podcastdienste (Jeder-zu-Jeder-Umleitung):
+Unterstützte Musik- & Podcastdienste (Jeder-zu-Jeder Link Redirect):
 - Apple Music & Apple Podcasts
 - YouTube Music & YouTube
 - Spotify
@@ -65,24 +65,27 @@ Unterstützte Musik- & Podcastdienste (Jeder-zu-Jeder-Umleitung):
 - Bandcamp & Shazam
 
 Hauptfunktionen:
-- Nahtlose iOS-Integration: Öffne Musik- und Podcast-Links aus WhatsApp, Telegram, iMessage, Instagram oder Safari direkt über das Teilen-Menü (Share Sheet).
-- Direkte Titelsuche (Neu): Suche Songs und Künstler direkt in SongFlip und starte sie mit einem Fingertipp (Fast Flip) sofort in deinem Lieblings-Player.
-- Musik per QR-Code teilen: Erstelle und scanne universelle QR-Codes für Songs und Alben – ideal zum Teilen mit Freunden vor Ort, egal welchen Musikdienst sie nutzen.
-- Universal Playlist Converter: Erkennt und überträgt Playlists und Alben sauber zwischen Spotify, Apple Music, YouTube Music, TIDAL und Deezer – inklusive Duplikat-Bereinigung und bis zu 200 Titeln.
-- Treffer verfeinern & Favoriten: Wähle bei Bedarf gezielt zwischen Live-, Remaster- oder Studio-Versionen und pinne deine Lieblingstracks im Verlauf mit 1-Tap als Favorit an.
-- Podcast Converter Engine: Plattformübergreifende Auflösung für Shows und Einzelepisoden direkt in deiner bevorzugten Podcast-App.
+- Nahtlose iOS-Integration: Musik- und Podcast-Links sowie Spotify-Links aus WhatsApp, Telegram, iMessage, Instagram oder Safari direkt über das Teilen-Menü (Share Sheet) konvertieren und öffnen.
+- Direkte Titelsuche: Suche Songs und Künstler direkt in SongFlip und starte sie mit einem Fingertipp (Fast Flip) sofort in deinem Lieblings-Player – auch ohne bestehenden Song-Link.
+- Musik per QR-Code teilen: Erstelle und scanne universelle QR-Codes für Songs und Alben – ideal zum Teilen von Musik-Links vor Ort über alle Streamingdienste hinweg.
+- Universal Playlist Converter & Playlist-Transfer: Playlists konvertieren, Playlists übertragen und ganze Alben zwischen Spotify, Apple Music, YouTube Music, TIDAL und Deezer umziehen – inklusive Duplikat-Bereinigung und bis zu 200 Titeln.
+- Treffer verfeinern & Favoriten: Wähle gezielt zwischen Live-, Remaster- oder Studio-Versionen und pinne deine Lieblings-Songs im Verlauf mit 1-Tap als Favorit an.
+- Podcast Converter & Podcast-Weiterleitung: Plattformübergreifende Podcast-Umleitung für Shows und Einzelepisoden direkt in deinem bevorzugten Podcast-Player.
 - Direkte Wiedergabe: Startet exakte Titel, Episoden und Videos sofort im gewünschten Player.
 - Schnellauswahl & Verlauf: Wähle bei mehreren installierten Apps flexibel deinen Ziel-Player und greife jederzeit auf deinen Verlauf kürzlich geöffneter Links zu.
-- Kurzbefehle & Action Button: Integriere SongFlip direkt in deine iOS-Kurzbefehle oder lege die Link-Umwandlung auf den Action Button.
+- Kurzbefehle & Action Button: Integriere SongFlip direkt in deine iOS-Kurzbefehle oder lege den Musik-Link Redirect auf den Action Button.
 - 100 % Privatsphäre & Kein Tracking: Kein Account, kein Login. SongFlip sammelt keine Daten, keine Werbe-IDs und analysiert keine Hörgewohnheiten.
 
-Entwickelt für alle Musik- und Podcast-Liebhaber, die Audio-Inhalte ohne Plattformgrenzen in ihrer Lieblings-App genießen möchten."""
+Kompatibel mit universellen Musik-Link-Protokollen wie Songlink / Odesli. Entwickelt für alle Musik- und Podcast-Liebhaber, die Songs und Podcasts mit einem schnellen Music Converter ohne Plattformgrenzen genießen möchten.
 
-IOS_EN_DESC = """Friends send you Spotify, Tidal, or Apple Podcasts links – but you use Apple Music, YouTube Music, or Pocket Casts?
+Nutzungsbedingungen (Terms of Use / EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Datenschutzrichtlinie (Privacy Policy): https://songflip.link/privacy"""
 
-SongFlip is the universal music and podcast link redirector and converter for iOS. Whether via the iOS Share Sheet, direct song search, universal QR codes, Shortcuts, or the Action Button: SongFlip instantly converts shared audio links and opens them directly in your preferred app – with zero manual searching, no copying, and no friction.
+IOS_EN_DESC = """Friends send you a song link or podcast link from Spotify, Tidal, or Apple Podcasts – but you listen on Apple Music, YouTube Music, or Pocket Casts?
 
-Supported Audio & Podcast Services (Any-to-Any Redirection):
+SongFlip is your universal music link redirect and song link converter for iOS. Whether via the iOS Share Sheet, direct song search, universal QR codes, Shortcuts, or the Action Button: SongFlip instantly converts shared music links and podcast links to open them directly in your favorite player – with zero manual searching, no copying, and no friction.
+
+Supported Audio & Podcast Services (Any-to-Any Link Redirect):
 - Apple Music & Apple Podcasts
 - YouTube Music & YouTube
 - Spotify
@@ -94,18 +97,24 @@ Supported Audio & Podcast Services (Any-to-Any Redirection):
 - Bandcamp & Shazam
 
 Key Features:
-- Seamless iOS Integration: Convert music and podcast links from WhatsApp, Telegram, iMessage, Instagram, or Safari directly via the native Share Sheet.
-- Direct Song Search (New): Search for tracks and artists directly inside SongFlip and launch playback instantly in your favorite player with 1-tap Fast Flip.
-- QR Code Music Sharing: Generate and scan universal QR codes for songs and albums – perfect for sharing music in person across different streaming services.
-- Universal Playlist Converter: Detects and transfers playlists and full albums across Spotify, Apple Music, YouTube Music, TIDAL, and Deezer – featuring duplicate cleaning and up to 200 tracks.
-- Refine Matches & 1-Tap Favorites: Choose between live recordings, remasters, or alternative versions, and pin your favorite tracks in history with a single tap.
-- Podcast Converter Engine: Cross-platform resolution for full podcast shows and individual episodes in your favorite podcast app.
+- Seamless iOS Integration: Convert music links and open Spotify links from WhatsApp, Telegram, iMessage, Instagram, or Safari directly via the native Share Sheet.
+- Direct Song Search: Search for tracks and artists directly inside SongFlip and launch playback instantly in your favorite player with 1-tap Fast Flip – no existing song link required.
+- QR Code Music Sharing: Generate and scan universal QR codes for songs and albums – perfect for sharing music links in person across different streaming services.
+- Universal Playlist Converter & Playlist Transfer: Convert playlists, transfer playlists, and move full albums across Spotify, Apple Music, YouTube Music, TIDAL, and Deezer – featuring duplicate cleaning and up to 200 tracks.
+- Refine Matches & 1-Tap Favorites: Choose between live recordings, remasters, or studio versions, and pin your favorite songs in history with a single tap.
+- Podcast Converter & Podcast Redirect Engine: Cross-platform resolution to convert and open podcast links for full shows and episodes in your favorite podcast player.
 - Direct Playback Engine: Instantly launches exact track, episode, and video IDs in your target player.
-- Quick Player Chooser & History: Choose your target player on the fly when multiple apps are installed, and revisit your recent conversions anytime in the history sheet.
-- Shortcuts & Action Button Support: Integrate SongFlip into iOS Shortcuts or trigger instant conversion with the Action Button.
+- Quick Player Chooser & History: Choose your target player on the fly when multiple apps are installed, and revisit your recent music converter history anytime.
+- Shortcuts & Action Button Support: Integrate SongFlip into iOS Shortcuts or trigger instant music link redirect with the Action Button.
 - 100% Privacy & Zero Tracking: No account, no login required. SongFlip collects no personal data, no ad tracking IDs, and no listening habits.
 
-Built with passion for music and podcast lovers who want to enjoy audio seamlessly across platforms in their favorite player."""
+Compatible with universal music link protocols including Songlink / Odesli. Built for music and podcast lovers who want a fast music converter and link redirect to enjoy songs and podcasts seamlessly across platforms.
+
+Terms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Privacy Policy: https://songflip.link/privacy"""
+
+IOS_EN_KEYWORDS = "spotify,apple,youtube,transfer,deezer,songlink,odesli,tidal,soundcloud,shazam,bandcamp,open,song"
+IOS_DE_KEYWORDS = "spotify,apple,youtube,transfer,deezer,songlink,odesli,tidal,soundcloud,shazam,redirect,öffnen,song"
 
 def main():
     print("Reading and validating CSV...")
@@ -173,6 +182,7 @@ def main():
 
     # Sync regional and alias locales
     ALIAS_LOCALES = {
+        'ar': 'en-US',
         'bn-IN': 'bn-BD',
         'id-ID': 'id',
         'no-NO': 'nb-NO',
@@ -200,13 +210,23 @@ def main():
         f.write(IOS_DE_DESC.strip() + "\n")
     with open(os.path.join(IOS_METADATA_DIR, "en-US", "description.txt"), 'w', encoding='utf-8') as f:
         f.write(IOS_EN_DESC.strip() + "\n")
+    with open(os.path.join(IOS_METADATA_DIR, "de-DE", "keywords.txt"), 'w', encoding='utf-8') as f:
+        f.write(IOS_DE_KEYWORDS.strip() + "\n")
+    with open(os.path.join(IOS_METADATA_DIR, "en-US", "keywords.txt"), 'w', encoding='utf-8') as f:
+        f.write(IOS_EN_KEYWORDS.strip() + "\n")
 
     # Update scripts/generate_ios_store_listings.py
     if os.path.exists(GEN_IOS_SCRIPT):
         with open(GEN_IOS_SCRIPT, 'r', encoding='utf-8') as f:
             script_code = f.read()
 
-        # Update descriptions in script
+        # Update descriptions and keywords in script
+        pattern_en_kw = r"('en-US':\s*\{.*?'keywords':\s*').*?(',)"
+        script_code = re.sub(pattern_en_kw, r"\g<1>" + IOS_EN_KEYWORDS + r"\g<2>", script_code, flags=re.DOTALL)
+
+        pattern_de_kw = r"('de-DE':\s*\{.*?'keywords':\s*').*?(',)"
+        script_code = re.sub(pattern_de_kw, r"\g<1>" + IOS_DE_KEYWORDS + r"\g<2>", script_code, flags=re.DOTALL)
+
         pattern_en = r"('en-US':\s*\{.*?'description':\s*\"\"\").*?(\"\"\",)"
         script_code = re.sub(pattern_en, r"\g<1>" + IOS_EN_DESC + r"\g<2>", script_code, flags=re.DOTALL)
         

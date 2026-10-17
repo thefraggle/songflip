@@ -1,28 +1,28 @@
-朋友在 Spotify 上傳了一首歌曲或 Podcast，但您使用的是 YouTube Music、Apple Podcasts 或 Deezer？
+朋友向您發送了 Spotify 上的歌曲鏈接或播客鏈接，但您在 YouTube Music、Apple Podcasts 或 Deezer 上收聽？
 
-SongFlip 是專為 Android 設計的智慧音樂與 Podcast 連結轉換工具。設定完成後，收到的音訊連結將在背景自動轉換並直接在您偏好的播放器中播放——免手動搜尋、無廣告打擾、告別中轉頁面。
+SongFlip 是 Android 的無縫、零點擊音樂連結重定向和歌曲連結轉換器。啟用後，傳入的音樂連結和播客連結會在後台自動轉換並直接在您喜歡的播放器中開啟 - 無需手動搜索，沒有廣告，沒有瀏覽器繞道。
 
-無論是 Spotify 轉 YouTube Music、Apple Podcasts 轉 Spotify，還是 Shazam 辨識的歌曲，SongFlip 都能以全能智慧連結轉換器瞬間為您處理。
+無論是將 Spotify 切換為 YouTube Music、將 Apple Podcasts 切換為 Pocket Casts、將 Spotify 切換為 Apple Music，還是從 Shazam 開啟曲目，SongFlip 都可以作為您的通用音樂轉換器和連結重定向工具，即時開啟 Spotify 連結和音訊串流。
 
 🚀 主要功能：
 
-• 10 大串流與 Podcast 平台 & Shazam：
-在 Spotify、YouTube Music、Apple Music、Apple Podcasts、Pocket Casts、Deezer、TIDAL、Amazon Music、SoundCloud 與 Bandcamp 之間無縫轉換。現已支援 Shazam 分享連結！
+• 10 個串流媒體平台、播客和 Shazam：
+無縫轉換和重定向 Spotify、YouTube Music、Apple Music、Apple Podcasts、Pocket Casts、Deezer、TIDAL、Amazon Music、SoundCloud 和 Bandcamp 中的歌曲連結和播客。包括共享 Shazam 連結的即時音樂連結轉換器支援！
 
 • 直接歌曲搜尋（應用程式內搜尋）：
-直接在 SongFlip 中搜尋曲目和藝術家，並透過一鍵快速翻轉在您喜歡的音樂應用程式中立即啟動播放，無需現有連結。
+直接在 SongFlip 中搜尋曲目和藝術家，並透過一鍵快速翻轉在您喜歡的串流媒體播放器中立即啟動播放，無需現有歌曲連結。
 
-• 二維碼音樂分享及掃描：
-產生並掃描歌曲和專輯的通用二維碼。輕鬆與朋友親自分享音樂，無論他們訂閱了哪種串流媒體服務。
+• 二維碼歌曲分享與掃描：
+產生並掃描歌曲和專輯的通用二維碼。透過任何串流媒體服務輕鬆與朋友親自分享音樂連結。
 
-• Podcast 轉換引擎：
-跨平台分享 Podcast 節目與單集。SongFlip 會自動解析單集標題，並在您喜愛的 Podcast 應用程式中直接播放。
+• 播客轉換器和播客重新導向引擎：
+跨平台分享完整的播客節目或劇集。 SongFlip 會自動解析劇集標題，以便在您最喜愛的播客播放器中轉換和開啟播客連結。
 
-• 全能播放清單轉換器：
-在 Spotify、Apple Music、YouTube Music、TIDAL 和 Deezer 之間逐首傳輸整個播放列表，具有自動重複清理、最多 200 首曲目和高速多層緩存的功能。
+• 通用播放清單轉換器和播放清單傳輸：
+在 Spotify、Apple Music、YouTube Music、TIDAL 和 Deezer 之間轉換播放列表並按曲目傳輸播放列表，並具有自動重複清理、最多 200 首曲目和快速快取功能。
 
-• 優化匹配和一鍵收藏：
-在現場錄音、重製版或替代版本之間輕鬆進行選擇。只需輕按一下即可將您最喜歡的曲目固定在歷史記錄中，並透過簡化的快速操作選單進行管理。
+• 最佳化配對和一鍵收藏：
+在現場錄音、重製版或錄音室版本之間輕鬆進行選擇。只需輕按一下即可將您最喜歡的歌曲固定在歷史記錄中，並透過快速操作選單進行管理。
 
 • 即時播放 (Instant Playback)：
 直接在目標播放器中播放歌曲或單集，無需停留在搜尋結果頁。
@@ -30,11 +30,11 @@ SongFlip 是專為 Android 設計的智慧音樂與 Podcast 連結轉換工具�
 • 快速播放器選擇器（每次詢問）：
 使用多個音訊應用程式？啟用快速選擇器，在每次開啟連結時自由選擇目標播放器。
 
-• 智慧設定小幫手 (Android 12+)：
-一鍵式互動設定，輕鬆配置預設應用程式連結。
+• 智慧型連結重定向助手（Android 12+）：
+使用我們的互動式一鍵連結重定向設定助手，輕鬆驗證和配置 Android 預設開啟應用程式連結。
 
-• 剪貼簿智慧橫幅與分享選單：
-複製連結後即可透過橫幅一鍵啟動，或從 LINE、WhatsApp、Telegram、Instagram 分享至 SongFlip。
+• 剪貼簿智慧橫幅和本機分享：
+複製了音樂連結？透過智慧儀表板橫幅立即轉換並打開它，或直接從 WhatsApp、Telegram、Reddit 或 Instagram 分享連結到 SongFlip。
 
 • 通用網頁智慧連結與網頁播放器 (songflip.link)：
 產生內建播放器的中立連結，讓朋友在任何裝置上都能直接收聽。
@@ -54,4 +54,4 @@ SongFlip 是專為 Android 設計的智慧音樂與 Podcast 連結轉換工具�
 • 永久完全無廣告
 • 零數據追蹤，絕不記錄個人聆聽偏好
 
-相容於 Songlink / Odesli 協議。立即下載 SongFlip，跨越平台限制，自在享受音樂與 Podcast！
+相容於通用音樂連結協議，包括 Songlink / Odesli。立即下載 SongFlip — 您的自動音樂連結重新導向和歌曲連結轉換器，可輕鬆在所有串流服務之間橋接歌曲和播客！

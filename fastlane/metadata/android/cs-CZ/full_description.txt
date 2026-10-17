@@ -1,52 +1,52 @@
-Poslal vám kamarád skladbu nebo podcast na Spotify, ale vy používáte YouTube Music, Apple Podcasts nebo Deezer?
+Přítel vám pošle odkaz na skladbu nebo podcast na Spotify, ale vy posloucháte na YouTube Music, Apple Podcasts nebo Deezer?
 
-SongFlip je chytrý převodník a přesměrovač hudebních a podcastových odkazů pro Android. Po nastavení se příchozí odkazy automaticky převedou na pozadí a otevřou přímo ve vašem oblíbeném přehrávači — bez ručního vyhledávání, reklam a zdržování v prohlížeči.
+SongFlip je vaše bezproblémové přesměrování hudebního odkazu bez kliknutí a převodník odkazů na skladby pro Android. Po aktivaci se příchozí hudební odkazy a odkazy na podcasty automaticky převedou na pozadí a otevřou se přímo ve vašem oblíbeném přehrávači – žádné ruční vyhledávání, žádné reklamy, žádné objížďky v prohlížeči.
 
-Ze Spotify na YouTube Music, z Apple Podcasts na Spotify nebo skladby ze Shazam: SongFlip okamžitě vyřeší jakýkoliv odkaz jako váš univerzální konvertor.
+Ať už přepínáte Spotify na YouTube Music, Apple Podcasty na Pocket Casts, Spotify na Apple Music nebo otevíráte skladby ze Shazamu, SongFlip funguje jako váš univerzální nástroj pro převádění hudby a přesměrování odkazů pro okamžité otevírání odkazů Spotify a audio streamů.
 
 🚀 HLAVNÍ FUNKCE:
 
-• 10 Streamovacích Platforem, Podcasty a Shazam:
-Plynulý převod mezi Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud a Bandcamp. Podporuje i odkazy ze Shazam!
+• 10 streamovacích platforem, podcastů a Shazam:
+Bezproblémově převádějte a přesměrovávejte odkazy na skladby a podcasty přes Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud a Bandcamp. Zahrnuje okamžitou podporu převodníku hudebních odkazů pro sdílené odkazy Shazam!
 
 • Přímé vyhledávání skladeb (vyhledávání v aplikaci):
-Vyhledejte skladby a interprety přímo v aplikaci SongFlip a okamžitě spusťte přehrávání ve vaší oblíbené hudební aplikaci pomocí funkce Rychlé přetáčení jedním klepnutím – není potřeba žádný existující odkaz.
+Vyhledejte skladby a interprety přímo v aplikaci SongFlip a okamžitě spusťte přehrávání ve vašem oblíbeném streamovacím přehrávači pomocí funkce Rychlé překlopení jedním klepnutím – není potřeba žádný existující odkaz na skladbu.
 
-• Sdílení a skenování QR kódu hudby:
-Generujte a skenujte univerzální QR kódy pro skladby a alba. Sdílejte hudbu s přáteli bez námahy osobně, bez ohledu na to, kterou streamovací službu si předplatí.
+• Sdílení a skenování skladeb QR kódu:
+Generujte a skenujte univerzální QR kódy pro skladby a alba. Bez námahy sdílejte hudební odkazy s přáteli osobně v jakékoli streamovací službě.
 
-• Podcastový Konvertor:
-Sdílejte podcastové pořady a jednotlivé epizody napříč platformami. SongFlip epizodu automaticky vyhledá a spustí přímo ve vaší aplikaci.
+• Podcast Converter & Podcast Redirect Engine:
+Sdílejte celé podcastové pořady nebo epizody napříč platformami. SongFlip automaticky vyhodnotí názvy epizod, aby převedl a otevřel odkazy na podcasty přímo ve vašem oblíbeném přehrávači podcastů.
 
-• Univerzální Převodník Playlistů:
-Přenášejte celé seznamy stop po stopách mezi Spotify, Apple Music, YouTube Music, TIDAL a Deezer – s automatickým čištěním duplicit, až 200 stopami a vysokorychlostním vícevrstvým ukládáním do mezipaměti.
+• Universal Playlist Converter & Playlist Transfer:
+Převádějte seznamy stop a přenášejte seznamy stop po stopách mezi Spotify, Apple Music, YouTube Music, TIDAL a Deezer – s automatickým čištěním duplicit, až 200 stopami a rychlým ukládáním do mezipaměti.
 
-• Upřesnit shody a oblíbené položky jedním klepnutím:
-Snadno si vyberte mezi živými nahrávkami, remastery nebo alternativními verzemi. Připněte si své oblíbené skladby do historie jediným klepnutím a spravujte je prostřednictvím efektivní nabídky rychlých akcí.
+• Upřesnit shody a oblíbené položky:
+Vyberte si mezi živou, remasterovanou nebo studiovou verzí a připněte oblíbené skladby jediným klepnutím.
 
-• Okamžité Přehrávání (Instant Playback):
-Spustí skladbu nebo epizodu přímo v cílovém přehrávači místo zobrazení prázdného vyhledávání.
+• Okamžité přehrávání skladeb:
+Spustí přehrávání přímo v cílovém přehrávači namísto prázdných vyhledávacích stránek.
 
-• Rychlý Výběr Přehrávače (Ptát se pokaždé):
-Používáte více audio aplikací? Aktivujte rychlý výběr pro okamžitou volbu přehrávače při každém otevření odkazu.
+• Rychlý výběr přehrávače:
+Vyberte si svůj cílový audio přehrávač za chodu, kdykoli otevřete odkaz na sdílenou skladbu nebo odkaz na podcast.
 
-• Chytrý Průvodce Nastavením (Android 12+):
-Snadná konfigurace výchozích odkazů aplikace jedním klepnutím.
+• Smart Link Redirect Assistant (Android 12+):
+Snadno ověřte a nakonfigurujte Android Open by Default App Links pomocí našeho interaktivního průvodce nastavením přesměrování odkazu jedním klepnutím.
 
-• Chytrý Banner Schránky a Nabídka Sdílení:
-Zkopírovali jste odkaz? Spusťte jej z chytrého banneru nebo sdílejte z WhatsApp, Telegramu či Instagramu do SongFlip.
+• Inteligentní banner a nativní sdílení schránky:
+Zkopírovali jste odkaz na hudbu? Okamžitě jej převeďte a otevřete prostřednictvím banneru inteligentního panelu nebo sdílejte odkazy přímo z WhatsApp, Telegram, Reddit nebo Instagram do SongFlip.
 
-• Univerzální Webové Odkazy a Webový Přehrávač (songflip.link):
-Vytvářejte neutrální odkazy s integrovaným přehrávačem pro poslech na jakémkoliv zařízení.
+• Webové chytré odkazy (songflip.link):
+Vytvářejte neutrální webové odkazy pomocí vestavěného přehrávače, aby přátelé mohli poslouchat v jakémkoli prohlížeči.
 
-• Dlaždice Rychlého Nastavení a Zkratky:
-Pozastavte přesměrování na 15 minut, 1 hodinu nebo do rána přímo z panelu rychlého nastavení.
+• Rychlá nastavení a zkratky:
+Pozastavit přesměrování odkazu na 15 minut, 1 hodinu nebo do zítřka prostřednictvím Rychlého nastavení.
 
-• Design Material You a Tématická Ikona:
-Plně přizpůsobeno barvám vašeho systému s tmavým režimem AMOLED a monochromatickou ikonou.
+• Material You a tmavý režim AMOLED:
+Sleduje systémové dynamické barvy s plným tmavým režimem AMOLED a tematickou ikonou.
 
-• Uplatnění Promo Kódů a Poukazů:
-Zadejte promo kódy přímo v aplikaci pro odemčení funkcí PRO.
+• Propagační kódy a poukazy:
+Uplatněním promo kódů v nastavení odemknete výhody PRO a rozšířenou historii.
 
 🔒 SOUKROMÍ A OPEN SOURCE:
 • 100% Open Source (licence GPLv3 na GitHubu)
@@ -54,4 +54,4 @@ Zadejte promo kódy přímo v aplikaci pro odemčení funkcí PRO.
 • Zcela bez reklam — navždy
 • Žádné sledování návyků ani shromažďování dat
 
-Kompatibilní se Songlink / Odesli. Stáhněte si SongFlip a užívejte si hudbu a podcasty bez bariér mezi platformami!
+Kompatibilní s univerzálními protokoly hudebního propojení včetně Songlink / Odesli. Stáhněte si nyní SongFlip – vaše automatické přesměrování hudebního odkazu a převodník odkazů na skladby pro snadné přemostění skladeb a podcastů napříč všemi streamovacími službami!
