@@ -1,1 +1,1 @@
-Chuyển đổi và mở link nhạc, podcast trong ứng dụng yêu thích (0 lần nhấp).
+Tự động đổi và mở bài hát, podcast trực tiếp trong trình phát yêu thích.

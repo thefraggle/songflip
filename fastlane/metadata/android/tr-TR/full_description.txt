@@ -1,52 +1,52 @@
-Bir arkadaşınız Spotify'da bir şarkı veya podcast gönderdi, ancak siz YouTube Music, Apple Podcasts veya Deezer mı kullanıyorsunuz?
+Bir arkadaşınız size Spotify'da bir şarkı bağlantısı veya podcast bağlantısı gönderiyor ama siz YouTube Music'te, Apple Podcast'lerde veya Deezer'da mı dinliyorsunuz?
 
-SongFlip, Android için akıllı ve sıfır tıklamalı bir müzik ve podcast bağlantı dönüştürücüsüdür. Kurulduktan sonra gelen bağlantılar arka planda otomatik olarak dönüştürülür ve doğrudan tercih ettiğiniz oynatıcıda açılır — arama yapmaya gerek kalmaz.
+SongFlip, Android için kesintisiz, sıfır tıklamayla müzik bağlantısı yönlendirmeniz ve şarkı bağlantısı dönüştürücünüzdür. Etkinleştirildiğinde, gelen müzik bağlantıları ve podcast bağlantıları arka planda otomatik olarak dönüştürülür ve doğrudan favori oynatıcınızda açılır; manuel arama yok, reklam yok, tarayıcıdan sapma yok.
 
-Spotify'dan YouTube Music'e, Apple Podcasts'ten Spotify'a veya Shazam şarkılarına: SongFlip tüm bağlantıları evrensel akıllı dönüştürücünüz olarak anında çözer.
+Spotify'dan YouTube Music'e, Apple Podcast'lerden Pocket Casts'a, Spotify'dan Apple Music'e geçiş yapın veya parçaları Shazam'dan açın, SongFlip, Spotify bağlantılarını ve ses akışlarını anında açmak için evrensel müzik dönüştürücünüz ve bağlantı yönlendirme aracınız olarak çalışır.
 
 🚀 ÖNE ÇIKAN ÖZELLİKLER:
 
-• 10 Akış Platformu, Podcast'ler ve Shazam:
-Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud ve Bandcamp arasında sorunsuz dönüşüm. Shazam bağlantılarını da destekler!
+• 10 Yayın Platformu, Podcast ve Shazam:
+Şarkı bağlantılarını ve podcast'leri Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud ve Bandcamp'ta sorunsuz bir şekilde dönüştürün ve yönlendirin. Paylaşılan Shazam bağlantıları için anında müzik bağlantısı dönüştürücü desteği içerir!
 
 • Doğrudan Şarkı Arama (Uygulama İçi Arama):
-Şarkıları ve sanatçıları doğrudan SongFlip'in içinde arayın ve tek dokunuşla Hızlı Çevirme ile tercih ettiğiniz müzik uygulamasında oynatmayı anında başlatın; mevcut bağlantıya gerek yoktur.
+Şarkıları ve sanatçıları doğrudan SongFlip'in içinde arayın ve tek dokunuşla Hızlı Çevirme ile tercih ettiğiniz akış oynatıcısında anında oynatmayı başlatın; mevcut şarkı bağlantısına gerek yoktur.
 
-• QR Kod Müzik Paylaşımı ve Tarama:
-Şarkılar ve albümler için evrensel QR kodları oluşturun ve tarayın. Hangi yayın hizmetine abone olurlarsa olsunlar, arkadaşlarınızla şahsen zahmetsizce müzik paylaşın.
+• QR Kodlu Şarkı Paylaşımı:
+Herhangi bir yayın hizmetinde şarkılar ve albümler için evrensel QR kodları oluşturun ve tarayın.
 
-• Podcast Dönüştürme Motoru:
-Podcast programlarını ve tekil bölümleri platformlar arasında paylaşın. SongFlip bölümü otomatik olarak bulur ve favori podcast uygulamanızda başlatır.
+• Podcast Dönüştürücü ve Podcast Yönlendirme Motoru:
+Podcast şovlarının veya bölümlerinin tamamını platformlar arasında paylaşın. SongFlip, podcast bağlantılarını doğrudan favori podcast oynatıcınızın içinde dönüştürmek ve açmak için bölüm başlıklarını otomatik olarak çözer.
 
-• Evrensel Çalma Listesi Dönüştürücü:
-Otomatik kopya temizleme, 200'e kadar parça ve yüksek hızlı çok katmanlı önbelleğe alma özellikleriyle tüm çalma listelerini Spotify, Apple Music, YouTube Music, TIDAL ve Deezer arasında parça parça aktarın.
+• Evrensel Çalma Listesi Dönüştürücü ve Çalma Listesi Aktarımı:
+Otomatik çift temizleme, 200'e kadar parça ve hızlı önbelleğe alma özellikleriyle çalma listelerini dönüştürün ve Spotify, Apple Music, YouTube Music, TIDAL ve Deezer arasında parça parça çalma listelerini aktarın.
 
-• Eşleşmeleri ve Tek Dokunuşla Favorileri İyileştirin:
-Canlı kayıtlar, remaster'lar veya alternatif versiyonlar arasında kolayca seçim yapın. Favori parçalarınızı tek bir dokunuşla geçmişe sabitleyin ve bunları basitleştirilmiş hızlı işlem menüsü aracılığıyla yönetin.
+• Eşleşmeleri ve Favorileri Hassaslaştırın:
+Canlı, yeniden düzenlenmiş veya stüdyo versiyonları arasından seçim yapın ve favori şarkıları tek dokunuşla sabitleyin.
 
-• Anında Oynatma (Instant Playback):
-Boş arama sonuçları yerine parçayı doğrudan hedef oynatıcıda başlatır.
+• Anında Parça Oynatma:
+Boş arama sayfaları yerine doğrudan hedef oynatıcınızın içinde oynatmayı başlatır.
 
-• Hızlı Oynatıcı Seçici (Her Seferinde Sor):
-Birden fazla müzik uygulaması mı kullanıyorsunuz? Her bağlantı açılışında hedef oynatıcıyı anında seçmek için hızlı seçiciyi etkinleştirin.
+• Hızlı Oyuncu Seçici:
+Paylaşılan bir şarkı bağlantısını veya podcast bağlantısını açtığınızda hedef ses oynatıcınızı anında seçin.
 
-• Akıllı Kurulum Asistanı (Android 12+):
-Tek dokunuşla varsayılan uygulama bağlantılarını kolayca yapılandırın.
+• Akıllı Bağlantı Yönlendirme Yardımcısı (Android 12+):
+Etkileşimli tek dokunuşla bağlantı yönlendirme kurulum yardımcımızla Android Varsayılan Olarak Açılan Uygulama Bağlantılarını kolayca doğrulayın ve yapılandırın.
 
-• Pano Akıllı Başlığı ve Paylaşım Menüsü:
-Bağlantı mı kopyaladınız? Akıllı başlıktan hemen başlatın veya WhatsApp, Telegram, Reddit'ten SongFlip'e paylaşın.
+• Pano Akıllı Banner'ı ve Yerel Paylaşım:
+Bir müzik bağlantısını mı kopyaladınız? Akıllı kontrol paneli başlığı aracılığıyla anında dönüştürün ve açın veya bağlantıları doğrudan WhatsApp, Telegram, Reddit veya Instagram'dan SongFlip'e paylaşın.
 
-• Evrensel Web Bağlantıları ve Web Oynatıcı (songflip.link):
-Arkadaşlarınızın her cihazda dinleyebilmesi için dahili web oynatıcılı nötr bağlantılar oluşturun.
+• Web Akıllı Bağlantıları (songflip.link):
+Arkadaşlarınızın herhangi bir tarayıcıda dinleyebilmeleri için yerleşik bir oynatıcıyla tarafsız web bağlantıları oluşturun.
 
-• Hızlı Ayarlar Kutucuğu ve Kısayollar:
-Yönlendirmeyi 15 dakika, 1 saat veya yarına kadar hızlı ayarlar panelinden geçici olarak duraklatın.
+• Hızlı Ayarlar ve Kısayollar:
+Hızlı Ayarlar aracılığıyla bağlantı yönlendirmesini 15 dakika, 1 saat veya yarına kadar duraklatın.
 
-• Material You Tasarımı ve Temalı Simge:
-AMOLED karanlık mod ve dinamik renk uyumu ile ana ekranınızda şık görünür.
+• Malzeme Siz ve AMOLED Karanlık Modu:
+Tam AMOLED karanlık modu ve temalı simgeyle sistemin dinamik renklerini takip eder.
 
-• Promosyon Kodu ve Kupon Kullanımı:
-PRO ayrıcalıklarını açmak için promosyon kodlarını doğrudan uygulama içinde kullanın.
+• Promosyon Kodları ve Kuponlar:
+PRO ayrıcalıklarının ve genişletilmiş geçmişin kilidini açmak için ayarlardaki promosyon kodlarını kullanın.
 
 🔒 GİZLİLİK VE AÇIK KAYNAK:
 • %100 Açık Kaynak (GitHub'da GPLv3 lisanslı)
@@ -54,4 +54,4 @@ PRO ayrıcalıklarını açmak için promosyon kodlarını doğrudan uygulama i�
 • Sonsuza kadar tamamen reklamsız
 • Sıfır izleme, veri toplama yok
 
-Songlink / Odesli ile uyumludur. SongFlip'i şimdi indirin ve müzik ile podcast'lerin keyfini platform engeli olmadan çıkarın!
+Songlink / Odesli dahil evrensel müzik bağlantısı protokolleriyle uyumludur. Şarkıları ve podcast'leri tüm akış hizmetlerinde zahmetsizce köprülemek için otomatik müzik bağlantısı yönlendirmeniz ve şarkı bağlantısı dönüştürücünüz olan SongFlip'i şimdi indirin!

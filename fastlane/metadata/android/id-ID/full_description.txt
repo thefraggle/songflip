@@ -1,28 +1,28 @@
-Teman mengirimi Anda lagu atau podcast di Spotify, tetapi Anda menggunakan YouTube Music, Apple Podcasts, atau Deezer?
+Seorang teman mengirimi Anda tautan lagu atau tautan podcast di Spotify, tetapi Anda mendengarkannya di YouTube Music, Apple Podcasts, atau Deezer?
 
-SongFlip adalah pengonversi dan pengalih tautan musik & podcast cerdas tanpa klik untuk Android. Setelah diatur, tautan yang diterima otomatis dikonversi di latar belakang dan langsung diputar di pemutar audio favorit Anda — tanpa pencarian manual atau iklan.
+SongFlip adalah pengalihan tautan musik dan pengonversi tautan lagu tanpa klik yang mulus untuk Android. Setelah diaktifkan, tautan musik masuk dan tautan podcast secara otomatis dikonversi di latar belakang dan terbuka langsung di pemutar favorit Anda—tanpa pencarian manual, tanpa iklan, tanpa memutar browser.
 
-Dari Spotify ke YouTube Music, Apple Podcasts ke Spotify, hingga lagu Shazam: SongFlip menyelesaikannya secara instan sebagai pengonversi smart link universal Anda.
+Baik mengalihkan Spotify ke YouTube Music, Apple Podcasts ke Pocket Casts, Spotify ke Apple Music, atau membuka lagu dari Shazam, SongFlip berfungsi sebagai pengonversi musik universal dan alat pengalihan tautan untuk membuka tautan Spotify dan streaming audio secara instan.
 
 🚀 FITUR UTAMA:
 
-• 10 Platform Musik, Podcast & Shazam:
-Konversi mulus antara Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud, dan Bandcamp. Mendukung tautan Shazam!
+• 10 Platform Streaming, Podcast & Shazam:
+Konversikan dan alihkan tautan lagu dan podcast dengan lancar di Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud, dan Bandcamp. Termasuk dukungan konverter tautan musik instan untuk tautan Shazam yang dibagikan!
 
 • Pencarian Lagu Langsung (Pencarian Dalam Aplikasi):
-Cari lagu dan artis langsung di dalam SongFlip dan luncurkan pemutaran secara instan di aplikasi musik pilihan Anda dengan Fast Flip 1-ketuk—tidak perlu tautan apa pun.
+Cari lagu dan artis langsung di dalam SongFlip dan luncurkan pemutaran secara instan di pemutar streaming pilihan Anda dengan Fast Flip 1-ketuk—tidak diperlukan tautan lagu yang sudah ada.
 
-• Berbagi & Memindai Musik Kode QR:
-Hasilkan dan pindai kode QR universal untuk lagu dan album. Berbagi musik dengan mudah kepada teman secara langsung, apa pun layanan streaming langganan mereka.
+• Berbagi & Memindai Lagu Kode QR:
+Hasilkan dan pindai kode QR universal untuk lagu dan album. Bagikan tautan musik dengan mudah kepada teman secara langsung melalui layanan streaming apa pun.
 
-• Mesin Konverter Podcast:
-Bagikan acara podcast dan episode antar platform berbeda. SongFlip menemukan episode dan memutarnya langsung di aplikasi podcast pilihan Anda.
+• Konverter Podcast & Mesin Pengalih Podcast:
+Bagikan acara atau episode podcast lengkap di seluruh platform. SongFlip menyelesaikan judul episode secara otomatis untuk mengonversi dan membuka tautan podcast langsung di dalam pemutar podcast favorit Anda.
 
-• Pengonversi Playlist Universal:
-Transfer seluruh daftar putar lagu demi lagu antara Spotify, Apple Music, YouTube Music, TIDAL, dan Deezer—dengan fitur pembersihan duplikat otomatis, hingga 200 lagu, dan caching multi-tingkat berkecepatan tinggi.
+• Konverter Daftar Putar Universal & Transfer Daftar Putar:
+Konversikan daftar putar dan transfer daftar putar lagu demi lagu antara Spotify, Apple Music, YouTube Music, TIDAL, dan Deezer—dengan pembersihan duplikat otomatis, hingga 200 lagu, dan cache cepat.
 
-• Perbaiki Kecocokan & Favorit 1-Ketuk:
-Pilih dengan mudah antara rekaman live, remaster, atau versi alternatif. Sematkan trek favorit Anda dalam riwayat dengan satu ketukan dan kelola melalui menu tindakan cepat yang disederhanakan.
+• Saring Kecocokan & Favorit 1-Ketuk:
+Pilih dengan mudah antara rekaman live, remaster, atau versi studio. Sematkan lagu favorit Anda dalam riwayat dengan satu ketukan dan kelola lagu tersebut melalui menu tindakan cepat.
 
 • Pemutaran Instan (Instant Playback):
 Memulai lagu atau episode langsung di pemutar tujuan alih-alih menampilkan halaman pencarian kosong.
@@ -30,11 +30,11 @@ Memulai lagu atau episode langsung di pemutar tujuan alih-alih menampilkan halam
 • Pemilih Pemutar Cepat (Tanya Setiap Saat):
 Menggunakan beberapa aplikasi audio? Aktifkan pemilih cepat untuk memilih pemutar tujuan secara instan setiap kali membuka tautan.
 
-• Asisten Pengaturan Pintar (Android 12+):
-Konfigurasikan tautan aplikasi default dengan mudah melalui asisten interaktif 1 ketukan.
+• Asisten Pengalihan Tautan Cerdas (Android 12+):
+Verifikasi dan konfigurasikan Android Open by Default App Links dengan mudah menggunakan asisten penyiapan pengalihan tautan 1 ketukan interaktif kami.
 
-• Smart-Banner Papan Klip & Menu Berbagi:
-Salin tautan musik atau bagikan langsung dari WhatsApp, Telegram, Reddit, atau Instagram ke SongFlip.
+• Spanduk Cerdas Papan Klip & Berbagi Asli:
+Menyalin tautan musik? Konversikan dan buka secara instan melalui spanduk dasbor pintar, atau bagikan tautan langsung dari WhatsApp, Telegram, Reddit, atau Instagram ke SongFlip.
 
 • Smart Link Web Universal & Pemutar Web (songflip.link):
 Buat tautan netral dengan pemutar web bawaan agar teman dapat mendengarkan di perangkat apa pun.
@@ -54,4 +54,4 @@ Tukarkan kode promo langsung di aplikasi untuk membuka fitur PRO.
 • Sepenuhnya bebas iklan selamanya
 • Tanpa pelacakan atau pengumpulan data
 
-Kompatibel dengan Songlink / Odesli. Unduh SongFlip sekarang dan nikmati musik serta podcast lintas platform tanpa batas!
+Kompatibel dengan protokol tautan musik universal termasuk Songlink / Odesli. Unduh SongFlip sekarang—pengalihan tautan musik otomatis dan konverter tautan lagu untuk menjembatani lagu & podcast di semua layanan streaming dengan mudah!

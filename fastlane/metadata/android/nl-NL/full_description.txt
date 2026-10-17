@@ -1,28 +1,28 @@
-Stuurt een vriend je een nummer of podcast op Spotify, maar luister jij via YouTube Music, Apple Podcasts of Deezer?
+Een vriend stuurt je een nummerlink of podcastlink op Spotify, maar je luistert op YouTube Music, Apple Podcasts of Deezer?
 
-SongFlip is jouw slimme 0-klik muziek- en podcastlink converter en redirector voor Android. Eenmaal ingesteld worden ontvangen links automatisch op de achtergrond geconverteerd en direct geopend in jouw favoriete audio-app — zonder handmatig zoeken of tussenliggende pagina's.
+SongFlip is uw naadloze, zero-click muzieklink-omleiding en songlink-converter voor Android. Eenmaal ingeschakeld, worden inkomende muzieklinks en podcastlinks automatisch op de achtergrond geconverteerd en direct in uw favoriete speler geopend: geen handmatig zoeken, geen advertenties, geen browseromwegen.
 
-Of het nu gaat om Spotify naar YouTube Music, Apple Podcasts naar Spotify of Shazam-links: SongFlip verwerkt links direct als jouw universele smart link converter.
+Of u nu Spotify naar YouTube Music, Apple Podcasts naar Pocket Casts, Spotify naar Apple Music of nummers van Shazam opent, SongFlip werkt als uw universele muziekconvertor en tool voor het omleiden van links om Spotify-links en audiostreams onmiddellijk te openen.
 
 🚀 BELANGRIJKSTE FUNCTIES:
 
-• 10 Streaming- & Podcastplatforms & Shazam:
-Converteert naadloos tussen Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud en Bandcamp. Nu ook met ondersteuning voor Shazam-links!
+• 10 streamingplatforms, podcasts en Shazam:
+Converteer en stuur nummerlinks en podcasts naadloos om via Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud en Bandcamp. Inclusief directe ondersteuning voor muzieklinkconversie voor gedeelde Shazam-links!
 
 • Direct zoeken naar nummers (in-app zoeken):
-Zoek naar nummers en artiesten rechtstreeks in SongFlip en start het afspelen direct in de muziek-app van je voorkeur met Fast Flip met 1 tik: geen bestaande link vereist.
+Zoek naar nummers en artiesten rechtstreeks in SongFlip en start het afspelen direct in je favoriete streamingspeler met 1 tik op Fast Flip - geen bestaande nummerlink vereist.
 
-• QR-code Muziek delen en scannen:
-Genereer en scan universele QR-codes voor nummers en albums. Deel moeiteloos muziek met vrienden, ongeacht op welke streamingdienst ze zijn geabonneerd.
+• QR-codenummer delen en scannen:
+Genereer en scan universele QR-codes voor nummers en albums. Deel moeiteloos muzieklinks met vrienden via elke streamingdienst.
 
-• Podcast Converter Engine:
-Deel complete shows of afzonderlijke afleveringen tussen verschillende platforms. SongFlip start afleveringen direct in je favoriete podcast-app.
+• Podcast-converter en podcast-omleidingsengine:
+Deel volledige podcastshows of afleveringen op verschillende platforms. SongFlip lost de titels van afleveringen automatisch op, zodat podcastlinks rechtstreeks in uw favoriete podcastspeler worden geconverteerd en geopend.
 
-• Universele Playlist Converter:
-Zet volledige afspeellijsten track voor track over tussen Spotify, Apple Music, YouTube Music, TIDAL en Deezer, met automatische opschoning van dubbele nummers, tot 200 tracks en supersnelle caching op meerdere niveaus.
+• Universele afspeellijstconverter en afspeellijstoverdracht:
+Converteer afspeellijsten en draag afspeellijsten track voor track over tussen Spotify, Apple Music, YouTube Music, TIDAL en Deezer, met automatische opschoning van dubbele nummers, tot 200 nummers en snelle caching.
 
 • Matches verfijnen en 1-Tap-favorieten:
-Kies eenvoudig tussen live-opnames, remasters of alternatieve versies. Zet uw favoriete nummers in de geschiedenis vast met één tik en beheer ze via het gestroomlijnde snelactiemenu.
+Kies eenvoudig tussen live-opnames, remasters of studioversies. Zet uw favoriete nummers in de geschiedenis vast met een enkele tik en beheer ze via het snelactiemenu.
 
 • Directe Weergave (Instant Playback):
 Start nummers en afleveringen direct in de doel-app in plaats van een lege zoekpagina te tonen.
@@ -30,11 +30,11 @@ Start nummers en afleveringen direct in de doel-app in plaats van een lege zoekp
 • Snelle Spelerkiezer (Elke keer vragen):
 Gebruik je meerdere audio-apps? Activeer de optionele snelle kiezer om direct je doelspeler te kiezen wanneer je een link opent.
 
-• Slimme Installatiewizard (Android 12+):
-Controleer en stel eenvoudig standaard app-koppelingen in met onze interactieve wizard in 1 tik.
+• Smart Link Redirect-assistent (Android 12+):
+Verifieer en configureer eenvoudig Android Open by Default App Links met onze interactieve 1-tik link redirect setup-assistent.
 
-• Klembord Smart-Banner & Deelmenu:
-Link gekopieerd? Start direct via de slimme banner of deel links vanuit WhatsApp, Telegram, Reddit of Instagram naar SongFlip.
+• Klembord Smart-Banner en native delen:
+Een muzieklink gekopieerd? Converteer en open het direct via de slimme dashboardbanner, of deel links rechtstreeks vanuit WhatsApp, Telegram, Reddit of Instagram naar SongFlip.
 
 • Universele Web Smart Links & Webplayer:
 Maak neutrale weblinks (songflip.link) met ingebouwde webplayer zodat je vrienden direct op elk apparaat kunnen luisteren.
@@ -54,4 +54,4 @@ Wissel promotiecodes direct in de app in voor PRO-functies.
 • Volledig advertentievrij voor altijd
 • Geen tracking of gegevensverzameling
 
-Compatibel met Songlink / Odesli. Download SongFlip nu en geniet van muziek en podcasts over alle platformgrenzen heen!
+Compatibel met universele muzieklinkprotocollen, waaronder Songlink / Odesli. Download SongFlip nu: uw automatische muzieklink-omleiding en songlink-converter om moeiteloos nummers en podcasts over alle streamingdiensten te verbinden!

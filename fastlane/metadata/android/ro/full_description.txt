@@ -1,52 +1,52 @@
-Un prieten îți trimite o piesă sau un podcast pe Spotify, dar tu asculți pe YouTube Music, Apple Podcasts sau Deezer?
+Un prieten îți trimite un link pentru cântec sau podcast pe Spotify, dar tu asculți pe YouTube Music, Apple Podcasturi sau Deezer?
 
-SongFlip este convertorul și redirectorul tău inteligent de linkuri muzicale și podcasturi pentru Android. Odată configurat, linkurile primite sunt convertite automat în fundal și deschise direct în playerul tău preferat — fără căutare manuală, fără reclame și fără pagini intermediare.
+SongFlip este redirecționarea link-urilor muzicale și convertorul de linkuri melodii fără întreruperi, fără clicuri pentru Android. Odată activate, linkurile de muzică primite și linkurile de podcast se convertesc automat în fundal și se deschid direct în playerul tău preferat - fără căutare manuală, fără anunțuri, fără ocolire a browserului.
 
-Fie că este vorba de Spotify către YouTube Music, Apple Podcasts către Spotify sau melodii din Shazam: SongFlip rezolvă instantaneu ca un convertor universal de smart linkuri.
+Indiferent dacă comutați Spotify la YouTube Music, Apple Podcasts la Pocket Casts, Spotify la Apple Music sau deschideți melodii din Shazam, SongFlip funcționează ca un convertor universal de muzică și instrument de redirecționare a linkurilor pentru a deschide link-urile și fluxurile audio Spotify instantaneu.
 
 🚀 CARACTERISTICI PRINCIPALE:
 
-• 10 Platforme de Streaming, Podcasturi & Shazam:
-Convertește fără probleme între Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud și Bandcamp. Suportă și linkuri Shazam!
+• 10 platforme de streaming, podcasturi și Shazam:
+Convertiți și redirecționați fără probleme link-urile de melodii și podcasturi prin Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud și Bandcamp. Include suport pentru convertizorul de linkuri de muzică instantanee pentru linkurile Shazam partajate!
 
-• Căutare directă de melodii (căutare în aplicație):
-Căutați melodii și artiști direct în SongFlip și lansați redarea instantaneu în aplicația dvs. de muzică preferată cu o atingere Fast Flip - nu este nevoie de link existent.
+• Căutare directă de melodii:
+Căutați melodii și artiști în SongFlip și începeți redarea în playerul dvs. preferat cu o atingere Fast Flip.
 
-• Partajarea și scanarea muzicii coduri QR:
-Generați și scanați coduri QR universale pentru melodii și albume. Partajați fără efort muzică prietenilor în persoană, indiferent de serviciul de streaming la care sunt abonați.
+• Cod QR Partajare melodie:
+Creează și scanează coduri QR universale pentru melodii și albume prin orice serviciu de streaming.
 
-• Motor de Conversie Podcasturi:
-Partajează emisiuni și episoade individuale între diferite platforme. SongFlip găsește episodul și îl pornește direct în aplicația ta preferată de podcasturi.
+• Podcast Converter & Podcast Redirect Engine:
+Partajați emisiuni sau episoade podcast complete pe platforme. SongFlip rezolvă automat titlurile episoadelor pentru a converti și deschide link-uri podcast chiar în interiorul playerului tău de podcast preferat.
 
-• Convertor Universal de Playlisturi:
-Transferați liste de redare întregi piesă cu piesă între Spotify, Apple Music, YouTube Music, TIDAL și Deezer — cu curățarea automată a duplicatelor, până la 200 de melodii și stocare în cache de mare viteză pe mai multe niveluri.
+• Universal Playlist Converter & Playlist Transfer:
+Convertiți liste de redare și transferați liste de redare piesă cu piesă între Spotify, Apple Music, YouTube Music, TIDAL și Deezer — cu curățarea automată a duplicatelor, până la 200 de melodii și memorare rapidă în cache.
 
-• Rafinați potrivirile și Preferate cu o singură atingere:
-Alegeți cu ușurință între înregistrări live, remasterizări sau versiuni alternative. Fixați-vă piesele preferate din istorie cu o singură atingere și gestionați-le prin meniul simplificat de acțiuni rapide.
+• Rafinați potrivirile și favoritele:
+Alegeți între versiunile live, remasterizate sau de studio și fixați melodiile preferate cu o singură atingere.
 
-• Redare Instantanee (Instant Playback):
-Pornește melodia sau episodul direct în playerul țintă în loc să afișeze pagini goale de căutare.
+• Redare instantanee a piesei:
+Începe redarea direct în playerul țintă, în loc de paginile de căutare goale.
 
-• Selector Rapid de Player (Întreabă de fiecare dată):
-Folosești mai multe aplicații audio? Activează selectorul rapid pentru a alege pe loc playerul dorit la deschiderea unui link.
+• Selector rapid de jucător:
+Alegeți playerul audio țintă din mers ori de câte ori deschideți un link pentru cântec sau podcast partajat.
 
-• Asistent Inteligent de Configurare (Android 12+):
-Configurează cu ușurință linkurile implicite ale aplicațiilor cu o singură atingere.
+• Smart Link Redirect Assistant (Android 12+):
+Verificați și configurați cu ușurință Android Open by Default App Links cu ajutorul asistentului nostru interactiv de configurare a redirecționării linkului cu o singură atingere.
 
-• Smart-Banner Clipboard & Meniu Distribuire:
-Ai copiat un link? Deschide-l imediat din bannerul inteligent sau distribuie din WhatsApp, Telegram ori Instagram către SongFlip.
+• Clipboard Smart-Banner și Partajare nativă:
+Ați copiat un link muzical? Convertiți-l și deschideți-l instantaneu prin intermediul bannerului tabloului de bord inteligent sau partajați link-uri direct din WhatsApp, Telegram, Reddit sau Instagram în SongFlip.
 
-• Smart Linkuri Web Universale & Web Player (songflip.link):
-Generează linkuri neutre cu web player integrat pentru ca prietenii tăi să poată asculta pe orice dispozitiv.
+• Web Smart Links (songflip.link):
+Creați legături web neutre cu un player încorporat, astfel încât prietenii să poată asculta în orice browser.
 
-• Comenzi Rapide & Comutator în Setări Rapide:
-Întrerupe redirecționarea pentru 15 minute, 1 oră sau până mâine dimineață din panoul de setări rapide.
+• Setări rapide și comenzi rapide:
+Întrerupeți redirecționarea linkului timp de 15 minute, 1 oră sau până mâine prin Setări rapide.
 
-• Design Material You & Pictogramă Tematică:
-Se adaptează culorilor sistemului tău cu mod întunecat AMOLED și pictogramă monocromă.
+• Material You & AMOLED Dark Mode:
+Urmează culorile dinamice ale sistemului cu modul întunecat complet AMOLED și pictograma tematică.
 
-• Revendicare Coduri Promoționale & Vouchere:
-Introdu coduri promoționale direct în aplicație pentru a debloca funcțiile PRO.
+• Coduri promoționale și vouchere:
+Valorificați codurile promoționale din setări pentru a debloca beneficiile PRO și istoricul extins.
 
 🔒 CONFIDENȚIALITATE ȘI OPEN SOURCE:
 • 100% Open Source (licență GPLv3 pe GitHub)
@@ -54,4 +54,4 @@ Introdu coduri promoționale direct în aplicație pentru a debloca funcțiile P
 • Complet fără reclame pentru totdeauna
 • Fără urmărire a datelor sau a obiceiurilor de ascultare
 
-Compatibil cu Songlink / Odesli. Descarcă SongFlip acum și bucură-te de muzică și podcasturi fără bariere între platforme!
+Compatibil cu protocoalele universale de legătură muzicală, inclusiv Songlink/Odesli. Descărcați acum SongFlip — redirecționarea automată a linkurilor muzicale și convertorul de linkuri la melodii pentru a conecta melodiile și podcasturile cu toate serviciile de streaming fără efort!

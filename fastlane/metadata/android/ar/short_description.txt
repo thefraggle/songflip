@@ -1,1 +1,1 @@
-Automatically convert & open music and podcast links in your favorite player.
+Automatically convert & open song and podcast links in your favorite player.
