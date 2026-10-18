@@ -29,16 +29,23 @@ class AndroidSharedPreferencesCacheStorage(
         fun init(context: Context) {
             appContext = context.applicationContext
             sharedPrefs = appContext?.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+            // Initialize database and migrate legacy SharedPreferences entries BEFORE cleaning legacy cache keys
+            val storage = getOrCreateSqlDelightStorage()
+            storage.getDatabase()
+            if (!storage.isMigrationDone(MIGRATION_KEY_ANDROID)) {
+                val legacyEntries = AndroidSharedPreferencesCacheStorage().loadAll()
+                storage.migrateLegacyEntries(legacyEntries, MIGRATION_KEY_ANDROID)
+            }
             checkCacheVersionMigration()
-            // Trigger database creation and one-time migration if not yet initialized
-            getOrCreateSqlDelightStorage().getDatabase()
         }
 
         @Synchronized
         fun init(prefs: SharedPreferences) {
             sharedPrefs = prefs
+            val storage = createInMemorySqlDelightStorage(prefs)
+            storage.getDatabase()
+            sqlDelightStorage = storage
             checkCacheVersionMigration()
-            sqlDelightStorage = createInMemorySqlDelightStorage(prefs)
         }
 
         @Synchronized
@@ -59,7 +66,7 @@ class AndroidSharedPreferencesCacheStorage(
                     val legacyEntries = AndroidSharedPreferencesCacheStorage().loadAll()
                     if (legacyEntries.isNotEmpty()) {
                         storage.migrateLegacyEntries(legacyEntries, MIGRATION_KEY_ANDROID)
-                    } else {
+                    } else if (sharedPrefs != null) {
                         storage.migrateLegacyEntries(emptyMap(), MIGRATION_KEY_ANDROID)
                     }
                 }
@@ -90,7 +97,14 @@ class AndroidSharedPreferencesCacheStorage(
             val prefs = sharedPrefs ?: return
             val savedVersion = prefs.getInt(CACHE_VERSION_KEY, 1)
             if (savedVersion < CURRENT_CACHE_VERSION) {
-                prefs.edit().clear().putInt(CACHE_VERSION_KEY, CURRENT_CACHE_VERSION).apply()
+                val editor = prefs.edit()
+                for ((k, v) in prefs.all) {
+                    if (k == CACHE_VERSION_KEY) continue
+                    if (k.contains("|") || (v is String && v.trimStart().startsWith("{") && v.contains("\"targetUrl\""))) {
+                        editor.remove(k)
+                    }
+                }
+                editor.putInt(CACHE_VERSION_KEY, CURRENT_CACHE_VERSION).apply()
             }
         }
     }

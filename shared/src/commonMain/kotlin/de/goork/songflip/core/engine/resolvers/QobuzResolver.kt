@@ -94,7 +94,10 @@ class QobuzResolver(
             }
             if (resp.status.isSuccess()) {
                 val parsed = json.decodeFromString<QobuzSearchResponse>(resp.bodyAsText())
-                val artistId = parsed.artists?.items?.firstOrNull()?.id
+                val matchedArtist = parsed.artists?.items?.firstOrNull { item ->
+                    ResolverUtils.isArtistNameMatch(artistName, item.name)
+                }
+                val artistId = matchedArtist?.id
                 if (artistId != null) {
                     return "https://open.qobuz.com/artist/$artistId"
                 }
@@ -117,12 +120,16 @@ class QobuzResolver(
             if (resp.status.isSuccess()) {
                 val parsed = json.decodeFromString<QobuzSearchResponse>(resp.bodyAsText())
                 if (isAlbum) {
-                    val album = parsed.albums?.items?.firstOrNull()
-                    if (album?.id != null) {
-                        return "https://open.qobuz.com/album/${album.id}"
+                    val album = parsed.albums?.items?.firstOrNull { item ->
+                        ResolverUtils.isMatch(query, item.artist?.name, item.title)
+                    }
+                    if (!album?.id.isNullOrBlank()) {
+                        return "https://open.qobuz.com/album/${album?.id}"
                     }
                 } else {
-                    val track = parsed.tracks?.items?.firstOrNull()
+                    val track = parsed.tracks?.items?.firstOrNull { item ->
+                        ResolverUtils.isMatch(query, item.performer?.name, item.title)
+                    }
                     if (track?.id != null) {
                         return "https://open.qobuz.com/track/${track.id}"
                     }
@@ -140,7 +147,7 @@ class QobuzResolver(
      */
     suspend fun extractMetadata(url: String): String? {
         return try {
-            val trackMatch = Regex("(?:track)/([0-9]+)").find(url)
+            val trackMatch = Regex("(?:track)/(?:[a-zA-Z0-9_-]+/)?([0-9]+)").find(url)
             if (trackMatch != null) {
                 val trackId = trackMatch.groupValues[1]
                 val apiUrl = "https://www.qobuz.com/api.json/0.2/track/get?track_id=$trackId&app_id=$qobuzAppId"

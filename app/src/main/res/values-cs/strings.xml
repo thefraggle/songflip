@@ -372,4 +372,14 @@
     <string name="disambiguate_error">Verze se nepodařilo načíst</string>
     <string name="history_qr_action">Zobrazit QR kód</string>
     <string name="favorite_limit_reached">Dosáhli jste limitu 10 bezplatných oblíbených. Pořiďte si SongFlip PRO pro neomezené oblíbené a 100 položek v historii.</string>
+    <string name="playlist_same_platform_title">Již v %1$s</string>
+    <string name="playlist_same_platform_desc">Tento playlist již pochází z vaší vybrané hudební služby. Můžete jej otevřít přímo v aplikaci.</string>
+    <string name="qr_code_title">QR kód</string>
+    <string name="qr_code_hint">Naskenujte pro otevření odkazu na jakémkoli zařízení</string>
+    <string name="action_close">Zavřít</string>
+    <string name="favorite_add">Přidat do oblíbených</string>
+    <string name="favorite_remove">Odebrat z oblíbených</string>
+    <string name="history_filter_all">Vše</string>
+    <string name="history_filter_favorites">Oblíbené</string>
+    <string name="target_player_chip">Přehrávač: %1$s</string>
 </resources>

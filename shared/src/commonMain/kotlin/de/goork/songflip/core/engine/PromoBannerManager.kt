@@ -4,6 +4,7 @@ import de.goork.songflip.core.model.PromoBannerConfig
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -43,6 +44,7 @@ object PromoBannerManager {
 
     fun setConfigForTesting(testConfig: PromoBannerConfig) {
         _config.value = testConfig
+        lastFetchTimeMs = 0L
     }
 
     fun resetDismissed() {
@@ -53,22 +55,26 @@ object PromoBannerManager {
         _isDismissed.value = true
     }
 
-    fun isBannerVisible(isPro: Boolean, currentTimeMs: Long): Boolean {
+    fun isBannerVisible(isPro: Boolean, currentTimeMs: Long = getCurrentTimeMillis()): Boolean {
         if (isPro) return false
         if (_isDismissed.value) return false
         return _config.value.isValid(currentTimeMs)
     }
 
-    fun initFromCachedJson(cachedJson: String, currentTimeMs: Long = 0L) {
+    fun isBannerVisible(isPro: Boolean): Boolean = isBannerVisible(isPro, getCurrentTimeMillis())
+
+    fun initFromCachedJson(cachedJson: String, currentTimeMs: Long = getCurrentTimeMillis()) {
         val parsed = parsePromoBannerJson(cachedJson)
         if (parsed != null && parsed.isValid(currentTimeMs)) {
             _config.value = parsed
         }
     }
 
+    fun initFromCachedJson(cachedJson: String) = initFromCachedJson(cachedJson, getCurrentTimeMillis())
+
     fun fetchPromoBanner(
         endpointUrl: String = "https://songflip-web.web.app/api/promo-banner",
-        currentTimeMs: Long = 0L,
+        currentTimeMs: Long = getCurrentTimeMillis(),
         forceRefresh: Boolean = false,
         onSuccess: ((String) -> Unit)? = null
     ) {
@@ -80,13 +86,19 @@ object PromoBannerManager {
         }
     }
 
+    fun fetchPromoBanner(
+        endpointUrl: String,
+        forceRefresh: Boolean,
+        onSuccess: ((String) -> Unit)? = null
+    ) = fetchPromoBanner(endpointUrl, getCurrentTimeMillis(), forceRefresh, onSuccess)
+
     suspend fun fetchPromoBannerRaw(
         endpointUrl: String = "https://songflip-web.web.app/api/promo-banner",
-        currentTimeMs: Long = 0L,
+        currentTimeMs: Long = getCurrentTimeMillis(),
         forceRefresh: Boolean = false
     ): String? {
         val now = if (currentTimeMs > 0L) currentTimeMs else 0L
-        if (!forceRefresh && now > 0L && (now - lastFetchTimeMs) < CACHE_TTL_MS) {
+        if (!forceRefresh && lastFetchTimeMs > 0L && now > 0L && (now - lastFetchTimeMs) >= 0L && (now - lastFetchTimeMs) < CACHE_TTL_MS) {
             return null
         }
 
@@ -96,24 +108,35 @@ object PromoBannerManager {
             val parsed = parsePromoBannerJson(body)
             if (parsed != null) {
                 _config.value = parsed
-                lastFetchTimeMs = if (currentTimeMs > 0L) currentTimeMs else 0L
+                lastFetchTimeMs = now
                 body
             } else {
                 null
             }
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            if (e is CancellationException) throw e
             null
         }
     }
 
+    suspend fun fetchPromoBannerRaw(
+        endpointUrl: String,
+        forceRefresh: Boolean
+    ): String? = fetchPromoBannerRaw(endpointUrl, getCurrentTimeMillis(), forceRefresh)
+
     suspend fun fetchPromoBannerDirect(
         endpointUrl: String = "https://songflip-web.web.app/api/promo-banner",
-        currentTimeMs: Long = 0L,
+        currentTimeMs: Long = getCurrentTimeMillis(),
         forceRefresh: Boolean = false
     ): PromoBannerConfig? {
         fetchPromoBannerRaw(endpointUrl, currentTimeMs, forceRefresh)
         return _config.value
     }
+
+    suspend fun fetchPromoBannerDirect(
+        endpointUrl: String,
+        forceRefresh: Boolean
+    ): PromoBannerConfig? = fetchPromoBannerDirect(endpointUrl, getCurrentTimeMillis(), forceRefresh)
 
     fun parsePromoBannerJson(jsonString: String): PromoBannerConfig? {
         if (jsonString.isBlank()) return null

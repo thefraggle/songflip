@@ -364,4 +364,14 @@
     <string name="disambiguate_error">Versioita ei voitu ladata</string>
     <string name="history_qr_action">Näytä QR-koodi</string>
     <string name="favorite_limit_reached">Olet saavuttanut 10 ilmaisen suosikin rajan. Hanki SongFlip PRO saadaksesi rajattomat suosikit ja 100 historiamerkintää.</string>
+    <string name="playlist_same_platform_title">Jo palvelussa %1$s</string>
+    <string name="playlist_same_platform_desc">Tämä soittolista on jo valitsemastasi musiikkipalvelusta. Voit avata sen suoraan sovelluksessa.</string>
+    <string name="qr_code_title">QR-koodi</string>
+    <string name="qr_code_hint">Avaa linkki millä tahansa laitteella skannaamalla</string>
+    <string name="action_close">Sulje</string>
+    <string name="favorite_add">Lisää suosikkeihin</string>
+    <string name="favorite_remove">Poista suosikeista</string>
+    <string name="history_filter_all">Kaikki</string>
+    <string name="history_filter_favorites">Suosikit</string>
+    <string name="target_player_chip">Soitin: %1$s</string>
 </resources>

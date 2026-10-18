@@ -378,4 +378,14 @@
     <string name="disambiguate_error">Kan versies niet laden</string>
     <string name="history_qr_action">Toon QR-code</string>
     <string name="favorite_limit_reached">Je hebt je 10 gratis favorieten bereikt. Neem SongFlip PRO voor onbeperkte favorieten &amp; 100 geschiedenisitems.</string>
+    <string name="playlist_same_platform_title">Al in %1$s</string>
+    <string name="playlist_same_platform_desc">Deze afspeellijst is al van je geselecteerde muziekdienst. Je kunt hem direct in de app openen.</string>
+    <string name="qr_code_title">QR-code</string>
+    <string name="qr_code_hint">Scan om de link op elk apparaat te openen</string>
+    <string name="action_close">Sluiten</string>
+    <string name="favorite_add">Toevoegen aan favorieten</string>
+    <string name="favorite_remove">Verwijderen uit favorieten</string>
+    <string name="history_filter_all">Alle</string>
+    <string name="history_filter_favorites">Favorieten</string>
+    <string name="target_player_chip">Speler: %1$s</string>
 </resources>

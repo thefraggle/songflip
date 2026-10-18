@@ -34,4 +34,19 @@ object ResolverUtils {
             }
         }
     }
+
+    fun isArtistNameMatch(candidate: String?, target: String?): Boolean {
+        fun normalize(str: String): String {
+            return str.lowercase().trim()
+                .replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
+                .replace("[^a-z0-9]".toRegex(), "")
+        }
+        val normCand = normalize(candidate ?: return false)
+        val normTarget = normalize(target ?: return false)
+        if (normCand.isEmpty() || normTarget.isEmpty()) return false
+        if (normCand == normTarget) return true
+        if (normCand == normTarget + "thema" || normCand == normTarget + "topic") return true
+        if (normTarget == normCand + "thema" || normTarget == normCand + "topic") return true
+        return false
+    }
 }

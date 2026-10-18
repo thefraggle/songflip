@@ -144,7 +144,7 @@ fun PlaylistConvertBottomSheet(
 
                 // Request In-App Review at this happy moment if eligible
                 if (data.matchedCount > 0) {
-                    (context as? android.app.Activity)?.let { act ->
+                    context.findActivity()?.let { act ->
                         de.goork.songflip.data.ReviewHelper.maybeRequestReview(
                             activity = act,
                             settingsRepository = de.goork.songflip.data.SettingsRepository(context),
@@ -882,9 +882,11 @@ fun PlaylistConvertBottomSheet(
                                     putExtra(Intent.EXTRA_TEXT, webShareUrl)
                                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 }
-                                context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.playlist_share_link)).apply {
-                                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                })
+                                try {
+                                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.playlist_share_link)).apply {
+                                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    })
+                                } catch (_: Exception) {}
                             },
                             shape = RoundedCornerShape(14.dp),
                             modifier = Modifier
@@ -920,9 +922,11 @@ fun PlaylistConvertBottomSheet(
                                     putExtra(Intent.EXTRA_TEXT, webShareUrl)
                                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 }
-                                context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.playlist_share_link)).apply {
-                                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                })
+                                try {
+                                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.playlist_share_link)).apply {
+                                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    })
+                                } catch (_: Exception) {}
                             },
                             shape = RoundedCornerShape(14.dp),
                             modifier = Modifier

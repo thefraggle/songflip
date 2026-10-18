@@ -378,4 +378,14 @@
     <string name="disambiguate_error">Não foi possível carregar as versões</string>
     <string name="history_qr_action">Mostrar código QR</string>
     <string name="favorite_limit_reached">Você atingiu seus 10 favoritos gratuitos. Obtenha o SongFlip PRO para favoritos ilimitados e 100 entradas no histórico.</string>
+    <string name="playlist_same_platform_title">Já está no %1$s</string>
+    <string name="playlist_same_platform_desc">Esta playlist já é do seu serviço de música selecionado. Você pode abri-la diretamente no aplicativo.</string>
+    <string name="qr_code_title">Código QR</string>
+    <string name="qr_code_hint">Escaneie para abrir o link em qualquer dispositivo</string>
+    <string name="action_close">Fechar</string>
+    <string name="favorite_add">Adicionar aos favoritos</string>
+    <string name="favorite_remove">Remover dos favoritos</string>
+    <string name="history_filter_all">Todos</string>
+    <string name="history_filter_favorites">Favoritos</string>
+    <string name="target_player_chip">Player: %1$s</string>
 </resources>

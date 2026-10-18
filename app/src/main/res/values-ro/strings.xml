@@ -368,4 +368,14 @@
     <string name="disambiguate_error">Nu s-au putut încărca versiunile</string>
     <string name="history_qr_action">Arată codul QR</string>
     <string name="favorite_limit_reached">Ai atins limita de 10 favorite gratuite. Obține SongFlip PRO pentru favorite nelimitate și 100 de intrări în istoric.</string>
+    <string name="playlist_same_platform_title">Deja în %1$s</string>
+    <string name="playlist_same_platform_desc">Această listă de redare provine deja din serviciul muzical selectat. O poți deschide direct în aplicație.</string>
+    <string name="qr_code_title">Cod QR</string>
+    <string name="qr_code_hint">Scanează pentru a deschide linkul pe orice dispozitiv</string>
+    <string name="action_close">Închide</string>
+    <string name="favorite_add">Adaugă la favorite</string>
+    <string name="favorite_remove">Elimină de la favorite</string>
+    <string name="history_filter_all">Toate</string>
+    <string name="history_filter_favorites">Favorite</string>
+    <string name="target_player_chip">Player: %1$s</string>
 </resources>

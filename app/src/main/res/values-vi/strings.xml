@@ -374,4 +374,14 @@
     <string name="disambiguate_error">Không thể tải phiên bản</string>
     <string name="history_qr_action">Hiển thị mã QR</string>
     <string name="favorite_limit_reached">Bạn đã đạt giới hạn 10 mục yêu thích miễn phí. Nâng cấp SongFlip PRO để mở khóa yêu thích không giới hạn &amp; 100 mục lịch sử.</string>
+    <string name="playlist_same_platform_title">Đã có trong %1$s</string>
+    <string name="playlist_same_platform_desc">Danh sách phát này đã thuộc dịch vụ nhạc bạn chọn. Bạn có thể mở trực tiếp trong ứng dụng.</string>
+    <string name="qr_code_title">Mã QR</string>
+    <string name="qr_code_hint">Quét để mở liên kết trên mọi thiết bị</string>
+    <string name="action_close">Đóng</string>
+    <string name="favorite_add">Thêm vào Yêu thích</string>
+    <string name="favorite_remove">Xóa khỏi Yêu thích</string>
+    <string name="history_filter_all">Tất cả</string>
+    <string name="history_filter_favorites">Yêu thích</string>
+    <string name="target_player_chip">Trình phát: %1$s</string>
 </resources>

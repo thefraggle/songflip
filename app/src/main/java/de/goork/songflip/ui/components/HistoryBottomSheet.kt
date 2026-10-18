@@ -489,16 +489,24 @@ fun HistoryBottomSheet(
                                 coroutineScope.launch {
                                     refreshingKeys = refreshingKeys + item.cacheKey
                                     Toast.makeText(context, context.getString(R.string.history_link_refreshing), Toast.LENGTH_SHORT).show()
-                                    SongLinkEngine.shared.forceRefreshTargetUrl(
-                                        inputUrl = item.canonicalUrl,
-                                        targetPlatformKey = item.targetPlatformKey,
-                                        isPro = isPro,
-                                        authToken = de.goork.songflip.data.ProManager.getAuthToken()
-                                    )
+                                    val result = try {
+                                        SongLinkEngine.shared.forceRefreshTargetUrl(
+                                            inputUrl = item.canonicalUrl,
+                                            targetPlatformKey = item.targetPlatformKey,
+                                            isPro = isPro,
+                                            authToken = de.goork.songflip.data.ProManager.getAuthToken()
+                                        )
+                                    } catch (_: Exception) {
+                                        null
+                                    }
                                     refreshHistory()
                                     refreshingKeys = refreshingKeys - item.cacheKey
                                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                                    Toast.makeText(context, context.getString(R.string.history_link_refreshed), Toast.LENGTH_SHORT).show()
+                                    if (result is de.goork.songflip.core.model.ResolutionResult.Success) {
+                                        Toast.makeText(context, context.getString(R.string.history_link_refreshed), Toast.LENGTH_SHORT).show()
+                                    } else {
+                                        Toast.makeText(context, context.getString(R.string.redirect_error_toast), Toast.LENGTH_SHORT).show()
+                                    }
                                 }
                             },
                             onShareUniversal = {
@@ -520,7 +528,9 @@ fun HistoryBottomSheet(
                                         putExtra(Intent.EXTRA_TEXT, shareUrl)
                                         putExtra(Intent.EXTRA_TITLE, item.title ?: "SongFlip Link")
                                     }
-                                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share_universal_link)))
+                                    try {
+                                        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share_universal_link)))
+                                    } catch (_: Exception) {}
                                 } else {
                                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("history_universal_share")

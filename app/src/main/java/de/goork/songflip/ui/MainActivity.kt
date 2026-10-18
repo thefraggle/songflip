@@ -374,12 +374,12 @@ fun MainScreen(
                 refreshStatus()
                 activeMilestone = settingsRepository.getActiveProNudgeMilestone()
                 if (activeMilestone <= 0) {
-                    (context as? Activity)?.let { act ->
+                    context.findActivity()?.let { act ->
                         de.goork.songflip.data.ReviewHelper.maybeRequestReview(act, settingsRepository, trigger = "resume_milestone_idle")
                     }
                 }
                 de.goork.songflip.data.ShortcutHelper.updateShortcuts(context)
-                if ((context as? Activity)?.hasWindowFocus() == true) {
+                if (context.findActivity()?.hasWindowFocus() == true) {
                     checkClipboard(force = true)
                 }
             }
@@ -494,6 +494,10 @@ fun MainScreen(
             onOpenSetupGuide = {
                 showSettingsBottomSheet = false
                 showAppLinksSetupBottomSheet = true
+            },
+            onOpenPlaylist = { playlistUrl, _ ->
+                showSettingsBottomSheet = false
+                showPlaylistConvertSheet = playlistUrl
             }
         )
     }
@@ -512,10 +516,13 @@ fun MainScreen(
                 try {
                     context.startActivity(intent)
                 } catch (e: Exception) {
-                    val fallbackIntent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-                        data = Uri.parse("package:${context.packageName}")
+                    try {
+                        val fallbackIntent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                            data = Uri.parse("package:${context.packageName}")
+                        }
+                        context.startActivity(fallbackIntent)
+                    } catch (_: Exception) {
                     }
-                    context.startActivity(fallbackIntent)
                 }
             }
         )
@@ -654,16 +661,22 @@ fun MainScreen(
                         activeConversion = activeConversion,
                         isPro = proState.isPro,
                         onOpenTarget = { targetUrl ->
-                            val redirectIntent = Intent(Intent.ACTION_VIEW, Uri.parse(targetUrl)).apply {
-                                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            try {
+                                val redirectIntent = Intent(Intent.ACTION_VIEW, Uri.parse(targetUrl)).apply {
+                                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                }
+                                context.startActivity(redirectIntent)
+                            } catch (_: Exception) {
                             }
-                            context.startActivity(redirectIntent)
                         },
                         onOpenOriginal = { originalUrl ->
-                            val redirectIntent = Intent(Intent.ACTION_VIEW, Uri.parse(originalUrl)).apply {
-                                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            try {
+                                val redirectIntent = Intent(Intent.ACTION_VIEW, Uri.parse(originalUrl)).apply {
+                                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                }
+                                context.startActivity(redirectIntent)
+                            } catch (_: Exception) {
                             }
-                            context.startActivity(redirectIntent)
                         },
                         onOpenDetails = {
                             showPlaylistConvertSheet = activeConversion.playlistUrl
@@ -752,7 +765,10 @@ fun MainScreen(
                                         type = "text/plain"
                                         putExtra(Intent.EXTRA_TEXT, universalUrl)
                                     }
-                                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share_universal_link)))
+                                    try {
+                                        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share_universal_link)))
+                                    } catch (_: Exception) {
+                                    }
                                 }
                             } else {
                                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("clipboard_banner_universal_share")

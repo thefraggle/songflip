@@ -243,6 +243,8 @@ object UrlUtils {
         if (url.contains("/track/")) return false
         if (url.contains("/song/")) return false
         val clean = url.substringBefore("?")
+        val lower = clean.lowercase()
+        if (lower.contains("beatport.com") && lower.contains("/release/")) return true
         return albumPathRegex.containsMatchIn(clean) || clean.endsWith("/album") || clean.endsWith("/albums")
     }
 
@@ -574,12 +576,12 @@ object UrlUtils {
         val clean = cleanSearchQuery(queryText)
         val query = clean.encodeURLParameter()
         return when (targetPlatformKey) {
-            "youtubeMusic" -> "https://music.youtube.com/search?q=$query"
-            "appleMusic" -> "https://music.apple.com/search?term=$query"
+            "youtubeMusic", "youtubemusic" -> "https://music.youtube.com/search?q=$query"
+            "appleMusic", "applemusic" -> "https://music.apple.com/search?term=$query"
             "spotify" -> "https://open.spotify.com/search/$query"
             "tidal" -> "https://listen.tidal.com/search?q=$query"
             "deezer" -> "https://www.deezer.com/search/$query"
-            "amazonMusic" -> "https://music.amazon.com/search/$query"
+            "amazonMusic", "amazonmusic" -> "https://music.amazon.com/search/$query"
             "soundcloud" -> "https://soundcloud.com/search?q=$query"
             "bandcamp" -> "https://bandcamp.com/search?q=$query"
             "qobuz" -> "https://open.qobuz.com/search/$query"
@@ -686,7 +688,7 @@ object UrlUtils {
     fun toNativeQobuzUri(url: String): String {
         if (url.startsWith("qobuz://")) return url
         val clean = url.trim().substringBefore("?")
-        val match = Regex("(?:open|play|www)\\.qobuz\\.com(?:/[a-z]{2}(?:-[a-z]{2})?)?/(track|album)/([0-9a-zA-Z]+)").find(clean)
+        val match = Regex("(?:open|play|www)\\.qobuz\\.com(?:/[a-z]{2}(?:-[a-z]{2})?)?/(track|album)/(?:[a-zA-Z0-9_-]+/)?([0-9a-zA-Z]+)").find(clean)
         if (match != null) {
             val type = match.groupValues[1]
             val id = match.groupValues[2]

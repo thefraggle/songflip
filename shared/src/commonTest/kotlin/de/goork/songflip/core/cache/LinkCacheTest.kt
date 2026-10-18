@@ -412,6 +412,36 @@ class LinkCacheTest {
         )
         assertTrue(targetUpdated)
     }
+
+    @Test
+    fun testEvictOverflowPreservesHistoryInStorageAndEvictsOldestAfterSync() = runTest {
+        val storage = createDefaultCacheStorage()
+        storage.clear()
+
+        val cache = LinkCache(maxEntries = 3, ttlMs = 100_000L, storage = storage)
+        for (i in 1..4) {
+            cache.put("https://open.spotify.com/track/hist_$i", "youtubeMusic", song(i), currentTimeMs = (i * 1000).toLong(), isHistory = true)
+        }
+
+        // In-memory cache is capped at maxEntries = 3, but persistent history retains all 4 items
+        assertEquals(3, cache.size())
+        assertEquals(4, cache.getHistoryCount(currentTimeMs = 5000L))
+
+        // Syncing from storage must keep oldest entries first in LinkedHashMap so subsequent eviction removes the oldest
+        val reloaded = LinkCache(maxEntries = 4, ttlMs = 100_000L, storage = storage)
+        reloaded.syncFromStorage()
+        reloaded.put("https://open.spotify.com/track/hist_5", "youtubeMusic", song(5), currentTimeMs = 5000L, isHistory = true)
+        assertEquals(4, reloaded.size())
+        assertEquals(5, reloaded.getHistoryCount(currentTimeMs = 6000L))
+
+        // Favoriting a prefetched (isHistory = false) item via toggleFavorite or setFavorite promotes it to history
+        cache.put("https://open.spotify.com/track/pref_fav", "youtubeMusic", song(99), currentTimeMs = 6000L, isHistory = false)
+        cache.toggleFavorite("https://open.spotify.com/track/pref_fav|youtubeMusic", currentTimeMs = 6000L)
+        val entriesAfterFav = cache.getHistoryEntries(limit = 10, currentTimeMs = 6000L)
+        assertTrue(entriesAfterFav.any { it.cacheKey == "https://open.spotify.com/track/pref_fav|youtubeMusic" && it.isFavorite })
+
+        storage.clear()
+    }
 }
 
 

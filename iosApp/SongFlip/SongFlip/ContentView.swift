@@ -878,6 +878,11 @@ struct ContentView: View {
             }
 
             ForEach(history.items.prefix(3)) { item in
+                let cleanPlatform = item.targetPlatform
+                    .replacingOccurrences(of: "_playlist", with: "")
+                    .replacingOccurrences(of: "_search", with: "")
+                    .replacingOccurrences(of: "_artist", with: "")
+                    .replacingOccurrences(of: "_fallback", with: "")
                 Button(action: {
                     if let url = URL(string: item.targetUrl) {
                         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
@@ -885,11 +890,11 @@ struct ContentView: View {
                     }
                 }) {
                     HStack(spacing: 12) {
-                        Image(systemName: platformIcon(for: item.targetPlatform))
+                        Image(systemName: platformIcon(for: cleanPlatform))
                             .font(.system(size: 16))
-                            .foregroundColor(platformColor(for: item.targetPlatform))
+                            .foregroundColor(platformColor(for: cleanPlatform))
                             .frame(width: 28, height: 28)
-                            .background(platformColor(for: item.targetPlatform).opacity(0.15))
+                            .background(platformColor(for: cleanPlatform).opacity(0.15))
                             .cornerRadius(6)
 
                         VStack(alignment: .leading, spacing: 2) {
@@ -1001,6 +1006,9 @@ struct ContentView: View {
                       lower.contains("soundcloud.com") ||
                       lower.contains("on.soundcloud.com") ||
                       lower.contains("bandcamp.com") ||
+                      lower.contains("qobuz.com") ||
+                      lower.contains("beatport.com") ||
+                      lower.contains("shazam.com") ||
                       lower.contains("song.link") ||
                       lower.contains("album.link") ||
                       lower.contains("odesli.co")

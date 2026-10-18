@@ -1,4 +1,2 @@
-- Zuverlässigere Deezer-Weiterleitung: Geteilte Deezer-Links öffnen jetzt direkt als Song im gewünschten Musik-Player.
-- Aufgeräumte Suche: Aktionen im Suchmenü wurden optimiert und für eine klarere Bedienung vereinfacht.
-- Bessere Playlist-Hinweise: Klare Rückmeldungen und hilfreiche Tipps beim Konvertieren geschützter oder persönlicher Playlists.
-- Fehlerbehebungen & Stabilität: Allgemeine Verbesserungen für eine reibungslose Musik-Wiedergabe.
+- Bessere Erkennung für Qobuz, Beatport & Shazam: Kopierte und geteilte Links von Qobuz, Beatport und Shazam werden beim Öffnen der App und im Teilen-Menü jetzt sofort erkannt.
+- Präzisere Song-Auswahl & Suche: Die manuelle Auswahl alternativer Song-Versionen sowie das Teilen universeller Links aus der Suche funktionieren jetzt zuverlässig für alle Musikdienste.

@@ -374,4 +374,14 @@
     <string name="disambiguate_error">Gagal memuat versi</string>
     <string name="history_qr_action">Tampilkan kode QR</string>
     <string name="favorite_limit_reached">Anda telah mencapai batas 10 favorit gratis. Dapatkan SongFlip PRO untuk favorit tanpa batas &amp; 100 entri riwayat.</string>
+    <string name="playlist_same_platform_title">Sudah di %1$s</string>
+    <string name="playlist_same_platform_desc">Playlist ini sudah berasal dari layanan musik pilihan Anda. Anda dapat membukanya langsung di aplikasi.</string>
+    <string name="qr_code_title">Kode QR</string>
+    <string name="qr_code_hint">Pindai untuk membuka tautan di perangkat apa pun</string>
+    <string name="action_close">Tutup</string>
+    <string name="favorite_add">Tambahkan ke Favorit</string>
+    <string name="favorite_remove">Hapus dari Favorit</string>
+    <string name="history_filter_all">Semua</string>
+    <string name="history_filter_favorites">Favorit</string>
+    <string name="target_player_chip">Pemutar: %1$s</string>
 </resources>

@@ -20,7 +20,8 @@ object PackageUtils {
         "amazonMusic" to "com.amazon.mp3",
         "soundcloud" to "com.soundcloud.android",
         "bandcamp" to "com.bandcamp.android",
-        "qobuz" to "com.qobuz.music"
+        "qobuz" to "com.qobuz.music",
+        "beatport" to "com.beatport.mobile"
     )
 
     val fallbackPackages = mapOf(
@@ -173,6 +174,7 @@ object PackageUtils {
                 "soundcloud" -> listOf("https://soundcloud.com/artist/track")
                 "bandcamp" -> listOf("https://artist.bandcamp.com/track/song")
                 "qobuz" -> listOf("https://open.qobuz.com/track/1068442", "qobuz://track/1068442")
+                "beatport" -> listOf("https://www.beatport.com/track/song/12345")
                 else -> emptyList()
             }
             for (probeUrl in probeUrls) {

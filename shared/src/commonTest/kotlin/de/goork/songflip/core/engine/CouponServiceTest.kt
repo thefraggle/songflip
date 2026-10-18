@@ -93,6 +93,18 @@ class CouponServiceTest {
         assertFalse(CouponService.shared.verifyCouponToken("", "install-123").valid)
         assertFalse(CouponService.shared.verifyCouponToken("sct_fake_token", "install-123").valid)
         assertFalse(CouponService.shared.verifyCouponToken("sct_v2_invalid", "install-123").valid)
+        assertFalse(
+            CouponService.shared.verifyCouponToken(validLifetimeToken, "").valid,
+            "Blank expectedInstallId must not bypass device binding when token carries an installId"
+        )
+    }
+
+    @Test
+    fun ed25519VerifierHandlesInvalidHexGracefully() {
+        assertEquals(0, Ed25519Verifier.hexToBytes("xyz").size)
+        assertEquals(0, Ed25519Verifier.hexToBytes("123").size)
+        assertEquals(0, Ed25519Verifier.hexToBytes("zzzz").size)
+        assertFalse(Ed25519Verifier.verify("test".encodeToByteArray(), "invalid_hex", "also_invalid"))
     }
 
     @Test

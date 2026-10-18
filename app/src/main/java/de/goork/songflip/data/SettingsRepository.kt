@@ -163,7 +163,8 @@ class SettingsRepository(private val context: Context) {
 
         val SUPPORTED_LANGUAGE_CODES = setOf(
             "de", "en", "da", "nb", "sv", "nl", "fr", "es", "it", "pt", "pl",
-            "ru", "tr", "uk", "ja", "ko", "zh", "in", "id", "vi", "bn", "hi", "mr"
+            "ru", "tr", "uk", "ja", "ko", "zh", "zh-TW", "in", "id", "vi", "bn", "hi", "mr",
+            "cs", "hu", "fi", "el", "ro", "th"
         )
 
         /**

@@ -98,5 +98,10 @@ class PlaylistExporterTest {
         assertEquals(101, chunks[2].rangeStart)
         assertEquals(125, chunks[2].rangeEnd)
         assertEquals(25, chunks[2].totalTracks)
+        assertTrue(chunks[0].zeroOAuthUrl?.startsWith("spotify:trackset:Mega%20Playlist%20%28Part%201%29:") == true)
+
+        // Verify chunkSize <= 0 is safely coerced to 1
+        val singleChunks = PlaylistExporter.calculateChunks(tracks = sampleTracks.take(2), chunkSize = 0)
+        assertEquals(2, singleChunks.size)
     }
 }

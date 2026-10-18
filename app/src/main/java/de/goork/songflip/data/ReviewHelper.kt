@@ -85,10 +85,14 @@ object ReviewHelper {
             }
             context.startActivity(intent)
         } catch (_: Exception) {
-            val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$packageName")).apply {
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            try {
+                val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$packageName")).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+                context.startActivity(webIntent)
+            } catch (_: Exception) {
+                // Ignore if no browser is available
             }
-            context.startActivity(webIntent)
         }
     }
 }

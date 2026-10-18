@@ -1,5 +1,7 @@
 package de.goork.songflip.core.engine
 
+import de.goork.songflip.core.engine.resolvers.QobuzResolver
+import de.goork.songflip.core.util.UrlUtils
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
@@ -28,6 +30,8 @@ class DisambiguationEngine(
     private val client: HttpClient = createPlatformHttpClient(),
     private val json: Json = Json { ignoreUnknownKeys = true; isLenient = true }
 ) {
+    private val qobuzResolver = QobuzResolver(client, json)
+
     companion object {
         val shared: DisambiguationEngine by lazy { DisambiguationEngine() }
     }
@@ -114,15 +118,18 @@ class DisambiguationEngine(
                     val resp = client.get("https://api.deezer.com/search?q=$encoded&limit=$limit")
                     if (resp.status.isSuccess()) {
                         val parsed = json.decodeFromString<DeezerSearchResponse>(resp.bodyAsText())
-                        parsed.data.forEach { item ->
+                        for (item in parsed.data) {
                             val tName = item.title?.trim()
                             val aName = item.artist?.name?.trim()
                             if (!tName.isNullOrEmpty() && !aName.isNullOrEmpty()) {
+                                val query = "$aName $tName"
                                 val url = when (targetPlatformKey.lowercase()) {
-                                    "youtubemusic" -> "https://music.youtube.com/search?q=${(aName + " " + tName).encodeURLParameter()}"
-                                    "spotify" -> "https://open.spotify.com/search/${(aName + " " + tName).encodeURLParameter()}"
-                                    "tidal" -> "https://listen.tidal.com/search?q=${(aName + " " + tName).encodeURLParameter()}"
-                                    else -> item.link ?: ""
+                                    "youtubemusic" -> "https://music.youtube.com/search?q=${query.encodeURLParameter()}"
+                                    "spotify" -> "https://open.spotify.com/search/${query.encodeURLParameter()}"
+                                    "tidal" -> "https://listen.tidal.com/search?q=${query.encodeURLParameter()}"
+                                    "qobuz" -> qobuzResolver.resolveTrack(query) ?: UrlUtils.buildSearchUrl(query, "qobuz")
+                                    "amazonmusic", "soundcloud", "bandcamp", "beatport" -> UrlUtils.buildSearchUrl(query, targetPlatformKey)
+                                    else -> UrlUtils.buildSearchUrl(query, targetPlatformKey)
                                 }
                                 candidates.add(
                                     DisambiguationCandidate(

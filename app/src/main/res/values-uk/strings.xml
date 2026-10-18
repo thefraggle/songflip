@@ -386,4 +386,14 @@
     <string name="disambiguate_error">Не вдалося завантажити версії</string>
     <string name="history_qr_action">Показати QR-код</string>
     <string name="favorite_limit_reached">Ви досягли ліміту в 10 безкоштовних обраних. Отримайте SongFlip PRO для необмежених обраних та 100 записів в історії.</string>
+    <string name="playlist_same_platform_title">Вже у %1$s</string>
+    <string name="playlist_same_platform_desc">Цей плейлист вже з обраного вами музичного сервісу. Ви можете відкрити його безпосередньо в додатку.</string>
+    <string name="qr_code_title">QR-код</string>
+    <string name="qr_code_hint">Відскануйте, щоб відкрити посилання на будь-якому пристрої</string>
+    <string name="action_close">Закрити</string>
+    <string name="favorite_add">Додати в обране</string>
+    <string name="favorite_remove">Видалити з обраного</string>
+    <string name="history_filter_all">Усі</string>
+    <string name="history_filter_favorites">Обране</string>
+    <string name="target_player_chip">Плеєр: %1$s</string>
 </resources>

@@ -29,7 +29,8 @@ class ShareViewController: UIViewController {
         TargetPlatformItem(key: "tidal", name: "Tidal", iconSystemName: "waveform", color: UIColor(red: 0.0, green: 0.85, blue: 0.9, alpha: 1.0)),
         TargetPlatformItem(key: "deezer", name: "Deezer", iconSystemName: "music.quarternote.3", color: UIColor(red: 0.64, green: 0.22, blue: 1.0, alpha: 1.0)),
         TargetPlatformItem(key: "amazonMusic", name: "Amazon Music", iconSystemName: "cart.fill", color: UIColor(red: 0.15, green: 0.82, blue: 0.85, alpha: 1.0)),
-        TargetPlatformItem(key: "soundcloud", name: "SoundCloud", iconSystemName: "cloud.fill", color: UIColor(red: 1.0, green: 0.33, blue: 0.0, alpha: 1.0))
+        TargetPlatformItem(key: "soundcloud", name: "SoundCloud", iconSystemName: "cloud.fill", color: UIColor(red: 1.0, green: 0.33, blue: 0.0, alpha: 1.0)),
+        TargetPlatformItem(key: "qobuz", name: "Qobuz", iconSystemName: "waveform.badge.magnifyingglass", color: UIColor(red: 0.0, green: 0.45, blue: 0.82, alpha: 1.0))
     ]
 
     private func localizedText(for key: String, default defaultText: String) -> String {
@@ -101,7 +102,7 @@ class ShareViewController: UIViewController {
 
         let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
         let rawTarget = defaults.string(forKey: "target_platform") ?? "appleMusic"
-        let validTargets = ["youtubeMusic", "appleMusic", "spotify", "tidal", "deezer", "amazonMusic", "soundcloud"]
+        let validTargets = ["youtubeMusic", "appleMusic", "spotify", "tidal", "deezer", "amazonMusic", "soundcloud", "qobuz"]
         let targetPlatform = validTargets.contains(rawTarget) ? rawTarget : "appleMusic"
         let askEveryTime = defaults.bool(forKey: "ask_every_time")
         let customUrl = defaults.string(forKey: "custom_api_url") ?? ""
@@ -127,23 +128,46 @@ class ShareViewController: UIViewController {
             }
         }
 
+        let extractString: (NSSecureCoding?) -> String? = { item in
+            if let url = item as? URL {
+                return url.absoluteString
+            } else if let str = item as? String {
+                return str
+            } else if let nsStr = item as? NSString {
+                return nsStr as String
+            } else if let data = item as? Data, let str = String(data: data, encoding: .utf8) {
+                return str
+            }
+            return nil
+        }
+
         for provider in attachments {
             if provider.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
-                provider.loadItem(forTypeIdentifier: UTType.url.identifier, options: nil) { (item, error) in
-                    if let url = item as? URL {
-                        handleUrl(url.absoluteString)
+                provider.loadItem(forTypeIdentifier: UTType.url.identifier, options: nil) { [weak self] (item, _) in
+                    if let extracted = extractString(item), !extracted.isEmpty {
+                        handleUrl(extracted)
+                    } else {
+                        DispatchQueue.main.async {
+                            self?.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+                        }
                     }
                 }
                 return
             } else if provider.hasItemConformingToTypeIdentifier(UTType.plainText.identifier) {
-                provider.loadItem(forTypeIdentifier: UTType.plainText.identifier, options: nil) { (item, error) in
-                    if let text = item as? String {
-                        handleUrl(text)
+                provider.loadItem(forTypeIdentifier: UTType.plainText.identifier, options: nil) { [weak self] (item, _) in
+                    if let extracted = extractString(item), !extracted.isEmpty {
+                        handleUrl(extracted)
+                    } else {
+                        DispatchQueue.main.async {
+                            self?.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+                        }
                     }
                 }
                 return
             }
         }
+
+        self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
     }
 
     private func showQuickPicker(
@@ -374,24 +398,24 @@ class ShareViewController: UIViewController {
                 result = ResolutionResult.Error(message: error.localizedDescription, isUnsupported: false, errorReason: errorReason)
             }
 
+            if let success = result as? ResolutionResult.Success {
+                // Save to shared SQLDelight history via App Group BEFORE terminating extension
+                try? await self.engine.cache.addHistoryEntry(
+                    sourceUrl: inputUrl,
+                    targetPlatformKey: targetPlatform,
+                    targetUrl: success.targetUrl,
+                    title: success.title ?? LocalizationManager.string(for: "unknown_song"),
+                    artist: success.artist,
+                    isAlbum: success.isAlbum,
+                    thumbnailUrl: success.thumbnailUrl,
+                    currentTimeMs: Int64(Date().timeIntervalSince1970 * 1000)
+                )
+            }
+
             await MainActor.run {
                 if let success = result as? ResolutionResult.Success {
                     if let title = success.title {
                         self.statusLabel.text = "🎵 \(title)"
-                    }
-
-                    // Save to shared SQLDelight history via App Group
-                    Task {
-                        try? await self.engine.cache.addHistoryEntry(
-                            sourceUrl: inputUrl,
-                            targetPlatformKey: targetPlatform,
-                            targetUrl: success.targetUrl,
-                            title: success.title ?? LocalizationManager.string(for: "unknown_song"),
-                            artist: success.artist,
-                            isAlbum: success.isAlbum,
-                            thumbnailUrl: success.thumbnailUrl,
-                            currentTimeMs: Int64(Date().timeIntervalSince1970 * 1000)
-                        )
                     }
 
                     let srcKey = UrlUtils.shared.detectPlatform(url: inputUrl)?.key ?? "unknown"

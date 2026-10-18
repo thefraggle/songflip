@@ -7,7 +7,6 @@ package de.goork.songflip.core.engine
  */
 object Ed25519Verifier {
 
-    private val P_LOW = LongArray(32)
     private val D = LongArray(16)
     private val L = intArrayOf(
         0xed, 0xd3, 0xf5, 0x5c, 0x1a, 0x63, 0x12, 0x58,
@@ -358,11 +357,22 @@ object Ed25519Verifier {
         }
     }
 
+    fun verify(message: ByteArray, signatureHex: String, publicKeyHex: String): Boolean {
+        val sigBytes = hexToBytes(signatureHex)
+        val pubBytes = hexToBytes(publicKeyHex)
+        if (sigBytes.size != 64 || pubBytes.size != 32) return false
+        return verify(message, sigBytes, pubBytes)
+    }
+
     fun hexToBytes(hex: String): ByteArray {
         val clean = hex.trim()
-        require(clean.length % 2 == 0) { "Hex string must have even length" }
-        return ByteArray(clean.length / 2) { i ->
-            clean.substring(i * 2, i * 2 + 2).toInt(16).toByte()
+        if (clean.isEmpty() || clean.length % 2 != 0) return ByteArray(0)
+        return try {
+            ByteArray(clean.length / 2) { i ->
+                clean.substring(i * 2, i * 2 + 2).toInt(16).toByte()
+            }
+        } catch (_: Throwable) {
+            ByteArray(0)
         }
     }
 }

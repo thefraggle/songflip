@@ -374,4 +374,14 @@
     <string name="disambiguate_error">버전을 불러올 수 없습니다</string>
     <string name="history_qr_action">QR 코드 표시</string>
     <string name="favorite_limit_reached">무료 즐겨찾기 10개 한도에 도달했습니다. SongFlip PRO로 무제한 즐겨찾기와 기록 100개를 이용하세요.</string>
+    <string name="playlist_same_platform_title">이미 %1$s에 있음</string>
+    <string name="playlist_same_platform_desc">이 플레이리스트는 이미 선택한 음악 서비스의 플레이리스트입니다. 앱에서 바로 열 수 있습니다.</string>
+    <string name="qr_code_title">QR 코드</string>
+    <string name="qr_code_hint">스캔하여 모든 기기에서 링크 열기</string>
+    <string name="action_close">닫기</string>
+    <string name="favorite_add">즐겨찾기에 추가</string>
+    <string name="favorite_remove">즐겨찾기에서 제거</string>
+    <string name="history_filter_all">전체</string>
+    <string name="history_filter_favorites">즐겨찾기</string>
+    <string name="target_player_chip">플레이어: %1$s</string>
 </resources>

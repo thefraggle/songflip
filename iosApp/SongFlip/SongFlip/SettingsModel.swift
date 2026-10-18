@@ -62,7 +62,12 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
 }
 
 func platformColor(for key: String) -> Color {
-    switch key.lowercased() {
+    let clean = key.lowercased()
+        .replacingOccurrences(of: "_playlist", with: "")
+        .replacingOccurrences(of: "_search", with: "")
+        .replacingOccurrences(of: "_artist", with: "")
+        .replacingOccurrences(of: "_fallback", with: "")
+    switch clean {
     case "spotify": return Color(red: 0.11, green: 0.73, blue: 0.33)
     case "applemusic", "apple": return Color(red: 0.99, green: 0.24, blue: 0.27)
     case "youtubemusic", "youtube": return Color(red: 1.0, green: 0.0, blue: 0.0)
@@ -78,14 +83,19 @@ func platformColor(for key: String) -> Color {
 }
 
 func platformIcon(for key: String) -> String {
-    switch key.lowercased() {
+    let clean = key.lowercased()
+        .replacingOccurrences(of: "_playlist", with: "")
+        .replacingOccurrences(of: "_search", with: "")
+        .replacingOccurrences(of: "_artist", with: "")
+        .replacingOccurrences(of: "_fallback", with: "")
+    switch clean {
     case "spotify": return "dot.radiowaves.left.and.right"
     case "applemusic", "apple": return "music.note"
     case "youtubemusic", "youtube": return "play.rectangle.fill"
     case "deezer": return "music.quarternote.3"
     case "tidal": return "waveform"
     case "amazonmusic", "amazon": return "cart.fill"
-    case "soundcloud": return "waveform"
+    case "soundcloud": return "cloud.fill"
     case "bandcamp": return "opticaldisc"
     case "qobuz": return "waveform.circle.fill"
     case "beatport": return "headphones"

@@ -1,1 +1,3 @@
-- การเปลี่ยนเส้นทาง Deezer ที่เชื่อถือได้: ขณะนี้ลิงก์เพลง Deezer ที่แชร์จะเปิดเป็นเพลงในเครื่องเล่นเพลงที่คุณต้องการโดยตรง
+- Smarter Clipboard & Share Detection: Copied and shared links from Qobuz, Beatport, and Shazam are now recognized immediately when opening the app or sharing from other apps.
+- Improved Song Selection & Search: Choosing alternative song versions or sharing universal links from in-app search now works seamlessly across all supported music services.
+- Reliable History & Favorites: Saved songs and history entries are preserved cleanly across updates and when refreshing links.

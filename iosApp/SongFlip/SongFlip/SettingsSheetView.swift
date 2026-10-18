@@ -84,7 +84,6 @@ struct SettingsSheetView: View {
                             get: { settings.themeMode },
                             set: { newMode in
                                 settings.themeMode = newMode
-                                dismiss()
                             }
                         )) {
                             Text(LocalizationManager.string(for: "theme_dark", lang: lang)).tag("dark")

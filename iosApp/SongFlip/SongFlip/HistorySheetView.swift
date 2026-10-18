@@ -338,7 +338,7 @@ struct HistorySheetView: View {
                                             UIImpactFeedbackGenerator(style: .light).impactOccurred()
                                             UIPasteboard.general.string = item.sourceUrl
                                         } label: {
-                                            Label(LocalizationManager.string(for: "action_copy_source", lang: lang), systemImage: "link")
+                                            Label(LocalizationManager.string(for: "history_copy_source_generic", lang: lang), systemImage: "link")
                                         }
 
                                         // 5. Refresh link
@@ -385,11 +385,18 @@ struct HistorySheetView: View {
                                             Label(LocalizationManager.string(for: "action_delete", lang: lang), systemImage: "trash")
                                         }
                                     } label: {
-                                        Image(systemName: "ellipsis")
-                                            .font(.system(size: 15, weight: .semibold))
-                                            .foregroundColor(.secondary)
-                                            .frame(width: 32, height: 32)
-                                            .contentShape(Rectangle())
+                                        if refreshingItemId == item.id {
+                                            ProgressView()
+                                                .progressViewStyle(CircularProgressViewStyle())
+                                                .scaleEffect(0.8)
+                                                .frame(width: 32, height: 32)
+                                        } else {
+                                            Image(systemName: "ellipsis")
+                                                .font(.system(size: 15, weight: .semibold))
+                                                .foregroundColor(.secondary)
+                                                .frame(width: 32, height: 32)
+                                                .contentShape(Rectangle())
+                                        }
                                     }
                                 }
                                 .padding(.vertical, 4)
@@ -454,7 +461,7 @@ struct HistorySheetView: View {
                                     UIImpactFeedbackGenerator(style: .light).impactOccurred()
                                     UIPasteboard.general.string = item.sourceUrl
                                 } label: {
-                                    Label(LocalizationManager.string(for: "action_copy_source", lang: lang), systemImage: "link")
+                                    Label(LocalizationManager.string(for: "history_copy_source_generic", lang: lang), systemImage: "link")
                                 }
 
                                 Button {
@@ -590,14 +597,19 @@ struct HistorySheetView: View {
 
     @ViewBuilder
     private func fallbackCoverView(for item: HistoryItem) -> some View {
+        let cleanPlatform = item.targetPlatform
+            .replacingOccurrences(of: "_playlist", with: "")
+            .replacingOccurrences(of: "_search", with: "")
+            .replacingOccurrences(of: "_artist", with: "")
+            .replacingOccurrences(of: "_fallback", with: "")
         ZStack {
             RoundedRectangle(cornerRadius: 8)
-                .fill(platformColor(for: item.targetPlatform).opacity(0.18))
+                .fill(platformColor(for: cleanPlatform).opacity(0.18))
                 .frame(width: 48, height: 48)
 
-            Image(systemName: item.isAlbum ? "opticaldisc" : platformIcon(for: item.targetPlatform))
+            Image(systemName: item.isAlbum ? "opticaldisc" : platformIcon(for: cleanPlatform))
                 .font(.system(size: 20))
-                .foregroundColor(platformColor(for: item.targetPlatform))
+                .foregroundColor(platformColor(for: cleanPlatform))
         }
     }
 

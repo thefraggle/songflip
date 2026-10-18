@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.9.3] - 2026-10-18
+- **Bessere Erkennung für Qobuz, Beatport & Shazam**: Kopierte und geteilte Links von Qobuz, Beatport und Shazam werden beim Öffnen der App und im Teilen-Menü jetzt sofort erkannt.
+- **Präzisere Song-Auswahl & Suche**: Die manuelle Auswahl alternativer Song-Versionen sowie das Teilen universeller Links aus der Suche funktionieren jetzt zuverlässig für alle Musikdienste.
+- **Verlässlicher Verlauf & Favoriten**: Dein Song-Verlauf und deine Favoriten bleiben bei Updates sowie beim Aktualisieren einzelner Links dauerhaft erhalten.
+- **Vollständige Übersetzungen & Feinschliff**: Fehlende Texte in allen unterstützten Sprachen wurden ergänzt und das Umschalten des Erscheinungsbilds verbessert.
+
 ## [1.9.2] - 2026-10-16
 - **Manuelle Treffer-Korrektur im Verlauf**: Korrigiere die Song-Zuordnung jetzt direkt über das Drei-Punkte-Menü im Verlauf, falls du eine bestimmte Version oder einen anderen Remix auswählen möchtest.
 - **Schnellzugriff im Kopfbereich**: Öffne deine Status- und Funktionsübersicht direkt per Fingertipp auf das Badge oben auf dem Startbildschirm.

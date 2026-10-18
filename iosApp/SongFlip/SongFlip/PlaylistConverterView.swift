@@ -112,6 +112,7 @@ struct PlaylistConverterView: View {
     @State private var showCopiedAlert = false
     @State private var selectedPartIndex = 0
     @State private var shareFileItem: ShareSheetItem? = nil
+    @State private var stepTimer: Timer? = nil
 
     var lang: String { settings.selectedLanguage }
 
@@ -202,6 +203,10 @@ struct PlaylistConverterView: View {
                     }
                 }
                 startConversion()
+            }
+            .onDisappear {
+                stepTimer?.invalidate()
+                stepTimer = nil
             }
             .onChange(of: proManager.isPro) { isPro in
                 if isPro && (conversionResult?.isLimited == true) {
@@ -662,7 +667,8 @@ struct PlaylistConverterView: View {
         )
 
         // Progress timer
-        Timer.scheduledTimer(withTimeInterval: 0.6, repeats: true) { timer in
+        stepTimer?.invalidate()
+        stepTimer = Timer.scheduledTimer(withTimeInterval: 0.6, repeats: true) { timer in
             if !isLoading {
                 timer.invalidate()
             } else {

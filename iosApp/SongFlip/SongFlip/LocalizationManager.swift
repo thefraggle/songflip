@@ -394,7 +394,8 @@ enum LocalizationManager {
             "favorite_add": "Zu Favoriten hinzufügen",
             "favorite_remove": "Aus Favoriten entfernen",
             "history_filter_all": "Alle",
-            "history_filter_favorites": "Favoriten"
+            "history_filter_favorites": "Favoriten",
+            "qr_code_hint": "Scannen, um den Link auf jedem Gerät zu öffnen"
         
         ],
         "en": [
@@ -788,7 +789,8 @@ enum LocalizationManager {
             "favorite_add": "Add to Favorites",
             "favorite_remove": "Remove from Favorites",
             "history_filter_all": "All",
-            "history_filter_favorites": "Favorites"
+            "history_filter_favorites": "Favorites",
+            "qr_code_hint": "Scan to open link on any device"
         
         ],
         "da": [
@@ -1182,7 +1184,8 @@ enum LocalizationManager {
             "favorite_add": "Føj til favoritter",
             "favorite_remove": "Fjern fra favoritter",
             "history_filter_all": "Alle",
-            "history_filter_favorites": "Favoritter"
+            "history_filter_favorites": "Favoritter",
+            "qr_code_hint": "Scan for at åbne linket på enhver enhed"
         
         ],
         "nb": [
@@ -1576,7 +1579,8 @@ enum LocalizationManager {
             "favorite_add": "Legg til i favoritter",
             "favorite_remove": "Fjern fra favoritter",
             "history_filter_all": "Alle",
-            "history_filter_favorites": "Favoritter"
+            "history_filter_favorites": "Favoritter",
+            "qr_code_hint": "Skann for å åpne lenken på hvilken som helst enhet"
         ],
         "sv": [
             "settings_share_app": "Dela SongFlip",
@@ -1969,7 +1973,8 @@ enum LocalizationManager {
             "favorite_add": "Lägg till i favoriter",
             "favorite_remove": "Ta bort från favoriter",
             "history_filter_all": "Alla",
-            "history_filter_favorites": "Favoriter"
+            "history_filter_favorites": "Favoriter",
+            "qr_code_hint": "Skanna för att öppna länken på valfri enhet"
         
         ],
         "nl": [
@@ -2363,7 +2368,8 @@ enum LocalizationManager {
             "favorite_add": "Toevoegen aan favorieten",
             "favorite_remove": "Verwijderen uit favorieten",
             "history_filter_all": "Alle",
-            "history_filter_favorites": "Favorieten"
+            "history_filter_favorites": "Favorieten",
+            "qr_code_hint": "Scan om de link op elk apparaat te openen"
         
         ],
         "fr": [
@@ -2757,7 +2763,8 @@ enum LocalizationManager {
             "favorite_add": "Ajouter aux favoris",
             "favorite_remove": "Retirer des favoris",
             "history_filter_all": "Tous",
-            "history_filter_favorites": "Favoris"
+            "history_filter_favorites": "Favoris",
+            "qr_code_hint": "Scannez pour ouvrir le lien sur n'importe quel appareil"
         
         ],
         "es": [
@@ -3151,7 +3158,8 @@ enum LocalizationManager {
             "favorite_add": "Añadir a favoritos",
             "favorite_remove": "Quitar de favoritos",
             "history_filter_all": "Todos",
-            "history_filter_favorites": "Favoritos"
+            "history_filter_favorites": "Favoritos",
+            "qr_code_hint": "Escanea para abrir el enlace en cualquier dispositivo"
         
         ],
         "it": [
@@ -3545,7 +3553,8 @@ enum LocalizationManager {
             "favorite_add": "Aggiungi ai preferiti",
             "favorite_remove": "Rimuovi dai preferiti",
             "history_filter_all": "Tutti",
-            "history_filter_favorites": "Preferiti"
+            "history_filter_favorites": "Preferiti",
+            "qr_code_hint": "Scansiona per aprire il link su qualsiasi dispositivo"
         
         ],
         "pt": [
@@ -3939,7 +3948,8 @@ enum LocalizationManager {
             "favorite_add": "Adicionar aos favoritos",
             "favorite_remove": "Remover dos favoritos",
             "history_filter_all": "Todos",
-            "history_filter_favorites": "Favoritos"
+            "history_filter_favorites": "Favoritos",
+            "qr_code_hint": "Escaneie para abrir o link em qualquer dispositivo"
         
         ],
         "pl": [
@@ -4333,7 +4343,8 @@ enum LocalizationManager {
             "favorite_add": "Dodaj do ulubionych",
             "favorite_remove": "Usuń z ulubionych",
             "history_filter_all": "Wszystkie",
-            "history_filter_favorites": "Ulubione"
+            "history_filter_favorites": "Ulubione",
+            "qr_code_hint": "Zeskanuj, aby otworzyć link na dowolnym urządzeniu"
         
         ],
         "ru": [
@@ -4727,7 +4738,8 @@ enum LocalizationManager {
             "favorite_add": "Добавить в избранное",
             "favorite_remove": "Удалить из избранного",
             "history_filter_all": "Все",
-            "history_filter_favorites": "Избранное"
+            "history_filter_favorites": "Избранное",
+            "qr_code_hint": "Отсканируйте, чтобы открыть ссылку на любом устройстве"
         
         ],
         "tr": [
@@ -5121,7 +5133,8 @@ enum LocalizationManager {
             "favorite_add": "Favorilere ekle",
             "favorite_remove": "Favorilerden çıkar",
             "history_filter_all": "Tümü",
-            "history_filter_favorites": "Favoriler"
+            "history_filter_favorites": "Favoriler",
+            "qr_code_hint": "Bağlantıyı herhangi bir cihazda açmak için tarayın"
         
         ],
         "uk": [
@@ -5515,7 +5528,8 @@ enum LocalizationManager {
             "favorite_add": "Додати в обране",
             "favorite_remove": "Видалити з обраного",
             "history_filter_all": "Усі",
-            "history_filter_favorites": "Обране"
+            "history_filter_favorites": "Обране",
+            "qr_code_hint": "Відскануйте, щоб відкрити посилання на будь-якому пристрої"
         
         ],
         "ja": [
@@ -5909,7 +5923,8 @@ enum LocalizationManager {
             "favorite_add": "お気に入りに追加",
             "favorite_remove": "お気に入りから削除",
             "history_filter_all": "すべて",
-            "history_filter_favorites": "お気に入り"
+            "history_filter_favorites": "お気に入り",
+            "qr_code_hint": "スキャンして任意のデバイスでリンクを開く"
         
         ],
         "ko": [
@@ -6303,7 +6318,8 @@ enum LocalizationManager {
             "favorite_add": "즐겨찾기에 추가",
             "favorite_remove": "즐겨찾기에서 제거",
             "history_filter_all": "전체",
-            "history_filter_favorites": "즐겨찾기"
+            "history_filter_favorites": "즐겨찾기",
+            "qr_code_hint": "스캔하여 모든 기기에서 링크 열기"
         
         ],
         "zh": [
@@ -6697,7 +6713,8 @@ enum LocalizationManager {
             "favorite_add": "Add to Favorites",
             "favorite_remove": "Remove from Favorites",
             "history_filter_all": "All",
-            "history_filter_favorites": "Favorites"
+            "history_filter_favorites": "Favorites",
+            "qr_code_hint": "扫码即可在任意设备上打开链接"
         ],
         "in": [
             "settings_share_app": "Bagikan SongFlip",
@@ -7090,7 +7107,8 @@ enum LocalizationManager {
             "favorite_add": "Tambahkan ke Favorit",
             "favorite_remove": "Hapus dari Favorit",
             "history_filter_all": "Semua",
-            "history_filter_favorites": "Favorit"
+            "history_filter_favorites": "Favorit",
+            "qr_code_hint": "Pindai untuk membuka tautan di perangkat apa pun"
         ],
         "vi": [
             "settings_share_app": "Chia sẻ SongFlip",
@@ -7483,7 +7501,8 @@ enum LocalizationManager {
             "favorite_add": "Thêm vào Yêu thích",
             "favorite_remove": "Xóa khỏi Yêu thích",
             "history_filter_all": "Tất cả",
-            "history_filter_favorites": "Yêu thích"
+            "history_filter_favorites": "Yêu thích",
+            "qr_code_hint": "Quét để mở liên kết trên mọi thiết bị"
         
         ],
         "bn": [
@@ -7877,7 +7896,8 @@ enum LocalizationManager {
             "favorite_add": "ফেভারিটে যোগ করুন",
             "favorite_remove": "ফেভারিট থেকে সরান",
             "history_filter_all": "সব",
-            "history_filter_favorites": "ফেভারিট"
+            "history_filter_favorites": "ফেভারিট",
+            "qr_code_hint": "যেকোনো ডিভাইসে লিঙ্কটি খুলতে স্ক্যান করুন"
         
         ],
         "hi": [
@@ -8271,7 +8291,8 @@ enum LocalizationManager {
             "favorite_add": "पसंदीदा में जोड़ें",
             "favorite_remove": "पसंदीदा से हटाएं",
             "history_filter_all": "सभी",
-            "history_filter_favorites": "पसंदीदा"
+            "history_filter_favorites": "पसंदीदा",
+            "qr_code_hint": "किसी भी डिवाइस पर लिंक खोलने के लिए स्कैन करें"
         
         ],
         "mr": [
@@ -8665,7 +8686,8 @@ enum LocalizationManager {
             "favorite_add": "फेव्हरेट्समध्ये जोडा",
             "favorite_remove": "फेव्हरेट्समधून काढा",
             "history_filter_all": "सर्व",
-            "history_filter_favorites": "फेव्हरेट्स"
+            "history_filter_favorites": "फेव्हरेट्स",
+            "qr_code_hint": "कोणत्याही डिव्हाइसवर लिंक उघडण्यासाठी स्कॅन करा"
         
         ],
         "cs": [
@@ -8918,7 +8940,7 @@ enum LocalizationManager {
             "pro_tier_monthly": "Měsíčně",
             "pro_title": "SongFlip PRO",
             "pro_trial_badge": "%1$d DNÍ ZDARMA",
-            "qr_code_hint": "Scan to open link on any device",
+            "qr_code_hint": "Naskenujte pro otevření odkazu na jakémkoli zařízení",
             "qr_code_title": "QR Code",
             "quick_picker_title": "Otevřít v aplikaci …",
             "redirect_error_toast": "Odkaz se nepodařilo převést. Otevírám původní odkaz.",
@@ -9018,7 +9040,55 @@ enum LocalizationManager {
             "time_hours_ago": "Před %1$d h",
             "time_just_now": "Právě teď",
             "time_minutes_ago": "Před %1$d min",
-            "favorite_limit_reached": "Dosáhli jste limitu 10 bezplatných oblíbených. Pořiďte si SongFlip PRO pro neomezené oblíbené a 100 položek v historii."
+            "favorite_limit_reached": "Dosáhli jste limitu 10 bezplatných oblíbených. Pořiďte si SongFlip PRO pro neomezené oblíbené a 100 položek v historii.",
+            "action_refresh_link": "Obnovit odkaz",
+            "auto_clipboard": "Automaticky detekovat schránku",
+            "btn_cancel": "Zrušit",
+            "btn_close": "Zavřít",
+            "btn_done": "Hotovo",
+            "clipboard_detected": "Odkaz ze schránky rozpoznán!",
+            "clipboard_pasted": "Odkaz vložen ze schránky!",
+            "how_it_works_ios": "JAK TO FUNGUJE NA IOS?",
+            "intent_description": "Převede zkopírovaný nebo sdílený hudební odkaz a otevře cílovou aplikaci.",
+            "intent_error_empty_clipboard": "Nebyl zadán žádný hudební odkaz a schránka je prázdná.",
+            "intent_error_failed_to_convert": "Chyba při převodu odkazu: %@",
+            "intent_error_failed_to_resolve": "Nepodařilo se přeložit cílovou URL.",
+            "intent_param_music_link": "Hudební odkaz",
+            "intent_title": "Otevřít skladbu v SongFlip",
+            "link_refreshed": "Odkaz byl úspěšně obnoven!",
+            "link_refreshing": "Obnovování odkazu...",
+            "one_tap_selection": "Výběr jedním klepnutím",
+            "playlist_share_opening": "Rozpoznán playlist – otevírání originálu...",
+            "podcast_share_opening": "Rozpoznán podcast – otevírání originálu...",
+            "pro_upgrade_card_subtitle": "Upgradujte pro rozšířenou historii a playlisty",
+            "recent_songs": "NEDÁVNÉ SKLADBY",
+            "section_general": "OBECNÉ",
+            "share_error_failed": "Odkaz se nepodařilo přesměrovat.",
+            "share_guide_subtitle": "Mějte SongFlip vždy po ruce v nabídce sdílení iOS.",
+            "share_guide_title": "Nastavit nabídku sdílení",
+            "share_redirecting": "SongFlip: Přesměrování...",
+            "share_step1_desc": "Ve Spotify, Apple Music nebo YouTube klepněte u libovolné skladby na Sdílet.",
+            "share_step1_title": "1. Otevřete hudební aplikaci a sdílejte",
+            "share_step2_desc": "Přejeďte v řádku ikon aplikací úplně doprava a klepněte na 'Další' (⋯).",
+            "share_step2_title": "2. Přejděte na 'Další'",
+            "share_step3_desc": "Klepněte na 'Upravit' a přidejte SongFlip mezi oblíbené.",
+            "share_step3_title": "3. Povolte SongFlip",
+            "shortcuts_guide_subtitle": "Převádějte hudební odkazy ze schránky jedním klepnutím.",
+            "shortcuts_guide_title": "Zkratky a akční tlačítko",
+            "shortcuts_step1_desc": "Otevřete předinstalovanou aplikaci 'Zkratky' od Applu a klepněte na plus (+) vpravo nahoře.",
+            "shortcuts_step1_title": "1. Otevřete aplikaci Zkratky",
+            "shortcuts_step2_desc": "Klepněte na 'Přidat akci' ➔ 'Aplikace' ➔ 'SongFlip' ➔ 'Otevřít skladbu v SongFlip'.",
+            "shortcuts_step2_title": "2. Přidejte akci SongFlip",
+            "shortcuts_step3_desc": "Volitelné: Přejděte do Nastavení ➔ Akční tlačítko ➔ Přejeďte na 'Zkratka' a vyberte SongFlip.",
+            "shortcuts_step3_title": "3. Přiřaďte k akčnímu tlačítku",
+            "show_all": "Zobrazit vše",
+            "step1_desc": "Klepněte na Sdílet ve Spotify, Apple Music nebo YouTube ➔ SongFlip pro okamžité přehrání.",
+            "step1_title": "1. Přes nabídku sdílení",
+            "step2_desc": "Přiřaďte zkratku SongFlip ke svému akčnímu tlačítku pro převod jedním kliknutím.",
+            "step2_title": "2. Akční tlačítko a Zkratky",
+            "step3_desc": "Zkopírované hudební odkazy jsou automaticky rozpoznány při otevření aplikace.",
+            "step3_title": "3. Automatická schránka",
+            "unknown_song": "Neznámá skladba"
         ],
         "el": [
             "action_close": "Close",
@@ -9270,7 +9340,7 @@ enum LocalizationManager {
             "pro_tier_monthly": "Μηνιαία",
             "pro_title": "SongFlip PRO",
             "pro_trial_badge": "%1$d ΗΜΕΡΕΣ ΔΩΡΕΑΝ",
-            "qr_code_hint": "Scan to open link on any device",
+            "qr_code_hint": "Σαρώστε για να ανοίξετε τον σύνδεσμο σε οποιαδήποτε συσκευή",
             "qr_code_title": "QR Code",
             "quick_picker_title": "Άνοιγμα με …",
             "redirect_error_toast": "Δεν ήταν δυνατή η μετατροπή. Άνοιγμα αρχικού συνδέσμου.",
@@ -9370,7 +9440,55 @@ enum LocalizationManager {
             "time_hours_ago": "Πριν %1$d ώρες",
             "time_just_now": "Μόλις τώρα",
             "time_minutes_ago": "Πριν %1$d λεπτά",
-            "favorite_limit_reached": "Φτάσατε τα 10 δωρεάν αγαπημένα σας. Αποκτήστε το SongFlip PRO για απεριόριστα αγαπημένα και 100 εγγραφές ιστορικού."
+            "favorite_limit_reached": "Φτάσατε τα 10 δωρεάν αγαπημένα σας. Αποκτήστε το SongFlip PRO για απεριόριστα αγαπημένα και 100 εγγραφές ιστορικού.",
+            "action_refresh_link": "Ανανέωση συνδέσμου",
+            "auto_clipboard": "Αυτόματος εντοπισμός προχείρου",
+            "btn_cancel": "Ακύρωση",
+            "btn_close": "Κλείσιμο",
+            "btn_done": "Τέλος",
+            "clipboard_detected": "Εντοπίστηκε σύνδεσμος από το πρόχειρο!",
+            "clipboard_pasted": "Ο σύνδεσμος επικολλήθηκε από το πρόχειρο!",
+            "how_it_works_ios": "ΠΩΣ ΛΕΙΤΟΥΡΓΕΙ ΣΤΟ IOS;",
+            "intent_description": "Μετατρέπει έναν αντιγραμμένο ή κοινοποιημένο σύνδεσμο μουσικής και ανοίγει την εφαρμογή προορισμού.",
+            "intent_error_empty_clipboard": "Δεν δόθηκε σύνδεσμος μουσικής και το πρόχειρο είναι κενό.",
+            "intent_error_failed_to_convert": "Σφάλμα μετατροπής συνδέσμου: %@",
+            "intent_error_failed_to_resolve": "Δεν ήταν δυνατή η επίλυση του URL προορισμού.",
+            "intent_param_music_link": "Σύνδεσμος μουσικής",
+            "intent_title": "Άνοιγμα τραγουδιού στο SongFlip",
+            "link_refreshed": "Ο σύνδεσμος ανανεώθηκε επιτυχώς!",
+            "link_refreshing": "Ανανέωση συνδέσμου...",
+            "one_tap_selection": "Επιλογή με 1 πάτημα",
+            "playlist_share_opening": "Εντοπίστηκε λίστα αναπαραγωγής – άνοιγμα πρωτοτύπου...",
+            "podcast_share_opening": "Εντοπίστηκε podcast – άνοιγμα πρωτοτύπου...",
+            "pro_upgrade_card_subtitle": "Αναβαθμίστε για εκτεταμένο ιστορικό & λίστες αναπαραγωγής",
+            "recent_songs": "ΠΡΟΣΦΑΤΑ ΤΡΑΓΟΥΔΙΑ",
+            "section_general": "ΓΕΝΙΚΑ",
+            "share_error_failed": "Δεν ήταν δυνατή η ανακατεύθυνση του συνδέσμου.",
+            "share_guide_subtitle": "Κρατήστε το SongFlip άμεσα προσβάσιμο στο φύλλο κοινοποίησης iOS.",
+            "share_guide_title": "Ρύθμιση φύλλου κοινοποίησης",
+            "share_redirecting": "SongFlip: Ανακατεύθυνση...",
+            "share_step1_desc": "Στο Spotify, το Apple Music ή το YouTube, πατήστε Κοινοποίηση σε οποιοδήποτε κομμάτι.",
+            "share_step1_title": "1. Ανοίξτε την εφαρμογή μουσικής & κοινοποιήστε",
+            "share_step2_desc": "Σύρετε τέρμα δεξιά στη σειρά εικονιδίων εφαρμογών και πατήστε 'Περισσότερα' (⋯).",
+            "share_step2_title": "2. Κύλιση στο 'Περισσότερα'",
+            "share_step3_desc": "Πατήστε 'Επεξεργασία' και προσθέστε το SongFlip στα αγαπημένα σας.",
+            "share_step3_title": "3. Ενεργοποίηση SongFlip",
+            "shortcuts_guide_subtitle": "Μετατρέψτε συνδέσμους μουσικής από το πρόχειρο με ένα μόνο πάτημα.",
+            "shortcuts_guide_title": "Συντομεύσεις & Κουμπί δράσης",
+            "shortcuts_step1_desc": "Ανοίξτε την προεγκατεστημένη εφαρμογή 'Συντομεύσεις' της Apple και πατήστε το συν (+) πάνω δεξιά.",
+            "shortcuts_step1_title": "1. Ανοίξτε την εφαρμογή Συντομεύσεις",
+            "shortcuts_step2_desc": "Πατήστε 'Προσθήκη ενέργειας' ➔ 'Εφαρμογές' ➔ 'SongFlip' ➔ 'Άνοιγμα τραγουδιού στο SongFlip'.",
+            "shortcuts_step2_title": "2. Προσθήκη ενέργειας SongFlip",
+            "shortcuts_step3_desc": "Προαιρετικά: Μεταβείτε στις Ρυθμίσεις ➔ Κουμπί δράσης ➔ Σύρετε στη 'Συντόμευση' και επιλέξτε SongFlip.",
+            "shortcuts_step3_title": "3. Ανάθεση στο Κουμπί δράσης",
+            "show_all": "Εμφάνιση όλων",
+            "step1_desc": "Πατήστε Κοινοποίηση στο Spotify, Apple Music ή YouTube ➔ SongFlip για άμεση αναπαραγωγή.",
+            "step1_title": "1. Μέσω μενού κοινοποίησης",
+            "step2_desc": "Αναθέστε τη συντόμευση SongFlip στο Κουμπί δράσης για μετατροπή με 1 κλικ.",
+            "step2_title": "2. Κουμπί δράσης & Συντομεύσεις",
+            "step3_desc": "Οι αντιγραμμένοι σύνδεσμοι μουσικής εντοπίζονται αυτόματα κατά το άνοιγμα της εφαρμογής.",
+            "step3_title": "3. Αυτόματο πρόχειρο",
+            "unknown_song": "Άγνωστο τραγούδι"
         ],
         "fi": [
             "action_close": "Close",
@@ -9622,7 +9740,7 @@ enum LocalizationManager {
             "pro_tier_monthly": "Kuukausittain",
             "pro_title": "SongFlip PRO",
             "pro_trial_badge": "%1$d PÄIVÄÄ ILMAISEKSI",
-            "qr_code_hint": "Scan to open link on any device",
+            "qr_code_hint": "Avaa linkki millä tahansa laitteella skannaamalla",
             "qr_code_title": "QR Code",
             "quick_picker_title": "Avaa sovelluksella …",
             "redirect_error_toast": "Linkkiä ei voitu muuntaa. Avataan alkuperäinen linkki.",
@@ -9722,7 +9840,55 @@ enum LocalizationManager {
             "time_hours_ago": "%1$d t sitten",
             "time_just_now": "Juuri nyt",
             "time_minutes_ago": "%1$d min sitten",
-            "favorite_limit_reached": "Olet saavuttanut 10 ilmaisen suosikin rajan. Hanki SongFlip PRO saadaksesi rajattomat suosikit ja 100 historiamerkintää."
+            "favorite_limit_reached": "Olet saavuttanut 10 ilmaisen suosikin rajan. Hanki SongFlip PRO saadaksesi rajattomat suosikit ja 100 historiamerkintää.",
+            "action_refresh_link": "Päivitä linkki",
+            "auto_clipboard": "Tunnista leikepöytä automaattisesti",
+            "btn_cancel": "Peruuta",
+            "btn_close": "Sulje",
+            "btn_done": "Valmis",
+            "clipboard_detected": "Linkki tunnistettu leikepöydältä!",
+            "clipboard_pasted": "Linkki liitetty leikepöydältä!",
+            "how_it_works_ios": "MITEN SE TOIMII IOS:SSÄ?",
+            "intent_description": "Muuntaa kopioidun tai jaetun musiikkilinkin ja avaa kohdesovelluksen.",
+            "intent_error_empty_clipboard": "Musiikkilinkkiä ei annettu ja leikepöytä on tyhjä.",
+            "intent_error_failed_to_convert": "Virhe linkin muuntamisessa: %@",
+            "intent_error_failed_to_resolve": "Kohde-URL-osoitetta ei voitu selvittää.",
+            "intent_param_music_link": "Musiikkilinkki",
+            "intent_title": "Avaa kappale SongFlipissä",
+            "link_refreshed": "Linkki päivitetty onnistuneesti!",
+            "link_refreshing": "Päivitetään linkkiä...",
+            "one_tap_selection": "1 painalluksen valinta",
+            "playlist_share_opening": "Soittolista tunnistettu – avataan alkuperäinen...",
+            "podcast_share_opening": "Podcast tunnistettu – avataan alkuperäinen...",
+            "pro_upgrade_card_subtitle": "Päivitä saadaksesi laajemman historian ja soittolistat",
+            "recent_songs": "VIIMEISIMMÄT KAPPALEET",
+            "section_general": "YLEISET",
+            "share_error_failed": "Linkkiä ei voitu ohjata uudelleen.",
+            "share_guide_subtitle": "Pidä SongFlip helposti saatavilla iOS:n jakovalikossa.",
+            "share_guide_title": "Määritä jakovalikko",
+            "share_redirecting": "SongFlip: Ohjataan...",
+            "share_step1_desc": "Napauta Spotifyssa, Apple Musicissa tai YouTubessa Jaa minkä tahansa kappaleen kohdalla.",
+            "share_step1_title": "1. Avaa musiikkisovellus ja jaa",
+            "share_step2_desc": "Pyyhkäise sovelluskuvakerivillä aivan oikealle ja napauta 'Lisää' (⋯).",
+            "share_step2_title": "2. Vieritä kohtaan 'Lisää'",
+            "share_step3_desc": "Napauta 'Muokkaa' ja lisää SongFlip suosikkilistallesi.",
+            "share_step3_title": "3. Ota SongFlip käyttöön",
+            "shortcuts_guide_subtitle": "Muunna musiikkilinkit leikepöydältä yhdellä napautuksella.",
+            "shortcuts_guide_title": "Pikakomennot ja toimintopainike",
+            "shortcuts_step1_desc": "Avaa Applen esiasennettu 'Pikakomennot'-sovellus ja napauta plusmerkkiä (+) oikeassa yläkulmassa.",
+            "shortcuts_step1_title": "1. Avaa Pikakomennot-sovellus",
+            "shortcuts_step2_desc": "Napauta 'Lisää toiminto' ➔ 'Sovellukset' ➔ 'SongFlip' ➔ 'Avaa kappale SongFlipissä'.",
+            "shortcuts_step2_title": "2. Lisää SongFlip-toiminto",
+            "shortcuts_step3_desc": "Valinnainen: Siirry kohtaan Asetukset ➔ Toimintopainike ➔ Pyyhkäise kohtaan 'Pikakomento' ja valitse SongFlip.",
+            "shortcuts_step3_title": "3. Määritä toimintopainikkeeseen",
+            "show_all": "Näytä kaikki",
+            "step1_desc": "Napauta Jaa Spotifyssa, Apple Musicissa tai YouTubessa ➔ SongFlip välitöntä toistoa varten.",
+            "step1_title": "1. Jakovalikon kautta",
+            "step2_desc": "Määritä SongFlip-pikakomento toimintopainikkeeseen yhden napsautuksen muuntoa varten.",
+            "step2_title": "2. Toimintopainike ja Pikakomennot",
+            "step3_desc": "Kopioidut musiikkilinkit tunnistetaan automaattisesti sovellusta avattaessa.",
+            "step3_title": "3. Automaattinen leikepöytä",
+            "unknown_song": "Tuntematon kappale"
         ],
         "hu": [
             "action_close": "Close",
@@ -9974,7 +10140,7 @@ enum LocalizationManager {
             "pro_tier_monthly": "Havi",
             "pro_title": "SongFlip PRO",
             "pro_trial_badge": "%1$d NAP INGYEN",
-            "qr_code_hint": "Scan to open link on any device",
+            "qr_code_hint": "Olvasd be a link bármely eszközön történő megnyitásához",
             "qr_code_title": "QR Code",
             "quick_picker_title": "Megnyitás ezzel …",
             "redirect_error_toast": "A linket nem sikerült átalakítani. Eredeti link megnyitása.",
@@ -10074,7 +10240,55 @@ enum LocalizationManager {
             "time_hours_ago": "%1$d órája",
             "time_just_now": "Épp most",
             "time_minutes_ago": "%1$d perce",
-            "favorite_limit_reached": "Elérted a 10 ingyenes kedvencet. Szerezd meg a SongFlip PRO-t a korlátlan kedvencekért és 100 előzményért."
+            "favorite_limit_reached": "Elérted a 10 ingyenes kedvencet. Szerezd meg a SongFlip PRO-t a korlátlan kedvencekért és 100 előzményért.",
+            "action_refresh_link": "Link frissítése",
+            "auto_clipboard": "Vágólap automatikus észlelése",
+            "btn_cancel": "Mégse",
+            "btn_close": "Bezárás",
+            "btn_done": "Kész",
+            "clipboard_detected": "Link észlelve a vágólapról!",
+            "clipboard_pasted": "Link beillesztve a vágólapról!",
+            "how_it_works_ios": "HOGYAN MŰKÖDIK IOS-EN?",
+            "intent_description": "Átalakítja a másolt vagy megosztott zenei linket, és megnyitja a célalkalmazást.",
+            "intent_error_empty_clipboard": "Nincs megadva zenei link, és a vágólap üres.",
+            "intent_error_failed_to_convert": "Hiba a link átalakításakor: %@",
+            "intent_error_failed_to_resolve": "Nem sikerült feloldani a cél URL-t.",
+            "intent_param_music_link": "Zenei link",
+            "intent_title": "Dal megnyitása a SongFlipben",
+            "link_refreshed": "Link sikeresen frissítve!",
+            "link_refreshing": "Link frissítése...",
+            "one_tap_selection": "1 érintéses kiválasztás",
+            "playlist_share_opening": "Lejátszási lista észlelve – eredeti megnyitása...",
+            "podcast_share_opening": "Podcast észlelve – eredeti megnyitása...",
+            "pro_upgrade_card_subtitle": "Frissíts a bővített előzményekért és lejátszási listákért",
+            "recent_songs": "LEGUTÓBBI DALOK",
+            "section_general": "ÁLTALÁNOS",
+            "share_error_failed": "Nem sikerült átirányítani a linket.",
+            "share_guide_subtitle": "Tartsd a SongFlipet könnyen elérhető helyen az iOS megosztási lapján.",
+            "share_guide_title": "Megosztási lap beállítása",
+            "share_redirecting": "SongFlip: Átirányítás...",
+            "share_step1_desc": "A Spotify, Apple Music vagy YouTube alkalmazásban koppints a Megosztás gombra bármelyik dalnál.",
+            "share_step1_title": "1. Nyisd meg a zenei appot és oszd meg",
+            "share_step2_desc": "Húzd el teljesen jobbra az alkalmazásikonok sorát, és koppints a 'Több' (⋯) elemre.",
+            "share_step2_title": "2. Görgess a 'Több' elemhez",
+            "share_step3_desc": "Koppints a 'Szerkesztés' gombra, és add hozzá a SongFlipet a kedvencekhez.",
+            "share_step3_title": "3. SongFlip engedélyezése",
+            "shortcuts_guide_subtitle": "Zenei linkek átalakítása a vágólapról egyetlen érintéssel.",
+            "shortcuts_guide_title": "Parancsok és Művelet gomb",
+            "shortcuts_step1_desc": "Nyisd meg az Apple előre telepített 'Parancsok' alkalmazását, és koppints a jobb felső sarokban lévő plusz (+) jelre.",
+            "shortcuts_step1_title": "1. Nyisd meg a Parancsok alkalmazást",
+            "shortcuts_step2_desc": "Koppints a 'Művelet hozzáadása' ➔ 'Alkalmazások' ➔ 'SongFlip' ➔ 'Dal megnyitása a SongFlipben' lehetőségre.",
+            "shortcuts_step2_title": "2. SongFlip művelet hozzáadása",
+            "shortcuts_step3_desc": "Opcionális: Lépj a Beállítások ➔ Művelet gomb menübe ➔ Lapozz a 'Parancs' elemhez, és válaszd a SongFlipet.",
+            "shortcuts_step3_title": "3. Hozzárendelés a Művelet gombhoz",
+            "show_all": "Összes megjelenítése",
+            "step1_desc": "Koppints a Megosztásra a Spotify, Apple Music vagy YouTube appban ➔ SongFlip az azonnali lejátszáshoz.",
+            "step1_title": "1. Megosztás menün keresztül",
+            "step2_desc": "Rendeld hozzá a SongFlip parancsot a Művelet gombhoz az 1 kattintásos átalakításhoz.",
+            "step2_title": "2. Művelet gomb és Parancsok",
+            "step3_desc": "A másolt zenei linkeket az alkalmazás megnyitásakor automatikusan felismeri.",
+            "step3_title": "3. Automatikus vágólap",
+            "unknown_song": "Ismeretlen dal"
         ],
         "ro": [
             "action_close": "Close",
@@ -10326,7 +10540,7 @@ enum LocalizationManager {
             "pro_tier_monthly": "Lunar",
             "pro_title": "SongFlip PRO",
             "pro_trial_badge": "%1$d ZILE GRATIS",
-            "qr_code_hint": "Scan to open link on any device",
+            "qr_code_hint": "Scanează pentru a deschide linkul pe orice dispozitiv",
             "qr_code_title": "QR Code",
             "quick_picker_title": "Deschide cu …",
             "redirect_error_toast": "Linkul nu a putut fi convertit. Se deschide linkul original.",
@@ -10426,7 +10640,55 @@ enum LocalizationManager {
             "time_hours_ago": "Acum %1$d ore",
             "time_just_now": "Chiar acum",
             "time_minutes_ago": "Acum %1$d min",
-            "favorite_limit_reached": "Ai atins limita de 10 favorite gratuite. Obține SongFlip PRO pentru favorite nelimitate și 100 de intrări în istoric."
+            "favorite_limit_reached": "Ai atins limita de 10 favorite gratuite. Obține SongFlip PRO pentru favorite nelimitate și 100 de intrări în istoric.",
+            "action_refresh_link": "Reîmprospătează linkul",
+            "auto_clipboard": "Detectare automată clipboard",
+            "btn_cancel": "Anulează",
+            "btn_close": "Închide",
+            "btn_done": "Gata",
+            "clipboard_detected": "Link detectat din clipboard!",
+            "clipboard_pasted": "Link lipit din clipboard!",
+            "how_it_works_ios": "CUM FUNCȚIONEAZĂ PE IOS?",
+            "intent_description": "Convertește un link muzical copiat sau partajat și deschide aplicația țintă.",
+            "intent_error_empty_clipboard": "Nu a fost furnizat niciun link muzical, iar clipboardul este gol.",
+            "intent_error_failed_to_convert": "Eroare la convertirea linkului: %@",
+            "intent_error_failed_to_resolve": "Nu s-a putut rezolva URL-ul țintă.",
+            "intent_param_music_link": "Link muzical",
+            "intent_title": "Deschide melodia în SongFlip",
+            "link_refreshed": "Link reîmprospătat cu succes!",
+            "link_refreshing": "Se reîmprospătează linkul...",
+            "one_tap_selection": "Selecție cu o atingere",
+            "playlist_share_opening": "Playlist detectat – se deschide originalul...",
+            "podcast_share_opening": "Podcast detectat – se deschide originalul...",
+            "pro_upgrade_card_subtitle": "Fă upgrade pentru istoric extins și playlisturi",
+            "recent_songs": "MELODII RECENTE",
+            "section_general": "GENERAL",
+            "share_error_failed": "Linkul nu a putut fi redirecționat.",
+            "share_guide_subtitle": "Păstrează SongFlip ușor accesibil în meniul Partajare din iOS.",
+            "share_guide_title": "Configurează meniul Partajare",
+            "share_redirecting": "SongFlip: Se redirecționează...",
+            "share_step1_desc": "În Spotify, Apple Music sau YouTube, atinge Partajați pe orice piesă.",
+            "share_step1_title": "1. Deschide aplicația muzicală și partajează",
+            "share_step2_desc": "Glisează complet spre dreapta în rândul cu pictogramele aplicațiilor și atinge 'Mai multe' (⋯).",
+            "share_step2_title": "2. Derulează la 'Mai multe'",
+            "share_step3_desc": "Atinge 'Editați' și adaugă SongFlip la lista de favorite.",
+            "share_step3_title": "3. Activează SongFlip",
+            "shortcuts_guide_subtitle": "Convertește linkuri muzicale din clipboard cu o singură atingere.",
+            "shortcuts_guide_title": "Scurtături și Butonul Acțiune",
+            "shortcuts_step1_desc": "Deschide aplicația preinstalată 'Scurtături' de la Apple și atinge semnul plus (+) din dreapta sus.",
+            "shortcuts_step1_title": "1. Deschide aplicația Scurtături",
+            "shortcuts_step2_desc": "Atinge 'Adăugați o acțiune' ➔ 'Aplicații' ➔ 'SongFlip' ➔ 'Deschide melodia în SongFlip'.",
+            "shortcuts_step2_title": "2. Adaugă acțiunea SongFlip",
+            "shortcuts_step3_desc": "Opțional: Mergi la Configurări ➔ Butonul Acțiune ➔ Glisează la 'Scurtătură' și alege SongFlip.",
+            "shortcuts_step3_title": "3. Atribuie Butonului Acțiune",
+            "show_all": "Afișează tot",
+            "step1_desc": "Atinge Partajați în Spotify, Apple Music sau YouTube ➔ SongFlip pentru redare instantanee.",
+            "step1_title": "1. Prin meniul Partajare",
+            "step2_desc": "Atribuie scurtătura SongFlip Butonului Acțiune pentru conversie cu un singur clic.",
+            "step2_title": "2. Butonul Acțiune și Scurtături",
+            "step3_desc": "Linkurile muzicale copiate sunt detectate automat la deschiderea aplicației.",
+            "step3_title": "3. Clipboard automat",
+            "unknown_song": "Melodie necunoscută"
         ],
         "th": [
             "action_close": "Close",
@@ -10678,7 +10940,7 @@ enum LocalizationManager {
             "pro_tier_monthly": "รายเดือน",
             "pro_title": "SongFlip PRO",
             "pro_trial_badge": "ทดลองฟรี %1$d วัน",
-            "qr_code_hint": "Scan to open link on any device",
+            "qr_code_hint": "สแกนเพื่อเปิดลิงก์บนอุปกรณ์ใดก็ได้",
             "qr_code_title": "QR Code",
             "quick_picker_title": "เปิดด้วย …",
             "redirect_error_toast": "ไม่สามารถแปลงลิงก์ได้ กำลังเปิดลิงก์เดิม",
@@ -10778,7 +11040,55 @@ enum LocalizationManager {
             "time_hours_ago": "%1$d ชม. ที่แล้ว",
             "time_just_now": "เมื่อสักครู่",
             "time_minutes_ago": "%1$d นาทีที่แล้ว",
-            "favorite_limit_reached": "คุณใช้รายการโปรดฟรีครบ 10 รายการแล้ว อัปเกรดเป็น SongFlip PRO เพื่อปลดล็อกรายการโปรดไม่จำกัดและประวัติ 100 รายการ"
+            "favorite_limit_reached": "คุณใช้รายการโปรดฟรีครบ 10 รายการแล้ว อัปเกรดเป็น SongFlip PRO เพื่อปลดล็อกรายการโปรดไม่จำกัดและประวัติ 100 รายการ",
+            "action_refresh_link": "รีเฟรชลิงก์",
+            "auto_clipboard": "ตรวจจับคลิปบอร์ดอัตโนมัติ",
+            "btn_cancel": "ยกเลิก",
+            "btn_close": "ปิด",
+            "btn_done": "เสร็จสิ้น",
+            "clipboard_detected": "ตรวจพบลิงก์จากคลิปบอร์ด!",
+            "clipboard_pasted": "วางลิงก์จากคลิปบอร์ดแล้ว!",
+            "how_it_works_ios": "ใช้งานบน IOS อย่างไร?",
+            "intent_description": "แปลงลิงก์เพลงที่คัดลอกหรือแชร์และเปิดแอปปลายทาง",
+            "intent_error_empty_clipboard": "ไม่ได้ระบุลิงก์เพลงและคลิปบอร์ดว่างเปล่า",
+            "intent_error_failed_to_convert": "เกิดข้อผิดพลาดในการแปลงลิงก์: %@",
+            "intent_error_failed_to_resolve": "ไม่สามารถค้นหา URL ปลายทางได้",
+            "intent_param_music_link": "ลิงก์เพลง",
+            "intent_title": "เปิดเพลงใน SongFlip",
+            "link_refreshed": "รีเฟรชลิงก์สำเร็จแล้ว!",
+            "link_refreshing": "กำลังรีเฟรชลิงก์...",
+            "one_tap_selection": "เลือกด้วยการแตะครั้งเดียว",
+            "playlist_share_opening": "ตรวจพบเพลย์ลิสต์ – กำลังเปิดต้นฉบับ...",
+            "podcast_share_opening": "ตรวจพบพอดแคสต์ – กำลังเปิดต้นฉบับ...",
+            "pro_upgrade_card_subtitle": "อัปเกรดเพื่อประวัติที่มากขึ้นและเพลย์ลิสต์",
+            "recent_songs": "เพลงล่าสุด",
+            "section_general": "ทั่วไป",
+            "share_error_failed": "ไม่สามารถเปลี่ยนเส้นทางลิงก์ได้",
+            "share_guide_subtitle": "ทำให้ SongFlip เข้าถึงได้ง่ายในเมนูแชร์ของ iOS",
+            "share_guide_title": "ตั้งค่าเมนูแชร์",
+            "share_redirecting": "SongFlip: กำลังเปลี่ยนเส้นทาง...",
+            "share_step1_desc": "ใน Spotify, Apple Music หรือ YouTube ให้แตะแชร์ในเพลงใดก็ได้",
+            "share_step1_title": "1. เปิดแอปเพลงและแชร์",
+            "share_step2_desc": "ปัดไปทางขวาสุดในแถวไอคอนแอปแล้วแตะ 'เพิ่มเติม' (⋯)",
+            "share_step2_title": "2. เลื่อนไปที่ 'เพิ่มเติม'",
+            "share_step3_desc": "แตะ 'แก้ไข' และเพิ่ม SongFlip ลงในรายการโปรดของคุณ",
+            "share_step3_title": "3. เปิดใช้งาน SongFlip",
+            "shortcuts_guide_subtitle": "แปลงลิงก์เพลงจากคลิปบอร์ดด้วยการแตะเพียงครั้งเดียว",
+            "shortcuts_guide_title": "คำสั่งลัดและปุ่มแอคชั่น",
+            "shortcuts_step1_desc": "เปิดแอป 'คำสั่งลัด' ที่ติดตั้งมาพร้อมเครื่องของ Apple แล้วแตะเครื่องหมายบวก (+) ที่มุมขวาบน",
+            "shortcuts_step1_title": "1. เปิดแอปคำสั่งลัด",
+            "shortcuts_step2_desc": "แตะ 'เพิ่มการทำงาน' ➔ 'แอป' ➔ 'SongFlip' ➔ 'เปิดเพลงใน SongFlip'",
+            "shortcuts_step2_title": "2. เพิ่มการทำงาน SongFlip",
+            "shortcuts_step3_desc": "เพิ่มเติม: ไปที่การตั้งค่า ➔ ปุ่มแอคชั่น ➔ ปัดไปที่ 'คำสั่งลัด' แล้วเลือก SongFlip",
+            "shortcuts_step3_title": "3. กำหนดให้กับปุ่มแอคชั่น",
+            "show_all": "แสดงทั้งหมด",
+            "step1_desc": "แตะแชร์ใน Spotify, Apple Music หรือ YouTube ➔ SongFlip เพื่อเล่นทันที",
+            "step1_title": "1. ผ่านเมนูแชร์",
+            "step2_desc": "กำหนดคำสั่งลัด SongFlip ให้กับปุ่มแอคชั่นของคุณเพื่อแปลงในคลิกเดียว",
+            "step2_title": "2. ปุ่มแอคชั่นและคำสั่งลัด",
+            "step3_desc": "ลิงก์เพลงที่คัดลอกไว้จะถูกตรวจจับโดยอัตโนมัติเมื่อเปิดแอป",
+            "step3_title": "3. คลิปบอร์ดอัตโนมัติ",
+            "unknown_song": "เพลงที่ไม่รู้จัก"
         ],
     ]
 

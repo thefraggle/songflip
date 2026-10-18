@@ -195,6 +195,7 @@ class UrlUtilsTest {
         assertTrue(UrlUtils.isAlbumUrl("https://open.spotify.com/album/1DFixLWuPkv3KT3TnV35m3"))
         assertTrue(UrlUtils.isAlbumUrl("https://music.apple.com/de/album/a-night-at-the-opera/1440650428"))
         assertTrue(UrlUtils.isAlbumUrl("https://artist.bandcamp.com/album/in-rainbows"))
+        assertTrue(UrlUtils.isAlbumUrl("https://www.beatport.com/release/some-techno-ep/43210"))
         assertFalse(UrlUtils.isAlbumUrl("https://music.apple.com/de/album/a-night-at-the-opera/1440650428?i=1440650711"))
         assertFalse(UrlUtils.isAlbumUrl("https://example.com/album-reviews/queen"))
         assertFalse(UrlUtils.isAlbumUrl("https://example.com/albumart.jpg"))
@@ -276,6 +277,10 @@ class UrlUtilsTest {
         // SoundCloud
         assertEquals("soundcloud://tracks/octobersveryown/drake-gods-plan", UrlUtils.toNativeAppUri("https://soundcloud.com/octobersveryown/drake-gods-plan", "soundcloud"))
         assertEquals("soundcloud://search?q=Skrillex%20Rumble", UrlUtils.toNativeAppUri("https://soundcloud.com/search?q=Skrillex%20Rumble", "soundcloud"))
+
+        // Qobuz with optional slug
+        assertEquals("qobuz://track/123456", UrlUtils.toNativeAppUri("https://www.qobuz.com/de-de/track/bohemian-rhapsody/123456", "qobuz"))
+        assertEquals("qobuz://album/abc123", UrlUtils.toNativeAppUri("https://open.qobuz.com/album/some-slug/abc123", "qobuz"))
     }
 
     @Test

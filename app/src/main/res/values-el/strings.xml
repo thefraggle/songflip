@@ -364,4 +364,14 @@
     <string name="disambiguate_error">Δεν ήταν δυνατή η φόρτωση των εκδόσεων</string>
     <string name="history_qr_action">Εμφάνιση κωδικού QR</string>
     <string name="favorite_limit_reached">Φτάσατε τα 10 δωρεάν αγαπημένα σας. Αποκτήστε το SongFlip PRO για απεριόριστα αγαπημένα και 100 εγγραφές ιστορικού.</string>
+    <string name="playlist_same_platform_title">Ήδη στο %1$s</string>
+    <string name="playlist_same_platform_desc">Αυτή η λίστα αναπαραγωγής προέρχεται ήδη από την επιλεγμένη υπηρεσία μουσικής σας. Μπορείτε να την ανοίξετε απευθείας στην εφαρμογή.</string>
+    <string name="qr_code_title">Κωδικός QR</string>
+    <string name="qr_code_hint">Σαρώστε για να ανοίξετε τον σύνδεσμο σε οποιαδήποτε συσκευή</string>
+    <string name="action_close">Κλείσιμο</string>
+    <string name="favorite_add">Προσθήκη στα αγαπημένα</string>
+    <string name="favorite_remove">Αφαίρεση από τα αγαπημένα</string>
+    <string name="history_filter_all">Όλα</string>
+    <string name="history_filter_favorites">Αγαπημένα</string>
+    <string name="target_player_chip">Πρόγραμμα αναπαραγωγής: %1$s</string>
 </resources>

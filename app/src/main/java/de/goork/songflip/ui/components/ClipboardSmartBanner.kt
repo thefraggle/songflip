@@ -316,6 +316,9 @@ fun detectSourcePlatformName(url: String, universalLabel: String, unknownLabel: 
         lower.contains("amazon.") || lower.contains("amzn.to") || lower.contains("amzn.eu") || lower.contains("amzn.asia") || lower.contains("a.co") -> "Amazon Music"
         lower.contains("soundcloud.com") || lower.contains("on.soundcloud.com") -> "SoundCloud"
         lower.contains("bandcamp.com") -> "Bandcamp"
+        lower.contains("qobuz.com") -> "Qobuz"
+        lower.contains("beatport.com") -> "Beatport"
+        lower.contains("shazam.com") -> "Shazam"
         lower.contains("song.link") || lower.contains("album.link") || lower.contains("odesli.co") -> universalLabel
         else -> unknownLabel
     }
@@ -355,6 +358,9 @@ fun isSupportedMusicUrl(text: String): Boolean {
            lower.contains("soundcloud.com") ||
            lower.contains("on.soundcloud.com") ||
            lower.contains("bandcamp.com") ||
+           lower.contains("qobuz.com") ||
+           lower.contains("beatport.com") ||
+           lower.contains("shazam.com") ||
            lower.contains("song.link") ||
            lower.contains("album.link") ||
            lower.contains("odesli.co")

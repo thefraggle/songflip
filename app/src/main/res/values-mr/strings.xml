@@ -378,4 +378,14 @@
     <string name="disambiguate_error">आवृत्त्या लोड होऊ शकल्या नाहीत</string>
     <string name="history_qr_action">QR कोड दाखवा</string>
     <string name="favorite_limit_reached">तुमचे १० मोफत फेव्हरेट्स पूर्ण झाले आहेत. अमर्यादित फेव्हरेट्स आणि १०० हिस्ट्री नोंदींसाठी SongFlip PRO घ्या.</string>
+    <string name="playlist_same_platform_title">आधीच %1$s मध्ये आहे</string>
+    <string name="playlist_same_platform_desc">ही प्लेलिस्ट आधीच तुमच्या निवडलेल्या म्युझिक सेवेतील आहे. तुम्ही ती थेट अ‍ॅपमध्ये उघडू शकता.</string>
+    <string name="qr_code_title">QR कोड</string>
+    <string name="qr_code_hint">कोणत्याही डिव्हाइसवर लिंक उघडण्यासाठी स्कॅन करा</string>
+    <string name="action_close">बंद करा</string>
+    <string name="favorite_add">आवडत्यांमध्ये जोडा</string>
+    <string name="favorite_remove">आवडत्यांमधून काढा</string>
+    <string name="history_filter_all">सर्व</string>
+    <string name="history_filter_favorites">आवडते</string>
+    <string name="target_player_chip">प्लेअर: %1$s</string>
 </resources>

@@ -1,4 +1,5 @@
 import SwiftUI
+import CryptoKit
 import SongFlipKit
 
 struct SearchTrackItem: Identifiable, Equatable {
@@ -27,6 +28,7 @@ struct SearchSheetView: View {
     @State private var isLoading: Bool = false
     @State private var errorMessage: String? = nil
     @State private var resolvingTrackId: String? = nil
+    @State private var showFlipErrorAlert: Bool = false
 
     // Sheets
     @State private var showingPaywallSheet: Bool = false
@@ -44,6 +46,14 @@ struct SearchSheetView: View {
 
     private var targetPlatformName: String {
         PlatformChoice(rawValue: settings.targetPlatform)?.displayName ?? settings.targetPlatform
+    }
+
+    private func universalShareUrl(for sourceUrl: String) -> URL? {
+        let normalized = sourceUrl.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        let digest = SHA256.hash(data: Data(normalized.utf8))
+        let hex = digest.map { String(format: "%02x", $0) }.joined()
+        let shortId = String(hex.prefix(12))
+        return URL(string: "https://songflip.link/s/\(shortId)")
     }
 
     var body: some View {
@@ -164,6 +174,12 @@ struct SearchSheetView: View {
             .onChange(of: searchQuery) { query in
                 performSearch(query: query)
             }
+            .alert(
+                LocalizationManager.string(for: "redirect_error_toast", lang: lang),
+                isPresented: $showFlipErrorAlert
+            ) {
+                Button("OK", role: .cancel) {}
+            }
             .sheet(isPresented: $showingPaywallSheet) {
                 ProPaywallSheetView()
                     .environmentObject(settings)
@@ -193,7 +209,7 @@ struct SearchSheetView: View {
     @ViewBuilder
     private func trackRow(track: SearchTrackItem) -> some View {
         let isResolving = resolvingTrackId == track.id
-        let universalShareUrl = URL(string: "https://songflip.link/s/" + (track.sourceUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")) ?? URL(string: track.sourceUrl)!
+        let shareUrl = universalShareUrl(for: track.sourceUrl)
 
         HStack(spacing: 12) {
             // Cover Image with subtle Play Badge
@@ -261,8 +277,8 @@ struct SearchSheetView: View {
                 // Option A: 3-Punkte-Aktionsmenü (⋮)
                 Menu {
                     // 1. Teilen / FlipPage (mit 💎 bei Free)
-                    if proManager.isPro {
-                        ShareLink(item: universalShareUrl, message: Text(track.title)) {
+                    if proManager.isPro, let validShareUrl = shareUrl {
+                        ShareLink(item: validShareUrl, message: Text(track.title)) {
                             Label(LocalizationManager.string(for: "share_universal_link", lang: lang), systemImage: "square.and.arrow.up")
                         }
                     } else {
@@ -276,10 +292,10 @@ struct SearchSheetView: View {
                     }
 
                     // 2. QR Code (nur bei Pro sichtbar!)
-                    if proManager.isPro {
+                    if proManager.isPro, let validShareUrl = shareUrl {
                         Button {
                             UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                            qrCodePayload = QRCodePayload(url: universalShareUrl.absoluteString, title: track.title, artist: track.artist)
+                            qrCodePayload = QRCodePayload(url: validShareUrl.absoluteString, title: track.title, artist: track.artist)
                         } label: {
                             Label(LocalizationManager.string(for: "history_qr_action", lang: lang), systemImage: "qrcode")
                         }
@@ -406,7 +422,7 @@ struct SearchSheetView: View {
                 await MainActor.run {
                     resolvingTrackId = nil
                     if let success = res as? ResolutionResult.Success,
-                       let targetUrl = URL(string: success.targetUrl) {
+                       let fallbackUrl = URL(string: success.targetUrl) {
                         // Track in Aptabase
                         AptabaseClient.shared.trackLinkFlipped(
                             target: targetKey,
@@ -414,6 +430,8 @@ struct SearchSheetView: View {
                             isSearch: success.isSearchFallback,
                             source: "in_app_search"
                         )
+
+                        settings.incrementSuccessfulFlipCount()
 
                         // Save to History
                         HistoryModel.shared.add(
@@ -426,14 +444,26 @@ struct SearchSheetView: View {
                             thumbnailUrl: success.thumbnailUrl ?? track.coverUrl
                         )
 
-                        // Launch player & dismiss
-                        UIApplication.shared.open(targetUrl)
+                        // Launch player (native URI preferred with web URL fallback) & dismiss
+                        let primaryStr = success.nativeAppUri ?? success.targetUrl
+                        if let primaryUrl = URL(string: primaryStr) {
+                            UIApplication.shared.open(primaryUrl, options: [:]) { opened in
+                                if !opened && primaryStr != success.targetUrl {
+                                    UIApplication.shared.open(fallbackUrl)
+                                }
+                            }
+                        } else {
+                            UIApplication.shared.open(fallbackUrl)
+                        }
                         dismiss()
+                    } else {
+                        showFlipErrorAlert = true
                     }
                 }
             } catch {
                 await MainActor.run {
                     resolvingTrackId = nil
+                    showFlipErrorAlert = true
                 }
             }
         }
