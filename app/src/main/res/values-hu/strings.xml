@@ -364,4 +364,14 @@
     <string name="disambiguate_error">Nem sikerült betölteni a verziókat</string>
     <string name="history_qr_action">QR-kód megjelenítése</string>
     <string name="favorite_limit_reached">Elérted a 10 ingyenes kedvencet. Szerezd meg a SongFlip PRO-t a korlátlan kedvencekért és 100 előzményért.</string>
+    <string name="playlist_same_platform_title">Már itt: %1$s</string>
+    <string name="playlist_same_platform_desc">Ez a lejátszási lista már a kiválasztott zenei szolgáltatásból származik. Közvetlenül megnyithatod az alkalmazásban.</string>
+    <string name="qr_code_title">QR-kód</string>
+    <string name="qr_code_hint">Olvasd be a link bármely eszközön történő megnyitásához</string>
+    <string name="action_close">Bezárás</string>
+    <string name="favorite_add">Hozzáadás a kedvencekhez</string>
+    <string name="favorite_remove">Eltávolítás a kedvencekből</string>
+    <string name="history_filter_all">Összes</string>
+    <string name="history_filter_favorites">Kedvencek</string>
+    <string name="target_player_chip">Lejátszó: %1$s</string>
 </resources>

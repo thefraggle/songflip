@@ -303,9 +303,13 @@ struct ProPaywallSheetView: View {
 
                     // Legal Links
                     HStack(spacing: 12) {
-                        Link(LocalizationManager.string(for: "legal_privacy", lang: lang), destination: URL(string: "https://songflip.link/privacy")!)
+                        if let privacyUrl = URL(string: "https://songflip.link/privacy-policy.html") {
+                            Link(LocalizationManager.string(for: "legal_privacy", lang: lang), destination: privacyUrl)
+                        }
                         Text("•").foregroundColor(.secondary)
-                        Link(LocalizationManager.string(for: "legal_terms", lang: lang), destination: URL(string: "https://songflip.link/terms")!)
+                        if let termsUrl = URL(string: "https://songflip.link/terms.html") {
+                            Link(LocalizationManager.string(for: "legal_terms", lang: lang), destination: termsUrl)
+                        }
                     }
                     .font(.caption)
                     .foregroundColor(.secondary)

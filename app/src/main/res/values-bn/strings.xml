@@ -378,4 +378,14 @@
     <string name="disambiguate_error">সংস্করণ লোড করা যায়নি</string>
     <string name="history_qr_action">QR কোড দেখান</string>
     <string name="favorite_limit_reached">আপনি আপনার ১০টি ফ্রি ফেভারিট পূর্ণ করেছেন। আনলিমিটেড ফেভারিট ও ১০০টি হিস্ট্রি এন্ট্রির জন্য SongFlip PRO নিন।</string>
+    <string name="playlist_same_platform_title">ইতিমধ্যেই %1$s-এ আছে</string>
+    <string name="playlist_same_platform_desc">এই প্লেলিস্টটি ইতিমধ্যেই আপনার নির্বাচিত মিউজিক সার্ভিসের। আপনি এটি সরাসরি অ্যাপে খুলতে পারেন।</string>
+    <string name="qr_code_title">QR কোড</string>
+    <string name="qr_code_hint">যেকোনো ডিভাইসে লিঙ্কটি খুলতে স্ক্যান করুন</string>
+    <string name="action_close">বন্ধ করুন</string>
+    <string name="favorite_add">প্রিয়তে যোগ করুন</string>
+    <string name="favorite_remove">প্রিয় থেকে সরান</string>
+    <string name="history_filter_all">সব</string>
+    <string name="history_filter_favorites">প্রিয়</string>
+    <string name="target_player_chip">প্লেয়ার: %1$s</string>
 </resources>

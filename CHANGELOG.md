@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.9.3] - 2026-10-18
+- **Smarter Clipboard & Share Detection**: Copied and shared links from Qobuz, Beatport, and Shazam are now recognized immediately when opening the app or sharing from other apps.
+- **Improved Song Selection & Search**: Choosing alternative song versions or sharing universal links from in-app search now works seamlessly across all supported music services.
+- **Reliable History & Favorites**: Saved songs and history entries are preserved cleanly across updates and when refreshing links.
+- **Complete Translations & Polish**: Completed missing translations across all supported languages and refined theme switching and playback reliability.
+
 ## [1.9.2] - 2026-10-16
 - **Manual Match Correction in History**: Quickly access manual song match selection directly from the history menu whenever a converted track needs a different version.
 - **Quick Header Navigation**: Open your account status and feature overview directly by tapping the header badge on the home screen.

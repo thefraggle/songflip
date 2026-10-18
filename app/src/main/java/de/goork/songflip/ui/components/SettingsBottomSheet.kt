@@ -76,7 +76,8 @@ fun SettingsBottomSheet(
     onThemeModeSelected: (String) -> Unit,
     isPro: Boolean = false,
     onOpenProPaywall: () -> Unit = {},
-    onOpenSetupGuide: () -> Unit = {}
+    onOpenSetupGuide: () -> Unit = {},
+    onOpenPlaylist: ((String, String) -> Unit)? = null
 ) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
@@ -209,7 +210,11 @@ fun SettingsBottomSheet(
             onDismissRequest = { showHistorySubSheet = false },
             isPro = isPro,
             showProTeaser = !isPro,
-            onOpenProPaywall = onOpenProPaywall
+            onOpenProPaywall = onOpenProPaywall,
+            onOpenPlaylist = { playlistUrl, targetKey ->
+                showHistorySubSheet = false
+                onOpenPlaylist?.invoke(playlistUrl, targetKey)
+            }
         )
     }
 
@@ -243,7 +248,7 @@ fun SettingsBottomSheet(
                             val localeList = LocaleListCompat.forLanguageTags(lang.code)
                             AppCompatDelegate.setApplicationLocales(localeList)
                             showLanguagePickerSubSheet = false
-                            (context as? android.app.Activity)?.recreate()
+                            context.findActivity()?.recreate()
                         },
                         shape = RoundedCornerShape(12.dp),
                         color = if (isSelected) MaterialTheme.colorScheme.primary.copy(alpha = 0.15f) else Color.Transparent,
@@ -901,7 +906,7 @@ fun SettingsBottomSheet(
                     .clickable {
                         haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                         de.goork.songflip.core.analytics.AptabaseClient.shared.trackRateAppClicked()
-                        (context as? android.app.Activity)?.let { act ->
+                        context.findActivity()?.let { act ->
                             de.goork.songflip.data.ReviewHelper.launchReviewFlow(act) {
                                 de.goork.songflip.data.ReviewHelper.openPlayStoreListing(context)
                             }
@@ -965,7 +970,9 @@ fun SettingsBottomSheet(
                             putExtra(Intent.EXTRA_TEXT, shareAppMessage)
                         }
                         val shareIntent = Intent.createChooser(sendIntent, null)
-                        context.startActivity(shareIntent)
+                        try {
+                            context.startActivity(shareIntent)
+                        } catch (_: Exception) {}
                     }
             ) {
                 Row(
@@ -1086,8 +1093,7 @@ fun SettingsBottomSheet(
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
                     modifier = Modifier.clickable {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URL_NOTTHOFF))
-                        context.startActivity(intent)
+                        LegalLinks.open(context, URL_NOTTHOFF)
                     }
                 )
                 Spacer(modifier = Modifier.height(2.dp))
@@ -1100,8 +1106,7 @@ fun SettingsBottomSheet(
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.clickable {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(LegalLinks.PRIVACY))
-                            context.startActivity(intent)
+                            LegalLinks.open(context, LegalLinks.PRIVACY)
                         }
                     )
                     Text(
@@ -1114,8 +1119,7 @@ fun SettingsBottomSheet(
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.clickable {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(LegalLinks.IMPRINT))
-                            context.startActivity(intent)
+                            LegalLinks.open(context, LegalLinks.IMPRINT)
                         }
                     )
                     Text(
@@ -1128,8 +1132,7 @@ fun SettingsBottomSheet(
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.clickable {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(LegalLinks.TERMS))
-                            context.startActivity(intent)
+                            LegalLinks.open(context, LegalLinks.TERMS)
                         }
                     )
                 }

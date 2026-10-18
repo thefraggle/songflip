@@ -2,6 +2,7 @@ package de.goork.songflip.core.engine
 
 import de.goork.songflip.core.model.PlaylistChunk
 import de.goork.songflip.core.model.PlaylistTrackItem
+import io.ktor.http.encodeURLParameter
 
 /**
  * Universal export and chunking engine for playlists.
@@ -82,9 +83,10 @@ object PlaylistExporter {
     ): List<PlaylistChunk> {
         if (tracks.isEmpty()) return emptyList()
 
-        val chunks = tracks.chunked(chunkSize)
+        val safeChunkSize = chunkSize.coerceAtLeast(1)
+        val chunks = tracks.chunked(safeChunkSize)
         return chunks.mapIndexed { index, chunkTracks ->
-            val start = (index * chunkSize) + 1
+            val start = (index * safeChunkSize) + 1
             val end = start + chunkTracks.size - 1
             val matchedCount = chunkTracks.count { it.matched }
 
@@ -127,7 +129,7 @@ object PlaylistExporter {
                         .replace("/", " ")
                         .trim()
                     val partTitle = "$safeTitle (Part $partIndex)"
-                    "spotify:trackset:$partTitle:${ids.joinToString(",")}"
+                    "spotify:trackset:${partTitle.encodeURLParameter()}:${ids.joinToString(",")}"
                 } else null
             }
             platform == "youtubemusic" || platform == "youtube" -> {

@@ -302,8 +302,9 @@ object ProManager {
             currentTimeMs = now,
             lastSeenServerTimeMs = getLastSeenServerTime()
         )
-        if (verified.valid && verified.issuedAtTimestamp != null) {
-            updateLastSeenServerTime(verified.issuedAtTimestamp!!)
+        val issuedAt = verified.issuedAtTimestamp
+        if (verified.valid && issuedAt != null) {
+            updateLastSeenServerTime(issuedAt)
         }
 
         if (revenueCatActive) {
@@ -618,6 +619,7 @@ object ProManager {
                     }
                 }
             } catch (e: Exception) {
+                if (e is kotlinx.coroutines.CancellationException) throw e
                 android.util.Log.w("ProManager", "Redeem attempt failed for endpoint $endpoint: ${e.message}")
             }
         }

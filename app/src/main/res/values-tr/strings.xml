@@ -378,4 +378,14 @@
     <string name="disambiguate_error">Sürümler yüklenemedi</string>
     <string name="history_qr_action">QR kodunu göster</string>
     <string name="favorite_limit_reached">10 ücretsiz favori sınırına ulaştınız. Sınırsız favori ve 100 geçmiş kaydı için SongFlip PRO edinin.</string>
+    <string name="playlist_same_platform_title">Zaten %1$s içinde</string>
+    <string name="playlist_same_platform_desc">Bu çalma listesi zaten seçtiğiniz müzik servisinden. Doğrudan uygulamada açabilirsiniz.</string>
+    <string name="qr_code_title">QR Kodu</string>
+    <string name="qr_code_hint">Bağlantıyı herhangi bir cihazda açmak için tarayın</string>
+    <string name="action_close">Kapat</string>
+    <string name="favorite_add">Favorilere ekle</string>
+    <string name="favorite_remove">Favorilerden çıkar</string>
+    <string name="history_filter_all">Tümü</string>
+    <string name="history_filter_favorites">Favoriler</string>
+    <string name="target_player_chip">Oynatıcı: %1$s</string>
 </resources>

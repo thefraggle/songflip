@@ -2,6 +2,12 @@ package de.goork.songflip.core.engine
 
 import de.goork.songflip.core.cache.LinkCache
 import de.goork.songflip.core.model.ResolutionResult
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.mock.MockEngine
+import io.ktor.client.engine.mock.respond
+import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpStatusCode
+import io.ktor.http.headersOf
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -69,5 +75,35 @@ class SearchAndDisambiguationTest {
         )
         assertTrue(candidate.isCurrentMatch)
         assertEquals("Starboy (Deluxe)", candidate.album)
+    }
+
+    @Test
+    fun testDisambiguationEngineBuildsCorrectPlatformUrls() = runTest {
+        val mockEngine = MockEngine { request ->
+            val host = request.url.host
+            if (host.contains("qobuz.com")) {
+                respond(
+                    content = """{"tracks":{"items":[{"id":777888,"title":"Bohemian Rhapsody","performer":{"name":"Queen"}}]}}""",
+                    status = HttpStatusCode.OK,
+                    headers = headersOf(HttpHeaders.ContentType, "application/json")
+                )
+            } else {
+                respond(
+                    content = """{"data":[{"id":1,"title":"Bohemian Rhapsody","link":"https://www.deezer.com/track/1","artist":{"name":"Queen"}}]}""",
+                    status = HttpStatusCode.OK,
+                    headers = headersOf(HttpHeaders.ContentType, "application/json")
+                )
+            }
+        }
+        val engine = DisambiguationEngine(client = HttpClient(mockEngine))
+
+        val qobuzCandidates = engine.getCandidates("Bohemian Rhapsody", "Queen", "qobuz").getOrThrow()
+        assertEquals("https://open.qobuz.com/track/777888", qobuzCandidates.single().targetUrl)
+
+        val soundcloudCandidates = engine.getCandidates("Bohemian Rhapsody", "Queen", "soundcloud").getOrThrow()
+        assertTrue(soundcloudCandidates.single().targetUrl.startsWith("https://soundcloud.com/search?q="))
+
+        val beatportCandidates = engine.getCandidates("Bohemian Rhapsody", "Queen", "beatport").getOrThrow()
+        assertTrue(beatportCandidates.single().targetUrl.startsWith("https://www.beatport.com/search?q="))
     }
 }

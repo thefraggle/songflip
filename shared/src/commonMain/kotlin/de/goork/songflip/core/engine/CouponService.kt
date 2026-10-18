@@ -216,7 +216,7 @@ class CouponService(
         }
 
         // Strict device binding: token must belong to this device's installId
-        if (expectedInstallId.isNotBlank() && tokenInstallId != expectedInstallId) {
+        if (tokenInstallId.isNotBlank() && (expectedInstallId.isBlank() || tokenInstallId != expectedInstallId)) {
             return VerifiedCouponPayload(valid = false)
         }
 
@@ -279,7 +279,7 @@ class CouponService(
                         token = token,
                         expectedInstallId = installId
                     )
-                    if (!verified.valid) {
+                    if (!verified.valid || verified.isLegacyToken) {
                         return CouponRedeemOutcome(status = CouponRedeemStatus.INVALID)
                     }
 

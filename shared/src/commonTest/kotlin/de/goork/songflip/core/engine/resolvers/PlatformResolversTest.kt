@@ -453,5 +453,39 @@ class PlatformResolversTest {
         val tidalResolver = TidalResolver(client = HttpClient(tidalMock))
         val tidalResult = tidalResolver.resolveTrack("April Art RED")
         assertNull(tidalResult, "TidalResolver must reject completely unrelated track match")
+
+        // Qobuz Mock returning unrelated first item and matching second item + slug metadata lookup
+        val qobuzMock = MockEngine { request ->
+            val path = request.url.encodedPath
+            if (path.contains("/catalog/search")) {
+                val type = request.url.parameters["type"]
+                if (type == "artists") {
+                    respond(
+                        content = """{"artists":{"items":[{"id":111,"name":"Unrelated Artist"},{"id":222,"name":"Korsakow"}]}}""",
+                        status = HttpStatusCode.OK,
+                        headers = headersOf(HttpHeaders.ContentType, "application/json")
+                    )
+                } else {
+                    respond(
+                        content = """{"tracks":{"items":[{"id":999,"title":"Star Wars Theme","performer":{"name":"John Williams"}}]}}""",
+                        status = HttpStatusCode.OK,
+                        headers = headersOf(HttpHeaders.ContentType, "application/json")
+                    )
+                }
+            } else if (path.contains("/track/get")) {
+                val trackId = request.url.parameters["track_id"]
+                respond(
+                    content = """{"id":$trackId,"title":"Bohemian Rhapsody","performer":{"name":"Queen"}}""",
+                    status = HttpStatusCode.OK,
+                    headers = headersOf(HttpHeaders.ContentType, "application/json")
+                )
+            } else {
+                respond("{}", status = HttpStatusCode.OK)
+            }
+        }
+        val qobuzResolver = QobuzResolver(client = HttpClient(qobuzMock))
+        assertNull(qobuzResolver.resolveTrack("April Art RED"), "QobuzResolver must reject unrelated track match")
+        assertEquals("https://open.qobuz.com/artist/222", qobuzResolver.resolveArtist("Korsakow"))
+        assertEquals("Queen Bohemian Rhapsody", qobuzResolver.extractMetadata("https://www.qobuz.com/de-de/track/bohemian-rhapsody/123456"))
     }
 }

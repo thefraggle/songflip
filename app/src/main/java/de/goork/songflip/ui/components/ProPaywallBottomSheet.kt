@@ -729,7 +729,7 @@ fun ProPaywallBottomSheet(
     }
 }
 
-private fun Context.findActivity(): Activity? {
+internal fun Context.findActivity(): Activity? {
     var currentContext = this
     while (currentContext is ContextWrapper) {
         if (currentContext is Activity) {

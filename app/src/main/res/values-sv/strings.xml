@@ -378,4 +378,14 @@
     <string name="disambiguate_error">Kunde inte ladda versioner</string>
     <string name="history_qr_action">Visa QR-kod</string>
     <string name="favorite_limit_reached">Du har nått dina 10 gratisfavoriter. Skaffa SongFlip PRO för obegränsade favoriter och 100 historikposter.</string>
+    <string name="playlist_same_platform_title">Redan i %1$s</string>
+    <string name="playlist_same_platform_desc">Den här spellistan är redan från din valda musiktjänst. Du kan öppna den direkt i appen.</string>
+    <string name="qr_code_title">QR-kod</string>
+    <string name="qr_code_hint">Skanna för att öppna länken på valfri enhet</string>
+    <string name="action_close">Stäng</string>
+    <string name="favorite_add">Lägg till i favoriter</string>
+    <string name="favorite_remove">Ta bort från favoriter</string>
+    <string name="history_filter_all">Alla</string>
+    <string name="history_filter_favorites">Favoriter</string>
+    <string name="target_player_chip">Spelare: %1$s</string>
 </resources>

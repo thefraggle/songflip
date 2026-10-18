@@ -374,4 +374,14 @@
     <string name="disambiguate_error">无法加载版本</string>
     <string name="history_qr_action">显示二维码</string>
     <string name="favorite_limit_reached">您已达到 10 个免费收藏上限。升级 SongFlip PRO 解锁无限收藏与 100 条历史记录。</string>
+    <string name="playlist_same_platform_title">已在 %1$s 中</string>
+    <string name="playlist_same_platform_desc">此歌单已来自您选择的音乐服务，您可以直接在应用中打开它。</string>
+    <string name="qr_code_title">二维码</string>
+    <string name="qr_code_hint">扫码即可在任意设备上打开链接</string>
+    <string name="action_close">关闭</string>
+    <string name="favorite_add">添加到收藏</string>
+    <string name="favorite_remove">从收藏中移除</string>
+    <string name="history_filter_all">全部</string>
+    <string name="history_filter_favorites">收藏</string>
+    <string name="target_player_chip">播放器: %1$s</string>
 </resources>

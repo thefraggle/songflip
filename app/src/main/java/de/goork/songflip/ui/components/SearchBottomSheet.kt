@@ -63,6 +63,7 @@ fun SearchBottomSheet(
     val coroutineScope = rememberCoroutineScope()
     val proState by ProManager.proState.collectAsState()
     val keyboardController = LocalSoftwareKeyboardController.current
+    val settingsRepository = remember(context) { de.goork.songflip.data.SettingsRepository(context) }
 
     var searchQuery by remember { mutableStateOf("") }
     var searchResults by remember { mutableStateOf<List<SearchTrackResult>>(emptyList()) }
@@ -112,6 +113,34 @@ fun SearchBottomSheet(
         PackageUtils.getPlatformDisplayName(targetPlatformKey)
     }
 
+    fun launchTargetPlayer(targetUrl: String, nativeAppUri: String?, platformKey: String) {
+        val targetPackage = PackageUtils.getInstalledPackage(context, platformKey)
+        if (targetPackage != null) {
+            try {
+                val uriStr = nativeAppUri ?: PackageUtils.toNativeAppUri(targetUrl, platformKey)
+                val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse(uriStr)).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    setPackage(targetPackage)
+                    putExtra(de.goork.songflip.ui.RedirectActivity.EXTRA_FORWARDED_FROM_SONGFLIP, true)
+                }
+                context.startActivity(appIntent)
+                onDismissRequest()
+                return
+            } catch (_: Exception) {}
+        }
+        try {
+            val fallbackUrl = PackageUtils.toWebFallbackUrl(targetUrl, platformKey)
+            val playIntent = Intent(Intent.ACTION_VIEW, Uri.parse(fallbackUrl)).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                putExtra(de.goork.songflip.ui.RedirectActivity.EXTRA_FORWARDED_FROM_SONGFLIP, true)
+            }
+            context.startActivity(playIntent)
+            onDismissRequest()
+        } catch (_: Exception) {
+            Toast.makeText(context, context.getString(R.string.redirect_error_toast), Toast.LENGTH_SHORT).show()
+        }
+    }
+
     fun flipTrack(track: SearchTrackResult) {
         val sourceUrl = track.sourceUrl
         if (sourceUrl.isNullOrBlank() || resolvingTrackId != null) return
@@ -129,21 +158,14 @@ fun SearchBottomSheet(
             when (res) {
                 is ResolutionResult.Success -> {
                     SongLinkEngine.shared.cache.markAsHistory(sourceUrl, targetPlatformKey)
+                    settingsRepository.incrementSuccessfulFlips()
                     AptabaseClient.shared.trackLinkFlipped(
                         target = targetPlatformKey,
                         isAlbum = res.isAlbum,
                         isSearch = res.isSearchFallback,
                         source = "in_app_search"
                     )
-                    try {
-                        val playIntent = Intent(Intent.ACTION_VIEW, Uri.parse(res.targetUrl)).apply {
-                            flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                        }
-                        context.startActivity(playIntent)
-                        onDismissRequest()
-                    } catch (_: Exception) {
-                        Toast.makeText(context, context.getString(R.string.redirect_error_toast), Toast.LENGTH_SHORT).show()
-                    }
+                    launchTargetPlayer(res.targetUrl, res.nativeAppUri, targetPlatformKey)
                 }
                 else -> {
                     Toast.makeText(context, context.getString(R.string.redirect_error_toast), Toast.LENGTH_SHORT).show()
@@ -443,7 +465,9 @@ fun SearchBottomSheet(
                                                         putExtra(Intent.EXTRA_TEXT, shareUrl)
                                                         putExtra(Intent.EXTRA_TITLE, track.title)
                                                     }
-                                                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share_universal_link)))
+                                                    try {
+                                                        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share_universal_link)))
+                                                    } catch (_: Exception) {}
                                                 } else {
                                                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                                                     onOpenProPaywall()
@@ -556,15 +580,16 @@ fun SearchBottomSheet(
                         resolvingTrackId = null
                         if (res is ResolutionResult.Success) {
                             SongLinkEngine.shared.cache.markAsHistory(sUrl, pickedTarget)
-                            try {
-                                val playIntent = Intent(Intent.ACTION_VIEW, Uri.parse(res.targetUrl)).apply {
-                                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                                }
-                                context.startActivity(playIntent)
-                                onDismissRequest()
-                            } catch (_: Exception) {
-                                Toast.makeText(context, context.getString(R.string.redirect_error_toast), Toast.LENGTH_SHORT).show()
-                            }
+                            settingsRepository.incrementSuccessfulFlips()
+                            AptabaseClient.shared.trackLinkFlipped(
+                                target = pickedTarget,
+                                isAlbum = res.isAlbum,
+                                isSearch = res.isSearchFallback,
+                                source = "in_app_search"
+                            )
+                            launchTargetPlayer(res.targetUrl, res.nativeAppUri, pickedTarget)
+                        } else {
+                            Toast.makeText(context, context.getString(R.string.redirect_error_toast), Toast.LENGTH_SHORT).show()
                         }
                     }
                 }

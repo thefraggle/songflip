@@ -263,18 +263,17 @@ class SqlDelightCacheStorage(
 
             val historyRows = db.songFlipDatabaseQueries.getAllHistoryOrdered().executeAsList()
             for (row in historyRows) {
-                val existingResolver = result[row.cache_key]
-                val useResolver = existingResolver != null && existingResolver.timestamp > row.timestamp
+                val newerResolver = result[row.cache_key]?.takeIf { it.timestamp > row.timestamp }
                 result[row.cache_key] = CacheEntry(
-                    targetUrl = if (useResolver) existingResolver!!.targetUrl else row.target_url,
-                    platform = if (useResolver) existingResolver!!.platform else row.platform,
-                    title = (if (useResolver) existingResolver!!.title else row.title) ?: row.title,
-                    artist = (if (useResolver) existingResolver!!.artist else row.artist) ?: row.artist,
-                    isAlbum = if (useResolver) existingResolver!!.isAlbum else (row.is_album != 0L),
-                    nativeAppUri = (if (useResolver) existingResolver!!.nativeAppUri else row.native_app_uri) ?: row.native_app_uri,
-                    timestamp = if (useResolver) existingResolver!!.timestamp else row.timestamp,
+                    targetUrl = newerResolver?.targetUrl ?: row.target_url,
+                    platform = newerResolver?.platform ?: row.platform,
+                    title = newerResolver?.title ?: row.title,
+                    artist = newerResolver?.artist ?: row.artist,
+                    isAlbum = newerResolver?.isAlbum ?: (row.is_album != 0L),
+                    nativeAppUri = newerResolver?.nativeAppUri ?: row.native_app_uri,
+                    timestamp = newerResolver?.timestamp ?: row.timestamp,
                     isHistory = true,
-                    thumbnailUrl = (if (useResolver) existingResolver!!.thumbnailUrl else row.thumbnail_url) ?: row.thumbnail_url,
+                    thumbnailUrl = newerResolver?.thumbnailUrl ?: row.thumbnail_url,
                     isFavorite = row.is_favorite != 0L
                 )
             }

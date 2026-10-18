@@ -142,7 +142,17 @@ class LocalizationTest {
             "feedback_btn_mail_fallback",
             "feedback_success",
             "feedback_error_empty",
-            "feedback_error_network"
+            "feedback_error_network",
+            "playlist_same_platform_title",
+            "playlist_same_platform_desc",
+            "qr_code_title",
+            "qr_code_hint",
+            "action_close",
+            "favorite_add",
+            "favorite_remove",
+            "history_filter_all",
+            "history_filter_favorites",
+            "target_player_chip"
         )
         val requiredPluralKeys = listOf(
             "history_cached_count",

@@ -9,6 +9,7 @@ import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import kotlin.concurrent.Volatile
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -141,6 +142,7 @@ object AptabaseClient {
                 response.status.value in 200..299
             } ?: false
         } catch (t: Throwable) {
+            if (t is CancellationException) throw t
             println("AptabaseClient: dispatch error for event '$eventName': ${t.message ?: t::class.simpleName}")
             false
         }
@@ -162,6 +164,7 @@ object AptabaseClient {
                 children.joinAll()
             } != null
         } catch (t: Throwable) {
+            if (t is CancellationException) throw t
             println("AptabaseClient: flush error: ${t.message ?: t::class.simpleName}")
             false
         }

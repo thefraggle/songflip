@@ -50,7 +50,7 @@ fun FooterSection(
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
             modifier = Modifier.clickable {
-                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://notthoff.org")))
+                LegalLinks.open(context, "https://notthoff.org")
             }
         )
         Spacer(modifier = Modifier.height(2.dp))
@@ -64,7 +64,7 @@ fun FooterSection(
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
                     .clickable(role = androidx.compose.ui.semantics.Role.Button) {
-                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(LegalLinks.PRIVACY)))
+                        LegalLinks.open(context, LegalLinks.PRIVACY)
                     }
                     .padding(horizontal = 6.dp, vertical = 8.dp)
             )
@@ -79,7 +79,7 @@ fun FooterSection(
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
                     .clickable(role = androidx.compose.ui.semantics.Role.Button) {
-                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(LegalLinks.IMPRINT)))
+                        LegalLinks.open(context, LegalLinks.IMPRINT)
                     }
                     .padding(horizontal = 6.dp, vertical = 8.dp)
             )
@@ -94,7 +94,7 @@ fun FooterSection(
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
                     .clickable(role = androidx.compose.ui.semantics.Role.Button) {
-                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(LegalLinks.TERMS)))
+                        LegalLinks.open(context, LegalLinks.TERMS)
                     }
                     .padding(horizontal = 6.dp, vertical = 8.dp)
             )

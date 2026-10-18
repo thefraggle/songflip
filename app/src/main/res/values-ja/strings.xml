@@ -374,4 +374,14 @@
     <string name="disambiguate_error">バージョンを読み込めませんでした</string>
     <string name="history_qr_action">QRコードを表示</string>
     <string name="favorite_limit_reached">無料のお気に入り上限（10件）に達しました。SongFlip PROでお気に入り無制限と履歴100件をアンロックしましょう。</string>
+    <string name="playlist_same_platform_title">すでに %1$s のプレイリストです</string>
+    <string name="playlist_same_platform_desc">このプレイリストは選択中の音楽サービスのものです。アプリで直接開くことができます。</string>
+    <string name="qr_code_title">QRコード</string>
+    <string name="qr_code_hint">スキャンして任意のデバイスでリンクを開く</string>
+    <string name="action_close">閉じる</string>
+    <string name="favorite_add">お気に入りに追加</string>
+    <string name="favorite_remove">お気に入りから削除</string>
+    <string name="history_filter_all">すべて</string>
+    <string name="history_filter_favorites">お気に入り</string>
+    <string name="target_player_chip">プレーヤー: %1$s</string>
 </resources>

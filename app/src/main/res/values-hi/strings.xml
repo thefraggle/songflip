@@ -378,4 +378,14 @@
     <string name="disambiguate_error">संस्करण लोड नहीं हो सके</string>
     <string name="history_qr_action">QR कोड दिखाएं</string>
     <string name="favorite_limit_reached">आपने अपने 10 मुफ़्त पसंदीदा पूरे कर लिए हैं। असीमित पसंदीदा और 100 हिस्ट्री एंट्री के लिए SongFlip PRO प्राप्त करें।</string>
+    <string name="playlist_same_platform_title">पहले से %1$s में है</string>
+    <string name="playlist_same_platform_desc">यह प्लेलिस्ट पहले से ही आपकी चुनी हुई म्यूज़िक सर्विस से है। आप इसे सीधे ऐप में खोल सकते हैं।</string>
+    <string name="qr_code_title">QR कोड</string>
+    <string name="qr_code_hint">किसी भी डिवाइस पर लिंक खोलने के लिए स्कैन करें</string>
+    <string name="action_close">बंद करें</string>
+    <string name="favorite_add">पसंदीदा में जोड़ें</string>
+    <string name="favorite_remove">पसंदीदा से हटाएं</string>
+    <string name="history_filter_all">सभी</string>
+    <string name="history_filter_favorites">पसंदीदा</string>
+    <string name="target_player_chip">प्लेयर: %1$s</string>
 </resources>

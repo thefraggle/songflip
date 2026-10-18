@@ -775,7 +775,7 @@ class SongLinkEngine(
         } else {
             resolver?.resolveTrack(cleanQuery)
         }
-        return directMatch ?: UrlUtils.buildSearchUrl(cleanQuery, targetPlatformKey)
+        return directMatch?.takeIf { !UrlUtils.isSearchUrl(it) }
     }
 
     private suspend fun resolveDirectArtistUrl(artistName: String, targetPlatformKey: String): String? {
@@ -1048,7 +1048,10 @@ internal data class SpotifyPodcastOEmbedDto(
 
     private suspend fun queryCustomApi(apiUrl: String, token: String, url: String, targetPlatform: String): String? {
         return try {
-            val payload = "{\"url\":\"$url\",\"targetPlatform\":\"$targetPlatform\"}"
+            val payload = buildJsonObject {
+                put("url", url)
+                put("targetPlatform", targetPlatform)
+            }.toString()
             val resp = client.post(apiUrl) {
                 contentType(ContentType.Application.Json)
                 setBody(payload)
@@ -1078,7 +1081,9 @@ internal data class SpotifyPodcastOEmbedDto(
         forceRefresh: Boolean = false
     ): ResolutionResult.Podcast {
         val now = getCurrentTimeMillis()
-        if (!forceRefresh) {
+        if (forceRefresh) {
+            cache.remove(canonicalUrl, targetPlatformKey)
+        } else {
             val cached = cache.get(canonicalUrl, targetPlatformKey, now)
             if (cached != null) {
                 if (!isPrefetch) {

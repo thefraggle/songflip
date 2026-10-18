@@ -38,6 +38,7 @@ struct DisambiguationSheetView: View {
     // Audio Preview playback
     @State private var player: AVPlayer? = nil
     @State private var playingPreviewUrl: String? = nil
+    @State private var playerEndObserver: NSObjectProtocol? = nil
 
     var lang: String { settings.selectedLanguage }
 
@@ -436,7 +437,7 @@ struct DisambiguationSheetView: View {
             self.playingPreviewUrl = url
             newPlayer.play()
 
-            NotificationCenter.default.addObserver(
+            playerEndObserver = NotificationCenter.default.addObserver(
                 forName: .AVPlayerItemDidPlayToEndTime,
                 object: playerItem,
                 queue: .main
@@ -447,6 +448,10 @@ struct DisambiguationSheetView: View {
     }
 
     private func stopPreview() {
+        if let obs = playerEndObserver {
+            NotificationCenter.default.removeObserver(obs)
+            playerEndObserver = nil
+        }
         player?.pause()
         player = nil
         playingPreviewUrl = nil

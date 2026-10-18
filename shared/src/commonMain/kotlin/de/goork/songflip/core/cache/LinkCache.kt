@@ -73,13 +73,17 @@ class LinkCache(
         else -> isFresh(now)
     }
 
-    /** Evicts the least recently used non-favorite entries; favorites never count against the limit. */
+    /** Evicts the least recently used non-favorite entries from in-memory cache; history is preserved on disk. */
     private fun evictOverflow() {
         var evictable = entries.count { !it.value.isFavorite }
         while (evictable > maxEntries) {
-            val oldestKey = entries.entries.firstOrNull { !it.value.isFavorite }?.key ?: break
+            val oldest = entries.entries.firstOrNull { !it.value.isFavorite } ?: break
+            val oldestKey = oldest.key
+            val oldestEntry = oldest.value
             entries.remove(oldestKey)
-            storage.remove(oldestKey)
+            if (!oldestEntry.isHistory && !oldestEntry.isFavorite) {
+                storage.remove(oldestKey)
+            }
             evictable--
         }
     }
@@ -253,10 +257,11 @@ class LinkCache(
 
     private fun syncFromStorage(currentTimeMs: Long): Map<String, CacheEntry> {
         val allLoaded = storage.loadAll()
-        for ((k, loadedEntry) in allLoaded) {
+        for ((k, loadedEntry) in allLoaded.entries.sortedBy { it.value.timestamp }) {
             if (loadedEntry.isRetained(currentTimeMs)) {
                 val memEntry = entries[k]
                 if (memEntry == null || loadedEntry.timestamp >= memEntry.timestamp || loadedEntry.isFavorite != memEntry.isFavorite) {
+                    entries.remove(k)
                     entries[k] = loadedEntry
                 }
             }
@@ -339,7 +344,10 @@ class LinkCache(
         val existing = entries[cacheKey] ?: storage.get(cacheKey)
         if (existing != null) {
             val newFav = !existing.isFavorite
-            val updated = existing.copy(isFavorite = newFav)
+            val updated = existing.copy(
+                isFavorite = newFav,
+                isHistory = if (newFav) true else existing.isHistory
+            )
             entries[cacheKey] = updated
             storage.put(cacheKey, updated)
             newFav
@@ -394,7 +402,10 @@ class LinkCache(
         ensureLoaded(currentTimeMs)
         val existing = entries[cacheKey] ?: storage.get(cacheKey)
         if (existing != null) {
-            val updated = existing.copy(isFavorite = isFavorite)
+            val updated = existing.copy(
+                isFavorite = isFavorite,
+                isHistory = if (isFavorite) true else existing.isHistory
+            )
             entries[cacheKey] = updated
             storage.put(cacheKey, updated)
         }

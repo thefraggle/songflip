@@ -360,4 +360,14 @@
     <string name="disambiguate_error">ไม่สามารถโหลดเวอร์ชันได้</string>
     <string name="history_qr_action">แสดงคิวอาร์โค้ด</string>
     <string name="favorite_limit_reached">คุณใช้รายการโปรดฟรีครบ 10 รายการแล้ว อัปเกรดเป็น SongFlip PRO เพื่อปลดล็อกรายการโปรดไม่จำกัดและประวัติ 100 รายการ</string>
+    <string name="playlist_same_platform_title">อยู่ใน %1$s แล้ว</string>
+    <string name="playlist_same_platform_desc">เพลย์ลิสต์นี้มาจากบริการเพลงที่คุณเลือกอยู่แล้ว คุณสามารถเปิดในแอปได้โดยตรง</string>
+    <string name="qr_code_title">คิวอาร์โค้ด</string>
+    <string name="qr_code_hint">สแกนเพื่อเปิดลิงก์บนอุปกรณ์ใดก็ได้</string>
+    <string name="action_close">ปิด</string>
+    <string name="favorite_add">เพิ่มในรายการโปรด</string>
+    <string name="favorite_remove">ลบออกจากรายการโปรด</string>
+    <string name="history_filter_all">ทั้งหมด</string>
+    <string name="history_filter_favorites">รายการโปรด</string>
+    <string name="target_player_chip">เครื่องเล่น: %1$s</string>
 </resources>

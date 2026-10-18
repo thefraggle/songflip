@@ -213,13 +213,31 @@ fun DisambiguationBottomSheet(
                                             )
                                             onMatchUpdated(candidate.targetUrl)
                                             Toast.makeText(context, context.getString(R.string.disambiguate_success), Toast.LENGTH_SHORT).show()
-                                            try {
-                                                val playIntent = Intent(Intent.ACTION_VIEW, Uri.parse(candidate.targetUrl)).apply {
-                                                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                                            var launched = false
+                                            val targetPackage = PackageUtils.getInstalledPackage(context, targetPlatformKey)
+                                            if (targetPackage != null) {
+                                                try {
+                                                    val uriStr = candidate.nativeAppUri ?: PackageUtils.toNativeAppUri(candidate.targetUrl, targetPlatformKey)
+                                                    val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse(uriStr)).apply {
+                                                        flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                                                        setPackage(targetPackage)
+                                                        putExtra(de.goork.songflip.ui.RedirectActivity.EXTRA_FORWARDED_FROM_SONGFLIP, true)
+                                                    }
+                                                    context.startActivity(appIntent)
+                                                    launched = true
+                                                } catch (_: Exception) {}
+                                            }
+                                            if (!launched) {
+                                                try {
+                                                    val fallbackUrl = PackageUtils.toWebFallbackUrl(candidate.targetUrl, targetPlatformKey)
+                                                    val playIntent = Intent(Intent.ACTION_VIEW, Uri.parse(fallbackUrl)).apply {
+                                                        flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                                                        putExtra(de.goork.songflip.ui.RedirectActivity.EXTRA_FORWARDED_FROM_SONGFLIP, true)
+                                                    }
+                                                    context.startActivity(playIntent)
+                                                } catch (e: Exception) {
+                                                    android.util.Log.w("Disambiguation", "Could not launch updated match URL: ${e.message}")
                                                 }
-                                                context.startActivity(playIntent)
-                                            } catch (e: Exception) {
-                                                android.util.Log.w("Disambiguation", "Could not launch updated match URL: ${e.message}")
                                             }
                                             onDismissRequest()
                                         } else {
