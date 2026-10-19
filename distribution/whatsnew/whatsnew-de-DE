@@ -1,2 +1,1 @@
-- Verbesserte Musikerkennung & Pegelanpassung: Optimierte Signalverstärkung und dynamische Lautstärke-Hinweise, damit Musik in deiner Umgebung auch bei leiserer Wiedergabe zuverlässig über Listen & Flip erkannt wird.
-- Übersichtlichere Funktionsübersicht: Aufgeräumte Darstellung der Funktionsübersicht sowie verfeinerte Übersetzungen in allen unterstützten Sprachen.
+v1.9.9: Erneutes Erkennen bekannter Songs zieht keinen Versuch ab, keine doppelten Verlaufseinträge und optischer Feinschliff.

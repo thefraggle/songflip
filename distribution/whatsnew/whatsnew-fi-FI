@@ -1,2 +1,1 @@
-- Parannettu musiikintunnistus: Optimoitu mikrofonivahvistus ja dynaaminen äänenvoimakkuusopastus tunnistavat hiljaisemmankin musiikin luotettavammin Listen & Flipissä.
-- Selkeämpi ominaisuusnäkymä: Siistimpi esitystapa kaikilla tuetuilla kielillä.
+v1.9.9: Historiassa olevan kappaleen uudelleentunnistus ei vähennä yritystä, ei kaksoiskappaleita ja ulkoasun viimeistely.

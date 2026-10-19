@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.9.9] - 2026-10-19
+- **Fairere Erkennungs-Zählung & sauberer Verlauf**: Wird ein bereits im Verlauf gespeicherter Song erneut über Listen & Flip erkannt, wird der bestehende Eintrag aktualisiert, ohne eine weitere freie Erkennung abzuziehen oder doppelte Einträge anzulegen.
+- **Optischer Feinschliff**: Einheitliches Wellenform-Symbol für erkannte Songs im Verlauf sowie optimierte Darstellung langer Schaltflächentexte auf der Ergebniskarte.
+
 ## [1.9.8] - 2026-10-19
 - **Verbesserte Musikerkennung & Pegelanpassung**: Optimierte Mikrofon-Signalverstärkung und dynamische Lautstärke-Hinweise, damit Musik in deiner Umgebung auch bei leiserer Wiedergabe zuverlässig über Listen & Flip erkannt wird.
 - **Übersichtlichere Funktionsübersicht**: Aufgeräumte Darstellung der Funktionsübersicht sowie verfeinerte Übersetzungen in allen unterstützten Sprachen.

@@ -1,2 +1,1 @@
-- Förbättrad musikigenkänning: Optimerad mikrofonförstärkning och dynamisk volymfeedback gör att även tystare musik känns igen säkrare i Listen & Flip.
-- Tydligare funktionsöversikt: Renare presentation på alla språk som stöds.
+v1.9.9: Att känna igen en låt som redan finns i historiken drar inte av ett försök, inga dubbletter och visuell finputsning.

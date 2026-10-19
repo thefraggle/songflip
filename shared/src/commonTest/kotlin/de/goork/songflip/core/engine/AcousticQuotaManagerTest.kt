@@ -68,7 +68,7 @@ class AcousticQuotaManagerTest {
             title = "Around the World",
             artist = "Daft Punk",
             artworkUrl = "https://is1-ssl.mzstatic.com/cover.jpg",
-            appleMusicUrl = "https://music.apple.com/de/album/around-the-world/697194953?i=697195787",
+            appleMusicUrl = "https://music.apple.com/de/album/around-the-world/697194953?i=697195787&uo=4",
             appleMusicId = "697195787",
             webUrl = "https://www.shazam.com/track/12345",
             targetPlatform = MusicPlatform.APPLE_MUSIC,
@@ -81,7 +81,72 @@ class AcousticQuotaManagerTest {
         assertEquals(2, result.remainingFreeScans)
 
         val history = cache.getHistoryEntries(limit = 10, currentTimeMs = 1792404000000L)
-        assertEquals(1, history.size)
+        assertEquals(1, history.size, "Must only create 1 history entry even when appleMusicUrl contains &uo=4")
         assertTrue(history.first().isAcoustic, "Acoustic match must be flagged with isAcoustic = true in history")
+
+        // Recognizing the exact same song a second time must NOT deduct another free scan
+        val secondResult = manager.resolveAndStoreAcousticMatch(
+            engine = engine,
+            title = "Around the World",
+            artist = "Daft Punk",
+            artworkUrl = "https://is1-ssl.mzstatic.com/cover.jpg",
+            appleMusicUrl = "https://music.apple.com/de/album/around-the-world/697194953?i=697195787&uo=4",
+            appleMusicId = "697195787",
+            webUrl = "https://www.shazam.com/track/12345",
+            targetPlatform = MusicPlatform.APPLE_MUSIC,
+            isPro = false,
+            timestampMs = 1792404010000L
+        )
+        assertEquals(2, secondResult.remainingFreeScans, "Repeat recognition of a song already in history must not deduct another free scan")
+        val historyAfterSecondScan = cache.getHistoryEntries(limit = 10, currentTimeMs = 1792404010000L)
+        assertEquals(1, historyAfterSecondScan.size, "History must still contain only 1 entry after repeat recognition")
+        assertTrue(historyAfterSecondScan.first().isAcoustic)
+    }
+
+    @Test
+    fun testSelfHealingDeduplicatesExistingNormalAndAcousticEntries() = runTest {
+        val memStorage = object : CacheStorage {
+            val map = mutableMapOf<String, CacheEntry>()
+            override fun get(key: String): CacheEntry? = map[key]
+            override fun put(key: String, entry: CacheEntry) { map[key] = entry }
+            override fun remove(key: String) { map.remove(key) }
+            override fun clear() { map.clear() }
+            override fun loadAll(): Map<String, CacheEntry> = map.toMap()
+        }
+        // Simulate pre-existing legacy storage with two separate keys for the same song (one normal, one acoustic)
+        memStorage.put(
+            "https://music.apple.com/de/album/world-alone/123?i=456|SPOTIFY",
+            CacheEntry(
+                targetUrl = "https://open.spotify.com/track/abc123",
+                platform = "SPOTIFY",
+                timestamp = 1792404000000L,
+                title = "World Alone",
+                artist = "Tony Iommi & Jorn",
+                thumbnailUrl = "https://example.com/cover.jpg",
+                isHistory = true,
+                isFavorite = true,
+                isAcoustic = false
+            )
+        )
+        memStorage.put(
+            "https://music.apple.com/de/album/world-alone/123?i=456&uo=4|SPOTIFY",
+            CacheEntry(
+                targetUrl = "https://open.spotify.com/track/abc123",
+                platform = "SPOTIFY",
+                timestamp = 1792404005000L,
+                title = "World Alone",
+                artist = "Tony Iommi & Jorn",
+                thumbnailUrl = "https://example.com/cover.jpg",
+                isHistory = true,
+                isFavorite = false,
+                isAcoustic = true
+            )
+        )
+
+        val cache = LinkCache(storage = memStorage)
+        val history = cache.getHistoryEntries(limit = 10, currentTimeMs = 1792404010000L)
+        assertEquals(1, history.size, "Duplicate normal + acoustic entries for the same song must self-heal into 1 entry")
+        assertTrue(history.first().isAcoustic, "Merged entry must preserve isAcoustic = true")
+        assertTrue(history.first().isFavorite, "Merged entry must preserve isFavorite = true")
     }
 }
