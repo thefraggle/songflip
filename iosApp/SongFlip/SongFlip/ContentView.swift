@@ -273,17 +273,23 @@ struct ContentView: View {
                     }
                     showingPaywallSheet = true
                 }) {
-                    Text(proManager.isPro ? "PRO" : "💎 PRO")
-                        .font(.system(size: 11, weight: .black))
-                        .foregroundColor(.green)
-                        .padding(.horizontal, 7)
-                        .padding(.vertical, 3)
-                        .background(Color.green.opacity(0.18))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 6)
-                                .stroke(Color.green.opacity(0.6), lineWidth: 1)
-                        )
-                        .cornerRadius(6)
+                    HStack(spacing: 3) {
+                        if !proManager.isPro {
+                            Image(systemName: "lock.fill")
+                                .font(.system(size: 9, weight: .semibold))
+                        }
+                        Text("PRO")
+                            .font(.system(size: 11, weight: proManager.isPro ? .black : .semibold))
+                    }
+                    .foregroundColor(proManager.isPro ? .green : Color.secondary.opacity(0.6))
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 3)
+                    .background(proManager.isPro ? Color.green.opacity(0.18) : Color.secondary.opacity(0.08))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 6)
+                            .stroke(proManager.isPro ? Color.green.opacity(0.6) : Color.secondary.opacity(0.22), lineWidth: 1)
+                    )
+                    .cornerRadius(6)
                 }
                 .buttonStyle(.plain)
             }

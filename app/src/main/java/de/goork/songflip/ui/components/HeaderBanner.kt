@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.History
+import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -97,25 +98,38 @@ fun HeaderBanner(
                                 onOpenProPaywall()
                             },
                             shape = RoundedCornerShape(6.dp),
-                            color = if (isPro) BrandSpotify.copy(alpha = 0.22f) else NightSlate700.copy(alpha = 0.75f),
+                            color = if (isPro) BrandSpotify.copy(alpha = 0.22f) else Color.White.copy(alpha = 0.05f),
                             border = androidx.compose.foundation.BorderStroke(
                                 1.dp,
-                                if (isPro) BrandSpotify.copy(alpha = 0.65f) else BrandSpotify.copy(alpha = 0.45f)
+                                if (isPro) BrandSpotify.copy(alpha = 0.65f) else Color.White.copy(alpha = 0.16f)
                             ),
                             modifier = Modifier.padding(top = 2.dp)
                         ) {
-                            Text(
-                                text = if (isPro) "PRO" else "💎 PRO",
-                                style = MaterialTheme.typography.labelSmall.copy(
-                                    fontWeight = FontWeight.ExtraBold,
-                                    letterSpacing = 0.8.sp,
-                                    fontSize = 11.sp
-                                ),
-                                color = Color.White,
-                                maxLines = 1,
-                                softWrap = false,
-                                modifier = Modifier.padding(horizontal = 7.dp, vertical = 2.dp)
-                            )
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(3.dp),
+                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                            ) {
+                                if (!isPro) {
+                                    Icon(
+                                        imageVector = Icons.Outlined.Lock,
+                                        contentDescription = null,
+                                        tint = Color.White.copy(alpha = 0.45f),
+                                        modifier = Modifier.size(10.dp)
+                                    )
+                                }
+                                Text(
+                                    text = "PRO",
+                                    style = MaterialTheme.typography.labelSmall.copy(
+                                        fontWeight = if (isPro) FontWeight.ExtraBold else FontWeight.SemiBold,
+                                        letterSpacing = 0.8.sp,
+                                        fontSize = 11.sp
+                                    ),
+                                    color = if (isPro) Color.White else Color.White.copy(alpha = 0.45f),
+                                    maxLines = 1,
+                                    softWrap = false
+                                )
+                            }
                         }
                     }
                     Text(

@@ -1,2 +1,3 @@
-- Smartere registrering af udklipsholder og deling: Kopierede og delte links fra Qobuz, Beatport og Shazam genkendes nu med det samme, når du åbner appen eller deler fra andre apps.
-- Forbedret sangvalg og søgning: At vælge alternative sangversioner eller dele universelle links fra in-app-søgning fungerer nu problemfrit på tværs af alle understøttede musiktjenester.
+- Tydeligere statusindikator: Forfinede header-statusmærket med et subtilt, diskret design, så din aktive funktionstilstand straks genkendes med et blik.
+- Hurtigere SoundCloud- og Bandcamp-opløsning: Direkte metadataopslag for delte SoundCloud- og Bandcamp-links for endnu hurtigere afspilning starter.
+- Forbedret afspilningsliste-cache: Mere ensartet cachelagring for konverterede afspilningslister på tværs af alle understøttede streamingtjenester.

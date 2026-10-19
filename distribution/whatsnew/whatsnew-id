@@ -1,2 +1,3 @@
-- Smarter Clipboard & Share Detection: Tautan yang disalin dan dibagikan dari Qobuz, Beatport, dan Shazam sekarang segera dikenali saat membuka aplikasi atau berbagi dari aplikasi lain.
-- Seleksi & Pencarian Lagu yang Lebih Baik: Memilih versi lagu alternatif atau berbagi tautan universal dari pencarian dalam aplikasi sekarang bekerja dengan lancar di semua layanan musik yang didukung.
+- Indikator Status yang Lebih Jelas: Memperbaiki lencana status header dengan desain yang halus dan tidak mengganggu sehingga status fitur aktif Anda segera dapat dikenali dalam sekejap.
+- Resolusi SoundCloud & Bandcamp Lebih Cepat: Pencarian metadata langsung untuk tautan SoundCloud dan Bandcamp bersama untuk pemutaran yang lebih cepat dimulai.
+- Cache Daftar Putar yang Lebih Baik: Caching yang lebih konsisten untuk daftar putar yang dikonversi di semua layanan streaming yang didukung.

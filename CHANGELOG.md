@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.9.4] - 2026-10-19
+- **Clearer Status Indicator**: Refined the header status badge with a subtle, unobtrusive design so your active feature state is immediately recognizable at a glance.
+- **Faster SoundCloud & Bandcamp Resolution**: Direct metadata lookup for shared SoundCloud and Bandcamp links for even faster playback starts.
+- **Improved Playlist Cache**: More consistent caching for converted playlists across all supported streaming services.
+
 ## [1.9.3] - 2026-10-18
 - **Smarter Clipboard & Share Detection**: Copied and shared links from Qobuz, Beatport, and Shazam are now recognized immediately when opening the app or sharing from other apps.
 - **Improved Song Selection & Search**: Choosing alternative song versions or sharing universal links from in-app search now works seamlessly across all supported music services.

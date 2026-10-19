@@ -1,2 +1,3 @@
-- Slimmere detectie van klembord en delen: gekopieerde en gedeelde links van Qobuz, Beatport en Shazam worden nu onmiddellijk herkend bij het openen van de app of het delen vanuit andere apps.
-- Verbeterde nummerselectie en zoeken: het kiezen van alternatieve nummerversies of het delen van universele links vanuit zoeken in de app werkt nu naadloos in alle ondersteunde muziekservices.
+- Duidelijkere statusindicator: verfijnde de statusbadge van de header met een subtiel, onopvallend ontwerp, zodat je actieve functiestatus in één oogopslag onmiddellijk herkenbaar is.
+- Snellere SoundCloud- en Bandcamp-resolutie: directe metagegevens opzoeken voor gedeelde SoundCloud- en Bandcamp-koppelingen voor nog snellere start van het afspelen.
+- Verbeterde afspeellijstcache: consistentere caching voor geconverteerde afspeellijsten in alle ondersteunde streamingdiensten.
