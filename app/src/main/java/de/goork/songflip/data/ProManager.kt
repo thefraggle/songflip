@@ -182,13 +182,26 @@ object ProManager {
         return id
     }
 
+    private const val RC_EXPIRY_GRACE_MS = 15 * 60 * 1000L
+
     fun getAuthToken(): String {
-        val savedToken = getStoredCouponToken()
-        return if (!savedToken.isNullOrBlank()) {
-            "coupon:$savedToken"
-        } else {
-            getAppUserId()
+        val current = _proState.value
+        if (current.isPro && current.proType.startsWith("revenuecat")) {
+            return getAppUserId()
         }
+        val savedToken = getStoredCouponToken()
+        if (!savedToken.isNullOrBlank()) {
+            val verified = de.goork.songflip.core.engine.CouponService.shared.verifyCouponToken(
+                token = savedToken,
+                expectedInstallId = getAnonymousInstallId(),
+                currentTimeMs = System.currentTimeMillis(),
+                lastSeenServerTimeMs = getLastSeenServerTime()
+            )
+            if (verified.valid) {
+                return "coupon:$savedToken"
+            }
+        }
+        return getAppUserId()
     }
 
     fun hydrateLocalProState(): ProState {
@@ -196,7 +209,7 @@ object ProManager {
         val cachedRcType = prefs?.getString(KEY_RC_TYPE, "revenuecat_subscription") ?: "revenuecat_subscription"
         val cachedRcExp = prefs?.getLong(KEY_RC_EXPIRATION, 0L) ?: 0L
         val isLifetime = cachedRcType == "revenuecat_lifetime"
-        val isExpired = !isLifetime && cachedRcExp > 0L && cachedRcExp <= System.currentTimeMillis()
+        val isExpired = !isLifetime && cachedRcExp > 0L && (cachedRcExp + RC_EXPIRY_GRACE_MS) <= System.currentTimeMillis()
 
         return if (cachedRcPro && !isExpired) {
             evaluateProState(
@@ -256,7 +269,7 @@ object ProManager {
                     val current = _proState.value
                     if (current.isPro && current.proType.startsWith("revenuecat")) {
                         val exp = current.expirationDate
-                        if (exp == null || exp > System.currentTimeMillis()) {
+                        if (exp == null || (exp + RC_EXPIRY_GRACE_MS) > System.currentTimeMillis()) {
                             return
                         }
                     }

@@ -476,7 +476,8 @@ struct ContentView: View {
                         .foregroundColor(.primary)
 
                     HStack(spacing: 6) {
-                        Text(String(format: LocalizationManager.string(for: "playlist_matched_count", lang: lang), res.matchedCount, res.totalTracks))
+                        let displayTotal = max(res.totalTracks, res.originalTotalTracks ?? 0)
+                        Text(String(format: LocalizationManager.string(for: "playlist_matched_count", lang: lang), res.matchedCount, displayTotal))
                             .font(.caption)
                             .foregroundColor(.secondary)
 
@@ -645,15 +646,21 @@ struct ContentView: View {
             }
 
             if isPlaylist {
+                let sourceName = detectSourcePlatformName(url: detectedUrl)
+                let targetChoice = PlatformChoice.allCases.first { $0.rawValue == settings.targetPlatform }
+                let targetName = targetChoice?.displayName ?? "Player"
+                let isSamePlaylistPlatform = sourceName.caseInsensitiveCompare(targetName) == .orderedSame
                 Button(action: {
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                     playlistNoticeUrl = detectedUrl
                     showingPlaylistNotice = true
                 }) {
                     HStack(spacing: 6) {
-                        Image(systemName: "arrow.up.right")
+                        Image(systemName: isSamePlaylistPlatform ? "arrow.up.right" : "music.note.list")
                             .font(.system(size: 12))
-                        Text(String(format: LocalizationManager.string(for: "playlist_banner_action_open", lang: lang), detectSourcePlatformName(url: detectedUrl)))
+                        Text(isSamePlaylistPlatform
+                            ? String(format: LocalizationManager.string(for: "playlist_banner_action_open", lang: lang), sourceName)
+                            : String(format: LocalizationManager.string(for: "clipboard_banner_action_open", lang: lang), targetName))
                             .font(.system(size: 13, weight: .bold))
                             .lineLimit(1)
                     }

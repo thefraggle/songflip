@@ -1,2 +1,2 @@
-• Fairere Erkennungs-Zählung: Wird ein bereits im Verlauf gespeicherter Song erneut über Listen & Flip erkannt, wird kein weiterer freier Versuch abgezogen.
-• Sauberer Verlauf & Feinschliff: Keine doppelten Einträge mehr bei erkannten Songs, einheitliches Wellenform-Symbol im Verlauf und optimierte Schaltflächen.
+• Zuverlässigere Playlist-Umwandlung & Verlaufs-Aktualisierung: Das erneute Auflösen gespeicherter Playlists im Verlauf führt jetzt einen vollständigen Neuabgleich der Titel durch und aktualisiert den Eintrag direkt vor Ort.
+• Klareres Playlist-Banner & präzise Titelanzahl: Kopierte Playlists auf dem Startbildschirm zeigen jetzt direkt den gewählten Ziel-Player an, und umgewandelte Playlists weisen die gesamte ursprüngliche Titelanzahl aus.

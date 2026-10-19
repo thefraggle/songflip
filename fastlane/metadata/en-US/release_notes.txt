@@ -1,2 +1,2 @@
-• Smarter Recognition Quota: Recognizing a song that is already saved in your history updates the entry without deducting an extra free scan.
-• Clean History & Visual Polish: Eliminated duplicate entries for recognized songs, unified the waveform badge icon in history, and refined result card buttons.
+• More Reliable Playlist Conversion & History Refresh: Refreshing a saved playlist in your history now re-runs full track matching and updates the playlist entry in place.
+• Clearer Playlist Smart Banner & Track Counts: Copied playlists on the home screen now clearly show the target music player action, and converted playlists display the full source track count alongside matched songs.

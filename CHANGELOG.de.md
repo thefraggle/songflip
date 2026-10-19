@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.9.10] - 2026-10-19
+- **Zuverlässigere Playlist-Umwandlung & Verlaufs-Aktualisierung**: Das erneute Auflösen gespeicherter Playlists im Verlauf führt jetzt einen vollständigen Neuabgleich der Titel durch und aktualisiert den Eintrag direkt vor Ort. Zudem wurde die Synchronisation beim direkten Teilen von Playlists aus anderen Apps verbessert.
+- **Klareres Playlist-Banner & präzise Titelanzahl**: Kopierte Playlists auf dem Startbildschirm zeigen jetzt direkt den gewählten Ziel-Player auf der Aktionsschaltfläche an, und umgewandelte Playlists weisen die gesamte ursprüngliche Titelanzahl aus.
+
 ## [1.9.9] - 2026-10-19
 - **Fairere Erkennungs-Zählung & sauberer Verlauf**: Wird ein bereits im Verlauf gespeicherter Song erneut über Listen & Flip erkannt, wird der bestehende Eintrag aktualisiert, ohne eine weitere freie Erkennung abzuziehen oder doppelte Einträge anzulegen.
 - **Optischer Feinschliff**: Einheitliches Wellenform-Symbol für erkannte Songs im Verlauf sowie optimierte Darstellung langer Schaltflächentexte auf der Ergebniskarte.
