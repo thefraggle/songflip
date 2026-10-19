@@ -370,4 +370,29 @@
     <string name="history_filter_all">全部</string>
     <string name="history_filter_favorites">最愛</string>
     <string name="target_player_chip">播放器：%1$s</string>
+    <!-- Listen & Flip (#78) -->
+    <string name="listen_and_flip_title">Listen &amp; Flip</string>
+    <string name="listen_and_flip_subtitle">聽音識曲並轉換至你的播放器</string>
+    <string name="badge_identified">已識曲</string>
+    <string name="listen_free_scans_remaining">本月剩餘 %1$d/%2$d 次免費識曲</string>
+    <string name="listen_status_listening">正在聆聽音樂…</string>
+    <string name="listen_status_hint">請將裝置靠近音源</string>
+    <string name="listen_status_resolving">正在配對你的播放器…</string>
+    <string name="listen_saved_to_history">已儲存至歷史記錄</string>
+    <string name="listen_open_in_player">在 %1$s 中開啟</string>
+    <string name="listen_share_action">分享</string>
+    <string name="listen_scan_again">識別另一首歌曲</string>
+    <string name="listen_offline_saved_title">已儲存至離線俱樂部模式</string>
+    <string name="listen_offline_saved_desc">音訊指紋已儲存（%1$d 首待處理）。恢復網路連線後，SongFlip 將自動為您識別。</string>
+    <string name="listen_offline_resolved_toast">已成功識別 %1$d 首離線歌曲並加入歷史記錄！</string>
+    <string name="listen_no_match_title">未能識別出歌曲</string>
+    <string name="listen_no_match_subtitle">請確保周圍音樂足夠清晰後重試。未識別成功不會消耗免費次數。</string>
+    <string name="listen_try_again">重試</string>
+    <string name="listen_error_offline">無網路連線。升級至 PRO 即可使用離線識曲模式。</string>
+    <string name="listen_permission_title">需要麥克風權限</string>
+    <string name="listen_permission_desc">Listen &amp; Flip 需要使用麥克風來識別周圍播放的音樂。音訊絕不會被錄音或儲存。</string>
+    <string name="listen_permission_grant">允許存取麥克風</string>
+    <string name="listen_quota_reached_title">本月免費次數已用完</string>
+    <string name="listen_quota_reached_desc">您已用完本月全部 %1$d 次免費識曲。解鎖 SongFlip PRO 暢享無限次識曲與離線模式。</string>
+    <string name="listen_unlock_pro">解鎖 SongFlip PRO</string>
 </resources>

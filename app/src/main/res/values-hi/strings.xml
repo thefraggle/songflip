@@ -388,4 +388,29 @@
     <string name="history_filter_all">सभी</string>
     <string name="history_filter_favorites">पसंदीदा</string>
     <string name="target_player_chip">प्लेयर: %1$s</string>
+    <!-- Listen & Flip (#78) -->
+    <string name="listen_and_flip_title">Listen &amp; Flip</string>
+    <string name="listen_and_flip_subtitle">अपने आस-पास बज रहे संगीत को पहचानें</string>
+    <string name="badge_identified">पहचाना गया</string>
+    <string name="listen_free_scans_remaining">इस महीने %1$d/%2$d मुफ़्त स्कैन बाकी हैं</string>
+    <string name="listen_status_listening">संगीत सुना जा रहा है…</string>
+    <string name="listen_status_hint">अपने डिवाइस को स्पीकर के करीब रखें</string>
+    <string name="listen_status_resolving">आपके प्लेयर के लिए खोजा जा रहा है…</string>
+    <string name="listen_saved_to_history">हिस्ट्री में सेव किया गया</string>
+    <string name="listen_open_in_player">%1$s में खोलें</string>
+    <string name="listen_share_action">शेयर करें</string>
+    <string name="listen_scan_again">कोई दूसरा गाना पहचानें</string>
+    <string name="listen_offline_saved_title">ऑफ़लाइन क्लब मोड में सेव किया गया</string>
+    <string name="listen_offline_saved_desc">ऑडियो फ़िंगरप्रिंट सेव हो गया (%1$d बाकी)। ऑनलाइन आते ही SongFlip इसे अपने-आप पहचान लेगा।</string>
+    <string name="listen_offline_resolved_toast">%1$d ऑफ़लाइन गाने पहचाने गए और हिस्ट्री में जोड़े गए!</string>
+    <string name="listen_no_match_title">कोई गाना नहीं पहचाना गया</string>
+    <string name="listen_no_match_subtitle">सुनिश्चित करें कि संगीत पर्याप्त तेज़ है और फिर से प्रयास करें। मुफ़्त स्कैन केवल गाना मिलने पर ही गिने जाते हैं।</string>
+    <string name="listen_try_again">फिर से कोशिश करें</string>
+    <string name="listen_error_offline">कोई इंटरनेट कनेक्शन नहीं है। ऑफ़लाइन क्लब मोड के लिए PRO लें।</string>
+    <string name="listen_permission_title">माइक्रोफ़ोन एक्सेस आवश्यक है</string>
+    <string name="listen_permission_desc">आस-पास के संगीत को पहचानने के लिए Listen &amp; Flip को माइक्रोफ़ोन की आवश्यकता है। ऑडियो कभी रिकॉर्ड या सेव नहीं किया जाता।</string>
+    <string name="listen_permission_grant">माइक्रोफ़ोन की अनुमति दें</string>
+    <string name="listen_quota_reached_title">मासिक मुफ़्त स्कैन समाप्त</string>
+    <string name="listen_quota_reached_desc">आपने इस महीने के सभी %1$d मुफ़्त स्कैन इस्तेमाल कर लिए हैं। अनलिमिटेड Listen &amp; Flip के लिए SongFlip PRO अनलॉक करें।</string>
+    <string name="listen_unlock_pro">SongFlip PRO अनलॉक करें</string>
 </resources>

@@ -16,6 +16,7 @@ struct HistoryItem: Identifiable, Codable, Equatable {
     let isAlbum: Bool
     let thumbnailUrl: String?
     var isFavorite: Bool
+    var isAcoustic: Bool
 
     var formattedDate: String {
         let formatter = RelativeDateTimeFormatter()
@@ -24,7 +25,7 @@ struct HistoryItem: Identifiable, Codable, Equatable {
     }
 
     enum CodingKeys: String, CodingKey {
-        case id, cacheKey, timestamp, title, artist, sourceUrl, targetUrl, targetPlatform, isAlbum, thumbnailUrl, isFavorite
+        case id, cacheKey, timestamp, title, artist, sourceUrl, targetUrl, targetPlatform, isAlbum, thumbnailUrl, isFavorite, isAcoustic
     }
 
     init(
@@ -38,7 +39,8 @@ struct HistoryItem: Identifiable, Codable, Equatable {
         targetPlatform: String,
         isAlbum: Bool = false,
         thumbnailUrl: String? = nil,
-        isFavorite: Bool = false
+        isFavorite: Bool = false,
+        isAcoustic: Bool = false
     ) {
         self.id = id
         let cleanSource = UrlUtils.shared.extractCleanUrl(rawInput: sourceUrl) ?? sourceUrl
@@ -53,6 +55,7 @@ struct HistoryItem: Identifiable, Codable, Equatable {
         self.isAlbum = isAlbum
         self.thumbnailUrl = thumbnailUrl
         self.isFavorite = isFavorite
+        self.isAcoustic = isAcoustic
     }
 
     init(from decoder: Decoder) throws {
@@ -74,6 +77,7 @@ struct HistoryItem: Identifiable, Codable, Equatable {
         self.isAlbum = (try? container.decodeIfPresent(Bool.self, forKey: .isAlbum)) ?? false
         self.thumbnailUrl = try? container.decodeIfPresent(String.self, forKey: .thumbnailUrl)
         self.isFavorite = (try? container.decodeIfPresent(Bool.self, forKey: .isFavorite)) ?? false
+        self.isAcoustic = (try? container.decodeIfPresent(Bool.self, forKey: .isAcoustic)) ?? false
 
         if let explicitKey = try? container.decodeIfPresent(String.self, forKey: .cacheKey), !explicitKey.isEmpty {
             self.cacheKey = explicitKey
@@ -129,6 +133,7 @@ struct HistoryItem: Identifiable, Codable, Equatable {
         self.isAlbum = kmpItem.isAlbum
         self.thumbnailUrl = kmpItem.thumbnailUrl
         self.isFavorite = kmpItem.isFavorite
+        self.isAcoustic = kmpItem.isAcoustic
     }
 
     static func deterministicUUID(from key: String) -> UUID {
@@ -201,7 +206,8 @@ class HistoryModel: ObservableObject {
                     artist: item.artist,
                     isAlbum: item.isAlbum,
                     thumbnailUrl: item.thumbnailUrl,
-                    currentTimeMs: Int64(item.timestamp.timeIntervalSince1970 * 1000)
+                    currentTimeMs: Int64(item.timestamp.timeIntervalSince1970 * 1000),
+                    isAcoustic: item.isAcoustic
                 )
             }
         }
@@ -257,7 +263,8 @@ class HistoryModel: ObservableObject {
         targetUrl: String,
         targetPlatform: String,
         isAlbum: Bool = false,
-        thumbnailUrl: String? = nil
+        thumbnailUrl: String? = nil,
+        isAcoustic: Bool = false
     ) {
         Task { [weak self] in
             do {
@@ -269,7 +276,8 @@ class HistoryModel: ObservableObject {
                     artist: artist,
                     isAlbum: isAlbum,
                     thumbnailUrl: thumbnailUrl,
-                    currentTimeMs: Int64(Date().timeIntervalSince1970 * 1000)
+                    currentTimeMs: Int64(Date().timeIntervalSince1970 * 1000),
+                    isAcoustic: isAcoustic
                 )
                 await self?.syncFromKmpStore()
             } catch {

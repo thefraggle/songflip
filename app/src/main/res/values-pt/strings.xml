@@ -388,4 +388,29 @@
     <string name="history_filter_all">Todos</string>
     <string name="history_filter_favorites">Favoritos</string>
     <string name="target_player_chip">Player: %1$s</string>
+    <!-- Listen & Flip (#78) -->
+    <string name="listen_and_flip_title">Listen &amp; Flip</string>
+    <string name="listen_and_flip_subtitle">Identifique músicas tocando ao seu redor</string>
+    <string name="badge_identified">Identificada</string>
+    <string name="listen_free_scans_remaining">%1$d/%2$d identificações grátis restantes este mês</string>
+    <string name="listen_status_listening">Ouvindo música…</string>
+    <string name="listen_status_hint">Aproxime seu dispositivo da caixa de som</string>
+    <string name="listen_status_resolving">Buscando no seu player…</string>
+    <string name="listen_saved_to_history">Salvo no histórico</string>
+    <string name="listen_open_in_player">Abrir no %1$s</string>
+    <string name="listen_share_action">Compartilhar</string>
+    <string name="listen_scan_again">Identificar outra música</string>
+    <string name="listen_offline_saved_title">Salvo no Modo Clube Offline</string>
+    <string name="listen_offline_saved_desc">Assinatura de áudio salva (%1$d pendente). O SongFlip identificará a música automaticamente quando você estiver online.</string>
+    <string name="listen_offline_resolved_toast">%1$d música(s) offline identificada(s) e salva(s) no histórico!</string>
+    <string name="listen_no_match_title">Nenhuma música identificada</string>
+    <string name="listen_no_match_subtitle">Certifique-se de que a música esteja alta o suficiente e tente novamente. Scans grátis só contam quando há resultado.</string>
+    <string name="listen_try_again">Tentar novamente</string>
+    <string name="listen_error_offline">Sem conexão com a internet. Assine o PRO para usar o Modo Clube Offline.</string>
+    <string name="listen_permission_title">Acesso ao microfone necessário</string>
+    <string name="listen_permission_desc">O Listen &amp; Flip precisa do microfone para reconhecer músicas ao seu redor. Nenhum áudio é gravado ou salvo.</string>
+    <string name="listen_permission_grant">Permitir acesso ao microfone</string>
+    <string name="listen_quota_reached_title">Identificações grátis do mês esgotadas</string>
+    <string name="listen_quota_reached_desc">Você usou todas as %1$d identificações gratuitas deste mês. Desbloqueie o SongFlip PRO para uso ilimitado.</string>
+    <string name="listen_unlock_pro">Desbloquear SongFlip PRO</string>
 </resources>

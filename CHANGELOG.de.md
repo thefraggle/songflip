@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.9.5] - 2026-10-19
+- **Listen & Flip (Musikerkennung)**: Erkenne Musik in deiner Umgebung direkt in SongFlip. Erkannte Songs werden sofort für deinen bevorzugten Musik-Player aufgelöst und im Verlauf gespeichert – ganz ohne störendes Auto-Play.
+- **Offline-Club-Modus (PRO)**: Kein Empfang im Club oder in der Bar? Speichere den Audio-Fingerabdruck offline und lasse den Song automatisch erkennen, sobald du wieder online bist.
+- **Filter für erkannte Songs**: Finde alle unterwegs erkannten Titel jederzeit über das neue „Erkannt"-Badge und den passenden Filter im Song-Verlauf wieder.
+
 ## [1.9.4] - 2026-10-19
 - **Klarere Statusanzeige im Kopfbereich**: Dezentere und übersichtlichere Darstellung des Status-Badges im Startbildschirm, damit aktive Funktionen auf einen Blick klar unterscheidbar sind.
 - **Schnellere Erkennung für SoundCloud & Bandcamp**: Direktere Auflösung geteilter SoundCloud- und Bandcamp-Links für einen noch schnelleren Wiedergabestart.

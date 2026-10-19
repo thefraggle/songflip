@@ -391,4 +391,20 @@ object AptabaseClient {
     fun trackShareAppClicked() {
         trackEvent("share_app_clicked")
     }
+
+    fun trackAcousticScanCompleted(target: String, matched: Boolean, isPro: Boolean, isOfflineQueue: Boolean = false) {
+        trackEvent(
+            "acoustic_scan_completed",
+            mapOf(
+                "target" to target,
+                "matched" to matched.toString(),
+                "is_pro" to isPro.toString(),
+                "is_offline_queue" to isOfflineQueue.toString()
+            )
+        )
+    }
+
+    fun trackAcousticOfflineQueued() {
+        trackEvent("acoustic_offline_queued")
+    }
 }

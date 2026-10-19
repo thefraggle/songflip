@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
-val appVersionName = "1.9.4"
+val appVersionName = "1.9.5"
 val computedVersionCode = run {
     val cleanVersion = appVersionName.substringBefore("-").substringBefore("+")
     val parts = cleanVersion.split(".").mapNotNull { it.toIntOrNull() }
@@ -112,6 +112,7 @@ android {
 
 dependencies {
     implementation(project(":shared"))
+    implementation(files("libs/shazamkit-android-release.aar"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -127,8 +128,11 @@ dependencies {
     implementation(libs.compose.material.icons.extended)
     implementation(libs.coil.compose)
 
-    // Networking
+    // Networking & ShazamKit runtime dependencies
     implementation(libs.okhttp)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.gson)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.org.json)
 
