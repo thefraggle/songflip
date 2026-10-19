@@ -1,11 +1,11 @@
 # Changelog (Deutsch)
 
 ## [1.9.6] - 2026-10-19
-- **Listen & Flip in der PRO-Übersicht**: Unbegrenzte Song-Erkennung und der Offline-Club-Modus sind jetzt in allen 34 Sprachen direkt in der PRO-Funktionsübersicht aufgeführt – inklusive Sofort-Hinweis bei fehlender Internetverbindung.
+- **Klareres Offline-Feedback bei der Musikerkennung**: Verbesserte Status-Hinweise beim Starten der Musikerkennung ohne aktive Internetverbindung sowie vervollständigte Übersetzungen in allen 34 unterstützten Sprachen.
 
 ## [1.9.5] - 2026-10-19
 - **Listen & Flip (Musikerkennung)**: Erkenne Musik in deiner Umgebung direkt in SongFlip. Erkannte Songs werden sofort für deinen bevorzugten Musik-Player aufgelöst und im Verlauf gespeichert – ganz ohne störendes Auto-Play.
-- **Offline-Club-Modus (PRO)**: Kein Empfang im Club oder in der Bar? Speichere den Audio-Fingerabdruck offline und lasse den Song automatisch erkennen, sobald du wieder online bist.
+- **Offline-Club-Modus**: Kein Empfang im Club oder in der Bar? Speichere den Audio-Fingerabdruck offline und lasse den Song automatisch erkennen, sobald du wieder online bist.
 - **Filter für erkannte Songs**: Finde alle unterwegs erkannten Titel jederzeit über das neue „Erkannt"-Badge und den passenden Filter im Song-Verlauf wieder.
 
 ## [1.9.4] - 2026-10-19

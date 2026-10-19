@@ -1,11 +1,11 @@
 # Changelog
 
 ## [1.9.6] - 2026-10-19
-- **Listen & Flip in PRO Overview**: Highlighted unlimited song recognition and Offline Club Mode directly in the PRO feature overview across all 34 languages, with instant offline access prompts when scanning without internet.
+- **Improved Offline Recognition Feedback**: Clearer status feedback when starting music recognition without an active internet connection, plus completed translations across all 34 supported languages.
 
 ## [1.9.5] - 2026-10-19
 - **Listen & Flip (Music Recognition)**: Identify music playing around you directly inside SongFlip. Recognized tracks are automatically matched to your preferred streaming player and saved to your history without interrupting the moment.
-- **Offline Club Mode (PRO)**: No reception in a club or bar? Capture an audio fingerprint offline and let SongFlip automatically identify the song and add it to your history as soon as you're back online.
+- **Offline Club Mode**: No reception in a club or bar? Capture an audio fingerprint offline and let SongFlip automatically identify the song and add it to your history as soon as you're back online.
 - **Identified Filter in History**: Easily find all songs you recognized around you using the new "Identified" badge and filter chip in your song history.
 
 ## [1.9.4] - 2026-10-19
