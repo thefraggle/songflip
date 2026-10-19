@@ -2,55 +2,10 @@
 import os
 import re
 import csv
-import json
-import time
-import urllib.request
-import urllib.parse
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CSV_PATH = os.path.join(BASE_DIR, "distribution", "playstore_listings_all_languages.csv")
-MD_PATH = os.path.join(BASE_DIR, "distribution", "playstore_listings_all_languages.md")
-ANDROID_METADATA_DIR = os.path.join(BASE_DIR, "fastlane", "metadata", "android")
-IOS_METADATA_DIR = os.path.join(BASE_DIR, "fastlane", "metadata")
-GEN_IOS_SCRIPT = os.path.join(BASE_DIR, "scripts", "generate_ios_store_listings.py")
-SYNC_ALL_SCRIPT = os.path.join(BASE_DIR, "scripts", "sync_all_metadata.py")
-
-LOCALE_TO_TRANSLATE_LANG = {
-    'bn-BD': 'bn',
-    'cs-CZ': 'cs',
-    'da-DK': 'da',
-    'de-DE': 'de',
-    'el-GR': 'el',
-    'en-GB': 'en',
-    'en-US': 'en',
-    'es-419': 'es',
-    'es-ES': 'es',
-    'es-US': 'es',
-    'fi-FI': 'fi',
-    'fr-CA': 'fr',
-    'fr-FR': 'fr',
-    'hi-IN': 'hi',
-    'hu-HU': 'hu',
-    'id': 'id',
-    'it-IT': 'it',
-    'ja-JP': 'ja',
-    'ko-KR': 'ko',
-    'mr-IN': 'mr',
-    'nb-NO': 'no',
-    'nl-NL': 'nl',
-    'pl-PL': 'pl',
-    'pt-BR': 'pt',
-    'pt-PT': 'pt',
-    'ro-RO': 'ro',
-    'ru-RU': 'ru',
-    'sv-SE': 'sv',
-    'th-TH': 'th',
-    'tr-TR': 'tr',
-    'uk': 'uk',
-    'vi': 'vi',
-    'zh-CN': 'zh-CN',
-    'zh-TW': 'zh-TW',
-}
+WHATSNEW_DIR = os.path.join(BASE_DIR, "distribution", "whatsnew")
 
 # Optimized short descriptions to eliminate SUBTITLE_DUPLICATES_TITLE while adding high-value "song" / "converter" terms
 SHORT_DESC_OVERRIDES = {
@@ -76,117 +31,212 @@ SHORT_DESC_OVERRIDES = {
     'vi': 'Tự động đổi và mở bài hát, podcast trực tiếp trong trình phát yêu thích.',
 }
 
-# ASO-optimized English template paragraphs (exact compound phrases: music link redirect, song link converter, music converter, link redirect, open Spotify links, convert playlists, transfer playlists)
-EN_PARAS = {
-    0: "A friend sends you a song link or podcast link on Spotify, but you listen on YouTube Music, Apple Podcasts, or Deezer?",
-    1: "SongFlip is your seamless, zero-click music link redirect and song link converter for Android. Once enabled, incoming music links and podcast links automatically convert in the background and open directly in your favorite player—no manual searching, no ads, no browser detours.",
-    2: "Whether switching Spotify to YouTube Music, Apple Podcasts to Pocket Casts, Spotify to Apple Music, or opening tracks from Shazam, SongFlip works as your universal music converter and link redirect tool to open Spotify links and audio streams instantly.",
-    4: "• 10 Streaming Platforms, Podcasts & Shazam:\nSeamlessly convert and redirect song links and podcasts across Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud, and Bandcamp. Includes instant music link converter support for shared Shazam links!",
-    5: "• Direct Song Search (In-App Search):\nSearch for tracks and artists directly inside SongFlip and launch playback instantly in your preferred streaming player with 1-tap Fast Flip—no existing song link required.",
-    6: "• QR Code Song Sharing & Scanning:\nGenerate and scan universal QR codes for songs and albums. Effortlessly share music links with friends in person across any streaming service.",
-    7: "• Podcast Converter & Podcast Redirect Engine:\nShare full podcast shows or episodes across platforms. SongFlip resolves episode titles automatically to convert and open podcast links right inside your favorite podcast player.",
-    8: "• Universal Playlist Converter & Playlist Transfer:\nConvert playlists and transfer playlists track-by-track between Spotify, Apple Music, YouTube Music, TIDAL, and Deezer—with automatic duplicate cleaning, up to 200 tracks, and fast caching.",
-    9: "• Refine Matches & 1-Tap Favorites:\nEasily pick between live recordings, remasters, or studio versions. Pin your favorite songs in history with a single tap and manage them via the quick action menu.",
-    12: "• Smart Link Redirect Assistant (Android 12+):\nEasily verify and configure Android Open by Default App Links with our interactive 1-tap link redirect setup assistant.",
-    13: "• Clipboard Smart-Banner & Native Sharing:\nCopied a music link? Convert and open it instantly via the smart dashboard banner, or share links directly from WhatsApp, Telegram, Reddit, or Instagram into SongFlip.",
-    19: "Compatible with universal music link protocols including Songlink / Odesli. Download SongFlip now—your automatic music link redirect and song link converter to bridge songs & podcasts across all streaming services effortlessly!"
-}
+DE_FULL_DESC = """Ein Freund schickt dir einen Song-Link oder Podcast auf Spotify, du hörst aber über YouTube Music, Apple Podcasts oder Deezer?
 
-# Compact English fallbacks for paragraphs in case a verbose language exceeds 3950 UTF-16 units
-EN_PARAS_COMPACT = {
-    1: "SongFlip is your 0-click music link redirect and song link converter for Android. Incoming music links and podcast links automatically convert and open directly in your favorite player—no manual search or ads.",
-    2: "From Spotify to YouTube Music, Apple Podcasts to Pocket Casts, or Shazam tracks: SongFlip is your universal music converter and link redirect to open Spotify links instantly.",
-    4: "• 10 Platforms, Podcasts & Shazam:\nConvert and redirect song links and podcasts across Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud, Bandcamp, and Shazam!",
-    5: "• Direct Song Search:\nSearch songs and artists in SongFlip and start playback in your favorite player with 1-tap Fast Flip.",
-    6: "• QR Code Song Sharing:\nCreate and scan universal QR codes for songs and albums across any streaming service.",
-    7: "• Podcast Converter & Redirect:\nShare podcast shows or episodes across platforms. Automatically convert and open podcast links in your favorite podcast player.",
-    8: "• Playlist Converter & Transfer:\nConvert playlists and transfer playlists between Spotify, Apple Music, YouTube Music, TIDAL, and Deezer (up to 200 tracks).",
-    9: "• Refine Matches & Favorites:\nPick between live, remaster, or studio versions and pin favorite songs with 1 tap.",
-    10: "• Instant Track Playback:\nStarts playback directly inside your target player instead of empty search pages.",
-    11: "• Quick Player Chooser:\nPick your target audio player on the fly whenever you open a shared song link or podcast link.",
-    12: "• Link Redirect Assistant (Android 12+):\nConfigure Android Open by Default App Links with our 1-tap link redirect setup assistant.",
-    13: "• Clipboard Banner & Share Menu:\nCopied a music link? Convert and open it via the banner or share links from WhatsApp, Telegram, or Instagram.",
-    14: "• Web Smart Links (songflip.link):\nCreate neutral web links with an embedded player so friends can listen in any browser.",
-    15: "• Quick Settings & Shortcuts:\nPause link redirect for 15 min, 1 hour, or until tomorrow via Quick Settings.",
-    16: "• Material You & AMOLED Dark Mode:\nFollows system dynamic colors with full AMOLED dark mode and themed icon.",
-    17: "• Promo Codes & Vouchers:\nRedeem promo codes in settings to unlock PRO perks and extended history.",
-    19: "Compatible with Songlink / Odesli. Download SongFlip—your automatic music link redirect and song link converter for all streaming services!"
-}
+SongFlip ist dein smarter 0-Klick Musik-Link Redirect sowie Song- und Podcast-Link Converter für Android. Einmal eingerichtet, lassen sich empfangene Musik-Links und Podcasts automatisch konvertieren und direkt im Wunsch-Player öffnen – ohne Zwischenseiten, Wartezeit oder manuelle Suche.
 
-TRANSLATION_CACHE = {}
+Egal ob Spotify zu YouTube Music, Apple Podcasts zu Spotify, Spotify zu Apple Music oder geteilte Shazam-Tracks: SongFlip erkennt jeden Song-Link und Episoden blitzschnell als dein universeller Music Converter und Link Redirect.
+
+🚀 DIE WICHTIGSTEN FUNKTIONEN:
+
+• 12 Streaming- & Podcast-Plattformen:
+Songs und Podcasts automatisch konvertieren und weiterleiten zwischen Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, SoundCloud und Bandcamp. Erkennt auch geteilte Shazam-Tracks sofort!
+
+• Listen & Flip – Musikerkennung (auch offline):
+Erkenne Songs in Bars, Clubs oder im Radio per Mikrofon, speichere sie im Verlauf und öffne sie direkt im Wunsch-Player. Dank Offline-Modus werden Audio-Fingerabdrücke auch ohne Empfang gesichert und automatisch aufgelöst, sobald du wieder online bist.
+
+• Direkte Titelsuche & Sofort-Wiedergabe:
+Suche Songs & Interpreten direkt in SongFlip und starte die Wiedergabe per Fast Flip sofort im Ziel-Player – ganz ohne bestehende Web-URL oder leere Suchseiten.
+
+• Musik per QR-Code teilen & scannen:
+Generiere und scanne universelle Musik-QR-Codes. Teile Songs & Alben vor Ort – egal welcher Streamingdienst genutzt wird.
+
+• Universal Playlist Converter & Playlist-Transfer:
+Playlists konvertieren und Playlists übertragen zwischen Spotify, Apple Music, YouTube Music, TIDAL und Deezer – inklusive Duplikat-Bereinigung, bis zu 200 Tracks und schnellem Cache.
+
+• Podcast Converter & Podcast-Weiterleitung:
+Teile Podcast-Shows und Episoden plattformübergreifend. SongFlip löst Episodentitel für die Podcast-Umleitung automatisch auf und startet sie direkt im bevorzugten Podcast-Player.
+
+• Treffer verfeinern & 1-Tap Favoriten:
+Wähle gezielt zwischen Live-, Remaster- oder Studio-Versionen. Pinne Lieblings-Songs im Verlauf mit 1-Tap an und filtere erkannte Listen & Flip-Tracks.
+
+• Schnellauswahl (Ask Every Time):
+Nutzt du mehrere Audio-Apps? Aktiviere die Schnellauswahl, um beim Öffnen von Songs oder Podcasts flexibel den Ziel-Player zu wählen.
+
+• Smarter Redirect-Assistent (Android 12+):
+Prüft deine Audio-Apps und hilft dir mit einem Fingertipp, Standard-Apps konfliktfrei für den automatischen Musik-Link Redirect einzurichten.
+
+• Clipboard Smart-Banner & Share-Menü:
+Spotify-URL kopiert? Direkt über das Smart-Banner konvertieren und öffnen oder URLs aus WhatsApp, Telegram, Instagram oder Reddit mit SongFlip teilen.
+
+• Universelle Web-Links & Webplayer (Smart Links):
+Erstelle neutrale Smart-Links (songflip.link) mit Webplayer, die Freunde auf jedem Gerät und Browser direkt anhören können.
+
+• Schnelleinstellungen & App-Shortcuts:
+Pausiere die automatische Umleitung flexibel für 15 Minuten, 1 Stunde oder bis morgen früh über die Quick-Settings-Kachel oder per Long-Press.
+
+• Material You Design & Themed Icon:
+An dein Android-Farbschema angepasst (Dynamic Color, Light- & AMOLED-Dark-Mode) inklusive Monochrome-Homescreen-Icon.
+
+• Promo-Code & Voucher-Unterstützung:
+Löse Aktionscodes direkt in den Einstellungen ein, um PRO-Funktionen und erweiterten Verlauf freizuschalten.
+
+🔒 DATENSCHUTZ, TRANSPARENZ & OPEN SOURCE:
+• 100 % Open Source (GPLv3 auf GitHub)
+• Kein Account, kein Login, keine Registrierung
+• Absolut werbefrei – für immer
+• Kein Tracking, keine Analyse deines Hörverhaltens
+
+Kompatibel mit universellen Streaming-Protokollen wie Songlink / Odesli. Hol dir SongFlip – deinen automatischen Musik-Link Redirect und Playlist-Converter – und genieße Songs & Podcasts frei über alle Plattform-Grenzen hinweg!"""
+
+EN_FULL_DESC = """A friend sends you a song link or podcast on Spotify, but you listen on Apple Podcasts, TIDAL, or Deezer?
+
+SongFlip is your seamless, zero-click music link redirect and song link converter for Android. Once enabled, incoming song links and podcast links automatically convert in the background and open directly in your favorite player—no manual searching, no ads, no browser detours.
+
+Whether switching Spotify to YouTube Music, Apple Podcasts to Pocket Casts, Spotify to Apple Music, or opening tracks from Shazam, SongFlip works as your universal song converter and link redirect tool to open Spotify links and audio streams instantly.
+
+🚀 KEY FEATURES:
+
+• 12 Streaming Platforms, Podcasts & Shazam:
+Seamlessly convert and redirect song links and podcasts across Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon, Qobuz, Beatport, SoundCloud, and Bandcamp. Includes instant converter support for shared Shazam tracks!
+
+• Listen & Flip – Audio Recognition (Online & Offline):
+Identify songs playing around you in clubs, bars, or on the radio, save them to your history, and open them in your favorite player. With Offline Mode, capture audio fingerprints even without reception and resolve tracks automatically once you're back online.
+
+• Direct Track Search & Instant Playback:
+Search for tracks and artists directly inside SongFlip and trigger playback instantly in your preferred streaming player with 1-tap Fast Flip—no existing URL or empty search pages.
+
+• QR Code Track Sharing & Scanning:
+Generate and scan universal QR codes for songs and albums. Effortlessly share songs with friends in person across any streaming service.
+
+• Universal Playlist Converter & Playlist Transfer:
+Convert playlists and transfer playlists track-by-track between Spotify, Apple Music, YouTube Music, TIDAL, and Deezer—with automatic duplicate cleaning, up to 200 tracks, and fast caching.
+
+• Podcast Converter & Podcast Redirect Engine:
+Share full podcast shows or episodes across platforms. SongFlip resolves episode titles automatically to convert and open podcast links right inside your favorite podcast player.
+
+• Refine Matches & 1-Tap Favorites:
+Easily pick between live recordings, remasters, or studio versions. Pin your favorite songs in history with 1 tap and filter recognized Listen & Flip tracks.
+
+• Quick Player Chooser (Ask Every Time):
+Using multiple audio apps? Enable the quick player chooser to pick your target player on the fly whenever you open a shared track or podcast episode.
+
+• Smart Redirect Assistant (Android 12+):
+Easily verify and configure Android Open by Default App Links with our interactive 1-tap setup assistant.
+
+• Clipboard Smart-Banner & Native Sharing:
+Copied a track URL? Convert and open it instantly via the smart dashboard banner, or share URLs directly from WhatsApp, Telegram, Reddit, or Instagram into SongFlip.
+
+• Universal Web Smart Links & HTML5 Player:
+Generate neutral web-share URLs (songflip.link) with an embedded webplayer so friends can listen on any device or browser.
+
+• Quick Settings Tile & App Shortcuts:
+Temporarily pause automatic redirection for 15 minutes, 1 hour, or until tomorrow morning right from your Quick Settings shade or home screen long-press.
+
+• Material You Dynamic Color & Themed Icon:
+Follows your system accent colors with full AMOLED dark mode, light mode, and a monochrome Material You home screen icon.
+
+• Promo Code & Voucher Redemption:
+Redeem promo codes and vouchers directly in settings to unlock PRO perks and extended history.
+
+🔒 PRIVACY & OPEN SOURCE FIRST:
+• 100% Open Source (GPLv3 licensed on GitHub)
+• No accounts, no sign-ups, no logins required
+• Completely ad-free forever
+• Zero tracking, no data harvesting, no listening habits logged
+
+Compatible with universal protocols including Songlink / Odesli. Download SongFlip now—your automatic music link redirect and song link converter to bridge songs & podcasts across all streaming services effortlessly!"""
 
 def utf16_len(s):
     return len(s.encode('utf-16-le')) // 2
 
-def translate_text(text, target_lang, max_retries=3):
-    if target_lang in ('en', 'en-US', 'en-GB'):
-        return text
-    cache_key = (text, target_lang)
-    if cache_key in TRANSLATION_CACHE:
-        return TRANSLATION_CACHE[cache_key]
+def build_listen_and_flip_para(locale, compact=False):
+    wn_name = "whatsnew-ro" if locale == "ro-RO" else f"whatsnew-{locale}"
+    wn_path = os.path.join(WHATSNEW_DIR, wn_name)
+    with open(wn_path, 'r', encoding='utf-8') as f:
+        lines = [l.strip().lstrip('- ').strip() for l in f.read().strip().split('\n') if l.strip()]
 
-    for attempt in range(max_retries):
-        try:
-            url = f"https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl={urllib.parse.quote(target_lang)}&dt=t&q={urllib.parse.quote(text)}"
-            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
-            with urllib.request.urlopen(req, timeout=4) as resp:
-                data = json.loads(resp.read().decode('utf-8'))
-                res = ''.join([part[0] for part in data[0] if part and part[0]]).strip()
-                if res:
-                    # Normalize bullet formatting if translated
-                    res = re.sub(r'^[•·*]\s*', '• ', res)
-                    TRANSLATION_CACHE[cache_key] = res
-                    return res
-        except Exception:
-            time.sleep(0.2 + attempt * 0.2)
+    # Line 0: "Listen & Flip (Header): Body1"
+    # Line 1: "Offline Mode Header: Body2"
+    l0 = lines[0]
+    l1 = lines[1]
 
-    return text
+    # Split header and body on colon (ASCII ':' or full-width '：')
+    m0 = re.match(r'^([^:：]+[:：])\s*(.+)$', l0)
+    m1 = re.match(r'^([^:：]+[:：])\s*(.+)$', l1)
+
+    if m0 and m1:
+        header0 = m0.group(1)
+        body0 = m0.group(2)
+        body1 = m1.group(2)
+        if compact:
+            return f"• {header0}\n{body0}"
+        return f"• {header0}\n{body0} {body1}"
+    return f"• {l0}"
+
+def update_platforms_para(para4):
+    # Update 10 -> 12 and insert Qobuz, Beatport next to Amazon Music
+    p = re.sub(r'\b10\b', '12', para4)
+    p = p.replace('১০', '১২').replace('१०', '१२')
+    if 'Qobuz' not in p:
+        if 'Amazon Music,' in p:
+            p = p.replace('Amazon Music,', 'Amazon Music, Qobuz, Beatport,')
+        elif 'Amazon Music、' in p:
+            p = p.replace('Amazon Music、', 'Amazon Music、Qobuz、Beatport、')
+    return p
 
 def optimize_locale_description(desc, locale):
-    if locale in ('en-US', 'en-GB', 'de-DE'):
-        return desc
+    if locale == 'de-DE':
+        return DE_FULL_DESC
+    if locale in ('en-US', 'en-GB'):
+        return EN_FULL_DESC
 
-    t_lang = LOCALE_TO_TRANSLATE_LANG.get(locale, 'en')
     paras = desc.split('\n\n')
     if len(paras) != 20:
-        print(f"⚠️ [{locale}] Unexpected paragraph count {len(paras)}, skipping structural replacement.")
-        return desc
+        raise ValueError(f"[{locale}] Unexpected paragraph count {len(paras)}")
 
-    for idx, en_text in EN_PARAS.items():
-        paras[idx] = translate_text(en_text, t_lang)
+    # Check if already updated with Listen & Flip at paras[5]
+    already_has_lf = 'Listen & Flip' in paras[5]
 
+    paras[4] = update_platforms_para(paras[4])
+    lf_full = build_listen_and_flip_para(locale, compact=False)
+    lf_compact = build_listen_and_flip_para(locale, compact=True)
+
+    if not already_has_lf:
+        # Shift [5..9] -> [6..10] (replacing the 1-line redundant Instant Playback at [10])
+        paras = paras[:5] + [lf_full] + paras[5:10] + paras[11:]
+    else:
+        paras[5] = lf_full
+
+    assert len(paras) == 20, f"[{locale}] Expected 20 paragraphs after update, got {len(paras)}"
     candidate = '\n\n'.join(paras)
 
-    # If candidate exceeds 3960 UTF-16 code units, progressively compact secondary bullets
-    if utf16_len(candidate) > 3960:
-        for c_idx in [16, 17, 15, 14, 10, 11, 9, 6, 5, 12, 13, 8, 7, 4, 2, 1, 19]:
-            if utf16_len(candidate) <= 3950:
+    # Keep full Listen & Flip (online + offline) and trim second sentence in secondary bullets if > 3985 UTF-16 units
+    if utf16_len(candidate) > 3985:
+        for idx in (17, 16, 15, 14, 13, 12, 11, 10, 7, 6, 9, 8, 4):
+            if utf16_len(candidate) <= 3975:
                 break
-            paras[c_idx] = translate_text(EN_PARAS_COMPACT[c_idx], t_lang)
-            candidate = '\n\n'.join(paras)
+            lines = paras[idx].split('\n')
+            if len(lines) > 1:
+                # If body has 2 sentences, keep the first sentence
+                sentences = re.split(r'(?<=[.!।])\s+', lines[1].strip())
+                if len(sentences) > 1:
+                    lines[1] = sentences[0].strip()
+                    paras[idx] = '\n'.join(lines)
+                    candidate = '\n\n'.join(paras)
+                elif '—' in lines[1] or '–' in lines[1]:
+                    lines[1] = re.split(r'\s*[—–]\s*', lines[1])[0].strip() + '.'
+                    paras[idx] = '\n'.join(lines)
+                    candidate = '\n\n'.join(paras)
 
     return candidate
 
-from concurrent.futures import ThreadPoolExecutor
-
-def prewarm_translations():
-    tasks = []
-    target_langs = sorted(set(LOCALE_TO_TRANSLATE_LANG.values()) - {'en', 'de'})
-    all_texts = list(EN_PARAS.values()) + list(EN_PARAS_COMPACT.values())
-    for tl in target_langs:
-        for txt in all_texts:
-            tasks.append((txt, tl))
-
-    print(f"Pre-fetching {len(tasks)} translations across {len(target_langs)} languages in parallel...")
-    with ThreadPoolExecutor(max_workers=32) as pool:
-        list(pool.map(lambda args: translate_text(args[0], args[1], max_retries=2), tasks))
-
 def main():
+    print(f"EN_FULL_DESC UTF-16 len: {utf16_len(EN_FULL_DESC)}/4000")
+    print(f"DE_FULL_DESC UTF-16 len: {utf16_len(DE_FULL_DESC)}/4000")
     print("Reading CSV...")
     with open(CSV_PATH, 'r', encoding='utf-8') as f:
         rows = list(csv.DictReader(f))
-
-    prewarm_translations()
 
     updated_rows = []
     for row in rows:
@@ -218,8 +268,7 @@ def main():
         writer.writeheader()
         writer.writerows(updated_rows)
 
-    print("CSV updated. Running sync_all_metadata.py...")
+    print("CSV updated successfully.")
 
 if __name__ == '__main__':
     main()
-

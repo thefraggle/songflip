@@ -1,3 +1,2 @@
-- Listen & Flip (Music Recognition): Identify music playing around you directly inside SongFlip. Recognised tracks are matched to your preferred player and saved to your history.
-- Offline Club Mode: No signal in a club or bar? Capture an audio fingerprint offline and let SongFlip identify the song automatically once you're back online.
-- Identified Filter in History: Quickly find all recognised songs using the new "Identified" badge and filter chip in your history.
+- More Reliable Music Recognition: Improved audio recording stability and ambient room sensitivity for faster and more accurate song recognition in Listen & Flip.
+- General Stability: Internal synchronization refinements and performance improvements.

@@ -6,14 +6,17 @@ Ať už přepínáte Spotify na YouTube Music, Apple Podcasty na Pocket Casts, S
 
 🚀 HLAVNÍ FUNKCE:
 
-• 10 streamovacích platforem, podcastů a Shazam:
-Bezproblémově převádějte a přesměrovávejte odkazy na skladby a podcasty přes Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud a Bandcamp. Zahrnuje okamžitou podporu převodníku hudebních odkazů pro sdílené odkazy Shazam!
+• 12 streamovacích platforem, podcastů a Shazam:
+Bezproblémově převádějte a přesměrovávejte odkazy na skladby a podcasty přes Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, SoundCloud a Bandcamp. Zahrnuje okamžitou podporu převodníku hudebních odkazů pro sdílené odkazy Shazam!
+
+• Listen & Flip (Rozpoznávání hudby):
+Rozpoznejte hudbu kolem sebe přímo v SongFlipu. Skladby se převedou pro váš přehrávač a uloží do historie. Jste bez signálu? Uložte zvukový otisk offline a SongFlip skladbu rozpozná, jakmile budete opět online.
 
 • Přímé vyhledávání skladeb (vyhledávání v aplikaci):
 Vyhledejte skladby a interprety přímo v aplikaci SongFlip a okamžitě spusťte přehrávání ve vašem oblíbeném streamovacím přehrávači pomocí funkce Rychlé překlopení jedním klepnutím – není potřeba žádný existující odkaz na skladbu.
 
 • Sdílení a skenování skladeb QR kódu:
-Generujte a skenujte univerzální QR kódy pro skladby a alba. Bez námahy sdílejte hudební odkazy s přáteli osobně v jakékoli streamovací službě.
+Generujte a skenujte univerzální QR kódy pro skladby a alba.
 
 • Podcast Converter & Podcast Redirect Engine:
 Sdílejte celé podcastové pořady nebo epizody napříč platformami. SongFlip automaticky vyhodnotí názvy epizod, aby převedl a otevřel odkazy na podcasty přímo ve vašem oblíbeném přehrávači podcastů.
@@ -23,9 +26,6 @@ Převádějte seznamy stop a přenášejte seznamy stop po stopách mezi Spotify
 
 • Upřesnit shody a oblíbené položky:
 Vyberte si mezi živou, remasterovanou nebo studiovou verzí a připněte oblíbené skladby jediným klepnutím.
-
-• Okamžité přehrávání skladeb:
-Spustí přehrávání přímo v cílovém přehrávači namísto prázdných vyhledávacích stránek.
 
 • Rychlý výběr přehrávače:
 Vyberte si svůj cílový audio přehrávač za chodu, kdykoli otevřete odkaz na sdílenou skladbu nebo odkaz na podcast.

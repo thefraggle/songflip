@@ -6,8 +6,11 @@ Che si tratti di passare da Spotify a YouTube Music, da Apple Podcast a Pocket C
 
 🚀 CARATTERISTICHE PRINCIPALI:
 
-• 10 piattaforme di streaming, podcast e Shazam:
-Converti e reindirizza senza problemi collegamenti di brani e podcast su Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud e Bandcamp. Include il supporto del convertitore di collegamenti musicali istantanei per i collegamenti Shazam condivisi!
+• 12 piattaforme di streaming, podcast e Shazam:
+Converti e reindirizza senza problemi collegamenti di brani e podcast su Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, SoundCloud e Bandcamp. Include il supporto del convertitore di collegamenti musicali istantanei per i collegamenti Shazam condivisi!
+
+• Listen & Flip (Riconoscimento musicale):
+Riconosci la musica intorno a te in SongFlip. I brani vengono abbinati al tuo player preferito e salvati nella cronologia. Nessun segnale? Salva l'impronta audio offline e SongFlip riconoscerà il brano automaticamente appena torni online.
 
 • Ricerca diretta dei brani:
 Cerca brani e artisti in SongFlip e avvia la riproduzione nel tuo lettore preferito con Fast Flip con un solo tocco.
@@ -16,16 +19,13 @@ Cerca brani e artisti in SongFlip e avvia la riproduzione nel tuo lettore prefer
 Crea e scansiona codici QR universali per brani e album su qualsiasi servizio di streaming.
 
 • Convertitore di podcast e motore di reindirizzamento podcast:
-Condividi programmi o episodi podcast completi su tutte le piattaforme. SongFlip risolve automaticamente i titoli degli episodi per convertire e aprire i collegamenti ai podcast direttamente nel tuo lettore di podcast preferito.
+Condividi programmi o episodi podcast completi su tutte le piattaforme.
 
 • Convertitore e trasferimento di playlist:
 Converti playlist e trasferisci playlist tra Spotify, Apple Music, YouTube Music, TIDAL e Deezer (fino a 200 tracce).
 
 • Perfeziona corrispondenze e preferiti:
 Scegli tra le versioni live, rimasterizzate o in studio e aggiungi i brani preferiti con 1 tocco.
-
-• Riproduzione istantanea della traccia:
-Avvia la riproduzione direttamente all'interno del lettore di destinazione anziché nelle pagine di ricerca vuote.
 
 • Scelta rapida del giocatore:
 Scegli al volo il tuo lettore audio di destinazione ogni volta che apri un collegamento a un brano condiviso o un collegamento a un podcast.

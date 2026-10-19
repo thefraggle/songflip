@@ -1,3 +1,2 @@
-- Klarere Statusanzeige im Kopfbereich: Dezentere und übersichtlichere Darstellung des Status-Badges im Startbildschirm, damit aktive Funktionen auf einen Blick klar unterscheidbar sind.
-- Schnellere Erkennung für SoundCloud & Bandcamp: Direktere Auflösung geteilter SoundCloud- und Bandcamp-Links für einen noch schnelleren Wiedergabestart.
-- Verbesserter Playlist-Zwischenspeicher: Zuverlässigere Speicherung bereits umgewandelter Titel über alle unterstützten Musikdienste hinweg.
+- Zuverlässigere Musikerkennung: Verbesserte Stabilität der Audioaufnahme und optimierte Raumklang-Empfindlichkeit für eine schnellere und treffsichere Song-Erkennung bei Listen & Flip.
+- Allgemeine Stabilität: Interne Synchronisations- und Leistungsverbesserungen.

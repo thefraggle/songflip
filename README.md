@@ -15,6 +15,8 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 ## ✨ Key Features
 
 - **⚡ 0-Click Background Redirect**: Intercepts music links transparently and launches direct playback in your target player.
+- **🎵 Listen & Flip (In-App Music Recognition)**: Identify music playing around you directly inside SongFlip. Recognized tracks are immediately resolved for your preferred streaming player and saved to your history without interrupting the moment (3 free recognitions/month; unlimited in PRO).
+- **🕺 Offline Club Mode [PRO]**: No reception in a club, bar, or festival? Capture an acoustic fingerprint offline and let SongFlip automatically identify the song and add it to your history as soon as you're back online.
 - **🔎 In-App Direct Search & Flip**: Search for any song or artist directly in SongFlip without leaving the app and launch playback with a single tap.
 - **🎛️ Precision Match-Review & Disambiguation [PRO]**: Easily pick alternative versions, recordings, or remixes right from your history or search options.
 - **📶 Offline Resilience & Auto-Retry Queue**: If you tap a music link while in a subway, elevator, or spotty coverage, SongFlip holds the intent and automatically resolves and plays the song the second connectivity is restored.
@@ -44,11 +46,11 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 - **🎨 Material You Themed Icon (Android 13+)**: Clean vector alpha silhouette dynamically adapting to your launcher wallpaper palette.
 - **🔗 Universal Smart Share Links (`songflip.link/s/...`) & oEmbed [PRO]**: Generate clean, lightning-fast multi-platform landing pages with rich cover art, `og:audio` previews, and oEmbed 1.0 cards for WhatsApp, Telegram, iMessage, Discord, Slack & Reddit. *(Try the permanent live demo: [songflip.link/s/rickroll](https://songflip.link/s/rickroll))*.
 - **📱 QR-Code Generator & Sharing [PRO]**: Generate and scan QR codes for universal smart links directly in the app (seamlessly available in history for Pro users) and on web share pages to share songs across devices effortlessly.
-- **⭐ 1-Tap Favorites & History Filtering**: Pin favorite songs and playlists with a single tap in your conversion history and filter them instantly. Favorites and conversion history are kept permanently.
+- **⭐ 1-Tap Favorites & History Filtering**: Pin favorite songs and playlists with a single tap in your conversion history and filter them instantly (including a dedicated "Identified" filter for recognized songs). Favorites and conversion history are kept permanently.
 - **🔄 Smart Share-Sheet Routing**: Sharing directly from your music player generates a universal smart link for friends instead of looping back into your player.
 - **📜 Conversion History & Quick Sharing**: Offline history log with cover artwork thumbnails, 1-tap replay, search filter, and instant smart-link sharing.
 - **🚀 Direct Instant Playback Engine**: Extracts direct video/track IDs in the background (e.g. YouTube Music `watch?v=...`) for instant playback without search delays, with automatic paywall-free web fallbacks when dedicated apps are missing.
-- **🌍 31+ Languages Supported**: Fully localized across 31 in-app languages on Android and iOS (English, German, Spanish, French, Italian, Portuguese, Japanese, Korean, Chinese, Ukrainian, Polish, Turkish, Dutch, Arabic, Hindi, Swedish, Danish, Norwegian, Finnish, Czech, Greek, Hungarian, Romanian, Thai, and more), plus 37 localized App Store and Google Play descriptions.
+- **🌍 34+ Languages Supported**: Fully localized across 34 in-app languages on Android and iOS (English, German, Spanish, French, Italian, Portuguese, Japanese, Korean, Chinese, Ukrainian, Polish, Turkish, Dutch, Arabic, Hindi, Swedish, Danish, Norwegian, Finnish, Czech, Greek, Hungarian, Romanian, Thai, and more), plus 37 localized App Store and Google Play descriptions.
 - **⏸️ Quick Settings Status Tile & Smart Pause**: Pause redirection directly from Android's notification shade for 15 minutes, 1 hour, or until tomorrow morning (06:00).
 - **📤 Share Sheet Target (`ACTION_SEND`)**: Supports shared text containing links from WhatsApp, Instagram, and Reddit with automatic URL sanitization.
 - **♿ Accessible UI & 5-State Component Feedback**: All bottom sheets and interactive controls adhere to WCAG AA minimum 48dp touch targets, support instant dismissal via the Escape (ESC) key and backdrop clicks, and explicitly handle 5 UI states (Default, Hover, Active/Focus, Disabled, Loading) for instant visual feedback.
@@ -82,6 +84,7 @@ The **SongFlip client app (Android & iOS) is 100% open source (GPLv3)** and oper
 
 For users who want the fastest possible performance, advanced playlist capabilities, or wish to support indie development, **SongFlip PRO** provides:
 
+- **🎵 Unlimited Listen & Flip & Offline Club Mode**: Unlimited in-app music recognition plus offline acoustic fingerprinting for clubs, bars, and dead zones with automatic background matching once back online.
 - **📑 Universal Playlist Converter**: Convert full playlists (up to 200 songs) with 1-tap queue launch into YouTube Music & Spotify, multi-part chunking, duplicate cleaning, and .M3U8/.CSV export.
 - **🌐 Playlist Web Sharing**: Create beautiful, shareable web links (`songflip.link/p/...`) with cover art and individual preview player buttons.
 - **⚡ L2 Server-Side Cache**: Lightning-fast resolution (~30–50 ms) via our dedicated server cache with zero rate-limiting.

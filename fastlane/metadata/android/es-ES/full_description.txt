@@ -6,8 +6,11 @@ Ya sea cambiando Spotify a YouTube Music, Apple Podcasts a Pocket Casts, Spotify
 
 🚀 FUNCIONES PRINCIPALES:
 
-• 10 plataformas de streaming, podcasts y Shazam:
-Convierta y redirija sin problemas enlaces de canciones y podcasts en Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud y Bandcamp. ¡Incluye soporte instantáneo de conversión de enlaces de música para enlaces compartidos de Shazam!
+• 12 plataformas de streaming, podcasts y Shazam:
+Convierta y redirija sin problemas enlaces de canciones y podcasts en Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, SoundCloud y Bandcamp. ¡Incluye soporte instantáneo de conversión de enlaces de música para enlaces compartidos de Shazam!
+
+• Listen & Flip (Reconocimiento musical):
+Identifica la música a tu alrededor en SongFlip. Las canciones se adaptan a tu reproductor favorito y se guardan en el historial. ¿Sin cobertura? Guarda la huella de audio sin conexión y SongFlip identificará la canción automáticamente al volver a conectarte.
 
 • Búsqueda directa de canciones:
 Busque canciones y artistas en SongFlip e inicie la reproducción en su reproductor favorito con Fast Flip con 1 toque.
@@ -16,16 +19,13 @@ Busque canciones y artistas en SongFlip e inicie la reproducción en su reproduc
 Cree y escanee códigos QR universales para canciones y álbumes en cualquier servicio de transmisión.
 
 • Convertidor de podcasts y motor de redireccionamiento de podcasts:
-Comparta programas o episodios completos de podcasts en todas las plataformas. SongFlip resuelve los títulos de los episodios automáticamente para convertir y abrir enlaces de podcasts directamente dentro de su reproductor de podcasts favorito.
+Comparta programas o episodios completos de podcasts en todas las plataformas.
 
 • Convertidor y transferencia de listas de reproducción:
 Convierta listas de reproducción y transfiera listas de reproducción entre Spotify, Apple Music, YouTube Music, TIDAL y Deezer (hasta 200 pistas).
 
 • Refinar coincidencias y favoritos:
 Elija entre versiones en vivo, remasterizadas o de estudio y fije sus canciones favoritas con 1 toque.
-
-• Reproducción instantánea de pistas:
-Inicia la reproducción directamente dentro de su reproductor de destino en lugar de páginas de búsqueda vacías.
 
 • Selector rápido de jugadores:
 Elija su reproductor de audio de destino sobre la marcha cada vez que abra un enlace de canción compartido o un enlace de podcast.

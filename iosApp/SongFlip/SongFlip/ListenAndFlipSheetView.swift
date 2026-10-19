@@ -114,7 +114,7 @@ struct ListenAndFlipSheetView: View {
 
             if !proManager.isPro {
                 let remaining = recognizer.getRemainingFreeScans(isPro: false)
-                let maxFree = Int(AcousticQuotaManager.shared.MAX_FREE_SCANS_PER_MONTH)
+                let maxFree = Int(AcousticQuotaManager.companion.MAX_FREE_SCANS_PER_MONTH)
                 Text(String(
                     format: LocalizationManager.string(for: "listen_free_scans_remaining", lang: lang),
                     remaining,
@@ -551,7 +551,7 @@ struct ListenAndFlipSheetView: View {
 
             Text(String(
                 format: LocalizationManager.string(for: "listen_quota_reached_desc", lang: lang),
-                Int(AcousticQuotaManager.shared.MAX_FREE_SCANS_PER_MONTH)
+                Int(AcousticQuotaManager.companion.MAX_FREE_SCANS_PER_MONTH)
             ))
             .font(.subheadline)
             .foregroundColor(.secondary)

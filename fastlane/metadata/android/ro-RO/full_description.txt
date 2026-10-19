@@ -6,26 +6,26 @@ Indiferent dacă comutați Spotify la YouTube Music, Apple Podcasts la Pocket Ca
 
 🚀 CARACTERISTICI PRINCIPALE:
 
-• 10 platforme de streaming, podcasturi și Shazam:
-Convertiți și redirecționați fără probleme link-urile de melodii și podcasturi prin Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud și Bandcamp. Include suport pentru convertizorul de linkuri de muzică instantanee pentru linkurile Shazam partajate!
+• 12 platforme de streaming, podcasturi și Shazam:
+Convertiți și redirecționați fără probleme link-urile de melodii și podcasturi prin Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, SoundCloud și Bandcamp. Include suport pentru convertizorul de linkuri de muzică instantanee pentru linkurile Shazam partajate!
+
+• Listen & Flip (Recunoaștere muzicală):
+Identifică muzica din jurul tău direct în SongFlip și salveaz-o în istoric pentru playerul tău preferat. Fără semnal? Salvează amprenta audio offline, iar SongFlip va identifica melodia automat când revii online.
 
 • Căutare directă de melodii:
-Căutați melodii și artiști în SongFlip și începeți redarea în playerul dvs. preferat cu o atingere Fast Flip.
+Căutați melodii și artiști în SongFlip și începeți redarea în playerul dvs.
 
 • Cod QR Partajare melodie:
 Creează și scanează coduri QR universale pentru melodii și albume prin orice serviciu de streaming.
 
 • Podcast Converter & Podcast Redirect Engine:
-Partajați emisiuni sau episoade podcast complete pe platforme. SongFlip rezolvă automat titlurile episoadelor pentru a converti și deschide link-uri podcast chiar în interiorul playerului tău de podcast preferat.
+Partajați emisiuni sau episoade podcast complete pe platforme.
 
 • Universal Playlist Converter & Playlist Transfer:
-Convertiți liste de redare și transferați liste de redare piesă cu piesă între Spotify, Apple Music, YouTube Music, TIDAL și Deezer — cu curățarea automată a duplicatelor, până la 200 de melodii și memorare rapidă în cache.
+Convertiți liste de redare și transferați liste de redare piesă cu piesă între Spotify, Apple Music, YouTube Music, TIDAL și Deezer.
 
 • Rafinați potrivirile și favoritele:
 Alegeți între versiunile live, remasterizate sau de studio și fixați melodiile preferate cu o singură atingere.
-
-• Redare instantanee a piesei:
-Începe redarea direct în playerul țintă, în loc de paginile de căutare goale.
 
 • Selector rapid de jucător:
 Alegeți playerul audio țintă din mers ori de câte ori deschideți un link pentru cântec sau podcast partajat.

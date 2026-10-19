@@ -1,3 +1,2 @@
-- Listen & Flip (Musikerkennung): Erkenne Musik in deiner Umgebung direkt in SongFlip. Erkannte Songs werden für deinen bevorzugten Musik-Player aufgelöst und im Verlauf gespeichert.
-- Offline-Club-Modus: Kein Empfang im Club? Speichere den Audio-Fingerabdruck offline und lasse den Song automatisch erkennen, sobald du wieder online bist.
-- Filter für erkannte Songs: Finde alle erkannten Titel über das neue „Erkannt“-Badge und den Filter im Verlauf wieder.
+- Zuverlässigere Musikerkennung: Verbesserte Stabilität der Audioaufnahme und optimierte Raumklang-Empfindlichkeit für eine schnellere und treffsichere Song-Erkennung bei Listen & Flip.
+- Allgemeine Stabilität: Interne Synchronisations- und Leistungsverbesserungen.

@@ -1,46 +1,46 @@
-Ein Freund schickt dir einen Song-Link oder Podcast-Link auf Spotify, du hörst aber über YouTube Music, Apple Podcasts oder Deezer?
+Ein Freund schickt dir einen Song-Link oder Podcast auf Spotify, du hörst aber über YouTube Music, Apple Podcasts oder Deezer?
 
-SongFlip ist dein smarter 0-Klick Musik-Link Redirect sowie Song- und Podcast-Link Converter für Android. Einmal eingerichtet, lassen sich empfangene Musik-Links und Podcast-Links automatisch konvertieren und direkt im Wunsch-Player öffnen – ohne Zwischenseiten, Wartezeit oder manuelle Suche.
+SongFlip ist dein smarter 0-Klick Musik-Link Redirect sowie Song- und Podcast-Link Converter für Android. Einmal eingerichtet, lassen sich empfangene Musik-Links und Podcasts automatisch konvertieren und direkt im Wunsch-Player öffnen – ohne Zwischenseiten, Wartezeit oder manuelle Suche.
 
 Egal ob Spotify zu YouTube Music, Apple Podcasts zu Spotify, Spotify zu Apple Music oder geteilte Shazam-Tracks: SongFlip erkennt jeden Song-Link und Episoden blitzschnell als dein universeller Music Converter und Link Redirect.
 
 🚀 DIE WICHTIGSTEN FUNKTIONEN:
 
-• 10 Streaming- & Podcast-Plattformen:
-Musik-Links und Podcasts automatisch konvertieren und weiterleiten zwischen Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud und Bandcamp. Erkennt auch geteilte Shazam-Links sofort!
+• 12 Streaming- & Podcast-Plattformen:
+Songs und Podcasts automatisch konvertieren und weiterleiten zwischen Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, SoundCloud und Bandcamp. Erkennt auch geteilte Shazam-Tracks sofort!
 
-• Direkte Titelsuche (In-App Search):
-Suche Songs & Interpreten direkt in SongFlip und lasse sie per Fast Flip sofort im Wunsch-Player öffnen – auch ganz ohne bestehenden Song-Link.
+• Listen & Flip – Musikerkennung (auch offline):
+Erkenne Songs in Bars, Clubs oder im Radio per Mikrofon, speichere sie im Verlauf und öffne sie direkt im Wunsch-Player. Dank Offline-Modus werden Audio-Fingerabdrücke auch ohne Empfang gesichert und automatisch aufgelöst, sobald du wieder online bist.
+
+• Direkte Titelsuche & Sofort-Wiedergabe:
+Suche Songs & Interpreten direkt in SongFlip und starte die Wiedergabe per Fast Flip sofort im Ziel-Player – ganz ohne bestehende Web-URL oder leere Suchseiten.
 
 • Musik per QR-Code teilen & scannen:
 Generiere und scanne universelle Musik-QR-Codes. Teile Songs & Alben vor Ort – egal welcher Streamingdienst genutzt wird.
 
-• Podcast Converter & Podcast-Weiterleitung:
-Teile Podcast-Shows und Episoden plattformübergreifend. SongFlip löst Episodentitel für die Podcast-Umleitung automatisch auf und startet sie direkt im bevorzugten Podcast-Player.
-
 • Universal Playlist Converter & Playlist-Transfer:
 Playlists konvertieren und Playlists übertragen zwischen Spotify, Apple Music, YouTube Music, TIDAL und Deezer – inklusive Duplikat-Bereinigung, bis zu 200 Tracks und schnellem Cache.
 
-• Treffer verfeinern & 1-Tap Favoriten:
-Wähle gezielt zwischen Live-, Remaster- oder Studio-Versionen. Pinne Lieblings-Songs im Verlauf mit 1-Tap an und nutze das praktische Schnellmenü.
+• Podcast Converter & Podcast-Weiterleitung:
+Teile Podcast-Shows und Episoden plattformübergreifend. SongFlip löst Episodentitel für die Podcast-Umleitung automatisch auf und startet sie direkt im bevorzugten Podcast-Player.
 
-• Sofortige Wiedergabe (Instant Playback):
-Titel und Episoden starten direkt im Wunsch-Player, statt nur eine leere Suchseite zu öffnen.
+• Treffer verfeinern & 1-Tap Favoriten:
+Wähle gezielt zwischen Live-, Remaster- oder Studio-Versionen. Pinne Lieblings-Songs im Verlauf mit 1-Tap an und filtere erkannte Listen & Flip-Tracks.
 
 • Schnellauswahl (Ask Every Time):
-Nutzt du mehrere Audio-Apps? Aktiviere die Schnellauswahl, um beim Öffnen eines Song- oder Podcast-Links flexibel den Ziel-Player zu wählen.
+Nutzt du mehrere Audio-Apps? Aktiviere die Schnellauswahl, um beim Öffnen von Songs oder Podcasts flexibel den Ziel-Player zu wählen.
 
-• Smarter Link-Redirect-Assistent (Android 12+):
-Prüft deine Audio-Apps und hilft dir mit einem Fingertipp, App-Links konfliktfrei für den automatischen Musik-Link Redirect einzurichten.
+• Smarter Redirect-Assistent (Android 12+):
+Prüft deine Audio-Apps und hilft dir mit einem Fingertipp, Standard-Apps konfliktfrei für den automatischen Musik-Link Redirect einzurichten.
 
 • Clipboard Smart-Banner & Share-Menü:
-Spotify-Link kopiert? Direkt über das Smart-Banner konvertieren und öffnen oder Links aus WhatsApp, Telegram, Instagram oder Reddit mit SongFlip teilen.
+Spotify-URL kopiert? Direkt über das Smart-Banner konvertieren und öffnen oder URLs aus WhatsApp, Telegram, Instagram oder Reddit mit SongFlip teilen.
 
 • Universelle Web-Links & Webplayer (Smart Links):
 Erstelle neutrale Smart-Links (songflip.link) mit Webplayer, die Freunde auf jedem Gerät und Browser direkt anhören können.
 
 • Schnelleinstellungen & App-Shortcuts:
-Pausiere den Link Redirect flexibel für 15 Minuten, 1 Stunde oder bis morgen früh über die Quick-Settings-Kachel oder per Long-Press.
+Pausiere die automatische Umleitung flexibel für 15 Minuten, 1 Stunde oder bis morgen früh über die Quick-Settings-Kachel oder per Long-Press.
 
 • Material You Design & Themed Icon:
 An dein Android-Farbschema angepasst (Dynamic Color, Light- & AMOLED-Dark-Mode) inklusive Monochrome-Homescreen-Icon.
@@ -54,4 +54,4 @@ Löse Aktionscodes direkt in den Einstellungen ein, um PRO-Funktionen und erweit
 • Absolut werbefrei – für immer
 • Kein Tracking, keine Analyse deines Hörverhaltens
 
-Kompatibel mit universellen Musik-Link-Protokollen wie Songlink / Odesli. Hol dir SongFlip – deinen automatischen Musik-Link Redirect und Music Converter – und genieße Songs & Podcasts frei über alle Plattform-Grenzen hinweg!
+Kompatibel mit universellen Streaming-Protokollen wie Songlink / Odesli. Hol dir SongFlip – deinen automatischen Musik-Link Redirect und Playlist-Converter – und genieße Songs & Podcasts frei über alle Plattform-Grenzen hinweg!

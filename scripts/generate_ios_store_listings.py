@@ -12,12 +12,12 @@ IOS_LISTINGS = {
         'name': 'SongFlip: Music Link Redirect',
         'subtitle': 'Podcast & Playlist Converter',
         'promotional_text': 'Friends send Spotify or Apple Podcasts links, but you use YouTube Music or Pocket Casts? SongFlip instantly converts and opens shared audio links in your favorite player.',
-        'keywords': 'spotify,apple,youtube,transfer,deezer,songlink,odesli,tidal,soundcloud,shazam,bandcamp,open,song',
+        'keywords': 'spotify,apple,youtube,transfer,deezer,beatport,qobuz,tidal,soundcloud,shazam,bandcamp,open,song',
         'description': """Friends send you a song link or podcast link from Spotify, Tidal, or Apple Podcasts – but you listen on Apple Music, YouTube Music, or Pocket Casts?
 
-SongFlip is your universal music link redirect and song link converter for iOS. Whether via the iOS Share Sheet, direct song search, universal QR codes, Shortcuts, or the Action Button: SongFlip instantly converts shared music links and podcast links to open them directly in your favorite player – with zero manual searching, no copying, and no friction.
+SongFlip is your universal music link redirect and song link converter for iOS. Whether via the iOS Share Sheet, Listen & Flip audio recognition, direct song search, universal QR codes, Shortcuts, or the Action Button: SongFlip instantly converts shared music links and podcast links to open them directly in your favorite player – with zero manual searching, no copying, and no friction.
 
-Supported Audio & Podcast Services (Any-to-Any Link Redirect):
+Supported Audio & Podcast Services (12 Platforms – Any-to-Any Link Redirect):
 - Apple Music & Apple Podcasts
 - YouTube Music & YouTube
 - Spotify
@@ -25,11 +25,13 @@ Supported Audio & Podcast Services (Any-to-Any Link Redirect):
 - TIDAL
 - Deezer
 - Amazon Music
+- Qobuz & Beatport
 - SoundCloud
 - Bandcamp & Shazam
 
 Key Features:
 - Seamless iOS Integration: Convert music links and open Spotify links from WhatsApp, Telegram, iMessage, Instagram, or Safari directly via the native Share Sheet.
+- Listen & Flip (Audio Recognition & Offline Mode): Identify songs playing around you in clubs, bars, or on the radio, save them to your history, and open them directly in your favorite player. Captures audio fingerprints even offline without internet reception and resolves tracks automatically once you're back online.
 - Direct Song Search: Search for tracks and artists directly inside SongFlip and launch playback instantly in your favorite player with 1-tap Fast Flip – no existing song link required.
 - QR Code Music Sharing: Generate and scan universal QR codes for songs and albums – perfect for sharing music links in person across different streaming services.
 - Universal Playlist Converter & Playlist Transfer: Convert playlists, transfer playlists, and move full albums across Spotify, Apple Music, YouTube Music, TIDAL, and Deezer – featuring duplicate cleaning and up to 200 tracks.
@@ -40,7 +42,7 @@ Key Features:
 - Shortcuts & Action Button Support: Integrate SongFlip into iOS Shortcuts or trigger instant music link redirect with the Action Button.
 - 100% Privacy & Zero Tracking: No account, no login required. SongFlip collects no personal data, no ad tracking IDs, and no listening habits.
 
-Compatible with universal music link protocols including Songlink / Odesli. Built for music and podcast lovers who want a fast music converter and link redirect to enjoy songs and podcasts seamlessly across platforms.
+Compatible with universal music link protocols including Songlink / Odesli. Built for music and podcast lovers who want a fast song converter and link redirect to enjoy songs and podcasts seamlessly across platforms.
 
 Terms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 Privacy Policy: https://songflip.link/privacy""",
@@ -52,12 +54,12 @@ Privacy Policy: https://songflip.link/privacy""",
         'name': 'SongFlip: Musik Link Umleitung',
         'subtitle': 'Podcast & Playlist Converter',
         'promotional_text': 'Freunde schicken Spotify- oder Apple Podcasts-Links, aber du nutzt YouTube Music oder Pocket Casts? SongFlip leitet Audio-Links blitzschnell in deinen Wunsch-Player um.',
-        'keywords': 'spotify,apple,youtube,transfer,deezer,songlink,odesli,tidal,soundcloud,shazam,redirect,öffnen,song',
+        'keywords': 'spotify,apple,youtube,transfer,deezer,beatport,qobuz,tidal,soundcloud,shazam,redirect,öffnen,song',
         'description': """Freunde schicken dir einen Song-Link oder Podcast-Link von Spotify, Deezer oder Apple Podcasts – aber du nutzt Apple Music, YouTube Music oder Pocket Casts?
 
-SongFlip ist deine smarte Musik-Link-Umleitung (Music Link Redirect) sowie dein universeller Song- und Podcast-Link Converter für iOS. Ob über das native Teilen-Menü (Share Sheet), die direkte Titelsuche, universelle QR-Codes, Kurzbefehle oder den Action Button: SongFlip lässt dich geteilte Musik-Links und Podcast-Links blitzschnell konvertieren und direkt im Wunsch-Player öffnen – ganz ohne manuelles Suchen oder Kopieren.
+SongFlip ist deine smarte Musik-Link-Umleitung (Music Link Redirect) sowie dein universeller Song- und Podcast-Link Converter für iOS. Ob über das native Teilen-Menü (Share Sheet), die Musikerkennung Listen & Flip, die direkte Titelsuche, universelle QR-Codes, Kurzbefehle oder den Action Button: SongFlip lässt dich geteilte Musik-Links und Podcast-Links blitzschnell konvertieren und direkt im Wunsch-Player öffnen – ganz ohne manuelles Suchen oder Kopieren.
 
-Unterstützte Musik- & Podcastdienste (Jeder-zu-Jeder Link Redirect):
+Unterstützte Musik- & Podcastdienste (12 Plattformen – Jeder-zu-Jeder Link Redirect):
 - Apple Music & Apple Podcasts
 - YouTube Music & YouTube
 - Spotify
@@ -65,11 +67,13 @@ Unterstützte Musik- & Podcastdienste (Jeder-zu-Jeder Link Redirect):
 - TIDAL
 - Deezer
 - Amazon Music
+- Qobuz & Beatport
 - SoundCloud
 - Bandcamp & Shazam
 
 Hauptfunktionen:
 - Nahtlose iOS-Integration: Musik- und Podcast-Links sowie Spotify-Links aus WhatsApp, Telegram, iMessage, Instagram oder Safari direkt über das Teilen-Menü (Share Sheet) konvertieren und öffnen.
+- Listen & Flip (Musikerkennung & Offline-Modus): Erkenne laufende Songs in Bars, Clubs oder im Radio per Mikrofon, speichere sie im Verlauf und öffne sie direkt in deinem Lieblings-Player. Auch ohne Internetempfang werden Audio-Fingerabdrücke lokal gesichert und automatisch aufgelöst, sobald du wieder online bist.
 - Direkte Titelsuche: Suche Songs und Künstler direkt in SongFlip und starte sie mit einem Fingertipp (Fast Flip) sofort in deinem Lieblings-Player – auch ohne bestehenden Song-Link.
 - Musik per QR-Code teilen: Erstelle und scanne universelle QR-Codes für Songs und Alben – ideal zum Teilen von Musik-Links vor Ort über alle Streamingdienste hinweg.
 - Universal Playlist Converter & Playlist-Transfer: Playlists konvertieren, Playlists übertragen und ganze Alben zwischen Spotify, Apple Music, YouTube Music, TIDAL und Deezer umziehen – inklusive Duplikat-Bereinigung und bis zu 200 Titeln.

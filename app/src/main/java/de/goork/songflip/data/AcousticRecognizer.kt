@@ -108,7 +108,10 @@ object AcousticRecognizer {
                 .get()
                 .build()
             httpClient.newCall(req).execute().use { resp ->
-                if (!resp.isSuccessful) return cached.orEmpty()
+                if (!resp.isSuccessful) {
+                    android.util.Log.w("AcousticRecognizer", "Token endpoint HTTP ${resp.code}")
+                    return cached.orEmpty()
+                }
                 val body = resp.body?.string().orEmpty()
                 val json = JSONObject(body)
                 val token = json.optString("token", "")
@@ -127,6 +130,15 @@ object AcousticRecognizer {
         }
     }
 
+    private fun invalidateCachedToken(context: Context) {
+        context.applicationContext
+            .getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+            .edit()
+            .remove(KEY_TOKEN)
+            .remove(KEY_EXPIRES_AT)
+            .apply()
+    }
+
     @SuppressLint("MissingPermission")
     fun startListening(
         context: Context,
@@ -141,23 +153,44 @@ object AcousticRecognizer {
             return
         }
 
-        activeJob = scope.launch {
+        activeJob = scope.launch(Dispatchers.IO) {
+            var noiseSuppressor: android.media.audiofx.NoiseSuppressor? = null
+            var echoCanceler: android.media.audiofx.AcousticEchoCanceler? = null
+            var streamingCollectJob: Job? = null
             try {
+                ShazamKit.allowLogs = de.goork.songflip.BuildConfig.DEBUG
                 _state.value = AcousticRecognitionState.Listening(amplitude = 0.1f, elapsedSeconds = 0)
 
-                val sampleRateHz = 48000
-                val shazamSampleRate = AudioSampleRateInHz.SAMPLE_RATE_48000
+                val isOnlineAtStart = NetworkUtils.isNetworkAvailable(appCtx)
+                // Pre-fetch developer token BEFORE starting AudioRecord so network latency never stalls audio capture
+                val initialJwt = if (isOnlineAtStart) getOrFetchDeveloperToken(appCtx) else ""
+                if (isOnlineAtStart && initialJwt.isBlank() && !isPro) {
+                    android.util.Log.e("AcousticRecognizer", "Developer token is blank; cannot start online recognition")
+                    _state.value = AcousticRecognitionState.Error("listen_error_generic")
+                    return@launch
+                }
+
                 val channelConfig = AudioFormat.CHANNEL_IN_MONO
                 val audioFormat = AudioFormat.ENCODING_PCM_16BIT
-                val minBufSize = AudioRecord.getMinBufferSize(sampleRateHz, channelConfig, audioFormat)
-                    .coerceAtLeast(sampleRateHz * 2)
+
+                // Prefer 44.1 kHz (Android CDD universal baseline & ShazamKit recommended rate), fallback to 48 kHz
+                var sampleRateHz = 44100
+                var shazamSampleRate = AudioSampleRateInHz.SAMPLE_RATE_44100
+                var minBufSize = AudioRecord.getMinBufferSize(sampleRateHz, channelConfig, audioFormat)
+                if (minBufSize <= 0) {
+                    sampleRateHz = 48000
+                    shazamSampleRate = AudioSampleRateInHz.SAMPLE_RATE_48000
+                    minBufSize = AudioRecord.getMinBufferSize(sampleRateHz, channelConfig, audioFormat)
+                }
+                // Allocate at least 4 seconds of ring buffer so AudioFlinger never overflows
+                val recordBufSize = minBufSize.coerceAtLeast(sampleRateHz * 2 * 4)
 
                 val audioRecord = AudioRecord(
                     MediaRecorder.AudioSource.MIC,
                     sampleRateHz,
                     channelConfig,
                     audioFormat,
-                    minBufSize
+                    recordBufSize
                 )
 
                 if (audioRecord.state != AudioRecord.STATE_INITIALIZED) {
@@ -165,6 +198,20 @@ object AcousticRecognizer {
                     _state.value = AcousticRecognitionState.Error("listen_error_mic")
                     return@launch
                 }
+
+                // Disable OEM speech NoiseSuppressor / EchoCanceler so ambient room music is not filtered out
+                try {
+                    if (android.media.audiofx.NoiseSuppressor.isAvailable()) {
+                        noiseSuppressor = android.media.audiofx.NoiseSuppressor.create(audioRecord.audioSessionId)?.apply {
+                            enabled = false
+                        }
+                    }
+                    if (android.media.audiofx.AcousticEchoCanceler.isAvailable()) {
+                        echoCanceler = android.media.audiofx.AcousticEchoCanceler.create(audioRecord.audioSessionId)?.apply {
+                            enabled = false
+                        }
+                    }
+                } catch (_: Throwable) {}
 
                 activeAudioRecord = audioRecord
 
@@ -177,32 +224,81 @@ object AcousticRecognizer {
                     return@launch
                 }
 
-                val isOnline = NetworkUtils.isNetworkAvailable(appCtx)
+                val readBufferSize = 4096
+                val readBuffer = ByteArray(readBufferSize)
 
-                val session = if (isOnline) {
-                    val tokenProvider = DeveloperTokenProvider {
-                        val jwt = getOrFetchDeveloperToken(appCtx)
-                        DeveloperToken(jwt)
-                    }
-                    val catalog = ShazamKit.createShazamCatalog(tokenProvider, Locale.getDefault())
+                val tokenProvider = DeveloperTokenProvider {
+                    val jwt = getOrFetchDeveloperToken(appCtx)
+                    DeveloperToken(jwt)
+                }
+                val catalog = ShazamKit.createShazamCatalog(tokenProvider, Locale.getDefault())
+
+                val matchedItemRef = java.util.concurrent.atomic.AtomicReference<com.shazam.shazamkit.MatchedMediaItem?>(null)
+                val sigLock = Any()
+
+                val onlineSession = if (isOnlineAtStart) {
                     (ShazamKit.createSession(catalog) as? ShazamKitResult.Success)?.data
                 } else {
                     null
                 }
 
+                val streamingSession = if (isOnlineAtStart) {
+                    (ShazamKit.createStreamingSession(catalog, shazamSampleRate, readBufferSize) as? ShazamKitResult.Success)?.data
+                } else {
+                    null
+                }
+
+                if (streamingSession != null) {
+                    streamingCollectJob = launch(Dispatchers.IO) {
+                        streamingSession.recognitionResults().collect { matchRes ->
+                            when (matchRes) {
+                                is MatchResult.Match -> {
+                                    val first = matchRes.matchedMediaItems.firstOrNull()
+                                    if (first != null) {
+                                        matchedItemRef.compareAndSet(null, first)
+                                    }
+                                }
+                                is MatchResult.NoMatch -> {
+                                    android.util.Log.d("AcousticRecognizer", "Streaming progressive attempt: NoMatch")
+                                }
+                                is MatchResult.Error -> {
+                                    val err = matchRes.exception.matchError
+                                    android.util.Log.w(
+                                        "AcousticRecognizer",
+                                        "Streaming match error: $err (${matchRes.exception.message})",
+                                        matchRes.exception.cause
+                                    )
+                                    if (err == com.shazam.shazamkit.MatchError.MATCH_ATTEMPT_FAILED) {
+                                        invalidateCachedToken(appCtx)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
                 audioRecord.startRecording()
 
-                val readBuffer = ByteArray(4096)
                 val startTimeMs = System.currentTimeMillis()
-                var lastMatchAttemptMs = startTimeMs
-                var matchedItem: com.shazam.shazamkit.MatchedMediaItem? = null
+                var totalBytesRead = 0L
+                val bytesPerSecond = sampleRateHz * 2L
+                var nextSnapshotTargetMs = 3_200L
+                var activeSnapshotJob: Job? = null
 
-                // Record up to 11 seconds; attempt matches at ~3.5s, ~6.5s, ~10.0s
-                while (isActive && (System.currentTimeMillis() - startTimeMs) < 10_500L) {
+                // Record continuously for up to 12.0 seconds without EVER blocking AudioRecord.read()
+                while (isActive && matchedItemRef.get() == null && (System.currentTimeMillis() - startTimeMs) < 12_000L) {
                     val bytesRead = audioRecord.read(readBuffer, 0, readBuffer.size)
                     if (bytesRead > 0) {
-                        val elapsedMs = System.currentTimeMillis() - startTimeMs
-                        sigGenerator.append(readBuffer, bytesRead, elapsedMs)
+                        val nowMs = System.currentTimeMillis()
+                        val elapsedMs = nowMs - startTimeMs
+                        totalBytesRead += bytesRead
+                        val recordedAudioDurationMs = (totalBytesRead * 1000L) / bytesPerSecond
+
+                        // Pass actual epoch timestamp in ms (required by ShazamKit TimeProviderBasedOffsetTimestamp)
+                        synchronized(sigLock) {
+                            sigGenerator.append(readBuffer, bytesRead, nowMs)
+                        }
+                        streamingSession?.matchStream(readBuffer, bytesRead, nowMs)
 
                         // Compute RMS amplitude for smooth UI waveform pulse
                         val rms = computeRmsAmplitude(readBuffer, bytesRead)
@@ -211,38 +307,65 @@ object AcousticRecognizer {
                             elapsedSeconds = (elapsedMs / 1000L).toInt()
                         )
 
-                        // If offline & Pro Club Mode: once we have 6 seconds of audio, save signature and finish
-                        if (!NetworkUtils.isNetworkAvailable(appCtx) && isPro && elapsedMs >= 6_000L) {
-                            val signature = sigGenerator.generateSignature()
-                            stopAudioRecordInternal(audioRecord)
+                        // If offline & Pro Club Mode: once we have 6 seconds of actual audio, save signature and finish
+                        if (!NetworkUtils.isNetworkAvailable(appCtx) && isPro && recordedAudioDurationMs >= 6_000L) {
+                            val signature = synchronized(sigLock) { sigGenerator.generateSignature() }
+                            streamingCollectJob?.cancel()
+                            activeSnapshotJob?.cancel()
+                            stopAudioRecordInternal(audioRecord, noiseSuppressor, echoCanceler)
                             saveOfflineSignature(signature)
                             return@launch
                         }
 
-                        // Online periodic match check every ~3.2 seconds after initial 3.2s buffer
-                        if (session != null && elapsedMs >= 3_200L && (System.currentTimeMillis() - lastMatchAttemptMs) >= 3_200L) {
-                            lastMatchAttemptMs = System.currentTimeMillis()
-                            val currentSig = sigGenerator.generateSignature()
-                            when (val matchRes = session.match(currentSig)) {
-                                is MatchResult.Match -> {
-                                    matchedItem = matchRes.matchedMediaItems.firstOrNull()
-                                    if (matchedItem != null) break
-                                }
-                                else -> {
-                                    // Continue listening for a longer signature
+                        // Trigger non-blocking background snapshot match at 3.2s, 6.2s, 9.2s of actual recorded audio
+                        if (onlineSession != null &&
+                            recordedAudioDurationMs >= nextSnapshotTargetMs &&
+                            (activeSnapshotJob == null || activeSnapshotJob?.isActive == false)
+                        ) {
+                            nextSnapshotTargetMs = recordedAudioDurationMs + 3_000L
+                            val snapshotSig = synchronized(sigLock) { sigGenerator.generateSignature() }
+                            activeSnapshotJob = launch(Dispatchers.IO) {
+                                when (val snapRes = onlineSession.match(snapshotSig)) {
+                                    is MatchResult.Match -> {
+                                        val first = snapRes.matchedMediaItems.firstOrNull()
+                                        if (first != null) {
+                                            matchedItemRef.compareAndSet(null, first)
+                                        }
+                                    }
+                                    is MatchResult.Error -> {
+                                        android.util.Log.w(
+                                            "AcousticRecognizer",
+                                            "Snapshot match error: ${snapRes.exception.matchError} (${snapRes.exception.message})",
+                                            snapRes.exception.cause
+                                        )
+                                    }
+                                    is MatchResult.NoMatch -> {
+                                        android.util.Log.d("AcousticRecognizer", "Snapshot attempt (${snapshotSig.durationInMs}ms): NoMatch")
+                                    }
                                 }
                             }
                         }
                     } else {
-                        delay(40)
+                        delay(20)
                     }
                 }
 
-                stopAudioRecordInternal(audioRecord)
+                stopAudioRecordInternal(audioRecord, noiseSuppressor, echoCanceler)
 
-                // Final match attempt with full recorded signature
-                if (matchedItem == null) {
-                    val finalSig = sigGenerator.generateSignature()
+                // Wait briefly if a background match request is still in flight
+                if (matchedItemRef.get() == null && (streamingCollectJob?.isActive == true || activeSnapshotJob?.isActive == true)) {
+                    var waitMs = 0L
+                    while (matchedItemRef.get() == null && waitMs < 1_200L) {
+                        delay(100)
+                        waitMs += 100L
+                    }
+                }
+                streamingCollectJob?.cancel()
+                activeSnapshotJob?.cancel()
+
+                // Final match attempt with full continuous 12s signature if no progressive match succeeded yet
+                if (matchedItemRef.get() == null) {
+                    val finalSig = synchronized(sigLock) { sigGenerator.generateSignature() }
                     if (!NetworkUtils.isNetworkAvailable(appCtx)) {
                         if (isPro) {
                             saveOfflineSignature(finalSig)
@@ -252,15 +375,31 @@ object AcousticRecognizer {
                         return@launch
                     }
 
-                    if (session != null) {
-                        val finalMatch = session.match(finalSig)
-                        if (finalMatch is MatchResult.Match) {
-                            matchedItem = finalMatch.matchedMediaItems.firstOrNull()
+                    val fallbackSession = onlineSession
+                        ?: (ShazamKit.createSession(catalog) as? ShazamKitResult.Success)?.data
+                    if (fallbackSession != null) {
+                        when (val finalMatch = fallbackSession.match(finalSig)) {
+                            is MatchResult.Match -> {
+                                val first = finalMatch.matchedMediaItems.firstOrNull()
+                                if (first != null) {
+                                    matchedItemRef.compareAndSet(null, first)
+                                }
+                            }
+                            is MatchResult.Error -> {
+                                android.util.Log.w(
+                                    "AcousticRecognizer",
+                                    "Final match error: ${finalMatch.exception.matchError} (${finalMatch.exception.message})",
+                                    finalMatch.exception.cause
+                                )
+                            }
+                            is MatchResult.NoMatch -> {
+                                android.util.Log.d("AcousticRecognizer", "Final fallback attempt (${finalSig.durationInMs}ms): NoMatch")
+                            }
                         }
                     }
                 }
 
-                val winner = matchedItem
+                val winner = matchedItemRef.get()
                 if (winner == null) {
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackAcousticScanCompleted(
                         target = targetPlatformKey,
@@ -304,15 +443,31 @@ object AcousticRecognizer {
 
                 _state.value = AcousticRecognitionState.Matched(flipResult)
             } catch (ce: CancellationException) {
+                streamingCollectJob?.cancel()
+                try { noiseSuppressor?.release() } catch (_: Throwable) {}
+                try { echoCanceler?.release() } catch (_: Throwable) {}
                 throw ce
             } catch (t: Throwable) {
+                streamingCollectJob?.cancel()
+                try { noiseSuppressor?.release() } catch (_: Throwable) {}
+                try { echoCanceler?.release() } catch (_: Throwable) {}
                 android.util.Log.e("AcousticRecognizer", "Recognition failed: ${t.message}", t)
                 _state.value = AcousticRecognitionState.Error("listen_error_generic")
             }
         }
     }
 
-    private fun stopAudioRecordInternal(audioRecord: AudioRecord) {
+    private fun stopAudioRecordInternal(
+        audioRecord: AudioRecord,
+        noiseSuppressor: android.media.audiofx.NoiseSuppressor? = null,
+        echoCanceler: android.media.audiofx.AcousticEchoCanceler? = null
+    ) {
+        try {
+            noiseSuppressor?.release()
+        } catch (_: Throwable) {}
+        try {
+            echoCanceler?.release()
+        } catch (_: Throwable) {}
         try {
             audioRecord.stop()
         } catch (t: Throwable) {

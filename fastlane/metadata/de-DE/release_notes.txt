@@ -1,3 +1,2 @@
-- Manuelle Match-Korrektur im Verlauf: Greifen Sie schnell auf die manuelle Song-Match-Auswahl direkt aus dem Verlaufsmenü zu, wenn ein konvertierter Track eine andere Version benötigt.
-- Schnelle Kopfzeilen-Navigation: Öffne deinen Kontostatus und die Funktionsübersicht direkt, indem du auf das Kopfzeilen-Badge auf dem Startbildschirm tippst.
-- Lokalisierung und Stabilität: Es wurde ein Absturz beim Öffnen verschachtelter Tabellen in bestimmten Sprachen behoben und die Formatierungszuverlässigkeit für alle unterstützten Übersetzungen verbessert.
+- Zuverlässigere Musikerkennung: Verbesserte Audioaufnahmestabilität und Umgebungsraumempfindlichkeit für eine schnellere und genauere Liederkennung in Listen & Flip.
+- Allgemeine Stabilität: Verfeinerungen der internen Synchronisation und Leistungsverbesserungen.

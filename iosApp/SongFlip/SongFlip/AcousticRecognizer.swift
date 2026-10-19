@@ -40,8 +40,18 @@ enum AcousticRecognitionState: Equatable {
 }
 
 private nonisolated final class ShazamSessionBox: NSObject, SHSessionDelegate, @unchecked Sendable {
+    private let lock = NSLock()
+    private var hasResumed = false
     var onMatch: (@Sendable (SHMatchedMediaItem) -> Void)?
     var onNoMatch: (@Sendable (Error?) -> Void)?
+
+    nonisolated func tryMarkResumed() -> Bool {
+        lock.lock()
+        defer { lock.unlock() }
+        if hasResumed { return false }
+        hasResumed = true
+        return true
+    }
 
     nonisolated func session(_ session: SHSession, didFind match: SHMatch) {
         if let first = match.mediaItems.first {
@@ -73,7 +83,7 @@ final class AcousticRecognizer: ObservableObject {
     private init() {
         pathMonitor.pathUpdateHandler = { [weak self] path in
             let online = (path.status == .satisfied)
-            Task { @MainActor in
+            Task { @MainActor [weak self] in
                 self?.isOnline = online
             }
         }
@@ -81,12 +91,10 @@ final class AcousticRecognizer: ObservableObject {
     }
 
     func getRemainingFreeScans(isPro: Bool) -> Int {
-        let storage = IosAppGroupSqlDelightStorage.shared
         let nowMs = Int64(Date().timeIntervalSince1970 * 1000)
-        return Int(AcousticQuotaManager.shared.getRemainingFreeScans(
-            storage: storage,
+        return Int(AcousticQuotaManager.companion.shared.getRemainingFreeScans(
             isPro: isPro,
-            nowEpochMs: nowMs
+            timestampMs: nowMs
         ))
     }
 
@@ -121,9 +129,8 @@ final class AcousticRecognizer: ObservableObject {
     func startListening(targetPlatformKey: String, isPro: Bool) {
         stopListening()
 
-        let storage = IosAppGroupSqlDelightStorage.shared
         let nowMs = Int64(Date().timeIntervalSince1970 * 1000)
-        if !AcousticQuotaManager.shared.canStartScan(storage: storage, isPro: isPro, nowEpochMs: nowMs) {
+        if !AcousticQuotaManager.companion.shared.canStartScan(isPro: isPro, timestampMs: nowMs) {
             state = .quotaReached
             return
         }
@@ -162,7 +169,7 @@ final class AcousticRecognizer: ObservableObject {
     private func runRecognitionLoop(targetPlatformKey: String, isPro: Bool) async {
         do {
             let audioSession = AVAudioSession.sharedInstance()
-            try audioSession.setCategory(.playAndRecord, mode: .measurement, options: [.defaultToSpeaker, .allowBluetooth, .mixWithOthers])
+            try audioSession.setCategory(.playAndRecord, mode: .measurement, options: [.defaultToSpeaker, .allowBluetoothHFP, .mixWithOthers])
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
 
             let engine = AVAudioEngine()
@@ -207,8 +214,8 @@ final class AcousticRecognizer: ObservableObject {
             engine.prepare()
             try engine.start()
 
-            // Poll up to 10.5 seconds for either a live match or offline 6-second signature capture
-            while !Task.isCancelled && Date().timeIntervalSince(startTime) < 10.5 {
+            // Poll up to 12.0 seconds for either a live match or offline 6-second signature capture
+            while !Task.isCancelled && Date().timeIntervalSince(startTime) < 12.0 {
                 if matchedItem != nil {
                     break
                 }
@@ -239,6 +246,10 @@ final class AcousticRecognizer: ObservableObject {
                 return
             }
 
+            if matchedItem == nil && self.isOnline && finalSignature.duration >= 3.0 {
+                matchedItem = await matchSingleSignature(finalSignature)
+            }
+
             guard let winner = matchedItem else {
                 AptabaseClient.shared.trackAcousticScanCompleted(
                     target: targetPlatformKey,
@@ -257,7 +268,7 @@ final class AcousticRecognizer: ObservableObject {
             self.state = .resolving(title: title, artist: artist, artworkUrl: artworkUrl)
 
             let targetPlatform = MusicPlatform.companion.fromKey(key: targetPlatformKey)
-            let flipResult = try await AcousticQuotaManager.shared.resolveAndStoreAcousticMatch(
+            let flipResult = try await AcousticQuotaManager.companion.shared.resolveAndStoreAcousticMatch(
                 engine: SongLinkEngine.shared,
                 title: title,
                 artist: artist,
@@ -267,7 +278,7 @@ final class AcousticRecognizer: ObservableObject {
                 webUrl: winner.webURL?.absoluteString,
                 targetPlatform: targetPlatform,
                 isPro: isPro,
-                nowEpochMs: Int64(Date().timeIntervalSince1970 * 1000)
+                timestampMs: Int64(Date().timeIntervalSince1970 * 1000)
             )
 
             await HistoryModel.shared.syncFromKmpStore()
@@ -287,24 +298,24 @@ final class AcousticRecognizer: ObservableObject {
     }
 
     private func saveOfflineSignature(_ signature: SHSignature) {
-        let storage = IosAppGroupSqlDelightStorage.shared
+        let manager = AcousticQuotaManager.companion.shared
         let base64 = signature.dataRepresentation.base64EncodedString()
         let durationMs = Int64(signature.duration * 1000.0)
-        storage.enqueuePendingAcousticScan(
+        manager.enqueuePendingAcousticScan(
             id: UUID().uuidString,
             signatureBase64: base64,
             durationMs: durationMs,
-            nowMs: Int64(Date().timeIntervalSince1970 * 1000)
+            createdAt: Int64(Date().timeIntervalSince1970 * 1000)
         )
-        let pendingCount = Int(storage.countPendingAcousticScans())
+        let pendingCount = Int(manager.countPendingAcousticScans())
         AptabaseClient.shared.trackAcousticOfflineQueued()
         self.state = .offlineQueued(pendingCount: pendingCount)
     }
 
     func processPendingOfflineScansIfNeeded(targetPlatformKey: String, isPro: Bool) async -> Int {
         guard isOnline else { return 0 }
-        let storage = IosAppGroupSqlDelightStorage.shared
-        let pending = storage.getPendingAcousticScans()
+        let manager = AcousticQuotaManager.companion.shared
+        let pending = manager.getPendingAcousticScans()
         guard !pending.isEmpty else { return 0 }
 
         let targetPlatform = MusicPlatform.companion.fromKey(key: targetPlatformKey)
@@ -313,7 +324,7 @@ final class AcousticRecognizer: ObservableObject {
         for scan in pending {
             guard let sigData = Data(base64Encoded: scan.signatureBase64),
                   let signature = try? SHSignature(dataRepresentation: sigData) else {
-                storage.deletePendingAcousticScan(id: scan.id)
+                manager.deletePendingAcousticScan(id: scan.id)
                 continue
             }
 
@@ -321,7 +332,7 @@ final class AcousticRecognizer: ObservableObject {
             if let winner = matched {
                 let title = (winner.title?.isEmpty == false) ? winner.title! : "Unknown Track"
                 let artist = (winner.artist?.isEmpty == false) ? winner.artist! : (winner.subtitle ?? "")
-                _ = try? await AcousticQuotaManager.shared.resolveAndStoreAcousticMatch(
+                _ = try? await manager.resolveAndStoreAcousticMatch(
                     engine: SongLinkEngine.shared,
                     title: title,
                     artist: artist,
@@ -331,7 +342,7 @@ final class AcousticRecognizer: ObservableObject {
                     webUrl: winner.webURL?.absoluteString,
                     targetPlatform: targetPlatform,
                     isPro: isPro,
-                    nowEpochMs: Int64(Date().timeIntervalSince1970 * 1000)
+                    timestampMs: Int64(Date().timeIntervalSince1970 * 1000)
                 )
                 resolvedCount += 1
                 AptabaseClient.shared.trackAcousticScanCompleted(
@@ -341,7 +352,7 @@ final class AcousticRecognizer: ObservableObject {
                     isOfflineQueue: true
                 )
             }
-            storage.deletePendingAcousticScan(id: scan.id)
+            manager.deletePendingAcousticScan(id: scan.id)
         }
 
         if resolvedCount > 0 {
@@ -354,15 +365,12 @@ final class AcousticRecognizer: ObservableObject {
         await withCheckedContinuation { continuation in
             let session = SHSession()
             let box = ShazamSessionBox()
-            var resumed = false
             box.onMatch = { item in
-                guard !resumed else { return }
-                resumed = true
+                guard box.tryMarkResumed() else { return }
                 continuation.resume(returning: item)
             }
             box.onNoMatch = { _ in
-                guard !resumed else { return }
-                resumed = true
+                guard box.tryMarkResumed() else { return }
                 continuation.resume(returning: nil)
             }
             session.delegate = box
@@ -390,4 +398,9 @@ final class AcousticRecognizer: ObservableObject {
         let scaled = min(1.0, max(0.08, rms * 5.0))
         return scaled
     }
+}
+
+extension AcousticQuotaManager {
+    public nonisolated static let shared = AcousticQuotaManager.companion.shared
+    public nonisolated static let maxFreeScansPerMonth = Int(AcousticQuotaManager.companion.MAX_FREE_SCANS_PER_MONTH)
 }

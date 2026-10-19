@@ -6,8 +6,11 @@ SongFlip 是 Android 的無縫、零點擊音樂連結重定向和歌曲連結�
 
 🚀 主要功能：
 
-• 10 個串流媒體平台、播客和 Shazam：
-無縫轉換和重定向 Spotify、YouTube Music、Apple Music、Apple Podcasts、Pocket Casts、Deezer、TIDAL、Amazon Music、SoundCloud 和 Bandcamp 中的歌曲連結和播客。包括共享 Shazam 連結的即時音樂連結轉換器支援！
+• 12 個串流媒體平台、播客和 Shazam：
+無縫轉換和重定向 Spotify、YouTube Music、Apple Music、Apple Podcasts、Pocket Casts、Deezer、TIDAL、Amazon Music、Qobuz、Beatport、SoundCloud 和 Bandcamp 中的歌曲連結和播客。包括共享 Shazam 連結的即時音樂連結轉換器支援！
+
+• Listen & Flip（聽音識曲）：
+在 SongFlip 內直接識別周圍播放的音樂，自動配對至您的首選播放器並儲存至歷史記錄。 沒有網路？離線儲存音訊指紋，恢復連線後自動為您識別歌曲。
 
 • 直接歌曲搜尋（應用程式內搜尋）：
 直接在 SongFlip 中搜尋曲目和藝術家，並透過一鍵快速翻轉在您喜歡的串流媒體播放器中立即啟動播放，無需現有歌曲連結。
@@ -23,9 +26,6 @@ SongFlip 是 Android 的無縫、零點擊音樂連結重定向和歌曲連結�
 
 • 最佳化配對和一鍵收藏：
 在現場錄音、重製版或錄音室版本之間輕鬆進行選擇。只需輕按一下即可將您最喜歡的歌曲固定在歷史記錄中，並透過快速操作選單進行管理。
-
-• 即時播放 (Instant Playback)：
-直接在目標播放器中播放歌曲或單集，無需停留在搜尋結果頁。
 
 • 快速播放器選擇器（每次詢問）：
 使用多個音訊應用程式？啟用快速選擇器，在每次開啟連結時自由選擇目標播放器。

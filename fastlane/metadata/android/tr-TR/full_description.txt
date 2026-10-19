@@ -6,8 +6,11 @@ Spotify'dan YouTube Music'e, Apple Podcast'lerden Pocket Casts'a, Spotify'dan Ap
 
 🚀 ÖNE ÇIKAN ÖZELLİKLER:
 
-• 10 Yayın Platformu, Podcast ve Shazam:
-Şarkı bağlantılarını ve podcast'leri Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud ve Bandcamp'ta sorunsuz bir şekilde dönüştürün ve yönlendirin. Paylaşılan Shazam bağlantıları için anında müzik bağlantısı dönüştürücü desteği içerir!
+• 12 Yayın Platformu, Podcast ve Shazam:
+Şarkı bağlantılarını ve podcast'leri Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, SoundCloud ve Bandcamp'ta sorunsuz bir şekilde dönüştürün ve yönlendirin. Paylaşılan Shazam bağlantıları için anında müzik bağlantısı dönüştürücü desteği içerir!
+
+• Listen & Flip (Müzik Tanıma):
+Çevrenizde çalan müziği SongFlip içinde tanıyın. Şarkılar favori oynatıcınızla eşleştirilir ve geçmişe kaydedilir. İnternet yok mu? Ses izini çevrimdışı kaydedin, internete bağlandığınızda otomatik tanınsın.
 
 • Doğrudan Şarkı Arama (Uygulama İçi Arama):
 Şarkıları ve sanatçıları doğrudan SongFlip'in içinde arayın ve tek dokunuşla Hızlı Çevirme ile tercih ettiğiniz akış oynatıcısında anında oynatmayı başlatın; mevcut şarkı bağlantısına gerek yoktur.
@@ -16,16 +19,13 @@ Spotify'dan YouTube Music'e, Apple Podcast'lerden Pocket Casts'a, Spotify'dan Ap
 Herhangi bir yayın hizmetinde şarkılar ve albümler için evrensel QR kodları oluşturun ve tarayın.
 
 • Podcast Dönüştürücü ve Podcast Yönlendirme Motoru:
-Podcast şovlarının veya bölümlerinin tamamını platformlar arasında paylaşın. SongFlip, podcast bağlantılarını doğrudan favori podcast oynatıcınızın içinde dönüştürmek ve açmak için bölüm başlıklarını otomatik olarak çözer.
+Podcast şovlarının veya bölümlerinin tamamını platformlar arasında paylaşın.
 
 • Evrensel Çalma Listesi Dönüştürücü ve Çalma Listesi Aktarımı:
 Otomatik çift temizleme, 200'e kadar parça ve hızlı önbelleğe alma özellikleriyle çalma listelerini dönüştürün ve Spotify, Apple Music, YouTube Music, TIDAL ve Deezer arasında parça parça çalma listelerini aktarın.
 
 • Eşleşmeleri ve Favorileri Hassaslaştırın:
 Canlı, yeniden düzenlenmiş veya stüdyo versiyonları arasından seçim yapın ve favori şarkıları tek dokunuşla sabitleyin.
-
-• Anında Parça Oynatma:
-Boş arama sayfaları yerine doğrudan hedef oynatıcınızın içinde oynatmayı başlatır.
 
 • Hızlı Oyuncu Seçici:
 Paylaşılan bir şarkı bağlantısını veya podcast bağlantısını açtığınızda hedef ses oynatıcınızı anında seçin.

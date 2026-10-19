@@ -6,14 +6,17 @@ Baik mengalihkan Spotify ke YouTube Music, Apple Podcasts ke Pocket Casts, Spoti
 
 🚀 FITUR UTAMA:
 
-• 10 Platform Streaming, Podcast & Shazam:
-Konversikan dan alihkan tautan lagu dan podcast dengan lancar di Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud, dan Bandcamp. Termasuk dukungan konverter tautan musik instan untuk tautan Shazam yang dibagikan!
+• 12 Platform Streaming, Podcast & Shazam:
+Konversikan dan alihkan tautan lagu dan podcast dengan lancar di Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, SoundCloud, dan Bandcamp. Termasuk dukungan konverter tautan musik instan untuk tautan Shazam yang dibagikan!
+
+• Listen & Flip (Pengenalan Musik):
+Kenali musik di sekitar Anda langsung di SongFlip. Lagu dicocokkan ke pemutar pilihan Anda dan disimpan ke riwayat. Tanpa sinyal? Simpan sidik jari audio secara offline dan SongFlip akan mengenalinya otomatis saat kembali online.
 
 • Pencarian Lagu Langsung (Pencarian Dalam Aplikasi):
 Cari lagu dan artis langsung di dalam SongFlip dan luncurkan pemutaran secara instan di pemutar streaming pilihan Anda dengan Fast Flip 1-ketuk—tidak diperlukan tautan lagu yang sudah ada.
 
 • Berbagi & Memindai Lagu Kode QR:
-Hasilkan dan pindai kode QR universal untuk lagu dan album. Bagikan tautan musik dengan mudah kepada teman secara langsung melalui layanan streaming apa pun.
+Hasilkan dan pindai kode QR universal untuk lagu dan album.
 
 • Konverter Podcast & Mesin Pengalih Podcast:
 Bagikan acara atau episode podcast lengkap di seluruh platform. SongFlip menyelesaikan judul episode secara otomatis untuk mengonversi dan membuka tautan podcast langsung di dalam pemutar podcast favorit Anda.
@@ -22,10 +25,7 @@ Bagikan acara atau episode podcast lengkap di seluruh platform. SongFlip menyele
 Konversikan daftar putar dan transfer daftar putar lagu demi lagu antara Spotify, Apple Music, YouTube Music, TIDAL, dan Deezer—dengan pembersihan duplikat otomatis, hingga 200 lagu, dan cache cepat.
 
 • Saring Kecocokan & Favorit 1-Ketuk:
-Pilih dengan mudah antara rekaman live, remaster, atau versi studio. Sematkan lagu favorit Anda dalam riwayat dengan satu ketukan dan kelola lagu tersebut melalui menu tindakan cepat.
-
-• Pemutaran Instan (Instant Playback):
-Memulai lagu atau episode langsung di pemutar tujuan alih-alih menampilkan halaman pencarian kosong.
+Pilih dengan mudah antara rekaman live, remaster, atau versi studio.
 
 • Pemilih Pemutar Cepat (Tanya Setiap Saat):
 Menggunakan beberapa aplikasi audio? Aktifkan pemilih cepat untuk memilih pemutar tujuan secara instan setiap kali membuka tautan.
