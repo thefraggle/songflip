@@ -244,6 +244,7 @@ struct ProPaywallSheetView: View {
 
                     // Feature Highlights
                     VStack(alignment: .leading, spacing: 14) {
+                        featureRow(icon: "waveform", title: LocalizationManager.string(for: "pro_feature_listen_title", lang: lang), desc: LocalizationManager.string(for: "pro_feature_listen_desc", lang: lang))
                         featureRow(icon: "music.note.list", title: LocalizationManager.string(for: "pro_feature_playlists_title", lang: lang), desc: LocalizationManager.string(for: "pro_feature_playlists_desc", lang: lang))
                         featureRow(icon: "clock.arrow.circlepath", title: LocalizationManager.string(for: "pro_feature_history_title", lang: lang), desc: LocalizationManager.string(for: "pro_feature_history_desc", lang: lang))
                         featureRow(icon: "bolt.fill", title: LocalizationManager.string(for: "pro_feature_cache_title", lang: lang), desc: LocalizationManager.string(for: "pro_feature_cache_desc", lang: lang))

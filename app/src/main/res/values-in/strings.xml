@@ -409,4 +409,6 @@
     <string name="listen_quota_reached_title">Kuota Gratis Bulanan Habis</string>
     <string name="listen_quota_reached_desc">Anda telah menggunakan semua %1$d pengenalan lagu gratis bulan ini. Buka SongFlip PRO untuk akses tanpa batas.</string>
     <string name="listen_unlock_pro">Buka SongFlip PRO</string>
+    <string name="pro_feature_listen_title">Listen &amp; Flip Tanpa Batas</string>
+    <string name="pro_feature_listen_desc">Kenali lagu sepuasnya + Mode Klub Offline</string>
 </resources>

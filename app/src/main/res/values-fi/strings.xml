@@ -399,4 +399,6 @@
     <string name="listen_quota_reached_title">Kuukauden ilmaiset tunnistukset käytetty</string>
     <string name="listen_quota_reached_desc">Olet käyttänyt kaikki %1$d ilmaista tunnistusta tässä kuussa. Avaa SongFlip PRO saadaksesi rajattomat tunnistukset.</string>
     <string name="listen_unlock_pro">Avaa SongFlip PRO</string>
+    <string name="pro_feature_listen_title">Rajaton Listen &amp; Flip</string>
+    <string name="pro_feature_listen_desc">Tunnista rajattomasti kappaleita + offline-klubitila</string>
 </resources>

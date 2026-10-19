@@ -407,4 +407,6 @@
     <string name="listen_quota_reached_title">Měsíční bezplatné skeny vyčerpány</string>
     <string name="listen_quota_reached_desc">Využili jste všech %1$d bezplatných rozpoznání v tomto měsíci. Odemkněte SongFlip PRO pro neomezené použití.</string>
     <string name="listen_unlock_pro">Odemknout SongFlip PRO</string>
+    <string name="pro_feature_listen_title">Neomezené Listen &amp; Flip</string>
+    <string name="pro_feature_listen_desc">Neomezené rozpoznávání skladeb + offline klubový režim</string>
 </resources>

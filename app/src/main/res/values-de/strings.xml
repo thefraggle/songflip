@@ -430,4 +430,6 @@
     <string name="listen_quota_reached_title">Monatliche Gratis-Scans aufgebraucht</string>
     <string name="listen_quota_reached_desc">Du hast alle %1$d kostenlosen Song-Erkennungen für diesen Monat genutzt. Hol dir SongFlip PRO für unbegrenztes Listen &amp; Flip und den Offline-Club-Modus.</string>
     <string name="listen_unlock_pro">SongFlip PRO freischalten</string>
+    <string name="pro_feature_listen_title">Unbegrenztes Listen &amp; Flip</string>
+    <string name="pro_feature_listen_desc">Unbegrenzt Songs erkennen + Offline-Club-Modus</string>
 </resources>
