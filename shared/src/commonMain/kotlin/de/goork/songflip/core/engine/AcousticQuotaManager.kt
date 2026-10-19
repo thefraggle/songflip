@@ -1,5 +1,6 @@
 package de.goork.songflip.core.engine
 
+import de.goork.songflip.core.cache.PendingAcousticScan
 import de.goork.songflip.core.cache.SqlDelightCacheStorage
 import de.goork.songflip.core.cache.createDefaultCacheStorage
 import de.goork.songflip.core.model.MusicPlatform
@@ -101,6 +102,30 @@ class AcousticQuotaManager(
         sqlStorage?.setMetaValue(key, nextCount.toString())
         return (MAX_FREE_SCANS_PER_MONTH - nextCount).coerceAtLeast(0)
     }
+
+    fun enqueuePendingAcousticScan(
+        id: String,
+        signatureBase64: String,
+        durationMs: Long,
+        createdAt: Long = getCurrentTimeMillis()
+    ) {
+        sqlStorage?.enqueuePendingAcousticScan(
+            id = id,
+            signatureBase64 = signatureBase64,
+            durationMs = durationMs,
+            createdAt = createdAt
+        )
+    }
+
+    fun getPendingAcousticScans(): List<PendingAcousticScan> =
+        sqlStorage?.getPendingAcousticScans() ?: emptyList()
+
+    fun deletePendingAcousticScan(id: String) {
+        sqlStorage?.deletePendingAcousticScan(id)
+    }
+
+    fun countPendingAcousticScans(): Int =
+        sqlStorage?.countPendingAcousticScans() ?: 0
 
     /**
      * Resolves an acoustic match into the user's preferred streaming platform and stores it in History

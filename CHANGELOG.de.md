@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.9.7] - 2026-10-19
+- **Zuverlässigere Musikerkennung**: Verbesserte Stabilität der Audioaufnahme und optimierte Raumklang-Empfindlichkeit für eine schnellere und treffsichere Song-Erkennung bei Listen & Flip.
+- **Allgemeine Stabilität**: Interne Synchronisations- und Leistungsverbesserungen.
+
 ## [1.9.6] - 2026-10-19
 - **Klareres Offline-Feedback bei der Musikerkennung**: Verbesserte Status-Hinweise beim Starten der Musikerkennung ohne aktive Internetverbindung sowie vervollständigte Übersetzungen in allen 34 unterstützten Sprachen.
 

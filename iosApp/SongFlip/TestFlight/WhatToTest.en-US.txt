@@ -1,3 +1,2 @@
-- Clearer Status Indicator: Refined the header status badge with a subtle, unobtrusive design so your active feature state is immediately recognizable at a glance.
-- Faster SoundCloud & Bandcamp Resolution: Direct metadata lookup for shared SoundCloud and Bandcamp links for even faster playback starts.
-- Improved Playlist Cache: More consistent caching for converted playlists across all supported streaming services.
+- More Reliable Music Recognition: Improved audio recording stability and ambient room sensitivity for faster and more accurate song recognition in Listen & Flip.
+- General Stability: Internal synchronization refinements and performance improvements.

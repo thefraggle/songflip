@@ -6,8 +6,11 @@ Spotify から YouTube Music、Apple Podcasts から Pocket Casts、Spotify か�
 
 🚀 主な機能：
 
-• 10 のストリーミング プラットフォーム、ポッドキャスト、Shazam:
-Spotify、YouTube Music、Apple Music、Apple Podcast、Pocket Cast、Deezer、TIDAL、Amazon Music、SoundCloud、Bandcamp 間で曲のリンクとポッドキャストをシームレスに変換し、リダイレクトします。共有 Shazam リンクに対するインスタント ミュージック リンク コンバーターのサポートが含まれています。
+• 12 のストリーミング プラットフォーム、ポッドキャスト、Shazam:
+Spotify、YouTube Music、Apple Music、Apple Podcast、Pocket Cast、Deezer、TIDAL、Amazon Music、Qobuz、Beatport、SoundCloud、Bandcamp 間で曲のリンクとポッドキャストをシームレスに変換し、リダイレクトします。共有 Shazam リンクに対するインスタント ミュージック リンク コンバーターのサポートが含まれています。
+
+• Listen & Flip（音楽認識）：
+周囲で流れている音楽をSongFlipで直接認識。お気に入りのプレイヤー用に変換され履歴に保存されます。 電波がない場所でも音声フィンガープリントを保存し、オンライン復帰時に自動で曲名を特定します。
 
 • 直接曲検索 (アプリ内検索):
 SongFlip 内でトラックやアーティストを直接検索し、1 タップの Fast Flip で好みのストリーミング プレーヤーで即座に再生を開始できます。既存の曲のリンクは必要ありません。
@@ -23,9 +26,6 @@ SongFlip 内でトラックやアーティストを直接検索し、1 タップ
 
 • マッチの絞り込みとワンタップのお気に入り：
 ライブ録音、リマスター、スタジオバージョンから簡単に選択できます。お気に入りの曲を 1 回タップするだけで履歴に固定し、クイック アクション メニューから管理できます。
-
-• ダイレクト即時再生 (Instant Playback)：
-検索結果ページを挟まず、目的のプレーヤーで直接楽曲・エピソードを再生開始。
 
 • クイックプレーヤー選択機能（毎回確認）：
 複数の音楽アプリをお使いの場合、リンクを開くたびに対象アプリをすばやく選べるセレクターを搭載。

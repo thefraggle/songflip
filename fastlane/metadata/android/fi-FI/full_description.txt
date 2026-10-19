@@ -6,14 +6,17 @@ Vaihdoitpa sitten Spotifyn YouTube Musiciin, Apple Podcastit Pocket Castsiin, Sp
 
 🚀 TÄRKEIMMÄT OMINAISUUDET:
 
-• 10 suoratoistoalustaa, podcastia ja Shazam:
+• 12 suoratoistoalustaa, podcastia ja Shazam:
 Muunna ja ohjaa saumattomasti kappalelinkkejä ja podcasteja Spotifyssa, YouTube Musicissa, Apple Musicissa, Apple Podcasteissa, Pocket Castsissa, Deezerissä, TIDALissa, Amazon Musicissa, SoundCloudissa ja Bandcampissa. Sisältää välittömän musiikkilinkkimuuntimen tuen jaetuille Shazam-linkeille!
+
+• Listen & Flip (Musiikin tunnistus):
+Tunnista ympärilläsi soiva musiikki suoraan SongFlipissä. Kappaleet tallennetaan historiaan omalle soittimellesi. Ei verkkoa? Tallenna äänitunniste offline-tilassa ja SongFlip tunnistaa kappaleen automaattisesti, kun olet taas verkossa.
 
 • Suora kappalehaku (sovelluksen sisäinen haku):
 Etsi kappaleita ja artisteja suoraan SongFlipistä ja aloita toisto välittömästi haluamallasi suoratoistosoittimella yhdellä napautuksella Fast Flipillä – olemassa olevaa kappalelinkkiä ei tarvita.
 
 • QR-koodin kappaleiden jakaminen ja skannaus:
-Luo ja skannaa yleisiä QR-koodeja kappaleille ja albumeille. Jaa musiikkilinkit vaivattomasti ystävien kanssa henkilökohtaisesti missä tahansa suoratoistopalvelussa.
+Luo ja skannaa yleisiä QR-koodeja kappaleille ja albumeille.
 
 • Podcast Converter & Podcast Redirect Engine:
 Jaa täydet podcast-ohjelmat tai jaksot eri alustoilla. SongFlip ratkaisee jaksojen nimet automaattisesti ja muuttaa ja avaa podcast-linkit suoraan suosikkipodcast-soittimessasi.
@@ -23,9 +26,6 @@ Muunna soittolistoja ja siirrä soittolistoja kappaleittain Spotifyn, Apple Musi
 
 • Tarkenna osumia ja suosikkeja:
 Valitse live-, remaster- tai studioversion välillä ja kiinnitä suosikkikappaleesi yhdellä napautuksella.
-
-• Välittömän raidan toisto:
-Aloittaa toiston suoraan kohdesoittimessasi tyhjien hakusivujen sijaan.
 
 • Pikapelaajan valitsin:
 Valitse kohdesoittimesi lennossa aina, kun avaat jaetun kappaleen tai podcast-linkin.

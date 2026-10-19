@@ -6,8 +6,11 @@ Niezależnie od tego, czy przełączasz Spotify na YouTube Music, Apple Podcasts
 
 🚀 GŁÓWNE FUNKCJE:
 
-• 10 platform streamingowych, podcastów i Shazam:
-Bezproblemowo konwertuj i przekierowuj linki do utworów i podcastów w Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud i Bandcamp. Obejmuje natychmiastową obsługę konwertera łączy muzycznych dla udostępnianych łączy Shazam!
+• 12 platform streamingowych, podcastów i Shazam:
+Bezproblemowo konwertuj i przekierowuj linki do utworów i podcastów w Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, SoundCloud i Bandcamp. Obejmuje natychmiastową obsługę konwertera łączy muzycznych dla udostępnianych łączy Shazam!
+
+• Listen & Flip (Rozpoznawanie muzyki):
+Rozpoznawaj muzykę wokół siebie w SongFlip. Utwory są dopasowywane do Twojego odtwarzacza i zapisywane w historii. Brak zasięgu? Zapisz odcisk audio offline, a SongFlip rozpozna utwór automatycznie po powrocie do sieci.
 
 • Bezpośrednie wyszukiwanie utworów:
 Wyszukaj utwory i wykonawców w SongFlip i rozpocznij odtwarzanie w swoim ulubionym odtwarzaczu za pomocą jednego dotknięcia Fast Flip.
@@ -16,16 +19,13 @@ Wyszukaj utwory i wykonawców w SongFlip i rozpocznij odtwarzanie w swoim ulubio
 Twórz i skanuj uniwersalne kody QR dla utworów i albumów w dowolnej usłudze przesyłania strumieniowego.
 
 • Konwerter podcastów i silnik przekierowywania podcastów:
-Udostępniaj pełne programy lub odcinki podcastów na różnych platformach. SongFlip automatycznie rozpoznaje tytuły odcinków, aby konwertować i otwierać linki do podcastów bezpośrednio w ulubionym odtwarzaczu podcastów.
+Udostępniaj pełne programy lub odcinki podcastów na różnych platformach.
 
 • Uniwersalny konwerter list odtwarzania i przesyłanie list odtwarzania:
-Konwertuj listy odtwarzania i przesyłaj listy odtwarzania utwór po utworze pomiędzy Spotify, Apple Music, YouTube Music, TIDAL i Deezer – z automatycznym czyszczeniem duplikatów, maksymalnie 200 utworów i szybkim buforowaniem.
+Konwertuj listy odtwarzania i przesyłaj listy odtwarzania utwór po utworze pomiędzy Spotify, Apple Music, YouTube Music, TIDAL i Deezer.
 
 • Uściślij mecze i ulubione:
 Wybieraj pomiędzy wersjami na żywo, zremasterowanymi lub studyjnymi i przypinaj ulubione utwory jednym dotknięciem.
-
-• Natychmiastowe odtwarzanie utworu:
-Rozpoczyna odtwarzanie bezpośrednio w odtwarzaczu docelowym zamiast na pustych stronach wyszukiwania.
 
 • Szybki wybór gracza:
 Wybierz docelowy odtwarzacz audio na bieżąco, gdy otworzysz łącze do udostępnionego utworu lub link do podcastu.

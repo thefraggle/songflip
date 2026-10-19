@@ -6,8 +6,11 @@ Uanset om du skifter Spotify til YouTube Music, Apple Podcasts til Pocket Casts,
 
 🚀 NØGLEFUNKTIONER:
 
-• 10 streamingplatforme, podcasts og Shazam:
-Konverter og omdiriger problemfrit sanglinks og podcasts på tværs af Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud og Bandcamp. Inkluderer øjeblikkelig musiklink-konvertering til delte Shazam-links!
+• 12 streamingplatforme, podcasts og Shazam:
+Konverter og omdiriger problemfrit sanglinks og podcasts på tværs af Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, SoundCloud og Bandcamp. Inkluderer øjeblikkelig musiklink-konvertering til delte Shazam-links!
+
+• Listen & Flip (Musikgenkendelse):
+Genkend musik omkring dig direkte i SongFlip. Sange matches til din foretrukne afspiller og gemmes i historikken. Ingen forbindelse? Gem lydaftrykket offline, så genkender SongFlip sangen automatisk, når du er online igen.
 
 • Direkte sangsøgning (søgning i appen):
 Søg efter numre og kunstnere direkte inde i SongFlip, og start afspilning med det samme i din foretrukne streamingafspiller med 1-tryk Fast Flip – ingen eksisterende sanglink påkrævet.
@@ -23,9 +26,6 @@ Konverter afspilningslister, og overfør afspilningslister spor for spor mellem 
 
 • Forfin kampe og favoritter med 1 tryk:
 Vælg nemt mellem liveoptagelser, remastere eller studieversioner. Fastgør dine yndlingssange i historien med et enkelt tryk, og administrer dem via den hurtige handlingsmenu.
-
-• Øjeblikkelig Afspilning (Instant Playback):
-Starter nummeret eller episoden direkte i mål-appen i stedet for at vise en tom søgeside.
 
 • Hurtig Afspillervælger (Spørg hver gang):
 Bruger du flere lyd-apps? Vælg lynhurtigt din målafspiller, hver gang du åbner et link.
