@@ -1,2 +1,2 @@
-- Verbesserte Musikerkennung & Pegelanpassung: Optimierte Signalverstärkung und dynamische Lautstärke-Hinweise, damit Musik in deiner Umgebung auch bei leiserer Wiedergabe zuverlässig über Listen & Flip erkannt wird.
-- Übersichtlichere Funktionsübersicht: Aufgeräumte Darstellung der Funktionsübersicht sowie verfeinerte Übersetzungen in allen unterstützten Sprachen.
+• Fairere Erkennungs-Zählung: Wird ein bereits im Verlauf gespeicherter Song erneut über Listen & Flip erkannt, wird kein weiterer freier Versuch abgezogen.
+• Sauberer Verlauf & Feinschliff: Keine doppelten Einträge mehr bei erkannten Songs, einheitliches Wellenform-Symbol im Verlauf und optimierte Schaltflächen.

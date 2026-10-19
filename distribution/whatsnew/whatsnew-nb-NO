@@ -1,2 +1,1 @@
-- Forbedret musikkgjenkjenning: Optimalisert mikrofonforsterkning og dynamiske volumtips gir mer pålitelig gjenkjenning av lavere musikk i Listen & Flip.
-- Ryddigere funksjonsoversikt: Renere visning på alle støttede språk.
+v1.9.9: Gjenkjenning av en sang som allerede er i loggen trekker ikke fra et forsøk, ingen duplikater og visuell finpuss.

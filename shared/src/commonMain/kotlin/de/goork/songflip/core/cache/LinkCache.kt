@@ -2,6 +2,7 @@ package de.goork.songflip.core.cache
 
 import de.goork.songflip.core.engine.getCurrentTimeMillis
 import de.goork.songflip.core.model.ResolutionResult
+import de.goork.songflip.core.util.UrlUtils
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.Serializable
@@ -273,20 +274,48 @@ class LinkCache(
         return allLoaded
     }
 
-    suspend fun getHistoryEntries(limit: Int = 10, currentTimeMs: Long = getCurrentTimeMillis()): List<LinkHistoryItem> = mutex.withLock {
-        ensureLoaded(currentTimeMs)
+    private fun isDuplicateSongItem(a: LinkHistoryItem, b: LinkHistoryItem): Boolean {
+        if (!a.isAcoustic && !b.isAcoustic) return false
+        if (a.targetPlatformKey != b.targetPlatformKey) return false
+        val normA = UrlUtils.normalizeUrl(a.canonicalUrl).substringBefore("#").trimEnd('/')
+        val normB = UrlUtils.normalizeUrl(b.canonicalUrl).substringBefore("#").trimEnd('/')
+        if (normA.isNotBlank() && normA == normB) return true
+
+        val cleanTargetA = a.targetUrl.trim().trimEnd('/')
+        val cleanTargetB = b.targetUrl.trim().trimEnd('/')
+        val isSearchTarget = cleanTargetA.contains("/search") || cleanTargetA.contains("?q=") || cleanTargetA.contains("?term=")
+        if (!isSearchTarget && cleanTargetA.isNotBlank() && cleanTargetA == cleanTargetB) {
+            return true
+        }
+
+        if (!a.isAlbum && !b.isAlbum) {
+            val titleA = a.title?.trim().orEmpty()
+            val titleB = b.title?.trim().orEmpty()
+            val artistA = a.artist?.trim().orEmpty()
+            val artistB = b.artist?.trim().orEmpty()
+            if (titleA.isNotEmpty() && artistA.isNotEmpty() &&
+                titleA.equals(titleB, ignoreCase = true) &&
+                artistA.equals(artistB, ignoreCase = true)
+            ) {
+                return true
+            }
+        }
+        return false
+    }
+
+    private fun collectDeduplicatedHistoryItems(currentTimeMs: Long): List<LinkHistoryItem> {
         val allLoaded = syncFromStorage(currentTimeMs)
         val combinedKeys = mutableSetOf<String>()
         combinedKeys.addAll(entries.keys)
         combinedKeys.addAll(allLoaded.keys)
 
-        val allItems = mutableListOf<LinkHistoryItem>()
+        val rawItems = mutableListOf<LinkHistoryItem>()
         for (key in combinedKeys) {
             val entry = entries[key] ?: allLoaded[key]
             if (entry != null && entry.isHistory && entry.isRetained(currentTimeMs) && entry.targetUrl.isNotBlank()) {
                 val canonicalUrl = key.substringBeforeLast("|")
                 val targetPlatformKey = key.substringAfterLast("|", entry.platform)
-                allItems.add(
+                rawItems.add(
                     LinkHistoryItem(
                         cacheKey = key,
                         canonicalUrl = canonicalUrl,
@@ -304,6 +333,60 @@ class LinkCache(
                 )
             }
         }
+
+        val deduplicated = mutableListOf<LinkHistoryItem>()
+        for (candidate in rawItems) {
+            val existingIdx = deduplicated.indexOfFirst { isDuplicateSongItem(it, candidate) }
+            if (existingIdx < 0) {
+                deduplicated.add(candidate)
+            } else {
+                val existing = deduplicated[existingIdx]
+                // Prefer the normalized key or the acoustic/newer entry
+                val canonicalCandidateKey = buildKey(UrlUtils.normalizeUrl(candidate.canonicalUrl), candidate.targetPlatformKey)
+                val preferCandidateKey = (candidate.cacheKey == canonicalCandidateKey && existing.cacheKey != canonicalCandidateKey) ||
+                    (candidate.isAcoustic && !existing.isAcoustic) ||
+                    (candidate.timestamp > existing.timestamp && existing.cacheKey != canonicalCandidateKey)
+
+                val primary = if (preferCandidateKey) candidate else existing
+                val secondary = if (preferCandidateKey) existing else candidate
+
+                val merged = primary.copy(
+                    title = primary.title?.takeIf { it.isNotBlank() } ?: secondary.title,
+                    artist = primary.artist?.takeIf { it.isNotBlank() } ?: secondary.artist,
+                    thumbnailUrl = primary.thumbnailUrl?.takeIf { it.isNotBlank() } ?: secondary.thumbnailUrl,
+                    timestamp = maxOf(primary.timestamp, secondary.timestamp),
+                    isFavorite = primary.isFavorite || secondary.isFavorite,
+                    isAcoustic = primary.isAcoustic || secondary.isAcoustic
+                )
+                deduplicated[existingIdx] = merged
+
+                // Self-heal storage by removing the redundant duplicate key and persisting merged flags
+                if (secondary.cacheKey != merged.cacheKey) {
+                    entries.remove(secondary.cacheKey)
+                    storage.remove(secondary.cacheKey)
+                }
+                val primaryEntry = entries[merged.cacheKey] ?: allLoaded[merged.cacheKey]
+                if (primaryEntry != null) {
+                    val healedEntry = primaryEntry.copy(
+                        title = merged.title,
+                        artist = merged.artist,
+                        thumbnailUrl = merged.thumbnailUrl,
+                        timestamp = merged.timestamp,
+                        isHistory = true,
+                        isFavorite = merged.isFavorite,
+                        isAcoustic = merged.isAcoustic
+                    )
+                    entries[merged.cacheKey] = healedEntry
+                    storage.put(merged.cacheKey, healedEntry)
+                }
+            }
+        }
+        return deduplicated
+    }
+
+    suspend fun getHistoryEntries(limit: Int = 10, currentTimeMs: Long = getCurrentTimeMillis()): List<LinkHistoryItem> = mutex.withLock {
+        ensureLoaded(currentTimeMs)
+        val allItems = collectDeduplicatedHistoryItems(currentTimeMs).toMutableList()
 
         // Favorites pinned to the top, then sorted by timestamp descending
         allItems.sortWith(compareByDescending<LinkHistoryItem> { it.isFavorite }.thenByDescending { it.timestamp })
@@ -416,6 +499,33 @@ class LinkCache(
         }
     }
 
+    suspend fun hasMatchingHistoryEntry(
+        canonicalUrl: String,
+        targetPlatformKey: String,
+        targetUrl: String?,
+        title: String?,
+        artist: String?,
+        currentTimeMs: Long = getCurrentTimeMillis()
+    ): Boolean = mutex.withLock {
+        ensureLoaded(currentTimeMs)
+        val items = collectDeduplicatedHistoryItems(currentTimeMs)
+        val probe = LinkHistoryItem(
+            cacheKey = buildKey(canonicalUrl, targetPlatformKey),
+            canonicalUrl = UrlUtils.normalizeUrl(canonicalUrl).substringBefore("#").trimEnd('/'),
+            targetPlatformKey = targetPlatformKey,
+            targetUrl = targetUrl.orEmpty(),
+            platform = targetPlatformKey,
+            title = title,
+            artist = artist,
+            isAlbum = false,
+            timestamp = currentTimeMs,
+            thumbnailUrl = null,
+            isFavorite = false,
+            isAcoustic = true
+        )
+        items.any { isDuplicateSongItem(it, probe) }
+    }
+
     suspend fun addHistoryEntry(
         canonicalUrl: String,
         targetPlatformKey: String,
@@ -452,6 +562,8 @@ class LinkCache(
         entries.remove(key)
         entries[key] = entry
         storage.put(key, entry)
+        // Run deduplication so any unnormalized/duplicate entry for the same track is merged immediately
+        collectDeduplicatedHistoryItems(timestamp)
         evictOverflow()
         key
     }
@@ -602,19 +714,7 @@ class LinkCache(
 
     suspend fun getHistoryCount(currentTimeMs: Long = getCurrentTimeMillis()): Int = mutex.withLock {
         ensureLoaded(currentTimeMs)
-        val allLoaded = syncFromStorage(currentTimeMs)
-        val combinedKeys = mutableSetOf<String>()
-        combinedKeys.addAll(entries.keys)
-        combinedKeys.addAll(allLoaded.keys)
-
-        var count = 0
-        for (key in combinedKeys) {
-            val entry = entries[key] ?: allLoaded[key]
-            if (entry != null && entry.isHistory && entry.isRetained(currentTimeMs) && entry.targetUrl.isNotBlank()) {
-                count++
-            }
-        }
-        count
+        collectDeduplicatedHistoryItems(currentTimeMs).size
     }
 
     suspend fun getHistoryCount(): Int =

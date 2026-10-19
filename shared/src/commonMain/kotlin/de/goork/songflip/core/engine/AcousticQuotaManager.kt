@@ -5,6 +5,7 @@ import de.goork.songflip.core.cache.SqlDelightCacheStorage
 import de.goork.songflip.core.cache.createDefaultCacheStorage
 import de.goork.songflip.core.model.MusicPlatform
 import de.goork.songflip.core.model.ResolutionResult
+import de.goork.songflip.core.util.UrlUtils
 
 /**
  * Manages the monthly Freemium quota (3 free successful scans/month) and offline signature queue
@@ -41,7 +42,7 @@ class AcousticQuotaManager(
         }
 
         /**
-         * Builds the best source URL from an acoustic match to feed into SongLinkEngine.
+         * Builds the canonical source URL from an acoustic match to feed into SongLinkEngine.
          */
         fun buildBestSourceUrl(
             appleMusicUrl: String?,
@@ -51,7 +52,7 @@ class AcousticQuotaManager(
             artist: String
         ): String {
             val cleanAppleUrl = appleMusicUrl?.trim()?.takeIf { it.startsWith("https://") }
-            if (cleanAppleUrl != null) return cleanAppleUrl
+            if (cleanAppleUrl != null) return UrlUtils.normalizeUrl(cleanAppleUrl)
 
             val cleanAppleId = appleMusicId?.trim()?.takeIf { it.isNotEmpty() && it.all { ch -> ch.isDigit() } }
             if (cleanAppleId != null) {
@@ -59,7 +60,7 @@ class AcousticQuotaManager(
             }
 
             val cleanWebUrl = webUrl?.trim()?.takeIf { it.startsWith("https://") }
-            if (cleanWebUrl != null) return cleanWebUrl
+            if (cleanWebUrl != null) return UrlUtils.normalizeUrl(cleanWebUrl)
 
             val query = "$artist $title".trim()
             return "https://music.youtube.com/search?q=${query.replace(" ", "+")}"
@@ -130,6 +131,9 @@ class AcousticQuotaManager(
     /**
      * Resolves an acoustic match into the user's preferred streaming platform and stores it in History
      * with `isAcoustic = true` (#78).
+     *
+     * Recognizing the same song again updates its timestamp in History without deducting an additional
+     * free monthly scan.
      */
     suspend fun resolveAndStoreAcousticMatch(
         engine: SongLinkEngine = SongLinkEngine.shared,
@@ -151,12 +155,30 @@ class AcousticQuotaManager(
             artist = artist
         )
 
+        val alreadyInHistoryBeforeResolve = engine.cache.hasMatchingHistoryEntry(
+            canonicalUrl = sourceUrl,
+            targetPlatformKey = targetPlatform.key,
+            targetUrl = null,
+            title = title,
+            artist = artist,
+            currentTimeMs = timestampMs
+        )
+
         // Fast-path: If user's target platform is Apple Music and ShazamKit already gave us a direct Apple Music URL
         if (targetPlatform == MusicPlatform.APPLE_MUSIC && !appleMusicUrl.isNullOrBlank() && appleMusicUrl.startsWith("https://")) {
+            val cleanTarget = UrlUtils.normalizeUrl(appleMusicUrl)
+            val alreadyInHistory = alreadyInHistoryBeforeResolve || engine.cache.hasMatchingHistoryEntry(
+                canonicalUrl = sourceUrl,
+                targetPlatformKey = targetPlatform.key,
+                targetUrl = cleanTarget,
+                title = title,
+                artist = artist,
+                currentTimeMs = timestampMs
+            )
             val cacheKey = engine.cache.addHistoryEntry(
                 canonicalUrl = sourceUrl,
                 targetPlatformKey = targetPlatform.key,
-                targetUrl = appleMusicUrl,
+                targetUrl = cleanTarget,
                 platform = targetPlatform.displayName,
                 title = title,
                 artist = artist,
@@ -166,11 +188,15 @@ class AcousticQuotaManager(
                 isFavorite = null,
                 isAcoustic = true
             )
-            val remaining = recordSuccessfulScan(isPro = isPro, timestampMs = timestampMs)
+            val remaining = if (alreadyInHistory) {
+                getRemainingFreeScans(isPro = isPro, timestampMs = timestampMs)
+            } else {
+                recordSuccessfulScan(isPro = isPro, timestampMs = timestampMs)
+            }
             return AcousticFlipResult(
                 cacheKey = cacheKey,
                 sourceUrl = sourceUrl,
-                targetUrl = appleMusicUrl,
+                targetUrl = cleanTarget,
                 nativeAppUri = null,
                 platformName = targetPlatform.displayName,
                 title = title,
@@ -180,11 +206,13 @@ class AcousticQuotaManager(
             )
         }
 
-        // Standard resolution via SongLinkEngine
+        // Standard resolution via SongLinkEngine with isPrefetch = true so SongLinkEngine does not
+        // write a premature non-acoustic History entry before addHistoryEntry(..., isAcoustic = true)
         val resolution = try {
             engine.resolveTargetUrl(
                 inputUrl = sourceUrl,
-                targetPlatformKey = targetPlatform.key
+                targetPlatformKey = targetPlatform.key,
+                isPrefetch = true
             )
         } catch (_: Throwable) {
             null
@@ -196,6 +224,15 @@ class AcousticQuotaManager(
         val finalTitle = resolvedSuccess?.title?.takeIf { it.isNotBlank() } ?: title
         val finalArtist = resolvedSuccess?.artist?.takeIf { it.isNotBlank() } ?: artist
         val finalArtwork = artworkUrl?.takeIf { it.isNotBlank() } ?: resolvedSuccess?.thumbnailUrl
+
+        val alreadyInHistory = alreadyInHistoryBeforeResolve || engine.cache.hasMatchingHistoryEntry(
+            canonicalUrl = sourceUrl,
+            targetPlatformKey = targetPlatform.key,
+            targetUrl = finalTargetUrl,
+            title = finalTitle,
+            artist = finalArtist,
+            currentTimeMs = timestampMs
+        )
 
         val cacheKey = engine.cache.addHistoryEntry(
             canonicalUrl = sourceUrl,
@@ -211,7 +248,11 @@ class AcousticQuotaManager(
             isAcoustic = true
         )
 
-        val remaining = recordSuccessfulScan(isPro = isPro, timestampMs = timestampMs)
+        val remaining = if (alreadyInHistory) {
+            getRemainingFreeScans(isPro = isPro, timestampMs = timestampMs)
+        } else {
+            recordSuccessfulScan(isPro = isPro, timestampMs = timestampMs)
+        }
         return AcousticFlipResult(
             cacheKey = cacheKey,
             sourceUrl = sourceUrl,

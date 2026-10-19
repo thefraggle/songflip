@@ -293,13 +293,17 @@ struct HistorySheetView: View {
 
                                         HStack(spacing: 4) {
                                             if item.isAcoustic {
-                                                Text("🎙️ \(LocalizationManager.string(for: "badge_identified", lang: lang))")
-                                                    .font(.system(size: 10, weight: .bold))
-                                                    .foregroundColor(.green)
-                                                    .padding(.horizontal, 5)
-                                                    .padding(.vertical, 1.5)
-                                                    .background(Color.green.opacity(0.16))
-                                                    .cornerRadius(4)
+                                                HStack(spacing: 3) {
+                                                    Image(systemName: "waveform")
+                                                        .font(.system(size: 9, weight: .bold))
+                                                    Text(LocalizationManager.string(for: "badge_identified", lang: lang))
+                                                        .font(.system(size: 10, weight: .bold))
+                                                }
+                                                .foregroundColor(.green)
+                                                .padding(.horizontal, 5)
+                                                .padding(.vertical, 1.5)
+                                                .background(Color.green.opacity(0.16))
+                                                .cornerRadius(4)
                                             }
 
                                             if let artist = item.artist, !artist.isEmpty {

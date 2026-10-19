@@ -1,2 +1,2 @@
-- Enhanced Music Recognition & Level Adaptation: Improved microphone signal amplification and dynamic volume feedback so songs playing nearby or at lower room volume are recognized much more reliably in Listen & Flip.
-- Clearer Feature Overview: Streamlined the feature overview for a cleaner, more focused presentation across all supported languages.
+• Smarter Recognition Quota: Recognizing a song that is already saved in your history updates the entry without deducting an extra free scan.
+• Clean History & Visual Polish: Eliminated duplicate entries for recognized songs, unified the waveform badge icon in history, and refined result card buttons.

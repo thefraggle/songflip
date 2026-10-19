@@ -1,2 +1,1 @@
-- Fejlettebb zenefelismerés: Optimalizált mikrofonerősítés és dinamikus hangerő-visszajelzés a halkabb zenék megbízhatóbb felismeréséhez a Listen & Flipben.
-- Átláthatóbb funkcióáttekintés: Letisztultabb megjelenítés minden támogatott nyelven.
+v1.9.9: Az előzményekben már szereplő dal újbóli felismerése nem von le próbálkozást, duplikációmentes előzmények.

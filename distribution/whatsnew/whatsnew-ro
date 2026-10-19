@@ -1,2 +1,1 @@
-- Recunoaștere muzicală îmbunătățită: Amplificare optimizată a microfonului și indicii dinamice de volum pentru identificarea mai fiabilă a muzicii în Listen & Flip.
-- Prezentare mai clară a funcțiilor: Afișare mai ordonată în toate limbile acceptate.
+v1.9.9: Recunoașterea repetată a unei piese din istoric nu scade o încercare, istoric fără duplicate și finisaje vizuale.

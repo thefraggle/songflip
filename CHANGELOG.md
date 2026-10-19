@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.9.9] - 2026-10-19
+- **Smarter Recognition Quota & Clean History**: Recognizing a song that is already saved in your history now updates the existing entry without deducting an extra free recognition, and eliminates duplicate history entries.
+- **Visual Polish**: Unified the waveform badge icon for recognized tracks in the song history and improved button layout for longer translations on the recognition result card.
+
 ## [1.9.8] - 2026-10-19
 - **Enhanced Music Recognition & Level Adaptation**: Improved microphone signal amplification and dynamic volume feedback so songs playing nearby or at lower room volume are recognized much more reliably in Listen & Flip.
 - **Clearer Feature Overview**: Streamlined the feature overview for a cleaner, more focused presentation across all supported languages.

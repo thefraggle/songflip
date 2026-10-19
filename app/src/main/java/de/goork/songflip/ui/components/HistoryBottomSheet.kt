@@ -807,9 +807,10 @@ fun HistoryItemCard(
                     isPlaylist -> stringResource(R.string.badge_playlist)
                     item.isAlbum -> stringResource(R.string.badge_album)
                     isArtist -> stringResource(R.string.badge_artist)
-                    item.isAcoustic -> "🎙️ " + stringResource(R.string.badge_identified)
+                    item.isAcoustic -> stringResource(R.string.badge_identified)
                     else -> null
                 }
+                val isAcousticBadge = !isPlaylist && !item.isAlbum && !isArtist && item.isAcoustic
                 val subtitlePrefix = item.artist?.takeIf { it.isNotBlank() }
 
                 Row(
@@ -838,14 +839,27 @@ fun HistoryItemCard(
                             shape = RoundedCornerShape(4.dp),
                             color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.7f)
                         ) {
-                            Text(
-                                text = typeLabel,
-                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold, fontSize = 9.sp),
-                                color = MaterialTheme.colorScheme.onSecondaryContainer,
-                                maxLines = 1,
-                                softWrap = false,
-                                modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp)
-                            )
+                            Row(
+                                modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(2.dp)
+                            ) {
+                                if (isAcousticBadge) {
+                                    Icon(
+                                        imageVector = Icons.Outlined.GraphicEq,
+                                        contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                                        modifier = Modifier.size(10.dp)
+                                    )
+                                }
+                                Text(
+                                    text = typeLabel,
+                                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold, fontSize = 9.sp),
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                    maxLines = 1,
+                                    softWrap = false
+                                )
+                            }
                         }
                         Text(
                             text = "•",
