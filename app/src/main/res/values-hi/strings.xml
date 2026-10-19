@@ -413,4 +413,6 @@
     <string name="listen_quota_reached_title">मासिक मुफ़्त स्कैन समाप्त</string>
     <string name="listen_quota_reached_desc">आपने इस महीने के सभी %1$d मुफ़्त स्कैन इस्तेमाल कर लिए हैं। अनलिमिटेड Listen &amp; Flip के लिए SongFlip PRO अनलॉक करें।</string>
     <string name="listen_unlock_pro">SongFlip PRO अनलॉक करें</string>
+    <string name="pro_feature_listen_title">अनलिमिटेड Listen &amp; Flip</string>
+    <string name="pro_feature_listen_desc">असीमित गाने पहचानें + ऑफ़लाइन क्लब मोड</string>
 </resources>

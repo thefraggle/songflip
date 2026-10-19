@@ -395,4 +395,6 @@
     <string name="listen_quota_reached_title">ใช้สิทธิ์สแกนฟรีประจำเดือนครบแล้ว</string>
     <string name="listen_quota_reached_desc">คุณใช้สิทธิ์ค้นหาเพลงฟรีครบ %1$d ครั้งในเดือนนี้แล้ว ปลดล็อก SongFlip PRO เพื่อใช้งานแบบไม่จำกัด</string>
     <string name="listen_unlock_pro">ปลดล็อก SongFlip PRO</string>
+    <string name="pro_feature_listen_title">Listen &amp; Flip ไม่จำกัด</string>
+    <string name="pro_feature_listen_desc">ค้นหาเพลงได้ไม่จำกัด + โหมดคลับออฟไลน์</string>
 </resources>

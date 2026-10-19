@@ -176,7 +176,9 @@ class LocalizationTest {
             "listen_permission_grant",
             "listen_quota_reached_title",
             "listen_quota_reached_desc",
-            "listen_unlock_pro"
+            "listen_unlock_pro",
+            "pro_feature_listen_title",
+            "pro_feature_listen_desc"
         )
         val requiredPluralKeys = listOf(
             "history_cached_count",

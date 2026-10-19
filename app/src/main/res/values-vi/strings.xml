@@ -409,4 +409,6 @@
     <string name="listen_quota_reached_title">Đã hết lượt miễn phí trong tháng</string>
     <string name="listen_quota_reached_desc">Bạn đã dùng hết %1$d lượt nhận diện miễn phí tháng này. Mở khóa SongFlip PRO để dùng không giới hạn.</string>
     <string name="listen_unlock_pro">Mở khóa SongFlip PRO</string>
+    <string name="pro_feature_listen_title">Listen &amp; Flip không giới hạn</string>
+    <string name="pro_feature_listen_desc">Nhận diện bài hát không giới hạn + Chế độ Offline</string>
 </resources>

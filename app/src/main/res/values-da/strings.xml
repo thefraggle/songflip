@@ -413,4 +413,6 @@
     <string name="listen_quota_reached_title">Månedlige gratis scanninger brugt</string>
     <string name="listen_quota_reached_desc">Du har brugt alle %1$d gratis sanggenkendelser i denne måned. Lås op for SongFlip PRO for ubegrænset Listen &amp; Flip.</string>
     <string name="listen_unlock_pro">Lås op for SongFlip PRO</string>
+    <string name="pro_feature_listen_title">Ubegrænset Listen &amp; Flip</string>
+    <string name="pro_feature_listen_desc">Genkend ubegrænsede sange + Offline Club Mode</string>
 </resources>

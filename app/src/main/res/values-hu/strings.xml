@@ -399,4 +399,6 @@
     <string name="listen_quota_reached_title">Elfogytak a havi ingyenes felismerések</string>
     <string name="listen_quota_reached_desc">Elhasználtad mind a(z) %1$d ingyenes zenefelismerést ebben a hónapban. Oldd fel a SongFlip PRO-t a korlátlan használathoz.</string>
     <string name="listen_unlock_pro">SongFlip PRO feloldása</string>
+    <string name="pro_feature_listen_title">Korlátlan Listen &amp; Flip</string>
+    <string name="pro_feature_listen_desc">Korlátlan zenefelismerés + Offline Klub mód</string>
 </resources>

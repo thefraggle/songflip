@@ -413,4 +413,6 @@
     <string name="listen_quota_reached_title">Scansioni gratuite mensili esaurite</string>
     <string name="listen_quota_reached_desc">Hai utilizzato tutti i %1$d riconoscimenti gratuiti di questo mese. Sblocca SongFlip PRO per Listen &amp; Flip illimitato.</string>
     <string name="listen_unlock_pro">Sblocca SongFlip PRO</string>
+    <string name="pro_feature_listen_title">Listen &amp; Flip illimitato</string>
+    <string name="pro_feature_listen_desc">Riconosci brani senza limiti + Modalità Club Offline</string>
 </resources>

@@ -431,4 +431,6 @@
     <string name="listen_quota_reached_title">Monthly Free Scans Used</string>
     <string name="listen_quota_reached_desc">You have used all %1$d free song identifications this month. Unlock SongFlip PRO for unlimited Listen &amp; Flip and Offline Club Mode.</string>
     <string name="listen_unlock_pro">Unlock SongFlip PRO</string>
+    <string name="pro_feature_listen_title">Unlimited Listen &amp; Flip</string>
+    <string name="pro_feature_listen_desc">Identify unlimited songs around you + Offline Club Mode</string>
 </resources>

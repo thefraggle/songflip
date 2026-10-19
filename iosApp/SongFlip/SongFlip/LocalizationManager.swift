@@ -419,7 +419,9 @@ enum LocalizationManager {
             "listen_permission_grant": "Mikrofon freigeben",
             "listen_quota_reached_title": "Monatliche Gratis-Scans aufgebraucht",
             "listen_quota_reached_desc": "Du hast alle %1$d kostenlosen Song-Erkennungen für diesen Monat genutzt. Hol dir SongFlip PRO für unbegrenztes Listen & Flip und den Offline-Club-Modus.",
-            "listen_unlock_pro": "SongFlip PRO freischalten"
+            "listen_unlock_pro": "SongFlip PRO freischalten",
+            "pro_feature_listen_title": "Unbegrenztes Listen & Flip",
+            "pro_feature_listen_desc": "Unbegrenzt Songs erkennen + Offline-Club-Modus"
         
         ],
         "en": [
@@ -838,7 +840,9 @@ enum LocalizationManager {
             "listen_permission_grant": "Allow Microphone Access",
             "listen_quota_reached_title": "Monthly Free Scans Used",
             "listen_quota_reached_desc": "You have used all %1$d free song identifications this month. Unlock SongFlip PRO for unlimited Listen & Flip and Offline Club Mode.",
-            "listen_unlock_pro": "Unlock SongFlip PRO"
+            "listen_unlock_pro": "Unlock SongFlip PRO",
+            "pro_feature_listen_title": "Unlimited Listen & Flip",
+            "pro_feature_listen_desc": "Identify unlimited songs around you + Offline Club Mode"
         
         ],
         "da": [
@@ -1257,7 +1261,9 @@ enum LocalizationManager {
             "listen_permission_grant": "Tillad mikrofonadgang",
             "listen_quota_reached_title": "Månedlige gratis scanninger brugt",
             "listen_quota_reached_desc": "Du har brugt alle %1$d gratis sanggenkendelser i denne måned. Lås op for SongFlip PRO for ubegrænset Listen & Flip.",
-            "listen_unlock_pro": "Lås op for SongFlip PRO"
+            "listen_unlock_pro": "Lås op for SongFlip PRO",
+            "pro_feature_listen_title": "Ubegrænset Listen & Flip",
+            "pro_feature_listen_desc": "Genkend ubegrænsede sange + Offline Club Mode"
         
         ],
         "nb": [
@@ -1676,7 +1682,9 @@ enum LocalizationManager {
             "listen_permission_grant": "Tillat mikrofontilgang",
             "listen_quota_reached_title": "Månedlige gratis skanninger brukt",
             "listen_quota_reached_desc": "Du har brukt alle %1$d gratis sanggjenkjenninger denne måneden. Lås opp SongFlip PRO for ubegrenset Listen & Flip.",
-            "listen_unlock_pro": "Lås opp SongFlip PRO"
+            "listen_unlock_pro": "Lås opp SongFlip PRO",
+            "pro_feature_listen_title": "Ubegrenset Listen & Flip",
+            "pro_feature_listen_desc": "Gjenkjenn ubegrenset med sanger + Offline Club Mode"
         ],
         "sv": [
             "settings_share_app": "Dela SongFlip",
@@ -2094,7 +2102,9 @@ enum LocalizationManager {
             "listen_permission_grant": "Tillåt mikrofonåtkomst",
             "listen_quota_reached_title": "Månadens gratis skanningar förbrukade",
             "listen_quota_reached_desc": "Du har använt alla %1$d gratis låtidentifieringar denna månad. Lås upp SongFlip PRO för obegränsad Listen & Flip.",
-            "listen_unlock_pro": "Lås upp SongFlip PRO"
+            "listen_unlock_pro": "Lås upp SongFlip PRO",
+            "pro_feature_listen_title": "Obegränsad Listen & Flip",
+            "pro_feature_listen_desc": "Identifiera obegränsat med låtar + Offline Club Mode"
         
         ],
         "nl": [
@@ -2513,7 +2523,9 @@ enum LocalizationManager {
             "listen_permission_grant": "Microfoontoegang toestaan",
             "listen_quota_reached_title": "Maandelijkse gratis scans gebruikt",
             "listen_quota_reached_desc": "Je hebt alle %1$d gratis muziekherkenningen voor deze maand gebruikt. Ontgrendel SongFlip PRO voor onbeperkt Listen & Flip.",
-            "listen_unlock_pro": "SongFlip PRO ontgrendelen"
+            "listen_unlock_pro": "SongFlip PRO ontgrendelen",
+            "pro_feature_listen_title": "Onbeperkt Listen & Flip",
+            "pro_feature_listen_desc": "Onbeperkt nummers herkennen + Offline Club Mode"
         
         ],
         "fr": [
@@ -2932,7 +2944,9 @@ enum LocalizationManager {
             "listen_permission_grant": "Autoriser le microphone",
             "listen_quota_reached_title": "Scans gratuits du mois épuisés",
             "listen_quota_reached_desc": "Vous avez utilisé vos %1$d reconnaissances gratuites ce mois-ci. Débloquez SongFlip PRO pour un accès illimité.",
-            "listen_unlock_pro": "Débloquer SongFlip PRO"
+            "listen_unlock_pro": "Débloquer SongFlip PRO",
+            "pro_feature_listen_title": "Listen & Flip illimité",
+            "pro_feature_listen_desc": "Reconnaissance musicale illimitée + mode Club hors ligne"
         
         ],
         "es": [
@@ -3351,7 +3365,9 @@ enum LocalizationManager {
             "listen_permission_grant": "Permitir acceso al micrófono",
             "listen_quota_reached_title": "Escaneos gratuitos del mes agotados",
             "listen_quota_reached_desc": "Has usado las %1$d identificaciones gratuitas de este mes. Desbloquea SongFlip PRO para usar Listen & Flip sin límites.",
-            "listen_unlock_pro": "Desbloquear SongFlip PRO"
+            "listen_unlock_pro": "Desbloquear SongFlip PRO",
+            "pro_feature_listen_title": "Listen & Flip ilimitado",
+            "pro_feature_listen_desc": "Identifica canciones sin límite + Modo Club sin conexión"
         
         ],
         "it": [
@@ -3770,7 +3786,9 @@ enum LocalizationManager {
             "listen_permission_grant": "Consenti accesso al microfono",
             "listen_quota_reached_title": "Scansioni gratuite mensili esaurite",
             "listen_quota_reached_desc": "Hai utilizzato tutti i %1$d riconoscimenti gratuiti di questo mese. Sblocca SongFlip PRO per Listen & Flip illimitato.",
-            "listen_unlock_pro": "Sblocca SongFlip PRO"
+            "listen_unlock_pro": "Sblocca SongFlip PRO",
+            "pro_feature_listen_title": "Listen & Flip illimitato",
+            "pro_feature_listen_desc": "Riconosci brani senza limiti + Modalità Club Offline"
         
         ],
         "pt": [
@@ -4189,7 +4207,9 @@ enum LocalizationManager {
             "listen_permission_grant": "Permitir acesso ao microfone",
             "listen_quota_reached_title": "Identificações grátis do mês esgotadas",
             "listen_quota_reached_desc": "Você usou todas as %1$d identificações gratuitas deste mês. Desbloqueie o SongFlip PRO para uso ilimitado.",
-            "listen_unlock_pro": "Desbloquear SongFlip PRO"
+            "listen_unlock_pro": "Desbloquear SongFlip PRO",
+            "pro_feature_listen_title": "Listen & Flip ilimitado",
+            "pro_feature_listen_desc": "Identifique músicas sem limites + Modo Clube Offline"
         
         ],
         "pl": [
@@ -4608,7 +4628,9 @@ enum LocalizationManager {
             "listen_permission_grant": "Zezwól na dostęp do mikrofonu",
             "listen_quota_reached_title": "Wykorzystano darmowe skany w tym miesiącu",
             "listen_quota_reached_desc": "Wykorzystałeś wszystkie %1$d darmowe rozpoznania w tym miesiącu. Odblokuj SongFlip PRO, aby skanować bez limitu.",
-            "listen_unlock_pro": "Odblokuj SongFlip PRO"
+            "listen_unlock_pro": "Odblokuj SongFlip PRO",
+            "pro_feature_listen_title": "Nielimitowane Listen & Flip",
+            "pro_feature_listen_desc": "Rozpoznawaj utwory bez limitu + tryb klubowy offline"
         
         ],
         "ru": [
@@ -5027,7 +5049,9 @@ enum LocalizationManager {
             "listen_permission_grant": "Разрешить доступ к микрофону",
             "listen_quota_reached_title": "Бесплатные сканирования исчерпаны",
             "listen_quota_reached_desc": "Вы использовали все %1$d бесплатных распознаваний в этом месяце. Откройте SongFlip PRO для безлимитного доступа.",
-            "listen_unlock_pro": "Открыть SongFlip PRO"
+            "listen_unlock_pro": "Открыть SongFlip PRO",
+            "pro_feature_listen_title": "Безлимитный Listen & Flip",
+            "pro_feature_listen_desc": "Распознавание треков без лимитов + офлайн-режим"
         
         ],
         "tr": [
@@ -5446,7 +5470,9 @@ enum LocalizationManager {
             "listen_permission_grant": "Mikrofona İzin Ver",
             "listen_quota_reached_title": "Aylık Ücretsiz Taramalar Doldu",
             "listen_quota_reached_desc": "Bu ayki %1$d ücretsiz şarkı tanıma hakkınızı kullandınız. Sınırsız Listen & Flip için SongFlip PRO'yu açın.",
-            "listen_unlock_pro": "SongFlip PRO'yu Aç"
+            "listen_unlock_pro": "SongFlip PRO'yu Aç",
+            "pro_feature_listen_title": "Sınırsız Listen & Flip",
+            "pro_feature_listen_desc": "Sınırsız şarkı tanıma + Çevrimdışı Kulüp Modu"
         
         ],
         "uk": [
@@ -5865,7 +5891,9 @@ enum LocalizationManager {
             "listen_permission_grant": "Дозволити доступ до мікрофона",
             "listen_quota_reached_title": "Безкоштовні сканування вичерпано",
             "listen_quota_reached_desc": "Ви використали всі %1$d безкоштовних розпізнавань цього місяця. Розблокуйте SongFlip PRO для безлімітного доступу.",
-            "listen_unlock_pro": "Розблокувати SongFlip PRO"
+            "listen_unlock_pro": "Розблокувати SongFlip PRO",
+            "pro_feature_listen_title": "Безлімітний Listen & Flip",
+            "pro_feature_listen_desc": "Розпізнавання пісень без лімітів + офлайн-режим"
         
         ],
         "ja": [
@@ -6284,7 +6312,9 @@ enum LocalizationManager {
             "listen_permission_grant": "マイクを許可する",
             "listen_quota_reached_title": "今月の無料スキャン上限に達しました",
             "listen_quota_reached_desc": "今月の無料認識（%1$d回）をすべて使用しました。SongFlip PROで無制限の認識とオフラインモードを解放しましょう。",
-            "listen_unlock_pro": "SongFlip PRO を解放"
+            "listen_unlock_pro": "SongFlip PRO を解放",
+            "pro_feature_listen_title": "無制限の Listen & Flip",
+            "pro_feature_listen_desc": "無制限の音楽認識 ＋ オフライン・クラブモード"
         
         ],
         "ko": [
@@ -6703,7 +6733,9 @@ enum LocalizationManager {
             "listen_permission_grant": "마이크 권한 허용",
             "listen_quota_reached_title": "이번 달 무료 스캔 소진",
             "listen_quota_reached_desc": "이번 달 무료 곡 인식 %1$d회를 모두 사용했습니다. 무제한 인식을 위해 SongFlip PRO를 잠금 해제하세요.",
-            "listen_unlock_pro": "SongFlip PRO 잠금 해제"
+            "listen_unlock_pro": "SongFlip PRO 잠금 해제",
+            "pro_feature_listen_title": "무제한 Listen & Flip",
+            "pro_feature_listen_desc": "무제한 음악 인식 + 오프라인 클럽 모드"
         
         ],
         "zh": [
@@ -7122,7 +7154,9 @@ enum LocalizationManager {
             "listen_permission_grant": "允许访问麦克风",
             "listen_quota_reached_title": "本月免费次数已用完",
             "listen_quota_reached_desc": "您已用完本月全部 %1$d 次免费识曲。解锁 SongFlip PRO 畅享无限次识曲与离线模式。",
-            "listen_unlock_pro": "解锁 SongFlip PRO"
+            "listen_unlock_pro": "解锁 SongFlip PRO",
+            "pro_feature_listen_title": "无限次 Listen & Flip",
+            "pro_feature_listen_desc": "不限次数听音识曲 + 离线俱乐部模式"
         ],
         "in": [
             "settings_share_app": "Bagikan SongFlip",
@@ -7540,7 +7574,9 @@ enum LocalizationManager {
             "listen_permission_grant": "Izinkan Akses Mikrofon",
             "listen_quota_reached_title": "Kuota Gratis Bulanan Habis",
             "listen_quota_reached_desc": "Anda telah menggunakan semua %1$d pengenalan lagu gratis bulan ini. Buka SongFlip PRO untuk akses tanpa batas.",
-            "listen_unlock_pro": "Buka SongFlip PRO"
+            "listen_unlock_pro": "Buka SongFlip PRO",
+            "pro_feature_listen_title": "Listen & Flip Tanpa Batas",
+            "pro_feature_listen_desc": "Kenali lagu sepuasnya + Mode Klub Offline"
         ],
         "vi": [
             "settings_share_app": "Chia sẻ SongFlip",
@@ -7958,7 +7994,9 @@ enum LocalizationManager {
             "listen_permission_grant": "Cho phép truy cập Micro",
             "listen_quota_reached_title": "Đã hết lượt miễn phí trong tháng",
             "listen_quota_reached_desc": "Bạn đã dùng hết %1$d lượt nhận diện miễn phí tháng này. Mở khóa SongFlip PRO để dùng không giới hạn.",
-            "listen_unlock_pro": "Mở khóa SongFlip PRO"
+            "listen_unlock_pro": "Mở khóa SongFlip PRO",
+            "pro_feature_listen_title": "Listen & Flip không giới hạn",
+            "pro_feature_listen_desc": "Nhận diện bài hát không giới hạn + Chế độ Offline"
         
         ],
         "bn": [
@@ -8377,7 +8415,9 @@ enum LocalizationManager {
             "listen_permission_grant": "মাইক্রোফোন অনুমতি দিন",
             "listen_quota_reached_title": "মাসিক ফ্রি স্ক্যান শেষ",
             "listen_quota_reached_desc": "আপনি এই মাসের সবকটি (%1$d) ফ্রি গান শনাক্তকরণ ব্যবহার করেছেন। আনলিমিটেড অ্যাক্সেসের জন্য SongFlip PRO আনলক করুন।",
-            "listen_unlock_pro": "SongFlip PRO আনলক করুন"
+            "listen_unlock_pro": "SongFlip PRO আনলক করুন",
+            "pro_feature_listen_title": "আনলিমিটেড Listen & Flip",
+            "pro_feature_listen_desc": "আনলিমিটেড গান শনাক্তকরণ + অফলাইন ক্লাব মোড"
         
         ],
         "hi": [
@@ -8796,7 +8836,9 @@ enum LocalizationManager {
             "listen_permission_grant": "माइक्रोफ़ोन की अनुमति दें",
             "listen_quota_reached_title": "मासिक मुफ़्त स्कैन समाप्त",
             "listen_quota_reached_desc": "आपने इस महीने के सभी %1$d मुफ़्त स्कैन इस्तेमाल कर लिए हैं। अनलिमिटेड Listen & Flip के लिए SongFlip PRO अनलॉक करें।",
-            "listen_unlock_pro": "SongFlip PRO अनलॉक करें"
+            "listen_unlock_pro": "SongFlip PRO अनलॉक करें",
+            "pro_feature_listen_title": "अनलिमिटेड Listen & Flip",
+            "pro_feature_listen_desc": "असीमित गाने पहचानें + ऑफ़लाइन क्लब मोड"
         
         ],
         "mr": [
@@ -9215,7 +9257,9 @@ enum LocalizationManager {
             "listen_permission_grant": "मायक्रोफोनला परवानगी द्या",
             "listen_quota_reached_title": "मासिक मोफत स्कॅन संपले",
             "listen_quota_reached_desc": "तुम्ही या महिन्याचे सर्व %1$d मोफत स्कॅन वापरले आहेत. अमर्यादित वापरासाठी SongFlip PRO अनलॉक करा.",
-            "listen_unlock_pro": "SongFlip PRO अनलॉक करा"
+            "listen_unlock_pro": "SongFlip PRO अनलॉक करा",
+            "pro_feature_listen_title": "अमर्यादित Listen & Flip",
+            "pro_feature_listen_desc": "अमर्यादित गाणी ओळखा + ऑफलाइन क्लब मोड"
         
         ],
         "cs": [
@@ -9640,7 +9684,9 @@ enum LocalizationManager {
             "listen_permission_grant": "Povolit mikrofon",
             "listen_quota_reached_title": "Měsíční bezplatné skeny vyčerpány",
             "listen_quota_reached_desc": "Využili jste všech %1$d bezplatných rozpoznání v tomto měsíci. Odemkněte SongFlip PRO pro neomezené použití.",
-            "listen_unlock_pro": "Odemknout SongFlip PRO"
+            "listen_unlock_pro": "Odemknout SongFlip PRO",
+            "pro_feature_listen_title": "Neomezené Listen & Flip",
+            "pro_feature_listen_desc": "Neomezené rozpoznávání skladeb + offline klubový režim"
         ],
         "el": [
             "action_close": "Close",
@@ -10064,7 +10110,9 @@ enum LocalizationManager {
             "listen_permission_grant": "Να επιτρέπεται το μικρόφωνο",
             "listen_quota_reached_title": "Οι δωρεάν σαρώσεις του μήνα εξαντλήθηκαν",
             "listen_quota_reached_desc": "Χρησιμοποιήσατε και τις %1$d δωρεάν αναγνωρίσεις αυτού του μήνα. Ξεκλειδώστε το SongFlip PRO για απεριόριστη χρήση.",
-            "listen_unlock_pro": "Ξεκλείδωμα SongFlip PRO"
+            "listen_unlock_pro": "Ξεκλείδωμα SongFlip PRO",
+            "pro_feature_listen_title": "Απεριόριστο Listen & Flip",
+            "pro_feature_listen_desc": "Απεριόριστη αναγνώριση τραγουδιών + λειτουργία εκτός σύνδεσης"
         ],
         "fi": [
             "action_close": "Close",
@@ -10488,7 +10536,9 @@ enum LocalizationManager {
             "listen_permission_grant": "Salli mikrofonin käyttö",
             "listen_quota_reached_title": "Kuukauden ilmaiset tunnistukset käytetty",
             "listen_quota_reached_desc": "Olet käyttänyt kaikki %1$d ilmaista tunnistusta tässä kuussa. Avaa SongFlip PRO saadaksesi rajattomat tunnistukset.",
-            "listen_unlock_pro": "Avaa SongFlip PRO"
+            "listen_unlock_pro": "Avaa SongFlip PRO",
+            "pro_feature_listen_title": "Rajaton Listen & Flip",
+            "pro_feature_listen_desc": "Tunnista rajattomasti kappaleita + offline-klubitila"
         ],
         "hu": [
             "action_close": "Close",
@@ -10912,7 +10962,9 @@ enum LocalizationManager {
             "listen_permission_grant": "Mikrofon engedélyezése",
             "listen_quota_reached_title": "Elfogytak a havi ingyenes felismerések",
             "listen_quota_reached_desc": "Elhasználtad mind a(z) %1$d ingyenes zenefelismerést ebben a hónapban. Oldd fel a SongFlip PRO-t a korlátlan használathoz.",
-            "listen_unlock_pro": "SongFlip PRO feloldása"
+            "listen_unlock_pro": "SongFlip PRO feloldása",
+            "pro_feature_listen_title": "Korlátlan Listen & Flip",
+            "pro_feature_listen_desc": "Korlátlan zenefelismerés + Offline Klub mód"
         ],
         "ro": [
             "action_close": "Close",
@@ -11336,7 +11388,9 @@ enum LocalizationManager {
             "listen_permission_grant": "Permite accesul la microfon",
             "listen_quota_reached_title": "Scanările gratuite lunare au fost epuizate",
             "listen_quota_reached_desc": "Ai folosit toate cele %1$d identificări gratuite din această lună. Deblochează SongFlip PRO pentru acces nelimitat.",
-            "listen_unlock_pro": "Deblochează SongFlip PRO"
+            "listen_unlock_pro": "Deblochează SongFlip PRO",
+            "pro_feature_listen_title": "Listen & Flip nelimitat",
+            "pro_feature_listen_desc": "Recunoaștere muzicală nelimitată + Modul Club Offline"
         ],
         "th": [
             "action_close": "Close",
@@ -11760,7 +11814,9 @@ enum LocalizationManager {
             "listen_permission_grant": "อนุญาตให้เข้าถึงไมโครโฟน",
             "listen_quota_reached_title": "ใช้สิทธิ์สแกนฟรีประจำเดือนครบแล้ว",
             "listen_quota_reached_desc": "คุณใช้สิทธิ์ค้นหาเพลงฟรีครบ %1$d ครั้งในเดือนนี้แล้ว ปลดล็อก SongFlip PRO เพื่อใช้งานแบบไม่จำกัด",
-            "listen_unlock_pro": "ปลดล็อก SongFlip PRO"
+            "listen_unlock_pro": "ปลดล็อก SongFlip PRO",
+            "pro_feature_listen_title": "Listen & Flip ไม่จำกัด",
+            "pro_feature_listen_desc": "ค้นหาเพลงได้ไม่จำกัด + โหมดคลับออฟไลน์"
         ],
     ]
 
