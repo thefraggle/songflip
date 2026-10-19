@@ -409,4 +409,6 @@
     <string name="listen_quota_reached_title">今月の無料スキャン上限に達しました</string>
     <string name="listen_quota_reached_desc">今月の無料認識（%1$d回）をすべて使用しました。SongFlip PROで無制限の認識とオフラインモードを解放しましょう。</string>
     <string name="listen_unlock_pro">SongFlip PRO を解放</string>
+    <string name="pro_feature_listen_title">無制限の Listen &amp; Flip</string>
+    <string name="pro_feature_listen_desc">無制限の音楽認識 ＋ オフライン・クラブモード</string>
 </resources>

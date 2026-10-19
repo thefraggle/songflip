@@ -421,4 +421,6 @@
     <string name="listen_quota_reached_title">Безкоштовні сканування вичерпано</string>
     <string name="listen_quota_reached_desc">Ви використали всі %1$d безкоштовних розпізнавань цього місяця. Розблокуйте SongFlip PRO для безлімітного доступу.</string>
     <string name="listen_unlock_pro">Розблокувати SongFlip PRO</string>
+    <string name="pro_feature_listen_title">Безлімітний Listen &amp; Flip</string>
+    <string name="pro_feature_listen_desc">Розпізнавання пісень без лімітів + офлайн-режим</string>
 </resources>

@@ -413,4 +413,6 @@
     <string name="listen_quota_reached_title">Escaneos gratuitos del mes agotados</string>
     <string name="listen_quota_reached_desc">Has usado las %1$d identificaciones gratuitas de este mes. Desbloquea SongFlip PRO para usar Listen &amp; Flip sin límites.</string>
     <string name="listen_unlock_pro">Desbloquear SongFlip PRO</string>
+    <string name="pro_feature_listen_title">Listen &amp; Flip ilimitado</string>
+    <string name="pro_feature_listen_desc">Identifica canciones sin límite + Modo Club sin conexión</string>
 </resources>

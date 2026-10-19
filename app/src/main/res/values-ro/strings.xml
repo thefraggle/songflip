@@ -403,4 +403,6 @@
     <string name="listen_quota_reached_title">Scanările gratuite lunare au fost epuizate</string>
     <string name="listen_quota_reached_desc">Ai folosit toate cele %1$d identificări gratuite din această lună. Deblochează SongFlip PRO pentru acces nelimitat.</string>
     <string name="listen_unlock_pro">Deblochează SongFlip PRO</string>
+    <string name="pro_feature_listen_title">Listen &amp; Flip nelimitat</string>
+    <string name="pro_feature_listen_desc">Recunoaștere muzicală nelimitată + Modul Club Offline</string>
 </resources>

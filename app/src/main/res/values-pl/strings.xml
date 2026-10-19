@@ -421,4 +421,6 @@
     <string name="listen_quota_reached_title">Wykorzystano darmowe skany w tym miesiącu</string>
     <string name="listen_quota_reached_desc">Wykorzystałeś wszystkie %1$d darmowe rozpoznania w tym miesiącu. Odblokuj SongFlip PRO, aby skanować bez limitu.</string>
     <string name="listen_unlock_pro">Odblokuj SongFlip PRO</string>
+    <string name="pro_feature_listen_title">Nielimitowane Listen &amp; Flip</string>
+    <string name="pro_feature_listen_desc">Rozpoznawaj utwory bez limitu + tryb klubowy offline</string>
 </resources>

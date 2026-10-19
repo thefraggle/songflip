@@ -413,4 +413,6 @@
     <string name="listen_quota_reached_title">Scans gratuits du mois épuisés</string>
     <string name="listen_quota_reached_desc">Vous avez utilisé vos %1$d reconnaissances gratuites ce mois-ci. Débloquez SongFlip PRO pour un accès illimité.</string>
     <string name="listen_unlock_pro">Débloquer SongFlip PRO</string>
+    <string name="pro_feature_listen_title">Listen &amp; Flip illimité</string>
+    <string name="pro_feature_listen_desc">Reconnaissance musicale illimitée + mode Club hors ligne</string>
 </resources>

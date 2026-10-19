@@ -413,4 +413,6 @@
     <string name="listen_quota_reached_title">Identificações grátis do mês esgotadas</string>
     <string name="listen_quota_reached_desc">Você usou todas as %1$d identificações gratuitas deste mês. Desbloqueie o SongFlip PRO para uso ilimitado.</string>
     <string name="listen_unlock_pro">Desbloquear SongFlip PRO</string>
+    <string name="pro_feature_listen_title">Listen &amp; Flip ilimitado</string>
+    <string name="pro_feature_listen_desc">Identifique músicas sem limites + Modo Clube Offline</string>
 </resources>

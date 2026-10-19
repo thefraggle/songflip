@@ -413,4 +413,6 @@
     <string name="listen_quota_reached_title">मासिक मोफत स्कॅन संपले</string>
     <string name="listen_quota_reached_desc">तुम्ही या महिन्याचे सर्व %1$d मोफत स्कॅन वापरले आहेत. अमर्यादित वापरासाठी SongFlip PRO अनलॉक करा.</string>
     <string name="listen_unlock_pro">SongFlip PRO अनलॉक करा</string>
+    <string name="pro_feature_listen_title">अमर्यादित Listen &amp; Flip</string>
+    <string name="pro_feature_listen_desc">अमर्यादित गाणी ओळखा + ऑफलाइन क्लब मोड</string>
 </resources>

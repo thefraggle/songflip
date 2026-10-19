@@ -409,4 +409,6 @@
     <string name="listen_quota_reached_title">이번 달 무료 스캔 소진</string>
     <string name="listen_quota_reached_desc">이번 달 무료 곡 인식 %1$d회를 모두 사용했습니다. 무제한 인식을 위해 SongFlip PRO를 잠금 해제하세요.</string>
     <string name="listen_unlock_pro">SongFlip PRO 잠금 해제</string>
+    <string name="pro_feature_listen_title">무제한 Listen &amp; Flip</string>
+    <string name="pro_feature_listen_desc">무제한 음악 인식 + 오프라인 클럽 모드</string>
 </resources>

@@ -413,4 +413,6 @@
     <string name="listen_quota_reached_title">Maandelijkse gratis scans gebruikt</string>
     <string name="listen_quota_reached_desc">Je hebt alle %1$d gratis muziekherkenningen voor deze maand gebruikt. Ontgrendel SongFlip PRO voor onbeperkt Listen &amp; Flip.</string>
     <string name="listen_unlock_pro">SongFlip PRO ontgrendelen</string>
+    <string name="pro_feature_listen_title">Onbeperkt Listen &amp; Flip</string>
+    <string name="pro_feature_listen_desc">Onbeperkt nummers herkennen + Offline Club Mode</string>
 </resources>

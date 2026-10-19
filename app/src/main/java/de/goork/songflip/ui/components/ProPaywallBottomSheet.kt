@@ -284,6 +284,10 @@ fun ProPaywallBottomSheet(
                         verticalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
                         ProFeatureRow(
+                            title = stringResource(R.string.pro_feature_listen_title),
+                            description = stringResource(R.string.pro_feature_listen_desc)
+                        )
+                        ProFeatureRow(
                             title = stringResource(R.string.pro_feature_playlists_title),
                             description = stringResource(R.string.pro_feature_playlists_desc)
                         )

@@ -399,4 +399,6 @@
     <string name="listen_quota_reached_title">Οι δωρεάν σαρώσεις του μήνα εξαντλήθηκαν</string>
     <string name="listen_quota_reached_desc">Χρησιμοποιήσατε και τις %1$d δωρεάν αναγνωρίσεις αυτού του μήνα. Ξεκλειδώστε το SongFlip PRO για απεριόριστη χρήση.</string>
     <string name="listen_unlock_pro">Ξεκλείδωμα SongFlip PRO</string>
+    <string name="pro_feature_listen_title">Απεριόριστο Listen &amp; Flip</string>
+    <string name="pro_feature_listen_desc">Απεριόριστη αναγνώριση τραγουδιών + λειτουργία εκτός σύνδεσης</string>
 </resources>
