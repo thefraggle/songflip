@@ -359,7 +359,9 @@ struct ListenAndFlipSheetView: View {
                         ))
                         .font(.subheadline.weight(.semibold))
                         .lineLimit(1)
+                        .minimumScaleFactor(0.8)
                     }
+                    .padding(.horizontal, 8)
                     .frame(maxWidth: .infinity)
                     .frame(minHeight: 46)
                     .background(Color(uiColor: .secondarySystemBackground))
@@ -373,7 +375,10 @@ struct ListenAndFlipSheetView: View {
                             Image(systemName: "square.and.arrow.up")
                             Text(LocalizationManager.string(for: "listen_share_action", lang: lang))
                                 .font(.subheadline.weight(.semibold))
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.85)
                         }
+                        .padding(.horizontal, 8)
                         .frame(maxWidth: .infinity)
                         .frame(minHeight: 46)
                         .background(Color(uiColor: .secondarySystemBackground))

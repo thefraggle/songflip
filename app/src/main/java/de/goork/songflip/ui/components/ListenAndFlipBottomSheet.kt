@@ -663,48 +663,50 @@ private fun MatchedResultContent(
         // Secondary Actions Row: Favorite, Share, Scan Another
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             OutlinedButton(
                 onClick = onToggleFavorite,
                 modifier = Modifier
-                    .weight(1f)
+                    .weight(1.4f)
                     .heightIn(min = 48.dp),
-                shape = RoundedCornerShape(12.dp)
+                shape = RoundedCornerShape(12.dp),
+                contentPadding = PaddingValues(horizontal = 10.dp, vertical = 8.dp)
             ) {
                 Icon(
                     imageVector = if (isFavorited) Icons.Filled.Star else Icons.Outlined.StarBorder,
                     contentDescription = null,
                     tint = if (isFavorited) Color(0xFFFFB800) else MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.size(18.dp)
+                    modifier = Modifier.size(16.dp)
                 )
-                Spacer(modifier = Modifier.width(6.dp))
+                Spacer(modifier = Modifier.width(5.dp))
                 Text(
                     text = stringResource(if (isFavorited) R.string.favorite_remove else R.string.favorite_add),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                    fontSize = 13.sp
+                    fontSize = 12.sp
                 )
             }
 
             OutlinedButton(
                 onClick = onShare,
                 modifier = Modifier
-                    .weight(1f)
+                    .weight(0.9f)
                     .heightIn(min = 48.dp),
-                shape = RoundedCornerShape(12.dp)
+                shape = RoundedCornerShape(12.dp),
+                contentPadding = PaddingValues(horizontal = 10.dp, vertical = 8.dp)
             ) {
                 Icon(
                     imageVector = Icons.Outlined.Share,
                     contentDescription = null,
-                    modifier = Modifier.size(18.dp)
+                    modifier = Modifier.size(16.dp)
                 )
-                Spacer(modifier = Modifier.width(6.dp))
+                Spacer(modifier = Modifier.width(5.dp))
                 Text(
                     text = stringResource(R.string.listen_share_action),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                    fontSize = 13.sp
+                    fontSize = 12.sp
                 )
             }
         }

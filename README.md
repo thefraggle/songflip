@@ -15,7 +15,7 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 ## ✨ Key Features
 
 - **⚡ 0-Click Background Redirect**: Intercepts music links transparently and launches direct playback in your target player.
-- **🎵 Listen & Flip (In-App Music Recognition)**: Identify music playing around you directly inside SongFlip. Recognized tracks are immediately resolved for your preferred streaming player and saved to your history without interrupting the moment (3 free recognitions/month; unlimited in PRO).
+- **🎵 Listen & Flip (In-App Music Recognition)**: Identify music playing around you directly inside SongFlip. Recognized tracks are immediately resolved for your preferred streaming player and saved to your history without interrupting the moment (3 free recognitions/month, with repeat recognitions of songs already in your history never deducting a scan; unlimited in PRO).
 - **🕺 Offline Club Mode [PRO]**: No reception in a club, bar, or festival? Capture an acoustic fingerprint offline and let SongFlip automatically identify the song and add it to your history as soon as you're back online.
 - **🔎 In-App Direct Search & Flip**: Search for any song or artist directly in SongFlip without leaving the app and launch playback with a single tap.
 - **🎛️ Precision Match-Review & Disambiguation [PRO]**: Easily pick alternative versions, recordings, or remixes right from your history or search options.

@@ -1,2 +1,1 @@
-- Enhanced Music Recognition & Level Adaptation: Improved microphone signal amplification and dynamic volume feedback so songs playing nearby or at lower room volume are recognized much more reliably in Listen & Flip.
-- Clearer Feature Overview: Streamlined the feature overview for a cleaner, more focused presentation across all supported languages.
+v1.9.9: Repeat recognition of songs in history no longer deducts a free scan, clean single-entry history, and UI polish.
