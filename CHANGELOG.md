@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.9.7] - 2026-10-19
+- **More Reliable Music Recognition**: Improved audio recording stability and ambient room sensitivity for faster and more accurate song recognition in Listen & Flip.
+- **General Stability**: Internal synchronization refinements and performance improvements.
+
 ## [1.9.6] - 2026-10-19
 - **Improved Offline Recognition Feedback**: Clearer status feedback when starting music recognition without an active internet connection, plus completed translations across all 34 supported languages.
 

@@ -6,8 +6,11 @@ Akár a Spotify-t a YouTube Music-ra, az Apple Podcastokat Pocket Casts-ra, a Sp
 
 🚀 FŐBB FUNKCIÓK:
 
-• 10 streaming platform, podcast és Shazam:
-Zökkenőmentesen konvertálhatja és irányíthatja át a dallinkeket és podcastokat a Spotify, a YouTube Music, az Apple Music, az Apple Podcast, a Pocket Casts, a Deezer, a TIDAL, az Amazon Music, a SoundCloud és a Bandcamp szolgáltatáson keresztül. Azonnali zenei link konverter támogatást tartalmaz a megosztott Shazam linkekhez!
+• 12 streaming platform, podcast és Shazam:
+Zökkenőmentesen konvertálhatja és irányíthatja át a dallinkeket és podcastokat a Spotify, a YouTube Music, az Apple Music, az Apple Podcast, a Pocket Casts, a Deezer, a TIDAL, az Amazon Music, Qobuz, Beatport, a SoundCloud és a Bandcamp szolgáltatáson keresztül. Azonnali zenei link konverter támogatást tartalmaz a megosztott Shazam linkekhez!
+
+• Listen & Flip (Zenefelismerés):
+Ismerd fel a körülötted szóló zenét közvetlenül a SongFlipben, és mentsd el az előzményekbe. Nincs térerő? Mentsd el a hangmintázatot offline, és a SongFlip automatikusan felismeri a dalt, amint újra online leszel.
 
 • Közvetlen dalkeresés:
 Keressen dalok és előadók között a SongFlip alkalmazásban, és indítsa el a lejátszást kedvenc lejátszójában az 1 érintéssel működő Fast Flip funkcióval.
@@ -19,13 +22,10 @@ Hozzon létre és olvasson be univerzális QR-kódokat dalokhoz és albumokhoz b
 Oszd meg a teljes podcast-műsorokat vagy epizódokat különböző platformokon. A SongFlip automatikusan feloldja az epizódcímeket, így konvertálja és megnyitja a podcast hivatkozásokat közvetlenül a kedvenc podcast-lejátszójában.
 
 • Univerzális lejátszási lista konvertáló és lejátszási lista átvitel:
-A lejátszási listák konvertálása és a lejátszási listák sávonkénti átvitele a Spotify, az Apple Music, a YouTube Music, a TIDAL és a Deezer között – automatikus duplikátumtisztítással, akár 200 számmal és gyors gyorsítótárazással.
+A lejátszási listák konvertálása és a lejátszási listák sávonkénti átvitele a Spotify, az Apple Music, a YouTube Music, a TIDAL és a Deezer között.
 
 • Egyezések és kedvencek finomítása:
 Válasszon az élő, remaster vagy stúdióverziók között, és rögzítse kedvenc dalait egyetlen koppintással.
-
-• Azonnali szám lejátszása:
-Közvetlenül a céllejátszón belül indítja el a lejátszást az üres keresőoldalak helyett.
 
 • Gyors játékosválasztó:
 Menet közben válassza ki célzott audiolejátszóját, amikor megnyit egy megosztott dal vagy podcast linket.

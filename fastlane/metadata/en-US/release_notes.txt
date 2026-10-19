@@ -1,3 +1,2 @@
-- Manual Match Correction in History: Quickly access manual song match selection directly from the history menu whenever a converted track needs a different version.
-- Quick Header Navigation: Open your account status and feature overview directly by tapping the header badge on the home screen.
-- Localization & Stability: Fixed a crash when opening nested sheets in certain languages and improved formatting reliability across all supported translations.
+- More Reliable Music Recognition: Improved audio recording stability and ambient room sensitivity for faster and more accurate song recognition in Listen & Flip.
+- General Stability: Internal synchronization refinements and performance improvements.

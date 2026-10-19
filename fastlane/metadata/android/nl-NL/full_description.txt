@@ -6,8 +6,11 @@ Of u nu Spotify naar YouTube Music, Apple Podcasts naar Pocket Casts, Spotify na
 
 🚀 BELANGRIJKSTE FUNCTIES:
 
-• 10 streamingplatforms, podcasts en Shazam:
-Converteer en stuur nummerlinks en podcasts naadloos om via Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, SoundCloud en Bandcamp. Inclusief directe ondersteuning voor muzieklinkconversie voor gedeelde Shazam-links!
+• 12 streamingplatforms, podcasts en Shazam:
+Converteer en stuur nummerlinks en podcasts naadloos om via Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, SoundCloud en Bandcamp. Inclusief directe ondersteuning voor muzieklinkconversie voor gedeelde Shazam-links!
+
+• Listen & Flip (Muziekherkenning):
+Herken muziek om je heen direct in SongFlip. Nummers worden gekoppeld aan je favoriete speler en opgeslagen in je geschiedenis. Geen bereik in de club? Sla de audio-afdruk offline op en laat het nummer automatisch herkennen zodra je weer online bent.
 
 • Direct zoeken naar nummers (in-app zoeken):
 Zoek naar nummers en artiesten rechtstreeks in SongFlip en start het afspelen direct in je favoriete streamingspeler met 1 tik op Fast Flip - geen bestaande nummerlink vereist.
@@ -22,10 +25,7 @@ Deel volledige podcastshows of afleveringen op verschillende platforms. SongFlip
 Converteer afspeellijsten en draag afspeellijsten track voor track over tussen Spotify, Apple Music, YouTube Music, TIDAL en Deezer, met automatische opschoning van dubbele nummers, tot 200 nummers en snelle caching.
 
 • Matches verfijnen en 1-Tap-favorieten:
-Kies eenvoudig tussen live-opnames, remasters of studioversies. Zet uw favoriete nummers in de geschiedenis vast met een enkele tik en beheer ze via het snelactiemenu.
-
-• Directe Weergave (Instant Playback):
-Start nummers en afleveringen direct in de doel-app in plaats van een lege zoekpagina te tonen.
+Kies eenvoudig tussen live-opnames, remasters of studioversies.
 
 • Snelle Spelerkiezer (Elke keer vragen):
 Gebruik je meerdere audio-apps? Activeer de optionele snelle kiezer om direct je doelspeler te kiezen wanneer je een link opent.
