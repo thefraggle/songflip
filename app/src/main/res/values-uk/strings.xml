@@ -396,4 +396,29 @@
     <string name="history_filter_all">Усі</string>
     <string name="history_filter_favorites">Обране</string>
     <string name="target_player_chip">Плеєр: %1$s</string>
+    <!-- Listen & Flip (#78) -->
+    <string name="listen_and_flip_title">Listen &amp; Flip</string>
+    <string name="listen_and_flip_subtitle">Розпізнавайте музику навколо вас</string>
+    <string name="badge_identified">Розпізнано</string>
+    <string name="listen_free_scans_remaining">Залишилося %1$d/%2$d безкоштовних сканувань цього місяця</string>
+    <string name="listen_status_listening">Слухаємо музику…</string>
+    <string name="listen_status_hint">Піднесіть пристрій ближче до динаміка</string>
+    <string name="listen_status_resolving">Шукаємо трек для вашого плеєра…</string>
+    <string name="listen_saved_to_history">Збережено в історії</string>
+    <string name="listen_open_in_player">Відкрити в %1$s</string>
+    <string name="listen_share_action">Поділитися</string>
+    <string name="listen_scan_again">Розпізнати іншу пісню</string>
+    <string name="listen_offline_saved_title">Збережено в офлайн-режимі</string>
+    <string name="listen_offline_saved_desc">Аудіо-відбиток збережено (в черзі: %1$d). SongFlip автоматично розпізнає пісню, коли з\'явиться інтернет.</string>
+    <string name="listen_offline_resolved_toast">Розпізнано офлайн-пісень: %1$d (додано до історії)!</string>
+    <string name="listen_no_match_title">Пісню не розпізнано</string>
+    <string name="listen_no_match_subtitle">Переконайтеся, що музика грає достатньо гучно, і спробуйте ще раз. Безкоштовні спроби рахуються лише при збігу.</string>
+    <string name="listen_try_again">Спробувати знову</string>
+    <string name="listen_error_offline">Немає інтернету. Перейдіть на PRO для офлайн-режиму.</string>
+    <string name="listen_permission_title">Потрібен доступ до мікрофона</string>
+    <string name="listen_permission_desc">Listen &amp; Flip потребує доступу до мікрофона для розпізнавання музики. Аудіо ніколи не записується і не зберігається.</string>
+    <string name="listen_permission_grant">Дозволити доступ до мікрофона</string>
+    <string name="listen_quota_reached_title">Безкоштовні сканування вичерпано</string>
+    <string name="listen_quota_reached_desc">Ви використали всі %1$d безкоштовних розпізнавань цього місяця. Розблокуйте SongFlip PRO для безлімітного доступу.</string>
+    <string name="listen_unlock_pro">Розблокувати SongFlip PRO</string>
 </resources>

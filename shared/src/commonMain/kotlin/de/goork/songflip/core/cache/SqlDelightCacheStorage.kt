@@ -12,6 +12,14 @@ import kotlinx.serialization.json.doubleOrNull
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.longOrNull
 
+@Serializable
+data class PendingAcousticScan(
+    val id: String,
+    val signatureBase64: String,
+    val durationMs: Long,
+    val createdAt: Long
+)
+
 class SqlDelightCacheStorage(
     private val driverProvider: () -> SqlDriver?,
     private val onDatabaseReady: ((SqlDelightCacheStorage, SongFlipDatabase) -> Unit)? = null
@@ -52,6 +60,7 @@ class SqlDelightCacheStorage(
                 val isAlbum = obj["isAlbum"]?.jsonPrimitive?.booleanOrNull ?: false
                 val thumbnailUrl = obj["thumbnailUrl"]?.jsonPrimitive?.content
                 val isFavorite = obj["isFavorite"]?.jsonPrimitive?.booleanOrNull ?: false
+                val isAcoustic = obj["isAcoustic"]?.jsonPrimitive?.booleanOrNull ?: false
 
                 val rawTs = obj["timestamp"]?.jsonPrimitive?.doubleOrNull
                 val timestampMs = if (rawTs != null) {
@@ -82,7 +91,8 @@ class SqlDelightCacheStorage(
                         timestamp = timestampMs,
                         isHistory = true,
                         thumbnailUrl = thumbnailUrl,
-                        isFavorite = isFavorite || (existing?.isFavorite == true)
+                        isFavorite = isFavorite || (existing?.isFavorite == true),
+                        isAcoustic = isAcoustic || (existing?.isAcoustic == true)
                     )
                 }
             }
@@ -92,6 +102,34 @@ class SqlDelightCacheStorage(
 
     private var database: SongFlipDatabase? = null
     private var initAttempted = false
+
+    private fun ensureSchemaUpgrades(driver: SqlDriver) {
+        try {
+            driver.execute(
+                identifier = null,
+                sql = "ALTER TABLE history ADD COLUMN is_acoustic INTEGER NOT NULL DEFAULT 0;",
+                parameters = 0
+            )
+        } catch (_: Throwable) {
+            // Column already exists on fresh or already-migrated databases
+        }
+        try {
+            driver.execute(
+                identifier = null,
+                sql = """
+                    CREATE TABLE IF NOT EXISTS pending_acoustic_scans (
+                        id TEXT NOT NULL PRIMARY KEY,
+                        signature_base64 TEXT NOT NULL,
+                        duration_ms INTEGER NOT NULL DEFAULT 0,
+                        created_at INTEGER NOT NULL
+                    );
+                """.trimIndent(),
+                parameters = 0
+            )
+        } catch (t: Throwable) {
+            println("SqlDelightCacheStorage: Failed to ensure pending_acoustic_scans table: ${t.message}")
+        }
+    }
 
     fun getDatabase(): SongFlipDatabase? {
         if (database != null) return database
@@ -105,6 +143,7 @@ class SqlDelightCacheStorage(
 
         initAttempted = true
         return try {
+            ensureSchemaUpgrades(driver)
             val db = SongFlipDatabase(driver)
             database = db
             onDatabaseReady?.invoke(this, db)
@@ -134,7 +173,8 @@ class SqlDelightCacheStorage(
                         timestamp = maxOf(historyRow.timestamp, resolverRow.timestamp),
                         isHistory = true,
                         thumbnailUrl = (if (useResolver) resolverRow.thumbnail_url else historyRow.thumbnail_url) ?: historyRow.thumbnail_url,
-                        isFavorite = historyRow.is_favorite != 0L
+                        isFavorite = historyRow.is_favorite != 0L,
+                        isAcoustic = historyRow.is_acoustic != 0L
                     )
                 }
                 historyRow != null -> CacheEntry(
@@ -147,7 +187,8 @@ class SqlDelightCacheStorage(
                     timestamp = historyRow.timestamp,
                     isHistory = true,
                     thumbnailUrl = historyRow.thumbnail_url,
-                    isFavorite = historyRow.is_favorite != 0L
+                    isFavorite = historyRow.is_favorite != 0L,
+                    isAcoustic = historyRow.is_acoustic != 0L
                 )
                 resolverRow != null -> CacheEntry(
                     targetUrl = resolverRow.target_url,
@@ -159,7 +200,8 @@ class SqlDelightCacheStorage(
                     timestamp = resolverRow.timestamp,
                     isHistory = false,
                     thumbnailUrl = resolverRow.thumbnail_url,
-                    isFavorite = false
+                    isFavorite = false,
+                    isAcoustic = false
                 )
                 else -> null
             }
@@ -190,6 +232,7 @@ class SqlDelightCacheStorage(
 
                 val existingHistory = db.songFlipDatabaseQueries.getHistoryByKey(key).executeAsOneOrNull()
                 if (entry.isHistory || entry.isFavorite || existingHistory != null) {
+                    val isAcousticFlag = entry.isAcoustic || (existingHistory?.is_acoustic == 1L)
                     db.songFlipDatabaseQueries.upsertHistory(
                         cache_key = key,
                         canonical_url = canonicalUrl,
@@ -202,7 +245,8 @@ class SqlDelightCacheStorage(
                         native_app_uri = entry.nativeAppUri ?: existingHistory?.native_app_uri,
                         timestamp = entry.timestamp,
                         thumbnail_url = entry.thumbnailUrl ?: existingHistory?.thumbnail_url,
-                        is_favorite = if (entry.isFavorite) 1L else 0L
+                        is_favorite = if (entry.isFavorite) 1L else 0L,
+                        is_acoustic = if (isAcousticFlag) 1L else 0L
                     )
                 }
 
@@ -257,7 +301,8 @@ class SqlDelightCacheStorage(
                     timestamp = row.timestamp,
                     isHistory = false,
                     thumbnailUrl = row.thumbnail_url,
-                    isFavorite = false
+                    isFavorite = false,
+                    isAcoustic = false
                 )
             }
 
@@ -274,7 +319,8 @@ class SqlDelightCacheStorage(
                     timestamp = newerResolver?.timestamp ?: row.timestamp,
                     isHistory = true,
                     thumbnailUrl = newerResolver?.thumbnailUrl ?: row.thumbnail_url,
-                    isFavorite = row.is_favorite != 0L
+                    isFavorite = row.is_favorite != 0L,
+                    isAcoustic = row.is_acoustic != 0L
                 )
             }
             result
@@ -284,13 +330,67 @@ class SqlDelightCacheStorage(
         }
     }
 
-    fun isMigrationDone(migrationKey: String): Boolean {
-        val db = getDatabase() ?: return false
+    fun getMetaValue(key: String): String? {
+        val db = getDatabase() ?: return null
         return try {
-            db.songFlipDatabaseQueries.getMetaValue(migrationKey).executeAsOneOrNull() == "done"
+            db.songFlipDatabaseQueries.getMetaValue(key).executeAsOneOrNull()
         } catch (_: Throwable) {
-            false
+            null
         }
+    }
+
+    fun setMetaValue(key: String, value: String) {
+        val db = getDatabase() ?: return
+        try {
+            db.songFlipDatabaseQueries.setMetaValue(key, value)
+        } catch (t: Throwable) {
+            println("SqlDelightCacheStorage: Failed to set meta $key: ${t.message}")
+        }
+    }
+
+    fun enqueuePendingAcousticScan(id: String, signatureBase64: String, durationMs: Long, createdAt: Long = getCurrentTimeMillis()) {
+        val db = getDatabase() ?: return
+        try {
+            db.songFlipDatabaseQueries.insertPendingAcousticScan(id, signatureBase64, durationMs, createdAt)
+        } catch (t: Throwable) {
+            println("SqlDelightCacheStorage: Failed to enqueue pending acoustic scan $id: ${t.message}")
+        }
+    }
+
+    fun getPendingAcousticScans(): List<PendingAcousticScan> {
+        val db = getDatabase() ?: return emptyList()
+        return try {
+            db.songFlipDatabaseQueries.getAllPendingAcousticScans().executeAsList().map { row ->
+                PendingAcousticScan(
+                    id = row.id,
+                    signatureBase64 = row.signature_base64,
+                    durationMs = row.duration_ms,
+                    createdAt = row.created_at
+                )
+            }
+        } catch (_: Throwable) {
+            emptyList()
+        }
+    }
+
+    fun deletePendingAcousticScan(id: String) {
+        val db = getDatabase() ?: return
+        try {
+            db.songFlipDatabaseQueries.deletePendingAcousticScanById(id)
+        } catch (_: Throwable) {}
+    }
+
+    fun countPendingAcousticScans(): Int {
+        val db = getDatabase() ?: return 0
+        return try {
+            db.songFlipDatabaseQueries.countPendingAcousticScans().executeAsOne().toInt()
+        } catch (_: Throwable) {
+            0
+        }
+    }
+
+    fun isMigrationDone(migrationKey: String): Boolean {
+        return getMetaValue(migrationKey) == "done"
     }
 
     fun migrateLegacyEntries(legacyEntries: Map<String, CacheEntry>, migrationKey: String): Boolean {
@@ -323,6 +423,7 @@ class SqlDelightCacheStorage(
                     if (entry.isHistory || entry.isFavorite) {
                         val existingHistory = db.songFlipDatabaseQueries.getHistoryByKey(key).executeAsOneOrNull()
                         val mergedFav = (existingHistory?.is_favorite == 1L) || entry.isFavorite
+                        val mergedAcoustic = (existingHistory?.is_acoustic == 1L) || entry.isAcoustic
                         if (existingHistory == null || entry.timestamp >= existingHistory.timestamp || mergedFav != (existingHistory.is_favorite == 1L)) {
                             db.songFlipDatabaseQueries.upsertHistory(
                                 cache_key = key,
@@ -336,7 +437,8 @@ class SqlDelightCacheStorage(
                                 native_app_uri = entry.nativeAppUri ?: existingHistory?.native_app_uri,
                                 timestamp = maxOf(entry.timestamp, existingHistory?.timestamp ?: 0L),
                                 thumbnail_url = entry.thumbnailUrl ?: existingHistory?.thumbnail_url,
-                                is_favorite = if (mergedFav) 1L else 0L
+                                is_favorite = if (mergedFav) 1L else 0L,
+                                is_acoustic = if (mergedAcoustic) 1L else 0L
                             )
                         }
                     }

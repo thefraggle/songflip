@@ -382,4 +382,29 @@
     <string name="history_filter_all">Vše</string>
     <string name="history_filter_favorites">Oblíbené</string>
     <string name="target_player_chip">Přehrávač: %1$s</string>
+    <!-- Listen & Flip (#78) -->
+    <string name="listen_and_flip_title">Listen &amp; Flip</string>
+    <string name="listen_and_flip_subtitle">Rozpoznejte hudbu, která hraje kolem vás</string>
+    <string name="badge_identified">Rozpoznáno</string>
+    <string name="listen_free_scans_remaining">Zbývá %1$d/%2$d bezplatných skenů tento měsíc</string>
+    <string name="listen_status_listening">Poslouchám hudbu…</string>
+    <string name="listen_status_hint">Přibližte zařízení blíže k reproduktoru</string>
+    <string name="listen_status_resolving">Hledám shodu pro váš přehrávač…</string>
+    <string name="listen_saved_to_history">Uloženo do historie</string>
+    <string name="listen_open_in_player">Otevřít v %1$s</string>
+    <string name="listen_share_action">Sdílet</string>
+    <string name="listen_scan_again">Rozpoznat další skladbu</string>
+    <string name="listen_offline_saved_title">Uloženo v offline klubovém režimu</string>
+    <string name="listen_offline_saved_desc">Zvukový otisk uložen (čeká: %1$d). SongFlip skladbu automaticky rozpozná, jakmile budete opět online.</string>
+    <string name="listen_offline_resolved_toast">Rozpoznáno %1$d offline skladeb a přidáno do historie!</string>
+    <string name="listen_no_match_title">Žádná skladba nerozpoznána</string>
+    <string name="listen_no_match_subtitle">Ujistěte se, že hudba hraje dostatečně nahlas, a zkuste to znovu. Bezplatné skeny se počítají jen při nalezení.</string>
+    <string name="listen_try_again">Zkusit znovu</string>
+    <string name="listen_error_offline">Žádné připojení k internetu. Přejděte na PRO pro offline režim.</string>
+    <string name="listen_permission_title">Vyžadován přístup k mikrofonu</string>
+    <string name="listen_permission_desc">Listen &amp; Flip potřebuje mikrofon k rozpoznání okolní hudby. Zvuk se nikdy nenahrává ani neukládá.</string>
+    <string name="listen_permission_grant">Povolit mikrofon</string>
+    <string name="listen_quota_reached_title">Měsíční bezplatné skeny vyčerpány</string>
+    <string name="listen_quota_reached_desc">Využili jste všech %1$d bezplatných rozpoznání v tomto měsíci. Odemkněte SongFlip PRO pro neomezené použití.</string>
+    <string name="listen_unlock_pro">Odemknout SongFlip PRO</string>
 </resources>

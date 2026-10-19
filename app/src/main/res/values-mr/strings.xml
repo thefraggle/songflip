@@ -388,4 +388,29 @@
     <string name="history_filter_all">सर्व</string>
     <string name="history_filter_favorites">आवडते</string>
     <string name="target_player_chip">प्लेअर: %1$s</string>
+    <!-- Listen & Flip (#78) -->
+    <string name="listen_and_flip_title">Listen &amp; Flip</string>
+    <string name="listen_and_flip_subtitle">तुमच्या आजूबाजूला वाजणारे संगीत ओळखा</string>
+    <string name="badge_identified">ओळखले</string>
+    <string name="listen_free_scans_remaining">या महिन्यात %1$d/%2$d मोफत स्कॅन शिल्लक</string>
+    <string name="listen_status_listening">संगीत ऐकत आहे…</string>
+    <string name="listen_status_hint">तुमचे डिव्हाइस स्पीकरच्या जवळ धरा</string>
+    <string name="listen_status_resolving">तुमच्या प्लेअरसाठी शोधत आहे…</string>
+    <string name="listen_saved_to_history">इतिहासात जतन केले</string>
+    <string name="listen_open_in_player">%1$s मध्ये उघडा</string>
+    <string name="listen_share_action">शेअर करा</string>
+    <string name="listen_scan_again">दुसरे गाणे ओळखा</string>
+    <string name="listen_offline_saved_title">ऑफलाइन क्लब मोडमध्ये जतन केले</string>
+    <string name="listen_offline_saved_desc">ऑडिओ फिंगरप्रिंट जतन केला (%1$d प्रलंबित). तुम्ही पुन्हा ऑनलाइन आल्यावर SongFlip ते आपोआप ओळखेल.</string>
+    <string name="listen_offline_resolved_toast">%1$d ऑफलाइन गाणी ओळखली आणि इतिहासात जोडली!</string>
+    <string name="listen_no_match_title">कोणतेही गाणे ओळखले गेले नाही</string>
+    <string name="listen_no_match_subtitle">संगीत पुरेसे मोठे असल्याची खात्री करा आणि पुन्हा प्रयत्न करा. गाणे सापडल्यावरच मोफत स्कॅन मोजले जातात.</string>
+    <string name="listen_try_again">पुन्हा प्रयत्न करा</string>
+    <string name="listen_error_offline">इंटरनेट कनेक्शन नाही. ऑफलाइन क्लब मोडसाठी PRO वर अपग्रेड करा.</string>
+    <string name="listen_permission_title">मायक्रोफोन परवानगी आवश्यक</string>
+    <string name="listen_permission_desc">आजूबाजूचे संगीत ओळखण्यासाठी Listen &amp; Flip ला मायक्रोफोनची गरज आहे. ऑडिओ कधीही रेकॉर्ड किंवा साठवला जात नाही.</string>
+    <string name="listen_permission_grant">मायक्रोफोनला परवानगी द्या</string>
+    <string name="listen_quota_reached_title">मासिक मोफत स्कॅन संपले</string>
+    <string name="listen_quota_reached_desc">तुम्ही या महिन्याचे सर्व %1$d मोफत स्कॅन वापरले आहेत. अमर्यादित वापरासाठी SongFlip PRO अनलॉक करा.</string>
+    <string name="listen_unlock_pro">SongFlip PRO अनलॉक करा</string>
 </resources>

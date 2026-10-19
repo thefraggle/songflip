@@ -388,4 +388,29 @@
     <string name="history_filter_all">সব</string>
     <string name="history_filter_favorites">প্রিয়</string>
     <string name="target_player_chip">প্লেয়ার: %1$s</string>
+    <!-- Listen & Flip (#78) -->
+    <string name="listen_and_flip_title">Listen &amp; Flip</string>
+    <string name="listen_and_flip_subtitle">আপনার চারপাশে বাজতে থাকা গান শনাক্ত করুন</string>
+    <string name="badge_identified">শনাক্তকৃত</string>
+    <string name="listen_free_scans_remaining">এই মাসে %1$d/%2$dটি ফ্রি স্ক্যান বাকি আছে</string>
+    <string name="listen_status_listening">গান শোনা হচ্ছে…</string>
+    <string name="listen_status_hint">আপনার ডিভাইসটি স্পিকারের কাছে ধরুন</string>
+    <string name="listen_status_resolving">আপনার প্লেয়ারের জন্য খোঁজা হচ্ছে…</string>
+    <string name="listen_saved_to_history">হিস্ট্রিতে সেভ করা হয়েছে</string>
+    <string name="listen_open_in_player">%1$s-এ খুলুন</string>
+    <string name="listen_share_action">শেয়ার</string>
+    <string name="listen_scan_again">আরেকটি গান শনাক্ত করুন</string>
+    <string name="listen_offline_saved_title">অফলাইন ক্লাব মোডে সেভ হয়েছে</string>
+    <string name="listen_offline_saved_desc">অডিও সিগনেচার সেভ হয়েছে (%1$dটি বাকি)। ইন্টারনেট ফিরে এলে SongFlip স্বয়ংক্রিয়ভাবে এটি শনাক্ত করবে।</string>
+    <string name="listen_offline_resolved_toast">%1$dটি অফলাইন গান শনাক্ত করে হিস্ট্রিতে যোগ করা হয়েছে!</string>
+    <string name="listen_no_match_title">কোনো গান শনাক্ত হয়নি</string>
+    <string name="listen_no_match_subtitle">গানটি যথেষ্ট জোরে বাজছে কিনা নিশ্চিত করে আবার চেষ্টা করুন। কেবল গান পাওয়া গেলেই ফ্রি স্ক্যান গণনা হয়।</string>
+    <string name="listen_try_again">আবার চেষ্টা করুন</string>
+    <string name="listen_error_offline">ইন্টারনেট সংযোগ নেই। অফলাইন মোডের জন্য PRO-তে আপগ্রেড করুন।</string>
+    <string name="listen_permission_title">মাইক্রোফোন অনুমতি প্রয়োজন</string>
+    <string name="listen_permission_desc">আপনার চারপাশের গান শনাক্ত করতে মাইক্রোফোন অ্যাক্সেস প্রয়োজন। কোনো অডিও রেকর্ড বা সংরক্ষণ করা হয় না।</string>
+    <string name="listen_permission_grant">মাইক্রোফোন অনুমতি দিন</string>
+    <string name="listen_quota_reached_title">মাসিক ফ্রি স্ক্যান শেষ</string>
+    <string name="listen_quota_reached_desc">আপনি এই মাসের সবকটি (%1$d) ফ্রি গান শনাক্তকরণ ব্যবহার করেছেন। আনলিমিটেড অ্যাক্সেসের জন্য SongFlip PRO আনলক করুন।</string>
+    <string name="listen_unlock_pro">SongFlip PRO আনলক করুন</string>
 </resources>

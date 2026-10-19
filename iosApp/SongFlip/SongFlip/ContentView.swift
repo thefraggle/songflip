@@ -14,6 +14,7 @@ struct ContentView: View {
     @State private var dismissedClipboardUrl: String? = nil
     @State private var showingSettingsSheet = false
     @State private var showingSearchSheet = false
+    @State private var showingListenSheet = false
     @State private var showingHistorySheet = false
     @State private var showingPaywallSheet = false
     @State private var showingShortcutsGuide = false
@@ -141,6 +142,15 @@ struct ContentView: View {
                     .environmentObject(settings)
                     .preferredColorScheme(settings.colorScheme)
             }
+            .sheet(isPresented: $showingListenSheet) {
+                ListenAndFlipSheetView(
+                    onOpenPaywall: {
+                        showingPaywallSheet = true
+                    }
+                )
+                .environmentObject(settings)
+                .preferredColorScheme(settings.colorScheme)
+            }
             .sheet(isPresented: $showingSettingsSheet) {
                 SettingsSheetView()
                     .environmentObject(settings)
@@ -217,6 +227,16 @@ struct ContentView: View {
                 activeMilestone = settings.getActiveProNudgeMilestone()
                 Task {
                     await promoBannerManager.fetchPromoBanner()
+                    let resolved = await AcousticRecognizer.shared.processPendingOfflineScansIfNeeded(
+                        targetPlatformKey: settings.targetPlatform,
+                        isPro: proManager.isPro
+                    )
+                    if resolved > 0 {
+                        showToast(String(
+                            format: LocalizationManager.string(for: "listen_offline_resolved_toast", lang: lang),
+                            resolved
+                        ))
+                    }
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     checkClipboard()
@@ -230,6 +250,16 @@ struct ContentView: View {
                     activeMilestone = settings.getActiveProNudgeMilestone()
                     Task {
                         await promoBannerManager.fetchPromoBanner()
+                        let resolved = await AcousticRecognizer.shared.processPendingOfflineScansIfNeeded(
+                            targetPlatformKey: settings.targetPlatform,
+                            isPro: proManager.isPro
+                        )
+                        if resolved > 0 {
+                            showToast(String(
+                                format: LocalizationManager.string(for: "listen_offline_resolved_toast", lang: lang),
+                                resolved
+                            ))
+                        }
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         checkClipboard()
@@ -298,28 +328,55 @@ struct ContentView: View {
                 .font(.subheadline)
                 .foregroundColor(.secondary)
 
-            // Prominent In-App Search Bar (Feature #77)
-            Button(action: {
-                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                showingSearchSheet = true
-            }) {
-                HStack(spacing: 10) {
-                    Image(systemName: "magnifyingglass")
-                        .font(.system(size: 15))
-                        .foregroundColor(.secondary)
+            // Prominent In-App Search Bar (#77) + Listen & Flip Action Button (#78)
+            HStack(spacing: 10) {
+                Button(action: {
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                    showingSearchSheet = true
+                }) {
+                    HStack(spacing: 10) {
+                        Image(systemName: "magnifyingglass")
+                            .font(.system(size: 15))
+                            .foregroundColor(.secondary)
 
-                    Text(LocalizationManager.string(for: "search_hint", lang: lang))
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
+                        Text(LocalizationManager.string(for: "search_hint", lang: lang))
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                            .lineLimit(1)
 
-                    Spacer()
+                        Spacer()
+                    }
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 12)
+                    .background(Color(uiColor: .secondarySystemBackground))
+                    .cornerRadius(12)
                 }
-                .padding(.horizontal, 14)
-                .padding(.vertical, 12)
-                .background(Color(uiColor: .secondarySystemBackground))
-                .cornerRadius(12)
+                .buttonStyle(.plain)
+
+                Button(action: {
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                    showingListenSheet = true
+                }) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "waveform")
+                            .font(.system(size: 16, weight: .bold))
+                            .foregroundColor(.green)
+
+                        Text(LocalizationManager.string(for: "listen_and_flip_title", lang: lang))
+                            .font(.caption.weight(.bold))
+                            .foregroundColor(.green)
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 12)
+                    .background(Color.green.opacity(0.15))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.green.opacity(0.35), lineWidth: 1)
+                    )
+                    .cornerRadius(12)
+                }
+                .buttonStyle(.plain)
             }
-            .buttonStyle(.plain)
             .padding(.top, 6)
         }
     }

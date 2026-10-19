@@ -1,3 +1,3 @@
-- Clearer Status Indicator: Refined the header status badge with a subtle, unobtrusive design so your active feature state is immediately recognizable at a glance.
-- Faster SoundCloud & Bandcamp Resolution: Direct metadata lookup for shared SoundCloud and Bandcamp links for even faster playback starts.
-- Improved Playlist Cache: More consistent caching for converted playlists across all supported streaming services.
+- Listen & Flip (Music Recognition): Identify music playing around you directly inside SongFlip. Recognized tracks are matched to your preferred player and saved to your history.
+- Offline Club Mode (PRO): No reception in a club or bar? Capture an audio fingerprint offline and let SongFlip identify the song automatically once you're back online.
+- Identified Filter in History: Quickly find all recognized songs using the new "Identified" badge and filter chip in your history.

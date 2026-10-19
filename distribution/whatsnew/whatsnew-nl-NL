@@ -1,3 +1,3 @@
-- Duidelijkere statusindicator: verfijnde de statusbadge van de header met een subtiel, onopvallend ontwerp, zodat je actieve functiestatus in één oogopslag onmiddellijk herkenbaar is.
-- Snellere SoundCloud- en Bandcamp-resolutie: directe metagegevens opzoeken voor gedeelde SoundCloud- en Bandcamp-koppelingen voor nog snellere start van het afspelen.
-- Verbeterde afspeellijstcache: consistentere caching voor geconverteerde afspeellijsten in alle ondersteunde streamingdiensten.
+- Listen & Flip (Muziekherkenning): Herken muziek om je heen direct in SongFlip. Nummers worden gekoppeld aan je favoriete speler en opgeslagen in je geschiedenis.
+- Offline Club Mode (PRO): Geen bereik in de club? Sla de audio-afdruk offline op en laat het nummer automatisch herkennen zodra je weer online bent.
+- Filter voor herkende nummers: Vind alle herkende tracks snel terug in je geschiedenis.

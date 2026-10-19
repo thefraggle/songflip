@@ -405,4 +405,29 @@
     <string name="disambiguate_empty">Keine alternativen Versionen gefunden</string>
     <string name="disambiguate_error">Versionen konnten nicht geladen werden</string>
     <string name="favorite_limit_reached">Du hast deine 10 kostenlosen Favoriten erreicht. Sichere dir SongFlip PRO für unbegrenzte Favoriten &amp; 100 Verlaufs-Einträge.</string>
+    <!-- Listen & Flip (#78) -->
+    <string name="listen_and_flip_title">Listen &amp; Flip</string>
+    <string name="listen_and_flip_subtitle">Musik in deiner Umgebung erkennen</string>
+    <string name="badge_identified">Erkannt</string>
+    <string name="listen_free_scans_remaining">Noch %1$d/%2$d Gratis-Scans diesen Monat</string>
+    <string name="listen_status_listening">Höre auf Musik …</string>
+    <string name="listen_status_hint">Halte dein Gerät näher an die Musikquelle</string>
+    <string name="listen_status_resolving">Suche Treffer für deinen Player …</string>
+    <string name="listen_saved_to_history">Im Verlauf gespeichert</string>
+    <string name="listen_open_in_player">In %1$s öffnen</string>
+    <string name="listen_share_action">Teilen</string>
+    <string name="listen_scan_again">Weiteren Song erkennen</string>
+    <string name="listen_offline_saved_title">Im Offline-Club-Modus gespeichert</string>
+    <string name="listen_offline_saved_desc">Audio-Fingerabdruck gesichert (%1$d ausstehend). SongFlip erkennt den Song automatisch, sobald du wieder online bist.</string>
+    <string name="listen_offline_resolved_toast">%1$d Offline-Song(s) erkannt und im Verlauf gespeichert!</string>
+    <string name="listen_no_match_title">Kein Song erkannt</string>
+    <string name="listen_no_match_subtitle">Achte darauf, dass die Musik laut genug ist, und versuche es erneut. Gratis-Scans zählen nur bei einem Treffer.</string>
+    <string name="listen_try_again">Erneut versuchen</string>
+    <string name="listen_error_offline">Keine Internetverbindung. Hol dir PRO für den Offline-Club-Modus.</string>
+    <string name="listen_permission_title">Mikrofon-Zugriff erforderlich</string>
+    <string name="listen_permission_desc">Listen &amp; Flip benötigt Zugriff auf das Mikrofon, um Musik in deiner Umgebung zu erkennen. Es werden keine Aufnahmen gespeichert.</string>
+    <string name="listen_permission_grant">Mikrofon freigeben</string>
+    <string name="listen_quota_reached_title">Monatliche Gratis-Scans aufgebraucht</string>
+    <string name="listen_quota_reached_desc">Du hast alle %1$d kostenlosen Song-Erkennungen für diesen Monat genutzt. Hol dir SongFlip PRO für unbegrenztes Listen &amp; Flip und den Offline-Club-Modus.</string>
+    <string name="listen_unlock_pro">SongFlip PRO freischalten</string>
 </resources>

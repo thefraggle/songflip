@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.GraphicEq
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Lock
@@ -37,6 +38,7 @@ fun HeaderBanner(
     onOpenSettings: () -> Unit,
     onOpenHistory: () -> Unit = {},
     onOpenSearch: () -> Unit = {},
+    onOpenListen: () -> Unit = {},
     onOpenProPaywall: () -> Unit = {},
     isPro: Boolean = false,
     modifier: Modifier = Modifier
@@ -188,40 +190,80 @@ fun HeaderBanner(
                 }
             }
 
-            // Bottom: Prominent In-App Search Bar (Feature #77)
-            Surface(
-                onClick = {
-                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                    onOpenSearch()
-                },
-                shape = RoundedCornerShape(14.dp),
-                color = NightSlate950.copy(alpha = 0.6f),
-                border = androidx.compose.foundation.BorderStroke(1.dp, NightSlate700.copy(alpha = 0.7f)),
-                modifier = Modifier.fillMaxWidth()
+            // Bottom Row: Prominent In-App Search Bar (#77) + Listen & Flip Action Button (#78)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 14.dp, vertical = 11.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                Surface(
+                    onClick = {
+                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                        onOpenSearch()
+                    },
+                    shape = RoundedCornerShape(14.dp),
+                    color = NightSlate950.copy(alpha = 0.6f),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, NightSlate700.copy(alpha = 0.7f)),
+                    modifier = Modifier.weight(1f)
                 ) {
-                    Icon(
-                        imageVector = Icons.Filled.Search,
-                        contentDescription = null,
-                        tint = Color.White.copy(alpha = 0.6f),
-                        modifier = Modifier.size(18.dp)
-                    )
-                    Text(
-                        text = stringResource(R.string.search_hint),
-                        style = MaterialTheme.typography.bodyMedium.copy(
-                            fontWeight = FontWeight.Normal,
-                            fontSize = 14.sp
-                        ),
-                        color = Color.White.copy(alpha = 0.55f),
-                        maxLines = 1,
-                        overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
-                    )
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 14.dp, vertical = 11.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Search,
+                            contentDescription = null,
+                            tint = Color.White.copy(alpha = 0.6f),
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Text(
+                            text = stringResource(R.string.search_hint),
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                fontWeight = FontWeight.Normal,
+                                fontSize = 14.sp
+                            ),
+                            color = Color.White.copy(alpha = 0.55f),
+                            maxLines = 1,
+                            overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+                        )
+                    }
+                }
+
+                // Listen & Flip Button (#78)
+                Surface(
+                    onClick = {
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                        onOpenListen()
+                    },
+                    shape = RoundedCornerShape(14.dp),
+                    color = BrandSpotify.copy(alpha = 0.22f),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, BrandSpotify.copy(alpha = 0.55f))
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 11.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.GraphicEq,
+                            contentDescription = stringResource(R.string.listen_and_flip_title),
+                            tint = BrandSpotify,
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Text(
+                            text = stringResource(R.string.listen_and_flip_title),
+                            style = MaterialTheme.typography.labelMedium.copy(
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 12.sp
+                            ),
+                            color = Color.White,
+                            maxLines = 1,
+                            softWrap = false
+                        )
+                    }
                 }
             }
         }

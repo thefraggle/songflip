@@ -384,4 +384,29 @@
     <string name="history_filter_all">Tất cả</string>
     <string name="history_filter_favorites">Yêu thích</string>
     <string name="target_player_chip">Trình phát: %1$s</string>
+    <!-- Listen & Flip (#78) -->
+    <string name="listen_and_flip_title">Listen &amp; Flip</string>
+    <string name="listen_and_flip_subtitle">Nhận diện nhạc đang phát xung quanh bạn</string>
+    <string name="badge_identified">Đã nhận diện</string>
+    <string name="listen_free_scans_remaining">Còn %1$d/%2$d lượt quét miễn phí trong tháng này</string>
+    <string name="listen_status_listening">Đang lắng nghe nhạc…</string>
+    <string name="listen_status_hint">Đưa thiết bị lại gần loa hơn</string>
+    <string name="listen_status_resolving">Đang tìm trên trình phát của bạn…</string>
+    <string name="listen_saved_to_history">Đã lưu vào Lịch sử</string>
+    <string name="listen_open_in_player">Mở trong %1$s</string>
+    <string name="listen_share_action">Chia sẻ</string>
+    <string name="listen_scan_again">Nhận diện bài hát khác</string>
+    <string name="listen_offline_saved_title">Đã lưu trong Chế độ Offline</string>
+    <string name="listen_offline_saved_desc">Đã lưu dấu vân tay âm thanh (%1$d đang chờ). SongFlip sẽ tự động nhận diện khi có mạng trở lại.</string>
+    <string name="listen_offline_resolved_toast">Đã nhận diện %1$d bài hát offline và thêm vào Lịch sử!</string>
+    <string name="listen_no_match_title">Không nhận diện được bài hát</string>
+    <string name="listen_no_match_subtitle">Hãy đảm bảo nhạc đủ lớn và thử lại. Lượt miễn phí chỉ tính khi tìm thấy bài hát.</string>
+    <string name="listen_try_again">Thử lại</string>
+    <string name="listen_error_offline">Không có kết nối mạng. Nâng cấp PRO để dùng Chế độ Offline.</string>
+    <string name="listen_permission_title">Cần quyền truy cập Micro</string>
+    <string name="listen_permission_desc">Listen &amp; Flip cần micro để nhận diện nhạc xung quanh bạn. Âm thanh không bao giờ bị ghi lại hay lưu trữ.</string>
+    <string name="listen_permission_grant">Cho phép truy cập Micro</string>
+    <string name="listen_quota_reached_title">Đã hết lượt miễn phí trong tháng</string>
+    <string name="listen_quota_reached_desc">Bạn đã dùng hết %1$d lượt nhận diện miễn phí tháng này. Mở khóa SongFlip PRO để dùng không giới hạn.</string>
+    <string name="listen_unlock_pro">Mở khóa SongFlip PRO</string>
 </resources>

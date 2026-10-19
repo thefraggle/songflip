@@ -7,10 +7,14 @@ struct HistorySheetView: View {
     @ObservedObject var history = HistoryModel.shared
     @ObservedObject var proManager = ProManager.shared
     @Environment(\.dismiss) var dismiss
+    enum HistoryFilterMode {
+        case all, favorites, acoustic
+    }
+
     @State private var showingClearConfirmation = false
     @State private var showingPaywallSheet = false
     @State private var showingFavoriteLimitAlert = false
-    @State private var showOnlyFavorites = false
+    @State private var filterMode: HistoryFilterMode = .all
     @State private var refreshingItemId: UUID? = nil
     @State private var disambiguateItem: HistoryItem? = nil
     @State private var qrCodePayload: QRCodePayload? = nil
@@ -29,8 +33,19 @@ struct HistorySheetView: View {
         history.items.filter { $0.isFavorite }.count
     }
 
+    private var acousticCount: Int {
+        history.items.filter { $0.isAcoustic }.count
+    }
+
     private var displayedItems: [HistoryItem] {
-        showOnlyFavorites ? history.items.filter { $0.isFavorite } : history.items
+        switch filterMode {
+        case .all:
+            return history.items
+        case .favorites:
+            return history.items.filter { $0.isFavorite }
+        case .acoustic:
+            return history.items.filter { $0.isAcoustic }
+        }
     }
 
     private func toggleFavorite(for item: HistoryItem) {
@@ -150,40 +165,60 @@ struct HistorySheetView: View {
                                 }
                             }
 
-                            if favoriteCount > 0 {
+                            if favoriteCount > 0 || acousticCount > 0 {
                                 HStack(spacing: 8) {
                                     Button(action: {
                                         UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                                        showOnlyFavorites = false
+                                        filterMode = .all
                                     }) {
                                         Text(LocalizationManager.string(for: "history_filter_all", lang: lang))
                                             .font(.caption.weight(.semibold))
                                             .padding(.horizontal, 12)
                                             .padding(.vertical, 6)
-                                            .background(!showOnlyFavorites ? Color.green.opacity(0.2) : Color(uiColor: .secondarySystemGroupedBackground))
-                                            .foregroundColor(!showOnlyFavorites ? .green : .secondary)
+                                            .background(filterMode == .all ? Color.green.opacity(0.2) : Color(uiColor: .secondarySystemGroupedBackground))
+                                            .foregroundColor(filterMode == .all ? .green : .secondary)
                                             .cornerRadius(16)
                                     }
                                     .buttonStyle(.plain)
 
-                                    Button(action: {
-                                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                                        showOnlyFavorites = true
-                                    }) {
-                                        HStack(spacing: 4) {
-                                            Image(systemName: "star.fill")
-                                                .font(.system(size: 11))
-                                                .foregroundColor(.yellow)
-                                            Text("\(LocalizationManager.string(for: "history_filter_favorites", lang: lang)) (\(favoriteCount))")
-                                                .font(.caption.weight(.semibold))
+                                    if favoriteCount > 0 {
+                                        Button(action: {
+                                            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                            filterMode = .favorites
+                                        }) {
+                                            HStack(spacing: 4) {
+                                                Image(systemName: "star.fill")
+                                                    .font(.system(size: 11))
+                                                    .foregroundColor(.yellow)
+                                                Text("\(LocalizationManager.string(for: "history_filter_favorites", lang: lang)) (\(favoriteCount))")
+                                                    .font(.caption.weight(.semibold))
+                                            }
+                                            .padding(.horizontal, 12)
+                                            .padding(.vertical, 6)
+                                            .background(filterMode == .favorites ? Color.green.opacity(0.2) : Color(uiColor: .secondarySystemGroupedBackground))
+                                            .foregroundColor(filterMode == .favorites ? .green : .secondary)
+                                            .cornerRadius(16)
                                         }
-                                        .padding(.horizontal, 12)
-                                        .padding(.vertical, 6)
-                                        .background(showOnlyFavorites ? Color.green.opacity(0.2) : Color(uiColor: .secondarySystemGroupedBackground))
-                                        .foregroundColor(showOnlyFavorites ? .green : .secondary)
-                                        .cornerRadius(16)
+                                        .buttonStyle(.plain)
                                     }
-                                    .buttonStyle(.plain)
+
+                                    if acousticCount > 0 {
+                                        Button(action: {
+                                            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                            filterMode = .acoustic
+                                        }) {
+                                            HStack(spacing: 4) {
+                                                Text("🎙️ \(LocalizationManager.string(for: "badge_identified", lang: lang)) (\(acousticCount))")
+                                                    .font(.caption.weight(.semibold))
+                                            }
+                                            .padding(.horizontal, 12)
+                                            .padding(.vertical, 6)
+                                            .background(filterMode == .acoustic ? Color.green.opacity(0.2) : Color(uiColor: .secondarySystemGroupedBackground))
+                                            .foregroundColor(filterMode == .acoustic ? .green : .secondary)
+                                            .cornerRadius(16)
+                                        }
+                                        .buttonStyle(.plain)
+                                    }
                                 }
                                 .textCase(nil)
                             }
@@ -257,6 +292,16 @@ struct HistorySheetView: View {
                                         }
 
                                         HStack(spacing: 4) {
+                                            if item.isAcoustic {
+                                                Text("🎙️ \(LocalizationManager.string(for: "badge_identified", lang: lang))")
+                                                    .font(.system(size: 10, weight: .bold))
+                                                    .foregroundColor(.green)
+                                                    .padding(.horizontal, 5)
+                                                    .padding(.vertical, 1.5)
+                                                    .background(Color.green.opacity(0.16))
+                                                    .cornerRadius(4)
+                                            }
+
                                             if let artist = item.artist, !artist.isEmpty {
                                                 Text(artist)
                                                     .font(.caption)

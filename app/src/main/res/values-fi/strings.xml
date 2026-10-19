@@ -374,4 +374,29 @@
     <string name="history_filter_all">Kaikki</string>
     <string name="history_filter_favorites">Suosikit</string>
     <string name="target_player_chip">Soitin: %1$s</string>
+    <!-- Listen & Flip (#78) -->
+    <string name="listen_and_flip_title">Listen &amp; Flip</string>
+    <string name="listen_and_flip_subtitle">Tunnista ympärilläsi soiva musiikki</string>
+    <string name="badge_identified">Tunnistettu</string>
+    <string name="listen_free_scans_remaining">%1$d/%2$d ilmaista tunnistusta jäljellä tässä kuussa</string>
+    <string name="listen_status_listening">Kuunnellaan musiikkia…</string>
+    <string name="listen_status_hint">Pidä laitetta lähempänä kaiutinta</string>
+    <string name="listen_status_resolving">Haetaan osumaa soittimellesi…</string>
+    <string name="listen_saved_to_history">Tallennettu historiaan</string>
+    <string name="listen_open_in_player">Avaa sovelluksessa %1$s</string>
+    <string name="listen_share_action">Jaa</string>
+    <string name="listen_scan_again">Tunnista toinen kappale</string>
+    <string name="listen_offline_saved_title">Tallennettu offline-klubitilaan</string>
+    <string name="listen_offline_saved_desc">Äänitunniste tallennettu (%1$d odottaa). SongFlip tunnistaa kappaleen automaattisesti, kun olet taas verkossa.</string>
+    <string name="listen_offline_resolved_toast">%1$d offline-kappale(tta) tunnistettu ja lisätty historiaan!</string>
+    <string name="listen_no_match_title">Kappaletta ei tunnistettu</string>
+    <string name="listen_no_match_subtitle">Varmista, että musiikki kuuluu tarpeeksi kovaa ja yritä uudelleen. Ilmaiset kerrat kuluvat vain osumasta.</string>
+    <string name="listen_try_again">Yritä uudelleen</string>
+    <string name="listen_error_offline">Ei internetyhteyttä. Päivitä PRO-versioon käyttääksesi offline-tilaa.</string>
+    <string name="listen_permission_title">Mikrofonin käyttöoikeus tarvitaan</string>
+    <string name="listen_permission_desc">Listen &amp; Flip tarvitsee mikrofonia ympärilläsi soivan musiikin tunnistamiseen. Ääntä ei koskaan tallenneta.</string>
+    <string name="listen_permission_grant">Salli mikrofonin käyttö</string>
+    <string name="listen_quota_reached_title">Kuukauden ilmaiset tunnistukset käytetty</string>
+    <string name="listen_quota_reached_desc">Olet käyttänyt kaikki %1$d ilmaista tunnistusta tässä kuussa. Avaa SongFlip PRO saadaksesi rajattomat tunnistukset.</string>
+    <string name="listen_unlock_pro">Avaa SongFlip PRO</string>
 </resources>

@@ -396,4 +396,29 @@
     <string name="history_filter_all">Wszystkie</string>
     <string name="history_filter_favorites">Ulubione</string>
     <string name="target_player_chip">Odtwarzacz: %1$s</string>
+    <!-- Listen & Flip (#78) -->
+    <string name="listen_and_flip_title">Listen &amp; Flip</string>
+    <string name="listen_and_flip_subtitle">Rozpoznawaj muzykę wokół siebie</string>
+    <string name="badge_identified">Rozpoznano</string>
+    <string name="listen_free_scans_remaining">Pozostało %1$d/%2$d darmowych skanów w tym miesiącu</string>
+    <string name="listen_status_listening">Nasłuchiwanie muzyki…</string>
+    <string name="listen_status_hint">Zbliż urządzenie do głośnika</string>
+    <string name="listen_status_resolving">Szukanie w Twoim odtwarzaczu…</string>
+    <string name="listen_saved_to_history">Zapisano w historii</string>
+    <string name="listen_open_in_player">Otwórz w %1$s</string>
+    <string name="listen_share_action">Udostępnij</string>
+    <string name="listen_scan_again">Rozpoznaj kolejny utwór</string>
+    <string name="listen_offline_saved_title">Zapisano w trybie klubowym offline</string>
+    <string name="listen_offline_saved_desc">Odcisk audio zapisany (oczekujące: %1$d). SongFlip rozpozna utwór automatycznie, gdy wrócisz online.</string>
+    <string name="listen_offline_resolved_toast">Rozpoznano %1$d utwór/utworów offline i dodano do historii!</string>
+    <string name="listen_no_match_title">Nie rozpoznano utworu</string>
+    <string name="listen_no_match_subtitle">Upewnij się, że muzyka jest wystarczająco głośna i spróbuj ponownie. Darmowe skany liczą się tylko przy trafieniu.</string>
+    <string name="listen_try_again">Spróbuj ponownie</string>
+    <string name="listen_error_offline">Brak połączenia z internetem. Przejdź na PRO, aby korzystać z trybu offline.</string>
+    <string name="listen_permission_title">Wymagany dostęp do mikrofonu</string>
+    <string name="listen_permission_desc">Listen &amp; Flip potrzebuje dostępu do mikrofonu, aby rozpoznawać muzykę. Dźwięk nigdy nie jest nagrywany ani zapisywany.</string>
+    <string name="listen_permission_grant">Zezwól na dostęp do mikrofonu</string>
+    <string name="listen_quota_reached_title">Wykorzystano darmowe skany w tym miesiącu</string>
+    <string name="listen_quota_reached_desc">Wykorzystałeś wszystkie %1$d darmowe rozpoznania w tym miesiącu. Odblokuj SongFlip PRO, aby skanować bez limitu.</string>
+    <string name="listen_unlock_pro">Odblokuj SongFlip PRO</string>
 </resources>

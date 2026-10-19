@@ -388,4 +388,29 @@
     <string name="history_filter_all">Tümü</string>
     <string name="history_filter_favorites">Favoriler</string>
     <string name="target_player_chip">Oynatıcı: %1$s</string>
+    <!-- Listen & Flip (#78) -->
+    <string name="listen_and_flip_title">Listen &amp; Flip</string>
+    <string name="listen_and_flip_subtitle">Çevrenizde çalan müziği tanıyın</string>
+    <string name="badge_identified">Tanındı</string>
+    <string name="listen_free_scans_remaining">Bu ay %1$d/%2$d ücretsiz tarama kaldı</string>
+    <string name="listen_status_listening">Müzik dinleniyor…</string>
+    <string name="listen_status_hint">Cihazınızı hoparlöre yaklaştırın</string>
+    <string name="listen_status_resolving">Oynatıcınız için eşleştiriliyor…</string>
+    <string name="listen_saved_to_history">Geçmişe kaydedildi</string>
+    <string name="listen_open_in_player">%1$s içinde aç</string>
+    <string name="listen_share_action">Paylaş</string>
+    <string name="listen_scan_again">Başka bir şarkı tanı</string>
+    <string name="listen_offline_saved_title">Çevrimdışı Kulüp Modunda Kaydedildi</string>
+    <string name="listen_offline_saved_desc">Ses izi kaydedildi (%1$d bekliyor). İnternete bağlandığınızda SongFlip şarkıyı otomatik olarak tanıyacak.</string>
+    <string name="listen_offline_resolved_toast">%1$d çevrimdışı şarkı tanındı ve geçmişe eklendi!</string>
+    <string name="listen_no_match_title">Şarkı tanınamadı</string>
+    <string name="listen_no_match_subtitle">Müziğin yeterince yüksek olduğundan emin olup tekrar deneyin. Ücretsiz haklar yalnızca eşleşme bulunduğunda düşer.</string>
+    <string name="listen_try_again">Tekrar Dene</string>
+    <string name="listen_error_offline">İnternet bağlantısı yok. Çevrimdışı Kulüp Modu için PRO\'ya geçin.</string>
+    <string name="listen_permission_title">Mikrofon Erişimi Gerekli</string>
+    <string name="listen_permission_desc">Listen &amp; Flip çevrenizdeki müziği tanımak için mikrofona ihtiyaç duyar. Ses asla kaydedilmez veya saklanmaz.</string>
+    <string name="listen_permission_grant">Mikrofona İzin Ver</string>
+    <string name="listen_quota_reached_title">Aylık Ücretsiz Taramalar Doldu</string>
+    <string name="listen_quota_reached_desc">Bu ayki %1$d ücretsiz şarkı tanıma hakkınızı kullandınız. Sınırsız Listen &amp; Flip için SongFlip PRO\'yu açın.</string>
+    <string name="listen_unlock_pro">SongFlip PRO\'yu Aç</string>
 </resources>

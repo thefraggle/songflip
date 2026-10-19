@@ -370,4 +370,29 @@
     <string name="history_filter_all">ทั้งหมด</string>
     <string name="history_filter_favorites">รายการโปรด</string>
     <string name="target_player_chip">เครื่องเล่น: %1$s</string>
+    <!-- Listen & Flip (#78) -->
+    <string name="listen_and_flip_title">Listen &amp; Flip</string>
+    <string name="listen_and_flip_subtitle">ค้นหาเพลงที่กำลังเล่นอยู่รอบตัวคุณ</string>
+    <string name="badge_identified">ระบุแล้ว</string>
+    <string name="listen_free_scans_remaining">สแกนฟรีเหลือ %1$d/%2$d ครั้งในเดือนนี้</string>
+    <string name="listen_status_listening">กำลังฟังเพลง…</string>
+    <string name="listen_status_hint">ถืออุปกรณ์ของคุณให้ใกล้ลำโพงมากขึ้น</string>
+    <string name="listen_status_resolving">กำลังจับคู่สำหรับเครื่องเล่นของคุณ…</string>
+    <string name="listen_saved_to_history">บันทึกในประวัติแล้ว</string>
+    <string name="listen_open_in_player">เปิดใน %1$s</string>
+    <string name="listen_share_action">แชร์</string>
+    <string name="listen_scan_again">ค้นหาเพลงอื่น</string>
+    <string name="listen_offline_saved_title">บันทึกในโหมดคลับออฟไลน์แล้ว</string>
+    <string name="listen_offline_saved_desc">บันทึกลายนิ้วมือเสียงแล้ว (รอดำเนินการ %1$d รายการ) SongFlip จะค้นหาเพลงให้อัตโนมัติเมื่อคุณกลับมาออนไลน์</string>
+    <string name="listen_offline_resolved_toast">ระบุเพลงออฟไลน์ %1$d เพลงและเพิ่มในประวัติแล้ว!</string>
+    <string name="listen_no_match_title">ไม่พบเพลงที่ตรงกัน</string>
+    <string name="listen_no_match_subtitle">ตรวจสอบให้แน่ใจว่าเสียงเพลงดังพอแล้วลองอีกครั้ง สิทธิ์สแกนฟรีจะนับเมื่อพบเพลงเท่านั้น</string>
+    <string name="listen_try_again">ลองอีกครั้ง</string>
+    <string name="listen_error_offline">ไม่มีการเชื่อมต่ออินเทอร์เน็ต อัปเกรดเป็น PRO เพื่อใช้โหมดคลับออฟไลน์</string>
+    <string name="listen_permission_title">ต้องใช้สิทธิ์เข้าถึงไมโครโฟน</string>
+    <string name="listen_permission_desc">Listen &amp; Flip ต้องใช้ไมโครโฟนเพื่อระบุเพลงรอบตัวคุณ ระบบจะไม่บันทึกหรือจัดเก็บไฟล์เสียงใดๆ</string>
+    <string name="listen_permission_grant">อนุญาตให้เข้าถึงไมโครโฟน</string>
+    <string name="listen_quota_reached_title">ใช้สิทธิ์สแกนฟรีประจำเดือนครบแล้ว</string>
+    <string name="listen_quota_reached_desc">คุณใช้สิทธิ์ค้นหาเพลงฟรีครบ %1$d ครั้งในเดือนนี้แล้ว ปลดล็อก SongFlip PRO เพื่อใช้งานแบบไม่จำกัด</string>
+    <string name="listen_unlock_pro">ปลดล็อก SongFlip PRO</string>
 </resources>

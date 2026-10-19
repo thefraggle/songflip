@@ -388,4 +388,29 @@
     <string name="history_filter_all">Alla</string>
     <string name="history_filter_favorites">Favoriter</string>
     <string name="target_player_chip">Spelare: %1$s</string>
+    <!-- Listen & Flip (#78) -->
+    <string name="listen_and_flip_title">Listen &amp; Flip</string>
+    <string name="listen_and_flip_subtitle">Identifiera musik runt omkring dig</string>
+    <string name="badge_identified">Identifierad</string>
+    <string name="listen_free_scans_remaining">%1$d/%2$d gratis skanningar kvar denna månad</string>
+    <string name="listen_status_listening">Lyssnar efter musik…</string>
+    <string name="listen_status_hint">Håll enheten närmare högtalaren</string>
+    <string name="listen_status_resolving">Matchar för din spelare…</string>
+    <string name="listen_saved_to_history">Sparad i historik</string>
+    <string name="listen_open_in_player">Öppna i %1$s</string>
+    <string name="listen_share_action">Dela</string>
+    <string name="listen_scan_again">Identifiera en annan låt</string>
+    <string name="listen_offline_saved_title">Sparad för Offline Club Mode</string>
+    <string name="listen_offline_saved_desc">Ljudavtryck sparat (%1$d väntar). SongFlip identifierar låten automatiskt när du är online igen.</string>
+    <string name="listen_offline_resolved_toast">%1$d offlinelåt(ar) identifierade och sparade i historiken!</string>
+    <string name="listen_no_match_title">Ingen låt identifierades</string>
+    <string name="listen_no_match_subtitle">Se till att musiken är tillräckligt hög och försök igen. Gratis skanningar räknas bara vid träff.</string>
+    <string name="listen_try_again">Försök igen</string>
+    <string name="listen_error_offline">Ingen internetanslutning. Uppgradera till PRO för Offline Club Mode.</string>
+    <string name="listen_permission_title">Mikrofonåtkomst krävs</string>
+    <string name="listen_permission_desc">Listen &amp; Flip behöver mikrofonåtkomst för att känna igen musik omkring dig. Ljud spelas aldrig in eller sparas.</string>
+    <string name="listen_permission_grant">Tillåt mikrofonåtkomst</string>
+    <string name="listen_quota_reached_title">Månadens gratis skanningar förbrukade</string>
+    <string name="listen_quota_reached_desc">Du har använt alla %1$d gratis låtidentifieringar denna månad. Lås upp SongFlip PRO för obegränsad Listen &amp; Flip.</string>
+    <string name="listen_unlock_pro">Lås upp SongFlip PRO</string>
 </resources>

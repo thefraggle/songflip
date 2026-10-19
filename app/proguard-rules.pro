@@ -27,4 +27,16 @@
 -dontwarn java.sql.**
 -dontwarn javax.sql.**
 -dontwarn org.sqlite.**
+-dontwarn retrofit2.**
+
+# ShazamKit JNI & Gson Model Rules (#78)
+-keepattributes Signature
+-keep class com.google.gson.** { *; }
+-keep class com.shazam.sigx.** { *; }
+-keep class com.shazam.jni.** { *; }
+-keep class com.shazam.sig.** { *; }
+-keep class com.shazam.recognition.** { *; }
+-keep class com.shazam.shazamkit.** { *; }
+-keepclassmembers class com.shazam.shazamkit.MediaItem { *; }
+
 
