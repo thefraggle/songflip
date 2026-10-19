@@ -136,6 +136,11 @@ object AcousticRecognizer {
         stopListening()
         val appCtx = context.applicationContext
 
+        if (!NetworkUtils.isNetworkAvailable(appCtx) && !isPro) {
+            _state.value = AcousticRecognitionState.Error("listen_error_offline")
+            return
+        }
+
         activeJob = scope.launch {
             try {
                 _state.value = AcousticRecognitionState.Listening(amplitude = 0.1f, elapsedSeconds = 0)
