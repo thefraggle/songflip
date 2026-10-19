@@ -365,6 +365,11 @@ fun ListenAndFlipBottomSheet(
                             }
                             ErrorContent(
                                 message = errMsg,
+                                isOfflineProGate = st.messageKey == "listen_error_offline" && !isPro,
+                                onUnlockPro = {
+                                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("listen_offline_club_mode")
+                                    onOpenProPaywall()
+                                },
                                 onRetry = {
                                     haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                                     triggerScan()
@@ -816,7 +821,12 @@ private fun NoMatchContent(onRetry: () -> Unit) {
 }
 
 @Composable
-private fun ErrorContent(message: String, onRetry: () -> Unit) {
+private fun ErrorContent(
+    message: String,
+    isOfflineProGate: Boolean = false,
+    onUnlockPro: () -> Unit = {},
+    onRetry: () -> Unit
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(14.dp),
@@ -825,7 +835,9 @@ private fun ErrorContent(message: String, onRetry: () -> Unit) {
             .padding(vertical = 12.dp)
     ) {
         Text(
-            text = stringResource(R.string.listen_no_match_title),
+            text = stringResource(
+                if (isOfflineProGate) R.string.listen_offline_saved_title else R.string.listen_no_match_title
+            ),
             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
             textAlign = TextAlign.Center
         )
@@ -835,14 +847,27 @@ private fun ErrorContent(message: String, onRetry: () -> Unit) {
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center
         )
-        Button(
-            onClick = onRetry,
-            modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(min = 48.dp),
-            shape = RoundedCornerShape(14.dp)
-        ) {
-            Text(stringResource(R.string.listen_try_again), fontWeight = FontWeight.Bold)
+        if (isOfflineProGate) {
+            Button(
+                onClick = onUnlockPro,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 50.dp),
+                shape = RoundedCornerShape(14.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = BrandSpotify, contentColor = Color.White)
+            ) {
+                Text("💎 ${stringResource(R.string.listen_unlock_pro)}", fontWeight = FontWeight.Bold)
+            }
+        } else {
+            Button(
+                onClick = onRetry,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 48.dp),
+                shape = RoundedCornerShape(14.dp)
+            ) {
+                Text(stringResource(R.string.listen_try_again), fontWeight = FontWeight.Bold)
+            }
         }
     }
 }
