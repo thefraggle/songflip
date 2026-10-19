@@ -183,8 +183,9 @@ fun PlaylistActiveBanner(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(6.dp)
                         ) {
+                            val displayTotal = maxOf(res.totalTracks, res.originalTotalTracks)
                             Text(
-                                text = stringResource(R.string.playlist_matched_count, res.matchedCount, res.totalTracks),
+                                text = stringResource(R.string.playlist_matched_count, res.matchedCount, displayTotal),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )

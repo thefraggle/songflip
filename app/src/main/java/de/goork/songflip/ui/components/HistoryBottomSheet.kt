@@ -515,23 +515,61 @@ fun HistoryBottomSheet(
                                 coroutineScope.launch {
                                     refreshingKeys = refreshingKeys + item.cacheKey
                                     Toast.makeText(context, context.getString(R.string.history_link_refreshing), Toast.LENGTH_SHORT).show()
-                                    val result = try {
-                                        SongLinkEngine.shared.forceRefreshTargetUrl(
-                                            inputUrl = item.canonicalUrl,
-                                            targetPlatformKey = item.targetPlatformKey,
-                                            isPro = isPro,
-                                            authToken = de.goork.songflip.data.ProManager.getAuthToken()
-                                        )
-                                    } catch (_: Exception) {
-                                        null
+                                    val isPl = item.platform.contains("_playlist") || de.goork.songflip.core.util.UrlUtils.isPlaylistUrl(item.canonicalUrl)
+                                    val refreshedOk = if (isPl) {
+                                        val targetKey = item.targetPlatformKey.ifBlank { item.platform.removeSuffix("_playlist") }
+                                        val maxTracks = if (isPro) 200 else 5
+                                        val plRes = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                                            de.goork.songflip.core.engine.PlaylistConverterEngine.shared.convertPlaylist(
+                                                url = item.canonicalUrl,
+                                                targetPlatformKey = targetKey,
+                                                isPro = isPro,
+                                                maxTracks = maxTracks,
+                                                authToken = de.goork.songflip.data.ProManager.getAuthToken(),
+                                                forceRefresh = true
+                                            )
+                                        }
+                                        if (plRes.isSuccess) {
+                                            val data = plRes.getOrThrow()
+                                            val targetUrl = data.zeroOAuthUrl ?: data.webShareUrl ?: item.canonicalUrl
+                                            val displayTotal = maxOf(data.totalTracks, data.originalTotalTracks)
+                                            SongLinkEngine.shared.cache.put(
+                                                canonicalUrl = item.canonicalUrl,
+                                                targetPlatformKey = targetKey,
+                                                result = de.goork.songflip.core.model.ResolutionResult.Success(
+                                                    targetUrl = targetUrl,
+                                                    platform = "${targetKey}_playlist",
+                                                    title = data.title.ifBlank { item.title ?: "Playlist" },
+                                                    artist = "${data.matchedCount}/$displayTotal Songs",
+                                                    isAlbum = false,
+                                                    thumbnailUrl = data.thumbnailUrl ?: item.thumbnailUrl
+                                                ),
+                                                isHistory = true
+                                            )
+                                            true
+                                        } else {
+                                            false
+                                        }
+                                    } else {
+                                        val result = try {
+                                            SongLinkEngine.shared.forceRefreshTargetUrl(
+                                                inputUrl = item.canonicalUrl,
+                                                targetPlatformKey = item.targetPlatformKey,
+                                                isPro = isPro,
+                                                authToken = de.goork.songflip.data.ProManager.getAuthToken()
+                                            )
+                                        } catch (_: Exception) {
+                                            null
+                                        }
+                                        result is de.goork.songflip.core.model.ResolutionResult.Success
                                     }
                                     refreshHistory()
                                     refreshingKeys = refreshingKeys - item.cacheKey
                                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                                    if (result is de.goork.songflip.core.model.ResolutionResult.Success) {
+                                    if (refreshedOk) {
                                         Toast.makeText(context, context.getString(R.string.history_link_refreshed), Toast.LENGTH_SHORT).show()
                                     } else {
-                                        Toast.makeText(context, context.getString(R.string.redirect_error_toast), Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(context, context.getString(R.string.pro_coupon_network_error), Toast.LENGTH_SHORT).show()
                                     }
                                 }
                             },

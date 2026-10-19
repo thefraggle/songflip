@@ -210,7 +210,7 @@ struct PlaylistConverterView: View {
             }
             .onChange(of: proManager.isPro) { isPro in
                 if isPro && (conversionResult?.isLimited == true) {
-                    startConversion()
+                    startConversion(forceRefresh: true)
                 }
             }
         }
@@ -337,7 +337,7 @@ struct PlaylistConverterView: View {
 
                 if type != .privateOrRestricted && type != .unsupportedPlatform && type != .empty {
                     Button(action: {
-                        startConversion()
+                        startConversion(forceRefresh: true)
                     }) {
                         Text(LocalizationManager.string(for: "playlist_btn_retry", lang: lang))
                             .font(.headline)
@@ -385,7 +385,8 @@ struct PlaylistConverterView: View {
                     .lineLimit(2)
                     .padding(.horizontal, 20)
 
-                let matchedMsg = String(format: LocalizationManager.string(for: "playlist_matched_count", lang: lang), result.matchedCount, result.totalTracks)
+                let displayTotal = max(result.totalTracks, result.originalTotalTracks ?? 0)
+                let matchedMsg = String(format: LocalizationManager.string(for: "playlist_matched_count", lang: lang), result.matchedCount, displayTotal)
                 Text(matchedMsg)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
@@ -653,7 +654,7 @@ struct PlaylistConverterView: View {
     }
 
     // MARK: - Actions
-    private func startConversion() {
+    private func startConversion(forceRefresh: Bool = false) {
         isLoading = true
         errorType = nil
         errorMessage = nil
@@ -686,7 +687,8 @@ struct PlaylistConverterView: View {
                     targetPlatformKey: targetPlatformKey,
                     isPro: proManager.isPro,
                     maxTracks: maxTracks,
-                    authToken: token.isEmpty ? nil : token
+                    authToken: token.isEmpty ? nil : token,
+                    forceRefresh: forceRefresh
                 )
 
                 let mappedTracks = kmpResult.tracks.map { t in
@@ -740,9 +742,10 @@ struct PlaylistConverterView: View {
                     )
                     // Save to history
                     let targetLink = decoded.zeroOAuthUrl ?? decoded.webShareUrl ?? playlistUrl
+                    let histTotal = max(decoded.totalTracks, decoded.originalTotalTracks ?? 0)
                     HistoryModel.shared.add(
                         title: decoded.title?.isEmpty == false ? decoded.title! : "Playlist",
-                        artist: "\(decoded.matchedCount)/\(decoded.totalTracks) Songs",
+                        artist: "\(decoded.matchedCount)/\(histTotal) Songs",
                         sourceUrl: playlistUrl,
                         targetUrl: targetLink,
                         targetPlatform: "\(targetPlatformKey)_playlist",

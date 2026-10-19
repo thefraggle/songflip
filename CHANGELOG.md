@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.9.10] - 2026-10-19
+- **More Reliable Playlist Conversion & History Refresh**: Refreshing a saved playlist directly from your history now re-runs full track matching and updates the playlist entry in place, with improved cold-start synchronization when sharing playlists from other apps.
+- **Clearer Playlist Smart Banner & Track Counts**: Copied playlists on the home screen now clearly show the target music player action, and converted playlists display the full source track count alongside matched songs.
+
 ## [1.9.9] - 2026-10-19
 - **Smarter Recognition Quota & Clean History**: Recognizing a song that is already saved in your history now updates the existing entry without deducting an extra free recognition, and eliminates duplicate history entries.
 - **Visual Polish**: Unified the waveform badge icon for recognized tracks in the song history and improved button layout for longer translations on the recognition result card.

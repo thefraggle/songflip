@@ -189,6 +189,7 @@ fun ClipboardSmartBanner(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 if (isPlaylist) {
+                    val isSamePlaylistPlatform = platformName.equals(targetPlatformName, ignoreCase = true)
                     Button(
                         onClick = {
                             haptic.performHapticFeedback(HapticFeedbackType.LongPress)
@@ -203,13 +204,17 @@ fun ClipboardSmartBanner(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Icon(
-                            imageVector = Icons.AutoMirrored.Outlined.OpenInNew,
+                            imageVector = if (isSamePlaylistPlatform) Icons.AutoMirrored.Outlined.OpenInNew else Icons.AutoMirrored.Outlined.QueueMusic,
                             contentDescription = null,
                             modifier = Modifier.size(16.dp)
                         )
                         Spacer(modifier = Modifier.width(6.dp))
                         Text(
-                            text = stringResource(R.string.playlist_banner_action_open, platformName),
+                            text = if (isSamePlaylistPlatform) {
+                                stringResource(R.string.playlist_banner_action_open, platformName)
+                            } else {
+                                stringResource(R.string.clipboard_banner_action_open, targetPlatformName)
+                            },
                             style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
