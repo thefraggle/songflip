@@ -1,3 +1,2 @@
-- Smarter Clipboard & Share Detection: Copied and shared links from Qobuz, Beatport, and Shazam are now recognized immediately when opening the app or sharing from other apps.
-- Improved Song Selection & Search: Choosing alternative song versions or sharing universal links from in-app search now works seamlessly across all supported music services.
-- Reliable History & Favorites: Saved songs and history entries are preserved cleanly across updates and when refreshing links.
+- Tisztább állapotjelző: finomította a fejléc állapotjelzését egy finom, nem feltűnő kialakítással, így az aktív funkció állapota azonnal felismerhető.
+- Gyorsabb SoundCloud és Bandcamp felbontás: Közvetlen metaadat-keresés a megosztott SoundCloud és Bandcamp linkekhez a még gyorsabb lejátszás érdekében.

@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.9.4] - 2026-10-19
+- **Klarere Statusanzeige im Kopfbereich**: Dezentere und übersichtlichere Darstellung des Status-Badges im Startbildschirm, damit aktive Funktionen auf einen Blick klar unterscheidbar sind.
+- **Schnellere Erkennung für SoundCloud & Bandcamp**: Direktere Auflösung geteilter SoundCloud- und Bandcamp-Links für einen noch schnelleren Wiedergabestart.
+- **Verbesserter Playlist-Zwischenspeicher**: Zuverlässigere Speicherung bereits umgewandelter Titel über alle unterstützten Musikdienste hinweg.
+
 ## [1.9.3] - 2026-10-18
 - **Bessere Erkennung für Qobuz, Beatport & Shazam**: Kopierte und geteilte Links von Qobuz, Beatport und Shazam werden beim Öffnen der App und im Teilen-Menü jetzt sofort erkannt.
 - **Präzisere Song-Auswahl & Suche**: Die manuelle Auswahl alternativer Song-Versionen sowie das Teilen universeller Links aus der Suche funktionieren jetzt zuverlässig für alle Musikdienste.
