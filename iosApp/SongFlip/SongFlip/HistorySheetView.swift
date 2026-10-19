@@ -63,33 +63,67 @@ struct HistorySheetView: View {
 
     private func refreshLink(for item: HistoryItem) async {
         await MainActor.run { refreshingItemId = item.id }
-        let engine = SongLinkEngine.shared
-        do {
-            let res = try await engine.resolveTargetUrl(
-                inputUrl: item.sourceUrl,
-                targetPlatformKey: settings.targetPlatform,
-                customApiUrl: settings.customApiUrl,
-                customApiToken: settings.customApiToken,
-                isPro: proManager.isPro,
-                authToken: proManager.authToken,
-                isPrefetch: false,
-                forceRefresh: true
-            )
-            if let success = res as? ResolutionResult.Success {
+        let isPlaylist = item.targetPlatform.contains("_playlist") || UrlUtils.shared.isPlaylistUrl(url: item.sourceUrl)
+        if isPlaylist {
+            let targetKey = item.targetPlatform.replacingOccurrences(of: "_playlist", with: "").isEmpty
+                ? settings.targetPlatform
+                : item.targetPlatform.replacingOccurrences(of: "_playlist", with: "")
+            let maxTracks: Int32 = proManager.isPro ? 200 : 5
+            let token = proManager.authToken
+            do {
+                let kmpResult = try await PlaylistConverterEngine.companion.shared.convertPlaylistOrThrow(
+                    url: item.sourceUrl,
+                    targetPlatformKey: targetKey,
+                    isPro: proManager.isPro,
+                    maxTracks: maxTracks,
+                    authToken: token.isEmpty ? nil : token,
+                    forceRefresh: true
+                )
+                let targetLink = kmpResult.zeroOAuthUrl ?? kmpResult.webShareUrl ?? item.sourceUrl
+                let displayTotal = max(Int(kmpResult.totalTracks), Int(kmpResult.originalTotalTracks))
                 await MainActor.run {
                     history.updateItem(
                         id: item.id,
-                        newTargetUrl: success.targetUrl,
-                        newTitle: success.title,
-                        newArtist: success.artist,
-                        newTargetPlatform: settings.targetPlatform,
-                        isAlbum: success.isAlbum,
-                        thumbnailUrl: success.thumbnailUrl
+                        newTargetUrl: targetLink,
+                        newTitle: kmpResult.title.isEmpty ? item.title : kmpResult.title,
+                        newArtist: "\(kmpResult.matchedCount)/\(displayTotal) Songs",
+                        newTargetPlatform: "\(targetKey)_playlist",
+                        isAlbum: false,
+                        thumbnailUrl: kmpResult.thumbnailUrl ?? item.thumbnailUrl
                     )
                 }
+            } catch {
+                // Graceful fallback
             }
-        } catch {
-            // Graceful fallback
+        } else {
+            let engine = SongLinkEngine.shared
+            do {
+                let res = try await engine.resolveTargetUrl(
+                    inputUrl: item.sourceUrl,
+                    targetPlatformKey: settings.targetPlatform,
+                    customApiUrl: settings.customApiUrl,
+                    customApiToken: settings.customApiToken,
+                    isPro: proManager.isPro,
+                    authToken: proManager.authToken,
+                    isPrefetch: false,
+                    forceRefresh: true
+                )
+                if let success = res as? ResolutionResult.Success {
+                    await MainActor.run {
+                        history.updateItem(
+                            id: item.id,
+                            newTargetUrl: success.targetUrl,
+                            newTitle: success.title,
+                            newArtist: success.artist,
+                            newTargetPlatform: settings.targetPlatform,
+                            isAlbum: success.isAlbum,
+                            thumbnailUrl: success.thumbnailUrl
+                        )
+                    }
+                }
+            } catch {
+                // Graceful fallback
+            }
         }
         await MainActor.run { refreshingItemId = nil }
     }

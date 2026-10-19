@@ -83,7 +83,7 @@ fun PlaylistConvertBottomSheet(
     val conversionState = externalConversionState ?: internalConversionState
     var conversionProgressStep by remember { mutableIntStateOf(0) }
 
-    fun runConversion() {
+    fun runConversion(forceRefresh: Boolean = false) {
         if (onRetryConversion != null) {
             onRetryConversion()
             return
@@ -103,7 +103,8 @@ fun PlaylistConvertBottomSheet(
                     targetPlatformKey = targetPlatformKey,
                     isPro = isPro,
                     maxTracks = maxTracksToConvert,
-                    authToken = ProManager.getAuthToken()
+                    authToken = ProManager.getAuthToken(),
+                    forceRefresh = forceRefresh
                 )
             }
             if (result.isSuccess) {
@@ -112,6 +113,7 @@ fun PlaylistConvertBottomSheet(
 
                 // Save playlist entry into local history
                 val targetUrl = data.zeroOAuthUrl ?: data.webShareUrl ?: playlistUrl
+                val displayTotal = maxOf(data.totalTracks, data.originalTotalTracks)
                 de.goork.songflip.core.engine.SongLinkEngine.shared.cache.put(
                     canonicalUrl = playlistUrl,
                     targetPlatformKey = targetPlatformKey,
@@ -119,7 +121,7 @@ fun PlaylistConvertBottomSheet(
                         targetUrl = targetUrl,
                         platform = "${targetPlatformKey}_playlist",
                         title = data.title.ifBlank { "Playlist" },
-                        artist = "${data.matchedCount}/${data.totalTracks} Songs",
+                        artist = "${data.matchedCount}/$displayTotal Songs",
                         isAlbum = false,
                         thumbnailUrl = data.thumbnailUrl
                     ),
@@ -183,13 +185,13 @@ fun PlaylistConvertBottomSheet(
         }
     }
 
-    LaunchedEffect(playlistUrl, targetPlatformKey, isPro) {
+    LaunchedEffect(playlistUrl, targetPlatformKey, isPro, externalConversionState) {
         if (isSamePlatform) {
             internalConversionState = PlaylistConversionState.SamePlatform
         } else {
             val isCurrentlyLimited = (conversionState is PlaylistConversionState.Success && (conversionState as PlaylistConversionState.Success).result.isLimited)
             if (externalConversionState == null || (isPro && isCurrentlyLimited)) {
-                runConversion()
+                runConversion(forceRefresh = isPro && isCurrentlyLimited)
             }
         }
     }
@@ -486,7 +488,7 @@ fun PlaylistConvertBottomSheet(
                     } else {
                         // For transient errors (timeout / generic), primary action is retry
                         Button(
-                            onClick = { runConversion() },
+                            onClick = { runConversion(forceRefresh = true) },
                             modifier = Modifier.fillMaxWidth().height(48.dp),
                             shape = RoundedCornerShape(12.dp)
                         ) {
@@ -518,6 +520,7 @@ fun PlaylistConvertBottomSheet(
                 is PlaylistConversionState.Success -> {
                     val res = state.result
                     val title = res.title.ifBlank { stringResource(R.string.playlist_converter_title) }
+                    val displayTotal = maxOf(res.totalTracks, res.originalTotalTracks)
 
                     if (!res.thumbnailUrl.isNullOrBlank()) {
                         Box(
@@ -552,7 +555,7 @@ fun PlaylistConvertBottomSheet(
                     Spacer(modifier = Modifier.height(4.dp))
 
                     Text(
-                        text = stringResource(R.string.playlist_matched_count, res.matchedCount, res.totalTracks),
+                        text = stringResource(R.string.playlist_matched_count, res.matchedCount, displayTotal),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

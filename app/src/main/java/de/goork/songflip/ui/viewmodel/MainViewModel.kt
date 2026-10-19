@@ -190,7 +190,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 targetPlatformKey = targetPlatformKey,
                 isPro = isPro,
                 maxTracks = maxTracksToConvert,
-                authToken = ProManager.getAuthToken()
+                authToken = ProManager.getAuthToken(),
+                forceRefresh = force
             )
 
             if (result.isSuccess) {
@@ -203,6 +204,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
                 // Save playlist entry into local history
                 val targetUrl = data.zeroOAuthUrl ?: data.webShareUrl ?: playlistUrl
+                val displayTotal = maxOf(data.totalTracks, data.originalTotalTracks)
                 SongLinkEngine.shared.cache.put(
                     canonicalUrl = playlistUrl,
                     targetPlatformKey = targetPlatformKey,
@@ -210,7 +212,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         targetUrl = targetUrl,
                         platform = "${targetPlatformKey}_playlist",
                         title = data.title.ifBlank { "Playlist" },
-                        artist = "${data.matchedCount}/${data.totalTracks} Songs",
+                        artist = "${data.matchedCount}/$displayTotal Songs",
                         isAlbum = false,
                         thumbnailUrl = data.thumbnailUrl
                     ),

@@ -609,7 +609,7 @@ fun MainScreen(
             },
             externalConversionState = activePlaylistConversion?.takeIf { it.playlistUrl == playlistUrl }?.state,
             onRetryConversion = {
-                viewModel.startPlaylistConversion(playlistUrl, selectedTargetKey, proState.isPro)
+                viewModel.startPlaylistConversion(playlistUrl, selectedTargetKey, proState.isPro, force = true)
             }
         )
     }
@@ -715,7 +715,8 @@ fun MainScreen(
                             viewModel.startPlaylistConversion(
                                 activeConversion.playlistUrl,
                                 selectedTargetKey,
-                                proState.isPro
+                                proState.isPro,
+                                force = true
                             )
                         },
                         onDismiss = {

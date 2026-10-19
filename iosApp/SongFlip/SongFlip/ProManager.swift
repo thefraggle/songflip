@@ -53,9 +53,26 @@ final class ProManager: NSObject, ObservableObject {
         UserDefaults(suiteName: Self.appGroupId) ?? UserDefaults.standard
     }
 
+    private static let rcExpiryGraceMs: Double = 15 * 60 * 1000
+
     var authToken: String {
+        if isPro, let type = proType, type.hasPrefix("revenuecat") {
+            if Purchases.isConfigured {
+                return Purchases.shared.appUserID
+            }
+            return getDeviceFingerprint()
+        }
         if let token = getStoredCouponToken(), !token.isEmpty {
-            return "coupon:\(token)"
+            let nowMs = Int64(Date().timeIntervalSince1970 * 1000)
+            let verified = CouponService.companion.shared.verifyCouponToken(
+                token: token,
+                expectedInstallId: getPersistentInstallId(),
+                currentTimeMs: nowMs,
+                lastSeenServerTimeMs: getLastSeenServerTime()
+            )
+            if verified.valid {
+                return "coupon:\(token)"
+            }
         }
         if Purchases.isConfigured {
             return Purchases.shared.appUserID
@@ -231,7 +248,7 @@ final class ProManager: NSObject, ObservableObject {
                 let rcType = parts[1]
                 let expMs = Double(parts[2]) ?? 0
                 let nowMs = Date().timeIntervalSince1970 * 1000
-                if rcType == "revenuecat_lifetime" || expMs <= 0 || expMs > nowMs {
+                if rcType == "revenuecat_lifetime" || expMs <= 0 || (expMs + Self.rcExpiryGraceMs) > nowMs {
                     self.isPro = true
                     self.proType = rcType
                     self.expirationDate = expMs > 0 ? Date(timeIntervalSince1970: expMs / 1000) : nil

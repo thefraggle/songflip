@@ -46,7 +46,29 @@ class PlaylistConverterEngine(
         maxTracks: Int = 200,
         authToken: String? = null
     ): PlaylistConversionResult {
-        return convertPlaylist(url, targetPlatformKey, isPro, maxTracks, authToken).getOrThrow()
+        return convertPlaylist(url, targetPlatformKey, isPro, maxTracks, authToken, false).getOrThrow()
+    }
+
+    @Throws(Throwable::class)
+    suspend fun convertPlaylistOrThrow(
+        url: String,
+        targetPlatformKey: String,
+        isPro: Boolean,
+        maxTracks: Int,
+        authToken: String?,
+        forceRefresh: Boolean
+    ): PlaylistConversionResult {
+        return convertPlaylist(url, targetPlatformKey, isPro, maxTracks, authToken, forceRefresh).getOrThrow()
+    }
+
+    suspend fun convertPlaylist(
+        url: String,
+        targetPlatformKey: String,
+        isPro: Boolean,
+        maxTracks: Int,
+        authToken: String?
+    ): Result<PlaylistConversionResult> {
+        return convertPlaylist(url, targetPlatformKey, isPro, maxTracks, authToken, false)
     }
 
     suspend fun convertPlaylist(
@@ -54,12 +76,16 @@ class PlaylistConverterEngine(
         targetPlatformKey: String,
         isPro: Boolean = false,
         maxTracks: Int = 200,
-        authToken: String? = null
+        authToken: String? = null,
+        forceRefresh: Boolean = false
     ): Result<PlaylistConversionResult> {
         val payload = buildJsonObject {
             put("url", url)
             put("targetPlatform", targetPlatformKey)
             put("maxTracks", maxTracks)
+            if (forceRefresh) {
+                put("forceRefresh", true)
+            }
         }.toString()
 
         var lastException: Throwable? = null

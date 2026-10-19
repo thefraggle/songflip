@@ -163,6 +163,35 @@ class ProManagerTest {
         assertTrue("ProManager.isPro should be true", ProManager.isPro)
         assertEquals("revenuecat_subscription", state.proType)
     }
+
+    @Test
+    fun testGetAuthTokenPrioritizesRevenueCatAndIgnoresExpiredCoupon() {
+        // Store an expired/invalid coupon token alongside active RevenueCat Pro (#133)
+        inMemoryPrefs.edit()
+            .putString("pro_coupon_token", "sct_expired_or_invalid_token")
+            .putBoolean("rc_is_pro", true)
+            .putString("rc_pro_type", "revenuecat_subscription")
+            .putLong("rc_pro_expiration", System.currentTimeMillis() + 86400000L)
+            .apply()
+
+        ProManager.hydrateLocalProState()
+        assertTrue(ProManager.isPro)
+        val token = ProManager.getAuthToken()
+        assertFalse("Must not return stale/invalid coupon token when RevenueCat is active", token.startsWith("coupon:"))
+    }
+
+    @Test
+    fun testColdStartRenewalGraceWindowPreservesProState() {
+        // Subscription expired 2 minutes ago (e.g. Play Store 5-min sandbox cycle or billing renewal in flight)
+        inMemoryPrefs.edit()
+            .putBoolean("rc_is_pro", true)
+            .putString("rc_pro_type", "revenuecat_subscription")
+            .putLong("rc_pro_expiration", System.currentTimeMillis() - 2 * 60 * 1000L)
+            .apply()
+
+        val state = ProManager.hydrateLocalProState()
+        assertTrue("Pro state must be preserved within 15-min renewal grace window", state.isPro)
+    }
 }
 
 class InMemorySharedPreferences : SharedPreferences {
