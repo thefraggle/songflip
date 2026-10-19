@@ -39,10 +39,19 @@ enum AcousticRecognitionState: Equatable {
     }
 }
 
+private struct MatchedTrackInfo: Sendable {
+    let title: String
+    let artist: String
+    let artworkUrl: String?
+    let appleMusicUrl: String?
+    let appleMusicId: String?
+    let webUrl: String?
+}
+
 private nonisolated final class ShazamSessionBox: NSObject, SHSessionDelegate, @unchecked Sendable {
     private let lock = NSLock()
     private var hasResumed = false
-    var onMatch: (@Sendable (SHMatchedMediaItem) -> Void)?
+    var onMatch: (@Sendable (MatchedTrackInfo) -> Void)?
     var onNoMatch: (@Sendable (Error?) -> Void)?
 
     nonisolated func tryMarkResumed() -> Bool {
@@ -55,7 +64,17 @@ private nonisolated final class ShazamSessionBox: NSObject, SHSessionDelegate, @
 
     nonisolated func session(_ session: SHSession, didFind match: SHMatch) {
         if let first = match.mediaItems.first {
-            onMatch?(first)
+            let title = (first.title?.isEmpty == false) ? first.title! : "Unknown Track"
+            let artist = (first.artist?.isEmpty == false) ? first.artist! : (first.subtitle ?? "")
+            let info = MatchedTrackInfo(
+                title: title,
+                artist: artist,
+                artworkUrl: first.artworkURL?.absoluteString,
+                appleMusicUrl: first.appleMusicURL?.absoluteString,
+                appleMusicId: first.appleMusicID,
+                webUrl: first.webURL?.absoluteString
+            )
+            onMatch?(info)
         } else {
             onNoMatch?(nil)
         }
@@ -79,6 +98,8 @@ final class AcousticRecognizer: ObservableObject {
     private var listeningTask: Task<Void, Never>?
     private let pathMonitor = NWPathMonitor()
     private(set) var isOnline: Bool = true
+    private var cachedDeveloperToken: String? = nil
+    private var cachedTokenExpiryEpochSec: Int64 = 0
 
     private init() {
         pathMonitor.pathUpdateHandler = { [weak self] path in
@@ -175,8 +196,15 @@ final class AcousticRecognizer: ObservableObject {
             let engine = AVAudioEngine()
             let inputNode = engine.inputNode
             let recordingFormat = inputNode.outputFormat(forBus: 0)
+            let monoFormat = AVAudioFormat(
+                commonFormat: .pcmFormatFloat32,
+                sampleRate: recordingFormat.sampleRate,
+                channels: 1,
+                interleaved: false
+            )
 
             let sigGen = SHSignatureGenerator()
+            let sigLock = NSLock()
             self.signatureGenerator = sigGen
 
             let session = SHSession()
@@ -185,10 +213,12 @@ final class AcousticRecognizer: ObservableObject {
             self.shazamSession = session
             self.sessionBox = box
 
-            var matchedItem: SHMatchedMediaItem? = nil
+            var matchedItem: MatchedTrackInfo? = nil
             box.onMatch = { item in
                 Task { @MainActor in
-                    matchedItem = item
+                    if matchedItem == nil {
+                        matchedItem = item
+                    }
                 }
             }
 
@@ -196,11 +226,14 @@ final class AcousticRecognizer: ObservableObject {
             let onlineAtStart = self.isOnline
 
             inputNode.installTap(onBus: 0, bufferSize: 2048, format: recordingFormat) { [weak self] buffer, audioTime in
-                try? sigGen.append(buffer, at: audioTime)
+                let (monoBuffer, rms) = Self.prepareMonoBufferWithAgc(from: buffer, monoFormat: monoFormat)
+                let targetBuffer = monoBuffer ?? buffer
+                sigLock.lock()
+                try? sigGen.append(targetBuffer, at: nil)
+                sigLock.unlock()
                 if onlineAtStart {
-                    session.matchStreamingBuffer(buffer, at: audioTime)
+                    session.matchStreamingBuffer(targetBuffer, at: audioTime)
                 }
-                let rms = Self.computeRms(from: buffer)
                 Task { @MainActor [weak self] in
                     guard let self = self, case .listening = self.state else { return }
                     let elapsed = Int(Date().timeIntervalSince(startTime))
@@ -214,6 +247,9 @@ final class AcousticRecognizer: ObservableObject {
             engine.prepare()
             try engine.start()
 
+            let snapshotThresholds: [TimeInterval] = [3.5, 6.5, 9.5]
+            var nextSnapshotIdx = 0
+
             // Poll up to 12.0 seconds for either a live match or offline 6-second signature capture
             while !Task.isCancelled && Date().timeIntervalSince(startTime) < 12.0 {
                 if matchedItem != nil {
@@ -221,10 +257,25 @@ final class AcousticRecognizer: ObservableObject {
                 }
                 let elapsed = Date().timeIntervalSince(startTime)
                 if !self.isOnline && isPro && elapsed >= 6.0 {
+                    sigLock.lock()
                     let signature = sigGen.signature()
+                    sigLock.unlock()
                     teardownAudioEngine()
                     saveOfflineSignature(signature)
                     return
+                }
+                if self.isOnline && nextSnapshotIdx < snapshotThresholds.count && elapsed >= snapshotThresholds[nextSnapshotIdx] {
+                    nextSnapshotIdx += 1
+                    sigLock.lock()
+                    let snapSignature = sigGen.signature()
+                    sigLock.unlock()
+                    if snapSignature.duration >= 2.2 {
+                        let b64 = snapSignature.dataRepresentation.base64EncodedString()
+                        if !b64.isEmpty, let restMatch = await matchSignatureBase64Direct(b64) {
+                            matchedItem = restMatch
+                            break
+                        }
+                    }
                 }
                 try? await Task.sleep(nanoseconds: 150_000_000)
             }
@@ -234,7 +285,9 @@ final class AcousticRecognizer: ObservableObject {
                 return
             }
 
+            sigLock.lock()
             let finalSignature = sigGen.signature()
+            sigLock.unlock()
             teardownAudioEngine()
 
             if matchedItem == nil && !self.isOnline {
@@ -246,8 +299,14 @@ final class AcousticRecognizer: ObservableObject {
                 return
             }
 
-            if matchedItem == nil && self.isOnline && finalSignature.duration >= 3.0 {
-                matchedItem = await matchSingleSignature(finalSignature)
+            if matchedItem == nil && self.isOnline && finalSignature.duration >= 2.2 {
+                let b64 = finalSignature.dataRepresentation.base64EncodedString()
+                if !b64.isEmpty {
+                    matchedItem = await matchSignatureBase64Direct(b64)
+                }
+                if matchedItem == nil {
+                    matchedItem = await matchSingleSignature(finalSignature)
+                }
             }
 
             guard let winner = matchedItem else {
@@ -261,21 +320,17 @@ final class AcousticRecognizer: ObservableObject {
                 return
             }
 
-            let title = (winner.title?.isEmpty == false) ? winner.title! : "Unknown Track"
-            let artist = (winner.artist?.isEmpty == false) ? winner.artist! : (winner.subtitle ?? "")
-            let artworkUrl = winner.artworkURL?.absoluteString
-
-            self.state = .resolving(title: title, artist: artist, artworkUrl: artworkUrl)
+            self.state = .resolving(title: winner.title, artist: winner.artist, artworkUrl: winner.artworkUrl)
 
             let targetPlatform = MusicPlatform.companion.fromKey(key: targetPlatformKey)
             let flipResult = try await AcousticQuotaManager.companion.shared.resolveAndStoreAcousticMatch(
                 engine: SongLinkEngine.shared,
-                title: title,
-                artist: artist,
-                artworkUrl: artworkUrl,
-                appleMusicUrl: winner.appleMusicURL?.absoluteString,
-                appleMusicId: winner.appleMusicID,
-                webUrl: winner.webURL?.absoluteString,
+                title: winner.title,
+                artist: winner.artist,
+                artworkUrl: winner.artworkUrl,
+                appleMusicUrl: winner.appleMusicUrl,
+                appleMusicId: winner.appleMusicId,
+                webUrl: winner.webUrl,
                 targetPlatform: targetPlatform,
                 isPro: isPro,
                 timestampMs: Int64(Date().timeIntervalSince1970 * 1000)
@@ -322,24 +377,27 @@ final class AcousticRecognizer: ObservableObject {
         var resolvedCount = 0
 
         for scan in pending {
-            guard let sigData = Data(base64Encoded: scan.signatureBase64),
-                  let signature = try? SHSignature(dataRepresentation: sigData) else {
+            guard !scan.signatureBase64.isEmpty else {
                 manager.deletePendingAcousticScan(id: scan.id)
                 continue
             }
 
-            let matched = await matchSingleSignature(signature)
+            var matched = await matchSignatureBase64Direct(scan.signatureBase64)
+            if matched == nil,
+               let sigData = Data(base64Encoded: scan.signatureBase64),
+               let signature = try? SHSignature(dataRepresentation: sigData) {
+                matched = await matchSingleSignature(signature)
+            }
+
             if let winner = matched {
-                let title = (winner.title?.isEmpty == false) ? winner.title! : "Unknown Track"
-                let artist = (winner.artist?.isEmpty == false) ? winner.artist! : (winner.subtitle ?? "")
                 _ = try? await manager.resolveAndStoreAcousticMatch(
                     engine: SongLinkEngine.shared,
-                    title: title,
-                    artist: artist,
-                    artworkUrl: winner.artworkURL?.absoluteString,
-                    appleMusicUrl: winner.appleMusicURL?.absoluteString,
-                    appleMusicId: winner.appleMusicID,
-                    webUrl: winner.webURL?.absoluteString,
+                    title: winner.title,
+                    artist: winner.artist,
+                    artworkUrl: winner.artworkUrl,
+                    appleMusicUrl: winner.appleMusicUrl,
+                    appleMusicId: winner.appleMusicId,
+                    webUrl: winner.webUrl,
                     targetPlatform: targetPlatform,
                     isPro: isPro,
                     timestampMs: Int64(Date().timeIntervalSince1970 * 1000)
@@ -361,7 +419,119 @@ final class AcousticRecognizer: ObservableObject {
         return resolvedCount
     }
 
-    private func matchSingleSignature(_ signature: SHSignature) async -> SHMatchedMediaItem? {
+    private func getDeveloperToken() async -> String? {
+        let nowSec = Int64(Date().timeIntervalSince1970)
+        if let cached = cachedDeveloperToken, nowSec < cachedTokenExpiryEpochSec - 120 {
+            return cached
+        }
+        guard let url = URL(string: "https://cache.songflip.link/getShazamToken") else { return cachedDeveloperToken }
+        var req = URLRequest(url: url)
+        req.timeoutInterval = 8
+        req.setValue("SongFlip-iOS", forHTTPHeaderField: "User-Agent")
+        do {
+            let (data, response) = try await URLSession.shared.data(for: req)
+            guard let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode),
+                  let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                  let token = json["token"] as? String, !token.isEmpty else {
+                return cachedDeveloperToken
+            }
+            let expiresAt = (json["expiresAt"] as? NSNumber)?.int64Value ?? (nowSec + 3600)
+            cachedDeveloperToken = token
+            cachedTokenExpiryEpochSec = expiresAt
+            return token
+        } catch {
+            return cachedDeveloperToken
+        }
+    }
+
+    private func matchSignatureBase64Direct(_ signatureBase64: String) async -> MatchedTrackInfo? {
+        guard let token = await getDeveloperToken(), !token.isEmpty else { return nil }
+        let rawCountry = Locale.current.region?.identifier.lowercased() ?? "de"
+        let storeFront = (rawCountry.count == 2) ? rawCountry : "de"
+        let urlString = "https://api.shazam.apple.com/v1/catalog/\(storeFront)/match?types=shazam-songs&include%5Bshazam-songs%5D=songs&include%5Bsongs%5D=music-videos&meta=matchOffset%2CfrequencySkew&format%5Bresources%5D=map"
+        guard let url = URL(string: urlString) else { return nil }
+
+        var req = URLRequest(url: url)
+        req.httpMethod = "POST"
+        req.timeoutInterval = 8
+        req.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        req.setValue("ShazamKit/2.1.1 iOS", forHTTPHeaderField: "User-Agent")
+        req.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
+
+        let payload: [String: Any] = [
+            "data": [
+                [
+                    "type": "signatures",
+                    "attributes": [
+                        "signature": "data:audio/vnd.shazam.sig;base64,\(signatureBase64)"
+                    ]
+                ]
+            ]
+        ]
+
+        do {
+            req.httpBody = try JSONSerialization.data(withJSONObject: payload)
+            let (data, response) = try await URLSession.shared.data(for: req)
+            guard let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode),
+                  let root = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                  let resources = root["resources"] as? [String: Any],
+                  let shazamSongs = resources["shazam-songs"] as? [String: Any],
+                  let firstKey = shazamSongs.keys.first,
+                  let shazamSongObj = shazamSongs[firstKey] as? [String: Any],
+                  let attributes = shazamSongObj["attributes"] as? [String: Any] else {
+                return nil
+            }
+
+            let title = ((attributes["title"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines)).flatMap { $0.isEmpty ? nil : $0 } ?? "Unknown Track"
+            let artist = ((attributes["artist"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines))
+                ?? ((attributes["primaryArtist"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines))
+                ?? ""
+
+            var artworkUrl = (attributes["artwork"] as? [String: Any])?["url"] as? String
+            var appleMusicId: String? = nil
+            var appleMusicUrl: String? = nil
+
+            if let relationships = shazamSongObj["relationships"] as? [String: Any],
+               let songsRel = relationships["songs"] as? [String: Any],
+               let relData = songsRel["data"] as? [[String: Any]],
+               let firstSong = relData.first,
+               let id = firstSong["id"] as? String, !id.isEmpty {
+                appleMusicId = id
+                if let songsMap = resources["songs"] as? [String: Any],
+                   let appleSongObj = songsMap[id] as? [String: Any],
+                   let appleAttrs = appleSongObj["attributes"] as? [String: Any] {
+                    if let url = appleAttrs["url"] as? String, !url.isEmpty {
+                        appleMusicUrl = url
+                    }
+                    if (artworkUrl ?? "").isEmpty,
+                       let appleArt = (appleAttrs["artwork"] as? [String: Any])?["url"] as? String,
+                       !appleArt.isEmpty {
+                        artworkUrl = appleArt
+                    }
+                }
+            }
+
+            if let rawArt = artworkUrl, !rawArt.isEmpty {
+                artworkUrl = rawArt
+                    .replacingOccurrences(of: "{w}", with: "800")
+                    .replacingOccurrences(of: "{h}", with: "800")
+            }
+
+            let webUrl = (attributes["webUrl"] as? String) ?? appleMusicUrl
+            return MatchedTrackInfo(
+                title: title,
+                artist: artist,
+                artworkUrl: artworkUrl,
+                appleMusicUrl: appleMusicUrl,
+                appleMusicId: appleMusicId,
+                webUrl: webUrl
+            )
+        } catch {
+            return nil
+        }
+    }
+
+    private func matchSingleSignature(_ signature: SHSignature) async -> MatchedTrackInfo? {
         await withCheckedContinuation { continuation in
             let session = SHSession()
             let box = ShazamSessionBox()
@@ -380,23 +550,57 @@ final class AcousticRecognizer: ObservableObject {
         }
     }
 
-    nonisolated private static func computeRms(from buffer: AVAudioPCMBuffer) -> Float {
-        guard let channelData = buffer.floatChannelData?[0] else { return 0.15 }
+    nonisolated private static func prepareMonoBufferWithAgc(
+        from buffer: AVAudioPCMBuffer,
+        monoFormat: AVAudioFormat?
+    ) -> (AVAudioPCMBuffer?, Float) {
         let frameLength = Int(buffer.frameLength)
-        guard frameLength > 0 else { return 0.15 }
-        var sum: Float = 0
-        let strideStep = max(1, frameLength / 256)
-        var count = 0
-        var i = 0
-        while i < frameLength {
-            let s = channelData[i]
-            sum += s * s
-            count += 1
-            i += strideStep
+        let channels = Int(buffer.format.channelCount)
+        guard frameLength > 0, channels > 0, let channelData = buffer.floatChannelData else {
+            return (nil, 0.15)
         }
-        let rms = sqrt(sum / Float(max(1, count)))
-        let scaled = min(1.0, max(0.08, rms * 5.0))
-        return scaled
+
+        guard let format = monoFormat,
+              let outBuffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: buffer.frameCapacity),
+              let outChannel = outBuffer.floatChannelData?[0] else {
+            return (nil, 0.15)
+        }
+        outBuffer.frameLength = buffer.frameLength
+
+        var maxPeak: Float = 0
+        for i in 0..<frameLength {
+            var sample: Float = 0
+            for c in 0..<channels {
+                sample += channelData[c][i]
+            }
+            sample /= Float(channels)
+            outChannel[i] = sample
+            let absVal = abs(sample)
+            if absVal > maxPeak {
+                maxPeak = absVal
+            }
+        }
+
+        let targetPeak: Float = 0.55
+        let gain: Float
+        if maxPeak > 0.0005 && maxPeak < targetPeak {
+            gain = min(35.0, targetPeak / maxPeak)
+        } else {
+            gain = 1.0
+        }
+
+        var sumSq: Float = 0
+        for i in 0..<frameLength {
+            var boosted = outChannel[i] * gain
+            if boosted > 0.98 { boosted = 0.98 }
+            if boosted < -0.98 { boosted = -0.98 }
+            outChannel[i] = boosted
+            sumSq += boosted * boosted
+        }
+
+        let rms = sqrt(sumSq / Float(frameLength))
+        let uiAmplitude = min(1.0, max(0.08, rms * 3.8))
+        return (outBuffer, uiAmplitude)
     }
 }
 

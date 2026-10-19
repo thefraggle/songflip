@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.9.8] - 2026-10-19
+- **Verbesserte Musikerkennung & Pegelanpassung**: Optimierte Mikrofon-Signalverstärkung und dynamische Lautstärke-Hinweise, damit Musik in deiner Umgebung auch bei leiserer Wiedergabe zuverlässig über Listen & Flip erkannt wird.
+- **Übersichtlichere Funktionsübersicht**: Aufgeräumte Darstellung der Funktionsübersicht sowie verfeinerte Übersetzungen in allen unterstützten Sprachen.
+
 ## [1.9.7] - 2026-10-19
 - **Zuverlässigere Musikerkennung**: Verbesserte Stabilität der Audioaufnahme und optimierte Raumklang-Empfindlichkeit für eine schnellere und treffsichere Song-Erkennung bei Listen & Flip.
 - **Allgemeine Stabilität**: Interne Synchronisations- und Leistungsverbesserungen.

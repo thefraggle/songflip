@@ -1,2 +1,2 @@
-- Zuverlässigere Musikerkennung: Verbesserte Audioaufnahmestabilität und Umgebungsraumempfindlichkeit für eine schnellere und genauere Liederkennung in Listen & Flip.
-- Allgemeine Stabilität: Verfeinerungen der internen Synchronisation und Leistungsverbesserungen.
+- Verbesserte Musikerkennung & Pegelanpassung: Optimierte Signalverstärkung und dynamische Lautstärke-Hinweise, damit Musik in deiner Umgebung auch bei leiserer Wiedergabe zuverlässig über Listen & Flip erkannt wird.
+- Übersichtlichere Funktionsübersicht: Aufgeräumte Darstellung der Funktionsübersicht sowie verfeinerte Übersetzungen in allen unterstützten Sprachen.
