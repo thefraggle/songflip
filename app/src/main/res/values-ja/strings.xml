@@ -384,4 +384,29 @@
     <string name="history_filter_all">すべて</string>
     <string name="history_filter_favorites">お気に入り</string>
     <string name="target_player_chip">プレーヤー: %1$s</string>
+    <!-- Listen & Flip (#78) -->
+    <string name="listen_and_flip_title">Listen &amp; Flip</string>
+    <string name="listen_and_flip_subtitle">周囲で流れている音楽を認識</string>
+    <string name="badge_identified">認識済み</string>
+    <string name="listen_free_scans_remaining">今月の無料スキャン残り %1$d/%2$d 回</string>
+    <string name="listen_status_listening">音楽を聴き取っています…</string>
+    <string name="listen_status_hint">スピーカーに端末を近づけてください</string>
+    <string name="listen_status_resolving">お使いのプレイヤー用に変換中…</string>
+    <string name="listen_saved_to_history">履歴に保存しました</string>
+    <string name="listen_open_in_player">%1$s で開く</string>
+    <string name="listen_share_action">共有</string>
+    <string name="listen_scan_again">別の曲を認識する</string>
+    <string name="listen_offline_saved_title">オフライン・クラブモードで保存</string>
+    <string name="listen_offline_saved_desc">音声フィンガープリントを保存しました（保留中: %1$d件）。オンラインに戻り次第、自動的に曲名を特定します。</string>
+    <string name="listen_offline_resolved_toast">オフラインの %1$d 曲を認識して履歴に追加しました！</string>
+    <string name="listen_no_match_title">曲を認識できませんでした</string>
+    <string name="listen_no_match_subtitle">音楽が十分に聞こえる場所で再試行してください。曲が見つからなかった場合、無料回数は消費されません。</string>
+    <string name="listen_try_again">もう一度試す</string>
+    <string name="listen_error_offline">オフラインです。PROにアップグレードするとオフライン保存が使えます。</string>
+    <string name="listen_permission_title">マイクへのアクセスが必要です</string>
+    <string name="listen_permission_desc">周囲の音楽を認識するためにマイクを使用します。音声が録音・保存されることはありません。</string>
+    <string name="listen_permission_grant">マイクを許可する</string>
+    <string name="listen_quota_reached_title">今月の無料スキャン上限に達しました</string>
+    <string name="listen_quota_reached_desc">今月の無料認識（%1$d回）をすべて使用しました。SongFlip PROで無制限の認識とオフラインモードを解放しましょう。</string>
+    <string name="listen_unlock_pro">SongFlip PRO を解放</string>
 </resources>

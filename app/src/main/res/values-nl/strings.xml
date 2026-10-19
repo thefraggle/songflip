@@ -388,4 +388,29 @@
     <string name="history_filter_all">Alle</string>
     <string name="history_filter_favorites">Favorieten</string>
     <string name="target_player_chip">Speler: %1$s</string>
+    <!-- Listen & Flip (#78) -->
+    <string name="listen_and_flip_title">Listen &amp; Flip</string>
+    <string name="listen_and_flip_subtitle">Herken muziek om je heen</string>
+    <string name="badge_identified">Herkenning</string>
+    <string name="listen_free_scans_remaining">Nog %1$d/%2$d gratis scans deze maand</string>
+    <string name="listen_status_listening">Luisteren naar muziek…</string>
+    <string name="listen_status_hint">Houd je toestel dichter bij de luidspreker</string>
+    <string name="listen_status_resolving">Match zoeken voor je speler…</string>
+    <string name="listen_saved_to_history">Opgeslagen in geschiedenis</string>
+    <string name="listen_open_in_player">Openen in %1$s</string>
+    <string name="listen_share_action">Delen</string>
+    <string name="listen_scan_again">Nog een nummer herkennen</string>
+    <string name="listen_offline_saved_title">Opgeslagen in Offline Club Mode</string>
+    <string name="listen_offline_saved_desc">Audio-afdruk opgeslagen (%1$d in wachtrij). SongFlip herkent het nummer automatisch zodra je weer online bent.</string>
+    <string name="listen_offline_resolved_toast">%1$d offline nummer(s) herkend en toegevoegd aan geschiedenis!</string>
+    <string name="listen_no_match_title">Geen nummer herkend</string>
+    <string name="listen_no_match_subtitle">Zorg dat de muziek luid genoeg is en probeer het opnieuw. Gratis scans tellen alleen bij een match.</string>
+    <string name="listen_try_again">Opnieuw proberen</string>
+    <string name="listen_error_offline">Geen internetverbinding. Upgrade naar PRO voor Offline Club Mode.</string>
+    <string name="listen_permission_title">Microfoontoegang vereist</string>
+    <string name="listen_permission_desc">Listen &amp; Flip heeft toegang tot de microfoon nodig om muziek om je heen te herkennen. Audio wordt nooit opgeslagen.</string>
+    <string name="listen_permission_grant">Microfoontoegang toestaan</string>
+    <string name="listen_quota_reached_title">Maandelijkse gratis scans gebruikt</string>
+    <string name="listen_quota_reached_desc">Je hebt alle %1$d gratis muziekherkenningen voor deze maand gebruikt. Ontgrendel SongFlip PRO voor onbeperkt Listen &amp; Flip.</string>
+    <string name="listen_unlock_pro">SongFlip PRO ontgrendelen</string>
 </resources>

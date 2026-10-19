@@ -406,4 +406,29 @@
     <string name="disambiguate_empty">No alternative versions found</string>
     <string name="disambiguate_error">Could not load versions</string>
     <string name="favorite_limit_reached">You have reached your 10 free favorites. Get SongFlip PRO for unlimited favorites &amp; 100 history entries.</string>
+    <!-- Listen & Flip (#78) -->
+    <string name="listen_and_flip_title">Listen &amp; Flip</string>
+    <string name="listen_and_flip_subtitle">Identify music playing around you</string>
+    <string name="badge_identified">Identified</string>
+    <string name="listen_free_scans_remaining">%1$d/%2$d free scans left this month</string>
+    <string name="listen_status_listening">Listening for music…</string>
+    <string name="listen_status_hint">Hold your device closer to the speaker</string>
+    <string name="listen_status_resolving">Matching for your player…</string>
+    <string name="listen_saved_to_history">Saved to History</string>
+    <string name="listen_open_in_player">Open in %1$s</string>
+    <string name="listen_share_action">Share</string>
+    <string name="listen_scan_again">Identify another song</string>
+    <string name="listen_offline_saved_title">Saved for Offline Club Mode</string>
+    <string name="listen_offline_saved_desc">Audio fingerprint saved (%1$d pending). SongFlip will identify it automatically once you are back online.</string>
+    <string name="listen_offline_resolved_toast">Identified %1$d offline song(s) and added to History!</string>
+    <string name="listen_no_match_title">No song identified</string>
+    <string name="listen_no_match_subtitle">Make sure the music is loud enough and try again. Free scans are only counted when a song is found.</string>
+    <string name="listen_try_again">Try Again</string>
+    <string name="listen_error_offline">No internet connection. Upgrade to PRO for Offline Club Mode.</string>
+    <string name="listen_permission_title">Microphone Access Needed</string>
+    <string name="listen_permission_desc">Listen &amp; Flip needs microphone access to recognize music playing around you. Audio is never recorded or stored.</string>
+    <string name="listen_permission_grant">Allow Microphone Access</string>
+    <string name="listen_quota_reached_title">Monthly Free Scans Used</string>
+    <string name="listen_quota_reached_desc">You have used all %1$d free song identifications this month. Unlock SongFlip PRO for unlimited Listen &amp; Flip and Offline Club Mode.</string>
+    <string name="listen_unlock_pro">Unlock SongFlip PRO</string>
 </resources>

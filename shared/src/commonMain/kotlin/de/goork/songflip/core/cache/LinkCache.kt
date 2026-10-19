@@ -17,7 +17,8 @@ data class CacheEntry(
     val timestamp: Long,
     val isHistory: Boolean = true,
     val thumbnailUrl: String? = null,
-    val isFavorite: Boolean = false
+    val isFavorite: Boolean = false,
+    val isAcoustic: Boolean = false
 )
 
 data class LinkHistoryItem(
@@ -31,7 +32,8 @@ data class LinkHistoryItem(
     val isAlbum: Boolean = false,
     val timestamp: Long,
     val thumbnailUrl: String? = null,
-    val isFavorite: Boolean = false
+    val isFavorite: Boolean = false,
+    val isAcoustic: Boolean = false
 )
 
 interface CacheStorage {
@@ -173,7 +175,8 @@ class LinkCache(
             isHistory = finalIsHistory,
             thumbnailUrl = result.thumbnailUrl ?: existing?.thumbnailUrl,
             // Re-flipping a favorite must not silently unpin it (#105)
-            isFavorite = existing?.isFavorite == true
+            isFavorite = existing?.isFavorite == true,
+            isAcoustic = existing?.isAcoustic == true
         )
 
         entries.remove(key)
@@ -205,7 +208,8 @@ class LinkCache(
             timestamp = currentTimeMs,
             isHistory = finalIsHistory,
             thumbnailUrl = result.thumbnailUrl ?: existing?.thumbnailUrl,
-            isFavorite = existing?.isFavorite == true
+            isFavorite = existing?.isFavorite == true,
+            isAcoustic = existing?.isAcoustic == true
         )
 
         entries.remove(key)
@@ -260,7 +264,7 @@ class LinkCache(
         for ((k, loadedEntry) in allLoaded.entries.sortedBy { it.value.timestamp }) {
             if (loadedEntry.isRetained(currentTimeMs)) {
                 val memEntry = entries[k]
-                if (memEntry == null || loadedEntry.timestamp >= memEntry.timestamp || loadedEntry.isFavorite != memEntry.isFavorite) {
+                if (memEntry == null || loadedEntry.timestamp >= memEntry.timestamp || loadedEntry.isFavorite != memEntry.isFavorite || loadedEntry.isAcoustic != memEntry.isAcoustic) {
                     entries.remove(k)
                     entries[k] = loadedEntry
                 }
@@ -294,7 +298,8 @@ class LinkCache(
                         isAlbum = entry.isAlbum,
                         timestamp = entry.timestamp,
                         thumbnailUrl = entry.thumbnailUrl,
-                        isFavorite = entry.isFavorite
+                        isFavorite = entry.isFavorite,
+                        isAcoustic = entry.isAcoustic
                     )
                 )
             }
@@ -421,12 +426,14 @@ class LinkCache(
         isAlbum: Boolean = false,
         thumbnailUrl: String? = null,
         timestamp: Long = getCurrentTimeMillis(),
-        isFavorite: Boolean? = null
+        isFavorite: Boolean? = null,
+        isAcoustic: Boolean? = null
     ): String = mutex.withLock {
         ensureLoaded(timestamp)
         val key = buildKey(canonicalUrl, targetPlatformKey)
         val existing = entries[key] ?: storage.get(key)
         val resolvedFav = isFavorite ?: (existing?.isFavorite == true)
+        val resolvedAcoustic = isAcoustic ?: (existing?.isAcoustic == true)
 
         val entry = CacheEntry(
             targetUrl = targetUrl,
@@ -438,7 +445,8 @@ class LinkCache(
             timestamp = timestamp,
             isHistory = true,
             thumbnailUrl = thumbnailUrl ?: existing?.thumbnailUrl,
-            isFavorite = resolvedFav
+            isFavorite = resolvedFav,
+            isAcoustic = resolvedAcoustic
         )
 
         entries.remove(key)
@@ -456,7 +464,8 @@ class LinkCache(
         artist: String? = null,
         isAlbum: Boolean = false,
         thumbnailUrl: String? = null,
-        currentTimeMs: Long = getCurrentTimeMillis()
+        currentTimeMs: Long = getCurrentTimeMillis(),
+        isAcoustic: Boolean = false
     ): String = addHistoryEntry(
         canonicalUrl = sourceUrl,
         targetPlatformKey = targetPlatformKey,
@@ -467,7 +476,29 @@ class LinkCache(
         isAlbum = isAlbum,
         thumbnailUrl = thumbnailUrl,
         timestamp = currentTimeMs,
-        isFavorite = null
+        isFavorite = null,
+        isAcoustic = isAcoustic
+    )
+
+    suspend fun addHistoryEntry(
+        sourceUrl: String,
+        targetPlatformKey: String,
+        targetUrl: String,
+        title: String?,
+        artist: String?,
+        isAlbum: Boolean,
+        thumbnailUrl: String?,
+        isAcoustic: Boolean
+    ): String = addHistoryEntry(
+        sourceUrl = sourceUrl,
+        targetPlatformKey = targetPlatformKey,
+        targetUrl = targetUrl,
+        title = title,
+        artist = artist,
+        isAlbum = isAlbum,
+        thumbnailUrl = thumbnailUrl,
+        currentTimeMs = getCurrentTimeMillis(),
+        isAcoustic = isAcoustic
     )
 
     suspend fun addHistoryEntry(
@@ -486,7 +517,8 @@ class LinkCache(
         artist = artist,
         isAlbum = isAlbum,
         thumbnailUrl = thumbnailUrl,
-        currentTimeMs = getCurrentTimeMillis()
+        currentTimeMs = getCurrentTimeMillis(),
+        isAcoustic = false
     )
 
     suspend fun updateHistoryEntry(

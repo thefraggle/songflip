@@ -374,4 +374,29 @@
     <string name="history_filter_all">Összes</string>
     <string name="history_filter_favorites">Kedvencek</string>
     <string name="target_player_chip">Lejátszó: %1$s</string>
+    <!-- Listen & Flip (#78) -->
+    <string name="listen_and_flip_title">Listen &amp; Flip</string>
+    <string name="listen_and_flip_subtitle">Ismerd fel a körülötted szóló zenét</string>
+    <string name="badge_identified">Felismerve</string>
+    <string name="listen_free_scans_remaining">%1$d/%2$d ingyenes felismerés maradt ebben a hónapban</string>
+    <string name="listen_status_listening">Zene figyelése…</string>
+    <string name="listen_status_hint">Tartsd a készüléket közelebb a hangszóróhoz</string>
+    <string name="listen_status_resolving">Keresés a lejátszódhoz…</string>
+    <string name="listen_saved_to_history">Elmentve az előzményekbe</string>
+    <string name="listen_open_in_player">Megnyitás itt: %1$s</string>
+    <string name="listen_share_action">Megosztás</string>
+    <string name="listen_scan_again">Másik dal felismerése</string>
+    <string name="listen_offline_saved_title">Elmentve Offline Klub módban</string>
+    <string name="listen_offline_saved_desc">Hangmintázat elmentve (%1$d függőben). A SongFlip automatikusan felismeri, amint újra online leszel.</string>
+    <string name="listen_offline_resolved_toast">%1$d offline dal felismerve és hozzáadva az előzményekhez!</string>
+    <string name="listen_no_match_title">Nem sikerült felismerni a dalt</string>
+    <string name="listen_no_match_subtitle">Győződj meg róla, hogy a zene elég hangos, majd próbáld újra. Az ingyenes alkalmak csak találat esetén számítanak.</string>
+    <string name="listen_try_again">Újrapróbálkozás</string>
+    <string name="listen_error_offline">Nincs internetkapcsolat. Válts PRO-ra az Offline Klub módhoz.</string>
+    <string name="listen_permission_title">Mikrofon-hozzáférés szükséges</string>
+    <string name="listen_permission_desc">A Listen &amp; Flip a mikrofont használja a körülötted szóló zene felismeréséhez. A hangot soha nem rögzítjük.</string>
+    <string name="listen_permission_grant">Mikrofon engedélyezése</string>
+    <string name="listen_quota_reached_title">Elfogytak a havi ingyenes felismerések</string>
+    <string name="listen_quota_reached_desc">Elhasználtad mind a(z) %1$d ingyenes zenefelismerést ebben a hónapban. Oldd fel a SongFlip PRO-t a korlátlan használathoz.</string>
+    <string name="listen_unlock_pro">SongFlip PRO feloldása</string>
 </resources>

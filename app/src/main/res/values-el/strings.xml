@@ -374,4 +374,29 @@
     <string name="history_filter_all">Όλα</string>
     <string name="history_filter_favorites">Αγαπημένα</string>
     <string name="target_player_chip">Πρόγραμμα αναπαραγωγής: %1$s</string>
+    <!-- Listen & Flip (#78) -->
+    <string name="listen_and_flip_title">Listen &amp; Flip</string>
+    <string name="listen_and_flip_subtitle">Αναγνωρίστε τη μουσική που παίζει γύρω σας</string>
+    <string name="badge_identified">Αναγνωρίστηκε</string>
+    <string name="listen_free_scans_remaining">Απομένουν %1$d/%2$d δωρεάν σαρώσεις αυτόν τον μήνα</string>
+    <string name="listen_status_listening">Ακρόαση μουσικής…</string>
+    <string name="listen_status_hint">Κρατήστε τη συσκευή πιο κοντά στο ηχείο</string>
+    <string name="listen_status_resolving">Αναζήτηση για το player σας…</string>
+    <string name="listen_saved_to_history">Αποθηκεύτηκε στο ιστορικό</string>
+    <string name="listen_open_in_player">Άνοιγμα σε %1$s</string>
+    <string name="listen_share_action">Κοινοποίηση</string>
+    <string name="listen_scan_again">Αναγνώριση άλλου τραγουδιού</string>
+    <string name="listen_offline_saved_title">Αποθηκεύτηκε σε λειτουργία Club εκτός σύνδεσης</string>
+    <string name="listen_offline_saved_desc">Το ηχητικό αποτύπωμα αποθηκεύτηκε (%1$d σε αναμονή). Το SongFlip θα το αναγνωρίσει αυτόματα μόλις συνδεθείτε.</string>
+    <string name="listen_offline_resolved_toast">Αναγνωρίστηκαν %1$d τραγούδια εκτός σύνδεσης και προστέθηκαν στο ιστορικό!</string>
+    <string name="listen_no_match_title">Δεν αναγνωρίστηκε τραγούδι</string>
+    <string name="listen_no_match_subtitle">Βεβαιωθείτε ότι η μουσική ακούγεται αρκετά δυνατά και δοκιμάστε ξανά. Οι δωρεάν σαρώσεις μετρούν μόνο αν βρεθεί τραγούδι.</string>
+    <string name="listen_try_again">Δοκιμάστε ξανά</string>
+    <string name="listen_error_offline">Χωρίς σύνδεση στο διαδίκτυο. Αναβαθμίστε σε PRO για λειτουργία εκτός σύνδεσης.</string>
+    <string name="listen_permission_title">Απαιτείται πρόσβαση στο μικρόφωνο</string>
+    <string name="listen_permission_desc">Το Listen &amp; Flip χρειάζεται πρόσβαση στο μικρόφωνο για να αναγνωρίζει τη μουσική γύρω σας. Ο ήχος δεν καταγράφεται ποτέ.</string>
+    <string name="listen_permission_grant">Να επιτρέπεται το μικρόφωνο</string>
+    <string name="listen_quota_reached_title">Οι δωρεάν σαρώσεις του μήνα εξαντλήθηκαν</string>
+    <string name="listen_quota_reached_desc">Χρησιμοποιήσατε και τις %1$d δωρεάν αναγνωρίσεις αυτού του μήνα. Ξεκλειδώστε το SongFlip PRO για απεριόριστη χρήση.</string>
+    <string name="listen_unlock_pro">Ξεκλείδωμα SongFlip PRO</string>
 </resources>

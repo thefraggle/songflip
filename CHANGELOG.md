@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.9.5] - 2026-10-19
+- **Listen & Flip (Music Recognition)**: Identify music playing around you directly inside SongFlip. Recognized tracks are automatically matched to your preferred streaming player and saved to your history without interrupting the moment.
+- **Offline Club Mode (PRO)**: No reception in a club or bar? Capture an audio fingerprint offline and let SongFlip automatically identify the song and add it to your history as soon as you're back online.
+- **Identified Filter in History**: Easily find all songs you recognized around you using the new "Identified" badge and filter chip in your song history.
+
 ## [1.9.4] - 2026-10-19
 - **Clearer Status Indicator**: Refined the header status badge with a subtle, unobtrusive design so your active feature state is immediately recognizable at a glance.
 - **Faster SoundCloud & Bandcamp Resolution**: Direct metadata lookup for shared SoundCloud and Bandcamp links for even faster playback starts.

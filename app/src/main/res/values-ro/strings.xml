@@ -378,4 +378,29 @@
     <string name="history_filter_all">Toate</string>
     <string name="history_filter_favorites">Favorite</string>
     <string name="target_player_chip">Player: %1$s</string>
+    <!-- Listen & Flip (#78) -->
+    <string name="listen_and_flip_title">Listen &amp; Flip</string>
+    <string name="listen_and_flip_subtitle">Identifică muzica din jurul tău</string>
+    <string name="badge_identified">Identificat</string>
+    <string name="listen_free_scans_remaining">%1$d/%2$d scanări gratuite rămase luna aceasta</string>
+    <string name="listen_status_listening">Se ascultă muzica…</string>
+    <string name="listen_status_hint">Ține dispozitivul mai aproape de difuzor</string>
+    <string name="listen_status_resolving">Se caută în playerul tău…</string>
+    <string name="listen_saved_to_history">Salvat în istoric</string>
+    <string name="listen_open_in_player">Deschide în %1$s</string>
+    <string name="listen_share_action">Distribuie</string>
+    <string name="listen_scan_again">Identifică altă melodie</string>
+    <string name="listen_offline_saved_title">Salvat în Modul Club Offline</string>
+    <string name="listen_offline_saved_desc">Amprenta audio a fost salvată (%1$d în așteptare). SongFlip va identifica melodia automat când revii online.</string>
+    <string name="listen_offline_resolved_toast">%1$d melodii offline identificate și adăugate în istoric!</string>
+    <string name="listen_no_match_title">Nicio melodie identificată</string>
+    <string name="listen_no_match_subtitle">Asigură-te că muzica se aude suficient de tare și încearcă din nou. Scanările gratuite se contorizează doar la găsire.</string>
+    <string name="listen_try_again">Încearcă din nou</string>
+    <string name="listen_error_offline">Fără conexiune la internet. Treci la PRO pentru Modul Club Offline.</string>
+    <string name="listen_permission_title">Acces la microfon necesar</string>
+    <string name="listen_permission_desc">Listen &amp; Flip are nevoie de microfon pentru a recunoaște muzica din jurul tău. Sunetul nu este niciodată înregistrat.</string>
+    <string name="listen_permission_grant">Permite accesul la microfon</string>
+    <string name="listen_quota_reached_title">Scanările gratuite lunare au fost epuizate</string>
+    <string name="listen_quota_reached_desc">Ai folosit toate cele %1$d identificări gratuite din această lună. Deblochează SongFlip PRO pentru acces nelimitat.</string>
+    <string name="listen_unlock_pro">Deblochează SongFlip PRO</string>
 </resources>

@@ -1,2 +1,3 @@
-- Chỉ báo trạng thái rõ ràng hơn: Tinh chỉnh huy hiệu trạng thái tiêu đề với thiết kế tinh tế, không phô trương để trạng thái tính năng đang hoạt động của bạn có thể nhận ra ngay lập tức trong nháy mắt.
-- Độ phân giải SoundCloud & Bandcamp nhanh hơn: Tra cứu siêu dữ liệu trực tiếp cho các liên kết SoundCloud và Bandcamp được chia sẻ để bắt đầu phát lại nhanh hơn.
+- Listen & Flip (Nhận diện nhạc): Nhận diện nhạc đang phát xung quanh bạn ngay trong SongFlip và lưu vào lịch sử.
+- Chế độ Offline (PRO): Không có mạng? Lưu dấu vân tay âm thanh offline để tự động nhận diện khi có mạng trở lại.
+- Bộ lọc Đã nhận diện: Dễ dàng tìm lại các bài hát đã nhận diện trong lịch sử.

@@ -379,9 +379,15 @@ fun HistoryBottomSheet(
                 }
             } else {
                 val favoriteCount = remember(historyItems) { historyItems.count { it.isFavorite } }
-                val displayedItems = if (showOnlyFavorites) historyItems.filter { it.isFavorite } else historyItems
+                val identifiedCount = remember(historyItems) { historyItems.count { it.isAcoustic } }
+                var filterMode by remember { mutableStateOf("all") }
+                val displayedItems = when (filterMode) {
+                    "favorites" -> historyItems.filter { it.isFavorite }
+                    "identified" -> historyItems.filter { it.isAcoustic }
+                    else -> historyItems
+                }
 
-                if (favoriteCount > 0) {
+                if (favoriteCount > 0 || identifiedCount > 0) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -389,29 +395,49 @@ fun HistoryBottomSheet(
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         FilterChip(
-                            selected = !showOnlyFavorites,
+                            selected = filterMode == "all",
                             onClick = {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                                showOnlyFavorites = false
+                                filterMode = "all"
                             },
                             label = { Text(stringResource(R.string.history_filter_all)) }
                         )
-                        FilterChip(
-                            selected = showOnlyFavorites,
-                            onClick = {
-                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                                showOnlyFavorites = true
-                            },
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = Icons.Filled.Star,
-                                    contentDescription = null,
-                                    modifier = Modifier.size(16.dp),
-                                    tint = Color(0xFFFFB800)
-                                )
-                            },
-                            label = { Text("${stringResource(R.string.history_filter_favorites)} ($favoriteCount)") }
-                        )
+                        if (favoriteCount > 0) {
+                            FilterChip(
+                                selected = filterMode == "favorites",
+                                onClick = {
+                                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                    filterMode = "favorites"
+                                },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Filled.Star,
+                                        contentDescription = null,
+                                        modifier = Modifier.size(16.dp),
+                                        tint = Color(0xFFFFB800)
+                                    )
+                                },
+                                label = { Text("${stringResource(R.string.history_filter_favorites)} ($favoriteCount)") }
+                            )
+                        }
+                        if (identifiedCount > 0) {
+                            FilterChip(
+                                selected = filterMode == "identified",
+                                onClick = {
+                                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                    filterMode = "identified"
+                                },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Outlined.GraphicEq,
+                                        contentDescription = null,
+                                        modifier = Modifier.size(16.dp),
+                                        tint = MaterialTheme.colorScheme.primary
+                                    )
+                                },
+                                label = { Text("${stringResource(R.string.badge_identified)} ($identifiedCount)") }
+                            )
+                        }
                     }
                 }
 
@@ -781,6 +807,7 @@ fun HistoryItemCard(
                     isPlaylist -> stringResource(R.string.badge_playlist)
                     item.isAlbum -> stringResource(R.string.badge_album)
                     isArtist -> stringResource(R.string.badge_artist)
+                    item.isAcoustic -> "🎙️ " + stringResource(R.string.badge_identified)
                     else -> null
                 }
                 val subtitlePrefix = item.artist?.takeIf { it.isNotBlank() }

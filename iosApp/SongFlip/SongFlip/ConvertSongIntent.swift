@@ -129,7 +129,8 @@ struct ConvertSongIntent: AppIntent {
                 artist: success.artist,
                 isAlbum: success.isAlbum,
                 thumbnailUrl: success.thumbnailUrl,
-                currentTimeMs: Int64(Date().timeIntervalSince1970 * 1000)
+                currentTimeMs: Int64(Date().timeIntervalSince1970 * 1000),
+                isAcoustic: false
             )
             await MainActor.run {
                 HistoryModel.shared.loadHistory()

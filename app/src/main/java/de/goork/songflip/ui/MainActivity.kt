@@ -280,6 +280,7 @@ fun MainScreen(
     var showSettingsBottomSheet by remember { mutableStateOf(false) }
     var showHistoryBottomSheet by remember { mutableStateOf(false) }
     var showSearchBottomSheet by remember { mutableStateOf(false) }
+    var showListenBottomSheet by remember { mutableStateOf(false) }
     var showPlayerPickerSheet by remember { mutableStateOf(false) }
     var showAppLinksSetupBottomSheet by remember { mutableStateOf(false) }
     var showProPaywall by remember { mutableStateOf(false) }
@@ -381,6 +382,20 @@ fun MainScreen(
                 de.goork.songflip.data.ShortcutHelper.updateShortcuts(context)
                 if (context.findActivity()?.hasWindowFocus() == true) {
                     checkClipboard(force = true)
+                }
+                coroutineScope.launch {
+                    val resolvedCount = de.goork.songflip.data.AcousticRecognizer.processPendingOfflineScansIfNeeded(
+                        context = context,
+                        targetPlatformKey = selectedTargetKey,
+                        isPro = proState.isPro
+                    )
+                    if (resolvedCount > 0) {
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.listen_offline_resolved_toast, resolvedCount),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
             }
         }
@@ -565,6 +580,18 @@ fun MainScreen(
         )
     }
 
+    if (showListenBottomSheet) {
+        ListenAndFlipBottomSheet(
+            targetPlatformKey = selectedTargetKey,
+            isPro = proState.isPro,
+            onDismissRequest = { showListenBottomSheet = false },
+            onOpenProPaywall = {
+                showListenBottomSheet = false
+                showProPaywall = true
+            }
+        )
+    }
+
     if (showPlayerPickerSheet) {
         PlayerPickerBottomSheet(
             onDismissRequest = { showPlayerPickerSheet = false },
@@ -620,6 +647,9 @@ fun MainScreen(
                 },
                 onOpenSearch = {
                     showSearchBottomSheet = true
+                },
+                onOpenListen = {
+                    showListenBottomSheet = true
                 },
                 onOpenProPaywall = {
                     if (!proState.isPro) {

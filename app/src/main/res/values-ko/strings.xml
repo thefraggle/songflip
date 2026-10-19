@@ -384,4 +384,29 @@
     <string name="history_filter_all">전체</string>
     <string name="history_filter_favorites">즐겨찾기</string>
     <string name="target_player_chip">플레이어: %1$s</string>
+    <!-- Listen & Flip (#78) -->
+    <string name="listen_and_flip_title">Listen &amp; Flip</string>
+    <string name="listen_and_flip_subtitle">주변에서 재생 중인 음악 찾기</string>
+    <string name="badge_identified">인식됨</string>
+    <string name="listen_free_scans_remaining">이번 달 무료 스캔 %1$d/%2$d회 남음</string>
+    <string name="listen_status_listening">음악을 듣고 있습니다…</string>
+    <string name="listen_status_hint">기기를 스피커 가까이에 대주세요</string>
+    <string name="listen_status_resolving">플레이어 링크로 변환 중…</string>
+    <string name="listen_saved_to_history">기록에 저장됨</string>
+    <string name="listen_open_in_player">%1$s에서 열기</string>
+    <string name="listen_share_action">공유</string>
+    <string name="listen_scan_again">다른 곡 인식하기</string>
+    <string name="listen_offline_saved_title">오프라인 클럽 모드에 저장됨</string>
+    <string name="listen_offline_saved_desc">오디오 핑거프린트가 저장되었습니다(대기 중 %1$d개). 온라인 상태가 되면 자동으로 곡을 찾아줍니다.</string>
+    <string name="listen_offline_resolved_toast">오프라인 곡 %1$d개를 인식하여 기록에 추가했습니다!</string>
+    <string name="listen_no_match_title">곡을 찾지 못했습니다</string>
+    <string name="listen_no_match_subtitle">음악 소리가 충분히 큰지 확인하고 다시 시도하세요. 무료 횟수는 곡을 찾았을 때만 차감됩니다.</string>
+    <string name="listen_try_again">다시 시도</string>
+    <string name="listen_error_offline">인터넷에 연결되어 있지 않습니다. 오프라인 모드를 쓰려면 PRO로 업그레이드하세요.</string>
+    <string name="listen_permission_title">마이크 접근 권한 필요</string>
+    <string name="listen_permission_desc">Listen &amp; Flip이 주변 음악을 인식하려면 마이크 권한이 필요합니다. 오디오는 절대 녹음되거나 저장되지 않습니다.</string>
+    <string name="listen_permission_grant">마이크 권한 허용</string>
+    <string name="listen_quota_reached_title">이번 달 무료 스캔 소진</string>
+    <string name="listen_quota_reached_desc">이번 달 무료 곡 인식 %1$d회를 모두 사용했습니다. 무제한 인식을 위해 SongFlip PRO를 잠금 해제하세요.</string>
+    <string name="listen_unlock_pro">SongFlip PRO 잠금 해제</string>
 </resources>

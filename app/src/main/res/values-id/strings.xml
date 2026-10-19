@@ -384,4 +384,29 @@
     <string name="history_filter_all">Semua</string>
     <string name="history_filter_favorites">Favorit</string>
     <string name="target_player_chip">Pemutar: %1$s</string>
+    <!-- Listen & Flip (#78) -->
+    <string name="listen_and_flip_title">Listen &amp; Flip</string>
+    <string name="listen_and_flip_subtitle">Kenali musik yang diputar di sekitar Anda</string>
+    <string name="badge_identified">Teridentifikasi</string>
+    <string name="listen_free_scans_remaining">Sisa %1$d/%2$d pindaian gratis bulan ini</string>
+    <string name="listen_status_listening">Mendengarkan musik…</string>
+    <string name="listen_status_hint">Dekatkan perangkat Anda ke sumber suara</string>
+    <string name="listen_status_resolving">Mencocokkan untuk pemutar Anda…</string>
+    <string name="listen_saved_to_history">Disimpan ke Riwayat</string>
+    <string name="listen_open_in_player">Buka di %1$s</string>
+    <string name="listen_share_action">Bagikan</string>
+    <string name="listen_scan_again">Kenali lagu lain</string>
+    <string name="listen_offline_saved_title">Disimpan di Mode Klub Offline</string>
+    <string name="listen_offline_saved_desc">Sidik jari audio disimpan (%1$d tertunda). SongFlip akan mengenalinya secara otomatis saat Anda kembali online.</string>
+    <string name="listen_offline_resolved_toast">%1$d lagu offline berhasil dikenali dan ditambahkan ke Riwayat!</string>
+    <string name="listen_no_match_title">Lagu tidak dikenali</string>
+    <string name="listen_no_match_subtitle">Pastikan musik cukup keras lalu coba lagi. Kuota gratis hanya dihitung jika lagu ditemukan.</string>
+    <string name="listen_try_again">Coba Lagi</string>
+    <string name="listen_error_offline">Tidak ada koneksi internet. Upgrade ke PRO untuk Mode Klub Offline.</string>
+    <string name="listen_permission_title">Izin Mikrofon Diperlukan</string>
+    <string name="listen_permission_desc">Listen &amp; Flip memerlukan akses mikrofon untuk mengenali musik di sekitar Anda. Audio tidak pernah direkam atau disimpan.</string>
+    <string name="listen_permission_grant">Izinkan Akses Mikrofon</string>
+    <string name="listen_quota_reached_title">Kuota Gratis Bulanan Habis</string>
+    <string name="listen_quota_reached_desc">Anda telah menggunakan semua %1$d pengenalan lagu gratis bulan ini. Buka SongFlip PRO untuk akses tanpa batas.</string>
+    <string name="listen_unlock_pro">Buka SongFlip PRO</string>
 </resources>
