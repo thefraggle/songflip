@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.9.8] - 2026-10-19
+- **Enhanced Music Recognition & Level Adaptation**: Improved microphone signal amplification and dynamic volume feedback so songs playing nearby or at lower room volume are recognized much more reliably in Listen & Flip.
+- **Clearer Feature Overview**: Streamlined the feature overview for a cleaner, more focused presentation across all supported languages.
+
 ## [1.9.7] - 2026-10-19
 - **More Reliable Music Recognition**: Improved audio recording stability and ambient room sensitivity for faster and more accurate song recognition in Listen & Flip.
 - **General Stability**: Internal synchronization refinements and performance improvements.

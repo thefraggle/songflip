@@ -266,12 +266,15 @@ fun ListenAndFlipBottomSheet(
                     when (val st = recognitionState) {
                         is AcousticRecognitionState.Idle,
                         is AcousticRecognitionState.Listening -> {
-                            val amp = (st as? AcousticRecognitionState.Listening)?.amplitude ?: 0.1f
+                            val listeningState = st as? AcousticRecognitionState.Listening
+                            val amp = listeningState?.amplitude ?: 0.1f
+                            val elapsed = listeningState?.elapsedSeconds ?: 0
                             ListeningPulseContent(
                                 amplitude = amp,
-                                isListening = st is AcousticRecognitionState.Listening,
+                                elapsedSeconds = elapsed,
+                                isListening = listeningState != null,
                                 onToggleScan = {
-                                    if (st is AcousticRecognitionState.Listening) {
+                                    if (listeningState != null) {
                                         AcousticRecognizer.resetState()
                                     } else {
                                         triggerScan()
@@ -388,6 +391,7 @@ fun ListenAndFlipBottomSheet(
 @Composable
 private fun ListeningPulseContent(
     amplitude: Float,
+    elapsedSeconds: Int,
     isListening: Boolean,
     onToggleScan: () -> Unit
 ) {
@@ -448,6 +452,7 @@ private fun ListeningPulseContent(
             }
         }
 
+        val showQuietHint = isListening && elapsedSeconds >= 3 && amplitude < 0.20f
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(6.dp)
@@ -459,7 +464,7 @@ private fun ListeningPulseContent(
                 textAlign = TextAlign.Center
             )
             Text(
-                text = stringResource(R.string.listen_status_hint),
+                text = stringResource(if (showQuietHint) R.string.listen_status_hint else R.string.listen_and_flip_subtitle),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center

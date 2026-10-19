@@ -30,12 +30,16 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.util.Locale
 import java.util.UUID
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicReference
+import kotlin.math.abs
 import kotlin.math.sqrt
 
 sealed class AcousticRecognitionState {
@@ -48,8 +52,18 @@ sealed class AcousticRecognitionState {
     data class Error(val messageKey: String) : AcousticRecognitionState()
 }
 
+data class DirectShazamMatch(
+    val title: String,
+    val artist: String,
+    val artworkUrl: String?,
+    val appleMusicId: String?,
+    val appleMusicUrl: String?,
+    val webUrl: String?
+)
+
 /**
- * Handles Android microphone capture, ShazamKit signature generation, Developer Token caching,
+ * Handles Android microphone capture, software AGC normalization for far-field speakers,
+ * ShazamKit signature generation, direct Shazam catalog REST matching, Developer Token caching,
  * and Pro Offline Club Mode signature queueing (#78).
  */
 object AcousticRecognizer {
@@ -58,6 +72,10 @@ object AcousticRecognizer {
     private const val KEY_TOKEN = "developer_token"
     private const val KEY_EXPIRES_AT = "developer_token_expires_at"
     private const val TOKEN_ENDPOINT = "https://cache.songflip.link/getShazamToken"
+    private const val SHAZAM_MATCH_URL_TEMPLATE =
+        "https://api.shazam.apple.com/v1/catalog/%s/match?types=shazam-songs&include[shazam-songs]=songs&include[songs]=music-videos&meta=matchOffset,frequencySkew&format[resources]=map"
+
+    private val JSON_MEDIA_TYPE = "application/json; charset=utf-8".toMediaType()
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     private var activeJob: Job? = null
@@ -70,6 +88,7 @@ object AcousticRecognizer {
         OkHttpClient.Builder()
             .connectTimeout(8, TimeUnit.SECONDS)
             .readTimeout(8, TimeUnit.SECONDS)
+            .writeTimeout(8, TimeUnit.SECONDS)
             .build()
     }
 
@@ -139,6 +158,242 @@ object AcousticRecognizer {
             .apply()
     }
 
+    private fun resolveStoreFront(): String {
+        val country = Locale.getDefault().country.lowercase(Locale.ROOT)
+        return if (country.length == 2 && country.all { it in 'a'..'z' }) country else "de"
+    }
+
+    /**
+     * Calls Shazam's catalog match REST endpoint directly via OkHttpClient + JSONObject,
+     * bypassing Retrofit/Gson reflection and R8 obfuscation edge cases.
+     */
+    private fun matchSignatureBase64Direct(
+        context: Context,
+        signatureBase64: String,
+        allowTokenRetry: Boolean = true
+    ): DirectShazamMatch? {
+        if (signatureBase64.isBlank()) return null
+        val jwt = getOrFetchDeveloperToken(context)
+        if (jwt.isBlank()) return null
+
+        val primaryStoreFront = resolveStoreFront()
+        val storeFronts = if (primaryStoreFront == "de") listOf("de", "us") else listOf(primaryStoreFront, "de")
+        val payload = JSONObject()
+            .put("signature", JSONObject().put("uri", "data:audio/vnd.shazam.sig;base64,$signatureBase64"))
+            .toString()
+
+        for (sf in storeFronts) {
+            try {
+                val url = String.format(Locale.US, SHAZAM_MATCH_URL_TEMPLATE, sf)
+                val req = Request.Builder()
+                    .url(url)
+                    .header("Authorization", "Bearer $jwt")
+                    .header("Content-Type", "application/json; charset=utf-8")
+                    .header("User-Agent", "ShazamKit/2.1.1 Android")
+                    .post(payload.toRequestBody(JSON_MEDIA_TYPE))
+                    .build()
+
+                var tryNextStorefront = false
+                httpClient.newCall(req).execute().use { resp ->
+                    if (resp.code == 401 || resp.code == 403) {
+                        android.util.Log.w("AcousticRecognizer", "Shazam API HTTP ${resp.code}; refreshing token")
+                        invalidateCachedToken(context)
+                        if (allowTokenRetry) {
+                            return matchSignatureBase64Direct(context, signatureBase64, allowTokenRetry = false)
+                        }
+                        return null
+                    }
+                    if (!resp.isSuccessful) {
+                        android.util.Log.w("AcousticRecognizer", "Shazam API HTTP ${resp.code} on storefront $sf")
+                        tryNextStorefront = true
+                    } else {
+                        val bodyStr = resp.body?.string().orEmpty()
+                        val parsed = parseShazamMatchResponse(bodyStr)
+                        if (parsed != null) {
+                            return parsed
+                        }
+                        // HTTP 200 with empty matches means valid request, no match yet — no need to try second storefront
+                        return null
+                    }
+                }
+                if (tryNextStorefront) {
+                    continue
+                }
+            } catch (t: Throwable) {
+                android.util.Log.w("AcousticRecognizer", "Direct match network error ($sf): ${t.message}")
+            }
+        }
+        return null
+    }
+
+    internal fun parseShazamMatchResponse(jsonString: String): DirectShazamMatch? {
+        if (jsonString.isBlank()) return null
+        return try {
+            val root = com.google.gson.JsonParser.parseString(jsonString).asJsonObject
+            val resources = root.getAsJsonObject("resources") ?: return null
+            val shazamSongsMap = resources.getAsJsonObject("shazam-songs")
+            if (shazamSongsMap == null || shazamSongsMap.size() == 0) return null
+            val songsMap = resources.getAsJsonObject("songs")
+
+            val matchesArray = root.getAsJsonObject("results")?.getAsJsonArray("matches")
+                ?: root.getAsJsonArray("data")
+
+            val firstMatchId = if (matchesArray != null && matchesArray.size() > 0) {
+                matchesArray.get(0).asJsonObject.get("id")?.asString.orEmpty()
+            } else {
+                ""
+            }
+
+            val shazamSongObj = if (firstMatchId.isNotBlank() && shazamSongsMap.has(firstMatchId)) {
+                shazamSongsMap.getAsJsonObject(firstMatchId)
+            } else {
+                val firstKey = shazamSongsMap.keySet().firstOrNull() ?: return null
+                shazamSongsMap.getAsJsonObject(firstKey)
+            }
+
+            val shazamAttrs = shazamSongObj?.getAsJsonObject("attributes")
+
+            val linkedSongId = shazamSongObj
+                ?.getAsJsonObject("relationships")
+                ?.getAsJsonObject("songs")
+                ?.getAsJsonArray("data")
+                ?.takeIf { it.size() > 0 }
+                ?.get(0)
+                ?.asJsonObject
+                ?.get("id")
+                ?.asString
+                .orEmpty()
+
+            val songObj = when {
+                linkedSongId.isNotBlank() && songsMap != null && songsMap.has(linkedSongId) ->
+                    songsMap.getAsJsonObject(linkedSongId)
+                songsMap != null && songsMap.size() > 0 -> {
+                    val firstSongKey = songsMap.keySet().firstOrNull()
+                    if (firstSongKey != null) songsMap.getAsJsonObject(firstSongKey) else null
+                }
+                else -> null
+            }
+            val songAttrs = songObj?.getAsJsonObject("attributes")
+
+            fun com.google.gson.JsonObject?.str(key: String): String? =
+                this?.get(key)?.takeIf { !it.isJsonNull }?.asString?.trim()?.takeIf { it.isNotEmpty() }
+
+            val title = songAttrs.str("name")
+                ?: shazamAttrs.str("title")
+                ?: shazamAttrs.str("name")
+                ?: return null
+
+            val artist = songAttrs.str("artistName")
+                ?: shazamAttrs.str("artist")
+                ?: shazamAttrs.str("artistName")
+                ?: shazamAttrs.str("primaryArtist")
+                ?: return null
+
+            val rawArtwork = songAttrs?.getAsJsonObject("artwork").str("url")
+                ?: shazamAttrs?.getAsJsonObject("artwork").str("url")
+            val artworkUrl = rawArtwork
+                ?.replace("{w}", "800")
+                ?.replace("{h}", "800")
+
+            val appleMusicId = songObj.str("id") ?: linkedSongId.takeIf { it.isNotBlank() }
+            val appleMusicUrl = songAttrs.str("url")
+            val webUrl = shazamAttrs.str("webUrl")
+                ?: shazamAttrs.str("shazamUrl")
+                ?: appleMusicUrl
+
+            DirectShazamMatch(
+                title = title,
+                artist = artist,
+                artworkUrl = artworkUrl,
+                appleMusicId = appleMusicId,
+                appleMusicUrl = appleMusicUrl,
+                webUrl = webUrl
+            )
+        } catch (_: Throwable) {
+            null
+        }
+    }
+
+    /**
+     * Applies smooth software Automatic Gain Control (AGC) to 16-bit little-endian mono PCM audio
+     * so quiet or un-amplified Android microphone streams reach SigX's optimal spectral peak threshold
+     * (~-5 dBFS / 18000 peak) without clipping.
+     *
+     * Returns (normalizedRmsForUi, updatedSmoothedGain, rawPeakSample).
+     */
+    internal fun applySoftwareAgcAndRms(
+        buffer: ByteArray,
+        bytesRead: Int,
+        currentGain: Float
+    ): Triple<Float, Float, Int> {
+        val sampleCount = bytesRead / 2
+        if (sampleCount <= 0) return Triple(0.08f, currentGain, 0)
+
+        var maxAbs = 1
+        var i = 0
+        while (i + 1 < bytesRead) {
+            val sample = ((buffer[i + 1].toInt() shl 8) or (buffer[i].toInt() and 0xFF)).toShort().toInt()
+            val a = abs(sample)
+            if (a > maxAbs) maxAbs = a
+            i += 2
+        }
+
+        // Only boost if signal is above dead-silence floor (>= 15)
+        val desiredGain = if (maxAbs >= 15) {
+            (18000f / maxAbs.toFloat()).coerceIn(1.0f, 45.0f)
+        } else {
+            1.0f
+        }
+
+        // Fast attack to prevent clipping; smooth release across chunks
+        val nextGain = if (desiredGain < currentGain) {
+            desiredGain
+        } else {
+            currentGain * 0.70f + desiredGain * 0.30f
+        }
+
+        var sumSquares = 0.0
+        i = 0
+        while (i + 1 < bytesRead) {
+            val raw = ((buffer[i + 1].toInt() shl 8) or (buffer[i].toInt() and 0xFF)).toShort().toInt()
+            val boosted = (raw * nextGain).toInt().coerceIn(-32767, 32767)
+            buffer[i] = (boosted and 0xFF).toByte()
+            buffer[i + 1] = ((boosted shr 8) and 0xFF).toByte()
+
+            val norm = boosted / 32768.0
+            sumSquares += norm * norm
+            i += 2
+        }
+
+        val rms = sqrt(sumSquares / sampleCount).toFloat()
+        val uiAmplitude = if (maxAbs < 20) {
+            0.08f
+        } else {
+            (rms * 2.4f).coerceIn(0.12f, 1.0f)
+        }
+        return Triple(uiAmplitude, nextGain, maxAbs)
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun createInitializedAudioRecord(
+        sampleRateHz: Int,
+        channelConfig: Int,
+        audioFormat: Int,
+        recordBufSize: Int,
+        preferredSources: List<Int>
+    ): Pair<AudioRecord, Int>? {
+        for (source in preferredSources) {
+            try {
+                val ar = AudioRecord(source, sampleRateHz, channelConfig, audioFormat, recordBufSize)
+                if (ar.state == AudioRecord.STATE_INITIALIZED) {
+                    return ar to source
+                }
+                ar.release()
+            } catch (_: Throwable) {}
+        }
+        return null
+    }
+
     @SuppressLint("MissingPermission")
     fun startListening(
         context: Context,
@@ -154,12 +409,11 @@ object AcousticRecognizer {
         }
 
         activeJob = scope.launch(Dispatchers.IO) {
-            var noiseSuppressor: android.media.audiofx.NoiseSuppressor? = null
-            var echoCanceler: android.media.audiofx.AcousticEchoCanceler? = null
-            var streamingCollectJob: Job? = null
+            var audioRecord: AudioRecord? = null
+            var activeSnapshotJob: Job? = null
             try {
                 ShazamKit.allowLogs = de.goork.songflip.BuildConfig.DEBUG
-                _state.value = AcousticRecognitionState.Listening(amplitude = 0.1f, elapsedSeconds = 0)
+                _state.value = AcousticRecognitionState.Listening(amplitude = 0.12f, elapsedSeconds = 0)
 
                 val isOnlineAtStart = NetworkUtils.isNetworkAvailable(appCtx)
                 // Pre-fetch developer token BEFORE starting AudioRecord so network latency never stalls audio capture
@@ -173,7 +427,7 @@ object AcousticRecognizer {
                 val channelConfig = AudioFormat.CHANNEL_IN_MONO
                 val audioFormat = AudioFormat.ENCODING_PCM_16BIT
 
-                // Prefer 44.1 kHz (Android CDD universal baseline & ShazamKit recommended rate), fallback to 48 kHz
+                // Prefer 44.1 kHz (Android CDD baseline & ShazamKit recommended rate), fallback to 48 kHz
                 var sampleRateHz = 44100
                 var shazamSampleRate = AudioSampleRateInHz.SAMPLE_RATE_44100
                 var minBufSize = AudioRecord.getMinBufferSize(sampleRateHz, channelConfig, audioFormat)
@@ -182,189 +436,176 @@ object AcousticRecognizer {
                     shazamSampleRate = AudioSampleRateInHz.SAMPLE_RATE_48000
                     minBufSize = AudioRecord.getMinBufferSize(sampleRateHz, channelConfig, audioFormat)
                 }
-                // Allocate at least 4 seconds of ring buffer so AudioFlinger never overflows
                 val recordBufSize = minBufSize.coerceAtLeast(sampleRateHz * 2 * 4)
 
-                val audioRecord = AudioRecord(
-                    MediaRecorder.AudioSource.MIC,
-                    sampleRateHz,
-                    channelConfig,
-                    audioFormat,
-                    recordBufSize
+                // Android CDD 5.4.2 mandates VOICE_RECOGNITION to disable OEM speech-isolation/noise-suppression DSP
+                // and provide a flat frequency response for acoustic fingerprinting. Fallback to CAMCORDER then MIC.
+                val candidateSources = listOf(
+                    MediaRecorder.AudioSource.VOICE_RECOGNITION,
+                    MediaRecorder.AudioSource.CAMCORDER,
+                    MediaRecorder.AudioSource.MIC
                 )
 
-                if (audioRecord.state != AudioRecord.STATE_INITIALIZED) {
-                    audioRecord.release()
+                val created = createInitializedAudioRecord(
+                    sampleRateHz = sampleRateHz,
+                    channelConfig = channelConfig,
+                    audioFormat = audioFormat,
+                    recordBufSize = recordBufSize,
+                    preferredSources = candidateSources
+                )
+                if (created == null) {
                     _state.value = AcousticRecognitionState.Error("listen_error_mic")
                     return@launch
                 }
 
-                // Disable OEM speech NoiseSuppressor / EchoCanceler so ambient room music is not filtered out
-                try {
-                    if (android.media.audiofx.NoiseSuppressor.isAvailable()) {
-                        noiseSuppressor = android.media.audiofx.NoiseSuppressor.create(audioRecord.audioSessionId)?.apply {
-                            enabled = false
-                        }
-                    }
-                    if (android.media.audiofx.AcousticEchoCanceler.isAvailable()) {
-                        echoCanceler = android.media.audiofx.AcousticEchoCanceler.create(audioRecord.audioSessionId)?.apply {
-                            enabled = false
-                        }
-                    }
-                } catch (_: Throwable) {}
-
+                audioRecord = created.first
+                var currentSource = created.second
                 activeAudioRecord = audioRecord
 
                 val sigGenResult = ShazamKit.createSignatureGenerator(shazamSampleRate)
                 val sigGenerator = (sigGenResult as? ShazamKitResult.Success)?.data
                 if (sigGenerator == null) {
-                    audioRecord.release()
-                    activeAudioRecord = null
+                    stopAudioRecordInternal(audioRecord)
                     _state.value = AcousticRecognitionState.Error("listen_error_generic")
                     return@launch
                 }
 
-                val readBufferSize = 4096
-                val readBuffer = ByteArray(readBufferSize)
-
                 val tokenProvider = DeveloperTokenProvider {
-                    val jwt = getOrFetchDeveloperToken(appCtx)
-                    DeveloperToken(jwt)
+                    DeveloperToken(getOrFetchDeveloperToken(appCtx))
                 }
                 val catalog = ShazamKit.createShazamCatalog(tokenProvider, Locale.getDefault())
-
-                val matchedItemRef = java.util.concurrent.atomic.AtomicReference<com.shazam.shazamkit.MatchedMediaItem?>(null)
-                val sigLock = Any()
-
-                val onlineSession = if (isOnlineAtStart) {
+                val fallbackSession = if (isOnlineAtStart) {
                     (ShazamKit.createSession(catalog) as? ShazamKitResult.Success)?.data
                 } else {
                     null
                 }
 
-                val streamingSession = if (isOnlineAtStart) {
-                    (ShazamKit.createStreamingSession(catalog, shazamSampleRate, readBufferSize) as? ShazamKitResult.Success)?.data
-                } else {
-                    null
-                }
-
-                if (streamingSession != null) {
-                    streamingCollectJob = launch(Dispatchers.IO) {
-                        streamingSession.recognitionResults().collect { matchRes ->
-                            when (matchRes) {
-                                is MatchResult.Match -> {
-                                    val first = matchRes.matchedMediaItems.firstOrNull()
-                                    if (first != null) {
-                                        matchedItemRef.compareAndSet(null, first)
-                                    }
-                                }
-                                is MatchResult.NoMatch -> {
-                                    android.util.Log.d("AcousticRecognizer", "Streaming progressive attempt: NoMatch")
-                                }
-                                is MatchResult.Error -> {
-                                    val err = matchRes.exception.matchError
-                                    android.util.Log.w(
-                                        "AcousticRecognizer",
-                                        "Streaming match error: $err (${matchRes.exception.message})",
-                                        matchRes.exception.cause
-                                    )
-                                    if (err == com.shazam.shazamkit.MatchError.MATCH_ATTEMPT_FAILED) {
-                                        invalidateCachedToken(appCtx)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                val readBufferSize = 4096
+                val readBuffer = ByteArray(readBufferSize)
+                val matchedRef = AtomicReference<DirectShazamMatch?>(null)
+                val sigLock = Any()
 
                 audioRecord.startRecording()
 
                 val startTimeMs = System.currentTimeMillis()
                 var totalBytesRead = 0L
                 val bytesPerSecond = sampleRateHz * 2L
-                var nextSnapshotTargetMs = 3_200L
-                var activeSnapshotJob: Job? = null
+                var nextSnapshotTargetMs = 2_800L
+                var smoothedGain = 4.0f
+                var maxRawPeakSeen = 0
+                var switchedSourceOnce = false
 
-                // Record continuously for up to 12.0 seconds without EVER blocking AudioRecord.read()
-                while (isActive && matchedItemRef.get() == null && (System.currentTimeMillis() - startTimeMs) < 12_000L) {
-                    val bytesRead = audioRecord.read(readBuffer, 0, readBuffer.size)
+                // Record continuously for up to 12.0 seconds without blocking AudioRecord.read()
+                while (isActive && matchedRef.get() == null && (System.currentTimeMillis() - startTimeMs) < 12_000L) {
+                    val activeRec = audioRecord ?: break
+                    val bytesRead = activeRec.read(readBuffer, 0, readBuffer.size)
                     if (bytesRead > 0) {
                         val nowMs = System.currentTimeMillis()
                         val elapsedMs = nowMs - startTimeMs
                         totalBytesRead += bytesRead
                         val recordedAudioDurationMs = (totalBytesRead * 1000L) / bytesPerSecond
 
-                        // Pass actual epoch timestamp in ms (required by ShazamKit TimeProviderBasedOffsetTimestamp)
+                        val (uiAmp, nextGain, rawPeak) = applySoftwareAgcAndRms(readBuffer, bytesRead, smoothedGain)
+                        smoothedGain = nextGain
+                        if (rawPeak > maxRawPeakSeen) maxRawPeakSeen = rawPeak
+
+                        // If the initial audio source produces dead silence (< 20 peak) after 700ms, switch to fallback source
+                        if (!switchedSourceOnce && elapsedMs >= 700L && maxRawPeakSeen < 20) {
+                            switchedSourceOnce = true
+                            val remainingSources = candidateSources.filter { it != currentSource }
+                            val fallbackCreated = createInitializedAudioRecord(
+                                sampleRateHz = sampleRateHz,
+                                channelConfig = channelConfig,
+                                audioFormat = audioFormat,
+                                recordBufSize = recordBufSize,
+                                preferredSources = remainingSources
+                            )
+                            if (fallbackCreated != null) {
+                                android.util.Log.i("AcousticRecognizer", "Switching silent AudioSource $currentSource -> ${fallbackCreated.second}")
+                                stopAudioRecordInternal(activeRec)
+                                audioRecord = fallbackCreated.first
+                                currentSource = fallbackCreated.second
+                                activeAudioRecord = audioRecord
+                                audioRecord?.startRecording()
+                                continue
+                            }
+                        }
+
                         synchronized(sigLock) {
                             sigGenerator.append(readBuffer, bytesRead, nowMs)
                         }
-                        streamingSession?.matchStream(readBuffer, bytesRead, nowMs)
 
-                        // Compute RMS amplitude for smooth UI waveform pulse
-                        val rms = computeRmsAmplitude(readBuffer, bytesRead)
                         _state.value = AcousticRecognitionState.Listening(
-                            amplitude = rms,
+                            amplitude = uiAmp,
                             elapsedSeconds = (elapsedMs / 1000L).toInt()
                         )
 
                         // If offline & Pro Club Mode: once we have 6 seconds of actual audio, save signature and finish
                         if (!NetworkUtils.isNetworkAvailable(appCtx) && isPro && recordedAudioDurationMs >= 6_000L) {
                             val signature = synchronized(sigLock) { sigGenerator.generateSignature() }
-                            streamingCollectJob?.cancel()
                             activeSnapshotJob?.cancel()
-                            stopAudioRecordInternal(audioRecord, noiseSuppressor, echoCanceler)
+                            stopAudioRecordInternal(activeRec)
                             saveOfflineSignature(signature)
                             return@launch
                         }
 
-                        // Trigger non-blocking background snapshot match at 3.2s, 6.2s, 9.2s of actual recorded audio
-                        if (onlineSession != null &&
+                        // Trigger non-blocking background snapshot match at 2.8s, 5.3s, 7.8s, 10.3s of recorded audio
+                        if (isOnlineAtStart &&
                             recordedAudioDurationMs >= nextSnapshotTargetMs &&
                             (activeSnapshotJob == null || activeSnapshotJob?.isActive == false)
                         ) {
-                            nextSnapshotTargetMs = recordedAudioDurationMs + 3_000L
+                            nextSnapshotTargetMs = recordedAudioDurationMs + 2_500L
                             val snapshotSig = synchronized(sigLock) { sigGenerator.generateSignature() }
-                            activeSnapshotJob = launch(Dispatchers.IO) {
-                                when (val snapRes = onlineSession.match(snapshotSig)) {
-                                    is MatchResult.Match -> {
-                                        val first = snapRes.matchedMediaItems.firstOrNull()
-                                        if (first != null) {
-                                            matchedItemRef.compareAndSet(null, first)
+                            val sigBytes = snapshotSig.dataRepresentation
+                            if (sigBytes.isNotEmpty()) {
+                                val sigBase64 = Base64.encodeToString(sigBytes, Base64.NO_WRAP)
+                                activeSnapshotJob = launch(Dispatchers.IO) {
+                                    val directMatch = matchSignatureBase64Direct(appCtx, sigBase64)
+                                    if (directMatch != null) {
+                                        matchedRef.compareAndSet(null, directMatch)
+                                    } else if (fallbackSession != null && snapshotSig.durationInMs >= 3_000L) {
+                                        when (val snapRes = fallbackSession.match(snapshotSig)) {
+                                            is MatchResult.Match -> {
+                                                val item = snapRes.matchedMediaItems.firstOrNull()
+                                                if (item != null) {
+                                                    matchedRef.compareAndSet(
+                                                        null,
+                                                        DirectShazamMatch(
+                                                            title = item.title?.takeIf { it.isNotBlank() } ?: "Unknown Track",
+                                                            artist = item.artist?.takeIf { it.isNotBlank() } ?: item.subtitle.orEmpty(),
+                                                            artworkUrl = item.artworkURL?.toString(),
+                                                            appleMusicId = item.appleMusicID,
+                                                            appleMusicUrl = item.appleMusicURL?.toString(),
+                                                            webUrl = item.webURL?.toString()
+                                                        )
+                                                    )
+                                                }
+                                            }
+                                            else -> {}
                                         }
-                                    }
-                                    is MatchResult.Error -> {
-                                        android.util.Log.w(
-                                            "AcousticRecognizer",
-                                            "Snapshot match error: ${snapRes.exception.matchError} (${snapRes.exception.message})",
-                                            snapRes.exception.cause
-                                        )
-                                    }
-                                    is MatchResult.NoMatch -> {
-                                        android.util.Log.d("AcousticRecognizer", "Snapshot attempt (${snapshotSig.durationInMs}ms): NoMatch")
                                     }
                                 }
                             }
                         }
                     } else {
-                        delay(20)
+                        delay(15)
                     }
                 }
 
-                stopAudioRecordInternal(audioRecord, noiseSuppressor, echoCanceler)
+                audioRecord?.let { stopAudioRecordInternal(it) }
 
-                // Wait briefly if a background match request is still in flight
-                if (matchedItemRef.get() == null && (streamingCollectJob?.isActive == true || activeSnapshotJob?.isActive == true)) {
+                // Wait briefly if a background snapshot match request is still in flight
+                if (matchedRef.get() == null && activeSnapshotJob?.isActive == true) {
                     var waitMs = 0L
-                    while (matchedItemRef.get() == null && waitMs < 1_200L) {
-                        delay(100)
-                        waitMs += 100L
+                    while (matchedRef.get() == null && activeSnapshotJob?.isActive == true && waitMs < 1_500L) {
+                        delay(80)
+                        waitMs += 80L
                     }
                 }
-                streamingCollectJob?.cancel()
                 activeSnapshotJob?.cancel()
 
-                // Final match attempt with full continuous 12s signature if no progressive match succeeded yet
-                if (matchedItemRef.get() == null) {
+                // Final match attempt with full continuous 12s signature if no progressive snapshot matched yet
+                if (matchedRef.get() == null) {
                     val finalSig = synchronized(sigLock) { sigGenerator.generateSignature() }
                     if (!NetworkUtils.isNetworkAvailable(appCtx)) {
                         if (isPro) {
@@ -375,31 +616,37 @@ object AcousticRecognizer {
                         return@launch
                     }
 
-                    val fallbackSession = onlineSession
-                        ?: (ShazamKit.createSession(catalog) as? ShazamKitResult.Success)?.data
-                    if (fallbackSession != null) {
-                        when (val finalMatch = fallbackSession.match(finalSig)) {
-                            is MatchResult.Match -> {
-                                val first = finalMatch.matchedMediaItems.firstOrNull()
-                                if (first != null) {
-                                    matchedItemRef.compareAndSet(null, first)
+                    val finalBytes = finalSig.dataRepresentation
+                    if (finalBytes.isNotEmpty()) {
+                        val finalBase64 = Base64.encodeToString(finalBytes, Base64.NO_WRAP)
+                        val directMatch = matchSignatureBase64Direct(appCtx, finalBase64)
+                        if (directMatch != null) {
+                            matchedRef.compareAndSet(null, directMatch)
+                        } else if (fallbackSession != null && finalSig.durationInMs >= 3_000L) {
+                            when (val finalRes = fallbackSession.match(finalSig)) {
+                                is MatchResult.Match -> {
+                                    val item = finalRes.matchedMediaItems.firstOrNull()
+                                    if (item != null) {
+                                        matchedRef.compareAndSet(
+                                            null,
+                                            DirectShazamMatch(
+                                                title = item.title?.takeIf { it.isNotBlank() } ?: "Unknown Track",
+                                                artist = item.artist?.takeIf { it.isNotBlank() } ?: item.subtitle.orEmpty(),
+                                                artworkUrl = item.artworkURL?.toString(),
+                                                appleMusicId = item.appleMusicID,
+                                                appleMusicUrl = item.appleMusicURL?.toString(),
+                                                webUrl = item.webURL?.toString()
+                                            )
+                                        )
+                                    }
                                 }
-                            }
-                            is MatchResult.Error -> {
-                                android.util.Log.w(
-                                    "AcousticRecognizer",
-                                    "Final match error: ${finalMatch.exception.matchError} (${finalMatch.exception.message})",
-                                    finalMatch.exception.cause
-                                )
-                            }
-                            is MatchResult.NoMatch -> {
-                                android.util.Log.d("AcousticRecognizer", "Final fallback attempt (${finalSig.durationInMs}ms): NoMatch")
+                                else -> {}
                             }
                         }
                     }
                 }
 
-                val winner = matchedItemRef.get()
+                val winner = matchedRef.get()
                 if (winner == null) {
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackAcousticScanCompleted(
                         target = targetPlatformKey,
@@ -411,25 +658,21 @@ object AcousticRecognizer {
                     return@launch
                 }
 
-                val title = winner.title?.takeIf { it.isNotBlank() } ?: "Unknown Track"
-                val artist = winner.artist?.takeIf { it.isNotBlank() } ?: winner.subtitle.orEmpty()
-                val artworkUrl = winner.artworkURL?.toString()
-
                 _state.value = AcousticRecognitionState.Resolving(
-                    title = title,
-                    artist = artist,
-                    artworkUrl = artworkUrl
+                    title = winner.title,
+                    artist = winner.artist,
+                    artworkUrl = winner.artworkUrl
                 )
 
                 val targetPlatform = MusicPlatform.fromKey(targetPlatformKey)
                 val flipResult = AcousticQuotaManager.shared.resolveAndStoreAcousticMatch(
                     engine = SongLinkEngine.shared,
-                    title = title,
-                    artist = artist,
-                    artworkUrl = artworkUrl,
-                    appleMusicUrl = winner.appleMusicURL?.toString(),
-                    appleMusicId = winner.appleMusicID,
-                    webUrl = winner.webURL?.toString(),
+                    title = winner.title,
+                    artist = winner.artist,
+                    artworkUrl = winner.artworkUrl,
+                    appleMusicUrl = winner.appleMusicUrl,
+                    appleMusicId = winner.appleMusicId,
+                    webUrl = winner.webUrl,
                     targetPlatform = targetPlatform,
                     isPro = isPro
                 )
@@ -443,31 +686,19 @@ object AcousticRecognizer {
 
                 _state.value = AcousticRecognitionState.Matched(flipResult)
             } catch (ce: CancellationException) {
-                streamingCollectJob?.cancel()
-                try { noiseSuppressor?.release() } catch (_: Throwable) {}
-                try { echoCanceler?.release() } catch (_: Throwable) {}
+                activeSnapshotJob?.cancel()
+                audioRecord?.let { stopAudioRecordInternal(it) }
                 throw ce
             } catch (t: Throwable) {
-                streamingCollectJob?.cancel()
-                try { noiseSuppressor?.release() } catch (_: Throwable) {}
-                try { echoCanceler?.release() } catch (_: Throwable) {}
+                activeSnapshotJob?.cancel()
+                audioRecord?.let { stopAudioRecordInternal(it) }
                 android.util.Log.e("AcousticRecognizer", "Recognition failed: ${t.message}", t)
                 _state.value = AcousticRecognitionState.Error("listen_error_generic")
             }
         }
     }
 
-    private fun stopAudioRecordInternal(
-        audioRecord: AudioRecord,
-        noiseSuppressor: android.media.audiofx.NoiseSuppressor? = null,
-        echoCanceler: android.media.audiofx.AcousticEchoCanceler? = null
-    ) {
-        try {
-            noiseSuppressor?.release()
-        } catch (_: Throwable) {}
-        try {
-            echoCanceler?.release()
-        } catch (_: Throwable) {}
+    private fun stopAudioRecordInternal(audioRecord: AudioRecord) {
         try {
             audioRecord.stop()
         } catch (t: Throwable) {
@@ -510,81 +741,42 @@ object AcousticRecognizer {
         val pending = storage.getPendingAcousticScans()
         if (pending.isEmpty()) return@withContext 0
 
-        val tokenProvider = DeveloperTokenProvider {
-            DeveloperToken(getOrFetchDeveloperToken(context))
-        }
-        val catalog = ShazamKit.createShazamCatalog(tokenProvider, Locale.getDefault())
-        val session = (ShazamKit.createSession(catalog) as? ShazamKitResult.Success)?.data
-            ?: return@withContext 0
-
         val targetPlatform = MusicPlatform.fromKey(targetPlatformKey)
         var resolvedCount = 0
 
         for (scan in pending) {
             try {
-                val bytes = Base64.decode(scan.signatureBase64, Base64.DEFAULT)
-                val ctor = Signature::class.java.declaredConstructors.first().apply { isAccessible = true }
-                val sig = ctor.newInstance(bytes, scan.durationMs, null) as Signature
-                when (val matchRes = session.match(sig)) {
-                    is MatchResult.Match -> {
-                        val winner = matchRes.matchedMediaItems.firstOrNull()
-                        if (winner != null) {
-                            val title = winner.title?.takeIf { it.isNotBlank() } ?: "Unknown Track"
-                            val artist = winner.artist?.takeIf { it.isNotBlank() } ?: winner.subtitle.orEmpty()
-                            AcousticQuotaManager.shared.resolveAndStoreAcousticMatch(
-                                engine = SongLinkEngine.shared,
-                                title = title,
-                                artist = artist,
-                                artworkUrl = winner.artworkURL?.toString(),
-                                appleMusicUrl = winner.appleMusicURL?.toString(),
-                                appleMusicId = winner.appleMusicID,
-                                webUrl = winner.webURL?.toString(),
-                                targetPlatform = targetPlatform,
-                                isPro = isPro
-                            )
-                            resolvedCount++
-                            de.goork.songflip.core.analytics.AptabaseClient.shared.trackAcousticScanCompleted(
-                                target = targetPlatformKey,
-                                matched = true,
-                                isPro = isPro,
-                                isOfflineQueue = true
-                            )
-                        }
-                        storage.deletePendingAcousticScan(scan.id)
-                    }
-                    is MatchResult.NoMatch -> {
-                        storage.deletePendingAcousticScan(scan.id)
-                    }
-                    is MatchResult.Error -> {
-                        // Keep in queue if transient network error; delete if invalid signature
-                        val err = matchRes.exception.matchError
-                        if (err == com.shazam.shazamkit.MatchError.INVALID_SIGNATURE ||
-                            err == com.shazam.shazamkit.MatchError.INVALID_SIGNATURE_DURATION
-                        ) {
-                            storage.deletePendingAcousticScan(scan.id)
-                        }
-                    }
+                if (scan.signatureBase64.isBlank()) {
+                    storage.deletePendingAcousticScan(scan.id)
+                    continue
                 }
+                val winner = matchSignatureBase64Direct(context, scan.signatureBase64)
+                if (winner != null) {
+                    AcousticQuotaManager.shared.resolveAndStoreAcousticMatch(
+                        engine = SongLinkEngine.shared,
+                        title = winner.title,
+                        artist = winner.artist,
+                        artworkUrl = winner.artworkUrl,
+                        appleMusicUrl = winner.appleMusicUrl,
+                        appleMusicId = winner.appleMusicId,
+                        webUrl = winner.webUrl,
+                        targetPlatform = targetPlatform,
+                        isPro = isPro
+                    )
+                    resolvedCount++
+                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackAcousticScanCompleted(
+                        target = targetPlatformKey,
+                        matched = true,
+                        isPro = isPro,
+                        isOfflineQueue = true
+                    )
+                }
+                storage.deletePendingAcousticScan(scan.id)
             } catch (t: Throwable) {
                 if (t is CancellationException) throw t
                 android.util.Log.w("AcousticRecognizer", "Failed to process offline scan ${scan.id}: ${t.message}")
             }
         }
         resolvedCount
-    }
-
-    private fun computeRmsAmplitude(buffer: ByteArray, bytesRead: Int): Float {
-        var sumSquares = 0.0
-        val sampleCount = bytesRead / 2
-        if (sampleCount <= 0) return 0.1f
-        var i = 0
-        while (i + 1 < bytesRead) {
-            val sample = ((buffer[i + 1].toInt() shl 8) or (buffer[i].toInt() and 0xFF)).toShort()
-            val normalized = sample / 32768.0
-            sumSquares += normalized * normalized
-            i += 2
-        }
-        val rms = sqrt(sumSquares / sampleCount).toFloat()
-        return (rms * 3.5f).coerceIn(0.08f, 1.0f)
     }
 }
