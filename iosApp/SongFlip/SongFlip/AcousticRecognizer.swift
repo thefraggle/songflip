@@ -247,7 +247,7 @@ final class AcousticRecognizer: ObservableObject {
             engine.prepare()
             try engine.start()
 
-            let snapshotThresholds: [TimeInterval] = [3.5, 6.5, 9.5]
+            let snapshotThresholds: [TimeInterval] = [3.6, 6.2, 9.0]
             var nextSnapshotIdx = 0
 
             // Poll up to 12.0 seconds for either a live match or offline 6-second signature capture
@@ -583,8 +583,8 @@ final class AcousticRecognizer: ObservableObject {
 
         let targetPeak: Float = 0.55
         let gain: Float
-        if maxPeak > 0.0005 && maxPeak < targetPeak {
-            gain = min(35.0, targetPeak / maxPeak)
+        if maxPeak > 0.0014 && maxPeak < targetPeak {
+            gain = min(24.0, targetPeak / maxPeak)
         } else {
             gain = 1.0
         }
