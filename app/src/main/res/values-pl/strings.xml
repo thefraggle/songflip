@@ -331,8 +331,8 @@
     <string name="pro_feature_cache_desc">Popularne utwory otwierają się bez czekania</string>
     <string name="pro_feature_links_title">Udostępniaj wszystkim</string>
     <string name="pro_feature_links_desc">Jeden link, który każdy otworzy w swoim odtwarzaczu</string>
-    <string name="pro_feature_review_title">Dopasuj wersję</string>
-    <string name="pro_feature_review_desc">Ręcznie wybieraj alternatywne wersje utworów</string>
+    <string name="pro_feature_review_title">Jakość studyjna i wersje</string>
+    <string name="pro_feature_review_desc">Priorytet Hi-Res/Atmos i wybór wersji</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Album jeszcze niewydany</string>
     <string name="prerelease_sheet_desc">Ten album nie jest jeszcze dostępny na platformach streamingowych.</string>
@@ -424,4 +424,6 @@
     <string name="pro_feature_listen_title">Nielimitowane Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">Rozpoznawaj utwory bez limitu + tryb klubowy offline</string>
     <string name="unsupported_domain_toast">Nieobsługiwany link streamingowy – użyj Listen &amp; Flip, aby rozpoznać muzykę w filmach.</string>
+    <string name="settings_audiophile_title">Priorytet jakości audiofilskiej</string>
+    <string name="settings_audiophile_subtitle">Preferuj wydania studyjne, Hi-Res, Lossless i Dolby Atmos zamiast wersji radiowych i składanek</string>
 </resources>

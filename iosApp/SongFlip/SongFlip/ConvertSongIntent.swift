@@ -90,6 +90,9 @@ struct ConvertSongIntent: AppIntent {
         let customUrl = defaults.string(forKey: "custom_api_url") ?? ""
         let customToken = defaults.string(forKey: "custom_api_token") ?? ""
 
+        let isProCached = defaults.bool(forKey: "is_pro_cached")
+        let audiophileMode = isProCached && defaults.bool(forKey: "audiophile_mode")
+
         let engine = SongLinkEngine.shared
         let res: ResolutionResult
         var bridgeErrorDetail: String? = nil
@@ -98,7 +101,12 @@ struct ConvertSongIntent: AppIntent {
                 inputUrl: urlToConvert,
                 targetPlatformKey: targetPlatform,
                 customApiUrl: customUrl,
-                customApiToken: customToken
+                customApiToken: customToken,
+                isPro: isProCached,
+                authToken: "",
+                isPrefetch: false,
+                forceRefresh: false,
+                audiophileMode: audiophileMode
             )
         } catch {
             Self.logger.error("[AppIntent] Resolution threw error: \(error.localizedDescription)")

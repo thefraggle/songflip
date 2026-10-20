@@ -345,8 +345,8 @@
     <string name="pro_feature_cache_desc">Popular songs open without waiting</string>
     <string name="pro_feature_links_title">Share with anyone</string>
     <string name="pro_feature_links_desc">One link that opens in everyone\'s player</string>
-    <string name="pro_feature_review_title">Refine matches</string>
-    <string name="pro_feature_review_desc">Manually select alternative song versions</string>
+    <string name="pro_feature_review_title">Studio quality &amp; versions</string>
+    <string name="pro_feature_review_desc">Prioritize Hi-Res/Atmos &amp; pick versions</string>
 
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Unreleased Album</string>
@@ -434,4 +434,6 @@
     <string name="pro_feature_listen_title">Unlimited Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">Identify unlimited songs around you + Offline Club Mode</string>
     <string name="unsupported_domain_toast">Not a supported streaming link – use Listen &amp; Flip to identify music in videos.</string>
+    <string name="settings_audiophile_title">Audiophile Quality Priority</string>
+    <string name="settings_audiophile_subtitle">Prefer studio masters, Hi-Res, Lossless &amp; Dolby Atmos over radio edits and compilations</string>
 </resources>

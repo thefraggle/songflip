@@ -319,8 +319,8 @@
     <string name="pro_feature_cache_desc">人気の曲は待ち時間なしで開けます</string>
     <string name="pro_feature_links_title">誰とでも共有</string>
     <string name="pro_feature_links_desc">受け取った人がそれぞれのプレーヤーで開けるリンク</string>
-    <string name="pro_feature_review_title">楽曲のマッチ調整</string>
-    <string name="pro_feature_review_desc">別バージョンを手動で選択して修正</string>
+    <string name="pro_feature_review_title">高音質＆バージョン選択</string>
+    <string name="pro_feature_review_desc">Hi-Res/Atmosの優先と別バージョンの手動選択</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">未リリースのアルバム</string>
     <string name="prerelease_sheet_desc">このアルバムはまだストリーミング配信されていません。</string>
@@ -412,4 +412,6 @@
     <string name="pro_feature_listen_title">無制限の Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">無制限の音楽認識 ＋ オフライン・クラブモード</string>
     <string name="unsupported_domain_toast">非対応のストリーミングリンクです – 動画内の音楽認識には Listen &amp; Flip をご利用ください。</string>
+    <string name="settings_audiophile_title">オーディオファイル音質優先</string>
+    <string name="settings_audiophile_subtitle">ラジオエディットやコンピレーションよりもスタジオマスター、Hi-Res、Lossless、Dolby Atmosを優先します</string>
 </resources>

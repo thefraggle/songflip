@@ -323,8 +323,8 @@
     <string name="pro_feature_cache_desc">Populaire nummers openen zonder wachten</string>
     <string name="pro_feature_links_title">Delen met iedereen</string>
     <string name="pro_feature_links_desc">Eén link die iedereen in zijn eigen speler opent</string>
-    <string name="pro_feature_review_title">Matches verfijnen</string>
-    <string name="pro_feature_review_desc">Selecteer handmatig alternatieve nummers</string>
+    <string name="pro_feature_review_title">Studiokwaliteit &amp; versies</string>
+    <string name="pro_feature_review_desc">Prioriteit voor Hi-Res/Atmos &amp; versies kiezen</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Nog niet verschenen</string>
     <string name="prerelease_sheet_desc">Dit album is nog niet uitgebracht op streamingplatforms.</string>
@@ -416,4 +416,6 @@
     <string name="pro_feature_listen_title">Onbeperkt Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">Onbeperkt nummers herkennen + Offline Club Mode</string>
     <string name="unsupported_domain_toast">Geen ondersteunde streaminglink – gebruik Listen &amp; Flip om muziek in video\'s te herkennen.</string>
+    <string name="settings_audiophile_title">Audiofiele kwaliteitsprioriteit</string>
+    <string name="settings_audiophile_subtitle">Geef voorkeur aan studiomasters, Hi-Res, Lossless &amp; Dolby Atmos boven radio-edits en compilaties</string>
 </resources>

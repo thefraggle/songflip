@@ -309,8 +309,8 @@
     <string name="pro_feature_cache_desc">Suositut kappaleet avautuvat ilman odottelua</string>
     <string name="pro_feature_links_title">Jaa kaikille</string>
     <string name="pro_feature_links_desc">Yksi linkki, jonka jokainen avaa omassa soittimessaan</string>
-    <string name="pro_feature_review_title">Tarkenna osumia</string>
-    <string name="pro_feature_review_desc">Valitse vaihtoehtoiset versiot manuaalisesti</string>
+    <string name="pro_feature_review_title">Studiolaatu ja versiot</string>
+    <string name="pro_feature_review_desc">Suosi Hi-Res/Atmos-laatua ja valitse versiot</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Ei vielä julkaistu</string>
     <string name="prerelease_sheet_desc">Tätä albumia ei ole vielä julkaistu suoratoistopalveluissa.</string>
@@ -402,4 +402,6 @@
     <string name="pro_feature_listen_title">Rajaton Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">Tunnista rajattomasti kappaleita + offline-klubitila</string>
     <string name="unsupported_domain_toast">Ei tuettu suoratoistolinkki – tunnista videoiden musiikki Listen &amp; Flip -toiminnolla.</string>
+    <string name="settings_audiophile_title">Audiofiilinen laatuprioriteetti</string>
+    <string name="settings_audiophile_subtitle">Suosi studiomastereita, Hi-Res-, Lossless- ja Dolby Atmos -versioita radioversioiden ja kokoelmien sijaan</string>
 </resources>

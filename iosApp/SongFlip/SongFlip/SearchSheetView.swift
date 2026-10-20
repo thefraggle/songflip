@@ -416,7 +416,11 @@ struct SearchSheetView: View {
                     targetPlatformKey: targetKey,
                     customApiUrl: settings.customApiUrl,
                     customApiToken: settings.customApiToken,
-                    forceRefresh: false
+                    isPro: proManager.isPro,
+                    authToken: proManager.authToken,
+                    isPrefetch: false,
+                    forceRefresh: false,
+                    audiophileMode: proManager.isPro && settings.audiophileMode
                 )
 
                 await MainActor.run {

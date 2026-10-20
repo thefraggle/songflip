@@ -317,8 +317,8 @@
     <string name="pro_feature_cache_desc">Oblíbené skladby se otevřou bez čekání</string>
     <string name="pro_feature_links_title">Sdílení pro všechny</string>
     <string name="pro_feature_links_desc">Jeden odkaz, který každý otevře ve svém přehrávači</string>
-    <string name="pro_feature_review_title">Upřesnit shody</string>
-    <string name="pro_feature_review_desc">Ruční výběr alternativních verzí skladeb</string>
+    <string name="pro_feature_review_title">Studiová kvalita a verze</string>
+    <string name="pro_feature_review_desc">Priorita Hi-Res/Atmos a ruční výběr verzí</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Dosud nevydané album</string>
     <string name="prerelease_sheet_desc">Toto album zatím nebylo vydáno na streamovacích platformách.</string>
@@ -410,4 +410,6 @@
     <string name="pro_feature_listen_title">Neomezené Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">Neomezené rozpoznávání skladeb + offline klubový režim</string>
     <string name="unsupported_domain_toast">Nepodporovaný streamovací odkaz – k rozpoznání hudby ve videích použijte Listen &amp; Flip.</string>
+    <string name="settings_audiophile_title">Audiofilská priorita kvality</string>
+    <string name="settings_audiophile_subtitle">Upřednostnit studiové mastery, Hi-Res, Lossless a Dolby Atmos před rádiovými verzemi a kompilacemi</string>
 </resources>

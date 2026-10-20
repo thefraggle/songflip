@@ -323,8 +323,8 @@
     <string name="pro_feature_cache_desc">लोकप्रिय गाने बिना इंतज़ार खुलते हैं</string>
     <string name="pro_feature_links_title">सबके साथ शेयर करें</string>
     <string name="pro_feature_links_desc">एक लिंक जिसे हर कोई अपने प्लेयर में खोल सके</string>
-    <string name="pro_feature_review_title">सटीक परिणाम चुनें</string>
-    <string name="pro_feature_review_desc">वैकल्पिक गीत संस्करण मैन्युअल रूप से चुनें</string>
+    <string name="pro_feature_review_title">स्टूडियो क्वालिटी और संस्करण</string>
+    <string name="pro_feature_review_desc">Hi-Res/Atmos प्राथमिकता और संस्करण चयन</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">अभी रिलीज़ नहीं हुआ</string>
     <string name="prerelease_sheet_desc">यह एल्बम अभी स्ट्रीमिंग प्लेटफ़ॉर्म पर उपलब्ध नहीं है।</string>
@@ -416,4 +416,6 @@
     <string name="pro_feature_listen_title">अनलिमिटेड Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">असीमित गाने पहचानें + ऑफ़लाइन क्लब मोड</string>
     <string name="unsupported_domain_toast">यह समर्थित स्ट्रीमिंग लिंक नहीं है – वीडियो में संगीत पहचानने के लिए Listen &amp; Flip का उपयोग करें।</string>
+    <string name="settings_audiophile_title">ऑडियोफाइल क्वालिटी प्राथमिकता</string>
+    <string name="settings_audiophile_subtitle">रेडियो एडिट और संकलन के बजाय स्टूडियो मास्टर, Hi-Res, Lossless और Dolby Atmos को प्राथमिकता दें</string>
 </resources>

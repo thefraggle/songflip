@@ -166,6 +166,9 @@ class SettingsModel: ObservableObject {
     @Published var askEveryTime: Bool {
         didSet { defaults.set(askEveryTime, forKey: "ask_every_time") }
     }
+    @Published var audiophileMode: Bool {
+        didSet { defaults.set(audiophileMode, forKey: "audiophile_mode") }
+    }
     @Published var selectedLanguage: String {
         didSet { defaults.set(selectedLanguage, forKey: "app_language") }
     }
@@ -204,6 +207,7 @@ class SettingsModel: ObservableObject {
         }
         self.autoClipboardDetect = storage.object(forKey: "auto_clipboard_detect") as? Bool ?? true
         self.askEveryTime = storage.object(forKey: "ask_every_time") as? Bool ?? false
+        self.audiophileMode = storage.object(forKey: "audiophile_mode") as? Bool ?? false
 
         let savedLang = storage.string(forKey: "app_language")
         if let savedLang = savedLang {

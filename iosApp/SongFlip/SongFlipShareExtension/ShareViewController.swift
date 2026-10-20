@@ -369,6 +369,9 @@ class ShareViewController: UIViewController {
     ) {
         ensureAptabaseInitialized()
         Task {
+            let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
+            let isProCached = defaults.bool(forKey: "is_pro_cached")
+            let audiophileMode = isProCached && defaults.bool(forKey: "audiophile_mode")
             let result: ResolutionResult
             var bridgeErrorDetail: String? = nil
             do {
@@ -376,7 +379,12 @@ class ShareViewController: UIViewController {
                     inputUrl: inputUrl,
                     targetPlatformKey: targetPlatform,
                     customApiUrl: customUrl,
-                    customApiToken: customToken
+                    customApiToken: customToken,
+                    isPro: isProCached,
+                    authToken: "",
+                    isPrefetch: false,
+                    forceRefresh: false,
+                    audiophileMode: audiophileMode
                 )
             } catch {
                 Self.logger.error("[ShareExtension] Resolution threw error: \(error.localizedDescription)")

@@ -323,8 +323,8 @@
     <string name="pro_feature_cache_desc">Les titres populaires s\'ouvrent sans attendre</string>
     <string name="pro_feature_links_title">Partage pour tous</string>
     <string name="pro_feature_links_desc">Un lien que chacun ouvre dans son propre lecteur</string>
-    <string name="pro_feature_review_title">Affiner les correspondances</string>
-    <string name="pro_feature_review_desc">Sélectionnez manuellement des versions alternatives</string>
+    <string name="pro_feature_review_title">Qualité studio et versions</string>
+    <string name="pro_feature_review_desc">Priorité Hi-Res/Atmos et choix de versions</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Album pas encore sorti</string>
     <string name="prerelease_sheet_desc">Cet album n\'est pas encore disponible sur les plateformes de streaming.</string>
@@ -416,4 +416,6 @@
     <string name="pro_feature_listen_title">Listen &amp; Flip illimité</string>
     <string name="pro_feature_listen_desc">Reconnaissance musicale illimitée + mode Club hors ligne</string>
     <string name="unsupported_domain_toast">Lien de streaming non pris en charge – utilisez Listen &amp; Flip pour identifier la musique dans les vidéos.</string>
+    <string name="settings_audiophile_title">Priorité qualité audiophile</string>
+    <string name="settings_audiophile_subtitle">Privilégier les masters studio, Hi-Res, Lossless et Dolby Atmos aux versions radio et compilations</string>
 </resources>

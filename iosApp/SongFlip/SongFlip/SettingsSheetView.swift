@@ -103,6 +103,30 @@ struct SettingsSheetView: View {
                         Label(LocalizationManager.string(for: "settings_ask_every_time_title", lang: lang), systemImage: "arrow.triangle.branch")
                     }
                     .tint(.green)
+
+                    Toggle(isOn: Binding(
+                        get: { proManager.isPro && settings.audiophileMode },
+                        set: { newValue in
+                            if proManager.isPro {
+                                settings.audiophileMode = newValue
+                            } else {
+                                AptabaseClient.shared.trackEvent(eventName: "paywall_viewed", props: ["source": "settings_audiophile_mode"])
+                                showingPaywallSheet = true
+                            }
+                        }
+                    )) {
+                        VStack(alignment: .leading, spacing: 2) {
+                            HStack(spacing: 6) {
+                                Label(LocalizationManager.string(for: "settings_audiophile_title", lang: lang), systemImage: "slider.horizontal.3")
+                                Text("💎")
+                                    .font(.caption)
+                            }
+                            Text(LocalizationManager.string(for: "settings_audiophile_subtitle", lang: lang))
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    .tint(.green)
                 }
 
                 Section(header: Text(LocalizationManager.string(for: "settings_feedback_support", lang: lang)).font(.caption).fontWeight(.semibold)) {
