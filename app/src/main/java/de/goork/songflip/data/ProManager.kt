@@ -62,8 +62,14 @@ object ProManager {
 
     private var prefs: SharedPreferences? = null
     private var stableAndroidId: String? = null
+    @Volatile
+    private var isAutomatedTestEnv: Boolean = false
     private val _proState = MutableStateFlow(ProState())
     val proState: StateFlow<ProState> = _proState.asStateFlow()
+
+    fun setAutomatedTestEnvironment(isBot: Boolean) {
+        isAutomatedTestEnv = isBot
+    }
 
     // Process-wide scope (ProManager is a singleton); SupervisorJob isolates failing fire-and-forget work
     private val backgroundScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -384,6 +390,7 @@ object ProManager {
     }
 
     fun trackPaywallImpression() {
+        if (isAutomatedTestEnv) return
         try {
             if (Purchases.isConfigured) {
                 Purchases.sharedInstance.trackCustomPaywallImpression()

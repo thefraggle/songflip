@@ -24,17 +24,17 @@ Deel volledige podcastshows of afleveringen op verschillende platforms. SongFlip
 • Universele afspeellijstconverter en afspeellijstoverdracht:
 Converteer afspeellijsten en draag afspeellijsten track voor track over tussen Spotify, Apple Music, YouTube Music, TIDAL en Deezer, met automatische opschoning van dubbele nummers, tot 200 nummers en snelle caching.
 
-• Matches verfijnen en 1-Tap-favorieten:
-Kies eenvoudig tussen live-opnames, remasters of studioversies.
+• Audiofiele kwaliteit (Hi-Res & Lossless) & favorieten:
+Geef voorkeur aan studiomasters, 24-bit Hi-Res, Lossless & Dolby Atmos boven radio-edits en compilaties. Zet je favoriete nummers met 1 tik vast.
 
 • Snelle Spelerkiezer (Elke keer vragen):
-Gebruik je meerdere audio-apps? Activeer de optionele snelle kiezer om direct je doelspeler te kiezen wanneer je een link opent.
+Activeer de optionele snelle kiezer om direct je doelspeler te kiezen wanneer je een link opent.
 
 • Smart Link Redirect-assistent (Android 12+):
 Verifieer en configureer eenvoudig Android Open by Default App Links met onze interactieve 1-tik link redirect setup-assistent.
 
 • Klembord Smart-Banner en native delen:
-Een muzieklink gekopieerd? Converteer en open het direct via de slimme dashboardbanner, of deel links rechtstreeks vanuit WhatsApp, Telegram, Reddit of Instagram naar SongFlip.
+Converteer en open het direct via de slimme dashboardbanner, of deel links rechtstreeks vanuit WhatsApp, Telegram, Reddit of Instagram naar SongFlip.
 
 • Universele Web Smart Links & Webplayer:
 Maak neutrale weblinks (songflip.link) met ingebouwde webplayer zodat je vrienden direct op elk apparaat kunnen luisteren.

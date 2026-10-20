@@ -649,11 +649,9 @@ object AcousticRecognizer {
 
                 val winner = matchedRef.get()
                 if (winner == null) {
-                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackAcousticScanCompleted(
+                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackAcousticScanNoMatch(
                         target = targetPlatformKey,
-                        matched = false,
-                        isPro = isPro,
-                        isOfflineQueue = false
+                        isPro = isPro
                     )
                     _state.value = AcousticRecognitionState.NoMatch
                     return@launch
@@ -678,9 +676,8 @@ object AcousticRecognizer {
                     isPro = isPro
                 )
 
-                de.goork.songflip.core.analytics.AptabaseClient.shared.trackAcousticScanCompleted(
+                de.goork.songflip.core.analytics.AptabaseClient.shared.trackAcousticScanMatched(
                     target = targetPlatformKey,
-                    matched = true,
                     isPro = isPro,
                     isOfflineQueue = false
                 )
@@ -765,9 +762,8 @@ object AcousticRecognizer {
                         isPro = isPro
                     )
                     resolvedCount++
-                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackAcousticScanCompleted(
+                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackAcousticScanMatched(
                         target = targetPlatformKey,
-                        matched = true,
                         isPro = isPro,
                         isOfflineQueue = true
                     )

@@ -75,7 +75,7 @@ struct ProPaywallSheetView: View {
         !isLifetimeSale && paywallLayout == "annual_first"
     }
 
-    var lifetimeBadge: String {
+    private var rawLifetimeBadge: String {
         if isLifetimeSale {
             return LocalizationManager.string(for: "pro_lifetime_sale_badge", lang: lang)
         }
@@ -85,9 +85,26 @@ struct ProPaywallSheetView: View {
         return LocalizationManager.string(for: "pro_lifetime_onetime_badge", lang: lang)
     }
 
+    var lifetimeBadge: String {
+        if !isLifetimeSale && rawLifetimeBadge.contains("•") {
+            let parts = rawLifetimeBadge.components(separatedBy: "•").map { $0.trimmingCharacters(in: .whitespaces) }
+            if parts.count == 2 && !parts[0].isEmpty {
+                return parts[0]
+            }
+        }
+        return rawLifetimeBadge
+    }
+
     var lifetimeSubtitle: String? {
         if isLifetimeSale {
             return LocalizationManager.string(for: "pro_lifetime_sale_sub", lang: lang)
+        }
+        if rawLifetimeBadge.contains("•") {
+            let parts = rawLifetimeBadge.components(separatedBy: "•").map { $0.trimmingCharacters(in: .whitespaces) }
+            if parts.count == 2 && !parts[1].isEmpty {
+                let rawSub = parts[1].lowercased()
+                return rawSub.prefix(1).uppercased() + rawSub.dropFirst()
+            }
         }
         return nil
     }
@@ -396,6 +413,7 @@ struct ProPaywallSheetView: View {
                         if let badge = badge {
                             Text(badge)
                                 .font(.system(size: 10, weight: .bold))
+                                .lineLimit(1)
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 2)
                                 .background(Color.green)

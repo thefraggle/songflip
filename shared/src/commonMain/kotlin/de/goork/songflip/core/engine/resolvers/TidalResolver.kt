@@ -76,6 +76,16 @@ class TidalResolver(
     }
 
     private suspend fun searchTidal(query: String, isAlbum: Boolean = false, audiophileMode: Boolean = false): String? {
+        val primary = executeTidalSearch(query, isAlbum, audiophileMode)
+        if (primary != null) return primary
+        val stripped = ResolverUtils.stripEditionSuffix(query)
+        if (stripped != query && stripped.isNotBlank()) {
+            return executeTidalSearch(stripped, isAlbum, audiophileMode)
+        }
+        return null
+    }
+
+    private suspend fun executeTidalSearch(query: String, isAlbum: Boolean = false, audiophileMode: Boolean = false): String? {
         val encoded = query.encodeURLParameter()
         val limit = if (audiophileMode) 10 else 5
 

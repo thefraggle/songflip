@@ -24,8 +24,8 @@ Del hele podcastprogrammer eller episoder på tvers av plattformer. SongFlip lø
 • Universal Playlist Converter & Playlist Transfer:
 Konverter spillelister og overfør spillelister spor for spor mellom Spotify, Apple Music, YouTube Music, TIDAL og Deezer – med automatisk duplikatrensing, opptil 200 spor og rask hurtigbufring.
 
-• Avgrens kamper og 1-trykks favoritter:
-Velg enkelt mellom liveopptak, remastere eller studioversjoner. Fest favorittsangene dine i historien med ett enkelt trykk og administrer dem via hurtighandlingsmenyen.
+• Audiofil kvalitet (Hi-Res & Lossless) og favoritter:
+Foretrekk studiomastere, 24-bit Hi-Res, Lossless & Dolby Atmos fremfor radio-edits og samlealbum. Fest favorittsanger i historikken med 1 trykk.
 
 • Hurtigvalg av Spiller (Spør hver gang):
 Bruker du flere lydapper? Aktiver hurtigvelgeren for å velge målspiller raskt når du åpner en lenke.

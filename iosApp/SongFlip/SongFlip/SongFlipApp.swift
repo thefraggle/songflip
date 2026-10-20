@@ -83,9 +83,15 @@ struct SongFlipApp: App {
             isDebug = true
         }
 
-        // Route automated UI test harnesses to debug data source
+        var isAutomatedTestBot = false
+        #if targetEnvironment(simulator)
+        isAutomatedTestBot = true
+        #endif
+
+        // Route automated UI test harnesses to debug data source and suppress impression noise (#134)
         if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
             isDebug = true
+            isAutomatedTestBot = true
         }
 
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.9.0"
@@ -102,18 +108,20 @@ struct SongFlipApp: App {
         }
         #endif
 
-        AptabaseClient.shared.doInit(
-            appKey: aptabaseKey,
-            host: aptabaseHost,
-            osName: "iOS",
-            osVersion: osVersion,
-            locale: locale,
-            appVersion: appVersion,
-            appBuildNumber: buildNumber,
-            isDebug: isDebug
-        )
+        if !isAutomatedTestBot {
+            AptabaseClient.shared.doInit(
+                appKey: aptabaseKey,
+                host: aptabaseHost,
+                osName: "iOS",
+                osVersion: osVersion,
+                locale: locale,
+                appVersion: appVersion,
+                appBuildNumber: buildNumber,
+                isDebug: isDebug
+            )
+        }
 
-        ProManager.shared.configure(isDebug: isDebug)
+        ProManager.shared.configure(isDebug: isDebug, isAutomatedTest: isAutomatedTestBot)
 
         // StoreKit 2: Asynchronously verify sandbox environment (e.g. Apple App Store Reviewers)
         Task {
