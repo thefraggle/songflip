@@ -46,6 +46,16 @@ class AppleMusicResolver(
     }
 
     private suspend fun searchAppleMusic(query: String, isAlbum: Boolean = false, audiophileMode: Boolean = false): String? {
+        val primary = executeAppleMusicSearch(query, isAlbum, audiophileMode)
+        if (primary != null) return primary
+        val stripped = ResolverUtils.stripEditionSuffix(query)
+        if (stripped != query && stripped.isNotBlank()) {
+            return executeAppleMusicSearch(stripped, isAlbum, audiophileMode)
+        }
+        return null
+    }
+
+    private suspend fun executeAppleMusicSearch(query: String, isAlbum: Boolean, audiophileMode: Boolean): String? {
         return try {
             val encoded = query.encodeURLParameter()
             val entity = if (isAlbum) "album" else "song"

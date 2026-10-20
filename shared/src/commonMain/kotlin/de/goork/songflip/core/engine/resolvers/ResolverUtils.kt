@@ -12,6 +12,30 @@ object ResolverUtils {
             .filter { it.length > 1 && it !in STOP_WORDS }
     }
 
+    private val EDITION_PAREN_REGEX = Regex(
+        """\s*[\(\[]\s*(?:super\s+deluxe|deluxe|bonus\s+tracks?|expanded|special|collector'?s|standard|explicit|clean|digital|international|tour|anniversary|\d+(?:st|nd|rd|th)\s+anniversary)(?:\s+(?:edition|version|release|remaster(?:ed)?|album|ver\.?))?\s*[\)\]]""",
+        RegexOption.IGNORE_CASE
+    )
+    private val EDITION_DASH_REGEX = Regex(
+        """\s*[-–—]\s*(?:super\s+deluxe|deluxe|bonus\s+tracks?|expanded|special|collector'?s|anniversary|\d+(?:st|nd|rd|th)\s+anniversary)(?:\s+(?:edition|version|release))?$""",
+        RegexOption.IGNORE_CASE
+    )
+
+    /**
+     * Strips album/track edition suffixes (e.g. "(Deluxe)", "(Bonus Track Version)", "(Expanded Edition)")
+     * for cross-catalog fallback matching when streaming services use differing edition labels.
+     */
+    fun stripEditionSuffix(text: String): String {
+        val trimmed = text.trim()
+        if (trimmed.isEmpty()) return trimmed
+        val stripped = trimmed
+            .replace(EDITION_PAREN_REGEX, "")
+            .replace(EDITION_DASH_REGEX, "")
+            .replace(Regex("\\s{2,}"), " ")
+            .trim()
+        return stripped.ifEmpty { trimmed }
+    }
+
     /**
      * Validates whether candidate metadata matches the search query to prevent blind redirects
      * to completely unrelated tracks or albums when the streaming catalog lacks the item.
