@@ -1,5 +1,8 @@
 # Changelog (Deutsch)
 
+## [1.10.1] - 2026-10-20
+- **Zuverlässige Gutschein-Erkennung**: Einen Fehler behoben, durch den in früheren Versionen eingelöste Gutscheincodes nach einem Update inaktiv werden konnten, sowie die erneute Aktivierung auf demselben Gerät verbessert.
+
 ## [1.10.0] - 2026-10-20
 - **Audiophile Qualitäts-Priorisierung**: Neue Option in den Einstellungen, die bei der Song-Auflösung auf Tidal, Qobuz, Apple Music und Deezer gezielt 24-Bit Hi-Res-, Lossless-, Dolby-Atmos- und originale Studio-Album-Versionen gegenüber Radio-Edits, Compilations und Cover-Versionen bevorzugt.
 - **Vollständige Übersetzungen & Stabilität**: Beschreibungen in allen 34 unterstützten Sprachen ergänzt und die direkte Katalogsuche auf Tidal weiter verbessert.
