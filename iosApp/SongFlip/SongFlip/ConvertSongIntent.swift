@@ -228,3 +228,44 @@ struct ConvertSongIntent: AppIntent {
         }
     }
 }
+
+extension Notification.Name {
+    static let openListenAndFlip = Notification.Name("de.goork.songflip.openListenAndFlip")
+}
+
+struct ListenAndFlipIntent: AppIntent {
+    static var title: LocalizedStringResource = LocalizedStringResource("listen_and_flip_title", defaultValue: "Listen & Flip")
+    static var description = IntentDescription(LocalizedStringResource("listen_and_flip_subtitle", defaultValue: "Identify music playing around you"))
+    static var openAppWhenRun: Bool = true
+
+    @MainActor
+    func perform() async throws -> some IntentResult {
+        let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
+        defaults.set(true, forKey: "pending_open_listen_sheet")
+        NotificationCenter.default.post(name: .openListenAndFlip, object: nil)
+        return .result()
+    }
+}
+
+struct SongFlipShortcuts: AppShortcutsProvider {
+    static var appShortcuts: [AppShortcut] {
+        AppShortcut(
+            intent: ListenAndFlipIntent(),
+            phrases: [
+                "Listen and Flip with \(.applicationName)",
+                "Identify song with \(.applicationName)"
+            ],
+            shortTitle: LocalizedStringResource("listen_and_flip_title", defaultValue: "Listen & Flip"),
+            systemImageName: "waveform"
+        )
+        AppShortcut(
+            intent: ConvertSongIntent(),
+            phrases: [
+                "Flip song in \(.applicationName)"
+            ],
+            shortTitle: LocalizedStringResource("intent_title", defaultValue: "Open Song in SongFlip"),
+            systemImageName: "arrow.triangle.2.circlepath"
+        )
+    }
+}
+

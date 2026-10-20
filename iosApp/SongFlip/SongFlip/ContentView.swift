@@ -223,6 +223,8 @@ struct ContentView: View {
             }
             .onAppear {
                 AptabaseClient.shared.trackAppLaunched(platform: "iOS", language: lang)
+                AppDelegate.updateQuickActions(lang: lang)
+                consumePendingListenSheetIfNeeded()
                 history.loadHistory()
                 activeMilestone = settings.getActiveProNudgeMilestone()
                 Task {
@@ -246,6 +248,8 @@ struct ContentView: View {
             // and duplicate pasteboard access prompts (#116).
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .active {
+                    AppDelegate.updateQuickActions(lang: lang)
+                    consumePendingListenSheetIfNeeded()
                     history.loadHistory()
                     activeMilestone = settings.getActiveProNudgeMilestone()
                     Task {
@@ -265,6 +269,12 @@ struct ContentView: View {
                         checkClipboard()
                     }
                 }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .openListenAndFlip)) { _ in
+                consumePendingListenSheetIfNeeded(force: true)
+            }
+            .onChange(of: settings.appLanguage) { _ in
+                AppDelegate.updateQuickActions(lang: lang)
             }
         }
     }
@@ -1047,6 +1057,14 @@ struct ContentView: View {
                 .transition(.move(edge: .bottom).combined(with: .opacity))
             }
             .zIndex(10)
+        }
+    }
+
+    private func consumePendingListenSheetIfNeeded(force: Bool = false) {
+        let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
+        if force || defaults.bool(forKey: "pending_open_listen_sheet") {
+            defaults.set(false, forKey: "pending_open_listen_sheet")
+            showingListenSheet = true
         }
     }
 

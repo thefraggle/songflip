@@ -338,9 +338,10 @@ object AcousticRecognizer {
             i += 2
         }
 
-        // Only boost if signal is above dead-silence floor (>= 15)
-        val desiredGain = if (maxAbs >= 15) {
-            (18000f / maxAbs.toFloat()).coerceIn(1.0f, 45.0f)
+        // Only boost if signal is above ambient noise-gate floor (>= 45 out of 32767, ~-57 dBFS)
+        // so background hiss or faint non-music noise is not artificially amplified into false peaks.
+        val desiredGain = if (maxAbs >= 45) {
+            (18000f / maxAbs.toFloat()).coerceIn(1.0f, 28.0f)
         } else {
             1.0f
         }
@@ -490,7 +491,7 @@ object AcousticRecognizer {
                 val startTimeMs = System.currentTimeMillis()
                 var totalBytesRead = 0L
                 val bytesPerSecond = sampleRateHz * 2L
-                var nextSnapshotTargetMs = 2_800L
+                var nextSnapshotTargetMs = 3_600L
                 var smoothedGain = 4.0f
                 var maxRawPeakSeen = 0
                 var switchedSourceOnce = false
@@ -549,12 +550,12 @@ object AcousticRecognizer {
                             return@launch
                         }
 
-                        // Trigger non-blocking background snapshot match at 2.8s, 5.3s, 7.8s, 10.3s of recorded audio
+                        // Trigger non-blocking background snapshot match at 3.6s, 6.2s, 8.8s, 11.4s of recorded audio
                         if (isOnlineAtStart &&
                             recordedAudioDurationMs >= nextSnapshotTargetMs &&
                             (activeSnapshotJob == null || activeSnapshotJob?.isActive == false)
                         ) {
-                            nextSnapshotTargetMs = recordedAudioDurationMs + 2_500L
+                            nextSnapshotTargetMs = recordedAudioDurationMs + 2_600L
                             val snapshotSig = synchronized(sigLock) { sigGenerator.generateSignature() }
                             val sigBytes = snapshotSig.dataRepresentation
                             if (sigBytes.isNotEmpty()) {

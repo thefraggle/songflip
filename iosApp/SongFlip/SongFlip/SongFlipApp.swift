@@ -1,10 +1,74 @@
 import SwiftUI
+import UIKit
 import SongFlipKit
 import StoreKit
 import os
 
+final class SceneDelegate: NSObject, UIWindowSceneDelegate {
+    func windowScene(
+        _ windowScene: UIWindowScene,
+        performActionFor shortcutItem: UIApplicationShortcutItem,
+        completionHandler: @escaping (Bool) -> Void
+    ) {
+        completionHandler(AppDelegate.handleShortcutItem(shortcutItem))
+    }
+}
+
+final class AppDelegate: NSObject, UIApplicationDelegate {
+    static let listenShortcutType = "de.goork.songflip.listen"
+
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+    ) -> Bool {
+        Self.updateQuickActions(lang: LocalizationManager.currentLanguage())
+        if let shortcutItem = launchOptions?[.shortcutItem] as? UIApplicationShortcutItem {
+            _ = Self.handleShortcutItem(shortcutItem)
+        }
+        return true
+    }
+
+    func application(
+        _ application: UIApplication,
+        configurationForConnecting connectingSceneSession: UISceneSession,
+        options: UIScene.ConnectionOptions
+    ) -> UISceneConfiguration {
+        if let shortcutItem = options.shortcutItem {
+            _ = Self.handleShortcutItem(shortcutItem)
+        }
+        let config = UISceneConfiguration(name: nil, sessionRole: connectingSceneSession.role)
+        config.delegateClass = SceneDelegate.self
+        return config
+    }
+
+    static func updateQuickActions(lang: String) {
+        let title = LocalizationManager.string(for: "listen_and_flip_title", lang: lang)
+        let subtitle = LocalizationManager.string(for: "listen_and_flip_subtitle", lang: lang)
+        let icon = UIApplicationShortcutIcon(systemImageName: "waveform")
+        let item = UIApplicationShortcutItem(
+            type: listenShortcutType,
+            localizedTitle: title,
+            localizedSubtitle: subtitle,
+            icon: icon,
+            userInfo: nil
+        )
+        UIApplication.shared.shortcutItems = [item]
+    }
+
+    static func handleShortcutItem(_ shortcutItem: UIApplicationShortcutItem) -> Bool {
+        guard shortcutItem.type == listenShortcutType else { return false }
+        let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
+        defaults.set(true, forKey: "pending_open_listen_sheet")
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: .openListenAndFlip, object: nil)
+        }
+        return true
+    }
+}
+
 @main
 struct SongFlipApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     private static let logger = Logger(subsystem: "de.goork.songflip", category: "App")
     @StateObject private var settings = SettingsModel()
 

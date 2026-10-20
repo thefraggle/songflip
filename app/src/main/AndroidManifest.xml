@@ -157,6 +157,14 @@
             </intent-filter>
         </activity>
 
+        <!-- Transparent Listen & Flip Overlay Activity (Quick Tile & App Shortcut) -->
+        <activity
+            android:name=".ui.ListenAndFlipActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:theme="@style/Theme.SongFlip.Transparent" />
+
         <!-- Transparent Multi-Platform Link Interceptor Activity -->
         <activity
             android:name=".ui.RedirectActivity"
@@ -324,12 +332,24 @@
             </intent-filter>
         </activity>
 
-        <!-- Quick Settings Tile Service -->
+        <!-- Quick Settings Tile Service (Pause / Active Status) -->
         <service
             android:name=".service.SongFlipTileService"
             android:exported="true"
             android:icon="@drawable/ic_qs_tile"
             android:label="@string/tile_name"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <!-- Quick Settings Tile Service (Listen & Flip Music Recognition) -->
+        <service
+            android:name=".service.ListenAndFlipTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_qs_listen"
+            android:label="@string/listen_and_flip_title"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />

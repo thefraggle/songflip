@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.10.3] - 2026-10-20
+- **Schnellzugriff für Listen & Flip**: Starte die Musikerkennung jetzt direkt über die Schnellzugriffs-Kachel im Systemmenü, durch langes Drücken auf das App-Symbol auf dem Startbildschirm oder per System-Kurzbefehl – ganz ohne vorheriges Öffnen der Haupt-App.
+- **Allgemeine Stabilität**: Kleinere Verbesserungen an der Oberfläche und der internen Zuverlässigkeit.
+
 ## [1.10.2] - 2026-10-20
 - **Verbesserte Wiedergabe-Weiterleitung**: Optimierte direkte Link-Übergabe und zuverlässigeres Fallback-Verhalten für Titel, Alben, Künstler und Playlists bei Tidal und YouTube Music.
 - **Allgemeine Stabilität**: Kleinere Verbesserungen an der Oberfläche und der internen Zuverlässigkeit.
