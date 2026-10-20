@@ -38,6 +38,7 @@ class ProManagerTest {
     fun teardown() {
         server.shutdown()
         ProManager.testBaseUrl = null
+        ProManager.setTestStableAndroidId(null)
     }
 
     @Test
@@ -191,6 +192,31 @@ class ProManagerTest {
 
         val state = ProManager.hydrateLocalProState()
         assertTrue("Pro state must be preserved within 15-min renewal grace window", state.isPro)
+    }
+
+    @Test
+    fun testLegacyUuidBoundCouponSurvivesAndroidIdMigration() {
+        // Simulate a user who redeemed a Lifetime coupon before v1.8.18 (Oct 14):
+        // - Their SharedPreferences has `anonymous_install_id` = "1d34e71b-68e8-4ce5-b96a-8f55a1edc823" (UUID)
+        // - Their stored legacy v1 HMAC token is bound to that UUID
+        // - After updating to v1.8.18+, `stableAndroidId` is populated with their hardware ANDROID_ID
+        val legacyUuid = "1d34e71b-68e8-4ce5-b96a-8f55a1edc823"
+        val legacyHmacLifetimeToken =
+            "sct_eyJjIjoiRkxJUC1DTEFNLVJLRTciLCJpIjoiMWQzNGU3MWItNjhlOC00Y2U1LWI5NmEtOGY1NWExZWRjODIzIiwiZSI6bnVsbCwidCI6ImxpZmV0aW1lIn0.wWClxkXxEY0GZwzQ2jqRyJu7ItyzhB7OricXu0s2bJA"
+
+        inMemoryPrefs.edit()
+            .putString("anonymous_install_id", legacyUuid)
+            .putString("pro_coupon_type", "lifetime")
+            .putString("pro_coupon_code", "FLIP-CLAM-RKE7")
+            .putString("pro_coupon_token", legacyHmacLifetimeToken)
+            .apply()
+
+        ProManager.setTestStableAndroidId("a1b2c3d4e5f60718")
+
+        val state = ProManager.hydrateLocalProState()
+        assertTrue("Legacy UUID-bound coupon must remain valid after ANDROID_ID migration", state.isPro)
+        assertEquals("lifetime_coupon", state.proType)
+        assertEquals("coupon:$legacyHmacLifetimeToken", ProManager.getAuthToken())
     }
 }
 
