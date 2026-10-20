@@ -131,6 +131,16 @@ class QobuzResolver(
     }
 
     private suspend fun searchQobuz(query: String, isAlbum: Boolean, audiophileMode: Boolean = false): String? {
+        val primary = executeQobuzSearch(query, isAlbum, audiophileMode)
+        if (primary != null) return primary
+        val stripped = ResolverUtils.stripEditionSuffix(query)
+        if (stripped != query && stripped.isNotBlank()) {
+            return executeQobuzSearch(stripped, isAlbum, audiophileMode)
+        }
+        return null
+    }
+
+    private suspend fun executeQobuzSearch(query: String, isAlbum: Boolean, audiophileMode: Boolean): String? {
         return try {
             val encoded = query.encodeURLParameter()
             val typeParam = if (isAlbum) "albums" else "tracks"
