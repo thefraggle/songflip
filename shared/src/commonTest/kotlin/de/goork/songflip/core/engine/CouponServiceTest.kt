@@ -21,6 +21,20 @@ class CouponServiceTest {
         "sct_v2_eyJjIjoiQU5OVUFMMjAyNiIsImkiOiJpbnN0YWxsLTEyMyIsImUiOjIwMDAwMDAwMDAwMDAsInQiOiJ0aW1lX2xpbWl0ZWQiLCJpYXQiOjE3MDAwMDAwMDAwMDB9.rrEMwtIUR1auVbgNq0iXGBnqbuII_rS8L7Hm_6J9vxgJcN19ceTk9wpqsdisDtHKhqJklGgyy22uuOXc1VocAw"
 
     @Test
+    fun verifyValidEd25519TokenRequiringSqrtMinusOneDecompression() {
+        // Public key whose y-coordinate requires the I_CONST (sqrt(-1) mod p) branch in unpackNeg
+        val pubKey = Ed25519Verifier.hexToBytes("4e63c6f2461fb47cb45b49b99e6fa95c3cd4cdad2b7f2dd3180df8de6f0273a6")
+        val msg = """{"c":"FLIP-B5FE-2NYW","i":"02ca8625bd4ba616","e":0,"t":"lifetime","iat":1792517000000}""".encodeToByteArray()
+        val sig = Ed25519Verifier.hexToBytes(
+            "9e0864e6bf91670595de095e6452cf59b098fff3212bb12036f5396dd2806686549a2c159e27fbaed3c84b82d4c16b498b703854f62150baa924d59968df520a"
+        )
+        assertTrue(
+            Ed25519Verifier.verify(msg, sig, pubKey),
+            "Ed25519 public key requiring I_CONST sqrt(-1) decompression must verify"
+        )
+    }
+
+    @Test
     fun verifyValidEd25519LifetimeToken() {
         val res = CouponService.shared.verifyCouponToken(
             token = validLifetimeToken,

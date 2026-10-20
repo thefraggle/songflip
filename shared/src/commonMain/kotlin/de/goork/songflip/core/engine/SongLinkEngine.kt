@@ -272,11 +272,32 @@ class SongLinkEngine(
                             }
 
                             if (!rawTarget.isNullOrBlank()) {
-                                val formatted = UrlUtils.formatTargetUrl(rawTarget, targetPlatformKey)
+                                val searchFallbackQuery = UrlUtils.extractSearchQuery(rawTarget)
+                                val upgradedDirectUrl = if (searchFallbackQuery != null) {
+                                    val candidateQuery = if (!title.isNullOrBlank()) {
+                                        if (!artist.isNullOrBlank() && !title.contains(artist, ignoreCase = true)) {
+                                            "$artist $title"
+                                        } else {
+                                            title
+                                        }
+                                    } else {
+                                        searchFallbackQuery
+                                    }
+                                    val cleanQuery = UrlUtils.cleanSearchQuery(candidateQuery)
+                                    resolveDirectPlatformUrl(
+                                        query = cleanQuery,
+                                        targetPlatformKey = targetPlatformKey,
+                                        isAlbum = isAlbum
+                                    )
+                                } else null
+
+                                val effectiveRawTarget = upgradedDirectUrl ?: rawTarget
+                                val isStillSearchFallback = upgradedDirectUrl == null && searchFallbackQuery != null
+                                val formatted = UrlUtils.formatTargetUrl(effectiveRawTarget, targetPlatformKey)
                                 val nativeUri = UrlUtils.toNativeAppUri(formatted, targetPlatformKey)
                                 return ResolutionResult.Success(
                                     targetUrl = formatted,
-                                    platform = targetPlatformKey,
+                                    platform = if (isStillSearchFallback) "${targetPlatformKey}_search" else targetPlatformKey,
                                     title = title,
                                     artist = artist,
                                     isAlbum = isAlbum,

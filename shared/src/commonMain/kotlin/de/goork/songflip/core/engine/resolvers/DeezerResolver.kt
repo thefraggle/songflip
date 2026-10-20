@@ -57,6 +57,16 @@ class DeezerResolver(
     }
 
     private suspend fun searchDeezer(query: String, isAlbum: Boolean = false, audiophileMode: Boolean = false): String? {
+        val primary = executeDeezerSearch(query, isAlbum, audiophileMode)
+        if (primary != null) return primary
+        val stripped = ResolverUtils.stripEditionSuffix(query)
+        if (stripped != query && stripped.isNotBlank()) {
+            return executeDeezerSearch(stripped, isAlbum, audiophileMode)
+        }
+        return null
+    }
+
+    private suspend fun executeDeezerSearch(query: String, isAlbum: Boolean = false, audiophileMode: Boolean = false): String? {
         return try {
             val encoded = query.encodeURLParameter()
             val endpoint = if (isAlbum) "search/album" else "search"

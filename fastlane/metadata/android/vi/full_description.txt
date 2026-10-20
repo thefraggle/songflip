@@ -24,8 +24,8 @@ Chia sẻ các chương trình hoặc tập podcast đầy đủ trên các nề
 • Chuyển đổi danh sách phát phổ quát và chuyển danh sách phát:
 Chuyển đổi danh sách phát và chuyển danh sách phát theo từng bản nhạc giữa Spotify, Apple Music, YouTube Music, TIDAL và Deezer—với tính năng tự động dọn dẹp trùng lặp, tối đa 200 bản nhạc và bộ nhớ đệm nhanh.
 
-• Tinh chỉnh kết quả phù hợp & yêu thích:
-Chọn giữa các phiên bản trực tiếp, remaster hoặc studio và ghim các bài hát yêu thích chỉ bằng 1 lần nhấn.
+• Chất lượng Audiophile (Hi-Res & Lossless) & Yêu thích:
+Ưu tiên bản thu phòng thu, 24-bit Hi-Res, Lossless & Dolby Atmos hơn bản radio edit và tuyển tập. Ghim bài hát yêu thích chỉ bằng 1 chạm.
 
 • Trình chọn người chơi nhanh:
 Chọn trình phát âm thanh mục tiêu của bạn một cách nhanh chóng bất cứ khi nào bạn mở liên kết bài hát được chia sẻ hoặc liên kết podcast.
@@ -34,7 +34,7 @@ Chọn trình phát âm thanh mục tiêu của bạn một cách nhanh chóng b
 Dễ dàng xác minh và định cấu hình Android Open by Default App Links bằng trợ lý thiết lập chuyển hướng liên kết 1 lần nhấn tương tác của chúng tôi.
 
 • Bảng tạm thông minh & Chia sẻ gốc:
-Sao chép một liên kết âm nhạc? Chuyển đổi và mở nó ngay lập tức thông qua biểu ngữ bảng điều khiển thông minh hoặc chia sẻ liên kết trực tiếp từ WhatsApp, Telegram, Reddit hoặc Instagram sang SongFlip.
+Chuyển đổi và mở nó ngay lập tức thông qua biểu ngữ bảng điều khiển thông minh hoặc chia sẻ liên kết trực tiếp từ WhatsApp, Telegram, Reddit hoặc Instagram sang SongFlip.
 
 • Liên kết thông minh trên web (songflip.link):
 Tạo các liên kết web trung lập bằng trình phát được nhúng để bạn bè có thể nghe trên bất kỳ trình duyệt nào.

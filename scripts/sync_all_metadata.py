@@ -48,7 +48,7 @@ LOCALE_NAMES = {
     'zh-TW': '繁體中文 (zh-TW)',
 }
 
-# Updated iOS descriptions (v1.9.6: 12 Platforms incl. Qobuz & Beatport + Listen & Flip online & offline)
+# Updated iOS descriptions (v1.10.1: 12 Platforms incl. Qobuz & Beatport + Listen & Flip online & offline + Audiophile Quality Hi-Res/Lossless)
 IOS_DE_DESC = """Freunde schicken dir einen Song-Link oder Podcast-Link von Spotify, Deezer oder Apple Podcasts – aber du nutzt Apple Music, YouTube Music oder Pocket Casts?
 
 SongFlip ist deine smarte Musik-Link-Umleitung (Music Link Redirect) sowie dein universeller Song- und Podcast-Link Converter für iOS. Ob über das native Teilen-Menü (Share Sheet), die Musikerkennung Listen & Flip, die direkte Titelsuche, universelle QR-Codes, Kurzbefehle oder den Action Button: SongFlip lässt dich geteilte Musik-Links und Podcast-Links blitzschnell konvertieren und direkt im Wunsch-Player öffnen – ganz ohne manuelles Suchen oder Kopieren.
@@ -71,7 +71,7 @@ Hauptfunktionen:
 - Direkte Titelsuche: Suche Songs und Künstler direkt in SongFlip und starte sie mit einem Fingertipp (Fast Flip) sofort in deinem Lieblings-Player – auch ohne bestehenden Song-Link.
 - Musik per QR-Code teilen: Erstelle und scanne universelle QR-Codes für Songs und Alben – ideal zum Teilen von Musik-Links vor Ort über alle Streamingdienste hinweg.
 - Universal Playlist Converter & Playlist-Transfer: Playlists konvertieren, Playlists übertragen und ganze Alben zwischen Spotify, Apple Music, YouTube Music, TIDAL und Deezer umziehen – inklusive Duplikat-Bereinigung und bis zu 200 Titeln.
-- Treffer verfeinern & Favoriten: Wähle gezielt zwischen Live-, Remaster- oder Studio-Versionen und pinne deine Lieblings-Songs im Verlauf mit 1-Tap als Favorit an.
+- Audiophile Qualität (Hi-Res & Lossless) & Favoriten: Bevorzuge Studio-Originale, 24-Bit Hi-Res, Lossless & Dolby Atmos statt Radio-Edits und Compilations. Wähle gezielt zwischen Live-, Remaster- oder Studio-Versionen und pinne Lieblings-Songs mit 1-Tap als Favorit an.
 - Podcast Converter & Podcast-Weiterleitung: Plattformübergreifende Podcast-Umleitung für Shows und Einzelepisoden direkt in deinem bevorzugten Podcast-Player.
 - Direkte Wiedergabe: Startet exakte Titel, Episoden und Videos sofort im gewünschten Player.
 - Schnellauswahl & Verlauf: Wähle bei mehreren installierten Apps flexibel deinen Ziel-Player und greife jederzeit auf deinen Verlauf kürzlich geöffneter Links zu.
@@ -105,7 +105,7 @@ Key Features:
 - Direct Song Search: Search for tracks and artists directly inside SongFlip and launch playback instantly in your favorite player with 1-tap Fast Flip – no existing song link required.
 - QR Code Music Sharing: Generate and scan universal QR codes for songs and albums – perfect for sharing music links in person across different streaming services.
 - Universal Playlist Converter & Playlist Transfer: Convert playlists, transfer playlists, and move full albums across Spotify, Apple Music, YouTube Music, TIDAL, and Deezer – featuring duplicate cleaning and up to 200 tracks.
-- Refine Matches & 1-Tap Favorites: Choose between live recordings, remasters, or studio versions, and pin your favorite songs in history with a single tap.
+- Audiophile Quality (Hi-Res & Lossless) & Favorites: Prioritize studio masters, 24-bit Hi-Res, Lossless, and Dolby Atmos over radio edits and compilations. Choose between live, remaster, or studio versions and pin favorite songs in history with a single tap.
 - Podcast Converter & Podcast Redirect Engine: Cross-platform resolution to convert and open podcast links for full shows and episodes in your favorite podcast player.
 - Direct Playback Engine: Instantly launches exact track, episode, and video IDs in your target player.
 - Quick Player Chooser & History: Choose your target player on the fly when multiple apps are installed, and revisit your recent music converter history anytime.
@@ -156,7 +156,7 @@ def main():
     print(f"Generating clean Markdown file at {MD_PATH}...")
     with open(MD_PATH, 'w', encoding='utf-8') as f:
         f.write("# 📱 SongFlip – Play Store & App Store Listings (Alle Sprachen)\n")
-        f.write("> **Version:** 1.9.6 | **Umfang:** 34 Play Store-Sprachen + iOS App Store (DE/EN) | **Zertifiziert:** Titel ≤ 30 Zeichen, Kurzbeschreibung ≤ 80 Zeichen, Volltext ≤ 4.000 Zeichen, iOS Keywords ≤ 100 Zeichen.\n")
+        f.write("> **Version:** 1.10.1 | **Umfang:** 34 Play Store-Sprachen + iOS App Store (DE/EN) | **Zertifiziert:** Titel ≤ 30 Zeichen, Kurzbeschreibung ≤ 80 Zeichen, Volltext ≤ 4.000 Zeichen (UTF-16), iOS Keywords ≤ 100 Zeichen.\n")
         f.write("---\n\n")
         for r in rows:
             loc = r['Language']

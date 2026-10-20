@@ -213,7 +213,10 @@ final class ProManager: NSObject, ObservableObject {
         }
     }
 
-    func configure(isDebug: Bool = false) {
+    private var isAutomatedTest: Bool = false
+
+    func configure(isDebug: Bool = false, isAutomatedTest: Bool = false) {
+        self.isAutomatedTest = isAutomatedTest
         Purchases.logLevel = isDebug ? .debug : .warn
         Purchases.configure(withAPIKey: Self.apiKey)
         Purchases.shared.delegate = self
@@ -286,7 +289,7 @@ final class ProManager: NSObject, ObservableObject {
     }
 
     func trackPaywallImpression() {
-        guard Purchases.isConfigured else { return }
+        guard !isAutomatedTest, Purchases.isConfigured else { return }
         Purchases.shared.trackCustomPaywallImpression()
     }
 

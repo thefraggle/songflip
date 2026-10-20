@@ -24,8 +24,8 @@ Partagez des émissions ou des épisodes de podcast sur plusieurs plateformes.
 • Convertisseur et transfert de playlist :
 Convertissez des listes de lecture et transférez des listes de lecture entre Spotify, Apple Music, YouTube Music, TIDAL et Deezer (jusqu'à 200 pistes).
 
-• Affiner les correspondances et les favoris :
-Choisissez entre les versions live, remasterisées ou studio et épinglez vos chansons préférées en un seul clic.
+• Qualité audiophile (Hi-Res & Lossless) et favoris :
+Privilégiez les masters studio, 24-bit Hi-Res, Lossless et Dolby Atmos aux versions radio et compilations. Épinglez vos titres favoris en 1 clic.
 
 • Sélecteur de joueur rapide :
 Choisissez votre lecteur audio cible à la volée chaque fois que vous ouvrez un lien de chanson partagé ou un lien de podcast.
@@ -34,7 +34,7 @@ Choisissez votre lecteur audio cible à la volée chaque fois que vous ouvrez un
 Configurez les liens d'application Android ouverts par défaut avec notre assistant de configuration de redirection de lien en 1 clic.
 
 • Bannière du Presse-papiers et menu de partage :
-Vous avez copié un lien musical ? Convertissez-le et ouvrez-le via la bannière ou partagez des liens depuis WhatsApp, Telegram ou Instagram.
+Convertissez-le et ouvrez-le via la bannière ou partagez des liens depuis WhatsApp, Telegram ou Instagram.
 
 • Liens Web intelligents (songflip.link) :
 Créez des liens Web neutres avec un lecteur intégré pour que vos amis puissent écouter dans n'importe quel navigateur.

@@ -88,6 +88,8 @@ class AptabaseClientTest {
         AptabaseClient.trackProPurchaseFailed("Payment declined", "StoreProblemError", "BillingResponseCode.ITEM_UNAVAILABLE")
         AptabaseClient.trackRateAppClicked()
         AptabaseClient.trackShareAppClicked()
+        AptabaseClient.trackAcousticScanMatched("spotify", isPro = true, isOfflineQueue = false)
+        AptabaseClient.trackAcousticScanNoMatch("spotify", isPro = false)
 
         assertTrue(true)
     }

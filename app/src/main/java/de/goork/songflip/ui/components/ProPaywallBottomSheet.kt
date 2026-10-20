@@ -37,6 +37,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -134,18 +135,27 @@ fun ProPaywallBottomSheet(
         containerColor = MaterialTheme.colorScheme.surface,
         dragHandle = { BottomSheetDefaults.DragHandle() }
     ) {
+        val scrollState = rememberScrollState()
+
+        LaunchedEffect(showCouponInput) {
+            if (showCouponInput) {
+                kotlinx.coroutines.delay(150L)
+                scrollState.animateScrollTo(scrollState.maxValue)
+            }
+        }
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .closeOnEsc(onDismissRequest)
-                .verticalScroll(rememberScrollState())
-                .padding(horizontal = 24.dp, vertical = 8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+                .imePadding()
+                .navigationBarsPadding()
         ) {
-            // Header
+            // Sticky Header outside scrollable content so scrolling never clips the title or hides the Close button
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp, vertical = 4.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -178,6 +188,20 @@ fun ProPaywallBottomSheet(
                 }
             }
 
+            if (scrollState.canScrollBackward) {
+                HorizontalDivider(
+                    color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.35f)
+                )
+            }
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(scrollState)
+                    .padding(horizontal = 24.dp, vertical = 8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
             if (proState.isPro) {
                 // Active PRO Status Card
                 Card(
@@ -389,10 +413,23 @@ fun ProPaywallBottomSheet(
 
                 // Lifetime keeps "POPULAR • ONE-TIME" only while it leads; at the bottom "POPULAR" would
                 // compete with the highlighted annual card, so it just states the purchase type.
-                val lifetimeBadge = when {
+                // When the localized badge contains " • " (e.g. "POPULAR • PAGAMENTO ÚNICO" in PT/FR/PL/DE),
+                // split it into a clean single-line badge ("POPULAR") and subtitle ("Pagamento único") so the pill never wraps onto 2 lines.
+                val rawLifetimeBadge = when {
                     isLifetimeSale -> stringResource(R.string.pro_lifetime_sale_badge)
                     tierOrder.first() == SelectedProTier.LIFETIME -> stringResource(R.string.pro_lifetime_badge)
                     else -> stringResource(R.string.pro_lifetime_onetime_badge)
+                }
+                val lifetimeBadgeParts = if (!isLifetimeSale && rawLifetimeBadge.contains("•")) {
+                    rawLifetimeBadge.split("•", limit = 2).map { it.trim() }.filter { it.isNotEmpty() }
+                } else emptyList()
+                val lifetimeBadge = if (lifetimeBadgeParts.size == 2) lifetimeBadgeParts[0] else rawLifetimeBadge
+                val lifetimeSub = when {
+                    isLifetimeSale -> stringResource(R.string.pro_lifetime_sale_sub)
+                    lifetimeBadgeParts.size == 2 -> lifetimeBadgeParts[1].lowercase().replaceFirstChar {
+                        if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+                    }
+                    else -> null
                 }
 
                 Column(
@@ -409,7 +446,7 @@ fun ProPaywallBottomSheet(
                             SelectedProTier.LIFETIME -> ProTierCard(
                                 title = stringResource(R.string.pro_tier_lifetime),
                                 price = getEffectivePrice(lifetimePackage)?.formatted ?: "—",
-                                subtitle = if (isLifetimeSale) stringResource(R.string.pro_lifetime_sale_sub) else null,
+                                subtitle = lifetimeSub,
                                 badge = lifetimeBadge,
                                 isSelected = selectedTier == SelectedProTier.LIFETIME,
                                 onClick = onTierClick
@@ -710,7 +747,9 @@ fun ProPaywallBottomSheet(
                                         }
                                     }
                                 },
-                                shape = RoundedCornerShape(12.dp)
+                                shape = RoundedCornerShape(12.dp),
+                                modifier = Modifier.heightIn(min = 56.dp),
+                                contentPadding = PaddingValues(horizontal = 20.dp, vertical = 14.dp)
                             ) {
                                 if (isRedeemingCoupon) {
                                     CircularProgressIndicator(
@@ -728,6 +767,7 @@ fun ProPaywallBottomSheet(
             }
 
             Spacer(modifier = Modifier.height(16.dp))
+            }
         }
     }
 }
@@ -846,6 +886,8 @@ fun ProTierCard(
                                 text = badge,
                                 style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp, fontWeight = FontWeight.ExtraBold),
                                 color = MaterialTheme.colorScheme.onPrimary,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
                                 modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
                             )
                         }

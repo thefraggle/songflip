@@ -42,6 +42,16 @@ class YouTubeMusicResolver(
     }
 
     override suspend fun resolveAlbum(query: String, audiophileMode: Boolean): String? {
+        val primary = executeAlbumSearch(query)
+        if (primary != null) return primary
+        val stripped = ResolverUtils.stripEditionSuffix(query)
+        if (stripped != query && stripped.isNotBlank()) {
+            return executeAlbumSearch(stripped)
+        }
+        return null
+    }
+
+    private suspend fun executeAlbumSearch(query: String): String? {
         val innertubeAlbum = searchYouTubeMusicAlbumInnertube(query)
         if (innertubeAlbum != null) return innertubeAlbum
 

@@ -310,11 +310,9 @@ final class AcousticRecognizer: ObservableObject {
             }
 
             guard let winner = matchedItem else {
-                AptabaseClient.shared.trackAcousticScanCompleted(
+                AptabaseClient.shared.trackAcousticScanNoMatch(
                     target: targetPlatformKey,
-                    matched: false,
-                    isPro: isPro,
-                    isOfflineQueue: false
+                    isPro: isPro
                 )
                 self.state = .noMatch
                 return
@@ -338,9 +336,8 @@ final class AcousticRecognizer: ObservableObject {
 
             await HistoryModel.shared.syncFromKmpStore()
 
-            AptabaseClient.shared.trackAcousticScanCompleted(
+            AptabaseClient.shared.trackAcousticScanMatched(
                 target: targetPlatformKey,
-                matched: true,
                 isPro: isPro,
                 isOfflineQueue: false
             )
@@ -403,9 +400,8 @@ final class AcousticRecognizer: ObservableObject {
                     timestampMs: Int64(Date().timeIntervalSince1970 * 1000)
                 )
                 resolvedCount += 1
-                AptabaseClient.shared.trackAcousticScanCompleted(
+                AptabaseClient.shared.trackAcousticScanMatched(
                     target: targetPlatformKey,
-                    matched: true,
                     isPro: isPro,
                     isOfflineQueue: true
                 )
