@@ -24,8 +24,8 @@ Udostępniaj pełne programy lub odcinki podcastów na różnych platformach.
 • Uniwersalny konwerter list odtwarzania i przesyłanie list odtwarzania:
 Konwertuj listy odtwarzania i przesyłaj listy odtwarzania utwór po utworze pomiędzy Spotify, Apple Music, YouTube Music, TIDAL i Deezer.
 
-• Uściślij mecze i ulubione:
-Wybieraj pomiędzy wersjami na żywo, zremasterowanymi lub studyjnymi i przypinaj ulubione utwory jednym dotknięciem.
+• Jakość audiofilska (Hi-Res & Lossless) i ulubione:
+Preferuj wydania studyjne, 24-bit Hi-Res, Lossless i Dolby Atmos zamiast wersji radiowych i składanek. Przypinaj ulubione utwory 1 dotknięciem.
 
 • Szybki wybór gracza:
 Wybierz docelowy odtwarzacz audio na bieżąco, gdy otworzysz łącze do udostępnionego utworu lub link do podcastu.

@@ -242,6 +242,12 @@ object UrlUtils {
         if (url.contains("trackAsin=")) return false
         if (url.contains("/track/")) return false
         if (url.contains("/song/")) return false
+        val fullLower = url.lowercase()
+        if (fullLower.contains("youtube.com") && !fullLower.contains("watch?v=") && !fullLower.contains("youtu.be/")) {
+            if (fullLower.contains("/browse/mpreb_") || fullLower.contains("list=olak5uy_")) {
+                return true
+            }
+        }
         val clean = url.substringBefore("?")
         val lower = clean.lowercase()
         if (lower.contains("beatport.com") && lower.contains("/release/")) return true
@@ -253,6 +259,8 @@ object UrlUtils {
         val clean = url.lowercase()
         // YouTube URLs with watch?v= or youtu.be/ are individual songs, even if they have a &list= parameter
         if (clean.contains("watch?v=") || clean.contains("youtu.be/")) return false
+        // YouTube Music OLAK5uy_ playlists and MPREb_ browse IDs represent official albums, not user playlists (#136)
+        if (clean.contains("youtube.com") && (clean.contains("list=olak5uy_") || clean.contains("/browse/mpreb_"))) return false
 
         val host = extractDomain(clean)
         val path = clean.substringAfter(host, "")

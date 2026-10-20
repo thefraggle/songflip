@@ -57,8 +57,8 @@ Playlists konvertieren und Playlists übertragen zwischen Spotify, Apple Music, 
 • Podcast Converter & Podcast-Weiterleitung:
 Teile Podcast-Shows und Episoden plattformübergreifend. SongFlip löst Episodentitel für die Podcast-Umleitung automatisch auf und startet sie direkt im bevorzugten Podcast-Player.
 
-• Treffer verfeinern & 1-Tap Favoriten:
-Wähle gezielt zwischen Live-, Remaster- oder Studio-Versionen. Pinne Lieblings-Songs im Verlauf mit 1-Tap an und filtere erkannte Listen & Flip-Tracks.
+• Audiophile Qualität (Hi-Res & Lossless) & Favoriten:
+Bevorzuge Studio-Originale, 24-Bit Hi-Res, Lossless & Dolby Atmos statt Radio-Edits und Compilations. Wähle Live- oder Studio-Versionen und pinne Favoriten mit 1-Tap an.
 
 • Schnellauswahl (Ask Every Time):
 Nutzt du mehrere Audio-Apps? Aktiviere die Schnellauswahl, um beim Öffnen von Songs oder Podcasts flexibel den Ziel-Player zu wählen.
@@ -75,11 +75,8 @@ Erstelle neutrale Smart-Links (songflip.link) mit Webplayer, die Freunde auf jed
 • Schnelleinstellungen & App-Shortcuts:
 Pausiere die automatische Umleitung flexibel für 15 Minuten, 1 Stunde oder bis morgen früh über die Quick-Settings-Kachel oder per Long-Press.
 
-• Material You Design & Themed Icon:
-An dein Android-Farbschema angepasst (Dynamic Color, Light- & AMOLED-Dark-Mode) inklusive Monochrome-Homescreen-Icon.
-
-• Promo-Code & Voucher-Unterstützung:
-Löse Aktionscodes direkt in den Einstellungen ein, um PRO-Funktionen und erweiterten Verlauf freizuschalten.
+• Material You Design, AMOLED & Promo-Codes:
+An dein Android-Farbschema angepasst (Dynamic Color, AMOLED-Dark-Mode, Monochrome-Icon) inklusive Einlösung von Aktionscodes für PRO-Funktionen.
 
 🔒 DATENSCHUTZ, TRANSPARENZ & OPEN SOURCE:
 • 100 % Open Source (GPLv3 auf GitHub)
@@ -115,8 +112,8 @@ Convert playlists and transfer playlists track-by-track between Spotify, Apple M
 • Podcast Converter & Podcast Redirect Engine:
 Share full podcast shows or episodes across platforms. SongFlip resolves episode titles automatically to convert and open podcast links right inside your favorite podcast player.
 
-• Refine Matches & 1-Tap Favorites:
-Easily pick between live recordings, remasters, or studio versions. Pin your favorite songs in history with 1 tap and filter recognized Listen & Flip tracks.
+• Audiophile Quality (Hi-Res & Lossless) & Favorites:
+Prioritize studio masters, 24-bit Hi-Res, Lossless, and Dolby Atmos over radio edits and compilations. Refine live or remaster matches and pin favorites with 1 tap.
 
 • Quick Player Chooser (Ask Every Time):
 Using multiple audio apps? Enable the quick player chooser to pick your target player on the fly whenever you open a shared track or podcast episode.
@@ -133,11 +130,8 @@ Generate neutral web-share URLs (songflip.link) with an embedded webplayer so fr
 • Quick Settings Tile & App Shortcuts:
 Temporarily pause automatic redirection for 15 minutes, 1 hour, or until tomorrow morning right from your Quick Settings shade or home screen long-press.
 
-• Material You Dynamic Color & Themed Icon:
-Follows your system accent colors with full AMOLED dark mode, light mode, and a monochrome Material You home screen icon.
-
-• Promo Code & Voucher Redemption:
-Redeem promo codes and vouchers directly in settings to unlock PRO perks and extended history.
+• Material You, AMOLED Dark Mode & Promo Codes:
+Follows your system accent colors with AMOLED dark mode, a monochrome home screen icon, and built-in promo code redemption for PRO perks.
 
 🔒 PRIVACY & OPEN SOURCE FIRST:
 • 100% Open Source (GPLv3 licensed on GitHub)
@@ -185,6 +179,43 @@ def update_platforms_para(para4):
             p = p.replace('Amazon Music、', 'Amazon Music、Qobuz、Beatport、')
     return p
 
+AUDIOPHILE_P10 = {
+    "bn-BD": "• অডিওফাইল কোয়ালিটি (Hi-Res ও Lossless) ও फेভারিট:\nরেডিও এডিট ও সংকলনের বদলে স্টুডিও মাস্টার, 24-bit Hi-Res, Lossless ও Dolby Atmos প্রাধান্য দিন। ১ ট্যাপে প্রিয় গান পিন করুন।".replace("फेভারিট", "ফেভারিট"),
+    "cs-CZ": "• Audiofilská kvalita (Hi-Res a Lossless) a oblíbené:\nUpřednostněte studiové mastery, 24-bit Hi-Res, Lossless a Dolby Atmos před rádiovými verzemi a kompilacemi. Připněte oblíbené skladby 1 klepnutím.",
+    "da-DK": "• Audiofil kvalitet (Hi-Res & Lossless) & favoritter:\nForetræk studiemasters, 24-bit Hi-Res, Lossless & Dolby Atmos frem for radio-edits og opsamlinger. Fastgør yndlingssange i historikken med 1 tryk.",
+    "de-DE": "• Audiophile Qualität (Hi-Res & Lossless) & Favoriten:\nBevorzuge Studio-Originale, 24-Bit Hi-Res, Lossless & Dolby Atmos statt Radio-Edits und Compilations. Wähle Live- oder Studio-Versionen und pinne Favoriten mit 1-Tap an.",
+    "el-GR": "• Ποιότητα Audiophile (Hi-Res & Lossless) & Αγαπημένα:\nΠροτιμήστε αυθεντικά studio masters, 24-bit Hi-Res, Lossless & Dolby Atmos έναντι radio edits και συλλογών. Καρφιτσώστε αγαπημένα με 1 πάτημα.",
+    "en-GB": "• Audiophile Quality (Hi-Res & Lossless) & Favorites:\nPrioritize studio masters, 24-bit Hi-Res, Lossless, and Dolby Atmos over radio edits and compilations. Refine live or remaster matches and pin favorites with 1 tap.",
+    "en-US": "• Audiophile Quality (Hi-Res & Lossless) & Favorites:\nPrioritize studio masters, 24-bit Hi-Res, Lossless, and Dolby Atmos over radio edits and compilations. Refine live or remaster matches and pin favorites with 1 tap.",
+    "es-419": "• Calidad audiófila (Hi-Res y Lossless) y favoritos:\nPrioriza masters de estudio, 24-bit Hi-Res, Lossless y Dolby Atmos frente a ediciones de radio y recopilatorios. Elige versiones y fija favoritos con 1 toque.",
+    "es-ES": "• Calidad audiófila (Hi-Res y Lossless) y favoritos:\nPrioriza masters de estudio, 24-bit Hi-Res, Lossless y Dolby Atmos frente a ediciones de radio y recopilatorios. Elige versiones y fija favoritos con 1 toque.",
+    "es-US": "• Calidad audiófila (Hi-Res y Lossless) y favoritos:\nPrioriza masters de estudio, 24-bit Hi-Res, Lossless y Dolby Atmos frente a ediciones de radio y recopilatorios. Elige versiones y fija favoritos con 1 toque.",
+    "fi-FI": "• Audiofiilinen laatu (Hi-Res & Lossless) ja suosikit:\nSuosi studiomastereita, 24-bit Hi-Res-, Lossless- ja Dolby Atmos -versioita radioversioiden ja kokoelmien sijaan. Kiinnitä suosikkikappaleesi 1 napautuksella.",
+    "fr-CA": "• Qualité audiophile (Hi-Res & Lossless) et favoris :\nPrivilégiez les masters studio, 24-bit Hi-Res, Lossless et Dolby Atmos aux versions radio et compilations. Épinglez vos titres favoris en 1 clic.",
+    "fr-FR": "• Qualité audiophile (Hi-Res & Lossless) et favoris :\nPrivilégiez les masters studio, 24-bit Hi-Res, Lossless et Dolby Atmos aux versions radio et compilations. Épinglez vos titres favoris en 1 clic.",
+    "hi-IN": "• ऑडियोफाइल क्वालिटी (Hi-Res व Lossless) और पसंदीदा:\nरेडियो एडिट और संकलन के बजाय स्टूडियो मास्टर, 24-bit Hi-Res, Lossless और Dolby Atmos को प्राथमिकता दें। 1-टैप में पसंदीदा गाने पिन करें।",
+    "hu-HU": "• Audiofil minőség (Hi-Res & Lossless) és kedvencek:\nStúdió masterek, 24-bit Hi-Res, Lossless és Dolby Atmos előnyben részesítése a rádióverziókkal és válogatásokkal szemben. Kedvencek rögzítése 1 érintéssel.",
+    "id": "• Kualitas Audiofil (Hi-Res & Lossless) & Favorit:\nUtamakan master studio, 24-bit Hi-Res, Lossless & Dolby Atmos dibanding radio edit dan kompilasi. Pilih versi lagu dan sematkan favorit dengan 1 ketukan.",
+    "it-IT": "• Qualità audiofila (Hi-Res & Lossless) e preferiti:\nPreferisci master in studio, 24-bit Hi-Res, Lossless e Dolby Atmos rispetto a radio edit e compilation. Scegli tra versioni live o studio e fissa i preferiti con 1 tocco.",
+    "ja-JP": "• オーディオファイル音質優先 (Hi-Res & Lossless) とお気に入り：\nラジオ編集版やコンピレーションよりも、スタジオマスター、24-bit Hi-Res、Lossless、Dolby Atmosを優先マッチング。ライブ版やリマスター版の選択やワンタップお気に入り登録にも対応。",
+    "ko-KR": "• 오디오파일 음질 우선 (Hi-Res & Lossless) 및 즐겨찾기:\n라디오 에디트 및 컴필레이션 대신 스튜디오 마스터, 24-bit Hi-Res, Lossless, Dolby Atmos 버전을 우선 매칭합니다. 라이브·리마스터 버전 선택 및 원탭 즐겨찾기를 지원합니다.",
+    "mr-IN": "• ऑडिओफाइल गुणवत्ता (Hi-Res व Lossless) आणि आवडते:\nरेडिओ एडिट आणि संकलनाऐवजी स्टुडिओ मास्टर, 24-bit Hi-Res, Lossless आणि Dolby Atmos ला प्राधान्य द्या. १-टॅपने आवडती गाणी पिन करा.",
+    "nb-NO": "• Audiofil kvalitet (Hi-Res & Lossless) og favoritter:\nForetrekk studiomastere, 24-bit Hi-Res, Lossless & Dolby Atmos fremfor radio-edits og samlealbum. Fest favorittsanger i historikken med 1 trykk.",
+    "nl-NL": "• Audiofiele kwaliteit (Hi-Res & Lossless) & favorieten:\nGeef voorkeur aan studiomasters, 24-bit Hi-Res, Lossless & Dolby Atmos boven radio-edits en compilaties. Zet je favoriete nummers met 1 tik vast.",
+    "pl-PL": "• Jakość audiofilska (Hi-Res & Lossless) i ulubione:\nPreferuj wydania studyjne, 24-bit Hi-Res, Lossless i Dolby Atmos zamiast wersji radiowych i składanek. Przypinaj ulubione utwory 1 dotknięciem.",
+    "pt-BR": "• Qualidade audiófila (Hi-Res e Lossless) e favoritos:\nPriorize masters de estúdio, 24-bit Hi-Res, Lossless e Dolby Atmos em vez de edições de rádio e coletâneas. Escolha versões e fixe favoritos com 1 toque.",
+    "pt-PT": "• Qualidade audiófila (Hi-Res e Lossless) e favoritos:\nPriorize masters de estúdio, 24-bit Hi-Res, Lossless e Dolby Atmos em vez de edições de rádio e coletâneas. Escolha versões e fixe favoritos com 1 toque.",
+    "ro-RO": "• Calitate audiofilă (Hi-Res & Lossless) și favorite:\nPreferă masterele de studio, 24-bit Hi-Res, Lossless și Dolby Atmos în locul edițiilor radio și compilațiilor. Fixează melodiile preferate cu o atingere.",
+    "ru-RU": "• Аудиофильское качество (Hi-Res и Lossless) и избранное:\nПриоритет студийных оригиналов, 24-bit Hi-Res, Lossless и Dolby Atmos вместо радио-версий и сборников. Закрепляйте любимые треки в 1 касание.",
+    "sv-SE": "• Audiofil kvalitet (Hi-Res & Lossless) och favoriter:\nFöredra studiomasters, 24-bit Hi-Res, Lossless & Dolby Atmos framför radio-edits och samlingar. Fäst dina favoritlåtar i historiken med 1 tryck.",
+    "th-TH": "• คุณภาพเสียง Audiophile (Hi-Res & Lossless) และรายการโปรด:\nเลือกต้นฉบับสตูดิโอ, 24-bit Hi-Res, Lossless และ Dolby Atmos ก่อนเวอร์ชันวิทยุและอัลบั้มรวมเพลง พร้อมปักหมุดเพลงโปรดใน 1 แตะ",
+    "tr-TR": "• Odyofil Kalitesi (Hi-Res & Lossless) ve Favoriler:\nRadyo düzenlemeleri ve derlemeler yerine stüdyo kayıtlarını, 24-bit Hi-Res, Lossless ve Dolby Atmos sürümlerini tercih edin. Favorileri tek dokunuşla sabitleyin.",
+    "uk": "• Аудіофільська якість (Hi-Res і Lossless) та вибране:\nПріоритет студійних оригіналів, 24-bit Hi-Res, Lossless і Dolby Atmos замість радіо-версій та збірок. Закріплюйте улюблені пісні в 1 дотик.",
+    "vi": "• Chất lượng Audiophile (Hi-Res & Lossless) & Yêu thích:\nƯu tiên bản thu phòng thu, 24-bit Hi-Res, Lossless & Dolby Atmos hơn bản radio edit và tuyển tập. Ghim bài hát yêu thích chỉ bằng 1 chạm.",
+    "zh-CN": "• 发烧级音质优先 (Hi-Res & Lossless) 与一键收藏：\n优先匹配录音室母带、24-bit Hi-Res、无损 (Lossless) 与杜比全景声 (Dolby Atmos) 版本，自动避开电台剪辑与合辑。支持在现场版、重制版间自由切换并一键收藏喜爱的歌曲。",
+    "zh-TW": "• 發燒級音質優先 (Hi-Res & Lossless) 與一鍵收藏：\n優先配對錄音室母帶、24-bit Hi-Res、無損 (Lossless) 與杜比全景聲 (Dolby Atmos) 版本，自動避開電台剪輯與合輯。支援在現場版、重製版間自由切換並一鍵收藏喜愛的歌曲。",
+}
+
 def optimize_locale_description(desc, locale):
     if locale == 'de-DE':
         return DE_FULL_DESC
@@ -192,36 +223,28 @@ def optimize_locale_description(desc, locale):
         return EN_FULL_DESC
 
     paras = desc.split('\n\n')
-    if len(paras) != 20:
+    if len(paras) not in (19, 20):
         raise ValueError(f"[{locale}] Unexpected paragraph count {len(paras)}")
 
-    # Check if already updated with Listen & Flip at paras[5]
-    already_has_lf = 'Listen & Flip' in paras[5]
-
     paras[4] = update_platforms_para(paras[4])
-    lf_full = build_listen_and_flip_para(locale, compact=False)
-    lf_compact = build_listen_and_flip_para(locale, compact=True)
+    paras[10] = AUDIOPHILE_P10[locale]
 
-    if not already_has_lf:
-        # Shift [5..9] -> [6..10] (replacing the 1-line redundant Instant Playback at [10])
-        paras = paras[:5] + [lf_full] + paras[5:10] + paras[11:]
-    else:
-        paras[5] = lf_full
-
-    assert len(paras) == 20, f"[{locale}] Expected 20 paragraphs after update, got {len(paras)}"
     candidate = '\n\n'.join(paras)
 
-    # Keep full Listen & Flip (online + offline) and trim second sentence in secondary bullets if > 3985 UTF-16 units
+    # Trim second sentence in secondary bullets if > 3985 UTF-16 units
     if utf16_len(candidate) > 3985:
-        for idx in (17, 16, 15, 14, 13, 12, 11, 10, 7, 6, 9, 8, 4):
+        for idx in (13, 12, 11, 14, 15, 7, 6, 9, 8):
+            if idx >= len(paras):
+                continue
             if utf16_len(candidate) <= 3975:
                 break
             lines = paras[idx].split('\n')
             if len(lines) > 1:
-                # If body has 2 sentences, keep the first sentence
-                sentences = re.split(r'(?<=[.!।])\s+', lines[1].strip())
+                sentences = re.split(r'(?<=[.!।?？])\s+', lines[1].strip())
                 if len(sentences) > 1:
-                    lines[1] = sentences[0].strip()
+                    # Keep the longer / more descriptive sentence (usually sentences[1] if sentences[0] is a short question)
+                    kept = sentences[1].strip() if lines[1].strip().startswith(('¿', 'Copied', 'Zkopírovali', 'Αντιγράψατε', 'Скопировали', 'Скопіювали', 'Sao chép')) or sentences[0].endswith('?') else sentences[0].strip()
+                    lines[1] = kept
                     paras[idx] = '\n'.join(lines)
                     candidate = '\n\n'.join(paras)
                 elif '—' in lines[1] or '–' in lines[1]:

@@ -229,7 +229,9 @@ fun DisambiguationBottomSheet(
                                                     }
                                                     context.startActivity(appIntent)
                                                     launched = true
-                                                } catch (_: Exception) {}
+                                                } catch (e: Exception) {
+                                                    android.util.Log.w("Disambiguation", "Explicit player launch failed for $targetPackage ($uriStr): ${e.message}")
+                                                }
                                             }
                                             if (!launched) {
                                                 try {

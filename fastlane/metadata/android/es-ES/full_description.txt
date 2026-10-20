@@ -24,8 +24,8 @@ Comparta programas o episodios completos de podcasts en todas las plataformas.
 • Convertidor y transferencia de listas de reproducción:
 Convierta listas de reproducción y transfiera listas de reproducción entre Spotify, Apple Music, YouTube Music, TIDAL y Deezer (hasta 200 pistas).
 
-• Refinar coincidencias y favoritos:
-Elija entre versiones en vivo, remasterizadas o de estudio y fije sus canciones favoritas con 1 toque.
+• Calidad audiófila (Hi-Res y Lossless) y favoritos:
+Prioriza masters de estudio, 24-bit Hi-Res, Lossless y Dolby Atmos frente a ediciones de radio y recopilatorios. Elige versiones y fija favoritos con 1 toque.
 
 • Selector rápido de jugadores:
 Elija su reproductor de audio de destino sobre la marcha cada vez que abra un enlace de canción compartido o un enlace de podcast.
@@ -34,7 +34,7 @@ Elija su reproductor de audio de destino sobre la marcha cada vez que abra un en
 Configure los enlaces de aplicaciones abiertas de Android de forma predeterminada con nuestro asistente de configuración de redireccionamiento de enlaces de 1 toque.
 
 • Banner del portapapeles y menú Compartir:
-¿Copiaste un enlace de música? Conviértelo y ábrelo a través del banner o comparte enlaces desde WhatsApp, Telegram o Instagram.
+Conviértelo y ábrelo a través del banner o comparte enlaces desde WhatsApp, Telegram o Instagram.
 
 • Enlaces Web Inteligentes (songflip.link):
 Cree enlaces web neutrales con un reproductor integrado para que sus amigos puedan escuchar en cualquier navegador.

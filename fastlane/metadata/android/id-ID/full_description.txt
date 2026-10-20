@@ -24,8 +24,8 @@ Bagikan acara atau episode podcast lengkap di seluruh platform. SongFlip menyele
 • Konverter Daftar Putar Universal & Transfer Daftar Putar:
 Konversikan daftar putar dan transfer daftar putar lagu demi lagu antara Spotify, Apple Music, YouTube Music, TIDAL, dan Deezer—dengan pembersihan duplikat otomatis, hingga 200 lagu, dan cache cepat.
 
-• Saring Kecocokan & Favorit 1-Ketuk:
-Pilih dengan mudah antara rekaman live, remaster, atau versi studio.
+• Kualitas Audiofil (Hi-Res & Lossless) & Favorit:
+Utamakan master studio, 24-bit Hi-Res, Lossless & Dolby Atmos dibanding radio edit dan kompilasi. Pilih versi lagu dan sematkan favorit dengan 1 ketukan.
 
 • Pemilih Pemutar Cepat (Tanya Setiap Saat):
 Menggunakan beberapa aplikasi audio? Aktifkan pemilih cepat untuk memilih pemutar tujuan secara instan setiap kali membuka tautan.

@@ -478,6 +478,25 @@ class UrlUtilsTest {
         assertFalse(UrlUtils.isSupportedMusicOrAggregatorUrl("https://www.reddit.com/r/music/comments/123"))
         assertFalse(UrlUtils.isSupportedMusicOrAggregatorUrl(""))
     }
+
+    @Test
+    fun testYouTubeMusicAlbumClassification() {
+        val mprebUrl = "https://music.youtube.com/browse/MPREb_abc123XYZ"
+        val olakUrl = "https://music.youtube.com/playlist?list=OLAK5uy_k1234567890abcdef"
+        val regularPlaylistUrl = "https://music.youtube.com/playlist?list=PL1234567890abcdef"
+
+        assertTrue(UrlUtils.isAlbumUrl(mprebUrl))
+        assertFalse(UrlUtils.isPlaylistUrl(mprebUrl))
+        assertEquals(de.goork.songflip.core.model.MusicEntityType.ALBUM, UrlUtils.detectEntityType(mprebUrl))
+
+        assertTrue(UrlUtils.isAlbumUrl(olakUrl))
+        assertFalse(UrlUtils.isPlaylistUrl(olakUrl))
+        assertEquals(de.goork.songflip.core.model.MusicEntityType.ALBUM, UrlUtils.detectEntityType(olakUrl))
+
+        assertFalse(UrlUtils.isAlbumUrl(regularPlaylistUrl))
+        assertTrue(UrlUtils.isPlaylistUrl(regularPlaylistUrl))
+        assertEquals(de.goork.songflip.core.model.MusicEntityType.PLAYLIST, UrlUtils.detectEntityType(regularPlaylistUrl))
+    }
 }
 
 

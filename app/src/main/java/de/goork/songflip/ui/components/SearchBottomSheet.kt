@@ -125,7 +125,9 @@ fun SearchBottomSheet(
                 context.startActivity(appIntent)
                 onDismissRequest()
                 return
-            } catch (_: Exception) {}
+            } catch (e: Exception) {
+                android.util.Log.w("SearchBottomSheet", "Explicit player launch failed for $targetPackage ($uriStr): ${e.message}")
+            }
         }
         try {
             val fallbackUrl = PackageUtils.toWebFallbackUrl(targetUrl, platformKey)
@@ -135,7 +137,8 @@ fun SearchBottomSheet(
             }
             context.startActivity(playIntent)
             onDismissRequest()
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            android.util.Log.w("SearchBottomSheet", "Fallback launch failed for $targetUrl: ${e.message}")
             Toast.makeText(context, context.getString(R.string.redirect_error_toast), Toast.LENGTH_SHORT).show()
         }
     }

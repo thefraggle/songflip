@@ -82,9 +82,23 @@ class AppleMusicResolver(
                         .maxByOrNull { it.second }
                         ?.first
                 } else {
-                    parsed.results.firstOrNull { item ->
+                    val lowerQuery = query.lowercase()
+                    val wantsEdition = isAlbum && (
+                        lowerQuery.contains("deluxe") ||
+                            lowerQuery.contains("bonus") ||
+                            lowerQuery.contains("expanded")
+                        )
+                    val matchingItems = parsed.results.filter { item ->
                         val title = if (isAlbum) item.collectionName else item.trackName
                         ResolverUtils.isMatch(query, item.artistName, title)
+                    }
+                    if (wantsEdition && matchingItems.size > 1) {
+                        matchingItems.firstOrNull { item ->
+                            val cName = (item.collectionName ?: "").lowercase()
+                            cName.contains("deluxe") || cName.contains("bonus") || cName.contains("expanded")
+                        } ?: matchingItems.firstOrNull()
+                    } else {
+                        matchingItems.firstOrNull()
                     }
                 }
                 val viewUrl = if (isAlbum) validItem?.collectionViewUrl else validItem?.trackViewUrl

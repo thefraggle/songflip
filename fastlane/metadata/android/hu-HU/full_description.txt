@@ -19,13 +19,13 @@ Keressen dalok és előadók között a SongFlip alkalmazásban, és indítsa el
 Hozzon létre és olvasson be univerzális QR-kódokat dalokhoz és albumokhoz bármely streaming szolgáltatásban.
 
 • Podcast Converter és Podcast Redirect Engine:
-Oszd meg a teljes podcast-műsorokat vagy epizódokat különböző platformokon. A SongFlip automatikusan feloldja az epizódcímeket, így konvertálja és megnyitja a podcast hivatkozásokat közvetlenül a kedvenc podcast-lejátszójában.
+Oszd meg a teljes podcast-műsorokat vagy epizódokat különböző platformokon.
 
 • Univerzális lejátszási lista konvertáló és lejátszási lista átvitel:
 A lejátszási listák konvertálása és a lejátszási listák sávonkénti átvitele a Spotify, az Apple Music, a YouTube Music, a TIDAL és a Deezer között.
 
-• Egyezések és kedvencek finomítása:
-Válasszon az élő, remaster vagy stúdióverziók között, és rögzítse kedvenc dalait egyetlen koppintással.
+• Audiofil minőség (Hi-Res & Lossless) és kedvencek:
+Stúdió masterek, 24-bit Hi-Res, Lossless és Dolby Atmos előnyben részesítése a rádióverziókkal és válogatásokkal szemben. Kedvencek rögzítése 1 érintéssel.
 
 • Gyors játékosválasztó:
 Menet közben válassza ki célzott audiolejátszóját, amikor megnyit egy megosztott dal vagy podcast linket.
@@ -34,7 +34,7 @@ Menet közben válassza ki célzott audiolejátszóját, amikor megnyit egy mego
 Konfigurálja az Android Open by Default App Links funkciót az 1 érintéssel elérhető linkátirányítási segédünkkel.
 
 • Vágólap szalaghirdetés és megosztás menü:
-Zenei linket másolt? Konvertálja és nyissa meg a szalaghirdetésen keresztül, vagy ossza meg a WhatsApp, Telegram vagy Instagram linkjeit.
+Konvertálja és nyissa meg a szalaghirdetésen keresztül, vagy ossza meg a WhatsApp, Telegram vagy Instagram linkjeit.
 
 • Webes intelligens hivatkozások (songflip.link):
 Hozzon létre semleges webes hivatkozásokat egy beágyazott lejátszóval, hogy barátai bármilyen böngészőben hallgathassák.

@@ -24,8 +24,8 @@ Compartilhe programas ou episódios completos de podcast entre plataformas.
 • Conversor universal de listas de reprodução e transferência de listas de reprodução:
 Converta playlists e transfira playlists faixa por faixa entre Spotify, Apple Music, YouTube Music, TIDAL e Deezer.
 
-• Refinar correspondências e favoritos:
-Escolha entre versões ao vivo, remasterizadas ou de estúdio e fixe suas músicas favoritas com um toque.
+• Qualidade audiófila (Hi-Res e Lossless) e favoritos:
+Priorize masters de estúdio, 24-bit Hi-Res, Lossless e Dolby Atmos em vez de edições de rádio e coletâneas. Escolha versões e fixe favoritos com 1 toque.
 
 • Seletor rápido de jogadores:
 Escolha seu reprodutor de áudio de destino instantaneamente sempre que abrir um link de música ou podcast compartilhado.

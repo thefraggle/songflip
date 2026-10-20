@@ -97,6 +97,9 @@ class PackageUtilsTest {
         assertEquals("deezer://www.deezer.com/track/123", PackageUtils.toNativeAppUri("https://www.deezer.com/track/123", "deezer"))
         assertEquals("tidal://track/123", PackageUtils.toNativeAppUri("https://listen.tidal.com/track/123", "tidal"))
         assertEquals("https://music.youtube.com/watch?v=123", PackageUtils.toNativeAppUri("https://music.youtube.com/watch?v=123", "youtubeMusic"))
+        assertEquals("https://music.youtube.com/watch?v=123", PackageUtils.toNativeAppUri("youtubemusic://music.youtube.com/watch?v=123", "youtubeMusic"))
+        assertEquals("https://music.youtube.com/watch?v=123", PackageUtils.toNativeAppUri("https://www.youtube.com/watch?v=123", "youtubeMusic"))
+        assertEquals("https://music.youtube.com/watch?v=123", PackageUtils.toNativeAppUri("https://youtu.be/123", "youtubeMusic"))
     }
 
     @Test

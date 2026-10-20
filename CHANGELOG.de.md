@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.10.4] - 2026-10-20
+- **Zuverlässige Gutschein-Einlösung & Darstellungs-Verbesserungen**: Einen Fehler bei der kryptografischen Signaturprüfung behoben, durch den bestimmte Gutscheincodes abgelehnt wurden, sowie die Funktionsübersicht mit feststehendem Kopfbereich und automatischem Scrollen beim Eingeben eines Codes optimiert.
+- **Präziserer Abgleich für Alben & Deluxe-Editionen**: Verbesserte Treffergenauigkeit für Deluxe- und Bonus-Track-Alben bei Apple Music, Deezer, Tidal, Qobuz und YouTube Music sowie zuverlässigere Direkt-Weiterleitung für YouTube-Music-Alben.
+
 ## [1.10.3] - 2026-10-20
 - **Schnellzugriff für Listen & Flip**: Starte die Musikerkennung jetzt direkt über die Schnellzugriffs-Kachel im Systemmenü, durch langes Drücken auf das App-Symbol auf dem Startbildschirm oder per System-Kurzbefehl – ganz ohne vorheriges Öffnen der Haupt-App.
 - **Allgemeine Stabilität**: Kleinere Verbesserungen an der Oberfläche und der internen Zuverlässigkeit.

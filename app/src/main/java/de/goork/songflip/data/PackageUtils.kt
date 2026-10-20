@@ -231,8 +231,27 @@ object PackageUtils {
             "spotify" -> toNativeSpotifyUri(url)
             "deezer" -> toNativeDeezerUri(url)
             "tidal" -> toNativeTidalUri(url)
+            "youtubeMusic" -> normalizeAndroidYouTubeMusicUri(url)
             else -> url
         }
+    }
+
+    /**
+     * Normalizes YouTube Music URLs for Android player intents (#136).
+     * Android YouTube Music players (official app, BitChord, InnerTune, RiMusic, etc.) register
+     * HTTPS intent filters for `https://music.youtube.com/...` rather than the iOS-only `youtubemusic://` scheme.
+     */
+    fun normalizeAndroidYouTubeMusicUri(url: String): String {
+        var clean = url.trim()
+        if (clean.startsWith("youtubemusic://")) {
+            clean = clean.replaceFirst("youtubemusic://", "https://")
+        } else if (clean.startsWith("vnd.youtube.music://")) {
+            clean = clean.replaceFirst("vnd.youtube.music://", "https://music.youtube.com/")
+        }
+        if (clean.contains("music.music.youtube.com")) {
+            clean = clean.replace("music.music.youtube.com", "music.youtube.com")
+        }
+        return de.goork.songflip.core.util.UrlUtils.formatTargetUrl(clean, "youtubeMusic")
     }
 
     /**
@@ -287,6 +306,14 @@ object PackageUtils {
             } else {
                 null to url
             }
+        }
+        if (cleanKey == "youtubeMusic") {
+            val chosen = if (!candidateNativeUri.isNullOrBlank() && !candidateNativeUri.startsWith("youtubemusic://")) {
+                candidateNativeUri
+            } else {
+                url
+            }
+            return targetPackage to normalizeAndroidYouTubeMusicUri(chosen)
         }
         val effectiveUri = candidateNativeUri ?: toNativeAppUri(url, cleanKey, targetPackage)
         return targetPackage to effectiveUri

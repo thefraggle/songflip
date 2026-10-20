@@ -24,8 +24,8 @@ Condividi programmi o episodi podcast completi su tutte le piattaforme.
 • Convertitore e trasferimento di playlist:
 Converti playlist e trasferisci playlist tra Spotify, Apple Music, YouTube Music, TIDAL e Deezer (fino a 200 tracce).
 
-• Perfeziona corrispondenze e preferiti:
-Scegli tra le versioni live, rimasterizzate o in studio e aggiungi i brani preferiti con 1 tocco.
+• Qualità audiofila (Hi-Res & Lossless) e preferiti:
+Preferisci master in studio, 24-bit Hi-Res, Lossless e Dolby Atmos rispetto a radio edit e compilation. Scegli tra versioni live o studio e fissa i preferiti con 1 tocco.
 
 • Scelta rapida del giocatore:
 Scegli al volo il tuo lettore audio di destinazione ogni volta che apri un collegamento a un brano condiviso o un collegamento a un podcast.
@@ -34,7 +34,7 @@ Scegli al volo il tuo lettore audio di destinazione ogni volta che apri un colle
 Configura Android Apri tramite collegamenti app predefiniti con il nostro assistente per la configurazione del reindirizzamento dei collegamenti con un solo tocco.
 
 • Banner negli appunti e menu Condividi:
-Hai copiato un collegamento musicale? Convertilo e aprilo tramite il banner o condividi collegamenti da WhatsApp, Telegram o Instagram.
+Convertilo e aprilo tramite il banner o condividi collegamenti da WhatsApp, Telegram o Instagram.
 
 • Collegamenti Web Smart (songflip.link):
 Crea collegamenti Web neutri con un player incorporato in modo che gli amici possano ascoltarli in qualsiasi browser.

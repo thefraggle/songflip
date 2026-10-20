@@ -24,8 +24,8 @@ Sdílejte celé podcastové pořady nebo epizody napříč platformami. SongFlip
 • Universal Playlist Converter & Playlist Transfer:
 Převádějte seznamy stop a přenášejte seznamy stop po stopách mezi Spotify, Apple Music, YouTube Music, TIDAL a Deezer – s automatickým čištěním duplicit, až 200 stopami a rychlým ukládáním do mezipaměti.
 
-• Upřesnit shody a oblíbené položky:
-Vyberte si mezi živou, remasterovanou nebo studiovou verzí a připněte oblíbené skladby jediným klepnutím.
+• Audiofilská kvalita (Hi-Res a Lossless) a oblíbené:
+Upřednostněte studiové mastery, 24-bit Hi-Res, Lossless a Dolby Atmos před rádiovými verzemi a kompilacemi. Připněte oblíbené skladby 1 klepnutím.
 
 • Rychlý výběr přehrávače:
 Vyberte si svůj cílový audio přehrávač za chodu, kdykoli otevřete odkaz na sdílenou skladbu nebo odkaz na podcast.
@@ -34,7 +34,7 @@ Vyberte si svůj cílový audio přehrávač za chodu, kdykoli otevřete odkaz n
 Snadno ověřte a nakonfigurujte Android Open by Default App Links pomocí našeho interaktivního průvodce nastavením přesměrování odkazu jedním klepnutím.
 
 • Inteligentní banner a nativní sdílení schránky:
-Zkopírovali jste odkaz na hudbu? Okamžitě jej převeďte a otevřete prostřednictvím banneru inteligentního panelu nebo sdílejte odkazy přímo z WhatsApp, Telegram, Reddit nebo Instagram do SongFlip.
+Okamžitě jej převeďte a otevřete prostřednictvím banneru inteligentního panelu nebo sdílejte odkazy přímo z WhatsApp, Telegram, Reddit nebo Instagram do SongFlip.
 
 • Webové chytré odkazy (songflip.link):
 Vytvářejte neutrální webové odkazy pomocí vestavěného přehrávače, aby přátelé mohli poslouchat v jakémkoli prohlížeči.

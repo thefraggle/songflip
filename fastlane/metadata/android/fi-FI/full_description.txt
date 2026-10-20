@@ -13,7 +13,7 @@ Muunna ja ohjaa saumattomasti kappalelinkkejä ja podcasteja Spotifyssa, YouTube
 Tunnista ympärilläsi soiva musiikki suoraan SongFlipissä. Kappaleet tallennetaan historiaan omalle soittimellesi. Ei verkkoa? Tallenna äänitunniste offline-tilassa ja SongFlip tunnistaa kappaleen automaattisesti, kun olet taas verkossa.
 
 • Suora kappalehaku (sovelluksen sisäinen haku):
-Etsi kappaleita ja artisteja suoraan SongFlipistä ja aloita toisto välittömästi haluamallasi suoratoistosoittimella yhdellä napautuksella Fast Flipillä – olemassa olevaa kappalelinkkiä ei tarvita.
+Etsi kappaleita ja artisteja suoraan SongFlipistä ja aloita toisto välittömästi haluamallasi suoratoistosoittimella yhdellä napautuksella Fast Flipillä.
 
 • QR-koodin kappaleiden jakaminen ja skannaus:
 Luo ja skannaa yleisiä QR-koodeja kappaleille ja albumeille.
@@ -24,8 +24,8 @@ Jaa täydet podcast-ohjelmat tai jaksot eri alustoilla. SongFlip ratkaisee jakso
 • Universal Playlist Converter & Playlist Transfer:
 Muunna soittolistoja ja siirrä soittolistoja kappaleittain Spotifyn, Apple Musicin, YouTube Musicin, TIDALin ja Deezerin välillä – automaattisen kaksoiskappaleen puhdistuksen, jopa 200 kappaleen ja nopean välimuistin avulla.
 
-• Tarkenna osumia ja suosikkeja:
-Valitse live-, remaster- tai studioversion välillä ja kiinnitä suosikkikappaleesi yhdellä napautuksella.
+• Audiofiilinen laatu (Hi-Res & Lossless) ja suosikit:
+Suosi studiomastereita, 24-bit Hi-Res-, Lossless- ja Dolby Atmos -versioita radioversioiden ja kokoelmien sijaan. Kiinnitä suosikkikappaleesi 1 napautuksella.
 
 • Pikapelaajan valitsin:
 Valitse kohdesoittimesi lennossa aina, kun avaat jaetun kappaleen tai podcast-linkin.
@@ -34,7 +34,7 @@ Valitse kohdesoittimesi lennossa aina, kun avaat jaetun kappaleen tai podcast-li
 Tarkista ja määritä Android Open by Default App Links helposti interaktiivisella yhden napautuksen linkin uudelleenohjausassistentillamme.
 
 • Leikepöydän älykäs banneri ja natiivi jakaminen:
-Kopioitko musiikkilinkin? Muunna ja avaa se välittömästi älykkään kojelaudan bannerin kautta tai jaa linkkejä suoraan WhatsAppista, Telegramista, Redditistä tai Instagramista SongFlipiksi.
+Muunna ja avaa se välittömästi älykkään kojelaudan bannerin kautta tai jaa linkkejä suoraan WhatsAppista, Telegramista, Redditistä tai Instagramista SongFlipiksi.
 
 • Web Smart Links (songflip.link):
 Luo neutraaleja verkkolinkkejä upotetulla soittimella, jotta ystäväsi voivat kuunnella millä tahansa selaimella.

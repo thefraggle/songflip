@@ -28,6 +28,12 @@ class SongFlipApp : Application() {
         } catch (_: Exception) {
             false
         }
+        val isMonkey = try {
+            ActivityManager.isUserAMonkey()
+        } catch (_: Exception) {
+            false
+        }
+        val isAutomatedTestBot = isTestLab || isTestHarness || isMonkey
         val isEmulator = Build.FINGERPRINT.startsWith("generic") ||
                 Build.FINGERPRINT.startsWith("unknown") ||
                 Build.MODEL.contains("google_sdk") ||
@@ -43,7 +49,8 @@ class SongFlipApp : Application() {
                 Build.PRODUCT.contains("emulator") ||
                 Build.PRODUCT.contains("simulator")
 
-        val isDebug = isDebuggable || isTestLab || isTestHarness || isEmulator
+        val isDebug = isDebuggable || isAutomatedTestBot || isEmulator
+        ProManager.setAutomatedTestEnvironment(isAutomatedTestBot)
 
         val pInfo = try { packageManager.getPackageInfo(packageName, 0) } catch (_: Exception) { null }
         val versionName = pInfo?.versionName ?: "1.2.11"
@@ -54,7 +61,8 @@ class SongFlipApp : Application() {
             pInfo?.versionCode?.toString() ?: "10211"
         }
 
-        if (BuildConfig.APTABASE_APP_KEY.isNotBlank() && BuildConfig.APTABASE_HOST.isNotBlank()) {
+        // Suppress Aptabase telemetry in automated crawler / Firebase Test Lab environments (#134)
+        if (!isAutomatedTestBot && BuildConfig.APTABASE_APP_KEY.isNotBlank() && BuildConfig.APTABASE_HOST.isNotBlank()) {
             AptabaseClient.shared.init(
                 appKey = BuildConfig.APTABASE_APP_KEY,
                 host = BuildConfig.APTABASE_HOST,

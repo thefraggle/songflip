@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.10.4] - 2026-10-20
+- **Reliable Promotional Code Activation & UI Polish**: Fixed a cryptographic verification edge case where certain promotional codes could not be redeemed, and refined the feature overview layout with a pinned header and automatic scrolling when entering a code.
+- **Improved Album & Deluxe Edition Matching**: Enhanced album lookup accuracy for Deluxe and Bonus Track editions across Apple Music, Deezer, Tidal, Qobuz, and YouTube Music, and improved direct playback routing for YouTube Music album links.
+
 ## [1.10.3] - 2026-10-20
 - **Quick-Access Shortcuts for Listen & Flip**: Start music recognition directly from the system Quick Settings tile, by long-pressing the app icon on your home screen, or via system shortcuts without opening the full app first.
 - **General Stability**: Minor UI refinements and internal reliability improvements.

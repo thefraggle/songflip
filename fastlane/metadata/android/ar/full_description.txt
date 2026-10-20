@@ -24,8 +24,8 @@ Convert playlists and transfer playlists track-by-track between Spotify, Apple M
 • Podcast Converter & Podcast Redirect Engine:
 Share full podcast shows or episodes across platforms. SongFlip resolves episode titles automatically to convert and open podcast links right inside your favorite podcast player.
 
-• Refine Matches & 1-Tap Favorites:
-Easily pick between live recordings, remasters, or studio versions. Pin your favorite songs in history with 1 tap and filter recognized Listen & Flip tracks.
+• Audiophile Quality (Hi-Res & Lossless) & Favorites:
+Prioritize studio masters, 24-bit Hi-Res, Lossless, and Dolby Atmos over radio edits and compilations. Refine live or remaster matches and pin favorites with 1 tap.
 
 • Quick Player Chooser (Ask Every Time):
 Using multiple audio apps? Enable the quick player chooser to pick your target player on the fly whenever you open a shared track or podcast episode.
@@ -42,11 +42,8 @@ Generate neutral web-share URLs (songflip.link) with an embedded webplayer so fr
 • Quick Settings Tile & App Shortcuts:
 Temporarily pause automatic redirection for 15 minutes, 1 hour, or until tomorrow morning right from your Quick Settings shade or home screen long-press.
 
-• Material You Dynamic Color & Themed Icon:
-Follows your system accent colors with full AMOLED dark mode, light mode, and a monochrome Material You home screen icon.
-
-• Promo Code & Voucher Redemption:
-Redeem promo codes and vouchers directly in settings to unlock PRO perks and extended history.
+• Material You, AMOLED Dark Mode & Promo Codes:
+Follows your system accent colors with AMOLED dark mode, a monochrome home screen icon, and built-in promo code redemption for PRO perks.
 
 🔒 PRIVACY & OPEN SOURCE FIRST:
 • 100% Open Source (GPLv3 licensed on GitHub)
