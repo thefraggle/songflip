@@ -31,12 +31,12 @@ class SpotifyResolver(
 
     override val platform: MusicPlatform = MusicPlatform.SPOTIFY
 
-    override suspend fun resolveTrack(query: String): String? {
+    override suspend fun resolveTrack(query: String, audiophileMode: Boolean): String? {
         val encoded = query.encodeURLParameter()
         return "https://open.spotify.com/search/$encoded"
     }
 
-    override suspend fun resolveAlbum(query: String): String? {
+    override suspend fun resolveAlbum(query: String, audiophileMode: Boolean): String? {
         val encoded = query.encodeURLParameter()
         return "https://open.spotify.com/search/$encoded"
     }

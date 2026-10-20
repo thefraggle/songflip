@@ -331,8 +331,8 @@
     <string name="pro_feature_cache_desc">Популярні треки відкриваються без очікування</string>
     <string name="pro_feature_links_title">Посилання для всіх</string>
     <string name="pro_feature_links_desc">Одне посилання, яке кожен відкриє у своєму плеєрі</string>
-    <string name="pro_feature_review_title">Уточнення треків</string>
-    <string name="pro_feature_review_desc">Вибирайте альтернативні версії пісень вручну</string>
+    <string name="pro_feature_review_title">Студійна якість і версії</string>
+    <string name="pro_feature_review_desc">Пріоритет Hi-Res/Atmos і вибір версій</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Ще не вийшов</string>
     <string name="prerelease_sheet_desc">Цей альбом ще не опублікований на стримінгових платформах.</string>
@@ -424,4 +424,6 @@
     <string name="pro_feature_listen_title">Безлімітний Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">Розпізнавання пісень без лімітів + офлайн-режим</string>
     <string name="unsupported_domain_toast">Непідтримуване посилання на стримінг – використовуйте Listen &amp; Flip для розпізнавання музики у відео.</string>
+    <string name="settings_audiophile_title">Аудіофільський пріоритет якості</string>
+    <string name="settings_audiophile_subtitle">Надавати перевагу студійним оригіналам, Hi-Res, Lossless і Dolby Atmos замість радіо-версій та збірок</string>
 </resources>

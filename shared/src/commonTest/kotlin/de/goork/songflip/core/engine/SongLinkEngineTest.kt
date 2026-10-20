@@ -217,5 +217,157 @@ class SongLinkEngineTest {
         assertTrue(instaResult is ResolutionResult.UnsupportedEntity)
         assertEquals("unsupported_domain", (instaResult as ResolutionResult.UnsupportedEntity).entityType)
     }
+
+    @Test
+    fun testAudiophileCandidateScoringPrioritizesHiResMasterOverRadioEditAndCovers() {
+        val query = "Daft Punk Get Lucky"
+
+        val studioHiResScore = de.goork.songflip.core.engine.resolvers.ResolverUtils.scoreAudiophileCandidate(
+            query = query,
+            candidateArtist = "Daft Punk",
+            candidateTitle = "Get Lucky",
+            candidateVersion = null,
+            albumTitle = "Random Access Memories",
+            albumArtist = "Daft Punk",
+            isHiRes = true,
+            isLossless = true,
+            isSpatialOrAtmos = true,
+            bitDepth = 24,
+            samplingRate = 88.2,
+            albumTrackCount = 13
+        )
+
+        val radioEditScore = de.goork.songflip.core.engine.resolvers.ResolverUtils.scoreAudiophileCandidate(
+            query = query,
+            candidateArtist = "Daft Punk",
+            candidateTitle = "Get Lucky",
+            candidateVersion = "Radio Edit",
+            albumTitle = "Get Lucky (Radio Edit)",
+            albumArtist = "Daft Punk",
+            isHiRes = false,
+            isLossless = true,
+            bitDepth = 16,
+            samplingRate = 44.1,
+            albumTrackCount = 1
+        )
+
+        val compilationScore = de.goork.songflip.core.engine.resolvers.ResolverUtils.scoreAudiophileCandidate(
+            query = query,
+            candidateArtist = "Daft Punk",
+            candidateTitle = "Get Lucky",
+            candidateVersion = null,
+            albumTitle = "Summer Hits Top 100",
+            albumArtist = "Various Artists",
+            isHiRes = false,
+            isLossless = true
+        )
+
+        val coverBandScore = de.goork.songflip.core.engine.resolvers.ResolverUtils.scoreAudiophileCandidate(
+            query = query,
+            candidateArtist = "Chiptune Radio",
+            candidateTitle = "Get Lucky (Originally performed by Daft Punk)",
+            albumTitle = "2014 Smash Bits",
+            isHiRes = false
+        )
+
+        assertTrue(studioHiResScore > radioEditScore, "Studio Hi-Res Master ($studioHiResScore) must score higher than Radio Edit ($radioEditScore)")
+        assertTrue(radioEditScore > compilationScore, "Artist single ($radioEditScore) must score higher than Various Artists compilation ($compilationScore)")
+        assertTrue(compilationScore > coverBandScore, "Real artist track ($compilationScore) must score higher than tribute/cover ($coverBandScore)")
+    }
+
+    @Test
+    fun testAudiophileModeUpgradesToHiResMasterOnTidal() = runTest {
+        val mockEngine = MockEngine { request ->
+            val urlStr = request.url.toString()
+            when {
+                urlStr.contains("song.link") -> {
+                    val html = """
+                    <!DOCTYPE html>
+                    <html><body>
+                    <script id="__NEXT_DATA__" type="application/json">
+                    {
+                      "props": {
+                        "pageProps": {
+                          "pageData": {
+                            "pageId": "s/getlucky",
+                            "entityUniqueId": "SPOTIFY_SONG::getlucky",
+                            "entityData": { "title": "Get Lucky (Radio Edit)", "artistName": "Daft Punk", "type": "song" },
+                            "sections": [
+                              {
+                                "links": [
+                                  { "platform": "tidal", "url": "https://tidal.com/browse/track/11111_radio_edit" }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                    </script>
+                    </body></html>
+                    """.trimIndent()
+                    respond(html, status = HttpStatusCode.OK, headers = headersOf(HttpHeaders.ContentType, "text/html"))
+                }
+                urlStr.contains("tidal.com/v1/search") -> {
+                    val tidalJson = """
+                    {
+                      "tracks": {
+                        "items": [
+                          {
+                            "id": "11111_radio_edit",
+                            "title": "Get Lucky",
+                            "version": "Radio Edit",
+                            "audioQuality": "LOSSLESS",
+                            "audioModes": ["STEREO"],
+                            "mediaMetadata": { "tags": ["LOSSLESS"] },
+                            "album": { "title": "Get Lucky (Radio Edit)" },
+                            "artist": { "name": "Daft Punk" },
+                            "popularity": 85
+                          },
+                          {
+                            "id": "99999_studio_hires",
+                            "title": "Get Lucky",
+                            "version": null,
+                            "audioQuality": "HI_RES_LOSSLESS",
+                            "audioModes": ["STEREO", "DOLBY_ATMOS"],
+                            "mediaMetadata": { "tags": ["LOSSLESS", "HIRES_LOSSLESS", "DOLBY_ATMOS"] },
+                            "album": { "title": "Random Access Memories" },
+                            "artist": { "name": "Daft Punk" },
+                            "popularity": 90
+                          }
+                        ]
+                      }
+                    }
+                    """.trimIndent()
+                    respond(tidalJson, status = HttpStatusCode.OK, headers = headersOf(HttpHeaders.ContentType, "application/json"))
+                }
+                else -> respond("", status = HttpStatusCode.OK)
+            }
+        }
+
+        val engine = SongLinkEngine(client = HttpClient(mockEngine), cache = LinkCache())
+
+        // 1. Standard mode (audiophileMode = false): uses standard Odesli match (11111_radio_edit)
+        val standardRes = engine.resolveTargetUrl(
+            inputUrl = "https://open.spotify.com/track/2Foc5Q5nqNiosCNqttzHof",
+            targetPlatformKey = "tidal",
+            isPro = true,
+            forceRefresh = true,
+            audiophileMode = false
+        )
+        assertTrue(standardRes is ResolutionResult.Success)
+        assertTrue((standardRes as ResolutionResult.Success).targetUrl.contains("11111_radio_edit"))
+
+        // 2. Audiophile mode (isPro = true, audiophileMode = true): upgrades to Hi-Res / Atmos Studio Master (99999_studio_hires)
+        val audiophileRes = engine.resolveTargetUrl(
+            inputUrl = "https://open.spotify.com/track/2Foc5Q5nqNiosCNqttzHof",
+            targetPlatformKey = "tidal",
+            isPro = true,
+            forceRefresh = true,
+            audiophileMode = true
+        )
+        assertTrue(audiophileRes is ResolutionResult.Success)
+        assertTrue((audiophileRes as ResolutionResult.Success).targetUrl.contains("99999_studio_hires"))
+    }
 }
 

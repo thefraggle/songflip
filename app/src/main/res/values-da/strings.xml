@@ -323,8 +323,8 @@
     <string name="pro_feature_cache_desc">Populære sange åbner uden ventetid</string>
     <string name="pro_feature_links_title">Del med alle</string>
     <string name="pro_feature_links_desc">Ét link, som alle åbner i deres egen afspiller</string>
-    <string name="pro_feature_review_title">Finjuster matches</string>
-    <string name="pro_feature_review_desc">Vælg alternative sangversioner manuelt</string>
+    <string name="pro_feature_review_title">Studiekvalitet og versioner</string>
+    <string name="pro_feature_review_desc">Prioriter Hi-Res/Atmos og vælg versioner</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Endnu ikke udgivet</string>
     <string name="prerelease_sheet_desc">Dette album er endnu ikke udgivet på streamingtjenesterne.</string>
@@ -416,4 +416,6 @@
     <string name="pro_feature_listen_title">Ubegrænset Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">Genkend ubegrænsede sange + Offline Club Mode</string>
     <string name="unsupported_domain_toast">Ikke et understøttet streaminglink – brug Listen &amp; Flip til at genkende musik i videoer.</string>
+    <string name="settings_audiophile_title">Audiofil kvalitetsprioritering</string>
+    <string name="settings_audiophile_subtitle">Foretræk studiemasters, Hi-Res, Lossless &amp; Dolby Atmos frem for radio-edits og opsamlinger</string>
 </resources>

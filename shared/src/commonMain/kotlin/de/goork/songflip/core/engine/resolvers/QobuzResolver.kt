@@ -41,6 +41,14 @@ internal data class QobuzArtistContainer(
 internal data class QobuzTrackItem(
     val id: Long? = null,
     val title: String? = null,
+    val version: String? = null,
+    val hires: Boolean? = null,
+    @kotlinx.serialization.SerialName("hires_streamable")
+    val hiresStreamable: Boolean? = null,
+    @kotlinx.serialization.SerialName("maximum_bit_depth")
+    val maximumBitDepth: Int? = null,
+    @kotlinx.serialization.SerialName("maximum_sampling_rate")
+    val maximumSamplingRate: Double? = null,
     val performer: QobuzPerformer? = null,
     val album: QobuzAlbumRef? = null
 )
@@ -49,6 +57,16 @@ internal data class QobuzTrackItem(
 internal data class QobuzAlbumItem(
     val id: String? = null,
     val title: String? = null,
+    val version: String? = null,
+    val hires: Boolean? = null,
+    @kotlinx.serialization.SerialName("hires_streamable")
+    val hiresStreamable: Boolean? = null,
+    @kotlinx.serialization.SerialName("maximum_bit_depth")
+    val maximumBitDepth: Int? = null,
+    @kotlinx.serialization.SerialName("maximum_sampling_rate")
+    val maximumSamplingRate: Double? = null,
+    @kotlinx.serialization.SerialName("tracks_count")
+    val tracksCount: Int? = null,
     val artist: QobuzPerformer? = null
 )
 
@@ -66,7 +84,10 @@ internal data class QobuzPerformer(
 @Serializable
 internal data class QobuzAlbumRef(
     val id: String? = null,
-    val title: String? = null
+    val title: String? = null,
+    val hires: Boolean? = null,
+    @kotlinx.serialization.SerialName("tracks_count")
+    val tracksCount: Int? = null
 )
 
 class QobuzResolver(
@@ -77,12 +98,12 @@ class QobuzResolver(
 
     override val platform: MusicPlatform = MusicPlatform.QOBUZ
 
-    override suspend fun resolveTrack(query: String): String? {
-        return searchQobuz(query, isAlbum = false)
+    override suspend fun resolveTrack(query: String, audiophileMode: Boolean): String? {
+        return searchQobuz(query, isAlbum = false, audiophileMode = audiophileMode)
     }
 
-    override suspend fun resolveAlbum(query: String): String? {
-        return searchQobuz(query, isAlbum = true)
+    override suspend fun resolveAlbum(query: String, audiophileMode: Boolean): String? {
+        return searchQobuz(query, isAlbum = true, audiophileMode = audiophileMode)
     }
 
     override suspend fun resolveArtist(artistName: String): String? {
@@ -109,26 +130,74 @@ class QobuzResolver(
         }
     }
 
-    private suspend fun searchQobuz(query: String, isAlbum: Boolean): String? {
+    private suspend fun searchQobuz(query: String, isAlbum: Boolean, audiophileMode: Boolean = false): String? {
         return try {
             val encoded = query.encodeURLParameter()
             val typeParam = if (isAlbum) "albums" else "tracks"
-            val url = "https://www.qobuz.com/api.json/0.2/catalog/search?query=$encoded&type=$typeParam&limit=5&app_id=$qobuzAppId"
+            val limit = if (audiophileMode) 12 else 5
+            val url = "https://www.qobuz.com/api.json/0.2/catalog/search?query=$encoded&type=$typeParam&limit=$limit&app_id=$qobuzAppId"
             val resp = client.get(url) {
                 header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SongFlip/1.9.1")
             }
             if (resp.status.isSuccess()) {
                 val parsed = json.decodeFromString<QobuzSearchResponse>(resp.bodyAsText())
                 if (isAlbum) {
-                    val album = parsed.albums?.items?.firstOrNull { item ->
-                        ResolverUtils.isMatch(query, item.artist?.name, item.title)
+                    val album = if (audiophileMode) {
+                        parsed.albums?.items
+                            ?.map { item ->
+                                val isHiRes = item.hires == true || item.hiresStreamable == true || (item.maximumBitDepth ?: 16) >= 24
+                                val score = ResolverUtils.scoreAudiophileCandidate(
+                                    query = query,
+                                    candidateArtist = item.artist?.name,
+                                    candidateTitle = item.title,
+                                    candidateVersion = item.version,
+                                    albumTitle = item.title,
+                                    isHiRes = isHiRes,
+                                    isLossless = true,
+                                    bitDepth = item.maximumBitDepth,
+                                    samplingRate = item.maximumSamplingRate,
+                                    albumTrackCount = item.tracksCount
+                                )
+                                item to score
+                            }
+                            ?.filter { it.second > Int.MIN_VALUE }
+                            ?.maxByOrNull { it.second }
+                            ?.first
+                    } else {
+                        parsed.albums?.items?.firstOrNull { item ->
+                            ResolverUtils.isMatch(query, item.artist?.name, item.title)
+                        }
                     }
                     if (!album?.id.isNullOrBlank()) {
                         return "https://open.qobuz.com/album/${album?.id}"
                     }
                 } else {
-                    val track = parsed.tracks?.items?.firstOrNull { item ->
-                        ResolverUtils.isMatch(query, item.performer?.name, item.title)
+                    val track = if (audiophileMode) {
+                        parsed.tracks?.items
+                            ?.map { item ->
+                                val isHiRes = item.hires == true || item.hiresStreamable == true ||
+                                    item.album?.hires == true || (item.maximumBitDepth ?: 16) >= 24
+                                val score = ResolverUtils.scoreAudiophileCandidate(
+                                    query = query,
+                                    candidateArtist = item.performer?.name,
+                                    candidateTitle = item.title,
+                                    candidateVersion = item.version,
+                                    albumTitle = item.album?.title,
+                                    isHiRes = isHiRes,
+                                    isLossless = true,
+                                    bitDepth = item.maximumBitDepth,
+                                    samplingRate = item.maximumSamplingRate,
+                                    albumTrackCount = item.album?.tracksCount
+                                )
+                                item to score
+                            }
+                            ?.filter { it.second > Int.MIN_VALUE }
+                            ?.maxByOrNull { it.second }
+                            ?.first
+                    } else {
+                        parsed.tracks?.items?.firstOrNull { item ->
+                            ResolverUtils.isMatch(query, item.performer?.name, item.title)
+                        }
                     }
                     if (track?.id != null) {
                         return "https://open.qobuz.com/track/${track.id}"

@@ -319,8 +319,8 @@
     <string name="pro_feature_cache_desc">热门歌曲无需等待即可打开</string>
     <string name="pro_feature_links_title">分享给所有人</string>
     <string name="pro_feature_links_desc">一个链接，每个人都能在自己的播放器中打开</string>
-    <string name="pro_feature_review_title">优化匹配结果</string>
-    <string name="pro_feature_review_desc">手动挑选其他歌曲版本</string>
+    <string name="pro_feature_review_title">母带音质与版本选择</string>
+    <string name="pro_feature_review_desc">优先匹配 Hi-Res/Atmos 并可手动选版本</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">尚未发行</string>
     <string name="prerelease_sheet_desc">该专辑尚未在流媒体平台上架。</string>
@@ -412,4 +412,6 @@
     <string name="pro_feature_listen_title">无限次 Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">不限次数听音识曲 + 离线俱乐部模式</string>
     <string name="unsupported_domain_toast">不支持的流媒体链接 – 请使用 Listen &amp; Flip 识别视频中的音乐。</string>
+    <string name="settings_audiophile_title">发烧级音质优先</string>
+    <string name="settings_audiophile_subtitle">优先匹配录音室母带、Hi-Res、无损与杜比全景声版本，避开电台剪辑与合辑</string>
 </resources>

@@ -151,7 +151,8 @@ fun SearchBottomSheet(
                 SongLinkEngine.shared.resolveTargetUrl(
                     inputUrl = sourceUrl,
                     targetPlatformKey = targetPlatformKey,
-                    isPro = proState.isPro
+                    isPro = proState.isPro,
+                    audiophileMode = proState.isPro && settingsRepository.audiophileMode
                 )
             }
             resolvingTrackId = null
@@ -574,7 +575,8 @@ fun SearchBottomSheet(
                             SongLinkEngine.shared.resolveTargetUrl(
                                 inputUrl = sUrl,
                                 targetPlatformKey = pickedTarget,
-                                isPro = proState.isPro
+                                isPro = proState.isPro,
+                                audiophileMode = proState.isPro && settingsRepository.audiophileMode
                             )
                         }
                         resolvingTrackId = null

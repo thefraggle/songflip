@@ -344,8 +344,8 @@
     <string name="pro_feature_cache_desc">Beliebte Songs ohne Wartezeit</string>
     <string name="pro_feature_links_title">Teilen für alle</string>
     <string name="pro_feature_links_desc">Ein Link, den jeder in seinem Player öffnet</string>
-    <string name="pro_feature_review_title">Treffer verfeinern</string>
-    <string name="pro_feature_review_desc">Alternative Versionen manuell auswählen</string>
+    <string name="pro_feature_review_title">Studio-Qualität &amp; Auswahl</string>
+    <string name="pro_feature_review_desc">Hi-Res/Atmos bevorzugen &amp; Versionen wählen</string>
 
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Noch nicht erschienen</string>
@@ -433,4 +433,6 @@
     <string name="pro_feature_listen_title">Unbegrenztes Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">Unbegrenzt Songs erkennen + Offline-Club-Modus</string>
     <string name="unsupported_domain_toast">Kein unterstützter Streaming-Link – nutze für Videos einfach Listen &amp; Flip.</string>
+    <string name="settings_audiophile_title">Audiophile Priorisierung</string>
+    <string name="settings_audiophile_subtitle">Bevorzugt Studio-Originale, Hi-Res, Lossless &amp; Dolby Atmos statt Radio-Edits und Compilations</string>
 </resources>

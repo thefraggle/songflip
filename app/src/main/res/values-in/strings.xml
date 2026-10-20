@@ -319,8 +319,8 @@
     <string name="pro_feature_cache_desc">Lagu populer terbuka tanpa menunggu</string>
     <string name="pro_feature_links_title">Bagikan ke siapa saja</string>
     <string name="pro_feature_links_desc">Satu tautan yang dibuka semua orang di pemutarnya sendiri</string>
-    <string name="pro_feature_review_title">Sesuaikan kecocokan</string>
-    <string name="pro_feature_review_desc">Pilih versi lagu alternatif secara manual</string>
+    <string name="pro_feature_review_title">Kualitas studio &amp; versi</string>
+    <string name="pro_feature_review_desc">Prioritaskan Hi-Res/Atmos &amp; pilih versi</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Belum Dirilis</string>
     <string name="prerelease_sheet_desc">Album ini belum dirilis di platform streaming.</string>
@@ -412,4 +412,6 @@
     <string name="pro_feature_listen_title">Listen &amp; Flip Tanpa Batas</string>
     <string name="pro_feature_listen_desc">Kenali lagu sepuasnya + Mode Klub Offline</string>
     <string name="unsupported_domain_toast">Bukan tautan streaming yang didukung – gunakan Listen &amp; Flip untuk mengenali musik di video.</string>
+    <string name="settings_audiophile_title">Prioritas Kualitas Audiofil</string>
+    <string name="settings_audiophile_subtitle">Utamakan master studio, Hi-Res, Lossless &amp; Dolby Atmos dibanding radio edit dan kompilasi</string>
 </resources>

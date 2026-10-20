@@ -323,8 +323,8 @@
     <string name="pro_feature_cache_desc">Popüler şarkılar beklemeden açılır</string>
     <string name="pro_feature_links_title">Herkesle paylaşın</string>
     <string name="pro_feature_links_desc">Herkesin kendi oynatıcısında açtığı tek bir bağlantı</string>
-    <string name="pro_feature_review_title">Eşleşmeyi düzelt</string>
-    <string name="pro_feature_review_desc">Alternatif şarkı sürümlerini manuel seçin</string>
+    <string name="pro_feature_review_title">Stüdyo kalitesi ve sürümler</string>
+    <string name="pro_feature_review_desc">Hi-Res/Atmos önceliği ve sürüm seçimi</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Henüz Yayınlanmadı</string>
     <string name="prerelease_sheet_desc">Bu albüm henüz yayın akışı platformlarında yayınlanmadı.</string>
@@ -416,4 +416,6 @@
     <string name="pro_feature_listen_title">Sınırsız Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">Sınırsız şarkı tanıma + Çevrimdışı Kulüp Modu</string>
     <string name="unsupported_domain_toast">Desteklenen bir yayın bağlantısı değil – videolardaki müziği tanımak için Listen &amp; Flip\'i kullanın.</string>
+    <string name="settings_audiophile_title">Odyofil Kalite Önceliği</string>
+    <string name="settings_audiophile_subtitle">Radyo düzenlemeleri ve derlemeler yerine stüdyo kayıtlarını, Hi-Res, Lossless ve Dolby Atmos sürümlerini tercih et</string>
 </resources>

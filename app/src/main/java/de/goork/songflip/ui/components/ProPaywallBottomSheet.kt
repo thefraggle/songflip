@@ -284,16 +284,12 @@ fun ProPaywallBottomSheet(
                         verticalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
                         ProFeatureRow(
-                            title = stringResource(R.string.pro_feature_listen_title),
-                            description = stringResource(R.string.pro_feature_listen_desc)
-                        )
-                        ProFeatureRow(
                             title = stringResource(R.string.pro_feature_playlists_title),
                             description = stringResource(R.string.pro_feature_playlists_desc)
                         )
                         ProFeatureRow(
-                            title = stringResource(R.string.pro_feature_history_title),
-                            description = stringResource(R.string.pro_feature_history_desc)
+                            title = stringResource(R.string.pro_feature_listen_title),
+                            description = stringResource(R.string.pro_feature_listen_desc)
                         )
                         ProFeatureRow(
                             title = stringResource(R.string.pro_feature_links_title),
@@ -302,6 +298,10 @@ fun ProPaywallBottomSheet(
                         ProFeatureRow(
                             title = stringResource(R.string.pro_feature_review_title),
                             description = stringResource(R.string.pro_feature_review_desc)
+                        )
+                        ProFeatureRow(
+                            title = stringResource(R.string.pro_feature_history_title),
+                            description = stringResource(R.string.pro_feature_history_desc)
                         )
                     }
                 }

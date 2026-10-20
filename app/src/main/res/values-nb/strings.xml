@@ -323,8 +323,8 @@
     <string name="pro_feature_cache_desc">Populære sanger åpnes uten venting</string>
     <string name="pro_feature_links_title">Del med alle</string>
     <string name="pro_feature_links_desc">Én lenke som alle åpner i sin egen avspiller</string>
-    <string name="pro_feature_review_title">Finjuster treff</string>
-    <string name="pro_feature_review_desc">Velg alternative sangversjoner manuelt</string>
+    <string name="pro_feature_review_title">Studiokvalitet og versjoner</string>
+    <string name="pro_feature_review_desc">Prioriter Hi-Res/Atmos og velg versjoner</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Ikke utgitt ennå</string>
     <string name="prerelease_sheet_desc">Dette albumet er ennå ikke tilgjengelig på strømmetjenestene.</string>
@@ -416,4 +416,6 @@
     <string name="pro_feature_listen_title">Ubegrenset Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">Gjenkjenn ubegrenset med sanger + Offline Club Mode</string>
     <string name="unsupported_domain_toast">Ikke en støttet strømmelenke – bruk Listen &amp; Flip for å gjenkjenne musikk i videoer.</string>
+    <string name="settings_audiophile_title">Audiofil kvalitetsprioritering</string>
+    <string name="settings_audiophile_subtitle">Foretrekk studiomastere, Hi-Res, Lossless &amp; Dolby Atmos fremfor radio-edits og samlealbum</string>
 </resources>

@@ -106,7 +106,8 @@ struct HistorySheetView: View {
                     isPro: proManager.isPro,
                     authToken: proManager.authToken,
                     isPrefetch: false,
-                    forceRefresh: true
+                    forceRefresh: true,
+                    audiophileMode: proManager.isPro && settings.audiophileMode
                 )
                 if let success = res as? ResolutionResult.Success {
                     await MainActor.run {

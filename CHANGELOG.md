@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.10.0] - 2026-10-20
+- **Audiophile Quality Prioritization**: New option in Settings that prioritizes 24-bit Hi-Res, Lossless, Dolby Atmos, and original studio album releases over radio edits, compilation tracks, and cover versions when matching songs on Tidal, Qobuz, Apple Music, and Deezer.
+- **Complete Translations & Stability**: Added localized descriptions across all 34 supported languages and improved direct catalog search reliability on Tidal.
+
 ## [1.9.11] - 2026-10-20
 - **Smarter Handling for Non-Music Links**: Sharing links from unsupported video or web platforms now opens the original link immediately without waiting for a lookup and provides a helpful tip to use Listen & Flip for recognizing music in videos.
 - **Complete Translations & Stability**: Added localized guidance across all 34 supported languages and refined internal diagnostics.

@@ -309,8 +309,8 @@
     <string name="pro_feature_cache_desc">A népszerű dalok várakozás nélkül nyílnak meg</string>
     <string name="pro_feature_links_title">Megosztás bárkivel</string>
     <string name="pro_feature_links_desc">Egy link, amit mindenki a saját lejátszójában nyit meg</string>
-    <string name="pro_feature_review_title">Találatok pontosítása</string>
-    <string name="pro_feature_review_desc">Alternatív verziók manuális kiválasztása</string>
+    <string name="pro_feature_review_title">Stúdióminőség és verziók</string>
+    <string name="pro_feature_review_desc">Hi-Res/Atmos előnyben és verzióválasztás</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Még nem jelent meg</string>
     <string name="prerelease_sheet_desc">Ez az album még nem jelent meg a streaming felületeken.</string>
@@ -402,4 +402,6 @@
     <string name="pro_feature_listen_title">Korlátlan Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">Korlátlan zenefelismerés + Offline Klub mód</string>
     <string name="unsupported_domain_toast">Nem támogatott streaminglink – videók zenéinek felismeréséhez használd a Listen &amp; Flip funkciót.</string>
+    <string name="settings_audiophile_title">Audiofil minőség előnyben</string>
+    <string name="settings_audiophile_subtitle">Stúdió masterek, Hi-Res, Lossless és Dolby Atmos előnyben részesítése a rádióverziókkal és válogatásokkal szemben</string>
 </resources>

@@ -323,8 +323,8 @@
     <string name="pro_feature_cache_desc">জনপ্রিয় গান অপেক্ষা ছাড়াই খোলে</string>
     <string name="pro_feature_links_title">সবার সাথে শেয়ার করুন</string>
     <string name="pro_feature_links_desc">একটি লিঙ্ক যা প্রত্যেকে নিজের প্লেয়ারে খুলতে পারে</string>
-    <string name="pro_feature_review_title">ফলাফল পরিবর্তন</string>
-    <string name="pro_feature_review_desc">ম্যানুয়ালি বিকল্প গানের সংস্করণ নির্বাচন করুন</string>
+    <string name="pro_feature_review_title">স্টুডিও কোয়ালিটি ও সংস্করণ</string>
+    <string name="pro_feature_review_desc">Hi-Res/Atmos অগ্রাধিকার ও সংস্করণ নির্বাচন</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">এখনও মুক্তি পায়নি</string>
     <string name="prerelease_sheet_desc">এই অ্যালবামটি এখনও স্ট্রিমিং প্ল্যাটফর্মে প্রকাশিত হয়নি।</string>
@@ -416,4 +416,6 @@
     <string name="pro_feature_listen_title">আনলিমিটেড Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">আনলিমিটেড গান শনাক্তকরণ + অফলাইন ক্লাব মোড</string>
     <string name="unsupported_domain_toast">সমর্থিত স্ট্রিমিং লিঙ্ক নয় – ভিডিওতে মিউজিক চিনতে Listen &amp; Flip ব্যবহার করুন।</string>
+    <string name="settings_audiophile_title">অডিওফাইল কোয়ালিটি অগ্রাধিকার</string>
+    <string name="settings_audiophile_subtitle">রেডিও এডিট ও সংকলনের বদলে স্টুডিও মাস্টার, Hi-Res, Lossless ও Dolby Atmos প্রাধান্য দিন</string>
 </resources>

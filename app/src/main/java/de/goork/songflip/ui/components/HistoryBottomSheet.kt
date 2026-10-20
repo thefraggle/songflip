@@ -551,12 +551,14 @@ fun HistoryBottomSheet(
                                             false
                                         }
                                     } else {
+                                        val settingsRepo = de.goork.songflip.data.SettingsRepository(context)
                                         val result = try {
                                             SongLinkEngine.shared.forceRefreshTargetUrl(
                                                 inputUrl = item.canonicalUrl,
                                                 targetPlatformKey = item.targetPlatformKey,
                                                 isPro = isPro,
-                                                authToken = de.goork.songflip.data.ProManager.getAuthToken()
+                                                authToken = de.goork.songflip.data.ProManager.getAuthToken(),
+                                                audiophileMode = isPro && settingsRepo.audiophileMode
                                             )
                                         } catch (_: Exception) {
                                             null

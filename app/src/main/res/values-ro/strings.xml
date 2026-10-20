@@ -313,8 +313,8 @@
     <string name="pro_feature_cache_desc">Melodiile populare se deschid fără așteptare</string>
     <string name="pro_feature_links_title">Distribuie oricui</string>
     <string name="pro_feature_links_desc">Un link pe care fiecare îl deschide în playerul său</string>
-    <string name="pro_feature_review_title">Rafinare rezultate</string>
-    <string name="pro_feature_review_desc">Selectează manual versiuni alternative</string>
+    <string name="pro_feature_review_title">Calitate de studio și versiuni</string>
+    <string name="pro_feature_review_desc">Prioritate Hi-Res/Atmos și alegerea versiunii</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Album nelansat încă</string>
     <string name="prerelease_sheet_desc">Acest album nu este încă disponibil pe platformele de streaming.</string>
@@ -406,4 +406,6 @@
     <string name="pro_feature_listen_title">Listen &amp; Flip nelimitat</string>
     <string name="pro_feature_listen_desc">Recunoaștere muzicală nelimitată + Modul Club Offline</string>
     <string name="unsupported_domain_toast">Nu este un link de streaming acceptat – folosește Listen &amp; Flip pentru a identifica muzica din videoclipuri.</string>
+    <string name="settings_audiophile_title">Prioritate calitate audiofilă</string>
+    <string name="settings_audiophile_subtitle">Preferă masterele de studio, Hi-Res, Lossless și Dolby Atmos în locul edițiilor radio și compilațiilor</string>
 </resources>

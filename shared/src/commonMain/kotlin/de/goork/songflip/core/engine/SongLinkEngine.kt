@@ -54,6 +54,7 @@ class SongLinkEngine(
         val shared: SongLinkEngine by lazy { SongLinkEngine() }
         // Public Tidal Web Client Application ID used for public catalog search
         private const val TIDAL_CLIENT_APP_TOKEN = "CzET4vdadNUFQ5JU"
+        private val AUDIOPHILE_PLATFORMS = setOf("tidal", "qobuz", "appleMusic", "deezer")
     }
 
     private val json = Json {
@@ -160,7 +161,8 @@ class SongLinkEngine(
         customApiUrl: String = "",
         customApiToken: String = "",
         isPro: Boolean = false,
-        authToken: String = ""
+        authToken: String = "",
+        audiophileMode: Boolean = false
     ): ResolutionResult {
         return resolveTargetUrl(
             inputUrl = inputUrl,
@@ -170,7 +172,31 @@ class SongLinkEngine(
             isPro = isPro,
             authToken = authToken,
             isPrefetch = false,
-            forceRefresh = true
+            forceRefresh = true,
+            audiophileMode = audiophileMode
+        )
+    }
+
+    suspend fun resolveTargetUrl(
+        inputUrl: String,
+        targetPlatformKey: String,
+        customApiUrl: String,
+        customApiToken: String,
+        isPro: Boolean,
+        authToken: String,
+        isPrefetch: Boolean,
+        forceRefresh: Boolean
+    ): ResolutionResult {
+        return resolveTargetUrl(
+            inputUrl = inputUrl,
+            targetPlatformKey = targetPlatformKey,
+            customApiUrl = customApiUrl,
+            customApiToken = customApiToken,
+            isPro = isPro,
+            authToken = authToken,
+            isPrefetch = isPrefetch,
+            forceRefresh = forceRefresh,
+            audiophileMode = false
         )
     }
 
@@ -277,8 +303,10 @@ class SongLinkEngine(
         isPro: Boolean = false,
         authToken: String = "",
         isPrefetch: Boolean = false,
-        forceRefresh: Boolean = false
+        forceRefresh: Boolean = false,
+        audiophileMode: Boolean = false
     ): ResolutionResult {
+        val effectiveAudiophile = isPro && audiophileMode && targetPlatformKey in AUDIOPHILE_PLATFORMS
         try {
             // 1. Extract clean URL
             val cleanUrl = UrlUtils.extractCleanUrl(inputUrl)
@@ -401,7 +429,7 @@ class SongLinkEngine(
             // 4.2. Search URL Resolution (Spotify, Apple Music, YouTube, Deezer, Tidal search links)
             val searchQuery = UrlUtils.extractSearchQuery(canonicalUrl)
             if (searchQuery != null) {
-                val directUrl = resolveDirectPlatformUrl(searchQuery, targetPlatformKey, isAlbum = false)
+                val directUrl = resolveDirectPlatformUrl(searchQuery, targetPlatformKey, isAlbum = false, audiophileMode = effectiveAudiophile)
                 val finalTargetUrl = directUrl ?: UrlUtils.buildSearchUrl(searchQuery, targetPlatformKey)
                 val nativeUri = UrlUtils.toNativeAppUri(finalTargetUrl, targetPlatformKey)
                 val result = ResolutionResult.Success(
@@ -424,8 +452,8 @@ class SongLinkEngine(
                 return result
             }
 
-            // 4.5. L2 Server Cache (PRO Feature - < 30ms)
-            if (isPro && authToken.isNotBlank()) {
+            // 4.5. L2 Server Cache (PRO Feature - < 30ms; bypassed when audiophile prioritization is active so catalog scoring runs)
+            if (isPro && authToken.isNotBlank() && !effectiveAudiophile) {
                 val l2Result = queryL2ServerCache(canonicalUrl, targetPlatformKey, authToken, forceRefresh)
                 if (l2Result != null) {
                     cache.put(canonicalUrl, targetPlatformKey, l2Result, now, isHistory = !isPrefetch)
@@ -450,7 +478,7 @@ class SongLinkEngine(
                     } else {
                         songLinkData.title
                     }
-                    val directTrackUrl = resolveDirectPlatformUrl(resolvedQuery, targetPlatformKey, isAlbum = false)
+                    val directTrackUrl = resolveDirectPlatformUrl(resolvedQuery, targetPlatformKey, isAlbum = false, audiophileMode = effectiveAudiophile)
                     val finalTargetUrl = directTrackUrl ?: UrlUtils.buildSearchUrl(resolvedQuery, targetPlatformKey)
                     val nativeUri = UrlUtils.toNativeAppUri(finalTargetUrl, targetPlatformKey)
                     val result = ResolutionResult.Success(
@@ -480,15 +508,34 @@ class SongLinkEngine(
 
                 val isAlbum = if (isExplicitTrackUrl) false else (songLinkData.isAlbum || isExplicitAlbumUrl)
 
-                if (!directUrl.isNullOrEmpty()) {
-                    val isAlbumPlaylist = directUrl.contains("playlist?list=") || directUrl.contains("/playlist/") || directUrl.contains("/album/") || directUrl.contains("/albums/")
+                // Audiophile Quality Matcher (#85): When enabled for Pro users on Tidal/Qobuz/Apple Music/Deezer,
+                // evaluate target catalog candidates to prefer Hi-Res / Lossless / Atmos studio masters over Radio Edits & Compilations.
+                val audiophileUpgradedUrl = if (effectiveAudiophile && songLinkData.title.isNotEmpty()) {
+                    val rawQuery = if (songLinkData.artist.isNotEmpty() && !songLinkData.title.contains(songLinkData.artist, ignoreCase = true)) {
+                        "${songLinkData.artist} ${songLinkData.title}"
+                    } else {
+                        songLinkData.title
+                    }
+                    val cleanQuery = UrlUtils.cleanSearchQuery(rawQuery)
+                    resolveDirectPlatformUrl(
+                        query = cleanQuery,
+                        targetPlatformKey = targetPlatformKey,
+                        isAlbum = isAlbum,
+                        audiophileMode = true
+                    )
+                } else null
+
+                val effectiveDirectUrl = audiophileUpgradedUrl ?: directUrl
+
+                if (!effectiveDirectUrl.isNullOrEmpty()) {
+                    val isAlbumPlaylist = effectiveDirectUrl.contains("playlist?list=") || effectiveDirectUrl.contains("/playlist/") || effectiveDirectUrl.contains("/album/") || effectiveDirectUrl.contains("/albums/")
                     if (isExplicitTrackUrl && isAlbumPlaylist) {
                         val trackQuery = if (songLinkData.artist.isNotEmpty() && !songLinkData.title.contains(songLinkData.artist, ignoreCase = true)) {
                             "${songLinkData.artist} ${songLinkData.title}"
                         } else {
                             songLinkData.title
                         }
-                        val resolvedDirectUrl = resolveDirectPlatformUrl(trackQuery, targetPlatformKey, isAlbum = false)
+                        val resolvedDirectUrl = resolveDirectPlatformUrl(trackQuery, targetPlatformKey, isAlbum = false, audiophileMode = effectiveAudiophile)
                         if (resolvedDirectUrl != null) {
                             val nativeUri = UrlUtils.toNativeAppUri(resolvedDirectUrl, targetPlatformKey)
                             val result = ResolutionResult.Success(
@@ -514,7 +561,7 @@ class SongLinkEngine(
                         }
                     }
 
-                    val formatted = UrlUtils.formatTargetUrl(directUrl, targetPlatformKey)
+                    val formatted = UrlUtils.formatTargetUrl(effectiveDirectUrl, targetPlatformKey)
                     val nativeUri = UrlUtils.toNativeAppUri(formatted, targetPlatformKey)
                     val result = ResolutionResult.Success(
                         targetUrl = formatted,
@@ -549,12 +596,14 @@ class SongLinkEngine(
                     val resolvedDirectUrl = resolveDirectPlatformUrl(
                         query = cleanQuery,
                         targetPlatformKey = targetPlatformKey,
-                        isAlbum = isAlbum
+                        isAlbum = isAlbum,
+                        audiophileMode = effectiveAudiophile
                     ) ?: if (cleanQuery != rawQuery) {
                         resolveDirectPlatformUrl(
                             query = rawQuery,
                             targetPlatformKey = targetPlatformKey,
-                            isAlbum = isAlbum
+                            isAlbum = isAlbum,
+                            audiophileMode = effectiveAudiophile
                         )
                     } else null
 
@@ -589,12 +638,14 @@ class SongLinkEngine(
                 val resolvedDirectUrl = resolveDirectPlatformUrl(
                     query = cleanTrack,
                     targetPlatformKey = targetPlatformKey,
-                    isAlbum = isExplicitAlbumUrl
+                    isAlbum = isExplicitAlbumUrl,
+                    audiophileMode = effectiveAudiophile
                 ) ?: if (cleanTrack != trackInfo) {
                     resolveDirectPlatformUrl(
                         query = trackInfo,
                         targetPlatformKey = targetPlatformKey,
-                        isAlbum = isExplicitAlbumUrl
+                        isAlbum = isExplicitAlbumUrl,
+                        audiophileMode = effectiveAudiophile
                     )
                 } else null
 
@@ -672,7 +723,7 @@ class SongLinkEngine(
 
             val trackInfo = extractTrackInfo(cleanUrl)
             if (trackInfo != null) {
-                val resolved = resolveDirectPlatformUrl(trackInfo, targetPlatformKey, isExplicitAlbumUrl)
+                val resolved = resolveDirectPlatformUrl(trackInfo, targetPlatformKey, isExplicitAlbumUrl, audiophileMode = effectiveAudiophile)
                     ?: UrlUtils.buildSearchUrl(trackInfo, targetPlatformKey)
                 val nativeUri = UrlUtils.toNativeAppUri(resolved, targetPlatformKey)
                 return ResolutionResult.Success(
@@ -769,7 +820,12 @@ class SongLinkEngine(
         }
     }
 
-    private suspend fun resolveDirectPlatformUrl(query: String, targetPlatformKey: String, isAlbum: Boolean = false): String? {
+    private suspend fun resolveDirectPlatformUrl(
+        query: String,
+        targetPlatformKey: String,
+        isAlbum: Boolean = false,
+        audiophileMode: Boolean = false
+    ): String? {
         val cleanQuery = UrlUtils.cleanSearchQuery(query)
         val resolver: PlatformResolver? = when (targetPlatformKey) {
             "youtubeMusic" -> youTubeMusicResolver
@@ -781,9 +837,9 @@ class SongLinkEngine(
             else -> null
         }
         val directMatch = if (isAlbum) {
-            resolver?.resolveAlbum(cleanQuery)
+            resolver?.resolveAlbum(cleanQuery, audiophileMode)
         } else {
-            resolver?.resolveTrack(cleanQuery)
+            resolver?.resolveTrack(cleanQuery, audiophileMode)
         }
         return directMatch?.takeIf { !UrlUtils.isSearchUrl(it) }
     }

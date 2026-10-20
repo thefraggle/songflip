@@ -25,7 +25,7 @@ class YouTubeMusicResolver(
     private val ytAlbumPlaylistRegex = Regex("\"playlistId\":\\s*\"(OLAK5uy_[a-zA-Z0-9_-]+)\"")
     private val ytAlbumBrowseRegex = Regex("\"browseId\":\\s*\"(MPREb_[a-zA-Z0-9_-]+)\"")
 
-    override suspend fun resolveTrack(query: String): String? {
+    override suspend fun resolveTrack(query: String, audiophileMode: Boolean): String? {
         // Strategy 1: YouTube Music Innertube Web Client Search (Primary)
         val innertubeVideoId = searchYouTubeMusicInnertube(query)
         if (innertubeVideoId != null) {
@@ -41,7 +41,7 @@ class YouTubeMusicResolver(
         return null
     }
 
-    override suspend fun resolveAlbum(query: String): String? {
+    override suspend fun resolveAlbum(query: String, audiophileMode: Boolean): String? {
         val innertubeAlbum = searchYouTubeMusicAlbumInnertube(query)
         if (innertubeAlbum != null) return innertubeAlbum
 
