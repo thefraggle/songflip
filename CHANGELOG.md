@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.10.3] - 2026-10-20
+- **Quick-Access Shortcuts for Listen & Flip**: Start music recognition directly from the system Quick Settings tile, by long-pressing the app icon on your home screen, or via system shortcuts without opening the full app first.
+- **General Stability**: Minor UI refinements and internal reliability improvements.
+
 ## [1.10.2] - 2026-10-20
 - **Improved Playback Routing & App Detection**: Refined direct link opening and fallback handling for tracks, albums, artists, and playlists on Tidal and YouTube Music.
 - **General Stability**: Minor UI refinements and internal reliability improvements.

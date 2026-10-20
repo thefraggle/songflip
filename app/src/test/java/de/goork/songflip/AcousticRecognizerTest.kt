@@ -130,4 +130,19 @@ class AcousticRecognizerTest {
         assertTrue("Expected no hard clipping at 32767, got $maxOut", maxOut <= 32767)
         assertTrue("Expected responsive UI amplitude > 0.30f, got $uiAmp", uiAmp > 0.30f)
     }
+
+    @Test
+    fun `applySoftwareAgcAndRms does not amplify faint background noise below gate`() {
+        val sampleCount = 800
+        val pcmBytes = ByteArray(sampleCount * 2)
+        for (i in 0 until sampleCount) {
+            val s = (sin(i * 0.2) * 30.0).toInt()
+            pcmBytes[i * 2] = (s and 0xFF).toByte()
+            pcmBytes[i * 2 + 1] = ((s shr 8) and 0xFF).toByte()
+        }
+
+        val (_, nextGain, rawPeak) = AcousticRecognizer.applySoftwareAgcAndRms(pcmBytes, pcmBytes.size, 1.0f)
+        assertTrue("Expected raw peak below 45 noise gate, got $rawPeak", rawPeak < 45)
+        assertEquals(1.0f, nextGain, 0.001f)
+    }
 }
