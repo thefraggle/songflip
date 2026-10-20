@@ -273,7 +273,7 @@ struct ContentView: View {
             .onReceive(NotificationCenter.default.publisher(for: .openListenAndFlip)) { _ in
                 consumePendingListenSheetIfNeeded(force: true)
             }
-            .onChange(of: settings.appLanguage) { _ in
+            .onChange(of: settings.selectedLanguage) { _ in
                 AppDelegate.updateQuickActions(lang: lang)
             }
         }
