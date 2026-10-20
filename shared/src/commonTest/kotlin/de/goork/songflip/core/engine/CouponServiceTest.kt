@@ -7,7 +7,7 @@ import kotlin.test.assertTrue
 
 class CouponServiceTest {
 
-    // Generated with Node.js crypto.sign(null, payload, testEd25519Key)
+    // Pre-signed RFC 8032 Ed25519 test vectors for offline signature verification
     // Payload: {"c":"VIP-LIFE","i":"install-123","e":0,"t":"lifetime","iat":1700000000000}
     private val validLifetimeToken =
         "sct_v2_eyJjIjoiVklQLUxJRkUiLCJpIjoiaW5zdGFsbC0xMjMiLCJlIjowLCJ0IjoibGlmZXRpbWUiLCJpYXQiOjE3MDAwMDAwMDAwMDB9.DEBFd4HtxJ_0VFIFgAAcwXLb0f8p2a8TnNAegvy-NnLwFD18kvKkgo91bIC0BoQbKI9qUE06Ss_3K9RcXmk-BA"

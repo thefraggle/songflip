@@ -18,12 +18,12 @@ The full localization suite (37 locales for Google Play & iOS App Store, 6 scree
   - `android_screen_2_platforms_*.png`: Screen 2 – All services & preferred target player (with Search & Listen & Flip bar)
   - `android_screen_3_listen_*.png`: Screen 3 – Listen & Flip audio recognition & Offline Club Mode
   - `android_screen_4_playlists_*.png`: Screen 4 – Universal Playlist Converter (up to 200 tracks)
-  - `android_screen_3_smartlinks_*.png`: Screen 5 – Smart Universal Web Links (`songflip.link/s/...`)
-  - `android_screen_5_privacy_*.png`: Screen 6 – 100% Privacy promise (no account, no ads, zero tracking)
+  - `android_screen_5_smartlinks_*.png`: Screen 5 – Smart Universal Web Links (`songflip.link/s/...`)
+  - `android_screen_6_privacy_*.png`: Screen 6 – 100% Privacy promise (no account, no ads, zero tracking)
 - **iOS Screenshots (1284x2778 / 1290x2796)**:
-  - `ios_screen_2_playback_*.png`: Screen 1 – Instant 1-click playback
-  - `ios_screen_1_platforms_*.png`: Screen 2 – Platform overview, Search, Listen & Flip & Action Button / Share Sheet
-  - `ios_screen_listen_*.png`: Screen 3 – Listen & Flip audio recognition & Offline Mode
-  - `ios_screen_playlists_*.png`: Screen 4 – Universal Playlist Converter (up to 200 tracks)
-  - `ios_screen_3_smartlinks_*.png`: Screen 5 – Universal Web Links
-  - `ios_screen_4_privacy_*.png`: Screen 6 – 100% Privacy promise
+  - `ios_screen_1_playback_*.png`: Screen 1 – Instant 1-click playback
+  - `ios_screen_2_platforms_*.png`: Screen 2 – Platform overview, Search, Listen & Flip & Action Button / Share Sheet
+  - `ios_screen_3_listen_*.png`: Screen 3 – Listen & Flip audio recognition & Offline Mode
+  - `ios_screen_4_playlists_*.png`: Screen 4 – Universal Playlist Converter (up to 200 tracks)
+  - `ios_screen_5_smartlinks_*.png`: Screen 5 – Universal Web Links
+  - `ios_screen_6_privacy_*.png`: Screen 6 – 100% Privacy promise
