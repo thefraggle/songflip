@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.10.1] - 2026-10-20
+- **Reliable Promotional Code Persistence**: Fixed an issue where promotional codes redeemed in earlier versions could become inactive after an update, and enabled seamless re-activation on the same device.
+
 ## [1.10.0] - 2026-10-20
 - **Audiophile Quality Prioritization**: New option in Settings that prioritizes 24-bit Hi-Res, Lossless, Dolby Atmos, and original studio album releases over radio edits, compilation tracks, and cover versions when matching songs on Tidal, Qobuz, Apple Music, and Deezer.
 - **Complete Translations & Stability**: Added localized descriptions across all 34 supported languages and improved direct catalog search reliability on Tidal.

@@ -184,6 +184,32 @@ object ProManager {
 
     private const val RC_EXPIRY_GRACE_MS = 15 * 60 * 1000L
 
+    private fun verifyStoredCouponOffline(storedToken: String?, currentTimeMs: Long): de.goork.songflip.core.engine.VerifiedCouponPayload {
+        val primaryId = getAnonymousInstallId()
+        val primaryVerified = de.goork.songflip.core.engine.CouponService.shared.verifyCouponToken(
+            token = storedToken,
+            expectedInstallId = primaryId,
+            currentTimeMs = currentTimeMs,
+            lastSeenServerTimeMs = getLastSeenServerTime()
+        )
+        if (primaryVerified.valid) return primaryVerified
+
+        // Legacy fallback: before v1.8.18 (Oct 14), getAnonymousInstallId() used a random UUID
+        // stored in SharedPreferences("anonymous_install_id") before ANDROID_ID was prioritized.
+        // If the stored token was issued to that legacy UUID on this device, honor it seamlessly.
+        val legacyPrefsId = prefs?.getString(KEY_INSTALL_ID, null)?.trim()
+        if (!legacyPrefsId.isNullOrBlank() && legacyPrefsId != primaryId) {
+            val legacyVerified = de.goork.songflip.core.engine.CouponService.shared.verifyCouponToken(
+                token = storedToken,
+                expectedInstallId = legacyPrefsId,
+                currentTimeMs = currentTimeMs,
+                lastSeenServerTimeMs = getLastSeenServerTime()
+            )
+            if (legacyVerified.valid) return legacyVerified
+        }
+        return primaryVerified
+    }
+
     fun getAuthToken(): String {
         val current = _proState.value
         if (current.isPro && current.proType.startsWith("revenuecat")) {
@@ -191,11 +217,9 @@ object ProManager {
         }
         val savedToken = getStoredCouponToken()
         if (!savedToken.isNullOrBlank()) {
-            val verified = de.goork.songflip.core.engine.CouponService.shared.verifyCouponToken(
-                token = savedToken,
-                expectedInstallId = getAnonymousInstallId(),
-                currentTimeMs = System.currentTimeMillis(),
-                lastSeenServerTimeMs = getLastSeenServerTime()
+            val verified = verifyStoredCouponOffline(
+                storedToken = savedToken,
+                currentTimeMs = System.currentTimeMillis()
             )
             if (verified.valid) {
                 return "coupon:$savedToken"
@@ -309,11 +333,9 @@ object ProManager {
         val sp = prefs
         val now = System.currentTimeMillis()
         val storedToken = getStoredCouponToken()
-        val verified = de.goork.songflip.core.engine.CouponService.shared.verifyCouponToken(
-            token = storedToken,
-            expectedInstallId = getAnonymousInstallId(),
-            currentTimeMs = now,
-            lastSeenServerTimeMs = getLastSeenServerTime()
+        val verified = verifyStoredCouponOffline(
+            storedToken = storedToken,
+            currentTimeMs = now
         )
         val issuedAt = verified.issuedAtTimestamp
         if (verified.valid && issuedAt != null) {
@@ -528,6 +550,11 @@ object ProManager {
     @androidx.annotation.VisibleForTesting
     fun setTestSharedPreferences(sp: SharedPreferences) {
         prefs = sp
+    }
+
+    @androidx.annotation.VisibleForTesting
+    fun setTestStableAndroidId(androidId: String?) {
+        stableAndroidId = androidId
     }
 
     suspend fun redeemCoupon(code: String): RedeemResult = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {

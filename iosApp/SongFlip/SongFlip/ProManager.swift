@@ -55,6 +55,34 @@ final class ProManager: NSObject, ObservableObject {
 
     private static let rcExpiryGraceMs: Double = 15 * 60 * 1000
 
+    private func verifyStoredCouponOffline(token: String?, currentTimeMs: Int64) -> VerifiedCouponPayload {
+        let primaryId = getPersistentInstallId()
+        let lastSeen = getLastSeenServerTime()
+        let primaryVerified = CouponService.companion.shared.verifyCouponToken(
+            token: token,
+            expectedInstallId: primaryId,
+            currentTimeMs: currentTimeMs,
+            lastSeenServerTimeMs: lastSeen
+        )
+        if primaryVerified.valid {
+            return primaryVerified
+        }
+        if let vendorId = UIDevice.current.identifierForVendor?.uuidString.lowercased(),
+           !vendorId.isEmpty,
+           vendorId != primaryId {
+            let vendorVerified = CouponService.companion.shared.verifyCouponToken(
+                token: token,
+                expectedInstallId: vendorId,
+                currentTimeMs: currentTimeMs,
+                lastSeenServerTimeMs: lastSeen
+            )
+            if vendorVerified.valid {
+                return vendorVerified
+            }
+        }
+        return primaryVerified
+    }
+
     var authToken: String {
         if isPro, let type = proType, type.hasPrefix("revenuecat") {
             if Purchases.isConfigured {
@@ -64,12 +92,7 @@ final class ProManager: NSObject, ObservableObject {
         }
         if let token = getStoredCouponToken(), !token.isEmpty {
             let nowMs = Int64(Date().timeIntervalSince1970 * 1000)
-            let verified = CouponService.companion.shared.verifyCouponToken(
-                token: token,
-                expectedInstallId: getPersistentInstallId(),
-                currentTimeMs: nowMs,
-                lastSeenServerTimeMs: getLastSeenServerTime()
-            )
+            let verified = verifyStoredCouponOffline(token: token, currentTimeMs: nowMs)
             if verified.valid {
                 return "coupon:\(token)"
             }
@@ -203,11 +226,9 @@ final class ProManager: NSObject, ObservableObject {
 
     private func evaluateVerifiedCouponState() -> Bool {
         let nowMs = Int64(Date().timeIntervalSince1970 * 1000)
-        let verified = CouponService.companion.shared.verifyCouponToken(
+        let verified = verifyStoredCouponOffline(
             token: getStoredCouponToken(),
-            expectedInstallId: getPersistentInstallId(),
-            currentTimeMs: nowMs,
-            lastSeenServerTimeMs: getLastSeenServerTime()
+            currentTimeMs: nowMs
         )
         guard verified.valid else {
             return false
