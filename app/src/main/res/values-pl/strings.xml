@@ -423,4 +423,5 @@
     <string name="listen_unlock_pro">Odblokuj SongFlip PRO</string>
     <string name="pro_feature_listen_title">Nielimitowane Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">Rozpoznawaj utwory bez limitu + tryb klubowy offline</string>
+    <string name="unsupported_domain_toast">Nieobsługiwany link streamingowy – użyj Listen &amp; Flip, aby rozpoznać muzykę w filmach.</string>
 </resources>

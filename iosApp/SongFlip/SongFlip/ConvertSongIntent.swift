@@ -188,9 +188,11 @@ struct ConvertSongIntent: AppIntent {
             _ = try? await AptabaseClient.shared.flush(timeoutMs: 1500)
             return .result()
         } else if let unsupported = res as? ResolutionResult.UnsupportedEntity {
+            let srcDomain = UrlUtils.shared.extractDomain(url: unsupported.originalUrl)
             AptabaseClient.shared.trackUnsupportedEntityIntercepted(
                 target: targetPlatform,
-                entityType: unsupported.entityType
+                entityType: unsupported.entityType,
+                sourceDomain: srcDomain
             )
             if let url = URL(string: unsupported.originalUrl) {
                 await UIApplication.shared.open(url)

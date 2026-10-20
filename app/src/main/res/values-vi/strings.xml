@@ -411,4 +411,5 @@
     <string name="listen_unlock_pro">Mở khóa SongFlip PRO</string>
     <string name="pro_feature_listen_title">Listen &amp; Flip không giới hạn</string>
     <string name="pro_feature_listen_desc">Nhận diện bài hát không giới hạn + Chế độ Offline</string>
+    <string name="unsupported_domain_toast">Không phải liên kết phát nhạc được hỗ trợ – hãy dùng Listen &amp; Flip để nhận diện nhạc trong video.</string>
 </resources>

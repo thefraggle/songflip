@@ -411,4 +411,5 @@
     <string name="listen_unlock_pro">SongFlip PRO 잠금 해제</string>
     <string name="pro_feature_listen_title">무제한 Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">무제한 음악 인식 + 오프라인 클럽 모드</string>
+    <string name="unsupported_domain_toast">지원되지 않는 스트리밍 링크입니다 – 동영상 속 음악을 찾으려면 Listen &amp; Flip을 사용해 보세요.</string>
 </resources>

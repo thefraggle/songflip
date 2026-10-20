@@ -372,6 +372,32 @@ object UrlUtils {
         }
     }
 
+    /**
+     * Checks whether a canonical/resolved URL belongs to a supported music/podcast streaming platform,
+     * a known music aggregator/discovery service, or a known music shortlink domain (#132).
+     * Foreign non-streaming domains (e.g. tiktok.com, instagram.com, musiccloud.io) return false
+     * so SongLinkEngine can fast-fail immediately without making an unnecessary upstream API call.
+     */
+    fun isSupportedMusicOrAggregatorUrl(url: String): Boolean {
+        val clean = url.trim()
+        if (clean.isBlank()) return false
+        if (detectPlatform(clean) != null) return true
+        if (isPodcastOrAudiobookUrl(clean)) return true
+        if (isShortLinkDomain(clean)) return true
+        val host = extractDomain(clean)
+        return isHostOrSubdomain(
+            host,
+            "song.link",
+            "album.link",
+            "pods.link",
+            "artist.link",
+            "odesli.co",
+            "mylink.page",
+            "shazam.com",
+            "page.link"
+        )
+    }
+
     fun isSearchUrl(url: String): Boolean {
         val clean = url.trim().lowercase()
         val host = extractDomain(clean)

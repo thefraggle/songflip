@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.9.11] - 2026-10-20
+- **Schnellere Weiterleitung bei fremden Video- & Web-Links**: Geteilte Links von nicht unterstützten Video- oder Web-Plattformen werden jetzt ohne Wartezeit direkt geöffnet und zeigen einen hilfreichen Hinweis auf Listen & Flip zur Musikerkennung in Videos.
+- **Vollständige Übersetzungen & Feinschliff**: Neue Hinweise in allen 34 unterstützten Sprachen ergänzt sowie interne Diagnose- und Stabilitätsverbesserungen.
+
 ## [1.9.10] - 2026-10-19
 - **Zuverlässigere Playlist-Umwandlung & Verlaufs-Aktualisierung**: Das erneute Auflösen gespeicherter Playlists im Verlauf führt jetzt einen vollständigen Neuabgleich der Titel durch und aktualisiert den Eintrag direkt vor Ort. Zudem wurde die Synchronisation beim direkten Teilen von Playlists aus anderen Apps verbessert.
 - **Klareres Playlist-Banner & präzise Titelanzahl**: Kopierte Playlists auf dem Startbildschirm zeigen jetzt direkt den gewählten Ziel-Player auf der Aktionsschaltfläche an, und umgewandelte Playlists weisen die gesamte ursprüngliche Titelanzahl aus.

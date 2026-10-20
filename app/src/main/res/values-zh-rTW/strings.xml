@@ -397,4 +397,5 @@
     <string name="listen_unlock_pro">解鎖 SongFlip PRO</string>
     <string name="pro_feature_listen_title">無限次 Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">不限次數聽音識曲 + 離線俱樂部模式</string>
+    <string name="unsupported_domain_toast">不支援的串流媒體連結 – 請使用 Listen &amp; Flip 辨識影片中的音樂。</string>
 </resources>

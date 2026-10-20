@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.9.11] - 2026-10-20
+- **Smarter Handling for Non-Music Links**: Sharing links from unsupported video or web platforms now opens the original link immediately without waiting for a lookup and provides a helpful tip to use Listen & Flip for recognizing music in videos.
+- **Complete Translations & Stability**: Added localized guidance across all 34 supported languages and refined internal diagnostics.
+
 ## [1.9.10] - 2026-10-19
 - **More Reliable Playlist Conversion & History Refresh**: Refreshing a saved playlist directly from your history now re-runs full track matching and updates the playlist entry in place, with improved cold-start synchronization when sharing playlists from other apps.
 - **Clearer Playlist Smart Banner & Track Counts**: Copied playlists on the home screen now clearly show the target music player action, and converted playlists display the full source track count alongside matched songs.

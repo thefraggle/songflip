@@ -65,7 +65,8 @@ sealed interface RedirectUiState {
     data class ForwardOriginal(
         val uri: Uri,
         val showErrorToast: Boolean = false,
-        val isPlaylistNotSupported: Boolean = false
+        val isPlaylistNotSupported: Boolean = false,
+        val isUnsupportedDomain: Boolean = false
     ) : RedirectUiState
 
     object Dismiss : RedirectUiState
@@ -361,6 +362,20 @@ class RedirectViewModel : ViewModel() {
                             de.goork.songflip.core.analytics.AptabaseClient.shared.trackPodcastIntercepted(targetPlatform)
                         }
                         _uiState.value = RedirectUiState.ForwardOriginal(Uri.parse(incomingUrl))
+                    }
+                    is ResolutionResult.UnsupportedEntity -> {
+                        val isForeignDomain = result.entityType == "unsupported_domain"
+                        val sourceDomain = UrlUtils.extractDomain(result.originalUrl)
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackUnsupportedEntityIntercepted(
+                            target = targetPlatform,
+                            entityType = result.entityType,
+                            sourceDomain = sourceDomain
+                        )
+                        _uiState.value = RedirectUiState.ForwardOriginal(
+                            uri = Uri.parse(result.originalUrl.ifBlank { incomingUrl }),
+                            showErrorToast = isForeignDomain,
+                            isUnsupportedDomain = isForeignDomain
+                        )
                     }
                     is ResolutionResult.PreRelease -> {
                         _uiState.value = RedirectUiState.PreReleaseDetected(

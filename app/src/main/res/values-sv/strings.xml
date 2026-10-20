@@ -415,4 +415,5 @@
     <string name="listen_unlock_pro">Lås upp SongFlip PRO</string>
     <string name="pro_feature_listen_title">Obegränsad Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">Identifiera obegränsat med låtar + Offline Club Mode</string>
+    <string name="unsupported_domain_toast">Inte en stödd streaminglänk – använd Listen &amp; Flip för att identifiera musik i videor.</string>
 </resources>
