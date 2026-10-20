@@ -81,18 +81,26 @@ class PlatformResolversTest {
                         headers = headersOf(HttpHeaders.ContentType, "application/json")
                     )
                 } else if (entity == "album") {
-                    respond(
-                        content = """
-                        {
-                            "resultCount": 1,
-                            "results": [
-                                { "collectionViewUrl": "https://music.apple.com/de/album/night-at-the-opera/1440650428" }
-                            ]
-                        }
-                        """.trimIndent(),
-                        status = HttpStatusCode.OK,
-                        headers = headersOf(HttpHeaders.ContentType, "application/json")
-                    )
+                    if (term.contains("Deluxe", ignoreCase = true)) {
+                        respond(
+                            content = """{"resultCount": 0, "results": []}""",
+                            status = HttpStatusCode.OK,
+                            headers = headersOf(HttpHeaders.ContentType, "application/json")
+                        )
+                    } else {
+                        respond(
+                            content = """
+                            {
+                                "resultCount": 1,
+                                "results": [
+                                    { "artistName": "Queen", "collectionName": "A Night at the Opera", "collectionViewUrl": "https://music.apple.com/de/album/night-at-the-opera/1440650428" }
+                                ]
+                            }
+                            """.trimIndent(),
+                            status = HttpStatusCode.OK,
+                            headers = headersOf(HttpHeaders.ContentType, "application/json")
+                        )
+                    }
                 } else {
                     respond(
                         content = """
@@ -135,6 +143,11 @@ class PlatformResolversTest {
         val albumUrl = resolver.resolveAlbum("Queen A Night at the Opera")
         assertNotNull(albumUrl)
         assertTrue(albumUrl.contains("1440650428"))
+
+        val deluxeAlbumUrl = resolver.resolveAlbum("Queen A Night at the Opera (Deluxe)")
+        assertNotNull(deluxeAlbumUrl)
+        assertTrue(deluxeAlbumUrl.contains("1440650428"))
+        assertEquals("Joji Piss In The Wind", ResolverUtils.stripEditionSuffix("Joji Piss In The Wind (Deluxe)"))
 
         val artistUrl = resolver.resolveArtist("Korsakow")
         assertEquals("https://music.apple.com/de/artist/korsakow/123456", artistUrl)
