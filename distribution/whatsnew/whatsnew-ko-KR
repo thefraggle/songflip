@@ -1,1 +1,2 @@
-v1.10.1: Tidal, Qobuz, Apple Music, Deezer에서 스튜디오 마스터, Hi-Res, Lossless 및 Dolby Atmos를 우선 선택하는 고음질 옵션 추가.
+- 향상된 재생 라우팅 및 앱 감지: Tidal 및 YouTube Music의 트랙, 앨범, 아티스트 및 재생 목록에 대한 직접 링크 열기 및 대체 처리가 개선되었습니다.
+- 일반적인 안정성: 소소한 UI 개선 및 내부 안정성 개선.

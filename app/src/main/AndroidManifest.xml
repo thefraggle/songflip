@@ -63,6 +63,10 @@
         </intent>
         <intent>
             <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="debridmusic" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.BROWSABLE" />
             <data android:scheme="https" android:host="deezer.com" />
         </intent>
@@ -111,6 +115,9 @@
         <package android:name="free.rm.skytube.oss" />
         <package android:name="free.rm.skytube.extra" />
         <package android:name="com.craftworks.music" />
+        <package android:name="com.music.bitchord" />
+        <package android:name="com.dev.bitchord" />
+        <package android:name="com.eclipse.android" />
         <package android:name="org.schabi.newpipe" />
         <package android:name="org.schabi.newpipelegacy" />
         <package android:name="com.google.android.apps.youtube.music" />

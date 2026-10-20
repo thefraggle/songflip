@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.10.2] - 2026-10-20
+- **Improved Playback Routing & App Detection**: Refined direct link opening and fallback handling for tracks, albums, artists, and playlists on Tidal and YouTube Music.
+- **General Stability**: Minor UI refinements and internal reliability improvements.
+
 ## [1.10.1] - 2026-10-20
 - **Reliable Promotional Code Persistence**: Fixed an issue where promotional codes redeemed in earlier versions could become inactive after an update, and enabled seamless re-activation on the same device.
 

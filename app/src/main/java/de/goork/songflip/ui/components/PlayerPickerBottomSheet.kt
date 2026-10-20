@@ -59,11 +59,12 @@ fun PlayerPickerBottomSheet(
             )
             Spacer(modifier = Modifier.height(4.dp))
 
-            val isAutoSelected = settingsRepository.preferredYouTubePlayerPackage == null
+            val currentPreferredPkg = settingsRepository.getPreferredPlayerPackage(platformKey)
+            val isAutoSelected = currentPreferredPkg == null
             Surface(
                 onClick = {
                     haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                    settingsRepository.preferredYouTubePlayerPackage = null
+                    settingsRepository.setPreferredPlayerPackage(platformKey, null)
                     onDismissRequest()
                 },
                 shape = RoundedCornerShape(12.dp),
@@ -102,11 +103,11 @@ fun PlayerPickerBottomSheet(
             }
 
             installedPlayers.forEach { player ->
-                val isSelected = settingsRepository.preferredYouTubePlayerPackage == player.packageName
+                val isSelected = currentPreferredPkg == player.packageName
                 Surface(
                     onClick = {
                         haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                        settingsRepository.preferredYouTubePlayerPackage = player.packageName
+                        settingsRepository.setPreferredPlayerPackage(platformKey, player.packageName)
                         onDismissRequest()
                     },
                     shape = RoundedCornerShape(12.dp),

@@ -36,7 +36,7 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
   - 🎸 **Bandcamp** (`bandcamp.com`, `*.bandcamp.com`)
   - 🎶 **Qobuz** (`qobuz.com`, `open.qobuz.com` — full source & target player support with Hi-Res playback)
   - 🎧 **Beatport** (`beatport.com` — source link recognition & instant redirection)
-- **📱 Flexible Player Selection**: When multiple compatible players are installed on your device (e.g. YouTube Music, NewTube, RiMusic, etc.), choose your preferred default player in Settings or switch directly with a single tap from the main player card.
+- **📱 Flexible Player Selection**: When multiple compatible players are installed for a service on your device, choose your preferred default player in Settings or switch directly with a single tap from the main player card.
 - **⚡ Shazam Link Interception**: Songs identified with Shazam open directly and reliably in your preferred music player.
 - **🎯 Quick Player Picker ("Ask every time")**: Optional setting for users with multiple streaming apps to pick where each song should play with a single tap.
 - **💿 Full Album, Artist & Podcast Recognition**: Supports single tracks, full albums/EPs, artist channel/discography profiles (including `@handles`), and podcast shows/episodes.

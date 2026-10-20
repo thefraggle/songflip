@@ -1,2 +1,2 @@
-• Smarter Handling for Non-Music Links: Sharing links from unsupported video or web platforms now opens the original link immediately without waiting for a lookup and provides a helpful tip to use Listen & Flip for recognizing music in videos.
-• Complete Translations & Stability: Added localized guidance across all 34 supported languages and refined internal diagnostics.
+• Improved Playback Routing & App Detection: Refined direct link opening and fallback handling for tracks, albums, artists, and playlists on Tidal and YouTube Music.
+• General Stability: Minor UI refinements and internal reliability improvements.

@@ -1,2 +1,2 @@
-- Zuverlässigere Musikerkennung: Verbesserte Stabilität der Audioaufnahme und optimierte Raumklang-Empfindlichkeit für eine schnellere und treffsichere Song-Erkennung bei Listen & Flip.
-- Allgemeine Stabilität: Interne Synchronisations- und Leistungsverbesserungen.
+- Verbesserte Wiedergabe-Weiterleitung: Optimierte direkte Link-Übergabe und zuverlässigeres Fallback-Verhalten für Titel, Alben, Künstler und Playlists bei Tidal und YouTube Music.
+- Allgemeine Stabilität: Kleinere Verbesserungen an der Oberfläche und der internen Zuverlässigkeit.

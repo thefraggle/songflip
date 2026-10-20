@@ -281,7 +281,7 @@ fun MainScreen(
     var showHistoryBottomSheet by remember { mutableStateOf(false) }
     var showSearchBottomSheet by remember { mutableStateOf(false) }
     var showListenBottomSheet by remember { mutableStateOf(false) }
-    var showPlayerPickerSheet by remember { mutableStateOf(false) }
+    var playerPickerPlatformKey by remember { mutableStateOf<String?>(null) }
     var showAppLinksSetupBottomSheet by remember { mutableStateOf(false) }
     var showProPaywall by remember { mutableStateOf(false) }
     var initialShowPromoInPaywall by remember { mutableStateOf(false) }
@@ -592,10 +592,10 @@ fun MainScreen(
         )
     }
 
-    if (showPlayerPickerSheet) {
+    playerPickerPlatformKey?.let { pickerKey ->
         PlayerPickerBottomSheet(
-            onDismissRequest = { showPlayerPickerSheet = false },
-            platformKey = selectedTargetKey
+            onDismissRequest = { playerPickerPlatformKey = null },
+            platformKey = pickerKey
         )
     }
 
@@ -876,7 +876,7 @@ fun MainScreen(
             TargetSelectorCard(
                 targetServices = targetServices,
                 selectedTargetKey = selectedTargetKey,
-                onOpenPlayerPicker = { showPlayerPickerSheet = true },
+                onOpenPlayerPicker = { key -> playerPickerPlatformKey = key },
                 onTargetSelected = { key ->
                     if (key != selectedTargetKey) {
                         viewModel.setTargetPlatform(key)
