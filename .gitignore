@@ -46,6 +46,8 @@ play-store*.json
 internal/
 store_assets/
 distribution/open-assets/
+distribution/playstore_listings_all_languages.csv
+distribution/playstore_listings_all_languages.md
 distribution/screenshots/
 distribution/screenshots-ios/
 fastlane/report.xml

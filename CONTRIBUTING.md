@@ -7,10 +7,10 @@ Thank you for your interest in contributing to SongFlip! Whether you are reporti
 ## 🏗️ Architecture Overview
 
 SongFlip is built as a Kotlin Multiplatform (KMP) project:
-- **`app/`**: Native Android app (Jetpack Compose, Material 3, Quick Settings Tile, Android 13+ Themed Icons).
+- **`app/`**: Native Android app (Jetpack Compose, MVVM architecture, Material 3, Quick Settings Tiles, Android 13+ Themed Icons).
 - **`iosApp/`**: Native iOS app (SwiftUI, Share Extension, App Intents for Siri Shortcuts & Action Button).
-- **`shared/`**: Shared KMP core engine (`SongLinkEngine`, `UrlUtils`, `LinkCache`, `AptabaseClient`).
-- **`functions/`**: Hosted backend infrastructure (Firebase Cloud Functions for web landing pages, L2 cache & Pro verification).
+- **`shared/`**: Shared KMP core engine (`SongLinkEngine`, platform resolvers, `UrlUtils`, SQLDelight `LinkCache`, `AptabaseClient`).
+- **`functions/`**: Hosted backend infrastructure (Firebase Cloud Functions for web landing pages, L2 cache & entitlement verification).
 
 ---
 
@@ -57,7 +57,7 @@ SongFlip is built as a Kotlin Multiplatform (KMP) project:
 
 ## 🌍 Adding or Updating Translations
 
-SongFlip supports 31+ languages!
+SongFlip supports 34+ languages!
 - **Android**: Add or update strings in `app/src/main/res/values-<lang>/strings.xml`.
 - **iOS**: Add or update entries in `iosApp/SongFlip/SongFlip/LocalizationManager.swift`.
 

@@ -78,9 +78,7 @@ class CouponService(
             "https://songflip-web.web.app/redeemPromoCode"
         )
 
-        // Embedded Ed25519 public keys (32 bytes each, hex-encoded):
-        // 1. Production public key derived from COUPON_SIGNING_SECRET
-        // 2. Test environment public key for unit/integration tests
+        // Pinned Ed25519 verification public keys (32 bytes each, hex-encoded, RFC 8032):
         private val TRUSTED_PUBLIC_KEYS_HEX = listOf(
             "045623e99efa5a77fc19ee5bec0dd392e61cf8ad6a48cc3716b80860efb1db9d",
             "6949b9c7bd8a6e8733fc7dfa2e42d3eb50ae6b2b45cbf1880f1b7221b23385fe"
