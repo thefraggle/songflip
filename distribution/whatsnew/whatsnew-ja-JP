@@ -1,1 +1,2 @@
-v1.10.1: Tidal、Qobuz、Apple Music、Deezerでスタジオマスター、Hi-Res、Lossless、Dolby Atmosを優先する高音質オプションを追加。
+- 再生ルーティングとアプリ検出の改善: Tidal と YouTube Music のトラック、アルバム、アーティスト、プレイリストの直接リンクの開き方とフォールバック処理が改良されました。
+- 全体的な安定性: UI が若干改良され、内部の信頼性が向上しました。

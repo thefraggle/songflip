@@ -1123,10 +1123,9 @@ private fun openTargetUrl(context: Context, rawTargetUrl: String, platformKey: S
     val targetUrl = if (rawTargetUrl.contains("music.music.youtube.com")) {
         rawTargetUrl.replace("music.music.youtube.com", "music.youtube.com")
     } else rawTargetUrl
-    val targetPackage = PackageUtils.getInstalledPackage(context, platformKey)
+    val (targetPackage, nativeUriString) = PackageUtils.resolveEffectiveLaunchTarget(context, targetUrl, platformKey)
     if (targetPackage != null) {
         try {
-            val nativeUriString = PackageUtils.toNativeAppUri(targetUrl, platformKey)
             val uri = Uri.parse(nativeUriString)
             val intent = Intent(Intent.ACTION_VIEW, uri).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK

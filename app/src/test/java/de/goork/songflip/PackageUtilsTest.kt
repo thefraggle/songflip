@@ -168,14 +168,53 @@ class PackageUtilsTest {
         assertTrue(ytPackages.contains("com.aleixrodriala.newtube"))
         assertTrue(ytPackages.contains("io.github.aleixrodriala.arc"))
         assertTrue(ytPackages.contains("com.craftworks.music"))
+        assertTrue(ytPackages.contains("com.music.bitchord"))
+        assertTrue(ytPackages.contains("com.dev.bitchord"))
         // Verify custom players come before official YouTube Music package
         val officialIndex = ytPackages.indexOf("com.google.android.apps.youtube.music")
         val morpheIndex = ytPackages.indexOf("app.morphe.android.apps.youtube.music")
         val anddeaIndex = ytPackages.indexOf("anddea.youtube.music")
         val newtubeIndex = ytPackages.indexOf("io.github.aleixrodriala.arc")
+        val bitchordIndex = ytPackages.indexOf("com.music.bitchord")
         assertTrue(officialIndex > morpheIndex)
         assertTrue(officialIndex > anddeaIndex)
         assertTrue(officialIndex > newtubeIndex)
+        assertTrue(officialIndex > bitchordIndex)
+    }
+
+    @Test
+    fun testTidalAndEclipseRouting() {
+        val tidalPackages = PackageUtils.fallbackPackages["tidal"]
+        org.junit.Assert.assertNotNull(tidalPackages)
+        assertTrue(tidalPackages!!.contains("com.aspiro.tidal"))
+        assertTrue(tidalPackages.contains("com.eclipse.android"))
+
+        // Track URLs convert to debridmusic://play/tidal/<id> for Eclipse
+        assertEquals(
+            "debridmusic://play/tidal/534050211",
+            PackageUtils.toEclipseTidalUri("https://listen.tidal.com/track/534050211")
+        )
+        assertEquals(
+            "debridmusic://play/tidal/534050211",
+            PackageUtils.toEclipseTidalUri("https://tidal.com/de/browse/track/534050211?u")
+        )
+        assertEquals(
+            "debridmusic://play/tidal/534050211",
+            PackageUtils.toEclipseTidalUri("tidal://track/534050211")
+        )
+        assertEquals(
+            "debridmusic://play/tidal/534050211",
+            PackageUtils.toNativeAppUri(
+                "https://tidal.com/browse/track/534050211",
+                "tidal",
+                PackageUtils.ECLIPSE_PACKAGE
+            )
+        )
+
+        // Album, artist, and playlist URLs are unsupported in Eclipse and return null from toEclipseTidalUri
+        org.junit.Assert.assertNull(PackageUtils.toEclipseTidalUri("https://tidal.com/browse/album/123456"))
+        org.junit.Assert.assertNull(PackageUtils.toEclipseTidalUri("https://tidal.com/browse/artist/789"))
+        org.junit.Assert.assertNull(PackageUtils.toEclipseTidalUri("https://tidal.com/browse/playlist/abc-def"))
     }
 
     @Test

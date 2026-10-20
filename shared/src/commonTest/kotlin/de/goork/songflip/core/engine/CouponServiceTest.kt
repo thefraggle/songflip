@@ -12,6 +12,10 @@ class CouponServiceTest {
     private val validLifetimeToken =
         "sct_v2_eyJjIjoiVklQLUxJRkUiLCJpIjoiaW5zdGFsbC0xMjMiLCJlIjowLCJ0IjoibGlmZXRpbWUiLCJpYXQiOjE3MDAwMDAwMDAwMDB9.DEBFd4HtxJ_0VFIFgAAcwXLb0f8p2a8TnNAegvy-NnLwFD18kvKkgo91bIC0BoQbKI9qUE06Ss_3K9RcXmk-BA"
 
+    // Payload: {"c":"VIP-NULL","i":"install-123","e":null,"t":"lifetime","iat":1700000000000}
+    private val validLifetimeNullExpToken =
+        "sct_v2_eyJjIjoiVklQLU5VTEwiLCJpIjoiaW5zdGFsbC0xMjMiLCJlIjpudWxsLCJ0IjoibGlmZXRpbWUiLCJpYXQiOjE3MDAwMDAwMDAwMDB9.gKcOxd6Bc7dmJKXZ6r1i_526B41v9cGqmmmCaXIsJXXlzhwhVK2eCpyG8ywTwwS4Lg8FtbLYz9RKeDMpiqDYAg"
+
     // Payload: {"c":"ANNUAL2026","i":"install-123","e":2000000000000,"t":"time_limited","iat":1700000000000}
     private val validAnnualToken =
         "sct_v2_eyJjIjoiQU5OVUFMMjAyNiIsImkiOiJpbnN0YWxsLTEyMyIsImUiOjIwMDAwMDAwMDAwMDAsInQiOiJ0aW1lX2xpbWl0ZWQiLCJpYXQiOjE3MDAwMDAwMDAwMDB9.rrEMwtIUR1auVbgNq0iXGBnqbuII_rS8L7Hm_6J9vxgJcN19ceTk9wpqsdisDtHKhqJklGgyy22uuOXc1VocAw"
@@ -25,6 +29,22 @@ class CouponServiceTest {
         )
         assertTrue(res.valid, "Valid Ed25519 lifetime token must verify")
         assertEquals("VIP-LIFE", res.code)
+        assertEquals("install-123", res.installId)
+        assertEquals("lifetime", res.type)
+        assertEquals(null, res.expirationTimestamp)
+        assertEquals(1700000000000L, res.issuedAtTimestamp)
+        assertFalse(res.isLegacyToken)
+    }
+
+    @Test
+    fun verifyValidEd25519LifetimeTokenWithJsonNullExp() {
+        val res = CouponService.shared.verifyCouponToken(
+            token = validLifetimeNullExpToken,
+            expectedInstallId = "install-123",
+            currentTimeMs = 1750000000000L
+        )
+        assertTrue(res.valid, "Ed25519 lifetime token with e: null must verify without throwing JsonDecodingException")
+        assertEquals("VIP-NULL", res.code)
         assertEquals("install-123", res.installId)
         assertEquals("lifetime", res.type)
         assertEquals(null, res.expirationTimestamp)

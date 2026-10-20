@@ -1,1 +1,2 @@
-v1.10.1: Audiofil minőség előnyben részesítése (Studio Master, Hi-Res, Lossless és Dolby Atmos) Tidal, Qobuz, Apple Music és Deezer esetén.
+- Továbbfejlesztett lejátszási útválasztás és alkalmazásészlelés: Finomított közvetlen linknyitás és tartalékkezelés a számokhoz, albumokhoz, előadókhoz és lejátszási listákhoz a Tidal és a YouTube Music szolgáltatásban.
+- Általános stabilitás: Kisebb felhasználói felületi finomítások és belső megbízhatósági fejlesztések.

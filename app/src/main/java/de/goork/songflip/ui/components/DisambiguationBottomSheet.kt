@@ -214,10 +214,14 @@ fun DisambiguationBottomSheet(
                                             onMatchUpdated(candidate.targetUrl)
                                             Toast.makeText(context, context.getString(R.string.disambiguate_success), Toast.LENGTH_SHORT).show()
                                             var launched = false
-                                            val targetPackage = PackageUtils.getInstalledPackage(context, targetPlatformKey)
+                                            val (targetPackage, uriStr) = PackageUtils.resolveEffectiveLaunchTarget(
+                                                context,
+                                                candidate.targetUrl,
+                                                targetPlatformKey,
+                                                candidate.nativeAppUri
+                                            )
                                             if (targetPackage != null) {
                                                 try {
-                                                    val uriStr = candidate.nativeAppUri ?: PackageUtils.toNativeAppUri(candidate.targetUrl, targetPlatformKey)
                                                     val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse(uriStr)).apply {
                                                         flags = Intent.FLAG_ACTIVITY_NEW_TASK
                                                         setPackage(targetPackage)

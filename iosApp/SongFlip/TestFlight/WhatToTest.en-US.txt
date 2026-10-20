@@ -1,2 +1,2 @@
-- More Reliable Music Recognition: Improved audio recording stability and ambient room sensitivity for faster and more accurate song recognition in Listen & Flip.
-- General Stability: Internal synchronization refinements and performance improvements.
+- Improved Playback Routing & App Detection: Refined direct link opening and fallback handling for tracks, albums, artists, and playlists on Tidal and YouTube Music.
+- General Stability: Minor UI refinements and internal reliability improvements.

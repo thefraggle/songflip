@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.10.2] - 2026-10-20
+- **Verbesserte Wiedergabe-Weiterleitung**: Optimierte direkte Link-Übergabe und zuverlässigeres Fallback-Verhalten für Titel, Alben, Künstler und Playlists bei Tidal und YouTube Music.
+- **Allgemeine Stabilität**: Kleinere Verbesserungen an der Oberfläche und der internen Zuverlässigkeit.
+
 ## [1.10.1] - 2026-10-20
 - **Zuverlässige Gutschein-Erkennung**: Einen Fehler behoben, durch den in früheren Versionen eingelöste Gutscheincodes nach einem Update inaktiv werden konnten, sowie die erneute Aktivierung auf demselben Gerät verbessert.
 

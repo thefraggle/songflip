@@ -54,9 +54,18 @@ object PackageUtils {
             "io.github.aleixrodriala.arc",
             "com.aleixrodriala.newtube",
             "com.craftworks.music",
+            "com.music.bitchord",
+            "com.dev.bitchord",
             "com.google.android.apps.youtube.music"
+        ),
+        "tidal" to listOf(
+            "com.aspiro.tidal",
+            "com.eclipse.android"
         )
     )
+
+    const val ECLIPSE_PACKAGE = "com.eclipse.android"
+    const val OFFICIAL_TIDAL_PACKAGE = "com.aspiro.tidal"
 
     val genericBrowserPackages = setOf(
         "com.android.chrome",
@@ -132,8 +141,8 @@ object PackageUtils {
     }
 
     private fun resolveInstalledPackageInternal(context: Context, cleanKey: String): String? {
-        if (cleanKey == "youtubeMusic") {
-            val preferred = SettingsRepository(context).preferredYouTubePlayerPackage
+        if (cleanKey == "youtubeMusic" || cleanKey == "tidal") {
+            val preferred = SettingsRepository(context).getPreferredPlayerPackage(cleanKey)
             if (!preferred.isNullOrBlank()) {
                 try {
                     context.packageManager.getPackageInfo(preferred, 0)
@@ -213,14 +222,74 @@ object PackageUtils {
      * Converts standard web URLs into native app URIs (Spotify, Deezer, Tidal)
      * for instant direct launch without browser intent filtering.
      */
-    fun toNativeAppUri(url: String, platformKey: String): String {
+    fun toNativeAppUri(url: String, platformKey: String, targetPackage: String? = null): String {
         val cleanKey = platformKey.substringBefore("_")
+        if (targetPackage == ECLIPSE_PACKAGE) {
+            return toEclipseTidalUri(url) ?: toNativeTidalUri(url)
+        }
         return when (cleanKey) {
             "spotify" -> toNativeSpotifyUri(url)
             "deezer" -> toNativeDeezerUri(url)
             "tidal" -> toNativeTidalUri(url)
             else -> url
         }
+    }
+
+    /**
+     * Converts a Tidal track URL or native tidal://track/<id> URI into Eclipse Music's
+     * deep-link scheme (`debridmusic://play/tidal/<id>`).
+     * Returns null if the URL represents an album, artist, playlist, or search query
+     * (since Eclipse only registers track-level playback via `debridmusic://play/tidal/<id>`).
+     */
+    fun toEclipseTidalUri(url: String): String? {
+        val clean = url.trim().substringBefore("?")
+        if (clean.startsWith("debridmusic://play/tidal/")) return clean
+        if (clean.startsWith("tidal://track/")) {
+            val id = clean.substringAfter("tidal://track/").substringBefore("/").trim()
+            if (id.isNotEmpty()) return "debridmusic://play/tidal/$id"
+        }
+        val match = Regex("tidal\\.com(?:/[a-zA-Z-]+)?(?:/browse)?/track/([0-9a-zA-Z-]+)").find(clean)
+        if (match != null) {
+            val id = match.groupValues[1]
+            if (id.isNotEmpty()) return "debridmusic://play/tidal/$id"
+        }
+        return null
+    }
+
+    /**
+     * Resolves the effective target package and URI when launching a music URL.
+     * If Eclipse (`com.eclipse.android`) is selected for Tidal, track links are converted to
+     * `debridmusic://play/tidal/<id>`, whereas albums/artists/playlists gracefully fall back
+     * to the official Tidal app (`com.aspiro.tidal`) if installed, or null (web browser).
+     */
+    fun resolveEffectiveLaunchTarget(
+        context: Context,
+        url: String,
+        platformKey: String,
+        candidateNativeUri: String? = null
+    ): Pair<String?, String> {
+        val cleanKey = platformKey.substringBefore("_")
+        val targetPackage = getInstalledPackage(context, cleanKey)
+        if (targetPackage == ECLIPSE_PACKAGE) {
+            val eclipseUri = toEclipseTidalUri(url) ?: candidateNativeUri?.let { toEclipseTidalUri(it) }
+            if (eclipseUri != null) {
+                return ECLIPSE_PACKAGE to eclipseUri
+            }
+            // Non-track entity (album, artist, playlist, search): fall back to official Tidal app if installed, else browser
+            val officialInstalled = try {
+                context.packageManager.getPackageInfo(OFFICIAL_TIDAL_PACKAGE, 0)
+                true
+            } catch (_: PackageManager.NameNotFoundException) {
+                false
+            }
+            return if (officialInstalled) {
+                OFFICIAL_TIDAL_PACKAGE to (candidateNativeUri ?: toNativeTidalUri(url))
+            } else {
+                null to url
+            }
+        }
+        val effectiveUri = candidateNativeUri ?: toNativeAppUri(url, cleanKey, targetPackage)
+        return targetPackage to effectiveUri
     }
 
     /**
