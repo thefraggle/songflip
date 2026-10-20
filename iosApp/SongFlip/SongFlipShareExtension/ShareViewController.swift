@@ -456,11 +456,23 @@ class ShareViewController: UIViewController {
                     }
                     self.openApp(urlString: podcast.originalUrl)
                 } else if let unsupported = result as? ResolutionResult.UnsupportedEntity {
+                    let srcDomain = UrlUtils.shared.extractDomain(url: unsupported.originalUrl)
                     AptabaseClient.shared.trackUnsupportedEntityIntercepted(
                         target: targetPlatform,
-                        entityType: unsupported.entityType
+                        entityType: unsupported.entityType,
+                        sourceDomain: srcDomain
                     )
-                    self.openApp(urlString: unsupported.originalUrl)
+                    if unsupported.entityType == "unsupported_domain" {
+                        self.statusLabel.text = self.localizedText(
+                            for: "unsupported_domain_toast",
+                            default: "Not a supported streaming link – use Listen & Flip to identify music in videos."
+                        )
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                            self.openApp(urlString: unsupported.originalUrl)
+                        }
+                    } else {
+                        self.openApp(urlString: unsupported.originalUrl)
+                    }
                 } else {
                     self.statusLabel.text = self.localizedText(for: "share_error_failed", default: "Could not redirect link.")
 

@@ -1,2 +1,2 @@
-• More Reliable Playlist Conversion & History Refresh: Refreshing a saved playlist in your history now re-runs full track matching and updates the playlist entry in place.
-• Clearer Playlist Smart Banner & Track Counts: Copied playlists on the home screen now clearly show the target music player action, and converted playlists display the full source track count alongside matched songs.
+• Smarter Handling for Non-Music Links: Sharing links from unsupported video or web platforms now opens the original link immediately without waiting for a lookup and provides a helpful tip to use Listen & Flip for recognizing music in videos.
+• Complete Translations & Stability: Added localized guidance across all 34 supported languages and refined internal diagnostics.

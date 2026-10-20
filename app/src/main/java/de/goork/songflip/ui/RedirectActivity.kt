@@ -299,12 +299,16 @@ class RedirectActivity : ComponentActivity() {
                         is RedirectUiState.ForwardOriginal -> {
                             LaunchedEffect(state) {
                                 if (state.showErrorToast) {
-                                    val errorMsg = if (state.isPlaylistNotSupported) {
-                                        getString(R.string.playlist_not_supported_toast)
-                                    } else {
-                                        getString(R.string.redirect_error_toast)
+                                    val errorMsg = when {
+                                        state.isUnsupportedDomain -> getString(R.string.unsupported_domain_toast)
+                                        state.isPlaylistNotSupported -> getString(R.string.playlist_not_supported_toast)
+                                        else -> getString(R.string.redirect_error_toast)
                                     }
-                                    Toast.makeText(applicationContext, errorMsg, Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        applicationContext,
+                                        errorMsg,
+                                        if (state.isUnsupportedDomain) Toast.LENGTH_LONG else Toast.LENGTH_SHORT
+                                    ).show()
                                 }
                                 forwardOriginalUrl(state.uri)
                                 finish()

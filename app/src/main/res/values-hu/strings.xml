@@ -401,4 +401,5 @@
     <string name="listen_unlock_pro">SongFlip PRO feloldása</string>
     <string name="pro_feature_listen_title">Korlátlan Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">Korlátlan zenefelismerés + Offline Klub mód</string>
+    <string name="unsupported_domain_toast">Nem támogatott streaminglink – videók zenéinek felismeréséhez használd a Listen &amp; Flip funkciót.</string>
 </resources>

@@ -409,4 +409,5 @@
     <string name="listen_unlock_pro">Odemknout SongFlip PRO</string>
     <string name="pro_feature_listen_title">Neomezené Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">Neomezené rozpoznávání skladeb + offline klubový režim</string>
+    <string name="unsupported_domain_toast">Nepodporovaný streamovací odkaz – k rozpoznání hudby ve videích použijte Listen &amp; Flip.</string>
 </resources>

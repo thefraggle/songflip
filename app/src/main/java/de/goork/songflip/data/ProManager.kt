@@ -394,10 +394,15 @@ object ProManager {
             .build()
     }
 
+    internal fun isSandboxPurchase(customerInfo: CustomerInfo): Boolean {
+        val activeEntitlement = customerInfo.entitlements["pro"] ?: customerInfo.entitlements["songflip_pro"]
+        return activeEntitlement?.isSandbox == true
+    }
+
     fun purchase(
         activity: Activity,
         packageToPurchase: Package,
-        onSuccess: () -> Unit,
+        onSuccess: (isSandbox: Boolean) -> Unit,
         onError: (errorMsg: String, errorCode: String?, underlyingMsg: String?) -> Unit,
         onCancelled: () -> Unit = {}
     ) {
@@ -409,7 +414,7 @@ object ProManager {
                     override fun onCompleted(storeTransaction: StoreTransaction, customerInfo: CustomerInfo) {
                         val proState = updateFromCustomerInfo(customerInfo)
                         if (proState.isPro) {
-                            onSuccess()
+                            onSuccess(isSandboxPurchase(customerInfo))
                         } else {
                             onError("Purchase completed but entitlement not active.", "ENTITLEMENT_NOT_ACTIVE", null)
                         }
@@ -424,14 +429,14 @@ object ProManager {
                                 override fun onSuccess(customerInfo: CustomerInfo) {
                                     val syncedState = updateFromCustomerInfo(customerInfo)
                                     if (syncedState.isPro) {
-                                        onSuccess()
+                                        onSuccess(isSandboxPurchase(customerInfo))
                                     } else {
                                         // As a secondary recovery attempt, invoke restorePurchases
                                         Purchases.sharedInstance.restorePurchases(object : ReceiveCustomerInfoCallback {
                                             override fun onReceived(restoredInfo: CustomerInfo) {
                                                 val restoredState = updateFromCustomerInfo(restoredInfo)
                                                 if (restoredState.isPro) {
-                                                    onSuccess()
+                                                    onSuccess(isSandboxPurchase(restoredInfo))
                                                 } else {
                                                     onError(error.message, error.code.name, error.underlyingErrorMessage)
                                                 }
@@ -446,7 +451,7 @@ object ProManager {
 
                                 override fun onError(error: PurchasesError) {
                                     this@ProManager.restorePurchases(
-                                        onSuccess = onSuccess,
+                                        onSuccess = { onSuccess(false) },
                                         onError = { _ -> onError(error.message, error.code.name, error.underlyingErrorMessage) }
                                     )
                                 }

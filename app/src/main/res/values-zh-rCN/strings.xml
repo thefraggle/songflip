@@ -411,4 +411,5 @@
     <string name="listen_unlock_pro">解锁 SongFlip PRO</string>
     <string name="pro_feature_listen_title">无限次 Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">不限次数听音识曲 + 离线俱乐部模式</string>
+    <string name="unsupported_domain_toast">不支持的流媒体链接 – 请使用 Listen &amp; Flip 识别视频中的音乐。</string>
 </resources>

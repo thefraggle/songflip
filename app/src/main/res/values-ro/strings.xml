@@ -405,4 +405,5 @@
     <string name="listen_unlock_pro">Deblochează SongFlip PRO</string>
     <string name="pro_feature_listen_title">Listen &amp; Flip nelimitat</string>
     <string name="pro_feature_listen_desc">Recunoaștere muzicală nelimitată + Modul Club Offline</string>
+    <string name="unsupported_domain_toast">Nu este un link de streaming acceptat – folosește Listen &amp; Flip pentru a identifica muzica din videoclipuri.</string>
 </resources>

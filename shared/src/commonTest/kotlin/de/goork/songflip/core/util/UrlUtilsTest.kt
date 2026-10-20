@@ -446,6 +446,38 @@ class UrlUtilsTest {
         assertFalse(UrlUtils.isSongFlipUrl("https://google.com"))
         assertFalse(UrlUtils.isSongFlipUrl(""))
     }
+
+    @Test
+    fun testIsSupportedMusicOrAggregatorUrl() {
+        // Supported music & podcast platforms
+        assertTrue(UrlUtils.isSupportedMusicOrAggregatorUrl("https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv"))
+        assertTrue(UrlUtils.isSupportedMusicOrAggregatorUrl("https://music.apple.com/de/album/test/123?i=456"))
+        assertTrue(UrlUtils.isSupportedMusicOrAggregatorUrl("https://www.youtube.com/watch?v=dQw4w9WgXcQ"))
+        assertTrue(UrlUtils.isSupportedMusicOrAggregatorUrl("https://music.youtube.com/watch?v=dQw4w9WgXcQ"))
+        assertTrue(UrlUtils.isSupportedMusicOrAggregatorUrl("https://www.deezer.com/track/123"))
+        assertTrue(UrlUtils.isSupportedMusicOrAggregatorUrl("https://tidal.com/browse/track/123"))
+        assertTrue(UrlUtils.isSupportedMusicOrAggregatorUrl("https://music.amazon.de/albums/B001"))
+        assertTrue(UrlUtils.isSupportedMusicOrAggregatorUrl("https://soundcloud.com/artist/track"))
+        assertTrue(UrlUtils.isSupportedMusicOrAggregatorUrl("https://artist.bandcamp.com/track/song"))
+        assertTrue(UrlUtils.isSupportedMusicOrAggregatorUrl("https://open.qobuz.com/track/123"))
+        assertTrue(UrlUtils.isSupportedMusicOrAggregatorUrl("https://www.beatport.com/track/slug/123"))
+        assertTrue(UrlUtils.isSupportedMusicOrAggregatorUrl("https://pca.st/episode/123"))
+        assertTrue(UrlUtils.isSupportedMusicOrAggregatorUrl("https://www.audible.de/pd/B001"))
+
+        // Supported music aggregators & discovery links
+        assertTrue(UrlUtils.isSupportedMusicOrAggregatorUrl("https://song.link/s/4u7EnebtmKWzUH433cf5Qv"))
+        assertTrue(UrlUtils.isSupportedMusicOrAggregatorUrl("https://album.link/i/123456"))
+        assertTrue(UrlUtils.isSupportedMusicOrAggregatorUrl("https://odesli.co/s/123"))
+        assertTrue(UrlUtils.isSupportedMusicOrAggregatorUrl("https://www.shazam.com/track/12345/song"))
+
+        // Foreign / unsupported social video & generic web links (#132)
+        assertFalse(UrlUtils.isSupportedMusicOrAggregatorUrl("https://vm.tiktok.com/ZGe12345/"))
+        assertFalse(UrlUtils.isSupportedMusicOrAggregatorUrl("https://www.tiktok.com/@user/video/123456"))
+        assertFalse(UrlUtils.isSupportedMusicOrAggregatorUrl("https://www.instagram.com/reel/C123456/"))
+        assertFalse(UrlUtils.isSupportedMusicOrAggregatorUrl("https://musiccloud.io/track/123"))
+        assertFalse(UrlUtils.isSupportedMusicOrAggregatorUrl("https://www.reddit.com/r/music/comments/123"))
+        assertFalse(UrlUtils.isSupportedMusicOrAggregatorUrl(""))
+    }
 }
 
 

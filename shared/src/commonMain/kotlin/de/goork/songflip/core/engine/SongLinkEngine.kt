@@ -306,6 +306,16 @@ class SongLinkEngine(
             }
             val canonicalUrl = UrlUtils.normalizeUrl(resolvedUrl)
 
+            // Fast-fail for foreign non-music domains (e.g. TikTok, Instagram Reels, generic websites) (#132)
+            if (!UrlUtils.isSupportedMusicOrAggregatorUrl(canonicalUrl)) {
+                return ResolutionResult.UnsupportedEntity(
+                    originalUrl = canonicalUrl,
+                    platform = "unknown",
+                    entityType = "unsupported_domain",
+                    message = "UNSUPPORTED_DOMAIN"
+                )
+            }
+
             // Playlist links cannot be converted 1:1 in background
             if (UrlUtils.isPlaylistUrl(canonicalUrl)) {
                 val platformKey = UrlUtils.detectPlatform(canonicalUrl)?.key ?: "unknown"

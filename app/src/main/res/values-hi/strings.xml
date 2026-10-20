@@ -415,4 +415,5 @@
     <string name="listen_unlock_pro">SongFlip PRO अनलॉक करें</string>
     <string name="pro_feature_listen_title">अनलिमिटेड Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">असीमित गाने पहचानें + ऑफ़लाइन क्लब मोड</string>
+    <string name="unsupported_domain_toast">यह समर्थित स्ट्रीमिंग लिंक नहीं है – वीडियो में संगीत पहचानने के लिए Listen &amp; Flip का उपयोग करें।</string>
 </resources>

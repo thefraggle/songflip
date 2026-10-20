@@ -199,5 +199,23 @@ class SongLinkEngineTest {
         assertNotNull(cached)
         assertEquals("https://music.youtube.com/watch?v=prefetch123", cached.targetUrl)
     }
+
+    @Test
+    fun testForeignUnsupportedDomainFastFailsWithoutNetworkCall() = runTest {
+        val engine = SongLinkEngine(
+            client = HttpClient(MockEngine { error("Upstream network must not be called for foreign domains (#132)") }),
+            cache = LinkCache()
+        )
+
+        val tiktokResult = engine.resolveTargetUrl("https://vm.tiktok.com/ZGe12345/", "spotify")
+        assertTrue(tiktokResult is ResolutionResult.UnsupportedEntity)
+        val unsupported = tiktokResult as ResolutionResult.UnsupportedEntity
+        assertEquals("unsupported_domain", unsupported.entityType)
+        assertEquals("https://vm.tiktok.com/ZGe12345/", unsupported.originalUrl)
+
+        val instaResult = engine.resolveTargetUrl("https://www.instagram.com/reel/C123456/?igsh=abc", "appleMusic")
+        assertTrue(instaResult is ResolutionResult.UnsupportedEntity)
+        assertEquals("unsupported_domain", (instaResult as ResolutionResult.UnsupportedEntity).entityType)
+    }
 }
 

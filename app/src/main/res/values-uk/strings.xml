@@ -423,4 +423,5 @@
     <string name="listen_unlock_pro">Розблокувати SongFlip PRO</string>
     <string name="pro_feature_listen_title">Безлімітний Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">Розпізнавання пісень без лімітів + офлайн-режим</string>
+    <string name="unsupported_domain_toast">Непідтримуване посилання на стримінг – використовуйте Listen &amp; Flip для розпізнавання музики у відео.</string>
 </resources>

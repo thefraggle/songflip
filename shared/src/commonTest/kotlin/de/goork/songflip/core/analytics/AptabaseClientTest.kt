@@ -72,6 +72,7 @@ class AptabaseClientTest {
         AptabaseClient.trackPlaylistConversionCompleted("spotify", "youtubeMusic", 25, 25, 0)
         AptabaseClient.trackPlaylistConversionFailed("spotify", "youtubeMusic", "NETWORK_ERROR")
         AptabaseClient.trackUnsupportedEntityIntercepted("spotify", "user_profile")
+        AptabaseClient.trackUnsupportedEntityIntercepted("spotify", "unsupported_domain", "vm.tiktok.com")
         AptabaseClient.trackTargetPlatformChanged("tidal")
         AptabaseClient.trackDomainSetupClicked()
         AptabaseClient.trackPauseStateChanged("paused_until_tomorrow")

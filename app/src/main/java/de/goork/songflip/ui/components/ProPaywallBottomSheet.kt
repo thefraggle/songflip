@@ -452,13 +452,16 @@ fun ProPaywallBottomSheet(
                             ProManager.purchase(
                                 activity = activity,
                                 packageToPurchase = selectedPackage,
-                                onSuccess = {
+                                onSuccess = { isSandbox ->
                                     isPurchasing = false
-                                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackProPurchased(
-                                        packageId = selectedPackage.identifier,
-                                        layout = paywallLayout.metadataValue,
-                                        isSale = isLifetimeSale
-                                    )
+                                    // Filter out Google Play license-tester / sandbox purchases so production analytics only count real revenue (#132)
+                                    if (!isSandbox) {
+                                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackProPurchased(
+                                            packageId = selectedPackage.identifier,
+                                            layout = paywallLayout.metadataValue,
+                                            isSale = isLifetimeSale
+                                        )
+                                    }
                                     Toast.makeText(context, context.getString(R.string.pro_active_status), Toast.LENGTH_SHORT).show()
                                     onDismissRequest()
                                 },

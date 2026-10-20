@@ -432,4 +432,5 @@
     <string name="listen_unlock_pro">SongFlip PRO freischalten</string>
     <string name="pro_feature_listen_title">Unbegrenztes Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">Unbegrenzt Songs erkennen + Offline-Club-Modus</string>
+    <string name="unsupported_domain_toast">Kein unterstützter Streaming-Link – nutze für Videos einfach Listen &amp; Flip.</string>
 </resources>
