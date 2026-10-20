@@ -319,8 +319,8 @@
     <string name="pro_feature_cache_desc">Bài hát phổ biến mở ngay không cần chờ</string>
     <string name="pro_feature_links_title">Chia sẻ cho mọi người</string>
     <string name="pro_feature_links_desc">Một liên kết ai cũng mở được trong trình phát của mình</string>
-    <string name="pro_feature_review_title">Tinh chỉnh kết quả</string>
-    <string name="pro_feature_review_desc">Tự chọn phiên bản bài hát thay thế</string>
+    <string name="pro_feature_review_title">Chất lượng phòng thu &amp; bản nhạc</string>
+    <string name="pro_feature_review_desc">Ưu tiên Hi-Res/Atmos &amp; chọn phiên bản</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Chưa phát hành</string>
     <string name="prerelease_sheet_desc">Album này chưa được phát hành trên các nền tảng phát trực tuyến.</string>
@@ -412,4 +412,6 @@
     <string name="pro_feature_listen_title">Listen &amp; Flip không giới hạn</string>
     <string name="pro_feature_listen_desc">Nhận diện bài hát không giới hạn + Chế độ Offline</string>
     <string name="unsupported_domain_toast">Không phải liên kết phát nhạc được hỗ trợ – hãy dùng Listen &amp; Flip để nhận diện nhạc trong video.</string>
+    <string name="settings_audiophile_title">Ưu tiên chất lượng Audiophile</string>
+    <string name="settings_audiophile_subtitle">Ưu tiên bản thu phòng thu, Hi-Res, Lossless &amp; Dolby Atmos hơn bản radio edit và tuyển tập</string>
 </resources>

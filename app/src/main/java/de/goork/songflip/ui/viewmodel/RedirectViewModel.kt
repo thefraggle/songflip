@@ -285,7 +285,8 @@ class RedirectViewModel : ViewModel() {
                     customApiUrl = currentCustomApiUrl,
                     customApiToken = currentCustomApiToken,
                     isPro = isPro,
-                    authToken = authToken
+                    authToken = authToken,
+                    audiophileMode = isPro && (settingsRepository?.audiophileMode == true)
                 )
             }
 

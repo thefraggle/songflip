@@ -252,6 +252,7 @@ final class ProManager: NSObject, ObservableObject {
                     self.isPro = true
                     self.proType = rcType
                     self.expirationDate = expMs > 0 ? Date(timeIntervalSince1970: expMs / 1000) : nil
+                    defaults.set(true, forKey: Self.keyIsProCached)
                     return
                 }
             }

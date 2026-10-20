@@ -19,6 +19,7 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 - **🕺 Offline Club Mode [PRO]**: No reception in a club, bar, or festival? Capture an acoustic fingerprint offline and let SongFlip automatically identify the song and add it to your history as soon as you're back online.
 - **🔎 In-App Direct Search & Flip**: Search for any song or artist directly in SongFlip without leaving the app and launch playback with a single tap.
 - **🎛️ Precision Match-Review & Disambiguation [PRO]**: Easily pick alternative versions, recordings, or remixes right from your history or search options.
+- **🎧 Audiophile Quality Matcher (Studio Master & Hi-Res Prioritization) [PRO]**: Optional preference that prioritizes 24-bit Hi-Res, Lossless, Dolby Atmos, and full studio album masters over radio edits, compilation releases, and cover versions on Tidal, Qobuz, Apple Music, and Deezer.
 - **📶 Offline Resilience & Auto-Retry Queue**: If you tap a music link while in a subway, elevator, or spotty coverage, SongFlip holds the intent and automatically resolves and plays the song the second connectivity is restored.
 - **📑 Universal Playlist Converter [PRO]**: Convert entire playlists (up to 200 tracks) across Spotify, YouTube Music, Deezer, Apple Music, and more with 1-click Zero-OAuth playback queue launch, automatic duplicate track cleaning, multi-part chunk navigation, universal .M3U8 & .CSV file export, instant server-side caching, and 1-tap in-place playlist refresh directly from your conversion history.
 - **🌐 Playlist Web Sharing (`songflip.link/p/...`) [PRO]**: Share converted playlists as beautiful web landing pages with rich album artwork, 1-click import, and branded single-track preview buttons. *(Try the live demo: [songflip.link/p/76176a1354](https://songflip.link/p/76176a1354))*.
@@ -85,6 +86,7 @@ The **SongFlip client app (Android & iOS) is 100% open source (GPLv3)** and oper
 For users who want the fastest possible performance, advanced playlist capabilities, or wish to support indie development, **SongFlip PRO** provides:
 
 - **🎵 Unlimited Listen & Flip & Offline Club Mode**: Unlimited in-app music recognition plus offline acoustic fingerprinting for clubs, bars, and dead zones with automatic background matching once back online.
+- **🎧 Audiophile Quality Matcher**: Automatic prioritization of Studio Masters, 24-bit Hi-Res, Lossless, and Spatial Audio releases over radio edits and compilations on Tidal, Qobuz, Apple Music, and Deezer.
 - **📑 Universal Playlist Converter**: Convert full playlists (up to 200 songs) with 1-tap queue launch into YouTube Music & Spotify, multi-part chunking, duplicate cleaning, and .M3U8/.CSV export.
 - **🌐 Playlist Web Sharing**: Create beautiful, shareable web links (`songflip.link/p/...`) with cover art and individual preview player buttons.
 - **⚡ L2 Server-Side Cache**: Lightning-fast resolution (~30–50 ms) via our dedicated server cache with zero rate-limiting.

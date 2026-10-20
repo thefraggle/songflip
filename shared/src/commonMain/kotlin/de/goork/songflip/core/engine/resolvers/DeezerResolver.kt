@@ -23,9 +23,17 @@ internal data class DeezerItem(
     val title: String? = null,
     @SerialName("title_short")
     val titleShort: String? = null,
+    @SerialName("title_version")
+    val titleVersion: String? = null,
     val artist: DeezerArtist? = null,
+    val album: DeezerAlbumRef? = null,
     @SerialName("nb_fan")
     val nbFan: Int? = null
+)
+
+@Serializable
+internal data class DeezerAlbumRef(
+    val title: String? = null
 )
 
 @Serializable
@@ -40,25 +48,46 @@ class DeezerResolver(
 
     override val platform: MusicPlatform = MusicPlatform.DEEZER
 
-    override suspend fun resolveTrack(query: String): String? {
-        return searchDeezer(query, isAlbum = false)
+    override suspend fun resolveTrack(query: String, audiophileMode: Boolean): String? {
+        return searchDeezer(query, isAlbum = false, audiophileMode = audiophileMode)
     }
 
-    override suspend fun resolveAlbum(query: String): String? {
-        return searchDeezer(query, isAlbum = true)
+    override suspend fun resolveAlbum(query: String, audiophileMode: Boolean): String? {
+        return searchDeezer(query, isAlbum = true, audiophileMode = audiophileMode)
     }
 
-    private suspend fun searchDeezer(query: String, isAlbum: Boolean = false): String? {
+    private suspend fun searchDeezer(query: String, isAlbum: Boolean = false, audiophileMode: Boolean = false): String? {
         return try {
             val encoded = query.encodeURLParameter()
             val endpoint = if (isAlbum) "search/album" else "search"
-            val resp = client.get("https://api.deezer.com/$endpoint?q=$encoded&limit=5")
+            val limit = if (audiophileMode) 10 else 5
+            val resp = client.get("https://api.deezer.com/$endpoint?q=$encoded&limit=$limit")
             if (resp.status.isSuccess()) {
                 val parsed = json.decodeFromString<DeezerSearchResponse>(resp.bodyAsText())
-                val match = parsed.data.firstOrNull { item ->
-                    val candidateTitle = item.title ?: item.titleShort ?: item.name
-                    val candidateArtist = item.artist?.name
-                    ResolverUtils.isMatch(query, candidateArtist, candidateTitle)
+                val match = if (audiophileMode) {
+                    parsed.data
+                        .map { item ->
+                            val candidateTitle = item.title ?: item.titleShort ?: item.name
+                            val candidateArtist = item.artist?.name
+                            val score = ResolverUtils.scoreAudiophileCandidate(
+                                query = query,
+                                candidateArtist = candidateArtist,
+                                candidateTitle = candidateTitle,
+                                candidateVersion = item.titleVersion,
+                                albumTitle = item.album?.title,
+                                isLossless = true
+                            )
+                            item to score
+                        }
+                        .filter { it.second > Int.MIN_VALUE }
+                        .maxByOrNull { it.second }
+                        ?.first
+                } else {
+                    parsed.data.firstOrNull { item ->
+                        val candidateTitle = item.title ?: item.titleShort ?: item.name
+                        val candidateArtist = item.artist?.name
+                        ResolverUtils.isMatch(query, candidateArtist, candidateTitle)
+                    }
                 }
                 val link = match?.link
                 if (!link.isNullOrEmpty()) {

@@ -323,8 +323,8 @@
     <string name="pro_feature_cache_desc">Populära låtar öppnas utan väntan</string>
     <string name="pro_feature_links_title">Dela med alla</string>
     <string name="pro_feature_links_desc">En länk som alla öppnar i sin egen spelare</string>
-    <string name="pro_feature_review_title">Finjustera matchningar</string>
-    <string name="pro_feature_review_desc">Välj alternativa versioner manuellt</string>
+    <string name="pro_feature_review_title">Studiokvalitet &amp; versioner</string>
+    <string name="pro_feature_review_desc">Prioritera Hi-Res/Atmos &amp; välj versioner</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Inte släppt än</string>
     <string name="prerelease_sheet_desc">Detta album har inte släppts på streamingtjänster än.</string>
@@ -416,4 +416,6 @@
     <string name="pro_feature_listen_title">Obegränsad Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">Identifiera obegränsat med låtar + Offline Club Mode</string>
     <string name="unsupported_domain_toast">Inte en stödd streaminglänk – använd Listen &amp; Flip för att identifiera musik i videor.</string>
+    <string name="settings_audiophile_title">Audiofil kvalitetsprioritering</string>
+    <string name="settings_audiophile_subtitle">Föredra studiomasters, Hi-Res, Lossless &amp; Dolby Atmos framför radio-edits och samlingar</string>
 </resources>

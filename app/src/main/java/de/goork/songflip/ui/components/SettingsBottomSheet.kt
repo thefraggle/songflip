@@ -741,6 +741,75 @@ fun SettingsBottomSheet(
                 }
             }
 
+            // 4b-2. Audiophile Quality Prioritization Toggle Card (PRO Feature #85)
+            var audiophileModeEnabled by remember(isPro) {
+                mutableStateOf(isPro && settingsRepository.audiophileMode)
+            }
+            Card(
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable(enabled = !isPro) {
+                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("settings_audiophile_mode")
+                        onOpenProPaywall()
+                    }
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 14.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(16.dp),
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Tune,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(22.dp)
+                        )
+                        Column(modifier = Modifier.weight(1f)) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(6.dp)
+                            ) {
+                                Text(
+                                    text = stringResource(R.string.settings_audiophile_title),
+                                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                                Text("💎", fontSize = 12.sp)
+                            }
+                            Text(
+                                text = stringResource(R.string.settings_audiophile_subtitle),
+                                style = MaterialTheme.typography.labelMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Switch(
+                        checked = isPro && audiophileModeEnabled,
+                        onCheckedChange = { isChecked ->
+                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                            if (isPro) {
+                                audiophileModeEnabled = isChecked
+                                settingsRepository.audiophileMode = isChecked
+                            } else {
+                                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("settings_audiophile_mode")
+                                onOpenProPaywall()
+                            }
+                        }
+                    )
+                }
+            }
+
             // 4c. Preferred Player Selection (Visible when multiple players installed)
             val installedYouTubePlayers = remember(context) {
                 PackageUtils.getInstalledPlayersForPlatform(context, "youtubeMusic")

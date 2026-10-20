@@ -21,6 +21,9 @@ internal data class ITunesItem(
     val artistName: String? = null,
     val trackName: String? = null,
     val collectionName: String? = null,
+    val collectionArtistName: String? = null,
+    val trackCount: Int? = null,
+    val discCount: Int? = null,
     val trackViewUrl: String? = null,
     val collectionViewUrl: String? = null,
     val artistLinkUrl: String? = null,
@@ -34,24 +37,45 @@ class AppleMusicResolver(
 
     override val platform: MusicPlatform = MusicPlatform.APPLE_MUSIC
 
-    override suspend fun resolveTrack(query: String): String? {
-        return searchAppleMusic(query, isAlbum = false)
+    override suspend fun resolveTrack(query: String, audiophileMode: Boolean): String? {
+        return searchAppleMusic(query, isAlbum = false, audiophileMode = audiophileMode)
     }
 
-    override suspend fun resolveAlbum(query: String): String? {
-        return searchAppleMusic(query, isAlbum = true)
+    override suspend fun resolveAlbum(query: String, audiophileMode: Boolean): String? {
+        return searchAppleMusic(query, isAlbum = true, audiophileMode = audiophileMode)
     }
 
-    private suspend fun searchAppleMusic(query: String, isAlbum: Boolean = false): String? {
+    private suspend fun searchAppleMusic(query: String, isAlbum: Boolean = false, audiophileMode: Boolean = false): String? {
         return try {
             val encoded = query.encodeURLParameter()
             val entity = if (isAlbum) "album" else "song"
-            val resp = client.get("https://itunes.apple.com/search?term=$encoded&entity=$entity&limit=5")
+            val limit = if (audiophileMode) 10 else 5
+            val resp = client.get("https://itunes.apple.com/search?term=$encoded&entity=$entity&limit=$limit")
             if (resp.status.isSuccess()) {
                 val parsed = json.decodeFromString<ITunesResponse>(resp.bodyAsText())
-                val validItem = parsed.results.firstOrNull { item ->
-                    val title = if (isAlbum) item.collectionName else item.trackName
-                    ResolverUtils.isMatch(query, item.artistName, title)
+                val validItem = if (audiophileMode) {
+                    parsed.results
+                        .map { item ->
+                            val title = if (isAlbum) item.collectionName else item.trackName
+                            val score = ResolverUtils.scoreAudiophileCandidate(
+                                query = query,
+                                candidateArtist = item.artistName,
+                                candidateTitle = title,
+                                albumTitle = item.collectionName,
+                                albumArtist = item.collectionArtistName,
+                                isLossless = true,
+                                albumTrackCount = item.trackCount
+                            )
+                            item to score
+                        }
+                        .filter { it.second > Int.MIN_VALUE }
+                        .maxByOrNull { it.second }
+                        ?.first
+                } else {
+                    parsed.results.firstOrNull { item ->
+                        val title = if (isAlbum) item.collectionName else item.trackName
+                        ResolverUtils.isMatch(query, item.artistName, title)
+                    }
                 }
                 val viewUrl = if (isAlbum) validItem?.collectionViewUrl else validItem?.trackViewUrl
                 if (!viewUrl.isNullOrEmpty()) {

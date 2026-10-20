@@ -1094,7 +1094,8 @@ struct ContentView: View {
                     isPro: proManager.isPro,
                     authToken: proManager.authToken,
                     isPrefetch: true,
-                    forceRefresh: false
+                    forceRefresh: false,
+                    audiophileMode: proManager.isPro && settings.audiophileMode
                 )
             }
         } else if !isMusic {
@@ -1121,7 +1122,8 @@ struct ContentView: View {
                 isPro: proManager.isPro,
                 authToken: proManager.authToken,
                 isPrefetch: false,
-                forceRefresh: false
+                forceRefresh: false,
+                audiophileMode: proManager.isPro && settings.audiophileMode
             )
 
             await MainActor.run {

@@ -305,8 +305,8 @@
     <string name="pro_feature_cache_desc">熱門歌曲無需等待即可開啟</string>
     <string name="pro_feature_links_title">分享給所有人</string>
     <string name="pro_feature_links_desc">一個連結，每個人都能在自己的播放器中開啟</string>
-    <string name="pro_feature_review_title">最佳化比對結果</string>
-    <string name="pro_feature_review_desc">手動挑選其他歌曲版本</string>
+    <string name="pro_feature_review_title">母帶音質與版本選擇</string>
+    <string name="pro_feature_review_desc">優先配對 Hi-Res/Atmos 並可手動選版本</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">尚未發行</string>
     <string name="prerelease_sheet_desc">該專輯尚未在串流平台上架。</string>
@@ -398,4 +398,6 @@
     <string name="pro_feature_listen_title">無限次 Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">不限次數聽音識曲 + 離線俱樂部模式</string>
     <string name="unsupported_domain_toast">不支援的串流媒體連結 – 請使用 Listen &amp; Flip 辨識影片中的音樂。</string>
+    <string name="settings_audiophile_title">發燒級音質優先</string>
+    <string name="settings_audiophile_subtitle">優先配對錄音室母帶、Hi-Res、無損與杜比全景聲版本，避開電台剪輯與合輯</string>
 </resources>

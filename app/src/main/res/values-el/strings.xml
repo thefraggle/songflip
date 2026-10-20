@@ -309,8 +309,8 @@
     <string name="pro_feature_cache_desc">Τα δημοφιλή τραγούδια ανοίγουν χωρίς αναμονή</string>
     <string name="pro_feature_links_title">Κοινοποίηση σε όλους</string>
     <string name="pro_feature_links_desc">Ένας σύνδεσμος που ο καθένας ανοίγει στη δική του εφαρμογή</string>
-    <string name="pro_feature_review_title">Βελτίωση αποτελεσμάτων</string>
-    <string name="pro_feature_review_desc">Μη αυτόματη επιλογή εναλλακτικών εκδόσεων τραγουδιών</string>
+    <string name="pro_feature_review_title">Ποιότητα στούντιο &amp; εκδόσεις</string>
+    <string name="pro_feature_review_desc">Προτεραιότητα Hi-Res/Atmos &amp; επιλογή εκδόσεων</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Άλμπουμ που δεν έχει κυκλοφορήσει</string>
     <string name="prerelease_sheet_desc">Αυτό το άλμπουμ δεν έχει κυκλοφορήσει ακόμη στις πλατφόρμες streaming.</string>
@@ -402,4 +402,6 @@
     <string name="pro_feature_listen_title">Απεριόριστο Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">Απεριόριστη αναγνώριση τραγουδιών + λειτουργία εκτός σύνδεσης</string>
     <string name="unsupported_domain_toast">Μη υποστηριζόμενος σύνδεσμος streaming – χρησιμοποιήστε το Listen &amp; Flip για αναγνώριση μουσικής σε βίντεο.</string>
+    <string name="settings_audiophile_title">Προτεραιότητα ποιότητας Audiophile</string>
+    <string name="settings_audiophile_subtitle">Προτίμηση αυθεντικών studio masters, Hi-Res, Lossless &amp; Dolby Atmos έναντι radio edits και συλλογών</string>
 </resources>

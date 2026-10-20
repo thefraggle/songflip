@@ -4,6 +4,8 @@ import SwiftUI
 enum LocalizationManager {
     private nonisolated static let translations: [String: [String: String]] = [
         "de": [
+            "settings_audiophile_title": "Audiophile Priorisierung",
+            "settings_audiophile_subtitle": "Bevorzugt Studio-Originale, Hi-Res, Lossless & Dolby Atmos statt Radio-Edits und Compilations",
             "settings_share_app": "SongFlip empfehlen",
             "settings_share_app_subtitle": "Teile die App mit Freunden & Musikliebhabern",
             "share_app_message": "Schau dir SongFlip an – öffnet Musik-Links von Spotify, Apple Music & Co. direkt in deinem Lieblings-Player: https://download.songflip.link",
@@ -264,8 +266,8 @@ enum LocalizationManager {
             "pro_debug_reset_status": "PRO Status zurückgesetzt (Debug)",
             "pro_feature_cache_desc": "Beliebte Songs ohne Wartezeit",
             "pro_feature_cache_title": "Schneller öffnen",
-            "pro_feature_review_desc": "Alternative Versionen manuell auswählen",
-            "pro_feature_review_title": "Treffer verfeinern",
+            "pro_feature_review_desc": "Hi-Res/Atmos bevorzugen & Versionen wählen",
+            "pro_feature_review_title": "Studio-Qualität & Auswahl",
             "pro_feature_history_desc": "100 Verlaufs-Einträge & unbegrenzte Favoriten",
             "pro_feature_history_title": "Großer Verlauf",
             "pro_feature_links_desc": "Ein Link, den jeder in seinem Player öffnet",
@@ -426,6 +428,8 @@ enum LocalizationManager {
         
         ],
         "en": [
+            "settings_audiophile_title": "Audiophile Quality Priority",
+            "settings_audiophile_subtitle": "Prefer studio masters, Hi-Res, Lossless & Dolby Atmos over radio edits and compilations",
             "settings_share_app": "Share SongFlip",
             "settings_share_app_subtitle": "Share the app with friends & music lovers",
             "share_app_message": "Check out SongFlip – open music links from Spotify, Apple Music & more right in your favorite player: https://download.songflip.link",
@@ -686,8 +690,8 @@ enum LocalizationManager {
             "pro_debug_reset_status": "PRO status reset (Debug)",
             "pro_feature_cache_desc": "Popular songs open without waiting",
             "pro_feature_cache_title": "Faster opening",
-            "pro_feature_review_desc": "Manually select alternative song versions",
-            "pro_feature_review_title": "Refine matches",
+            "pro_feature_review_desc": "Prioritize Hi-Res/Atmos & pick versions",
+            "pro_feature_review_title": "Studio quality & versions",
             "pro_feature_history_desc": "100 history entries & unlimited favorites",
             "pro_feature_history_title": "Bigger history",
             "pro_feature_links_desc": "One link that opens in everyone's player",
@@ -848,6 +852,8 @@ enum LocalizationManager {
         
         ],
         "da": [
+            "settings_audiophile_title": "Audiofil kvalitetsprioritering",
+            "settings_audiophile_subtitle": "Foretræk studiemasters, Hi-Res, Lossless & Dolby Atmos frem for radio-edits og opsamlinger",
             "settings_share_app": "Del SongFlip",
             "settings_share_app_subtitle": "Del appen med venner & musikelskere",
             "share_app_message": "Tjek SongFlip – åbn musiklinks fra Spotify, Apple Music & flere direkte i din yndlingsafspiller: https://download.songflip.link",
@@ -1108,8 +1114,8 @@ enum LocalizationManager {
             "pro_debug_reset_status": "PRO-status nulstillet (Debug)",
             "pro_feature_cache_desc": "Populære sange åbner uden ventetid",
             "pro_feature_cache_title": "Hurtigere åbning",
-            "pro_feature_review_desc": "Vælg alternative sangversioner manuelt",
-            "pro_feature_review_title": "Finjuster matches",
+            "pro_feature_review_desc": "Prioriter Hi-Res/Atmos og vælg versioner",
+            "pro_feature_review_title": "Studiekvalitet og versioner",
             "pro_feature_history_desc": "100 historikposter & ubegrænsede favoritter",
             "pro_feature_history_title": "Større historik",
             "pro_feature_links_desc": "Ét link, som alle åbner i deres egen afspiller",
@@ -1270,6 +1276,8 @@ enum LocalizationManager {
         
         ],
         "nb": [
+            "settings_audiophile_title": "Audiofil kvalitetsprioritering",
+            "settings_audiophile_subtitle": "Foretrekk studiomastere, Hi-Res, Lossless & Dolby Atmos fremfor radio-edits og samlealbum",
             "settings_share_app": "Del SongFlip",
             "settings_share_app_subtitle": "Del appen med venner og musikkelskere",
             "share_app_message": "Sjekk ut SongFlip – åpne musikklenker fra Spotify, Apple Music og mer direkte i favorittspilleren din: https://download.songflip.link",
@@ -1530,8 +1538,8 @@ enum LocalizationManager {
             "pro_debug_reset_status": "PRO-status tilbakestilt (Debug)",
             "pro_feature_cache_desc": "Populære sanger åpnes uten venting",
             "pro_feature_cache_title": "Raskere åpning",
-            "pro_feature_review_desc": "Velg alternative sangversjoner manuelt",
-            "pro_feature_review_title": "Finjuster treff",
+            "pro_feature_review_desc": "Prioriter Hi-Res/Atmos og velg versjoner",
+            "pro_feature_review_title": "Studiokvalitet og versjoner",
             "pro_feature_history_desc": "100 historikkoppføringer og ubegrensede favoritter",
             "pro_feature_history_title": "Større historikk",
             "pro_feature_links_desc": "Én lenke som alle åpner i sin egen avspiller",
@@ -1691,6 +1699,8 @@ enum LocalizationManager {
             "pro_feature_listen_desc": "Gjenkjenn ubegrenset med sanger + Offline Club Mode"
         ],
         "sv": [
+            "settings_audiophile_title": "Audiofil kvalitetsprioritering",
+            "settings_audiophile_subtitle": "Föredra studiomasters, Hi-Res, Lossless & Dolby Atmos framför radio-edits och samlingar",
             "settings_share_app": "Dela SongFlip",
             "settings_share_app_subtitle": "Dela appen med vänner och musikälskare",
             "share_app_message": "Kolla in SongFlip – öppna musiklänkar från Spotify, Apple Music och mer direkt i din favoritspelare: https://download.songflip.link",
@@ -1951,8 +1961,8 @@ enum LocalizationManager {
             "pro_debug_reset_status": "PRO-status återställd (Debug)",
             "pro_feature_cache_desc": "Populära låtar öppnas utan väntan",
             "pro_feature_cache_title": "Snabbare öppning",
-            "pro_feature_review_desc": "Välj alternativa versioner manuellt",
-            "pro_feature_review_title": "Finjustera matchningar",
+            "pro_feature_review_desc": "Prioritera Hi-Res/Atmos & välj versioner",
+            "pro_feature_review_title": "Studiokvalitet & versioner",
             "pro_feature_history_desc": "100 historikposter & obegränsade favoriter",
             "pro_feature_history_title": "Större historik",
             "pro_feature_links_desc": "En länk som alla öppnar i sin egen spelare",
@@ -2113,6 +2123,8 @@ enum LocalizationManager {
         
         ],
         "nl": [
+            "settings_audiophile_title": "Audiofiele kwaliteitsprioriteit",
+            "settings_audiophile_subtitle": "Geef voorkeur aan studiomasters, Hi-Res, Lossless & Dolby Atmos boven radio-edits en compilaties",
             "settings_share_app": "Deel SongFlip",
             "settings_share_app_subtitle": "Deel de app met vrienden & muziekliefhebbers",
             "share_app_message": "Bekijk SongFlip – open muzieklinks van Spotify, Apple Music & meer direct in je favoriete speler: https://download.songflip.link",
@@ -2373,8 +2385,8 @@ enum LocalizationManager {
             "pro_debug_reset_status": "PRO-status gereset (Debug)",
             "pro_feature_cache_desc": "Populaire nummers openen zonder wachten",
             "pro_feature_cache_title": "Sneller openen",
-            "pro_feature_review_desc": "Selecteer handmatig alternatieve nummers",
-            "pro_feature_review_title": "Matches verfijnen",
+            "pro_feature_review_desc": "Prioriteit voor Hi-Res/Atmos & versies kiezen",
+            "pro_feature_review_title": "Studiokwaliteit & versies",
             "pro_feature_history_desc": "100 geschiedenisitems & onbeperkte favorieten",
             "pro_feature_history_title": "Grote geschiedenis",
             "pro_feature_links_desc": "Eén link die iedereen in zijn eigen speler opent",
@@ -2535,6 +2547,8 @@ enum LocalizationManager {
         
         ],
         "fr": [
+            "settings_audiophile_title": "Priorité qualité audiophile",
+            "settings_audiophile_subtitle": "Privilégier les masters studio, Hi-Res, Lossless et Dolby Atmos aux versions radio et compilations",
             "settings_share_app": "Partager SongFlip",
             "settings_share_app_subtitle": "Partagez l’application avec vos proches et mélomanes",
             "share_app_message": "Découvrez SongFlip – ouvrez les liens musicaux de Spotify, Apple Music et plus directement dans votre lecteur préféré : https://download.songflip.link",
@@ -2795,8 +2809,8 @@ enum LocalizationManager {
             "pro_debug_reset_status": "Statut PRO réinitialisé (Debug)",
             "pro_feature_cache_desc": "Les titres populaires s'ouvrent sans attendre",
             "pro_feature_cache_title": "Ouverture plus rapide",
-            "pro_feature_review_desc": "Sélectionnez manuellement des versions alternatives",
-            "pro_feature_review_title": "Affiner les correspondances",
+            "pro_feature_review_desc": "Priorité Hi-Res/Atmos et choix de versions",
+            "pro_feature_review_title": "Qualité studio et versions",
             "pro_feature_history_desc": "100 entrées d'historique et favoris illimités",
             "pro_feature_history_title": "Historique étendu",
             "pro_feature_links_desc": "Un lien que chacun ouvre dans son propre lecteur",
@@ -2957,6 +2971,8 @@ enum LocalizationManager {
         
         ],
         "es": [
+            "settings_audiophile_title": "Prioridad de calidad audiófila",
+            "settings_audiophile_subtitle": "Prioriza masters de estudio, Hi-Res, Lossless y Dolby Atmos frente a ediciones de radio y recopilatorios",
             "settings_share_app": "Compartir SongFlip",
             "settings_share_app_subtitle": "Comparte la aplicación con amigos y amantes de la música",
             "share_app_message": "Echa un vistazo a SongFlip: abre enlaces de música de Spotify, Apple Music y más directamente en tu reproductor favorito: https://download.songflip.link",
@@ -3217,8 +3233,8 @@ enum LocalizationManager {
             "pro_debug_reset_status": "Estado PRO restablecido (Debug)",
             "pro_feature_cache_desc": "Las canciones populares se abren sin esperas",
             "pro_feature_cache_title": "Abre más rápido",
-            "pro_feature_review_desc": "Selecciona versiones alternativas manualmente",
-            "pro_feature_review_title": "Ajustar resultados",
+            "pro_feature_review_desc": "Prioriza Hi-Res/Atmos y elige versiones",
+            "pro_feature_review_title": "Calidad de estudio y versiones",
             "pro_feature_history_desc": "100 entradas en el historial y favoritos ilimitados",
             "pro_feature_history_title": "Historial amplio",
             "pro_feature_links_desc": "Un enlace que cada uno abre en su reproductor",
@@ -3379,6 +3395,8 @@ enum LocalizationManager {
         
         ],
         "it": [
+            "settings_audiophile_title": "Priorità qualità audiofila",
+            "settings_audiophile_subtitle": "Preferisci master in studio, Hi-Res, Lossless e Dolby Atmos rispetto a radio edit e compilation",
             "settings_share_app": "Condividi SongFlip",
             "settings_share_app_subtitle": "Condividi l’app con amici e amanti della musica",
             "share_app_message": "Scopri SongFlip: apri i link musicali di Spotify, Apple Music e altri direttamente nel tuo lettore preferito: https://download.songflip.link",
@@ -3639,8 +3657,8 @@ enum LocalizationManager {
             "pro_debug_reset_status": "Stato PRO reimpostato (Debug)",
             "pro_feature_cache_desc": "I brani più popolari si aprono senza attese",
             "pro_feature_cache_title": "Apertura più rapida",
-            "pro_feature_review_desc": "Seleziona versioni alternative manualmente",
-            "pro_feature_review_title": "Perfeziona corrispondenze",
+            "pro_feature_review_desc": "Priorità Hi-Res/Atmos e scelta versioni",
+            "pro_feature_review_title": "Qualità studio e versioni",
             "pro_feature_history_desc": "100 voci in cronologia e preferiti illimitati",
             "pro_feature_history_title": "Cronologia ampia",
             "pro_feature_links_desc": "Un link che ognuno apre nel proprio player",
@@ -3801,6 +3819,8 @@ enum LocalizationManager {
         
         ],
         "pt": [
+            "settings_audiophile_title": "Prioridade de qualidade audiófila",
+            "settings_audiophile_subtitle": "Preferir masters de estúdio, Hi-Res, Lossless e Dolby Atmos em vez de edições de rádio e coletâneas",
             "settings_share_app": "Compartilhar SongFlip",
             "settings_share_app_subtitle": "Compartilhe o app com amigos e amantes de música",
             "share_app_message": "Conheça o SongFlip – abra links de música do Spotify, Apple Music e mais direto no seu player favorito: https://download.songflip.link",
@@ -4061,8 +4081,8 @@ enum LocalizationManager {
             "pro_debug_reset_status": "Status PRO redefinido (Debug)",
             "pro_feature_cache_desc": "Músicas populares abrem sem espera",
             "pro_feature_cache_title": "Abertura mais rápida",
-            "pro_feature_review_desc": "Selecione manualmente versões alternativas",
-            "pro_feature_review_title": "Refinar resultados",
+            "pro_feature_review_desc": "Priorize Hi-Res/Atmos e escolha versões",
+            "pro_feature_review_title": "Qualidade de estúdio e versões",
             "pro_feature_history_desc": "100 entradas no histórico e favoritos ilimitados",
             "pro_feature_history_title": "Histórico maior",
             "pro_feature_links_desc": "Um link que cada um abre no próprio player",
@@ -4223,6 +4243,8 @@ enum LocalizationManager {
         
         ],
         "pl": [
+            "settings_audiophile_title": "Priorytet jakości audiofilskiej",
+            "settings_audiophile_subtitle": "Preferuj wydania studyjne, Hi-Res, Lossless i Dolby Atmos zamiast wersji radiowych i składanek",
             "settings_share_app": "Udostępnij SongFlip",
             "settings_share_app_subtitle": "Podziel się aplikacją ze znajomymi i melomanami",
             "share_app_message": "Sprawdź SongFlip – otwieraj linki muzyczne ze Spotify, Apple Music i innych bezpośrednio w ulubionym odtwarzaczu: https://download.songflip.link",
@@ -4483,8 +4505,8 @@ enum LocalizationManager {
             "pro_debug_reset_status": "Zresetowano status PRO (Debug)",
             "pro_feature_cache_desc": "Popularne utwory otwierają się bez czekania",
             "pro_feature_cache_title": "Szybsze otwieranie",
-            "pro_feature_review_desc": "Ręcznie wybieraj alternatywne wersje utworów",
-            "pro_feature_review_title": "Dopasuj wersję",
+            "pro_feature_review_desc": "Priorytet Hi-Res/Atmos i wybór wersji",
+            "pro_feature_review_title": "Jakość studyjna i wersje",
             "pro_feature_history_desc": "100 wpisów w historii i nielimitowane ulubione",
             "pro_feature_history_title": "Większa historia",
             "pro_feature_links_desc": "Jeden link, który każdy otworzy w swoim odtwarzaczu",
@@ -4645,6 +4667,8 @@ enum LocalizationManager {
         
         ],
         "ru": [
+            "settings_audiophile_title": "Аудиофильский приоритет качества",
+            "settings_audiophile_subtitle": "Предпочитать студийные оригиналы, Hi-Res, Lossless и Dolby Atmos вместо радио-версий и сборников",
             "settings_share_app": "Поделиться SongFlip",
             "settings_share_app_subtitle": "Поделитесь приложением с друзьями и меломанами",
             "share_app_message": "Попробуйте SongFlip — открывайте ссылки на музыку из Spotify, Apple Music и других сервисов в любимом плеере: https://download.songflip.link",
@@ -4905,8 +4929,8 @@ enum LocalizationManager {
             "pro_debug_reset_status": "Статус PRO сброшен (Debug)",
             "pro_feature_cache_desc": "Популярные треки открываются без ожидания",
             "pro_feature_cache_title": "Быстрое открытие",
-            "pro_feature_review_desc": "Выбирайте альтернативные версии песен вручную",
-            "pro_feature_review_title": "Уточнение треков",
+            "pro_feature_review_desc": "Приоритет Hi-Res/Atmos и выбор версий",
+            "pro_feature_review_title": "Студийное качество и версии",
             "pro_feature_history_desc": "100 записей в истории и безлимитное избранное",
             "pro_feature_history_title": "Большая история",
             "pro_feature_links_desc": "Одна ссылка, которую каждый откроет в своём плеере",
@@ -5067,6 +5091,8 @@ enum LocalizationManager {
         
         ],
         "tr": [
+            "settings_audiophile_title": "Odyofil Kalite Önceliği",
+            "settings_audiophile_subtitle": "Radyo düzenlemeleri ve derlemeler yerine stüdyo kayıtlarını, Hi-Res, Lossless ve Dolby Atmos sürümlerini tercih et",
             "settings_share_app": "SongFlip’i Paylaş",
             "settings_share_app_subtitle": "Uygulamayı arkadaşlarınız ve müzikseverlerle paylaşın",
             "share_app_message": "SongFlip’i keşfedin – Spotify, Apple Music ve daha fazlasından müzik bağlantılarını doğrudan favori çalarınızda açın: https://download.songflip.link",
@@ -5327,8 +5353,8 @@ enum LocalizationManager {
             "pro_debug_reset_status": "PRO durumu sıfırlandı (Debug)",
             "pro_feature_cache_desc": "Popüler şarkılar beklemeden açılır",
             "pro_feature_cache_title": "Daha hızlı açılış",
-            "pro_feature_review_desc": "Alternatif şarkı sürümlerini manuel seçin",
-            "pro_feature_review_title": "Eşleşmeyi düzelt",
+            "pro_feature_review_desc": "Hi-Res/Atmos önceliği ve sürüm seçimi",
+            "pro_feature_review_title": "Stüdyo kalitesi ve sürümler",
             "pro_feature_history_desc": "100 geçmiş kaydı ve sınırsız favori",
             "pro_feature_history_title": "Geniş geçmiş",
             "pro_feature_links_desc": "Herkesin kendi oynatıcısında açtığı tek bir bağlantı",
@@ -5489,6 +5515,8 @@ enum LocalizationManager {
         
         ],
         "uk": [
+            "settings_audiophile_title": "Аудіофільський пріоритет якості",
+            "settings_audiophile_subtitle": "Надавати перевагу студійним оригіналам, Hi-Res, Lossless і Dolby Atmos замість радіо-версій та збірок",
             "settings_share_app": "Поділитися SongFlip",
             "settings_share_app_subtitle": "Поділіться застосунком із друзями та меломанами",
             "share_app_message": "Спробуйте SongFlip — відкривайте посилання на музику зі Spotify, Apple Music та інших сервісів у улюбленому плеєрі: https://download.songflip.link",
@@ -5749,8 +5777,8 @@ enum LocalizationManager {
             "pro_debug_reset_status": "Статус PRO скинуто (Debug)",
             "pro_feature_cache_desc": "Популярні треки відкриваються без очікування",
             "pro_feature_cache_title": "Швидке відкриття",
-            "pro_feature_review_desc": "Вибирайте альтернативні версії пісень вручну",
-            "pro_feature_review_title": "Уточнення треків",
+            "pro_feature_review_desc": "Пріоритет Hi-Res/Atmos і вибір версій",
+            "pro_feature_review_title": "Студійна якість і версії",
             "pro_feature_history_desc": "100 записів в історії та необмежені обрані",
             "pro_feature_history_title": "Більша історія",
             "pro_feature_links_desc": "Одне посилання, яке кожен відкриє у своєму плеєрі",
@@ -5911,6 +5939,8 @@ enum LocalizationManager {
         
         ],
         "ja": [
+            "settings_audiophile_title": "オーディオファイル音質優先",
+            "settings_audiophile_subtitle": "ラジオエディットやコンピレーションよりもスタジオマスター、Hi-Res、Lossless、Dolby Atmosを優先します",
             "settings_share_app": "SongFlipを共有",
             "settings_share_app_subtitle": "友達や音楽ファンにアプリを教える",
             "share_app_message": "SongFlipをチェック – SpotifyやApple Musicなどの音楽リンクをお気に入りのプレーヤーで直接開けます: https://download.songflip.link",
@@ -6171,8 +6201,8 @@ enum LocalizationManager {
             "pro_debug_reset_status": "PROステータスをリセットしました（デバッグ）",
             "pro_feature_cache_desc": "人気の曲は待ち時間なしで開けます",
             "pro_feature_cache_title": "すばやく開く",
-            "pro_feature_review_desc": "別バージョンを手動で選択して修正",
-            "pro_feature_review_title": "楽曲のマッチ調整",
+            "pro_feature_review_desc": "Hi-Res/Atmosの優先と別バージョンの手動選択",
+            "pro_feature_review_title": "高音質＆バージョン選択",
             "pro_feature_history_desc": "履歴100件＆お気に入り無制限",
             "pro_feature_history_title": "大きな履歴",
             "pro_feature_links_desc": "受け取った人がそれぞれのプレーヤーで開けるリンク",
@@ -6333,6 +6363,8 @@ enum LocalizationManager {
         
         ],
         "ko": [
+            "settings_audiophile_title": "오디오파일 음질 우선",
+            "settings_audiophile_subtitle": "라디오 에디트 및 컴필레이션 대신 스튜디오 마스터, Hi-Res, Lossless 및 Dolby Atmos 버전을 우선 선택합니다",
             "settings_share_app": "SongFlip 공유하기",
             "settings_share_app_subtitle": "친구와 음악 애호가들에게 앱 공유하기",
             "share_app_message": "SongFlip을 사용해 보세요 – Spotify, Apple Music 등의 음악リンク를 즐겨찾는 플레이어에서 바로 열 수 있습니다: https://download.songflip.link",
@@ -6593,8 +6625,8 @@ enum LocalizationManager {
             "pro_debug_reset_status": "PRO 상태 초기화됨 (디버그)",
             "pro_feature_cache_desc": "인기 곡은 기다림 없이 열립니다",
             "pro_feature_cache_title": "더 빠른 열기",
-            "pro_feature_review_desc": "대체 음원 버전을 수동으로 선택",
-            "pro_feature_review_title": "매칭 결과 수정",
+            "pro_feature_review_desc": "Hi-Res/Atmos 우선 매칭 및 버전 직접 선택",
+            "pro_feature_review_title": "스튜디오 음질 및 버전",
             "pro_feature_history_desc": "기록 100개 및 무제한 즐겨찾기",
             "pro_feature_history_title": "더 큰 기록",
             "pro_feature_links_desc": "받는 사람마다 자기 플레이어에서 열리는 링크",
@@ -6755,6 +6787,8 @@ enum LocalizationManager {
         
         ],
         "zh": [
+            "settings_audiophile_title": "发烧级音质优先",
+            "settings_audiophile_subtitle": "优先匹配录音室母带、Hi-Res、无损与杜比全景声版本，避开电台剪辑与合辑",
             "settings_share_app": "分享 SongFlip",
             "settings_share_app_subtitle": "与好友及音乐爱好者分享此应用",
             "share_app_message": "快来看看 SongFlip – 直接在您喜爱的播放器中打开 Spotify、Apple Music 等音乐链接：https://download.songflip.link",
@@ -7015,8 +7049,8 @@ enum LocalizationManager {
             "pro_debug_reset_status": "PRO status reset (Debug)",
             "pro_feature_cache_desc": "热门歌曲无需等待即可打开",
             "pro_feature_cache_title": "更快打开",
-            "pro_feature_review_desc": "手动挑选其他歌曲版本",
-            "pro_feature_review_title": "优化匹配结果",
+            "pro_feature_review_desc": "优先匹配 Hi-Res/Atmos 并可手动选版本",
+            "pro_feature_review_title": "母带音质与版本选择",
             "pro_feature_history_desc": "100 条历史记录与无限收藏",
             "pro_feature_history_title": "更大的历史记录",
             "pro_feature_links_desc": "一个链接，每个人都能在自己的播放器中打开",
@@ -7176,6 +7210,8 @@ enum LocalizationManager {
             "pro_feature_listen_desc": "不限次数听音识曲 + 离线俱乐部模式"
         ],
         "in": [
+            "settings_audiophile_title": "Prioritas Kualitas Audiofil",
+            "settings_audiophile_subtitle": "Utamakan master studio, Hi-Res, Lossless & Dolby Atmos dibanding radio edit dan kompilasi",
             "settings_share_app": "Bagikan SongFlip",
             "settings_share_app_subtitle": "Bagikan aplikasi ini kepada teman & penikmat musik",
             "share_app_message": "Coba SongFlip – buka tautan musik dari Spotify, Apple Music, dan lainnya langsung di pemutar favoritmu: https://download.songflip.link",
@@ -7436,8 +7472,8 @@ enum LocalizationManager {
             "pro_debug_reset_status": "Status PRO direset (Debug)",
             "pro_feature_cache_desc": "Lagu populer terbuka tanpa menunggu",
             "pro_feature_cache_title": "Buka lebih cepat",
-            "pro_feature_review_desc": "Pilih versi lagu alternatif secara manual",
-            "pro_feature_review_title": "Sesuaikan kecocokan",
+            "pro_feature_review_desc": "Prioritaskan Hi-Res/Atmos & pilih versi",
+            "pro_feature_review_title": "Kualitas studio & versi",
             "pro_feature_history_desc": "100 entri riwayat & favorit tanpa batas",
             "pro_feature_history_title": "Riwayat lebih besar",
             "pro_feature_links_desc": "Satu tautan yang dibuka semua orang di pemutarnya sendiri",
@@ -7597,6 +7633,8 @@ enum LocalizationManager {
             "pro_feature_listen_desc": "Kenali lagu sepuasnya + Mode Klub Offline"
         ],
         "vi": [
+            "settings_audiophile_title": "Ưu tiên chất lượng Audiophile",
+            "settings_audiophile_subtitle": "Ưu tiên bản thu phòng thu, Hi-Res, Lossless & Dolby Atmos hơn bản radio edit và tuyển tập",
             "settings_share_app": "Chia sẻ SongFlip",
             "settings_share_app_subtitle": "Chia sẻ ứng dụng với bạn bè và người yêu âm nhạc",
             "share_app_message": "Khám phá SongFlip – mở liên kết nhạc từ Spotify, Apple Music và nhiều hơn nữa ngay trên trình phát yêu thích của bạn: https://download.songflip.link",
@@ -7857,8 +7895,8 @@ enum LocalizationManager {
             "pro_debug_reset_status": "Đã đặt lại trạng thái PRO (Debug)",
             "pro_feature_cache_desc": "Bài hát phổ biến mở ngay không cần chờ",
             "pro_feature_cache_title": "Mở nhanh hơn",
-            "pro_feature_review_desc": "Tự chọn phiên bản bài hát thay thế",
-            "pro_feature_review_title": "Tinh chỉnh kết quả",
+            "pro_feature_review_desc": "Ưu tiên Hi-Res/Atmos & chọn phiên bản",
+            "pro_feature_review_title": "Chất lượng phòng thu & bản nhạc",
             "pro_feature_history_desc": "100 mục lịch sử & mục yêu thích không giới hạn",
             "pro_feature_history_title": "Lịch sử lớn hơn",
             "pro_feature_links_desc": "Một liên kết ai cũng mở được trong trình phát của mình",
@@ -8019,6 +8057,8 @@ enum LocalizationManager {
         
         ],
         "bn": [
+            "settings_audiophile_title": "অডিওফাইল কোয়ালিটি অগ্রাধিকার",
+            "settings_audiophile_subtitle": "রেডিও এডিট ও সংকলনের বদলে স্টুডিও মাস্টার, Hi-Res, Lossless ও Dolby Atmos প্রাধান্য দিন",
             "settings_share_app": "SongFlip শেয়ার করুন",
             "settings_share_app_subtitle": "বন্ধু ও সংগীতপ্রেমীদের সাথে অ্যাপটি শেয়ার করুন",
             "share_app_message": "SongFlip দেখুন – Spotify, Apple Music ইত্যাদির মিউজিক লিংক সরাসরি আপনার প্রিয় প্লেয়ারে খুলুন: https://download.songflip.link",
@@ -8279,8 +8319,8 @@ enum LocalizationManager {
             "pro_debug_reset_status": "PRO স্ট্যাটাস রিসেট করা হয়েছে (ডিবাগ)",
             "pro_feature_cache_desc": "জনপ্রিয় গান অপেক্ষা ছাড়াই খোলে",
             "pro_feature_cache_title": "দ্রুত খুলুন",
-            "pro_feature_review_desc": "ম্যানুয়ালি বিকল্প গানের সংস্করণ নির্বাচন করুন",
-            "pro_feature_review_title": "ফলাফল পরিবর্তন",
+            "pro_feature_review_desc": "Hi-Res/Atmos অগ্রাধিকার ও সংস্করণ নির্বাচন",
+            "pro_feature_review_title": "স্টুডিও কোয়ালিটি ও সংস্করণ",
             "pro_feature_history_desc": "১০০টি হিস্ট্রি এন্ট্রি ও আনলিমিটেড ফেভারিট",
             "pro_feature_history_title": "বড় ইতিহাস",
             "pro_feature_links_desc": "একটি লিঙ্ক যা প্রত্যেকে নিজের প্লেয়ারে খুলতে পারে",
@@ -8441,6 +8481,8 @@ enum LocalizationManager {
         
         ],
         "hi": [
+            "settings_audiophile_title": "ऑडियोफाइल क्वालिटी प्राथमिकता",
+            "settings_audiophile_subtitle": "रेडियो एडिट और संकलन के बजाय स्टूडियो मास्टर, Hi-Res, Lossless और Dolby Atmos को प्राथमिकता दें",
             "settings_share_app": "SongFlip शेयर करें",
             "settings_share_app_subtitle": "दोस्तों और संगीत प्रेमियों के साथ ऐप साझा करें",
             "share_app_message": "SongFlip देखें – Spotify, Apple Music आदि के म्यूज़िक लिंक सीधे अपने पसंदीदा प्लेयर में खोलें: https://download.songflip.link",
@@ -8701,8 +8743,8 @@ enum LocalizationManager {
             "pro_debug_reset_status": "PRO स्थिति रीसेट की गई (डिबग)",
             "pro_feature_cache_desc": "लोकप्रिय गाने बिना इंतज़ार खुलते हैं",
             "pro_feature_cache_title": "तेज़ी से खोलें",
-            "pro_feature_review_desc": "वैकल्पिक गीत संस्करण मैन्युअल रूप से चुनें",
-            "pro_feature_review_title": "सटीक परिणाम चुनें",
+            "pro_feature_review_desc": "Hi-Res/Atmos प्राथमिकता और संस्करण चयन",
+            "pro_feature_review_title": "स्टूडियो क्वालिटी और संस्करण",
             "pro_feature_history_desc": "100 हिस्ट्री एंट्री और असीमित पसंदीदा",
             "pro_feature_history_title": "बड़ी हिस्ट्री",
             "pro_feature_links_desc": "एक लिंक जिसे हर कोई अपने प्लेयर में खोल सके",
@@ -8863,6 +8905,8 @@ enum LocalizationManager {
         
         ],
         "mr": [
+            "settings_audiophile_title": "ऑडिओफाइल गुणवत्ता प्राधान्य",
+            "settings_audiophile_subtitle": "रेडिओ एडिट आणि संकलनाऐवजी स्टुडिओ मास्टर, Hi-Res, Lossless आणि Dolby Atmos ला प्राधान्य द्या",
             "settings_share_app": "SongFlip शेअर करा",
             "settings_share_app_subtitle": "मित्र आणि संगीत प्रेमींसह अॅप शेअर करा",
             "share_app_message": "SongFlip पहा – Spotify, Apple Music इत्यादींच्या संगीत लिंक्स थेट तुमच्या आवडत्या प्लेयरमध्ये उघडा: https://download.songflip.link",
@@ -9123,8 +9167,8 @@ enum LocalizationManager {
             "pro_debug_reset_status": "PRO स्थिती रीसेट केली (डीबग)",
             "pro_feature_cache_desc": "लोकप्रिय गाणी प्रतीक्षा न करता उघडतात",
             "pro_feature_cache_title": "जलद उघडा",
-            "pro_feature_review_desc": "पर्यायी गाण्यांची आवृत्ती मॅन्युअली निवडा",
-            "pro_feature_review_title": "परिणाम सुधारा",
+            "pro_feature_review_desc": "Hi-Res/Atmos प्राधान्य आणि आवृत्ती निवड",
+            "pro_feature_review_title": "स्टुडिओ गुणवत्ता आणि आवृत्त्या",
             "pro_feature_history_desc": "१०० हिस्ट्री नोंदी आणि अमर्यादित फेव्हरेट्स",
             "pro_feature_history_title": "मोठा इतिहास",
             "pro_feature_links_desc": "एक लिंक जी प्रत्येकजण आपल्या प्लेयरमध्ये उघडू शकतो",
@@ -9285,6 +9329,8 @@ enum LocalizationManager {
         
         ],
         "cs": [
+            "settings_audiophile_title": "Audiofilská priorita kvality",
+            "settings_audiophile_subtitle": "Upřednostnit studiové mastery, Hi-Res, Lossless a Dolby Atmos před rádiovými verzemi a kompilacemi",
             "action_close": "Close",
             "action_copy": "Kopírovat odkaz",
             "action_delete": "Smazat",
@@ -9503,8 +9549,8 @@ enum LocalizationManager {
             "pro_feature_links_title": "Sdílení pro všechny",
             "pro_feature_playlists_desc": "Přeneste celé playlisty do své služby",
             "pro_feature_playlists_title": "Přesuňte playlisty",
-            "pro_feature_review_desc": "Ruční výběr alternativních verzí skladeb",
-            "pro_feature_review_title": "Upřesnit shody",
+            "pro_feature_review_desc": "Priorita Hi-Res/Atmos a ruční výběr verzí",
+            "pro_feature_review_title": "Studiová kvalita a verze",
             "pro_lifetime_badge": "POPULÁRNÍ • JEDNORÁZOVĚ",
             "pro_lifetime_onetime_badge": "JEDNORÁZOVĚ",
             "pro_lifetime_sale_badge": "SPECIAL DEAL",
@@ -9712,6 +9758,8 @@ enum LocalizationManager {
             "pro_feature_listen_desc": "Neomezené rozpoznávání skladeb + offline klubový režim"
         ],
         "el": [
+            "settings_audiophile_title": "Προτεραιότητα ποιότητας Audiophile",
+            "settings_audiophile_subtitle": "Προτίμηση αυθεντικών studio masters, Hi-Res, Lossless & Dolby Atmos έναντι radio edits και συλλογών",
             "action_close": "Close",
             "action_copy": "Αντιγραφή συνδέσμου",
             "action_delete": "Διαγραφή",
@@ -9930,8 +9978,8 @@ enum LocalizationManager {
             "pro_feature_links_title": "Κοινοποίηση σε όλους",
             "pro_feature_playlists_desc": "Μεταφέρετε ολόκληρες λίστες αναπαραγωγής στην υπηρεσία σας",
             "pro_feature_playlists_title": "Μεταφορά λιστών",
-            "pro_feature_review_desc": "Μη αυτόματη επιλογή εναλλακτικών εκδόσεων τραγουδιών",
-            "pro_feature_review_title": "Βελτίωση αποτελεσμάτων",
+            "pro_feature_review_desc": "Προτεραιότητα Hi-Res/Atmos & επιλογή εκδόσεων",
+            "pro_feature_review_title": "Ποιότητα στούντιο & εκδόσεις",
             "pro_lifetime_badge": "ΔΗΜΟΦΙΛΕΣ • ΕΦΑΠΑΞ",
             "pro_lifetime_onetime_badge": "ΕΦΑΠΑΞ",
             "pro_lifetime_sale_badge": "SPECIAL DEAL",
@@ -10139,6 +10187,8 @@ enum LocalizationManager {
             "pro_feature_listen_desc": "Απεριόριστη αναγνώριση τραγουδιών + λειτουργία εκτός σύνδεσης"
         ],
         "fi": [
+            "settings_audiophile_title": "Audiofiilinen laatuprioriteetti",
+            "settings_audiophile_subtitle": "Suosi studiomastereita, Hi-Res-, Lossless- ja Dolby Atmos -versioita radioversioiden ja kokoelmien sijaan",
             "action_close": "Close",
             "action_copy": "Kopioi linkki",
             "action_delete": "Poista",
@@ -10357,8 +10407,8 @@ enum LocalizationManager {
             "pro_feature_links_title": "Jaa kaikille",
             "pro_feature_playlists_desc": "Siirrä kokonaiset soittolistat omaan palveluusi",
             "pro_feature_playlists_title": "Siirrä soittolistat",
-            "pro_feature_review_desc": "Valitse vaihtoehtoiset versiot manuaalisesti",
-            "pro_feature_review_title": "Tarkenna osumia",
+            "pro_feature_review_desc": "Suosi Hi-Res/Atmos-laatua ja valitse versiot",
+            "pro_feature_review_title": "Studiolaatu ja versiot",
             "pro_lifetime_badge": "SUOSITTU • KERTAKORVAUS",
             "pro_lifetime_onetime_badge": "KERTAOSTOS",
             "pro_lifetime_sale_badge": "SPECIAL DEAL",
@@ -10566,6 +10616,8 @@ enum LocalizationManager {
             "pro_feature_listen_desc": "Tunnista rajattomasti kappaleita + offline-klubitila"
         ],
         "hu": [
+            "settings_audiophile_title": "Audiofil minőség előnyben",
+            "settings_audiophile_subtitle": "Stúdió masterek, Hi-Res, Lossless és Dolby Atmos előnyben részesítése a rádióverziókkal és válogatásokkal szemben",
             "action_close": "Close",
             "action_copy": "Link másolása",
             "action_delete": "Törlés",
@@ -10784,8 +10836,8 @@ enum LocalizationManager {
             "pro_feature_links_title": "Megosztás bárkivel",
             "pro_feature_playlists_desc": "Vidd át a teljes lejátszási listákat a saját szolgáltatásodba",
             "pro_feature_playlists_title": "Listák költöztetése",
-            "pro_feature_review_desc": "Alternatív verziók manuális kiválasztása",
-            "pro_feature_review_title": "Találatok pontosítása",
+            "pro_feature_review_desc": "Hi-Res/Atmos előnyben és verzióválasztás",
+            "pro_feature_review_title": "Stúdióminőség és verziók",
             "pro_lifetime_badge": "NÉPSZERŰ • EGYSZERI",
             "pro_lifetime_onetime_badge": "EGYSZERI",
             "pro_lifetime_sale_badge": "SPECIAL DEAL",
@@ -10993,6 +11045,8 @@ enum LocalizationManager {
             "pro_feature_listen_desc": "Korlátlan zenefelismerés + Offline Klub mód"
         ],
         "ro": [
+            "settings_audiophile_title": "Prioritate calitate audiofilă",
+            "settings_audiophile_subtitle": "Preferă masterele de studio, Hi-Res, Lossless și Dolby Atmos în locul edițiilor radio și compilațiilor",
             "action_close": "Close",
             "action_copy": "Copiază linkul",
             "action_delete": "Șterge",
@@ -11211,8 +11265,8 @@ enum LocalizationManager {
             "pro_feature_links_title": "Distribuie oricui",
             "pro_feature_playlists_desc": "Transferă playlisturi întregi în serviciul tău",
             "pro_feature_playlists_title": "Mută playlisturile",
-            "pro_feature_review_desc": "Selectează manual versiuni alternative",
-            "pro_feature_review_title": "Rafinare rezultate",
+            "pro_feature_review_desc": "Prioritate Hi-Res/Atmos și alegerea versiunii",
+            "pro_feature_review_title": "Calitate de studio și versiuni",
             "pro_lifetime_badge": "POPULAR • PLATĂ UNICĂ",
             "pro_lifetime_onetime_badge": "PLATĂ UNICĂ",
             "pro_lifetime_sale_badge": "SPECIAL DEAL",
@@ -11420,6 +11474,8 @@ enum LocalizationManager {
             "pro_feature_listen_desc": "Recunoaștere muzicală nelimitată + Modul Club Offline"
         ],
         "th": [
+            "settings_audiophile_title": "จัดลำดับความสำคัญคุณภาพเสียง Audiophile",
+            "settings_audiophile_subtitle": "เลือกต้นฉบับสตูดิโอ, Hi-Res, Lossless และ Dolby Atmos ก่อนเวอร์ชันวิทยุและอัลบั้มรวมเพลง",
             "action_close": "Close",
             "action_copy": "คัดลอกลิงก์",
             "action_delete": "ลบ",
@@ -11638,8 +11694,8 @@ enum LocalizationManager {
             "pro_feature_links_title": "แชร์ให้ทุกคน",
             "pro_feature_playlists_desc": "ย้ายเพลย์ลิสต์ทั้งหมดไปยังบริการของคุณ",
             "pro_feature_playlists_title": "ย้ายเพลย์ลิสต์",
-            "pro_feature_review_desc": "เลือกเวอร์ชันเพลงอื่นด้วยตนเอง",
-            "pro_feature_review_title": "ปรับแต่งผลลัพธ์",
+            "pro_feature_review_desc": "เน้น Hi-Res/Atmos และเลือกเวอร์ชันเอง",
+            "pro_feature_review_title": "คุณภาพสตูดิโอและเวอร์ชัน",
             "pro_lifetime_badge": "ยอดนิยม • จ่ายครั้งเดียว",
             "pro_lifetime_onetime_badge": "ซื้อครั้งเดียว",
             "pro_lifetime_sale_badge": "SPECIAL DEAL",

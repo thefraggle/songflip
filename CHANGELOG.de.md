@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.10.0] - 2026-10-20
+- **Audiophile Qualitäts-Priorisierung**: Neue Option in den Einstellungen, die bei der Song-Auflösung auf Tidal, Qobuz, Apple Music und Deezer gezielt 24-Bit Hi-Res-, Lossless-, Dolby-Atmos- und originale Studio-Album-Versionen gegenüber Radio-Edits, Compilations und Cover-Versionen bevorzugt.
+- **Vollständige Übersetzungen & Stabilität**: Beschreibungen in allen 34 unterstützten Sprachen ergänzt und die direkte Katalogsuche auf Tidal weiter verbessert.
+
 ## [1.9.11] - 2026-10-20
 - **Schnellere Weiterleitung bei fremden Video- & Web-Links**: Geteilte Links von nicht unterstützten Video- oder Web-Plattformen werden jetzt ohne Wartezeit direkt geöffnet und zeigen einen hilfreichen Hinweis auf Listen & Flip zur Musikerkennung in Videos.
 - **Vollständige Übersetzungen & Feinschliff**: Neue Hinweise in allen 34 unterstützten Sprachen ergänzt sowie interne Diagnose- und Stabilitätsverbesserungen.

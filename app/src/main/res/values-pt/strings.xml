@@ -323,8 +323,8 @@
     <string name="pro_feature_cache_desc">Músicas populares abrem sem espera</string>
     <string name="pro_feature_links_title">Compartilhe com todos</string>
     <string name="pro_feature_links_desc">Um link que cada um abre no próprio player</string>
-    <string name="pro_feature_review_title">Refinar resultados</string>
-    <string name="pro_feature_review_desc">Selecione manualmente versões alternativas</string>
+    <string name="pro_feature_review_title">Qualidade de estúdio e versões</string>
+    <string name="pro_feature_review_desc">Priorize Hi-Res/Atmos e escolha versões</string>
     <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Álbum ainda não lançado</string>
     <string name="prerelease_sheet_desc">Este álbum ainda não está disponível nas plataformas de streaming.</string>
@@ -416,4 +416,6 @@
     <string name="pro_feature_listen_title">Listen &amp; Flip ilimitado</string>
     <string name="pro_feature_listen_desc">Identifique músicas sem limites + Modo Clube Offline</string>
     <string name="unsupported_domain_toast">Link de streaming não suportado – use o Listen &amp; Flip para identificar músicas em vídeos.</string>
+    <string name="settings_audiophile_title">Prioridade de qualidade audiófila</string>
+    <string name="settings_audiophile_subtitle">Preferir masters de estúdio, Hi-Res, Lossless e Dolby Atmos em vez de edições de rádio e coletâneas</string>
 </resources>
