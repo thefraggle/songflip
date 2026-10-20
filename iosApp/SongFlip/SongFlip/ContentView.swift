@@ -1184,11 +1184,17 @@ struct ContentView: View {
                     isPodcastNoticeAudiobook = podcast.isAudiobook
                     showingPodcastNotice = true
                 } else if let unsupported = res as? ResolutionResult.UnsupportedEntity {
+                    let srcDomain = UrlUtils.shared.extractDomain(url: unsupported.originalUrl)
                     AptabaseClient.shared.trackUnsupportedEntityIntercepted(
                         target: effectiveTarget,
-                        entityType: unsupported.entityType
+                        entityType: unsupported.entityType,
+                        sourceDomain: srcDomain
                     )
-                    if let original = URL(string: urlToConvert) {
+                    if unsupported.entityType == "unsupported_domain" {
+                        showToast(LocalizationManager.string(for: "unsupported_domain_toast", lang: lang))
+                    }
+                    let targetUrlStr = unsupported.originalUrl.isEmpty ? urlToConvert : unsupported.originalUrl
+                    if let original = URL(string: targetUrlStr) {
                         UIApplication.shared.open(original)
                     }
                     dismissedClipboardUrl = urlToConvert

@@ -415,4 +415,5 @@
     <string name="listen_unlock_pro">SongFlip PRO\'yu Aç</string>
     <string name="pro_feature_listen_title">Sınırsız Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">Sınırsız şarkı tanıma + Çevrimdışı Kulüp Modu</string>
+    <string name="unsupported_domain_toast">Desteklenen bir yayın bağlantısı değil – videolardaki müziği tanımak için Listen &amp; Flip\'i kullanın.</string>
 </resources>

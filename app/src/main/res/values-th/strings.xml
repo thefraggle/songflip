@@ -397,4 +397,5 @@
     <string name="listen_unlock_pro">ปลดล็อก SongFlip PRO</string>
     <string name="pro_feature_listen_title">Listen &amp; Flip ไม่จำกัด</string>
     <string name="pro_feature_listen_desc">ค้นหาเพลงได้ไม่จำกัด + โหมดคลับออฟไลน์</string>
+    <string name="unsupported_domain_toast">ไม่ใช่ลิงก์สตรีมมิงที่รองรับ – ใช้ Listen &amp; Flip เพื่อค้นหาเพลงในวิดีโอ</string>
 </resources>

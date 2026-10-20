@@ -178,7 +178,8 @@ class LocalizationTest {
             "listen_quota_reached_desc",
             "listen_unlock_pro",
             "pro_feature_listen_title",
-            "pro_feature_listen_desc"
+            "pro_feature_listen_desc",
+            "unsupported_domain_toast"
         )
         val requiredPluralKeys = listOf(
             "history_cached_count",

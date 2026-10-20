@@ -411,4 +411,5 @@
     <string name="listen_unlock_pro">Buka SongFlip PRO</string>
     <string name="pro_feature_listen_title">Listen &amp; Flip Tanpa Batas</string>
     <string name="pro_feature_listen_desc">Kenali lagu sepuasnya + Mode Klub Offline</string>
+    <string name="unsupported_domain_toast">Bukan tautan streaming yang didukung – gunakan Listen &amp; Flip untuk mengenali musik di video.</string>
 </resources>

@@ -318,9 +318,15 @@ object AptabaseClient {
         )
     }
 
-    fun trackUnsupportedEntityIntercepted(target: String, entityType: String) {
-        trackEvent("unsupported_entity_intercepted", mapOf("target" to target, "entity_type" to entityType))
+    fun trackUnsupportedEntityIntercepted(target: String, entityType: String, sourceDomain: String? = null) {
+        val props = mutableMapOf("target" to target, "entity_type" to entityType)
+        if (!sourceDomain.isNullOrBlank()) {
+            props["source_domain"] = sourceDomain.take(64)
+        }
+        trackEvent("unsupported_entity_intercepted", props)
     }
+    fun trackUnsupportedEntityIntercepted(target: String, entityType: String) =
+        trackUnsupportedEntityIntercepted(target, entityType, null)
 
     fun trackTargetPlatformChanged(target: String) {
         trackEvent("target_platform_changed", mapOf("target" to target))

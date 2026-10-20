@@ -321,14 +321,18 @@ final class ProManager: NSObject, ObservableObject {
             let result = try await Purchases.shared.purchase(package: package)
             if !result.userCancelled {
                 updateFromCustomerInfo(result.customerInfo)
-                var props = [
-                    "package": package.identifier,
-                    "store": "app_store"
-                ]
-                for (k, v) in extraProps {
-                    props[k] = v
+                let activeEntitlement = result.customerInfo.entitlements["pro"] ?? result.customerInfo.entitlements["songflip_pro"]
+                let isSandbox = activeEntitlement?.isSandbox == true
+                if !isSandbox {
+                    var props = [
+                        "package": package.identifier,
+                        "store": "app_store"
+                    ]
+                    for (k, v) in extraProps {
+                        props[k] = v
+                    }
+                    AptabaseClient.shared.trackEvent(eventName: "pro_purchased", props: props)
                 }
-                AptabaseClient.shared.trackEvent(eventName: "pro_purchased", props: props)
                 return isPro
             }
             return false

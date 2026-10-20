@@ -415,4 +415,5 @@
     <string name="listen_unlock_pro">Desbloquear SongFlip PRO</string>
     <string name="pro_feature_listen_title">Listen &amp; Flip ilimitado</string>
     <string name="pro_feature_listen_desc">Identifique músicas sem limites + Modo Clube Offline</string>
+    <string name="unsupported_domain_toast">Link de streaming não suportado – use o Listen &amp; Flip para identificar músicas em vídeos.</string>
 </resources>

@@ -411,4 +411,5 @@
     <string name="listen_unlock_pro">SongFlip PRO を解放</string>
     <string name="pro_feature_listen_title">無制限の Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">無制限の音楽認識 ＋ オフライン・クラブモード</string>
+    <string name="unsupported_domain_toast">非対応のストリーミングリンクです – 動画内の音楽認識には Listen &amp; Flip をご利用ください。</string>
 </resources>
