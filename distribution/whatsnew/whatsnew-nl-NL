@@ -1,1 +1,2 @@
-v1.10.1: Prioriteit voor audiofiele kwaliteit (Studio Master, Hi-Res, Lossless & Dolby Atmos) op Tidal, Qobuz, Apple Music en Deezer.
+- Verbeterde afspeelroutering en app-detectie: verfijnde directe linkopening en fallback-verwerking voor nummers, albums, artiesten en afspeellijsten op Tidal en YouTube Music.
+- Algemene stabiliteit: kleine verfijningen van de gebruikersinterface en interne betrouwbaarheidsverbeteringen.

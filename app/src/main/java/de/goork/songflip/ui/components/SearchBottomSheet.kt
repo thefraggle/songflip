@@ -114,10 +114,9 @@ fun SearchBottomSheet(
     }
 
     fun launchTargetPlayer(targetUrl: String, nativeAppUri: String?, platformKey: String) {
-        val targetPackage = PackageUtils.getInstalledPackage(context, platformKey)
+        val (targetPackage, uriStr) = PackageUtils.resolveEffectiveLaunchTarget(context, targetUrl, platformKey, nativeAppUri)
         if (targetPackage != null) {
             try {
-                val uriStr = nativeAppUri ?: PackageUtils.toNativeAppUri(targetUrl, platformKey)
                 val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse(uriStr)).apply {
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     setPackage(targetPackage)

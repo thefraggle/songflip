@@ -1069,10 +1069,15 @@ fun PlaylistConvertBottomSheet(
                     Button(
                         onClick = {
                             try {
-                                val targetUri = Uri.parse(PackageUtils.toNativeAppUri(playlistUrl, targetPlatformKey))
+                                val (installedPkg, effectiveUri) = PackageUtils.resolveEffectiveLaunchTarget(
+                                    context,
+                                    playlistUrl,
+                                    targetPlatformKey
+                                )
+                                val targetUri = Uri.parse(effectiveUri)
                                 val intent = Intent(Intent.ACTION_VIEW, targetUri).apply {
-                                    PackageUtils.getInstalledPackage(context, targetPlatformKey)?.let { pkg ->
-                                        setPackage(pkg)
+                                    if (installedPkg != null) {
+                                        setPackage(installedPkg)
                                     }
                                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 }

@@ -84,119 +84,16 @@ fun SettingsBottomSheet(
     val proState by ProManager.proState.collectAsState()
 
     var showLanguagePickerSubSheet by remember { mutableStateOf(false) }
-    var showPlayerPickerSubSheet by remember { mutableStateOf(false) }
+    var playerPickerSubSheetPlatformKey by remember { mutableStateOf<String?>(null) }
     var showHistorySubSheet by remember { mutableStateOf(false) }
     var showFeedbackSubSheet by remember { mutableStateOf(false) }
     var selectedTheme by remember { mutableStateOf(currentThemeMode) }
 
-    if (showPlayerPickerSubSheet) {
-        val installedPlayers = remember(context) {
-            PackageUtils.getInstalledPlayersForPlatform(context, "youtubeMusic")
-        }
-        ModalBottomSheet(
-            onDismissRequest = { showPlayerPickerSubSheet = false },
-            sheetState = rememberModalBottomSheetState()
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .closeOnEsc { showPlayerPickerSubSheet = false }
-                    .verticalScroll(rememberScrollState())
-                    .padding(24.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.settings_preferred_player_title),
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-                Text(
-                    text = stringResource(R.string.settings_preferred_player_subtitle),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-
-                val isAutoSelected = settingsRepository.preferredYouTubePlayerPackage == null
-                Surface(
-                    onClick = {
-                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                        settingsRepository.preferredYouTubePlayerPackage = null
-                        showPlayerPickerSubSheet = false
-                    },
-                    shape = RoundedCornerShape(12.dp),
-                    color = if (isAutoSelected) MaterialTheme.colorScheme.primary.copy(alpha = 0.15f) else Color.Transparent,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 14.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Column {
-                            Text(
-                                text = stringResource(R.string.settings_preferred_player_auto),
-                                style = MaterialTheme.typography.bodyLarge.copy(
-                                    fontWeight = if (isAutoSelected) FontWeight.Bold else FontWeight.Normal
-                                ),
-                                color = if (isAutoSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
-                            )
-                            Text(
-                                text = stringResource(R.string.settings_preferred_player_auto_desc),
-                                style = MaterialTheme.typography.labelMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-                        if (isAutoSelected) {
-                            Icon(
-                                imageVector = Icons.Default.Check,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary
-                            )
-                        }
-                    }
-                }
-
-                installedPlayers.forEach { player ->
-                    val isSelected = settingsRepository.preferredYouTubePlayerPackage == player.packageName
-                    Surface(
-                        onClick = {
-                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                            settingsRepository.preferredYouTubePlayerPackage = player.packageName
-                            showPlayerPickerSubSheet = false
-                        },
-                        shape = RoundedCornerShape(12.dp),
-                        color = if (isSelected) MaterialTheme.colorScheme.primary.copy(alpha = 0.15f) else Color.Transparent,
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp, vertical = 14.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(
-                                text = player.appName,
-                                style = MaterialTheme.typography.bodyLarge.copy(
-                                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
-                                ),
-                                color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
-                            )
-                            if (isSelected) {
-                                Icon(
-                                    imageVector = Icons.Default.Check,
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.primary
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    playerPickerSubSheetPlatformKey?.let { pickerKey ->
+        PlayerPickerBottomSheet(
+            onDismissRequest = { playerPickerSubSheetPlatformKey = null },
+            platformKey = pickerKey
+        )
     }
 
     if (showFeedbackSubSheet) {
@@ -811,65 +708,67 @@ fun SettingsBottomSheet(
             }
 
             // 4c. Preferred Player Selection (Visible when multiple players installed)
-            val installedYouTubePlayers = remember(context) {
-                PackageUtils.getInstalledPlayersForPlatform(context, "youtubeMusic")
-            }
-            if (installedYouTubePlayers.size > 1) {
-                val currentPreferredPkg = settingsRepository.preferredYouTubePlayerPackage
-                val currentPreferredLabel = if (currentPreferredPkg == null) {
-                    stringResource(R.string.settings_preferred_player_auto)
-                } else {
-                    installedYouTubePlayers.find { it.packageName == currentPreferredPkg }?.appName
-                        ?: stringResource(R.string.settings_preferred_player_auto)
+            listOf("youtubeMusic", "tidal").forEach { multiPlayerKey ->
+                val installedPlayers = remember(context, multiPlayerKey) {
+                    PackageUtils.getInstalledPlayersForPlatform(context, multiPlayerKey)
                 }
+                if (installedPlayers.size > 1) {
+                    val currentPreferredPkg = settingsRepository.getPreferredPlayerPackage(multiPlayerKey)
+                    val currentPreferredLabel = if (currentPreferredPkg == null) {
+                        stringResource(R.string.settings_preferred_player_auto)
+                    } else {
+                        installedPlayers.find { it.packageName == currentPreferredPkg }?.appName
+                            ?: stringResource(R.string.settings_preferred_player_auto)
+                    }
 
-                Card(
-                    shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable {
-                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                            showPlayerPickerSubSheet = true
-                        }
-                ) {
-                    Row(
+                    Card(
+                        shape = RoundedCornerShape(16.dp),
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 14.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
+                            .clickable {
+                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                playerPickerSubSheetPlatformKey = multiPlayerKey
+                            }
                     ) {
                         Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp, vertical = 14.dp),
                             verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(16.dp),
-                            modifier = Modifier.weight(1f)
+                            horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Icon(
-                                imageVector = Icons.Outlined.Tune,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier.size(22.dp)
-                            )
-                            Column(modifier = Modifier.weight(1f)) {
-                                Text(
-                                    text = stringResource(R.string.settings_preferred_player_title),
-                                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
-                                    color = MaterialTheme.colorScheme.onSurface
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Tune,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier.size(22.dp)
                                 )
-                                Text(
-                                    text = currentPreferredLabel,
-                                    style = MaterialTheme.typography.labelMedium,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
+                                Column(modifier = Modifier.weight(1f)) {
+                                    Text(
+                                        text = stringResource(R.string.settings_preferred_player_title),
+                                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
+                                    Text(
+                                        text = currentPreferredLabel,
+                                        style = MaterialTheme.typography.labelMedium,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                }
                             }
+                            Icon(
+                                imageVector = Icons.Outlined.ChevronRight,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                                modifier = Modifier.size(20.dp)
+                            )
                         }
-                        Icon(
-                            imageVector = Icons.Outlined.ChevronRight,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
-                            modifier = Modifier.size(20.dp)
-                        )
                     }
                 }
             }

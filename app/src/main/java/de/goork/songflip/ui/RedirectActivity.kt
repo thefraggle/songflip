@@ -349,12 +349,12 @@ class RedirectActivity : ComponentActivity() {
         } else rawUrl
 
         de.goork.songflip.data.ShortcutHelper.updateShortcuts(this)
-        val targetPackage = PackageUtils.getInstalledPackage(this, targetPlatformKey)
+        val (targetPackage, nativeUriString) = PackageUtils.resolveEffectiveLaunchTarget(this, url, targetPlatformKey)
 
         // Stage 1: Explicit target app launch (fastest, zero intent disambiguation)
         if (targetPackage != null) {
             try {
-                val targetUri = Uri.parse(PackageUtils.toNativeAppUri(url, targetPlatformKey))
+                val targetUri = Uri.parse(nativeUriString)
 
                 val appIntent = Intent(Intent.ACTION_VIEW, targetUri).apply {
                     setPackage(targetPackage)

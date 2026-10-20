@@ -14,10 +14,13 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonNull
 import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonPrimitive
-import kotlinx.serialization.json.longOrNull
 import kotlinx.serialization.json.put
 
 enum class CouponRedeemStatus {
@@ -192,6 +195,18 @@ class CouponService(
         return VerifiedCouponPayload(valid = false)
     }
 
+    private fun JsonElement?.safeStringOrNull(): String? {
+        val prim = this as? JsonPrimitive ?: return null
+        if (prim is JsonNull) return null
+        return prim.contentOrNull
+    }
+
+    private fun JsonElement?.safeLongOrNull(): Long? {
+        val prim = this as? JsonPrimitive ?: return null
+        if (prim is JsonNull || prim.isString) return null
+        return prim.contentOrNull?.toLongOrNull()
+    }
+
     private fun parseAndValidatePayload(
         payloadB64: String,
         expectedInstallId: String,
@@ -205,11 +220,12 @@ class CouponService(
             null
         } ?: return VerifiedCouponPayload(valid = false)
 
-        val code = payloadJson["c"]?.jsonPrimitive?.content?.trim().orEmpty()
-        val tokenInstallId = payloadJson["i"]?.jsonPrimitive?.content?.trim().orEmpty()
-        val type = payloadJson["t"]?.jsonPrimitive?.content?.trim()?.lowercase().orEmpty()
-        val exp = payloadJson["e"]?.jsonPrimitive?.longOrNull
-        val iat = payloadJson["iat"]?.jsonPrimitive?.longOrNull
+        val code = payloadJson["c"].safeStringOrNull()?.trim().orEmpty()
+        val tokenInstallId = payloadJson["i"].safeStringOrNull()?.trim().orEmpty()
+        val type = payloadJson["t"].safeStringOrNull()?.trim()?.lowercase().orEmpty()
+        val rawExp = payloadJson["e"].safeLongOrNull()
+        val exp = rawExp?.takeIf { it > 0L }
+        val iat = payloadJson["iat"].safeLongOrNull()?.takeIf { it > 0L }
 
         if (code.isEmpty() || type.isEmpty() || tokenInstallId.isEmpty()) {
             return VerifiedCouponPayload(valid = false)
@@ -271,9 +287,9 @@ class CouponService(
                 if (response.status.isSuccess()) {
                     val obj = json.parseToJsonElement(respText) as? JsonObject
                         ?: return CouponRedeemOutcome(status = CouponRedeemStatus.INVALID)
-                    val type = obj["type"]?.jsonPrimitive?.content?.lowercase() ?: "1month"
-                    val exp = obj["expirationTimestamp"]?.jsonPrimitive?.longOrNull
-                    val token = obj["token"]?.jsonPrimitive?.content.orEmpty()
+                    val type = obj["type"].safeStringOrNull()?.lowercase() ?: "1month"
+                    val exp = obj["expirationTimestamp"].safeLongOrNull()?.takeIf { it > 0L }
+                    val token = obj["token"].safeStringOrNull().orEmpty()
 
                     val verified = verifyCouponToken(
                         token = token,

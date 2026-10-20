@@ -34,7 +34,7 @@ fun TargetSelectorCard(
     targetServices: List<ServiceInfo>,
     selectedTargetKey: String,
     onTargetSelected: (String) -> Unit,
-    onOpenPlayerPicker: (() -> Unit)? = null,
+    onOpenPlayerPicker: ((String) -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -155,12 +155,12 @@ fun TargetSelectorCard(
                                 }
 
                                 // Quick Player Picker Badge for services with multiple players (Issue #76)
-                                if (service.key == "youtubeMusic" && onOpenPlayerPicker != null) {
-                                    val players = remember(context) {
-                                        PackageUtils.getInstalledPlayersForPlatform(context, "youtubeMusic")
+                                if ((service.key == "youtubeMusic" || service.key == "tidal") && onOpenPlayerPicker != null) {
+                                    val players = remember(context, service.key) {
+                                        PackageUtils.getInstalledPlayersForPlatform(context, service.key)
                                     }
                                     if (players.size > 1) {
-                                        val preferredPkg = settingsRepository.preferredYouTubePlayerPackage
+                                        val preferredPkg = settingsRepository.getPreferredPlayerPackage(service.key)
                                         val currentLabel = if (preferredPkg == null) {
                                             stringResource(R.string.settings_preferred_player_auto)
                                         } else {
@@ -172,7 +172,7 @@ fun TargetSelectorCard(
                                             color = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
                                             modifier = Modifier.clickable {
                                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                                                onOpenPlayerPicker()
+                                                onOpenPlayerPicker(service.key)
                                             }
                                         ) {
                                             Text(

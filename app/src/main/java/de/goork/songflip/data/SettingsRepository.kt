@@ -53,6 +53,32 @@ class SettingsRepository(private val context: Context) {
             PackageUtils.invalidateCache()
         }
 
+    var preferredTidalPlayerPackage: String?
+        get() = prefs.getString(KEY_PREFERRED_TIDAL_PLAYER, null)?.takeIf { it.isNotBlank() }
+        set(value) {
+            if (value.isNullOrBlank()) {
+                prefs.edit().remove(KEY_PREFERRED_TIDAL_PLAYER).apply()
+            } else {
+                prefs.edit().putString(KEY_PREFERRED_TIDAL_PLAYER, value).apply()
+            }
+            PackageUtils.invalidateCache()
+        }
+
+    fun getPreferredPlayerPackage(platformKey: String): String? {
+        return when (platformKey.substringBefore("_")) {
+            "youtubeMusic" -> preferredYouTubePlayerPackage
+            "tidal" -> preferredTidalPlayerPackage
+            else -> null
+        }
+    }
+
+    fun setPreferredPlayerPackage(platformKey: String, packageName: String?) {
+        when (platformKey.substringBefore("_")) {
+            "youtubeMusic" -> preferredYouTubePlayerPackage = packageName
+            "tidal" -> preferredTidalPlayerPackage = packageName
+        }
+    }
+
     var customApiUrl: String
         get() = prefs.getString(KEY_CUSTOM_API_URL, "") ?: ""
         set(value) {
@@ -161,6 +187,7 @@ class SettingsRepository(private val context: Context) {
         private const val KEY_ASK_EVERY_TIME = "ask_every_time"
         private const val KEY_AUDIOPHILE_MODE = "audiophile_mode"
         private const val KEY_PREFERRED_YOUTUBE_PLAYER = "preferred_youtube_player"
+        private const val KEY_PREFERRED_TIDAL_PLAYER = "preferred_tidal_player"
         private const val KEY_LAST_DISMISSED_PRO_NUDGE_MILESTONE = "last_dismissed_pro_nudge_milestone"
         private const val KEY_CACHED_PROMO_BANNER = "cached_promo_banner_json"
 
