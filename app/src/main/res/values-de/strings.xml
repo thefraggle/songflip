@@ -159,6 +159,7 @@
         <item quantity="one">%1$d Song im Verlauf</item>
         <item quantity="other">%1$d Songs im Verlauf</item>
     </plurals>
+    <string name="history_cached_count_free_capped">10 von %1$d Songs sichtbar</string>
     <string name="history_empty">Noch keine Songs im Verlauf. Sobald du Musik-Links teilst, erscheinen sie hier.</string>
     <string name="history_clear_all">Verlauf leeren</string>
     <string name="history_clear_confirm_title">Verlauf wirklich leeren?</string>
@@ -167,6 +168,10 @@
     <string name="history_all_cleared">Verlauf und Cache geleert</string>
     <string name="history_pro_teaser_title">SongFlip PRO Verlauf</string>
     <string name="history_pro_teaser_desc">Schalte bis zu 100 Songs im Verlauf mit SongFlip PRO frei.</string>
+    <plurals name="history_pro_teaser_hidden_desc">
+        <item quantity="one">%1$d älterer Song ausgeblendet – mit SongFlip PRO alle %2$d freischalten.</item>
+        <item quantity="other">%1$d ältere Songs ausgeblendet – mit SongFlip PRO alle %2$d freischalten.</item>
+    </plurals>
     <string name="history_btn_upgrade">PRO freischalten</string>
     <string name="action_delete">Löschen</string>
     <string name="time_just_now">Gerade eben</string>

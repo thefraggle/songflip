@@ -57,7 +57,7 @@ fun HistoryBottomSheet(
     onDismissRequest: () -> Unit,
     isPro: Boolean = false,
     showProTeaser: Boolean = false,
-    onOpenProPaywall: () -> Unit = {},
+    onOpenProPaywall: (String) -> Unit = {},
     onOpenPlaylist: ((playlistUrl: String, targetPlatformKey: String) -> Unit)? = null
 ) {
     val context = LocalContext.current
@@ -253,8 +253,7 @@ fun HistoryBottomSheet(
                             modifier = if (!isPro) {
                                 Modifier.clickable {
                                     haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("history_header")
-                                    onOpenProPaywall()
+                                    onOpenProPaywall("history_header")
                                 }
                             } else Modifier
                         )
@@ -279,7 +278,10 @@ fun HistoryBottomSheet(
                             )
                         }
                     }
-                    IconButton(onClick = onDismissRequest) {
+                    IconButton(
+                        onClick = onDismissRequest,
+                        modifier = Modifier.size(48.dp)
+                    ) {
                         Icon(
                             imageVector = Icons.Default.Close,
                             contentDescription = stringResource(R.string.pause_cancel),
@@ -470,8 +472,7 @@ fun HistoryBottomSheet(
                                             context.getString(R.string.favorite_limit_reached),
                                             Toast.LENGTH_LONG
                                         ).show()
-                                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("favorite_limit_reached")
-                                        onOpenProPaywall()
+                                        onOpenProPaywall("favorite_limit_reached")
                                     } else {
                                         refreshHistory()
                                     }
@@ -486,8 +487,7 @@ fun HistoryBottomSheet(
                                 if (isPro) {
                                     disambiguateItem = item
                                 } else {
-                                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("history_disambiguate_pro")
-                                    onOpenProPaywall()
+                                    onOpenProPaywall("history_disambiguate_pro")
                                 }
                             },
                             onPlay = {
@@ -599,8 +599,7 @@ fun HistoryBottomSheet(
                                     } catch (_: Exception) {}
                                 } else {
                                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("history_universal_share")
-                                    onOpenProPaywall()
+                                    onOpenProPaywall("history_universal_share")
                                 }
                             },
                             onDelete = {
@@ -630,8 +629,7 @@ fun HistoryBottomSheet(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .clickable {
-                                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("history_teaser_bottom")
-                                        onOpenProPaywall()
+                                        onOpenProPaywall("history_teaser_bottom")
                                     }
                             ) {
                                 Row(
@@ -647,16 +645,21 @@ fun HistoryBottomSheet(
                                             style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
                                             color = MaterialTheme.colorScheme.onSurface
                                         )
+                                        val hiddenCount = historyCount - 10
                                         Text(
-                                            text = stringResource(R.string.history_pro_teaser_desc),
+                                            text = pluralStringResource(
+                                                R.plurals.history_pro_teaser_hidden_desc,
+                                                hiddenCount,
+                                                hiddenCount,
+                                                historyCount
+                                            ),
                                             style = MaterialTheme.typography.bodySmall,
                                             color = MaterialTheme.colorScheme.onSurfaceVariant
                                         )
                                     }
                                     Button(
                                         onClick = {
-                                            de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("history_teaser_bottom")
-                                            onOpenProPaywall()
+                                            onOpenProPaywall("history_teaser_bottom")
                                         },
                                         shape = RoundedCornerShape(10.dp),
                                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),

@@ -115,6 +115,7 @@ object PromoBannerManager {
             }
         } catch (e: Exception) {
             if (e is CancellationException) throw e
+            println("PromoBannerManager: Failed to fetch promo banner: ${e.message}")
             null
         }
     }

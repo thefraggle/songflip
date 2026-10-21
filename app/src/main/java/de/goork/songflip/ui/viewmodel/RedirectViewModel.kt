@@ -313,7 +313,8 @@ class RedirectViewModel : ViewModel() {
                             target = targetPlatform,
                             isAlbum = result.isAlbum,
                             isSearch = result.isSearchFallback,
-                            source = sourcePlatformKey
+                            source = sourcePlatformKey,
+                            cacheHit = result.isCacheHit
                         )
 
                         _uiState.value = RedirectUiState.LaunchTarget(

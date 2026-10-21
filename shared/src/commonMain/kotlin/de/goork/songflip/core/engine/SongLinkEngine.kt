@@ -443,7 +443,7 @@ class SongLinkEngine(
                     if (!isPrefetch) {
                         cache.markAsHistory(canonicalUrl, targetPlatformKey, now)
                     }
-                    return cached
+                    return cached.copy(isCacheHit = true)
                 }
             }
 
@@ -643,7 +643,7 @@ class SongLinkEngine(
                     pingCacheIngestAsync(
                         originalUrl = canonicalUrl,
                         targetUrl = finalTargetUrl,
-                        targetPlatform = targetPlatformKey,
+                        targetPlatform = result.platform,
                         title = songLinkData.title.ifEmpty { null },
                         artist = songLinkData.artist.ifEmpty { null },
                         isAlbum = isAlbum,
@@ -739,22 +739,27 @@ class SongLinkEngine(
             if (e is CancellationException && e !is kotlinx.coroutines.TimeoutCancellationException) {
                 throw e
             }
-            val cleanUrl = UrlUtils.extractCleanUrl(inputUrl) ?: inputUrl
-            val isExplicitAlbumUrl = UrlUtils.isAlbumUrl(cleanUrl)
+            try {
+                val cleanUrl = UrlUtils.extractCleanUrl(inputUrl) ?: inputUrl
+                val isExplicitAlbumUrl = UrlUtils.isAlbumUrl(cleanUrl)
 
-            val trackInfo = extractTrackInfo(cleanUrl)
-            if (trackInfo != null) {
-                val resolved = resolveDirectPlatformUrl(trackInfo, targetPlatformKey, isExplicitAlbumUrl, audiophileMode = effectiveAudiophile)
-                    ?: UrlUtils.buildSearchUrl(trackInfo, targetPlatformKey)
-                val nativeUri = UrlUtils.toNativeAppUri(resolved, targetPlatformKey)
-                return ResolutionResult.Success(
-                    targetUrl = resolved,
-                    platform = "${targetPlatformKey}_fallback",
-                    title = trackInfo,
-                    artist = null,
-                    isAlbum = isExplicitAlbumUrl,
-                    nativeAppUri = nativeUri
-                )
+                val trackInfo = extractTrackInfo(cleanUrl)
+                if (trackInfo != null) {
+                    val resolved = resolveDirectPlatformUrl(trackInfo, targetPlatformKey, isExplicitAlbumUrl, audiophileMode = effectiveAudiophile)
+                        ?: UrlUtils.buildSearchUrl(trackInfo, targetPlatformKey)
+                    val nativeUri = UrlUtils.toNativeAppUri(resolved, targetPlatformKey)
+                    return ResolutionResult.Success(
+                        targetUrl = resolved,
+                        platform = "${targetPlatformKey}_fallback",
+                        title = trackInfo,
+                        artist = null,
+                        isAlbum = isExplicitAlbumUrl,
+                        nativeAppUri = nativeUri
+                    )
+                }
+            } catch (fallbackEx: Throwable) {
+                if (fallbackEx is CancellationException) throw fallbackEx
+                // Log and continue to Error result below
             }
 
             val errorReason = if (e is io.ktor.client.plugins.HttpRequestTimeoutException || e is kotlinx.coroutines.TimeoutCancellationException) {

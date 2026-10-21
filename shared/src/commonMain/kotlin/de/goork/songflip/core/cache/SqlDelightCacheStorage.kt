@@ -170,7 +170,7 @@ class SqlDelightCacheStorage(
                         artist = (if (useResolver) resolverRow.artist else historyRow.artist) ?: historyRow.artist,
                         isAlbum = (if (useResolver) resolverRow.is_album else historyRow.is_album) != 0L,
                         nativeAppUri = if (useResolver) resolverRow.native_app_uri else historyRow.native_app_uri,
-                        timestamp = maxOf(historyRow.timestamp, resolverRow.timestamp),
+                        timestamp = historyRow.timestamp,
                         isHistory = true,
                         thumbnailUrl = (if (useResolver) resolverRow.thumbnail_url else historyRow.thumbnail_url) ?: historyRow.thumbnail_url,
                         isFavorite = historyRow.is_favorite != 0L,
@@ -316,7 +316,7 @@ class SqlDelightCacheStorage(
                     artist = newerResolver?.artist ?: row.artist,
                     isAlbum = newerResolver?.isAlbum ?: (row.is_album != 0L),
                     nativeAppUri = newerResolver?.nativeAppUri ?: row.native_app_uri,
-                    timestamp = newerResolver?.timestamp ?: row.timestamp,
+                    timestamp = row.timestamp,
                     isHistory = true,
                     thumbnailUrl = newerResolver?.thumbnailUrl ?: row.thumbnail_url,
                     isFavorite = row.is_favorite != 0L,
@@ -334,7 +334,8 @@ class SqlDelightCacheStorage(
         val db = getDatabase() ?: return null
         return try {
             db.songFlipDatabaseQueries.getMetaValue(key).executeAsOneOrNull()
-        } catch (_: Throwable) {
+        } catch (t: Throwable) {
+            println("SqlDelightCacheStorage: Failed to get meta $key: ${t.message}")
             null
         }
     }
@@ -368,7 +369,8 @@ class SqlDelightCacheStorage(
                     createdAt = row.created_at
                 )
             }
-        } catch (_: Throwable) {
+        } catch (t: Throwable) {
+            println("SqlDelightCacheStorage: Failed to getPendingAcousticScans: ${t.message}")
             emptyList()
         }
     }
@@ -377,14 +379,17 @@ class SqlDelightCacheStorage(
         val db = getDatabase() ?: return
         try {
             db.songFlipDatabaseQueries.deletePendingAcousticScanById(id)
-        } catch (_: Throwable) {}
+        } catch (t: Throwable) {
+            println("SqlDelightCacheStorage: Failed to deletePendingAcousticScan $id: ${t.message}")
+        }
     }
 
     fun countPendingAcousticScans(): Int {
         val db = getDatabase() ?: return 0
         return try {
             db.songFlipDatabaseQueries.countPendingAcousticScans().executeAsOne().toInt()
-        } catch (_: Throwable) {
+        } catch (t: Throwable) {
+            println("SqlDelightCacheStorage: Failed to countPendingAcousticScans: ${t.message}")
             0
         }
     }

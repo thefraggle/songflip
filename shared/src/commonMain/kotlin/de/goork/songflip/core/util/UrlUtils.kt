@@ -38,22 +38,27 @@ object UrlUtils {
         if (clean.isBlank()) return clean
 
         // 1. Spotify: open.spotify.com/track/{id} or /intl-*/track/{id}
-        val spotifyTrackMatch = Regex("open\\.spotify\\.com(?:/intl-[a-zA-Z-]+)?/track/([a-zA-Z0-9]+)").find(clean)
+        val spotifyTrackMatch = Regex("open\\.spotify\\.com(?:/intl-[a-zA-Z-]+)?/track/([a-zA-Z0-9_-]+)").find(clean)
         if (spotifyTrackMatch != null) {
             val id = spotifyTrackMatch.groupValues[1]
             return "https://open.spotify.com/track/$id"
         }
-        val spotifyAlbumMatch = Regex("open\\.spotify\\.com(?:/intl-[a-zA-Z-]+)?/album/([a-zA-Z0-9]+)").find(clean)
+        val spotifyAlbumMatch = Regex("open\\.spotify\\.com(?:/intl-[a-zA-Z-]+)?/album/([a-zA-Z0-9_-]+)").find(clean)
         if (spotifyAlbumMatch != null) {
             val id = spotifyAlbumMatch.groupValues[1]
             return "https://open.spotify.com/album/$id"
         }
-        val spotifyArtistMatch = Regex("open\\.spotify\\.com(?:/intl-[a-zA-Z-]+)?/artist/([a-zA-Z0-9]+)").find(clean)
+        val spotifyArtistMatch = Regex("open\\.spotify\\.com(?:/intl-[a-zA-Z-]+)?/artist/([a-zA-Z0-9_-]+)").find(clean)
         if (spotifyArtistMatch != null) {
             val id = spotifyArtistMatch.groupValues[1]
             return "https://open.spotify.com/artist/$id"
         }
-        val spotifyPrereleaseMatch = Regex("open\\.spotify\\.com(?:/intl-[a-zA-Z-]+)?/prerelease/([a-zA-Z0-9]+)").find(clean)
+        val spotifyPlaylistMatch = Regex("open\\.spotify\\.com(?:/intl-[a-zA-Z-]+)?/playlist/([a-zA-Z0-9_-]+)").find(clean)
+        if (spotifyPlaylistMatch != null) {
+            val id = spotifyPlaylistMatch.groupValues[1]
+            return "https://open.spotify.com/playlist/$id"
+        }
+        val spotifyPrereleaseMatch = Regex("open\\.spotify\\.com(?:/intl-[a-zA-Z-]+)?/prerelease/([a-zA-Z0-9_-]+)").find(clean)
         if (spotifyPrereleaseMatch != null) {
             val id = spotifyPrereleaseMatch.groupValues[1]
             return "https://open.spotify.com/prerelease/$id"
@@ -157,16 +162,18 @@ object UrlUtils {
 
         // 11. Generic Query Parameter Stripping (si, context, rowId, utm_*, ad-tracking)
         if (clean.contains("?")) {
+            // Collapse accidental double/triple question marks e.g. "playlist/123??si=..." (#148)
+            clean = clean.replace(Regex("\\?+"), "?")
             val base = clean.substringBefore("?")
             val query = clean.substringAfter("?")
             val trackingKeys = setOf(
                 "si", "context", "rowid", "feature", "src", "ref", "ref_", "tag",
                 "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term",
-                "gclid", "fbclid", "igshid", "msclkid", "uo", "at", "ct", "app", "ls"
+                "gclid", "fbclid", "igshid", "msclkid", "uo", "at", "ct", "app", "ls", "pi"
             )
             val keptParams = query.split("&").filter { param ->
-                val key = param.substringBefore("=").lowercase()
-                key !in trackingKeys
+                val key = param.substringBefore("=").lowercase().trimStart('?')
+                key.isNotBlank() && key !in trackingKeys
             }
             clean = if (keptParams.isEmpty()) base else "$base?${keptParams.joinToString("&")}"
         }
@@ -449,11 +456,11 @@ object UrlUtils {
             }
             // YouTube Music: music.youtube.com/search?q=Farin+Urlaub
             host == "music.youtube.com" && lower.contains("/search") -> {
-                clean.substringAfter("q=").substringBefore("&")
+                clean.substringAfter("q=", "").substringBefore("&")
             }
             // YouTube: youtube.com/results?search_query=Farin+Urlaub
             isHostOrSubdomain(host, "youtube.com") && lower.contains("/results") -> {
-                clean.substringAfter("search_query=").substringBefore("&")
+                clean.substringAfter("search_query=", "").substringBefore("&")
             }
             // Deezer: deezer.com/search/Farin%20Urlaub or deezer.com/de/search/Farin%20Urlaub
             isHostOrSubdomain(host, "deezer.com") && lower.contains("/search") -> {
@@ -484,11 +491,11 @@ object UrlUtils {
             }
             // SoundCloud: soundcloud.com/search?q=...
             isHostOrSubdomain(host, "soundcloud.com") && lower.contains("/search") -> {
-                clean.substringAfter("q=").substringBefore("&")
+                clean.substringAfter("q=", "").substringBefore("&")
             }
             // Bandcamp: bandcamp.com/search?q=...
             isHostOrSubdomain(host, "bandcamp.com") && lower.contains("/search") -> {
-                clean.substringAfter("q=").substringBefore("&")
+                clean.substringAfter("q=", "").substringBefore("&")
             }
             // Qobuz: open.qobuz.com/search/{query} or ?q=...
             isHostOrSubdomain(host, "qobuz.com") && lower.contains("/search") -> {

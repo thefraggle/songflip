@@ -103,7 +103,7 @@ struct ConvertSongIntent: AppIntent {
                 customApiUrl: customUrl,
                 customApiToken: customToken,
                 isPro: isProCached,
-                authToken: "",
+                authToken: defaults.string(forKey: "pro_auth_token") ?? "",
                 isPrefetch: false,
                 forceRefresh: false,
                 audiophileMode: audiophileMode
@@ -149,7 +149,8 @@ struct ConvertSongIntent: AppIntent {
                 target: targetPlatform,
                 isAlbum: success.isAlbum,
                 isSearch: success.isSearchFallback,
-                source: srcKey
+                source: srcKey,
+                cacheHit: KotlinBoolean(value: success.isCacheHit)
             )
 
             let cleanTargetKey = targetPlatform.components(separatedBy: "_").first ?? targetPlatform

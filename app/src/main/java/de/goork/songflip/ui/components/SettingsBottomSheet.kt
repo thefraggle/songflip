@@ -75,7 +75,7 @@ fun SettingsBottomSheet(
     currentThemeMode: String,
     onThemeModeSelected: (String) -> Unit,
     isPro: Boolean = false,
-    onOpenProPaywall: () -> Unit = {},
+    onOpenProPaywall: (String) -> Unit = {},
     onOpenSetupGuide: () -> Unit = {},
     onOpenPlaylist: ((String, String) -> Unit)? = null
 ) {
@@ -218,7 +218,7 @@ fun SettingsBottomSheet(
                         onDismissRequest()
                     },
                     modifier = Modifier
-                        .size(38.dp)
+                        .size(48.dp)
                         .clip(CircleShape)
                         .background(MaterialTheme.colorScheme.surfaceVariant)
                 ) {
@@ -242,10 +242,7 @@ fun SettingsBottomSheet(
                     .fillMaxWidth()
                     .clickable {
                         haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                        if (!isPro) {
-                            de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("settings_sheet")
-                        }
-                        onOpenProPaywall()
+                        onOpenProPaywall("settings_sheet")
                     }
             ) {
                 Row(
@@ -365,7 +362,11 @@ fun SettingsBottomSheet(
                         )
                         Text(
                             text = if (historyCount > 0) {
-                                pluralStringResource(R.plurals.history_cached_count, historyCount, historyCount)
+                                if (!isPro && historyCount > 10) {
+                                    stringResource(R.string.history_cached_count_free_capped, historyCount)
+                                } else {
+                                    pluralStringResource(R.plurals.history_cached_count, historyCount, historyCount)
+                                }
                             } else {
                                 stringResource(R.string.history_subtitle)
                             },
@@ -391,8 +392,7 @@ fun SettingsBottomSheet(
                         .fillMaxWidth()
                         .clickable {
                             haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                            de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("settings_universal_share_card")
-                            onOpenProPaywall()
+                            onOpenProPaywall("settings_universal_share_card")
                         }
                 ) {
                     Row(
@@ -649,8 +649,7 @@ fun SettingsBottomSheet(
                     .fillMaxWidth()
                     .clickable(enabled = !isPro) {
                         haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("settings_audiophile_mode")
-                        onOpenProPaywall()
+                        onOpenProPaywall("settings_audiophile_mode")
                     }
             ) {
                 Row(
@@ -699,8 +698,7 @@ fun SettingsBottomSheet(
                                 audiophileModeEnabled = isChecked
                                 settingsRepository.audiophileMode = isChecked
                             } else {
-                                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("settings_audiophile_mode")
-                                onOpenProPaywall()
+                                onOpenProPaywall("settings_audiophile_mode")
                             }
                         }
                     )
