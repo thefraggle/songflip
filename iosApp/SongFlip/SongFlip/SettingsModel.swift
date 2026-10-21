@@ -17,7 +17,9 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
     case deezer = "deezer"
     case amazonMusic = "amazonMusic"
     case soundcloud = "soundcloud"
+    case bandcamp = "bandcamp"
     case qobuz = "qobuz"
+    case beatport = "beatport"
 
     var id: String { rawValue }
 
@@ -30,7 +32,9 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
         case .deezer: return "Deezer"
         case .amazonMusic: return "Amazon Music"
         case .soundcloud: return "SoundCloud"
+        case .bandcamp: return "Bandcamp"
         case .qobuz: return "Qobuz"
+        case .beatport: return "Beatport"
         }
     }
 
@@ -43,7 +47,9 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
         case .deezer: return "music.quarternote.3"
         case .amazonMusic: return "cart.fill"
         case .soundcloud: return "cloud.fill"
+        case .bandcamp: return "opticaldisc"
         case .qobuz: return "waveform.circle.fill"
+        case .beatport: return "headphones"
         }
     }
 
@@ -56,9 +62,26 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
         case .deezer: return Color(red: 0.64, green: 0.22, blue: 1.0)
         case .amazonMusic: return Color(red: 0.15, green: 0.82, blue: 0.85)
         case .soundcloud: return Color(red: 1.0, green: 0.33, blue: 0.0)
+        case .bandcamp: return Color(red: 0.11, green: 0.63, blue: 0.76)
         case .qobuz: return Color(red: 0.0, green: 0.45, blue: 0.82)
+        case .beatport: return Color(red: 0.0, green: 0.85, blue: 0.5)
         }
     }
+}
+
+struct IosAlternativePlayer: Identifiable, Hashable {
+    let id: String
+    let appName: String
+    let platformKey: String
+    let probeScheme: String
+
+    static let allCandidates: [IosAlternativePlayer] = [
+        IosAlternativePlayer(id: "demus", appName: "Demus", platformKey: "youtubeMusic", probeScheme: "demus://"),
+        IosAlternativePlayer(id: "yattee", appName: "Yattee", platformKey: "youtubeMusic", probeScheme: "yattee://"),
+        IosAlternativePlayer(id: "marvispro", appName: "Marvis Pro", platformKey: "appleMusic", probeScheme: "marvispro://"),
+        IosAlternativePlayer(id: "soor", appName: "Soor", platformKey: "appleMusic", probeScheme: "soor://"),
+        IosAlternativePlayer(id: "joitunes", appName: "Joi Tunes", platformKey: "appleMusic", probeScheme: "joitunes://")
+    ]
 }
 
 func platformColor(for key: String) -> Color {
@@ -295,5 +318,67 @@ class SettingsModel: ObservableObject {
 
     func dismissProNudgeMilestone(_ milestone: Int) {
         lastDismissedProNudgeMilestone = milestone
+    }
+
+    // MARK: - Alternative Player Selection & Unified Launch Routing (#139)
+
+    func preferredPlayerId(for platformKey: String) -> String? {
+        let cleanKey = platformKey.components(separatedBy: "_").first ?? platformKey
+        let val = defaults.string(forKey: "preferred_player_\(cleanKey)")?.trimmingCharacters(in: .whitespacesAndNewlines)
+        return (val?.isEmpty == false) ? val : nil
+    }
+
+    func setPreferredPlayerId(_ playerId: String?, for platformKey: String) {
+        let cleanKey = platformKey.components(separatedBy: "_").first ?? platformKey
+        objectWillChange.send()
+        if let playerId = playerId, !playerId.isEmpty {
+            defaults.set(playerId, forKey: "preferred_player_\(cleanKey)")
+        } else {
+            defaults.removeObject(forKey: "preferred_player_\(cleanKey)")
+        }
+    }
+
+    func installedAlternativePlayers(for platformKey: String) -> [IosAlternativePlayer] {
+        let cleanKey = platformKey.components(separatedBy: "_").first ?? platformKey
+        return IosAlternativePlayer.allCandidates.filter { candidate in
+            guard candidate.platformKey == cleanKey,
+                  let url = URL(string: candidate.probeScheme) else { return false }
+            return UIApplication.shared.canOpenURL(url)
+        }
+    }
+
+    func openResolvedTarget(
+        targetUrl: String,
+        nativeAppUri: String? = nil,
+        platformKey: String,
+        title: String? = nil,
+        artist: String? = nil
+    ) {
+        let cleanKey = platformKey.components(separatedBy: "_").first ?? platformKey
+        let webFallbackStr = UrlUtils.shared.toWebFallbackUrl(rawUrl: targetUrl, targetPlatformKey: cleanKey)
+        let fallbackUrl = URL(string: webFallbackStr) ?? URL(string: targetUrl)
+
+        var primaryStr = nativeAppUri ?? UrlUtils.shared.toNativeAppUri(url: targetUrl, platformKey: cleanKey)
+        if let preferredId = preferredPlayerId(for: cleanKey) {
+            if let customUri = UrlUtils.shared.toAlternativeClientUri(
+                url: targetUrl,
+                platformKey: cleanKey,
+                clientId: preferredId,
+                title: title,
+                artist: artist
+            ) {
+                primaryStr = customUri
+            }
+        }
+
+        if let primaryUrl = URL(string: primaryStr) {
+            UIApplication.shared.open(primaryUrl, options: [:]) { opened in
+                if !opened, let fallbackUrl = fallbackUrl, primaryUrl != fallbackUrl {
+                    UIApplication.shared.open(fallbackUrl)
+                }
+            }
+        } else if let fallbackUrl = fallbackUrl {
+            UIApplication.shared.open(fallbackUrl)
+        }
     }
 }

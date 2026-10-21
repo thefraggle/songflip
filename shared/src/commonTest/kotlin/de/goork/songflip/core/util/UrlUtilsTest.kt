@@ -497,6 +497,52 @@ class UrlUtilsTest {
         assertTrue(UrlUtils.isPlaylistUrl(regularPlaylistUrl))
         assertEquals(de.goork.songflip.core.model.MusicEntityType.PLAYLIST, UrlUtils.detectEntityType(regularPlaylistUrl))
     }
+
+    @Test
+    fun testAlternativeClientUriConversion() {
+        // Eclipse Music (Tidal single tracks -> debridmusic://, non-tracks -> null)
+        assertEquals(
+            "debridmusic://play/tidal/123456",
+            UrlUtils.toAlternativeClientUri("https://tidal.com/browse/track/123456", "tidal", "com.eclipse.android")
+        )
+        assertNull(
+            UrlUtils.toAlternativeClientUri("https://tidal.com/browse/album/123456", "tidal", "com.eclipse.android")
+        )
+
+        // Demus (YouTube Music on iOS -> demus://?url=https://www.youtube.com/watch?v=...)
+        assertEquals(
+            "demus://?url=https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+            UrlUtils.toAlternativeClientUri("https://music.youtube.com/watch?v=dQw4w9WgXcQ", "youtubeMusic", "demus")
+        )
+
+        // Yattee (YouTube Music on iOS -> yattee://watch?v=...)
+        assertEquals(
+            "yattee://watch?v=dQw4w9WgXcQ",
+            UrlUtils.toAlternativeClientUri("https://music.youtube.com/watch?v=dQw4w9WgXcQ", "youtubeMusic", "yattee")
+        )
+
+        // Marvis Pro (Apple Music on iOS -> marvispro://search?term=...&source=applemusic)
+        assertEquals(
+            "marvispro://search?term=Daft%20Punk%20Veridis%20Quo&source=applemusic",
+            UrlUtils.toAlternativeClientUri(
+                "https://music.apple.com/us/album/veridis-quo/697194953?i=697195787",
+                "appleMusic",
+                "marvispro",
+                "Veridis Quo",
+                "Daft Punk"
+            )
+        )
+
+        // Joi Tunes (Apple Music on iOS -> joitunes://music.apple.com/...)
+        assertEquals(
+            "joitunes://music.apple.com/us/album/veridis-quo/697194953?i=697195787",
+            UrlUtils.toAlternativeClientUri(
+                "https://music.apple.com/us/album/veridis-quo/697194953?i=697195787",
+                "appleMusic",
+                "joitunes"
+            )
+        )
+    }
 }
 
 

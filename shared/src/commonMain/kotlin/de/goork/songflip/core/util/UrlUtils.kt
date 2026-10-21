@@ -840,6 +840,101 @@ object UrlUtils {
     }
 
     /**
+     * Converts a resolved platform URL into a specialized deep-link URI for alternative third-party
+     * music clients across Android and iOS (#139).
+     * Returns null when the client only supports specific entity types (e.g. Eclipse single tracks)
+     * and the caller should fall back to the official app or web URL.
+     */
+    fun toAlternativeClientUri(
+        url: String,
+        platformKey: String,
+        clientId: String
+    ): String? {
+        return toAlternativeClientUri(url, platformKey, clientId, null, null)
+    }
+
+    fun toAlternativeClientUri(
+        url: String,
+        platformKey: String,
+        clientId: String,
+        title: String?,
+        artist: String?
+    ): String? {
+        val cleanUrl = url.trim()
+        val normalizedClient = clientId.trim().lowercase()
+        return when (normalizedClient) {
+            "com.eclipse.android", "eclipse" -> {
+                val noQuery = cleanUrl.substringBefore("?")
+                if (noQuery.startsWith("debridmusic://play/tidal/")) return noQuery
+                if (noQuery.startsWith("tidal://track/")) {
+                    val id = noQuery.substringAfter("tidal://track/").substringBefore("/").trim()
+                    if (id.isNotEmpty()) return "debridmusic://play/tidal/$id"
+                }
+                val match = Regex("tidal\\.com(?:/[a-zA-Z-]+)?(?:/browse)?/track/([0-9a-zA-Z-]+)").find(noQuery)
+                if (match != null) {
+                    val id = match.groupValues[1]
+                    if (id.isNotEmpty()) return "debridmusic://play/tidal/$id"
+                }
+                null
+            }
+            "demus" -> {
+                val webFallback = toWebFallbackUrl(cleanUrl, "youtubeMusic")
+                if (webFallback.startsWith("http://") || webFallback.startsWith("https://")) {
+                    "demus://?url=$webFallback"
+                } else {
+                    null
+                }
+            }
+            "yattee" -> {
+                val videoId = when {
+                    cleanUrl.contains("watch?v=") -> cleanUrl.substringAfter("watch?v=").substringBefore("&").substringBefore("#").trim()
+                    cleanUrl.contains("youtu.be/") -> cleanUrl.substringAfter("youtu.be/").substringBefore("?").substringBefore("&").trim()
+                    else -> ""
+                }
+                if (videoId.isNotEmpty()) {
+                    "yattee://watch?v=$videoId"
+                } else {
+                    null
+                }
+            }
+            "marvispro", "marvis" -> {
+                val combinedQuery = listOfNotNull(
+                    artist?.trim()?.takeIf { it.isNotEmpty() },
+                    title?.trim()?.takeIf { it.isNotEmpty() }
+                ).joinToString(" ").ifEmpty {
+                    if (cleanUrl.contains("term=")) {
+                        cleanUrl.substringAfter("term=").substringBefore("&").replace("+", " ")
+                    } else {
+                        val slugMatch = Regex("music\\.apple\\.com/(?:[a-zA-Z-]+/)?(?:album|song|artist)/([^/?#]+)").find(cleanUrl)
+                        slugMatch?.groupValues?.get(1)?.replace("-", " ").orEmpty()
+                    }
+                }
+                val cleaned = cleanSearchQuery(combinedQuery)
+                if (cleaned.isNotEmpty()) {
+                    "marvispro://search?term=${cleaned.encodeURLParameter()}&source=applemusic"
+                } else {
+                    "marvispro://home"
+                }
+            }
+            "soor" -> "soor://"
+            "joitunes" -> {
+                val normalizedApple = cleanUrl
+                    .replace("geo.music.apple.com", "music.apple.com")
+                    .replaceFirst("music://", "https://")
+                    .replaceFirst("musics://", "https://")
+                if (normalizedApple.contains("music.apple.com")) {
+                    normalizedApple
+                        .replaceFirst("https://music.apple.com", "joitunes://music.apple.com")
+                        .replaceFirst("http://music.apple.com", "joitunes://music.apple.com")
+                } else {
+                    "joitunes://"
+                }
+            }
+            else -> null
+        }
+    }
+
+    /**
      * Checks if a URL belongs to SongFlip's own domains (e.g. download.songflip.link, share.songflip.link).
      * Used as a defensive guard to prevent self-referential flips and guide users to share authentic music links.
      */

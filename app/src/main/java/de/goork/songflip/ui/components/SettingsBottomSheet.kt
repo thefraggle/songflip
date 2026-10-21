@@ -707,8 +707,8 @@ fun SettingsBottomSheet(
                 }
             }
 
-            // 4c. Preferred Player Selection (Visible when multiple players installed)
-            listOf("youtubeMusic", "tidal").forEach { multiPlayerKey ->
+            // 4c. Preferred Player Selection (Visible when multiple players installed for any service, #139)
+            PackageUtils.packageMap.keys.forEach { multiPlayerKey ->
                 val installedPlayers = remember(context, multiPlayerKey) {
                     PackageUtils.getInstalledPlayersForPlatform(context, multiPlayerKey)
                 }
@@ -720,6 +720,7 @@ fun SettingsBottomSheet(
                         installedPlayers.find { it.packageName == currentPreferredPkg }?.appName
                             ?: stringResource(R.string.settings_preferred_player_auto)
                     }
+                    val platformDisplayName = PackageUtils.getPlatformDisplayName(multiPlayerKey)
 
                     Card(
                         shape = RoundedCornerShape(16.dp),
@@ -756,7 +757,7 @@ fun SettingsBottomSheet(
                                         color = MaterialTheme.colorScheme.onSurface
                                     )
                                     Text(
-                                        text = currentPreferredLabel,
+                                        text = "$platformDisplayName • $currentPreferredLabel",
                                         style = MaterialTheme.typography.labelMedium,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )

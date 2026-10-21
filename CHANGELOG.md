@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.10.5] - 2026-10-21
+- **Broader Catalog Search Without Duplicates**: In-app search now returns significantly more unique tracks for artist and song queries while automatically filtering out duplicate entries from compilations, greatest hits, and remastered re-issues in favor of the original studio release.
+- **Expanded Player Detection & Selection**: Improved automatic discovery of compatible music players and extended preferred player selection across all supported streaming services.
+
 ## [1.10.4] - 2026-10-20
 - **Reliable Promotional Code Activation & UI Polish**: Fixed a cryptographic verification edge case where certain promotional codes could not be redeemed, and refined the feature overview layout with a pinned header and automatic scrolling when entering a code.
 - **Improved Album & Deluxe Edition Matching**: Enhanced album lookup accuracy for Deluxe and Bonus Track editions across Apple Music, Deezer, Tidal, Qobuz, and YouTube Music, and improved direct playback routing for YouTube Music album links.

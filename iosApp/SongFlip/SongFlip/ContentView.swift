@@ -964,10 +964,14 @@ struct ContentView: View {
                     .replacingOccurrences(of: "_artist", with: "")
                     .replacingOccurrences(of: "_fallback", with: "")
                 Button(action: {
-                    if let url = URL(string: item.targetUrl) {
-                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                        UIApplication.shared.open(url)
-                    }
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                    settings.openResolvedTarget(
+                        targetUrl: item.targetUrl,
+                        nativeAppUri: nil,
+                        platformKey: cleanPlatform,
+                        title: item.title,
+                        artist: item.artist
+                    )
                 }) {
                     HStack(spacing: 12) {
                         Image(systemName: platformIcon(for: cleanPlatform))
@@ -1166,10 +1170,13 @@ struct ContentView: View {
                         source: srcKey
                     )
 
-                    let target = success.nativeAppUri ?? success.targetUrl
-                    if let url = URL(string: target) {
-                        UIApplication.shared.open(url)
-                    }
+                    settings.openResolvedTarget(
+                        targetUrl: success.targetUrl,
+                        nativeAppUri: success.nativeAppUri,
+                        platformKey: effectiveTarget,
+                        title: success.title,
+                        artist: success.artist
+                    )
 
                     settings.incrementSuccessfulFlipCount()
                     activeMilestone = settings.getActiveProNudgeMilestone()

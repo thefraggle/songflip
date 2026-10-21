@@ -173,16 +173,43 @@ class PackageUtilsTest {
         assertTrue(ytPackages.contains("com.craftworks.music"))
         assertTrue(ytPackages.contains("com.music.bitchord"))
         assertTrue(ytPackages.contains("com.dev.bitchord"))
+        assertTrue(ytPackages.contains("com.metrolist.music"))
+        assertTrue(ytPackages.contains("com.dd3boh.outertune"))
+        assertTrue(ytPackages.contains("me.knighthat.kreate"))
+        assertTrue(ytPackages.contains("com.anandnet.harmonymusic"))
+        assertTrue(ytPackages.contains("com.jhelum.gyawun"))
         // Verify custom players come before official YouTube Music package
         val officialIndex = ytPackages.indexOf("com.google.android.apps.youtube.music")
         val morpheIndex = ytPackages.indexOf("app.morphe.android.apps.youtube.music")
         val anddeaIndex = ytPackages.indexOf("anddea.youtube.music")
         val newtubeIndex = ytPackages.indexOf("io.github.aleixrodriala.arc")
         val bitchordIndex = ytPackages.indexOf("com.music.bitchord")
+        val metrolistIndex = ytPackages.indexOf("com.metrolist.music")
+        val outertuneIndex = ytPackages.indexOf("com.dd3boh.outertune")
         assertTrue(officialIndex > morpheIndex)
         assertTrue(officialIndex > anddeaIndex)
         assertTrue(officialIndex > newtubeIndex)
         assertTrue(officialIndex > bitchordIndex)
+        assertTrue(officialIndex > metrolistIndex)
+        assertTrue(officialIndex > outertuneIndex)
+    }
+
+    @Test
+    fun testMultiPlatformFallbackPackages() {
+        val spotifyPackages = PackageUtils.fallbackPackages["spotify"]
+        org.junit.Assert.assertNotNull(spotifyPackages)
+        assertEquals("com.spotify.music", spotifyPackages!!.first())
+        assertTrue(spotifyPackages.contains("oss.krtirtho.spotube"))
+
+        val applePackages = PackageUtils.fallbackPackages["appleMusic"]
+        org.junit.Assert.assertNotNull(applePackages)
+        assertEquals("com.apple.android.music", applePackages!!.first())
+        assertTrue(applePackages.contains("sh.cider.cider"))
+
+        val soundCloudPackages = PackageUtils.fallbackPackages["soundcloud"]
+        org.junit.Assert.assertNotNull(soundCloudPackages)
+        assertEquals("com.soundcloud.android", soundCloudPackages!!.first())
+        assertTrue(soundCloudPackages.contains("org.schabi.newpipe"))
     }
 
     @Test

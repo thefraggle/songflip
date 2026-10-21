@@ -56,11 +56,47 @@ object PackageUtils {
             "com.craftworks.music",
             "com.music.bitchord",
             "com.dev.bitchord",
+            "com.metrolist.music",
+            "com.dd3boh.outertune",
+            "me.knighthat.kreate",
+            "com.anandnet.harmonymusic",
+            "com.jhelum.gyawun",
             "com.google.android.apps.youtube.music"
+        ),
+        "spotify" to listOf(
+            "com.spotify.music",
+            "com.spotify.lite",
+            "oss.krtirtho.spotube",
+            "com.github.KRTirtho.Spotube",
+            "com.github.brahmkshatriya.echo"
+        ),
+        "appleMusic" to listOf(
+            "com.apple.android.music",
+            "sh.cider.cider",
+            "org.cider.play"
         ),
         "tidal" to listOf(
             "com.aspiro.tidal",
-            "com.eclipse.android"
+            "com.eclipse.android",
+            "com.github.brahmkshatriya.echo"
+        ),
+        "deezer" to listOf(
+            "deezer.android.app",
+            "com.badmanners.murglar2",
+            "com.github.brahmkshatriya.echo"
+        ),
+        "soundcloud" to listOf(
+            "com.soundcloud.android",
+            "org.schabi.newpipe",
+            "org.polymorphicshade.tubular",
+            "DualDual.PipePipe",
+            "com.github.brahmkshatriya.echo"
+        ),
+        "bandcamp" to listOf(
+            "com.bandcamp.android",
+            "org.schabi.newpipe",
+            "org.polymorphicshade.tubular",
+            "DualDual.PipePipe"
         )
     )
 
@@ -121,6 +157,47 @@ object PackageUtils {
         return resolved
     }
 
+    private fun getProbeUrls(cleanKey: String): List<String> {
+        return when (cleanKey) {
+            "youtubeMusic" -> listOf(
+                "https://music.youtube.com/watch?v=dQw4w9WgXcQ",
+                "vnd.youtube.music://watch?v=dQw4w9WgXcQ"
+            )
+            "spotify" -> listOf(
+                "https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv",
+                "spotify:track:4u7EnebtmKWzUH433cf5Qv"
+            )
+            "appleMusic" -> listOf(
+                "https://music.apple.com/song/1761770183",
+                "music://music.apple.com/song/1761770183"
+            )
+            "deezer" -> listOf(
+                "https://www.deezer.com/track/12345",
+                "deezer://www.deezer.com/track/12345"
+            )
+            "tidal" -> listOf(
+                "https://tidal.com/browse/track/12345",
+                "tidal://track/12345",
+                "debridmusic://play/tidal/12345"
+            )
+            "amazonMusic" -> listOf(
+                "https://music.amazon.com/albums/B000000000",
+                "amznmp3://music.amazon.com/albums/B000000000"
+            )
+            "soundcloud" -> listOf(
+                "https://soundcloud.com/artist/track",
+                "soundcloud://tracks/artist/track"
+            )
+            "bandcamp" -> listOf("https://artist.bandcamp.com/track/song")
+            "qobuz" -> listOf(
+                "https://open.qobuz.com/track/1068442",
+                "qobuz://track/1068442"
+            )
+            "beatport" -> listOf("https://www.beatport.com/track/song/12345")
+            else -> emptyList()
+        }
+    }
+
     fun getInstalledPlayersForPlatform(context: Context, platformKey: String): List<AppPlayerOption> {
         val cleanKey = platformKey.substringBefore("_")
         val candidates = fallbackPackages[cleanKey] ?: listOfNotNull(packageMap[cleanKey])
@@ -137,18 +214,37 @@ object PackageUtils {
                 result.add(AppPlayerOption(packageName = pkg, appName = label, isOfficial = isOfficial))
             } catch (_: PackageManager.NameNotFoundException) {}
         }
+
+        // Dynamic intent discovery so newly released mods/clients appear automatically (#139)
+        try {
+            for (probeUrl in getProbeUrls(cleanKey)) {
+                val browsableIntent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(probeUrl)).apply {
+                    addCategory(android.content.Intent.CATEGORY_BROWSABLE)
+                }
+                val resolveInfos = pm.queryIntentActivities(browsableIntent, 0)
+                for (info in resolveInfos) {
+                    val pkg = info.activityInfo.packageName
+                    if (pkg != context.packageName && !isGenericBrowser(pkg) && seen.add(pkg)) {
+                        val label = info.loadLabel(pm)?.toString()?.takeIf { it.isNotBlank() } ?: pkg
+                        val isOfficial = (pkg == packageMap[cleanKey])
+                        result.add(AppPlayerOption(packageName = pkg, appName = label, isOfficial = isOfficial))
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            android.util.Log.d("PackageUtils", "Dynamic player list probe failed: ${e.message}")
+        }
+
         return result
     }
 
     private fun resolveInstalledPackageInternal(context: Context, cleanKey: String): String? {
-        if (cleanKey == "youtubeMusic" || cleanKey == "tidal") {
-            val preferred = SettingsRepository(context).getPreferredPlayerPackage(cleanKey)
-            if (!preferred.isNullOrBlank()) {
-                try {
-                    context.packageManager.getPackageInfo(preferred, 0)
-                    return preferred
-                } catch (_: PackageManager.NameNotFoundException) {}
-            }
+        val preferred = SettingsRepository(context).getPreferredPlayerPackage(cleanKey)
+        if (!preferred.isNullOrBlank()) {
+            try {
+                context.packageManager.getPackageInfo(preferred, 0)
+                return preferred
+            } catch (_: PackageManager.NameNotFoundException) {}
         }
 
         val candidates = fallbackPackages[cleanKey] ?: listOfNotNull(packageMap[cleanKey])
@@ -161,32 +257,7 @@ object PackageUtils {
 
         // Dynamic player detection for custom/modded installations
         try {
-            val probeUrls = when (cleanKey) {
-                "youtubeMusic" -> listOf(
-                    "https://music.youtube.com/watch?v=dQw4w9WgXcQ",
-                    "vnd.youtube.music://watch?v=dQw4w9WgXcQ"
-                )
-                "spotify" -> listOf(
-                    "https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv",
-                    "spotify:track:4u7EnebtmKWzUH433cf5Qv"
-                )
-                "appleMusic" -> listOf("https://music.apple.com/song/1761770183")
-                "deezer" -> listOf(
-                    "https://www.deezer.com/track/12345",
-                    "deezer://www.deezer.com/track/12345"
-                )
-                "tidal" -> listOf(
-                    "https://tidal.com/browse/track/12345",
-                    "tidal://track/12345"
-                )
-                "amazonMusic" -> listOf("https://music.amazon.com/albums/B000000000")
-                "soundcloud" -> listOf("https://soundcloud.com/artist/track")
-                "bandcamp" -> listOf("https://artist.bandcamp.com/track/song")
-                "qobuz" -> listOf("https://open.qobuz.com/track/1068442", "qobuz://track/1068442")
-                "beatport" -> listOf("https://www.beatport.com/track/song/12345")
-                else -> emptyList()
-            }
-            for (probeUrl in probeUrls) {
+            for (probeUrl in getProbeUrls(cleanKey)) {
                 val browsableIntent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(probeUrl)).apply {
                     addCategory(android.content.Intent.CATEGORY_BROWSABLE)
                 }
@@ -316,6 +387,21 @@ object PackageUtils {
             return targetPackage to normalizeAndroidYouTubeMusicUri(chosen)
         }
         val effectiveUri = candidateNativeUri ?: toNativeAppUri(url, cleanKey, targetPackage)
+        // If a non-official 3rd-party client (e.g. NewPipe for SoundCloud/Bandcamp, Spotube, Cider)
+        // is selected that only handles https:// links rather than proprietary app schemes, fall back to the HTTPS URL (#139)
+        if (targetPackage != null && targetPackage != packageMap[cleanKey] && effectiveUri != url && !effectiveUri.startsWith("http")) {
+            val handlesCustomScheme = try {
+                val checkIntent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(effectiveUri)).apply {
+                    setPackage(targetPackage)
+                }
+                context.packageManager.resolveActivity(checkIntent, 0) != null
+            } catch (_: Exception) {
+                false
+            }
+            if (!handlesCustomScheme) {
+                return targetPackage to url
+            }
+        }
         return targetPackage to effectiveUri
     }
 

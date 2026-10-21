@@ -1,5 +1,6 @@
 package de.goork.songflip.core.engine
 
+import de.goork.songflip.core.engine.resolvers.ResolverUtils
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
@@ -75,21 +76,85 @@ class CatalogSearchEngine(
 ) {
     companion object {
         val shared: CatalogSearchEngine by lazy { CatalogSearchEngine() }
+
+        private val REMASTER_PAREN_REGEX = Regex(
+            """\s*[\(\[]\s*(?:\d{4}\s+)?(?:remaster(?:ed)?(?:\s+\d{4})?|single\s+version|album\s+version|original\s+version|radio\s+edit|explicit|clean)\s*[\)\]]""",
+            RegexOption.IGNORE_CASE
+        )
+        private val REMASTER_DASH_REGEX = Regex(
+            """\s*[-–—]\s*(?:\d{4}\s+)?(?:remaster(?:ed)?(?:\s+\d{4})?|single\s+version|album\s+version|original\s+version)$""",
+            RegexOption.IGNORE_CASE
+        )
+        private val FEAT_SUFFIX_REGEX = Regex(
+            """\s*(?:[\(\[]\s*(?:feat\.?|ft\.?|featuring|with)\s+[^\)\]]+[\)\]]|(?:feat\.?|ft\.?|featuring)\s+.+)$""",
+            RegexOption.IGNORE_CASE
+        )
+        private val COMPILATION_ALBUM_KEYWORDS = listOf(
+            "greatest hits", "best of", "celebration", "the immaculate collection",
+            "essentials", "number ones", "gold", "anthology", "the collection",
+            "the singles", "complete", "remastered", "various artists", "top 100"
+        )
+
+        internal fun normalizeDedupKey(artist: String, title: String): String {
+            val baseArtist = artist
+                .replace(FEAT_SUFFIX_REGEX, "")
+                .lowercase()
+                .replace(Regex("[^a-z0-9\\p{L}]"), "")
+                .trim()
+            val baseTitle = ResolverUtils.stripEditionSuffix(title)
+                .replace(FEAT_SUFFIX_REGEX, "")
+                .replace(REMASTER_PAREN_REGEX, "")
+                .replace(REMASTER_DASH_REGEX, "")
+                .lowercase()
+                .replace(Regex("[^a-z0-9\\p{L}]"), "")
+                .trim()
+            return "$baseArtist|$baseTitle"
+        }
+
+        private fun isCompilationOrRemaster(track: SearchTrackResult): Boolean {
+            val lowerAlbum = track.album?.lowercase().orEmpty()
+            val lowerTitle = track.title.lowercase()
+            if (COMPILATION_ALBUM_KEYWORDS.any { lowerAlbum.contains(it) }) return true
+            if (REMASTER_PAREN_REGEX.containsMatchIn(lowerTitle) || REMASTER_DASH_REGEX.containsMatchIn(lowerTitle)) return true
+            return false
+        }
+
+        /**
+         * Deduplicates identical tracks across original studio releases, Greatest Hits compilations,
+         * and remastered re-issues (#137), preferring canonical studio album releases while preserving
+         * the API relevance ranking and distinct tracks (e.g. different artists or distinct remixes/live versions).
+         */
+        internal fun deduplicateTracks(tracks: List<SearchTrackResult>, maxResults: Int): List<SearchTrackResult> {
+            if (tracks.isEmpty()) return emptyList()
+            val dedupedByKey = LinkedHashMap<String, SearchTrackResult>()
+            for (track in tracks) {
+                val key = normalizeDedupKey(track.artist, track.title)
+                val existing = dedupedByKey[key]
+                if (existing == null) {
+                    dedupedByKey[key] = track
+                } else if (isCompilationOrRemaster(existing) && !isCompilationOrRemaster(track)) {
+                    // Replace compilation/remastered duplicate with the canonical studio release at the same rank slot
+                    dedupedByKey[key] = track
+                }
+            }
+            return dedupedByKey.values.take(maxResults)
+        }
     }
 
     @Throws(Throwable::class)
-    suspend fun searchOrThrow(query: String, limit: Int = 20): List<SearchTrackResult> {
+    suspend fun searchOrThrow(query: String, limit: Int = 35): List<SearchTrackResult> {
         return search(query, limit).getOrThrow()
     }
 
-    suspend fun search(query: String, limit: Int = 15): Result<List<SearchTrackResult>> {
+    suspend fun search(query: String, limit: Int = 35): Result<List<SearchTrackResult>> {
         val trimmed = query.trim()
         if (trimmed.isEmpty()) return Result.success(emptyList())
+        val fetchLimit = maxOf(limit * 2, 50).coerceAtMost(100)
 
         // 1. Primary: iTunes Search API (fast, metadata-rich, reliable)
         try {
             val encoded = trimmed.encodeURLParameter()
-            val resp = client.get("https://itunes.apple.com/search?term=$encoded&entity=song&limit=$limit")
+            val resp = client.get("https://itunes.apple.com/search?term=$encoded&entity=song&limit=$fetchLimit")
             if (resp.status.isSuccess()) {
                 val parsed = json.decodeFromString<ITunesSearchResponse>(resp.bodyAsText())
                 val tracks = parsed.results.mapNotNull { item ->
@@ -112,7 +177,7 @@ class CatalogSearchEngine(
                     }
                 }
                 if (tracks.isNotEmpty()) {
-                    return Result.success(tracks)
+                    return Result.success(deduplicateTracks(tracks, limit))
                 }
             }
         } catch (c: CancellationException) {
@@ -124,7 +189,7 @@ class CatalogSearchEngine(
         // 2. Fallback: Deezer Search API
         return try {
             val encoded = trimmed.encodeURLParameter()
-            val resp = client.get("https://api.deezer.com/search?q=$encoded&limit=$limit")
+            val resp = client.get("https://api.deezer.com/search?q=$encoded&limit=$fetchLimit")
             if (resp.status.isSuccess()) {
                 val parsed = json.decodeFromString<DeezerSearchResponse>(resp.bodyAsText())
                 val tracks = parsed.data.mapNotNull { item ->
@@ -145,7 +210,7 @@ class CatalogSearchEngine(
                         )
                     }
                 }
-                Result.success(tracks)
+                Result.success(deduplicateTracks(tracks, limit))
             } else {
                 Result.success(emptyList())
             }

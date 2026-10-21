@@ -65,17 +65,27 @@ class SettingsRepository(private val context: Context) {
         }
 
     fun getPreferredPlayerPackage(platformKey: String): String? {
-        return when (platformKey.substringBefore("_")) {
+        val cleanKey = platformKey.substringBefore("_")
+        return when (cleanKey) {
             "youtubeMusic" -> preferredYouTubePlayerPackage
             "tidal" -> preferredTidalPlayerPackage
-            else -> null
+            else -> prefs.getString("preferred_player_$cleanKey", null)?.takeIf { it.isNotBlank() }
         }
     }
 
     fun setPreferredPlayerPackage(platformKey: String, packageName: String?) {
-        when (platformKey.substringBefore("_")) {
+        val cleanKey = platformKey.substringBefore("_")
+        when (cleanKey) {
             "youtubeMusic" -> preferredYouTubePlayerPackage = packageName
             "tidal" -> preferredTidalPlayerPackage = packageName
+            else -> {
+                if (packageName.isNullOrBlank()) {
+                    prefs.edit().remove("preferred_player_$cleanKey").apply()
+                } else {
+                    prefs.edit().putString("preferred_player_$cleanKey", packageName).apply()
+                }
+                PackageUtils.invalidateCache()
+            }
         }
     }
 

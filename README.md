@@ -17,7 +17,7 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 - **⚡ 0-Click Background Redirect**: Intercepts music links transparently and launches direct playback in your target player.
 - **🎵 Listen & Flip (Music Recognition & Instant Overlay)**: Identify music playing around you directly inside SongFlip, or launch recognition instantly from anywhere via the Quick Settings tile, app icon long-press shortcut, iPhone Action Button, or Siri Shortcuts. Recognized tracks are immediately resolved for your preferred streaming player and saved to your history without interrupting the moment (3 free recognitions/month, with repeat recognitions of songs already in your history never deducting a scan; unlimited in PRO).
 - **🕺 Offline Club Mode [PRO]**: No reception in a club, bar, or festival? Capture an acoustic fingerprint offline and let SongFlip automatically identify the song and add it to your history as soon as you're back online.
-- **🔎 In-App Direct Search & Flip**: Search for any song or artist directly in SongFlip without leaving the app and launch playback with a single tap.
+- **🔎 In-App Direct Search & Flip**: Search for any song or artist directly in SongFlip without leaving the app (with automatic deduplication of compilation and remastered duplicates in favor of original studio releases) and launch playback with a single tap.
 - **🎛️ Precision Match-Review & Disambiguation [PRO]**: Easily pick alternative versions, recordings, or remixes right from your history or search options.
 - **🎧 Audiophile Quality Matcher (Studio Master & Hi-Res Prioritization) [PRO]**: Optional preference that prioritizes 24-bit Hi-Res, Lossless, Dolby Atmos, and full studio album masters over radio edits, compilation releases, and cover versions on Tidal, Qobuz, Apple Music, and Deezer.
 - **📶 Offline Resilience & Auto-Retry Queue**: If you tap a music link while in a subway, elevator, or spotty coverage, SongFlip holds the intent and automatically resolves and plays the song the second connectivity is restored.
@@ -36,7 +36,7 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
   - 🎸 **Bandcamp** (`bandcamp.com`, `*.bandcamp.com`)
   - 🎶 **Qobuz** (`qobuz.com`, `open.qobuz.com` — full source & target player support with Hi-Res playback)
   - 🎧 **Beatport** (`beatport.com` — source link recognition & instant redirection)
-- **📱 Flexible Player Selection**: When multiple compatible players are installed for a service on your device, choose your preferred default player in Settings or switch directly with a single tap from the main player card.
+- **📱 Dynamic Multi-Player Discovery & Selection**: Automatically detects compatible installed players across all 10 streaming services and lets you choose your preferred default player in Settings or switch directly with a single tap from the main player card.
 - **⚡ Shazam Link Interception**: Songs identified with Shazam open directly and reliably in your preferred music player.
 - **🎯 Quick Player Picker ("Ask every time")**: Optional setting for users with multiple streaming apps to pick where each song should play with a single tap.
 - **💿 Full Album, Artist & Podcast Recognition**: Supports single tracks, full albums/EPs, artist channel/discography profiles (including `@handles`), and podcast shows/episodes.

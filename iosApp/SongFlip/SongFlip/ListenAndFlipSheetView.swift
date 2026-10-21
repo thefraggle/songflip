@@ -308,9 +308,13 @@ struct ListenAndFlipSheetView: View {
             // Primary Action: Open in Target Player
             Button(action: {
                 UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                if let url = URL(string: result.targetUrl) {
-                    UIApplication.shared.open(url)
-                }
+                settings.openResolvedTarget(
+                    targetUrl: result.targetUrl,
+                    nativeAppUri: nil,
+                    platformKey: settings.targetPlatform,
+                    title: result.title,
+                    artist: result.artist
+                )
             }) {
                 HStack(spacing: 8) {
                     Image(systemName: "play.fill")

@@ -414,9 +414,13 @@ struct DisambiguationSheetView: View {
                 onMatchUpdated(finalTargetUrl)
 
                 // Open updated target
-                if let url = URL(string: finalTargetUrl) {
-                    UIApplication.shared.open(url)
-                }
+                settings.openResolvedTarget(
+                    targetUrl: finalTargetUrl,
+                    nativeAppUri: nil,
+                    platformKey: item.targetPlatform,
+                    title: candidate.title,
+                    artist: candidate.artist
+                )
 
                 dismiss()
             }
