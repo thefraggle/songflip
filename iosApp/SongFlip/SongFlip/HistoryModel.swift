@@ -222,7 +222,7 @@ class HistoryModel: ObservableObject {
             let kmpEntries = try await SongLinkEngine.shared.cache.getHistoryEntries(limit: maxLimit)
             let count = try await SongLinkEngine.shared.cache.getHistoryCount()
             self.items = kmpEntries.map { HistoryItem(from: $0) }
-            self.totalHistoryCount = Int(count)
+            self.totalHistoryCount = Int(truncating: count)
         } catch {
             Self.logger.error("Failed to sync history from KMP SQLDelight store: \(error.localizedDescription, privacy: .public)")
         }

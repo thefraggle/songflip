@@ -217,7 +217,7 @@ struct ProPaywallSheetView: View {
                                 .fontWeight(.bold)
                                 .foregroundColor(.primary)
                             let subText: String = {
-                                if proManager.proType.contains("lifetime") {
+                                if proManager.proType?.contains("lifetime") == true {
                                     return LocalizationManager.string(for: "pro_active_lifetime", lang: lang)
                                 } else if let exp = proManager.expirationDate {
                                     let formatter = DateFormatter()
