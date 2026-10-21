@@ -11,6 +11,7 @@ struct ProPaywallSheetView: View {
     @State private var showCouponField: Bool = false
     @State private var couponCode: String = ""
     @State private var couponStatusMessage: String? = nil
+    @State private var couponIsError: Bool = false
     @State private var isRedeemingCoupon: Bool = false
     @State private var errorMessage: String? = nil
     @State private var showErrorAlert: Bool = false
@@ -206,56 +207,91 @@ struct ProPaywallSheetView: View {
                     }
                     .padding(.top, 10)
 
-                    // Pricing Tiers
-                    VStack(spacing: 12) {
-                        if shouldShowAnnualFirst {
-                            annualTierCard
-                            monthlyTierCard
-                            lifetimeTierCard
-                        } else {
-                            lifetimeTierCard
-                            annualTierCard
-                            monthlyTierCard
-                        }
-                    }
-                    .padding(.horizontal)
-
-                    // CTA Button
-                    Button(action: purchaseSelected) {
-                        ZStack {
-                            if proManager.isLoading {
-                                ProgressView()
-                                    .tint(.white)
-                            } else {
-                                Text(ctaButtonLabel)
-                                    .font(.headline)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
-                            }
+                    if proManager.isPro {
+                        // Active PRO Status Card
+                        VStack(spacing: 12) {
+                            Text("🎉")
+                                .font(.system(size: 40))
+                            Text(LocalizationManager.string(for: "pro_active_status", lang: lang))
+                                .font(.title3)
+                                .fontWeight(.bold)
+                                .foregroundColor(.primary)
+                            let subText: String = {
+                                if proManager.proType.contains("lifetime") {
+                                    return LocalizationManager.string(for: "pro_active_lifetime", lang: lang)
+                                } else if let exp = proManager.expirationDate {
+                                    let formatter = DateFormatter()
+                                    formatter.dateStyle = .medium
+                                    return String(format: LocalizationManager.string(for: "pro_active_annual", lang: lang), formatter.string(from: exp))
+                                } else {
+                                    return LocalizationManager.string(for: "pro_active_lifetime", lang: lang)
+                                }
+                            }()
+                            Text(subText)
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
                         }
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(Color.green)
-                        .cornerRadius(16)
-                        .shadow(color: Color.green.opacity(0.3), radius: 8, y: 4)
-                    }
-                    .disabled(proManager.isLoading || selectedPackage == nil)
-                    .padding(.horizontal)
+                        .padding(24)
+                        .background(Color.green.opacity(0.12))
+                        .cornerRadius(20)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.green.opacity(0.4), lineWidth: 1.5)
+                        )
+                        .padding(.horizontal)
+                    } else {
+                        // Pricing Tiers
+                        VStack(spacing: 12) {
+                            if shouldShowAnnualFirst {
+                                annualTierCard
+                                monthlyTierCard
+                                lifetimeTierCard
+                            } else {
+                                lifetimeTierCard
+                                annualTierCard
+                                monthlyTierCard
+                            }
+                        }
+                        .padding(.horizontal)
 
-                    // Restore Purchases
-                    Button(action: restorePurchases) {
-                        Text(LocalizationManager.string(for: "pro_btn_restore", lang: lang))
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                    }
-                    .disabled(proManager.isLoading)
+                        // CTA Button
+                        Button(action: purchaseSelected) {
+                            ZStack {
+                                if proManager.isLoading {
+                                    ProgressView()
+                                        .tint(.white)
+                                } else {
+                                    Text(ctaButtonLabel)
+                                        .font(.headline)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                }
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 16)
+                            .background(Color.green)
+                            .cornerRadius(16)
+                            .shadow(color: Color.green.opacity(0.3), radius: 8, y: 4)
+                        }
+                        .disabled(proManager.isLoading || selectedPackage == nil)
+                        .padding(.horizontal)
 
-                    // Subscription Terms
-                    Text(LocalizationManager.string(for: "pro_subscription_terms", lang: lang))
-                        .font(.caption2)
-                        .foregroundColor(.secondary.opacity(0.8))
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 24)
+                        // Restore Purchases
+                        Button(action: restorePurchases) {
+                            Text(LocalizationManager.string(for: "pro_btn_restore", lang: lang))
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                        }
+                        .disabled(proManager.isLoading)
+
+                        // Subscription Terms
+                        Text(LocalizationManager.string(for: "pro_subscription_terms", lang: lang))
+                            .font(.caption2)
+                            .foregroundColor(.secondary.opacity(0.8))
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 24)
+                    }
 
                     Divider().padding(.horizontal)
 
@@ -312,7 +348,7 @@ struct ProPaywallSheetView: View {
                             if let msg = couponStatusMessage {
                                 Text(msg)
                                     .font(.caption)
-                                    .foregroundColor(.green)
+                                    .foregroundColor(couponIsError ? .red : .green)
                                     .padding(.horizontal, 24)
                             }
                         }
@@ -506,36 +542,48 @@ struct ProPaywallSheetView: View {
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         isRedeemingCoupon = true
         couponStatusMessage = nil
+        couponIsError = false
 
         Task {
             let result = await proManager.redeemCoupon(code: couponCode)
             isRedeemingCoupon = false
             switch result {
             case .successLifetime:
+                couponIsError = false
                 couponStatusMessage = LocalizationManager.string(for: "pro_coupon_success_lifetime", lang: lang)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { dismiss() }
             case .success1Year:
+                couponIsError = false
                 couponStatusMessage = LocalizationManager.string(for: "pro_coupon_success_1year", lang: lang)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { dismiss() }
             case .success3Months:
+                couponIsError = false
                 couponStatusMessage = LocalizationManager.string(for: "pro_coupon_success_3months", lang: lang)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { dismiss() }
             case .success1Month:
+                couponIsError = false
                 couponStatusMessage = LocalizationManager.string(for: "pro_coupon_success_1month", lang: lang)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { dismiss() }
             case .alreadyActive:
+                couponIsError = true
                 couponStatusMessage = LocalizationManager.string(for: "pro_coupon_already_active", lang: lang)
             case .alreadyRedeemed:
+                couponIsError = true
                 couponStatusMessage = LocalizationManager.string(for: "pro_coupon_already_redeemed", lang: lang)
             case .maxReached:
+                couponIsError = true
                 couponStatusMessage = LocalizationManager.string(for: "pro_coupon_max_reached", lang: lang)
             case .inactive:
+                couponIsError = true
                 couponStatusMessage = LocalizationManager.string(for: "pro_coupon_inactive", lang: lang)
             case .rateLimited:
+                couponIsError = true
                 couponStatusMessage = LocalizationManager.string(for: "pro_coupon_rate_limited", lang: lang)
             case .invalid:
+                couponIsError = true
                 couponStatusMessage = LocalizationManager.string(for: "pro_coupon_invalid", lang: lang)
             case .networkError:
+                couponIsError = true
                 couponStatusMessage = LocalizationManager.string(for: "pro_coupon_network_error", lang: lang)
             }
         }

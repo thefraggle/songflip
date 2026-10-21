@@ -182,6 +182,16 @@ object AptabaseClient {
         isSearch: Boolean,
         source: String? = null
     ) {
+        trackLinkFlipped(target, isAlbum, isSearch, source, cacheHit = null)
+    }
+
+    fun trackLinkFlipped(
+        target: String,
+        isAlbum: Boolean,
+        isSearch: Boolean,
+        source: String?,
+        cacheHit: Boolean?
+    ) {
         val params = mutableMapOf(
             "target" to target,
             "is_album" to isAlbum.toString(),
@@ -190,6 +200,9 @@ object AptabaseClient {
         if (!source.isNullOrBlank()) {
             params["source"] = source
             params["migration"] = "$source -> $target"
+        }
+        if (cacheHit != null) {
+            params["cache_hit"] = cacheHit.toString()
         }
         trackEvent("link_flipped", params)
     }

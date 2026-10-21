@@ -159,6 +159,7 @@
         <item quantity="one">%1$d song in history</item>
         <item quantity="other">%1$d songs in history</item>
     </plurals>
+    <string name="history_cached_count_free_capped">10 of %1$d songs visible</string>
     <string name="history_empty">No converted songs yet. Flipped music links will appear here automatically.</string>
     <string name="history_clear_all">Clear History</string>
     <string name="history_clear_confirm_title">Clear Song History?</string>
@@ -167,6 +168,10 @@
     <string name="history_all_cleared">History and cache cleared</string>
     <string name="history_pro_teaser_title">SongFlip PRO History</string>
     <string name="history_pro_teaser_desc">Show up to 100 songs in your history with SongFlip PRO.</string>
+    <plurals name="history_pro_teaser_hidden_desc">
+        <item quantity="one">%1$d older song hidden – unlock all %2$d with SongFlip PRO.</item>
+        <item quantity="other">%1$d older songs hidden – unlock all %2$d with SongFlip PRO.</item>
+    </plurals>
     <string name="history_btn_upgrade">Upgrade to PRO</string>
     <string name="action_delete">Delete</string>
     <string name="time_just_now">Just now</string>

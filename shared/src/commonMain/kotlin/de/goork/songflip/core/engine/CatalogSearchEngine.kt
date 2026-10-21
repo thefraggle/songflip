@@ -182,8 +182,8 @@ class CatalogSearchEngine(
             }
         } catch (c: CancellationException) {
             throw c
-        } catch (_: Throwable) {
-            // Fall through to Deezer
+        } catch (t: Throwable) {
+            println("CatalogSearchEngine: iTunes search failed, falling back to Deezer: ${t.message}")
         }
 
         // 2. Fallback: Deezer Search API

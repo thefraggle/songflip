@@ -466,7 +466,7 @@ final class ProManager: NSObject, ObservableObject {
                 defaults.set(outcome.code, forKey: Self.keyCouponCode)
                 defaults.removeObject(forKey: Self.keyCouponExpiration)
                 _ = evaluateVerifiedCouponState()
-                AptabaseClient.shared.trackEvent(eventName: "promo_redeemed", props: ["code": outcome.code, "type": "lifetime"])
+                AptabaseClient.shared.trackPromoRedeemedSuccess(code: outcome.code)
                 return .successLifetime
 
             case .success1year, .success3months, .success1month:
@@ -480,7 +480,7 @@ final class ProManager: NSObject, ObservableObject {
                 defaults.set(outcome.code, forKey: Self.keyCouponCode)
                 defaults.set(expireTime, forKey: Self.keyCouponExpiration)
                 _ = evaluateVerifiedCouponState()
-                AptabaseClient.shared.trackEvent(eventName: "promo_redeemed", props: ["code": outcome.code, "type": outcome.type])
+                AptabaseClient.shared.trackPromoRedeemedSuccess(code: outcome.code)
                 if outcome.status == .success1year {
                     return .success1Year
                 } else if outcome.status == .success3months {
@@ -490,21 +490,29 @@ final class ProManager: NSObject, ObservableObject {
                 }
 
             case .alreadyActive:
+                AptabaseClient.shared.trackPromoRedeemFailed(code: cleanCode, error: "already_active")
                 return .alreadyActive
             case .alreadyRedeemed:
+                AptabaseClient.shared.trackPromoRedeemFailed(code: cleanCode, error: "already_redeemed")
                 return .alreadyRedeemed
             case .maxReached:
+                AptabaseClient.shared.trackPromoRedeemFailed(code: cleanCode, error: "max_reached")
                 return .maxReached
             case .inactive:
+                AptabaseClient.shared.trackPromoRedeemFailed(code: cleanCode, error: "inactive")
                 return .inactive
             case .rateLimited:
+                AptabaseClient.shared.trackPromoRedeemFailed(code: cleanCode, error: "rate_limited")
                 return .rateLimited
             case .invalid:
+                AptabaseClient.shared.trackPromoRedeemFailed(code: cleanCode, error: "invalid")
                 return .invalid
             default:
+                AptabaseClient.shared.trackPromoRedeemFailed(code: cleanCode, error: "network_error")
                 return .networkError
             }
         } catch {
+            AptabaseClient.shared.trackPromoRedeemFailed(code: cleanCode, error: "exception")
             return .networkError
         }
     }

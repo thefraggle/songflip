@@ -104,7 +104,7 @@ class ShareViewController: UIViewController {
 
         let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
         let rawTarget = defaults.string(forKey: "target_platform") ?? "appleMusic"
-        let validTargets = ["youtubeMusic", "appleMusic", "spotify", "tidal", "deezer", "amazonMusic", "soundcloud", "qobuz"]
+        let validTargets = ["youtubeMusic", "appleMusic", "spotify", "tidal", "deezer", "amazonMusic", "soundcloud", "qobuz", "bandcamp", "beatport"]
         let targetPlatform = validTargets.contains(rawTarget) ? rawTarget : "appleMusic"
         let askEveryTime = defaults.bool(forKey: "ask_every_time")
         let customUrl = defaults.string(forKey: "custom_api_url") ?? ""
@@ -383,7 +383,7 @@ class ShareViewController: UIViewController {
                     customApiUrl: customUrl,
                     customApiToken: customToken,
                     isPro: isProCached,
-                    authToken: "",
+                    authToken: defaults.string(forKey: "pro_auth_token") ?? "",
                     isPrefetch: false,
                     forceRefresh: false,
                     audiophileMode: audiophileMode
@@ -434,7 +434,8 @@ class ShareViewController: UIViewController {
                         target: targetPlatform,
                         isAlbum: success.isAlbum,
                         isSearch: success.isSearchFallback,
-                        source: srcKey
+                        source: srcKey,
+                        cacheHit: KotlinBoolean(value: success.isCacheHit)
                     )
 
                     let cleanTargetKey = targetPlatform.components(separatedBy: "_").first ?? targetPlatform
