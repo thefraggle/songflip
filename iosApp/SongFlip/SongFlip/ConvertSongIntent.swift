@@ -150,7 +150,7 @@ struct ConvertSongIntent: AppIntent {
                 isAlbum: success.isAlbum,
                 isSearch: success.isSearchFallback,
                 source: srcKey,
-                cacheHit: KotlinBoolean(value: success.isCacheHit)
+                cacheHit: KotlinBoolean(bool: success.isCacheHit)
             )
 
             let cleanTargetKey = targetPlatform.components(separatedBy: "_").first ?? targetPlatform
