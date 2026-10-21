@@ -509,11 +509,19 @@ final class AcousticRecognizer: ObservableObject {
     }
 
     private func matchSignatureBase64Direct(_ signatureBase64: String) async -> MatchedTrackInfo? {
-        guard let token = await getDeveloperToken(), !token.isEmpty else { return nil }
+        (await matchSignatureBase64Outcome(signatureBase64)).matchedTrack
+    }
+
+    private func matchSignatureBase64Outcome(_ signatureBase64: String) async -> OfflineMatchOutcome {
+        guard let token = await getDeveloperToken(), !token.isEmpty else {
+            return .transientError("developer token unavailable")
+        }
         let rawCountry = Locale.current.region?.identifier.lowercased() ?? "de"
         let storeFront = (rawCountry.count == 2) ? rawCountry : "de"
         let urlString = "https://api.shazam.apple.com/v1/catalog/\(storeFront)/match?types=shazam-songs&include%5Bshazam-songs%5D=songs&include%5Bsongs%5D=music-videos&meta=matchOffset%2CfrequencySkew&format%5Bresources%5D=map"
-        guard let url = URL(string: urlString) else { return nil }
+        guard let url = URL(string: urlString) else {
+            return .transientError("invalid URL")
+        }
 
         var req = URLRequest(url: url)
         req.httpMethod = "POST"
@@ -536,14 +544,31 @@ final class AcousticRecognizer: ObservableObject {
         do {
             req.httpBody = try JSONSerialization.data(withJSONObject: payload)
             let (data, response) = try await URLSession.shared.data(for: req)
-            guard let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode),
-                  let root = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-                  let resources = root["resources"] as? [String: Any],
+            guard let http = response as? HTTPURLResponse else {
+                return .transientError("non-HTTP response")
+            }
+
+            if http.statusCode == 401 || http.statusCode == 403 {
+                cachedDeveloperToken = nil
+                return .transientError("HTTP \(http.statusCode) developer token rejected")
+            }
+            if http.statusCode == 408 || http.statusCode == 429 || http.statusCode >= 500 {
+                return .transientError("HTTP \(http.statusCode)")
+            }
+            guard (200..<300).contains(http.statusCode) else {
+                return .rejected("HTTP \(http.statusCode)")
+            }
+
+            guard let root = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+                return .transientError("unparsable JSON")
+            }
+
+            guard let resources = root["resources"] as? [String: Any],
                   let shazamSongs = resources["shazam-songs"] as? [String: Any],
                   let firstKey = shazamSongs.keys.first,
                   let shazamSongObj = shazamSongs[firstKey] as? [String: Any],
                   let attributes = shazamSongObj["attributes"] as? [String: Any] else {
-                return nil
+                return .noMatch
             }
 
             let title = ((attributes["title"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines)).flatMap { $0.isEmpty ? nil : $0 } ?? "Unknown Track"
@@ -582,16 +607,16 @@ final class AcousticRecognizer: ObservableObject {
             }
 
             let webUrl = (attributes["webUrl"] as? String) ?? appleMusicUrl
-            return MatchedTrackInfo(
+            return .matched(MatchedTrackInfo(
                 title: title,
                 artist: artist,
                 artworkUrl: artworkUrl,
                 appleMusicUrl: appleMusicUrl,
                 appleMusicId: appleMusicId,
                 webUrl: webUrl
-            )
+            ))
         } catch {
-            return nil
+            return .transientError("network error: \(error.localizedDescription)")
         }
     }
 
