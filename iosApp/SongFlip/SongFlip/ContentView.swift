@@ -1168,7 +1168,7 @@ struct ContentView: View {
                         isAlbum: success.isAlbum,
                         isSearch: success.isSearchFallback,
                         source: srcKey,
-                        cacheHit: KotlinBoolean(value: success.isCacheHit)
+                        cacheHit: KotlinBoolean(bool: success.isCacheHit)
                     )
 
                     settings.openResolvedTarget(
