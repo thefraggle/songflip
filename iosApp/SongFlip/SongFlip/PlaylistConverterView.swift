@@ -745,7 +745,7 @@ struct PlaylistConverterView: View {
                     let histTotal = max(decoded.totalTracks, decoded.originalTotalTracks ?? 0)
                     HistoryModel.shared.add(
                         title: decoded.title?.isEmpty == false ? decoded.title! : "Playlist",
-                        artist: "\(decoded.matchedCount)/\(histTotal) Songs",
+                        artist: String(format: LocalizationManager.string(for: "history_playlist_tracks_summary", lang: self.lang), decoded.matchedCount, histTotal),
                         sourceUrl: playlistUrl,
                         targetUrl: targetLink,
                         targetPlatform: "\(targetPlatformKey)_playlist",

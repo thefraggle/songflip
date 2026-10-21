@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.11.0] - 2026-10-21
+- **Zuverlässigere Offline-Musikerkennung**: Ohne Verbindung aufgenommene Erkennungen bleiben bei kurzzeitigen Netzwerkschwankungen sicher erhalten und werden bei stabiler Verbindung automatisch aufgelöst.
+- **Sicherheits- & Sprach-Aktualisierung**: Modernisierte kryptografische Code-Prüfung bei nahtloser Funktions-Beibehaltung, alle 34 Sprachkataloge synchronisiert und Suche bei Sonderzeichen verfeinert.
+
 ## [1.10.5] - 2026-10-21
 - **Umfassendere Katalogsuche ohne Dubletten**: Die integrierte Suche zeigt jetzt deutlich mehr eindeutige Titel bei Künstler- und Song-Suchanfragen an und filtert doppelte Treffer aus Compilations, Best-Of-Alben und Remaster-Ausgaben automatisch zugunsten der originalen Studio-Veröffentlichung heraus.
 - **Erweiterte Player-Erkennung & Auswahl**: Verbesserte automatische Erkennung kompatibler Musik-Player und erweiterte Auswahl des bevorzugten Players über alle unterstützten Streaming-Dienste hinweg.

@@ -1,2 +1,2 @@
-- Dinleme ve Çevirme için Hızlı Erişim Kısayolları: Ana ekranınızdaki uygulama simgesine uzun basarak veya önce uygulamanın tamamını açmadan sistem kısayolları aracılığıyla müzik tanımayı doğrudan sistem Hızlı Ayarlar kutucuğundan başlatın.
-- Genel Kararlılık: Küçük kullanıcı arayüzü iyileştirmeleri ve dahili güvenilirlik iyileştirmeleri.
+- Dayanıklı Çevrimdışı Müzik Tanıma: Çevrimdışıyken yakalanan taramalar artık bağlantının geçici olarak kesilmesi sırasında güvenilir bir şekilde korunuyor ve tekrar çevrimiçi olduğunda sorunsuz bir şekilde işleniyor.
+- Güvenlik ve Uluslararasılaştırma: Kusursuz özellik korumayla modernleştirilmiş şifreleme kodu doğrulama, 34 dil kataloğunun tümü senkronize edildi ve iyileştirilmiş özel karakter araması.

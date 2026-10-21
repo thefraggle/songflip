@@ -1,1 +1,2 @@
-Búsqueda de catálogo más amplia sin duplicados (priorizando lanzamientos de estudio originales) y detección y selección ampliada de reproductores de música compatibles en todos los servicios.
+- Reconocimiento de música resistente sin conexión: los escaneos capturados sin conexión ahora se conservan de manera confiable durante las caídas temporales de la conexión y se procesan sin problemas una vez que se vuelve a conectar.
+- Seguridad e internacionalización: validación de código criptográfico modernizada con retención perfecta de funciones, sincronización de los catálogos de 34 idiomas y búsqueda refinada de caracteres especiales.

@@ -1,1 +1,2 @@
-Recherche de catalogue élargie sans doublons (privilégiant les albums studio originaux) et détection et sélection étendues des lecteurs de musique compatibles sur tous les services pris en charge.
+- Reconnaissance musicale hors ligne résiliente : les analyses capturées hors ligne sont désormais conservées de manière fiable lors des interruptions de connexion temporaires et traitées de manière transparente une fois de nouveau en ligne.
+- Sécurité et internationalisation : validation du code cryptographique modernisée avec conservation transparente des fonctionnalités, synchronisation des 34 catalogues de langues et recherche raffinée des caractères spéciaux.

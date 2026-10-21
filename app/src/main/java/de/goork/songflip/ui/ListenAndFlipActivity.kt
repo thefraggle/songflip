@@ -1,5 +1,6 @@
 package de.goork.songflip.ui
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -50,8 +51,11 @@ class ListenAndFlipActivity : AppCompatActivity() {
                 if (showPaywall) {
                     ProPaywallBottomSheet(
                         onDismissRequest = {
+                            // Return to the Listen & Flip sheet instead of closing the whole overlay:
+                            // after a purchase / promo redemption the user expects to scan right away.
+                            // The sheet is recomposed with the fresh proState.isPro, so the quota badge
+                            // disappears and the auto-scan LaunchedEffect starts for new Pro users.
                             showPaywall = false
-                            finishQuietly()
                         }
                     )
                 } else {
@@ -72,8 +76,15 @@ class ListenAndFlipActivity : AppCompatActivity() {
     }
 
     private fun finishQuietly() {
-        finish()
-        @Suppress("DEPRECATION")
-        overridePendingTransition(0, 0)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            // API 34+: overrideActivityTransition must be registered before finish() so the close
+            // animation of this transparent overlay is suppressed (overridePendingTransition is deprecated).
+            overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, 0, 0)
+            finish()
+        } else {
+            finish()
+            @Suppress("DEPRECATION")
+            overridePendingTransition(0, 0)
+        }
     }
 }

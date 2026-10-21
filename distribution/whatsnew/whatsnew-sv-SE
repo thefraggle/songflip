@@ -1,2 +1,2 @@
-- Snabbåtkomstgenvägar för Lyssna & Vänd: Starta musikigenkänning direkt från systemets snabbinställningar, genom att trycka länge på appikonen på startskärmen, eller via systemgenvägar utan att öppna hela appen först.
-- Allmän stabilitet: Mindre gränssnittsförbättringar och interna tillförlitlighetsförbättringar.
+- Resilient Offline Music Recognition: Skanningar som tagits offline bevaras nu på ett tillförlitligt sätt under tillfälliga anslutningsavbrott och bearbetas sömlöst när de är online igen.
+- Säkerhet och internationalisering: Moderniserad kryptografisk kodvalidering med sömlös funktionsbevarande, synkroniserad alla 34 språkkataloger och förfinad specialteckensökning.

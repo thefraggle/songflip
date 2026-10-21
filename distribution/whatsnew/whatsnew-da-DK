@@ -1,2 +1,2 @@
-- Hurtig adgangsgenveje til lyt og vend: Start musikgenkendelse direkte fra systemets hurtige indstillinger ved at trykke længe på appikonet på din startskærm eller via systemgenveje uden først at åbne den fulde app.
-- Generel stabilitet: Mindre UI-forbedringer og interne pålidelighedsforbedringer.
+- Resilient Offline Musikgenkendelse: Scanninger, der er optaget, mens de er offline, bevares nu pålideligt under midlertidige forbindelsesfald og behandles problemfrit, når de er online igen.
+- Sikkerhed og internationalisering: Moderniseret kryptografisk kodevalidering med problemfri funktionsopbevaring, synkroniseret alle 34 sprogkataloger og raffineret specialtegnsøgning.

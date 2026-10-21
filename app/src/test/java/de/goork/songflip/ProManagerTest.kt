@@ -41,6 +41,71 @@ class ProManagerTest {
         ProManager.setTestStableAndroidId(null)
     }
 
+    // Same payload as validLifetimeToken, signed with the current v3 key (#141)
+    private val v3LifetimeToken =
+        "sct_v2_eyJjIjoiVklQLUxJRkUiLCJpIjoiaW5zdGFsbC0xMjMiLCJlIjowLCJ0IjoibGlmZXRpbWUiLCJpYXQiOjE3MDAwMDAwMDAwMDB9.OaDEAjjaNP2Yk_z4WebwEO19TUpn--ce1okHsp2-7RBRDzLEMCNj0BVpqDZppHbgY76zr4b0i9zp-llUbXaYDQ"
+
+    private fun storeLifetimeCoupon(token: String) {
+        inMemoryPrefs.edit()
+            .putString("pro_coupon_token", token)
+            .putString("pro_coupon_type", "lifetime")
+            .putString("pro_coupon_code", "VIP-LIFE")
+            .apply()
+        ProManager.migrationLogger = { println(it) }
+        ProManager.hydrateLocalProState()
+    }
+
+    @Test
+    fun testCompatTokenIsMigratedToCurrentKeyAndStaysPro() = runBlocking {
+        storeLifetimeCoupon(validLifetimeToken)
+        assertTrue(ProManager.isPro)
+        server.enqueue(
+            MockResponse().setResponseCode(200)
+                .setBody("""{"status":"success","type":"lifetime","token":"$v3LifetimeToken","refreshed":true}""")
+        )
+
+        ProManager.migrateStoredCouponTokenIfNeeded()
+
+        val request = server.takeRequest()
+        assertTrue(request.body.readUtf8().contains("\"refreshToken\""))
+        assertTrue("Pro must survive the migration", ProManager.isPro)
+        assertTrue(ProManager.getAuthToken().endsWith(v3LifetimeToken))
+    }
+
+    @Test
+    fun testMigrationKeepsTokenOnServerError() = runBlocking {
+        storeLifetimeCoupon(validLifetimeToken)
+        server.enqueue(MockResponse().setResponseCode(503).setBody("""{"error":"VERIFICATION_UNAVAILABLE"}"""))
+        server.enqueue(MockResponse().setResponseCode(503).setBody("""{"error":"VERIFICATION_UNAVAILABLE"}"""))
+
+        ProManager.migrateStoredCouponTokenIfNeeded()
+
+        assertTrue("A backend hiccup must never revoke Pro", ProManager.isPro)
+        assertTrue(ProManager.getAuthToken().endsWith(validLifetimeToken))
+    }
+
+    @Test
+    fun testMigrationRemovesTokenOnlyOnExplicitInvalidSignature() = runBlocking {
+        storeLifetimeCoupon(validLifetimeToken)
+        server.enqueue(MockResponse().setResponseCode(400).setBody("""{"error":"INVALID_TOKEN"}"""))
+
+        ProManager.migrateStoredCouponTokenIfNeeded()
+
+        assertFalse(ProManager.isPro)
+        assertNull(inMemoryPrefs.getString("pro_coupon_token", null))
+    }
+
+    @Test
+    fun testCurrentKeyTokenSkipsMigrationWithoutNetwork() = runBlocking {
+        storeLifetimeCoupon(v3LifetimeToken)
+        assertTrue(ProManager.isPro)
+
+        ProManager.migrateStoredCouponTokenIfNeeded()
+
+        assertEquals(0, server.requestCount)
+        assertTrue(ProManager.isPro)
+    }
+
     @Test
     fun testEmptyCodeReturnsInvalidWithoutNetwork() = runBlocking {
         val result = ProManager.redeemCoupon("")

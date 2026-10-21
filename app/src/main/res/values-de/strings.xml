@@ -248,6 +248,7 @@
     <string name="history_refresh_link">Link neu auflösen</string>
     <string name="history_open_playlist_details">Playlist-Details anzeigen</string>
     <string name="history_link_refreshed">Link erfolgreich aktualisiert!</string>
+    <string name="history_playlist_tracks_summary">%1$d/%2$d Songs</string>
     <string name="history_link_refreshing">Wird neu aufgelöst...</string>
     <string name="history_copy_target">%1$s-Link kopieren</string>
     <string name="history_copy_source">Originalen %1$s-Link kopieren</string>

@@ -224,6 +224,7 @@
     <string name="history_refresh_link">リンクを再取得</string>
     <string name="history_open_playlist_details">プレイリストの詳細を表示</string>
     <string name="history_link_refreshed">リンクを更新しました！</string>
+    <string name="history_playlist_tracks_summary">%1$d/%2$d 曲</string>
     <string name="history_link_refreshing">リンクを再取得中...</string>
     <string name="history_copy_target">%1$sのリンクをコピー</string>
     <string name="history_copy_source">元の%1$sリンクをコピー</string>

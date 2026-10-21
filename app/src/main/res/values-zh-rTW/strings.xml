@@ -214,6 +214,7 @@
     <string name="history_refresh_link">重新整理連結</string>
     <string name="history_open_playlist_details">檢視播放清單詳細資訊</string>
     <string name="history_link_refreshed">連結重新整理成功！</string>
+    <string name="history_playlist_tracks_summary">%1$d/%2$d 首歌曲</string>
     <string name="history_link_refreshing">正在重新整理連結...</string>
     <string name="history_copy_target">複製 %1$s 連結</string>
     <string name="history_copy_source">複製原始 %1$s 連結</string>

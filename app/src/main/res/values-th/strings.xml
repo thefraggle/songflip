@@ -214,6 +214,7 @@
     <string name="history_refresh_link">รีเฟรชลิงก์</string>
     <string name="history_open_playlist_details">ดูรายละเอียดเพลย์ลิสต์</string>
     <string name="history_link_refreshed">รีเฟรชลิงก์สำเร็จแล้ว!</string>
+    <string name="history_playlist_tracks_summary">%1$d/%2$d เพลง</string>
     <string name="history_link_refreshing">กำลังรีเฟรชลิงก์...</string>
     <string name="history_copy_target">คัดลอกลิงก์ %1$s</string>
     <string name="history_copy_source">คัดลอกลิงก์ %1$s ต้นฉบับ</string>

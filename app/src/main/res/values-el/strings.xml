@@ -215,6 +215,7 @@
     <string name="history_refresh_link">Ανανέωση συνδέσμου</string>
     <string name="history_open_playlist_details">Προβολή λεπτομερειών λίστας</string>
     <string name="history_link_refreshed">Ο σύνδεσμος ανανεώθηκε επιτυχώς!</string>
+    <string name="history_playlist_tracks_summary">%1$d/%2$d τραγούδια</string>
     <string name="history_link_refreshing">Ανανέωση συνδέσμου...</string>
     <string name="history_copy_target">Αντιγραφή συνδέσμου %1$s</string>
     <string name="history_copy_source">Αντιγραφή αρχικού συνδέσμου %1$s</string>
