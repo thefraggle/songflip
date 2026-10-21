@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.11.1] - 2026-10-21
+- **Verfeinerter Song-Verlauf & Dubletten-Bereinigung**: Zuverlässigere Verlaufssynchronisation und automatische Bereinigung doppelter Einträge, wobei Favoriten und Zeitstempel exakt erhalten bleiben.
+- **Verbesserte Link-Auflösung & Zeitlimits**: Erweiterte URL-Normalisierung für internationale Schriftzeichen, optimierte Link-Bereinigung und verbesserte Behandlung von Netzwerk-Zeitlimits.
+- **Übersichtlichere Playlists & Barrierefreiheit**: Klare Hinweise bei Streaming-Diensten ohne direkte Playlist-Import-Funktion, vergrößerte Touch-Bedienflächen und optimierte Kontraste für bessere Lesbarkeit.
+
 ## [1.11.0] - 2026-10-21
 - **Zuverlässigere Offline-Musikerkennung**: Ohne Verbindung aufgenommene Erkennungen bleiben bei kurzzeitigen Netzwerkschwankungen sicher erhalten und werden bei stabiler Verbindung automatisch aufgelöst.
 - **Sicherheits- & Sprach-Aktualisierung**: Modernisierte kryptografische Code-Prüfung bei nahtloser Funktions-Beibehaltung, alle 34 Sprachkataloge synchronisiert und Suche bei Sonderzeichen verfeinert.

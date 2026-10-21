@@ -6,10 +6,10 @@ object ResolverUtils {
     fun normalizeTokens(text: String): List<String> {
         val cleaned = text.lowercase()
             .replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
-            .replace("[^a-z0-9\\s]".toRegex(), " ")
+            .replace("[^\\p{L}\\p{N}\\s]".toRegex(), " ")
         return cleaned.split("\\s+".toRegex())
             .map { it.trim() }
-            .filter { it.length > 1 && it !in STOP_WORDS }
+            .filter { (it.length > 1 || it.any { c -> c.code > 127 }) && it !in STOP_WORDS }
     }
 
     private val EDITION_PAREN_REGEX = Regex(

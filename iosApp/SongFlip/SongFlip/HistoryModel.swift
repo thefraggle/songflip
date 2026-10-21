@@ -228,13 +228,24 @@ class HistoryModel: ObservableObject {
         }
     }
 
+    private var attemptedHydrationIds = Set<UUID>()
+    private var isHydrating = false
+
     func hydrateMissingThumbnails() async {
+        guard !isHydrating else { return }
+        isHydrating = true
+        defer { isHydrating = false }
+
         let currentItems = await MainActor.run { self.items }
-        let missing = currentItems.filter { $0.thumbnailUrl == nil || $0.thumbnailUrl?.isEmpty == true }
+        let missing = currentItems.filter { ($0.thumbnailUrl == nil || $0.thumbnailUrl?.isEmpty == true) && !attemptedHydrationIds.contains($0.id) }
         guard !missing.isEmpty else { return }
 
-        var hasUpdates = false
         for item in missing {
+            attemptedHydrationIds.insert(item.id)
+        }
+
+        var hasUpdates = false
+        for item in missing.prefix(5) {
             if item.targetPlatform.contains("_playlist") { continue }
             do {
                 let res = try await SongLinkEngine.shared.resolveTargetUrl(
@@ -242,7 +253,7 @@ class HistoryModel: ObservableObject {
                     targetPlatformKey: item.targetPlatform,
                     customApiUrl: "",
                     customApiToken: "",
-                    forceRefresh: true
+                    forceRefresh: false
                 )
                 if let success = res as? ResolutionResult.Success, let thumb = success.thumbnailUrl, !thumb.isEmpty {
                     hasUpdates = true

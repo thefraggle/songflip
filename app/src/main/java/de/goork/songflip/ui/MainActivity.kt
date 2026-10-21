@@ -284,6 +284,7 @@ fun MainScreen(
     var playerPickerPlatformKey by remember { mutableStateOf<String?>(null) }
     var showAppLinksSetupBottomSheet by remember { mutableStateOf(false) }
     var showProPaywall by remember { mutableStateOf(false) }
+    var proPaywallSource by remember { mutableStateOf("header_pro_badge") }
     var initialShowPromoInPaywall by remember { mutableStateOf(false) }
     var showPlaylistConvertSheet by remember { mutableStateOf(initialPlaylistUrl) }
     var showPodcastNoticeSheet by remember { mutableStateOf<String?>(null) }
@@ -503,7 +504,8 @@ fun MainScreen(
                 onThemeModeChanged(newMode)
             },
             isPro = proState.isPro,
-            onOpenProPaywall = {
+            onOpenProPaywall = { source ->
+                proPaywallSource = source
                 showProPaywall = true
             },
             onOpenSetupGuide = {
@@ -549,7 +551,8 @@ fun MainScreen(
                 showProPaywall = false
                 initialShowPromoInPaywall = false
             },
-            initialShowPromo = initialShowPromoInPaywall
+            initialShowPromo = initialShowPromoInPaywall,
+            source = proPaywallSource
         )
     }
 
@@ -558,8 +561,9 @@ fun MainScreen(
             onDismissRequest = { showHistoryBottomSheet = false },
             isPro = proState.isPro,
             showProTeaser = !proState.isPro,
-            onOpenProPaywall = {
+            onOpenProPaywall = { source ->
                 showHistoryBottomSheet = false
+                proPaywallSource = source
                 showProPaywall = true
             },
             onOpenPlaylist = { playlistUrl, _ ->
@@ -574,7 +578,7 @@ fun MainScreen(
             targetPlatformKey = selectedTargetKey,
             onDismissRequest = { showSearchBottomSheet = false },
             onOpenProPaywall = {
-                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("search_universal_share")
+                proPaywallSource = "search_universal_share"
                 showProPaywall = true
             }
         )
@@ -587,6 +591,7 @@ fun MainScreen(
             onDismissRequest = { showListenBottomSheet = false },
             onOpenProPaywall = {
                 showListenBottomSheet = false
+                proPaywallSource = "listen_sheet"
                 showProPaywall = true
             }
         )
@@ -605,6 +610,7 @@ fun MainScreen(
             targetPlatformKey = selectedTargetKey,
             onDismiss = { showPlaylistConvertSheet = null },
             onOpenPaywall = {
+                proPaywallSource = "playlist_limit_gate"
                 showProPaywall = true
             },
             externalConversionState = activePlaylistConversion?.takeIf { it.playlistUrl == playlistUrl }?.state,
@@ -652,9 +658,7 @@ fun MainScreen(
                     showListenBottomSheet = true
                 },
                 onOpenProPaywall = {
-                    if (!proState.isPro) {
-                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("header_pro_badge")
-                    }
+                    proPaywallSource = "header_pro_badge"
                     showProPaywall = true
                 },
                 isPro = proState.isPro
@@ -802,7 +806,7 @@ fun MainScreen(
                                     }
                                 }
                             } else {
-                                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("clipboard_banner_universal_share")
+                                proPaywallSource = "clipboard_banner_universal_share"
                                 showProPaywall = true
                             }
                         },
@@ -823,12 +827,12 @@ fun MainScreen(
                 ProNudgeBanner(
                     milestone = activeMilestone,
                     onRedeemPromo = {
-                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("milestone_${activeMilestone}_promo")
+                        proPaywallSource = "milestone_${activeMilestone}_promo"
                         initialShowPromoInPaywall = true
                         showProPaywall = true
                     },
                     onLearnMore = {
-                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("milestone_${activeMilestone}_learn_more")
+                        proPaywallSource = "milestone_${activeMilestone}_learn_more"
                         initialShowPromoInPaywall = false
                         showProPaywall = true
                     },
@@ -849,9 +853,7 @@ fun MainScreen(
                 PromoBannerCard(
                     config = promoBannerConfig,
                     onClick = {
-                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed(
-                            "promo_banner_${promoBannerConfig.campaignId}"
-                        )
+                        proPaywallSource = "promo_banner_${promoBannerConfig.campaignId}"
                         initialShowPromoInPaywall = false
                         showProPaywall = true
                     },

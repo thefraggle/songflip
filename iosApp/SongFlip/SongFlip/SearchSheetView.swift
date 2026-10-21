@@ -49,7 +49,7 @@ struct SearchSheetView: View {
     }
 
     private func universalShareUrl(for sourceUrl: String) -> URL? {
-        let normalized = sourceUrl.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        let normalized = UrlUtils.shared.normalizeUrl(url: sourceUrl).trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         let digest = SHA256.hash(data: Data(normalized.utf8))
         let hex = digest.map { String(format: "%02x", $0) }.joined()
         let shortId = String(hex.prefix(12))

@@ -717,7 +717,7 @@ struct ContentView: View {
                     HStack(spacing: 6) {
                         if settings.isResolving {
                             ProgressView()
-                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                .progressViewStyle(CircularProgressViewStyle(tint: .black))
                                 .scaleEffect(0.8)
                         } else {
                             Image(systemName: settings.askEveryTime ? "arrow.triangle.branch" : "play.fill")
@@ -733,7 +733,7 @@ struct ContentView: View {
                     .padding(.horizontal, 12)
                     .frame(maxWidth: .infinity)
                     .background(settings.isResolving ? Color.green.opacity(0.6) : Color.green)
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
                     .cornerRadius(10)
                 }
                 .disabled(settings.isResolving)
@@ -1167,7 +1167,8 @@ struct ContentView: View {
                         target: effectiveTarget,
                         isAlbum: success.isAlbum,
                         isSearch: success.isSearchFallback,
-                        source: srcKey
+                        source: srcKey,
+                        cacheHit: KotlinBoolean(value: success.isCacheHit)
                     )
 
                     settings.openResolvedTarget(

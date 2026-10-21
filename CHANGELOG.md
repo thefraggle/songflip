@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.11.1] - 2026-10-21
+- **Enhanced Song History & Deduplication**: Refined history synchronization and automatic deduplication across conversions, ensuring favorite songs stay pinned and entry timestamps remain preserved.
+- **Improved Link Resolution & Timeouts**: Extended URL normalization for international characters, improved link cleaning, and optimized network timeout handling.
+- **Clearer Playlist Experience & Accessibility**: Added informative notices when streaming services do not support external playlist imports, expanded touch targets, and improved contrast ratios for better readability.
+
 ## [1.11.0] - 2026-10-21
 - **Resilient Offline Music Recognition**: Scans captured while offline are now reliably preserved during temporary connection drops and processed seamlessly once back online.
 - **Security & Internationalization**: Modernized cryptographic code validation with seamless feature retention, synchronized all 34 language catalogs, and refined special character search.

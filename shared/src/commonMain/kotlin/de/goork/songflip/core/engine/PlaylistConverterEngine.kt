@@ -188,8 +188,9 @@ class PlaylistConverterEngine(
                 } else null
             }
             "spotify" -> {
+                val spotifyIdRegex = Regex("^[a-zA-Z0-9]+$")
                 val trackIds = matched.mapNotNull { track ->
-                    track.targetId?.takeIf { it.isNotBlank() }
+                    track.targetId?.takeIf { spotifyIdRegex.matches(it) }
                 }
                 if (trackIds.isNotEmpty()) {
                     val cleanTitle = title.replace(Regex("[:/]"), " ").encodeURLParameter()

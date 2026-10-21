@@ -65,7 +65,8 @@ enum class SelectedProTier {
 @Composable
 fun ProPaywallBottomSheet(
     onDismissRequest: () -> Unit,
-    initialShowPromo: Boolean = false
+    initialShowPromo: Boolean = false,
+    source: String = "paywall_sheet"
 ) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
@@ -109,7 +110,7 @@ fun ProPaywallBottomSheet(
                     val lifetimePkg = pkgs.firstOrNull { it.packageType == PackageType.LIFETIME }
                     val saleActive = isLifetimeSaleActive(lifetimePkg, annualPkg, monthlyPkg, current)
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed(
-                        source = "paywall_sheet",
+                        source = source,
                         layout = resolvedLayout.metadataValue,
                         isSale = saleActive
                     )

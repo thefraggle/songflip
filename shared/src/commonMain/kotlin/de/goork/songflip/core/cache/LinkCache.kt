@@ -275,7 +275,6 @@ class LinkCache(
     }
 
     private fun isDuplicateSongItem(a: LinkHistoryItem, b: LinkHistoryItem): Boolean {
-        if (!a.isAcoustic && !b.isAcoustic) return false
         if (a.targetPlatformKey != b.targetPlatformKey) return false
         val normA = UrlUtils.normalizeUrl(a.canonicalUrl).substringBefore("#").trimEnd('/')
         val normB = UrlUtils.normalizeUrl(b.canonicalUrl).substringBefore("#").trimEnd('/')
@@ -304,7 +303,7 @@ class LinkCache(
     }
 
     private fun collectDeduplicatedHistoryItems(currentTimeMs: Long): List<LinkHistoryItem> {
-        val allLoaded = syncFromStorage(currentTimeMs)
+        val allLoaded = storage.loadAll()
         val combinedKeys = mutableSetOf<String>()
         combinedKeys.addAll(entries.keys)
         combinedKeys.addAll(allLoaded.keys)
@@ -365,7 +364,7 @@ class LinkCache(
                     entries.remove(secondary.cacheKey)
                     storage.remove(secondary.cacheKey)
                 }
-                val primaryEntry = entries[merged.cacheKey] ?: allLoaded[merged.cacheKey]
+                val primaryEntry = entries[merged.cacheKey]
                 if (primaryEntry != null) {
                     val healedEntry = primaryEntry.copy(
                         title = merged.title,
@@ -404,15 +403,9 @@ class LinkCache(
         getHistoryEntries(limit = 10, currentTimeMs = getCurrentTimeMillis())
 
     private fun countFavoritesInternal(currentTimeMs: Long): Int {
-        val allLoaded = syncFromStorage(currentTimeMs)
-        val combinedKeys = mutableSetOf<String>()
-        combinedKeys.addAll(entries.keys)
-        combinedKeys.addAll(allLoaded.keys)
-
         var count = 0
-        for (key in combinedKeys) {
-            val entry = entries[key] ?: allLoaded[key]
-            if (entry != null && entry.isFavorite && entry.targetUrl.isNotBlank()) {
+        for ((_, entry) in entries) {
+            if (entry.isFavorite && entry.targetUrl.isNotBlank()) {
                 count++
             }
         }

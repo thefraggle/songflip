@@ -97,10 +97,12 @@ struct HistorySheetView: View {
             }
         } else {
             let engine = SongLinkEngine.shared
+            let rawTarget = item.targetPlatform.replacingOccurrences(of: "_playlist", with: "")
+            let targetKey = rawTarget.isEmpty ? settings.targetPlatform : rawTarget
             do {
                 let res = try await engine.resolveTargetUrl(
                     inputUrl: item.sourceUrl,
-                    targetPlatformKey: settings.targetPlatform,
+                    targetPlatformKey: targetKey,
                     customApiUrl: settings.customApiUrl,
                     customApiToken: settings.customApiToken,
                     isPro: proManager.isPro,
@@ -116,7 +118,7 @@ struct HistorySheetView: View {
                             newTargetUrl: success.targetUrl,
                             newTitle: success.title,
                             newArtist: success.artist,
-                            newTargetPlatform: settings.targetPlatform,
+                            newTargetPlatform: targetKey,
                             isAlbum: success.isAlbum,
                             thumbnailUrl: success.thumbnailUrl
                         )
@@ -183,7 +185,16 @@ struct HistorySheetView: View {
                     List {
                         Section(header: VStack(alignment: .leading, spacing: 10) {
                             HStack {
-                                Text(String(format: proManager.isPro ? LocalizationManager.string(for: "history_capacity_pro", lang: lang) : LocalizationManager.string(for: "history_capacity_free", lang: lang), history.items.count, maxLimit))
+                                let headerText: String = {
+                                    if proManager.isPro {
+                                        return String(format: LocalizationManager.string(for: "history_capacity_pro", lang: lang), history.items.count, maxLimit)
+                                    } else if history.totalHistoryCount > 10 {
+                                        return String(format: LocalizationManager.string(for: "history_cached_count_free_capped", lang: lang), history.totalHistoryCount)
+                                    } else {
+                                        return String(format: LocalizationManager.string(for: "history_capacity_free", lang: lang), history.items.count, maxLimit)
+                                    }
+                                }()
+                                Text(headerText)
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                                 Spacer()
@@ -605,7 +616,15 @@ struct HistorySheetView: View {
                                             .font(.subheadline)
                                             .fontWeight(.bold)
                                             .foregroundColor(.primary)
-                                        Text(LocalizationManager.string(for: "history_pro_teaser_desc", lang: lang))
+                                        let hiddenCount = max(0, history.totalHistoryCount - 10)
+                                        let descText: String = {
+                                            if hiddenCount > 0 {
+                                                return String(format: LocalizationManager.string(for: "history_pro_teaser_hidden_desc", lang: lang), hiddenCount, history.totalHistoryCount)
+                                            } else {
+                                                return LocalizationManager.string(for: "history_pro_teaser_desc", lang: lang)
+                                            }
+                                        }()
+                                        Text(descText)
                                             .font(.caption)
                                             .foregroundColor(.secondary)
                                     }
@@ -717,7 +736,7 @@ struct HistorySheetView: View {
             let shortId = String(hex.prefix(10))
             return URL(string: "https://songflip.link/p/\(shortId)")
         } else {
-            let normalized = item.sourceUrl.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+            let normalized = UrlUtils.shared.normalizeUrl(url: item.sourceUrl).trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
             let digest = SHA256.hash(data: Data(normalized.utf8))
             let hex = digest.map { String(format: "%02x", $0) }.joined()
             let shortId = String(hex.prefix(12))

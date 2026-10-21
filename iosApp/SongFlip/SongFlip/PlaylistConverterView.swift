@@ -573,21 +573,38 @@ struct PlaylistConverterView: View {
                 }()
                 let activeZeroUrl = (chunks.count > 1 && currentChunk?.zeroOAuthUrl != nil) ? currentChunk?.zeroOAuthUrl : result.zeroOAuthUrl
 
-                // Primary: Open in Target Player
-                Button(action: {
-                    openInTargetPlayer(result: result, customZeroUrl: activeZeroUrl)
-                }) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "play.circle.fill")
-                            .font(.headline)
-                        Text(ctaText)
-                            .font(.headline)
+                if let zeroUrl = activeZeroUrl, !zeroUrl.isEmpty {
+                    // Primary: Open in Target Player
+                    Button(action: {
+                        openInTargetPlayer(result: result, customZeroUrl: zeroUrl)
+                    }) {
+                        HStack(spacing: 8) {
+                            Image(systemName: "play.circle.fill")
+                                .font(.headline)
+                            Text(ctaText)
+                                .font(.headline)
+                        }
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 14)
+                        .background(Color.green)
+                        .cornerRadius(14)
                     }
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 14)
-                    .background(Color.green)
-                    .cornerRadius(14)
+                } else {
+                    // Info notice for platforms like Apple Music that don't support direct playlist creation via URL
+                    HStack(spacing: 12) {
+                        Image(systemName: "info.circle.fill")
+                            .foregroundColor(.blue)
+                            .font(.title3)
+                        Text(String(format: LocalizationManager.string(for: "playlist_apple_music_no_import_desc", lang: lang), targetPlatformName))
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.leading)
+                    }
+                    .padding(12)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color.blue.opacity(0.1))
+                    .cornerRadius(12)
                 }
 
                 // File Export Row (M3U8 & CSV)

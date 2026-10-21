@@ -260,14 +260,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     targetPlatform = targetPlatformKey,
                     reason = reason
                 )
-                val sourceDomain = UrlUtils.extractDomain(playlistUrl)
-                AptabaseClient.shared.trackLinkFlipFailed(
-                    target = targetPlatformKey,
-                    reason = "playlist_$reason",
-                    sourceDomain = sourceDomain,
-                    sourcePlatform = sourcePlatform.key,
-                    errorReason = "playlist_$reason"
-                )
             }
         }
     }
