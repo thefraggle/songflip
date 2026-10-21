@@ -179,7 +179,9 @@ class LocalizationTest {
             "listen_unlock_pro",
             "pro_feature_listen_title",
             "pro_feature_listen_desc",
-            "unsupported_domain_toast"
+            "unsupported_domain_toast",
+            // Replaced the hardcoded English "x/y Songs" history subtitle (#142).
+            "history_playlist_tracks_summary"
         )
         val requiredPluralKeys = listOf(
             "history_cached_count",

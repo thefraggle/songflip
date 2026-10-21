@@ -1,2 +1,2 @@
-- Comenzi rapide de acces rapid pentru ascultare și răsturnare: începeți recunoașterea muzicii direct din panoul Setări rapide a sistemului, apăsând lung pictograma aplicației de pe ecranul dvs. de start sau prin comenzile rapide de sistem fără a deschide mai întâi aplicația completă.
-- Stabilitate generală: îmbunătățiri minore ale UI și îmbunătățiri ale fiabilității interne.
+- Recunoaștere rezistentă a muzicii offline: scanările capturate în timp ce sunt offline sunt acum păstrate în mod fiabil în timpul întreruperilor temporare ale conexiunii și procesate fără probleme odată revenite online.
+- Securitate și internaționalizare: validarea codului criptografic modernizat, cu păstrarea perfectă a caracteristicilor, sincronizarea tuturor cataloagelor în 34 de limbi și căutarea rafinată a caracterelor speciale.

@@ -217,6 +217,7 @@
     <string name="history_refresh_link">Obnovit odkaz</string>
     <string name="history_open_playlist_details">Zobrazit podrobnosti playlistu</string>
     <string name="history_link_refreshed">Odkaz byl úspěšně obnoven!</string>
+    <string name="history_playlist_tracks_summary">%1$d/%2$d skladeb</string>
     <string name="history_link_refreshing">Obnovuji odkaz...</string>
     <string name="history_copy_target">Kopírovat odkaz %1$s</string>
     <string name="history_copy_source">Kopírovat původní odkaz %1$s</string>

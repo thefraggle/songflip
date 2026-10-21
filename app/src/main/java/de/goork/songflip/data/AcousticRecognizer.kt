@@ -29,6 +29,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -83,6 +84,10 @@ object AcousticRecognizer {
 
     private val _state = MutableStateFlow<AcousticRecognitionState>(AcousticRecognitionState.Idle)
     val state: StateFlow<AcousticRecognitionState> = _state.asStateFlow()
+
+    // Guards the offline queue: two overlapping runs would match the same scans twice and could
+    // double-insert History entries before either run deletes the scan.
+    private val offlineQueueMutex = Mutex()
 
     private val httpClient: OkHttpClient by lazy {
         OkHttpClient.Builder()
@@ -166,15 +171,27 @@ object AcousticRecognizer {
     /**
      * Calls Shazam's catalog match REST endpoint directly via OkHttpClient + JSONObject,
      * bypassing Retrofit/Gson reflection and R8 obfuscation edge cases.
+     *
+     * Live scanning only needs "match or not", so this keeps the original nullable contract.
      */
     private fun matchSignatureBase64Direct(
         context: Context,
+        signatureBase64: String
+    ): DirectShazamMatch? =
+        (matchSignatureBase64Outcome(context, signatureBase64) as? OfflineMatchOutcome.Matched)?.match
+
+    /**
+     * Same request as [matchSignatureBase64Direct] but reports WHY no match was returned (#143), so the
+     * Offline Club Mode queue only drops scans on a definitive no-match, never on transient failures.
+     */
+    private fun matchSignatureBase64Outcome(
+        context: Context,
         signatureBase64: String,
         allowTokenRetry: Boolean = true
-    ): DirectShazamMatch? {
-        if (signatureBase64.isBlank()) return null
+    ): OfflineMatchOutcome {
+        if (signatureBase64.isBlank()) return OfflineMatchOutcome.NoMatch
         val jwt = getOrFetchDeveloperToken(context)
-        if (jwt.isBlank()) return null
+        if (jwt.isBlank()) return OfflineMatchOutcome.TransientError("developer token unavailable")
 
         val primaryStoreFront = resolveStoreFront()
         val storeFronts = if (primaryStoreFront == "de") listOf("de", "us") else listOf(primaryStoreFront, "de")
@@ -182,6 +199,7 @@ object AcousticRecognizer {
             .put("signature", JSONObject().put("uri", "data:audio/vnd.shazam.sig;base64,$signatureBase64"))
             .toString()
 
+        val failures = mutableListOf<OfflineMatchOutcome>()
         for (sf in storeFronts) {
             try {
                 val url = String.format(Locale.US, SHAZAM_MATCH_URL_TEMPLATE, sf)
@@ -193,37 +211,36 @@ object AcousticRecognizer {
                     .post(payload.toRequestBody(JSON_MEDIA_TYPE))
                     .build()
 
-                var tryNextStorefront = false
                 httpClient.newCall(req).execute().use { resp ->
                     if (resp.code == 401 || resp.code == 403) {
                         android.util.Log.w("AcousticRecognizer", "Shazam API HTTP ${resp.code}; refreshing token")
                         invalidateCachedToken(context)
                         if (allowTokenRetry) {
-                            return matchSignatureBase64Direct(context, signatureBase64, allowTokenRetry = false)
+                            return matchSignatureBase64Outcome(context, signatureBase64, allowTokenRetry = false)
                         }
-                        return null
+                        return OfflineMatchOutcome.TransientError("HTTP ${resp.code} after token refresh")
                     }
-                    if (!resp.isSuccessful) {
-                        android.util.Log.w("AcousticRecognizer", "Shazam API HTTP ${resp.code} on storefront $sf")
-                        tryNextStorefront = true
-                    } else {
-                        val bodyStr = resp.body?.string().orEmpty()
-                        val parsed = parseShazamMatchResponse(bodyStr)
-                        if (parsed != null) {
-                            return parsed
-                        }
+                    val bodyStr = if (resp.isSuccessful) resp.body?.string() else null
+                    val outcome = OfflineScanQueueProcessor.classifyMatchResponse(
+                        httpCode = resp.code,
+                        body = bodyStr,
+                        parse = { json -> parseShazamMatchResponse(json) }
+                    )
+                    when (outcome) {
                         // HTTP 200 with empty matches means valid request, no match yet — no need to try second storefront
-                        return null
+                        is OfflineMatchOutcome.Matched, OfflineMatchOutcome.NoMatch -> return outcome
+                        else -> {
+                            android.util.Log.w("AcousticRecognizer", "Shazam API HTTP ${resp.code} on storefront $sf: $outcome")
+                            failures += outcome
+                        }
                     }
-                }
-                if (tryNextStorefront) {
-                    continue
                 }
             } catch (t: Throwable) {
                 android.util.Log.w("AcousticRecognizer", "Direct match network error ($sf): ${t.message}")
+                failures += OfflineMatchOutcome.TransientError("network error on $sf: ${t::class.java.simpleName}: ${t.message}")
             }
         }
-        return null
+        return OfflineScanQueueProcessor.combineFailedAttempts(failures)
     }
 
     internal fun parseShazamMatchResponse(jsonString: String): DirectShazamMatch? {
@@ -673,7 +690,9 @@ object AcousticRecognizer {
                     appleMusicId = winner.appleMusicId,
                     webUrl = winner.webUrl,
                     targetPlatform = targetPlatform,
-                    isPro = isPro
+                    isPro = isPro,
+                    authToken = ProManager.getAuthToken(),
+                    audiophileMode = isPro && SettingsRepository(appCtx).audiophileMode
                 )
 
                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackAcousticScanMatched(
@@ -728,28 +747,35 @@ object AcousticRecognizer {
 
     /**
      * Resolves any queued offline Club-Mode signatures when network connectivity returns (#78).
+     *
+     * Scans are only removed after a match was stored or Shazam definitively reported no match (#143).
+     * Transient failures keep the scan and end the run; a concurrent second invocation (e.g. rapid
+     * ON_RESUME events) returns 0 immediately instead of matching the same scans twice.
      */
     suspend fun processPendingOfflineScansIfNeeded(
         context: Context,
         targetPlatformKey: String,
         isPro: Boolean
     ): Int = withContext(Dispatchers.IO) {
-        if (!NetworkUtils.isNetworkAvailable(context)) return@withContext 0
-        val storage = AndroidSharedPreferencesCacheStorage.getOrCreateSqlDelightStorage()
-        val pending = storage.getPendingAcousticScans()
-        if (pending.isEmpty()) return@withContext 0
+        if (!offlineQueueMutex.tryLock()) {
+            android.util.Log.d("AcousticRecognizer", "Offline queue processing already running; skipping")
+            return@withContext 0
+        }
+        try {
+            if (!NetworkUtils.isNetworkAvailable(context)) return@withContext 0
+            val appCtx = context.applicationContext
+            val storage = AndroidSharedPreferencesCacheStorage.getOrCreateSqlDelightStorage()
+            val pending = storage.getPendingAcousticScans()
+            if (pending.isEmpty()) return@withContext 0
 
-        val targetPlatform = MusicPlatform.fromKey(targetPlatformKey)
-        var resolvedCount = 0
+            val targetPlatform = MusicPlatform.fromKey(targetPlatformKey)
+            val authToken = ProManager.getAuthToken()
+            val audiophileMode = isPro && SettingsRepository(appCtx).audiophileMode
 
-        for (scan in pending) {
-            try {
-                if (scan.signatureBase64.isBlank()) {
-                    storage.deletePendingAcousticScan(scan.id)
-                    continue
-                }
-                val winner = matchSignatureBase64Direct(context, scan.signatureBase64)
-                if (winner != null) {
+            OfflineScanQueueProcessor.process(
+                pending = pending,
+                match = { signature -> matchSignatureBase64Outcome(appCtx, signature) },
+                onMatched = { winner ->
                     AcousticQuotaManager.shared.resolveAndStoreAcousticMatch(
                         engine = SongLinkEngine.shared,
                         title = winner.title,
@@ -759,21 +785,21 @@ object AcousticRecognizer {
                         appleMusicId = winner.appleMusicId,
                         webUrl = winner.webUrl,
                         targetPlatform = targetPlatform,
-                        isPro = isPro
+                        isPro = isPro,
+                        authToken = authToken,
+                        audiophileMode = audiophileMode
                     )
-                    resolvedCount++
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackAcousticScanMatched(
                         target = targetPlatformKey,
                         isPro = isPro,
                         isOfflineQueue = true
                     )
-                }
-                storage.deletePendingAcousticScan(scan.id)
-            } catch (t: Throwable) {
-                if (t is CancellationException) throw t
-                android.util.Log.w("AcousticRecognizer", "Failed to process offline scan ${scan.id}: ${t.message}")
-            }
+                },
+                delete = { id -> storage.deletePendingAcousticScan(id) },
+                log = { message -> android.util.Log.w("AcousticRecognizer", message) }
+            )
+        } finally {
+            offlineQueueMutex.unlock()
         }
-        resolvedCount
     }
 }

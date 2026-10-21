@@ -1,2 +1,2 @@
-- Gyorselérési parancsikonok a meghallgatáshoz és az átfordításhoz: Indítsa el a zenefelismerést közvetlenül a rendszer gyorsbeállításairól, az alkalmazás ikonjának hosszan megnyomásával a kezdőképernyőn, vagy a rendszer parancsikonjaival anélkül, hogy először megnyitná a teljes alkalmazást.
-- Általános stabilitás: Kisebb felhasználói felületi finomítások és belső megbízhatósági fejlesztések.
+- Rugalmas offline zenefelismerés: Az offline állapotban rögzített szkenneléseket a rendszer megbízhatóan megőrzi a kapcsolat ideiglenes megszakadása során, és zökkenőmentesen feldolgozza, ha újra online állapotban van.
+- Biztonság és nemzetközivé tétel: Modernizált kriptográfiai kódellenőrzés zökkenőmentes funkciók megtartásával, szinkronizált mind a 34 nyelvi katalógus, és finomított speciális karakterkeresés.

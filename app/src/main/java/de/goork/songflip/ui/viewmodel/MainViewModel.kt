@@ -212,7 +212,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         targetUrl = targetUrl,
                         platform = "${targetPlatformKey}_playlist",
                         title = data.title.ifBlank { "Playlist" },
-                        artist = "${data.matchedCount}/$displayTotal Songs",
+                        artist = getApplication<Application>().getString(
+                            de.goork.songflip.R.string.history_playlist_tracks_summary,
+                            data.matchedCount,
+                            displayTotal
+                        ),
                         isAlbum = false,
                         thumbnailUrl = data.thumbnailUrl
                     ),

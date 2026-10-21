@@ -55,7 +55,29 @@ data class VerifiedCouponPayload(
     val type: String = "",
     val expirationTimestamp: Long? = null,
     val issuedAtTimestamp: Long? = null,
-    val isLegacyToken: Boolean = false
+    val isLegacyToken: Boolean = false,
+    /** True when signed with the current (v3) key; older tokens are migrated online (#141). */
+    val isCurrentKey: Boolean = false
+)
+
+enum class CouponRefreshStatus {
+    /** Server re-signed the token with the current key. */
+    UPGRADED,
+    /** Token is already current – nothing to do. */
+    UNCHANGED,
+    /** Server proved the signature invalid: the stored token must be discarded. */
+    REVOKED,
+    /** Network/config/unknown-record outcome: keep the stored token untouched (never lock users out). */
+    KEEP
+}
+
+@Serializable
+data class CouponRefreshOutcome(
+    val status: CouponRefreshStatus,
+    val token: String = "",
+    val type: String = "",
+    val expirationTimestamp: Long? = null,
+    val issuedAtTimestamp: Long? = null
 )
 
 /**
@@ -78,8 +100,17 @@ class CouponService(
             "https://songflip-web.web.app/redeemPromoCode"
         )
 
-        // Pinned Ed25519 verification public keys (32 bytes each, hex-encoded, RFC 8032):
+        /** Token generation requested from the backend; 3 = sign with the v3 key pinned below. */
+        const val CURRENT_TOKEN_VERSION = 3
+
+        // Current signing key (since 1.11.0, #141). Listed first so the common case verifies fastest.
+        private const val CURRENT_PUBLIC_KEY_HEX = "db038fc84e31a618133be993e096aacb6f3702149fc0d287d2a738d85949e6d7"
+
+        // Pinned Ed25519 verification public keys (32 bytes each, hex-encoded, RFC 8032).
+        // Older keys stay trusted so already issued tokens keep working; they are replaced via
+        // refreshCouponToken() and can be dropped once migration has run its course.
         private val TRUSTED_PUBLIC_KEYS_HEX = listOf(
+            CURRENT_PUBLIC_KEY_HEX,
             "045623e99efa5a77fc19ee5bec0dd392e61cf8ad6a48cc3716b80860efb1db9d",
             "6949b9c7bd8a6e8733fc7dfa2e42d3eb50ae6b2b45cbf1880f1b7221b23385fe"
         )
@@ -159,20 +190,23 @@ class CouponService(
             if (sigBytes.size != 64) return VerifiedCouponPayload(valid = false)
             val msgBytes = payloadB64.encodeToByteArray()
 
-            val sigValid = TRUSTED_PUBLIC_KEYS.any { pubKey ->
+            val matchedIndex = TRUSTED_PUBLIC_KEYS.indexOfFirst { pubKey ->
                 Ed25519Verifier.verify(msgBytes, sigBytes, pubKey)
             }
-            if (!sigValid) return VerifiedCouponPayload(valid = false)
+            if (matchedIndex < 0) return VerifiedCouponPayload(valid = false)
 
             return parseAndValidatePayload(
                 payloadB64 = payloadB64,
                 expectedInstallId = expectedInstallId,
                 effectiveNow = effectiveNow,
-                isLegacy = false
+                isLegacy = false,
+                isCurrentKey = matchedIndex == 0
             )
         }
 
-        // Legacy v1 HMAC token (sct_<payload>.<sig>): requires valid base64url payload + 32-byte HMAC signature
+        // Legacy v1 HMAC token (sct_<payload>.<sig>): the HMAC secret is server-only, so the signature cannot
+        // be checked offline. These tokens stay accepted (existing customers keep access) but are flagged
+        // isLegacyToken so the app migrates them online, where forged ones receive REVOKED (#141).
         if (cleanToken.startsWith("sct_")) {
             val raw = cleanToken.substring(4)
             val dotIdx = raw.indexOf('.')
@@ -209,7 +243,8 @@ class CouponService(
         payloadB64: String,
         expectedInstallId: String,
         effectiveNow: Long,
-        isLegacy: Boolean
+        isLegacy: Boolean,
+        isCurrentKey: Boolean = false
     ): VerifiedCouponPayload {
         val payloadBytes = decodeBase64Url(payloadB64) ?: return VerifiedCouponPayload(valid = false)
         val payloadJson = try {
@@ -248,8 +283,87 @@ class CouponService(
             type = type,
             expirationTimestamp = if (type == "lifetime") null else exp,
             issuedAtTimestamp = iat,
-            isLegacyToken = isLegacy
+            isLegacyToken = isLegacy,
+            isCurrentKey = isCurrentKey
         )
+    }
+
+    /** True for a locally valid token that was not signed with the current key (legacy HMAC or older Ed25519). */
+    fun needsTokenMigration(verified: VerifiedCouponPayload): Boolean =
+        verified.valid && (verified.isLegacyToken || !verified.isCurrentKey)
+
+    /**
+     * Exchanges a stored token for one signed with the current key (#141). Uses the existing
+     * `/redeemPromoCode` endpoint (`refreshToken`) so no routing changes are needed and no
+     * redemption slot is consumed. Only an explicit INVALID_TOKEN verdict yields [CouponRefreshStatus.REVOKED];
+     * every other failure keeps the stored token so a backend hiccup can never revoke a customer.
+     */
+    suspend fun refreshCouponToken(
+        token: String,
+        installId: String,
+        customEndpoints: List<String>? = null
+    ): CouponRefreshOutcome {
+        val cleanToken = token.removePrefix("coupon:").trim()
+        if (cleanToken.isEmpty() || installId.isBlank()) return CouponRefreshOutcome(status = CouponRefreshStatus.KEEP)
+
+        val endpoints = customEndpoints?.takeIf { it.isNotEmpty() } ?: DEFAULT_ENDPOINTS
+        val bodyStr = buildJsonObject {
+            put("installId", installId)
+            put("refreshToken", cleanToken)
+            put("tokenVersion", CURRENT_TOKEN_VERSION)
+        }.toString()
+
+        for (endpoint in endpoints) {
+            try {
+                val response = withContext(Dispatchers.Default) {
+                    withTimeout(7500L) {
+                        client.post(endpoint) {
+                            contentType(ContentType.Application.Json)
+                            header("Accept", "application/json")
+                            setBody(bodyStr)
+                        }
+                    }
+                }
+                val respText = response.bodyAsText()
+                val obj = try {
+                    json.parseToJsonElement(respText) as? JsonObject
+                } catch (e: Throwable) {
+                    println("CouponService: unparsable refresh response from $endpoint: ${e.message}")
+                    null
+                }
+                if (response.status.isSuccess()) {
+                    val newToken = obj?.get("token").safeStringOrNull().orEmpty()
+                    val verified = verifyCouponToken(token = newToken, expectedInstallId = installId)
+                    // Never replace a working token with something this client cannot verify.
+                    if (!verified.valid || verified.isLegacyToken) return CouponRefreshOutcome(status = CouponRefreshStatus.KEEP)
+                    val status = if (obj?.get("status").safeStringOrNull() == "unchanged") {
+                        CouponRefreshStatus.UNCHANGED
+                    } else {
+                        CouponRefreshStatus.UPGRADED
+                    }
+                    return CouponRefreshOutcome(
+                        status = status,
+                        token = newToken,
+                        type = verified.type,
+                        expirationTimestamp = verified.expirationTimestamp,
+                        issuedAtTimestamp = verified.issuedAtTimestamp
+                    )
+                }
+                val errCode = obj?.get("error").safeStringOrNull()?.uppercase().orEmpty()
+                return if (errCode == "INVALID_TOKEN") {
+                    CouponRefreshOutcome(status = CouponRefreshStatus.REVOKED)
+                } else {
+                    println("CouponService: token refresh kept stored token (HTTP ${response.status.value}, $errCode)")
+                    CouponRefreshOutcome(status = CouponRefreshStatus.KEEP)
+                }
+            } catch (c: CancellationException) {
+                if (c !is kotlinx.coroutines.TimeoutCancellationException) throw c
+                println("CouponService: token refresh timed out on $endpoint, trying next endpoint")
+            } catch (t: Throwable) {
+                println("CouponService: token refresh failed on $endpoint: ${t.message}")
+            }
+        }
+        return CouponRefreshOutcome(status = CouponRefreshStatus.KEEP)
     }
 
     suspend fun redeemCoupon(
@@ -267,6 +381,8 @@ class CouponService(
         val bodyStr = buildJsonObject {
             put("code", cleanCode)
             put("installId", installId)
+            // Ask for a token signed with the key this client pins (older apps omit it and get compat tokens).
+            put("tokenVersion", CURRENT_TOKEN_VERSION)
         }.toString()
 
         for (endpoint in endpoints) {

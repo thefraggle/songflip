@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.11.0] - 2026-10-21
+- **Resilient Offline Music Recognition**: Scans captured while offline are now reliably preserved during temporary connection drops and processed seamlessly once back online.
+- **Security & Internationalization**: Modernized cryptographic code validation with seamless feature retention, synchronized all 34 language catalogs, and refined special character search.
+
 ## [1.10.5] - 2026-10-21
 - **Broader Catalog Search Without Duplicates**: In-app search now returns significantly more unique tracks for artist and song queries while automatically filtering out duplicate entries from compilations, greatest hits, and remastered re-issues in favor of the original studio release.
 - **Expanded Player Detection & Selection**: Improved automatic discovery of compatible music players and extended preferred player selection across all supported streaming services.

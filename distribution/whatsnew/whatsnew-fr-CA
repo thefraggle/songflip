@@ -1,2 +1,2 @@
-- Raccourcis d'accès rapide pour écouter et retourner : démarrez la reconnaissance musicale directement à partir de la vignette Paramètres rapides du système, en appuyant longuement sur l'icône de l'application sur votre écran d'accueil ou via des raccourcis système sans ouvrir au préalable l'application complète.
-- Stabilité générale : améliorations mineures de l'interface utilisateur et améliorations de la fiabilité interne.
+- Reconnaissance musicale hors ligne résiliente : les analyses capturées hors ligne sont désormais conservées de manière fiable lors des interruptions de connexion temporaires et traitées de manière transparente une fois de nouveau en ligne.
+- Sécurité et internationalisation : validation du code cryptographique modernisée avec conservation transparente des fonctionnalités, synchronisation des 34 catalogues de langues et recherche raffinée des caractères spéciaux.
