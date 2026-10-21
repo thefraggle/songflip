@@ -127,6 +127,33 @@ struct SettingsSheetView: View {
                         }
                     }
                     .tint(.green)
+
+                    ForEach(["youtubeMusic", "appleMusic"], id: \.self) { multiPlatformKey in
+                        let altPlayers = settings.installedAlternativePlayers(for: multiPlatformKey)
+                        if !altPlayers.isEmpty {
+                            let platformName = PlatformChoice(rawValue: multiPlatformKey)?.displayName ?? multiPlatformKey
+                            Picker(selection: Binding(
+                                get: { settings.preferredPlayerId(for: multiPlatformKey) ?? "" },
+                                set: { newVal in
+                                    settings.setPreferredPlayerId(newVal.isEmpty ? nil : newVal, for: multiPlatformKey)
+                                }
+                            )) {
+                                Text(LocalizationManager.string(for: "settings_preferred_player_auto", lang: lang))
+                                    .tag("")
+                                ForEach(altPlayers) { player in
+                                    Text(player.appName)
+                                        .tag(player.id)
+                                }
+                            } label: {
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Label(LocalizationManager.string(for: "settings_preferred_player_title", lang: lang), systemImage: "music.note.tv")
+                                    Text(platformName)
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                        }
+                    }
                 }
 
                 Section(header: Text(LocalizationManager.string(for: "settings_feedback_support", lang: lang)).font(.caption).fontWeight(.semibold)) {

@@ -30,7 +30,9 @@ class ShareViewController: UIViewController {
         TargetPlatformItem(key: "deezer", name: "Deezer", iconSystemName: "music.quarternote.3", color: UIColor(red: 0.64, green: 0.22, blue: 1.0, alpha: 1.0)),
         TargetPlatformItem(key: "amazonMusic", name: "Amazon Music", iconSystemName: "cart.fill", color: UIColor(red: 0.15, green: 0.82, blue: 0.85, alpha: 1.0)),
         TargetPlatformItem(key: "soundcloud", name: "SoundCloud", iconSystemName: "cloud.fill", color: UIColor(red: 1.0, green: 0.33, blue: 0.0, alpha: 1.0)),
-        TargetPlatformItem(key: "qobuz", name: "Qobuz", iconSystemName: "waveform.badge.magnifyingglass", color: UIColor(red: 0.0, green: 0.45, blue: 0.82, alpha: 1.0))
+        TargetPlatformItem(key: "bandcamp", name: "Bandcamp", iconSystemName: "opticaldisc", color: UIColor(red: 0.11, green: 0.63, blue: 0.76, alpha: 1.0)),
+        TargetPlatformItem(key: "qobuz", name: "Qobuz", iconSystemName: "waveform.badge.magnifyingglass", color: UIColor(red: 0.0, green: 0.45, blue: 0.82, alpha: 1.0)),
+        TargetPlatformItem(key: "beatport", name: "Beatport", iconSystemName: "headphones", color: UIColor(red: 0.0, green: 0.85, blue: 0.5, alpha: 1.0))
     ]
 
     private func localizedText(for key: String, default defaultText: String) -> String {
@@ -435,8 +437,20 @@ class ShareViewController: UIViewController {
                         source: srcKey
                     )
 
-                    let targetUri = success.nativeAppUri ?? success.targetUrl
-                    let fallbackUri = success.nativeAppUri != nil ? success.targetUrl : nil
+                    let cleanTargetKey = targetPlatform.components(separatedBy: "_").first ?? targetPlatform
+                    var targetUri = success.nativeAppUri ?? success.targetUrl
+                    if let preferredClient = defaults.string(forKey: "preferred_player_\(cleanTargetKey)"), !preferredClient.isEmpty {
+                        if let customUri = UrlUtils.shared.toAlternativeClientUri(
+                            url: success.targetUrl,
+                            platformKey: cleanTargetKey,
+                            clientId: preferredClient,
+                            title: success.title,
+                            artist: success.artist
+                        ) {
+                            targetUri = customUri
+                        }
+                    }
+                    let fallbackUri = targetUri != success.targetUrl ? UrlUtils.shared.toWebFallbackUrl(rawUrl: success.targetUrl, targetPlatformKey: cleanTargetKey) : nil
                     self.openApp(urlString: targetUri, fallbackUrlString: fallbackUri)
                 } else if let podcast = result as? ResolutionResult.Podcast {
                     self.statusLabel.text = self.localizedText(for: "podcast_badge", default: "Podcast")

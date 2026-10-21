@@ -152,12 +152,27 @@ struct ConvertSongIntent: AppIntent {
                 source: srcKey
             )
 
+            let cleanTargetKey = targetPlatform.components(separatedBy: "_").first ?? targetPlatform
+            var primaryUri = success.nativeAppUri
+            if let preferredClient = defaults.string(forKey: "preferred_player_\(cleanTargetKey)"), !preferredClient.isEmpty {
+                if let customUri = UrlUtils.shared.toAlternativeClientUri(
+                    url: success.targetUrl,
+                    platformKey: cleanTargetKey,
+                    clientId: preferredClient,
+                    title: success.title,
+                    artist: success.artist
+                ) {
+                    primaryUri = customUri
+                }
+            }
+
             var opened = false
-            if let nativeUri = success.nativeAppUri, let nativeUrl = URL(string: nativeUri) {
+            if let nativeUri = primaryUri, let nativeUrl = URL(string: nativeUri) {
                 opened = await UIApplication.shared.open(nativeUrl)
             }
 
-            if !opened, let webUrl = URL(string: success.targetUrl) {
+            let webFallbackStr = UrlUtils.shared.toWebFallbackUrl(rawUrl: success.targetUrl, targetPlatformKey: cleanTargetKey)
+            if !opened, let webUrl = URL(string: webFallbackStr) ?? URL(string: success.targetUrl) {
                 await UIApplication.shared.open(webUrl)
             }
 
