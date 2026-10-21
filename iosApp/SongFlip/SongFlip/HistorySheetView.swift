@@ -86,7 +86,7 @@ struct HistorySheetView: View {
                         id: item.id,
                         newTargetUrl: targetLink,
                         newTitle: kmpResult.title.isEmpty ? item.title : kmpResult.title,
-                        newArtist: "\(kmpResult.matchedCount)/\(displayTotal) Songs",
+                        newArtist: String(format: LocalizationManager.string(for: "history_playlist_tracks_summary", lang: lang), Int(kmpResult.matchedCount), displayTotal),
                         newTargetPlatform: "\(targetKey)_playlist",
                         isAlbum: false,
                         thumbnailUrl: kmpResult.thumbnailUrl ?? item.thumbnailUrl

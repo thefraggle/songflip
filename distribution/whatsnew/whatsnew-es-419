@@ -1,2 +1,2 @@
-- Atajos de acceso rápido para escuchar y voltear: inicie el reconocimiento de música directamente desde el mosaico de Configuración rápida del sistema, presionando prolongadamente el ícono de la aplicación en la pantalla de inicio o mediante atajos del sistema sin abrir primero la aplicación completa.
-- Estabilidad general: mejoras menores en la interfaz de usuario y mejoras de confiabilidad interna.
+- Reconocimiento de música resistente sin conexión: los escaneos capturados sin conexión ahora se conservan de manera confiable durante las caídas temporales de la conexión y se procesan sin problemas una vez que se vuelve a conectar.
+- Seguridad e internacionalización: validación de código criptográfico modernizada con retención perfecta de funciones, sincronización de los catálogos de 34 idiomas y búsqueda refinada de caracteres especiales.

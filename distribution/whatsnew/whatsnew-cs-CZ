@@ -1,2 +1,2 @@
-- Zkratky pro rychlý přístup pro poslech a překlopení: Spusťte rozpoznávání hudby přímo ze systémové dlaždice Rychlá nastavení dlouhým stisknutím ikony aplikace na domovské obrazovce nebo pomocí systémových zkratek, aniž byste museli nejprve otevřít celou aplikaci.
-- Obecná stabilita: Drobná vylepšení uživatelského rozhraní a vylepšení vnitřní spolehlivosti.
+- Odolné rozpoznávání hudby offline: Skenování zachycená v režimu offline jsou nyní spolehlivě uchována během dočasného výpadku připojení a bezproblémově zpracována, jakmile se vrátíte online.
+- Zabezpečení a internacionalizace: Modernizované ověřování kryptografického kódu s bezproblémovým zachováním funkcí, synchronizace všech 34 jazykových katalogů a vylepšené vyhledávání speciálních znaků.

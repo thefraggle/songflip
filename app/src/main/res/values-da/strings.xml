@@ -225,6 +225,7 @@
     <string name="history_refresh_link">Genindlæs link</string>
     <string name="history_open_playlist_details">Vis detaljer om afspilningsliste</string>
     <string name="history_link_refreshed">Link opdateret!</string>
+    <string name="history_playlist_tracks_summary">%1$d/%2$d sange</string>
     <string name="history_link_refreshing">Genindlæser link...</string>
     <string name="history_copy_target">Kopiér %1$s-link</string>
     <string name="history_copy_source">Kopiér originalt %1$s-link</string>

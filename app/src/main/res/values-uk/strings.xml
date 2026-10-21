@@ -227,6 +227,7 @@
     <string name="history_refresh_link">Оновити посилання</string>
     <string name="history_open_playlist_details">Переглянути деталі списку відтворення</string>
     <string name="history_link_refreshed">Посилання успішно оновлено!</string>
+    <string name="history_playlist_tracks_summary">%1$d/%2$d пісень</string>
     <string name="history_link_refreshing">Оновлення посилання...</string>
     <string name="history_copy_target">Копіювати посилання %1$s</string>
     <string name="history_copy_source">Копіювати оригінальне посилання %1$s</string>

@@ -3,6 +3,7 @@ import AVFAudio
 import ShazamKit
 import Network
 import Combine
+import os
 import SongFlipKit
 
 enum AcousticRecognitionState: Equatable {
@@ -46,6 +47,24 @@ private struct MatchedTrackInfo: Sendable {
     let appleMusicUrl: String?
     let appleMusicId: String?
     let webUrl: String?
+}
+
+/// Result of a Shazam catalog REST match (#143). Separating a definitive "no match" from transient
+/// failures protects queued Offline Club Mode scans from being deleted on flaky networks.
+private enum OfflineMatchOutcome: Sendable {
+    case matched(MatchedTrackInfo)
+    /// HTTP 2xx with a well-formed body that contains no match – retrying will not help.
+    case noMatch
+    /// Token endpoint down, timeout, DNS/URLError, HTTP 5xx/429/408, unparsable body – retry later.
+    case transientError(String)
+    /// Non-retryable 4xx for this specific request (e.g. 400). The scan is kept, but the rest of the
+    /// queue is still processed so one bad entry cannot block all other scans forever.
+    case rejected(String)
+
+    var matchedTrack: MatchedTrackInfo? {
+        if case .matched(let info) = self { return info }
+        return nil
+    }
 }
 
 private nonisolated final class ShazamSessionBox: NSObject, SHSessionDelegate, @unchecked Sendable {
@@ -100,6 +119,10 @@ final class AcousticRecognizer: ObservableObject {
     private(set) var isOnline: Bool = true
     private var cachedDeveloperToken: String? = nil
     private var cachedTokenExpiryEpochSec: Int64 = 0
+    /// Prevents overlapping queue runs (onAppear + scenePhase .active fire together on launch),
+    /// which would match the same scans twice before either run deletes them.
+    private var isProcessingPendingScans = false
+    private static let logger = Logger(subsystem: "de.goork.songflip", category: "AcousticRecognizer")
 
     private init() {
         pathMonitor.pathUpdateHandler = { [weak self] path in
@@ -321,6 +344,7 @@ final class AcousticRecognizer: ObservableObject {
             self.state = .resolving(title: winner.title, artist: winner.artist, artworkUrl: winner.artworkUrl)
 
             let targetPlatform = MusicPlatform.companion.fromKey(key: targetPlatformKey)
+            let credentials = resolutionCredentials(isPro: isPro)
             let flipResult = try await AcousticQuotaManager.companion.shared.resolveAndStoreAcousticMatch(
                 engine: SongLinkEngine.shared,
                 title: winner.title,
@@ -331,7 +355,9 @@ final class AcousticRecognizer: ObservableObject {
                 webUrl: winner.webUrl,
                 targetPlatform: targetPlatform,
                 isPro: isPro,
-                timestampMs: Int64(Date().timeIntervalSince1970 * 1000)
+                timestampMs: Int64(Date().timeIntervalSince1970 * 1000),
+                authToken: credentials.authToken,
+                audiophileMode: credentials.audiophileMode
             )
 
             await HistoryModel.shared.syncFromKmpStore()
@@ -364,55 +390,97 @@ final class AcousticRecognizer: ObservableObject {
         self.state = .offlineQueued(pendingCount: pendingCount)
     }
 
+    /// Resolves queued offline Club-Mode signatures when connectivity returns (#78).
+    ///
+    /// A scan is only removed after its match was stored or after Shazam definitively reported no match
+    /// (#143). Transient failures keep the scan and end the run so we neither lose data nor hammer a
+    /// failing backend; overlapping invocations return 0 immediately.
     func processPendingOfflineScansIfNeeded(targetPlatformKey: String, isPro: Bool) async -> Int {
+        guard !isProcessingPendingScans else {
+            Self.logger.debug("Offline queue processing already running; skipping")
+            return 0
+        }
         guard isOnline else { return 0 }
+        isProcessingPendingScans = true
+        defer { isProcessingPendingScans = false }
+
         let manager = AcousticQuotaManager.companion.shared
         let pending = manager.getPendingAcousticScans()
         guard !pending.isEmpty else { return 0 }
 
         let targetPlatform = MusicPlatform.companion.fromKey(key: targetPlatformKey)
+        let credentials = resolutionCredentials(isPro: isPro)
         var resolvedCount = 0
 
-        for scan in pending {
+        queueLoop: for scan in pending {
             guard !scan.signatureBase64.isEmpty else {
+                Self.logger.warning("Removing corrupt offline scan \(scan.id, privacy: .public) (empty signature)")
                 manager.deletePendingAcousticScan(id: scan.id)
                 continue
             }
 
-            var matched = await matchSignatureBase64Direct(scan.signatureBase64)
-            if matched == nil,
+            var outcome = await matchSignatureBase64Outcome(scan.signatureBase64)
+            // ShazamKit's own session is a second opinion: it can rescue both a REST no-match and a REST
+            // transient failure, but a session miss must never turn a transient REST error into a delete.
+            if outcome.matchedTrack == nil,
                let sigData = Data(base64Encoded: scan.signatureBase64),
-               let signature = try? SHSignature(dataRepresentation: sigData) {
-                matched = await matchSingleSignature(signature)
+               let signature = try? SHSignature(dataRepresentation: sigData),
+               let sessionMatch = await matchSingleSignature(signature) {
+                outcome = .matched(sessionMatch)
             }
 
-            if let winner = matched {
-                _ = try? await manager.resolveAndStoreAcousticMatch(
-                    engine: SongLinkEngine.shared,
-                    title: winner.title,
-                    artist: winner.artist,
-                    artworkUrl: winner.artworkUrl,
-                    appleMusicUrl: winner.appleMusicUrl,
-                    appleMusicId: winner.appleMusicId,
-                    webUrl: winner.webUrl,
-                    targetPlatform: targetPlatform,
-                    isPro: isPro,
-                    timestampMs: Int64(Date().timeIntervalSince1970 * 1000)
-                )
+            switch outcome {
+            case .matched(let winner):
+                do {
+                    _ = try await manager.resolveAndStoreAcousticMatch(
+                        engine: SongLinkEngine.shared,
+                        title: winner.title,
+                        artist: winner.artist,
+                        artworkUrl: winner.artworkUrl,
+                        appleMusicUrl: winner.appleMusicUrl,
+                        appleMusicId: winner.appleMusicId,
+                        webUrl: winner.webUrl,
+                        targetPlatform: targetPlatform,
+                        isPro: isPro,
+                        timestampMs: Int64(Date().timeIntervalSince1970 * 1000),
+                        authToken: credentials.authToken,
+                        audiophileMode: credentials.audiophileMode
+                    )
+                } catch {
+                    // Keep the scan so the match is not lost; it will be retried on the next run.
+                    Self.logger.error("Failed to store offline scan \(scan.id, privacy: .public), keeping it: \(error.localizedDescription, privacy: .public)")
+                    continue queueLoop
+                }
                 resolvedCount += 1
                 AptabaseClient.shared.trackAcousticScanMatched(
                     target: targetPlatformKey,
                     isPro: isPro,
                     isOfflineQueue: true
                 )
+                manager.deletePendingAcousticScan(id: scan.id)
+            case .noMatch:
+                Self.logger.info("Offline scan \(scan.id, privacy: .public): definitive no match, removing from queue")
+                manager.deletePendingAcousticScan(id: scan.id)
+            case .rejected(let reason):
+                Self.logger.warning("Offline scan \(scan.id, privacy: .public) rejected (\(reason, privacy: .public)); keeping it, continuing")
+            case .transientError(let reason):
+                Self.logger.warning("Offline scan \(scan.id, privacy: .public): transient error (\(reason, privacy: .public)); keeping queue for next run")
+                break queueLoop
             }
-            manager.deletePendingAcousticScan(id: scan.id)
         }
 
         if resolvedCount > 0 {
             await HistoryModel.shared.syncFromKmpStore()
         }
         return resolvedCount
+    }
+
+    /// Mirrors how normal flips forward Pro credentials (ContentView/SettingsModel), so acoustic matches
+    /// get the L2 server cache and the Audiophile Quality Matcher too.
+    private func resolutionCredentials(isPro: Bool) -> (authToken: String, audiophileMode: Bool) {
+        let defaults = UserDefaults(suiteName: SettingsModel.appGroupId) ?? UserDefaults.standard
+        let audiophile = isPro && defaults.bool(forKey: "audiophile_mode")
+        return (ProManager.shared.authToken, audiophile)
     }
 
     private func getDeveloperToken() async -> String? {

@@ -1,2 +1,2 @@
-- Quick-Access Shortcuts for Listen & Flip: Start music recognition directly from the system Quick Settings tile, by long-pressing the app icon on your home screen, or via system shortcuts without opening the full app first.
-- General Stability: Minor UI refinements and internal reliability improvements.
+- Resilient Offline Music Recognition: Scans captured while offline are now reliably preserved during temporary connection drops and processed seamlessly once back online.
+- Security & Internationalization: Modernized cryptographic code validation with seamless feature retention, synchronized all 34 language catalogs, and refined special character search.

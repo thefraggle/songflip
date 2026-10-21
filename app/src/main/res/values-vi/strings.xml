@@ -224,6 +224,7 @@
     <string name="history_refresh_link">Làm mới liên kết</string>
     <string name="history_open_playlist_details">Xem chi tiết danh sách phát</string>
     <string name="history_link_refreshed">Đã cập nhật liên kết thành công!</string>
+    <string name="history_playlist_tracks_summary">%1$d/%2$d bài hát</string>
     <string name="history_link_refreshing">Đang làm mới liên kết...</string>
     <string name="history_copy_target">Sao chép liên kết %1$s</string>
     <string name="history_copy_source">Sao chép liên kết %1$s gốc</string>

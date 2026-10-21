@@ -1,2 +1,2 @@
-- Pikanäppäimet kuunteluun ja kääntämiseen: Aloita musiikin tunnistus suoraan järjestelmän pika-asetusruudusta painamalla pitkään aloitusnäytön sovelluskuvaketta tai järjestelmän pikanäppäimillä avaamatta ensin koko sovellusta.
-- Yleinen vakaus: Pieniä käyttöliittymän parannuksia ja sisäisen luotettavuuden parannuksia.
+- Joustava offline-musiikin tunnistus: Offline-tilassa tallennetut skannaukset säilyvät nyt luotettavasti, kun yhteys katkeaa väliaikaisesti, ja ne käsitellään saumattomasti, kun ne ovat palanneet verkkoon.
+- Turvallisuus ja kansainvälistyminen: Modernisoitu salauskoodin validointi saumattomalla ominaisuuksien säilyttämisellä, synkronoitu kaikki 34 kielen luetteloa ja hienostunut erikoismerkkihaku.

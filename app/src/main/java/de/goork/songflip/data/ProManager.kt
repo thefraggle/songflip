@@ -273,6 +273,9 @@ object ProManager {
         // Fast offline hydration from local preferences before network responds (#110)
         hydrateLocalProState()
 
+        // Re-sign older coupon tokens with the current key in the background (#141); never blocks startup.
+        backgroundScope.launch { migrateStoredCouponTokenIfNeeded() }
+
         // Initialize RevenueCat SDK
         if (REVENUECAT_API_KEY.isBlank()) {
             return
@@ -387,6 +390,63 @@ object ProManager {
 
         _proState.value = newState
         return newState
+    }
+
+    private val tokenMigrationAttempted = java.util.concurrent.atomic.AtomicBoolean(false)
+
+    // Swappable so JVM unit tests (no android.util.Log mocks in this module) can exercise the migration.
+    internal var migrationLogger: (String) -> Unit = { msg -> android.util.Log.i("ProManager", msg) }
+
+    /**
+     * One attempt per process to exchange a legacy/compat coupon token for a v3-signed one (#141).
+     * Pro access never depends on this call: on network errors or unknown outcomes the existing
+     * token is kept; only an explicit server verdict of an invalid signature removes it.
+     */
+    internal suspend fun migrateStoredCouponTokenIfNeeded() {
+        if (isAutomatedTestEnv || !tokenMigrationAttempted.compareAndSet(false, true)) return
+        val sp = prefs ?: return
+        val storedToken = getStoredCouponToken() ?: return
+        val verified = verifyStoredCouponOffline(storedToken, System.currentTimeMillis())
+        val couponService = de.goork.songflip.core.engine.CouponService.shared
+        if (!couponService.needsTokenMigration(verified)) return
+
+        val outcome = couponService.refreshCouponToken(
+            token = storedToken,
+            installId = verified.installId,
+            customEndpoints = testBaseUrl?.let { listOf("$it/redeemPromoCode") }
+        )
+        when (outcome.status) {
+            de.goork.songflip.core.engine.CouponRefreshStatus.UPGRADED -> {
+                val editor = sp.edit()
+                saveStoredCouponToken(editor, outcome.token)
+                editor.apply()
+                outcome.issuedAtTimestamp?.let { updateLastSeenServerTime(it) }
+                reevaluateKeepingRevenueCat()
+                migrationLogger("Coupon token migrated to current signing key")
+            }
+            de.goork.songflip.core.engine.CouponRefreshStatus.REVOKED -> {
+                sp.edit()
+                    .remove(KEY_COUPON_TOKEN)
+                    .remove(KEY_COUPON_TYPE)
+                    .remove(KEY_COUPON_CODE)
+                    .remove(KEY_COUPON_EXPIRATION)
+                    .apply()
+                reevaluateKeepingRevenueCat()
+                migrationLogger("Stored coupon token rejected by server (invalid signature) – removed")
+            }
+            else -> migrationLogger("Coupon token migration skipped: ${outcome.status}")
+        }
+    }
+
+    /** Re-evaluates coupon state without dropping an active RevenueCat entitlement from memory. */
+    private fun reevaluateKeepingRevenueCat() {
+        val current = _proState.value
+        val rcActive = current.isPro && current.proType.startsWith("revenuecat")
+        evaluateProState(
+            revenueCatActive = rcActive,
+            rcExpirationMillis = if (rcActive) current.expirationDate else null,
+            rcIsLifetime = current.proType == "revenuecat_lifetime"
+        )
     }
 
     fun trackPaywallImpression() {
@@ -579,6 +639,8 @@ object ProManager {
         val jsonBody = org.json.JSONObject().apply {
             put("code", cleanCode)
             put("installId", installId)
+            // Request a token signed with the key this app version pins (#141).
+            put("tokenVersion", de.goork.songflip.core.engine.CouponService.CURRENT_TOKEN_VERSION)
         }.toString()
 
         val mediaType = "application/json; charset=utf-8".toMediaType()
@@ -715,5 +777,6 @@ object ProManager {
     fun resetProForTesting() {
         prefs?.edit()?.clear()?.apply()
         _proState.value = ProState(isPro = false, proType = "")
+        tokenMigrationAttempted.set(false)
     }
 }

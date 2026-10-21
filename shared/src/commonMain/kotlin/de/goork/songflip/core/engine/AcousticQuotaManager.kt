@@ -6,6 +6,8 @@ import de.goork.songflip.core.cache.createDefaultCacheStorage
 import de.goork.songflip.core.model.MusicPlatform
 import de.goork.songflip.core.model.ResolutionResult
 import de.goork.songflip.core.util.UrlUtils
+import io.ktor.http.encodeURLParameter
+import kotlinx.coroutines.CancellationException
 
 /**
  * Manages the monthly Freemium quota (3 free successful scans/month) and offline signature queue
@@ -63,7 +65,9 @@ class AcousticQuotaManager(
             if (cleanWebUrl != null) return UrlUtils.normalizeUrl(cleanWebUrl)
 
             val query = "$artist $title".trim()
-            return "https://music.youtube.com/search?q=${query.replace(" ", "+")}"
+            // Proper percent-encoding (instead of replacing spaces with '+') so titles containing
+            // '&', '#', '+' or '/' (e.g. "AC/DC", "Rock & Roll") don't truncate or corrupt the query.
+            return "https://music.youtube.com/search?q=${query.encodeURLParameter()}"
         }
     }
 
@@ -134,6 +138,13 @@ class AcousticQuotaManager(
      *
      * Recognizing the same song again updates its timestamp in History without deducting an additional
      * free monthly scan.
+     *
+     * `authToken` and `audiophileMode` are forwarded to [SongLinkEngine.resolveTargetUrl] so acoustic
+     * matches get the same Pro benefits (L2 server cache, Audiophile Quality Matcher) as normal flips.
+     * Both are appended with defaults to stay source-compatible with existing Kotlin callers.
+     *
+     * Throws [CancellationException] if the calling coroutine is cancelled during resolution; in that
+     * case neither a History entry is written nor a free scan consumed.
      */
     suspend fun resolveAndStoreAcousticMatch(
         engine: SongLinkEngine = SongLinkEngine.shared,
@@ -145,7 +156,9 @@ class AcousticQuotaManager(
         webUrl: String?,
         targetPlatform: MusicPlatform,
         isPro: Boolean,
-        timestampMs: Long = getCurrentTimeMillis()
+        timestampMs: Long = getCurrentTimeMillis(),
+        authToken: String = "",
+        audiophileMode: Boolean = false
     ): AcousticFlipResult {
         val sourceUrl = buildBestSourceUrl(
             appleMusicUrl = appleMusicUrl,
@@ -212,9 +225,17 @@ class AcousticQuotaManager(
             engine.resolveTargetUrl(
                 inputUrl = sourceUrl,
                 targetPlatformKey = targetPlatform.key,
-                isPrefetch = true
+                isPro = isPro,
+                authToken = authToken,
+                isPrefetch = true,
+                audiophileMode = isPro && audiophileMode
             )
-        } catch (_: Throwable) {
+        } catch (t: Throwable) {
+            // A cancelled scan (sheet closed, app backgrounded) must abort here: falling through would
+            // write a History entry and consume a free scan for a flip the user never saw.
+            if (t is CancellationException) throw t
+            // Other failures degrade gracefully to a platform search URL below, but must be visible.
+            println("AcousticQuotaManager: resolveTargetUrl failed for $sourceUrl: ${t.message ?: t::class.simpleName}")
             null
         }
 
@@ -266,8 +287,11 @@ class AcousticQuotaManager(
         )
     }
 
-    private fun buildFallbackSearchUrl(targetPlatform: MusicPlatform, title: String, artist: String): String {
-        val encoded = "$artist $title".trim().replace(" ", "+")
+    // internal (not private) so commonTest can verify the encoding of special characters.
+    internal fun buildFallbackSearchUrl(targetPlatform: MusicPlatform, title: String, artist: String): String {
+        // Percent-encode (spaces -> %20) instead of '+': several targets use the query as a path
+        // segment (Spotify, Deezer, Amazon, Qobuz) where '+' is literal and '/', '#', '&' break the URL.
+        val encoded = "$artist $title".trim().encodeURLParameter()
         return when (targetPlatform) {
             MusicPlatform.SPOTIFY -> "https://open.spotify.com/search/$encoded"
             MusicPlatform.APPLE_MUSIC -> "https://music.apple.com/search?term=$encoded"

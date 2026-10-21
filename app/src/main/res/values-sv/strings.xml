@@ -225,6 +225,7 @@
     <string name="history_refresh_link">Uppdatera länk</string>
     <string name="history_open_playlist_details">Visa spellistedetaljer</string>
     <string name="history_link_refreshed">Länk uppdaterad!</string>
+    <string name="history_playlist_tracks_summary">%1$d/%2$d låtar</string>
     <string name="history_link_refreshing">Uppdaterar länk...</string>
     <string name="history_copy_target">Kopiera %1$s-länk</string>
     <string name="history_copy_source">Kopiera original-%1$s-länk</string>

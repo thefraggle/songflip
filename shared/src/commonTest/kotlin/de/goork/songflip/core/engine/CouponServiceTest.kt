@@ -20,6 +20,49 @@ class CouponServiceTest {
     private val validAnnualToken =
         "sct_v2_eyJjIjoiQU5OVUFMMjAyNiIsImkiOiJpbnN0YWxsLTEyMyIsImUiOjIwMDAwMDAwMDAwMDAsInQiOiJ0aW1lX2xpbWl0ZWQiLCJpYXQiOjE3MDAwMDAwMDAwMDB9.rrEMwtIUR1auVbgNq0iXGBnqbuII_rS8L7Hm_6J9vxgJcN19ceTk9wpqsdisDtHKhqJklGgyy22uuOXc1VocAw"
 
+    // Same payload signed with the current v3 key and with the older compat key (#141):
+    // {"c":"FLIP-UNIT-TEST","i":"kmp_unit_test_install","e":2015360000000,"t":"1year","iat":1700000000000}
+    private val v3SignedToken =
+        "sct_v2_eyJjIjoiRkxJUC1VTklULVRFU1QiLCJpIjoia21wX3VuaXRfdGVzdF9pbnN0YWxsIiwiZSI6MjAxNTM2MDAwMDAwMCwidCI6IjF5ZWFyIiwiaWF0IjoxNzAwMDAwMDAwMDAwfQ.KIJNaV1uH9dw6LVI7USxkGyBtHtVI2isZ0Qy_UDWL6UB1ba-sm7GNGiem0R8VR0t5ivSaS1Ty-5YoNyWDO6nAA"
+    private val compatSignedToken =
+        "sct_v2_eyJjIjoiRkxJUC1VTklULVRFU1QiLCJpIjoia21wX3VuaXRfdGVzdF9pbnN0YWxsIiwiZSI6MjAxNTM2MDAwMDAwMCwidCI6IjF5ZWFyIiwiaWF0IjoxNzAwMDAwMDAwMDAwfQ.dAvA02zATX7vX8G9oYjeY5XwzSG9R5eDO57NYa75URuBYb4CccAFC4CyBla1KKk7IOjDtMDTck3dW2PZ2N6pDg"
+
+    @Test
+    fun v3SignedTokenVerifiesAsCurrentKey() {
+        val res = CouponService.shared.verifyCouponToken(
+            token = v3SignedToken,
+            expectedInstallId = "kmp_unit_test_install",
+            currentTimeMs = 1750000000000L
+        )
+        assertTrue(res.valid, "Token signed with the pinned v3 key must verify")
+        assertTrue(res.isCurrentKey)
+        assertFalse(CouponService.shared.needsTokenMigration(res))
+    }
+
+    @Test
+    fun compatSignedTokenStaysValidButNeedsMigration() {
+        val res = CouponService.shared.verifyCouponToken(
+            token = compatSignedToken,
+            expectedInstallId = "kmp_unit_test_install",
+            currentTimeMs = 1750000000000L
+        )
+        // Existing customers must keep access while their token is migrated in the background.
+        assertTrue(res.valid, "Compat-signed tokens must remain valid")
+        assertFalse(res.isCurrentKey)
+        assertTrue(CouponService.shared.needsTokenMigration(res))
+    }
+
+    @Test
+    fun invalidTokenNeverNeedsMigration() {
+        val res = CouponService.shared.verifyCouponToken(
+            token = v3SignedToken,
+            expectedInstallId = "other_device_install",
+            currentTimeMs = 1750000000000L
+        )
+        assertFalse(res.valid)
+        assertFalse(CouponService.shared.needsTokenMigration(res))
+    }
+
     @Test
     fun verifyValidEd25519TokenRequiringSqrtMinusOneDecompression() {
         // Public key whose y-coordinate requires the I_CONST (sqrt(-1) mod p) branch in unpackNeg

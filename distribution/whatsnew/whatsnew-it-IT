@@ -1,2 +1,2 @@
-- Scorciatoie ad accesso rapido per ascoltare e capovolgere: avvia il riconoscimento della musica direttamente dal riquadro Impostazioni rapide del sistema, premendo a lungo l'icona dell'app sulla schermata iniziale o tramite scorciatoie di sistema senza prima aprire l'app completa.
-- Stabilità generale: perfezionamenti minori dell'interfaccia utente e miglioramenti dell'affidabilità interna.
+- Riconoscimento musicale offline resiliente: le scansioni acquisite mentre offline vengono ora conservate in modo affidabile durante le interruzioni temporanee della connessione ed elaborate senza problemi una volta tornati online.
+- Sicurezza e internazionalizzazione: convalida del codice crittografico modernizzato con mantenimento delle funzionalità senza soluzione di continuità, sincronizzazione di tutti i cataloghi di 34 lingue e ricerca raffinata di caratteri speciali.

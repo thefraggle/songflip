@@ -216,6 +216,7 @@
     <string name="history_refresh_link">Reîmprospătează linkul</string>
     <string name="history_open_playlist_details">Afișează detaliile playlistului</string>
     <string name="history_link_refreshed">Link reîmprospătat cu succes!</string>
+    <string name="history_playlist_tracks_summary">%1$d/%2$d melodii</string>
     <string name="history_link_refreshing">Se reîmprospătează linkul...</string>
     <string name="history_copy_target">Copiază linkul %1$s</string>
     <string name="history_copy_source">Copiază linkul %1$s original</string>

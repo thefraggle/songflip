@@ -225,6 +225,7 @@
     <string name="history_refresh_link">Aggiorna link</string>
     <string name="history_open_playlist_details">Visualizza dettagli playlist</string>
     <string name="history_link_refreshed">Link aggiornato con successo!</string>
+    <string name="history_playlist_tracks_summary">%1$d/%2$d brani</string>
     <string name="history_link_refreshing">Aggiornamento link in corso...</string>
     <string name="history_copy_target">Copia link %1$s</string>
     <string name="history_copy_source">Copia link %1$s originale</string>

@@ -224,6 +224,7 @@
     <string name="history_refresh_link">Perbarui tautan</string>
     <string name="history_open_playlist_details">Lihat detail daftar putar</string>
     <string name="history_link_refreshed">Tautan berhasil diperbarui!</string>
+    <string name="history_playlist_tracks_summary">%1$d/%2$d lagu</string>
     <string name="history_link_refreshing">Memperbarui tautan...</string>
     <string name="history_copy_target">Salin tautan %1$s</string>
     <string name="history_copy_source">Salin tautan %1$s asli</string>

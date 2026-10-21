@@ -225,6 +225,7 @@
     <string name="history_refresh_link">লিঙ্ক রিফ্রেশ করুন</string>
     <string name="history_open_playlist_details">প্লেলিস্টের বিবরণ দেখুন</string>
     <string name="history_link_refreshed">লিঙ্ক সফলভাবে আপডেট হয়েছে!</string>
+    <string name="history_playlist_tracks_summary">%1$d/%2$d গান</string>
     <string name="history_link_refreshing">লিঙ্ক রিফ্রেশ হচ্ছে...</string>
     <string name="history_copy_target">%1$s লিংক কপি করুন</string>
     <string name="history_copy_source">মূল %1$s লিংক কপি করুন</string>

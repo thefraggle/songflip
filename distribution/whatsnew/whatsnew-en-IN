@@ -1,1 +1,2 @@
-Broader catalog search without duplicates (prioritizing original studio releases over compilations and remasters) and expanded automatic detection and selection of compatible music players across all supported streaming services.
+- Resilient Offline Music Recognition: Scans captured while offline are now reliably preserved during temporary connection drops and processed seamlessly once back online.
+- Security & Internationalization: Modernized cryptographic code validation with seamless feature retention, synchronized all 34 language catalogs, and refined special character search.

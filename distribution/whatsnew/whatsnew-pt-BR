@@ -1,1 +1,2 @@
-Busca no catálogo mais ampla e sem duplicatas (priorizando álbuns de estúdio originais) e detecção e seleção expandidas de reprodutores de música compatíveis em todos os serviços suportados.
+- Reconhecimento resiliente de música off-line: as varreduras capturadas off-line agora são preservadas de forma confiável durante quedas temporárias de conexão e processadas perfeitamente quando você estiver on-line novamente.
+- Segurança e internacionalização: Validação de código criptográfico modernizado com retenção contínua de recursos, sincronização de todos os catálogos de 34 idiomas e pesquisa refinada de caracteres especiais.

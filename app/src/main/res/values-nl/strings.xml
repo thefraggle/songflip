@@ -225,6 +225,7 @@
     <string name="history_refresh_link">Link vernieuwen</string>
     <string name="history_open_playlist_details">Afspeellijstdetails bekijken</string>
     <string name="history_link_refreshed">Link succesvol vernieuwd!</string>
+    <string name="history_playlist_tracks_summary">%1$d/%2$d nummers</string>
     <string name="history_link_refreshing">Link vernieuwen...</string>
     <string name="history_copy_target">%1$s-link kopiëren</string>
     <string name="history_copy_source">Originele %1$s-link kopiëren</string>

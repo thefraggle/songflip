@@ -224,6 +224,58 @@ final class ProManager: NSObject, ObservableObject {
         Task {
             await refreshOfferings()
             await refreshCustomerInfo()
+            await migrateStoredCouponTokenIfNeeded()
+        }
+    }
+
+    private var tokenMigrationAttempted = false
+
+    /// One attempt per launch to re-sign a legacy/compat coupon token with the current key (#141).
+    /// Pro access never depends on this: unknown outcomes keep the token; only the server's explicit
+    /// "invalid signature" verdict removes it.
+    func migrateStoredCouponTokenIfNeeded() async {
+        guard !isAutomatedTest, !tokenMigrationAttempted else { return }
+        tokenMigrationAttempted = true
+        guard let storedToken = getStoredCouponToken(), !storedToken.isEmpty else { return }
+        let nowMs = Int64(Date().timeIntervalSince1970 * 1000)
+        let verified = verifyStoredCouponOffline(token: storedToken, currentTimeMs: nowMs)
+        let service = CouponService.companion.shared
+        guard service.needsTokenMigration(verified: verified) else { return }
+
+        do {
+            let outcome = try await service.refreshCouponToken(
+                token: storedToken,
+                installId: verified.installId,
+                customEndpoints: nil
+            )
+            switch outcome.status {
+            case .upgraded:
+                saveStoredCouponToken(outcome.token)
+                if let iat = outcome.issuedAtTimestamp?.int64Value {
+                    updateLastSeenServerTime(iat)
+                }
+                reevaluateCouponKeepingRevenueCat()
+                Self.logger.info("[ProManager] Coupon token migrated to current signing key")
+            case .revoked:
+                writeKeychainString(account: Self.keychainAccountCouponToken, value: nil)
+                defaults.removeObject(forKey: Self.keyCouponType)
+                defaults.removeObject(forKey: Self.keyCouponCode)
+                defaults.removeObject(forKey: Self.keyCouponExpiration)
+                reevaluateCouponKeepingRevenueCat()
+                Self.logger.warning("[ProManager] Stored coupon token rejected by server (invalid signature) – removed")
+            default:
+                Self.logger.info("[ProManager] Coupon token migration skipped: \(String(describing: outcome.status))")
+            }
+        } catch {
+            Self.logger.error("[ProManager] Coupon token migration failed: \(error.localizedDescription)")
+        }
+    }
+
+    /// Refreshes coupon-derived state without touching an active RevenueCat entitlement.
+    private func reevaluateCouponKeepingRevenueCat() {
+        if isPro, let type = proType, type.hasPrefix("revenuecat") { return }
+        if !evaluateVerifiedCouponState() {
+            loadCachedState()
         }
     }
 

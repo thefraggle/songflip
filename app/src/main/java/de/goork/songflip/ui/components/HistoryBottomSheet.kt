@@ -540,7 +540,7 @@ fun HistoryBottomSheet(
                                                     targetUrl = targetUrl,
                                                     platform = "${targetKey}_playlist",
                                                     title = data.title.ifBlank { item.title ?: "Playlist" },
-                                                    artist = "${data.matchedCount}/$displayTotal Songs",
+                                                    artist = context.getString(R.string.history_playlist_tracks_summary, data.matchedCount, displayTotal),
                                                     isAlbum = false,
                                                     thumbnailUrl = data.thumbnailUrl ?: item.thumbnailUrl
                                                 ),

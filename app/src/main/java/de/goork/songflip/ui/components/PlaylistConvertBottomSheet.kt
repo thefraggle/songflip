@@ -121,7 +121,7 @@ fun PlaylistConvertBottomSheet(
                         targetUrl = targetUrl,
                         platform = "${targetPlatformKey}_playlist",
                         title = data.title.ifBlank { "Playlist" },
-                        artist = "${data.matchedCount}/$displayTotal Songs",
+                        artist = context.getString(R.string.history_playlist_tracks_summary, data.matchedCount, displayTotal),
                         isAlbum = false,
                         thumbnailUrl = data.thumbnailUrl
                     ),
