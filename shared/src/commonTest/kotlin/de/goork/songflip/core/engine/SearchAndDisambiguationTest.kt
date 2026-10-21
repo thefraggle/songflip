@@ -106,4 +106,40 @@ class SearchAndDisambiguationTest {
         val beatportCandidates = engine.getCandidates("Bohemian Rhapsody", "Queen", "beatport").getOrThrow()
         assertTrue(beatportCandidates.single().targetUrl.startsWith("https://www.beatport.com/search?q="))
     }
+
+    @Test
+    fun testCatalogSearchEngineDeduplicatesCompilationsAndRemasters() = runTest {
+        val mockEngine = MockEngine {
+            respond(
+                content = """
+                    {
+                      "resultCount": 5,
+                      "results": [
+                        {"trackId": 101, "artistName": "Madonna", "trackName": "Hung Up", "collectionName": "Celebration (Deluxe Version)", "trackViewUrl": "https://music.apple.com/track/101"},
+                        {"trackId": 102, "artistName": "Madonna", "trackName": "Hung Up", "collectionName": "Confessions on a Dance Floor", "trackViewUrl": "https://music.apple.com/track/102"},
+                        {"trackId": 103, "artistName": "Madonna", "trackName": "Like a Prayer (2009 Remaster)", "collectionName": "Celebration", "trackViewUrl": "https://music.apple.com/track/103"},
+                        {"trackId": 104, "artistName": "Madonna", "trackName": "Like a Prayer", "collectionName": "Like a Prayer", "trackViewUrl": "https://music.apple.com/track/104"},
+                        {"trackId": 105, "artistName": "The Beatles", "trackName": "Lady Madonna", "collectionName": "Past Masters", "trackViewUrl": "https://music.apple.com/track/105"}
+                      ]
+                    }
+                """.trimIndent(),
+                status = HttpStatusCode.OK,
+                headers = headersOf(HttpHeaders.ContentType, "application/json")
+            )
+        }
+        val engine = CatalogSearchEngine(client = HttpClient(mockEngine))
+        val results = engine.search("Madonna", limit = 35).getOrThrow()
+
+        // 5 raw results collapse into 3 distinct songs
+        assertEquals(3, results.size)
+        // Prefers studio album "Confessions on a Dance Floor" over "Celebration" compilation
+        assertEquals("102", results[0].id)
+        assertEquals("Confessions on a Dance Floor", results[0].album)
+        // Prefers original "Like a Prayer" studio release over "2009 Remaster" on "Celebration"
+        assertEquals("104", results[1].id)
+        assertEquals("Like a Prayer", results[1].album)
+        // Preserves different artist with "Madonna" in song title
+        assertEquals("105", results[2].id)
+        assertEquals("The Beatles", results[2].artist)
+    }
 }

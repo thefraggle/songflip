@@ -366,7 +366,7 @@ struct SearchSheetView: View {
             do {
                 let kmpResults = try await CatalogSearchEngine.companion.shared.searchOrThrow(
                     query: trimmed,
-                    limit: 20
+                    limit: 35
                 )
                 if Task.isCancelled { return }
 
@@ -448,17 +448,14 @@ struct SearchSheetView: View {
                             thumbnailUrl: success.thumbnailUrl ?? track.coverUrl
                         )
 
-                        // Launch player (native URI preferred with web URL fallback) & dismiss
-                        let primaryStr = success.nativeAppUri ?? success.targetUrl
-                        if let primaryUrl = URL(string: primaryStr) {
-                            UIApplication.shared.open(primaryUrl, options: [:]) { opened in
-                                if !opened && primaryStr != success.targetUrl {
-                                    UIApplication.shared.open(fallbackUrl)
-                                }
-                            }
-                        } else {
-                            UIApplication.shared.open(fallbackUrl)
-                        }
+                        // Launch player (preferred client or native URI with web URL fallback) & dismiss
+                        settings.openResolvedTarget(
+                            targetUrl: success.targetUrl,
+                            nativeAppUri: success.nativeAppUri,
+                            platformKey: targetKey,
+                            title: success.title ?? track.title,
+                            artist: success.artist ?? track.artist
+                        )
                         dismiss()
                     } else {
                         showFlipErrorAlert = true

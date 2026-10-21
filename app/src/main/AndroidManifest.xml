@@ -70,6 +70,30 @@
             <category android:name="android.intent.category.BROWSABLE" />
             <data android:scheme="https" android:host="deezer.com" />
         </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="deezer" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="tidal" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="soundcloud" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="qobuz" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="amznmp3" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="music" />
+        </intent>
         <package android:name="app.morphe.android.apps.youtube.music" />
         <package android:name="app.morphe.android.youtube.music" />
         <package android:name="app.morphe.youtube.music" />
@@ -117,6 +141,17 @@
         <package android:name="com.craftworks.music" />
         <package android:name="com.music.bitchord" />
         <package android:name="com.dev.bitchord" />
+        <package android:name="com.metrolist.music" />
+        <package android:name="com.dd3boh.outertune" />
+        <package android:name="me.knighthat.kreate" />
+        <package android:name="com.anandnet.harmonymusic" />
+        <package android:name="com.jhelum.gyawun" />
+        <package android:name="oss.krtirtho.spotube" />
+        <package android:name="com.github.KRTirtho.Spotube" />
+        <package android:name="com.spotify.lite" />
+        <package android:name="sh.cider.cider" />
+        <package android:name="org.cider.play" />
+        <package android:name="com.badmanners.murglar2" />
         <package android:name="com.eclipse.android" />
         <package android:name="org.schabi.newpipe" />
         <package android:name="org.schabi.newpipelegacy" />

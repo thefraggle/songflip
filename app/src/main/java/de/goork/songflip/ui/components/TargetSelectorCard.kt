@@ -154,8 +154,8 @@ fun TargetSelectorCard(
                                     }
                                 }
 
-                                // Quick Player Picker Badge for services with multiple players (Issue #76)
-                                if ((service.key == "youtubeMusic" || service.key == "tidal") && onOpenPlayerPicker != null) {
+                                // Quick Player Picker Badge for any service with multiple installed players (#76, #139)
+                                if (onOpenPlayerPicker != null) {
                                     val players = remember(context, service.key) {
                                         PackageUtils.getInstalledPlayersForPlatform(context, service.key)
                                     }

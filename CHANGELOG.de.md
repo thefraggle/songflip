@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.10.5] - 2026-10-21
+- **Umfassendere Katalogsuche ohne Dubletten**: Die integrierte Suche zeigt jetzt deutlich mehr eindeutige Titel bei Künstler- und Song-Suchanfragen an und filtert doppelte Treffer aus Compilations, Best-Of-Alben und Remaster-Ausgaben automatisch zugunsten der originalen Studio-Veröffentlichung heraus.
+- **Erweiterte Player-Erkennung & Auswahl**: Verbesserte automatische Erkennung kompatibler Musik-Player und erweiterte Auswahl des bevorzugten Players über alle unterstützten Streaming-Dienste hinweg.
+
 ## [1.10.4] - 2026-10-20
 - **Zuverlässige Gutschein-Einlösung & Darstellungs-Verbesserungen**: Einen Fehler bei der kryptografischen Signaturprüfung behoben, durch den bestimmte Gutscheincodes abgelehnt wurden, sowie die Funktionsübersicht mit feststehendem Kopfbereich und automatischem Scrollen beim Eingeben eines Codes optimiert.
 - **Präziserer Abgleich für Alben & Deluxe-Editionen**: Verbesserte Treffergenauigkeit für Deluxe- und Bonus-Track-Alben bei Apple Music, Deezer, Tidal, Qobuz und YouTube Music sowie zuverlässigere Direkt-Weiterleitung für YouTube-Music-Alben.

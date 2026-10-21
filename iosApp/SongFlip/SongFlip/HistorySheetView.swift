@@ -265,9 +265,15 @@ struct HistorySheetView: View {
                                 if isPlaylist, let onOpenPlaylist = onOpenPlaylist {
                                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                                     onOpenPlaylist(item.sourceUrl, cleanPlatform)
-                                } else if let url = URL(string: item.targetUrl) {
+                                } else {
                                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                                    UIApplication.shared.open(url)
+                                    settings.openResolvedTarget(
+                                        targetUrl: item.targetUrl,
+                                        nativeAppUri: nil,
+                                        platformKey: cleanPlatform,
+                                        title: item.title,
+                                        artist: item.artist
+                                    )
                                 }
                             }) {
                                 HStack(spacing: 12) {
@@ -298,10 +304,14 @@ struct HistorySheetView: View {
 
                                         // Subtle Play Indicator Badge (1-tap quick playback to player)
                                         Button(action: {
-                                            if let url = URL(string: item.targetUrl) {
-                                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                                                UIApplication.shared.open(url)
-                                            }
+                                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                            settings.openResolvedTarget(
+                                                targetUrl: item.targetUrl,
+                                                nativeAppUri: nil,
+                                                platformKey: cleanPlatform,
+                                                title: item.title,
+                                                artist: item.artist
+                                            )
                                         }) {
                                             Image(systemName: "play.circle.fill")
                                                 .font(.system(size: 14))

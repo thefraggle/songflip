@@ -96,7 +96,7 @@ fun SearchBottomSheet(
         isLoading = true
         errorMessage = null
         val result = withContext(Dispatchers.IO) {
-            CatalogSearchEngine.shared.search(trimmed, limit = 20)
+            CatalogSearchEngine.shared.search(trimmed, limit = 35)
         }
         isLoading = false
         result.onSuccess { list ->
