@@ -1,2 +1,2 @@
-- Joustava offline-musiikin tunnistus: Offline-tilassa tallennetut skannaukset säilyvät nyt luotettavasti, kun yhteys katkeaa väliaikaisesti, ja ne käsitellään saumattomasti, kun ne ovat palanneet verkkoon.
-- Turvallisuus ja kansainvälistyminen: Modernisoitu salauskoodin validointi saumattomalla ominaisuuksien säilyttämisellä, synkronoitu kaikki 34 kielen luetteloa ja hienostunut erikoismerkkihaku.
+- Parannettu suoratoistolinkkien tarkkuus: Parannettu luotettavuus, kun linkkejä jaetaan suoraan suoratoistosovelluksista, mikä varmistaa sujuvan multi-hop-uudelleenohjauksen käsittelyn ja välittömän toiston käynnistämisen.
+- Yleinen vakaus ja suorituskyky: Hienostunut linkkien puhdistus ja sisäinen virheenkäsittely takaavat saumattoman taustakokemuksen.

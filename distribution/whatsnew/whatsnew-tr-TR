@@ -1,2 +1,2 @@
-- Dayanıklı Çevrimdışı Müzik Tanıma: Çevrimdışıyken yakalanan taramalar artık bağlantının geçici olarak kesilmesi sırasında güvenilir bir şekilde korunuyor ve tekrar çevrimiçi olduğunda sorunsuz bir şekilde işleniyor.
-- Güvenlik ve Uluslararasılaştırma: Kusursuz özellik korumayla modernleştirilmiş şifreleme kodu doğrulama, 34 dil kataloğunun tümü senkronize edildi ve iyileştirilmiş özel karakter araması.
+- Geliştirilmiş Akış Bağlantısı Çözünürlüğü: Doğrudan akış uygulamalarından bağlantıları paylaşırken geliştirilmiş güvenilirlik, sorunsuz çok sekmeli yönlendirme kullanımı ve anında oynatma başlatma sağlar.
+- Genel Kararlılık ve Performans: Sorunsuz bir arka plan deneyimi için iyileştirilmiş bağlantı temizliği ve dahili hata yönetimi.

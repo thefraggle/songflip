@@ -1,2 +1,2 @@
-- Rugalmas offline zenefelismerés: Az offline állapotban rögzített szkenneléseket a rendszer megbízhatóan megőrzi a kapcsolat ideiglenes megszakadása során, és zökkenőmentesen feldolgozza, ha újra online állapotban van.
-- Biztonság és nemzetközivé tétel: Modernizált kriptográfiai kódellenőrzés zökkenőmentes funkciók megtartásával, szinkronizált mind a 34 nyelvi katalógus, és finomított speciális karakterkeresés.
+- Továbbfejlesztett streamingkapcsolat-felbontás: Nagyobb megbízhatóság a linkek közvetlenül a streamingalkalmazásokból történő megosztásakor, ami zökkenőmentes többhopos átirányítást és azonnali lejátszást biztosít.
+- Általános stabilitás és teljesítmény: Finomított linketisztítás és belső hibakezelés a zökkenőmentes háttér-élmény érdekében.

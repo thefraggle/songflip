@@ -1,2 +1,2 @@
-- Reconnaissance musicale hors ligne résiliente : les analyses capturées hors ligne sont désormais conservées de manière fiable lors des interruptions de connexion temporaires et traitées de manière transparente une fois de nouveau en ligne.
-- Sécurité et internationalisation : validation du code cryptographique modernisée avec conservation transparente des fonctionnalités, synchronisation des 34 catalogues de langues et recherche raffinée des caractères spéciaux.
+- Résolution améliorée des liens de streaming : fiabilité améliorée lors du partage de liens directement à partir d'applications de streaming, garantissant une gestion fluide des redirections multi-sauts et un lancement instantané de la lecture.
+- Stabilité et performances générales : nettoyage des liens raffiné et gestion des erreurs internes pour une expérience d'arrière-plan transparente.

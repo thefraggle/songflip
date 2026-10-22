@@ -1,2 +1,2 @@
-- Resilient Offline Music Recognition: Skanningar som tagits offline bevaras nu på ett tillförlitligt sätt under tillfälliga anslutningsavbrott och bearbetas sömlöst när de är online igen.
-- Säkerhet och internationalisering: Moderniserad kryptografisk kodvalidering med sömlös funktionsbevarande, synkroniserad alla 34 språkkataloger och förfinad specialteckensökning.
+- Förbättrad Streaming Link-upplösning: Förbättrad tillförlitlighet vid delning av länkar direkt från strömmande appar, vilket säkerställer smidig multi-hop-omdirigeringshantering och omedelbar uppspelning.
+- Allmän stabilitet och prestanda: Raffinerad länkrengöring och intern felhantering för en sömlös bakgrundsupplevelse.
