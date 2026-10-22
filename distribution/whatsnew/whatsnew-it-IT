@@ -1,2 +1,2 @@
-- Riconoscimento musicale offline resiliente: le scansioni acquisite mentre offline vengono ora conservate in modo affidabile durante le interruzioni temporanee della connessione ed elaborate senza problemi una volta tornati online.
-- Sicurezza e internazionalizzazione: convalida del codice crittografico modernizzato con mantenimento delle funzionalità senza soluzione di continuità, sincronizzazione di tutti i cataloghi di 34 lingue e ricerca raffinata di caratteri speciali.
+- Risoluzione dei collegamenti in streaming migliorata: maggiore affidabilità durante la condivisione di link direttamente dalle app di streaming, garantendo una gestione fluida del reindirizzamento multi-hop e il lancio immediato della riproduzione.
+- Stabilità e prestazioni generali: pulizia raffinata dei collegamenti e gestione degli errori interni per un'esperienza di background senza soluzione di continuità.

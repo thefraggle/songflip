@@ -1,2 +1,2 @@
-- Veerkrachtige offline muziekherkenning: Scans die offline zijn vastgelegd, worden nu betrouwbaar bewaard tijdens tijdelijke verbindingsonderbrekingen en naadloos verwerkt zodra ze weer online zijn.
-- Beveiliging en internationalisering: gemoderniseerde validatie van cryptografische codes met naadloos behoud van functies, synchronisatie van alle 34 taalcatalogi en verfijnd zoeken naar speciale tekens.
+- Verbeterde streaminglinkresolutie: Verbeterde betrouwbaarheid bij het rechtstreeks delen van links vanuit streaming-apps, voor een soepele verwerking van multi-hop omleidingen en directe start van het afspelen.
+- Algemene stabiliteit en prestaties: verfijnde linkreiniging en interne foutafhandeling voor een naadloze achtergrondervaring.
