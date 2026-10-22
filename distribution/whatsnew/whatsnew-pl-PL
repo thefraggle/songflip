@@ -1,2 +1,2 @@
-- Odporne rozpoznawanie muzyki w trybie offline: skany przechwycone w trybie offline są teraz niezawodnie zachowywane w przypadku chwilowych zerwanych połączeń i bezproblemowo przetwarzane po powrocie do trybu online.
-- Bezpieczeństwo i internacjonalizacja: Zmodernizowana weryfikacja kodu kryptograficznego z płynnym zachowaniem funkcji, synchronizacja wszystkich 34 katalogów językowych i ulepszone wyszukiwanie znaków specjalnych.
+- Ulepszona rozdzielczość linków do przesyłania strumieniowego: zwiększona niezawodność podczas udostępniania linków bezpośrednio z aplikacji do przesyłania strumieniowego, zapewniająca płynną obsługę przekierowań do wielu przeskoków i natychmiastowe uruchomienie odtwarzania.
+- Ogólna stabilność i wydajność: dopracowane czyszczenie linków i obsługa wewnętrznych błędów zapewniają bezproblemowe działanie w tle.

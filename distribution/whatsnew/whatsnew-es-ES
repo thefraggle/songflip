@@ -1,2 +1,2 @@
-- Reconocimiento de música resistente sin conexión: los escaneos capturados sin conexión ahora se conservan de manera confiable durante las caídas temporales de la conexión y se procesan sin problemas una vez que se vuelve a conectar.
-- Seguridad e internacionalización: validación de código criptográfico modernizada con retención perfecta de funciones, sincronización de los catálogos de 34 idiomas y búsqueda refinada de caracteres especiales.
+- Resolución de enlace de transmisión mejorada: confiabilidad mejorada al compartir enlaces directamente desde aplicaciones de transmisión, lo que garantiza un manejo de redirección multisalto sin problemas y un inicio de reproducción instantáneo.
+- Estabilidad y rendimiento generales: limpieza de enlaces refinada y manejo de errores internos para una experiencia de fondo perfecta.

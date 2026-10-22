@@ -1,2 +1,2 @@
-- Resilient Offline Musikgenkendelse: Scanninger, der er optaget, mens de er offline, bevares nu pålideligt under midlertidige forbindelsesfald og behandles problemfrit, når de er online igen.
-- Sikkerhed og internationalisering: Moderniseret kryptografisk kodevalidering med problemfri funktionsopbevaring, synkroniseret alle 34 sprogkataloger og raffineret specialtegnsøgning.
+- Forbedret streaminglinkopløsning: Forbedret pålidelighed, når du deler links direkte fra streamingapps, hvilket sikrer problemfri håndtering af flere omdirigeringer og øjeblikkelig afspilning.
+- Generel stabilitet og ydeevne: Raffineret linkrengøring og intern fejlhåndtering for en problemfri baggrundsoplevelse.

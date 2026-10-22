@@ -1,2 +1,2 @@
-- Resilient Offline Music Recognition: Scans captured while offline are now reliably preserved during temporary connection drops and processed seamlessly once back online.
-- Security & Internationalization: Modernized cryptographic code validation with seamless feature retention, synchronized all 34 language catalogs, and refined special character search.
+- Enhanced Streaming Link Resolution: Improved reliability when sharing links directly from streaming apps, ensuring smooth multi-hop redirect handling and instant playback launch.
+- General Stability & Performance: Refined link cleaning and internal error handling for a seamless background experience.

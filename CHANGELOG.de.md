@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.11.2] - 2026-10-22
+- **Verbesserte Link-Weiterleitung**: Höhere Zuverlässigkeit beim direkten Teilen von Links aus Musik-Apps mit optimierter Weiterleitungs-Erkennung und direktem Wiedergabestart.
+- **Allgemeine Stabilität & Performance**: Verfeinerte Link-Bereinigung und verbesserte Fehlerbehandlung für einen reibungslosen Ablauf im Hintergrund.
+
 ## [1.11.1] - 2026-10-21
 - **Verfeinerter Song-Verlauf & Dubletten-Bereinigung**: Zuverlässigere Verlaufssynchronisation und automatische Bereinigung doppelter Einträge, wobei Favoriten und Zeitstempel exakt erhalten bleiben.
 - **Verbesserte Link-Auflösung & Zeitlimits**: Erweiterte URL-Normalisierung für internationale Schriftzeichen, optimierte Link-Bereinigung und verbesserte Behandlung von Netzwerk-Zeitlimits.

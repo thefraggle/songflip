@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.11.2] - 2026-10-22
+- **Enhanced Streaming Link Resolution**: Improved reliability when sharing links directly from streaming apps, ensuring smooth multi-hop redirect handling and instant playback launch.
+- **General Stability & Performance**: Refined link cleaning and internal error handling for a seamless background experience.
+
 ## [1.11.1] - 2026-10-21
 - **Enhanced Song History & Deduplication**: Refined history synchronization and automatic deduplication across conversions, ensuring favorite songs stay pinned and entry timestamps remain preserved.
 - **Improved Link Resolution & Timeouts**: Extended URL normalization for international characters, improved link cleaning, and optimized network timeout handling.

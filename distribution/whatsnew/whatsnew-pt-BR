@@ -1,2 +1,2 @@
-- Reconhecimento resiliente de música off-line: as varreduras capturadas off-line agora são preservadas de forma confiável durante quedas temporárias de conexão e processadas perfeitamente quando você estiver on-line novamente.
-- Segurança e internacionalização: Validação de código criptográfico modernizado com retenção contínua de recursos, sincronização de todos os catálogos de 34 idiomas e pesquisa refinada de caracteres especiais.
+- Resolução aprimorada de links de streaming: confiabilidade aprimorada ao compartilhar links diretamente de aplicativos de streaming, garantindo um manuseio suave de redirecionamento multi-hop e o lançamento instantâneo da reprodução.
+- Estabilidade geral e desempenho: limpeza refinada da ligação e tratamento de erros internos para uma experiência de fundo perfeita.

@@ -1,2 +1,2 @@
-- Odolné rozpoznávání hudby offline: Skenování zachycená v režimu offline jsou nyní spolehlivě uchována během dočasného výpadku připojení a bezproblémově zpracována, jakmile se vrátíte online.
-- Zabezpečení a internacionalizace: Modernizované ověřování kryptografického kódu s bezproblémovým zachováním funkcí, synchronizace všech 34 jazykových katalogů a vylepšené vyhledávání speciálních znaků.
+- Vylepšené rozlišení streamovacích odkazů: Vylepšená spolehlivost při sdílení odkazů přímo ze streamovacích aplikací, zajištění plynulého zpracování přesměrování ve více obchodech a okamžité spuštění přehrávání.
+- Obecná stabilita a výkon: Vylepšené čištění odkazů a interní zpracování chyb pro bezproblémový zážitek na pozadí.
