@@ -56,6 +56,15 @@ class UrlUtilsTest {
 
         val dirtyAlbum = "https://www.deezer.com/en/album/123456?utm_campaign=share"
         assertEquals("https://www.deezer.com/album/123456", UrlUtils.normalizeUrl(dirtyAlbum))
+
+        val smartlinkTrack = "https://link.deezer.com/?awf=https%3A%2F%2Fwww.deezer.com%2Ftrack%2F590411542%3Fhost%3D0&dest=https%3A%2F%2Fwww.deezer.com%2Ftrack%2F590411542%3Fhost%3D0"
+        assertEquals("https://www.deezer.com/track/590411542", UrlUtils.normalizeUrl(smartlinkTrack))
+
+        val smartlinkAlbum = "https://link.deezer.com/?dest=https%3A%2F%2Fwww.deezer.com%2Falbum%2F79444862"
+        assertEquals("https://www.deezer.com/album/79444862", UrlUtils.normalizeUrl(smartlinkAlbum))
+
+        val smartlinkPlaylist = "https://link.deezer.com/?dest=https%3A%2F%2Fwww.deezer.com%2Fplaylist%2F9876543"
+        assertEquals("https://www.deezer.com/playlist/9876543", UrlUtils.normalizeUrl(smartlinkPlaylist))
     }
 
     @Test
