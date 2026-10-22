@@ -369,5 +369,38 @@ class SongLinkEngineTest {
         assertTrue(audiophileRes is ResolutionResult.Success)
         assertTrue((audiophileRes as ResolutionResult.Success).targetUrl.contains("99999_studio_hires"))
     }
+
+    @Test
+    fun testDeezerShortLinkMultiHopResolution() = runTest {
+        val mockEngine = MockEngine { request ->
+            when (request.url.toString()) {
+                "https://link.deezer.com/s/319MrRotHC7J6de6Ziseq" -> {
+                    respond(
+                        content = "",
+                        status = HttpStatusCode.MovedPermanently,
+                        headers = headersOf(HttpHeaders.Location, "https://link.deezer.com/?awf=https%3A%2F%2Fwww.deezer.com%2Ftrack%2F590411542%3Fhost%3D0&dest=https%3A%2F%2Fwww.deezer.com%2Ftrack%2F590411542%3Fhost%3D0")
+                    )
+                }
+                "https://link.deezer.com/?awf=https%3A%2F%2Fwww.deezer.com%2Ftrack%2F590411542%3Fhost%3D0&dest=https%3A%2F%2Fwww.deezer.com%2Ftrack%2F590411542%3Fhost%3D0" -> {
+                    respond(
+                        content = "",
+                        status = HttpStatusCode.MovedPermanently,
+                        headers = headersOf(HttpHeaders.Location, "https://www.deezer.com/track/590411542?host=0")
+                    )
+                }
+                "https://www.deezer.com/track/590411542?host=0" -> {
+                    respond(
+                        content = "",
+                        status = HttpStatusCode.OK
+                    )
+                }
+                else -> respond("", status = HttpStatusCode.NotFound)
+            }
+        }
+
+        val engine = SongLinkEngine(client = HttpClient(mockEngine), cache = LinkCache())
+        val resolved = engine.resolveCanonicalUrl("https://link.deezer.com/s/319MrRotHC7J6de6Ziseq")
+        assertEquals("https://www.deezer.com/track/590411542", resolved)
+    }
 }
 

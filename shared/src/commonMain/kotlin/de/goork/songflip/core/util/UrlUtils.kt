@@ -77,12 +77,20 @@ object UrlUtils {
             clean = clean.substringBefore("?")
         }
 
-        // 3. Deezer: deezer.com/track/{id}, album/{id}, artist/{id}
-        val deezerMatch = Regex("deezer\\.com(?:/[a-zA-Z-]+)?/(track|album|artist)/(\\d+)").find(clean)
-        if (deezerMatch != null) {
-            val type = deezerMatch.groupValues[1]
-            val id = deezerMatch.groupValues[2]
-            return "https://www.deezer.com/$type/$id"
+        // 3. Deezer: deezer.com/track/{id}, album/{id}, artist/{id}, or link.deezer.com smartlinks
+        if (clean.contains("deezer.com")) {
+            val encodedMatch = Regex("""deezer\.com(?:%2F[a-zA-Z-]+)?%2F(track|album|artist|playlist)%2F(\d+)""", RegexOption.IGNORE_CASE).find(clean)
+            if (encodedMatch != null) {
+                val type = encodedMatch.groupValues[1].lowercase()
+                val id = encodedMatch.groupValues[2]
+                return "https://www.deezer.com/$type/$id"
+            }
+            val deezerMatch = Regex("""deezer\.com(?:/[a-zA-Z-]+)?/(track|album|artist|playlist)/(\d+)""", RegexOption.IGNORE_CASE).find(clean)
+            if (deezerMatch != null) {
+                val type = deezerMatch.groupValues[1].lowercase()
+                val id = deezerMatch.groupValues[2]
+                return "https://www.deezer.com/$type/$id"
+            }
         }
 
         // 4. YouTube & YouTube Music: watch?v={id}, youtu.be/{id}, or /shorts/{id}
@@ -275,7 +283,7 @@ object UrlUtils {
         return (isHostOrSubdomain(host, "spotify.com") && (path.contains("/playlist/") || path.contains("/playlists/"))) ||
                 (isHostOrSubdomain(host, "apple.com") && (path.contains("/playlist/") || path.contains("/playlists/"))) ||
                 (isHostOrSubdomain(host, "youtube.com") && (path.contains("/playlist") || path.contains("list="))) ||
-                (isHostOrSubdomain(host, "deezer.com", "link.deezer.com") && (path.contains("/playlist/") || path.contains("/playlists/"))) ||
+                (isHostOrSubdomain(host, "deezer.com", "link.deezer.com") && (path.contains("/playlist/") || path.contains("/playlists/") || path.contains("%2fplaylist%2f") || path.contains("%2fplaylists%2f"))) ||
                 (isHostOrSubdomain(host, "tidal.com") && (path.contains("/playlist/") || path.contains("/playlists/"))) ||
                 (isHostOrSubdomain(host, "soundcloud.com") && (path.contains("/sets/") || path.contains("/playlists/"))) ||
                 ((host.startsWith("music.amazon.") || host.contains(".amazon.")) && path.contains("/playlists/")) ||

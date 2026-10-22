@@ -143,30 +143,34 @@ class ShareViewController: UIViewController {
             return nil
         }
 
-        for provider in attachments {
-            if provider.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
-                provider.loadItem(forTypeIdentifier: UTType.url.identifier, options: nil) { [weak self] (item, _) in
-                    if let extracted = extractString(item), !extracted.isEmpty {
-                        handleUrl(extracted)
-                    } else {
-                        DispatchQueue.main.async {
-                            self?.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
-                        }
+        // 1. Prefer an explicit URL provider across all attachments
+        if let urlProvider = attachments.first(where: { $0.hasItemConformingToTypeIdentifier(UTType.url.identifier) }) {
+            urlProvider.loadItem(forTypeIdentifier: UTType.url.identifier, options: nil) { [weak self] (item, _) in
+                if let extracted = extractString(item), !extracted.isEmpty {
+                    let clean = UrlUtils.shared.extractCleanUrl(rawInput: extracted) ?? extracted
+                    handleUrl(clean)
+                } else {
+                    DispatchQueue.main.async {
+                        self?.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
                     }
                 }
-                return
-            } else if provider.hasItemConformingToTypeIdentifier(UTType.plainText.identifier) {
-                provider.loadItem(forTypeIdentifier: UTType.plainText.identifier, options: nil) { [weak self] (item, _) in
-                    if let extracted = extractString(item), !extracted.isEmpty {
-                        handleUrl(extracted)
-                    } else {
-                        DispatchQueue.main.async {
-                            self?.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
-                        }
-                    }
-                }
-                return
             }
+            return
+        }
+
+        // 2. Fall back to plain text provider
+        if let textProvider = attachments.first(where: { $0.hasItemConformingToTypeIdentifier(UTType.plainText.identifier) }) {
+            textProvider.loadItem(forTypeIdentifier: UTType.plainText.identifier, options: nil) { [weak self] (item, _) in
+                if let extracted = extractString(item), !extracted.isEmpty {
+                    let clean = UrlUtils.shared.extractCleanUrl(rawInput: extracted) ?? extracted
+                    handleUrl(clean)
+                } else {
+                    DispatchQueue.main.async {
+                        self?.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+                    }
+                }
+            }
+            return
         }
 
         self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)

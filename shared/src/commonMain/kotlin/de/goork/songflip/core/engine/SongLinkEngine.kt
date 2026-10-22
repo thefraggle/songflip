@@ -1111,30 +1111,60 @@ internal data class SpotifyPodcastOEmbedDto(
             if (appleUrl != null) return appleUrl
         }
 
-        return try {
-            val resp = client.head(url) {
-                header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+        var currentUrl = url
+        for (hop in 0 until 5) {
+            val normalized = UrlUtils.normalizeUrl(currentUrl)
+            if (normalized != currentUrl && !UrlUtils.isShortLinkDomain(normalized)) {
+                return normalized
             }
-            val location = resp.headers["Location"]
-            if (!location.isNullOrBlank()) {
-                location
-            } else {
-                val getResp = client.get(url) {
-                    header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
-                }
-                getResp.request.url.toString()
-            }
-        } catch (e: Exception) {
-            if (e is CancellationException) throw e
+
             try {
-                val getResp = client.get(url) {
+                val resp = client.head(currentUrl) {
                     header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
                 }
-                getResp.request.url.toString()
-            } catch (inner: Exception) {
-                if (inner is CancellationException) throw inner
-                url
+                val rawLocation = resp.headers["Location"]
+                if (!rawLocation.isNullOrBlank()) {
+                    val nextUrl = resolveRelativeUrl(currentUrl, rawLocation)
+                    currentUrl = nextUrl
+                    val nextNormalized = UrlUtils.normalizeUrl(nextUrl)
+                    if (nextNormalized != nextUrl && !UrlUtils.isShortLinkDomain(nextNormalized)) {
+                        return nextNormalized
+                    }
+                    if (!UrlUtils.isShortLinkDomain(nextUrl)) {
+                        return nextUrl
+                    }
+                } else {
+                    val getResp = client.get(currentUrl) {
+                        header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+                    }
+                    return UrlUtils.normalizeUrl(getResp.request.url.toString())
+                }
+            } catch (e: Exception) {
+                if (e is CancellationException) throw e
+                try {
+                    val getResp = client.get(currentUrl) {
+                        header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+                    }
+                    return UrlUtils.normalizeUrl(getResp.request.url.toString())
+                } catch (inner: Exception) {
+                    if (inner is CancellationException) throw inner
+                    return UrlUtils.normalizeUrl(currentUrl)
+                }
             }
+        }
+        return UrlUtils.normalizeUrl(currentUrl)
+    }
+
+    private fun resolveRelativeUrl(base: String, location: String): String {
+        return when {
+            location.startsWith("http://") || location.startsWith("https://") -> location
+            location.startsWith("//") -> "https:$location"
+            location.startsWith("/") -> {
+                val scheme = if (base.startsWith("http://")) "http://" else "https://"
+                val domain = UrlUtils.extractDomain(base)
+                "$scheme$domain$location"
+            }
+            else -> location
         }
     }
 
