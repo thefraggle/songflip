@@ -401,4 +401,6 @@
     <string name="unsupported_domain_toast">ไม่ใช่ลิงก์สตรีมมิงที่รองรับ – ใช้ Listen &amp; Flip เพื่อค้นหาเพลงในวิดีโอ</string>
     <string name="settings_audiophile_title">จัดลำดับความสำคัญคุณภาพเสียง Audiophile</string>
     <string name="settings_audiophile_subtitle">เลือกต้นฉบับสตูดิโอ, Hi-Res, Lossless และ Dolby Atmos ก่อนเวอร์ชันวิทยุและอัลบั้มรวมเพลง</string>
+    <string name="playlist_error_private_toast">ไม่สามารถแปลงเพลย์ลิสต์ส่วนตัวได้ (โปรดตั้งค่าเป็นสาธารณะ)</string>
+    <string name="playlist_banner_public_notice">ต้องใช้เพลย์ลิสต์สาธารณะ</string>
 </resources>

@@ -183,6 +183,14 @@ fun ClipboardSmartBanner(
                 )
             }
 
+            if (isPlaylist) {
+                Text(
+                    text = "💡 " + stringResource(R.string.playlist_banner_public_notice),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.85f)
+                )
+            }
+
             // Action Buttons
             Row(
                 modifier = Modifier.fillMaxWidth(),

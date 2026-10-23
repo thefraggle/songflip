@@ -413,4 +413,6 @@
     <string name="unsupported_domain_toast">Nepodporovaný streamovací odkaz – k rozpoznání hudby ve videích použijte Listen &amp; Flip.</string>
     <string name="settings_audiophile_title">Audiofilská priorita kvality</string>
     <string name="settings_audiophile_subtitle">Upřednostnit studiové mastery, Hi-Res, Lossless a Dolby Atmos před rádiovými verzemi a kompilacemi</string>
+    <string name="playlist_error_private_toast">Soukromé playlisty nelze převést (nastavte je na veřejné)</string>
+    <string name="playlist_banner_public_notice">Vyžaduje veřejný playlist</string>
 </resources>

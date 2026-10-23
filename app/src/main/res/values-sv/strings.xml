@@ -419,4 +419,6 @@
     <string name="unsupported_domain_toast">Inte en stödd streaminglänk – använd Listen &amp; Flip för att identifiera musik i videor.</string>
     <string name="settings_audiophile_title">Audiofil kvalitetsprioritering</string>
     <string name="settings_audiophile_subtitle">Föredra studiomasters, Hi-Res, Lossless &amp; Dolby Atmos framför radio-edits och samlingar</string>
+    <string name="playlist_error_private_toast">Privata spellistor kan inte konverteras (ställ in som offentlig)</string>
+    <string name="playlist_banner_public_notice">Kräver offentlig spellista</string>
 </resources>
