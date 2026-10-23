@@ -1,2 +1,2 @@
-- Risoluzione dei collegamenti in streaming migliorata: maggiore affidabilità durante la condivisione di link direttamente dalle app di streaming, garantendo una gestione fluida del reindirizzamento multi-hop e il lancio immediato della riproduzione.
-- Stabilità e prestazioni generali: pulizia raffinata dei collegamenti e gestione degli errori interni per un'esperienza di background senza soluzione di continuità.
+- Riconoscimento musicale più affidabile: maggiore precisione di corrispondenza per il riconoscimento delle canzoni acustiche attraverso il fallback del catalogo globale, il supporto di brani internazionali e pubblicazioni speciali.
+- Avvisi di playlist più chiari: avvisi chiari e precoci per playlist private o personalizzate direttamente durante il rilevamento e l'inoltro.

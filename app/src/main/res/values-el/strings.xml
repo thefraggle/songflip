@@ -405,4 +405,6 @@
     <string name="unsupported_domain_toast">Μη υποστηριζόμενος σύνδεσμος streaming – χρησιμοποιήστε το Listen &amp; Flip για αναγνώριση μουσικής σε βίντεο.</string>
     <string name="settings_audiophile_title">Προτεραιότητα ποιότητας Audiophile</string>
     <string name="settings_audiophile_subtitle">Προτίμηση αυθεντικών studio masters, Hi-Res, Lossless &amp; Dolby Atmos έναντι radio edits και συλλογών</string>
+    <string name="playlist_error_private_toast">Οι ιδιωτικές λίστες αναπαραγωγής δεν μπορούν να μετατραπούν (ορίστε τις ως δημόσιες)</string>
+    <string name="playlist_banner_public_notice">Απαιτείται δημόσια λίστα αναπαραγωγής</string>
 </resources>

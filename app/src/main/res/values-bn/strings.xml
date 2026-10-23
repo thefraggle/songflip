@@ -419,4 +419,6 @@
     <string name="unsupported_domain_toast">সমর্থিত স্ট্রিমিং লিঙ্ক নয় – ভিডিওতে মিউজিক চিনতে Listen &amp; Flip ব্যবহার করুন।</string>
     <string name="settings_audiophile_title">অডিওফাইল কোয়ালিটি অগ্রাধিকার</string>
     <string name="settings_audiophile_subtitle">রেডিও এডিট ও সংকলনের বদলে স্টুডিও মাস্টার, Hi-Res, Lossless ও Dolby Atmos প্রাধান্য দিন</string>
+    <string name="playlist_error_private_toast">ব্যক্তিগত প্লেলিস্ট রূপান্তর করা যাবে না (অনুগ্রহ করে সর্বজনীন করুন)</string>
+    <string name="playlist_banner_public_notice">সর্বজনীন প্লেলিস্ট প্রয়োজন</string>
 </resources>

@@ -427,4 +427,6 @@
     <string name="unsupported_domain_toast">Неподдерживаемая ссылка на стриминг — используйте Listen &amp; Flip для распознавания музыки в видео.</string>
     <string name="settings_audiophile_title">Аудиофильский приоритет качества</string>
     <string name="settings_audiophile_subtitle">Предпочитать студийные оригиналы, Hi-Res, Lossless и Dolby Atmos вместо радио-версий и сборников</string>
+    <string name="playlist_error_private_toast">Приватные плейлисты нельзя конвертировать (пожалуйста, сделайте их публичными)</string>
+    <string name="playlist_banner_public_notice">Требуется публичный плейлист</string>
 </resources>

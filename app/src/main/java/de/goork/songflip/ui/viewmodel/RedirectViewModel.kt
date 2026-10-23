@@ -66,7 +66,8 @@ sealed interface RedirectUiState {
         val uri: Uri,
         val showErrorToast: Boolean = false,
         val isPlaylistNotSupported: Boolean = false,
-        val isUnsupportedDomain: Boolean = false
+        val isUnsupportedDomain: Boolean = false,
+        val isPrivatePlaylist: Boolean = false
     ) : RedirectUiState
 
     object Dismiss : RedirectUiState
@@ -412,10 +413,16 @@ class RedirectViewModel : ViewModel() {
                                 isRetrying = false
                             )
                         } else {
+                            val isPrivate = result is ResolutionResult.Error && (
+                                result.errorReason == "playlist_private_playlist" ||
+                                result.message.contains("private_playlist", ignoreCase = true) ||
+                                result.errorReason?.contains("private", ignoreCase = true) == true
+                            )
                             _uiState.value = RedirectUiState.ForwardOriginal(
                                 uri = Uri.parse(incomingUrl),
                                 showErrorToast = true,
-                                isPlaylistNotSupported = (result is ResolutionResult.Error && result.message == "PLAYLIST_NOT_SUPPORTED")
+                                isPlaylistNotSupported = (result is ResolutionResult.Error && result.message == "PLAYLIST_NOT_SUPPORTED"),
+                                isPrivatePlaylist = isPrivate
                             )
                         }
                     }

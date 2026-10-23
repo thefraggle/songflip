@@ -415,4 +415,6 @@
     <string name="unsupported_domain_toast">不支持的流媒体链接 – 请使用 Listen &amp; Flip 识别视频中的音乐。</string>
     <string name="settings_audiophile_title">发烧级音质优先</string>
     <string name="settings_audiophile_subtitle">优先匹配录音室母带、Hi-Res、无损与杜比全景声版本，避开电台剪辑与合辑</string>
+    <string name="playlist_error_private_toast">无法转换私人歌单（请设置为公开）</string>
+    <string name="playlist_banner_public_notice">需要公开歌单</string>
 </resources>

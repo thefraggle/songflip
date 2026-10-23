@@ -419,4 +419,6 @@
     <string name="unsupported_domain_toast">Ikke et understøttet streaminglink – brug Listen &amp; Flip til at genkende musik i videoer.</string>
     <string name="settings_audiophile_title">Audiofil kvalitetsprioritering</string>
     <string name="settings_audiophile_subtitle">Foretræk studiemasters, Hi-Res, Lossless &amp; Dolby Atmos frem for radio-edits og opsamlinger</string>
+    <string name="playlist_error_private_toast">Private playlister kan ikke konverteres (gør dem venligst offentlige)</string>
+    <string name="playlist_banner_public_notice">Kræver offentlig playliste</string>
 </resources>

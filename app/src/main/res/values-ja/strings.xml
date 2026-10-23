@@ -415,4 +415,6 @@
     <string name="unsupported_domain_toast">非対応のストリーミングリンクです – 動画内の音楽認識には Listen &amp; Flip をご利用ください。</string>
     <string name="settings_audiophile_title">オーディオファイル音質優先</string>
     <string name="settings_audiophile_subtitle">ラジオエディットやコンピレーションよりもスタジオマスター、Hi-Res、Lossless、Dolby Atmosを優先します</string>
+    <string name="playlist_error_private_toast">非公開プレイリストは変換できません（公開に設定してください）</string>
+    <string name="playlist_banner_public_notice">公開プレイリストが必要です</string>
 </resources>

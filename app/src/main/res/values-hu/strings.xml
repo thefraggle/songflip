@@ -405,4 +405,6 @@
     <string name="unsupported_domain_toast">Nem támogatott streaminglink – videók zenéinek felismeréséhez használd a Listen &amp; Flip funkciót.</string>
     <string name="settings_audiophile_title">Audiofil minőség előnyben</string>
     <string name="settings_audiophile_subtitle">Stúdió masterek, Hi-Res, Lossless és Dolby Atmos előnyben részesítése a rádióverziókkal és válogatásokkal szemben</string>
+    <string name="playlist_error_private_toast">Privát lejátszási listák nem konvertálhatók (kérjük, állítsa nyilvánosra)</string>
+    <string name="playlist_banner_public_notice">Nyilvános lejátszási lista szükséges</string>
 </resources>

@@ -1,2 +1,2 @@
-- Továbbfejlesztett streamingkapcsolat-felbontás: Nagyobb megbízhatóság a linkek közvetlenül a streamingalkalmazásokból történő megosztásakor, ami zökkenőmentes többhopos átirányítást és azonnali lejátszást biztosít.
-- Általános stabilitás és teljesítmény: Finomított linketisztítás és belső hibakezelés a zökkenőmentes háttér-élmény érdekében.
+- Megbízhatóbb zenefelismerés: Megnövelt egyezési pontosság az akusztikus dalok felismeréséhez a globális katalógus visszalépése révén, támogatva a nemzetközi számokat és a különleges kiadásokat.
+- Tisztább lejátszási listával kapcsolatos értesítések: Közvetlenül az észlelés és továbbítás során egyértelmű és korai értesítések a privát vagy személyre szabott lejátszási listákról.

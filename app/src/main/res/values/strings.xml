@@ -323,6 +323,8 @@
     <string name="playlist_error_desc">Could not extract tracks from this playlist. You can open the original link instead.</string>
     <string name="playlist_error_private_title">Private or Personalized Playlist</string>
     <string name="playlist_error_private_desc">SongFlip operates 100%% private without user accounts or login. Therefore, personal algorithmic mixes (such as Spotify Daily Mix or Discover Weekly) and private playlists cannot be accessed. Tip: Copy the tracks to a public playlist or share an album/public playlist.</string>
+    <string name="playlist_error_private_toast">Private playlists cannot be converted (please set to public)</string>
+    <string name="playlist_banner_public_notice">Requires public playlist</string>
     <string name="playlist_error_unsupported_title">Platform Not Supported for Playlists</string>
     <string name="playlist_error_unsupported_desc">SongFlip currently supports playlists for Spotify, Apple Music, YouTube Music, and Deezer. Single songs from this platform still work.</string>
     <string name="playlist_error_timeout_title">Connection Timeout</string>

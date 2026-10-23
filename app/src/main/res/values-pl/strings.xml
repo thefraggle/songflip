@@ -427,4 +427,6 @@
     <string name="unsupported_domain_toast">Nieobsługiwany link streamingowy – użyj Listen &amp; Flip, aby rozpoznać muzykę w filmach.</string>
     <string name="settings_audiophile_title">Priorytet jakości audiofilskiej</string>
     <string name="settings_audiophile_subtitle">Preferuj wydania studyjne, Hi-Res, Lossless i Dolby Atmos zamiast wersji radiowych i składanek</string>
+    <string name="playlist_error_private_toast">Prywatne playlisty nie mogą być konwertowane (ustaw jako publiczne)</string>
+    <string name="playlist_banner_public_notice">Wymaga publicznej playlisty</string>
 </resources>

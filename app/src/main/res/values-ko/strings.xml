@@ -415,4 +415,6 @@
     <string name="unsupported_domain_toast">지원되지 않는 스트리밍 링크입니다 – 동영상 속 음악을 찾으려면 Listen &amp; Flip을 사용해 보세요.</string>
     <string name="settings_audiophile_title">오디오파일 음질 우선</string>
     <string name="settings_audiophile_subtitle">라디오 에디트 및 컴필레이션 대신 스튜디오 마스터, Hi-Res, Lossless 및 Dolby Atmos 버전을 우선 선택합니다</string>
+    <string name="playlist_error_private_toast">비공개 재생목록은 변환할 수 없습니다 (공개로 설정해 주세요)</string>
+    <string name="playlist_banner_public_notice">공개 재생목록 필요</string>
 </resources>

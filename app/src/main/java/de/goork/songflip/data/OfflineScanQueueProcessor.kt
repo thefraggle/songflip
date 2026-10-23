@@ -90,6 +90,9 @@ object OfflineScanQueueProcessor {
         if (rejected.isNotEmpty()) {
             return OfflineMatchOutcome.Rejected(rejected.joinToString("; ") { it.reason })
         }
+        if (failures.any { it is OfflineMatchOutcome.NoMatch }) {
+            return OfflineMatchOutcome.NoMatch
+        }
         return OfflineMatchOutcome.TransientError("no storefront attempt completed")
     }
 

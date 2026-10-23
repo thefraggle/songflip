@@ -405,4 +405,6 @@
     <string name="unsupported_domain_toast">Ei tuettu suoratoistolinkki – tunnista videoiden musiikki Listen &amp; Flip -toiminnolla.</string>
     <string name="settings_audiophile_title">Audiofiilinen laatuprioriteetti</string>
     <string name="settings_audiophile_subtitle">Suosi studiomastereita, Hi-Res-, Lossless- ja Dolby Atmos -versioita radioversioiden ja kokoelmien sijaan</string>
+    <string name="playlist_error_private_toast">Yksityisiä soittolistoja ei voi muuntaa (aseta julkiseksi)</string>
+    <string name="playlist_banner_public_notice">Vaatii julkisen soittolistan</string>
 </resources>

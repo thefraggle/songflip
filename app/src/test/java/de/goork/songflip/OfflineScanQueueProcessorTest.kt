@@ -191,6 +191,9 @@ class OfflineScanQueueProcessorTest {
         assertTrue(
             OfflineScanQueueProcessor.combineFailedAttempts(listOf(OfflineMatchOutcome.Rejected("HTTP 400"))) is OfflineMatchOutcome.Rejected
         )
+        assertTrue(
+            OfflineScanQueueProcessor.combineFailedAttempts(listOf(OfflineMatchOutcome.NoMatch, OfflineMatchOutcome.NoMatch)) is OfflineMatchOutcome.NoMatch
+        )
         assertTrue(OfflineScanQueueProcessor.combineFailedAttempts(emptyList()) is OfflineMatchOutcome.TransientError)
     }
 }

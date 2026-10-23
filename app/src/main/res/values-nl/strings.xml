@@ -419,4 +419,6 @@
     <string name="unsupported_domain_toast">Geen ondersteunde streaminglink – gebruik Listen &amp; Flip om muziek in video\'s te herkennen.</string>
     <string name="settings_audiophile_title">Audiofiele kwaliteitsprioriteit</string>
     <string name="settings_audiophile_subtitle">Geef voorkeur aan studiomasters, Hi-Res, Lossless &amp; Dolby Atmos boven radio-edits en compilaties</string>
+    <string name="playlist_error_private_toast">Privé-afspeellijsten kunnen niet worden geconverteerd (stel in op openbaar)</string>
+    <string name="playlist_banner_public_notice">Vereist openbare afspeellijst</string>
 </resources>

@@ -409,4 +409,6 @@
     <string name="unsupported_domain_toast">Nu este un link de streaming acceptat – folosește Listen &amp; Flip pentru a identifica muzica din videoclipuri.</string>
     <string name="settings_audiophile_title">Prioritate calitate audiofilă</string>
     <string name="settings_audiophile_subtitle">Preferă masterele de studio, Hi-Res, Lossless și Dolby Atmos în locul edițiilor radio și compilațiilor</string>
+    <string name="playlist_error_private_toast">Playlisturile private nu pot fi convertite (vă rugăm să le setați ca publice)</string>
+    <string name="playlist_banner_public_notice">Necesită playlist public</string>
 </resources>

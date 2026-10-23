@@ -415,4 +415,6 @@
     <string name="unsupported_domain_toast">Bukan tautan streaming yang didukung – gunakan Listen &amp; Flip untuk mengenali musik di video.</string>
     <string name="settings_audiophile_title">Prioritas Kualitas Audiofil</string>
     <string name="settings_audiophile_subtitle">Utamakan master studio, Hi-Res, Lossless &amp; Dolby Atmos dibanding radio edit dan kompilasi</string>
+    <string name="playlist_error_private_toast">Daftar putar pribadi tidak dapat dikonversi (harap ubah ke publik)</string>
+    <string name="playlist_banner_public_notice">Memerlukan daftar putar publik</string>
 </resources>
