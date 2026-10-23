@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.11.3] - 2026-10-23
+- **More Reliable Music Recognition**: Increased match accuracy for acoustic song recognition through global catalog fallback, supporting international tracks and special releases.
+- **Clearer Playlist Notices**: Clear and early notices for private or personalized playlists directly during detection and forwarding.
+
 ## [1.11.2] - 2026-10-22
 - **Enhanced Streaming Link Resolution**: Improved reliability when sharing links directly from streaming apps, ensuring smooth multi-hop redirect handling and instant playback launch.
 - **General Stability & Performance**: Refined link cleaning and internal error handling for a seamless background experience.

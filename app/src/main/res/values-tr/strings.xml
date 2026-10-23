@@ -419,4 +419,6 @@
     <string name="unsupported_domain_toast">Desteklenen bir yayın bağlantısı değil – videolardaki müziği tanımak için Listen &amp; Flip\'i kullanın.</string>
     <string name="settings_audiophile_title">Odyofil Kalite Önceliği</string>
     <string name="settings_audiophile_subtitle">Radyo düzenlemeleri ve derlemeler yerine stüdyo kayıtlarını, Hi-Res, Lossless ve Dolby Atmos sürümlerini tercih et</string>
+    <string name="playlist_error_private_toast">Gizli çalma listeleri dönüştürülemez (lütfen herkese açık yapın)</string>
+    <string name="playlist_banner_public_notice">Herkese açık çalma listesi gerekir</string>
 </resources>

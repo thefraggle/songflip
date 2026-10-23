@@ -419,4 +419,6 @@
     <string name="unsupported_domain_toast">No es un enlace de streaming compatible – usa Listen &amp; Flip para identificar música en vídeos.</string>
     <string name="settings_audiophile_title">Prioridad de calidad audiófila</string>
     <string name="settings_audiophile_subtitle">Prioriza masters de estudio, Hi-Res, Lossless y Dolby Atmos frente a ediciones de radio y recopilatorios</string>
+    <string name="playlist_error_private_toast">Las playlists privadas no se pueden convertir (por favor, ponla en público)</string>
+    <string name="playlist_banner_public_notice">Requiere playlist pública</string>
 </resources>

@@ -401,4 +401,6 @@
     <string name="unsupported_domain_toast">不支援的串流媒體連結 – 請使用 Listen &amp; Flip 辨識影片中的音樂。</string>
     <string name="settings_audiophile_title">發燒級音質優先</string>
     <string name="settings_audiophile_subtitle">優先配對錄音室母帶、Hi-Res、無損與杜比全景聲版本，避開電台剪輯與合輯</string>
+    <string name="playlist_error_private_toast">無法轉換私人播放清單（請設為公開）</string>
+    <string name="playlist_banner_public_notice">需要公開播放清單</string>
 </resources>

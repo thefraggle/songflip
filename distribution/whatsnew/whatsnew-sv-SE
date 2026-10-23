@@ -1,2 +1,2 @@
-- Förbättrad Streaming Link-upplösning: Förbättrad tillförlitlighet vid delning av länkar direkt från strömmande appar, vilket säkerställer smidig multi-hop-omdirigeringshantering och omedelbar uppspelning.
-- Allmän stabilitet och prestanda: Raffinerad länkrengöring och intern felhantering för en sömlös bakgrundsupplevelse.
+- Mer tillförlitlig musikigenkänning: Ökad matchnoggrannhet för akustisk låtigenkänning genom global katalogfallback, stöd för internationella spår och specialutgåvor.
+- Tydligare spellistemeddelanden: Tydliga och tidiga meddelanden för privata eller personliga spellistor direkt under upptäckt och vidarebefordran.

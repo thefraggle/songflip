@@ -415,4 +415,6 @@
     <string name="unsupported_domain_toast">Không phải liên kết phát nhạc được hỗ trợ – hãy dùng Listen &amp; Flip để nhận diện nhạc trong video.</string>
     <string name="settings_audiophile_title">Ưu tiên chất lượng Audiophile</string>
     <string name="settings_audiophile_subtitle">Ưu tiên bản thu phòng thu, Hi-Res, Lossless &amp; Dolby Atmos hơn bản radio edit và tuyển tập</string>
+    <string name="playlist_error_private_toast">Danh sách phát riêng tư không thể chuyển đổi (vui lòng đặt thành công khai)</string>
+    <string name="playlist_banner_public_notice">Yêu cầu danh sách phát công khai</string>
 </resources>

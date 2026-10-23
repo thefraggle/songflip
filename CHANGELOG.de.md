@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.11.3] - 2026-10-23
+- **Zuverlässigere Musikerkennung**: Höhere Treffergenauigkeit bei der akustischen Titelerkennung durch weltweiten Katalog-Fallback, auch für internationale Titel und Spezialveröffentlichungen.
+- **Präzisere Hinweise für Playlists**: Klare und frühzeitige Hinweise für private oder personalisierte Playlists direkt bei der Erkennung und Weiterleitung.
+
 ## [1.11.2] - 2026-10-22
 - **Verbesserte Link-Weiterleitung**: Höhere Zuverlässigkeit beim direkten Teilen von Links aus Musik-Apps mit optimierter Weiterleitungs-Erkennung und direktem Wiedergabestart.
 - **Allgemeine Stabilität & Performance**: Verfeinerte Link-Bereinigung und verbesserte Fehlerbehandlung für einen reibungslosen Ablauf im Hintergrund.

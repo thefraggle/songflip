@@ -1,2 +1,2 @@
-- Resolução aprimorada de links de streaming: confiabilidade aprimorada ao compartilhar links diretamente de aplicativos de streaming, garantindo um manuseio suave de redirecionamento multi-hop e o lançamento instantâneo da reprodução.
-- Estabilidade geral e desempenho: limpeza refinada da ligação e tratamento de erros internos para uma experiência de fundo perfeita.
+- Reconhecimento de Música Mais Confiável: Maior precisão de correspondência para reconhecimento acústico de músicas por meio de fallback de catálogo global, apoiando faixas internacionais e lançamentos especiais.
+- Avisos de lista de reprodução mais claros: Avisos claros e antecipados para listas de reprodução privadas ou personalizadas diretamente durante a detecção e o encaminhamento.

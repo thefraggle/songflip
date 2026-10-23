@@ -1,2 +1,2 @@
-- Ulepszona rozdzielczość linków do przesyłania strumieniowego: zwiększona niezawodność podczas udostępniania linków bezpośrednio z aplikacji do przesyłania strumieniowego, zapewniająca płynną obsługę przekierowań do wielu przeskoków i natychmiastowe uruchomienie odtwarzania.
-- Ogólna stabilność i wydajność: dopracowane czyszczenie linków i obsługa wewnętrznych błędów zapewniają bezproblemowe działanie w tle.
+- Bardziej niezawodne rozpoznawanie muzyki: zwiększona dokładność dopasowania w celu akustycznego rozpoznawania piosenek dzięki globalnemu katalogowi, wspieraniu utworów międzynarodowych i wydań specjalnych.
+- Wyraźniejsze powiadomienia o playlistach: jasne i wczesne powiadomienia o prywatnych lub spersonalizowanych playlistach bezpośrednio podczas wykrywania i przekazywania.

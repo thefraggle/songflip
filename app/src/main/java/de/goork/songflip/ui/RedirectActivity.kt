@@ -300,6 +300,7 @@ class RedirectActivity : ComponentActivity() {
                             LaunchedEffect(state) {
                                 if (state.showErrorToast) {
                                     val errorMsg = when {
+                                        state.isPrivatePlaylist -> getString(R.string.playlist_error_private_toast)
                                         state.isUnsupportedDomain -> getString(R.string.unsupported_domain_toast)
                                         state.isPlaylistNotSupported -> getString(R.string.playlist_not_supported_toast)
                                         else -> getString(R.string.redirect_error_toast)
@@ -307,7 +308,7 @@ class RedirectActivity : ComponentActivity() {
                                     Toast.makeText(
                                         applicationContext,
                                         errorMsg,
-                                        if (state.isUnsupportedDomain) Toast.LENGTH_LONG else Toast.LENGTH_SHORT
+                                        if (state.isUnsupportedDomain || state.isPrivatePlaylist) Toast.LENGTH_LONG else Toast.LENGTH_SHORT
                                     ).show()
                                 }
                                 forwardOriginalUrl(state.uri)

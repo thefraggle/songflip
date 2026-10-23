@@ -227,8 +227,11 @@ object AcousticRecognizer {
                         parse = { json -> parseShazamMatchResponse(json) }
                     )
                     when (outcome) {
-                        // HTTP 200 with empty matches means valid request, no match yet — no need to try second storefront
-                        is OfflineMatchOutcome.Matched, OfflineMatchOutcome.NoMatch -> return outcome
+                        is OfflineMatchOutcome.Matched -> return outcome
+                        OfflineMatchOutcome.NoMatch -> {
+                            // Definitive no-match on this storefront; continue loop to try fallback storefront (e.g. US)
+                            failures += outcome
+                        }
                         else -> {
                             android.util.Log.w("AcousticRecognizer", "Shazam API HTTP ${resp.code} on storefront $sf: $outcome")
                             failures += outcome
