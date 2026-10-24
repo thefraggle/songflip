@@ -426,7 +426,7 @@ struct SearchSheetView: View {
                 await MainActor.run {
                     resolvingTrackId = nil
                     if let success = res as? ResolutionResult.Success,
-                       let fallbackUrl = URL(string: success.targetUrl) {
+                       !success.targetUrl.isEmpty {
                         // Track in Aptabase
                         AptabaseClient.shared.trackLinkFlipped(
                             target: targetKey,
