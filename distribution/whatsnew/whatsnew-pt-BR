@@ -1,2 +1,3 @@
-- Reconhecimento de Música Mais Confiável: Maior precisão de correspondência para reconhecimento acústico de músicas por meio de fallback de catálogo global, apoiando faixas internacionais e lançamentos especiais.
-- Avisos de lista de reprodução mais claros: Avisos claros e antecipados para listas de reprodução privadas ou personalizadas diretamente durante a detecção e o encaminhamento.
+- Seleção rápida de jogador: alterne facilmente o jogador alvo diretamente do reconhecimento de música e da tela de partida.
+- Reconversão da lista de reprodução do histórico: converta listas de reprodução salvas para um player recém-selecionado diretamente do menu do histórico.
+- Compartilhamento preciso de listas de reprodução multiparte: links de compartilhamento para listas de reprodução particionadas agora preservam a parte da lista de reprodução selecionada.

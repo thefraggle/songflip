@@ -1,2 +1,3 @@
-- Mer tillförlitlig musikigenkänning: Ökad matchnoggrannhet för akustisk låtigenkänning genom global katalogfallback, stöd för internationella spår och specialutgåvor.
-- Tydligare spellistemeddelanden: Tydliga och tidiga meddelanden för privata eller personliga spellistor direkt under upptäckt och vidarebefordran.
+- Snabbval av spelare: Byt enkelt målspelaren direkt från låtigenkännings- och matchskärmen.
+- Spellista Re-conversion from History: Konvertera sparade spellistor till en nyvald spelare direkt från historikmenyn.
+- Exakt spellista i flera delar: Dela länkar för partitionerade spellistor bevarar nu den valda spellistans del.

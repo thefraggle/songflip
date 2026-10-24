@@ -649,7 +649,16 @@ struct PlaylistConverterView: View {
                 }
 
                 // Secondary: Copy / Share Web Link
-                if let webUrl = result.webShareUrl, let url = URL(string: webUrl) {
+                let effectiveShareUrl: String? = {
+                    guard let base = result.webShareUrl else { return nil }
+                    if result.parts.count > 1 && selectedPartIndex > 0 {
+                        let partNum = selectedPartIndex + 1
+                        return base.contains("?") ? "\(base)&part=\(partNum)" : "\(base)?part=\(partNum)"
+                    }
+                    return base
+                }()
+
+                if let webUrl = effectiveShareUrl, let url = URL(string: webUrl) {
                     ShareLink(item: url, message: Text(result.title ?? "SongFlip Playlist")) {
                         HStack(spacing: 8) {
                             Image(systemName: "square.and.arrow.up")

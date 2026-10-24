@@ -249,8 +249,8 @@
     <string name="app_links_btn_configure_app">Beállítás itt: %s</string>
     <string name="app_links_target_app_hint">A kedvenc lejátszó (%s) linkjei nem igényelnek átirányítást — csak a többi szolgáltatást állítsa be.</string>
     <string name="setup_card_conflict_title">Link-ütközések észlelve</string>
-    <string name="setup_card_conflict_desc">%d telepített alkalmazás közvetlenül nyitja meg a linkeket, mielőtt a SongFlip átirányíthatná őket.</string>
-    <string name="setup_card_conflict_badge">%d ütköző szolgáltatás</string>
+    <string name="setup_card_conflict_desc">%d telepített alkalmazás közvetlenül nyitja meg a linkeket. A SongFlip használatához ezt igény szerint módosíthatja.</string>
+    <string name="setup_card_conflict_badge">%d ütköző szolgáltatás (nem kötelező)</string>
     <string name="settings_ask_every_time_title">Célalkalmazás megkérdezése minden alkalommal</string>
     <string name="settings_ask_every_time_subtitle">Gyorsválasztó megjelenítése az alapértelmezett azonnali megnyitása helyett</string>
     <string name="quick_picker_title">Megnyitás ezzel …</string>
@@ -331,7 +331,7 @@
     <string name="feedback_cat_feature">💡 Ötlet</string>
     <string name="feedback_cat_general">💬 Általános</string>
     <string name="feedback_message_hint">Írja le a problémát, ötletet vagy észrevételt...</string>
-    <string name="feedback_email_hint">Az Ön e-mailje (opcionális, válaszhoz)</string>
+    <string name="feedback_email_hint">E-mail címed (nem kötelező)</string>
     <string name="feedback_privacy_note">Nulla követés: Csak az alkalmazásverzió és a készüléktípus kerül továbbításra.</string>
     <string name="feedback_btn_send">Visszajelzés küldése</string>
     <string name="feedback_btn_mail_fallback">Inkább e-mailt írok</string>
@@ -407,4 +407,6 @@
     <string name="settings_audiophile_subtitle">Stúdió masterek, Hi-Res, Lossless és Dolby Atmos előnyben részesítése a rádióverziókkal és válogatásokkal szemben</string>
     <string name="playlist_error_private_toast">Privát lejátszási listák nem konvertálhatók (kérjük, állítsa nyilvánosra)</string>
     <string name="playlist_banner_public_notice">Nyilvános lejátszási lista szükséges</string>
+    <string name="listen_change_target">Cél módosítása</string>
+    <string name="playlist_reconvert">Újrakonvertálás</string>
 </resources>

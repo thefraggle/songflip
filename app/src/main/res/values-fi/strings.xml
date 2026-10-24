@@ -249,8 +249,8 @@
     <string name="app_links_btn_configure_app">Säädä kohteessa %s</string>
     <string name="app_links_target_app_hint">Suosikkisoittimesi (%s) linkit eivät tarvitse uudelleenohjausta — määritä vain muut palvelut.</string>
     <string name="setup_card_conflict_title">Linkkiristiriitoja havaittu</string>
-    <string name="setup_card_conflict_desc">%d asennettua sovellusta avaa linkit suoraan ennen kuin SongFlip ehtii ohjata ne.</string>
-    <string name="setup_card_conflict_badge">%d ristiriitaista palvelua</string>
+    <string name="setup_card_conflict_desc">%d asennettua sovellusta avaa linkit suoraan. Voit halutessasi säätää tätä käyttääksesi SongFlipiä.</string>
+    <string name="setup_card_conflict_badge">%d ristiriitaista palvelua (valinnainen)</string>
     <string name="settings_ask_every_time_title">Kysy kohdesovellusta joka kerta</string>
     <string name="settings_ask_every_time_subtitle">Näytä pikavalitsin sen sijaan, että oletussoitin avattaisiin heti</string>
     <string name="quick_picker_title">Avaa sovelluksella …</string>
@@ -331,7 +331,7 @@
     <string name="feedback_cat_feature">💡 Idea</string>
     <string name="feedback_cat_general">💬 Yleinen</string>
     <string name="feedback_message_hint">Kuvaile ongelmasi, ideasi tai palautteesi...</string>
-    <string name="feedback_email_hint">Sähköpostisi (valinnainen, vastausta varten)</string>
+    <string name="feedback_email_hint">Sähköpostisi (valinnainen)</string>
     <string name="feedback_privacy_note">Nolla seurantaa: Vain sovelluksen versio ja laitemalli lähetetään.</string>
     <string name="feedback_btn_send">Lähetä palaute</string>
     <string name="feedback_btn_mail_fallback">Kirjoita mieluummin sähköpostia</string>
@@ -407,4 +407,6 @@
     <string name="settings_audiophile_subtitle">Suosi studiomastereita, Hi-Res-, Lossless- ja Dolby Atmos -versioita radioversioiden ja kokoelmien sijaan</string>
     <string name="playlist_error_private_toast">Yksityisiä soittolistoja ei voi muuntaa (aseta julkiseksi)</string>
     <string name="playlist_banner_public_notice">Vaatii julkisen soittolistan</string>
+    <string name="listen_change_target">Vaihda kohdetta</string>
+    <string name="playlist_reconvert">Muunna uudelleen</string>
 </resources>

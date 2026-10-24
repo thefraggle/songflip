@@ -259,8 +259,8 @@
     <string name="app_links_btn_configure_app">Điều chỉnh trong %s</string>
     <string name="app_links_target_app_hint">Liên kết từ trình phát yêu thích (%s) không cần chuyển hướng — chỉ cần định cấu hình các dịch vụ khác.</string>
     <string name="setup_card_conflict_title">Phát hiện xung đột liên kết</string>
-    <string name="setup_card_conflict_desc">%d ứng dụng đã cài đặt mở liên kết trực tiếp trước khi SongFlip có thể chuyển hướng.</string>
-    <string name="setup_card_conflict_badge">%d dịch vụ xung đột</string>
+    <string name="setup_card_conflict_desc">%d ứng dụng đã cài đặt mở liên kết trực tiếp. Bạn có thể tùy chọn điều chỉnh để sử dụng SongFlip.</string>
+    <string name="setup_card_conflict_badge">%d dịch vụ xung đột (tùy chọn)</string>
     <string name="settings_ask_every_time_title">Hỏi ứng dụng phát mỗi lần</string>
     <string name="settings_ask_every_time_subtitle">Hiển thị bộ chọn nhanh thay vì mở ngay trình phát mặc định</string>
     <string name="quick_picker_title">Mở bằng …</string>
@@ -341,7 +341,7 @@
     <string name="feedback_cat_feature">💡 Ý tưởng</string>
     <string name="feedback_cat_general">💬 Chung</string>
     <string name="feedback_message_hint">Hãy mô tả vấn đề, ý tưởng hoặc phản hồi của bạn...</string>
-    <string name="feedback_email_hint">Email của bạn (không bắt buộc, để phản hồi)</string>
+    <string name="feedback_email_hint">Email của bạn (tùy chọn)</string>
     <string name="feedback_privacy_note">Không theo dõi: Chỉ gửi phiên bản ứng dụng và kiểu thiết bị.</string>
     <string name="feedback_btn_send">Gửi phản hồi</string>
     <string name="feedback_btn_mail_fallback">Viết qua email thay thế</string>
@@ -417,4 +417,6 @@
     <string name="settings_audiophile_subtitle">Ưu tiên bản thu phòng thu, Hi-Res, Lossless &amp; Dolby Atmos hơn bản radio edit và tuyển tập</string>
     <string name="playlist_error_private_toast">Danh sách phát riêng tư không thể chuyển đổi (vui lòng đặt thành công khai)</string>
     <string name="playlist_banner_public_notice">Yêu cầu danh sách phát công khai</string>
+    <string name="listen_change_target">Đổi đích đến</string>
+    <string name="playlist_reconvert">Chuyển đổi lại</string>
 </resources>

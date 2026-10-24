@@ -46,6 +46,7 @@ final class ProManager: NSObject, ObservableObject {
     @Published var proType: String? = nil
     @Published var expirationDate: Date? = nil
     @Published var currentOffering: Offering? = nil
+    @Published var isLoadingOfferings: Bool = false
     @Published var isLoading: Bool = false
     @Published var lastErrorMessage: String? = nil
 
@@ -347,6 +348,8 @@ final class ProManager: NSObject, ObservableObject {
 
     func refreshOfferings() async {
         guard Purchases.isConfigured else { return }
+        isLoadingOfferings = true
+        defer { isLoadingOfferings = false }
         do {
             let offerings = try await Purchases.shared.offerings()
             self.currentOffering = offerings.current ?? offerings["default"]

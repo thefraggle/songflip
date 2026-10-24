@@ -478,6 +478,13 @@ struct HistorySheetView: View {
                                             } label: {
                                                 Label(LocalizationManager.string(for: "history_open_playlist_details", lang: lang), systemImage: "music.note.list")
                                             }
+
+                                            Button {
+                                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                                onOpenPlaylist(item.sourceUrl, settings.targetPlatform)
+                                            } label: {
+                                                Label(LocalizationManager.string(for: "playlist_reconvert", lang: lang), systemImage: "arrow.triangle.2.circlepath")
+                                            }
                                         }
 
                                         Divider()
@@ -552,6 +559,13 @@ struct HistorySheetView: View {
                                         onOpenPlaylist(item.sourceUrl, cleanPlatform)
                                     } label: {
                                         Label(LocalizationManager.string(for: "history_open_playlist_details", lang: lang), systemImage: "music.note.list")
+                                    }
+
+                                    Button {
+                                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                        onOpenPlaylist(item.sourceUrl, settings.targetPlatform)
+                                    } label: {
+                                        Label(LocalizationManager.string(for: "playlist_reconvert", lang: lang), systemImage: "arrow.triangle.2.circlepath")
                                     }
                                 }
 

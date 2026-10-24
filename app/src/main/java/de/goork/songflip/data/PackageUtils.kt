@@ -384,6 +384,17 @@ object PackageUtils {
             } else {
                 url
             }
+            // 3rd-party YouTube players like NewTube, Arc, NewPipe, Tubular do not register music.youtube.com intent filters.
+            // When targeted, convert to universal https://www.youtube.com/... web URL (#151).
+            if (targetPackage != null && (targetPackage == "com.aleixrodriala.newtube" ||
+                        targetPackage == "io.github.aleixrodriala.arc" ||
+                        targetPackage == "org.schabi.newpipe" ||
+                        targetPackage == "org.schabi.newpipelegacy" ||
+                        targetPackage == "org.polymorphicshade.tubular" ||
+                        targetPackage == "DualDual.PipePipe")) {
+                val ytUrl = de.goork.songflip.core.util.UrlUtils.toWebFallbackUrl(chosen, "youtubeMusic")
+                return targetPackage to ytUrl
+            }
             return targetPackage to normalizeAndroidYouTubeMusicUri(chosen)
         }
         val effectiveUri = candidateNativeUri ?: toNativeAppUri(url, cleanKey, targetPackage)

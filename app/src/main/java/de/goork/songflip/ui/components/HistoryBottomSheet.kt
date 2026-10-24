@@ -58,11 +58,14 @@ fun HistoryBottomSheet(
     isPro: Boolean = false,
     showProTeaser: Boolean = false,
     onOpenProPaywall: (String) -> Unit = {},
+    targetPlatformKey: String = "",
     onOpenPlaylist: ((playlistUrl: String, targetPlatformKey: String) -> Unit)? = null
 ) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
     val coroutineScope = rememberCoroutineScope()
+    val settingsRepo = remember(context) { de.goork.songflip.data.SettingsRepository(context) }
+    val effectiveTargetKey = targetPlatformKey.ifBlank { settingsRepo.targetPlatform }
 
     val historyLimit = if (isPro) 100 else 10
     var isLoadingHistory by remember { mutableStateOf(true) }
@@ -502,6 +505,12 @@ fun HistoryBottomSheet(
                                     cb(item.canonicalUrl, targetKey)
                                 }
                             },
+                            onReconvertPlaylist = onOpenPlaylist?.let { cb ->
+                                {
+                                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                    cb(item.canonicalUrl, effectiveTargetKey)
+                                }
+                            },
                             onCopyTarget = {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                                 copyToClipboard(context, item.targetUrl)
@@ -684,6 +693,7 @@ fun HistoryItemCard(
     isRefreshing: Boolean = false,
     onPlay: () -> Unit,
     onOpenPlaylist: (() -> Unit)? = null,
+    onReconvertPlaylist: (() -> Unit)? = null,
     onToggleFavorite: () -> Unit = {},
     onShowQrCode: () -> Unit = {},
     onDisambiguate: () -> Unit = {},
@@ -989,15 +999,27 @@ fun HistoryItemCard(
                             onShareUniversal()
                         }
                     )
-                        if (isPlaylist && onOpenPlaylist != null) {
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.history_open_playlist_details)) },
-                                leadingIcon = { Icon(Icons.AutoMirrored.Outlined.QueueMusic, contentDescription = null, modifier = Modifier.size(18.dp)) },
-                                onClick = {
-                                    showMenu = false
-                                    onOpenPlaylist()
-                                }
-                            )
+                        if (isPlaylist) {
+                            if (onOpenPlaylist != null) {
+                                DropdownMenuItem(
+                                    text = { Text(stringResource(R.string.history_open_playlist_details)) },
+                                    leadingIcon = { Icon(Icons.AutoMirrored.Outlined.QueueMusic, contentDescription = null, modifier = Modifier.size(18.dp)) },
+                                    onClick = {
+                                        showMenu = false
+                                        onOpenPlaylist()
+                                    }
+                                )
+                            }
+                            if (onReconvertPlaylist != null) {
+                                DropdownMenuItem(
+                                    text = { Text(stringResource(R.string.playlist_reconvert)) },
+                                    leadingIcon = { Icon(Icons.Outlined.Refresh, contentDescription = null, modifier = Modifier.size(18.dp)) },
+                                    onClick = {
+                                        showMenu = false
+                                        onReconvertPlaylist()
+                                    }
+                                )
+                            }
                         }
                         if (isPro) {
                             DropdownMenuItem(

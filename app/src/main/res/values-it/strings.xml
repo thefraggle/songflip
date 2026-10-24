@@ -263,8 +263,8 @@
     <string name="app_links_btn_configure_app">Regola in %s</string>
     <string name="app_links_target_app_hint">I collegamenti del tuo lettore preferito (%s) non necessitano di reindirizzamento: configura solo gli altri servizi.</string>
     <string name="setup_card_conflict_title">Conflitti di collegamento rilevati</string>
-    <string name="setup_card_conflict_desc">%d app installata/e apre i collegamenti direttamente prima che SongFlip possa reindirizzarli.</string>
-    <string name="setup_card_conflict_badge">%d servizio/i in conflitto</string>
+    <string name="setup_card_conflict_desc">%d app installata/e aprono i link direttamente. Puoi opzionalmente modificare questa impostazione per usare SongFlip.</string>
+    <string name="setup_card_conflict_badge">%d servizio/i in conflitto (opzionale)</string>
     <string name="settings_ask_every_time_title">Chiedi l\'app di destinazione ogni volta</string>
     <string name="settings_ask_every_time_subtitle">Mostra selezione rapida invece di aprire subito il lettore predefinito</string>
     <string name="quick_picker_title">Apri con …</string>
@@ -345,7 +345,7 @@
     <string name="feedback_cat_feature">💡 Idea</string>
     <string name="feedback_cat_general">💬 Generale</string>
     <string name="feedback_message_hint">Descrivi il tuo problema, idea o feedback...</string>
-    <string name="feedback_email_hint">La tua email (opzionale, per risposta)</string>
+    <string name="feedback_email_hint">La tua email (opzionale)</string>
     <string name="feedback_privacy_note">Zero tracciamento: Vengono inviati solo versione dell\'app e modello dispositivo.</string>
     <string name="feedback_btn_send">Invia feedback</string>
     <string name="feedback_btn_mail_fallback">Scrivi invece un\'email</string>
@@ -421,4 +421,6 @@
     <string name="settings_audiophile_subtitle">Preferisci master in studio, Hi-Res, Lossless e Dolby Atmos rispetto a radio edit e compilation</string>
     <string name="playlist_error_private_toast">Le playlist private non possono essere convertite (impostale come pubbliche)</string>
     <string name="playlist_banner_public_notice">Richiede playlist pubblica</string>
+    <string name="listen_change_target">Cambia destinazione</string>
+    <string name="playlist_reconvert">Riconverti</string>
 </resources>
