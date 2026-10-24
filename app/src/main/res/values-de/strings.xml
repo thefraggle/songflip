@@ -289,8 +289,8 @@
     <string name="app_links_btn_configure_app">In %s anpassen</string>
     <string name="app_links_target_app_hint">Links deines Lieblingsdienstes (%s) musst du nicht umleiten – passe nur die Dienste deiner Freunde an.</string>
     <string name="setup_card_conflict_title">Link-Konflikte erkannt</string>
-    <string name="setup_card_conflict_desc">%d installierte App(s) öffnen Links direkt, bevor SongFlip sie umleiten kann.</string>
-    <string name="setup_card_conflict_badge">%d blockierte(r) Dienst(e)</string>
+    <string name="setup_card_conflict_desc">%d installierte App(s) öffnen Links direkt. Du kannst dies optional anpassen, um SongFlip zu nutzen.</string>
+    <string name="setup_card_conflict_badge">%d Konflikt(e) (optional)</string>
     <string name="settings_ask_every_time_title">Ziel-App jedes Mal abfragen</string>
     <string name="settings_ask_every_time_subtitle">Schnellauswahl anzeigen, anstatt sofort in den Standard-Player zu wechseln</string>
     <string name="quick_picker_title">Öffnen mit …</string>
@@ -374,7 +374,7 @@
     <string name="feedback_cat_feature">💡 Idee</string>
     <string name="feedback_cat_general">💬 Allgemein</string>
     <string name="feedback_message_hint">Beschreibe dein Anliegen, deine Idee oder ein Problem...</string>
-    <string name="feedback_email_hint">Deine E-Mail (optional für Rückfragen)</string>
+    <string name="feedback_email_hint">Deine E-Mail (optional)</string>
     <string name="feedback_privacy_note">Zero-Tracking: Nur App-Version und Gerätetyp werden übertragen.</string>
     <string name="feedback_btn_send">Feedback senden</string>
     <string name="feedback_btn_mail_fallback">Lieber per E-Mail schreiben</string>
@@ -443,4 +443,6 @@
     <string name="unsupported_domain_toast">Kein unterstützter Streaming-Link – nutze für Videos einfach Listen &amp; Flip.</string>
     <string name="settings_audiophile_title">Audiophile Priorisierung</string>
     <string name="settings_audiophile_subtitle">Bevorzugt Studio-Originale, Hi-Res, Lossless &amp; Dolby Atmos statt Radio-Edits und Compilations</string>
+    <string name="listen_change_target">Ziel ändern</string>
+    <string name="playlist_reconvert">Neu konvertieren</string>
 </resources>

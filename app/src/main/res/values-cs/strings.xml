@@ -257,8 +257,8 @@
     <string name="app_links_btn_configure_app">Upravit v %s</string>
     <string name="app_links_target_app_hint">Odkazy z vašeho oblíbeného přehrávače (%s) nepotřebují přesměrování — nakonfigurujte pouze ostatní služby.</string>
     <string name="setup_card_conflict_title">Zjištěny konflikty odkazů</string>
-    <string name="setup_card_conflict_desc">%d nainstalovaných aplikací otevírá odkazy přímo dříve, než je SongFlip může přesměrovat.</string>
-    <string name="setup_card_conflict_badge">%d konfliktní služby</string>
+    <string name="setup_card_conflict_desc">%d nainstalovaných aplikací otevírá odkazy přímo. Pro použití SongFlip toto můžete volitelně upravit.</string>
+    <string name="setup_card_conflict_badge">%d konfliktní služby (volitelné)</string>
     <string name="settings_ask_every_time_title">Vždy se zeptat na cílovou aplikaci</string>
     <string name="settings_ask_every_time_subtitle">Zobrazit rychlý výběr místo okamžitého otevření výchozího přehrávače</string>
     <string name="quick_picker_title">Otevřít v aplikaci …</string>
@@ -339,7 +339,7 @@
     <string name="feedback_cat_feature">💡 Nápad</string>
     <string name="feedback_cat_general">💬 Obecné</string>
     <string name="feedback_message_hint">Popište svůj problém, nápad nebo připomínku...</string>
-    <string name="feedback_email_hint">Váš e-mail (volitelné, pro odpověď)</string>
+    <string name="feedback_email_hint">Váš e-mail (volitelné)</string>
     <string name="feedback_privacy_note">Nulové sledování: Odesílá se pouze verze aplikace a model zařízení.</string>
     <string name="feedback_btn_send">Odeslat zpětnou vazbu</string>
     <string name="feedback_btn_mail_fallback">Raději napsat e-mail</string>
@@ -415,4 +415,6 @@
     <string name="settings_audiophile_subtitle">Upřednostnit studiové mastery, Hi-Res, Lossless a Dolby Atmos před rádiovými verzemi a kompilacemi</string>
     <string name="playlist_error_private_toast">Soukromé playlisty nelze převést (nastavte je na veřejné)</string>
     <string name="playlist_banner_public_notice">Vyžaduje veřejný playlist</string>
+    <string name="listen_change_target">Změnit cíl</string>
+    <string name="playlist_reconvert">Znovu převést</string>
 </resources>

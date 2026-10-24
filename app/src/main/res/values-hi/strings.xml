@@ -263,8 +263,8 @@
     <string name="app_links_btn_configure_app">%s में समायोजित करें</string>
     <string name="app_links_target_app_hint">आपके पसंदीदा प्लेयर (%s) के लिंक को रीडायरेक्ट करने की आवश्यकता नहीं है — केवल अन्य सेवाओं को कॉन्फ़िगर करें।</string>
     <string name="setup_card_conflict_title">लिंक विरोध का पता चला</string>
-    <string name="setup_card_conflict_desc">%d इंस्टॉल किया गया ऐप SongFlip के रीडायरेक्ट करने से पहले सीधे लिंक खोलता है।</string>
-    <string name="setup_card_conflict_badge">%d विरोधी सेवा(एं)</string>
+    <string name="setup_card_conflict_desc">%d इंस्टॉल किया गया ऐप सीधे लिंक खोलता है। SongFlip का उपयोग करने के लिए आप वैकल्पिक रूप से इसे समायोजित कर सकते हैं।</string>
+    <string name="setup_card_conflict_badge">%d विरोधी सेवा(एं) (वैकल्पिक)</string>
     <string name="settings_ask_every_time_title">हर बार लक्ष्य ऐप पूछें</string>
     <string name="settings_ask_every_time_subtitle">सीधे डिफ़ॉल्ट प्लेयर खोलने के बजाय त्वरित पिकर दिखाएं</string>
     <string name="quick_picker_title">इसके साथ खोलें …</string>
@@ -345,7 +345,7 @@
     <string name="feedback_cat_feature">💡 विचार</string>
     <string name="feedback_cat_general">💬 सामान्य</string>
     <string name="feedback_message_hint">अपनी समस्या, विचार या प्रतिक्रिया बताएं...</string>
-    <string name="feedback_email_hint">आपका ईमेल (वैकल्पिक, उत्तर के लिए)</string>
+    <string name="feedback_email_hint">आपका ईमेल (वैकल्पिक)</string>
     <string name="feedback_privacy_note">शून्य ट्रैकिंग: समस्या निवारण के लिए केवल ऐप संस्करण और डिवाइस मॉडल भेजा जाता है।</string>
     <string name="feedback_btn_send">प्रतिक्रिया भेजें</string>
     <string name="feedback_btn_mail_fallback">इसके बजाय ईमेल लिखें</string>
@@ -421,4 +421,6 @@
     <string name="settings_audiophile_subtitle">रेडियो एडिट और संकलन के बजाय स्टूडियो मास्टर, Hi-Res, Lossless और Dolby Atmos को प्राथमिकता दें</string>
     <string name="playlist_error_private_toast">निजी प्लेलिस्ट को रूपांतरित नहीं किया जा सकता (कृपया सार्वजनिक करें)</string>
     <string name="playlist_banner_public_notice">सार्वजनिक प्लेलिस्ट आवश्यक है</string>
+    <string name="listen_change_target">लक्ष्य बदलें</string>
+    <string name="playlist_reconvert">पुनः कनवर्ट करें</string>
 </resources>

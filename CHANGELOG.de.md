@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.11.4] - 2026-10-24
+- **Schnellere Player-Auswahl**: Das Ziel kann jetzt direkt im Erkennungs- und Trefferbildschirm gewechselt werden.
+- **Playlists aus dem Verlauf neu konvertieren**: Gespeicherte Playlists können direkt aus dem Verlaufsmenü an einen neuen Zielplayer angepasst werden.
+- **Präzises Teilen mehrteiliger Playlists**: Beim Teilen großer, aufgeteilter Playlists wird exakt der aktuell ausgewählte Teil weitergegeben.
+- **Erweiterte Player-Unterstützung & Feinschliff**: Verbesserte Unterstützung für alternative Musik-Player bei der Titelsuche sowie optimierte Menüs und klarere Status-Hinweise.
+
 ## [1.11.3] - 2026-10-23
 - **Zuverlässigere Musikerkennung**: Höhere Treffergenauigkeit bei der akustischen Titelerkennung durch weltweiten Katalog-Fallback, auch für internationale Titel und Spezialveröffentlichungen.
 - **Präzisere Hinweise für Playlists**: Klare und frühzeitige Hinweise für private oder personalisierte Playlists direkt bei der Erkennung und Weiterleitung.

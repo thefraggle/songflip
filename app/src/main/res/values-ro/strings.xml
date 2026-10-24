@@ -253,8 +253,8 @@
     <string name="app_links_btn_configure_app">Ajustează în %s</string>
     <string name="app_links_target_app_hint">Linkurile de la playerul preferat (%s) nu au nevoie de redirecționare — configurați doar celelalte servicii.</string>
     <string name="setup_card_conflict_title">Conflicte de linkuri detectate</string>
-    <string name="setup_card_conflict_desc">%d aplicație(i) instalată(e) deschid linkurile direct înainte ca SongFlip să le poată redirecționa.</string>
-    <string name="setup_card_conflict_badge">%d servicii în conflict</string>
+    <string name="setup_card_conflict_desc">%d aplicație(i) instalată(e) deschid linkurile direct. Puteți ajusta opțional pentru a utiliza SongFlip.</string>
+    <string name="setup_card_conflict_badge">%d servicii în conflict (opțional)</string>
     <string name="settings_ask_every_time_title">Întreabă aplicația țintă de fiecare dată</string>
     <string name="settings_ask_every_time_subtitle">Afișează un selector rapid în loc să deschidă direct playerul implicit</string>
     <string name="quick_picker_title">Deschide cu …</string>
@@ -335,7 +335,7 @@
     <string name="feedback_cat_feature">💡 Idee</string>
     <string name="feedback_cat_general">💬 General</string>
     <string name="feedback_message_hint">Descrieți problema, ideea sau sugestia dvs...</string>
-    <string name="feedback_email_hint">E-mailul dvs. (opțional, pentru răspuns)</string>
+    <string name="feedback_email_hint">Emailul tău (opțional)</string>
     <string name="feedback_privacy_note">Fără urmărire: Se trimit doar versiunea aplicației și modelul dispozitivului.</string>
     <string name="feedback_btn_send">Trimite feedback</string>
     <string name="feedback_btn_mail_fallback">Prefer să scriu un e-mail</string>
@@ -411,4 +411,6 @@
     <string name="settings_audiophile_subtitle">Preferă masterele de studio, Hi-Res, Lossless și Dolby Atmos în locul edițiilor radio și compilațiilor</string>
     <string name="playlist_error_private_toast">Playlisturile private nu pot fi convertite (vă rugăm să le setați ca publice)</string>
     <string name="playlist_banner_public_notice">Necesită playlist public</string>
+    <string name="listen_change_target">Schimbă destinația</string>
+    <string name="playlist_reconvert">Reconvertește</string>
 </resources>

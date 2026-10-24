@@ -259,8 +259,8 @@
     <string name="app_links_btn_configure_app">Sesuaikan di %s</string>
     <string name="app_links_target_app_hint">Tautan dari pemutar favorit Anda (%s) tidak perlu dialihkan — cukup atur layanan lain.</string>
     <string name="setup_card_conflict_title">Konflik Tautan Terdeteksi</string>
-    <string name="setup_card_conflict_desc">%d aplikasi terinstal membuka tautan langsung sebelum SongFlip dapat mengalihkannya.</string>
-    <string name="setup_card_conflict_badge">%d layanan berkonflik</string>
+    <string name="setup_card_conflict_desc">%d aplikasi terinstal membuka tautan secara langsung. Anda dapat menyesuaikannya secara opsional untuk menggunakan SongFlip.</string>
+    <string name="setup_card_conflict_badge">%d layanan bentrok (opsional)</string>
     <string name="settings_ask_every_time_title">Tanyakan aplikasi tujuan setiap saat</string>
     <string name="settings_ask_every_time_subtitle">Tampilkan pemilih cepat daripada langsung membuka pemutar default</string>
     <string name="quick_picker_title">Buka dengan …</string>
@@ -341,7 +341,7 @@
     <string name="feedback_cat_feature">💡 Ide</string>
     <string name="feedback_cat_general">💬 Umum</string>
     <string name="feedback_message_hint">Jelaskan masalah, ide, atau saran Anda...</string>
-    <string name="feedback_email_hint">Email Anda (opsional, untuk balasan)</string>
+    <string name="feedback_email_hint">Email Anda (opsional)</string>
     <string name="feedback_privacy_note">Nol pelacakan: Hanya versi aplikasi dan model perangkat yang dikirim.</string>
     <string name="feedback_btn_send">Kirim Masukan</string>
     <string name="feedback_btn_mail_fallback">Lebih suka kirim email</string>
@@ -417,4 +417,6 @@
     <string name="settings_audiophile_subtitle">Utamakan master studio, Hi-Res, Lossless &amp; Dolby Atmos dibanding radio edit dan kompilasi</string>
     <string name="playlist_error_private_toast">Daftar putar pribadi tidak dapat dikonversi (harap ubah ke publik)</string>
     <string name="playlist_banner_public_notice">Memerlukan daftar putar publik</string>
+    <string name="listen_change_target">Ubah tujuan</string>
+    <string name="playlist_reconvert">Konversi ulang</string>
 </resources>
