@@ -43,8 +43,12 @@ struct FeedbackSheetView: View {
                                 Text(cat.label(lang: lang))
                                     .font(.subheadline)
                                     .fontWeight(selectedCategory == cat ? .bold : .medium)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.8)
                                     .padding(.vertical, 8)
+                                    .padding(.horizontal, 4)
                                     .frame(maxWidth: .infinity)
+                                    .frame(minHeight: 38)
                                     .background(selectedCategory == cat ? Color.green.opacity(0.18) : Color(uiColor: .secondarySystemBackground))
                                     .foregroundColor(selectedCategory == cat ? .green : .primary)
                                     .cornerRadius(10)
@@ -95,7 +99,7 @@ struct FeedbackSheetView: View {
                         Image(systemName: "envelope")
                             .foregroundColor(.secondary)
                         TextField(LocalizationManager.string(for: "feedback_email_hint", lang: lang), text: $email)
-                            .font(.body)
+                            .font(.subheadline)
                             .keyboardType(.emailAddress)
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled()
@@ -179,8 +183,8 @@ struct FeedbackSheetView: View {
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         isSubmitting = true
 
-        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.7.0"
-        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.11.4"
+        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "100"
         let osVersion = "iOS \(UIDevice.current.systemVersion)"
         let device = UIDevice.current.model
 
@@ -224,8 +228,8 @@ struct FeedbackSheetView: View {
     }
 
     private func openMailFallback() {
-        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.7.0"
-        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.11.4"
+        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "100"
         let systemVersion = UIDevice.current.systemVersion
         let model = UIDevice.current.model
         let subject = "SongFlip iOS Feedback (v\(appVersion))".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "SongFlip%20Feedback"

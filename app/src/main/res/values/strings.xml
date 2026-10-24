@@ -290,8 +290,8 @@
     <string name="app_links_btn_configure_app">Adjust in %s</string>
     <string name="app_links_target_app_hint">Links from your favorite player (%s) don\'t need redirection — only configure other services.</string>
     <string name="setup_card_conflict_title">Link Conflicts Detected</string>
-    <string name="setup_card_conflict_desc">%d installed app(s) open links directly before SongFlip can redirect them.</string>
-    <string name="setup_card_conflict_badge">%d conflicting service(s)</string>
+    <string name="setup_card_conflict_desc">%d installed app(s) open links directly. You can optionally adjust this to use SongFlip.</string>
+    <string name="setup_card_conflict_badge">%d conflicting service(s) (optional)</string>
     <string name="settings_ask_every_time_title">Ask target app every time</string>
     <string name="settings_ask_every_time_subtitle">Show quick picker instead of immediately opening default player</string>
     <string name="quick_picker_title">Open with …</string>
@@ -375,7 +375,7 @@
     <string name="feedback_cat_feature">💡 Idea</string>
     <string name="feedback_cat_general">💬 General</string>
     <string name="feedback_message_hint">Describe your issue, idea, or feedback...</string>
-    <string name="feedback_email_hint">Your email (optional, for reply)</string>
+    <string name="feedback_email_hint">Your email (optional)</string>
     <string name="feedback_privacy_note">Zero-Tracking: Only app version and device model are included.</string>
     <string name="feedback_btn_send">Send Feedback</string>
     <string name="feedback_btn_mail_fallback">Write an email instead</string>
@@ -444,4 +444,6 @@
     <string name="unsupported_domain_toast">Not a supported streaming link – use Listen &amp; Flip to identify music in videos.</string>
     <string name="settings_audiophile_title">Audiophile Quality Priority</string>
     <string name="settings_audiophile_subtitle">Prefer studio masters, Hi-Res, Lossless &amp; Dolby Atmos over radio edits and compilations</string>
+    <string name="listen_change_target">Change target</string>
+    <string name="playlist_reconvert">Re-convert</string>
 </resources>

@@ -243,7 +243,33 @@ struct ProPaywallSheetView: View {
                     } else {
                         // Pricing Tiers
                         VStack(spacing: 12) {
-                            if shouldShowAnnualFirst {
+                            if packages.isEmpty {
+                                if proManager.isLoadingOfferings {
+                                    VStack(spacing: 12) {
+                                        ProgressView()
+                                            .tint(.green)
+                                            .scaleEffect(1.2)
+                                            .padding(.vertical, 28)
+                                    }
+                                    .frame(maxWidth: .infinity)
+                                } else {
+                                    VStack(spacing: 10) {
+                                        Text(LocalizationManager.string(for: "pro_offerings_error", lang: lang))
+                                            .font(.footnote)
+                                            .foregroundColor(.secondary)
+                                            .multilineTextAlignment(.center)
+                                            .padding(.horizontal, 16)
+                                        Button(action: {
+                                            Task { await proManager.refreshOfferings() }
+                                        }) {
+                                            Text(LocalizationManager.string(for: "action_retry", lang: lang))
+                                                .font(.subheadline.weight(.semibold))
+                                                .foregroundColor(.green)
+                                        }
+                                    }
+                                    .padding(.vertical, 20)
+                                }
+                            } else if shouldShowAnnualFirst {
                                 annualTierCard
                                 monthlyTierCard
                                 lifetimeTierCard
@@ -258,7 +284,7 @@ struct ProPaywallSheetView: View {
                         // CTA Button
                         Button(action: purchaseSelected) {
                             ZStack {
-                                if proManager.isLoading {
+                                if proManager.isLoading || (packages.isEmpty && proManager.isLoadingOfferings) {
                                     ProgressView()
                                         .tint(.white)
                                 } else {
@@ -270,11 +296,11 @@ struct ProPaywallSheetView: View {
                             }
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 16)
-                            .background(Color.green)
+                            .background(selectedPackage == nil ? Color.green.opacity(0.6) : Color.green)
                             .cornerRadius(16)
                             .shadow(color: Color.green.opacity(0.3), radius: 8, y: 4)
                         }
-                        .disabled(proManager.isLoading || selectedPackage == nil)
+                        .disabled(proManager.isLoading || proManager.isLoadingOfferings || selectedPackage == nil)
                         .padding(.horizontal)
 
                         // Restore Purchases
@@ -408,7 +434,7 @@ struct ProPaywallSheetView: View {
 
     private var ctaButtonLabel: String {
         guard let pkg = selectedPackage else {
-            return LocalizationManager.string(for: "pro_btn_subscribe", lang: lang)
+            return LocalizationManager.string(for: "listen_unlock_pro", lang: lang)
         }
 
         switch pkg.packageType {
@@ -423,7 +449,7 @@ struct ProPaywallSheetView: View {
         case .monthly:
             return String(format: LocalizationManager.string(for: "pro_btn_monthly", lang: lang), pkg.storeProduct.localizedPriceString)
         default:
-            return LocalizationManager.string(for: "pro_btn_subscribe", lang: lang)
+            return LocalizationManager.string(for: "listen_unlock_pro", lang: lang)
         }
     }
 

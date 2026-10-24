@@ -27,6 +27,7 @@ import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.SwapHoriz
 import androidx.compose.material.icons.outlined.CloudQueue
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.MicOff
@@ -59,12 +60,15 @@ import de.goork.songflip.core.cache.FavoriteToggleResult
 import de.goork.songflip.core.engine.AcousticFlipResult
 import de.goork.songflip.core.engine.AcousticQuotaManager
 import de.goork.songflip.core.engine.SongLinkEngine
+import de.goork.songflip.core.model.ResolutionResult
 import de.goork.songflip.data.AcousticRecognitionState
 import de.goork.songflip.data.AcousticRecognizer
 import de.goork.songflip.data.PackageUtils
 import de.goork.songflip.data.ProManager
 import de.goork.songflip.ui.theme.BrandSpotify
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -77,10 +81,14 @@ fun ListenAndFlipBottomSheet(
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
     val coroutineScope = rememberCoroutineScope()
+    val settingsRepository = remember(context) { de.goork.songflip.data.SettingsRepository(context) }
 
     val recognitionState by AcousticRecognizer.state.collectAsStateWithLifecycle()
     var permissionDenied by remember { mutableStateOf(false) }
     var isFavorited by remember { mutableStateOf(false) }
+    var showQuickPicker by remember { mutableStateOf(false) }
+    var quickPickerSourceUrl by remember { mutableStateOf<String?>(null) }
+    var isResolvingAlternative by remember { mutableStateOf(false) }
     var remainingFreeScans by remember(isPro) {
         mutableStateOf(AcousticQuotaManager.shared.getRemainingFreeScans(isPro = isPro))
     }
@@ -297,6 +305,11 @@ fun ListenAndFlipBottomSheet(
                                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                                     openTargetInPlayer(context, st.result.targetUrl, targetPlatformKey)
                                 },
+                                onChangeTarget = {
+                                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                    quickPickerSourceUrl = st.result.sourceUrl
+                                    showQuickPicker = true
+                                },
                                 onToggleFavorite = {
                                     haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                                     coroutineScope.launch {
@@ -385,6 +398,41 @@ fun ListenAndFlipBottomSheet(
 
             Spacer(modifier = Modifier.height(10.dp))
         }
+    }
+
+    if (showQuickPicker && quickPickerSourceUrl != null) {
+        val sUrl = quickPickerSourceUrl!!
+        val currentMatch = recognitionState as? AcousticRecognitionState.Matched
+        val matchTitle = currentMatch?.result?.title ?: ""
+        val matchArtist = currentMatch?.result?.artist ?: ""
+
+        QuickTargetPickerBottomSheet(
+            trackTitle = matchTitle,
+            artistName = matchArtist,
+            isResolving = isResolvingAlternative,
+            selectedPlatformKey = targetPlatformKey,
+            onDismissRequest = { showQuickPicker = false },
+            onPlatformSelected = { pickedTarget ->
+                showQuickPicker = false
+                isResolvingAlternative = true
+                coroutineScope.launch {
+                    val res = withContext(Dispatchers.IO) {
+                        SongLinkEngine.shared.resolveTargetUrl(
+                            inputUrl = sUrl,
+                            targetPlatformKey = pickedTarget,
+                            isPro = isPro,
+                            audiophileMode = isPro && settingsRepository.audiophileMode
+                        )
+                    }
+                    isResolvingAlternative = false
+                    if (res is ResolutionResult.Success) {
+                        openTargetInPlayer(context, res.targetUrl, pickedTarget)
+                    } else {
+                        Toast.makeText(context, context.getString(R.string.redirect_error_toast), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        )
     }
 }
 
@@ -511,6 +559,7 @@ private fun MatchedResultContent(
     isPro: Boolean,
     isFavorited: Boolean,
     onOpenInPlayer: () -> Unit,
+    onChangeTarget: () -> Unit,
     onToggleFavorite: () -> Unit,
     onShare: () -> Unit,
     onScanAnother: () -> Unit
@@ -657,6 +706,27 @@ private fun MatchedResultContent(
                 text = stringResource(R.string.listen_open_in_player, result.platformName),
                 fontWeight = FontWeight.Bold,
                 fontSize = 15.sp
+            )
+        }
+
+        // Quick Target Changer
+        TextButton(
+            onClick = onChangeTarget,
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = 40.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Filled.SwapHoriz,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.size(18.dp)
+            )
+            Spacer(modifier = Modifier.width(6.dp))
+            Text(
+                text = stringResource(R.string.listen_change_target),
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
 

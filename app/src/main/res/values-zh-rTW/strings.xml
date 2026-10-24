@@ -245,8 +245,8 @@
     <string name="app_links_btn_configure_app">在 %s 中調整</string>
     <string name="app_links_target_app_hint">來自偏好播放器 (%s) 的連結無需重定向 — 僅需設定其他服務。</string>
     <string name="setup_card_conflict_title">偵測到連結衝突</string>
-    <string name="setup_card_conflict_desc">%d 個已安裝應用會在 SongFlip 跳轉前直接打開連結。</string>
-    <string name="setup_card_conflict_badge">%d 個衝突服務</string>
+    <string name="setup_card_conflict_desc">%d 個已安裝應用程式會直接開啟連結。您可以選擇調整設定以使用 SongFlip。</string>
+    <string name="setup_card_conflict_badge">%d 個衝突服務（選填）</string>
     <string name="settings_ask_every_time_title">每次詢問目標應用</string>
     <string name="settings_ask_every_time_subtitle">顯示快速選擇器，而非直接打開預設播放器</string>
     <string name="quick_picker_title">選擇打開方式 …</string>
@@ -327,7 +327,7 @@
     <string name="feedback_cat_feature">💡 功能建議</string>
     <string name="feedback_cat_general">💬 其他意見</string>
     <string name="feedback_message_hint">請描述您遇到的問題、建議或意見...</string>
-    <string name="feedback_email_hint">您的電子郵件（選填，便於回覆）</string>
+    <string name="feedback_email_hint">電子郵件（選填）</string>
     <string name="feedback_privacy_note">零追蹤：僅傳送應用程式版本和裝置型號以利問題排查。</string>
     <string name="feedback_btn_send">送出回饋</string>
     <string name="feedback_btn_mail_fallback">改用電子郵件傳送</string>
@@ -403,4 +403,6 @@
     <string name="settings_audiophile_subtitle">優先配對錄音室母帶、Hi-Res、無損與杜比全景聲版本，避開電台剪輯與合輯</string>
     <string name="playlist_error_private_toast">無法轉換私人播放清單（請設為公開）</string>
     <string name="playlist_banner_public_notice">需要公開播放清單</string>
+    <string name="listen_change_target">變更目標</string>
+    <string name="playlist_reconvert">重新轉換</string>
 </resources>

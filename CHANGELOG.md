@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.11.4] - 2026-10-24
+- **Quick Player Selection**: Easily switch the target player directly from the song recognition and match screen.
+- **Playlist Re-conversion from History**: Convert saved playlists to a newly selected player directly from the history menu.
+- **Accurate Multi-Part Playlist Sharing**: Share links for partitioned playlists now preserve the selected playlist part.
+- **Enhanced Player Support & Interface Polish**: Extended support for alternative music players during in-app search, along with refined layouts and clarified status notices.
+
 ## [1.11.3] - 2026-10-23
 - **More Reliable Music Recognition**: Increased match accuracy for acoustic song recognition through global catalog fallback, supporting international tracks and special releases.
 - **Clearer Playlist Notices**: Clear and early notices for private or personalized playlists directly during detection and forwarding.

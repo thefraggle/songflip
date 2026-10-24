@@ -437,7 +437,9 @@ enum LocalizationManager {
             "target_player_chip": "Player: %1$@",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "Erfordert öffentliche Playlist",
-            "playlist_error_private_toast": "Private Playlists können nicht konvertiert werden (bitte auf öffentlich stellen)"
+            "playlist_error_private_toast": "Private Playlists können nicht konvertiert werden (bitte auf öffentlich stellen)",
+            "listen_change_target": "Ziel ändern",
+            "playlist_reconvert": "Neu konvertieren"
         ],
         "en": [
             "settings_audiophile_title": "Audiophile Quality Priority",
@@ -873,7 +875,9 @@ enum LocalizationManager {
             "target_player_chip": "Player: %1$@",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "Requires public playlist",
-            "playlist_error_private_toast": "Private playlists cannot be converted (please set to public)"
+            "playlist_error_private_toast": "Private playlists cannot be converted (please set to public)",
+            "listen_change_target": "Change target",
+            "playlist_reconvert": "Re-convert"
         ],
         "da": [
             "settings_audiophile_title": "Audiofil kvalitetsprioritering",
@@ -1306,7 +1310,9 @@ enum LocalizationManager {
             "target_player_chip": "Afspiller: %1$@",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "Kræver offentlig playliste",
-            "playlist_error_private_toast": "Private playlister kan ikke konverteres (gør dem venligst offentlige)"
+            "playlist_error_private_toast": "Private playlister kan ikke konverteres (gør dem venligst offentlige)",
+            "listen_change_target": "Skift destination",
+            "playlist_reconvert": "Genkonverter"
         ],
         "nb": [
             "settings_audiophile_title": "Audiofil kvalitetsprioritering",
@@ -1739,7 +1745,9 @@ enum LocalizationManager {
             "target_player_chip": "Avspiller: %1$@",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "Krever offentlig spilleliste",
-            "playlist_error_private_toast": "Private spillelister kan ikke konverteres (vennligst gjør dem offentlige)"
+            "playlist_error_private_toast": "Private spillelister kan ikke konverteres (vennligst gjør dem offentlige)",
+            "listen_change_target": "Endre mål",
+            "playlist_reconvert": "Konverter på nytt"
         ],
         "sv": [
             "settings_audiophile_title": "Audiofil kvalitetsprioritering",
@@ -2172,7 +2180,9 @@ enum LocalizationManager {
             "target_player_chip": "Spelare: %1$@",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "Kräver offentlig spellista",
-            "playlist_error_private_toast": "Privata spellistor kan inte konverteras (ställ in som offentlig)"
+            "playlist_error_private_toast": "Privata spellistor kan inte konverteras (ställ in som offentlig)",
+            "listen_change_target": "Ändra mål",
+            "playlist_reconvert": "Konvertera igen"
         ],
         "nl": [
             "settings_audiophile_title": "Audiofiele kwaliteitsprioriteit",
@@ -2605,7 +2615,9 @@ enum LocalizationManager {
             "target_player_chip": "Speler: %1$@",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "Vereist openbare afspeellijst",
-            "playlist_error_private_toast": "Privé-afspeellijsten kunnen niet worden geconverteerd (stel in op openbaar)"
+            "playlist_error_private_toast": "Privé-afspeellijsten kunnen niet worden geconverteerd (stel in op openbaar)",
+            "listen_change_target": "Doel wijzigen",
+            "playlist_reconvert": "Opnieuw converteren"
         ],
         "fr": [
             "settings_audiophile_title": "Priorité qualité audiophile",
@@ -3038,7 +3050,9 @@ enum LocalizationManager {
             "target_player_chip": "Lecteur : %1$@",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "Nécessite une playlist publique",
-            "playlist_error_private_toast": "Les playlists privées ne peuvent pas être converties (veuillez la rendre publique)"
+            "playlist_error_private_toast": "Les playlists privées ne peuvent pas être converties (veuillez la rendre publique)",
+            "listen_change_target": "Changer de cible",
+            "playlist_reconvert": "Reconvertir"
         ],
         "es": [
             "settings_audiophile_title": "Prioridad de calidad audiófila",
@@ -3471,7 +3485,9 @@ enum LocalizationManager {
             "target_player_chip": "Reproductor: %1$@",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "Requiere playlist pública",
-            "playlist_error_private_toast": "Las playlists privadas no se pueden convertir (por favor, ponla en público)"
+            "playlist_error_private_toast": "Las playlists privadas no se pueden convertir (por favor, ponla en público)",
+            "listen_change_target": "Cambiar destino",
+            "playlist_reconvert": "Reconvertir"
         ],
         "it": [
             "settings_audiophile_title": "Priorità qualità audiofila",
@@ -3904,7 +3920,9 @@ enum LocalizationManager {
             "target_player_chip": "Lettore: %1$@",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "Richiede playlist pubblica",
-            "playlist_error_private_toast": "Le playlist private non possono essere convertite (impostale come pubbliche)"
+            "playlist_error_private_toast": "Le playlist private non possono essere convertite (impostale come pubbliche)",
+            "listen_change_target": "Cambia destinazione",
+            "playlist_reconvert": "Riconverti"
         ],
         "pt": [
             "settings_audiophile_title": "Prioridade de qualidade audiófila",
@@ -4337,7 +4355,9 @@ enum LocalizationManager {
             "target_player_chip": "Player: %1$@",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "Requer playlist pública",
-            "playlist_error_private_toast": "Playlists privadas não podem ser convertidas (por favor, defina como pública)"
+            "playlist_error_private_toast": "Playlists privadas não podem ser convertidas (por favor, defina como pública)",
+            "listen_change_target": "Mudar destino",
+            "playlist_reconvert": "Reconverter"
         ],
         "pl": [
             "settings_audiophile_title": "Priorytet jakości audiofilskiej",
@@ -4770,7 +4790,9 @@ enum LocalizationManager {
             "target_player_chip": "Odtwarzacz: %1$@",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "Wymaga publicznej playlisty",
-            "playlist_error_private_toast": "Prywatne playlisty nie mogą być konwertowane (ustaw jako publiczne)"
+            "playlist_error_private_toast": "Prywatne playlisty nie mogą być konwertowane (ustaw jako publiczne)",
+            "listen_change_target": "Zmień cel",
+            "playlist_reconvert": "Konwertuj ponownie"
         ],
         "ru": [
             "settings_audiophile_title": "Аудиофильский приоритет качества",
@@ -5203,7 +5225,9 @@ enum LocalizationManager {
             "target_player_chip": "Плеер: %1$@",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "Требуется публичный плейлист",
-            "playlist_error_private_toast": "Приватные плейлисты нельзя конвертировать (пожалуйста, сделайте их публичными)"
+            "playlist_error_private_toast": "Приватные плейлисты нельзя конвертировать (пожалуйста, сделайте их публичными)",
+            "listen_change_target": "Сменить цель",
+            "playlist_reconvert": "Сконвертировать снова"
         ],
         "tr": [
             "settings_audiophile_title": "Odyofil Kalite Önceliği",
@@ -5636,7 +5660,9 @@ enum LocalizationManager {
             "target_player_chip": "Oynatıcı: %1$@",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "Herkese açık çalma listesi gerekir",
-            "playlist_error_private_toast": "Gizli çalma listeleri dönüştürülemez (lütfen herkese açık yapın)"
+            "playlist_error_private_toast": "Gizli çalma listeleri dönüştürülemez (lütfen herkese açık yapın)",
+            "listen_change_target": "Hedefi değiştir",
+            "playlist_reconvert": "Yeniden dönüştür"
         ],
         "uk": [
             "settings_audiophile_title": "Аудіофільський пріоритет якості",
@@ -6069,7 +6095,9 @@ enum LocalizationManager {
             "target_player_chip": "Плеєр: %1$@",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "Потрібен публічний плейліст",
-            "playlist_error_private_toast": "Приватні плейлісти не можна конвертувати (будь ласка, зробіть їх публічними)"
+            "playlist_error_private_toast": "Приватні плейлісти не можна конвертувати (будь ласка, зробіть їх публічними)",
+            "listen_change_target": "Змінити ціль",
+            "playlist_reconvert": "Переконвертувати"
         ],
         "ja": [
             "settings_audiophile_title": "オーディオファイル音質優先",
@@ -6502,7 +6530,9 @@ enum LocalizationManager {
             "target_player_chip": "プレーヤー: %1$@",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "公開プレイリストが必要です",
-            "playlist_error_private_toast": "非公開プレイリストは変換できません（公開に設定してください）"
+            "playlist_error_private_toast": "非公開プレイリストは変換できません（公開に設定してください）",
+            "listen_change_target": "ターゲットを変更",
+            "playlist_reconvert": "再変換"
         ],
         "ko": [
             "settings_audiophile_title": "오디오파일 음질 우선",
@@ -6935,7 +6965,9 @@ enum LocalizationManager {
             "target_player_chip": "플레이어: %1$@",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "공개 재생목록 필요",
-            "playlist_error_private_toast": "비공개 재생목록은 변환할 수 없습니다 (공개로 설정해 주세요)"
+            "playlist_error_private_toast": "비공개 재생목록은 변환할 수 없습니다 (공개로 설정해 주세요)",
+            "listen_change_target": "타겟 변경",
+            "playlist_reconvert": "다시 변환"
         ],
         "zh": [
             "settings_audiophile_title": "发烧级音质优先",
@@ -7368,7 +7400,9 @@ enum LocalizationManager {
             "target_player_chip": "播放器: %1$@",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "需要公开歌单",
-            "playlist_error_private_toast": "无法转换私人歌单（请设置为公开）"
+            "playlist_error_private_toast": "无法转换私人歌单（请设置为公开）",
+            "listen_change_target": "更改目标",
+            "playlist_reconvert": "重新转换"
         ],
         "in": [
             "settings_audiophile_title": "Prioritas Kualitas Audiofil",
@@ -7801,7 +7835,9 @@ enum LocalizationManager {
             "target_player_chip": "Pemutar: %1$@",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "Memerlukan daftar putar publik",
-            "playlist_error_private_toast": "Daftar putar pribadi tidak dapat dikonversi (harap ubah ke publik)"
+            "playlist_error_private_toast": "Daftar putar pribadi tidak dapat dikonversi (harap ubah ke publik)",
+            "listen_change_target": "Ubah tujuan",
+            "playlist_reconvert": "Konversi ulang"
         ],
         "vi": [
             "settings_audiophile_title": "Ưu tiên chất lượng Audiophile",
@@ -8234,7 +8270,9 @@ enum LocalizationManager {
             "target_player_chip": "Trình phát: %1$@",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "Yêu cầu danh sách phát công khai",
-            "playlist_error_private_toast": "Danh sách phát riêng tư không thể chuyển đổi (vui lòng đặt thành công khai)"
+            "playlist_error_private_toast": "Danh sách phát riêng tư không thể chuyển đổi (vui lòng đặt thành công khai)",
+            "listen_change_target": "Đổi đích đến",
+            "playlist_reconvert": "Chuyển đổi lại"
         ],
         "bn": [
             "settings_audiophile_title": "অডিওফাইল কোয়ালিটি অগ্রাধিকার",
@@ -8667,7 +8705,9 @@ enum LocalizationManager {
             "target_player_chip": "প্লেয়ার: %1$@",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "সর্বজনীন প্লেলিস্ট প্রয়োজন",
-            "playlist_error_private_toast": "ব্যক্তিগত প্লেলিস্ট রূপান্তর করা যাবে না (অনুগ্রহ করে সর্বজনীন করুন)"
+            "playlist_error_private_toast": "ব্যক্তিগত প্লেলিস্ট রূপান্তর করা যাবে না (অনুগ্রহ করে সর্বজনীন করুন)",
+            "listen_change_target": "টার্গেট পরিবর্তন করুন",
+            "playlist_reconvert": "পুনরায় রূপান্তর করুন"
         ],
         "hi": [
             "settings_audiophile_title": "ऑडियोफाइल क्वालिटी प्राथमिकता",
@@ -9100,7 +9140,9 @@ enum LocalizationManager {
             "target_player_chip": "प्लेयर: %1$@",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "सार्वजनिक प्लेलिस्ट आवश्यक है",
-            "playlist_error_private_toast": "निजी प्लेलिस्ट को रूपांतरित नहीं किया जा सकता (कृपया सार्वजनिक करें)"
+            "playlist_error_private_toast": "निजी प्लेलिस्ट को रूपांतरित नहीं किया जा सकता (कृपया सार्वजनिक करें)",
+            "listen_change_target": "लक्ष्य बदलें",
+            "playlist_reconvert": "पुनः कनवर्ट करें"
         ],
         "mr": [
             "settings_audiophile_title": "ऑडिओफाइल गुणवत्ता प्राधान्य",
@@ -9533,7 +9575,9 @@ enum LocalizationManager {
             "target_player_chip": "प्लेअर: %1$@",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "सार्वजनिक प्लेलिस्ट आवश्यक आहे",
-            "playlist_error_private_toast": "खाजगी प्लेलिस्ट रूपांतरित केल्या जाऊ शकत नाहीत (कृपया सार्वजनिक करा)"
+            "playlist_error_private_toast": "खाजगी प्लेलिस्ट रूपांतरित केल्या जाऊ शकत नाहीत (कृपया सार्वजनिक करा)",
+            "listen_change_target": "लक्ष्य बदला",
+            "playlist_reconvert": "पुन्हा रूपांतरित करा"
         ],
         "cs": [
             "settings_audiophile_title": "Audiofilská priorita kvality",
@@ -9966,7 +10010,9 @@ enum LocalizationManager {
             "history_playlist_tracks_summary": "%1$d/%2$d skladeb",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "Vyžaduje veřejný playlist",
-            "playlist_error_private_toast": "Soukromé playlisty nelze převést (nastavte je na veřejné)"
+            "playlist_error_private_toast": "Soukromé playlisty nelze převést (nastavte je na veřejné)",
+            "listen_change_target": "Změnit cíl",
+            "playlist_reconvert": "Znovu převést"
         ],
         "el": [
             "settings_audiophile_title": "Προτεραιότητα ποιότητας Audiophile",
@@ -10399,7 +10445,9 @@ enum LocalizationManager {
             "history_playlist_tracks_summary": "%1$d/%2$d τραγούδια",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "Απαιτείται δημόσια λίστα αναπαραγωγής",
-            "playlist_error_private_toast": "Οι ιδιωτικές λίστες αναπαραγωγής δεν μπορούν να μετατραπούν (ορίστε τις ως δημόσιες)"
+            "playlist_error_private_toast": "Οι ιδιωτικές λίστες αναπαραγωγής δεν μπορούν να μετατραπούν (ορίστε τις ως δημόσιες)",
+            "listen_change_target": "Αλλαγή προορισμού",
+            "playlist_reconvert": "Επαναμετατροπή"
         ],
         "fi": [
             "settings_audiophile_title": "Audiofiilinen laatuprioriteetti",
@@ -10832,7 +10880,9 @@ enum LocalizationManager {
             "history_playlist_tracks_summary": "%1$d/%2$d kappaletta",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "Vaatii julkisen soittolistan",
-            "playlist_error_private_toast": "Yksityisiä soittolistoja ei voi muuntaa (aseta julkiseksi)"
+            "playlist_error_private_toast": "Yksityisiä soittolistoja ei voi muuntaa (aseta julkiseksi)",
+            "listen_change_target": "Vaihda kohdetta",
+            "playlist_reconvert": "Muunna uudelleen"
         ],
         "hu": [
             "settings_audiophile_title": "Audiofil minőség előnyben",
@@ -11265,7 +11315,9 @@ enum LocalizationManager {
             "history_playlist_tracks_summary": "%1$d/%2$d dal",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "Nyilvános lejátszási lista szükséges",
-            "playlist_error_private_toast": "Privát lejátszási listák nem konvertálhatók (kérjük, állítsa nyilvánosra)"
+            "playlist_error_private_toast": "Privát lejátszási listák nem konvertálhatók (kérjük, állítsa nyilvánosra)",
+            "listen_change_target": "Cél módosítása",
+            "playlist_reconvert": "Újrakonvertálás"
         ],
         "ro": [
             "settings_audiophile_title": "Prioritate calitate audiofilă",
@@ -11698,7 +11750,9 @@ enum LocalizationManager {
             "history_playlist_tracks_summary": "%1$d/%2$d melodii",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "Necesită playlist public",
-            "playlist_error_private_toast": "Playlisturile private nu pot fi convertite (vă rugăm să le setați ca publice)"
+            "playlist_error_private_toast": "Playlisturile private nu pot fi convertite (vă rugăm să le setați ca publice)",
+            "listen_change_target": "Schimbă destinația",
+            "playlist_reconvert": "Reconvertește"
         ],
         "th": [
             "settings_audiophile_title": "จัดลำดับความสำคัญคุณภาพเสียง Audiophile",
@@ -12131,7 +12185,9 @@ enum LocalizationManager {
             "history_playlist_tracks_summary": "%1$d/%2$d เพลง",
             "target_qobuz": "Qobuz",
             "playlist_banner_public_notice": "ต้องใช้เพลย์ลิสต์สาธารณะ",
-            "playlist_error_private_toast": "ไม่สามารถแปลงเพลย์ลิสต์ส่วนตัวได้ (โปรดตั้งค่าเป็นสาธารณะ)"
+            "playlist_error_private_toast": "ไม่สามารถแปลงเพลย์ลิสต์ส่วนตัวได้ (โปรดตั้งค่าเป็นสาธารณะ)",
+            "listen_change_target": "เปลี่ยนปลายทาง",
+            "playlist_reconvert": "แปลงอีกครั้ง"
         ],
     ]
 

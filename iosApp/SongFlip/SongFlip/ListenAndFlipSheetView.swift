@@ -13,6 +13,9 @@ struct ListenAndFlipSheetView: View {
     @State private var isFavorited = false
     @State private var showingFavoriteLimitAlert = false
     @State private var pulseScale: CGFloat = 1.0
+    @State private var showingQuickPicker = false
+    @State private var pickerUrl: String? = nil
+    @State private var isResolvingAlternative = false
 
     private var lang: String { settings.selectedLanguage }
 
@@ -92,6 +95,56 @@ struct ListenAndFlipSheetView: View {
             }
             .onDisappear {
                 recognizer.stopListening()
+            }
+            .sheet(isPresented: $showingQuickPicker) {
+                if let pUrl = pickerUrl {
+                    QuickTargetPickerSheetView(
+                        url: pUrl,
+                        lang: lang,
+                        onSelectTarget: { chosenPlatform in
+                            showingQuickPicker = false
+                            isResolvingAlternative = true
+                            Task {
+                                let res = try? await settings.engine.resolveTargetUrl(
+                                    inputUrl: pUrl,
+                                    targetPlatformKey: chosenPlatform,
+                                    customApiUrl: settings.customApiUrl,
+                                    customApiToken: settings.customApiToken,
+                                    isPro: proManager.isPro,
+                                    authToken: proManager.authToken,
+                                    isPrefetch: false,
+                                    forceRefresh: false,
+                                    audiophileMode: proManager.isPro && settings.audiophileMode
+                                )
+                                await MainActor.run {
+                                    isResolvingAlternative = false
+                                    if let success = res as? ResolutionResultSuccess {
+                                        settings.openResolvedTarget(
+                                            targetUrl: success.targetUrl,
+                                            nativeAppUri: success.nativeAppUri,
+                                            platformKey: chosenPlatform,
+                                            title: success.title,
+                                            artist: success.artist
+                                        )
+                                    } else {
+                                        let fallbackUrl = UrlUtils.shared.toWebFallbackUrl(rawUrl: pUrl, targetPlatformKey: chosenPlatform)
+                                        settings.openResolvedTarget(
+                                            targetUrl: fallbackUrl,
+                                            nativeAppUri: nil,
+                                            platformKey: chosenPlatform,
+                                            title: nil,
+                                            artist: nil
+                                        )
+                                    }
+                                }
+                            }
+                        },
+                        onDismiss: {
+                            showingQuickPicker = false
+                        }
+                    )
+                    .preferredColorScheme(settings.colorScheme)
+                }
             }
         }
         .presentationDetents([.medium, .large])
@@ -331,6 +384,30 @@ struct ListenAndFlipSheetView: View {
                 .cornerRadius(14)
             }
             .buttonStyle(.plain)
+
+            // Switch / Change Target Player Action
+            Button(action: {
+                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                pickerUrl = result.sourceUrl
+                showingQuickPicker = true
+            }) {
+                HStack(spacing: 6) {
+                    if isResolvingAlternative {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .green))
+                            .scaleEffect(0.8)
+                    } else {
+                        Image(systemName: "arrow.triangle.branch")
+                            .font(.system(size: 13, weight: .semibold))
+                    }
+                    Text(LocalizationManager.string(for: "listen_change_target", lang: lang))
+                        .font(.subheadline.weight(.semibold))
+                }
+                .foregroundColor(.green)
+                .padding(.vertical, 2)
+            }
+            .buttonStyle(.plain)
+            .disabled(isResolvingAlternative)
 
             // Secondary Row: Favorite + Share
             HStack(spacing: 12) {

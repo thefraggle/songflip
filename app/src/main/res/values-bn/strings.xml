@@ -263,8 +263,8 @@
     <string name="app_links_btn_configure_app">%s এ সমন্বয় করুন</string>
     <string name="app_links_target_app_hint">আপনার প্রিয় প্লেয়ার (%s) থেকে লিঙ্ক পুনর্নির্দেশ করার প্রয়োজন নেই — কেবল অন্যান্য পরিষেবা কনফিগার করুন।</string>
     <string name="setup_card_conflict_title">লিঙ্ক দ্বন্দ্ব সনাক্ত হয়েছে</string>
-    <string name="setup_card_conflict_desc">%d ইনস্টল করা অ্যাপ সরাসরি লিঙ্ক খোলে SongFlip রিডাইরেক্ট করার আগেই।</string>
-    <string name="setup_card_conflict_badge">%d বিরোধপূর্ণ পরিষেবা</string>
+    <string name="setup_card_conflict_desc">%d ইনস্টল করা অ্যাপ সরাসরি লিঙ্ক খোলে। SongFlip ব্যবহার করতে আপনি ঐচ্ছিকভাবে এটি সামঞ্জস্য করতে পারেন।</string>
+    <string name="setup_card_conflict_badge">%d বিরোধপূর্ণ পরিষেবা (ঐচ্ছিক)</string>
     <string name="settings_ask_every_time_title">প্রতিবার লক্ষ্য অ্যাপ জিজ্ঞাসা করুন</string>
     <string name="settings_ask_every_time_subtitle">ডিফল্ট প্লেয়ার সরাসরি খোলার পরিবর্তে দ্রুত নির্বাচক দেখান</string>
     <string name="quick_picker_title">এর মাধ্যমে খুলুন …</string>
@@ -345,7 +345,7 @@
     <string name="feedback_cat_feature">💡 ধারণা</string>
     <string name="feedback_cat_general">💬 সাধারণ</string>
     <string name="feedback_message_hint">আপনার সমস্যা, ধারণা বা প্রতিক্রিয়া বর্ণনা করুন...</string>
-    <string name="feedback_email_hint">আপনার ইমেল (ঐচ্ছিক, উত্তরের জন্য)</string>
+    <string name="feedback_email_hint">আপনার ইমেল (ঐচ্ছিক)</string>
     <string name="feedback_privacy_note">শূন্য ট্র্যাকিং: সমস্যা সমাধানের জন্য শুধুমাত্র অ্যাপ সংস্করণ ও ডিভাইস মডেল পাঠানো হয়।</string>
     <string name="feedback_btn_send">প্রতিক্রিয়া পাঠান</string>
     <string name="feedback_btn_mail_fallback">এর পরিবর্তে ইমেল লিখুন</string>
@@ -421,4 +421,6 @@
     <string name="settings_audiophile_subtitle">রেডিও এডিট ও সংকলনের বদলে স্টুডিও মাস্টার, Hi-Res, Lossless ও Dolby Atmos প্রাধান্য দিন</string>
     <string name="playlist_error_private_toast">ব্যক্তিগত প্লেলিস্ট রূপান্তর করা যাবে না (অনুগ্রহ করে সর্বজনীন করুন)</string>
     <string name="playlist_banner_public_notice">সর্বজনীন প্লেলিস্ট প্রয়োজন</string>
+    <string name="listen_change_target">টার্গেট পরিবর্তন করুন</string>
+    <string name="playlist_reconvert">পুনরায় রূপান্তর করুন</string>
 </resources>

@@ -259,8 +259,8 @@
     <string name="app_links_btn_configure_app">%sで設定</string>
     <string name="app_links_target_app_hint">お気に入りプレーヤー (%s) のリンクは転送不要です。他のサービスのみ設定してください。</string>
     <string name="setup_card_conflict_title">リンクの競合を検出</string>
-    <string name="setup_card_conflict_desc">%d個のアプリがSongFlipの転送前に直接リンクを開いています。</string>
-    <string name="setup_card_conflict_badge">%d件の競合サービス</string>
+    <string name="setup_card_conflict_desc">%d個のインストール済みアプリがリンクを直接開きます。SongFlipを使用するために任意で調整できます。</string>
+    <string name="setup_card_conflict_badge">%d件の競合サービス（任意）</string>
     <string name="settings_ask_every_time_title">毎回再生アプリを確認</string>
     <string name="settings_ask_every_time_subtitle">デフォルトのプレーヤーをすぐに開かずクイック選択を表示</string>
     <string name="quick_picker_title">次で開く …</string>
@@ -341,7 +341,7 @@
     <string name="feedback_cat_feature">💡 アイデア</string>
     <string name="feedback_cat_general">💬 その他</string>
     <string name="feedback_message_hint">問題、ご要望、ご意見をご記入ください...</string>
-    <string name="feedback_email_hint">メールアドレス（返信をご希望の場合）</string>
+    <string name="feedback_email_hint">メールアドレス（任意）</string>
     <string name="feedback_privacy_note">トラッキングゼロ：アプリのバージョンと端末モデルのみ送信されます。</string>
     <string name="feedback_btn_send">フィードバックを送信</string>
     <string name="feedback_btn_mail_fallback">メールで送信する</string>
@@ -417,4 +417,6 @@
     <string name="settings_audiophile_subtitle">ラジオエディットやコンピレーションよりもスタジオマスター、Hi-Res、Lossless、Dolby Atmosを優先します</string>
     <string name="playlist_error_private_toast">非公開プレイリストは変換できません（公開に設定してください）</string>
     <string name="playlist_banner_public_notice">公開プレイリストが必要です</string>
+    <string name="listen_change_target">ターゲットを変更</string>
+    <string name="playlist_reconvert">再変換</string>
 </resources>

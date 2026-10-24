@@ -259,8 +259,8 @@
     <string name="app_links_btn_configure_app">%s에서 설정</string>
     <string name="app_links_target_app_hint">기본 플레이어(%s)의 링크는 리디렉션할 필요가 없습니다. 다른 서비스만 설정하세요.</string>
     <string name="setup_card_conflict_title">링크 충돌 감지됨</string>
-    <string name="setup_card_conflict_desc">%d개의 설치된 앱이 SongFlip 리디렉션 전에 링크를 직접 엽니다.</string>
-    <string name="setup_card_conflict_badge">%d개 충돌 서비스</string>
+    <string name="setup_card_conflict_desc">설치된 앱 %d개가 링크를 직접 엽니다. SongFlip을 사용하도록 선택적으로 변경할 수 있습니다。</string>
+    <string name="setup_card_conflict_badge">충돌하는 서비스 %d개 (선택 사항)</string>
     <string name="settings_ask_every_time_title">매번 대상 앱 묻기</string>
     <string name="settings_ask_every_time_subtitle">기본 플레이어를 바로 열지 않고 빠른 선택 표시</string>
     <string name="quick_picker_title">다음으로 열기 …</string>
@@ -341,7 +341,7 @@
     <string name="feedback_cat_feature">💡 제안</string>
     <string name="feedback_cat_general">💬 일반</string>
     <string name="feedback_message_hint">문제, 제안 또는 의견을 입력해주세요...</string>
-    <string name="feedback_email_hint">이메일 (답변 희망 시 입력)</string>
+    <string name="feedback_email_hint">이메일 (선택 사항)</string>
     <string name="feedback_privacy_note">제로 트래킹: 앱 버전과 기기 모델 정보만 전송됩니다.</string>
     <string name="feedback_btn_send">피드백 보내기</string>
     <string name="feedback_btn_mail_fallback">이메일로 보내기</string>
@@ -417,4 +417,6 @@
     <string name="settings_audiophile_subtitle">라디오 에디트 및 컴필레이션 대신 스튜디오 마스터, Hi-Res, Lossless 및 Dolby Atmos 버전을 우선 선택합니다</string>
     <string name="playlist_error_private_toast">비공개 재생목록은 변환할 수 없습니다 (공개로 설정해 주세요)</string>
     <string name="playlist_banner_public_notice">공개 재생목록 필요</string>
+    <string name="listen_change_target">타겟 변경</string>
+    <string name="playlist_reconvert">다시 변환</string>
 </resources>

@@ -263,8 +263,8 @@
     <string name="app_links_btn_configure_app">Ajuster dans %s</string>
     <string name="app_links_target_app_hint">Les liens de votre lecteur préféré (%s) n\'ont pas besoin de redirection — configurez uniquement les autres services.</string>
     <string name="setup_card_conflict_title">Conflits de liens détectés</string>
-    <string name="setup_card_conflict_desc">%d application(s) installée(s) ouvrent les liens directement avant que SongFlip ne puisse les rediriger.</string>
-    <string name="setup_card_conflict_badge">%d service(s) en conflit</string>
+    <string name="setup_card_conflict_desc">%d application(s) installée(s) ouvrent les liens directement. Vous pouvez éventuellement ajuster cela pour utiliser SongFlip.</string>
+    <string name="setup_card_conflict_badge">%d service(s) en conflit (facultatif)</string>
     <string name="settings_ask_every_time_title">Demander l\'application cible à chaque fois</string>
     <string name="settings_ask_every_time_subtitle">Afficher un sélecteur rapide au lieu d\'ouvrir immédiatement le lecteur par défaut</string>
     <string name="quick_picker_title">Ouvrir avec …</string>
@@ -345,7 +345,7 @@
     <string name="feedback_cat_feature">💡 Idée</string>
     <string name="feedback_cat_general">💬 Général</string>
     <string name="feedback_message_hint">Décrivez votre problème, idée ou commentaire...</string>
-    <string name="feedback_email_hint">Votre e-mail (facultatif, pour réponse)</string>
+    <string name="feedback_email_hint">Votre e-mail (facultatif)</string>
     <string name="feedback_privacy_note">Zéro traçage : Seuls la version de l\'application et le modèle d\'appareil sont transmis.</string>
     <string name="feedback_btn_send">Envoyer les commentaires</string>
     <string name="feedback_btn_mail_fallback">Écrire par e-mail à la place</string>
@@ -421,4 +421,6 @@
     <string name="settings_audiophile_subtitle">Privilégier les masters studio, Hi-Res, Lossless et Dolby Atmos aux versions radio et compilations</string>
     <string name="playlist_error_private_toast">Les playlists privées ne peuvent pas être converties (veuillez la rendre publique)</string>
     <string name="playlist_banner_public_notice">Nécessite une playlist publique</string>
+    <string name="listen_change_target">Changer de cible</string>
+    <string name="playlist_reconvert">Reconvertir</string>
 </resources>

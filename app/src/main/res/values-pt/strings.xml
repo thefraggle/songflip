@@ -263,8 +263,8 @@
     <string name="app_links_btn_configure_app">Ajustar em %s</string>
     <string name="app_links_target_app_hint">Links do seu reprodutor favorito (%s) não precisam de redirecionamento — configure apenas outros serviços.</string>
     <string name="setup_card_conflict_title">Conflitos de links detectados</string>
-    <string name="setup_card_conflict_desc">%d aplicativo(s) instalado(s) abrem links diretamente antes que o SongFlip possa redirecioná-los.</string>
-    <string name="setup_card_conflict_badge">%d serviço(s) em conflito</string>
+    <string name="setup_card_conflict_desc">%d aplicativo(s) instalado(s) abrem links diretamente. Você pode opcionalmente ajustar isso para usar o SongFlip.</string>
+    <string name="setup_card_conflict_badge">%d serviço(s) em conflito (opcional)</string>
     <string name="settings_ask_every_time_title">Perguntar app de destino sempre</string>
     <string name="settings_ask_every_time_subtitle">Mostrar seletor rápido em vez de abrir logo o leitor padrão</string>
     <string name="quick_picker_title">Abrir com …</string>
@@ -345,7 +345,7 @@
     <string name="feedback_cat_feature">💡 Ideia</string>
     <string name="feedback_cat_general">💬 Geral</string>
     <string name="feedback_message_hint">Descreva o problema, ideia ou sugestão...</string>
-    <string name="feedback_email_hint">Seu e-mail (opcional, para resposta)</string>
+    <string name="feedback_email_hint">Seu e-mail (opcional)</string>
     <string name="feedback_privacy_note">Zero rastreamento: Apenas versão do app e modelo do aparelho são enviados.</string>
     <string name="feedback_btn_send">Enviar feedback</string>
     <string name="feedback_btn_mail_fallback">Preferir escrever por e-mail</string>
@@ -421,4 +421,6 @@
     <string name="settings_audiophile_subtitle">Preferir masters de estúdio, Hi-Res, Lossless e Dolby Atmos em vez de edições de rádio e coletâneas</string>
     <string name="playlist_error_private_toast">Playlists privadas não podem ser convertidas (por favor, defina como pública)</string>
     <string name="playlist_banner_public_notice">Requer playlist pública</string>
+    <string name="listen_change_target">Mudar destino</string>
+    <string name="playlist_reconvert">Reconverter</string>
 </resources>

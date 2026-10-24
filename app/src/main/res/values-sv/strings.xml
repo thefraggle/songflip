@@ -263,8 +263,8 @@
     <string name="app_links_btn_configure_app">Justera i %s</string>
     <string name="app_links_target_app_hint">Länkar från din favoritspelare (%s) behöver inte omdirigeras – konfigurera bara andra tjänster.</string>
     <string name="setup_card_conflict_title">Länkkonflikter upptäcktes</string>
-    <string name="setup_card_conflict_desc">%d installerade app(ar) öppnar länkar direkt innan SongFlip kan omdirigera dem.</string>
-    <string name="setup_card_conflict_badge">%d motstridig(a) tjänst(er)</string>
+    <string name="setup_card_conflict_desc">%d installerade appar öppnar länkar direkt. Du kan valfritt justera detta för att använda SongFlip.</string>
+    <string name="setup_card_conflict_badge">%d konfliktande tjänst(er) (valfritt)</string>
     <string name="settings_ask_every_time_title">Fråga efter målapp varje gång</string>
     <string name="settings_ask_every_time_subtitle">Visa snabbval istället för att direkt öppna standardspelaren</string>
     <string name="quick_picker_title">Öppna med …</string>
@@ -345,7 +345,7 @@
     <string name="feedback_cat_feature">💡 Idé</string>
     <string name="feedback_cat_general">💬 Allmänt</string>
     <string name="feedback_message_hint">Beskriv ditt problem, din idé eller feedback...</string>
-    <string name="feedback_email_hint">Din e-post (valfritt, för svar)</string>
+    <string name="feedback_email_hint">Din e-post (valfritt)</string>
     <string name="feedback_privacy_note">Noll spårning: Endast appversion och enhetsmodell skickas.</string>
     <string name="feedback_btn_send">Skicka feedback</string>
     <string name="feedback_btn_mail_fallback">Skriv hellre ett e-postmeddelande</string>
@@ -421,4 +421,6 @@
     <string name="settings_audiophile_subtitle">Föredra studiomasters, Hi-Res, Lossless &amp; Dolby Atmos framför radio-edits och samlingar</string>
     <string name="playlist_error_private_toast">Privata spellistor kan inte konverteras (ställ in som offentlig)</string>
     <string name="playlist_banner_public_notice">Kräver offentlig spellista</string>
+    <string name="listen_change_target">Ändra mål</string>
+    <string name="playlist_reconvert">Konvertera igen</string>
 </resources>

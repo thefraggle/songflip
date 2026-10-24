@@ -271,8 +271,8 @@
     <string name="app_links_btn_configure_app">Налаштувати в %s</string>
     <string name="app_links_target_app_hint">Посилання з вашого улюбленого плеєра (%s) не потребують перенаправлення — налаштуйте лише інші сервіси.</string>
     <string name="setup_card_conflict_title">Виявлено конфлікти посилань</string>
-    <string name="setup_card_conflict_desc">%d встановл. додатків відкривають посилання напряму до перенаправлення SongFlip.</string>
-    <string name="setup_card_conflict_badge">%d конфліктних сервіси(-ів)</string>
+    <string name="setup_card_conflict_desc">%d встановлених додатків відкривають посилання напряму. Ви можете налаштувати це за бажанням, щоб використовувати SongFlip.</string>
+    <string name="setup_card_conflict_badge">%d конфліктних служб (необовʼязково)</string>
     <string name="settings_ask_every_time_title">Запитувати цільовий додаток щоразу</string>
     <string name="settings_ask_every_time_subtitle">Показувати швидкий вибір замість негайного відкриття типового плеєра</string>
     <string name="quick_picker_title">Відкрити за допомогою …</string>
@@ -353,7 +353,7 @@
     <string name="feedback_cat_feature">💡 Ідея</string>
     <string name="feedback_cat_general">💬 Загальне</string>
     <string name="feedback_message_hint">Опишіть проблему, ідею або відгук...</string>
-    <string name="feedback_email_hint">Ваш e-mail (необов\'язково, для відповіді)</string>
+    <string name="feedback_email_hint">Ваш email (необовʼязково)</string>
     <string name="feedback_privacy_note">Нуль відстеження: Передаються лише версія додатка та модель пристрою.</string>
     <string name="feedback_btn_send">Надіслати відгук</string>
     <string name="feedback_btn_mail_fallback">Написати на e-mail</string>
@@ -429,4 +429,6 @@
     <string name="settings_audiophile_subtitle">Надавати перевагу студійним оригіналам, Hi-Res, Lossless і Dolby Atmos замість радіо-версій та збірок</string>
     <string name="playlist_error_private_toast">Приватні плейлісти не можна конвертувати (будь ласка, зробіть їх публічними)</string>
     <string name="playlist_banner_public_notice">Потрібен публічний плейліст</string>
+    <string name="listen_change_target">Змінити ціль</string>
+    <string name="playlist_reconvert">Переконвертувати</string>
 </resources>

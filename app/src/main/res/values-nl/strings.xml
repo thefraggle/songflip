@@ -263,8 +263,8 @@
     <string name="app_links_btn_configure_app">Aanpassen in %s</string>
     <string name="app_links_target_app_hint">Links van je favoriete speler (%s) hoeven niet omgeleid te worden — pas alleen andere diensten aan.</string>
     <string name="setup_card_conflict_title">Linkconflicten gedetecteerd</string>
-    <string name="setup_card_conflict_desc">%d geïnstalleerde app(s) openen links direct voordat SongFlip ze kan omleiden.</string>
-    <string name="setup_card_conflict_badge">%d conflicterende dienst(en)</string>
+    <string name="setup_card_conflict_desc">%d geïnstalleerde app(s) openen links rechtstreeks. Je kunt dit optioneel aanpassen om SongFlip te gebruiken.</string>
+    <string name="setup_card_conflict_badge">%d conflicterende service(s) (optioneel)</string>
     <string name="settings_ask_every_time_title">Elke keer doel-app vragen</string>
     <string name="settings_ask_every_time_subtitle">Snelle kiezer tonen in plaats van direct de standaardspeler te openen</string>
     <string name="quick_picker_title">Openen met …</string>
@@ -345,7 +345,7 @@
     <string name="feedback_cat_feature">💡 Idee</string>
     <string name="feedback_cat_general">💬 Algemeen</string>
     <string name="feedback_message_hint">Beschrijf je probleem, idee of feedback...</string>
-    <string name="feedback_email_hint">Je e-mailadres (optioneel, voor reactie)</string>
+    <string name="feedback_email_hint">Je e-mail (optioneel)</string>
     <string name="feedback_privacy_note">Nul tracking: Alleen appversie en apparaatmodel worden verzonden.</string>
     <string name="feedback_btn_send">Feedback verzenden</string>
     <string name="feedback_btn_mail_fallback">Liever via e-mail sturen</string>
@@ -421,4 +421,6 @@
     <string name="settings_audiophile_subtitle">Geef voorkeur aan studiomasters, Hi-Res, Lossless &amp; Dolby Atmos boven radio-edits en compilaties</string>
     <string name="playlist_error_private_toast">Privé-afspeellijsten kunnen niet worden geconverteerd (stel in op openbaar)</string>
     <string name="playlist_banner_public_notice">Vereist openbare afspeellijst</string>
+    <string name="listen_change_target">Doel wijzigen</string>
+    <string name="playlist_reconvert">Opnieuw converteren</string>
 </resources>

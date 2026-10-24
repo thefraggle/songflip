@@ -750,7 +750,14 @@ fun PlaylistConvertBottomSheet(
 
                     // Primary CTA: Open & Save in Target Player or Web Share Link
                     val zeroOAuthUrl = if (chunks.size > 1 && currentChunk?.zeroOAuthUrl != null) currentChunk.zeroOAuthUrl else res.zeroOAuthUrl
-                    val webShareUrl = res.webShareUrl ?: "https://songflip.link/p/${res.playlistId}"
+                    val webShareUrl = run {
+                        val base = res.webShareUrl ?: "https://songflip.link/p/${res.playlistId}"
+                        if (chunks.size > 1 && currentChunk != null && currentChunk.partIndex > 1) {
+                            if (base.contains("?")) "$base&part=${currentChunk.partIndex}" else "$base?part=${currentChunk.partIndex}"
+                        } else {
+                            base
+                        }
+                    }
                     val ctaText = if (chunks.size > 1 && currentChunk != null) {
                         stringResource(R.string.playlist_open_import_part, currentChunk.partIndex, targetPlatform.displayName)
                     } else {

@@ -263,8 +263,8 @@
     <string name="app_links_btn_configure_app">%s içinde ayarla</string>
     <string name="app_links_target_app_hint">Favori oynatıcınızdan (%s) gelen bağlantıların yönlendirilmesine gerek yoktur; yalnızca diğer servisleri yapılandırın.</string>
     <string name="setup_card_conflict_title">Bağlantı Çakışması Algılandı</string>
-    <string name="setup_card_conflict_desc">%d yüklü uygulama, SongFlip yönlendirmeden önce bağlantıları doğrudan açıyor.</string>
-    <string name="setup_card_conflict_badge">%d çakışan servis</string>
+    <string name="setup_card_conflict_desc">%d yüklü uygulama bağlantıları doğrudan açıyor. SongFlip kullanmak için bunu isteğe bağlı ayarlayabilirsiniz.</string>
+    <string name="setup_card_conflict_badge">%d çakışan hizmet (isteğe bağlı)</string>
     <string name="settings_ask_every_time_title">Hedef uygulamayı her zaman sor</string>
     <string name="settings_ask_every_time_subtitle">Varsayılan oynatıcıyı hemen açmak yerine hızlı seçici göster</string>
     <string name="quick_picker_title">Birlikte aç …</string>
@@ -345,7 +345,7 @@
     <string name="feedback_cat_feature">💡 Fikir</string>
     <string name="feedback_cat_general">💬 Genel</string>
     <string name="feedback_message_hint">Sorununuzu, fikrinizi veya geri bildiriminizi açıklayın...</string>
-    <string name="feedback_email_hint">E-postanız (isteğe bağlı, yanıt için)</string>
+    <string name="feedback_email_hint">E-postanız (isteğe bağlı)</string>
     <string name="feedback_privacy_note">Sıfır takip: Yalnızca uygulama sürümü ve cihaz modeli gönderilir.</string>
     <string name="feedback_btn_send">Geri Bildirim Gönder</string>
     <string name="feedback_btn_mail_fallback">E-posta ile yazmayı tercih et</string>
@@ -421,4 +421,6 @@
     <string name="settings_audiophile_subtitle">Radyo düzenlemeleri ve derlemeler yerine stüdyo kayıtlarını, Hi-Res, Lossless ve Dolby Atmos sürümlerini tercih et</string>
     <string name="playlist_error_private_toast">Gizli çalma listeleri dönüştürülemez (lütfen herkese açık yapın)</string>
     <string name="playlist_banner_public_notice">Herkese açık çalma listesi gerekir</string>
+    <string name="listen_change_target">Hedefi değiştir</string>
+    <string name="playlist_reconvert">Yeniden dönüştür</string>
 </resources>

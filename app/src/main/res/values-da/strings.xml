@@ -263,8 +263,8 @@
     <string name="app_links_btn_configure_app">Juster i %s</string>
     <string name="app_links_target_app_hint">Links fra din foretrukne afspiller (%s) behøver ikke omdirigering – konfigurer kun andre tjenester.</string>
     <string name="setup_card_conflict_title">Linkkonflikter opdaget</string>
-    <string name="setup_card_conflict_desc">%d installeret/installerede app(s) åbner links direkte, før SongFlip kan omdirigere dem.</string>
-    <string name="setup_card_conflict_badge">%d modstridende tjeneste(r)</string>
+    <string name="setup_card_conflict_desc">%d installeret/installerede app(s) åbner links direkte. Du kan valgfrit justere dette for at bruge SongFlip.</string>
+    <string name="setup_card_conflict_badge">%d modstridende tjeneste(r) (valgfri)</string>
     <string name="settings_ask_every_time_title">Spørg om destinationsapp hver gang</string>
     <string name="settings_ask_every_time_subtitle">Vis hurtigvalg i stedet for straks at åbne standardafspilleren</string>
     <string name="quick_picker_title">Åbn med …</string>
@@ -345,7 +345,7 @@
     <string name="feedback_cat_feature">💡 Idé</string>
     <string name="feedback_cat_general">💬 Generelt</string>
     <string name="feedback_message_hint">Beskriv dit problem, din idé eller feedback...</string>
-    <string name="feedback_email_hint">Din e-mail (valgfrit, for svar)</string>
+    <string name="feedback_email_hint">Din e-mail (valgfri)</string>
     <string name="feedback_privacy_note">Nul sporing: Kun appversion og enhedsmodel sendes.</string>
     <string name="feedback_btn_send">Send feedback</string>
     <string name="feedback_btn_mail_fallback">Skriv hellere en e-mail</string>
@@ -421,4 +421,6 @@
     <string name="settings_audiophile_subtitle">Foretræk studiemasters, Hi-Res, Lossless &amp; Dolby Atmos frem for radio-edits og opsamlinger</string>
     <string name="playlist_error_private_toast">Private playlister kan ikke konverteres (gør dem venligst offentlige)</string>
     <string name="playlist_banner_public_notice">Kræver offentlig playliste</string>
+    <string name="listen_change_target">Skift destination</string>
+    <string name="playlist_reconvert">Genkonverter</string>
 </resources>

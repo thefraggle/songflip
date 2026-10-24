@@ -1,2 +1,3 @@
-- Riconoscimento musicale più affidabile: maggiore precisione di corrispondenza per il riconoscimento delle canzoni acustiche attraverso il fallback del catalogo globale, il supporto di brani internazionali e pubblicazioni speciali.
-- Avvisi di playlist più chiari: avvisi chiari e precoci per playlist private o personalizzate direttamente durante il rilevamento e l'inoltro.
+- Selezione rapida del giocatore: cambia facilmente il giocatore di destinazione direttamente dalla schermata di riconoscimento del brano e di partita.
+- Riconversione della playlist dalla cronologia: converti le playlist salvate in un lettore appena selezionato direttamente dal menu della cronologia.
+- Condivisione accurata di playlist multiparte: i collegamenti di condivisione per playlist partizionate ora conservano la parte di playlist selezionata.

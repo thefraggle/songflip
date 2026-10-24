@@ -245,8 +245,8 @@
     <string name="app_links_btn_configure_app">ปรับแต่งใน %s</string>
     <string name="app_links_target_app_hint">ลิงก์จากเครื่องเล่นที่คุณชื่นชอบ (%s) ไม่จำเป็นต้องเปลี่ยนเส้นทาง — กำหนดค่าเฉพาะบริการอื่นเท่านั้น</string>
     <string name="setup_card_conflict_title">ตรวจพบข้อขัดแย้งของลิงก์</string>
-    <string name="setup_card_conflict_desc">แอปที่ติดตั้งไว้ %d แอปเปิดลิงก์โดยตรงก่อนที่ SongFlip จะสามารถเปลี่ยนเส้นทางได้</string>
-    <string name="setup_card_conflict_badge">%d บริการที่ขัดแย้ง</string>
+    <string name="setup_card_conflict_desc">แอปที่ติดตั้งไว้ %d แอปเปิดลิงก์โดยตรง คุณสามารถเลือกปรับเปลี่ยนเพื่อใช้งาน SongFlip ได้</string>
+    <string name="setup_card_conflict_badge">%d บริการที่ขัดแย้ง (ไม่บังคับ)</string>
     <string name="settings_ask_every_time_title">ถามแอปเป้าหมายทุกครั้ง</string>
     <string name="settings_ask_every_time_subtitle">แสดงหน้าต่างเลือกด่วนแทนที่จะเปิดเครื่องเล่นเริ่มต้นทันที</string>
     <string name="quick_picker_title">เปิดด้วย …</string>
@@ -327,7 +327,7 @@
     <string name="feedback_cat_feature">💡 ไอเดีย</string>
     <string name="feedback_cat_general">💬 ทั่วไป</string>
     <string name="feedback_message_hint">อธิบายปัญหา ไอเดีย หรือข้อเสนอแนะของคุณ...</string>
-    <string name="feedback_email_hint">อีเมลของคุณ (ไม่บังคับ เพื่อรอการตอบกลับ)</string>
+    <string name="feedback_email_hint">อีเมลของคุณ (ไม่บังคับ)</string>
     <string name="feedback_privacy_note">ไม่มีการติดตาม: ส่งเฉพาะเวอร์ชันแอปและรุ่นอุปกรณ์เท่านั้น</string>
     <string name="feedback_btn_send">ส่งข้อเสนอแนะ</string>
     <string name="feedback_btn_mail_fallback">ส่งทางอีเมลแทน</string>
@@ -403,4 +403,6 @@
     <string name="settings_audiophile_subtitle">เลือกต้นฉบับสตูดิโอ, Hi-Res, Lossless และ Dolby Atmos ก่อนเวอร์ชันวิทยุและอัลบั้มรวมเพลง</string>
     <string name="playlist_error_private_toast">ไม่สามารถแปลงเพลย์ลิสต์ส่วนตัวได้ (โปรดตั้งค่าเป็นสาธารณะ)</string>
     <string name="playlist_banner_public_notice">ต้องใช้เพลย์ลิสต์สาธารณะ</string>
+    <string name="listen_change_target">เปลี่ยนปลายทาง</string>
+    <string name="playlist_reconvert">แปลงอีกครั้ง</string>
 </resources>
