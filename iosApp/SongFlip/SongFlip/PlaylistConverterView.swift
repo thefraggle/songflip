@@ -651,7 +651,7 @@ struct PlaylistConverterView: View {
                 // Secondary: Copy / Share Web Link
                 let effectiveShareUrl: String? = {
                     guard let base = result.webShareUrl else { return nil }
-                    if result.parts.count > 1 && selectedPartIndex > 0 {
+                    if (result.parts?.count ?? 0) > 1 && selectedPartIndex > 0 {
                         let partNum = selectedPartIndex + 1
                         return base.contains("?") ? "\(base)&part=\(partNum)" : "\(base)?part=\(partNum)"
                     }

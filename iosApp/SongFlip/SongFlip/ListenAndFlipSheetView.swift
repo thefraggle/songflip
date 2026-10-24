@@ -118,7 +118,7 @@ struct ListenAndFlipSheetView: View {
                                 )
                                 await MainActor.run {
                                     isResolvingAlternative = false
-                                    if let success = res as? ResolutionResultSuccess {
+                                    if let success = res as? ResolutionResult.Success {
                                         settings.openResolvedTarget(
                                             targetUrl: success.targetUrl,
                                             nativeAppUri: success.nativeAppUri,
