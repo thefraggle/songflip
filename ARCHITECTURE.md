@@ -233,6 +233,10 @@ The iOS architecture decouples the main user interface (`de.goork.SongFlip`) fro
   - Clarified setup card conflicting service warnings as optional (#152) across UI and localized string catalogs.
   - Preserved multi-part playlist chunk indexes (`?part=N`) in universal share links (#153) in `PlaylistConvertBottomSheet.kt` and `PlaylistConverterView.swift`.
   - Resolved paywall offerings race conditions with explicit loading states and fallback formatting in `ProPaywallSheetView.swift` and fixed layout wrapping in `FeedbackSheetView.swift`.
+- **Security Hardening, Dynamic Tidal Locale Resolution & Public Repo Infrastructure (v1.11.5 / #155, #156, #157)**:
+  - Restricted `ListenAndFlipActivity` in `AndroidManifest.xml` (`exported="false"`) preventing untrusted external applications from invoking the microphone-enabled recognition overlay (#155).
+  - Dynamized catalog searches in `TidalResolver.kt` by substituting hardcoded `countryCode=DE` with platform-specific locale providers (`getSystemCountryCode()`) with strict 2-letter uppercase ISO fallbacks, significantly enhancing international search accuracy (#157).
+  - Documented proprietary backend submodule status in `README.md` and `CONTRIBUTING.md`, created `local.properties.example` configuration template, and updated `SECURITY.md` supported version matrix to `1.11.x` (#156).
 
 
 ---

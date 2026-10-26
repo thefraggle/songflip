@@ -10,7 +10,7 @@ SongFlip is built as a Kotlin Multiplatform (KMP) project:
 - **`app/`**: Native Android app (Jetpack Compose, MVVM architecture, Material 3, Quick Settings Tiles, Android 13+ Themed Icons).
 - **`iosApp/`**: Native iOS app (SwiftUI, Share Extension, App Intents for Siri Shortcuts & Action Button).
 - **`shared/`**: Shared KMP core engine (`SongLinkEngine`, platform resolvers, `UrlUtils`, SQLDelight `LinkCache`, `AptabaseClient`).
-- **`functions/`**: Hosted backend infrastructure (Firebase Cloud Functions for web landing pages, L2 cache & entitlement verification).
+- **`functions/`** *(Private / Closed Source)*: Proprietary hosted cloud backend (Firebase Cloud Functions by Daniel Notthoff) powering token verification, SSR web-share landing pages, playlist batch scrapers, and global L2 link caching. The client applications (Android, iOS & shared KMP core) are 100% autonomous and compile/run completely without this backend submodule.
 
 ---
 
@@ -21,6 +21,8 @@ SongFlip is built as a Kotlin Multiplatform (KMP) project:
 - **Android Studio** (Koala / Ladybug or newer) with Android SDK 26–36
 - **Xcode 16+** (for building the iOS target on macOS)
 
+> 💡 **Submodule Notice**: The `functions/` folder points to a private, closed-source backend submodule. You do **not** need this submodule to build, test, or contribute to SongFlip. A standard clone (`git clone https://github.com/thefraggle/songflip.git` without `--recursive`) builds both Android and iOS targets out of the box.
+
 ### Local Setup
 1. Clone the repository:
    ```bash
@@ -29,12 +31,9 @@ SongFlip is built as a Kotlin Multiplatform (KMP) project:
    ```
 
 2. Optional Configuration (`local.properties`):
-   If you are building your own fork or testing custom analytics / revenue endpoints, you can configure:
-   ```properties
-   # Optional: Custom RevenueCat and Aptabase telemetry keys
-   revenuecat.api.key=your_key_here
-   aptabase.app.key=your_app_key_here
-   aptabase.host=https://your-telemetry-instance.com
+   Copy `local.properties.example` to `local.properties` if you wish to configure custom test keys:
+   ```bash
+   cp local.properties.example local.properties
    ```
    If omitted, safe defaults are used automatically.
 

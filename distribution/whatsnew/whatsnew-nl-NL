@@ -1,3 +1,2 @@
-- Snelle spelerselectie: Schakel eenvoudig de doelspeler rechtstreeks vanuit het nummerherkennings- en wedstrijdscherm.
-- Afspeellijst opnieuw converteren vanuit de geschiedenis: converteer opgeslagen afspeellijsten rechtstreeks vanuit het geschiedenismenu naar een nieuw geselecteerde speler.
-- Nauwkeurig delen van afspeellijsten met meerdere delen: deellinks voor gepartitioneerde afspeellijsten behouden nu het geselecteerde afspeellijstgedeelte.
+- Verbeterde regionale catalogusresolutie: Zoekopdrachten voor streamingcatalogi houden nu dynamisch rekening met de lokale regio, waardoor de detectie en nauwkeurigheid van regionale releases en internationale titels wordt verbeterd.
+- Beveiliging en versterking van componenten: aangescherpte toegangsrechten voor interne achtergrondservices om de systeembeveiliging te garanderen.

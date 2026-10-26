@@ -1,2 +1,2 @@
-- Selección rápida de jugador: cambia fácilmente el jugador objetivo directamente desde la pantalla de reconocimiento de canciones y partidos.
-- Reconversión de listas de reproducción desde el historial: convierta listas de reproducción guardadas a un reproductor recién seleccionado directamente desde el menú del historial.
+- Resolución de catálogo regional mejorada: las consultas de búsqueda para catálogos de transmisión ahora consideran dinámicamente la región local, lo que mejora el descubrimiento y la precisión de los lanzamientos regionales y los títulos internacionales.
+- Seguridad y refuerzo de componentes: permisos de acceso más estrictos para servicios internos en segundo plano para garantizar la seguridad del sistema.

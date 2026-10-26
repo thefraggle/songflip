@@ -1,3 +1,2 @@
-- Szybki wybór gracza: łatwo przełączaj docelowego gracza bezpośrednio z ekranu rozpoznawania utworu i dopasowania.
-- Ponowna konwersja listy odtwarzania z historii: Konwertuj zapisane listy odtwarzania na nowo wybranego odtwarzacza bezpośrednio z menu historii.
-- Dokładne udostępnianie wieloczęściowych list odtwarzania: Linki do udostępniania podzielonych list odtwarzania zachowują teraz wybraną część listy odtwarzania.
+- Ulepszona rozdzielczość katalogów regionalnych: Zapytania wyszukiwania katalogów przesyłanych strumieniowo uwzględniają teraz dynamicznie region lokalny, zwiększając wykrywalność i dokładność wydań regionalnych i tytułów międzynarodowych.
+- Bezpieczeństwo i wzmacnianie komponentów: Zaostrzone uprawnienia dostępu do wewnętrznych usług działających w tle, aby zapewnić bezpieczeństwo systemu.
