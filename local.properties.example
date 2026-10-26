@@ -1,0 +1,7 @@
+## Location of the Android SDK (automatically configured by Android Studio)
+# sdk.dir=/path/to/your/android/sdk
+
+# Optional API & Telemetry keys for development/testing
+revenuecat.api.key=
+aptabase.app.key=
+aptabase.host=https://api.aptabase.com

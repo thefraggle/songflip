@@ -195,7 +195,7 @@
         <!-- Transparent Listen & Flip Overlay Activity (Quick Tile & App Shortcut) -->
         <activity
             android:name=".ui.ListenAndFlipActivity"
-            android:exported="true"
+            android:exported="false"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.SongFlip.Transparent" />

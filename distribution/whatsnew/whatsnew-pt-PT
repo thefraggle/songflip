@@ -1,3 +1,2 @@
-- Seleção rápida de jogador: alterne facilmente o jogador alvo diretamente do reconhecimento de música e da tela de partida.
-- Reconversão da lista de reprodução do histórico: converta listas de reprodução salvas para um player recém-selecionado diretamente do menu do histórico.
-- Compartilhamento preciso de listas de reprodução multiparte: links de compartilhamento para listas de reprodução particionadas agora preservam a parte da lista de reprodução selecionada.
+- Resolução aprimorada de catálogo regional: as consultas de pesquisa para catálogos de streaming agora consideram dinamicamente a região local, melhorando a descoberta e a precisão de lançamentos regionais e títulos internacionais.
+- Segurança e fortalecimento de componentes: Permissões de acesso reforçadas para serviços internos em segundo plano para garantir a segurança do sistema.

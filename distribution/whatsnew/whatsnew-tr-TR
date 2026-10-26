@@ -1,3 +1,2 @@
-- Hızlı Oyuncu Seçimi: Hedef oyuncuyu doğrudan şarkı tanıma ve maç ekranından kolayca değiştirin.
-- Geçmişten Çalma Listesini Yeniden Dönüştürme: Kayıtlı çalma listelerini doğrudan geçmiş menüsünden yeni seçilen bir oynatıcıya dönüştürün.
-- Doğru Çok Parçalı Çalma Listesi Paylaşımı: Bölümlenmiş çalma listeleri için paylaşım bağlantıları artık seçilen çalma listesi bölümünü koruyor.
+- Geliştirilmiş Bölgesel Katalog Çözünürlüğü: Akışlı kataloglara yönelik arama sorguları artık yerel bölgeyi dinamik olarak dikkate alarak bölgesel yayınlar ve uluslararası başlıklar için keşif ve doğruluğu artırıyor.
+- Güvenlik ve Bileşen Güçlendirme: Sistem güvenliğini sağlamak için dahili arka plan hizmetlerine yönelik erişim izinleri sıkılaştırıldı.

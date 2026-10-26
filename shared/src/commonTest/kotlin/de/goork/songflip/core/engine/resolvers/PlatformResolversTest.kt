@@ -281,6 +281,27 @@ class PlatformResolversTest {
         assertEquals("https://tidal.com/artist/3529079", artist)
     }
 
+    @Test
+    fun testTidalResolverCustomCountryCode() = runTest {
+        var requestedCountry: String? = null
+        val mockEngine = MockEngine { request ->
+            requestedCountry = request.url.parameters["countryCode"]
+            respond(
+                content = """{"tracks": {"items": [{"id": "111"}]}}""",
+                status = HttpStatusCode.OK,
+                headers = headersOf(HttpHeaders.ContentType, "application/json")
+            )
+        }
+
+        val resolverUs = TidalResolver(client = HttpClient(mockEngine), countryCodeProvider = { "US" })
+        resolverUs.resolveTrack("Test Track")
+        assertEquals("US", requestedCountry)
+
+        val resolverInvalid = TidalResolver(client = HttpClient(mockEngine), countryCodeProvider = { "INVALID" })
+        resolverInvalid.resolveTrack("Test Track")
+        assertEquals("DE", requestedCountry)
+    }
+
     // ---------------------------------------------------------
     // YouTubeMusicResolver Tests
     // ---------------------------------------------------------

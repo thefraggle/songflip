@@ -16,3 +16,9 @@ actual fun getIso8601Timestamp(): String {
 actual fun generateRandomSessionId(): String {
     return UUID.randomUUID().toString()
 }
+
+actual fun getSystemCountryCode(): String {
+    val country = Locale.getDefault().country
+    return if (country.isNotBlank()) country.uppercase() else "DE"
+}
+

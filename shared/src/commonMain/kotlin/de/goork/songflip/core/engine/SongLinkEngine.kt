@@ -1,5 +1,6 @@
 package de.goork.songflip.core.engine
 
+import de.goork.songflip.core.analytics.getSystemCountryCode
 import de.goork.songflip.core.cache.LinkCache
 import de.goork.songflip.core.cache.createDefaultCacheStorage
 import de.goork.songflip.core.engine.resolvers.AppleMusicResolver
@@ -65,7 +66,7 @@ class SongLinkEngine(
     // Platform Resolver Strategies
     val appleMusicResolver = AppleMusicResolver(client, json)
     val deezerResolver = DeezerResolver(client, json)
-    val tidalResolver = TidalResolver(client, json, TIDAL_CLIENT_APP_TOKEN)
+    val tidalResolver = TidalResolver(client, json, TIDAL_CLIENT_APP_TOKEN, countryCodeProvider = { getSystemCountryCode() })
     val youTubeMusicResolver = YouTubeMusicResolver(client)
     val spotifyResolver = SpotifyResolver(client, json)
     val songLinkApiResolver = SongLinkApiResolver(client, json)

@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.11.5] - 2026-10-26
+- **Verbesserte regionale Katalogsuche**: Titelsuchen berücksichtigen nun dynamisch die jeweilige Systemregion, was die Treffergenauigkeit bei regionalen Veröffentlichungen und internationalen Titeln spürbar erhöht.
+- **Sicherheitsaktualisierung**: Zugriffsberechtigungen für interne Hintergrunddienste wurden gehärtet, um die Systemsicherheit weiter zu stärken.
+- **Dokumentation & Konfigurationsvorlagen**: Aktualisierte Repository-Dokumentation, standardisierte Konfigurationsvorlagen und erweiterte Sicherheitsrichtlinien.
+
 ## [1.11.4] - 2026-10-24
 - **Schnellere Player-Auswahl**: Das Ziel kann jetzt direkt im Erkennungs- und Trefferbildschirm gewechselt werden.
 - **Playlists aus dem Verlauf neu konvertieren**: Gespeicherte Playlists können direkt aus dem Verlaufsmenü an einen neuen Zielplayer angepasst werden.

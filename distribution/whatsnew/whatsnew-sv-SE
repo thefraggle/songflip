@@ -1,3 +1,2 @@
-- Snabbval av spelare: Byt enkelt målspelaren direkt från låtigenkännings- och matchskärmen.
-- Spellista Re-conversion from History: Konvertera sparade spellistor till en nyvald spelare direkt från historikmenyn.
-- Exakt spellista i flera delar: Dela länkar för partitionerade spellistor bevarar nu den valda spellistans del.
+- Förbättrad regional katalogupplösning: Sökfrågor för strömmande kataloger tar nu dynamiskt hänsyn till den lokala regionen, vilket förbättrar upptäckten och noggrannheten för regionala utgåvor och internationella titlar.
+- Säkerhet och komponenthärdning: Skärpta åtkomstbehörigheter för interna bakgrundstjänster för att säkerställa systemsäkerhet.

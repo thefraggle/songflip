@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.11.5] - 2026-10-26
+- **Enhanced Regional Catalog Resolution**: Search queries for streaming catalogs now dynamically consider the local region, enhancing discovery and accuracy for regional releases and international titles.
+- **Security & Component Hardening**: Tightened access permissions for internal background services to ensure system security.
+- **Documentation & Setup Templates**: Updated repository documentation, reference configuration templates, and security guidelines.
+
 ## [1.11.4] - 2026-10-24
 - **Quick Player Selection**: Easily switch the target player directly from the song recognition and match screen.
 - **Playlist Re-conversion from History**: Convert saved playlists to a newly selected player directly from the history menu.

@@ -1,3 +1,2 @@
-- Selezione rapida del giocatore: cambia facilmente il giocatore di destinazione direttamente dalla schermata di riconoscimento del brano e di partita.
-- Riconversione della playlist dalla cronologia: converti le playlist salvate in un lettore appena selezionato direttamente dal menu della cronologia.
-- Condivisione accurata di playlist multiparte: i collegamenti di condivisione per playlist partizionate ora conservano la parte di playlist selezionata.
+- Risoluzione migliorata del catalogo regionale: le query di ricerca per i cataloghi in streaming ora considerano dinamicamente la regione locale, migliorando la scoperta e la precisione per le versioni regionali e i titoli internazionali.
+- Sicurezza e rafforzamento dei componenti: autorizzazioni di accesso rafforzate per i servizi interni in background per garantire la sicurezza del sistema.

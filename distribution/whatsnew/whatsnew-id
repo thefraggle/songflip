@@ -1,3 +1,3 @@
-- Pemilihan Pemain Cepat: Mengalihkan pemain target dengan mudah langsung dari layar pengenalan lagu dan pertandingan.
-- Konversi Ulang Daftar Putar dari Riwayat: Konversikan daftar putar yang disimpan ke pemutar yang baru dipilih langsung dari menu riwayat.
-- Berbagi Daftar Putar Multi-Bagian yang Akurat: Tautan berbagi untuk daftar putar yang dipartisi kini mempertahankan bagian daftar putar yang dipilih.
+- Resolusi Katalog Regional yang Ditingkatkan: Permintaan pencarian untuk katalog streaming kini secara dinamis mempertimbangkan wilayah lokal, meningkatkan penemuan dan akurasi untuk rilis regional dan judul internasional.
+- Keamanan & Pengerasan Komponen: Memperketat izin akses untuk layanan latar belakang internal untuk memastikan keamanan sistem.
+- Templat Dokumentasi & Pengaturan: Dokumentasi repositori yang diperbarui, templat konfigurasi referensi, dan pedoman keamanan.

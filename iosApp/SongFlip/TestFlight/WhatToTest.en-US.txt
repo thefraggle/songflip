@@ -1,3 +1,3 @@
-- Quick Player Selection: Easily switch the target player directly from the song recognition and match screen.
-- Playlist Re-conversion from History: Convert saved playlists to a newly selected player directly from the history menu.
-- Accurate Multi-Part Playlist Sharing: Share links for partitioned playlists now preserve the selected playlist part.
+- Enhanced Regional Catalog Resolution: Search queries for streaming catalogs now dynamically consider the local region, enhancing discovery and accuracy for regional releases and international titles.
+- Security & Component Hardening: Tightened access permissions for internal background services to ensure system security.
+- Documentation & Setup Templates: Updated repository documentation, reference configuration templates, and security guidelines.

@@ -1,3 +1,2 @@
-- Schnellere Player-Auswahl: Das Ziel kann jetzt direkt im Erkennungs- und Trefferbildschirm gewechselt werden.
-- Playlists aus dem Verlauf neu konvertieren: Gespeicherte Playlists können direkt aus dem Verlaufsmenü an einen neuen Zielplayer angepasst werden.
-- Präzises Teilen mehrteiliger Playlists: Beim Teilen großer, aufgeteilter Playlists wird exakt der aktuell ausgewählte Teil weitergegeben.
+- Verbesserte regionale Katalogsuche: Titelsuchen berücksichtigen nun dynamisch die jeweilige Systemregion, was die Treffergenauigkeit bei regionalen Veröffentlichungen und internationalen Titeln spürbar erhöht.
+- Sicherheitsaktualisierung: Zugriffsberechtigungen für interne Hintergrunddienste wurden gehärtet, um die Systemsicherheit weiter zu stärken.

@@ -1,2 +1,2 @@
-- Sélection rapide du joueur : changez facilement de joueur cible directement depuis l'écran de reconnaissance de chanson et de match.
-- Reconversion de liste de lecture à partir de l'historique : convertissez les listes de lecture enregistrées vers un lecteur nouvellement sélectionné directement à partir du menu de l'historique.
+- Résolution améliorée des catalogues régionaux : les requêtes de recherche pour les catalogues en streaming prennent désormais en compte de manière dynamique la région locale, améliorant ainsi la découverte et la précision des versions régionales et des titres internationaux.
+- Sécurité et renforcement des composants : autorisations d'accès renforcées pour les services d'arrière-plan internes afin de garantir la sécurité du système.

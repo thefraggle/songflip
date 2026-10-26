@@ -1,3 +1,2 @@
-- Rychlý výběr přehrávače: Snadno přepněte cílový přehrávač přímo z obrazovky rozpoznávání skladeb a zápasů.
-- Opětovná konverze seznamu skladeb z historie: Převeďte uložené seznamy skladeb na nově vybraný přehrávač přímo z nabídky historie.
-- Přesné sdílení vícedílných seznamů skladeb: Sdílení odkazů pro rozdělené seznamy skladeb nyní zachová vybranou část seznamu skladeb.
+- Vylepšené rozlišení regionálních katalogů: Vyhledávací dotazy pro streamované katalogy nyní dynamicky zvažují místní region, což zlepšuje zjišťování a přesnost pro regionální vydání a mezinárodní tituly.
+- Security & Component Hardening: Zpřísněná přístupová oprávnění pro interní služby na pozadí pro zajištění zabezpečení systému.
