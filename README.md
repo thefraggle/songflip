@@ -67,7 +67,7 @@ SongFlip is built as a modern **Kotlin Multiplatform (KMP)** project with a modu
 - **`app/`**: Native Android app (Jetpack Compose, MVVM architecture with ViewModels & StateFlow, Material 3, Quick Settings Tile, Overlay & Notification handling).
 - **`iosApp/`**: Native iOS app (SwiftUI, Share Extension, App Intents for 0-click Siri Shortcuts & Action Button).
 - **`shared/`**: Shared KMP core engine (platform parsing, universal URL sanitizing, multi-tier on-device resolution logic, SQLDelight transactional SQLite cache, playlist conversion client, Ktor HTTP client, strict Structured Concurrency).
-- **`functions/`**: Hosted cloud backend (Firebase Cloud Functions) powering token verification, SSR web-share landing pages, playlist batch scrapers, and global L2 link caching.
+- **`functions/`** *(Private / Closed Source)*: Proprietary hosted cloud backend (Firebase Cloud Functions by Daniel Notthoff) powering token verification, SSR web-share landing pages, playlist batch scrapers, and global L2 link caching. The client applications (Android, iOS & shared KMP core) are 100% autonomous and compile/run completely without this backend submodule.
 
 ### Resolution Pipeline
 1. **Tier 1 (Local Device Memory & SQLDelight SQLite Cache)**: Instant sub-5ms lookup on device for previously converted songs.
@@ -108,7 +108,8 @@ Purchases are powered by **RevenueCat** with native store backends:
 - **Java Development Kit (JDK)**: JDK 17+ (Eclipse Temurin or OpenJDK 17 recommended).
 - **Android Development**: Android Studio Ladybug / Meerkat with Android SDK (API Level 26–36) and Command-line Tools.
 - **iOS Development (macOS only)**: Xcode 16+ with Command Line Tools and iOS 17+ Simulator / Device SDKs.
-- **Node.js (for Cloud Functions)**: Node.js 22+ & npm (if running backend tests or functions).
+
+> 💡 **Submodule Notice**: The `functions/` folder points to a private, closed-source backend submodule. You do **not** need this submodule to build, test, or contribute to SongFlip. A standard clone (`git clone https://github.com/thefraggle/songflip.git` without `--recursive`) builds both Android and iOS targets out of the box.
 
 ### 2. Environment Configuration
 Copy or create `local.properties` in the project root for local Android builds:

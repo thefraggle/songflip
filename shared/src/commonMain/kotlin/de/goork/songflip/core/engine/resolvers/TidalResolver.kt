@@ -57,7 +57,8 @@ internal data class TidalArtist(
 class TidalResolver(
     private val client: HttpClient,
     private val json: Json = Json { ignoreUnknownKeys = true; isLenient = true },
-    private val tidalAppToken: String = "CzET4vdadNUFQ5JU"
+    private val tidalAppToken: String = "CzET4vdadNUFQ5JU",
+    private val countryCodeProvider: () -> String = { "DE" }
 ) : PlatformResolver {
 
     override val platform: MusicPlatform = MusicPlatform.TIDAL
@@ -66,6 +67,11 @@ class TidalResolver(
         "https://api.tidal.com/v1/search",
         "https://listen.tidal.com/v1/search"
     )
+
+    private fun getCountryCode(): String {
+        val raw = countryCodeProvider().trim().uppercase()
+        return if (raw.length == 2 && raw.all { it.isLetter() }) raw else "DE"
+    }
 
     override suspend fun resolveTrack(query: String, audiophileMode: Boolean): String? {
         return searchTidal(query, isAlbum = false, audiophileMode = audiophileMode)
@@ -88,10 +94,11 @@ class TidalResolver(
     private suspend fun executeTidalSearch(query: String, isAlbum: Boolean = false, audiophileMode: Boolean = false): String? {
         val encoded = query.encodeURLParameter()
         val limit = if (audiophileMode) 10 else 5
+        val countryCode = getCountryCode()
 
         for (baseUrl in searchBaseUrls) {
             try {
-                val resp = client.get("$baseUrl?query=$encoded&limit=$limit&countryCode=DE") {
+                val resp = client.get("$baseUrl?query=$encoded&limit=$limit&countryCode=$countryCode") {
                     header("x-tidal-token", tidalAppToken)
                     header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
                 }
@@ -156,9 +163,10 @@ class TidalResolver(
 
     override suspend fun resolveArtist(artistName: String): String? {
         val encoded = artistName.encodeURLParameter()
+        val countryCode = getCountryCode()
         for (baseUrl in searchBaseUrls) {
             try {
-                val resp = client.get("$baseUrl?query=$encoded&limit=10&countryCode=DE") {
+                val resp = client.get("$baseUrl?query=$encoded&limit=10&countryCode=$countryCode") {
                     header("x-tidal-token", tidalAppToken)
                     header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
                 }

@@ -1,2 +1,2 @@
-- Gyors lejátszó kiválasztása: Könnyedén válthat a céllejátszóra közvetlenül a dalfelismerő és a mérkőzés képernyőről.
-- Lejátszási lista újrakonvertálása az előzményekből: Konvertálja a mentett lejátszási listákat egy újonnan kiválasztott lejátszóra közvetlenül az előzmények menüből.
+- Továbbfejlesztett regionális katalógusfelbontás: A streamelt katalógusok keresési lekérdezései immár dinamikusan figyelembe veszik a helyi régiót, javítva a regionális kiadások és a nemzetközi címek felderítését és pontosságát.
+- Biztonság és komponensek megerősítése: Szigorított hozzáférési engedélyek a belső háttérszolgáltatásokhoz a rendszer biztonsága érdekében.

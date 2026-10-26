@@ -1,3 +1,2 @@
-- Selectare rapidă a jucătorului: comutați cu ușurință jucătorul țintă direct din ecranul de recunoaștere a cântecului și de potrivire.
-- Reconversie playlist din istoric: convertiți listele de redare salvate într-un player nou selectat direct din meniul istoric.
-- Partajare precisă a listelor de redare în mai multe părți: Partajarea linkurilor pentru listele de redare partiționate păstrează acum partea selectată a listei de redare.
+- Rezoluție îmbunătățită a catalogului regional: interogările de căutare pentru cataloage de streaming iau în considerare acum în mod dinamic regiunea locală, îmbunătățind descoperirea și acuratețea lansărilor regionale și a titlurilor internaționale.
+- Securitate și consolidare a componentelor: permisiuni de acces mai stricte pentru serviciile interne de fundal pentru a asigura securitatea sistemului.

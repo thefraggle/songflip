@@ -1,3 +1,3 @@
-- Hurtigt afspillervalg: Skift nemt målafspilleren direkte fra sanggenkendelses- og matchskærmen.
-- Genkonvertering af afspilningsliste fra historie: Konverter gemte afspilningslister til en nyvalgt afspiller direkte fra historiemenuen.
-- Nøjagtig flerdelt afspilningslistedeling: Del links til opdelte afspilningslister bevarer nu den valgte afspilningslistedel.
+- Forbedret regional katalogopløsning: Søgeforespørgsler til streamingkataloger tager nu dynamisk hensyn til den lokale region, hvilket forbedrer opdagelsen og nøjagtigheden for regionale udgivelser og internationale titler.
+- Sikkerhed og komponenthærdning: Skærpede adgangstilladelser til interne baggrundstjenester for at sikre systemsikkerhed.
+- Dokumentations- og opsætningsskabeloner: Opdateret dokumentation for depot, referencekonfigurationsskabeloner og sikkerhedsretningslinjer.

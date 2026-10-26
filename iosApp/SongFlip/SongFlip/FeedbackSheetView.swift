@@ -183,7 +183,7 @@ struct FeedbackSheetView: View {
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         isSubmitting = true
 
-        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.11.4"
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.11.5"
         let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "100"
         let osVersion = "iOS \(UIDevice.current.systemVersion)"
         let device = UIDevice.current.model
@@ -228,7 +228,7 @@ struct FeedbackSheetView: View {
     }
 
     private func openMailFallback() {
-        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.11.4"
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.11.5"
         let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "100"
         let systemVersion = UIDevice.current.systemVersion
         let model = UIDevice.current.model

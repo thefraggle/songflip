@@ -1,3 +1,3 @@
-- Rask spillervalg: Bytt enkelt målspilleren direkte fra sanggjenkjennings- og matchskjermen.
-- Re-konvertering av spilleliste fra historie: Konverter lagrede spillelister til en nylig valgt spiller direkte fra historiemenyen.
-- Nøyaktig flerdelt spillelistedeling: Dellenker for partisjonerte spillelister beholder nå den valgte spillelistedelen.
+- Forbedret regional katalogoppløsning: Søkespørsmål etter strømmekataloger vurderer nå den lokale regionen dynamisk, og forbedrer oppdagelsen og nøyaktigheten for regionale utgivelser og internasjonale titler.
+- Sikkerhet og komponentherding: Skjerpede tilgangstillatelser for interne bakgrunnstjenester for å sikre systemsikkerhet.
+- Dokumentasjons- og oppsettmaler: Oppdatert dokumentasjon for depot, referansekonfigurasjonsmaler og sikkerhetsretningslinjer.
