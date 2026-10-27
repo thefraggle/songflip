@@ -1,3 +1,2 @@
-- Resolusi Katalog Regional yang Ditingkatkan: Permintaan pencarian untuk katalog streaming kini secara dinamis mempertimbangkan wilayah lokal, meningkatkan penemuan dan akurasi untuk rilis regional dan judul internasional.
-- Keamanan & Pengerasan Komponen: Memperketat izin akses untuk layanan latar belakang internal untuk memastikan keamanan sistem.
-- Templat Dokumentasi & Pengaturan: Dokumentasi repositori yang diperbarui, templat konfigurasi referensi, dan pedoman keamanan.
+- Prioritas Refined Studio Track: Penelusuran musik dan konversi tautan kini secara konsisten mendukung versi studio asli daripada remix, rekaman langsung, dan variasi akustik.
+- Pengakuan Lagu yang Ditingkatkan: Deteksi akustik menampilkan fallback katalog global untuk rilis internasional dan indikator umpan balik audio yang halus.

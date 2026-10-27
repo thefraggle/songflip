@@ -227,7 +227,7 @@ struct ListenAndFlipSheetView: View {
                     .font(.headline)
                     .foregroundColor(.primary)
 
-                let subtitleKey = (elapsedSeconds >= 3 && amplitude < 0.20) ? "listen_status_hint" : "listen_and_flip_subtitle"
+                let subtitleKey = (elapsedSeconds >= 4 && amplitude < 0.15) ? "listen_status_hint" : "listen_and_flip_subtitle"
                 Text(LocalizationManager.string(for: subtitleKey, lang: lang))
                     .font(.subheadline)
                     .foregroundColor(.secondary)

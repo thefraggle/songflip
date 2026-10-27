@@ -1,2 +1,2 @@
-- Risoluzione migliorata del catalogo regionale: le query di ricerca per i cataloghi in streaming ora considerano dinamicamente la regione locale, migliorando la scoperta e la precisione per le versioni regionali e i titoli internazionali.
-- Sicurezza e rafforzamento dei componenti: autorizzazioni di accesso rafforzate per i servizi interni in background per garantire la sicurezza del sistema.
+- Priorità migliorata delle tracce in studio: la ricerca musicale e la conversione dei collegamenti ora favoriscono costantemente le versioni originali in studio rispetto ai remix, alle registrazioni dal vivo e alle variazioni acustiche.
+- Riconoscimento migliorato dei brani: il rilevamento acustico presenta un catalogo globale di fallback per le versioni internazionali e sottili indicatori di feedback audio.

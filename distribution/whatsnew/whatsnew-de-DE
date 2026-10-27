@@ -1,2 +1,2 @@
-- Verbesserte regionale Katalogsuche: Titelsuchen berücksichtigen nun dynamisch die jeweilige Systemregion, was die Treffergenauigkeit bei regionalen Veröffentlichungen und internationalen Titeln spürbar erhöht.
-- Sicherheitsaktualisierung: Zugriffsberechtigungen für interne Hintergrunddienste wurden gehärtet, um die Systemsicherheit weiter zu stärken.
+- Präzisere Studio-Titel-Erkennung: Musiksuche und Link-Konvertierung bevorzugen jetzt verlässlich originale Studio-Versionen gegenüber Remixen, Live-Aufnahmen und Akustik-Fassungen.
+- Zuverlässigere Musikerkennung: Akustische Erkennung mit weltweitem Katalog-Rückgriff für internationale Veröffentlichungen und dezentem Pegel-Hinweis.

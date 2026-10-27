@@ -500,7 +500,7 @@ private fun ListeningPulseContent(
             }
         }
 
-        val showQuietHint = isListening && elapsedSeconds >= 3 && amplitude < 0.20f
+        val showQuietHint = isListening && elapsedSeconds >= 4 && amplitude < 0.15f
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(6.dp)

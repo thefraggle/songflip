@@ -147,6 +147,7 @@
         <item quantity="many">%1$d utworów w historii</item>
         <item quantity="other">%1$d utworów w historii</item>
     </plurals>
+    <string name="history_cached_count_free_capped">10 z %1$d utworów widocznych</string>
     <string name="history_empty">Brak przekonwertowanych utworów. Udostępnione linki pojawią się tutaj.</string>
     <string name="history_clear_all">Wyczyść historię</string>
     <string name="history_clear_confirm_title">Wyczyścić historię?</string>

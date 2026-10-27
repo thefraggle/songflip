@@ -59,7 +59,7 @@ class AppleMusicResolver(
         return try {
             val encoded = query.encodeURLParameter()
             val entity = if (isAlbum) "album" else "song"
-            val limit = if (audiophileMode) 10 else 5
+            val limit = 10
             val resp = client.get("https://itunes.apple.com/search?term=$encoded&entity=$entity&limit=$limit")
             if (resp.status.isSuccess()) {
                 val parsed = json.decodeFromString<ITunesResponse>(resp.bodyAsText())
@@ -83,22 +83,67 @@ class AppleMusicResolver(
                         ?.first
                 } else {
                     val lowerQuery = query.lowercase()
-                    val wantsEdition = isAlbum && (
-                        lowerQuery.contains("deluxe") ||
-                            lowerQuery.contains("bonus") ||
-                            lowerQuery.contains("expanded")
-                        )
+                    val wantsRemix = lowerQuery.contains("remix") || Regex("""\b(?:remix|mix)\b""", RegexOption.IGNORE_CASE).containsMatchIn(lowerQuery)
+                    val wantsLive = Regex("""\b(?:live|concert|tour)\b""", RegexOption.IGNORE_CASE).containsMatchIn(lowerQuery)
+                    val wantsAcoustic = Regex("""\b(?:acoustic|unplugged)\b""", RegexOption.IGNORE_CASE).containsMatchIn(lowerQuery)
+                    val wantsInstrumental = Regex("""\b(?:instrumental|karaoke)\b""", RegexOption.IGNORE_CASE).containsMatchIn(lowerQuery)
+                    val wantsEdition = lowerQuery.contains("deluxe") ||
+                        lowerQuery.contains("bonus") ||
+                        lowerQuery.contains("expanded")
+
                     val matchingItems = parsed.results.filter { item ->
                         val title = if (isAlbum) item.collectionName else item.trackName
                         ResolverUtils.isMatch(query, item.artistName, title)
                     }
-                    if (wantsEdition && matchingItems.size > 1) {
-                        matchingItems.firstOrNull { item ->
-                            val cName = (item.collectionName ?: "").lowercase()
-                            cName.contains("deluxe") || cName.contains("bonus") || cName.contains("expanded")
-                        } ?: matchingItems.firstOrNull()
-                    } else {
+
+                    if (matchingItems.size <= 1) {
                         matchingItems.firstOrNull()
+                    } else {
+                        matchingItems.maxByOrNull { item ->
+                            var s = 0
+                            val candTitle = (if (isAlbum) item.collectionName else (item.trackName ?: item.collectionName)) ?: ""
+                            val lowerCand = candTitle.lowercase()
+
+                            // Heavily penalize remixes, live, acoustic or instrumental when not requested
+                            val isCandRemix = Regex("""\b(?:remix|mix)\b""", RegexOption.IGNORE_CASE).containsMatchIn(lowerCand)
+                            val isCandLive = Regex("""\b(?:live)\b""", RegexOption.IGNORE_CASE).containsMatchIn(lowerCand)
+                            val isCandAcoustic = Regex("""\b(?:acoustic|unplugged)\b""", RegexOption.IGNORE_CASE).containsMatchIn(lowerCand)
+                            val isCandInstrumental = Regex("""\b(?:instrumental|karaoke)\b""", RegexOption.IGNORE_CASE).containsMatchIn(lowerCand)
+
+                            if (!wantsRemix && isCandRemix) s -= 100
+                            if (wantsRemix && !isCandRemix) s -= 100
+
+                            if (!wantsLive && isCandLive) s -= 100
+                            if (wantsLive && !isCandLive) s -= 100
+
+                            if (!wantsAcoustic && isCandAcoustic) s -= 80
+                            if (wantsAcoustic && !isCandAcoustic) s -= 80
+
+                            if (!wantsInstrumental && isCandInstrumental) s -= 80
+                            if (wantsInstrumental && !isCandInstrumental) s -= 80
+
+                            // Exact title match bonus
+                            val strippedQuery = ResolverUtils.stripEditionSuffix(query).trim().lowercase()
+                            val strippedCand = ResolverUtils.stripEditionSuffix(candTitle).trim().lowercase()
+                            if (lowerCand == lowerQuery || strippedCand == strippedQuery) {
+                                s += 100
+                            } else if (lowerQuery.contains(strippedCand) || strippedQuery.contains(strippedCand)) {
+                                s += 60
+                            }
+
+                            // Artist name match bonus
+                            val artistName = item.artistName?.trim()?.lowercase()
+                            if (!artistName.isNullOrEmpty() && lowerQuery.contains(artistName)) {
+                                s += 20
+                            }
+
+                            // Deluxe / bonus preference if requested
+                            if (wantsEdition && (lowerCand.contains("deluxe") || lowerCand.contains("bonus") || lowerCand.contains("expanded"))) {
+                                s += 30
+                            }
+
+                            s
+                        }
                     }
                 }
                 val viewUrl = if (isAlbum) validItem?.collectionViewUrl else validItem?.trackViewUrl

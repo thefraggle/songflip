@@ -1,2 +1,2 @@
-- Resolución de catálogo regional mejorada: las consultas de búsqueda para catálogos de transmisión ahora consideran dinámicamente la región local, lo que mejora el descubrimiento y la precisión de los lanzamientos regionales y los títulos internacionales.
-- Seguridad y refuerzo de componentes: permisos de acceso más estrictos para servicios internos en segundo plano para garantizar la seguridad del sistema.
+- Priorización refinada de pistas de estudio: la búsqueda de música y la conversión de enlaces ahora favorecen consistentemente las versiones originales de estudio sobre remezclas, grabaciones en vivo y variaciones acústicas.
+- Reconocimiento de canciones mejorado: la detección acústica presenta un respaldo de catálogo global para lanzamientos internacionales e indicadores sutiles de retroalimentación de audio.

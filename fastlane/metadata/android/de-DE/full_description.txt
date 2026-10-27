@@ -10,7 +10,7 @@ Egal ob Spotify zu YouTube Music, Apple Podcasts zu Spotify, Spotify zu Apple Mu
 Songs und Podcasts automatisch konvertieren und weiterleiten zwischen Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, SoundCloud und Bandcamp. Erkennt auch geteilte Shazam-Tracks sofort!
 
 • Listen & Flip – Musikerkennung (auch offline):
-Erkenne Songs in Bars, Clubs oder im Radio per Mikrofon, speichere sie im Verlauf und öffne sie direkt im Wunsch-Player. Dank Offline-Modus werden Audio-Fingerabdrücke auch ohne Empfang gesichert und automatisch aufgelöst, sobald du wieder online bist.
+Musik erkennen in Bars, Clubs oder im Radio per Mikrofon: Songs blitzschnell identifizieren, im Verlauf speichern und direkt im Wunsch-Player öffnen. Dank Offline-Modus werden Audio-Fingerabdrücke auch ohne Empfang gesichert und automatisch aufgelöst, sobald du wieder online bist.
 
 • Direkte Titelsuche & Sofort-Wiedergabe:
 Suche Songs & Interpreten direkt in SongFlip und starte die Wiedergabe per Fast Flip sofort im Ziel-Player – ganz ohne bestehende Web-URL oder leere Suchseiten.

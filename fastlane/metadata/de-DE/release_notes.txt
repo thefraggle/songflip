@@ -1,2 +1,2 @@
-- Schnellzugriff für Listen & Flip: Starte die Musikerkennung direkt über die Schnellzugriffs-Kachel im Systemmenü, durch langes Drücken auf das App-Symbol oder per System-Kurzbefehl – ganz ohne vorheriges Öffnen der Haupt-App.
-- Allgemeine Stabilität: Kleinere Verbesserungen an der Oberfläche und der internen Zuverlässigkeit.
+- Präzisere Studio-Titel-Erkennung: Musiksuche und Link-Konvertierung bevorzugen jetzt verlässlich originale Studio-Versionen gegenüber Remixen, Live-Aufnahmen und Akustik-Fassungen.
+- Zuverlässigere Musikerkennung: Akustische Erkennung mit weltweitem Katalog-Rückgriff für internationale Veröffentlichungen und dezentem Pegel-Hinweis.

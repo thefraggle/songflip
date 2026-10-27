@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.11.6] - 2026-10-27
+- **Refined Studio Track Prioritization**: Music search and link conversion now consistently favor original studio versions over remixes, live recordings, and acoustic variations.
+- **Enhanced Song Recognition**: Acoustic detection features global catalog fallback for international releases and subtle audio feedback indicators.
+- **Smoother History & Artwork Backfill**: Optimized cover art hydration for past conversions, reducing network activity and speeding up history browsing.
+- **Reliable Voucher Activation & Interface Polish**: Visual inline validation for voucher codes with responsive keyboard handling, comprehensive localization, and background stability updates.
+
 ## [1.11.5] - 2026-10-26
 - **Enhanced Regional Catalog Resolution**: Search queries for streaming catalogs now dynamically consider the local region, enhancing discovery and accuracy for regional releases and international titles.
 - **Security & Component Hardening**: Tightened access permissions for internal background services to ensure system security.

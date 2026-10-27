@@ -145,6 +145,7 @@
         <item quantity="one">%1$d morceau dans l\'historique</item>
         <item quantity="other">%1$d morceaux dans l\'historique</item>
     </plurals>
+    <string name="history_cached_count_free_capped">10 morceaux sur %1$d visibles</string>
     <string name="history_empty">Aucun morceau converti. Les liens partagés apparaîtront ici.</string>
     <string name="history_clear_all">Effacer l\'historique</string>
     <string name="history_clear_confirm_title">Effacer l\'historique ?</string>

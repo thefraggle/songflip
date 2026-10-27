@@ -136,6 +136,7 @@
         <item quantity="one">%1$d kappale historiassa</item>
         <item quantity="other">%1$d kappaletta historiassa</item>
     </plurals>
+    <string name="history_cached_count_free_capped">10/%1$d kappaletta näkyvissä</string>
     <string name="history_empty">Ei vielä muunnettuja kappaleita. Uudelleenohjatut linkit tulevat näkyviin tänne automaattisesti.</string>
     <string name="history_clear_all">Tyhjennä historia</string>
     <string name="history_clear_confirm_title">Tyhjennetäänkö kappalehistoria?</string>

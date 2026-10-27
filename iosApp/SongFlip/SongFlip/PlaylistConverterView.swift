@@ -1,6 +1,9 @@
 import SwiftUI
 import Combine
 import SongFlipKit
+import os
+
+private let logger = Logger(subsystem: "de.goork.songflip", category: "PlaylistConverter")
 
 struct SwiftPlaylistTrackItem: Codable, Identifiable {
     var id: String { targetId ?? "\(title)_\(artist)" }
@@ -864,6 +867,7 @@ struct PlaylistConverterView: View {
             try content.write(to: fileUrl, atomically: true, encoding: .utf8)
             return fileUrl
         } catch {
+            logger.warning("Failed to export M3U8 file: \(error.localizedDescription, privacy: .public)")
             return nil
         }
     }
@@ -877,6 +881,7 @@ struct PlaylistConverterView: View {
             try content.write(to: fileUrl, atomically: true, encoding: .utf8)
             return fileUrl
         } catch {
+            logger.warning("Failed to export CSV file: \(error.localizedDescription, privacy: .public)")
             return nil
         }
     }

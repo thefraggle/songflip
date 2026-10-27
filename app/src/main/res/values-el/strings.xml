@@ -136,6 +136,7 @@
         <item quantity="one">%1$d κομμάτι στο ιστορικό</item>
         <item quantity="other">%1$d κομμάτια στο ιστορικό</item>
     </plurals>
+    <string name="history_cached_count_free_capped">10 από %1$d κομμάτια ορατά</string>
     <string name="history_empty">Δεν υπάρχουν ακόμη κομμάτια. Οι ανακατευθυνόμενοι σύνδεσμοι θα εμφανίζονται αυτόματα εδώ.</string>
     <string name="history_clear_all">Εκκαθάριση ιστορικού</string>
     <string name="history_clear_confirm_title">Εκκαθάριση ιστορικού κομματιών;</string>

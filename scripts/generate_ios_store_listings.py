@@ -12,7 +12,7 @@ IOS_LISTINGS = {
         'name': 'SongFlip: Music Link Redirect',
         'subtitle': 'Podcast & Playlist Converter',
         'promotional_text': 'Friends send Spotify or Apple Podcasts links, but you use YouTube Music or Pocket Casts? SongFlip instantly converts and opens shared audio links in your favorite player.',
-        'keywords': 'spotify,apple,youtube,transfer,deezer,beatport,qobuz,tidal,soundcloud,shazam,bandcamp,open,song',
+        'keywords': 'spotify,apple,youtube,transfer,deezer,beatport,qobuz,tidal,soundcloud,shazam,bandcamp,amazon,song',
         'description': """Friends send you a song link or podcast link from Spotify, Tidal, or Apple Podcasts – but you listen on Apple Music, YouTube Music, or Pocket Casts?
 
 SongFlip is your universal music link redirect and song link converter for iOS. Whether via the iOS Share Sheet, Listen & Flip audio recognition, direct song search, universal QR codes, Shortcuts, or the Action Button: SongFlip instantly converts shared music links and podcast links to open them directly in your favorite player – with zero manual searching, no copying, and no friction.
@@ -54,7 +54,7 @@ Privacy Policy: https://songflip.link/privacy""",
         'name': 'SongFlip: Musik Link Umleitung',
         'subtitle': 'Podcast & Playlist Converter',
         'promotional_text': 'Freunde schicken Spotify- oder Apple Podcasts-Links, aber du nutzt YouTube Music oder Pocket Casts? SongFlip leitet Audio-Links blitzschnell in deinen Wunsch-Player um.',
-        'keywords': 'spotify,apple,youtube,transfer,deezer,beatport,qobuz,tidal,soundcloud,shazam,redirect,öffnen,song',
+        'keywords': 'spotify,apple,youtube,transfer,deezer,beatport,qobuz,tidal,soundcloud,shazam,redirect,amazon,song',
         'description': """Freunde schicken dir einen Song-Link oder Podcast-Link von Spotify, Deezer oder Apple Podcasts – aber du nutzt Apple Music, YouTube Music oder Pocket Casts?
 
 SongFlip ist deine smarte Musik-Link-Umleitung (Music Link Redirect) sowie dein universeller Song- und Podcast-Link Converter für iOS. Ob über das native Teilen-Menü (Share Sheet), die Musikerkennung Listen & Flip, die direkte Titelsuche, universelle QR-Codes, Kurzbefehle oder den Action Button: SongFlip lässt dich geteilte Musik-Links und Podcast-Links blitzschnell konvertieren und direkt im Wunsch-Player öffnen – ganz ohne manuelles Suchen oder Kopieren.

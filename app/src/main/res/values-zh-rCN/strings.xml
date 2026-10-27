@@ -144,6 +144,7 @@
     <plurals name="history_cached_count">
         <item quantity="other">历史记录中有 %1$d 首歌曲</item>
     </plurals>
+    <string name="history_cached_count_free_capped">显示 %1$d 首歌曲中的 10 首</string>
     <string name="history_empty">暂无转换记录。分享的音乐链接将显示在这里。</string>
     <string name="history_clear_all">清除历史记录</string>
     <string name="history_clear_confirm_title">确定清除歌曲历史？</string>

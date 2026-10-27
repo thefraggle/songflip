@@ -51,6 +51,9 @@ import de.goork.songflip.core.cache.LinkHistoryItem
 import de.goork.songflip.core.engine.SongLinkEngine
 import de.goork.songflip.data.PackageUtils
 
+private val attemptedHydrationKeys = mutableSetOf<String>()
+private var isHydratingThumbnails = false
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HistoryBottomSheet(
@@ -85,33 +88,46 @@ fun HistoryBottomSheet(
             historyCount = count
             isLoadingHistory = false
 
-            // Auto-hydrate cover artwork for older history entries in background
-            val missingCoverItems = items.filter { it.thumbnailUrl.isNullOrBlank() }
-            if (missingCoverItems.isNotEmpty()) {
+            // Auto-hydrate cover artwork for older history entries in background (capped to 5 per run, cached attempted keys)
+            val missingCoverItems = items.filter {
+                it.thumbnailUrl.isNullOrBlank() &&
+                    !it.targetPlatformKey.contains("_playlist") &&
+                    !attemptedHydrationKeys.contains("${it.canonicalUrl}|${it.targetPlatformKey}")
+            }
+            if (missingCoverItems.isNotEmpty() && !isHydratingThumbnails) {
+                isHydratingThumbnails = true
+                val batchToHydrate = missingCoverItems.take(5)
+                for (item in batchToHydrate) {
+                    attemptedHydrationKeys.add("${item.canonicalUrl}|${item.targetPlatformKey}")
+                }
                 launch(kotlinx.coroutines.Dispatchers.IO) {
-                    var hasUpdates = false
-                    for (missing in missingCoverItems) {
-                        try {
-                            val res = SongLinkEngine.shared.forceRefreshTargetUrl(
-                                inputUrl = missing.canonicalUrl,
-                                targetPlatformKey = missing.targetPlatformKey,
-                                isPro = isPro,
-                                authToken = de.goork.songflip.data.ProManager.getAuthToken()
-                            )
-                            if (res is de.goork.songflip.core.model.ResolutionResult.Success && !res.thumbnailUrl.isNullOrBlank()) {
-                                hasUpdates = true
+                    try {
+                        var hasUpdates = false
+                        for (missing in batchToHydrate) {
+                            try {
+                                val res = SongLinkEngine.shared.forceRefreshTargetUrl(
+                                    inputUrl = missing.canonicalUrl,
+                                    targetPlatformKey = missing.targetPlatformKey,
+                                    isPro = isPro,
+                                    authToken = de.goork.songflip.data.ProManager.getAuthToken()
+                                )
+                                if (res is de.goork.songflip.core.model.ResolutionResult.Success && !res.thumbnailUrl.isNullOrBlank()) {
+                                    hasUpdates = true
+                                }
+                            } catch (t: Throwable) {
+                                if (t is kotlinx.coroutines.CancellationException) throw t
+                                // Thumbnail backfill is best-effort; one failing entry must not stop the rest.
+                                android.util.Log.w("HistoryBottomSheet", "Thumbnail refresh failed: ${t.message}")
                             }
-                        } catch (t: Throwable) {
-                            if (t is kotlinx.coroutines.CancellationException) throw t
-                            // Thumbnail backfill is best-effort; one failing entry must not stop the rest.
-                            android.util.Log.w("HistoryBottomSheet", "Thumbnail refresh failed: ${t.message}")
                         }
-                    }
-                    if (hasUpdates) {
-                        val updated = SongLinkEngine.shared.cache.getHistoryEntries(limit = historyLimit)
-                        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
-                            historyItems = updated
+                        if (hasUpdates) {
+                            val updated = SongLinkEngine.shared.cache.getHistoryEntries(limit = historyLimit)
+                            kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                                historyItems = updated
+                            }
                         }
+                    } finally {
+                        isHydratingThumbnails = false
                     }
                 }
             }

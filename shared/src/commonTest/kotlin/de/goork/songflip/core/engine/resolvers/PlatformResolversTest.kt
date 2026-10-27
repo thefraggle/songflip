@@ -156,6 +156,43 @@ class PlatformResolversTest {
         assertEquals("Queen Bohemian Rhapsody", metadata)
     }
 
+    @Test
+    fun testAppleMusicResolverPrioritizesStudioTrackOverRemix() = runTest {
+        val mockEngine = MockEngine { request ->
+            val term = request.url.parameters["term"] ?: ""
+            respond(
+                content = """
+                {
+                    "resultCount": 2,
+                    "results": [
+                        {
+                            "artistName": "The Weeknd",
+                            "trackName": "Blinding Lights (Major Lazer Remix)",
+                            "trackViewUrl": "https://music.apple.com/album/blinding-lights-remix/123?i=123"
+                        },
+                        {
+                            "artistName": "The Weeknd",
+                            "trackName": "Blinding Lights",
+                            "trackViewUrl": "https://music.apple.com/album/blinding-lights/456?i=456"
+                        }
+                    ]
+                }
+                """.trimIndent(),
+                status = HttpStatusCode.OK,
+                headers = headersOf(HttpHeaders.ContentType, "application/json")
+            )
+        }
+        val resolver = AppleMusicResolver(client = HttpClient(mockEngine))
+
+        // When user searches original title, it must prefer original studio version over remix
+        val originalResult = resolver.resolveTrack("The Weeknd Blinding Lights")
+        assertEquals("https://music.apple.com/album/blinding-lights/456?i=456", originalResult)
+
+        // When user explicitly searches for remix, remix is allowed and preferred
+        val remixResult = resolver.resolveTrack("The Weeknd Blinding Lights Remix")
+        assertEquals("https://music.apple.com/album/blinding-lights-remix/123?i=123", remixResult)
+    }
+
     // ---------------------------------------------------------
     // DeezerResolver Tests
     // ---------------------------------------------------------

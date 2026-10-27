@@ -504,6 +504,7 @@ final class AcousticRecognizer: ObservableObject {
             cachedTokenExpiryEpochSec = expiresAt
             return token
         } catch {
+            Self.logger.warning("Failed to fetch developer token: \(error.localizedDescription, privacy: .public)")
             return cachedDeveloperToken
         }
     }
@@ -517,18 +518,13 @@ final class AcousticRecognizer: ObservableObject {
             return .transientError("developer token unavailable")
         }
         let rawCountry = Locale.current.region?.identifier.lowercased() ?? "de"
-        let storeFront = (rawCountry.count == 2) ? rawCountry : "de"
-        let urlString = "https://api.shazam.apple.com/v1/catalog/\(storeFront)/match?types=shazam-songs&include%5Bshazam-songs%5D=songs&include%5Bsongs%5D=music-videos&meta=matchOffset%2CfrequencySkew&format%5Bresources%5D=map"
-        guard let url = URL(string: urlString) else {
-            return .transientError("invalid URL")
+        let primaryStoreFront = (rawCountry.count == 2) ? rawCountry : "de"
+        var storeFronts: [String] = []
+        for sf in [primaryStoreFront, "us", "de"] {
+            if !storeFronts.contains(sf) {
+                storeFronts.append(sf)
+            }
         }
-
-        var req = URLRequest(url: url)
-        req.httpMethod = "POST"
-        req.timeoutInterval = 8
-        req.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        req.setValue("ShazamKit/2.1.1 iOS", forHTTPHeaderField: "User-Agent")
-        req.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
 
         let payload: [String: Any] = [
             "data": [
@@ -541,83 +537,109 @@ final class AcousticRecognizer: ObservableObject {
             ]
         ]
 
-        do {
-            req.httpBody = try JSONSerialization.data(withJSONObject: payload)
-            let (data, response) = try await URLSession.shared.data(for: req)
-            guard let http = response as? HTTPURLResponse else {
-                return .transientError("non-HTTP response")
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: payload) else {
+            return .transientError("failed to serialize payload")
+        }
+
+        var lastFailure: OfflineMatchOutcome = .noMatch
+        for sf in storeFronts {
+            let urlString = "https://api.shazam.apple.com/v1/catalog/\(sf)/match?types=shazam-songs&include%5Bshazam-songs%5D=songs&include%5Bsongs%5D=music-videos&meta=matchOffset%2CfrequencySkew&format%5Bresources%5D=map"
+            guard let url = URL(string: urlString) else {
+                continue
             }
 
-            if http.statusCode == 401 || http.statusCode == 403 {
-                cachedDeveloperToken = nil
-                return .transientError("HTTP \(http.statusCode) developer token rejected")
-            }
-            if http.statusCode == 408 || http.statusCode == 429 || http.statusCode >= 500 {
-                return .transientError("HTTP \(http.statusCode)")
-            }
-            guard (200..<300).contains(http.statusCode) else {
-                return .rejected("HTTP \(http.statusCode)")
-            }
+            var req = URLRequest(url: url)
+            req.httpMethod = "POST"
+            req.timeoutInterval = 8
+            req.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            req.setValue("ShazamKit/2.1.1 iOS", forHTTPHeaderField: "User-Agent")
+            req.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
+            req.httpBody = httpBody
 
-            guard let root = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-                return .transientError("unparsable JSON")
-            }
+            do {
+                let (data, response) = try await URLSession.shared.data(for: req)
+                guard let http = response as? HTTPURLResponse else {
+                    lastFailure = .transientError("non-HTTP response")
+                    continue
+                }
 
-            guard let resources = root["resources"] as? [String: Any],
-                  let shazamSongs = resources["shazam-songs"] as? [String: Any],
-                  let firstKey = shazamSongs.keys.first,
-                  let shazamSongObj = shazamSongs[firstKey] as? [String: Any],
-                  let attributes = shazamSongObj["attributes"] as? [String: Any] else {
-                return .noMatch
-            }
+                if http.statusCode == 401 || http.statusCode == 403 {
+                    cachedDeveloperToken = nil
+                    return .transientError("HTTP \(http.statusCode) developer token rejected")
+                }
+                if http.statusCode == 408 || http.statusCode == 429 || http.statusCode >= 500 {
+                    lastFailure = .transientError("HTTP \(http.statusCode)")
+                    continue
+                }
+                guard (200..<300).contains(http.statusCode) else {
+                    lastFailure = .rejected("HTTP \(http.statusCode)")
+                    continue
+                }
 
-            let title = ((attributes["title"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines)).flatMap { $0.isEmpty ? nil : $0 } ?? "Unknown Track"
-            let artist = ((attributes["artist"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines))
-                ?? ((attributes["primaryArtist"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines))
-                ?? ""
+                guard let root = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+                    lastFailure = .transientError("unparsable JSON")
+                    continue
+                }
 
-            var artworkUrl = (attributes["artwork"] as? [String: Any])?["url"] as? String
-            var appleMusicId: String? = nil
-            var appleMusicUrl: String? = nil
+                guard let resources = root["resources"] as? [String: Any],
+                      let shazamSongs = resources["shazam-songs"] as? [String: Any],
+                      let firstKey = shazamSongs.keys.first,
+                      let shazamSongObj = shazamSongs[firstKey] as? [String: Any],
+                      let attributes = shazamSongObj["attributes"] as? [String: Any] else {
+                    lastFailure = .noMatch
+                    continue
+                }
 
-            if let relationships = shazamSongObj["relationships"] as? [String: Any],
-               let songsRel = relationships["songs"] as? [String: Any],
-               let relData = songsRel["data"] as? [[String: Any]],
-               let firstSong = relData.first,
-               let id = firstSong["id"] as? String, !id.isEmpty {
-                appleMusicId = id
-                if let songsMap = resources["songs"] as? [String: Any],
-                   let appleSongObj = songsMap[id] as? [String: Any],
-                   let appleAttrs = appleSongObj["attributes"] as? [String: Any] {
-                    if let url = appleAttrs["url"] as? String, !url.isEmpty {
-                        appleMusicUrl = url
-                    }
-                    if (artworkUrl ?? "").isEmpty,
-                       let appleArt = (appleAttrs["artwork"] as? [String: Any])?["url"] as? String,
-                       !appleArt.isEmpty {
-                        artworkUrl = appleArt
+                let title = ((attributes["title"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines)).flatMap { $0.isEmpty ? nil : $0 } ?? "Unknown Track"
+                let artist = ((attributes["artist"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines))
+                    ?? ((attributes["primaryArtist"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines))
+                    ?? ""
+
+                var artworkUrl = (attributes["artwork"] as? [String: Any])?["url"] as? String
+                var appleMusicId: String? = nil
+                var appleMusicUrl: String? = nil
+
+                if let relationships = shazamSongObj["relationships"] as? [String: Any],
+                   let songsRel = relationships["songs"] as? [String: Any],
+                   let relData = songsRel["data"] as? [[String: Any]],
+                   let firstSong = relData.first,
+                   let id = firstSong["id"] as? String, !id.isEmpty {
+                    appleMusicId = id
+                    if let songsMap = resources["songs"] as? [String: Any],
+                       let appleSongObj = songsMap[id] as? [String: Any],
+                       let appleAttrs = appleSongObj["attributes"] as? [String: Any] {
+                        if let url = appleAttrs["url"] as? String, !url.isEmpty {
+                            appleMusicUrl = url
+                        }
+                        if (artworkUrl ?? "").isEmpty,
+                           let appleArt = (appleAttrs["artwork"] as? [String: Any])?["url"] as? String,
+                           !appleArt.isEmpty {
+                            artworkUrl = appleArt
+                        }
                     }
                 }
-            }
 
-            if let rawArt = artworkUrl, !rawArt.isEmpty {
-                artworkUrl = rawArt
-                    .replacingOccurrences(of: "{w}", with: "800")
-                    .replacingOccurrences(of: "{h}", with: "800")
-            }
+                if let rawArt = artworkUrl, !rawArt.isEmpty {
+                    artworkUrl = rawArt
+                        .replacingOccurrences(of: "{w}", with: "800")
+                        .replacingOccurrences(of: "{h}", with: "800")
+                }
 
-            let webUrl = (attributes["webUrl"] as? String) ?? appleMusicUrl
-            return .matched(MatchedTrackInfo(
-                title: title,
-                artist: artist,
-                artworkUrl: artworkUrl,
-                appleMusicUrl: appleMusicUrl,
-                appleMusicId: appleMusicId,
-                webUrl: webUrl
-            ))
-        } catch {
-            return .transientError("network error: \(error.localizedDescription)")
+                let webUrl = (attributes["webUrl"] as? String) ?? appleMusicUrl
+                return .matched(MatchedTrackInfo(
+                    title: title,
+                    artist: artist,
+                    artworkUrl: artworkUrl,
+                    appleMusicUrl: appleMusicUrl,
+                    appleMusicId: appleMusicId,
+                    webUrl: webUrl
+                ))
+            } catch {
+                Self.logger.warning("Shazam API network error on storefront \(sf): \(error.localizedDescription, privacy: .public)")
+                lastFailure = .transientError("network error: \(error.localizedDescription)")
+            }
         }
+        return lastFailure
     }
 
     private func matchSingleSignature(_ signature: SHSignature) async -> MatchedTrackInfo? {

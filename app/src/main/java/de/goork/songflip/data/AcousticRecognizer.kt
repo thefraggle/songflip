@@ -69,6 +69,7 @@ data class DirectShazamMatch(
  */
 object AcousticRecognizer {
 
+    private const val TAG = "AcousticRecognizer"
     private const val PREFS_NAME = "songflip_shazam_token_prefs"
     private const val KEY_TOKEN = "developer_token"
     private const val KEY_EXPIRES_AT = "developer_token_expires_at"
@@ -79,7 +80,9 @@ object AcousticRecognizer {
     private val JSON_MEDIA_TYPE = "application/json; charset=utf-8".toMediaType()
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    @Volatile
     private var activeJob: Job? = null
+    @Volatile
     private var activeAudioRecord: AudioRecord? = null
 
     private val _state = MutableStateFlow<AcousticRecognitionState>(AcousticRecognitionState.Idle)
@@ -107,10 +110,14 @@ object AcousticRecognizer {
         activeJob = null
         try {
             activeAudioRecord?.stop()
-        } catch (_: Throwable) {}
+        } catch (t: Throwable) {
+            android.util.Log.d(TAG, "AudioRecord stop: ${t.message}")
+        }
         try {
             activeAudioRecord?.release()
-        } catch (_: Throwable) {}
+        } catch (t: Throwable) {
+            android.util.Log.d(TAG, "AudioRecord release: ${t.message}")
+        }
         activeAudioRecord = null
     }
 
@@ -194,7 +201,7 @@ object AcousticRecognizer {
         if (jwt.isBlank()) return OfflineMatchOutcome.TransientError("developer token unavailable")
 
         val primaryStoreFront = resolveStoreFront()
-        val storeFronts = if (primaryStoreFront == "de") listOf("de", "us") else listOf(primaryStoreFront, "de")
+        val storeFronts = listOf(primaryStoreFront, "us", "de").distinct()
         val payload = JSONObject()
             .put("signature", JSONObject().put("uri", "data:audio/vnd.shazam.sig;base64,$signatureBase64"))
             .toString()
@@ -410,7 +417,9 @@ object AcousticRecognizer {
                     return ar to source
                 }
                 ar.release()
-            } catch (_: Throwable) {}
+            } catch (t: Throwable) {
+                android.util.Log.d(TAG, "AudioRecord init failed for source $source: ${t.message}")
+            }
         }
         return null
     }

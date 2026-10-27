@@ -145,6 +145,7 @@
         <item quantity="one">Geçmişte %1$d şarkı</item>
         <item quantity="other">Geçmişte %1$d şarkı</item>
     </plurals>
+    <string name="history_cached_count_free_capped">%1$d şarkıdan 10 tanesi görünür</string>
     <string name="history_empty">Henüz dönüştürülmüş şarkı yok. Paylaşılan müzik bağlantıları burada görünecektir.</string>
     <string name="history_clear_all">Geçmişi Temizle</string>
     <string name="history_clear_confirm_title">Şarkı geçmişi temizlensin mi?</string>

@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
-val appVersionName = "1.11.5"
+val appVersionName = "1.11.6"
 val computedVersionCode = run {
     val cleanVersion = appVersionName.substringBefore("-").substringBefore("+")
     val parts = cleanVersion.split(".").mapNotNull { it.toIntOrNull() }

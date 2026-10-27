@@ -145,6 +145,7 @@
         <item quantity="one">%1$d música no histórico</item>
         <item quantity="other">%1$d músicas no histórico</item>
     </plurals>
+    <string name="history_cached_count_free_capped">10 de %1$d músicas visíveis</string>
     <string name="history_empty">Nenhuma música convertida ainda. Links de música compartilhados aparecerão aqui.</string>
     <string name="history_clear_all">Limpar Histórico</string>
     <string name="history_clear_confirm_title">Limpar histórico de músicas?</string>

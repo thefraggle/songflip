@@ -137,6 +137,7 @@
         <item quantity="few">%1$d melodii în istoric</item>
         <item quantity="other">%1$d de melodii în istoric</item>
     </plurals>
+    <string name="history_cached_count_free_capped">10 din %1$d melodii vizibile</string>
     <string name="history_empty">Nicio melodie convertită încă. Linkurile redirecționate vor apărea automat aici.</string>
     <string name="history_clear_all">Șterge istoricul</string>
     <string name="history_clear_confirm_title">Ștergeți istoricul melodiilor?</string>

@@ -1,2 +1,2 @@
-- Vylepšené rozlišení regionálních katalogů: Vyhledávací dotazy pro streamované katalogy nyní dynamicky zvažují místní region, což zlepšuje zjišťování a přesnost pro regionální vydání a mezinárodní tituly.
-- Security & Component Hardening: Zpřísněná přístupová oprávnění pro interní služby na pozadí pro zajištění zabezpečení systému.
+- Vylepšená priorita studiových skladeb: Hledání hudby a konverze odkazů nyní důsledně upřednostňují původní studiové verze před remixy, živými nahrávkami a akustickými variacemi.
+- Vylepšené rozpoznávání písní: Akustická detekce obsahuje globální záložní katalog k mezinárodním vydáním a jemné indikátory zvukové zpětné vazby.

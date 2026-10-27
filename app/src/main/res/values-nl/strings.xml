@@ -145,6 +145,7 @@
         <item quantity="one">%1$d nummer in geschiedenis</item>
         <item quantity="other">%1$d nummers in geschiedenis</item>
     </plurals>
+    <string name="history_cached_count_free_capped">10 van de %1$d nummers zichtbaar</string>
     <string name="history_empty">Nog geen geconverteerde nummers. Gedeelde muzieklinks verschijnen hier.</string>
     <string name="history_clear_all">Geschiedenis wissen</string>
     <string name="history_clear_confirm_title">Geschiedenis wissen?</string>

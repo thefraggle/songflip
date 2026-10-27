@@ -145,6 +145,7 @@
         <item quantity="one">इतिहासात %1$d गाणे</item>
         <item quantity="other">इतिहासात %1$d गाणी</item>
     </plurals>
+    <string name="history_cached_count_free_capped">%1$d पैकी 10 गाणी दिसत आहेत</string>
     <string name="history_empty">अद्याप कोणतीही गाणी रूपांतरित केलेली नाहीत. शेअर केलेल्या लिंक्स येथे आपोआप दिसतील.</string>
     <string name="history_clear_all">इतिहास साफ करा</string>
     <string name="history_clear_confirm_title">गाण्यांचा इतिहास साफ करायचा?</string>

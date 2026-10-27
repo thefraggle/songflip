@@ -237,6 +237,14 @@ The iOS architecture decouples the main user interface (`de.goork.SongFlip`) fro
   - Restricted `ListenAndFlipActivity` in `AndroidManifest.xml` (`exported="false"`) preventing untrusted external applications from invoking the microphone-enabled recognition overlay (#155).
   - Dynamized catalog searches in `TidalResolver.kt` by substituting hardcoded `countryCode=DE` with platform-specific locale providers (`getSystemCountryCode()`) with strict 2-letter uppercase ISO fallbacks, significantly enhancing international search accuracy (#157).
   - Documented proprietary backend submodule status in `README.md` and `CONTRIBUTING.md`, created `local.properties.example` configuration template, and updated `SECURITY.md` supported version matrix to `1.11.x` (#156).
+- **Studio Track Prioritization, Concurrency Hardening, Recognition Fallbacks & Keyboard UX (v1.11.6 / #158, #159, #160, #161, #164, #165, #166)**:
+  - **Studio Track Prioritization & Remix Guard (#166)**: Enhanced candidate scoring in `AppleMusicResolver.kt` (aligning with Cloud Functions) to penalize unrequested remixes, live recordings, acoustic, and instrumental versions while prioritizing exact title and artist matches.
+  - **Concurrency & Storage Hardening (#161)**: Introduced cross-platform `PlatformLock` (`synchronized` on JVM/Android, `NSLock` on iOS) and `@Volatile` double-checked initialization in `SqlDelightCacheStorage.kt`, thread-safe quota mutations in `AcousticQuotaManager.kt`, and `@Volatile` state on Android `AcousticRecognizer.kt`.
+  - **History Cover Hydration Throttling (#158)**: Capped simultaneous thumbnail hydration in Android `HistoryBottomSheet.kt` to 5 entries per run (`take(5)`) and maintained an in-memory session cache of attempted keys (`attemptedHydrationKeys`), preventing redundant network requests on sheet open.
+  - **Promo Code Keyboard Ergonomics (#165)**: Replaced Android bottom-docked toasts in `ProPaywallBottomSheet.kt` with inline error messages below `OutlinedTextField`, enabled visual `isError` borders, and auto-sanitized input via `.trim().uppercase()`.
+  - **Robustness & Catch Block Logging (#160)**: Added explicit logging with message and category tags across silent `catch` blocks in `AcousticRecognizer.kt`, `AcousticRecognizer.swift`, and `PlaylistConverterView.swift`.
+  - **Unified Storefront Fallback & Calibrated Audio Feedback (#164)**: Unified Shazam direct catalog REST matching across Android and iOS to query `[primaryStoreFront, "us", "de"]` sequentially before failing, and calibrated low-input level audio feedback to 4 seconds continuous low amplitude (`< 0.15`) in `ListenAndFlipBottomSheet.kt` and `ListenAndFlipSheetView.swift`.
+  - **Comprehensive Localization (#159)**: Added `history_cached_count_free_capped` across all 29 Android `values-*/strings.xml` resource catalogs and synchronized iOS `LocalizationManager.swift`.
 
 
 ---

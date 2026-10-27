@@ -3,6 +3,8 @@ package de.goork.songflip.core.cache
 import app.cash.sqldelight.db.SqlDriver
 import de.goork.songflip.core.db.SongFlipDatabase
 import de.goork.songflip.core.engine.getCurrentTimeMillis
+import de.goork.songflip.core.util.PlatformLock
+import kotlin.concurrent.Volatile
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
@@ -100,8 +102,11 @@ class SqlDelightCacheStorage(
         }
     }
 
+    @Volatile
     private var database: SongFlipDatabase? = null
+    @Volatile
     private var initAttempted = false
+    private val initLock = PlatformLock()
 
     private fun ensureSchemaUpgrades(driver: SqlDriver) {
         try {
@@ -132,25 +137,34 @@ class SqlDelightCacheStorage(
     }
 
     fun getDatabase(): SongFlipDatabase? {
-        if (database != null) return database
+        val existing = database
+        if (existing != null) return existing
         if (initAttempted) return null
-        val driver = try {
-            driverProvider()
-        } catch (t: Throwable) {
-            println("SqlDelightCacheStorage: Failed to create SQL driver: ${t.message}")
-            null
-        } ?: return null
 
-        initAttempted = true
-        return try {
-            ensureSchemaUpgrades(driver)
-            val db = SongFlipDatabase(driver)
-            database = db
-            onDatabaseReady?.invoke(this, db)
-            db
-        } catch (t: Throwable) {
-            println("SqlDelightCacheStorage: Failed to initialize database: ${t.message}")
-            null
+        return initLock.withLock {
+            val doubleCheck = database
+            if (doubleCheck != null) return@withLock doubleCheck
+            if (initAttempted) return@withLock null
+
+            val driver = try {
+                driverProvider()
+            } catch (t: Throwable) {
+                println("SqlDelightCacheStorage: Failed to create SQL driver: ${t.message}")
+                null
+            }
+            initAttempted = true
+            if (driver == null) return@withLock null
+
+            try {
+                ensureSchemaUpgrades(driver)
+                val db = SongFlipDatabase(driver)
+                database = db
+                onDatabaseReady?.invoke(this, db)
+                db
+            } catch (t: Throwable) {
+                println("SqlDelightCacheStorage: Failed to initialize database: ${t.message}")
+                null
+            }
         }
     }
 
