@@ -135,6 +135,7 @@
     <plurals name="history_cached_count">
         <item quantity="other">มี %1$d เพลงในประวัติ</item>
     </plurals>
+    <string name="history_cached_count_free_capped">แสดง 10 จาก %1$d เพลง</string>
     <string name="history_empty">ยังไม่มีเพลงที่แปลง ลิงก์ที่เปิดจะปรากฏที่นี่โดยอัตโนมัติ</string>
     <string name="history_clear_all">ล้างประวัติ</string>
     <string name="history_clear_confirm_title">ล้างประวัติเพลงหรือไม่?</string>

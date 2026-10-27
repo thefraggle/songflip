@@ -136,6 +136,7 @@
         <item quantity="one">%1$d zeneszám az előzményekben</item>
         <item quantity="other">%1$d zeneszám az előzményekben</item>
     </plurals>
+    <string name="history_cached_count_free_capped">%1$d zeneszámból 10 látható</string>
     <string name="history_empty">Még nincsenek átalakított zenék. Az átirányított linkek automatikusan itt jelennek meg.</string>
     <string name="history_clear_all">Előzmények törlése</string>
     <string name="history_clear_confirm_title">Törli az előzményeket?</string>

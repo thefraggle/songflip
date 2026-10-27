@@ -144,6 +144,7 @@
     <plurals name="history_cached_count">
         <item quantity="other">%1$d bài hát trong lịch sử</item>
     </plurals>
+    <string name="history_cached_count_free_capped">Hiển thị 10 trong số %1$d bài hát</string>
     <string name="history_empty">Chưa có bài hát nào được chuyển đổi. Các liên kết âm nhạc đã chuyển đổi sẽ tự động xuất hiện tại đây.</string>
     <string name="history_clear_all">Xóa lịch sử</string>
     <string name="history_clear_confirm_title">Xóa lịch sử bài hát?</string>

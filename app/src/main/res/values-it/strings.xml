@@ -145,6 +145,7 @@
         <item quantity="one">%1$d brano nella cronologia</item>
         <item quantity="other">%1$d brani nella cronologia</item>
     </plurals>
+    <string name="history_cached_count_free_capped">10 brani su %1$d visibili</string>
     <string name="history_empty">Nessun brano convertito. I link musicali condivisi appariranno qui.</string>
     <string name="history_clear_all">Cancella cronologia</string>
     <string name="history_clear_confirm_title">Cancellare la cronologia?</string>

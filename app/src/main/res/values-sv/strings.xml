@@ -145,6 +145,7 @@
         <item quantity="one">%1$d låt i historiken</item>
         <item quantity="other">%1$d låtar i historiken</item>
     </plurals>
+    <string name="history_cached_count_free_capped">10 av %1$d låtar synliga</string>
     <string name="history_empty">Inga konverterade låtar än. Delade musiklänkar visas här.</string>
     <string name="history_clear_all">Rensa historik</string>
     <string name="history_clear_confirm_title">Rensa låthistorik?</string>

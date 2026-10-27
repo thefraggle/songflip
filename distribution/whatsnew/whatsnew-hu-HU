@@ -1,2 +1,2 @@
-- Továbbfejlesztett regionális katalógusfelbontás: A streamelt katalógusok keresési lekérdezései immár dinamikusan figyelembe veszik a helyi régiót, javítva a regionális kiadások és a nemzetközi címek felderítését és pontosságát.
-- Biztonság és komponensek megerősítése: Szigorított hozzáférési engedélyek a belső háttérszolgáltatásokhoz a rendszer biztonsága érdekében.
+- Finomított stúdiósávok priorizálása: A zenei keresés és a linkkonverzió most következetesen az eredeti stúdióváltozatokat részesíti előnyben a remixekkel, az élő felvételekkel és az akusztikus változatokkal szemben.
+- Továbbfejlesztett dalfelismerés: Az akusztikus észlelés globális katalógustartalékot biztosít a nemzetközi kiadásokhoz és finom hangvisszajelzésekkel rendelkezik.

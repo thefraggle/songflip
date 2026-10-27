@@ -138,6 +138,7 @@
         <item quantity="many">%1$d skladby v historii</item>
         <item quantity="other">%1$d skladeb v historii</item>
     </plurals>
+    <string name="history_cached_count_free_capped">Zobrazeno 10 z %1$d skladeb</string>
     <string name="history_empty">Zatím žádné převedené skladby. Otevřené hudební odkazy se zde automaticky zobrazí.</string>
     <string name="history_clear_all">Vymazat historii</string>
     <string name="history_clear_confirm_title">Vymazat historii skladeb?</string>

@@ -144,6 +144,7 @@
     <plurals name="history_cached_count">
         <item quantity="other">기록에 저장된 곡 %1$d개</item>
     </plurals>
+    <string name="history_cached_count_free_capped">%1$d개 곡 중 10개 표시됨</string>
     <string name="history_empty">아직 변환된 곡이 없습니다. 공유된 음악 링크가 여기에 자동으로 표시됩니다.</string>
     <string name="history_clear_all">기록 지우기</string>
     <string name="history_clear_confirm_title">곡 기록을 지우시겠습니까?</string>

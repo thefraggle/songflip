@@ -1,2 +1,2 @@
-- Förbättrad regional katalogupplösning: Sökfrågor för strömmande kataloger tar nu dynamiskt hänsyn till den lokala regionen, vilket förbättrar upptäckten och noggrannheten för regionala utgåvor och internationella titlar.
-- Säkerhet och komponenthärdning: Skärpta åtkomstbehörigheter för interna bakgrundstjänster för att säkerställa systemsäkerhet.
+- Förfinad prioritering av originalspår: Musiksökning och länkkonvertering gynnar nu konsekvent originalversioner framför remixer, liveinspelningar och akustiska variationer.
+- Förbättrad sångigenkänning: Akustisk detektering har en global reservkatalog för internationella utgåvor och subtila ljudåterkopplingsindikatorer.

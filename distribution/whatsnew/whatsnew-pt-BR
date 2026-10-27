@@ -1,2 +1,2 @@
-- Resolução aprimorada de catálogo regional: as consultas de pesquisa para catálogos de streaming agora consideram dinamicamente a região local, melhorando a descoberta e a precisão de lançamentos regionais e títulos internacionais.
-- Segurança e fortalecimento de componentes: Permissões de acesso reforçadas para serviços internos em segundo plano para garantir a segurança do sistema.
+- Priorização refinada de faixas de estúdio: a pesquisa de músicas e a conversão de links agora favorecem consistentemente as versões originais de estúdio em vez de remixes, gravações ao vivo e variações acústicas.
+- Reconhecimento de música aprimorado: A detecção acústica apresenta reserva de catálogo global para lançamentos internacionais e indicadores sutis de feedback de áudio.

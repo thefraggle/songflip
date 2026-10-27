@@ -145,6 +145,7 @@
         <item quantity="one">इतिहास में %1$d गाना</item>
         <item quantity="other">इतिहास में %1$d गाने</item>
     </plurals>
+    <string name="history_cached_count_free_capped">%1$d में से 10 गाने दिख रहे हैं</string>
     <string name="history_empty">अभी तक कोई कनवर्ट किया गया गाना नहीं है। शेयर किए गए लिंक यहाँ अपने आप दिखाई देंगे।</string>
     <string name="history_clear_all">इतिहास साफ़ करें</string>
     <string name="history_clear_confirm_title">गानों का इतिहास साफ़ करें?</string>

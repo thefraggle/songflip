@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.11.6] - 2026-10-27
+- **Präzisere Studio-Titel-Erkennung**: Musiksuche und Link-Konvertierung bevorzugen jetzt verlässlich originale Studio-Versionen gegenüber Remixen, Live-Aufnahmen und Akustik-Fassungen.
+- **Zuverlässigere Musikerkennung**: Akustische Erkennung mit weltweitem Katalog-Rückgriff für internationale Veröffentlichungen und dezentem Pegel-Hinweis.
+- **Flüssigerer Verlauf & Cover-Aktualisierung**: Optimierte Nachladung von Album-Covern im Verlauf reduziert Datenübertragungen und beschleunigt die Anzeige.
+- **Bequeme Gutschein-Aktivierung & Detailpflege**: Direktes visuelles Feedback bei Gutscheincodes über der Tastatur, vollständige Übersetzungen und interne Stabilitätssteigerungen.
+
 ## [1.11.5] - 2026-10-26
 - **Verbesserte regionale Katalogsuche**: Titelsuchen berücksichtigen nun dynamisch die jeweilige Systemregion, was die Treffergenauigkeit bei regionalen Veröffentlichungen und internationalen Titeln spürbar erhöht.
 - **Sicherheitsaktualisierung**: Zugriffsberechtigungen für interne Hintergrunddienste wurden gehärtet, um die Systemsicherheit weiter zu stärken.

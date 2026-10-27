@@ -1312,7 +1312,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "Kræver offentlig playliste",
             "playlist_error_private_toast": "Private playlister kan ikke konverteres (gør dem venligst offentlige)",
             "listen_change_target": "Skift destination",
-            "playlist_reconvert": "Genkonverter"
+            "playlist_reconvert": "Genkonverter",
+            "history_cached_count_free_capped": "10 af %1$d sange synlige"
         ],
         "nb": [
             "settings_audiophile_title": "Audiofil kvalitetsprioritering",
@@ -1747,7 +1748,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "Krever offentlig spilleliste",
             "playlist_error_private_toast": "Private spillelister kan ikke konverteres (vennligst gjør dem offentlige)",
             "listen_change_target": "Endre mål",
-            "playlist_reconvert": "Konverter på nytt"
+            "playlist_reconvert": "Konverter på nytt",
+            "history_cached_count_free_capped": "10 av %1$d sanger synlige"
         ],
         "sv": [
             "settings_audiophile_title": "Audiofil kvalitetsprioritering",
@@ -2182,7 +2184,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "Kräver offentlig spellista",
             "playlist_error_private_toast": "Privata spellistor kan inte konverteras (ställ in som offentlig)",
             "listen_change_target": "Ändra mål",
-            "playlist_reconvert": "Konvertera igen"
+            "playlist_reconvert": "Konvertera igen",
+            "history_cached_count_free_capped": "10 av %1$d låtar synliga"
         ],
         "nl": [
             "settings_audiophile_title": "Audiofiele kwaliteitsprioriteit",
@@ -2617,7 +2620,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "Vereist openbare afspeellijst",
             "playlist_error_private_toast": "Privé-afspeellijsten kunnen niet worden geconverteerd (stel in op openbaar)",
             "listen_change_target": "Doel wijzigen",
-            "playlist_reconvert": "Opnieuw converteren"
+            "playlist_reconvert": "Opnieuw converteren",
+            "history_cached_count_free_capped": "10 van de %1$d nummers zichtbaar"
         ],
         "fr": [
             "settings_audiophile_title": "Priorité qualité audiophile",
@@ -3052,7 +3056,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "Nécessite une playlist publique",
             "playlist_error_private_toast": "Les playlists privées ne peuvent pas être converties (veuillez la rendre publique)",
             "listen_change_target": "Changer de cible",
-            "playlist_reconvert": "Reconvertir"
+            "playlist_reconvert": "Reconvertir",
+            "history_cached_count_free_capped": "10 morceaux sur %1$d visibles"
         ],
         "es": [
             "settings_audiophile_title": "Prioridad de calidad audiófila",
@@ -3487,7 +3492,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "Requiere playlist pública",
             "playlist_error_private_toast": "Las playlists privadas no se pueden convertir (por favor, ponla en público)",
             "listen_change_target": "Cambiar destino",
-            "playlist_reconvert": "Reconvertir"
+            "playlist_reconvert": "Reconvertir",
+            "history_cached_count_free_capped": "10 de %1$d canciones visibles"
         ],
         "it": [
             "settings_audiophile_title": "Priorità qualità audiofila",
@@ -3922,7 +3928,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "Richiede playlist pubblica",
             "playlist_error_private_toast": "Le playlist private non possono essere convertite (impostale come pubbliche)",
             "listen_change_target": "Cambia destinazione",
-            "playlist_reconvert": "Riconverti"
+            "playlist_reconvert": "Riconverti",
+            "history_cached_count_free_capped": "10 brani su %1$d visibili"
         ],
         "pt": [
             "settings_audiophile_title": "Prioridade de qualidade audiófila",
@@ -4357,7 +4364,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "Requer playlist pública",
             "playlist_error_private_toast": "Playlists privadas não podem ser convertidas (por favor, defina como pública)",
             "listen_change_target": "Mudar destino",
-            "playlist_reconvert": "Reconverter"
+            "playlist_reconvert": "Reconverter",
+            "history_cached_count_free_capped": "10 de %1$d músicas visíveis"
         ],
         "pl": [
             "settings_audiophile_title": "Priorytet jakości audiofilskiej",
@@ -4792,7 +4800,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "Wymaga publicznej playlisty",
             "playlist_error_private_toast": "Prywatne playlisty nie mogą być konwertowane (ustaw jako publiczne)",
             "listen_change_target": "Zmień cel",
-            "playlist_reconvert": "Konwertuj ponownie"
+            "playlist_reconvert": "Konwertuj ponownie",
+            "history_cached_count_free_capped": "10 z %1$d utworów widocznych"
         ],
         "ru": [
             "settings_audiophile_title": "Аудиофильский приоритет качества",
@@ -5227,7 +5236,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "Требуется публичный плейлист",
             "playlist_error_private_toast": "Приватные плейлисты нельзя конвертировать (пожалуйста, сделайте их публичными)",
             "listen_change_target": "Сменить цель",
-            "playlist_reconvert": "Сконвертировать снова"
+            "playlist_reconvert": "Сконвертировать снова",
+            "history_cached_count_free_capped": "10 из %1$d треков видимы"
         ],
         "tr": [
             "settings_audiophile_title": "Odyofil Kalite Önceliği",
@@ -5662,7 +5672,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "Herkese açık çalma listesi gerekir",
             "playlist_error_private_toast": "Gizli çalma listeleri dönüştürülemez (lütfen herkese açık yapın)",
             "listen_change_target": "Hedefi değiştir",
-            "playlist_reconvert": "Yeniden dönüştür"
+            "playlist_reconvert": "Yeniden dönüştür",
+            "history_cached_count_free_capped": "%1$d şarkıdan 10 tanesi görünür"
         ],
         "uk": [
             "settings_audiophile_title": "Аудіофільський пріоритет якості",
@@ -6097,7 +6108,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "Потрібен публічний плейліст",
             "playlist_error_private_toast": "Приватні плейлісти не можна конвертувати (будь ласка, зробіть їх публічними)",
             "listen_change_target": "Змінити ціль",
-            "playlist_reconvert": "Переконвертувати"
+            "playlist_reconvert": "Переконвертувати",
+            "history_cached_count_free_capped": "10 з %1$d треків видимі"
         ],
         "ja": [
             "settings_audiophile_title": "オーディオファイル音質優先",
@@ -6532,7 +6544,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "公開プレイリストが必要です",
             "playlist_error_private_toast": "非公開プレイリストは変換できません（公開に設定してください）",
             "listen_change_target": "ターゲットを変更",
-            "playlist_reconvert": "再変換"
+            "playlist_reconvert": "再変換",
+            "history_cached_count_free_capped": "%1$d曲中10曲を表示"
         ],
         "ko": [
             "settings_audiophile_title": "오디오파일 음질 우선",
@@ -6967,7 +6980,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "공개 재생목록 필요",
             "playlist_error_private_toast": "비공개 재생목록은 변환할 수 없습니다 (공개로 설정해 주세요)",
             "listen_change_target": "타겟 변경",
-            "playlist_reconvert": "다시 변환"
+            "playlist_reconvert": "다시 변환",
+            "history_cached_count_free_capped": "%1$d개 곡 중 10개 표시됨"
         ],
         "zh": [
             "settings_audiophile_title": "发烧级音质优先",
@@ -7402,7 +7416,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "需要公开歌单",
             "playlist_error_private_toast": "无法转换私人歌单（请设置为公开）",
             "listen_change_target": "更改目标",
-            "playlist_reconvert": "重新转换"
+            "playlist_reconvert": "重新转换",
+            "history_cached_count_free_capped": "显示 %1$d 首歌曲中的 10 首"
         ],
         "in": [
             "settings_audiophile_title": "Prioritas Kualitas Audiofil",
@@ -7837,7 +7852,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "Memerlukan daftar putar publik",
             "playlist_error_private_toast": "Daftar putar pribadi tidak dapat dikonversi (harap ubah ke publik)",
             "listen_change_target": "Ubah tujuan",
-            "playlist_reconvert": "Konversi ulang"
+            "playlist_reconvert": "Konversi ulang",
+            "history_cached_count_free_capped": "10 dari %1$d lagu terlihat"
         ],
         "vi": [
             "settings_audiophile_title": "Ưu tiên chất lượng Audiophile",
@@ -8272,7 +8288,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "Yêu cầu danh sách phát công khai",
             "playlist_error_private_toast": "Danh sách phát riêng tư không thể chuyển đổi (vui lòng đặt thành công khai)",
             "listen_change_target": "Đổi đích đến",
-            "playlist_reconvert": "Chuyển đổi lại"
+            "playlist_reconvert": "Chuyển đổi lại",
+            "history_cached_count_free_capped": "Hiển thị 10 trong số %1$d bài hát"
         ],
         "bn": [
             "settings_audiophile_title": "অডিওফাইল কোয়ালিটি অগ্রাধিকার",
@@ -8707,7 +8724,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "সর্বজনীন প্লেলিস্ট প্রয়োজন",
             "playlist_error_private_toast": "ব্যক্তিগত প্লেলিস্ট রূপান্তর করা যাবে না (অনুগ্রহ করে সর্বজনীন করুন)",
             "listen_change_target": "টার্গেট পরিবর্তন করুন",
-            "playlist_reconvert": "পুনরায় রূপান্তর করুন"
+            "playlist_reconvert": "পুনরায় রূপান্তর করুন",
+            "history_cached_count_free_capped": "10টির মধ্যে %1$dটি গান দৃশ্যমান"
         ],
         "hi": [
             "settings_audiophile_title": "ऑडियोफाइल क्वालिटी प्राथमिकता",
@@ -9142,7 +9160,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "सार्वजनिक प्लेलिस्ट आवश्यक है",
             "playlist_error_private_toast": "निजी प्लेलिस्ट को रूपांतरित नहीं किया जा सकता (कृपया सार्वजनिक करें)",
             "listen_change_target": "लक्ष्य बदलें",
-            "playlist_reconvert": "पुनः कनवर्ट करें"
+            "playlist_reconvert": "पुनः कनवर्ट करें",
+            "history_cached_count_free_capped": "%1$d में से 10 गाने दिख रहे हैं"
         ],
         "mr": [
             "settings_audiophile_title": "ऑडिओफाइल गुणवत्ता प्राधान्य",
@@ -9577,7 +9596,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "सार्वजनिक प्लेलिस्ट आवश्यक आहे",
             "playlist_error_private_toast": "खाजगी प्लेलिस्ट रूपांतरित केल्या जाऊ शकत नाहीत (कृपया सार्वजनिक करा)",
             "listen_change_target": "लक्ष्य बदला",
-            "playlist_reconvert": "पुन्हा रूपांतरित करा"
+            "playlist_reconvert": "पुन्हा रूपांतरित करा",
+            "history_cached_count_free_capped": "%1$d पैकी 10 गाणी दिसत आहेत"
         ],
         "cs": [
             "settings_audiophile_title": "Audiofilská priorita kvality",
@@ -10012,7 +10032,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "Vyžaduje veřejný playlist",
             "playlist_error_private_toast": "Soukromé playlisty nelze převést (nastavte je na veřejné)",
             "listen_change_target": "Změnit cíl",
-            "playlist_reconvert": "Znovu převést"
+            "playlist_reconvert": "Znovu převést",
+            "history_cached_count_free_capped": "Zobrazeno 10 z %1$d skladeb"
         ],
         "el": [
             "settings_audiophile_title": "Προτεραιότητα ποιότητας Audiophile",
@@ -10447,7 +10468,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "Απαιτείται δημόσια λίστα αναπαραγωγής",
             "playlist_error_private_toast": "Οι ιδιωτικές λίστες αναπαραγωγής δεν μπορούν να μετατραπούν (ορίστε τις ως δημόσιες)",
             "listen_change_target": "Αλλαγή προορισμού",
-            "playlist_reconvert": "Επαναμετατροπή"
+            "playlist_reconvert": "Επαναμετατροπή",
+            "history_cached_count_free_capped": "10 από %1$d κομμάτια ορατά"
         ],
         "fi": [
             "settings_audiophile_title": "Audiofiilinen laatuprioriteetti",
@@ -10882,7 +10904,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "Vaatii julkisen soittolistan",
             "playlist_error_private_toast": "Yksityisiä soittolistoja ei voi muuntaa (aseta julkiseksi)",
             "listen_change_target": "Vaihda kohdetta",
-            "playlist_reconvert": "Muunna uudelleen"
+            "playlist_reconvert": "Muunna uudelleen",
+            "history_cached_count_free_capped": "10/%1$d kappaletta näkyvissä"
         ],
         "hu": [
             "settings_audiophile_title": "Audiofil minőség előnyben",
@@ -11317,7 +11340,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "Nyilvános lejátszási lista szükséges",
             "playlist_error_private_toast": "Privát lejátszási listák nem konvertálhatók (kérjük, állítsa nyilvánosra)",
             "listen_change_target": "Cél módosítása",
-            "playlist_reconvert": "Újrakonvertálás"
+            "playlist_reconvert": "Újrakonvertálás",
+            "history_cached_count_free_capped": "%1$d zeneszámból 10 látható"
         ],
         "ro": [
             "settings_audiophile_title": "Prioritate calitate audiofilă",
@@ -11752,7 +11776,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "Necesită playlist public",
             "playlist_error_private_toast": "Playlisturile private nu pot fi convertite (vă rugăm să le setați ca publice)",
             "listen_change_target": "Schimbă destinația",
-            "playlist_reconvert": "Reconvertește"
+            "playlist_reconvert": "Reconvertește",
+            "history_cached_count_free_capped": "10 din %1$d melodii vizibile"
         ],
         "th": [
             "settings_audiophile_title": "จัดลำดับความสำคัญคุณภาพเสียง Audiophile",
@@ -12187,7 +12212,8 @@ enum LocalizationManager {
             "playlist_banner_public_notice": "ต้องใช้เพลย์ลิสต์สาธารณะ",
             "playlist_error_private_toast": "ไม่สามารถแปลงเพลย์ลิสต์ส่วนตัวได้ (โปรดตั้งค่าเป็นสาธารณะ)",
             "listen_change_target": "เปลี่ยนปลายทาง",
-            "playlist_reconvert": "แปลงอีกครั้ง"
+            "playlist_reconvert": "แปลงอีกครั้ง",
+            "history_cached_count_free_capped": "แสดง 10 จาก %1$d เพลง"
         ],
     ]
 

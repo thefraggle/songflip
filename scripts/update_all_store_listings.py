@@ -43,7 +43,7 @@ Egal ob Spotify zu YouTube Music, Apple Podcasts zu Spotify, Spotify zu Apple Mu
 Songs und Podcasts automatisch konvertieren und weiterleiten zwischen Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, SoundCloud und Bandcamp. Erkennt auch geteilte Shazam-Tracks sofort!
 
 • Listen & Flip – Musikerkennung (auch offline):
-Erkenne Songs in Bars, Clubs oder im Radio per Mikrofon, speichere sie im Verlauf und öffne sie direkt im Wunsch-Player. Dank Offline-Modus werden Audio-Fingerabdrücke auch ohne Empfang gesichert und automatisch aufgelöst, sobald du wieder online bist.
+Musik erkennen in Bars, Clubs oder im Radio per Mikrofon: Songs blitzschnell identifizieren, im Verlauf speichern und direkt im Wunsch-Player öffnen. Dank Offline-Modus werden Audio-Fingerabdrücke auch ohne Empfang gesichert und automatisch aufgelöst, sobald du wieder online bist.
 
 • Direkte Titelsuche & Sofort-Wiedergabe:
 Suche Songs & Interpreten direkt in SongFlip und starte die Wiedergabe per Fast Flip sofort im Ziel-Player – ganz ohne bestehende Web-URL oder leere Suchseiten.
@@ -97,8 +97,8 @@ Whether switching Spotify to YouTube Music, Apple Podcasts to Pocket Casts, Spot
 • 12 Streaming Platforms, Podcasts & Shazam:
 Seamlessly convert and redirect song links and podcasts across Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon, Qobuz, Beatport, SoundCloud, and Bandcamp. Includes instant converter support for shared Shazam tracks!
 
-• Listen & Flip – Audio Recognition (Online & Offline):
-Identify songs playing around you in clubs, bars, or on the radio, save them to your history, and open them in your favorite player. With Offline Mode, capture audio fingerprints even without reception and resolve tracks automatically once you're back online.
+• Listen & Flip – Song Recognizer & Audio Recognition (Online & Offline):
+Identify songs playing around you in clubs, bars, or on the radio with instant song recognizer matching, save them to your history, and open them in your favorite player. With Offline Mode, capture audio fingerprints even without reception and resolve tracks automatically once you're back online.
 
 • Direct Track Search & Instant Playback:
 Search for tracks and artists directly inside SongFlip and trigger playback instantly in your preferred streaming player with 1-tap Fast Flip—no existing URL or empty search pages.
