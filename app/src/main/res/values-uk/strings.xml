@@ -147,6 +147,7 @@
         <item quantity="many">%1$d треків в історії</item>
         <item quantity="other">%1$d треків в історії</item>
     </plurals>
+    <string name="history_cached_count_free_capped">10 з %1$d треків видимі</string>
     <string name="history_empty">Сконвертованих треків ще немає. Посилання з\'являться тут автоматично.</string>
     <string name="history_clear_all">Очистити історію</string>
     <string name="history_clear_confirm_title">Очистити історію треків?</string>

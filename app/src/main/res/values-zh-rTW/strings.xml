@@ -135,6 +135,7 @@
     <plurals name="history_cached_count">
         <item quantity="other">歷史記錄中有 %1$d 首歌曲</item>
     </plurals>
+    <string name="history_cached_count_free_capped">顯示 %1$d 首歌曲中的 10 首</string>
     <string name="history_empty">尚無已轉換的歌曲。跳轉的音樂連結會自動出現在這裡。</string>
     <string name="history_clear_all">清除歷史記錄</string>
     <string name="history_clear_confirm_title">清除歌曲歷史記錄？</string>

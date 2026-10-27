@@ -5,6 +5,7 @@ import de.goork.songflip.core.cache.SqlDelightCacheStorage
 import de.goork.songflip.core.cache.createDefaultCacheStorage
 import de.goork.songflip.core.model.MusicPlatform
 import de.goork.songflip.core.model.ResolutionResult
+import de.goork.songflip.core.util.PlatformLock
 import de.goork.songflip.core.util.UrlUtils
 import io.ktor.http.encodeURLParameter
 import kotlinx.coroutines.CancellationException
@@ -71,6 +72,7 @@ class AcousticQuotaManager(
         }
     }
 
+    private val quotaLock = PlatformLock()
     private val inMemoryQuotaFallback = mutableMapOf<String, Int>()
 
     private fun metaKeyForTime(timestampMs: Long): String =
@@ -82,7 +84,9 @@ class AcousticQuotaManager(
         if (raw != null) {
             return raw.toIntOrNull()?.coerceAtLeast(0) ?: 0
         }
-        return inMemoryQuotaFallback[key] ?: 0
+        return quotaLock.withLock {
+            inMemoryQuotaFallback[key] ?: 0
+        }
     }
 
     fun getRemainingFreeScans(isPro: Boolean, timestampMs: Long = getCurrentTimeMillis()): Int {
@@ -102,10 +106,12 @@ class AcousticQuotaManager(
     fun recordSuccessfulScan(isPro: Boolean, timestampMs: Long = getCurrentTimeMillis()): Int {
         if (isPro) return Int.MAX_VALUE
         val key = metaKeyForTime(timestampMs)
-        val nextCount = getUsedScansThisMonth(timestampMs) + 1
-        inMemoryQuotaFallback[key] = nextCount
-        sqlStorage?.setMetaValue(key, nextCount.toString())
-        return (MAX_FREE_SCANS_PER_MONTH - nextCount).coerceAtLeast(0)
+        return quotaLock.withLock {
+            val nextCount = getUsedScansThisMonth(timestampMs) + 1
+            inMemoryQuotaFallback[key] = nextCount
+            sqlStorage?.setMetaValue(key, nextCount.toString())
+            (MAX_FREE_SCANS_PER_MONTH - nextCount).coerceAtLeast(0)
+        }
     }
 
     fun enqueuePendingAcousticScan(

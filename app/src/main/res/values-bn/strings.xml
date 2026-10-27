@@ -145,6 +145,7 @@
         <item quantity="one">ইতিহাসে %1$dটি গান</item>
         <item quantity="other">ইতিহাসে %1$dটি গান</item>
     </plurals>
+    <string name="history_cached_count_free_capped">10টির মধ্যে %1$dটি গান দৃশ্যমান</string>
     <string name="history_empty">এখনও কোনো গান রূপান্তর করা হয়নি। শেয়ার করা লিঙ্কগুলি এখানে স্বয়ংক্রিয়ভাবে প্রদর্শিত হবে।</string>
     <string name="history_clear_all">ইতিহাস মুছে ফেলুন</string>
     <string name="history_clear_confirm_title">গানের ইতিহাস মুছে ফেলবেন?</string>

@@ -145,6 +145,7 @@
         <item quantity="one">%1$d sang i historikken</item>
         <item quantity="other">%1$d sange i historikken</item>
     </plurals>
+    <string name="history_cached_count_free_capped">10 af %1$d sange synlige</string>
     <string name="history_empty">Ingen konverterede sange endnu. Delte musiklinks vises her.</string>
     <string name="history_clear_all">Ryd historik</string>
     <string name="history_clear_confirm_title">Vil du rydde sanghistorikken?</string>

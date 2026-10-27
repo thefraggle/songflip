@@ -1,2 +1,2 @@
-- Ulepszona rozdzielczość katalogów regionalnych: Zapytania wyszukiwania katalogów przesyłanych strumieniowo uwzględniają teraz dynamicznie region lokalny, zwiększając wykrywalność i dokładność wydań regionalnych i tytułów międzynarodowych.
-- Bezpieczeństwo i wzmacnianie komponentów: Zaostrzone uprawnienia dostępu do wewnętrznych usług działających w tle, aby zapewnić bezpieczeństwo systemu.
+- Udoskonalone ustalanie priorytetów utworów studyjnych: wyszukiwanie muzyki i konwersja linków teraz konsekwentnie faworyzują oryginalne wersje studyjne zamiast remiksów, nagrań na żywo i wariacji akustycznych.
+- Ulepszone rozpoznawanie utworów: funkcja wykrywania akustycznego obejmuje globalny katalog zastępczy dla wydań międzynarodowych i subtelne wskaźniki sprzężenia zwrotnego.

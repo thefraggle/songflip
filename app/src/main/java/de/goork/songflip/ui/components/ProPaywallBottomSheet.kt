@@ -84,6 +84,7 @@ fun ProPaywallBottomSheet(
     // Coupon code state
     var showCouponInput by remember { mutableStateOf(initialShowPromo) }
     var couponCodeText by remember { mutableStateOf("") }
+    var couponErrorText by remember { mutableStateOf<String?>(null) }
     var isRedeemingCoupon by remember { mutableStateOf(false) }
 
     var isLoadingOfferings by remember { mutableStateOf(!proState.isPro) }
@@ -677,14 +678,27 @@ fun ProPaywallBottomSheet(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(top = 8.dp),
-                            verticalAlignment = Alignment.CenterVertically,
+                            verticalAlignment = Alignment.Top,
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             OutlinedTextField(
                                 value = couponCodeText,
-                                onValueChange = { couponCodeText = ProManager.extractCouponCode(it) },
+                                onValueChange = {
+                                    couponCodeText = ProManager.extractCouponCode(it).trim().uppercase()
+                                    couponErrorText = null
+                                },
                                 placeholder = { Text(stringResource(R.string.pro_coupon_hint)) },
                                 singleLine = true,
+                                isError = couponErrorText != null,
+                                supportingText = couponErrorText?.let { err ->
+                                    {
+                                        Text(
+                                            text = err,
+                                            color = MaterialTheme.colorScheme.error,
+                                            style = MaterialTheme.typography.bodySmall
+                                        )
+                                    }
+                                },
                                 shape = RoundedCornerShape(12.dp),
                                 modifier = Modifier.weight(1f)
                             )
@@ -693,6 +707,7 @@ fun ProPaywallBottomSheet(
                                 onClick = {
                                     haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                                     isRedeemingCoupon = true
+                                    couponErrorText = null
                                     coroutineScope.launch {
                                         val result = ProManager.redeemCoupon(couponCodeText)
                                         isRedeemingCoupon = false
@@ -700,50 +715,54 @@ fun ProPaywallBottomSheet(
                                             RedeemResult.SUCCESS_LIFETIME -> {
                                                 Toast.makeText(context, context.getString(R.string.pro_coupon_success_lifetime), Toast.LENGTH_LONG).show()
                                                 couponCodeText = ""
+                                                couponErrorText = null
                                                 onDismissRequest()
                                             }
                                             RedeemResult.SUCCESS_1YEAR -> {
                                                 Toast.makeText(context, context.getString(R.string.pro_coupon_success_1year), Toast.LENGTH_LONG).show()
                                                 couponCodeText = ""
+                                                couponErrorText = null
                                                 onDismissRequest()
                                             }
                                             RedeemResult.SUCCESS_3MONTHS -> {
                                                 Toast.makeText(context, context.getString(R.string.pro_coupon_success_3months), Toast.LENGTH_LONG).show()
                                                 couponCodeText = ""
+                                                couponErrorText = null
                                                 onDismissRequest()
                                             }
                                             RedeemResult.SUCCESS_1MONTH -> {
                                                 Toast.makeText(context, context.getString(R.string.pro_coupon_success_1month), Toast.LENGTH_LONG).show()
                                                 couponCodeText = ""
+                                                couponErrorText = null
                                                 onDismissRequest()
                                             }
                                             RedeemResult.ALREADY_ACTIVE -> {
                                                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemFailed(couponCodeText, "already_active")
-                                                Toast.makeText(context, context.getString(R.string.pro_coupon_already_active), Toast.LENGTH_SHORT).show()
+                                                couponErrorText = context.getString(R.string.pro_coupon_already_active)
                                             }
                                             RedeemResult.ALREADY_REDEEMED -> {
                                                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemFailed(couponCodeText, "already_redeemed_on_device")
-                                                Toast.makeText(context, context.getString(R.string.pro_coupon_already_redeemed), Toast.LENGTH_LONG).show()
+                                                couponErrorText = context.getString(R.string.pro_coupon_already_redeemed)
                                             }
                                             RedeemResult.MAX_REACHED -> {
                                                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemFailed(couponCodeText, "max_reached")
-                                                Toast.makeText(context, context.getString(R.string.pro_coupon_max_reached), Toast.LENGTH_LONG).show()
+                                                couponErrorText = context.getString(R.string.pro_coupon_max_reached)
                                             }
                                             RedeemResult.INACTIVE -> {
                                                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemFailed(couponCodeText, "inactive")
-                                                Toast.makeText(context, context.getString(R.string.pro_coupon_inactive), Toast.LENGTH_LONG).show()
+                                                couponErrorText = context.getString(R.string.pro_coupon_inactive)
                                             }
                                             RedeemResult.RATE_LIMITED -> {
                                                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemFailed(couponCodeText, "rate_limited")
-                                                Toast.makeText(context, context.getString(R.string.pro_coupon_rate_limited), Toast.LENGTH_LONG).show()
+                                                couponErrorText = context.getString(R.string.pro_coupon_rate_limited)
                                             }
                                             RedeemResult.NETWORK_ERROR -> {
                                                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemFailed(couponCodeText, "network_error")
-                                                Toast.makeText(context, context.getString(R.string.pro_coupon_network_error), Toast.LENGTH_SHORT).show()
+                                                couponErrorText = context.getString(R.string.pro_coupon_network_error)
                                             }
                                             RedeemResult.INVALID -> {
                                                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemFailed(couponCodeText, "invalid")
-                                                Toast.makeText(context, context.getString(R.string.pro_coupon_invalid), Toast.LENGTH_SHORT).show()
+                                                couponErrorText = context.getString(R.string.pro_coupon_invalid)
                                             }
                                         }
                                     }

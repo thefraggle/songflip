@@ -145,6 +145,7 @@
         <item quantity="one">%1$d canción en el historial</item>
         <item quantity="other">%1$d canciones en el historial</item>
     </plurals>
+    <string name="history_cached_count_free_capped">10 de %1$d canciones visibles</string>
     <string name="history_empty">Aún no hay canciones convertidas. Los enlaces compartidos aparecerán aquí.</string>
     <string name="history_clear_all">Borrar historial</string>
     <string name="history_clear_confirm_title">¿Borrar historial?</string>

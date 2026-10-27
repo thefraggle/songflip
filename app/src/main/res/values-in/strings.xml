@@ -144,6 +144,7 @@
     <plurals name="history_cached_count">
         <item quantity="other">%1$d lagu dalam riwayat</item>
     </plurals>
+    <string name="history_cached_count_free_capped">10 dari %1$d lagu terlihat</string>
     <string name="history_empty">Belum ada lagu yang dikonversi. Tautan musik yang dialihkan akan muncul otomatis di sini.</string>
     <string name="history_clear_all">Hapus Riwayat</string>
     <string name="history_clear_confirm_title">Hapus Riwayat Lagu?</string>
