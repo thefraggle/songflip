@@ -446,4 +446,5 @@
     <string name="settings_audiophile_subtitle">Prefer studio masters, Hi-Res, Lossless &amp; Dolby Atmos over radio edits and compilations</string>
     <string name="listen_change_target">Change target</string>
     <string name="playlist_reconvert">Re-convert</string>
+    <string name="playlist_badge_free_limit">Free (5)</string>
 </resources>

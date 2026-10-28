@@ -1,6 +1,7 @@
 package de.goork.songflip.core.engine
 
 import de.goork.songflip.core.model.PromoBannerConfig
+import de.goork.songflip.core.util.SongFlipLogger
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
@@ -115,7 +116,7 @@ object PromoBannerManager {
             }
         } catch (e: Exception) {
             if (e is CancellationException) throw e
-            println("PromoBannerManager: Failed to fetch promo banner: ${e.message}")
+            SongFlipLogger.w("PromoBannerManager", "Failed to fetch promo banner", e)
             null
         }
     }

@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.11.7] - 2026-10-28
+- **Vollständige Benutzeroberflächen-Lokalisierung**: Bereinigung verbliebener englischsprachiger Texte bei Playlist-Hinweisen und Barrierefreiheits-Schaltflächen in allen 34 Sprachen.
+- **Zentrale Versionsverwaltung & Netzwerk-Hygiene**: Dynamische Aktualisierung von Versionsangaben bei Dienstanfragen über eine zentrale Konfiguration sowie strukturierte Diagnosemeldungen im Datenkern.
+- **Konsistente Status- und Zeitlimit-Rückmeldungen**: Vereinheitlichte englischsprachige Systemmeldungen bei Überschreitung von Zeitlimits während der Link-Konvertierung.
+
 ## [1.11.6] - 2026-10-27
 - **Präzisere Studio-Titel-Erkennung**: Musiksuche und Link-Konvertierung bevorzugen jetzt verlässlich originale Studio-Versionen gegenüber Remixen, Live-Aufnahmen und Akustik-Fassungen.
 - **Zuverlässigere Musikerkennung**: Akustische Erkennung mit weltweitem Katalog-Rückgriff für internationale Veröffentlichungen und dezentem Pegel-Hinweis.

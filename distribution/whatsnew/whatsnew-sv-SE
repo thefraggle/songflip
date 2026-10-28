@@ -1,2 +1,3 @@
-- Förfinad prioritering av originalspår: Musiksökning och länkkonvertering gynnar nu konsekvent originalversioner framför remixer, liveinspelningar och akustiska variationer.
-- Förbättrad sångigenkänning: Akustisk detektering har en global reservkatalog för internationella utgåvor och subtila ljudåterkopplingsindikatorer.
+- Omfattande gränssnittslokalisering: Lokaliserade återstående spellistindikatorer och tillgänglighetskontroller på alla språk.
+- Centraliserad versionshantering och nätverkshygien: Dynamiska förfrågningsmetadata via centraliserad konfiguration och införde strukturerad diagnostisk loggning i datamotorn.
+- Konsekvent timeout-hantering: Standardiserad timeout-meddelanden över länkkonverteringar för större stabilitet.

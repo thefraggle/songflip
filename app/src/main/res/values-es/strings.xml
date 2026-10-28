@@ -424,4 +424,5 @@
     <string name="playlist_banner_public_notice">Requiere playlist pública</string>
     <string name="listen_change_target">Cambiar destino</string>
     <string name="playlist_reconvert">Reconvertir</string>
+    <string name="playlist_badge_free_limit">Gratis (5)</string>
 </resources>

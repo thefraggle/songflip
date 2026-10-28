@@ -1,2 +1,3 @@
-- Finomított stúdiósávok priorizálása: A zenei keresés és a linkkonverzió most következetesen az eredeti stúdióváltozatokat részesíti előnyben a remixekkel, az élő felvételekkel és az akusztikus változatokkal szemben.
-- Továbbfejlesztett dalfelismerés: Az akusztikus észlelés globális katalógustartalékot biztosít a nemzetközi kiadásokhoz és finom hangvisszajelzésekkel rendelkezik.
+- Átfogó felületlokalizálás: Lokalizált maradék lejátszólista-jelzők és akadálymentesítési vezérlők minden nyelven.
+- Központosított Verziókezelés és Hálózati Higiénia: Dinamizált kérés metaadatok központosított konfiguráción keresztül és strukturált diagnosztikai naplózás bevezetése az adatmotoron belül.
+- Következetes időtúllépés-kezelés: Szabványos időtúllépési üzenetküldés a linkkonverziók között a nagyobb stabilitás érdekében.

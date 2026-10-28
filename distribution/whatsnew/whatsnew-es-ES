@@ -1,2 +1,2 @@
-- Priorización refinada de pistas de estudio: la búsqueda de música y la conversión de enlaces ahora favorecen consistentemente las versiones originales de estudio sobre remezclas, grabaciones en vivo y variaciones acústicas.
-- Reconocimiento de canciones mejorado: la detección acústica presenta un respaldo de catálogo global para lanzamientos internacionales e indicadores sutiles de retroalimentación de audio.
+- Localización completa de la interfaz: indicadores de listas de reproducción restantes localizados y controles de accesibilidad en todos los idiomas.
+- Gestión centralizada de versiones e higiene de la red: metadatos de solicitud dinamizados a través de la configuración centralizada e introducción del registro de diagnóstico estructurado dentro del motor de datos.

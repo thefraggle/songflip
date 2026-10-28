@@ -1,2 +1,3 @@
-- İyileştirilmiş Stüdyo Parçası Önceliklendirmesi: Müzik arama ve bağlantı dönüştürme artık remiksler, canlı kayıtlar ve akustik varyasyonlar yerine sürekli olarak orijinal stüdyo versiyonlarını tercih ediyor.
-- Gelişmiş Şarkı Tanıma: Akustik algılama, uluslararası yayınlar için küresel katalog geri dönüşü ve ince sesli geri bildirim göstergeleri içerir.
+- Kapsamlı Arayüz Yerelleştirmesi: Tüm dillerde yerelleştirilmiş kalan oynatma listesi göstergeleri ve erişilebilirlik kontrolleri.
+- Merkezi Sürüm Yönetimi ve Ağ Hijyeni: Merkezi yapılandırma yoluyla dinamikleştirilmiş istek meta verileri ve veri motoru içinde yapılandırılmış tanılama günlüğü.
+- Tutarlı Zaman Aşımı Yönetimi: Daha fazla kararlılık için bağlantı dönüşümleri arasında standart zaman aşımı mesajlaşması.

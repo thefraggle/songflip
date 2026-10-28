@@ -1,2 +1,3 @@
-- Priorità migliorata delle tracce in studio: la ricerca musicale e la conversione dei collegamenti ora favoriscono costantemente le versioni originali in studio rispetto ai remix, alle registrazioni dal vivo e alle variazioni acustiche.
-- Riconoscimento migliorato dei brani: il rilevamento acustico presenta un catalogo globale di fallback per le versioni internazionali e sottili indicatori di feedback audio.
+- Localizzazione completa dell'interfaccia: indicatori di playlist rimanenti localizzati e controlli di accessibilità in tutte le lingue.
+- Gestione centralizzata delle versioni e igiene della rete: metadati dinamizzati delle richieste tramite configurazione centralizzata e introduzione della registrazione diagnostica strutturata all'interno del motore di dati.
+- Gestione coerente del timeout: messaggistica di timeout standardizzata tra le conversioni di link per una maggiore stabilità.

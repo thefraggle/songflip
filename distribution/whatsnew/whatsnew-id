@@ -1,2 +1,3 @@
-- Prioritas Refined Studio Track: Penelusuran musik dan konversi tautan kini secara konsisten mendukung versi studio asli daripada remix, rekaman langsung, dan variasi akustik.
-- Pengakuan Lagu yang Ditingkatkan: Deteksi akustik menampilkan fallback katalog global untuk rilis internasional dan indikator umpan balik audio yang halus.
+- Lokalisasi Antarmuka Komprehensif: Indikator daftar putar yang tersisa dan kontrol aksesibilitas di semua bahasa.
+- Manajemen Versi Terpusat & Kebersihan Jaringan: Metadata permintaan dinamis melalui konfigurasi terpusat dan memperkenalkan pencatatan diagnostik terstruktur dalam mesin data.
+- Penanganan Batas Waktu yang Konsisten: Perpesanan batas waktu standar di seluruh konversi tautan untuk stabilitas yang lebih besar.
