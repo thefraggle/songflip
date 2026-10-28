@@ -1,2 +1,3 @@
-- Udoskonalone ustalanie priorytetów utworów studyjnych: wyszukiwanie muzyki i konwersja linków teraz konsekwentnie faworyzują oryginalne wersje studyjne zamiast remiksów, nagrań na żywo i wariacji akustycznych.
-- Ulepszone rozpoznawanie utworów: funkcja wykrywania akustycznego obejmuje globalny katalog zastępczy dla wydań międzynarodowych i subtelne wskaźniki sprzężenia zwrotnego.
+- Kompleksowa lokalizacja interfejsu: zlokalizowane pozostałe wskaźniki listy odtwarzania i kontrola dostępności we wszystkich językach.
+- Scentralizowane zarządzanie wersjami i higiena sieci: Zdynamizowane metadane żądań poprzez scentralizowaną konfigurację i wprowadzenie ustrukturyzowanego rejestrowania diagnostycznego w silniku danych.
+- Spójna obsługa limitu czasu: ustandaryzowane komunikaty o przekroczeniu limitu czasu w konwersjach linków dla większej stabilności.

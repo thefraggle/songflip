@@ -65,7 +65,7 @@ struct PromoBannerCardView: View {
                         .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel(Text("Close"))
+                .accessibilityLabel(Text(LocalizationManager.string(for: "btn_close", lang: lang)))
             }
 
             // Title

@@ -1,2 +1,3 @@
-- Präzisere Studio-Titel-Erkennung: Musiksuche und Link-Konvertierung bevorzugen jetzt verlässlich originale Studio-Versionen gegenüber Remixen, Live-Aufnahmen und Akustik-Fassungen.
-- Zuverlässigere Musikerkennung: Akustische Erkennung mit weltweitem Katalog-Rückgriff für internationale Veröffentlichungen und dezentem Pegel-Hinweis.
+- Vollständige Lokalisierung: Bereinigung verbliebener englischsprachiger Texte bei Playlist-Hinweisen und Barrierefreiheits-Schaltflächen in allen 34 Sprachen.
+- Zentrale Versionsverwaltung: Dynamische Aktualisierung von Versionsangaben bei Dienstanfragen sowie strukturierte Diagnosemeldungen im Datenkern.
+- Zuverlässigere Zeitlimits: Vereinheitlichte englischsprachige Systemmeldungen bei Überschreitung von Zeitlimits während der Link-Konvertierung.

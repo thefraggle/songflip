@@ -414,4 +414,5 @@
     <string name="playlist_banner_public_notice">Necesită playlist public</string>
     <string name="listen_change_target">Schimbă destinația</string>
     <string name="playlist_reconvert">Reconvertește</string>
+    <string name="playlist_badge_free_limit">Gratuit (5)</string>
 </resources>

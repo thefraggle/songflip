@@ -1,5 +1,6 @@
 package de.goork.songflip.core.engine.resolvers
 
+import de.goork.songflip.core.engine.EngineConfig
 import de.goork.songflip.core.model.ResolutionResult
 import de.goork.songflip.core.util.UrlUtils
 import io.ktor.client.HttpClient
@@ -66,7 +67,7 @@ class SongLinkApiResolver(
                 if (customApiToken.isNotBlank()) {
                     header("Authorization", "Bearer $customApiToken")
                 }
-                header("User-Agent", "SongFlip-Mobile-KMP/1.4.10")
+                header("User-Agent", "SongFlip-Mobile-KMP/${EngineConfig.APP_VERSION}")
             }
 
             if (resp.status.isSuccess()) {

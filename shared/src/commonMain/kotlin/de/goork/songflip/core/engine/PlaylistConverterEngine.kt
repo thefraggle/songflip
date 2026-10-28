@@ -130,7 +130,7 @@ class PlaylistConverterEngine(
         if (lastException is kotlinx.coroutines.TimeoutCancellationException) {
             return Result.failure(PlaylistConversionException(
                 errorCode = PlaylistErrorCode.UPSTREAM_TIMEOUT,
-                message = "Die Playlist-Konvertierung hat das Zeitlimit überschritten.",
+                message = "Playlist conversion timed out.",
                 reason = "timeout"
             ))
         }

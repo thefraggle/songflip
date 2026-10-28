@@ -1,2 +1,3 @@
-- Raffineret studiesporprioritering: Musiksøgning og linkkonvertering favoriserer nu konsekvent originale studieversioner frem for remixer, liveoptagelser og akustiske variationer.
-- Forbedret sanggenkendelse: Akustisk detektion har et globalt katalogtilbagefald for internationale udgivelser og subtile lydfeedbackindikatorer.
+- Omfattende grænsefladelokalisering: Lokaliserede resterende afspilningslisteindikatorer og tilgængelighedskontroller på tværs af alle sprog.
+- Centraliseret versionsstyring og netværkshygiejne: Dynamiske anmodningsmetadata via centraliseret konfiguration og indført struktureret diagnostisk logføring i datamotoren.
+- Konsekvent timeout-håndtering: Standardiseret timeout-beskeder på tværs af linkkonverteringer for større stabilitet.

@@ -424,4 +424,5 @@
     <string name="playlist_banner_public_notice">Kræver offentlig playliste</string>
     <string name="listen_change_target">Skift destination</string>
     <string name="playlist_reconvert">Genkonverter</string>
+    <string name="playlist_badge_free_limit">Gratis (5)</string>
 </resources>

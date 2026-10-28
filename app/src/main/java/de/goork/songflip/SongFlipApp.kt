@@ -7,12 +7,21 @@ import android.os.Build
 import android.provider.Settings
 import de.goork.songflip.core.analytics.AptabaseClient
 import de.goork.songflip.core.cache.AndroidSharedPreferencesCacheStorage
+import de.goork.songflip.core.util.SongFlipLogger
 import de.goork.songflip.data.ProManager
 import java.util.Locale
 
 class SongFlipApp : Application() {
     override fun onCreate() {
         super.onCreate()
+        SongFlipLogger.handler = { level, tag, msg, tr ->
+            when (level) {
+                SongFlipLogger.Level.DEBUG -> android.util.Log.d(tag, msg, tr)
+                SongFlipLogger.Level.INFO -> android.util.Log.i(tag, msg, tr)
+                SongFlipLogger.Level.WARN -> android.util.Log.w(tag, msg, tr)
+                SongFlipLogger.Level.ERROR -> android.util.Log.e(tag, msg, tr)
+            }
+        }
         AndroidSharedPreferencesCacheStorage.init(this)
         ProManager.init(this)
         de.goork.songflip.data.ShortcutHelper.updateShortcuts(this)

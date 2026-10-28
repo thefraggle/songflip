@@ -4,6 +4,7 @@ import app.cash.sqldelight.db.SqlDriver
 import de.goork.songflip.core.db.SongFlipDatabase
 import de.goork.songflip.core.engine.getCurrentTimeMillis
 import de.goork.songflip.core.util.PlatformLock
+import de.goork.songflip.core.util.SongFlipLogger
 import kotlin.concurrent.Volatile
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -132,7 +133,7 @@ class SqlDelightCacheStorage(
                 parameters = 0
             )
         } catch (t: Throwable) {
-            println("SqlDelightCacheStorage: Failed to ensure pending_acoustic_scans table: ${t.message}")
+            SongFlipLogger.e("SqlDelightCacheStorage", "Failed to ensure pending_acoustic_scans table", t)
         }
     }
 
@@ -149,7 +150,7 @@ class SqlDelightCacheStorage(
             val driver = try {
                 driverProvider()
             } catch (t: Throwable) {
-                println("SqlDelightCacheStorage: Failed to create SQL driver: ${t.message}")
+                SongFlipLogger.e("SqlDelightCacheStorage", "Failed to create SQL driver", t)
                 null
             }
             initAttempted = true
@@ -162,7 +163,7 @@ class SqlDelightCacheStorage(
                 onDatabaseReady?.invoke(this, db)
                 db
             } catch (t: Throwable) {
-                println("SqlDelightCacheStorage: Failed to initialize database: ${t.message}")
+                SongFlipLogger.e("SqlDelightCacheStorage", "Failed to initialize database", t)
                 null
             }
         }
@@ -220,7 +221,7 @@ class SqlDelightCacheStorage(
                 else -> null
             }
         } catch (t: Throwable) {
-            println("SqlDelightCacheStorage: Failed to get entry $key: ${t.message}")
+            SongFlipLogger.w("SqlDelightCacheStorage", "Failed to get entry $key", t)
             null
         }
     }
@@ -271,7 +272,7 @@ class SqlDelightCacheStorage(
                 }
             }
         } catch (t: Throwable) {
-            println("SqlDelightCacheStorage: Failed to put entry $key: ${t.message}")
+            SongFlipLogger.w("SqlDelightCacheStorage", "Failed to put entry $key", t)
         }
     }
 
@@ -283,7 +284,7 @@ class SqlDelightCacheStorage(
                 db.songFlipDatabaseQueries.deleteResolverCacheByKey(key)
             }
         } catch (t: Throwable) {
-            println("SqlDelightCacheStorage: Failed to remove entry $key: ${t.message}")
+            SongFlipLogger.w("SqlDelightCacheStorage", "Failed to remove entry $key", t)
         }
     }
 
@@ -295,7 +296,7 @@ class SqlDelightCacheStorage(
                 db.songFlipDatabaseQueries.clearAllResolverCache()
             }
         } catch (t: Throwable) {
-            println("SqlDelightCacheStorage: Failed to clear storage: ${t.message}")
+            SongFlipLogger.w("SqlDelightCacheStorage", "Failed to clear storage", t)
         }
     }
 
@@ -339,7 +340,7 @@ class SqlDelightCacheStorage(
             }
             result
         } catch (t: Throwable) {
-            println("SqlDelightCacheStorage: Failed to loadAll: ${t.message}")
+            SongFlipLogger.w("SqlDelightCacheStorage", "Failed to loadAll", t)
             emptyMap()
         }
     }
@@ -349,7 +350,7 @@ class SqlDelightCacheStorage(
         return try {
             db.songFlipDatabaseQueries.getMetaValue(key).executeAsOneOrNull()
         } catch (t: Throwable) {
-            println("SqlDelightCacheStorage: Failed to get meta $key: ${t.message}")
+            SongFlipLogger.w("SqlDelightCacheStorage", "Failed to get meta $key", t)
             null
         }
     }
@@ -359,7 +360,7 @@ class SqlDelightCacheStorage(
         try {
             db.songFlipDatabaseQueries.setMetaValue(key, value)
         } catch (t: Throwable) {
-            println("SqlDelightCacheStorage: Failed to set meta $key: ${t.message}")
+            SongFlipLogger.w("SqlDelightCacheStorage", "Failed to set meta $key", t)
         }
     }
 
@@ -368,7 +369,7 @@ class SqlDelightCacheStorage(
         try {
             db.songFlipDatabaseQueries.insertPendingAcousticScan(id, signatureBase64, durationMs, createdAt)
         } catch (t: Throwable) {
-            println("SqlDelightCacheStorage: Failed to enqueue pending acoustic scan $id: ${t.message}")
+            SongFlipLogger.w("SqlDelightCacheStorage", "Failed to enqueue pending acoustic scan $id", t)
         }
     }
 
@@ -384,7 +385,7 @@ class SqlDelightCacheStorage(
                 )
             }
         } catch (t: Throwable) {
-            println("SqlDelightCacheStorage: Failed to getPendingAcousticScans: ${t.message}")
+            SongFlipLogger.w("SqlDelightCacheStorage", "Failed to getPendingAcousticScans", t)
             emptyList()
         }
     }
@@ -394,7 +395,7 @@ class SqlDelightCacheStorage(
         try {
             db.songFlipDatabaseQueries.deletePendingAcousticScanById(id)
         } catch (t: Throwable) {
-            println("SqlDelightCacheStorage: Failed to deletePendingAcousticScan $id: ${t.message}")
+            SongFlipLogger.w("SqlDelightCacheStorage", "Failed to deletePendingAcousticScan $id", t)
         }
     }
 
@@ -403,7 +404,7 @@ class SqlDelightCacheStorage(
         return try {
             db.songFlipDatabaseQueries.countPendingAcousticScans().executeAsOne().toInt()
         } catch (t: Throwable) {
-            println("SqlDelightCacheStorage: Failed to countPendingAcousticScans: ${t.message}")
+            SongFlipLogger.w("SqlDelightCacheStorage", "Failed to countPendingAcousticScans", t)
             0
         }
     }
@@ -466,7 +467,7 @@ class SqlDelightCacheStorage(
             }
             true
         } catch (t: Throwable) {
-            println("SqlDelightCacheStorage: Migration $migrationKey failed: ${t.message}")
+            SongFlipLogger.w("SqlDelightCacheStorage", "Migration $migrationKey failed", t)
             false
         }
     }

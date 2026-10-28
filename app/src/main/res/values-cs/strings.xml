@@ -418,4 +418,5 @@
     <string name="playlist_banner_public_notice">Vyžaduje veřejný playlist</string>
     <string name="listen_change_target">Změnit cíl</string>
     <string name="playlist_reconvert">Znovu převést</string>
+    <string name="playlist_badge_free_limit">Zdarma (5)</string>
 </resources>

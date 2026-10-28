@@ -2,6 +2,7 @@ package de.goork.songflip.core.analytics
 
 import de.goork.songflip.core.engine.createPlatformHttpClient
 import de.goork.songflip.core.engine.getCurrentTimeMillis
+import de.goork.songflip.core.util.SongFlipLogger
 import io.ktor.client.HttpClient
 import io.ktor.client.request.header
 import io.ktor.client.request.post
@@ -143,7 +144,7 @@ object AptabaseClient {
             } ?: false
         } catch (t: Throwable) {
             if (t is CancellationException) throw t
-            println("AptabaseClient: dispatch error for event '$eventName': ${t.message ?: t::class.simpleName}")
+            SongFlipLogger.w("AptabaseClient", "dispatch error for event '$eventName'", t)
             false
         }
     }
@@ -165,7 +166,7 @@ object AptabaseClient {
             } != null
         } catch (t: Throwable) {
             if (t is CancellationException) throw t
-            println("AptabaseClient: flush error: ${t.message ?: t::class.simpleName}")
+            SongFlipLogger.w("AptabaseClient", "flush error", t)
             false
         }
     }

@@ -14,6 +14,7 @@ import de.goork.songflip.core.engine.resolvers.TidalResolver
 import de.goork.songflip.core.engine.resolvers.YouTubeMusicResolver
 import de.goork.songflip.core.model.MusicPlatform
 import de.goork.songflip.core.model.ResolutionResult
+import de.goork.songflip.core.util.SongFlipLogger
 import de.goork.songflip.core.util.UrlUtils
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
@@ -114,7 +115,7 @@ class SongLinkEngine(
             } catch (t: Throwable) {
                 if (t is CancellationException) throw t
                 // Background ingestion is non-blocking and best-effort, but log for diagnostics
-                println("SongLinkEngine: Background cache ingest failed for $originalUrl: ${t.message ?: t::class.simpleName}")
+                SongFlipLogger.w("SongLinkEngine", "Background cache ingest failed for $originalUrl", t)
             }
         }
     }

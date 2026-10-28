@@ -6,6 +6,7 @@ import de.goork.songflip.core.cache.createDefaultCacheStorage
 import de.goork.songflip.core.model.MusicPlatform
 import de.goork.songflip.core.model.ResolutionResult
 import de.goork.songflip.core.util.PlatformLock
+import de.goork.songflip.core.util.SongFlipLogger
 import de.goork.songflip.core.util.UrlUtils
 import io.ktor.http.encodeURLParameter
 import kotlinx.coroutines.CancellationException
@@ -241,7 +242,7 @@ class AcousticQuotaManager(
             // write a History entry and consume a free scan for a flip the user never saw.
             if (t is CancellationException) throw t
             // Other failures degrade gracefully to a platform search URL below, but must be visible.
-            println("AcousticQuotaManager: resolveTargetUrl failed for $sourceUrl: ${t.message ?: t::class.simpleName}")
+            SongFlipLogger.w("AcousticQuotaManager", "resolveTargetUrl failed for $sourceUrl", t)
             null
         }
 

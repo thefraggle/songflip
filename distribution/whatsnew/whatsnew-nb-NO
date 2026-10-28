@@ -1,2 +1,3 @@
-- Raffinert prioritering av originalspor: Musikksøk og koblingskonvertering favoriserer nå konsekvent originale masterversjoner fremfor remikser, liveopptak og akustiske variasjoner.
-- Forbedret sanggjenkjenning: Akustisk gjenkjenning har en global katalogreserve for internasjonale utgivelser og subtile lydtilbakemeldingsindikatorer.
+- Omfattende grensesnittlokalisering: Lokaliserte indikatorer for gjenværende spillelister og tilgjengelighetskontroller på tvers av alle språk.
+- Sentralisert versjonshåndtering og nettverkshygiene: Dynamiserte forespørselsmetadata via sentralisert konfigurasjon og introduserte strukturert diagnostisk logging i datamotoren.
+- Konsekvent håndtering av tidsavbrudd: Standardiserte tidsavbruddsmeldinger på tvers av lenkekonverteringer for større stabilitet.

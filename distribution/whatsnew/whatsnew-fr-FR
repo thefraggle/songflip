@@ -1,2 +1,2 @@
-- Hiérarchisation raffinée des pistes de studio : la recherche de musique et la conversion de liens privilégient désormais systématiquement les versions de studio originales par rapport aux remix, aux enregistrements en direct et aux variations acoustiques.
-- Reconnaissance améliorée des chansons : la détection acoustique intègre un catalogue global de repli pour les versions internationales et des indicateurs de retour audio subtils.
+- Localisation complète de l'interface : indicateurs de liste de lecture restants localisés et contrôles d'accessibilité dans toutes les langues.
+- Gestion centralisée des versions et hygiène du réseau : métadonnées de demande dynamisées via une configuration centralisée et enregistrement de diagnostic structuré dans le moteur de données.

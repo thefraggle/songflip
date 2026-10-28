@@ -424,4 +424,5 @@
     <string name="playlist_banner_public_notice">সর্বজনীন প্লেলিস্ট প্রয়োজন</string>
     <string name="listen_change_target">টার্গেট পরিবর্তন করুন</string>
     <string name="playlist_reconvert">পুনরায় রূপান্তর করুন</string>
+    <string name="playlist_badge_free_limit">বিনামূল্যে (5)</string>
 </resources>

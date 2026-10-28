@@ -195,7 +195,7 @@ fun PlaylistActiveBanner(
                                     color = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)
                                 ) {
                                     Text(
-                                        text = "Free (5)",
+                                        text = stringResource(R.string.playlist_badge_free_limit),
                                         style = MaterialTheme.typography.labelSmall.copy(
                                             fontWeight = FontWeight.Bold,
                                             fontSize = 10.sp

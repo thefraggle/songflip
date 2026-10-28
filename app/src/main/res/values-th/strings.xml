@@ -406,4 +406,5 @@
     <string name="playlist_banner_public_notice">ต้องใช้เพลย์ลิสต์สาธารณะ</string>
     <string name="listen_change_target">เปลี่ยนปลายทาง</string>
     <string name="playlist_reconvert">แปลงอีกครั้ง</string>
+    <string name="playlist_badge_free_limit">ฟรี (5)</string>
 </resources>
