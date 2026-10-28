@@ -420,4 +420,5 @@
     <string name="playlist_banner_public_notice">需要公开歌单</string>
     <string name="listen_change_target">更改目标</string>
     <string name="playlist_reconvert">重新转换</string>
+    <string name="playlist_badge_free_limit">免费 (5)</string>
 </resources>

@@ -445,4 +445,5 @@
     <string name="settings_audiophile_subtitle">Bevorzugt Studio-Originale, Hi-Res, Lossless &amp; Dolby Atmos statt Radio-Edits und Compilations</string>
     <string name="listen_change_target">Ziel ändern</string>
     <string name="playlist_reconvert">Neu konvertieren</string>
+    <string name="playlist_badge_free_limit">Kostenlos (5)</string>
 </resources>

@@ -1,2 +1,3 @@
-- Verfijnde prioriteitstelling van studiotracks: Zoeken naar muziek en linkconversie geven nu consequent de voorkeur aan originele studioversies boven remixen, live-opnames en akoestische variaties.
-- Verbeterde nummerherkenning: Akoestische detectie biedt een wereldwijde catalogusterugval voor internationale releases en subtiele audiofeedback-indicatoren.
+- Uitgebreide interfacelokalisatie: gelokaliseerde resterende afspeellijstindicatoren en toegankelijkheidsinstellingen in alle talen.
+- Gecentraliseerd versiebeheer en netwerkhygiëne: Dynamiseerde aanvraagmetagegevens via gecentraliseerde configuratie en introduceerde gestructureerde diagnostische logging binnen de data-engine.
+- Consistente time-outverwerking: gestandaardiseerde time-outberichten over linkconversies voor meer stabiliteit.

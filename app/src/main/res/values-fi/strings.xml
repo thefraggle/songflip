@@ -410,4 +410,5 @@
     <string name="playlist_banner_public_notice">Vaatii julkisen soittolistan</string>
     <string name="listen_change_target">Vaihda kohdetta</string>
     <string name="playlist_reconvert">Muunna uudelleen</string>
+    <string name="playlist_badge_free_limit">Ilmainen (5)</string>
 </resources>

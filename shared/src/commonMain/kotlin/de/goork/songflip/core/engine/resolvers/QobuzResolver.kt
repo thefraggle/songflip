@@ -1,5 +1,6 @@
 package de.goork.songflip.core.engine.resolvers
 
+import de.goork.songflip.core.engine.EngineConfig
 import de.goork.songflip.core.model.MusicPlatform
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
@@ -111,7 +112,7 @@ class QobuzResolver(
             val encoded = artistName.encodeURLParameter()
             val url = "https://www.qobuz.com/api.json/0.2/catalog/search?query=$encoded&type=artists&limit=3&app_id=$qobuzAppId"
             val resp = client.get(url) {
-                header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SongFlip/1.9.1")
+                header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SongFlip/${EngineConfig.APP_VERSION}")
             }
             if (resp.status.isSuccess()) {
                 val parsed = json.decodeFromString<QobuzSearchResponse>(resp.bodyAsText())
@@ -147,7 +148,7 @@ class QobuzResolver(
             val limit = if (audiophileMode) 12 else 5
             val url = "https://www.qobuz.com/api.json/0.2/catalog/search?query=$encoded&type=$typeParam&limit=$limit&app_id=$qobuzAppId"
             val resp = client.get(url) {
-                header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SongFlip/1.9.1")
+                header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SongFlip/${EngineConfig.APP_VERSION}")
             }
             if (resp.status.isSuccess()) {
                 val parsed = json.decodeFromString<QobuzSearchResponse>(resp.bodyAsText())
@@ -231,7 +232,7 @@ class QobuzResolver(
                 val trackId = trackMatch.groupValues[1]
                 val apiUrl = "https://www.qobuz.com/api.json/0.2/track/get?track_id=$trackId&app_id=$qobuzAppId"
                 val resp = client.get(apiUrl) {
-                    header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SongFlip/1.9.1")
+                    header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SongFlip/${EngineConfig.APP_VERSION}")
                 }
                 if (resp.status.isSuccess()) {
                     val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
@@ -252,7 +253,7 @@ class QobuzResolver(
                 val albumId = albumMatch.groupValues[1]
                 val apiUrl = "https://www.qobuz.com/api.json/0.2/album/get?album_id=$albumId&app_id=$qobuzAppId"
                 val resp = client.get(apiUrl) {
-                    header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SongFlip/1.9.1")
+                    header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SongFlip/${EngineConfig.APP_VERSION}")
                 }
                 if (resp.status.isSuccess()) {
                     val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject

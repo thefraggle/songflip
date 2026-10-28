@@ -1,5 +1,6 @@
 package de.goork.songflip.core.engine
 
+import de.goork.songflip.core.util.SongFlipLogger
 import io.ktor.client.HttpClient
 import io.ktor.client.request.header
 import io.ktor.client.request.post
@@ -328,7 +329,7 @@ class CouponService(
                 val obj = try {
                     json.parseToJsonElement(respText) as? JsonObject
                 } catch (e: Throwable) {
-                    println("CouponService: unparsable refresh response from $endpoint: ${e.message}")
+                    SongFlipLogger.w("CouponService", "unparsable refresh response from $endpoint", e)
                     null
                 }
                 if (response.status.isSuccess()) {
@@ -353,14 +354,14 @@ class CouponService(
                 return if (errCode == "INVALID_TOKEN") {
                     CouponRefreshOutcome(status = CouponRefreshStatus.REVOKED)
                 } else {
-                    println("CouponService: token refresh kept stored token (HTTP ${response.status.value}, $errCode)")
+                    SongFlipLogger.i("CouponService", "token refresh kept stored token (HTTP ${response.status.value}, $errCode)")
                     CouponRefreshOutcome(status = CouponRefreshStatus.KEEP)
                 }
             } catch (c: CancellationException) {
                 if (c !is kotlinx.coroutines.TimeoutCancellationException) throw c
-                println("CouponService: token refresh timed out on $endpoint, trying next endpoint")
+                SongFlipLogger.w("CouponService", "token refresh timed out on $endpoint, trying next endpoint", c)
             } catch (t: Throwable) {
-                println("CouponService: token refresh failed on $endpoint: ${t.message}")
+                SongFlipLogger.w("CouponService", "token refresh failed on $endpoint", t)
             }
         }
         return CouponRefreshOutcome(status = CouponRefreshStatus.KEEP)

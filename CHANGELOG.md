@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.11.7] - 2026-10-28
+- **Comprehensive Interface Localization**: Localized remaining playlist indicators and accessibility controls across all languages.
+- **Centralized Version Management & Network Hygiene**: Dynamized request metadata via centralized configuration and introduced structured diagnostic logging within the data engine.
+- **Consistent Timeout Handling**: Standardized timeout messaging across link conversions for greater stability.
+
 ## [1.11.6] - 2026-10-27
 - **Refined Studio Track Prioritization**: Music search and link conversion now consistently favor original studio versions over remixes, live recordings, and acoustic variations.
 - **Enhanced Song Recognition**: Acoustic detection features global catalog fallback for international releases and subtle audio feedback indicators.

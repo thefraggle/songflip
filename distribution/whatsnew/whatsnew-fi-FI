@@ -1,2 +1,3 @@
-- Tarkennettu studioradan priorisointi: Musiikin haku ja linkkien muuntaminen suosivat nyt jatkuvasti alkuperäisiä studioversioita remixien, live-tallenteiden ja akustisten muunnelmien sijaan.
-- Parannettu kappaleiden tunnistus: Akustinen tunnistus sisältää maailmanlaajuisen luettelon varajärjestelmän kansainvälisille julkaisuille ja hienovaraiset äänipalautteen ilmaisimet.
+- Kattava käyttöliittymän lokalisointi: Lokalisoidut jäljellä olevat soittolistan ilmaisimet ja esteettömyyskontrollit kaikilla kielillä.
+- Keskitetty versionhallinta ja verkon hygienia: Dynaamisten pyyntöjen metatiedot keskitetyn konfiguroinnin kautta ja jäsennelty diagnostinen lokikirjaus tietomoottorissa.
+- Yhdenmukainen aikakatkaisun käsittely: Standardoitu aikakatkaisuviesti linkin konversioissa vakauden lisäämiseksi.

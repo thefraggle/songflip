@@ -1,6 +1,7 @@
 package de.goork.songflip.core.engine
 
 import de.goork.songflip.core.engine.resolvers.ResolverUtils
+import de.goork.songflip.core.util.SongFlipLogger
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
@@ -183,7 +184,7 @@ class CatalogSearchEngine(
         } catch (c: CancellationException) {
             throw c
         } catch (t: Throwable) {
-            println("CatalogSearchEngine: iTunes search failed, falling back to Deezer: ${t.message}")
+            SongFlipLogger.w("CatalogSearchEngine", "iTunes search failed, falling back to Deezer", t)
         }
 
         // 2. Fallback: Deezer Search API

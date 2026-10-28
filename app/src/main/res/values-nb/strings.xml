@@ -424,4 +424,5 @@
     <string name="playlist_banner_public_notice">Krever offentlig spilleliste</string>
     <string name="listen_change_target">Endre mål</string>
     <string name="playlist_reconvert">Konverter på nytt</string>
+    <string name="playlist_badge_free_limit">Gratis (5)</string>
 </resources>

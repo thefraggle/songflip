@@ -492,7 +492,7 @@ struct ContentView: View {
                             .foregroundColor(.secondary)
 
                         if !proManager.isPro && res.isLimited {
-                            Text("Free (5)")
+                            Text(LocalizationManager.string(for: "playlist_badge_free_limit", lang: lang))
                                 .font(.system(size: 10, weight: .bold))
                                 .padding(.horizontal, 4)
                                 .padding(.vertical, 1)

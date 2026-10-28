@@ -1,2 +1,2 @@
-- Tinh chỉnh ưu tiên theo dõi phòng thu: Tìm kiếm nhạc và chuyển đổi liên kết hiện luôn ưu tiên các phiên bản phòng thu gốc hơn các bản phối lại, bản ghi trực tiếp và các biến thể âm thanh.
-- Nhận dạng bài hát nâng cao: Phát hiện âm thanh có tính năng dự phòng danh mục toàn cầu cho các bản phát hành quốc tế và các chỉ báo phản hồi âm thanh tinh tế.
+- Bản địa hóa giao diện toàn diện: Bản địa hóa các chỉ số danh sách phát còn lại và kiểm soát khả năng truy cập trên tất cả các ngôn ngữ.
+- Quản lý phiên bản tập trung & Vệ sinh mạng: Siêu dữ liệu yêu cầu động thông qua cấu hình tập trung và giới thiệu ghi nhật ký chẩn đoán có cấu trúc trong công cụ dữ liệu.

@@ -1,3 +1,3 @@
-- Refined Studio Track Prioritization: Music search and link conversion now consistently favor original studio versions over remixes, live recordings, and acoustic variations.
-- Enhanced Song Recognition: Acoustic detection features global catalog fallback for international releases and subtle audio feedback indicators.
-- Smoother History & Artwork Backfill: Optimized cover art hydration for past conversions, reducing network activity and speeding up history browsing.
+- Comprehensive Localization: Localized remaining playlist indicators and accessibility controls across all languages.
+- Centralized Version Management: Dynamized request metadata via centralized configuration and introduced structured diagnostic logging within the data engine.
+- Consistent Timeout Handling: Standardized timeout messaging across link conversions for greater stability.
