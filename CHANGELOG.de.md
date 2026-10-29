@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.11.9] - 2026-10-29
+- **Verbesserte Musikerkennung**: Schnellere und zuverlässigere akustische Erkennung mit nativer Systemintegration und direkter Offline-Synchronisierung.
+- **Erhöhte Sicherheit & Stabilität**: Gehärtete URL-Prüfungen für Cache-Abfragen sowie optimierte Ressourcen- und Speicherverwaltung im Hintergrund.
+- **Leistungs- & Cache-Optimierung**: Schnellere Verlaufserkennung ohne Verzögerungen und abgesicherte Datenmigration.
+- **Build-Architektur**: Entkoppelte externe Abhängigkeiten mit Dual-Mode-Konfiguration und standardisierten Build-Skripten.
+
 ## [1.11.8] - 2026-10-29
 - **Suchweiterleitung für Streaming-Dienste**: Fehlerfreie Weiterleitung bei der Titelsuche für Qobuz, sodass Suchen direkt und zuverlässig im Ziel-Player geladen werden.
 - **Verlaufs- & Favoritenerhalt**: Aktualisierungen im Hintergrund zwischengespeicherter Titel überschreiben weder Favoritenmarkierungen noch gespeicherte Verläufe.

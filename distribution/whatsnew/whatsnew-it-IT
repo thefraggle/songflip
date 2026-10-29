@@ -1,2 +1,2 @@
-- Ricerca in streaming e inoltro del giocatore: risolto il routing di fallback della ricerca per Qobuz, garantendo che le ricerche si aprano in modo affidabile senza messaggi di errore o schermate vuote.
-- Conservazione della cache e della cronologia: aggiornamenti migliorati della cache in background per mantenere intatte le tracce preferite e la cronologia delle conversioni durante gli aggiornamenti della connessione.
+- Riconoscimento musicale avanzato: identificazione delle tracce acustiche più rapida e affidabile con integrazione di sistema nativa e sincronizzazione offline diretta.
+- Sicurezza e rafforzamento della stabilità: convalida degli URL rafforzata per le richieste di cache e gestione ottimizzata delle risorse in background.

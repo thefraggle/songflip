@@ -1,2 +1,3 @@
-- Pencarian Streaming & Penerusan Pemain: Menyelesaikan perutean cadangan pencarian untuk Qobuz, memastikan pencarian terbuka dengan andal tanpa pesan kesalahan atau layar kosong.
-- Pelestarian Cache & Riwayat: Peningkatan pembaruan cache latar belakang untuk menjaga trek favorit dan riwayat konversi tetap utuh selama penyegaran koneksi.
+- Pengakuan Musik yang Ditingkatkan: Identifikasi trek akustik yang lebih cepat dan lebih andal dengan integrasi sistem asli dan sinkronisasi offline langsung.
+- Pengerasan Keamanan & Stabilitas: Validasi URL yang diperkeras untuk permintaan cache dan manajemen sumber daya latar belakang yang dioptimalkan.
+- Performa & Optimalisasi Cache: Deteksi duplikat cepat untuk riwayat tautan dan peningkatan ketahanan migrasi basis data.

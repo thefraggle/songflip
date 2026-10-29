@@ -1,2 +1,3 @@
-- Streaming zoeken en doorsturen van spelers: Opgeloste terugvalroutering voor zoekopdrachten voor Qobuz, waardoor zoekopdrachten betrouwbaar worden geopend zonder foutmeldingen of lege schermen.
-- Cache- en geschiedenisbehoud: verbeterde cache-updates op de achtergrond om favoriete nummers en conversiegeschiedenis intact te houden tijdens het vernieuwen van de verbinding.
+- Verbeterde muziekherkenning: snellere en betrouwbaardere akoestische spooridentificatie met native systeemintegratie en directe offline synchronisatie.
+- Beveiliging & Stabiliteit Hardening: Geharde URL-validatie voor cacheverzoeken en geoptimaliseerd beheer van achtergrondbronnen.
+- Prestaties en cache-optimalisatie: snelle dubbele detectie voor linkgeschiedenis en verbeterde veerkracht van databasemigratie.

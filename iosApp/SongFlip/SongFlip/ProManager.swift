@@ -41,8 +41,13 @@ final class ProManager: NSObject, ObservableObject {
     private static let keyCouponToken = "pro_coupon_token"
     private static let keyIsProCached = "is_pro_cached"
     private static let keyCacheSignature = "pro_cache_signature"
+    private static let keyProAuthToken = "pro_auth_token"
 
-    @Published var isPro: Bool = false
+    @Published var isPro: Bool = false {
+        didSet {
+            syncAuthTokenToGroupStorage()
+        }
+    }
     @Published var proType: String? = nil
     @Published var expirationDate: Date? = nil
     @Published var currentOffering: Offering? = nil
@@ -52,6 +57,21 @@ final class ProManager: NSObject, ObservableObject {
 
     private var defaults: UserDefaults {
         UserDefaults(suiteName: Self.appGroupId) ?? UserDefaults.standard
+    }
+
+    /// Syncs Pro auth token to shared App Group storage so Share Extension and Siri Shortcuts
+    /// can authorize requests against the L2 server cache (#173).
+    func syncAuthTokenToGroupStorage() {
+        if isPro {
+            let token = self.authToken
+            if !token.isEmpty {
+                defaults.set(token, forKey: Self.keyProAuthToken)
+            } else {
+                defaults.removeObject(forKey: Self.keyProAuthToken)
+            }
+        } else {
+            defaults.removeObject(forKey: Self.keyProAuthToken)
+        }
     }
 
     private static let rcExpiryGraceMs: Double = 15 * 60 * 1000
@@ -107,6 +127,7 @@ final class ProManager: NSObject, ObservableObject {
     private override init() {
         super.init()
         loadCachedState()
+        syncAuthTokenToGroupStorage()
     }
 
     private static let keychainService = "de.goork.songflip.install"
@@ -131,6 +152,9 @@ final class ProManager: NSObject, ObservableObject {
            !value.isEmpty {
             return value
         }
+        if status != errSecSuccess && status != errSecItemNotFound {
+            Self.logger.warning("[ProManager] SecItemCopyMatching for \(account, privacy: .public) returned status \(status)")
+        }
         return nil
     }
 
@@ -140,7 +164,10 @@ final class ProManager: NSObject, ObservableObject {
             kSecAttrService as String: Self.keychainService,
             kSecAttrAccount as String: account
         ]
-        SecItemDelete(deleteQuery as CFDictionary)
+        let delStatus = SecItemDelete(deleteQuery as CFDictionary)
+        if delStatus != errSecSuccess && delStatus != errSecItemNotFound {
+            Self.logger.debug("[ProManager] SecItemDelete for \(account, privacy: .public) returned status \(delStatus)")
+        }
         guard let value = value, !value.isEmpty, let data = value.data(using: .utf8) else {
             return
         }
@@ -151,7 +178,10 @@ final class ProManager: NSObject, ObservableObject {
             kSecValueData as String: data,
             kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
         ]
-        SecItemAdd(addQuery as CFDictionary, nil)
+        let addStatus = SecItemAdd(addQuery as CFDictionary, nil)
+        if addStatus != errSecSuccess {
+            Self.logger.warning("[ProManager] SecItemAdd for \(account, privacy: .public) returned status \(addStatus)")
+        }
     }
 
     private func getPersistentInstallId() -> String {

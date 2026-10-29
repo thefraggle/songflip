@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.11.9] - 2026-10-29
+- **Enhanced Music Recognition**: Faster and more reliable acoustic track identification with native system integration and direct offline synchronization.
+- **Security & Stability Hardening**: Hardened URL validation for cache requests and optimized background resource management.
+- **Performance & Cache Optimization**: Fast duplicate detection for link history and enhanced database migration resilience.
+- **Build Architecture**: Decoupled external dependencies with dual-mode build configuration and standard build scripts.
+
 ## [1.11.8] - 2026-10-29
 - **Streaming Search & Player Forwarding**: Resolved search fallback routing for Qobuz, ensuring searches open reliably without error messages or blank screens.
 - **Cache & History Preservation**: Enhanced background cache updates to keep favorite tracks and conversion history intact during connection refreshes.

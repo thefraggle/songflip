@@ -1,2 +1,3 @@
-- Búsqueda de streaming y reenvío de reproductores: se resolvió el enrutamiento alternativo de búsqueda para Qobuz, lo que garantiza que las búsquedas se abran de manera confiable sin mensajes de error ni pantallas en blanco.
-- Preservación de caché e historial: actualizaciones de caché en segundo plano mejoradas para mantener intactos las pistas favoritas y el historial de conversión durante las actualizaciones de la conexión.
+- Reconocimiento de música mejorado: identificación de pistas acústicas más rápida y fiable con integración nativa del sistema y sincronización directa sin conexión.
+- Endurecimiento de seguridad y estabilidad: validación de URL endurecida para solicitudes de caché y gestión optimizada de recursos en segundo plano.
+- Optimización del rendimiento y la caché: detección rápida de duplicados para el historial de enlaces y una mayor resistencia a la migración de la base de datos.

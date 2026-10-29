@@ -1,2 +1,3 @@
-- Streaming Search & Player Forwarding: Resolvido o roteamento de fallback de pesquisa para Qobuz, garantindo que as pesquisas sejam abertas de forma confiável, sem mensagens de erro ou telas em branco.
-- Preservação de cache e histórico: atualizações aprimoradas de cache em segundo plano para manter intactas as faixas favoritas e o histórico de conversões durante as atualizações de conexão.
+- Reconhecimento de Música Aprimorado: Identificação de faixa acústica mais rápida e confiável com integração de sistema nativo e sincronização offline direta.
+- Segurança e fortalecimento de estabilidade: validação de URL reforçada para solicitações de cache e gerenciamento otimizado de recursos em segundo plano.
+- Otimização de desempenho e cache: detecção rápida de duplicatas para histórico de links e maior resiliência de migração de banco de dados.

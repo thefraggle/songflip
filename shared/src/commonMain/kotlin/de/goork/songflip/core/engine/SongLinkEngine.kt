@@ -296,14 +296,19 @@ class SongLinkEngine(
                                 val effectiveRawTarget = upgradedDirectUrl ?: rawTarget
                                 val isStillSearchFallback = upgradedDirectUrl == null && searchFallbackQuery != null
                                 val formatted = UrlUtils.formatTargetUrl(effectiveRawTarget, targetPlatformKey)
+                                if (!UrlUtils.isSafeTargetUrl(formatted)) {
+                                    SongFlipLogger.w("SongLinkEngine", "Rejected unsafe targetUrl from backend cache: $formatted")
+                                    continue
+                                }
                                 val nativeUri = UrlUtils.toNativeAppUri(formatted, targetPlatformKey)
+                                val safeNativeUri = if (nativeUri.isNotBlank() && UrlUtils.isSafeNativeAppUri(nativeUri)) nativeUri else null
                                 return ResolutionResult.Success(
                                     targetUrl = formatted,
                                     platform = if (isStillSearchFallback) "${targetPlatformKey}_search" else targetPlatformKey,
                                     title = title,
                                     artist = artist,
                                     isAlbum = isAlbum,
-                                    nativeAppUri = nativeUri,
+                                    nativeAppUri = safeNativeUri,
                                     thumbnailUrl = thumbnailUrl
                                 )
                             }
@@ -1256,10 +1261,18 @@ internal data class SpotifyPodcastOEmbedDto(
                             } else {
                                 showTitle
                             }
-                            val targetUrl = item["targetUrl"]?.jsonPrimitive?.content
-                                ?: UrlUtils.buildPodcastSearchUrl(queryText, targetPlatformKey)
-                            val nativeAppUri = item["nativeAppUri"]?.jsonPrimitive?.content
-                                ?: UrlUtils.toPodcastNativeAppUri(targetPlatformKey, queryText)
+                            val rawTargetUrl = item["targetUrl"]?.jsonPrimitive?.content
+                            val targetUrl = if (rawTargetUrl != null && UrlUtils.isSafeTargetUrl(rawTargetUrl)) {
+                                rawTargetUrl
+                            } else {
+                                UrlUtils.buildPodcastSearchUrl(queryText, targetPlatformKey)
+                            }
+                            val rawNativeAppUri = item["nativeAppUri"]?.jsonPrimitive?.content
+                            val nativeAppUri = if (rawNativeAppUri != null && UrlUtils.isSafeNativeAppUri(rawNativeAppUri)) {
+                                rawNativeAppUri
+                            } else {
+                                UrlUtils.toPodcastNativeAppUri(targetPlatformKey, queryText)
+                            }
 
                             val result = ResolutionResult.Podcast(
                                 originalUrl = canonicalUrl,

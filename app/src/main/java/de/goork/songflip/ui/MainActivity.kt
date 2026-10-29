@@ -199,7 +199,8 @@ class MainActivity : AppCompatActivity() {
                             flags = Intent.FLAG_ACTIVITY_NEW_TASK
                         }
                         startActivity(playIntent)
-                    } catch (_: Exception) {
+                    } catch (e: Exception) {
+                        de.goork.songflip.core.util.SongFlipLogger.w("MainActivity", "Failed to launch play last song intent: ${e.message}", e)
                         Toast.makeText(this, getString(R.string.shortcut_no_last_song), Toast.LENGTH_SHORT).show()
                     }
                 } else {
@@ -207,6 +208,11 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        de.goork.songflip.data.AcousticRecognizer.stopListening()
     }
 }
 

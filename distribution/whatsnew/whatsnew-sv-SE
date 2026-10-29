@@ -1,2 +1,3 @@
-- Strömmande sökning och vidarebefordran av spelare: Löst reservrutt för sökning för Qobuz, vilket säkerställer att sökningar öppnas på ett tillförlitligt sätt utan felmeddelanden eller tomma skärmar.
-- Bevarande av cache och historik: Förbättrade bakgrundscacheuppdateringar för att hålla favoritspår och konverteringshistorik intakt under anslutningsuppdateringar.
+- Förbättrad musikigenkänning: Snabbare och mer tillförlitlig akustisk spåridentifiering med inbyggd systemintegration och direkt offline-synkronisering.
+- Säkerhets- och stabilitetshärdning: Härdad URL-validering för cacheförfrågningar och optimerad bakgrundsresurshantering.
+- Prestanda- och cacheoptimering: Snabb dubblettdetektering för länkhistorik och förbättrad motståndskraft mot databasmigrering.

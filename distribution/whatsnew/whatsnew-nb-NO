@@ -1,2 +1,3 @@
-- Streamingsøk og videresending av spillere: Løst reserveruting for søk for Qobuz, som sikrer at søk åpnes pålitelig uten feilmeldinger eller tomme skjermer.
-- Oppbevaring av buffer og historikk: Forbedrede bakgrunnsbufferoppdateringer for å holde favorittspor og konverteringshistorikk intakt under tilkoblingsoppdateringer.
+- Forbedret musikkgjenkjenning: Raskere og mer pålitelig akustisk sporidentifikasjon med innebygd systemintegrasjon og direkte offline-synkronisering.
+- Sikkerhets- og stabilitetsherding: Herdet URL-validering for hurtigbufferforespørsler og optimalisert bakgrunnsressurshåndtering.
+- Ytelses- og hurtigbufferoptimalisering: Rask duplikatdeteksjon for lenkehistorikk og forbedret robusthet for databasemigrering.

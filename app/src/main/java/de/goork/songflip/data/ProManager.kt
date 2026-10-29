@@ -108,8 +108,8 @@ object ProManager {
             System.arraycopy(iv, 0, combined, 1, iv.size)
             System.arraycopy(encrypted, 0, combined, 1 + iv.size, encrypted.size)
             ENC_PREFIX + java.util.Base64.getEncoder().encodeToString(combined)
-        } catch (_: Throwable) {
-            // Fallback in JVM unit tests where AndroidKeyStore provider is unavailable
+        } catch (t: Throwable) {
+            de.goork.songflip.core.util.SongFlipLogger.d("ProManager", "AndroidKeyStore encrypt unavailable (expected in unit tests): ${t.message}")
             plainText
         }
     }
@@ -134,7 +134,8 @@ object ProManager {
                 javax.crypto.spec.GCMParameterSpec(128, iv)
             )
             String(cipher.doFinal(cipherBytes), Charsets.UTF_8)
-        } catch (_: Throwable) {
+        } catch (t: Throwable) {
+            de.goork.songflip.core.util.SongFlipLogger.w("ProManager", "Failed to decrypt value from storage: ${t.message}", t)
             null
         }
     }
