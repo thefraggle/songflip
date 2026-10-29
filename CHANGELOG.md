@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.11.10] - 2026-10-29
+- **L2 Cache Self-Healing & Integrity**: High-speed edge cache automatically purges and re-resolves incomplete records missing title or artist metadata, preventing resolution errors.
+- **Apple Music Slug-Independent Resolution**: Cross-referenced Apple Music track and album IDs across slug variations for deterministic cache hits and live conversion consistency.
+- **Catalog Edition Alignment**: Harmonized demo and sample tracks to canonical album versions across Spotify and Apple Music, eliminating edition discrepancies.
+
 ## [1.11.9] - 2026-10-29
 - **Enhanced Music Recognition**: Faster and more reliable acoustic track identification with native system integration and direct offline synchronization.
 - **Security & Stability Hardening**: Hardened URL validation for cache requests and optimized background resource management.
