@@ -75,6 +75,14 @@ class ListenAndFlipActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        de.goork.songflip.data.AcousticRecognizer.stopListening()
+        if (!isFinishing) {
+            finish()
+        }
+    }
+
     private fun finishQuietly() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             // API 34+: overrideActivityTransition must be registered before finish() so the close

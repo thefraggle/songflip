@@ -116,8 +116,9 @@ class SqlDelightCacheStorage(
                 sql = "ALTER TABLE history ADD COLUMN is_acoustic INTEGER NOT NULL DEFAULT 0;",
                 parameters = 0
             )
-        } catch (_: Throwable) {
+        } catch (t: Throwable) {
             // Column already exists on fresh or already-migrated databases
+            SongFlipLogger.d("SqlDelightCacheStorage", "history.is_acoustic column check: ${t.message}")
         }
         try {
             driver.execute(

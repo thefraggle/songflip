@@ -334,10 +334,33 @@ class LinkCache(
         }
 
         val deduplicated = mutableListOf<LinkHistoryItem>()
+        val urlIndex = mutableMapOf<String, Int>()
+        val targetIndex = mutableMapOf<String, Int>()
+        val trackIndex = mutableMapOf<String, Int>()
+
         for (candidate in rawItems) {
-            val existingIdx = deduplicated.indexOfFirst { isDuplicateSongItem(it, candidate) }
+            val normUrl = UrlUtils.normalizeUrl(candidate.canonicalUrl).substringBefore("#").trimEnd('/')
+            val urlKey = if (normUrl.isNotBlank()) "${candidate.targetPlatformKey}|$normUrl" else null
+
+            val cleanTarget = candidate.targetUrl.trim().trimEnd('/')
+            val isSearchTarget = cleanTarget.contains("/search") || cleanTarget.contains("?q=") || cleanTarget.contains("?term=")
+            val targetKey = if (!isSearchTarget && cleanTarget.isNotBlank()) "${candidate.targetPlatformKey}|$cleanTarget" else null
+
+            val title = candidate.title?.trim()?.lowercase().orEmpty()
+            val artist = candidate.artist?.trim()?.lowercase().orEmpty()
+            val trackKey = if (!candidate.isAlbum && title.isNotEmpty() && artist.isNotEmpty()) "${candidate.targetPlatformKey}|$artist|$title" else null
+
+            val existingIdx = (urlKey?.let { urlIndex[it] })
+                ?: (targetKey?.let { targetIndex[it] })
+                ?: (trackKey?.let { trackIndex[it] })
+                ?: -1
+
             if (existingIdx < 0) {
+                val newIdx = deduplicated.size
                 deduplicated.add(candidate)
+                urlKey?.let { urlIndex[it] = newIdx }
+                targetKey?.let { targetIndex[it] = newIdx }
+                trackKey?.let { trackIndex[it] = newIdx }
             } else {
                 val existing = deduplicated[existingIdx]
                 // Prefer the normalized key or the acoustic/newer entry
@@ -358,6 +381,11 @@ class LinkCache(
                     isAcoustic = primary.isAcoustic || secondary.isAcoustic
                 )
                 deduplicated[existingIdx] = merged
+
+                // Update indices for merged item
+                urlKey?.let { urlIndex[it] = existingIdx }
+                targetKey?.let { targetIndex[it] = existingIdx }
+                trackKey?.let { trackIndex[it] = existingIdx }
 
                 // Self-heal storage by removing the redundant duplicate key and persisting merged flags
                 if (secondary.cacheKey != merged.cacheKey) {

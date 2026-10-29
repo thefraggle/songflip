@@ -1,2 +1,3 @@
-- Streaming Search & Player Forwarding: Vyřešené záložní směrování vyhledávání u služby Qobuz, které zajišťuje spolehlivé otevírání vyhledávání bez chybových zpráv nebo prázdných obrazovek.
-- Uchování mezipaměti a historie: Vylepšené aktualizace mezipaměti na pozadí, aby během obnovování připojení zůstaly oblíbené skladby a historie konverzí nedotčené.
+- Vylepšené rozpoznávání hudby: Rychlejší a spolehlivější identifikace akustické stopy s nativní systémovou integrací a přímou offline synchronizací.
+- Bezpečnost & stabilita: Zpřísněné ověření URL u požadavků na mezipaměť a optimalizovaná správa zdrojů na pozadí.
+- Optimalizace výkonu a mezipaměti: Rychlá detekce duplikátů v historii odkazů a zvýšená odolnost migrace databáze.

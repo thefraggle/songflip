@@ -1,2 +1,3 @@
-- Akış Arama ve Oynatıcı Yönlendirme: Qobuz için çözümlenmiş arama geri dönüş yönlendirmesi, aramaların hata mesajları veya boş ekranlar olmadan güvenilir bir şekilde açılmasını sağlıyor.
-- Önbellek ve Geçmişi Koruma: Bağlantı yenilemeleri sırasında favori parçaları ve dönüşüm geçmişini olduğu gibi tutmak için geliştirilmiş arka plan önbellek güncellemeleri.
+- Gelişmiş Müzik Tanıma: Yerel sistem entegrasyonu ve doğrudan çevrimdışı senkronizasyon ile daha hızlı ve daha güvenilir akustik parça tanımlama.
+- Güvenlik ve Kararlılık Sertleştirme: Önbellek istekleri ve optimize edilmiş arka plan kaynak yönetimi için sertleştirilmiş URL doğrulaması.
+- Performans ve Önbellek Optimizasyonu: Bağlantı geçmişi ve gelişmiş veritabanı geçiş esnekliği için hızlı yinelenen algılama.
