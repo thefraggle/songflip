@@ -111,7 +111,14 @@ Purchases are powered by **RevenueCat** with native store backends:
 
 > 💡 **Submodule Notice**: The `functions/` folder points to a private, closed-source backend submodule. You do **not** need this submodule to build, test, or contribute to SongFlip. A standard clone (`git clone https://github.com/thefraggle/songflip.git` without `--recursive`) builds both Android and iOS targets out of the box.
 
-### 2. Environment Configuration
+### 2. Apple ShazamKit SDK for Android (Optional / Dual-Mode)
+- **iOS**: Uses Apple's native system framework (`import ShazamKit`). No external binaries or credentials required.
+- **Android**: SongFlip uses a dual-mode architecture to maintain 100% open-source buildability:
+  - **Open-Source Mode (Default for Forks & Public Clones)**: If `app/libs/shazamkit-android-release.aar` is omitted, Gradle automatically compiles against an internal open-source stub (`src/stub/java`). The Android app builds and runs without any proprietary binaries out of the box.
+  - **Production / Full Recognition Mode**: To enable acoustic music recognition on Android, download `shazamkit-android-release.aar` from the official [Apple Developer Portal (ShazamKit for Android)](https://developer.apple.com/shazamkit/) and place it in `app/libs/shazamkit-android-release.aar` (which is git-ignored). Gradle detects the file automatically and links the official Apple SDK.
+  - **Official Release Builds**: Official production releases decrypt the repository's encrypted asset (`app/libs/shazamkit-android-release.aar.enc`) via the repository secret `SHAZAMKIT_ENCRYPTION_KEY`.
+
+### 3. Environment Configuration
 Copy or create `local.properties` in the project root for local Android builds:
 ```properties
 sdk.dir=/Users/<username>/Library/Android/sdk

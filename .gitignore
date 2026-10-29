@@ -76,3 +76,7 @@ __pycache__/
 **/Config.xcconfig
 Config.xcconfig
 !*.example.xcconfig
+
+# Proprietary Vendor SDK Binaries (Apple ShazamKit Android)
+app/libs/*.aar
+!app/libs/*.aar.enc
