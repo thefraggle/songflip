@@ -1,3 +1,2 @@
-- Omfattende grænsefladelokalisering: Lokaliserede resterende afspilningslisteindikatorer og tilgængelighedskontroller på tværs af alle sprog.
-- Centraliseret versionsstyring og netværkshygiejne: Dynamiske anmodningsmetadata via centraliseret konfiguration og indført struktureret diagnostisk logføring i datamotoren.
-- Konsekvent timeout-håndtering: Standardiseret timeout-beskeder på tværs af linkkonverteringer for større stabilitet.
+- Streamingsøgning og videresendelse af afspillere: Løst søgetilbagefaldsruting for Qobuz, hvilket sikrer, at søgninger åbner pålideligt uden fejlmeddelelser eller tomme skærme.
+- Bevaring af cache og historie: Forbedrede opdateringer af baggrundscache for at holde yndlingsspor og konverteringshistorik intakt under forbindelsesopdateringer.

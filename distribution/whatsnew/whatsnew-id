@@ -1,3 +1,2 @@
-- Lokalisasi Antarmuka Komprehensif: Indikator daftar putar yang tersisa dan kontrol aksesibilitas di semua bahasa.
-- Manajemen Versi Terpusat & Kebersihan Jaringan: Metadata permintaan dinamis melalui konfigurasi terpusat dan memperkenalkan pencatatan diagnostik terstruktur dalam mesin data.
-- Penanganan Batas Waktu yang Konsisten: Perpesanan batas waktu standar di seluruh konversi tautan untuk stabilitas yang lebih besar.
+- Pencarian Streaming & Penerusan Pemain: Menyelesaikan perutean cadangan pencarian untuk Qobuz, memastikan pencarian terbuka dengan andal tanpa pesan kesalahan atau layar kosong.
+- Pelestarian Cache & Riwayat: Peningkatan pembaruan cache latar belakang untuk menjaga trek favorit dan riwayat konversi tetap utuh selama penyegaran koneksi.

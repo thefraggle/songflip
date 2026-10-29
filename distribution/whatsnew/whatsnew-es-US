@@ -1,2 +1,2 @@
-- Localización completa de la interfaz: indicadores de listas de reproducción restantes localizados y controles de accesibilidad en todos los idiomas.
-- Gestión centralizada de versiones e higiene de la red: metadatos de solicitud dinamizados a través de la configuración centralizada e introducción del registro de diagnóstico estructurado dentro del motor de datos.
+- Búsqueda de streaming y reenvío de reproductores: se resolvió el enrutamiento alternativo de búsqueda para Qobuz, lo que garantiza que las búsquedas se abran de manera confiable sin mensajes de error ni pantallas en blanco.
+- Preservación de caché e historial: actualizaciones de caché en segundo plano mejoradas para mantener intactos las pistas favoritas y el historial de conversión durante las actualizaciones de la conexión.

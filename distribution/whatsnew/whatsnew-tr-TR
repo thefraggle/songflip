@@ -1,3 +1,2 @@
-- Kapsamlı Arayüz Yerelleştirmesi: Tüm dillerde yerelleştirilmiş kalan oynatma listesi göstergeleri ve erişilebilirlik kontrolleri.
-- Merkezi Sürüm Yönetimi ve Ağ Hijyeni: Merkezi yapılandırma yoluyla dinamikleştirilmiş istek meta verileri ve veri motoru içinde yapılandırılmış tanılama günlüğü.
-- Tutarlı Zaman Aşımı Yönetimi: Daha fazla kararlılık için bağlantı dönüşümleri arasında standart zaman aşımı mesajlaşması.
+- Akış Arama ve Oynatıcı Yönlendirme: Qobuz için çözümlenmiş arama geri dönüş yönlendirmesi, aramaların hata mesajları veya boş ekranlar olmadan güvenilir bir şekilde açılmasını sağlıyor.
+- Önbellek ve Geçmişi Koruma: Bağlantı yenilemeleri sırasında favori parçaları ve dönüşüm geçmişini olduğu gibi tutmak için geliştirilmiş arka plan önbellek güncellemeleri.

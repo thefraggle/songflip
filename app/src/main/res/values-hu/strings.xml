@@ -145,6 +145,10 @@
     <string name="history_all_cleared">Előzmények és gyorsítótár törölve</string>
     <string name="history_pro_teaser_title">SongFlip PRO Előzmények</string>
     <string name="history_pro_teaser_desc">Akár 100 zeneszám tárolása az előzményekben a SongFlip PRO-val.</string>
+    <plurals name="history_pro_teaser_hidden_desc">
+        <item quantity="one">%1$d régebbi dal elrejtve – oldja fel mind a(z) %2$d dalt a SongFlip PRO-val.</item>
+        <item quantity="other">%1$d régebbi dal elrejtve – oldja fel mind a(z) %2$d dalt a SongFlip PRO-val.</item>
+    </plurals>
     <string name="history_btn_upgrade">Frissítés PRO verzióra</string>
     <string name="action_delete">Törlés</string>
     <string name="time_just_now">Épp most</string>

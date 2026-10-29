@@ -147,6 +147,10 @@
     <string name="history_all_cleared">Historie a mezipaměť byly vymazány</string>
     <string name="history_pro_teaser_title">Historie SongFlip PRO</string>
     <string name="history_pro_teaser_desc">Ukládejte až 100 skladeb v historii se SongFlip PRO.</string>
+    <plurals name="history_pro_teaser_hidden_desc">
+        <item quantity="one">%1$d starší skladba skryta – odemkněte všech %2$d s SongFlip PRO.</item>
+        <item quantity="other">%1$d starších skladeb skryto – odemkněte všech %2$d s SongFlip PRO.</item>
+    </plurals>
     <string name="history_btn_upgrade">Přejít na PRO</string>
     <string name="action_delete">Smazat</string>
     <string name="time_just_now">Právě teď</string>

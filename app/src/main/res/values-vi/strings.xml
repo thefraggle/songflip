@@ -153,6 +153,10 @@
     <string name="history_all_cleared">Lịch sử và bộ nhớ đệm đã được xóa</string>
     <string name="history_pro_teaser_title">Lịch sử SongFlip PRO</string>
     <string name="history_pro_teaser_desc">Hiển thị tối đa 100 bài hát trong lịch sử của bạn với SongFlip PRO.</string>
+    <plurals name="history_pro_teaser_hidden_desc">
+        <item quantity="one">%1$d bài hát cũ bị ẩn – mở khóa tất cả %2$d bài với SongFlip PRO.</item>
+        <item quantity="other">%1$d bài hát cũ bị ẩn – mở khóa tất cả %2$d bài với SongFlip PRO.</item>
+    </plurals>
     <string name="history_btn_upgrade">Nâng cấp lên PRO</string>
     <string name="action_delete">Xóa</string>
     <string name="time_just_now">Vừa xong</string>
@@ -420,4 +424,5 @@
     <string name="playlist_banner_public_notice">Yêu cầu danh sách phát công khai</string>
     <string name="listen_change_target">Đổi đích đến</string>
     <string name="playlist_reconvert">Chuyển đổi lại</string>
+    <string name="playlist_badge_free_limit">Miễn phí (5)</string>
 </resources>

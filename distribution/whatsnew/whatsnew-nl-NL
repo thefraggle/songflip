@@ -1,3 +1,2 @@
-- Uitgebreide interfacelokalisatie: gelokaliseerde resterende afspeellijstindicatoren en toegankelijkheidsinstellingen in alle talen.
-- Gecentraliseerd versiebeheer en netwerkhygiëne: Dynamiseerde aanvraagmetagegevens via gecentraliseerde configuratie en introduceerde gestructureerde diagnostische logging binnen de data-engine.
-- Consistente time-outverwerking: gestandaardiseerde time-outberichten over linkconversies voor meer stabiliteit.
+- Streaming zoeken en doorsturen van spelers: Opgeloste terugvalroutering voor zoekopdrachten voor Qobuz, waardoor zoekopdrachten betrouwbaar worden geopend zonder foutmeldingen of lege schermen.
+- Cache- en geschiedenisbehoud: verbeterde cache-updates op de achtergrond om favoriete nummers en conversiegeschiedenis intact te houden tijdens het vernieuwen van de verbinding.

@@ -146,6 +146,10 @@
     <string name="history_all_cleared">Istoricul și memoria cache au fost șterse</string>
     <string name="history_pro_teaser_title">Istoric SongFlip PRO</string>
     <string name="history_pro_teaser_desc">Păstrați până la 100 de melodii în istoric cu SongFlip PRO.</string>
+    <plurals name="history_pro_teaser_hidden_desc">
+        <item quantity="one">%1$d melodie mai veche ascunsă – deblochează-le pe toate %2$d cu SongFlip PRO.</item>
+        <item quantity="other">%1$d melodii mai vechi ascunse – deblochează-le pe toate %2$d cu SongFlip PRO.</item>
+    </plurals>
     <string name="history_btn_upgrade">Treci la PRO</string>
     <string name="action_delete">Șterge</string>
     <string name="time_just_now">Chiar acum</string>
