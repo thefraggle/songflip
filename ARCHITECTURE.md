@@ -98,7 +98,7 @@ When an upstream resolver (e.g. Odesli) lacks a mapping for a target platform (f
 | **Tidal** | `tidal://track/<id>` | `tidal://album/<id>` | `tidal://artist/<id>` | — | ✅ Tidal Public API (`api.tidal.com`) | `listen.tidal.com/search?q=` |
 | **SoundCloud** | `soundcloud://sounds:<id>` | `soundcloud://sets:<id>` | `soundcloud://users:<id>` | — | ❌ None (Web only) | `soundcloud://search?q=` |
 | **Bandcamp** | `bandcamp://...` | `bandcamp://...` | `bandcamp://...` | — | ❌ None (Web only) | `bandcamp.com/search?q=` |
-| **Qobuz** | `qobuz://open.qobuz.com/track/<id>` | `qobuz://open.qobuz.com/album/<id>` | `qobuz://open.qobuz.com/artist/<id>` | — | ✅ Qobuz Public API | `open.qobuz.com/search?q=` |
+| **Qobuz** | `qobuz://open.qobuz.com/track/<id>` | `qobuz://open.qobuz.com/album/<id>` | `qobuz://open.qobuz.com/artist/<id>` | — | ✅ Qobuz Public API | `play.qobuz.com/search?q=` |
 | **Beatport** | *(Source only)* | *(Source only)* | *(Source only)* | — | ✅ Beatport OG Scraper | `beatport.com/search?q=` |
 
 ---
@@ -249,6 +249,15 @@ The iOS architecture decouples the main user interface (`de.goork.SongFlip`) fro
   - **Comprehensive Interface Localization (#162)**: Replaced hardcoded English string `Text("Free (5)")` in SwiftUI `ContentView.swift` and Jetpack Compose `PlaylistActiveBanner.kt` with localized key `playlist_badge_free_limit` across all 28 iOS and 29 Android resource locales; localized dismiss button in `PromoBannerCardView.swift` via `btn_close`; and converted German exception message in KMP `PlaylistConverterEngine.kt` to standardized English (`"Playlist conversion timed out."`).
   - **Centralized Version Management (#163)**: Extracted global version constant to `EngineConfig.APP_VERSION` in KMP shared core, eliminating legacy hardcoded versions (`SongFlip-Mobile-KMP/1.4.10`, `SongFlip/1.9.1`) from `SongLinkApiResolver.kt` and `QobuzResolver.kt` User-Agent request headers.
   - **Structured Core Logging Hygiene (#163)**: Created cross-platform logging abstraction `SongFlipLogger` in KMP shared core with level-based routing (DEBUG, INFO, WARN, ERROR) and pluggable handler, eliminating raw `println` statements across `SqlDelightCacheStorage.kt`, `AptabaseClient.kt`, `SongLinkEngine.kt`, `CatalogSearchEngine.kt`, `PromoBannerManager.kt`, `CouponService.kt`, and `AcousticQuotaManager.kt`, and hooked Android platform logging in `SongFlipApp.kt`.
+- **Hardening, Concurrency Safety, Qobuz Search Fallback & Repo Hygiene (v1.11.8 / #167, #170, #171, #172, #174, #178, #179, #183)**:
+  - **Acoustic Quota Concurrency Hardening (#167)**: Eliminated re-entrant lock deadlock in `AcousticQuotaManager.recordSuccessfulScan` by avoiding nested calls to `quotaLock` and migrating `PlatformLock` on iOS to `NSRecursiveLock`.
+  - **Qobuz Search Fallback Fix & iOS App Handshake (#183)**: Resolved CloudFront HTTP 505 / blank launch failure on Qobuz search fallbacks by routing to the official Web Player search endpoint `https://play.qobuz.com/search?q=...` across shared core, backend functions, and web player, while preserving native app deep links for direct tracks, albums, and artists.
+  - **Cache Refresh Integrity (#171)**: Fixed cache refresh race condition in `SongLinkEngine.forceRefresh` to update links in-place without removing cached entities, preserving history and favorite state during network latency or transient errors.
+  - **Playlist Engine & Coupon Validation Resilience (#172)**: Added dynamic Ktor request timeouts, fast-failure on client 4xx HTTP responses, eliminated redundant user headers in `PlaylistConverterEngine.kt`, and validated coupon token types consistently against verified payload types in `CouponService.kt`.
+  - **Legacy Token Hardening (#170)**: Enforced strict Ed25519 signature verification for coupon tokens, rejecting deprecated legacy HMAC tokens (`sct_`).
+  - **iOS Recognition Audio Session Resilience & Expiry Fix (#174)**: Corrected milliseconds-to-seconds timestamp conversion in `AcousticRecognizer.swift` for Apple Music Developer Tokens, and registered `AVAudioSession.interruptionNotification` observers to properly reset audio recording state on calls or interruptions.
+  - **Git & Public Repo Hygiene (#178)**: Extended `.gitignore` to strictly exclude private signing keys (`*.p8`), memory dumps (`*.hprof`), build artifacts (`*.apk`, `*.aab`, `*.ipa`), and distribution outputs (`dist/`).
+  - **Comprehensive Localization Parity (#179)**: Added missing strings (`playlist_error_unknown_title`, `playlist_error_unknown_message`, `playlist_error_rate_limit_message`) across all 29 Android locales and 26 iOS locales, and localized `NSMicrophoneUsageDescription` in `InfoPlist.xcstrings`.
 
 
 ---

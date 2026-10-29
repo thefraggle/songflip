@@ -156,6 +156,10 @@
     <string name="history_all_cleared">Historia i pamięć podręczna wyczyszczone</string>
     <string name="history_pro_teaser_title">Historia SongFlip PRO</string>
     <string name="history_pro_teaser_desc">Odblokuj do 100 utworów w historii dzięki SongFlip PRO.</string>
+    <plurals name="history_pro_teaser_hidden_desc">
+        <item quantity="one">%1$d starszy utwór ukryty – odblokuj wszystkie %2$d z SongFlip PRO.</item>
+        <item quantity="other">%1$d starszych utworów ukrytych – odblokuj wszystkie %2$d z SongFlip PRO.</item>
+    </plurals>
     <string name="history_btn_upgrade">Przejdź na PRO</string>
     <string name="action_delete">Usuń</string>
     <string name="time_just_now">Przed chwilą</string>

@@ -154,6 +154,10 @@
     <string name="history_all_cleared">Historik och cache rensade</string>
     <string name="history_pro_teaser_title">SongFlip PRO Historik</string>
     <string name="history_pro_teaser_desc">Lås upp upp till 100 låtar i historiken med SongFlip PRO.</string>
+    <plurals name="history_pro_teaser_hidden_desc">
+        <item quantity="one">%1$d äldre låt dold – lås upp alla %2$d med SongFlip PRO.</item>
+        <item quantity="other">%1$d äldre låtar dolda – lås upp alla %2$d med SongFlip PRO.</item>
+    </plurals>
     <string name="history_btn_upgrade">Uppgradera till PRO</string>
     <string name="action_delete">Radera</string>
     <string name="time_just_now">Just nu</string>

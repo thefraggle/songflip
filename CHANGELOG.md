@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.11.8] - 2026-10-29
+- **Streaming Search & Player Forwarding**: Resolved search fallback routing for Qobuz, ensuring searches open reliably without error messages or blank screens.
+- **Cache & History Preservation**: Enhanced background cache updates to keep favorite tracks and conversion history intact during connection refreshes.
+- **Engine Reliability & Security**: Strengthened cryptographic code verification, optimized playlist request timeouts, and refined audio session interruption recovery during song identification.
+- **Interface & Localization Updates**: Added complete local translations for playlist notifications and security dialogs across all supported languages.
+
 ## [1.11.7] - 2026-10-28
 - **Comprehensive Interface Localization**: Localized remaining playlist indicators and accessibility controls across all languages.
 - **Centralized Version Management & Network Hygiene**: Dynamized request metadata via centralized configuration and introduced structured diagnostic logging within the data engine.

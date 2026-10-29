@@ -60,6 +60,15 @@ class AcousticQuotaManagerTest {
     }
 
     @Test
+    fun testRecordSuccessfulScanDoesNotDeadlockOnFirstScan() {
+        val manager = AcousticQuotaManager(sqlStorage = null)
+        val testTime = 1792404000000L
+        // Must succeed without deadlocking on re-entrant lock acquisition (#167)
+        val remaining = manager.recordSuccessfulScan(isPro = false, timestampMs = testTime)
+        assertEquals(2, remaining)
+    }
+
+    @Test
     fun testResolveAndStoreAcousticMatchPreservesAcousticFlagInHistory() = runTest {
         val memStorage = object : CacheStorage {
             val map = mutableMapOf<String, CacheEntry>()

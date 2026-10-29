@@ -205,24 +205,10 @@ class CouponService(
             )
         }
 
-        // Legacy v1 HMAC token (sct_<payload>.<sig>): the HMAC secret is server-only, so the signature cannot
-        // be checked offline. These tokens stay accepted (existing customers keep access) but are flagged
-        // isLegacyToken so the app migrates them online, where forged ones receive REVOKED (#141).
+        // Legacy v1 HMAC tokens (sct_<payload>.<sig>) are fully deprecated and rejected (#170).
+        // Only cryptographic Ed25519-signed tokens (v3_...) are accepted.
         if (cleanToken.startsWith("sct_")) {
-            val raw = cleanToken.substring(4)
-            val dotIdx = raw.indexOf('.')
-            if (dotIdx <= 0 || dotIdx >= raw.length - 1) return VerifiedCouponPayload(valid = false)
-            val payloadB64 = raw.substring(0, dotIdx)
-            val sigB64 = raw.substring(dotIdx + 1)
-            val sigBytes = decodeBase64Url(sigB64) ?: return VerifiedCouponPayload(valid = false)
-            if (sigBytes.size != 32) return VerifiedCouponPayload(valid = false)
-
-            return parseAndValidatePayload(
-                payloadB64 = payloadB64,
-                expectedInstallId = expectedInstallId,
-                effectiveNow = effectiveNow,
-                isLegacy = true
-            )
+            return VerifiedCouponPayload(valid = false)
         }
 
         return VerifiedCouponPayload(valid = false)
@@ -436,7 +422,8 @@ class CouponService(
                     } else {
                         verified.expirationTimestamp ?: exp ?: (now + (durationDays ?: 30L) * 24 * 60 * 60 * 1000L)
                     }
-                    val status = when (type) {
+                    val resolvedType = verified.type ?: type
+                    val status = when (resolvedType) {
                         "lifetime" -> CouponRedeemStatus.SUCCESS_LIFETIME
                         "1year", "annual" -> CouponRedeemStatus.SUCCESS_1YEAR
                         "3months" -> CouponRedeemStatus.SUCCESS_3MONTHS

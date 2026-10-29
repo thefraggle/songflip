@@ -364,7 +364,7 @@ class LinkCache(
                     entries.remove(secondary.cacheKey)
                     storage.remove(secondary.cacheKey)
                 }
-                val primaryEntry = entries[merged.cacheKey]
+                val primaryEntry = entries[merged.cacheKey] ?: storage.get(merged.cacheKey)
                 if (primaryEntry != null) {
                     val healedEntry = primaryEntry.copy(
                         title = merged.title,

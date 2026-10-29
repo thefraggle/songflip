@@ -1,3 +1,2 @@
-- Omfattende grensesnittlokalisering: Lokaliserte indikatorer for gjenværende spillelister og tilgjengelighetskontroller på tvers av alle språk.
-- Sentralisert versjonshåndtering og nettverkshygiene: Dynamiserte forespørselsmetadata via sentralisert konfigurasjon og introduserte strukturert diagnostisk logging i datamotoren.
-- Konsekvent håndtering av tidsavbrudd: Standardiserte tidsavbruddsmeldinger på tvers av lenkekonverteringer for større stabilitet.
+- Streamingsøk og videresending av spillere: Løst reserveruting for søk for Qobuz, som sikrer at søk åpnes pålitelig uten feilmeldinger eller tomme skjermer.
+- Oppbevaring av buffer og historikk: Forbedrede bakgrunnsbufferoppdateringer for å holde favorittspor og konverteringshistorikk intakt under tilkoblingsoppdateringer.

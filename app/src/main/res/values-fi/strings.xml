@@ -145,6 +145,10 @@
     <string name="history_all_cleared">Historia ja välimuisti tyhjennetty</string>
     <string name="history_pro_teaser_title">SongFlip PRO Historia</string>
     <string name="history_pro_teaser_desc">Tallenna jopa 100 kappaletta historiaasi SongFlip PRO:lla.</string>
+    <plurals name="history_pro_teaser_hidden_desc">
+        <item quantity="one">%1$d vanhempi kappale piilotettu – avaa kaikki %2$d SongFlip PRO:lla.</item>
+        <item quantity="other">%1$d vanhempaa kappaletta piilotettu – avaa kaikki %2$d SongFlip PRO:lla.</item>
+    </plurals>
     <string name="history_btn_upgrade">Päivitä PRO-versioon</string>
     <string name="action_delete">Poista</string>
     <string name="time_just_now">Juuri nyt</string>

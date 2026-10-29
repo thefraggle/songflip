@@ -154,6 +154,10 @@
     <string name="history_all_cleared">इतिहास आणि कॅशे साफ केले</string>
     <string name="history_pro_teaser_title">SongFlip PRO इतिहास</string>
     <string name="history_pro_teaser_desc">SongFlip PRO सह तुमच्या इतिहासात 100 गाण्यांपर्यंत पहा.</string>
+    <plurals name="history_pro_teaser_hidden_desc">
+        <item quantity="one">%1$d जुने गाणे लपवले आहे – SongFlip PRO सह सर्व %2$d अनलॉक करा.</item>
+        <item quantity="other">%1$d जुनी गाणी लपवली आहेत – SongFlip PRO सह सर्व %2$d अनलॉक करा.</item>
+    </plurals>
     <string name="history_btn_upgrade">PRO मध्ये अपग्रेड करा</string>
     <string name="action_delete">हटवा</string>
     <string name="time_just_now">नुकतेच</string>

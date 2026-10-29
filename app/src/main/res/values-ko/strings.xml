@@ -153,6 +153,10 @@
     <string name="history_all_cleared">기록과 캐시가 삭제되었습니다</string>
     <string name="history_pro_teaser_title">SongFlip PRO 기록</string>
     <string name="history_pro_teaser_desc">SongFlip PRO로 최대 100곡까지 기록을 확인하세요.</string>
+    <plurals name="history_pro_teaser_hidden_desc">
+        <item quantity="one">%1$d개의 이전 곡이 숨겨짐 – SongFlip PRO로 %2$d개 모두 잠금 해제.</item>
+        <item quantity="other">%1$d개의 이전 곡이 숨겨짐 – SongFlip PRO로 %2$d개 모두 잠금 해제.</item>
+    </plurals>
     <string name="history_btn_upgrade">PRO로 업그레이드</string>
     <string name="action_delete">삭제</string>
     <string name="time_just_now">방금 전</string>

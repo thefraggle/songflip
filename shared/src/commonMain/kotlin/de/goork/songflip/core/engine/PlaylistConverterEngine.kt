@@ -7,6 +7,10 @@ import de.goork.songflip.core.model.PlaylistErrorPayload
 import de.goork.songflip.core.model.PlaylistTrackItem
 import de.goork.songflip.core.model.deduplicated
 import io.ktor.client.HttpClient
+import io.ktor.client.plugins.HttpRequestTimeoutException
+import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.plugins.plugin
+import io.ktor.client.plugins.timeout
 import io.ktor.client.request.header
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
@@ -36,6 +40,15 @@ class PlaylistConverterEngine(
     private val json = Json {
         ignoreUnknownKeys = true
         isLenient = true
+    }
+
+    private val supportsHttpTimeout: Boolean by lazy {
+        try {
+            client.plugin(HttpTimeout)
+            true
+        } catch (_: Throwable) {
+            false
+        }
     }
 
     @Throws(Throwable::class)
@@ -97,11 +110,16 @@ class PlaylistConverterEngine(
                 val response = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
                     kotlinx.coroutines.withTimeout(timeoutMs) {
                         client.post(endpoint) {
+                            if (supportsHttpTimeout) {
+                                timeout {
+                                    requestTimeoutMillis = timeoutMs
+                                    socketTimeoutMillis = timeoutMs
+                                }
+                            }
                             contentType(ContentType.Application.Json)
                             header("x-web-client", "songflip-app")
                             if (!authToken.isNullOrBlank()) {
                                 header("Authorization", "Bearer $authToken")
-                                header("x-user-id", authToken)
                             }
                             setBody(payload)
                         }
@@ -115,11 +133,20 @@ class PlaylistConverterEngine(
                 } else {
                     val errorBody = response.bodyAsText()
                     val parsedException = parseErrorPayload(errorBody, response.status.value)
+                    // Fast-fail on 4xx client errors (e.g. private playlist, bad request, rate limit)
+                    // to prevent duplicate failed calls against fallback endpoints (#172).
+                    if (response.status.value in 400..499) {
+                        return Result.failure(parsedException)
+                    }
                     lastException = parsedException
                 }
             } catch (t: Throwable) {
-                if (t is kotlinx.coroutines.TimeoutCancellationException) {
-                    lastException = t
+                if (t is HttpRequestTimeoutException || t is kotlinx.coroutines.TimeoutCancellationException) {
+                    lastException = PlaylistConversionException(
+                        errorCode = PlaylistErrorCode.UPSTREAM_TIMEOUT,
+                        message = "Playlist conversion timed out.",
+                        reason = "timeout"
+                    )
                     continue
                 }
                 if (t is kotlinx.coroutines.CancellationException) throw t
