@@ -39,6 +39,18 @@ jobs:
             echo "$KEYSTORE_BASE64" | base64 -d > /tmp/release.keystore
           fi
 
+      - name: Decrypt ShazamKit Android SDK (if key configured)
+        env:
+          SHAZAMKIT_ENCRYPTION_KEY: ${{ secrets.SHAZAMKIT_ENCRYPTION_KEY }}
+        run: |
+          if [ -n "$SHAZAMKIT_ENCRYPTION_KEY" ] && [ -f "app/libs/shazamkit-android-release.aar.enc" ]; then
+            echo "Decrypting ShazamKit AAR for official production build..."
+            openssl enc -d -aes-256-cbc -pbkdf2 -iter 100000 -pass pass:"$SHAZAMKIT_ENCRYPTION_KEY" \
+              -in app/libs/shazamkit-android-release.aar.enc -out app/libs/shazamkit-android-release.aar
+          else
+            echo "SHAZAMKIT_ENCRYPTION_KEY not set. Building in open-source stub mode."
+          fi
+
       - name: Run Release Unit Tests Gate
         env:
           GRADLE_OPTS: "-Dorg.gradle.jvmargs=\"-Xmx4096m -XX:MaxMetaspaceSize=1024m\""

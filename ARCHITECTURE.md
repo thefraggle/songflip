@@ -258,6 +258,11 @@ The iOS architecture decouples the main user interface (`de.goork.SongFlip`) fro
   - **iOS Recognition Audio Session Resilience & Expiry Fix (#174)**: Corrected milliseconds-to-seconds timestamp conversion in `AcousticRecognizer.swift` for Apple Music Developer Tokens, and registered `AVAudioSession.interruptionNotification` observers to properly reset audio recording state on calls or interruptions.
   - **Git & Public Repo Hygiene (#178)**: Extended `.gitignore` to strictly exclude private signing keys (`*.p8`), memory dumps (`*.hprof`), build artifacts (`*.apk`, `*.aab`, `*.ipa`), and distribution outputs (`dist/`).
   - **Comprehensive Localization Parity (#179)**: Added missing strings (`playlist_error_unknown_title`, `playlist_error_unknown_message`, `playlist_error_rate_limit_message`) across all 29 Android locales and 26 iOS locales, and localized `NSMicrophoneUsageDescription` in `InfoPlist.xcstrings`.
+- **Proprietary SDK Decoupling & Dual-Mode Open-Source Architecture (v1.11.9 / #168)**:
+  - **Unencrypted Binary Removal & Git Hygiene**: Removed proprietary `app/libs/shazamkit-android-release.aar` from git tracking and enforced `.gitignore` exclusion (`app/libs/*.aar`).
+  - **Repository Asset Encryption**: Encrypted the official vendor binary using OpenSSL AES-256-CBC PBKDF2 (`app/libs/shazamkit-android-release.aar.enc`) for secure CI reproduction without license violations in public forks.
+  - **Dual-Mode Gradle Configuration & Open-Source Stub**: Configured `app/build.gradle.kts` to dynamically evaluate binary presence: when the AAR is absent (standard public clone for external contributors and forks), Gradle automatically compiles against internal open-source stubs (`src/stub/java`), guaranteeing 100% buildability and test execution out of the box. When present, Gradle links the official Apple SDK.
+  - **CI Decryption Gate**: Configured GitHub Actions (`ci.yml`, `build-apk.yml`) to decrypt the official AAR in release pipelines when `secrets.SHAZAMKIT_ENCRYPTION_KEY` is present.
 
 
 ---
