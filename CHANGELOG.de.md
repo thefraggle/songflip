@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.11.10] - 2026-10-29
+- **L2-Cache Selbstheilung & Datenintegrität**: Der High-Speed Edge-Cache verwirft und repariert unvollständige Einträge ohne Titel- oder Künstler-Metadaten automatisch per Live-Resolve.
+- **Slug-unabhängige Apple-Music-Auflösung**: Apple-Music-Track- und Album-IDs werden über variierende URL-Text-Slugs hinweg deterministisch im Cache zugeordnet.
+- **Harmonisierung der Song-Editionen**: Beispiel-Tracks und Vorlagen wurden plattformübergreifend auf die offiziellen Album-Versionen abgeglichen.
+
 ## [1.11.9] - 2026-10-29
 - **Verbesserte Musikerkennung**: Schnellere und zuverlässigere akustische Erkennung mit nativer Systemintegration und direkter Offline-Synchronisierung.
 - **Erhöhte Sicherheit & Stabilität**: Gehärtete URL-Prüfungen für Cache-Abfragen sowie optimierte Ressourcen- und Speicherverwaltung im Hintergrund.
