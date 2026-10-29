@@ -555,6 +555,42 @@ class UrlUtilsTest {
             )
         )
     }
+
+    @Test
+    fun testIsSafeTargetUrlAndNativeAppUri() {
+        // Safe target URLs
+        assertTrue(UrlUtils.isSafeTargetUrl("https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv"))
+        assertTrue(UrlUtils.isSafeTargetUrl("https://music.apple.com/de/album/test/123"))
+        assertTrue(UrlUtils.isSafeTargetUrl("https://music.youtube.com/watch?v=dQw4w9WgXcQ"))
+        assertTrue(UrlUtils.isSafeTargetUrl("https://listen.tidal.com/track/123"))
+        assertTrue(UrlUtils.isSafeTargetUrl("https://www.deezer.com/track/123"))
+        assertTrue(UrlUtils.isSafeTargetUrl("https://music.amazon.de/albums/B001"))
+        assertTrue(UrlUtils.isSafeTargetUrl("https://play.qobuz.com/track/123"))
+
+        // Malicious or invalid target URLs
+        assertFalse(UrlUtils.isSafeTargetUrl("javascript:alert(1)"))
+        assertFalse(UrlUtils.isSafeTargetUrl("file:///etc/passwd"))
+        assertFalse(UrlUtils.isSafeTargetUrl("content://media/external/images"))
+        assertFalse(UrlUtils.isSafeTargetUrl("intent://scan/#Intent;scheme=zxing;end"))
+        assertFalse(UrlUtils.isSafeTargetUrl("https://evil-attacker.com/steal"))
+        assertFalse(UrlUtils.isSafeTargetUrl(""))
+
+        // Safe native URIs
+        assertTrue(UrlUtils.isSafeNativeAppUri("spotify:track:4u7EnebtmKWzUH433cf5Qv"))
+        assertTrue(UrlUtils.isSafeNativeAppUri("tidal://track/123"))
+        assertTrue(UrlUtils.isSafeNativeAppUri("deezer://track/123"))
+        assertTrue(UrlUtils.isSafeNativeAppUri("qobuz://track/123"))
+        assertTrue(UrlUtils.isSafeNativeAppUri("podcast://podcasts.apple.com/search?term=test"))
+        assertTrue(UrlUtils.isSafeNativeAppUri("https://music.youtube.com/watch?v=123"))
+
+        // Malicious native URIs
+        assertFalse(UrlUtils.isSafeNativeAppUri("javascript:alert(1)"))
+        assertFalse(UrlUtils.isSafeNativeAppUri("file:///android_asset/something"))
+        assertFalse(UrlUtils.isSafeNativeAppUri("content://com.android.providers.telephony"))
+        assertFalse(UrlUtils.isSafeNativeAppUri("intent:#Intent;action=android.intent.action.VIEW;end"))
+        assertFalse(UrlUtils.isSafeNativeAppUri("chrome://flags"))
+        assertFalse(UrlUtils.isSafeNativeAppUri(""))
+    }
 }
 
 

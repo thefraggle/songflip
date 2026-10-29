@@ -421,6 +421,51 @@ object UrlUtils {
         )
     }
 
+    private val ALLOWED_NATIVE_SCHEMES = setOf(
+        "spotify",
+        "music",
+        "podcast",
+        "podcasts",
+        "pocketcasts",
+        "tidal",
+        "deezer",
+        "deezer-query",
+        "amznmp3",
+        "amazonmusic",
+        "soundcloud",
+        "bandcamp",
+        "qobuz",
+        "debridmusic"
+    )
+
+    /**
+     * Strictly validates a target web URL returned from the cache or external ingestion endpoint.
+     * Enforces HTTPS/HTTP scheme and ensures the host belongs to a valid streaming service or aggregator (#169).
+     */
+    fun isSafeTargetUrl(url: String): Boolean {
+        val trimmed = url.trim()
+        val lower = trimmed.lowercase()
+        if (!lower.startsWith("https://") && !lower.startsWith("http://")) return false
+        val host = extractDomain(lower)
+        if (host == "unknown" || host.isBlank()) return false
+        return isSupportedMusicOrAggregatorUrl(trimmed)
+    }
+
+    /**
+     * Strictly validates a native app URI returned from the cache or external ingestion endpoint.
+     * Prevents intent spoofing, arbitrary scheme execution (e.g. javascript:, file:, content:, intent:) (#169).
+     */
+    fun isSafeNativeAppUri(uri: String): Boolean {
+        val trimmed = uri.trim()
+        val lower = trimmed.lowercase()
+        if (lower.startsWith("https://") || lower.startsWith("http://")) {
+            return isSafeTargetUrl(trimmed)
+        }
+        val scheme = lower.substringBefore(":", "").trim()
+        if (scheme.isBlank() || scheme == lower) return false
+        return ALLOWED_NATIVE_SCHEMES.contains(scheme)
+    }
+
     fun isSearchUrl(url: String): Boolean {
         val clean = url.trim().lowercase()
         val host = extractDomain(clean)

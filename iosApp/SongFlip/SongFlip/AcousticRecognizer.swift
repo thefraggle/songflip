@@ -117,8 +117,6 @@ final class AcousticRecognizer: ObservableObject {
     private var listeningTask: Task<Void, Never>?
     private let pathMonitor = NWPathMonitor()
     private(set) var isOnline: Bool = true
-    private var cachedDeveloperToken: String? = nil
-    private var cachedTokenExpiryEpochSec: Int64 = 0
     /// Prevents overlapping queue runs (onAppear + scenePhase .active fire together on launch),
     /// which would match the same scans twice before either run deletes them.
     private var isProcessingPendingScans = false
@@ -310,9 +308,8 @@ final class AcousticRecognizer: ObservableObject {
                     let snapSignature = sigGen.signature()
                     sigLock.unlock()
                     if snapSignature.duration >= 2.2 {
-                        let b64 = snapSignature.dataRepresentation.base64EncodedString()
-                        if !b64.isEmpty, let restMatch = await matchSignatureBase64Direct(b64) {
-                            matchedItem = restMatch
+                        if let sessionMatch = await matchSingleSignature(snapSignature) {
+                            matchedItem = sessionMatch
                             break
                         }
                     }
@@ -340,13 +337,7 @@ final class AcousticRecognizer: ObservableObject {
             }
 
             if matchedItem == nil && self.isOnline && finalSignature.duration >= 2.2 {
-                let b64 = finalSignature.dataRepresentation.base64EncodedString()
-                if !b64.isEmpty {
-                    matchedItem = await matchSignatureBase64Direct(b64)
-                }
-                if matchedItem == nil {
-                    matchedItem = await matchSingleSignature(finalSignature)
-                }
+                matchedItem = await matchSingleSignature(finalSignature)
             }
 
             guard let winner = matchedItem else {
@@ -430,21 +421,15 @@ final class AcousticRecognizer: ObservableObject {
         var resolvedCount = 0
 
         queueLoop: for scan in pending {
-            guard !scan.signatureBase64.isEmpty else {
-                Self.logger.warning("Removing corrupt offline scan \(scan.id, privacy: .public) (empty signature)")
+            guard !scan.signatureBase64.isEmpty,
+                  let sigData = Data(base64Encoded: scan.signatureBase64),
+                  let signature = try? SHSignature(dataRepresentation: sigData) else {
+                Self.logger.warning("Removing corrupt offline scan \(scan.id, privacy: .public) (empty or unparsable signature)")
                 manager.deletePendingAcousticScan(id: scan.id)
                 continue
             }
 
-            var outcome = await matchSignatureBase64Outcome(scan.signatureBase64)
-            // ShazamKit's own session is a second opinion: it can rescue both a REST no-match and a REST
-            // transient failure, but a session miss must never turn a transient REST error into a delete.
-            if outcome.matchedTrack == nil,
-               let sigData = Data(base64Encoded: scan.signatureBase64),
-               let signature = try? SHSignature(dataRepresentation: sigData),
-               let sessionMatch = await matchSingleSignature(signature) {
-                outcome = .matched(sessionMatch)
-            }
+            let outcome = await matchSingleSignatureOutcome(signature)
 
             switch outcome {
             case .matched(let winner):
@@ -500,183 +485,33 @@ final class AcousticRecognizer: ObservableObject {
         return (ProManager.shared.authToken, audiophile)
     }
 
-    private func getDeveloperToken() async -> String? {
-        let nowSec = Int64(Date().timeIntervalSince1970)
-        if let cached = cachedDeveloperToken, nowSec < cachedTokenExpiryEpochSec - 120 {
-            return cached
-        }
-        guard let url = URL(string: "https://cache.songflip.link/getShazamToken") else { return cachedDeveloperToken }
-        var req = URLRequest(url: url)
-        req.timeoutInterval = 8
-        req.setValue("SongFlip-iOS", forHTTPHeaderField: "User-Agent")
-        do {
-            let (data, response) = try await URLSession.shared.data(for: req)
-            guard let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode),
-                  let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-                  let token = json["token"] as? String, !token.isEmpty else {
-                return cachedDeveloperToken
-            }
-            let rawExpiry = (json["expiresAt"] as? NSNumber)?.int64Value ?? ((nowSec + 3600) * 1000)
-            let expirySec = rawExpiry > 1_000_000_000_000 ? (rawExpiry / 1000) : rawExpiry
-            cachedDeveloperToken = token
-            cachedTokenExpiryEpochSec = expirySec
-            return token
-        } catch {
-            Self.logger.warning("Failed to fetch developer token: \(error.localizedDescription, privacy: .public)")
-            return cachedDeveloperToken
-        }
-    }
-
-    private func matchSignatureBase64Direct(_ signatureBase64: String) async -> MatchedTrackInfo? {
-        (await matchSignatureBase64Outcome(signatureBase64)).matchedTrack
-    }
-
-    private func matchSignatureBase64Outcome(_ signatureBase64: String) async -> OfflineMatchOutcome {
-        guard let token = await getDeveloperToken(), !token.isEmpty else {
-            return .transientError("developer token unavailable")
-        }
-        let rawCountry = Locale.current.region?.identifier.lowercased() ?? "de"
-        let primaryStoreFront = (rawCountry.count == 2) ? rawCountry : "de"
-        var storeFronts: [String] = []
-        for sf in [primaryStoreFront, "us", "de"] {
-            if !storeFronts.contains(sf) {
-                storeFronts.append(sf)
-            }
-        }
-
-        let payload: [String: Any] = [
-            "data": [
-                [
-                    "type": "signatures",
-                    "attributes": [
-                        "signature": "data:audio/vnd.shazam.sig;base64,\(signatureBase64)"
-                    ]
-                ]
-            ]
-        ]
-
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: payload) else {
-            return .transientError("failed to serialize payload")
-        }
-
-        var lastFailure: OfflineMatchOutcome = .noMatch
-        for sf in storeFronts {
-            let urlString = "https://api.shazam.apple.com/v1/catalog/\(sf)/match?types=shazam-songs&include%5Bshazam-songs%5D=songs&include%5Bsongs%5D=music-videos&meta=matchOffset%2CfrequencySkew&format%5Bresources%5D=map"
-            guard let url = URL(string: urlString) else {
-                continue
-            }
-
-            var req = URLRequest(url: url)
-            req.httpMethod = "POST"
-            req.timeoutInterval = 8
-            req.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-            req.setValue("ShazamKit/2.1.1 iOS", forHTTPHeaderField: "User-Agent")
-            req.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
-            req.httpBody = httpBody
-
-            do {
-                let (data, response) = try await URLSession.shared.data(for: req)
-                guard let http = response as? HTTPURLResponse else {
-                    lastFailure = .transientError("non-HTTP response")
-                    continue
-                }
-
-                if http.statusCode == 401 || http.statusCode == 403 {
-                    cachedDeveloperToken = nil
-                    return .transientError("HTTP \(http.statusCode) developer token rejected")
-                }
-                if http.statusCode == 408 || http.statusCode == 429 || http.statusCode >= 500 {
-                    lastFailure = .transientError("HTTP \(http.statusCode)")
-                    continue
-                }
-                guard (200..<300).contains(http.statusCode) else {
-                    lastFailure = .rejected("HTTP \(http.statusCode)")
-                    continue
-                }
-
-                guard let root = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-                    lastFailure = .transientError("unparsable JSON")
-                    continue
-                }
-
-                guard let resources = root["resources"] as? [String: Any],
-                      let shazamSongs = resources["shazam-songs"] as? [String: Any],
-                      let firstKey = shazamSongs.keys.first,
-                      let shazamSongObj = shazamSongs[firstKey] as? [String: Any],
-                      let attributes = shazamSongObj["attributes"] as? [String: Any] else {
-                    lastFailure = .noMatch
-                    continue
-                }
-
-                let title = ((attributes["title"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines)).flatMap { $0.isEmpty ? nil : $0 } ?? "Unknown Track"
-                let artist = ((attributes["artist"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines))
-                    ?? ((attributes["primaryArtist"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines))
-                    ?? ""
-
-                var artworkUrl = (attributes["artwork"] as? [String: Any])?["url"] as? String
-                var appleMusicId: String? = nil
-                var appleMusicUrl: String? = nil
-
-                if let relationships = shazamSongObj["relationships"] as? [String: Any],
-                   let songsRel = relationships["songs"] as? [String: Any],
-                   let relData = songsRel["data"] as? [[String: Any]],
-                   let firstSong = relData.first,
-                   let id = firstSong["id"] as? String, !id.isEmpty {
-                    appleMusicId = id
-                    if let songsMap = resources["songs"] as? [String: Any],
-                       let appleSongObj = songsMap[id] as? [String: Any],
-                       let appleAttrs = appleSongObj["attributes"] as? [String: Any] {
-                        if let url = appleAttrs["url"] as? String, !url.isEmpty {
-                            appleMusicUrl = url
-                        }
-                        if (artworkUrl ?? "").isEmpty,
-                           let appleArt = (appleAttrs["artwork"] as? [String: Any])?["url"] as? String,
-                           !appleArt.isEmpty {
-                            artworkUrl = appleArt
-                        }
-                    }
-                }
-
-                if let rawArt = artworkUrl, !rawArt.isEmpty {
-                    artworkUrl = rawArt
-                        .replacingOccurrences(of: "{w}", with: "800")
-                        .replacingOccurrences(of: "{h}", with: "800")
-                }
-
-                let webUrl = (attributes["webUrl"] as? String) ?? appleMusicUrl
-                return .matched(MatchedTrackInfo(
-                    title: title,
-                    artist: artist,
-                    artworkUrl: artworkUrl,
-                    appleMusicUrl: appleMusicUrl,
-                    appleMusicId: appleMusicId,
-                    webUrl: webUrl
-                ))
-            } catch {
-                Self.logger.warning("Shazam API network error on storefront \(sf): \(error.localizedDescription, privacy: .public)")
-                lastFailure = .transientError("network error: \(error.localizedDescription)")
-            }
-        }
-        return lastFailure
-    }
-
-    private func matchSingleSignature(_ signature: SHSignature) async -> MatchedTrackInfo? {
+    private func matchSingleSignatureOutcome(_ signature: SHSignature) async -> OfflineMatchOutcome {
         await withCheckedContinuation { continuation in
             let session = SHSession()
             let box = ShazamSessionBox()
             box.onMatch = { item in
                 guard box.tryMarkResumed() else { return }
-                continuation.resume(returning: item)
+                continuation.resume(returning: .matched(item))
             }
-            box.onNoMatch = { _ in
+            box.onNoMatch = { err in
                 guard box.tryMarkResumed() else { return }
-                continuation.resume(returning: nil)
+                if let err = err {
+                    continuation.resume(returning: .transientError(err.localizedDescription))
+                } else {
+                    continuation.resume(returning: .noMatch)
+                }
             }
             session.delegate = box
-            // Retain session & box until callback fires
             objc_setAssociatedObject(session, "box", box, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             session.match(signature)
         }
+    }
+
+    private func matchSingleSignature(_ signature: SHSignature) async -> MatchedTrackInfo? {
+        if case .matched(let info) = await matchSingleSignatureOutcome(signature) {
+            return info
+        }
+        return nil
     }
 
     nonisolated private static func prepareMonoBufferWithAgc(

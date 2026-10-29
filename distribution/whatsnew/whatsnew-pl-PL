@@ -1,2 +1,2 @@
-- Wyszukiwanie strumieniowe i przekazywanie odtwarzaczy: Rozwiązano awaryjne przekierowanie wyszukiwania dla Qobuz, zapewniając niezawodne otwieranie wyszukiwań bez komunikatów o błędach i pustych ekranów.
-- Zachowanie pamięci podręcznej i historii: ulepszone aktualizacje pamięci podręcznej w tle, aby zachować ulubione utwory i historię konwersji w nienaruszonym stanie podczas odświeżania połączenia.
+- Ulepszone rozpoznawanie muzyki: szybsza i bardziej niezawodna identyfikacja ścieżek akustycznych dzięki integracji natywnego systemu i bezpośredniej synchronizacji offline.
+- Wzmocnienie bezpieczeństwa i stabilności: wzmocniona walidacja adresów URL dla żądań pamięci podręcznej i zoptymalizowane zarządzanie zasobami w tle.

@@ -1,2 +1,3 @@
-- Streaming Search & Player Forwarding: Megoldott keresési tartalék útvonalválasztás a Qobuz számára, amely biztosítja a keresések megbízható megnyitását hibaüzenetek vagy üres képernyők nélkül.
-- Gyorsítótár és előzmények megőrzése: Továbbfejlesztett háttér-gyorsítótár-frissítések a kedvenc számok és a konverziós előzmények érintetlenül tartása érdekében a kapcsolatfrissítés során.
+- Továbbfejlesztett zenefelismerés: Gyorsabb és megbízhatóbb akusztikus sávazonosítás natív rendszerintegrációval és közvetlen offline szinkronizálással.
+- Biztonság és stabilitás megerősítése: Megerősített URL-érvényesítés a gyorsítótár-kérésekhez és optimalizált háttérerőforrás-kezelés.
+- Teljesítmény és gyorsítótár-optimalizálás: Gyors duplikátum-felismerés a linkelőzményekhez és az adatbázis-migráció fokozott rugalmasságához.
