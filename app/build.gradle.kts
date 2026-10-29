@@ -49,6 +49,7 @@ android {
         buildConfigField("String", "REVENUECAT_API_KEY", "\"$revenueCatApiKey\"")
         buildConfigField("String", "APTABASE_APP_KEY", "\"$aptabaseAppKey\"")
         buildConfigField("String", "APTABASE_HOST", "\"$aptabaseHost\"")
+        buildConfigField("boolean", "SHAZAMKIT_AVAILABLE", "${file("libs/shazamkit-android-release.aar").exists()}")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -103,6 +104,15 @@ android {
             enableSplit = false
         }
     }
+    val hasShazamKitAar = file("libs/shazamkit-android-release.aar").exists()
+    sourceSets {
+        getByName("main") {
+            if (!hasShazamKitAar) {
+                java.srcDirs("src/stub/java")
+            }
+        }
+    }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -112,7 +122,9 @@ android {
 
 dependencies {
     implementation(project(":shared"))
-    implementation(files("libs/shazamkit-android-release.aar"))
+    if (file("libs/shazamkit-android-release.aar").exists()) {
+        implementation(files("libs/shazamkit-android-release.aar"))
+    }
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.lifecycle.runtime.ktx)
