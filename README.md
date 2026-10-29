@@ -34,7 +34,7 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
   - 🎙️ **Pocket Casts** (`pocketcasts.com`, `pca.st`)
   - 🟠 **SoundCloud** (`soundcloud.com`, `on.soundcloud.com` — full source & target player support with `soundcloud://` deep-links)
   - 🎸 **Bandcamp** (`bandcamp.com`, `*.bandcamp.com`)
-  - 🎶 **Qobuz** (`qobuz.com`, `open.qobuz.com` — full source & target player support with Hi-Res playback)
+  - 🎶 **Qobuz** (`qobuz.com`, `open.qobuz.com`, `play.qobuz.com` — full source & target player support with Hi-Res playback)
   - 🎧 **Beatport** (`beatport.com` — source link recognition & instant redirection)
 - **📱 Dynamic Multi-Player Discovery & Selection**: Automatically detects compatible installed players across all 10 streaming services and lets you choose your preferred default player in Settings or switch directly with a single tap from the main player card.
 - **⚡ Shazam Link Interception**: Songs identified with Shazam open directly and reliably in your preferred music player.

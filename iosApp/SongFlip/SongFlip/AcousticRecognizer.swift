@@ -211,6 +211,23 @@ final class AcousticRecognizer: ObservableObject {
     }
 
     private func runRecognitionLoop(targetPlatformKey: String, isPro: Bool) async {
+        let interruptionObserver = NotificationCenter.default.addObserver(
+            forName: AVAudioSession.interruptionNotification,
+            object: AVAudioSession.sharedInstance(),
+            queue: .main
+        ) { [weak self] notification in
+            guard let info = notification.userInfo,
+                  let typeValue = info[AVAudioSessionInterruptionTypeKey] as? UInt,
+                  let type = AVAudioSession.InterruptionType(rawValue: typeValue) else { return }
+            if type == .began {
+                Self.logger.info("Audio interruption began, stopping acoustic listening")
+                self?.stopListening()
+            }
+        }
+        defer {
+            NotificationCenter.default.removeObserver(interruptionObserver)
+        }
+
         do {
             let audioSession = AVAudioSession.sharedInstance()
             try audioSession.setCategory(.playAndRecord, mode: .measurement, options: [.defaultToSpeaker, .allowBluetoothHFP, .mixWithOthers])
@@ -499,9 +516,10 @@ final class AcousticRecognizer: ObservableObject {
                   let token = json["token"] as? String, !token.isEmpty else {
                 return cachedDeveloperToken
             }
-            let expiresAt = (json["expiresAt"] as? NSNumber)?.int64Value ?? (nowSec + 3600)
+            let rawExpiry = (json["expiresAt"] as? NSNumber)?.int64Value ?? ((nowSec + 3600) * 1000)
+            let expirySec = rawExpiry > 1_000_000_000_000 ? (rawExpiry / 1000) : rawExpiry
             cachedDeveloperToken = token
-            cachedTokenExpiryEpochSec = expiresAt
+            cachedTokenExpiryEpochSec = expirySec
             return token
         } catch {
             Self.logger.warning("Failed to fetch developer token: \(error.localizedDescription, privacy: .public)")

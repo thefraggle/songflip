@@ -1,3 +1,2 @@
-- Localizzazione completa dell'interfaccia: indicatori di playlist rimanenti localizzati e controlli di accessibilità in tutte le lingue.
-- Gestione centralizzata delle versioni e igiene della rete: metadati dinamizzati delle richieste tramite configurazione centralizzata e introduzione della registrazione diagnostica strutturata all'interno del motore di dati.
-- Gestione coerente del timeout: messaggistica di timeout standardizzata tra le conversioni di link per una maggiore stabilità.
+- Ricerca in streaming e inoltro del giocatore: risolto il routing di fallback della ricerca per Qobuz, garantendo che le ricerche si aprano in modo affidabile senza messaggi di errore o schermate vuote.
+- Conservazione della cache e della cronologia: aggiornamenti migliorati della cache in background per mantenere intatte le tracce preferite e la cronologia delle conversioni durante gli aggiornamenti della connessione.

@@ -154,6 +154,10 @@
     <string name="history_all_cleared">Histórico e cache limpos</string>
     <string name="history_pro_teaser_title">Histórico SongFlip PRO</string>
     <string name="history_pro_teaser_desc">Desbloqueie até 100 músicas no histórico com o SongFlip PRO.</string>
+    <plurals name="history_pro_teaser_hidden_desc">
+        <item quantity="one">%1$d música antiga oculta – desbloqueie todas as %2$d com o SongFlip PRO.</item>
+        <item quantity="other">%1$d músicas antigas ocultas – desbloqueie todas as %2$d com o SongFlip PRO.</item>
+    </plurals>
     <string name="history_btn_upgrade">Fazer upgrade para PRO</string>
     <string name="action_delete">Excluir</string>
     <string name="time_just_now">Agora mesmo</string>

@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.11.8] - 2026-10-29
+- **Suchweiterleitung für Streaming-Dienste**: Fehlerfreie Weiterleitung bei der Titelsuche für Qobuz, sodass Suchen direkt und zuverlässig im Ziel-Player geladen werden.
+- **Verlaufs- & Favoritenerhalt**: Aktualisierungen im Hintergrund zwischengespeicherter Titel überschreiben weder Favoritenmarkierungen noch gespeicherte Verläufe.
+- **Systemstabilität & Sicherheit**: Gehärtete kryptografische Code-Prüfung, verbesserte Zeitlimits bei der Playlist-Verarbeitung und optimierte Wiederaufnahme der Audioaufnahme nach Unterbrechungen.
+- **Vollständige Übersetzungen**: Ergänzung fehlender Übersetzungen für Playlist-Meldungen und Systemdialoge in allen unterstützten Sprachen.
+
 ## [1.11.7] - 2026-10-28
 - **Vollständige Benutzeroberflächen-Lokalisierung**: Bereinigung verbliebener englischsprachiger Texte bei Playlist-Hinweisen und Barrierefreiheits-Schaltflächen in allen 34 Sprachen.
 - **Zentrale Versionsverwaltung & Netzwerk-Hygiene**: Dynamische Aktualisierung von Versionsangaben bei Dienstanfragen über eine zentrale Konfiguration sowie strukturierte Diagnosemeldungen im Datenkern.

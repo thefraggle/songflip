@@ -1,3 +1,2 @@
-- Átfogó felületlokalizálás: Lokalizált maradék lejátszólista-jelzők és akadálymentesítési vezérlők minden nyelven.
-- Központosított Verziókezelés és Hálózati Higiénia: Dinamizált kérés metaadatok központosított konfiguráción keresztül és strukturált diagnosztikai naplózás bevezetése az adatmotoron belül.
-- Következetes időtúllépés-kezelés: Szabványos időtúllépési üzenetküldés a linkkonverziók között a nagyobb stabilitás érdekében.
+- Streaming Search & Player Forwarding: Megoldott keresési tartalék útvonalválasztás a Qobuz számára, amely biztosítja a keresések megbízható megnyitását hibaüzenetek vagy üres képernyők nélkül.
+- Gyorsítótár és előzmények megőrzése: Továbbfejlesztett háttér-gyorsítótár-frissítések a kedvenc számok és a konverziós előzmények érintetlenül tartása érdekében a kapcsolatfrissítés során.

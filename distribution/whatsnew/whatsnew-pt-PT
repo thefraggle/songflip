@@ -1,2 +1,2 @@
-- Localização abrangente da interface: indicadores de lista de reprodução restantes localizados e controles de acessibilidade em todos os idiomas.
-- Gerenciamento de versão centralizado e higiene de rede: metadados de solicitação dinamizados por meio de configuração centralizada e introdução de registro de diagnóstico estruturado no mecanismo de dados.
+- Streaming Search & Player Forwarding: Resolvido o roteamento de fallback de pesquisa para Qobuz, garantindo que as pesquisas sejam abertas de forma confiável, sem mensagens de erro ou telas em branco.
+- Preservação de cache e histórico: atualizações aprimoradas de cache em segundo plano para manter intactas as faixas favoritas e o histórico de conversões durante as atualizações de conexão.

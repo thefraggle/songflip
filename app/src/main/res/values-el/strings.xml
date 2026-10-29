@@ -145,6 +145,10 @@
     <string name="history_all_cleared">Το ιστορικό και η προσωρινή μνήμη εκκαθαρίστηκαν</string>
     <string name="history_pro_teaser_title">Ιστορικό SongFlip PRO</string>
     <string name="history_pro_teaser_desc">Αποθηκεύστε έως και 100 κομμάτια στο ιστορικό σας με το SongFlip PRO.</string>
+    <plurals name="history_pro_teaser_hidden_desc">
+        <item quantity="one">%1$d παλαιότερο τραγούδι είναι κρυμμένο – ξεκλειδώστε και τα %2$d με το SongFlip PRO.</item>
+        <item quantity="other">%1$d παλαιότερα τραγούδια είναι κρυμμένα – ξεκλειδώστε και τα %2$d με το SongFlip PRO.</item>
+    </plurals>
     <string name="history_btn_upgrade">Αναβάθμιση σε PRO</string>
     <string name="action_delete">Διαγραφή</string>
     <string name="time_just_now">Μόλις τώρα</string>

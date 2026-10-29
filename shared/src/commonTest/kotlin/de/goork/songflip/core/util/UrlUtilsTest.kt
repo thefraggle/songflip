@@ -249,6 +249,9 @@ class UrlUtilsTest {
 
         val builtBandcamp = UrlUtils.buildSearchUrl("Radiohead Reckoner", "bandcamp")
         assertEquals("https://bandcamp.com/search?q=Radiohead%20Reckoner", builtBandcamp)
+
+        val builtQobuz = UrlUtils.buildSearchUrl("Romare The Blues", "qobuz")
+        assertEquals("https://play.qobuz.com/search?q=Romare%20The%20Blues", builtQobuz)
     }
 
     @Test

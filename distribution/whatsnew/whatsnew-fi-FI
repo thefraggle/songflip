@@ -1,3 +1,2 @@
-- Kattava käyttöliittymän lokalisointi: Lokalisoidut jäljellä olevat soittolistan ilmaisimet ja esteettömyyskontrollit kaikilla kielillä.
-- Keskitetty versionhallinta ja verkon hygienia: Dynaamisten pyyntöjen metatiedot keskitetyn konfiguroinnin kautta ja jäsennelty diagnostinen lokikirjaus tietomoottorissa.
-- Yhdenmukainen aikakatkaisun käsittely: Standardoitu aikakatkaisuviesti linkin konversioissa vakauden lisäämiseksi.
+- Streaming Search & Player Forwarding: Ratkaistu haun varareititys Qobuzille, mikä varmistaa, että haut avautuvat luotettavasti ilman virheilmoituksia tai tyhjiä näyttöjä.
+- Välimuistin ja historian säilyttäminen: Parannetut taustavälimuistipäivitykset pitävät suosikkireitit ja tuloshistorian ennallaan yhteyden päivityksen aikana.

@@ -1,2 +1,2 @@
-- Komplexní lokalizace rozhraní: Lokalizované zbývající indikátory seznamu videí a ovládací prvky přístupnosti ve všech jazycích.
-- Centralizovaná správa verzí a hygiena sítě: Dynamizovaná metadata požadavků prostřednictvím centralizované konfigurace a zavedení strukturovaného diagnostického protokolování v datovém stroji.
+- Streaming Search & Player Forwarding: Vyřešené záložní směrování vyhledávání u služby Qobuz, které zajišťuje spolehlivé otevírání vyhledávání bez chybových zpráv nebo prázdných obrazovek.
+- Uchování mezipaměti a historie: Vylepšené aktualizace mezipaměti na pozadí, aby během obnovování připojení zůstaly oblíbené skladby a historie konverzí nedotčené.

@@ -1,3 +1,2 @@
-- Comprehensive Interface Localization: Localized remaining playlist indicators and accessibility controls across all languages.
-- Centralized Version Management & Network Hygiene: Dynamized request metadata via centralized configuration and introduced structured diagnostic logging within the data engine.
-- Consistent Timeout Handling: Standardized timeout messaging across link conversions for greater stability.
+- Streaming Search & Player Forwarding: Resolved search fallback routing for Qobuz, ensuring searches open reliably without error messages or blank screens.
+- Cache & History Preservation: Enhanced background cache updates to keep favorite tracks and conversion history intact during connection refreshes.

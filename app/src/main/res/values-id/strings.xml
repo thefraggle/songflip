@@ -153,6 +153,10 @@
     <string name="history_all_cleared">Riwayat dan cache berhasil dibersihkan</string>
     <string name="history_pro_teaser_title">Riwayat SongFlip PRO</string>
     <string name="history_pro_teaser_desc">Tampilkan hingga 100 lagu dalam riwayat Anda dengan SongFlip PRO.</string>
+    <plurals name="history_pro_teaser_hidden_desc">
+        <item quantity="one">%1$d lagu lama disembunyikan – buka semua %2$d dengan SongFlip PRO.</item>
+        <item quantity="other">%1$d lagu lama disembunyikan – buka semua %2$d dengan SongFlip PRO.</item>
+    </plurals>
     <string name="history_btn_upgrade">Tingkatkan ke PRO</string>
     <string name="action_delete">Hapus</string>
     <string name="time_just_now">Baru saja</string>

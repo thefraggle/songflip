@@ -144,6 +144,10 @@
     <string name="history_all_cleared">ล้างประวัติและแคชแล้ว</string>
     <string name="history_pro_teaser_title">ประวัติ SongFlip PRO</string>
     <string name="history_pro_teaser_desc">บันทึกเพลงในประวัติได้สูงสุด 100 เพลงด้วย SongFlip PRO</string>
+    <plurals name="history_pro_teaser_hidden_desc">
+        <item quantity="one">ซ่อนเพลงเก่า %1$d เพลง – ปลดล็อกทั้งหมด %2$d เพลงด้วย SongFlip PRO</item>
+        <item quantity="other">ซ่อนเพลงเก่า %1$d เพลง – ปลดล็อกทั้งหมด %2$d เพลงด้วย SongFlip PRO</item>
+    </plurals>
     <string name="history_btn_upgrade">อัปเกรดเป็น PRO</string>
     <string name="action_delete">ลบ</string>
     <string name="time_just_now">เมื่อสักครู่</string>

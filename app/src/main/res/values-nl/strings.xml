@@ -154,6 +154,10 @@
     <string name="history_all_cleared">Geschiedenis en cache gewist</string>
     <string name="history_pro_teaser_title">SongFlip PRO Geschiedenis</string>
     <string name="history_pro_teaser_desc">Ontgrendel tot 100 nummers in de geschiedenis met SongFlip PRO.</string>
+    <plurals name="history_pro_teaser_hidden_desc">
+        <item quantity="one">%1$d ouder nummer verborgen – ontgrendel alle %2$d met SongFlip PRO.</item>
+        <item quantity="other">%1$d oudere nummers verborgen – ontgrendel alle %2$d met SongFlip PRO.</item>
+    </plurals>
     <string name="history_btn_upgrade">Upgraden naar PRO</string>
     <string name="action_delete">Verwijderen</string>
     <string name="time_just_now">Zojuist</string>

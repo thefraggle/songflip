@@ -154,6 +154,10 @@
     <string name="history_all_cleared">Geçmiş ve önbellek temizlendi</string>
     <string name="history_pro_teaser_title">SongFlip PRO Geçmişi</string>
     <string name="history_pro_teaser_desc">SongFlip PRO ile geçmişte 100 şarkıya kadar erişim sağlayın.</string>
+    <plurals name="history_pro_teaser_hidden_desc">
+        <item quantity="one">%1$d eski şarkı gizlendi – SongFlip PRO ile tüm %2$d şarkıyı açın.</item>
+        <item quantity="other">%1$d eski şarkı gizlendi – SongFlip PRO ile tüm %2$d şarkıyı açın.</item>
+    </plurals>
     <string name="history_btn_upgrade">PRO\'ya Yükselt</string>
     <string name="action_delete">Sil</string>
     <string name="time_just_now">Az önce</string>

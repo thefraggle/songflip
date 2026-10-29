@@ -14,6 +14,11 @@ DerivedData/
 
 # Gradle & Build Files
 build/
+dist/
+*.apk
+*.aab
+*.ipa
+*.hprof
 .gradle/
 .gradle-cache/
 .kotlin/
@@ -30,6 +35,7 @@ captures/
 *.p12
 *.key
 *.pem
+*.p8
 *.mobileprovision
 
 # Secrets, Environment & API Keys

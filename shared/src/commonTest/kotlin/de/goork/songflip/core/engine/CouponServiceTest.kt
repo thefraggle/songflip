@@ -185,6 +185,32 @@ class CouponServiceTest {
     }
 
     @Test
+    fun rejectLegacySctTokens() {
+        val legacyToken = "sct_eyJjIjoiTEVHQUNZIiwiaSI6Imluc3RhbGwtMTIzIiwiZSI6MCwidCI6ImxpZmV0aW1lIn0.MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY"
+        val res = CouponService.shared.verifyCouponToken(legacyToken, "install-123")
+        assertFalse(res.valid, "Legacy sct_ tokens must be rejected (#170)")
+    }
+
+    @Test
+    fun testRfc8032TestVectors() {
+        // RFC 8032 Test Vector 1 (Empty message)
+        val pubKey1 = "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a"
+        val sig1 = "e5564300c360ac729086e2cc806e828a84877f1eb8e5d974d873e065224901555fb8821590a33bacc61e39701cf9b46bd25bf5f0595bbe24655141438e7a100b"
+        assertTrue(
+            Ed25519Verifier.verify(byteArrayOf(), sig1, pubKey1),
+            "RFC 8032 Test Vector 1 (empty message) must verify"
+        )
+
+        // RFC 8032 Test Vector 2 (1-byte message 0x72)
+        val pubKey2 = "3d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c"
+        val sig2 = "92a009a9f0d4cab8720e820b5f642540a2b27b5416503f8fb3762223ebdb69da085ac1e43e15996e458f3613d0f11d8c387b2eaeb4302aeeb00d291612bb0c00"
+        assertTrue(
+            Ed25519Verifier.verify(byteArrayOf(0x72), sig2, pubKey2),
+            "RFC 8032 Test Vector 2 (0x72) must verify"
+        )
+    }
+
+    @Test
     fun extractCouponCodeHandlesUrlsAndText() {
         assertEquals("FLIP-PRO-2026", CouponService.shared.extractCouponCode("https://songflip.link?promo=FLIP-PRO-2026"))
         assertEquals("BETALIST", CouponService.shared.extractCouponCode("Hey, try code BETALIST now!"))

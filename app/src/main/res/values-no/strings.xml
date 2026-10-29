@@ -154,6 +154,10 @@
     <string name="history_all_cleared">Historikk og hurtigbuffer tømt</string>
     <string name="history_pro_teaser_title">SongFlip PRO Historikk</string>
     <string name="history_pro_teaser_desc">Lås opp opptil 100 sanger i historikken med SongFlip PRO.</string>
+    <plurals name="history_pro_teaser_hidden_desc">
+        <item quantity="one">%1$d eldre sang skjult – lås opp alle %2$d med SongFlip PRO.</item>
+        <item quantity="other">%1$d eldre sanger skjult – lås opp alle %2$d med SongFlip PRO.</item>
+    </plurals>
     <string name="history_btn_upgrade">Oppgrader til PRO</string>
     <string name="action_delete">Slett</string>
     <string name="time_just_now">Akkurat nå</string>

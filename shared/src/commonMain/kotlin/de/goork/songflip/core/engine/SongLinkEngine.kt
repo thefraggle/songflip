@@ -436,10 +436,9 @@ class SongLinkEngine(
             val isExplicitAlbumUrl = !isExplicitTrackUrl && UrlUtils.isAlbumUrl(canonicalUrl)
             val now = getCurrentTimeMillis()
 
-            if (forceRefresh) {
-                cache.remove(canonicalUrl, targetPlatformKey)
-            } else {
-                // 4. L1 Cache Lookup (< 5ms)
+            if (!forceRefresh) {
+                // 4. L1 Cache Lookup (< 5ms). On forceRefresh we skip the cache read to resolve freshly
+                // from upstream, while preserving existing history and favorite flags (#171).
                 val cached = cache.get(canonicalUrl, targetPlatformKey, now)
                 if (cached != null) {
                     if (!isPrefetch) {
@@ -1205,9 +1204,7 @@ internal data class SpotifyPodcastOEmbedDto(
         forceRefresh: Boolean = false
     ): ResolutionResult.Podcast {
         val now = getCurrentTimeMillis()
-        if (forceRefresh) {
-            cache.remove(canonicalUrl, targetPlatformKey)
-        } else {
+        if (!forceRefresh) {
             val cached = cache.get(canonicalUrl, targetPlatformKey, now)
             if (cached != null) {
                 if (!isPrefetch) {

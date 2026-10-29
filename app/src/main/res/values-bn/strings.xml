@@ -154,6 +154,10 @@
     <string name="history_all_cleared">ইতিহাস এবং ক্যাশে সাফ করা হয়েছে</string>
     <string name="history_pro_teaser_title">SongFlip PRO ইতিহাস</string>
     <string name="history_pro_teaser_desc">SongFlip PRO এর সাথে আপনার ইতিহাসে 100টি পর্যন্ত গান সংরক্ষণ করুন।</string>
+    <plurals name="history_pro_teaser_hidden_desc">
+        <item quantity="one">%1$dটি পুরানো গান লুকানো – SongFlip PRO দিয়ে সব %2$dটি আনলক করুন।</item>
+        <item quantity="other">%1$dটি পুরানো গান লুকানো – SongFlip PRO দিয়ে সব %2$dটি আনলক করুন।</item>
+    </plurals>
     <string name="history_btn_upgrade">PRO-তে আপগ্রেড করুন</string>
     <string name="action_delete">মুছুন</string>
     <string name="time_just_now">এইমাত্র</string>

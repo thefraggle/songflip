@@ -1,0 +1,125 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "NSMicrophoneUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip bruger mikrofonen til at genkende musik omkring dig. Lyd optages eller gemmes aldrig."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip nutzt das Mikrofon, um Musik in deiner Umgebung zu erkennen. Audiodaten werden niemals aufgezeichnet oder gespeichert."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip uses the microphone to recognize music playing around you. Audio is never recorded or stored."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip usa el micrófono para reconocer la música a tu alrededor. El audio nunca se graba ni almacena."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip käyttää mikrofonia ympärilläsi soivan musiikin tunnistamiseen. Ääntä ei koskaan tallenneta."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip utilise le micro pour reconnaître la musique autour de vous. Aucun enregistrement n'est stocké."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip usa il microfono per riconoscere la musica intorno a te. L'audio non viene mai registrato o salvato."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flipは周囲で流れている音楽を認識するためにマイクを使用します。音声が録音または保存されることはありません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip은 주변에서 재생 중인 음악을 인식하기 위해 마이크를 사용합니다. 오디오는 절대 녹음되거나 저장되지 않습니다."
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip bruker mikrofonen til å gjenkjenne musikk rundt deg. Lyd tas aldri opp eller lagres."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip gebruikt de microfoon om muziek om je heen te herkennen. Audio wordt nooit opgenomen of opgeslagen."
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip bruker mikrofonen til å gjenkjenne musikk rundt deg. Lyd tas aldri opp eller lagres."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip używa mikrofonu do rozpoznawania muzyki wokół Ciebie. Dźwięk nigdy nie jest nagrywany ani przechowywany."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip usa o microfone para reconhecer a música ao seu redor. O áudio nunca é gravado ou armazenado."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip использует микрофон для распознавания музыки вокруг вас. Аудиозаписи никогда не сохраняются."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip använder mikrofonen för att känna igen musik runt dig. Ljud spelas aldrig in eller sparas."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip etrafınızdaki müziği tanımak için mikrofonu kullanır. Ses asla kaydedilmez veya saklanmaz."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip використовує мікрофон для розпізнавання музики навколо вас. Аудіо ніколи не записується і не зберігається."
+          }
+        },
+        "zh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip 使用麦克风识别周围播放的音乐。音频绝不会被录制或存储。"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

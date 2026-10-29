@@ -1,2 +1,2 @@
-- Localisation complète de l'interface : indicateurs de liste de lecture restants localisés et contrôles d'accessibilité dans toutes les langues.
-- Gestion centralisée des versions et hygiène du réseau : métadonnées de demande dynamisées via une configuration centralisée et enregistrement de diagnostic structuré dans le moteur de données.
+- Recherche en streaming et transfert de lecteur : résolution du routage de secours de recherche pour Qobuz, garantissant que les recherches s'ouvrent de manière fiable, sans messages d'erreur ni écrans vides.
+- Préservation du cache et de l'historique : mises à jour améliorées du cache en arrière-plan pour conserver les pistes préférées et l'historique des conversions intacts lors des actualisations de connexion.

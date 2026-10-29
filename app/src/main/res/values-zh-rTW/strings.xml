@@ -144,6 +144,10 @@
     <string name="history_all_cleared">歷史記錄與快取已清除</string>
     <string name="history_pro_teaser_title">SongFlip PRO 歷史記錄</string>
     <string name="history_pro_teaser_desc">使用 SongFlip PRO 在歷史記錄中儲存多達 100 首歌曲。</string>
+    <plurals name="history_pro_teaser_hidden_desc">
+        <item quantity="one">已隱藏 %1$d 首舊歌曲 – 使用 SongFlip PRO 解鎖全部 %2$d 首。</item>
+        <item quantity="other">已隱藏 %1$d 首舊歌曲 – 使用 SongFlip PRO 解鎖全部 %2$d 首。</item>
+    </plurals>
     <string name="history_btn_upgrade">升級至 PRO</string>
     <string name="action_delete">刪除</string>
     <string name="time_just_now">剛剛</string>

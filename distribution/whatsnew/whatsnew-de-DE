@@ -1,2 +1,2 @@
-- Vollständige Benutzeroberflächen-Lokalisierung: Bereinigung verbliebener englischsprachiger Texte bei Playlist-Hinweisen und Barrierefreiheits-Schaltflächen in allen 34 Sprachen.
-- Zentrale Versionsverwaltung & Netzwerk-Hygiene: Dynamische Aktualisierung von Versionsangaben bei Dienstanfragen über eine zentrale Konfiguration sowie strukturierte Diagnosemeldungen im Datenkern.
+- Suchweiterleitung für Streaming-Dienste: Fehlerfreie Weiterleitung bei der Titelsuche für Qobuz, sodass Suchen direkt und zuverlässig im Ziel-Player geladen werden.
+- Verlaufs- & Favoritenerhalt: Aktualisierungen im Hintergrund zwischengespeicherter Titel überschreiben weder Favoritenmarkierungen noch gespeicherte Verläufe.

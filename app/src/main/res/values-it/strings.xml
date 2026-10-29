@@ -154,6 +154,10 @@
     <string name="history_all_cleared">Cronologia e cache cancellate</string>
     <string name="history_pro_teaser_title">Cronologia SongFlip PRO</string>
     <string name="history_pro_teaser_desc">Sblocca fino a 100 brani nella cronologia con SongFlip PRO.</string>
+    <plurals name="history_pro_teaser_hidden_desc">
+        <item quantity="one">%1$d brano precedente nascosto – sblocca tutti i %2$d con SongFlip PRO.</item>
+        <item quantity="other">%1$d brani precedenti nascosti – sblocca tutti i %2$d con SongFlip PRO.</item>
+    </plurals>
     <string name="history_btn_upgrade">Passa a PRO</string>
     <string name="action_delete">Elimina</string>
     <string name="time_just_now">Proprio ora</string>

@@ -108,7 +108,9 @@ class AcousticQuotaManager(
         if (isPro) return Int.MAX_VALUE
         val key = metaKeyForTime(timestampMs)
         return quotaLock.withLock {
-            val nextCount = getUsedScansThisMonth(timestampMs) + 1
+            val currentUsed = sqlStorage?.getMetaValue(key)?.toIntOrNull()?.coerceAtLeast(0)
+                ?: inMemoryQuotaFallback[key] ?: 0
+            val nextCount = currentUsed + 1
             inMemoryQuotaFallback[key] = nextCount
             sqlStorage?.setMetaValue(key, nextCount.toString())
             (MAX_FREE_SCANS_PER_MONTH - nextCount).coerceAtLeast(0)
@@ -308,7 +310,7 @@ class AcousticQuotaManager(
             MusicPlatform.AMAZON_MUSIC -> "https://music.amazon.com/search/$encoded"
             MusicPlatform.SOUNDCLOUD -> "https://soundcloud.com/search?q=$encoded"
             MusicPlatform.BANDCAMP -> "https://bandcamp.com/search?q=$encoded"
-            MusicPlatform.QOBUZ -> "https://open.qobuz.com/search/$encoded"
+            MusicPlatform.QOBUZ -> "https://play.qobuz.com/search?q=$encoded"
             MusicPlatform.BEATPORT -> "https://www.beatport.com/search?q=$encoded"
         }
     }

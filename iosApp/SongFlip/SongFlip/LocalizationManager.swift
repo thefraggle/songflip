@@ -882,6 +882,8 @@ enum LocalizationManager {
             "playlist_reconvert": "Re-convert"
         ],
         "da": [
+            "history_pro_teaser_hidden_desc": "%1$d ældre sange skjult – lås op for alle %2$d med SongFlip PRO.",
+            "playlist_apple_music_no_import_desc": "%@ understøtter ikke eksterne playlist-links. Afspil numre enkeltvis nedenfor eller eksporter playlisten som M3U8/CSV.",
             "settings_audiophile_title": "Audiofil kvalitetsprioritering",
             "settings_audiophile_subtitle": "Foretræk studiemasters, Hi-Res, Lossless & Dolby Atmos frem for radio-edits og opsamlinger",
             "settings_share_app": "Del SongFlip",
@@ -1319,6 +1321,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "10 af %1$d sange synlige"
         ],
         "nb": [
+            "history_pro_teaser_hidden_desc": "%1$d eldre sanger skjult – lås opp alle %2$d med SongFlip PRO.",
+            "playlist_apple_music_no_import_desc": "%@ støtter ikke eksterne spillelistelenker. Spill av spor enkeltvis nedenfor eller eksporter spillelisten som M3U8/CSV.",
             "settings_audiophile_title": "Audiofil kvalitetsprioritering",
             "settings_audiophile_subtitle": "Foretrekk studiomastere, Hi-Res, Lossless & Dolby Atmos fremfor radio-edits og samlealbum",
             "settings_share_app": "Del SongFlip",
@@ -1756,6 +1760,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "10 av %1$d sanger synlige"
         ],
         "sv": [
+            "history_pro_teaser_hidden_desc": "%1$d äldre låtar dolda – lås upp alla %2$d med SongFlip PRO.",
+            "playlist_apple_music_no_import_desc": "%@ stöder inte externa spellänkar. Spela låtar enskilt nedan eller exportera spellistan som M3U8/CSV.",
             "settings_audiophile_title": "Audiofil kvalitetsprioritering",
             "settings_audiophile_subtitle": "Föredra studiomasters, Hi-Res, Lossless & Dolby Atmos framför radio-edits och samlingar",
             "settings_share_app": "Dela SongFlip",
@@ -2193,6 +2199,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "10 av %1$d låtar synliga"
         ],
         "nl": [
+            "history_pro_teaser_hidden_desc": "%1$d oudere nummers verborgen – ontgrendel alle %2$d met SongFlip PRO.",
+            "playlist_apple_music_no_import_desc": "%@ ondersteunt geen externe afspeellijstlinks. Speel nummers hieronder afzonderlijk af of exporteer de afspeellijst als M3U8/CSV.",
             "settings_audiophile_title": "Audiofiele kwaliteitsprioriteit",
             "settings_audiophile_subtitle": "Geef voorkeur aan studiomasters, Hi-Res, Lossless & Dolby Atmos boven radio-edits en compilaties",
             "settings_share_app": "Deel SongFlip",
@@ -2630,6 +2638,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "10 van de %1$d nummers zichtbaar"
         ],
         "fr": [
+            "history_pro_teaser_hidden_desc": "%1$d anciens titres masqués – débloquez les %2$d avec SongFlip PRO.",
+            "playlist_apple_music_no_import_desc": "%@ ne prend pas en charge les liens de playlists externes. Écoutez les morceaux individuellement ci-dessous ou exportez la playlist au format M3U8/CSV.",
             "settings_audiophile_title": "Priorité qualité audiophile",
             "settings_audiophile_subtitle": "Privilégier les masters studio, Hi-Res, Lossless et Dolby Atmos aux versions radio et compilations",
             "settings_share_app": "Partager SongFlip",
@@ -3067,6 +3077,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "10 morceaux sur %1$d visibles"
         ],
         "es": [
+            "history_pro_teaser_hidden_desc": "%1$d canciones anteriores ocultas – desbloquea las %2$d con SongFlip PRO.",
+            "playlist_apple_music_no_import_desc": "%@ no admite enlaces de listas de reproducción externas. Reproduce canciones individualmente abajo o exporta la lista como M3U8/CSV.",
             "settings_audiophile_title": "Prioridad de calidad audiófila",
             "settings_audiophile_subtitle": "Prioriza masters de estudio, Hi-Res, Lossless y Dolby Atmos frente a ediciones de radio y recopilatorios",
             "settings_share_app": "Compartir SongFlip",
@@ -3504,6 +3516,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "10 de %1$d canciones visibles"
         ],
         "it": [
+            "history_pro_teaser_hidden_desc": "%1$d brani precedenti nascosti – sblocca tutti i %2$d con SongFlip PRO.",
+            "playlist_apple_music_no_import_desc": "%@ non supporta link a playlist esterne. Riproduci i singoli brani qui sotto o esporta la playlist come M3U8/CSV.",
             "settings_audiophile_title": "Priorità qualità audiofila",
             "settings_audiophile_subtitle": "Preferisci master in studio, Hi-Res, Lossless e Dolby Atmos rispetto a radio edit e compilation",
             "settings_share_app": "Condividi SongFlip",
@@ -3941,6 +3955,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "10 brani su %1$d visibili"
         ],
         "pt": [
+            "history_pro_teaser_hidden_desc": "%1$d músicas antigas ocultas – desbloqueie todas as %2$d com o SongFlip PRO.",
+            "playlist_apple_music_no_import_desc": "%@ não oferece suporte a links de playlists externas. Reproduza faixas individualmente abaixo ou exporte a playlist como M3U8/CSV.",
             "settings_audiophile_title": "Prioridade de qualidade audiófila",
             "settings_audiophile_subtitle": "Preferir masters de estúdio, Hi-Res, Lossless e Dolby Atmos em vez de edições de rádio e coletâneas",
             "settings_share_app": "Compartilhar SongFlip",
@@ -4378,6 +4394,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "10 de %1$d músicas visíveis"
         ],
         "pl": [
+            "history_pro_teaser_hidden_desc": "%1$d starszych utworów ukrytych – odblokuj wszystkie %2$d z SongFlip PRO.",
+            "playlist_apple_music_no_import_desc": "%@ nie obsługuje zewnętrznych linków do playlist. Odtwarzaj utwory pojedynczo poniżej lub wyeksportuj playlistę jako M3U8/CSV.",
             "settings_audiophile_title": "Priorytet jakości audiofilskiej",
             "settings_audiophile_subtitle": "Preferuj wydania studyjne, Hi-Res, Lossless i Dolby Atmos zamiast wersji radiowych i składanek",
             "settings_share_app": "Udostępnij SongFlip",
@@ -4815,6 +4833,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "10 z %1$d utworów widocznych"
         ],
         "ru": [
+            "history_pro_teaser_hidden_desc": "%1$d старых треков скрыто – разблокируйте все %2$d с SongFlip PRO.",
+            "playlist_apple_music_no_import_desc": "%@ не поддерживает внешние ссылки на плейлисты. Воспроизводите треки по отдельности ниже или экспортируйте плейлист в формате M3U8/CSV.",
             "settings_audiophile_title": "Аудиофильский приоритет качества",
             "settings_audiophile_subtitle": "Предпочитать студийные оригиналы, Hi-Res, Lossless и Dolby Atmos вместо радио-версий и сборников",
             "settings_share_app": "Поделиться SongFlip",
@@ -5252,6 +5272,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "10 из %1$d треков видимы"
         ],
         "tr": [
+            "history_pro_teaser_hidden_desc": "%1$d eski şarkı gizlendi – SongFlip PRO ile tüm %2$d şarkıyı açın.",
+            "playlist_apple_music_no_import_desc": "%@ harici çalma listesi bağlantılarını desteklemiyor. Parçaları aşağıda tek tek çalın veya çalma listesini M3U8/CSV olarak dışa aktarın.",
             "settings_audiophile_title": "Odyofil Kalite Önceliği",
             "settings_audiophile_subtitle": "Radyo düzenlemeleri ve derlemeler yerine stüdyo kayıtlarını, Hi-Res, Lossless ve Dolby Atmos sürümlerini tercih et",
             "settings_share_app": "SongFlip’i Paylaş",
@@ -5689,6 +5711,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "%1$d şarkıdan 10 tanesi görünür"
         ],
         "uk": [
+            "history_pro_teaser_hidden_desc": "%1$d старіших треків приховано – розблокуйте всі %2$d з SongFlip PRO.",
+            "playlist_apple_music_no_import_desc": "%@ не підтримує зовнішні посилання на плейлисти. Відтворюйте треки окремо нижче або експортуйте плейлист як M3U8/CSV.",
             "settings_audiophile_title": "Аудіофільський пріоритет якості",
             "settings_audiophile_subtitle": "Надавати перевагу студійним оригіналам, Hi-Res, Lossless і Dolby Atmos замість радіо-версій та збірок",
             "settings_share_app": "Поділитися SongFlip",
@@ -6126,6 +6150,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "10 з %1$d треків видимі"
         ],
         "ja": [
+            "history_pro_teaser_hidden_desc": "%1$d件の過去の曲が非表示です – SongFlip PROで全%2$d件を表示。",
+            "playlist_apple_music_no_import_desc": "%@は外部プレイリストのリンクに対応していません。下のトラックを個別に再生するか、M3U8/CSVとして書き出してください。",
             "settings_audiophile_title": "オーディオファイル音質優先",
             "settings_audiophile_subtitle": "ラジオエディットやコンピレーションよりもスタジオマスター、Hi-Res、Lossless、Dolby Atmosを優先します",
             "settings_share_app": "SongFlipを共有",
@@ -6563,6 +6589,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "%1$d曲中10曲を表示"
         ],
         "ko": [
+            "history_pro_teaser_hidden_desc": "%1$d개의 이전 곡이 숨겨짐 – SongFlip PRO로 %2$d개 모두 잠금 해제.",
+            "playlist_apple_music_no_import_desc": "%@은(는) 외부 재생목록 링크를 지원하지 않습니다. 아래에서 트랙을 개별적으로 재생하거나 재생목록을 M3U8/CSV로 내보내세요.",
             "settings_audiophile_title": "오디오파일 음질 우선",
             "settings_audiophile_subtitle": "라디오 에디트 및 컴필레이션 대신 스튜디오 마스터, Hi-Res, Lossless 및 Dolby Atmos 버전을 우선 선택합니다",
             "settings_share_app": "SongFlip 공유하기",
@@ -7000,6 +7028,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "%1$d개 곡 중 10개 표시됨"
         ],
         "zh": [
+            "history_pro_teaser_hidden_desc": "已隐藏 %1$d 首旧歌曲 – 使用 SongFlip PRO 解锁全部 %2$d 首。",
+            "playlist_apple_music_no_import_desc": "%@不支持外部播放列表链接。请在下方单独播放歌曲，或将播放列表导出为 M3U8/CSV。",
             "settings_audiophile_title": "发烧级音质优先",
             "settings_audiophile_subtitle": "优先匹配录音室母带、Hi-Res、无损与杜比全景声版本，避开电台剪辑与合辑",
             "settings_share_app": "分享 SongFlip",
@@ -7437,6 +7467,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "显示 %1$d 首歌曲中的 10 首"
         ],
         "in": [
+            "history_pro_teaser_hidden_desc": "%1$d lagu lama disembunyikan – buka semua %2$d dengan SongFlip PRO.",
+            "playlist_apple_music_no_import_desc": "%@ tidak mendukung tautan daftar putar eksternal. Putar trek satu per satu di bawah atau ekspor daftar putar sebagai M3U8/CSV.",
             "settings_audiophile_title": "Prioritas Kualitas Audiofil",
             "settings_audiophile_subtitle": "Utamakan master studio, Hi-Res, Lossless & Dolby Atmos dibanding radio edit dan kompilasi",
             "settings_share_app": "Bagikan SongFlip",
@@ -7874,6 +7906,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "10 dari %1$d lagu terlihat"
         ],
         "vi": [
+            "history_pro_teaser_hidden_desc": "%1$d bài hát cũ bị ẩn – mở khóa tất cả %2$d bài với SongFlip PRO.",
+            "playlist_apple_music_no_import_desc": "%@ không hỗ trợ liên kết danh sách phát bên ngoài. Phát riêng lẻ từng bài hát bên dưới hoặc xuất danh sách phát dưới dạng M3U8/CSV.",
             "settings_audiophile_title": "Ưu tiên chất lượng Audiophile",
             "settings_audiophile_subtitle": "Ưu tiên bản thu phòng thu, Hi-Res, Lossless & Dolby Atmos hơn bản radio edit và tuyển tập",
             "settings_share_app": "Chia sẻ SongFlip",
@@ -8311,6 +8345,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "Hiển thị 10 trong số %1$d bài hát"
         ],
         "bn": [
+            "history_pro_teaser_hidden_desc": "%1$dটি পুরানো গান লুকানো – SongFlip PRO দিয়ে সব %2$dটি আনলক করুন।",
+            "playlist_apple_music_no_import_desc": "%@ বাহ্যিক প্লেলিস্ট লিঙ্ক সমর্থন করে না। নীচে পৃথকভাবে ট্র্যাকগুলি চালান বা M3U8/CSV হিসাবে প্লেলিস্ট রপ্তানি করুন।",
             "settings_audiophile_title": "অডিওফাইল কোয়ালিটি অগ্রাধিকার",
             "settings_audiophile_subtitle": "রেডিও এডিট ও সংকলনের বদলে স্টুডিও মাস্টার, Hi-Res, Lossless ও Dolby Atmos প্রাধান্য দিন",
             "settings_share_app": "SongFlip শেয়ার করুন",
@@ -8748,6 +8784,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "10টির মধ্যে %1$dটি গান দৃশ্যমান"
         ],
         "hi": [
+            "history_pro_teaser_hidden_desc": "%1$d पुराने गाने छिपे हैं – SongFlip PRO से सभी %2$d अनलॉक करें।",
+            "playlist_apple_music_no_import_desc": "%@ बाहरी प्लेलिस्ट लिंक का समर्थन नहीं करता है। नीचे अलग-अलग ट्रैक चलाएं या प्लेलिस्ट को M3U8/CSV के रूप में निर्यात करें।",
             "settings_audiophile_title": "ऑडियोफाइल क्वालिटी प्राथमिकता",
             "settings_audiophile_subtitle": "रेडियो एडिट और संकलन के बजाय स्टूडियो मास्टर, Hi-Res, Lossless और Dolby Atmos को प्राथमिकता दें",
             "settings_share_app": "SongFlip शेयर करें",
@@ -9185,6 +9223,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "%1$d में से 10 गाने दिख रहे हैं"
         ],
         "mr": [
+            "history_pro_teaser_hidden_desc": "%1$d जुनी गाणी लपवली आहेत – SongFlip PRO सह सर्व %2$d अनलॉक करा.",
+            "playlist_apple_music_no_import_desc": "%@ बाह्य प्लेलिस्ट लिंक्सचे समर्थन करत नाही. खाली स्वतंत्रपणे ट्रॅक प्ले करा किंवा M3U8/CSV म्हणून प्लेलिस्ट निर्यात करा.",
             "settings_audiophile_title": "ऑडिओफाइल गुणवत्ता प्राधान्य",
             "settings_audiophile_subtitle": "रेडिओ एडिट आणि संकलनाऐवजी स्टुडिओ मास्टर, Hi-Res, Lossless आणि Dolby Atmos ला प्राधान्य द्या",
             "settings_share_app": "SongFlip शेअर करा",
@@ -9622,6 +9662,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "%1$d पैकी 10 गाणी दिसत आहेत"
         ],
         "cs": [
+            "history_pro_teaser_hidden_desc": "%1$d starších skladeb skryto – odemkněte všech %2$d s SongFlip PRO.",
+            "playlist_apple_music_no_import_desc": "%@ nepodporuje externí odkazy na playlisty. Přehrávejte skladby jednotlivě níže nebo exportujte playlist jako M3U8/CSV.",
             "settings_audiophile_title": "Audiofilská priorita kvality",
             "settings_audiophile_subtitle": "Upřednostnit studiové mastery, Hi-Res, Lossless a Dolby Atmos před rádiovými verzemi a kompilacemi",
             "action_close": "Zavřít",
@@ -10059,6 +10101,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "Zobrazeno 10 z %1$d skladeb"
         ],
         "el": [
+            "history_pro_teaser_hidden_desc": "%1$d παλαιότερα τραγούδια είναι κρυμμένα – ξεκλειδώστε και τα %2$d με το SongFlip PRO.",
+            "playlist_apple_music_no_import_desc": "Το %@ δεν υποστηρίζει εξωτερικούς συνδέσμους λίστας αναπαραγωγής. Αναπαραγάγετε τα κομμάτια μεμονωμένα παρακάτω ή εξαγάγετε τη λίστα ως M3U8/CSV.",
             "settings_audiophile_title": "Προτεραιότητα ποιότητας Audiophile",
             "settings_audiophile_subtitle": "Προτίμηση αυθεντικών studio masters, Hi-Res, Lossless & Dolby Atmos έναντι radio edits και συλλογών",
             "action_close": "Κλείσιμο",
@@ -10496,6 +10540,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "10 από %1$d κομμάτια ορατά"
         ],
         "fi": [
+            "history_pro_teaser_hidden_desc": "%1$d vanhempaa kappaletta piilotettu – avaa kaikki %2$d SongFlip PRO:lla.",
+            "playlist_apple_music_no_import_desc": "%@ ei tue ulkoisia soittolinkkejä. Toista kappaleita erikseen alta tai vie soittolista M3U8/CSV-muodossa.",
             "settings_audiophile_title": "Audiofiilinen laatuprioriteetti",
             "settings_audiophile_subtitle": "Suosi studiomastereita, Hi-Res-, Lossless- ja Dolby Atmos -versioita radioversioiden ja kokoelmien sijaan",
             "action_close": "Sulje",
@@ -10933,6 +10979,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "10/%1$d kappaletta näkyvissä"
         ],
         "hu": [
+            "history_pro_teaser_hidden_desc": "%1$d régebbi dal elrejtve – oldja fel mind a(z) %2$d dalt a SongFlip PRO-val.",
+            "playlist_apple_music_no_import_desc": "A(z) %@ nem támogatja a külső lejátszási lista linkeket. Játssza le a dalokat egyenként lent, vagy exportálja a lejátszási listát M3U8/CSV formátumban.",
             "settings_audiophile_title": "Audiofil minőség előnyben",
             "settings_audiophile_subtitle": "Stúdió masterek, Hi-Res, Lossless és Dolby Atmos előnyben részesítése a rádióverziókkal és válogatásokkal szemben",
             "action_close": "Bezárás",
@@ -11370,6 +11418,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "%1$d zeneszámból 10 látható"
         ],
         "ro": [
+            "history_pro_teaser_hidden_desc": "%1$d melodii mai vechi ascunse – deblochează-le pe toate %2$d cu SongFlip PRO.",
+            "playlist_apple_music_no_import_desc": "%@ nu acceptă linkuri către liste de redare externe. Redați melodiile individual mai jos sau exportați lista de redare ca M3U8/CSV.",
             "settings_audiophile_title": "Prioritate calitate audiofilă",
             "settings_audiophile_subtitle": "Preferă masterele de studio, Hi-Res, Lossless și Dolby Atmos în locul edițiilor radio și compilațiilor",
             "action_close": "Închide",
@@ -11807,6 +11857,8 @@ enum LocalizationManager {
             "history_cached_count_free_capped": "10 din %1$d melodii vizibile"
         ],
         "th": [
+            "history_pro_teaser_hidden_desc": "ซ่อนเพลงเก่า %1$d เพลง – ปลดล็อกทั้งหมด %2$d เพลงด้วย SongFlip PRO",
+            "playlist_apple_music_no_import_desc": "%@ ไม่รองรับลิงก์เพลย์ลิสต์ภายนอก เล่นแต่ละแทร็กทีละเพลงด้านล่าง หรือส่งออกเพลย์ลิสต์เป็น M3U8/CSV",
             "settings_audiophile_title": "จัดลำดับความสำคัญคุณภาพเสียง Audiophile",
             "settings_audiophile_subtitle": "เลือกต้นฉบับสตูดิโอ, Hi-Res, Lossless และ Dolby Atmos ก่อนเวอร์ชันวิทยุและอัลบั้มรวมเพลง",
             "action_close": "ปิด",

@@ -261,19 +261,19 @@ class ProManagerTest {
 
     @Test
     fun testLegacyUuidBoundCouponSurvivesAndroidIdMigration() {
-        // Simulate a user who redeemed a Lifetime coupon before v1.8.18 (Oct 14):
+        // Simulate a user who redeemed a Lifetime coupon before hardware ANDROID_ID migration:
         // - Their SharedPreferences has `anonymous_install_id` = "1d34e71b-68e8-4ce5-b96a-8f55a1edc823" (UUID)
-        // - Their stored legacy v1 HMAC token is bound to that UUID
+        // - Their stored coupon token is cryptographically bound to that UUID
         // - After updating to v1.8.18+, `stableAndroidId` is populated with their hardware ANDROID_ID
         val legacyUuid = "1d34e71b-68e8-4ce5-b96a-8f55a1edc823"
-        val legacyHmacLifetimeToken =
-            "sct_eyJjIjoiRkxJUC1DTEFNLVJLRTciLCJpIjoiMWQzNGU3MWItNjhlOC00Y2U1LWI5NmEtOGY1NWExZWRjODIzIiwiZSI6bnVsbCwidCI6ImxpZmV0aW1lIn0.wWClxkXxEY0GZwzQ2jqRyJu7ItyzhB7OricXu0s2bJA"
+        val legacyUuidBoundToken =
+            "sct_v2_eyJjIjoiRkxJUC1DTEFNLVJLRTciLCJpIjoiMWQzNGU3MWItNjhlOC00Y2U1LWI5NmEtOGY1NWExZWRjODIzIiwiZSI6MCwidCI6ImxpZmV0aW1lIiwiaWF0IjoxNzAwMDAwMDAwMDAwfQ.0m8uLDyRlvnwxKO58IfKDBZXDwfAso0WQjhTTFAsO0aVcvjjvhttbOZREcsJ_b7d5nTrSWaKLldkN-lbprecBA"
 
         inMemoryPrefs.edit()
             .putString("anonymous_install_id", legacyUuid)
             .putString("pro_coupon_type", "lifetime")
             .putString("pro_coupon_code", "FLIP-CLAM-RKE7")
-            .putString("pro_coupon_token", legacyHmacLifetimeToken)
+            .putString("pro_coupon_token", legacyUuidBoundToken)
             .apply()
 
         ProManager.setTestStableAndroidId("a1b2c3d4e5f60718")
@@ -281,7 +281,7 @@ class ProManagerTest {
         val state = ProManager.hydrateLocalProState()
         assertTrue("Legacy UUID-bound coupon must remain valid after ANDROID_ID migration", state.isPro)
         assertEquals("lifetime_coupon", state.proType)
-        assertEquals("coupon:$legacyHmacLifetimeToken", ProManager.getAuthToken())
+        assertEquals("coupon:$legacyUuidBoundToken", ProManager.getAuthToken())
     }
 }
 

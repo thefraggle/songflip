@@ -153,6 +153,10 @@
     <string name="history_all_cleared">履歴とキャッシュを消去しました</string>
     <string name="history_pro_teaser_title">SongFlip PRO 履歴</string>
     <string name="history_pro_teaser_desc">SongFlip PROで最大100曲の履歴を解放できます。</string>
+    <plurals name="history_pro_teaser_hidden_desc">
+        <item quantity="one">%1$d件の過去の曲が非表示です – SongFlip PROで全%2$d件を表示。</item>
+        <item quantity="other">%1$d件の過去の曲が非表示です – SongFlip PROで全%2$d件を表示。</item>
+    </plurals>
     <string name="history_btn_upgrade">PROにアップグレード</string>
     <string name="action_delete">削除</string>
     <string name="time_just_now">たった今</string>

@@ -1,2 +1,1 @@
-- Ολοκληρωμένη Τοπική Προσαρμογή Διεπαφής: Εντοπισμένοι υπόλοιποι δείκτες λίστας αναπαραγωγής και έλεγχοι προσβασιμότητας σε όλες τις γλώσσες.
-- Centralized Version Management & Network Hygiene: Dynamized request metadata through centralized configuration and introduced structured diagnostic logging within the data engine.
+- Streaming Search & Player Forwarding: Επιλύθηκε εναλλακτική δρομολόγηση αναζήτησης για Qobuz, διασφαλίζοντας ότι οι αναζητήσεις ανοίγουν αξιόπιστα χωρίς μηνύματα σφάλματος ή κενές οθόνες.

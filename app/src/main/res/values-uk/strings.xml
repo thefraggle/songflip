@@ -156,6 +156,10 @@
     <string name="history_all_cleared">Історію та кеш очищено</string>
     <string name="history_pro_teaser_title">Історія SongFlip PRO</string>
     <string name="history_pro_teaser_desc">Зберігайте до 100 треків в історії з SongFlip PRO.</string>
+    <plurals name="history_pro_teaser_hidden_desc">
+        <item quantity="one">%1$d старіший трек приховано – розблокуйте всі %2$d з SongFlip PRO.</item>
+        <item quantity="other">%1$d старіших треків приховано – розблокуйте всі %2$d з SongFlip PRO.</item>
+    </plurals>
     <string name="history_btn_upgrade">Перейти на PRO</string>
     <string name="action_delete">Видалити</string>
     <string name="time_just_now">Щойно</string>

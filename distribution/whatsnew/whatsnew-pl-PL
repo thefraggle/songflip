@@ -1,3 +1,2 @@
-- Kompleksowa lokalizacja interfejsu: zlokalizowane pozostałe wskaźniki listy odtwarzania i kontrola dostępności we wszystkich językach.
-- Scentralizowane zarządzanie wersjami i higiena sieci: Zdynamizowane metadane żądań poprzez scentralizowaną konfigurację i wprowadzenie ustrukturyzowanego rejestrowania diagnostycznego w silniku danych.
-- Spójna obsługa limitu czasu: ustandaryzowane komunikaty o przekroczeniu limitu czasu w konwersjach linków dla większej stabilności.
+- Wyszukiwanie strumieniowe i przekazywanie odtwarzaczy: Rozwiązano awaryjne przekierowanie wyszukiwania dla Qobuz, zapewniając niezawodne otwieranie wyszukiwań bez komunikatów o błędach i pustych ekranów.
+- Zachowanie pamięci podręcznej i historii: ulepszone aktualizacje pamięci podręcznej w tle, aby zachować ulubione utwory i historię konwersji w nienaruszonym stanie podczas odświeżania połączenia.
