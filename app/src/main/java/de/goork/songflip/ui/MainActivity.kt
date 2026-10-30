@@ -9,8 +9,10 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.*
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -33,6 +35,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import de.goork.songflip.R
 import de.goork.songflip.core.cache.AndroidSharedPreferencesCacheStorage
+import de.goork.songflip.core.engine.ParsedImportTrack
+import de.goork.songflip.core.engine.PlaylistImportParser
 import de.goork.songflip.core.engine.PromoBannerManager
 import de.goork.songflip.core.engine.SongLinkEngine
 import de.goork.songflip.data.DomainVerificationUtils
@@ -293,8 +297,45 @@ fun MainScreen(
     var proPaywallSource by remember { mutableStateOf("header_pro_badge") }
     var initialShowPromoInPaywall by remember { mutableStateOf(false) }
     var showPlaylistConvertSheet by remember { mutableStateOf(initialPlaylistUrl) }
+    var importedPlaylistTracks by remember { mutableStateOf<List<ParsedImportTrack>?>(null) }
+    var importedPlaylistTitle by remember { mutableStateOf<String?>(null) }
     var showPodcastNoticeSheet by remember { mutableStateOf<String?>(null) }
     val activePlaylistConversion by viewModel.activePlaylistConversion.collectAsState()
+
+    val playlistFilePickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        if (uri != null) {
+            try {
+                val inputStream = context.contentResolver.openInputStream(uri)
+                val content = inputStream?.bufferedReader()?.use { it.readText() } ?: ""
+                var fileName: String? = null
+                val cursor = context.contentResolver.query(uri, null, null, null, null)
+                cursor?.use {
+                    if (it.moveToFirst()) {
+                        val nameIndex = it.getColumnIndex(android.provider.OpenableColumns.DISPLAY_NAME)
+                        if (nameIndex != -1) {
+                            fileName = it.getString(nameIndex)
+                        }
+                    }
+                }
+                val parsed = PlaylistImportParser.parse(content, fileNameHint = fileName)
+                if (parsed.isEmpty()) {
+                    Toast.makeText(context, context.getString(R.string.playlist_import_empty_error), Toast.LENGTH_SHORT).show()
+                } else {
+                    val cleanTitle = fileName?.substringBeforeLast('.') ?: "Imported Playlist"
+                    importedPlaylistTracks = parsed
+                    importedPlaylistTitle = cleanTitle
+                    showSearchBottomSheet = false
+                    showSettingsBottomSheet = false
+                    showPlaylistConvertSheet = "https://songflip.link/file-import/${cleanTitle.hashCode()}"
+                }
+            } catch (e: Exception) {
+                android.util.Log.w("MainActivity", "Failed to read imported playlist file: ${e.message}")
+                Toast.makeText(context, context.getString(R.string.playlist_import_empty_error), Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     // Clipboard Smart-Banner State
     var detectedClipboardUrl by remember { mutableStateOf<String?>(null) }
@@ -521,6 +562,9 @@ fun MainScreen(
             onOpenPlaylist = { playlistUrl, _ ->
                 showSettingsBottomSheet = false
                 showPlaylistConvertSheet = playlistUrl
+            },
+            onImportPlaylistFile = {
+                playlistFilePickerLauncher.launch("*/*")
             }
         )
     }
@@ -586,6 +630,9 @@ fun MainScreen(
             onOpenProPaywall = {
                 proPaywallSource = "search_universal_share"
                 showProPaywall = true
+            },
+            onImportPlaylistFile = {
+                playlistFilePickerLauncher.launch("*/*")
             }
         )
     }
@@ -614,7 +661,11 @@ fun MainScreen(
         PlaylistConvertBottomSheet(
             playlistUrl = playlistUrl,
             targetPlatformKey = selectedTargetKey,
-            onDismiss = { showPlaylistConvertSheet = null },
+            onDismiss = {
+                showPlaylistConvertSheet = null
+                importedPlaylistTracks = null
+                importedPlaylistTitle = null
+            },
             onOpenPaywall = {
                 proPaywallSource = "playlist_limit_gate"
                 showProPaywall = true
@@ -622,7 +673,9 @@ fun MainScreen(
             externalConversionState = activePlaylistConversion?.takeIf { it.playlistUrl == playlistUrl }?.state,
             onRetryConversion = {
                 viewModel.startPlaylistConversion(playlistUrl, selectedTargetKey, proState.isPro, force = true)
-            }
+            },
+            importedTracks = importedPlaylistTracks,
+            importedPlaylistTitle = importedPlaylistTitle
         )
     }
 

@@ -423,4 +423,8 @@
     <string name="listen_change_target">Změnit cíl</string>
     <string name="playlist_reconvert">Znovu převést</string>
     <string name="playlist_badge_free_limit">Zdarma (5)</string>
+    <string name="playlist_import_file_btn">Import Playlist File (.m3u8, .csv)</string>
+    <string name="playlist_import_file_desc">Import local .m3u8, .csv, or text tracklists to convert and play them directly.</string>
+    <string name="playlist_import_empty_error">No playable songs found in the selected file.</string>
+    <string name="playlist_import_source_chip">Soubor</string>
 </resources>

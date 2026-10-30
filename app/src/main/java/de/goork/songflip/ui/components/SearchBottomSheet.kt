@@ -56,7 +56,8 @@ import kotlinx.coroutines.withContext
 fun SearchBottomSheet(
     targetPlatformKey: String,
     onDismissRequest: () -> Unit,
-    onOpenProPaywall: () -> Unit = {}
+    onOpenProPaywall: () -> Unit = {},
+    onImportPlaylistFile: () -> Unit = {}
 ) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
@@ -284,17 +285,34 @@ fun SearchBottomSheet(
                     )
                 }
             } else if (searchResults.isEmpty() && searchQuery.isBlank()) {
-                Box(
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 40.dp),
-                    contentAlignment = Alignment.Center
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     Text(
                         text = stringResource(R.string.search_initial_prompt),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
+
+                    OutlinedButton(
+                        onClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                            onImportPlaylistFile()
+                        },
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.FileOpen,
+                            contentDescription = null,
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(stringResource(R.string.playlist_import_file_btn))
+                    }
                 }
             } else {
                 LazyColumn(
