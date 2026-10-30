@@ -19,6 +19,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.*
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import de.goork.songflip.core.engine.PlaylistImportParser
+import de.goork.songflip.core.engine.ParsedImportTrack
 import de.goork.songflip.core.engine.PlaylistExporter
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -54,7 +58,9 @@ fun PlaylistConvertBottomSheet(
     onDismiss: () -> Unit,
     onOpenPaywall: () -> Unit,
     externalConversionState: PlaylistConversionState? = null,
-    onRetryConversion: (() -> Unit)? = null
+    onRetryConversion: (() -> Unit)? = null,
+    importedTracks: List<ParsedImportTrack>? = null,
+    importedPlaylistTitle: String? = null
 ) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
@@ -63,6 +69,10 @@ fun PlaylistConvertBottomSheet(
     val proState by ProManager.proState.collectAsState()
     val isPro = proState.isPro
 
+    val isFileImport = remember(playlistUrl, importedTracks) {
+        importedTracks != null || playlistUrl.contains("file-import") || playlistUrl.startsWith("file://")
+    }
+
     val sourcePlatform = remember(playlistUrl) {
         de.goork.songflip.core.util.UrlUtils.detectPlatform(playlistUrl) ?: MusicPlatform.YOUTUBE_MUSIC
     }
@@ -70,8 +80,8 @@ fun PlaylistConvertBottomSheet(
         MusicPlatform.fromKey(targetPlatformKey)
     }
 
-    val isSamePlatform = remember(sourcePlatform, targetPlatformKey) {
-        sourcePlatform.key == targetPlatformKey
+    val isSamePlatform = remember(sourcePlatform, targetPlatformKey, isFileImport) {
+        !isFileImport && sourcePlatform.key == targetPlatformKey
     }
 
     var internalConversionState by remember(playlistUrl, targetPlatformKey) {
@@ -82,6 +92,86 @@ fun PlaylistConvertBottomSheet(
     }
     val conversionState = externalConversionState ?: internalConversionState
     var conversionProgressStep by remember { mutableIntStateOf(0) }
+
+    fun handleImportedTracks(tracks: List<ParsedImportTrack>, playlistName: String) {
+        if (tracks.isEmpty()) {
+            Toast.makeText(context, context.getString(R.string.playlist_import_empty_error), Toast.LENGTH_SHORT).show()
+            return
+        }
+        internalConversionState = PlaylistConversionState.Loading()
+        conversionProgressStep = 0
+        val maxTracksToConvert = if (isPro) {
+            de.goork.songflip.core.engine.ProLimits.MAX_PRO_PLAYLIST_TRACKS
+        } else {
+            de.goork.songflip.core.engine.ProLimits.MAX_FREE_PLAYLIST_TRACKS
+        }
+        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPlaylistConversionStarted(
+            sourcePlatform = "file",
+            targetPlatform = targetPlatformKey,
+            trackCount = maxTracksToConvert
+        )
+        coroutineScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                PlaylistConverterEngine.shared.convertImportedTracks(
+                    tracks = tracks,
+                    targetPlatformKey = targetPlatformKey,
+                    isPro = isPro,
+                    playlistTitle = playlistName,
+                    authToken = ProManager.getAuthToken()
+                )
+            }
+            if (result.isSuccess) {
+                val data = result.getOrThrow()
+                internalConversionState = PlaylistConversionState.Success(data)
+                val targetUrl = data.zeroOAuthUrl ?: data.webShareUrl ?: playlistUrl
+                val displayTotal = maxOf(data.totalTracks, data.originalTotalTracks)
+                de.goork.songflip.core.engine.SongLinkEngine.shared.cache.put(
+                    canonicalUrl = "https://songflip.link/file-import/${data.playlistId}",
+                    targetPlatformKey = targetPlatformKey,
+                    result = de.goork.songflip.core.model.ResolutionResult.Success(
+                        targetUrl = targetUrl,
+                        platform = "${targetPlatformKey}_playlist",
+                        title = data.title.ifBlank { "Playlist" },
+                        artist = context.getString(R.string.history_playlist_tracks_summary, data.matchedCount, displayTotal),
+                        isAlbum = false,
+                        thumbnailUrl = data.thumbnailUrl
+                    ),
+                    isHistory = true
+                )
+                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPlaylistConversionCompleted(
+                    sourcePlatform = "file",
+                    targetPlatform = targetPlatformKey,
+                    totalTracks = data.totalTracks,
+                    resolvedTracks = data.matchedCount,
+                    failedTracks = (data.totalTracks - data.matchedCount).coerceAtLeast(0),
+                    isBatch = data.totalTracks > 50
+                )
+                de.goork.songflip.core.analytics.AptabaseClient.shared.trackLinkFlipped(
+                    target = targetPlatformKey,
+                    isAlbum = false,
+                    isSearch = false,
+                    source = "file"
+                )
+            } else {
+                val exception = result.exceptionOrNull()
+                val playlistEx = exception as? de.goork.songflip.core.model.PlaylistConversionException
+                val errorCode = playlistEx?.errorCode ?: de.goork.songflip.core.model.PlaylistErrorCode.UNKNOWN_ERROR
+                val reason = playlistEx?.reason ?: errorCode.name.lowercase()
+                val errorMsg = playlistEx?.message ?: exception?.message ?: "Unknown error"
+                internalConversionState = PlaylistConversionState.Error(
+                    message = errorMsg,
+                    errorCode = errorCode,
+                    reason = reason
+                )
+                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPlaylistConversionFailed(
+                    sourcePlatform = "file",
+                    targetPlatform = targetPlatformKey,
+                    reason = reason,
+                    errorCode = errorCode.name.lowercase()
+                )
+            }
+        }
+    }
 
     fun runConversion(forceRefresh: Boolean = false) {
         if (onRetryConversion != null) {
@@ -190,8 +280,10 @@ fun PlaylistConvertBottomSheet(
         }
     }
 
-    LaunchedEffect(playlistUrl, targetPlatformKey, isPro, externalConversionState) {
-        if (isSamePlatform) {
+    LaunchedEffect(playlistUrl, targetPlatformKey, isPro, externalConversionState, importedTracks) {
+        if (importedTracks != null) {
+            handleImportedTracks(importedTracks, importedPlaylistTitle ?: "Imported Playlist")
+        } else if (isSamePlatform) {
             internalConversionState = PlaylistConversionState.SamePlatform
         } else {
             val isCurrentlyLimited = (conversionState is PlaylistConversionState.Success && (conversionState as PlaylistConversionState.Success).result.isLimited)
@@ -230,7 +322,7 @@ fun PlaylistConvertBottomSheet(
                         color = MaterialTheme.colorScheme.secondaryContainer
                     ) {
                         Text(
-                            text = sourcePlatform.displayName,
+                            text = if (isFileImport) stringResource(R.string.playlist_import_source_chip) else sourcePlatform.displayName,
                             style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
                             color = MaterialTheme.colorScheme.onSecondaryContainer,
                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)

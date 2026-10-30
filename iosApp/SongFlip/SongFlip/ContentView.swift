@@ -21,6 +21,8 @@ struct ContentView: View {
     @State private var showingShareGuide = false
     @State private var showingPlaylistNotice = false
     @State private var playlistNoticeUrl: String? = nil
+    @State private var showingPlaylistFileImporter = false
+    @State private var importedPlaylistFileUrl: URL? = nil
     @State private var showingPodcastNotice = false
     @State private var podcastNoticeUrl: String? = nil
     @State private var isPodcastNoticeAudiobook = false
@@ -138,7 +140,12 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $showingSearchSheet) {
-                SearchSheetView()
+                SearchSheetView(onImportPlaylistFile: {
+                    showingSearchSheet = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                        showingPlaylistFileImporter = true
+                    }
+                })
                     .environmentObject(settings)
                     .preferredColorScheme(settings.colorScheme)
             }
@@ -152,7 +159,12 @@ struct ContentView: View {
                 .preferredColorScheme(settings.colorScheme)
             }
             .sheet(isPresented: $showingSettingsSheet) {
-                SettingsSheetView()
+                SettingsSheetView(onImportPlaylistFile: {
+                    showingSettingsSheet = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                        showingPlaylistFileImporter = true
+                    }
+                })
                     .environmentObject(settings)
                     .preferredColorScheme(settings.colorScheme)
             }
@@ -175,19 +187,42 @@ struct ContentView: View {
                 ShareGuideSheet(lang: lang)
                     .preferredColorScheme(settings.colorScheme)
             }
-            .sheet(isPresented: $showingPlaylistNotice) {
+            .sheet(isPresented: $showingPlaylistNotice, onDismiss: {
+                importedPlaylistFileUrl = nil
+            }) {
                 if let pUrl = playlistNoticeUrl {
                     PlaylistConverterView(
                         playlistUrl: pUrl,
                         targetPlatformKey: settings.targetPlatform,
-                        dismissAction: { showingPlaylistNotice = false },
+                        dismissAction: {
+                            showingPlaylistNotice = false
+                            importedPlaylistFileUrl = nil
+                        },
                         onOpenPaywall: {
                             showingPlaylistNotice = false
+                            importedPlaylistFileUrl = nil
                             showingPaywallSheet = true
-                        }
+                        },
+                        importedFileUrl: importedPlaylistFileUrl
                     )
                     .environmentObject(settings)
                     .preferredColorScheme(settings.colorScheme)
+                }
+            }
+            .fileImporter(
+                isPresented: $showingPlaylistFileImporter,
+                allowedContentTypes: [.item],
+                allowsMultipleSelection: false
+            ) { result in
+                switch result {
+                case .success(let urls):
+                    if let firstUrl = urls.first {
+                        importedPlaylistFileUrl = firstUrl
+                        playlistNoticeUrl = "https://songflip.link/file-import/\(firstUrl.lastPathComponent)"
+                        showingPlaylistNotice = true
+                    }
+                case .failure(let error):
+                    logger.warning("File import failed or cancelled: \(error.localizedDescription)")
                 }
             }
             .sheet(isPresented: $showingPodcastNotice) {

@@ -102,6 +102,7 @@ struct PlaylistConverterView: View {
     let targetPlatformKey: String
     var dismissAction: () -> Void
     var onOpenPaywall: () -> Void
+    var importedFileUrl: URL? = nil
 
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var settings: SettingsModel
@@ -119,8 +120,15 @@ struct PlaylistConverterView: View {
 
     var lang: String { settings.selectedLanguage }
 
+    private var isFileImport: Bool {
+        importedFileUrl != nil || playlistUrl.contains("file-import") || playlistUrl.hasPrefix("file://")
+    }
+
     private var sourcePlatformName: String {
-        detectSourcePlatformName(url: playlistUrl)
+        if isFileImport {
+            return LocalizationManager.string(for: "playlist_import_source_chip", lang: lang)
+        }
+        return detectSourcePlatformName(url: playlistUrl)
     }
 
     private var targetPlatformName: String {
@@ -185,6 +193,10 @@ struct PlaylistConverterView: View {
                 ActivityViewController(activityItems: [item.url])
             }
             .onAppear {
+                if let fileUrl = importedFileUrl {
+                    handleImportedFile(url: fileUrl)
+                    return
+                }
                 if let current = ActivePlaylistModel.shared.current,
                    current.playlistUrl == playlistUrl,
                    current.targetPlatformKey == targetPlatformKey {
@@ -804,6 +816,121 @@ struct PlaylistConverterView: View {
                         targetPlatformKey: targetPlatformKey,
                         state: .error(type: resolvedErrorType, message: errorDescription(for: resolvedErrorType))
                     )
+                }
+            }
+        }
+    }
+
+    private func handleImportedFile(url: URL) {
+        let hasAccess = url.startAccessingSecurityScopedResource()
+        defer {
+            if hasAccess {
+                url.stopAccessingSecurityScopedResource()
+            }
+        }
+        guard let content = try? String(contentsOf: url, encoding: .utf8) else {
+            return
+        }
+        let fileName = url.lastPathComponent
+        let parsed = PlaylistImportParser.shared.parse(content: content, fileNameHint: fileName)
+        guard !parsed.isEmpty else {
+            return
+        }
+
+        isLoading = true
+        progressStep = 0
+        stepTimer?.invalidate()
+        stepTimer = Timer.scheduledTimer(withTimeInterval: 0.6, repeats: true) { timer in
+            if !isLoading {
+                timer.invalidate()
+            } else {
+                progressStep += 1
+            }
+        }
+
+        let token = proManager.authToken
+        let cleanTitle = url.deletingPathExtension().lastPathComponent
+
+        Task {
+            do {
+                let kmpResult = try await PlaylistConverterEngine.companion.shared.convertImportedTracksOrThrow(
+                    tracks: parsed,
+                    targetPlatformKey: targetPlatformKey,
+                    isPro: proManager.isPro,
+                    playlistTitle: cleanTitle,
+                    authToken: token.isEmpty ? nil : token
+                )
+
+                let mappedTracks = kmpResult.tracks.map { t in
+                    SwiftPlaylistTrackItem(
+                        title: t.title,
+                        artist: t.artist,
+                        matched: t.matched,
+                        targetUrl: t.targetUrl,
+                        targetId: t.targetId,
+                        sourceUrl: t.sourceUrl,
+                        thumbnailUrl: t.thumbnailUrl
+                    )
+                }
+                let mappedParts = kmpResult.parts.map { p in
+                    SwiftPlaylistChunk(
+                        partIndex: Int(p.partIndex),
+                        rangeStart: Int(p.rangeStart),
+                        rangeEnd: Int(p.rangeEnd),
+                        zeroOAuthUrl: p.zeroOAuthUrl,
+                        matchedCount: Int(p.matchedCount),
+                        totalTracks: Int(p.totalTracks)
+                    )
+                }
+
+                let decoded = SwiftPlaylistConversionResult(
+                    status: kmpResult.status,
+                    playlistId: kmpResult.playlistId,
+                    title: kmpResult.title,
+                    sourcePlatform: kmpResult.sourcePlatform,
+                    targetPlatform: kmpResult.targetPlatform,
+                    thumbnailUrl: kmpResult.thumbnailUrl,
+                    totalTracks: Int(kmpResult.totalTracks),
+                    originalTotalTracks: kmpResult.originalTotalTracks > 0 ? Int(kmpResult.originalTotalTracks) : nil,
+                    convertedTracks: Int(kmpResult.convertedTracks),
+                    matchedCount: Int(kmpResult.matchedCount),
+                    zeroOAuthUrl: kmpResult.zeroOAuthUrl,
+                    webShareUrl: kmpResult.webShareUrl,
+                    isLimited: kmpResult.isLimited,
+                    isPartial: kmpResult.isPartial,
+                    tracks: mappedTracks,
+                    parts: mappedParts
+                )
+
+                await MainActor.run {
+                    self.conversionResult = decoded
+                    self.isLoading = false
+                    ActivePlaylistModel.shared.current = ActivePlaylistData(
+                        playlistUrl: "https://songflip.link/file-import/\(decoded.playlistId ?? "file")",
+                        targetPlatformKey: targetPlatformKey,
+                        state: .success(result: decoded)
+                    )
+                    // Save to history
+                    let targetLink = decoded.zeroOAuthUrl ?? decoded.webShareUrl ?? playlistUrl
+                    let histTotal = max(decoded.totalTracks, decoded.originalTotalTracks ?? 0)
+                    HistoryModel.shared.add(
+                        title: decoded.title?.isEmpty == false ? decoded.title! : "Playlist",
+                        artist: String(format: LocalizationManager.string(for: "history_playlist_tracks_summary", lang: self.lang), decoded.matchedCount, histTotal),
+                        sourceUrl: "https://songflip.link/file-import/\(decoded.playlistId ?? "file")",
+                        targetUrl: targetLink,
+                        targetPlatform: "\(targetPlatformKey)_playlist",
+                        isAlbum: false,
+                        thumbnailUrl: decoded.thumbnailUrl
+                    )
+                }
+            } catch {
+                let nsError = error as NSError
+                let kmpException = nsError.userInfo["KotlinException"] as? PlaylistConversionException
+                let codeName = kmpException?.errorCode.name ?? ""
+                let resolvedErrorType = mapErrorCode(codeName)
+                await MainActor.run {
+                    self.errorType = resolvedErrorType
+                    self.isLoading = false
                 }
             }
         }

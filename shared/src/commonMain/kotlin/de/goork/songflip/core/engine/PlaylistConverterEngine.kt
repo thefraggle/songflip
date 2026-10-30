@@ -32,8 +32,8 @@ class PlaylistConverterEngine(
         val shared: PlaylistConverterEngine by lazy { PlaylistConverterEngine() }
 
         private val ENDPOINTS = listOf(
-            "https://songflip.link/api/playlist/convert",
-            "https://songflip-web.web.app/api/playlist/convert"
+            "https://songflip-web.web.app/api/playlist/convert",
+            "https://europe-west3-songflip-web.cloudfunctions.net/convertPlaylist"
         )
     }
 
@@ -72,6 +72,103 @@ class PlaylistConverterEngine(
         forceRefresh: Boolean
     ): PlaylistConversionResult {
         return convertPlaylist(url, targetPlatformKey, isPro, maxTracks, authToken, forceRefresh).getOrThrow()
+    }
+
+    suspend fun convertImportedTracksOrThrow(
+        tracks: List<ParsedImportTrack>,
+        targetPlatformKey: String,
+        isPro: Boolean,
+        playlistTitle: String? = null,
+        authToken: String? = null
+    ): PlaylistConversionResult {
+        return convertImportedTracks(tracks, targetPlatformKey, isPro, playlistTitle, authToken).getOrThrow()
+    }
+
+    suspend fun convertImportedTracks(
+        tracks: List<ParsedImportTrack>,
+        targetPlatformKey: String,
+        isPro: Boolean = false,
+        playlistTitle: String? = null,
+        authToken: String? = null
+    ): Result<PlaylistConversionResult> {
+        if (tracks.isEmpty()) {
+            return Result.failure(
+                PlaylistConversionException(
+                    errorCode = PlaylistErrorCode.EMPTY_PLAYLIST,
+                    message = "Playlist contains no valid tracks."
+                )
+            )
+        }
+
+        val maxAllowed = if (isPro) ProLimits.MAX_PRO_PLAYLIST_TRACKS else ProLimits.MAX_FREE_PLAYLIST_TRACKS
+        val limitedTracks = tracks.take(maxAllowed)
+
+        val jsonTracks = kotlinx.serialization.json.buildJsonArray {
+            for (t in limitedTracks) {
+                add(buildJsonObject {
+                    put("title", t.title)
+                    put("artist", t.artist)
+                    t.album?.let { put("album", it) }
+                    t.isrc?.let { put("isrc", it) }
+                    t.originalUrl?.let { put("originalUrl", it) }
+                })
+            }
+        }
+
+        val payload = buildJsonObject {
+            put("tracks", jsonTracks)
+            put("targetPlatform", targetPlatformKey)
+            put("maxTracks", maxAllowed)
+            playlistTitle?.let { put("title", it) }
+        }.toString()
+
+        val baseTimeout = if (isPro || limitedTracks.size > 20) 45000L else 25000L
+
+        for ((index, endpoint) in ENDPOINTS.withIndex()) {
+            try {
+                val timeoutMs = if (index == 0 && ENDPOINTS.size > 1) baseTimeout else (baseTimeout + 10000L)
+                val response = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+                    kotlinx.coroutines.withTimeout(timeoutMs) {
+                        client.post(endpoint) {
+                            if (supportsHttpTimeout) {
+                                timeout {
+                                    requestTimeoutMillis = timeoutMs
+                                    socketTimeoutMillis = timeoutMs
+                                }
+                            }
+                            contentType(ContentType.Application.Json)
+                            header("x-web-client", "songflip-app")
+                            if (!authToken.isNullOrBlank()) {
+                                header("Authorization", "Bearer $authToken")
+                            }
+                            setBody(payload)
+                        }
+                    }
+                }
+
+                if (response.status.isSuccess()) {
+                    val body = response.bodyAsText()
+                    val result = json.decodeFromString<PlaylistConversionResult>(body).deduplicated()
+                    return Result.success(result)
+                } else {
+                    val errorBody = response.bodyAsText()
+                    val parsedException = parseErrorPayload(errorBody, response.status.value)
+                    val isJson = response.contentType()?.match(ContentType.Application.Json) == true
+                    if (response.status.value in 400..499 && isJson) {
+                        return Result.failure(parsedException)
+                    }
+                }
+            } catch (t: Throwable) {
+                if (t is kotlinx.coroutines.CancellationException) throw t
+            }
+        }
+
+        return Result.failure(
+            PlaylistConversionException(
+                errorCode = PlaylistErrorCode.UNKNOWN_ERROR,
+                message = "Failed to convert imported playlist."
+            )
+        )
     }
 
     suspend fun convertPlaylist(
@@ -133,9 +230,10 @@ class PlaylistConverterEngine(
                 } else {
                     val errorBody = response.bodyAsText()
                     val parsedException = parseErrorPayload(errorBody, response.status.value)
+                    val isJson = response.contentType()?.match(ContentType.Application.Json) == true
                     // Fast-fail on 4xx client errors (e.g. private playlist, bad request, rate limit)
-                    // to prevent duplicate failed calls against fallback endpoints (#172).
-                    if (response.status.value in 400..499) {
+                    // only if it's structured JSON from our API, avoiding proxy 404s (#172).
+                    if (response.status.value in 400..499 && isJson) {
                         return Result.failure(parsedException)
                     }
                     lastException = parsedException

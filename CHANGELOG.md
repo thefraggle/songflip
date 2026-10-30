@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.12.0] - 2026-10-30
+- **Universal File Import for Playlists**: Import local tracklists from `.m3u8`, `.csv`, and plain text files directly into streaming playback queues.
+- **Architectural Cleanup & Faster Performance**: Consolidated localization catalogs into native resource bundles and streamlined interface components for enhanced stability.
+
 ## [1.11.11] - 2026-10-30
 - **Enhanced Error Handling**: More precise error classification and optimized handling during playlist conversions for increased stability.
 - **Architectural Consolidation**: Centralized operational limits into shared engine constants and harmonized fuzzy artist name normalization across all catalog resolvers.
