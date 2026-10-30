@@ -1,6 +1,7 @@
 import SwiftUI
 import SongFlipKit
 import CryptoKit
+import UniformTypeIdentifiers
 import os
 
 private let logger = Logger(subsystem: "de.goork.songflip", category: "ContentView")
