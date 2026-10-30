@@ -1,6 +1,9 @@
 import SwiftUI
 import SongFlipKit
 import CryptoKit
+import os
+
+private let logger = Logger(subsystem: "de.goork.songflip", category: "ContentView")
 
 struct ContentView: View {
     @Environment(\.scenePhase) private var scenePhase
