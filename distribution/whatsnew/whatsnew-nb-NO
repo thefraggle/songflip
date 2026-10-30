@@ -1,3 +1,2 @@
-- Forbedret Streaming Catalog Matching: Flertrinns oppløsning for sportitler med undertekster og versjoner, forbedrer direkte match-nøyaktighet på tvers av strømmetjenester.
-- Reliable Search Fallback Navigation: Oppdatert katalogsøkeruting for Qobuz, som sikrer at søk åpnes med fullstendige resultater i nettleseren.
-- Stabilitet og systemforbedringer: Forfinet diagnostisk logging og interne feilbehandlere for større total pålitelighet.
+- Samarbeidsmatching mellom flere artister: Avansert oppløsning på tvers av musikkataloger som støtter samarbeidsformater, utvalgte artister og sekundære artistvariasjoner.
+- Forbedret matching av strømmekataloger: Flertrinns oppløsning for sportitler med undertekster, utgavekoder og versjoner, noe som forbedrer nøyaktigheten av direkte matching.
