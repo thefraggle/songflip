@@ -1,2 +1,3 @@
-- Potrivirea catalogului de streaming îmbunătățită: rezoluție în mai multe etape pentru titlurile pieselor cu subtitrări și versiuni, îmbunătățind acuratețea potrivirii directe între serviciile de streaming.
-- Navigare de rezervă sigură pentru căutare: rutare actualizată de căutare în catalog pentru Qobuz, asigurând căutările deschise cu rezultate complete în browser.
+- Multi-Artist Collaboration Matching: Advanced resolution across music catalogs supporting collaboration formats, featured artists, and secondary artist variations.
+- Enhanced Streaming Catalog Matching: Multi-stage resolution for track titles with subtitles, edition tags, and versions, improving direct match accuracy.
+- Reliable Search Fallback Navigation: Updated catalog search routing for Qobuz, ensuring searches open with complete results in the browser.

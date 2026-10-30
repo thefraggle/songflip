@@ -147,6 +147,15 @@ class QobuzResolver(
             val third = executeQobuzSearch(noParens, isAlbum, audiophileMode)
             if (third != null) return third
         }
+        if (query.contains(",") || query.contains(" feat", ignoreCase = true) || query.contains(" ft", ignoreCase = true)) {
+            val artistPart = query.substringBefore(",").substringBefore(" feat").substringBefore(" ft").trim()
+            val remainingPart = query.substringAfterLast(",").substringAfter("feat.").substringAfter("ft.").trim()
+            val simplifiedQuery = "$artistPart $remainingPart".trim()
+            if (simplifiedQuery.isNotBlank() && simplifiedQuery != query) {
+                val fourth = executeQobuzSearch(simplifiedQuery, isAlbum, audiophileMode)
+                if (fourth != null) return fourth
+            }
+        }
         return null
     }
 

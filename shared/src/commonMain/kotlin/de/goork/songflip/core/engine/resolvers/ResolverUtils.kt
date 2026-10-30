@@ -179,6 +179,15 @@ object ResolverUtils {
         if (normCand == normTarget) return true
         if (normCand == normTarget + "thema" || normCand == normTarget + "topic") return true
         if (normTarget == normCand + "thema" || normTarget == normCand + "topic") return true
+
+        // Multi-artist / collaboration match (e.g. "Gang Starr" vs "Gang Starr, Big Shug, Freddie Foxxx")
+        val splitRegex = Regex("""[,/&]|\s+(?:feat\.?|ft\.?|with)\s+""", RegexOption.IGNORE_CASE)
+        val candParts = candidate.split(splitRegex).map { normalize(it) }.filter { it.length >= 3 }
+        val targetParts = target.split(splitRegex).map { normalize(it) }.filter { it.length >= 3 }
+        if (candParts.any { c -> targetParts.any { t -> c == t || (c.length >= 5 && (t.startsWith(c) || c.startsWith(t))) } }) {
+            return true
+        }
+
         return false
     }
 }

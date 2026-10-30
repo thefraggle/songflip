@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.12.2] - 2026-10-30
+- **Multi-Artist Collaboration Matching**: Advanced resolution across music catalogs supporting collaboration formats, featured artists, and secondary artist variations.
+- **Enhanced Streaming Catalog Matching**: Multi-stage resolution for track titles with subtitles, edition tags, and versions, improving direct match accuracy.
+- **Reliable Search Fallback Navigation**: Updated catalog search routing for Qobuz, ensuring searches open with complete results in the browser.
+- **Stability & System Refinements**: Refined file import dependencies, diagnostic logging, and error handlers for greater overall reliability.
+
 ## [1.12.1] - 2026-10-30
 - **Enhanced Streaming Catalog Matching**: Multi-stage resolution for track titles with subtitles and versions, improving direct match accuracy across streaming services.
 - **Reliable Search Fallback Navigation**: Updated catalog search routing for Qobuz, ensuring searches open with complete results in the browser.
