@@ -1,3 +1,2 @@
-- Továbbfejlesztett zenefelismerés: Gyorsabb és megbízhatóbb akusztikus sávazonosítás natív rendszerintegrációval és közvetlen offline szinkronizálással.
-- Biztonság és stabilitás megerősítése: Megerősített URL-érvényesítés a gyorsítótár-kérésekhez és optimalizált háttérerőforrás-kezelés.
-- Teljesítmény és gyorsítótár-optimalizálás: Gyors duplikátum-felismerés a linkelőzményekhez és az adatbázis-migráció fokozott rugalmasságához.
+- Továbbfejlesztett streamelési katalógusillesztés: Többlépcsős felbontás feliratos és verziójú számcímeknél, javítva a közvetlen egyezés pontosságát a streaming szolgáltatások között.
+- Megbízható keresési tartalék navigáció: Frissített katalógus-keresési útvonal a Qobuz számára, biztosítva, hogy a keresések teljes eredményekkel nyíljanak meg a böngészőben.

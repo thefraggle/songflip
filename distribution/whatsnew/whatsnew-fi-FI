@@ -1,3 +1,3 @@
-- Parannettu musiikintunnistus: Nopeampi ja luotettavampi akustisen kappaleen tunnistus alkuperäisellä järjestelmäintegraatiolla ja suoralla offline-synkronoinnilla.
-- Turvallisuus ja vakaus: Vahvistettu URL-validointi välimuistipyynnöille ja optimoitu taustaresurssien hallinta.
-- Suorituskyvyn ja välimuistin optimointi: Nopea kaksoiskappaleiden tunnistus linkkihistoriaa ja parannettua tietokannan siirron sietokykyä varten.
+- Enhanced Streaming Catalog Matching: Monivaiheinen resoluutio kappaleiden otsikoille, joissa on tekstitykset ja versiot, mikä parantaa suoran vastaavuuden tarkkuutta suoratoistopalveluissa.
+- Luotettava haun varanavigointi: Päivitetty luettelohaun reititys Qobuzille, mikä varmistaa, että haut avautuvat täydellisillä tuloksilla selaimessa.
+- Vakaus ja järjestelmän tarkennukset: Tarkennettu diagnostiikkaloki ja sisäiset virhekäsittelijät lisäävät yleistä luotettavuutta.

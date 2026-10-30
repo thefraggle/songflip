@@ -1,2 +1,2 @@
-- Ulepszone rozpoznawanie muzyki: szybsza i bardziej niezawodna identyfikacja ścieżek akustycznych dzięki integracji natywnego systemu i bezpośredniej synchronizacji offline.
-- Wzmocnienie bezpieczeństwa i stabilności: wzmocniona walidacja adresów URL dla żądań pamięci podręcznej i zoptymalizowane zarządzanie zasobami w tle.
+- Ulepszone dopasowanie katalogu strumieniowego: wielostopniowa rozdzielczość tytułów utworów z napisami i wersjami, poprawiająca dokładność bezpośredniego dopasowania w usługach przesyłania strumieniowego.
+- Niezawodna nawigacja zastępcza w wyszukiwaniu: Zaktualizowano routing wyszukiwania w katalogu dla Qobuz, zapewniając otwarcie wyszukiwań z pełnymi wynikami w przeglądarce.

@@ -1,2 +1,2 @@
-- Riconoscimento musicale avanzato: identificazione delle tracce acustiche più rapida e affidabile con integrazione di sistema nativa e sincronizzazione offline diretta.
-- Sicurezza e rafforzamento della stabilità: convalida degli URL rafforzata per le richieste di cache e gestione ottimizzata delle risorse in background.
+- Corrispondenza migliorata del catalogo di streaming: risoluzione multifase per i titoli delle tracce con sottotitoli e versioni, migliorando la precisione della corrispondenza diretta tra i servizi di streaming.
+- Navigazione di fallback affidabile nella ricerca: aggiornato il routing della ricerca nel catalogo per Qobuz, garantendo che le ricerche si aprano con risultati completi nel browser.

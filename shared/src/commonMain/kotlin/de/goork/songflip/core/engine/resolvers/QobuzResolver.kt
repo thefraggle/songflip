@@ -136,7 +136,16 @@ class QobuzResolver(
         if (primary != null) return primary
         val stripped = ResolverUtils.stripEditionSuffix(query)
         if (stripped != query && stripped.isNotBlank()) {
-            return executeQobuzSearch(stripped, isAlbum, audiophileMode)
+            val second = executeQobuzSearch(stripped, isAlbum, audiophileMode)
+            if (second != null) return second
+        }
+        val noParens = query.replace(Regex("\\s*\\([^)]*\\)"), "")
+            .replace(Regex("\\s*\\[[^\\]]*\\]"), "")
+            .replace(Regex("\\s{2,}"), " ")
+            .trim()
+        if (noParens != query && noParens != stripped && noParens.isNotBlank()) {
+            val third = executeQobuzSearch(noParens, isAlbum, audiophileMode)
+            if (third != null) return third
         }
         return null
     }
@@ -145,7 +154,7 @@ class QobuzResolver(
         return try {
             val encoded = query.encodeURLParameter()
             val typeParam = if (isAlbum) "albums" else "tracks"
-            val limit = if (audiophileMode) 12 else 5
+            val limit = if (audiophileMode) 20 else 15
             val url = "https://www.qobuz.com/api.json/0.2/catalog/search?query=$encoded&type=$typeParam&limit=$limit&app_id=$qobuzAppId"
             val resp = client.get(url) {
                 header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SongFlip/${EngineConfig.APP_VERSION}")
@@ -157,10 +166,11 @@ class QobuzResolver(
                         parsed.albums?.items
                             ?.map { item ->
                                 val isHiRes = item.hires == true || item.hiresStreamable == true || (item.maximumBitDepth ?: 16) >= 24
+                                val fullTitle = if (item.version.isNullOrBlank()) item.title else "${item.title} (${item.version})"
                                 val score = ResolverUtils.scoreAudiophileCandidate(
                                     query = query,
                                     candidateArtist = item.artist?.name,
-                                    candidateTitle = item.title,
+                                    candidateTitle = fullTitle,
                                     candidateVersion = item.version,
                                     albumTitle = item.title,
                                     isHiRes = isHiRes,
@@ -176,7 +186,9 @@ class QobuzResolver(
                             ?.first
                     } else {
                         parsed.albums?.items?.firstOrNull { item ->
-                            ResolverUtils.isMatch(query, item.artist?.name, item.title)
+                            val fullTitle = if (item.version.isNullOrBlank()) item.title else "${item.title} (${item.version})"
+                            ResolverUtils.isMatch(query, item.artist?.name, item.title) ||
+                                ResolverUtils.isMatch(query, item.artist?.name, fullTitle)
                         }
                     }
                     if (!album?.id.isNullOrBlank()) {
@@ -188,10 +200,11 @@ class QobuzResolver(
                             ?.map { item ->
                                 val isHiRes = item.hires == true || item.hiresStreamable == true ||
                                     item.album?.hires == true || (item.maximumBitDepth ?: 16) >= 24
+                                val fullTitle = if (item.version.isNullOrBlank()) item.title else "${item.title} (${item.version})"
                                 val score = ResolverUtils.scoreAudiophileCandidate(
                                     query = query,
                                     candidateArtist = item.performer?.name,
-                                    candidateTitle = item.title,
+                                    candidateTitle = fullTitle,
                                     candidateVersion = item.version,
                                     albumTitle = item.album?.title,
                                     isHiRes = isHiRes,
@@ -207,7 +220,9 @@ class QobuzResolver(
                             ?.first
                     } else {
                         parsed.tracks?.items?.firstOrNull { item ->
-                            ResolverUtils.isMatch(query, item.performer?.name, item.title)
+                            val fullTitle = if (item.version.isNullOrBlank()) item.title else "${item.title} (${item.version})"
+                            ResolverUtils.isMatch(query, item.performer?.name, item.title) ||
+                                ResolverUtils.isMatch(query, item.performer?.name, fullTitle)
                         }
                     }
                     if (track?.id != null) {

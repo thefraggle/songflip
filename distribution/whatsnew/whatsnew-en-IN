@@ -1,3 +1,3 @@
-- Enhanced Music Recognition: Faster and more reliable acoustic track identification with native system integration and direct offline synchronization.
-- Security & Stability Hardening: Hardened URL validation for cache requests and optimized background resource management.
-- Performance & Cache Optimization: Fast duplicate detection for link history and enhanced database migration resilience.
+- Enhanced Streaming Catalog Matching: Multi-stage resolution for track titles with subtitles and versions, improving direct match accuracy across streaming services.
+- Reliable Search Fallback Navigation: Updated catalog search routing for Qobuz, ensuring searches open with complete results in the browser.
+- Stability & System Refinements: Refined diagnostic logging and internal error handlers for greater overall reliability.

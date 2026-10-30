@@ -251,7 +251,7 @@ class UrlUtilsTest {
         assertEquals("https://bandcamp.com/search?q=Radiohead%20Reckoner", builtBandcamp)
 
         val builtQobuz = UrlUtils.buildSearchUrl("Romare The Blues", "qobuz")
-        assertEquals("https://play.qobuz.com/search?q=Romare%20The%20Blues", builtQobuz)
+        assertEquals("https://www.qobuz.com/us-en/search?q=Romare%20The%20Blues", builtQobuz)
     }
 
     @Test
