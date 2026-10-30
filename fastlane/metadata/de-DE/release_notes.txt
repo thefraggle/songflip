@@ -1,3 +1,2 @@
-- Vollständige Lokalisierung: Bereinigung verbliebener englischsprachiger Texte bei Playlist-Hinweisen und Barrierefreiheits-Schaltflächen in allen 34 Sprachen.
-- Zentrale Versionsverwaltung: Dynamische Aktualisierung von Versionsangaben bei Dienstanfragen sowie strukturierte Diagnosemeldungen im Datenkern.
-- Zuverlässigere Zeitlimits: Vereinheitlichte englischsprachige Systemmeldungen bei Überschreitung von Zeitlimits während der Link-Konvertierung.
+- Verbesserte Fehlerbehandlung: Präzisere Fehlererkennung und optimierte Verarbeitung bei Playlist-Konvertierungen für mehr Stabilität.
+- Architektonische Konsolidierung: Vereinheitlichung zentraler Grenzwerte im gemeinsamen Datenkern sowie Harmonisierung der Künstler-Namensnormalisierung über alle Streaming-Kataloge.

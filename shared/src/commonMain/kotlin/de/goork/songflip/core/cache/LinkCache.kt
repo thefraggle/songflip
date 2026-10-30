@@ -471,7 +471,7 @@ class LinkCache(
     suspend fun toggleFavoriteWithLimit(
         cacheKey: String,
         isPro: Boolean,
-        maxFreeFavorites: Int = 10,
+        maxFreeFavorites: Int = de.goork.songflip.core.engine.ProLimits.MAX_FREE_FAVORITES,
         currentTimeMs: Long = getCurrentTimeMillis()
     ): FavoriteToggleResult = mutex.withLock {
         ensureLoaded(currentTimeMs)
@@ -499,7 +499,7 @@ class LinkCache(
     suspend fun toggleFavoriteWithLimit(
         cacheKey: String,
         isPro: Boolean,
-        maxFreeFavorites: Int = 10
+        maxFreeFavorites: Int = de.goork.songflip.core.engine.ProLimits.MAX_FREE_FAVORITES
     ): FavoriteToggleResult = toggleFavoriteWithLimit(
         cacheKey = cacheKey,
         isPro = isPro,

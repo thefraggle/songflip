@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.11.11] - 2026-10-30
+- **Verbesserte Fehlerbehandlung**: Präzisere Fehlererkennung und optimierte Verarbeitung bei Playlist-Konvertierungen für mehr Stabilität.
+- **Architektonische Konsolidierung**: Vereinheitlichung zentraler Grenzwerte im gemeinsamen Datenkern sowie Harmonisierung der Künstler-Namensnormalisierung über alle Streaming-Kataloge.
+
 ## [1.11.10] - 2026-10-29
 - **L2-Cache Selbstheilung & Datenintegrität**: Der High-Speed Edge-Cache verwirft und repariert unvollständige Einträge ohne Titel- oder Künstler-Metadaten automatisch per Live-Resolve.
 - **Slug-unabhängige Apple-Music-Auflösung**: Apple-Music-Track- und Album-IDs werden über variierende URL-Text-Slugs hinweg deterministisch im Cache zugeordnet.

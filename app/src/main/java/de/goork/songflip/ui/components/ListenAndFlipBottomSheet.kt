@@ -316,7 +316,7 @@ fun ListenAndFlipBottomSheet(
                                         val toggleRes = SongLinkEngine.shared.cache.toggleFavoriteWithLimit(
                                             cacheKey = st.result.cacheKey,
                                             isPro = isPro,
-                                            maxFreeFavorites = 10
+                                            maxFreeFavorites = de.goork.songflip.core.engine.ProLimits.MAX_FREE_FAVORITES
                                         )
                                         when (toggleRes) {
                                             FavoriteToggleResult.ADDED -> isFavorited = true

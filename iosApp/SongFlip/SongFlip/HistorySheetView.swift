@@ -68,7 +68,7 @@ struct HistorySheetView: View {
             let targetKey = item.targetPlatform.replacingOccurrences(of: "_playlist", with: "").isEmpty
                 ? settings.targetPlatform
                 : item.targetPlatform.replacingOccurrences(of: "_playlist", with: "")
-            let maxTracks: Int32 = proManager.isPro ? 200 : 5
+            let maxTracks: Int32 = proManager.isPro ? ProLimits.shared.MAX_PRO_PLAYLIST_TRACKS : ProLimits.shared.MAX_FREE_PLAYLIST_TRACKS
             let token = proManager.authToken
             do {
                 let kmpResult = try await PlaylistConverterEngine.companion.shared.convertPlaylistOrThrow(

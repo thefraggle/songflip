@@ -1,3 +1,2 @@
-- Enhanced Music Recognition: Faster and more reliable acoustic track identification with native system integration and direct offline synchronization.
-- Security & Stability Hardening: Hardened URL validation for cache requests and optimized background resource management.
-- Performance & Cache Optimization: Fast duplicate detection for link history and enhanced database migration resilience.
+- Enhanced Error Handling: More precise error classification and optimized handling during playlist conversions for increased stability.
+- Architectural Consolidation: Centralized operational limits into shared engine constants and harmonized fuzzy artist name normalization across all catalog resolvers.

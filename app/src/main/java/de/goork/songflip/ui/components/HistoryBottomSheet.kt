@@ -483,7 +483,7 @@ fun HistoryBottomSheet(
                                     val result = SongLinkEngine.shared.cache.toggleFavoriteWithLimit(
                                         cacheKey = item.cacheKey,
                                         isPro = isPro,
-                                        maxFreeFavorites = 10
+                                        maxFreeFavorites = de.goork.songflip.core.engine.ProLimits.MAX_FREE_FAVORITES
                                     )
                                     if (result == de.goork.songflip.core.cache.FavoriteToggleResult.LIMIT_REACHED) {
                                         Toast.makeText(
@@ -543,7 +543,11 @@ fun HistoryBottomSheet(
                                     val isPl = item.platform.contains("_playlist") || de.goork.songflip.core.util.UrlUtils.isPlaylistUrl(item.canonicalUrl)
                                     val refreshedOk = if (isPl) {
                                         val targetKey = item.targetPlatformKey.ifBlank { item.platform.removeSuffix("_playlist") }
-                                        val maxTracks = if (isPro) 200 else 5
+                                        val maxTracks = if (isPro) {
+                                            de.goork.songflip.core.engine.ProLimits.MAX_PRO_PLAYLIST_TRACKS
+                                        } else {
+                                            de.goork.songflip.core.engine.ProLimits.MAX_FREE_PLAYLIST_TRACKS
+                                        }
                                         val plRes = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
                                             de.goork.songflip.core.engine.PlaylistConverterEngine.shared.convertPlaylist(
                                                 url = item.canonicalUrl,

@@ -332,7 +332,7 @@ class HistoryModel: ObservableObject {
             let result = try await SongLinkEngine.shared.cache.toggleFavoriteWithLimit(
                 cacheKey: item.cacheKey,
                 isPro: isPro,
-                maxFreeFavorites: 10
+                maxFreeFavorites: ProLimits.shared.MAX_FREE_FAVORITES
             )
             await syncFromKmpStore()
             return result

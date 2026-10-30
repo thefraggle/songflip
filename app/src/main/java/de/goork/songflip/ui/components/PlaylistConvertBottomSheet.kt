@@ -90,7 +90,11 @@ fun PlaylistConvertBottomSheet(
         }
         internalConversionState = PlaylistConversionState.Loading()
         conversionProgressStep = 0
-        val maxTracksToConvert = if (isPro) 200 else 5
+        val maxTracksToConvert = if (isPro) {
+            de.goork.songflip.core.engine.ProLimits.MAX_PRO_PLAYLIST_TRACKS
+        } else {
+            de.goork.songflip.core.engine.ProLimits.MAX_FREE_PLAYLIST_TRACKS
+        }
         de.goork.songflip.core.analytics.AptabaseClient.shared.trackPlaylistConversionStarted(
             sourcePlatform = sourcePlatform.key,
             targetPlatform = targetPlatformKey,
@@ -169,7 +173,8 @@ fun PlaylistConvertBottomSheet(
                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackPlaylistConversionFailed(
                     sourcePlatform = sourcePlatform.key,
                     targetPlatform = targetPlatformKey,
-                    reason = reason
+                    reason = reason,
+                    errorCode = errorCode.name.lowercase()
                 )
             }
         }
@@ -622,8 +627,8 @@ fun PlaylistConvertBottomSheet(
                         }
                     }
 
-                    // Large Playlist Notice Banner (only shown if total tracks exceeds 200)
-                    val isLargePlaylist = res.originalTotalTracks > 200
+                    // Large Playlist Notice Banner (only shown if total tracks exceeds max limit)
+                    val isLargePlaylist = res.originalTotalTracks > de.goork.songflip.core.engine.ProLimits.MAX_PRO_PLAYLIST_TRACKS
                     if (isLargePlaylist) {
                         Spacer(modifier = Modifier.height(12.dp))
                         Surface(
