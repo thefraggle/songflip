@@ -2,6 +2,7 @@ import SwiftUI
 import SongFlipKit
 
 struct SettingsSheetView: View {
+    var onImportPlaylistFile: (() -> Void)? = nil
     @EnvironmentObject var settings: SettingsModel
     @ObservedObject var proManager = ProManager.shared
     @Environment(\.dismiss) var dismiss
@@ -153,6 +154,23 @@ struct SettingsSheetView: View {
                                 }
                             }
                         }
+                    }
+                }
+
+                if let onImport = onImportPlaylistFile {
+                    Section {
+                        Button(action: {
+                            onImport()
+                        }) {
+                            HStack {
+                                Label(LocalizationManager.string(for: "playlist_import_file_btn", lang: lang), systemImage: "doc.badge.plus")
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .foregroundColor(.primary)
                     }
                 }
 

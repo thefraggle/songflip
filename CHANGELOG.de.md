@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.12.0] - 2026-10-30
+- **Universeller Datei-Import für Playlisten**: Import lokaler Musiklisten aus `.m3u8`-, `.csv`- und einfachen Textdateien zur direkten Konvertierung in Streaming-Wiedergabelisten.
+- **Architektonische Bereinigung & schnellere Ladezeiten**: Konsolidierte Lokalisierungsstrukturen in native Ressourcenkataloge und modularisierte Benutzeroberflächen-Komponenten für erhöhte Stabilität.
+
 ## [1.11.11] - 2026-10-30
 - **Verbesserte Fehlerbehandlung**: Präzisere Fehlererkennung und optimierte Verarbeitung bei Playlist-Konvertierungen für mehr Stabilität.
 - **Architektonische Konsolidierung**: Vereinheitlichung zentraler Grenzwerte im gemeinsamen Datenkern sowie Harmonisierung der Künstler-Namensnormalisierung über alle Streaming-Kataloge.

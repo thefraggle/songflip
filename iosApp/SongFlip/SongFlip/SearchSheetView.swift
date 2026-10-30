@@ -19,6 +19,7 @@ struct SearchTrackItem: Identifiable, Equatable {
 }
 
 struct SearchSheetView: View {
+    var onImportPlaylistFile: (() -> Void)? = nil
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var settings: SettingsModel
     @ObservedObject var proManager = ProManager.shared
@@ -137,13 +138,32 @@ struct SearchSheetView: View {
                         Spacer()
                     } else if searchResults.isEmpty {
                         Spacer()
-                        VStack(spacing: 10) {
+                        VStack(spacing: 16) {
                             Image(systemName: "music.note")
                                 .font(.system(size: 44))
                                 .foregroundColor(Color("AccentColor").opacity(0.7))
                             Text(LocalizationManager.string(for: "search_initial_prompt", lang: lang))
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
+
+                            if let onImport = onImportPlaylistFile {
+                                Button(action: {
+                                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                    onImport()
+                                }) {
+                                    HStack(spacing: 8) {
+                                        Image(systemName: "doc.badge.plus")
+                                        Text(LocalizationManager.string(for: "playlist_import_file_btn", lang: lang))
+                                    }
+                                    .font(.subheadline)
+                                    .fontWeight(.medium)
+                                    .padding(.horizontal, 16)
+                                    .padding(.vertical, 10)
+                                    .background(Color(uiColor: .secondarySystemBackground))
+                                    .cornerRadius(12)
+                                }
+                                .buttonStyle(.plain)
+                            }
                         }
                         Spacer()
                     } else {

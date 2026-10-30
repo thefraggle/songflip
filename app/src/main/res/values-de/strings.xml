@@ -446,4 +446,8 @@
     <string name="listen_change_target">Ziel ändern</string>
     <string name="playlist_reconvert">Neu konvertieren</string>
     <string name="playlist_badge_free_limit">Kostenlos (5)</string>
+    <string name="playlist_import_file_btn">Playlist-Datei importieren (.m3u8, .csv)</string>
+    <string name="playlist_import_file_desc">Importiere lokale .m3u8-, .csv- oder Text-Tracklisten zum direkten Konvertieren und Abspielen.</string>
+    <string name="playlist_import_empty_error">Keine abspielbaren Songs in der ausgewählten Datei gefunden.</string>
+    <string name="playlist_import_source_chip">Datei</string>
 </resources>
