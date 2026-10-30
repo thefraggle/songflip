@@ -1,2 +1,2 @@
-- Reconnaissance musicale améliorée : identification plus rapide et plus fiable des pistes acoustiques avec intégration native du système et synchronisation directe hors ligne.
-- Durcissement de la sécurité et de la stabilité : validation d'URL durcie pour les demandes de cache et gestion optimisée des ressources en arrière-plan.
+- Correspondance améliorée du catalogue de streaming : résolution en plusieurs étapes pour les titres de pistes avec sous-titres et versions, améliorant la précision de la correspondance directe entre les services de streaming.
+- Navigation de repli de recherche fiable : routage de recherche de catalogue mis à jour pour Qobuz, garantissant que les recherches s'ouvrent avec des résultats complets dans le navigateur.

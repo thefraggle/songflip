@@ -310,7 +310,7 @@ class AcousticQuotaManager(
             MusicPlatform.AMAZON_MUSIC -> "https://music.amazon.com/search/$encoded"
             MusicPlatform.SOUNDCLOUD -> "https://soundcloud.com/search?q=$encoded"
             MusicPlatform.BANDCAMP -> "https://bandcamp.com/search?q=$encoded"
-            MusicPlatform.QOBUZ -> "https://play.qobuz.com/search?q=$encoded"
+            MusicPlatform.QOBUZ -> "https://www.qobuz.com/us-en/search?q=$encoded"
             MusicPlatform.BEATPORT -> "https://www.beatport.com/search?q=$encoded"
         }
     }

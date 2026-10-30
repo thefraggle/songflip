@@ -678,7 +678,7 @@ object UrlUtils {
             "amazonMusic", "amazonmusic" -> "https://music.amazon.com/search/$query"
             "soundcloud" -> "https://soundcloud.com/search?q=$query"
             "bandcamp" -> "https://bandcamp.com/search?q=$query"
-            "qobuz" -> "https://play.qobuz.com/search?q=$query"
+            "qobuz" -> "https://www.qobuz.com/us-en/search?q=$query"
             "beatport" -> "https://www.beatport.com/search?q=$query"
             else -> "https://music.youtube.com/search?q=$query"
         }

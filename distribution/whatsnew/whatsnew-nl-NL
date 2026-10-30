@@ -1,3 +1,2 @@
-- Verbeterde muziekherkenning: snellere en betrouwbaardere akoestische spooridentificatie met native systeemintegratie en directe offline synchronisatie.
-- Beveiliging & Stabiliteit Hardening: Geharde URL-validatie voor cacheverzoeken en geoptimaliseerd beheer van achtergrondbronnen.
-- Prestaties en cache-optimalisatie: snelle dubbele detectie voor linkgeschiedenis en verbeterde veerkracht van databasemigratie.
+- Verbeterde streamingcatalogusmatching: meertrapsresolutie voor tracktitels met ondertitels en versies, waardoor de nauwkeurigheid van directe match tussen streamingdiensten wordt verbeterd.
+- Betrouwbare terugvalnavigatie voor zoeken: bijgewerkte cataloguszoekroutering voor Qobuz, waardoor zoekopdrachten worden geopend met volledige resultaten in de browser.

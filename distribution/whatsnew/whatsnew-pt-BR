@@ -1,3 +1,2 @@
-- Reconhecimento de Música Aprimorado: Identificação de faixa acústica mais rápida e confiável com integração de sistema nativo e sincronização offline direta.
-- Segurança e fortalecimento de estabilidade: validação de URL reforçada para solicitações de cache e gerenciamento otimizado de recursos em segundo plano.
-- Otimização de desempenho e cache: detecção rápida de duplicatas para histórico de links e maior resiliência de migração de banco de dados.
+- Correspondência aprimorada de catálogo de streaming: resolução em vários estágios para títulos de faixas com legendas e versões, melhorando a precisão da correspondência direta em serviços de streaming.
+- Navegação alternativa de pesquisa confiável: Roteamento de pesquisa de catálogo atualizado para Qobuz, garantindo pesquisas abertas com resultados completos no navegador.

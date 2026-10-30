@@ -537,11 +537,20 @@ class PlatformResolversTest {
                         headers = headersOf(HttpHeaders.ContentType, "application/json")
                     )
                 } else {
-                    respond(
-                        content = """{"tracks":{"items":[{"id":999,"title":"Star Wars Theme","performer":{"name":"John Williams"}}]}}""",
-                        status = HttpStatusCode.OK,
-                        headers = headersOf(HttpHeaders.ContentType, "application/json")
-                    )
+                    val query = request.url.parameters["query"] ?: ""
+                    if (query.contains("Romare") || query.contains("Blues")) {
+                        respond(
+                            content = """{"tracks":{"items":[{"id":96104243,"title":"The Blues","version":"It Began in Africa","performer":{"name":"Romare"}}]}}""",
+                            status = HttpStatusCode.OK,
+                            headers = headersOf(HttpHeaders.ContentType, "application/json")
+                        )
+                    } else {
+                        respond(
+                            content = """{"tracks":{"items":[{"id":999,"title":"Star Wars Theme","performer":{"name":"John Williams"}}]}}""",
+                            status = HttpStatusCode.OK,
+                            headers = headersOf(HttpHeaders.ContentType, "application/json")
+                        )
+                    }
                 }
             } else if (path.contains("/track/get")) {
                 val trackId = request.url.parameters["track_id"]
@@ -556,6 +565,7 @@ class PlatformResolversTest {
         }
         val qobuzResolver = QobuzResolver(client = HttpClient(qobuzMock))
         assertNull(qobuzResolver.resolveTrack("April Art RED"), "QobuzResolver must reject unrelated track match")
+        assertEquals("https://open.qobuz.com/track/96104243", qobuzResolver.resolveTrack("Romare - The Blues (It Began In Africa)"))
         assertEquals("https://open.qobuz.com/artist/222", qobuzResolver.resolveArtist("Korsakow"))
         assertEquals("Queen Bohemian Rhapsody", qobuzResolver.extractMetadata("https://www.qobuz.com/de-de/track/bohemian-rhapsody/123456"))
     }
