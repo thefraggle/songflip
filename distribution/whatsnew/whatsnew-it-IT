@@ -1,2 +1,2 @@
-- Corrispondenza migliorata del catalogo di streaming: risoluzione multifase per i titoli delle tracce con sottotitoli e versioni, migliorando la precisione della corrispondenza diretta tra i servizi di streaming.
-- Navigazione di fallback affidabile nella ricerca: aggiornato il routing della ricerca nel catalogo per Qobuz, garantendo che le ricerche si aprano con risultati completi nel browser.
+- Multi-Artist Collaboration Matching: risoluzione avanzata tra cataloghi musicali che supportano formati di collaborazione, artisti in primo piano e variazioni di artisti secondari.
+- Corrispondenza migliorata del catalogo di streaming: risoluzione in più fasi per i titoli delle tracce con sottotitoli, tag di edizione e versioni, migliorando l'accuratezza della corrispondenza diretta.

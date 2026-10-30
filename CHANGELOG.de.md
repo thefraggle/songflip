@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.12.2] - 2026-10-30
+- **Erkennung von Künstler-Kollaborationen**: Erweiterte Erkennung über Musikkataloge hinweg mit Unterstützung für gemeinsame Veröffentlichungen und Gastkünstler.
+- **Präzisere Titelerkennung im Streaming-Katalog**: Mehrstufige Auflösung für Songs mit Versions- und Untertitel-Zusätzen für eine deutlich höhere Trefferquote.
+- **Zuverlässige Weiterleitung bei Katalog-Suchen**: Optimierte Suchweiterleitung für Qobuz, sodass Suchen verlässlich mit vollständigen Ergebnissen im Web-Katalog geladen werden.
+- **Stabilität & Systemoptimierungen**: Bereinigte Systemkomponenten beim Datei-Import sowie optimierte Hintergrunddiagnose für maximale Zuverlässigkeit.
+
 ## [1.12.1] - 2026-10-30
 - **Präzisere Titelerkennung im Streaming-Katalog**: Mehrstufige Auflösung für Songs mit Versions- und Untertitel-Zusätzen für eine deutlich höhere Trefferquote bei Direktverlinkungen.
 - **Zuverlässige Weiterleitung bei Katalog-Suchen**: Optimierte Suchweiterleitung für Qobuz, sodass Suchen verlässlich mit vollständigen Ergebnissen im Web-Katalog geladen werden.

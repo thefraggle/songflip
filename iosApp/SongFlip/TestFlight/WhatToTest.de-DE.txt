@@ -1,2 +1,2 @@
-- Präzisere Titelerkennung im Streaming-Katalog: Mehrstufige Auflösung für Songs mit Versions- und Untertitel-Zusätzen für eine deutlich höhere Trefferquote bei Direktverlinkungen.
-- Zuverlässige Weiterleitung bei Katalog-Suchen: Optimierte Suchweiterleitung für Qobuz, sodass Suchen verlässlich mit vollständigen Ergebnissen im Web-Katalog geladen werden.
+- Erkennung von Künstler-Kollaborationen: Erweiterte Erkennung über Musikkataloge hinweg mit Unterstützung für gemeinsame Veröffentlichungen und Gastkünstler.
+- Präzisere Titelerkennung im Streaming-Katalog: Mehrstufige Auflösung für Songs mit Versions- und Untertitel-Zusätzen für eine deutlich höhere Trefferquote.

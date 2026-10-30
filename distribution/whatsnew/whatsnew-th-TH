@@ -1,1 +1,3 @@
-- การจับคู่แคตตาล็อกสตรีมมิ่งที่ได้รับการปรับปรุง: ความละเอียดแบบหลายขั้นตอนสำหรับชื่อแทร็กที่มีคำบรรยายและเวอร์ชัน ปรับปรุงความแม่นยำในการจับคู่โดยตรงในบริการสตรีมมิ่ง
+- Multi-Artist Collaboration Matching: Advanced resolution across music catalogs supporting collaboration formats, featured artists, and secondary artist variations.
+- Enhanced Streaming Catalog Matching: Multi-stage resolution for track titles with subtitles, edition tags, and versions, improving direct match accuracy.
+- Reliable Search Fallback Navigation: Updated catalog search routing for Qobuz, ensuring searches open with complete results in the browser.
