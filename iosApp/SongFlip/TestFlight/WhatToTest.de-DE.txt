@@ -1,3 +1,2 @@
-- Verbesserte Musikerkennung: Schnellere und zuverlässigere akustische Erkennung mit nativer Systemintegration und direkter Offline-Synchronisierung.
-- Erhöhte Sicherheit & Stabilität: Gehärtete URL-Prüfungen für Cache-Abfragen sowie optimierte Ressourcen- und Speicherverwaltung im Hintergrund.
-- Leistungs- & Cache-Optimierung: Schnellere Verlaufserkennung ohne Verzögerungen und abgesicherte Datenmigration.
+- Verbesserte Fehlerbehandlung: Präzisere Fehlererkennung und optimierte Verarbeitung bei Playlist-Konvertierungen für mehr Stabilität.
+- Architektonische Konsolidierung: Vereinheitlichung zentraler Grenzwerte im gemeinsamen Datenkern sowie Harmonisierung der Künstler-Namensnormalisierung über alle Streaming-Kataloge.

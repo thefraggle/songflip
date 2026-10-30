@@ -166,7 +166,7 @@ class AppleMusicResolver(
                 val parsed = json.decodeFromString<ITunesResponse>(resp.bodyAsText())
                 for (item in parsed.results) {
                     val name = item.artistName ?: ""
-                    if (isArtistNameMatch(name, artistName)) {
+                    if (ResolverUtils.isArtistNameMatch(name, artistName)) {
                         val link = item.artistLinkUrl ?: item.artistViewUrl
                         if (!link.isNullOrEmpty()) {
                             return link
@@ -231,19 +231,5 @@ class AppleMusicResolver(
             if (t is CancellationException) throw t
             null
         }
-    }
-
-    private fun isArtistNameMatch(candidate: String, target: String): Boolean {
-        fun normalize(str: String): String {
-            return str.lowercase().trim()
-                .replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
-                .replace("[^a-z0-9]".toRegex(), "")
-        }
-        val normCand = normalize(candidate)
-        val normTarget = normalize(target)
-        if (normCand.isEmpty() || normTarget.isEmpty()) return false
-        if (normCand == normTarget) return true
-        if (normCand == normTarget + "thema" || normCand == normTarget + "topic") return true
-        return false
     }
 }
