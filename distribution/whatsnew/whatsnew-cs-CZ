@@ -1,3 +1,2 @@
-- Vylepšené rozpoznávání hudby: Rychlejší a spolehlivější identifikace akustické stopy s nativní systémovou integrací a přímou offline synchronizací.
-- Bezpečnost & stabilita: Zpřísněné ověření URL u požadavků na mezipaměť a optimalizovaná správa zdrojů na pozadí.
-- Optimalizace výkonu a mezipaměti: Rychlá detekce duplikátů v historii odkazů a zvýšená odolnost migrace databáze.
+- Vylepšené přizpůsobení katalogu streamování: Vícestupňové rozlišení u názvů skladeb s titulky a verzemi, což zlepšuje přesnost přímé shody napříč streamovacími službami.
+- Spolehlivá záložní navigace vyhledávání: Aktualizované směrování vyhledávání v katalogu služby Qobuz, které zajišťuje, že vyhledávání se otevírají s kompletními výsledky v prohlížeči.

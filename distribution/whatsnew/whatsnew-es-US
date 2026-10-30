@@ -1,3 +1,2 @@
-- Reconocimiento de música mejorado: identificación de pistas acústicas más rápida y fiable con integración nativa del sistema y sincronización directa sin conexión.
-- Endurecimiento de seguridad y estabilidad: validación de URL endurecida para solicitudes de caché y gestión optimizada de recursos en segundo plano.
-- Optimización del rendimiento y la caché: detección rápida de duplicados para el historial de enlaces y una mayor resistencia a la migración de la base de datos.
+- Coincidencia de catálogos de transmisión mejorada: resolución de múltiples etapas para títulos de pistas con subtítulos y versiones, lo que mejora la precisión de la coincidencia directa en todos los servicios de transmisión.
+- Navegación alternativa de búsqueda confiable: ruta de búsqueda de catálogo actualizada para Qobuz, lo que garantiza que las búsquedas se abran con resultados completos en el navegador.

@@ -1,3 +1,2 @@
-- Verbesserte Musikerkennung: Schnellere und zuverlässigere akustische Erkennung mit nativer Systemintegration und direkter Offline-Synchronisierung.
-- Erhöhte Sicherheit & Stabilität: Gehärtete URL-Prüfungen für Cache-Abfragen sowie optimierte Ressourcen- und Speicherverwaltung im Hintergrund.
-- Leistungs- & Cache-Optimierung: Schnellere Verlaufserkennung ohne Verzögerungen und abgesicherte Datenmigration.
+- Präzisere Titelerkennung im Streaming-Katalog: Mehrstufige Auflösung für Songs mit Versions- und Untertitel-Zusätzen für eine deutlich höhere Trefferquote bei Direktverlinkungen.
+- Zuverlässige Weiterleitung bei Katalog-Suchen: Optimierte Suchweiterleitung für Qobuz, sodass Suchen verlässlich mit vollständigen Ergebnissen im Web-Katalog geladen werden.

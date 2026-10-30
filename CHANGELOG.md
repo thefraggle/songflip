@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.12.1] - 2026-10-30
+- **Enhanced Streaming Catalog Matching**: Multi-stage resolution for track titles with subtitles and versions, improving direct match accuracy across streaming services.
+- **Reliable Search Fallback Navigation**: Updated catalog search routing for Qobuz, ensuring searches open with complete results in the browser.
+- **Stability & System Refinements**: Refined diagnostic logging and internal error handlers for greater overall reliability.
+
 ## [1.12.0] - 2026-10-30
 - **Universal File Import for Playlists**: Import local tracklists from `.m3u8`, `.csv`, and plain text files directly into streaming playback queues.
 - **Architectural Cleanup & Faster Performance**: Consolidated localization catalogs into native resource bundles and streamlined interface components for enhanced stability.

@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.12.1] - 2026-10-30
+- **Präzisere Titelerkennung im Streaming-Katalog**: Mehrstufige Auflösung für Songs mit Versions- und Untertitel-Zusätzen für eine deutlich höhere Trefferquote bei Direktverlinkungen.
+- **Zuverlässige Weiterleitung bei Katalog-Suchen**: Optimierte Suchweiterleitung für Qobuz, sodass Suchen verlässlich mit vollständigen Ergebnissen im Web-Katalog geladen werden.
+- **Stabilität & Systemoptimierungen**: Bereinigte Systemmeldungen und optimierte Diagnoseverarbeitung im Hintergrund für maximale Zuverlässigkeit.
+
 ## [1.12.0] - 2026-10-30
 - **Universeller Datei-Import für Playlisten**: Import lokaler Musiklisten aus `.m3u8`-, `.csv`- und einfachen Textdateien zur direkten Konvertierung in Streaming-Wiedergabelisten.
 - **Architektonische Bereinigung & schnellere Ladezeiten**: Konsolidierte Lokalisierungsstrukturen in native Ressourcenkataloge und modularisierte Benutzeroberflächen-Komponenten für erhöhte Stabilität.

@@ -1,3 +1,2 @@
-- Gelişmiş Müzik Tanıma: Yerel sistem entegrasyonu ve doğrudan çevrimdışı senkronizasyon ile daha hızlı ve daha güvenilir akustik parça tanımlama.
-- Güvenlik ve Kararlılık Sertleştirme: Önbellek istekleri ve optimize edilmiş arka plan kaynak yönetimi için sertleştirilmiş URL doğrulaması.
-- Performans ve Önbellek Optimizasyonu: Bağlantı geçmişi ve gelişmiş veritabanı geçiş esnekliği için hızlı yinelenen algılama.
+- Gelişmiş Yayın Kataloğu Eşleştirme: Altyazılı ve versiyonlu parça başlıkları için çok aşamalı çözünürlük, akış hizmetlerinde doğrudan eşleştirme doğruluğunu artırır.
+- Güvenilir Arama Geri Dönüş Navigasyonu: Qobuz için güncellenen katalog arama yönlendirmesi, aramaların tarayıcıda eksiksiz sonuçlarla açılmasını sağlıyor.

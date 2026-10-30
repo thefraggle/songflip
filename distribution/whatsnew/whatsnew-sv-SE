@@ -1,3 +1,2 @@
-- Förbättrad musikigenkänning: Snabbare och mer tillförlitlig akustisk spåridentifiering med inbyggd systemintegration och direkt offline-synkronisering.
-- Säkerhets- och stabilitetshärdning: Härdad URL-validering för cacheförfrågningar och optimerad bakgrundsresurshantering.
-- Prestanda- och cacheoptimering: Snabb dubblettdetektering för länkhistorik och förbättrad motståndskraft mot databasmigrering.
+- Förbättrad matchning av strömningskatalogen: Flerstegsupplösning för spårtitlar med undertexter och versioner, vilket förbättrar direktmatchningsnoggrannheten mellan streamingtjänsterna.
+- Tillförlitlig reservnavigering för sökning: Uppdaterad katalogsökningsrutt för Qobuz, vilket säkerställer att sökningar öppnas med fullständiga resultat i webbläsaren.

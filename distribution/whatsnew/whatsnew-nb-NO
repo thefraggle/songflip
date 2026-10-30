@@ -1,3 +1,3 @@
-- Forbedret musikkgjenkjenning: Raskere og mer pålitelig akustisk sporidentifikasjon med innebygd systemintegrasjon og direkte offline-synkronisering.
-- Sikkerhets- og stabilitetsherding: Herdet URL-validering for hurtigbufferforespørsler og optimalisert bakgrunnsressurshåndtering.
-- Ytelses- og hurtigbufferoptimalisering: Rask duplikatdeteksjon for lenkehistorikk og forbedret robusthet for databasemigrering.
+- Forbedret Streaming Catalog Matching: Flertrinns oppløsning for sportitler med undertekster og versjoner, forbedrer direkte match-nøyaktighet på tvers av strømmetjenester.
+- Reliable Search Fallback Navigation: Oppdatert katalogsøkeruting for Qobuz, som sikrer at søk åpnes med fullstendige resultater i nettleseren.
+- Stabilitet og systemforbedringer: Forfinet diagnostisk logging og interne feilbehandlere for større total pålitelighet.
