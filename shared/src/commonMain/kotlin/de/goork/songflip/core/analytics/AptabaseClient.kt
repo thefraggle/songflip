@@ -321,15 +321,21 @@ object AptabaseClient {
         )
     }
 
-    fun trackPlaylistConversionFailed(sourcePlatform: String, targetPlatform: String, reason: String) {
-        trackEvent(
-            "playlist_conversion_failed",
-            mapOf(
-                "source" to sourcePlatform,
-                "target" to targetPlatform,
-                "reason" to reason
-            )
+    fun trackPlaylistConversionFailed(
+        sourcePlatform: String,
+        targetPlatform: String,
+        reason: String,
+        errorCode: String? = null
+    ) {
+        val props = mutableMapOf(
+            "source" to sourcePlatform,
+            "target" to targetPlatform,
+            "reason" to reason
         )
+        if (!errorCode.isNullOrBlank()) {
+            props["error_code"] = errorCode.lowercase()
+        }
+        trackEvent("playlist_conversion_failed", props)
     }
 
     fun trackUnsupportedEntityIntercepted(target: String, entityType: String, sourceDomain: String? = null) {

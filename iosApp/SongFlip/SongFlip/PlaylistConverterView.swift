@@ -706,7 +706,7 @@ struct PlaylistConverterView: View {
             }
         }
 
-        let maxTracks: Int32 = proManager.isPro ? 200 : 5
+        let maxTracks: Int32 = proManager.isPro ? ProLimits.shared.MAX_PRO_PLAYLIST_TRACKS : ProLimits.shared.MAX_FREE_PLAYLIST_TRACKS
         let token = proManager.authToken
 
         Task {

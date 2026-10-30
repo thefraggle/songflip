@@ -180,7 +180,7 @@ class TidalResolver(
                         var maxPop = -1
                         for (item in items) {
                             val name = item.name ?: ""
-                            if (isArtistNameMatch(name, artistName)) {
+                            if (ResolverUtils.isArtistNameMatch(name, artistName)) {
                                 val pop = item.popularity ?: 0
                                 if (pop > maxPop) {
                                     maxPop = pop
@@ -198,19 +198,5 @@ class TidalResolver(
             }
         }
         return null
-    }
-
-    private fun isArtistNameMatch(candidate: String, target: String): Boolean {
-        fun normalize(str: String): String {
-            return str.lowercase().trim()
-                .replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
-                .replace("[^a-z0-9]".toRegex(), "")
-        }
-        val normCand = normalize(candidate)
-        val normTarget = normalize(target)
-        if (normCand.isEmpty() || normTarget.isEmpty()) return false
-        if (normCand == normTarget) return true
-        if (normCand == normTarget + "thema" || normCand == normTarget + "topic") return true
-        return false
     }
 }

@@ -417,7 +417,7 @@ struct ListenAndFlipSheetView: View {
                         let toggleRes = try? await SongLinkEngine.shared.cache.toggleFavoriteWithLimit(
                             cacheKey: result.cacheKey,
                             isPro: proManager.isPro,
-                            maxFreeFavorites: 10
+                            maxFreeFavorites: ProLimits.shared.MAX_FREE_FAVORITES
                         )
                         await history.syncFromKmpStore()
                         await MainActor.run {

@@ -178,7 +178,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         )
 
         viewModelScope.launch(Dispatchers.IO) {
-            val maxTracksToConvert = if (isPro) 200 else 5
+            val maxTracksToConvert = if (isPro) {
+                de.goork.songflip.core.engine.ProLimits.MAX_PRO_PLAYLIST_TRACKS
+            } else {
+                de.goork.songflip.core.engine.ProLimits.MAX_FREE_PLAYLIST_TRACKS
+            }
             AptabaseClient.shared.trackPlaylistConversionStarted(
                 sourcePlatform = sourcePlatform.key,
                 targetPlatform = targetPlatformKey,
@@ -258,7 +262,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 AptabaseClient.shared.trackPlaylistConversionFailed(
                     sourcePlatform = sourcePlatform.key,
                     targetPlatform = targetPlatformKey,
-                    reason = reason
+                    reason = reason,
+                    errorCode = errorCode.name.lowercase()
                 )
             }
         }

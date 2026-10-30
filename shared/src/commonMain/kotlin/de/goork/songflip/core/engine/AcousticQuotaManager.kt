@@ -21,7 +21,7 @@ class AcousticQuotaManager(
     private val sqlStorage: SqlDelightCacheStorage? = (createDefaultCacheStorage() as? SqlDelightCacheStorage)
 ) {
     companion object {
-        const val MAX_FREE_SCANS_PER_MONTH = 3
+        const val MAX_FREE_SCANS_PER_MONTH = ProLimits.FREE_SCAN_QUOTA_PER_MONTH
         private const val QUOTA_KEY_PREFIX = "acoustic_scans_month:"
         val shared: AcousticQuotaManager by lazy { AcousticQuotaManager() }
 

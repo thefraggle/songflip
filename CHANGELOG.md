@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.11.11] - 2026-10-30
+- **Enhanced Error Handling**: More precise error classification and optimized handling during playlist conversions for increased stability.
+- **Architectural Consolidation**: Centralized operational limits into shared engine constants and harmonized fuzzy artist name normalization across all catalog resolvers.
+
 ## [1.11.10] - 2026-10-29
 - **L2 Cache Self-Healing & Integrity**: High-speed edge cache automatically purges and re-resolves incomplete records missing title or artist metadata, preventing resolution errors.
 - **Apple Music Slug-Independent Resolution**: Cross-referenced Apple Music track and album IDs across slug variations for deterministic cache hits and live conversion consistency.
