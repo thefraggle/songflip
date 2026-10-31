@@ -78,11 +78,24 @@ enum class PlaylistErrorCode {
     UNSUPPORTED_PLATFORM,
     PRIVATE_OR_RESTRICTED,
     EMPTY_PLAYLIST,
+    NOT_FOUND,
     UPSTREAM_TIMEOUT,
     RATE_LIMITED,
     EXTRACTION_FAILED,
     UNKNOWN_ERROR
 }
+
+val PlaylistErrorCode.isPermanentFailure: Boolean
+    get() = when (this) {
+        PlaylistErrorCode.UNSUPPORTED_PLATFORM,
+        PlaylistErrorCode.PRIVATE_OR_RESTRICTED,
+        PlaylistErrorCode.EMPTY_PLAYLIST,
+        PlaylistErrorCode.NOT_FOUND -> true
+        PlaylistErrorCode.UPSTREAM_TIMEOUT,
+        PlaylistErrorCode.RATE_LIMITED,
+        PlaylistErrorCode.EXTRACTION_FAILED,
+        PlaylistErrorCode.UNKNOWN_ERROR -> false
+    }
 
 @Serializable
 data class PlaylistErrorPayload(

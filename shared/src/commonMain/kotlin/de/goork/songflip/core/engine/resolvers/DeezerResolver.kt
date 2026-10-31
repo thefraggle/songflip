@@ -1,8 +1,10 @@
 package de.goork.songflip.core.engine.resolvers
 
+import de.goork.songflip.core.engine.EngineConfig
 import de.goork.songflip.core.model.MusicPlatform
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
+import io.ktor.client.request.header
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.encodeURLParameter
 import io.ktor.http.isSuccess
@@ -61,7 +63,25 @@ class DeezerResolver(
         if (primary != null) return primary
         val stripped = ResolverUtils.stripEditionSuffix(query)
         if (stripped != query && stripped.isNotBlank()) {
-            return executeDeezerSearch(stripped, isAlbum, audiophileMode)
+            val second = executeDeezerSearch(stripped, isAlbum, audiophileMode)
+            if (second != null) return second
+        }
+        val noParens = query.replace(Regex("\\s*\\([^)]*\\)"), "")
+            .replace(Regex("\\s*\\[[^\\]]*\\]"), "")
+            .replace(Regex("\\s{2,}"), " ")
+            .trim()
+        if (noParens != query && noParens != stripped && noParens.isNotBlank()) {
+            val third = executeDeezerSearch(noParens, isAlbum, audiophileMode)
+            if (third != null) return third
+        }
+        if (query.contains(",") || query.contains(" feat", ignoreCase = true) || query.contains(" ft", ignoreCase = true)) {
+            val artistPart = query.substringBefore(",").substringBefore(" feat").substringBefore(" ft").trim()
+            val remainingPart = query.substringAfterLast(",").substringAfter("feat.").substringAfter("ft.").trim()
+            val simplifiedQuery = "$artistPart $remainingPart".trim()
+            if (simplifiedQuery.isNotBlank() && simplifiedQuery != query) {
+                val fourth = executeDeezerSearch(simplifiedQuery, isAlbum, audiophileMode)
+                if (fourth != null) return fourth
+            }
         }
         return null
     }
@@ -70,8 +90,10 @@ class DeezerResolver(
         return try {
             val encoded = query.encodeURLParameter()
             val endpoint = if (isAlbum) "search/album" else "search"
-            val limit = if (audiophileMode) 10 else 5
-            val resp = client.get("https://api.deezer.com/$endpoint?q=$encoded&limit=$limit")
+            val limit = if (audiophileMode) 20 else 15
+            val resp = client.get("https://api.deezer.com/$endpoint?q=$encoded&limit=$limit") {
+                header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SongFlip/${EngineConfig.APP_VERSION}")
+            }
             if (resp.status.isSuccess()) {
                 val parsed = json.decodeFromString<DeezerSearchResponse>(resp.bodyAsText())
                 val match = if (audiophileMode) {

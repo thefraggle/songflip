@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.12.3] - 2026-10-31
+- **Seamless Web Fallback Navigation**: Robust fallback viewing in built-in browser tabs when target streaming apps are not installed, preventing navigation loops.
+- **Resilient Playlist Conversion**: Terminal playlist errors are clearly categorized, and retry actions now feature cooldowns to prevent repeated failures.
+- **Extended Catalog Matching for Tidal & Deezer**: Multi-stage resolution for titles with subtitles and featured artists, with higher candidate limits matching the accuracy of Qobuz.
+- **Universal Playlist Import Translations**: Complete translations for playlist file import across all supported languages.
+
 ## [1.12.2] - 2026-10-30
 - **Multi-Artist Collaboration Matching**: Advanced resolution across music catalogs supporting collaboration formats, featured artists, and secondary artist variations.
 - **Enhanced Streaming Catalog Matching**: Multi-stage resolution for track titles with subtitles, edition tags, and versions, improving direct match accuracy.

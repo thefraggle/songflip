@@ -270,25 +270,39 @@ class PlaylistConverterEngine(
         return try {
             val payload = json.decodeFromString<de.goork.songflip.core.model.PlaylistErrorPayload>(errorBody)
             val rawCode = payload.code ?: payload.error ?: ""
-            val errorCode = when (rawCode.uppercase()) {
-                "UNSUPPORTED_PLATFORM" -> de.goork.songflip.core.model.PlaylistErrorCode.UNSUPPORTED_PLATFORM
-                "PRIVATE_OR_RESTRICTED" -> de.goork.songflip.core.model.PlaylistErrorCode.PRIVATE_OR_RESTRICTED
-                "EMPTY_PLAYLIST" -> de.goork.songflip.core.model.PlaylistErrorCode.EMPTY_PLAYLIST
-                "UPSTREAM_TIMEOUT" -> de.goork.songflip.core.model.PlaylistErrorCode.UPSTREAM_TIMEOUT
-                "RATE_LIMITED" -> de.goork.songflip.core.model.PlaylistErrorCode.RATE_LIMITED
-                "EXTRACTION_FAILED" -> de.goork.songflip.core.model.PlaylistErrorCode.EXTRACTION_FAILED
+            val reason = payload.reason ?: ""
+            val errorCode = when {
+                rawCode.equals("NOT_FOUND", ignoreCase = true) || reason.equals("not_found", ignoreCase = true) || statusCode == 404 ->
+                    de.goork.songflip.core.model.PlaylistErrorCode.NOT_FOUND
+                rawCode.equals("UNSUPPORTED_PLATFORM", ignoreCase = true) ->
+                    de.goork.songflip.core.model.PlaylistErrorCode.UNSUPPORTED_PLATFORM
+                rawCode.equals("PRIVATE_OR_RESTRICTED", ignoreCase = true) ->
+                    de.goork.songflip.core.model.PlaylistErrorCode.PRIVATE_OR_RESTRICTED
+                rawCode.equals("EMPTY_PLAYLIST", ignoreCase = true) ->
+                    de.goork.songflip.core.model.PlaylistErrorCode.EMPTY_PLAYLIST
+                rawCode.equals("UPSTREAM_TIMEOUT", ignoreCase = true) ->
+                    de.goork.songflip.core.model.PlaylistErrorCode.UPSTREAM_TIMEOUT
+                rawCode.equals("RATE_LIMITED", ignoreCase = true) ->
+                    de.goork.songflip.core.model.PlaylistErrorCode.RATE_LIMITED
+                rawCode.equals("EXTRACTION_FAILED", ignoreCase = true) ->
+                    de.goork.songflip.core.model.PlaylistErrorCode.EXTRACTION_FAILED
                 else -> de.goork.songflip.core.model.PlaylistErrorCode.UNKNOWN_ERROR
             }
-            val reason = payload.reason ?: errorCode.name.lowercase()
+            val finalReason = if (payload.reason.isNullOrBlank()) errorCode.name.lowercase() else payload.reason
             val message = payload.message ?: "HTTP $statusCode: $rawCode"
             de.goork.songflip.core.model.PlaylistConversionException(
                 errorCode = errorCode,
                 message = message,
-                reason = reason
+                reason = finalReason
             )
         } catch (_: Throwable) {
+            val fallbackCode = if (statusCode == 404) {
+                de.goork.songflip.core.model.PlaylistErrorCode.NOT_FOUND
+            } else {
+                de.goork.songflip.core.model.PlaylistErrorCode.UNKNOWN_ERROR
+            }
             de.goork.songflip.core.model.PlaylistConversionException(
-                errorCode = de.goork.songflip.core.model.PlaylistErrorCode.UNKNOWN_ERROR,
+                errorCode = fallbackCode,
                 message = "HTTP $statusCode: $errorBody",
                 reason = "http_$statusCode"
             )

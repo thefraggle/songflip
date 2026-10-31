@@ -425,8 +425,8 @@
     <string name="listen_change_target">타겟 변경</string>
     <string name="playlist_reconvert">다시 변환</string>
     <string name="playlist_badge_free_limit">무료 (5)</string>
-    <string name="playlist_import_file_btn">Import Playlist File (.m3u8, .csv)</string>
-    <string name="playlist_import_file_desc">Import local .m3u8, .csv, or text tracklists to convert and play them directly.</string>
-    <string name="playlist_import_empty_error">No playable songs found in the selected file.</string>
+    <string name="playlist_import_file_btn">재생목록 파일 가져오기 (.m3u8, .csv)</string>
+    <string name="playlist_import_file_desc">로컬 .m3u8, .csv 또는 텍스트 트랙 목록을 가져와 직접 변환하고 재생합니다.</string>
+    <string name="playlist_import_empty_error">선택한 파일에서 재생 가능한 곡을 찾을 수 없습니다.</string>
     <string name="playlist_import_source_chip">파일</string>
 </resources>

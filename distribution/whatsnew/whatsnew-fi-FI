@@ -1,2 +1,3 @@
-- Multi-Artist Collaboration Matching: Edistynyt resoluutio musiikkiluetteloissa, jotka tukevat yhteistyöformaatteja, esiteltyjä taiteilijoita ja toissijaisia taiteilijavaihtoehtoja.
-- Parannettu Streaming Catalog Matching: Monivaiheinen resoluutio kappaleiden otsikoille tekstityksellä, version tunnisteilla ja versioilla, mikä parantaa suoran osuman tarkkuutta.
+- Seamless Web Fallback Navigation: Robust fallback viewing in built-in browser tabs when target streaming apps are not installed, preventing navigation loops.
+- Resilient Playlist Conversion: Terminal playlist errors are clearly categorized, and retry actions now feature cooldowns to prevent repeated failures.
+- Extended Catalog Matching for Tidal & Deezer: Multi-stage resolution for titles with subtitles and featured artists, with higher candidate limits matching the accuracy of Qobuz.

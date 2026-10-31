@@ -1,2 +1,3 @@
-- Multi - Artist Collaboration Matching: İşbirliği formatlarını, öne çıkan sanatçıları ve ikincil sanatçı varyasyonlarını destekleyen müzik kataloglarında gelişmiş çözünürlük.
-- Gelişmiş Akış Kataloğu Eşleştirme: Altyazılı, sürüm etiketli ve sürümlü parça başlıkları için çok aşamalı çözünürlük, doğrudan eşleşme doğruluğunu artırır.
+- Seamless Web Fallback Navigation: Robust fallback viewing in built-in browser tabs when target streaming apps are not installed, preventing navigation loops.
+- Resilient Playlist Conversion: Terminal playlist errors are clearly categorized, and retry actions now feature cooldowns to prevent repeated failures.
+- Extended Catalog Matching for Tidal & Deezer: Multi-stage resolution for titles with subtitles and featured artists, with higher candidate limits matching the accuracy of Qobuz.

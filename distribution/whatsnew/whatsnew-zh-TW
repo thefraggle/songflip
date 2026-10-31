@@ -1,3 +1,3 @@
-- 多藝術家協作配對：跨音樂目錄的高級解析度，支持協作格式、特色藝術家和次要藝術家變體。
-- 增強的串流類別匹配：具有字幕、版本標籤和版本的曲目標題的多階段分辨率，提高直接匹配的準確性。
-- 可靠的搜索後備導航：更新了Qobuz的目錄搜索路線，確保在瀏覽器中打開搜索並獲得完整結果。
+- Seamless Web Fallback Navigation: Robust fallback viewing in built-in browser tabs when target streaming apps are not installed, preventing navigation loops.
+- 彈性播放清單轉換：終端播放清單錯誤已明確分類，重試操作現在具有冷卻時間，以防止重複失敗。
+- Tidal 和 Deezer 的擴展目錄匹配：對帶有字幕和特色藝術家的標題進行多階段解析，更高的候選限制與 Qobuz 的準確度相匹配。

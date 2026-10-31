@@ -415,8 +415,8 @@
     <string name="listen_change_target">Αλλαγή προορισμού</string>
     <string name="playlist_reconvert">Επαναμετατροπή</string>
     <string name="playlist_badge_free_limit">Δωρεάν (5)</string>
-    <string name="playlist_import_file_btn">Import Playlist File (.m3u8, .csv)</string>
-    <string name="playlist_import_file_desc">Import local .m3u8, .csv, or text tracklists to convert and play them directly.</string>
-    <string name="playlist_import_empty_error">No playable songs found in the selected file.</string>
+    <string name="playlist_import_file_btn">Εισαγωγή αρχείου playlist (.m3u8, .csv)</string>
+    <string name="playlist_import_file_desc">Εισαγάγετε τοπικά αρχεία .m3u8, .csv ή λίστες κειμένου για άμεση μετατροπή και αναπαραγωγή.</string>
+    <string name="playlist_import_empty_error">Δεν βρέθηκαν κομμάτια προς αναπαραγωγή στο επιλεγμένο αρχείο.</string>
     <string name="playlist_import_source_chip">Αρχείο</string>
 </resources>

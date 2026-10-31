@@ -1168,30 +1168,7 @@ private fun openTargetUrl(context: Context, rawTargetUrl: String, platformKey: S
     val targetUrl = if (rawTargetUrl.contains("music.music.youtube.com")) {
         rawTargetUrl.replace("music.music.youtube.com", "music.youtube.com")
     } else rawTargetUrl
-    val (targetPackage, nativeUriString) = PackageUtils.resolveEffectiveLaunchTarget(context, targetUrl, platformKey)
-    if (targetPackage != null) {
-        try {
-            val uri = Uri.parse(nativeUriString)
-            val intent = Intent(Intent.ACTION_VIEW, uri).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                setPackage(targetPackage)
-            }
-            context.startActivity(intent)
-            return
-        } catch (e: Exception) {
-            android.util.Log.w("HistoryBottomSheet", "Failed to start target app $targetPackage: ${e.message}")
-        }
-    }
-
-    val fallbackUrl = PackageUtils.toWebFallbackUrl(targetUrl, platformKey)
-    try {
-        val fallback = Intent(Intent.ACTION_VIEW, Uri.parse(fallbackUrl)).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        }
-        context.startActivity(fallback)
-    } catch (e: Exception) {
-        android.util.Log.e("HistoryBottomSheet", "Failed to open fallback URL $fallbackUrl: ${e.message}", e)
-    }
+    PackageUtils.launchTargetOrFallback(context, targetUrl, platformKey)
 }
 
 private fun copyToClipboard(context: Context, rawText: String) {

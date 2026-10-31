@@ -425,8 +425,8 @@
     <string name="listen_change_target">更改目标</string>
     <string name="playlist_reconvert">重新转换</string>
     <string name="playlist_badge_free_limit">免费 (5)</string>
-    <string name="playlist_import_file_btn">Import Playlist File (.m3u8, .csv)</string>
-    <string name="playlist_import_file_desc">Import local .m3u8, .csv, or text tracklists to convert and play them directly.</string>
-    <string name="playlist_import_empty_error">No playable songs found in the selected file.</string>
+    <string name="playlist_import_file_btn">导入播放列表文件 (.m3u8, .csv)</string>
+    <string name="playlist_import_file_desc">导入本地 .m3u8、.csv 或文本曲目列表，即可直接转换并播放。</string>
+    <string name="playlist_import_empty_error">所选文件中未找到可播放的歌曲。</string>
     <string name="playlist_import_source_chip">文件</string>
 </resources>

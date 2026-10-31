@@ -253,6 +253,41 @@ class PlatformResolversTest {
         assertEquals("https://www.deezer.com/artist/199943", artist)
     }
 
+    @Test
+    fun testDeezerResolverMultiStageRetry() = runTest {
+        val mockEngine = MockEngine { request ->
+            val query = request.url.parameters["q"] ?: ""
+            if (query.contains("(Original Mix)")) {
+                respond(
+                    content = """{"data": []}""",
+                    status = HttpStatusCode.OK,
+                    headers = headersOf(HttpHeaders.ContentType, "application/json")
+                )
+            } else if (query == "Artist Track") {
+                respond(
+                    content = """
+                    {
+                        "data": [
+                            { "link": "https://www.deezer.com/track/555123", "title": "Track", "artist": { "name": "Artist" } }
+                        ]
+                    }
+                    """.trimIndent(),
+                    status = HttpStatusCode.OK,
+                    headers = headersOf(HttpHeaders.ContentType, "application/json")
+                )
+            } else {
+                respond(
+                    content = """{"data": []}""",
+                    status = HttpStatusCode.OK,
+                    headers = headersOf(HttpHeaders.ContentType, "application/json")
+                )
+            }
+        }
+        val resolver = DeezerResolver(client = HttpClient(mockEngine))
+        val result = resolver.resolveTrack("Artist Track (Original Mix)")
+        assertEquals("https://www.deezer.com/track/555123", result)
+    }
+
     // ---------------------------------------------------------
     // TidalResolver Tests
     // ---------------------------------------------------------
@@ -337,6 +372,43 @@ class PlatformResolversTest {
         val resolverInvalid = TidalResolver(client = HttpClient(mockEngine), countryCodeProvider = { "INVALID" })
         resolverInvalid.resolveTrack("Test Track")
         assertEquals("DE", requestedCountry)
+    }
+
+    @Test
+    fun testTidalResolverMultiStageRetry() = runTest {
+        val mockEngine = MockEngine { request ->
+            val query = request.url.parameters["query"] ?: ""
+            if (query.contains("(Club Edit)")) {
+                respond(
+                    content = """{"tracks": {"items": []}}""",
+                    status = HttpStatusCode.OK,
+                    headers = headersOf(HttpHeaders.ContentType, "application/json")
+                )
+            } else if (query == "Producer Song") {
+                respond(
+                    content = """
+                    {
+                        "tracks": {
+                            "items": [
+                                { "id": "998877", "title": "Song", "artist": { "name": "Producer" } }
+                            ]
+                        }
+                    }
+                    """.trimIndent(),
+                    status = HttpStatusCode.OK,
+                    headers = headersOf(HttpHeaders.ContentType, "application/json")
+                )
+            } else {
+                respond(
+                    content = """{"tracks": {"items": []}}""",
+                    status = HttpStatusCode.OK,
+                    headers = headersOf(HttpHeaders.ContentType, "application/json")
+                )
+            }
+        }
+        val resolver = TidalResolver(client = HttpClient(mockEngine))
+        val result = resolver.resolveTrack("Producer Song (Club Edit)")
+        assertEquals("https://tidal.com/browse/track/998877", result)
     }
 
     // ---------------------------------------------------------

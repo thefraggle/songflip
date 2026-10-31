@@ -1,2 +1,2 @@
-- Multi-Artist Collaboration Matching: Fejlett felbontás a zenei katalógusokban, amely támogatja az együttműködési formátumokat, a kiemelt művészeket és a másodlagos művészi variációkat.
-- Enhanced Streaming Catalog Matching: Multi-stage resolution for track titles with subtitles, edition tags, and versions, improving direct match accuracy.
+- Zökkenőmentes webes tartalék navigáció: Robusztus tartalék megjelenítés a beépített böngészőfüleken, amikor a célzott streamingalkalmazások nincsenek telepítve, így megakadályozva a navigációs hurkokat.
+- Rugalmas lejátszási lista konvertálás: A terminál lejátszási lista hibái egyértelműen kategorizáltak, és az újrapróbálkozási műveletek mostantól lehűlési idővel rendelkeznek az ismételt hibák megelőzése érdekében.

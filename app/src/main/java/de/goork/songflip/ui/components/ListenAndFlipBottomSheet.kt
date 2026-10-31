@@ -1029,24 +1029,5 @@ private fun QuotaExhaustedContent(onUnlockPro: () -> Unit) {
 }
 
 private fun openTargetInPlayer(context: Context, rawTargetUrl: String, platformKey: String) {
-    val targetUrl = rawTargetUrl.replace("music.music.youtube.com", "music.youtube.com")
-    val (targetPackage, nativeUri) = PackageUtils.resolveEffectiveLaunchTarget(context, targetUrl, platformKey)
-    if (targetPackage != null) {
-        try {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(nativeUri)).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                setPackage(targetPackage)
-            }
-            context.startActivity(intent)
-            return
-        } catch (_: Exception) {}
-    }
-
-    val fallbackUrl = PackageUtils.toWebFallbackUrl(targetUrl, platformKey)
-    try {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(fallbackUrl)).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        }
-        context.startActivity(intent)
-    } catch (_: Exception) {}
+    PackageUtils.launchTargetOrFallback(context, rawTargetUrl, platformKey)
 }

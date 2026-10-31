@@ -70,6 +70,7 @@ enum PlaylistErrorType {
     case unsupportedPlatform
     case timeout
     case empty
+    case notFound
     case generic
 }
 
@@ -117,6 +118,8 @@ struct PlaylistConverterView: View {
     @State private var selectedPartIndex = 0
     @State private var shareFileItem: ShareSheetItem? = nil
     @State private var stepTimer: Timer? = nil
+    @State private var retryCooldownSeconds = 0
+    @State private var retryTimer: Timer? = nil
 
     var lang: String { settings.selectedLanguage }
 
@@ -350,18 +353,32 @@ struct PlaylistConverterView: View {
                         .cornerRadius(12)
                 }
 
-                if type != .privateOrRestricted && type != .unsupportedPlatform && type != .empty {
+                if type != .privateOrRestricted && type != .unsupportedPlatform && type != .empty && type != .notFound {
                     Button(action: {
+                        guard retryCooldownSeconds <= 0 else { return }
+                        retryCooldownSeconds = 4
+                        retryTimer?.invalidate()
+                        retryTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+                            if retryCooldownSeconds > 1 {
+                                retryCooldownSeconds -= 1
+                            } else {
+                                retryCooldownSeconds = 0
+                                timer.invalidate()
+                            }
+                        }
                         startConversion(forceRefresh: true)
                     }) {
-                        Text(LocalizationManager.string(for: "playlist_btn_retry", lang: lang))
+                        Text(retryCooldownSeconds > 0
+                            ? "\(LocalizationManager.string(for: "playlist_btn_retry", lang: lang)) (\(retryCooldownSeconds)s)"
+                            : LocalizationManager.string(for: "playlist_btn_retry", lang: lang))
                             .font(.headline)
-                            .foregroundColor(.primary)
+                            .foregroundColor(retryCooldownSeconds > 0 ? .secondary : .primary)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 14)
                             .background(Color(uiColor: .secondarySystemBackground))
                             .cornerRadius(12)
                     }
+                    .disabled(retryCooldownSeconds > 0)
                 }
             }
             .padding(.horizontal, 20)
@@ -1029,11 +1046,12 @@ struct PlaylistConverterView: View {
     }
 
     private func mapErrorCode(_ code: String) -> PlaylistErrorType {
-        switch code {
+        switch code.uppercased() {
         case "PRIVATE_OR_RESTRICTED": return .privateOrRestricted
         case "UNSUPPORTED_PLATFORM": return .unsupportedPlatform
         case "UPSTREAM_TIMEOUT": return .timeout
         case "EMPTY_PLAYLIST": return .empty
+        case "NOT_FOUND": return .notFound
         default: return .generic
         }
     }
@@ -1044,7 +1062,7 @@ struct PlaylistConverterView: View {
         case .unsupportedPlatform: return LocalizationManager.string(for: "playlist_error_unsupported_title", lang: lang)
         case .timeout: return LocalizationManager.string(for: "playlist_error_timeout_title", lang: lang)
         case .empty: return LocalizationManager.string(for: "playlist_error_empty_title", lang: lang)
-        case .generic: return LocalizationManager.string(for: "playlist_error_title", lang: lang)
+        case .notFound, .generic: return LocalizationManager.string(for: "playlist_error_title", lang: lang)
         }
     }
 
@@ -1054,7 +1072,7 @@ struct PlaylistConverterView: View {
         case .unsupportedPlatform: return LocalizationManager.string(for: "playlist_error_unsupported_desc", lang: lang)
         case .timeout: return LocalizationManager.string(for: "playlist_error_timeout_desc", lang: lang)
         case .empty: return LocalizationManager.string(for: "playlist_error_empty_desc", lang: lang)
-        case .generic: return LocalizationManager.string(for: "playlist_error_desc", lang: lang)
+        case .notFound, .generic: return LocalizationManager.string(for: "playlist_error_desc", lang: lang)
         }
     }
 }

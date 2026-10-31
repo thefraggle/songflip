@@ -1,1 +1,3 @@
-- मल्टी - आर्टिस्ट कोलेबोरेशन मॅचिंगः सहयोग स्वरूप, वैशिष्ट्यीकृत कलाकार आणि दुय्यम कलाकारांच्या भिन्नतेस समर्थन देणार्या संगीत कॅटलॉगमध्ये प्रगत रिझोल्यूशन.
+- Seamless Web Fallback Navigation: Robust fallback viewing in built-in browser tabs when target streaming apps are not installed, preventing navigation loops.
+- Resilient Playlist Conversion: Terminal playlist errors are clearly categorized, and retry actions now feature cooldowns to prevent repeated failures.
+- Extended Catalog Matching for Tidal & Deezer: Multi-stage resolution for titles with subtitles and featured artists, with higher candidate limits matching the accuracy of Qobuz.

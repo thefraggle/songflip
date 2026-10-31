@@ -1,3 +1,2 @@
-- Multi-Artist Collaboration Matching: Advanced resolution across music catalogs supporting collaboration formats, featured artists, and secondary artist variations.
-- Enhanced Streaming Catalog Matching: Multi-stage resolution for track titles with subtitles, edition tags, and versions, improving direct match accuracy.
-- Reliable Search Fallback Navigation: Updated catalog search routing for Qobuz, ensuring searches open with complete results in the browser.
+- Navigare web de rezervă fără probleme: vizualizare robustă de rezervă în filele de browser încorporate atunci când nu sunt instalate aplicații de streaming țintă, împiedicând buclele de navigare.
+- Resilient Playlist Conversion: Terminal playlist errors are clearly categorized, and retry actions now feature cooldowns to prevent repeated failures.
