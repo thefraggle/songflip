@@ -21,8 +21,8 @@ Crea e scansiona codici QR universali per brani e album su qualsiasi servizio di
 • Convertitore di podcast e motore di reindirizzamento podcast:
 Condividi programmi o episodi podcast completi su tutte le piattaforme.
 
-• Convertitore e trasferimento di playlist:
-Converti playlist e trasferisci playlist tra Spotify, Apple Music, YouTube Music, TIDAL e Deezer (fino a 200 tracce).
+• Convertitore playlist, importazione file (M3U) e trasferimento:
+Converti e trasferisci playlist tra Spotify, Apple Music, YouTube Music, TIDAL e Deezer.
 
 • Qualità audiofila (Hi-Res & Lossless) e preferiti:
 Preferisci master in studio, 24-bit Hi-Res, Lossless e Dolby Atmos rispetto a radio edit e compilation. Scegli tra versioni live o studio e fissa i preferiti con 1 tocco.

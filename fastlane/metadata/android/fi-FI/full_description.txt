@@ -21,8 +21,8 @@ Luo ja skannaa yleisiä QR-koodeja kappaleille ja albumeille.
 • Podcast Converter & Podcast Redirect Engine:
 Jaa täydet podcast-ohjelmat tai jaksot eri alustoilla. SongFlip ratkaisee jaksojen nimet automaattisesti ja muuttaa ja avaa podcast-linkit suoraan suosikkipodcast-soittimessasi.
 
-• Universal Playlist Converter & Playlist Transfer:
-Muunna soittolistoja ja siirrä soittolistoja kappaleittain Spotifyn, Apple Musicin, YouTube Musicin, TIDALin ja Deezerin välillä – automaattisen kaksoiskappaleen puhdistuksen, jopa 200 kappaleen ja nopean välimuistin avulla.
+• Soittolistamuunnin, tiedostojen tuonti (M3U) ja siirto:
+Muunna ja siirrä soittolistoja Spotifyn, Apple Musicin, YouTube Musicin, TIDALin ja Deezerin välillä.
 
 • Audiofiilinen laatu (Hi-Res & Lossless) ja suosikit:
 Suosi studiomastereita, 24-bit Hi-Res-, Lossless- ja Dolby Atmos -versioita radioversioiden ja kokoelmien sijaan. Kiinnitä suosikkikappaleesi 1 napautuksella.

@@ -16,10 +16,10 @@ Identify songs playing around you in clubs, bars, or on the radio with instant s
 Search for tracks and artists directly inside SongFlip and trigger playback instantly in your preferred streaming player with 1-tap Fast Flip—no existing URL or empty search pages.
 
 • QR Code Track Sharing & Scanning:
-Generate and scan universal QR codes for songs and albums. Effortlessly share songs with friends in person across any streaming service.
+Generate and scan universal QR codes for songs and albums.
 
-• Universal Playlist Converter & Playlist Transfer:
-Convert playlists and transfer playlists track-by-track between Spotify, Apple Music, YouTube Music, TIDAL, and Deezer—with automatic duplicate cleaning, up to 200 tracks, and fast caching.
+• Playlist Converter, File Import (M3U) & Transfer:
+Convert playlists and transfer playlists track-by-track between Spotify, Apple Music, YouTube Music, TIDAL, and Deezer. Import local tracklists from .m3u, .m3u8, .csv, and plain text files directly into streaming queues—with duplicate cleaning, up to 200 tracks, and fast caching.
 
 • Podcast Converter & Podcast Redirect Engine:
 Share full podcast shows or episodes across platforms. SongFlip resolves episode titles automatically to convert and open podcast links right inside your favorite podcast player.
@@ -28,13 +28,13 @@ Share full podcast shows or episodes across platforms. SongFlip resolves episode
 Prioritize studio masters, 24-bit Hi-Res, Lossless, and Dolby Atmos over radio edits and compilations. Refine live or remaster matches and pin favorites with 1 tap.
 
 • Quick Player Chooser (Ask Every Time):
-Using multiple audio apps? Enable the quick player chooser to pick your target player on the fly whenever you open a shared track or podcast episode.
+Enable the quick player chooser to pick your target player on the fly whenever you open a shared track or podcast episode.
 
 • Smart Redirect Assistant (Android 12+):
 Easily verify and configure Android Open by Default App Links with our interactive 1-tap setup assistant.
 
 • Clipboard Smart-Banner & Native Sharing:
-Copied a track URL? Convert and open it instantly via the smart dashboard banner, or share URLs directly from WhatsApp, Telegram, Reddit, or Instagram into SongFlip.
+Convert and open it instantly via the smart dashboard banner, or share URLs directly from WhatsApp, Telegram, Reddit, or Instagram into SongFlip.
 
 • Universal Web Smart Links & HTML5 Player:
 Generate neutral web-share URLs (songflip.link) with an embedded webplayer so friends can listen on any device or browser.

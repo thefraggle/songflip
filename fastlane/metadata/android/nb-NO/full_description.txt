@@ -21,20 +21,20 @@ Generer og skann universelle QR-koder for sanger og album. Del musikklenker enke
 • Podcast Converter & Podcast Redirect Engine:
 Del hele podcastprogrammer eller episoder på tvers av plattformer. SongFlip løser episodetitler automatisk for å konvertere og åpne podcastlenker rett inne i favorittpodcastspilleren din.
 
-• Universal Playlist Converter & Playlist Transfer:
-Konverter spillelister og overfør spillelister spor for spor mellom Spotify, Apple Music, YouTube Music, TIDAL og Deezer – med automatisk duplikatrensing, opptil 200 spor og rask hurtigbufring.
+• Spillelistekonverter, filimport (M3U) og overføring:
+Konverter og overfør spillelister mellom Spotify, Apple Music, YouTube Music, TIDAL og Deezer. Importer lokale sporlister fra .m3u-, .m3u8-, .csv- og tekstfiler direkte til strømmespillelister – med automatisk duplikatrensing, opptil 200 spor og rask hurtigbufring.
 
 • Audiofil kvalitet (Hi-Res & Lossless) og favoritter:
 Foretrekk studiomastere, 24-bit Hi-Res, Lossless & Dolby Atmos fremfor radio-edits og samlealbum. Fest favorittsanger i historikken med 1 trykk.
 
 • Hurtigvalg av Spiller (Spør hver gang):
-Bruker du flere lydapper? Aktiver hurtigvelgeren for å velge målspiller raskt når du åpner en lenke.
+Aktiver hurtigvelgeren for å velge målspiller raskt når du åpner en lenke.
 
 • Smart Link Redirect Assistant (Android 12+):
 Enkelt verifiser og konfigurer Android Open by Default App Links med vår interaktive 1-tapps lenke omdirigeringsassistent.
 
 • Smart-banner for utklippstavle og innfødt deling:
-Har du kopiert en musikklenke? Konverter og åpne den umiddelbart via det smarte dashbordbanneret, eller del lenker direkte fra WhatsApp, Telegram, Reddit eller Instagram til SongFlip.
+Konverter og åpne den umiddelbart via det smarte dashbordbanneret, eller del lenker direkte fra WhatsApp, Telegram, Reddit eller Instagram til SongFlip.
 
 • Universelle Smarte Nettlenker & Nettspiller (songflip.link):
 Opprett nøytrale lenker med innebygd nettspiller slik at vennene dine kan lytte på hvilken som helst enhet.
