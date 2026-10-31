@@ -346,7 +346,7 @@ final class AcousticRecognizer: ObservableObject {
             guard let winner = matchedItem else {
                 AptabaseClient.shared.trackAcousticScanNoMatch(
                     target: targetPlatformKey,
-                    isPro = isPro
+                    isPro: isPro
                 )
                 self.state = .noMatch
                 return
