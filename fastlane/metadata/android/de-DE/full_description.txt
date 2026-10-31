@@ -18,8 +18,8 @@ Suche Songs & Interpreten direkt in SongFlip und starte die Wiedergabe per Fast 
 • Musik per QR-Code teilen & scannen:
 Generiere und scanne universelle Musik-QR-Codes. Teile Songs & Alben vor Ort – egal welcher Streamingdienst genutzt wird.
 
-• Universal Playlist Converter & Playlist-Transfer:
-Playlists konvertieren und Playlists übertragen zwischen Spotify, Apple Music, YouTube Music, TIDAL und Deezer – inklusive Duplikat-Bereinigung, bis zu 200 Tracks und schnellem Cache.
+• Playlist Converter, Datei-Import (M3U) & Transfer:
+Playlists konvertieren und Playlists übertragen zwischen Spotify, Apple Music, YouTube Music, TIDAL und Deezer. Importiere lokale Tracklisten aus .m3u-, .m3u8-, .csv- und Textdateien direkt in deine Streaming-Wiedergabelisten – inklusive Duplikat-Bereinigung, bis zu 200 Tracks und schnellem Cache.
 
 • Podcast Converter & Podcast-Weiterleitung:
 Teile Podcast-Shows und Episoden plattformübergreifend. SongFlip löst Episodentitel für die Podcast-Umleitung automatisch auf und startet sie direkt im bevorzugten Podcast-Player.
@@ -28,13 +28,13 @@ Teile Podcast-Shows und Episoden plattformübergreifend. SongFlip löst Episoden
 Bevorzuge Studio-Originale, 24-Bit Hi-Res, Lossless & Dolby Atmos statt Radio-Edits und Compilations. Wähle Live- oder Studio-Versionen und pinne Favoriten mit 1-Tap an.
 
 • Schnellauswahl (Ask Every Time):
-Nutzt du mehrere Audio-Apps? Aktiviere die Schnellauswahl, um beim Öffnen von Songs oder Podcasts flexibel den Ziel-Player zu wählen.
+Aktiviere die Schnellauswahl, um beim Öffnen von Songs oder Podcasts flexibel den Ziel-Player zu wählen.
 
 • Smarter Redirect-Assistent (Android 12+):
 Prüft deine Audio-Apps und hilft dir mit einem Fingertipp, Standard-Apps konfliktfrei für den automatischen Musik-Link Redirect einzurichten.
 
 • Clipboard Smart-Banner & Share-Menü:
-Spotify-URL kopiert? Direkt über das Smart-Banner konvertieren und öffnen oder URLs aus WhatsApp, Telegram, Instagram oder Reddit mit SongFlip teilen.
+Direkt über das Smart-Banner konvertieren und öffnen oder URLs aus WhatsApp, Telegram, Instagram oder Reddit mit SongFlip teilen.
 
 • Universelle Web-Links & Webplayer (Smart Links):
 Erstelle neutrale Smart-Links (songflip.link) mit Webplayer, die Freunde auf jedem Gerät und Browser direkt anhören können.

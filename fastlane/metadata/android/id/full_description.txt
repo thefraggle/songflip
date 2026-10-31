@@ -21,20 +21,20 @@ Hasilkan dan pindai kode QR universal untuk lagu dan album.
 • Konverter Podcast & Mesin Pengalih Podcast:
 Bagikan acara atau episode podcast lengkap di seluruh platform. SongFlip menyelesaikan judul episode secara otomatis untuk mengonversi dan membuka tautan podcast langsung di dalam pemutar podcast favorit Anda.
 
-• Konverter Daftar Putar Universal & Transfer Daftar Putar:
-Konversikan daftar putar dan transfer daftar putar lagu demi lagu antara Spotify, Apple Music, YouTube Music, TIDAL, dan Deezer—dengan pembersihan duplikat otomatis, hingga 200 lagu, dan cache cepat.
+• Konverter Playlist, Impor Berkas (M3U) & Transfer:
+Konversi dan transfer daftar putar antara Spotify, Apple Music, YouTube Music, TIDAL, dan Deezer. Impor daftar lagu dari file .m3u, .m3u8, .csv, dan teks langsung ke playlist streaming — dengan pembersihan duplikat dan hingga 200 trek.
 
 • Kualitas Audiofil (Hi-Res & Lossless) & Favorit:
 Utamakan master studio, 24-bit Hi-Res, Lossless & Dolby Atmos dibanding radio edit dan kompilasi. Pilih versi lagu dan sematkan favorit dengan 1 ketukan.
 
 • Pemilih Pemutar Cepat (Tanya Setiap Saat):
-Menggunakan beberapa aplikasi audio? Aktifkan pemilih cepat untuk memilih pemutar tujuan secara instan setiap kali membuka tautan.
+Aktifkan pemilih cepat untuk memilih pemutar tujuan secara instan setiap kali membuka tautan.
 
 • Asisten Pengalihan Tautan Cerdas (Android 12+):
 Verifikasi dan konfigurasikan Android Open by Default App Links dengan mudah menggunakan asisten penyiapan pengalihan tautan 1 ketukan interaktif kami.
 
 • Spanduk Cerdas Papan Klip & Berbagi Asli:
-Menyalin tautan musik? Konversikan dan buka secara instan melalui spanduk dasbor pintar, atau bagikan tautan langsung dari WhatsApp, Telegram, Reddit, atau Instagram ke SongFlip.
+Konversikan dan buka secara instan melalui spanduk dasbor pintar, atau bagikan tautan langsung dari WhatsApp, Telegram, Reddit, atau Instagram ke SongFlip.
 
 • Smart Link Web Universal & Pemutar Web (songflip.link):
 Buat tautan netral dengan pemutar web bawaan agar teman dapat mendengarkan di perangkat apa pun.

@@ -21,8 +21,8 @@ Twórz i skanuj uniwersalne kody QR dla utworów i albumów w dowolnej usłudze 
 • Konwerter podcastów i silnik przekierowywania podcastów:
 Udostępniaj pełne programy lub odcinki podcastów na różnych platformach.
 
-• Uniwersalny konwerter list odtwarzania i przesyłanie list odtwarzania:
-Konwertuj listy odtwarzania i przesyłaj listy odtwarzania utwór po utworze pomiędzy Spotify, Apple Music, YouTube Music, TIDAL i Deezer.
+• Konwerter list, import plików (M3U) i przesyłanie:
+Konwertuj i przesyłaj playlisty między Spotify, Apple Music, YouTube Music, TIDAL i Deezer. Importuj lokalne listy utworów z plików .m3u, .m3u8, .csv i tekstowych bezpośrednio do playlist streamingowych (do 200 utworów z usuwaniem duplikatów).
 
 • Jakość audiofilska (Hi-Res & Lossless) i ulubione:
 Preferuj wydania studyjne, 24-bit Hi-Res, Lossless i Dolby Atmos zamiast wersji radiowych i składanek. Przypinaj ulubione utwory 1 dotknięciem.
@@ -34,7 +34,7 @@ Wybierz docelowy odtwarzacz audio na bieżąco, gdy otworzysz łącze do udostę
 Skonfiguruj linki do aplikacji otwieranych domyślnie w systemie Android za pomocą naszego asystenta konfiguracji przekierowania linków jednym dotknięciem.
 
 • Inteligentne banery schowka i udostępnianie natywne:
-Skopiowałeś link do muzyki? Konwertuj i otwieraj go natychmiast za pomocą inteligentnego banera na pulpicie nawigacyjnym lub udostępniaj linki bezpośrednio z WhatsApp, Telegram, Reddit lub Instagram w SongFlip.
+Konwertuj i otwieraj go natychmiast za pomocą inteligentnego banera na pulpicie nawigacyjnym lub udostępniaj linki bezpośrednio z WhatsApp, Telegram, Reddit lub Instagram w SongFlip.
 
 • Inteligentne łącza internetowe (songflip.link):
 Twórz neutralne łącza internetowe za pomocą wbudowanego odtwarzacza, aby znajomi mogli słuchać w dowolnej przeglądarce.

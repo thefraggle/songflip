@@ -21,8 +21,8 @@ Creează și scanează coduri QR universale pentru melodii și albume prin orice
 • Podcast Converter & Podcast Redirect Engine:
 Partajați emisiuni sau episoade podcast complete pe platforme.
 
-• Universal Playlist Converter & Playlist Transfer:
-Convertiți liste de redare și transferați liste de redare piesă cu piesă între Spotify, Apple Music, YouTube Music, TIDAL și Deezer.
+• Convertor de playlisturi, import fișiere (M3U) și transfer:
+Convertiți și transferați liste de redare între Spotify, Apple Music, YouTube Music, TIDAL și Deezer. Importați liste locale din fișiere .m3u, .m3u8, .csv și text direct în playlisturile de streaming (până la 200 de piese).
 
 • Calitate audiofilă (Hi-Res & Lossless) și favorite:
 Preferă masterele de studio, 24-bit Hi-Res, Lossless și Dolby Atmos în locul edițiilor radio și compilațiilor. Fixează melodiile preferate cu o atingere.
@@ -34,7 +34,7 @@ Alegeți playerul audio țintă din mers ori de câte ori deschideți un link pe
 Verificați și configurați cu ușurință Android Open by Default App Links cu ajutorul asistentului nostru interactiv de configurare a redirecționării linkului cu o singură atingere.
 
 • Clipboard Smart-Banner și Partajare nativă:
-Ați copiat un link muzical? Convertiți-l și deschideți-l instantaneu prin intermediul bannerului tabloului de bord inteligent sau partajați link-uri direct din WhatsApp, Telegram, Reddit sau Instagram în SongFlip.
+Convertiți-l și deschideți-l instantaneu prin intermediul bannerului tabloului de bord inteligent sau partajați link-uri direct din WhatsApp, Telegram, Reddit sau Instagram în SongFlip.
 
 • Web Smart Links (songflip.link):
 Creați legături web neutre cu un player încorporat, astfel încât prietenii să poată asculta în orice browser.

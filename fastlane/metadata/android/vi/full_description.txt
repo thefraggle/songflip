@@ -21,8 +21,8 @@ Tạo và quét mã QR phổ biến cho các bài hát và album trên bất k�
 • Công cụ chuyển đổi podcast & chuyển hướng podcast:
 Chia sẻ các chương trình hoặc tập podcast đầy đủ trên các nền tảng. SongFlip tự động phân giải tiêu đề tập để chuyển đổi và mở các liên kết podcast ngay trong trình phát podcast yêu thích của bạn.
 
-• Chuyển đổi danh sách phát phổ quát và chuyển danh sách phát:
-Chuyển đổi danh sách phát và chuyển danh sách phát theo từng bản nhạc giữa Spotify, Apple Music, YouTube Music, TIDAL và Deezer—với tính năng tự động dọn dẹp trùng lặp, tối đa 200 bản nhạc và bộ nhớ đệm nhanh.
+• Bộ chuyển đổi danh sách phát, nhập tệp (M3U) & chuyển tiếp:
+Chuyển đổi và chuyển danh sách phát giữa Spotify, Apple Music, YouTube Music, TIDAL và Deezer.
 
 • Chất lượng Audiophile (Hi-Res & Lossless) & Yêu thích:
 Ưu tiên bản thu phòng thu, 24-bit Hi-Res, Lossless & Dolby Atmos hơn bản radio edit và tuyển tập. Ghim bài hát yêu thích chỉ bằng 1 chạm.

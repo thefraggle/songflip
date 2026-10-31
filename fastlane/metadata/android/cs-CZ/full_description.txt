@@ -13,7 +13,7 @@ Bezproblémově převádějte a přesměrovávejte odkazy na skladby a podcasty 
 Rozpoznejte hudbu kolem sebe přímo v SongFlipu. Skladby se převedou pro váš přehrávač a uloží do historie. Jste bez signálu? Uložte zvukový otisk offline a SongFlip skladbu rozpozná, jakmile budete opět online.
 
 • Přímé vyhledávání skladeb (vyhledávání v aplikaci):
-Vyhledejte skladby a interprety přímo v aplikaci SongFlip a okamžitě spusťte přehrávání ve vašem oblíbeném streamovacím přehrávači pomocí funkce Rychlé překlopení jedním klepnutím – není potřeba žádný existující odkaz na skladbu.
+Vyhledejte skladby a interprety přímo v aplikaci SongFlip a okamžitě spusťte přehrávání ve vašem oblíbeném streamovacím přehrávači pomocí funkce Rychlé překlopení jedním klepnutím.
 
 • Sdílení a skenování skladeb QR kódu:
 Generujte a skenujte univerzální QR kódy pro skladby a alba.
@@ -21,8 +21,8 @@ Generujte a skenujte univerzální QR kódy pro skladby a alba.
 • Podcast Converter & Podcast Redirect Engine:
 Sdílejte celé podcastové pořady nebo epizody napříč platformami. SongFlip automaticky vyhodnotí názvy epizod, aby převedl a otevřel odkazy na podcasty přímo ve vašem oblíbeném přehrávači podcastů.
 
-• Universal Playlist Converter & Playlist Transfer:
-Převádějte seznamy stop a přenášejte seznamy stop po stopách mezi Spotify, Apple Music, YouTube Music, TIDAL a Deezer – s automatickým čištěním duplicit, až 200 stopami a rychlým ukládáním do mezipaměti.
+• Převodník playlistů, import souborů (M3U) a přenos:
+Převádějte a přenášejte playlisty mezi Spotify, Apple Music, YouTube Music, TIDAL a Deezer. Importujte lokální seznamy z .m3u, .m3u8, .csv a textových souborů přímo do streamovacích playlistů – s čištěním duplicit, až 200 stopami a rychlou mezipamětí.
 
 • Audiofilská kvalita (Hi-Res a Lossless) a oblíbené:
 Upřednostněte studiové mastery, 24-bit Hi-Res, Lossless a Dolby Atmos před rádiovými verzemi a kompilacemi. Připněte oblíbené skladby 1 klepnutím.

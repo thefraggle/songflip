@@ -21,8 +21,8 @@ Generera och skanna universella QR-koder för låtar och album. Dela enkelt musi
 • Podcast Converter & Podcast Redirect Engine:
 Dela hela podcastprogram eller avsnitt på olika plattformar. SongFlip löser avsnitttitlar automatiskt för att konvertera och öppna poddlänkar direkt i din favoritpoddspelare.
 
-• Universal Playlist Converter & Playlist Transfer:
-Konvertera spellistor och överför spellistor spår för spår mellan Spotify, Apple Music, YouTube Music, TIDAL och Deezer – med automatisk dubbelrensning, upp till 200 spår och snabb cachelagring.
+• Spellistkonverterare, filimport (M3U) & överföring:
+Konvertera och överför spellistor mellan Spotify, Apple Music, YouTube Music, TIDAL och Deezer. Importera lokala spårlistor från .m3u-, .m3u8-, .csv- och textfiler direkt till strömningsspellistor – med dubblettrensning, upp till 200 spår och snabb cachelagring.
 
 • Audiofil kvalitet (Hi-Res & Lossless) och favoriter:
 Föredra studiomasters, 24-bit Hi-Res, Lossless & Dolby Atmos framför radio-edits och samlingar. Fäst dina favoritlåtar i historiken med 1 tryck.
@@ -34,7 +34,7 @@ Använder du flera ljudappar? Aktivera snabbvalet för att välja önskad spelar
 Verifiera och konfigurera enkelt Android Open by Default-applänkar med vår interaktiva 1-trycks länkomdirigeringsassistent.
 
 • Urklipp Smart-Banner & Native Sharing:
-Kopierade en musiklänk? Konvertera och öppna den direkt via den smarta instrumentpanelens banner, eller dela länkar direkt från WhatsApp, Telegram, Reddit eller Instagram till SongFlip.
+Konvertera och öppna den direkt via den smarta instrumentpanelens banner, eller dela länkar direkt från WhatsApp, Telegram, Reddit eller Instagram till SongFlip.
 
 • Universella Smarta Webblänkar & Webplayer (songflip.link):
 Skapa neutrala länkar med inbyggd webbspelare så att dina vänner kan lyssna på vilken enhet som helst.
