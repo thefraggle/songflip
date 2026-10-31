@@ -1,2 +1,3 @@
-- Phối hợp nhiều nghệ sĩ: Độ phân giải nâng cao trên các danh mục âm nhạc hỗ trợ các định dạng cộng tác, nghệ sĩ nổi bật và các biến thể nghệ sĩ phụ.
-- Đối sánh danh mục phát trực tuyến nâng cao: Độ phân giải đa giai đoạn cho tiêu đề bản nhạc có phụ đề, thẻ phiên bản và phiên bản, cải thiện độ chính xác đối sánh trực tiếp.
+- Seamless Web Fallback Navigation: Robust fallback viewing in built-in browser tabs when target streaming apps are not installed, preventing navigation loops.
+- Resilient Playlist Conversion: Terminal playlist errors are clearly categorized, and retry actions now feature cooldowns to prevent repeated failures.
+- Extended Catalog Matching for Tidal & Deezer: Multi-stage resolution for titles with subtitles and featured artists, with higher candidate limits matching the accuracy of Qobuz.

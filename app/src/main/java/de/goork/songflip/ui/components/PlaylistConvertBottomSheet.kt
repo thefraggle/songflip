@@ -43,8 +43,9 @@ import de.goork.songflip.core.engine.PlaylistConverterEngine
 import de.goork.songflip.core.model.MusicPlatform
 import de.goork.songflip.core.model.PlaylistConversionResult
 import de.goork.songflip.core.model.PlaylistConversionState
-import de.goork.songflip.core.model.PlaylistTrackItem
+import de.goork.songflip.core.model.isPermanentFailure
 import de.goork.songflip.data.PackageUtils
+import de.goork.songflip.core.model.PlaylistTrackItem
 import de.goork.songflip.data.ProManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -92,6 +93,14 @@ fun PlaylistConvertBottomSheet(
     }
     val conversionState = externalConversionState ?: internalConversionState
     var conversionProgressStep by remember { mutableIntStateOf(0) }
+    var retryCooldownSeconds by remember { mutableIntStateOf(0) }
+
+    LaunchedEffect(retryCooldownSeconds) {
+        if (retryCooldownSeconds > 0) {
+            kotlinx.coroutines.delay(1000L)
+            retryCooldownSeconds -= 1
+        }
+    }
 
     fun handleImportedTracks(tracks: List<ParsedImportTrack>, playlistName: String) {
         if (tracks.isEmpty()) {
@@ -426,9 +435,7 @@ fun PlaylistConvertBottomSheet(
                 }
 
                 is PlaylistConversionState.Error -> {
-                    val isPermanentFailure = state.errorCode == de.goork.songflip.core.model.PlaylistErrorCode.UNSUPPORTED_PLATFORM ||
-                            state.errorCode == de.goork.songflip.core.model.PlaylistErrorCode.PRIVATE_OR_RESTRICTED ||
-                            state.errorCode == de.goork.songflip.core.model.PlaylistErrorCode.EMPTY_PLAYLIST
+                    val isPermanentFailure = state.errorCode.isPermanentFailure
 
                     val (errorIcon, titleRes, descRes) = when (state.errorCode) {
                         de.goork.songflip.core.model.PlaylistErrorCode.PRIVATE_OR_RESTRICTED -> Triple(
@@ -445,6 +452,11 @@ fun PlaylistConvertBottomSheet(
                             Icons.AutoMirrored.Outlined.QueueMusic,
                             R.string.playlist_error_empty_title,
                             R.string.playlist_error_empty_desc
+                        )
+                        de.goork.songflip.core.model.PlaylistErrorCode.NOT_FOUND -> Triple(
+                            Icons.Outlined.SearchOff,
+                            R.string.playlist_error_title,
+                            R.string.playlist_error_desc
                         )
                         de.goork.songflip.core.model.PlaylistErrorCode.UPSTREAM_TIMEOUT,
                         de.goork.songflip.core.model.PlaylistErrorCode.RATE_LIMITED -> Triple(
@@ -553,18 +565,11 @@ fun PlaylistConvertBottomSheet(
                     Spacer(modifier = Modifier.height(24.dp))
 
                     if (isPermanentFailure) {
-                        // For permanent errors (private playlist / unsupported platform / empty playlist), primary action is opening original link.
-                        // Strictly NO retry button rendered (Issue #62) to prevent repetitive failed API calls and user frustration.
+                        // For permanent errors (not found / private / unsupported / empty), primary action is opening original link.
+                        // Strictly NO retry button rendered (Issue #187) to prevent repetitive failed API calls and user frustration.
                         Button(
                             onClick = {
-                                try {
-                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(playlistUrl)).apply {
-                                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                    }
-                                    context.startActivity(intent)
-                                } catch (e: Exception) {
-                                    Log.w("PlaylistConvert", "Failed to launch original playlist intent: ${e.message}")
-                                }
+                                PackageUtils.openWebFallback(context, playlistUrl)
                                 onDismiss()
                             },
                             modifier = Modifier.fillMaxWidth().height(48.dp),
@@ -583,27 +588,33 @@ fun PlaylistConvertBottomSheet(
                             Text(stringResource(R.string.playlist_dialog_action_close))
                         }
                     } else {
-                        // For transient errors (timeout / generic), primary action is retry
+                        // For transient errors (timeout / generic), primary action is retry with debounce/cooldown
                         Button(
-                            onClick = { runConversion(forceRefresh = true) },
+                            onClick = {
+                                if (retryCooldownSeconds <= 0) {
+                                    retryCooldownSeconds = 4
+                                    if (onRetryConversion != null) {
+                                        onRetryConversion()
+                                    } else {
+                                        runConversion(forceRefresh = true)
+                                    }
+                                }
+                            },
+                            enabled = retryCooldownSeconds <= 0,
                             modifier = Modifier.fillMaxWidth().height(48.dp),
                             shape = RoundedCornerShape(12.dp)
                         ) {
-                            Text(stringResource(R.string.playlist_btn_retry))
+                            Text(
+                                if (retryCooldownSeconds > 0) "${stringResource(R.string.playlist_btn_retry)} (${retryCooldownSeconds}s)"
+                                else stringResource(R.string.playlist_btn_retry)
+                            )
                         }
 
                         Spacer(modifier = Modifier.height(10.dp))
 
                         OutlinedButton(
                             onClick = {
-                                try {
-                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(playlistUrl)).apply {
-                                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                    }
-                                    context.startActivity(intent)
-                                } catch (e: Exception) {
-                                    Log.w("PlaylistConvert", "Failed to launch original playlist intent: ${e.message}")
-                                }
+                                PackageUtils.openWebFallback(context, playlistUrl)
                                 onDismiss()
                             },
                             modifier = Modifier.fillMaxWidth().height(48.dp),

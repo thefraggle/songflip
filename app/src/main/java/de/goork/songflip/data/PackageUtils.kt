@@ -536,4 +536,105 @@ object PackageUtils {
             android.util.Log.w("PackageUtils", "Application details settings intent failed: ${e.message}")
         }
     }
+
+    /**
+     * Opens a web fallback URL safely:
+     * - Priority 2: Chrome Custom Tabs (keeps user in context, prevents intent interception loops).
+     * - Priority 3: System Browser chooser, strictly excluding SongFlip from target candidates.
+     */
+    fun openWebFallback(context: Context, fallbackUrl: String): Boolean {
+        val uri = try {
+            android.net.Uri.parse(fallbackUrl)
+        } catch (_: Exception) {
+            return false
+        }
+
+        // Prio 2: Chrome Custom Tabs
+        try {
+            val customTabsIntent = androidx.browser.customtabs.CustomTabsIntent.Builder()
+                .setShowTitle(true)
+                .build()
+
+            customTabsIntent.intent.apply {
+                addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+                putExtra("de.goork.songflip.FORWARDED_FROM_SONGFLIP", true)
+            }
+
+            val customTabsPackage = androidx.browser.customtabs.CustomTabsClient.getPackageName(context, null)
+            if (!customTabsPackage.isNullOrBlank() && customTabsPackage != context.packageName) {
+                customTabsIntent.intent.setPackage(customTabsPackage)
+            }
+
+            customTabsIntent.launchUrl(context, uri)
+            return true
+        } catch (e: Exception) {
+            android.util.Log.d("PackageUtils", "Custom tabs launch failed: ${e.message}, falling back to system browser")
+        }
+
+        // Prio 3: System Browser (excluding SongFlip to avoid intent loop)
+        try {
+            val genericWebIntent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com")).apply {
+                addCategory(android.content.Intent.CATEGORY_BROWSABLE)
+            }
+
+            val browserPackage = context.packageManager.queryIntentActivities(genericWebIntent, 0)
+                .map { it.activityInfo.packageName }
+                .firstOrNull { it != context.packageName }
+
+            if (browserPackage != null) {
+                val targetIntent = android.content.Intent(android.content.Intent.ACTION_VIEW, uri).apply {
+                    addCategory(android.content.Intent.CATEGORY_BROWSABLE)
+                    setPackage(browserPackage)
+                    putExtra("de.goork.songflip.FORWARDED_FROM_SONGFLIP", true)
+                    putExtra(android.provider.Browser.EXTRA_APPLICATION_ID, browserPackage)
+                    addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+                context.startActivity(targetIntent)
+                return true
+            }
+
+            val selectorIntent = android.content.Intent(android.content.Intent.ACTION_MAIN).apply {
+                addCategory(android.content.Intent.CATEGORY_APP_BROWSER)
+            }
+            val browserIntent = android.content.Intent(android.content.Intent.ACTION_VIEW, uri).apply {
+                selector = selectorIntent
+                putExtra("de.goork.songflip.FORWARDED_FROM_SONGFLIP", true)
+                addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            context.startActivity(browserIntent)
+            return true
+        } catch (e: Exception) {
+            android.util.Log.e("PackageUtils", "Failed to launch system browser fallback for $fallbackUrl: ${e.message}", e)
+            return false
+        }
+    }
+
+    /**
+     * Launches native player app if installed; otherwise opens web fallback safely.
+     */
+    fun launchTargetOrFallback(
+        context: Context,
+        rawTargetUrl: String,
+        platformKey: String,
+        nativeAppUri: String? = null
+    ): Boolean {
+        val targetUrl = rawTargetUrl.replace("music.music.youtube.com", "music.youtube.com")
+        val (targetPackage, uriStr) = resolveEffectiveLaunchTarget(context, targetUrl, platformKey, nativeAppUri)
+        if (targetPackage != null) {
+            try {
+                val appIntent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(uriStr)).apply {
+                    flags = android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+                    setPackage(targetPackage)
+                    putExtra("de.goork.songflip.FORWARDED_FROM_SONGFLIP", true)
+                }
+                context.startActivity(appIntent)
+                return true
+            } catch (e: Exception) {
+                android.util.Log.w("PackageUtils", "Direct player launch failed for $targetPackage ($uriStr): ${e.message}")
+            }
+        }
+
+        val fallbackUrl = toWebFallbackUrl(targetUrl, platformKey)
+        return openWebFallback(context, fallbackUrl)
+    }
 }

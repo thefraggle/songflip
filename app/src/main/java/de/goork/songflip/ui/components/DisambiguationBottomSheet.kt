@@ -213,38 +213,12 @@ fun DisambiguationBottomSheet(
                                             )
                                             onMatchUpdated(candidate.targetUrl)
                                             Toast.makeText(context, context.getString(R.string.disambiguate_success), Toast.LENGTH_SHORT).show()
-                                            var launched = false
-                                            val (targetPackage, uriStr) = PackageUtils.resolveEffectiveLaunchTarget(
+                                            PackageUtils.launchTargetOrFallback(
                                                 context,
                                                 candidate.targetUrl,
                                                 targetPlatformKey,
                                                 candidate.nativeAppUri
                                             )
-                                            if (targetPackage != null) {
-                                                try {
-                                                    val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse(uriStr)).apply {
-                                                        flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                                                        setPackage(targetPackage)
-                                                        putExtra(de.goork.songflip.ui.RedirectActivity.EXTRA_FORWARDED_FROM_SONGFLIP, true)
-                                                    }
-                                                    context.startActivity(appIntent)
-                                                    launched = true
-                                                } catch (e: Exception) {
-                                                    android.util.Log.w("Disambiguation", "Explicit player launch failed for $targetPackage ($uriStr): ${e.message}")
-                                                }
-                                            }
-                                            if (!launched) {
-                                                try {
-                                                    val fallbackUrl = PackageUtils.toWebFallbackUrl(candidate.targetUrl, targetPlatformKey)
-                                                    val playIntent = Intent(Intent.ACTION_VIEW, Uri.parse(fallbackUrl)).apply {
-                                                        flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                                                        putExtra(de.goork.songflip.ui.RedirectActivity.EXTRA_FORWARDED_FROM_SONGFLIP, true)
-                                                    }
-                                                    context.startActivity(playIntent)
-                                                } catch (e: Exception) {
-                                                    android.util.Log.w("Disambiguation", "Could not launch updated match URL: ${e.message}")
-                                                }
-                                            }
                                             onDismissRequest()
                                         } else {
                                             Toast.makeText(context, context.getString(R.string.redirect_error_toast), Toast.LENGTH_SHORT).show()

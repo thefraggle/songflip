@@ -411,8 +411,8 @@
     <string name="listen_change_target">เปลี่ยนปลายทาง</string>
     <string name="playlist_reconvert">แปลงอีกครั้ง</string>
     <string name="playlist_badge_free_limit">ฟรี (5)</string>
-    <string name="playlist_import_file_btn">Import Playlist File (.m3u8, .csv)</string>
-    <string name="playlist_import_file_desc">Import local .m3u8, .csv, or text tracklists to convert and play them directly.</string>
-    <string name="playlist_import_empty_error">No playable songs found in the selected file.</string>
+    <string name="playlist_import_file_btn">นำเข้าไฟล์เพลย์ลิสต์ (.m3u8, .csv)</string>
+    <string name="playlist_import_file_desc">นำเข้ารายการเพลง .m3u8, .csv หรือข้อความเพื่อแปลงและเล่นได้ทันที</string>
+    <string name="playlist_import_empty_error">ไม่พบเพลงที่เล่นได้ในไฟล์ที่เลือก</string>
     <string name="playlist_import_source_chip">ไฟล์</string>
 </resources>

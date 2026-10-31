@@ -86108,175 +86108,205 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "Importă fișier playlist (.m3u8, .csv)"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "Импорт файла плейлиста (.m3u8, .csv)"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "匯入播放清單檔案 (.m3u8, .csv)"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "Importa file playlist (.m3u8, .csv)"
           }
         },
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "Importovat soubor playlistu (.m3u8, .csv)"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "导入播放列表文件 (.m3u8, .csv)"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "Impor File Playlist (.m3u8, .csv)"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "プレイリストファイルをインポート (.m3u8, .csv)"
           }
         },
         "el": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "Εισαγωγή αρχείου playlist (.m3u8, .csv)"
           }
         },
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "Importer spillelistefil (.m3u8, .csv)"
           }
         },
         "mr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "प्लेलिस्ट फाइल इंपोर्ट करा (.m3u8, .csv)"
           }
         },
         "no": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "Importer spillelistefil (.m3u8, .csv)"
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "Importuj plik playlisty (.m3u8, .csv)"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "Nhập tệp danh sách phát (.m3u8, .csv)"
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "Importera spellistefil (.m3u8, .csv)"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "Çalma Listesi Dosyası İçe Aktar (.m3u8, .csv)"
           }
         },
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "นำเข้าไฟล์เพลย์ลิสต์ (.m3u8, .csv)"
           }
         },
         "fi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "Tuo soittolistatiedosto (.m3u8, .csv)"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "Importer un fichier de playlist (.m3u8, .csv)"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "Importar archivo de lista (.m3u8, .csv)"
           }
         },
         "hu": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "Lejátszási lista fájl importálása (.m3u8, .csv)"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "Afspeellijstbestand importeren (.m3u8, .csv)"
           }
         },
         "bn": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "প্লেলিস্ট ফাইল ইম্পোর্ট করুন (.m3u8, .csv)"
           }
         },
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "Importer spillelistefil (.m3u8, .csv)"
           }
         },
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "प्लेलिस्ट फ़ाइल आयात करें (.m3u8, .csv)"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "재생목록 파일 가져오기 (.m3u8, .csv)"
           }
         },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "Importar ficheiro de playlist (.m3u8, .csv)"
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "Importar arquivo de playlist (.m3u8, .csv)"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import Playlist File (.m3u8, .csv)"
+            "value": "Імпортувати файл плейлиста (.m3u8, .csv)"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importar arquivo de playlist (.m3u8, .csv)"
+          }
+        },
+        "zh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "导入播放列表文件 (.m3u8, .csv)"
+          }
+        },
+        "zh-rCN": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "导入播放列表文件 (.m3u8, .csv)"
+          }
+        },
+        "zh-rTW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "匯入播放清單檔案 (.m3u8, .csv)"
+          }
+        },
+        "in": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impor File Playlist (.m3u8, .csv)"
           }
         }
       }
@@ -86299,175 +86329,205 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "Importă fișiere locale .m3u8, .csv sau liste text pentru a le converti și reda direct."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "Импортируйте локальные списки .m3u8, .csv или текстовые трек-листы для конвертации и воспроизведения."
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "匯入本機 .m3u8、.csv 或文字曲目清單，即可直接轉換並播放。"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "Importa tracce locali .m3u8, .csv o di testo per convertirle e riprodurle direttamente."
           }
         },
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "Importujte místní seznamy skladeb .m3u8, .csv nebo text pro přímý převod a přehrávání."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "导入本地 .m3u8、.csv 或文本曲目列表，即可直接转换并播放。"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "Impor daftar lagu .m3u8, .csv, atau teks lokal untuk langsung mengonversi dan memutarnya."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "ローカルの .m3u8、.csv、またはテキストのトラックリストをインポートして、直接変換・再生します。"
           }
         },
         "el": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "Εισαγάγετε τοπικά αρχεία .m3u8, .csv ή λίστες κειμένου για άμεση μετατροπή και αναπαραγωγή."
           }
         },
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "Importer lokale .m3u8-, .csv- eller tekstsporlister for at konvertere og afspille dem direkte."
           }
         },
         "mr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "थेट रूपांतरित आणि प्ले करण्यासाठी स्थानिक .m3u8, .csv किंवा टेक्स्ट ट्रॅकलिस्ट इंपोर्ट करा."
           }
         },
         "no": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "Importer lokale .m3u8-, .csv- eller tekstlister for å konvertere og spille av direkte."
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "Importuj lokalne playlisty .m3u8, .csv lub tekstowe, aby je bezpośrednio przekonwertować i odtworzyć."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "Nhập danh sách bài hát .m3u8, .csv hoặc văn bản để chuyển đổi và phát trực tiếp."
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "Importera lokala .m3u8-, .csv- eller textlistor för att konvertera och spela direkt."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "Doğrudan dönüştürmek ve çalmak için yerel .m3u8, .csv veya metin parçalarını içe aktarın."
           }
         },
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "นำเข้ารายการเพลง .m3u8, .csv หรือข้อความเพื่อแปลงและเล่นได้ทันที"
           }
         },
         "fi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "Tuo paikallisia .m3u8-, .csv- tai tekstitiedostoja muunnettavaksi ja toistettavaksi suoraan."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "Importez des fichiers locaux .m3u8, .csv ou texte pour les convertir et les écouter directement."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "Importa listas .m3u8, .csv o de texto locales para convertirlas y reproducirlas directamente."
           }
         },
         "hu": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "Helyi .m3u8, .csv vagy szöveges listák importálása közvetlen átalakításhoz és lejátszáshoz."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "Importeer lokale .m3u8-, .csv- of teksttracklijsten om ze direct te converteren en af te spelen."
           }
         },
         "bn": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "সরাসরি রূপান্তর ও প্লে করতে লোকাল .m3u8, .csv বা টেক্সট ট্র্যাকলিস্ট ইম্পোর্ট করুন।"
           }
         },
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "Importer lokale .m3u8-, .csv- eller tekstlister for å konvertere og spille av direkte."
           }
         },
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "सीधे बदलने और चलाने के लिए स्थानीय .m3u8, .csv या टेक्स्ट ट्रैक सूची आयात करें।"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "로컬 .m3u8, .csv 또는 텍스트 트랙 목록을 가져와 직접 변환하고 재생합니다."
           }
         },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "Importe listas locais .m3u8, .csv ou texto para converter e reproduzir diretamente."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "Importe listas locais .m3u8, .csv ou texto para converter e reproduzir diretamente."
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Import local .m3u8, .csv, or text tracklists to convert and play them directly."
+            "value": "Імпортуйте локальні списки .m3u8, .csv або текст для конвертації та відтворення."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importe listas locais .m3u8, .csv ou texto para converter e reproduzir diretamente."
+          }
+        },
+        "zh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "导入本地 .m3u8、.csv 或文本曲目列表，即可直接转换并播放。"
+          }
+        },
+        "zh-rCN": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "导入本地 .m3u8、.csv 或文本曲目列表，即可直接转换并播放。"
+          }
+        },
+        "zh-rTW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "匯入本機 .m3u8、.csv 或文字曲目清單，即可直接轉換並播放。"
+          }
+        },
+        "in": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impor daftar lagu .m3u8, .csv, atau teks lokal untuk langsung mengonversi dan memutarnya."
           }
         }
       }
@@ -86490,175 +86550,205 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "Nu s-au găsit melodii redabile în fișierul selectat."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "В выбранном файле не найдено доступных для воспроизведения треков."
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "選取的檔案中找不到可播放的歌曲。"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "Nessun brano riproducibile trovato nel file selezionato."
           }
         },
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "Ve vybraném souboru nebyly nalezeny žádné přehratelné skladby."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "所选文件中未找到可播放的歌曲。"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "Tidak ada lagu yang dapat diputar di file yang dipilih."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "選択したファイルに再生可能な曲が見つかりませんでした。"
           }
         },
         "el": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "Δεν βρέθηκαν κομμάτια προς αναπαραγωγή στο επιλεγμένο αρχείο."
           }
         },
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "Ingen afspillelige sange fundet i den valgte fil."
           }
         },
         "mr": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "निवडलेल्या फाइलमध्ये प्ले करण्यायोग्य गाणी सापडली नाहीत."
           }
         },
         "no": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "Ingen spillbare sanger funnet i den valgte filen."
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "W wybranym pliku nie znaleziono żadnych utworów do odtworzenia."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "Không tìm thấy bài hát có thể phát trong tệp đã chọn."
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "Inga spelbara låtar hittades i den valda filen."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "Seçilen dosyada çalınabilir parça bulunamadı."
           }
         },
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "ไม่พบเพลงที่เล่นได้ในไฟล์ที่เลือก"
           }
         },
         "fi": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "Valitusta tiedostosta ei löytynyt toistettavia kappaleita."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "Aucun morceau lisible trouvé dans le fichier sélectionné."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "No se encontraron canciones reproducibles en el archivo seleccionado."
           }
         },
         "hu": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "A kiválasztott fájlban nem találhatók lejátszható dalok."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "Geen afspeelbare nummers gevonden in het geselecteerde bestand."
           }
         },
         "bn": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "নির্বাচিত ফাইলে কোনো প্লেযোগ্য গান পাওয়া যায়নি।"
           }
         },
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "Ingen spillbare sanger funnet i den valgte filen."
           }
         },
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "चयनित फ़ाइल में कोई बजाने योग्य गाना नहीं मिला।"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "선택한 파일에서 재생 가능한 곡을 찾을 수 없습니다."
           }
         },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "Nenhuma música reproduzível encontrada no ficheiro selecionado."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "Nenhuma música reproduzível encontrada no arquivo selecionado."
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "No playable songs found in the selected file."
+            "value": "У вибраному файлі не знайдено доступних для відтворення треків."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhuma música reproduzível encontrada no arquivo selecionado."
+          }
+        },
+        "zh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所选文件中未找到可播放的歌曲。"
+          }
+        },
+        "zh-rCN": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所选文件中未找到可播放的歌曲。"
+          }
+        },
+        "zh-rTW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選取的檔案中找不到可播放的歌曲。"
+          }
+        },
+        "in": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tidak ada lagu yang dapat diputar di file yang dipilih."
           }
         }
       }
@@ -86699,7 +86789,7 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Arquivo"
+            "value": "Ficheiro"
           }
         },
         "pt-BR": {
@@ -86813,7 +86903,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Berkas"
+            "value": "File"
           }
         },
         "th": {
@@ -86844,6 +86934,42 @@
           "stringUnit": {
             "state": "translated",
             "value": "फाइल"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arquivo"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fil"
+          }
+        },
+        "zh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "文件"
+          }
+        },
+        "zh-rCN": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "文件"
+          }
+        },
+        "zh-rTW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "檔案"
+          }
+        },
+        "in": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "File"
           }
         }
       }

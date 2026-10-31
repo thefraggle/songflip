@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.12.3] - 2026-10-31
+- **Nahtlose Web-Fallback-Navigation**: Zuverlässiges Öffnen im integrierten Browser-Tab, falls Ziel-Musik-Apps nicht installiert sind, wodurch Schleifen verhindert werden.
+- **Resistente Playlist-Konvertierung**: Permanente Fehler werden klar erkannt und erneute Versuche durch Klick-Cooldowns gegen wiederholte Fehlversuche geschützt.
+- **Erweitertes Matching für Tidal & Deezer**: Mehrstufige Erkennung von Titeln mit Subtiteln und Gastkünstlern mit höherem Treffer-Limit auf Augenhöhe mit Qobuz.
+- **Vollständige Übersetzungen für Datei-Import**: Lokalisierung aller Playlist-Datei-Import-Texte in sämtlichen unterstützten Sprachen.
+
 ## [1.12.2] - 2026-10-30
 - **Erkennung von Künstler-Kollaborationen**: Erweiterte Erkennung über Musikkataloge hinweg mit Unterstützung für gemeinsame Veröffentlichungen und Gastkünstler.
 - **Präzisere Titelerkennung im Streaming-Katalog**: Mehrstufige Auflösung für Songs mit Versions- und Untertitel-Zusätzen für eine deutlich höhere Trefferquote.

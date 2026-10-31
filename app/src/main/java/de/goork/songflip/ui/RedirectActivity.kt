@@ -413,38 +413,9 @@ class RedirectActivity : ComponentActivity() {
     }
 
     private fun openInBrowser(uri: Uri) {
-        try {
-            val genericWebIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com")).apply {
-                addCategory(Intent.CATEGORY_BROWSABLE)
-            }
-
-            val browserPackage = packageManager.queryIntentActivities(genericWebIntent, 0)
-                .map { it.activityInfo.packageName }
-                .firstOrNull { it != packageName }
-
-            if (browserPackage != null) {
-                val targetIntent = Intent(Intent.ACTION_VIEW, uri).apply {
-                    addCategory(Intent.CATEGORY_BROWSABLE)
-                    setPackage(browserPackage)
-                    putExtra(EXTRA_FORWARDED_FROM_SONGFLIP, true)
-                    putExtra(Browser.EXTRA_APPLICATION_ID, browserPackage)
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                }
-                startActivity(targetIntent)
-                return
-            }
-
-            val selectorIntent = Intent(Intent.ACTION_MAIN).apply {
-                addCategory(Intent.CATEGORY_APP_BROWSER)
-            }
-            val browserIntent = Intent(Intent.ACTION_VIEW, uri).apply {
-                selector = selectorIntent
-                putExtra(EXTRA_FORWARDED_FROM_SONGFLIP, true)
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            }
-            startActivity(browserIntent)
-        } catch (e: Exception) {
-            android.util.Log.e("RedirectActivity", "Failed to launch web browser fallback: ${e.message}", e)
+        val launched = de.goork.songflip.data.PackageUtils.openWebFallback(this, uri.toString())
+        if (!launched) {
+            android.util.Log.e("RedirectActivity", "Failed to launch web fallback for $uri")
         }
     }
 
