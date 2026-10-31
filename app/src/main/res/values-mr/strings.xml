@@ -429,8 +429,8 @@
     <string name="listen_change_target">लक्ष्य बदला</string>
     <string name="playlist_reconvert">पुन्हा रूपांतरित करा</string>
     <string name="playlist_badge_free_limit">मोफत (5)</string>
-    <string name="playlist_import_file_btn">Import Playlist File (.m3u8, .csv)</string>
-    <string name="playlist_import_file_desc">Import local .m3u8, .csv, or text tracklists to convert and play them directly.</string>
-    <string name="playlist_import_empty_error">No playable songs found in the selected file.</string>
+    <string name="playlist_import_file_btn">प्लेलिस्ट फाइल इंपोर्ट करा (.m3u8, .csv)</string>
+    <string name="playlist_import_file_desc">थेट रूपांतरित आणि प्ले करण्यासाठी स्थानिक .m3u8, .csv किंवा टेक्स्ट ट्रॅकलिस्ट इंपोर्ट करा.</string>
+    <string name="playlist_import_empty_error">निवडलेल्या फाइलमध्ये प्ले करण्यायोग्य गाणी सापडली नाहीत.</string>
     <string name="playlist_import_source_chip">फाइल</string>
 </resources>

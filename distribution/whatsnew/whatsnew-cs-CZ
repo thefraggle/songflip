@@ -1,2 +1,2 @@
-- Multi-Artist Collaboration Matching: Pokročilé rozlišení napříč hudebními katalogy podporujícími formáty spolupráce, vybrané umělce a sekundární varianty umělců.
-- Enhanced Streaming Catalog Matching: Vícestupňové rozlišení u skladeb s titulky, tagy edice a verzemi, což zlepšuje přesnost přímé shody.
+- Bezproblémová záložní navigace na webu: Robustní záložní zobrazení na vestavěných kartách prohlížeče, pokud nejsou nainstalovány cílové streamovací aplikace, čímž se zabraňuje smyčkám navigace.
+- Odolná konverze playlistů: Chyby playlistů terminálu jsou jasně kategorizovány a akce opakovaného pokusu nyní obsahují ochranné prodlevy, aby se zabránilo opakovaným chybám.

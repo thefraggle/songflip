@@ -115,31 +115,10 @@ fun SearchBottomSheet(
     }
 
     fun launchTargetPlayer(targetUrl: String, nativeAppUri: String?, platformKey: String) {
-        val (targetPackage, uriStr) = PackageUtils.resolveEffectiveLaunchTarget(context, targetUrl, platformKey, nativeAppUri)
-        if (targetPackage != null) {
-            try {
-                val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse(uriStr)).apply {
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                    setPackage(targetPackage)
-                    putExtra(de.goork.songflip.ui.RedirectActivity.EXTRA_FORWARDED_FROM_SONGFLIP, true)
-                }
-                context.startActivity(appIntent)
-                onDismissRequest()
-                return
-            } catch (e: Exception) {
-                android.util.Log.w("SearchBottomSheet", "Explicit player launch failed for $targetPackage ($uriStr): ${e.message}")
-            }
-        }
-        try {
-            val fallbackUrl = PackageUtils.toWebFallbackUrl(targetUrl, platformKey)
-            val playIntent = Intent(Intent.ACTION_VIEW, Uri.parse(fallbackUrl)).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                putExtra(de.goork.songflip.ui.RedirectActivity.EXTRA_FORWARDED_FROM_SONGFLIP, true)
-            }
-            context.startActivity(playIntent)
+        val success = PackageUtils.launchTargetOrFallback(context, targetUrl, platformKey, nativeAppUri)
+        if (success) {
             onDismissRequest()
-        } catch (e: Exception) {
-            android.util.Log.w("SearchBottomSheet", "Fallback launch failed for $targetUrl: ${e.message}")
+        } else {
             Toast.makeText(context, context.getString(R.string.redirect_error_toast), Toast.LENGTH_SHORT).show()
         }
     }

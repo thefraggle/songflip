@@ -1,2 +1,3 @@
-- 멀티 아티스트 협업 매칭: 협업 형식, 추천 아티스트 및 보조 아티스트 변형을 지원하는 음악 카탈로그 전반에 걸친 고급 해상도.
-- 향상된 스트리밍 카탈로그 매칭: 자막, 에디션 태그 및 버전이 있는 트랙 제목의 다단계 해상도로 직접 매칭 정확도를 향상시킵니다.
+- Seamless Web Fallback Navigation: Robust fallback viewing in built-in browser tabs when target streaming apps are not installed, preventing navigation loops.
+- Resilient Playlist Conversion: Terminal playlist errors are clearly categorized, and retry actions now feature cooldowns to prevent repeated failures.
+- Extended Catalog Matching for Tidal & Deezer: Multi-stage resolution for titles with subtitles and featured artists, with higher candidate limits matching the accuracy of Qobuz.

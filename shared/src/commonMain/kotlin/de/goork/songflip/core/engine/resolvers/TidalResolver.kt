@@ -1,5 +1,6 @@
 package de.goork.songflip.core.engine.resolvers
 
+import de.goork.songflip.core.engine.EngineConfig
 import de.goork.songflip.core.model.MusicPlatform
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
@@ -86,21 +87,39 @@ class TidalResolver(
         if (primary != null) return primary
         val stripped = ResolverUtils.stripEditionSuffix(query)
         if (stripped != query && stripped.isNotBlank()) {
-            return executeTidalSearch(stripped, isAlbum, audiophileMode)
+            val second = executeTidalSearch(stripped, isAlbum, audiophileMode)
+            if (second != null) return second
+        }
+        val noParens = query.replace(Regex("\\s*\\([^)]*\\)"), "")
+            .replace(Regex("\\s*\\[[^\\]]*\\]"), "")
+            .replace(Regex("\\s{2,}"), " ")
+            .trim()
+        if (noParens != query && noParens != stripped && noParens.isNotBlank()) {
+            val third = executeTidalSearch(noParens, isAlbum, audiophileMode)
+            if (third != null) return third
+        }
+        if (query.contains(",") || query.contains(" feat", ignoreCase = true) || query.contains(" ft", ignoreCase = true)) {
+            val artistPart = query.substringBefore(",").substringBefore(" feat").substringBefore(" ft").trim()
+            val remainingPart = query.substringAfterLast(",").substringAfter("feat.").substringAfter("ft.").trim()
+            val simplifiedQuery = "$artistPart $remainingPart".trim()
+            if (simplifiedQuery.isNotBlank() && simplifiedQuery != query) {
+                val fourth = executeTidalSearch(simplifiedQuery, isAlbum, audiophileMode)
+                if (fourth != null) return fourth
+            }
         }
         return null
     }
 
     private suspend fun executeTidalSearch(query: String, isAlbum: Boolean = false, audiophileMode: Boolean = false): String? {
         val encoded = query.encodeURLParameter()
-        val limit = if (audiophileMode) 10 else 5
+        val limit = if (audiophileMode) 20 else 15
         val countryCode = getCountryCode()
 
         for (baseUrl in searchBaseUrls) {
             try {
                 val resp = client.get("$baseUrl?query=$encoded&limit=$limit&countryCode=$countryCode") {
                     header("x-tidal-token", tidalAppToken)
-                    header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+                    header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SongFlip/${EngineConfig.APP_VERSION}")
                 }
                 if (resp.status.isSuccess()) {
                     val body = resp.bodyAsText()
