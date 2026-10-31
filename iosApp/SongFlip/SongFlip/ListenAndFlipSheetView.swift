@@ -488,9 +488,6 @@ struct ListenAndFlipSheetView: View {
             }
             .buttonStyle(.plain)
         }
-        .onAppear {
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
-        }
     }
 
     // MARK: - Offline Club Mode Queued

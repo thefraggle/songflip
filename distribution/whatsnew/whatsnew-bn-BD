@@ -1,1 +1,3 @@
-- নির্বিঘ্ন ওয়েব ফলব্যাক নেভিগেশন: টার্গেট স্ট্রিমিং অ্যাপ ইনস্টল করা না থাকলে, বিল্ট-ইন ব্রাউজার ট্যাবে একটি শক্তিশালী ফলব্যাক ভিউইং ব্যবস্থা থাকে, যা নেভিগেশন লুপ প্রতিরোধ করে।
+- Haptic Confirmation for Music Recognition: Subtle tactile feedback the moment a song is identified during listening, without interrupting playback forwarding.
+- Seamless Web Fallback Navigation: Robust fallback viewing in built-in browser tabs when target streaming apps are not installed, preventing navigation loops.
+- Resilient Playlist Conversion: Terminal playlist errors are clearly categorized, and retry actions now feature cooldowns to prevent repeated failures.
