@@ -86291,18 +86291,6 @@
             "value": "导入播放列表文件 (.m3u8, .csv)"
           }
         },
-        "zh-rCN": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "导入播放列表文件 (.m3u8, .csv)"
-          }
-        },
-        "zh-rTW": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "匯入播放清單檔案 (.m3u8, .csv)"
-          }
-        },
         "in": {
           "stringUnit": {
             "state": "translated",
@@ -86510,18 +86498,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "导入本地 .m3u8、.csv 或文本曲目列表，即可直接转换并播放。"
-          }
-        },
-        "zh-rCN": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "导入本地 .m3u8、.csv 或文本曲目列表，即可直接转换并播放。"
-          }
-        },
-        "zh-rTW": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "匯入本機 .m3u8、.csv 或文字曲目清單，即可直接轉換並播放。"
           }
         },
         "in": {
@@ -86733,18 +86709,6 @@
             "value": "所选文件中未找到可播放的歌曲。"
           }
         },
-        "zh-rCN": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "所选文件中未找到可播放的歌曲。"
-          }
-        },
-        "zh-rTW": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "選取的檔案中找不到可播放的歌曲。"
-          }
-        },
         "in": {
           "stringUnit": {
             "state": "translated",
@@ -86952,18 +86916,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "文件"
-          }
-        },
-        "zh-rCN": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "文件"
-          }
-        },
-        "zh-rTW": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "檔案"
           }
         },
         "in": {
