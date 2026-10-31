@@ -1,6 +1,7 @@
 # Changelog (Deutsch)
 
 ## [1.12.3] - 2026-10-31
+- **Haptisches Feedback bei Musikerkennung**: Subtile spürbare Bestätigung im Moment der Song-Erkennung, während die Weiterleitung zum Ziel-Player nahtlos fortgeführt wird.
 - **Nahtlose Web-Fallback-Navigation**: Zuverlässiges Öffnen im integrierten Browser-Tab, falls Ziel-Musik-Apps nicht installiert sind, wodurch Schleifen verhindert werden.
 - **Resistente Playlist-Konvertierung**: Permanente Fehler werden klar erkannt und erneute Versuche durch Klick-Cooldowns gegen wiederholte Fehlversuche geschützt.
 - **Erweitertes Matching für Tidal & Deezer**: Mehrstufige Erkennung von Titeln mit Subtiteln und Gastkünstlern mit höherem Treffer-Limit auf Augenhöhe mit Qobuz.

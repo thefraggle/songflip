@@ -1,3 +1,2 @@
-- Seamless Web Fallback Navigation: Robust fallback viewing in built-in browser tabs when target streaming apps are not installed, preventing navigation loops.
-- Resilient Playlist Conversion: Terminal playlist errors are clearly categorized, and retry actions now feature cooldowns to prevent repeated failures.
-- Extended Catalog Matching for Tidal & Deezer: Multi-stage resolution for titles with subtitles and featured artists, with higher candidate limits matching the accuracy of Qobuz.
+- Potwierdzenie dotykowe w rozpoznawaniu muzyki: subtelna informacja zwrotna w momencie rozpoznania utworu podczas słuchania, bez przerywania odtwarzania.
+- Bezproblemowa nawigacja zapasowa w sieci: Solidne przeglądanie zapasowe na wbudowanych kartach przeglądarki, gdy docelowe aplikacje strumieniowe nie są zainstalowane, zapobiegające pętlom nawigacji.

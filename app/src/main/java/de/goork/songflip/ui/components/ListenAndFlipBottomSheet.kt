@@ -142,11 +142,10 @@ fun ListenAndFlipBottomSheet(
         }
     }
 
-    // Update remaining free scans and haptic feedback when a match occurs
+    // Update remaining free scans when a match occurs
     LaunchedEffect(recognitionState) {
         val current = recognitionState
         if (current is AcousticRecognitionState.Matched) {
-            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
             remainingFreeScans = current.result.remainingFreeScans
         }
     }

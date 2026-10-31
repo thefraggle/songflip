@@ -1,2 +1,3 @@
-- Zökkenőmentes webes tartalék navigáció: Robusztus tartalék megjelenítés a beépített böngészőfüleken, amikor a célzott streamingalkalmazások nincsenek telepítve, így megakadályozva a navigációs hurkokat.
-- Rugalmas lejátszási lista konvertálás: A terminál lejátszási lista hibái egyértelműen kategorizáltak, és az újrapróbálkozási műveletek mostantól lehűlési idővel rendelkeznek az ismételt hibák megelőzése érdekében.
+- Haptic Confirmation for Music Recognition: Subtle tactile feedback the moment a song is identified during listening, without interrupting playback forwarding.
+- Seamless Web Fallback Navigation: Robust fallback viewing in built-in browser tabs when target streaming apps are not installed, preventing navigation loops.
+- Resilient Playlist Conversion: Terminal playlist errors are clearly categorized, and retry actions now feature cooldowns to prevent repeated failures.

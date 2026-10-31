@@ -1,6 +1,7 @@
 # Changelog
 
 ## [1.12.3] - 2026-10-31
+- **Haptic Confirmation for Music Recognition**: Subtle tactile feedback the moment a song is identified during listening, without interrupting playback forwarding.
 - **Seamless Web Fallback Navigation**: Robust fallback viewing in built-in browser tabs when target streaming apps are not installed, preventing navigation loops.
 - **Resilient Playlist Conversion**: Terminal playlist errors are clearly categorized, and retry actions now feature cooldowns to prevent repeated failures.
 - **Extended Catalog Matching for Tidal & Deezer**: Multi-stage resolution for titles with subtitles and featured artists, with higher candidate limits matching the accuracy of Qobuz.
