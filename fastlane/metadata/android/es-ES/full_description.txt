@@ -21,8 +21,8 @@ Cree y escanee códigos QR universales para canciones y álbumes en cualquier se
 • Convertidor de podcasts y motor de redireccionamiento de podcasts:
 Comparta programas o episodios completos de podcasts en todas las plataformas.
 
-• Convertidor y transferencia de listas de reproducción:
-Convierta listas de reproducción y transfiera listas de reproducción entre Spotify, Apple Music, YouTube Music, TIDAL y Deezer (hasta 200 pistas).
+• Convertidor de listas, importación (M3U) y transferencia:
+Convierta y transfiera listas de reproducción entre Spotify, Apple Music, YouTube Music, TIDAL y Deezer.
 
 • Calidad audiófila (Hi-Res y Lossless) y favoritos:
 Prioriza masters de estudio, 24-bit Hi-Res, Lossless y Dolby Atmos frente a ediciones de radio y recopilatorios. Elige versiones y fija favoritos con 1 toque.

@@ -21,8 +21,8 @@ Herhangi bir yayın hizmetinde şarkılar ve albümler için evrensel QR kodlar�
 • Podcast Dönüştürücü ve Podcast Yönlendirme Motoru:
 Podcast şovlarının veya bölümlerinin tamamını platformlar arasında paylaşın.
 
-• Evrensel Çalma Listesi Dönüştürücü ve Çalma Listesi Aktarımı:
-Otomatik çift temizleme, 200'e kadar parça ve hızlı önbelleğe alma özellikleriyle çalma listelerini dönüştürün ve Spotify, Apple Music, YouTube Music, TIDAL ve Deezer arasında parça parça çalma listelerini aktarın.
+• Çalma Listesi Dönüştürücü, Dosya İçe Aktarma (M3U) ve Aktarım:
+Çalma listelerini Spotify, Apple Music, YouTube Music, TIDAL ve Deezer arasında dönüştürün ve aktarın.
 
 • Odyofil Kalitesi (Hi-Res & Lossless) ve Favoriler:
 Radyo düzenlemeleri ve derlemeler yerine stüdyo kayıtlarını, 24-bit Hi-Res, Lossless ve Dolby Atmos sürümlerini tercih edin. Favorileri tek dokunuşla sabitleyin.

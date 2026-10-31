@@ -16,13 +16,13 @@ Herken muziek om je heen direct in SongFlip. Nummers worden gekoppeld aan je fav
 Zoek naar nummers en artiesten rechtstreeks in SongFlip en start het afspelen direct in je favoriete streamingspeler met 1 tik op Fast Flip - geen bestaande nummerlink vereist.
 
 • QR-codenummer delen en scannen:
-Genereer en scan universele QR-codes voor nummers en albums. Deel moeiteloos muzieklinks met vrienden via elke streamingdienst.
+Genereer en scan universele QR-codes voor nummers en albums.
 
 • Podcast-converter en podcast-omleidingsengine:
 Deel volledige podcastshows of afleveringen op verschillende platforms. SongFlip lost de titels van afleveringen automatisch op, zodat podcastlinks rechtstreeks in uw favoriete podcastspeler worden geconverteerd en geopend.
 
-• Universele afspeellijstconverter en afspeellijstoverdracht:
-Converteer afspeellijsten en draag afspeellijsten track voor track over tussen Spotify, Apple Music, YouTube Music, TIDAL en Deezer, met automatische opschoning van dubbele nummers, tot 200 nummers en snelle caching.
+• Afspeellijstconverter, bestandsimport (M3U) & overdracht:
+Converteer en draag afspeellijsten over tussen Spotify, Apple Music, YouTube Music, TIDAL en Deezer. Importeer lokale tracklijsten uit .m3u-, .m3u8-, .csv- en tekstbestanden direct naar je streaminglijsten — met duplicatenverwijdering, tot 200 nummers en snelle caching.
 
 • Audiofiele kwaliteit (Hi-Res & Lossless) & favorieten:
 Geef voorkeur aan studiomasters, 24-bit Hi-Res, Lossless & Dolby Atmos boven radio-edits en compilaties. Zet je favoriete nummers met 1 tik vast.
