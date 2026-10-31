@@ -1,3 +1,2 @@
+- Confirmación háptica para el reconocimiento musical: Retroalimentación táctil sutil en el momento en que se identifica una canción durante la escucha, sin interrumpir la reproducción.
 - Seamless Web Fallback Navigation: Robust fallback viewing in built-in browser tabs when target streaming apps are not installed, preventing navigation loops.
-- Resilient Playlist Conversion: Terminal playlist errors are clearly categorized, and retry actions now feature cooldowns to prevent repeated failures.
-- Extended Catalog Matching for Tidal & Deezer: Multi-stage resolution for titles with subtitles and featured artists, with higher candidate limits matching the accuracy of Qobuz.

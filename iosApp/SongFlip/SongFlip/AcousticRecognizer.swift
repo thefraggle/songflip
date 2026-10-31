@@ -4,6 +4,9 @@ import ShazamKit
 import Network
 import Combine
 import os
+#if canImport(UIKit)
+import UIKit
+#endif
 import SongFlipKit
 
 enum AcousticRecognitionState: Equatable {
@@ -343,11 +346,15 @@ final class AcousticRecognizer: ObservableObject {
             guard let winner = matchedItem else {
                 AptabaseClient.shared.trackAcousticScanNoMatch(
                     target: targetPlatformKey,
-                    isPro: isPro
+                    isPro = isPro
                 )
                 self.state = .noMatch
                 return
             }
+
+            #if canImport(UIKit)
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+            #endif
 
             self.state = .resolving(title: winner.title, artist: winner.artist, artworkUrl: winner.artworkUrl)
 

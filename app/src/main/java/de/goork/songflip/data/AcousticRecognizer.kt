@@ -686,6 +686,8 @@ object AcousticRecognizer {
                     return@launch
                 }
 
+                HapticUtils.performRecognitionSuccessHaptic(appCtx)
+
                 _state.value = AcousticRecognitionState.Resolving(
                     title = winner.title,
                     artist = winner.artist,
