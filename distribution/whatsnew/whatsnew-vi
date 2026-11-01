@@ -1,3 +1,3 @@
-- Haptic Confirmation for Music Recognition: Subtle tactile feedback the moment a song is identified during listening, without interrupting playback forwarding.
-- Seamless Web Fallback Navigation: Robust fallback viewing in built-in browser tabs when target streaming apps are not installed, preventing navigation loops.
-- Resilient Playlist Conversion: Terminal playlist errors are clearly categorized, and retry actions now feature cooldowns to prevent repeated failures.
+- So khớp trực tiếp nâng cao: Độ phân giải liên kết được tinh chỉnh cho các bản nhạc và album để điều hướng trực tiếp nhanh hơn.
+- Hiển thị trạng thái chính xác: Trình bày trạng thái hạn ngạch nhất quán và đáng tin cậy trong quá trình nhận dạng nhạc.
+- Tính ổn định & Hiệu suất: Độ phân giải nền được tinh chỉnh và xử lý lỗi hợp lý để chuyển đổi liên kết liền mạch.

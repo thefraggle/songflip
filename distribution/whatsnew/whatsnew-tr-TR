@@ -1,2 +1,3 @@
-- Müzik Tanıma için Dokunsal Onay: Dinleme sırasında bir şarkı tanımlandığı anda, çalma yönlendirmesini kesintiye uğratmadan ince dokunsal geri bildirim.
-- Sorunsuz Web Yedek Navigasyonu: Hedef akış uygulamaları yüklü olmadığında yerleşik tarayıcı sekmelerinde sağlam yedek görüntüleme, navigasyon döngülerini önler.
+- Geliştirilmiş Doğrudan Eşleştirme: Daha hızlı doğrudan gezinme için parçalar ve albümler için iyileştirilmiş bağlantı çözünürlüğü.
+- Doğru Durum Gösterimi: Müzik tanıma sırasında tutarlı ve güvenilir kota durumu gösterimi.
+- Kararlılık ve Performans: Sorunsuz bağlantı dönüşümü için iyileştirilmiş arka plan çözünürlüğü ve kolaylaştırılmış hata işleme.

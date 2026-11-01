@@ -1,2 +1,3 @@
-- Haptisk bekräftelse för musikigenkänning: Subtil taktil feedback i det ögonblick en låt identifieras under lyssning, utan att avbryta uppspelningens framåtspolning.
-- Seamless Web Fallback Navigation: Robust reservvisning i inbyggda webbläsarflikar när målströmmande appar inte är installerade, vilket förhindrar navigeringsslingor.
+- Förbättrad direktmatchning: Förfinad länkupplösning för spår och album för snabbare direktnavigering.
+- Exakt statusvisning: Konsekvent och pålitlig presentation av kvotstatus under musikigenkänning.
+- Stabilitet och prestanda: Förfinad bakgrundsupplösning och strömlinjeformad felhantering för sömlös länkkonvertering.
