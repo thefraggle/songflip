@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.12.4] - 2026-11-01
+- **Präzisere Direkterkennung**: Verfeinerte Link-Auflösung für Musiktitel und Alben für noch schnellere Direktweiterleitungen.
+- **Optimierte Statusanzeige**: Zuverlässige und konsistente Kontingentdarstellung bei der Erkennung laufender Songs.
+- **Stabilität & Zuverlässigkeit**: Verfeinerte Hintergrundauflösung und verbesserte Fehlerbehandlung für nahtlose Konvertierungen.
+
 ## [1.12.3] - 2026-10-31
 - **Haptisches Feedback bei Musikerkennung**: Subtile spürbare Bestätigung im Moment der Song-Erkennung, während die Weiterleitung zum Ziel-Player nahtlos fortgeführt wird.
 - **Nahtlose Web-Fallback-Navigation**: Zuverlässiges Öffnen im integrierten Browser-Tab, falls Ziel-Musik-Apps nicht installiert sind, wodurch Schleifen verhindert werden.

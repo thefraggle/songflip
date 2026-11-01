@@ -1,2 +1,3 @@
-- Confirmación háptica para el reconocimiento musical: Retroalimentación táctil sutil en el momento en que se identifica una canción durante la escucha, sin interrumpir la reproducción.
-- Seamless Web Fallback Navigation: Robust fallback viewing in built-in browser tabs when target streaming apps are not installed, preventing navigation loops.
+- Coincidencia directa mejorada: resolución de enlace refinada para pistas y álbumes para una navegación directa más rápida.
+- Visualización de estado precisa: presentación consistente y confiable del estado de la cuota durante el reconocimiento de música.
+- Estabilidad y rendimiento: resolución de fondo refinada y manejo de errores optimizado para una conversión de enlaces perfecta.

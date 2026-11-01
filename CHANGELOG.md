@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.12.4] - 2026-11-01
+- **Enhanced Direct Matching**: Refined link resolution for tracks and albums for faster direct navigation.
+- **Accurate Status Display**: Consistent and reliable quota status presentation during music recognition.
+- **Stability & Performance**: Refined background resolution and streamlined error handling for seamless link conversion.
+
 ## [1.12.3] - 2026-10-31
 - **Haptic Confirmation for Music Recognition**: Subtle tactile feedback the moment a song is identified during listening, without interrupting playback forwarding.
 - **Seamless Web Fallback Navigation**: Robust fallback viewing in built-in browser tabs when target streaming apps are not installed, preventing navigation loops.
