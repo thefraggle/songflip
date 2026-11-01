@@ -73,6 +73,7 @@ class SongLinkEngine(
     val songLinkApiResolver = SongLinkApiResolver(client, json)
     val qobuzResolver = QobuzResolver(client, json)
     val beatportResolver = BeatportResolver(client)
+    val soundCloudResolver = de.goork.songflip.core.engine.resolvers.SoundCloudResolver(client)
 
     private val backgroundScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
@@ -866,6 +867,7 @@ class SongLinkEngine(
             "tidal" -> tidalResolver
             "spotify" -> spotifyResolver
             "qobuz" -> qobuzResolver
+            "soundcloud" -> soundCloudResolver
             else -> null
         }
         val directMatch = if (isAlbum) {

@@ -29,6 +29,7 @@ class ListenAndFlipActivity : AppCompatActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         AndroidSharedPreferencesCacheStorage.init(this)
+        ProManager.init(this)
 
         val settingsRepo = SettingsRepository(this)
         val savedLang = settingsRepo.appLanguage
