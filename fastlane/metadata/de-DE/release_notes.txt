@@ -1,3 +1,3 @@
-- Präzisere Titelerkennung im Streaming-Katalog: Mehrstufige Auflösung für Songs mit Versions- und Untertitel-Zusätzen für eine deutlich höhere Trefferquote bei Direktverlinkungen.
-- Zuverlässige Weiterleitung bei Katalog-Suchen: Optimierte Suchweiterleitung für Qobuz, sodass Suchen verlässlich mit vollständigen Ergebnissen im Web-Katalog geladen werden.
-- Stabilität & Systemoptimierungen: Bereinigte Systemmeldungen und optimierte Diagnoseverarbeitung im Hintergrund für maximale Zuverlässigkeit.
+- Präzisere Direkterkennung: Verfeinerte Link-Auflösung für Musiktitel und Alben für noch schnellere Direktweiterleitungen.
+- Optimierte Statusanzeige: Zuverlässige und konsistente Kontingentdarstellung bei der Erkennung laufender Songs.
+- Stabilität & Zuverlässigkeit: Verfeinerte Hintergrundauflösung und verbesserte Fehlerbehandlung für nahtlose Konvertierungen.

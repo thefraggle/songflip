@@ -32,7 +32,7 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
   - 🟣 **Deezer** (`deezer.com`, `link.deezer.com`, `deezer.page.link`)
   - 🔵 **Amazon Music** (`music.amazon.com`, `music.amazon.de`, `music.amazon.co.uk`, `amzn.to`, `a.co`)
   - 🎙️ **Pocket Casts** (`pocketcasts.com`, `pca.st`)
-  - 🟠 **SoundCloud** (`soundcloud.com`, `on.soundcloud.com` — full source & target player support with `soundcloud://` deep-links)
+  - 🟠 **SoundCloud** (`soundcloud.com`, `on.soundcloud.com` — full source & target player support with `soundcloud://` deep-links and direct track resolution)
   - 🎸 **Bandcamp** (`bandcamp.com`, `*.bandcamp.com`)
   - 🎶 **Qobuz** (`qobuz.com`, `open.qobuz.com`, `play.qobuz.com` — full source & target player support with Hi-Res playback)
   - 🎧 **Beatport** (`beatport.com` — source link recognition & instant redirection)
@@ -74,7 +74,7 @@ SongFlip is built as a modern **Kotlin Multiplatform (KMP)** project with a modu
 2. **Tier 2 (L2 Server-Side Cloud Cache) [PRO]**: High-speed Firebase edge cache with 90-day TTL for zero-latency (<50ms) global conversions and web-share landing page generation (gracefully bypassed on network misses or local builds).
 3. **Tier 3 (Direct 0-Redirect SongLink Engine)**: Normalizes incoming URLs into direct internal IDs for instant HTTP responses without redirect loops.
 4. **Tier 4 (Direct Playback Extractor)**: Background video/track ID regex extraction for YouTube Music instant play.
-5. **Tier 5 (Shazam & Catalog Discovery APIs)**: Shazam Discovery REST API (`amp.shazam.com`) for direct Apple Music IDs, iTunes Search & Lookup, Deezer Catalog API, Qobuz Public Catalog API, and YouTube oEmbed.
+5. **Tier 5 (Shazam & Catalog Discovery APIs)**: Shazam Discovery REST API (`amp.shazam.com`) for direct Apple Music IDs, iTunes Search & Lookup, Deezer Catalog API, Qobuz Public Catalog API, SoundCloud Web Scraper, and YouTube oEmbed.
 6. **Tier 6 (Target Catalog Deep-Search Fallback)**: Intelligent 2-tier search routing (remaster/edit noise stripped) for obscure releases and regional variants.
 
 ---

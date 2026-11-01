@@ -168,17 +168,19 @@ struct ListenAndFlipSheetView: View {
             if !proManager.isPro {
                 let remaining = recognizer.getRemainingFreeScans(isPro: false)
                 let maxFree = Int(AcousticQuotaManager.companion.MAX_FREE_SCANS_PER_MONTH)
-                Text(String(
-                    format: LocalizationManager.string(for: "listen_free_scans_remaining", lang: lang),
-                    remaining,
-                    maxFree
-                ))
-                .font(.caption.weight(.semibold))
-                .foregroundColor(.secondary)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 5)
-                .background(Color.secondary.opacity(0.12))
-                .cornerRadius(12)
+                if remaining >= 0 && remaining <= maxFree {
+                    Text(String(
+                        format: LocalizationManager.string(for: "listen_free_scans_remaining", lang: lang),
+                        remaining,
+                        maxFree
+                    ))
+                    .font(.caption.weight(.semibold))
+                    .foregroundColor(.secondary)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 5)
+                    .background(Color.secondary.opacity(0.12))
+                    .cornerRadius(12)
+                }
             }
         }
     }
