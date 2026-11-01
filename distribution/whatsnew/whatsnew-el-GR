@@ -1,3 +1,2 @@
-- Haptic Confirmation for Music Recognition: Subtle tactile feedback the moment a song is identified during listening, without interrupting playback forwarding.
-- Seamless Web Fallback Navigation: Robust fallback viewing in built-in browser tabs when target streaming apps are not installed, preventing navigation loops.
-- Resilient Playlist Conversion: Terminal playlist errors are clearly categorized, and retry actions now feature cooldowns to prevent repeated failures.
+- Ενισχυμένη άμεση αντιστοίχιση: Βελτιωμένη ανάλυση συνδέσμων για κομμάτια και άλμπουμ για ταχύτερη άμεση πλοήγηση.
+- Ακριβής εμφάνιση κατάστασης: Συνεπής και αξιόπιστη παρουσίαση κατάστασης ορίου κατά την αναγνώριση μουσικής.

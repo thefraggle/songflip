@@ -1,3 +1,3 @@
-- Haptic Confirmation for Music Recognition: Subtle tactile feedback the moment a song is identified during listening, without interrupting playback forwarding.
-- Seamless Web Fallback Navigation: Robust fallback viewing in built-in browser tabs when target streaming apps are not installed, preventing navigation loops.
-- Resilient Playlist Conversion: Terminal playlist errors are clearly categorized, and retry actions now feature cooldowns to prevent repeated failures.
+- Parannettu suora täsmäys: Tarkennettu linkkien tarkkuus kappaleille ja albumeille nopeampaa suoraa navigointia varten.
+- Tarkka tilanäyttö: Tasainen ja luotettava kiintiön tilan esitys musiikintunnistuksen aikana.
+- Vakaus ja suorituskyky: Hienostunut taustaresoluutio ja virtaviivaistettu virheiden käsittely takaavat saumattoman linkkien muuntamisen.
