@@ -11,6 +11,7 @@ import io.ktor.http.headersOf
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
@@ -640,5 +641,21 @@ class PlatformResolversTest {
         assertEquals("https://open.qobuz.com/track/96104243", qobuzResolver.resolveTrack("Romare - The Blues (It Began In Africa)"))
         assertEquals("https://open.qobuz.com/artist/222", qobuzResolver.resolveArtist("Korsakow"))
         assertEquals("Queen Bohemian Rhapsody", qobuzResolver.extractMetadata("https://www.qobuz.com/de-de/track/bohemian-rhapsody/123456"))
+    }
+
+    @Test
+    fun testResolverUtilsMatchingAndNormalization() {
+        // #194: Reject wrong track from same artist
+        assertFalse(ResolverUtils.isMatch("Queen Bohemian Rhapsody", "Queen", "Radio Ga Ga"))
+        assertTrue(ResolverUtils.isMatch("Queen Bohemian Rhapsody", "Queen", "Bohemian Rhapsody"))
+
+        // #195: Diacritics and Unicode normalization
+        assertTrue(ResolverUtils.isMatch("Beyonce Halo", "Beyoncé", "Halo"))
+        assertTrue(ResolverUtils.isMatch("Mötley Crüe Home Sweet Home", "Motley Crue", "Home Sweet Home"))
+        assertTrue(ResolverUtils.isMatch("Sigur Ros Hoppipolla", "Sigur Rós", "Hoppípolla"))
+
+        // Stylized artist names
+        assertTrue(ResolverUtils.isMatch("Pink So What", "P!nk", "So What"))
+        assertTrue(ResolverUtils.isMatch("Kesha Tik Tok", "Ke\$ha", "Tik Tok"))
     }
 }

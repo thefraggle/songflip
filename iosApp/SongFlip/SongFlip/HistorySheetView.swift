@@ -65,9 +65,10 @@ struct HistorySheetView: View {
         await MainActor.run { refreshingItemId = item.id }
         let isPlaylist = item.targetPlatform.contains("_playlist") || UrlUtils.shared.isPlaylistUrl(url: item.sourceUrl)
         if isPlaylist {
-            let targetKey = item.targetPlatform.replacingOccurrences(of: "_playlist", with: "").isEmpty
-                ? settings.targetPlatform
-                : item.targetPlatform.replacingOccurrences(of: "_playlist", with: "")
+            let cleanedPlatform = item.targetPlatform
+                .replacingOccurrences(of: "_playlist", with: "")
+                .replacingOccurrences(of: "_search", with: "")
+            let targetKey = cleanedPlatform.isEmpty ? settings.targetPlatform : cleanedPlatform
             let maxTracks: Int32 = proManager.isPro ? ProLimits.shared.MAX_PRO_PLAYLIST_TRACKS : ProLimits.shared.MAX_FREE_PLAYLIST_TRACKS
             let token = proManager.authToken
             do {
@@ -97,7 +98,9 @@ struct HistorySheetView: View {
             }
         } else {
             let engine = SongLinkEngine.shared
-            let rawTarget = item.targetPlatform.replacingOccurrences(of: "_playlist", with: "")
+            let rawTarget = item.targetPlatform
+                .replacingOccurrences(of: "_playlist", with: "")
+                .replacingOccurrences(of: "_search", with: "")
             let targetKey = rawTarget.isEmpty ? settings.targetPlatform : rawTarget
             do {
                 let res = try await engine.resolveTargetUrl(
@@ -118,7 +121,7 @@ struct HistorySheetView: View {
                             newTargetUrl: success.targetUrl,
                             newTitle: success.title,
                             newArtist: success.artist,
-                            newTargetPlatform: targetKey,
+                            newTargetPlatform: success.platform,
                             isAlbum: success.isAlbum,
                             thumbnailUrl: success.thumbnailUrl
                         )

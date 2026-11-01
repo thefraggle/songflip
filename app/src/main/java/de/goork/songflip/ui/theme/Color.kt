@@ -32,5 +32,8 @@ val StateActiveGreenLight = Color(0xFF047857) // Dunkler für Light-Mode (hoher 
 val StatePausedAmber = Color(0xFFF59E0B)
 val StatePausedAmberLight = Color(0xFFB45309) // Dunkler für Light-Mode
 
+val StateSetupCyan = Color(0xFF06B6D4) // Einladendes Cyan / Setup-Hinweis
+val StateSetupCyanLight = Color(0xFF0891B2) // Dunkler für Light-Mode
+
 val StateErrorRed    = Color(0xFFEF4444)
 val StateErrorRedLight = Color(0xFFB91C1C)

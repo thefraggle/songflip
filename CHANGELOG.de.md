@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.12.5] - 2026-11-01
+- **Präzisere Titelerkennung & Diakritika-Normalisierung**: Akzente, Sonderzeichen und stilisierte Schreibweisen werden für exaktere Übereinstimmungen bei der Musikkatalogsuche harmonisiert.
+- **Erweiterte Playlist-Konvertierung für Qobuz**: Vollständige Titelzuordnung und direkte Wiedergabelistenübertragung für Qobuz inklusive lokaler Dateiexporte.
+- **Direkte Titel-Suche bei Weiterleitungen**: Suchweiterleitungen zu Qobuz führen nun unmittelbar zum Titel-Reiter im Webkatalog statt zur Albumübersicht.
+- **Leistungsoptimierung & Reaktionszeiten**: Lokales Zwischenspeichern von Kurzlinkauflösungen und globales Zeitlimit zur Vermeidung von Wartezeiten.
+
 ## [1.12.4] - 2026-11-01
 - **Präzisere Direkterkennung**: Verfeinerte Link-Auflösung für Musiktitel und Alben für noch schnellere Direktweiterleitungen.
 - **Optimierte Statusanzeige**: Zuverlässige und konsistente Kontingentdarstellung bei der Erkennung laufender Songs.

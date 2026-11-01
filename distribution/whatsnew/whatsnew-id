@@ -1,3 +1,3 @@
-- Pencocokan Langsung yang Ditingkatkan: Resolusi tautan yang disempurnakan untuk trek dan album untuk navigasi langsung yang lebih cepat.
-- Tampilan Status Akurat: Penyajian status kuota yang konsisten dan andal selama pengenalan musik.
-- Stabilitas & Kinerja: Resolusi latar belakang yang disempurnakan dan penanganan kesalahan yang efisien untuk konversi tautan yang lancar.
+- Pencocokan Katalog & Normalisasi Diakritik yang Ditingkatkan: Aksen, karakter khusus, dan nama artis bergaya diselaraskan untuk pencocokan trek yang tepat di seluruh layanan streaming.
+- Konversi Daftar Putar Universal untuk Qobuz: Pemetaan trek penuh dan pembuatan antrian langsung untuk Qobuz, termasuk impor file lokal.
+- Direct Track Search Routing: Navigasi fallback pencarian untuk Qobuz terbuka langsung di tab trek daripada tampilan album default.
