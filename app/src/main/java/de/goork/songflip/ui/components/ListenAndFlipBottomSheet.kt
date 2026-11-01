@@ -216,8 +216,9 @@ fun ListenAndFlipBottomSheet(
                 }
             }
 
-            // Free Quota Pill (for Free users)
-            if (!isPro) {
+            // Free Quota Pill (for Free users only, strictly guarded against Int.MAX_VALUE leaks #192)
+            val shouldShowQuotaBadge = !isPro && remainingFreeScans in 0..AcousticQuotaManager.MAX_FREE_SCANS_PER_MONTH
+            if (shouldShowQuotaBadge) {
                 Surface(
                     onClick = {
                         haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
