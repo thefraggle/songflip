@@ -1,3 +1,2 @@
-- Továbbfejlesztett közvetlen egyezés: Finomított linkfelbontás a számokhoz és albumokhoz a gyorsabb közvetlen navigáció érdekében.
-- Pontos állapotkijelzés: Következetes és megbízható kvótaállapot-bemutató zenefelismerés közben.
-- Stabilitás és teljesítmény: Finomított háttérfelbontás és egyszerűsített hibakezelés a zökkenőmentes linkkonverzió érdekében.
+- Továbbfejlesztett katalógusillesztés és diakritikus normalizálás: Az ékezetek, a speciális karakterek és a stilizált művésznevek harmonizálnak a pontos sávillesztés érdekében a streaming szolgáltatások között.
+- Univerzális lejátszási lista konverzió a Qobuz számára: Teljes sáv leképezés és közvetlen várólista generálás a Qobuz számára, beleértve a helyi fájlimportálást is.

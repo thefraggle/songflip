@@ -1,3 +1,2 @@
-- Ulepszone bezpośrednie dopasowanie: Udoskonalona rozdzielczość linków do utworów i albumów w celu szybszej bezpośredniej nawigacji.
-- Dokładne wyświetlanie stanu: Spójna i niezawodna prezentacja statusu przydziału podczas rozpoznawania muzyki.
-- Stabilność i wydajność: Udoskonalona rozdzielczość tła i usprawniona obsługa błędów dla płynnej konwersji łączy.
+- Ulepszone dopasowywanie katalogu i normalizacja diakrytyki: akcenty, znaki specjalne i stylizowane nazwy wykonawców są zharmonizowane w celu precyzyjnego dopasowywania ścieżek w usługach przesyłania strumieniowego.
+- Uniwersalna konwersja list odtwarzania dla Qobuz: pełne mapowanie ścieżek i bezpośrednie generowanie kolejek dla Qobuz, w tym importowanie plików lokalnych.

@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Error
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.PauseCircle
 import androidx.compose.material.icons.outlined.PlayCircle
 import androidx.compose.material3.*
@@ -43,11 +44,12 @@ fun LiveStatusBanner(
 
     val activeColor = if (isDarkTheme) StateActiveGreen else StateActiveGreenLight
     val pausedColor = if (isDarkTheme) StatePausedAmber else StatePausedAmberLight
+    val setupColor = if (isDarkTheme) StateSetupCyan else StateSetupCyanLight
     val errorColor = if (isDarkTheme) StateErrorRed else StateErrorRedLight
 
     val (bannerBgColor, bannerBorderColor) = when {
         isCurrentlyPaused -> pausedColor.copy(alpha = 0.12f) to pausedColor.copy(alpha = 0.4f)
-        isSetupRequired -> errorColor.copy(alpha = 0.12f) to errorColor.copy(alpha = 0.4f)
+        isSetupRequired -> setupColor.copy(alpha = 0.12f) to setupColor.copy(alpha = 0.4f)
         else -> activeColor.copy(alpha = 0.12f) to activeColor.copy(alpha = 0.4f)
     }
 
@@ -95,15 +97,15 @@ fun LiveStatusBanner(
                     }
                     isSetupRequired -> {
                         Icon(
-                            imageVector = Icons.Default.Error,
+                            imageVector = Icons.Outlined.Info,
                             contentDescription = null,
-                            tint = errorColor,
+                            tint = setupColor,
                             modifier = Modifier.size(24.dp)
                         )
                         Text(
                             text = stringResource(R.string.status_setup_required),
                             style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
-                            color = errorColor
+                            color = setupColor
                         )
                     }
                     else -> {
@@ -159,7 +161,7 @@ fun LiveStatusBanner(
                         },
                         shape = RoundedCornerShape(10.dp),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = errorColor,
+                            containerColor = setupColor,
                             contentColor = MaterialTheme.colorScheme.surface
                         ),
                         contentPadding = PaddingValues(horizontal = 14.dp, vertical = 8.dp)

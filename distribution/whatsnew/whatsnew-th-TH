@@ -1,1 +1,3 @@
-- การจับคู่โดยตรงที่ได้รับการปรับปรุง: ความละเอียดลิงก์ที่ได้รับการปรับปรุงสำหรับแทร็กและอัลบั้มเพื่อการนำทางโดยตรงที่รวดเร็วยิ่งขึ้น
+- Enhanced Catalog Matching & Diacritics Normalization: Accents, special characters, and stylized artist names are harmonized for precise track matching across streaming services.
+- Universal Playlist Conversion for Qobuz: Full track mapping and direct queue generation for Qobuz, including local file imports.
+- Direct Track Search Routing: Search fallback navigation for Qobuz opens directly in the tracks tab rather than the default album view.

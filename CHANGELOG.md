@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.12.5] - 2026-11-01
+- **Enhanced Catalog Matching & Diacritics Normalization**: Accents, special characters, and stylized artist names are harmonized for precise track matching across streaming services.
+- **Universal Playlist Conversion for Qobuz**: Full track mapping and direct queue generation for Qobuz, including local file imports.
+- **Direct Track Search Routing**: Search fallback navigation for Qobuz opens directly in the tracks tab rather than the default album view.
+- **Performance & Latency Optimization**: In-memory caching for shortlink expansions and global resolution timeouts to prevent unresponsive states.
+
 ## [1.12.4] - 2026-11-01
 - **Enhanced Direct Matching**: Refined link resolution for tracks and albums for faster direct navigation.
 - **Accurate Status Display**: Consistent and reliable quota status presentation during music recognition.

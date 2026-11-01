@@ -1,3 +1,2 @@
-- Coincidencia directa mejorada: resolución de enlace refinada para pistas y álbumes para una navegación directa más rápida.
-- Visualización de estado precisa: presentación consistente y confiable del estado de la cuota durante el reconocimiento de música.
-- Estabilidad y rendimiento: resolución de fondo refinada y manejo de errores optimizado para una conversión de enlaces perfecta.
+- Normalización mejorada de la coincidencia de catálogos y diacríticos: los acentos, los caracteres especiales y los nombres de artistas estilizados se armonizan para una coincidencia de pistas precisa en los servicios de transmisión.
+- Conversión universal de listas de reproducción para Qobuz: mapeo completo de pistas y generación directa de colas para Qobuz, incluidas las importaciones de archivos locales.
