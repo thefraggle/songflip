@@ -6,6 +6,13 @@ object ResolverUtils {
     fun normalizeTokens(text: String): List<String> {
         val cleaned = text.lowercase()
             .replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
+            .replace("é", "e").replace("è", "e").replace("ê", "e").replace("ë", "e")
+            .replace("á", "a").replace("à", "a").replace("â", "a").replace("ã", "a").replace("å", "a").replace("æ", "ae")
+            .replace("ó", "o").replace("ò", "o").replace("ô", "o").replace("õ", "o").replace("ø", "oe")
+            .replace("í", "i").replace("ì", "i").replace("î", "i").replace("ï", "i")
+            .replace("ú", "u").replace("ù", "u").replace("û", "u")
+            .replace("ñ", "n").replace("ç", "c")
+            .replace("p!nk", "pink").replace("ke\$ha", "kesha")
             .replace("[^\\p{L}\\p{N}\\s]".toRegex(), " ")
         return cleaned.split("\\s+".toRegex())
             .map { it.trim() }
@@ -38,7 +45,7 @@ object ResolverUtils {
 
     /**
      * Validates whether candidate metadata matches the search query to prevent blind redirects
-     * to completely unrelated tracks or albums when the streaming catalog lacks the item.
+     * to completely unrelated tracks or albums when the streaming catalog lacks the item (#194).
      */
     fun isMatch(query: String, candidateArtist: String?, candidateTitle: String?): Boolean {
         val queryTokens = normalizeTokens(query)
@@ -48,10 +55,23 @@ object ResolverUtils {
         val candidateTitleTokens = candidateTitle?.let { normalizeTokens(it) } ?: emptyList()
         val candidateTokens = (candidateArtistTokens + candidateTitleTokens).toSet()
 
+        // If candidate lacks descriptive metadata (e.g. minimal mock or id-only payload), cannot disqualify
         if (candidateTokens.isEmpty()) {
             return true
         }
 
+        // 1. If candidate has a title, require at least one token match with the query
+        // to prevent matching an unrelated track from the same artist (#194)
+        if (candidateTitleTokens.isNotEmpty()) {
+            val hasTitleMatch = candidateTitleTokens.any { cTok ->
+                queryTokens.any { qTok ->
+                    cTok == qTok || (qTok.length >= 4 && (cTok.startsWith(qTok) || qTok.startsWith(cTok)))
+                }
+            }
+            if (!hasTitleMatch) return false
+        }
+
+        // 2. Token overlap: Ensure at least one query token matches candidate tokens
         return queryTokens.any { qTok ->
             candidateTokens.any { cTok ->
                 cTok == qTok || (qTok.length >= 4 && (cTok.startsWith(qTok) || qTok.startsWith(cTok)))

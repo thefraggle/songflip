@@ -1,3 +1,2 @@
-- Correspondance directe améliorée : résolution de lien raffinée pour les pistes et les albums pour une navigation directe plus rapide.
-- Affichage précis de l'état : présentation cohérente et fiable de l'état du quota lors de la reconnaissance musicale.
-- Stabilité et performances : résolution d'arrière-plan raffinée et gestion simplifiée des erreurs pour une conversion de lien transparente.
+- Mise en correspondance améliorée du catalogue et normalisation des diacritiques : les accents, les caractères spéciaux et les noms d'artistes stylisés sont harmonisés pour une correspondance précise des pistes entre les services de streaming.
+- Conversion universelle des listes de lecture pour Qobuz : mappage complet des pistes et génération directe des files d'attente pour Qobuz, y compris les importations de fichiers locaux.

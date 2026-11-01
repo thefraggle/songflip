@@ -1,3 +1,2 @@
-- Verbeterde Direct Matching: Verfijnde linkresolutie voor nummers en albums voor snellere directe navigatie.
-- Nauwkeurige statusweergave: consistente en betrouwbare presentatie van de quotastatus tijdens muziekherkenning.
-- Stabiliteit en prestaties: verfijnde achtergrondresolutie en gestroomlijnde foutafhandeling voor naadloze linkconversie.
+- Verbeterde normalisatie van catalogusafstemming en diakritische tekens: accenten, speciale tekens en gestileerde artiestennamen zijn geharmoniseerd voor nauwkeurige nummerafstemming tussen streamingdiensten.
+- Universele afspeellijstconversie voor Qobuz: volledige trackmapping en het genereren van directe wachtrijen voor Qobuz, inclusief het importeren van lokale bestanden.

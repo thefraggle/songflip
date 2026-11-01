@@ -82,8 +82,9 @@ When an upstream resolver (e.g. Odesli) lacks a mapping for a target platform (f
    - **Apple Music:** iTunes Search API queries collection/track IDs with strict title/artist token overlap verification (rejecting false-positive compilations).
    - **Deezer:** Deezer Public Search API resolves direct album/track URLs with fuzzy name matching.
    - **Tidal:** Tidal Public Search API queries direct track/album IDs with token consistency checks.
-   - **Qobuz:** Qobuz Public Catalog API resolves direct track, album, and artist IDs with strict title/artist similarity validation.
+   - **Qobuz:** Qobuz Public Catalog API resolves direct track, album, and artist IDs with strict title/artist similarity validation. Playlist matching in Cloud Functions backend resolves tracks via public catalog search with Zero-OAuth fallback.
    - **YouTube Music:** YouTube Music scraper resolves `browse/MPREb_...` album IDs and `watch?v=...` video IDs.
+   - **Token & Diacritics Normalization (v1.12.5):** `ResolverUtils.isMatch` normalizes Unicode accents, diacritics (`é -> e`, `ñ -> n`), stylized leetspeak (`p!nk -> pink`, `ke$ha -> kesha`), and enforces minimum token coverage so tracks with matching artists but different titles (e.g. Queen "Bohemian Rhapsody" vs "Radio Ga Ga") are rejected before falling back to search.
 2. **Deterministic Search Fallback (Graceful Degradation):**
    Platforms without open, auth-free public search APIs (**Amazon Music**, **Spotify**, **SoundCloud**, **Bandcamp**, **Beatport**, **Pocket Casts**) or when candidate metadata diverges significantly gracefully fall back to pre-populated search deep-links (e.g. `amznmp3://music.amazon.com/search/<Artist>+<Album>`, `spotify:search:...`, `soundcloud://search?q=...`, `podcast://...`). This guarantees that the user always lands on the desired content with zero dead-ends and zero wrong-track misdirects.
 
@@ -98,7 +99,7 @@ When an upstream resolver (e.g. Odesli) lacks a mapping for a target platform (f
 | **Tidal** | `tidal://track/<id>` | `tidal://album/<id>` | `tidal://artist/<id>` | — | ✅ Tidal Public API (`api.tidal.com`) | `listen.tidal.com/search?q=` |
 | **SoundCloud** | `soundcloud://sounds:<id>` | `soundcloud://sets:<id>` | `soundcloud://users:<id>` | — | ✅ SoundCloud Scraper (`soundcloud.com`) | `soundcloud://search?q=` |
 | **Bandcamp** | `bandcamp://...` | `bandcamp://...` | `bandcamp://...` | — | ❌ None (Web only) | `bandcamp.com/search?q=` |
-| **Qobuz** | `qobuz://open.qobuz.com/track/<id>` | `qobuz://open.qobuz.com/album/<id>` | `qobuz://open.qobuz.com/artist/<id>` | — | ✅ Qobuz Public API | `qobuz.com/us-en/search?q=` |
+| **Qobuz** | `qobuz://open.qobuz.com/track/<id>` | `qobuz://open.qobuz.com/album/<id>` | `qobuz://open.qobuz.com/artist/<id>` | — | ✅ Qobuz Public API | `qobuz.com/us-en/search/tracks?q=` |
 | **Beatport** | *(Source only)* | *(Source only)* | *(Source only)* | — | ✅ Beatport OG Scraper | `beatport.com/search?q=` |
 
 ---

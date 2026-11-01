@@ -1,3 +1,3 @@
-- Potrivire directă îmbunătățită: Rezoluție rafinată a linkurilor pentru melodii și albume pentru o navigare directă mai rapidă.
-- Afișare precisă a stării: prezentare constantă și fiabilă a stării cotei în timpul recunoașterii muzicii.
-- Stabilitate și performanță: rezoluție rafinată de fundal și gestionarea eficientă a erorilor pentru o conversie fără întreruperi a legăturilor.
+- Enhanced Catalog Matching & Diacritics Normalization: Accents, special characters, and stylized artist names are harmonized for precise track matching across streaming services.
+- Universal Playlist Conversion for Qobuz: Full track mapping and direct queue generation for Qobuz, including local file imports.
+- Direct Track Search Routing: Search fallback navigation for Qobuz opens directly in the tracks tab rather than the default album view.

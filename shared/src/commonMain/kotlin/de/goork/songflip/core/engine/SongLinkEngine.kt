@@ -35,6 +35,9 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
+import de.goork.songflip.core.util.PlatformLock
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -75,7 +78,20 @@ class SongLinkEngine(
     val beatportResolver = BeatportResolver(client)
     val soundCloudResolver = de.goork.songflip.core.engine.resolvers.SoundCloudResolver(client)
 
+    private val shortLinkResolutionCache = mutableMapOf<String, String>()
+    private val shortLinkLock = PlatformLock()
+
     private val backgroundScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+
+    private fun cacheResolvedShortLink(sourceUrl: String, resolvedUrl: String): String {
+        shortLinkLock.withLock {
+            if (shortLinkResolutionCache.size > 500) {
+                shortLinkResolutionCache.clear()
+            }
+            shortLinkResolutionCache[sourceUrl] = resolvedUrl
+        }
+        return resolvedUrl
+    }
 
     private fun pingCacheIngestAsync(
         originalUrl: String,
@@ -489,14 +505,18 @@ class SongLinkEngine(
                 }
             }
 
-            // 5. Parallel Multi-Source Resolution
-            val (songLinkData, trackInfo) = supervisorScope {
-                val songLinkDeferred = async { fetchSongLinkData(canonicalUrl) }
-                val fallbackTrackDeferred = async { extractTrackInfo(canonicalUrl) }
-                val sld = try { songLinkDeferred.await() } catch (e: Exception) { if (e is CancellationException) throw e; null }
-                val ti = try { fallbackTrackDeferred.await() } catch (e: Exception) { if (e is CancellationException) throw e; null }
-                Pair(sld, ti)
-            }
+            // 5. Parallel Multi-Source Resolution with global safety timeout (#196)
+            val (songLinkData, trackInfo) = withContext(Dispatchers.Default) {
+                withTimeoutOrNull(9_000L) {
+                    supervisorScope {
+                        val songLinkDeferred = async { fetchSongLinkData(canonicalUrl) }
+                        val fallbackTrackDeferred = async { extractTrackInfo(canonicalUrl) }
+                        val sld = try { songLinkDeferred.await() } catch (e: Exception) { if (e is CancellationException) throw e; null }
+                        val ti = try { fallbackTrackDeferred.await() } catch (e: Exception) { if (e is CancellationException) throw e; null }
+                        Pair(sld, ti)
+                    }
+                }
+            } ?: Pair(null, null)
 
             if (songLinkData != null) {
                 // If the user requested an explicit track (e.g. Apple Music with ?i=...), but song.link mapped it to the whole album:
@@ -1114,16 +1134,19 @@ internal data class SpotifyPodcastOEmbedDto(
     }
 
     suspend fun resolveCanonicalUrl(url: String): String {
+        val cached = shortLinkLock.withLock { shortLinkResolutionCache[url] }
+        if (cached != null) return cached
+
         if (url.contains("shazam.com")) {
             val appleUrl = resolveShazamToAppleMusic(url)
-            if (appleUrl != null) return appleUrl
+            if (appleUrl != null) return cacheResolvedShortLink(url, appleUrl)
         }
 
         var currentUrl = url
         for (hop in 0 until 5) {
             val normalized = UrlUtils.normalizeUrl(currentUrl)
             if (normalized != currentUrl && !UrlUtils.isShortLinkDomain(normalized)) {
-                return normalized
+                return cacheResolvedShortLink(url, normalized)
             }
 
             try {
@@ -1136,16 +1159,17 @@ internal data class SpotifyPodcastOEmbedDto(
                     currentUrl = nextUrl
                     val nextNormalized = UrlUtils.normalizeUrl(nextUrl)
                     if (nextNormalized != nextUrl && !UrlUtils.isShortLinkDomain(nextNormalized)) {
-                        return nextNormalized
+                        return cacheResolvedShortLink(url, nextNormalized)
                     }
                     if (!UrlUtils.isShortLinkDomain(nextUrl)) {
-                        return nextUrl
+                        return cacheResolvedShortLink(url, nextUrl)
                     }
                 } else {
                     val getResp = client.get(currentUrl) {
                         header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
                     }
-                    return UrlUtils.normalizeUrl(getResp.request.url.toString())
+                    val target = UrlUtils.normalizeUrl(getResp.request.url.toString())
+                    return cacheResolvedShortLink(url, target)
                 }
             } catch (e: Exception) {
                 if (e is CancellationException) throw e
@@ -1153,14 +1177,17 @@ internal data class SpotifyPodcastOEmbedDto(
                     val getResp = client.get(currentUrl) {
                         header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
                     }
-                    return UrlUtils.normalizeUrl(getResp.request.url.toString())
+                    val target = UrlUtils.normalizeUrl(getResp.request.url.toString())
+                    return cacheResolvedShortLink(url, target)
                 } catch (inner: Exception) {
                     if (inner is CancellationException) throw inner
-                    return UrlUtils.normalizeUrl(currentUrl)
+                    val target = UrlUtils.normalizeUrl(currentUrl)
+                    return cacheResolvedShortLink(url, target)
                 }
             }
         }
-        return UrlUtils.normalizeUrl(currentUrl)
+        val target = UrlUtils.normalizeUrl(currentUrl)
+        return cacheResolvedShortLink(url, target)
     }
 
     private fun resolveRelativeUrl(base: String, location: String): String {
