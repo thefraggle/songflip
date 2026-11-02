@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.12.6] - 2026-11-02
+- **Harmonisierte Setup-Hinweise**: Einladende, klare Statusanzeige und abgestimmte visuelle Hierarchie für Standard-Musiklinks.
+- **Verbesserte Cache-Sicherheit & Validierung**: Strengere Verifizierungsanforderungen über mehrere Plattformen hinweg stellen sicher, dass nur geprüfte Direkteinträge im globalen Zwischenspeicher landen.
+- **Ausfallsicherheit & Abfrageschutz**: Intelligente Schutzschalter und strukturierte Behandlung von Ratenbegrenzungen bei externen Musikkatalogen verhindern übermäßige Netzwerkanfragen.
+
 ## [1.12.5] - 2026-11-01
 - **Präzisere Titelerkennung & Diakritika-Normalisierung**: Akzente, Sonderzeichen und stilisierte Schreibweisen werden für exaktere Übereinstimmungen bei der Musikkatalogsuche harmonisiert.
 - **Erweiterte Playlist-Konvertierung für Qobuz**: Vollständige Titelzuordnung und direkte Wiedergabelistenübertragung für Qobuz inklusive lokaler Dateiexporte.

@@ -103,6 +103,12 @@ class SongLinkEngine(
         links: Map<String, String>? = null
     ) {
         if (originalUrl.isBlank() || targetUrl.isBlank()) return
+        // #197: Only ingest verified direct platform mappings with complete metadata and at least 3 platform links.
+        // Never ingest fallback search URLs, artist links, or incomplete metadata into global L2 cache.
+        if (targetPlatform.endsWith("_search") || targetPlatform.endsWith("_artist") || targetPlatform.endsWith("_fallback")) return
+        if (UrlUtils.isSearchUrl(targetUrl) || UrlUtils.isSearchUrl(originalUrl)) return
+        if (title.isNullOrBlank() || artist.isNullOrBlank()) return
+        if (links == null || links.size < 3) return
 
         backgroundScope.launch {
             try {
@@ -110,15 +116,13 @@ class SongLinkEngine(
                     put("originalUrl", originalUrl)
                     put("targetUrl", targetUrl)
                     put("platform", targetPlatform)
-                    if (!title.isNullOrBlank()) put("title", title)
-                    if (!artist.isNullOrBlank()) put("artist", artist)
+                    put("title", title.trim())
+                    put("artist", artist.trim())
                     put("isAlbum", isAlbum)
-                    if (!links.isNullOrEmpty()) {
-                        putJsonObject("links") {
-                            for ((k, v) in links) {
-                                if (k.isNotBlank() && v.isNotBlank()) {
-                                    put(k, v)
-                                }
+                    putJsonObject("links") {
+                        for ((k, v) in links) {
+                            if (k.isNotBlank() && v.isNotBlank() && !UrlUtils.isSearchUrl(v)) {
+                                put(k, v)
                             }
                         }
                     }
@@ -485,14 +489,6 @@ class SongLinkEngine(
                     nativeAppUri = nativeUri
                 )
                 cache.put(canonicalUrl, targetPlatformKey, result, now, isHistory = !isPrefetch)
-                pingCacheIngestAsync(
-                    originalUrl = canonicalUrl,
-                    targetUrl = finalTargetUrl,
-                    targetPlatform = result.platform,
-                    title = searchQuery,
-                    artist = null,
-                    isAlbum = false
-                )
                 return result
             }
 
@@ -709,14 +705,6 @@ class SongLinkEngine(
                     nativeAppUri = nativeUri
                 )
                 cache.put(canonicalUrl, targetPlatformKey, result, now, isHistory = !isPrefetch)
-                pingCacheIngestAsync(
-                    originalUrl = canonicalUrl,
-                    targetUrl = targetUrl,
-                    targetPlatform = platform,
-                    title = trackInfo,
-                    artist = null,
-                    isAlbum = isExplicitAlbumUrl
-                )
                 return result
             }
 
@@ -735,14 +723,6 @@ class SongLinkEngine(
                     nativeAppUri = nativeUri
                 )
                 cache.put(canonicalUrl, targetPlatformKey, result, now, isHistory = !isPrefetch)
-                pingCacheIngestAsync(
-                    originalUrl = canonicalUrl,
-                    targetUrl = finalTargetUrl,
-                    targetPlatform = result.platform,
-                    title = null,
-                    artist = artistInfo,
-                    isAlbum = false
-                )
                 return result
             }
 

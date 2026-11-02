@@ -1,2 +1,2 @@
-- Ulepszone dopasowywanie katalogu i normalizacja diakrytyki: akcenty, znaki specjalne i stylizowane nazwy wykonawców są zharmonizowane w celu precyzyjnego dopasowywania ścieżek w usługach przesyłania strumieniowego.
-- Uniwersalna konwersja list odtwarzania dla Qobuz: pełne mapowanie ścieżek i bezpośrednie generowanie kolejek dla Qobuz, w tym importowanie plików lokalnych.
+- Zharmonizowane wskazówki dotyczące konfiguracji: przejrzysty, zachęcający wskaźnik stanu konfiguracji i udoskonalona hierarchia wizualna dla domyślnych łączy muzycznych.
+- Ulepszone bezpieczeństwo i weryfikacja pamięci podręcznej: bardziej rygorystyczne wymagania dotyczące weryfikacji wieloplatformowej i zasady sprawdzania poprawności zapobiegają przedostawaniu się niekompletnych lub wyszukiwanych zapytań do globalnej pamięci podręcznej.
