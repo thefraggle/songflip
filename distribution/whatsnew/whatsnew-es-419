@@ -1,2 +1,2 @@
-- Normalización mejorada de la coincidencia de catálogos y diacríticos: los acentos, los caracteres especiales y los nombres de artistas estilizados se armonizan para una coincidencia de pistas precisa en los servicios de transmisión.
-- Conversión universal de listas de reproducción para Qobuz: mapeo completo de pistas y generación directa de colas para Qobuz, incluidas las importaciones de archivos locales.
+- Guía de configuración armonizada: indicador de estado de configuración claro y atractivo y jerarquía visual refinada para enlaces de música predeterminados.
+- Seguridad y verificación de caché mejoradas: los requisitos de verificación multiplataforma y las reglas de validación más estrictos evitan que consultas de búsqueda o incompletas ingresen al almacenamiento de caché global.

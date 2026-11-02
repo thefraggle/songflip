@@ -1,3 +1,2 @@
-- Enhanced Catalog Matching & Diacritics Normalization: Accents, special characters, and stylized artist names are harmonized for precise track matching across streaming services.
-- Universal Playlist Conversion for Qobuz: Full track mapping and direct queue generation for Qobuz, including local file imports.
-- Direct Track Search Routing: Search fallback navigation for Qobuz opens directly in the tracks tab rather than the default album view.
+- Ghid de configurare armonizat: Indicator clar și atractiv de stare a configurării și ierarhie vizuală rafinată pentru legăturile muzicale implicite.
+- Securitate și verificare îmbunătățite în cache: cerințe mai stricte de verificare pe mai multe platforme și reguli de validare împiedică interogările incomplete sau de căutare să intre în stocarea cache globală.

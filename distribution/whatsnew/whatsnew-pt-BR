@@ -1,2 +1,2 @@
-- Correspondência aprimorada de catálogo e normalização de diacríticos: acentos, caracteres especiais e nomes de artistas estilizados são harmonizados para correspondência precisa de faixas em serviços de streaming.
-- Conversão Universal de Lista de Reprodução para Qobuz: Mapeamento completo de faixas e geração direta de filas para Qobuz, incluindo importações de arquivos locais.
+- Orientação de configuração harmonizada: indicador de status de configuração claro e convidativo e hierarquia visual refinada para links de música padrão.
+- Segurança e verificação de cache aprimoradas: requisitos de verificação multiplataforma e regras de validação mais rígidos evitam que consultas incompletas ou de pesquisa entrem no armazenamento de cache global.

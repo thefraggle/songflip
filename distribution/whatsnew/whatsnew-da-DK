@@ -1,3 +1,2 @@
-- Forbedret katalogmatchning og diakritisk normalisering: Accenter, specialtegn og stiliserede kunstnernavne er harmoniseret for præcis spormatchning på tværs af streamingtjenester.
-- Universel afspilningslistekonvertering til Qobuz: Fuld sporkortlægning og direkte køgenerering til Qobuz, herunder lokal filimport.
-- Direct Track Search Routing: Søg efter fallback-navigation til Qobuz åbnes direkte i fanen spor i stedet for standardalbumvisningen.
+- Harmoniseret opsætningsvejledning: Klar, indbydende opsætningsstatusindikator og raffineret visuelt hierarki for standardmusiklinks.
+- Forbedret cachesikkerhed og -verifikation: Strengere multi-platform-verifikationskrav og valideringsregler forhindrer ufuldstændige eller søgeforespørgsler i at komme ind i global cache-lagring.

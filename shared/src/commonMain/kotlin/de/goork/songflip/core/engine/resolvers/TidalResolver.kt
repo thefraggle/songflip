@@ -1,6 +1,9 @@
 package de.goork.songflip.core.engine.resolvers
 
 import de.goork.songflip.core.engine.EngineConfig
+import de.goork.songflip.core.engine.resilience.DynamicTokenRegistry
+import de.goork.songflip.core.engine.resilience.PlatformCircuitBreaker
+import de.goork.songflip.core.engine.resilience.ResolutionOutcome
 import de.goork.songflip.core.model.MusicPlatform
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
@@ -58,8 +61,10 @@ internal data class TidalArtist(
 class TidalResolver(
     private val client: HttpClient,
     private val json: Json = Json { ignoreUnknownKeys = true; isLenient = true },
-    private val tidalAppToken: String = "REPLACED_SECRET",
-    private val countryCodeProvider: () -> String = { "DE" }
+    private val tidalAppToken: String = DynamicTokenRegistry.DEFAULT_TIDAL_TOKEN,
+    private val countryCodeProvider: () -> String = { "DE" },
+    private val circuitBreaker: PlatformCircuitBreaker = PlatformCircuitBreaker.shared,
+    private val tokenProvider: () -> String = { DynamicTokenRegistry.getTidalToken() }
 ) : PlatformResolver {
 
     override val platform: MusicPlatform = MusicPlatform.TIDAL
@@ -75,20 +80,35 @@ class TidalResolver(
     }
 
     override suspend fun resolveTrack(query: String, audiophileMode: Boolean): String? {
-        return searchTidal(query, isAlbum = false, audiophileMode = audiophileMode)
+        return resolveTrackDetailed(query, audiophileMode).getOrNull()
     }
 
     override suspend fun resolveAlbum(query: String, audiophileMode: Boolean): String? {
-        return searchTidal(query, isAlbum = true, audiophileMode = audiophileMode)
+        return resolveAlbumDetailed(query, audiophileMode).getOrNull()
     }
 
-    private suspend fun searchTidal(query: String, isAlbum: Boolean = false, audiophileMode: Boolean = false): String? {
+    override suspend fun resolveTrackDetailed(query: String, audiophileMode: Boolean): ResolutionOutcome<String> {
+        return searchTidalDetailed(query, isAlbum = false, audiophileMode = audiophileMode)
+    }
+
+    override suspend fun resolveAlbumDetailed(query: String, audiophileMode: Boolean): ResolutionOutcome<String> {
+        return searchTidalDetailed(query, isAlbum = true, audiophileMode = audiophileMode)
+    }
+
+    private suspend fun searchTidalDetailed(
+        query: String,
+        isAlbum: Boolean = false,
+        audiophileMode: Boolean = false
+    ): ResolutionOutcome<String> {
         val primary = executeTidalSearch(query, isAlbum, audiophileMode)
-        if (primary != null) return primary
+        if (primary is ResolutionOutcome.Success) return primary
+        if (primary is ResolutionOutcome.RateLimited) return primary // Immediate cascade abort
+
         val stripped = ResolverUtils.stripEditionSuffix(query)
         if (stripped != query && stripped.isNotBlank()) {
             val second = executeTidalSearch(stripped, isAlbum, audiophileMode)
-            if (second != null) return second
+            if (second is ResolutionOutcome.Success) return second
+            if (second is ResolutionOutcome.RateLimited) return second
         }
         val noParens = query.replace(Regex("\\s*\\([^)]*\\)"), "")
             .replace(Regex("\\s*\\[[^\\]]*\\]"), "")
@@ -96,7 +116,8 @@ class TidalResolver(
             .trim()
         if (noParens != query && noParens != stripped && noParens.isNotBlank()) {
             val third = executeTidalSearch(noParens, isAlbum, audiophileMode)
-            if (third != null) return third
+            if (third is ResolutionOutcome.Success) return third
+            if (third is ResolutionOutcome.RateLimited) return third
         }
         if (query.contains(",") || query.contains(" feat", ignoreCase = true) || query.contains(" ft", ignoreCase = true)) {
             val artistPart = query.substringBefore(",").substringBefore(" feat").substringBefore(" ft").trim()
@@ -104,26 +125,54 @@ class TidalResolver(
             val simplifiedQuery = "$artistPart $remainingPart".trim()
             if (simplifiedQuery.isNotBlank() && simplifiedQuery != query) {
                 val fourth = executeTidalSearch(simplifiedQuery, isAlbum, audiophileMode)
-                if (fourth != null) return fourth
+                if (fourth is ResolutionOutcome.Success) return fourth
+                if (fourth is ResolutionOutcome.RateLimited) return fourth
             }
         }
-        return null
+        return ResolutionOutcome.NotFound
     }
 
-    private suspend fun executeTidalSearch(query: String, isAlbum: Boolean = false, audiophileMode: Boolean = false): String? {
+    private suspend fun executeTidalSearch(
+        query: String,
+        isAlbum: Boolean = false,
+        audiophileMode: Boolean = false
+    ): ResolutionOutcome<String> {
         val encoded = query.encodeURLParameter()
         val limit = if (audiophileMode) 20 else 15
         val countryCode = getCountryCode()
+        val effectiveToken = if (tidalAppToken != DynamicTokenRegistry.DEFAULT_TIDAL_TOKEN) {
+            tidalAppToken
+        } else {
+            tokenProvider()
+        }
+
+        var anyRateLimited = false
+        var lastRateLimitRetryAfter: Long? = null
 
         for (baseUrl in searchBaseUrls) {
+            val host = if (baseUrl.contains("listen.tidal.com")) "listen.tidal.com" else "api.tidal.com"
+            if (!circuitBreaker.canExecute(host)) {
+                anyRateLimited = true
+                lastRateLimitRetryAfter = circuitBreaker.getCooldownRemainingSeconds(host)
+                continue
+            }
+
             try {
                 val resp = client.get("$baseUrl?query=$encoded&limit=$limit&countryCode=$countryCode") {
-                    header("x-tidal-token", tidalAppToken)
+                    header("x-tidal-token", effectiveToken)
                     header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SongFlip/${EngineConfig.APP_VERSION}")
+                }
+                if (resp.status.value == 429) {
+                    val retryAfter = resp.headers["Retry-After"]?.toLongOrNull() ?: 300L
+                    circuitBreaker.recordRateLimit(host, retryAfter)
+                    anyRateLimited = true
+                    lastRateLimitRetryAfter = retryAfter
+                    continue
                 }
                 if (resp.status.isSuccess()) {
                     val body = resp.bodyAsText()
                     if (body.isBlank()) continue
+                    circuitBreaker.recordSuccess(host)
                     val parsed = json.decodeFromString<TidalSearchResponse>(body)
                     val container = if (isAlbum) parsed.albums else parsed.tracks
                     val items = container?.items ?: emptyList()
@@ -167,31 +216,53 @@ class TidalResolver(
                         }
                     }
 
-                    val id = validItem?.id
-                    if (!id.isNullOrEmpty()) {
-                        val path = if (isAlbum) "album" else "track"
-                        return "https://tidal.com/browse/$path/$id"
+                    if (validItem != null) {
+                        val itemId = validItem.id
+                        if (!itemId.isNullOrEmpty()) {
+                            val directUrl = if (isAlbum) "https://tidal.com/browse/album/$itemId" else "https://tidal.com/browse/track/$itemId"
+                            return ResolutionOutcome.Success(directUrl)
+                        }
                     }
                 }
             } catch (t: Throwable) {
                 if (t is CancellationException) throw t
             }
         }
-        return null
+
+        if (anyRateLimited) {
+            return ResolutionOutcome.RateLimited(host = "tidal", retryAfterSeconds = lastRateLimitRetryAfter ?: 300L)
+        }
+
+        return ResolutionOutcome.NotFound
     }
 
     override suspend fun resolveArtist(artistName: String): String? {
         val encoded = artistName.encodeURLParameter()
         val countryCode = getCountryCode()
+        val effectiveToken = if (tidalAppToken != DynamicTokenRegistry.DEFAULT_TIDAL_TOKEN) {
+            tidalAppToken
+        } else {
+            tokenProvider()
+        }
+
         for (baseUrl in searchBaseUrls) {
+            val host = if (baseUrl.contains("listen.tidal.com")) "listen.tidal.com" else "api.tidal.com"
+            if (!circuitBreaker.canExecute(host)) continue
+
             try {
                 val resp = client.get("$baseUrl?query=$encoded&limit=10&countryCode=$countryCode") {
-                    header("x-tidal-token", tidalAppToken)
-                    header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+                    header("x-tidal-token", effectiveToken)
+                    header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SongFlip/${EngineConfig.APP_VERSION}")
+                }
+                if (resp.status.value == 429) {
+                    val retryAfter = resp.headers["Retry-After"]?.toLongOrNull() ?: 300L
+                    circuitBreaker.recordRateLimit(host, retryAfter)
+                    continue
                 }
                 if (resp.status.isSuccess()) {
                     val body = resp.bodyAsText()
                     if (body.isBlank()) continue
+                    circuitBreaker.recordSuccess(host)
                     val parsed = json.decodeFromString<TidalSearchResponse>(body)
                     val items = parsed.artists?.items
                     if (!items.isNullOrEmpty()) {
