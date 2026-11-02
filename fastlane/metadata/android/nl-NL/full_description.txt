@@ -9,8 +9,8 @@ Of u nu Spotify naar YouTube Music, Apple Podcasts naar Pocket Casts, Spotify na
 • 12 streamingplatforms, podcasts en Shazam:
 Converteer en stuur nummerlinks en podcasts naadloos om via Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, SoundCloud en Bandcamp. Inclusief directe ondersteuning voor muzieklinkconversie voor gedeelde Shazam-links!
 
-• Listen & Flip (Muziekherkenning):
-Herken muziek om je heen direct in SongFlip. Nummers worden gekoppeld aan je favoriete speler en opgeslagen in je geschiedenis. Geen bereik in de club? Sla de audio-afdruk offline op en laat het nummer automatisch herkennen zodra je weer online bent.
+• Listen & Flip (Muziekherkenning & liedjes herkennen):
+Herken muziek en liedjes om je heen direct in SongFlip. Nummers worden gekoppeld aan je favoriete speler en opgeslagen in je geschiedenis. Geen bereik in de club? Sla de audio-afdruk offline op en laat het nummer automatisch herkennen zodra je weer online bent.
 
 • Direct zoeken naar nummers (in-app zoeken):
 Zoek naar nummers en artiesten rechtstreeks in SongFlip en start het afspelen direct in je favoriete streamingspeler met 1 tik op Fast Flip - geen bestaande nummerlink vereist.
@@ -22,7 +22,7 @@ Genereer en scan universele QR-codes voor nummers en albums.
 Deel volledige podcastshows of afleveringen op verschillende platforms. SongFlip lost de titels van afleveringen automatisch op, zodat podcastlinks rechtstreeks in uw favoriete podcastspeler worden geconverteerd en geopend.
 
 • Afspeellijstconverter, bestandsimport (M3U) & overdracht:
-Converteer en draag afspeellijsten over tussen Spotify, Apple Music, YouTube Music, TIDAL en Deezer. Importeer lokale tracklijsten uit .m3u-, .m3u8-, .csv- en tekstbestanden direct naar je streaminglijsten — met duplicatenverwijdering, tot 200 nummers en snelle caching.
+Converteer en draag afspeellijsten over tussen Spotify, Apple Music, YouTube Music, TIDAL en Deezer.
 
 • Audiofiele kwaliteit (Hi-Res & Lossless) & favorieten:
 Geef voorkeur aan studiomasters, 24-bit Hi-Res, Lossless & Dolby Atmos boven radio-edits en compilaties. Zet je favoriete nummers met 1 tik vast.
