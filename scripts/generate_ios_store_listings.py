@@ -10,7 +10,7 @@ IOS_METADATA_DIR = os.path.join(BASE_DIR, 'fastlane', 'metadata')
 IOS_LISTINGS = {
     'en-US': {
         'name': 'SongFlip: Music Link Redirect',
-        'subtitle': 'Podcast & Playlist Converter',
+        'subtitle': 'Playlist & Podcast Converter',
         'promotional_text': 'Friends send Spotify or Apple Podcasts links, but you use YouTube Music or Pocket Casts? SongFlip instantly converts and opens shared audio links in your favorite player.',
         'keywords': 'spotify,apple,youtube,transfer,deezer,beatport,qobuz,tidal,soundcloud,shazam,bandcamp,amazon,song',
         'description': """Friends send you a song link or podcast link from Spotify, Tidal, or Apple Podcasts – but you listen on Apple Music, YouTube Music, or Pocket Casts?
@@ -52,7 +52,7 @@ Privacy Policy: https://songflip.link/privacy""",
     },
     'de-DE': {
         'name': 'SongFlip: Musik Link Umleitung',
-        'subtitle': 'Podcast & Playlist Converter',
+        'subtitle': 'Playlist & Podcast Converter',
         'promotional_text': 'Freunde schicken Spotify- oder Apple Podcasts-Links, aber du nutzt YouTube Music oder Pocket Casts? SongFlip leitet Audio-Links blitzschnell in deinen Wunsch-Player um.',
         'keywords': 'spotify,apple,youtube,transfer,deezer,beatport,qobuz,tidal,soundcloud,shazam,redirect,amazon,song',
         'description': """Freunde schicken dir einen Song-Link oder Podcast-Link von Spotify, Deezer oder Apple Podcasts – aber du nutzt Apple Music, YouTube Music oder Pocket Casts?

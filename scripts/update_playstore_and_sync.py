@@ -14,7 +14,7 @@ M3U_PLAYLIST_PARAS = {
     "bn-BD": "• প্লেলিস্ট কনভার্টার, ফাইল ইমপোর্ট (M3U) এবং স্থানান্তর:\nস্পটিফাই, অ্যাপল মিউজিক, ইউটিউব মিউজিক, টিআইডিএল এবং ডিজারের মধ্যে প্লেলিস্ট রূপান্তর ও স্থানান্তর করুন। .m3u, .m3u8, .csv এবং টেক্সট ফাইল থেকে সরাসরি স্ট্রিমিং প্লেলিস্টে গান ইমপোর্ট করুন — স্বয়ংক্রিয় ডুপ্লিকেট পরিষ্কার, 200টি পর্যন্ত ট্র্যাক এবং দ্রুত ক্যাশিং সহ।",
     "cs-CZ": "• Převodník playlistů, import souborů (M3U) a přenos:\nPřevádějte a přenášejte playlisty mezi Spotify, Apple Music, YouTube Music, TIDAL a Deezer. Importujte lokální seznamy z .m3u, .m3u8, .csv a textových souborů přímo do streamovacích playlistů – s čištěním duplicit, až 200 stopami a rychlou mezipamětí.",
     "da-DK": "• Playlist Converter, filimport (M3U) og overførsel:\nKonverter og overfør afspilningslister mellem Spotify, Apple Music, YouTube Music, TIDAL og Deezer. Importer lokale sporlister fra .m3u-, .m3u8-, .csv- og tekstfiler direkte til streaming-afspilningslister – med duplikatrensning, op til 200 numre og hurtig caching.",
-    "de-DE": "• Playlist Converter, Datei-Import (M3U) & Transfer:\nPlaylists konvertieren und Playlists übertragen zwischen Spotify, Apple Music, YouTube Music, TIDAL und Deezer. Importiere lokale Tracklisten aus .m3u-, .m3u8-, .csv- und Textdateien direkt in deine Streaming-Wiedergabelisten – inklusive Duplikat-Bereinigung, bis zu 200 Tracks und schnellem Cache.",
+    "de-DE": "• Playlist Converter, Datei-Import (M3U) & Musik-Transfer:\nPlaylists konvertieren, Musik Transfer und Playlists übertragen zwischen Spotify, Apple Music, YouTube Music, TIDAL und Deezer. Importiere lokale Tracklisten (.m3u, .m3u8, .csv, Text) direkt in deine Playlists – inklusive Duplikat-Bereinigung, bis zu 200 Tracks und Cache.",
     "el-GR": "• Μετατροπέας playlist, εισαγωγή αρχείων (M3U) & μεταφορά:\nΜετατρέψτε και μεταφέρετε λίστες αναπαραγωγής μεταξύ Spotify, Apple Music, YouTube Music, TIDAL και Deezer. Εισαγάγετε τοπικές λίστες από αρχεία .m3u, .m3u8, .csv και κειμένου απευθείας σε λίστες streaming (έως 200 κομμάτια).",
     "en-GB": "• Playlist Converter, File Import (M3U) & Transfer:\nConvert playlists and transfer playlists track-by-track between Spotify, Apple Music, YouTube Music, TIDAL, and Deezer. Import local tracklists from .m3u, .m3u8, .csv, and plain text files directly into streaming queues—with duplicate cleaning, up to 200 tracks, and fast caching.",
     "en-US": "• Playlist Converter, File Import (M3U) & Transfer:\nConvert playlists and transfer playlists track-by-track between Spotify, Apple Music, YouTube Music, TIDAL, and Deezer. Import local tracklists from .m3u, .m3u8, .csv, and plain text files directly into streaming queues—with duplicate cleaning, up to 200 tracks, and fast caching.",
@@ -45,6 +45,18 @@ M3U_PLAYLIST_PARAS = {
     "vi": "• Bộ chuyển đổi danh sách phát, nhập tệp (M3U) & chuyển tiếp:\nChuyển đổi và chuyển danh sách phát giữa Spotify, Apple Music, YouTube Music, TIDAL và Deezer. Nhập danh sách bài hát từ tệp .m3u, .m3u8, .csv và văn bản trực tiếp vào danh sách phát phát trực tuyến (tự động xóa bài trùng, tối đa 200 bài).",
     "zh-CN": "• 播放列表转换、文件导入 (M3U) 与跨平台迁移：\n在 Spotify、Apple Music、YouTube Music、TIDAL 和 Deezer 之间自由转换和迁移播放列表。支持从 .m3u、.m3u8、.csv 和纯文本文件中直接导入本地歌单至流媒体队列（自动清理重复曲目、支持多达 200 首曲目并具备高速缓存）。",
     "zh-TW": "• 播放清單轉換、檔案匯入 (M3U) 與跨平台轉移：\n在 Spotify、Apple Music、YouTube Music、TIDAL 和 Deezer 之間自由轉換與轉移播放清單。支援從 .m3u、.m3u8、.csv 及純文字檔案直接匯入本機歌單至串流佇列（自動清理重複曲目、支援多達 200 首曲目並具備高速快取）。",
+}
+
+LISTEN_AND_FLIP_PARAS = {
+    "de-DE": "• Listen & Flip – Lieder & Musik erkennen (auch offline):\nLieder erkennen & Musik erkennen in Bars, Clubs oder im Radio: Songs blitzschnell identifizieren, im Verlauf speichern und direkt im Wunsch-Player öffnen. Dank Offline-Modus werden Audio-Fingerabdrücke ohne Empfang gesichert und automatisch erkannt, sobald du wieder online bist.",
+    "en-US": "• Listen & Flip – Song Recognizer & Song Identifier (Online & Offline):\nIdentify songs playing around you in clubs, bars, or on the radio with instant song recognizer and song identifier matching, save them to your history, and open them in your favorite player. With Offline Mode, capture audio fingerprints even without reception and resolve tracks automatically once you're back online.",
+    "en-GB": "• Listen & Flip – Song Recognizer & Song Identifier (Online & Offline):\nIdentify songs playing around you in clubs, bars, or on the radio with instant song recognizer and song identifier matching, save them to your history, and open them in your favorite player. With Offline Mode, capture audio fingerprints even without reception and resolve tracks automatically once you're back online.",
+    "es-419": "• Listen & Flip (Reconocimiento musical e identificador de canciones):\nIdentifica canciones y música a tu alrededor en SongFlip. Las canciones se adaptan a tu reproductor favorito y se guardan en el historial. ¿Sin señal? Guarda la huella de audio sin conexión y SongFlip identificará la canción automáticamente al volver a estar en línea.",
+    "es-ES": "• Listen & Flip (Reconocimiento musical e identificador de canciones):\nIdentifica canciones y música a tu alrededor en SongFlip. Las canciones se adaptan a tu reproductor favorito y se guardan en el historial. ¿Sin cobertura? Guarda la huella de audio sin conexión y SongFlip identificará la canción automáticamente al volver a conectarte.",
+    "es-US": "• Listen & Flip (Reconocimiento musical e identificador de canciones):\nIdentifica canciones y música a tu alrededor en SongFlip. Las canciones se adaptan a tu reproductor favorito y se guardan en el historial. ¿Sin señal? Guarda la huella de audio sin conexión y SongFlip identificará la canción automáticamente al volver a estar en línea.",
+    "pt-BR": "• Listen & Flip (Reconhecimento musical e identificador de músicas):\nIdentifique músicas ao seu redor no SongFlip. As faixas são convertidas para o seu player favorito e salvas no histórico. Sem sinal? Salve a assinatura de áudio offline e o SongFlip identificará a música automaticamente quando você voltar a ficar online.",
+    "pt-PT": "• Listen & Flip (Reconhecimento musical e identificador de músicas):\nIdentifique músicas ao seu redor no SongFlip. As faixas são convertidas para o seu leitor favorito e guardadas no histórico. Sem rede? Guarde a assinatura de áudio offline e o SongFlip identificará a música automaticamente quando voltar a estar online.",
+    "nl-NL": "• Listen & Flip (Muziekherkenning & liedjes herkennen):\nHerken muziek en liedjes om je heen direct in SongFlip. Nummers worden gekoppeld aan je favoriete speler en opgeslagen in je geschiedenis. Geen bereik in de club? Sla de audio-afdruk offline op en laat het nummer automatisch herkennen zodra je weer online bent.",
 }
 
 LOCALE_NAMES = {
@@ -217,6 +229,12 @@ def main():
         if loc in M3U_PLAYLIST_PARAS:
             paras[idx] = M3U_PLAYLIST_PARAS[loc]
 
+        if loc in LISTEN_AND_FLIP_PARAS:
+            paras[5] = LISTEN_AND_FLIP_PARAS[loc]
+
+        if loc == 'de-DE':
+            paras[0] = "Ein Freund schickt dir einen Song- oder Podcast-Link auf Spotify, du nutzt aber YouTube Music, Apple Podcasts oder Deezer?"
+
         new_full = '\n\n'.join(paras)
         new_full = trim_description_if_needed(new_full, paras)
         new_full = strip_framing_quotes(new_full)
@@ -254,7 +272,7 @@ def main():
     print(f"Writing clean Markdown to {MD_PATH}...")
     with open(MD_PATH, 'w', encoding='utf-8') as f:
         f.write("# 📱 SongFlip – Play Store & App Store Listings (Alle Sprachen)\n")
-        f.write("> **Version:** 1.12.3 | **Umfang:** 34 Play Store-Sprachen + iOS App Store (DE/EN) | **Zertifiziert:** Titel ≤ 30 Zeichen, Kurzbeschreibung ≤ 80 Zeichen, Volltext ≤ 4.000 Zeichen (UTF-16), iOS Keywords ≤ 100 Zeichen. Ohne umschließende Anführungszeichen.\n")
+        f.write("> **Version:** 1.12.6 | **Umfang:** 34 Play Store-Sprachen + iOS App Store (DE/EN) | **Zertifiziert:** Titel ≤ 30 Zeichen, Kurzbeschreibung ≤ 80 Zeichen, Volltext ≤ 4.000 Zeichen (UTF-16), iOS Keywords ≤ 100 Zeichen. Ohne umschließende Anführungszeichen.\n")
         f.write("---\n\n")
         for r in updated_rows:
             loc = r['Language']
@@ -271,13 +289,13 @@ def main():
         f.write("# 🍎 iOS App Store Listings (de-DE & en-US)\n\n")
         f.write("## 🇩🇪 iOS Deutsch (de-DE)\n\n")
         f.write("### App-Name (30/30 Zeichen)\n```text\nSongFlip: Musik Link Umleitung\n```\n\n")
-        f.write("### Untertitel (28/30 Zeichen)\n```text\nPodcast & Playlist Converter\n```\n\n")
+        f.write("### Untertitel (28/30 Zeichen)\n```text\nPlaylist & Podcast Converter\n```\n\n")
         f.write(f"### Keywords ({len(IOS_DE_KEYWORDS)}/100 Zeichen)\n```text\n{IOS_DE_KEYWORDS}\n```\n\n")
         f.write(f"### Beschreibung ({len(IOS_DE_DESC)}/4000 Zeichen)\n```text\n{IOS_DE_DESC}\n```\n\n")
         f.write("---\n\n")
         f.write("## 🇺🇸 iOS English (en-US)\n\n")
         f.write("### App Name (29/30 Zeichen)\n```text\nSongFlip: Music Link Redirect\n```\n\n")
-        f.write("### Subtitle (28/30 Zeichen)\n```text\nPodcast & Playlist Converter\n```\n\n")
+        f.write("### Subtitle (28/30 Zeichen)\n```text\nPlaylist & Podcast Converter\n```\n\n")
         f.write(f"### Keywords ({len(IOS_EN_KEYWORDS)}/100 Zeichen)\n```text\n{IOS_EN_KEYWORDS}\n```\n\n")
         f.write(f"### Description ({len(IOS_EN_DESC)}/4000 Zeichen)\n```text\n{IOS_EN_DESC}\n```\n\n")
         f.write("---\n\n")
@@ -320,6 +338,10 @@ def main():
 
     # 4. Update iOS metadata
     print("Syncing iOS fastlane metadata...")
+    with open(os.path.join(IOS_METADATA_DIR, "de-DE", "subtitle.txt"), 'w', encoding='utf-8') as f:
+        f.write("Playlist & Podcast Converter\n")
+    with open(os.path.join(IOS_METADATA_DIR, "en-US", "subtitle.txt"), 'w', encoding='utf-8') as f:
+        f.write("Playlist & Podcast Converter\n")
     with open(os.path.join(IOS_METADATA_DIR, "de-DE", "description.txt"), 'w', encoding='utf-8') as f:
         f.write(IOS_DE_DESC.strip() + "\n")
     with open(os.path.join(IOS_METADATA_DIR, "en-US", "description.txt"), 'w', encoding='utf-8') as f:

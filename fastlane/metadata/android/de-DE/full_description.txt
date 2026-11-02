@@ -1,4 +1,4 @@
-Ein Freund schickt dir einen Song-Link oder Podcast auf Spotify, du hörst aber über YouTube Music, Apple Podcasts oder Deezer?
+Ein Freund schickt dir einen Song- oder Podcast-Link auf Spotify, du nutzt aber YouTube Music, Apple Podcasts oder Deezer?
 
 SongFlip ist dein smarter 0-Klick Musik-Link Redirect sowie Song- und Podcast-Link Converter für Android. Einmal eingerichtet, lassen sich empfangene Musik-Links und Podcasts automatisch konvertieren und direkt im Wunsch-Player öffnen – ohne Zwischenseiten, Wartezeit oder manuelle Suche.
 
@@ -9,8 +9,8 @@ Egal ob Spotify zu YouTube Music, Apple Podcasts zu Spotify, Spotify zu Apple Mu
 • 12 Streaming- & Podcast-Plattformen:
 Songs und Podcasts automatisch konvertieren und weiterleiten zwischen Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, SoundCloud und Bandcamp. Erkennt auch geteilte Shazam-Tracks sofort!
 
-• Listen & Flip – Musikerkennung (auch offline):
-Musik erkennen in Bars, Clubs oder im Radio per Mikrofon: Songs blitzschnell identifizieren, im Verlauf speichern und direkt im Wunsch-Player öffnen. Dank Offline-Modus werden Audio-Fingerabdrücke auch ohne Empfang gesichert und automatisch aufgelöst, sobald du wieder online bist.
+• Listen & Flip – Lieder & Musik erkennen (auch offline):
+Lieder erkennen & Musik erkennen in Bars, Clubs oder im Radio: Songs blitzschnell identifizieren, im Verlauf speichern und direkt im Wunsch-Player öffnen. Dank Offline-Modus werden Audio-Fingerabdrücke ohne Empfang gesichert und automatisch erkannt, sobald du wieder online bist.
 
 • Direkte Titelsuche & Sofort-Wiedergabe:
 Suche Songs & Interpreten direkt in SongFlip und starte die Wiedergabe per Fast Flip sofort im Ziel-Player – ganz ohne bestehende Web-URL oder leere Suchseiten.
@@ -18,8 +18,8 @@ Suche Songs & Interpreten direkt in SongFlip und starte die Wiedergabe per Fast 
 • Musik per QR-Code teilen & scannen:
 Generiere und scanne universelle Musik-QR-Codes. Teile Songs & Alben vor Ort – egal welcher Streamingdienst genutzt wird.
 
-• Playlist Converter, Datei-Import (M3U) & Transfer:
-Playlists konvertieren und Playlists übertragen zwischen Spotify, Apple Music, YouTube Music, TIDAL und Deezer. Importiere lokale Tracklisten aus .m3u-, .m3u8-, .csv- und Textdateien direkt in deine Streaming-Wiedergabelisten – inklusive Duplikat-Bereinigung, bis zu 200 Tracks und schnellem Cache.
+• Playlist Converter, Datei-Import (M3U) & Musik-Transfer:
+Playlists konvertieren, Musik Transfer und Playlists übertragen zwischen Spotify, Apple Music, YouTube Music, TIDAL und Deezer. Importiere lokale Tracklisten (.m3u, .m3u8, .csv, Text) direkt in deine Playlists – inklusive Duplikat-Bereinigung, bis zu 200 Tracks und Cache.
 
 • Podcast Converter & Podcast-Weiterleitung:
 Teile Podcast-Shows und Episoden plattformübergreifend. SongFlip löst Episodentitel für die Podcast-Umleitung automatisch auf und startet sie direkt im bevorzugten Podcast-Player.
