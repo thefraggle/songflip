@@ -1,3 +1,2 @@
-- Enhanced Catalog Matching & Diacritics Normalization: Aksentit, erikoismerkit ja tyylitellyt taiteilijanimet on yhdenmukaistettu, jotta raidat voidaan yhdistää tarkasti suoratoistopalveluissa.
-- Universaali soittolistan muunnos Qobuzille: Täydellinen kartoitus ja suora jonon luonti Qobuzille, mukaan lukien paikalliset tiedostotuonnit.
-- Suora raitahaun reititys: Qobuzin haun varanavigointi avautuu suoraan raita-välilehdellä albumin oletusnäkymän sijaan.
+- Yhdenmukaistetut asennusohjeet: Selkeä, kutsuva asennuksen tilan ilmaisin ja hienostunut visuaalinen hierarkia oletusmusiikkilinkeille.
+- Parannettu välimuistin suojaus ja vahvistus: Tiukemmat usean alustan vahvistusvaatimukset ja vahvistussäännöt estävät epätäydellisiä tai hakukyselyitä pääsemästä globaaliin välimuistiin.

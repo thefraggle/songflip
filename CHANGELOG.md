@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.12.6] - 2026-11-02
+- **Harmonized Setup Guidance**: Clear, inviting setup status indicator and refined visual hierarchy for default music links.
+- **Enhanced Cache Security & Verification**: Stricter multi-platform verification requirements and validation rules prevent incomplete or search queries from entering global cache storage.
+- **Catalog Resilience & Rate-Limit Safeguards**: In-memory circuit breakers and fast rate-limit handling across streaming catalogs prevent request storms and ensure smooth link resolution.
+
 ## [1.12.5] - 2026-11-01
 - **Enhanced Catalog Matching & Diacritics Normalization**: Accents, special characters, and stylized artist names are harmonized for precise track matching across streaming services.
 - **Universal Playlist Conversion for Qobuz**: Full track mapping and direct queue generation for Qobuz, including local file imports.

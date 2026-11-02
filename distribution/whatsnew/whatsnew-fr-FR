@@ -1,2 +1,2 @@
-- Mise en correspondance améliorée du catalogue et normalisation des diacritiques : les accents, les caractères spéciaux et les noms d'artistes stylisés sont harmonisés pour une correspondance précise des pistes entre les services de streaming.
-- Conversion universelle des listes de lecture pour Qobuz : mappage complet des pistes et génération directe des files d'attente pour Qobuz, y compris les importations de fichiers locaux.
+- Guide de configuration harmonisé : indicateur d'état de configuration clair et invitant et hiérarchie visuelle raffinée pour les liens musicaux par défaut.
+- Sécurité et vérification améliorées du cache : des exigences de vérification multiplateformes et des règles de validation plus strictes empêchent les requêtes incomplètes ou de recherche d'entrer dans le stockage de cache global.

@@ -1,2 +1,2 @@
-- Präzisere Titelerkennung & Diakritika-Normalisierung: Akzente, Sonderzeichen und stilisierte Schreibweisen werden für exaktere Übereinstimmungen bei der Musikkatalogsuche harmonisiert.
-- Erweiterte Playlist-Konvertierung für Qobuz: Vollständige Titelzuordnung und direkte Wiedergabelistenübertragung für Qobuz inklusive lokaler Dateiexporte.
+- Harmonisierte Setup-Hinweise: Einladende, klare Statusanzeige und abgestimmte visuelle Hierarchie für Standard-Musiklinks.
+- Verbesserte Cache-Sicherheit & Validierung: Strengere Verifizierungsanforderungen über mehrere Plattformen hinweg stellen sicher, dass nur geprüfte Direkteinträge im globalen Zwischenspeicher landen.

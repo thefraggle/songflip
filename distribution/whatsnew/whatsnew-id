@@ -1,3 +1,2 @@
-- Pencocokan Katalog & Normalisasi Diakritik yang Ditingkatkan: Aksen, karakter khusus, dan nama artis bergaya diselaraskan untuk pencocokan trek yang tepat di seluruh layanan streaming.
-- Konversi Daftar Putar Universal untuk Qobuz: Pemetaan trek penuh dan pembuatan antrian langsung untuk Qobuz, termasuk impor file lokal.
-- Direct Track Search Routing: Navigasi fallback pencarian untuk Qobuz terbuka langsung di tab trek daripada tampilan album default.
+- Panduan Pengaturan yang Harmonis: Indikator status pengaturan yang jelas dan mengundang serta hierarki visual yang disempurnakan untuk tautan musik default.
+- Keamanan & Verifikasi Cache yang Ditingkatkan: Persyaratan verifikasi multi-platform dan aturan validasi yang lebih ketat mencegah permintaan pencarian atau pencarian yang tidak lengkap memasuki penyimpanan cache global.

@@ -1,3 +1,2 @@
-- Förbättrad katalogmatchning och diakritisk normalisering: Accenter, specialtecken och stiliserade artistnamn är harmoniserade för exakt spårmatchning mellan streamingtjänster.
-- Universell spellistekonvertering för Qobuz: Full spårmappning och direkt kögenerering för Qobuz, inklusive lokal filimport.
-- Direkt spårsökningsdirigering: Sök reservnavigering för Qobuz öppnas direkt i spårfliken istället för standardalbumvyn.
+- Harmoniserad installationsvägledning: Tydlig, inbjudande inställningsstatusindikator och förfinad visuell hierarki för standardmusiklänkar.
+- Förbättrad cachesäkerhet och verifiering: Strängare krav på multiplattformsverifiering och valideringsregler förhindrar ofullständiga eller sökfrågor från att komma in i global cachelagring.

@@ -5,11 +5,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Error
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -28,7 +30,7 @@ import de.goork.songflip.R
 import de.goork.songflip.data.DomainStatusInfo
 import de.goork.songflip.ui.theme.*
 
-enum class StatusType { ACTIVE, WARNING, ERROR }
+enum class StatusType { ACTIVE, WARNING, ERROR, SETUP }
 
 @Composable
 fun SetupCard(
@@ -159,10 +161,14 @@ fun SetupCard(
                     )
                 }
 
-                // Inactive Badge
+                // Inactive Badge (friendly, inviting setup state instead of error)
                 StatusBadge(
                     text = stringResource(R.string.status_inactive),
-                    statusType = StatusType.ERROR
+                    statusType = StatusType.SETUP,
+                    onClick = {
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                        onOpenSetupGuide()
+                    }
                 )
 
                 // Subtle note about zero-setup alternatives (Share Sheet & Clipboard)
@@ -199,10 +205,28 @@ fun StatusBadge(
     modifier: Modifier = Modifier,
     onClick: (() -> Unit)? = null
 ) {
+    val isDarkTheme = isSystemInDarkTheme()
     val (bgColor, textColor, icon: ImageVector) = when (statusType) {
-        StatusType.ACTIVE -> Triple(StateActiveGreen.copy(alpha = 0.15f), StateActiveGreen, Icons.Default.CheckCircle)
-        StatusType.WARNING -> Triple(StatePausedAmber.copy(alpha = 0.15f), StatePausedAmber, Icons.Default.Warning)
-        StatusType.ERROR -> Triple(StateErrorRed.copy(alpha = 0.15f), StateErrorRed, Icons.Default.Error)
+        StatusType.ACTIVE -> Triple(
+            (if (isDarkTheme) StateActiveGreen else StateActiveGreenLight).copy(alpha = 0.15f),
+            if (isDarkTheme) StateActiveGreen else StateActiveGreenLight,
+            Icons.Default.CheckCircle
+        )
+        StatusType.WARNING -> Triple(
+            (if (isDarkTheme) StatePausedAmber else StatePausedAmberLight).copy(alpha = 0.15f),
+            if (isDarkTheme) StatePausedAmber else StatePausedAmberLight,
+            Icons.Default.Warning
+        )
+        StatusType.ERROR -> Triple(
+            (if (isDarkTheme) StateErrorRed else StateErrorRedLight).copy(alpha = 0.15f),
+            if (isDarkTheme) StateErrorRed else StateErrorRedLight,
+            Icons.Default.Error
+        )
+        StatusType.SETUP -> Triple(
+            (if (isDarkTheme) StateSetupCyan else StateSetupCyanLight).copy(alpha = 0.15f),
+            if (isDarkTheme) StateSetupCyan else StateSetupCyanLight,
+            Icons.Outlined.Info
+        )
     }
 
     val clickableModifier = if (onClick != null) {
