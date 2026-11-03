@@ -1,2 +1,2 @@
-- Ghid de configurare armonizat: Indicator clar și atractiv de stare a configurării și ierarhie vizuală rafinată pentru legăturile muzicale implicite.
-- Securitate și verificare îmbunătățite în cache: cerințe mai stricte de verificare pe mai multe platforme și reguli de validare împiedică interogările incomplete sau de căutare să intre în stocarea cache globală.
+- Integrarea Audiomack: Suport complet pentru Audiomack ca serviciu sursă și țintă cu redare directă a pieselor, link-uri către albume și retrageri pentru playerul web.
+- Integrarea Idagio: suport pentru streaming de muzică clasică cu Idagio ca serviciu sursă și țintă, cu rezoluție exactă de înregistrare și navigare în căutare.

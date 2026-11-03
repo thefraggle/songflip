@@ -4,8 +4,10 @@ import de.goork.songflip.core.analytics.getSystemCountryCode
 import de.goork.songflip.core.cache.LinkCache
 import de.goork.songflip.core.cache.createDefaultCacheStorage
 import de.goork.songflip.core.engine.resolvers.AppleMusicResolver
+import de.goork.songflip.core.engine.resolvers.AudiomackResolver
 import de.goork.songflip.core.engine.resolvers.BeatportResolver
 import de.goork.songflip.core.engine.resolvers.DeezerResolver
+import de.goork.songflip.core.engine.resolvers.IdagioResolver
 import de.goork.songflip.core.engine.resolvers.PlatformResolver
 import de.goork.songflip.core.engine.resolvers.QobuzResolver
 import de.goork.songflip.core.engine.resolvers.SongLinkApiResolver
@@ -76,6 +78,8 @@ class SongLinkEngine(
     val songLinkApiResolver = SongLinkApiResolver(client, json)
     val qobuzResolver = QobuzResolver(client, json)
     val beatportResolver = BeatportResolver(client)
+    val audiomackResolver = AudiomackResolver(client)
+    val idagioResolver = IdagioResolver(client)
     val soundCloudResolver = de.goork.songflip.core.engine.resolvers.SoundCloudResolver(client)
 
     private val shortLinkResolutionCache = mutableMapOf<String, String>()
@@ -971,6 +975,8 @@ internal data class SpotifyPodcastOEmbedDto(
                 }
                 MusicPlatform.QOBUZ -> qobuzResolver.extractMetadata(url)
                 MusicPlatform.BEATPORT -> beatportResolver.extractMetadata(url)
+                MusicPlatform.AUDIOMACK -> audiomackResolver.extractMetadata(url)
+                MusicPlatform.IDAGIO -> idagioResolver.extractMetadata(url)
                 else -> {
                     if (url.contains("shazam.com")) {
                         val trackMatch = Regex("shazam\\.com/(?:[a-z]{2}(?:-[a-z]{2})?/)?track/([0-9]+)", RegexOption.IGNORE_CASE).find(url)

@@ -168,6 +168,23 @@ object UrlUtils {
             return "https://open.qobuz.com/$type/$id"
         }
 
+        // 11. Audiomack: audiomack.com/{artist}/(song|album|playlist)/{slug}
+        val audiomackMatch = Regex("(?:https?://)?(?:www\\.)?audiomack\\.com/([a-zA-Z0-9_-]+)/(song|album|playlist)/([a-zA-Z0-9_-]+)").find(clean)
+        if (audiomackMatch != null) {
+            val artist = audiomackMatch.groupValues[1]
+            val type = audiomackMatch.groupValues[2].lowercase()
+            val slug = audiomackMatch.groupValues[3]
+            return "https://audiomack.com/$artist/$type/$slug"
+        }
+
+        // 12. Idagio: (app|www).idagio.com/(?:[a-z]{2}/)?(recordings|albums|tracks|profiles|playlists)/{id}
+        val idagioMatch = Regex("(?:https?://)?(?:(?:app|www)\\.)?idagio\\.com(?:/[a-z]{2})?/(recordings|albums|tracks|profiles|playlists)/([a-zA-Z0-9_-]+)").find(clean)
+        if (idagioMatch != null) {
+            val type = idagioMatch.groupValues[1].lowercase()
+            val id = idagioMatch.groupValues[2]
+            return "https://app.idagio.com/$type/$id"
+        }
+
         // 11. Generic Query Parameter Stripping (si, context, rowId, utm_*, ad-tracking)
         if (clean.contains("?")) {
             // Collapse accidental double/triple question marks e.g. "playlist/123??si=..." (#148)
@@ -391,6 +408,8 @@ object UrlUtils {
             isHostOrSubdomain(host, "bandcamp.com") -> MusicPlatform.BANDCAMP
             isHostOrSubdomain(host, "qobuz.com") -> MusicPlatform.QOBUZ
             isHostOrSubdomain(host, "beatport.com") -> MusicPlatform.BEATPORT
+            isHostOrSubdomain(host, "audiomack.com") -> MusicPlatform.AUDIOMACK
+            isHostOrSubdomain(host, "idagio.com") -> MusicPlatform.IDAGIO
             else -> null
         }
     }
@@ -435,6 +454,9 @@ object UrlUtils {
         "soundcloud",
         "bandcamp",
         "qobuz",
+        "beatport",
+        "audiomack",
+        "idagio",
         "debridmusic"
     )
 
@@ -479,7 +501,9 @@ object UrlUtils {
                 (isHostOrSubdomain(host, "soundcloud.com") && path.contains("/search")) ||
                 (isHostOrSubdomain(host, "bandcamp.com") && path.contains("/search")) ||
                 (isHostOrSubdomain(host, "qobuz.com") && path.contains("/search")) ||
-                (isHostOrSubdomain(host, "beatport.com") && path.contains("/search"))
+                (isHostOrSubdomain(host, "beatport.com") && path.contains("/search")) ||
+                (isHostOrSubdomain(host, "audiomack.com") && path.contains("/search")) ||
+                (isHostOrSubdomain(host, "idagio.com") && path.contains("/search"))
     }
 
     fun extractSearchQuery(url: String): String? {
@@ -560,6 +584,22 @@ object UrlUtils {
             }
             // Beatport: beatport.com/search?q={query}
             isHostOrSubdomain(host, "beatport.com") && lower.contains("/search") -> {
+                if (clean.contains("q=")) {
+                    clean.substringAfter("q=").substringBefore("&")
+                } else {
+                    clean.substringAfter("/search/").substringBefore("?").substringBefore("&")
+                }
+            }
+            // Audiomack: audiomack.com/search?q={query}
+            isHostOrSubdomain(host, "audiomack.com") && lower.contains("/search") -> {
+                if (clean.contains("q=")) {
+                    clean.substringAfter("q=").substringBefore("&")
+                } else {
+                    clean.substringAfter("/search/").substringBefore("?").substringBefore("&")
+                }
+            }
+            // Idagio: app.idagio.com/search?q={query}
+            isHostOrSubdomain(host, "idagio.com") && lower.contains("/search") -> {
                 if (clean.contains("q=")) {
                     clean.substringAfter("q=").substringBefore("&")
                 } else {
@@ -680,6 +720,8 @@ object UrlUtils {
             "bandcamp" -> "https://bandcamp.com/search?q=$query"
             "qobuz" -> "https://www.qobuz.com/us-en/search/tracks?q=$query"
             "beatport" -> "https://www.beatport.com/search?q=$query"
+            "audiomack" -> "https://audiomack.com/search?q=$query"
+            "idagio" -> "https://app.idagio.com/search?q=$query"
             else -> "https://music.youtube.com/search?q=$query"
         }
     }
@@ -775,8 +817,18 @@ object UrlUtils {
             "bandcamp" -> toNativeBandcampUri(url)
             "qobuz" -> toNativeQobuzUri(url)
             "beatport" -> toNativeBeatportUri(url)
+            "audiomack" -> toNativeAudiomackUri(url)
+            "idagio" -> toNativeIdagioUri(url)
             else -> url
         }
+    }
+
+    fun toNativeAudiomackUri(url: String): String {
+        return url
+    }
+
+    fun toNativeIdagioUri(url: String): String {
+        return url
     }
 
     fun toNativeQobuzUri(url: String): String {

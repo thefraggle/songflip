@@ -1,2 +1,2 @@
-- Zharmonizowane wskazówki dotyczące konfiguracji: przejrzysty, zachęcający wskaźnik stanu konfiguracji i udoskonalona hierarchia wizualna dla domyślnych łączy muzycznych.
-- Ulepszone bezpieczeństwo i weryfikacja pamięci podręcznej: bardziej rygorystyczne wymagania dotyczące weryfikacji wieloplatformowej i zasady sprawdzania poprawności zapobiegają przedostawaniu się niekompletnych lub wyszukiwanych zapytań do globalnej pamięci podręcznej.
+- Integracja z Audiomack: Pełne wsparcie dla Audiomack jako usługi źródłowej i docelowej z bezpośrednim odtwarzaniem ścieżek, linkami do albumów i odtwarzaczami internetowymi.
+- Integracja z Idagio: obsługa strumieniowego przesyłania muzyki klasycznej z Idagio jako usługą źródłową i docelową, z dokładną rozdzielczością nagrywania i nawigacją wyszukiwania.

@@ -1,2 +1,2 @@
-- Guía de configuración armonizada: indicador de estado de configuración claro y atractivo y jerarquía visual refinada para enlaces de música predeterminados.
-- Seguridad y verificación de caché mejoradas: los requisitos de verificación multiplataforma y las reglas de validación más estrictos evitan que consultas de búsqueda o incompletas ingresen al almacenamiento de caché global.
+- Integración de Audiomack: soporte completo para Audiomack como servicio de origen y destino con reproducción directa de pistas, enlaces de álbumes y fallos de reproductores web.
+- Integración con Idagio: soporte de transmisión de música clásica con Idagio como servicio de origen y destino, con resolución de grabación exacta y navegación de búsqueda.

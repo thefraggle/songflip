@@ -32,7 +32,9 @@ class ShareViewController: UIViewController {
         TargetPlatformItem(key: "soundcloud", name: "SoundCloud", iconSystemName: "cloud.fill", color: UIColor(red: 1.0, green: 0.33, blue: 0.0, alpha: 1.0)),
         TargetPlatformItem(key: "bandcamp", name: "Bandcamp", iconSystemName: "opticaldisc", color: UIColor(red: 0.11, green: 0.63, blue: 0.76, alpha: 1.0)),
         TargetPlatformItem(key: "qobuz", name: "Qobuz", iconSystemName: "waveform.badge.magnifyingglass", color: UIColor(red: 0.0, green: 0.45, blue: 0.82, alpha: 1.0)),
-        TargetPlatformItem(key: "beatport", name: "Beatport", iconSystemName: "headphones", color: UIColor(red: 0.0, green: 0.85, blue: 0.5, alpha: 1.0))
+        TargetPlatformItem(key: "beatport", name: "Beatport", iconSystemName: "headphones", color: UIColor(red: 0.0, green: 0.85, blue: 0.5, alpha: 1.0)),
+        TargetPlatformItem(key: "audiomack", name: "Audiomack", iconSystemName: "waveform.and.mic", color: UIColor(red: 1.0, green: 0.635, blue: 0.0, alpha: 1.0)),
+        TargetPlatformItem(key: "idagio", name: "Idagio", iconSystemName: "tuningfork", color: UIColor(red: 0.106, green: 0.212, blue: 0.365, alpha: 1.0))
     ]
 
     private func localizedText(for key: String, default defaultText: String) -> String {
@@ -104,7 +106,7 @@ class ShareViewController: UIViewController {
 
         let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
         let rawTarget = defaults.string(forKey: "target_platform") ?? "appleMusic"
-        let validTargets = ["youtubeMusic", "appleMusic", "spotify", "tidal", "deezer", "amazonMusic", "soundcloud", "qobuz", "bandcamp", "beatport"]
+        let validTargets = ["youtubeMusic", "appleMusic", "spotify", "tidal", "deezer", "amazonMusic", "soundcloud", "qobuz", "bandcamp", "beatport", "audiomack", "idagio"]
         let targetPlatform = validTargets.contains(rawTarget) ? rawTarget : "appleMusic"
         let askEveryTime = defaults.bool(forKey: "ask_every_time")
         let customUrl = defaults.string(forKey: "custom_api_url") ?? ""

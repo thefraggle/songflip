@@ -118,6 +118,8 @@ class RedirectActivity : ComponentActivity() {
                     "bandcamp" -> incomingPlatform == de.goork.songflip.core.model.MusicPlatform.BANDCAMP
                     "qobuz" -> incomingPlatform == de.goork.songflip.core.model.MusicPlatform.QOBUZ
                     "beatport" -> incomingPlatform == de.goork.songflip.core.model.MusicPlatform.BEATPORT
+                    "audiomack" -> incomingPlatform == de.goork.songflip.core.model.MusicPlatform.AUDIOMACK
+                    "idagio" -> incomingPlatform == de.goork.songflip.core.model.MusicPlatform.IDAGIO
                     else -> false
                 }
                 if (isSamePlatform) {

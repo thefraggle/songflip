@@ -1,2 +1,2 @@
-- Guide de configuration harmonisé : indicateur d'état de configuration clair et invitant et hiérarchie visuelle raffinée pour les liens musicaux par défaut.
-- Sécurité et vérification améliorées du cache : des exigences de vérification multiplateformes et des règles de validation plus strictes empêchent les requêtes incomplètes ou de recherche d'entrer dans le stockage de cache global.
+- Intégration Audiomack : Prise en charge complète d'Audiomack en tant que service source et cible avec lecture directe des pistes, liens vers les albums et repli des lecteurs Web.
+- Intégration Idagio : Prise en charge du streaming de musique classique avec Idagio comme service source et cible, avec une résolution d'enregistrement exacte et une navigation de recherche.

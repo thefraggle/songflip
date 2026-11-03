@@ -1,3 +1,3 @@
-- Harmonized Setup Guidance: Clear, inviting setup status indicator and refined visual hierarchy for default music links.
-- Enhanced Cache Security & Verification: Stricter multi-platform verification requirements and validation rules prevent incomplete or search queries from entering global cache storage.
-- Catalog Resilience & Rate-Limit Safeguards: In-memory circuit breakers and fast rate-limit handling across streaming catalogs prevent request storms and ensure smooth link resolution.
+- Audiomack Integration: Full support for Audiomack as source and target service with direct track playback, album links, and web player fallbacks.
+- Idagio Integration: Classical music streaming support with Idagio as source and target service, featuring exact recording resolution and search navigation.
+- Enhanced Multi-Catalog Routing: Extended link detection and seamless forwarding across all supported streaming services.

@@ -21,7 +21,9 @@ object PackageUtils {
         "soundcloud" to "com.soundcloud.android",
         "bandcamp" to "com.bandcamp.android",
         "qobuz" to "com.qobuz.music",
-        "beatport" to "com.beatport.mobile"
+        "beatport" to "com.beatport.mobile",
+        "audiomack" to "com.audiomack",
+        "idagio" to "com.idagio.app"
     )
 
     val fallbackPackages = mapOf(
@@ -194,6 +196,8 @@ object PackageUtils {
                 "qobuz://track/1068442"
             )
             "beatport" -> listOf("https://www.beatport.com/track/song/12345")
+            "audiomack" -> listOf("https://audiomack.com/artist/song/track")
+            "idagio" -> listOf("https://app.idagio.com/recordings/12345")
             else -> emptyList()
         }
     }
@@ -485,6 +489,8 @@ object PackageUtils {
             "bandcamp" -> "Bandcamp"
             "qobuz" -> "Qobuz"
             "beatport" -> "Beatport"
+            "audiomack" -> "Audiomack"
+            "idagio" -> "Idagio"
             "universal" -> "Universal Link"
             "shazam" -> "Shazam"
             else -> cleanKey.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
@@ -505,6 +511,8 @@ object PackageUtils {
             lower.contains("bandcamp.com") || lower.startsWith("bandcamp:") -> "bandcamp"
             lower.contains("qobuz.com") || lower.startsWith("qobuz:") -> "qobuz"
             lower.contains("beatport.com") || lower.startsWith("beatport:") -> "beatport"
+            lower.contains("audiomack.com") || lower.startsWith("audiomack:") -> "audiomack"
+            lower.contains("idagio.com") || lower.startsWith("idagio:") -> "idagio"
             lower.contains("shazam.com") -> "shazam"
             else -> ""
         }
