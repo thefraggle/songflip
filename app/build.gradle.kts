@@ -7,14 +7,14 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
-val appVersionName = "1.13.1"
+val appVersionName = "1.13.2"
 val computedVersionCode = run {
     val cleanVersion = appVersionName.substringBefore("-").substringBefore("+")
     val parts = cleanVersion.split(".").mapNotNull { it.toIntOrNull() }
     val major = parts.getOrElse(0) { 1 }
     val minor = parts.getOrElse(1) { 0 }
     val patch = parts.getOrElse(2) { 0 }
-    // Offset +2 so 1.13.1 uses 11303, resolving Play Console collision with previously uploaded 11302
+    // Offset +2 so 1.13.2 uses 11304, resolving Play Console collision
     (major * 10000) + (minor * 100) + patch + 2
 }
 

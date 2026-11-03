@@ -100,7 +100,7 @@ When an upstream resolver (e.g. Odesli) lacks a mapping for a target platform (f
 | **SoundCloud** | `soundcloud://sounds:<id>` | `soundcloud://sets:<id>` | `soundcloud://users:<id>` | — | ✅ SoundCloud Scraper (`soundcloud.com`) | `soundcloud://search?q=` |
 | **Bandcamp** | `bandcamp://...` | `bandcamp://...` | `bandcamp://...` | — | ❌ None (Web only) | `bandcamp.com/search?q=` |
 | **Qobuz** | `qobuz://open.qobuz.com/track/<id>` | `qobuz://open.qobuz.com/album/<id>` | `qobuz://open.qobuz.com/artist/<id>` | — | ✅ Qobuz Public API | `qobuz.com/us-en/search/tracks?q=` |
-| **Beatport** | `beatport://...` | `beatport://...` | — | — | ✅ Beatport OG Scraper | `beatport.com/search?q=` |
+| **Beatport** | *(Source only)* | *(Source only)* | — | — | ✅ Beatport OG Scraper | `beatport.com/search?q=` |
 | **Audiomack** | `audiomack://...` | `audiomack://...` | — | `audiomack.com/search?q=` | ✅ Audiomack Scraper | `audiomack.com/search?q=` |
 | **Idagio** | `idagio://...` | `idagio://...` | — | `app.idagio.com/search?q=` | ✅ Idagio Scraper | `app.idagio.com/search?q=` |
 
