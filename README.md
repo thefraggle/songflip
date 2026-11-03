@@ -4,7 +4,7 @@
   <img src="docs/assets/store/og-image-en.png" alt="SongFlip Feature Graphic" width="100%">
 </p>
 
-**SongFlip** is an automatic, zero-click music link redirector for Android & iOS (Spotify ⇄ Apple Music ⇄ YouTube Music ⇄ Tidal ⇄ Deezer ⇄ Amazon Music ⇄ SoundCloud ⇄ Bandcamp ⇄ Qobuz ⇄ Beatport).
+**SongFlip** is an automatic, zero-click music link redirector for Android & iOS (Spotify ⇄ Apple Music ⇄ YouTube Music ⇄ Tidal ⇄ Deezer ⇄ Amazon Music ⇄ SoundCloud ⇄ Bandcamp ⇄ Qobuz ⇄ Beatport ⇄ Audiomack ⇄ Idagio).
 
 Official Website: [songflip.link](https://songflip.link)
 
@@ -36,7 +36,9 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
   - 🎸 **Bandcamp** (`bandcamp.com`, `*.bandcamp.com`)
   - 🎶 **Qobuz** (`qobuz.com`, `open.qobuz.com`, `play.qobuz.com` — full source & target player support with Hi-Res playback)
   - 🎧 **Beatport** (`beatport.com` — source link recognition & instant redirection)
-- **📱 Dynamic Multi-Player Discovery & Selection**: Automatically detects compatible installed players across all 10 streaming services and lets you choose your preferred default player in Settings or switch directly with a single tap from the main player card.
+  - 🟠 **Audiomack** (`audiomack.com` — full source & target player support with track, album & web player fallbacks)
+  - 🎻 **Idagio** (`idagio.com`, `app.idagio.com` — full source & target player support for classical music recordings and albums)
+- **📱 Dynamic Multi-Player Discovery & Selection**: Automatically detects compatible installed players across all 12 streaming services and lets you choose your preferred default player in Settings or switch directly with a single tap from the main player card.
 - **⚡ Shazam Link Interception**: Songs identified with Shazam open directly and reliably in your preferred music player.
 - **🎯 Quick Player Picker ("Ask every time")**: Optional setting for users with multiple streaming apps to pick where each song should play with a single tap.
 - **💿 Full Album, Artist & Podcast Recognition**: Supports single tracks, full albums/EPs, artist channel/discography profiles (including `@handles`), and podcast shows/episodes.

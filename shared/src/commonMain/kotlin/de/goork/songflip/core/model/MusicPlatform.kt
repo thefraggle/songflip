@@ -68,6 +68,18 @@ enum class MusicPlatform(
         displayName = "Beatport",
         androidPackage = "com.beatport.mobile",
         iosScheme = "beatport://"
+    ),
+    AUDIOMACK(
+        key = "audiomack",
+        displayName = "Audiomack",
+        androidPackage = "com.audiomack",
+        iosScheme = "audiomack://"
+    ),
+    IDAGIO(
+        key = "idagio",
+        displayName = "Idagio",
+        androidPackage = "com.idagio.app",
+        iosScheme = "idagio://"
     );
 
     companion object {

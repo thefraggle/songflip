@@ -1,2 +1,3 @@
-- Yhdenmukaistetut asennusohjeet: Selkeä, kutsuva asennuksen tilan ilmaisin ja hienostunut visuaalinen hierarkia oletusmusiikkilinkeille.
-- Parannettu välimuistin suojaus ja vahvistus: Tiukemmat usean alustan vahvistusvaatimukset ja vahvistussäännöt estävät epätäydellisiä tai hakukyselyitä pääsemästä globaaliin välimuistiin.
+- Audiomack-integraatio: Täysi tuki Audiomackille lähde- ja kohdepalveluna suoralla raidan toistolla, albumilinkkeillä ja verkkosoittimen varasoittimilla.
+- Idagio-integraatio: Klassisen musiikin suoratoistotuki, jossa Idagio on lähde- ja kohdepalveluna ja jossa on tarkka tallennustarkkuus ja hakunavigointi.
+- Parannettu moniluetteloreititys: Laajennettu linkkien tunnistus ja saumaton edelleenlähetys kaikissa tuetuissa suoratoistopalveluissa.

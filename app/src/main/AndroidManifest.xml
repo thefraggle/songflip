@@ -167,6 +167,8 @@
         <package android:name="com.bandcamp.android" />
         <package android:name="com.qobuz.music" />
         <package android:name="com.beatport.mobile" />
+        <package android:name="com.audiomack" />
+        <package android:name="com.idagio.app" />
     </queries>
 
     <application
@@ -365,6 +367,29 @@
                 <data android:host="open.qobuz.com" />
                 <data android:host="play.qobuz.com" />
                 <data android:host="www.qobuz.com" />
+            </intent-filter>
+
+            <!-- Audiomack URL Interception -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="audiomack.com" />
+                <data android:host="www.audiomack.com" />
+            </intent-filter>
+
+            <!-- Idagio URL Interception -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="idagio.com" />
+                <data android:host="www.idagio.com" />
+                <data android:host="app.idagio.com" />
             </intent-filter>
         </activity>
 

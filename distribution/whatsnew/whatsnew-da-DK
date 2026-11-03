@@ -1,2 +1,3 @@
-- Harmoniseret opsætningsvejledning: Klar, indbydende opsætningsstatusindikator og raffineret visuelt hierarki for standardmusiklinks.
-- Forbedret cachesikkerhed og -verifikation: Strengere multi-platform-verifikationskrav og valideringsregler forhindrer ufuldstændige eller søgeforespørgsler i at komme ind i global cache-lagring.
+- Audiomack-integration: Fuld understøttelse af Audiomack som kilde- og målservice med direkte sporafspilning, albumlinks og fallbacks til webafspiller.
+- Idagio-integration: Understøttelse af streaming af klassisk musik med Idagio som kilde- og måltjeneste med nøjagtig optagelsesopløsning og søge-navigation.
+- Forbedret Multi-Catalog Routing: Udvidet linkregistrering og problemfri videresendelse på tværs af alle understøttede streamingtjenester.

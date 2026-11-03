@@ -312,6 +312,8 @@ class AcousticQuotaManager(
             MusicPlatform.BANDCAMP -> "https://bandcamp.com/search?q=$encoded"
             MusicPlatform.QOBUZ -> "https://www.qobuz.com/us-en/search/tracks?q=$encoded"
             MusicPlatform.BEATPORT -> "https://www.beatport.com/search?q=$encoded"
+            MusicPlatform.AUDIOMACK -> "https://audiomack.com/search?q=$encoded"
+            MusicPlatform.IDAGIO -> "https://app.idagio.com/search?q=$encoded"
         }
     }
 }

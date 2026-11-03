@@ -1,2 +1,2 @@
-- Hướng dẫn thiết lập hài hòa: Chỉ báo trạng thái thiết lập rõ ràng, hấp dẫn và phân cấp trực quan được tinh chỉnh cho các liên kết âm nhạc mặc định.
-- Xác minh và bảo mật bộ đệm nâng cao: Các yêu cầu xác minh và quy tắc xác thực đa nền tảng nghiêm ngặt hơn sẽ ngăn chặn các truy vấn tìm kiếm hoặc truy vấn không đầy đủ xâm nhập vào bộ nhớ đệm chung.
+- Tích hợp Audiomack: Hỗ trợ đầy đủ cho Audiomack làm dịch vụ nguồn và mục tiêu với phát lại bản nhạc trực tiếp, liên kết album và dự phòng trình phát web.
+- Tích hợp Idagio: Hỗ trợ phát nhạc cổ điển với Idagio làm dịch vụ nguồn và đích, có độ phân giải ghi âm chính xác và điều hướng tìm kiếm.
