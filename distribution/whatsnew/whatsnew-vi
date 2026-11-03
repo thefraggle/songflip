@@ -1,2 +1,2 @@
-- Tích hợp Audiomack: Hỗ trợ đầy đủ cho Audiomack dưới dạng dịch vụ nguồn và đích với khả năng phát lại bản nhạc trực tiếp, liên kết album và dự phòng trình phát web.
-- Tích hợp Idagio: Hỗ trợ phát trực tuyến nhạc cổ điển với Idagio dưới dạng dịch vụ nguồn và đích, có độ phân giải ghi chính xác và điều hướng tìm kiếm.
+- Tích hợp Audiomack & Idagio: Hỗ trợ đầy đủ cho Audiomack và Idagio dưới dạng dịch vụ nguồn và đích với khả năng phát lại trực tiếp và dự phòng trình phát web.
+- Tính chẵn lẻ của người chơi mục tiêu: Đã thêm lựa chọn người chơi mục tiêu đầy đủ cho Audiomack, Idagio, Bandcamp và Beatport trên các nền tảng.
