@@ -1,3 +1,3 @@
-- Integrasi Audiomack: Dukungan penuh untuk Audiomack sebagai layanan sumber dan target dengan pemutaran trek langsung, tautan album, dan alternatif pemutar web.
+- Integrasi Audiomack: Dukungan penuh untuk Audiomack sebagai layanan sumber dan target dengan pemutaran trek langsung, tautan album, dan fallback pemutar web.
 - Integrasi Idagio: Dukungan streaming musik klasik dengan Idagio sebagai layanan sumber dan target, menampilkan resolusi rekaman dan navigasi pencarian yang tepat.
-- Perutean Multi-Katalog yang Ditingkatkan: Deteksi tautan yang diperluas dan penerusan tanpa hambatan di semua layanan streaming yang didukung.
+- Perutean Multi-Katalog yang Ditingkatkan: Deteksi tautan yang diperluas dan penerusan yang lancar di semua layanan streaming yang didukung.

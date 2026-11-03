@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.13.0] - 2026-11-03
+## [1.13.1] - 2026-11-03
 - **Audiomack Integration**: Full support for Audiomack as source and target service with direct track playback, album links, and web player fallbacks.
 - **Idagio Integration**: Classical music streaming support with Idagio as source and target service, featuring exact recording resolution and search navigation.
 - **Enhanced Multi-Catalog Routing**: Extended link detection and seamless forwarding across all supported streaming services.

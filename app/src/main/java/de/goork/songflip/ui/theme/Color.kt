@@ -23,9 +23,11 @@ val BrandTidal        = Color(0xFF00F3FF)
 val BrandDeezer       = Color(0xFFA238FF)
 val BrandAmazonMusic  = Color(0xFF00A8E1)
 val BrandSoundCloud   = Color(0xFFFF5500)
+val BrandBandcamp    = Color(0xFF1DA0C3)
 val BrandQobuz        = Color(0xFF0073D1)
+val BrandBeatport    = Color(0xFF01FF95)
 val BrandAudiomack    = Color(0xFFFFA200)
-val BrandIdagio       = Color(0xFF1B365D)
+val BrandIdagio       = Color(0xFF5B8DEF)
 
 // State Colors & WCAG AA Contrast Tokens
 val StateActiveGreen = Color(0xFF10B981)

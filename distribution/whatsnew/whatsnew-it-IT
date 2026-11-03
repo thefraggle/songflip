@@ -1,2 +1,2 @@
-- Integrazione Audiomack: supporto completo per Audiomack come servizio di origine e destinazione con riproduzione diretta delle tracce, collegamenti agli album e fallback del lettore web.
-- Integrazione Idagio: supporto per lo streaming di musica classica con Idagio come servizio di origine e destinazione, con risoluzione di registrazione e navigazione di ricerca esatte.
+- Integrazione Audiomack: supporto completo per Audiomack come servizio di origine e di destinazione con riproduzione diretta della traccia, collegamenti agli album e fallback del lettore Web.
+- Integrazione Idagio: supporto per lo streaming di musica classica con Idagio come servizio sorgente e di destinazione, con esatta risoluzione di registrazione e navigazione di ricerca.
