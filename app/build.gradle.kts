@@ -14,7 +14,8 @@ val computedVersionCode = run {
     val major = parts.getOrElse(0) { 1 }
     val minor = parts.getOrElse(1) { 0 }
     val patch = parts.getOrElse(2) { 0 }
-    (major * 10000) + (minor * 100) + patch
+    // Offset +1 so 1.13.0 uses 11301, resolving Play Console collision with previously used 11300
+    (major * 10000) + (minor * 100) + patch + 1
 }
 
 val localProps = Properties()
