@@ -1,3 +1,3 @@
-- Intégration Audiomack et Idagio : prise en charge complète d'Audiomack et d'Idagio en tant que services source et cible avec lecture directe et solutions de repli du lecteur Web.
-- Parité des joueurs cibles : ajout d'une sélection complète de joueurs cibles pour Audiomack, Idagio, Bandcamp et Beatport sur toutes les plateformes.
-- Routage multi-catalogue amélioré : détection de lien étendue et transfert transparent sur les 12 services de streaming pris en charge.
+- Intégration Audiomack & Idagio : Prise en charge complète d'Audiomack et d'Idagio en tant que services source et cible avec lecture directe et repli du lecteur Web.
+- Sélection harmonisée des joueurs cibles : 10 services de lecture directe standardisés sur toutes les plateformes et le convertisseur Web.
+- Routage multi-catalogue amélioré : détection étendue des liens et transfert transparent sur tous les services de streaming pris en charge.

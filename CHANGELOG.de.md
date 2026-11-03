@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.13.2] - 2026-11-03
+- **Audiomack- & Idagio-Integration**: Volle Unterstützung für Audiomack und Idagio als Quell- und Zieldienst mit direktem Abspielen und Web-Player-Fallback.
+- **Harmonisierte Ziel-Player-Auswahl**: Vereinheitlichung auf 10 direkte Streaming-Zieldienste über alle Plattformen hinweg.
+- **Erweiterte Plattform-Harmonisierung**: Ausbau der Link-Erkennung und flüssige Weiterleitung über alle Musikdienste hinweg.
+
 ## [1.13.1] - 2026-11-03
 - **Audiomack- & Idagio-Integration**: Volle Unterstützung für Audiomack und Idagio als Quell- und Zieldienst mit direktem Abspielen und Web-Player-Fallback.
 - **Ziel-Player-Parität**: Vollständige Ziel-Dienst-Auswahl für Audiomack, Idagio, Bandcamp und Beatport auf allen Plattformen.
