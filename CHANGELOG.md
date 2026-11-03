@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.13.2] - 2026-11-03
+- **Audiomack & Idagio Integration**: Full support for Audiomack and Idagio as source and target services with direct playback and web player fallbacks.
+- **Harmonized Target Player Selection**: Standardized 10 direct playback services across platforms and web converter.
+- **Enhanced Multi-Catalog Routing**: Extended link detection and seamless forwarding across all supported streaming services.
+
 ## [1.13.1] - 2026-11-03
 - **Audiomack & Idagio Integration**: Full support for Audiomack and Idagio as source and target services with direct playback and web player fallbacks.
 - **Target Player Parity**: Added full target player selection for Audiomack, Idagio, Bandcamp, and Beatport across platforms.

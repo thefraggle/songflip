@@ -33,12 +33,12 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
   - 🔵 **Amazon Music** (`music.amazon.com`, `music.amazon.de`, `music.amazon.co.uk`, `amzn.to`, `a.co`)
   - 🎙️ **Pocket Casts** (`pocketcasts.com`, `pca.st`)
   - 🟠 **SoundCloud** (`soundcloud.com`, `on.soundcloud.com` — full source & target player support with `soundcloud://` deep-links and direct track resolution)
-  - 🎸 **Bandcamp** (`bandcamp.com`, `*.bandcamp.com` — full source & target player support)
+  - 🎸 **Bandcamp** (`bandcamp.com`, `*.bandcamp.com` — source link recognition & instant redirection)
   - 🎶 **Qobuz** (`qobuz.com`, `open.qobuz.com`, `play.qobuz.com` — full source & target player support with Hi-Res playback)
-  - 🎧 **Beatport** (`beatport.com` — full source & target player support for electronic and club music)
+  - 🎧 **Beatport** (`beatport.com` — source link recognition & instant redirection)
   - 🟠 **Audiomack** (`audiomack.com` — full source & target player support with track, album & web player fallbacks)
   - 🎻 **Idagio** (`idagio.com`, `app.idagio.com` — full source & target player support for classical music recordings and albums)
-- **📱 Dynamic Multi-Player Discovery & Selection**: Automatically detects compatible installed players across all 12 streaming services and lets you choose your preferred default player in Settings or switch directly with a single tap from the main player card.
+- **📱 Dynamic Multi-Player Discovery & Selection**: Automatically detects compatible installed players across 10 direct streaming services and lets you choose your preferred default player in Settings or switch directly with a single tap from the main player card.
 - **⚡ Shazam Link Interception**: Songs identified with Shazam open directly and reliably in your preferred music player.
 - **🎯 Quick Player Picker ("Ask every time")**: Optional setting for users with multiple streaming apps to pick where each song should play with a single tap.
 - **💿 Full Album, Artist & Podcast Recognition**: Supports single tracks, full albums/EPs, artist channel/discography profiles (including `@handles`), and podcast shows/episodes.

@@ -17,9 +17,7 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
     case deezer = "deezer"
     case amazonMusic = "amazonMusic"
     case soundcloud = "soundcloud"
-    case bandcamp = "bandcamp"
     case qobuz = "qobuz"
-    case beatport = "beatport"
     case audiomack = "audiomack"
     case idagio = "idagio"
 
@@ -34,9 +32,7 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
         case .deezer: return "Deezer"
         case .amazonMusic: return "Amazon Music"
         case .soundcloud: return "SoundCloud"
-        case .bandcamp: return "Bandcamp"
         case .qobuz: return "Qobuz"
-        case .beatport: return "Beatport"
         case .audiomack: return "Audiomack"
         case .idagio: return "Idagio"
         }
@@ -51,9 +47,7 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
         case .deezer: return "music.quarternote.3"
         case .amazonMusic: return "cart.fill"
         case .soundcloud: return "cloud.fill"
-        case .bandcamp: return "opticaldisc"
         case .qobuz: return "waveform.circle.fill"
-        case .beatport: return "headphones"
         case .audiomack: return "waveform.and.mic"
         case .idagio: return "tuningfork"
         }
@@ -68,9 +62,7 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
         case .deezer: return Color(red: 0.64, green: 0.22, blue: 1.0)
         case .amazonMusic: return Color(red: 0.15, green: 0.82, blue: 0.85)
         case .soundcloud: return Color(red: 1.0, green: 0.33, blue: 0.0)
-        case .bandcamp: return Color(red: 0.11, green: 0.63, blue: 0.76)
         case .qobuz: return Color(red: 0.0, green: 0.45, blue: 0.82)
-        case .beatport: return Color(red: 0.0, green: 0.85, blue: 0.5)
         case .audiomack: return Color(red: 1.0, green: 0.635, blue: 0.0)
         case .idagio: return Color(red: 0.106, green: 0.212, blue: 0.365)
         }

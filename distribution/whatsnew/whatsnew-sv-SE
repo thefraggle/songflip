@@ -1,3 +1,3 @@
-- Audiomack & Idagio Integration: Fullständigt stöd för Audiomack och Idagio som käll- och måltjänster med direktuppspelning och reservspel för webbspelare.
-- Target Player Parity: Lade till ett komplett urval av målspelare för Audiomack, Idagio, Bandcamp och Beatport över plattformar.
-- Förbättrad Multi-Catalog Routing: Utökad länkdetektering och sömlös vidarebefordran över alla 12 streamingtjänster som stöds.
+- Audiomack & Idagio-integration: Fullt stöd för Audiomack och Idagio som käll- och måltjänster med direktuppspelning och backbacks för webbspelare.
+- Harmoniserat val av målspelare: Standardiserade 10 direktuppspelningstjänster över plattformar och webbkonverterare.
+- Förbättrad Multi-Catalog Routing: Utökad länkdetektering och sömlös vidarebefordran över alla streamingtjänster som stöds.

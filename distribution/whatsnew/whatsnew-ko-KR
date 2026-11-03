@@ -1,2 +1,3 @@
-- Audiomack 및 Idagio 통합: 직접 재생 및 웹 플레이어 대체 기능을 갖춘 소스 및 대상 서비스로서 Audiomack 및 Idagio를 완벽하게 지원합니다.
-- 대상 플레이어 패리티: 플랫폼 전반에 걸쳐 Audiomack, Idagio, Bandcamp 및 Beatport에 대한 전체 대상 플레이어 선택이 추가되었습니다.
+- Audiomack 및 Idagio 통합: 직접 재생 및 웹 플레이어 대체 기능을 통해 Audiomack 및 Idagio를 소스 및 타겟 서비스로 완벽하게 지원합니다.
+- Harmonized Target Player Selection: 플랫폼 및 웹 컨버터 전반에 걸쳐 표준화된 10개의 직접 재생 서비스.
+- 향상된 멀티 카탈로그 라우팅: 지원되는 모든 스트리밍 서비스에서 확장된 링크 감지 및 원활한 전달.

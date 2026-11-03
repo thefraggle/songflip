@@ -1,3 +1,3 @@
 - Integrazione Audiomack e Idagio: supporto completo per Audiomack e Idagio come servizi di origine e destinazione con riproduzione diretta e fallback del lettore web.
-- Parità dei giocatori target: aggiunta la selezione completa dei giocatori target per Audiomack, Idagio, Bandcamp e Beatport su tutte le piattaforme.
-- Routing multicatalogo migliorato: rilevamento esteso dei collegamenti e inoltro continuo su tutti i 12 servizi di streaming supportati.
+- Selezione armonizzata del giocatore target: 10 servizi di riproduzione diretta standardizzati su piattaforme e convertitore web.
+- Routing multi-catalogo migliorato: rilevamento dei collegamenti esteso e inoltro senza interruzioni su tutti i servizi di streaming supportati.

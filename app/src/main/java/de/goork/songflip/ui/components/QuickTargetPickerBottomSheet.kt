@@ -55,7 +55,9 @@ fun QuickTargetPickerBottomSheet(
             ServiceInfo("deezer", R.string.target_deezer, BrandDeezer, R.drawable.ic_deezer),
             ServiceInfo("amazonMusic", R.string.target_amazon_music, BrandAmazonMusic, R.drawable.ic_amazon_music),
             ServiceInfo("soundcloud", R.string.target_soundcloud, BrandSoundCloud, R.drawable.ic_soundcloud),
-            ServiceInfo("qobuz", R.string.target_qobuz, BrandQobuz, R.drawable.ic_qobuz)
+            ServiceInfo("qobuz", R.string.target_qobuz, BrandQobuz, R.drawable.ic_qobuz),
+            ServiceInfo("audiomack", R.string.target_audiomack, BrandAudiomack, R.drawable.ic_audiomack),
+            ServiceInfo("idagio", R.string.target_idagio, BrandIdagio, R.drawable.ic_idagio)
         )
     }
 
