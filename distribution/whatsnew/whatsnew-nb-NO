@@ -1,3 +1,3 @@
-- Audiomack-integrasjon: Full støtte for Audiomack som kilde- og måltjeneste med direkte sporavspilling, albumkoblinger og nettavspillere.
-- Idagio-integrasjon: Støtte for klassisk musikkstrømming med Idagio som kilde- og måltjeneste, med nøyaktig opptaksoppløsning og søkenavigasjon.
-- Forbedret multikatalogruting: Utvidet koblingsdeteksjon og sømløs videresending på tvers av alle støttede strømmetjenester.
+- Audiomack & Idagio-integrasjon: Full støtte for Audiomack og Idagio som kilde- og måltjenester med direkte avspilling og nettavspillere.
+- Target Player Parity: Lagt til fullt målspillervalg for Audiomack, Idagio, Bandcamp og Beatport på tvers av plattformer.
+- Forbedret multikatalogruting: Utvidet koblingsdeteksjon og sømløs videresending på tvers av alle 12 støttede strømmetjenester.

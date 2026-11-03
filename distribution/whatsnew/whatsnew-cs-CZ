@@ -1,2 +1,3 @@
-- Integrace Audiomack: Plná podpora pro Audiomack jako zdrojovou a cílovou službu s přímým přehráváním skladeb, odkazy na alba a záložními webovými přehrávači.
-- Integrace Idagio: Podpora streamování klasické hudby s Idagio jako zdrojovou a cílovou službou s přesným rozlišením nahrávání a navigací ve vyhledávání.
+- Integrace Audiomack & Idagio: Plná podpora pro Audiomack a Idagio jako zdrojové a cílové služby s přímým přehráváním a výpadky webového přehrávače.
+- Parita cílového hráče: Přidán úplný výběr cílového hráče pro Audiomack, Idagio, Bandcamp a Beatport napříč platformami.
+- Vylepšené vícekatalogové směrování: Rozšířená detekce odkazů a bezproblémové předávání napříč všemi 12 podporovanými streamovacími službami.
