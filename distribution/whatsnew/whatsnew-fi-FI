@@ -1,3 +1,3 @@
-- Audiomack-integraatio: Täysi tuki Audiomackille lähde- ja kohdepalveluna suoralla raidan toistolla, albumilinkkeillä ja verkkosoittimen varasoittimilla.
-- Idagio-integraatio: Klassisen musiikin suoratoistotuki, jossa Idagio on lähde- ja kohdepalveluna ja jossa on tarkka tallennustarkkuus ja hakunavigointi.
-- Parannettu moniluetteloreititys: Laajennettu linkkien tunnistus ja saumaton edelleenlähetys kaikissa tuetuissa suoratoistopalveluissa.
+- Audiomack-integraatio: Täysi tuki Audiomackille lähde- ja kohdepalveluna suoralla kappaleen toistolla, albumilinkeillä ja verkkosoittimen varaosilla.
+- Idagio Integration: Klassisen musiikin suoratoistotuki Idagion kanssa lähde- ja kohdepalveluna, jossa on tarkka tallennusresoluutio ja hakunavigointi.
+- Parannettu usean luettelon reititys: Laajennettu linkkien tunnistus ja saumaton edelleenlähetys kaikissa tuetuissa suoratoistopalveluissa.
