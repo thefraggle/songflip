@@ -1,2 +1,2 @@
-- Intégration Audiomack : Prise en charge complète d'Audiomack en tant que service source et cible avec lecture directe des pistes, liens vers les albums et repli des lecteurs Web.
-- Intégration Idagio : Prise en charge du streaming de musique classique avec Idagio comme service source et cible, avec une résolution d'enregistrement exacte et une navigation de recherche.
+- Intégration d'Audiomack : prise en charge complète d'Audiomack en tant que service source et cible avec lecture directe des pistes, liens d'album et solutions de secours du lecteur Web.
+- Intégration Idagio : prise en charge du streaming de musique classique avec Idagio comme service source et cible, avec une résolution d'enregistrement exacte et une navigation par recherche.
