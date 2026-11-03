@@ -1,2 +1,3 @@
-- Integrare Audiomack: Suport complet pentru Audiomack ca serviciu sursă și țintă, cu redare directă a melodiilor, link-uri la albume și alternative la playerul web.
-- Integrare Idagio: Suport de streaming muzical clasic cu Idagio ca sursă și serviciu țintă, oferind rezoluție exactă de înregistrare și navigare de căutare.
+- Integrare Audiomack și Idagio: Suport deplin pentru Audiomack și Idagio ca servicii sursă și țintă cu redare directă și alternative ale playerului web.
+- Paritate jucător țintă: S-a adăugat selecția completă a jucătorului țintă pentru Audiomack, Idagio, Bandcamp și Beatport pe platforme.
+- Rutare multi-catalog îmbunătățită: Detectare extinsă a legăturilor și redirecționare fără întreruperi în toate cele 12 servicii de streaming acceptate.

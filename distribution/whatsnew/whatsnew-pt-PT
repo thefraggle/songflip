@@ -1,2 +1,3 @@
-- Integração Audiomack: Suporte completo para Audiomack como serviço de origem e destino com reprodução direta de faixas, links de álbuns e substitutos de reprodutores da web.
-- Integração Idagio: Suporte para streaming de música clássica com Idagio como serviço de origem e destino, apresentando resolução exata de gravação e navegação de pesquisa.
+- Integração Audiomack e Idagio: Suporte completo para Audiomack e Idagio como serviços de origem e destino com reprodução direta e substitutos de player da web.
+- Paridade do jogador alvo: Adicionada seleção completa de jogadores alvo para Audiomack, Idagio, Bandcamp e Beatport em todas as plataformas.
+- Roteamento multicatálogo aprimorado: Detecção de link estendida e encaminhamento contínuo em todos os 12 serviços de streaming suportados.

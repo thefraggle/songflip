@@ -1,2 +1,3 @@
-- Integracja z Audiomackiem: Pełna obsługa Audiomack jako usługi źródłowej i docelowej z bezpośrednim odtwarzaniem utworów, linkami do albumów i rezerwowymi odtwarzaczami internetowymi.
-- Integracja z Idagio: obsługa strumieniowego przesyłania muzyki klasycznej z Idagio jako usługą źródłową i docelową, z dokładną rozdzielczością nagrywania i nawigacją wyszukiwania.
+- Integracja Audiomack i Idagio: Pełna obsługa Audiomack i Idagio jako usług źródłowych i docelowych z bezpośrednim odtwarzaniem i rezerwowymi odtwarzaczami internetowymi.
+- Parytet graczy docelowych: Dodano pełny wybór docelowych graczy dla Audiomack, Idagio, Bandcamp i Beatport na różnych platformach.
+- Ulepszone routing wielu katalogów: rozszerzone wykrywanie linków i płynne przekazywanie we wszystkich 12 obsługiwanych usługach przesyłania strumieniowego.
