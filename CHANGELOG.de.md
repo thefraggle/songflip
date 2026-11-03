@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.13.0] - 2026-11-03
+- **Audiomack-Integration**: Volle Unterstützung für Audiomack als Quell- und Zieldienst mit direktem Abspielen von Titeln, Album-Links und Web-Player-Fallback.
+- **Idagio-Integration**: Umfassende Klassik-Unterstützung mit Idagio als Quell- und Zieldienst samt präziser Werkauflösung und direkter Suchweiterleitung.
+- **Erweiterte Plattform-Harmonisierung**: Ausbau der plattformübergreifenden Link-Erkennung und flüssige Weiterleitung über alle Musikdienste hinweg.
+
 ## [1.12.6] - 2026-11-02
 - **Harmonisierte Setup-Hinweise**: Einladende, klare Statusanzeige und abgestimmte visuelle Hierarchie für Standard-Musiklinks.
 - **Verbesserte Cache-Sicherheit & Validierung**: Strengere Verifizierungsanforderungen über mehrere Plattformen hinweg stellen sicher, dass nur geprüfte Direkteinträge im globalen Zwischenspeicher landen.

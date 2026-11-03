@@ -1,2 +1,2 @@
-- Orientação de configuração harmonizada: indicador de status de configuração claro e convidativo e hierarquia visual refinada para links de música padrão.
-- Segurança e verificação de cache aprimoradas: requisitos de verificação multiplataforma e regras de validação mais rígidos evitam que consultas incompletas ou de pesquisa entrem no armazenamento de cache global.
+- Integração Audiomack: Suporte completo para Audiomack como serviço de origem e destino com reprodução direta de faixas, links de álbuns e fallbacks de reprodutores da web.
+- Integração Idagio: Suporte a streaming de música clássica com Idagio como serviço de origem e destino, com resolução exata de gravação e navegação de pesquisa.

@@ -1,2 +1,2 @@
-- Harmonizált beállítási útmutató: Világos, hívogató beállítási állapotjelző és kifinomult vizuális hierarchia az alapértelmezett zenei hivatkozásokhoz.
-- Továbbfejlesztett gyorsítótár-biztonság és -ellenőrzés: A szigorúbb többplatformos ellenőrzési követelmények és érvényesítési szabályok megakadályozzák, hogy hiányos vagy keresési lekérdezések kerüljenek a globális gyorsítótár tárolójába.
+- Audiomack integráció: Teljes Audiomack támogatás forrás- és célszolgáltatásként, közvetlen számlejátszással, albumlinkekkel és webes lejátszó tartalékokkal.
+- Idagio integráció: Klasszikus zenei streaming támogatás az Idagio forrás- és célszolgáltatással, pontos felvételi felbontással és keresési navigációval.

@@ -101,6 +101,8 @@ When an upstream resolver (e.g. Odesli) lacks a mapping for a target platform (f
 | **Bandcamp** | `bandcamp://...` | `bandcamp://...` | `bandcamp://...` | — | ❌ None (Web only) | `bandcamp.com/search?q=` |
 | **Qobuz** | `qobuz://open.qobuz.com/track/<id>` | `qobuz://open.qobuz.com/album/<id>` | `qobuz://open.qobuz.com/artist/<id>` | — | ✅ Qobuz Public API | `qobuz.com/us-en/search/tracks?q=` |
 | **Beatport** | *(Source only)* | *(Source only)* | *(Source only)* | — | ✅ Beatport OG Scraper | `beatport.com/search?q=` |
+| **Audiomack** | `audiomack://...` | `audiomack://...` | — | `audiomack.com/search?q=` | ✅ Audiomack Scraper | `audiomack.com/search?q=` |
+| **Idagio** | `idagio://...` | `idagio://...` | — | `app.idagio.com/search?q=` | ✅ Idagio Scraper | `app.idagio.com/search?q=` |
 
 ---
 
@@ -259,6 +261,9 @@ The iOS architecture decouples the main user interface (`de.goork.SongFlip`) fro
   - **iOS Recognition Audio Session Resilience & Expiry Fix (#174)**: Corrected milliseconds-to-seconds timestamp conversion in `AcousticRecognizer.swift` for Apple Music Developer Tokens, and registered `AVAudioSession.interruptionNotification` observers to properly reset audio recording state on calls or interruptions.
   - **Git & Public Repo Hygiene (#178)**: Extended `.gitignore` to strictly exclude private signing keys (`*.p8`), memory dumps (`*.hprof`), build artifacts (`*.apk`, `*.aab`, `*.ipa`), and distribution outputs (`dist/`).
   - **Comprehensive Localization Parity (#179)**: Added missing strings (`playlist_error_unknown_title`, `playlist_error_unknown_message`, `playlist_error_rate_limit_message`) across all 29 Android locales and 26 iOS locales, and localized `NSMicrophoneUsageDescription` in `InfoPlist.xcstrings`.
+- **Audiomack & Idagio Full-Stack Integration (v1.13.0 / #201, #202)**:
+  - **Audiomack Full-Stack Support**: Bidirectional support across KMP core (`AudiomackResolver`), Android (`RedirectActivity`, package queries, theme tokens), iOS (`SettingsModel`, `ShareViewController`), and Cloud Functions (`resolveAudiomackTrackLive`, metadata extraction, FlipPages, and playlist conversion).
+  - **Idagio Classical Streaming**: Full bidirectional support for classical streaming platform Idagio across KMP core (`IdagioResolver`), Android, iOS, and Cloud Functions (`resolveIdagioTrackLive`, classical recording/album metadata parsing, and web player fallbacks).
 - **Harmonized Setup Guidance, L2 Cache Security & Streaming API Resilience (v1.12.6 / #197, #198, #200)**:
   - **UX Setup Indicator De-escalation (#200)**: Replaced alarmist red error badge (`StateErrorRed` / `StatusType.ERROR`) in `SetupCard` with inviting cyan setup indicator (`StateSetupCyan` / `StatusType.SETUP` with `Icons.Outlined.Info`), harmonizing visual hierarchy with `LiveStatusBanner` and removing redundant duplicate error framing.
   - **L2 Cache Ingest Hardening & Validation (#197)**: Secured backend `/ingest` and client `pingCacheIngestAsync` against cache poisoning. Ingestion strictly rejects catalog search URLs (`/search`, `?q=`, `results?search_query=`), enforces complete title/artist metadata, and requires at least 3 verified platform direct links before persisting into global L2 Firestore cache. Client search and artist fallbacks no longer trigger ingestion pings.

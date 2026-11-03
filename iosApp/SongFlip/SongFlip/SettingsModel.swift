@@ -20,6 +20,8 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
     case bandcamp = "bandcamp"
     case qobuz = "qobuz"
     case beatport = "beatport"
+    case audiomack = "audiomack"
+    case idagio = "idagio"
 
     var id: String { rawValue }
 
@@ -35,6 +37,8 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
         case .bandcamp: return "Bandcamp"
         case .qobuz: return "Qobuz"
         case .beatport: return "Beatport"
+        case .audiomack: return "Audiomack"
+        case .idagio: return "Idagio"
         }
     }
 
@@ -50,6 +54,8 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
         case .bandcamp: return "opticaldisc"
         case .qobuz: return "waveform.circle.fill"
         case .beatport: return "headphones"
+        case .audiomack: return "waveform.and.mic"
+        case .idagio: return "tuningfork"
         }
     }
 
@@ -65,6 +71,8 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
         case .bandcamp: return Color(red: 0.11, green: 0.63, blue: 0.76)
         case .qobuz: return Color(red: 0.0, green: 0.45, blue: 0.82)
         case .beatport: return Color(red: 0.0, green: 0.85, blue: 0.5)
+        case .audiomack: return Color(red: 1.0, green: 0.635, blue: 0.0)
+        case .idagio: return Color(red: 0.106, green: 0.212, blue: 0.365)
         }
     }
 }
@@ -101,6 +109,8 @@ func platformColor(for key: String) -> Color {
     case "bandcamp": return Color(red: 0.11, green: 0.63, blue: 0.76)
     case "qobuz": return Color(red: 0.0, green: 0.45, blue: 0.82)
     case "beatport": return Color(red: 0.0, green: 0.85, blue: 0.5)
+    case "audiomack": return Color(red: 1.0, green: 0.635, blue: 0.0)
+    case "idagio": return Color(red: 0.106, green: 0.212, blue: 0.365)
     default: return .green
     }
 }
@@ -122,6 +132,8 @@ func platformIcon(for key: String) -> String {
     case "bandcamp": return "opticaldisc"
     case "qobuz": return "waveform.circle.fill"
     case "beatport": return "headphones"
+    case "audiomack": return "waveform.and.mic"
+    case "idagio": return "tuningfork"
     default: return "music.note.list"
     }
 }
@@ -138,6 +150,8 @@ func detectSourcePlatformName(url: String) -> String {
     if lower.contains("bandcamp.com") { return "Bandcamp" }
     if lower.contains("qobuz.com") { return "Qobuz" }
     if lower.contains("beatport.com") { return "Beatport" }
+    if lower.contains("audiomack.com") { return "Audiomack" }
+    if lower.contains("idagio.com") { return "Idagio" }
     if lower.contains("song.link") || lower.contains("album.link") || lower.contains("odesli.co") { return "Universal Link" }
     return "Music Link"
 }

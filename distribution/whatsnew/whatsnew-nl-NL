@@ -1,2 +1,3 @@
-- Geharmoniseerde installatiebegeleiding: duidelijke, uitnodigende installatiestatusindicator en verfijnde visuele hiërarchie voor standaard muzieklinks.
-- Verbeterde cachebeveiliging en -verificatie: strengere verificatievereisten en validatieregels voor meerdere platforms voorkomen dat onvolledige zoekopdrachten of zoekopdrachten in de wereldwijde cacheopslag terechtkomen.
+- Audiomack-integratie: volledige ondersteuning voor Audiomack als bron- en doelservice met directe trackweergave, albumkoppelingen en terugval van de webplayer.
+- Idagio-integratie: ondersteuning voor het streamen van klassieke muziek met Idagio als bron- en doelservice, met exacte opnameresolutie en zoeknavigatie.
+- Verbeterde multicatalogusroutering: uitgebreide linkdetectie en naadloze doorsturing over alle ondersteunde streamingdiensten.

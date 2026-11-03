@@ -1,2 +1,2 @@
-- Harmonizovaný průvodce nastavením: Jasný, lákavý indikátor stavu nastavení a propracovaná vizuální hierarchie u výchozích hudebních odkazů.
-- Vylepšené zabezpečení a ověřování mezipaměti: Přísnější požadavky na ověřování na více platformách a pravidla ověřování zabraňují tomu, aby se do globálního úložiště mezipaměti dostaly neúplné nebo vyhledávací dotazy.
+- Integrace Audiomack: Plná podpora služby Audiomack jako zdrojové a cílové služby s přímým přehráváním skladeb, odkazy na alba a záložními verzemi webového přehrávače.
+- Integrace Idagio: Podpora streamování klasické hudby s Idagio jako zdrojovou a cílovou službou s přesným rozlišením záznamu a navigací ve vyhledávání.

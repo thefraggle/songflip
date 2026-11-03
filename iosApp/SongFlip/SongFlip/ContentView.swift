@@ -1139,6 +1139,8 @@ struct ContentView: View {
                       lower.contains("bandcamp.com") ||
                       lower.contains("qobuz.com") ||
                       lower.contains("beatport.com") ||
+                      lower.contains("audiomack.com") ||
+                      lower.contains("idagio.com") ||
                       lower.contains("shazam.com") ||
                       lower.contains("song.link") ||
                       lower.contains("album.link") ||

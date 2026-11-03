@@ -200,6 +200,8 @@ class UrlUtilsTest {
         assertEquals(de.goork.songflip.core.model.MusicPlatform.SPOTIFY, UrlUtils.detectPlatform("https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M"))
         assertEquals(de.goork.songflip.core.model.MusicPlatform.APPLE_MUSIC, UrlUtils.detectPlatform("https://music.apple.com/de/playlist/heavy-metal/pl.u-12345"))
         assertEquals(de.goork.songflip.core.model.MusicPlatform.YOUTUBE_MUSIC, UrlUtils.detectPlatform("https://music.youtube.com/playlist?list=PL12345"))
+        assertEquals(de.goork.songflip.core.model.MusicPlatform.AUDIOMACK, UrlUtils.detectPlatform("https://audiomack.com/eminem/song/houdini"))
+        assertEquals(de.goork.songflip.core.model.MusicPlatform.IDAGIO, UrlUtils.detectPlatform("https://app.idagio.com/recordings/12345"))
 
         assertTrue(UrlUtils.isAlbumUrl("https://open.spotify.com/album/1DFixLWuPkv3KT3TnV35m3"))
         assertTrue(UrlUtils.isAlbumUrl("https://music.apple.com/de/album/a-night-at-the-opera/1440650428"))
@@ -249,6 +251,12 @@ class UrlUtilsTest {
 
         val builtBandcamp = UrlUtils.buildSearchUrl("Radiohead Reckoner", "bandcamp")
         assertEquals("https://bandcamp.com/search?q=Radiohead%20Reckoner", builtBandcamp)
+
+        val builtAudiomack = UrlUtils.buildSearchUrl("Eminem Houdini", "audiomack")
+        assertEquals("https://audiomack.com/search?q=Eminem%20Houdini", builtAudiomack)
+
+        val builtIdagio = UrlUtils.buildSearchUrl("Beethoven Symphony No. 5", "idagio")
+        assertEquals("https://app.idagio.com/search?q=Beethoven%20Symphony%20No.%205", builtIdagio)
 
         val builtQobuz = UrlUtils.buildSearchUrl("Romare The Blues", "qobuz")
         assertEquals("https://www.qobuz.com/us-en/search/tracks?q=Romare%20The%20Blues", builtQobuz)
