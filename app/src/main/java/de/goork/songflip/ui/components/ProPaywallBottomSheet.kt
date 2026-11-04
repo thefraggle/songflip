@@ -135,6 +135,7 @@ fun ProPaywallBottomSheet(
         onDismissRequest = onDismissRequest,
         sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
         containerColor = MaterialTheme.colorScheme.surface,
+        tonalElevation = 0.dp,
         dragHandle = { BottomSheetDefaults.DragHandle() }
     ) {
         val scrollState = rememberScrollState()

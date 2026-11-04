@@ -919,10 +919,12 @@ internal data class SpotifyPodcastOEmbedDto(
                     val resp = client.get("https://www.youtube.com/oembed?url=$encoded&format=json")
                     if (resp.status.isSuccess()) {
                         val oembed = json.decodeFromString<CommonOEmbedDto>(resp.bodyAsText())
-                        val title = oembed.title ?: ""
+                        val rawTitle = oembed.title ?: ""
                         val author = oembed.authorName ?: ""
+                        val title = UrlUtils.cleanVideoTitle(rawTitle)
+                        val cleanAuthor = author.replace(Regex("(?i)\\s*[-–—]?\\s*vevo$"), "").replace(Regex("(?i)\\s*[-–—]?\\s*topic$"), "").trim()
                         if (title.isNotEmpty()) {
-                            return if (author.isNotEmpty() && !title.contains(author, ignoreCase = true)) "$author $title" else title
+                            return if (cleanAuthor.isNotEmpty() && !title.contains(cleanAuthor, ignoreCase = true)) "$cleanAuthor $title" else title
                         }
                     }
                     null

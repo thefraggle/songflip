@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.13.3] - 2026-11-04
+- **Kontextsensitive Video- und Titelbereinigung**: Intelligente Bereinigung von Video-Zusätzen (wie offizielle Musikvideos, Visualizer oder Songtext-Hinweise) bei verlässlichem Erhalt echter Remixe und Live-Aufnahmen.
+- **Versions- und Remix-Schutz**: Fortschrittliche Kandidaten-Bewertung schützt Originalaufnahmen vor ungewollten Remixen, Club-Mixes oder alternativen Bearbeitungen.
+- **Flackerfreie Weiterleitung**: Ruhiger Übergang bei sofortigen Link-Auflösungen mit dezenter Ladeanzeige erst bei spürbarer Netzwerkverzögerung.
+- **Harmonisierte Menü-Navigation & Link-Diagnose**: Nahtloses Zurücknavigieren in den Einstellungen, einheitliche Farbgebung und erweiterte Konflikterkennung für alle 10 Streaming-Dienste.
+
 ## [1.13.2] - 2026-11-03
 - **Audiomack- & Idagio-Integration**: Volle Unterstützung für Audiomack und Idagio als Quell- und Zieldienst mit direktem Abspielen und Web-Player-Fallback.
 - **Harmonisierte Ziel-Player-Auswahl**: Vereinheitlichung auf 10 direkte Streaming-Zieldienste über alle Plattformen hinweg.

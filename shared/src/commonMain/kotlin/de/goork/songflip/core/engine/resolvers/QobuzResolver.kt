@@ -243,11 +243,14 @@ class QobuzResolver(
                             ?.maxByOrNull { it.second }
                             ?.first
                     } else {
-                        parsed.albums?.items?.firstOrNull { item ->
-                            val fullTitle = if (item.version.isNullOrBlank()) item.title else "${item.title} (${item.version})"
-                            ResolverUtils.isMatch(query, item.artist?.name, item.title) ||
-                                ResolverUtils.isMatch(query, item.artist?.name, fullTitle)
-                        }
+                        ResolverUtils.findBestCandidate(
+                            candidates = parsed.albums?.items ?: emptyList(),
+                            query = query,
+                            isAlbum = true,
+                            getArtist = { it.artist?.name },
+                            getTitle = { it.title },
+                            getVersion = { it.version }
+                        )
                     }
                     if (!album?.id.isNullOrBlank()) {
                         return ResolutionOutcome.Success("https://open.qobuz.com/album/${album?.id}")
@@ -277,11 +280,14 @@ class QobuzResolver(
                             ?.maxByOrNull { it.second }
                             ?.first
                     } else {
-                        parsed.tracks?.items?.firstOrNull { item ->
-                            val fullTitle = if (item.version.isNullOrBlank()) item.title else "${item.title} (${item.version})"
-                            ResolverUtils.isMatch(query, item.performer?.name, item.title) ||
-                                ResolverUtils.isMatch(query, item.performer?.name, fullTitle)
-                        }
+                        ResolverUtils.findBestCandidate(
+                            candidates = parsed.tracks?.items ?: emptyList(),
+                            query = query,
+                            isAlbum = false,
+                            getArtist = { it.performer?.name },
+                            getTitle = { it.title },
+                            getVersion = { it.version }
+                        )
                     }
                     if (track?.id != null) {
                         return ResolutionOutcome.Success("https://open.qobuz.com/track/${track.id}")

@@ -142,4 +142,58 @@ class SearchAndDisambiguationTest {
         assertEquals("105", results[2].id)
         assertEquals("The Beatles", results[2].artist)
     }
+
+    @Test
+    fun testContextSensitiveVideoTitleCleaning() {
+        val test1 = de.goork.songflip.core.util.UrlUtils.cleanVideoTitle("Daft Punk - Get Lucky (Official Music Video)")
+        assertEquals("Daft Punk - Get Lucky", test1)
+
+        val test2 = de.goork.songflip.core.util.UrlUtils.cleanVideoTitle("The Weeknd - Blinding Lights [4K 60FPS] (Lyrics)")
+        assertEquals("The Weeknd - Blinding Lights", test2)
+
+        val test3 = de.goork.songflip.core.util.UrlUtils.cleanVideoTitle("Dua Lipa - Levitating (feat. DaBaby) [Official Visualizer]")
+        assertEquals("Dua Lipa - Levitating (feat. DaBaby)", test3)
+
+        val test4 = de.goork.songflip.core.util.UrlUtils.cleanVideoTitle("Stromae - Papaoutai (Clip Officiel)")
+        assertEquals("Stromae - Papaoutai", test4)
+
+        // Preserves genuine musical remixes and live attributes (#208)
+        val testRemix = de.goork.songflip.core.util.UrlUtils.cleanVideoTitle("The Weeknd - Blinding Lights (Major Lazer Remix) [Official Video]")
+        assertEquals("The Weeknd - Blinding Lights (Major Lazer Remix)", testRemix)
+
+        val testLive = de.goork.songflip.core.util.UrlUtils.cleanVideoTitle("Queen - Bohemian Rhapsody (Live at Wembley) [Official Video]")
+        assertEquals("Queen - Bohemian Rhapsody (Live at Wembley)", testLive)
+    }
+
+    @Test
+    fun testFindBestCandidateProtectsOriginalFromUnrequestedRemix() {
+        data class MockItem(val title: String, val artist: String, val version: String? = null)
+
+        val candidates = listOf(
+            MockItem(title = "Blinding Lights (Major Lazer Remix)", artist = "The Weeknd", version = "Remix"),
+            MockItem(title = "Blinding Lights", artist = "The Weeknd", version = null)
+        )
+
+        // 1. Searching for original studio track MUST choose non-remix track (#208)
+        val bestOriginal = de.goork.songflip.core.engine.resolvers.ResolverUtils.findBestCandidate(
+            candidates = candidates,
+            query = "The Weeknd Blinding Lights",
+            getArtist = { it.artist },
+            getTitle = { it.title },
+            getVersion = { it.version }
+        )
+        assertNotNull(bestOriginal)
+        assertEquals("Blinding Lights", bestOriginal.title)
+
+        // 2. Searching explicitly for remix MUST choose remix track (#208)
+        val bestRemix = de.goork.songflip.core.engine.resolvers.ResolverUtils.findBestCandidate(
+            candidates = candidates,
+            query = "The Weeknd Blinding Lights Remix",
+            getArtist = { it.artist },
+            getTitle = { it.title },
+            getVersion = { it.version }
+        )
+        assertNotNull(bestRemix)
+        assertEquals("Blinding Lights (Major Lazer Remix)", bestRemix.title)
+    }
 }

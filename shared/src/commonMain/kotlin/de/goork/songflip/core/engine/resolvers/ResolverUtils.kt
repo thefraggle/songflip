@@ -79,6 +79,81 @@ object ResolverUtils {
         }
     }
 
+    val VARIANT_INDICATORS = listOf(
+        "remix", "rework", "bootleg", "sped up", "slowed", "instrumental",
+        "acapella", "drumless", "club mix", "extended mix", "vip mix", "dub mix", "dance mix", "flip"
+    )
+
+    /**
+     * Selects the best candidate from a list, context-sensitively protecting original tracks
+     * from unrequested remixes/variants (#208) while ensuring that explicit remix/live queries
+     * still prefer their corresponding version.
+     */
+    fun <T> findBestCandidate(
+        candidates: List<T>,
+        query: String,
+        isAlbum: Boolean = false,
+        getArtist: (T) -> String?,
+        getTitle: (T) -> String?,
+        getVersion: ((T) -> String?)? = null
+    ): T? {
+        if (candidates.isEmpty()) return null
+
+        val validMatches = candidates.filter { item ->
+            val title = getTitle(item)
+            val artist = getArtist(item)
+            val version = getVersion?.invoke(item)
+            val fullTitle = if (version.isNullOrBlank()) title else "$title ($version)"
+            isMatch(query, artist, title) || (fullTitle != title && isMatch(query, artist, fullTitle))
+        }
+
+        if (validMatches.isEmpty()) return null
+        if (validMatches.size == 1) return validMatches.first()
+
+        val lowerQuery = query.lowercase()
+        val wantsRemix = Regex("""\b(?:remix|mix|rework|bootleg|flip)\b""", RegexOption.IGNORE_CASE).containsMatchIn(lowerQuery)
+        val wantsLive = Regex("""\b(?:live|concert|tour)\b""", RegexOption.IGNORE_CASE).containsMatchIn(lowerQuery)
+        val wantsAcoustic = Regex("""\b(?:acoustic|unplugged)\b""", RegexOption.IGNORE_CASE).containsMatchIn(lowerQuery)
+        val wantsInstrumental = Regex("""\b(?:instrumental|karaoke)\b""", RegexOption.IGNORE_CASE).containsMatchIn(lowerQuery)
+        val wantsSpedUpOrSlowed = Regex("""\b(?:sped up|slowed)\b""", RegexOption.IGNORE_CASE).containsMatchIn(lowerQuery)
+
+        return validMatches.maxByOrNull { item ->
+            var s = 0
+            val title = getTitle(item) ?: ""
+            val version = getVersion?.invoke(item) ?: ""
+            val combined = "$title $version".lowercase()
+
+            val isCandRemix = Regex("""\b(?:remix|mix|rework|bootleg|flip)\b""", RegexOption.IGNORE_CASE).containsMatchIn(combined)
+            val isCandLive = Regex("""\b(?:live)\b""", RegexOption.IGNORE_CASE).containsMatchIn(combined)
+            val isCandAcoustic = Regex("""\b(?:acoustic|unplugged)\b""", RegexOption.IGNORE_CASE).containsMatchIn(combined)
+            val isCandInstrumental = Regex("""\b(?:instrumental|karaoke)\b""", RegexOption.IGNORE_CASE).containsMatchIn(combined)
+            val isCandSpedUpOrSlowed = Regex("""\b(?:sped up|slowed)\b""", RegexOption.IGNORE_CASE).containsMatchIn(combined)
+
+            if (!wantsRemix && isCandRemix) s -= 120
+            if (wantsRemix && !isCandRemix) s -= 80
+
+            if (!wantsLive && isCandLive) s -= 100
+            if (wantsLive && !isCandLive) s -= 60
+
+            if (!wantsAcoustic && isCandAcoustic) s -= 80
+            if (wantsAcoustic && !isCandAcoustic) s -= 50
+
+            if (!wantsInstrumental && isCandInstrumental) s -= 100
+            if (wantsInstrumental && !isCandInstrumental) s -= 60
+
+            if (!wantsSpedUpOrSlowed && isCandSpedUpOrSlowed) s -= 120
+
+            // Reward exact title matches
+            val normTitle = normalizeTokens(title).joinToString(" ")
+            val normQuery = normalizeTokens(query).joinToString(" ")
+            if (normQuery.contains(normTitle) || normTitle == normQuery) {
+                s += 40
+            }
+
+            s
+        }
+    }
+
     /**
      * Scores a catalog candidate for Audiophile Quality Prioritization (#85).
      * Rewards studio masters, Hi-Res/24-bit/Atmos flags, and exact artist/title alignment,
@@ -142,14 +217,14 @@ object ResolverUtils {
         }
 
         // 4. Penalize unrequested remixes / live / instrumental / sped up versions
-        val variantIndicators = listOf("remix", "rework", "bootleg", "sped up", "slowed", "instrumental", "acapella", "drumless")
-        for (indicator in variantIndicators) {
-            if (combinedMeta.contains(indicator) && !lowerQuery.contains(indicator)) {
-                score -= 45
+        val wantsVariant = VARIANT_INDICATORS.any { lowerQuery.contains(it) }
+        for (indicator in VARIANT_INDICATORS) {
+            if (combinedMeta.contains(indicator) && !wantsVariant) {
+                score -= 100
             }
         }
         if ((lowerTitle.contains(" live") || lowerVersion.contains("live")) && !lowerQuery.contains("live")) {
-            score -= 30
+            score -= 50
         }
 
         // 5. Penalize "Various Artists" & Compilation albums vs. Original Studio Albums

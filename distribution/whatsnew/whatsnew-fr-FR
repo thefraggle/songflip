@@ -1,3 +1,2 @@
-- Intégration Audiomack & Idagio : Prise en charge complète d'Audiomack et d'Idagio en tant que services source et cible avec lecture directe et repli du lecteur Web.
-- Sélection harmonisée des joueurs cibles : 10 services de lecture directe standardisés sur toutes les plateformes et le convertisseur Web.
-- Routage multi-catalogue amélioré : détection étendue des liens et transfert transparent sur tous les services de streaming pris en charge.
+- Nettoyage des vidéos et des titres en fonction du contexte : suppression intelligente du bruit vidéo (vidéo officielle, visualiseur, balises lyriques) tout en préservant strictement les remixes authentiques et les enregistrements en direct.
+- Sauvegardes de version et de remix : le classement avancé des candidats protège les pistes studio originales des remixes non demandés, des mixes de club ou des modifications alternatives.

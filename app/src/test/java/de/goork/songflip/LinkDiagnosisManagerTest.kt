@@ -11,7 +11,7 @@ class LinkDiagnosisManagerTest {
     @Test
     fun testSupportedPlatformsCompleteness() {
         val platforms = LinkDiagnosisManager.supportedPlatforms
-        assertEquals(7, platforms.size)
+        assertEquals(10, platforms.size)
 
         val keys = platforms.map { it.key }
         assertTrue(keys.contains("spotify"))
@@ -21,6 +21,9 @@ class LinkDiagnosisManagerTest {
         assertTrue(keys.contains("tidal"))
         assertTrue(keys.contains("amazonMusic"))
         assertTrue(keys.contains("soundcloud"))
+        assertTrue(keys.contains("qobuz"))
+        assertTrue(keys.contains("audiomack"))
+        assertTrue(keys.contains("idagio"))
     }
 
     @Test

@@ -209,11 +209,14 @@ class TidalResolver(
                             .maxByOrNull { it.second }
                             ?.first
                     } else {
-                        items.firstOrNull { item ->
-                            val candidateTitle = item.title ?: item.name
-                            val candidateArtist = item.artist?.name ?: item.artists.firstOrNull()?.name
-                            ResolverUtils.isMatch(query, candidateArtist, candidateTitle)
-                        }
+                        ResolverUtils.findBestCandidate(
+                            candidates = items,
+                            query = query,
+                            isAlbum = isAlbum,
+                            getArtist = { it.artist?.name ?: it.artists.firstOrNull()?.name },
+                            getTitle = { it.title ?: it.name },
+                            getVersion = { it.version }
+                        )
                     }
 
                     if (validItem != null) {
