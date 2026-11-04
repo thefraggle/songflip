@@ -51,7 +51,8 @@ fun AppLinksSetupBottomSheet(
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
         sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
-        containerColor = MaterialTheme.colorScheme.surface
+        containerColor = MaterialTheme.colorScheme.surface,
+        tonalElevation = 0.dp
     ) {
         Column(
             modifier = Modifier
@@ -136,7 +137,8 @@ fun AppLinksSetupBottomSheet(
                                 item = item,
                                 onOpenAppSettings = {
                                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                                    PackageUtils.openAppOpenByDefaultSettings(context, item.packageName)
+                                    val targetPkg = item.handlerPackage ?: item.packageName
+                                    PackageUtils.openAppOpenByDefaultSettings(context, targetPkg)
                                 }
                             )
                         }
@@ -350,6 +352,7 @@ private fun DiagnosisAppItem(
             }
 
             if (item.state == PlatformLinkState.BLOCKED_BY_THIRD_PARTY) {
+                val appLabel = item.grabberAppLabel ?: item.displayName
                 OutlinedButton(
                     onClick = onOpenAppSettings,
                     modifier = Modifier.fillMaxWidth().height(36.dp),
@@ -357,7 +360,7 @@ private fun DiagnosisAppItem(
                     contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp)
                 ) {
                     Text(
-                        text = stringResource(R.string.app_links_btn_configure_app, item.displayName),
+                        text = stringResource(R.string.app_links_btn_configure_app, appLabel),
                         style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold)
                     )
                     Spacer(modifier = Modifier.width(6.dp))

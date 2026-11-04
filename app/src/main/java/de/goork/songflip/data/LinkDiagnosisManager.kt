@@ -30,7 +30,8 @@ data class PlatformDiagnosis(
     val sampleUrl: String,
     val isAppInstalled: Boolean,
     val state: PlatformLinkState,
-    val handlerPackage: String?
+    val handlerPackage: String?,
+    val grabberAppLabel: String? = null
 )
 
 data class DiagnosisSummary(
@@ -91,6 +92,24 @@ object LinkDiagnosisManager {
             displayName = "SoundCloud",
             packageName = "com.soundcloud.android",
             sampleUrl = "https://soundcloud.com/octobersveryown/drake-gods-plan"
+        ),
+        PlatformConfig(
+            key = "qobuz",
+            displayName = "Qobuz",
+            packageName = "com.qobuz.music",
+            sampleUrl = "https://open.qobuz.com/track/1068442"
+        ),
+        PlatformConfig(
+            key = "audiomack",
+            displayName = "Audiomack",
+            packageName = "com.audiomack",
+            sampleUrl = "https://audiomack.com/song/track"
+        ),
+        PlatformConfig(
+            key = "idagio",
+            displayName = "Idagio",
+            packageName = "com.idagio.app",
+            sampleUrl = "https://app.idagio.com/recordings/ludwig-van-beethoven-symphony-no-5"
         )
     )
 
@@ -125,11 +144,37 @@ object LinkDiagnosisManager {
             val handlerPackage = resolveInfo?.activityInfo?.packageName
             val isTargetApp = config.key == targetPlatformKey
 
+            val isBrowserOrChooser = handlerPackage == null ||
+                handlerPackage == "android" ||
+                handlerPackage == "com.google.android.packageinstaller" ||
+                handlerPackage.endsWith(".resolver")
+
+            val grabberAppLabel = if (handlerPackage != null && handlerPackage != myPackage && !isBrowserOrChooser) {
+                try {
+                    val appInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        pm.getApplicationInfo(handlerPackage, PackageManager.ApplicationInfoFlags.of(0))
+                    } else {
+                        @Suppress("DEPRECATION")
+                        pm.getApplicationInfo(handlerPackage, 0)
+                    }
+                    pm.getApplicationLabel(appInfo).toString()
+                } catch (e: Exception) {
+                    null
+                }
+            } else null
+
+            val isGrabber = handlerPackage != null &&
+                handlerPackage != myPackage &&
+                !isBrowserOrChooser &&
+                (handlerPackage == config.packageName ||
+                 (config.key == "youtubeMusic" && handlerPackage == "com.google.android.youtube") ||
+                 grabberAppLabel != null)
+
             val state = when {
                 !isInstalled -> PlatformLinkState.NOT_INSTALLED
                 isTargetApp -> PlatformLinkState.CAPTURED_BY_TARGET_APP
                 handlerPackage == myPackage -> PlatformLinkState.CAPTURED_BY_SONGFLIP
-                handlerPackage == config.packageName || (config.key == "youtubeMusic" && handlerPackage == "com.google.android.youtube") -> PlatformLinkState.BLOCKED_BY_THIRD_PARTY
+                isGrabber -> PlatformLinkState.BLOCKED_BY_THIRD_PARTY
                 else -> PlatformLinkState.UNCONFIGURED
             }
 
@@ -140,7 +185,8 @@ object LinkDiagnosisManager {
                 sampleUrl = config.sampleUrl,
                 isAppInstalled = isInstalled,
                 state = state,
-                handlerPackage = handlerPackage
+                handlerPackage = handlerPackage,
+                grabberAppLabel = grabberAppLabel
             )
         }
 

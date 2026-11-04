@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.13.3] - 2026-11-04
+- **Context-Sensitive Video & Title Cleaning**: Intelligent removal of video noise (official video, visualizer, lyric tags) while strictly preserving genuine remixes and live recordings.
+- **Version & Remix Safeguards**: Advanced candidate ranking protects original studio tracks from unrequested remixes, club mixes, or alternate edits.
+- **Flicker-Free Link Forwarding**: Smooth transition during instantaneous link resolutions, with subtle loading indication only during network delays.
+- **Harmonized Settings Navigation & Link Diagnostics**: Seamless back navigation in settings, consistent sheet container styling, and extended conflict detection across all 10 supported streaming services.
+
 ## [1.13.2] - 2026-11-03
 - **Audiomack & Idagio Integration**: Full support for Audiomack and Idagio as source and target services with direct playback and web player fallbacks.
 - **Harmonized Target Player Selection**: Standardized 10 direct playback services across platforms and web converter.
