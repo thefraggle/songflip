@@ -164,11 +164,14 @@ class DeezerResolver(
                         .maxByOrNull { it.second }
                         ?.first
                 } else {
-                    parsed.data.firstOrNull { item ->
-                        val candidateTitle = item.title ?: item.titleShort ?: item.name
-                        val candidateArtist = item.artist?.name
-                        ResolverUtils.isMatch(query, candidateArtist, candidateTitle)
-                    }
+                    ResolverUtils.findBestCandidate(
+                        candidates = parsed.data,
+                        query = query,
+                        isAlbum = isAlbum,
+                        getArtist = { it.artist?.name },
+                        getTitle = { it.title ?: it.titleShort ?: it.name },
+                        getVersion = { it.titleVersion }
+                    )
                 }
                 val link = match?.link
                 if (!link.isNullOrEmpty()) {

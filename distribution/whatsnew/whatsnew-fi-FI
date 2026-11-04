@@ -1,3 +1,3 @@
-- Audiomack & Idagio -integraatio: Täysi tuki Audiomackille ja Idagiolle lähde- ja kohdepalveluina suoralla toistolla ja verkkosoittimen varavaihtoehdoilla.
-- Yhdenmukaistettu kohdesoittimen valinta: Standardoitu 10 suoratoistopalvelua eri alustoilla ja verkkomuunnin.
-- Parannettu usean luettelon reititys: Laajennettu linkkien tunnistus ja saumaton edelleenlähetys kaikissa tuetuissa suoratoistopalveluissa.
+- Context-Sensitive Video & Title Cleaning: Intelligent removal of video noise (official video, visualizer, lyric tags) while strictly preserving genuine remixes and live recordings.
+- Version & Remix Safeguards: Advanced candidate ranking protects original studio tracks from unrequested remixes, club mixes, or alternate edits.
+- Flicker-Free Link Forwarding: Smooth transition during instantaneous link resolutions, with subtle loading indication only during network delays.

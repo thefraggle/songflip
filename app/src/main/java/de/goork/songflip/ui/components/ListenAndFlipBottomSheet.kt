@@ -163,6 +163,7 @@ fun ListenAndFlipBottomSheet(
         },
         sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
         containerColor = MaterialTheme.colorScheme.surface,
+        tonalElevation = 0.dp,
         dragHandle = { BottomSheetDefaults.DragHandle() }
     ) {
         Column(

@@ -1,3 +1,2 @@
-- Integración de Audiomack e Idagio: Soporte completo para Audiomack e Idagio como servicios de origen y destino con reproducción directa y fallos de reproductores web.
-- Selección armonizada de reproductores de destino: 10 servicios de reproducción directa estandarizados en plataformas y convertidores web.
-- Enrutamiento multicatálogo mejorado: detección de enlaces extendida y reenvío sin problemas en todos los servicios de transmisión compatibles.
+- Limpieza de título y vídeo sensible al contexto: eliminación inteligente del ruido de vídeo (vídeo oficial, visualizador, etiquetas de letras) al tiempo que se conservan estrictamente los remixes genuinos y las grabaciones en directo.
+- Salvaguardias de versiones y remezclas: la clasificación avanzada de candidatos protege las pistas de estudio originales de remezclas no solicitadas, mezclas de clubes o ediciones alternativas.

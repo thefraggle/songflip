@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -91,6 +92,20 @@ fun SettingsBottomSheet(
     var showFeedbackSubSheet by remember { mutableStateOf(false) }
     var selectedTheme by remember { mutableStateOf(currentThemeMode) }
 
+    val hasOpenSubSheet = showLanguagePickerSubSheet ||
+        playerPickerSubSheetPlatformKey != null ||
+        showFeedbackSubSheet ||
+        showHistorySubSheet
+
+    BackHandler(enabled = hasOpenSubSheet) {
+        when {
+            playerPickerSubSheetPlatformKey != null -> playerPickerSubSheetPlatformKey = null
+            showFeedbackSubSheet -> showFeedbackSubSheet = false
+            showHistorySubSheet -> showHistorySubSheet = false
+            showLanguagePickerSubSheet -> showLanguagePickerSubSheet = false
+        }
+    }
+
     playerPickerSubSheetPlatformKey?.let { pickerKey ->
         PlayerPickerBottomSheet(
             onDismissRequest = { playerPickerSubSheetPlatformKey = null },
@@ -120,7 +135,9 @@ fun SettingsBottomSheet(
     if (showLanguagePickerSubSheet) {
         ModalBottomSheet(
             onDismissRequest = { showLanguagePickerSubSheet = false },
-            sheetState = rememberModalBottomSheetState()
+            sheetState = rememberModalBottomSheetState(),
+            containerColor = MaterialTheme.colorScheme.surface,
+            tonalElevation = 0.dp
         ) {
             Column(
                 modifier = Modifier
@@ -190,7 +207,9 @@ fun SettingsBottomSheet(
 
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
-        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+        containerColor = MaterialTheme.colorScheme.surface,
+        tonalElevation = 0.dp
     ) {
         Column(
             modifier = Modifier

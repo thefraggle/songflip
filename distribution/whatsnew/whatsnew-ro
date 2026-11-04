@@ -1,3 +1,3 @@
-- Integrare Audiomack și Idagio: Suport deplin pentru Audiomack și Idagio ca servicii sursă și țintă cu redare directă și alternative ale playerului web.
-- Selectare armonizată a jucătorului țintă: 10 servicii de redare directă standardizate pe platforme și convertor web.
-- Rutare multi-catalog îmbunătățită: Detectare extinsă a legăturilor și redirecționare fără întreruperi prin toate serviciile de streaming acceptate.
+- Context-Sensitive Video & Title Cleaning: Intelligent removal of video noise (official video, visualizer, lyric tags) while strictly preserving genuine remixes and live recordings.
+- Version & Remix Safeguards: Advanced candidate ranking protects original studio tracks from unrequested remixes, club mixes, or alternate edits.
+- Flicker-Free Link Forwarding: Smooth transition during instantaneous link resolutions, with subtle loading indication only during network delays.

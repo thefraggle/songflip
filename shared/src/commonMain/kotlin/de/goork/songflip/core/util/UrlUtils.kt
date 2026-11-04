@@ -207,11 +207,40 @@ object UrlUtils {
     }
 
     /**
+     * Cleans music video noise from YouTube/Vevo/social titles (e.g. "[Official Music Video]", "(Lyrics)", "[4K 60FPS]")
+     * while context-sensitively preserving genuine musical attributes (e.g. "(XYZ Remix)", "(Live at Wembley)").
+     */
+    fun cleanVideoTitle(rawTitle: String): String {
+        var cleaned = rawTitle.trim()
+        if (cleaned.isBlank()) return cleaned
+
+        // 1. Strip bracketed/parenthesized video metadata noise
+        val videoTagsRegex = Regex(
+            """(?i)\s*[\[(]\s*(?:official\s+(?:music\s+)?video|official\s+(?:audio|visualizer|lyric(?:s)?\s+video|hd\s+video)|music\s+video|lyric(?:s)?\s+video|lyrics|official\s+lyrics?|visualizer|audio|clip\s+officiel|vid[eé]o\s+officielle?|video\s+oficial|videoclip|lyric\s+clip|4k(?:\s*60fps)?|hd|hq|ultra\s+hd|prod(?:\.|\s+by)[^\])]+)\s*[\])]"""
+        )
+        cleaned = cleaned.replace(videoTagsRegex, " ")
+
+        // 2. Strip trailing video descriptors with dash/pipe (e.g. "Song Name - Official Video")
+        val trailingVideoRegex = Regex(
+            """(?i)\s*[-–—|]\s*(?:official\s+(?:music\s+)?video|official\s+audio|clip\s+officiel|video\s+oficial|lyric(?:s)?\s+video|visualizer)$"""
+        )
+        cleaned = cleaned.replace(trailingVideoRegex, "")
+
+        // 3. Strip leading track numbering or channel prefixes if separated by dash (e.g. "01. Artist - Title")
+        cleaned = cleaned.replace(Regex("""^\d{1,3}[\.\-\)]\s*"""), "")
+
+        // 4. Normalize multiple spaces
+        cleaned = cleaned.replace(Regex("""\s{2,}"""), " ").trim()
+
+        return if (cleaned.isNotBlank()) cleaned else rawTitle.trim()
+    }
+
+    /**
      * Cleans metadata noise from search queries (e.g. "- 2011 Remaster", "(Radio Edit)", "[Live]")
      * to dramatically improve direct API search matching rates across Apple Music, Deezer, and YouTube Music.
      */
     fun cleanSearchQuery(query: String): String {
-        var cleaned = query.trim()
+        var cleaned = cleanVideoTitle(query)
         if (cleaned.isBlank()) return cleaned
 
         // Strip remastered suffixes
