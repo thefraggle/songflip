@@ -54,6 +54,57 @@ class PlatformResolversTest {
         assertNull(missing)
     }
 
+    @Test
+    fun testSpotifyResolverEmbedScraper() = runTest {
+        val embedHtml = """
+            <!DOCTYPE html><html><head><title>Spotify</title></head><body>
+            <script id="__NEXT_DATA__" type="application/json">
+            {
+                "props": {
+                    "pageProps": {
+                        "state": {
+                            "data": {
+                                "entity": {
+                                    "type": "track",
+                                    "name": "Midnight City",
+                                    "artists": [{"name": "M83"}],
+                                    "visualIdentity": {
+                                        "image": [{"url": "https://i.scdn.co/image/abc12345"}]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            </script>
+            </body></html>
+        """.trimIndent()
+
+        val mockEngine = MockEngine { request ->
+            if (request.url.encodedPath.contains("/embed/track/555xyz")) {
+                respond(
+                    content = embedHtml,
+                    status = HttpStatusCode.OK,
+                    headers = headersOf(HttpHeaders.ContentType, "text/html")
+                )
+            } else {
+                respond("Not Found", status = HttpStatusCode.NotFound)
+            }
+        }
+
+        val resolver = SpotifyResolver(client = HttpClient(mockEngine))
+        val scraped = resolver.extractEmbedMetadata("https://open.spotify.com/track/555xyz")
+        assertNotNull(scraped)
+        assertEquals("Midnight City", scraped.title)
+        assertEquals("M83", scraped.artist)
+        assertFalse(scraped.isAlbum)
+        assertEquals("https://i.scdn.co/image/abc12345", scraped.thumbnailUrl)
+
+        val metadata = resolver.extractMetadata("https://open.spotify.com/track/555xyz")
+        assertEquals("M83 Midnight City", metadata)
+    }
+
     // ---------------------------------------------------------
     // AppleMusicResolver Tests
     // ---------------------------------------------------------
@@ -444,6 +495,48 @@ class PlatformResolversTest {
 
         val artist = resolver.resolveArtist("KORSAKOW")
         assertEquals("https://music.youtube.com/channel/UC27AmlvyR6SrC3mHyV5lu-A", artist)
+    }
+
+    @Test
+    fun testYouTubeMusicResolverVideoDetailsScraper() = runTest {
+        val playerJson = """
+            {
+                "videoDetails": {
+                    "videoId": "dQw4w9WgXcQ",
+                    "title": "Never Gonna Give You Up [Official Music Video]",
+                    "author": "Rick Astley",
+                    "lengthSeconds": "213"
+                }
+            }
+        """.trimIndent()
+
+        val mockEngine = MockEngine { request ->
+            if (request.url.encodedPath.contains("youtubei/v1/player")) {
+                respond(
+                    content = playerJson,
+                    status = HttpStatusCode.OK,
+                    headers = headersOf(HttpHeaders.ContentType, "application/json")
+                )
+            } else {
+                respond("{}", status = HttpStatusCode.NotFound)
+            }
+        }
+
+        val resolver = YouTubeMusicResolver(client = HttpClient(mockEngine))
+        val details = resolver.extractVideoDetails("https://music.youtube.com/watch?v=dQw4w9WgXcQ")
+        assertNotNull(details)
+        assertEquals("dQw4w9WgXcQ", details.videoId)
+        assertEquals("Never Gonna Give You Up", details.title) // Verified cleaned video title
+        assertEquals("Rick Astley", details.author)
+        assertEquals(213L, details.lengthSeconds)
+        assertEquals("https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg", details.thumbnailUrl)
+
+        // Video ID extraction tests
+        assertEquals("dQw4w9WgXcQ", resolver.extractVideoId("dQw4w9WgXcQ"))
+        assertEquals("dQw4w9WgXcQ", resolver.extractVideoId("https://youtu.be/dQw4w9WgXcQ"))
+        assertEquals("dQw4w9WgXcQ", resolver.extractVideoId("https://music.youtube.com/watch?v=dQw4w9WgXcQ&feature=share"))
+        assertEquals("dQw4w9WgXcQ", resolver.extractVideoId("https://www.youtube.com/shorts/dQw4w9WgXcQ"))
+        assertNull(resolver.extractVideoId("https://youtube.com/invalid/link"))
     }
 
     // ---------------------------------------------------------

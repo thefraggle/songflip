@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.13.4] - 2026-11-05
+- **Expanded Audiophile & Alternative Player Support**: Seamless integration for specialized hi-res music players, network streamers, and open-source clients.
+- **Client-Side Emergency Scrapers**: High-resilience direct link extraction for music embeds and media streams, ensuring uninterrupted link resolution during network or server outages.
+- **Enhanced Podcast Player Routing**: Extended discovery and forwarding to dedicated podcast players and feed readers.
+- **Improved Performance & Playback Reliability**: Streamlined player launching, fallback navigation, and optimized metadata extraction across streaming catalogs.
+
 ## [1.13.3] - 2026-11-04
 - **Context-Sensitive Video & Title Cleaning**: Intelligent removal of video noise (official video, visualizer, lyric tags) while strictly preserving genuine remixes and live recordings.
 - **Version & Remix Safeguards**: Advanced candidate ranking protects original studio tracks from unrequested remixes, club mixes, or alternate edits.

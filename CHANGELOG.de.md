@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.13.4] - 2026-11-05
+- **Erweiterte Unterstützung für Audiophile & Alternative Player**: Nahtlose Ansteuerung spezialisierter Hi-Res-Player, Netzwerk-Streamer und Open-Source-Clients.
+- **Autarke Notfall-Scraper**: Hochgradig widerstandsfähige Direkt-Auflösung von Musik-Embeds und Medien-Streams für unterbrechungsfreie Weiterleitungen selbst bei Netzwerk- oder Serverstörungen.
+- **Erweiterte Podcast-Weiterleitung**: Ausbau der Erkennung und Übergabe an spezialisierte Podcast-Player und Feed-Reader.
+- **Optimierte Performance & Wiedergabezuverlässigkeit**: Verbesserter Player-Start, harmonisierte Ausweichrouten und beschleunigte Metadaten-Erkennung über Streaming-Kataloge hinweg.
+
 ## [1.13.3] - 2026-11-04
 - **Kontextsensitive Video- und Titelbereinigung**: Intelligente Bereinigung von Video-Zusätzen (wie offizielle Musikvideos, Visualizer oder Songtext-Hinweise) bei verlässlichem Erhalt echter Remixe und Live-Aufnahmen.
 - **Versions- und Remix-Schutz**: Fortschrittliche Kandidaten-Bewertung schützt Originalaufnahmen vor ungewollten Remixen, Club-Mixes oder alternativen Bearbeitungen.
