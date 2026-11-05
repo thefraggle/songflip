@@ -262,6 +262,34 @@ class PackageUtilsTest {
     }
 
     @Test
+    fun testAlternativeAndAudiophilePlayerSupport() {
+        // Qobuz audiophile packages
+        val qobuzPackages = PackageUtils.fallbackPackages["qobuz"]
+        org.junit.Assert.assertNotNull(qobuzPackages)
+        assertTrue(qobuzPackages!!.contains("com.qobuz.music"))
+        assertTrue(qobuzPackages.contains(PackageUtils.UAPP_PACKAGE))
+        assertTrue(qobuzPackages.contains(PackageUtils.BUBBLEUPNP_PACKAGE))
+
+        // Tidal audiophile packages
+        val tidalPackages = PackageUtils.fallbackPackages["tidal"]
+        org.junit.Assert.assertNotNull(tidalPackages)
+        assertTrue(tidalPackages!!.contains(PackageUtils.UAPP_PACKAGE))
+        assertTrue(tidalPackages.contains(PackageUtils.BUBBLEUPNP_PACKAGE))
+
+        // YouTube Music FOSS client
+        val ytPackages = PackageUtils.fallbackPackages["youtubeMusic"]
+        org.junit.Assert.assertNotNull(ytPackages)
+        assertTrue(ytPackages!!.contains(PackageUtils.MUSIFY_PACKAGE))
+
+        // Podcast packages
+        val podcastPackages = PackageUtils.fallbackPackages["podcast"]
+        org.junit.Assert.assertNotNull(podcastPackages)
+        assertTrue(podcastPackages!!.contains(PackageUtils.ANTENNAPOD_PACKAGE))
+        assertTrue(podcastPackages.contains(PackageUtils.POCKETCASTS_PACKAGE))
+        assertTrue(podcastPackages.contains(PackageUtils.PODCAST_ADDICT_PACKAGE))
+    }
+
+    @Test
     fun testCacheInvalidation() {
         PackageUtils.invalidateCache()
         // Ensure invalidateCache runs without exceptions

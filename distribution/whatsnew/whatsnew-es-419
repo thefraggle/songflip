@@ -1,2 +1,2 @@
-- Limpieza de título y vídeo sensible al contexto: eliminación inteligente del ruido de vídeo (vídeo oficial, visualizador, etiquetas de letras) al tiempo que se conservan estrictamente los remixes genuinos y las grabaciones en directo.
-- Salvaguardias de versiones y remezclas: la clasificación avanzada de candidatos protege las pistas de estudio originales de remezclas no solicitadas, mezclas de clubes o ediciones alternativas.
+- Soporte ampliado para audiófilos y reproductores alternativos: integración perfecta para reproductores de música de alta resolución especializados, transmisores de red y clientes de código abierto.
+- Scrapers de emergencia del lado del cliente: extracción de enlaces directos de alta resistencia para incrustaciones de música y transmisiones multimedia, lo que garantiza una resolución de enlaces ininterrumpida durante interrupciones de la red o del servidor.
