@@ -13,6 +13,14 @@ import io.ktor.http.encodeURLParameter
 import io.ktor.http.isSuccess
 import kotlinx.coroutines.CancellationException
 
+data class YouTubeVideoDetails(
+    val videoId: String,
+    val title: String,
+    val author: String?,
+    val lengthSeconds: Long? = null,
+    val thumbnailUrl: String? = null
+)
+
 class YouTubeMusicResolver(
     private val client: HttpClient
 ) : PlatformResolver {
@@ -220,5 +228,66 @@ class YouTubeMusicResolver(
             if (t is CancellationException) throw t
             null
         }
+    }
+
+    suspend fun extractVideoDetails(urlOrVideoId: String): YouTubeVideoDetails? {
+        val videoId = extractVideoId(urlOrVideoId) ?: return null
+        return try {
+            val payload = """
+                {
+                    "context": {
+                        "client": {
+                            "clientName": "WEB_REMIX",
+                            "clientVersion": "1.20240101.01.00",
+                            "hl": "en",
+                            "gl": "US"
+                        }
+                    },
+                    "videoId": "$videoId"
+                }
+            """.trimIndent()
+
+            val resp = client.post("https://music.youtube.com/youtubei/v1/player") {
+                contentType(ContentType.Application.Json)
+                header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+                header("Origin", "https://music.youtube.com")
+                header("Referer", "https://music.youtube.com/")
+                setBody(payload)
+            }
+
+            if (resp.status.isSuccess()) {
+                val body = resp.bodyAsText()
+                val titleMatch = Regex(""""videoDetails"\s*:\s*\{[^}]*"title"\s*:\s*"([^"]+)"""").find(body)
+                    ?: Regex(""""title"\s*:\s*"([^"]+)"""").find(body)
+                val authorMatch = Regex(""""author"\s*:\s*"([^"]+)"""").find(body)
+                val lengthMatch = Regex(""""lengthSeconds"\s*:\s*"([0-9]+)"""").find(body)
+
+                if (titleMatch != null) {
+                    val rawTitle = titleMatch.groupValues[1]
+                    val cleanTitle = de.goork.songflip.core.util.UrlUtils.cleanVideoTitle(rawTitle)
+                    val author = authorMatch?.groupValues?.get(1)?.trim()
+                    val length = lengthMatch?.groupValues?.get(1)?.toLongOrNull()
+                    return YouTubeVideoDetails(
+                        videoId = videoId,
+                        title = cleanTitle,
+                        author = author?.ifBlank { null },
+                        lengthSeconds = length,
+                        thumbnailUrl = "https://i.ytimg.com/vi/$videoId/hqdefault.jpg"
+                    )
+                }
+            }
+            null
+        } catch (t: Throwable) {
+            if (t is CancellationException) throw t
+            null
+        }
+    }
+
+    fun extractVideoId(input: String): String? {
+        if (input.length == 11 && !input.contains("/") && !input.contains("?")) {
+            return input
+        }
+        val match = Regex("""(?:v=|/watch\?v=|youtu\.be/|/v/|/embed/|/shorts/|video:)([a-zA-Z0-9_-]{11})""").find(input)
+        return match?.groupValues?.get(1)
     }
 }

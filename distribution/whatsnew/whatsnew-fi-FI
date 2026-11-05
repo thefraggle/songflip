@@ -1,3 +1,2 @@
-- Context-Sensitive Video & Title Cleaning: Intelligent removal of video noise (official video, visualizer, lyric tags) while strictly preserving genuine remixes and live recordings.
-- Version & Remix Safeguards: Advanced candidate ranking protects original studio tracks from unrequested remixes, club mixes, or alternate edits.
-- Flicker-Free Link Forwarding: Smooth transition during instantaneous link resolutions, with subtle loading indication only during network delays.
+- Laajennettu audiofiilien ja vaihtoehtoisten soittimien tuki: Saumaton integrointi erikoistuneille korkearesoluutioisille musiikkisoittimille, verkkosuoratoistolaitteille ja avoimen lähdekoodin asiakkaille.
+- Client-Side Emergency Scrapers: Erittäin joustava suora linkkipoiminta musiikin upottamista ja mediavirtaa varten, mikä varmistaa keskeytymättömän linkin tarkkuuden verkko- tai palvelinkatkosten aikana.

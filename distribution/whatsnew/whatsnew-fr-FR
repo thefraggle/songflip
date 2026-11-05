@@ -1,2 +1,2 @@
-- Nettoyage des vidéos et des titres en fonction du contexte : suppression intelligente du bruit vidéo (vidéo officielle, visualiseur, balises lyriques) tout en préservant strictement les remixes authentiques et les enregistrements en direct.
-- Sauvegardes de version et de remix : le classement avancé des candidats protège les pistes studio originales des remixes non demandés, des mixes de club ou des modifications alternatives.
+- Prise en charge étendue des lecteurs audiophiles et alternatifs : intégration transparente pour les lecteurs de musique haute résolution spécialisés, les streamers réseau et les clients open source.
+- Scrapers d'urgence côté client : extraction de liens directs à haute résilience pour les intégrations de musique et les flux multimédias, garantissant une résolution de lien ininterrompue en cas de panne de réseau ou de serveur.

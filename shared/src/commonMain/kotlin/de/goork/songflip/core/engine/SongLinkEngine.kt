@@ -912,22 +912,43 @@ internal data class SpotifyPodcastOEmbedDto(
     suspend fun extractTrackInfo(url: String): String? {
         return try {
             when (UrlUtils.detectPlatform(url)) {
-                MusicPlatform.SPOTIFY -> spotifyResolver.extractMetadata(url)
+                MusicPlatform.SPOTIFY -> {
+                    val scraped = spotifyResolver.extractEmbedMetadata(url)
+                    if (scraped != null && scraped.title.isNotBlank()) {
+                        val author = scraped.artist
+                        if (!author.isNullOrBlank() && !scraped.title.contains(author, ignoreCase = true)) {
+                            "$author ${scraped.title}"
+                        } else {
+                            scraped.title
+                        }
+                    } else {
+                        spotifyResolver.extractMetadata(url)
+                    }
+                }
                 MusicPlatform.APPLE_MUSIC -> appleMusicResolver.extractMetadata(url)
                 MusicPlatform.YOUTUBE_MUSIC -> {
-                    val encoded = url.encodeURLParameter()
-                    val resp = client.get("https://www.youtube.com/oembed?url=$encoded&format=json")
-                    if (resp.status.isSuccess()) {
-                        val oembed = json.decodeFromString<CommonOEmbedDto>(resp.bodyAsText())
-                        val rawTitle = oembed.title ?: ""
-                        val author = oembed.authorName ?: ""
-                        val title = UrlUtils.cleanVideoTitle(rawTitle)
-                        val cleanAuthor = author.replace(Regex("(?i)\\s*[-–—]?\\s*vevo$"), "").replace(Regex("(?i)\\s*[-–—]?\\s*topic$"), "").trim()
-                        if (title.isNotEmpty()) {
-                            return if (cleanAuthor.isNotEmpty() && !title.contains(cleanAuthor, ignoreCase = true)) "$cleanAuthor $title" else title
+                    val details = youTubeMusicResolver.extractVideoDetails(url)
+                    if (details != null && details.title.isNotBlank()) {
+                        val author = details.author
+                        if (!author.isNullOrBlank() && !details.title.contains(author, ignoreCase = true)) {
+                            "$author ${details.title}"
+                        } else {
+                            details.title
                         }
+                    } else {
+                        val encoded = url.encodeURLParameter()
+                        val resp = client.get("https://www.youtube.com/oembed?url=$encoded&format=json")
+                        if (resp.status.isSuccess()) {
+                            val oembed = json.decodeFromString<CommonOEmbedDto>(resp.bodyAsText())
+                            val rawTitle = oembed.title ?: ""
+                            val author = oembed.authorName ?: ""
+                            val title = UrlUtils.cleanVideoTitle(rawTitle)
+                            val cleanAuthor = author.replace(Regex("(?i)\\s*[-–—]?\\s*vevo$"), "").replace(Regex("(?i)\\s*[-–—]?\\s*topic$"), "").trim()
+                            if (title.isNotEmpty()) {
+                                if (cleanAuthor.isNotEmpty() && !title.contains(cleanAuthor, ignoreCase = true)) "$cleanAuthor $title" else title
+                            } else null
+                        } else null
                     }
-                    null
                 }
                 MusicPlatform.DEEZER -> {
                     val encoded = url.encodeURLParameter()

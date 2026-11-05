@@ -39,9 +39,11 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
   - 🟠 **Audiomack** (`audiomack.com` — full source & target player support with track, album & web player fallbacks)
   - 🎻 **Idagio** (`idagio.com`, `app.idagio.com` — full source & target player support for classical music recordings and albums)
 - **📱 Dynamic Multi-Player Discovery & Selection**: Automatically detects compatible installed players across 10 direct streaming services and lets you choose your preferred default player in Settings or switch directly with a single tap from the main player card.
+- **🎧 Audiophile & Alternative Target Player Support**: Full target dispatch and fallback support for audiophile and FOSS media players, including USB Audio Player PRO (UAPP), BubbleUPnP, Musify, AntennaPod, Pocket Casts, and Podcast Addict.
 - **⚡ Shazam Link Interception**: Songs identified with Shazam open directly and reliably in your preferred music player.
 - **🎯 Quick Player Picker ("Ask every time")**: Optional setting for users with multiple streaming apps to pick where each song should play with a single tap.
 - **💿 Full Album, Artist & Podcast Recognition**: Supports single tracks, full albums/EPs, artist channel/discography profiles (including `@handles`), and podcast shows/episodes.
+- **🛡️ Autonomous Client-Side Emergency Scrapers**: Built-in zero-auth embed and API scrapers for Spotify and YouTube Music guarantee seamless title, artist, and playback resolution even during third-party API downtime or rate limits.
 - **🔍 Robust Search Sanitization**: Automatically filters punctuation noise, disruptive symbols (`+`, `&`, `#`, `:`), quotes, and emojis from podcast and track queries so deep searches land accurately on every target player.
 - **📋 Clipboard Smart-Banner & Instant Detection**: Immediate 1-tap player launch and universal link copying when music links are copied on Android & iOS, with latency-free window focus detection.
 - **💬 Direct In-App Feedback & Zero-Tracking Support**: Submit bug reports, feature suggestions, or general feedback directly within the app without account requirements or tracking, with automatic email fallback.

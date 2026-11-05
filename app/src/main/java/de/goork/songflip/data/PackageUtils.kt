@@ -63,6 +63,7 @@ object PackageUtils {
             "me.knighthat.kreate",
             "com.anandnet.harmonymusic",
             "com.jhelum.gyawun",
+            "com.github.vicanis.musify",
             "com.google.android.apps.youtube.music"
         ),
         "spotify" to listOf(
@@ -80,12 +81,26 @@ object PackageUtils {
         "tidal" to listOf(
             "com.aspiro.tidal",
             "com.eclipse.android",
+            "com.extreamsd.usbaudioplayerpro",
+            "com.bubblesoft.android.bubbleupnp",
             "com.github.brahmkshatriya.echo"
         ),
         "deezer" to listOf(
             "deezer.android.app",
             "com.badmanners.murglar2",
             "com.github.brahmkshatriya.echo"
+        ),
+        "qobuz" to listOf(
+            "com.qobuz.music",
+            "com.extreamsd.usbaudioplayerpro",
+            "com.bubblesoft.android.bubbleupnp",
+            "com.github.brahmkshatriya.echo"
+        ),
+        "podcast" to listOf(
+            "de.danoeh.antennapod",
+            "au.com.shiftyjelly.pocketcasts",
+            "com.bambuna.podcastaddict",
+            "com.google.android.apps.podcasts"
         ),
         "soundcloud" to listOf(
             "com.soundcloud.android",
@@ -104,6 +119,12 @@ object PackageUtils {
 
     const val ECLIPSE_PACKAGE = "com.eclipse.android"
     const val OFFICIAL_TIDAL_PACKAGE = "com.aspiro.tidal"
+    const val UAPP_PACKAGE = "com.extreamsd.usbaudioplayerpro"
+    const val BUBBLEUPNP_PACKAGE = "com.bubblesoft.android.bubbleupnp"
+    const val MUSIFY_PACKAGE = "com.github.vicanis.musify"
+    const val ANTENNAPOD_PACKAGE = "de.danoeh.antennapod"
+    const val POCKETCASTS_PACKAGE = "au.com.shiftyjelly.pocketcasts"
+    const val PODCAST_ADDICT_PACKAGE = "com.bambuna.podcastaddict"
 
     val genericBrowserPackages = setOf(
         "com.android.chrome",
@@ -198,6 +219,10 @@ object PackageUtils {
             "beatport" -> listOf("https://www.beatport.com/track/song/12345")
             "audiomack" -> listOf("https://audiomack.com/artist/song/track")
             "idagio" -> listOf("https://app.idagio.com/recordings/12345")
+            "podcast" -> listOf(
+                "https://podcasts.google.com/feed/12345",
+                "antennapod://feed/12345"
+            )
             else -> emptyList()
         }
     }
@@ -382,20 +407,34 @@ object PackageUtils {
                 null to url
             }
         }
+        if (targetPackage == UAPP_PACKAGE || targetPackage == BUBBLEUPNP_PACKAGE) {
+            return targetPackage to url
+        }
+        if (cleanKey == "podcast") {
+            if (targetPackage != null && (targetPackage == ANTENNAPOD_PACKAGE ||
+                        targetPackage == POCKETCASTS_PACKAGE ||
+                        targetPackage == PODCAST_ADDICT_PACKAGE)) {
+                return targetPackage to url
+            }
+        }
         if (cleanKey == "youtubeMusic") {
             val chosen = if (!candidateNativeUri.isNullOrBlank() && !candidateNativeUri.startsWith("youtubemusic://")) {
                 candidateNativeUri
             } else {
                 url
             }
-            // 3rd-party YouTube players like NewTube, Arc, NewPipe, Tubular do not register music.youtube.com intent filters.
-            // When targeted, convert to universal https://www.youtube.com/... web URL (#151).
+            // 3rd-party YouTube players like NewTube, Arc, NewPipe, Tubular, Musify, ReVanced do not register music.youtube.com intent filters.
+            // When targeted, convert to universal https://www.youtube.com/... web URL (#151, #204).
             if (targetPackage != null && (targetPackage == "com.aleixrodriala.newtube" ||
                         targetPackage == "io.github.aleixrodriala.arc" ||
                         targetPackage == "org.schabi.newpipe" ||
                         targetPackage == "org.schabi.newpipelegacy" ||
                         targetPackage == "org.polymorphicshade.tubular" ||
-                        targetPackage == "DualDual.PipePipe")) {
+                        targetPackage == "DualDual.PipePipe" ||
+                        targetPackage == MUSIFY_PACKAGE ||
+                        targetPackage == "app.revanced.android.apps.youtube" ||
+                        targetPackage == "app.rvx.android.apps.youtube" ||
+                        targetPackage == "com.google.android.youtube")) {
                 val ytUrl = de.goork.songflip.core.util.UrlUtils.toWebFallbackUrl(chosen, "youtubeMusic")
                 return targetPackage to ytUrl
             }
