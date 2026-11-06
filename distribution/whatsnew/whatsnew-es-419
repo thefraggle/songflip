@@ -1,2 +1,3 @@
-- Soporte ampliado para audiófilos y reproductores alternativos: integración perfecta para reproductores de música de alta resolución especializados, transmisores de red y clientes de código abierto.
-- Scrapers de emergencia del lado del cliente: extracción de enlaces directos de alta resistencia para incrustaciones de música y transmisiones multimedia, lo que garantiza una resolución de enlaces ininterrumpida durante interrupciones de la red o del servidor.
+- Navegación de configuración refinada: se restableció el retorno directo a la configuración al cerrar las guías de configuración del enlace.
+- Reenvío sin parpadeos: se eliminaron los destellos visuales durante las conversiones instantáneas de enlaces.
+- Limpieza de títulos y garantías de versión: la limpieza de metadatos preserva las grabaciones de estudio originales y evita remezclas no deseadas.

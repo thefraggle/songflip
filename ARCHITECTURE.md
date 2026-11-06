@@ -182,6 +182,10 @@ The codebase separates platform-specific UI from deterministic platform-agnostic
 ### Shared Logic Benefits:
 - **Unified Engine (v1.4.7+)**: Both Android and iOS run 100% on the identical `SongLinkEngine.shared` and `LinkCache` core. Legacy redundant Android networking and repository layers were completely eliminated.
 - **Consistent Resolver Behavior:** Both platforms share identical regex rules and parsing priority. A song resolved on Android resolves identically on iOS.
+- **Video Noise Stripping & Version Match-Protection (#208)**: `UrlUtils.cleanVideoTitle()` strips bracketed noise (`[Official Video]`, `4K`, `(Audio)`) while strictly preserving legitimate track titles like *"Video Games"*. `ResolverUtils.findBestCandidate()` strictly penalizes unrequested remixes, covers, lofi, and live takes when matching against original studio recordings.
+- **Zero-Flicker Threshold Guard (#210)**: Both Android (`RedirectActivity`) and iOS (`ShareViewController`) implement a 350ms delay window before drawing progress spinners or overlays, ensuring instantaneous cache hits complete with zero visual flicker.
+- **System App-Link Grabber Detection (#207)**: Android 12+ (API 31+) domain verification integration queries `DomainVerificationManager.getDomainVerificationUserState()` to detect third-party streaming clients capturing domain links and provides 1-tap navigation to `Settings.ACTION_APP_OPEN_BY_DEFAULT_SETTINGS`.
+- **Harmonized Backstack Navigation & Material 3 Styling (#205)**: Restored backstack state retention when navigating between settings and system link guides, alongside uniform `containerColor = MaterialTheme.colorScheme.surface` across all bottom sheets.
 - **Zero Drift:** Bug fixes, URL parsing rules, and caching invariants only need to be written and unit-tested once in `shared/commonMain`.
 
 ### Android Architecture: MVVM & Reactive StateFlow (v1.6.4+):

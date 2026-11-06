@@ -1,3 +1,4 @@
-- Udvidet Audiophile & Alternative Player Support: Sømløs integration til specialiserede højopløselige musikafspillere, netværksstreamere og open source-klienter.
-- Klientside-nødskrabere: Direkte linkudtrækning med høj modstandsdygtighed til musikindlejring og mediestrømme, der sikrer uafbrudt linkopløsning under netværks- eller serverafbrydelser.
-- Forbedret podcastafspillerrouting: Udvidet opdagelse og videresendelse til dedikerede podcastafspillere og feed-læsere.
+- Forfinet indstillingsnavigation: Gendannet direkte tilbagevenden til indstillinger ved lukning af linkopsætningsvejledninger.
+- Flimmerfri videresendelse: Elimineret visuelle blink under øjeblikkelige linkkonverteringer.
+- Titelrenlighed og versionsbeskyttelse: Metadatarensning bevarer originale studieoptagelser og forhindrer uønskede remix.
+- Konfliktregistrering: Vejledt løsning af musiklinkhandler-konflikter med tredjeparts streamingklienter.

@@ -54,4 +54,24 @@ object DomainVerificationUtils {
         val status = getDomainStatus(context) ?: return null
         return status.enabledHosts > 0
     }
+
+    /**
+     * Checks if a third-party app (e.g. YouTube, Spotify) currently has link handling
+     * enabled for its domain links on Android 12+ (API 31+), which can grab links
+     * before SongFlip can intercept them (#207).
+     */
+    fun isAppHandlingLinks(context: Context, packageName: String): Boolean {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            return try {
+                val manager = context.getSystemService(DomainVerificationManager::class.java)
+                    ?: return false
+                val userState = manager.getDomainVerificationUserState(packageName)
+                    ?: return false
+                userState.isLinkHandlingAllowed
+            } catch (e: Exception) {
+                false
+            }
+        }
+        return false
+    }
 }

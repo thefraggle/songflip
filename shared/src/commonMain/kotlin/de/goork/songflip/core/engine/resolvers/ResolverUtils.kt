@@ -81,7 +81,8 @@ object ResolverUtils {
 
     val VARIANT_INDICATORS = listOf(
         "remix", "rework", "bootleg", "sped up", "slowed", "instrumental",
-        "acapella", "drumless", "club mix", "extended mix", "vip mix", "dub mix", "dance mix", "flip"
+        "acapella", "drumless", "club mix", "extended mix", "vip mix", "dub mix", "dance mix", "flip",
+        "cover", "tribute", "lofi", "lo-fi", "reverb"
     )
 
     /**
@@ -115,7 +116,9 @@ object ResolverUtils {
         val wantsLive = Regex("""\b(?:live|concert|tour)\b""", RegexOption.IGNORE_CASE).containsMatchIn(lowerQuery)
         val wantsAcoustic = Regex("""\b(?:acoustic|unplugged)\b""", RegexOption.IGNORE_CASE).containsMatchIn(lowerQuery)
         val wantsInstrumental = Regex("""\b(?:instrumental|karaoke)\b""", RegexOption.IGNORE_CASE).containsMatchIn(lowerQuery)
-        val wantsSpedUpOrSlowed = Regex("""\b(?:sped up|slowed)\b""", RegexOption.IGNORE_CASE).containsMatchIn(lowerQuery)
+        val wantsSpedUpOrSlowed = Regex("""\b(?:sped up|slowed|reverb)\b""", RegexOption.IGNORE_CASE).containsMatchIn(lowerQuery)
+        val wantsCoverOrTribute = Regex("""\b(?:cover|tribute)\b""", RegexOption.IGNORE_CASE).containsMatchIn(lowerQuery)
+        val wantsLofi = Regex("""\b(?:lofi|lo-fi)\b""", RegexOption.IGNORE_CASE).containsMatchIn(lowerQuery)
 
         return validMatches.maxByOrNull { item ->
             var s = 0
@@ -127,7 +130,9 @@ object ResolverUtils {
             val isCandLive = Regex("""\b(?:live)\b""", RegexOption.IGNORE_CASE).containsMatchIn(combined)
             val isCandAcoustic = Regex("""\b(?:acoustic|unplugged)\b""", RegexOption.IGNORE_CASE).containsMatchIn(combined)
             val isCandInstrumental = Regex("""\b(?:instrumental|karaoke)\b""", RegexOption.IGNORE_CASE).containsMatchIn(combined)
-            val isCandSpedUpOrSlowed = Regex("""\b(?:sped up|slowed)\b""", RegexOption.IGNORE_CASE).containsMatchIn(combined)
+            val isCandSpedUpOrSlowed = Regex("""\b(?:sped up|slowed|reverb)\b""", RegexOption.IGNORE_CASE).containsMatchIn(combined)
+            val isCandCoverOrTribute = Regex("""\b(?:cover|tribute)\b""", RegexOption.IGNORE_CASE).containsMatchIn(combined)
+            val isCandLofi = Regex("""\b(?:lofi|lo-fi)\b""", RegexOption.IGNORE_CASE).containsMatchIn(combined)
 
             if (!wantsRemix && isCandRemix) s -= 120
             if (wantsRemix && !isCandRemix) s -= 80
@@ -142,6 +147,12 @@ object ResolverUtils {
             if (wantsInstrumental && !isCandInstrumental) s -= 60
 
             if (!wantsSpedUpOrSlowed && isCandSpedUpOrSlowed) s -= 120
+
+            if (!wantsCoverOrTribute && isCandCoverOrTribute) s -= 120
+            if (wantsCoverOrTribute && !isCandCoverOrTribute) s -= 80
+
+            if (!wantsLofi && isCandLofi) s -= 100
+            if (wantsLofi && !isCandLofi) s -= 60
 
             // Reward exact title matches
             val normTitle = normalizeTokens(title).joinToString(" ")

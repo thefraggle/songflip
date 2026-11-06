@@ -14,6 +14,7 @@ class ShareViewController: UIViewController {
     private let iconImageView = UIImageView()
     private let pickerContainerView = UIView()
     private var isPickerVisible = false
+    private var delayTimer: DispatchWorkItem?
 
     private struct TargetPlatformItem {
         let key: String
@@ -57,11 +58,13 @@ class ShareViewController: UIViewController {
         iconImageView.image = UIImage(systemName: "music.note.list")
         iconImageView.tintColor = UIColor(red: 0.11, green: 0.73, blue: 0.33, alpha: 1.0)
         iconImageView.contentMode = .scaleAspectFit
+        iconImageView.alpha = 0
         view.addSubview(iconImageView)
 
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.color = .white
         activityIndicator.startAnimating()
+        activityIndicator.alpha = 0
         view.addSubview(activityIndicator)
 
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -70,7 +73,20 @@ class ShareViewController: UIViewController {
         statusLabel.text = localizedText(for: "share_redirecting", default: "SongFlip: Redirecting...")
         statusLabel.textAlignment = .center
         statusLabel.numberOfLines = 2
+        statusLabel.alpha = 0
         view.addSubview(statusLabel)
+
+        // Issue #210: 350ms threshold prevents UI flicker for instantaneous cache hits
+        let workItem = DispatchWorkItem { [weak self] in
+            guard let self = self, !self.isPickerVisible else { return }
+            UIView.animate(withDuration: 0.2) {
+                self.iconImageView.alpha = 1.0
+                self.activityIndicator.alpha = 1.0
+                self.statusLabel.alpha = 1.0
+            }
+        }
+        delayTimer = workItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35, execute: workItem)
 
         NSLayoutConstraint.activate([
             iconImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -181,6 +197,8 @@ class ShareViewController: UIViewController {
         customUrl: String,
         customToken: String
     ) {
+        delayTimer?.cancel()
+        delayTimer = nil
         isPickerVisible = true
         iconImageView.isHidden = true
         activityIndicator.stopAnimating()
@@ -428,6 +446,8 @@ class ShareViewController: UIViewController {
             }
 
             await MainActor.run {
+                self.delayTimer?.cancel()
+                self.delayTimer = nil
                 if let success = result as? ResolutionResult.Success {
                     if let title = success.title {
                         self.statusLabel.text = "🎵 \(title)"

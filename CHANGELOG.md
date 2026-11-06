@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.13.5] - 2026-11-06
+- **Refined Settings Navigation**: Restored direct return to settings when closing link setup guides.
+- **Flicker-Free Forwarding**: Eliminated visual flashes during instantaneous link conversions.
+- **Title Cleanliness & Version Safeguards**: Metadata cleaning preserves original studio recordings and prevents unwanted remixes.
+- **Conflict Detection**: Guided resolution for music link handler conflicts with third-party streaming clients.
+
 ## [1.13.4] - 2026-11-05
 - **Expanded Audiophile & Alternative Player Support**: Seamless integration for specialized hi-res music players, network streamers, and open-source clients.
 - **Client-Side Emergency Scrapers**: High-resilience direct link extraction for music embeds and media streams, ensuring uninterrupted link resolution during network or server outages.
