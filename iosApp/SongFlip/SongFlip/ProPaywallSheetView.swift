@@ -8,11 +8,6 @@ struct ProPaywallSheetView: View {
     @ObservedObject var proManager = ProManager.shared
 
     @State private var selectedPackageType: PackageType = .lifetime
-    @State private var showCouponField: Bool = false
-    @State private var couponCode: String = ""
-    @State private var couponStatusMessage: String? = nil
-    @State private var couponIsError: Bool = false
-    @State private var isRedeemingCoupon: Bool = false
     @State private var errorMessage: String? = nil
     @State private var showErrorAlert: Bool = false
 
@@ -249,25 +244,43 @@ struct ProPaywallSheetView: View {
                                         ProgressView()
                                             .tint(.green)
                                             .scaleEffect(1.2)
-                                            .padding(.vertical, 28)
+                                        Text(LocalizationManager.string(for: "loading", lang: lang))
+                                            .font(.footnote)
+                                            .foregroundColor(.secondary)
                                     }
                                     .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 36)
                                 } else {
-                                    VStack(spacing: 10) {
+                                    VStack(spacing: 14) {
+                                        Image(systemName: "exclamationmark.triangle")
+                                            .font(.system(size: 28))
+                                            .foregroundColor(.orange)
                                         Text(LocalizationManager.string(for: "pro_offerings_error", lang: lang))
-                                            .font(.footnote)
+                                            .font(.subheadline)
                                             .foregroundColor(.secondary)
                                             .multilineTextAlignment(.center)
                                             .padding(.horizontal, 16)
                                         Button(action: {
-                                            Task { await proManager.refreshOfferings() }
+                                            Task {
+                                                await proManager.refreshOfferings()
+                                                if !packages.isEmpty {
+                                                    selectedPackageType = shouldShowAnnualFirst ? .annual : .lifetime
+                                                }
+                                            }
                                         }) {
-                                            Text(LocalizationManager.string(for: "action_retry", lang: lang))
-                                                .font(.subheadline.weight(.semibold))
-                                                .foregroundColor(.green)
+                                            HStack(spacing: 6) {
+                                                Image(systemName: "arrow.clockwise")
+                                                Text(LocalizationManager.string(for: "action_retry", lang: lang))
+                                            }
+                                            .font(.subheadline.weight(.semibold))
+                                            .foregroundColor(.white)
+                                            .padding(.horizontal, 20)
+                                            .padding(.vertical, 10)
+                                            .background(Color.green)
+                                            .cornerRadius(12)
                                         }
                                     }
-                                    .padding(.vertical, 20)
+                                    .padding(.vertical, 24)
                                 }
                             } else if shouldShowAnnualFirst {
                                 annualTierCard
@@ -281,42 +294,52 @@ struct ProPaywallSheetView: View {
                         }
                         .padding(.horizontal)
 
-                        // CTA Button
-                        Button(action: purchaseSelected) {
-                            ZStack {
-                                if proManager.isLoading || (packages.isEmpty && proManager.isLoadingOfferings) {
-                                    ProgressView()
-                                        .tint(.white)
-                                } else {
-                                    Text(ctaButtonLabel)
-                                        .font(.headline)
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.white)
+                        if !packages.isEmpty {
+                            // CTA Button
+                            Button(action: purchaseSelected) {
+                                ZStack {
+                                    if proManager.isLoading || proManager.isLoadingOfferings {
+                                        ProgressView()
+                                            .tint(.white)
+                                    } else {
+                                        Text(ctaButtonLabel)
+                                            .font(.headline)
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.white)
+                                    }
                                 }
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 16)
+                                .background(selectedPackage == nil ? Color.green.opacity(0.6) : Color.green)
+                                .cornerRadius(16)
+                                .shadow(color: Color.green.opacity(0.3), radius: 8, y: 4)
                             }
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 16)
-                            .background(selectedPackage == nil ? Color.green.opacity(0.6) : Color.green)
-                            .cornerRadius(16)
-                            .shadow(color: Color.green.opacity(0.3), radius: 8, y: 4)
-                        }
-                        .disabled(proManager.isLoading || proManager.isLoadingOfferings || selectedPackage == nil)
-                        .padding(.horizontal)
+                            .disabled(proManager.isLoading || proManager.isLoadingOfferings || selectedPackage == nil)
+                            .padding(.horizontal)
 
-                        // Restore Purchases
-                        Button(action: restorePurchases) {
-                            Text(LocalizationManager.string(for: "pro_btn_restore", lang: lang))
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                        }
-                        .disabled(proManager.isLoading)
+                            // Restore Purchases
+                            Button(action: restorePurchases) {
+                                Text(LocalizationManager.string(for: "pro_btn_restore", lang: lang))
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                            }
+                            .disabled(proManager.isLoading)
 
-                        // Subscription Terms
-                        Text(LocalizationManager.string(for: "pro_subscription_terms", lang: lang))
-                            .font(.caption2)
-                            .foregroundColor(.secondary.opacity(0.8))
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 24)
+                            // Subscription Terms
+                            Text(LocalizationManager.string(for: "pro_subscription_terms", lang: lang))
+                                .font(.caption2)
+                                .foregroundColor(.secondary.opacity(0.8))
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal, 24)
+                        } else {
+                            // Restore Purchases
+                            Button(action: restorePurchases) {
+                                Text(LocalizationManager.string(for: "pro_btn_restore", lang: lang))
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                            }
+                            .disabled(proManager.isLoading)
+                        }
                     }
 
                     Divider().padding(.horizontal)
@@ -332,53 +355,6 @@ struct ProPaywallSheetView: View {
                     .padding(.horizontal, 20)
 
                     Divider().padding(.horizontal)
-
-                    // Coupon Toggle & Redemption
-                    VStack(spacing: 10) {
-                        Button(action: {
-                            withAnimation { showCouponField.toggle() }
-                        }) {
-                            Text(LocalizationManager.string(for: "pro_coupon_toggle", lang: lang))
-                                .font(.footnote)
-                                .foregroundColor(.green)
-                        }
-
-                        if showCouponField {
-                            HStack {
-                                TextField(LocalizationManager.string(for: "pro_coupon_hint", lang: lang), text: $couponCode)
-                                    .font(.subheadline)
-                                    .textInputAutocapitalization(.characters)
-                                    .autocorrectionDisabled()
-                                    .padding(10)
-                                    .background(Color(uiColor: .secondarySystemBackground))
-                                    .cornerRadius(10)
-
-                                Button(action: redeemCoupon) {
-                                    if isRedeemingCoupon {
-                                        ProgressView().padding(.horizontal, 8)
-                                    } else {
-                                        Text(LocalizationManager.string(for: "pro_coupon_btn_redeem", lang: lang))
-                                            .font(.subheadline)
-                                            .fontWeight(.bold)
-                                            .foregroundColor(.white)
-                                            .padding(.horizontal, 14)
-                                            .padding(.vertical, 10)
-                                            .background(Color.green)
-                                            .cornerRadius(10)
-                                    }
-                                }
-                                .disabled(couponCode.trimmingCharacters(in: .whitespaces).isEmpty || isRedeemingCoupon)
-                            }
-                            .padding(.horizontal, 24)
-
-                            if let msg = couponStatusMessage {
-                                Text(msg)
-                                    .font(.caption)
-                                    .foregroundColor(couponIsError ? .red : .green)
-                                    .padding(.horizontal, 24)
-                            }
-                        }
-                    }
 
                     // Legal Links
                     HStack(spacing: 12) {
@@ -410,14 +386,16 @@ struct ProPaywallSheetView: View {
                     dismissButton: .default(Text("OK"))
                 )
             }
-            .onAppear {
+            .task {
                 if !proManager.isPro {
                     proManager.trackPaywallImpression()
                 }
-                if proManager.currentOffering == nil {
-                    Task {
+                if packages.isEmpty {
+                    await proManager.refreshOfferings()
+                    if packages.isEmpty {
+                        // Sandbox/StoreKit retry after brief interval
+                        try? await Task.sleep(nanoseconds: 500_000_000)
                         await proManager.refreshOfferings()
-                        selectedPackageType = shouldShowAnnualFirst ? .annual : .lifetime
                     }
                 }
                 let initialType: PackageType = shouldShowAnnualFirst ? .annual : .lifetime
@@ -560,57 +538,6 @@ struct ProPaywallSheetView: View {
             } catch {
                 errorMessage = error.localizedDescription
                 showErrorAlert = true
-            }
-        }
-    }
-
-    private func redeemCoupon() {
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-        isRedeemingCoupon = true
-        couponStatusMessage = nil
-        couponIsError = false
-
-        Task {
-            let result = await proManager.redeemCoupon(code: couponCode)
-            isRedeemingCoupon = false
-            switch result {
-            case .successLifetime:
-                couponIsError = false
-                couponStatusMessage = LocalizationManager.string(for: "pro_coupon_success_lifetime", lang: lang)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { dismiss() }
-            case .success1Year:
-                couponIsError = false
-                couponStatusMessage = LocalizationManager.string(for: "pro_coupon_success_1year", lang: lang)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { dismiss() }
-            case .success3Months:
-                couponIsError = false
-                couponStatusMessage = LocalizationManager.string(for: "pro_coupon_success_3months", lang: lang)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { dismiss() }
-            case .success1Month:
-                couponIsError = false
-                couponStatusMessage = LocalizationManager.string(for: "pro_coupon_success_1month", lang: lang)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { dismiss() }
-            case .alreadyActive:
-                couponIsError = true
-                couponStatusMessage = LocalizationManager.string(for: "pro_coupon_already_active", lang: lang)
-            case .alreadyRedeemed:
-                couponIsError = true
-                couponStatusMessage = LocalizationManager.string(for: "pro_coupon_already_redeemed", lang: lang)
-            case .maxReached:
-                couponIsError = true
-                couponStatusMessage = LocalizationManager.string(for: "pro_coupon_max_reached", lang: lang)
-            case .inactive:
-                couponIsError = true
-                couponStatusMessage = LocalizationManager.string(for: "pro_coupon_inactive", lang: lang)
-            case .rateLimited:
-                couponIsError = true
-                couponStatusMessage = LocalizationManager.string(for: "pro_coupon_rate_limited", lang: lang)
-            case .invalid:
-                couponIsError = true
-                couponStatusMessage = LocalizationManager.string(for: "pro_coupon_invalid", lang: lang)
-            case .networkError:
-                couponIsError = true
-                couponStatusMessage = LocalizationManager.string(for: "pro_coupon_network_error", lang: lang)
             }
         }
     }
