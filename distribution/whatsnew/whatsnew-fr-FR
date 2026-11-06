@@ -1,2 +1,3 @@
-- Prise en charge étendue des lecteurs audiophiles et alternatifs : intégration transparente pour les lecteurs de musique haute résolution spécialisés, les streamers réseau et les clients open source.
-- Scrapers d'urgence côté client : extraction de liens directs à haute résilience pour les intégrations de musique et les flux multimédias, garantissant une résolution de lien ininterrompue en cas de panne de réseau ou de serveur.
+- Navigation dans les paramètres raffinés : retour direct restauré aux paramètres lors de la fermeture des guides de configuration du lien.
+- Transfert sans scintillement : suppression des flashs visuels lors des conversions de lien instantanées.
+- Propreté du titre et garanties de version : le nettoyage des métadonnées préserve les enregistrements originaux en studio et empêche les remix indésirables.

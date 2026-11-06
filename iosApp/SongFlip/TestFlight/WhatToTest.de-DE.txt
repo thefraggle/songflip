@@ -1,3 +1,4 @@
-- Erweiterte Unterstützung für Audiophile & Alternative Player: Nahtlose Ansteuerung spezialisierter Hi-Res-Player, Netzwerk-Streamer und Open-Source-Clients.
-- Autarke Notfall-Scraper: Hochgradig widerstandsfähige Direkt-Auflösung von Musik-Embeds und Medien-Streams für unterbrechungsfreie Weiterleitungen selbst bei Netzwerk- oder Serverstörungen.
-- Erweiterte Podcast-Weiterleitung: Ausbau der Erkennung und Übergabe an spezialisierte Podcast-Player und Feed-Reader.
+- Nahtlose Menü-Navigation: Beim Schließen der Link-Einrichtung kehrt die App direkt in die Einstellungen zurück.
+- Flackerfreie Weiterleitung: Keine visuellen Übergangseffekte bei schneller Link-Umwandlung.
+- Saubere Titel & Versions-Schutz: Intelligente Bereinigung sichert Originalaufnahmen und verhindert unerwünschte Remixes.
+- Konflikt-Erkennung: Geführte Behebung bei kollidierenden Standard-Apps von Drittanbietern.

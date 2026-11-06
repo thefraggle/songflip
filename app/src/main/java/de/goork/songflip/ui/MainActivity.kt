@@ -293,6 +293,7 @@ fun MainScreen(
     var showListenBottomSheet by remember { mutableStateOf(false) }
     var playerPickerPlatformKey by remember { mutableStateOf<String?>(null) }
     var showAppLinksSetupBottomSheet by remember { mutableStateOf(false) }
+    var openedAppLinksFromSettings by remember { mutableStateOf(false) }
     var showProPaywall by remember { mutableStateOf(false) }
     var proPaywallSource by remember { mutableStateOf("header_pro_badge") }
     var initialShowPromoInPaywall by remember { mutableStateOf(false) }
@@ -558,6 +559,7 @@ fun MainScreen(
                 showProPaywall = true
             },
             onOpenSetupGuide = {
+                openedAppLinksFromSettings = true
                 showSettingsBottomSheet = false
                 showAppLinksSetupBottomSheet = true
             },
@@ -576,6 +578,10 @@ fun MainScreen(
             onDismissRequest = {
                 showAppLinksSetupBottomSheet = false
                 refreshStatus()
+                if (openedAppLinksFromSettings) {
+                    openedAppLinksFromSettings = false
+                    showSettingsBottomSheet = true
+                }
             },
             targetPlatformKey = selectedTargetKey,
             onOpenSystemSettings = {

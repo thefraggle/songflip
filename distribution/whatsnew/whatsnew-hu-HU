@@ -1,2 +1,3 @@
-- Kibővített audiofil és alternatív lejátszó támogatás: Zökkenőmentes integráció speciális nagyfelbontású zenelejátszókhoz, hálózati streamerekhez és nyílt forráskódú kliensekhez.
-- Kliensoldali vészlehúzók: Nagy rugalmasságú közvetlen linkkivonás zenei beágyazáshoz és médiafolyamokhoz, biztosítva a kapcsolat megszakítás nélküli felbontását hálózati vagy szerverkimaradások esetén.
+- Finomított beállítások Navigáció: Visszaállította a beállításokhoz való közvetlen visszatérést a hivatkozásbeállítási útmutatók bezárásakor.
+- Villogásmentes továbbítás: Kiküszöböli a vizuális villanásokat az azonnali linkkonverziók során.
+- A cím tisztasága és a verzióra vonatkozó biztosítékok: A metaadatok tisztítása megőrzi az eredeti stúdiófelvételeket, és megakadályozza a nem kívánt remixeket.

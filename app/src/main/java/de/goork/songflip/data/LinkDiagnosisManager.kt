@@ -163,12 +163,23 @@ object LinkDiagnosisManager {
                 }
             } else null
 
-            val isGrabber = handlerPackage != null &&
+            val isDomainLinkHandlingAllowed = if (isInstalled) {
+                DomainVerificationUtils.isAppHandlingLinks(context, config.packageName) ||
+                    (config.key == "youtubeMusic" && DomainVerificationUtils.isAppHandlingLinks(context, "com.google.android.youtube"))
+            } else false
+
+            val isGrabber = (handlerPackage != null &&
                 handlerPackage != myPackage &&
                 !isBrowserOrChooser &&
                 (handlerPackage == config.packageName ||
                  (config.key == "youtubeMusic" && handlerPackage == "com.google.android.youtube") ||
-                 grabberAppLabel != null)
+                 grabberAppLabel != null)) || (isInstalled && isDomainLinkHandlingAllowed && !isTargetApp && handlerPackage != myPackage)
+
+            val effectiveHandlerPackage = handlerPackage ?: if (isDomainLinkHandlingAllowed) {
+                if (config.key == "youtubeMusic" && DomainVerificationUtils.isAppHandlingLinks(context, "com.google.android.youtube")) {
+                    "com.google.android.youtube"
+                } else config.packageName
+            } else null
 
             val state = when {
                 !isInstalled -> PlatformLinkState.NOT_INSTALLED
@@ -185,7 +196,7 @@ object LinkDiagnosisManager {
                 sampleUrl = config.sampleUrl,
                 isAppInstalled = isInstalled,
                 state = state,
-                handlerPackage = handlerPackage,
+                handlerPackage = effectiveHandlerPackage,
                 grabberAppLabel = grabberAppLabel
             )
         }
