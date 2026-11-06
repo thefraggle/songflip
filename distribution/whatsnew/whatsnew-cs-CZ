@@ -1,2 +1,3 @@
-- Rozšířená podpora pro audiofily a alternativní přehrávače: Bezproblémová integrace pro specializované hudební přehrávače ve vysokém rozlišení, síťové streamery a klienty s otevřeným zdrojovým kódem.
-- Nouzové škrabky na straně klienta: Vysoce odolná přímá extrakce odkazů pro vložení hudby a mediální toky, zajišťující nepřerušované rozlišení spojení během výpadků sítě nebo serveru.
+- Upřesněná navigace nastavení: Obnovený přímý návrat k nastavení při zavření průvodců nastavením propojení.
+- Flicker-Free Forwarding: Eliminace vizuálních záblesků během okamžitých převodů odkazů.
+- Title Cleanliness & Version Safeguards: Čištění metadat zachová původní studiové nahrávky a zabrání nechtěným remixům.

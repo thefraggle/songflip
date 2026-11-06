@@ -1,2 +1,3 @@
-- Rozszerzona obsługa odtwarzaczy audiofilskich i alternatywnych: Bezproblemowa integracja wyspecjalizowanych odtwarzaczy muzycznych hi-res, streamerów sieciowych i klientów typu open source.
-- Awaryjne zgarniacze po stronie klienta: wysoce odporna, bezpośrednia ekstrakcja łączy do osadzonych plików muzycznych i strumieni multimediów, zapewniająca nieprzerwane rozpoznawanie łącza podczas awarii sieci lub serwera.
+- Udoskonalona nawigacja w ustawieniach: Przywrócono bezpośredni powrót do ustawień po zamknięciu przewodników konfiguracji łącza.
+- Przekazywanie bez migotania: Wyeliminowano migotanie obrazu podczas natychmiastowej konwersji łącza.
+- Czystość tytułu i zabezpieczenia wersji: Czyszczenie metadanych pozwala zachować oryginalne nagrania studyjne i zapobiega niechcianym remiksom.

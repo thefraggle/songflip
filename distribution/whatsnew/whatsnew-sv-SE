@@ -1,2 +1,4 @@
-- Utökat stöd för audiofiler och alternativa spelare: Sömlös integration för specialiserade högupplösta musikspelare, nätverksstreamers och klienter med öppen källkod.
-- Nödskrapor på klientsidan: Högresiliens direktlänksextraktion för musikinbäddningar och mediaströmmar, vilket säkerställer oavbruten länkupplösning under nätverks- eller serveravbrott.
+- Förfinad inställningsnavigering: Återställd direkt återgång till inställningar när du stänger länkinställningsguider.
+- Flimmerfri vidarebefordran: Eliminerade visuella blinkningar under omedelbara länkkonverteringar.
+- Titelrenlighet och versionsskydd: Rengöring av metadata bevarar ursprungliga studioinspelningar och förhindrar oönskade remixar.
+- Konfliktdetektering: Guidad lösning för musiklänkhanterare konflikter med tredjeparts streamingklienter.

@@ -1,3 +1,4 @@
-- Utvidet støtte for audiofile og alternative spillere: Sømløs integrasjon for spesialiserte høyoppløselige musikkspillere, nettverksstreamere og åpen kildekode-klienter.
-- Nødskrapere på klientsiden: Høyelastisk direkte koblingsutvinning for musikkinnbygging og mediestrømmer, som sikrer uavbrutt koblingsoppløsning under nettverks- eller serverbrudd.
-- Forbedret podcastspillerruting: Utvidet oppdagelse og videresending til dedikerte podcastspillere og feedlesere.
+- Avgrenset innstillingsnavigering: Gjenopprettet direkte tilbakevending til innstillinger ved lukking av koblingsoppsettguider.
+- Flimmerfri videresending: Eliminert visuelle blink under umiddelbare koblingskonverteringer.
+- Tittelrenslighet og versjonssikring: Metadatarensing bevarer originale studioopptak og forhindrer uønskede remikser.
+- Konfliktgjenkjenning: Veiledet løsning for musikklinkbehandlerkonflikter med tredjeparts streamingklienter.

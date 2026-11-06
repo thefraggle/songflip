@@ -1,2 +1,3 @@
-- Laajennettu audiofiilien ja vaihtoehtoisten soittimien tuki: Saumaton integrointi erikoistuneille korkearesoluutioisille musiikkisoittimille, verkkosuoratoistolaitteille ja avoimen lähdekoodin asiakkaille.
-- Client-Side Emergency Scrapers: Erittäin joustava suora linkkipoiminta musiikin upottamista ja mediavirtaa varten, mikä varmistaa keskeytymättömän linkin tarkkuuden verkko- tai palvelinkatkosten aikana.
+- Tarkennetut asetukset -navigointi: Palautettu suora paluu asetuksiin suljettaessa linkin asennusoppaita.
+- Välkkymätön edelleenlähetys: eliminoitu visuaaliset välähdykset välittömien linkkien muuntamisen aikana.
+- Otsikon puhtaus ja versiosuojat: Metatietojen puhdistus säilyttää alkuperäiset studiotallenteet ja estää ei-toivotut remiksaukset.
