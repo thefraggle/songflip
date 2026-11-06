@@ -1,5 +1,8 @@
 # Changelog (Deutsch)
 
+## [1.13.6] - 2026-11-06
+- **App Store Review Richtlinien-Konformität & Resilienz**: Promo-Code-Eingabefeld zur Einhaltung der Apple-Richtlinien vollständig entfernt (Guideline 3.1.1). Initialisierung der StoreKit-Angebote mit automatischem Retry und klaren Statusanzeigen gehärtet (Guideline 2.1(b)).
+
 ## [1.13.5] - 2026-11-06
 - **Nahtlose Menü-Navigation**: Beim Schließen der Link-Einrichtung kehrt die App direkt in die Einstellungen zurück.
 - **Flackerfreie Weiterleitung**: Keine visuellen Übergangseffekte bei schneller Link-Umwandlung.

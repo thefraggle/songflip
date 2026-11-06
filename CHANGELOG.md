@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.13.6] - 2026-11-06
+- **App Store Review Compliance & Resilience**: Removed custom promo code redemption UI for App Store compliance (Guideline 3.1.1). Hardened StoreKit offering initialization with automatic retry and refined loading/retry states (Guideline 2.1(b)).
+
 ## [1.13.5] - 2026-11-06
 - **Refined Settings Navigation**: Restored direct return to settings when closing link setup guides.
 - **Flicker-Free Forwarding**: Eliminated visual flashes during instantaneous link conversions.
