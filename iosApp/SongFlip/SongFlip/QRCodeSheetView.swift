@@ -62,6 +62,7 @@ struct QRCodeSheetView: View {
                             .font(.title3)
                             .foregroundColor(.secondary.opacity(0.7))
                     }
+                    .accessibilityLabel(Text(LocalizationManager.string(for: "action_close", lang: lang)))
                 }
             }
         }

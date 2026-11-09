@@ -48,6 +48,7 @@ struct ProNudgeBannerCardView: View {
                         .clipShape(Circle())
                 }
                 .buttonStyle(.plain)
+                .accessibilityLabel(Text(LocalizationManager.string(for: "action_close", lang: lang)))
             }
 
             // Subtitle Description

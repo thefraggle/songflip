@@ -1,4 +1,3 @@
-- Cache-Datenintegrität: Schreibgeschützte Deduplizierung im Link-Cache stellt sicher, dass Verlaufseinträge beim Abrufen der Liste niemals dauerhaft aus dem Speicher gelöscht werden.
-- Lokalisierung der Systemintegration: Vollständige mehrsprachige Lokalisierungsressourcen für die Teilen-Erweiterung eingebunden, um unübersetzte Platzhaltertexte zu verhindern.
-- Robuster Datei-Import: Unterstützung für mehrere Zeichenkodierungen (UTF-8, UTF-16, Latin-1, Windows-1252) und fehlerresistente Rückmeldungen beim Importieren von Playlist-Dateien.
-- Status-Validierung & Verifizierung: Kryptografische HMAC-Verifizierung für zwischengespeicherte erweiterte Funktionsstatus und Lizenz-Token hinzugefügt.
+- Stabilität & Zuverlässigkeit: Optimierte interne Verarbeitungsabläufe und Speicherverwaltung für schnellere und zuverlässigere Weiterleitungen.
+- Barrierefreiheit & Kontraste: Verbesserte Farbkontraste und optimierte Bedienungshilfen bei Schaltflächen und Bedienelementen.
+- Dokumentation: Aktualisierte Richtlinien und Anleitungen.

@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.14.2] - 2026-11-09
+- **Stabilität & Zuverlässigkeit**: Optimierte interne Verarbeitungsabläufe und Speicherverwaltung für schnellere und zuverlässigere Weiterleitungen.
+- **Barrierefreiheit & Kontraste**: Verbesserte Farbkontraste und optimierte Bedienungshilfen bei Schaltflächen und Bedienelementen.
+- **Dokumentation**: Aktualisierte Richtlinien und Anleitungen.
+
 ## [1.14.1] - 2026-11-09
 - **Cache-Datenintegrität**: Schreibgeschützte Deduplizierung im Link-Cache stellt sicher, dass Verlaufseinträge beim Abrufen der Liste niemals dauerhaft aus dem Speicher gelöscht werden.
 - **Lokalisierung der Systemintegration**: Vollständige mehrsprachige Lokalisierungsressourcen für die Teilen-Erweiterung eingebunden, um unübersetzte Platzhaltertexte zu verhindern.

@@ -67,21 +67,7 @@ final class ProManager: NSObject, ObservableObject {
     }
 
     static func isProActive(defaults: UserDefaults = UserDefaults(suiteName: appGroupId) ?? .standard) -> Bool {
-        // 1. Verify coupon token if present via Ed25519 signature
-        if let token = defaults.string(forKey: keyCouponToken), !token.isEmpty {
-            let nowMs = Int64(Date().timeIntervalSince1970 * 1000)
-            let verified = CouponService.companion.shared.verifyCouponToken(
-                token: token,
-                expectedInstallId: nil,
-                currentTimeMs: nowMs,
-                lastSeenServerTimeMs: 0
-            )
-            if verified.valid {
-                return true
-            }
-        }
-
-        // 2. Verify HMAC signature for cached Pro status
+        // Verify HMAC signature for cached Pro status (bound to app secret, type, and expiration)
         let isPro = defaults.bool(forKey: keyIsProCached)
         guard isPro else { return false }
 
