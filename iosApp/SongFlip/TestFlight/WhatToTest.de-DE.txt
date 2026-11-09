@@ -1,2 +1,2 @@
-- Zuverlässige Player-Erkennung & Weiterleitung: Präzisierte automatische Player-Erkennung verhindert die fälschliche Vorauswahl nicht installierter Musikdienste und garantiert zuverlässigen Web-Fallback im Browser.
-- Systemstabilität: Optimierte Verknüpfungs- und Weiterleitungslogik zur Vermeidung stiller Abbrüche beim Öffnen von Titeln.
+- Leistung und Stabilität: Verfeinerte Linkverarbeitung und Hintergrunddaten-Caching für schnellere und zuverlässigere Übergänge.
+- Fehlerbehebungen: Kleinere Schnittstellenprobleme wurden behoben und die Zuverlässigkeit der Systemfreigabe- und Navigationsdialoge verbessert.

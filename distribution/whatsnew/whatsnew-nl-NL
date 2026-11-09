@@ -1,2 +1,2 @@
-- Betrouwbaarheid van spelersdetectie en -lancering: Geharde automatische detectie van spelers om te voorkomen dat standaard niet-geïnstalleerde services worden geselecteerd, en zorgde voor een naadloze terugval van het web wanneer native apps ontbreken.
-- Systeemstabiliteit: verfijnde intent handling en browser dispatching om stille storingen bij het openen van links te elimineren.
+- Prestaties en stabiliteit: Verfijnde linkverwerking en caching van achtergrondgegevens voor snellere, betrouwbaardere overgangen.
+- Bugfixes: Kleine problemen met de interface opgelost en de betrouwbaarheid bij het delen van systemen en navigatiedialogen verbeterd.

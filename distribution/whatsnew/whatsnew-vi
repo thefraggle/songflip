@@ -1,2 +1,2 @@
-- Phát hiện người chơi & Độ tin cậy khởi chạy: Tự động phát hiện người chơi cứng để ngăn các dịch vụ đã gỡ cài đặt được chọn theo mặc định và đảm bảo dự phòng web liền mạch khi thiếu ứng dụng gốc.
-- Tính ổn định của hệ thống: Xử lý mục đích tinh chỉnh và điều phối trình duyệt để loại bỏ các lỗi im lặng khi mở liên kết.
+- Hiệu suất & Tính ổn định: Xử lý liên kết tinh chỉnh và bộ nhớ đệm dữ liệu nền để chuyển tiếp nhanh hơn, đáng tin cậy hơn.
+- Sửa lỗi: Giải quyết các trục trặc giao diện nhỏ và cải thiện độ tin cậy trên các hộp thoại chia sẻ và điều hướng hệ thống.

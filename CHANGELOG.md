@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.14.4] - 2026-11-09
+- **Performance & Stability**: Refined link processing and background data caching for faster, more dependable transitions.
+- **Bug Fixes**: Resolved minor interface glitches and improved reliability across system sharing and navigation dialogs.
+
 ## [1.14.3] - 2026-11-09
 - **Player Detection & Launch Reliability**: Hardened player auto-detection to prevent uninstalled services from being selected by default, and ensured seamless web fallback when native apps are missing.
 - **System Stability**: Refined intent handling and browser dispatching to eliminate silent failures when opening links.

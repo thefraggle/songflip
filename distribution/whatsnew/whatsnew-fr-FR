@@ -1,2 +1,2 @@
-- Détection des joueurs et fiabilité de lancement : détection automatique renforcée des joueurs pour empêcher la sélection par défaut des services désinstallés et assurer une solution de repli Web transparente lorsque des applications natives sont manquantes.
-- Stabilité du système : gestion des intentions et répartition du navigateur affinées pour éliminer les pannes silencieuses lors de l'ouverture des liens.
+- Performances et stabilité : traitement des liens raffiné et mise en cache des données en arrière-plan pour des transitions plus rapides et plus fiables.
+- Corrections de bugs : résolution de problèmes mineurs d'interface et amélioration de la fiabilité dans les boîtes de dialogue de partage du système et de navigation.

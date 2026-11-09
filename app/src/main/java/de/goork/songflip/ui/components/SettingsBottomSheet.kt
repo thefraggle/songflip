@@ -20,6 +20,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.automirrored.outlined.AltRoute
 import androidx.compose.material.icons.outlined.BrightnessAuto
+import androidx.compose.material.icons.outlined.ConfirmationNumber
 import androidx.compose.material.icons.outlined.ContentPaste
 import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.outlined.Email
@@ -63,6 +64,8 @@ import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.outlined.Tune
 import de.goork.songflip.core.engine.SongLinkEngine
 import de.goork.songflip.data.PackageUtils
+import de.goork.songflip.data.RedeemResult
+import kotlinx.coroutines.launch
 
 private const val URL_NOTTHOFF = "https://notthoff.org"
 
@@ -86,6 +89,12 @@ fun SettingsBottomSheet(
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
     val proState by ProManager.proState.collectAsState()
+    val coroutineScope = rememberCoroutineScope()
+
+    var showCouponDialog by remember { mutableStateOf(false) }
+    var couponText by remember { mutableStateOf("") }
+    var couponError by remember { mutableStateOf<String?>(null) }
+    var isRedeemingCoupon by remember { mutableStateOf(false) }
 
     var showLanguagePickerSubSheet by remember { mutableStateOf(false) }
     var playerPickerSubSheetPlatformKey by remember { mutableStateOf<String?>(null) }
@@ -1158,6 +1167,166 @@ fun SettingsBottomSheet(
                 }
             }
 
+            // 9. Redeem Promo Code (Custom Firebase Coupon)
+            if (!isPro && !proState.isPro) {
+                Card(
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                            showCouponDialog = true
+                        }
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 14.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.ConfirmationNumber,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(22.dp)
+                            )
+                            Column {
+                                Text(
+                                    text = stringResource(R.string.pro_coupon_toggle),
+                                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                                Text(
+                                    text = stringResource(R.string.pro_coupon_hint),
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
+                        Icon(
+                            imageVector = Icons.Outlined.ChevronRight,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+                }
+            }
+
+            if (showCouponDialog) {
+                AlertDialog(
+                    onDismissRequest = {
+                        if (!isRedeemingCoupon) {
+                            showCouponDialog = false
+                            couponText = ""
+                            couponError = null
+                        }
+                    },
+                    title = {
+                        Text(
+                            text = stringResource(R.string.pro_coupon_toggle),
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                    },
+                    text = {
+                        Column(modifier = Modifier.fillMaxWidth()) {
+                            OutlinedTextField(
+                                value = couponText,
+                                onValueChange = {
+                                    couponText = ProManager.extractCouponCode(it).trim().uppercase()
+                                    couponError = null
+                                },
+                                placeholder = { Text(stringResource(R.string.pro_coupon_hint)) },
+                                singleLine = true,
+                                isError = couponError != null,
+                                supportingText = couponError?.let { err ->
+                                    {
+                                        Text(
+                                            text = err,
+                                            color = MaterialTheme.colorScheme.error,
+                                            style = MaterialTheme.typography.bodySmall
+                                        )
+                                    }
+                                },
+                                shape = RoundedCornerShape(12.dp),
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
+                    },
+                    confirmButton = {
+                        Button(
+                            enabled = !isRedeemingCoupon && couponText.isNotBlank(),
+                            onClick = {
+                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                isRedeemingCoupon = true
+                                couponError = null
+                                coroutineScope.launch {
+                                    val result = ProManager.redeemCoupon(couponText)
+                                    isRedeemingCoupon = false
+                                    when (result) {
+                                        RedeemResult.SUCCESS_LIFETIME -> {
+                                            Toast.makeText(context, context.getString(R.string.pro_coupon_success_lifetime), Toast.LENGTH_LONG).show()
+                                            showCouponDialog = false
+                                            couponText = ""
+                                        }
+                                        RedeemResult.SUCCESS_1YEAR -> {
+                                            Toast.makeText(context, context.getString(R.string.pro_coupon_success_1year), Toast.LENGTH_LONG).show()
+                                            showCouponDialog = false
+                                            couponText = ""
+                                        }
+                                        RedeemResult.SUCCESS_3MONTHS -> {
+                                            Toast.makeText(context, context.getString(R.string.pro_coupon_success_3months), Toast.LENGTH_LONG).show()
+                                            showCouponDialog = false
+                                            couponText = ""
+                                        }
+                                        RedeemResult.SUCCESS_1MONTH -> {
+                                            Toast.makeText(context, context.getString(R.string.pro_coupon_success_1month), Toast.LENGTH_LONG).show()
+                                            showCouponDialog = false
+                                            couponText = ""
+                                        }
+                                        RedeemResult.ALREADY_ACTIVE -> couponError = context.getString(R.string.pro_coupon_already_active)
+                                        RedeemResult.ALREADY_REDEEMED -> couponError = context.getString(R.string.pro_coupon_already_redeemed)
+                                        RedeemResult.MAX_REACHED -> couponError = context.getString(R.string.pro_coupon_max_reached)
+                                        RedeemResult.INACTIVE -> couponError = context.getString(R.string.pro_coupon_inactive)
+                                        RedeemResult.RATE_LIMITED -> couponError = context.getString(R.string.pro_coupon_rate_limited)
+                                        RedeemResult.INVALID -> couponError = context.getString(R.string.pro_coupon_invalid)
+                                        RedeemResult.NETWORK_ERROR -> couponError = context.getString(R.string.pro_coupon_network_error)
+                                    }
+                                }
+                            }
+                        ) {
+                            if (isRedeemingCoupon) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.size(16.dp),
+                                    color = MaterialTheme.colorScheme.onPrimary,
+                                    strokeWidth = 2.dp
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                            }
+                            Text(stringResource(R.string.pro_coupon_btn_redeem))
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(
+                            enabled = !isRedeemingCoupon,
+                            onClick = {
+                                showCouponDialog = false
+                                couponText = ""
+                                couponError = null
+                            }
+                        ) {
+                            Text(stringResource(android.R.string.cancel))
+                        }
+                    }
+                )
+            }
 
             // Version, Copyright & Legal Links
             val appVersion = remember {

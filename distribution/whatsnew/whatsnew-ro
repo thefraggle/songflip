@@ -1,2 +1,2 @@
-- Detectarea jucătorului și fiabilitatea lansării: Detectarea automată a jucătorului pentru a preveni selectarea prestabilită a serviciilor dezinstalate și pentru a asigura o revenire fără probleme atunci când aplicațiile native lipsesc.
-- Stabilitatea sistemului: Manipularea rafinată a intenției și expedierea browserului pentru a elimina defecțiunile silențioase la deschiderea linkurilor.
+- Performanță și stabilitate: procesare rafinată a legăturilor și stocare în cache a datelor de fundal pentru tranziții mai rapide și mai sigure.
+- Remedieri de erori: S-au rezolvat erori minore ale interfeței și s-au îmbunătățit fiabilitatea prin partajarea sistemului și dialogurile de navigare.

@@ -318,7 +318,7 @@ object ProManager {
         }
     }
 
-    private fun updateFromCustomerInfo(customerInfo: CustomerInfo): ProState {
+    internal fun updateFromCustomerInfo(customerInfo: CustomerInfo): ProState {
         // Strictly verify 'pro' or 'songflip_pro' entitlement. Other purchases (tips/consumables) do not grant Pro (#108).
         val activeEntitlement = customerInfo.entitlements["pro"] ?: customerInfo.entitlements["songflip_pro"]
         val hasProEntitlement = activeEntitlement?.isActive == true

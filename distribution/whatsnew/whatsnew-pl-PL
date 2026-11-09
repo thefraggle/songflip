@@ -1,2 +1,2 @@
-- Niezawodność wykrywania i uruchamiania odtwarzacza: zahartowane automatyczne wykrywanie odtwarzacza, aby zapobiec domyślnemu wybieraniu odinstalowanych usług i zapewnić bezproblemową awaryjność sieci w przypadku braku natywnych aplikacji.
-- Stabilność systemu: dopracowana obsługa intencji i wysyłanie do przeglądarki w celu wyeliminowania cichych awarii podczas otwierania łączy.
+- Wydajność i stabilność: ulepszone przetwarzanie łączy i buforowanie danych w tle dla szybszych i bardziej niezawodnych przejść.
+- Poprawki błędów: Rozwiązano drobne usterki interfejsu i poprawiono niezawodność w oknach dialogowych udostępniania systemu i nawigacji.

@@ -1,2 +1,2 @@
-- Fiabilidad de detección y lanzamiento del reproductor: Detección automática del reproductor reforzada para evitar que se seleccionen los servicios desinstalados de forma predeterminada y garantizar un respaldo web sin problemas cuando faltan aplicaciones nativas.
-- Estabilidad del sistema: manejo refinado de la intención y envío del navegador para eliminar fallas silenciosas al abrir enlaces.
+- Rendimiento y estabilidad: procesamiento de enlaces refinado y almacenamiento en caché de datos en segundo plano para transiciones más rápidas y confiables.
+- Corrección de errores: se resolvieron fallos menores en la interfaz y se mejoró la confiabilidad en los cuadros de diálogo de navegación y uso compartido del sistema.

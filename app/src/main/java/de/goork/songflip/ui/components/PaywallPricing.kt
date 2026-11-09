@@ -90,6 +90,12 @@ object PaywallPricing {
         }
 }
 
+enum class SelectedProTier {
+    ANNUAL,
+    MONTHLY,
+    LIFETIME
+}
+
 enum class PaywallLayout(val metadataValue: String) {
     LIFETIME_FIRST("lifetime_first"),
     ANNUAL_FIRST("annual_first")

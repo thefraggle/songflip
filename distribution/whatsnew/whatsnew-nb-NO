@@ -1,2 +1,2 @@
-- Spillerdeteksjon og oppstartspålitelighet: Forbedret automatisk spillerdeteksjon for å forhindre at avinstallerte tjenester velges som standard, og sikret sømløs web-fallback når native apper mangler.
-- Systemstabilitet: Forbedret intenthåndtering og nettleserforsendelse for å eliminere stille feil ved åpning av lenker.
+- Ytelse og stabilitet: Raffinert koblingsbehandling og caching av bakgrunnsdata for raskere og mer pålitelige overganger.
+- Feilrettinger: Løst mindre grensesnittfeil og forbedret pålitelighet på tvers av systemdeling og navigasjonsdialoger.

@@ -1,2 +1,2 @@
-- Spolehlivost detekce a spuštění přehrávače: Vytvrzená automatická detekce přehrávače, aby se ve výchozím nastavení zabránilo výběru odinstalovaných služeb, a zajištění bezproblémového zálohování webu, když chybí nativní aplikace.
-- Stabilita systému: Vylepšená manipulace se záměrem a dispečink prohlížeče pro eliminaci tichých poruch při otevírání odkazů.
+- Výkon a stabilita: Vylepšené zpracování odkazů a ukládání dat do mezipaměti na pozadí pro rychlejší a spolehlivější přechody.
+- Opravy chyb: Vyřešeny drobné závady rozhraní a zlepšená spolehlivost v dialogových oknech sdílení systému a navigace.
