@@ -151,8 +151,6 @@ final class ProManager: NSObject, ObservableObject {
         }
     }
 
-    private static let rcExpiryGraceMs: Double = 15 * 60 * 1000
-
     private func verifyStoredCouponOffline(token: String?, currentTimeMs: Int64) -> VerifiedCouponPayload {
         let primaryId = getPersistentInstallId()
         let lastSeen = getLastSeenServerTime()
