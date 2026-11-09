@@ -164,6 +164,12 @@ class SettingsRepository(private val context: Context) {
             prefs.edit().putString(KEY_CACHED_PROMO_BANNER, value).apply()
         }
 
+    var hasSeenFirstLaunchGuide: Boolean
+        get() = prefs.getBoolean(KEY_HAS_SEEN_FIRST_LAUNCH_GUIDE, false)
+        set(value) {
+            prefs.edit().putBoolean(KEY_HAS_SEEN_FIRST_LAUNCH_GUIDE, value).apply()
+        }
+
     /**
      * Calculates the active milestone (20, 50, 100, and every 50 thereafter)
      * if the user hasn't dismissed it yet. Returns 0 if no nudge should be shown.
@@ -200,6 +206,7 @@ class SettingsRepository(private val context: Context) {
         private const val KEY_PREFERRED_TIDAL_PLAYER = "preferred_tidal_player"
         private const val KEY_LAST_DISMISSED_PRO_NUDGE_MILESTONE = "last_dismissed_pro_nudge_milestone"
         private const val KEY_CACHED_PROMO_BANNER = "cached_promo_banner_json"
+        private const val KEY_HAS_SEEN_FIRST_LAUNCH_GUIDE = "has_seen_first_launch_guide"
 
         const val DEFAULT_TARGET = "youtubeMusic"
         const val DEFAULT_LANGUAGE = "en"

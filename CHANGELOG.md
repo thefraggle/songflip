@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.13.7] - 2026-11-09
+- **Differentiated Playlist CTA & Export Guidance**: Clear playback and M3U8/CSV export guidance for streaming platforms without external queue deeplinks (Qobuz, Tidal, Apple Music, Deezer).
+- **Unified Search & Music Link Input**: Direct music URL detection with 1-tap playback and paste action directly from the search bar.
+- **First-Launch Quick Guide**: Added a clear walkthrough covering sharing, search/paste, and 0-click links, accessible anytime from Settings.
+
 ## [1.13.6] - 2026-11-06
 - **App Store Review Compliance & Resilience**: Removed custom promo code redemption UI for App Store compliance (Guideline 3.1.1). Hardened StoreKit offering initialization with automatic retry and refined loading/retry states (Guideline 2.1(b)).
 

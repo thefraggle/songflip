@@ -104,4 +104,20 @@ class PlaylistExporterTest {
         val singleChunks = PlaylistExporter.calculateChunks(tracks = sampleTracks.take(2), chunkSize = 0)
         assertEquals(2, singleChunks.size)
     }
+
+    @Test
+    fun testSupportsBatchQueue() {
+        assertTrue(PlaylistExporter.supportsBatchQueue("spotify"))
+        assertTrue(PlaylistExporter.supportsBatchQueue("SPOTIFY"))
+        assertTrue(PlaylistExporter.supportsBatchQueue("youtubemusic"))
+        assertTrue(PlaylistExporter.supportsBatchQueue("youtube"))
+
+        kotlin.test.assertFalse(PlaylistExporter.supportsBatchQueue("qobuz"))
+        kotlin.test.assertFalse(PlaylistExporter.supportsBatchQueue("tidal"))
+        kotlin.test.assertFalse(PlaylistExporter.supportsBatchQueue("deezer"))
+        kotlin.test.assertFalse(PlaylistExporter.supportsBatchQueue("applemusic"))
+        kotlin.test.assertFalse(PlaylistExporter.supportsBatchQueue("audiomack"))
+        kotlin.test.assertFalse(PlaylistExporter.supportsBatchQueue("idagio"))
+        kotlin.test.assertFalse(PlaylistExporter.supportsBatchQueue("unknown"))
+    }
 }

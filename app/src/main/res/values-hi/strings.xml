@@ -437,4 +437,21 @@
     <string name="playlist_import_file_desc">सीधे बदलने और चलाने के लिए स्थानीय .m3u8, .csv या टेक्स्ट ट्रैक सूची आयात करें।</string>
     <string name="playlist_import_empty_error">चयनित फ़ाइल में कोई बजाने योग्य गाना नहीं मिला।</string>
     <string name="playlist_import_source_chip">फ़ाइल</string>
+    <string name="playlist_open_first_track">%1$s में पहला गाना चलाएं</string>
+    <string name="playlist_no_batch_queue_desc">%1$s बाहरी प्लेलिस्ट लिंक का समर्थन नहीं करता है। नीचे अलग-अलग ट्रैक चलाएं या प्लेलिस्ट को M3U8/CSV के रूप में निर्यात करें।</string>
+    <string name="search_hint_unified">गाना खोजें या संगीत लिंक पेस्ट करें…</string>
+    <string name="search_link_detected_title">संगीत लिंक का पता चला</string>
+    <string name="search_flip_track_action">%1$s में चलाएं</string>
+    <string name="search_flip_playlist_action">प्लेलिस्ट रूपांतरित करें</string>
+    <string name="search_paste_clipboard_action">क्लिपबोर्ड से लिंक पेस्ट करें</string>
+    <string name="first_launch_guide_title">SongFlip कैसे काम करता है</string>
+    <string name="first_launch_guide_subtitle">अपने पसंदीदा ऐप में संगीत लिंक खोलें – 100%% निजी, कोई खाता नहीं।</string>
+    <string name="first_launch_step1_title">1. किसी भी संगीत ऐप से साझा करें</string>
+    <string name="first_launch_step1_desc">Spotify, Apple Music आदि में \"शेयर\" पर टैप करें और SongFlip चुनें।</string>
+    <string name="first_launch_step2_title">2. कॉपी करें और खोजें</string>
+    <string name="first_launch_step2_desc">कॉपी किए गए संगीत लिंक स्वचालित रूप से पहचाने जाते हैं, या उन्हें सीधे खोज में पेस्ट करें।</string>
+    <string name="first_launch_step3_title">3. 0-क्लिक रीडायरेक्ट</string>
+    <string name="first_launch_step3_desc">सिस्टम सेटिंग्स में ऐप लिंक सक्षम करें ताकि संगीत लिंक सीधे आपके लक्षित प्लेयर में खुलें।</string>
+    <string name="first_launch_btn_done">शुरू करें</string>
+    <string name="settings_how_it_works">त्वरित मार्गदर्शिका / यह कैसे काम करता है</string>
 </resources>

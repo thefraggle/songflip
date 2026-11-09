@@ -301,6 +301,9 @@ fun MainScreen(
     var importedPlaylistTracks by remember { mutableStateOf<List<ParsedImportTrack>?>(null) }
     var importedPlaylistTitle by remember { mutableStateOf<String?>(null) }
     var showPodcastNoticeSheet by remember { mutableStateOf<String?>(null) }
+    var showFirstLaunchGuide by remember {
+        mutableStateOf(!settingsRepository.hasSeenFirstLaunchGuide)
+    }
     val activePlaylistConversion by viewModel.activePlaylistConversion.collectAsState()
 
     val playlistFilePickerLauncher = rememberLauncherForActivityResult(
@@ -569,6 +572,10 @@ fun MainScreen(
             },
             onImportPlaylistFile = {
                 playlistFilePickerLauncher.launch("*/*")
+            },
+            onOpenFirstLaunchGuide = {
+                showSettingsBottomSheet = false
+                showFirstLaunchGuide = true
             }
         )
     }
@@ -641,6 +648,20 @@ fun MainScreen(
             },
             onImportPlaylistFile = {
                 playlistFilePickerLauncher.launch("*/*")
+            },
+            onOpenPlaylistConversion = { url ->
+                showSearchBottomSheet = false
+                viewModel.startPlaylistConversion(url, selectedTargetKey, proState.isPro)
+                showPlaylistConvertSheet = url
+            }
+        )
+    }
+
+    if (showFirstLaunchGuide) {
+        FirstLaunchGuideBottomSheet(
+            onDismissRequest = {
+                settingsRepository.hasSeenFirstLaunchGuide = true
+                showFirstLaunchGuide = false
             }
         )
     }

@@ -427,4 +427,21 @@
     <string name="playlist_import_file_desc">Importă fișiere locale .m3u8, .csv sau liste text pentru a le converti și reda direct.</string>
     <string name="playlist_import_empty_error">Nu s-au găsit melodii redabile în fișierul selectat.</string>
     <string name="playlist_import_source_chip">Fișier</string>
+    <string name="playlist_open_first_track">Redă prima piesă în %1$s</string>
+    <string name="playlist_no_batch_queue_desc">%1$s nu acceptă linkuri către liste de redare externe. Redați melodiile individual mai jos sau exportați lista de redare ca M3U8/CSV.</string>
+    <string name="search_hint_unified">Caută o piesă sau lipește un link muzical…</string>
+    <string name="search_link_detected_title">Link muzical detectat</string>
+    <string name="search_flip_track_action">Redă în %1$s</string>
+    <string name="search_flip_playlist_action">Convertește lista de redare</string>
+    <string name="search_paste_clipboard_action">Lipește linkul din clipboard</string>
+    <string name="first_launch_guide_title">Cum funcționează SongFlip</string>
+    <string name="first_launch_guide_subtitle">Deschideți linkurile muzicale în aplicația preferată – 100%% privat, fără conturi.</string>
+    <string name="first_launch_step1_title">1. Partajează din orice aplicație muzicală</string>
+    <string name="first_launch_step1_desc">Atingeți „Partajare” în Spotify, Apple Music etc. și selectați SongFlip.</string>
+    <string name="first_launch_step2_title">2. Copiază și caută</string>
+    <string name="first_launch_step2_desc">Linkurile muzicale copiate sunt recunoscute automat sau lipiți-le direct în căutare.</string>
+    <string name="first_launch_step3_title">3. Redirecționare cu 0 clicuri</string>
+    <string name="first_launch_step3_desc">Activați linkurile de aplicație în setările de sistem pentru a deschide linkurile direct în playerul țintă.</string>
+    <string name="first_launch_btn_done">Începeți</string>
+    <string name="settings_how_it_works">Ghid rapid / Cum funcționează</string>
 </resources>

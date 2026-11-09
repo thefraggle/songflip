@@ -437,4 +437,21 @@
     <string name="playlist_import_file_desc">Importeer lokale .m3u8-, .csv- of teksttracklijsten om ze direct te converteren en af te spelen.</string>
     <string name="playlist_import_empty_error">Geen afspeelbare nummers gevonden in het geselecteerde bestand.</string>
     <string name="playlist_import_source_chip">Bestand</string>
+    <string name="playlist_open_first_track">Eerste nummer afspelen in %1$s</string>
+    <string name="playlist_no_batch_queue_desc">%1$s ondersteunt geen externe afspeellijstlinks. Speel nummers hieronder afzonderlijk af of exporteer de afspeellijst als M3U8/CSV.</string>
+    <string name="search_hint_unified">Nummer zoeken of muzieklink plakken…</string>
+    <string name="search_link_detected_title">Muzieklink gedetecteerd</string>
+    <string name="search_flip_track_action">Afspelen in %1$s</string>
+    <string name="search_flip_playlist_action">Afspeellijst converteren</string>
+    <string name="search_paste_clipboard_action">Link plakken van klembord</string>
+    <string name="first_launch_guide_title">Hoe SongFlip werkt</string>
+    <string name="first_launch_guide_subtitle">Muzieklinks openen in je favoriete app – 100%% privé, zonder account.</string>
+    <string name="first_launch_step1_title">1. Delen vanuit elke muziek-app</string>
+    <string name="first_launch_step1_desc">Tik op \'Delen\' in Spotify, Apple Music enz. en kies SongFlip.</string>
+    <string name="first_launch_step2_title">2. Kopiëren en zoeken</string>
+    <string name="first_launch_step2_desc">Gekopieerde muzieklinks worden automatisch herkend, of plak ze direct in de zoekbalk.</string>
+    <string name="first_launch_step3_title">3. 0-klik omleiding</string>
+    <string name="first_launch_step3_desc">Schakel App-links in bij de systeeminstellingen zodat muzieklinks direct in je doelspeler openen.</string>
+    <string name="first_launch_btn_done">Aan de slag</string>
+    <string name="settings_how_it_works">Snelle handleiding / Hoe het werkt</string>
 </resources>

@@ -423,4 +423,21 @@
     <string name="playlist_import_file_desc">Εισαγάγετε τοπικά αρχεία .m3u8, .csv ή λίστες κειμένου για άμεση μετατροπή και αναπαραγωγή.</string>
     <string name="playlist_import_empty_error">Δεν βρέθηκαν κομμάτια προς αναπαραγωγή στο επιλεγμένο αρχείο.</string>
     <string name="playlist_import_source_chip">Αρχείο</string>
+    <string name="playlist_open_first_track">Αναπαραγωγή πρώτου κομματιού στο %1$s</string>
+    <string name="playlist_no_batch_queue_desc">Το %1$s δεν υποστηρίζει εξωτερικούς συνδέσμους λίστας αναπαραγωγής. Αναπαραγάγετε τα κομμάτια μεμονωμένα παρακάτω ή εξαγάγετε τη λίστα ως M3U8/CSV.</string>
+    <string name="search_hint_unified">Αναζήτηση κομματιού ή επικόλληση συνδέσμου μουσικής…</string>
+    <string name="search_link_detected_title">Εντοπίστηκε σύνδεσμος μουσικής</string>
+    <string name="search_flip_track_action">Αναπαραγωγή στο %1$s</string>
+    <string name="search_flip_playlist_action">Μετατροπή λίστας αναπαραγωγής</string>
+    <string name="search_paste_clipboard_action">Επικόλληση συνδέσμου από το πρόχειρο</string>
+    <string name="first_launch_guide_title">Πώς λειτουργεί το SongFlip</string>
+    <string name="first_launch_guide_subtitle">Ανοίξτε συνδέσμους μουσικής στην αγαπημένη σας εφαρμογή – 100%% ιδιωτικό, χωρίς λογαριασμούς.</string>
+    <string name="first_launch_step1_title">1. Κοινοποίηση από οποιαδήποτε εφαρμογή μουσικής</string>
+    <string name="first_launch_step1_desc">Πατήστε «Κοινοποίηση» στο Spotify, το Apple Music κ.λπ. και επιλέξτε το SongFlip.</string>
+    <string name="first_launch_step2_title">2. Αντιγραφή και αναζήτηση</string>
+    <string name="first_launch_step2_desc">Οι αντιγραμμένοι σύνδεσμοι μουσικής αναγνωρίζονται αυτόματα ή επικολλήστε τους απευθείας στην αναζήτηση.</string>
+    <string name="first_launch_step3_title">3. Ανακατεύθυνση 0 κλικ</string>
+    <string name="first_launch_step3_desc">Ενεργοποιήστε τους συνδέσμους εφαρμογών στις ρυθμίσεις συστήματος για να ανοίγουν οι σύνδεσμοι απευθείας στο πρόγραμμα αναπαραγωγής.</string>
+    <string name="first_launch_btn_done">Έναρξη</string>
+    <string name="settings_how_it_works">Γρήγορος οδηγός / Πώς λειτουργεί</string>
 </resources>

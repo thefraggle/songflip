@@ -437,4 +437,21 @@
     <string name="playlist_import_file_desc">Importa listas .m3u8, .csv o de texto locales para convertirlas y reproducirlas directamente.</string>
     <string name="playlist_import_empty_error">No se encontraron canciones reproducibles en el archivo seleccionado.</string>
     <string name="playlist_import_source_chip">Archivo</string>
+    <string name="playlist_open_first_track">Reproducir primera canción en %1$s</string>
+    <string name="playlist_no_batch_queue_desc">%1$s no admite enlaces de listas de reproducción externas. Reproduce canciones individualmente abajo o exporta la lista como M3U8/CSV.</string>
+    <string name="search_hint_unified">Buscar canción o pegar enlace de música…</string>
+    <string name="search_link_detected_title">Enlace de música detectado</string>
+    <string name="search_flip_track_action">Reproducir en %1$s</string>
+    <string name="search_flip_playlist_action">Convertir lista de reproducción</string>
+    <string name="search_paste_clipboard_action">Pegar enlace del portapapeles</string>
+    <string name="first_launch_guide_title">Cómo funciona SongFlip</string>
+    <string name="first_launch_guide_subtitle">Abre enlaces de música en tu app preferida: 100%% privado, sin cuentas.</string>
+    <string name="first_launch_step1_title">1. Compartir desde cualquier app de música</string>
+    <string name="first_launch_step1_desc">Toca \"Compartir\" en Spotify, Apple Music, etc. y selecciona SongFlip.</string>
+    <string name="first_launch_step2_title">2. Copiar y buscar</string>
+    <string name="first_launch_step2_desc">Los enlaces de música copiados se detectan automáticamente, o pégalos directamente en la búsqueda.</string>
+    <string name="first_launch_step3_title">3. Redirección en 0 clics</string>
+    <string name="first_launch_step3_desc">Activa los enlaces de apps en los ajustes del sistema para abrir la música directamente en tu reproductor.</string>
+    <string name="first_launch_btn_done">Empezar</string>
+    <string name="settings_how_it_works">Guía rápida / Cómo funciona</string>
 </resources>

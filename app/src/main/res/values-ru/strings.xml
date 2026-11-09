@@ -445,4 +445,21 @@
     <string name="playlist_import_file_desc">Импортируйте локальные списки .m3u8, .csv или текстовые трек-листы для конвертации и воспроизведения.</string>
     <string name="playlist_import_empty_error">В выбранном файле не найдено доступных для воспроизведения треков.</string>
     <string name="playlist_import_source_chip">Файл</string>
+    <string name="playlist_open_first_track">Слушать первый трек в %1$s</string>
+    <string name="playlist_no_batch_queue_desc">%1$s не поддерживает внешние ссылки на плейлисты. Воспроизводите треки по отдельности ниже или экспортируйте плейлист в формате M3U8/CSV.</string>
+    <string name="search_hint_unified">Найти трек или вставить ссылку на музыку…</string>
+    <string name="search_link_detected_title">Обнаружена ссылка на музыку</string>
+    <string name="search_flip_track_action">Слушать в %1$s</string>
+    <string name="search_flip_playlist_action">Конвертировать плейлист</string>
+    <string name="search_paste_clipboard_action">Вставить ссылку из буфера</string>
+    <string name="first_launch_guide_title">Как работает SongFlip</string>
+    <string name="first_launch_guide_subtitle">Открывайте ссылки в любимом плеере – 100%% конфиденциально, без аккаунтов.</string>
+    <string name="first_launch_step1_title">1. Поделиться из любого музыкального приложения</string>
+    <string name="first_launch_step1_desc">Нажмите «Поделиться» в Spotify, Apple Music и выберите SongFlip.</string>
+    <string name="first_launch_step2_title">2. Копирование и поиск</string>
+    <string name="first_launch_step2_desc">Скопированные ссылки распознаются автоматически, или вставьте их прямо в поиск.</string>
+    <string name="first_launch_step3_title">3. Перенаправление в 0 кликов</string>
+    <string name="first_launch_step3_desc">Включите ссылки на приложения в настройках системы для открытия ссылок в целевом плеере.</string>
+    <string name="first_launch_btn_done">Начать</string>
+    <string name="settings_how_it_works">Краткое руководство / Как это работает</string>
 </resources>

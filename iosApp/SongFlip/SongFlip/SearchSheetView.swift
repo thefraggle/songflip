@@ -20,6 +20,7 @@ struct SearchTrackItem: Identifiable, Equatable {
 
 struct SearchSheetView: View {
     var onImportPlaylistFile: (() -> Void)? = nil
+    var onOpenPlaylistConversion: ((String) -> Void)? = nil
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var settings: SettingsModel
     @ObservedObject var proManager = ProManager.shared
@@ -30,6 +31,7 @@ struct SearchSheetView: View {
     @State private var errorMessage: String? = nil
     @State private var resolvingTrackId: String? = nil
     @State private var showFlipErrorAlert: Bool = false
+    @State private var clipboardMusicUrl: String? = nil
 
     // Sheets
     @State private var showingPaywallSheet: Bool = false
@@ -70,7 +72,7 @@ struct SearchSheetView: View {
                             .foregroundColor(.secondary)
 
                         TextField(
-                            LocalizationManager.string(for: "search_hint", lang: lang),
+                            LocalizationManager.string(for: "search_hint_unified", lang: lang),
                             text: $searchQuery
                         )
                         .autocorrectionDisabled(true)
@@ -85,6 +87,14 @@ struct SearchSheetView: View {
                                 Image(systemName: "xmark.circle.fill")
                                     .foregroundColor(.secondary)
                             }
+                        } else if let clip = clipboardMusicUrl {
+                            Button(action: {
+                                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                searchQuery = clip
+                            }) {
+                                Image(systemName: "doc.on.clipboard")
+                                    .foregroundColor(Color("AccentColor"))
+                            }
                         }
                     }
                     .padding(.horizontal, 14)
@@ -94,24 +104,104 @@ struct SearchSheetView: View {
                     .padding(.horizontal, 16)
                     .padding(.top, 12)
 
-                    // Target Service Indicator Chip
-                    HStack(spacing: 6) {
-                        Text(LocalizationManager.string(for: "target_service_label", lang: lang))
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
+                    // Target Service Indicator Chip & Paste Chip
+                    HStack(spacing: 8) {
+                        HStack(spacing: 6) {
+                            Text(LocalizationManager.string(for: "target_service_label", lang: lang))
+                                .font(.caption2)
+                                .foregroundColor(.secondary)
 
-                        Text(targetPlatformName)
-                            .font(.caption2)
-                            .fontWeight(.bold)
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 3)
-                            .background(Color.green.opacity(0.18))
-                            .foregroundColor(.green)
-                            .cornerRadius(6)
+                            Text(targetPlatformName)
+                                .font(.caption2)
+                                .fontWeight(.bold)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 3)
+                                .background(Color.green.opacity(0.18))
+                                .foregroundColor(.green)
+                                .cornerRadius(6)
+                        }
+
+                        if searchQuery.isEmpty, let clip = clipboardMusicUrl {
+                            Button(action: {
+                                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                searchQuery = clip
+                            }) {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "doc.on.clipboard")
+                                        .font(.system(size: 10))
+                                    Text(LocalizationManager.string(for: "search_paste_clipboard_action", lang: lang))
+                                        .font(.system(size: 11, weight: .medium))
+                                }
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 3)
+                                .background(Color.blue.opacity(0.12))
+                                .foregroundColor(.blue)
+                                .cornerRadius(6)
+                            }
+                        }
 
                         Spacer()
                     }
                     .padding(.horizontal, 16)
+
+                    let trimmedQuery = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
+                    let isDirectMusicUrl = !trimmedQuery.isEmpty && UrlUtils.shared.isSupportedMusicOrAggregatorUrl(url: trimmedQuery)
+
+                    if isDirectMusicUrl {
+                        let isPlaylist = UrlUtils.shared.isPlaylistUrl(url: trimmedQuery)
+                        let platformName = detectSourcePlatformName(url: trimmedQuery)
+
+                        VStack(alignment: .leading, spacing: 10) {
+                            HStack {
+                                Image(systemName: "link")
+                                    .foregroundColor(Color("AccentColor"))
+                                Text(LocalizationManager.string(for: "search_link_detected_title", lang: lang))
+                                    .font(.subheadline)
+                                    .fontWeight(.bold)
+                                Spacer()
+                                Text(platformName)
+                                    .font(.caption2)
+                                    .fontWeight(.bold)
+                                    .padding(.horizontal, 6)
+                                    .padding(.vertical, 2)
+                                    .background(Color("AccentColor").opacity(0.15))
+                                    .foregroundColor(Color("AccentColor"))
+                                    .cornerRadius(6)
+                            }
+
+                            Text(trimmedQuery)
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                                .lineLimit(2)
+
+                            Button(action: {
+                                flipDirectUrl(trimmedQuery)
+                            }) {
+                                HStack(spacing: 6) {
+                                    if resolvingTrackId == "direct_url" {
+                                        ProgressView()
+                                            .tint(.white)
+                                    } else {
+                                        Image(systemName: isPlaylist ? "music.note.list" : "play.fill")
+                                        Text(isPlaylist
+                                             ? LocalizationManager.string(for: "search_flip_playlist_action", lang: lang)
+                                             : String(format: LocalizationManager.string(for: "search_flip_track_action", lang: lang), targetPlatformName))
+                                            .fontWeight(.bold)
+                                    }
+                                }
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 12)
+                                .background(isPlaylist ? Color.orange : Color.green)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                            }
+                            .disabled(resolvingTrackId == "direct_url")
+                        }
+                        .padding(14)
+                        .background(Color("CardBackgroundColor"))
+                        .cornerRadius(14)
+                        .padding(.horizontal, 16)
+                    }
 
                     // Results content
                     if isLoading {
@@ -193,6 +283,9 @@ struct SearchSheetView: View {
             }
             .onChange(of: searchQuery) { query in
                 performSearch(query: query)
+            }
+            .onAppear {
+                checkClipboard()
             }
             .alert(
                 LocalizationManager.string(for: "redirect_error_toast", lang: lang),
@@ -367,9 +460,23 @@ struct SearchSheetView: View {
     // MARK: - Search Execution
     @State private var searchTask: Task<Void, Never>? = nil
 
+    private func checkClipboard() {
+        if UIPasteboard.general.hasStrings,
+           let clipString = UIPasteboard.general.string?.trimmingCharacters(in: .whitespacesAndNewlines) {
+            if UrlUtils.shared.isSupportedMusicOrAggregatorUrl(url: clipString) {
+                clipboardMusicUrl = clipString
+            }
+        }
+    }
+
     private func performSearch(query: String) {
         searchTask?.cancel()
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        if UrlUtils.shared.isSupportedMusicOrAggregatorUrl(url: trimmed) {
+            searchResults = []
+            isLoading = false
+            return
+        }
         if trimmed.count < 2 {
             searchResults = []
             isLoading = false
@@ -475,6 +582,73 @@ struct SearchSheetView: View {
                             platformKey: targetKey,
                             title: success.title ?? track.title,
                             artist: success.artist ?? track.artist
+                        )
+                        dismiss()
+                    } else {
+                        showFlipErrorAlert = true
+                    }
+                }
+            } catch {
+                await MainActor.run {
+                    resolvingTrackId = nil
+                    showFlipErrorAlert = true
+                }
+            }
+        }
+    }
+
+    private func flipDirectUrl(_ url: String) {
+        let trimmed = url.trimmingCharacters(in: .whitespacesAndNewlines)
+        if UrlUtils.shared.isPlaylistUrl(url: trimmed) {
+            dismiss()
+            onOpenPlaylistConversion?(trimmed)
+            return
+        }
+
+        let targetKey = settings.targetPlatform
+        resolvingTrackId = "direct_url"
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
+        Task {
+            do {
+                let res = try await SongLinkEngine.shared.resolveTargetUrl(
+                    inputUrl: trimmed,
+                    targetPlatformKey: targetKey,
+                    customApiUrl: settings.customApiUrl,
+                    customApiToken: settings.customApiToken,
+                    isPro: proManager.isPro,
+                    authToken: proManager.authToken,
+                    isPrefetch: false,
+                    forceRefresh: false,
+                    audiophileMode: proManager.isPro && settings.audiophileMode
+                )
+
+                await MainActor.run {
+                    resolvingTrackId = nil
+                    if let success = res as? ResolutionResult.Success,
+                       !success.targetUrl.isEmpty {
+                        AptabaseClient.shared.trackLinkFlipped(
+                            target: targetKey,
+                            isAlbum: success.isAlbum,
+                            isSearch: success.isSearchFallback,
+                            source: "in_app_search_url"
+                        )
+                        settings.incrementSuccessfulFlipCount()
+                        HistoryModel.shared.add(
+                            title: success.title ?? "SongFlip Track",
+                            artist: success.artist ?? "",
+                            sourceUrl: trimmed,
+                            targetUrl: success.targetUrl,
+                            targetPlatform: targetKey,
+                            isAlbum: success.isAlbum,
+                            thumbnailUrl: success.thumbnailUrl
+                        )
+                        settings.openResolvedTarget(
+                            targetUrl: success.targetUrl,
+                            nativeAppUri: success.nativeAppUri,
+                            platformKey: targetKey,
+                            title: success.title,
+                            artist: success.artist
                         )
                         dismiss()
                     } else {

@@ -14,6 +14,17 @@ object PlaylistExporter {
     const val DEFAULT_CHUNK_SIZE = 50
 
     /**
+     * Checks whether the target platform supports Zero-OAuth batch queuing via deeplink.
+     * Currently Spotify (trackset URI) and YouTube/YouTube Music (watch_videos) support this.
+     * Other platforms (Apple Music, Qobuz, Tidal, Deezer, etc.) only support single track playback
+     * without authenticated account connection.
+     */
+    fun supportsBatchQueue(targetPlatform: String): Boolean {
+        val platform = targetPlatform.lowercase().trim()
+        return platform == "spotify" || platform == "youtubemusic" || platform == "youtube"
+    }
+
+    /**
      * Generates an Extended M3U8 playlist string encoded in UTF-8.
      * Compatible with VLC, Apple Music Desktop, Navidrome, Foobar, and community players.
      */

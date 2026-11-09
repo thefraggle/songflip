@@ -437,4 +437,21 @@
     <string name="playlist_import_file_desc">Importez des fichiers locaux .m3u8, .csv ou texte pour les convertir et les écouter directement.</string>
     <string name="playlist_import_empty_error">Aucun morceau lisible trouvé dans le fichier sélectionné.</string>
     <string name="playlist_import_source_chip">Fichier</string>
+    <string name="playlist_open_first_track">Lire le premier morceau dans %1$s</string>
+    <string name="playlist_no_batch_queue_desc">%1$s ne prend pas en charge les liens de playlists externes. Écoutez les morceaux individuellement ci-dessous ou exportez la playlist au format M3U8/CSV.</string>
+    <string name="search_hint_unified">Rechercher un morceau ou coller un lien musical…</string>
+    <string name="search_link_detected_title">Lien musical détecté</string>
+    <string name="search_flip_track_action">Écouter dans %1$s</string>
+    <string name="search_flip_playlist_action">Convertir la playlist</string>
+    <string name="search_paste_clipboard_action">Coller le lien depuis le presse-papiers</string>
+    <string name="first_launch_guide_title">Comment fonctionne SongFlip</string>
+    <string name="first_launch_guide_subtitle">Ouvrez les liens musicaux dans votre lecteur préféré – 100%% privé, sans compte.</string>
+    <string name="first_launch_step1_title">1. Partager depuis n\'importe quelle application</string>
+    <string name="first_launch_step1_desc">Appuyez sur « Partager » dans Spotify, Apple Music, etc. et choisissez SongFlip.</string>
+    <string name="first_launch_step2_title">2. Copier et rechercher</string>
+    <string name="first_launch_step2_desc">Les liens musicaux copiés sont reconnus automatiquement, ou collez-les directement dans la recherche.</string>
+    <string name="first_launch_step3_title">3. Redirection en 0 clic</string>
+    <string name="first_launch_step3_desc">Activez les liens d\'application dans les paramètres système pour ouvrir directement vos liens musicaux.</string>
+    <string name="first_launch_btn_done">C\'est parti</string>
+    <string name="settings_how_it_works">Guide rapide / Comment ça marche</string>
 </resources>

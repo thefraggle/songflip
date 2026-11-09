@@ -423,4 +423,21 @@
     <string name="playlist_import_file_desc">Tuo paikallisia .m3u8-, .csv- tai tekstitiedostoja muunnettavaksi ja toistettavaksi suoraan.</string>
     <string name="playlist_import_empty_error">Valitusta tiedostosta ei löytynyt toistettavia kappaleita.</string>
     <string name="playlist_import_source_chip">Tiedosto</string>
+    <string name="playlist_open_first_track">Toista ensimmäinen kappale kohteessa %1$s</string>
+    <string name="playlist_no_batch_queue_desc">%1$s ei tue ulkoisia soittolinkkejä. Toista kappaleita erikseen alta tai vie soittolista M3U8/CSV-muodossa.</string>
+    <string name="search_hint_unified">Hae kappaletta tai liitä musiikkilinkki…</string>
+    <string name="search_link_detected_title">Musiikkilinkki havaittu</string>
+    <string name="search_flip_track_action">Toista kohteessa %1$s</string>
+    <string name="search_flip_playlist_action">Muunna soittolista</string>
+    <string name="search_paste_clipboard_action">Liitä linkki leikepöydältä</string>
+    <string name="first_launch_guide_title">Miten SongFlip toimii</string>
+    <string name="first_launch_guide_subtitle">Avaa musiikkilinkit suosikkisovelluksessasi – 100%% yksityinen, ei tilejä.</string>
+    <string name="first_launch_step1_title">1. Jaa mistä tahansa musiikkisovelluksesta</string>
+    <string name="first_launch_step1_desc">Napauta \"Jaa\" Spotifyssa, Apple Musicissa jne. ja valitse SongFlip.</string>
+    <string name="first_launch_step2_title">2. Kopioi ja hae</string>
+    <string name="first_launch_step2_desc">Kopioidut musiikkilinkit tunnistetaan automaattisesti, tai liitä ne suoraan hakuun.</string>
+    <string name="first_launch_step3_title">3. 0-klikkauksen uudelleenohjaus</string>
+    <string name="first_launch_step3_desc">Ota sovelluslinkit käyttöön järjestelmäasetuksissa, jotta musiikkilinkit avautuvat suoraan kohdesoittimessa.</string>
+    <string name="first_launch_btn_done">Aloita</string>
+    <string name="settings_how_it_works">Pikaopas / Miten se toimii</string>
 </resources>

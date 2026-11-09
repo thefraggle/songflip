@@ -423,4 +423,21 @@
     <string name="playlist_import_file_desc">Helyi .m3u8, .csv vagy szöveges listák importálása közvetlen átalakításhoz és lejátszáshoz.</string>
     <string name="playlist_import_empty_error">A kiválasztott fájlban nem találhatók lejátszható dalok.</string>
     <string name="playlist_import_source_chip">Fájl</string>
+    <string name="playlist_open_first_track">Első dal lejátszása itt: %1$s</string>
+    <string name="playlist_no_batch_queue_desc">A(z) %1$s nem támogatja a külső lejátszási lista linkeket. Játssza le a dalokat egyenként lent, vagy exportálja a lejátszási listát M3U8/CSV formátumban.</string>
+    <string name="search_hint_unified">Dal keresése vagy zenei link beillesztése…</string>
+    <string name="search_link_detected_title">Zenei link észlelve</string>
+    <string name="search_flip_track_action">Lejátszás itt: %1$s</string>
+    <string name="search_flip_playlist_action">Lejátszási lista konvertálása</string>
+    <string name="search_paste_clipboard_action">Link beillesztése a vágólapról</string>
+    <string name="first_launch_guide_title">Hogyan működik a SongFlip</string>
+    <string name="first_launch_guide_subtitle">Nyissa meg a zenei linkeket kedvenc alkalmazásában – 100%%-ban privát, fiók nélkül.</string>
+    <string name="first_launch_step1_title">1. Megosztás bármely zenei alkalmazásból</string>
+    <string name="first_launch_step1_desc">Koppintson a „Megosztás” gombra a Spotify, Apple Music stb. alkalmazásban, és válassza a SongFlip lehetőséget.</string>
+    <string name="first_launch_step2_title">2. Másolás és keresés</string>
+    <string name="first_launch_step2_desc">A másolt zenei linkek automatikusan felismerésre kerülnek, vagy beillesztheti őket a keresőbe.</string>
+    <string name="first_launch_step3_title">3. 0 kattintásos átirányítás</string>
+    <string name="first_launch_step3_desc">Engedélyezze az alkalmazáshivatkozásokat a rendszerbeállításokban, hogy a zenei linkek közvetlenül a céllejátszóban nyíljanak meg.</string>
+    <string name="first_launch_btn_done">Kezdés</string>
+    <string name="settings_how_it_works">Gyors útmutató / Hogyan működik</string>
 </resources>
