@@ -2,6 +2,7 @@ package de.goork.songflip.core.util
 
 import de.goork.songflip.core.model.MusicEntityType
 import de.goork.songflip.core.model.MusicPlatform
+import io.ktor.http.Url
 import io.ktor.http.encodeURLParameter
 
 object UrlUtils {
@@ -407,13 +408,34 @@ object UrlUtils {
 
     fun extractDomain(url: String): String {
         val clean = url.trim()
-        val afterScheme = when {
-            clean.startsWith("https://", ignoreCase = true) -> clean.substring(8)
-            clean.startsWith("http://", ignoreCase = true) -> clean.substring(7)
-            else -> clean
+        if (clean.isBlank()) return "unknown"
+        return try {
+            val normalizedUrl = if (!clean.startsWith("http://", ignoreCase = true) && !clean.startsWith("https://", ignoreCase = true)) {
+                "https://$clean"
+            } else {
+                clean
+            }
+            val parsed = Url(normalizedUrl)
+            // Reject URLs containing userinfo (@) to prevent host-spoofing / open-redirect attacks (#213)
+            if (parsed.user != null || parsed.password != null) {
+                return "unknown"
+            }
+            val host = parsed.host.trim().lowercase()
+            host.ifBlank { "unknown" }
+        } catch (_: Throwable) {
+            "unknown"
         }
-        val host = afterScheme.substringBefore("/").substringBefore("?").substringBefore("#").substringBefore(":").trim().lowercase()
-        return host.ifBlank { "unknown" }
+    }
+
+    private val AMAZON_TLDS = setOf(
+        "com", "de", "co.uk", "fr", "it", "es", "ca", "co.jp", "in", "com.au", "com.br", "com.mx", "nl", "se", "pl"
+    )
+
+    private fun isAmazonHost(host: String): Boolean {
+        if (!host.contains("amazon.")) return false
+        return AMAZON_TLDS.any { tld ->
+            host == "amazon.$tld" || host.endsWith(".amazon.$tld")
+        }
     }
 
     private fun isHostOrSubdomain(host: String, vararg domains: String): Boolean {
@@ -432,7 +454,7 @@ object UrlUtils {
             isHostOrSubdomain(host, "youtube.com", "youtu.be") -> MusicPlatform.YOUTUBE_MUSIC
             isHostOrSubdomain(host, "deezer.com", "deezer.page.link") -> MusicPlatform.DEEZER
             isHostOrSubdomain(host, "tidal.com", "tidal.link") -> MusicPlatform.TIDAL
-            isHostOrSubdomain(host, "amzn.to", "amzn.eu", "amzn.asia", "a.co") || host.startsWith("music.amazon.") || host.startsWith("amazon.") || host.contains(".amazon.") -> MusicPlatform.AMAZON_MUSIC
+            isHostOrSubdomain(host, "amzn.to", "amzn.eu", "amzn.asia", "a.co") || isAmazonHost(host) -> MusicPlatform.AMAZON_MUSIC
             isHostOrSubdomain(host, "soundcloud.com") -> MusicPlatform.SOUNDCLOUD
             isHostOrSubdomain(host, "bandcamp.com") -> MusicPlatform.BANDCAMP
             isHostOrSubdomain(host, "qobuz.com") -> MusicPlatform.QOBUZ
@@ -463,9 +485,7 @@ object UrlUtils {
             "pods.link",
             "artist.link",
             "odesli.co",
-            "mylink.page",
-            "shazam.com",
-            "page.link"
+            "shazam.com"
         )
     }
 
@@ -496,7 +516,8 @@ object UrlUtils {
     fun isSafeTargetUrl(url: String): Boolean {
         val trimmed = url.trim()
         val lower = trimmed.lowercase()
-        if (!lower.startsWith("https://") && !lower.startsWith("http://")) return false
+        // Reject non-HTTPS protocols for safe target URLs (#169, #213)
+        if (!lower.startsWith("https://")) return false
         val host = extractDomain(lower)
         if (host == "unknown" || host.isBlank()) return false
         return isSupportedMusicOrAggregatorUrl(trimmed)

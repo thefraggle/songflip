@@ -176,7 +176,7 @@ The codebase separates platform-specific UI from deterministic platform-agnostic
 │   ├── commonMain/       # Shared URL sanitizers, SQLDelight cache manager, HTTP engine (Ktor), models
 │   ├── androidMain/      # Android SQLDelight driver, Keystore coupon storage & PackageUtils
 │   └── iosMain/          # iOS NativeSqliteDriver, Keychain coupon storage & XCFramework export
-└── functions/            # Firebase Cloud Functions (TypeScript edge proxy, SSR landing pages, Ed25519 vouchers)
+└── (cloud backend)      # Firebase Cloud Functions (Private service: TypeScript edge proxy, SSR landing pages, Ed25519 vouchers)
 ```
 
 ### Shared Logic Benefits:

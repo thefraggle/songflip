@@ -672,3 +672,19 @@ may consider it more useful to permit linking proprietary applications with
 the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 <https://www.gnu.org/licenses/why-not-lgpl.html>.
+
+----------------------------------------------------------------------
+ADDITIONAL PERMISSION UNDER GNU GPL VERSION 3 SECTION 7
+
+In addition to the permissions granted under the GNU General Public License
+version 3, the copyright holders grant permission to link this software
+with the proprietary Apple ShazamKit SDK, Apple ShazamKit Framework,
+and RevenueCat Purchases SDK, and to distribute the resulting executables
+through digital distribution platforms (including the Google Play Store,
+Apple App Store, and GitHub Releases).
+
+If you modify this Program, you may extend this exception to your version
+of the Program, but you are not obligated to do so. If you do not wish to
+provide this exception, you may delete this exception statement from your
+version.
+----------------------------------------------------------------------

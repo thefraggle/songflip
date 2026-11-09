@@ -76,7 +76,7 @@ SongFlip is built as a modern **Kotlin Multiplatform (KMP)** project with a modu
 - **`app/`**: Native Android app (Jetpack Compose, MVVM architecture with ViewModels & StateFlow, Material 3, Quick Settings Tile, Overlay & Notification handling).
 - **`iosApp/`**: Native iOS app (SwiftUI, Share Extension, App Intents for 0-click Siri Shortcuts & Action Button).
 - **`shared/`**: Shared KMP core engine (platform parsing, universal URL sanitizing, multi-tier on-device resolution logic, SQLDelight transactional SQLite cache, playlist conversion client, Ktor HTTP client, strict Structured Concurrency).
-- **`functions/`** *(Private / Closed Source)*: Proprietary hosted cloud backend (Firebase Cloud Functions by Daniel Notthoff) powering token verification, SSR web-share landing pages, playlist batch scrapers, and global L2 link caching. The client applications (Android, iOS & shared KMP core) are 100% autonomous and compile/run completely without this backend submodule.
+- **Cloud Backend** *(Private / Closed Source)*: Proprietary hosted cloud service (Firebase Cloud Functions by Daniel Notthoff) powering token verification, SSR web-share landing pages, playlist batch scrapers, and global L2 link caching. The client applications (Android, iOS & shared KMP core) are 100% autonomous and compile/run completely standalone.
 
 ### Resolution Pipeline
 1. **Tier 1 (Local Device Memory & SQLDelight SQLite Cache)**: Instant sub-5ms lookup on device for previously converted songs.
@@ -118,7 +118,7 @@ Purchases are powered by **RevenueCat** with native store backends:
 - **Android Development**: Android Studio Ladybug / Meerkat with Android SDK (API Level 26–36) and Command-line Tools.
 - **iOS Development (macOS only)**: Xcode 16+ with Command Line Tools and iOS 17+ Simulator / Device SDKs.
 
-> 💡 **Submodule Notice**: The `functions/` folder points to a private, closed-source backend submodule. You do **not** need this submodule to build, test, or contribute to SongFlip. A standard clone (`git clone https://github.com/thefraggle/songflip.git` without `--recursive`) builds both Android and iOS targets out of the box.
+> 💡 **Backend Notice**: The backend (Firebase Cloud Functions) is an optional, closed-source service hosted by Daniel Notthoff. You do **not** need the backend code to build, test, or contribute to SongFlip. The client applications are 100% autonomous and a standard clone builds both Android and iOS targets out of the box.
 
 ### 2. Apple ShazamKit SDK for Android (Optional / Dual-Mode)
 - **iOS**: Uses Apple's native system framework (`import ShazamKit`). No external binaries or credentials required.

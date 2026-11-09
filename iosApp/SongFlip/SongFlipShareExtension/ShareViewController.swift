@@ -359,12 +359,12 @@ class ShareViewController: UIViewController {
             return false
             #endif
         }()
-        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.9.0"
-        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "79"
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "unknown"
+        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
         let osVersion = UIDevice.current.systemVersion
         let locale = Locale.current.identifier
 
-        let aptabaseKey = Bundle.main.infoDictionary?["APTABASE_APP_KEY"] as? String ?? "REPLACED_SECRET"
+        let aptabaseKey = Bundle.main.infoDictionary?["APTABASE_APP_KEY"] as? String ?? ""
         let aptabaseHost = Bundle.main.infoDictionary?["APTABASE_HOST"] as? String ?? "https://api.aptabase.com"
 
         #if DEBUG

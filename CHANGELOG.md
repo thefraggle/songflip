@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.14.0] - 2026-11-09
+- **Security & Open-Redirect Hardening**: Standardized URL parsing via Ktor URL engine with strict rejection of userinfo (`@`) to prevent host-spoofing and phishing redirects. Subdomain matching hardened with strict TLD validation.
+- **Repository Architecture & Closed-Source Decoupling**: Completely decoupled proprietary backend cloud functions from public repository submodule structure for standalone open-source cloning and building.
+- **Licensing Clarity (GPLv3 §7)**: Formalized Section 7 additional permission for linking proprietary runtime libraries (ShazamKit, RevenueCat) and official digital distribution channels.
+- **CI & Secrets Hygiene**: Scoped App Store Connect API credentials strictly to upload steps and cleared public defaults in tracked build configuration files.
+
 ## [1.13.7] - 2026-11-09
 - **Differentiated Playlist CTA & Export Guidance**: Clear playback and M3U8/CSV export guidance for streaming platforms without external queue deeplinks (Qobuz, Tidal, Apple Music, Deezer).
 - **Unified Search & Music Link Input**: Direct music URL detection with 1-tap playback and paste action directly from the search bar.

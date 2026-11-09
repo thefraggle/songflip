@@ -9,15 +9,11 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build-ios:
     runs-on: macos-15
-    env:
-      ASC_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
-      ASC_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
-      ASC_API_KEY_P8: ${{ secrets.APP_STORE_CONNECT_API_KEY_P8 }}
 
     steps:
       - name: Checkout Code
@@ -202,7 +198,11 @@ jobs:
           retention-days: 14
 
       - name: Upload to App Store Connect / TestFlight via xcrun altool
-        if: (startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch') && env.ASC_KEY_ID != ''
+        if: (startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch') && secrets.APP_STORE_CONNECT_KEY_ID != ''
+        env:
+          ASC_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          ASC_API_KEY_P8: ${{ secrets.APP_STORE_CONNECT_API_KEY_P8 }}
         run: |
           mkdir -p ~/.appstoreconnect/private_keys
           echo "$ASC_API_KEY_P8" > ~/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8
@@ -227,7 +227,7 @@ jobs:
           fi
 
       - name: Update TestFlight What to Test Notes
-        if: (startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch') && env.ASC_KEY_ID != ''
+        if: (startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch') && secrets.APP_STORE_CONNECT_KEY_ID != ''
         continue-on-error: true
         env:
           ASC_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
@@ -239,7 +239,7 @@ jobs:
       # Best-effort: updates ASC store metadata (release notes, keywords, description, etc.) if an editable version exists
       # Re-run anytime independently via ios-metadata.yml
       - name: Upload Store Metadata to App Store Connect via Fastlane deliver
-        if: (startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch') && env.ASC_KEY_ID != ''
+        if: (startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch') && secrets.APP_STORE_CONNECT_KEY_ID != ''
         continue-on-error: true
         env:
           ASC_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
