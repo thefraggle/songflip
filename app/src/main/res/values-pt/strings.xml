@@ -437,4 +437,21 @@
     <string name="playlist_import_file_desc">Importe listas locais .m3u8, .csv ou texto para converter e reproduzir diretamente.</string>
     <string name="playlist_import_empty_error">Nenhuma música reproduzível encontrada no arquivo selecionado.</string>
     <string name="playlist_import_source_chip">Arquivo</string>
+    <string name="playlist_open_first_track">Tocar primeira faixa no %1$s</string>
+    <string name="playlist_no_batch_queue_desc">%1$s não oferece suporte a links de playlists externas. Reproduza faixas individualmente abaixo ou exporte a playlist como M3U8/CSV.</string>
+    <string name="search_hint_unified">Buscar música ou colar link de música…</string>
+    <string name="search_link_detected_title">Link de música detectado</string>
+    <string name="search_flip_track_action">Tocar no %1$s</string>
+    <string name="search_flip_playlist_action">Converter playlist</string>
+    <string name="search_paste_clipboard_action">Colar link da área de transferência</string>
+    <string name="first_launch_guide_title">Como funciona o SongFlip</string>
+    <string name="first_launch_guide_subtitle">Abra links de música no seu app favorito – 100%% privado, sem contas.</string>
+    <string name="first_launch_step1_title">1. Compartilhar de qualquer app de música</string>
+    <string name="first_launch_step1_desc">Toque em \"Compartilhar\" no Spotify, Apple Music, etc. e selecione o SongFlip.</string>
+    <string name="first_launch_step2_title">2. Copiar e pesquisar</string>
+    <string name="first_launch_step2_desc">Links de música copiados são reconhecidos automaticamente, ou cole-os diretamente na busca.</string>
+    <string name="first_launch_step3_title">3. Redirecionamento em 0 cliques</string>
+    <string name="first_launch_step3_desc">Ative os links de apps nas configurações do sistema para abrir a música diretamente no player de destino.</string>
+    <string name="first_launch_btn_done">Começar</string>
+    <string name="settings_how_it_works">Guia rápido / Como funciona</string>
 </resources>

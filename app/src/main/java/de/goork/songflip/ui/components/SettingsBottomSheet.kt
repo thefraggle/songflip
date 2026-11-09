@@ -80,7 +80,8 @@ fun SettingsBottomSheet(
     onOpenProPaywall: (String) -> Unit = {},
     onOpenSetupGuide: () -> Unit = {},
     onOpenPlaylist: ((String, String) -> Unit)? = null,
-    onImportPlaylistFile: (() -> Unit)? = null
+    onImportPlaylistFile: (() -> Unit)? = null,
+    onOpenFirstLaunchGuide: (() -> Unit)? = null
 ) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
@@ -1050,7 +1051,60 @@ fun SettingsBottomSheet(
                 }
             }
 
-            // 7. Feedback & Support Card
+            // 7. How it Works / Quick Guide Card
+            if (onOpenFirstLaunchGuide != null) {
+                Card(
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                            onOpenFirstLaunchGuide()
+                        }
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 14.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Info,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(22.dp)
+                            )
+                            Column {
+                                Text(
+                                    text = stringResource(R.string.settings_how_it_works),
+                                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                                Text(
+                                    text = stringResource(R.string.first_launch_guide_subtitle),
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
+                        Icon(
+                            imageVector = Icons.Outlined.ChevronRight,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+                }
+            }
+
+            // 8. Feedback & Support Card
             Card(
                 shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),

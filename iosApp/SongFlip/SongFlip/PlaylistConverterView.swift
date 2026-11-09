@@ -596,7 +596,12 @@ struct PlaylistConverterView: View {
 
             // Action Buttons
             VStack(spacing: 10) {
+                let supportsBatchQueue = PlaylistExporter.shared.supportsBatchQueue(targetPlatform: targetPlatformKey)
                 let ctaText: String = {
+                    if !supportsBatchQueue {
+                        let fmt = LocalizationManager.string(for: "playlist_open_first_track", lang: lang)
+                        return String(format: fmt, targetPlatformName)
+                    }
                     if chunks.count > 1, let c = currentChunk {
                         let partFmt = LocalizationManager.string(for: "playlist_open_import_part", lang: lang)
                         return String(format: partFmt, c.partIndex, targetPlatformName)
@@ -605,8 +610,25 @@ struct PlaylistConverterView: View {
                 }()
                 let activeZeroUrl = (chunks.count > 1 && currentChunk?.zeroOAuthUrl != nil) ? currentChunk?.zeroOAuthUrl : result.zeroOAuthUrl
 
+                if !supportsBatchQueue {
+                    // Info notice for platforms that don't support direct batch playlist creation via URL
+                    HStack(spacing: 12) {
+                        Image(systemName: "info.circle.fill")
+                            .foregroundColor(.blue)
+                            .font(.title3)
+                        Text(String(format: LocalizationManager.string(for: "playlist_no_batch_queue_desc", lang: lang), targetPlatformName))
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.leading)
+                    }
+                    .padding(12)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color.blue.opacity(0.1))
+                    .cornerRadius(12)
+                }
+
                 if let zeroUrl = activeZeroUrl, !zeroUrl.isEmpty {
-                    // Primary: Open in Target Player
+                    // Primary: Open in Target Player (Queue or First Track)
                     Button(action: {
                         openInTargetPlayer(result: result, customZeroUrl: zeroUrl)
                     }) {
@@ -619,27 +641,12 @@ struct PlaylistConverterView: View {
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 14)
-                        .background(Color.green)
+                        .background(supportsBatchQueue ? Color.green : Color.blue)
                         .cornerRadius(14)
                     }
-                } else {
-                    // Info notice for platforms like Apple Music that don't support direct playlist creation via URL
-                    HStack(spacing: 12) {
-                        Image(systemName: "info.circle.fill")
-                            .foregroundColor(.blue)
-                            .font(.title3)
-                        Text(String(format: LocalizationManager.string(for: "playlist_apple_music_no_import_desc", lang: lang), targetPlatformName))
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.leading)
-                    }
-                    .padding(12)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color.blue.opacity(0.1))
-                    .cornerRadius(12)
                 }
 
-                // File Export Row (M3U8 & CSV)
+                // File Export Row (M3U8 & CSV) - Highlighted when batch queue is not supported
                 HStack(spacing: 10) {
                     Button(action: {
                         if let url = exportM3U8(title: result.title ?? "Playlist", tracks: result.tracks) {
@@ -653,10 +660,10 @@ struct PlaylistConverterView: View {
                                 .font(.system(size: 13, weight: .semibold))
                                 .lineLimit(1)
                         }
-                        .foregroundColor(.primary)
+                        .foregroundColor(!supportsBatchQueue ? .blue : .primary)
                         .frame(maxWidth: .infinity)
                         .frame(height: 44)
-                        .background(Color(uiColor: .secondarySystemBackground))
+                        .background(!supportsBatchQueue ? Color.blue.opacity(0.12) : Color(uiColor: .secondarySystemBackground))
                         .cornerRadius(12)
                     }
 
@@ -672,10 +679,10 @@ struct PlaylistConverterView: View {
                                 .font(.system(size: 13, weight: .semibold))
                                 .lineLimit(1)
                         }
-                        .foregroundColor(.primary)
+                        .foregroundColor(!supportsBatchQueue ? .blue : .primary)
                         .frame(maxWidth: .infinity)
                         .frame(height: 44)
-                        .background(Color(uiColor: .secondarySystemBackground))
+                        .background(!supportsBatchQueue ? Color.blue.opacity(0.12) : Color(uiColor: .secondarySystemBackground))
                         .cornerRadius(12)
                     }
                 }

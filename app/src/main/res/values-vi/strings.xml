@@ -433,4 +433,21 @@
     <string name="playlist_import_file_desc">Nhập danh sách bài hát .m3u8, .csv hoặc văn bản để chuyển đổi và phát trực tiếp.</string>
     <string name="playlist_import_empty_error">Không tìm thấy bài hát có thể phát trong tệp đã chọn.</string>
     <string name="playlist_import_source_chip">Tệp</string>
+    <string name="playlist_open_first_track">Phát bài hát đầu tiên trong %1$s</string>
+    <string name="playlist_no_batch_queue_desc">%1$s không hỗ trợ liên kết danh sách phát bên ngoài. Phát riêng lẻ từng bài hát bên dưới hoặc xuất danh sách phát dưới dạng M3U8/CSV.</string>
+    <string name="search_hint_unified">Tìm bài hát hoặc dán liên kết nhạc…</string>
+    <string name="search_link_detected_title">Đã phát hiện liên kết nhạc</string>
+    <string name="search_flip_track_action">Phát trong %1$s</string>
+    <string name="search_flip_playlist_action">Chuyển đổi danh sách phát</string>
+    <string name="search_paste_clipboard_action">Dán liên kết từ khay nhớ tạm</string>
+    <string name="first_launch_guide_title">Cách SongFlip hoạt động</string>
+    <string name="first_launch_guide_subtitle">Mở liên kết nhạc trong ứng dụng ưa thích – riêng tư 100%%, không cần tài khoản.</string>
+    <string name="first_launch_step1_title">1. Chia sẻ từ bất kỳ ứng dụng nhạc nào</string>
+    <string name="first_launch_step1_desc">Nhấn \"Chia sẻ\" trong Spotify, Apple Music, v.v. và chọn SongFlip.</string>
+    <string name="first_launch_step2_title">2. Sao chép và tìm kiếm</string>
+    <string name="first_launch_step2_desc">Liên kết nhạc đã sao chép được nhận diện tự động, hoặc dán trực tiếp vào ô tìm kiếm.</string>
+    <string name="first_launch_step3_title">3. Chuyển hướng 0 lần nhấp</string>
+    <string name="first_launch_step3_desc">Bật Liên kết ứng dụng trong cài đặt hệ thống để liên kết nhạc mở trực tiếp trong trình phát mục tiêu.</string>
+    <string name="first_launch_btn_done">Bắt đầu</string>
+    <string name="settings_how_it_works">Hướng dẫn nhanh / Cách thức hoạt động</string>
 </resources>

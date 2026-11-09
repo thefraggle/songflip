@@ -857,6 +857,43 @@ fun PlaylistConvertBottomSheet(
 
                     Spacer(modifier = Modifier.height(20.dp))
 
+                    val isBatchQueueSupported = remember(targetPlatform.key) {
+                        de.goork.songflip.core.engine.PlaylistExporter.supportsBatchQueue(targetPlatform.key)
+                    }
+
+                    if (!isBatchQueueSupported) {
+                        Card(
+                            shape = RoundedCornerShape(14.dp),
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.55f)
+                            ),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 12.dp)
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(14.dp),
+                                verticalAlignment = Alignment.Top,
+                                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Info,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier
+                                        .size(20.dp)
+                                        .padding(top = 1.dp)
+                                )
+                                Text(
+                                    text = stringResource(R.string.playlist_no_batch_queue_desc, targetPlatform.displayName),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    lineHeight = MaterialTheme.typography.bodySmall.lineHeight * 1.15f
+                                )
+                            }
+                        }
+                    }
+
                     // Primary CTA: Open & Save in Target Player or Web Share Link
                     val zeroOAuthUrl = if (chunks.size > 1 && currentChunk?.zeroOAuthUrl != null) currentChunk.zeroOAuthUrl else res.zeroOAuthUrl
                     val webShareUrl = run {
@@ -867,14 +904,16 @@ fun PlaylistConvertBottomSheet(
                             base
                         }
                     }
-                    val ctaText = if (chunks.size > 1 && currentChunk != null) {
+                    val ctaText = if (!isBatchQueueSupported) {
+                        stringResource(R.string.playlist_open_first_track, targetPlatform.displayName)
+                    } else if (chunks.size > 1 && currentChunk != null) {
                         stringResource(R.string.playlist_open_import_part, currentChunk.partIndex, targetPlatform.displayName)
                     } else {
                         stringResource(R.string.playlist_open_import, targetPlatform.displayName)
                     }
 
                     if (!zeroOAuthUrl.isNullOrBlank()) {
-                        // YouTube Music & Spotify: Primary Queue Launch
+                        // Queue Launch or First Track Playback
                         Button(
                             onClick = {
                                 val targetPkg = PackageUtils.getInstalledPackage(context, targetPlatform.key)
@@ -937,49 +976,91 @@ fun PlaylistConvertBottomSheet(
 
                         Spacer(modifier = Modifier.height(10.dp))
 
-                        // File Export Options (M3U8 & CSV)
+                        // File Export Options (M3U8 & CSV) - Tonal style when batch queue not supported
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
-                            OutlinedButton(
-                                onClick = {
-                                    PlaylistShareHelper.shareM3u8(context, res.title, res.tracks)
-                                },
-                                shape = RoundedCornerShape(12.dp),
-                                modifier = Modifier.weight(1f).height(46.dp)
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Outlined.FileDownload,
-                                    contentDescription = null,
-                                    modifier = Modifier.size(18.dp)
-                                )
-                                Spacer(modifier = Modifier.width(6.dp))
-                                Text(
-                                    text = stringResource(R.string.playlist_export_m3u8),
-                                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
-                                    maxLines = 1
-                                )
-                            }
+                            if (!isBatchQueueSupported) {
+                                FilledTonalButton(
+                                    onClick = {
+                                        PlaylistShareHelper.shareM3u8(context, res.title, res.tracks)
+                                    },
+                                    shape = RoundedCornerShape(12.dp),
+                                    modifier = Modifier.weight(1f).height(46.dp)
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Outlined.FileDownload,
+                                        contentDescription = null,
+                                        modifier = Modifier.size(18.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(6.dp))
+                                    Text(
+                                        text = stringResource(R.string.playlist_export_m3u8),
+                                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
+                                        maxLines = 1
+                                    )
+                                }
 
-                            OutlinedButton(
-                                onClick = {
-                                    PlaylistShareHelper.shareCsv(context, res.title, res.tracks)
-                                },
-                                shape = RoundedCornerShape(12.dp),
-                                modifier = Modifier.weight(1f).height(46.dp)
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Outlined.Share,
-                                    contentDescription = null,
-                                    modifier = Modifier.size(18.dp)
-                                )
-                                Spacer(modifier = Modifier.width(6.dp))
-                                Text(
-                                    text = stringResource(R.string.playlist_export_csv),
-                                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
-                                    maxLines = 1
-                                )
+                                FilledTonalButton(
+                                    onClick = {
+                                        PlaylistShareHelper.shareCsv(context, res.title, res.tracks)
+                                    },
+                                    shape = RoundedCornerShape(12.dp),
+                                    modifier = Modifier.weight(1f).height(46.dp)
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Outlined.Share,
+                                        contentDescription = null,
+                                        modifier = Modifier.size(18.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(6.dp))
+                                    Text(
+                                        text = stringResource(R.string.playlist_export_csv),
+                                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
+                                        maxLines = 1
+                                    )
+                                }
+                            } else {
+                                OutlinedButton(
+                                    onClick = {
+                                        PlaylistShareHelper.shareM3u8(context, res.title, res.tracks)
+                                    },
+                                    shape = RoundedCornerShape(12.dp),
+                                    modifier = Modifier.weight(1f).height(46.dp)
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Outlined.FileDownload,
+                                        contentDescription = null,
+                                        modifier = Modifier.size(18.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(6.dp))
+                                    Text(
+                                        text = stringResource(R.string.playlist_export_m3u8),
+                                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
+                                        maxLines = 1
+                                    )
+                                }
+
+                                OutlinedButton(
+                                    onClick = {
+                                        PlaylistShareHelper.shareCsv(context, res.title, res.tracks)
+                                    },
+                                    shape = RoundedCornerShape(12.dp),
+                                    modifier = Modifier.weight(1f).height(46.dp)
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Outlined.Share,
+                                        contentDescription = null,
+                                        modifier = Modifier.size(18.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(6.dp))
+                                    Text(
+                                        text = stringResource(R.string.playlist_export_csv),
+                                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
+                                        maxLines = 1
+                                    )
+                                }
                             }
                         }
 

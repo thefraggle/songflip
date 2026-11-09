@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.13.7] - 2026-11-09
+- **Differenzierte Playlist-Führung & Export-Hinweise**: Eindeutige Wiedergabe- und M3U8/CSV-Export-Hinweise für Streaming-Dienste ohne externe Queue-Deeplinks (Qobuz, Tidal, Apple Music, Deezer).
+- **Einheitliche Suche & Link-Eingabe**: Automatische Musiklink-Erkennung mit 1-Klick-Wiedergabe und Einfügen-Aktion direkt im Suchfeld.
+- **Kompakter Schnellstart-Leitfaden**: Neuer interaktiver Leitfaden für Teilen, Suchen/Einfügen und 0-Klick-Weiterleitung – jederzeit in den Einstellungen aufrufbar.
+
 ## [1.13.6] - 2026-11-06
 - **App Store Review Richtlinien-Konformität & Resilienz**: Promo-Code-Eingabefeld zur Einhaltung der Apple-Richtlinien vollständig entfernt (Guideline 3.1.1). Initialisierung der StoreKit-Angebote mit automatischem Retry und klaren Statusanzeigen gehärtet (Guideline 2.1(b)).
 

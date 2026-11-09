@@ -433,4 +433,21 @@
     <string name="playlist_import_file_desc">로컬 .m3u8, .csv 또는 텍스트 트랙 목록을 가져와 직접 변환하고 재생합니다.</string>
     <string name="playlist_import_empty_error">선택한 파일에서 재생 가능한 곡을 찾을 수 없습니다.</string>
     <string name="playlist_import_source_chip">파일</string>
+    <string name="playlist_open_first_track">%1$s에서 첫 번째 곡 재생</string>
+    <string name="playlist_no_batch_queue_desc">%1$s은(는) 외부 재생목록 링크를 지원하지 않습니다. 아래에서 트랙을 개별 재생하거나 M3U8/CSV로 내보내세요.</string>
+    <string name="search_hint_unified">곡 검색 또는 음악 링크 붙여넣기…</string>
+    <string name="search_link_detected_title">음악 링크 감지됨</string>
+    <string name="search_flip_track_action">%1$s에서 재생</string>
+    <string name="search_flip_playlist_action">재생목록 변환</string>
+    <string name="search_paste_clipboard_action">클립보드에서 링크 붙여넣기</string>
+    <string name="first_launch_guide_title">SongFlip 작동 방식</string>
+    <string name="first_launch_guide_subtitle">선호하는 앱에서 음악 링크 열기 – 100%% 비공개, 계정 불필요.</string>
+    <string name="first_launch_step1_title">1. 모든 음악 앱에서 공유</string>
+    <string name="first_launch_step1_desc">Spotify, Apple Music 등에서 \'공유\'를 누르고 SongFlip을 선택하세요.</string>
+    <string name="first_launch_step2_title">2. 복사 및 검색</string>
+    <string name="first_launch_step2_desc">복사된 음악 링크는 자동으로 감지되거나 검색창에 바로 붙여넣을 수 있습니다.</string>
+    <string name="first_launch_step3_title">3. 0-클릭 리다이렉트</string>
+    <string name="first_launch_step3_desc">시스템 설정에서 앱 링크를 활성화하면 음악 링크가 대상 플레이어에서 바로 열립니다.</string>
+    <string name="first_launch_btn_done">시작하기</string>
+    <string name="settings_how_it_works">빠른 가이드 / 작동 방식</string>
 </resources>

@@ -437,4 +437,21 @@
     <string name="playlist_import_file_desc">Importer lokale .m3u8-, .csv- eller tekstlister for å konvertere og spille av direkte.</string>
     <string name="playlist_import_empty_error">Ingen spillbare sanger funnet i den valgte filen.</string>
     <string name="playlist_import_source_chip">Fil</string>
+    <string name="playlist_open_first_track">Spill første spor i %1$s</string>
+    <string name="playlist_no_batch_queue_desc">%1$s støtter ikke eksterne spillelistelenker. Spill av spor enkeltvis nedenfor eller eksporter spillelisten som M3U8/CSV.</string>
+    <string name="search_hint_unified">Søk etter sang eller lim inn musikklenke…</string>
+    <string name="search_link_detected_title">Musikklenke oppdaget</string>
+    <string name="search_flip_track_action">Spill i %1$s</string>
+    <string name="search_flip_playlist_action">Konverter spilleliste</string>
+    <string name="search_paste_clipboard_action">Lim inn lenke fra utklippstavle</string>
+    <string name="first_launch_guide_title">Slik fungerer SongFlip</string>
+    <string name="first_launch_guide_subtitle">Åpne musikklenker i din foretrukne app – 100%% privat, uten konto.</string>
+    <string name="first_launch_step1_title">1. Del fra enhver musikkapp</string>
+    <string name="first_launch_step1_desc">Trykk på «Del» i Spotify, Apple Music osv., og velg SongFlip.</string>
+    <string name="first_launch_step2_title">2. Kopier og søk</string>
+    <string name="first_launch_step2_desc">Kopierte musikklenker gjenkjennes automatisk, eller lim dem inn direkte i søket.</string>
+    <string name="first_launch_step3_title">3. 0-klikk viderekobling</string>
+    <string name="first_launch_step3_desc">Aktiver App-lenker i systeminnstillingene slik at musikklenker åpnes direkte i målspilleren.</string>
+    <string name="first_launch_btn_done">Kom i gang</string>
+    <string name="settings_how_it_works">Hurtigveiledning / Slik fungerer det</string>
 </resources>

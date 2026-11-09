@@ -455,4 +455,21 @@
     <string name="playlist_import_file_desc">Import local .m3u8, .csv, or text tracklists to convert and play them directly.</string>
     <string name="playlist_import_empty_error">No playable songs found in the selected file.</string>
     <string name="playlist_import_source_chip">File</string>
+    <string name="playlist_open_first_track">Play First Song in %1$s</string>
+    <string name="playlist_no_batch_queue_desc">%1$s does not support external playlist links. Play tracks individually below or export the playlist as M3U8/CSV.</string>
+    <string name="search_hint_unified">Search song or paste music link…</string>
+    <string name="search_link_detected_title">Music Link Detected</string>
+    <string name="search_flip_track_action">Play in %1$s</string>
+    <string name="search_flip_playlist_action">Convert Playlist</string>
+    <string name="search_paste_clipboard_action">Paste Link from Clipboard</string>
+    <string name="first_launch_guide_title">How SongFlip Works</string>
+    <string name="first_launch_guide_subtitle">Play music links in your preferred app – 100%% private, zero accounts.</string>
+    <string name="first_launch_step1_title">1. Share from Any App</string>
+    <string name="first_launch_step1_desc">Tap \"Share\" in Spotify, Apple Music, YouTube, etc. and select SongFlip.</string>
+    <string name="first_launch_step2_title">2. Copy &amp; Search</string>
+    <string name="first_launch_step2_desc">Copied music links are recognized automatically, or paste them right into search.</string>
+    <string name="first_launch_step3_title">3. 0-Click Redirect</string>
+    <string name="first_launch_step3_desc">Enable App Links in system settings so music links open directly in your target player.</string>
+    <string name="first_launch_btn_done">Get Started</string>
+    <string name="settings_how_it_works">Quick Guide / How it Works</string>
 </resources>

@@ -437,4 +437,21 @@
     <string name="playlist_import_file_desc">Doğrudan dönüştürmek ve çalmak için yerel .m3u8, .csv veya metin parçalarını içe aktarın.</string>
     <string name="playlist_import_empty_error">Seçilen dosyada çalınabilir parça bulunamadı.</string>
     <string name="playlist_import_source_chip">Dosya</string>
+    <string name="playlist_open_first_track">%1$s içinde ilk parçayı çal</string>
+    <string name="playlist_no_batch_queue_desc">%1$s harici çalma listesi bağlantılarını desteklemiyor. Parçaları aşağıda tek tek çalın veya çalma listesini M3U8/CSV olarak dışa aktarın.</string>
+    <string name="search_hint_unified">Şarkı ara veya müzik bağlantısı yapıştır…</string>
+    <string name="search_link_detected_title">Müzik bağlantısı algılandı</string>
+    <string name="search_flip_track_action">%1$s içinde çal</string>
+    <string name="search_flip_playlist_action">Çalma listesini dönüştür</string>
+    <string name="search_paste_clipboard_action">Panodan bağlantı yapıştır</string>
+    <string name="first_launch_guide_title">SongFlip Nasıl Çalışır</string>
+    <string name="first_launch_guide_subtitle">Müzik bağlantılarını tercih ettiğiniz uygulamada açın – %%100 gizli, hesap gerekmez.</string>
+    <string name="first_launch_step1_title">1. Herhangi bir müzik uygulamasından paylaşın</string>
+    <string name="first_launch_step1_desc">Spotify, Apple Music vb. içinde \"Paylaş\"a dokunun ve SongFlip\'i seçin.</string>
+    <string name="first_launch_step2_title">2. Kopyala ve Ara</string>
+    <string name="first_launch_step2_desc">Kopyalanan müzik bağlantıları otomatik algılanır veya doğrudan aramaya yapıştırın.</string>
+    <string name="first_launch_step3_title">3. 0 Tıklamayla Yönlendirme</string>
+    <string name="first_launch_step3_desc">Müzik bağlantılarının doğrudan hedef oynatıcıda açılması için sistem ayarlarında Uygulama Bağlantılarını etkinleştirin.</string>
+    <string name="first_launch_btn_done">Başlayın</string>
+    <string name="settings_how_it_works">Hızlı Kılavuz / Nasıl Çalışır</string>
 </resources>

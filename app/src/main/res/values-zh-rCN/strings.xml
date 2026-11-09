@@ -433,4 +433,21 @@
     <string name="playlist_import_file_desc">导入本地 .m3u8、.csv 或文本曲目列表，即可直接转换并播放。</string>
     <string name="playlist_import_empty_error">所选文件中未找到可播放的歌曲。</string>
     <string name="playlist_import_source_chip">文件</string>
+    <string name="playlist_open_first_track">在 %1$s 中播放第一首歌曲</string>
+    <string name="playlist_no_batch_queue_desc">%1$s 不支持外部播放列表链接。请在下方单独播放单曲，或导出为 M3U8/CSV。</string>
+    <string name="search_hint_unified">搜索歌曲或粘贴音乐链接…</string>
+    <string name="search_link_detected_title">检测到音乐链接</string>
+    <string name="search_flip_track_action">在 %1$s 中播放</string>
+    <string name="search_flip_playlist_action">转换播放列表</string>
+    <string name="search_paste_clipboard_action">从剪贴板粘贴链接</string>
+    <string name="first_launch_guide_title">SongFlip 使用指南</string>
+    <string name="first_launch_guide_subtitle">在您喜欢的应用中打开音乐链接 – 100%% 隐私保护，无需注册。</string>
+    <string name="first_launch_step1_title">1. 从任意音乐应用分享</string>
+    <string name="first_launch_step1_desc">在 Spotify、Apple Music 等应用中点击“分享”并选择 SongFlip。</string>
+    <string name="first_launch_step2_title">2. 复制与搜索</string>
+    <string name="first_launch_step2_desc">复制的音乐链接会自动被识别，也可直接粘贴到搜索框中。</string>
+    <string name="first_launch_step3_title">3. 零点击自动跳转</string>
+    <string name="first_launch_step3_desc">在系统设置中启用“应用链接”，即可直接在目标播放器中打开音乐链接。</string>
+    <string name="first_launch_btn_done">开始使用</string>
+    <string name="settings_how_it_works">快速指南 / 使用说明</string>
 </resources>

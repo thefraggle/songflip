@@ -433,4 +433,21 @@
     <string name="playlist_import_file_desc">Impor daftar lagu .m3u8, .csv, atau teks lokal untuk langsung mengonversi dan memutarnya.</string>
     <string name="playlist_import_empty_error">Tidak ada lagu yang dapat diputar di file yang dipilih.</string>
     <string name="playlist_import_source_chip">File</string>
+    <string name="playlist_open_first_track">Putar lagu pertama di %1$s</string>
+    <string name="playlist_no_batch_queue_desc">%1$s tidak mendukung tautan daftar putar eksternal. Putar trek satu per satu di bawah ini atau ekspor daftar putar sebagai M3U8/CSV.</string>
+    <string name="search_hint_unified">Cari lagu atau tempel tautan musik…</string>
+    <string name="search_link_detected_title">Tautan musik terdeteksi</string>
+    <string name="search_flip_track_action">Putar di %1$s</string>
+    <string name="search_flip_playlist_action">Konversi daftar putar</string>
+    <string name="search_paste_clipboard_action">Tempel tautan dari papan klip</string>
+    <string name="first_launch_guide_title">Cara Kerja SongFlip</string>
+    <string name="first_launch_guide_subtitle">Buka tautan musik di aplikasi pilihan Anda – 100%% privat, tanpa akun.</string>
+    <string name="first_launch_step1_title">1. Bagikan dari aplikasi musik apa pun</string>
+    <string name="first_launch_step1_desc">Ketuk \"Bagikan\" di Spotify, Apple Music, dll. lalu pilih SongFlip.</string>
+    <string name="first_launch_step2_title">2. Salin &amp; Cari</string>
+    <string name="first_launch_step2_desc">Tautan musik yang disalin dikenali secara otomatis, atau tempelkan langsung ke pencarian.</string>
+    <string name="first_launch_step3_title">3. Pengalihan 0-Klik</string>
+    <string name="first_launch_step3_desc">Aktifkan Tautan Aplikasi di pengaturan sistem agar tautan musik terbuka langsung di pemutar tujuan.</string>
+    <string name="first_launch_btn_done">Mulai</string>
+    <string name="settings_how_it_works">Panduan Singkat / Cara Kerja</string>
 </resources>

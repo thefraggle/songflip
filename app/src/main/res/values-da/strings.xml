@@ -437,4 +437,21 @@
     <string name="playlist_import_file_desc">Importer lokale .m3u8-, .csv- eller tekstsporlister for at konvertere og afspille dem direkte.</string>
     <string name="playlist_import_empty_error">Ingen afspillelige sange fundet i den valgte fil.</string>
     <string name="playlist_import_source_chip">Fil</string>
+    <string name="playlist_open_first_track">Afspil første nummer i %1$s</string>
+    <string name="playlist_no_batch_queue_desc">%1$s understøtter ikke eksterne playlist-links. Afspil numre enkeltvis nedenfor eller eksporter playlisten som M3U8/CSV.</string>
+    <string name="search_hint_unified">Søg efter sang eller indsæt musiklink…</string>
+    <string name="search_link_detected_title">Musiklink fundet</string>
+    <string name="search_flip_track_action">Afspil i %1$s</string>
+    <string name="search_flip_playlist_action">Konverter playliste</string>
+    <string name="search_paste_clipboard_action">Indsæt link fra udklipsholder</string>
+    <string name="first_launch_guide_title">Sådan fungerer SongFlip</string>
+    <string name="first_launch_guide_subtitle">Åbn musiklinks i din foretrukne app – 100%% privat, ingen konto.</string>
+    <string name="first_launch_step1_title">1. Del fra enhver musik-app</string>
+    <string name="first_launch_step1_desc">Tryk på \"Del\" i Spotify, Apple Music osv., og vælg SongFlip.</string>
+    <string name="first_launch_step2_title">2. Kopiér og søg</string>
+    <string name="first_launch_step2_desc">Kopierede musiklinks genkendes automatisk, eller indsæt dem direkte i søgningen.</string>
+    <string name="first_launch_step3_title">3. 0-klik omdirigering</string>
+    <string name="first_launch_step3_desc">Aktivér App-links i systemindstillingerne, så musiklinks åbnes direkte i din mål-afspiller.</string>
+    <string name="first_launch_btn_done">Kom i gang</string>
+    <string name="settings_how_it_works">Hurtig guide / Sådan fungerer det</string>
 </resources>

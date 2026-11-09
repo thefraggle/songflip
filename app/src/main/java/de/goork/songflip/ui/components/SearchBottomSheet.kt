@@ -19,6 +19,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.automirrored.outlined.QueueMusic
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -44,6 +45,7 @@ import de.goork.songflip.core.engine.CatalogSearchEngine
 import de.goork.songflip.core.engine.SearchTrackResult
 import de.goork.songflip.core.engine.SongLinkEngine
 import de.goork.songflip.core.model.ResolutionResult
+import de.goork.songflip.core.util.UrlUtils
 import de.goork.songflip.data.PackageUtils
 import de.goork.songflip.data.ProManager
 import kotlinx.coroutines.Dispatchers
@@ -57,7 +59,8 @@ fun SearchBottomSheet(
     targetPlatformKey: String,
     onDismissRequest: () -> Unit,
     onOpenProPaywall: () -> Unit = {},
-    onImportPlaylistFile: () -> Unit = {}
+    onImportPlaylistFile: () -> Unit = {},
+    onOpenPlaylistConversion: ((String) -> Unit)? = null
 ) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
@@ -69,13 +72,25 @@ fun SearchBottomSheet(
     var searchQuery by remember { mutableStateOf("") }
     var searchResults by remember { mutableStateOf<List<SearchTrackResult>>(emptyList()) }
     var isLoading by remember { mutableStateOf(false) }
+    var isResolvingUrl by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
     var resolvingTrackId by remember { mutableStateOf<String?>(null) }
+    var clipboardMusicUrl by remember { mutableStateOf<String?>(null) }
 
     var qrCodeTrack by remember { mutableStateOf<SearchTrackResult?>(null) }
     var pickerTrack by remember { mutableStateOf<SearchTrackResult?>(null) }
 
     val listState = rememberLazyListState()
+
+    // Read clipboard for supported music URL
+    DisposableEffect(Unit) {
+        val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? android.content.ClipboardManager
+        val clipText = clipboard?.primaryClip?.getItemAt(0)?.text?.toString()?.trim()
+        if (!clipText.isNullOrBlank() && UrlUtils.isSupportedMusicOrAggregatorUrl(clipText)) {
+            clipboardMusicUrl = clipText
+        }
+        onDispose { }
+    }
 
     // Dismiss keyboard automatically when user scrolls the results list
     LaunchedEffect(listState.isScrollInProgress) {
@@ -84,10 +99,19 @@ fun SearchBottomSheet(
         }
     }
 
+    val trimmedQuery = searchQuery.trim()
+    val isDirectMusicUrl = remember(trimmedQuery) {
+        trimmedQuery.isNotBlank() && (
+            trimmedQuery.startsWith("http://", ignoreCase = true) ||
+            trimmedQuery.startsWith("https://", ignoreCase = true) ||
+            UrlUtils.isSupportedMusicOrAggregatorUrl(trimmedQuery)
+        )
+    }
+
     // Debounced search trigger
     LaunchedEffect(searchQuery) {
         val trimmed = searchQuery.trim()
-        if (trimmed.length < 2) {
+        if (isDirectMusicUrl || trimmed.length < 2) {
             searchResults = emptyList()
             isLoading = false
             errorMessage = null
@@ -212,7 +236,7 @@ fun SearchBottomSheet(
             OutlinedTextField(
                 value = searchQuery,
                 onValueChange = { searchQuery = it },
-                placeholder = { Text(stringResource(R.string.search_hint)) },
+                placeholder = { Text(stringResource(R.string.search_hint_unified)) },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Outlined.Search,
@@ -229,14 +253,183 @@ fun SearchBottomSheet(
                                 tint = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
+                    } else if (clipboardMusicUrl != null) {
+                        IconButton(onClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                            searchQuery = clipboardMusicUrl!!
+                        }) {
+                            Icon(
+                                imageVector = Icons.Outlined.ContentPaste,
+                                contentDescription = stringResource(R.string.search_paste_clipboard_action),
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
                     }
                 },
                 singleLine = true,
                 shape = RoundedCornerShape(16.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 12.dp)
+                    .padding(bottom = 8.dp)
             )
+
+            // Clipboard Paste Chip
+            if (searchQuery.isBlank() && clipboardMusicUrl != null) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 10.dp)
+                ) {
+                    SuggestionChip(
+                        onClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                            searchQuery = clipboardMusicUrl!!
+                        },
+                        label = {
+                            Text(
+                                text = stringResource(R.string.search_paste_clipboard_action),
+                                style = MaterialTheme.typography.labelSmall
+                            )
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Outlined.ContentPaste,
+                                contentDescription = null,
+                                modifier = Modifier.size(16.dp)
+                            )
+                        },
+                        shape = RoundedCornerShape(10.dp)
+                    )
+                }
+            }
+
+            // Direct Music URL Card
+            if (isDirectMusicUrl) {
+                val isPlaylistUrl = remember(trimmedQuery) { UrlUtils.isPlaylistUrl(trimmedQuery) }
+                val detectedPlatform = remember(trimmedQuery) { UrlUtils.detectPlatform(trimmedQuery) }
+                val detectedPlatformName = detectedPlatform?.name?.replace('_', ' ')?.lowercase()?.replaceFirstChar { it.uppercase() } ?: "Music"
+
+                Card(
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.55f)
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 14.dp)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Link,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Text(
+                                text = stringResource(R.string.search_link_detected_title),
+                                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                            Spacer(modifier = Modifier.weight(1f))
+                            Surface(
+                                shape = RoundedCornerShape(6.dp),
+                                color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.6f)
+                            ) {
+                                Text(
+                                    text = detectedPlatformName,
+                                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                                )
+                            }
+                        }
+
+                        Text(
+                            text = trimmedQuery,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis
+                        )
+
+                        Button(
+                            onClick = {
+                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                if (isPlaylistUrl) {
+                                    onOpenPlaylistConversion?.invoke(trimmedQuery)
+                                    onDismissRequest()
+                                } else {
+                                    isResolvingUrl = true
+                                    coroutineScope.launch {
+                                        val res = withContext(Dispatchers.IO) {
+                                            SongLinkEngine.shared.resolveTargetUrl(
+                                                inputUrl = trimmedQuery,
+                                                targetPlatformKey = targetPlatformKey,
+                                                isPro = proState.isPro,
+                                                audiophileMode = proState.isPro && settingsRepository.audiophileMode
+                                            )
+                                        }
+                                        isResolvingUrl = false
+                                        when (res) {
+                                            is ResolutionResult.Success -> {
+                                                SongLinkEngine.shared.cache.markAsHistory(trimmedQuery, targetPlatformKey)
+                                                settingsRepository.incrementSuccessfulFlips()
+                                                AptabaseClient.shared.trackLinkFlipped(
+                                                    target = targetPlatformKey,
+                                                    isAlbum = res.isAlbum,
+                                                    isSearch = res.isSearchFallback,
+                                                    source = "in_app_search_url"
+                                                )
+                                                launchTargetPlayer(res.targetUrl, res.nativeAppUri, targetPlatformKey)
+                                            }
+                                            else -> {
+                                                Toast.makeText(context, context.getString(R.string.redirect_error_toast), Toast.LENGTH_SHORT).show()
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            enabled = !isResolvingUrl,
+                            shape = RoundedCornerShape(12.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(48.dp)
+                        ) {
+                            if (isResolvingUrl) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.size(20.dp),
+                                    strokeWidth = 2.dp,
+                                    color = MaterialTheme.colorScheme.onPrimary
+                                )
+                            } else {
+                                Icon(
+                                    imageVector = if (isPlaylistUrl) Icons.AutoMirrored.Outlined.QueueMusic else Icons.Outlined.PlayArrow,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(
+                                    text = if (isPlaylistUrl) {
+                                        stringResource(R.string.search_flip_playlist_action)
+                                    } else {
+                                        stringResource(R.string.search_flip_track_action, targetDisplayName)
+                                    },
+                                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold)
+                                )
+                            }
+                        }
+                    }
+                }
+            }
 
             if (isLoading) {
                 Box(

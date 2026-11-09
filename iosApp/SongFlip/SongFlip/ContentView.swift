@@ -144,12 +144,21 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $showingSearchSheet) {
-                SearchSheetView(onImportPlaylistFile: {
-                    showingSearchSheet = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
-                        showingPlaylistFileImporter = true
+                SearchSheetView(
+                    onImportPlaylistFile: {
+                        showingSearchSheet = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                            showingPlaylistFileImporter = true
+                        }
+                    },
+                    onOpenPlaylistConversion: { pUrl in
+                        showingSearchSheet = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                            playlistNoticeUrl = pUrl
+                            showingPlaylistNotice = true
+                        }
                     }
-                })
+                )
                     .environmentObject(settings)
                     .preferredColorScheme(settings.colorScheme)
             }

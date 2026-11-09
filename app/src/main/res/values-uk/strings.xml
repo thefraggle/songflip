@@ -445,4 +445,21 @@
     <string name="playlist_import_file_desc">Імпортуйте локальні списки .m3u8, .csv або текст для конвертації та відтворення.</string>
     <string name="playlist_import_empty_error">У вибраному файлі не знайдено доступних для відтворення треків.</string>
     <string name="playlist_import_source_chip">Файл</string>
+    <string name="playlist_open_first_track">Слухати перший трек у %1$s</string>
+    <string name="playlist_no_batch_queue_desc">%1$s не підтримує зовнішні посилання на плейлисти. Відтворюйте треки окремо нижче або експортуйте плейлист як M3U8/CSV.</string>
+    <string name="search_hint_unified">Шукати трек або вставити посилання на музику…</string>
+    <string name="search_link_detected_title">Виявлено посилання на музику</string>
+    <string name="search_flip_track_action">Слухати в %1$s</string>
+    <string name="search_flip_playlist_action">Конвертувати плейлист</string>
+    <string name="search_paste_clipboard_action">Вставити посилання з буфера</string>
+    <string name="first_launch_guide_title">Як працює SongFlip</string>
+    <string name="first_launch_guide_subtitle">Відкривайте музичні посилання в улюбленому плеєрі – 100%% приватно, без акаунтів.</string>
+    <string name="first_launch_step1_title">1. Поділитися з будь-якого музичного додатка</string>
+    <string name="first_launch_step1_desc">Натисніть «Поділитися» у Spotify, Apple Music тощо та виберіть SongFlip.</string>
+    <string name="first_launch_step2_title">2. Копіювання та пошук</string>
+    <string name="first_launch_step2_desc">Скопійовані посилання розпізнаються автоматично, або вставте їх безпосередньо в пошук.</string>
+    <string name="first_launch_step3_title">3. Перенаправлення в 0 кліків</string>
+    <string name="first_launch_step3_desc">Увімкніть посилання на додатки в налаштуваннях системи для відкриття музики в цільовому плеєрі.</string>
+    <string name="first_launch_btn_done">Почати</string>
+    <string name="settings_how_it_works">Короткий посібник / Як це працює</string>
 </resources>

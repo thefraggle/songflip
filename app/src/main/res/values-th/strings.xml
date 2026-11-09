@@ -419,4 +419,21 @@
     <string name="playlist_import_file_desc">นำเข้ารายการเพลง .m3u8, .csv หรือข้อความเพื่อแปลงและเล่นได้ทันที</string>
     <string name="playlist_import_empty_error">ไม่พบเพลงที่เล่นได้ในไฟล์ที่เลือก</string>
     <string name="playlist_import_source_chip">ไฟล์</string>
+    <string name="playlist_open_first_track">เล่นเพลงแรกใน %1$s</string>
+    <string name="playlist_no_batch_queue_desc">%1$s ไม่รองรับลิงก์เพลย์ลิสต์ภายนอก เล่นแต่ละแทร็กทีละเพลงด้านล่าง หรือส่งออกเพลย์ลิสต์เป็น M3U8/CSV</string>
+    <string name="search_hint_unified">ค้นหาเพลงหรือวางลิงก์เพลง…</string>
+    <string name="search_link_detected_title">ตรวจพบลิงก์เพลง</string>
+    <string name="search_flip_track_action">เล่นใน %1$s</string>
+    <string name="search_flip_playlist_action">แปลงเพลย์ลิสต์</string>
+    <string name="search_paste_clipboard_action">วางลิงก์จากคลิปบอร์ด</string>
+    <string name="first_launch_guide_title">SongFlip ทำงานอย่างไร</string>
+    <string name="first_launch_guide_subtitle">เปิดลิงก์เพลงในแอปที่คุณต้องการ – เป็นส่วนตัว 100%% ไม่ต้องมีบัญชี</string>
+    <string name="first_launch_step1_title">1. แชร์จากแอปเพลงใดก็ได้</string>
+    <string name="first_launch_step1_desc">แตะ \"แชร์\" ใน Spotify, Apple Music ฯลฯ แล้วเลือก SongFlip</string>
+    <string name="first_launch_step2_title">2. คัดลอกและค้นหา</string>
+    <string name="first_launch_step2_desc">ลิงก์เพลงที่คัดลอกจะได้รับการตรวจหาโดยอัตโนมัติ หรือวางลงในช่องค้นหาได้โดยตรง</string>
+    <string name="first_launch_step3_title">3. การเปลี่ยนเส้นทาง 0 คลิก</string>
+    <string name="first_launch_step3_desc">เปิดใช้งานลิงก์แอปในการตั้งค่าระบบเพื่อให้ลิงก์เพลงเปิดในเครื่องเล่นเป้าหมายได้โดยตรง</string>
+    <string name="first_launch_btn_done">เริ่มต้นใช้งาน</string>
+    <string name="settings_how_it_works">คู่มือฉบับย่อ / วิธีการทำงาน</string>
 </resources>

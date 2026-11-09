@@ -433,4 +433,21 @@
     <string name="playlist_import_file_desc">ローカルの .m3u8、.csv、またはテキストのトラックリストをインポートして、直接変換・再生します。</string>
     <string name="playlist_import_empty_error">選択したファイルに再生可能な曲が見つかりませんでした。</string>
     <string name="playlist_import_source_chip">ファイル</string>
+    <string name="playlist_open_first_track">%1$sで最初の曲を再生</string>
+    <string name="playlist_no_batch_queue_desc">%1$sは外部プレイリストのリンクに対応していません。下のトラックを個別に再生するか、M3U8/CSVとしてエクスポートしてください。</string>
+    <string name="search_hint_unified">曲を検索または音楽リンクを貼り付け…</string>
+    <string name="search_link_detected_title">音楽リンクを検出</string>
+    <string name="search_flip_track_action">%1$sで再生</string>
+    <string name="search_flip_playlist_action">プレイリストを変換</string>
+    <string name="search_paste_clipboard_action">クリップボードからリンクを貼り付け</string>
+    <string name="first_launch_guide_title">SongFlipの使い方</string>
+    <string name="first_launch_guide_subtitle">お好みのアプリで音楽リンクを再生 – 100%%非公開、アカウント不要。</string>
+    <string name="first_launch_step1_title">1. 任意の音楽アプリから共有</string>
+    <string name="first_launch_step1_desc">SpotifyやApple Musicなどで「共有」をタップしてSongFlipを選択。</string>
+    <string name="first_launch_step2_title">2. コピーと検索</string>
+    <string name="first_launch_step2_desc">コピーした音楽リンクは自動で認識され、検索バーに直接貼り付けることも可能です。</string>
+    <string name="first_launch_step3_title">3. 0クリック自動リダイレクト</string>
+    <string name="first_launch_step3_desc">システム設定でアプリリンクを有効にすると、音楽リンクが目的のプレーヤーで直接開きます。</string>
+    <string name="first_launch_btn_done">始める</string>
+    <string name="settings_how_it_works">クイックガイド / 使い方</string>
 </resources>
