@@ -159,7 +159,12 @@ class PlaylistConverterEngine(
                     }
                 }
             } catch (t: Throwable) {
+                if (t is HttpRequestTimeoutException || t is kotlinx.coroutines.TimeoutCancellationException) {
+                    de.goork.songflip.core.util.SongFlipLogger.w("PlaylistConverterEngine", "Import conversion timed out on $endpoint: ${t.message}")
+                    continue
+                }
                 if (t is kotlinx.coroutines.CancellationException) throw t
+                de.goork.songflip.core.util.SongFlipLogger.w("PlaylistConverterEngine", "Import conversion failed on $endpoint: ${t.message}", t)
             }
         }
 

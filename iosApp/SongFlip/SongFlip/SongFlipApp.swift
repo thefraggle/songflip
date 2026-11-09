@@ -132,7 +132,8 @@ struct SongFlipApp: App {
                     }
                 }
             } catch {
-                // Keep initial isDebug status
+                os.Logger(subsystem: "de.goork.songflip", category: "AppTransaction")
+                    .debug("AppTransaction check skipped: \(error.localizedDescription)")
             }
         }
     }

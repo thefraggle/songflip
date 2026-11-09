@@ -98,7 +98,9 @@ class SpotifyResolver(
                                     )
                                 }
                             }
-                        } catch (_: Throwable) {}
+                        } catch (t: Throwable) {
+                            de.goork.songflip.core.util.SongFlipLogger.d("SpotifyResolver", "Failed to parse initial_state JSON: ${t.message}")
+                        }
                     }
 
                     // 2. OpenGraph Fallback from Embed HTML

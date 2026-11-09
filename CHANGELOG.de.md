@@ -1,5 +1,12 @@
 # Changelog (Deutsch)
 
+## [1.14.1] - 2026-11-09
+- **Cache-Datenintegrität**: Schreibgeschützte Deduplizierung im Link-Cache stellt sicher, dass Verlaufseinträge beim Abrufen der Liste niemals dauerhaft aus dem Speicher gelöscht werden.
+- **Lokalisierung der Systemintegration**: Vollständige mehrsprachige Lokalisierungsressourcen für die Teilen-Erweiterung eingebunden, um unübersetzte Platzhaltertexte zu verhindern.
+- **Robuster Datei-Import**: Unterstützung für mehrere Zeichenkodierungen (UTF-8, UTF-16, Latin-1, Windows-1252) und fehlerresistente Rückmeldungen beim Importieren von Playlist-Dateien.
+- **Status-Validierung & Verifizierung**: Kryptografische HMAC-Verifizierung für zwischengespeicherte erweiterte Funktionsstatus und Lizenz-Token hinzugefügt.
+- **Fehlerbehandlung & Zuverlässigkeit**: Vollständige Fehlerprotokollierung und verständliche Nutzerhinweise für System-Teilendialoge und Netzwerk-Timeouts ergänzt.
+
 ## [1.14.0] - 2026-11-09
 - **Sicherheits- & Weiterleitungs-Härtung**: Standardisiertes URL-Parsing über Ktor mit strikter Abweisung von Userinfo-Bestandteilen (`@`) gegen Phishing und Host-Spoofing. Verschärftes Subdomain-Matching mit TLD-Validierung.
 - **Repository-Architektur & Closed-Source-Entkopplung**: Vollständige Entkopplung der Backend-Dienste aus der Submodul-Struktur für reibungsloses, autarkes Klonen und Bauen des Open-Source-Clients.

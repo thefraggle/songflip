@@ -178,7 +178,8 @@ fun PodcastNoticeBottomSheet(
                         }
                         context.startActivity(intent)
                     } catch (e: Exception) {
-                        Toast.makeText(context, url, Toast.LENGTH_SHORT).show()
+                        de.goork.songflip.core.util.SongFlipLogger.w("PodcastNoticeBottomSheet", "Failed to open original url: ${e.message}", e)
+                        Toast.makeText(context, context.getString(R.string.redirect_error_toast), Toast.LENGTH_SHORT).show()
                     }
                     onDismiss()
                 },

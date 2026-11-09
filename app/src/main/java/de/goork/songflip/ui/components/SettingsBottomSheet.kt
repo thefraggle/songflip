@@ -1008,7 +1008,10 @@ fun SettingsBottomSheet(
                         val shareIntent = Intent.createChooser(sendIntent, null)
                         try {
                             context.startActivity(shareIntent)
-                        } catch (_: Exception) {}
+                        } catch (e: Exception) {
+                            de.goork.songflip.core.util.SongFlipLogger.w("SettingsBottomSheet", "Failed to launch share app chooser: ${e.message}", e)
+                            Toast.makeText(context, context.getString(R.string.redirect_error_toast), Toast.LENGTH_SHORT).show()
+                        }
                     }
             ) {
                 Row(

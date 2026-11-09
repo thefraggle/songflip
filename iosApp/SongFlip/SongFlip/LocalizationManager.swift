@@ -47,6 +47,18 @@ enum LocalizationManager {
                 return b
             }
         }
+        // Fallback for app extensions: check containing app bundle if main bundle has no lproj
+        if Bundle.main.bundleURL.pathExtension == "appex" {
+            let containerURL = Bundle.main.bundleURL.deletingLastPathComponent().deletingLastPathComponent()
+            if let containerBundle = Bundle(url: containerURL) {
+                for c in candidates {
+                    if let path = containerBundle.path(forResource: c, ofType: "lproj"),
+                       let b = Bundle(path: path) {
+                        return b
+                    }
+                }
+            }
+        }
         return Bundle.main
     }
 
