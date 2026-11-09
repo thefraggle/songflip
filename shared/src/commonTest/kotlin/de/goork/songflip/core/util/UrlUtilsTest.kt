@@ -389,6 +389,9 @@ class UrlUtilsTest {
         assertEquals("youtu.be", UrlUtils.extractDomain("http://youtu.be/abc"))
         assertEquals("deezer.page.link", UrlUtils.extractDomain("https://deezer.page.link/xyz"))
         assertEquals("unknown", UrlUtils.extractDomain(""))
+        // Security: Reject userinfo (@) host-spoofing / phishing bypass (#213)
+        assertEquals("unknown", UrlUtils.extractDomain("https://open.spotify.com:x@evil.com/track/123"))
+        assertEquals("unknown", UrlUtils.extractDomain("https://music.apple.com@evil.com/album/456"))
     }
 
     @Test
@@ -497,6 +500,33 @@ class UrlUtilsTest {
         assertFalse(UrlUtils.isSupportedMusicOrAggregatorUrl("https://musiccloud.io/track/123"))
         assertFalse(UrlUtils.isSupportedMusicOrAggregatorUrl("https://www.reddit.com/r/music/comments/123"))
         assertFalse(UrlUtils.isSupportedMusicOrAggregatorUrl(""))
+
+        // Security checks: userinfo bypass, subdomains and generic page.link (#213)
+        assertFalse(UrlUtils.isSupportedMusicOrAggregatorUrl("https://open.spotify.com:x@evil.com/track/123"))
+        assertFalse(UrlUtils.isSupportedMusicOrAggregatorUrl("https://music.amazon.evil.com/albums/B001"))
+        assertFalse(UrlUtils.isSupportedMusicOrAggregatorUrl("https://evil.page.link/abc"))
+    }
+
+    @Test
+    fun testIsSafeTargetUrlSecurity() {
+        assertTrue(UrlUtils.isSafeTargetUrl("https://open.spotify.com/track/123"))
+        assertTrue(UrlUtils.isSafeTargetUrl("https://music.amazon.de/albums/B001"))
+        assertTrue(UrlUtils.isSafeTargetUrl("https://music.amazon.co.uk/albums/B001"))
+        assertTrue(UrlUtils.isSafeTargetUrl("https://deezer.page.link/xyz"))
+
+        // Reject plain HTTP (#213)
+        assertFalse(UrlUtils.isSafeTargetUrl("http://open.spotify.com/track/123"))
+
+        // Reject Userinfo spoofing attacks (#213)
+        assertFalse(UrlUtils.isSafeTargetUrl("https://open.spotify.com:password@attacker.com/track/123"))
+        assertFalse(UrlUtils.isSafeTargetUrl("https://open.spotify.com@attacker.com/track/123"))
+
+        // Reject fake Amazon subdomains
+        assertFalse(UrlUtils.isSafeTargetUrl("https://music.amazon.attacker.com/albums/123"))
+        assertFalse(UrlUtils.isSafeTargetUrl("https://amazon.attacker.com/albums/123"))
+
+        // Reject generic page.link (unresolved dynamic links)
+        assertFalse(UrlUtils.isSafeTargetUrl("https://attacker.page.link/phishing"))
     }
 
     @Test

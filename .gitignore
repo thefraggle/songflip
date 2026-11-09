@@ -80,3 +80,6 @@ Config.xcconfig
 # Proprietary Vendor SDK Binaries (Apple ShazamKit Android)
 app/libs/*.aar
 !app/libs/*.aar.enc
+
+# Closed-Source Backend Service (Separate Private Repo)
+/functions/

@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.14.0] - 2026-11-09
+- **Sicherheits- & Weiterleitungs-Härtung**: Standardisiertes URL-Parsing über Ktor mit strikter Abweisung von Userinfo-Bestandteilen (`@`) gegen Phishing und Host-Spoofing. Verschärftes Subdomain-Matching mit TLD-Validierung.
+- **Repository-Architektur & Closed-Source-Entkopplung**: Vollständige Entkopplung der Backend-Dienste aus der Submodul-Struktur für reibungsloses, autarkes Klonen und Bauen des Open-Source-Clients.
+- **Rechtssicherheit & Lizenz-Ergänzung (GPLv3 §7)**: Formelle Zusatzerlaubnis nach Abschnitt 7 zum Verlinken proprietärer Bibliotheken (ShazamKit, RevenueCat) und für den Store-Vertrieb.
+- **CI- & Secrets-Hygiene**: Beschränkung sensibler App Store Connect Secrets rein auf Upload-Schritte sowie Bereinigung getrackter Fallback-Keys.
+
 ## [1.13.7] - 2026-11-09
 - **Differenzierte Playlist-Führung & Export-Hinweise**: Eindeutige Wiedergabe- und M3U8/CSV-Export-Hinweise für Streaming-Dienste ohne externe Queue-Deeplinks (Qobuz, Tidal, Apple Music, Deezer).
 - **Einheitliche Suche & Link-Eingabe**: Automatische Musiklink-Erkennung mit 1-Klick-Wiedergabe und Einfügen-Aktion direkt im Suchfeld.

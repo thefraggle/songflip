@@ -1,3 +1,0 @@
-[submodule "functions"]
-	path = functions
-	url = git@github.com:thefraggle/songflip-api.git
