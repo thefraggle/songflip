@@ -7,7 +7,7 @@ Che si tratti di passare da Spotify a YouTube Music, da Apple Podcast a Pocket C
 🚀 CARATTERISTICHE PRINCIPALI:
 
 • 12 piattaforme di streaming, podcast e Shazam:
-Converti e reindirizza senza problemi collegamenti di brani e podcast su Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, SoundCloud e Bandcamp. Include il supporto del convertitore di collegamenti musicali istantanei per i collegamenti Shazam condivisi!
+Converti e reindirizza senza problemi collegamenti di brani e podcast su Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud e Bandcamp. Include il supporto del convertitore di collegamenti musicali istantanei per i collegamenti Shazam condivisi!
 
 • Listen & Flip (Riconoscimento musicale):
 Riconosci la musica intorno a te in SongFlip. I brani vengono abbinati al tuo player preferito e salvati nella cronologia. Nessun segnale? Salva l'impronta audio offline e SongFlip riconoscerà il brano automaticamente appena torni online.

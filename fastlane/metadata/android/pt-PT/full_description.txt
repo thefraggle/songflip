@@ -7,7 +7,7 @@ Seja mudando o Spotify para o YouTube Music, o Apple Podcasts para o Pocket Cast
 🚀 PRINCIPAIS RECURSOS:
 
 • 12 plataformas de streaming, podcasts e Shazam:
-Converta e redirecione facilmente links de músicas e podcasts no Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, SoundCloud e Bandcamp. Inclui suporte para conversor instantâneo de links de música para links compartilhados do Shazam!
+Converta e redirecione facilmente links de músicas e podcasts no Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud e Bandcamp. Inclui suporte para conversor instantâneo de links de música para links compartilhados do Shazam!
 
 • Listen & Flip (Reconhecimento musical e identificador de músicas):
 Identifique músicas ao seu redor no SongFlip. As faixas são convertidas para o seu leitor favorito e guardadas no histórico. Sem rede? Guarde a assinatura de áudio offline e o SongFlip identificará a música automaticamente quando voltar a estar online.

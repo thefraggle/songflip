@@ -7,7 +7,7 @@ Niezależnie od tego, czy przełączasz Spotify na YouTube Music, Apple Podcasts
 🚀 GŁÓWNE FUNKCJE:
 
 • 12 platform streamingowych, podcastów i Shazam:
-Bezproblemowo konwertuj i przekierowuj linki do utworów i podcastów w Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, SoundCloud i Bandcamp. Obejmuje natychmiastową obsługę konwertera łączy muzycznych dla udostępnianych łączy Shazam!
+Bezproblemowo konwertuj i przekierowuj linki do utworów i podcastów w Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud i Bandcamp. Obejmuje natychmiastową obsługę konwertera łączy muzycznych dla udostępnianych łączy Shazam!
 
 • Listen & Flip (Rozpoznawanie muzyki):
 Rozpoznawaj muzykę wokół siebie w SongFlip. Utwory są dopasowywane do Twojego odtwarzacza i zapisywane w historii. Brak zasięgu? Zapisz odcisk audio offline, a SongFlip rozpozna utwór automatycznie po powrocie do sieci.
@@ -22,7 +22,7 @@ Twórz i skanuj uniwersalne kody QR dla utworów i albumów w dowolnej usłudze 
 Udostępniaj pełne programy lub odcinki podcastów na różnych platformach.
 
 • Konwerter list, import plików (M3U) i przesyłanie:
-Konwertuj i przesyłaj playlisty między Spotify, Apple Music, YouTube Music, TIDAL i Deezer. Importuj lokalne listy utworów z plików .m3u, .m3u8, .csv i tekstowych bezpośrednio do playlist streamingowych (do 200 utworów z usuwaniem duplikatów).
+Konwertuj i przesyłaj playlisty między Spotify, Apple Music, YouTube Music, TIDAL i Deezer.
 
 • Jakość audiofilska (Hi-Res & Lossless) i ulubione:
 Preferuj wydania studyjne, 24-bit Hi-Res, Lossless i Dolby Atmos zamiast wersji radiowych i składanek. Przypinaj ulubione utwory 1 dotknięciem.

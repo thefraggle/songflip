@@ -7,10 +7,10 @@ Whether switching Spotify to YouTube Music, Apple Podcasts to Pocket Casts, Spot
 🚀 KEY FEATURES:
 
 • 12 Streaming Platforms, Podcasts & Shazam:
-Seamlessly convert and redirect song links and podcasts across Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon, Qobuz, Beatport, SoundCloud, and Bandcamp. Includes instant converter support for shared Shazam tracks!
+Seamlessly convert and redirect music links and podcasts across Spotify, YouTube Music, Apple Music, and 9 more platforms. No tapping required—links open straight in your preferred player.
 
-• Listen & Flip – Song Recognizer & Song Identifier (Online & Offline):
-Identify songs playing around you in clubs, bars, or on the radio with instant song recognizer and song identifier matching, save them to your history, and open them in your favorite player. With Offline Mode, capture audio fingerprints even without reception and resolve tracks automatically once you're back online.
+• Listen & Flip – Song Recognizer & Audio Identifier (Online & Offline):
+Identify tracks playing around you in clubs, bars, or on the radio with instant song recognizer matching, save them to your history, and open them in your favorite player. With Offline Mode, capture audio fingerprints even without reception and resolve tracks automatically once you're back online.
 
 • Direct Track Search & Instant Playback:
 Search for tracks and artists directly inside SongFlip and trigger playback instantly in your preferred streaming player with 1-tap Fast Flip—no existing URL or empty search pages.
@@ -18,7 +18,7 @@ Search for tracks and artists directly inside SongFlip and trigger playback inst
 • QR Code Track Sharing & Scanning:
 Generate and scan universal QR codes for songs and albums.
 
-• Playlist Converter, File Import (M3U) & Transfer:
+• Universal Playlist Converter, File Import (M3U) & Playlist Transfer App (Free):
 Convert playlists and transfer playlists track-by-track between Spotify, Apple Music, YouTube Music, TIDAL, and Deezer. Import local tracklists from .m3u, .m3u8, .csv, and plain text files directly into streaming queues—with duplicate cleaning, up to 200 tracks, and fast caching.
 
 • Podcast Converter & Podcast Redirect Engine:
@@ -34,7 +34,7 @@ Enable the quick player chooser to pick your target player on the fly whenever y
 Easily verify and configure Android Open by Default App Links with our interactive 1-tap setup assistant.
 
 • Clipboard Smart-Banner & Native Sharing:
-Convert and open it instantly via the smart dashboard banner, or share URLs directly from WhatsApp, Telegram, Reddit, or Instagram into SongFlip.
+Convert and open links instantly via the smart dashboard banner, or share song link universal URLs directly from WhatsApp, Telegram, Reddit, or your browser.
 
 • Universal Web Smart Links & HTML5 Player:
 Generate neutral web-share URLs (songflip.link) with an embedded webplayer so friends can listen on any device or browser.

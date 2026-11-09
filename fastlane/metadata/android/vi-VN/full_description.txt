@@ -7,7 +7,7 @@ Cho dù chuyển Spotify sang YouTube Music, Apple Podcasts sang Pocket Casts, S
 🚀 TÍNH NĂNG CHÍNH:
 
 • 12 Nền tảng phát trực tuyến, Podcast & Shazam:
-Chuyển đổi liền mạch và chuyển hướng các liên kết bài hát và podcast trên Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, SoundCloud và Bandcamp. Bao gồm hỗ trợ chuyển đổi liên kết nhạc tức thì cho các liên kết Shazam được chia sẻ!
+Chuyển đổi liền mạch và chuyển hướng các liên kết bài hát và podcast trên Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud và Bandcamp. Bao gồm hỗ trợ chuyển đổi liên kết nhạc tức thì cho các liên kết Shazam được chia sẻ!
 
 • Listen & Flip (Nhận diện nhạc):
 Nhận diện nhạc đang phát xung quanh bạn ngay trong SongFlip và lưu vào lịch sử. Không có mạng? Lưu dấu vân tay âm thanh offline để tự động nhận diện khi có mạng trở lại.
