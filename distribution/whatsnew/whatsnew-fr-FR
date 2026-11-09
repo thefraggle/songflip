@@ -1,3 +1,2 @@
-- Navigation dans les paramètres raffinés : retour direct restauré aux paramètres lors de la fermeture des guides de configuration du lien.
-- Transfert sans scintillement : suppression des flashs visuels lors des conversions de lien instantanées.
-- Propreté du titre et garanties de version : le nettoyage des métadonnées préserve les enregistrements originaux en studio et empêche les remix indésirables.
+- Détection des joueurs et fiabilité de lancement : détection automatique renforcée des joueurs pour empêcher la sélection par défaut des services désinstallés et assurer une solution de repli Web transparente lorsque des applications natives sont manquantes.
+- Stabilité du système : gestion des intentions et répartition du navigateur affinées pour éliminer les pannes silencieuses lors de l'ouverture des liens.

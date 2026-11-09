@@ -1,4 +1,2 @@
-- Navigasi Pengaturan yang Disempurnakan: Memulihkan pengembalian langsung ke pengaturan saat menutup panduan pengaturan tautan.
-- Penerusan Bebas Flicker: Menghilangkan kilatan visual selama konversi tautan seketika.
-- Kebersihan Judul & Perlindungan Versi: Pembersihan metadata menjaga rekaman studio asli dan mencegah remix yang tidak diinginkan.
-- Deteksi Konflik: Resolusi terpandu untuk konflik pengendali tautan musik dengan klien streaming pihak ketiga.
+- Deteksi Pemutar & Keandalan Peluncuran: Deteksi otomatis pemutar yang dikeraskan untuk mencegah layanan yang dihapus dipilih secara default, dan memastikan pengembalian web yang mulus ketika aplikasi asli tidak ada.
+- Stabilitas Sistem: Penanganan maksud yang disempurnakan dan pengiriman browser untuk menghilangkan kegagalan diam saat membuka tautan.

@@ -1,4 +1,2 @@
-- Verfijnde instellingennavigatie: directe terugkeer naar instellingen hersteld bij het sluiten van koppelingsinstallatiehandleidingen.
-- Flikkervrij doorsturen: visuele flitsen geëlimineerd tijdens onmiddellijke linkconversies.
-- Titelzuiverheid en versiewaarborgen: Metadata-opschoning behoudt originele studio-opnames en voorkomt ongewenste remixen.
-- Conflictdetectie: begeleide oplossing voor conflicten tussen de muzieklinkhandler en streamingclients van derden.
+- Betrouwbaarheid van spelersdetectie en -lancering: Geharde automatische detectie van spelers om te voorkomen dat standaard niet-geïnstalleerde services worden geselecteerd, en zorgde voor een naadloze terugval van het web wanneer native apps ontbreken.
+- Systeemstabiliteit: verfijnde intent handling en browser dispatching om stille storingen bij het openen van links te elimineren.

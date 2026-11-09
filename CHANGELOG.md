@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.14.3] - 2026-11-09
+- **Player Detection & Launch Reliability**: Hardened player auto-detection to prevent uninstalled services from being selected by default, and ensured seamless web fallback when native apps are missing.
+- **System Stability**: Refined intent handling and browser dispatching to eliminate silent failures when opening links.
+
 ## [1.14.2] - 2026-11-09
 - **Reliability & Efficiency**: Optimized internal link resolution and memory management for faster, more dependable transitions.
 - **Accessibility & Contrast**: Enhanced visual contrast and accessibility labels across buttons and interactive elements.

@@ -1,3 +1,2 @@
-- Navegación de configuración refinada: se restableció el retorno directo a la configuración al cerrar las guías de configuración del enlace.
-- Reenvío sin parpadeos: se eliminaron los destellos visuales durante las conversiones instantáneas de enlaces.
-- Limpieza de títulos y garantías de versión: la limpieza de metadatos preserva las grabaciones de estudio originales y evita remezclas no deseadas.
+- Fiabilidad de detección y lanzamiento del reproductor: Detección automática del reproductor reforzada para evitar que se seleccionen los servicios desinstalados de forma predeterminada y garantizar un respaldo web sin problemas cuando faltan aplicaciones nativas.
+- Estabilidad del sistema: manejo refinado de la intención y envío del navegador para eliminar fallas silenciosas al abrir enlaces.

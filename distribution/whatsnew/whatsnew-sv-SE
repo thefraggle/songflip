@@ -1,4 +1,2 @@
-- Förfinad inställningsnavigering: Återställd direkt återgång till inställningar när du stänger länkinställningsguider.
-- Flimmerfri vidarebefordran: Eliminerade visuella blinkningar under omedelbara länkkonverteringar.
-- Titelrenlighet och versionsskydd: Rengöring av metadata bevarar ursprungliga studioinspelningar och förhindrar oönskade remixar.
-- Konfliktdetektering: Guidad lösning för musiklänkhanterare konflikter med tredjeparts streamingklienter.
+- Spelardetektering och startpålitlighet: Härdad automatisk spelardetektering för att förhindra att avinstallerade tjänster väljs som standard och säkerställde sömlös webbåtergång när inbyggda appar saknas.
+- Systemstabilitet: Förfinad avsiktshantering och webbläsarutskick för att eliminera tysta fel när du öppnar länkar.

@@ -1,3 +1,2 @@
-- İyileştirilmiş Ayarlarda Gezinme: Bağlantı kurulum kılavuzlarını kapatırken ayarlara doğrudan dönüş geri yüklendi.
-- Titreşimsiz Yönlendirme: Anlık bağlantı dönüşümleri sırasında görsel flaşlar ortadan kaldırıldı.
-- Başlık Temizliği ve Sürüm Korumaları: Meta veri temizleme, orijinal stüdyo kayıtlarını korur ve istenmeyen remiksleri önler.
+- Oynatıcı Algılama ve Başlatma Güvenilirliği: Kaldırılan hizmetlerin varsayılan olarak seçilmesini önlemek için sertleştirilmiş oynatıcı otomatik algılama ve yerel uygulamalar eksik olduğunda kesintisiz web yedeklemesi sağlama.
+- Sistem Kararlılığı: Bağlantıları açarken sessiz arızaları ortadan kaldırmak için hassas niyet yönetimi ve tarayıcı gönderimi.

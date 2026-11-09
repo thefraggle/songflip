@@ -1,3 +1,2 @@
-- Navigare cu setări rafinată: revenirea directă la setări a fost restabilită la închiderea ghidurilor de configurare a legăturilor.
-- Redirecționare fără flicker: s-au eliminat fulgerările vizuale în timpul conversiilor instantanee ale linkurilor.
-- Curățarea titlului și garanțiile versiunii: curățarea metadatelor păstrează înregistrările originale de studio și previne remixurile nedorite.
+- Detectarea jucătorului și fiabilitatea lansării: Detectarea automată a jucătorului pentru a preveni selectarea prestabilită a serviciilor dezinstalate și pentru a asigura o revenire fără probleme atunci când aplicațiile native lipsesc.
+- Stabilitatea sistemului: Manipularea rafinată a intenției și expedierea browserului pentru a elimina defecțiunile silențioase la deschiderea linkurilor.

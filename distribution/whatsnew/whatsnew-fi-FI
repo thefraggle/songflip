@@ -1,3 +1,2 @@
-- Tarkennetut asetukset -navigointi: Palautettu suora paluu asetuksiin suljettaessa linkin asennusoppaita.
-- Välkkymätön edelleenlähetys: eliminoitu visuaaliset välähdykset välittömien linkkien muuntamisen aikana.
-- Otsikon puhtaus ja versiosuojat: Metatietojen puhdistus säilyttää alkuperäiset studiotallenteet ja estää ei-toivotut remiksaukset.
+- Soittimen havaitsemisen ja käynnistämisen luotettavuus: Soittimen automaattinen havaitseminen, jolla estetään oletusarvoisesti asennettujen palveluiden valitseminen ja varmistetaan saumaton verkkovarajärjestelmä, kun natiivisovellukset puuttuvat.
+- Järjestelmän vakaus: Tarkennettu käsittelytarkoitus ja selainlähetys äänettömien vikojen poistamiseksi linkkejä avattaessa.
