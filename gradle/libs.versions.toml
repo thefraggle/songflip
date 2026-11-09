@@ -88,6 +88,7 @@ sqldelight-driver-native = { module = "app.cash.sqldelight:native-driver", versi
 
 # In-App Purchases & Play Store
 revenuecat-purchases = { module = "com.revenuecat.purchases:purchases", version.ref = "revenuecat" }
+revenuecat-purchases-ui = { module = "com.revenuecat.purchases:purchases-ui", version.ref = "revenuecat" }
 play-review = { module = "com.google.android.play:review-ktx", version.ref = "play-review" }
 
 # Testing

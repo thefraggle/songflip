@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
-val appVersionName = "1.14.3"
+val appVersionName = "1.14.4"
 val computedVersionCode = run {
     val cleanVersion = appVersionName.substringBefore("-").substringBefore("+")
     val parts = cleanVersion.split(".").mapNotNull { it.toIntOrNull() }
@@ -152,6 +152,7 @@ dependencies {
 
     // In-App Purchases & Billing (RevenueCat - Google Play Billing Library 8+)
     implementation(libs.revenuecat.purchases)
+    implementation(libs.revenuecat.purchases.ui)
 
     // Google Play In-App Review API
     implementation(libs.play.review)

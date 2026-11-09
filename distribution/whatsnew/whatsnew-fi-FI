@@ -1,2 +1,2 @@
-- Soittimen havaitsemisen ja käynnistämisen luotettavuus: Soittimen automaattinen havaitseminen, jolla estetään oletusarvoisesti asennettujen palveluiden valitseminen ja varmistetaan saumaton verkkovarajärjestelmä, kun natiivisovellukset puuttuvat.
-- Järjestelmän vakaus: Tarkennettu käsittelytarkoitus ja selainlähetys äänettömien vikojen poistamiseksi linkkejä avattaessa.
+- Suorituskyky ja vakaus: Hienostunut linkkien käsittely ja taustatietojen välimuisti nopeampi ja luotettavampi siirtymä.
+- Virheenkorjauksia: Ratkaistiin pienet käyttöliittymähäiriöt ja parannettu luotettavuus järjestelmän jakamisessa ja navigointivalintaikkunoissa.

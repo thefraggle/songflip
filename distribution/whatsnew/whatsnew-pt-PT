@@ -1,2 +1,2 @@
-- Deteção e Fiabilidade de Lançamento do Jogador: Detecção automática reforçada do jogador para evitar que os serviços desinstalados sejam selecionados por predefinição e garantiu um recuo contínuo da Web quando faltam aplicações nativas.
-- Estabilidade do Sistema: Tratamento de intenção refinado e despacho do navegador para eliminar falhas silenciosas ao abrir links.
+- Desempenho e estabilidade: processamento de link refinado e cache de dados em segundo plano para transições mais rápidas e confiáveis.
+- Correções de bugs: pequenas falhas de interface resolvidas e maior confiabilidade no compartilhamento do sistema e nas caixas de diálogo de navegação.

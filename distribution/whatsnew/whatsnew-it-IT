@@ -1,2 +1,2 @@
-- Rilevamento del giocatore e affidabilità del lancio: Rilevamento automatico del giocatore rafforzato per impedire che i servizi disinstallati vengano selezionati per impostazione predefinita e garantire un fallback web senza interruzioni quando mancano le app native.
-- Stabilità del sistema: gestione dell'intento e invio del browser perfezionati per eliminare i guasti silenziosi durante l'apertura dei collegamenti.
+- Prestazioni e stabilità: elaborazione raffinata dei collegamenti e memorizzazione nella cache dei dati in background per transizioni più rapide e affidabili.
+- Correzioni di bug: risolti piccoli problemi dell'interfaccia e migliorata affidabilità nelle finestre di dialogo di condivisione e navigazione del sistema.

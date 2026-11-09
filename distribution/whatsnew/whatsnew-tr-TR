@@ -1,2 +1,2 @@
-- Oynatıcı Algılama ve Başlatma Güvenilirliği: Kaldırılan hizmetlerin varsayılan olarak seçilmesini önlemek için sertleştirilmiş oynatıcı otomatik algılama ve yerel uygulamalar eksik olduğunda kesintisiz web yedeklemesi sağlama.
-- Sistem Kararlılığı: Bağlantıları açarken sessiz arızaları ortadan kaldırmak için hassas niyet yönetimi ve tarayıcı gönderimi.
+- Performans ve Kararlılık: Daha hızlı, daha güvenilir geçişler için iyileştirilmiş bağlantı işleme ve arka planda veri önbelleğe alma.
+- Hata Düzeltmeleri: Küçük arayüz hataları çözüldü ve sistem paylaşımı ve gezinme diyaloglarındaki güvenilirlik artırıldı.

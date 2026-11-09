@@ -1,2 +1,2 @@
-- Játékosfelismerés és -indítás megbízhatósága: A lejátszó megkeményedett automatikus észlelése, hogy megakadályozza az eltávolított szolgáltatások alapértelmezett kiválasztását, és zökkenőmentes webes tartalékot biztosítson a natív alkalmazások hiánya esetén.
-- Rendszerstabilitás: Finomított szándékkezelés és böngésző-diszpécser, hogy megszüntesse a néma hibákat a linkek megnyitásakor.
+- Teljesítmény és stabilitás: Kifinomult linkfeldolgozás és háttéradat-gyorsítótár a gyorsabb, megbízhatóbb átmenetek érdekében.
+- Hibajavítások: Kijavítottuk az interfész apróbb hibáit, és megnövelt megbízhatóság a rendszermegosztási és navigációs párbeszédpaneleken.

@@ -1,2 +1,2 @@
-- Spillerregistrering og startpålidelighed: Hærdet automatisk registrering af spiller for at forhindre, at afinstallerede tjenester vælges som standard, og sikrede problemfri webtilbagefald, når indbyggede apps mangler.
-- Systemstabilitet: Raffineret hensigtshåndtering og browserudsendelse for at eliminere tavse fejl, når du åbner links.
+- Ydeevne og stabilitet: Raffineret linkbehandling og baggrundsdatacache for hurtigere og mere pålidelige overgange.
+- Fejlrettelser: Løst mindre grænsefladefejl og forbedret pålidelighed på tværs af systemdelings- og navigationsdialoger.

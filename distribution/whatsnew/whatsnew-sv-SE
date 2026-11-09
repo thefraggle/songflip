@@ -1,2 +1,2 @@
-- Spelardetektering och startpålitlighet: Härdad automatisk spelardetektering för att förhindra att avinstallerade tjänster väljs som standard och säkerställde sömlös webbåtergång när inbyggda appar saknas.
-- Systemstabilitet: Förfinad avsiktshantering och webbläsarutskick för att eliminera tysta fel när du öppnar länkar.
+- Prestanda och stabilitet: Förfinad länkbearbetning och bakgrundsdatacache för snabbare, mer pålitliga övergångar.
+- Bugfixar: Löst mindre gränssnittsfel och förbättrad tillförlitlighet i systemdelnings- och navigeringsdialoger.

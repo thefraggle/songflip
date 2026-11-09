@@ -471,7 +471,7 @@ final class ProManager: NSObject, ObservableObject {
         }
     }
 
-    private func updateFromCustomerInfo(_ customerInfo: CustomerInfo) {
+    func updateFromCustomerInfo(_ customerInfo: CustomerInfo) {
         let proEntitlement = customerInfo.entitlements["pro"] ?? customerInfo.entitlements["songflip_pro"]
         let isRevenueCatPro = proEntitlement?.isActive == true
 
