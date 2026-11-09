@@ -20,31 +20,19 @@ enum RedeemResult {
     case networkError
 }
 
-@MainActor
-final class ProManager: NSObject, ObservableObject {
-    static let shared = ProManager()
-    private static let logger = Logger(subsystem: "de.goork.songflip", category: "ProManager")
-
-    private static var apiKey: String {
-        let key = Bundle.main.infoDictionary?["REVENUECAT_PUBLIC_KEY"] as? String ?? ""
-        #if DEBUG
-        if key.isEmpty {
-            logger.error("[ProManager] REVENUECAT_PUBLIC_KEY is not configured! Check Config.xcconfig")
-        }
-        #endif
-        return key
-    }
-    private static let appGroupId = "group.de.goork.songflip"
-    private static let keyCouponType = "pro_coupon_type"
-    private static let keyCouponCode = "pro_coupon_code"
-    private static let keyCouponExpiration = "pro_coupon_expiration"
-    private static let keyCouponToken = "pro_coupon_token"
-    private static let keyIsProCached = "is_pro_cached"
-    private static let keyCacheSignature = "pro_cache_signature"
-    private static let keyProCacheType = "pro_cache_type"
-    private static let keyProCacheExp = "pro_cache_exp"
-    private static let keyProAuthToken = "pro_auth_token"
-    private static let cacheSecret = "SF_PRO_STATE_HMAC_v2_9f8e7d6c"
+enum ProStateStorage {
+    static let appGroupId = "group.de.goork.songflip"
+    static let keyCouponType = "pro_coupon_type"
+    static let keyCouponCode = "pro_coupon_code"
+    static let keyCouponExpiration = "pro_coupon_expiration"
+    static let keyCouponToken = "pro_coupon_token"
+    static let keyIsProCached = "is_pro_cached"
+    static let keyCacheSignature = "pro_cache_signature"
+    static let keyProCacheType = "pro_cache_type"
+    static let keyProCacheExp = "pro_cache_exp"
+    static let keyProAuthToken = "pro_auth_token"
+    static let cacheSecret = "SF_PRO_STATE_HMAC_v2_9f8e7d6c"
+    static let rcExpiryGraceMs: Double = 15 * 60 * 1000
 
     static func generateSignature(isPro: Bool, proType: String?, expMs: Int64) -> String {
         let msg = "\(isPro)|\(proType ?? "")|\(expMs)"
@@ -86,6 +74,50 @@ final class ProManager: NSObject, ObservableObject {
             }
         }
         return true
+    }
+}
+
+@MainActor
+final class ProManager: NSObject, ObservableObject {
+    static let shared = ProManager()
+    private static let logger = Logger(subsystem: "de.goork.songflip", category: "ProManager")
+
+    private static var apiKey: String {
+        let key = Bundle.main.infoDictionary?["REVENUECAT_PUBLIC_KEY"] as? String ?? ""
+        #if DEBUG
+        if key.isEmpty {
+            logger.error("[ProManager] REVENUECAT_PUBLIC_KEY is not configured! Check Config.xcconfig")
+        }
+        #endif
+        return key
+    }
+    private static let appGroupId = ProStateStorage.appGroupId
+    private static let keyCouponType = ProStateStorage.keyCouponType
+    private static let keyCouponCode = ProStateStorage.keyCouponCode
+    private static let keyCouponExpiration = ProStateStorage.keyCouponExpiration
+    private static let keyCouponToken = ProStateStorage.keyCouponToken
+    private static let keyIsProCached = ProStateStorage.keyIsProCached
+    private static let keyCacheSignature = ProStateStorage.keyCacheSignature
+    private static let keyProCacheType = ProStateStorage.keyProCacheType
+    private static let keyProCacheExp = ProStateStorage.keyProCacheExp
+    private static let keyProAuthToken = ProStateStorage.keyProAuthToken
+    private static let cacheSecret = ProStateStorage.cacheSecret
+    private static let rcExpiryGraceMs = ProStateStorage.rcExpiryGraceMs
+
+    nonisolated static func generateSignature(isPro: Bool, proType: String?, expMs: Int64) -> String {
+        ProStateStorage.generateSignature(isPro: isPro, proType: proType, expMs: expMs)
+    }
+
+    nonisolated static func verifySignature(isPro: Bool, proType: String?, expMs: Int64, signature: String) -> Bool {
+        ProStateStorage.verifySignature(isPro: isPro, proType: proType, expMs: expMs, signature: signature)
+    }
+
+    nonisolated static func writeVerifiedProState(defaults: UserDefaults, isPro: Bool, proType: String?, expMs: Int64) {
+        ProStateStorage.writeVerifiedProState(defaults: defaults, isPro: isPro, proType: proType, expMs: expMs)
+    }
+
+    nonisolated static func isProActive(defaults: UserDefaults = UserDefaults(suiteName: ProStateStorage.appGroupId) ?? .standard) -> Bool {
+        ProStateStorage.isProActive(defaults: defaults)
     }
 
     @Published var isPro: Bool = false {
