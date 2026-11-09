@@ -487,6 +487,7 @@ struct ContentView: View {
                         .foregroundColor(.secondary)
                         .padding(4)
                 }
+                .accessibilityLabel(Text(LocalizationManager.string(for: "action_close", lang: lang)))
             }
 
             switch activePlaylist.state {
@@ -568,7 +569,7 @@ struct ContentView: View {
                         }
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 8)
-                        .background(Color.green)
+                        .background(Color(red: 4/255, green: 120/255, blue: 87/255))
                         .foregroundColor(.white)
                         .cornerRadius(10)
                     }
@@ -664,6 +665,7 @@ struct ContentView: View {
                         .foregroundColor(.secondary)
                         .padding(4)
                 }
+                .accessibilityLabel(Text(LocalizationManager.string(for: "action_close", lang: lang)))
             }
 
             HStack(spacing: 8) {
@@ -1130,30 +1132,7 @@ struct ContentView: View {
             return
         }
         let clean = UrlUtils.shared.extractCleanUrl(rawInput: clip) ?? clip
-        let lower = clean.lowercased()
-        let isMusic = lower.contains("spotify.com") ||
-                      lower.contains("spotify.link") ||
-                      lower.contains("apple.com") ||
-                      lower.contains("apple.co") ||
-                      lower.contains("youtube.com") ||
-                      lower.contains("youtu.be") ||
-                      lower.contains("deezer.com") ||
-                      lower.contains("deezer.page.link") ||
-                      lower.contains("tidal.com") ||
-                      lower.contains("amazon.") ||
-                      lower.contains("amzn.to") ||
-                      lower.contains("a.co") ||
-                      lower.contains("soundcloud.com") ||
-                      lower.contains("on.soundcloud.com") ||
-                      lower.contains("bandcamp.com") ||
-                      lower.contains("qobuz.com") ||
-                      lower.contains("beatport.com") ||
-                      lower.contains("audiomack.com") ||
-                      lower.contains("idagio.com") ||
-                      lower.contains("shazam.com") ||
-                      lower.contains("song.link") ||
-                      lower.contains("album.link") ||
-                      lower.contains("odesli.co")
+        let isMusic = UrlUtils.shared.isSupportedMusicOrAggregatorUrl(url: clean)
 
         if isMusic && clean != dismissedClipboardUrl {
             detectedClipboardUrl = clean
@@ -1400,6 +1379,7 @@ struct ShortcutsGuideSheet: View {
                             .foregroundColor(.secondary)
                             .font(.title3)
                     }
+                    .accessibilityLabel(Text(LocalizationManager.string(for: "action_close", lang: lang)))
                 }
             }
         }
@@ -1492,6 +1472,7 @@ struct ShareGuideSheet: View {
                             .foregroundColor(.secondary)
                             .font(.title3)
                     }
+                    .accessibilityLabel(Text(LocalizationManager.string(for: "action_close", lang: lang)))
                 }
             }
         }

@@ -75,7 +75,7 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 SongFlip is built as a modern **Kotlin Multiplatform (KMP)** project with a modular architecture:
 - **`app/`**: Native Android app (Jetpack Compose, MVVM architecture with ViewModels & StateFlow, Material 3, Quick Settings Tile, Overlay & Notification handling).
 - **`iosApp/`**: Native iOS app (SwiftUI, Share Extension, App Intents for 0-click Siri Shortcuts & Action Button).
-- **`shared/`**: Shared KMP core engine (platform parsing, universal URL sanitizing, multi-tier on-device resolution logic, SQLDelight transactional SQLite cache, playlist conversion client, Ktor HTTP client, strict Structured Concurrency).
+- **`shared/`**: Shared KMP core engine (platform parsing, universal URL sanitizing, modular resolution engine (`SongLinkEngine`, `ShortLinkResolver`, `PodcastResolver`, `MetadataExtractor`, `L2CacheClient`), SQLDelight transactional SQLite cache, playlist conversion client, Ktor HTTP client, strict Structured Concurrency).
 - **Cloud Backend** *(Private / Closed Source)*: Proprietary hosted cloud service (Firebase Cloud Functions by Daniel Notthoff) powering token verification, SSR web-share landing pages, playlist batch scrapers, and global L2 link caching. The client applications (Android, iOS & shared KMP core) are 100% autonomous and compile/run completely standalone.
 
 ### Resolution Pipeline

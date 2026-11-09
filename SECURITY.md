@@ -6,8 +6,8 @@ Security updates are actively maintained for the latest versions of SongFlip:
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.11.x  | :white_check_mark: |
-| < 1.11  | :x:                |
+| 1.14.x  | :white_check_mark: |
+| < 1.14  | :x:                |
 
 ---
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.14.2] - 2026-11-09
+- **Reliability & Efficiency**: Optimized internal link resolution and memory management for faster, more dependable transitions.
+- **Accessibility & Contrast**: Enhanced visual contrast and accessibility labels across buttons and interactive elements.
+- **Documentation**: Updated technical guides and security policies.
+
 ## [1.14.1] - 2026-11-09
 - **Cache Data Integrity**: Read-only deduplication in link cache ensures existing history entries are never permanently removed from storage during list retrieval.
 - **System Integration Localization**: Integrated complete multi-language string catalog for background share extensions to eliminate unlocalized placeholder text.

@@ -131,20 +131,13 @@ func platformIcon(for key: String) -> String {
 }
 
 func detectSourcePlatformName(url: String) -> String {
+    if let platform = UrlUtils.shared.detectPlatform(url: url) {
+        return platform.displayName
+    }
     let lower = url.lowercased()
-    if lower.contains("spotify.com") || lower.contains("spotify.link") { return "Spotify" }
-    if lower.contains("apple.com") || lower.contains("apple.co") { return "Apple Music" }
-    if lower.contains("youtube.com") || lower.contains("youtu.be") { return "YouTube Music" }
-    if lower.contains("deezer.com") || lower.contains("deezer.page.link") { return "Deezer" }
-    if lower.contains("tidal.com") { return "Tidal" }
-    if lower.contains("amazon.") || lower.contains("amzn.to") || lower.contains("a.co") { return "Amazon Music" }
-    if lower.contains("soundcloud.com") || lower.contains("on.soundcloud.com") { return "SoundCloud" }
-    if lower.contains("bandcamp.com") { return "Bandcamp" }
-    if lower.contains("qobuz.com") { return "Qobuz" }
-    if lower.contains("beatport.com") { return "Beatport" }
-    if lower.contains("audiomack.com") { return "Audiomack" }
-    if lower.contains("idagio.com") { return "Idagio" }
-    if lower.contains("song.link") || lower.contains("album.link") || lower.contains("odesli.co") { return "Universal Link" }
+    if lower.contains("song.link") || lower.contains("album.link") || lower.contains("odesli.co") {
+        return "Universal Link"
+    }
     return "Music Link"
 }
 

@@ -87,6 +87,7 @@ struct SearchSheetView: View {
                                 Image(systemName: "xmark.circle.fill")
                                     .foregroundColor(.secondary)
                             }
+                            .accessibilityLabel(Text(LocalizationManager.string(for: "action_close", lang: lang)))
                         } else if let clip = clipboardMusicUrl {
                             Button(action: {
                                 UIImpactFeedbackGenerator(style: .light).impactOccurred()
@@ -279,6 +280,7 @@ struct SearchSheetView: View {
                             .font(.title3)
                             .foregroundColor(.secondary.opacity(0.7))
                     }
+                    .accessibilityLabel(Text(LocalizationManager.string(for: "action_close", lang: lang)))
                 }
             }
             .onChange(of: searchQuery) { query in

@@ -82,20 +82,29 @@ class SongLinkEngine(
     val idagioResolver = IdagioResolver(client)
     val soundCloudResolver = de.goork.songflip.core.engine.resolvers.SoundCloudResolver(client)
 
-    private val shortLinkResolutionCache = mutableMapOf<String, String>()
-    private val shortLinkLock = PlatformLock()
+    val metadataExtractor = MetadataExtractor(
+        client = client,
+        json = json,
+        appleMusicResolver = appleMusicResolver,
+        deezerResolver = deezerResolver,
+        youTubeMusicResolver = youTubeMusicResolver,
+        spotifyResolver = spotifyResolver,
+        qobuzResolver = qobuzResolver,
+        beatportResolver = beatportResolver,
+        audiomackResolver = audiomackResolver,
+        idagioResolver = idagioResolver
+    )
+
+    val shortLinkResolver = ShortLinkResolver(client) { metadataExtractor.resolveShazamToAppleMusic(it) }
 
     private val backgroundScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
-    private fun cacheResolvedShortLink(sourceUrl: String, resolvedUrl: String): String {
-        shortLinkLock.withLock {
-            if (shortLinkResolutionCache.size > 500) {
-                shortLinkResolutionCache.clear()
-            }
-            shortLinkResolutionCache[sourceUrl] = resolvedUrl
-        }
-        return resolvedUrl
-    }
+    val l2CacheClient = L2CacheClient(client, json, backgroundScope)
+
+    val podcastResolver = PodcastResolver(client, json, cache)
+
+    private fun cacheResolvedShortLink(sourceUrl: String, resolvedUrl: String): String =
+        shortLinkResolver.cacheResolvedShortLink(sourceUrl, resolvedUrl)
 
     private fun pingCacheIngestAsync(
         originalUrl: String,
@@ -105,45 +114,15 @@ class SongLinkEngine(
         artist: String?,
         isAlbum: Boolean,
         links: Map<String, String>? = null
-    ) {
-        if (originalUrl.isBlank() || targetUrl.isBlank()) return
-        // #197: Only ingest verified direct platform mappings with complete metadata and at least 3 platform links.
-        // Never ingest fallback search URLs, artist links, or incomplete metadata into global L2 cache.
-        if (targetPlatform.endsWith("_search") || targetPlatform.endsWith("_artist") || targetPlatform.endsWith("_fallback")) return
-        if (UrlUtils.isSearchUrl(targetUrl) || UrlUtils.isSearchUrl(originalUrl)) return
-        if (title.isNullOrBlank() || artist.isNullOrBlank()) return
-        if (links == null || links.size < 3) return
-
-        backgroundScope.launch {
-            try {
-                val jsonPayload = buildJsonObject {
-                    put("originalUrl", originalUrl)
-                    put("targetUrl", targetUrl)
-                    put("platform", targetPlatform)
-                    put("title", title.trim())
-                    put("artist", artist.trim())
-                    put("isAlbum", isAlbum)
-                    putJsonObject("links") {
-                        for ((k, v) in links) {
-                            if (k.isNotBlank() && v.isNotBlank() && !UrlUtils.isSearchUrl(v)) {
-                                put(k, v)
-                            }
-                        }
-                    }
-                }.toString()
-
-                client.post("https://cache.songflip.link/ingest") {
-                    header("Content-Type", "application/json")
-                    header("x-web-client", "songflip-app")
-                    setBody(jsonPayload)
-                }
-            } catch (t: Throwable) {
-                if (t is CancellationException) throw t
-                // Background ingestion is non-blocking and best-effort, but log for diagnostics
-                SongFlipLogger.w("SongLinkEngine", "Background cache ingest failed for $originalUrl", t)
-            }
-        }
-    }
+    ) = l2CacheClient.pingCacheIngestAsync(
+        originalUrl = originalUrl,
+        targetUrl = targetUrl,
+        targetPlatform = targetPlatform,
+        title = title,
+        artist = artist,
+        isAlbum = isAlbum,
+        links = links
+    )
 
     suspend fun resolveTargetUrl(
         inputUrl: String,
@@ -260,92 +239,13 @@ class SongLinkEngine(
         targetPlatformKey: String,
         authToken: String,
         forceRefresh: Boolean = false
-    ): ResolutionResult.Success? {
-        if (authToken.isBlank()) return null
-        val encodedUrl = canonicalUrl.encodeURLParameter()
-        val refreshParam = if (forceRefresh) "&force_refresh=true" else ""
-        val endpoints = listOf(
-            "https://cache.songflip.link/resolve?url=$encodedUrl$refreshParam",
-            "https://songflip-web.web.app/resolve?url=$encodedUrl$refreshParam"
-        )
-
-        for (endpoint in endpoints) {
-            try {
-                val resp = client.get(endpoint) {
-                    header("Authorization", "Bearer $authToken")
-                    header("Accept", "application/json")
-                }
-                if (resp.status.isSuccess()) {
-                    val body = resp.bodyAsText()
-                    val root = json.parseToJsonElement(body).jsonObject
-                    if (root["status"]?.jsonPrimitive?.content == "success") {
-                        val item = root["item"]?.jsonObject
-                        if (item != null) {
-                            val title = item["title"]?.jsonPrimitive?.content?.ifBlank { null }
-                            val artist = item["artist"]?.jsonPrimitive?.content?.ifBlank { null }
-                            val isAlbum = item["isAlbum"]?.jsonPrimitive?.booleanOrNull ?: false
-                            val links = item["links"]?.jsonObject
-                            val thumbnailUrl = item["thumbnailUrl"]?.jsonPrimitive?.content?.ifBlank { null }
-                                ?: root["thumbnailUrl"]?.jsonPrimitive?.content?.ifBlank { null }
-
-                            val rawTarget = when (targetPlatformKey) {
-                                "spotify" -> links?.get("spotify")?.jsonPrimitive?.content
-                                "appleMusic" -> links?.get("appleMusic")?.jsonPrimitive?.content
-                                "youtubeMusic" -> links?.get("youtubeMusic")?.jsonPrimitive?.content ?: links?.get("youtube")?.jsonPrimitive?.content
-                                "deezer" -> links?.get("deezer")?.jsonPrimitive?.content
-                                "tidal" -> links?.get("tidal")?.jsonPrimitive?.content
-                                "amazonMusic" -> links?.get("amazonMusic")?.jsonPrimitive?.content
-                                else -> links?.get(targetPlatformKey)?.jsonPrimitive?.content
-                            }
-
-                            if (!rawTarget.isNullOrBlank()) {
-                                val searchFallbackQuery = UrlUtils.extractSearchQuery(rawTarget)
-                                val upgradedDirectUrl = if (searchFallbackQuery != null) {
-                                    val candidateQuery = if (!title.isNullOrBlank()) {
-                                        if (!artist.isNullOrBlank() && !title.contains(artist, ignoreCase = true)) {
-                                            "$artist $title"
-                                        } else {
-                                            title
-                                        }
-                                    } else {
-                                        searchFallbackQuery
-                                    }
-                                    val cleanQuery = UrlUtils.cleanSearchQuery(candidateQuery)
-                                    resolveDirectPlatformUrl(
-                                        query = cleanQuery,
-                                        targetPlatformKey = targetPlatformKey,
-                                        isAlbum = isAlbum
-                                    )
-                                } else null
-
-                                val effectiveRawTarget = upgradedDirectUrl ?: rawTarget
-                                val isStillSearchFallback = upgradedDirectUrl == null && searchFallbackQuery != null
-                                val formatted = UrlUtils.formatTargetUrl(effectiveRawTarget, targetPlatformKey)
-                                if (!UrlUtils.isSafeTargetUrl(formatted)) {
-                                    SongFlipLogger.w("SongLinkEngine", "Rejected unsafe targetUrl from backend cache: $formatted")
-                                    continue
-                                }
-                                val nativeUri = UrlUtils.toNativeAppUri(formatted, targetPlatformKey)
-                                val safeNativeUri = if (nativeUri.isNotBlank() && UrlUtils.isSafeNativeAppUri(nativeUri)) nativeUri else null
-                                return ResolutionResult.Success(
-                                    targetUrl = formatted,
-                                    platform = if (isStillSearchFallback) "${targetPlatformKey}_search" else targetPlatformKey,
-                                    title = title,
-                                    artist = artist,
-                                    isAlbum = isAlbum,
-                                    nativeAppUri = safeNativeUri,
-                                    thumbnailUrl = thumbnailUrl
-                                )
-                            }
-                        }
-                    }
-                }
-            } catch (e: Exception) {
-                if (e is CancellationException) throw e
-                // Endpoint unreachable or timed out; continue to next fallback
-            }
-        }
-        return null
+    ): ResolutionResult.Success? = l2CacheClient.queryL2ServerCache(
+        canonicalUrl = canonicalUrl,
+        targetPlatformKey = targetPlatformKey,
+        authToken = authToken,
+        forceRefresh = forceRefresh
+    ) { query, platform, isAlbum ->
+        resolveDirectPlatformUrl(query, platform, isAlbum)
     }
 
     suspend fun resolveTargetUrl(
@@ -713,7 +613,7 @@ class SongLinkEngine(
             }
 
             // 7. Fallback: Artist Page Detection
-            val artistInfo = extractArtistInfo(canonicalUrl)
+            val artistInfo = metadataExtractor.extractArtistInfo(canonicalUrl)
             if (artistInfo != null && artistInfo.isNotBlank()) {
                 val directArtistUrl = resolveDirectArtistUrl(artistInfo, targetPlatformKey)
                 val finalTargetUrl = directArtistUrl ?: UrlUtils.buildSearchUrl(artistInfo, targetPlatformKey)
@@ -731,7 +631,7 @@ class SongLinkEngine(
             }
 
             // 8. Fallback: Playlist Search Routing
-            val playlistInfo = extractPlaylistInfo(canonicalUrl)
+            val playlistInfo = metadataExtractor.extractPlaylistInfo(canonicalUrl)
             if (playlistInfo != null && playlistInfo.isNotBlank()) {
                 val searchUrl = UrlUtils.buildSearchUrl(playlistInfo, targetPlatformKey)
                 val nativeUri = UrlUtils.toNativeAppUri(searchUrl, targetPlatformKey)
@@ -893,324 +793,10 @@ class SongLinkEngine(
         }
     }
 
-@Serializable
-internal data class CommonOEmbedDto(
-    val title: String? = null,
-    @SerialName("author_name")
-    val authorName: String? = null,
-    @SerialName("thumbnail_url")
-    val thumbnailUrl: String? = null
-)
 
-@Serializable
-internal data class SpotifyPodcastOEmbedDto(
-    val title: String? = null,
-    @SerialName("thumbnail_url")
-    val thumbnailUrl: String? = null
-)
+    suspend fun extractTrackInfo(url: String): String? = metadataExtractor.extractTrackInfo(url)
 
-    suspend fun extractTrackInfo(url: String): String? {
-        return try {
-            when (UrlUtils.detectPlatform(url)) {
-                MusicPlatform.SPOTIFY -> {
-                    val scraped = spotifyResolver.extractEmbedMetadata(url)
-                    if (scraped != null && scraped.title.isNotBlank()) {
-                        val author = scraped.artist
-                        if (!author.isNullOrBlank() && !scraped.title.contains(author, ignoreCase = true)) {
-                            "$author ${scraped.title}"
-                        } else {
-                            scraped.title
-                        }
-                    } else {
-                        spotifyResolver.extractMetadata(url)
-                    }
-                }
-                MusicPlatform.APPLE_MUSIC -> appleMusicResolver.extractMetadata(url)
-                MusicPlatform.YOUTUBE_MUSIC -> {
-                    val details = youTubeMusicResolver.extractVideoDetails(url)
-                    if (details != null && details.title.isNotBlank()) {
-                        val author = details.author
-                        if (!author.isNullOrBlank() && !details.title.contains(author, ignoreCase = true)) {
-                            "$author ${details.title}"
-                        } else {
-                            details.title
-                        }
-                    } else {
-                        val encoded = url.encodeURLParameter()
-                        val resp = client.get("https://www.youtube.com/oembed?url=$encoded&format=json")
-                        if (resp.status.isSuccess()) {
-                            val oembed = json.decodeFromString<CommonOEmbedDto>(resp.bodyAsText())
-                            val rawTitle = oembed.title ?: ""
-                            val author = oembed.authorName ?: ""
-                            val title = UrlUtils.cleanVideoTitle(rawTitle)
-                            val cleanAuthor = author.replace(Regex("(?i)\\s*[-–—]?\\s*vevo$"), "").replace(Regex("(?i)\\s*[-–—]?\\s*topic$"), "").trim()
-                            if (title.isNotEmpty()) {
-                                if (cleanAuthor.isNotEmpty() && !title.contains(cleanAuthor, ignoreCase = true)) "$cleanAuthor $title" else title
-                            } else null
-                        } else null
-                    }
-                }
-                MusicPlatform.DEEZER -> {
-                    val encoded = url.encodeURLParameter()
-                    val resp = client.get("https://api.deezer.com/oembed?url=$encoded")
-                    if (resp.status.isSuccess()) {
-                        val oembed = json.decodeFromString<CommonOEmbedDto>(resp.bodyAsText())
-                        val title = oembed.title
-                        if (!title.isNullOrEmpty()) return title
-                    }
-                    null
-                }
-                MusicPlatform.SOUNDCLOUD -> {
-                    val encoded = url.encodeURLParameter()
-                    val resp = client.get("https://soundcloud.com/oembed?url=$encoded&format=json")
-                    if (resp.status.isSuccess()) {
-                        val oembed = json.decodeFromString<CommonOEmbedDto>(resp.bodyAsText())
-                        val title = oembed.title ?: ""
-                        val author = oembed.authorName ?: ""
-                        val cleanTitle = if (author.isNotEmpty() && title.endsWith(" by $author", ignoreCase = true)) {
-                            title.substring(0, title.length - " by $author".length).trim()
-                        } else {
-                            title
-                        }
-                        if (cleanTitle.isNotEmpty()) {
-                            return if (author.isNotEmpty() && !cleanTitle.contains(author, ignoreCase = true)) "$author $cleanTitle" else cleanTitle
-                        }
-                    }
-                    null
-                }
-                MusicPlatform.BANDCAMP -> {
-                    val resp = client.get(url)
-                    if (resp.status.isSuccess()) {
-                        val html = resp.bodyAsText()
-                        val ogTitleMatch = Regex("<meta\\s+property=[\"']og:title[\"']\\s+content=[\"']([^\"']+)[\"']", RegexOption.IGNORE_CASE).find(html)
-                            ?: Regex("<meta\\s+content=[\"']([^\"']+)[\"']\\s+property=[\"']og:title[\"']", RegexOption.IGNORE_CASE).find(html)
-                        if (ogTitleMatch != null) {
-                            val ogTitle = ogTitleMatch.groupValues[1]
-                            if (ogTitle.contains(", by ")) {
-                                val track = ogTitle.substringBefore(", by ").trim()
-                                val artist = ogTitle.substringAfter(", by ").trim()
-                                return "$artist $track"
-                            }
-                            return ogTitle
-                        }
-                    }
-                    null
-                }
-                MusicPlatform.QOBUZ -> qobuzResolver.extractMetadata(url)
-                MusicPlatform.BEATPORT -> beatportResolver.extractMetadata(url)
-                MusicPlatform.AUDIOMACK -> audiomackResolver.extractMetadata(url)
-                MusicPlatform.IDAGIO -> idagioResolver.extractMetadata(url)
-                else -> {
-                    if (url.contains("shazam.com")) {
-                        val trackMatch = Regex("shazam\\.com/(?:[a-z]{2}(?:-[a-z]{2})?/)?track/([0-9]+)", RegexOption.IGNORE_CASE).find(url)
-                        val trackId = trackMatch?.groupValues?.get(1) ?: url.substringAfter("/track/").substringBefore("/").substringBefore("?").trim().takeIf { it.isNotEmpty() && it.all { c -> c.isDigit() } }
-                        if (!trackId.isNullOrEmpty()) {
-                            val resp = client.get("https://amp.shazam.com/discovery/v5/en-US/US/web/-/track/$trackId") {
-                                header("User-Agent", "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1")
-                            }
-                            if (resp.status.isSuccess()) {
-                                val body = resp.bodyAsText()
-                                val root = json.parseToJsonElement(body).jsonObject
-                                val title = root["title"]?.jsonPrimitive?.content?.trim()
-                                val artist = root["subtitle"]?.jsonPrimitive?.content?.trim()
-                                if (!title.isNullOrEmpty() && !artist.isNullOrEmpty()) {
-                                    return "$artist $title"
-                                }
-                            }
-                        }
-                        null
-                    } else {
-                        null
-                    }
-                }
-            }
-        } catch (e: Exception) {
-            if (e is CancellationException) throw e
-            null
-        }
-    }
-
-    private suspend fun extractArtistInfo(url: String): String? {
-        return try {
-            if (url.contains("deezer.com") && url.contains("/artist/")) {
-                val artistId = url.substringAfter("/artist/").substringBefore("?").substringBefore("/").trim()
-                if (artistId.isNotEmpty()) {
-                    val resp = client.get("https://api.deezer.com/artist/$artistId")
-                    if (resp.status.isSuccess()) {
-                        val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
-                        val name = root["name"]?.jsonPrimitive?.content
-                        if (!name.isNullOrEmpty()) return name
-                    }
-                }
-            }
-            val platform = UrlUtils.detectPlatform(url)
-            val lower = url.lowercase()
-            if (platform == MusicPlatform.SPOTIFY && lower.contains("/artist/")) {
-                val encoded = url.encodeURLParameter()
-                val resp = client.get("https://open.spotify.com/oembed?url=$encoded")
-                if (resp.status.isSuccess()) {
-                    val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
-                    val title = root["title"]?.jsonPrimitive?.content
-                    if (!title.isNullOrEmpty()) return title
-                }
-            } else if (platform == MusicPlatform.APPLE_MUSIC && lower.contains("/artist/")) {
-                val artistId = url.substringAfterLast("/").substringBefore("?").substringBefore("&").trim()
-                if (artistId.isNotEmpty() && artistId.all { it.isDigit() }) {
-                    val resp = client.get("https://itunes.apple.com/lookup?id=$artistId")
-                    if (resp.status.isSuccess()) {
-                        val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
-                        val results = root["results"]?.jsonArray
-                        if (results != null && results.isNotEmpty()) {
-                            val artistObj = results[0].jsonObject
-                            val artistName = artistObj["artistName"]?.jsonPrimitive?.content
-                            if (!artistName.isNullOrEmpty()) return artistName
-                        }
-                    }
-                }
-            }
-            null
-        } catch (e: Exception) {
-            if (e is CancellationException) throw e
-            null
-        }
-    }
-
-    private suspend fun extractPlaylistInfo(url: String): String? {
-        return try {
-            val platform = UrlUtils.detectPlatform(url)
-            val lower = url.lowercase()
-            if (platform == MusicPlatform.DEEZER && lower.contains("/playlist/")) {
-                val playlistId = url.substringAfter("/playlist/").substringBefore("?").substringBefore("/").trim()
-                if (playlistId.isNotEmpty()) {
-                    val resp = client.get("https://api.deezer.com/playlist/$playlistId")
-                    if (resp.status.isSuccess()) {
-                        val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
-                        val title = root["title"]?.jsonPrimitive?.content
-                        if (!title.isNullOrEmpty()) return title
-                    }
-                }
-            } else if (platform == MusicPlatform.SPOTIFY && lower.contains("/playlist/")) {
-                val encoded = url.encodeURLParameter()
-                val resp = client.get("https://open.spotify.com/oembed?url=$encoded")
-                if (resp.status.isSuccess()) {
-                    val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
-                    val title = root["title"]?.jsonPrimitive?.content
-                    if (!title.isNullOrEmpty()) return title
-                }
-            }
-            null
-        } catch (e: Exception) {
-            if (e is CancellationException) throw e
-            null
-        }
-    }
-
-    private suspend fun resolveShazamToAppleMusic(url: String): String? {
-        return try {
-            val trackMatch = Regex("shazam\\.com/(?:[a-z]{2}(?:-[a-z]{2})?/)?track/([0-9]+)", RegexOption.IGNORE_CASE).find(url)
-            val trackId = trackMatch?.groupValues?.get(1) ?: url.substringAfter("/track/").substringBefore("/").substringBefore("?").trim().takeIf { it.isNotEmpty() && it.all { c -> c.isDigit() } }
-            if (trackId.isNullOrEmpty()) return null
-
-            val resp = client.get("https://amp.shazam.com/discovery/v5/en-US/US/web/-/track/$trackId") {
-                header("User-Agent", "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1")
-            }
-            if (resp.status.isSuccess()) {
-                val body = resp.bodyAsText()
-                val root = json.parseToJsonElement(body).jsonObject
-                val hub = root["hub"]?.jsonObject
-                val actions = hub?.get("actions")?.jsonArray
-                if (actions != null) {
-                    for (actEl in actions) {
-                        val act = actEl.jsonObject
-                        if (act["name"]?.jsonPrimitive?.content == "apple" && act["type"]?.jsonPrimitive?.content == "applemusicplay") {
-                            val appleId = act["id"]?.jsonPrimitive?.content
-                            if (!appleId.isNullOrBlank()) {
-                                return "https://music.apple.com/song/$appleId"
-                            }
-                        }
-                    }
-                }
-                val fallbackId = root["trackadamid"]?.jsonPrimitive?.content
-                if (!fallbackId.isNullOrBlank()) {
-                    return "https://music.apple.com/song/$fallbackId"
-                }
-            }
-            null
-        } catch (e: Exception) {
-            if (e is CancellationException) throw e
-            null
-        }
-    }
-
-    suspend fun resolveCanonicalUrl(url: String): String {
-        val cached = shortLinkLock.withLock { shortLinkResolutionCache[url] }
-        if (cached != null) return cached
-
-        if (url.contains("shazam.com")) {
-            val appleUrl = resolveShazamToAppleMusic(url)
-            if (appleUrl != null) return cacheResolvedShortLink(url, appleUrl)
-        }
-
-        var currentUrl = url
-        for (hop in 0 until 5) {
-            val normalized = UrlUtils.normalizeUrl(currentUrl)
-            if (normalized != currentUrl && !UrlUtils.isShortLinkDomain(normalized)) {
-                return cacheResolvedShortLink(url, normalized)
-            }
-
-            try {
-                val resp = client.head(currentUrl) {
-                    header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
-                }
-                val rawLocation = resp.headers["Location"]
-                if (!rawLocation.isNullOrBlank()) {
-                    val nextUrl = resolveRelativeUrl(currentUrl, rawLocation)
-                    currentUrl = nextUrl
-                    val nextNormalized = UrlUtils.normalizeUrl(nextUrl)
-                    if (nextNormalized != nextUrl && !UrlUtils.isShortLinkDomain(nextNormalized)) {
-                        return cacheResolvedShortLink(url, nextNormalized)
-                    }
-                    if (!UrlUtils.isShortLinkDomain(nextUrl)) {
-                        return cacheResolvedShortLink(url, nextUrl)
-                    }
-                } else {
-                    val getResp = client.get(currentUrl) {
-                        header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
-                    }
-                    val target = UrlUtils.normalizeUrl(getResp.request.url.toString())
-                    return cacheResolvedShortLink(url, target)
-                }
-            } catch (e: Exception) {
-                if (e is CancellationException) throw e
-                try {
-                    val getResp = client.get(currentUrl) {
-                        header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
-                    }
-                    val target = UrlUtils.normalizeUrl(getResp.request.url.toString())
-                    return cacheResolvedShortLink(url, target)
-                } catch (inner: Exception) {
-                    if (inner is CancellationException) throw inner
-                    val target = UrlUtils.normalizeUrl(currentUrl)
-                    return cacheResolvedShortLink(url, target)
-                }
-            }
-        }
-        val target = UrlUtils.normalizeUrl(currentUrl)
-        return cacheResolvedShortLink(url, target)
-    }
-
-    private fun resolveRelativeUrl(base: String, location: String): String {
-        return when {
-            location.startsWith("http://") || location.startsWith("https://") -> location
-            location.startsWith("//") -> "https:$location"
-            location.startsWith("/") -> {
-                val scheme = if (base.startsWith("http://")) "http://" else "https://"
-                val domain = UrlUtils.extractDomain(base)
-                "$scheme$domain$location"
-            }
-            else -> location
-        }
-    }
+    suspend fun resolveCanonicalUrl(url: String): String = shortLinkResolver.resolveCanonicalUrl(url)
 
     private suspend fun queryCustomApi(apiUrl: String, token: String, url: String, targetPlatform: String): String? {
         return try {
@@ -1245,166 +831,10 @@ internal data class SpotifyPodcastOEmbedDto(
         targetPlatformKey: String,
         isPrefetch: Boolean = false,
         forceRefresh: Boolean = false
-    ): ResolutionResult.Podcast {
-        val now = getCurrentTimeMillis()
-        if (!forceRefresh) {
-            val cached = cache.get(canonicalUrl, targetPlatformKey, now)
-            if (cached != null) {
-                if (!isPrefetch) {
-                    cache.markAsHistory(canonicalUrl, targetPlatformKey, now)
-                }
-                return ResolutionResult.Podcast(
-                    originalUrl = canonicalUrl,
-                    targetUrl = cached.targetUrl,
-                    platform = cached.platform,
-                    showTitle = cached.artist ?: cached.title ?: "Podcast",
-                    episodeTitle = if (cached.artist != null) cached.title else null,
-                    nativeAppUri = cached.nativeAppUri,
-                    thumbnailUrl = cached.thumbnailUrl,
-                    isEpisode = cached.artist != null,
-                    isDeepSearch = true
-                )
-            }
-        }
-
-        // 1. Try Backend /resolve for high-accuracy metadata & direct links
-        val encodedUrl = canonicalUrl.encodeURLParameter()
-        val refreshParam = if (forceRefresh) "&force_refresh=true" else ""
-        val endpoints = listOf(
-            "https://cache.songflip.link/resolve?url=$encodedUrl&platform=$targetPlatformKey$refreshParam",
-            "https://songflip-web.web.app/resolve?url=$encodedUrl&platform=$targetPlatformKey$refreshParam"
-        )
-
-        for (endpoint in endpoints) {
-            try {
-                val resp = client.get(endpoint) {
-                    header("Accept", "application/json")
-                }
-                if (resp.status.isSuccess()) {
-                    val body = resp.bodyAsText()
-                    val root = json.parseToJsonElement(body).jsonObject
-                    if (root["status"]?.jsonPrimitive?.content == "success" && (root["isPodcast"]?.jsonPrimitive?.booleanOrNull == true || root["entityType"]?.jsonPrimitive?.content == "podcast")) {
-                        val item = root["item"]?.jsonObject
-                        if (item != null) {
-                            val showTitle = item["showTitle"]?.jsonPrimitive?.content?.ifBlank { null } ?: "Podcast"
-                            val episodeTitle = item["episodeTitle"]?.jsonPrimitive?.content?.ifBlank { null }
-                            val thumbnailUrl = item["thumbnailUrl"]?.jsonPrimitive?.content?.ifBlank { null }
-                            val isEpisode = item["isEpisode"]?.jsonPrimitive?.booleanOrNull ?: (episodeTitle != null)
-                            val queryText = if (episodeTitle != null) {
-                                if (showTitle.equals("Podcast", ignoreCase = true) || episodeTitle.contains(showTitle, ignoreCase = true)) {
-                                    episodeTitle
-                                } else {
-                                    "$showTitle $episodeTitle"
-                                }
-                            } else {
-                                showTitle
-                            }
-                            val rawTargetUrl = item["targetUrl"]?.jsonPrimitive?.content
-                            val targetUrl = if (rawTargetUrl != null && UrlUtils.isSafeTargetUrl(rawTargetUrl)) {
-                                rawTargetUrl
-                            } else {
-                                UrlUtils.buildPodcastSearchUrl(queryText, targetPlatformKey)
-                            }
-                            val rawNativeAppUri = item["nativeAppUri"]?.jsonPrimitive?.content
-                            val nativeAppUri = if (rawNativeAppUri != null && UrlUtils.isSafeNativeAppUri(rawNativeAppUri)) {
-                                rawNativeAppUri
-                            } else {
-                                UrlUtils.toPodcastNativeAppUri(targetPlatformKey, queryText)
-                            }
-
-                            val result = ResolutionResult.Podcast(
-                                originalUrl = canonicalUrl,
-                                targetUrl = targetUrl,
-                                platform = targetPlatformKey,
-                                showTitle = showTitle,
-                                episodeTitle = episodeTitle,
-                                nativeAppUri = nativeAppUri,
-                                thumbnailUrl = thumbnailUrl,
-                                isEpisode = isEpisode,
-                                isDeepSearch = true
-                            )
-                            cache.putPodcast(canonicalUrl, targetPlatformKey, result, now, isHistory = !isPrefetch)
-                            return result
-                        }
-                    }
-                }
-            } catch (e: Exception) {
-                if (e is CancellationException) throw e
-            }
-        }
-
-        // 2. Direct Spotify Resolution via Official oEmbed API
-        if (UrlUtils.detectPlatform(canonicalUrl) == MusicPlatform.SPOTIFY) {
-            try {
-                val oembedUrl = "https://open.spotify.com/oembed?url=${canonicalUrl.encodeURLParameter()}"
-                val oResp = client.get(oembedUrl)
-                if (oResp.status.isSuccess()) {
-                    val oembed = json.decodeFromString<SpotifyPodcastOEmbedDto>(oResp.bodyAsText())
-                    val title = oembed.title?.ifBlank { null }
-                    val thumb = oembed.thumbnailUrl?.ifBlank { null }
-                    if (title != null) {
-                        val isEp = canonicalUrl.contains("/episode/") || canonicalUrl.startsWith("spotify:episode:")
-                        val targetUrl = UrlUtils.buildPodcastSearchUrl(title, targetPlatformKey)
-                        val nativeUri = UrlUtils.toPodcastNativeAppUri(targetPlatformKey, title)
-                        val oResult = ResolutionResult.Podcast(
-                            originalUrl = canonicalUrl,
-                            targetUrl = targetUrl,
-                            platform = targetPlatformKey,
-                            showTitle = title,
-                            episodeTitle = if (isEp) title else null,
-                            nativeAppUri = nativeUri,
-                            thumbnailUrl = thumb,
-                            isEpisode = isEp,
-                            isDeepSearch = true
-                        )
-                        cache.putPodcast(canonicalUrl, targetPlatformKey, oResult, now, isHistory = !isPrefetch)
-                        return oResult
-                    }
-                }
-            } catch (e: Exception) {
-                if (e is CancellationException) throw e
-            }
-        }
-
-        // 3. Offline Fallback: Extract Show / Episode slug and generate Deep-Search Intent
-        val fallbackQuery = extractPodcastFallbackQuery(canonicalUrl)
-        val targetUrl = UrlUtils.buildPodcastSearchUrl(fallbackQuery, targetPlatformKey)
-        val nativeUri = UrlUtils.toPodcastNativeAppUri(targetPlatformKey, fallbackQuery)
-        val fallbackResult = ResolutionResult.Podcast(
-            originalUrl = canonicalUrl,
-            targetUrl = targetUrl,
-            platform = targetPlatformKey,
-            showTitle = fallbackQuery,
-            episodeTitle = null,
-            nativeAppUri = nativeUri,
-            thumbnailUrl = null,
-            isEpisode = false,
-            isDeepSearch = true
-        )
-        cache.putPodcast(canonicalUrl, targetPlatformKey, fallbackResult, now, isHistory = !isPrefetch)
-        return fallbackResult
-    }
-
-    private fun extractPodcastFallbackQuery(url: String): String {
-        return try {
-            val clean = url.substringBefore("?").substringBefore("#").trimEnd('/')
-            val rawSlug = clean.substringAfterLast("/")
-            // If slug looks like a raw alphanumeric Base62 ID (e.g. 22 chars without hyphens/spaces like 7BTOsF2boKmlYr76BelijW)
-            if (rawSlug.length in 18..30 && rawSlug.matches(Regex("""^[a-zA-Z0-9]+$"""))) {
-                return "Podcast"
-            }
-            val slug = rawSlug
-                .replace("-", " ")
-                .replace("_", " ")
-                .replace(Regex("""\bid\d+\b""", RegexOption.IGNORE_CASE), "")
-                .trim()
-            if (slug.isNotBlank() && slug.length > 2 && !slug.all { it.isDigit() }) {
-                slug
-            } else {
-                "Podcast"
-            }
-        } catch (_: Exception) {
-            "Podcast"
-        }
-    }
+    ): ResolutionResult.Podcast = podcastResolver.resolvePodcast(
+        canonicalUrl = canonicalUrl,
+        targetPlatformKey = targetPlatformKey,
+        isPrefetch = isPrefetch,
+        forceRefresh = forceRefresh
+    )
 }
