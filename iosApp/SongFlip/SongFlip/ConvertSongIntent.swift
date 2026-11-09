@@ -90,7 +90,7 @@ struct ConvertSongIntent: AppIntent {
         let customUrl = defaults.string(forKey: "custom_api_url") ?? ""
         let customToken = defaults.string(forKey: "custom_api_token") ?? ""
 
-        let isProCached = defaults.bool(forKey: "is_pro_cached")
+        let isProCached = ProManager.isProActive(defaults: defaults)
         let audiophileMode = isProCached && defaults.bool(forKey: "audiophile_mode")
 
         let engine = SongLinkEngine.shared

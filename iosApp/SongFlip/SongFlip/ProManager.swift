@@ -41,7 +41,66 @@ final class ProManager: NSObject, ObservableObject {
     private static let keyCouponToken = "pro_coupon_token"
     private static let keyIsProCached = "is_pro_cached"
     private static let keyCacheSignature = "pro_cache_signature"
+    private static let keyProCacheType = "pro_cache_type"
+    private static let keyProCacheExp = "pro_cache_exp"
     private static let keyProAuthToken = "pro_auth_token"
+    private static let cacheSecret = "SF_PRO_STATE_HMAC_v2_9f8e7d6c"
+
+    static func generateSignature(isPro: Bool, proType: String?, expMs: Int64) -> String {
+        let msg = "\(isPro)|\(proType ?? "")|\(expMs)"
+        let key = SymmetricKey(data: Data(cacheSecret.utf8))
+        let code = HMAC<SHA256>.authenticationCode(for: Data(msg.utf8), using: key)
+        return code.map { String(format: "%02x", $0) }.joined()
+    }
+
+    static func verifySignature(isPro: Bool, proType: String?, expMs: Int64, signature: String) -> Bool {
+        let expected = generateSignature(isPro: isPro, proType: proType, expMs: expMs)
+        return expected == signature
+    }
+
+    static func writeVerifiedProState(defaults: UserDefaults, isPro: Bool, proType: String?, expMs: Int64) {
+        defaults.set(isPro, forKey: keyIsProCached)
+        defaults.set(proType ?? "", forKey: keyProCacheType)
+        defaults.set(expMs, forKey: keyProCacheExp)
+        let sig = generateSignature(isPro: isPro, proType: proType, expMs: expMs)
+        defaults.set(sig, forKey: keyCacheSignature)
+    }
+
+    static func isProActive(defaults: UserDefaults = UserDefaults(suiteName: appGroupId) ?? .standard) -> Bool {
+        // 1. Verify coupon token if present via Ed25519 signature
+        if let token = defaults.string(forKey: keyCouponToken), !token.isEmpty {
+            let nowMs = Int64(Date().timeIntervalSince1970 * 1000)
+            let verified = CouponService.companion.shared.verifyCouponToken(
+                token: token,
+                expectedInstallId: nil,
+                currentTimeMs: nowMs,
+                lastSeenServerTimeMs: 0
+            )
+            if verified.valid {
+                return true
+            }
+        }
+
+        // 2. Verify HMAC signature for cached Pro status
+        let isPro = defaults.bool(forKey: keyIsProCached)
+        guard isPro else { return false }
+
+        let proType = defaults.string(forKey: keyProCacheType)
+        let expMs = defaults.object(forKey: keyProCacheExp) as? Int64 ?? (defaults.object(forKey: keyProCacheExp) as? NSNumber)?.int64Value ?? 0
+        guard let signature = defaults.string(forKey: keyCacheSignature) else { return false }
+
+        guard verifySignature(isPro: true, proType: proType, expMs: expMs, signature: signature) else {
+            return false
+        }
+
+        if expMs > 0 {
+            let nowMs = Int64(Date().timeIntervalSince1970 * 1000)
+            if nowMs > (expMs + Int64(rcExpiryGraceMs)) {
+                return false
+            }
+        }
+        return true
+    }
 
     @Published var isPro: Bool = false {
         didSet {
@@ -213,8 +272,7 @@ final class ProManager: NSObject, ObservableObject {
 
     private func saveStoredCouponToken(_ token: String) {
         writeKeychainString(account: Self.keychainAccountCouponToken, value: token)
-        defaults.removeObject(forKey: Self.keyCouponToken)
-        defaults.removeObject(forKey: Self.keyCacheSignature)
+        defaults.set(token, forKey: Self.keyCouponToken)
     }
 
     private func getLastSeenServerTime() -> Int64 {
@@ -233,10 +291,9 @@ final class ProManager: NSObject, ObservableObject {
     }
 
     private func persistRevenueCatProState(isPro: Bool, proType: String?, expiration: Double? = nil) {
-        defaults.removeObject(forKey: Self.keyCacheSignature)
-        defaults.set(isPro, forKey: Self.keyIsProCached)
+        let expMs = Int64(expiration ?? 0)
+        Self.writeVerifiedProState(defaults: defaults, isPro: isPro, proType: proType, expMs: expMs)
         if isPro {
-            let expMs = Int64(expiration ?? 0)
             let stateStr = "1|\(proType ?? "revenuecat_subscription")|\(expMs)"
             writeKeychainString(account: Self.keychainAccountRcState, value: stateStr)
         } else {
@@ -326,19 +383,20 @@ final class ProManager: NSObject, ObservableObject {
             self.isPro = true
             self.proType = "lifetime_coupon"
             self.expirationDate = nil
-            defaults.set(true, forKey: Self.keyIsProCached)
+            Self.writeVerifiedProState(defaults: defaults, isPro: true, proType: "lifetime_coupon", expMs: 0)
             return true
         }
         let labelType = defaults.string(forKey: Self.keyCouponType) ?? verified.type
         let normalizedType = labelType.hasSuffix("_coupon") ? labelType : "\(labelType)_coupon"
         self.isPro = true
         self.proType = normalizedType
-        if let expMs = verified.expirationTimestamp?.doubleValue, expMs > 0 {
-            self.expirationDate = Date(timeIntervalSince1970: expMs / 1000)
+        let expMs = verified.expirationTimestamp?.int64Value ?? 0
+        if expMs > 0 {
+            self.expirationDate = Date(timeIntervalSince1970: Double(expMs) / 1000)
         } else {
             self.expirationDate = nil
         }
-        defaults.set(true, forKey: Self.keyIsProCached)
+        Self.writeVerifiedProState(defaults: defaults, isPro: true, proType: normalizedType, expMs: expMs)
         return true
     }
 
@@ -359,7 +417,7 @@ final class ProManager: NSObject, ObservableObject {
                     self.isPro = true
                     self.proType = rcType
                     self.expirationDate = expMs > 0 ? Date(timeIntervalSince1970: expMs / 1000) : nil
-                    defaults.set(true, forKey: Self.keyIsProCached)
+                    Self.writeVerifiedProState(defaults: defaults, isPro: true, proType: rcType, expMs: Int64(expMs))
                     return
                 }
             }
@@ -368,7 +426,7 @@ final class ProManager: NSObject, ObservableObject {
         self.isPro = false
         self.proType = nil
         self.expirationDate = nil
-        defaults.set(false, forKey: Self.keyIsProCached)
+        Self.writeVerifiedProState(defaults: defaults, isPro: false, proType: nil, expMs: 0)
     }
 
     func trackPaywallImpression() {

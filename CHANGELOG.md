@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.1] - 2026-11-09
+- **Cache Data Integrity**: Read-only deduplication in link cache ensures existing history entries are never permanently removed from storage during list retrieval.
+- **System Integration Localization**: Integrated complete multi-language string catalog for background share extensions to eliminate unlocalized placeholder text.
+- **File Import Resilience**: Added multi-encoding support (UTF-8, UTF-16, Latin-1, Windows-1252) and graceful error handling for playlist file imports.
+- **State Validation & Verification**: Added cryptographic HMAC verification for cached premium tier entitlements and license tokens.
+- **Intent & Resolver Reliability**: Added explicit error logging and fallback notifications across system share dialogs and network timeout handlers.
+
 ## [1.14.0] - 2026-11-09
 - **Security & Open-Redirect Hardening**: Standardized URL parsing via Ktor URL engine with strict rejection of userinfo (`@`) to prevent host-spoofing and phishing redirects. Subdomain matching hardened with strict TLD validation.
 - **Repository Architecture & Closed-Source Decoupling**: Completely decoupled proprietary backend cloud functions from public repository submodule structure for standalone open-source cloning and building.

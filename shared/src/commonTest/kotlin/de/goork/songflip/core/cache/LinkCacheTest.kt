@@ -442,6 +442,49 @@ class LinkCacheTest {
 
         storage.clear()
     }
+
+    @Test
+    fun testHistoryDeduplicationDoesNotMutateStorage() = runTest {
+        val sharedStorage = object : CacheStorage {
+            val map = mutableMapOf<String, CacheEntry>()
+            override fun get(key: String): CacheEntry? = map[key]
+            override fun put(key: String, entry: CacheEntry) { map[key] = entry }
+            override fun remove(key: String) { map.remove(key) }
+            override fun clear() { map.clear() }
+            override fun loadAll(): Map<String, CacheEntry> = map.toMap()
+        }
+
+        val cache = LinkCache(maxEntries = 10, storage = sharedStorage)
+        val key1 = cache.addHistoryEntry(
+            sourceUrl = "https://open.spotify.com/track/studio",
+            targetPlatformKey = "youtubeMusic",
+            targetUrl = "https://music.youtube.com/watch?v=studio",
+            title = "Same Title",
+            artist = "Same Artist",
+            currentTimeMs = 1000L
+        )
+        val key2 = cache.addHistoryEntry(
+            sourceUrl = "https://open.spotify.com/track/live",
+            targetPlatformKey = "youtubeMusic",
+            targetUrl = "https://music.youtube.com/watch?v=live",
+            title = "Same Title",
+            artist = "Same Artist",
+            currentTimeMs = 2000L
+        )
+
+        // Storage MUST have both entries
+        assertNotNull(sharedStorage.get(key1))
+        assertNotNull(sharedStorage.get(key2))
+
+        // UI deduplication presents 1 item
+        val deduplicated = cache.getHistoryEntries(limit = 10, currentTimeMs = 3000L)
+        assertEquals(1, deduplicated.size)
+        assertEquals(1, cache.getHistoryCount(currentTimeMs = 3000L))
+
+        // Critical check: Storage was NOT mutated by the read operations! Both keys still exist!
+        assertNotNull(sharedStorage.get(key1), "Primary key must never be deleted from storage during read")
+        assertNotNull(sharedStorage.get(key2), "Secondary key must never be deleted from storage during read")
+    }
 }
 
 

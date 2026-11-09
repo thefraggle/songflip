@@ -3,8 +3,10 @@ package de.goork.songflip.core.cache
 import de.goork.songflip.core.engine.getCurrentTimeMillis
 import de.goork.songflip.core.model.ResolutionResult
 import de.goork.songflip.core.util.UrlUtils
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -386,41 +388,23 @@ class LinkCache(
                 urlKey?.let { urlIndex[it] = existingIdx }
                 targetKey?.let { targetIndex[it] = existingIdx }
                 trackKey?.let { trackIndex[it] = existingIdx }
-
-                // Self-heal storage by removing the redundant duplicate key and persisting merged flags
-                if (secondary.cacheKey != merged.cacheKey) {
-                    entries.remove(secondary.cacheKey)
-                    storage.remove(secondary.cacheKey)
-                }
-                val primaryEntry = entries[merged.cacheKey] ?: storage.get(merged.cacheKey)
-                if (primaryEntry != null) {
-                    val healedEntry = primaryEntry.copy(
-                        title = merged.title,
-                        artist = merged.artist,
-                        thumbnailUrl = merged.thumbnailUrl,
-                        timestamp = merged.timestamp,
-                        isHistory = true,
-                        isFavorite = merged.isFavorite,
-                        isAcoustic = merged.isAcoustic
-                    )
-                    entries[merged.cacheKey] = healedEntry
-                    storage.put(merged.cacheKey, healedEntry)
-                }
             }
         }
         return deduplicated
     }
 
-    suspend fun getHistoryEntries(limit: Int = 10, currentTimeMs: Long = getCurrentTimeMillis()): List<LinkHistoryItem> = mutex.withLock {
-        ensureLoaded(currentTimeMs)
-        val allItems = collectDeduplicatedHistoryItems(currentTimeMs).toMutableList()
+    suspend fun getHistoryEntries(limit: Int = 10, currentTimeMs: Long = getCurrentTimeMillis()): List<LinkHistoryItem> = withContext(Dispatchers.Default) {
+        mutex.withLock {
+            ensureLoaded(currentTimeMs)
+            val allItems = collectDeduplicatedHistoryItems(currentTimeMs).toMutableList()
 
-        // Favorites pinned to the top, then sorted by timestamp descending
-        allItems.sortWith(compareByDescending<LinkHistoryItem> { it.isFavorite }.thenByDescending { it.timestamp })
-        if (limit > 0 && allItems.size > limit) {
-            allItems.subList(0, limit)
-        } else {
-            allItems
+            // Favorites pinned to the top, then sorted by timestamp descending
+            allItems.sortWith(compareByDescending<LinkHistoryItem> { it.isFavorite }.thenByDescending { it.timestamp })
+            if (limit > 0 && allItems.size > limit) {
+                allItems.subList(0, limit)
+            } else {
+                allItems
+            }
         }
     }
 
@@ -583,8 +567,6 @@ class LinkCache(
         entries.remove(key)
         entries[key] = entry
         storage.put(key, entry)
-        // Run deduplication so any unnormalized/duplicate entry for the same track is merged immediately
-        collectDeduplicatedHistoryItems(timestamp)
         evictOverflow()
         key
     }
@@ -733,9 +715,11 @@ class LinkCache(
         currentTimeMs = getCurrentTimeMillis()
     )
 
-    suspend fun getHistoryCount(currentTimeMs: Long = getCurrentTimeMillis()): Int = mutex.withLock {
-        ensureLoaded(currentTimeMs)
-        collectDeduplicatedHistoryItems(currentTimeMs).size
+    suspend fun getHistoryCount(currentTimeMs: Long = getCurrentTimeMillis()): Int = withContext(Dispatchers.Default) {
+        mutex.withLock {
+            ensureLoaded(currentTimeMs)
+            collectDeduplicatedHistoryItems(currentTimeMs).size
+        }
     }
 
     suspend fun getHistoryCount(): Int =

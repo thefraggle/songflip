@@ -3,6 +3,7 @@ import Social
 import MobileCoreServices
 import UniformTypeIdentifiers
 import SongFlipKit
+import CryptoKit
 import os
 
 class ShareViewController: UIViewController {
@@ -385,6 +386,45 @@ class ShareViewController: UIViewController {
         )
     }
 
+    private func isProActive(defaults: UserDefaults) -> Bool {
+        // 1. Verify coupon token if present via Ed25519 signature
+        if let token = defaults.string(forKey: "pro_coupon_token"), !token.isEmpty {
+            let nowMs = Int64(Date().timeIntervalSince1970 * 1000)
+            let verified = CouponService.companion.shared.verifyCouponToken(
+                token: token,
+                expectedInstallId: nil,
+                currentTimeMs: nowMs,
+                lastSeenServerTimeMs: 0
+            )
+            if verified.valid {
+                return true
+            }
+        }
+
+        // 2. Verify HMAC signature for cached Pro status
+        let isPro = defaults.bool(forKey: "is_pro_cached")
+        guard isPro else { return false }
+
+        let proType = defaults.string(forKey: "pro_cache_type")
+        let expMs = defaults.object(forKey: "pro_cache_exp") as? Int64 ?? (defaults.object(forKey: "pro_cache_exp") as? NSNumber)?.int64Value ?? 0
+        guard let signature = defaults.string(forKey: "pro_cache_signature") else { return false }
+
+        let msg = "\(isPro)|\(proType ?? "")|\(expMs)"
+        let key = SymmetricKey(data: Data("SF_PRO_STATE_HMAC_v2_9f8e7d6c".utf8))
+        let code = HMAC<SHA256>.authenticationCode(for: Data(msg.utf8), using: key)
+        let expected = code.map { String(format: "%02x", $0) }.joined()
+
+        guard expected == signature else { return false }
+
+        if expMs > 0 {
+            let nowMs = Int64(Date().timeIntervalSince1970 * 1000)
+            if nowMs > (expMs + Int64(15 * 60 * 1000)) {
+                return false
+            }
+        }
+        return true
+    }
+
     private func resolveAndOpen(
         inputUrl: String,
         targetPlatform: String,
@@ -394,7 +434,7 @@ class ShareViewController: UIViewController {
         ensureAptabaseInitialized()
         Task {
             let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
-            let isProCached = defaults.bool(forKey: "is_pro_cached")
+            let isProCached = isProActive(defaults: defaults)
             let audiophileMode = isProCached && defaults.bool(forKey: "audiophile_mode")
             let result: ResolutionResult
             var bridgeErrorDetail: String? = nil

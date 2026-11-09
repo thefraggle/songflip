@@ -1,4 +1,4 @@
-- Nahtlose Menü-Navigation: Beim Schließen der Link-Einrichtung kehrt die App direkt in die Einstellungen zurück.
-- Flackerfreie Weiterleitung: Keine visuellen Übergangseffekte bei schneller Link-Umwandlung.
-- Saubere Titel & Versions-Schutz: Intelligente Bereinigung sichert Originalaufnahmen und verhindert unerwünschte Remixes.
-- Konflikt-Erkennung: Geführte Behebung bei kollidierenden Standard-Apps von Drittanbietern.
+- Cache-Datenintegrität: Schreibgeschützte Deduplizierung im Link-Cache stellt sicher, dass Verlaufseinträge beim Abrufen der Liste niemals dauerhaft aus dem Speicher gelöscht werden.
+- Lokalisierung der Systemintegration: Vollständige mehrsprachige Lokalisierungsressourcen für die Teilen-Erweiterung eingebunden, um unübersetzte Platzhaltertexte zu verhindern.
+- Robuster Datei-Import: Unterstützung für mehrere Zeichenkodierungen (UTF-8, UTF-16, Latin-1, Windows-1252) und fehlerresistente Rückmeldungen beim Importieren von Playlist-Dateien.
+- Status-Validierung & Verifizierung: Kryptografische HMAC-Verifizierung für zwischengespeicherte erweiterte Funktionsstatus und Lizenz-Token hinzugefügt.

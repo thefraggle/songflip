@@ -626,7 +626,10 @@ fun HistoryBottomSheet(
                                     }
                                     try {
                                         context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share_universal_link)))
-                                    } catch (_: Exception) {}
+                                    } catch (e: Exception) {
+                                        de.goork.songflip.core.util.SongFlipLogger.w("HistoryBottomSheet", "Failed to launch share chooser: ${e.message}", e)
+                                        Toast.makeText(context, context.getString(R.string.redirect_error_toast), Toast.LENGTH_SHORT).show()
+                                    }
                                 } else {
                                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                                     onOpenProPaywall("history_universal_share")
