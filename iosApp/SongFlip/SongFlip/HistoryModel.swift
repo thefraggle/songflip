@@ -198,7 +198,7 @@ class HistoryModel: ObservableObject {
 
         if !legacyItems.isEmpty {
             for item in legacyItems.reversed() {
-                try? await SongLinkEngine.shared.cache.addHistoryEntry(
+                _ = try? await SongLinkEngine.shared.cache.addHistoryEntry(
                     sourceUrl: item.sourceUrl,
                     targetPlatformKey: item.targetPlatform,
                     targetUrl: item.targetUrl,

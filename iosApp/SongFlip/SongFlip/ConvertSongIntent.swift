@@ -129,7 +129,7 @@ struct ConvertSongIntent: AppIntent {
         }
 
         if let success = res as? ResolutionResult.Success {
-            try? await engine.cache.addHistoryEntry(
+            _ = try? await engine.cache.addHistoryEntry(
                 sourceUrl: urlToConvert,
                 targetPlatformKey: targetPlatform,
                 targetUrl: success.targetUrl,

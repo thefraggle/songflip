@@ -458,7 +458,7 @@ class ShareViewController: UIViewController {
 
             if let success = result as? ResolutionResult.Success {
                 // Save to shared SQLDelight history via App Group BEFORE terminating extension
-                try? await self.engine.cache.addHistoryEntry(
+                _ = try? await self.engine.cache.addHistoryEntry(
                     sourceUrl: inputUrl,
                     targetPlatformKey: targetPlatform,
                     targetUrl: success.targetUrl,
