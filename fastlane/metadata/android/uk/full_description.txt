@@ -7,7 +7,7 @@ SongFlip — це безперебійне переспрямування муз
 🚀 ГОЛОВНІ МОЖЛИВОСТІ:
 
 • 12 потокових платформ, подкастів і Shazam:
-Легко конвертуйте та перенаправляйте посилання на пісні та подкасти через Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, SoundCloud і Bandcamp. Включає підтримку миттєвого конвертера музичних посилань для спільних посилань Shazam!
+Легко конвертуйте та перенаправляйте посилання на пісні та подкасти через Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud і Bandcamp. Включає підтримку миттєвого конвертера музичних посилань для спільних посилань Shazam!
 
 • Listen & Flip (Розпізнавання музики):
 Розпізнавайте музику навколо вас у SongFlip. Треки підбираються для вашого плеєра та зберігаються в історії. Немає мережі? Збережіть аудіо-відбиток офлайн, і SongFlip автоматично розпізнає пісню при появі інтернету.

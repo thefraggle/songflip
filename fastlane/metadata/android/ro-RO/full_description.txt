@@ -7,7 +7,7 @@ Indiferent dacă comutați Spotify la YouTube Music, Apple Podcasts la Pocket Ca
 🚀 CARACTERISTICI PRINCIPALE:
 
 • 12 platforme de streaming, podcasturi și Shazam:
-Convertiți și redirecționați fără probleme link-urile de melodii și podcasturi prin Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, SoundCloud și Bandcamp. Include suport pentru convertizorul de linkuri de muzică instantanee pentru linkurile Shazam partajate!
+Convertiți și redirecționați fără probleme link-urile de melodii și podcasturi prin Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud și Bandcamp. Include suport pentru convertizorul de linkuri de muzică instantanee pentru linkurile Shazam partajate!
 
 • Listen & Flip (Recunoaștere muzicală):
 Identifică muzica din jurul tău direct în SongFlip și salveaz-o în istoric pentru playerul tău preferat. Fără semnal? Salvează amprenta audio offline, iar SongFlip va identifica melodia automat când revii online.
@@ -22,7 +22,7 @@ Creează și scanează coduri QR universale pentru melodii și albume prin orice
 Partajați emisiuni sau episoade podcast complete pe platforme.
 
 • Convertor de playlisturi, import fișiere (M3U) și transfer:
-Convertiți și transferați liste de redare între Spotify, Apple Music, YouTube Music, TIDAL și Deezer. Importați liste locale din fișiere .m3u, .m3u8, .csv și text direct în playlisturile de streaming (până la 200 de piese).
+Convertiți și transferați liste de redare între Spotify, Apple Music, YouTube Music, TIDAL și Deezer.
 
 • Calitate audiofilă (Hi-Res & Lossless) și favorite:
 Preferă masterele de studio, 24-bit Hi-Res, Lossless și Dolby Atmos în locul edițiilor radio și compilațiilor. Fixează melodiile preferate cu o atingere.
