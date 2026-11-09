@@ -1,3 +1,2 @@
-- Upřesněná navigace nastavení: Obnovený přímý návrat k nastavení při zavření průvodců nastavením propojení.
-- Flicker-Free Forwarding: Eliminace vizuálních záblesků během okamžitých převodů odkazů.
-- Title Cleanliness & Version Safeguards: Čištění metadat zachová původní studiové nahrávky a zabrání nechtěným remixům.
+- Spolehlivost detekce a spuštění přehrávače: Vytvrzená automatická detekce přehrávače, aby se ve výchozím nastavení zabránilo výběru odinstalovaných služeb, a zajištění bezproblémového zálohování webu, když chybí nativní aplikace.
+- Stabilita systému: Vylepšená manipulace se záměrem a dispečink prohlížeče pro eliminaci tichých poruch při otevírání odkazů.

@@ -1,3 +1,2 @@
-- Stabilität & Zuverlässigkeit: Optimierte interne Verarbeitungsabläufe und Speicherverwaltung für schnellere und zuverlässigere Weiterleitungen.
-- Barrierefreiheit & Kontraste: Verbesserte Farbkontraste und optimierte Bedienungshilfen bei Schaltflächen und Bedienelementen.
-- Dokumentation: Aktualisierte Richtlinien und Anleitungen.
+- Zuverlässige Player-Erkennung & Weiterleitung: Präzisierte automatische Player-Erkennung verhindert die fälschliche Vorauswahl nicht installierter Musikdienste und garantiert zuverlässigen Web-Fallback im Browser.
+- Systemstabilität: Optimierte Verknüpfungs- und Weiterleitungslogik zur Vermeidung stiller Abbrüche beim Öffnen von Titeln.

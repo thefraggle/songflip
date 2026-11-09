@@ -1,3 +1,2 @@
-- Navegação de configurações refinadas: retorno direto restaurado às configurações ao fechar guias de configuração de link.
-- Encaminhamento sem cintilação: eliminação de flashes visuais durante conversões instantâneas de link.
-- Limpeza de título e proteções de versão: A limpeza de metadados preserva as gravações originais do estúdio e evita remixes indesejados.
+- Deteção e Fiabilidade de Lançamento do Jogador: Detecção automática reforçada do jogador para evitar que os serviços desinstalados sejam selecionados por predefinição e garantiu um recuo contínuo da Web quando faltam aplicações nativas.
+- Estabilidade do Sistema: Tratamento de intenção refinado e despacho do navegador para eliminar falhas silenciosas ao abrir links.

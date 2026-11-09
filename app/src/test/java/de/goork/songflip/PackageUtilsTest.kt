@@ -290,6 +290,57 @@ class PackageUtilsTest {
     }
 
     @Test
+    fun testIsGenericBrowser_OEMAndThirdPartyBrowsers() {
+        // Standard browsers
+        assertTrue(PackageUtils.isGenericBrowser("com.android.chrome"))
+        assertTrue(PackageUtils.isGenericBrowser("org.mozilla.firefox"))
+        assertTrue(PackageUtils.isGenericBrowser("com.sec.android.app.sbrowser"))
+
+        // OEM browsers (Xiaomi, Oppo, Realme, OnePlus, Vivo)
+        assertTrue(PackageUtils.isGenericBrowser("com.heytap.browser"))
+        assertTrue(PackageUtils.isGenericBrowser("com.coloros.browser"))
+        assertTrue(PackageUtils.isGenericBrowser("com.oppo.browser"))
+        assertTrue(PackageUtils.isGenericBrowser("com.vivo.browser"))
+        assertTrue(PackageUtils.isGenericBrowser("com.miui.browser"))
+        assertTrue(PackageUtils.isGenericBrowser("com.mi.globalbrowser"))
+
+        // Alternative browsers without "browser" in package name
+        assertTrue(PackageUtils.isGenericBrowser("ru.yandex.searchplugin"))
+        assertTrue(PackageUtils.isGenericBrowser("com.UCMobile.intl"))
+        assertTrue(PackageUtils.isGenericBrowser("org.bromite.chromium"))
+        assertTrue(PackageUtils.isGenericBrowser("org.cromite.cromite"))
+        assertTrue(PackageUtils.isGenericBrowser("org.mozilla.focus"))
+        assertTrue(PackageUtils.isGenericBrowser("org.mozilla.klar"))
+
+        // Music players must NEVER be classified as generic browsers
+        assertFalse(PackageUtils.isGenericBrowser("com.spotify.music"))
+        assertFalse(PackageUtils.isGenericBrowser("com.spotify.lite"))
+        assertFalse(PackageUtils.isGenericBrowser("oss.krtirtho.spotube"))
+        assertFalse(PackageUtils.isGenericBrowser("com.google.android.apps.youtube.music"))
+        assertFalse(PackageUtils.isGenericBrowser("com.aspiro.tidal"))
+        assertFalse(PackageUtils.isGenericBrowser("deezer.android.app"))
+        assertFalse(PackageUtils.isGenericBrowser("com.apple.android.music"))
+    }
+
+    @Test
+    fun testGetProbeUrls_StrictSchemeSeparation() {
+        val spotifyProbes = PackageUtils.getProbeUrls("spotify")
+        // Spotify must ONLY probe spotify: schemes to avoid false positives with web browsers
+        assertTrue(spotifyProbes.isNotEmpty())
+        assertTrue(spotifyProbes.all { it.startsWith("spotify:") })
+        assertFalse(spotifyProbes.any { it.startsWith("http://") || it.startsWith("https://") })
+
+        val appleMusicProbes = PackageUtils.getProbeUrls("appleMusic")
+        assertTrue(appleMusicProbes.all { it.startsWith("music://") })
+
+        val deezerProbes = PackageUtils.getProbeUrls("deezer")
+        assertTrue(deezerProbes.all { it.startsWith("deezer://") })
+
+        val tidalProbes = PackageUtils.getProbeUrls("tidal")
+        assertTrue(tidalProbes.all { it.startsWith("tidal://") || it.startsWith("debridmusic://") })
+    }
+
+    @Test
     fun testCacheInvalidation() {
         PackageUtils.invalidateCache()
         // Ensure invalidateCache runs without exceptions

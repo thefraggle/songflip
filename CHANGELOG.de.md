@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.14.3] - 2026-11-09
+- **Zuverlässige Player-Erkennung & Weiterleitung**: Präzisierte automatische Player-Erkennung verhindert die fälschliche Vorauswahl nicht installierter Musikdienste und garantiert zuverlässigen Web-Fallback im Browser.
+- **Systemstabilität**: Optimierte Verknüpfungs- und Weiterleitungslogik zur Vermeidung stiller Abbrüche beim Öffnen von Titeln.
+
 ## [1.14.2] - 2026-11-09
 - **Stabilität & Zuverlässigkeit**: Optimierte interne Verarbeitungsabläufe und Speicherverwaltung für schnellere und zuverlässigere Weiterleitungen.
 - **Barrierefreiheit & Kontraste**: Verbesserte Farbkontraste und optimierte Bedienungshilfen bei Schaltflächen und Bedienelementen.

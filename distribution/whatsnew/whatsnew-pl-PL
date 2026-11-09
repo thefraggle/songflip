@@ -1,3 +1,2 @@
-- Udoskonalona nawigacja w ustawieniach: Przywrócono bezpośredni powrót do ustawień po zamknięciu przewodników konfiguracji łącza.
-- Przekazywanie bez migotania: Wyeliminowano migotanie obrazu podczas natychmiastowej konwersji łącza.
-- Czystość tytułu i zabezpieczenia wersji: Czyszczenie metadanych pozwala zachować oryginalne nagrania studyjne i zapobiega niechcianym remiksom.
+- Niezawodność wykrywania i uruchamiania odtwarzacza: zahartowane automatyczne wykrywanie odtwarzacza, aby zapobiec domyślnemu wybieraniu odinstalowanych usług i zapewnić bezproblemową awaryjność sieci w przypadku braku natywnych aplikacji.
+- Stabilność systemu: dopracowana obsługa intencji i wysyłanie do przeglądarki w celu wyeliminowania cichych awarii podczas otwierania łączy.

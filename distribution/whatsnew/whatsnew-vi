@@ -1,2 +1,2 @@
-- Điều hướng cài đặt được tinh chỉnh: Đã khôi phục trực tiếp quay lại cài đặt khi đóng hướng dẫn thiết lập liên kết.
-- Chuyển tiếp không nhấp nháy: Loại bỏ nhấp nháy hình ảnh trong quá trình chuyển đổi liên kết tức thời.
+- Phát hiện người chơi & Độ tin cậy khởi chạy: Tự động phát hiện người chơi cứng để ngăn các dịch vụ đã gỡ cài đặt được chọn theo mặc định và đảm bảo dự phòng web liền mạch khi thiếu ứng dụng gốc.
+- Tính ổn định của hệ thống: Xử lý mục đích tinh chỉnh và điều phối trình duyệt để loại bỏ các lỗi im lặng khi mở liên kết.

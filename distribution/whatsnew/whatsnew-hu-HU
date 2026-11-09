@@ -1,3 +1,2 @@
-- Finomított beállítások Navigáció: Visszaállította a beállításokhoz való közvetlen visszatérést a hivatkozásbeállítási útmutatók bezárásakor.
-- Villogásmentes továbbítás: Kiküszöböli a vizuális villanásokat az azonnali linkkonverziók során.
-- A cím tisztasága és a verzióra vonatkozó biztosítékok: A metaadatok tisztítása megőrzi az eredeti stúdiófelvételeket, és megakadályozza a nem kívánt remixeket.
+- Játékosfelismerés és -indítás megbízhatósága: A lejátszó megkeményedett automatikus észlelése, hogy megakadályozza az eltávolított szolgáltatások alapértelmezett kiválasztását, és zökkenőmentes webes tartalékot biztosítson a natív alkalmazások hiánya esetén.
+- Rendszerstabilitás: Finomított szándékkezelés és böngésző-diszpécser, hogy megszüntesse a néma hibákat a linkek megnyitásakor.

@@ -1,4 +1,2 @@
-- Forfinet indstillingsnavigation: Gendannet direkte tilbagevenden til indstillinger ved lukning af linkopsætningsvejledninger.
-- Flimmerfri videresendelse: Elimineret visuelle blink under øjeblikkelige linkkonverteringer.
-- Titelrenlighed og versionsbeskyttelse: Metadatarensning bevarer originale studieoptagelser og forhindrer uønskede remix.
-- Konfliktregistrering: Vejledt løsning af musiklinkhandler-konflikter med tredjeparts streamingklienter.
+- Spillerregistrering og startpålidelighed: Hærdet automatisk registrering af spiller for at forhindre, at afinstallerede tjenester vælges som standard, og sikrede problemfri webtilbagefald, når indbyggede apps mangler.
+- Systemstabilitet: Raffineret hensigtshåndtering og browserudsendelse for at eliminere tavse fejl, når du åbner links.

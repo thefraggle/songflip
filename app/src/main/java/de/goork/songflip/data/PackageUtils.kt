@@ -138,19 +138,39 @@ object PackageUtils {
         "com.opera.gx",
         "com.brave.browser",
         "com.sec.android.app.sbrowser",
+        "com.sec.android.app.sbrowser.beta",
         "com.duckduckgo.mobile.android",
         "com.vivaldi.browser",
         "org.torproject.torbrowser",
+        "org.torproject.android",
         "com.android.browser",
         "mark.via.gp",
         "com.kiwibrowser.browser",
         "com.mi.globalbrowser",
+        "com.miui.browser",
+        "com.heytap.browser",
+        "com.coloros.browser",
+        "com.oppo.browser",
+        "com.vivo.browser",
         "com.huawei.browser",
         "com.google.android.webview",
         "com.android.webview",
         "xyz.pavelpopov.interceptor",
         "fe.linksheet",
-        "com.trianguloy.urlcheck"
+        "com.trianguloy.urlcheck",
+        "ru.yandex.searchplugin",
+        "com.yandex.browser",
+        "com.ucmobile.intl",
+        "org.bromite.chromium",
+        "org.cromite.cromite",
+        "org.mozilla.focus",
+        "org.mozilla.klar",
+        "com.alohamobile.browser",
+        "com.transsion.phoenix",
+        "com.ecosia.android",
+        "app.vanadium.browser",
+        "org.lineageos.jelly",
+        "acr.browser.barebones"
     )
 
     fun isGenericBrowser(packageName: String): Boolean {
@@ -158,7 +178,27 @@ object PackageUtils {
         return genericBrowserPackages.contains(lower) ||
                 lower.contains("browser") ||
                 lower.contains("webview") ||
-                lower.contains("interceptor")
+                lower.contains("interceptor") ||
+                lower.contains("chromium") ||
+                lower.contains("firefox")
+    }
+
+    /**
+     * Checks if a package can handle generic web pages (e.g. google.com).
+     * Any app that handles generic HTTPS queries is a web browser or link dispatcher,
+     * and must NEVER be treated as a dedicated music player.
+     */
+    fun isGenericWebHandler(context: Context, packageName: String): Boolean {
+        if (isGenericBrowser(packageName)) return true
+        return try {
+            val googleIntent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com")).apply {
+                addCategory(android.content.Intent.CATEGORY_BROWSABLE)
+                setPackage(packageName)
+            }
+            context.packageManager.resolveActivity(googleIntent, 0) != null
+        } catch (_: Exception) {
+            false
+        }
     }
 
     private const val NOT_INSTALLED_SENTINEL = "__SF_NOT_INSTALLED__"
@@ -180,47 +220,39 @@ object PackageUtils {
         return resolved
     }
 
-    private fun getProbeUrls(cleanKey: String): List<String> {
+    internal fun getProbeUrls(cleanKey: String): List<String> {
         return when (cleanKey) {
             "youtubeMusic" -> listOf(
-                "https://music.youtube.com/watch?v=dQw4w9WgXcQ",
-                "vnd.youtube.music://watch?v=dQw4w9WgXcQ"
+                "vnd.youtube.music://watch?v=dQw4w9WgXcQ",
+                "https://music.youtube.com/watch?v=dQw4w9WgXcQ"
             )
             "spotify" -> listOf(
-                "https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv",
                 "spotify:track:4u7EnebtmKWzUH433cf5Qv"
             )
             "appleMusic" -> listOf(
-                "https://music.apple.com/song/1761770183",
                 "music://music.apple.com/song/1761770183"
             )
             "deezer" -> listOf(
-                "https://www.deezer.com/track/12345",
                 "deezer://www.deezer.com/track/12345"
             )
             "tidal" -> listOf(
-                "https://tidal.com/browse/track/12345",
                 "tidal://track/12345",
                 "debridmusic://play/tidal/12345"
             )
             "amazonMusic" -> listOf(
-                "https://music.amazon.com/albums/B000000000",
                 "amznmp3://music.amazon.com/albums/B000000000"
             )
             "soundcloud" -> listOf(
-                "https://soundcloud.com/artist/track",
                 "soundcloud://tracks/artist/track"
             )
             "bandcamp" -> listOf("https://artist.bandcamp.com/track/song")
             "qobuz" -> listOf(
-                "https://open.qobuz.com/track/1068442",
                 "qobuz://track/1068442"
             )
             "beatport" -> listOf("https://www.beatport.com/track/song/12345")
             "audiomack" -> listOf("https://audiomack.com/artist/song/track")
             "idagio" -> listOf("https://app.idagio.com/recordings/12345")
             "podcast" -> listOf(
-                "https://podcasts.google.com/feed/12345",
                 "antennapod://feed/12345"
             )
             else -> emptyList()
@@ -253,7 +285,7 @@ object PackageUtils {
                 val resolveInfos = pm.queryIntentActivities(browsableIntent, 0)
                 for (info in resolveInfos) {
                     val pkg = info.activityInfo.packageName
-                    if (pkg != context.packageName && !isGenericBrowser(pkg) && seen.add(pkg)) {
+                    if (pkg != context.packageName && !isGenericWebHandler(context, pkg) && seen.add(pkg)) {
                         val label = info.loadLabel(pm)?.toString()?.takeIf { it.isNotBlank() } ?: pkg
                         val isOfficial = (pkg == packageMap[cleanKey])
                         result.add(AppPlayerOption(packageName = pkg, appName = label, isOfficial = isOfficial))
@@ -293,7 +325,7 @@ object PackageUtils {
                 val resolveInfos = context.packageManager.queryIntentActivities(browsableIntent, 0)
                 for (info in resolveInfos) {
                     val pkg = info.activityInfo.packageName
-                    if (pkg != context.packageName && !isGenericBrowser(pkg)) {
+                    if (pkg != context.packageName && !isGenericWebHandler(context, pkg)) {
                         return pkg
                     }
                 }
@@ -596,29 +628,33 @@ object PackageUtils {
             return false
         }
 
-        // Prio 2: Chrome Custom Tabs
+        // Prio 2: Chrome Custom Tabs (ONLY when an external custom tabs provider is available)
         try {
-            val customTabsIntent = androidx.browser.customtabs.CustomTabsIntent.Builder()
-                .setShowTitle(true)
-                .build()
-
-            customTabsIntent.intent.apply {
-                addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
-                putExtra("de.goork.songflip.FORWARDED_FROM_SONGFLIP", true)
+            val customTabsPackage = try {
+                androidx.browser.customtabs.CustomTabsClient.getPackageName(context, null)
+            } catch (_: Exception) {
+                null
             }
 
-            val customTabsPackage = androidx.browser.customtabs.CustomTabsClient.getPackageName(context, null)
             if (!customTabsPackage.isNullOrBlank() && customTabsPackage != context.packageName) {
-                customTabsIntent.intent.setPackage(customTabsPackage)
-            }
+                val customTabsIntent = androidx.browser.customtabs.CustomTabsIntent.Builder()
+                    .setShowTitle(true)
+                    .build()
 
-            customTabsIntent.launchUrl(context, uri)
-            return true
+                customTabsIntent.intent.apply {
+                    addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+                    putExtra("de.goork.songflip.FORWARDED_FROM_SONGFLIP", true)
+                    setPackage(customTabsPackage)
+                }
+
+                customTabsIntent.launchUrl(context, uri)
+                return true
+            }
         } catch (e: Exception) {
             android.util.Log.d("PackageUtils", "Custom tabs launch failed: ${e.message}, falling back to system browser")
         }
 
-        // Prio 3: System Browser (excluding SongFlip to avoid intent loop)
+        // Prio 3: System Browser (explicitly targeting a browser package other than SongFlip to avoid loops)
         try {
             val genericWebIntent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com")).apply {
                 addCategory(android.content.Intent.CATEGORY_BROWSABLE)
@@ -674,8 +710,17 @@ object PackageUtils {
                     setPackage(targetPackage)
                     putExtra("de.goork.songflip.FORWARDED_FROM_SONGFLIP", true)
                 }
-                context.startActivity(appIntent)
-                return true
+                val canResolve = try {
+                    context.packageManager.resolveActivity(appIntent, 0) != null
+                } catch (_: Exception) {
+                    false
+                }
+                if (canResolve) {
+                    context.startActivity(appIntent)
+                    return true
+                } else {
+                    android.util.Log.w("PackageUtils", "Target package $targetPackage cannot resolve $uriStr, falling back to web")
+                }
             } catch (e: Exception) {
                 android.util.Log.w("PackageUtils", "Direct player launch failed for $targetPackage ($uriStr): ${e.message}")
             }

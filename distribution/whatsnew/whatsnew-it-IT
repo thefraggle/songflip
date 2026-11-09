@@ -1,3 +1,2 @@
-- Navigazione delle impostazioni perfezionata: ripristino del ritorno diretto alle impostazioni alla chiusura delle guide di configurazione del collegamento.
-- Inoltro senza sfarfallio: eliminati i flash visivi durante le conversioni di collegamento istantanee.
-- Pulizia dei titoli e tutele della versione: la pulizia dei metadati preserva le registrazioni originali in studio e previene remix indesiderati.
+- Rilevamento del giocatore e affidabilità del lancio: Rilevamento automatico del giocatore rafforzato per impedire che i servizi disinstallati vengano selezionati per impostazione predefinita e garantire un fallback web senza interruzioni quando mancano le app native.
+- Stabilità del sistema: gestione dell'intento e invio del browser perfezionati per eliminare i guasti silenziosi durante l'apertura dei collegamenti.

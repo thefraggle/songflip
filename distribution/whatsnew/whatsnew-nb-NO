@@ -1,4 +1,2 @@
-- Avgrenset innstillingsnavigering: Gjenopprettet direkte tilbakevending til innstillinger ved lukking av koblingsoppsettguider.
-- Flimmerfri videresending: Eliminert visuelle blink under umiddelbare koblingskonverteringer.
-- Tittelrenslighet og versjonssikring: Metadatarensing bevarer originale studioopptak og forhindrer uønskede remikser.
-- Konfliktgjenkjenning: Veiledet løsning for musikklinkbehandlerkonflikter med tredjeparts streamingklienter.
+- Spillerdeteksjon og oppstartspålitelighet: Forbedret automatisk spillerdeteksjon for å forhindre at avinstallerte tjenester velges som standard, og sikret sømløs web-fallback når native apper mangler.
+- Systemstabilitet: Forbedret intenthåndtering og nettleserforsendelse for å eliminere stille feil ved åpning av lenker.
