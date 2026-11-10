@@ -305,6 +305,7 @@ class UrlUtilsTest {
         // Qobuz with optional slug
         assertEquals("qobuz://track/123456", UrlUtils.toNativeAppUri("https://www.qobuz.com/de-de/track/bohemian-rhapsody/123456", "qobuz"))
         assertEquals("qobuz://album/abc123", UrlUtils.toNativeAppUri("https://open.qobuz.com/album/some-slug/abc123", "qobuz"))
+        assertEquals("qobuz://playlist/999888", UrlUtils.toNativeAppUri("https://open.qobuz.com/playlist/999888", "qobuz"))
     }
 
     @Test

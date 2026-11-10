@@ -919,7 +919,7 @@ object UrlUtils {
     fun toNativeQobuzUri(url: String): String {
         if (url.startsWith("qobuz://")) return url
         val clean = url.trim().substringBefore("?")
-        val match = Regex("(?:open|play|www)\\.qobuz\\.com(?:/[a-z]{2}(?:-[a-z]{2})?)?/(track|album)/(?:[a-zA-Z0-9_-]+/)?([0-9a-zA-Z]+)").find(clean)
+        val match = Regex("(?:open|play|www)\\.qobuz\\.com(?:/[a-z]{2}(?:-[a-z]{2})?)?/(track|album|playlist)/(?:[a-zA-Z0-9_-]+/)?([0-9a-zA-Z]+)").find(clean)
         if (match != null) {
             val type = match.groupValues[1]
             val id = match.groupValues[2]
