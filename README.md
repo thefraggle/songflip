@@ -162,6 +162,15 @@ sdk.dir=/Users/<username>/Library/Android/sdk
 
 ---
 
+## 💖 Support & Sponsoring
+
+If you love SongFlip and want to support its privacy-first, open-source development:
+
+- **[Sponsor @thefraggle on GitHub](https://github.com/sponsors/thefraggle)**
+- Leave a review on Google Play or the App Store!
+
+---
+
 ## 📄 License
 
 This project is licensed under the **[GNU General Public License v3.0 (GPLv3)](LICENSE)**.
