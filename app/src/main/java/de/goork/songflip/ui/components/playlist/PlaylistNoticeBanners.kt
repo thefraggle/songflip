@@ -41,6 +41,37 @@ fun PlaylistNoticeBanners(
     isPro: Boolean,
     onOpenPaywall: () -> Unit
 ) {
+    // Ghost & AI Track Filter Notice Banner (#211)
+    if (res.ghostTracksFiltered > 0) {
+        Spacer(modifier = Modifier.height(10.dp))
+        Surface(
+            shape = RoundedCornerShape(12.dp),
+            color = MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.4f),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.tertiary.copy(alpha = 0.3f)),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.AutoAwesome,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.tertiary,
+                    modifier = Modifier.size(18.dp)
+                )
+                Text(
+                    text = stringResource(R.string.playlist_ghost_tracks_notice, res.ghostTracksFiltered),
+                    style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium),
+                    color = MaterialTheme.colorScheme.onTertiaryContainer
+                )
+            }
+        }
+    }
+
     // Large Playlist Notice Banner (only shown if total tracks exceeds max limit)
     val isLargePlaylist = res.originalTotalTracks > ProLimits.MAX_PRO_PLAYLIST_TRACKS
     if (isLargePlaylist) {

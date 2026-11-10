@@ -109,6 +109,7 @@ When an upstream resolver (e.g. Odesli) lacks a mapping for a target platform (f
 | **Beatport** | *(Source only)* | *(Source only)* | — | — | ✅ Beatport OG Scraper | `beatport.com/search?q=` |
 | **Audiomack** | `audiomack://...` | `audiomack://...` | — | `audiomack.com/search?q=` | ✅ Audiomack Scraper | `audiomack.com/search?q=` |
 | **Idagio** | `idagio://...` | `idagio://...` | — | `app.idagio.com/search?q=` | ✅ Idagio Scraper | `app.idagio.com/search?q=` |
+| **Anghami** | `anghami://song/<id>` | `anghami://album/<id>` | `anghami://artist/<id>` | `play.anghami.com/search?query=` | ✅ Anghami Scraper & Search | `play.anghami.com/search?query=` |
 
 ---
 
@@ -243,6 +244,9 @@ The iOS architecture decouples the main user interface (`de.goork.SongFlip`) fro
     - Android: Extracted `HistoryItemCard.kt` (-472 lines from `HistoryBottomSheet.kt`), `SettingsCouponCard.kt`, `SettingsProCard.kt`, `SettingsNavigationCards.kt`, and `SettingsFooterSection.kt` (-453 lines from `SettingsBottomSheet.kt`), and `PlaylistTrackListCard.kt` plus `PlaylistNoticeBanners.kt` (-176 lines from `PlaylistConvertBottomSheet.kt`).
     - iOS: Extracted `ActivePlaylistBannerView.swift`, `ClipboardSmartBannerView.swift`, and `GuideCardsSectionView.swift` (-414 lines from `ContentView.swift`).
   - **SQLDelight Baseline Alignment (#232)**: Removed premature `1.sqm` duplicate table definitions and established canonical `1.db` baseline snapshot with verified migrations (`verifyMigrations = true`).
+- **Anghami Streaming Integration & AI Ghost-Track Cleaner (v1.14.12 / #203, #211)**:
+  - **Anghami Streaming Integration (#203)**: Added full support for Anghami (MENA's leading music platform) as both source and target player across Android and iOS. Implemented `AnghamiResolver` with OpenGraph/HTML metadata scraping, native deep link generation (`anghami://song/<id>`, `anghami://album/<id>`, `anghami://artist/<id>`), web search fallback (`play.anghami.com/search?query=`), package resolution (`com.anghami`), diagnostic link probes, and full UI integration across 31 locales.
+  - **AI & Ghost-Track Cleaner (#211)**: Integrated forensic playlist sanitization in `PlaylistConverterEngine` and `PlaylistModels.kt`. Automatically filters out generative AI filler, synthetic ghost tracks, and ambient noise/SEO spam prior to conversion, surfacing a non-intrusive status notice banner on Android and iOS when tracks are cleansed.
   - **Android Driver Migration Protection (#232)**: Added defensive `onUpgrade` and `onDowngrade` exception handling in `PlatformCacheStorage.android.kt`, guaranteeing persistent local SQLite databases seamlessly open without schema collision errors.
 - **Grammatical Plurals & Endpoint Security Hardening (v1.14.10 / #229, #239)**:
   - **Native Plural Variations (#239)**: Migrated static `(s)` counters (`setup_card_conflict_desc`, `setup_card_conflict_badge`, `listen_offline_resolved_toast`) into native `<plurals>` resources across all 31 Android locales (`values-*/strings.xml`) and native `variations.plural` in Apple String Catalog (`Localizable.xcstrings`), adding `LocalizationManager.plural` helper in Swift. Fully resolves Slavic grammar rules (`one`, `few`, `many`, `other`) and ensures grammatical correctness across all supported languages.

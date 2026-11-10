@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.14.12] - 2026-11-10
+- **Anghami Streaming Integration**: Full support for Anghami as source and destination player for music links and playback routing (#203).
+- **Playlist Cleaner & Noise Filtering**: Automatic detection and filtering of synthetic ghost tracks and ambient noise before playlist conversion (#211).
+
 ## [1.14.11] - 2026-11-10
 - **Acoustic Scan Signal Guidance**: Added real-time visual signal quality feedback (too quiet, optimal, too loud/clipping) with localized hints across 31 languages (#216).
 - **Architecture Modularization**: Decoupled monolithic sheet components into focused modular cards and sections for enhanced maintainability and rendering speed (#241).

@@ -80,6 +80,12 @@ enum class MusicPlatform(
         displayName = "Idagio",
         androidPackage = "com.idagio.app",
         iosScheme = "idagio://"
+    ),
+    ANGHAMI(
+        key = "anghami",
+        displayName = "Anghami",
+        androidPackage = "com.anghami",
+        iosScheme = "anghami://"
     );
 
     companion object {

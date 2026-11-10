@@ -5,6 +5,7 @@ import de.goork.songflip.core.engine.resolvers.AudiomackResolver
 import de.goork.songflip.core.engine.resolvers.BeatportResolver
 import de.goork.songflip.core.engine.resolvers.DeezerResolver
 import de.goork.songflip.core.engine.resolvers.IdagioResolver
+import de.goork.songflip.core.engine.resolvers.AnghamiResolver
 import de.goork.songflip.core.engine.resolvers.QobuzResolver
 import de.goork.songflip.core.engine.resolvers.SpotifyResolver
 import de.goork.songflip.core.engine.resolvers.YouTubeMusicResolver
@@ -46,7 +47,8 @@ class MetadataExtractor(
     private val qobuzResolver: QobuzResolver,
     private val beatportResolver: BeatportResolver,
     private val audiomackResolver: AudiomackResolver,
-    private val idagioResolver: IdagioResolver
+    private val idagioResolver: IdagioResolver,
+    private val anghamiResolver: AnghamiResolver = AnghamiResolver(client)
 ) {
     suspend fun extractTrackInfo(url: String): String? {
         return try {
@@ -146,6 +148,7 @@ class MetadataExtractor(
                 MusicPlatform.BEATPORT -> beatportResolver.extractMetadata(url)
                 MusicPlatform.AUDIOMACK -> audiomackResolver.extractMetadata(url)
                 MusicPlatform.IDAGIO -> idagioResolver.extractMetadata(url)
+                MusicPlatform.ANGHAMI -> anghamiResolver.extractMetadata(url)
                 else -> {
                     if (url.contains("shazam.com")) {
                         val trackMatch = Regex("shazam\\.com/(?:[a-z]{2}(?:-[a-z]{2})?/)?track/([0-9]+)", RegexOption.IGNORE_CASE).find(url)

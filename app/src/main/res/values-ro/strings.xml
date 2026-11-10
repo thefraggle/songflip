@@ -371,7 +371,7 @@
     <string name="settings_preferred_player_auto">Automat</string>
     <string name="settings_preferred_player_auto_desc">Recomandat: folosește aplicația prestabilită</string>
 
-    <!-- In-App Search & Disambiguation -->
+    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">Caută și convertește</string>
     <string name="search_hint">Caută piesă sau artist…</string>
     <string name="search_initial_prompt">Scrie o piesă sau un artist</string>
@@ -396,7 +396,7 @@
     <string name="history_filter_all">Toate</string>
     <string name="history_filter_favorites">Favorite</string>
     <string name="target_player_chip">Player: %1$s</string>
-    <!-- Listen & Flip (#78) -->
+    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">Identifică muzica din jurul tău</string>
     <string name="badge_identified">Identificat</string>
@@ -457,4 +457,7 @@
     <string name="first_launch_step3_desc">Activați linkurile de aplicație în setările de sistem pentru a deschide linkurile direct în playerul țintă.</string>
     <string name="first_launch_btn_done">Începeți</string>
     <string name="settings_how_it_works">Ghid rapid / Cum funcționează</string>
+
+    <string name="target_anghami">Anghami</string>
+    <string name="playlist_ghost_tracks_notice">%1$d piese suspecte AI și fantomă curățate</string>
 </resources>

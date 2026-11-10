@@ -377,7 +377,7 @@
     <string name="settings_preferred_player_auto">Automaticky</string>
     <string name="settings_preferred_player_auto_desc">Doporučeno: použije výchozí aplikaci</string>
 
-    <!-- In-App Search & Disambiguation -->
+    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">Hledat a převést</string>
     <string name="search_hint">Hledat skladbu nebo interpreta…</string>
     <string name="search_initial_prompt">Zadejte název skladby nebo interpreta</string>
@@ -402,7 +402,7 @@
     <string name="history_filter_all">Vše</string>
     <string name="history_filter_favorites">Oblíbené</string>
     <string name="target_player_chip">Přehrávač: %1$s</string>
-    <!-- Listen & Flip (#78) -->
+    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">Rozpoznejte hudbu, která hraje kolem vás</string>
     <string name="badge_identified">Rozpoznáno</string>
@@ -464,4 +464,7 @@
     <string name="first_launch_step3_desc">Povolte odkazy na aplikace v nastavení systému, aby se hudební odkazy otevíraly přímo v cílovém přehrávači.</string>
     <string name="first_launch_btn_done">Začít</string>
     <string name="settings_how_it_works">Rychlý průvodce / Jak to funguje</string>
+
+    <string name="target_anghami">Anghami</string>
+    <string name="playlist_ghost_tracks_notice">Vyčištěno %1$d podezřelých AI a ghost skladeb</string>
 </resources>

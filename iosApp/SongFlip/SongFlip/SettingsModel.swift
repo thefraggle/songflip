@@ -20,6 +20,7 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
     case qobuz = "qobuz"
     case audiomack = "audiomack"
     case idagio = "idagio"
+    case anghami = "anghami"
 
     var id: String { rawValue }
 
@@ -35,6 +36,7 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
         case .qobuz: return "Qobuz"
         case .audiomack: return "Audiomack"
         case .idagio: return "Idagio"
+        case .anghami: return "Anghami"
         }
     }
 
@@ -50,6 +52,7 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
         case .qobuz: return "waveform.circle.fill"
         case .audiomack: return "waveform.and.mic"
         case .idagio: return "tuningfork"
+        case .anghami: return "waveform.path"
         }
     }
 
@@ -65,6 +68,7 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
         case .qobuz: return Color(red: 0.0, green: 0.45, blue: 0.82)
         case .audiomack: return Color(red: 1.0, green: 0.635, blue: 0.0)
         case .idagio: return Color(red: 0.106, green: 0.212, blue: 0.365)
+        case .anghami: return Color(red: 121/255, green: 36/255, blue: 130/255)
         }
     }
 }
@@ -103,6 +107,7 @@ func platformColor(for key: String) -> Color {
     case "beatport": return Color(red: 0.0, green: 0.85, blue: 0.5)
     case "audiomack": return Color(red: 1.0, green: 0.635, blue: 0.0)
     case "idagio": return Color(red: 0.106, green: 0.212, blue: 0.365)
+    case "anghami": return Color(red: 121/255, green: 36/255, blue: 130/255)
     default: return .green
     }
 }
@@ -126,6 +131,7 @@ func platformIcon(for key: String) -> String {
     case "beatport": return "headphones"
     case "audiomack": return "waveform.and.mic"
     case "idagio": return "tuningfork"
+    case "anghami": return "waveform.path"
     default: return "music.note.list"
     }
 }
@@ -135,6 +141,9 @@ func detectSourcePlatformName(url: String) -> String {
         return platform.displayName
     }
     let lower = url.lowercased()
+    if lower.contains("anghami.com") {
+        return "Anghami"
+    }
     if lower.contains("song.link") || lower.contains("album.link") || lower.contains("odesli.co") {
         return "Universal Link"
     }

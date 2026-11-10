@@ -391,7 +391,7 @@
     <string name="settings_preferred_player_auto">Автоматически</string>
     <string name="settings_preferred_player_auto_desc">Рекомендуется: использовать стандартное приложение</string>
 
-    <!-- In-App Search & Disambiguation -->
+    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">Поиск и конвертация</string>
     <string name="search_hint">Поиск песни или исполнителя…</string>
     <string name="search_initial_prompt">Введите название или исполнителя</string>
@@ -416,7 +416,7 @@
     <string name="history_filter_all">Все</string>
     <string name="history_filter_favorites">Избранное</string>
     <string name="target_player_chip">Плеер: %1$s</string>
-    <!-- Listen & Flip (#78) -->
+    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">Распознавайте музыку вокруг вас</string>
     <string name="badge_identified">Распознано</string>
@@ -478,4 +478,7 @@
     <string name="first_launch_step3_desc">Включите ссылки на приложения в настройках системы для открытия ссылок в целевом плеере.</string>
     <string name="first_launch_btn_done">Начать</string>
     <string name="settings_how_it_works">Краткое руководство / Как это работает</string>
+
+    <string name="target_anghami">Anghami</string>
+    <string name="playlist_ghost_tracks_notice">Очищено %1$d подозрительных ИИ- и фантомных треков</string>
 </resources>

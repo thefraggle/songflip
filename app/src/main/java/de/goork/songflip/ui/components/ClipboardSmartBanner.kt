@@ -333,6 +333,7 @@ fun detectSourcePlatformName(url: String, universalLabel: String, unknownLabel: 
         lower.contains("beatport.com") -> "Beatport"
         lower.contains("audiomack.com") -> "Audiomack"
         lower.contains("idagio.com") -> "Idagio"
+        lower.contains("anghami.com") -> "Anghami"
         lower.contains("shazam.com") -> "Shazam"
         lower.contains("song.link") || lower.contains("album.link") || lower.contains("odesli.co") -> universalLabel
         else -> unknownLabel
@@ -377,6 +378,7 @@ fun isSupportedMusicUrl(text: String): Boolean {
            lower.contains("beatport.com") ||
            lower.contains("audiomack.com") ||
            lower.contains("idagio.com") ||
+           lower.contains("anghami.com") ||
            lower.contains("shazam.com") ||
            lower.contains("song.link") ||
            lower.contains("album.link") ||

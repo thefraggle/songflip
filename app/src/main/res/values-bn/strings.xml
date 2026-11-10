@@ -379,7 +379,7 @@
     <string name="settings_preferred_player_auto">স্বয়ংক্রিয়</string>
     <string name="settings_preferred_player_auto_desc">প্রস্তাবিত: ডিফল্ট অ্যাপ ব্যবহার করে</string>
 
-    <!-- In-App Search & Disambiguation -->
+    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">খুঁজুন এবং পরিবর্তন করুন</string>
     <string name="search_hint">গান বা শিল্পী অনুসন্ধান করুন…</string>
     <string name="search_initial_prompt">গানের নাম বা শিল্পী লিখুন</string>
@@ -404,7 +404,7 @@
     <string name="history_filter_all">সব</string>
     <string name="history_filter_favorites">প্রিয়</string>
     <string name="target_player_chip">প্লেয়ার: %1$s</string>
-    <!-- Listen & Flip (#78) -->
+    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">আপনার চারপাশে বাজতে থাকা গান শনাক্ত করুন</string>
     <string name="badge_identified">শনাক্তকৃত</string>
@@ -464,4 +464,7 @@
     <string name="first_launch_step3_desc">সিস্টেম সেটিংসে অ্যাপ লিঙ্ক সক্রিয় করুন যাতে সঙ্গীত লিঙ্কগুলি সরাসরি টার্গেট প্লেয়ারে খোলে।</string>
     <string name="first_launch_btn_done">শুরু করুন</string>
     <string name="settings_how_it_works">দ্রুত নির্দেশিকা / কীভাবে কাজ করে</string>
+
+    <string name="target_anghami">Anghami</string>
+    <string name="playlist_ghost_tracks_notice">%1$dটি সন্দেহভাজন AI ও ঘোস্ট ট্র্যাক মুছে ফেলা হয়েছে</string>
 </resources>

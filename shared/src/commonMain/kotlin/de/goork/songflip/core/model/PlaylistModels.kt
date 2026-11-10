@@ -41,8 +41,38 @@ data class PlaylistConversionResult(
     val isPartial: Boolean = false,
     val tracks: List<PlaylistTrackItem> = emptyList(),
     val parts: List<PlaylistChunk> = emptyList(),
-    val duplicateTracksRemoved: Int = 0
+    val duplicateTracksRemoved: Int = 0,
+    val ghostTracksFiltered: Int = 0
 )
+
+private val SUSPECTED_AI_REGEX = Regex(
+    "(?i)(?:[\\[(]?(?:suno(?:\\s+ai)?|udio(?:\\s+ai)?|generative\\s+ai|ai\\s+generated|ai\\s+music)[\\])]?)"
+)
+
+private val SUSPECTED_GHOST_SPAM_REGEX = Regex(
+    "(?i)(?:white|brown|pink|green)\\s+noise|binaural\\s+beats|nature\\s+sounds.*sleep|sleep\\s+sounds.*noise|rain\\s+sounds.*sleep|relaxing\\s+rain.*\\d+"
+)
+
+fun PlaylistTrackItem.isSuspectedAiOrGhostTrack(): Boolean {
+    val combined = "$title $artist"
+    return SUSPECTED_AI_REGEX.containsMatchIn(combined) || SUSPECTED_GHOST_SPAM_REGEX.containsMatchIn(combined)
+}
+
+fun PlaylistConversionResult.cleanGhostAndAiTracks(): PlaylistConversionResult {
+    if (tracks.isEmpty()) return this
+    val cleanTracks = tracks.filterNot { it.isSuspectedAiOrGhostTrack() }
+    val filteredCount = tracks.size - cleanTracks.size
+    return if (filteredCount > 0) {
+        copy(
+            tracks = cleanTracks,
+            convertedTracks = cleanTracks.size,
+            matchedCount = cleanTracks.count { it.matched },
+            ghostTracksFiltered = ghostTracksFiltered + filteredCount
+        )
+    } else {
+        this
+    }
+}
 
 fun PlaylistConversionResult.deduplicated(): PlaylistConversionResult {
     if (tracks.isEmpty()) return this

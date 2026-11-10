@@ -314,6 +314,7 @@ class AcousticQuotaManager(
             MusicPlatform.BEATPORT -> "https://www.beatport.com/search?q=$encoded"
             MusicPlatform.AUDIOMACK -> "https://audiomack.com/search?q=$encoded"
             MusicPlatform.IDAGIO -> "https://app.idagio.com/search?q=$encoded"
+            MusicPlatform.ANGHAMI -> "https://play.anghami.com/search?query=$encoded"
         }
     }
 }

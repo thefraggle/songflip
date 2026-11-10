@@ -543,7 +543,8 @@ fun MainScreen(
             ServiceInfo("soundcloud", R.string.target_soundcloud, BrandSoundCloud, R.drawable.ic_soundcloud),
             ServiceInfo("qobuz", R.string.target_qobuz, BrandQobuz, R.drawable.ic_qobuz),
             ServiceInfo("audiomack", R.string.target_audiomack, BrandAudiomack, R.drawable.ic_audiomack),
-            ServiceInfo("idagio", R.string.target_idagio, BrandIdagio, R.drawable.ic_idagio)
+            ServiceInfo("idagio", R.string.target_idagio, BrandIdagio, R.drawable.ic_idagio),
+            ServiceInfo("anghami", R.string.target_anghami, BrandAnghami, R.drawable.ic_anghami)
         )
     }
 

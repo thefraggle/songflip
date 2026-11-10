@@ -379,7 +379,7 @@
     <string name="settings_preferred_player_auto">Otomatik</string>
     <string name="settings_preferred_player_auto_desc">Önerilen: Varsayılan uygulamayı kullanır</string>
 
-    <!-- In-App Search & Disambiguation -->
+    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">Ara ve Çevir</string>
     <string name="search_hint">Şarkı veya sanatçı ara…</string>
     <string name="search_initial_prompt">Bir şarkı veya sanatçı yazın</string>
@@ -404,7 +404,7 @@
     <string name="history_filter_all">Tümü</string>
     <string name="history_filter_favorites">Favoriler</string>
     <string name="target_player_chip">Oynatıcı: %1$s</string>
-    <!-- Listen & Flip (#78) -->
+    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">Çevrenizde çalan müziği tanıyın</string>
     <string name="badge_identified">Tanındı</string>
@@ -464,4 +464,7 @@
     <string name="first_launch_step3_desc">Müzik bağlantılarının doğrudan hedef oynatıcıda açılması için sistem ayarlarında Uygulama Bağlantılarını etkinleştirin.</string>
     <string name="first_launch_btn_done">Başlayın</string>
     <string name="settings_how_it_works">Hızlı Kılavuz / Nasıl Çalışır</string>
+
+    <string name="target_anghami">Anghami</string>
+    <string name="playlist_ghost_tracks_notice">%1$d şüpheli yapay zeka ve hayalet parça temizlendi</string>
 </resources>

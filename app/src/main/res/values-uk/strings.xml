@@ -391,7 +391,7 @@
     <string name="settings_preferred_player_auto">Автоматично</string>
     <string name="settings_preferred_player_auto_desc">Рекомендовано: стандартний застосунок</string>
 
-    <!-- In-App Search & Disambiguation -->
+    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">Пошук і конвертація</string>
     <string name="search_hint">Пошук пісні або виконавця…</string>
     <string name="search_initial_prompt">Введіть назву або виконавця</string>
@@ -416,7 +416,7 @@
     <string name="history_filter_all">Усі</string>
     <string name="history_filter_favorites">Обране</string>
     <string name="target_player_chip">Плеєр: %1$s</string>
-    <!-- Listen & Flip (#78) -->
+    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">Розпізнавайте музику навколо вас</string>
     <string name="badge_identified">Розпізнано</string>
@@ -478,4 +478,7 @@
     <string name="first_launch_step3_desc">Увімкніть посилання на додатки в налаштуваннях системи для відкриття музики в цільовому плеєрі.</string>
     <string name="first_launch_btn_done">Почати</string>
     <string name="settings_how_it_works">Короткий посібник / Як це працює</string>
+
+    <string name="target_anghami">Anghami</string>
+    <string name="playlist_ghost_tracks_notice">Очищено %1$d підозрілих ШІ- та фантомних треків</string>
 </resources>

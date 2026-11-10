@@ -1,3 +1,2 @@
-- Acoustic Scan Guidance: Real-time visual feedback for low audio volume or clipping during song recognition.
-- Database Recovery & Storage Safety: Restored seamless access to historical tracks in local storage.
-- Modular Component Architecture: Smoother transitions and improved interface performance across all sheets.
+- Anghami Integration: Full support for Anghami as source and destination player when converting and sharing music.
+- Playlist Cleaner: Automatic detection and filtering of synthetic ghost tracks and ambient noise before conversion.

@@ -137,6 +137,7 @@ class RedirectActivity : ComponentActivity() {
                     "beatport" -> incomingPlatform == de.goork.songflip.core.model.MusicPlatform.BEATPORT
                     "audiomack" -> incomingPlatform == de.goork.songflip.core.model.MusicPlatform.AUDIOMACK
                     "idagio" -> incomingPlatform == de.goork.songflip.core.model.MusicPlatform.IDAGIO
+                    "anghami" -> incomingPlatform == de.goork.songflip.core.model.MusicPlatform.ANGHAMI
                     else -> false
                 }
                 if (isSamePlatform) {

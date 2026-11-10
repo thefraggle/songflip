@@ -91713,6 +91713,214 @@
           }
         }
       }
+    },
+    "target_anghami": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anghami"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أنغامي"
+          }
+        }
+      }
+    },
+    "playlist_ghost_tracks_notice": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$d suspected AI & ghost tracks cleaned"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$d KI- & Ghost-Titel automatisch bereinigt"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تم تنظيف %1$d مقطع مشبوه للذكاء الاصطناعي والمقاطع الوهمية"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$d pistas fantasma y de IA sospechosas limpiadas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$d pistes IA et fantômes suspectes nettoyées"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$d tracce IA e fantasma sospette rimosse"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$d faixas suspeitas de IA e fantasmas limpas"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Очищено %1$d подозрительных ИИ- и фантомных треков"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Очищено %1$d підозрілих ШІ- та фантомних треків"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oczyszczono %1$d podejrzanych utworów AI i widmowych"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$d şüpheli yapay zeka ve hayalet parça temizlendi"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$d verdachte AI- en ghost-nummers opgeschoond"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "疑わしいAI・ゴーストトラック%1$d曲を除外しました"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "의심스러운 AI 및 고스트 트랙 %1$d개 정리됨"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已清理 %1$d 首疑似 AI 与虚拟幽灵曲目"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已清理 %1$d 首疑似 AI 與虛擬幽靈曲目"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$d mistænkelige AI- og spornumre renset"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$d misstänkta AI- och spökspår rensades"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$d mistenkelige AI- og spøkelsesspor renset"
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$d mistenkelige AI- og spøkelsesspor renset"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$d epäilyttävää tekoäly- ja aavekappaletta puhdistettu"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vyčištěno %1$d podezřelých AI a ghost skladeb"
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Εκκαθαρίστηκαν %1$d ύποπτα κομμάτια τεχνητής νοημοσύνης & ghost"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$d gyanús AI és szellem zeneszám eltávolítva"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$d piese suspecte AI și fantomă curățate"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$d trek AI & hantu yang mencurigakan dibersihkan"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ล้างแทร็ก AI และแทร็กผีที่น่าสงสัย %1$d แทร็ก"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã dọn dẹp %1$d bài hát AI & ma đáng ngờ"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$d संदिग्ध AI और घोस्ट ट्रैक साफ़ किए गए"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$dটি সন্দেহভাজন AI ও ঘোস্ট ট্র্যাক মুছে ফেলা হয়েছে"
+          }
+        },
+        "mr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$d संशयास्पद AI आणि घोस्ट ट्रॅक साफ केले"
+          }
+        }
+      }
     }
   },
   "version": "1.1"
