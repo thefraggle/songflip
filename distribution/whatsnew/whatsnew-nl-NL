@@ -1,2 +1,2 @@
-- Grammaticale meervouden en lokalisatie: inheemse meervoudsvariaties in alle ondersteunde talen voor nauwkeurige tellers en conflictmeldingen zonder lastige haakjes.
-- Eindpuntbeveiliging en snelheidsbeperking: versterkte akoestische tokenacquisitie en gedistribueerde cache-eindpunten met strikte clientverificatie en defensieve verzoekbeperking.
+- Databaseherstel en opslagveiligheid: naadloze toegang tot historisch geconverteerde tracks hersteld en redundante schema-initialisatieconflicten geëlimineerd bij het opstarten van de applicatie.
+- Offline geschiedenisbehoud: gegarandeerd dat blijvende trackrecords en favorieten zonder onderbrekingen volledig toegankelijk blijven bij alle versie-updates.

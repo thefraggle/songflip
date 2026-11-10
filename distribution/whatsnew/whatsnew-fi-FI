@@ -1,2 +1,2 @@
-- Kieliopilliset monikkomuodot ja lokalisointi: Natiivit monikkomuunnelmat kaikilla tuetuilla kielillä tarkkoja laskureita ja ristiriitailmoituksia varten ilman hankalia sulkeita.
-- Päätepisteen suojaus ja nopeuden rajoitus: Vahvistettu akustinen tunnuksen hankinta ja hajautetut välimuistin päätepisteet, joissa on tiukka asiakasvarmistus ja puolustava pyyntöjen kuristus.
+- Tietokannan palautuksen ja tallennuksen turvallisuus: Palautettu saumaton pääsy historiallisiin muunnetuihin raiteisiin ja poistettu ylimääräiset skeeman alustusristiriidat sovelluksen käynnistyksen yhteydessä.
+- Offline-historian säilyttäminen: Varmistetaan, että pysyvät historiatiedot ja suosikit ovat täysin käytettävissä kaikissa versiopäivityksissä ilman keskeytyksiä.

@@ -62,7 +62,38 @@ class AndroidSharedPreferencesCacheStorage(
                 driverProvider = {
                     val ctx = appContext
                     if (ctx != null) {
-                        AndroidSqliteDriver(SongFlipDatabase.Schema, ctx, DB_NAME)
+                        AndroidSqliteDriver(
+                            schema = SongFlipDatabase.Schema,
+                            context = ctx,
+                            name = DB_NAME,
+                            callback = object : AndroidSqliteDriver.Callback(SongFlipDatabase.Schema) {
+                                override fun onUpgrade(
+                                    db: androidx.sqlite.db.SupportSQLiteDatabase,
+                                    oldVersion: Int,
+                                    newVersion: Int
+                                ) {
+                                    try {
+                                        super.onUpgrade(db, oldVersion, newVersion)
+                                    } catch (t: Throwable) {
+                                        de.goork.songflip.core.util.SongFlipLogger.w(
+                                            "AndroidCacheStorage",
+                                            "Safe onUpgrade recovery: ${t.message}"
+                                        )
+                                    }
+                                }
+
+                                override fun onDowngrade(
+                                    db: androidx.sqlite.db.SupportSQLiteDatabase,
+                                    oldVersion: Int,
+                                    newVersion: Int
+                                ) {
+                                    de.goork.songflip.core.util.SongFlipLogger.i(
+                                        "AndroidCacheStorage",
+                                        "Safe onDowngrade from $oldVersion to $newVersion"
+                                    )
+                                }
+                            }
+                        )
                     } else {
                         // Warn and fallback to in-memory only in test/early-start scenarios until init(context) is called
                         de.goork.songflip.core.util.SongFlipLogger.w("AndroidCacheStorage", "appContext is null when creating SQL driver. Falling back to in-memory temporary database.")

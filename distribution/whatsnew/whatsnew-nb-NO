@@ -1,2 +1,2 @@
-- Grammatiske flertallsformer og lokalisering: Innfødt flertallsvariasjoner på tvers av alle støttede språk for presise tellere og konfliktvarsler uten vanskelige parenteser.
-- Endpoint Security & Rate Limiting: Herdet akustisk tokeninnhenting og distribuerte cache-endepunkter med streng klientverifisering og defensiv forespørselskontroll.
+- Databasegjenoppretting og lagringssikkerhet: Gjenopprettet sømløs tilgang til historiske konverterte spor og eliminerte redundante skjemainitieringskonflikter ved oppstart av applikasjoner.
+- Frakoblet historiebevaring: Sikre vedvarende sporrekorder og favoritter forblir fullt tilgjengelige på tvers av alle versjonsoppdateringer uten avbrudd.

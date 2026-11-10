@@ -1,2 +1,2 @@
-- Grammatiska pluralformer och lokalisering: Infödda pluralvariationer över alla språk som stöds för exakta räknare och konfliktmeddelanden utan besvärliga parenteser.
-- Endpoint Security & Rate Limiting: Förstärkt akustisk token-insamling och distribuerade cache-slutpunkter med strikt klientverifiering och defensiv förfrågningsbegränsning.
+- Databasåterställning och lagringssäkerhet: Återställd sömlös åtkomst till historiskt konverterade spår och eliminerade redundanta schemainitieringskonflikter vid programstart.
+- Offlinehistorikbevarande: Säkerställt beständiga meriter och favoriter förblir fullt tillgängliga för alla versionsuppdateringar utan avbrott.

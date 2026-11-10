@@ -1,2 +1,2 @@
-- Plurales gramaticales y localización: variaciones plurales nativas en todos los idiomas admitidos para contadores precisos y notificaciones de conflictos sin paréntesis incómodos.
-- Seguridad de endpoints y limitación de velocidad: adquisición de tokens acústicos reforzada y endpoints de caché distribuida con estricta verificación del cliente y limitación defensiva de solicitudes.
+- Recuperación de bases de datos y seguridad del almacenamiento: se restauró el acceso fluido a las pistas convertidas históricas y se eliminaron los conflictos de inicialización de esquemas redundantes al iniciar la aplicación.
+- Preservación del historial sin conexión: se garantiza que los registros de seguimiento persistentes y los favoritos permanezcan totalmente accesibles en todas las actualizaciones de versiones sin interrupción.

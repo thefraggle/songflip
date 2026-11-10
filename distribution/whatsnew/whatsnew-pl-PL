@@ -1,2 +1,2 @@
-- Gramatyczna liczba mnoga i lokalizacja: Natywne odmiany liczby mnogiej we wszystkich obsługiwanych językach w celu zapewnienia precyzyjnych liczników i powiadomień o konfliktach bez niewygodnych nawiasów.
-- Bezpieczeństwo punktów końcowych i ograniczanie szybkości: wzmocnione pozyskiwanie tokenów akustycznych i rozproszone punkty końcowe pamięci podręcznej ze ścisłą weryfikacją klienta i defensywnym ograniczaniem żądań.
+- Bezpieczeństwo odzyskiwania i przechowywania baz danych: przywrócono bezproblemowy dostęp do przekonwertowanych utworów historycznych i wyeliminowano niepotrzebne konflikty inicjalizacji schematu podczas uruchamiania aplikacji.
+- Zachowanie historii offline: trwałe zapisy utworów i ulubione pozostają w pełni dostępne bez przerw we wszystkich aktualizacjach wersji.

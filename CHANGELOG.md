@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.14.11] - 2026-11-10
+- **Database Recovery & Storage Safety**: Restored seamless access to historical converted tracks and eliminated redundant schema initialization conflicts on application startup.
+- **Offline History Preservation**: Ensured persistent track records and favorites remain fully accessible across all version updates without interruption.
+
 ## [1.14.10] - 2026-11-10
 - **Grammatical Plurals & Localization**: Native plural variations across all supported languages for precise counters and conflict notifications without awkward parentheses.
 - **Endpoint Security & Rate Limiting**: Hardened acoustic token acquisition and distributed cache endpoints with strict client verification and defensive request throttling.
