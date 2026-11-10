@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.14.7] - 2026-11-10
+- **Datenschutz & Privatsphäre**: Vollständige Datenschutzerklärungen integriert und externe Netzwerkanfragen durch rein lokale Code-Erstellung auf dem Gerät eliminiert.
+- **Cache-Zuverlässigkeit**: Optimierte Gültigkeitsdauer für temporäre Suchausweichrouten mit automatischer Erneuerung bei fortlaufendem Verlaufsschutz.
+- **Systemstabilität**: Robuste Weiterleitung bei Konfigurationswechseln und Absicherung paralleler Hintergrundabläufe bei der Listenkonvertierung.
+
 ## [1.14.6] - 2026-11-10
 - **Sicherheit & Verknüpfungs-Routing**: Härtung dynamischer Kurzbefehle zur ausschließlichen Auflösung aus dem lokalen Verlauf mit strikter Schema-Prüfung.
 - **Link-Normalisierung**: Korrigierte Pfadverarbeitung für Wiedergabelisten und Sets zur zuverlässigen Formaterkennung.

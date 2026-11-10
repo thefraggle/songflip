@@ -1,3 +1,2 @@
-- Segurança e Roteamento de Atalhos: Manipulação de atalhos dinâmicos reforçados para resolver estritamente a partir do histórico local com verificação do esquema de destino.
-- Normalização de link: Manipulação resolvida do caminho da lista de reprodução para conjuntos de streaming para garantir a detecção consistente do formato.
-- Proteção e migração de dados: guardas de verificação adicionados para transferências de entradas históricas para evitar a perda de dados.
+- Proteção de dados e privacidade: Adicionadas declarações de privacidade abrangentes e eliminadas solicitações de rede de terceiros, gerando códigos localmente no dispositivo.
+- Confiabilidade do cache: janelas de validade de resolução otimizadas para que substitutos de pesquisa temporários sejam atualizados automaticamente, preservando entradas de longo prazo.

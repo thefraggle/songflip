@@ -1,3 +1,2 @@
-- Keamanan & Perutean Pintasan: Penanganan pintasan dinamis yang diperkeras untuk menyelesaikan secara ketat dari riwayat lokal dengan verifikasi skema target.
-- Normalisasi Tautan: Penanganan jalur daftar putar yang diselesaikan untuk set streaming untuk memastikan deteksi format yang konsisten.
-- Perlindungan Data & Migrasi: Menambahkan penjaga verifikasi untuk transfer entri historis untuk mencegah kehilangan data.
+- Perlindungan & Privasi Data: Menambahkan deklarasi privasi komprehensif dan menghilangkan permintaan jaringan pihak ketiga dengan membuat kode secara lokal di perangkat.
+- Keandalan Cache: Jendela validitas resolusi yang dioptimalkan sehingga fallback pencarian sementara secara otomatis disegarkan sambil mempertahankan entri jangka panjang.

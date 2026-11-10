@@ -218,14 +218,25 @@ class RedirectViewModel : ViewModel() {
             if (isShare) {
                 if (isPro) {
                     viewModelScope.launch(Dispatchers.IO) {
-                        val canonical = if (UrlUtils.isShortLinkDomain(incomingUrl)) {
-                            SongLinkEngine.shared.resolveCanonicalUrl(incomingUrl)
-                        } else {
-                            incomingUrl
+                        try {
+                            val canonical = withTimeoutOrNull(8000L) {
+                                if (UrlUtils.isShortLinkDomain(incomingUrl)) {
+                                    SongLinkEngine.shared.resolveCanonicalUrl(incomingUrl)
+                                } else {
+                                    incomingUrl
+                                }
+                            } ?: incomingUrl
+                            val shareUrl = ProManager.getUniversalWebShareUrl(canonical)
+                            ProManager.warmupUniversalShare(canonical)
+                            withContext(Dispatchers.Main) {
+                                _uiState.value = RedirectUiState.DirectShareUniversal(shareUrl)
+                            }
+                        } catch (e: Exception) {
+                            de.goork.songflip.core.util.SongFlipLogger.w("RedirectViewModel", "Failed to resolve universal share for same-platform: ${e.message}", e)
+                            withContext(Dispatchers.Main) {
+                                _uiState.value = RedirectUiState.ForwardOriginal(Uri.parse(incomingUrl))
+                            }
                         }
-                        val shareUrl = ProManager.getUniversalWebShareUrl(canonical)
-                        ProManager.warmupUniversalShare(canonical)
-                        _uiState.value = RedirectUiState.DirectShareUniversal(shareUrl)
                     }
                     return
                 } else {
@@ -260,6 +271,8 @@ class RedirectViewModel : ViewModel() {
         }
     }
 
+    private var resolveJob: kotlinx.coroutines.Job? = null
+
     fun retryOffline(isPro: Boolean, authToken: String = "", settingsRepository: SettingsRepository? = null) {
         _uiState.update { current ->
             if (current is RedirectUiState.OfflineWaiting) {
@@ -267,7 +280,8 @@ class RedirectViewModel : ViewModel() {
             } else current
         }
 
-        viewModelScope.launch(Dispatchers.IO) {
+        resolveJob?.cancel()
+        resolveJob = viewModelScope.launch(Dispatchers.IO) {
             performResolution(currentIncomingUrl, currentTargetPlatform, isPro, authToken, settingsRepository)
         }
     }

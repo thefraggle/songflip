@@ -1,4 +1,3 @@
-- Security & Shortcut Routing: Hardened dynamic shortcut handling to strictly resolve from local history with target scheme verification.
-- Link Normalization: Resolved playlist path handling for streaming sets to ensure consistent format detection.
-- Data Protection & Migration: Added verification guards for historical entry transfers to prevent data loss.
-- Service Reliability: Enhanced fallback routing on server timeouts and optimized background initialization.
+- Data Protection & Privacy: Added comprehensive privacy declarations and eliminated third-party network requests by generating codes locally on device.
+- Cache Reliability: Optimized resolution validity windows so temporary search fallbacks automatically refresh while preserving long-term entries.
+- System Stability: Hardened link forwarding against configuration shifts and resolved concurrent task execution during playlist conversion.

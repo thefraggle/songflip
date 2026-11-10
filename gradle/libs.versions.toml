@@ -27,6 +27,7 @@ json = "20260719"
 # Billing & Store
 revenuecat = "10.16.2"
 play-review = "2.0.2"
+zxing = "3.5.3"
 
 # Testing
 junit = "4.13.2"
@@ -90,6 +91,7 @@ sqldelight-driver-native = { module = "app.cash.sqldelight:native-driver", versi
 revenuecat-purchases = { module = "com.revenuecat.purchases:purchases", version.ref = "revenuecat" }
 revenuecat-purchases-ui = { module = "com.revenuecat.purchases:purchases-ui", version.ref = "revenuecat" }
 play-review = { module = "com.google.android.play:review-ktx", version.ref = "play-review" }
+zxing-core = { module = "com.google.zxing:core", version.ref = "zxing" }
 
 # Testing
 junit = { module = "junit:junit", version.ref = "junit" }

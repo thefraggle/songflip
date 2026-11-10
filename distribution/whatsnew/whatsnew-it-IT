@@ -1,3 +1,2 @@
-- Sicurezza e routing dei collegamenti: gestione dinamica dei collegamenti rafforzata per risolvere rigorosamente dalla cronologia locale con la verifica dello schema di destinazione.
-- Normalizzazione del collegamento: gestione del percorso della playlist risolta per i set di streaming per garantire un rilevamento del formato coerente.
-- Protezione e migrazione dei dati: aggiunte protezioni di verifica per i trasferimenti di dati storici per prevenire la perdita di dati.
+- Protezione dei dati e privacy: aggiunte dichiarazioni complete sulla privacy ed eliminate richieste di rete di terze parti generando codici localmente sul dispositivo.
+- Affidabilità della cache: finestre di validità della risoluzione ottimizzate in modo che i fallback di ricerca temporanei si aggiornino automaticamente preservando le voci a lungo termine.

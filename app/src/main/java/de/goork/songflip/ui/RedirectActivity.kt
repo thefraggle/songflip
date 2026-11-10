@@ -162,19 +162,21 @@ class RedirectActivity : ComponentActivity() {
             val isPro = ProManager.proState.value.isPro
             val authToken = ProManager.getAuthToken()
 
-            // Initialize processing in ViewModel
-            viewModel.processIncomingUrl(
-                incomingUrl = incomingUrl,
-                targetPlatform = settingsRepository.targetPlatform,
-                askEveryTime = settingsRepository.askEveryTime,
-                hasNetwork = hasNetwork,
-                isShare = isShareAction,
-                isPro = isPro,
-                authToken = authToken,
-                customApiUrl = settingsRepository.customApiUrl,
-                customApiToken = settingsRepository.customApiToken,
-                settingsRepository = settingsRepository
-            )
+            // Initialize processing in ViewModel only on first launch (not upon configuration changes)
+            if (savedInstanceState == null) {
+                viewModel.processIncomingUrl(
+                    incomingUrl = incomingUrl,
+                    targetPlatform = settingsRepository.targetPlatform,
+                    askEveryTime = settingsRepository.askEveryTime,
+                    hasNetwork = hasNetwork,
+                    isShare = isShareAction,
+                    isPro = isPro,
+                    authToken = authToken,
+                    customApiUrl = settingsRepository.customApiUrl,
+                    customApiToken = settingsRepository.customApiToken,
+                    settingsRepository = settingsRepository
+                )
+            }
 
             setContent {
                 val isDark = when (settingsRepository.themeMode) {

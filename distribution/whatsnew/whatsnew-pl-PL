@@ -1,3 +1,2 @@
-- Routing bezpieczeństwa i skrótów: wzmocniona dynamiczna obsługa skrótów w celu ścisłego rozwiązywania problemów z lokalną historią dzięki weryfikacji schematu docelowego.
-- Normalizacja linków: obsługa ścieżki rozdzielonej listy odtwarzania dla zestawów strumieniowych, aby zapewnić spójne wykrywanie formatu.
-- Ochrona danych i migracja: Dodano zabezpieczenia weryfikacyjne dla historycznych transferów wpisów, aby zapobiec utracie danych.
+- Ochrona danych i prywatność: Dodano kompleksowe deklaracje prywatności i wyeliminowano żądania sieciowe stron trzecich, generując kody lokalnie na urządzeniu.
+- Niezawodność pamięci podręcznej: zoptymalizowane okna ważności rozdzielczości, dzięki czemu tymczasowe rezerwowe wyszukiwania są automatycznie odświeżane, zachowując wpisy długoterminowe.

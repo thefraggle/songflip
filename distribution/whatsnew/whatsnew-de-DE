@@ -1,3 +1,3 @@
-- Sicherheit & Verknüpfungs-Routing: Härtung dynamischer Kurzbefehle zur ausschließlichen Auflösung aus dem lokalen Verlauf mit strikter Schema-Prüfung.
-- Link-Normalisierung: Korrigierte Pfadverarbeitung für Wiedergabelisten und Sets zur zuverlässigen Formaterkennung.
-- Datensicherheit & Migration: Schutzprüfungen für die Übertragung historischer Einträge zur Verhinderung von Datenverlust.
+- Datenschutz & Privatsphäre: Vollständige Datenschutzerklärungen integriert und externe Netzwerkanfragen durch rein lokale Code-Erstellung auf dem Gerät eliminiert.
+- Cache-Zuverlässigkeit: Optimierte Gültigkeitsdauer für temporäre Suchausweichrouten mit automatischer Erneuerung bei fortlaufendem Verlaufsschutz.
+- Systemstabilität: Robuste Weiterleitung bei Konfigurationswechseln und Absicherung paralleler Hintergrundabläufe bei der Listenkonvertierung.

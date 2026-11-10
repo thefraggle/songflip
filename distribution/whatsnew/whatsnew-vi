@@ -1,2 +1,2 @@
-- Bảo mật & Định tuyến lối tắt: Tăng cường xử lý lối tắt động để giải quyết nghiêm ngặt từ lịch sử địa phương với xác minh sơ đồ mục tiêu.
-- Chuẩn hóa liên kết: Xử lý đường dẫn danh sách phát đã giải quyết cho các bộ phát trực tuyến để đảm bảo phát hiện định dạng nhất quán.
+- Bảo vệ dữ liệu & quyền riêng tư: Đã thêm các tuyên bố về quyền riêng tư toàn diện và loại bỏ các yêu cầu mạng của bên thứ ba bằng cách tạo mã cục bộ trên thiết bị.
+- Độ tin cậy của bộ đệm: Cửa sổ hợp lệ của độ phân giải được tối ưu hóa để dự phòng tìm kiếm tạm thời tự động làm mới trong khi vẫn bảo toàn các mục nhập dài hạn.
