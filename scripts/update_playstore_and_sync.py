@@ -193,6 +193,8 @@ def utf16_len(s):
     return len(s.encode('utf-16-le')) // 2
 
 def update_p4_platforms(p4, loc):
+    if 'Anghami' in p4 or 'anghami' in p4:
+        return p4
     if loc in ('en-US', 'en-GB'):
         return '• 14 Streaming Platforms, Podcasts & Shazam:\nSeamlessly convert and redirect music links and podcasts across Spotify, YouTube Music, Apple Music, Anghami, and 10 more platforms. No tapping required—links open straight in your preferred player.'
     if loc == 'de-DE':
@@ -274,8 +276,29 @@ def trim_description_if_needed(candidate, paras):
 
 def main():
     print("Reading and updating play store listings...")
-    with open(CSV_PATH, 'r', encoding='utf-8') as f:
-        rows = list(csv.DictReader(f))
+    rows = []
+    if os.path.exists(CSV_PATH):
+        with open(CSV_PATH, 'r', encoding='utf-8') as f:
+            rows = list(csv.DictReader(f))
+    else:
+        for loc in sorted(LOCALE_NAMES.keys()):
+            loc_dir = os.path.join(ANDROID_METADATA_DIR, loc)
+            t_file = os.path.join(loc_dir, "title.txt")
+            s_file = os.path.join(loc_dir, "short_description.txt")
+            f_file = os.path.join(loc_dir, "full_description.txt")
+            if os.path.exists(t_file) and os.path.exists(s_file) and os.path.exists(f_file):
+                with open(t_file, 'r', encoding='utf-8') as tf:
+                    t_val = tf.read().strip()
+                with open(s_file, 'r', encoding='utf-8') as sf:
+                    s_val = sf.read().strip()
+                with open(f_file, 'r', encoding='utf-8') as ff:
+                    f_val = ff.read().strip()
+                rows.append({
+                    'Language': loc,
+                    'Title': t_val,
+                    'Short description': s_val,
+                    'Full description': f_val
+                })
 
     updated_rows = []
     for r in rows:
@@ -338,14 +361,7 @@ def main():
             'Full description': new_full
         })
 
-    # 1. Write clean CSV
-    print(f"Writing updated CSV to {CSV_PATH}...")
-    with open(CSV_PATH, 'w', encoding='utf-8', newline='') as f:
-        writer = csv.DictWriter(f, fieldnames=['Language', 'Title', 'Short description', 'Full description'])
-        writer.writeheader()
-        writer.writerows(updated_rows)
-
-    # 2. Write clean Markdown
+    # 1. Write clean Markdown (Single Source of Truth, 0 quotes)
     print(f"Writing clean Markdown to {MD_PATH}...")
     with open(MD_PATH, 'w', encoding='utf-8') as f:
         f.write("# 📱 SongFlip – Play Store & App Store Listings (Alle Sprachen)\n")
@@ -446,7 +462,7 @@ def main():
         with open(GEN_IOS_SCRIPT, 'w', encoding='utf-8') as f:
             f.write(script_code)
 
-    print("\n🎉 SUCCESS: All Play Store listings (CSV & MD) and iOS metadata are 100% updated, feature-complete (incl. M3U import) and free of framing quotes!")
+    print("\n🎉 SUCCESS: All Play Store listings (Markdown) and iOS metadata are 100% updated, feature-complete (incl. M3U import) and free of framing quotes!")
 
 if __name__ == '__main__':
     main()
