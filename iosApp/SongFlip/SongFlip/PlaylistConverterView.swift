@@ -910,7 +910,7 @@ struct PlaylistConverterView: View {
     }
 
     @MainActor
-    private func startImportConversion(parsed: [PlaylistTrackImportCandidate], url: URL) {
+    private func startImportConversion(parsed: [ParsedImportTrack], url: URL) {
         isLoading = true
         progressStep = 0
         stepTimer?.invalidate()
