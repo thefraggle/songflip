@@ -511,7 +511,6 @@ class ShareViewController: UIViewController {
                     }
                 }
             }
-            }
         }
     }
 
