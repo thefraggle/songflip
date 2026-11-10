@@ -193,10 +193,10 @@ def utf16_len(s):
     return len(s.encode('utf-16-le')) // 2
 
 def update_p4_platforms(p4, loc):
+    if loc in ('en-US', 'en-GB'):
+        return '• 14 Streaming Platforms, Podcasts & Shazam:\nSeamlessly convert and redirect song links and podcasts across Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud, Bandcamp, and Anghami. Instant converter support for shared Shazam links included!'
     if 'Anghami' in p4 or 'anghami' in p4:
         return p4
-    if loc in ('en-US', 'en-GB'):
-        return '• 14 Streaming Platforms, Podcasts & Shazam:\nSeamlessly convert and redirect music links and podcasts across Spotify, YouTube Music, Apple Music, Anghami, and 10 more platforms. No tapping required—links open straight in your preferred player.'
     if loc == 'de-DE':
         return '• 14 Streaming- & Podcast-Plattformen:\nSongs und Podcasts automatisch konvertieren und weiterleiten zwischen Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud, Bandcamp und Anghami. Erkennt auch Shazam sofort!'
     if loc == 'fi-FI':
@@ -329,8 +329,13 @@ def main():
                 paras[18] = "Kompatibel mit universellen Streaming-Protokollen wie Songlink / Odesli. Hol dir SongFlip – deinen autonomen Link Converter und Musik-Link Redirect für Android!"
 
         if loc in ('en-US', 'en-GB'):
+            paras[4] = update_p4_platforms(paras[4], loc)
             if len(paras) > 13:
                 paras[13] = "• Clipboard Smart-Banner & Native Sharing:\nConvert and open links instantly via the smart dashboard banner, or share song link universal URLs directly from WhatsApp, Telegram, Reddit, or your browser."
+            if len(paras) > 15:
+                paras[15] = "• Quick Settings Tile & App Shortcuts:\nPause redirection for 15 minutes, 1 hour, or until tomorrow morning via Quick Settings tile or app shortcuts."
+            if len(paras) > 16:
+                paras[16] = "• Material You, AMOLED Dark Mode & Promo Codes:\nMatches system Dynamic Color with AMOLED dark mode, monochrome themed icon, and promo code redemption."
 
         if loc in ('es-419', 'es-ES', 'es-US'):
             paras[11] = "• Selector rápido de reproductores:\nElija su reproductor de audio de destino cada vez que abra un enlace de canción o podcast compartido."

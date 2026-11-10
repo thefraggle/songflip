@@ -7,7 +7,7 @@ Whether switching Spotify to YouTube Music, Apple Podcasts to Pocket Casts, Spot
 🚀 KEY FEATURES:
 
 • 14 Streaming Platforms, Podcasts & Shazam:
-Seamlessly convert and redirect music links and podcasts across Spotify, YouTube Music, Apple Music, Anghami, and 10 more platforms. No tapping required—links open straight in your preferred player.
+Seamlessly convert and redirect song links and podcasts across Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud, Bandcamp, and Anghami. Instant converter support for shared Shazam links included!
 
 • Listen & Flip – Song Recognizer & Audio Identifier (Online & Offline):
 Identify tracks playing around you in clubs, bars, or on the radio with instant song recognizer matching, save them to your history, and open them in your favorite player. With Offline Mode, capture audio fingerprints even without reception and resolve tracks automatically once you're back online.
@@ -40,10 +40,10 @@ Convert and open links instantly via the smart dashboard banner, or share song l
 Generate neutral web-share URLs (songflip.link) with an embedded webplayer so friends can listen on any device or browser.
 
 • Quick Settings Tile & App Shortcuts:
-Temporarily pause automatic redirection for 15 minutes, 1 hour, or until tomorrow morning right from your Quick Settings shade or home screen long-press.
+Pause redirection for 15 minutes, 1 hour, or until tomorrow morning via Quick Settings tile or app shortcuts.
 
 • Material You, AMOLED Dark Mode & Promo Codes:
-Follows your system accent colors with AMOLED dark mode, a monochrome home screen icon, and built-in promo code redemption for PRO perks.
+Matches system Dynamic Color with AMOLED dark mode, monochrome themed icon, and promo code redemption.
 
 🔒 PRIVACY & OPEN SOURCE FIRST:
 • 100% Open Source (GPLv3 licensed on GitHub)
