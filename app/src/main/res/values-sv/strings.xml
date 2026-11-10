@@ -410,6 +410,7 @@
     <string name="badge_identified">Identifierad</string>
     <string name="listen_free_scans_remaining">%1$d/%2$d gratis skanningar kvar denna månad</string>
     <string name="listen_status_listening">Lyssnar efter musik…</string>
+        <string name="listen_status_hint_loud">Ljudet är väldigt högt eller förvrängt – håll enheten lite längre bort</string>
     <string name="listen_status_hint">Håll enheten närmare högtalaren</string>
     <string name="listen_status_resolving">Matchar för din spelare…</string>
     <string name="listen_saved_to_history">Sparad i historik</string>

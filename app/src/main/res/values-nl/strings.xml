@@ -410,6 +410,7 @@
     <string name="badge_identified">Herkenning</string>
     <string name="listen_free_scans_remaining">Nog %1$d/%2$d gratis scans deze maand</string>
     <string name="listen_status_listening">Luisteren naar muziek…</string>
+        <string name="listen_status_hint_loud">Het geluid is erg hard of vervormd – houd het toestel iets verder weg</string>
     <string name="listen_status_hint">Houd je toestel dichter bij de luidspreker</string>
     <string name="listen_status_resolving">Match zoeken voor je speler…</string>
     <string name="listen_saved_to_history">Opgeslagen in geschiedenis</string>

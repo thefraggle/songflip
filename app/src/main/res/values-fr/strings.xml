@@ -410,6 +410,7 @@
     <string name="badge_identified">Identifié</string>
     <string name="listen_free_scans_remaining">%1$d/%2$d scans gratuits restants ce mois-ci</string>
     <string name="listen_status_listening">Écoute de la musique en cours…</string>
+        <string name="listen_status_hint_loud">Le son est trop fort ou saturé – éloignez légèrement l\'appareil</string>
     <string name="listen_status_hint">Approchez votre appareil de la source sonore</string>
     <string name="listen_status_resolving">Recherche pour votre lecteur…</string>
     <string name="listen_saved_to_history">Enregistré dans l\'historique</string>

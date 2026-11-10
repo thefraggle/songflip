@@ -396,6 +396,7 @@
     <string name="badge_identified">Αναγνωρίστηκε</string>
     <string name="listen_free_scans_remaining">Απομένουν %1$d/%2$d δωρεάν σαρώσεις αυτόν τον μήνα</string>
     <string name="listen_status_listening">Ακρόαση μουσικής…</string>
+        <string name="listen_status_hint_loud">Ο ήχος είναι πολύ δυνατός ή παραμορφωμένος – κρατήστε τη συσκευή λίγο πιο μακριά</string>
     <string name="listen_status_hint">Κρατήστε τη συσκευή πιο κοντά στο ηχείο</string>
     <string name="listen_status_resolving">Αναζήτηση για το player σας…</string>
     <string name="listen_saved_to_history">Αποθηκεύτηκε στο ιστορικό</string>

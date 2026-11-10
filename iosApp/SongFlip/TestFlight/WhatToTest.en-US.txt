@@ -1,2 +1,3 @@
-- Database Recovery & Storage Safety: Restored seamless access to historical converted tracks and eliminated redundant schema initialization conflicts on application startup.
-- Offline History Preservation: Ensured persistent track records and favorites remain fully accessible across all version updates without interruption.
+- Acoustic Scan Guidance: Real-time visual feedback for low audio volume or clipping during song recognition.
+- Database Recovery & Storage Safety: Restored seamless access to historical tracks in local storage.
+- Modular Component Architecture: Smoother transitions and improved interface performance across all sheets.

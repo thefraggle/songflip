@@ -402,6 +402,7 @@
     <string name="badge_identified">Identificat</string>
     <string name="listen_free_scans_remaining">%1$d/%2$d scanări gratuite rămase luna aceasta</string>
     <string name="listen_status_listening">Se ascultă muzica…</string>
+        <string name="listen_status_hint_loud">Sunetul este prea tare sau distorsionat – țineți dispozitivul puțin mai departe</string>
     <string name="listen_status_hint">Ține dispozitivul mai aproape de difuzor</string>
     <string name="listen_status_resolving">Se caută în playerul tău…</string>
     <string name="listen_saved_to_history">Salvat în istoric</string>

@@ -91522,6 +91522,197 @@
           }
         }
       }
+    },
+    "listen_status_hint_loud": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Audio is very loud or distorted – hold a bit further away"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Audio sehr laut oder verzerrt – etwas mehr Abstand halten"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le son est trop fort ou saturé – éloignez légèrement l'appareil"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El audio está muy alto o distorsionado – aleja un poco el dispositivo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'audio è troppo alto o distorto – allontana leggermente il dispositivo"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O áudio está muito alto ou distorcido – afaste um pouco o dispositivo"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O áudio está muito alto ou distorcido – afaste um pouco o dispositivo"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Het geluid is erg hard of vervormd – houd het toestel iets verder weg"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dźwięk jest za głośny lub zniekształcony – odsuń urządzenie nieco dalej"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Звук слишком громкий или искажён – держите устройство чуть дальше"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Звук занадто гучний або спотворений – тримайте пристрій трохи далі"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ses çok yüksek veya bozuk – cihazı biraz daha uzakta tutun"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "音量が大きすぎるか歪んでいます。少し離してください"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오디오가 너무 크거나 왜곡되었습니다. 기기를 조금 멀리 두세요"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "声音过大或失真——请将设备稍移远一些"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "聲音過大或失真——請將裝置稍移遠一些"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zvuk je příliš hlasitý nebo zkreslený – držte zařízení o něco dál"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lyden er meget høj eller forvrænget – hold enheden lidt længere væk"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ääni on liian voimakas tai säröinen – pidä laitetta hieman kauempana"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A hang túl hangos vagy torz – tartsa kicsit távolabb a készüléket"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Audio terlalu keras atau terdistorsi – jauhkan sedikit perangkat"
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lyden er veldig høy eller forvrengt – hold enheten litt lenger unna"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunetul este prea tare sau distorsionat – țineți dispozitivul puțin mai departe"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ljudet är väldigt högt eller förvrängt – håll enheten lite längre bort"
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ο ήχος είναι πολύ δυνατός ή παραμορφωμένος – κρατήστε τη συσκευή λίγο πιο μακριά"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "เสียงดังเกินไปหรือผิดเพี้ยน – กรุณาถืออุปกรณ์ให้ห่างออกไปเล็กน้อย"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Âm thanh quá lớn hoặc bị méo – hãy giữ thiết bị xa hơn một chút"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الصوت مرتفع للغاية أو مشوش - أبعد الجهاز قليلاً"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ऑडियो बहुत तेज़ या विकृत है - डिवाइस को थोड़ा दूर रखें"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "অডিও খুব জোরে বা বিকৃত - ডিভাইসটি কিছুটা দূরে রাখুন"
+          }
+        },
+        "mr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ऑडिओ खूप मोठा किंवा विकृत आहे - डिव्हाइस थोडे दूर धरा"
+          }
+        }
+      }
     }
   },
   "version": "1.1"

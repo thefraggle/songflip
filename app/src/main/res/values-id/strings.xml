@@ -404,6 +404,7 @@
     <string name="badge_identified">Teridentifikasi</string>
     <string name="listen_free_scans_remaining">Sisa %1$d/%2$d pindaian gratis bulan ini</string>
     <string name="listen_status_listening">Mendengarkan musik…</string>
+        <string name="listen_status_hint_loud">Audio terlalu keras atau terdistorsi – jauhkan sedikit perangkat</string>
     <string name="listen_status_hint">Dekatkan perangkat Anda ke sumber suara</string>
     <string name="listen_status_resolving">Mencocokkan untuk pemutar Anda…</string>
     <string name="listen_saved_to_history">Disimpan ke Riwayat</string>

@@ -404,6 +404,7 @@
     <string name="badge_identified">認識済み</string>
     <string name="listen_free_scans_remaining">今月の無料スキャン残り %1$d/%2$d 回</string>
     <string name="listen_status_listening">音楽を聴き取っています…</string>
+        <string name="listen_status_hint_loud">音量が大きすぎるか歪んでいます。少し離してください</string>
     <string name="listen_status_hint">スピーカーに端末を近づけてください</string>
     <string name="listen_status_resolving">お使いのプレイヤー用に変換中…</string>
     <string name="listen_saved_to_history">履歴に保存しました</string>

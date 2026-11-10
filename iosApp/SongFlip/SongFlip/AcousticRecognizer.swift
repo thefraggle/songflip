@@ -9,9 +9,15 @@ import UIKit
 #endif
 import SongFlipKit
 
+enum AcousticSignalQuality: Sendable {
+    case optimal
+    case tooQuiet
+    case tooLoud
+}
+
 enum AcousticRecognitionState: Equatable {
     case idle
-    case listening(amplitude: Float, elapsedSeconds: Int)
+    case listening(amplitude: Float, elapsedSeconds: Int, signalQuality: AcousticSignalQuality = .optimal)
     case resolving(title: String, artist: String, artworkUrl: String?)
     case matched(flipResult: AcousticFlipResult)
     case offlineQueued(pendingCount: Int)
@@ -27,8 +33,8 @@ enum AcousticRecognitionState: Equatable {
              (.quotaReached, .quotaReached),
              (.permissionDenied, .permissionDenied):
             return true
-        case let (.listening(a1, s1), .listening(a2, s2)):
-            return abs(a1 - a2) < 0.01 && s1 == s2
+        case let (.listening(a1, s1, q1), .listening(a2, s2, q2)):
+            return abs(a1 - a2) < 0.01 && s1 == s2 && q1 == q2
         case let (.resolving(t1, ar1, u1), .resolving(t2, ar2, u2)):
             return t1 == t2 && ar1 == ar2 && u1 == u2
         case let (.matched(r1), .matched(r2)):
@@ -267,7 +273,8 @@ final class AcousticRecognizer: ObservableObject {
             let onlineAtStart = self.isOnline
 
             inputNode.installTap(onBus: 0, bufferSize: 2048, format: recordingFormat) { [weak self] buffer, audioTime in
-                let (monoBuffer, rms) = Self.prepareMonoBufferWithAgc(from: buffer, monoFormat: monoFormat)
+                let elapsed = Int(Date().timeIntervalSince(startTime))
+                let (monoBuffer, rms, quality) = Self.prepareMonoBufferWithAgc(from: buffer, monoFormat: monoFormat, elapsedSeconds: elapsed)
                 let targetBuffer = monoBuffer ?? buffer
                 sigLock.lock()
                 try? sigGen.append(targetBuffer, at: nil)
@@ -277,8 +284,7 @@ final class AcousticRecognizer: ObservableObject {
                 }
                 Task { @MainActor [weak self] in
                     guard let self = self, case .listening = self.state else { return }
-                    let elapsed = Int(Date().timeIntervalSince(startTime))
-                    self.state = .listening(amplitude: rms, elapsedSeconds: elapsed)
+                    self.state = .listening(amplitude: rms, elapsedSeconds: elapsed, signalQuality: quality)
                 }
             }
 
@@ -523,18 +529,19 @@ final class AcousticRecognizer: ObservableObject {
 
     nonisolated private static func prepareMonoBufferWithAgc(
         from buffer: AVAudioPCMBuffer,
-        monoFormat: AVAudioFormat?
-    ) -> (AVAudioPCMBuffer?, Float) {
+        monoFormat: AVAudioFormat?,
+        elapsedSeconds: Int
+    ) -> (AVAudioPCMBuffer?, Float, AcousticSignalQuality) {
         let frameLength = Int(buffer.frameLength)
         let channels = Int(buffer.format.channelCount)
         guard frameLength > 0, channels > 0, let channelData = buffer.floatChannelData else {
-            return (nil, 0.15)
+            return (nil, 0.15, .optimal)
         }
 
         guard let format = monoFormat,
               let outBuffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: buffer.frameCapacity),
               let outChannel = outBuffer.floatChannelData?[0] else {
-            return (nil, 0.15)
+            return (nil, 0.15, .optimal)
         }
         outBuffer.frameLength = buffer.frameLength
 
@@ -571,7 +578,17 @@ final class AcousticRecognizer: ObservableObject {
 
         let rms = sqrt(sumSq / Float(frameLength))
         let uiAmplitude = min(1.0, max(0.08, rms * 3.8))
-        return (outBuffer, uiAmplitude)
+
+        let quality: AcousticSignalQuality
+        if maxPeak >= 0.95 || uiAmplitude >= 0.94 {
+            quality = .tooLoud
+        } else if elapsedSeconds >= 3 && (maxPeak < 0.02 || uiAmplitude < 0.14) {
+            quality = .tooQuiet
+        } else {
+            quality = .optimal
+        }
+
+        return (outBuffer, uiAmplitude, quality)
     }
 }
 

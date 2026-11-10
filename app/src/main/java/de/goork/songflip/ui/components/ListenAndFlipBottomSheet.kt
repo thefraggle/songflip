@@ -30,6 +30,7 @@ import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.SwapHoriz
 import androidx.compose.material.icons.outlined.CloudQueue
+import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.MicOff
 import androidx.compose.material.icons.outlined.MusicNote
@@ -279,9 +280,11 @@ fun ListenAndFlipBottomSheet(
                             val listeningState = st as? AcousticRecognitionState.Listening
                             val amp = listeningState?.amplitude ?: 0.1f
                             val elapsed = listeningState?.elapsedSeconds ?: 0
+                            val quality = listeningState?.signalQuality ?: de.goork.songflip.data.AcousticSignalQuality.OPTIMAL
                             ListeningPulseContent(
                                 amplitude = amp,
                                 elapsedSeconds = elapsed,
+                                signalQuality = quality,
                                 isListening = listeningState != null,
                                 onToggleScan = {
                                     if (listeningState != null) {
@@ -444,6 +447,7 @@ fun ListenAndFlipBottomSheet(
 private fun ListeningPulseContent(
     amplitude: Float,
     elapsedSeconds: Int,
+    signalQuality: de.goork.songflip.data.AcousticSignalQuality = de.goork.songflip.data.AcousticSignalQuality.OPTIMAL,
     isListening: Boolean,
     onToggleScan: () -> Unit
 ) {
@@ -460,10 +464,10 @@ private fun ListeningPulseContent(
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(22.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 18.dp)
+            .padding(vertical = 14.dp)
     ) {
         Box(
             contentAlignment = Alignment.Center,
@@ -504,7 +508,60 @@ private fun ListeningPulseContent(
             }
         }
 
-        val showQuietHint = isListening && elapsedSeconds >= 4 && amplitude < 0.15f
+        // Proactive Signal Guidance Pill (#216)
+        if (isListening && signalQuality != de.goork.songflip.data.AcousticSignalQuality.OPTIMAL) {
+            Surface(
+                shape = RoundedCornerShape(12.dp),
+                color = if (signalQuality == de.goork.songflip.data.AcousticSignalQuality.TOO_QUIET) {
+                    MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.65f)
+                } else {
+                    MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.65f)
+                }
+            ) {
+                Row(
+                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    Icon(
+                        imageVector = if (signalQuality == de.goork.songflip.data.AcousticSignalQuality.TOO_QUIET) {
+                            Icons.Outlined.MicOff
+                        } else {
+                            Icons.Outlined.ErrorOutline
+                        },
+                        contentDescription = null,
+                        modifier = Modifier.size(14.dp),
+                        tint = if (signalQuality == de.goork.songflip.data.AcousticSignalQuality.TOO_QUIET) {
+                            MaterialTheme.colorScheme.onTertiaryContainer
+                        } else {
+                            MaterialTheme.colorScheme.onErrorContainer
+                        }
+                    )
+                    Text(
+                        text = if (signalQuality == de.goork.songflip.data.AcousticSignalQuality.TOO_QUIET) {
+                            stringResource(R.string.listen_status_hint)
+                        } else {
+                            stringResource(R.string.listen_status_hint_loud)
+                        },
+                        style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold),
+                        color = if (signalQuality == de.goork.songflip.data.AcousticSignalQuality.TOO_QUIET) {
+                            MaterialTheme.colorScheme.onTertiaryContainer
+                        } else {
+                            MaterialTheme.colorScheme.onErrorContainer
+                        }
+                    )
+                }
+            }
+        }
+
+        val subtitleText = when {
+            !isListening -> stringResource(R.string.listen_and_flip_subtitle)
+            signalQuality == de.goork.songflip.data.AcousticSignalQuality.TOO_QUIET -> stringResource(R.string.listen_status_hint)
+            signalQuality == de.goork.songflip.data.AcousticSignalQuality.TOO_LOUD -> stringResource(R.string.listen_status_hint_loud)
+            elapsedSeconds >= 4 && amplitude < 0.15f -> stringResource(R.string.listen_status_hint)
+            else -> stringResource(R.string.listen_and_flip_subtitle)
+        }
+
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(6.dp)
@@ -516,7 +573,7 @@ private fun ListeningPulseContent(
                 textAlign = TextAlign.Center
             )
             Text(
-                text = stringResource(if (showQuietHint) R.string.listen_status_hint else R.string.listen_and_flip_subtitle),
+                text = subtitleText,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center

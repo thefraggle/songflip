@@ -390,6 +390,7 @@
     <string name="badge_identified">已識曲</string>
     <string name="listen_free_scans_remaining">本月剩餘 %1$d/%2$d 次免費識曲</string>
     <string name="listen_status_listening">正在聆聽音樂…</string>
+        <string name="listen_status_hint_loud">聲音過大或失真——請將裝置稍移遠一些</string>
     <string name="listen_status_hint">請將裝置靠近音源</string>
     <string name="listen_status_resolving">正在配對你的播放器…</string>
     <string name="listen_saved_to_history">已儲存至歷史記錄</string>

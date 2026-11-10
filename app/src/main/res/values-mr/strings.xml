@@ -410,6 +410,7 @@
     <string name="badge_identified">ओळखले</string>
     <string name="listen_free_scans_remaining">या महिन्यात %1$d/%2$d मोफत स्कॅन शिल्लक</string>
     <string name="listen_status_listening">संगीत ऐकत आहे…</string>
+        <string name="listen_status_hint_loud">ऑडिओ खूप मोठा किंवा विकृत आहे - डिव्हाइस थोडे दूर धरा</string>
     <string name="listen_status_hint">तुमचे डिव्हाइस स्पीकरच्या जवळ धरा</string>
     <string name="listen_status_resolving">तुमच्या प्लेअरसाठी शोधत आहे…</string>
     <string name="listen_saved_to_history">इतिहासात जतन केले</string>
