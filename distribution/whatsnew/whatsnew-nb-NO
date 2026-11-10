@@ -1,3 +1,3 @@
-- Databeskyttelse og personvern: Lagt til omfattende personvernerklæringer og eliminerte nettverksforespørsler fra tredjeparter ved å generere koder lokalt på enheten.
-- Hurtigbufferpålitelighet: Optimaliserte oppløsningsgyldighetsvinduer slik at midlertidige søk-reserver automatisk oppdateres samtidig som langsiktige oppføringer bevares.
-- Systemstabilitet: Herdet koblingsvideresending mot konfigurasjonsskift og løst samtidig oppgavekjøring under konvertering av spilleliste.
+- Privacy & Confidentiality: Clipboard link detection no longer triggers background network requests without direct user interaction.
+- Performance & Safety: Playlist file import is handled completely asynchronously with a 2MB size safeguard to prevent interface freezes.
+- Routing & Navigation Architecture: Unified link resolution and telemetry handling into a centralized coordinator for consistent player fallback behavior.

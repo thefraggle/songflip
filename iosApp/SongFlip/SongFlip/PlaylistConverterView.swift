@@ -855,48 +855,62 @@ struct PlaylistConverterView: View {
     }
 
     private func readStringContents(of url: URL) -> String? {
-        if let utf8 = try? String(contentsOf: url, encoding: .utf8) {
+        guard let data = try? Data(contentsOf: url), data.count <= 2 * 1024 * 1024 else {
+            return nil
+        }
+        if let utf8 = String(data: data, encoding: .utf8) {
             return utf8
         }
-        if let utf16 = try? String(contentsOf: url, encoding: .utf16) {
+        if let utf16 = String(data: data, encoding: .utf16) {
             return utf16
         }
-        if let latin1 = try? String(contentsOf: url, encoding: .isoLatin1) {
+        if let latin1 = String(data: data, encoding: .isoLatin1) {
             return latin1
         }
-        if let win1252 = try? String(contentsOf: url, encoding: .windowsCP1252) {
+        if let win1252 = String(data: data, encoding: .windowsCP1252) {
             return win1252
         }
-        if let data = try? Data(contentsOf: url) {
-            var convertedString: NSString?
-            let encoding = NSString.stringEncoding(for: data, encodingOptions: nil, convertedString: &convertedString, usedLossyConversion: nil)
-            if encoding != 0, let str = convertedString as? String {
-                return str
-            }
+        var convertedString: NSString?
+        let encoding = NSString.stringEncoding(for: data, encodingOptions: nil, convertedString: &convertedString, usedLossyConversion: nil)
+        if encoding != 0, let str = convertedString as? String {
+            return str
         }
         return nil
     }
 
     private func handleImportedFile(url: URL) {
         let hasAccess = url.startAccessingSecurityScopedResource()
-        defer {
-            if hasAccess {
-                url.stopAccessingSecurityScopedResource()
+        Task.detached(priority: .userInitiated) {
+            defer {
+                if hasAccess {
+                    url.stopAccessingSecurityScopedResource()
+                }
+            }
+            guard let content = self.readStringContents(of: url) else {
+                await MainActor.run {
+                    self.isLoading = false
+                    self.errorType = .generic
+                }
+                return
+            }
+            let fileName = url.lastPathComponent
+            let parsed = PlaylistImportParser.shared.parse(content: content, fileNameHint: fileName)
+            guard !parsed.isEmpty else {
+                await MainActor.run {
+                    self.isLoading = false
+                    self.errorType = .empty
+                }
+                return
+            }
+
+            await MainActor.run {
+                self.startImportConversion(parsed: parsed, url: url)
             }
         }
-        guard let content = readStringContents(of: url) else {
-            isLoading = false
-            errorType = .generic
-            return
-        }
-        let fileName = url.lastPathComponent
-        let parsed = PlaylistImportParser.shared.parse(content: content, fileNameHint: fileName)
-        guard !parsed.isEmpty else {
-            isLoading = false
-            errorType = .empty
-            return
-        }
+    }
 
+    @MainActor
+    private func startImportConversion(parsed: [PlaylistTrackImportCandidate], url: URL) {
         isLoading = true
         progressStep = 0
         stepTimer?.invalidate()

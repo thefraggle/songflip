@@ -1,2 +1,3 @@
-- Adatvédelem és adatvédelem: Átfogó adatvédelmi nyilatkozatok hozzáadása és a külső felektől származó hálózati kérések megszüntetése a kódok helyi generálásával az eszközön.
-- Gyorsítótár megbízhatósága: Optimalizált felbontási érvényességi ablakok, így az ideiglenes keresési tartalékok automatikusan frissülnek, miközben megőrzik a hosszú távú bejegyzéseket.
+- Privacy & Confidentiality: Clipboard link detection no longer triggers background network requests without direct user interaction.
+- Performance & Safety: Playlist file import is handled completely asynchronously with a 2MB size safeguard to prevent interface freezes.
+- Routing & Navigation Architecture: Unified link resolution and telemetry handling into a centralized coordinator for consistent player fallback behavior.

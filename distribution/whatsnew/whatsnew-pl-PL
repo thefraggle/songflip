@@ -1,2 +1,3 @@
-- Ochrona danych i prywatność: Dodano kompleksowe deklaracje prywatności i wyeliminowano żądania sieciowe stron trzecich, generując kody lokalnie na urządzeniu.
-- Niezawodność pamięci podręcznej: zoptymalizowane okna ważności rozdzielczości, dzięki czemu tymczasowe rezerwowe wyszukiwania są automatycznie odświeżane, zachowując wpisy długoterminowe.
+- Privacy & Confidentiality: Clipboard link detection no longer triggers background network requests without direct user interaction.
+- Performance & Safety: Playlist file import is handled completely asynchronously with a 2MB size safeguard to prevent interface freezes.
+- Routing & Navigation Architecture: Unified link resolution and telemetry handling into a centralized coordinator for consistent player fallback behavior.

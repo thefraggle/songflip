@@ -1,2 +1,2 @@
-- Protección de datos y privacidad: se agregaron declaraciones de privacidad integrales y se eliminaron solicitudes de red de terceros mediante la generación de códigos localmente en el dispositivo.
-- Confiabilidad de la caché: ventanas de validez de resolución optimizadas para que las búsquedas temporales de respaldo se actualicen automáticamente y al mismo tiempo se preserven las entradas a largo plazo.
+- Privacidad y confidencialidad: la detección de enlaces del portapapeles ya no activa las solicitudes de red en segundo plano sin la interacción directa del usuario.
+- Rendimiento y seguridad: la importación de archivos de listas de reproducción se maneja de forma completamente asíncrona con una protección de 2 MB de tamaño para evitar bloqueos de la interfaz.

@@ -318,33 +318,51 @@ fun MainScreen(
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
         if (uri != null) {
-            try {
-                val inputStream = context.contentResolver.openInputStream(uri)
-                val content = inputStream?.bufferedReader()?.use { it.readText() } ?: ""
-                var fileName: String? = null
-                val cursor = context.contentResolver.query(uri, null, null, null, null)
-                cursor?.use {
-                    if (it.moveToFirst()) {
-                        val nameIndex = it.getColumnIndex(android.provider.OpenableColumns.DISPLAY_NAME)
-                        if (nameIndex != -1) {
-                            fileName = it.getString(nameIndex)
+            coroutineScope.launch {
+                try {
+                    val result = withContext(Dispatchers.IO) {
+                        var fileName: String? = null
+                        var fileSize: Long = -1L
+                        val cursor = context.contentResolver.query(uri, null, null, null, null)
+                        cursor?.use {
+                            if (it.moveToFirst()) {
+                                val nameIndex = it.getColumnIndex(android.provider.OpenableColumns.DISPLAY_NAME)
+                                if (nameIndex != -1) {
+                                    fileName = it.getString(nameIndex)
+                                }
+                                val sizeIndex = it.getColumnIndex(android.provider.OpenableColumns.SIZE)
+                                if (sizeIndex != -1) {
+                                    fileSize = it.getLong(sizeIndex)
+                                }
+                            }
                         }
+
+                        // Guard against oversized files (> 2 MB) to prevent ANR / OOM
+                        if (fileSize > 2 * 1024 * 1024L) {
+                            return@withContext null
+                        }
+
+                        val inputStream = context.contentResolver.openInputStream(uri)
+                        val content = inputStream?.bufferedReader()?.use { it.readText() } ?: ""
+                        val parsed = PlaylistImportParser.parse(content, fileNameHint = fileName)
+                        val cleanTitle = fileName?.substringBeforeLast('.') ?: "Imported Playlist"
+                        Pair(parsed, cleanTitle)
                     }
-                }
-                val parsed = PlaylistImportParser.parse(content, fileNameHint = fileName)
-                if (parsed.isEmpty()) {
+
+                    if (result == null || result.first.isEmpty()) {
+                        Toast.makeText(context, context.getString(R.string.playlist_import_empty_error), Toast.LENGTH_SHORT).show()
+                    } else {
+                        val (parsed, cleanTitle) = result
+                        importedPlaylistTracks = parsed
+                        importedPlaylistTitle = cleanTitle
+                        showSearchBottomSheet = false
+                        showSettingsBottomSheet = false
+                        showPlaylistConvertSheet = "https://songflip.link/file-import/${cleanTitle.hashCode()}"
+                    }
+                } catch (e: Exception) {
+                    de.goork.songflip.core.util.SongFlipLogger.w("MainActivity", "Failed to read imported playlist file: ${e.message}", e)
                     Toast.makeText(context, context.getString(R.string.playlist_import_empty_error), Toast.LENGTH_SHORT).show()
-                } else {
-                    val cleanTitle = fileName?.substringBeforeLast('.') ?: "Imported Playlist"
-                    importedPlaylistTracks = parsed
-                    importedPlaylistTitle = cleanTitle
-                    showSearchBottomSheet = false
-                    showSettingsBottomSheet = false
-                    showPlaylistConvertSheet = "https://songflip.link/file-import/${cleanTitle.hashCode()}"
                 }
-            } catch (e: Exception) {
-                android.util.Log.w("MainActivity", "Failed to read imported playlist file: ${e.message}")
-                Toast.makeText(context, context.getString(R.string.playlist_import_empty_error), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -383,9 +401,7 @@ fun MainScreen(
                         if (clean != null && isSupportedMusicUrl(clean)) {
                             if (clean != dismissedClipboardUrl) {
                                 detectedClipboardUrl = clean
-                                coroutineScope.launch(Dispatchers.IO) {
-                                    repository.prefetch(clean, selectedTargetKey)
-                                }
+                                // Privacy: Do not prefetch over the network unprompted; prefetch only occurs when user interacts with the banner
                             }
                             return
                         }

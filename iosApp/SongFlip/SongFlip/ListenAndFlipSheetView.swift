@@ -118,15 +118,17 @@ struct ListenAndFlipSheetView: View {
                                 )
                                 await MainActor.run {
                                     isResolvingAlternative = false
-                                    if let success = res as? ResolutionResult.Success {
+                                    let action = FlipCoordinator.resolveAction(result: res, targetPlatform: chosenPlatform)
+                                    switch action {
+                                    case .openResolved(let targetUrl, let nativeAppUri, let platformKey, let title, let artist, _, _, _, _):
                                         settings.openResolvedTarget(
-                                            targetUrl: success.targetUrl,
-                                            nativeAppUri: success.nativeAppUri,
-                                            platformKey: chosenPlatform,
-                                            title: success.title,
-                                            artist: success.artist
+                                            targetUrl: targetUrl,
+                                            nativeAppUri: nativeAppUri,
+                                            platformKey: platformKey,
+                                            title: title,
+                                            artist: artist
                                         )
-                                    } else {
+                                    default:
                                         let fallbackUrl = UrlUtils.shared.toWebFallbackUrl(rawUrl: pUrl, targetPlatformKey: chosenPlatform)
                                         settings.openResolvedTarget(
                                             targetUrl: fallbackUrl,

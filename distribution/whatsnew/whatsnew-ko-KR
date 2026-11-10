@@ -1,2 +1,3 @@
-- 데이터 보호 및 개인 정보 보호: 장치에서 로컬로 코드를 생성하여 포괄적인 개인 정보 보호 선언을 추가하고 제3자 네트워크 요청을 제거했습니다.
-- 캐시 안정성: 해결 유효성 창을 최적화하여 장기 항목을 보존하면서 임시 검색 폴백이 자동으로 새로 고쳐집니다.
+- Privacy & Confidentiality: Clipboard link detection no longer triggers background network requests without direct user interaction.
+- Performance & Safety: Playlist file import is handled completely asynchronously with a 2MB size safeguard to prevent interface freezes.
+- Routing & Navigation Architecture: Unified link resolution and telemetry handling into a centralized coordinator for consistent player fallback behavior.
