@@ -1,3 +1,2 @@
-- Estado y detalles: visualización refinada del estado de la cuenta y la disponibilidad de funciones cuando se accede desde el encabezado y los menús.
-- Navegación y cuadros de diálogo: manejo mejorado de descartes y acciones de cierre para hojas modales y tarjetas de detalles.
-- Estabilidad y pulido: mejoras menores en la interfaz y manejo de transición de interfaz de usuario más fluido.
+- Seguridad y enrutamiento de accesos directos: manejo de accesos directos dinámicos endurecidos para resolver estrictamente desde la historia local con la verificación del esquema de destino.
+- Normalización de enlaces: se resolvió el manejo de la ruta de la lista de reproducción para los conjuntos de transmisión para garantizar una detección de formato consistente.

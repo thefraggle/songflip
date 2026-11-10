@@ -197,21 +197,33 @@ class HistoryModel: ObservableObject {
         }
 
         if !legacyItems.isEmpty {
+            var failedCount = 0
             for item in legacyItems.reversed() {
-                _ = try? await SongLinkEngine.shared.cache.addHistoryEntry(
-                    sourceUrl: item.sourceUrl,
-                    targetPlatformKey: item.targetPlatform,
-                    targetUrl: item.targetUrl,
-                    title: item.title,
-                    artist: item.artist,
-                    isAlbum: item.isAlbum,
-                    thumbnailUrl: item.thumbnailUrl,
-                    currentTimeMs: Int64(item.timestamp.timeIntervalSince1970 * 1000),
-                    isAcoustic: item.isAcoustic
-                )
+                do {
+                    _ = try await SongLinkEngine.shared.cache.addHistoryEntry(
+                        sourceUrl: item.sourceUrl,
+                        targetPlatformKey: item.targetPlatform,
+                        targetUrl: item.targetUrl,
+                        title: item.title,
+                        artist: item.artist,
+                        isAlbum: item.isAlbum,
+                        thumbnailUrl: item.thumbnailUrl,
+                        currentTimeMs: Int64(item.timestamp.timeIntervalSince1970 * 1000),
+                        isAcoustic: item.isAcoustic
+                    )
+                } catch {
+                    failedCount += 1
+                    Self.logger.error("Failed to migrate legacy history item \(item.sourceUrl, privacy: .public): \(error.localizedDescription, privacy: .public)")
+                }
             }
+            if failedCount == 0 {
+                defaults.removeObject(forKey: Self.storageKey)
+            } else {
+                Self.logger.fault("Legacy history migration had \(failedCount) failures; keeping UserDefaults backup to prevent data loss.")
+            }
+        } else if defaults.data(forKey: Self.storageKey) != nil {
+            defaults.removeObject(forKey: Self.storageKey)
         }
-        defaults.removeObject(forKey: Self.storageKey)
     }
 
     @MainActor

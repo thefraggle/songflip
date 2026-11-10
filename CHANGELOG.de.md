@@ -1,6 +1,12 @@
 # Changelog (Deutsch)
 
-## [1.14.3] - 2026-11-09
+## [1.14.6] - 2026-11-10
+- **Sicherheit & Verknüpfungs-Routing**: Härtung dynamischer Kurzbefehle zur ausschließlichen Auflösung aus dem lokalen Verlauf mit strikter Schema-Prüfung.
+- **Link-Normalisierung**: Korrigierte Pfadverarbeitung für Wiedergabelisten und Sets zur zuverlässigen Formaterkennung.
+- **Datensicherheit & Migration**: Schutzprüfungen für die Übertragung historischer Einträge zur Verhinderung von Datenverlust.
+- **Dienst-Zuverlässigkeit**: Verbesserte Ausweichrouten bei Server-Verzögerungen und optimierte Hintergrundinitialisierung.
+
+## [1.14.5] - 2026-11-10
 - **Zuverlässige Player-Erkennung & Weiterleitung**: Präzisierte automatische Player-Erkennung verhindert die fälschliche Vorauswahl nicht installierter Musikdienste und garantiert zuverlässigen Web-Fallback im Browser.
 - **Systemstabilität**: Optimierte Verknüpfungs- und Weiterleitungslogik zur Vermeidung stiller Abbrüche beim Öffnen von Titeln.
 

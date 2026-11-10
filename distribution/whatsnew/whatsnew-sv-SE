@@ -1,3 +1,3 @@
-- Status och detaljer: Förfinad visning av kontostatus och funktionstillgänglighet när de nås från rubriken och menyerna.
-- Navigering och dialogrutor: Förbättrad avvisningshantering och stängningsåtgärder för modalblad och detaljkort.
-- Stabilitet och polsk: Mindre gränssnittsförbättringar och smidigare hantering av UI-övergångar.
+- Säkerhets- och genvägsdirigering: Härdad dynamisk genvägshantering för att strikt lösa från lokal historik med målschemaverifiering.
+- Länknormalisering: Hantering av spellistans sökväg för strömmande uppsättningar för att säkerställa konsekvent formatdetektering.
+- Dataskydd och migrering: Lade till verifieringsskydd för historiska inmatningsöverföringar för att förhindra dataförlust.

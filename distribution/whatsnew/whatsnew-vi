@@ -1,3 +1,2 @@
-- Trạng thái & Chi tiết: Hiển thị tinh tế trạng thái tài khoản và tính khả dụng của tính năng khi được truy cập từ tiêu đề và menu.
-- Điều hướng & Hộp thoại: Xử lý loại bỏ nâng cao và hành động đóng cho các trang phương thức và thẻ chi tiết.
-- Tính ổn định & tiếng Ba Lan: Cải tiến nhỏ về giao diện và xử lý chuyển đổi giao diện người dùng mượt mà hơn.
+- Bảo mật & Định tuyến lối tắt: Tăng cường xử lý lối tắt động để giải quyết nghiêm ngặt từ lịch sử địa phương với xác minh sơ đồ mục tiêu.
+- Chuẩn hóa liên kết: Xử lý đường dẫn danh sách phát đã giải quyết cho các bộ phát trực tuyến để đảm bảo phát hiện định dạng nhất quán.

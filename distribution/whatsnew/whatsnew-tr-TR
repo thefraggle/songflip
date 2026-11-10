@@ -1,3 +1,3 @@
-- Durum ve Ayrıntılar: Başlıktan ve menülerden erişildiğinde hesap durumu ve özellik kullanılabilirliğinin iyileştirilmiş görüntüsü.
-- Gezinme ve Diyaloglar: Kalıcı sayfalar ve ayrıntı kartları için iyileştirilmiş kapatma yönetimi ve kapatma eylemleri.
-- Kararlılık ve Parlatma: Küçük arayüz geliştirmeleri ve daha sorunsuz kullanıcı arayüzü geçiş işlemleri.
+- Güvenlik ve Kısayol Yönlendirme: Hedef şema doğrulaması ile yerel geçmişten kesin bir şekilde çözümlemek için güçlendirilmiş dinamik kısayol kullanımı.
+- Bağlantı Normalleştirme: Tutarlı format algılamasını sağlamak için akış kümeleri için çözümlenmiş çalma listesi yolu işleme.
+- Veri Koruma ve Geçiş: Veri kaybını önlemek için geçmiş giriş transferleri için doğrulama korumaları eklendi.

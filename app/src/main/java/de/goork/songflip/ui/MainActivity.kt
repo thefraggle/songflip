@@ -14,6 +14,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.compose.animation.*
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
@@ -196,19 +197,26 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.shortcut_pause_1h_toast), Toast.LENGTH_SHORT).show()
             }
             de.goork.songflip.data.ShortcutHelper.ACTION_PLAY_LAST_SONG -> {
-                val targetUrl = intent.getStringExtra(de.goork.songflip.data.ShortcutHelper.EXTRA_TARGET_URL)
-                if (!targetUrl.isNullOrBlank()) {
-                    try {
-                        val playIntent = Intent(Intent.ACTION_VIEW, Uri.parse(targetUrl)).apply {
-                            flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                        }
-                        startActivity(playIntent)
+                lifecycleScope.launch {
+                    val lastEntry = try {
+                        de.goork.songflip.core.engine.SongLinkEngine.shared.cache.getHistoryEntries(1).firstOrNull()
                     } catch (e: Exception) {
-                        de.goork.songflip.core.util.SongFlipLogger.w("MainActivity", "Failed to launch play last song intent: ${e.message}", e)
-                        Toast.makeText(this, getString(R.string.shortcut_no_last_song), Toast.LENGTH_SHORT).show()
+                        null
                     }
-                } else {
-                    Toast.makeText(this, getString(R.string.shortcut_no_last_song), Toast.LENGTH_SHORT).show()
+                    val targetUrl = lastEntry?.targetUrl
+                    if (!targetUrl.isNullOrBlank() && de.goork.songflip.core.util.UrlUtils.isSafeTargetUrl(targetUrl)) {
+                        try {
+                            val playIntent = Intent(Intent.ACTION_VIEW, Uri.parse(targetUrl)).apply {
+                                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                            }
+                            startActivity(playIntent)
+                        } catch (e: Exception) {
+                            de.goork.songflip.core.util.SongFlipLogger.w("MainActivity", "Failed to launch play last song intent: ${e.message}", e)
+                            Toast.makeText(this@MainActivity, getString(R.string.shortcut_no_last_song), Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        Toast.makeText(this@MainActivity, getString(R.string.shortcut_no_last_song), Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
@@ -420,6 +428,9 @@ fun MainScreen(
         }
     }
 
+    val currentTargetKey by androidx.compose.runtime.rememberUpdatedState(selectedTargetKey)
+    val currentIsPro by androidx.compose.runtime.rememberUpdatedState(proState.isPro)
+
     // Update state when resuming from system settings
     DisposableEffect(lifecycleOwner, context) {
         val observer = LifecycleEventObserver { _, event ->
@@ -438,8 +449,8 @@ fun MainScreen(
                 coroutineScope.launch {
                     val resolvedCount = de.goork.songflip.data.AcousticRecognizer.processPendingOfflineScansIfNeeded(
                         context = context,
-                        targetPlatformKey = selectedTargetKey,
-                        isPro = proState.isPro
+                        targetPlatformKey = currentTargetKey,
+                        isPro = currentIsPro
                     )
                     if (resolvedCount > 0) {
                         Toast.makeText(

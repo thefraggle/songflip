@@ -85,12 +85,6 @@ struct ContentView: View {
                             ProNudgeBannerCardView(
                                 milestone: activeMilestone,
                                 lang: lang,
-                                onRedeemPromo: {
-                                    AptabaseClient.shared.trackEvent(eventName: "paywall_viewed", props: [
-                                        "source": "milestone_\(activeMilestone)_promo"
-                                    ])
-                                    showingPaywallSheet = true
-                                },
                                 onLearnMore: {
                                     AptabaseClient.shared.trackEvent(eventName: "paywall_viewed", props: [
                                         "source": "milestone_\(activeMilestone)_learn_more"

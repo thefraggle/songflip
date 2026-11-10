@@ -135,12 +135,12 @@ object UrlUtils {
             return "https://tidal.com/browse/$type/$id"
         }
 
-        // 7. SoundCloud: soundcloud.com/{artist}/{track}
-        val soundCloudMatch = Regex("(?:https?://)?(?:www\\.|m\\.)?soundcloud\\.com/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)").find(clean)
+        // 7. SoundCloud: soundcloud.com/{artist}/{track} or soundcloud.com/{artist}/sets/{set-slug}
+        val soundCloudMatch = Regex("(?:https?://)?(?:www\\.|m\\.)?soundcloud\\.com/([a-zA-Z0-9_-]+)/(sets/[a-zA-Z0-9_-]+|[a-zA-Z0-9_-]+)").find(clean)
         if (soundCloudMatch != null && soundCloudMatch.groupValues[1].lowercase() !in listOf("search", "discover", "upload", "you", "stream", "settings")) {
             val user = soundCloudMatch.groupValues[1]
-            val track = soundCloudMatch.groupValues[2]
-            return "https://soundcloud.com/$user/$track"
+            val pathOrTrack = soundCloudMatch.groupValues[2]
+            return "https://soundcloud.com/$user/$pathOrTrack"
         }
 
         // 8. Bandcamp: {subdomain}.bandcamp.com/(track|album)/{slug}
