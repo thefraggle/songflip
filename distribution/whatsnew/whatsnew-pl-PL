@@ -1,2 +1,2 @@
-- Bezpieczeństwo odzyskiwania i przechowywania baz danych: przywrócono bezproblemowy dostęp do przekonwertowanych utworów historycznych i wyeliminowano niepotrzebne konflikty inicjalizacji schematu podczas uruchamiania aplikacji.
-- Zachowanie historii offline: trwałe zapisy utworów i ulubione pozostają w pełni dostępne bez przerw we wszystkich aktualizacjach wersji.
+- Przechwytywanie łączy Anghami: Pełna integracja łączy Anghami z domyślną obsługą aplikacji i routingiem łączy systemowych (nr 203).
+- Odporne rozwiązywanie krótkich łączy: Błędy sieciowe podczas rozwiązywania krótkich łączy nie zatruwają już pamięci podręcznej w pamięci, umożliwiając natychmiastowe ponowne próby po przywróceniu połączenia (#D8).

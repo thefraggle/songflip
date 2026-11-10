@@ -95,6 +95,10 @@
             <action android:name="android.intent.action.VIEW" />
             <data android:scheme="music" />
         </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="anghami" />
+        </intent>
         <package android:name="app.morphe.android.apps.youtube.music" />
         <package android:name="app.morphe.android.youtube.music" />
         <package android:name="app.morphe.youtube.music" />
@@ -169,6 +173,7 @@
         <package android:name="com.beatport.mobile" />
         <package android:name="com.audiomack" />
         <package android:name="com.idagio.app" />
+        <package android:name="com.anghami" />
     </queries>
 
     <application
@@ -390,6 +395,18 @@
                 <data android:host="idagio.com" />
                 <data android:host="www.idagio.com" />
                 <data android:host="app.idagio.com" />
+            </intent-filter>
+
+            <!-- Anghami URL Interception -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="anghami.com" />
+                <data android:host="www.anghami.com" />
+                <data android:host="play.anghami.com" />
             </intent-filter>
         </activity>
 

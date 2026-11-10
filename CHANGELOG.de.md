@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.14.13] - 2026-11-10
+- **Anghami-Link-Registrierung**: Vollständiges Abfangen von Anghami-Links im System sowie Integration in die Standard-App-Auswahl (#203).
+- **Robuste Link-Auflösung & Wiederholungslogik**: Fehlgeschlagene Shortlink-Auflösungen blockieren den Speicher nicht mehr, sodass Wiederholungsversuche nach Verbindungsproblemen sofort greifen (#D8).
+- **Präzise Titel-Erkennung**: Strikte Parameter-Trennung bei der Identifikation von Einzeltiteln aus Album- und Web-Links (#L11).
+- **Datenschutz & Cloud-Ausschluss**: Schutz temporärer Sitzungsdaten vor unbefugtem Cloud- und Geräte-Transfer (#A10).
+
 ## [1.14.12] - 2026-11-10
 - **Anghami-Streaming-Integration**: Vollständige Unterstützung für Anghami als Quell- und Ziel-Player beim Konvertieren und Weiterleiten von Titeln (#203).
 - **Wiedergabelisten-Bereinigung & Rauschfilter**: Automatische Erkennung und Filterung synthetischer Ghost-Tracks und Hintergrundgeräusche vor der Konvertierung (#211).

@@ -1,2 +1,2 @@
-- Veritabanı Kurtarma ve Depolama Güvenliği: Geçmişteki dönüştürülmüş parçalara kesintisiz erişim yeniden sağlandı ve uygulama başlatılırken gereksiz şema başlatma çakışmaları ortadan kaldırıldı.
-- Çevrimdışı Geçmiş Koruma: Kalıcı parça kayıtlarının ve favorilerin tüm sürüm güncellemelerinde kesintisiz olarak tamamen erişilebilir kalmasının sağlanması.
+- Anghami Bağlantısının Kesilmesi: Anghami bağlantılarının varsayılan uygulama yönetimine ve sistem bağlantı yönlendirmesine tam entegrasyonu (#203).
+- Esnek Kısa Bağlantı Çözünürlüğü: Kısa bağlantı çözümlemesi sırasındaki ağ hataları artık bellek içi önbelleği zehirlemiyor ve bağlantı yeniden kurulduğunda anında yeniden deneme olanağı sağlıyor (#D8).

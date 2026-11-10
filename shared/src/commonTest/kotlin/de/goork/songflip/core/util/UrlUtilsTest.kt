@@ -38,6 +38,23 @@ class UrlUtilsTest {
     }
 
     @Test
+    fun testAppleMusicStrictParameterParsing() {
+        // Audit #L11: Ensure parameters like ?api= or ?multi= are not mistaken for track id ?i=
+        val trackUrl = "https://music.apple.com/us/album/test/12345?i=987654"
+        val nonTrackUrl = "https://music.apple.com/us/album/test/12345?api=987654&multi=true"
+
+        assertEquals("987654", UrlUtils.extractAppleMusicTrackId(trackUrl))
+        assertNull(UrlUtils.extractAppleMusicTrackId(nonTrackUrl))
+        assertTrue(UrlUtils.hasAppleMusicTrackId(trackUrl))
+        assertFalse(UrlUtils.hasAppleMusicTrackId(nonTrackUrl))
+
+        // Normalization must strip ?api=... on album URL instead of appending it as ?i=
+        assertEquals("https://music.apple.com/us/album/test/12345", UrlUtils.normalizeUrl(nonTrackUrl))
+        assertFalse(UrlUtils.isAlbumUrl(trackUrl))
+        assertTrue(UrlUtils.isAlbumUrl(nonTrackUrl))
+    }
+
+    @Test
     fun testYouTubeUrlNormalization() {
         val dirtyYt = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&si=123&feature=shared"
         assertEquals("https://www.youtube.com/watch?v=dQw4w9WgXcQ", UrlUtils.normalizeUrl(dirtyYt))

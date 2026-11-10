@@ -29,6 +29,10 @@ class ShortLinkResolver(
         return resolvedUrl
     }
 
+    internal fun getCachedUrl(url: String): String? {
+        return shortLinkLock.withLock { shortLinkResolutionCache[url] }
+    }
+
     suspend fun resolveCanonicalUrl(url: String): String {
         val cached = shortLinkLock.withLock { shortLinkResolutionCache[url] }
         if (cached != null) return cached
@@ -74,16 +78,22 @@ class ShortLinkResolver(
                         header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
                     }
                     val target = UrlUtils.normalizeUrl(getResp.request.url.toString())
-                    return cacheResolvedShortLink(url, target)
+                    if (!UrlUtils.isShortLinkDomain(target)) {
+                        return cacheResolvedShortLink(url, target)
+                    }
+                    return target
                 } catch (inner: Exception) {
                     if (inner is CancellationException) throw inner
-                    val target = UrlUtils.normalizeUrl(currentUrl)
-                    return cacheResolvedShortLink(url, target)
+                    // Audit #D8: Do not poison memory cache with unresolvable shortlinks on network failure/offline
+                    return UrlUtils.normalizeUrl(currentUrl)
                 }
             }
         }
         val target = UrlUtils.normalizeUrl(currentUrl)
-        return cacheResolvedShortLink(url, target)
+        if (!UrlUtils.isShortLinkDomain(target)) {
+            return cacheResolvedShortLink(url, target)
+        }
+        return target
     }
 
     fun resolveRelativeUrl(base: String, location: String): String {

@@ -1,2 +1,2 @@
-- Tietokannan palautuksen ja tallennuksen turvallisuus: Palautettu saumaton pääsy historiallisiin muunnetuihin raiteisiin ja poistettu ylimääräiset skeeman alustusristiriidat sovelluksen käynnistyksen yhteydessä.
-- Offline-historian säilyttäminen: Varmistetaan, että pysyvät historiatiedot ja suosikit ovat täysin käytettävissä kaikissa versiopäivityksissä ilman keskeytyksiä.
+- Anghamin linkkien sieppaus: Anghami-linkkien täydellinen integrointi oletussovellusten käsittelyyn ja järjestelmälinkkien reitittämiseen (#203).
+- Joustava lyhytlinkin tarkkuus: Verkkovirheet lyhytlinkin resoluution aikana eivät enää myrkyttää muistissa olevaa välimuistia, mikä mahdollistaa välittömät uudelleenyritykset yhteyden palautuksen yhteydessä (#D8).

@@ -1,2 +1,3 @@
-- Anghami Integration: Full support for Anghami as source and destination player when converting and sharing music.
-- Playlist Cleaner: Automatic detection and filtering of synthetic ghost tracks and ambient noise before conversion.
+- Anghami Link Interception: Full integration of Anghami links into default app handling and system link routing (#203).
+- Resilient Shortlink Resolution: Network errors during shortlink resolution no longer poison the in-memory cache, enabling immediate retries upon connection restoration (#D8).
+- Precise Track Identification: Strict parameter isolation when detecting single tracks from complex web links (#L11).

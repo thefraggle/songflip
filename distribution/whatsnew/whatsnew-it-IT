@@ -1,2 +1,2 @@
-- Ripristino del database e sicurezza dell'archiviazione: ripristino dell'accesso continuo alle tracce storiche convertite ed eliminazione dei conflitti di inizializzazione dello schema ridondante all'avvio dell'applicazione.
-- Conservazione della cronologia offline: Garantiamo che i track record e i preferiti persistenti rimangano completamente accessibili attraverso tutti gli aggiornamenti di versione senza interruzioni.
+- Intercettazione dei collegamenti Anghami: integrazione completa dei collegamenti Anghami nella gestione predefinita delle app e nel routing dei collegamenti di sistema (#203).
+- Risoluzione resiliente dei collegamenti brevi: gli errori di rete durante la risoluzione dei collegamenti brevi non avvelenano più la cache in memoria, consentendo tentativi immediati al ripristino della connessione (#D8).

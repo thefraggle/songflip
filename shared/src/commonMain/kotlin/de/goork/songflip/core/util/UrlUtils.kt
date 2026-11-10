@@ -68,12 +68,10 @@ object UrlUtils {
         val host = extractDomain(clean)
 
         // 2. Apple Music: Preserve base URL + exact track id parameter (?i=...)
-        if (isHostOrSubdomain(host, "apple.com", "music.apple.com") && clean.contains("i=")) {
+        val appleTrackId = extractAppleMusicTrackId(clean)
+        if (appleTrackId != null) {
             val base = clean.substringBefore("?")
-            val trackId = clean.substringAfter("i=").substringBefore("&").substringBefore("?").trim()
-            if (trackId.isNotEmpty()) {
-                return "$base?i=$trackId"
-            }
+            return "$base?i=$appleTrackId"
         } else if (isHostOrSubdomain(host, "apple.com", "music.apple.com") && (clean.contains("/album/") || clean.contains("/song/"))) {
             clean = clean.substringBefore("?")
         }
@@ -308,7 +306,7 @@ object UrlUtils {
     private val albumPathRegex = Regex("""(?:/album/|/albums/|album\.link/|\.bandcamp\.com/album/)""", RegexOption.IGNORE_CASE)
 
     fun isAlbumUrl(url: String): Boolean {
-        if (url.contains("i=")) return false
+        if (hasAppleMusicTrackId(url)) return false
         if (url.contains("trackAsin=")) return false
         if (url.contains("/track/")) return false
         if (url.contains("/song/")) return false
@@ -325,7 +323,7 @@ object UrlUtils {
     }
 
     fun isPlaylistUrl(url: String): Boolean {
-        if (url.contains("i=") || url.contains("trackAsin=") || url.contains("/track/") || url.contains("/song/")) return false
+        if (hasAppleMusicTrackId(url) || url.contains("trackAsin=") || url.contains("/track/") || url.contains("/song/")) return false
         val clean = url.lowercase()
         // YouTube URLs with watch?v= or youtu.be/ are individual songs, even if they have a &list= parameter
         if (clean.contains("watch?v=") || clean.contains("youtu.be/")) return false
@@ -409,9 +407,24 @@ object UrlUtils {
             isPlaylistUrl(url) -> MusicEntityType.PLAYLIST
             isAlbumUrl(url) -> MusicEntityType.ALBUM
             clean.contains("/artist/") || clean.contains("/channel/") -> MusicEntityType.ARTIST
-            clean.contains("/track/") || clean.contains("/song/") || clean.contains("youtu.be/") || clean.contains("watch?v=") || clean.contains("/shorts/") || clean.contains("i=") || clean.contains("trackasin=") -> MusicEntityType.TRACK
+            clean.contains("/track/") || clean.contains("/song/") || clean.contains("youtu.be/") || clean.contains("watch?v=") || clean.contains("/shorts/") || hasAppleMusicTrackId(clean) || clean.contains("trackasin=") -> MusicEntityType.TRACK
             else -> MusicEntityType.UNKNOWN
         }
+    }
+
+    /**
+     * Extracts Apple Music track ID (?i=...) using strict parameter matching (#L11).
+     * Avoids false positives from parameters like ?api=..., ?multi=..., or substring collisions.
+     */
+    fun extractAppleMusicTrackId(url: String): String? {
+        val host = extractDomain(url)
+        if (!isHostOrSubdomain(host, "apple.com", "music.apple.com")) return null
+        val match = Regex("""(?:[?&])i=(\d+)""").find(url)
+        return match?.groupValues?.get(1)?.trim()?.takeIf { it.isNotEmpty() }
+    }
+
+    fun hasAppleMusicTrackId(url: String): Boolean {
+        return extractAppleMusicTrackId(url) != null
     }
 
     fun extractDomain(url: String): String {
@@ -732,9 +745,9 @@ object UrlUtils {
         }
 
         // Apple Music
-        if (url.contains("apple.com") && url.contains("i=")) {
-            val id = url.substringAfter("i=").substringBefore("&").substringBefore("?").trim()
-            if (id.isNotEmpty()) return "https://song.link/i/$id"
+        val appleTrackId = extractAppleMusicTrackId(url)
+        if (appleTrackId != null) {
+            return "https://song.link/i/$appleTrackId"
         }
         if (clean.contains("apple.com") && clean.contains("/song/")) {
             val id = clean.substringAfter("/song/").substringAfterLast("/").substringBefore("?").trim()

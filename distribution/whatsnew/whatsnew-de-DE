@@ -1,2 +1,3 @@
-- Anghami-Integration: Volle Unterstützung für Anghami als Quell- und Ziel-Player beim Konvertieren und Teilen von Musik.
-- Bereinigung von Wiedergabelisten: Automatische Erkennung und Filterung von synthetischen Ghost-Tracks und Hintergrundgeräuschen vor dem Konvertieren.
+- Anghami-Link-Registrierung: Vollständiges Abfangen von Anghami-Links im System sowie Integration in die Standard-App-Auswahl (#203).
+- Robuste Link-Auflösung & Wiederholungslogik: Fehlgeschlagene Shortlink-Auflösungen blockieren den Speicher nicht mehr, sodass Wiederholungsversuche nach Verbindungsproblemen sofort greifen (#D8).
+- Präzise Titel-Erkennung: Strikte Parameter-Trennung bei der Identifikation von Einzeltiteln aus Album- und Web-Links (#L11).

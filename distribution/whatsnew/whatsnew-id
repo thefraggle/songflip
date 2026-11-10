@@ -1,2 +1,3 @@
-- Pemulihan Basis Data & Keamanan Penyimpanan: Memulihkan akses tanpa batas ke trek historis yang dikonversi dan menghilangkan konflik inisialisasi skema yang berlebihan pada startup aplikasi.
-- Pelestarian Riwayat Offline: Memastikan rekam jejak dan favorit tetap dapat diakses sepenuhnya di semua pembaruan versi tanpa gangguan.
+- Intersepsi Tautan Anghami: Integrasi penuh tautan Anghami ke dalam penanganan aplikasi bawaan dan perutean tautan sistem (#203).
+- Resolusi Shortlink yang Tangguh: Kesalahan jaringan selama resolusi shortlink tidak lagi meracuni cache dalam memori, memungkinkan percobaan ulang segera setelah pemulihan koneksi (#D8).
+- Identifikasi Track yang Tepat: Isolasi parameter yang ketat saat mendeteksi track tunggal dari link web yang kompleks (#L11).

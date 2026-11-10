@@ -1,1 +1,2 @@
-- Phục hồi cơ sở dữ liệu & An toàn lưu trữ: Đã khôi phục quyền truy cập liền mạch vào các bản nhạc được chuyển đổi lịch sử và loại bỏ xung đột khởi tạo lược đồ dư thừa khi khởi động ứng dụng.
+- Chặn liên kết Anghami: Tích hợp đầy đủ các liên kết Anghami vào xử lý ứng dụng mặc định và định tuyến liên kết hệ thống (#203).
+- Độ phân giải liên kết ngắn linh hoạt: Lỗi mạng trong quá trình phân giải liên kết ngắn không còn ảnh hưởng đến bộ đệm trong bộ nhớ nữa, cho phép thử lại ngay lập tức khi khôi phục kết nối (#D8).

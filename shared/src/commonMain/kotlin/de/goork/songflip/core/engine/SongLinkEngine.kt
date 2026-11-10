@@ -364,7 +364,7 @@ class SongLinkEngine(
                 )
             }
 
-            val isExplicitTrackUrl = canonicalUrl.contains("i=") || canonicalUrl.contains("/song/") || canonicalUrl.contains("/track/")
+            val isExplicitTrackUrl = UrlUtils.hasAppleMusicTrackId(canonicalUrl) || canonicalUrl.contains("/song/") || canonicalUrl.contains("/track/")
             val isExplicitAlbumUrl = !isExplicitTrackUrl && UrlUtils.isAlbumUrl(canonicalUrl)
             val now = getCurrentTimeMillis()
 
