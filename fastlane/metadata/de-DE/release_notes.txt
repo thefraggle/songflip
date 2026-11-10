@@ -1,3 +1,4 @@
-- Stabilität & Zuverlässigkeit: Optimierte interne Verarbeitungsabläufe und Speicherverwaltung für schnellere und zuverlässigere Weiterleitungen.
-- Barrierefreiheit & Kontraste: Verbesserte Farbkontraste und optimierte Bedienungshilfen bei Schaltflächen und Bedienelementen.
-- Dokumentation: Aktualisierte Richtlinien und Anleitungen.
+- Anghami Link Interception: Full integration of Anghami links into default app handling and system link routing (#203).
+- Resilient Shortlink Resolution: Network errors during shortlink resolution no longer poison the in-memory cache, enabling immediate retries upon connection restoration (#D8).
+- Precise Track Identification: Strict parameter isolation when detecting single tracks from complex web links (#L11).
+- Enhanced Data Safety & Cloud Backup Rules: Explicit exclusion of temporary session tokens from automatic cloud backup and device transfer (#A10).

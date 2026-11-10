@@ -6,8 +6,8 @@ Baik mengalihkan Spotify ke YouTube Music, Apple Podcasts ke Pocket Casts, Spoti
 
 🚀 FITUR UTAMA:
 
-• 12 Platform Streaming, Podcast & Shazam:
-Konversikan dan alihkan tautan lagu dan podcast dengan lancar di Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud, dan Bandcamp. Termasuk dukungan konverter tautan musik instan untuk tautan Shazam yang dibagikan!
+• 14 Platform Streaming, Podcast & Shazam:
+Konversikan dan alihkan tautan lagu dan podcast dengan lancar di Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud, Bandcamp, dan Anghami. Termasuk dukungan konverter tautan musik instan untuk tautan Shazam yang dibagikan!
 
 • Listen & Flip (Pengenalan Musik):
 Kenali musik di sekitar Anda langsung di SongFlip. Lagu dicocokkan ke pemutar pilihan Anda dan disimpan ke riwayat. Tanpa sinyal? Simpan sidik jari audio secara offline dan SongFlip akan mengenalinya otomatis saat kembali online.

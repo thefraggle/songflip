@@ -6,8 +6,8 @@ Ya sea cambiando Spotify a YouTube Music, Apple Podcasts a Pocket Casts, Spotify
 
 🚀 FUNCIONES PRINCIPALES:
 
-• 12 plataformas de streaming, podcasts y Shazam:
-Convierta y redirija sin problemas enlaces de canciones y podcasts en Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud y Bandcamp. ¡Incluye soporte instantáneo de conversión de enlaces de música para enlaces compartidos de Shazam!
+• 14 plataformas de streaming, podcasts y Shazam:
+Convierta y redirija sin problemas enlaces de canciones y podcasts en Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud Bandcamp y Anghami. ¡Incluye soporte instantáneo de conversión de enlaces de música para enlaces compartidos de Shazam!
 
 • Listen & Flip (Reconocimiento musical e identificador de canciones):
 Identifica canciones y música a tu alrededor en SongFlip. Las canciones se adaptan a tu reproductor favorito y se guardan en el historial. ¿Sin cobertura? Guarda la huella de audio sin conexión y SongFlip identificará la canción automáticamente al volver a conectarte.
@@ -27,8 +27,8 @@ Convierta y transfiera listas de reproducción entre Spotify, Apple Music, YouTu
 • Calidad audiófila (Hi-Res y Lossless) y favoritos:
 Prioriza masters de estudio, 24-bit Hi-Res, Lossless y Dolby Atmos frente a ediciones de radio y recopilatorios. Elige versiones y fija favoritos con 1 toque.
 
-• Selector rápido de jugadores:
-Elija su reproductor de audio de destino sobre la marcha cada vez que abra un enlace de canción compartido o un enlace de podcast.
+• Selector rápido de reproductores:
+Elija su reproductor de audio de destino cada vez que abra un enlace de canción o podcast compartido.
 
 • Asistente de redireccionamiento de enlaces (Android 12+):
 Configure los enlaces de aplicaciones abiertas de Android de forma predeterminada con nuestro asistente de configuración de redireccionamiento de enlaces de 1 toque.

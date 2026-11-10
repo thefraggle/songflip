@@ -6,8 +6,8 @@ Ať už přepínáte Spotify na YouTube Music, Apple Podcasty na Pocket Casts, S
 
 🚀 HLAVNÍ FUNKCE:
 
-• 12 streamovacích platforem, podcastů a Shazam:
-Bezproblémově převádějte a přesměrovávejte odkazy na skladby a podcasty přes Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud a Bandcamp. Zahrnuje okamžitou podporu převodníku hudebních odkazů pro sdílené odkazy Shazam!
+• 14 streamovacích platforem, podcastů a Shazam:
+Bezproblémově převádějte a přesměrovávejte odkazy na skladby a podcasty přes Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud Bandcamp a Anghami. Zahrnuje okamžitou podporu převodníku hudebních odkazů pro sdílené odkazy Shazam!
 
 • Listen & Flip (Rozpoznávání hudby):
 Rozpoznejte hudbu kolem sebe přímo v SongFlipu. Skladby se převedou pro váš přehrávač a uloží do historie. Jste bez signálu? Uložte zvukový otisk offline a SongFlip skladbu rozpozná, jakmile budete opět online.

@@ -6,8 +6,8 @@
 
 🚀 मुख्य विशेषताएं:
 
-• 12 स्ट्रीमिंग प्लेटफ़ॉर्म, पॉडकास्ट और शाज़म:
-Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocketcasts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud, और Bandcamp पर गाने के लिंक और पॉडकास्ट को निर्बाध रूप से कनवर्ट और रीडायरेक्ट करें। साझा शाज़म लिंक के लिए त्वरित संगीत लिंक कनवर्टर समर्थन शामिल है!
+• 14 स्ट्रीमिंग प्लेटफ़ॉर्म, पॉडकास्ट और शाज़म:
+Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocketcasts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud, Bandcamp और Anghami पर गाने के लिंक और पॉडकास्ट को निर्बाध रूप से कनवर्ट और रीडायरेक्ट करें। साझा शाज़म लिंक के लिए त्वरित संगीत लिंक कनवर्टर समर्थन शामिल है!
 
 • Listen & Flip (संगीत पहचान):
 अपने आस-पास बज रहे संगीत को सीधे SongFlip में पहचानें और हिस्ट्री में सेव करें। नेटवर्क नहीं है? ऑडियो फ़िंगरप्रिंट ऑफ़लाइन सेव करें और ऑनलाइन आते ही गाना अपने-आप पहचाना जाएगा।

@@ -6,8 +6,8 @@ SongFlip হল আপনার নির্বিঘ্ন, শূন্য-ক
 
 🚀 মূল বৈশিষ্ট্য:
 
-• 10টি স্ট্রিমিং প্ল্যাটফর্ম, পডকাস্ট এবং শাজাম:
-Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud, এবং Bandcamp জুড়ে গানের লিঙ্ক এবং পডকাস্টগুলিকে নিরবিচ্ছিন্নভাবে রূপান্তর এবং পুনঃনির্দেশ করুন৷ শেয়ার করা Shazam লিঙ্কের জন্য তাত্ক্ষণিক সঙ্গীত লিঙ্ক রূপান্তরকারী সমর্থন অন্তর্ভুক্ত!
+• 14টি স্ট্রিমিং প্ল্যাটফর্ম, পডকাস্ট এবং শাজাম:
+Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud, Bandcamp এবং Anghami জুড়ে গানের লিঙ্ক এবং পডকাস্টগুলিকে নিরবিচ্ছিন্নভাবে রূপান্তর এবং পুনঃনির্দেশ করুন৷ শেয়ার করা Shazam লিঙ্কের জন্য তাত্ক্ষণিক সঙ্গীত লিঙ্ক রূপান্তরকারী সমর্থন অন্তর্ভুক্ত!
 
 • Listen & Flip (মিউজিক শনাক্তকরণ):
 আপনার চারপাশে বাজতে থাকা গান সরাসরি SongFlip-এ শনাক্ত করুন এবং হিস্ট্রিতে সেভ করুন। ইন্টারনেট না থাকলেও অডিও সিগনেচার সেভ করুন, অনলাইনে ফিরলে স্বয়ংক্রিয়ভাবে গান শনাক্ত হবে।

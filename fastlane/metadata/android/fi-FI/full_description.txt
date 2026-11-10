@@ -6,8 +6,8 @@ Vaihdoitpa sitten Spotifyn YouTube Musiciin, Apple Podcastit Pocket Castsiin, Sp
 
 🚀 TÄRKEIMMÄT OMINAISUUDET:
 
-• 12 suoratoistoalustaa, podcastia ja Shazam:
-Muunna ja ohjaa saumattomasti kappalelinkkejä ja podcasteja Spotifyssa, YouTube Musicissa, Apple Musicissa, Apple Podcasteissa, Pocket Castsissa, Deezerissä, TIDALissa, Amazon Musicissa, SoundCloudissa ja Bandcampissa. Sisältää välittömän musiikkilinkkimuuntimen tuen jaetuille Shazam-linkeille!
+• 14 suoratoistoalustaa, podcastia ja Shazam:
+Muunna ja ohjaa saumattomasti kappalelinkkejä ja podcasteja Spotifyssa, YouTube Musicissa, Apple Musicissa, Apple Podcasteissa, Pocket Castsissa, Deezerissä, TIDALissa, Amazon Musicissa, Qobuzissa, Beatportissa, Audiomackissa, Idagiossa, SoundCloudissa, Bandcampissa ja Anghamissa. Sisältää välittömän musiikkilinkkimuuntimen tuen jaetuille Shazam-linkeille!
 
 • Listen & Flip (Musiikin tunnistus):
 Tunnista ympärilläsi soiva musiikki suoraan SongFlipissä. Kappaleet tallennetaan historiaan omalle soittimellesi. Ei verkkoa? Tallenna äänitunniste offline-tilassa ja SongFlip tunnistaa kappaleen automaattisesti, kun olet taas verkossa.

@@ -6,8 +6,8 @@ Akár a Spotify-t a YouTube Music-ra, az Apple Podcastokat Pocket Casts-ra, a Sp
 
 🚀 FŐBB FUNKCIÓK:
 
-• 12 streaming platform, podcast és Shazam:
-Zökkenőmentesen konvertálhatja és irányíthatja át a dallinkeket és podcastokat a Spotify, a YouTube Music, az Apple Music, az Apple Podcast, a Pocket Casts, a Deezer, a TIDAL, az Amazon Music, Qobuz, Beatport, Audiomack, Idagio, a SoundCloud és a Bandcamp szolgáltatáson keresztül. Azonnali zenei link konverter támogatást tartalmaz a megosztott Shazam linkekhez!
+• 14 streaming platform, podcast és Shazam:
+Zökkenőmentesen konvertálhatja és irányíthatja át a dallinkeket és podcastokat a Spotify, a YouTube Music, az Apple Music, az Apple Podcast, a Pocket Casts, a Deezer, a TIDAL, az Amazon Music, Qobuz, Beatport, Audiomack, Idagio, a SoundCloud és a Bandcamp és az Anghami és az Anghami szolgáltatáson keresztül. Azonnali zenei link konverter támogatást tartalmaz a megosztott Shazam linkekhez!
 
 • Listen & Flip (Zenefelismerés):
 Ismerd fel a körülötted szóló zenét közvetlenül a SongFlipben, és mentsd el az előzményekbe. Nincs térerő? Mentsd el a hangmintázatot offline, és a SongFlip automatikusan felismeri a dalt, amint újra online leszel.

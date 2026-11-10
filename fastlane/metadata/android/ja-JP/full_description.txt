@@ -6,8 +6,8 @@ Spotify から YouTube Music、Apple Podcasts から Pocket Casts、Spotify か�
 
 🚀 主な機能：
 
-• 12 のストリーミング プラットフォーム、ポッドキャスト、Shazam:
-Spotify、YouTube Music、Apple Music、Apple Podcast、Pocket Cast、Deezer、TIDAL、Amazon Music、Qobuz、Beatport、Audiomack、Idagio、SoundCloud、Bandcamp 間で曲のリンクとポッドキャストをシームレスに変換し、リダイレクトします。共有 Shazam リンクに対するインスタント ミュージック リンク コンバーターのサポートが含まれています。
+• 14 のストリーミング プラットフォーム、ポッドキャスト、Shazam:
+Spotify、YouTube Music、Apple Music、Apple Podcast、Pocket Cast、Deezer、TIDAL、Amazon Music、Qobuz、Beatport、Audiomack、Idagio、SoundCloud、Bandcamp、Anghami、Anghami 間で曲のリンクとポッドキャストをシームレスに変換し、リダイレクトします。共有 Shazam リンクに対するインスタント ミュージック リンク コンバーターのサポートが含まれています。
 
 • Listen & Flip（音楽認識）：
 周囲で流れている音楽をSongFlipで直接認識。お気に入りのプレイヤー用に変換され履歴に保存されます。 電波がない場所でも音声フィンガープリントを保存し、オンライン復帰時に自動で曲名を特定します。
