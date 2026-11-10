@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.14.13] - 2026-11-10
+- **Anghami Link Interception**: Full integration of Anghami links into default app handling and system link routing (#203).
+- **Resilient Shortlink Resolution**: Network errors during shortlink resolution no longer poison the in-memory cache, enabling immediate retries upon connection restoration (#D8).
+- **Precise Track Identification**: Strict parameter isolation when detecting single tracks from complex web links (#L11).
+- **Enhanced Data Safety & Cloud Backup Rules**: Explicit exclusion of temporary session tokens from automatic cloud backup and device transfer (#A10).
+
 ## [1.14.12] - 2026-11-10
 - **Anghami Streaming Integration**: Full support for Anghami as source and destination player for music links and playback routing (#203).
 - **Playlist Cleaner & Noise Filtering**: Automatic detection and filtering of synthetic ghost tracks and ambient noise before playlist conversion (#211).

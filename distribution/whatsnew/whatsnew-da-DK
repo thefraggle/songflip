@@ -1,2 +1,3 @@
-- Databasegendannelse og lagringssikkerhed: Gendannet problemfri adgang til historiske konverterede spor og eliminerede redundante skemainitieringskonflikter ved applikationsstart.
-- Offline historiebevaring: Sikret vedvarende track records og favoritter forbliver fuldt tilgængelige på tværs af alle versionsopdateringer uden afbrydelser.
+- Anghami Link Interception: Fuld integration af Anghami-links i standard app-håndtering og systemlink-routing (#203).
+- Resilient Shortlink-opløsning: Netværksfejl under shortlink-opløsning forgifter ikke længere cachen i hukommelsen, hvilket muliggør øjeblikkelige genforsøg efter forbindelsesgendannelse (#D8).
+- Præcis sporidentifikation: Streng parameterisolering ved registrering af enkeltspor fra komplekse weblinks (#L11).

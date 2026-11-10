@@ -1,2 +1,3 @@
-- Recuperação de banco de dados e segurança de armazenamento: restaurou o acesso contínuo a trilhas históricas convertidas e eliminou conflitos redundantes de inicialização de esquema na inicialização do aplicativo.
-- Preservação do histórico off-line: registros persistentes e favoritos garantidos permanecem totalmente acessíveis em todas as atualizações de versão, sem interrupção.
+- Interceptação de link Anghami: Integração total de links Anghami no manuseio de aplicativos padrão e roteamento de link do sistema (#203).
+- Resolução resiliente de links curtos: Erros de rede durante a resolução de links curtos não envenenam mais o cache na memória, permitindo novas tentativas imediatas após a restauração da conexão (#D8).
+- Identificação precisa de trilhas: Isolamento estrito de parâmetros ao detectar trilhas únicas de links da web complexos (#L11).

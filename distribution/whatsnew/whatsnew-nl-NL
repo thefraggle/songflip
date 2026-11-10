@@ -1,2 +1,3 @@
-- Databaseherstel en opslagveiligheid: naadloze toegang tot historisch geconverteerde tracks hersteld en redundante schema-initialisatieconflicten geëlimineerd bij het opstarten van de applicatie.
-- Offline geschiedenisbehoud: gegarandeerd dat blijvende trackrecords en favorieten zonder onderbrekingen volledig toegankelijk blijven bij alle versie-updates.
+- Anghami Link Interception: Volledige integratie van Anghami-links in standaard app-afhandeling en systeemlinkroutering (#203).
+- Veerkrachtige Shortlink-resolutie: netwerkfouten tijdens het oplossen van shortlinks vergiftigen niet langer de cache in het geheugen, waardoor onmiddellijke nieuwe pogingen mogelijk zijn bij herstel van de verbinding (#D8).
+- Nauwkeurige trackidentificatie: strikte parameterisolatie bij het detecteren van afzonderlijke tracks van complexe weblinks (#L11).

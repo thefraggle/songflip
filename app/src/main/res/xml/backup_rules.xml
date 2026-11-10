@@ -3,4 +3,5 @@
     <!-- Exclude shared preferences containing sensitive API tokens or user identifiers -->
     <exclude domain="sharedpref" path="songflip_settings.xml"/>
     <exclude domain="sharedpref" path="songflip_pro_prefs.xml"/>
+    <exclude domain="sharedpref" path="songflip_shazam_token_prefs.xml"/>
 </full-backup-content>

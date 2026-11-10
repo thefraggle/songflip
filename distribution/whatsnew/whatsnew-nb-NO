@@ -1,2 +1,3 @@
-- Databasegjenoppretting og lagringssikkerhet: Gjenopprettet sømløs tilgang til historiske konverterte spor og eliminerte redundante skjemainitieringskonflikter ved oppstart av applikasjoner.
-- Frakoblet historiebevaring: Sikre vedvarende sporrekorder og favoritter forblir fullt tilgjengelige på tvers av alle versjonsoppdateringer uten avbrudd.
+- Anghami Link Interception: Full integrering av Anghami-lenker i standard apphåndtering og systemlinkruting (#203).
+- Resilient Shortlink Resolution: Nettverksfeil under shortlink-oppløsning forgifter ikke lenger cachen i minnet, noe som muliggjør umiddelbare forsøk på nytt ved gjenoppretting av tilkoblingen (#D8).
+- Nøyaktig sporidentifikasjon: Strenge parameterisolering ved oppdagelse av enkeltspor fra komplekse nettlenker (#L11).

@@ -1,2 +1,3 @@
-- Databasåterställning och lagringssäkerhet: Återställd sömlös åtkomst till historiskt konverterade spår och eliminerade redundanta schemainitieringskonflikter vid programstart.
-- Offlinehistorikbevarande: Säkerställt beständiga meriter och favoriter förblir fullt tillgängliga för alla versionsuppdateringar utan avbrott.
+- Anghami Link Interception: Fullständig integration av Anghami-länkar i standardapphantering och systemlänksdirigering (#203).
+- Resilient Shortlink Resolution: Nätverksfel under kortlänksupplösning förgiftar inte längre cacheminnet i minnet, vilket möjliggör omedelbara återförsök vid anslutningsåterställning (#D8).
+- Exakt spåridentifiering: Strikt parameterisolering vid detektering av enstaka spår från komplexa webblänkar (#L11).

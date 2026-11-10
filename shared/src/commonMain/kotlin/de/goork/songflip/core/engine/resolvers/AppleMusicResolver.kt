@@ -1,6 +1,7 @@
 package de.goork.songflip.core.engine.resolvers
 
 import de.goork.songflip.core.model.MusicPlatform
+import de.goork.songflip.core.util.UrlUtils
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
@@ -183,18 +184,16 @@ class AppleMusicResolver(
 
     suspend fun extractMetadata(url: String): String? {
         return try {
-            if (url.contains("i=")) {
-                val trackId = url.substringAfter("i=").substringBefore("&").substringBefore("?")
-                if (trackId.isNotEmpty()) {
-                    val resp = client.get("https://itunes.apple.com/lookup?id=$trackId")
-                    if (resp.status.isSuccess()) {
-                        val parsed = json.decodeFromString<ITunesResponse>(resp.bodyAsText())
-                        val track = parsed.results.firstOrNull()
-                        val trackName = track?.trackName ?: ""
-                        val artistName = track?.artistName ?: ""
-                        if (trackName.isNotEmpty()) {
-                            return if (artistName.isNotEmpty()) "$artistName $trackName" else trackName
-                        }
+            val trackId = UrlUtils.extractAppleMusicTrackId(url)
+            if (trackId != null) {
+                val resp = client.get("https://itunes.apple.com/lookup?id=$trackId")
+                if (resp.status.isSuccess()) {
+                    val parsed = json.decodeFromString<ITunesResponse>(resp.bodyAsText())
+                    val track = parsed.results.firstOrNull()
+                    val trackName = track?.trackName ?: ""
+                    val artistName = track?.artistName ?: ""
+                    if (trackName.isNotEmpty()) {
+                        return if (artistName.isNotEmpty()) "$artistName $trackName" else trackName
                     }
                 }
             } else if (url.contains("/song/")) {

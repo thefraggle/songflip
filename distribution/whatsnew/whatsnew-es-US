@@ -1,2 +1,2 @@
-- Recuperación de bases de datos y seguridad del almacenamiento: se restauró el acceso fluido a las pistas convertidas históricas y se eliminaron los conflictos de inicialización de esquemas redundantes al iniciar la aplicación.
-- Preservación del historial sin conexión: se garantiza que los registros de seguimiento persistentes y los favoritos permanezcan totalmente accesibles en todas las actualizaciones de versiones sin interrupción.
+- Intercepción de enlaces Anghami: integración completa de los enlaces Anghami en el manejo predeterminado de la aplicación y el enrutamiento de enlaces del sistema (#203).
+- Resolución resistente de enlaces cortos: los errores de red durante la resolución de enlaces cortos ya no envenenan la memoria caché, lo que permite reintentos inmediatos tras la restauración de la conexión (#D8).

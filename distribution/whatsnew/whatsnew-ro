@@ -1,2 +1,2 @@
-- Recuperarea bazei de date și siguranța stocării: S-a restaurat accesul fără probleme la melodiile convertite istoric și s-au eliminat conflictele redundante de inițializare a schemei la pornirea aplicației.
-- Păstrarea istoricului offline: Înregistrările persistente și favoritele rămân pe deplin accesibile pentru toate actualizările de versiune, fără întrerupere.
+- Interceptarea legăturilor Anghami: integrarea completă a legăturilor Anghami în gestionarea implicită a aplicațiilor și rutarea legăturilor de sistem (#203).
+- Rezoluție rezistentă pe legătură scurtă: erorile de rețea în timpul rezoluției pe legătura scurtă nu mai otrăvește memoria cache din memorie, permițând reîncercări imediate la restabilirea conexiunii (#D8).

@@ -1,2 +1,2 @@
-- Récupération de base de données et sécurité du stockage : accès transparent restauré aux pistes converties historiques et élimination des conflits d'initialisation de schéma redondants au démarrage de l'application.
-- Préservation de l'historique hors ligne : garantie que les enregistrements persistants et les favoris restent entièrement accessibles dans toutes les mises à jour de version sans interruption.
+- Interception de lien Anghami : intégration complète des liens Anghami dans la gestion des applications par défaut et le routage des liens système (#203).
+- Résolution résiliente des liens courts : les erreurs réseau lors de la résolution des liens courts n'empoisonnent plus le cache en mémoire, permettant des tentatives immédiates lors de la restauration de la connexion (#D8).
