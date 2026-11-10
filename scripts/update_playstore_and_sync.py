@@ -100,7 +100,7 @@ IOS_DE_DESC = """Freunde schicken dir einen Song-Link oder Podcast-Link von Spot
 
 SongFlip ist dein smarter Musik-Link Redirect sowie dein universeller Song- und Podcast-Link Converter für iOS. Ob über das native Teilen-Menü (Share Sheet), die Musikerkennung Listen & Flip, die direkte Titelsuche, universelle QR-Codes, Kurzbefehle oder den Action Button: SongFlip lässt dich geteilte Musik-Links und Podcast-Links blitzschnell konvertieren und direkt im Wunsch-Player öffnen – ganz ohne manuelles Suchen oder Kopieren.
 
-Unterstützte Musik- & Podcastdienste (12 Plattformen – Jeder-zu-Jeder Link Redirect):
+Unterstützte Musik- & Podcastdienste (14 Plattformen – Jeder-zu-Jeder Link Redirect):
 - Apple Music & Apple Podcasts
 - YouTube Music & YouTube
 - Spotify
@@ -109,15 +109,17 @@ Unterstützte Musik- & Podcastdienste (12 Plattformen – Jeder-zu-Jeder Link Re
 - Deezer
 - Amazon Music
 - Qobuz & Beatport
+- Audiomack & Idagio
+- Anghami
 - SoundCloud
 - Bandcamp & Shazam
 
 Hauptfunktionen:
 - Nahtlose iOS-Integration: Musik- und Podcast-Links sowie Spotify-Links aus WhatsApp, Telegram, iMessage, Instagram oder Safari direkt über das Teilen-Menü (Share Sheet) konvertieren und öffnen.
-- Listen & Flip (Musikerkennung & Offline-Modus): Erkenne laufende Songs in Bars, Clubs oder im Radio per Mikrofon mit haptischem Feedback, speichere sie im Verlauf und öffne sie direkt in deinem Lieblings-Player. Auch ohne Internetempfang werden Audio-Fingerabdrücke lokal gesichert und automatisch aufgelöst, sobald du wieder online bist.
+- Listen & Flip (Musikerkennung & Offline-Modus): Erkenne laufende Songs in Bars, Clubs oder im Radio per Mikrofon mit Signalqualitäts-Feedback und haptischer Bestätigung, speichere sie im Verlauf und öffne sie direkt in deinem Lieblings-Player. Auch ohne Internetempfang werden Audio-Fingerabdrücke lokal gesichert und automatisch aufgelöst, sobald du wieder online bist.
 - Direkte Titelsuche: Suche Songs und Künstler direkt in SongFlip und starte sie mit einem Fingertipp (Fast Flip) sofort in deinem Lieblings-Player – auch ohne bestehenden Song-Link.
 - Musik per QR-Code teilen: Erstelle und scanne universelle QR-Codes für Songs und Alben – ideal zum Teilen von Musik-Links vor Ort über alle Streamingdienste hinweg.
-- Universal Playlist Converter, Datei-Import (M3U) & Playlist-Transfer: Playlists konvertieren, lokale .m3u-, .m3u8-, .csv- und Textdateien importieren und Playlists zwischen Spotify, Apple Music, YouTube Music, TIDAL und Deezer umziehen – inklusive Duplikat-Bereinigung und bis zu 200 Titeln.
+- Universal Playlist Converter, Datei-Import (M3U) & Playlist-Transfer: Playlists konvertieren, lokale .m3u-, .m3u8-, .csv- und Textdateien importieren und Playlists zwischen Spotify, Apple Music, YouTube Music, TIDAL und Deezer umziehen – inklusive Duplikat-Bereinigung, Ghost-Track-Filter und bis zu 200 Titeln.
 - Audiophile Qualität (Hi-Res & Lossless) & Favoriten: Bevorzuge Studio-Originale, 24-Bit Hi-Res, Lossless & Dolby Atmos statt Radio-Edits und Compilations. Wähle gezielt zwischen Live-, Remaster- oder Studio-Versionen und pinne Lieblings-Songs mit 1-Tap als Favorit an.
 - Podcast Converter & Podcast-Weiterleitung: Plattformübergreifende Podcast-Umleitung für Shows und Einzelepisoden direkt in deinem bevorzugten Podcast-Player.
 - Direkte Wiedergabe: Startet exakte Titel, Episoden und Videos sofort im gewünschten Player.
@@ -134,7 +136,7 @@ IOS_EN_DESC = """Friends send you a song link or podcast link from Spotify, Tida
 
 SongFlip is your universal music link redirect and song link converter for iOS. Whether via the iOS Share Sheet, Listen & Flip audio recognition, direct song search, universal QR codes, Shortcuts, or the Action Button: SongFlip instantly converts shared music links and podcast links to open them directly in your favorite player – with zero manual searching, no copying, and no friction.
 
-Supported Audio & Podcast Services (12 Platforms – Any-to-Any Link Redirect):
+Supported Audio & Podcast Services (14 Platforms – Any-to-Any Link Redirect):
 - Apple Music & Apple Podcasts
 - YouTube Music & YouTube
 - Spotify
@@ -143,15 +145,17 @@ Supported Audio & Podcast Services (12 Platforms – Any-to-Any Link Redirect):
 - Deezer
 - Amazon Music
 - Qobuz & Beatport
+- Audiomack & Idagio
+- Anghami
 - SoundCloud
 - Bandcamp & Shazam
 
 Key Features:
 - Seamless iOS Integration: Convert music links and open Spotify links from WhatsApp, Telegram, iMessage, Instagram, or Safari directly via the native Share Sheet.
-- Listen & Flip (Audio Recognition & Offline Mode): Identify songs playing around you in clubs, bars, or on the radio with instant haptic confirmation, save them to your history, and open them directly in your favorite player. Captures audio fingerprints even offline without internet reception and resolves tracks automatically once you're back online.
+- Listen & Flip (Audio Recognition & Offline Mode): Identify songs playing around you in clubs, bars, or on the radio with real-time acoustic signal guidance, instant haptic confirmation, save them to your history, and open them directly in your favorite player. Captures audio fingerprints even offline without internet reception and resolves tracks automatically once you're back online.
 - Direct Song Search: Search for tracks and artists directly inside SongFlip and launch playback instantly in your favorite player with 1-tap Fast Flip – no existing song link required.
 - QR Code Music Sharing: Generate and scan universal QR codes for songs and albums – perfect for sharing music links in person across different streaming services.
-- Universal Playlist Converter, File Import (M3U) & Playlist Transfer: Convert playlists, import local .m3u, .m3u8, .csv, and plain text files, and transfer playlists across Spotify, Apple Music, YouTube Music, TIDAL, and Deezer – featuring duplicate cleaning and up to 200 tracks.
+- Universal Playlist Converter, File Import (M3U) & Playlist Transfer: Convert playlists, import local .m3u, .m3u8, .csv, and plain text files, and transfer playlists across Spotify, Apple Music, YouTube Music, TIDAL, and Deezer – featuring duplicate cleaning, AI ghost-track filtering, and up to 200 tracks.
 - Audiophile Quality (Hi-Res & Lossless) & Favorites: Prioritize studio masters, 24-bit Hi-Res, Lossless, and Dolby Atmos over radio edits and compilations. Choose between live, remaster, or studio versions and pin favorite songs in history with a single tap.
 - Podcast Converter & Podcast Redirect Engine: Cross-platform resolution to convert and open podcast links for full shows and episodes in your favorite podcast player.
 - Direct Playback Engine: Instantly launches exact track, episode, and video IDs in your target player.
@@ -164,8 +168,8 @@ Compatible with universal music link protocols including Songlink / Odesli. Buil
 Terms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 Privacy Policy: https://songflip.link/privacy"""
 
-IOS_EN_KEYWORDS = "spotify,apple,youtube,transfer,deezer,beatport,qobuz,tidal,soundcloud,shazam,bandcamp,amazon,song"
-IOS_DE_KEYWORDS = "spotify,apple,youtube,transfer,deezer,beatport,qobuz,tidal,soundcloud,shazam,erkennen,amazon,song"
+IOS_EN_KEYWORDS = "spotify,apple,youtube,transfer,deezer,beatport,qobuz,tidal,soundcloud,shazam,bandcamp,amazon,anghami"
+IOS_DE_KEYWORDS = "spotify,apple,youtube,transfer,deezer,beatport,qobuz,tidal,soundcloud,shazam,erkennen,amazon,anghami"
 
 QUOTE_CHARS = {'"', "'", "“", "”", "‘", "’", "«", "»"}
 
@@ -187,6 +191,63 @@ def strip_framing_quotes(text):
 
 def utf16_len(s):
     return len(s.encode('utf-16-le')) // 2
+
+def update_p4_platforms(p4, loc):
+    if loc in ('en-US', 'en-GB'):
+        return '• 14 Streaming Platforms, Podcasts & Shazam:\nSeamlessly convert and redirect music links and podcasts across Spotify, YouTube Music, Apple Music, Anghami, and 10 more platforms. No tapping required—links open straight in your preferred player.'
+    if loc == 'de-DE':
+        return '• 14 Streaming- & Podcast-Plattformen:\nSongs und Podcasts automatisch konvertieren und weiterleiten zwischen Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud, Bandcamp und Anghami. Erkennt auch Shazam sofort!'
+    if loc == 'fi-FI':
+        return '• 14 suoratoistoalustaa, podcastia ja Shazam:\nMuunna ja ohjaa saumattomasti kappalelinkkejä ja podcasteja Spotifyssa, YouTube Musicissa, Apple Musicissa, Apple Podcasteissa, Pocket Castsissa, Deezerissä, TIDALissa, Amazon Musicissa, Qobuzissa, Beatportissa, Audiomackissa, Idagiossa, SoundCloudissa, Bandcampissa ja Anghamissa. Sisältää välittömän musiikkilinkkimuuntimen tuen jaetuille Shazam-linkeille!'
+    if loc == 'ja-JP':
+        return p4.replace('12', '14').replace('SoundCloud、Bandcamp', 'SoundCloud、Bandcamp、Anghami')
+    if loc == 'ko-KR':
+        return p4.replace('10가지', '14가지').replace('SoundCloud 및 Bandcamp에서', 'SoundCloud, Bandcamp 및 Anghami에서')
+    if loc == 'zh-CN':
+        return p4.replace('12 个', '14 个').replace('SoundCloud 和 Bandcamp', 'SoundCloud、Bandcamp 和 Anghami')
+    if loc == 'zh-TW':
+        return p4.replace('12 個', '14 個').replace('SoundCloud 和 Bandcamp', 'SoundCloud、Bandcamp 與 Anghami')
+    if loc == 'hu-HU':
+        return p4.replace('12', '14').replace('a Bandcamp', 'a Bandcamp és az Anghami')
+    if loc == 'tr-TR':
+        return p4.replace('12', '14').replace("ve Bandcamp'ta", "Bandcamp ve Anghami'de")
+    if loc == 'bn-BD':
+        return p4.replace('10টি', '14টি').replace('এবং Bandcamp', 'Bandcamp এবং Anghami')
+
+    res = re.sub(r'•\s*12\b', '• 14', p4)
+
+    connectors = {
+        'cs-CZ': ('a Bandcamp', 'Bandcamp a Anghami'),
+        'da-DK': ('og Bandcamp', 'Bandcamp og Anghami'),
+        'el-GR': ('και Bandcamp', 'Bandcamp και Anghami'),
+        'es-419': ('y Bandcamp', 'Bandcamp y Anghami'),
+        'es-ES': ('y Bandcamp', 'Bandcamp y Anghami'),
+        'es-US': ('y Bandcamp', 'Bandcamp y Anghami'),
+        'fr-CA': ('et Bandcamp', 'Bandcamp et Anghami'),
+        'fr-FR': ('et Bandcamp', 'Bandcamp et Anghami'),
+        'hi-IN': ('और Bandcamp', 'Bandcamp और Anghami'),
+        'id': ('dan Bandcamp', 'Bandcamp, dan Anghami'),
+        'it-IT': ('e Bandcamp', 'Bandcamp e Anghami'),
+        'mr-IN': ('आणि Bandcamp', 'Bandcamp आणि Anghami'),
+        'nb-NO': ('og Bandcamp', 'Bandcamp og Anghami'),
+        'nl-NL': ('en Bandcamp', 'Bandcamp en Anghami'),
+        'pl-PL': ('i Bandcamp', 'Bandcamp i Anghami'),
+        'pt-BR': ('e Bandcamp', 'Bandcamp e Anghami'),
+        'pt-PT': ('e Bandcamp', 'Bandcamp e Anghami'),
+        'ro-RO': ('și Bandcamp', 'Bandcamp și Anghami'),
+        'ru-RU': ('и Bandcamp', 'Bandcamp и Anghami'),
+        'sv-SE': ('och Bandcamp', 'Bandcamp och Anghami'),
+        'th-TH': ('และ Bandcamp', 'Bandcamp และ Anghami'),
+        'uk': ('і Bandcamp', 'Bandcamp і Anghami'),
+        'vi': ('và Bandcamp', 'Bandcamp và Anghami'),
+    }
+
+    if loc in connectors:
+        old_c, new_c = connectors[loc]
+        if old_c in res:
+            res = res.replace(old_c, new_c)
+
+    return res
 
 def trim_description_if_needed(candidate, paras):
     if utf16_len(candidate) <= 3980:
@@ -232,18 +293,24 @@ def main():
         if loc in LISTEN_AND_FLIP_PARAS:
             paras[5] = LISTEN_AND_FLIP_PARAS[loc]
 
+        # Update platforms paragraph (Paragraph 4)
+        paras[4] = update_p4_platforms(paras[4], loc)
+
         if loc == 'de-DE':
             paras[0] = "Ein Freund schickt dir einen Song- oder Podcast-Link auf Spotify, du nutzt aber YouTube Music, Apple Podcasts oder Deezer?"
+            paras[5] = "• Listen & Flip – Lieder & Audio erkennen (auch offline):\nLieder erkennen & Tracks erkennen in Bars, Clubs oder im Radio: Songs blitzschnell identifizieren, im Verlauf speichern und direkt im Wunsch-Player öffnen. Dank Signalqualitäts-Feedback und Offline-Modus werden Audio-Fingerabdrücke ohne Empfang gesichert und automatisch erkannt, sobald du wieder online bist."
             if len(paras) > 7:
                 paras[7] = "• QR-Codes für Audio & Songs teilen & scannen:\nGeneriere und scanne universelle QR-Codes für Audio & Songs. Teile Tracks & Alben vor Ort – egal welcher Streamingdienst beim Gegenüber installiert ist."
+            paras[8] = "• Universal Playlist Converter, Datei-Import (M3U) & Playlist Transfer App (Free):\nPlaylists konvertieren, Playlists übertragen und transferieren zwischen Spotify, Apple Music, YouTube Music, TIDAL und Deezer. Importiere lokale Tracklisten (.m3u, .m3u8, .csv, Text) direkt in deine Playlists – inklusive Duplikat-Bereinigung, Ghost-Track-Filter, bis zu 200 Tracks und Cache."
             if len(paras) > 18:
                 paras[18] = "Kompatibel mit universellen Streaming-Protokollen wie Songlink / Odesli. Hol dir SongFlip – deinen autonomen Link Converter und Musik-Link Redirect für Android!"
 
         if loc in ('en-US', 'en-GB'):
-            if len(paras) > 4:
-                paras[4] = "• 12 Streaming Platforms, Podcasts & Shazam:\nSeamlessly convert and redirect music links and podcasts across Spotify, YouTube Music, Apple Music, and 9 more platforms. No tapping required—links open straight in your preferred player."
             if len(paras) > 13:
                 paras[13] = "• Clipboard Smart-Banner & Native Sharing:\nConvert and open links instantly via the smart dashboard banner, or share song link universal URLs directly from WhatsApp, Telegram, Reddit, or your browser."
+
+        if loc in ('es-419', 'es-ES', 'es-US'):
+            paras[11] = "• Selector rápido de reproductores:\nElija su reproductor de audio de destino cada vez que abra un enlace de canción o podcast compartido."
 
         new_full = '\n\n'.join(paras)
         new_full = trim_description_if_needed(new_full, paras)
@@ -282,7 +349,7 @@ def main():
     print(f"Writing clean Markdown to {MD_PATH}...")
     with open(MD_PATH, 'w', encoding='utf-8') as f:
         f.write("# 📱 SongFlip – Play Store & App Store Listings (Alle Sprachen)\n")
-        f.write("> **Version:** 1.13.7 | **Umfang:** 34 Play Store-Sprachen + iOS App Store (DE/EN) | **Zertifiziert:** Titel ≤ 30 Zeichen, Kurzbeschreibung ≤ 80 Zeichen, Volltext ≤ 4.000 Zeichen (UTF-16), iOS Keywords ≤ 100 Zeichen. Ohne umschließende Anführungszeichen.\n")
+        f.write("> **Version:** 1.14.13 | **Umfang:** 34 Play Store-Sprachen + iOS App Store (DE/EN) | **Zertifiziert:** Titel ≤ 30 Zeichen, Kurzbeschreibung ≤ 80 Zeichen, Volltext ≤ 4.000 Zeichen (UTF-16), iOS Keywords ≤ 100 Zeichen. Ohne umschließende Anführungszeichen.\n")
         f.write("---\n\n")
         for r in updated_rows:
             loc = r['Language']
@@ -291,9 +358,9 @@ def main():
             s = r['Short description']
             d = r['Full description']
             f.write(f"## {name}\n\n")
-            f.write(f"### Titel ({len(t)}/30 Zeichen)\n```text\n{t}\n```\n\n")
-            f.write(f"### Kurzbeschreibung ({len(s)}/80 Zeichen)\n```text\n{s}\n```\n\n")
-            f.write(f"### Ausführliche Beschreibung ({len(d)}/4000 Zeichen)\n```text\n{d}\n```\n\n")
+            f.write(f"### Titel ({utf16_len(t)}/30 Zeichen)\n```text\n{t}\n```\n\n")
+            f.write(f"### Kurzbeschreibung ({utf16_len(s)}/80 Zeichen)\n```text\n{s}\n```\n\n")
+            f.write(f"### Ausführliche Beschreibung ({utf16_len(d)}/4000 Zeichen)\n```text\n{d}\n```\n\n")
             f.write("---\n\n")
 
         f.write("# 🍎 iOS App Store Listings (de-DE & en-US)\n\n")

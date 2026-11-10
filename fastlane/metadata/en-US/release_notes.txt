@@ -1,3 +1,4 @@
-- Reliability & Efficiency: Optimized internal link resolution and memory management for faster, more dependable transitions.
-- Accessibility & Contrast: Enhanced visual contrast and accessibility labels across buttons and interactive elements.
-- Documentation: Updated technical guides and security policies.
+- Anghami Link Interception: Full integration of Anghami links into default app handling and system link routing (#203).
+- Resilient Shortlink Resolution: Network errors during shortlink resolution no longer poison the in-memory cache, enabling immediate retries upon connection restoration (#D8).
+- Precise Track Identification: Strict parameter isolation when detecting single tracks from complex web links (#L11).
+- Enhanced Data Safety & Cloud Backup Rules: Explicit exclusion of temporary session tokens from automatic cloud backup and device transfer (#A10).

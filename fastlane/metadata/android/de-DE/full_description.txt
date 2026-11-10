@@ -6,20 +6,20 @@ Egal ob Spotify zu YouTube Music, Apple Podcasts zu Spotify, Spotify zu Apple Mu
 
 🚀 DIE WICHTIGSTEN FUNKTIONEN:
 
-• 12 Streaming- & Podcast-Plattformen:
-Songs und Podcasts automatisch konvertieren und weiterleiten zwischen Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud und Bandcamp. Erkennt auch geteilte Shazam-Tracks sofort!
+• 14 Streaming- & Podcast-Plattformen:
+Songs und Podcasts automatisch konvertieren und weiterleiten zwischen Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud, Bandcamp und Anghami. Erkennt auch Shazam sofort!
 
 • Listen & Flip – Lieder & Audio erkennen (auch offline):
-Lieder erkennen & Tracks erkennen in Bars, Clubs oder im Radio: Songs blitzschnell identifizieren, im Verlauf speichern und direkt im Wunsch-Player öffnen. Dank Offline-Modus werden Audio-Fingerabdrücke ohne Empfang gesichert und automatisch erkannt, sobald du wieder online bist.
+Lieder erkennen & Tracks erkennen in Bars, Clubs oder im Radio: Songs blitzschnell identifizieren, im Verlauf speichern und direkt im Wunsch-Player öffnen. Dank Signalqualitäts-Feedback und Offline-Modus werden Audio-Fingerabdrücke ohne Empfang gesichert und automatisch erkannt, sobald du wieder online bist.
 
 • Direkte Titelsuche & Sofort-Wiedergabe:
 Suche Songs & Interpreten direkt in SongFlip und starte die Wiedergabe per Fast Flip sofort im Ziel-Player – ganz ohne bestehende Web-URL oder leere Suchseiten.
 
 • QR-Codes für Audio & Songs teilen & scannen:
-Generiere und scanne universelle QR-Codes für Audio & Songs. Teile Tracks & Alben vor Ort – egal welcher Streamingdienst beim Gegenüber installiert ist.
+Generiere und scanne universelle QR-Codes für Audio & Songs.
 
 • Universal Playlist Converter, Datei-Import (M3U) & Playlist Transfer App (Free):
-Playlists konvertieren, Playlists übertragen und transferieren zwischen Spotify, Apple Music, YouTube Music, TIDAL und Deezer. Importiere lokale Tracklisten (.m3u, .m3u8, .csv, Text) direkt in deine Playlists – inklusive Duplikat-Bereinigung, bis zu 200 Tracks und Cache.
+Playlists konvertieren, Playlists übertragen und transferieren zwischen Spotify, Apple Music, YouTube Music, TIDAL und Deezer. Importiere lokale Tracklisten (.m3u, .m3u8, .csv, Text) direkt in deine Playlists – inklusive Duplikat-Bereinigung, Ghost-Track-Filter, bis zu 200 Tracks und Cache.
 
 • Podcast Converter & Podcast-Weiterleitung:
 Teile Podcast-Shows und Episoden plattformübergreifend. SongFlip löst Episodentitel für die Podcast-Umleitung automatisch auf und startet sie direkt im bevorzugten Podcast-Player.

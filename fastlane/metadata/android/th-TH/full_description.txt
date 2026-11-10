@@ -6,8 +6,8 @@ SongFlip คือการเปลี่ยนเส้นทางลิง�
 
 🚀 ฟีเจอร์หลัก:
 
-• 12 แพลตฟอร์มสตรีมมิ่ง พอดแคสต์ และ Shazam:
-แปลงและเปลี่ยนเส้นทางลิงก์เพลงและพอดแคสต์ใน Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud และ Bandcamp ได้อย่างราบรื่น รวมการสนับสนุนตัวแปลงลิงก์เพลงทันทีสำหรับลิงก์ Shazam ที่แชร์!
+• 14 แพลตฟอร์มสตรีมมิ่ง พอดแคสต์ และ Shazam:
+แปลงและเปลี่ยนเส้นทางลิงก์เพลงและพอดแคสต์ใน Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud Bandcamp และ Anghami ได้อย่างราบรื่น รวมการสนับสนุนตัวแปลงลิงก์เพลงทันทีสำหรับลิงก์ Shazam ที่แชร์!
 
 • Listen & Flip (ค้นหาเพลงจากเสียง):
 ระบุเพลงที่กำลังเล่นรอบตัวคุณใน SongFlip พร้อมจับคู่ไปยังเครื่องเล่นที่คุณชื่นชอบและบันทึกในประวัติ ไม่มีสัญญาณใช่ไหม? บันทึกลายนิ้วมือเสียงแบบออฟไลน์ แล้วระบบจะค้นหาเพลงให้อัตโนมัติเมื่อกลับมาออนไลน์

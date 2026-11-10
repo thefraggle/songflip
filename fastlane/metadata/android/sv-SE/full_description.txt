@@ -6,8 +6,8 @@ Oavsett om du byter Spotify till YouTube Music, Apple Podcasts till Pocket Casts
 
 🚀 HUVUDFUNKTIONER:
 
-• 12 strömmande plattformar, podcaster och Shazam:
-Konvertera och omdirigera låtlänkar och podcasts sömlöst över Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud och Bandcamp. Inkluderar omedelbar musiklänkkonverteringsstöd för delade Shazam-länkar!
+• 14 strömmande plattformar, podcaster och Shazam:
+Konvertera och omdirigera låtlänkar och podcasts sömlöst över Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud Bandcamp och Anghami. Inkluderar omedelbar musiklänkkonverteringsstöd för delade Shazam-länkar!
 
 • Listen & Flip (Musikidentifiering):
 Identifiera musik runt dig direkt i SongFlip. Låtar matchas till din favoritspelare och sparas i historiken. Ingen täckning? Spara ljudavtrycket offline så identifierar SongFlip låten automatiskt när du är online igen.

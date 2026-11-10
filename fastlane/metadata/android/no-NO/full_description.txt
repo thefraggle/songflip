@@ -6,8 +6,8 @@ Enten du bytter Spotify til YouTube Music, Apple Podcasts til Pocket Casts, Spot
 
 🚀 NØKKELFUNKSJONER:
 
-• 12 strømmeplattformer, podcaster og Shazam:
-Konverter og omdiriger sanglenker og podcaster sømløst på tvers av Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud og Bandcamp. Inkluderer umiddelbar musikklink-konverteringsstøtte for delte Shazam-lenker!
+• 14 strømmeplattformer, podcaster og Shazam:
+Konverter og omdiriger sanglenker og podcaster sømløst på tvers av Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud Bandcamp og Anghami. Inkluderer umiddelbar musikklink-konverteringsstøtte for delte Shazam-lenker!
 
 • Listen & Flip (Musikkgjenkjenning):
 Gjenkjenn musikk rundt deg direkte i SongFlip. Sanger kobles til din foretrukne avspiller og lagres i historikken. Ingen dekning? Lagre lydavtrykket frakoblet, så gjenkjenner SongFlip sangen automatisk når du er på nett igjen.
@@ -16,7 +16,7 @@ Gjenkjenn musikk rundt deg direkte i SongFlip. Sanger kobles til din foretrukne 
 Søk etter spor og artister direkte inne i SongFlip og start avspilling umiddelbart i din foretrukne streamingspiller med 1-tapps Fast Flip – ingen eksisterende sangkobling kreves.
 
 • QR-kode-sangdeling og skanning:
-Generer og skann universelle QR-koder for sanger og album. Del musikklenker enkelt med venner personlig på tvers av alle strømmetjenester.
+Generer og skann universelle QR-koder for sanger og album.
 
 • Podcast Converter & Podcast Redirect Engine:
 Del hele podcastprogrammer eller episoder på tvers av plattformer. SongFlip løser episodetitler automatisk for å konvertere og åpne podcastlenker rett inne i favorittpodcastspilleren din.

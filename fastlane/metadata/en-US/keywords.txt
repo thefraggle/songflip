@@ -1,1 +1,1 @@
-spotify,apple,youtube,transfer,deezer,beatport,qobuz,tidal,soundcloud,shazam,bandcamp,amazon,song
+spotify,apple,youtube,transfer,deezer,beatport,qobuz,tidal,soundcloud,shazam,bandcamp,amazon,anghami

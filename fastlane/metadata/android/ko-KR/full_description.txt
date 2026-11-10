@@ -6,8 +6,8 @@ Spotify를 YouTube Music으로 전환하거나, Apple Podcast를 Pocket Casts로
 
 🚀 주요 기능:
 
-• 10가지 스트리밍 플랫폼, 팟캐스트, Shazam:
-Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud 및 Bandcamp에서 노래 링크와 팟캐스트를 원활하게 변환하고 리디렉션할 수 있습니다. 공유 Shazam 링크에 대한 인스턴트 음악 링크 변환기 지원이 포함되어 있습니다!
+• 14가지 스트리밍 플랫폼, 팟캐스트, Shazam:
+Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud, Bandcamp 및 Anghami에서 노래 링크와 팟캐스트를 원활하게 변환하고 리디렉션할 수 있습니다. 공유 Shazam 링크에 대한 인스턴트 음악 링크 변환기 지원이 포함되어 있습니다!
 
 • Listen & Flip (음악 인식):
 주변에서 재생 중인 음악을 SongFlip에서 바로 찾아보세요. 선호하는 플레이어로 매칭되어 기록에 저장됩니다. 인터넷이 안 될 때 오디오 핑거프린트를 저장하면 온라인 복귀 시 자동으로 곡을 인식합니다.

@@ -6,8 +6,8 @@ Indiferent dacă comutați Spotify la YouTube Music, Apple Podcasts la Pocket Ca
 
 🚀 CARACTERISTICI PRINCIPALE:
 
-• 12 platforme de streaming, podcasturi și Shazam:
-Convertiți și redirecționați fără probleme link-urile de melodii și podcasturi prin Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud și Bandcamp. Include suport pentru convertizorul de linkuri de muzică instantanee pentru linkurile Shazam partajate!
+• 14 platforme de streaming, podcasturi și Shazam:
+Convertiți și redirecționați fără probleme link-urile de melodii și podcasturi prin Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud Bandcamp și Anghami. Include suport pentru convertizorul de linkuri de muzică instantanee pentru linkurile Shazam partajate!
 
 • Listen & Flip (Recunoaștere muzicală):
 Identifică muzica din jurul tău direct în SongFlip și salveaz-o în istoric pentru playerul tău preferat. Fără semnal? Salvează amprenta audio offline, iar SongFlip va identifica melodia automat când revii online.
