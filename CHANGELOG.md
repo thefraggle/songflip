@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.14.9] - 2026-11-10
+- **Data Integrity & Storage Safety**: Enforced database migration verification to guarantee seamless local storage consistency across updates.
+- **Error Transparency**: Eliminated silent failure paths during link redirection to ensure clear diagnostics on network interruptions.
+- **Localization Refinement**: Completed multilingual system descriptions across 12 additional languages and refined traditional characters.
+- **Build Pipeline Security**: Pinned workflow dependencies to immutable cryptographic signatures with automated dependency checks.
+
 ## [1.14.8] - 2026-11-10
 - **Privacy & Confidentiality**: Clipboard link detection no longer triggers background network requests without direct user interaction.
 - **Performance & Safety**: Playlist file import is handled completely asynchronously with a 2MB size safeguard to prevent interface freezes.

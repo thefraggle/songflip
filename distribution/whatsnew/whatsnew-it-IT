@@ -1,2 +1,3 @@
-- Privacy e riservatezza: il rilevamento dei link negli appunti non attiva più le richieste di rete in background senza l'interazione diretta dell'utente.
-- Prestazioni e sicurezza: l'importazione del file della playlist viene gestita in modo completamente asincrono con una protezione delle dimensioni di 2 MB per evitare il blocco dell'interfaccia.
+- Data Integrity & Storage Safety: Enforced database migration verification to guarantee seamless local storage consistency across updates.
+- Error Transparency: Eliminated silent failure paths during link redirection to ensure clear diagnostics on network interruptions.
+- Localization Refinement: Completed multilingual system descriptions across 12 additional languages and refined traditional characters.

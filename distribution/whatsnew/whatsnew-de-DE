@@ -1,3 +1,3 @@
-- Datenschutz & Privatsphäre: Die Erkennung von Links in der Zwischenablage löst keine unaufgeforderten Netzwerkanfragen im Hintergrund mehr aus.
-- Leistung & Ressourcenschutz: Der Import von Wiedergabelisten erfolgt nun vollständig asynchron mit einer 2MB-Dateigrößenbegrenzung zum Schutz vor Blockaden.
-- Architektur & Routing: Vereinheitlichung der Weiterleitungs- und Fehlerlogik über eine zentrale Abstimmung für verlässliches Verhalten beim Öffnen von Titeln.
+- Datenintegrität & Speicherzuverlässigkeit: Aktivierung lückenloser Datenbankschema-Prüfungen zur dauerhaften Absicherung lokaler Verlaufsdaten.
+- Fehlertransparenz: Beseitigung stiller Fehlerpfade bei der Weiterleitung für verlässliche Rückmeldungen bei Netzwerkunterbrechungen.
+- Lokalisierung & Feinschliff: Vervollständigung mehrsprachiger Systemhinweise für 12 weitere Sprachen und Optimierung traditioneller Schriftzeichen.

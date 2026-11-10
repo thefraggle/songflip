@@ -1154,22 +1154,30 @@ struct ContentView: View {
         let effectiveTarget = overrideTarget ?? settings.targetPlatform
 
         Task {
-            let res = try? await settings.engine.resolveTargetUrl(
-                inputUrl: urlToConvert,
-                targetPlatformKey: effectiveTarget,
-                customApiUrl: settings.customApiUrl,
-                customApiToken: settings.customApiToken,
-                isPro: proManager.isPro,
-                authToken: proManager.authToken,
-                isPrefetch: false,
-                forceRefresh: false,
-                audiophileMode: proManager.isPro && settings.audiophileMode
-            )
+            let res: ResolutionResult
+            var bridgeErrorDetail: String? = nil
+            do {
+                res = try await settings.engine.resolveTargetUrl(
+                    inputUrl: urlToConvert,
+                    targetPlatformKey: effectiveTarget,
+                    customApiUrl: settings.customApiUrl,
+                    customApiToken: settings.customApiToken,
+                    isPro: proManager.isPro,
+                    authToken: proManager.authToken,
+                    isPrefetch: false,
+                    forceRefresh: false,
+                    audiophileMode: proManager.isPro && settings.audiophileMode
+                )
+            } catch {
+                let errInfo = FlipCoordinator.mapError(error)
+                bridgeErrorDetail = errInfo.detail
+                res = ResolutionResult.Error(message: errInfo.reason, isUnsupported: false, errorReason: errInfo.errorReason)
+            }
 
             await MainActor.run {
                 settings.isResolving = false
                 let action = FlipCoordinator.resolveAction(result: res, targetPlatform: effectiveTarget)
-                FlipCoordinator.trackAction(action, inputUrl: urlToConvert, targetPlatform: effectiveTarget)
+                FlipCoordinator.trackAction(action, inputUrl: urlToConvert, targetPlatform: effectiveTarget, errorDetail: bridgeErrorDetail)
 
                 switch action {
                 case .openResolved(let targetUrl, let nativeAppUri, let platformKey, let title, let artist, let isAlbum, _, _, let thumb):

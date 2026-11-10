@@ -13,6 +13,7 @@ import com.shazam.shazamkit.MatchResult
 import com.shazam.shazamkit.ShazamKit
 import com.shazam.shazamkit.ShazamKitResult
 import com.shazam.shazamkit.Signature
+import de.goork.songflip.R
 import de.goork.songflip.core.cache.AndroidSharedPreferencesCacheStorage
 import de.goork.songflip.core.engine.AcousticFlipResult
 import de.goork.songflip.core.engine.AcousticQuotaManager
@@ -601,7 +602,7 @@ object AcousticRecognizer {
                                                     matchedRef.compareAndSet(
                                                         null,
                                                         DirectShazamMatch(
-                                                            title = item.title?.takeIf { it.isNotBlank() } ?: "Unknown Track",
+                                                            title = item.title?.takeIf { it.isNotBlank() } ?: appCtx.getString(R.string.unknown_track),
                                                             artist = item.artist?.takeIf { it.isNotBlank() } ?: item.subtitle.orEmpty(),
                                                             artworkUrl = item.artworkURL?.toString(),
                                                             appleMusicId = item.appleMusicID,
@@ -660,7 +661,7 @@ object AcousticRecognizer {
                                         matchedRef.compareAndSet(
                                             null,
                                             DirectShazamMatch(
-                                                title = item.title?.takeIf { it.isNotBlank() } ?: "Unknown Track",
+                                                title = item.title?.takeIf { it.isNotBlank() } ?: appCtx.getString(R.string.unknown_track),
                                                 artist = item.artist?.takeIf { it.isNotBlank() } ?: item.subtitle.orEmpty(),
                                                 artworkUrl = item.artworkURL?.toString(),
                                                 appleMusicId = item.appleMusicID,

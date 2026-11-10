@@ -455,6 +455,8 @@
     <string name="playlist_import_file_desc">Import local .m3u8, .csv, or text tracklists to convert and play them directly.</string>
     <string name="playlist_import_empty_error">No playable songs found in the selected file.</string>
     <string name="playlist_import_source_chip">File</string>
+    <string name="unknown_track">Unknown Song</string>
+    <string name="playlist_import_default_title">Imported Playlist</string>
     <string name="playlist_open_first_track">Play First Song in %1$s</string>
     <string name="playlist_no_batch_queue_desc">%1$s does not support external playlist links. Play tracks individually below or export the playlist as M3U8/CSV.</string>
     <string name="search_hint_unified">Search song or paste music link…</string>

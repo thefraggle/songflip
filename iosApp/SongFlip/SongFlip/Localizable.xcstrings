@@ -4718,7 +4718,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "SongFlip 專注於音樂曲目與專輯。目前暫不支援 Podcast 與有聲書的跨平台轉換。"
+            "value": "SongFlip 專註於音樂曲目與專輯。目前暫不支援 Podcast 與有聲書的跨平臺轉換。"
           }
         },
         "in": {
@@ -5834,7 +5834,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "关闭"
+            "value": "關閉"
           }
         },
         "id": {
@@ -6031,7 +6031,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "复制链接"
+            "value": "復製鏈接"
           }
         },
         "id": {
@@ -6228,7 +6228,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "删除"
+            "value": "刪除"
           }
         },
         "id": {
@@ -6425,7 +6425,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "更多选项"
+            "value": "更多選项"
           }
         },
         "id": {
@@ -6622,7 +6622,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "打开链接"
+            "value": "打開鏈接"
           }
         },
         "id": {
@@ -6819,7 +6819,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "从剪贴板粘贴"
+            "value": "从剪貼板貼貼"
           }
         },
         "id": {
@@ -7016,7 +7016,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "刷新链接"
+            "value": "刷新鏈接"
           }
         },
         "id": {
@@ -7213,7 +7213,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "重试"
+            "value": "重試"
           }
         },
         "id": {
@@ -7410,7 +7410,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "配置用于链接解析的自定义 AI 或 n8n Webhook API"
+            "value": "配置用于鏈接解析的自定義 AI 或 n8n Webhook API"
           }
         },
         "id": {
@@ -7607,7 +7607,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "高级设置"
+            "value": "高級設置"
           }
         },
         "id": {
@@ -7804,7 +7804,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "一次设置：分享的音乐链接会在后台自动以您偏好的播放器打开。"
+            "value": "一次設置：分享的音樂鏈接会在后臺自動以您偏好的播放器打開。"
           }
         },
         "id": {
@@ -8001,7 +8001,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "剪贴板：只需复制音乐链接，打开 SongFlip 即可立即识别。"
+            "value": "剪貼板：只需復製音樂鏈接，打開 SongFlip 即可立即識別。"
           }
         },
         "id": {
@@ -8198,7 +8198,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "分享菜单：在任何应用中点击“分享 → SongFlip”即可直接转换，无需设置！"
+            "value": "分享菜單：在任何應用中點击“分享 → SongFlip”即可直接轉換，無需設置！"
           }
         },
         "id": {
@@ -8395,7 +8395,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "免设置直接使用："
+            "value": "免設置直接使用："
           }
         },
         "id": {
@@ -8789,7 +8789,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "跳过设置直接进入"
+            "value": "跳过設置直接进入"
           }
         },
         "id": {
@@ -8986,7 +8986,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "打开 Android 设置"
+            "value": "打開 Android 設置"
           }
         },
         "id": {
@@ -9183,7 +9183,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "已安装音乐服务的状态"
+            "value": "已安装音樂服務的狀態"
           }
         },
         "id": {
@@ -9380,7 +9380,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "链接诊断"
+            "value": "鏈接诊断"
           }
         },
         "id": {
@@ -9577,7 +9577,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "要让 Android 将音乐链接自动重定向至 SongFlip，需要进行一次性确认。请按以下 3 步操作："
+            "value": "要让 Android 将音樂鏈接自動重定向至 SongFlip，需要进行一次性確認。请按以下 3 步操作："
           }
         },
         "id": {
@@ -9774,7 +9774,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "在 Android 中启用音乐链接"
+            "value": "在 Android 中啟用音樂鏈接"
           }
         },
         "id": {
@@ -9971,7 +9971,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "占用自身链接"
+            "value": "占用自身鏈接"
           }
         },
         "id": {
@@ -10365,7 +10365,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "您的目标播放器 (就绪)"
+            "value": "您的目標播放器 (就绪)"
           }
         },
         "id": {
@@ -10562,7 +10562,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "未指定 (浏览器)"
+            "value": "未指定 (浏覽器)"
           }
         },
         "id": {
@@ -10759,7 +10759,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "位于 Android 系统设置界面顶部。"
+            "value": "位于 Android 繫統設置界面顶部。"
           }
         },
         "id": {
@@ -10956,7 +10956,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "点击“+ 添加链接”"
+            "value": "點击“+ 添加鏈接”"
           }
         },
         "id": {
@@ -11153,7 +11153,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "勾选可用的音乐平台。（您已安装的播放器会被 Android 设为灰色，这是完全正常的且符合预期！）"
+            "value": "勾選可用的音樂平臺。（您已安装的播放器会被 Android 設为灰色，这是完全正常的且符合预期！）"
           }
         },
         "id": {
@@ -11350,7 +11350,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "选择要重定向的链接"
+            "value": "選择要重定向的鏈接"
           }
         },
         "id": {
@@ -11547,7 +11547,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "完成！SongFlip 现会自动捕获点击的音乐链接。"
+            "value": "完成！SongFlip 現会自動捕获點击的音樂鏈接。"
           }
         },
         "id": {
@@ -11744,7 +11744,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "点击“添加”确认"
+            "value": "點击“添加”確認"
           }
         },
         "id": {
@@ -11941,7 +11941,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "来自首选播放器 (%@) 的链接无需重定向 — 只需配置其他服务。"
+            "value": "来自首選播放器 (%@) 的鏈接無需重定向 — 只需配置其他服務。"
           }
         },
         "id": {
@@ -12335,7 +12335,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "音乐链接自动重定向器"
+            "value": "音樂鏈接自動重定向器"
           }
         },
         "id": {
@@ -12532,7 +12532,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "目前不支持有声读物。"
+            "value": "目前不支持有聲读物。"
           }
         },
         "id": {
@@ -12729,7 +12729,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "自动读取剪贴板"
+            "value": "自動读取剪貼板"
           }
         },
         "id": {
@@ -12926,7 +12926,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "专辑"
+            "value": "專輯"
           }
         },
         "id": {
@@ -13123,7 +13123,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "艺人"
+            "value": "藝人"
           }
         },
         "id": {
@@ -13320,7 +13320,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "已识曲"
+            "value": "已識曲"
           }
         },
         "id": {
@@ -13911,7 +13911,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "关闭"
+            "value": "關閉"
           }
         },
         "id": {
@@ -14305,7 +14305,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "打开设置"
+            "value": "打開設置"
           }
         },
         "id": {
@@ -14502,7 +14502,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "暂停 SongFlip"
+            "value": "暫停 SongFlip"
           }
         },
         "id": {
@@ -14699,7 +14699,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "立即恢复"
+            "value": "立即恢復"
           }
         },
         "id": {
@@ -15487,7 +15487,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "在 %@ 中打开"
+            "value": "在 %@ 中打開"
           }
         },
         "id": {
@@ -15684,7 +15684,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "通用链接"
+            "value": "通用鏈接"
           }
         },
         "id": {
@@ -15881,7 +15881,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "检测到音乐链接"
+            "value": "检測到音樂鏈接"
           }
         },
         "id": {
@@ -16078,7 +16078,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "已识别剪贴板中的链接！"
+            "value": "已識別剪貼板中的鏈接！"
           }
         },
         "id": {
@@ -16275,7 +16275,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "已从剪贴板粘贴链接！"
+            "value": "已从剪貼板貼貼鏈接！"
           }
         },
         "id": {
@@ -16669,7 +16669,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "在此输入私密 API 令牌"
+            "value": "在此輸入私密 API 令牌"
           }
         },
         "id": {
@@ -16866,7 +16866,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bearer Token / API 密钥（可选）"
+            "value": "Bearer Token / API 密钥（可選）"
           }
         },
         "id": {
@@ -17063,7 +17063,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "可选：如果 Odesli 触发频率限制或失败，SongFlip 将调用此 Webhook。"
+            "value": "可選：如果 Odesli 触發頻率限製或失敗，SongFlip 将调用此 Webhook。"
           }
         },
         "id": {
@@ -17457,7 +17457,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "自定义后备 Webhook URL"
+            "value": "自定義后備 Webhook URL"
           }
         },
         "id": {
@@ -18245,7 +18245,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "无法加载版本"
+            "value": "無法加載版本"
           }
         },
         "id": {
@@ -18442,7 +18442,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "为 %@ 选择正确的版本"
+            "value": "为 %@ 選择正確的版本"
           }
         },
         "id": {
@@ -19230,7 +19230,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "您已达到 10 个免费收藏上限。升级 SongFlip PRO 解锁无限收藏与 100 条历史记录。"
+            "value": "您已达到 10 个免费收藏上限。升級 SongFlip PRO 解鎖無限收藏与 100 條歷史记錄。"
           }
         },
         "id": {
@@ -19624,7 +19624,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "通过邮件发送"
+            "value": "通过邮件發送"
           }
         },
         "id": {
@@ -19821,7 +19821,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "提交反馈"
+            "value": "提交反饋"
           }
         },
         "id": {
@@ -20018,7 +20018,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "🐛 问题反馈"
+            "value": "🐛 問題反饋"
           }
         },
         "id": {
@@ -20609,7 +20609,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "您的邮箱（选填，用于接收回复）"
+            "value": "您的邮箱（選填，用于接收回復）"
           }
         },
         "id": {
@@ -20806,7 +20806,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "请输入至少10个字符。"
+            "value": "请輸入至少10个字符。"
           }
         },
         "id": {
@@ -21003,7 +21003,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "发送失败，请尝试使用邮件发送。"
+            "value": "發送失敗，请尝試使用邮件發送。"
           }
         },
         "id": {
@@ -21200,7 +21200,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "请描述您遇到的问题、建议或意见..."
+            "value": "请描述您遇到的問題、建议或意见..."
           }
         },
         "id": {
@@ -21397,7 +21397,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "零追踪：仅发送应用版本和设备型号以排查问题。"
+            "value": "零追踪：仅發送應用版本和設備型號以排查問題。"
           }
         },
         "id": {
@@ -21594,7 +21594,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "感谢您的反馈！"
+            "value": "感谢您的反饋！"
           }
         },
         "id": {
@@ -21791,7 +21791,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "反馈与支持"
+            "value": "反饋与支持"
           }
         },
         "id": {
@@ -21988,7 +21988,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "历史记录和缓存已清除"
+            "value": "歷史记錄和缓存已清除"
           }
         },
         "id": {
@@ -22185,7 +22185,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "升级到 PRO"
+            "value": "升級到 PRO"
           }
         },
         "id": {
@@ -22382,7 +22382,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "历史记录中有 %1$d 首歌曲"
+            "value": "歷史记錄中有 %1$d 首歌曲"
           }
         },
         "id": {
@@ -23170,7 +23170,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "清除历史记录"
+            "value": "清除歷史记錄"
           }
         },
         "id": {
@@ -23367,7 +23367,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "这将删除所有已保存的歌曲并重置本地缓存。"
+            "value": "这将刪除所有已保存的歌曲并重置本地缓存。"
           }
         },
         "id": {
@@ -23564,7 +23564,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "确定清除歌曲历史？"
+            "value": "確定清除歌曲歷史？"
           }
         },
         "id": {
@@ -23761,7 +23761,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "复制原始 %1$@ 链接"
+            "value": "復製原始 %1$@ 鏈接"
           }
         },
         "id": {
@@ -23958,7 +23958,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "复制原始链接"
+            "value": "復製原始鏈接"
           }
         },
         "id": {
@@ -24155,7 +24155,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "复制 %1$@ 链接"
+            "value": "復製 %1$@ 鏈接"
           }
         },
         "id": {
@@ -24352,7 +24352,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "暂无转换记录。分享的音乐链接将显示在这里。"
+            "value": "暫無轉換记錄。分享的音樂鏈接将显示在这里。"
           }
         },
         "id": {
@@ -24549,7 +24549,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "提示：打开或分享音乐链接后即可在此查看。"
+            "value": "提示：打開或分享音樂鏈接后即可在此查看。"
           }
         },
         "id": {
@@ -24746,7 +24746,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "暂无记录"
+            "value": "暫無记錄"
           }
         },
         "id": {
@@ -25337,7 +25337,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "已从历史记录和缓存中删除"
+            "value": "已从歷史记錄和缓存中刪除"
           }
         },
         "id": {
@@ -25534,7 +25534,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "链接已成功更新！"
+            "value": "鏈接已成功更新！"
           }
         },
         "id": {
@@ -26322,7 +26322,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "升级到 SongFlip PRO 解锁多达 100 首歌曲历史。"
+            "value": "升級到 SongFlip PRO 解鎖多达 100 首歌曲歷史。"
           }
         },
         "id": {
@@ -26519,7 +26519,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "已隐藏 %1$d 首旧歌曲 – 使用 SongFlip PRO 解锁全部 %2$d 首。"
+            "value": "已隱藏 %1$d 首旧歌曲 – 使用 SongFlip PRO 解鎖全部 %2$d 首。"
           }
         },
         "id": {
@@ -26716,7 +26716,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "SongFlip PRO 历史记录"
+            "value": "SongFlip PRO 歷史记錄"
           }
         },
         "id": {
@@ -26913,7 +26913,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "显示二维码"
+            "value": "显示二维碼"
           }
         },
         "id": {
@@ -27110,7 +27110,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "重新解析链接"
+            "value": "重新解析鏈接"
           }
         },
         "id": {
@@ -27307,7 +27307,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "查看并管理最近转换的歌曲"
+            "value": "查看并管理最近轉換的歌曲"
           }
         },
         "id": {
@@ -27504,7 +27504,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "歌曲历史"
+            "value": "歌曲歷史"
           }
         },
         "id": {
@@ -27898,7 +27898,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "拦截来源链接"
+            "value": "拦截来源鏈接"
           }
         },
         "id": {
@@ -28095,7 +28095,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "选择 SongFlip 应自动重定向的传入音乐链接"
+            "value": "選择 SongFlip 應自動重定向的传入音樂鏈接"
           }
         },
         "id": {
@@ -28686,7 +28686,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "语言"
+            "value": "語言"
           }
         },
         "id": {
@@ -28883,7 +28883,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "联系我们"
+            "value": "聯繫我们"
           }
         },
         "id": {
@@ -29277,7 +29277,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "隐私政策"
+            "value": "隱私政策"
           }
         },
         "id": {
@@ -29474,7 +29474,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "服务条款"
+            "value": "服務條款"
           }
         },
         "id": {
@@ -29671,7 +29671,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "链接已复制到剪贴板"
+            "value": "鏈接已復製到剪貼板"
           }
         },
         "id": {
@@ -29868,7 +29868,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "链接已成功更新！"
+            "value": "鏈接已成功更新！"
           }
         },
         "id": {
@@ -30065,7 +30065,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "正在刷新链接..."
+            "value": "正在刷新鏈接..."
           }
         },
         "id": {
@@ -30262,7 +30262,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "更改目标"
+            "value": "更改目標"
           }
         },
         "id": {
@@ -30459,7 +30459,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "无网络连接。升级到 PRO 即可使用离线识曲模式。"
+            "value": "無網络連接。升級到 PRO 即可使用离线識曲模式。"
           }
         },
         "id": {
@@ -30656,7 +30656,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "本月剩余 %1$d/%2$d 次免费识曲"
+            "value": "本月剩余 %1$d/%2$d 次免费識曲"
           }
         },
         "id": {
@@ -30853,7 +30853,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "请确保周围音乐足够清晰后重试。未识别成功不会消耗免费次数。"
+            "value": "请確保周围音樂足够清晰后重試。未識別成功不会消耗免费次數。"
           }
         },
         "id": {
@@ -31050,7 +31050,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "未能识别出歌曲"
+            "value": "未能識別出歌曲"
           }
         },
         "id": {
@@ -31247,7 +31247,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "已成功识别 %1$d 首离线歌曲并加入历史记录！"
+            "value": "已成功識別 %1$d 首离线歌曲并加入歷史记錄！"
           }
         },
         "id": {
@@ -31444,7 +31444,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "音频指纹已保存（%1$d 首待处理）。恢复网络连接后，SongFlip 将自动为您识别。"
+            "value": "音頻指纹已保存（%1$d 首待处理）。恢復網络連接后，SongFlip 将自動为您識別。"
           }
         },
         "id": {
@@ -31641,7 +31641,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "已保存到离线俱乐部模式"
+            "value": "已保存到离线俱樂部模式"
           }
         },
         "id": {
@@ -31838,7 +31838,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "在 %@ 中打开"
+            "value": "在 %@ 中打開"
           }
         },
         "id": {
@@ -32035,7 +32035,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Listen & Flip 需要使用麦克风来识别周围播放的音乐。音频绝不会被录音或存储。"
+            "value": "Listen & Flip 需要使用麦克风来識別周围播放的音樂。音頻绝不会被錄音或存储。"
           }
         },
         "id": {
@@ -32232,7 +32232,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "允许访问麦克风"
+            "value": "允许访問麦克风"
           }
         },
         "id": {
@@ -32429,7 +32429,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "需要麦克风权限"
+            "value": "需要麦克风權限"
           }
         },
         "id": {
@@ -32626,7 +32626,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "您已用完本月全部 %1$d 次免费识曲。解锁 SongFlip PRO 畅享无限次识曲与离线模式。"
+            "value": "您已用完本月全部 %1$d 次免费識曲。解鎖 SongFlip PRO 畅享無限次識曲与离线模式。"
           }
         },
         "id": {
@@ -32823,7 +32823,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "本月免费次数已用完"
+            "value": "本月免费次數已用完"
           }
         },
         "id": {
@@ -33020,7 +33020,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "已保存到历史记录"
+            "value": "已保存到歷史记錄"
           }
         },
         "id": {
@@ -33217,7 +33217,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "识别另一首歌曲"
+            "value": "識別另一首歌曲"
           }
         },
         "id": {
@@ -33611,7 +33611,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "请将设备靠近音源"
+            "value": "请将設備靠近音源"
           }
         },
         "id": {
@@ -33808,7 +33808,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "正在聆听音乐…"
+            "value": "正在聆聽音樂…"
           }
         },
         "id": {
@@ -34202,7 +34202,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "重试"
+            "value": "重試"
           }
         },
         "id": {
@@ -34399,7 +34399,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "解锁 SongFlip PRO"
+            "value": "解鎖 SongFlip PRO"
           }
         },
         "id": {
@@ -34596,7 +34596,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "设置"
+            "value": "設置"
           }
         },
         "id": {
@@ -34793,7 +34793,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "测试工作室"
+            "value": "測試工作室"
           }
         },
         "id": {
@@ -35187,7 +35187,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "重试"
+            "value": "重試"
           }
         },
         "id": {
@@ -35384,7 +35384,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "网络恢复后，SongFlip 将自动重定向。"
+            "value": "網络恢復后，SongFlip 将自動重定向。"
           }
         },
         "id": {
@@ -35581,7 +35581,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "等待网络连接…"
+            "value": "等待網络連接…"
           }
         },
         "id": {
@@ -35778,7 +35778,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "一键选择"
+            "value": "一键選择"
           }
         },
         "id": {
@@ -35975,7 +35975,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "暂停 15 分钟"
+            "value": "暫停 15 分钟"
           }
         },
         "id": {
@@ -36172,7 +36172,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "暂停 1 小时"
+            "value": "暫停 1 小時"
           }
         },
         "id": {
@@ -36566,7 +36566,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "暂停期间，传入的音乐链接将在其原始应用/浏览器中打开，不进行转换。"
+            "value": "暫停期間，传入的音樂鏈接将在其原始應用/浏覽器中打開，不进行轉換。"
           }
         },
         "id": {
@@ -36763,7 +36763,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "暂停 SongFlip"
+            "value": "暫停 SongFlip"
           }
         },
         "id": {
@@ -36960,7 +36960,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "直至手动恢复"
+            "value": "直至手動恢復"
           }
         },
         "id": {
@@ -37157,7 +37157,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "暂停至明晨（06:00）"
+            "value": "暫停至明晨（06:00）"
           }
         },
         "id": {
@@ -37354,7 +37354,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "通用链接"
+            "value": "通用鏈接"
           }
         },
         "id": {
@@ -37551,7 +37551,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "音乐链接"
+            "value": "音樂鏈接"
           }
         },
         "id": {
@@ -37945,7 +37945,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "关闭"
+            "value": "關閉"
           }
         },
         "id": {
@@ -38142,7 +38142,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "在%1$@中打开"
+            "value": "在%1$@中打開"
           }
         },
         "id": {
@@ -38536,7 +38536,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@不支持外部播放列表链接。请在下方单独播放歌曲，或将播放列表导出为 M3U8/CSV。"
+            "value": "%@不支持外部播放列表鏈接。请在下方單独播放歌曲，或将播放列表導出为 M3U8/CSV。"
           }
         },
         "id": {
@@ -38930,7 +38930,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "需要公开歌单"
+            "value": "需要公開歌單"
           }
         },
         "id": {
@@ -39127,7 +39127,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "打开原始歌单"
+            "value": "打開原始歌單"
           }
         },
         "id": {
@@ -39324,7 +39324,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "重试"
+            "value": "重試"
           }
         },
         "id": {
@@ -39521,7 +39521,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "升级到 PRO"
+            "value": "升級到 PRO"
           }
         },
         "id": {
@@ -39718,7 +39718,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "歌单转换器"
+            "value": "歌單轉換器"
           }
         },
         "id": {
@@ -39915,7 +39915,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "正在转换歌单…"
+            "value": "正在轉換歌單…"
           }
         },
         "id": {
@@ -40112,7 +40112,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "已转换 %1$d / %2$d 首曲目"
+            "value": "已轉換 %1$d / %2$d 首曲目"
           }
         },
         "id": {
@@ -40309,7 +40309,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "正在创建播放队列…"
+            "value": "正在創建播放队列…"
           }
         },
         "id": {
@@ -40506,7 +40506,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "无法从该歌单中提取曲目。您可以打开原始链接。"
+            "value": "無法从该歌單中提取曲目。您可以打開原始鏈接。"
           }
         },
         "id": {
@@ -40703,7 +40703,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "此歌单中没有可播放的歌曲。"
+            "value": "此歌單中没有可播放的歌曲。"
           }
         },
         "id": {
@@ -40900,7 +40900,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "空歌单"
+            "value": "空歌單"
           }
         },
         "id": {
@@ -41097,7 +41097,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "SongFlip 100% 保护隐私，无需账号或登录。因此无法访问个性化推荐歌单（例如 Spotify Daily Mix）及私人歌单。提示：可将歌曲复制到公开歌单，或直接分享专辑/公开歌单。"
+            "value": "SongFlip 100% 保护隱私，無需帳號或登錄。因此無法访問个性化推荐歌單（例如 Spotify Daily Mix）及私人歌單。提示：可将歌曲復製到公開歌單，或直接分享專輯/公開歌單。"
           }
         },
         "id": {
@@ -41294,7 +41294,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "私人或个性化歌单"
+            "value": "私人或个性化歌單"
           }
         },
         "id": {
@@ -41491,7 +41491,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "无法转换私人歌单（请设置为公开）"
+            "value": "無法轉換私人歌單（请設置为公開）"
           }
         },
         "id": {
@@ -41688,7 +41688,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "音乐服务未及时响应。对于超大型播放列表，可能会发生超时。请稍后重试或打开原始链接。"
+            "value": "音樂服務未及時响應。对于超大型播放列表，可能会發生超時。请稍后重試或打開原始鏈接。"
           }
         },
         "id": {
@@ -41885,7 +41885,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "连接超时"
+            "value": "連接超時"
           }
         },
         "id": {
@@ -42082,7 +42082,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "歌单转换失败"
+            "value": "歌單轉換失敗"
           }
         },
         "id": {
@@ -42279,7 +42279,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "SongFlip 目前支持 Spotify、Apple Music、YouTube Music 和 Deezer 的歌单。该平台的单曲仍可正常使用。"
+            "value": "SongFlip 目前支持 Spotify、Apple Music、YouTube Music 和 Deezer 的歌單。该平臺的單曲仍可正常使用。"
           }
         },
         "id": {
@@ -42476,7 +42476,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "该平台暂不支持歌单"
+            "value": "该平臺暫不支持歌單"
           }
         },
         "id": {
@@ -42673,7 +42673,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "导出为 CSV"
+            "value": "導出为 CSV"
           }
         },
         "id": {
@@ -42870,7 +42870,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "导出为 .M3U8"
+            "value": "導出为 .M3U8"
           }
         },
         "id": {
@@ -43067,7 +43067,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "导出播放列表"
+            "value": "導出播放列表"
           }
         },
         "id": {
@@ -43264,7 +43264,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "解锁 SongFlip PRO，畅享多达 200 首歌曲的无限歌单转换！"
+            "value": "解鎖 SongFlip PRO，畅享多达 200 首歌曲的無限歌單轉換！"
           }
         },
         "id": {
@@ -43461,7 +43461,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "已免费转换 5 首歌曲"
+            "value": "已免费轉換 5 首歌曲"
           }
         },
         "id": {
@@ -43658,7 +43658,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "免登录模式下，前200首歌曲将分段传输。"
+            "value": "免登錄模式下，前200首歌曲将分段传輸。"
           }
         },
         "id": {
@@ -44446,7 +44446,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "在 %1$@ 中打开并保存"
+            "value": "在 %1$@ 中打開并保存"
           }
         },
         "id": {
@@ -44840,7 +44840,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "打开网页歌单"
+            "value": "打開網页歌單"
           }
         },
         "id": {
@@ -45234,7 +45234,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "重新转换"
+            "value": "重新轉換"
           }
         },
         "id": {
@@ -45431,7 +45431,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "此歌单已来自您选择的音乐服务，您可以直接在应用中打开它。"
+            "value": "此歌單已来自您選择的音樂服務，您可以直接在應用中打開它。"
           }
         },
         "id": {
@@ -46022,7 +46022,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "歌单链接已复制到剪贴板！"
+            "value": "歌單鏈接已復製到剪貼板！"
           }
         },
         "id": {
@@ -46219,7 +46219,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "分享歌单链接"
+            "value": "分享歌單鏈接"
           }
         },
         "id": {
@@ -46416,7 +46416,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "提示：在未绑定账户的情况下，Spotify 公开最多仅提供歌单的前 100 首歌曲。"
+            "value": "提示：在未绑定帳戶的情况下，Spotify 公開最多仅提供歌單的前 100 首歌曲。"
           }
         },
         "id": {
@@ -47204,7 +47204,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "在 %1$@ 中搜索单曲"
+            "value": "在 %1$@ 中搜索單曲"
           }
         },
         "id": {
@@ -47401,7 +47401,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "该专辑尚未在流媒体平台上架。"
+            "value": "该專輯尚未在流媒体平臺上架。"
           }
         },
         "id": {
@@ -47598,7 +47598,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "尚未发行"
+            "value": "尚未發行"
           }
         },
         "id": {
@@ -47795,7 +47795,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "PRO 权限有效期至 %1$@"
+            "value": "PRO 權限有效期至 %1$@"
           }
         },
         "id": {
@@ -47992,7 +47992,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "PRO 权限有效期至 %1$@"
+            "value": "PRO 權限有效期至 %1$@"
           }
         },
         "id": {
@@ -48189,7 +48189,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "PRO 权限有效期至 %1$@"
+            "value": "PRO 權限有效期至 %1$@"
           }
         },
         "id": {
@@ -48386,7 +48386,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "终身 PRO 权限"
+            "value": "終身 PRO 權限"
           }
         },
         "id": {
@@ -48780,7 +48780,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "按年订阅 (%1$@ / 年)"
+            "value": "按年訂閱 (%1$@ / 年)"
           }
         },
         "id": {
@@ -48977,7 +48977,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "免费试用 %1$d 天"
+            "value": "免费試用 %1$d 天"
           }
         },
         "id": {
@@ -49371,7 +49371,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "开通 SongFlip PRO (%1$@)"
+            "value": "開通 SongFlip PRO (%1$@)"
           }
         },
         "id": {
@@ -49568,7 +49568,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "按月订阅 (%1$@ / 月)"
+            "value": "按月訂閱 (%1$@ / 月)"
           }
         },
         "id": {
@@ -49765,7 +49765,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "恢复购买"
+            "value": "恢復購買"
           }
         },
         "id": {
@@ -49962,7 +49962,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "开通 SongFlip PRO (%1$@)"
+            "value": "開通 SongFlip PRO (%1$@)"
           }
         },
         "id": {
@@ -50159,7 +50159,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "PRO 已经处于激活状态"
+            "value": "PRO 已经处于激活狀態"
           }
         },
         "id": {
@@ -50356,7 +50356,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "此兑换码已在此设备上使用过。"
+            "value": "此兑換碼已在此設備上使用过。"
           }
         },
         "id": {
@@ -50553,7 +50553,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "兑换"
+            "value": "兑換"
           }
         },
         "id": {
@@ -50750,7 +50750,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "输入优惠码"
+            "value": "輸入優惠碼"
           }
         },
         "id": {
@@ -50947,7 +50947,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "此兑换码已不再有效。"
+            "value": "此兑換碼已不再有效。"
           }
         },
         "id": {
@@ -51144,7 +51144,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "无效的优惠码"
+            "value": "無效的優惠碼"
           }
         },
         "id": {
@@ -51341,7 +51341,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "此兑换码已达到最大兑换次数限制。"
+            "value": "此兑換碼已达到最大兑換次數限製。"
           }
         },
         "id": {
@@ -51538,7 +51538,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "网络错误，请重试。"
+            "value": "網络錯誤，请重試。"
           }
         },
         "id": {
@@ -51735,7 +51735,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "尝试次数过多。请稍后再试。"
+            "value": "尝試次數过多。请稍后再試。"
           }
         },
         "id": {
@@ -51932,7 +51932,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "🎉 已解锁 SongFlip PRO（1个月）！"
+            "value": "🎉 已解鎖 SongFlip PRO（1个月）！"
           }
         },
         "id": {
@@ -52326,7 +52326,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "🎉 已解锁 SongFlip PRO（3个月）！"
+            "value": "🎉 已解鎖 SongFlip PRO（3个月）！"
           }
         },
         "id": {
@@ -52523,7 +52523,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "🎉 已成功激活 SongFlip PRO 终身版！"
+            "value": "🎉 已成功激活 SongFlip PRO 終身版！"
           }
         },
         "id": {
@@ -52720,7 +52720,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "拥有优惠码？"
+            "value": "拥有優惠碼？"
           }
         },
         "id": {
@@ -52917,7 +52917,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "重置 PRO 状态（调试）"
+            "value": "重置 PRO 狀態（调試）"
           }
         },
         "id": {
@@ -53114,7 +53114,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "PRO 状态已重置（调试）"
+            "value": "PRO 狀態已重置（调試）"
           }
         },
         "id": {
@@ -53311,7 +53311,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "热门歌曲无需等待即可打开"
+            "value": "热门歌曲無需等待即可打開"
           }
         },
         "id": {
@@ -53508,7 +53508,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "更快打开"
+            "value": "更快打開"
           }
         },
         "id": {
@@ -53705,7 +53705,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "100 条历史记录与无限收藏"
+            "value": "100 條歷史记錄与無限收藏"
           }
         },
         "id": {
@@ -53902,7 +53902,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "更大的历史记录"
+            "value": "更大的歷史记錄"
           }
         },
         "id": {
@@ -54099,7 +54099,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "一个链接，每个人都能在自己的播放器中打开"
+            "value": "一个鏈接，每个人都能在自己的播放器中打開"
           }
         },
         "id": {
@@ -54493,7 +54493,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "不限次数听音识曲 + 离线俱乐部模式"
+            "value": "不限次數聽音識曲 + 离线俱樂部模式"
           }
         },
         "id": {
@@ -54690,7 +54690,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "无限次 Listen & Flip"
+            "value": "無限次 Listen & Flip"
           }
         },
         "id": {
@@ -54887,7 +54887,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "将完整歌单转移到你的音乐服务"
+            "value": "将完整歌單轉移到你的音樂服務"
           }
         },
         "id": {
@@ -55084,7 +55084,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "迁移歌单"
+            "value": "迁移歌單"
           }
         },
         "id": {
@@ -55281,7 +55281,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "优先匹配 Hi-Res/Atmos 并可手动选版本"
+            "value": "優先匹配 Hi-Res/Atmos 并可手動選版本"
           }
         },
         "id": {
@@ -55478,7 +55478,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "母带音质与版本选择"
+            "value": "母带音质与版本選择"
           }
         },
         "id": {
@@ -55675,7 +55675,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "最受欢迎 • 永久买断"
+            "value": "最受欢迎 • 永久買断"
           }
         },
         "id": {
@@ -55872,7 +55872,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "一次性买断"
+            "value": "一次性買断"
           }
         },
         "id": {
@@ -56266,7 +56266,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "限时特惠"
+            "value": "限時特惠"
           }
         },
         "id": {
@@ -56660,7 +56660,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "兑换优惠券"
+            "value": "兑換優惠券"
           }
         },
         "id": {
@@ -56857,7 +56857,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "升级至 SongFlip PRO 解锁 L2 高速缓存与扩展历史记录。"
+            "value": "升級至 SongFlip PRO 解鎖 L2 高速缓存与扩展歷史记錄。"
           }
         },
         "id": {
@@ -57054,7 +57054,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "🎉 已成功转换 %1$d 首歌曲！"
+            "value": "🎉 已成功轉換 %1$d 首歌曲！"
           }
         },
         "id": {
@@ -57251,7 +57251,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "无法加载 PRO 价格，请检查网络连接。"
+            "value": "無法加載 PRO 價格，请检查網络連接。"
           }
         },
         "id": {
@@ -57842,7 +57842,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "免费试用 %1$d 天，之后 %2$@ / 月（原价 %3$@）"
+            "value": "免费試用 %1$d 天，之后 %2$@ / 月（原價 %3$@）"
           }
         },
         "id": {
@@ -58039,7 +58039,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "免费试用 %1$d 天，首年 %2$@ / 月（原价 %3$@）"
+            "value": "免费試用 %1$d 天，首年 %2$@ / 月（原價 %3$@）"
           }
         },
         "id": {
@@ -58236,7 +58236,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "免费试用 %1$d 天，之后 %2$@ / 年"
+            "value": "免费試用 %1$d 天，之后 %2$@ / 年"
           }
         },
         "id": {
@@ -59418,7 +59418,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "购买未能完成，请重试。"
+            "value": "購買未能完成，请重試。"
           }
         },
         "id": {
@@ -59615,7 +59615,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "未找到有效的 PRO 订阅。"
+            "value": "未找到有效的 PRO 訂閱。"
           }
         },
         "id": {
@@ -60009,7 +60009,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "订阅将自动续订。可随时在订阅设置中取消。"
+            "value": "訂閱将自動續訂。可随時在訂閱設置中取消。"
           }
         },
         "id": {
@@ -60206,7 +60206,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "解锁全部 PRO 功能，无限制分享音乐"
+            "value": "解鎖全部 PRO 功能，無限製分享音樂"
           }
         },
         "id": {
@@ -60403,7 +60403,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "按年订阅"
+            "value": "按年訂閱"
           }
         },
         "id": {
@@ -60600,7 +60600,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "终身买断"
+            "value": "終身買断"
           }
         },
         "id": {
@@ -60797,7 +60797,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "按月订阅"
+            "value": "按月訂閱"
           }
         },
         "id": {
@@ -61191,7 +61191,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "免费试用 %1$d 天"
+            "value": "免费試用 %1$d 天"
           }
         },
         "id": {
@@ -61388,7 +61388,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "升级以获取扩展历史记录和播放列表"
+            "value": "升級以获取扩展歷史记錄和播放列表"
           }
         },
         "id": {
@@ -61585,7 +61585,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "扫码即可在任意设备上打开链接"
+            "value": "扫碼即可在任意設備上打開鏈接"
           }
         },
         "id": {
@@ -61782,7 +61782,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "二维码"
+            "value": "二维碼"
           }
         },
         "id": {
@@ -61979,7 +61979,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "最近转换"
+            "value": "最近轉換"
           }
         },
         "id": {
@@ -62176,7 +62176,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "无法重定向链接。正在打开原始链接。"
+            "value": "無法重定向鏈接。正在打開原始鏈接。"
           }
         },
         "id": {
@@ -62373,7 +62373,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "正在重定向音乐链接..."
+            "value": "正在重定向音樂鏈接..."
           }
         },
         "id": {
@@ -62570,7 +62570,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "未找到相关歌曲"
+            "value": "未找到相關歌曲"
           }
         },
         "id": {
@@ -62767,7 +62767,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "搜索失败"
+            "value": "搜索失敗"
           }
         },
         "id": {
@@ -62964,7 +62964,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "搜索歌曲或音乐人…"
+            "value": "搜索歌曲或音樂人…"
           }
         },
         "id": {
@@ -63161,7 +63161,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "输入歌曲名或歌手"
+            "value": "輸入歌曲名或歌手"
           }
         },
         "id": {
@@ -63358,7 +63358,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "搜索与转换"
+            "value": "搜索与轉換"
           }
         },
         "id": {
@@ -63555,7 +63555,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "关于 SongFlip"
+            "value": "關于 SongFlip"
           }
         },
         "id": {
@@ -63752,7 +63752,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "自定义 Webhook / AI 端点"
+            "value": "自定義 Webhook / AI 端點"
           }
         },
         "id": {
@@ -64146,7 +64146,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "传入的音乐链接"
+            "value": "传入的音樂鏈接"
           }
         },
         "id": {
@@ -64343,7 +64343,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "选择语言"
+            "value": "選择語言"
           }
         },
         "id": {
@@ -64540,7 +64540,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "自动捕获音乐链接及设置向导"
+            "value": "自動捕获音樂鏈接及設置向導"
           }
         },
         "id": {
@@ -64737,7 +64737,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "应用链接与默认应用"
+            "value": "應用鏈接与默認應用"
           }
         },
         "id": {
@@ -64934,7 +64934,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "优先匹配录音室母带、Hi-Res、无损与杜比全景声版本，避开电台剪辑与合辑"
+            "value": "優先匹配錄音室母带、Hi-Res、無损与杜比全景聲版本，避開电臺剪輯与合輯"
           }
         },
         "id": {
@@ -65131,7 +65131,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "发烧级音质优先"
+            "value": "發烧級音质優先"
           }
         },
         "id": {
@@ -65328,7 +65328,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "复制音乐链接时显示快捷操作横幅"
+            "value": "復製音樂鏈接時显示快捷操作横幅"
           }
         },
         "id": {
@@ -65525,7 +65525,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "自动检测剪贴板"
+            "value": "自動检測剪貼板"
           }
         },
         "id": {
@@ -65722,7 +65722,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "反馈与支持"
+            "value": "反饋与支持"
           }
         },
         "id": {
@@ -65919,7 +65919,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "有疑问、建议或遇到问题？直接向我们发送邮件"
+            "value": "有疑問、建议或遇到問題？直接向我们發送邮件"
           }
         },
         "id": {
@@ -66116,7 +66116,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "自动"
+            "value": "自動"
           }
         },
         "id": {
@@ -66313,7 +66313,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "推荐：使用默认应用"
+            "value": "推荐：使用默認應用"
           }
         },
         "id": {
@@ -66510,7 +66510,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "选择用于播放的音乐应用"
+            "value": "選择用于播放的音樂應用"
           }
         },
         "id": {
@@ -66707,7 +66707,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "首选播放器"
+            "value": "首選播放器"
           }
         },
         "id": {
@@ -66904,7 +66904,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "给 SongFlip 评分"
+            "value": "给 SongFlip 評分"
           }
         },
         "id": {
@@ -67298,7 +67298,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "设置已保存"
+            "value": "設置已保存"
           }
         },
         "id": {
@@ -67692,7 +67692,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "与好友及音乐爱好者分享此应用"
+            "value": "与好友及音樂爱好者分享此應用"
           }
         },
         "id": {
@@ -67889,7 +67889,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "如果像 Spotify 这样的应用直接打开链接，只需在微信、WhatsApp 或任何应用中点击“分享 → SongFlip”，即可在您首选的播放器中播放。"
+            "value": "如果像 Spotify 这样的應用直接打開鏈接，只需在微信、WhatsApp 或任何應用中點击“分享 → SongFlip”，即可在您首選的播放器中播放。"
           }
         },
         "id": {
@@ -68086,7 +68086,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "安装了多个音乐应用？"
+            "value": "安装了多个音樂應用？"
           }
         },
         "id": {
@@ -68283,7 +68283,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "点击支持的音乐链接将自动在后台转换并打开。"
+            "value": "點击支持的音樂鏈接将自動在后臺轉換并打開。"
           }
         },
         "id": {
@@ -68480,7 +68480,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "自动重定向已激活"
+            "value": "自動重定向已激活"
           }
         },
         "id": {
@@ -68677,7 +68677,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "%d 个冲突服务"
+            "value": "%d 个冲突服務"
           }
         },
         "id": {
@@ -68874,7 +68874,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "%d 个已安装的应用在 SongFlip 重定向之前直接打开了链接。"
+            "value": "%d 个已安装的應用在 SongFlip 重定向之前直接打開了鏈接。"
           }
         },
         "id": {
@@ -69071,7 +69071,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "检测到链接冲突"
+            "value": "检測到鏈接冲突"
           }
         },
         "id": {
@@ -69268,7 +69268,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "要让音乐链接直接在你的常用播放器中打开，需要允许 Android 一次性将链接交由 SongFlip 处理。"
+            "value": "要让音樂鏈接直接在你的常用播放器中打開，需要允许 Android 一次性将鏈接交由 SongFlip 处理。"
           }
         },
         "id": {
@@ -69465,7 +69465,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "提示：通过“分享”菜单或直接复制链接，无需任何配置即可即刻使用。"
+            "value": "提示：通过“分享”菜單或直接復製鏈接，無需任何配置即可即刻使用。"
           }
         },
         "id": {
@@ -69662,7 +69662,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "开启自动链接重定向"
+            "value": "開啟自動鏈接重定向"
           }
         },
         "id": {
@@ -70056,7 +70056,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "快来看看 SongFlip – 直接在您喜爱的播放器中打开 Spotify、Apple Music 等音乐链接：https://download.songflip.link"
+            "value": "快来看看 SongFlip – 直接在您喜爱的播放器中打開 Spotify、Apple Music 等音樂鏈接：https://download.songflip.link"
           }
         },
         "id": {
@@ -70253,7 +70253,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "在 iOS 共享面板中随时使用 SongFlip。"
+            "value": "在 iOS 共享面板中随時使用 SongFlip。"
           }
         },
         "id": {
@@ -70450,7 +70450,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "设置共享菜单"
+            "value": "設置共享菜單"
           }
         },
         "id": {
@@ -70647,7 +70647,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "正在处理分享的音乐链接..."
+            "value": "正在处理分享的音樂鏈接..."
           }
         },
         "id": {
@@ -70844,7 +70844,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "这是SongFlip链接，请分享音乐链接。"
+            "value": "这是SongFlip鏈接，请分享音樂鏈接。"
           }
         },
         "id": {
@@ -71041,7 +71041,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "在 Spotify、Apple Music 或 YouTube 中，轻点歌曲的“共享”。"
+            "value": "在 Spotify、Apple Music 或 YouTube 中，轻點歌曲的“共享”。"
           }
         },
         "id": {
@@ -71238,7 +71238,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "1. 打开音乐 App 并共享"
+            "value": "1. 打開音樂 App 并共享"
           }
         },
         "id": {
@@ -71435,7 +71435,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "在 App 图标列表中向右滑到最末，轻点“更多”（⋯）。"
+            "value": "在 App 图標列表中向右滑到最末，轻點“更多”（⋯）。"
           }
         },
         "id": {
@@ -71632,7 +71632,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "2. 滑动至“更多”"
+            "value": "2. 滑動至“更多”"
           }
         },
         "id": {
@@ -71829,7 +71829,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "轻点“编辑”，将 SongFlip 添加到常用个人收藏中。"
+            "value": "轻點“編輯”，将 SongFlip 添加到常用个人收藏中。"
           }
         },
         "id": {
@@ -72026,7 +72026,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "3. 启用 SongFlip"
+            "value": "3. 啟用 SongFlip"
           }
         },
         "id": {
@@ -72223,7 +72223,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "分享通用网页链接"
+            "value": "分享通用網页鏈接"
           }
         },
         "id": {
@@ -72420,7 +72420,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "已复制 SongFlip 通用链接！"
+            "value": "已復製 SongFlip 通用鏈接！"
           }
         },
         "id": {
@@ -72617,7 +72617,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "通用网页链接 (PRO)"
+            "value": "通用網页鏈接 (PRO)"
           }
         },
         "id": {
@@ -72814,7 +72814,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "播放最近转换的歌曲：%@"
+            "value": "播放最近轉換的歌曲：%@"
           }
         },
         "id": {
@@ -73208,7 +73208,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "历史记录中暂无转换歌曲"
+            "value": "歷史记錄中暫無轉換歌曲"
           }
         },
         "id": {
@@ -73405,7 +73405,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "暂停 SongFlip 1 小时"
+            "value": "暫停 SongFlip 1 小時"
           }
         },
         "id": {
@@ -73602,7 +73602,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "暂停 1 小时"
+            "value": "暫停 1 小時"
           }
         },
         "id": {
@@ -73799,7 +73799,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "SongFlip 已暂停 1 小时"
+            "value": "SongFlip 已暫停 1 小時"
           }
         },
         "id": {
@@ -73996,7 +73996,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "轻点一下即可从剪贴板快速转换音乐链接。"
+            "value": "轻點一下即可从剪貼板快速轉換音樂鏈接。"
           }
         },
         "id": {
@@ -74390,7 +74390,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "打开系统自带的“快捷指令”App，轻点右上角的“+”。"
+            "value": "打開繫統自带的“快捷指令”App，轻點右上角的“+”。"
           }
         },
         "id": {
@@ -74587,7 +74587,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "1. 打开快捷指令 App"
+            "value": "1. 打開快捷指令 App"
           }
         },
         "id": {
@@ -74784,7 +74784,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "轻点“添加操作”➔“App”➔“SongFlip”➔“在 SongFlip 中打开歌曲”。"
+            "value": "轻點“添加操作”➔“App”➔“SongFlip”➔“在 SongFlip 中打開歌曲”。"
           }
         },
         "id": {
@@ -74981,7 +74981,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "2. 添加 SongFlip 动作"
+            "value": "2. 添加 SongFlip 動作"
           }
         },
         "id": {
@@ -75178,7 +75178,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "可选：设置 ➔ 操作按钮 ➔ 选取“快捷指令”中的 SongFlip。"
+            "value": "可選：設置 ➔ 操作按钮 ➔ 選取“快捷指令”中的 SongFlip。"
           }
         },
         "id": {
@@ -75375,7 +75375,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "3. 设置为操作按钮"
+            "value": "3. 設置为操作按钮"
           }
         },
         "id": {
@@ -75769,7 +75769,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "SoundCloud 主打混音与独立音乐。未直接匹配的歌曲将自动在 SoundCloud 搜索中打开。"
+            "value": "SoundCloud 主打混音与独立音樂。未直接匹配的歌曲将自動在 SoundCloud 搜索中打開。"
           }
         },
         "id": {
@@ -75966,7 +75966,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "链接已启用并处于活动状态"
+            "value": "鏈接已啟用并处于活動狀態"
           }
         },
         "id": {
@@ -76163,7 +76163,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "所有 %1$d 个音乐域名均已激活并验证"
+            "value": "所有 %1$d 个音樂域名均已激活并验证"
           }
         },
         "id": {
@@ -76360,7 +76360,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "网页浏览器"
+            "value": "網页浏覽器"
           }
         },
         "id": {
@@ -76557,7 +76557,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "在旧版 Android 上无法检查状态。"
+            "value": "在旧版 Android 上無法检查狀態。"
           }
         },
         "id": {
@@ -76754,7 +76754,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "系统设置中尚未启用链接"
+            "value": "繫統設置中尚未啟用鏈接"
           }
         },
         "id": {
@@ -76951,7 +76951,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "已安装应用"
+            "value": "已安装應用"
           }
         },
         "id": {
@@ -77148,7 +77148,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "尚未启用：%1$@"
+            "value": "尚未啟用：%1$@"
           }
         },
         "id": {
@@ -77345,7 +77345,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "%1$d / %2$d 个音乐域名已激活"
+            "value": "%1$d / %2$d 个音樂域名已激活"
           }
         },
         "id": {
@@ -77542,7 +77542,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "SongFlip 已暂停"
+            "value": "SongFlip 已暫停"
           }
         },
         "id": {
@@ -77739,7 +77739,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "暂停至 %1$@"
+            "value": "暫停至 %1$@"
           }
         },
         "id": {
@@ -78133,7 +78133,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "重定向状态"
+            "value": "重定向狀態"
           }
         },
         "id": {
@@ -78330,7 +78330,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "点击下方按钮打开系统设置"
+            "value": "點击下方按钮打開繫統設置"
           }
         },
         "id": {
@@ -78527,7 +78527,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "在 Spotify、Apple Music 或 YouTube 中点击分享 ➔ 选择 SongFlip 即可立即跳转播放。"
+            "value": "在 Spotify、Apple Music 或 YouTube 中點击分享 ➔ 選择 SongFlip 即可立即跳轉播放。"
           }
         },
         "id": {
@@ -78724,7 +78724,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "1. 通过分享菜单"
+            "value": "1. 通过分享菜單"
           }
         },
         "id": {
@@ -78921,7 +78921,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "为音乐域名启用“打开支持的链接”"
+            "value": "为音樂域名啟用“打開支持的鏈接”"
           }
         },
         "id": {
@@ -79118,7 +79118,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "将 SongFlip 快捷指令绑定到操作按钮，即可实现一键转换。"
+            "value": "将 SongFlip 快捷指令绑定到操作按钮，即可实現一键轉換。"
           }
         },
         "id": {
@@ -79512,7 +79512,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "完成！分享的链接将在后台自动跳转至目标播放器。"
+            "value": "完成！分享的鏈接将在后臺自動跳轉至目標播放器。"
           }
         },
         "id": {
@@ -79709,7 +79709,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "打开应用时会自动识别并转换剪贴板中的音乐链接。"
+            "value": "打開應用時会自動識別并轉換剪貼板中的音樂鏈接。"
           }
         },
         "id": {
@@ -79906,7 +79906,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "3. 自动读取剪贴板"
+            "value": "3. 自動读取剪貼板"
           }
         },
         "id": {
@@ -81088,7 +81088,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "首选目标播放器"
+            "value": "首選目標播放器"
           }
         },
         "id": {
@@ -81285,7 +81285,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "选择链接打开位置。已安装的应用直接打开；其他在浏览器中打开。"
+            "value": "選择鏈接打開位置。已安装的應用直接打開；其他在浏覽器中打開。"
           }
         },
         "id": {
@@ -82270,7 +82270,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "转换链接"
+            "value": "轉換鏈接"
           }
         },
         "id": {
@@ -82664,7 +82664,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "无法解析链接：%1$@"
+            "value": "無法解析鏈接：%1$@"
           }
         },
         "id": {
@@ -82861,7 +82861,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "粘贴音乐链接 (Spotify, Apple, YT Music, Tidal...)"
+            "value": "貼貼音樂鏈接 (Spotify, Apple, YT Music, Tidal...)"
           }
         },
         "id": {
@@ -83058,7 +83058,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "目标链接：%1$@"
+            "value": "目標鏈接：%1$@"
           }
         },
         "id": {
@@ -83255,7 +83255,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "测试链接转换器"
+            "value": "測試鏈接轉換器"
           }
         },
         "id": {
@@ -83452,7 +83452,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "直接在应用内测试链接重定向"
+            "value": "直接在應用内測試鏈接重定向"
           }
         },
         "id": {
@@ -83846,7 +83846,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "主题"
+            "value": "主題"
           }
         },
         "id": {
@@ -84240,7 +84240,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "系统"
+            "value": "繫統"
           }
         },
         "id": {
@@ -84831,7 +84831,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "已暂停"
+            "value": "已暫停"
           }
         },
         "id": {
@@ -85225,7 +85225,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "%1$d 小时前"
+            "value": "%1$d 小時前"
           }
         },
         "id": {
@@ -86013,7 +86013,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "不支持的流媒体链接 – 请使用 Listen & Flip 识别视频中的音乐。"
+            "value": "不支持的流媒体鏈接 – 请使用 Listen & Flip 識別视頻中的音樂。"
           }
         },
         "id": {
@@ -89984,7 +89984,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "在系統設定中啟用「應用程式連結」，即可直接在目標播放器中開啟音樂連結。"
+            "value": "在繫統設定中啟用「應用程式連結」，即可直接在目標播放器中開啟音樂連結。"
           }
         },
         "id": {

@@ -1,3 +1,3 @@
-- Privacy & Confidentiality: Clipboard link detection no longer triggers background network requests without direct user interaction.
-- Performance & Safety: Playlist file import is handled completely asynchronously with a 2MB size safeguard to prevent interface freezes.
-- Routing & Navigation Architecture: Unified link resolution and telemetry handling into a centralized coordinator for consistent player fallback behavior.
+- Data Integrity & Storage Safety: Enforced database migration verification to guarantee seamless local storage consistency across updates.
+- Error Transparency: Eliminated silent failure paths during link redirection to ensure clear diagnostics on network interruptions.
+- Localization Refinement: Completed multilingual system descriptions across 12 additional languages and refined traditional characters.
