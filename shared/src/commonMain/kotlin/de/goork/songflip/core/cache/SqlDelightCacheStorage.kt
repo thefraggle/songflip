@@ -141,12 +141,10 @@ class SqlDelightCacheStorage(
     fun getDatabase(): SongFlipDatabase? {
         val existing = database
         if (existing != null) return existing
-        if (initAttempted) return null
 
         return initLock.withLock {
             val doubleCheck = database
             if (doubleCheck != null) return@withLock doubleCheck
-            if (initAttempted) return@withLock null
 
             val driver = try {
                 driverProvider()
@@ -154,13 +152,13 @@ class SqlDelightCacheStorage(
                 SongFlipLogger.e("SqlDelightCacheStorage", "Failed to create SQL driver", t)
                 null
             }
-            initAttempted = true
             if (driver == null) return@withLock null
 
             try {
                 ensureSchemaUpgrades(driver)
                 val db = SongFlipDatabase(driver)
                 database = db
+                initAttempted = true
                 onDatabaseReady?.invoke(this, db)
                 db
             } catch (t: Throwable) {

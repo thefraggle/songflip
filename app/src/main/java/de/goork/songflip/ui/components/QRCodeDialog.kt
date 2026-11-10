@@ -1,6 +1,7 @@
 package de.goork.songflip.ui.components
 
-import android.net.Uri
+import android.graphics.Bitmap
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -8,12 +9,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -21,8 +23,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.qrcode.QRCodeWriter
 import de.goork.songflip.R
 
 @Composable
@@ -32,9 +34,9 @@ fun QRCodeDialog(
     artist: String? = null,
     onDismissRequest: () -> Unit
 ) {
-    val qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" +
-            Uri.encode(url) +
-            "&margin=10&color=000000&bgcolor=ffffff"
+    val qrBitmap = remember(url) {
+        generateQrBitmap(url, 512)
+    }
 
     Dialog(
         onDismissRequest = onDismissRequest,
@@ -119,15 +121,19 @@ fun QRCodeDialog(
                         .padding(8.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    AsyncImage(
-                        model = ImageRequest.Builder(LocalContext.current)
-                            .data(qrUrl)
-                            .crossfade(true)
-                            .build(),
-                        contentDescription = stringResource(R.string.qr_code_title),
-                        contentScale = ContentScale.Fit,
-                        modifier = Modifier.fillMaxSize()
-                    )
+                    if (qrBitmap != null) {
+                        Image(
+                            bitmap = qrBitmap.asImageBitmap(),
+                            contentDescription = stringResource(R.string.qr_code_title),
+                            contentScale = ContentScale.Fit,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    } else {
+                        CircularProgressIndicator(
+                            color = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(36.dp)
+                        )
+                    }
                 }
 
                 Text(
@@ -138,5 +144,29 @@ fun QRCodeDialog(
                 )
             }
         }
+    }
+}
+
+private fun generateQrBitmap(content: String, size: Int): Bitmap? {
+    return try {
+        val hints = mapOf(
+            com.google.zxing.EncodeHintType.MARGIN to 1,
+            com.google.zxing.EncodeHintType.CHARACTER_SET to "UTF-8"
+        )
+        val bitMatrix = QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, size, size, hints)
+        val width = bitMatrix.width
+        val height = bitMatrix.height
+        val pixels = IntArray(width * height)
+        for (y in 0 until height) {
+            val offset = y * width
+            for (x in 0 until width) {
+                pixels[offset + x] = if (bitMatrix[x, y]) android.graphics.Color.BLACK else android.graphics.Color.WHITE
+            }
+        }
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        bitmap.setPixels(pixels, 0, width, 0, 0, width, height)
+        bitmap
+    } catch (_: Exception) {
+        null
     }
 }

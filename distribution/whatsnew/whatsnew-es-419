@@ -1,2 +1,2 @@
-- Seguridad y enrutamiento de accesos directos: manejo de accesos directos dinámicos endurecidos para resolver estrictamente desde la historia local con la verificación del esquema de destino.
-- Normalización de enlaces: se resolvió el manejo de la ruta de la lista de reproducción para los conjuntos de transmisión para garantizar una detección de formato consistente.
+- Protección de datos y privacidad: se agregaron declaraciones de privacidad integrales y se eliminaron solicitudes de red de terceros mediante la generación de códigos localmente en el dispositivo.
+- Confiabilidad de la caché: ventanas de validez de resolución optimizadas para que las búsquedas temporales de respaldo se actualicen automáticamente y al mismo tiempo se preserven las entradas a largo plazo.

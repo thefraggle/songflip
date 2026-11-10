@@ -120,6 +120,7 @@ struct PlaylistConverterView: View {
     @State private var stepTimer: Timer? = nil
     @State private var retryCooldownSeconds = 0
     @State private var retryTimer: Timer? = nil
+    @State private var conversionTask: Task<Void, Never>? = nil
 
     var lang: String { settings.selectedLanguage }
 
@@ -224,8 +225,12 @@ struct PlaylistConverterView: View {
                 startConversion()
             }
             .onDisappear {
+                conversionTask?.cancel()
+                conversionTask = nil
                 stepTimer?.invalidate()
                 stepTimer = nil
+                retryTimer?.invalidate()
+                retryTimer = nil
             }
             .onChange(of: proManager.isPro) { isPro in
                 if isPro && (conversionResult?.isLimited == true) {
@@ -746,7 +751,8 @@ struct PlaylistConverterView: View {
         let maxTracks: Int32 = proManager.isPro ? ProLimits.shared.MAX_PRO_PLAYLIST_TRACKS : ProLimits.shared.MAX_FREE_PLAYLIST_TRACKS
         let token = proManager.authToken
 
-        Task {
+        conversionTask?.cancel()
+        conversionTask = Task {
             do {
                 let kmpResult = try await PlaylistConverterEngine.companion.shared.convertPlaylistOrThrow(
                     url: playlistUrl,
@@ -756,6 +762,8 @@ struct PlaylistConverterView: View {
                     authToken: token.isEmpty ? nil : token,
                     forceRefresh: forceRefresh
                 )
+
+                if Task.isCancelled { return }
 
                 let mappedTracks = kmpResult.tracks.map { t in
                     SwiftPlaylistTrackItem(
@@ -903,7 +911,8 @@ struct PlaylistConverterView: View {
         let token = proManager.authToken
         let cleanTitle = url.deletingPathExtension().lastPathComponent
 
-        Task {
+        conversionTask?.cancel()
+        conversionTask = Task {
             do {
                 let kmpResult = try await PlaylistConverterEngine.companion.shared.convertImportedTracksOrThrow(
                     tracks: parsed,
@@ -912,6 +921,8 @@ struct PlaylistConverterView: View {
                     playlistTitle: cleanTitle,
                     authToken: token.isEmpty ? nil : token
                 )
+
+                if Task.isCancelled { return }
 
                 let mappedTracks = kmpResult.tracks.map { t in
                     SwiftPlaylistTrackItem(

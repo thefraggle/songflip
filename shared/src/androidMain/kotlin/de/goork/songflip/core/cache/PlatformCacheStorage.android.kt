@@ -27,8 +27,15 @@ class AndroidSharedPreferencesCacheStorage(
 
         @Synchronized
         fun init(context: Context) {
+            val isFirstContext = (appContext == null)
             appContext = context.applicationContext
             sharedPrefs = appContext?.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+            
+            // If storage was previously initialized in-memory without context, reset it so the persistent SQLite driver is used
+            if (isFirstContext && sqlDelightStorage != null) {
+                sqlDelightStorage = null
+            }
+            
             // Initialize database and migrate legacy SharedPreferences entries BEFORE cleaning legacy cache keys
             val storage = getOrCreateSqlDelightStorage()
             storage.getDatabase()
@@ -57,6 +64,8 @@ class AndroidSharedPreferencesCacheStorage(
                     if (ctx != null) {
                         AndroidSqliteDriver(SongFlipDatabase.Schema, ctx, DB_NAME)
                     } else {
+                        // Warn and fallback to in-memory only in test/early-start scenarios until init(context) is called
+                        de.goork.songflip.core.util.SongFlipLogger.w("AndroidCacheStorage", "appContext is null when creating SQL driver. Falling back to in-memory temporary database.")
                         JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY).also {
                             SongFlipDatabase.Schema.create(it)
                         }

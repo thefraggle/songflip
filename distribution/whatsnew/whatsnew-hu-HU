@@ -1,3 +1,2 @@
-- Biztonság és gyorsbillentyű-útválasztás: Megerősített dinamikus gyorsbillentyű-kezelés a helyi előzmények szigorú feloldásához a célséma ellenőrzésével.
-- Link normalizálása: Megoldott lejátszási lista útvonal kezelése a streaming készletek számára a következetes formátumérzékelés biztosítása érdekében.
-- Adatvédelem és migráció: Hozzáadott hitelesítési őrök a korábbi bejegyzések átviteléhez az adatvesztés megelőzése érdekében.
+- Adatvédelem és adatvédelem: Átfogó adatvédelmi nyilatkozatok hozzáadása és a külső felektől származó hálózati kérések megszüntetése a kódok helyi generálásával az eszközön.
+- Gyorsítótár megbízhatósága: Optimalizált felbontási érvényességi ablakok, így az ideiglenes keresési tartalékok automatikusan frissülnek, miközben megőrzik a hosszú távú bejegyzéseket.

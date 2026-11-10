@@ -1,3 +1,3 @@
-- Sikkerhet og snarveiruting: Forbedret dynamisk snarveihåndtering for å løse strengt fra lokal historikk med verifisering av målskjema.
-- Lenkenormalisering: Løste problemet med håndtering av spillelistebaner for strømmesett for å sikre konsekvent formatgjenkjenning.
-- Databeskyttelse og migrering: La til verifiseringsbeskyttelse for historiske overføringer for å forhindre datatap.
+- Databeskyttelse og personvern: Lagt til omfattende personvernerklæringer og eliminerte nettverksforespørsler fra tredjeparter ved å generere koder lokalt på enheten.
+- Hurtigbufferpålitelighet: Optimaliserte oppløsningsgyldighetsvinduer slik at midlertidige søk-reserver automatisk oppdateres samtidig som langsiktige oppføringer bevares.
+- Systemstabilitet: Herdet koblingsvideresending mot konfigurasjonsskift og løst samtidig oppgavekjøring under konvertering av spilleliste.

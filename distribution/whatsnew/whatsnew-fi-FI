@@ -1,3 +1,2 @@
-- Turvallisuus ja pikanäppäinten reititys: Tehostettu dynaaminen pikanäppäinten käsittely, joka ratkaistaan tiukasti paikallishistoriasta kohdennetun järjestelmän vahvistuksella.
-- Linkin normalisointi: Ratkaistu soittolistan polun käsittely suoratoistosarjoille yhdenmukaisen muodon havaitsemisen varmistamiseksi.
-- Tietosuoja ja migraatio: Lisätty varmistusvartijoita historiallisten tietojen siirroille tietojen menetyksen estämiseksi.
+- Tietosuoja ja yksityisyys: Lisätty kattavat tietosuojailmoitukset ja poistettu kolmannen osapuolen verkkopyynnöt luomalla koodeja paikallisesti laitteeseen.
+- Välimuistin luotettavuus: Optimoidut resoluution kelpoisuusikkunat, joten väliaikaiset hakuvarat päivittyvät automaattisesti säilyttäen samalla pitkän aikavälin merkinnät.

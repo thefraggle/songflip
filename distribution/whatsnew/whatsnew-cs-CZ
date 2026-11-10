@@ -1,3 +1,2 @@
-- Zabezpečení a směrování zkratek: Vytvrzená manipulace s dynamickými zkratkami pro přísné vyřešení z místní historie s ověřením cílového schématu.
-- Normalizace odkazu: Vyřešeno zpracování cesty seznamu skladeb pro streamovací sady, aby byla zajištěna konzistentní detekce formátu.
-- Ochrana a migrace dat: Přidány ověřovací kryty pro historické přenosy vstupů, aby se zabránilo ztrátě dat.
+- Ochrana dat a soukromí: Přidána komplexní prohlášení o ochraně osobních údajů a eliminovány síťové požadavky třetích stran generováním kódů lokálně na zařízení.
+- Spolehlivost mezipaměti: Optimalizovaná okna platnosti rozlišení, takže dočasné záložní vyhledávání se automaticky obnovují při zachování dlouhodobých záznamů.

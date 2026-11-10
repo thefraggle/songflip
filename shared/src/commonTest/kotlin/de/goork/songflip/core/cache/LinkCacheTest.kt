@@ -49,6 +49,26 @@ class LinkCacheTest {
     }
 
     @Test
+    fun testSearchFallbackTtlIsCappedToOneHour() = runTest {
+        // Cache configured with 7 days TTL (7 * 24 * 3600 * 1000 = 604800000L)
+        val sevenDaysMs = 7 * 24 * 3600 * 1000L
+        val cache = LinkCache(maxEntries = 10, ttlMs = sevenDaysMs)
+        val searchResult = ResolutionResult.Success(
+            targetUrl = "https://music.youtube.com/search?q=test",
+            platform = "youtubeMusic_search"
+        )
+        cache.put("https://open.spotify.com/track/search1", "youtubeMusic", searchResult, currentTimeMs = 1000L, isHistory = false)
+
+        // Within 1 hour (e.g. 30 minutes = 1800000 ms), search fallback is still fresh
+        val fresh = cache.get("https://open.spotify.com/track/search1", "youtubeMusic", currentTimeMs = 1000L + 1800000L)
+        assertNotNull(fresh)
+
+        // After 1 hour and 1 second (3601000 ms), search fallback must expire so fresh retry happens
+        val expired = cache.get("https://open.spotify.com/track/search1", "youtubeMusic", currentTimeMs = 1000L + 3601000L)
+        assertNull(expired, "Search fallback results must expire after 1 hour instead of keeping 7-day TTL")
+    }
+
+    @Test
     fun testMaxEntriesEviction() = runTest {
         val cache = LinkCache(maxEntries = 3, ttlMs = 100000L)
 

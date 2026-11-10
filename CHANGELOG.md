@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.14.7] - 2026-11-10
+- **Data Protection & Privacy**: Added comprehensive privacy declarations and eliminated third-party network requests by generating codes locally on device.
+- **Cache Reliability**: Optimized resolution validity windows so temporary search fallbacks automatically refresh while preserving long-term entries.
+- **System Stability**: Hardened link forwarding against configuration shifts and resolved concurrent task execution during playlist conversion.
+
 ## [1.14.6] - 2026-11-10
 - **Security & Shortcut Routing**: Hardened dynamic shortcut handling to strictly resolve from local history with target scheme verification.
 - **Link Normalization**: Resolved playlist path handling for streaming sets to ensure consistent format detection.

@@ -69,7 +69,15 @@ class LinkCache(
     private var initialized = false
 
     /** Whether a cached resolution may be reused without hitting the network. */
-    private fun CacheEntry.isFresh(now: Long) = (now - timestamp) <= ttlMs
+    private fun CacheEntry.isFresh(now: Long): Boolean {
+        // Fallback or search results (e.g. "*_search") expire quickly (1 hour) to heal from transient outages/rate limits
+        val effectiveTtl = if (platform.endsWith("_search") || platform.endsWith("_fallback")) {
+            minOf(ttlMs, 60 * 60 * 1000L)
+        } else {
+            ttlMs
+        }
+        return (now - timestamp) <= effectiveTtl
+    }
 
     /** Whether the entry must be kept on disk. Favorites and history are kept indefinitely. */
     private fun CacheEntry.isRetained(now: Long) = when {

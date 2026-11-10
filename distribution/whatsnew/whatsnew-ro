@@ -1,3 +1,2 @@
-- Rutarea securității și a comenzilor rapide: Manipularea dinamică a comenzilor rapide pentru a rezolva strict din istoricul local cu verificarea schemei țintă.
-- Normalizarea legăturii: Gestionarea căii listei de redare rezolvate pentru seturile de streaming pentru a asigura detectarea consecventă a formatului.
-- Protecția și migrarea datelor: au fost adăugate dispozitive de verificare pentru transferurile de date istorice pentru a preveni pierderea datelor.
+- Protecția datelor și confidențialitatea: S-au adăugat declarații complete de confidențialitate și s-au eliminat solicitările de rețea terță parte prin generarea de coduri local pe dispozitiv.
+- Fiabilitatea memoriei cache: ferestre de valabilitate a rezoluției optimizate, astfel încât alternativele temporare ale căutării se reîmprospătează automat, păstrând în același timp intrările pe termen lung.

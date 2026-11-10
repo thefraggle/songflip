@@ -1,3 +1,2 @@
-- Beveiliging en snelkoppelingsroutering: Geharde dynamische snelkoppelingsafhandeling om strikt op te lossen vanuit de lokale geschiedenis met doelschemaverificatie.
-- Linknormalisatie: Opgeloste afspeellijstpadafhandeling voor streaming-sets om consistente indelingsdetectie te garanderen.
-- Gegevensbescherming en migratie: verificatiebewakers toegevoegd voor historische invoeroverdrachten om gegevensverlies te voorkomen.
+- Gegevensbescherming en privacy: Uitgebreide privacyverklaringen toegevoegd en netwerkverzoeken van derden geëlimineerd door codes lokaal op het apparaat te genereren.
+- Betrouwbaarheid van de cache: Geoptimaliseerde geldigheidsvensters voor de resolutie, zodat tijdelijke terugvalzoekacties automatisch worden vernieuwd terwijl invoer op de lange termijn behouden blijft.
