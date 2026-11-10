@@ -47,76 +47,76 @@ struct ClipboardSmartBannerView: View {
             }
 
             HStack(spacing: 8) {
-                Text(UrlUtils.shared.detectPlatformName(url: detectedUrl))
-                    .font(.caption2)
-                    .fontWeight(.semibold)
-                    .padding(.horizontal, 6)
-                    .padding(.vertical, 2)
-                    .background(accentColor.opacity(0.15))
-                    .foregroundColor(accentColor)
-                    .cornerRadius(6)
-
-                if isPlaylist {
-                    Text(LocalizationManager.string(for: "playlist_badge", lang: lang))
-                        .font(.caption2)
-                        .fontWeight(.bold)
-                        .padding(.horizontal, 6)
-                        .padding(.vertical, 2)
-                        .background(Color.orange.opacity(0.2))
-                        .foregroundColor(.orange)
-                        .cornerRadius(6)
-                } else if isPodcastOrAudiobook {
-                    Text(LocalizationManager.string(for: isAudiobook ? "audiobook_badge" : "podcast_badge", lang: lang))
-                        .font(.caption2)
-                        .fontWeight(.bold)
-                        .padding(.horizontal, 6)
-                        .padding(.vertical, 2)
-                        .background(Color.purple.opacity(0.2))
-                        .foregroundColor(.purple)
-                        .cornerRadius(6)
-                }
-
-                Text(detectedUrl)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .lineLimit(1)
-                    .truncationMode(.tail)
-            }
+                Text(detectSourcePlatformName(url: detectedUrl))
+                .font(.caption2)
+                .fontWeight(.semibold)
+                .padding(.horizontal, 6)
+                .padding(.vertical, 2)
+                .background(accentColor.opacity(0.15))
+                .foregroundColor(accentColor)
+                .cornerRadius(6)
 
             if isPlaylist {
-                let sourceName = UrlUtils.shared.detectPlatformName(url: detectedUrl)
-                let targetChoice = PlatformChoice.allCases.first { $0.rawValue == targetPlatform }
-                let targetName = targetChoice?.displayName ?? "Player"
-                let isSamePlaylistPlatform = sourceName.caseInsensitiveCompare(targetName) == .orderedSame
-                Button(action: {
-                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                    onOpenPlaylist(detectedUrl)
-                }) {
-                    HStack(spacing: 6) {
-                        Image(systemName: isSamePlaylistPlatform ? "arrow.up.right" : "music.note.list")
-                            .font(.system(size: 12))
-                        Text(isSamePlaylistPlatform
-                            ? String(format: LocalizationManager.string(for: "playlist_banner_action_open", lang: lang), sourceName)
-                            : String(format: LocalizationManager.string(for: "clipboard_banner_action_open", lang: lang), targetName))
-                            .font(.system(size: 13, weight: .bold))
-                            .lineLimit(1)
-                    }
-                    .padding(.vertical, 8)
-                    .padding(.horizontal, 12)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.orange)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+                Text(LocalizationManager.string(for: "playlist_badge", lang: lang))
+                    .font(.caption2)
+                    .fontWeight(.bold)
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 2)
+                    .background(Color.orange.opacity(0.2))
+                    .foregroundColor(.orange)
+                    .cornerRadius(6)
+            } else if isPodcastOrAudiobook {
+                Text(LocalizationManager.string(for: isAudiobook ? "audiobook_badge" : "podcast_badge", lang: lang))
+                    .font(.caption2)
+                    .fontWeight(.bold)
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 2)
+                    .background(Color.purple.opacity(0.2))
+                    .foregroundColor(.purple)
+                    .cornerRadius(6)
+            }
+
+            Text(detectedUrl)
+                .font(.caption)
+                .foregroundColor(.secondary)
+                .lineLimit(1)
+                .truncationMode(.tail)
+        }
+
+        if isPlaylist {
+            let sourceName = detectSourcePlatformName(url: detectedUrl)
+            let targetChoice = PlatformChoice.allCases.first { $0.rawValue == targetPlatform }
+            let targetName = targetChoice?.displayName ?? "Player"
+            let isSamePlaylistPlatform = sourceName.caseInsensitiveCompare(targetName) == .orderedSame
+            Button(action: {
+                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                onOpenPlaylist(detectedUrl)
+            }) {
+                HStack(spacing: 6) {
+                    Image(systemName: isSamePlaylistPlatform ? "arrow.up.right" : "music.note.list")
+                        .font(.system(size: 12))
+                    Text(isSamePlaylistPlatform
+                        ? String(format: LocalizationManager.string(for: "playlist_banner_action_open", lang: lang), sourceName)
+                        : String(format: LocalizationManager.string(for: "clipboard_banner_action_open", lang: lang), targetName))
+                        .font(.system(size: 13, weight: .bold))
+                        .lineLimit(1)
                 }
-            } else if isAudiobook {
-                Button(action: {
-                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                    onOpenAudiobook(detectedUrl)
-                }) {
-                    HStack(spacing: 6) {
-                        Image(systemName: "arrow.up.right")
-                            .font(.system(size: 12))
-                        Text(String(format: LocalizationManager.string(for: "playlist_banner_action_open", lang: lang), UrlUtils.shared.detectPlatformName(url: detectedUrl)))
+                .padding(.vertical, 8)
+                .padding(.horizontal, 12)
+                .frame(maxWidth: .infinity)
+                .background(Color.orange)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+            }
+        } else if isAudiobook {
+            Button(action: {
+                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                onOpenAudiobook(detectedUrl)
+            }) {
+                HStack(spacing: 6) {
+                    Image(systemName: "arrow.up.right")
+                        .font(.system(size: 12))
+                    Text(String(format: LocalizationManager.string(for: "playlist_banner_action_open", lang: lang), detectSourcePlatformName(url: detectedUrl)))
                             .font(.system(size: 13, weight: .bold))
                             .lineLimit(1)
                     }
