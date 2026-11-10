@@ -1,2 +1,2 @@
-- Dilbilgisel Çoğullar ve Yerelleştirme: Kesin sayaçlar ve garip parantez olmadan çakışma bildirimleri için desteklenen tüm dillerde yerel çoğul varyasyonlar.
-- Uç Nokta Güvenliği ve Hız Sınırlama: Sıkı istemci doğrulama ve savunma amaçlı istek azaltma ile sağlamlaştırılmış akustik belirteç alımı ve dağıtılmış önbellek uç noktaları.
+- Veritabanı Kurtarma ve Depolama Güvenliği: Geçmişteki dönüştürülmüş parçalara kesintisiz erişim yeniden sağlandı ve uygulama başlatılırken gereksiz şema başlatma çakışmaları ortadan kaldırıldı.
+- Çevrimdışı Geçmiş Koruma: Kalıcı parça kayıtlarının ve favorilerin tüm sürüm güncellemelerinde kesintisiz olarak tamamen erişilebilir kalmasının sağlanması.

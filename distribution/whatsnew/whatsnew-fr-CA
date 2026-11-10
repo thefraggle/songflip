@@ -1,2 +1,2 @@
-- Pluriels grammaticaux et localisation : variations plurielles natives dans toutes les langues prises en charge pour des compteurs précis et des notifications de conflits sans parenthèses gênantes.
-- Sécurité des points de terminaison et limitation du débit : acquisition de jetons acoustiques renforcée et points de terminaison de cache distribués avec vérification stricte du client et limitation défensive des demandes.
+- Récupération de base de données et sécurité du stockage : accès transparent restauré aux pistes converties historiques et élimination des conflits d'initialisation de schéma redondants au démarrage de l'application.
+- Préservation de l'historique hors ligne : garantie que les enregistrements persistants et les favoris restent entièrement accessibles dans toutes les mises à jour de version sans interruption.

@@ -1,2 +1,2 @@
-- Nyelvtani többes számok és lokalizáció: Natív többes számú változatok az összes támogatott nyelven a precíz számlálók és az ütközésértesítések érdekében kínos zárójelek nélkül.
-- Endpoint Security & Rate Limiting: Megerősített akusztikus token beszerzés és elosztott gyorsítótár-végpontok szigorú ügyfél-ellenőrzéssel és védekező kérésszabályozással.
+- Adatbázis-helyreállítás és tárolás biztonsága: Visszaállította a zökkenőmentes hozzáférést a korábbi konvertált sávokhoz, és kiküszöbölte a redundáns séma inicializálási konfliktusait az alkalmazás indításakor.
+- Offline előzmények megőrzése: Biztosított, hogy az állandó rekordok és kedvencek megszakítás nélkül elérhetők maradnak az összes verziófrissítés során.

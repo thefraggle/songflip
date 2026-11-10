@@ -1,2 +1,2 @@
-- Bentuk Jamak & Lokalisasi Tata Bahasa: Variasi jamak asli di semua bahasa yang didukung untuk penghitung yang tepat dan pemberitahuan konflik tanpa tanda kurung yang canggung.
-- Keamanan Titik Akhir & Pembatasan Nilai: Memperkuat akuisisi token akustik dan titik akhir cache terdistribusi dengan verifikasi klien yang ketat dan pembatasan permintaan defensif.
+- Pemulihan Basis Data & Keamanan Penyimpanan: Memulihkan akses tanpa batas ke trek historis yang dikonversi dan menghilangkan konflik inisialisasi skema yang berlebihan pada startup aplikasi.
+- Pelestarian Riwayat Offline: Memastikan rekam jejak dan favorit tetap dapat diakses sepenuhnya di semua pembaruan versi tanpa gangguan.

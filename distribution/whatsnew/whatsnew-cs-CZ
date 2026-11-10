@@ -1,2 +1,2 @@
-- Gramatická množná čísla a lokalizace: Nativní variace množného čísla ve všech podporovaných jazycích k zajištění přesných počítadel a upozornění na konflikty bez nepříjemných závorek.
-- Zabezpečení koncových bodů a omezení rychlosti: Posílené získávání akustických tokenů a distribuované koncové body mezipaměti s přísným ověřováním klientů a defenzivním omezením požadavků.
+- Obnova databáze a bezpečnost úložiště: Obnovený bezproblémový přístup k historickým převedeným stopám a eliminace nadbytečných konfliktů inicializace schématu při spuštění aplikace.
+- Uchování offline historie: Zajištěné trvalé záznamy tras a oblíbené položky zůstanou plně dostupné ve všech aktualizacích verzí bez přerušení.

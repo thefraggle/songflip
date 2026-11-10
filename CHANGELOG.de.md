@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.14.11] - 2026-11-10
+- **Datenwiederherstellung & Speichersicherheit**: Zuverlässiger Zugriff auf gespeicherte Titel im Verlauf wiederhergestellt und Konflikte bei der Datenbankinitialisierung behoben.
+- **Verlaufserhaltung & Ausfallsicherheit**: Lokale Titelchroniken und Favoriten bleiben bei allen Aktualisierungen dauerhaft und unterbrechungsfrei erhalten.
+
 ## [1.14.10] - 2026-11-10
 - **Grammatikalische Pluralregeln & Feinschliff**: Native Plural-Variationen für alle unterstützten Sprachen für präzise Zähler und Statusanzeigen ohne unschöne Klammerzusätze.
 - **Endpunkt-Sicherheit & Ratenbegrenzung**: Erweiterte Absicherung der Erkennungs- und Cache-Endpunkte durch strikte Client-Prüfungen und adaptive Ratenbegrenzung.

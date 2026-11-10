@@ -1,2 +1,2 @@
-- Plurali grammaticali e localizzazione: variazioni plurali native in tutte le lingue supportate per contatori precisi e notifiche di conflitto senza parentesi scomode.
-- Sicurezza degli endpoint e limitazione della velocità: acquisizione rafforzata di token acustici ed endpoint della cache distribuita con verifica rigorosa del client e limitazione delle richieste difensive.
+- Ripristino del database e sicurezza dell'archiviazione: ripristino dell'accesso continuo alle tracce storiche convertite ed eliminazione dei conflitti di inizializzazione dello schema ridondante all'avvio dell'applicazione.
+- Conservazione della cronologia offline: Garantiamo che i track record e i preferiti persistenti rimangano completamente accessibili attraverso tutti gli aggiornamenti di versione senza interruzioni.
