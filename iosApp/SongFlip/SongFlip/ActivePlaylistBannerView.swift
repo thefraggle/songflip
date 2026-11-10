@@ -12,7 +12,7 @@ struct ActivePlaylistBannerView: View {
     let onOpenDetails: (String) -> Void
 
     var body: some View {
-        let sourceName = UrlUtils.shared.detectPlatformName(url: activePlaylist.playlistUrl)
+        let sourceName = detectSourcePlatformName(url: activePlaylist.playlistUrl)
         let targetChoice = PlatformChoice(rawValue: activePlaylist.targetPlatformKey)
         let targetName = targetChoice?.displayName ?? activePlaylist.targetPlatformKey
 
