@@ -272,8 +272,14 @@
     <string name="app_links_btn_configure_app">%s में समायोजित करें</string>
     <string name="app_links_target_app_hint">आपके पसंदीदा प्लेयर (%s) के लिंक को रीडायरेक्ट करने की आवश्यकता नहीं है — केवल अन्य सेवाओं को कॉन्फ़िगर करें।</string>
     <string name="setup_card_conflict_title">लिंक विरोध का पता चला</string>
-    <string name="setup_card_conflict_desc">%d इंस्टॉल किया गया ऐप सीधे लिंक खोलता है। SongFlip का उपयोग करने के लिए आप वैकल्पिक रूप से इसे समायोजित कर सकते हैं।</string>
-    <string name="setup_card_conflict_badge">%d विरोधी सेवा(एं) (वैकल्पिक)</string>
+    <plurals name="setup_card_conflict_desc">
+        <item quantity="one">%1$d इंस्टॉल किया गया ऐप सीधे लिंक खोलता है। SongFlip का उपयोग करने के लिए आप वैकल्पिक रूप से इसे समायोजित कर सकते हैं।</item>
+        <item quantity="other">%1$d इंस्टॉल किया गया ऐप सीधे लिंक खोलता है। SongFlip का उपयोग करने के लिए आप वैकल्पिक रूप से इसे समायोजित कर सकते हैं।</item>
+    </plurals>
+    <plurals name="setup_card_conflict_badge">
+        <item quantity="one">%1$d विरोधी सेवा (वैकल्पिक)</item>
+        <item quantity="other">%1$d विरोधी सेवा (वैकल्पिक)</item>
+    </plurals>
     <string name="settings_ask_every_time_title">हर बार लक्ष्य ऐप पूछें</string>
     <string name="settings_ask_every_time_subtitle">सीधे डिफ़ॉल्ट प्लेयर खोलने के बजाय त्वरित पिकर दिखाएं</string>
     <string name="quick_picker_title">इसके साथ खोलें …</string>
@@ -412,7 +418,10 @@
     <string name="listen_scan_again">कोई दूसरा गाना पहचानें</string>
     <string name="listen_offline_saved_title">ऑफ़लाइन क्लब मोड में सेव किया गया</string>
     <string name="listen_offline_saved_desc">ऑडियो फ़िंगरप्रिंट सेव हो गया (%1$d बाकी)। ऑनलाइन आते ही SongFlip इसे अपने-आप पहचान लेगा।</string>
-    <string name="listen_offline_resolved_toast">%1$d ऑफ़लाइन गाने पहचाने गए और हिस्ट्री में जोड़े गए!</string>
+        <plurals name="listen_offline_resolved_toast">
+        <item quantity="one">%1$d ऑफ़लाइन गाने पहचाने गए और हिस्ट्री में जोड़े गए!</item>
+        <item quantity="other">%1$d ऑफ़लाइन गाने पहचाने गए और हिस्ट्री में जोड़े गए!</item>
+    </plurals>
     <string name="listen_no_match_title">कोई गाना नहीं पहचाना गया</string>
     <string name="listen_no_match_subtitle">सुनिश्चित करें कि संगीत पर्याप्त तेज़ है और फिर से प्रयास करें। मुफ़्त स्कैन केवल गाना मिलने पर ही गिने जाते हैं।</string>
     <string name="listen_try_again">फिर से कोशिश करें</string>

@@ -1,3 +1,2 @@
-- Data Integrity & Storage Safety: Enforced database migration verification to guarantee seamless local storage consistency across updates.
-- Error Transparency: Eliminated silent failure paths during link redirection to ensure clear diagnostics on network interruptions.
-- Localization Refinement: Completed multilingual system descriptions across 12 additional languages and refined traditional characters.
+- Grammatiske flertallsformer og lokalisering: Innfødt flertallsvariasjoner på tvers av alle støttede språk for presise tellere og konfliktvarsler uten vanskelige parenteser.
+- Endpoint Security & Rate Limiting: Herdet akustisk tokeninnhenting og distribuerte cache-endepunkter med streng klientverifisering og defensiv forespørselskontroll.

@@ -268,8 +268,12 @@
     <string name="app_links_btn_configure_app">Sesuaikan di %s</string>
     <string name="app_links_target_app_hint">Tautan dari pemutar favorit Anda (%s) tidak perlu dialihkan — cukup atur layanan lain.</string>
     <string name="setup_card_conflict_title">Konflik Tautan Terdeteksi</string>
-    <string name="setup_card_conflict_desc">%d aplikasi terinstal membuka tautan secara langsung. Anda dapat menyesuaikannya secara opsional untuk menggunakan SongFlip.</string>
-    <string name="setup_card_conflict_badge">%d layanan bentrok (opsional)</string>
+    <plurals name="setup_card_conflict_desc">
+        <item quantity="other">%1$d aplikasi terinstal membuka tautan secara langsung. Anda dapat menyesuaikannya secara opsional untuk menggunakan SongFlip.</item>
+    </plurals>
+    <plurals name="setup_card_conflict_badge">
+        <item quantity="other">%1$d layanan bentrok (opsional)</item>
+    </plurals>
     <string name="settings_ask_every_time_title">Tanyakan aplikasi tujuan setiap saat</string>
     <string name="settings_ask_every_time_subtitle">Tampilkan pemilih cepat daripada langsung membuka pemutar default</string>
     <string name="quick_picker_title">Buka dengan …</string>
@@ -408,7 +412,9 @@
     <string name="listen_scan_again">Kenali lagu lain</string>
     <string name="listen_offline_saved_title">Disimpan di Mode Klub Offline</string>
     <string name="listen_offline_saved_desc">Sidik jari audio disimpan (%1$d tertunda). SongFlip akan mengenalinya secara otomatis saat Anda kembali online.</string>
-    <string name="listen_offline_resolved_toast">%1$d lagu offline berhasil dikenali dan ditambahkan ke Riwayat!</string>
+        <plurals name="listen_offline_resolved_toast">
+        <item quantity="other">%1$d lagu offline berhasil dikenali dan ditambahkan ke Riwayat!</item>
+    </plurals>
     <string name="listen_no_match_title">Lagu tidak dikenali</string>
     <string name="listen_no_match_subtitle">Pastikan musik cukup keras lalu coba lagi. Kuota gratis hanya dihitung jika lagu ditemukan.</string>
     <string name="listen_try_again">Coba Lagi</string>

@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -106,7 +107,7 @@ fun SetupCard(
 
                 if (diagnosisSummary != null && diagnosisSummary.blockedCount > 0) {
                     StatusBadge(
-                        text = stringResource(R.string.setup_card_conflict_badge, diagnosisSummary.blockedCount),
+                        text = pluralStringResource(R.plurals.setup_card_conflict_badge, diagnosisSummary.blockedCount, diagnosisSummary.blockedCount),
                         statusType = StatusType.WARNING,
                         onClick = {
                             haptic.performHapticFeedback(HapticFeedbackType.LongPress)

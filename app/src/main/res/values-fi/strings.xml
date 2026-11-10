@@ -258,8 +258,14 @@
     <string name="app_links_btn_configure_app">Säädä kohteessa %s</string>
     <string name="app_links_target_app_hint">Suosikkisoittimesi (%s) linkit eivät tarvitse uudelleenohjausta — määritä vain muut palvelut.</string>
     <string name="setup_card_conflict_title">Linkkiristiriitoja havaittu</string>
-    <string name="setup_card_conflict_desc">%d asennettua sovellusta avaa linkit suoraan. Voit halutessasi säätää tätä käyttääksesi SongFlipiä.</string>
-    <string name="setup_card_conflict_badge">%d ristiriitaista palvelua (valinnainen)</string>
+    <plurals name="setup_card_conflict_desc">
+        <item quantity="one">%1$d asennettua sovellusta avaa linkit suoraan. Voit halutessasi säätää tätä käyttääksesi SongFlipiä.</item>
+        <item quantity="other">%1$d asennettua sovellusta avaa linkit suoraan. Voit halutessasi säätää tätä käyttääksesi SongFlipiä.</item>
+    </plurals>
+    <plurals name="setup_card_conflict_badge">
+        <item quantity="one">%1$d ristiriitaista palvelua (valinnainen)</item>
+        <item quantity="other">%1$d ristiriitaista palvelua (valinnainen)</item>
+    </plurals>
     <string name="settings_ask_every_time_title">Kysy kohdesovellusta joka kerta</string>
     <string name="settings_ask_every_time_subtitle">Näytä pikavalitsin sen sijaan, että oletussoitin avattaisiin heti</string>
     <string name="quick_picker_title">Avaa sovelluksella …</string>
@@ -398,7 +404,10 @@
     <string name="listen_scan_again">Tunnista toinen kappale</string>
     <string name="listen_offline_saved_title">Tallennettu offline-klubitilaan</string>
     <string name="listen_offline_saved_desc">Äänitunniste tallennettu (%1$d odottaa). SongFlip tunnistaa kappaleen automaattisesti, kun olet taas verkossa.</string>
-    <string name="listen_offline_resolved_toast">%1$d offline-kappale(tta) tunnistettu ja lisätty historiaan!</string>
+        <plurals name="listen_offline_resolved_toast">
+        <item quantity="one">%1$d offline-kappale tunnistettu ja lisätty historiaan!</item>
+        <item quantity="other">%1$d offline-kappale tunnistettu ja lisätty historiaan!</item>
+    </plurals>
     <string name="listen_no_match_title">Kappaletta ei tunnistettu</string>
     <string name="listen_no_match_subtitle">Varmista, että musiikki kuuluu tarpeeksi kovaa ja yritä uudelleen. Ilmaiset kerrat kuluvat vain osumasta.</string>
     <string name="listen_try_again">Yritä uudelleen</string>

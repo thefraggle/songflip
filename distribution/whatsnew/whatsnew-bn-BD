@@ -1,3 +1,1 @@
-- Data Integrity & Storage Safety: Enforced database migration verification to guarantee seamless local storage consistency across updates.
-- Error Transparency: Eliminated silent failure paths during link redirection to ensure clear diagnostics on network interruptions.
-- Localization Refinement: Completed multilingual system descriptions across 12 additional languages and refined traditional characters.
+- ব্যাকরণগত বহুবচন এবং স্থানীয়করণ: বিশ্রী বন্ধনী ছাড়া সুনির্দিষ্ট কাউন্টার এবং দ্বন্দ্ব বিজ্ঞপ্তিগুলির জন্য সমস্ত সমর্থিত ভাষা জুড়ে স্থানীয় বহুবচন বৈচিত্র।

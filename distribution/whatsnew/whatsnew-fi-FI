@@ -1,3 +1,2 @@
-- Data Integrity & Storage Safety: Enforced database migration verification to guarantee seamless local storage consistency across updates.
-- Error Transparency: Eliminated silent failure paths during link redirection to ensure clear diagnostics on network interruptions.
-- Localization Refinement: Completed multilingual system descriptions across 12 additional languages and refined traditional characters.
+- Kieliopilliset monikkomuodot ja lokalisointi: Natiivit monikkomuunnelmat kaikilla tuetuilla kielillä tarkkoja laskureita ja ristiriitailmoituksia varten ilman hankalia sulkeita.
+- Päätepisteen suojaus ja nopeuden rajoitus: Vahvistettu akustinen tunnuksen hankinta ja hajautetut välimuistin päätepisteet, joissa on tiukka asiakasvarmistus ja puolustava pyyntöjen kuristus.

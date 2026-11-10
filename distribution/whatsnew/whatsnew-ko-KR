@@ -1,3 +1,2 @@
-- Data Integrity & Storage Safety: Enforced database migration verification to guarantee seamless local storage consistency across updates.
-- Error Transparency: Eliminated silent failure paths during link redirection to ensure clear diagnostics on network interruptions.
-- Localization Refinement: Completed multilingual system descriptions across 12 additional languages and refined traditional characters.
+- 문법적 복수형 및 현지화: 어색한 괄호 없이 정확한 카운터 및 충돌 알림을 위해 지원되는 모든 언어에 대한 기본 복수형 변형입니다.
+- 엔드포인트 보안 및 속도 제한: 엄격한 클라이언트 확인 및 방어 요청 제한을 통해 강화된 음향 토큰 획득 및 분산 캐시 엔드포인트입니다.

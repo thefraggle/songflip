@@ -1,3 +1,1 @@
-- Data Integrity & Storage Safety: Enforced database migration verification to guarantee seamless local storage consistency across updates.
-- Error Transparency: Eliminated silent failure paths during link redirection to ensure clear diagnostics on network interruptions.
-- Localization Refinement: Completed multilingual system descriptions across 12 additional languages and refined traditional characters.
+- Граматичні форми множини та локалізація: рідні варіанти множини для всіх підтримуваних мов для точних лічильників і повідомлень про конфлікти без незграбних дужок.

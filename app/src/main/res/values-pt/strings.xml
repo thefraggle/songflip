@@ -272,8 +272,14 @@
     <string name="app_links_btn_configure_app">Ajustar em %s</string>
     <string name="app_links_target_app_hint">Links do seu reprodutor favorito (%s) não precisam de redirecionamento — configure apenas outros serviços.</string>
     <string name="setup_card_conflict_title">Conflitos de links detectados</string>
-    <string name="setup_card_conflict_desc">%d aplicativo(s) instalado(s) abrem links diretamente. Você pode opcionalmente ajustar isso para usar o SongFlip.</string>
-    <string name="setup_card_conflict_badge">%d serviço(s) em conflito (opcional)</string>
+    <plurals name="setup_card_conflict_desc">
+        <item quantity="one">%1$d aplicativo instalado abre links diretamente. Você pode ajustar isso para o SongFlip.</item>
+        <item quantity="other">%1$d aplicativos instalados abrem links diretamente. Você pode ajustar isso para o SongFlip.</item>
+    </plurals>
+    <plurals name="setup_card_conflict_badge">
+        <item quantity="one">%1$d serviço em conflito (opcional)</item>
+        <item quantity="other">%1$d serviços em conflito (opcional)</item>
+    </plurals>
     <string name="settings_ask_every_time_title">Perguntar app de destino sempre</string>
     <string name="settings_ask_every_time_subtitle">Mostrar seletor rápido em vez de abrir logo o leitor padrão</string>
     <string name="quick_picker_title">Abrir com …</string>
@@ -412,7 +418,10 @@
     <string name="listen_scan_again">Identificar outra música</string>
     <string name="listen_offline_saved_title">Salvo no Modo Clube Offline</string>
     <string name="listen_offline_saved_desc">Assinatura de áudio salva (%1$d pendente). O SongFlip identificará a música automaticamente quando você estiver online.</string>
-    <string name="listen_offline_resolved_toast">%1$d música(s) offline identificada(s) e salva(s) no histórico!</string>
+        <plurals name="listen_offline_resolved_toast">
+        <item quantity="one">%1$d música offline identificada e salva no histórico!</item>
+        <item quantity="other">%1$d músicas offline identificadas e salvas no histórico!</item>
+    </plurals>
     <string name="listen_no_match_title">Nenhuma música identificada</string>
     <string name="listen_no_match_subtitle">Certifique-se de que a música esteja alta o suficiente e tente novamente. Scans grátis só contam quando há resultado.</string>
     <string name="listen_try_again">Tentar novamente</string>

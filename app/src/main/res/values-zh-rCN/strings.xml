@@ -268,8 +268,12 @@
     <string name="app_links_btn_configure_app">在 %s 中调整</string>
     <string name="app_links_target_app_hint">来自首选播放器 (%s) 的链接无需重定向 — 只需配置其他服务。</string>
     <string name="setup_card_conflict_title">检测到链接冲突</string>
-    <string name="setup_card_conflict_desc">%d 个已安装应用会直接打开链接。您可以选择调整设置以使用 SongFlip。</string>
-    <string name="setup_card_conflict_badge">%d 个冲突服务（可选）</string>
+    <plurals name="setup_card_conflict_desc">
+        <item quantity="other">%1$d 个已安装应用会直接打开链接。您可以选择调整设置以使用 SongFlip。</item>
+    </plurals>
+    <plurals name="setup_card_conflict_badge">
+        <item quantity="other">%1$d 个冲突服务（可选）</item>
+    </plurals>
     <string name="settings_ask_every_time_title">每次询问目标应用</string>
     <string name="settings_ask_every_time_subtitle">显示快捷选择器，而不是直接打开默认播放器</string>
     <string name="quick_picker_title">打开方式 …</string>
@@ -408,7 +412,9 @@
     <string name="listen_scan_again">识别另一首歌曲</string>
     <string name="listen_offline_saved_title">已保存到离线俱乐部模式</string>
     <string name="listen_offline_saved_desc">音频指纹已保存（%1$d 首待处理）。恢复网络连接后，SongFlip 将自动为您识别。</string>
-    <string name="listen_offline_resolved_toast">已成功识别 %1$d 首离线歌曲并加入历史记录！</string>
+        <plurals name="listen_offline_resolved_toast">
+        <item quantity="other">已成功识别 %1$d 首离线歌曲并加入历史记录！</item>
+    </plurals>
     <string name="listen_no_match_title">未能识别出歌曲</string>
     <string name="listen_no_match_subtitle">请确保周围音乐足够清晰后重试。未识别成功不会消耗免费次数。</string>
     <string name="listen_try_again">重试</string>

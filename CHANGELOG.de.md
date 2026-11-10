@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.14.10] - 2026-11-10
+- **Grammatikalische Pluralregeln & Feinschliff**: Native Plural-Variationen für alle unterstützten Sprachen für präzise Zähler und Statusanzeigen ohne unschöne Klammerzusätze.
+- **Endpunkt-Sicherheit & Ratenbegrenzung**: Erweiterte Absicherung der Erkennungs- und Cache-Endpunkte durch strikte Client-Prüfungen und adaptive Ratenbegrenzung.
+
 ## [1.14.9] - 2026-11-10
 - **Datenintegrität & Speicherzuverlässigkeit**: Aktivierung lückenloser Datenbankschema-Prüfungen zur dauerhaften Absicherung lokaler Verlaufsdaten.
 - **Fehlertransparenz**: Beseitigung stiller Fehlerpfade bei der Weiterleitung für verlässliche Rückmeldungen bei Netzwerkunterbrechungen.

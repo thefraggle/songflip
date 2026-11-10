@@ -272,8 +272,14 @@
     <string name="app_links_btn_configure_app">Juster i %s</string>
     <string name="app_links_target_app_hint">Lenker fra din favorittspiller (%s) trenger ikke omdirigering – konfigurer bare andre tjenester.</string>
     <string name="setup_card_conflict_title">Lenkekonflikter oppdaget</string>
-    <string name="setup_card_conflict_desc">%d installert(e) app(er) åpner lenker direkte. Du kan valgfritt justere dette for å bruke SongFlip.</string>
-    <string name="setup_card_conflict_badge">%d motstridende tjeneste(r) (valgfritt)</string>
+    <plurals name="setup_card_conflict_desc">
+        <item quantity="one">%1$d installert app åpner lenker direkte. Du kan justere dette for SongFlip.</item>
+        <item quantity="other">%1$d installerte apper åpner lenker direkte. Du kan justere dette for SongFlip.</item>
+    </plurals>
+    <plurals name="setup_card_conflict_badge">
+        <item quantity="one">%1$d motstridende tjeneste (valgfritt)</item>
+        <item quantity="other">%1$d motstridende tjenester (valgfritt)</item>
+    </plurals>
     <string name="settings_ask_every_time_title">Spør om mål-app hver gang</string>
     <string name="settings_ask_every_time_subtitle">Vis hurtigvalg i stedet for å åpne standardspilleren med en gang</string>
     <string name="quick_picker_title">Åpne med …</string>
@@ -412,7 +418,10 @@
     <string name="listen_scan_again">Gjenkjenn en annen sang</string>
     <string name="listen_offline_saved_title">Lagret i Offline Club Mode</string>
     <string name="listen_offline_saved_desc">Lydsignatur lagret (%1$d venter). SongFlip gjenkjenner sangen automatisk når du er på nett igjen.</string>
-    <string name="listen_offline_resolved_toast">%1$d frakoblet(e) sang(er) gjenkjent og lagt til i historikk!</string>
+        <plurals name="listen_offline_resolved_toast">
+        <item quantity="one">%1$d frakoblet sang gjenkjent og lagt til i historikk!</item>
+        <item quantity="other">%1$d frakoblede sanger gjenkjent og lagt til i historikk!</item>
+    </plurals>
     <string name="listen_no_match_title">Ingen sang gjenkjent</string>
     <string name="listen_no_match_subtitle">Sørg for at musikken er høy nok og prøv igjen. Gratis skanninger telles kun ved treff.</string>
     <string name="listen_try_again">Prøv igjen</string>

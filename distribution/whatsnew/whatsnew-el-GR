@@ -1,3 +1,1 @@
-- Data Integrity & Storage Safety: Enforced database migration verification to guarantee seamless local storage consistency across updates.
-- Error Transparency: Eliminated silent failure paths during link redirection to ensure clear diagnostics on network interruptions.
-- Localization Refinement: Completed multilingual system descriptions across 12 additional languages and refined traditional characters.
+- Γραμματικοί πληθυντικοί και τοπική προσαρμογή: Εγγενείς παραλλαγές πληθυντικού σε όλες τις υποστηριζόμενες γλώσσες για ακριβείς μετρητές και ειδοποιήσεις διένεξης χωρίς άβολες παρενθέσεις.

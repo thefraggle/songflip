@@ -262,8 +262,16 @@
     <string name="app_links_btn_configure_app">Ajustează în %s</string>
     <string name="app_links_target_app_hint">Linkurile de la playerul preferat (%s) nu au nevoie de redirecționare — configurați doar celelalte servicii.</string>
     <string name="setup_card_conflict_title">Conflicte de linkuri detectate</string>
-    <string name="setup_card_conflict_desc">%d aplicație(i) instalată(e) deschid linkurile direct. Puteți ajusta opțional pentru a utiliza SongFlip.</string>
-    <string name="setup_card_conflict_badge">%d servicii în conflict (opțional)</string>
+    <plurals name="setup_card_conflict_desc">
+        <item quantity="one">%1$d aplicație instalată deschide linkurile direct. Puteți ajusta pentru SongFlip.</item>
+        <item quantity="few">%1$d aplicații instalate deschid linkurile direct. Puteți ajusta pentru SongFlip.</item>
+        <item quantity="other">%1$d de aplicații instalate deschid linkurile direct. Puteți ajusta pentru SongFlip.</item>
+    </plurals>
+    <plurals name="setup_card_conflict_badge">
+        <item quantity="one">%1$d serviciu în conflict (opțional)</item>
+        <item quantity="few">%1$d servicii în conflict (opțional)</item>
+        <item quantity="other">%1$d de servicii în conflict (opțional)</item>
+    </plurals>
     <string name="settings_ask_every_time_title">Întreabă aplicația țintă de fiecare dată</string>
     <string name="settings_ask_every_time_subtitle">Afișează un selector rapid în loc să deschidă direct playerul implicit</string>
     <string name="quick_picker_title">Deschide cu …</string>
@@ -402,7 +410,11 @@
     <string name="listen_scan_again">Identifică altă melodie</string>
     <string name="listen_offline_saved_title">Salvat în Modul Club Offline</string>
     <string name="listen_offline_saved_desc">Amprenta audio a fost salvată (%1$d în așteptare). SongFlip va identifica melodia automat când revii online.</string>
-    <string name="listen_offline_resolved_toast">%1$d melodii offline identificate și adăugate în istoric!</string>
+        <plurals name="listen_offline_resolved_toast">
+        <item quantity="one">%1$d melodie offline identificată și adăugată în istoric!</item>
+        <item quantity="few">%1$d melodii offline identificate și adăugate în istoric!</item>
+        <item quantity="other">%1$d de melodii offline identificate și adăugate în istoric!</item>
+    </plurals>
     <string name="listen_no_match_title">Nicio melodie identificată</string>
     <string name="listen_no_match_subtitle">Asigură-te că muzica se aude suficient de tare și încearcă din nou. Scanările gratuite se contorizează doar la găsire.</string>
     <string name="listen_try_again">Încearcă din nou</string>

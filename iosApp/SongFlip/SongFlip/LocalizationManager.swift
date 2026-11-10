@@ -84,6 +84,17 @@ enum LocalizationManager {
 
         return key
     }
+
+    nonisolated static func plural(for key: String, count: Int) -> String {
+        plural(for: key, count: count, lang: currentLanguage())
+    }
+
+    nonisolated static func plural(for key: String, count: Int, lang: String) -> String {
+        let targetBundle = bundle(for: lang)
+        let format = NSLocalizedString(key, bundle: targetBundle, comment: "")
+        let locale = Locale(identifier: lang)
+        return String(format: format, locale: locale, count)
+    }
 }
 
 extension View {

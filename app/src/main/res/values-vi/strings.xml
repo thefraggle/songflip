@@ -268,8 +268,12 @@
     <string name="app_links_btn_configure_app">Điều chỉnh trong %s</string>
     <string name="app_links_target_app_hint">Liên kết từ trình phát yêu thích (%s) không cần chuyển hướng — chỉ cần định cấu hình các dịch vụ khác.</string>
     <string name="setup_card_conflict_title">Phát hiện xung đột liên kết</string>
-    <string name="setup_card_conflict_desc">%d ứng dụng đã cài đặt mở liên kết trực tiếp. Bạn có thể tùy chọn điều chỉnh để sử dụng SongFlip.</string>
-    <string name="setup_card_conflict_badge">%d dịch vụ xung đột (tùy chọn)</string>
+    <plurals name="setup_card_conflict_desc">
+        <item quantity="other">%1$d ứng dụng đã cài đặt mở liên kết trực tiếp. Bạn có thể tùy chọn điều chỉnh để sử dụng SongFlip.</item>
+    </plurals>
+    <plurals name="setup_card_conflict_badge">
+        <item quantity="other">%1$d dịch vụ xung đột (tùy chọn)</item>
+    </plurals>
     <string name="settings_ask_every_time_title">Hỏi ứng dụng phát mỗi lần</string>
     <string name="settings_ask_every_time_subtitle">Hiển thị bộ chọn nhanh thay vì mở ngay trình phát mặc định</string>
     <string name="quick_picker_title">Mở bằng …</string>
@@ -408,7 +412,9 @@
     <string name="listen_scan_again">Nhận diện bài hát khác</string>
     <string name="listen_offline_saved_title">Đã lưu trong Chế độ Offline</string>
     <string name="listen_offline_saved_desc">Đã lưu dấu vân tay âm thanh (%1$d đang chờ). SongFlip sẽ tự động nhận diện khi có mạng trở lại.</string>
-    <string name="listen_offline_resolved_toast">Đã nhận diện %1$d bài hát offline và thêm vào Lịch sử!</string>
+        <plurals name="listen_offline_resolved_toast">
+        <item quantity="other">Đã nhận diện %1$d bài hát offline và thêm vào Lịch sử!</item>
+    </plurals>
     <string name="listen_no_match_title">Không nhận diện được bài hát</string>
     <string name="listen_no_match_subtitle">Hãy đảm bảo nhạc đủ lớn và thử lại. Lượt miễn phí chỉ tính khi tìm thấy bài hát.</string>
     <string name="listen_try_again">Thử lại</string>

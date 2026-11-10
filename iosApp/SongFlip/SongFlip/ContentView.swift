@@ -276,10 +276,7 @@ struct ContentView: View {
                         isPro: proManager.isPro
                     )
                     if resolved > 0 {
-                        showToast(String(
-                            format: LocalizationManager.string(for: "listen_offline_resolved_toast", lang: lang),
-                            resolved
-                        ))
+                        showToast(LocalizationManager.plural(for: "listen_offline_resolved_toast", count: resolved, lang: lang))
                     }
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
@@ -301,10 +298,7 @@ struct ContentView: View {
                             isPro: proManager.isPro
                         )
                         if resolved > 0 {
-                            showToast(String(
-                                format: LocalizationManager.string(for: "listen_offline_resolved_toast", lang: lang),
-                                resolved
-                            ))
+                            showToast(LocalizationManager.plural(for: "listen_offline_resolved_toast", count: resolved, lang: lang))
                         }
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {

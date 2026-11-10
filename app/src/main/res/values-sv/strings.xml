@@ -272,8 +272,14 @@
     <string name="app_links_btn_configure_app">Justera i %s</string>
     <string name="app_links_target_app_hint">Länkar från din favoritspelare (%s) behöver inte omdirigeras – konfigurera bara andra tjänster.</string>
     <string name="setup_card_conflict_title">Länkkonflikter upptäcktes</string>
-    <string name="setup_card_conflict_desc">%d installerade appar öppnar länkar direkt. Du kan valfritt justera detta för att använda SongFlip.</string>
-    <string name="setup_card_conflict_badge">%d konfliktande tjänst(er) (valfritt)</string>
+    <plurals name="setup_card_conflict_desc">
+        <item quantity="one">%1$d installerad app öppnar länkar direkt. Du kan anpassa detta för SongFlip.</item>
+        <item quantity="other">%1$d installerade appar öppnar länkar direkt. Du kan anpassa detta för SongFlip.</item>
+    </plurals>
+    <plurals name="setup_card_conflict_badge">
+        <item quantity="one">%1$d konfliktande tjänst (valfritt)</item>
+        <item quantity="other">%1$d konfliktande tjänster (valfritt)</item>
+    </plurals>
     <string name="settings_ask_every_time_title">Fråga efter målapp varje gång</string>
     <string name="settings_ask_every_time_subtitle">Visa snabbval istället för att direkt öppna standardspelaren</string>
     <string name="quick_picker_title">Öppna med …</string>
@@ -412,7 +418,10 @@
     <string name="listen_scan_again">Identifiera en annan låt</string>
     <string name="listen_offline_saved_title">Sparad för Offline Club Mode</string>
     <string name="listen_offline_saved_desc">Ljudavtryck sparat (%1$d väntar). SongFlip identifierar låten automatiskt när du är online igen.</string>
-    <string name="listen_offline_resolved_toast">%1$d offlinelåt(ar) identifierade och sparade i historiken!</string>
+        <plurals name="listen_offline_resolved_toast">
+        <item quantity="one">%1$d offlinelåt identifierad och sparad i historiken!</item>
+        <item quantity="other">%1$d offlinelåtar identifierade och sparade i historiken!</item>
+    </plurals>
     <string name="listen_no_match_title">Ingen låt identifierades</string>
     <string name="listen_no_match_subtitle">Se till att musiken är tillräckligt hög och försök igen. Gratis skanningar räknas bara vid träff.</string>
     <string name="listen_try_again">Försök igen</string>

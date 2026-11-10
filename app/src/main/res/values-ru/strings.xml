@@ -280,8 +280,18 @@
     <string name="app_links_btn_configure_app">Настроить в %s</string>
     <string name="app_links_target_app_hint">Ссылки из вашего любимого плеера (%s) не требуют перенаправления — настраивайте только другие сервисы.</string>
     <string name="setup_card_conflict_title">Обнаружены конфликты ссылок</string>
-    <string name="setup_card_conflict_desc">%d установленных приложений открывают ссылки напрямую. Вы можете при желании изменить это, чтобы использовать SongFlip.</string>
-    <string name="setup_card_conflict_badge">%d конфликтных служб (необязательно)</string>
+    <plurals name="setup_card_conflict_desc">
+        <item quantity="one">%1$d установленное приложение открывает ссылки напрямую. Можно настроить SongFlip.</item>
+        <item quantity="few">%1$d установленных приложения открывают ссылки напрямую. Можно настроить SongFlip.</item>
+        <item quantity="many">%1$d установленных приложений открывают ссылки напрямую. Можно настроить SongFlip.</item>
+        <item quantity="other">%1$d установленных приложений открывают ссылки напрямую. Можно настроить SongFlip.</item>
+    </plurals>
+    <plurals name="setup_card_conflict_badge">
+        <item quantity="one">%1$d конфликтная служба (необязательно)</item>
+        <item quantity="few">%1$d конфликтные службы (необязательно)</item>
+        <item quantity="many">%1$d конфликтных служб (необязательно)</item>
+        <item quantity="other">%1$d конфликтных служб (необязательно)</item>
+    </plurals>
     <string name="settings_ask_every_time_title">Спрашивать целевое приложение каждый раз</string>
     <string name="settings_ask_every_time_subtitle">Показывать быстрый выбор вместо немедленного открытия стандартного плеера</string>
     <string name="quick_picker_title">Открыть с помощью …</string>
@@ -420,7 +430,12 @@
     <string name="listen_scan_again">Распознать другой трек</string>
     <string name="listen_offline_saved_title">Сохранено в офлайн-режиме</string>
     <string name="listen_offline_saved_desc">Аудио-отпечаток сохранен (в очереди: %1$d). SongFlip автоматически распознает трек, когда появится сеть.</string>
-    <string name="listen_offline_resolved_toast">Распознано офлайн-треков: %1$d (добавлены в историю)!</string>
+        <plurals name="listen_offline_resolved_toast">
+        <item quantity="one">Распознан %1$d офлайн-трек (добавлен в историю)!</item>
+        <item quantity="few">Распознано %1$d офлайн-трека (добавлены в историю)!</item>
+        <item quantity="many">Распознано %1$d офлайн-треков (добавлены в историю)!</item>
+        <item quantity="other">Распознано %1$d офлайн-треков (добавлены в историю)!</item>
+    </plurals>
     <string name="listen_no_match_title">Трек не распознан</string>
     <string name="listen_no_match_subtitle">Убедитесь, что музыка играет достаточно громко, и попробуйте снова. Бесплатные попытки списываются только при успехе.</string>
     <string name="listen_try_again">Попробовать снова</string>
