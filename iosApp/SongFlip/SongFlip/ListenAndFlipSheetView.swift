@@ -105,17 +105,23 @@ struct ListenAndFlipSheetView: View {
                             showingQuickPicker = false
                             isResolvingAlternative = true
                             Task {
-                                let res = try? await settings.engine.resolveTargetUrl(
-                                    inputUrl: pUrl,
-                                    targetPlatformKey: chosenPlatform,
-                                    customApiUrl: settings.customApiUrl,
-                                    customApiToken: settings.customApiToken,
-                                    isPro: proManager.isPro,
-                                    authToken: proManager.authToken,
-                                    isPrefetch: false,
-                                    forceRefresh: false,
-                                    audiophileMode: proManager.isPro && settings.audiophileMode
-                                )
+                                let res: ResolutionResult
+                                do {
+                                    res = try await settings.engine.resolveTargetUrl(
+                                        inputUrl: pUrl,
+                                        targetPlatformKey: chosenPlatform,
+                                        customApiUrl: settings.customApiUrl,
+                                        customApiToken: settings.customApiToken,
+                                        isPro: proManager.isPro,
+                                        authToken: proManager.authToken,
+                                        isPrefetch: false,
+                                        forceRefresh: false,
+                                        audiophileMode: proManager.isPro && settings.audiophileMode
+                                    )
+                                } catch {
+                                    let errInfo = FlipCoordinator.mapError(error)
+                                    res = ResolutionResult.Error(message: errInfo.reason, isUnsupported: false, errorReason: errInfo.errorReason)
+                                }
                                 await MainActor.run {
                                     isResolvingAlternative = false
                                     let action = FlipCoordinator.resolveAction(result: res, targetPlatform: chosenPlatform)

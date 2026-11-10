@@ -117,6 +117,78 @@
             "state": "translated",
             "value": "Listen & Flip 使用麦克风识别周围播放的音乐。音频绝不会被录制或存储。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip používá mikrofon k rozpoznávání hudby v okolí. Zvuk se nikdy nenahrává ani neukládá."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Το Listen & Flip χρησιμοποιεί το μικρόφωνο για την αναγνώριση μουσικής γύρω σας. Ο ήχος δεν καταγράφεται ούτε αποθηκεύεται ποτέ."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A Listen & Flip a mikrofont használja a környezetében szóló zene felismerésére. A hangot soha nem rögzítjük és nem tároljuk."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip folosește microfonul pentru a recunoaște muzica din jur. Sunetul nu este niciodată înregistrat sau stocat."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip ใช้ไมโครโฟนเพื่อจำแนกเพลงรอบตัวคุณ เสียงจะไม่ถูกบันทึกหรือจัดเก็บไว้เลย"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip sử dụng micrô để nhận diện nhạc đang phát xung quanh bạn. Âm thanh không bao giờ được ghi âm hoặc lưu trữ."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip menggunakan mikrofon untuk mengenali musik di sekitar Anda. Audio tidak pernah direkam atau disimpan."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip आपके आस-पास बज रहे संगीत को पहचानने के लिए माइक्रोफ़ोन का उपयोग करता है। ऑडियो कभी रिकॉर्ड या संग्रहीत नहीं किया जाता है।"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip আপনার চারপাশের সঙ্গীত সনাক্ত করতে মাইক্রোফোন ব্যবহার করে। অডিও কখনই রেকর্ড বা সংরক্ষণ করা হয় না।"
+          }
+        },
+        "mr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip तुमच्या सभोवतालचे संगीत ओळखण्यासाठी मायक्रोफोन वापरते. ऑडिओ कधीही रेकॉर्ड किंवा संग्रहित केला जात नाही."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يستخدم Listen & Flip الميكروفون للتعرف على الموسيقى من حولك. لا يتم تسجيل الصوت أو تخزينه أبدًا."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen & Flip 使用麥克風識別周圍播放的音樂。音訊絕不會被錄製或儲存。"
+          }
         }
       }
     }

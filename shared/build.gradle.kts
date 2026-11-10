@@ -61,6 +61,8 @@ sqldelight {
     databases {
         create("SongFlipDatabase") {
             packageName.set("de.goork.songflip.core.db")
+            schemaOutputDirectory.set(file("src/commonMain/sqldelight/databases"))
+            verifyMigrations.set(true)
         }
     }
 }

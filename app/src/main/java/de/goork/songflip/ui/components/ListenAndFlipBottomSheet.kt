@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.widget.Toast
+import de.goork.songflip.core.util.SongFlipLogger
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -349,7 +350,9 @@ fun ListenAndFlipBottomSheet(
                                     }
                                     try {
                                         context.startActivity(Intent.createChooser(shareIntent, st.result.title))
-                                    } catch (_: Exception) {}
+                                    } catch (e: Exception) {
+                                        SongFlipLogger.e("ListenAndFlip", "Failed to start share chooser", e)
+                                    }
                                 },
                                 onScanAnother = {
                                     haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)

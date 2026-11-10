@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.14.9] - 2026-11-10
+- **Datenintegrität & Speicherzuverlässigkeit**: Aktivierung lückenloser Datenbankschema-Prüfungen zur dauerhaften Absicherung lokaler Verlaufsdaten.
+- **Fehlertransparenz**: Beseitigung stiller Fehlerpfade bei der Weiterleitung für verlässliche Rückmeldungen bei Netzwerkunterbrechungen.
+- **Lokalisierung & Feinschliff**: Vervollständigung mehrsprachiger Systemhinweise für 12 weitere Sprachen und Optimierung traditioneller Schriftzeichen.
+- **Sicherheit der Build-Pipeline**: Härtung automatisierter Build-Abläufe durch kryptografisch fixierte Signaturen und fortlaufende Abhängigkeitsprüfung.
+
 ## [1.14.8] - 2026-11-10
 - **Datenschutz & Privatsphäre**: Die Erkennung von Links in der Zwischenablage löst keine unaufgeforderten Netzwerkanfragen im Hintergrund mehr aus.
 - **Leistung & Ressourcenschutz**: Der Import von Wiedergabelisten erfolgt nun vollständig asynchron mit einer 2MB-Dateigrößenbegrenzung zum Schutz vor Blockaden.

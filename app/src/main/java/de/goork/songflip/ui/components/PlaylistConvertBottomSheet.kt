@@ -24,6 +24,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import de.goork.songflip.core.engine.PlaylistImportParser
 import de.goork.songflip.core.engine.ParsedImportTrack
 import de.goork.songflip.core.engine.PlaylistExporter
+import de.goork.songflip.core.util.SongFlipLogger
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -291,7 +292,7 @@ fun PlaylistConvertBottomSheet(
 
     LaunchedEffect(playlistUrl, targetPlatformKey, isPro, externalConversionState, importedTracks) {
         if (importedTracks != null) {
-            handleImportedTracks(importedTracks, importedPlaylistTitle ?: "Imported Playlist")
+            handleImportedTracks(importedTracks, importedPlaylistTitle ?: context.getString(R.string.playlist_import_default_title))
         } else if (isSamePlatform) {
             internalConversionState = PlaylistConversionState.SamePlatform
         } else {
@@ -1086,7 +1087,9 @@ fun PlaylistConvertBottomSheet(
                                     context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.playlist_share_link)).apply {
                                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                     })
-                                } catch (_: Exception) {}
+                                } catch (e: Exception) {
+                                    SongFlipLogger.e("PlaylistConvert", "Failed to start share chooser", e)
+                                }
                             },
                             shape = RoundedCornerShape(14.dp),
                             modifier = Modifier
@@ -1126,7 +1129,9 @@ fun PlaylistConvertBottomSheet(
                                     context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.playlist_share_link)).apply {
                                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                     })
-                                } catch (_: Exception) {}
+                                } catch (e: Exception) {
+                                    SongFlipLogger.e("PlaylistConvert", "Failed to start share chooser", e)
+                                }
                             },
                             shape = RoundedCornerShape(14.dp),
                             modifier = Modifier

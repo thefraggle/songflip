@@ -1,2 +1,3 @@
-- Privacidad y confidencialidad: la detección de enlaces del portapapeles ya no activa las solicitudes de red en segundo plano sin la interacción directa del usuario.
-- Rendimiento y seguridad: la importación de archivos de listas de reproducción se maneja de forma completamente asíncrona con una protección de 2 MB de tamaño para evitar bloqueos de la interfaz.
+- Data Integrity & Storage Safety: Enforced database migration verification to guarantee seamless local storage consistency across updates.
+- Error Transparency: Eliminated silent failure paths during link redirection to ensure clear diagnostics on network interruptions.
+- Localization Refinement: Completed multilingual system descriptions across 12 additional languages and refined traditional characters.

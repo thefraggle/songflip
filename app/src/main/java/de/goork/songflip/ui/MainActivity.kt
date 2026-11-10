@@ -345,7 +345,7 @@ fun MainScreen(
                         val inputStream = context.contentResolver.openInputStream(uri)
                         val content = inputStream?.bufferedReader()?.use { it.readText() } ?: ""
                         val parsed = PlaylistImportParser.parse(content, fileNameHint = fileName)
-                        val cleanTitle = fileName?.substringBeforeLast('.') ?: "Imported Playlist"
+                        val cleanTitle = fileName?.substringBeforeLast('.') ?: context.getString(R.string.playlist_import_default_title)
                         Pair(parsed, cleanTitle)
                     }
 

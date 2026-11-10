@@ -1,2 +1,3 @@
-- Confidentialité : la détection des liens du Presse-papiers ne déclenche plus les demandes en arrière-plan du réseau sans interaction directe de l'utilisateur.
-- Performance et sécurité : l'importation de fichiers de liste de lecture est gérée de manière complètement asynchrone avec une sauvegarde de 2 Mo pour éviter le gel de l'interface.
+- Data Integrity & Storage Safety: Enforced database migration verification to guarantee seamless local storage consistency across updates.
+- Error Transparency: Eliminated silent failure paths during link redirection to ensure clear diagnostics on network interruptions.
+- Localization Refinement: Completed multilingual system descriptions across 12 additional languages and refined traditional characters.

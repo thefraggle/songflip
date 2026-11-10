@@ -86,7 +86,7 @@ private nonisolated final class ShazamSessionBox: NSObject, SHSessionDelegate, @
 
     nonisolated func session(_ session: SHSession, didFind match: SHMatch) {
         if let first = match.mediaItems.first {
-            let title = (first.title?.isEmpty == false) ? first.title! : "Unknown Track"
+            let title = (first.title?.isEmpty == false) ? first.title! : LocalizationManager.string(for: "unknown_song")
             let artist = (first.artist?.isEmpty == false) ? first.artist! : (first.subtitle ?? "")
             let info = MatchedTrackInfo(
                 title: title,
