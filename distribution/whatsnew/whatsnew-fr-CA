@@ -1,3 +1,2 @@
-- Statut et détails : affichage raffiné de l'état du compte et de la disponibilité des fonctionnalités lors de l'accès depuis l'en-tête et les menus.
-- Navigation et boîtes de dialogue : gestion améliorée des rejets et actions de fermeture pour les feuilles modales et les cartes de détail.
-- Stabilité et polissage : améliorations mineures de l'interface et gestion plus fluide des transitions de l'interface utilisateur.
+- Sécurité et routage des raccourcis : gestion dynamique renforcée des raccourcis à résoudre strictement à partir de l'historique local avec la vérification du schéma cible.
+- Normalisation des liens : gestion résolue du chemin de la liste de lecture pour les ensembles de diffusion en continu afin d'assurer une détection cohérente du format.

@@ -1,5 +1,11 @@
 package de.goork.songflip.core.engine
 
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.mock.MockEngine
+import io.ktor.client.engine.mock.respond
+import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpStatusCode
+import io.ktor.http.headersOf
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -216,5 +222,33 @@ class CouponServiceTest {
         assertEquals("BETALIST", CouponService.shared.extractCouponCode("Hey, try code BETALIST now!"))
         assertEquals("MYCODE123", CouponService.shared.extractCouponCode("  my code 123  "))
         assertEquals("FLIP-ABCD-1234", CouponService.shared.extractCouponCode("Here is your gift: flip-abcd-1234 enjoy!"))
+    }
+
+    @Test
+    fun redeemCouponFallsBackOnHttp500() = kotlinx.coroutines.test.runTest {
+        val mockEngine = MockEngine { request ->
+            if (request.url.encodedPath.contains("endpoint1")) {
+                respond(
+                    content = """{"error": "INTERNAL_SERVER_ERROR"}""",
+                    status = HttpStatusCode.InternalServerError,
+                    headers = headersOf(HttpHeaders.ContentType, "application/json")
+                )
+            } else {
+                respond(
+                    content = """{"status": "ALREADY_ACTIVE", "error": "ALREADY_ACTIVE"}""",
+                    status = HttpStatusCode.BadRequest,
+                    headers = headersOf(HttpHeaders.ContentType, "application/json")
+                )
+            }
+        }
+        val customClient = HttpClient(mockEngine)
+        val service = CouponService(client = customClient)
+        val res = service.redeemCoupon(
+            rawCode = "FLIP-TEST",
+            installId = "test-install",
+            customEndpoints = listOf("https://endpoint1.test/redeem", "https://endpoint2.test/redeem")
+        )
+        // Should not fail with INVALID due to endpoint1 HTTP 500, but fall back to endpoint2 which returns ALREADY_ACTIVE
+        assertEquals(CouponRedeemStatus.ALREADY_ACTIVE, res.status)
     }
 }

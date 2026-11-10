@@ -1,3 +1,3 @@
-- Állapot és részletek: A fiók állapotának és a szolgáltatások elérhetőségének finomított megjelenítése a fejlécből és a menükből.
-- Navigáció és párbeszédpanelek: Továbbfejlesztett elvetéskezelés és bezárási műveletek a modális lapokhoz és a részletes kártyákhoz.
-- Stabilitás és lengyel: Kisebb interfész-fejlesztések és gördülékenyebb UI-átmenetkezelés.
+- Biztonság és gyorsbillentyű-útválasztás: Megerősített dinamikus gyorsbillentyű-kezelés a helyi előzmények szigorú feloldásához a célséma ellenőrzésével.
+- Link normalizálása: Megoldott lejátszási lista útvonal kezelése a streaming készletek számára a következetes formátumérzékelés biztosítása érdekében.
+- Adatvédelem és migráció: Hozzáadott hitelesítési őrök a korábbi bejegyzések átviteléhez az adatvesztés megelőzése érdekében.

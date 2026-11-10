@@ -3,7 +3,6 @@ import SwiftUI
 struct ProNudgeBannerCardView: View {
     let milestone: Int
     let lang: String
-    let onRedeemPromo: () -> Void
     let onLearnMore: () -> Void
     let onDismiss: () -> Void
 
@@ -58,41 +57,20 @@ struct ProNudgeBannerCardView: View {
                 .lineSpacing(2)
                 .fixedSize(horizontal: false, vertical: true)
 
-            // Action Buttons Row
+            // Action Button Row
             HStack(spacing: 8) {
-                // Secondary Button: Learn More
                 Button(action: {
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                     onLearnMore()
                 }) {
                     Text(LocalizationManager.string(for: "pro_nudge_action_more", lang: lang))
-                        .font(.system(size: 12, weight: .semibold))
-                        .foregroundColor(.primary)
+                        .font(.system(size: 13, weight: .bold))
+                        .foregroundColor(.white)
                         .padding(.vertical, 8)
                         .padding(.horizontal, 12)
                         .frame(maxWidth: .infinity)
-                        .background(Color(uiColor: .tertiarySystemFill))
+                        .background(accentColor)
                         .cornerRadius(8)
-                }
-                .buttonStyle(.plain)
-
-                // Primary Button: Redeem Promo
-                Button(action: {
-                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                    onRedeemPromo()
-                }) {
-                    HStack(spacing: 4) {
-                        Image(systemName: "ticket.fill")
-                            .font(.system(size: 11))
-                        Text(LocalizationManager.string(for: "pro_nudge_action_redeem", lang: lang))
-                            .font(.system(size: 12, weight: .bold))
-                    }
-                    .foregroundColor(.white)
-                    .padding(.vertical, 8)
-                    .padding(.horizontal, 12)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.green)
-                    .cornerRadius(8)
                 }
                 .buttonStyle(.plain)
             }

@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.14.6] - 2026-11-10
+- **Security & Shortcut Routing**: Hardened dynamic shortcut handling to strictly resolve from local history with target scheme verification.
+- **Link Normalization**: Resolved playlist path handling for streaming sets to ensure consistent format detection.
+- **Data Protection & Migration**: Added verification guards for historical entry transfers to prevent data loss.
+- **Service Reliability**: Enhanced fallback routing on server timeouts and optimized background initialization.
+
 ## [1.14.5] - 2026-11-10
 - **Status & Details**: Refined display of account status and feature availability when accessed from the header and menus.
 - **Navigation & Dialogs**: Enhanced dismiss handling and close actions for modal sheets and detail cards.

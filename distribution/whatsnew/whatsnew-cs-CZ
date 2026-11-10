@@ -1,3 +1,3 @@
-- Stav a podrobnosti: Vylepšené zobrazení stavu účtu a dostupnosti funkcí při přístupu ze záhlaví a nabídek.
-- Navigace a dialogy: Vylepšená manipulace se zavíráním u modálních listů a karet podrobností.
-- Stabilita & Polish: Drobná vylepšení rozhraní a plynulejší zpracování přechodu uživatelského rozhraní.
+- Zabezpečení a směrování zkratek: Vytvrzená manipulace s dynamickými zkratkami pro přísné vyřešení z místní historie s ověřením cílového schématu.
+- Normalizace odkazu: Vyřešeno zpracování cesty seznamu skladeb pro streamovací sady, aby byla zajištěna konzistentní detekce formátu.
+- Ochrana a migrace dat: Přidány ověřovací kryty pro historické přenosy vstupů, aby se zabránilo ztrátě dat.

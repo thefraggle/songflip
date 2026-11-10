@@ -1,3 +1,3 @@
-- Stan i szczegóły: Udoskonalone wyświetlanie statusu konta i dostępności funkcji po uzyskaniu dostępu z nagłówka i menu.
-- Nawigacja i okna dialogowe: ulepszona obsługa odrzucania i zamykania arkuszy modalnych i kart szczegółów.
-- Stabilność i dopracowanie: Drobne ulepszenia interfejsu i płynniejsza obsługa przejścia interfejsu użytkownika.
+- Routing bezpieczeństwa i skrótów: wzmocniona dynamiczna obsługa skrótów w celu ścisłego rozwiązywania problemów z lokalną historią dzięki weryfikacji schematu docelowego.
+- Normalizacja linków: obsługa ścieżki rozdzielonej listy odtwarzania dla zestawów strumieniowych, aby zapewnić spójne wykrywanie formatu.
+- Ochrona danych i migracja: Dodano zabezpieczenia weryfikacyjne dla historycznych transferów wpisów, aby zapobiec utracie danych.

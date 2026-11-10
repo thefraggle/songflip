@@ -1,3 +1,3 @@
-- Status & Detail: Tampilan status akun dan ketersediaan fitur yang disempurnakan saat diakses dari header dan menu.
-- Navigasi & Dialog: Peningkatan penanganan pemberhentian dan tindakan penutupan untuk lembar modal dan kartu detail.
-- Stabilitas & Polesan: Peningkatan antarmuka kecil dan penanganan transisi UI yang lebih lancar.
+- Keamanan & Perutean Pintasan: Penanganan pintasan dinamis yang diperkeras untuk menyelesaikan secara ketat dari riwayat lokal dengan verifikasi skema target.
+- Normalisasi Tautan: Penanganan jalur daftar putar yang diselesaikan untuk set streaming untuk memastikan deteksi format yang konsisten.
+- Perlindungan Data & Migrasi: Menambahkan penjaga verifikasi untuk transfer entri historis untuk mencegah kehilangan data.

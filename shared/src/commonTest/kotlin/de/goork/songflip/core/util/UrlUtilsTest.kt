@@ -90,6 +90,10 @@ class UrlUtilsTest {
         val dirtySoundCloud = "https://soundcloud.com/octobersveryown/drake-gods-plan?si=12345&utm_source=clipboard"
         assertEquals("https://soundcloud.com/octobersveryown/drake-gods-plan", UrlUtils.normalizeUrl(dirtySoundCloud))
 
+        val dirtySoundCloudSet = "https://soundcloud.com/octobersveryown/sets/more-life?si=67890&utm_source=clipboard"
+        assertEquals("https://soundcloud.com/octobersveryown/sets/more-life", UrlUtils.normalizeUrl(dirtySoundCloudSet))
+        assertTrue(UrlUtils.isPlaylistUrl(UrlUtils.normalizeUrl(dirtySoundCloudSet)))
+
         val dirtyBandcampTrack = "https://radiohead.bandcamp.com/track/reckoner?from=search&search_item_id=123"
         assertEquals("https://radiohead.bandcamp.com/track/reckoner", UrlUtils.normalizeUrl(dirtyBandcampTrack))
 

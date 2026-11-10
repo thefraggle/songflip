@@ -62,6 +62,7 @@ object ProManager {
 
     private var prefs: SharedPreferences? = null
     private var stableAndroidId: String? = null
+    private val isInitialized = java.util.concurrent.atomic.AtomicBoolean(false)
     @Volatile
     private var isAutomatedTestEnv: Boolean = false
     private val _proState = MutableStateFlow(ProState())
@@ -254,6 +255,9 @@ object ProManager {
     }
 
     fun init(context: Context) {
+        if (!isInitialized.compareAndSet(false, true)) {
+            return
+        }
         if (prefs == null) {
             prefs = context.applicationContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         }
@@ -776,6 +780,7 @@ object ProManager {
     }
 
     fun resetProForTesting() {
+        isInitialized.set(false)
         prefs?.edit()?.clear()?.apply()
         _proState.value = ProState(isPro = false, proType = "")
         tokenMigrationAttempted.set(false)

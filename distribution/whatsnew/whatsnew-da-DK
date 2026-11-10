@@ -1,3 +1,3 @@
-- Status og detaljer: Raffineret visning af kontostatus og funktionstilgængelighed, når de åbnes fra overskriften og menuerne.
-- Navigation og dialogbokse: Forbedret afvisningshåndtering og lukkehandlinger for modale ark og detaljekort.
-- Stabilitet og polsk: Mindre grænsefladeforbedringer og smidigere UI-overgangshåndtering.
+- Sikkerheds- og genvejsdirigering: Hærdet dynamisk genvejshåndtering for strengt at løse fra lokal historik med målskemabekræftelse.
+- Normalisering af link: Håndtering af sti til afspilningsliste til streaming af sæt er løst for at sikre ensartet formatregistrering.
+- Databeskyttelse og migrering: Tilføjede verifikationsvagter til historiske indtastningsoverførsler for at forhindre tab af data.

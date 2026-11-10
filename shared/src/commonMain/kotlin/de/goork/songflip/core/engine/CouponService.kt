@@ -440,6 +440,10 @@ class CouponService(
                     )
                 } else {
                     val statusCode = response.status.value
+                    if (statusCode >= 500) {
+                        SongFlipLogger.w("CouponService", "Redeem endpoint $endpoint returned HTTP $statusCode, attempting fallback...")
+                        continue
+                    }
                     if (statusCode == 429) {
                         return CouponRedeemOutcome(status = CouponRedeemStatus.RATE_LIMITED)
                     }
@@ -461,9 +465,9 @@ class CouponService(
                 }
             } catch (c: CancellationException) {
                 if (c !is kotlinx.coroutines.TimeoutCancellationException) throw c
-                // Timeout on current endpoint -> try next fallback endpoint
-            } catch (_: Throwable) {
-                // Network error on current endpoint -> try next fallback endpoint
+                SongFlipLogger.w("CouponService", "Coupon redeem timed out on $endpoint, trying fallback...", c)
+            } catch (e: Exception) {
+                SongFlipLogger.w("CouponService", "Coupon redeem network error on $endpoint: ${e.message}", e)
             }
         }
 
