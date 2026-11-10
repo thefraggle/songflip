@@ -52,11 +52,53 @@ struct ContentView: View {
                         headerBannerView
 
                         if let activePlaylist = activePlaylistModel.current {
-                            activePlaylistBannerView(activePlaylist: activePlaylist)
+                            ActivePlaylistBannerView(
+                                activePlaylist: activePlaylist,
+                                lang: lang,
+                                isPro: proManager.isPro,
+                                onDismiss: {
+                                    withAnimation(.easeInOut(duration: 0.2)) {
+                                        activePlaylistModel.clear()
+                                    }
+                                },
+                                onOpenDetails: { url in
+                                    playlistNoticeUrl = url
+                                    showingPlaylistNotice = true
+                                }
+                            )
                         }
 
                         if let detectedUrl = detectedClipboardUrl {
-                            clipboardSmartBannerView(detectedUrl: detectedUrl)
+                            ClipboardSmartBannerView(
+                                detectedUrl: detectedUrl,
+                                lang: lang,
+                                targetPlatform: settings.targetPlatform,
+                                isResolving: settings.isResolving,
+                                askEveryTime: settings.askEveryTime,
+                                onDismiss: {
+                                    withAnimation(.easeInOut(duration: 0.2)) {
+                                        dismissedClipboardUrl = detectedUrl
+                                        detectedClipboardUrl = nil
+                                    }
+                                },
+                                onOpenPlaylist: { url in
+                                    playlistNoticeUrl = url
+                                    showingPlaylistNotice = true
+                                },
+                                onOpenAudiobook: { url in
+                                    podcastNoticeUrl = url
+                                    isPodcastNoticeAudiobook = true
+                                    showingPodcastNotice = true
+                                },
+                                onConvert: { url in
+                                    if settings.askEveryTime {
+                                        quickPickerUrl = url
+                                        showingQuickPicker = true
+                                    } else {
+                                        convertLink(urlToConvert: url)
+                                    }
+                                }
+                            )
                         }
 
                         if promoBannerManager.isBannerVisible(isPro: proManager.isPro) {
@@ -103,7 +145,11 @@ struct ContentView: View {
 
                         platformPickerSection
 
-                        guideCardsSection
+                        GuideCardsSectionView(
+                            lang: lang,
+                            onOpenShareGuide: { showingShareGuide = true },
+                            onOpenShortcutsGuide: { showingShortcutsGuide = true }
+                        )
 
                         if !history.items.isEmpty {
                             recentSongsSection
@@ -427,366 +473,6 @@ struct ContentView: View {
         }
     }
 
-    // MARK: - Active Playlist Banner View (Parity 1.7.6)
-    @ViewBuilder
-    private func activePlaylistBannerView(activePlaylist: ActivePlaylistData) -> some View {
-        let sourceName = detectSourcePlatformName(url: activePlaylist.playlistUrl)
-        let targetChoice = PlatformChoice(rawValue: activePlaylist.targetPlatformKey)
-        let targetName = targetChoice?.displayName ?? activePlaylist.targetPlatformKey
-
-        VStack(alignment: .leading, spacing: 10) {
-            // Header: Queue Icon + Platform chips + Dismiss button
-            HStack(spacing: 8) {
-                Image(systemName: "music.note.list")
-                    .foregroundColor(.orange)
-                    .font(.subheadline)
-
-                Text(sourceName)
-                    .font(.caption2)
-                    .fontWeight(.bold)
-                    .padding(.horizontal, 6)
-                    .padding(.vertical, 3)
-                    .background(Color.secondary.opacity(0.15))
-                    .cornerRadius(6)
-
-                Text("➔")
-                    .font(.caption2)
-                    .foregroundColor(.secondary)
-
-                Text(targetName)
-                    .font(.caption2)
-                    .fontWeight(.bold)
-                    .padding(.horizontal, 6)
-                    .padding(.vertical, 3)
-                    .background(Color.green.opacity(0.18))
-                    .foregroundColor(.green)
-                    .cornerRadius(6)
-
-                Spacer()
-
-                Button(action: {
-                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                    withAnimation(.easeInOut(duration: 0.2)) {
-                        activePlaylistModel.clear()
-                    }
-                }) {
-                    Image(systemName: "xmark")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .padding(4)
-                }
-                .accessibilityLabel(Text(LocalizationManager.string(for: "action_close", lang: lang)))
-            }
-
-            switch activePlaylist.state {
-            case .loading:
-                HStack(spacing: 12) {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                        .scaleEffect(0.85)
-
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(LocalizationManager.string(for: "playlist_converting", lang: lang))
-                            .font(.subheadline)
-                            .fontWeight(.bold)
-                            .foregroundColor(.primary)
-
-                        Text(String(format: LocalizationManager.string(for: "playlist_searching_tracks", lang: lang), targetName))
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                    }
-
-                    Spacer()
-
-                    Button(action: {
-                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                        playlistNoticeUrl = activePlaylist.playlistUrl
-                        showingPlaylistNotice = true
-                    }) {
-                        Text(LocalizationManager.string(for: "playlist_active_banner_details", lang: lang))
-                            .font(.caption.weight(.bold))
-                            .padding(.vertical, 6)
-                            .padding(.horizontal, 10)
-                            .background(Color.secondary.opacity(0.15))
-                            .cornerRadius(8)
-                    }
-                }
-
-            case .success(let res):
-                let title = res.title?.isEmpty == false ? res.title! : LocalizationManager.string(for: "playlist_converter_title", lang: lang)
-
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(title)
-                        .font(.subheadline)
-                        .fontWeight(.bold)
-                        .lineLimit(1)
-                        .foregroundColor(.primary)
-
-                    HStack(spacing: 6) {
-                        let displayTotal = max(res.totalTracks, res.originalTotalTracks ?? 0)
-                        Text(String(format: LocalizationManager.string(for: "playlist_matched_count", lang: lang), res.matchedCount, displayTotal))
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-
-                        if !proManager.isPro && res.isLimited {
-                            Text(LocalizationManager.string(for: "playlist_badge_free_limit", lang: lang))
-                                .font(.system(size: 10, weight: .bold))
-                                .padding(.horizontal, 4)
-                                .padding(.vertical, 1)
-                                .background(Color.orange.opacity(0.2))
-                                .foregroundColor(.orange)
-                                .cornerRadius(4)
-                        }
-                    }
-                }
-
-                HStack(spacing: 8) {
-                    Button(action: {
-                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                        let targetLink = res.zeroOAuthUrl ?? res.webShareUrl ?? activePlaylist.playlistUrl
-                        if let url = URL(string: targetLink) {
-                            UIApplication.shared.open(url)
-                        }
-                    }) {
-                        HStack(spacing: 4) {
-                            Image(systemName: "play.fill")
-                                .font(.caption2)
-                            Text(String(format: LocalizationManager.string(for: "playlist_active_banner_open", lang: lang), targetName))
-                                .font(.caption.weight(.bold))
-                                .lineLimit(1)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 8)
-                        .background(Color(red: 4/255, green: 120/255, blue: 87/255))
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                    }
-
-                    Button(action: {
-                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                        playlistNoticeUrl = activePlaylist.playlistUrl
-                        showingPlaylistNotice = true
-                    }) {
-                        HStack(spacing: 4) {
-                            Image(systemName: "info.circle")
-                                .font(.caption2)
-                            Text(LocalizationManager.string(for: "playlist_active_banner_details", lang: lang))
-                                .font(.caption.weight(.bold))
-                        }
-                        .padding(.vertical, 8)
-                        .padding(.horizontal, 12)
-                        .background(Color.secondary.opacity(0.15))
-                        .foregroundColor(.primary)
-                        .cornerRadius(10)
-                    }
-                }
-
-            case .error(_, let msg):
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(LocalizationManager.string(for: "playlist_error_title", lang: lang))
-                        .font(.subheadline)
-                        .fontWeight(.bold)
-                        .foregroundColor(.red)
-
-                    Text(msg)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .lineLimit(2)
-                }
-
-                Button(action: {
-                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                    playlistNoticeUrl = activePlaylist.playlistUrl
-                    showingPlaylistNotice = true
-                }) {
-                    Text(LocalizationManager.string(for: "playlist_active_banner_details", lang: lang))
-                        .font(.caption.weight(.bold))
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 8)
-                        .background(Color.secondary.opacity(0.15))
-                        .foregroundColor(.primary)
-                        .cornerRadius(10)
-                }
-            }
-        }
-        .padding(14)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color(uiColor: .secondarySystemBackground))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(Color.orange.opacity(0.35), lineWidth: 1)
-        )
-        .transition(.opacity.combined(with: .scale(scale: 0.96)))
-    }
-
-    @ViewBuilder
-    private func clipboardSmartBannerView(detectedUrl: String) -> some View {
-        let isPlaylist = UrlUtils.shared.isPlaylistUrl(url: detectedUrl)
-        let isPodcast = UrlUtils.shared.isPodcastUrl(url: detectedUrl)
-        let isAudiobook = UrlUtils.shared.isAudiobookUrl(url: detectedUrl)
-        let isPodcastOrAudiobook = isPodcast || isAudiobook
-
-        let iconName: String = isPlaylist ? "music.note.list" : (isAudiobook ? "book.closed.fill" : (isPodcast ? "mic.fill" : "doc.on.clipboard.fill"))
-        let accentColor: Color = isPlaylist ? Color.orange : (isPodcastOrAudiobook ? Color.purple : Color.green)
-        let titleKey: String = isPlaylist ? "playlist_dialog_title" : (isAudiobook ? "audiobook_dialog_title" : (isPodcast ? "podcast_dialog_title" : "clipboard_banner_title"))
-
-        VStack(alignment: .leading, spacing: 10) {
-            HStack {
-                Image(systemName: iconName)
-                    .foregroundColor(accentColor)
-                    .font(.system(size: 16))
-                Text(LocalizationManager.string(for: titleKey, lang: lang))
-                    .font(.subheadline)
-                    .fontWeight(.bold)
-                    .foregroundColor(.primary)
-                Spacer()
-                Button(action: {
-                    withAnimation(.easeInOut(duration: 0.2)) {
-                        dismissedClipboardUrl = detectedUrl
-                        detectedClipboardUrl = nil
-                    }
-                }) {
-                    Image(systemName: "xmark")
-                        .font(.system(size: 12, weight: .bold))
-                        .foregroundColor(.secondary)
-                        .padding(4)
-                }
-                .accessibilityLabel(Text(LocalizationManager.string(for: "action_close", lang: lang)))
-            }
-
-            HStack(spacing: 8) {
-                Text(detectSourcePlatformName(url: detectedUrl))
-                    .font(.caption2)
-                    .fontWeight(.semibold)
-                    .padding(.horizontal, 6)
-                    .padding(.vertical, 2)
-                    .background(accentColor.opacity(0.15))
-                    .foregroundColor(accentColor)
-                    .cornerRadius(6)
-
-                if isPlaylist {
-                    Text(LocalizationManager.string(for: "playlist_badge", lang: lang))
-                        .font(.caption2)
-                        .fontWeight(.bold)
-                        .padding(.horizontal, 6)
-                        .padding(.vertical, 2)
-                        .background(Color.orange.opacity(0.2))
-                        .foregroundColor(.orange)
-                        .cornerRadius(6)
-                } else if isPodcastOrAudiobook {
-                    Text(LocalizationManager.string(for: isAudiobook ? "audiobook_badge" : "podcast_badge", lang: lang))
-                        .font(.caption2)
-                        .fontWeight(.bold)
-                        .padding(.horizontal, 6)
-                        .padding(.vertical, 2)
-                        .background(Color.purple.opacity(0.2))
-                        .foregroundColor(.purple)
-                        .cornerRadius(6)
-                }
-
-                Text(detectedUrl)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .lineLimit(1)
-                    .truncationMode(.tail)
-            }
-
-            if isPlaylist {
-                let sourceName = detectSourcePlatformName(url: detectedUrl)
-                let targetChoice = PlatformChoice.allCases.first { $0.rawValue == settings.targetPlatform }
-                let targetName = targetChoice?.displayName ?? "Player"
-                let isSamePlaylistPlatform = sourceName.caseInsensitiveCompare(targetName) == .orderedSame
-                Button(action: {
-                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                    playlistNoticeUrl = detectedUrl
-                    showingPlaylistNotice = true
-                }) {
-                    HStack(spacing: 6) {
-                        Image(systemName: isSamePlaylistPlatform ? "arrow.up.right" : "music.note.list")
-                            .font(.system(size: 12))
-                        Text(isSamePlaylistPlatform
-                            ? String(format: LocalizationManager.string(for: "playlist_banner_action_open", lang: lang), sourceName)
-                            : String(format: LocalizationManager.string(for: "clipboard_banner_action_open", lang: lang), targetName))
-                            .font(.system(size: 13, weight: .bold))
-                            .lineLimit(1)
-                    }
-                    .padding(.vertical, 8)
-                    .padding(.horizontal, 12)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.orange)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                }
-            } else if isAudiobook {
-                Button(action: {
-                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                    podcastNoticeUrl = detectedUrl
-                    isPodcastNoticeAudiobook = true
-                    showingPodcastNotice = true
-                }) {
-                    HStack(spacing: 6) {
-                        Image(systemName: "arrow.up.right")
-                            .font(.system(size: 12))
-                        Text(String(format: LocalizationManager.string(for: "playlist_banner_action_open", lang: lang), detectSourcePlatformName(url: detectedUrl)))
-                            .font(.system(size: 13, weight: .bold))
-                            .lineLimit(1)
-                    }
-                    .padding(.vertical, 8)
-                    .padding(.horizontal, 12)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.purple)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                }
-            } else {
-                let targetChoice = PlatformChoice.allCases.first { $0.rawValue == settings.targetPlatform }
-                let targetName = targetChoice?.displayName ?? "Player"
-                Button(action: {
-                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                    if settings.askEveryTime {
-                        quickPickerUrl = detectedUrl
-                        showingQuickPicker = true
-                    } else {
-                        convertLink(urlToConvert: detectedUrl)
-                    }
-                }) {
-                    HStack(spacing: 6) {
-                        if settings.isResolving {
-                            ProgressView()
-                                .progressViewStyle(CircularProgressViewStyle(tint: .black))
-                                .scaleEffect(0.8)
-                        } else {
-                            Image(systemName: settings.askEveryTime ? "arrow.triangle.branch" : "play.fill")
-                                .font(.system(size: 12))
-                        }
-                        Text(settings.askEveryTime 
-                            ? LocalizationManager.string(for: "quick_picker_title", lang: lang) 
-                            : String(format: LocalizationManager.string(for: "clipboard_banner_action_open", lang: lang), targetName))
-                            .font(.system(size: 13, weight: .bold))
-                            .lineLimit(1)
-                    }
-                    .padding(.vertical, 8)
-                    .padding(.horizontal, 12)
-                    .frame(maxWidth: .infinity)
-                    .background(settings.isResolving ? Color.green.opacity(0.6) : Color.green)
-                    .foregroundColor(.black)
-                    .cornerRadius(10)
-                }
-                .disabled(settings.isResolving)
-            }
-        }
-        .padding(14)
-        .background(accentColor.opacity(0.12))
-        .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(accentColor.opacity(0.35), lineWidth: 1)
-        )
-        .cornerRadius(16)
-        .transition(.opacity.combined(with: .scale(scale: 0.95)))
-    }
-
     @ViewBuilder
     private var platformPickerSection: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -863,106 +549,6 @@ struct ContentView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .background(Color(red: 1.0, green: 0.33, blue: 0.0).opacity(0.10))
                     .cornerRadius(10)
-            }
-        }
-        .padding(16)
-        .background(Color("CardBackgroundColor"))
-        .cornerRadius(16)
-        .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(Color(uiColor: .separator).opacity(0.25), lineWidth: 1)
-        )
-    }
-
-    @ViewBuilder
-    private var guideCardsSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text(LocalizationManager.string(for: "how_it_works_ios", lang: lang))
-                .font(.caption)
-                .fontWeight(.bold)
-                .foregroundColor(.secondary)
-
-            // 1. Share Sheet Action
-            Button(action: {
-                UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                showingShareGuide = true
-            }) {
-                HStack(alignment: .center, spacing: 12) {
-                    Image(systemName: "square.and.arrow.up.fill")
-                        .font(.title3)
-                        .foregroundColor(.blue)
-                        .frame(width: 28)
-
-                    VStack(alignment: .leading, spacing: 3) {
-                        Text(LocalizationManager.string(for: "step1_title", lang: lang))
-                            .font(.subheadline)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.primary)
-                        Text(LocalizationManager.string(for: "step1_desc", lang: lang))
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.leading)
-                    }
-
-                    Spacer(minLength: 4)
-
-                    Image(systemName: "info.circle")
-                        .font(.system(size: 18))
-                        .foregroundColor(.blue)
-                }
-            }
-            .buttonStyle(.plain)
-
-            Divider()
-
-            // 2. Action Button & Shortcuts Action
-            Button(action: {
-                UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                showingShortcutsGuide = true
-            }) {
-                HStack(alignment: .center, spacing: 12) {
-                    Image(systemName: "button.programmable")
-                        .font(.title3)
-                        .foregroundColor(.orange)
-                        .frame(width: 28)
-
-                    VStack(alignment: .leading, spacing: 3) {
-                        Text(LocalizationManager.string(for: "step2_title", lang: lang))
-                            .font(.subheadline)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.primary)
-                        Text(LocalizationManager.string(for: "step2_desc", lang: lang))
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.leading)
-                    }
-
-                    Spacer(minLength: 4)
-
-                    Image(systemName: "info.circle")
-                        .font(.system(size: 18))
-                        .foregroundColor(.orange)
-                }
-            }
-            .buttonStyle(.plain)
-
-            Divider()
-
-            HStack(alignment: .top, spacing: 12) {
-                Image(systemName: "doc.on.clipboard.fill")
-                    .font(.title3)
-                    .foregroundColor(.green)
-                    .frame(width: 28)
-
-                VStack(alignment: .leading, spacing: 3) {
-                    Text(LocalizationManager.string(for: "step3_title", lang: lang))
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.primary)
-                    Text(LocalizationManager.string(for: "step3_desc", lang: lang))
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
             }
         }
         .padding(16)

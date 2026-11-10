@@ -1,5 +1,6 @@
 package de.goork.songflip.ui.components
 
+import de.goork.songflip.ui.components.settings.*
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -67,7 +68,6 @@ import de.goork.songflip.data.PackageUtils
 import de.goork.songflip.data.RedeemResult
 import kotlinx.coroutines.launch
 
-private const val URL_NOTTHOFF = "https://notthoff.org"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -90,11 +90,6 @@ fun SettingsBottomSheet(
     val haptic = LocalHapticFeedback.current
     val proState by ProManager.proState.collectAsState()
     val coroutineScope = rememberCoroutineScope()
-
-    var showCouponDialog by remember { mutableStateOf(false) }
-    var couponText by remember { mutableStateOf("") }
-    var couponError by remember { mutableStateOf<String?>(null) }
-    var isRedeemingCoupon by remember { mutableStateOf(false) }
 
     var showLanguagePickerSubSheet by remember { mutableStateOf(false) }
     var playerPickerSubSheetPlatformKey by remember { mutableStateOf<String?>(null) }
@@ -263,255 +258,31 @@ fun SettingsBottomSheet(
             }
 
             // 0. SongFlip PRO Card
-            Card(
-                shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = if (isPro) MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.35f) else MaterialTheme.colorScheme.surfaceVariant
-                ),
-                border = if (isPro) BorderStroke(1.5.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)) else null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable {
-                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                        onOpenProPaywall("settings_sheet")
-                    }
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 14.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Text("💎", fontSize = 20.sp)
-                        Column(modifier = Modifier.weight(1f)) {
-                            Text(
-                                text = if (isPro) stringResource(R.string.pro_active_status) else stringResource(R.string.pro_title),
-                                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
-                                color = MaterialTheme.colorScheme.onSurface
-                            )
-                            val proSubText = if (isPro) {
-                                when (proState.proType) {
-                                    "lifetime_coupon", "revenuecat_lifetime" -> stringResource(R.string.pro_active_lifetime)
-                                    "1year_coupon", "annual_coupon" -> {
-                                        val dateStr = proState.expirationDate?.let {
-                                            DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(it))
-                                        } ?: ""
-                                        stringResource(R.string.pro_active_annual, dateStr)
-                                    }
-                                    "3months_coupon" -> {
-                                        val dateStr = proState.expirationDate?.let {
-                                            DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(it))
-                                        } ?: ""
-                                        stringResource(R.string.pro_active_3months, dateStr)
-                                    }
-                                    "1month_coupon" -> {
-                                        val dateStr = proState.expirationDate?.let {
-                                            DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(it))
-                                        } ?: ""
-                                        stringResource(R.string.pro_active_1month, dateStr)
-                                    }
-                                    "revenuecat_subscription", "revenuecat" -> {
-                                        val dateStr = proState.expirationDate?.let {
-                                            DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(it))
-                                        }
-                                        if (!dateStr.isNullOrBlank()) {
-                                            stringResource(R.string.pro_active_annual, dateStr)
-                                        } else {
-                                            stringResource(R.string.pro_active_lifetime)
-                                        }
-                                    }
-                                    else -> {
-                                        val dateStr = proState.expirationDate?.let {
-                                            DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(it))
-                                        }
-                                        if (!dateStr.isNullOrBlank()) {
-                                            stringResource(R.string.pro_active_annual, dateStr)
-                                        } else {
-                                            stringResource(R.string.pro_active_lifetime)
-                                        }
-                                    }
-                                }
-                            } else {
-                                stringResource(R.string.pro_subtitle)
-                            }
-                            Text(
-                                text = proSubText,
-                                style = MaterialTheme.typography.labelMedium,
-                                color = if (isPro) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
-                                maxLines = 2,
-                                overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
-                            )
-                        }
-                    }
-                    Icon(
-                        imageVector = Icons.Outlined.ChevronRight,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-            }
+            SettingsProCard(
+                isPro = isPro,
+                proState = proState,
+                onOpenProPaywall = onOpenProPaywall
+            )
 
             // 1. Song History & Cache Card
-            val historyCount by produceState(initialValue = 0, showHistorySubSheet) {
-                value = SongLinkEngine.shared.cache.getHistoryCount()
-            }
-            Card(
-                shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable {
-                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                        showHistorySubSheet = true
-                    }
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 16.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.History,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(22.dp)
-                    )
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = stringResource(R.string.history_title),
-                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                        Text(
-                            text = if (historyCount > 0) {
-                                if (!isPro && historyCount > 10) {
-                                    stringResource(R.string.history_cached_count_free_capped, historyCount)
-                                } else {
-                                    pluralStringResource(R.plurals.history_cached_count, historyCount, historyCount)
-                                }
-                            } else {
-                                stringResource(R.string.history_subtitle)
-                            },
-                            style = MaterialTheme.typography.labelMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                    Icon(
-                        imageVector = Icons.Outlined.ChevronRight,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-            }
+            SettingsHistoryCard(
+                isPro = isPro,
+                showHistorySubSheet = showHistorySubSheet,
+                onOpenHistory = { showHistorySubSheet = true }
+            )
 
             // 1b. Universal Song Share Card (PRO Teaser for Free Users)
             if (!isPro) {
-                Card(
-                    shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable {
-                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                            onOpenProPaywall("settings_universal_share_card")
-                        }
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 16.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.Link,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier.size(22.dp)
-                        )
-                        Column(modifier = Modifier.weight(1f)) {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(6.dp)
-                            ) {
-                                Text(
-                                    text = stringResource(R.string.share_universal_link_title),
-                                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
-                                    color = MaterialTheme.colorScheme.onSurface
-                                )
-                                Text("💎", fontSize = 12.sp)
-                            }
-                            Text(
-                                text = stringResource(R.string.share_universal_link_desc),
-                                style = MaterialTheme.typography.labelMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-                        Icon(
-                            imageVector = Icons.Outlined.ChevronRight,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }
-                }
+                SettingsUniversalShareCard(
+                    onOpenPaywall = onOpenProPaywall
+                )
             }
 
             // 1c. Playlist File Import Card (.m3u8, .csv, plain text)
             if (onImportPlaylistFile != null) {
-                Card(
-                    shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable {
-                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                            onImportPlaylistFile()
-                        }
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 16.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.FileOpen,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier.size(22.dp)
-                        )
-                        Column(modifier = Modifier.weight(1f)) {
-                            Text(
-                                text = stringResource(R.string.playlist_import_file_btn),
-                                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
-                                color = MaterialTheme.colorScheme.onSurface
-                            )
-                            Text(
-                                text = stringResource(R.string.playlist_converter_title),
-                                style = MaterialTheme.typography.labelMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-                        Icon(
-                            imageVector = Icons.Outlined.ChevronRight,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }
-                }
+                SettingsPlaylistImportCard(
+                    onImportPlaylistFile = onImportPlaylistFile
+                )
             }
 
             // 2. Language Card (Clean without distracting chevron)
@@ -1168,236 +939,12 @@ fun SettingsBottomSheet(
             }
 
             // 9. Redeem Promo Code (Custom Firebase Coupon)
-            if (!isPro && !proState.isPro) {
-                Card(
-                    shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable {
-                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                            showCouponDialog = true
-                        }
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 14.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(12.dp),
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Outlined.ConfirmationNumber,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier.size(22.dp)
-                            )
-                            Column {
-                                Text(
-                                    text = stringResource(R.string.pro_coupon_toggle),
-                                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
-                                    color = MaterialTheme.colorScheme.onSurface
-                                )
-                                Text(
-                                    text = stringResource(R.string.pro_coupon_hint),
-                                    style = MaterialTheme.typography.labelMedium,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
-                            }
-                        }
-                        Icon(
-                            imageVector = Icons.Outlined.ChevronRight,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }
-                }
-            }
-
-            if (showCouponDialog) {
-                AlertDialog(
-                    onDismissRequest = {
-                        if (!isRedeemingCoupon) {
-                            showCouponDialog = false
-                            couponText = ""
-                            couponError = null
-                        }
-                    },
-                    title = {
-                        Text(
-                            text = stringResource(R.string.pro_coupon_toggle),
-                            style = MaterialTheme.typography.titleMedium
-                        )
-                    },
-                    text = {
-                        Column(modifier = Modifier.fillMaxWidth()) {
-                            OutlinedTextField(
-                                value = couponText,
-                                onValueChange = {
-                                    couponText = ProManager.extractCouponCode(it).trim().uppercase()
-                                    couponError = null
-                                },
-                                placeholder = { Text(stringResource(R.string.pro_coupon_hint)) },
-                                singleLine = true,
-                                isError = couponError != null,
-                                supportingText = couponError?.let { err ->
-                                    {
-                                        Text(
-                                            text = err,
-                                            color = MaterialTheme.colorScheme.error,
-                                            style = MaterialTheme.typography.bodySmall
-                                        )
-                                    }
-                                },
-                                shape = RoundedCornerShape(12.dp),
-                                modifier = Modifier.fillMaxWidth()
-                            )
-                        }
-                    },
-                    confirmButton = {
-                        Button(
-                            enabled = !isRedeemingCoupon && couponText.isNotBlank(),
-                            onClick = {
-                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                                isRedeemingCoupon = true
-                                couponError = null
-                                coroutineScope.launch {
-                                    val result = ProManager.redeemCoupon(couponText)
-                                    isRedeemingCoupon = false
-                                    when (result) {
-                                        RedeemResult.SUCCESS_LIFETIME -> {
-                                            Toast.makeText(context, context.getString(R.string.pro_coupon_success_lifetime), Toast.LENGTH_LONG).show()
-                                            showCouponDialog = false
-                                            couponText = ""
-                                        }
-                                        RedeemResult.SUCCESS_1YEAR -> {
-                                            Toast.makeText(context, context.getString(R.string.pro_coupon_success_1year), Toast.LENGTH_LONG).show()
-                                            showCouponDialog = false
-                                            couponText = ""
-                                        }
-                                        RedeemResult.SUCCESS_3MONTHS -> {
-                                            Toast.makeText(context, context.getString(R.string.pro_coupon_success_3months), Toast.LENGTH_LONG).show()
-                                            showCouponDialog = false
-                                            couponText = ""
-                                        }
-                                        RedeemResult.SUCCESS_1MONTH -> {
-                                            Toast.makeText(context, context.getString(R.string.pro_coupon_success_1month), Toast.LENGTH_LONG).show()
-                                            showCouponDialog = false
-                                            couponText = ""
-                                        }
-                                        RedeemResult.ALREADY_ACTIVE -> couponError = context.getString(R.string.pro_coupon_already_active)
-                                        RedeemResult.ALREADY_REDEEMED -> couponError = context.getString(R.string.pro_coupon_already_redeemed)
-                                        RedeemResult.MAX_REACHED -> couponError = context.getString(R.string.pro_coupon_max_reached)
-                                        RedeemResult.INACTIVE -> couponError = context.getString(R.string.pro_coupon_inactive)
-                                        RedeemResult.RATE_LIMITED -> couponError = context.getString(R.string.pro_coupon_rate_limited)
-                                        RedeemResult.INVALID -> couponError = context.getString(R.string.pro_coupon_invalid)
-                                        RedeemResult.NETWORK_ERROR -> couponError = context.getString(R.string.pro_coupon_network_error)
-                                    }
-                                }
-                            }
-                        ) {
-                            if (isRedeemingCoupon) {
-                                CircularProgressIndicator(
-                                    modifier = Modifier.size(16.dp),
-                                    color = MaterialTheme.colorScheme.onPrimary,
-                                    strokeWidth = 2.dp
-                                )
-                                Spacer(modifier = Modifier.width(8.dp))
-                            }
-                            Text(stringResource(R.string.pro_coupon_btn_redeem))
-                        }
-                    },
-                    dismissButton = {
-                        TextButton(
-                            enabled = !isRedeemingCoupon,
-                            onClick = {
-                                showCouponDialog = false
-                                couponText = ""
-                                couponError = null
-                            }
-                        ) {
-                            Text(stringResource(android.R.string.cancel))
-                        }
-                    }
-                )
-            }
+            SettingsCouponCard(
+                isPro = isPro || proState.isPro
+            )
 
             // Version, Copyright & Legal Links
-            val appVersion = remember {
-                try {
-                    "v" + context.packageManager.getPackageInfo(context.packageName, 0).versionName
-                } catch (e: Exception) {
-                    "v1.0.0"
-                }
-            }
-
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 12.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                Text(
-                    text = "SongFlip $appVersion",
-                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Text(
-                    text = "© 2026 Daniel Notthoff",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
-                    modifier = Modifier.clickable {
-                        LegalLinks.open(context, URL_NOTTHOFF)
-                    }
-                )
-                Spacer(modifier = Modifier.height(2.dp))
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = stringResource(R.string.legal_privacy),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.clickable {
-                            LegalLinks.open(context, LegalLinks.PRIVACY)
-                        }
-                    )
-                    Text(
-                        text = "•",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
-                    )
-                    Text(
-                        text = stringResource(R.string.legal_imprint),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.clickable {
-                            LegalLinks.open(context, LegalLinks.IMPRINT)
-                        }
-                    )
-                    Text(
-                        text = "•",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
-                    )
-                    Text(
-                        text = stringResource(R.string.legal_terms),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.clickable {
-                            LegalLinks.open(context, LegalLinks.TERMS)
-                        }
-                    )
-                }
-            }
+            SettingsFooterSection()
 
             Spacer(modifier = Modifier.height(16.dp))
         }

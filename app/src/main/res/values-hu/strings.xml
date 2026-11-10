@@ -396,6 +396,7 @@
     <string name="badge_identified">Felismerve</string>
     <string name="listen_free_scans_remaining">%1$d/%2$d ingyenes felismerés maradt ebben a hónapban</string>
     <string name="listen_status_listening">Zene figyelése…</string>
+        <string name="listen_status_hint_loud">A hang túl hangos vagy torz – tartsa kicsit távolabb a készüléket</string>
     <string name="listen_status_hint">Tartsd a készüléket közelebb a hangszóróhoz</string>
     <string name="listen_status_resolving">Keresés a lejátszódhoz…</string>
     <string name="listen_saved_to_history">Elmentve az előzményekbe</string>

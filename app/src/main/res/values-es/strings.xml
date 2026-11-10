@@ -410,6 +410,7 @@
     <string name="badge_identified">Identificado</string>
     <string name="listen_free_scans_remaining">%1$d/%2$d escaneos gratis restantes este mes</string>
     <string name="listen_status_listening">Escuchando música…</string>
+        <string name="listen_status_hint_loud">El audio está muy alto o distorsionado – aleja un poco el dispositivo</string>
     <string name="listen_status_hint">Acerca tu dispositivo al altavoz</string>
     <string name="listen_status_resolving">Buscando en tu reproductor…</string>
     <string name="listen_saved_to_history">Guardado en el historial</string>

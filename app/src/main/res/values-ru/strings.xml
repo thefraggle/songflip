@@ -422,6 +422,7 @@
     <string name="badge_identified">Распознано</string>
     <string name="listen_free_scans_remaining">Осталось %1$d/%2$d бесплатных сканирований в этом месяце</string>
     <string name="listen_status_listening">Слушаем музыку…</string>
+        <string name="listen_status_hint_loud">Звук слишком громкий или искажён – держите устройство чуть дальше</string>
     <string name="listen_status_hint">Поднесите устройство ближе к источнику звука</string>
     <string name="listen_status_resolving">Ищем трек для вашего плеера…</string>
     <string name="listen_saved_to_history">Сохранено в истории</string>

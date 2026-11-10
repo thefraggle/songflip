@@ -410,6 +410,7 @@
     <string name="badge_identified">Genkendt</string>
     <string name="listen_free_scans_remaining">%1$d/%2$d gratis scanninger tilbage i denne måned</string>
     <string name="listen_status_listening">Lytter efter musik…</string>
+        <string name="listen_status_hint_loud">Lyden er meget høj eller forvrænget – hold enheden lidt længere væk</string>
     <string name="listen_status_hint">Hold din enhed tættere på højttaleren</string>
     <string name="listen_status_resolving">Finder match til din afspiller…</string>
     <string name="listen_saved_to_history">Gemt i historik</string>

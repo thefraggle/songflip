@@ -404,6 +404,7 @@
     <string name="badge_identified">Đã nhận diện</string>
     <string name="listen_free_scans_remaining">Còn %1$d/%2$d lượt quét miễn phí trong tháng này</string>
     <string name="listen_status_listening">Đang lắng nghe nhạc…</string>
+        <string name="listen_status_hint_loud">Âm thanh quá lớn hoặc bị méo – hãy giữ thiết bị xa hơn một chút</string>
     <string name="listen_status_hint">Đưa thiết bị lại gần loa hơn</string>
     <string name="listen_status_resolving">Đang tìm trên trình phát của bạn…</string>
     <string name="listen_saved_to_history">Đã lưu vào Lịch sử</string>

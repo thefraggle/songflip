@@ -430,6 +430,7 @@
     <string name="badge_identified">Identified</string>
     <string name="listen_free_scans_remaining">%1$d/%2$d free scans left this month</string>
     <string name="listen_status_listening">Listening for music…</string>
+        <string name="listen_status_hint_loud">Audio is very loud or distorted – hold a bit further away</string>
     <string name="listen_status_hint">Hold your device closer to the speaker</string>
     <string name="listen_status_resolving">Matching for your player…</string>
     <string name="listen_saved_to_history">Saved to History</string>

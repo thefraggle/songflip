@@ -429,6 +429,7 @@
     <string name="badge_identified">Erkannt</string>
     <string name="listen_free_scans_remaining">Noch %1$d/%2$d Gratis-Scans diesen Monat</string>
     <string name="listen_status_listening">Höre auf Musik …</string>
+        <string name="listen_status_hint_loud">Audio sehr laut oder verzerrt – etwas mehr Abstand halten</string>
     <string name="listen_status_hint">Halte dein Gerät näher an die Musikquelle</string>
     <string name="listen_status_resolving">Suche Treffer für deinen Player …</string>
     <string name="listen_saved_to_history">Im Verlauf gespeichert</string>

@@ -410,6 +410,7 @@
     <string name="badge_identified">শনাক্তকৃত</string>
     <string name="listen_free_scans_remaining">এই মাসে %1$d/%2$dটি ফ্রি স্ক্যান বাকি আছে</string>
     <string name="listen_status_listening">গান শোনা হচ্ছে…</string>
+        <string name="listen_status_hint_loud">অডিও খুব জোরে বা বিকৃত - ডিভাইসটি কিছুটা দূরে রাখুন</string>
     <string name="listen_status_hint">আপনার ডিভাইসটি স্পিকারের কাছে ধরুন</string>
     <string name="listen_status_resolving">আপনার প্লেয়ারের জন্য খোঁজা হচ্ছে…</string>
     <string name="listen_saved_to_history">হিস্ট্রিতে সেভ করা হয়েছে</string>

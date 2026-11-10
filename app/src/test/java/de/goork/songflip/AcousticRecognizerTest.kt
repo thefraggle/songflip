@@ -145,4 +145,35 @@ class AcousticRecognizerTest {
         assertTrue("Expected raw peak below 45 noise gate, got $rawPeak", rawPeak < 45)
         assertEquals(1.0f, nextGain, 0.001f)
     }
+
+    @Test
+    fun `evaluateSignalQuality correctly detects too quiet, optimal, and too loud states`() {
+        // Too loud / clipping
+        assertEquals(
+            de.goork.songflip.data.AcousticSignalQuality.TOO_LOUD,
+            AcousticRecognizer.evaluateSignalQuality(rawPeak = 32500, uiAmplitude = 0.98f, elapsedSeconds = 1)
+        )
+        assertEquals(
+            de.goork.songflip.data.AcousticSignalQuality.TOO_LOUD,
+            AcousticRecognizer.evaluateSignalQuality(rawPeak = 20000, uiAmplitude = 0.96f, elapsedSeconds = 2)
+        )
+
+        // Too quiet after 3 seconds
+        assertEquals(
+            de.goork.songflip.data.AcousticSignalQuality.TOO_QUIET,
+            AcousticRecognizer.evaluateSignalQuality(rawPeak = 300, uiAmplitude = 0.10f, elapsedSeconds = 4)
+        )
+
+        // Optimal signal
+        assertEquals(
+            de.goork.songflip.data.AcousticSignalQuality.OPTIMAL,
+            AcousticRecognizer.evaluateSignalQuality(rawPeak = 8000, uiAmplitude = 0.45f, elapsedSeconds = 4)
+        )
+
+        // Initial grace period (< 3s) does not prematurely flag too quiet
+        assertEquals(
+            de.goork.songflip.data.AcousticSignalQuality.OPTIMAL,
+            AcousticRecognizer.evaluateSignalQuality(rawPeak = 300, uiAmplitude = 0.10f, elapsedSeconds = 1)
+        )
+    }
 }

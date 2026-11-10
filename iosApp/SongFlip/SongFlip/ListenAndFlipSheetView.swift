@@ -36,8 +36,8 @@ struct ListenAndFlipSheetView: View {
                         switch recognizer.state {
                         case .idle:
                             listeningSection(amplitude: 0.15, elapsedSeconds: 0)
-                        case let .listening(amplitude, elapsedSeconds):
-                            listeningSection(amplitude: amplitude, elapsedSeconds: elapsedSeconds)
+                        case let .listening(amplitude, elapsedSeconds, signalQuality):
+                            listeningSection(amplitude: amplitude, elapsedSeconds: elapsedSeconds, signalQuality: signalQuality)
                         case let .resolving(title, artist, artworkUrl):
                             resolvingSection(title: title, artist: artist, artworkUrl: artworkUrl)
                         case let .matched(flipResult):
@@ -195,8 +195,8 @@ struct ListenAndFlipSheetView: View {
 
     // MARK: - Listening State
 
-    private func listeningSection(amplitude: Float, elapsedSeconds: Int) -> some View {
-        VStack(spacing: 20) {
+    private func listeningSection(amplitude: Float, elapsedSeconds: Int, signalQuality: AcousticSignalQuality = .optimal) -> some View {
+        VStack(spacing: 16) {
             ZStack {
                 Circle()
                     .fill(Color.green.opacity(0.10))
@@ -232,12 +232,36 @@ struct ListenAndFlipSheetView: View {
                 }
             }
 
+            // Proactive Signal Guidance Pill (#216)
+            if signalQuality != .optimal {
+                HStack(spacing: 6) {
+                    Image(systemName: signalQuality == .tooQuiet ? "speaker.slash.fill" : "speaker.wave.3.fill")
+                        .font(.system(size: 13, weight: .semibold))
+                    Text(LocalizationManager.string(for: signalQuality == .tooQuiet ? "listen_status_hint" : "listen_status_hint_loud", lang: lang))
+                        .font(.caption.weight(.semibold))
+                }
+                .foregroundColor(signalQuality == .tooQuiet ? .orange : .red)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .background((signalQuality == .tooQuiet ? Color.orange : Color.red).opacity(0.12))
+                .cornerRadius(12)
+            }
+
             VStack(spacing: 6) {
                 Text(LocalizationManager.string(for: "listen_status_listening", lang: lang))
                     .font(.headline)
                     .foregroundColor(.primary)
 
-                let subtitleKey = (elapsedSeconds >= 4 && amplitude < 0.15) ? "listen_status_hint" : "listen_and_flip_subtitle"
+                let subtitleKey: String = {
+                    switch signalQuality {
+                    case .tooQuiet:
+                        return "listen_status_hint"
+                    case .tooLoud:
+                        return "listen_status_hint_loud"
+                    case .optimal:
+                        return (elapsedSeconds >= 4 && amplitude < 0.15) ? "listen_status_hint" : "listen_and_flip_subtitle"
+                    }
+                }()
                 Text(LocalizationManager.string(for: subtitleKey, lang: lang))
                     .font(.subheadline)
                     .foregroundColor(.secondary)

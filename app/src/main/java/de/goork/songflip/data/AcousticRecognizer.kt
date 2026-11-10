@@ -44,9 +44,19 @@ import java.util.concurrent.atomic.AtomicReference
 import kotlin.math.abs
 import kotlin.math.sqrt
 
+enum class AcousticSignalQuality {
+    OPTIMAL,
+    TOO_QUIET,
+    TOO_LOUD
+}
+
 sealed class AcousticRecognitionState {
     object Idle : AcousticRecognitionState()
-    data class Listening(val amplitude: Float = 0f, val elapsedSeconds: Int = 0) : AcousticRecognitionState()
+    data class Listening(
+        val amplitude: Float = 0f,
+        val elapsedSeconds: Int = 0,
+        val signalQuality: AcousticSignalQuality = AcousticSignalQuality.OPTIMAL
+    ) : AcousticRecognitionState()
     data class Resolving(val title: String, val artist: String, val artworkUrl: String?) : AcousticRecognitionState()
     data class Matched(val result: AcousticFlipResult) : AcousticRecognitionState()
     data class OfflineQueued(val pendingCount: Int) : AcousticRecognitionState()
@@ -405,6 +415,22 @@ object AcousticRecognizer {
         return Triple(uiAmplitude, nextGain, maxAbs)
     }
 
+    /**
+     * Evaluates the current audio environment quality to provide proactive user guidance (#216).
+     * Warns against clipping/extreme distortion or dead silence/low volume after initial grace period.
+     */
+    fun evaluateSignalQuality(
+        rawPeak: Int,
+        uiAmplitude: Float,
+        elapsedSeconds: Int
+    ): AcousticSignalQuality {
+        return when {
+            rawPeak > 31500 || uiAmplitude >= 0.94f -> AcousticSignalQuality.TOO_LOUD
+            elapsedSeconds >= 3 && (rawPeak < 650 || uiAmplitude < 0.14f) -> AcousticSignalQuality.TOO_QUIET
+            else -> AcousticSignalQuality.OPTIMAL
+        }
+    }
+
     @SuppressLint("MissingPermission")
     private fun createInitializedAudioRecord(
         sampleRateHz: Int,
@@ -568,9 +594,12 @@ object AcousticRecognizer {
                             sigGenerator.append(readBuffer, bytesRead, nowMs)
                         }
 
+                        val elapsedSec = (elapsedMs / 1000L).toInt()
+                        val quality = evaluateSignalQuality(rawPeak, uiAmp, elapsedSec)
                         _state.value = AcousticRecognitionState.Listening(
                             amplitude = uiAmp,
-                            elapsedSeconds = (elapsedMs / 1000L).toInt()
+                            elapsedSeconds = elapsedSec,
+                            signalQuality = quality
                         )
 
                         // If offline & Pro Club Mode: once we have 6 seconds of actual audio, save signature and finish

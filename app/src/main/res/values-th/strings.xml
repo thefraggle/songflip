@@ -390,6 +390,7 @@
     <string name="badge_identified">ระบุแล้ว</string>
     <string name="listen_free_scans_remaining">สแกนฟรีเหลือ %1$d/%2$d ครั้งในเดือนนี้</string>
     <string name="listen_status_listening">กำลังฟังเพลง…</string>
+        <string name="listen_status_hint_loud">เสียงดังเกินไปหรือผิดเพี้ยน – กรุณาถืออุปกรณ์ให้ห่างออกไปเล็กน้อย</string>
     <string name="listen_status_hint">ถืออุปกรณ์ของคุณให้ใกล้ลำโพงมากขึ้น</string>
     <string name="listen_status_resolving">กำลังจับคู่สำหรับเครื่องเล่นของคุณ…</string>
     <string name="listen_saved_to_history">บันทึกในประวัติแล้ว</string>

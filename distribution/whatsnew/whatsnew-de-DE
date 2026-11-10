@@ -1,2 +1,3 @@
-- Datenwiederherstellung & Speichersicherheit: Zuverlässiger Zugriff auf gespeicherte Titel im Verlauf wiederhergestellt und Konflikte bei der Datenbankinitialisierung behoben.
-- Verlaufserhaltung & Ausfallsicherheit: Lokale Titelchroniken und Favoriten bleiben bei allen Aktualisierungen dauerhaft und unterbrechungsfrei erhalten.
+- Signal-Qualitätsführung: Visuelle Hinweise bei zu leiser Musik oder Übersteuerung während der Erkennung.
+- Datenwiederherstellung & Speichersicherheit: Zuverlässiger Zugriff auf gespeicherte Titel im Verlauf wiederhergestellt.
+- Modulare App-Architektur: Schnellere Ladezeiten und flüssigere Menüführung durch optimierte Komponenten.

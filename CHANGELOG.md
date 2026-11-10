@@ -1,7 +1,9 @@
 # Changelog
 
 ## [1.14.11] - 2026-11-10
-- **Database Recovery & Storage Safety**: Restored seamless access to historical converted tracks and eliminated redundant schema initialization conflicts on application startup.
+- **Acoustic Scan Signal Guidance**: Added real-time visual signal quality feedback (too quiet, optimal, too loud/clipping) with localized hints across 31 languages (#216).
+- **Architecture Modularization**: Decoupled monolithic sheet components into focused modular cards and sections for enhanced maintainability and rendering speed (#241).
+- **Database Recovery & Storage Safety**: Restored seamless access to historical converted tracks and eliminated redundant schema initialization conflicts on application startup (#232).
 - **Offline History Preservation**: Ensured persistent track records and favorites remain fully accessible across all version updates without interruption.
 
 ## [1.14.10] - 2026-11-10

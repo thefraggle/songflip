@@ -1,7 +1,9 @@
 # Changelog (Deutsch)
 
 ## [1.14.11] - 2026-11-10
-- **Datenwiederherstellung & Speichersicherheit**: Zuverlässiger Zugriff auf gespeicherte Titel im Verlauf wiederhergestellt und Konflikte bei der Datenbankinitialisierung behoben.
+- **Akustik-Scan Signal-Führung**: Echtzeit-Hinweise zur Audioqualität (zu leise, optimal, übersteuert/zu laut) mit lokalisierter Benutzerführung in 31 Sprachen (#216).
+- **Modulare Komponenten-Architektur**: Aufteilung monolithischer Sheets in modulare Einzelkarten und Teilbereiche für bessere Wartbarkeit und schnellere UI-Laufzeit (#241).
+- **Datenwiederherstellung & Speichersicherheit**: Zuverlässiger Zugriff auf gespeicherte Titel im Verlauf wiederhergestellt und Konflikte bei der Datenbankinitialisierung behoben (#232).
 - **Verlaufserhaltung & Ausfallsicherheit**: Lokale Titelchroniken und Favoriten bleiben bei allen Aktualisierungen dauerhaft und unterbrechungsfrei erhalten.
 
 ## [1.14.10] - 2026-11-10

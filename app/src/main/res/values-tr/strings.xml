@@ -410,6 +410,7 @@
     <string name="badge_identified">Tanındı</string>
     <string name="listen_free_scans_remaining">Bu ay %1$d/%2$d ücretsiz tarama kaldı</string>
     <string name="listen_status_listening">Müzik dinleniyor…</string>
+        <string name="listen_status_hint_loud">Ses çok yüksek veya bozuk – cihazı biraz daha uzakta tutun</string>
     <string name="listen_status_hint">Cihazınızı hoparlöre yaklaştırın</string>
     <string name="listen_status_resolving">Oynatıcınız için eşleştiriliyor…</string>
     <string name="listen_saved_to_history">Geçmişe kaydedildi</string>

@@ -410,6 +410,7 @@
     <string name="badge_identified">पहचाना गया</string>
     <string name="listen_free_scans_remaining">इस महीने %1$d/%2$d मुफ़्त स्कैन बाकी हैं</string>
     <string name="listen_status_listening">संगीत सुना जा रहा है…</string>
+        <string name="listen_status_hint_loud">ऑडियो बहुत तेज़ या विकृत है - डिवाइस को थोड़ा दूर रखें</string>
     <string name="listen_status_hint">अपने डिवाइस को स्पीकर के करीब रखें</string>
     <string name="listen_status_resolving">आपके प्लेयर के लिए खोजा जा रहा है…</string>
     <string name="listen_saved_to_history">हिस्ट्री में सेव किया गया</string>

@@ -422,6 +422,7 @@
     <string name="badge_identified">Розпізнано</string>
     <string name="listen_free_scans_remaining">Залишилося %1$d/%2$d безкоштовних сканувань цього місяця</string>
     <string name="listen_status_listening">Слухаємо музику…</string>
+        <string name="listen_status_hint_loud">Звук занадто гучний або спотворений – тримайте пристрій трохи далі</string>
     <string name="listen_status_hint">Піднесіть пристрій ближче до динаміка</string>
     <string name="listen_status_resolving">Шукаємо трек для вашого плеєра…</string>
     <string name="listen_saved_to_history">Збережено в історії</string>

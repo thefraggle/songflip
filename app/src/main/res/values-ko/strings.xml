@@ -404,6 +404,7 @@
     <string name="badge_identified">인식됨</string>
     <string name="listen_free_scans_remaining">이번 달 무료 스캔 %1$d/%2$d회 남음</string>
     <string name="listen_status_listening">음악을 듣고 있습니다…</string>
+        <string name="listen_status_hint_loud">오디오가 너무 크거나 왜곡되었습니다. 기기를 조금 멀리 두세요</string>
     <string name="listen_status_hint">기기를 스피커 가까이에 대주세요</string>
     <string name="listen_status_resolving">플레이어 링크로 변환 중…</string>
     <string name="listen_saved_to_history">기록에 저장됨</string>

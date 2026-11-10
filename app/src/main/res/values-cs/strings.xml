@@ -408,6 +408,7 @@
     <string name="badge_identified">Rozpoznáno</string>
     <string name="listen_free_scans_remaining">Zbývá %1$d/%2$d bezplatných skenů tento měsíc</string>
     <string name="listen_status_listening">Poslouchám hudbu…</string>
+        <string name="listen_status_hint_loud">Zvuk je příliš hlasitý nebo zkreslený – držte zařízení o o něco dál</string>
     <string name="listen_status_hint">Přibližte zařízení blíže k reproduktoru</string>
     <string name="listen_status_resolving">Hledám shodu pro váš přehrávač…</string>
     <string name="listen_saved_to_history">Uloženo do historie</string>
