@@ -2,7 +2,7 @@
 # Build & Core Plugins
 agp = "8.5.2"
 kotlin = "2.1.0"
-sqldelight = "2.0.2"
+sqldelight = "2.4.1"
 
 # AndroidX Core & Lifecycle
 androidx-core = "1.15.0"
