@@ -254,8 +254,12 @@
     <string name="app_links_btn_configure_app">ปรับแต่งใน %s</string>
     <string name="app_links_target_app_hint">ลิงก์จากเครื่องเล่นที่คุณชื่นชอบ (%s) ไม่จำเป็นต้องเปลี่ยนเส้นทาง — กำหนดค่าเฉพาะบริการอื่นเท่านั้น</string>
     <string name="setup_card_conflict_title">ตรวจพบข้อขัดแย้งของลิงก์</string>
-    <string name="setup_card_conflict_desc">แอปที่ติดตั้งไว้ %d แอปเปิดลิงก์โดยตรง คุณสามารถเลือกปรับเปลี่ยนเพื่อใช้งาน SongFlip ได้</string>
-    <string name="setup_card_conflict_badge">%d บริการที่ขัดแย้ง (ไม่บังคับ)</string>
+    <plurals name="setup_card_conflict_desc">
+        <item quantity="other">แอปที่ติดตั้งไว้ %1$d แอปเปิดลิงก์โดยตรง คุณสามารถเลือกปรับเปลี่ยนเพื่อใช้งาน SongFlip ได้</item>
+    </plurals>
+    <plurals name="setup_card_conflict_badge">
+        <item quantity="other">%1$d บริการที่ขัดแย้ง (ไม่บังคับ)</item>
+    </plurals>
     <string name="settings_ask_every_time_title">ถามแอปเป้าหมายทุกครั้ง</string>
     <string name="settings_ask_every_time_subtitle">แสดงหน้าต่างเลือกด่วนแทนที่จะเปิดเครื่องเล่นเริ่มต้นทันที</string>
     <string name="quick_picker_title">เปิดด้วย …</string>
@@ -394,7 +398,9 @@
     <string name="listen_scan_again">ค้นหาเพลงอื่น</string>
     <string name="listen_offline_saved_title">บันทึกในโหมดคลับออฟไลน์แล้ว</string>
     <string name="listen_offline_saved_desc">บันทึกลายนิ้วมือเสียงแล้ว (รอดำเนินการ %1$d รายการ) SongFlip จะค้นหาเพลงให้อัตโนมัติเมื่อคุณกลับมาออนไลน์</string>
-    <string name="listen_offline_resolved_toast">ระบุเพลงออฟไลน์ %1$d เพลงและเพิ่มในประวัติแล้ว!</string>
+        <plurals name="listen_offline_resolved_toast">
+        <item quantity="other">ระบุเพลงออฟไลน์ %1$d เพลงและเพิ่มในประวัติแล้ว!</item>
+    </plurals>
     <string name="listen_no_match_title">ไม่พบเพลงที่ตรงกัน</string>
     <string name="listen_no_match_subtitle">ตรวจสอบให้แน่ใจว่าเสียงเพลงดังพอแล้วลองอีกครั้ง สิทธิ์สแกนฟรีจะนับเมื่อพบเพลงเท่านั้น</string>
     <string name="listen_try_again">ลองอีกครั้ง</string>

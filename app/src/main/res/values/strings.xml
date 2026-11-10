@@ -294,8 +294,14 @@
     <string name="app_links_btn_configure_app">Adjust in %s</string>
     <string name="app_links_target_app_hint">Links from your favorite player (%s) don\'t need redirection — only configure other services.</string>
     <string name="setup_card_conflict_title">Link Conflicts Detected</string>
-    <string name="setup_card_conflict_desc">%d installed app(s) open links directly. You can optionally adjust this to use SongFlip.</string>
-    <string name="setup_card_conflict_badge">%d conflicting service(s) (optional)</string>
+    <plurals name="setup_card_conflict_desc">
+        <item quantity="one">%1$d installed app opens links directly. You can optionally adjust this to use SongFlip.</item>
+        <item quantity="other">%1$d installed apps open links directly. You can optionally adjust this to use SongFlip.</item>
+    </plurals>
+    <plurals name="setup_card_conflict_badge">
+        <item quantity="one">%1$d conflicting service (optional)</item>
+        <item quantity="other">%1$d conflicting services (optional)</item>
+    </plurals>
     <string name="settings_ask_every_time_title">Ask target app every time</string>
     <string name="settings_ask_every_time_subtitle">Show quick picker instead of immediately opening default player</string>
     <string name="quick_picker_title">Open with …</string>
@@ -432,7 +438,10 @@
     <string name="listen_scan_again">Identify another song</string>
     <string name="listen_offline_saved_title">Saved for Offline Club Mode</string>
     <string name="listen_offline_saved_desc">Audio fingerprint saved (%1$d pending). SongFlip will identify it automatically once you are back online.</string>
-    <string name="listen_offline_resolved_toast">Identified %1$d offline song(s) and added to History!</string>
+        <plurals name="listen_offline_resolved_toast">
+        <item quantity="one">Identified %1$d offline song and added to History!</item>
+        <item quantity="other">Identified %1$d offline songs and added to History!</item>
+    </plurals>
     <string name="listen_no_match_title">No song identified</string>
     <string name="listen_no_match_subtitle">Make sure the music is loud enough and try again. Free scans are only counted when a song is found.</string>
     <string name="listen_try_again">Try Again</string>

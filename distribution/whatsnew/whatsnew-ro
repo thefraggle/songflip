@@ -1,3 +1,2 @@
-- Data Integrity & Storage Safety: Enforced database migration verification to guarantee seamless local storage consistency across updates.
-- Error Transparency: Eliminated silent failure paths during link redirection to ensure clear diagnostics on network interruptions.
-- Localization Refinement: Completed multilingual system descriptions across 12 additional languages and refined traditional characters.
+- Plurale gramaticale și localizare: variații native de plural în toate limbile acceptate pentru contoare precise și notificări de conflict fără paranteze incomode.
+- Securitatea punctelor terminale și limitarea ratei: Achiziție de token acustic consolidat și puncte finale de cache distribuite cu verificare strictă a clientului și limitare defensivă a cererilor.

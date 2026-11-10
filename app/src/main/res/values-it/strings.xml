@@ -272,8 +272,14 @@
     <string name="app_links_btn_configure_app">Regola in %s</string>
     <string name="app_links_target_app_hint">I collegamenti del tuo lettore preferito (%s) non necessitano di reindirizzamento: configura solo gli altri servizi.</string>
     <string name="setup_card_conflict_title">Conflitti di collegamento rilevati</string>
-    <string name="setup_card_conflict_desc">%d app installata/e aprono i link direttamente. Puoi opzionalmente modificare questa impostazione per usare SongFlip.</string>
-    <string name="setup_card_conflict_badge">%d servizio/i in conflitto (opzionale)</string>
+    <plurals name="setup_card_conflict_desc">
+        <item quantity="one">%1$d app installata apre i link direttamente. Puoi personalizzare questa opzione per SongFlip.</item>
+        <item quantity="other">%1$d app installate aprono i link direttamente. Puoi personalizzare questa opzione per SongFlip.</item>
+    </plurals>
+    <plurals name="setup_card_conflict_badge">
+        <item quantity="one">%1$d servizio in conflitto (opzionale)</item>
+        <item quantity="other">%1$d servizi in conflitto (opzionale)</item>
+    </plurals>
     <string name="settings_ask_every_time_title">Chiedi l\'app di destinazione ogni volta</string>
     <string name="settings_ask_every_time_subtitle">Mostra selezione rapida invece di aprire subito il lettore predefinito</string>
     <string name="quick_picker_title">Apri con …</string>
@@ -412,7 +418,10 @@
     <string name="listen_scan_again">Riconosci un altro brano</string>
     <string name="listen_offline_saved_title">Salvato in Modalità Club Offline</string>
     <string name="listen_offline_saved_desc">Impronta audio salvata (%1$d in attesa). SongFlip riconoscerà il brano automaticamente appena tornerai online.</string>
-    <string name="listen_offline_resolved_toast">%1$d brano/i offline riconosciuto/i e aggiunto/i alla cronologia!</string>
+        <plurals name="listen_offline_resolved_toast">
+        <item quantity="one">%1$d brano offline riconosciuto e aggiunto alla cronologia!</item>
+        <item quantity="other">%1$d brani offline riconosciuti e aggiunti alla cronologia!</item>
+    </plurals>
     <string name="listen_no_match_title">Nessun brano riconosciuto</string>
     <string name="listen_no_match_subtitle">Assicurati che la musica sia abbastanza alta e riprova. Le scansioni gratuite contano solo se il brano viene trovato.</string>
     <string name="listen_try_again">Riprova</string>

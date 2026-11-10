@@ -266,8 +266,18 @@
     <string name="app_links_btn_configure_app">Upravit v %s</string>
     <string name="app_links_target_app_hint">Odkazy z vašeho oblíbeného přehrávače (%s) nepotřebují přesměrování — nakonfigurujte pouze ostatní služby.</string>
     <string name="setup_card_conflict_title">Zjištěny konflikty odkazů</string>
-    <string name="setup_card_conflict_desc">%d nainstalovaných aplikací otevírá odkazy přímo. Pro použití SongFlip toto můžete volitelně upravit.</string>
-    <string name="setup_card_conflict_badge">%d konfliktní služby (volitelné)</string>
+    <plurals name="setup_card_conflict_desc">
+        <item quantity="one">%1$d nainstalovaná aplikace otevírá odkazy přímo. Lze upravit pro SongFlip.</item>
+        <item quantity="few">%1$d nainstalované aplikace otevírají odkazy přímo. Lze upravit pro SongFlip.</item>
+        <item quantity="many">%1$d nainstalovaných aplikací otevírá odkazy přímo. Lze upravit pro SongFlip.</item>
+        <item quantity="other">%1$d nainstalovaných aplikací otevírá odkazy přímo. Lze upravit pro SongFlip.</item>
+    </plurals>
+    <plurals name="setup_card_conflict_badge">
+        <item quantity="one">%1$d konfliktní služba (volitelné)</item>
+        <item quantity="few">%1$d konfliktní služby (volitelné)</item>
+        <item quantity="many">%1$d konfliktních služeb (volitelné)</item>
+        <item quantity="other">%1$d konfliktních služeb (volitelné)</item>
+    </plurals>
     <string name="settings_ask_every_time_title">Vždy se zeptat na cílovou aplikaci</string>
     <string name="settings_ask_every_time_subtitle">Zobrazit rychlý výběr místo okamžitého otevření výchozího přehrávače</string>
     <string name="quick_picker_title">Otevřít v aplikaci …</string>
@@ -406,7 +416,12 @@
     <string name="listen_scan_again">Rozpoznat další skladbu</string>
     <string name="listen_offline_saved_title">Uloženo v offline klubovém režimu</string>
     <string name="listen_offline_saved_desc">Zvukový otisk uložen (čeká: %1$d). SongFlip skladbu automaticky rozpozná, jakmile budete opět online.</string>
-    <string name="listen_offline_resolved_toast">Rozpoznáno %1$d offline skladeb a přidáno do historie!</string>
+        <plurals name="listen_offline_resolved_toast">
+        <item quantity="one">Rozpoznána %1$d offline skladba a přidána do historie!</item>
+        <item quantity="few">Rozpoznány %1$d offline skladby a přidány do historie!</item>
+        <item quantity="many">Rozpoznáno %1$d offline skladeb a přidáno do historie!</item>
+        <item quantity="other">Rozpoznáno %1$d offline skladeb a přidáno do historie!</item>
+    </plurals>
     <string name="listen_no_match_title">Žádná skladba nerozpoznána</string>
     <string name="listen_no_match_subtitle">Ujistěte se, že hudba hraje dostatečně nahlas, a zkuste to znovu. Bezplatné skeny se počítají jen při nalezení.</string>
     <string name="listen_try_again">Zkusit znovu</string>

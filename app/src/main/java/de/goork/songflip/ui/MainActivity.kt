@@ -471,7 +471,7 @@ fun MainScreen(
                     if (resolvedCount > 0) {
                         Toast.makeText(
                             context,
-                            context.getString(R.string.listen_offline_resolved_toast, resolvedCount),
+                            context.resources.getQuantityString(R.plurals.listen_offline_resolved_toast, resolvedCount, resolvedCount),
                             Toast.LENGTH_LONG
                         ).show()
                     }

@@ -272,8 +272,14 @@
     <string name="app_links_btn_configure_app">Ajuster dans %s</string>
     <string name="app_links_target_app_hint">Les liens de votre lecteur préféré (%s) n\'ont pas besoin de redirection — configurez uniquement les autres services.</string>
     <string name="setup_card_conflict_title">Conflits de liens détectés</string>
-    <string name="setup_card_conflict_desc">%d application(s) installée(s) ouvrent les liens directement. Vous pouvez éventuellement ajuster cela pour utiliser SongFlip.</string>
-    <string name="setup_card_conflict_badge">%d service(s) en conflit (facultatif)</string>
+    <plurals name="setup_card_conflict_desc">
+        <item quantity="one">%1$d application installée ouvre les liens directement. Vous pouvez ajuster cela pour SongFlip.</item>
+        <item quantity="other">%1$d applications installées ouvrent les liens directement. Vous pouvez ajuster cela pour SongFlip.</item>
+    </plurals>
+    <plurals name="setup_card_conflict_badge">
+        <item quantity="one">%1$d service en conflit (facultatif)</item>
+        <item quantity="other">%1$d services en conflit (facultatif)</item>
+    </plurals>
     <string name="settings_ask_every_time_title">Demander l\'application cible à chaque fois</string>
     <string name="settings_ask_every_time_subtitle">Afficher un sélecteur rapide au lieu d\'ouvrir immédiatement le lecteur par défaut</string>
     <string name="quick_picker_title">Ouvrir avec …</string>
@@ -412,7 +418,10 @@
     <string name="listen_scan_again">Identifier un autre titre</string>
     <string name="listen_offline_saved_title">Enregistré en mode Club hors ligne</string>
     <string name="listen_offline_saved_desc">Empreinte audio enregistrée (%1$d en attente). SongFlip l\'identifiera automatiquement dès que vous serez en ligne.</string>
-    <string name="listen_offline_resolved_toast">%1$d titre(s) hors ligne identifié(s) et ajouté(s) à l\'historique !</string>
+        <plurals name="listen_offline_resolved_toast">
+        <item quantity="one">%1$d titre hors ligne identifié et ajouté à l\'historique !</item>
+        <item quantity="other">%1$d titres hors ligne identifiés et ajoutés à l\'historique !</item>
+    </plurals>
     <string name="listen_no_match_title">Aucun titre identifié</string>
     <string name="listen_no_match_subtitle">Assurez-vous que la musique est assez forte et réessayez. Les scans gratuits ne comptent qu\'en cas de succès.</string>
     <string name="listen_try_again">Réessayer</string>

@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.14.10] - 2026-11-10
+- **Grammatical Plurals & Localization**: Native plural variations across all supported languages for precise counters and conflict notifications without awkward parentheses.
+- **Endpoint Security & Rate Limiting**: Hardened acoustic token acquisition and distributed cache endpoints with strict client verification and defensive request throttling.
+
 ## [1.14.9] - 2026-11-10
 - **Data Integrity & Storage Safety**: Enforced database migration verification to guarantee seamless local storage consistency across updates.
 - **Error Transparency**: Eliminated silent failure paths during link redirection to ensure clear diagnostics on network interruptions.

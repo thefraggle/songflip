@@ -293,8 +293,14 @@
     <string name="app_links_btn_configure_app">In %s anpassen</string>
     <string name="app_links_target_app_hint">Links deines Lieblingsdienstes (%s) musst du nicht umleiten – passe nur die Dienste deiner Freunde an.</string>
     <string name="setup_card_conflict_title">Link-Konflikte erkannt</string>
-    <string name="setup_card_conflict_desc">%d installierte App(s) öffnen Links direkt. Du kannst dies optional anpassen, um SongFlip zu nutzen.</string>
-    <string name="setup_card_conflict_badge">%d Konflikt(e) (optional)</string>
+    <plurals name="setup_card_conflict_desc">
+        <item quantity="one">%1$d installierte App öffnet Links direkt. Du kannst dies optional anpassen, um SongFlip zu nutzen.</item>
+        <item quantity="other">%1$d installierte Apps öffnen Links direkt. Du kannst dies optional anpassen, um SongFlip zu nutzen.</item>
+    </plurals>
+    <plurals name="setup_card_conflict_badge">
+        <item quantity="one">%1$d blockierter Dienst (optional)</item>
+        <item quantity="other">%1$d blockierte Dienste (optional)</item>
+    </plurals>
     <string name="settings_ask_every_time_title">Ziel-App jedes Mal abfragen</string>
     <string name="settings_ask_every_time_subtitle">Schnellauswahl anzeigen, anstatt sofort in den Standard-Player zu wechseln</string>
     <string name="quick_picker_title">Öffnen mit …</string>
@@ -431,7 +437,10 @@
     <string name="listen_scan_again">Weiteren Song erkennen</string>
     <string name="listen_offline_saved_title">Im Offline-Club-Modus gespeichert</string>
     <string name="listen_offline_saved_desc">Audio-Fingerabdruck gesichert (%1$d ausstehend). SongFlip erkennt den Song automatisch, sobald du wieder online bist.</string>
-    <string name="listen_offline_resolved_toast">%1$d Offline-Song(s) erkannt und im Verlauf gespeichert!</string>
+        <plurals name="listen_offline_resolved_toast">
+        <item quantity="one">%1$d Offline-Song erkannt und im Verlauf gespeichert!</item>
+        <item quantity="other">%1$d Offline-Songs erkannt und im Verlauf gespeichert!</item>
+    </plurals>
     <string name="listen_no_match_title">Kein Song erkannt</string>
     <string name="listen_no_match_subtitle">Achte darauf, dass die Musik laut genug ist, und versuche es erneut. Gratis-Scans zählen nur bei einem Treffer.</string>
     <string name="listen_try_again">Erneut versuchen</string>

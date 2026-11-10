@@ -31131,195 +31131,543 @@
       "extractionState": "manual",
       "localizations": {
         "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$d Offline-Song(s) erkannt und im Verlauf gespeichert!"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Offline-Song erkannt und im Verlauf gespeichert!"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Offline-Songs erkannt und im Verlauf gespeichert!"
+                }
+              }
+            }
           }
         },
         "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Identified %1$d offline song(s) and added to History!"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Identified %lld offline song and added to History!"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Identified %lld offline songs and added to History!"
+                }
+              }
+            }
           }
         },
         "da": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$d offline-sang(e) genkendt og føjet til historik!"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld offline-sang genkendt og føjet til historik!"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld offline-sange genkendt og føjet til historik!"
+                }
+              }
+            }
           }
         },
         "nb": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$d frakoblet(e) sang(er) gjenkjent og lagt til i historikk!"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld frakoblet sang gjenkjent og lagt til i historikk!"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld frakoblede sanger gjenkjent og lagt til i historikk!"
+                }
+              }
+            }
           }
         },
         "no": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$d frakoblet(e) sang(er) gjenkjent og lagt til i historikk!"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld frakoblet sang gjenkjent og lagt til i historikk!"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld frakoblede sanger gjenkjent og lagt til i historikk!"
+                }
+              }
+            }
           }
         },
         "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$d offlinelåt(ar) identifierade och sparade i historiken!"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld offlinelåt identifierad och sparad i historiken!"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld offlinelåtar identifierade och sparade i historiken!"
+                }
+              }
+            }
           }
         },
         "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$d offline nummer(s) herkend en toegevoegd aan geschiedenis!"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld offline nummer herkend en toegevoegd aan geschiedenis!"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld offline nummers herkend en toegevoegd aan geschiedenis!"
+                }
+              }
+            }
           }
         },
         "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$d titre(s) hors ligne identifié(s) et ajouté(s) à l'historique !"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld titre hors ligne identifié et ajouté à l'historique !"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld titres hors ligne identifiés et ajoutés à l'historique !"
+                }
+              }
+            }
           }
         },
         "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¡%1$d canción(es) sin conexión identificada(s) y añadida(s) al historial!"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "¡%lld canción sin conexión identificada y añadida al historial!"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "¡%lld canciones sin conexión identificadas y añadidas al historial!"
+                }
+              }
+            }
           }
         },
         "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$d brano/i offline riconosciuto/i e aggiunto/i alla cronologia!"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld brano offline riconosciuto e aggiunto alla cronologia!"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld brani offline riconosciuti e aggiunti alla cronologia!"
+                }
+              }
+            }
           }
         },
         "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$d música(s) offline identificada(s) e salva(s) no histórico!"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld música offline identificada e salva no histórico!"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld músicas offline identificadas e salvas no histórico!"
+                }
+              }
+            }
           }
         },
         "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rozpoznano %1$d utwór/utworów offline i dodano do historii!"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Rozpoznano %lld utwór offline i dodano do historii!"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Rozpoznano %lld utwory offline i dodano do historii!"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Rozpoznano %lld utworów offline i dodano do historii!"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Rozpoznano %lld utworów offline i dodano do historii!"
+                }
+              }
+            }
           }
         },
         "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Распознано офлайн-треков: %1$d (добавлены в историю)!"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Распознан %lld офлайн-трек (добавлен в историю)!"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Распознано %lld офлайн-трека (добавлены в историю)!"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Распознано %lld офлайн-треков (добавлены в историю)!"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Распознано %lld офлайн-треков (добавлены в историю)!"
+                }
+              }
+            }
           }
         },
         "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$d çevrimdışı şarkı tanındı ve geçmişe eklendi!"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%1$d çevrimdışı şarkı tanındı ve geçmişe eklendi!"
+                }
+              }
+            }
           }
         },
         "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Розпізнано офлайн-пісень: %1$d (додано до історії)!"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Розпізнано %lld офлайн-пісню (додано до історії)!"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Розпізнано %lld офлайн-пісні (додано до історії)!"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Розпізнано %lld офлайн-пісень (додано до історії)!"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Розпізнано %lld офлайн-пісень (додано до історії)!"
+                }
+              }
+            }
           }
         },
         "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "オフラインの %1$d 曲を認識して履歴に追加しました！"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "オフラインの %1$d 曲を認識して履歴に追加しました！"
+                }
+              }
+            }
           }
         },
         "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "오프라인 곡 %1$d개를 인식하여 기록에 추가했습니다!"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "오프라인 곡 %1$d개를 인식하여 기록에 추가했습니다!"
+                }
+              }
+            }
           }
         },
         "zh": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "已成功识别 %1$d 首离线歌曲并加入历史记录！"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "已成功识别 %1$d 首离线歌曲并加入历史记录！"
+                }
+              }
+            }
           }
         },
         "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "已成功识别 %1$d 首离线歌曲并加入历史记录！"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "已成功识别 %1$d 首离线歌曲并加入历史记录！"
+                }
+              }
+            }
           }
         },
         "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "已成功識別 %1$d 首离线歌曲并加入歷史记錄！"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "已成功識別 %1$d 首离线歌曲并加入歷史记錄！"
+                }
+              }
+            }
           }
         },
         "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$d lagu offline berhasil dikenali dan ditambahkan ke Riwayat!"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%1$d lagu offline berhasil dikenali dan ditambahkan ke Riwayat!"
+                }
+              }
+            }
           }
         },
         "in": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$d lagu offline berhasil dikenali dan ditambahkan ke Riwayat!"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%1$d lagu offline berhasil dikenali dan ditambahkan ke Riwayat!"
+                }
+              }
+            }
           }
         },
         "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Đã nhận diện %1$d bài hát offline và thêm vào Lịch sử!"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Đã nhận diện %1$d bài hát offline và thêm vào Lịch sử!"
+                }
+              }
+            }
           }
         },
         "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$dটি অফলাইন গান শনাক্ত করে হিস্ট্রিতে যোগ করা হয়েছে!"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%1$dটি অফলাইন গান শনাক্ত করে হিস্ট্রিতে যোগ করা হয়েছে!"
+                }
+              }
+            }
           }
         },
         "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$d ऑफ़लाइन गाने पहचाने गए और हिस्ट्री में जोड़े गए!"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%1$d ऑफ़लाइन गाने पहचाने गए और हिस्ट्री में जोड़े गए!"
+                }
+              }
+            }
           }
         },
         "mr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$d ऑफलाइन गाणी ओळखली आणि इतिहासात जोडली!"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%1$d ऑफलाइन गाणी ओळखली आणि इतिहासात जोडली!"
+                }
+              }
+            }
           }
         },
         "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rozpoznáno %1$d offline skladeb a přidáno do historie!"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Rozpoznána %lld offline skladba a přidána do historie!"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Rozpoznány %lld offline skladby a přidány do historie!"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Rozpoznáno %lld offline skladeb a přidáno do historie!"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Rozpoznáno %lld offline skladeb a přidáno do historie!"
+                }
+              }
+            }
           }
         },
         "el": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Αναγνωρίστηκαν %1$d τραγούδια εκτός σύνδεσης και προστέθηκαν στο ιστορικό!"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Αναγνωρίστηκαν %1$d τραγούδια εκτός σύνδεσης και προστέθηκαν στο ιστορικό!"
+                }
+              }
+            }
           }
         },
         "fi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$d offline-kappale(tta) tunnistettu ja lisätty historiaan!"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%1$d offline-kappale tunnistettu ja lisätty historiaan!"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%1$d offline-kappale tunnistettu ja lisätty historiaan!"
+                }
+              }
+            }
           }
         },
         "hu": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$d offline dal felismerve és hozzáadva az előzményekhez!"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%1$d offline dal felismerve és hozzáadva az előzményekhez!"
+                }
+              }
+            }
           }
         },
         "ro": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$d melodii offline identificate și adăugate în istoric!"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld melodie offline identificată și adăugată în istoric!"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld melodii offline identificate și adăugate în istoric!"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld de melodii offline identificate și adăugate în istoric!"
+                }
+              }
+            }
           }
         },
         "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ระบุเพลงออฟไลน์ %1$d เพลงและเพิ่มในประวัติแล้ว!"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "ระบุเพลงออฟไลน์ %1$d เพลงและเพิ่มในประวัติแล้ว!"
+                }
+              }
+            }
           }
         }
       }
@@ -68561,195 +68909,543 @@
       "extractionState": "manual",
       "localizations": {
         "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d blockierte(r) Dienst(e)"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld blockierter Dienst (optional)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld blockierte Dienste (optional)"
+                }
+              }
+            }
           }
         },
         "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d conflicting service(s)"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld conflicting service (optional)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld conflicting services (optional)"
+                }
+              }
+            }
           }
         },
         "da": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d modstridende tjeneste(r)"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld modstridende tjeneste"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld modstridende tjenester"
+                }
+              }
+            }
           }
         },
         "nb": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d motstridende tjeneste(r)"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld motstridende tjeneste"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld motstridende tjenester"
+                }
+              }
+            }
           }
         },
         "no": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d motstridende tjeneste(r)"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld motstridende tjeneste"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld motstridende tjenester"
+                }
+              }
+            }
           }
         },
         "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d motstridig(a) tjänst(er)"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld konfliktande tjänst"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld konfliktande tjänster"
+                }
+              }
+            }
           }
         },
         "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d conflicterende dienst(en)"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld conflicterende service"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld conflicterende services"
+                }
+              }
+            }
           }
         },
         "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d service(s) en conflit"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld service en conflit"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld services en conflit"
+                }
+              }
+            }
           }
         },
         "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d servicio(s) en conflicto"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld servicio en conflicto"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld servicios en conflicto"
+                }
+              }
+            }
           }
         },
         "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d servizio/i in conflitto"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld servizio in conflitto"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld servizi in conflitto"
+                }
+              }
+            }
           }
         },
         "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d serviço(s) em conflito"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld serviço em conflito"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld serviços em conflito"
+                }
+              }
+            }
           }
         },
         "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d powodująca/e konflikt usługa/i"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld konfliktowa usługa"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld konfliktowe usługi"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld konfliktowych usług"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld konfliktowych usług"
+                }
+              }
+            }
           }
         },
         "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d конфликтных сервиса(-ов)"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld конфликтная служба"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld конфликтные службы"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld конфликтных служб"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld конфликтных служб"
+                }
+              }
+            }
           }
         },
         "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d çakışan servis"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld çakışan servis"
+                }
+              }
+            }
           }
         },
         "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d конфліктних сервіси(-ів)"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld конфліктна служба"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld конфліктні служби"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld конфліктних служб"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld конфліктних служб"
+                }
+              }
+            }
           }
         },
         "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d件の競合サービス"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld件の競合サービス"
+                }
+              }
+            }
           }
         },
         "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d개 충돌 서비스"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld개 충돌 서비스"
+                }
+              }
+            }
           }
         },
         "zh": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d 个冲突服务"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 个冲突服务"
+                }
+              }
+            }
           }
         },
         "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d 个冲突服务"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 个冲突服务"
+                }
+              }
+            }
           }
         },
         "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d 个冲突服務"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 个冲突服務"
+                }
+              }
+            }
           }
         },
         "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d layanan berkonflik"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld layanan berkonflik"
+                }
+              }
+            }
           }
         },
         "in": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d layanan berkonflik"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld layanan berkonflik"
+                }
+              }
+            }
           }
         },
         "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d dịch vụ xung đột"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dịch vụ xung đột"
+                }
+              }
+            }
           }
         },
         "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d বিরোধপূর্ণ পরিষেবা"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld বিরোধপূর্ণ পরিষেবা"
+                }
+              }
+            }
           }
         },
         "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d विरोधी सेवा(एं)"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld विरोधी सेवा"
+                }
+              }
+            }
           }
         },
         "mr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d विरोधी सेवा"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld विरोधी सेवा"
+                }
+              }
+            }
           }
         },
         "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d konfliktní služby"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld konfliktní služba"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld konfliktní služby"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld konfliktních služeb"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld konfliktních služeb"
+                }
+              }
+            }
           }
         },
         "el": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d υπηρεσίες σε διένεξη"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld υπηρεσίες σε διένεξη"
+                }
+              }
+            }
           }
         },
         "fi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d ristiriitaista palvelua"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ristiriitaista palvelua"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ristiriitaista palvelua"
+                }
+              }
+            }
           }
         },
         "hu": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d ütköző szolgáltatás"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ütköző szolgáltatás"
+                }
+              }
+            }
           }
         },
         "ro": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d servicii în conflict"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld serviciu în conflict"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld servicii în conflict"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld de servicii în conflict"
+                }
+              }
+            }
           }
         },
         "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d บริการที่ขัดแย้ง"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld บริการที่ขัดแย้ง"
+                }
+              }
+            }
           }
         }
       }
@@ -68758,195 +69454,543 @@
       "extractionState": "manual",
       "localizations": {
         "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d installierte App(s) öffnen Links direkt, bevor SongFlip sie umleiten kann."
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld installierte App öffnet Links direkt, bevor SongFlip sie umleiten kann."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld installierte Apps öffnen Links direkt, bevor SongFlip sie umleiten kann."
+                }
+              }
+            }
           }
         },
         "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d installed app(s) open links directly before SongFlip can redirect them."
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld installed app opens links directly before SongFlip can redirect them."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld installed apps open links directly before SongFlip can redirect them."
+                }
+              }
+            }
           }
         },
         "da": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d installeret/installerede app(s) åbner links direkte, før SongFlip kan omdirigere dem."
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld installeret app åbner links direkte, før SongFlip kan omdirigere dem."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld installerede apps åbner links direkte, før SongFlip kan omdirigere dem."
+                }
+              }
+            }
           }
         },
         "nb": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d installert(e) app(er) åpner lenker direkte før SongFlip kan omdirigere dem."
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld installert app åpner lenker direkte før SongFlip kan omdirigere dem."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld installerte apper åpner lenker direkte før SongFlip kan omdirigere dem."
+                }
+              }
+            }
           }
         },
         "no": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d installert(e) app(er) åpner lenker direkte før SongFlip kan omdirigere dem."
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld installert app åpner lenker direkte før SongFlip kan omdirigere dem."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld installerte apper åpner lenker direkte før SongFlip kan omdirigere dem."
+                }
+              }
+            }
           }
         },
         "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d installerade app(ar) öppnar länkar direkt innan SongFlip kan omdirigera dem."
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld installerad app öppnar länkar direkt innan SongFlip kan omdirigera dem."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld installerade appar öppnar länkar direkt innan SongFlip kan omdirigera dem."
+                }
+              }
+            }
           }
         },
         "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d geïnstalleerde app(s) openen links direct voordat SongFlip ze kan omleiden."
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld geïnstalleerde app opent links direct voordat SongFlip ze kan omleiden."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld geïnstalleerde apps openen links direct voordat SongFlip ze kan omleiden."
+                }
+              }
+            }
           }
         },
         "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d application(s) installée(s) ouvrent les liens directement avant que SongFlip ne puisse les rediriger."
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld application installée ouvre les liens directement avant que SongFlip ne puisse les rediriger."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld applications installées ouvrent les liens directement avant que SongFlip ne puisse les rediriger."
+                }
+              }
+            }
           }
         },
         "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d aplicación(es) instalada(s) abren enlaces directamente antes de que SongFlip pueda redirigirlos."
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld aplicación instalada abre enlaces directamente antes de que SongFlip pueda redirigirlos."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld aplicaciones instaladas abren enlaces directamente antes de que SongFlip pueda redirigirlos."
+                }
+              }
+            }
           }
         },
         "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d app installata/e apre i collegamenti direttamente prima che SongFlip possa reindirizzarli."
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld app installata apre i link direttamente prima che SongFlip possa reindirizzarli."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld app installate aprono i link direttamente prima che SongFlip possa reindirizzarli."
+                }
+              }
+            }
           }
         },
         "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d aplicativo(s) instalado(s) abrem links diretamente antes que o SongFlip possa redirecioná-los."
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld aplicativo instalado abre links diretamente antes que o SongFlip possa redirecioná-los."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld aplicativos instalados abrem links diretamente antes que o SongFlip possa redirecioná-los."
+                }
+              }
+            }
           }
         },
         "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d zainstalowana/e aplikacja/e otwiera linki bezpośrednio, zanim SongFlip zdoła je przekierować."
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld zainstalowana aplikacja otwiera linki bezpośrednio przed przekierowaniem przez SongFlip."
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld zainstalowane aplikacje otwierają linki bezpośrednio przed przekierowaniem przez SongFlip."
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld zainstalowanych aplikacji otwiera linki bezpośrednio przed przekierowaniem przez SongFlip."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld zainstalowanych aplikacji otwiera linki bezpośrednio przed przekierowaniem przez SongFlip."
+                }
+              }
+            }
           }
         },
         "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d устан. прилож. открывают ссылки напрямую, до того как SongFlip сможет их перенаправить."
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld установленное приложение открывает ссылки напрямую до перенаправления через SongFlip."
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld установленных приложения открывают ссылки напрямую до перенаправления через SongFlip."
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld установленных приложений открывают ссылки напрямую до перенаправления через SongFlip."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld установленных приложений открывают ссылки напрямую до перенаправления через SongFlip."
+                }
+              }
+            }
           }
         },
         "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d yüklü uygulama, SongFlip yönlendirmeden önce bağlantıları doğrudan açıyor."
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld yüklü uygulama, SongFlip yönlendirmeden önce bağlantıları doğrudan açıyor."
+                }
+              }
+            }
           }
         },
         "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d встановл. додатків відкривають посилання напряму до перенаправлення SongFlip."
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld встановлений додаток відкриває посилання безпосередньо до перенаправлення SongFlip."
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld встановлені додатки відкривають посилання безпосередньо до перенаправлення SongFlip."
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld встановлених додатків відкривають посилання безпосередньо до перенаправлення SongFlip."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld встановлених додатків відкривають посилання безпосередньо до перенаправлення SongFlip."
+                }
+              }
+            }
           }
         },
         "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d個のアプリがSongFlipの転送前に直接リンクを開いています。"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld個のアプリがSongFlipの転送前に直接リンクを開いています。"
+                }
+              }
+            }
           }
         },
         "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d개의 설치된 앱이 SongFlip 리디렉션 전에 링크를 직접 엽니다."
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld개의 설치된 앱이 SongFlip 리디렉션 전에 링크를 직접 엽니다."
+                }
+              }
+            }
           }
         },
         "zh": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d 个已安装的应用在 SongFlip 重定向之前直接打开了链接。"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 个已安装的应用在 SongFlip 重定向之前直接打开了链接。"
+                }
+              }
+            }
           }
         },
         "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d 个已安装的应用在 SongFlip 重定向之前直接打开了链接。"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 个已安装的应用在 SongFlip 重定向之前直接打开了链接。"
+                }
+              }
+            }
           }
         },
         "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d 个已安装的應用在 SongFlip 重定向之前直接打開了鏈接。"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 个已安装的應用在 SongFlip 重定向之前直接打開了鏈接。"
+                }
+              }
+            }
           }
         },
         "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d aplikasi terinstal membuka tautan langsung sebelum SongFlip dapat mengalihkannya."
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld aplikasi terinstal membuka tautan langsung sebelum SongFlip dapat mengalihkannya."
+                }
+              }
+            }
           }
         },
         "in": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d aplikasi terinstal membuka tautan langsung sebelum SongFlip dapat mengalihkannya."
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld aplikasi terinstal membuka tautan langsung sebelum SongFlip dapat mengalihkannya."
+                }
+              }
+            }
           }
         },
         "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d ứng dụng đã cài đặt mở liên kết trực tiếp trước khi SongFlip có thể chuyển hướng."
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ứng dụng đã cài đặt mở liên kết trực tiếp trước khi SongFlip có thể chuyển hướng."
+                }
+              }
+            }
           }
         },
         "bn": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d ইনস্টল করা অ্যাপ সরাসরি লিঙ্ক খোলে SongFlip রিডাইরেক্ট করার আগেই।"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ইনস্টল করা অ্যাপ সরাসরি লিঙ্ক খোলে SongFlip রিডাইরেক্ট করার আগেই।"
+                }
+              }
+            }
           }
         },
         "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d इंस्टॉल किया गया ऐप SongFlip के रीडायरेक्ट करने से पहले सीधे लिंक खोलता है।"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld इंस्टॉल किया गया ऐप SongFlip के रीडायरेक्ट करने से पहले सीधे लिंक खोलता है।"
+                }
+              }
+            }
           }
         },
         "mr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d इन्स्टॉल केलेले ॲप SongFlip पुनर्निर्देशित करण्यापूर्वी थेट लिंक उघडते."
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld इन्स्टॉल केलेले ॲप SongFlip पुनर्निर्देशित करण्यापूर्वी थेट लिंक उघडते."
+                }
+              }
+            }
           }
         },
         "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d nainstalovaných aplikací otevírá odkazy přímo dříve, než je SongFlip může přesměrovat."
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nainstalovaná aplikace otevírá odkazy přímo dříve, než je SongFlip může přesměrovat."
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nainstalované aplikace otevírají odkazy přímo dříve, než je SongFlip může přesměrovat."
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nainstalovaných aplikací otevírá odkazy přímo dříve, než je SongFlip může přesměrovat."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nainstalovaných aplikací otevírá odkazy přímo dříve, než je SongFlip může přesměrovat."
+                }
+              }
+            }
           }
         },
         "el": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d εγκατεστημένες εφαρμογές ανοίγουν συνδέσμους απευθείας πριν το SongFlip προλάβει να τους ανακατευθύνει."
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld εγκατεστημένες εφαρμογές ανοίγουν συνδέσμους απευθείας πριν το SongFlip προλάβει να τους ανακατευθύνει."
+                }
+              }
+            }
           }
         },
         "fi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d asennettua sovellusta avaa linkit suoraan ennen kuin SongFlip ehtii ohjata ne."
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld asennettua sovellusta avaa linkit suoraan ennen kuin SongFlip ehtii ohjata ne."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld asennettua sovellusta avaa linkit suoraan ennen kuin SongFlip ehtii ohjata ne."
+                }
+              }
+            }
           }
         },
         "hu": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d telepített alkalmazás közvetlenül nyitja meg a linkeket, mielőtt a SongFlip átirányíthatná őket."
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld telepített alkalmazás közvetlenül nyitja meg a linkeket, mielőtt a SongFlip átirányíthatná őket."
+                }
+              }
+            }
           }
         },
         "ro": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d aplicație(i) instalată(e) deschid linkurile direct înainte ca SongFlip să le poată redirecționa."
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld aplicație instalată deschide linkurile direct înainte ca SongFlip să le redirecționeze."
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld aplicații instalate deschid linkurile direct înainte ca SongFlip să le redirecționeze."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld de aplicații instalate deschid linkurile direct înainte ca SongFlip să le redirecționeze."
+                }
+              }
+            }
           }
         },
         "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "แอปที่ติดตั้งไว้ %d แอปเปิดลิงก์โดยตรงก่อนที่ SongFlip จะสามารถเปลี่ยนเส้นทางได้"
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "แอปที่ติดตั้งไว้ %lld แอปเปิดลิงก์โดยตรงก่อนที่ SongFlip จะสามารถเปลี่ยนเส้นทางได้"
+                }
+              }
+            }
           }
         }
       }

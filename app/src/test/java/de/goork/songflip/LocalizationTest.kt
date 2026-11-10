@@ -166,7 +166,6 @@ class LocalizationTest {
             "listen_scan_again",
             "listen_offline_saved_title",
             "listen_offline_saved_desc",
-            "listen_offline_resolved_toast",
             "listen_no_match_title",
             "listen_no_match_subtitle",
             "listen_try_again",
@@ -187,7 +186,10 @@ class LocalizationTest {
             "history_cached_count",
             "pro_nudge_title",
             "history_capacity_free",
-            "history_capacity_pro"
+            "history_capacity_pro",
+            "listen_offline_resolved_toast",
+            "setup_card_conflict_badge",
+            "setup_card_conflict_desc"
         )
 
         valuesDirs.forEach { dir ->

@@ -272,8 +272,14 @@
     <string name="app_links_btn_configure_app">Aanpassen in %s</string>
     <string name="app_links_target_app_hint">Links van je favoriete speler (%s) hoeven niet omgeleid te worden — pas alleen andere diensten aan.</string>
     <string name="setup_card_conflict_title">Linkconflicten gedetecteerd</string>
-    <string name="setup_card_conflict_desc">%d geïnstalleerde app(s) openen links rechtstreeks. Je kunt dit optioneel aanpassen om SongFlip te gebruiken.</string>
-    <string name="setup_card_conflict_badge">%d conflicterende service(s) (optioneel)</string>
+    <plurals name="setup_card_conflict_desc">
+        <item quantity="one">%1$d geïnstalleerde app opent links direct. Je kunt dit optioneel aanpassen voor SongFlip.</item>
+        <item quantity="other">%1$d geïnstalleerde apps openen links direct. Je kunt dit optioneel aanpassen voor SongFlip.</item>
+    </plurals>
+    <plurals name="setup_card_conflict_badge">
+        <item quantity="one">%1$d conflicterende service (optioneel)</item>
+        <item quantity="other">%1$d conflicterende services (optioneel)</item>
+    </plurals>
     <string name="settings_ask_every_time_title">Elke keer doel-app vragen</string>
     <string name="settings_ask_every_time_subtitle">Snelle kiezer tonen in plaats van direct de standaardspeler te openen</string>
     <string name="quick_picker_title">Openen met …</string>
@@ -412,7 +418,10 @@
     <string name="listen_scan_again">Nog een nummer herkennen</string>
     <string name="listen_offline_saved_title">Opgeslagen in Offline Club Mode</string>
     <string name="listen_offline_saved_desc">Audio-afdruk opgeslagen (%1$d in wachtrij). SongFlip herkent het nummer automatisch zodra je weer online bent.</string>
-    <string name="listen_offline_resolved_toast">%1$d offline nummer(s) herkend en toegevoegd aan geschiedenis!</string>
+        <plurals name="listen_offline_resolved_toast">
+        <item quantity="one">%1$d offline nummer herkend en toegevoegd aan geschiedenis!</item>
+        <item quantity="other">%1$d offline nummers herkend en toegevoegd aan geschiedenis!</item>
+    </plurals>
     <string name="listen_no_match_title">Geen nummer herkend</string>
     <string name="listen_no_match_subtitle">Zorg dat de muziek luid genoeg is en probeer het opnieuw. Gratis scans tellen alleen bij een match.</string>
     <string name="listen_try_again">Opnieuw proberen</string>

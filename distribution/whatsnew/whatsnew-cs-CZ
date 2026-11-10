@@ -1,3 +1,2 @@
-- Data Integrity & Storage Safety: Enforced database migration verification to guarantee seamless local storage consistency across updates.
-- Error Transparency: Eliminated silent failure paths during link redirection to ensure clear diagnostics on network interruptions.
-- Localization Refinement: Completed multilingual system descriptions across 12 additional languages and refined traditional characters.
+- Gramatická množná čísla a lokalizace: Nativní variace množného čísla ve všech podporovaných jazycích k zajištění přesných počítadel a upozornění na konflikty bez nepříjemných závorek.
+- Zabezpečení koncových bodů a omezení rychlosti: Posílené získávání akustických tokenů a distribuované koncové body mezipaměti s přísným ověřováním klientů a defenzivním omezením požadavků.

@@ -1,3 +1,1 @@
-- Data Integrity & Storage Safety: Enforced database migration verification to guarantee seamless local storage consistency across updates.
-- Error Transparency: Eliminated silent failure paths during link redirection to ensure clear diagnostics on network interruptions.
-- Localization Refinement: Completed multilingual system descriptions across 12 additional languages and refined traditional characters.
+- 文法的な複数形とローカリゼーション: サポートされているすべての言語にわたるネイティブの複数形のバリエーションにより、厄介な括弧を使用せずに正確なカウンターと競合通知を実現します。

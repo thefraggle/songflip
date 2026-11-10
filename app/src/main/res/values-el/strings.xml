@@ -258,8 +258,14 @@
     <string name="app_links_btn_configure_app">Προσαρμογή στο %s</string>
     <string name="app_links_target_app_hint">Οι σύνδεσμοι από την αγαπημένη σας εφαρμογή (%s) δεν χρειάζονται ανακατεύθυνση — ρυθμίστε μόνο τις άλλες υπηρεσίες.</string>
     <string name="setup_card_conflict_title">Εντοπίστηκαν διενέξεις συνδέσμων</string>
-    <string name="setup_card_conflict_desc">%d εγκατεστημένες εφαρμογές ανοίγουν συνδέσμους απευθείας. Μπορείτε προαιρετικά να το προσαρμόσετε για χρήση του SongFlip.</string>
-    <string name="setup_card_conflict_badge">%d υπηρεσίες σε διένεξη (προαιρετικό)</string>
+    <plurals name="setup_card_conflict_desc">
+        <item quantity="one">%1$d εγκατεστημένες εφαρμογές ανοίγουν συνδέσμους απευθείας. Μπορείτε προαιρετικά να το προσαρμόσετε για χρήση του SongFlip.</item>
+        <item quantity="other">%1$d εγκατεστημένες εφαρμογές ανοίγουν συνδέσμους απευθείας. Μπορείτε προαιρετικά να το προσαρμόσετε για χρήση του SongFlip.</item>
+    </plurals>
+    <plurals name="setup_card_conflict_badge">
+        <item quantity="one">%1$d υπηρεσίες σε διένεξη (προαιρετικό)</item>
+        <item quantity="other">%1$d υπηρεσίες σε διένεξη (προαιρετικό)</item>
+    </plurals>
     <string name="settings_ask_every_time_title">Ερώτηση για εφαρμογή προορισμού κάθε φορά</string>
     <string name="settings_ask_every_time_subtitle">Εμφάνιση γρήγορης επιλογής αντί άμεσου ανοίγματος της προεπιλογής</string>
     <string name="quick_picker_title">Άνοιγμα με …</string>
@@ -398,7 +404,10 @@
     <string name="listen_scan_again">Αναγνώριση άλλου τραγουδιού</string>
     <string name="listen_offline_saved_title">Αποθηκεύτηκε σε λειτουργία Club εκτός σύνδεσης</string>
     <string name="listen_offline_saved_desc">Το ηχητικό αποτύπωμα αποθηκεύτηκε (%1$d σε αναμονή). Το SongFlip θα το αναγνωρίσει αυτόματα μόλις συνδεθείτε.</string>
-    <string name="listen_offline_resolved_toast">Αναγνωρίστηκαν %1$d τραγούδια εκτός σύνδεσης και προστέθηκαν στο ιστορικό!</string>
+        <plurals name="listen_offline_resolved_toast">
+        <item quantity="one">Αναγνωρίστηκαν %1$d τραγούδια εκτός σύνδεσης και προστέθηκαν στο ιστορικό!</item>
+        <item quantity="other">Αναγνωρίστηκαν %1$d τραγούδια εκτός σύνδεσης και προστέθηκαν στο ιστορικό!</item>
+    </plurals>
     <string name="listen_no_match_title">Δεν αναγνωρίστηκε τραγούδι</string>
     <string name="listen_no_match_subtitle">Βεβαιωθείτε ότι η μουσική ακούγεται αρκετά δυνατά και δοκιμάστε ξανά. Οι δωρεάν σαρώσεις μετρούν μόνο αν βρεθεί τραγούδι.</string>
     <string name="listen_try_again">Δοκιμάστε ξανά</string>

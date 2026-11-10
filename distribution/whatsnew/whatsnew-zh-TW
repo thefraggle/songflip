@@ -1,3 +1,2 @@
-- Data Integrity & Storage Safety: Enforced database migration verification to guarantee seamless local storage consistency across updates.
-- Error Transparency: Eliminated silent failure paths during link redirection to ensure clear diagnostics on network interruptions.
-- Localization Refinement: Completed multilingual system descriptions across 12 additional languages and refined traditional characters.
+- 語法複數和本地化：所有受支援語言的本機複數變體，可實現精確計數器和衝突通知，而無需使用尷尬的括號。
+- 端點安全性和速率限制：強化聲學令牌獲取和分散式快取端點，具有嚴格的客戶端驗證和防禦性請求限制。

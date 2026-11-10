@@ -280,8 +280,18 @@
     <string name="app_links_btn_configure_app">Dostosuj w %s</string>
     <string name="app_links_target_app_hint">Linki z Twojego ulubionego odtwarzacza (%s) nie wymagają przekierowania — skonfiguruj tylko inne usługi.</string>
     <string name="setup_card_conflict_title">Wykryto konflikty linków</string>
-    <string name="setup_card_conflict_desc">%d zainstalowanych aplikacji otwiera linki bezpośrednio. Możesz opcjonalnie to dostosować, aby używać SongFlip.</string>
-    <string name="setup_card_conflict_badge">%d konfliktowa/ych usługa/i (opcjonalnie)</string>
+    <plurals name="setup_card_conflict_desc">
+        <item quantity="one">%1$d zainstalowana aplikacja otwiera linki bezpośrednio. Możesz to dostosować dla SongFlip.</item>
+        <item quantity="few">%1$d zainstalowane aplikacje otwierają linki bezpośrednio. Możesz to dostosować dla SongFlip.</item>
+        <item quantity="many">%1$d zainstalowanych aplikacji otwiera linki bezpośrednio. Możesz to dostosować dla SongFlip.</item>
+        <item quantity="other">%1$d zainstalowanych aplikacji otwiera linki bezpośrednio. Możesz to dostosować dla SongFlip.</item>
+    </plurals>
+    <plurals name="setup_card_conflict_badge">
+        <item quantity="one">%1$d konfliktowa usługa (opcjonalnie)</item>
+        <item quantity="few">%1$d konfliktowe usługi (opcjonalnie)</item>
+        <item quantity="many">%1$d konfliktowych usług (opcjonalnie)</item>
+        <item quantity="other">%1$d konfliktowych usług (opcjonalnie)</item>
+    </plurals>
     <string name="settings_ask_every_time_title">Pytaj o aplikację docelową za każdym razem</string>
     <string name="settings_ask_every_time_subtitle">Pokaż szybki wybór zamiast natychmiastowego otwierania domyślnego odtwarzacza</string>
     <string name="quick_picker_title">Otwórz za pomocą …</string>
@@ -420,7 +430,12 @@
     <string name="listen_scan_again">Rozpoznaj kolejny utwór</string>
     <string name="listen_offline_saved_title">Zapisano w trybie klubowym offline</string>
     <string name="listen_offline_saved_desc">Odcisk audio zapisany (oczekujące: %1$d). SongFlip rozpozna utwór automatycznie, gdy wrócisz online.</string>
-    <string name="listen_offline_resolved_toast">Rozpoznano %1$d utwór/utworów offline i dodano do historii!</string>
+        <plurals name="listen_offline_resolved_toast">
+        <item quantity="one">Rozpoznano %1$d utwór offline i dodano do historii!</item>
+        <item quantity="few">Rozpoznano %1$d utwory offline i dodano do historii!</item>
+        <item quantity="many">Rozpoznano %1$d utworów offline i dodano do historii!</item>
+        <item quantity="other">Rozpoznano %1$d utworów offline i dodano do historii!</item>
+    </plurals>
     <string name="listen_no_match_title">Nie rozpoznano utworu</string>
     <string name="listen_no_match_subtitle">Upewnij się, że muzyka jest wystarczająco głośna i spróbuj ponownie. Darmowe skany liczą się tylko przy trafieniu.</string>
     <string name="listen_try_again">Spróbuj ponownie</string>

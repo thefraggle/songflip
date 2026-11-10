@@ -258,8 +258,14 @@
     <string name="app_links_btn_configure_app">Beállítás itt: %s</string>
     <string name="app_links_target_app_hint">A kedvenc lejátszó (%s) linkjei nem igényelnek átirányítást — csak a többi szolgáltatást állítsa be.</string>
     <string name="setup_card_conflict_title">Link-ütközések észlelve</string>
-    <string name="setup_card_conflict_desc">%d telepített alkalmazás közvetlenül nyitja meg a linkeket. A SongFlip használatához ezt igény szerint módosíthatja.</string>
-    <string name="setup_card_conflict_badge">%d ütköző szolgáltatás (nem kötelező)</string>
+    <plurals name="setup_card_conflict_desc">
+        <item quantity="one">%1$d telepített alkalmazás közvetlenül nyitja meg a linkeket. A SongFlip használatához ezt igény szerint módosíthatja.</item>
+        <item quantity="other">%1$d telepített alkalmazás közvetlenül nyitja meg a linkeket. A SongFlip használatához ezt igény szerint módosíthatja.</item>
+    </plurals>
+    <plurals name="setup_card_conflict_badge">
+        <item quantity="one">%1$d ütköző szolgáltatás (nem kötelező)</item>
+        <item quantity="other">%1$d ütköző szolgáltatás (nem kötelező)</item>
+    </plurals>
     <string name="settings_ask_every_time_title">Célalkalmazás megkérdezése minden alkalommal</string>
     <string name="settings_ask_every_time_subtitle">Gyorsválasztó megjelenítése az alapértelmezett azonnali megnyitása helyett</string>
     <string name="quick_picker_title">Megnyitás ezzel …</string>
@@ -398,7 +404,10 @@
     <string name="listen_scan_again">Másik dal felismerése</string>
     <string name="listen_offline_saved_title">Elmentve Offline Klub módban</string>
     <string name="listen_offline_saved_desc">Hangmintázat elmentve (%1$d függőben). A SongFlip automatikusan felismeri, amint újra online leszel.</string>
-    <string name="listen_offline_resolved_toast">%1$d offline dal felismerve és hozzáadva az előzményekhez!</string>
+        <plurals name="listen_offline_resolved_toast">
+        <item quantity="one">%1$d offline dal felismerve és hozzáadva az előzményekhez!</item>
+        <item quantity="other">%1$d offline dal felismerve és hozzáadva az előzményekhez!</item>
+    </plurals>
     <string name="listen_no_match_title">Nem sikerült felismerni a dalt</string>
     <string name="listen_no_match_subtitle">Győződj meg róla, hogy a zene elég hangos, majd próbáld újra. Az ingyenes alkalmak csak találat esetén számítanak.</string>
     <string name="listen_try_again">Újrapróbálkozás</string>

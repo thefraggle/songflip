@@ -272,8 +272,14 @@
     <string name="app_links_btn_configure_app">%s içinde ayarla</string>
     <string name="app_links_target_app_hint">Favori oynatıcınızdan (%s) gelen bağlantıların yönlendirilmesine gerek yoktur; yalnızca diğer servisleri yapılandırın.</string>
     <string name="setup_card_conflict_title">Bağlantı Çakışması Algılandı</string>
-    <string name="setup_card_conflict_desc">%d yüklü uygulama bağlantıları doğrudan açıyor. SongFlip kullanmak için bunu isteğe bağlı ayarlayabilirsiniz.</string>
-    <string name="setup_card_conflict_badge">%d çakışan hizmet (isteğe bağlı)</string>
+    <plurals name="setup_card_conflict_desc">
+        <item quantity="one">%1$d yüklü uygulama bağlantıları doğrudan açıyor. SongFlip kullanmak için bunu isteğe bağlı ayarlayabilirsiniz.</item>
+        <item quantity="other">%1$d yüklü uygulama bağlantıları doğrudan açıyor. SongFlip kullanmak için bunu isteğe bağlı ayarlayabilirsiniz.</item>
+    </plurals>
+    <plurals name="setup_card_conflict_badge">
+        <item quantity="one">%1$d çakışan hizmet (isteğe bağlı)</item>
+        <item quantity="other">%1$d çakışan hizmet (isteğe bağlı)</item>
+    </plurals>
     <string name="settings_ask_every_time_title">Hedef uygulamayı her zaman sor</string>
     <string name="settings_ask_every_time_subtitle">Varsayılan oynatıcıyı hemen açmak yerine hızlı seçici göster</string>
     <string name="quick_picker_title">Birlikte aç …</string>
@@ -412,7 +418,10 @@
     <string name="listen_scan_again">Başka bir şarkı tanı</string>
     <string name="listen_offline_saved_title">Çevrimdışı Kulüp Modunda Kaydedildi</string>
     <string name="listen_offline_saved_desc">Ses izi kaydedildi (%1$d bekliyor). İnternete bağlandığınızda SongFlip şarkıyı otomatik olarak tanıyacak.</string>
-    <string name="listen_offline_resolved_toast">%1$d çevrimdışı şarkı tanındı ve geçmişe eklendi!</string>
+        <plurals name="listen_offline_resolved_toast">
+        <item quantity="one">%1$d çevrimdışı şarkı tanındı ve geçmişe eklendi!</item>
+        <item quantity="other">%1$d çevrimdışı şarkı tanındı ve geçmişe eklendi!</item>
+    </plurals>
     <string name="listen_no_match_title">Şarkı tanınamadı</string>
     <string name="listen_no_match_subtitle">Müziğin yeterince yüksek olduğundan emin olup tekrar deneyin. Ücretsiz haklar yalnızca eşleşme bulunduğunda düşer.</string>
     <string name="listen_try_again">Tekrar Dene</string>

@@ -1,3 +1,2 @@
-- Data Integrity & Storage Safety: Enforced database migration verification to guarantee seamless local storage consistency across updates.
-- Error Transparency: Eliminated silent failure paths during link redirection to ensure clear diagnostics on network interruptions.
-- Localization Refinement: Completed multilingual system descriptions across 12 additional languages and refined traditional characters.
+- Plurali grammaticali e localizzazione: variazioni plurali native in tutte le lingue supportate per contatori precisi e notifiche di conflitto senza parentesi scomode.
+- Sicurezza degli endpoint e limitazione della velocità: acquisizione rafforzata di token acustici ed endpoint della cache distribuita con verifica rigorosa del client e limitazione delle richieste difensive.
