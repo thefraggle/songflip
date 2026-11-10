@@ -1,2 +1,3 @@
-- Hiệu suất & Tính ổn định: Xử lý liên kết tinh chỉnh và bộ nhớ đệm dữ liệu nền để chuyển tiếp nhanh hơn, đáng tin cậy hơn.
-- Sửa lỗi: Giải quyết các trục trặc giao diện nhỏ và cải thiện độ tin cậy trên các hộp thoại chia sẻ và điều hướng hệ thống.
+- Trạng thái & Chi tiết: Hiển thị tinh tế trạng thái tài khoản và tính khả dụng của tính năng khi được truy cập từ tiêu đề và menu.
+- Điều hướng & Hộp thoại: Xử lý loại bỏ nâng cao và hành động đóng cho các trang phương thức và thẻ chi tiết.
+- Tính ổn định & tiếng Ba Lan: Cải tiến nhỏ về giao diện và xử lý chuyển đổi giao diện người dùng mượt mà hơn.

@@ -1,2 +1,3 @@
-- Wydajność i stabilność: ulepszone przetwarzanie łączy i buforowanie danych w tle dla szybszych i bardziej niezawodnych przejść.
-- Poprawki błędów: Rozwiązano drobne usterki interfejsu i poprawiono niezawodność w oknach dialogowych udostępniania systemu i nawigacji.
+- Stan i szczegóły: Udoskonalone wyświetlanie statusu konta i dostępności funkcji po uzyskaniu dostępu z nagłówka i menu.
+- Nawigacja i okna dialogowe: ulepszona obsługa odrzucania i zamykania arkuszy modalnych i kart szczegółów.
+- Stabilność i dopracowanie: Drobne ulepszenia interfejsu i płynniejsza obsługa przejścia interfejsu użytkownika.

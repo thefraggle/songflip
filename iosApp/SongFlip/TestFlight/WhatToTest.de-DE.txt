@@ -1,2 +1,3 @@
-- Leistung und Stabilität: Verfeinerte Linkverarbeitung und Hintergrunddaten-Caching für schnellere und zuverlässigere Übergänge.
-- Fehlerbehebungen: Kleinere Schnittstellenprobleme wurden behoben und die Zuverlässigkeit der Systemfreigabe- und Navigationsdialoge verbessert.
+- Status und Details: Verfeinerte Anzeige des Kontostatus und der Funktionsverfügbarkeit beim Zugriff über die Kopfzeile und die Menüs.
+- Navigation und Dialoge: Verbessertes Verwerfen und Schließen von Aktionen für Modalblätter und Detailkarten.
+- Stabilität und Politur: Kleinere Verbesserungen der Benutzeroberfläche und reibungslosere Handhabung von UI-Übergängen.

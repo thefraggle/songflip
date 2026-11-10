@@ -1,2 +1,3 @@
-- Prestaties en stabiliteit: Verfijnde linkverwerking en caching van achtergrondgegevens voor snellere, betrouwbaardere overgangen.
-- Bugfixes: Kleine problemen met de interface opgelost en de betrouwbaarheid bij het delen van systemen en navigatiedialogen verbeterd.
+- Status en details: Verfijnde weergave van de accountstatus en beschikbaarheid van functies bij toegang via de koptekst en menu's.
+- Navigatie en dialogen: Verbeterde afhandeling van afwijzingen en sluitingsacties voor modale bladen en detailkaarten.
+- Stabiliteit en verfijning: Kleine verbeteringen aan de interface en soepelere afhandeling van UI-overgangen.

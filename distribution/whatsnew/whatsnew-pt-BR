@@ -1,2 +1,3 @@
-- Desempenho e estabilidade: processamento de link refinado e cache de dados em segundo plano para transições mais rápidas e confiáveis.
-- Correções de bugs: pequenas falhas de interface resolvidas e maior confiabilidade no compartilhamento do sistema e nas caixas de diálogo de navegação.
+- Status e detalhes: exibição refinada do status da conta e disponibilidade de recursos quando acessado no cabeçalho e nos menus.
+- Navegação e caixas de diálogo: gerenciamento aprimorado de dispensa e ações de fechamento para planilhas modais e cartões de detalhes.
+- Estabilidade e polimento: Pequenas melhorias na interface e manipulação de transição de UI mais suave.

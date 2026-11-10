@@ -1,2 +1,3 @@
-- Performans ve Kararlılık: Daha hızlı, daha güvenilir geçişler için iyileştirilmiş bağlantı işleme ve arka planda veri önbelleğe alma.
-- Hata Düzeltmeleri: Küçük arayüz hataları çözüldü ve sistem paylaşımı ve gezinme diyaloglarındaki güvenilirlik artırıldı.
+- Durum ve Ayrıntılar: Başlıktan ve menülerden erişildiğinde hesap durumu ve özellik kullanılabilirliğinin iyileştirilmiş görüntüsü.
+- Gezinme ve Diyaloglar: Kalıcı sayfalar ve ayrıntı kartları için iyileştirilmiş kapatma yönetimi ve kapatma eylemleri.
+- Kararlılık ve Parlatma: Küçük arayüz geliştirmeleri ve daha sorunsuz kullanıcı arayüzü geçiş işlemleri.

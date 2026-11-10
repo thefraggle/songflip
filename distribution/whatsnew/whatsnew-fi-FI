@@ -1,2 +1,3 @@
-- Suorituskyky ja vakaus: Hienostunut linkkien käsittely ja taustatietojen välimuisti nopeampi ja luotettavampi siirtymä.
-- Virheenkorjauksia: Ratkaistiin pienet käyttöliittymähäiriöt ja parannettu luotettavuus järjestelmän jakamisessa ja navigointivalintaikkunoissa.
+- Tila ja tiedot: Tarkennettu näyttö tilin tilasta ja ominaisuuksien saatavuudesta, kun niitä käytetään otsikosta ja valikoista.
+- Navigointi ja valintaikkunat: Tehostettu hylkäämisen käsittely ja sulkemistoiminnot modaalisivuille ja tietokorteille.
+- Vakaus ja puola: Pienet käyttöliittymäparannukset ja sujuvampi käyttöliittymän siirtymien käsittely.

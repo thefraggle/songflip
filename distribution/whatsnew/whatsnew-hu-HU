@@ -1,2 +1,3 @@
-- Teljesítmény és stabilitás: Kifinomult linkfeldolgozás és háttéradat-gyorsítótár a gyorsabb, megbízhatóbb átmenetek érdekében.
-- Hibajavítások: Kijavítottuk az interfész apróbb hibáit, és megnövelt megbízhatóság a rendszermegosztási és navigációs párbeszédpaneleken.
+- Állapot és részletek: A fiók állapotának és a szolgáltatások elérhetőségének finomított megjelenítése a fejlécből és a menükből.
+- Navigáció és párbeszédpanelek: Továbbfejlesztett elvetéskezelés és bezárási műveletek a modális lapokhoz és a részletes kártyákhoz.
+- Stabilitás és lengyel: Kisebb interfész-fejlesztések és gördülékenyebb UI-átmenetkezelés.
