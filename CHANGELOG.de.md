@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.14.12] - 2026-11-10
+- **Anghami-Streaming-Integration**: Vollständige Unterstützung für Anghami als Quell- und Ziel-Player beim Konvertieren und Weiterleiten von Titeln (#203).
+- **Wiedergabelisten-Bereinigung & Rauschfilter**: Automatische Erkennung und Filterung synthetischer Ghost-Tracks und Hintergrundgeräusche vor der Konvertierung (#211).
+
 ## [1.14.11] - 2026-11-10
 - **Akustik-Scan Signal-Führung**: Echtzeit-Hinweise zur Audioqualität (zu leise, optimal, übersteuert/zu laut) mit lokalisierter Benutzerführung in 31 Sprachen (#216).
 - **Modulare Komponenten-Architektur**: Aufteilung monolithischer Sheets in modulare Einzelkarten und Teilbereiche für bessere Wartbarkeit und schnellere UI-Laufzeit (#241).

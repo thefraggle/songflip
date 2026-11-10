@@ -379,7 +379,7 @@
     <string name="settings_preferred_player_auto">स्वचालित</string>
     <string name="settings_preferred_player_auto_desc">अनुशंसित: डिफ़ॉल्ट ऐप का उपयोग करता है</string>
 
-    <!-- In-App Search & Disambiguation -->
+    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">खोजें और बदलें</string>
     <string name="search_hint">गीत या कलाकार खोजें…</string>
     <string name="search_initial_prompt">गीत या कलाकार का नाम लिखें</string>
@@ -404,7 +404,7 @@
     <string name="history_filter_all">सभी</string>
     <string name="history_filter_favorites">पसंदीदा</string>
     <string name="target_player_chip">प्लेयर: %1$s</string>
-    <!-- Listen & Flip (#78) -->
+    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">अपने आस-पास बज रहे संगीत को पहचानें</string>
     <string name="badge_identified">पहचाना गया</string>
@@ -464,4 +464,7 @@
     <string name="first_launch_step3_desc">सिस्टम सेटिंग्स में ऐप लिंक सक्षम करें ताकि संगीत लिंक सीधे आपके लक्षित प्लेयर में खुलें।</string>
     <string name="first_launch_btn_done">शुरू करें</string>
     <string name="settings_how_it_works">त्वरित मार्गदर्शिका / यह कैसे काम करता है</string>
+
+    <string name="target_anghami">Anghami</string>
+    <string name="playlist_ghost_tracks_notice">%1$d संदिग्ध AI और घोस्ट ट्रैक साफ़ किए गए</string>
 </resources>

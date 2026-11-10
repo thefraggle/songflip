@@ -359,7 +359,7 @@
     <string name="settings_preferred_player_auto">อัตโนมัติ</string>
     <string name="settings_preferred_player_auto_desc">แนะนำ: ใช้แอปเริ่มต้น</string>
 
-    <!-- In-App Search & Disambiguation -->
+    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">ค้นหาและแปลงลิงก์</string>
     <string name="search_hint">ค้นหาเพลงหรือศิลปิน…</string>
     <string name="search_initial_prompt">พิมพ์ชื่อเพลงหรือศิลปิน</string>
@@ -384,7 +384,7 @@
     <string name="history_filter_all">ทั้งหมด</string>
     <string name="history_filter_favorites">รายการโปรด</string>
     <string name="target_player_chip">เครื่องเล่น: %1$s</string>
-    <!-- Listen & Flip (#78) -->
+    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">ค้นหาเพลงที่กำลังเล่นอยู่รอบตัวคุณ</string>
     <string name="badge_identified">ระบุแล้ว</string>
@@ -443,4 +443,7 @@
     <string name="first_launch_step3_desc">เปิดใช้งานลิงก์แอปในการตั้งค่าระบบเพื่อให้ลิงก์เพลงเปิดในเครื่องเล่นเป้าหมายได้โดยตรง</string>
     <string name="first_launch_btn_done">เริ่มต้นใช้งาน</string>
     <string name="settings_how_it_works">คู่มือฉบับย่อ / วิธีการทำงาน</string>
+
+    <string name="target_anghami">Anghami</string>
+    <string name="playlist_ghost_tracks_notice">ล้างแทร็ก AI และแทร็กผีที่น่าสงสัย %1$d แทร็ก</string>
 </resources>

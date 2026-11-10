@@ -23,10 +23,12 @@ object PackageUtils {
         "qobuz" to "com.qobuz.music",
         "beatport" to "com.beatport.mobile",
         "audiomack" to "com.audiomack",
-        "idagio" to "com.idagio.app"
+        "idagio" to "com.idagio.app",
+        "anghami" to "com.anghami"
     )
 
     val fallbackPackages = mapOf(
+        "anghami" to listOf("com.anghami"),
         "youtubeMusic" to listOf(
             "app.morphe.android.apps.youtube.music",
             "app.morphe.android.youtube.music",
@@ -252,6 +254,7 @@ object PackageUtils {
             "beatport" -> listOf("https://www.beatport.com/track/song/12345")
             "audiomack" -> listOf("https://audiomack.com/artist/song/track")
             "idagio" -> listOf("https://app.idagio.com/recordings/12345")
+            "anghami" -> listOf("https://play.anghami.com/song/12345")
             "podcast" -> listOf(
                 "antennapod://feed/12345"
             )
@@ -562,6 +565,7 @@ object PackageUtils {
             "beatport" -> "Beatport"
             "audiomack" -> "Audiomack"
             "idagio" -> "Idagio"
+            "anghami" -> "Anghami"
             "universal" -> "Universal Link"
             "shazam" -> "Shazam"
             else -> cleanKey.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
@@ -584,6 +588,7 @@ object PackageUtils {
             lower.contains("beatport.com") || lower.startsWith("beatport:") -> "beatport"
             lower.contains("audiomack.com") || lower.startsWith("audiomack:") -> "audiomack"
             lower.contains("idagio.com") || lower.startsWith("idagio:") -> "idagio"
+            lower.contains("anghami.com") || lower.startsWith("anghami:") -> "anghami"
             lower.contains("shazam.com") -> "shazam"
             else -> ""
         }

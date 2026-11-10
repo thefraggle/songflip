@@ -379,7 +379,7 @@
     <string name="settings_preferred_player_auto">Automatiskt</string>
     <string name="settings_preferred_player_auto_desc">Rekommenderas: använder standardappen</string>
 
-    <!-- In-App Search & Disambiguation -->
+    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">Sök och konvertera</string>
     <string name="search_hint">Sök efter låt eller artist…</string>
     <string name="search_initial_prompt">Skriv en låt eller artist</string>
@@ -404,7 +404,7 @@
     <string name="history_filter_all">Alla</string>
     <string name="history_filter_favorites">Favoriter</string>
     <string name="target_player_chip">Spelare: %1$s</string>
-    <!-- Listen & Flip (#78) -->
+    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">Identifiera musik runt omkring dig</string>
     <string name="badge_identified">Identifierad</string>
@@ -464,4 +464,7 @@
     <string name="first_launch_step3_desc">Aktivera App-länkar i systeminställningarna så att musiklänkar öppnas direkt i din målspelare.</string>
     <string name="first_launch_btn_done">Kom igång</string>
     <string name="settings_how_it_works">Snabbguide / Så fungerar det</string>
+
+    <string name="target_anghami">Anghami</string>
+    <string name="playlist_ghost_tracks_notice">%1$d misstänkta AI- och spökspår rensades</string>
 </resources>

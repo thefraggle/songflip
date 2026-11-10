@@ -110,6 +110,12 @@ object LinkDiagnosisManager {
             displayName = "Idagio",
             packageName = "com.idagio.app",
             sampleUrl = "https://app.idagio.com/recordings/ludwig-van-beethoven-symphony-no-5"
+        ),
+        PlatformConfig(
+            key = "anghami",
+            displayName = "Anghami",
+            packageName = "com.anghami",
+            sampleUrl = "https://play.anghami.com/song/123456"
         )
     )
 

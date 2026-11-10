@@ -80,6 +80,7 @@ class SongLinkEngine(
     val beatportResolver = BeatportResolver(client)
     val audiomackResolver = AudiomackResolver(client)
     val idagioResolver = IdagioResolver(client)
+    val anghamiResolver = de.goork.songflip.core.engine.resolvers.AnghamiResolver(client)
     val soundCloudResolver = de.goork.songflip.core.engine.resolvers.SoundCloudResolver(client)
 
     val metadataExtractor = MetadataExtractor(
@@ -92,7 +93,8 @@ class SongLinkEngine(
         qobuzResolver = qobuzResolver,
         beatportResolver = beatportResolver,
         audiomackResolver = audiomackResolver,
-        idagioResolver = idagioResolver
+        idagioResolver = idagioResolver,
+        anghamiResolver = anghamiResolver
     )
 
     val shortLinkResolver = ShortLinkResolver(client) { metadataExtractor.resolveShazamToAppleMusic(it) }

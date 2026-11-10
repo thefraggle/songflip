@@ -1,3 +1,2 @@
-- Signal-Qualitätsführung: Visuelle Hinweise bei zu leiser Musik oder Übersteuerung während der Erkennung.
-- Datenwiederherstellung & Speichersicherheit: Zuverlässiger Zugriff auf gespeicherte Titel im Verlauf wiederhergestellt.
-- Modulare App-Architektur: Schnellere Ladezeiten und flüssigere Menüführung durch optimierte Komponenten.
+- Anghami-Integration: Volle Unterstützung für Anghami als Quell- und Ziel-Player beim Konvertieren und Teilen von Musik.
+- Bereinigung von Wiedergabelisten: Automatische Erkennung und Filterung von synthetischen Ghost-Tracks und Hintergrundgeräuschen vor dem Konvertieren.

@@ -28,6 +28,7 @@ val BrandQobuz        = Color(0xFF0073D1)
 val BrandBeatport    = Color(0xFF01FF95)
 val BrandAudiomack    = Color(0xFFFFA200)
 val BrandIdagio       = Color(0xFF5B8DEF)
+val BrandAnghami      = Color(0xFF792482)
 
 // State Colors & WCAG AA Contrast Tokens
 val StateActiveGreen = Color(0xFF10B981)

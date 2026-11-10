@@ -373,7 +373,7 @@
     <string name="settings_preferred_player_auto">Otomatis</string>
     <string name="settings_preferred_player_auto_desc">Disarankan: gunakan aplikasi default</string>
 
-    <!-- In-App Search & Disambiguation -->
+    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">Cari &amp; Konversi</string>
     <string name="search_hint">Cari lagu atau artis…</string>
     <string name="search_initial_prompt">Ketik judul lagu atau artis</string>
@@ -398,7 +398,7 @@
     <string name="history_filter_all">Semua</string>
     <string name="history_filter_favorites">Favorit</string>
     <string name="target_player_chip">Pemutar: %1$s</string>
-    <!-- Listen & Flip (#78) -->
+    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">Kenali musik yang diputar di sekitar Anda</string>
     <string name="badge_identified">Teridentifikasi</string>
@@ -457,4 +457,7 @@
     <string name="first_launch_step3_desc">Aktifkan Tautan Aplikasi di pengaturan sistem agar tautan musik terbuka langsung di pemutar tujuan.</string>
     <string name="first_launch_btn_done">Mulai</string>
     <string name="settings_how_it_works">Panduan Singkat / Cara Kerja</string>
+
+    <string name="target_anghami">Anghami</string>
+    <string name="playlist_ghost_tracks_notice">%1$d trek AI &amp; hantu yang mencurigakan dibersihkan</string>
 </resources>

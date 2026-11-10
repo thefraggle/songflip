@@ -211,6 +211,7 @@ class RedirectViewModel : ViewModel() {
             "beatport" -> incomingPlatform == MusicPlatform.BEATPORT
             "audiomack" -> incomingPlatform == MusicPlatform.AUDIOMACK
             "idagio" -> incomingPlatform == MusicPlatform.IDAGIO
+            "anghami" -> incomingPlatform == MusicPlatform.ANGHAMI
             else -> false
         }
 

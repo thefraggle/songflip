@@ -399,7 +399,7 @@
     <string name="settings_preferred_player_auto">Automatic</string>
     <string name="settings_preferred_player_auto_desc">Recommended: Uses default music app</string>
 
-    <!-- QR Code & Favorites & Quick Player Selection -->
+    <!-- QR Code &amp; Favorites &amp; Quick Player Selection -->
     <string name="qr_code_title">QR Code</string>
     <string name="qr_code_hint">Scan to open link on any device</string>
     <string name="action_close">Close</string>
@@ -410,7 +410,7 @@
     <string name="history_qr_action">Show QR Code</string>
     <string name="target_player_chip">Player: %1$s</string>
 
-    <!-- In-App Search & Disambiguation -->
+    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">Search &amp; Flip</string>
     <string name="search_hint">Search song or artist…</string>
     <string name="search_initial_prompt">Type a song title or artist</string>
@@ -424,7 +424,7 @@
     <string name="disambiguate_empty">No alternative versions found</string>
     <string name="disambiguate_error">Could not load versions</string>
     <string name="favorite_limit_reached">You have reached your 10 free favorites. Get SongFlip PRO for unlimited favorites &amp; 100 history entries.</string>
-    <!-- Listen & Flip (#78) -->
+    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">Identify music playing around you</string>
     <string name="badge_identified">Identified</string>
@@ -484,4 +484,7 @@
     <string name="first_launch_step3_desc">Enable App Links in system settings so music links open directly in your target player.</string>
     <string name="first_launch_btn_done">Get Started</string>
     <string name="settings_how_it_works">Quick Guide / How it Works</string>
+
+    <string name="target_anghami">Anghami</string>
+    <string name="playlist_ghost_tracks_notice">%1$d suspected AI &amp; ghost tracks cleaned</string>
 </resources>

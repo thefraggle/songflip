@@ -359,7 +359,7 @@
     <string name="settings_preferred_player_auto">自動</string>
     <string name="settings_preferred_player_auto_desc">建議：使用預設應用程式</string>
 
-    <!-- In-App Search & Disambiguation -->
+    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">搜尋與轉換</string>
     <string name="search_hint">搜尋歌曲或演出者…</string>
     <string name="search_initial_prompt">輸入歌曲名或歌手</string>
@@ -384,7 +384,7 @@
     <string name="history_filter_all">全部</string>
     <string name="history_filter_favorites">最愛</string>
     <string name="target_player_chip">播放器：%1$s</string>
-    <!-- Listen & Flip (#78) -->
+    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">聽音識曲並轉換至你的播放器</string>
     <string name="badge_identified">已識曲</string>
@@ -443,4 +443,7 @@
     <string name="first_launch_step3_desc">在系統設定中啟用「應用程式連結」，即可直接在目標播放器中開啟音樂連結。</string>
     <string name="first_launch_btn_done">開始使用</string>
     <string name="settings_how_it_works">快速指南 / 使用說明</string>
+
+    <string name="target_anghami">Anghami</string>
+    <string name="playlist_ghost_tracks_notice">已清理 %1$d 首疑似 AI 與虛擬幽靈曲目</string>
 </resources>

@@ -379,7 +379,7 @@
     <string name="settings_preferred_player_auto">Automático</string>
     <string name="settings_preferred_player_auto_desc">Recomendado: usa la app predeterminada</string>
 
-    <!-- In-App Search & Disambiguation -->
+    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">Buscar y cambiar</string>
     <string name="search_hint">Buscar canción o artista…</string>
     <string name="search_initial_prompt">Escribe una canción o artista</string>
@@ -404,7 +404,7 @@
     <string name="history_filter_all">Todos</string>
     <string name="history_filter_favorites">Favoritos</string>
     <string name="target_player_chip">Reproductor: %1$s</string>
-    <!-- Listen & Flip (#78) -->
+    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">Identifica la música que suena a tu alrededor</string>
     <string name="badge_identified">Identificado</string>
@@ -464,4 +464,7 @@
     <string name="first_launch_step3_desc">Activa los enlaces de apps en los ajustes del sistema para abrir la música directamente en tu reproductor.</string>
     <string name="first_launch_btn_done">Empezar</string>
     <string name="settings_how_it_works">Guía rápida / Cómo funciona</string>
+
+    <string name="target_anghami">Anghami</string>
+    <string name="playlist_ghost_tracks_notice">%1$d pistas fantasma y de IA sospechosas limpiadas</string>
 </resources>

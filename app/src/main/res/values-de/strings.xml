@@ -398,7 +398,7 @@
     <string name="settings_preferred_player_auto">Automatisch</string>
     <string name="settings_preferred_player_auto_desc">Empfohlen: Nutzt die Standard-App</string>
 
-    <!-- QR Code & Favorites & Quick Player Selection -->
+    <!-- QR Code &amp; Favorites &amp; Quick Player Selection -->
     <string name="qr_code_title">QR-Code</string>
     <string name="qr_code_hint">Scannen, um den Link auf jedem Gerät zu öffnen</string>
     <string name="action_close">Schließen</string>
@@ -409,7 +409,7 @@
     <string name="history_qr_action">QR-Code anzeigen</string>
     <string name="target_player_chip">Player: %1$s</string>
 
-    <!-- In-App Search & Disambiguation -->
+    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">Search &amp; Flip</string>
     <string name="search_hint">Song oder Künstler suchen …</string>
     <string name="search_initial_prompt">Tippe einen Titel oder Interpreten ein</string>
@@ -423,7 +423,7 @@
     <string name="disambiguate_empty">Keine alternativen Versionen gefunden</string>
     <string name="disambiguate_error">Versionen konnten nicht geladen werden</string>
     <string name="favorite_limit_reached">Du hast deine 10 kostenlosen Favoriten erreicht. Sichere dir SongFlip PRO für unbegrenzte Favoriten &amp; 100 Verlaufs-Einträge.</string>
-    <!-- Listen & Flip (#78) -->
+    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">Musik in deiner Umgebung erkennen</string>
     <string name="badge_identified">Erkannt</string>
@@ -483,4 +483,7 @@
     <string name="first_launch_step3_desc">Aktiviere App-Links in den Systemeinstellungen, damit sich Musik-Links direkt im Ziel-Player öffnen.</string>
     <string name="first_launch_btn_done">Los geht\'s</string>
     <string name="settings_how_it_works">Kurzanleitung / So geht\'s</string>
+
+    <string name="target_anghami">Anghami</string>
+    <string name="playlist_ghost_tracks_notice">%1$d KI- &amp; Ghost-Titel automatisch bereinigt</string>
 </resources>

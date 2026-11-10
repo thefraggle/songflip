@@ -622,6 +622,7 @@ class UrlUtilsTest {
         assertTrue(UrlUtils.isSafeNativeAppUri("tidal://track/123"))
         assertTrue(UrlUtils.isSafeNativeAppUri("deezer://track/123"))
         assertTrue(UrlUtils.isSafeNativeAppUri("qobuz://track/123"))
+        assertTrue(UrlUtils.isSafeNativeAppUri("anghami://song/12345"))
         assertTrue(UrlUtils.isSafeNativeAppUri("podcast://podcasts.apple.com/search?term=test"))
         assertTrue(UrlUtils.isSafeNativeAppUri("https://music.youtube.com/watch?v=123"))
 
@@ -632,6 +633,34 @@ class UrlUtilsTest {
         assertFalse(UrlUtils.isSafeNativeAppUri("intent:#Intent;action=android.intent.action.VIEW;end"))
         assertFalse(UrlUtils.isSafeNativeAppUri("chrome://flags"))
         assertFalse(UrlUtils.isSafeNativeAppUri(""))
+    }
+
+    @Test
+    fun testAnghamiUrlHandling() {
+        // Platform detection
+        assertEquals(de.goork.songflip.core.model.MusicPlatform.ANGHAMI, UrlUtils.detectPlatform("https://play.anghami.com/song/12345678"))
+        assertEquals(de.goork.songflip.core.model.MusicPlatform.ANGHAMI, UrlUtils.detectPlatform("https://play.anghami.com/album/987654"))
+        assertEquals(de.goork.songflip.core.model.MusicPlatform.ANGHAMI, UrlUtils.detectPlatform("https://anghami.com/song/12345678"))
+
+        // Normalization
+        assertEquals("https://play.anghami.com/song/12345678", UrlUtils.normalizeUrl("https://play.anghami.com/song/12345678?branch=xyz&referrer=abc"))
+        assertEquals("https://play.anghami.com/album/987654", UrlUtils.normalizeUrl("https://play.anghami.com/album/987654?utm_source=share"))
+
+        // Entity types
+        assertEquals(de.goork.songflip.core.model.MusicEntityType.TRACK, UrlUtils.detectEntityType("https://play.anghami.com/song/12345678"))
+        assertEquals(de.goork.songflip.core.model.MusicEntityType.ALBUM, UrlUtils.detectEntityType("https://play.anghami.com/album/987654"))
+
+        // Supported check
+        assertTrue(UrlUtils.isSupportedMusicOrAggregatorUrl("https://play.anghami.com/song/12345678"))
+        assertTrue(UrlUtils.isSafeTargetUrl("https://play.anghami.com/song/12345678"))
+
+        // Search URL builder
+        val searchUrl = UrlUtils.buildSearchUrl("Amr Diab Tamally Maak", "anghami")
+        assertTrue(searchUrl.contains("play.anghami.com/search"))
+        assertTrue(searchUrl.contains("Amr") || searchUrl.contains("Amr%20Diab"))
+
+        // Native URI
+        assertEquals("anghami://song/12345678", UrlUtils.toNativeAppUri("https://play.anghami.com/song/12345678", "anghami"))
     }
 }
 

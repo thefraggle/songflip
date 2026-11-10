@@ -381,14 +381,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SongFlip/SongFlip.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 136;
+				CURRENT_PROJECT_VERSION = 137;
 				DEVELOPMENT_TEAM = 296C735W8C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_APTABASE_APP_KEY = "$(APTABASE_APP_KEY)";
 				INFOPLIST_KEY_APTABASE_HOST = "$(APTABASE_HOST)";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				INFOPLIST_KEY_LSApplicationQueriesSchemes = "music youtubemusic spotify tidal deezer amznmp3 soundcloud bandcamp qobuz beatport audiomack idagio demus yattee marvispro marvis soor joitunes";
+				INFOPLIST_KEY_LSApplicationQueriesSchemes = "music youtubemusic spotify tidal deezer amznmp3 soundcloud bandcamp qobuz beatport audiomack idagio anghami demus yattee marvispro marvis soor joitunes";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Listen & Flip uses the microphone to recognize music playing around you. Audio is never recorded or stored.";
 				INFOPLIST_KEY_REVENUECAT_PUBLIC_KEY = "$(REVENUECAT_PUBLIC_KEY)";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -400,7 +400,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.14.11;
+				MARKETING_VERSION = 1.14.12;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-lsqlite3",
@@ -425,14 +425,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SongFlip/SongFlip.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 136;
+				CURRENT_PROJECT_VERSION = 137;
 				DEVELOPMENT_TEAM = 296C735W8C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_APTABASE_APP_KEY = "$(APTABASE_APP_KEY)";
 				INFOPLIST_KEY_APTABASE_HOST = "$(APTABASE_HOST)";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				INFOPLIST_KEY_LSApplicationQueriesSchemes = "music youtubemusic spotify tidal deezer amznmp3 soundcloud bandcamp qobuz beatport audiomack idagio demus yattee marvispro marvis soor joitunes";
+				INFOPLIST_KEY_LSApplicationQueriesSchemes = "music youtubemusic spotify tidal deezer amznmp3 soundcloud bandcamp qobuz beatport audiomack idagio anghami demus yattee marvispro marvis soor joitunes";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Listen & Flip uses the microphone to recognize music playing around you. Audio is never recorded or stored.";
 				INFOPLIST_KEY_REVENUECAT_PUBLIC_KEY = "$(REVENUECAT_PUBLIC_KEY)";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -444,7 +444,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.14.11;
+				MARKETING_VERSION = 1.14.12;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-lsqlite3",
@@ -468,7 +468,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SongFlipShareExtension/SongFlipShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 136;
+				CURRENT_PROJECT_VERSION = 137;
 				DEVELOPMENT_TEAM = 296C735W8C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -478,7 +478,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.14.11;
+				MARKETING_VERSION = 1.14.12;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-lsqlite3",
@@ -503,7 +503,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SongFlipShareExtension/SongFlipShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 136;
+				CURRENT_PROJECT_VERSION = 137;
 				DEVELOPMENT_TEAM = 296C735W8C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -513,7 +513,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.14.11;
+				MARKETING_VERSION = 1.14.12;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-lsqlite3",

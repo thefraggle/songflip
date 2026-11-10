@@ -61,6 +61,7 @@ struct SwiftPlaylistConversionResult: Codable {
     let webShareUrl: String?
     let isLimited: Bool
     let isPartial: Bool?
+    let ghostTracksFiltered: Int
     let tracks: [SwiftPlaylistTrackItem]
     let parts: [SwiftPlaylistChunk]?
 }
@@ -512,6 +513,23 @@ struct PlaylistConverterView: View {
             .listStyle(.plain)
             .frame(maxHeight: 220)
 
+            // Ghost & AI Track Filter Notice Banner (#211)
+            if result.ghostTracksFiltered > 0 {
+                HStack(alignment: .center, spacing: 10) {
+                    Image(systemName: "sparkles")
+                        .font(.body)
+                        .foregroundColor(.purple)
+                    Text(String(format: LocalizationManager.string(for: "playlist_ghost_tracks_notice", lang: lang), result.ghostTracksFiltered))
+                        .font(.caption2.weight(.medium))
+                        .foregroundColor(.primary)
+                    Spacer()
+                }
+                .padding(12)
+                .background(Color.purple.opacity(0.12))
+                .cornerRadius(12)
+                .padding(.horizontal, 20)
+            }
+
             // Large Playlist Notice Banner (only shown if total tracks exceeds 200)
             let isLargePlaylist = (result.originalTotalTracks ?? 0) > 200
             if isLargePlaylist {
@@ -802,6 +820,7 @@ struct PlaylistConverterView: View {
                     webShareUrl: kmpResult.webShareUrl,
                     isLimited: kmpResult.isLimited,
                     isPartial: kmpResult.isPartial,
+                    ghostTracksFiltered: Int(kmpResult.ghostTracksFiltered),
                     tracks: mappedTracks,
                     parts: mappedParts
                 )
@@ -975,6 +994,7 @@ struct PlaylistConverterView: View {
                     webShareUrl: kmpResult.webShareUrl,
                     isLimited: kmpResult.isLimited,
                     isPartial: kmpResult.isPartial,
+                    ghostTracksFiltered: Int(kmpResult.ghostTracksFiltered),
                     tracks: mappedTracks,
                     parts: mappedParts
                 )

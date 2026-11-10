@@ -186,6 +186,14 @@ object UrlUtils {
             return "https://app.idagio.com/$type/$id"
         }
 
+        // 13. Anghami: (play|www)?\.anghami\.com/(song|album|playlist|artist)/{id}
+        val anghamiMatch = Regex("(?:https?://)?(?:(?:play|www)\\.)?anghami\\.com/(song|album|playlist|artist)/([0-9a-zA-Z_-]+)").find(clean)
+        if (anghamiMatch != null) {
+            val type = anghamiMatch.groupValues[1].lowercase()
+            val id = anghamiMatch.groupValues[2]
+            return "https://play.anghami.com/$type/$id"
+        }
+
         // 11. Generic Query Parameter Stripping (si, context, rowId, utm_*, ad-tracking)
         if (clean.contains("?")) {
             // Collapse accidental double/triple question marks e.g. "playlist/123??si=..." (#148)
@@ -461,6 +469,7 @@ object UrlUtils {
             isHostOrSubdomain(host, "beatport.com") -> MusicPlatform.BEATPORT
             isHostOrSubdomain(host, "audiomack.com") -> MusicPlatform.AUDIOMACK
             isHostOrSubdomain(host, "idagio.com") -> MusicPlatform.IDAGIO
+            isHostOrSubdomain(host, "anghami.com") || lower.startsWith("anghami:") -> MusicPlatform.ANGHAMI
             else -> null
         }
     }
@@ -506,6 +515,7 @@ object UrlUtils {
         "beatport",
         "audiomack",
         "idagio",
+        "anghami",
         "debridmusic"
     )
 
@@ -553,7 +563,8 @@ object UrlUtils {
                 (isHostOrSubdomain(host, "qobuz.com") && path.contains("/search")) ||
                 (isHostOrSubdomain(host, "beatport.com") && path.contains("/search")) ||
                 (isHostOrSubdomain(host, "audiomack.com") && path.contains("/search")) ||
-                (isHostOrSubdomain(host, "idagio.com") && path.contains("/search"))
+                (isHostOrSubdomain(host, "idagio.com") && path.contains("/search")) ||
+                (isHostOrSubdomain(host, "anghami.com") && path.contains("/search"))
     }
 
     fun extractSearchQuery(url: String): String? {
@@ -651,6 +662,16 @@ object UrlUtils {
             // Idagio: app.idagio.com/search?q={query}
             isHostOrSubdomain(host, "idagio.com") && lower.contains("/search") -> {
                 if (clean.contains("q=")) {
+                    clean.substringAfter("q=").substringBefore("&")
+                } else {
+                    clean.substringAfter("/search/").substringBefore("?").substringBefore("&")
+                }
+            }
+            // Anghami: play.anghami.com/search?query={query} or /search?q={query}
+            isHostOrSubdomain(host, "anghami.com") && lower.contains("/search") -> {
+                if (clean.contains("query=")) {
+                    clean.substringAfter("query=").substringBefore("&")
+                } else if (clean.contains("q=")) {
                     clean.substringAfter("q=").substringBefore("&")
                 } else {
                     clean.substringAfter("/search/").substringBefore("?").substringBefore("&")
@@ -772,6 +793,7 @@ object UrlUtils {
             "beatport" -> "https://www.beatport.com/search?q=$query"
             "audiomack" -> "https://audiomack.com/search?q=$query"
             "idagio" -> "https://app.idagio.com/search?q=$query"
+            "anghami" -> "https://play.anghami.com/search?query=$query"
             else -> "https://music.youtube.com/search?q=$query"
         }
     }
@@ -869,6 +891,7 @@ object UrlUtils {
             "beatport" -> toNativeBeatportUri(url)
             "audiomack" -> toNativeAudiomackUri(url)
             "idagio" -> toNativeIdagioUri(url)
+            "anghami" -> toNativeAnghamiUri(url)
             else -> url
         }
     }
@@ -878,6 +901,18 @@ object UrlUtils {
     }
 
     fun toNativeIdagioUri(url: String): String {
+        return url
+    }
+
+    fun toNativeAnghamiUri(url: String): String {
+        if (url.startsWith("anghami://")) return url
+        val clean = url.trim().substringBefore("?")
+        val match = Regex("(?:https?://)?(?:(?:play|www)\\.)?anghami\\.com/(song|album|playlist|artist)/([0-9a-zA-Z_-]+)").find(clean)
+        if (match != null) {
+            val type = match.groupValues[1]
+            val id = match.groupValues[2]
+            return "anghami://$type/$id"
+        }
         return url
     }
 

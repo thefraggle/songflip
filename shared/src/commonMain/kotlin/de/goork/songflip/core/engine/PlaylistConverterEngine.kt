@@ -5,6 +5,7 @@ import de.goork.songflip.core.model.PlaylistConversionResult
 import de.goork.songflip.core.model.PlaylistErrorCode
 import de.goork.songflip.core.model.PlaylistErrorPayload
 import de.goork.songflip.core.model.PlaylistTrackItem
+import de.goork.songflip.core.model.cleanGhostAndAiTracks
 import de.goork.songflip.core.model.deduplicated
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpRequestTimeoutException
@@ -148,7 +149,7 @@ class PlaylistConverterEngine(
 
                 if (response.status.isSuccess()) {
                     val body = response.bodyAsText()
-                    val result = json.decodeFromString<PlaylistConversionResult>(body).deduplicated()
+                    val result = json.decodeFromString<PlaylistConversionResult>(body).deduplicated().cleanGhostAndAiTracks()
                     return Result.success(result)
                 } else {
                     val errorBody = response.bodyAsText()
@@ -230,7 +231,7 @@ class PlaylistConverterEngine(
 
                 if (response.status.isSuccess()) {
                     val body = response.bodyAsText()
-                    val result = json.decodeFromString<PlaylistConversionResult>(body).deduplicated()
+                    val result = json.decodeFromString<PlaylistConversionResult>(body).deduplicated().cleanGhostAndAiTracks()
                     return Result.success(result)
                 } else {
                     val errorBody = response.bodyAsText()

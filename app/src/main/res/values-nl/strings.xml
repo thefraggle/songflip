@@ -379,7 +379,7 @@
     <string name="settings_preferred_player_auto">Automatisch</string>
     <string name="settings_preferred_player_auto_desc">Aanbevolen: gebruikt de standaard-app</string>
 
-    <!-- In-App Search & Disambiguation -->
+    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">Zoeken &amp; Converteren</string>
     <string name="search_hint">Zoek nummer of artiest…</string>
     <string name="search_initial_prompt">Typ een titel of artiest</string>
@@ -404,7 +404,7 @@
     <string name="history_filter_all">Alle</string>
     <string name="history_filter_favorites">Favorieten</string>
     <string name="target_player_chip">Speler: %1$s</string>
-    <!-- Listen & Flip (#78) -->
+    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">Herken muziek om je heen</string>
     <string name="badge_identified">Herkenning</string>
@@ -464,4 +464,7 @@
     <string name="first_launch_step3_desc">Schakel App-links in bij de systeeminstellingen zodat muzieklinks direct in je doelspeler openen.</string>
     <string name="first_launch_btn_done">Aan de slag</string>
     <string name="settings_how_it_works">Snelle handleiding / Hoe het werkt</string>
+
+    <string name="target_anghami">Anghami</string>
+    <string name="playlist_ghost_tracks_notice">%1$d verdachte AI- en ghost-nummers opgeschoond</string>
 </resources>
