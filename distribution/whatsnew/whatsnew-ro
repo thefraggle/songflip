@@ -1,2 +1,3 @@
-- Performanță și stabilitate: procesare rafinată a legăturilor și stocare în cache a datelor de fundal pentru tranziții mai rapide și mai sigure.
-- Remedieri de erori: S-au rezolvat erori minore ale interfeței și s-au îmbunătățit fiabilitatea prin partajarea sistemului și dialogurile de navigare.
+- Stare și detalii: afișare rafinată a stării contului și a disponibilității caracteristicilor atunci când sunt accesate din antet și din meniuri.
+- Navigare și casete de dialog: Gestionare îmbunătățită a respingerii și acțiuni de închidere pentru foile modale și cardurile de detalii.
+- Stabilitate și poloneză: Îmbunătățiri minore ale interfeței și o gestionare mai fluidă a tranziției UI.

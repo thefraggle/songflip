@@ -1,2 +1,3 @@
-- Prestanda och stabilitet: Förfinad länkbearbetning och bakgrundsdatacache för snabbare, mer pålitliga övergångar.
-- Bugfixar: Löst mindre gränssnittsfel och förbättrad tillförlitlighet i systemdelnings- och navigeringsdialoger.
+- Status och detaljer: Förfinad visning av kontostatus och funktionstillgänglighet när de nås från rubriken och menyerna.
+- Navigering och dialogrutor: Förbättrad avvisningshantering och stängningsåtgärder för modalblad och detaljkort.
+- Stabilitet och polsk: Mindre gränssnittsförbättringar och smidigare hantering av UI-övergångar.

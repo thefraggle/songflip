@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.14.5] - 2026-11-10
+- **Status & Details**: Refined display of account status and feature availability when accessed from the header and menus.
+- **Navigation & Dialogs**: Enhanced dismiss handling and close actions for modal sheets and detail cards.
+- **Stability & Polish**: Minor interface enhancements and smoother UI transition handling.
+
 ## [1.14.4] - 2026-11-09
 - **Performance & Stability**: Refined link processing and background data caching for faster, more dependable transitions.
 - **Bug Fixes**: Resolved minor interface glitches and improved reliability across system sharing and navigation dialogs.

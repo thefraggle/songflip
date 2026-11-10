@@ -1,2 +1,3 @@
-- Prestazioni e stabilità: elaborazione raffinata dei collegamenti e memorizzazione nella cache dei dati in background per transizioni più rapide e affidabili.
-- Correzioni di bug: risolti piccoli problemi dell'interfaccia e migliorata affidabilità nelle finestre di dialogo di condivisione e navigazione del sistema.
+- Stato e dettagli: visualizzazione migliorata dello stato dell'account e della disponibilità delle funzionalità quando si accede dall'intestazione e dai menu.
+- Navigazione e finestre di dialogo: gestione migliorata delle azioni di chiusura e chiusura per fogli modali e schede dettaglio.
+- Stabilità e rifinitura: miglioramenti minori dell'interfaccia e gestione più fluida della transizione dell'interfaccia utente.

@@ -1,2 +1,3 @@
-- Performances et stabilité : traitement des liens raffiné et mise en cache des données en arrière-plan pour des transitions plus rapides et plus fiables.
-- Corrections de bugs : résolution de problèmes mineurs d'interface et amélioration de la fiabilité dans les boîtes de dialogue de partage du système et de navigation.
+- Statut et détails : affichage raffiné de l'état du compte et de la disponibilité des fonctionnalités lors de l'accès depuis l'en-tête et les menus.
+- Navigation et boîtes de dialogue : gestion améliorée des rejets et actions de fermeture pour les feuilles modales et les cartes de détail.
+- Stabilité et polissage : améliorations mineures de l'interface et gestion plus fluide des transitions de l'interface utilisateur.

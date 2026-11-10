@@ -1,2 +1,3 @@
-- Ytelse og stabilitet: Raffinert koblingsbehandling og caching av bakgrunnsdata for raskere og mer pålitelige overganger.
-- Feilrettinger: Løst mindre grensesnittfeil og forbedret pålitelighet på tvers av systemdeling og navigasjonsdialoger.
+- Status og detaljer: Avgrenset visning av kontostatus og funksjonstilgjengelighet når de åpnes fra overskriften og menyene.
+- Navigasjon og dialoger: Forbedret avvisningshåndtering og lukkehandlinger for modale ark og detaljkort.
+- Stabilitet og polsk: Mindre grensesnittforbedringer og jevnere håndtering av UI-overganger.

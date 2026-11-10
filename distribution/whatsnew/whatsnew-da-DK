@@ -1,2 +1,3 @@
-- Ydeevne og stabilitet: Raffineret linkbehandling og baggrundsdatacache for hurtigere og mere pålidelige overgange.
-- Fejlrettelser: Løst mindre grænsefladefejl og forbedret pålidelighed på tværs af systemdelings- og navigationsdialoger.
+- Status og detaljer: Raffineret visning af kontostatus og funktionstilgængelighed, når de åbnes fra overskriften og menuerne.
+- Navigation og dialogbokse: Forbedret afvisningshåndtering og lukkehandlinger for modale ark og detaljekort.
+- Stabilitet og polsk: Mindre grænsefladeforbedringer og smidigere UI-overgangshåndtering.
