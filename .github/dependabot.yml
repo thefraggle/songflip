@@ -4,17 +4,9 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 3
     commit-message:
       prefix: "ci"
     labels:
       - "ci"
-      - "dependencies"
-
-  - package-ecosystem: "gradle"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    commit-message:
-      prefix: "build"
-    labels:
       - "dependencies"
