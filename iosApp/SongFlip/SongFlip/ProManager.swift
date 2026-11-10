@@ -27,46 +27,22 @@ enum ProStateStorage {
     static let keyCouponExpiration = "pro_coupon_expiration"
     static let keyCouponToken = "pro_coupon_token"
     static let keyIsProCached = "is_pro_cached"
-    static let keyCacheSignature = "pro_cache_signature"
     static let keyProCacheType = "pro_cache_type"
     static let keyProCacheExp = "pro_cache_exp"
     static let keyProAuthToken = "pro_auth_token"
-    static let cacheSecret = "SF_PRO_STATE_HMAC_v2_9f8e7d6c"
     static let rcExpiryGraceMs: Double = 15 * 60 * 1000
-
-    static func generateSignature(isPro: Bool, proType: String?, expMs: Int64) -> String {
-        let msg = "\(isPro)|\(proType ?? "")|\(expMs)"
-        let key = SymmetricKey(data: Data(cacheSecret.utf8))
-        let code = HMAC<SHA256>.authenticationCode(for: Data(msg.utf8), using: key)
-        return code.map { String(format: "%02x", $0) }.joined()
-    }
-
-    static func verifySignature(isPro: Bool, proType: String?, expMs: Int64, signature: String) -> Bool {
-        let expected = generateSignature(isPro: isPro, proType: proType, expMs: expMs)
-        return expected == signature
-    }
 
     static func writeVerifiedProState(defaults: UserDefaults, isPro: Bool, proType: String?, expMs: Int64) {
         defaults.set(isPro, forKey: keyIsProCached)
         defaults.set(proType ?? "", forKey: keyProCacheType)
         defaults.set(expMs, forKey: keyProCacheExp)
-        let sig = generateSignature(isPro: isPro, proType: proType, expMs: expMs)
-        defaults.set(sig, forKey: keyCacheSignature)
     }
 
     static func isProActive(defaults: UserDefaults = UserDefaults(suiteName: appGroupId) ?? .standard) -> Bool {
-        // Verify HMAC signature for cached Pro status (bound to app secret, type, and expiration)
         let isPro = defaults.bool(forKey: keyIsProCached)
         guard isPro else { return false }
 
-        let proType = defaults.string(forKey: keyProCacheType)
         let expMs = defaults.object(forKey: keyProCacheExp) as? Int64 ?? (defaults.object(forKey: keyProCacheExp) as? NSNumber)?.int64Value ?? 0
-        guard let signature = defaults.string(forKey: keyCacheSignature) else { return false }
-
-        guard verifySignature(isPro: true, proType: proType, expMs: expMs, signature: signature) else {
-            return false
-        }
-
         if expMs > 0 {
             let nowMs = Int64(Date().timeIntervalSince1970 * 1000)
             if nowMs > (expMs + Int64(rcExpiryGraceMs)) {
@@ -97,20 +73,10 @@ final class ProManager: NSObject, ObservableObject {
     private static let keyCouponExpiration = ProStateStorage.keyCouponExpiration
     private static let keyCouponToken = ProStateStorage.keyCouponToken
     private static let keyIsProCached = ProStateStorage.keyIsProCached
-    private static let keyCacheSignature = ProStateStorage.keyCacheSignature
     private static let keyProCacheType = ProStateStorage.keyProCacheType
     private static let keyProCacheExp = ProStateStorage.keyProCacheExp
     private static let keyProAuthToken = ProStateStorage.keyProAuthToken
-    private static let cacheSecret = ProStateStorage.cacheSecret
     private static let rcExpiryGraceMs = ProStateStorage.rcExpiryGraceMs
-
-    nonisolated static func generateSignature(isPro: Bool, proType: String?, expMs: Int64) -> String {
-        ProStateStorage.generateSignature(isPro: isPro, proType: proType, expMs: expMs)
-    }
-
-    nonisolated static func verifySignature(isPro: Bool, proType: String?, expMs: Int64, signature: String) -> Bool {
-        ProStateStorage.verifySignature(isPro: isPro, proType: proType, expMs: expMs, signature: signature)
-    }
 
     nonisolated static func writeVerifiedProState(defaults: UserDefaults, isPro: Bool, proType: String?, expMs: Int64) {
         ProStateStorage.writeVerifiedProState(defaults: defaults, isPro: isPro, proType: proType, expMs: expMs)
@@ -280,7 +246,6 @@ final class ProManager: NSObject, ObservableObject {
         if let legacyToken = defaults.string(forKey: Self.keyCouponToken), !legacyToken.isEmpty {
             writeKeychainString(account: Self.keychainAccountCouponToken, value: legacyToken)
             defaults.removeObject(forKey: Self.keyCouponToken)
-            defaults.removeObject(forKey: Self.keyCacheSignature)
             return legacyToken
         }
         return nil

@@ -1,2 +1,3 @@
-- Veri Koruma ve Gizlilik: Kapsamlı gizlilik bildirimleri eklendi ve cihazda yerel olarak kodlar oluşturarak üçüncü taraf ağ isteklerini ortadan kaldırdı.
-- Önbellek Güvenilirliği: Optimize edilmiş çözünürlük geçerlilik pencereleri, uzun vadeli girişleri korurken geçici arama geri dönüşlerinin otomatik olarak yenilenmesini sağlar.
+- Privacy & Confidentiality: Clipboard link detection no longer triggers background network requests without direct user interaction.
+- Performance & Safety: Playlist file import is handled completely asynchronously with a 2MB size safeguard to prevent interface freezes.
+- Routing & Navigation Architecture: Unified link resolution and telemetry handling into a centralized coordinator for consistent player fallback behavior.

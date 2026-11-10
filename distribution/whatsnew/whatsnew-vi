@@ -1,2 +1,3 @@
-- Bảo vệ dữ liệu & quyền riêng tư: Đã thêm các tuyên bố về quyền riêng tư toàn diện và loại bỏ các yêu cầu mạng của bên thứ ba bằng cách tạo mã cục bộ trên thiết bị.
-- Độ tin cậy của bộ đệm: Cửa sổ hợp lệ của độ phân giải được tối ưu hóa để dự phòng tìm kiếm tạm thời tự động làm mới trong khi vẫn bảo toàn các mục nhập dài hạn.
+- Privacy & Confidentiality: Clipboard link detection no longer triggers background network requests without direct user interaction.
+- Performance & Safety: Playlist file import is handled completely asynchronously with a 2MB size safeguard to prevent interface freezes.
+- Routing & Navigation Architecture: Unified link resolution and telemetry handling into a centralized coordinator for consistent player fallback behavior.

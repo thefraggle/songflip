@@ -1,1 +1,3 @@
-- डेटा संरक्षण आणि गोपनीयता: सर्वसमावेशक गोपनीयता घोषणा जोडल्या आणि डिव्हाइसवर स्थानिक पातळीवर कोड व्युत्पन्न करून तृतीय-पक्ष नेटवर्क विनंत्या काढून टाकल्या.
+- Privacy & Confidentiality: Clipboard link detection no longer triggers background network requests without direct user interaction.
+- Performance & Safety: Playlist file import is handled completely asynchronously with a 2MB size safeguard to prevent interface freezes.
+- Routing & Navigation Architecture: Unified link resolution and telemetry handling into a centralized coordinator for consistent player fallback behavior.

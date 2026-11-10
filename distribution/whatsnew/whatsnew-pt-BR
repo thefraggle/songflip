@@ -1,2 +1,2 @@
-- Proteção de dados e privacidade: Adicionadas declarações de privacidade abrangentes e eliminadas solicitações de rede de terceiros, gerando códigos localmente no dispositivo.
-- Confiabilidade do cache: janelas de validade de resolução otimizadas para que substitutos de pesquisa temporários sejam atualizados automaticamente, preservando entradas de longo prazo.
+- Privacidade e confidencialidade: a deteção de ligações da área de transferência já não aciona pedidos de rede em segundo plano sem interação direta do utilizador.
+- Desempenho e segurança: a importação de arquivos da lista de reprodução é tratada de forma completamente assíncrona com uma proteção de tamanho de 2 MB para evitar o congelamento da interface.

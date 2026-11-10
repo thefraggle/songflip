@@ -3,7 +3,6 @@ import Social
 import MobileCoreServices
 import UniformTypeIdentifiers
 import SongFlipKit
-import CryptoKit
 import os
 
 class ShareViewController: UIViewController {
@@ -387,21 +386,10 @@ class ShareViewController: UIViewController {
     }
 
     private func isProActive(defaults: UserDefaults) -> Bool {
-        // Verify HMAC signature for cached Pro status (bound to app secret, type, and expiration)
         let isPro = defaults.bool(forKey: "is_pro_cached")
         guard isPro else { return false }
 
-        let proType = defaults.string(forKey: "pro_cache_type")
         let expMs = defaults.object(forKey: "pro_cache_exp") as? Int64 ?? (defaults.object(forKey: "pro_cache_exp") as? NSNumber)?.int64Value ?? 0
-        guard let signature = defaults.string(forKey: "pro_cache_signature") else { return false }
-
-        let msg = "\(isPro)|\(proType ?? "")|\(expMs)"
-        let key = SymmetricKey(data: Data("SF_PRO_STATE_HMAC_v2_9f8e7d6c".utf8))
-        let code = HMAC<SHA256>.authenticationCode(for: Data(msg.utf8), using: key)
-        let expected = code.map { String(format: "%02x", $0) }.joined()
-
-        guard expected == signature else { return false }
-
         if expMs > 0 {
             let nowMs = Int64(Date().timeIntervalSince1970 * 1000)
             if nowMs > (expMs + Int64(15 * 60 * 1000)) {
@@ -438,34 +426,22 @@ class ShareViewController: UIViewController {
                 )
             } catch {
                 Self.logger.error("[ShareExtension] Resolution threw error: \(error.localizedDescription)")
-                let nsError = error as NSError
-                let errorReason: String
-                if nsError.domain == NSURLErrorDomain {
-                    switch nsError.code {
-                    case NSURLErrorTimedOut:
-                        errorReason = "timeout"
-                    case NSURLErrorCannotConnectToHost, NSURLErrorNetworkConnectionLost, NSURLErrorNotConnectedToInternet:
-                        errorReason = "io_error"
-                    default:
-                        errorReason = "network_error"
-                    }
-                } else {
-                    errorReason = "engine_error"
-                }
-                bridgeErrorDetail = error.localizedDescription
-                result = ResolutionResult.Error(message: error.localizedDescription, isUnsupported: false, errorReason: errorReason)
+                let errInfo = FlipCoordinator.mapError(error)
+                bridgeErrorDetail = errInfo.detail
+                result = ResolutionResult.Error(message: errInfo.reason, isUnsupported: false, errorReason: errInfo.errorReason)
             }
 
-            if let success = result as? ResolutionResult.Success {
-                // Save to shared SQLDelight history via App Group BEFORE terminating extension
+            let action = FlipCoordinator.resolveAction(result: result, targetPlatform: targetPlatform)
+
+            if case .openResolved(let targetUrl, _, let platformKey, let title, let artist, let isAlbum, _, _, let thumb) = action {
                 _ = try? await self.engine.cache.addHistoryEntry(
                     sourceUrl: inputUrl,
-                    targetPlatformKey: targetPlatform,
-                    targetUrl: success.targetUrl,
-                    title: success.title ?? LocalizationManager.string(for: "unknown_song"),
-                    artist: success.artist,
-                    isAlbum: success.isAlbum,
-                    thumbnailUrl: success.thumbnailUrl,
+                    targetPlatformKey: platformKey,
+                    targetUrl: targetUrl,
+                    title: title ?? LocalizationManager.string(for: "unknown_song"),
+                    artist: artist,
+                    isAlbum: isAlbum,
+                    thumbnailUrl: thumb,
                     currentTimeMs: Int64(Date().timeIntervalSince1970 * 1000),
                     isAcoustic: false
                 )
@@ -474,95 +450,56 @@ class ShareViewController: UIViewController {
             await MainActor.run {
                 self.delayTimer?.cancel()
                 self.delayTimer = nil
-                if let success = result as? ResolutionResult.Success {
-                    if let title = success.title {
+
+                FlipCoordinator.trackAction(action, inputUrl: inputUrl, targetPlatform: targetPlatform, errorDetail: bridgeErrorDetail)
+
+                switch action {
+                case .openResolved(let targetUrl, let nativeAppUri, let platformKey, let title, let artist, _, _, _, _):
+                    if let title = title {
                         self.statusLabel.text = "🎵 \(title)"
                     }
-
-                    let srcKey = UrlUtils.shared.detectPlatform(url: inputUrl)?.key ?? "unknown"
-                    AptabaseClient.shared.trackLinkFlipped(
-                        target: targetPlatform,
-                        isAlbum: success.isAlbum,
-                        isSearch: success.isSearchFallback,
-                        source: srcKey,
-                        cacheHit: KotlinBoolean(bool: success.isCacheHit)
+                    let urls = FlipCoordinator.computeLaunchUrls(
+                        targetUrl: targetUrl,
+                        nativeAppUri: nativeAppUri,
+                        platformKey: platformKey,
+                        title: title,
+                        artist: artist,
+                        defaults: defaults
+                    )
+                    self.openApp(
+                        urlString: urls.primaryUrl?.absoluteString ?? targetUrl,
+                        fallbackUrlString: urls.fallbackUrl?.absoluteString
                     )
 
-                    let cleanTargetKey = targetPlatform.components(separatedBy: "_").first ?? targetPlatform
-                    var targetUri = success.nativeAppUri ?? success.targetUrl
-                    if let preferredClient = defaults.string(forKey: "preferred_player_\(cleanTargetKey)"), !preferredClient.isEmpty {
-                        if let customUri = UrlUtils.shared.toAlternativeClientUri(
-                            url: success.targetUrl,
-                            platformKey: cleanTargetKey,
-                            clientId: preferredClient,
-                            title: success.title,
-                            artist: success.artist
-                        ) {
-                            targetUri = customUri
-                        }
-                    }
-                    let fallbackUri = targetUri != success.targetUrl ? UrlUtils.shared.toWebFallbackUrl(rawUrl: success.targetUrl, targetPlatformKey: cleanTargetKey) : nil
-                    self.openApp(urlString: targetUri, fallbackUrlString: fallbackUri)
-                } else if let podcast = result as? ResolutionResult.Podcast {
+                case .openPodcast(let targetUrl, let nativeAppUri, _):
                     self.statusLabel.text = self.localizedText(for: "podcast_badge", default: "Podcast")
-
-                    let srcKey = UrlUtils.shared.detectPlatform(url: inputUrl)?.key ?? "unknown"
-                    AptabaseClient.shared.trackPodcastFlipped(
-                        source: srcKey,
-                        target: targetPlatform,
-                        isDeepSearch: podcast.isDeepSearch
-                    )
-
-                    let targetUri = podcast.nativeAppUri ?? podcast.targetUrl
-                    let fallbackUri = podcast.nativeAppUri != nil ? podcast.targetUrl : nil
+                    let targetUri = nativeAppUri ?? targetUrl
+                    let fallbackUri = nativeAppUri != nil ? targetUrl : nil
                     self.openApp(urlString: targetUri, fallbackUrlString: fallbackUri)
-                } else if let playlist = result as? ResolutionResult.Playlist {
+
+                case .showPlaylistNotice(let originalUrl):
                     self.statusLabel.text = self.localizedText(for: "playlist_share_opening", default: "Playlist: Opening original...")
-                    AptabaseClient.shared.trackPlaylistRouted(target: targetPlatform)
-                    self.openApp(urlString: playlist.originalUrl)
-                } else if let podcast = result as? ResolutionResult.PodcastOrAudiobook {
+                    self.openApp(urlString: originalUrl)
+
+                case .showPodcastNotice(let originalUrl, _):
                     self.statusLabel.text = self.localizedText(for: "podcast_share_opening", default: "Podcast: Opening original...")
-                    if podcast.isAudiobook {
-                        AptabaseClient.shared.trackAudiobookIntercepted(target: targetPlatform)
-                    } else {
-                        AptabaseClient.shared.trackPodcastIntercepted(target: targetPlatform)
-                    }
-                    self.openApp(urlString: podcast.originalUrl)
-                } else if let unsupported = result as? ResolutionResult.UnsupportedEntity {
-                    let srcDomain = UrlUtils.shared.extractDomain(url: unsupported.originalUrl)
-                    AptabaseClient.shared.trackUnsupportedEntityIntercepted(
-                        target: targetPlatform,
-                        entityType: unsupported.entityType,
-                        sourceDomain: srcDomain
-                    )
-                    if unsupported.entityType == "unsupported_domain" {
+                    self.openApp(urlString: originalUrl)
+
+                case .unsupportedEntity(let originalUrl, let entityType):
+                    if entityType == "unsupported_domain" {
                         self.statusLabel.text = self.localizedText(
                             for: "unsupported_domain_toast",
                             default: "Not a supported streaming link – use Listen & Flip to identify music in videos."
                         )
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                            self.openApp(urlString: unsupported.originalUrl)
+                            self.openApp(urlString: originalUrl)
                         }
                     } else {
-                        self.openApp(urlString: unsupported.originalUrl)
+                        self.openApp(urlString: originalUrl)
                     }
-                } else {
+
+                case .failure:
                     self.statusLabel.text = self.localizedText(for: "share_error_failed", default: "Could not redirect link.")
-
-                    let srcKey = UrlUtils.shared.detectPlatform(url: inputUrl)?.key ?? "unknown"
-                    let srcDomain = UrlUtils.shared.extractDomain(url: inputUrl)
-                    let err = result as? ResolutionResult.Error
-                    let reason = err?.message ?? self.localizedText(for: "share_error_failed", default: "Could not redirect link.")
-                    let errorReason = err?.errorReason ?? "no_match_found"
-                    AptabaseClient.shared.trackLinkFlipFailed(
-                        target: targetPlatform,
-                        reason: reason,
-                        sourceDomain: srcDomain,
-                        sourcePlatform: srcKey,
-                        errorReason: errorReason,
-                        errorDetail: bridgeErrorDetail
-                    )
-
                     let trimmedInput = inputUrl.trimmingCharacters(in: .whitespacesAndNewlines)
                     if let fallbackUrl = URL(string: trimmedInput),
                        fallbackUrl.scheme == "http" || fallbackUrl.scheme == "https" {
@@ -573,6 +510,7 @@ class ShareViewController: UIViewController {
                         }
                     }
                 }
+            }
             }
         }
     }

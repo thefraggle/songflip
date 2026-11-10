@@ -1,2 +1,3 @@
-- Ochrana dat a soukromí: Přidána komplexní prohlášení o ochraně osobních údajů a eliminovány síťové požadavky třetích stran generováním kódů lokálně na zařízení.
-- Spolehlivost mezipaměti: Optimalizovaná okna platnosti rozlišení, takže dočasné záložní vyhledávání se automaticky obnovují při zachování dlouhodobých záznamů.
+- Privacy & Confidentiality: Clipboard link detection no longer triggers background network requests without direct user interaction.
+- Performance & Safety: Playlist file import is handled completely asynchronously with a 2MB size safeguard to prevent interface freezes.
+- Routing & Navigation Architecture: Unified link resolution and telemetry handling into a centralized coordinator for consistent player fallback behavior.

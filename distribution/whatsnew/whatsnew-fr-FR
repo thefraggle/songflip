@@ -1,2 +1,2 @@
-- Protection des données et confidentialité : ajout de déclarations de confidentialité complètes et élimination des requêtes réseau tierces en générant des codes localement sur l'appareil.
-- Fiabilité du cache : fenêtres de validité de résolution optimisées afin que les solutions de recherche temporaires s'actualisent automatiquement tout en préservant les entrées à long terme.
+- Confidentialité : la détection des liens du Presse-papiers ne déclenche plus les demandes en arrière-plan du réseau sans interaction directe de l'utilisateur.
+- Performance et sécurité : l'importation de fichiers de liste de lecture est gérée de manière complètement asynchrone avec une sauvegarde de 2 Mo pour éviter le gel de l'interface.

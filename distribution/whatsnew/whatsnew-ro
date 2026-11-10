@@ -1,2 +1,3 @@
-- Protecția datelor și confidențialitatea: S-au adăugat declarații complete de confidențialitate și s-au eliminat solicitările de rețea terță parte prin generarea de coduri local pe dispozitiv.
-- Fiabilitatea memoriei cache: ferestre de valabilitate a rezoluției optimizate, astfel încât alternativele temporare ale căutării se reîmprospătează automat, păstrând în același timp intrările pe termen lung.
+- Privacy & Confidentiality: Clipboard link detection no longer triggers background network requests without direct user interaction.
+- Performance & Safety: Playlist file import is handled completely asynchronously with a 2MB size safeguard to prevent interface freezes.
+- Routing & Navigation Architecture: Unified link resolution and telemetry handling into a centralized coordinator for consistent player fallback behavior.

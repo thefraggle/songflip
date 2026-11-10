@@ -1121,6 +1121,13 @@ struct ContentView: View {
             detectedClipboardUrl = nil
             return
         }
+
+        // Check if pasteboard has web URLs or strings without triggering system paste notification when possible
+        guard UIPasteboard.general.hasStrings || UIPasteboard.general.hasURLs else {
+            detectedClipboardUrl = nil
+            return
+        }
+
         let rawClip = UIPasteboard.general.string ?? UIPasteboard.general.url?.absoluteString
         guard let clip = rawClip, !clip.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             return
@@ -1130,19 +1137,7 @@ struct ContentView: View {
 
         if isMusic && clean != dismissedClipboardUrl {
             detectedClipboardUrl = clean
-            Task {
-                _ = try? await settings.engine.resolveTargetUrl(
-                    inputUrl: clean,
-                    targetPlatformKey: settings.targetPlatform,
-                    customApiUrl: settings.customApiUrl,
-                    customApiToken: settings.customApiToken,
-                    isPro: proManager.isPro,
-                    authToken: proManager.authToken,
-                    isPrefetch: true,
-                    forceRefresh: false,
-                    audiophileMode: proManager.isPro && settings.audiophileMode
-                )
-            }
+            // Privacy: Do not prefetch over the network unprompted; prefetch occurs upon user interaction
         } else if !isMusic {
             detectedClipboardUrl = nil
         }
@@ -1173,98 +1168,62 @@ struct ContentView: View {
 
             await MainActor.run {
                 settings.isResolving = false
-                if let success = res as? ResolutionResult.Success {
-                    // Add to shared History
+                let action = FlipCoordinator.resolveAction(result: res, targetPlatform: effectiveTarget)
+                FlipCoordinator.trackAction(action, inputUrl: urlToConvert, targetPlatform: effectiveTarget)
+
+                switch action {
+                case .openResolved(let targetUrl, let nativeAppUri, let platformKey, let title, let artist, let isAlbum, _, _, let thumb):
                     HistoryModel.shared.add(
-                        title: success.title ?? LocalizationManager.string(for: "unknown_song", lang: lang),
-                        artist: success.artist,
+                        title: title ?? LocalizationManager.string(for: "unknown_song", lang: lang),
+                        artist: artist,
                         sourceUrl: urlToConvert,
-                        targetUrl: success.targetUrl,
-                        targetPlatform: effectiveTarget,
-                        isAlbum: success.isAlbum,
-                        thumbnailUrl: success.thumbnailUrl
+                        targetUrl: targetUrl,
+                        targetPlatform: platformKey,
+                        isAlbum: isAlbum,
+                        thumbnailUrl: thumb
                     )
-
-                    let srcKey = UrlUtils.shared.detectPlatform(url: urlToConvert)?.key ?? "unknown"
-                    AptabaseClient.shared.trackLinkFlipped(
-                        target: effectiveTarget,
-                        isAlbum: success.isAlbum,
-                        isSearch: success.isSearchFallback,
-                        source: srcKey,
-                        cacheHit: KotlinBoolean(bool: success.isCacheHit)
-                    )
-
                     settings.openResolvedTarget(
-                        targetUrl: success.targetUrl,
-                        nativeAppUri: success.nativeAppUri,
-                        platformKey: effectiveTarget,
-                        title: success.title,
-                        artist: success.artist
+                        targetUrl: targetUrl,
+                        nativeAppUri: nativeAppUri,
+                        platformKey: platformKey,
+                        title: title,
+                        artist: artist
                     )
-
                     settings.incrementSuccessfulFlipCount()
                     activeMilestone = settings.getActiveProNudgeMilestone()
                     if activeMilestone == 0 {
                         ReviewManager.shared.maybeRequestReview(trigger: "flip_success", settings: settings)
                     }
-                } else if let podcast = res as? ResolutionResult.Podcast {
-                    AptabaseClient.shared.trackPodcastFlipped(
-                        source: UrlUtils.shared.detectPlatform(url: urlToConvert)?.key ?? "unknown",
-                        target: effectiveTarget,
-                        isDeepSearch: podcast.isDeepSearch
-                    )
-                    let target = podcast.nativeAppUri ?? podcast.targetUrl
+
+                case .openPodcast(let targetUrl, let nativeAppUri, _):
+                    let target = nativeAppUri ?? targetUrl
                     if let url = URL(string: target) {
                         UIApplication.shared.open(url)
                     }
                     dismissedClipboardUrl = urlToConvert
                     detectedClipboardUrl = nil
-                } else if let playlist = res as? ResolutionResult.Playlist {
-                    AptabaseClient.shared.trackPlaylistRouted(
-                        target: effectiveTarget
-                    )
-                    playlistNoticeUrl = playlist.originalUrl
+
+                case .showPlaylistNotice(let originalUrl):
+                    playlistNoticeUrl = originalUrl
                     showingPlaylistNotice = true
-                } else if let podcast = res as? ResolutionResult.PodcastOrAudiobook {
-                    if podcast.isAudiobook {
-                        AptabaseClient.shared.trackAudiobookIntercepted(target: effectiveTarget)
-                    } else {
-                        AptabaseClient.shared.trackPodcastIntercepted(target: effectiveTarget)
-                    }
-                    podcastNoticeUrl = podcast.originalUrl
-                    isPodcastNoticeAudiobook = podcast.isAudiobook
+
+                case .showPodcastNotice(let originalUrl, let isAudiobook):
+                    podcastNoticeUrl = originalUrl
+                    isPodcastNoticeAudiobook = isAudiobook
                     showingPodcastNotice = true
-                } else if let unsupported = res as? ResolutionResult.UnsupportedEntity {
-                    let srcDomain = UrlUtils.shared.extractDomain(url: unsupported.originalUrl)
-                    AptabaseClient.shared.trackUnsupportedEntityIntercepted(
-                        target: effectiveTarget,
-                        entityType: unsupported.entityType,
-                        sourceDomain: srcDomain
-                    )
-                    if unsupported.entityType == "unsupported_domain" {
+
+                case .unsupportedEntity(let originalUrl, let entityType):
+                    if entityType == "unsupported_domain" {
                         showToast(LocalizationManager.string(for: "unsupported_domain_toast", lang: lang))
                     }
-                    let targetUrlStr = unsupported.originalUrl.isEmpty ? urlToConvert : unsupported.originalUrl
+                    let targetUrlStr = originalUrl.isEmpty ? urlToConvert : originalUrl
                     if let original = URL(string: targetUrlStr) {
                         UIApplication.shared.open(original)
                     }
                     dismissedClipboardUrl = urlToConvert
                     detectedClipboardUrl = nil
-                } else {
-                    let err = res as? ResolutionResult.Error
-                    let reason = err?.message ?? "timeout_or_unknown"
-                    let errorReason = err?.errorReason ?? "no_match_found"
-                    let sourceDomain = UrlUtils.shared.extractDomain(url: urlToConvert)
-                    let sourcePlatform = UrlUtils.shared.detectPlatform(url: urlToConvert)?.key ?? "unknown"
 
-                    AptabaseClient.shared.trackLinkFlipFailed(
-                        target: effectiveTarget,
-                        reason: reason,
-                        sourceDomain: sourceDomain,
-                        sourcePlatform: sourcePlatform,
-                        errorReason: errorReason,
-                        errorDetail: nil
-                    )
+                case .failure:
                     showToast(LocalizationManager.string(for: "redirect_error_toast", lang: lang))
                     if let original = URL(string: urlToConvert) {
                         UIApplication.shared.open(original)

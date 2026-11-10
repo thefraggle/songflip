@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.14.8] - 2026-11-10
+- **Privacy & Confidentiality**: Clipboard link detection no longer triggers background network requests without direct user interaction.
+- **Performance & Safety**: Playlist file import is handled completely asynchronously with a 2MB size safeguard to prevent interface freezes.
+- **Routing & Navigation Architecture**: Unified link resolution and telemetry handling into a centralized coordinator for consistent player fallback behavior.
+- **State Reliability**: Streamlined internal state verification for offline cache lookups and background service synchronization.
+
 ## [1.14.7] - 2026-11-10
 - **Data Protection & Privacy**: Added comprehensive privacy declarations and eliminated third-party network requests by generating codes locally on device.
 - **Cache Reliability**: Optimized resolution validity windows so temporary search fallbacks automatically refresh while preserving long-term entries.

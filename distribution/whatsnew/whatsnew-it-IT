@@ -1,2 +1,2 @@
-- Protezione dei dati e privacy: aggiunte dichiarazioni complete sulla privacy ed eliminate richieste di rete di terze parti generando codici localmente sul dispositivo.
-- Affidabilità della cache: finestre di validità della risoluzione ottimizzate in modo che i fallback di ricerca temporanei si aggiornino automaticamente preservando le voci a lungo termine.
+- Privacy e riservatezza: il rilevamento dei link negli appunti non attiva più le richieste di rete in background senza l'interazione diretta dell'utente.
+- Prestazioni e sicurezza: l'importazione del file della playlist viene gestita in modo completamente asincrono con una protezione delle dimensioni di 2 MB per evitare il blocco dell'interfaccia.

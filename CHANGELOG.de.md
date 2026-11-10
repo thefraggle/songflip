@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.14.8] - 2026-11-10
+- **Datenschutz & Privatsphäre**: Die Erkennung von Links in der Zwischenablage löst keine unaufgeforderten Netzwerkanfragen im Hintergrund mehr aus.
+- **Leistung & Ressourcenschutz**: Der Import von Wiedergabelisten erfolgt nun vollständig asynchron mit einer 2MB-Dateigrößenbegrenzung zum Schutz vor Blockaden.
+- **Architektur & Routing**: Vereinheitlichung der Weiterleitungs- und Fehlerlogik über eine zentrale Abstimmung für verlässliches Verhalten beim Öffnen von Titeln.
+- **Zustandsverwaltung**: Bereinigung und Beschleunigung der internen Zustandsprüfung für Offline-Zwischenspeicher.
+
 ## [1.14.7] - 2026-11-10
 - **Datenschutz & Privatsphäre**: Vollständige Datenschutzerklärungen integriert und externe Netzwerkanfragen durch rein lokale Code-Erstellung auf dem Gerät eliminiert.
 - **Cache-Zuverlässigkeit**: Optimierte Gültigkeitsdauer für temporäre Suchausweichrouten mit automatischer Erneuerung bei fortlaufendem Verlaufsschutz.

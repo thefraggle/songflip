@@ -1,2 +1,3 @@
-- Tietosuoja ja yksityisyys: Lisätty kattavat tietosuojailmoitukset ja poistettu kolmannen osapuolen verkkopyynnöt luomalla koodeja paikallisesti laitteeseen.
-- Välimuistin luotettavuus: Optimoidut resoluution kelpoisuusikkunat, joten väliaikaiset hakuvarat päivittyvät automaattisesti säilyttäen samalla pitkän aikavälin merkinnät.
+- Privacy & Confidentiality: Clipboard link detection no longer triggers background network requests without direct user interaction.
+- Performance & Safety: Playlist file import is handled completely asynchronously with a 2MB size safeguard to prevent interface freezes.
+- Routing & Navigation Architecture: Unified link resolution and telemetry handling into a centralized coordinator for consistent player fallback behavior.

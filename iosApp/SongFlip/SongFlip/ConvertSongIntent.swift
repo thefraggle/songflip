@@ -110,33 +110,24 @@ struct ConvertSongIntent: AppIntent {
             )
         } catch {
             Self.logger.error("[AppIntent] Resolution threw error: \(error.localizedDescription)")
-            let nsError = error as NSError
-            let errorReason: String
-            if nsError.domain == NSURLErrorDomain {
-                switch nsError.code {
-                case NSURLErrorTimedOut:
-                    errorReason = "timeout"
-                case NSURLErrorCannotConnectToHost, NSURLErrorNetworkConnectionLost, NSURLErrorNotConnectedToInternet:
-                    errorReason = "io_error"
-                default:
-                    errorReason = "network_error"
-                }
-            } else {
-                errorReason = "engine_error"
-            }
-            bridgeErrorDetail = error.localizedDescription
-            res = ResolutionResult.Error(message: error.localizedDescription, isUnsupported: false, errorReason: errorReason)
+            let errInfo = FlipCoordinator.mapError(error)
+            bridgeErrorDetail = errInfo.detail
+            res = ResolutionResult.Error(message: errInfo.reason, isUnsupported: false, errorReason: errInfo.errorReason)
         }
 
-        if let success = res as? ResolutionResult.Success {
+        let action = FlipCoordinator.resolveAction(result: res, targetPlatform: targetPlatform)
+        FlipCoordinator.trackAction(action, inputUrl: urlToConvert, targetPlatform: targetPlatform, errorDetail: bridgeErrorDetail)
+
+        switch action {
+        case .openResolved(let targetUrl, let nativeAppUri, let platformKey, let title, let artist, let isAlbum, _, _, let thumb):
             _ = try? await engine.cache.addHistoryEntry(
                 sourceUrl: urlToConvert,
-                targetPlatformKey: targetPlatform,
-                targetUrl: success.targetUrl,
-                title: success.title ?? LocalizationManager.string(for: "unknown_song"),
-                artist: success.artist,
-                isAlbum: success.isAlbum,
-                thumbnailUrl: success.thumbnailUrl,
+                targetPlatformKey: platformKey,
+                targetUrl: targetUrl,
+                title: title ?? LocalizationManager.string(for: "unknown_song"),
+                artist: artist,
+                isAlbum: isAlbum,
+                thumbnailUrl: thumb,
                 currentTimeMs: Int64(Date().timeIntervalSince1970 * 1000),
                 isAcoustic: false
             )
@@ -144,101 +135,49 @@ struct ConvertSongIntent: AppIntent {
                 HistoryModel.shared.loadHistory()
             }
 
-            let srcKey = UrlUtils.shared.detectPlatform(url: urlToConvert)?.key ?? "unknown"
-            AptabaseClient.shared.trackLinkFlipped(
-                target: targetPlatform,
-                isAlbum: success.isAlbum,
-                isSearch: success.isSearchFallback,
-                source: srcKey,
-                cacheHit: KotlinBoolean(bool: success.isCacheHit)
+            let urls = FlipCoordinator.computeLaunchUrls(
+                targetUrl: targetUrl,
+                nativeAppUri: nativeAppUri,
+                platformKey: platformKey,
+                title: title,
+                artist: artist,
+                defaults: defaults
             )
-
-            let cleanTargetKey = targetPlatform.components(separatedBy: "_").first ?? targetPlatform
-            var primaryUri = success.nativeAppUri
-            if let preferredClient = defaults.string(forKey: "preferred_player_\(cleanTargetKey)"), !preferredClient.isEmpty {
-                if let customUri = UrlUtils.shared.toAlternativeClientUri(
-                    url: success.targetUrl,
-                    platformKey: cleanTargetKey,
-                    clientId: preferredClient,
-                    title: success.title,
-                    artist: success.artist
-                ) {
-                    primaryUri = customUri
-                }
-            }
 
             var opened = false
-            if let nativeUri = primaryUri, let nativeUrl = URL(string: nativeUri) {
-                opened = await UIApplication.shared.open(nativeUrl)
+            if let primaryUrl = urls.primaryUrl {
+                opened = await UIApplication.shared.open(primaryUrl)
             }
-
-            let webFallbackStr = UrlUtils.shared.toWebFallbackUrl(rawUrl: success.targetUrl, targetPlatformKey: cleanTargetKey)
-            if !opened, let webUrl = URL(string: webFallbackStr) ?? URL(string: success.targetUrl) {
-                await UIApplication.shared.open(webUrl)
+            if !opened, let fallbackUrl = urls.fallbackUrl {
+                await UIApplication.shared.open(fallbackUrl)
             }
-
             _ = try? await AptabaseClient.shared.flush(timeoutMs: 1500)
             return .result()
-        } else if let podcast = res as? ResolutionResult.Podcast {
-            AptabaseClient.shared.trackPodcastFlipped(
-                source: UrlUtils.shared.detectPlatform(url: urlToConvert)?.key ?? "unknown",
-                target: targetPlatform,
-                isDeepSearch: podcast.isDeepSearch
-            )
-            let target = podcast.nativeAppUri ?? podcast.targetUrl
+
+        case .openPodcast(let targetUrl, let nativeAppUri, _):
+            let target = nativeAppUri ?? targetUrl
             if let url = URL(string: target) {
                 await UIApplication.shared.open(url)
             }
             _ = try? await AptabaseClient.shared.flush(timeoutMs: 1500)
             return .result()
-        } else if let playlist = res as? ResolutionResult.Playlist {
-            AptabaseClient.shared.trackPlaylistRouted(
-                target: targetPlatform
-            )
-            if let url = URL(string: playlist.originalUrl) {
-                await UIApplication.shared.open(url)
-            }
-            _ = try? await AptabaseClient.shared.flush(timeoutMs: 1500)
-            return .result()
-        } else if let podcast = res as? ResolutionResult.PodcastOrAudiobook {
-            if podcast.isAudiobook {
-                AptabaseClient.shared.trackAudiobookIntercepted(target: targetPlatform)
-            } else {
-                AptabaseClient.shared.trackPodcastIntercepted(target: targetPlatform)
-            }
-            if let url = URL(string: podcast.originalUrl) {
-                await UIApplication.shared.open(url)
-            }
-            _ = try? await AptabaseClient.shared.flush(timeoutMs: 1500)
-            return .result()
-        } else if let unsupported = res as? ResolutionResult.UnsupportedEntity {
-            let srcDomain = UrlUtils.shared.extractDomain(url: unsupported.originalUrl)
-            AptabaseClient.shared.trackUnsupportedEntityIntercepted(
-                target: targetPlatform,
-                entityType: unsupported.entityType,
-                sourceDomain: srcDomain
-            )
-            if let url = URL(string: unsupported.originalUrl) {
-                await UIApplication.shared.open(url)
-            }
-            _ = try? await AptabaseClient.shared.flush(timeoutMs: 1500)
-            return .result()
-        } else {
-            let defaultMsg = LocalizationManager.string(for: "intent_error_failed_to_resolve", lang: LocalizationManager.currentLanguage())
-            let err = res as? ResolutionResult.Error
-            let reason = err?.message ?? defaultMsg
-            let errorReason = err?.errorReason ?? "no_match_found"
-            let sourceDomain = UrlUtils.shared.extractDomain(url: urlToConvert)
-            let sourcePlatform = UrlUtils.shared.detectPlatform(url: urlToConvert)?.key ?? "unknown"
 
-            AptabaseClient.shared.trackLinkFlipFailed(
-                target: targetPlatform,
-                reason: reason,
-                sourceDomain: sourceDomain,
-                sourcePlatform: sourcePlatform,
-                errorReason: errorReason,
-                errorDetail: bridgeErrorDetail
-            )
+        case .showPlaylistNotice(let originalUrl),
+             .showPodcastNotice(let originalUrl, _):
+            if let url = URL(string: originalUrl) {
+                await UIApplication.shared.open(url)
+            }
+            _ = try? await AptabaseClient.shared.flush(timeoutMs: 1500)
+            return .result()
+
+        case .unsupportedEntity(let originalUrl, _):
+            if let url = URL(string: originalUrl) {
+                await UIApplication.shared.open(url)
+            }
+            _ = try? await AptabaseClient.shared.flush(timeoutMs: 1500)
+            return .result()
+
+        case .failure(let reason, _, _):
             _ = try? await AptabaseClient.shared.flush(timeoutMs: 1500)
             throw ConvertSongIntentError.conversionFailed(reason)
         }
