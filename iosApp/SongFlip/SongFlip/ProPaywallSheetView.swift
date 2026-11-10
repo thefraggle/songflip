@@ -12,9 +12,9 @@ struct ProPaywallSheetView: View {
     var body: some View {
         Group {
             if let offering = offering {
-                PaywallView(offering: offering)
+                PaywallView(offering: offering, displayCloseButton: true)
             } else {
-                PaywallView()
+                PaywallView(displayCloseButton: true)
             }
         }
         .onPurchaseCompleted { customerInfo in
@@ -28,7 +28,7 @@ struct ProPaywallSheetView: View {
                 dismiss()
             }
         }
-        .onDismiss {
+        .onRequestedDismissal {
             dismiss()
         }
         .task {
