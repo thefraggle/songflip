@@ -52,6 +52,12 @@ SongFlip is built as a Kotlin Multiplatform (KMP) project:
    ./gradlew :shared:assembleSongFlipKitReleaseXCFramework
    ```
 
+### 🎵 Apple ShazamKit Android SDK (Dual-Mode & Open Source Builds)
+
+SongFlip uses a **zero-friction dual-mode setup** for Apple ShazamKit on Android:
+- **Open-Source Mode (Default):** Out-of-the-box, the repository builds and runs completely free of proprietary binaries. When `app/libs/shazamkit-android-release.aar` is absent, Gradle automatically compiles against mock stubs in `app/src/stub/java`. All core link conversions, playlists, and UI features work 100% identically.
+- **Production Mode:** Official releases download the vendor SDK from a private backend repository during CI (`SONGFLIP_API_READ_TOKEN`). If you have your own Apple Developer ShazamKit SDK license, you can drop `shazamkit-android-release.aar` into `app/libs/` (automatically gitignored) to enable live acoustic recognition on device.
+
 ---
 
 ## 🌍 Adding or Updating Translations

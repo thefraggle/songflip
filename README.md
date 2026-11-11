@@ -126,7 +126,7 @@ Purchases are powered by **RevenueCat** with native store backends:
 - **Android**: SongFlip uses a dual-mode architecture to maintain 100% open-source buildability:
   - **Open-Source Mode (Default for Forks & Public Clones)**: If `app/libs/shazamkit-android-release.aar` is omitted, Gradle automatically compiles against an internal open-source stub (`src/stub/java`). The Android app builds and runs without any proprietary binaries out of the box.
   - **Production / Full Recognition Mode**: To enable acoustic music recognition on Android, download `shazamkit-android-release.aar` from the official [Apple Developer Portal (ShazamKit for Android)](https://developer.apple.com/shazamkit/) and place it in `app/libs/shazamkit-android-release.aar` (which is git-ignored). Gradle detects the file automatically and links the official Apple SDK.
-  - **Official Release Builds**: Official production releases decrypt the repository's encrypted asset (`app/libs/shazamkit-android-release.aar.enc`) via the repository secret `SHAZAMKIT_ENCRYPTION_KEY`.
+  - **Official Release Builds**: Official production releases fetch the proprietary vendor SDK from the private backend repository via CI token (`SONGFLIP_API_READ_TOKEN`), keeping the public repository 100% clean of proprietary binary assets.
 
 ### 3. Environment Configuration
 Copy or create `local.properties` in the project root for local Android builds:
