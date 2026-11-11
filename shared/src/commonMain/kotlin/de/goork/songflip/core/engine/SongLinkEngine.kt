@@ -59,8 +59,6 @@ class SongLinkEngine(
 
     companion object {
         val shared: SongLinkEngine by lazy { SongLinkEngine() }
-        // Public Tidal Web Client Application ID used for public catalog search
-        private const val TIDAL_CLIENT_APP_TOKEN = "REPLACED_SECRET"
         private val AUDIOPHILE_PLATFORMS = setOf("tidal", "qobuz", "appleMusic", "deezer")
     }
 
@@ -72,7 +70,7 @@ class SongLinkEngine(
     // Platform Resolver Strategies
     val appleMusicResolver = AppleMusicResolver(client, json)
     val deezerResolver = DeezerResolver(client, json)
-    val tidalResolver = TidalResolver(client, json, TIDAL_CLIENT_APP_TOKEN, countryCodeProvider = { getSystemCountryCode() })
+    val tidalResolver = TidalResolver(client, json, countryCodeProvider = { getSystemCountryCode() })
     val youTubeMusicResolver = YouTubeMusicResolver(client)
     val spotifyResolver = SpotifyResolver(client, json)
     val songLinkApiResolver = SongLinkApiResolver(client, json)
