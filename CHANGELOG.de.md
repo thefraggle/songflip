@@ -1,5 +1,13 @@
 # Changelog (Deutsch)
 
+## [1.14.14] - 2026-11-11
+- **Entkoppelte Architektur & Binär-Sicherheit**: Vollständige Trennung proprietärer Erkennungsbibliotheken aus der Versionsverwaltung für autarke Builds mit geschütztem automatisiertem Nachladen in Bereitstellungs-Pipelines (#168).
+- **Konfigurations- & Telemetrie-Neutralität**: Konfigurationsvorlagen und Build-Standards verwenden neutrale Endpunkte ohne Offenlegung privater Infrastruktur.
+- **Resiliente Katalog-Token-Auflösung**: Katalogsuch-Resolver beziehen Abfrage-Tokens dynamisch aus zentralen Registrierungsstellen statt über statische Fallbacks.
+- **Bereinigung veralteter Schnittstellen**: Verschlankung von Verbindungs-, Haptik- und Banner-Routinen durch Entfernung überholter Alt-Prüfungen.
+- **Strukturierte Speicher-Diagnostik**: Vereinheitlichung interner Persistenz-Protokollierung über alle Plattformen zur präzisen Fehleranalyse.
+- **Beitrags-Standards & Abhängigkeits-Audits**: Einführung automatisierter Sicherheitsprüfungen für Bibliotheken und strukturierter Richtlinien für Beiträge.
+
 ## [1.14.13] - 2026-11-10
 - **Anghami-Link-Registrierung**: Vollständiges Abfangen von Anghami-Links im System sowie Integration in die Standard-App-Auswahl (#203).
 - **Robuste Link-Auflösung & Wiederholungslogik**: Fehlgeschlagene Shortlink-Auflösungen blockieren den Speicher nicht mehr, sodass Wiederholungsversuche nach Verbindungsproblemen sofort greifen (#D8).

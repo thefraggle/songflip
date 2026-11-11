@@ -4,7 +4,7 @@
   <img src="docs/assets/store/og-image-en.png" alt="SongFlip Feature Graphic" width="100%">
 </p>
 
-**SongFlip** is an automatic, zero-click music link redirector for Android & iOS (Spotify ⇄ Apple Music ⇄ YouTube Music ⇄ Tidal ⇄ Deezer ⇄ Amazon Music ⇄ SoundCloud ⇄ Bandcamp ⇄ Qobuz ⇄ Beatport ⇄ Audiomack ⇄ Idagio).
+**SongFlip** is an automatic, zero-click music link redirector for Android & iOS (Spotify ⇄ Apple Music ⇄ YouTube Music ⇄ Tidal ⇄ Deezer ⇄ Amazon Music ⇄ SoundCloud ⇄ Bandcamp ⇄ Qobuz ⇄ Beatport ⇄ Audiomack ⇄ Idagio ⇄ Anghami).
 
 Official Website: [songflip.link](https://songflip.link)
 

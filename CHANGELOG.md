@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.14.14] - 2026-11-11
+- **Decoupled Architecture & Vendor Asset Security**: Completely decoupled proprietary recognition binaries from source tracking to ensure autonomous builds, with secure automated fetching in release pipelines (#168).
+- **Environment & Telemetry Neutrality**: Hardened configuration templates and build defaults to use neutral endpoints without exposing private infrastructure.
+- **Resilient Catalog Token Retrieval**: Catalog search resolvers now dynamically query token registries for streaming provider lookups instead of relying on static fallbacks.
+- **Legacy Framework Cleanup**: Streamlined connectivity, haptic feedback, and interface banners by removing obsolete legacy runtime checks.
+- **Structured Storage Diagnostics**: Standardized internal persistence logging across runtime platforms for improved fault isolation.
+- **Contribution Standards & Dependency Monitoring**: Introduced automated multi-ecosystem dependency audits and structured contribution guidelines.
+
 ## [1.14.13] - 2026-11-10
 - **Anghami Link Interception**: Full integration of Anghami links into default app handling and system link routing (#203).
 - **Resilient Shortlink Resolution**: Network errors during shortlink resolution no longer poison the in-memory cache, enabling immediate retries upon connection restoration (#D8).
