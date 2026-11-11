@@ -6,6 +6,7 @@ import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 import de.goork.songflip.core.db.SongFlipDatabase
+import de.goork.songflip.core.util.SongFlipLogger
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -179,7 +180,7 @@ class AndroidSharedPreferencesCacheStorage(
             }
             editor.apply()
         } catch (t: Throwable) {
-            println("AndroidCacheStorage: Failed to persist cache entry for $key: ${t.message}")
+            SongFlipLogger.w("AndroidCacheStorage", "Failed to persist cache entry for $key", t)
         }
     }
 
@@ -190,7 +191,7 @@ class AndroidSharedPreferencesCacheStorage(
                 if (k == CACHE_VERSION_KEY) continue
                 if (v is String) {
                     val entry = try { json.decodeFromString<CacheEntry>(v) } catch (t: Throwable) {
-                        println("AndroidCacheStorage: Corrupt entry during prune $k: ${t.message}")
+                        SongFlipLogger.w("AndroidCacheStorage", "Corrupt entry during prune $k", t)
                         null
                     }
                     // Favorites are user data and must survive storage pruning (#105)
@@ -204,7 +205,7 @@ class AndroidSharedPreferencesCacheStorage(
                 editor.remove(prunable[i].first)
             }
         } catch (t: Throwable) {
-            println("AndroidCacheStorage: Prune failed: ${t.message}")
+            SongFlipLogger.w("AndroidCacheStorage", "Prune failed", t)
         }
     }
 
@@ -227,7 +228,7 @@ class AndroidSharedPreferencesCacheStorage(
                     val entry = json.decodeFromString<CacheEntry>(v)
                     result[k] = entry
                 } catch (t: Throwable) {
-                    println("AndroidCacheStorage: Failed to decode entry $k: ${t.message}")
+                    SongFlipLogger.w("AndroidCacheStorage", "Failed to decode entry $k", t)
                 }
             }
         }

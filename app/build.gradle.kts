@@ -34,7 +34,7 @@ val aptabaseAppKey = System.getenv("APTABASE_APP_KEY")
 
 val aptabaseHost = System.getenv("APTABASE_HOST")
     ?: localProps.getProperty("aptabase.host")
-    ?: "https://telemetry-apps.goork.de"
+    ?: "https://api.aptabase.com"
 
 android {
     namespace = "de.goork.songflip"

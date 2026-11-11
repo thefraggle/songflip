@@ -45,12 +45,7 @@ fun PromoBannerCard(
 
     val currentLocale = remember {
         val conf = context.resources.configuration
-        val loc = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            conf.locales.get(0) ?: Locale.getDefault()
-        } else {
-            @Suppress("DEPRECATION")
-            conf.locale ?: Locale.getDefault()
-        }
+        val loc = conf.locales.get(0) ?: Locale.getDefault()
         loc.toLanguageTag()
     }
 

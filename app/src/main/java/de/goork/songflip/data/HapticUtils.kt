@@ -35,12 +35,7 @@ object HapticUtils {
                 }
             }
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                vibrator.vibrate(VibrationEffect.createOneShot(45L, VibrationEffect.DEFAULT_AMPLITUDE))
-            } else {
-                @Suppress("DEPRECATION")
-                vibrator.vibrate(45L)
-            }
+            vibrator.vibrate(VibrationEffect.createOneShot(45L, VibrationEffect.DEFAULT_AMPLITUDE))
         } catch (t: Throwable) {
             android.util.Log.d("HapticUtils", "Haptic feedback ignored: ${t.message}")
         }

@@ -3,6 +3,7 @@ package de.goork.songflip.core.cache
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import co.touchlab.sqliter.DatabaseConfiguration
 import de.goork.songflip.core.db.SongFlipDatabase
+import de.goork.songflip.core.util.SongFlipLogger
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -37,7 +38,7 @@ class IosUserDefaultsCacheStorage(
             val encoded = json.encodeToString(entry)
             defaults.setObject(encoded, forKey = "$keyPrefix$key")
         } catch (t: Throwable) {
-            println("IosCacheStorage: Failed to put entry $key: ${t.message}")
+            SongFlipLogger.w("IosCacheStorage", "Failed to put entry $key", t)
         }
     }
 
@@ -67,7 +68,7 @@ class IosUserDefaultsCacheStorage(
                     val realKey = strKey.removePrefix(keyPrefix)
                     result[realKey] = entry
                 } catch (t: Throwable) {
-                    println("IosCacheStorage: Failed to decode entry $strKey: ${t.message}")
+                    SongFlipLogger.w("IosCacheStorage", "Failed to decode entry $strKey", t)
                 }
             }
         }

@@ -122,6 +122,23 @@ jobs:
             echo "HAVE_SIGNING=false" >> $GITHUB_ENV
           fi
 
+      - name: Inject iOS Secrets Config
+        env:
+          REVENUECAT_PUBLIC_KEY: ${{ secrets.REVENUECAT_APPLE_KEY || secrets.REVENUECAT_PUBLIC_KEY }}
+          APTABASE_APP_KEY: ${{ secrets.APTABASE_APP_KEY }}
+          APTABASE_HOST: ${{ secrets.APTABASE_HOST }}
+        run: |
+          if [ -n "$REVENUECAT_PUBLIC_KEY" ] || [ -n "$APTABASE_APP_KEY" ]; then
+            echo "Generating iosApp/SongFlip/Config.xcconfig from repository secrets..."
+            cat << EOF > iosApp/SongFlip/Config.xcconfig
+          REVENUECAT_PUBLIC_KEY = ${REVENUECAT_PUBLIC_KEY:-}
+          APTABASE_APP_KEY = ${APTABASE_APP_KEY:-}
+          APTABASE_HOST = ${APTABASE_HOST:-https://api.aptabase.com}
+          EOF
+          else
+            echo "ℹ️ No production secrets configured; building in open-source stub mode."
+          fi
+
       - name: Build and Archive iOS App (.xcarchive)
         run: |
           if [ "$HAVE_SIGNING" = "true" ]; then
