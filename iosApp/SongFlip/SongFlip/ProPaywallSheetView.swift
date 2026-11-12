@@ -122,7 +122,7 @@ struct ProPaywallSheetView: View {
                 }
             }
             .onPurchaseCompleted { customerInfo in
-                AptabaseClient.shared.trackEvent(eventName: "pro_purchased")
+                AptabaseClient.shared.trackEvent(eventName: "pro_purchased", props: [:])
                 proManager.updateFromCustomerInfo(customerInfo)
                 dismiss()
             }
