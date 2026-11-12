@@ -69,12 +69,26 @@ functions/lib/
 # Python / Ruby tooling
 __pycache__/
 *.pyc
+*.pyo
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
 .bundle/
+vendor/bundle/
+fastlane/Preview.html
+fastlane/README.md
 
-# iOS Configuration
+# iOS / Swift / Xcode
 **/Config.xcconfig
-Config.xcconfig
 !*.example.xcconfig
+.swiftpm/
+*.xcarchive
+*.dSYM.zip
+.konan/
+kotlin-js-store/
+release_notes.md
 
 # Proprietary Vendor SDK Binaries (Apple ShazamKit Android)
 app/libs/*.aar

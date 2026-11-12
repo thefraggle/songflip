@@ -4,7 +4,7 @@
 
 REVENUECAT_PUBLIC_KEY = 
 APTABASE_APP_KEY = 
-APTABASE_HOST = https://api.aptabase.com
+APTABASE_HOST = https:/$()/api.aptabase.com
 
 OTHER_LDFLAGS = $(inherited) -lsqlite3
 

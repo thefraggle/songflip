@@ -273,11 +273,14 @@ object ResolverUtils {
         return score
     }
 
+    private val NON_ALPHANUMERIC_UNICODE = Regex("[^\\p{L}\\p{N}]")
+
     fun isArtistNameMatch(candidate: String?, target: String?): Boolean {
         fun normalize(str: String): String {
-            return str.lowercase().trim()
+            val s = str.lowercase().trim()
                 .replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
-                .replace("[^a-z0-9]".toRegex(), "")
+            val stripped = s.replace(NON_ALPHANUMERIC_UNICODE, "")
+            return stripped.ifEmpty { s }
         }
         val normCand = normalize(candidate ?: return false)
         val normTarget = normalize(target ?: return false)

@@ -51,4 +51,24 @@ class PlaylistGhostTrackFilterTest {
         assertEquals("Track 2", cleaned.tracks[1].title)
         assertEquals("Track 3", cleaned.tracks[2].title)
     }
+
+    @Test
+    fun testDeduplicatedPreservesNonLatinScripts() {
+        val tracks = listOf(
+            PlaylistTrackItem(title = "تملي معاك", artist = "عمرو دياب", matched = true),
+            PlaylistTrackItem(title = "نور العين", artist = "عمرو دياب", matched = true),
+            PlaylistTrackItem(title = "봄날", artist = "방탄소년단", matched = true),
+            PlaylistTrackItem(title = "Dynamite", artist = "방탄소년단", matched = true),
+            PlaylistTrackItem(title = "تملي معاك", artist = "عمرو دياب", matched = true) // echtes Duplikat
+        )
+        val initialResult = PlaylistConversionResult(
+            tracks = tracks,
+            totalTracks = 5,
+            convertedTracks = 5,
+            matchedCount = 5
+        )
+        val deduped = initialResult.deduplicated()
+        assertEquals(4, deduped.tracks.size)
+        assertEquals(1, deduped.duplicateTracksRemoved)
+    }
 }

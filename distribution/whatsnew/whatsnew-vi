@@ -1,2 +1,2 @@
-- Chặn liên kết Anghami: Tích hợp đầy đủ các liên kết Anghami vào xử lý ứng dụng mặc định và định tuyến liên kết hệ thống (#203).
-- Độ phân giải liên kết ngắn linh hoạt: Lỗi mạng trong quá trình phân giải liên kết ngắn không còn ảnh hưởng đến bộ đệm trong bộ nhớ nữa, cho phép thử lại ngay lập tức khi khôi phục kết nối (#D8).
+- Hỗ trợ ký tự và hệ chữ viết quốc tế: Giữ nguyên định dạng tiêu đề và tên nghệ sĩ cho các hệ chữ viết không phải chữ Latinh trong quá trình xóa trùng lặp và đối sánh danh sách phát.
+- Xác thực liên kết & chuyển hướng: Tăng cường xác minh địa chỉ trên các đường dẫn định tuyến để chặn các liên kết không được hỗ trợ hoặc có định dạng sai.

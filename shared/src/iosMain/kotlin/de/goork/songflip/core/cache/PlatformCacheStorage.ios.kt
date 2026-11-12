@@ -105,7 +105,10 @@ object IosAppGroupSqlDelightStorage {
                         name = DB_NAME,
                         onConfiguration = { config: DatabaseConfiguration ->
                             config.copy(
-                                extendedConfig = config.extendedConfig.copy(basePath = basePath)
+                                extendedConfig = config.extendedConfig.copy(
+                                    basePath = basePath,
+                                    busyTimeout = 5000
+                                )
                             )
                         }
                     )

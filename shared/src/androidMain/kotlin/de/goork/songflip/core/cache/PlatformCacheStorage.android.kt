@@ -73,14 +73,7 @@ class AndroidSharedPreferencesCacheStorage(
                                     oldVersion: Int,
                                     newVersion: Int
                                 ) {
-                                    try {
-                                        super.onUpgrade(db, oldVersion, newVersion)
-                                    } catch (t: Throwable) {
-                                        de.goork.songflip.core.util.SongFlipLogger.w(
-                                            "AndroidCacheStorage",
-                                            "Safe onUpgrade recovery: ${t.message}"
-                                        )
-                                    }
+                                    super.onUpgrade(db, oldVersion, newVersion)
                                 }
 
                                 override fun onDowngrade(

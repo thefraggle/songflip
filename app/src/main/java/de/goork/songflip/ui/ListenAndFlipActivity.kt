@@ -34,9 +34,9 @@ class ListenAndFlipActivity : AppCompatActivity() {
         val settingsRepo = SettingsRepository(this)
         val savedLang = settingsRepo.appLanguage
         val currentLocales = androidx.appcompat.app.AppCompatDelegate.getApplicationLocales()
-        if (currentLocales.isEmpty || currentLocales[0]?.language != savedLang) {
-            val localeList = androidx.core.os.LocaleListCompat.forLanguageTags(savedLang)
-            androidx.appcompat.app.AppCompatDelegate.setApplicationLocales(localeList)
+        val targetLocales = androidx.core.os.LocaleListCompat.forLanguageTags(savedLang)
+        if (currentLocales.toLanguageTags() != targetLocales.toLanguageTags()) {
+            androidx.appcompat.app.AppCompatDelegate.setApplicationLocales(targetLocales)
         }
 
         setContent {
@@ -79,9 +79,6 @@ class ListenAndFlipActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         de.goork.songflip.data.AcousticRecognizer.stopListening()
-        if (!isFinishing) {
-            finish()
-        }
     }
 
     private fun finishQuietly() {

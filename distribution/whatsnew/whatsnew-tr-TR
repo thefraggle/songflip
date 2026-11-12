@@ -1,2 +1,2 @@
-- Anghami Bağlantısının Kesilmesi: Anghami bağlantılarının varsayılan uygulama yönetimine ve sistem bağlantı yönlendirmesine tam entegrasyonu (#203).
-- Esnek Kısa Bağlantı Çözünürlüğü: Kısa bağlantı çözümlemesi sırasındaki ağ hataları artık bellek içi önbelleği zehirlemiyor ve bağlantı yeniden kurulduğunda anında yeniden deneme olanağı sağlıyor (#D8).
+- Uluslararası Karakter ve Yazı Dili Desteği: Çalma listesi yinelenen öğeleri kaldırma ve eşleştirme işlemleri sırasında Latin harfleri kullanmayan yazı sistemleri için başlık ve sanatçı biçimlendirmesi korundu.
+- Bağlantı ve Yönlendirme Doğrulaması: Desteklenmeyen veya hatalı biçimlendirilmiş bağlantıları engellemek için yönlendirme yollarındaki adres doğrulaması güçlendirildi.

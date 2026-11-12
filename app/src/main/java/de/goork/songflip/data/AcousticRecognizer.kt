@@ -425,7 +425,7 @@ object AcousticRecognizer {
         elapsedSeconds: Int
     ): AcousticSignalQuality {
         return when {
-            rawPeak > 31500 || uiAmplitude >= 0.94f -> AcousticSignalQuality.TOO_LOUD
+            rawPeak > 31500 || (rawPeak > 18000 && uiAmplitude >= 0.95f) -> AcousticSignalQuality.TOO_LOUD
             elapsedSeconds >= 3 && (rawPeak < 650 || uiAmplitude < 0.14f) -> AcousticSignalQuality.TOO_QUIET
             else -> AcousticSignalQuality.OPTIMAL
         }

@@ -33,7 +33,8 @@ class ShareViewController: UIViewController {
         TargetPlatformItem(key: "soundcloud", name: "SoundCloud", iconSystemName: "cloud.fill", color: UIColor(red: 1.0, green: 0.33, blue: 0.0, alpha: 1.0)),
         TargetPlatformItem(key: "qobuz", name: "Qobuz", iconSystemName: "waveform.badge.magnifyingglass", color: UIColor(red: 0.0, green: 0.45, blue: 0.82, alpha: 1.0)),
         TargetPlatformItem(key: "audiomack", name: "Audiomack", iconSystemName: "waveform.and.mic", color: UIColor(red: 1.0, green: 0.635, blue: 0.0, alpha: 1.0)),
-        TargetPlatformItem(key: "idagio", name: "Idagio", iconSystemName: "tuningfork", color: UIColor(red: 0.106, green: 0.212, blue: 0.365, alpha: 1.0))
+        TargetPlatformItem(key: "idagio", name: "Idagio", iconSystemName: "tuningfork", color: UIColor(red: 0.106, green: 0.212, blue: 0.365, alpha: 1.0)),
+        TargetPlatformItem(key: "anghami", name: "Anghami", iconSystemName: "play.circle.fill", color: UIColor(red: 0.58, green: 0.16, blue: 0.83, alpha: 1.0))
     ]
 
     private func localizedText(for key: String, default defaultText: String) -> String {
@@ -120,7 +121,7 @@ class ShareViewController: UIViewController {
 
         let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
         let rawTarget = defaults.string(forKey: "target_platform") ?? "appleMusic"
-        let validTargets = ["youtubeMusic", "appleMusic", "spotify", "tidal", "deezer", "amazonMusic", "soundcloud", "qobuz", "audiomack", "idagio"]
+        let validTargets = ["youtubeMusic", "appleMusic", "spotify", "tidal", "deezer", "amazonMusic", "soundcloud", "qobuz", "audiomack", "idagio", "anghami"]
         let targetPlatform = validTargets.contains(rawTarget) ? rawTarget : "appleMusic"
         let askEveryTime = defaults.bool(forKey: "ask_every_time")
         let customUrl = defaults.string(forKey: "custom_api_url") ?? ""
@@ -365,7 +366,8 @@ class ShareViewController: UIViewController {
         let locale = Locale.current.identifier
 
         let aptabaseKey = Bundle.main.infoDictionary?["APTABASE_APP_KEY"] as? String ?? ""
-        let aptabaseHost = Bundle.main.infoDictionary?["APTABASE_HOST"] as? String ?? "https://api.aptabase.com"
+        let rawHost = (Bundle.main.infoDictionary?["APTABASE_HOST"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let aptabaseHost = (rawHost.hasPrefix("https://") || rawHost.hasPrefix("http://")) ? rawHost : "https://api.aptabase.com"
 
         #if DEBUG
         if aptabaseKey.isEmpty {
@@ -523,9 +525,23 @@ class ShareViewController: UIViewController {
         }
     }
 
+    private func isSafeUrlToOpen(_ url: URL) -> Bool {
+        let scheme = url.scheme?.lowercased() ?? ""
+        if scheme == "http" || scheme == "https" {
+            return true
+        }
+        let allowedNativeSchemes: Set<String> = [
+            "music", "youtubemusic", "spotify", "tidal", "deezer",
+            "amznmp3", "soundcloud", "bandcamp", "qobuz", "beatport",
+            "audiomack", "idagio", "anghami", "demus", "yattee",
+            "marvispro", "marvis", "soor", "joitunes"
+        ]
+        return allowedNativeSchemes.contains(scheme)
+    }
+
     private func openApp(urlString: String, fallbackUrlString: String? = nil) {
-        guard let url = URL(string: urlString) else {
-            if let fallback = fallbackUrlString, let _ = URL(string: fallback) {
+        guard let url = URL(string: urlString), isSafeUrlToOpen(url) else {
+            if let fallback = fallbackUrlString, let fallbackUrl = URL(string: fallback), isSafeUrlToOpen(fallbackUrl) {
                 openApp(urlString: fallback)
             } else {
                 completeExtension()

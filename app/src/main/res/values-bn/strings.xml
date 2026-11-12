@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">SongFlip</string>
     <string name="app_tagline">স্বয়ংক্রিয় মিউজিক লিঙ্ক রিডাইরেক্টর</string>
@@ -12,8 +12,6 @@
     <string name="btn_setup">সেটআপ করুন</string>
     <string name="status_missing_hint">এখনও সক্রিয় নয়: %1$s</string>
     <string name="status_hint">পুরানো অ্যান্ড্রয়েড সংস্করণে স্ট্যাটাস চেক করা যাবে না।</string>
-
-    <!-- App Links Setup Guide -->
     <string name="app_links_setup_title">Android-এ মিউজিক লিঙ্ক সক্রিয় করুন</string>
     <string name="app_links_setup_subtitle">Android যাতে মিউজিক লিঙ্ক স্বয়ংক্রিয়ভাবে SongFlip-এ পাঠাতে পারে, তার জন্য একবার নিশ্চিতকরণ প্রয়োজন। এই ৩টি ধাপ অনুসরণ করুন:</string>
     <string name="app_links_step1_title">\"+ লিঙ্ক যোগ করুন\" এ আলতো চাপুন</string>
@@ -29,7 +27,6 @@
     <string name="app_links_alt_clipboard">ক্লিপবোর্ড: মিউজিক লিঙ্ক কপি করুন – SongFlip খোলার সাথে সাথে শনাক্ত হবে।</string>
     <string name="settings_app_links_title">অ্যাপ লিঙ্ক ও ডিফল্ট অ্যাপ</string>
     <string name="settings_app_links_subtitle">স্বয়ংক্রিয় মিউজিক লিঙ্ক ও সেটআপ নির্দেশিকা</string>
-
     <string name="language_label">ভাষা</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
@@ -46,15 +43,12 @@
     <string name="step2">মিউজিক ডোমেনের জন্য "সমর্থিত লিঙ্ক খুলুন" সক্রিয় করুন</string>
     <string name="step3">সম্পন্ন! শেয়ার করা লিঙ্কগুলি ব্যাকগ্রাউন্ডে আপনার লক্ষ্য প্লেয়ারে স্বয়ংক্রিয়ভাবে চলে যাবে।</string>
     <string name="btn_open_settings">সেটিংস খুলুন</string>
-    
-    <!-- Dashboard Setup Card -->
     <string name="setup_card_title">স্বয়ংক্রিয় লিঙ্ক পুনঃনির্দেশ সক্রিয় করুন</string>
     <string name="setup_card_desc">মিউজিক লিঙ্ক সরাসরি আপনার প্রিয় প্লেয়ারে খুলতে, Android-এ SongFlip-এর জন্য একবার অনুমোদনের প্রয়োজন।</string>
     <string name="btn_start_setup">৩টি সহজ ধাপে সেটআপ করুন</string>
     <string name="setup_card_tip">পরামর্শ: শেয়ার মেনু এবং ক্লিপবোর্ডের মাধ্যমে কোনো সেটআপ ছাড়াই SongFlip তাত্ক্ষণিক কাজ করে।</string>
     <string name="setup_card_active_title">স্বয়ংক্রিয় লিঙ্ক পুনঃনির্দেশ সক্রিয়</string>
     <string name="setup_card_active_desc">সমর্থিত সঙ্গীত লিঙ্কগুলি এখন ব্যাকগ্রাউন্ডে স্বয়ংক্রিয়ভাবে খুলবে।</string>
-
     <string name="input_sources_label">উৎস লিঙ্ক ইন্টারসেপ্ট করুন</string>
     <string name="input_sources_subtitle">কোন ইনকামিং মিউজিক লিঙ্কগুলি SongFlip স্বয়ংক্রিয়ভাবে ফ্লিপ করবে তা বেছে নিন</string>
     <string name="target_service_label">পছন্দের লক্ষ্য প্লেয়ার</string>
@@ -112,7 +106,6 @@
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">মিউজিক লিঙ্ক রিডাইরেক্ট করা হচ্ছে...</string>
     <string name="redirect_error_toast">লিঙ্ক রিডাইরেক্ট করা যায়নি। আসল লিঙ্ক খোলা হচ্ছে।</string>
-
     <string name="theme_label">থিম</string>
     <string name="theme_system">সিস্টেম</string>
     <string name="theme_light">হালকা</string>
@@ -141,8 +134,6 @@
     <string name="podcast_dialog_body">SongFlip সঙ্গীত ট্র্যাক এবং অ্যালবামে বিশেষজ্ঞ। পডকাস্ট এবং অডিওবুক বর্তমানে সমর্থিত নয়।</string>
     <string name="podcast_badge">পডকাস্ট</string>
     <string name="audiobook_badge">অডিওবুক</string>
-
-
     <string name="history_title">গানের ইতিহাস</string>
     <string name="history_subtitle">সম্প্রতি রূপান্তরিত গান পরিচালনা ও পুনরায় শুনুন</string>
     <plurals name="history_cached_count">
@@ -168,7 +159,6 @@
     <string name="time_minutes_ago">%1$d মিনিট আগে</string>
     <string name="time_hours_ago">%1$d ঘণ্টা আগে</string>
     <string name="time_days_ago">%1$d দিন আগে</string>
-
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">সমস্ত PRO বৈশিষ্ট্য আনলক করুন এবং সীমাহীন সঙ্গীত ভাগ করুন</string>
     <string name="pro_tier_monthly">মাসিক</string>
@@ -207,7 +197,6 @@
     <string name="pro_coupon_max_reached">এই প্রোমো কোডটির সর্বোচ্চ ব্যবহারের সীমা পৌঁছে গেছে।</string>
     <string name="pro_coupon_inactive">এই প্রোমো কোডটি আর সক্রিয় নেই।</string>
     <string name="pro_coupon_rate_limited">অনেক বেশি প্রচেষ্টা। অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করুন।</string>
-
     <string name="pro_active_3months">PRO অ্যাক্সেস %1$s পর্যন্ত সক্রিয়</string>
     <string name="pro_active_1month">PRO অ্যাক্সেস %1$s পর্যন্ত সক্রিয়</string>
     <string name="share_universal_link">সার্বজনীন ওয়েব লিংক শেয়ার করুন</string>
@@ -224,7 +213,6 @@
     <string name="pro_btn_lifetime">SongFlip PRO পান (%1$s)</string>
     <string name="pro_btn_annual">সাবস্ক্রাইব করুন %1$s / বছর</string>
     <string name="pro_btn_monthly">সাবস্ক্রাইব করুন %1$s / মাস</string>
-
     <string name="shortcut_last_song_short">শেষ গানটি শুনুন</string>
     <string name="shortcut_last_song_long">শেষ গানটি চালান: %s</string>
     <string name="shortcut_pause_1h_short">১ ঘণ্টা বিরতি</string>
@@ -242,7 +230,6 @@
     <string name="platform_label_unknown">মিউজিক লিংক</string>
     <string name="platform_label_universal">ইউনিভার্সাল লিংক</string>
     <string name="history_copy_source_generic">মূল লিংক কপি করুন</string>
-
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 সফলভাবে %1$dটি গান রূপান্তরিত হয়েছে!</item>
         <item quantity="other">🎉 সফলভাবে %1$dটি গান রূপান্তরিত হয়েছে!</item>
@@ -260,7 +247,6 @@
     </plurals>
     <string name="pro_debug_reset_status">PRO স্ট্যাটাস রিসেট করা হয়েছে (ডিবাগ)</string>
     <string name="pro_debug_reset_button">PRO স্ট্যাটাস রিসেট করুন (ডিবাগ)</string>
-
     <string name="settings_tip_multiple_apps_title">একাধিক মিউজিক অ্যাপ ইনস্টল করা আছে?</string>
     <string name="settings_tip_multiple_apps_body">যদি Spotify-এর মতো কোনও অ্যাপ সরাসরি লিঙ্ক খোলে, তবে আপনার পছন্দের মিউজিক প্লেয়ারে গান চালাতে WhatsApp বা যেকোনো অ্যাপে শুধু \"শেয়ার \u2192 SongFlip\" ট্যাপ করুন।</string>
     <string name="app_links_diagnosis_title">লিঙ্ক নির্ণয়</string>
@@ -287,8 +273,7 @@
     <string name="share_universal_link_desc">যেকোনো সঙ্গীত প্ল্যাটফর্মে বন্ধুদের জন্য সর্বজনীন songflip.link লিঙ্ক তৈরি করুন</string>
     <string name="pro_offerings_error">PRO मूल्य লোড করা যায়নি। আপনার ইন্টারনেট সংযোগ পরীক্ষা করুন।</string>
     <string name="action_retry">আবার চেষ্টা করুন</string>
-    <!-- Playlist Converter Strings -->
-        <string name="playlist_large_notice_title">বড় প্লেলিস্ট (%1$d গান)</string>
+    <string name="playlist_large_notice_title">বড় প্লেলিস্ট (%1$d গান)</string>
     <string name="playlist_large_notice_desc">লগইন ছাড়াই প্রথম 200টি গান অংশে স্থানান্তরিত হয়।</string>
     <string name="playlist_spotify_limit_notice">বিজ্ঞপ্তি: অ্যাকাউন্ট সংযোগ ছাড়া Spotify सर्वজনীনভাবে একটি প্লেলিস্টের সর্বোচ্চ প্রথম ১০০টি গান সরবরাহ করে।</string>
     <string name="playlist_converter_title">প্লেলিস্ট কনভার্টার</string>
@@ -321,7 +306,7 @@
     <string name="playlist_error_empty_desc">এই প্লেলিস্টে চালানোর মতো কোনো গান নেই।</string>
     <string name="playlist_btn_retry">আবার চেষ্টা করুন</string>
     <string name="playlist_btn_open_original">মূল প্লেলিস্ট খুলুন</string>
-<string name="pro_restore_no_subscription">কোনো সক্রিয় PRO সাবস্ক্রিপশন পাওয়া যায়নি।</string>
+    <string name="pro_restore_no_subscription">কোনো সক্রিয় PRO সাবস্ক্রিপশন পাওয়া যায়নি।</string>
     <string name="pro_purchase_failed">ক্রয় সম্পন্ন করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
     <string name="offline_waiting_title">সংযোগের জন্য অপেক্ষা করা হচ্ছে…</string>
     <string name="offline_waiting_subtitle">সংযোগ ফিরে এলে SongFlip স্বয়ংক্রিয়ভাবে পুনর্নির্দেশ করবে।</string>
@@ -329,8 +314,6 @@
     <string name="offline_waiting_cancel">বাতিল করুন</string>
     <string name="history_empty_title">কোনো ইতিহাস নেই</string>
     <string name="history_empty_hint">পরামর্শ: এখানে দেখতে একটি সঙ্গীত লিঙ্ক খুলুন বা শেয়ার করুন।</string>
-
-    <!-- Pro Features -->
     <string name="pro_feature_playlists_title">প্লেলিস্ট সরান</string>
     <string name="pro_feature_playlists_desc">পুরো প্লেলিস্ট আপনার সার্ভিসে নিয়ে যান</string>
     <string name="pro_feature_history_title">বড় ইতিহাস</string>
@@ -341,20 +324,17 @@
     <string name="pro_feature_links_desc">একটি লিঙ্ক যা প্রত্যেকে নিজের প্লেয়ারে খুলতে পারে</string>
     <string name="pro_feature_review_title">স্টুডিও কোয়ালিটি ও সংস্করণ</string>
     <string name="pro_feature_review_desc">Hi-Res/Atmos অগ্রাধিকার ও সংস্করণ নির্বাচন</string>
-    <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">এখনও মুক্তি পায়নি</string>
     <string name="prerelease_sheet_desc">এই অ্যালবামটি এখনও স্ট্রিমিং প্ল্যাটফর্মে প্রকাশিত হয়নি।</string>
     <string name="prerelease_btn_presave_spotify">Spotify-এ প্রি-সেভ করুন</string>
     <string name="prerelease_btn_search_target">%1$s-এ একক গান খুঁজুন</string>
     <string name="prerelease_btn_cancel">বাতিল</string>
     <string name="share_self_link_notice">এটি একটি SongFlip লিঙ্ক। অনুগ্রহ করে একটি মিউজিক লিঙ্ক শেয়ার করুন।</string>
-    <!-- Free Trial Offer -->
     <string name="pro_trial_badge">%1$d দিন বিনামূল্যে</string>
     <string name="pro_price_annual_trial">%1$d দিন বিনামূল্যে, তারপর %2$s / মাস (%3$s-এর পরিবর্তে)</string>
     <string name="pro_price_annual_trial_intro">%1$d দিন বিনামূল্যে, তারপর ১ম বছরে %2$s / মাস (%3$s-এর পরিবর্তে)</string>
     <string name="pro_price_annual_trial_simple">%1$d দিন বিনামূল্যে, তারপর %2$s / বছর</string>
     <string name="pro_btn_annual_trial">%1$d দিন বিনামূল্যে ট্রায়াল করুন</string>
-    <!-- In-App Feedback Dialog -->
     <string name="feedback_title">প্রতিক্রিয়া ও সহায়তা</string>
     <string name="feedback_cat_bug">🐛 বাগ</string>
     <string name="feedback_cat_feature">💡 ধারণা</string>
@@ -367,19 +347,14 @@
     <string name="feedback_success">আপনার প্রতিক্রিয়ার জন্য ধন্যবাদ!</string>
     <string name="feedback_error_empty">অনুগ্রহ করে কমপক্ষে ১০টি অক্ষর লিখুন।</string>
     <string name="feedback_error_network">পাঠানো সম্ভব হয়নি। অনুগ্রহ করে ইমেলের মাধ্যমে চেষ্টা করুন।</string>
-
     <string name="playlist_active_banner_title">সক্রিয় প্লেলিস্ট</string>
     <string name="playlist_active_banner_details">বিবরণ</string>
     <string name="playlist_active_banner_open">%1$s-এ খুলুন</string>
     <string name="playlist_active_banner_dismiss">বন্ধ করুন</string>
-
-    <!-- Preferred Player Selection -->
     <string name="settings_preferred_player_title">পছন্দের প্লেয়ার</string>
     <string name="settings_preferred_player_subtitle">গান চালানোর জন্য অ্যাপ নির্বাচন করুন</string>
     <string name="settings_preferred_player_auto">স্বয়ংক্রিয়</string>
     <string name="settings_preferred_player_auto_desc">প্রস্তাবিত: ডিফল্ট অ্যাপ ব্যবহার করে</string>
-
-    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">খুঁজুন এবং পরিবর্তন করুন</string>
     <string name="search_hint">গান বা শিল্পী অনুসন্ধান করুন…</string>
     <string name="search_initial_prompt">গানের নাম বা শিল্পী লিখুন</string>
@@ -404,13 +379,12 @@
     <string name="history_filter_all">সব</string>
     <string name="history_filter_favorites">প্রিয়</string>
     <string name="target_player_chip">প্লেয়ার: %1$s</string>
-    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">আপনার চারপাশে বাজতে থাকা গান শনাক্ত করুন</string>
     <string name="badge_identified">শনাক্তকৃত</string>
     <string name="listen_free_scans_remaining">এই মাসে %1$d/%2$dটি ফ্রি স্ক্যান বাকি আছে</string>
     <string name="listen_status_listening">গান শোনা হচ্ছে…</string>
-        <string name="listen_status_hint_loud">অডিও খুব জোরে বা বিকৃত - ডিভাইসটি কিছুটা দূরে রাখুন</string>
+    <string name="listen_status_hint_loud">অডিও খুব জোরে বা বিকৃত - ডিভাইসটি কিছুটা দূরে রাখুন</string>
     <string name="listen_status_hint">আপনার ডিভাইসটি স্পিকারের কাছে ধরুন</string>
     <string name="listen_status_resolving">আপনার প্লেয়ারের জন্য খোঁজা হচ্ছে…</string>
     <string name="listen_saved_to_history">হিস্ট্রিতে সেভ করা হয়েছে</string>
@@ -419,7 +393,7 @@
     <string name="listen_scan_again">আরেকটি গান শনাক্ত করুন</string>
     <string name="listen_offline_saved_title">অফলাইন ক্লাব মোডে সেভ হয়েছে</string>
     <string name="listen_offline_saved_desc">অডিও সিগনেচার সেভ হয়েছে (%1$dটি বাকি)। ইন্টারনেট ফিরে এলে SongFlip স্বয়ংক্রিয়ভাবে এটি শনাক্ত করবে।</string>
-        <plurals name="listen_offline_resolved_toast">
+    <plurals name="listen_offline_resolved_toast">
         <item quantity="one">%1$dটি অফলাইন গান শনাক্ত করে হিস্ট্রিতে যোগ করা হয়েছে!</item>
         <item quantity="other">%1$dটি অফলাইন গান শনাক্ত করে হিস্ট্রিতে যোগ করা হয়েছে!</item>
     </plurals>
@@ -464,7 +438,8 @@
     <string name="first_launch_step3_desc">সিস্টেম সেটিংসে অ্যাপ লিঙ্ক সক্রিয় করুন যাতে সঙ্গীত লিঙ্কগুলি সরাসরি টার্গেট প্লেয়ারে খোলে।</string>
     <string name="first_launch_btn_done">শুরু করুন</string>
     <string name="settings_how_it_works">দ্রুত নির্দেশিকা / কীভাবে কাজ করে</string>
-
     <string name="target_anghami">Anghami</string>
     <string name="playlist_ghost_tracks_notice">%1$dটি সন্দেহভাজন AI ও ঘোস্ট ট্র্যাক মুছে ফেলা হয়েছে</string>
+    <string name="playlist_import_default_title">Imported Playlist</string>
+    <string name="unknown_track">Unknown Song</string>
 </resources>

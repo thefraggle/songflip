@@ -169,7 +169,6 @@ fun SettingsBottomSheet(
                             val localeList = LocaleListCompat.forLanguageTags(lang.code)
                             AppCompatDelegate.setApplicationLocales(localeList)
                             showLanguagePickerSubSheet = false
-                            context.findActivity()?.recreate()
                         },
                         shape = RoundedCornerShape(12.dp),
                         color = if (isSelected) MaterialTheme.colorScheme.primary.copy(alpha = 0.15f) else Color.Transparent,

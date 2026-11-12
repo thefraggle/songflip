@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">SongFlip</string>
     <string name="app_tagline">Redirecționare automată a linkurilor muzicale</string>
@@ -129,7 +130,6 @@
     <string name="podcast_dialog_body">SongFlip este specializat pe piese muzicale și albume. Podcasturile și cărțile audio nu sunt acceptate în prezent.</string>
     <string name="podcast_badge">Podcast</string>
     <string name="audiobook_badge">Carte audio</string>
-
     <string name="theme_label">Aspect</string>
     <string name="theme_system">Sistem</string>
     <string name="theme_light">Luminos</string>
@@ -279,8 +279,7 @@
     <string name="share_universal_link_desc">Creează linkuri universale songflip.link pentru prieteni pe orice platformă muzicală</string>
     <string name="pro_offerings_error">Prețurile PRO nu au putut fi încărcate. Verificați conexiunea la internet.</string>
     <string name="action_retry">Reîncearcă</string>
-    <!-- Playlist Converter Strings -->
-        <string name="playlist_large_notice_title">Playlist mare (%1$d melodii)</string>
+    <string name="playlist_large_notice_title">Playlist mare (%1$d melodii)</string>
     <string name="playlist_large_notice_desc">Fără autentificare, primele 200 de melodii sunt transferate pe părți.</string>
     <string name="playlist_spotify_limit_notice">Notă: Fără conectarea unui cont, Spotify oferă public maximum primele 100 de melodii ale unui playlist.</string>
     <string name="playlist_converter_title">Convertor de playlisturi</string>
@@ -313,7 +312,7 @@
     <string name="playlist_error_empty_desc">Acest playlist nu conține melodii care pot fi redate.</string>
     <string name="playlist_btn_retry">Reîncearcă</string>
     <string name="playlist_btn_open_original">Deschide playlistul original</string>
-<string name="pro_restore_no_subscription">Nu a fost găsit niciun abonament PRO activ.</string>
+    <string name="pro_restore_no_subscription">Nu a fost găsit niciun abonament PRO activ.</string>
     <string name="pro_purchase_failed">Achiziția nu a putut fi finalizată. Vă rugăm să încercați din nou.</string>
     <string name="offline_waiting_title">Se așteaptă conexiunea…</string>
     <string name="offline_waiting_subtitle">SongFlip va redirecționa automat de îndată ce conexiunea este restabilită.</string>
@@ -321,8 +320,6 @@
     <string name="offline_waiting_cancel">Anulează</string>
     <string name="history_empty_title">Niciun istoric încă</string>
     <string name="history_empty_hint">Sfat: Deschide sau distribuie un link muzical pentru a-l vedea aici.</string>
-
-    <!-- Pro Features -->
     <string name="pro_feature_playlists_title">Mută playlisturile</string>
     <string name="pro_feature_playlists_desc">Transferă playlisturi întregi în serviciul tău</string>
     <string name="pro_feature_history_title">Istoric mai mare</string>
@@ -333,20 +330,17 @@
     <string name="pro_feature_links_desc">Un link pe care fiecare îl deschide în playerul său</string>
     <string name="pro_feature_review_title">Calitate de studio și versiuni</string>
     <string name="pro_feature_review_desc">Prioritate Hi-Res/Atmos și alegerea versiunii</string>
-    <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Album nelansat încă</string>
     <string name="prerelease_sheet_desc">Acest album nu este încă disponibil pe platformele de streaming.</string>
     <string name="prerelease_btn_presave_spotify">Pre-salvează pe Spotify</string>
     <string name="prerelease_btn_search_target">Caută single-uri pe %1$s</string>
     <string name="prerelease_btn_cancel">Anulează</string>
     <string name="share_self_link_notice">Acesta este un link SongFlip. Vă rugăm să partajați un link muzical.</string>
-    <!-- Free Trial Offer -->
     <string name="pro_trial_badge">%1$d ZILE GRATIS</string>
     <string name="pro_price_annual_trial">%1$d zile gratuit, apoi %2$s / lună (în loc de %3$s)</string>
     <string name="pro_price_annual_trial_intro">%1$d zile gratuit, apoi %2$s / lună în primul an (în loc de %3$s)</string>
     <string name="pro_price_annual_trial_simple">%1$d zile gratuit, apoi %2$s / an</string>
     <string name="pro_btn_annual_trial">Încearcă gratuit %1$d zile</string>
-    <!-- In-App Feedback Dialog -->
     <string name="feedback_title">Feedback și Asistență</string>
     <string name="feedback_cat_bug">🐛 Problemă</string>
     <string name="feedback_cat_feature">💡 Idee</string>
@@ -359,19 +353,14 @@
     <string name="feedback_success">Vă mulțumim pentru feedback!</string>
     <string name="feedback_error_empty">Introduceți cel puțin 10 caractere.</string>
     <string name="feedback_error_network">Trimiterea a eșuat. Încercați prin e-mail.</string>
-
     <string name="playlist_active_banner_title">Playlist activ</string>
     <string name="playlist_active_banner_details">Detalii</string>
     <string name="playlist_active_banner_open">Deschide în %1$s</string>
     <string name="playlist_active_banner_dismiss">Închide</string>
-
-    <!-- Preferred Player Selection -->
     <string name="settings_preferred_player_title">Player preferat</string>
     <string name="settings_preferred_player_subtitle">Alegeți aplicația pentru redare</string>
     <string name="settings_preferred_player_auto">Automat</string>
     <string name="settings_preferred_player_auto_desc">Recomandat: folosește aplicația prestabilită</string>
-
-    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">Caută și convertește</string>
     <string name="search_hint">Caută piesă sau artist…</string>
     <string name="search_initial_prompt">Scrie o piesă sau un artist</string>
@@ -396,13 +385,12 @@
     <string name="history_filter_all">Toate</string>
     <string name="history_filter_favorites">Favorite</string>
     <string name="target_player_chip">Player: %1$s</string>
-    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">Identifică muzica din jurul tău</string>
     <string name="badge_identified">Identificat</string>
     <string name="listen_free_scans_remaining">%1$d/%2$d scanări gratuite rămase luna aceasta</string>
     <string name="listen_status_listening">Se ascultă muzica…</string>
-        <string name="listen_status_hint_loud">Sunetul este prea tare sau distorsionat – țineți dispozitivul puțin mai departe</string>
+    <string name="listen_status_hint_loud">Sunetul este prea tare sau distorsionat – țineți dispozitivul puțin mai departe</string>
     <string name="listen_status_hint">Ține dispozitivul mai aproape de difuzor</string>
     <string name="listen_status_resolving">Se caută în playerul tău…</string>
     <string name="listen_saved_to_history">Salvat în istoric</string>
@@ -411,7 +399,7 @@
     <string name="listen_scan_again">Identifică altă melodie</string>
     <string name="listen_offline_saved_title">Salvat în Modul Club Offline</string>
     <string name="listen_offline_saved_desc">Amprenta audio a fost salvată (%1$d în așteptare). SongFlip va identifica melodia automat când revii online.</string>
-        <plurals name="listen_offline_resolved_toast">
+    <plurals name="listen_offline_resolved_toast">
         <item quantity="one">%1$d melodie offline identificată și adăugată în istoric!</item>
         <item quantity="few">%1$d melodii offline identificate și adăugate în istoric!</item>
         <item quantity="other">%1$d de melodii offline identificate și adăugate în istoric!</item>
@@ -457,7 +445,8 @@
     <string name="first_launch_step3_desc">Activați linkurile de aplicație în setările de sistem pentru a deschide linkurile direct în playerul țintă.</string>
     <string name="first_launch_btn_done">Începeți</string>
     <string name="settings_how_it_works">Ghid rapid / Cum funcționează</string>
-
     <string name="target_anghami">Anghami</string>
     <string name="playlist_ghost_tracks_notice">%1$d piese suspecte AI și fantomă curățate</string>
+    <string name="playlist_import_default_title">Imported Playlist</string>
+    <string name="unknown_track">Unknown Song</string>
 </resources>

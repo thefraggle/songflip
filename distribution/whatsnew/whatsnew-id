@@ -1,3 +1,3 @@
-- Intersepsi Tautan Anghami: Integrasi penuh tautan Anghami ke dalam penanganan aplikasi bawaan dan perutean tautan sistem (#203).
-- Resolusi Shortlink yang Tangguh: Kesalahan jaringan selama resolusi shortlink tidak lagi meracuni cache dalam memori, memungkinkan percobaan ulang segera setelah pemulihan koneksi (#D8).
-- Identifikasi Track yang Tepat: Isolasi parameter yang ketat saat mendeteksi track tunggal dari link web yang kompleks (#L11).
+- Dukungan Karakter & Aksara Internasional: Format judul dan artis untuk sistem penulisan non-Latin dipertahankan selama deduplikasi dan pencocokan daftar putar.
+- Validasi Tautan & Pengalihan: Penguatan verifikasi alamat di seluruh jalur perutean untuk memblokir tautan yang tidak didukung atau salah format.
+- Performa & Presisi Resolver: Meningkatkan akurasi pencarian di seluruh katalog streaming dan menghilangkan unduhan penuh yang berlebihan untuk tautan pendek.

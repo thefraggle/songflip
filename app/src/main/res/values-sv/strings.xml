@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">SongFlip</string>
     <string name="app_tagline">Automatisk musiklänks-omdirigering</string>
@@ -12,8 +12,6 @@
     <string name="btn_setup">Konfigurera</string>
     <string name="status_missing_hint">Inte aktiverad ännu: %1$s</string>
     <string name="status_hint">Status kan inte kontrolleras på äldre Android-versioner.</string>
-
-    <!-- App Links Setup Guide -->
     <string name="app_links_setup_title">Aktivera musiklänkar i Android</string>
     <string name="app_links_setup_subtitle">För att Android automatiskt ska vidarebefordra musiklänkar till SongFlip krävs en engångsbekräftelse. Följ dessa 3 steg:</string>
     <string name="app_links_step1_title">Tryck på \"+ Lägg till länk\"</string>
@@ -29,7 +27,6 @@
     <string name="app_links_alt_clipboard">Urklipp: Kopiera en musiklänk – SongFlip identifierar den direkt vid öppning.</string>
     <string name="settings_app_links_title">Applänkar &amp; standardapp</string>
     <string name="settings_app_links_subtitle">Fånga upp musiklänkar automatiskt &amp; konfigurera</string>
-
     <string name="language_label">Språk</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
@@ -46,15 +43,12 @@
     <string name="step2">Aktivera "Öppna länkar som stöds" för musikdomäner</string>
     <string name="step3">Klart! Delade länkar omdirigeras automatiskt till din målspelare i bakgrunden.</string>
     <string name="btn_open_settings">Öppna inställningar</string>
-    
-    <!-- Dashboard Setup Card -->
     <string name="setup_card_title">Aktivera automatisk omdirigering</string>
     <string name="setup_card_desc">För att musiklänkar ska öppnas direkt i din favoritspelare krävs ett engångsgodkännande i Android för SongFlip.</string>
     <string name="btn_start_setup">Aktivera i 3 enkla steg</string>
     <string name="setup_card_tip">Tips: SongFlip fungerar även direkt utan inställningar via delningsmenyn och urklipp.</string>
     <string name="setup_card_active_title">Automatisk omdirigering aktiv</string>
     <string name="setup_card_active_desc">Musiklänkar som stöds öppnas nu automatiskt i bakgrunden.</string>
-
     <string name="input_sources_label">Fånga käll-länkar</string>
     <string name="input_sources_subtitle">Välj vilka inkommande musiklänkar SongFlip automatiskt ska omdirigera</string>
     <string name="target_service_label">Föredragen målspelare</string>
@@ -112,7 +106,6 @@
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">Omdirigerar musiklänk...</string>
     <string name="redirect_error_toast">Kunde inte omdirigera länk. Öppnar originallänk.</string>
-
     <string name="theme_label">Tema</string>
     <string name="theme_system">System</string>
     <string name="theme_light">Ljust</string>
@@ -141,8 +134,6 @@
     <string name="podcast_dialog_body">SongFlip är specialiserat på musikspår och album. Poddar och ljudböcker stöds inte för närvarande.</string>
     <string name="podcast_badge">Podd</string>
     <string name="audiobook_badge">Ljudbok</string>
-
-
     <string name="history_title">Låthistorik</string>
     <string name="history_subtitle">Se och hantera nyligen konverterade låtar</string>
     <plurals name="history_cached_count">
@@ -168,7 +159,6 @@
     <string name="time_minutes_ago">%1$d min sedan</string>
     <string name="time_hours_ago">%1$d tim sedan</string>
     <string name="time_days_ago">%1$d dagar sedan</string>
-
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">Lås upp alla PRO-funktioner och dela musik utan gränser</string>
     <string name="pro_tier_monthly">Månadsvis</string>
@@ -211,7 +201,6 @@
     <string name="pro_coupon_max_reached">Denna kampanjkod har nått sin maximala gräns för inlösen.</string>
     <string name="pro_coupon_inactive">Denna kampanjkod är inte längre aktiv.</string>
     <string name="pro_coupon_rate_limited">För många försök. Vänta ett ögonblick.</string>
-
     <string name="pro_active_3months">PRO-åtkomst aktiv till %1$s</string>
     <string name="pro_active_1month">PRO-åtkomst aktiv till %1$s</string>
     <string name="share_universal_link">Dela universell webblänk</string>
@@ -224,7 +213,6 @@
     <string name="clipboard_banner_action_share">Universell länk</string>
     <string name="pro_play_store_unavailable">Google Play Butik är för närvarande inte tillgänglig.</string>
     <string name="pro_processing">Bearbetar...</string>
-
     <string name="shortcut_last_song_short">Spela senaste låt</string>
     <string name="shortcut_last_song_long">Spela senaste låt: %s</string>
     <string name="shortcut_pause_1h_short">Pausa 1 tim</string>
@@ -242,7 +230,6 @@
     <string name="platform_label_unknown">Musiklänk</string>
     <string name="platform_label_universal">Universell länk</string>
     <string name="history_copy_source_generic">Kopiera originallänk</string>
-
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d låt vändes framgångsrikt!</item>
         <item quantity="other">🎉 %1$d låtar vändes framgångsrikt!</item>
@@ -260,7 +247,6 @@
     </plurals>
     <string name="pro_debug_reset_status">PRO-status återställd (Debug)</string>
     <string name="pro_debug_reset_button">Återställ PRO-status (Debug)</string>
-
     <string name="settings_tip_multiple_apps_title">Flera musikappar installerade?</string>
     <string name="settings_tip_multiple_apps_body">Om en app som Spotify öppnar länkar direkt trycker du bara på \"Dela \u2192 SongFlip\" i WhatsApp eller valfri app för att spela låtar i din favoritmusikspelare.</string>
     <string name="app_links_diagnosis_title">Länkdiagnos</string>
@@ -287,8 +273,7 @@
     <string name="share_universal_link_desc">Skapa universella songflip.link-länkar för vänner på alla musikplattformar</string>
     <string name="pro_offerings_error">Kunde inte läsa in PRO-priser. Kontrollera din internetanslutning.</string>
     <string name="action_retry">Försök igen</string>
-    <!-- Playlist Converter Strings -->
-        <string name="playlist_large_notice_title">Stor spellista (%1$d låtar)</string>
+    <string name="playlist_large_notice_title">Stor spellista (%1$d låtar)</string>
     <string name="playlist_large_notice_desc">Utan inloggning överförs de första 200 låtarna i delar.</string>
     <string name="playlist_spotify_limit_notice">Obs: Utan ett anslutet konto tillhandahåller Spotify offentligt maximalt de första 100 låtarna.</string>
     <string name="playlist_converter_title">Spelliste-konverterare</string>
@@ -321,7 +306,7 @@
     <string name="playlist_error_empty_desc">Den här spellistan innehåller inga spelbara låtar.</string>
     <string name="playlist_btn_retry">Försök igen</string>
     <string name="playlist_btn_open_original">Öppna ursprunglig spellista</string>
-<string name="pro_restore_no_subscription">Inget aktivt PRO-abonnemang hittades.</string>
+    <string name="pro_restore_no_subscription">Inget aktivt PRO-abonnemang hittades.</string>
     <string name="pro_purchase_failed">Köpet kunde inte slutföras. Försök igen.</string>
     <string name="offline_waiting_title">Väntar på anslutning…</string>
     <string name="offline_waiting_subtitle">SongFlip omdirigerar automatiskt så snart anslutningen återställs.</string>
@@ -329,8 +314,6 @@
     <string name="offline_waiting_cancel">Avbryt</string>
     <string name="history_empty_title">Ingen historik än</string>
     <string name="history_empty_hint">Tips: Öppna eller dela en musiklänk för att se den här.</string>
-
-    <!-- Pro Features -->
     <string name="pro_feature_playlists_title">Flytta spellistor</string>
     <string name="pro_feature_playlists_desc">För över hela spellistor till din tjänst</string>
     <string name="pro_feature_history_title">Större historik</string>
@@ -341,20 +324,17 @@
     <string name="pro_feature_links_desc">En länk som alla öppnar i sin egen spelare</string>
     <string name="pro_feature_review_title">Studiokvalitet &amp; versioner</string>
     <string name="pro_feature_review_desc">Prioritera Hi-Res/Atmos &amp; välj versioner</string>
-    <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Inte släppt än</string>
     <string name="prerelease_sheet_desc">Detta album har inte släppts på streamingtjänster än.</string>
     <string name="prerelease_btn_presave_spotify">Förhandsspara på Spotify</string>
     <string name="prerelease_btn_search_target">Sök efter singlar i %1$s</string>
     <string name="prerelease_btn_cancel">Avbryt</string>
     <string name="share_self_link_notice">Detta är en SongFlip-länk. Dela en musiklänk istället.</string>
-    <!-- Free Trial Offer -->
     <string name="pro_trial_badge">%1$d DAGAR GRATIS</string>
     <string name="pro_price_annual_trial">%1$d dagar gratis, sedan %2$s / månad (istället för %3$s)</string>
     <string name="pro_price_annual_trial_intro">%1$d dagar gratis, sedan %2$s / månad under år 1 (istället för %3$s)</string>
     <string name="pro_price_annual_trial_simple">%1$d dagar gratis, sedan %2$s / år</string>
     <string name="pro_btn_annual_trial">Prova %1$d dagar gratis</string>
-    <!-- In-App Feedback Dialog -->
     <string name="feedback_title">Feedback &amp; Support</string>
     <string name="feedback_cat_bug">🐛 Bugg</string>
     <string name="feedback_cat_feature">💡 Idé</string>
@@ -367,19 +347,14 @@
     <string name="feedback_success">Tack för din feedback!</string>
     <string name="feedback_error_empty">Ange minst 10 tecken.</string>
     <string name="feedback_error_network">Kunde inte skicka. Försök via e-post istället.</string>
-
     <string name="playlist_active_banner_title">Aktiv spellista</string>
     <string name="playlist_active_banner_details">Detaljer</string>
     <string name="playlist_active_banner_open">Öppna i %1$s</string>
     <string name="playlist_active_banner_dismiss">Stäng</string>
-
-    <!-- Preferred Player Selection -->
     <string name="settings_preferred_player_title">Föredragen spelare</string>
     <string name="settings_preferred_player_subtitle">Välj app för musikuppspelning</string>
     <string name="settings_preferred_player_auto">Automatiskt</string>
     <string name="settings_preferred_player_auto_desc">Rekommenderas: använder standardappen</string>
-
-    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">Sök och konvertera</string>
     <string name="search_hint">Sök efter låt eller artist…</string>
     <string name="search_initial_prompt">Skriv en låt eller artist</string>
@@ -404,13 +379,12 @@
     <string name="history_filter_all">Alla</string>
     <string name="history_filter_favorites">Favoriter</string>
     <string name="target_player_chip">Spelare: %1$s</string>
-    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">Identifiera musik runt omkring dig</string>
     <string name="badge_identified">Identifierad</string>
     <string name="listen_free_scans_remaining">%1$d/%2$d gratis skanningar kvar denna månad</string>
     <string name="listen_status_listening">Lyssnar efter musik…</string>
-        <string name="listen_status_hint_loud">Ljudet är väldigt högt eller förvrängt – håll enheten lite längre bort</string>
+    <string name="listen_status_hint_loud">Ljudet är väldigt högt eller förvrängt – håll enheten lite längre bort</string>
     <string name="listen_status_hint">Håll enheten närmare högtalaren</string>
     <string name="listen_status_resolving">Matchar för din spelare…</string>
     <string name="listen_saved_to_history">Sparad i historik</string>
@@ -419,7 +393,7 @@
     <string name="listen_scan_again">Identifiera en annan låt</string>
     <string name="listen_offline_saved_title">Sparad för Offline Club Mode</string>
     <string name="listen_offline_saved_desc">Ljudavtryck sparat (%1$d väntar). SongFlip identifierar låten automatiskt när du är online igen.</string>
-        <plurals name="listen_offline_resolved_toast">
+    <plurals name="listen_offline_resolved_toast">
         <item quantity="one">%1$d offlinelåt identifierad och sparad i historiken!</item>
         <item quantity="other">%1$d offlinelåtar identifierade och sparade i historiken!</item>
     </plurals>
@@ -464,7 +438,8 @@
     <string name="first_launch_step3_desc">Aktivera App-länkar i systeminställningarna så att musiklänkar öppnas direkt i din målspelare.</string>
     <string name="first_launch_btn_done">Kom igång</string>
     <string name="settings_how_it_works">Snabbguide / Så fungerar det</string>
-
     <string name="target_anghami">Anghami</string>
     <string name="playlist_ghost_tracks_notice">%1$d misstänkta AI- och spökspår rensades</string>
+    <string name="playlist_import_default_title">Imported Playlist</string>
+    <string name="unknown_track">Unknown Song</string>
 </resources>

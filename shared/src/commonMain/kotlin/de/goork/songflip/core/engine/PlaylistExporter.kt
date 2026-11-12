@@ -79,7 +79,11 @@ object PlaylistExporter {
     }
 
     private fun escapeCsv(value: String): String {
-        return value.replace("\"", "\"\"").replace("\n", " ").replace("\r", "")
+        val first = value.firstOrNull()
+        val sanitized = if (first != null && (first == '=' || first == '+' || first == '-' || first == '@' || first == '\t' || first == '\r')) {
+            "'$value"
+        } else value
+        return sanitized.replace("\"", "\"\"").replace("\n", " ").replace("\r", "")
     }
 
     /**

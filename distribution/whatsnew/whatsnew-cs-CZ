@@ -1,3 +1,3 @@
-- Anghami Link Interception: Plná integrace odkazů Anghami do výchozího zpracování aplikací a směrování systémových odkazů (# 203).
-- Odolné rozlišení krátkého odkazu: Chyby sítě během rozlišení krátkého odkazu již neotravují mezipaměť v paměti, což umožňuje okamžité opakování po obnovení připojení (# D8).
-- Přesná identifikace stopy: Přísná izolace parametrů při detekci jednotlivých stop ze složitých webových odkazů (#L11).
+- International Character & Script Support: Preserved title and artist formatting for non-Latin writing systems during playlist deduplication and matching.
+- Link & Redirect Validation: Strengthened address verification across routing paths to block unsupported or malformed links.
+- Resolver Performance & Precision: Improved search accuracy across streaming catalogs and removed redundant full downloads for shortlinks.

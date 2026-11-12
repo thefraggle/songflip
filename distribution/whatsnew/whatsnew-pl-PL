@@ -1,2 +1,2 @@
-- Przechwytywanie łączy Anghami: Pełna integracja łączy Anghami z domyślną obsługą aplikacji i routingiem łączy systemowych (nr 203).
-- Odporne rozwiązywanie krótkich łączy: Błędy sieciowe podczas rozwiązywania krótkich łączy nie zatruwają już pamięci podręcznej w pamięci, umożliwiając natychmiastowe ponowne próby po przywróceniu połączenia (#D8).
+- Obsługa znaków i pism międzynarodowych: zachowano formatowanie tytułów i wykonawców w przypadku pism nielacińskich podczas usuwania duplikatów z playlist i dopasowywania.
+- Weryfikacja linków i przekierowań: Wzmocniona weryfikacja adresów na wszystkich ścieżkach routingu w celu blokowania nieobsługiwanych lub nieprawidłowo sformatowanych linków.

@@ -117,9 +117,9 @@ Purchases are powered by **RevenueCat** with native store backends:
 ### 1. Prerequisites
 - **Java Development Kit (JDK)**: JDK 17+ (Eclipse Temurin or OpenJDK 17 recommended).
 - **Android Development**: Android Studio Ladybug / Meerkat with Android SDK (API Level 26–36) and Command-line Tools.
-- **iOS Development (macOS only)**: Xcode 16+ with Command Line Tools and iOS 17+ Simulator / Device SDKs.
+- **iOS Development (macOS only)**: Xcode 16+ / Xcode 26 with Command Line Tools and iOS 17+ Simulator / Device SDKs.
 
-> 💡 **Backend Notice**: The backend (Firebase Cloud Functions) is an optional, closed-source service hosted by Daniel Notthoff. You do **not** need the backend code to build, test, or contribute to SongFlip. The client applications are 100% autonomous and a standard clone builds both Android and iOS targets out of the box.
+> 💡 **Backend Notice**: The backend (Firebase Cloud Functions) is an optional service hosted by Daniel Notthoff. You do **not** need the backend code to build, test, or contribute to SongFlip. The client applications are 100% autonomous and a standard clone builds both Android and iOS targets out of the box.
 
 ### 2. Apple ShazamKit SDK for Android (Optional / Dual-Mode)
 - **iOS**: Uses Apple's native system framework (`import ShazamKit`). No external binaries or credentials required.
@@ -129,15 +129,23 @@ Purchases are powered by **RevenueCat** with native store backends:
   - **Official Release Builds**: Official production releases fetch the proprietary vendor SDK from the private backend repository via CI token (`SONGFLIP_API_READ_TOKEN`), keeping the public repository 100% clean of proprietary binary assets.
 
 ### 3. Environment Configuration
-Copy or create `local.properties` in the project root for local Android builds:
+Copy `local.properties.example` to `local.properties` in the project root for local Android builds:
 ```properties
 sdk.dir=/Users/<username>/Library/Android/sdk
-# Optional telemetry & in-app purchase keys (falls back to safe dev defaults if omitted):
+# Optional keys (falls back to safe dev defaults if omitted):
 # revenuecat.api.key=goog_...
 # aptabase.app.key=A-EU-...
+# aptabase.host=https://api.aptabase.com
+# tidal.app.token=...
+# qobuz.app.id=...
 ```
 
-### 3. Build & Test Commands
+For iOS development, copy `iosApp/SongFlip/Config.example.xcconfig` to `iosApp/SongFlip/Config.xcconfig` (git-ignored) and build the shared framework first:
+```bash
+./gradlew :shared:assembleSongFlipKitReleaseXCFramework
+```
+
+### 4. Build & Test Commands
 
 #### Android Builds:
 ```bash

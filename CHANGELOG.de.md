@@ -1,5 +1,13 @@
 # Changelog (Deutsch)
 
+## [1.14.15] - 2026-11-12
+- **Internationale Schrift- & Zeichenunterstützung**: Erhalt von Titel- und Künstlernamen nicht-lateinischer Schriften bei der Duplikatbereinigung und Suche.
+- **Link- & Weiterleitungs-Sicherheit**: Strikte Adressprüfung auf allen Pfaden verhindert das Öffnen fehlerhafter oder nicht unterstützter Adressen.
+- **Resolver-Präzision & Geschwindigkeit**: Gesteigerte Suchgenauigkeit in Musikkatalogen und Vermeidung unnötiger Downloads bei Kurz-Links.
+- **Speicherkonsistenz & Stabilität**: Verbesserte Transaktions- und Verbindungseinstellungen für die lokale Datenbank schützen vor Konflikten.
+- **Audio-Umgebungserkennung**: Feinere Kalibrierung der Mikrofon-Erkennung zur realistischen Beurteilung von Umgebungsgeräuschen ohne Fehlalarme.
+- **Erweiterte Sprachunterstützung**: Lückenlose Vervollständigung aller Sprachdateien inklusive vollständiger arabischer Übersetzung.
+
 ## [1.14.14] - 2026-11-11
 - **Entkoppelte Architektur & Binär-Sicherheit**: Vollständige Trennung proprietärer Erkennungsbibliotheken aus der Versionsverwaltung für autarke Builds mit geschütztem automatisiertem Nachladen in Bereitstellungs-Pipelines (#168).
 - **Konfigurations- & Telemetrie-Neutralität**: Konfigurationsvorlagen und Build-Standards verwenden neutrale Endpunkte ohne Offenlegung privater Infrastruktur.

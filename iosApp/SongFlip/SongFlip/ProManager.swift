@@ -253,7 +253,7 @@ final class ProManager: NSObject, ObservableObject {
 
     private func saveStoredCouponToken(_ token: String) {
         writeKeychainString(account: Self.keychainAccountCouponToken, value: token)
-        defaults.set(token, forKey: Self.keyCouponToken)
+        defaults.removeObject(forKey: Self.keyCouponToken)
     }
 
     private func getLastSeenServerTime() -> Int64 {
@@ -286,8 +286,16 @@ final class ProManager: NSObject, ObservableObject {
 
     func configure(isDebug: Bool = false, isAutomatedTest: Bool = false) {
         self.isAutomatedTest = isAutomatedTest
+        let key = Self.apiKey.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !key.isEmpty, !key.contains("your_revenuecat_key") else {
+            Self.logger.warning("[ProManager] Skipping RevenueCat configure: empty/placeholder API key")
+            Task {
+                await migrateStoredCouponTokenIfNeeded()
+            }
+            return
+        }
         Purchases.logLevel = isDebug ? .debug : .warn
-        Purchases.configure(withAPIKey: Self.apiKey)
+        Purchases.configure(withAPIKey: key)
         Purchases.shared.delegate = self
 
         Task {
@@ -327,6 +335,7 @@ final class ProManager: NSObject, ObservableObject {
                 Self.logger.info("[ProManager] Coupon token migrated to current signing key")
             case .revoked:
                 writeKeychainString(account: Self.keychainAccountCouponToken, value: nil)
+                defaults.removeObject(forKey: Self.keyCouponToken)
                 defaults.removeObject(forKey: Self.keyCouponType)
                 defaults.removeObject(forKey: Self.keyCouponCode)
                 defaults.removeObject(forKey: Self.keyCouponExpiration)
@@ -428,6 +437,7 @@ final class ProManager: NSObject, ObservableObject {
     }
 
     func refreshCustomerInfo() async {
+        guard Purchases.isConfigured else { return }
         do {
             let customerInfo = try await Purchases.shared.customerInfo()
             updateFromCustomerInfo(customerInfo)

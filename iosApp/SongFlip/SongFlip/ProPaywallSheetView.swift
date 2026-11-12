@@ -91,6 +91,28 @@ struct ProPaywallSheetView: View {
                     }
                 }
             }
+        } else if !Purchases.isConfigured {
+            VStack(spacing: 16) {
+                Spacer()
+                Image(systemName: "exclamationmark.triangle")
+                    .font(.system(size: 44))
+                    .foregroundColor(.orange)
+                Text(LocalizationManager.string(for: "pro_play_store_unavailable", lang: lang))
+                    .font(.headline)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
+                Button(action: { dismiss() }) {
+                    Text(LocalizationManager.string(for: "btn_ok", lang: lang))
+                        .fontWeight(.semibold)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 10)
+                        .background(Color.accentColor)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+                Spacer()
+            }
+            .padding()
         } else {
             Group {
                 if let offering = offering {
@@ -100,6 +122,7 @@ struct ProPaywallSheetView: View {
                 }
             }
             .onPurchaseCompleted { customerInfo in
+                AptabaseClient.shared.trackEvent(eventName: "pro_purchased")
                 proManager.updateFromCustomerInfo(customerInfo)
                 dismiss()
             }

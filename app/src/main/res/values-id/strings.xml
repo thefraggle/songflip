@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">SongFlip</string>
     <string name="app_tagline">Pengalihan Tautan Musik Otomatis</string>
@@ -12,8 +12,6 @@
     <string name="btn_setup">Siapkan</string>
     <string name="status_missing_hint">Belum diaktifkan: %1$s</string>
     <string name="status_hint">Status tidak dapat diperiksa pada versi Android yang lebih lama.</string>
-
-    <!-- App Links Setup Guide -->
     <string name="app_links_setup_title">Aktifkan Tautan Musik di Android</string>
     <string name="app_links_setup_subtitle">Agar Android dapat mengarahkan tautan musik ke SongFlip secara otomatis, diperlukan satu kali konfirmasi. Ikuti 3 langkah ini:</string>
     <string name="app_links_step1_title">\"+ Tambahkan tautan\"</string>
@@ -29,7 +27,6 @@
     <string name="app_links_alt_clipboard">Papan Klip: Salin tautan musik – SongFlip langsung mendeteksinya saat dibuka.</string>
     <string name="settings_app_links_title">Tautan Aplikasi &amp; Aplikasi Default</string>
     <string name="settings_app_links_subtitle">Tangkap tautan musik otomatis &amp; panduan setup</string>
-
     <string name="language_label">Bahasa</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
@@ -46,15 +43,12 @@
     <string name="step2">Aktifkan "Buka tautan yang didukung" untuk domain musik</string>
     <string name="step3">Selesai! Tautan yang dibagikan otomatis beralih ke pemutar tujuan di latar belakang.</string>
     <string name="btn_open_settings">Buka Pengaturan</string>
-    
-    <!-- Dashboard Setup Card -->
     <string name="setup_card_title">Aktifkan Pengalihan Otomatis</string>
     <string name="setup_card_desc">Agar tautan musik terbuka langsung di pemutar favorit Anda, Android memerlukan konfirmasi tautan satu kali untuk SongFlip.</string>
     <string name="btn_start_setup">Aktifkan dalam 3 Langkah Mudah</string>
     <string name="setup_card_tip">Tips: SongFlip juga langsung bekerja tanpa setup apa pun melalui menu Bagikan dan Papan Klip.</string>
     <string name="setup_card_active_title">Pengalihan Otomatis Aktif</string>
     <string name="setup_card_active_desc">Tautan musik yang didukung kini akan terbuka secara otomatis di latar belakang.</string>
-
     <string name="input_sources_label">Cegat Tautan Sumber</string>
     <string name="input_sources_subtitle">Pilih tautan musik masuk mana yang harus dialihkan otomatis oleh SongFlip</string>
     <string name="target_service_label">Pemutar Tujuan Favorit</string>
@@ -112,7 +106,6 @@
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">Mengalihkan tautan musik...</string>
     <string name="redirect_error_toast">Gagal mengalihkan tautan. Membuka tautan asli.</string>
-
     <string name="theme_label">Tema</string>
     <string name="theme_system">Sistem</string>
     <string name="theme_light">Terang</string>
@@ -141,8 +134,6 @@
     <string name="podcast_dialog_body">SongFlip dikhususkan untuk lagu dan album musik. Podcast dan buku audio saat ini belum didukung untuk konversi.</string>
     <string name="podcast_badge">Podcast</string>
     <string name="audiobook_badge">Buku Audio</string>
-
-
     <string name="history_title">Riwayat Lagu</string>
     <string name="history_subtitle">Kelola dan putar ulang lagu yang baru dikonversi</string>
     <plurals name="history_cached_count">
@@ -167,7 +158,6 @@
     <string name="time_minutes_ago">%1$d mnt lalu</string>
     <string name="time_hours_ago">%1$d jam lalu</string>
     <string name="time_days_ago">%1$d hari lalu</string>
-
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">Buka semua fitur PRO &amp; bagikan musik tanpa batas</string>
     <string name="pro_tier_monthly">Bulanan</string>
@@ -206,7 +196,6 @@
     <string name="pro_coupon_max_reached">Kode promo ini telah mencapai batas penukaran maksimal.</string>
     <string name="pro_coupon_inactive">Kode promo ini sudah tidak aktif.</string>
     <string name="pro_coupon_rate_limited">Terlalu banyak percobaan. Harap tunggu sebentar.</string>
-
     <string name="pro_active_3months">Akses PRO aktif hingga %1$s</string>
     <string name="pro_active_1month">Akses PRO aktif hingga %1$s</string>
     <string name="share_universal_link">Bagikan tautan web universal</string>
@@ -223,7 +212,6 @@
     <string name="pro_btn_lifetime">Dapatkan SongFlip PRO (%1$s)</string>
     <string name="pro_btn_annual">Langganan seharga %1$s / tahun</string>
     <string name="pro_btn_monthly">Langganan seharga %1$s / bulan</string>
-
     <string name="shortcut_last_song_short">Putar Lagu Terakhir</string>
     <string name="shortcut_last_song_long">Putar lagu terakhir dikonversi: %s</string>
     <string name="shortcut_pause_1h_short">Jeda 1 jam</string>
@@ -241,7 +229,6 @@
     <string name="platform_label_unknown">Tautan musik</string>
     <string name="platform_label_universal">Tautan universal</string>
     <string name="history_copy_source_generic">Salin tautan asli</string>
-
     <plurals name="pro_nudge_title">
         <item quantity="other">🎉 Berhasil mengonversi %1$d lagu!</item>
     </plurals>
@@ -256,7 +243,6 @@
     </plurals>
     <string name="pro_debug_reset_status">Status PRO direset (Debug)</string>
     <string name="pro_debug_reset_button">Reset status PRO (Debug)</string>
-
     <string name="settings_tip_multiple_apps_title">Memasang beberapa aplikasi musik?</string>
     <string name="settings_tip_multiple_apps_body">Jika aplikasi seperti Spotify langsung membuka tautan, cukup ketuk \"Bagikan \u2192 SongFlip\" di WhatsApp atau aplikasi apa pun untuk memutar lagu di pemutar musik pilihan Anda.</string>
     <string name="app_links_diagnosis_title">Diagnosis Tautan</string>
@@ -281,8 +267,7 @@
     <string name="share_universal_link_desc">Buat tautan songflip.link universal untuk teman di platform musik apa pun</string>
     <string name="pro_offerings_error">Gagal memuat harga PRO. Periksa koneksi internet Anda.</string>
     <string name="action_retry">Coba lagi</string>
-    <!-- Playlist Converter Strings -->
-        <string name="playlist_large_notice_title">Daftar Putar Besar (%1$d lagu)</string>
+    <string name="playlist_large_notice_title">Daftar Putar Besar (%1$d lagu)</string>
     <string name="playlist_large_notice_desc">Tanpa login, 200 lagu pertama ditransfer dalam beberapa bagian.</string>
     <string name="playlist_spotify_limit_notice">Catatan: Tanpa tautan akun, Spotify hanya menyediakan maksimal 100 lagu pertama dari daftar putar secara publik.</string>
     <string name="playlist_converter_title">Pengonversi Daftar Putar</string>
@@ -315,7 +300,7 @@
     <string name="playlist_error_empty_desc">Playlist ini tidak berisi lagu yang dapat diputar.</string>
     <string name="playlist_btn_retry">Coba lagi</string>
     <string name="playlist_btn_open_original">Buka Daftar Putar Asli</string>
-<string name="pro_restore_no_subscription">Tidak ada langganan PRO aktif yang ditemukan.</string>
+    <string name="pro_restore_no_subscription">Tidak ada langganan PRO aktif yang ditemukan.</string>
     <string name="pro_purchase_failed">Pembelian tidak dapat diselesaikan. Silakan coba lagi.</string>
     <string name="offline_waiting_title">Menunggu koneksi…</string>
     <string name="offline_waiting_subtitle">SongFlip akan mengarahkan otomatis begitu koneksi pulih.</string>
@@ -323,8 +308,6 @@
     <string name="offline_waiting_cancel">Batal</string>
     <string name="history_empty_title">Belum ada riwayat</string>
     <string name="history_empty_hint">Tips: Buka atau bagikan tautan musik untuk melihatnya di sini.</string>
-
-    <!-- Pro Features -->
     <string name="pro_feature_playlists_title">Pindahkan playlist</string>
     <string name="pro_feature_playlists_desc">Pindahkan seluruh playlist ke layananmu</string>
     <string name="pro_feature_history_title">Riwayat lebih besar</string>
@@ -335,20 +318,17 @@
     <string name="pro_feature_links_desc">Satu tautan yang dibuka semua orang di pemutarnya sendiri</string>
     <string name="pro_feature_review_title">Kualitas studio &amp; versi</string>
     <string name="pro_feature_review_desc">Prioritaskan Hi-Res/Atmos &amp; pilih versi</string>
-    <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Belum Dirilis</string>
     <string name="prerelease_sheet_desc">Album ini belum dirilis di platform streaming.</string>
     <string name="prerelease_btn_presave_spotify">Pra-simpan di Spotify</string>
     <string name="prerelease_btn_search_target">Cari single di %1$s</string>
     <string name="prerelease_btn_cancel">Batal</string>
     <string name="share_self_link_notice">Ini adalah tautan SongFlip. Silakan bagikan tautan musik.</string>
-    <!-- Free Trial Offer -->
     <string name="pro_trial_badge">%1$d HARI GRATIS</string>
     <string name="pro_price_annual_trial">Gratis %1$d hari, lalu %2$s / bulan (bukan %3$s)</string>
     <string name="pro_price_annual_trial_intro">Gratis %1$d hari, lalu %2$s / bulan di tahun ke-1 (bukan %3$s)</string>
     <string name="pro_price_annual_trial_simple">Gratis %1$d hari, lalu %2$s / tahun</string>
     <string name="pro_btn_annual_trial">Coba gratis %1$d hari</string>
-    <!-- In-App Feedback Dialog -->
     <string name="feedback_title">Masukan &amp; Dukungan</string>
     <string name="feedback_cat_bug">🐛 Masalah</string>
     <string name="feedback_cat_feature">💡 Ide</string>
@@ -361,19 +341,14 @@
     <string name="feedback_success">Terima kasih atas masukan Anda!</string>
     <string name="feedback_error_empty">Masukkan minimal 10 karakter.</string>
     <string name="feedback_error_network">Gagal mengirim masukan. Silakan coba lewat email.</string>
-
     <string name="playlist_active_banner_title">Daftar Putar Aktif</string>
     <string name="playlist_active_banner_details">Detail</string>
     <string name="playlist_active_banner_open">Buka di %1$s</string>
     <string name="playlist_active_banner_dismiss">Tutup</string>
-
-    <!-- Preferred Player Selection -->
     <string name="settings_preferred_player_title">Pemutar Pilihan</string>
     <string name="settings_preferred_player_subtitle">Pilih aplikasi untuk memutar musik</string>
     <string name="settings_preferred_player_auto">Otomatis</string>
     <string name="settings_preferred_player_auto_desc">Disarankan: gunakan aplikasi default</string>
-
-    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">Cari &amp; Konversi</string>
     <string name="search_hint">Cari lagu atau artis…</string>
     <string name="search_initial_prompt">Ketik judul lagu atau artis</string>
@@ -398,13 +373,12 @@
     <string name="history_filter_all">Semua</string>
     <string name="history_filter_favorites">Favorit</string>
     <string name="target_player_chip">Pemutar: %1$s</string>
-    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">Kenali musik yang diputar di sekitar Anda</string>
     <string name="badge_identified">Teridentifikasi</string>
     <string name="listen_free_scans_remaining">Sisa %1$d/%2$d pindaian gratis bulan ini</string>
     <string name="listen_status_listening">Mendengarkan musik…</string>
-        <string name="listen_status_hint_loud">Audio terlalu keras atau terdistorsi – jauhkan sedikit perangkat</string>
+    <string name="listen_status_hint_loud">Audio terlalu keras atau terdistorsi – jauhkan sedikit perangkat</string>
     <string name="listen_status_hint">Dekatkan perangkat Anda ke sumber suara</string>
     <string name="listen_status_resolving">Mencocokkan untuk pemutar Anda…</string>
     <string name="listen_saved_to_history">Disimpan ke Riwayat</string>
@@ -413,7 +387,7 @@
     <string name="listen_scan_again">Kenali lagu lain</string>
     <string name="listen_offline_saved_title">Disimpan di Mode Klub Offline</string>
     <string name="listen_offline_saved_desc">Sidik jari audio disimpan (%1$d tertunda). SongFlip akan mengenalinya secara otomatis saat Anda kembali online.</string>
-        <plurals name="listen_offline_resolved_toast">
+    <plurals name="listen_offline_resolved_toast">
         <item quantity="other">%1$d lagu offline berhasil dikenali dan ditambahkan ke Riwayat!</item>
     </plurals>
     <string name="listen_no_match_title">Lagu tidak dikenali</string>
@@ -457,7 +431,8 @@
     <string name="first_launch_step3_desc">Aktifkan Tautan Aplikasi di pengaturan sistem agar tautan musik terbuka langsung di pemutar tujuan.</string>
     <string name="first_launch_btn_done">Mulai</string>
     <string name="settings_how_it_works">Panduan Singkat / Cara Kerja</string>
-
     <string name="target_anghami">Anghami</string>
     <string name="playlist_ghost_tracks_notice">%1$d trek AI &amp; hantu yang mencurigakan dibersihkan</string>
+    <string name="playlist_import_default_title">Imported Playlist</string>
+    <string name="unknown_track">Unknown Song</string>
 </resources>

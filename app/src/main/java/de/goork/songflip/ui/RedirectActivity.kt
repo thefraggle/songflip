@@ -410,6 +410,12 @@ class RedirectActivity : ComponentActivity() {
             rawUrl.replace("music.music.youtube.com", "music.youtube.com")
         } else rawUrl
 
+        if (!UrlUtils.isSafeTargetUrl(url)) {
+            android.util.Log.w("RedirectActivity", "Blocked unsafe target URL: $url")
+            finish()
+            return
+        }
+
         de.goork.songflip.data.ShortcutHelper.updateShortcuts(this)
         val (targetPackage, nativeUriString) = PackageUtils.resolveEffectiveLaunchTarget(this, url, targetPlatformKey)
 

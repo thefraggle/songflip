@@ -1,2 +1,2 @@
-- Intercepción de enlaces Anghami: integración completa de los enlaces Anghami en el manejo predeterminado de la aplicación y el enrutamiento de enlaces del sistema (#203).
-- Resolución resistente de enlaces cortos: los errores de red durante la resolución de enlaces cortos ya no envenenan la memoria caché, lo que permite reintentos inmediatos tras la restauración de la conexión (#D8).
+- Compatibilidad con caracteres y sistemas de escritura internacionales: se ha conservado el formato del título y del artista para los sistemas de escritura no latinos durante la deduplicación y la coincidencia de listas de reproducción.
+- Validación de enlaces y redireccionamientos: Se ha reforzado la verificación de direcciones en todas las rutas de enrutamiento para bloquear los enlaces no admitidos o mal formados.

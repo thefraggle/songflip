@@ -1,3 +1,3 @@
-- Anghami Link Interception: Full integrering av Anghami-lenker i standard apphåndtering og systemlinkruting (#203).
-- Resilient Shortlink Resolution: Nettverksfeil under shortlink-oppløsning forgifter ikke lenger cachen i minnet, noe som muliggjør umiddelbare forsøk på nytt ved gjenoppretting av tilkoblingen (#D8).
-- Nøyaktig sporidentifikasjon: Strenge parameterisolering ved oppdagelse av enkeltspor fra komplekse nettlenker (#L11).
+- Støtte for internasjonal karakter og manus: Bevart tittel- og artistformatering for ikke-latinske skriftsystemer under deduplisering og matching av spillelister.
+- Validering av lenke og omdirigering: Forsterket adresseverifisering på tvers av rutingsveier for å blokkere ustøttede eller feilformede lenker.
+- Resolver-ytelse og -presisjon: Forbedret søkenøyaktighet på tvers av strømmekataloger og fjernet overflødige fullstendige nedlastinger for korte lenker.

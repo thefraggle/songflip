@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">SongFlip</string>
     <string name="app_tagline">音乐链接自动重定向器</string>
@@ -12,8 +12,6 @@
     <string name="btn_setup">立即配置</string>
     <string name="status_missing_hint">尚未启用：%1$s</string>
     <string name="status_hint">在旧版 Android 上无法检查状态。</string>
-
-    <!-- App Links Setup Guide -->
     <string name="app_links_setup_title">在 Android 中启用音乐链接</string>
     <string name="app_links_setup_subtitle">要让 Android 将音乐链接自动重定向至 SongFlip，需要进行一次性确认。请按以下 3 步操作：</string>
     <string name="app_links_step1_title">点击“+ 添加链接”</string>
@@ -29,7 +27,6 @@
     <string name="app_links_alt_clipboard">剪贴板：只需复制音乐链接，打开 SongFlip 即可立即识别。</string>
     <string name="settings_app_links_title">应用链接与默认应用</string>
     <string name="settings_app_links_subtitle">自动捕获音乐链接及设置向导</string>
-
     <string name="language_label">语言</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
@@ -46,15 +43,12 @@
     <string name="step2">为音乐域名启用“打开支持的链接”</string>
     <string name="step3">完成！分享的链接将在后台自动跳转至目标播放器。</string>
     <string name="btn_open_settings">打开设置</string>
-    
-    <!-- Dashboard Setup Card -->
     <string name="setup_card_title">开启自动链接重定向</string>
     <string name="setup_card_desc">要让音乐链接直接在你的常用播放器中打开，需要允许 Android 一次性将链接交由 SongFlip 处理。</string>
     <string name="btn_start_setup">轻松 3 步完成配置</string>
     <string name="setup_card_tip">提示：通过“分享”菜单或直接复制链接，无需任何配置即可即刻使用。</string>
     <string name="setup_card_active_title">自动重定向已激活</string>
     <string name="setup_card_active_desc">点击支持的音乐链接将自动在后台转换并打开。</string>
-
     <string name="input_sources_label">拦截来源链接</string>
     <string name="input_sources_subtitle">选择 SongFlip 应自动重定向的传入音乐链接</string>
     <string name="target_service_label">首选目标播放器</string>
@@ -112,7 +106,6 @@
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">正在重定向音乐链接...</string>
     <string name="redirect_error_toast">无法重定向链接。正在打开原始链接。</string>
-
     <string name="theme_label">主题</string>
     <string name="theme_system">系统</string>
     <string name="theme_light">浅色</string>
@@ -141,8 +134,6 @@
     <string name="podcast_dialog_body">SongFlip 专注于音乐曲目和专辑。目前暂不支持播客和有声书的跨平台转换。</string>
     <string name="podcast_badge">播客</string>
     <string name="audiobook_badge">有声书</string>
-
-
     <string name="history_title">歌曲历史</string>
     <string name="history_subtitle">查看并管理最近转换的歌曲</string>
     <plurals name="history_cached_count">
@@ -167,7 +158,6 @@
     <string name="time_minutes_ago">%1$d 分钟前</string>
     <string name="time_hours_ago">%1$d 小时前</string>
     <string name="time_days_ago">%1$d 天前</string>
-
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">解锁全部 PRO 功能，无限制分享音乐</string>
     <string name="pro_tier_monthly">按月订阅</string>
@@ -210,7 +200,6 @@
     <string name="pro_coupon_max_reached">此兑换码已达到最大兑换次数限制。</string>
     <string name="pro_coupon_inactive">此兑换码已不再有效。</string>
     <string name="pro_coupon_rate_limited">尝试次数过多。请稍后再试。</string>
-
     <string name="pro_active_3months">PRO 权限有效期至 %1$s</string>
     <string name="pro_active_1month">PRO 权限有效期至 %1$s</string>
     <string name="share_universal_link">分享通用网页链接</string>
@@ -223,7 +212,6 @@
     <string name="clipboard_banner_action_share">通用链接</string>
     <string name="pro_play_store_unavailable">Google Play 商店目前不可用。</string>
     <string name="pro_processing">加工...</string>
-
     <string name="shortcut_last_song_short">播放最后一首歌曲</string>
     <string name="shortcut_last_song_long">播放最近转换的歌曲：%s</string>
     <string name="shortcut_pause_1h_short">暂停 1 小时</string>
@@ -241,7 +229,6 @@
     <string name="platform_label_unknown">音乐链接</string>
     <string name="platform_label_universal">通用链接</string>
     <string name="history_copy_source_generic">复制原始链接</string>
-
     <plurals name="pro_nudge_title">
         <item quantity="other">🎉 已成功转换 %1$d 首歌曲！</item>
     </plurals>
@@ -256,7 +243,6 @@
     </plurals>
     <string name="pro_debug_reset_status">PRO 状态已重置（调试）</string>
     <string name="pro_debug_reset_button">重置 PRO 状态（调试）</string>
-
     <string name="settings_tip_multiple_apps_title">安装了多个音乐应用？</string>
     <string name="settings_tip_multiple_apps_body">如果像 Spotify 这样的应用直接打开链接，只需在微信、WhatsApp 或任何应用中点击“分享 \u2192 SongFlip”，即可在您首选的播放器中播放。</string>
     <string name="app_links_diagnosis_title">链接诊断</string>
@@ -281,8 +267,7 @@
     <string name="share_universal_link_desc">为任何音乐平台上的朋友创建通用的 songflip.link 链接</string>
     <string name="pro_offerings_error">无法加载 PRO 价格，请检查网络连接。</string>
     <string name="action_retry">重试</string>
-    <!-- Playlist Converter Strings -->
-        <string name="playlist_large_notice_title">大型播放列表（%1$d首）</string>
+    <string name="playlist_large_notice_title">大型播放列表（%1$d首）</string>
     <string name="playlist_large_notice_desc">免登录模式下，前200首歌曲将分段传输。</string>
     <string name="playlist_spotify_limit_notice">提示：在未绑定账户的情况下，Spotify 公开最多仅提供歌单的前 100 首歌曲。</string>
     <string name="playlist_converter_title">歌单转换器</string>
@@ -315,7 +300,7 @@
     <string name="playlist_error_empty_desc">此歌单中没有可播放的歌曲。</string>
     <string name="playlist_btn_retry">重试</string>
     <string name="playlist_btn_open_original">打开原始歌单</string>
-<string name="pro_restore_no_subscription">未找到有效的 PRO 订阅。</string>
+    <string name="pro_restore_no_subscription">未找到有效的 PRO 订阅。</string>
     <string name="pro_purchase_failed">购买未能完成，请重试。</string>
     <string name="offline_waiting_title">等待网络连接…</string>
     <string name="offline_waiting_subtitle">网络恢复后，SongFlip 将自动重定向。</string>
@@ -323,8 +308,6 @@
     <string name="offline_waiting_cancel">取消</string>
     <string name="history_empty_title">暂无转换记录</string>
     <string name="history_empty_hint">提示：打开或分享音乐链接后即可在此查看。</string>
-
-    <!-- Pro Features -->
     <string name="pro_feature_playlists_title">迁移歌单</string>
     <string name="pro_feature_playlists_desc">将完整歌单转移到你的音乐服务</string>
     <string name="pro_feature_history_title">更大的历史记录</string>
@@ -335,20 +318,17 @@
     <string name="pro_feature_links_desc">一个链接，每个人都能在自己的播放器中打开</string>
     <string name="pro_feature_review_title">母带音质与版本选择</string>
     <string name="pro_feature_review_desc">优先匹配 Hi-Res/Atmos 并可手动选版本</string>
-    <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">尚未发行</string>
     <string name="prerelease_sheet_desc">该专辑尚未在流媒体平台上架。</string>
     <string name="prerelease_btn_presave_spotify">在 Spotify 上预存</string>
     <string name="prerelease_btn_search_target">在 %1$s 中搜索单曲</string>
     <string name="prerelease_btn_cancel">取消</string>
     <string name="share_self_link_notice">这是SongFlip链接，请分享音乐链接。</string>
-    <!-- Free Trial Offer -->
     <string name="pro_trial_badge">免费试用 %1$d 天</string>
     <string name="pro_price_annual_trial">免费试用 %1$d 天，之后 %2$s / 月（原价 %3$s）</string>
     <string name="pro_price_annual_trial_intro">免费试用 %1$d 天，首年 %2$s / 月（原价 %3$s）</string>
     <string name="pro_price_annual_trial_simple">免费试用 %1$d 天，之后 %2$s / 年</string>
     <string name="pro_btn_annual_trial">免费试用 %1$d 天</string>
-    <!-- In-App Feedback Dialog -->
     <string name="feedback_title">反馈与支持</string>
     <string name="feedback_cat_bug">🐛 问题反馈</string>
     <string name="feedback_cat_feature">💡 功能建议</string>
@@ -361,19 +341,14 @@
     <string name="feedback_success">感谢您的反馈！</string>
     <string name="feedback_error_empty">请输入至少10个字符。</string>
     <string name="feedback_error_network">发送失败，请尝试使用邮件发送。</string>
-
     <string name="playlist_active_banner_title">活跃播放列表</string>
     <string name="playlist_active_banner_details">详情</string>
     <string name="playlist_active_banner_open">在%1$s中打开</string>
     <string name="playlist_active_banner_dismiss">关闭</string>
-
-    <!-- Preferred Player Selection -->
     <string name="settings_preferred_player_title">首选播放器</string>
     <string name="settings_preferred_player_subtitle">选择用于播放的音乐应用</string>
     <string name="settings_preferred_player_auto">自动</string>
     <string name="settings_preferred_player_auto_desc">推荐：使用默认应用</string>
-
-    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">搜索与转换</string>
     <string name="search_hint">搜索歌曲或音乐人…</string>
     <string name="search_initial_prompt">输入歌曲名或歌手</string>
@@ -398,13 +373,12 @@
     <string name="history_filter_all">全部</string>
     <string name="history_filter_favorites">收藏</string>
     <string name="target_player_chip">播放器: %1$s</string>
-    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">听音识曲并转换到你的播放器</string>
     <string name="badge_identified">已识曲</string>
     <string name="listen_free_scans_remaining">本月剩余 %1$d/%2$d 次免费识曲</string>
     <string name="listen_status_listening">正在聆听音乐…</string>
-        <string name="listen_status_hint_loud">声音过大或失真——请将设备稍移远一些</string>
+    <string name="listen_status_hint_loud">声音过大或失真——请将设备稍移远一些</string>
     <string name="listen_status_hint">请将设备靠近音源</string>
     <string name="listen_status_resolving">正在匹配你的播放器…</string>
     <string name="listen_saved_to_history">已保存到历史记录</string>
@@ -413,7 +387,7 @@
     <string name="listen_scan_again">识别另一首歌曲</string>
     <string name="listen_offline_saved_title">已保存到离线俱乐部模式</string>
     <string name="listen_offline_saved_desc">音频指纹已保存（%1$d 首待处理）。恢复网络连接后，SongFlip 将自动为您识别。</string>
-        <plurals name="listen_offline_resolved_toast">
+    <plurals name="listen_offline_resolved_toast">
         <item quantity="other">已成功识别 %1$d 首离线歌曲并加入历史记录！</item>
     </plurals>
     <string name="listen_no_match_title">未能识别出歌曲</string>
@@ -457,7 +431,8 @@
     <string name="first_launch_step3_desc">在系统设置中启用“应用链接”，即可直接在目标播放器中打开音乐链接。</string>
     <string name="first_launch_btn_done">开始使用</string>
     <string name="settings_how_it_works">快速指南 / 使用说明</string>
-
     <string name="target_anghami">Anghami</string>
     <string name="playlist_ghost_tracks_notice">已清理 %1$d 首疑似 AI 与虚拟幽灵曲目</string>
+    <string name="playlist_import_default_title">Imported Playlist</string>
+    <string name="unknown_track">Unknown Song</string>
 </resources>

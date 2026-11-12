@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">SongFlip</string>
     <string name="app_tagline">음악 링크 자동 리디렉터</string>
@@ -12,8 +12,6 @@
     <string name="btn_setup">설정하기</string>
     <string name="status_missing_hint">아직 활성화되지 않음: %1$s</string>
     <string name="status_hint">이전 Android 버전에서는 상태를 확인할 수 없습니다.</string>
-
-    <!-- App Links Setup Guide -->
     <string name="app_links_setup_title">Android에서 음악 링크 활성화</string>
     <string name="app_links_setup_subtitle">Android에서 음악 링크를 SongFlip으로 자동 연결하려면 한 번의 확인이 필요합니다. 다음 3단계를 진행하세요:</string>
     <string name="app_links_step1_title">\"+ 링크 추가\" 탭</string>
@@ -29,7 +27,6 @@
     <string name="app_links_alt_clipboard">클립보드: 음악 링크를 복사하고 SongFlip을 열면 즉시 감지합니다.</string>
     <string name="settings_app_links_title">앱 링크 및 기본 앱 설정</string>
     <string name="settings_app_links_subtitle">음악 링크 자동 감지 및 설정 가이드</string>
-
     <string name="language_label">언어</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
@@ -46,15 +43,12 @@
     <string name="step2">음악 도메인에 대해 "지원되는 링크 열기"를 활성화합니다</string>
     <string name="step3">완료! 공유된 링크는 백그라운드에서 대상 플레이어로 자동 변환됩니다.</string>
     <string name="btn_open_settings">설정 열기</string>
-    
-    <!-- Dashboard Setup Card -->
     <string name="setup_card_title">자동 링크 전환 활성화</string>
     <string name="setup_card_desc">음악 링크를 선호하는 플레이어에서 바로 열려면 Android에서 SongFlip을 한 번 승인해야 합니다. </string>
     <string name="btn_start_setup">간단한 3단계로 설정하기</string>
     <string name="setup_card_tip">팁: 공유 메뉴나 클립보드를 이용하면 설정 없이도 바로 사용할 수 있습니다.</string>
     <string name="setup_card_active_title">자동 링크 전환 활성화됨</string>
     <string name="setup_card_active_desc">지원되는 음악 링크가 이제 백그라운드에서 자동으로 열립니다.</string>
-
     <string name="input_sources_label">소스 링크 가로채기</string>
     <string name="input_sources_subtitle">SongFlip이 자동으로 전환할 수신 음악 링크 선택</string>
     <string name="target_service_label">선호하는 대상 플레이어</string>
@@ -112,7 +106,6 @@
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">음악 링크 리디렉션 중...</string>
     <string name="redirect_error_toast">링크를 리디렉션할 수 없습니다. 원본 링크를 엽니다.</string>
-
     <string name="theme_label">테마</string>
     <string name="theme_system">시스템</string>
     <string name="theme_light">라이트</string>
@@ -141,8 +134,6 @@
     <string name="podcast_dialog_body">SongFlip은 음악 트랙 및 앨범에 특화되어 있습니다. 팟캐스트와 오디오북은 현재 변환을 지원하지 않습니다.</string>
     <string name="podcast_badge">팟캐스트</string>
     <string name="audiobook_badge">오디오북</string>
-
-
     <string name="history_title">곡 기록</string>
     <string name="history_subtitle">최근 변환된 곡 관리 및 다시 재생</string>
     <plurals name="history_cached_count">
@@ -167,7 +158,6 @@
     <string name="time_minutes_ago">%1$d분 전</string>
     <string name="time_hours_ago">%1$d시간 전</string>
     <string name="time_days_ago">%1$d일 전</string>
-
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">모든 PRO 기능을 잠금 해제하고 제한 없이 음악을 공유하세요</string>
     <string name="pro_tier_monthly">월간</string>
@@ -206,7 +196,6 @@
     <string name="pro_coupon_max_reached">이 프로모션 코드의 최대 사용 한도에 도달했습니다.</string>
     <string name="pro_coupon_inactive">이 프로모션 코드는 더 이상 활성화되지 않습니다.</string>
     <string name="pro_coupon_rate_limited">시도 횟수가 너무 많습니다. 잠시 후 다시 시도해 주세요.</string>
-
     <string name="pro_active_3months">PRO 액세스 유효 기간: %1$s까지</string>
     <string name="pro_active_1month">PRO 액세스 유효 기간: %1$s까지</string>
     <string name="share_universal_link">유니버설 링크 공유</string>
@@ -223,7 +212,6 @@
     <string name="pro_btn_lifetime">SongFlip PRO 받기 (%1$s)</string>
     <string name="pro_btn_annual">구독하기 (%1$s / 년)</string>
     <string name="pro_btn_monthly">구독하기 (%1$s / 월)</string>
-
     <string name="shortcut_last_song_short">마지막 곡 재생</string>
     <string name="shortcut_last_song_long">마지막으로 변환된 곡 재생: %s</string>
     <string name="shortcut_pause_1h_short">1시간 일시정지</string>
@@ -241,7 +229,6 @@
     <string name="platform_label_unknown">음악 링크</string>
     <string name="platform_label_universal">유니버설 링크</string>
     <string name="history_copy_source_generic">원본 링크 복사</string>
-
     <plurals name="pro_nudge_title">
         <item quantity="other">🎉 %1$d개의 노래 전환 성공!</item>
     </plurals>
@@ -256,7 +243,6 @@
     </plurals>
     <string name="pro_debug_reset_status">PRO 상태 초기화됨 (디버그)</string>
     <string name="pro_debug_reset_button">PRO 상태 초기화 (디버그)</string>
-
     <string name="settings_tip_multiple_apps_title">여러 음악 앱이 설치되어 있나요?</string>
     <string name="settings_tip_multiple_apps_body">Spotify 같은 앱이 링크를 직접 여는 경우, WhatsApp 등에서 \"공유 \u2192 SongFlip\"을 탭하기만 하면 원하는 음악 플레이어에서 곡을 재생할 수 있습니다.</string>
     <string name="app_links_diagnosis_title">링크 진단</string>
@@ -281,8 +267,7 @@
     <string name="share_universal_link_desc">모든 음악 플랫폼의 친구를 위해 유니버설 songflip.link 링크 생성</string>
     <string name="pro_offerings_error">PRO 가격을 불러올 수 없습니다. 인터넷 연결을 확인해 주세요.</string>
     <string name="action_retry">다시 시도</string>
-    <!-- Playlist Converter Strings -->
-        <string name="playlist_large_notice_title">대형 재생목록 (%1$d곡)</string>
+    <string name="playlist_large_notice_title">대형 재생목록 (%1$d곡)</string>
     <string name="playlist_large_notice_desc">로그인 없이 처음 200곡이 파트별로 전송됩니다.</string>
     <string name="playlist_spotify_limit_notice">참고: 계정을 연결하지 않으면 Spotify는 공개 재생목록의 최대 100곡까지만 제공합니다.</string>
     <string name="playlist_converter_title">재생목록 변환기</string>
@@ -315,7 +300,7 @@
     <string name="playlist_error_empty_desc">이 플레이리스트에는 재생 가능한 곡이 없습니다.</string>
     <string name="playlist_btn_retry">다시 시도</string>
     <string name="playlist_btn_open_original">원본 재생목록 열기</string>
-<string name="pro_restore_no_subscription">활성 PRO 구독을 찾을 수 없습니다.</string>
+    <string name="pro_restore_no_subscription">활성 PRO 구독을 찾을 수 없습니다.</string>
     <string name="pro_purchase_failed">구매를 완료할 수 없습니다. 다시 시도해 주세요.</string>
     <string name="offline_waiting_title">연결 대기 중…</string>
     <string name="offline_waiting_subtitle">연결이 복구되면 SongFlip이 자동으로 리디렉션합니다.</string>
@@ -323,8 +308,6 @@
     <string name="offline_waiting_cancel">취소</string>
     <string name="history_empty_title">변환 기록이 없습니다</string>
     <string name="history_empty_hint">팁: 음악 링크를 열거나 공유하면 여기에 표시됩니다.</string>
-
-    <!-- Pro Features -->
     <string name="pro_feature_playlists_title">플레이리스트 옮기기</string>
     <string name="pro_feature_playlists_desc">플레이리스트 전체를 내 서비스로 옮기세요</string>
     <string name="pro_feature_history_title">더 큰 기록</string>
@@ -335,20 +318,17 @@
     <string name="pro_feature_links_desc">받는 사람마다 자기 플레이어에서 열리는 링크</string>
     <string name="pro_feature_review_title">스튜디오 음질 및 버전</string>
     <string name="pro_feature_review_desc">Hi-Res/Atmos 우선 매칭 및 버전 직접 선택</string>
-    <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">아직 발매되지 않음</string>
     <string name="prerelease_sheet_desc">이 앨범은 아직 스트리밍 서비스에 발매되지 않았습니다.</string>
     <string name="prerelease_btn_presave_spotify">Spotify에서 사전 저장</string>
     <string name="prerelease_btn_search_target">%1$s에서 싱글 검색</string>
     <string name="prerelease_btn_cancel">취소</string>
     <string name="share_self_link_notice">SongFlip 링크입니다. 음악 링크를 공유해 주세요.</string>
-    <!-- Free Trial Offer -->
     <string name="pro_trial_badge">%1$d일 무료 체험</string>
     <string name="pro_price_annual_trial">%1$d일 무료 체험 후 %2$s / 월 (정가 %3$s)</string>
     <string name="pro_price_annual_trial_intro">%1$d일 무료 체험 후 1년차 %2$s / 월 (정가 %3$s)</string>
     <string name="pro_price_annual_trial_simple">%1$d일 무료 체험 후 %2$s / 년</string>
     <string name="pro_btn_annual_trial">%1$d일 무료 체험 시작</string>
-    <!-- In-App Feedback Dialog -->
     <string name="feedback_title">피드백 및 지원</string>
     <string name="feedback_cat_bug">🐛 버그</string>
     <string name="feedback_cat_feature">💡 제안</string>
@@ -361,19 +341,14 @@
     <string name="feedback_success">소중한 피드백 감사합니다!</string>
     <string name="feedback_error_empty">최소 10자 이상 입력해주세요.</string>
     <string name="feedback_error_network">전송에 실패했습니다. 이메일로 문의해주세요.</string>
-
     <string name="playlist_active_banner_title">활성 재생목록</string>
     <string name="playlist_active_banner_details">세부정보</string>
     <string name="playlist_active_banner_open">%1$s에서 열기</string>
     <string name="playlist_active_banner_dismiss">닫기</string>
-
-    <!-- Preferred Player Selection -->
     <string name="settings_preferred_player_title">선호하는 플레이어</string>
     <string name="settings_preferred_player_subtitle">음악 재생에 사용할 앱 선택</string>
     <string name="settings_preferred_player_auto">자동</string>
     <string name="settings_preferred_player_auto_desc">권장: 기본 앱 사용</string>
-
-    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">검색 및 변환</string>
     <string name="search_hint">곡명 또는 아티스트 검색…</string>
     <string name="search_initial_prompt">곡명 또는 아티스트를 입력하세요</string>
@@ -398,13 +373,12 @@
     <string name="history_filter_all">전체</string>
     <string name="history_filter_favorites">즐겨찾기</string>
     <string name="target_player_chip">플레이어: %1$s</string>
-    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">주변에서 재생 중인 음악 찾기</string>
     <string name="badge_identified">인식됨</string>
     <string name="listen_free_scans_remaining">이번 달 무료 스캔 %1$d/%2$d회 남음</string>
     <string name="listen_status_listening">음악을 듣고 있습니다…</string>
-        <string name="listen_status_hint_loud">오디오가 너무 크거나 왜곡되었습니다. 기기를 조금 멀리 두세요</string>
+    <string name="listen_status_hint_loud">오디오가 너무 크거나 왜곡되었습니다. 기기를 조금 멀리 두세요</string>
     <string name="listen_status_hint">기기를 스피커 가까이에 대주세요</string>
     <string name="listen_status_resolving">플레이어 링크로 변환 중…</string>
     <string name="listen_saved_to_history">기록에 저장됨</string>
@@ -413,7 +387,7 @@
     <string name="listen_scan_again">다른 곡 인식하기</string>
     <string name="listen_offline_saved_title">오프라인 클럽 모드에 저장됨</string>
     <string name="listen_offline_saved_desc">오디오 핑거프린트가 저장되었습니다(대기 중 %1$d개). 온라인 상태가 되면 자동으로 곡을 찾아줍니다.</string>
-        <plurals name="listen_offline_resolved_toast">
+    <plurals name="listen_offline_resolved_toast">
         <item quantity="other">오프라인 곡 %1$d개를 인식하여 기록에 추가했습니다!</item>
     </plurals>
     <string name="listen_no_match_title">곡을 찾지 못했습니다</string>
@@ -457,7 +431,8 @@
     <string name="first_launch_step3_desc">시스템 설정에서 앱 링크를 활성화하면 음악 링크가 대상 플레이어에서 바로 열립니다.</string>
     <string name="first_launch_btn_done">시작하기</string>
     <string name="settings_how_it_works">빠른 가이드 / 작동 방식</string>
-
     <string name="target_anghami">Anghami</string>
     <string name="playlist_ghost_tracks_notice">의심스러운 AI 및 고스트 트랙 %1$d개 정리됨</string>
+    <string name="playlist_import_default_title">Imported Playlist</string>
+    <string name="unknown_track">Unknown Song</string>
 </resources>

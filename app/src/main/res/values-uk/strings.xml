@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">SongFlip</string>
     <string name="app_tagline">Автоматична переадресація музичних посилань</string>
@@ -12,8 +12,6 @@
     <string name="btn_setup">Налаштувати</string>
     <string name="status_missing_hint">Ще не активовано: %1$s</string>
     <string name="status_hint">Статус неможливо перевірити на старіших версіях Android.</string>
-
-    <!-- App Links Setup Guide -->
     <string name="app_links_setup_title">Увімкнути музичні посилання в Android</string>
     <string name="app_links_setup_subtitle">Щоб Android автоматично перенаправляв музичні посилання в SongFlip, потрібне одноразове підтвердження. Виконайте ці 3 прості кроки:</string>
     <string name="app_links_step1_title">Торкніться «+ Додати посилання»</string>
@@ -29,7 +27,6 @@
     <string name="app_links_alt_clipboard">Буфер обміну: скопіюйте посилання – SongFlip виявить його під час відкриття.</string>
     <string name="settings_app_links_title">Посилання додатку та стандартний додаток</string>
     <string name="settings_app_links_subtitle">Автоматичне перехоплення музичних посилань і налаштування</string>
-
     <string name="language_label">Мова</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
@@ -46,15 +43,12 @@
     <string name="step2">Увімкніть «Відкривати підтримувані посилання» для музичних доменів</string>
     <string name="step3">Готово! Музичні посилання автоматично відкриваються у вибраному плеєрі.</string>
     <string name="btn_open_settings">Відкрити налаштування</string>
-    
-    <!-- Dashboard Setup Card -->
     <string name="setup_card_title">Увімкнути автоперенаправлення</string>
     <string name="setup_card_desc">Щоб музичні посилання відкривалися одразу в улюбленому плеєрі, Android вимагає одноразового дозволу для SongFlip.</string>
     <string name="btn_start_setup">Увімкнути за 3 прості кроки</string>
     <string name="setup_card_tip">Порада: SongFlip також працює миттєво без налаштування через меню «Поділитися» та буфер обміну.</string>
     <string name="setup_card_active_title">Автоперенаправлення активне</string>
     <string name="setup_card_active_desc">Підтримувані посилання відтепер відкриватимуться автоматично у фоновому режимі.</string>
-
     <string name="input_sources_label">Перехоплення вихідних посилань</string>
     <string name="input_sources_subtitle">Оберіть, які вхідні посилання SongFlip повинен автоматично перенаправляти</string>
     <string name="target_service_label">Бажаний цільовий плеєр</string>
@@ -112,7 +106,6 @@
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">Перенаправлення музичного посилання...</string>
     <string name="redirect_error_toast">Не вдалося перенаправити посилання. Відкриваємо оригінал.</string>
-
     <string name="theme_label">Тема</string>
     <string name="theme_system">Система</string>
     <string name="theme_light">Світла</string>
@@ -141,8 +134,6 @@
     <string name="podcast_dialog_body">SongFlip спеціалізується на музичних треках та альбомах. Подкасти та аудіокниги наразі не підтримуються.</string>
     <string name="podcast_badge">Подкаст</string>
     <string name="audiobook_badge">Аудіокнига</string>
-
-
     <string name="history_title">Історія треків</string>
     <string name="history_subtitle">Керуйте та повторно відкривайте нещодавно перетворені треки</string>
     <plurals name="history_cached_count">
@@ -170,7 +161,6 @@
     <string name="time_minutes_ago">%1$d хв тому</string>
     <string name="time_hours_ago">%1$d год тому</string>
     <string name="time_days_ago">%1$d дн тому</string>
-
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">Відкрийте всі функції PRO та діліться музикою без обмежень</string>
     <string name="pro_tier_monthly">Щомісяця</string>
@@ -209,7 +199,6 @@
     <string name="pro_coupon_max_reached">Цей промокод досяг ліміту активацій.</string>
     <string name="pro_coupon_inactive">Цей промокод більше не активний.</string>
     <string name="pro_coupon_rate_limited">Забагато спроб. Будь ласка, зачекайте хвилинку.</string>
-
     <string name="pro_active_3months">PRO-доступ активний до %1$s</string>
     <string name="pro_active_1month">PRO-доступ активний до %1$s</string>
     <string name="share_universal_link">Поділитися універсальним посиланням</string>
@@ -226,7 +215,6 @@
     <string name="pro_btn_lifetime">Отримати SongFlip PRO (%1$s)</string>
     <string name="pro_btn_annual">Підписатися за %1$s / рік</string>
     <string name="pro_btn_monthly">Підписатися за %1$s / місяць</string>
-
     <string name="shortcut_last_song_short">Відтворити останній трек</string>
     <string name="shortcut_last_song_long">Відтворити останній трек: %s</string>
     <string name="shortcut_pause_1h_short">Пауза на 1 год</string>
@@ -244,7 +232,6 @@
     <string name="platform_label_unknown">Музичне посилання</string>
     <string name="platform_label_universal">Універсальне посилання</string>
     <string name="history_copy_source_generic">Копіювати оригінальне посилання</string>
-
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 Успішно перетворено %1$d трек!</item>
         <item quantity="few">🎉 Успішно перетворено %1$d треки!</item>
@@ -268,7 +255,6 @@
     </plurals>
     <string name="pro_debug_reset_status">Статус PRO скинуто (Debug)</string>
     <string name="pro_debug_reset_button">Скинути статус PRO (Debug)</string>
-
     <string name="settings_tip_multiple_apps_title">Встановлено кілька музичних додатків?</string>
     <string name="settings_tip_multiple_apps_body">Якщо такий додаток, як Spotify, відкриває посилання напряму, просто натисніть \"Поділитися \u2192 SongFlip\" у WhatsApp або будь-якому додатку, щоб слухати треки в улюбленому плеєрі.</string>
     <string name="app_links_diagnosis_title">Діагностика посилань</string>
@@ -299,8 +285,7 @@
     <string name="share_universal_link_desc">Створюйте універсальні посилання songflip.link для друзів на будь-якій музичній платформі</string>
     <string name="pro_offerings_error">Не вдалося завантажити ціни PRO. Перевірте підключення до інтернету.</string>
     <string name="action_retry">Повторити</string>
-    <!-- Playlist Converter Strings -->
-        <string name="playlist_large_notice_title">Великий плейліст (%1$d треків)</string>
+    <string name="playlist_large_notice_title">Великий плейліст (%1$d треків)</string>
     <string name="playlist_large_notice_desc">Без входу перші 200 треків переносяться частинами.</string>
     <string name="playlist_spotify_limit_notice">Примітка: Без підключення облікового запису Spotify публічно надає щонайбільше перші 100 треків списку.</string>
     <string name="playlist_converter_title">Конвертер плейлістів</string>
@@ -333,7 +318,7 @@
     <string name="playlist_error_empty_desc">У цьому плейлисті немає доступних для відтворення треків.</string>
     <string name="playlist_btn_retry">Повторити</string>
     <string name="playlist_btn_open_original">Відкрити оригінальний плейліст</string>
-<string name="pro_restore_no_subscription">Активну підписку PRO не знайдено.</string>
+    <string name="pro_restore_no_subscription">Активну підписку PRO не знайдено.</string>
     <string name="pro_purchase_failed">Не вдалося завершити покупку. Спробуйте ще раз.</string>
     <string name="offline_waiting_title">Очікування зʼєднання…</string>
     <string name="offline_waiting_subtitle">SongFlip автоматично перенаправить, щойно звʼязок відновиться.</string>
@@ -341,8 +326,6 @@
     <string name="offline_waiting_cancel">Скасувати</string>
     <string name="history_empty_title">Історія порожня</string>
     <string name="history_empty_hint">Порада: Відкрийте або поділіться музичним посиланням, щоб побачити його тут.</string>
-
-    <!-- Pro Features -->
     <string name="pro_feature_playlists_title">Перенесення плейлістів</string>
     <string name="pro_feature_playlists_desc">Переносьте цілі плейлісти у свій сервіс</string>
     <string name="pro_feature_history_title">Більша історія</string>
@@ -353,20 +336,17 @@
     <string name="pro_feature_links_desc">Одне посилання, яке кожен відкриє у своєму плеєрі</string>
     <string name="pro_feature_review_title">Студійна якість і версії</string>
     <string name="pro_feature_review_desc">Пріоритет Hi-Res/Atmos і вибір версій</string>
-    <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Ще не вийшов</string>
     <string name="prerelease_sheet_desc">Цей альбом ще не опублікований на стримінгових платформах.</string>
     <string name="prerelease_btn_presave_spotify">Зберегти заздалегідь у Spotify</string>
     <string name="prerelease_btn_search_target">Шукати сингли в %1$s</string>
     <string name="prerelease_btn_cancel">Скасувати</string>
     <string name="share_self_link_notice">Це посилання SongFlip. Будь ласка, поділіться музичним посиланням.</string>
-    <!-- Free Trial Offer -->
     <string name="pro_trial_badge">%1$d ДНІВ БЕЗКОШТОВНО</string>
     <string name="pro_price_annual_trial">%1$d днів безкоштовно, потім %2$s / міс. (замість %3$s)</string>
     <string name="pro_price_annual_trial_intro">%1$d днів безкоштовно, потім %2$s / міс. у 1-й рік (замість %3$s)</string>
     <string name="pro_price_annual_trial_simple">%1$d днів безкоштовно, потім %2$s / рік</string>
     <string name="pro_btn_annual_trial">Спробувати %1$d днів безкоштовно</string>
-    <!-- In-App Feedback Dialog -->
     <string name="feedback_title">Відгуки та Підтримка</string>
     <string name="feedback_cat_bug">🐛 Помилка</string>
     <string name="feedback_cat_feature">💡 Ідея</string>
@@ -379,19 +359,14 @@
     <string name="feedback_success">Дякуємо за ваш відгук!</string>
     <string name="feedback_error_empty">Введіть щонайменше 10 символів.</string>
     <string name="feedback_error_network">Не вдалося надіслати. Спробуйте через e-mail.</string>
-
     <string name="playlist_active_banner_title">Активний плейлист</string>
     <string name="playlist_active_banner_details">Деталі</string>
     <string name="playlist_active_banner_open">Відкрити в %1$s</string>
     <string name="playlist_active_banner_dismiss">Закрити</string>
-
-    <!-- Preferred Player Selection -->
     <string name="settings_preferred_player_title">Бажаний плеєр</string>
     <string name="settings_preferred_player_subtitle">Оберіть застосунок для відтворення</string>
     <string name="settings_preferred_player_auto">Автоматично</string>
     <string name="settings_preferred_player_auto_desc">Рекомендовано: стандартний застосунок</string>
-
-    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">Пошук і конвертація</string>
     <string name="search_hint">Пошук пісні або виконавця…</string>
     <string name="search_initial_prompt">Введіть назву або виконавця</string>
@@ -416,13 +391,12 @@
     <string name="history_filter_all">Усі</string>
     <string name="history_filter_favorites">Обране</string>
     <string name="target_player_chip">Плеєр: %1$s</string>
-    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">Розпізнавайте музику навколо вас</string>
     <string name="badge_identified">Розпізнано</string>
     <string name="listen_free_scans_remaining">Залишилося %1$d/%2$d безкоштовних сканувань цього місяця</string>
     <string name="listen_status_listening">Слухаємо музику…</string>
-        <string name="listen_status_hint_loud">Звук занадто гучний або спотворений – тримайте пристрій трохи далі</string>
+    <string name="listen_status_hint_loud">Звук занадто гучний або спотворений – тримайте пристрій трохи далі</string>
     <string name="listen_status_hint">Піднесіть пристрій ближче до динаміка</string>
     <string name="listen_status_resolving">Шукаємо трек для вашого плеєра…</string>
     <string name="listen_saved_to_history">Збережено в історії</string>
@@ -431,7 +405,7 @@
     <string name="listen_scan_again">Розпізнати іншу пісню</string>
     <string name="listen_offline_saved_title">Збережено в офлайн-режимі</string>
     <string name="listen_offline_saved_desc">Аудіо-відбиток збережено (в черзі: %1$d). SongFlip автоматично розпізнає пісню, коли з\'явиться інтернет.</string>
-        <plurals name="listen_offline_resolved_toast">
+    <plurals name="listen_offline_resolved_toast">
         <item quantity="one">Розпізнано %1$d офлайн-пісню (додано до історії)!</item>
         <item quantity="few">Розпізнано %1$d офлайн-пісні (додано до історії)!</item>
         <item quantity="many">Розпізнано %1$d офлайн-пісень (додано до історії)!</item>
@@ -478,7 +452,8 @@
     <string name="first_launch_step3_desc">Увімкніть посилання на додатки в налаштуваннях системи для відкриття музики в цільовому плеєрі.</string>
     <string name="first_launch_btn_done">Почати</string>
     <string name="settings_how_it_works">Короткий посібник / Як це працює</string>
-
     <string name="target_anghami">Anghami</string>
     <string name="playlist_ghost_tracks_notice">Очищено %1$d підозрілих ШІ- та фантомних треків</string>
+    <string name="playlist_import_default_title">Imported Playlist</string>
+    <string name="unknown_track">Unknown Song</string>
 </resources>

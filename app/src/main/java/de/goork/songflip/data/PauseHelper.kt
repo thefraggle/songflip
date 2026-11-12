@@ -67,9 +67,13 @@ object PauseHelper {
     /**
      * Helper to compute next morning 6:00 AM timestamp.
      */
-    fun getTomorrowMorningTimestamp(): Long {
+    fun getTomorrowMorningTimestamp(nowMs: Long = System.currentTimeMillis()): Long {
         val calendar = Calendar.getInstance().apply {
-            add(Calendar.DAY_OF_YEAR, 1)
+            timeInMillis = nowMs
+            val currentHour = get(Calendar.HOUR_OF_DAY)
+            if (currentHour >= 6) {
+                add(Calendar.DAY_OF_YEAR, 1)
+            }
             set(Calendar.HOUR_OF_DAY, 6)
             set(Calendar.MINUTE, 0)
             set(Calendar.SECOND, 0)

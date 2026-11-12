@@ -1,3 +1,2 @@
-- Anghami Link Interception: Fuld integration af Anghami-links i standard app-håndtering og systemlink-routing (#203).
-- Resilient Shortlink-opløsning: Netværksfejl under shortlink-opløsning forgifter ikke længere cachen i hukommelsen, hvilket muliggør øjeblikkelige genforsøg efter forbindelsesgendannelse (#D8).
-- Præcis sporidentifikation: Streng parameterisolering ved registrering af enkeltspor fra komplekse weblinks (#L11).
+- Understøttelse af internationale tegn og skrifttyper: Formateringen af titler og kunstnere er blevet bevaret for ikke-latinske skrivesystemer under deduplikering og matchning af spillelister.
+- Validering af links og omdirigeringer: Styrket adressebekræftelse på tværs af routingstier for at blokere links, der ikke understøttes, eller som er forkert opbygget.

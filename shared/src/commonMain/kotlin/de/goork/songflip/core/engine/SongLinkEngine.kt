@@ -647,7 +647,7 @@ class SongLinkEngine(
 
             return ResolutionResult.Error("Could not resolve music link", errorReason = "no_match_found")
         } catch (e: Exception) {
-            if (e is CancellationException && e !is kotlinx.coroutines.TimeoutCancellationException) {
+            if (e is CancellationException) {
                 throw e
             }
             try {

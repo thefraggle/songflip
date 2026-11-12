@@ -119,15 +119,15 @@ class TidalResolver(
             if (third is ResolutionOutcome.Success) return third
             if (third is ResolutionOutcome.RateLimited) return third
         }
-        if (query.contains(",") || query.contains(" feat", ignoreCase = true) || query.contains(" ft", ignoreCase = true)) {
-            val artistPart = query.substringBefore(",").substringBefore(" feat").substringBefore(" ft").trim()
-            val remainingPart = query.substringAfterLast(",").substringAfter("feat.").substringAfter("ft.").trim()
-            val simplifiedQuery = "$artistPart $remainingPart".trim()
-            if (simplifiedQuery.isNotBlank() && simplifiedQuery != query) {
-                val fourth = executeTidalSearch(simplifiedQuery, isAlbum, audiophileMode)
-                if (fourth is ResolutionOutcome.Success) return fourth
-                if (fourth is ResolutionOutcome.RateLimited) return fourth
-            }
+        val simplifiedQuery = query
+            .replace(Regex("(?i)\\s+(?:feat\\.?|ft\\.?)\\s+[^\\-–(]+"), "")
+            .replace(Regex(",\\s*[^,\\-–]+(?=\\s*[\\-–])"), "")
+            .replace(Regex("\\s+"), " ")
+            .trim()
+        if (simplifiedQuery.isNotBlank() && simplifiedQuery != query && simplifiedQuery != stripped && simplifiedQuery != noParens) {
+            val fourth = executeTidalSearch(simplifiedQuery, isAlbum, audiophileMode)
+            if (fourth is ResolutionOutcome.Success) return fourth
+            if (fourth is ResolutionOutcome.RateLimited) return fourth
         }
         return ResolutionOutcome.NotFound
     }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">SongFlip</string>
     <string name="app_tagline">Otomatik Müzik Bağlantısı Yönlendirici</string>
@@ -12,8 +12,6 @@
     <string name="btn_setup">Ayarla</string>
     <string name="status_missing_hint">Henüz etkinleştirilmedi: %1$s</string>
     <string name="status_hint">Eski Android sürümlerinde durum kontrol edilemiyor.</string>
-
-    <!-- App Links Setup Guide -->
     <string name="app_links_setup_title">Android\'de Müzik Bağlantılarını Etkinleştir</string>
     <string name="app_links_setup_subtitle">Android\'in müzik bağlantılarını SongFlip\'e otomatik yönlendirmesi için tek seferlik bir onay gereklidir. Şu 3 adımı izleyin:</string>
     <string name="app_links_step1_title">\"+ Bağlantı ekle\"ye dokunun</string>
@@ -29,7 +27,6 @@
     <string name="app_links_alt_clipboard">Pano: Bir müzik bağlantısı kopyalayın – SongFlip açıldığında hemen algılar.</string>
     <string name="settings_app_links_title">Uygulama Bağlantıları ve Varsayılan Uygulama</string>
     <string name="settings_app_links_subtitle">Müzik bağlantılarını otomatik yakala ve ayarla</string>
-
     <string name="language_label">Dil</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
@@ -46,15 +43,12 @@
     <string name="step2">Müzik alanları için "Desteklenen bağlantıları aç" seçeneğini etkinleştirin</string>
     <string name="step3">Tamamlandı! Paylaşılan bağlantılar arka planda otomatik olarak hedef oynatıcınızda açılır.</string>
     <string name="btn_open_settings">Ayarları Aç</string>
-    
-    <!-- Dashboard Setup Card -->
     <string name="setup_card_title">Otomatik Yönlendirmeyi Etkinleştir</string>
     <string name="setup_card_desc">Müzik bağlantılarının doğrudan tercih ettiğiniz oynatıcıda açılması için Android\'in SongFlip\'e tek seferlik izin vermesi gerekir.</string>
     <string name="btn_start_setup">3 Basit Adımda Ayarla</string>
     <string name="setup_card_tip">İpucu: SongFlip, Paylaş menüsü ve pano üzerinden kurulum yapmadan da anında çalışır.</string>
     <string name="setup_card_active_title">Otomatik Yönlendirme Etkin</string>
     <string name="setup_card_active_desc">Desteklenen müzik bağlantıları artık arka planda otomatik olarak açılacaktır.</string>
-
     <string name="input_sources_label">Kaynak Bağlantıları Yakala</string>
     <string name="input_sources_subtitle">SongFlip\'in otomatik olarak yönlendireceği gelen müzik bağlantılarını seçin</string>
     <string name="target_service_label">Tercih Edilen Hedef Oynatıcı</string>
@@ -112,7 +106,6 @@
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">Müzik bağlantısı yönlendiriliyor...</string>
     <string name="redirect_error_toast">Bağlantı yönlendirilemedi. Orijinal bağlantı açılıyor.</string>
-
     <string name="theme_label">Tema</string>
     <string name="theme_system">Sistem</string>
     <string name="theme_light">Açık</string>
@@ -141,8 +134,6 @@
     <string name="podcast_dialog_body">SongFlip müzik parçaları ve albümler konusunda uzmanlaşmıştır. Podcastler ve sesli kitaplar şu anda desteklenmemektedir.</string>
     <string name="podcast_badge">Podcast</string>
     <string name="audiobook_badge">Sesli Kitap</string>
-
-
     <string name="history_title">Şarkı Geçmişi</string>
     <string name="history_subtitle">Son dönüştürülen şarkıları görüntüleyin ve yönetin</string>
     <plurals name="history_cached_count">
@@ -168,7 +159,6 @@
     <string name="time_minutes_ago">%1$d dk önce</string>
     <string name="time_hours_ago">%1$d sa önce</string>
     <string name="time_days_ago">%1$d gün önce</string>
-
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">Tüm PRO özelliklerinin kilidini açın ve müziği sınırsızca paylaşın</string>
     <string name="pro_tier_monthly">Aylık</string>
@@ -211,7 +201,6 @@
     <string name="pro_coupon_max_reached">Bu promosyon kodu maksimum kullanım sınırına ulaştı.</string>
     <string name="pro_coupon_inactive">Bu promosyon kodu artık aktif değil.</string>
     <string name="pro_coupon_rate_limited">Çok fazla deneme. Lütfen biraz bekleyin.</string>
-
     <string name="pro_active_3months">PRO Erişim %1$s tarihine kadar aktif</string>
     <string name="pro_active_1month">PRO Erişim %1$s tarihine kadar aktif</string>
     <string name="share_universal_link">Evrensel web bağlantısını paylaş</string>
@@ -224,7 +213,6 @@
     <string name="clipboard_banner_action_share">Evrensel Bağlantı</string>
     <string name="pro_play_store_unavailable">Google Play Store şu anda kullanılamıyor.</string>
     <string name="pro_processing">İşleme...</string>
-
     <string name="shortcut_last_song_short">Son Şarkıyı Çal</string>
     <string name="shortcut_last_song_long">Son dönüştürülen şarkıyı çal: %s</string>
     <string name="shortcut_pause_1h_short">1 sa duraklat</string>
@@ -242,7 +230,6 @@
     <string name="platform_label_unknown">Müzik bağlantısı</string>
     <string name="platform_label_universal">Evrensel bağlantı</string>
     <string name="history_copy_source_generic">Orijinal bağlantıyı kopyala</string>
-
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d şarkı başarıyla dönüştürüldü!</item>
         <item quantity="other">🎉 %1$d şarkı başarıyla dönüştürüldü!</item>
@@ -260,7 +247,6 @@
     </plurals>
     <string name="pro_debug_reset_status">PRO durumu sıfırlandı (Debug)</string>
     <string name="pro_debug_reset_button">PRO durumunu sıfırla (Debug)</string>
-
     <string name="settings_tip_multiple_apps_title">Birden fazla müzik uygulaması mı yüklü?</string>
     <string name="settings_tip_multiple_apps_body">Spotify gibi bir uygulama bağlantıları doğrudan açıyorsa, şarkıları tercih ettiğiniz müzik çalarınızda dinlemek için WhatsApp veya herhangi bir uygulamada \"Paylaş \u2192 SongFlip\" seçeneğine dokunmanız yeterlidir.</string>
     <string name="app_links_diagnosis_title">Bağlantı Tanısı</string>
@@ -287,8 +273,7 @@
     <string name="share_universal_link_desc">Herhangi bir müzik platformundaki arkadaşlarınız için evrensel songflip.link bağlantıları oluşturun</string>
     <string name="pro_offerings_error">PRO fiyatları yüklenemedi. Lütfen internet bağlantınızı kontrol edin.</string>
     <string name="action_retry">Tekrar dene</string>
-    <!-- Playlist Converter Strings -->
-        <string name="playlist_large_notice_title">Büyük Çalma Listesi (%1$d şarkı)</string>
+    <string name="playlist_large_notice_title">Büyük Çalma Listesi (%1$d şarkı)</string>
     <string name="playlist_large_notice_desc">Giriş yapmadan ilk 200 şarkı bölümler halinde aktarılır.</string>
     <string name="playlist_spotify_limit_notice">Not: Hesap bağlantısı olmadan Spotify, bir çalma listesinin herkese açık olarak en fazla ilk 100 şarkısını sunar.</string>
     <string name="playlist_converter_title">Çalma Listesi Dönüştürücü</string>
@@ -321,7 +306,7 @@
     <string name="playlist_error_empty_desc">Bu çalma listesinde oynatılabilir şarkı yok.</string>
     <string name="playlist_btn_retry">Tekrar dene</string>
     <string name="playlist_btn_open_original">Orijinal Çalma Listesini Aç</string>
-<string name="pro_restore_no_subscription">Aktif PRO aboneliği bulunamadı.</string>
+    <string name="pro_restore_no_subscription">Aktif PRO aboneliği bulunamadı.</string>
     <string name="pro_purchase_failed">Satın alma tamamlanamadı. Lütfen tekrar deneyin.</string>
     <string name="offline_waiting_title">Bağlantı bekleniyor…</string>
     <string name="offline_waiting_subtitle">Bağlantı geri geldiğinde SongFlip otomatik olarak yönlendirecektir.</string>
@@ -329,8 +314,6 @@
     <string name="offline_waiting_cancel">İptal</string>
     <string name="history_empty_title">Henüz geçmiş yok</string>
     <string name="history_empty_hint">İpucu: Burada görmek için bir müzik bağlantısı açın veya paylaşın.</string>
-
-    <!-- Pro Features -->
     <string name="pro_feature_playlists_title">Çalma listelerini taşıyın</string>
     <string name="pro_feature_playlists_desc">Tüm çalma listelerini kendi servisinize aktarın</string>
     <string name="pro_feature_history_title">Geniş geçmiş</string>
@@ -341,20 +324,17 @@
     <string name="pro_feature_links_desc">Herkesin kendi oynatıcısında açtığı tek bir bağlantı</string>
     <string name="pro_feature_review_title">Stüdyo kalitesi ve sürümler</string>
     <string name="pro_feature_review_desc">Hi-Res/Atmos önceliği ve sürüm seçimi</string>
-    <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Henüz Yayınlanmadı</string>
     <string name="prerelease_sheet_desc">Bu albüm henüz yayın akışı platformlarında yayınlanmadı.</string>
     <string name="prerelease_btn_presave_spotify">Spotify\'da önceden kaydet</string>
     <string name="prerelease_btn_search_target">%1$s içinde teklileri ara</string>
     <string name="prerelease_btn_cancel">İptal</string>
     <string name="share_self_link_notice">Bu bir SongFlip bağlantısıdır. Lütfen bir müzik bağlantısı paylaşın.</string>
-    <!-- Free Trial Offer -->
     <string name="pro_trial_badge">%1$d GÜN ÜCRETSİZ</string>
     <string name="pro_price_annual_trial">%1$d gün ücretsiz, sonra %2$s / ay (%3$s yerine)</string>
     <string name="pro_price_annual_trial_intro">%1$d gün ücretsiz, sonra 1. yıl %2$s / ay (%3$s yerine)</string>
     <string name="pro_price_annual_trial_simple">%1$d gün ücretsiz, sonra %2$s / yıl</string>
     <string name="pro_btn_annual_trial">%1$d gün ücretsiz dene</string>
-    <!-- In-App Feedback Dialog -->
     <string name="feedback_title">Geri Bildirim ve Destek</string>
     <string name="feedback_cat_bug">🐛 Hata</string>
     <string name="feedback_cat_feature">💡 Fikir</string>
@@ -367,19 +347,14 @@
     <string name="feedback_success">Geri bildiriminiz için teşekkürler!</string>
     <string name="feedback_error_empty">Lütfen en az 10 karakter girin.</string>
     <string name="feedback_error_network">Gönderilemedi. Lütfen e-posta ile deneyin.</string>
-
     <string name="playlist_active_banner_title">Aktif Çalma Listesi</string>
     <string name="playlist_active_banner_details">Ayrıntılar</string>
     <string name="playlist_active_banner_open">%1$s ile Aç</string>
     <string name="playlist_active_banner_dismiss">Kapat</string>
-
-    <!-- Preferred Player Selection -->
     <string name="settings_preferred_player_title">Tercih edilen oynatıcı</string>
     <string name="settings_preferred_player_subtitle">Müzik çalmak için uygulama seçin</string>
     <string name="settings_preferred_player_auto">Otomatik</string>
     <string name="settings_preferred_player_auto_desc">Önerilen: Varsayılan uygulamayı kullanır</string>
-
-    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">Ara ve Çevir</string>
     <string name="search_hint">Şarkı veya sanatçı ara…</string>
     <string name="search_initial_prompt">Bir şarkı veya sanatçı yazın</string>
@@ -404,13 +379,12 @@
     <string name="history_filter_all">Tümü</string>
     <string name="history_filter_favorites">Favoriler</string>
     <string name="target_player_chip">Oynatıcı: %1$s</string>
-    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">Çevrenizde çalan müziği tanıyın</string>
     <string name="badge_identified">Tanındı</string>
     <string name="listen_free_scans_remaining">Bu ay %1$d/%2$d ücretsiz tarama kaldı</string>
     <string name="listen_status_listening">Müzik dinleniyor…</string>
-        <string name="listen_status_hint_loud">Ses çok yüksek veya bozuk – cihazı biraz daha uzakta tutun</string>
+    <string name="listen_status_hint_loud">Ses çok yüksek veya bozuk – cihazı biraz daha uzakta tutun</string>
     <string name="listen_status_hint">Cihazınızı hoparlöre yaklaştırın</string>
     <string name="listen_status_resolving">Oynatıcınız için eşleştiriliyor…</string>
     <string name="listen_saved_to_history">Geçmişe kaydedildi</string>
@@ -419,7 +393,7 @@
     <string name="listen_scan_again">Başka bir şarkı tanı</string>
     <string name="listen_offline_saved_title">Çevrimdışı Kulüp Modunda Kaydedildi</string>
     <string name="listen_offline_saved_desc">Ses izi kaydedildi (%1$d bekliyor). İnternete bağlandığınızda SongFlip şarkıyı otomatik olarak tanıyacak.</string>
-        <plurals name="listen_offline_resolved_toast">
+    <plurals name="listen_offline_resolved_toast">
         <item quantity="one">%1$d çevrimdışı şarkı tanındı ve geçmişe eklendi!</item>
         <item quantity="other">%1$d çevrimdışı şarkı tanındı ve geçmişe eklendi!</item>
     </plurals>
@@ -464,7 +438,8 @@
     <string name="first_launch_step3_desc">Müzik bağlantılarının doğrudan hedef oynatıcıda açılması için sistem ayarlarında Uygulama Bağlantılarını etkinleştirin.</string>
     <string name="first_launch_btn_done">Başlayın</string>
     <string name="settings_how_it_works">Hızlı Kılavuz / Nasıl Çalışır</string>
-
     <string name="target_anghami">Anghami</string>
     <string name="playlist_ghost_tracks_notice">%1$d şüpheli yapay zeka ve hayalet parça temizlendi</string>
+    <string name="playlist_import_default_title">Imported Playlist</string>
+    <string name="unknown_track">Unknown Song</string>
 </resources>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">SongFlip</string>
     <string name="app_tagline">Tự động chuyển hướng liên kết âm nhạc</string>
@@ -12,8 +12,6 @@
     <string name="btn_setup">Thiết lập</string>
     <string name="status_missing_hint">Chưa bật: %1$s</string>
     <string name="status_hint">Không thể kiểm tra trạng thái trên các phiên bản Android cũ hơn.</string>
-
-    <!-- App Links Setup Guide -->
     <string name="app_links_setup_title">Bật liên kết nhạc trong Android</string>
     <string name="app_links_setup_subtitle">Để Android tự động chuyển hướng liên kết nhạc sang SongFlip, bạn cần xác nhận một lần. Làm theo 3 bước sau:</string>
     <string name="app_links_step1_title">Nhấn vào \"+ Thêm liên kết\"</string>
@@ -29,7 +27,6 @@
     <string name="app_links_alt_clipboard">Khay nhớ tạm: Sao chép liên kết bài hát – SongFlip sẽ phát hiện ngay khi mở.</string>
     <string name="settings_app_links_title">Liên kết ứng dụng &amp; Ứng dụng mặc định</string>
     <string name="settings_app_links_subtitle">Tự động bắt liên kết nhạc &amp; hướng dẫn cài đặt</string>
-
     <string name="language_label">Ngôn ngữ</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
@@ -46,15 +43,12 @@
     <string name="step2">Bật "Mở các liên kết được hỗ trợ" cho các tên miền âm nhạc</string>
     <string name="step3">Hoàn tất! Các liên kết được chia sẻ sẽ tự động chuyển sang trình phát mục tiêu dưới nền.</string>
     <string name="btn_open_settings">Mở cài đặt</string>
-    
-    <!-- Dashboard Setup Card -->
     <string name="setup_card_title">Bật chuyển hướng tự động</string>
     <string name="setup_card_desc">Để liên kết nhạc mở trực tiếp trong trình phát yêu thích, Android cần cấp quyền liên kết một lần cho SongFlip.</string>
     <string name="btn_start_setup">Thiết lập với 3 bước đơn giản</string>
     <string name="setup_card_tip">Mẹo: SongFlip cũng hoạt động ngay lập tức không cần cài đặt thông qua menu Chia sẻ và Khay nhớ tạm.</string>
     <string name="setup_card_active_title">Chuyển hướng tự động đang hoạt động</string>
     <string name="setup_card_active_desc">Các liên kết nhạc được hỗ trợ giờ đây sẽ tự động mở ở chế độ nền.</string>
-
     <string name="input_sources_label">Chặn liên kết nguồn</string>
     <string name="input_sources_subtitle">Chọn liên kết âm nhạc đến mà SongFlip sẽ tự động chuyển hướng</string>
     <string name="target_service_label">Trình phát mục tiêu ưa thích</string>
@@ -112,7 +106,6 @@
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">Đang chuyển hướng liên kết âm nhạc...</string>
     <string name="redirect_error_toast">Không thể chuyển hướng liên kết. Đang mở liên kết gốc.</string>
-
     <string name="theme_label">Giao diện</string>
     <string name="theme_system">Hệ thống</string>
     <string name="theme_light">Sáng</string>
@@ -141,8 +134,6 @@
     <string name="podcast_dialog_body">SongFlip chuyên về các bản nhạc và album. Podcast và sách nói hiện chưa được hỗ trợ chuyển đổi.</string>
     <string name="podcast_badge">Podcast</string>
     <string name="audiobook_badge">Sách nói</string>
-
-
     <string name="history_title">Lịch sử bài hát</string>
     <string name="history_subtitle">Quản lý và phát lại các bài hát đã chuyển đổi gần đây</string>
     <plurals name="history_cached_count">
@@ -167,7 +158,6 @@
     <string name="time_minutes_ago">%1$d phút trước</string>
     <string name="time_hours_ago">%1$d giờ trước</string>
     <string name="time_days_ago">%1$d ngày trước</string>
-
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">Mở khóa toàn bộ tính năng PRO và chia sẻ nhạc không giới hạn</string>
     <string name="pro_tier_monthly">Hàng tháng</string>
@@ -206,7 +196,6 @@
     <string name="pro_coupon_max_reached">Mã khuyến mãi này đã đạt giới hạn đổi thưởng.</string>
     <string name="pro_coupon_inactive">Mã khuyến mãi này không còn hoạt động.</string>
     <string name="pro_coupon_rate_limited">Quá nhiều lần thử. Vui lòng đợi một lát.</string>
-
     <string name="pro_active_3months">Quyền truy cập PRO hoạt động đến %1$s</string>
     <string name="pro_active_1month">Quyền truy cập PRO hoạt động đến %1$s</string>
     <string name="share_universal_link">Chia sẻ liên kết web đa năng</string>
@@ -223,7 +212,6 @@
     <string name="pro_btn_lifetime">Nhận SongFlip PRO (%1$s)</string>
     <string name="pro_btn_annual">Đăng ký với %1$s / năm</string>
     <string name="pro_btn_monthly">Đăng ký với %1$s / tháng</string>
-
     <string name="shortcut_last_song_short">Phát bài hát gần nhất</string>
     <string name="shortcut_last_song_long">Phát bài hát gần nhất: %s</string>
     <string name="shortcut_pause_1h_short">Tạm dừng 1 giờ</string>
@@ -241,7 +229,6 @@
     <string name="platform_label_unknown">Liên kết nhạc</string>
     <string name="platform_label_universal">Liên kết chung</string>
     <string name="history_copy_source_generic">Sao chép liên kết gốc</string>
-
     <plurals name="pro_nudge_title">
         <item quantity="other">🎉 Đã chuyển đổi thành công %1$d bài hát!</item>
     </plurals>
@@ -256,7 +243,6 @@
     </plurals>
     <string name="pro_debug_reset_status">Đã đặt lại trạng thái PRO (Debug)</string>
     <string name="pro_debug_reset_button">Đặt lại trạng thái PRO (Debug)</string>
-
     <string name="settings_tip_multiple_apps_title">Bạn đã cài đặt nhiều ứng dụng âm nhạc?</string>
     <string name="settings_tip_multiple_apps_body">Nếu một ứng dụng như Spotify mở liên kết trực tiếp, bạn chỉ cần nhấn vào \"Chia sẻ \u2192 SongFlip\" trong WhatsApp hoặc bất kỳ ứng dụng nào để phát bài hát trong trình phát nhạc yêu thích.</string>
     <string name="app_links_diagnosis_title">Chẩn đoán liên kết</string>
@@ -281,8 +267,7 @@
     <string name="share_universal_link_desc">Tạo liên kết songflip.link phổ quát cho bạn bè trên mọi nền tảng âm nhạc</string>
     <string name="pro_offerings_error">Không thể tải giá PRO. Vui lòng kiểm tra kết nối internet của bạn.</string>
     <string name="action_retry">Thử lại</string>
-    <!-- Playlist Converter Strings -->
-        <string name="playlist_large_notice_title">Danh sách phát lớn (%1$d bài hát)</string>
+    <string name="playlist_large_notice_title">Danh sách phát lớn (%1$d bài hát)</string>
     <string name="playlist_large_notice_desc">Không cần đăng nhập, 200 bài hát đầu tiên được chuyển theo từng phần.</string>
     <string name="playlist_spotify_limit_notice">Lưu ý: Nếu không kết nối tài khoản, Spotify chỉ cung cấp công khai tối đa 100 bài hát đầu tiên của danh sách phát.</string>
     <string name="playlist_converter_title">Bộ chuyển đổi danh sách phát</string>
@@ -315,7 +300,7 @@
     <string name="playlist_error_empty_desc">Danh sách phát này không có bài hát nào có thể phát.</string>
     <string name="playlist_btn_retry">Thử lại</string>
     <string name="playlist_btn_open_original">Mở danh sách phát gốc</string>
-<string name="pro_restore_no_subscription">Không tìm thấy gói đăng ký PRO đang hoạt động.</string>
+    <string name="pro_restore_no_subscription">Không tìm thấy gói đăng ký PRO đang hoạt động.</string>
     <string name="pro_purchase_failed">Không thể hoàn tất giao dịch mua. Vui lòng thử lại.</string>
     <string name="offline_waiting_title">Đang chờ kết nối…</string>
     <string name="offline_waiting_subtitle">SongFlip sẽ tự động chuyển hướng ngay khi có kết nối trở lại.</string>
@@ -323,8 +308,6 @@
     <string name="offline_waiting_cancel">Hủy</string>
     <string name="history_empty_title">Chưa có lịch sử</string>
     <string name="history_empty_hint">Mẹo: Mở hoặc chia sẻ liên kết âm nhạc để xem tại đây.</string>
-
-    <!-- Pro Features -->
     <string name="pro_feature_playlists_title">Chuyển danh sách phát</string>
     <string name="pro_feature_playlists_desc">Chuyển toàn bộ danh sách phát sang dịch vụ của bạn</string>
     <string name="pro_feature_history_title">Lịch sử lớn hơn</string>
@@ -335,20 +318,17 @@
     <string name="pro_feature_links_desc">Một liên kết ai cũng mở được trong trình phát của mình</string>
     <string name="pro_feature_review_title">Chất lượng phòng thu &amp; bản nhạc</string>
     <string name="pro_feature_review_desc">Ưu tiên Hi-Res/Atmos &amp; chọn phiên bản</string>
-    <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Chưa phát hành</string>
     <string name="prerelease_sheet_desc">Album này chưa được phát hành trên các nền tảng phát trực tuyến.</string>
     <string name="prerelease_btn_presave_spotify">Lưu trước trên Spotify</string>
     <string name="prerelease_btn_search_target">Tìm đĩa đơn trên %1$s</string>
     <string name="prerelease_btn_cancel">Hủy</string>
     <string name="share_self_link_notice">Đây là liên kết SongFlip. Vui lòng chia sẻ liên kết âm nhạc.</string>
-    <!-- Free Trial Offer -->
     <string name="pro_trial_badge">%1$d NGÀY MIỄN PHÍ</string>
     <string name="pro_price_annual_trial">%1$d ngày miễn phí, sau đó %2$s / tháng (thay vì %3$s)</string>
     <string name="pro_price_annual_trial_intro">%1$d ngày miễn phí, sau đó %2$s / tháng trong năm đầu (thay vì %3$s)</string>
     <string name="pro_price_annual_trial_simple">%1$d ngày miễn phí, sau đó %2$s / năm</string>
     <string name="pro_btn_annual_trial">Dùng thử %1$d ngày miễn phí</string>
-    <!-- In-App Feedback Dialog -->
     <string name="feedback_title">Phản hồi &amp; Hỗ trợ</string>
     <string name="feedback_cat_bug">🐛 Lỗi</string>
     <string name="feedback_cat_feature">💡 Ý tưởng</string>
@@ -361,19 +341,14 @@
     <string name="feedback_success">Cảm ơn bạn đã gửi phản hồi!</string>
     <string name="feedback_error_empty">Vui lòng nhập ít nhất 10 ký tự.</string>
     <string name="feedback_error_network">Không thể gửi phản hồi. Vui lòng thử qua email.</string>
-
     <string name="playlist_active_banner_title">Danh sách phát đang hoạt động</string>
     <string name="playlist_active_banner_details">Chi tiết</string>
     <string name="playlist_active_banner_open">Mở trong %1$s</string>
     <string name="playlist_active_banner_dismiss">Đóng</string>
-
-    <!-- Preferred Player Selection -->
     <string name="settings_preferred_player_title">Trình phát ưu tiên</string>
     <string name="settings_preferred_player_subtitle">Chọn ứng dụng để phát nhạc</string>
     <string name="settings_preferred_player_auto">Tự động</string>
     <string name="settings_preferred_player_auto_desc">Được đề xuất: sử dụng ứng dụng mặc định</string>
-
-    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">Tìm kiếm &amp; Chuyển đổi</string>
     <string name="search_hint">Tìm bài hát hoặc nghệ sĩ…</string>
     <string name="search_initial_prompt">Nhập tên bài hát hoặc nghệ sĩ</string>
@@ -398,13 +373,12 @@
     <string name="history_filter_all">Tất cả</string>
     <string name="history_filter_favorites">Yêu thích</string>
     <string name="target_player_chip">Trình phát: %1$s</string>
-    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">Nhận diện nhạc đang phát xung quanh bạn</string>
     <string name="badge_identified">Đã nhận diện</string>
     <string name="listen_free_scans_remaining">Còn %1$d/%2$d lượt quét miễn phí trong tháng này</string>
     <string name="listen_status_listening">Đang lắng nghe nhạc…</string>
-        <string name="listen_status_hint_loud">Âm thanh quá lớn hoặc bị méo – hãy giữ thiết bị xa hơn một chút</string>
+    <string name="listen_status_hint_loud">Âm thanh quá lớn hoặc bị méo – hãy giữ thiết bị xa hơn một chút</string>
     <string name="listen_status_hint">Đưa thiết bị lại gần loa hơn</string>
     <string name="listen_status_resolving">Đang tìm trên trình phát của bạn…</string>
     <string name="listen_saved_to_history">Đã lưu vào Lịch sử</string>
@@ -413,7 +387,7 @@
     <string name="listen_scan_again">Nhận diện bài hát khác</string>
     <string name="listen_offline_saved_title">Đã lưu trong Chế độ Offline</string>
     <string name="listen_offline_saved_desc">Đã lưu dấu vân tay âm thanh (%1$d đang chờ). SongFlip sẽ tự động nhận diện khi có mạng trở lại.</string>
-        <plurals name="listen_offline_resolved_toast">
+    <plurals name="listen_offline_resolved_toast">
         <item quantity="other">Đã nhận diện %1$d bài hát offline và thêm vào Lịch sử!</item>
     </plurals>
     <string name="listen_no_match_title">Không nhận diện được bài hát</string>
@@ -457,7 +431,8 @@
     <string name="first_launch_step3_desc">Bật Liên kết ứng dụng trong cài đặt hệ thống để liên kết nhạc mở trực tiếp trong trình phát mục tiêu.</string>
     <string name="first_launch_btn_done">Bắt đầu</string>
     <string name="settings_how_it_works">Hướng dẫn nhanh / Cách thức hoạt động</string>
-
     <string name="target_anghami">Anghami</string>
     <string name="playlist_ghost_tracks_notice">Đã dọn dẹp %1$d bài hát AI &amp; ma đáng ngờ</string>
+    <string name="playlist_import_default_title">Imported Playlist</string>
+    <string name="unknown_track">Unknown Song</string>
 </resources>

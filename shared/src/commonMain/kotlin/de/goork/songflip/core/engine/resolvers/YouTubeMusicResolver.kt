@@ -12,6 +12,7 @@ import io.ktor.http.contentType
 import io.ktor.http.encodeURLParameter
 import io.ktor.http.isSuccess
 import kotlinx.coroutines.CancellationException
+import kotlinx.serialization.json.put
 
 data class YouTubeVideoDetails(
     val videoId: String,
@@ -69,22 +70,26 @@ class YouTubeMusicResolver(
         return null
     }
 
+    private fun buildInnertubeSearchPayload(query: String, params: String? = null): String {
+        return kotlinx.serialization.json.buildJsonObject {
+            put("context", kotlinx.serialization.json.buildJsonObject {
+                put("client", kotlinx.serialization.json.buildJsonObject {
+                    put("clientName", "WEB_REMIX")
+                    put("clientVersion", "1.20240101.01.00")
+                    put("hl", "en")
+                    put("gl", "US")
+                })
+            })
+            put("query", query)
+            if (params != null) {
+                put("params", params)
+            }
+        }.toString()
+    }
+
     private suspend fun searchYouTubeMusicInnertube(query: String): String? {
         return try {
-            val payload = """
-                {
-                    "context": {
-                        "client": {
-                            "clientName": "WEB_REMIX",
-                            "clientVersion": "1.20240101.01.00",
-                            "hl": "en",
-                            "gl": "US"
-                        }
-                    },
-                    "query": "${query.replace("\"", "\\\"")}",
-                    "params": "Eg-KAQwIARAAGAAgACgAMABqChAMEAMQBBAFEAo%3D"
-                }
-            """.trimIndent()
+            val payload = buildInnertubeSearchPayload(query, "Eg-KAQwIARAAGAAgACgAMABqChAMEAMQBBAFEAo%3D")
 
             val resp = client.post("https://music.youtube.com/youtubei/v1/search") {
                 contentType(ContentType.Application.Json)
@@ -137,19 +142,7 @@ class YouTubeMusicResolver(
     private suspend fun searchYouTubeMusicAlbumInnertube(query: String): String? {
         suspend fun executeSearch(params: String?): String? {
             val paramsClause = if (params != null) ",\n                    \"params\": \"$params\"" else ""
-            val payload = """
-                {
-                    "context": {
-                        "client": {
-                            "clientName": "WEB_REMIX",
-                            "clientVersion": "1.20240101.01.00",
-                            "hl": "en",
-                            "gl": "US"
-                        }
-                    },
-                    "query": "${query.replace("\"", "\\\"")}"$paramsClause
-                }
-            """.trimIndent()
+            val payload = buildInnertubeSearchPayload(query, params)
 
             val resp = client.post("https://music.youtube.com/youtubei/v1/search") {
                 contentType(ContentType.Application.Json)

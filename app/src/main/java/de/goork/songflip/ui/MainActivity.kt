@@ -100,9 +100,9 @@ class MainActivity : AppCompatActivity() {
         val settingsRepo = SettingsRepository(this)
         val savedLang = settingsRepo.appLanguage
         val currentLocales = androidx.appcompat.app.AppCompatDelegate.getApplicationLocales()
-        if (currentLocales.isEmpty || currentLocales[0]?.language != savedLang) {
-            val localeList = androidx.core.os.LocaleListCompat.forLanguageTags(savedLang)
-            androidx.appcompat.app.AppCompatDelegate.setApplicationLocales(localeList)
+        val targetLocales = androidx.core.os.LocaleListCompat.forLanguageTags(savedLang)
+        if (currentLocales.toLanguageTags() != targetLocales.toLanguageTags()) {
+            androidx.appcompat.app.AppCompatDelegate.setApplicationLocales(targetLocales)
         }
 
         if (savedInstanceState == null) {
@@ -556,6 +556,7 @@ fun MainScreen(
                 if (isUntilTomorrow) {
                     val tomorrowTimestamp = PauseHelper.getTomorrowMorningTimestamp()
                     PauseHelper.setPauseUntil(context, tomorrowTimestamp)
+                    viewModel.refreshStatus()
                     de.goork.songflip.core.analytics.AptabaseClient.shared.trackPauseStateChanged("paused_tomorrow")
                 } else if (durationMs == 0L) {
                     viewModel.setPause(0L)

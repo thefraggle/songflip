@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">SongFlip</string>
     <string name="app_tagline">音楽リンク自動リダイレクター</string>
@@ -12,8 +12,6 @@
     <string name="btn_setup">設定する</string>
     <string name="status_missing_hint">未設定: %1$s</string>
     <string name="status_hint">古いAndroidバージョンでは状態を確認できません。</string>
-
-    <!-- App Links Setup Guide -->
     <string name="app_links_setup_title">Androidで音楽リンクを有効化</string>
     <string name="app_links_setup_subtitle">Androidが音楽リンクを自動でSongFlipに転送するには、一度だけ確認が必要です。次の3つの手順に従ってください：</string>
     <string name="app_links_step1_title">「+ リンクを追加」をタップ</string>
@@ -29,7 +27,6 @@
     <string name="app_links_alt_clipboard">クリップボード：音楽リンクをコピーしてSongFlipを開くだけで即座に検出。</string>
     <string name="settings_app_links_title">アプリリンクとデフォルトアプリ</string>
     <string name="settings_app_links_subtitle">音楽リンクの自動転送と初期設定</string>
-
     <string name="language_label">言語</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
@@ -46,15 +43,12 @@
     <string name="step2">音楽ドメインの「対応リンクを開く」を有効にします</string>
     <string name="step3">完了！共有されたリンクはバックグラウンドで自動的に指定のプレーヤーで開きます。</string>
     <string name="btn_open_settings">設定を開く</string>
-    
-    <!-- Dashboard Setup Card -->
     <string name="setup_card_title">自動リダイレクトを有効化</string>
     <string name="setup_card_desc">音楽リンクをお好みのプレーヤーで直接開くには、Android側でSongFlipへの一度のリンク承認が必要です。</string>
     <string name="btn_start_setup">かんたん3ステップで設定</string>
     <string name="setup_card_tip">ヒント：共有シートやクリップボード経由なら、設定なしですぐに使えます。</string>
     <string name="setup_card_active_title">自動リダイレクト有効</string>
     <string name="setup_card_active_desc">対応する音楽リンクがバックグラウンドで自動的に開くようになります。</string>
-
     <string name="input_sources_label">元のリンクのインターセプト</string>
     <string name="input_sources_subtitle">SongFlipが自動的にリダイレクトする音楽リンクを選択</string>
     <string name="target_service_label">優先ターゲットプレーヤー</string>
@@ -112,7 +106,6 @@
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">音楽リンクをリダイレクト中...</string>
     <string name="redirect_error_toast">リンクをリダイレクトできませんでした。元のリンクを開きます。</string>
-
     <string name="theme_label">テーマ</string>
     <string name="theme_system">システム</string>
     <string name="theme_light">ライト</string>
@@ -141,8 +134,6 @@
     <string name="podcast_dialog_body">SongFlipは楽曲とアルバムに特化しています。ポッドキャストおよびオーディオブックは現在変換に対応していません。</string>
     <string name="podcast_badge">ポッドキャスト</string>
     <string name="audiobook_badge">オーディオブック</string>
-
-
     <string name="history_title">楽曲履歴</string>
     <string name="history_subtitle">最近変換した楽曲の確認と管理</string>
     <plurals name="history_cached_count">
@@ -167,7 +158,6 @@
     <string name="time_minutes_ago">%1$d 分前</string>
     <string name="time_hours_ago">%1$d 時間前</string>
     <string name="time_days_ago">%1$d 日前</string>
-
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">すべてのPRO機能を解放して、制限なしで音楽を共有しよう</string>
     <string name="pro_tier_monthly">月額</string>
@@ -210,7 +200,6 @@
     <string name="pro_coupon_max_reached">このプロモーションコードの利用上限に達しました。</string>
     <string name="pro_coupon_inactive">このプロモーションコードは現在利用できません。</string>
     <string name="pro_coupon_rate_limited">試行回数が多すぎます。しばらくお待ちください。</string>
-
     <string name="pro_active_3months">PROアクセス有効期限: %1$s</string>
     <string name="pro_active_1month">PROアクセス有効期限: %1$s</string>
     <string name="share_universal_link">ユニバーサルリンクを共有</string>
@@ -223,7 +212,6 @@
     <string name="clipboard_banner_action_share">共通リンク</string>
     <string name="pro_play_store_unavailable">Google Play ストアは現在利用できません。</string>
     <string name="pro_processing">処理...</string>
-
     <string name="shortcut_last_song_short">最後の曲を再生</string>
     <string name="shortcut_last_song_long">変換した最後の曲を再生: %s</string>
     <string name="shortcut_pause_1h_short">1時間一時停止</string>
@@ -241,7 +229,6 @@
     <string name="platform_label_unknown">音楽リンク</string>
     <string name="platform_label_universal">ユニバーサルリンク</string>
     <string name="history_copy_source_generic">元のリンクをコピー</string>
-
     <plurals name="pro_nudge_title">
         <item quantity="other">🎉 %1$d 曲の変換に成功しました！</item>
     </plurals>
@@ -256,7 +243,6 @@
     </plurals>
     <string name="pro_debug_reset_status">PROステータスをリセットしました（デバッグ）</string>
     <string name="pro_debug_reset_button">PROステータスをリセット（デバッグ）</string>
-
     <string name="settings_tip_multiple_apps_title">複数の音楽アプリをインストールしていますか？</string>
     <string name="settings_tip_multiple_apps_body">Spotifyなどのアプリがリンクを直接開く場合は、WhatsAppなどのアプリで「共有 \u2192 SongFlip」をタップするだけで、お好みの音楽プレイヤーで曲を再生できます。</string>
     <string name="app_links_diagnosis_title">リンク診断</string>
@@ -281,8 +267,7 @@
     <string name="share_universal_link_desc">あらゆる音楽プラットフォームの友達向けにユニバーサルな songflip.link リンクを作成</string>
     <string name="pro_offerings_error">PROの価格を読み込めませんでした。インターネット接続を確認してください。</string>
     <string name="action_retry">再試行</string>
-    <!-- Playlist Converter Strings -->
-        <string name="playlist_large_notice_title">大容量プレイリスト（%1$d曲）</string>
+    <string name="playlist_large_notice_title">大容量プレイリスト（%1$d曲）</string>
     <string name="playlist_large_notice_desc">ログイン不要で、最初の200曲がパート分けされて転送されます。</string>
     <string name="playlist_spotify_limit_notice">注意: アカウント連携がない場合、Spotifyは公開プレイリストの最初の最大100曲のみを提供します。</string>
     <string name="playlist_converter_title">プレイリスト変換</string>
@@ -315,7 +300,7 @@
     <string name="playlist_error_empty_desc">このプレイリストには再生可能な曲がありません。</string>
     <string name="playlist_btn_retry">再試行</string>
     <string name="playlist_btn_open_original">元のプレイリストを開く</string>
-<string name="pro_restore_no_subscription">有効なPROサブスクリプションが見つかりませんでした。</string>
+    <string name="pro_restore_no_subscription">有効なPROサブスクリプションが見つかりませんでした。</string>
     <string name="pro_purchase_failed">購入を完了できませんでした。もう一度お試しください。</string>
     <string name="offline_waiting_title">接続を待機中…</string>
     <string name="offline_waiting_subtitle">接続が回復すると、SongFlipが自動的にリダイレクトします。</string>
@@ -323,8 +308,6 @@
     <string name="offline_waiting_cancel">キャンセル</string>
     <string name="history_empty_title">履歴がありません</string>
     <string name="history_empty_hint">ヒント: 音楽リンクを開くか共有すると、ここに表示されます。</string>
-
-    <!-- Pro Features -->
     <string name="pro_feature_playlists_title">プレイリストを移行</string>
     <string name="pro_feature_playlists_desc">プレイリストをまるごと好きなサービスへ</string>
     <string name="pro_feature_history_title">大きな履歴</string>
@@ -335,20 +318,17 @@
     <string name="pro_feature_links_desc">受け取った人がそれぞれのプレーヤーで開けるリンク</string>
     <string name="pro_feature_review_title">高音質＆バージョン選択</string>
     <string name="pro_feature_review_desc">Hi-Res/Atmosの優先と別バージョンの手動選択</string>
-    <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">未リリースのアルバム</string>
     <string name="prerelease_sheet_desc">このアルバムはまだストリーミング配信されていません。</string>
     <string name="prerelease_btn_presave_spotify">Spotifyで事前保存</string>
     <string name="prerelease_btn_search_target">%1$sでシングルを検索</string>
     <string name="prerelease_btn_cancel">キャンセル</string>
     <string name="share_self_link_notice">これはSongFlipのリンクです。音楽リンクを共有してください。</string>
-    <!-- Free Trial Offer -->
     <string name="pro_trial_badge">%1$d日間無料</string>
     <string name="pro_price_annual_trial">%1$d日間無料、その後 %2$s / 月（通常 %3$s）</string>
     <string name="pro_price_annual_trial_intro">%1$d日間無料、その後初年度 %2$s / 月（通常 %3$s）</string>
     <string name="pro_price_annual_trial_simple">%1$d日間無料、その後 %2$s / 年</string>
     <string name="pro_btn_annual_trial">%1$d日間無料で試す</string>
-    <!-- In-App Feedback Dialog -->
     <string name="feedback_title">フィードバックとサポート</string>
     <string name="feedback_cat_bug">🐛 不具合</string>
     <string name="feedback_cat_feature">💡 アイデア</string>
@@ -361,19 +341,14 @@
     <string name="feedback_success">フィードバックありがとうございます！</string>
     <string name="feedback_error_empty">10文字以上入力してください。</string>
     <string name="feedback_error_network">送信できませんでした。メールでお試しください。</string>
-
     <string name="playlist_active_banner_title">アクティブなプレイリスト</string>
     <string name="playlist_active_banner_details">詳細</string>
     <string name="playlist_active_banner_open">%1$sで開く</string>
     <string name="playlist_active_banner_dismiss">閉じる</string>
-
-    <!-- Preferred Player Selection -->
     <string name="settings_preferred_player_title">優先プレーヤー</string>
     <string name="settings_preferred_player_subtitle">再生に使用するアプリを選択</string>
     <string name="settings_preferred_player_auto">自動</string>
     <string name="settings_preferred_player_auto_desc">推奨: デフォルトアプリを使用</string>
-
-    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">検索＆変換</string>
     <string name="search_hint">曲名やアーティストを検索…</string>
     <string name="search_initial_prompt">曲名またはアーティストを入力</string>
@@ -398,13 +373,12 @@
     <string name="history_filter_all">すべて</string>
     <string name="history_filter_favorites">お気に入り</string>
     <string name="target_player_chip">プレーヤー: %1$s</string>
-    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">周囲で流れている音楽を認識</string>
     <string name="badge_identified">認識済み</string>
     <string name="listen_free_scans_remaining">今月の無料スキャン残り %1$d/%2$d 回</string>
     <string name="listen_status_listening">音楽を聴き取っています…</string>
-        <string name="listen_status_hint_loud">音量が大きすぎるか歪んでいます。少し離してください</string>
+    <string name="listen_status_hint_loud">音量が大きすぎるか歪んでいます。少し離してください</string>
     <string name="listen_status_hint">スピーカーに端末を近づけてください</string>
     <string name="listen_status_resolving">お使いのプレイヤー用に変換中…</string>
     <string name="listen_saved_to_history">履歴に保存しました</string>
@@ -413,7 +387,7 @@
     <string name="listen_scan_again">別の曲を認識する</string>
     <string name="listen_offline_saved_title">オフライン・クラブモードで保存</string>
     <string name="listen_offline_saved_desc">音声フィンガープリントを保存しました（保留中: %1$d件）。オンラインに戻り次第、自動的に曲名を特定します。</string>
-        <plurals name="listen_offline_resolved_toast">
+    <plurals name="listen_offline_resolved_toast">
         <item quantity="other">オフラインの %1$d 曲を認識して履歴に追加しました！</item>
     </plurals>
     <string name="listen_no_match_title">曲を認識できませんでした</string>
@@ -457,7 +431,8 @@
     <string name="first_launch_step3_desc">システム設定でアプリリンクを有効にすると、音楽リンクが目的のプレーヤーで直接開きます。</string>
     <string name="first_launch_btn_done">始める</string>
     <string name="settings_how_it_works">クイックガイド / 使い方</string>
-
     <string name="target_anghami">Anghami</string>
     <string name="playlist_ghost_tracks_notice">疑わしいAI・ゴーストトラック%1$d曲を除外しました</string>
+    <string name="playlist_import_default_title">Imported Playlist</string>
+    <string name="unknown_track">Unknown Song</string>
 </resources>

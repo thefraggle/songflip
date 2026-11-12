@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">SongFlip</string>
     <string name="app_tagline">Αυτόματη ανακατεύθυνση συνδέσμων μουσικής</string>
@@ -129,7 +130,6 @@
     <string name="podcast_dialog_body">Το SongFlip ειδικεύεται σε μουσικά κομμάτια και άλμπουμ. Τα podcast και τα ηχητικά βιβλία δεν υποστηρίζονται προς το παρόν.</string>
     <string name="podcast_badge">Podcast</string>
     <string name="audiobook_badge">Ηχητικό βιβλίο</string>
-
     <string name="theme_label">Εμφάνιση</string>
     <string name="theme_system">Σύστημα</string>
     <string name="theme_light">Φωτεινό</string>
@@ -273,8 +273,7 @@
     <string name="share_universal_link_desc">Δημιουργήστε καθολικούς συνδέσμους songflip.link για φίλους σε οποιαδήποτε μουσική πλατφόρμα</string>
     <string name="pro_offerings_error">Δεν ήταν δυνατή η φόρτωση των τιμών PRO. Ελέγξτε τη σύνδεσή σας.</string>
     <string name="action_retry">Επανάληψη</string>
-    <!-- Playlist Converter Strings -->
-        <string name="playlist_large_notice_title">Μεγάλη λίστα αναπαραγωγής (%1$d τραγούδια)</string>
+    <string name="playlist_large_notice_title">Μεγάλη λίστα αναπαραγωγής (%1$d τραγούδια)</string>
     <string name="playlist_large_notice_desc">Χωρίς σύνδεση, τα πρώτα 200 τραγούδια μεταφέρονται σε μέρη.</string>
     <string name="playlist_spotify_limit_notice">Σημείωση: Χωρίς σύνδεση λογαριασμού, το Spotify παρέχει δημόσια έως τα πρώτα 100 τραγούδια μιας λίστας.</string>
     <string name="playlist_converter_title">Μετατροπέας λίστας αναπαραγωγής</string>
@@ -307,7 +306,7 @@
     <string name="playlist_error_empty_desc">Αυτή η λίστα δεν περιέχει τραγούδια που μπορούν να αναπαραχθούν.</string>
     <string name="playlist_btn_retry">Επανάληψη</string>
     <string name="playlist_btn_open_original">Άνοιγμα αρχικής λίστας</string>
-<string name="pro_restore_no_subscription">Δεν βρέθηκε ενεργή συνδρομή PRO.</string>
+    <string name="pro_restore_no_subscription">Δεν βρέθηκε ενεργή συνδρομή PRO.</string>
     <string name="pro_purchase_failed">Η αγορά δεν ήταν δυνατό να ολοκληρωθεί. Δοκιμάστε ξανά.</string>
     <string name="offline_waiting_title">Αναμονή σύνδεσης…</string>
     <string name="offline_waiting_subtitle">Το SongFlip θα ανακατευθύνει αυτόματα μόλις αποκατασταθεί η σύνδεση.</string>
@@ -315,8 +314,6 @@
     <string name="offline_waiting_cancel">Ακύρωση</string>
     <string name="history_empty_title">Δεν υπάρχει ιστορικό ακόμα</string>
     <string name="history_empty_hint">Συμβουλή: Ανοίξτε ή μοιραστείτε έναν σύνδεσμο μουσικής για να εμφανιστεί εδώ.</string>
-
-    <!-- Pro Features -->
     <string name="pro_feature_playlists_title">Μεταφορά λιστών</string>
     <string name="pro_feature_playlists_desc">Μεταφέρετε ολόκληρες λίστες αναπαραγωγής στην υπηρεσία σας</string>
     <string name="pro_feature_history_title">Μεγαλύτερο ιστορικό</string>
@@ -327,20 +324,17 @@
     <string name="pro_feature_links_desc">Ένας σύνδεσμος που ο καθένας ανοίγει στη δική του εφαρμογή</string>
     <string name="pro_feature_review_title">Ποιότητα στούντιο &amp; εκδόσεις</string>
     <string name="pro_feature_review_desc">Προτεραιότητα Hi-Res/Atmos &amp; επιλογή εκδόσεων</string>
-    <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Άλμπουμ που δεν έχει κυκλοφορήσει</string>
     <string name="prerelease_sheet_desc">Αυτό το άλμπουμ δεν έχει κυκλοφορήσει ακόμη στις πλατφόρμες streaming.</string>
     <string name="prerelease_btn_presave_spotify">Προ-αποθήκευση στο Spotify</string>
     <string name="prerelease_btn_search_target">Αναζήτηση singles στο %1$s</string>
     <string name="prerelease_btn_cancel">Ακύρωση</string>
     <string name="share_self_link_notice">Αυτός είναι ένας σύνδεσμος SongFlip. Μοιραστείτε έναν σύνδεσμο μουσικής.</string>
-    <!-- Free Trial Offer -->
     <string name="pro_trial_badge">%1$d ΗΜΕΡΕΣ ΔΩΡΕΑΝ</string>
     <string name="pro_price_annual_trial">%1$d ημέρες δωρεάν, μετά %2$s / μήνα (αντί για %3$s)</string>
     <string name="pro_price_annual_trial_intro">%1$d ημέρες δωρεάν, μετά %2$s / μήνα για τον 1ο χρόνο (αντί για %3$s)</string>
     <string name="pro_price_annual_trial_simple">%1$d ημέρες δωρεάν, μετά %2$s / έτος</string>
     <string name="pro_btn_annual_trial">Δοκιμάστε δωρεάν για %1$d ημέρες</string>
-    <!-- In-App Feedback Dialog -->
     <string name="feedback_title">Σχόλια και Υποστήριξη</string>
     <string name="feedback_cat_bug">🐛 Σφάλμα</string>
     <string name="feedback_cat_feature">💡 Ιδέα</string>
@@ -353,19 +347,14 @@
     <string name="feedback_success">Ευχαριστούμε για τα σχόλιά σας!</string>
     <string name="feedback_error_empty">Παρακαλούμε εισάγετε τουλάχιστον 10 χαρακτήρες.</string>
     <string name="feedback_error_network">Αποτυχία αποστολής. Δοκιμάστε μέσω email.</string>
-
     <string name="playlist_active_banner_title">Ενεργή λίστα αναπαραγωγής</string>
     <string name="playlist_active_banner_details">Λεπτομέρειες</string>
     <string name="playlist_active_banner_open">Άνοιγμα σε %1$s</string>
     <string name="playlist_active_banner_dismiss">Κλείσιμο</string>
-
-    <!-- Preferred Player Selection -->
     <string name="settings_preferred_player_title">Προτιμώμενη εφαρμογή αναπαραγωγής</string>
     <string name="settings_preferred_player_subtitle">Επιλέξτε εφαρμογή για αναπαραγωγή μουσικής</string>
     <string name="settings_preferred_player_auto">Αυτόματα</string>
     <string name="settings_preferred_player_auto_desc">Συνιστάται: χρήση προεπιλεγμένης εφαρμογής</string>
-
-    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">Αναζήτηση &amp; Μετατροπή</string>
     <string name="search_hint">Αναζήτηση τραγουδιού ή καλλιτέχνη…</string>
     <string name="search_initial_prompt">Πληκτρολογήστε τίτλο ή καλλιτέχνη</string>
@@ -390,13 +379,12 @@
     <string name="history_filter_all">Όλα</string>
     <string name="history_filter_favorites">Αγαπημένα</string>
     <string name="target_player_chip">Πρόγραμμα αναπαραγωγής: %1$s</string>
-    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">Αναγνωρίστε τη μουσική που παίζει γύρω σας</string>
     <string name="badge_identified">Αναγνωρίστηκε</string>
     <string name="listen_free_scans_remaining">Απομένουν %1$d/%2$d δωρεάν σαρώσεις αυτόν τον μήνα</string>
     <string name="listen_status_listening">Ακρόαση μουσικής…</string>
-        <string name="listen_status_hint_loud">Ο ήχος είναι πολύ δυνατός ή παραμορφωμένος – κρατήστε τη συσκευή λίγο πιο μακριά</string>
+    <string name="listen_status_hint_loud">Ο ήχος είναι πολύ δυνατός ή παραμορφωμένος – κρατήστε τη συσκευή λίγο πιο μακριά</string>
     <string name="listen_status_hint">Κρατήστε τη συσκευή πιο κοντά στο ηχείο</string>
     <string name="listen_status_resolving">Αναζήτηση για το player σας…</string>
     <string name="listen_saved_to_history">Αποθηκεύτηκε στο ιστορικό</string>
@@ -405,7 +393,7 @@
     <string name="listen_scan_again">Αναγνώριση άλλου τραγουδιού</string>
     <string name="listen_offline_saved_title">Αποθηκεύτηκε σε λειτουργία Club εκτός σύνδεσης</string>
     <string name="listen_offline_saved_desc">Το ηχητικό αποτύπωμα αποθηκεύτηκε (%1$d σε αναμονή). Το SongFlip θα το αναγνωρίσει αυτόματα μόλις συνδεθείτε.</string>
-        <plurals name="listen_offline_resolved_toast">
+    <plurals name="listen_offline_resolved_toast">
         <item quantity="one">Αναγνωρίστηκαν %1$d τραγούδια εκτός σύνδεσης και προστέθηκαν στο ιστορικό!</item>
         <item quantity="other">Αναγνωρίστηκαν %1$d τραγούδια εκτός σύνδεσης και προστέθηκαν στο ιστορικό!</item>
     </plurals>
@@ -450,7 +438,8 @@
     <string name="first_launch_step3_desc">Ενεργοποιήστε τους συνδέσμους εφαρμογών στις ρυθμίσεις συστήματος για να ανοίγουν οι σύνδεσμοι απευθείας στο πρόγραμμα αναπαραγωγής.</string>
     <string name="first_launch_btn_done">Έναρξη</string>
     <string name="settings_how_it_works">Γρήγορος οδηγός / Πώς λειτουργεί</string>
-
     <string name="target_anghami">Anghami</string>
     <string name="playlist_ghost_tracks_notice">Εκκαθαρίστηκαν %1$d ύποπτα κομμάτια τεχνητής νοημοσύνης &amp; ghost</string>
+    <string name="playlist_import_default_title">Imported Playlist</string>
+    <string name="unknown_track">Unknown Song</string>
 </resources>

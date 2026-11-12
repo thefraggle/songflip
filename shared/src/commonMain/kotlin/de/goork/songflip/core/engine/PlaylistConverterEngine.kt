@@ -33,8 +33,8 @@ class PlaylistConverterEngine(
         val shared: PlaylistConverterEngine by lazy { PlaylistConverterEngine() }
 
         private val ENDPOINTS = listOf(
-            "https://songflip-web.web.app/api/playlist/convert",
-            "https://europe-west3-songflip-web.cloudfunctions.net/convertPlaylist"
+            "https://songflip.link/api/playlist/convert",
+            "https://songflip-web.web.app/api/playlist/convert"
         )
     }
 
@@ -160,6 +160,7 @@ class PlaylistConverterEngine(
                     }
                 }
             } catch (t: Throwable) {
+                if (t is kotlinx.coroutines.CancellationException && t !is kotlinx.coroutines.TimeoutCancellationException) throw t
                 if (t is HttpRequestTimeoutException || t is kotlinx.coroutines.TimeoutCancellationException) {
                     de.goork.songflip.core.util.SongFlipLogger.w("PlaylistConverterEngine", "Import conversion timed out on $endpoint: ${t.message}")
                     continue
@@ -245,6 +246,7 @@ class PlaylistConverterEngine(
                     lastException = parsedException
                 }
             } catch (t: Throwable) {
+                if (t is kotlinx.coroutines.CancellationException && t !is kotlinx.coroutines.TimeoutCancellationException) throw t
                 if (t is HttpRequestTimeoutException || t is kotlinx.coroutines.TimeoutCancellationException) {
                     lastException = PlaylistConversionException(
                         errorCode = PlaylistErrorCode.UPSTREAM_TIMEOUT,

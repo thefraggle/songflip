@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">SongFlip</string>
     <string name="app_tagline">Redirection automatique de liens musicaux</string>
@@ -12,8 +12,6 @@
     <string name="btn_setup">Configurer</string>
     <string name="status_missing_hint">Pas encore activé : %1$s</string>
     <string name="status_hint">L\'état ne peut pas être vérifié sur les anciennes versions d\'Android.</string>
-
-    <!-- App Links Setup Guide -->
     <string name="app_links_setup_title">Activer les liens musicaux dans Android</string>
     <string name="app_links_setup_subtitle">Pour qu\'Android redirige automatiquement les liens musicaux vers SongFlip, une confirmation unique est requise. Suivez ces 3 étapes :</string>
     <string name="app_links_step1_title">Appuyer sur « + Ajouter un lien »</string>
@@ -29,7 +27,6 @@
     <string name="app_links_alt_clipboard">Presse-papiers : copiez un lien musical – SongFlip le détecte dès l\'ouverture.</string>
     <string name="settings_app_links_title">Liens d\'application &amp; appli par défaut</string>
     <string name="settings_app_links_subtitle">Intercepter automatiquement les liens musicaux &amp; configuration</string>
-
     <string name="language_label">Langue</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
@@ -46,15 +43,12 @@
     <string name="step2">Activez "Ouvrir les liens compatibles" pour les domaines musicaux</string>
     <string name="step3">Terminé ! Les liens partagés basculent automatiquement vers votre lecteur cible en arrière-plan.</string>
     <string name="btn_open_settings">Ouvrir les paramètres</string>
-    
-    <!-- Dashboard Setup Card -->
     <string name="setup_card_title">Activer la redirection automatique</string>
     <string name="setup_card_desc">Pour que les liens musicaux reçus s\'ouvrent directement dans votre lecteur préféré, Android doit autoriser SongFlip une seule fois.</string>
     <string name="btn_start_setup">Activer en 3 étapes simples</string>
     <string name="setup_card_tip">Astuce : SongFlip fonctionne aussi instantanément sans configuration via le menu Partager et le presse-papiers.</string>
     <string name="setup_card_active_title">Redirection automatique active</string>
     <string name="setup_card_active_desc">Les liens musicaux compatibles s\'ouvriront désormais automatiquement en arrière-plan.</string>
-
     <string name="input_sources_label">Intercepter les liens sources</string>
     <string name="input_sources_subtitle">Choisissez les liens musicaux entrants que SongFlip doit rediriger automatiquement</string>
     <string name="target_service_label">Lecteur cible préféré</string>
@@ -112,7 +106,6 @@
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">Redirection du lien musical...</string>
     <string name="redirect_error_toast">Impossible de rediriger le lien. Ouverture du lien d\'origine.</string>
-
     <string name="theme_label">Thème</string>
     <string name="theme_system">Système</string>
     <string name="theme_light">Clair</string>
@@ -141,8 +134,6 @@
     <string name="podcast_dialog_body">SongFlip est spécialisé dans les morceaux et albums. Les podcasts et livres audio ne sont pas pris en charge pour la conversion.</string>
     <string name="podcast_badge">Podcast</string>
     <string name="audiobook_badge">Livre audio</string>
-
-
     <string name="history_title">Historique des morceaux</string>
     <string name="history_subtitle">Consultez et gérez vos morceaux récemment convertis</string>
     <plurals name="history_cached_count">
@@ -168,7 +159,6 @@
     <string name="time_minutes_ago">il y a %1$d min</string>
     <string name="time_hours_ago">il y a %1$d h</string>
     <string name="time_days_ago">il y a %1$d j</string>
-
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">Débloquez toutes les fonctionnalités PRO et partagez votre musique sans limites</string>
     <string name="pro_tier_monthly">Mensuel</string>
@@ -211,7 +201,6 @@
     <string name="pro_coupon_max_reached">Ce code promotionnel a atteint sa limite d\'utilisation.</string>
     <string name="pro_coupon_inactive">Ce code promotionnel n\'est plus actif.</string>
     <string name="pro_coupon_rate_limited">Trop de tentatives. Veuillez patienter un instant.</string>
-
     <string name="pro_active_3months">Accès PRO actif jusqu\'au %1$s</string>
     <string name="pro_active_1month">Accès PRO actif jusqu\'au %1$s</string>
     <string name="share_universal_link">Partager le lien universel</string>
@@ -224,7 +213,6 @@
     <string name="clipboard_banner_action_share">Lien universel</string>
     <string name="pro_play_store_unavailable">Google Play Store est actuellement indisponible.</string>
     <string name="pro_processing">Traitement...</string>
-
     <string name="shortcut_last_song_short">Lire le dernier titre</string>
     <string name="shortcut_last_song_long">Lire le dernier titre : %s</string>
     <string name="shortcut_pause_1h_short">Pause 1 h</string>
@@ -242,7 +230,6 @@
     <string name="platform_label_unknown">Lien musical</string>
     <string name="platform_label_universal">Lien universel</string>
     <string name="history_copy_source_generic">Copier le lien d\'origine</string>
-
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d morceau converti avec succès !</item>
         <item quantity="other">🎉 %1$d morceaux convertis avec succès !</item>
@@ -260,7 +247,6 @@
     </plurals>
     <string name="pro_debug_reset_status">Statut PRO réinitialisé (Debug)</string>
     <string name="pro_debug_reset_button">Réinitialiser le statut PRO (Debug)</string>
-
     <string name="settings_tip_multiple_apps_title">Plusieurs applications musicales installées ?</string>
     <string name="settings_tip_multiple_apps_body">Si une application comme Spotify ouvre directement les liens, appuyez simplement sur \"Partager \u2192 SongFlip\" dans WhatsApp ou toute autre application pour écouter des morceaux dans votre lecteur préféré.</string>
     <string name="app_links_diagnosis_title">Diagnostic des liens</string>
@@ -287,8 +273,7 @@
     <string name="share_universal_link_desc">Créez des liens songflip.link universels pour vos amis sur toutes les plateformes</string>
     <string name="pro_offerings_error">Impossible de charger les tarifs PRO. Vérifiez votre connexion.</string>
     <string name="action_retry">Réessayer</string>
-    <!-- Playlist Converter Strings -->
-        <string name="playlist_large_notice_title">Grande playlist (%1$d titres)</string>
+    <string name="playlist_large_notice_title">Grande playlist (%1$d titres)</string>
     <string name="playlist_large_notice_desc">Sans connexion, les 200 premiers morceaux sont transférés par parties.</string>
     <string name="playlist_spotify_limit_notice">Remarque : Sans connexion de compte, Spotify ne met publiquement à disposition que les 100 premiers titres d\'une playlist.</string>
     <string name="playlist_converter_title">Convertisseur de playlist</string>
@@ -321,16 +306,14 @@
     <string name="playlist_error_empty_desc">Cette playlist ne contient aucun titre lisible.</string>
     <string name="playlist_btn_retry">Réessayer</string>
     <string name="playlist_btn_open_original">Ouvrir la playlist d\'origine</string>
-<string name="pro_restore_no_subscription">Aucun abonnement PRO actif trouvé.</string>
-<string name="pro_purchase_failed">L\'achat n\'a pas pu être finalisé. Veuillez réessayer.</string>
+    <string name="pro_restore_no_subscription">Aucun abonnement PRO actif trouvé.</string>
+    <string name="pro_purchase_failed">L\'achat n\'a pas pu être finalisé. Veuillez réessayer.</string>
     <string name="offline_waiting_title">En attente de connexion…</string>
     <string name="offline_waiting_subtitle">SongFlip redirigera automatiquement dès que la connexion sera rétablie.</string>
     <string name="offline_waiting_retry">Réessayer</string>
     <string name="offline_waiting_cancel">Annuler</string>
     <string name="history_empty_title">Aucun historique pour le moment</string>
     <string name="history_empty_hint">Astuce : Ouvrez ou partagez un lien musical pour le voir ici.</string>
-
-    <!-- Pro Features -->
     <string name="pro_feature_playlists_title">Transférer vos playlists</string>
     <string name="pro_feature_playlists_desc">Déplacez des playlists entières vers votre service</string>
     <string name="pro_feature_history_title">Historique étendu</string>
@@ -341,20 +324,17 @@
     <string name="pro_feature_links_desc">Un lien que chacun ouvre dans son propre lecteur</string>
     <string name="pro_feature_review_title">Qualité studio et versions</string>
     <string name="pro_feature_review_desc">Priorité Hi-Res/Atmos et choix de versions</string>
-    <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Album pas encore sorti</string>
     <string name="prerelease_sheet_desc">Cet album n\'est pas encore disponible sur les plateformes de streaming.</string>
     <string name="prerelease_btn_presave_spotify">Pré-enregistrer sur Spotify</string>
     <string name="prerelease_btn_search_target">Chercher les singles sur %1$s</string>
     <string name="prerelease_btn_cancel">Annuler</string>
     <string name="share_self_link_notice">C\'est un lien SongFlip. Veuillez partager un lien musical.</string>
-    <!-- Free Trial Offer -->
     <string name="pro_trial_badge">%1$d JOURS GRATUITS</string>
     <string name="pro_price_annual_trial">%1$d jours gratuits, puis %2$s / mois (au lieu de %3$s)</string>
     <string name="pro_price_annual_trial_intro">%1$d jours gratuits, puis %2$s / mois la 1re année (au lieu de %3$s)</string>
     <string name="pro_price_annual_trial_simple">%1$d jours gratuits, puis %2$s / an</string>
     <string name="pro_btn_annual_trial">Essayer %1$d jours gratuits</string>
-    <!-- In-App Feedback Dialog -->
     <string name="feedback_title">Commentaires et Support</string>
     <string name="feedback_cat_bug">🐛 Bug</string>
     <string name="feedback_cat_feature">💡 Idée</string>
@@ -367,19 +347,14 @@
     <string name="feedback_success">Merci pour vos commentaires !</string>
     <string name="feedback_error_empty">Veuillez saisir au moins 10 caractères.</string>
     <string name="feedback_error_network">Échec de l\'envoi. Veuillez utiliser l\'e-mail.</string>
-
     <string name="playlist_active_banner_title">Playlist active</string>
     <string name="playlist_active_banner_details">Détails</string>
     <string name="playlist_active_banner_open">Ouvrir dans %1$s</string>
     <string name="playlist_active_banner_dismiss">Fermer</string>
-
-    <!-- Preferred Player Selection -->
     <string name="settings_preferred_player_title">Lecteur préféré</string>
     <string name="settings_preferred_player_subtitle">Choisir l\'application de lecture</string>
     <string name="settings_preferred_player_auto">Automatique</string>
     <string name="settings_preferred_player_auto_desc">Recommandé : utilise l\'application par défaut</string>
-
-    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">Rechercher &amp; Convertir</string>
     <string name="search_hint">Rechercher un titre ou un artiste…</string>
     <string name="search_initial_prompt">Entrez un titre ou un artiste</string>
@@ -404,13 +379,12 @@
     <string name="history_filter_all">Tous</string>
     <string name="history_filter_favorites">Favoris</string>
     <string name="target_player_chip">Lecteur : %1$s</string>
-    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">Identifiez la musique autour de vous</string>
     <string name="badge_identified">Identifié</string>
     <string name="listen_free_scans_remaining">%1$d/%2$d scans gratuits restants ce mois-ci</string>
     <string name="listen_status_listening">Écoute de la musique en cours…</string>
-        <string name="listen_status_hint_loud">Le son est trop fort ou saturé – éloignez légèrement l\'appareil</string>
+    <string name="listen_status_hint_loud">Le son est trop fort ou saturé – éloignez légèrement l\'appareil</string>
     <string name="listen_status_hint">Approchez votre appareil de la source sonore</string>
     <string name="listen_status_resolving">Recherche pour votre lecteur…</string>
     <string name="listen_saved_to_history">Enregistré dans l\'historique</string>
@@ -419,7 +393,7 @@
     <string name="listen_scan_again">Identifier un autre titre</string>
     <string name="listen_offline_saved_title">Enregistré en mode Club hors ligne</string>
     <string name="listen_offline_saved_desc">Empreinte audio enregistrée (%1$d en attente). SongFlip l\'identifiera automatiquement dès que vous serez en ligne.</string>
-        <plurals name="listen_offline_resolved_toast">
+    <plurals name="listen_offline_resolved_toast">
         <item quantity="one">%1$d titre hors ligne identifié et ajouté à l\'historique !</item>
         <item quantity="other">%1$d titres hors ligne identifiés et ajoutés à l\'historique !</item>
     </plurals>
@@ -464,7 +438,8 @@
     <string name="first_launch_step3_desc">Activez les liens d\'application dans les paramètres système pour ouvrir directement vos liens musicaux.</string>
     <string name="first_launch_btn_done">C\'est parti</string>
     <string name="settings_how_it_works">Guide rapide / Comment ça marche</string>
-
     <string name="target_anghami">Anghami</string>
     <string name="playlist_ghost_tracks_notice">%1$d pistes IA et fantômes suspectes nettoyées</string>
+    <string name="playlist_import_default_title">Imported Playlist</string>
+    <string name="unknown_track">Unknown Song</string>
 </resources>

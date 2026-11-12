@@ -1,3 +1,2 @@
-- Interceptação de link Anghami: Integração total de links Anghami no manuseio de aplicativos padrão e roteamento de link do sistema (#203).
-- Resolução resiliente de links curtos: Erros de rede durante a resolução de links curtos não envenenam mais o cache na memória, permitindo novas tentativas imediatas após a restauração da conexão (#D8).
-- Identificação precisa de trilhas: Isolamento estrito de parâmetros ao detectar trilhas únicas de links da web complexos (#L11).
+- Suporte a caracteres e sistemas de escrita internacionais: a formatação do título e do artista para sistemas de escrita não latinos foi preservada durante a remoção de duplicatas e a correspondência de playlists.
+- Validação de links e redirecionamentos: reforçamos a verificação de endereços em todos os caminhos de roteamento para bloquear links não compatíveis ou malformados.

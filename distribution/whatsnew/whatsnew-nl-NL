@@ -1,3 +1,2 @@
-- Anghami Link Interception: Volledige integratie van Anghami-links in standaard app-afhandeling en systeemlinkroutering (#203).
-- Veerkrachtige Shortlink-resolutie: netwerkfouten tijdens het oplossen van shortlinks vergiftigen niet langer de cache in het geheugen, waardoor onmiddellijke nieuwe pogingen mogelijk zijn bij herstel van de verbinding (#D8).
-- Nauwkeurige trackidentificatie: strikte parameterisolatie bij het detecteren van afzonderlijke tracks van complexe weblinks (#L11).
+- Ondersteuning voor internationale tekens en schriften: de opmaak van titels en artiesten voor niet-Latijnse schriften is behouden tijdens het verwijderen van duplicaten en het matchen van afspeellijsten.
+- Validatie van links en omleidingen: Verbeterde adresverificatie via routeringspaden om niet-ondersteunde of onjuist opgestelde links te blokkeren.

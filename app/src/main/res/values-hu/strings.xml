@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">SongFlip</string>
     <string name="app_tagline">Automatikus zenei link-átirányító</string>
@@ -129,7 +130,6 @@
     <string name="podcast_dialog_body">A SongFlip zeneszámokra és albumokra specializálódott. A podcastok és hangoskönyvek konvertálása jelenleg nem támogatott.</string>
     <string name="podcast_badge">Podcast</string>
     <string name="audiobook_badge">Hangoskönyv</string>
-
     <string name="theme_label">Megjelenés</string>
     <string name="theme_system">Rendszer alapértelmezett</string>
     <string name="theme_light">Világos</string>
@@ -273,8 +273,7 @@
     <string name="share_universal_link_desc">Hozzon létre univerzális songflip.link linkeket barátai számára bármely zenei platformon</string>
     <string name="pro_offerings_error">A PRO árakat nem sikerült betölteni. Kérjük, ellenőrizze internetkapcsolatát.</string>
     <string name="action_retry">Újra</string>
-    <!-- Playlist Converter Strings -->
-        <string name="playlist_large_notice_title">Nagy lejátszási lista (%1$d dal)</string>
+    <string name="playlist_large_notice_title">Nagy lejátszási lista (%1$d dal)</string>
     <string name="playlist_large_notice_desc">Bejelentkezés nélkül az első 200 dal részekben kerül átvitelre.</string>
     <string name="playlist_spotify_limit_notice">Megjegyzés: Fiók csatlakoztatása nélkül a Spotify nyilvánosan legfeljebb a lejátszási lista első 100 dalát biztosítja.</string>
     <string name="playlist_converter_title">Lejátszásilista-átalakító</string>
@@ -307,7 +306,7 @@
     <string name="playlist_error_empty_desc">Ez a lejátszási lista nem tartalmaz lejátszható dalokat.</string>
     <string name="playlist_btn_retry">Újra</string>
     <string name="playlist_btn_open_original">Eredeti lejátszási lista megnyitása</string>
-<string name="pro_restore_no_subscription">Nem található aktív PRO előfizetés.</string>
+    <string name="pro_restore_no_subscription">Nem található aktív PRO előfizetés.</string>
     <string name="pro_purchase_failed">A vásárlást nem sikerült befejezni. Kérjük, próbálja újra.</string>
     <string name="offline_waiting_title">Várakozás a kapcsolatra…</string>
     <string name="offline_waiting_subtitle">A SongFlip automatikusan átirányít, amint a kapcsolat helyreáll.</string>
@@ -315,8 +314,6 @@
     <string name="offline_waiting_cancel">Mégse</string>
     <string name="history_empty_title">Még nincsenek előzmények</string>
     <string name="history_empty_hint">Tipp: Nyiss meg vagy ossz meg egy zenei linket, hogy itt lásd.</string>
-
-    <!-- Pro Features -->
     <string name="pro_feature_playlists_title">Listák költöztetése</string>
     <string name="pro_feature_playlists_desc">Vidd át a teljes lejátszási listákat a saját szolgáltatásodba</string>
     <string name="pro_feature_history_title">Nagyobb előzmények</string>
@@ -327,20 +324,17 @@
     <string name="pro_feature_links_desc">Egy link, amit mindenki a saját lejátszójában nyit meg</string>
     <string name="pro_feature_review_title">Stúdióminőség és verziók</string>
     <string name="pro_feature_review_desc">Hi-Res/Atmos előnyben és verzióválasztás</string>
-    <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Még nem jelent meg</string>
     <string name="prerelease_sheet_desc">Ez az album még nem jelent meg a streaming felületeken.</string>
     <string name="prerelease_btn_presave_spotify">Előzetes mentés a Spotify-on</string>
     <string name="prerelease_btn_search_target">Kislemez keresése itt: %1$s</string>
     <string name="prerelease_btn_cancel">Mégse</string>
     <string name="share_self_link_notice">Ez egy SongFlip link. Kérjük, osszon meg egy zenei linket.</string>
-    <!-- Free Trial Offer -->
     <string name="pro_trial_badge">%1$d NAP INGYEN</string>
     <string name="pro_price_annual_trial">%1$d nap ingyen, utána %2$s / hó (%3$s helyett)</string>
     <string name="pro_price_annual_trial_intro">%1$d nap ingyen, utána %2$s / hó az 1. évben (%3$s helyett)</string>
     <string name="pro_price_annual_trial_simple">%1$d nap ingyen, utána %2$s / év</string>
     <string name="pro_btn_annual_trial">Próbáld ki %1$d napig ingyen</string>
-    <!-- In-App Feedback Dialog -->
     <string name="feedback_title">Visszajelzés és Támogatás</string>
     <string name="feedback_cat_bug">🐛 Hiba</string>
     <string name="feedback_cat_feature">💡 Ötlet</string>
@@ -353,19 +347,14 @@
     <string name="feedback_success">Köszönjük a visszajelzést!</string>
     <string name="feedback_error_empty">Kérjük, írjon be legalább 10 karaktert.</string>
     <string name="feedback_error_network">Nem sikerült elküldeni. Kérjük, próbálja e-mailben.</string>
-
     <string name="playlist_active_banner_title">Aktív lejátszási lista</string>
     <string name="playlist_active_banner_details">Részletek</string>
     <string name="playlist_active_banner_open">Megnyitás itt: %1$s</string>
     <string name="playlist_active_banner_dismiss">Bezárás</string>
-
-    <!-- Preferred Player Selection -->
     <string name="settings_preferred_player_title">Előnyben részesített lejátszó</string>
     <string name="settings_preferred_player_subtitle">Alkalmazás kiválasztása zenelejátszáshoz</string>
     <string name="settings_preferred_player_auto">Automatikus</string>
     <string name="settings_preferred_player_auto_desc">Ajánlott: az alapértelmezett alkalmazást használja</string>
-
-    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">Keresés és átváltás</string>
     <string name="search_hint">Dal vagy előadó keresése…</string>
     <string name="search_initial_prompt">Írj be egy dalt vagy előadót</string>
@@ -390,13 +379,12 @@
     <string name="history_filter_all">Összes</string>
     <string name="history_filter_favorites">Kedvencek</string>
     <string name="target_player_chip">Lejátszó: %1$s</string>
-    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">Ismerd fel a körülötted szóló zenét</string>
     <string name="badge_identified">Felismerve</string>
     <string name="listen_free_scans_remaining">%1$d/%2$d ingyenes felismerés maradt ebben a hónapban</string>
     <string name="listen_status_listening">Zene figyelése…</string>
-        <string name="listen_status_hint_loud">A hang túl hangos vagy torz – tartsa kicsit távolabb a készüléket</string>
+    <string name="listen_status_hint_loud">A hang túl hangos vagy torz – tartsa kicsit távolabb a készüléket</string>
     <string name="listen_status_hint">Tartsd a készüléket közelebb a hangszóróhoz</string>
     <string name="listen_status_resolving">Keresés a lejátszódhoz…</string>
     <string name="listen_saved_to_history">Elmentve az előzményekbe</string>
@@ -405,7 +393,7 @@
     <string name="listen_scan_again">Másik dal felismerése</string>
     <string name="listen_offline_saved_title">Elmentve Offline Klub módban</string>
     <string name="listen_offline_saved_desc">Hangmintázat elmentve (%1$d függőben). A SongFlip automatikusan felismeri, amint újra online leszel.</string>
-        <plurals name="listen_offline_resolved_toast">
+    <plurals name="listen_offline_resolved_toast">
         <item quantity="one">%1$d offline dal felismerve és hozzáadva az előzményekhez!</item>
         <item quantity="other">%1$d offline dal felismerve és hozzáadva az előzményekhez!</item>
     </plurals>
@@ -450,7 +438,8 @@
     <string name="first_launch_step3_desc">Engedélyezze az alkalmazáshivatkozásokat a rendszerbeállításokban, hogy a zenei linkek közvetlenül a céllejátszóban nyíljanak meg.</string>
     <string name="first_launch_btn_done">Kezdés</string>
     <string name="settings_how_it_works">Gyors útmutató / Hogyan működik</string>
-
     <string name="target_anghami">Anghami</string>
     <string name="playlist_ghost_tracks_notice">%1$d gyanús AI és szellem zeneszám eltávolítva</string>
+    <string name="playlist_import_default_title">Imported Playlist</string>
+    <string name="unknown_track">Unknown Song</string>
 </resources>

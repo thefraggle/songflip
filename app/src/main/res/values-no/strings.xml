@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">SongFlip</string>
     <string name="app_tagline">Automatisk musikklenke-omdirigering</string>
@@ -12,8 +12,6 @@
     <string name="btn_setup">Konfigurer</string>
     <string name="status_missing_hint">Ikke aktivert ennå: %1$s</string>
     <string name="status_hint">Status kan ikke kontrolleres på eldre Android-versjoner.</string>
-
-    <!-- App Links Setup Guide -->
     <string name="app_links_setup_title">Aktiver musikklenker i Android</string>
     <string name="app_links_setup_subtitle">For at Android skal videresende musikklenker til SongFlip automatisk, kreves en engangsbekreftelse. Følg disse 3 trinnene:</string>
     <string name="app_links_step1_title">Trykk på \"+ Legg til lenke\"</string>
@@ -29,7 +27,6 @@
     <string name="app_links_alt_clipboard">Utklippstavle: Kopier en musikklenke – SongFlip oppdager den med en gang.</string>
     <string name="settings_app_links_title">App-lenker &amp; standardapp</string>
     <string name="settings_app_links_subtitle">Fang opp musikklenker automatisk &amp; oppsett</string>
-
     <string name="language_label">Språk</string>
     <string name="lang_de">Deutsch</string>
     <string name="lang_en">English</string>
@@ -46,15 +43,12 @@
     <string name="step2">Aktiver "Åpne støttede lenker" for musikkdomener</string>
     <string name="step3">Ferdig! Delte lenker åpnes automatisk i din valgte spiller i bakgrunnen.</string>
     <string name="btn_open_settings">Åpne innstillinger</string>
-    
-    <!-- Dashboard Setup Card -->
     <string name="setup_card_title">Aktiver automatisk videresending</string>
     <string name="setup_card_desc">For at musikklenker skal åpnes direkte i din favorittspiller, må Android godkjenne SongFlip én gang.</string>
     <string name="btn_start_setup">Aktiver i 3 enkle trinn</string>
     <string name="setup_card_tip">Tips: SongFlip fungerer også umiddelbart uten oppsett via delemenyen og utklippstavlen.</string>
     <string name="setup_card_active_title">Automatisk videresending aktiv</string>
     <string name="setup_card_active_desc">Støttede musikklenker åpnes nå automatisk i bakgrunnen.</string>
-
     <string name="input_sources_label">Snapp opp kildelenker</string>
     <string name="input_sources_subtitle">Velg hvilke innkommende musikklenker SongFlip automatisk skal omdirigere</string>
     <string name="target_service_label">Foretrukket målspiller</string>
@@ -112,7 +106,6 @@
     <string name="copyright_text">© 2026 Daniel Notthoff • notthoff.org</string>
     <string name="redirecting_toast">Omdirigerer musikklenke...</string>
     <string name="redirect_error_toast">Kunne ikke omdirigere lenke. Åpner originallenke.</string>
-
     <string name="theme_label">Tema</string>
     <string name="theme_system">System</string>
     <string name="theme_light">Lyst</string>
@@ -141,8 +134,6 @@
     <string name="podcast_dialog_body">SongFlip er spesialisert på musikkspor og album. Podkaster og lydbøker støttes for øyeblikket ikke for konvertering.</string>
     <string name="podcast_badge">Podkast</string>
     <string name="audiobook_badge">Lydbok</string>
-
-
     <string name="history_title">Sanghistorikk</string>
     <string name="history_subtitle">Se og administrer nylig konverterte sanger</string>
     <plurals name="history_cached_count">
@@ -168,7 +159,6 @@
     <string name="time_minutes_ago">%1$d min siden</string>
     <string name="time_hours_ago">%1$d timer siden</string>
     <string name="time_days_ago">%1$d dager siden</string>
-
     <string name="pro_title">SongFlip PRO</string>
     <string name="pro_subtitle">Lås opp alle PRO-funksjoner og del musikk uten grenser</string>
     <string name="pro_tier_monthly">Månedlig</string>
@@ -211,7 +201,6 @@
     <string name="pro_coupon_max_reached">Denne kampanjekoden har nådd sin maksimale grense for innløsning.</string>
     <string name="pro_coupon_inactive">Denne kampanjekoden er ikke lenger aktiv.</string>
     <string name="pro_coupon_rate_limited">For mange forsøk. Vennligst vent et øyeblikk.</string>
-
     <string name="pro_active_3months">PRO-tilgang aktiv til %1$s</string>
     <string name="pro_active_1month">PRO-tilgang aktiv til %1$s</string>
     <string name="share_universal_link">Del universell nettlenke</string>
@@ -224,7 +213,6 @@
     <string name="clipboard_banner_action_share">Universell lenke</string>
     <string name="pro_play_store_unavailable">Google Play Store er for øyeblikket utilgjengelig.</string>
     <string name="pro_processing">Behandling...</string>
-
     <string name="shortcut_last_song_short">Spill sist spilte sang</string>
     <string name="shortcut_last_song_long">Spill sist spilte sang: %s</string>
     <string name="shortcut_pause_1h_short">Pause 1t</string>
@@ -242,7 +230,6 @@
     <string name="platform_label_unknown">Musikklenke</string>
     <string name="platform_label_universal">Universell lenke</string>
     <string name="history_copy_source_generic">Kopier original lenke</string>
-
     <plurals name="pro_nudge_title">
         <item quantity="one">🎉 %1$d sang vendt vellykket!</item>
         <item quantity="other">🎉 %1$d sanger vendt vellykket!</item>
@@ -260,7 +247,6 @@
     </plurals>
     <string name="pro_debug_reset_status">PRO-status tilbakestilt (Debug)</string>
     <string name="pro_debug_reset_button">Tilbakestill PRO-status (Debug)</string>
-
     <string name="settings_tip_multiple_apps_title">Flere musikk-apper installert?</string>
     <string name="settings_tip_multiple_apps_body">Hvis en app som Spotify åpner lenker direkte, trykker du bare på \"Del \u2192 SongFlip\" i WhatsApp eller en hvilken som helst app for å spille av sanger i din foretrukne musikkspiller.</string>
     <string name="app_links_diagnosis_title">Lenkediagnose</string>
@@ -287,8 +273,7 @@
     <string name="share_universal_link_desc">Opprett universelle songflip.link-lenker for venner på alle musikkplattformer</string>
     <string name="pro_offerings_error">Kunne ikke laste PRO-priser. Sjekk internettforbindelsen din.</string>
     <string name="action_retry">Prøv igjen</string>
-    <!-- Playlist Converter Strings -->
-        <string name="playlist_large_notice_title">Stor spilleliste (%1$d sanger)</string>
+    <string name="playlist_large_notice_title">Stor spilleliste (%1$d sanger)</string>
     <string name="playlist_large_notice_desc">Uten innlogging overføres de første 200 sangene i deler.</string>
     <string name="playlist_spotify_limit_notice">Merk: Uten en kontotilkobling gjør Spotify offentlig tilgjengelig maksimalt de første 100 sangene.</string>
     <string name="playlist_converter_title">Spilleliste-konverterer</string>
@@ -321,7 +306,7 @@
     <string name="playlist_error_empty_desc">Denne spillelisten inneholder ingen spillbare sanger.</string>
     <string name="playlist_btn_retry">Prøv igjen</string>
     <string name="playlist_btn_open_original">Åpne opprinnelig spilleliste</string>
-<string name="pro_restore_no_subscription">Fant ikke noe aktivt PRO-abonnement.</string>
+    <string name="pro_restore_no_subscription">Fant ikke noe aktivt PRO-abonnement.</string>
     <string name="pro_purchase_failed">Kjøpet kunne ikke fullføres. Vennligst prøv igjen.</string>
     <string name="offline_waiting_title">Venter på tilkobling…</string>
     <string name="offline_waiting_subtitle">SongFlip omdirigerer automatisk så snart tilkoblingen er gjenopprettet.</string>
@@ -329,8 +314,6 @@
     <string name="offline_waiting_cancel">Avbryt</string>
     <string name="history_empty_title">Ingen historikk ennå</string>
     <string name="history_empty_hint">Tips: Åpne eller del en musikklenke for å se den her.</string>
-
-    <!-- Pro Features -->
     <string name="pro_feature_playlists_title">Flytt spillelister</string>
     <string name="pro_feature_playlists_desc">Overfør hele spillelister til din tjeneste</string>
     <string name="pro_feature_history_title">Større historikk</string>
@@ -341,20 +324,17 @@
     <string name="pro_feature_links_desc">Én lenke som alle åpner i sin egen avspiller</string>
     <string name="pro_feature_review_title">Studiokvalitet og versjoner</string>
     <string name="pro_feature_review_desc">Prioriter Hi-Res/Atmos og velg versjoner</string>
-    <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Ikke utgitt ennå</string>
     <string name="prerelease_sheet_desc">Dette albumet er ennå ikke tilgjengelig på strømmetjenestene.</string>
     <string name="prerelease_btn_presave_spotify">Forhåndslagre på Spotify</string>
     <string name="prerelease_btn_search_target">Søk etter singler i %1$s</string>
     <string name="prerelease_btn_cancel">Avbryt</string>
     <string name="share_self_link_notice">Dette er en SongFlip-lenke. Vennligst del en musikklenke.</string>
-    <!-- Free Trial Offer -->
     <string name="pro_trial_badge">%1$d DAGER GRATIS</string>
     <string name="pro_price_annual_trial">%1$d dager gratis, deretter %2$s / måned (i stedet for %3$s)</string>
     <string name="pro_price_annual_trial_intro">%1$d dager gratis, deretter %2$s / måned i år 1 (i stedet for %3$s)</string>
     <string name="pro_price_annual_trial_simple">%1$d dager gratis, deretter %2$s / år</string>
     <string name="pro_btn_annual_trial">Prøv %1$d dager gratis</string>
-    <!-- In-App Feedback Dialog -->
     <string name="feedback_title">Tilbakemelding og Brukerstøtte</string>
     <string name="feedback_cat_bug">🐛 Feil</string>
     <string name="feedback_cat_feature">💡 Idé</string>
@@ -367,19 +347,14 @@
     <string name="feedback_success">Takk for tilbakemeldingen!</string>
     <string name="feedback_error_empty">Skriv inn minst 10 tegn.</string>
     <string name="feedback_error_network">Kunne ikke sende. Prøv via e-post i stedet.</string>
-
     <string name="playlist_active_banner_title">Aktiv spilleliste</string>
     <string name="playlist_active_banner_details">Detaljer</string>
     <string name="playlist_active_banner_open">Åpne i %1$s</string>
     <string name="playlist_active_banner_dismiss">Lukk</string>
-
-    <!-- Preferred Player Selection -->
     <string name="settings_preferred_player_title">Foretrukket spiller</string>
     <string name="settings_preferred_player_subtitle">Velg app for musikkavspilling</string>
     <string name="settings_preferred_player_auto">Automatisk</string>
     <string name="settings_preferred_player_auto_desc">Anbefalt: bruker standardappen</string>
-
-    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">Søk og konverter</string>
     <string name="search_hint">Søk etter sang eller artist…</string>
     <string name="search_initial_prompt">Skriv inn en sang eller artist</string>
@@ -404,13 +379,12 @@
     <string name="history_filter_all">Alle</string>
     <string name="history_filter_favorites">Favoritter</string>
     <string name="target_player_chip">Avspiller: %1$s</string>
-    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">Gjenkjenn musikk rundt deg</string>
     <string name="badge_identified">Gjenkjent</string>
     <string name="listen_free_scans_remaining">%1$d/%2$d gratis skanninger igjen denne måneden</string>
     <string name="listen_status_listening">Lytter etter musikk…</string>
-        <string name="listen_status_hint_loud">Lyden er veldig høy eller forvrengt – hold enheten litt lenger unna</string>
+    <string name="listen_status_hint_loud">Lyden er veldig høy eller forvrengt – hold enheten litt lenger unna</string>
     <string name="listen_status_hint">Hold enheten nærmere høyttaleren</string>
     <string name="listen_status_resolving">Finner treff for avspilleren din…</string>
     <string name="listen_saved_to_history">Lagret i historikk</string>
@@ -419,7 +393,7 @@
     <string name="listen_scan_again">Gjenkjenn en annen sang</string>
     <string name="listen_offline_saved_title">Lagret i Offline Club Mode</string>
     <string name="listen_offline_saved_desc">Lydsignatur lagret (%1$d venter). SongFlip gjenkjenner sangen automatisk når du er på nett igjen.</string>
-        <plurals name="listen_offline_resolved_toast">
+    <plurals name="listen_offline_resolved_toast">
         <item quantity="one">%1$d frakoblet sang gjenkjent og lagt til i historikk!</item>
         <item quantity="other">%1$d frakoblede sanger gjenkjent og lagt til i historikk!</item>
     </plurals>
@@ -464,7 +438,8 @@
     <string name="first_launch_step3_desc">Aktiver App-lenker i systeminnstillingene slik at musikklenker åpnes direkte i målspilleren.</string>
     <string name="first_launch_btn_done">Kom i gang</string>
     <string name="settings_how_it_works">Hurtigveiledning / Slik fungerer det</string>
-
     <string name="target_anghami">Anghami</string>
     <string name="playlist_ghost_tracks_notice">%1$d mistenkelige AI- og spøkelsesspor renset</string>
+    <string name="playlist_import_default_title">Imported Playlist</string>
+    <string name="unknown_track">Unknown Song</string>
 </resources>

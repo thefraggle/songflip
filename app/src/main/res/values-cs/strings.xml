@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">SongFlip</string>
     <string name="app_tagline">Automatické přesměrování hudebních odkazů</string>
@@ -129,7 +130,6 @@
     <string name="podcast_dialog_body">SongFlip se specializuje na hudební skladby a alba. Podcasty a audioknihy nejsou v současné době podporovány.</string>
     <string name="podcast_badge">Podcast</string>
     <string name="audiobook_badge">Audiokniha</string>
-
     <string name="theme_label">Vzhled</string>
     <string name="theme_system">Systémový</string>
     <string name="theme_light">Světlý</string>
@@ -285,8 +285,7 @@
     <string name="share_universal_link_desc">Vytvářejte univerzální odkazy songflip.link pro přátele na jakékoli hudební platformě</string>
     <string name="pro_offerings_error">Nepodařilo se načíst ceny PRO. Zkontrolujte připojení k internetu.</string>
     <string name="action_retry">Zkusit znovu</string>
-    <!-- Playlist Converter Strings -->
-        <string name="playlist_large_notice_title">Velký playlist (%1$d skladeb)</string>
+    <string name="playlist_large_notice_title">Velký playlist (%1$d skladeb)</string>
     <string name="playlist_large_notice_desc">Bez přihlášení je prvních 200 skladeb převedeno po částech.</string>
     <string name="playlist_spotify_limit_notice">Upozornění: Bez propojení účtu poskytuje Spotify veřejně maximálně prvních 100 skladeb playlistu.</string>
     <string name="playlist_converter_title">Převodník playlistů</string>
@@ -319,7 +318,7 @@
     <string name="playlist_error_empty_desc">Tento playlist neobsahuje žádné přehratelné skladby.</string>
     <string name="playlist_btn_retry">Zkusit znovu</string>
     <string name="playlist_btn_open_original">Otevřít původní playlist</string>
-<string name="pro_restore_no_subscription">Nebylo nalezeno žádné aktivní předplatné PRO.</string>
+    <string name="pro_restore_no_subscription">Nebylo nalezeno žádné aktivní předplatné PRO.</string>
     <string name="pro_purchase_failed">Nákup se nepodařilo dokončit. Zkuste to prosím znovu.</string>
     <string name="offline_waiting_title">Čekání na připojení…</string>
     <string name="offline_waiting_subtitle">SongFlip automaticky přesměruje, jakmile se obnoví připojení.</string>
@@ -327,8 +326,6 @@
     <string name="offline_waiting_cancel">Zrušit</string>
     <string name="history_empty_title">Zatím žádná historie</string>
     <string name="history_empty_hint">Tip: Otevřete nebo sdílejte hudební odkaz, aby se zde zobrazil.</string>
-
-    <!-- Pro Features -->
     <string name="pro_feature_playlists_title">Přesuňte playlisty</string>
     <string name="pro_feature_playlists_desc">Přeneste celé playlisty do své služby</string>
     <string name="pro_feature_history_title">Větší historie</string>
@@ -339,20 +336,17 @@
     <string name="pro_feature_links_desc">Jeden odkaz, který každý otevře ve svém přehrávači</string>
     <string name="pro_feature_review_title">Studiová kvalita a verze</string>
     <string name="pro_feature_review_desc">Priorita Hi-Res/Atmos a ruční výběr verzí</string>
-    <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Dosud nevydané album</string>
     <string name="prerelease_sheet_desc">Toto album zatím nebylo vydáno na streamovacích platformách.</string>
     <string name="prerelease_btn_presave_spotify">Uložit předem na Spotify</string>
     <string name="prerelease_btn_search_target">Hledat singly v %1$s</string>
     <string name="prerelease_btn_cancel">Zrušit</string>
     <string name="share_self_link_notice">Toto je odkaz SongFlip. Sdílejte prosím odkaz na hudbu.</string>
-    <!-- Free Trial Offer -->
     <string name="pro_trial_badge">%1$d DNÍ ZDARMA</string>
     <string name="pro_price_annual_trial">%1$d dní zdarma, poté %2$s / měsíc (místo %3$s)</string>
     <string name="pro_price_annual_trial_intro">%1$d dní zdarma, poté %2$s / měsíc v 1. roce (místo %3$s)</string>
     <string name="pro_price_annual_trial_simple">%1$d dní zdarma, poté %2$s / rok</string>
     <string name="pro_btn_annual_trial">Vyzkoušet na %1$d dní zdarma</string>
-    <!-- In-App Feedback Dialog -->
     <string name="feedback_title">Zpětná vazba a Podpora</string>
     <string name="feedback_cat_bug">🐛 Chyba</string>
     <string name="feedback_cat_feature">💡 Nápad</string>
@@ -365,19 +359,14 @@
     <string name="feedback_success">Děkujeme za vaši zpětnou vazbu!</string>
     <string name="feedback_error_empty">Zadejte alespoň 10 znaků.</string>
     <string name="feedback_error_network">Odeslání se nezdařilo. Zkuste to e-mailem.</string>
-
     <string name="playlist_active_banner_title">Aktivní playlist</string>
     <string name="playlist_active_banner_details">Podrobnosti</string>
     <string name="playlist_active_banner_open">Otevřít v %1$s</string>
     <string name="playlist_active_banner_dismiss">Zavřít</string>
-
-    <!-- Preferred Player Selection -->
     <string name="settings_preferred_player_title">Preferovaný přehrávač</string>
     <string name="settings_preferred_player_subtitle">Zvolte aplikaci pro přehrávání</string>
     <string name="settings_preferred_player_auto">Automaticky</string>
     <string name="settings_preferred_player_auto_desc">Doporučeno: použije výchozí aplikaci</string>
-
-    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">Hledat a převést</string>
     <string name="search_hint">Hledat skladbu nebo interpreta…</string>
     <string name="search_initial_prompt">Zadejte název skladby nebo interpreta</string>
@@ -402,13 +391,12 @@
     <string name="history_filter_all">Vše</string>
     <string name="history_filter_favorites">Oblíbené</string>
     <string name="target_player_chip">Přehrávač: %1$s</string>
-    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">Rozpoznejte hudbu, která hraje kolem vás</string>
     <string name="badge_identified">Rozpoznáno</string>
     <string name="listen_free_scans_remaining">Zbývá %1$d/%2$d bezplatných skenů tento měsíc</string>
     <string name="listen_status_listening">Poslouchám hudbu…</string>
-        <string name="listen_status_hint_loud">Zvuk je příliš hlasitý nebo zkreslený – držte zařízení o o něco dál</string>
+    <string name="listen_status_hint_loud">Zvuk je příliš hlasitý nebo zkreslený – držte zařízení o o něco dál</string>
     <string name="listen_status_hint">Přibližte zařízení blíže k reproduktoru</string>
     <string name="listen_status_resolving">Hledám shodu pro váš přehrávač…</string>
     <string name="listen_saved_to_history">Uloženo do historie</string>
@@ -417,7 +405,7 @@
     <string name="listen_scan_again">Rozpoznat další skladbu</string>
     <string name="listen_offline_saved_title">Uloženo v offline klubovém režimu</string>
     <string name="listen_offline_saved_desc">Zvukový otisk uložen (čeká: %1$d). SongFlip skladbu automaticky rozpozná, jakmile budete opět online.</string>
-        <plurals name="listen_offline_resolved_toast">
+    <plurals name="listen_offline_resolved_toast">
         <item quantity="one">Rozpoznána %1$d offline skladba a přidána do historie!</item>
         <item quantity="few">Rozpoznány %1$d offline skladby a přidány do historie!</item>
         <item quantity="many">Rozpoznáno %1$d offline skladeb a přidáno do historie!</item>
@@ -464,7 +452,8 @@
     <string name="first_launch_step3_desc">Povolte odkazy na aplikace v nastavení systému, aby se hudební odkazy otevíraly přímo v cílovém přehrávači.</string>
     <string name="first_launch_btn_done">Začít</string>
     <string name="settings_how_it_works">Rychlý průvodce / Jak to funguje</string>
-
     <string name="target_anghami">Anghami</string>
     <string name="playlist_ghost_tracks_notice">Vyčištěno %1$d podezřelých AI a ghost skladeb</string>
+    <string name="playlist_import_default_title">Imported Playlist</string>
+    <string name="unknown_track">Unknown Song</string>
 </resources>

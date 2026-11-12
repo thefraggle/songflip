@@ -3,16 +3,16 @@ package de.goork.songflip.data
 import android.content.Context
 import android.content.SharedPreferences
 
-class SettingsRepository(private val context: Context) {
-
-    private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+class SettingsRepository(context: Context) {
+    private val appContext: Context = context.applicationContext
+    private val prefs: SharedPreferences = appContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
     var targetPlatform: String
         get() {
             val saved = prefs.getString(KEY_TARGET_PLATFORM, null)
             if (!saved.isNullOrBlank()) return saved
 
-            val detected = detectDefaultTargetPlatform(context)
+            val detected = detectDefaultTargetPlatform(appContext)
             prefs.edit().putString(KEY_TARGET_PLATFORM, detected).apply()
             return detected
         }
@@ -107,11 +107,10 @@ class SettingsRepository(private val context: Context) {
             prefs.edit().putInt(KEY_SUCCESSFUL_FLIP_COUNT, value).apply()
         }
 
-    @Synchronized
-    fun incrementSuccessfulFlips(): Int {
+    fun incrementSuccessfulFlips(): Int = synchronized(GLOBAL_LOCK) {
         val next = prefs.getInt(KEY_SUCCESSFUL_FLIP_COUNT, 0) + 1
         prefs.edit().putInt(KEY_SUCCESSFUL_FLIP_COUNT, next).apply()
-        return next
+        next
     }
 
     var firstInstallTimestamp: Long
@@ -207,6 +206,7 @@ class SettingsRepository(private val context: Context) {
         private const val KEY_LAST_DISMISSED_PRO_NUDGE_MILESTONE = "last_dismissed_pro_nudge_milestone"
         private const val KEY_CACHED_PROMO_BANNER = "cached_promo_banner_json"
         private const val KEY_HAS_SEEN_FIRST_LAUNCH_GUIDE = "has_seen_first_launch_guide"
+        private val GLOBAL_LOCK = Any()
 
         const val DEFAULT_TARGET = "youtubeMusic"
         const val DEFAULT_LANGUAGE = "en"

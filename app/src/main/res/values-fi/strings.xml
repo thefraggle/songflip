@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">SongFlip</string>
     <string name="app_tagline">Automaattinen musiikkilinkkien uudelleenohjaus</string>
@@ -129,7 +130,6 @@
     <string name="podcast_dialog_body">SongFlip on erikoistunut musiikkikappaleisiin ja albumeihin. Podcasteja ja äänikirjoja ei tueta muunnoksessa tällä hetkellä.</string>
     <string name="podcast_badge">Podcast</string>
     <string name="audiobook_badge">Äänikirja</string>
-
     <string name="theme_label">Teema</string>
     <string name="theme_system">Järjestelmä</string>
     <string name="theme_light">Vaalea</string>
@@ -273,8 +273,7 @@
     <string name="share_universal_link_desc">Luo yleisiä songflip.link-linkkejä ystäville millä tahansa musiikkialustalla</string>
     <string name="pro_offerings_error">PRO-hintoja ei voitu ladata. Tarkista internetyhteytesi.</string>
     <string name="action_retry">Yritä uudelleen</string>
-    <!-- Playlist Converter Strings -->
-        <string name="playlist_large_notice_title">Suuri soittolista (%1$d kappaletta)</string>
+    <string name="playlist_large_notice_title">Suuri soittolista (%1$d kappaletta)</string>
     <string name="playlist_large_notice_desc">Ilman kirjautumista ensimmäiset 200 kappaletta siirretään osissa.</string>
     <string name="playlist_spotify_limit_notice">Huomautus: Ilman tiliyhteyttä Spotify tarjoaa julkisesti enintään soittolistan ensimmäiset 100 kappaletta.</string>
     <string name="playlist_converter_title">Soittolistamuunnin</string>
@@ -307,7 +306,7 @@
     <string name="playlist_error_empty_desc">Tällä soittolistalla ei ole toistettavia kappaleita.</string>
     <string name="playlist_btn_retry">Yritä uudelleen</string>
     <string name="playlist_btn_open_original">Avaa alkuperäinen soittolista</string>
-<string name="pro_restore_no_subscription">Aktiivista PRO-tilausta ei löytynyt.</string>
+    <string name="pro_restore_no_subscription">Aktiivista PRO-tilausta ei löytynyt.</string>
     <string name="pro_purchase_failed">Ostoa ei voitu suorittaa loppuun. Yritä uudelleen.</string>
     <string name="offline_waiting_title">Odotetaan yhteyttä…</string>
     <string name="offline_waiting_subtitle">SongFlip ohjaa automaattisesti eteenpäin heti, kun yhteys palautuu.</string>
@@ -315,8 +314,6 @@
     <string name="offline_waiting_cancel">Peruuta</string>
     <string name="history_empty_title">Ei historiaa vielä</string>
     <string name="history_empty_hint">Vinkki: Avaa tai jaa musiikkilinkki nähdäksesi sen täällä.</string>
-
-    <!-- Pro Features -->
     <string name="pro_feature_playlists_title">Siirrä soittolistat</string>
     <string name="pro_feature_playlists_desc">Siirrä kokonaiset soittolistat omaan palveluusi</string>
     <string name="pro_feature_history_title">Laajempi historia</string>
@@ -327,20 +324,17 @@
     <string name="pro_feature_links_desc">Yksi linkki, jonka jokainen avaa omassa soittimessaan</string>
     <string name="pro_feature_review_title">Studiolaatu ja versiot</string>
     <string name="pro_feature_review_desc">Suosi Hi-Res/Atmos-laatua ja valitse versiot</string>
-    <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">Ei vielä julkaistu</string>
     <string name="prerelease_sheet_desc">Tätä albumia ei ole vielä julkaistu suoratoistopalveluissa.</string>
     <string name="prerelease_btn_presave_spotify">Ennakkotallenna Spotifyssa</string>
     <string name="prerelease_btn_search_target">Etsi singlejä palvelussa %1$s</string>
     <string name="prerelease_btn_cancel">Peruuta</string>
     <string name="share_self_link_notice">Tämä on SongFlip-linkki. Jaa sen sijaan musiikkilinkki.</string>
-    <!-- Free Trial Offer -->
     <string name="pro_trial_badge">%1$d PÄIVÄÄ ILMAISEKSI</string>
     <string name="pro_price_annual_trial">%1$d päivää ilmaiseksi, sitten %2$s / kk (norm. %3$s)</string>
     <string name="pro_price_annual_trial_intro">%1$d päivää ilmaiseksi, sitten %2$s / kk 1. vuonna (norm. %3$s)</string>
     <string name="pro_price_annual_trial_simple">%1$d päivää ilmaiseksi, sitten %2$s / vuosi</string>
     <string name="pro_btn_annual_trial">Kokeile %1$d päivää ilmaiseksi</string>
-    <!-- In-App Feedback Dialog -->
     <string name="feedback_title">Palaute ja Tuki</string>
     <string name="feedback_cat_bug">🐛 Virhe</string>
     <string name="feedback_cat_feature">💡 Idea</string>
@@ -353,19 +347,14 @@
     <string name="feedback_success">Kiitos palautteestasi!</string>
     <string name="feedback_error_empty">Kirjoita vähintään 10 merkkiä.</string>
     <string name="feedback_error_network">Lähetys epäonnistui. Kokeile sähköpostilla.</string>
-
     <string name="playlist_active_banner_title">Aktiivinen soittolista</string>
     <string name="playlist_active_banner_details">Tiedot</string>
     <string name="playlist_active_banner_open">Avaa kohteessa %1$s</string>
     <string name="playlist_active_banner_dismiss">Sulje</string>
-
-    <!-- Preferred Player Selection -->
     <string name="settings_preferred_player_title">Ensisijainen soitin</string>
     <string name="settings_preferred_player_subtitle">Valitse sovellus toistoa varten</string>
     <string name="settings_preferred_player_auto">Automaattinen</string>
     <string name="settings_preferred_player_auto_desc">Suositus: käyttää oletussovellusta</string>
-
-    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">Hae ja muunna</string>
     <string name="search_hint">Etsi kappaletta tai artistia…</string>
     <string name="search_initial_prompt">Kirjoita kappale tai artisti</string>
@@ -390,13 +379,12 @@
     <string name="history_filter_all">Kaikki</string>
     <string name="history_filter_favorites">Suosikit</string>
     <string name="target_player_chip">Soitin: %1$s</string>
-    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">Tunnista ympärilläsi soiva musiikki</string>
     <string name="badge_identified">Tunnistettu</string>
     <string name="listen_free_scans_remaining">%1$d/%2$d ilmaista tunnistusta jäljellä tässä kuussa</string>
     <string name="listen_status_listening">Kuunnellaan musiikkia…</string>
-        <string name="listen_status_hint_loud">Ääni on liian voimakas tai säröinen – pidä laitetta hieman kauempana</string>
+    <string name="listen_status_hint_loud">Ääni on liian voimakas tai säröinen – pidä laitetta hieman kauempana</string>
     <string name="listen_status_hint">Pidä laitetta lähempänä kaiutinta</string>
     <string name="listen_status_resolving">Haetaan osumaa soittimellesi…</string>
     <string name="listen_saved_to_history">Tallennettu historiaan</string>
@@ -405,7 +393,7 @@
     <string name="listen_scan_again">Tunnista toinen kappale</string>
     <string name="listen_offline_saved_title">Tallennettu offline-klubitilaan</string>
     <string name="listen_offline_saved_desc">Äänitunniste tallennettu (%1$d odottaa). SongFlip tunnistaa kappaleen automaattisesti, kun olet taas verkossa.</string>
-        <plurals name="listen_offline_resolved_toast">
+    <plurals name="listen_offline_resolved_toast">
         <item quantity="one">%1$d offline-kappale tunnistettu ja lisätty historiaan!</item>
         <item quantity="other">%1$d offline-kappale tunnistettu ja lisätty historiaan!</item>
     </plurals>
@@ -450,7 +438,8 @@
     <string name="first_launch_step3_desc">Ota sovelluslinkit käyttöön järjestelmäasetuksissa, jotta musiikkilinkit avautuvat suoraan kohdesoittimessa.</string>
     <string name="first_launch_btn_done">Aloita</string>
     <string name="settings_how_it_works">Pikaopas / Miten se toimii</string>
-
     <string name="target_anghami">Anghami</string>
     <string name="playlist_ghost_tracks_notice">%1$d epäilyttävää tekoäly- ja aavekappaletta puhdistettu</string>
+    <string name="playlist_import_default_title">Imported Playlist</string>
+    <string name="unknown_track">Unknown Song</string>
 </resources>

@@ -53,6 +53,12 @@ class ShortLinkResolver(
                 val resp = client.head(currentUrl) {
                     header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
                 }
+                val finalHeadUrl = resp.request.url.toString()
+                if (finalHeadUrl != currentUrl && !UrlUtils.isShortLinkDomain(finalHeadUrl)) {
+                    val target = UrlUtils.normalizeUrl(finalHeadUrl)
+                    return cacheResolvedShortLink(url, target)
+                }
+
                 val rawLocation = resp.headers["Location"]
                 if (!rawLocation.isNullOrBlank()) {
                     val nextUrl = resolveRelativeUrl(currentUrl, rawLocation)
@@ -65,11 +71,15 @@ class ShortLinkResolver(
                         return cacheResolvedShortLink(url, nextUrl)
                     }
                 } else {
+                    val target = UrlUtils.normalizeUrl(finalHeadUrl)
+                    if (!UrlUtils.isShortLinkDomain(target)) {
+                        return cacheResolvedShortLink(url, target)
+                    }
                     val getResp = client.get(currentUrl) {
                         header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
                     }
-                    val target = UrlUtils.normalizeUrl(getResp.request.url.toString())
-                    return cacheResolvedShortLink(url, target)
+                    val getTarget = UrlUtils.normalizeUrl(getResp.request.url.toString())
+                    return cacheResolvedShortLink(url, getTarget)
                 }
             } catch (e: Exception) {
                 if (e is CancellationException) throw e

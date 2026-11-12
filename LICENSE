@@ -676,12 +676,21 @@ Public License instead of this License.  But first, please read
 ----------------------------------------------------------------------
 ADDITIONAL PERMISSION UNDER GNU GPL VERSION 3 SECTION 7
 
+Copyright (C) 2026 Daniel Notthoff
+
 In addition to the permissions granted under the GNU General Public License
 version 3, the copyright holders grant permission to link this software
-with the proprietary Apple ShazamKit SDK, Apple ShazamKit Framework,
-and RevenueCat Purchases SDK, and to distribute the resulting executables
-through digital distribution platforms (including the Google Play Store,
-Apple App Store, and GitHub Releases).
+with proprietary software and SDKs required for digital distribution and
+playback recognition, specifically:
+- Apple ShazamKit SDK and Apple ShazamKit Framework
+- RevenueCat Purchases SDK and RevenueCatUI
+- Google Play Billing Library (com.android.billingclient:billing)
+- Google Play In-App Review SDK (com.google.android.play:review)
+
+Permission is further granted to convey and distribute the resulting combined
+executables through digital distribution platforms (including the Google Play Store,
+Apple App Store, TestFlight, and GitHub Releases) notwithstanding the terms
+of Section 3, Section 6, and Section 10 of the GNU General Public License version 3.
 
 If you modify this Program, you may extend this exception to your version
 of the Program, but you are not obligated to do so. If you do not wish to

@@ -74,6 +74,8 @@ fun PlaylistConversionResult.cleanGhostAndAiTracks(): PlaylistConversionResult {
     }
 }
 
+private val NON_ALPHANUMERIC_UNICODE = Regex("[^\\p{L}\\p{N}]")
+
 fun PlaylistConversionResult.deduplicated(): PlaylistConversionResult {
     if (tracks.isEmpty()) return this
     val seen = mutableSetOf<String>()
@@ -81,10 +83,12 @@ fun PlaylistConversionResult.deduplicated(): PlaylistConversionResult {
     for (t in tracks) {
         val normTitle = t.title.lowercase().trim()
             .replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
-            .replace("[^a-z0-9]".toRegex(), "")
+            .replace(NON_ALPHANUMERIC_UNICODE, "")
+            .ifEmpty { t.title.lowercase().trim() }
         val normArtist = t.artist.lowercase().trim()
             .replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
-            .replace("[^a-z0-9]".toRegex(), "")
+            .replace(NON_ALPHANUMERIC_UNICODE, "")
+            .ifEmpty { t.artist.lowercase().trim() }
         val key = "${normArtist}_${normTitle}"
         if (seen.add(key)) {
             uniqueTracks.add(t)

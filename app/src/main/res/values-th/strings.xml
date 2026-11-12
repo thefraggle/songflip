@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">SongFlip</string>
     <string name="app_tagline">เปลี่ยนเส้นทางลิงก์เพลงอัตโนมัติ</string>
@@ -129,7 +130,6 @@
     <string name="podcast_dialog_body">SongFlip เชี่ยวชาญด้านแทร็กเพลงและอัลบั้ม ยังไม่รองรับพอดแคสต์และหนังสือเสียงสำหรับการแปลงในขณะนี้</string>
     <string name="podcast_badge">พอดแคสต์</string>
     <string name="audiobook_badge">หนังสือเสียง</string>
-
     <string name="theme_label">ธีม</string>
     <string name="theme_system">ตามระบบ</string>
     <string name="theme_light">สว่าง</string>
@@ -267,8 +267,7 @@
     <string name="share_universal_link_desc">สร้างลิงก์ songflip.link สากลสำหรับเพื่อนบนทุกแพลตฟอร์มเพลง</string>
     <string name="pro_offerings_error">ไม่สามารถโหลดราคา PRO ได้ โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ต</string>
     <string name="action_retry">ลองอีกครั้ง</string>
-    <!-- Playlist Converter Strings -->
-        <string name="playlist_large_notice_title">เพลย์ลิสต์ขนาดใหญ่ (%1$d เพลง)</string>
+    <string name="playlist_large_notice_title">เพลย์ลิสต์ขนาดใหญ่ (%1$d เพลง)</string>
     <string name="playlist_large_notice_desc">ไม่ต้องเข้าสู่ระบบ โดยจะโอนย้ายเพลง 200 เพลงแรกเป็นส่วนๆ</string>
     <string name="playlist_spotify_limit_notice">หมายเหตุ: หากไม่มีการเชื่อมต่อบัญชี Spotify จะเปิดเผยเพลย์ลิสต์สูงสุดเพียง 100 เพลงแรกเท่านั้น</string>
     <string name="playlist_converter_title">ตัวแปลงเพลย์ลิสต์</string>
@@ -301,7 +300,7 @@
     <string name="playlist_error_empty_desc">เพลย์ลิสต์นี้ไม่มีเพลงที่เล่นได้</string>
     <string name="playlist_btn_retry">ลองอีกครั้ง</string>
     <string name="playlist_btn_open_original">เปิดเพลย์ลิสต์เดิม</string>
-<string name="pro_restore_no_subscription">ไม่พบการสมัครสมาชิก PRO ที่ใช้งานอยู่</string>
+    <string name="pro_restore_no_subscription">ไม่พบการสมัครสมาชิก PRO ที่ใช้งานอยู่</string>
     <string name="pro_purchase_failed">ไม่สามารถทำรายการซื้อได้ โปรดลองอีกครั้ง</string>
     <string name="offline_waiting_title">กำลังรอการเชื่อมต่อ…</string>
     <string name="offline_waiting_subtitle">SongFlip จะเปลี่ยนเส้นทางโดยอัตโนมัติทันทีที่การเชื่อมต่อกลับมา</string>
@@ -309,8 +308,6 @@
     <string name="offline_waiting_cancel">ยกเลิก</string>
     <string name="history_empty_title">ยังไม่มีประวัติ</string>
     <string name="history_empty_hint">เคล็ดลับ: เปิดหรือแชร์ลิงก์เพลงเพื่อดูที่นี่</string>
-
-    <!-- Pro Features -->
     <string name="pro_feature_playlists_title">ย้ายเพลย์ลิสต์</string>
     <string name="pro_feature_playlists_desc">ย้ายเพลย์ลิสต์ทั้งหมดไปยังบริการของคุณ</string>
     <string name="pro_feature_history_title">ประวัติที่ใหญ่ขึ้น</string>
@@ -321,20 +318,17 @@
     <string name="pro_feature_links_desc">ลิงก์เดียวที่ทุกคนเปิดในเครื่องเล่นของตัวเองได้</string>
     <string name="pro_feature_review_title">คุณภาพสตูดิโอและเวอร์ชัน</string>
     <string name="pro_feature_review_desc">เน้น Hi-Res/Atmos และเลือกเวอร์ชันเอง</string>
-    <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">ยังไม่วางจำหน่าย</string>
     <string name="prerelease_sheet_desc">อัลบั้มนี้ยังไม่เปิดให้ฟังบนแพลตฟอร์มสตรีมมิง</string>
     <string name="prerelease_btn_presave_spotify">บันทึกล่วงหน้าบน Spotify</string>
     <string name="prerelease_btn_search_target">ค้นหาซิงเกิลใน %1$s</string>
     <string name="prerelease_btn_cancel">ยกเลิก</string>
     <string name="share_self_link_notice">นี่คือลิงก์ SongFlip โปรดแชร์ลิงก์เพลงแทน</string>
-    <!-- Free Trial Offer -->
     <string name="pro_trial_badge">ทดลองฟรี %1$d วัน</string>
     <string name="pro_price_annual_trial">ทดลองฟรี %1$d วัน หลังจากนั้น %2$s / เดือน (จากปกติ %3$s)</string>
     <string name="pro_price_annual_trial_intro">ทดลองฟรี %1$d วัน หลังจากนั้น %2$s / เดือน ในปีแรก (จากปกติ %3$s)</string>
     <string name="pro_price_annual_trial_simple">ทดลองฟรี %1$d วัน หลังจากนั้น %2$s / ปี</string>
     <string name="pro_btn_annual_trial">ทดลองใช้ฟรี %1$d วัน</string>
-    <!-- In-App Feedback Dialog -->
     <string name="feedback_title">ข้อเสนอแนะและความช่วยเหลือ</string>
     <string name="feedback_cat_bug">🐛 ปัญหา</string>
     <string name="feedback_cat_feature">💡 ไอเดีย</string>
@@ -347,19 +341,14 @@
     <string name="feedback_success">ขอบคุณสำหรับข้อเสนอแนะของคุณ!</string>
     <string name="feedback_error_empty">โปรดระบุอย่างน้อย 10 ตัวอักษร</string>
     <string name="feedback_error_network">ส่งไม่สำเร็จ โปรดส่งทางอีเมลแทน</string>
-
     <string name="playlist_active_banner_title">เพลย์ลิสต์ที่ใช้งานอยู่</string>
     <string name="playlist_active_banner_details">รายละเอียด</string>
     <string name="playlist_active_banner_open">เปิดใน %1$s</string>
     <string name="playlist_active_banner_dismiss">ปิด</string>
-
-    <!-- Preferred Player Selection -->
     <string name="settings_preferred_player_title">เครื่องเล่นที่ต้องการ</string>
     <string name="settings_preferred_player_subtitle">เลือกแอปสำหรับเล่นเพลง</string>
     <string name="settings_preferred_player_auto">อัตโนมัติ</string>
     <string name="settings_preferred_player_auto_desc">แนะนำ: ใช้แอปเริ่มต้น</string>
-
-    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">ค้นหาและแปลงลิงก์</string>
     <string name="search_hint">ค้นหาเพลงหรือศิลปิน…</string>
     <string name="search_initial_prompt">พิมพ์ชื่อเพลงหรือศิลปิน</string>
@@ -384,13 +373,12 @@
     <string name="history_filter_all">ทั้งหมด</string>
     <string name="history_filter_favorites">รายการโปรด</string>
     <string name="target_player_chip">เครื่องเล่น: %1$s</string>
-    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">ค้นหาเพลงที่กำลังเล่นอยู่รอบตัวคุณ</string>
     <string name="badge_identified">ระบุแล้ว</string>
     <string name="listen_free_scans_remaining">สแกนฟรีเหลือ %1$d/%2$d ครั้งในเดือนนี้</string>
     <string name="listen_status_listening">กำลังฟังเพลง…</string>
-        <string name="listen_status_hint_loud">เสียงดังเกินไปหรือผิดเพี้ยน – กรุณาถืออุปกรณ์ให้ห่างออกไปเล็กน้อย</string>
+    <string name="listen_status_hint_loud">เสียงดังเกินไปหรือผิดเพี้ยน – กรุณาถืออุปกรณ์ให้ห่างออกไปเล็กน้อย</string>
     <string name="listen_status_hint">ถืออุปกรณ์ของคุณให้ใกล้ลำโพงมากขึ้น</string>
     <string name="listen_status_resolving">กำลังจับคู่สำหรับเครื่องเล่นของคุณ…</string>
     <string name="listen_saved_to_history">บันทึกในประวัติแล้ว</string>
@@ -399,7 +387,7 @@
     <string name="listen_scan_again">ค้นหาเพลงอื่น</string>
     <string name="listen_offline_saved_title">บันทึกในโหมดคลับออฟไลน์แล้ว</string>
     <string name="listen_offline_saved_desc">บันทึกลายนิ้วมือเสียงแล้ว (รอดำเนินการ %1$d รายการ) SongFlip จะค้นหาเพลงให้อัตโนมัติเมื่อคุณกลับมาออนไลน์</string>
-        <plurals name="listen_offline_resolved_toast">
+    <plurals name="listen_offline_resolved_toast">
         <item quantity="other">ระบุเพลงออฟไลน์ %1$d เพลงและเพิ่มในประวัติแล้ว!</item>
     </plurals>
     <string name="listen_no_match_title">ไม่พบเพลงที่ตรงกัน</string>
@@ -443,7 +431,8 @@
     <string name="first_launch_step3_desc">เปิดใช้งานลิงก์แอปในการตั้งค่าระบบเพื่อให้ลิงก์เพลงเปิดในเครื่องเล่นเป้าหมายได้โดยตรง</string>
     <string name="first_launch_btn_done">เริ่มต้นใช้งาน</string>
     <string name="settings_how_it_works">คู่มือฉบับย่อ / วิธีการทำงาน</string>
-
     <string name="target_anghami">Anghami</string>
     <string name="playlist_ghost_tracks_notice">ล้างแทร็ก AI และแทร็กผีที่น่าสงสัย %1$d แทร็ก</string>
+    <string name="playlist_import_default_title">Imported Playlist</string>
+    <string name="unknown_track">Unknown Song</string>
 </resources>

@@ -73,7 +73,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     val current = _activePlaylistConversion.value
                     if (current != null && current.state is PlaylistConversionState.Success) {
                         val res = (current.state as PlaylistConversionState.Success).result
-                        if (res.isLimited || res.totalTracks <= 5) {
+                        if (res.isLimited) {
                             startPlaylistConversion(
                                 playlistUrl = current.playlistUrl,
                                 targetPlatformKey = current.targetPlatformKey,

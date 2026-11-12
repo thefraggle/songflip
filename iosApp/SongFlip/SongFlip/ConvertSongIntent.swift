@@ -33,6 +33,7 @@ struct ConvertSongIntent: AppIntent {
 
     static var title: LocalizedStringResource = LocalizedStringResource("intent_title", defaultValue: "Open Song in SongFlip")
     static var description = IntentDescription(LocalizedStringResource("intent_description", defaultValue: "Converts a copied or shared music link and opens the target app."))
+    static var openAppWhenRun: Bool = true
 
     @Parameter(title: LocalizedStringResource("intent_param_music_link", defaultValue: "Music Link"))
     var inputUrl: String?
@@ -52,7 +53,8 @@ struct ConvertSongIntent: AppIntent {
         let locale = Locale.current.identifier
 
         let aptabaseKey = Bundle.main.infoDictionary?["APTABASE_APP_KEY"] as? String ?? ""
-        let aptabaseHost = Bundle.main.infoDictionary?["APTABASE_HOST"] as? String ?? "https://api.aptabase.com"
+        let rawHost = (Bundle.main.infoDictionary?["APTABASE_HOST"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let aptabaseHost = (rawHost.hasPrefix("https://") || rawHost.hasPrefix("http://")) ? rawHost : "https://api.aptabase.com"
 
         #if DEBUG
         if aptabaseKey.isEmpty {
@@ -76,13 +78,15 @@ struct ConvertSongIntent: AppIntent {
         ensureAptabaseInitialized()
 
         let urlToConvert: String
+        let rawSource: String
         if let input = inputUrl?.trimmingCharacters(in: .whitespacesAndNewlines), !input.isEmpty {
-            urlToConvert = input
+            rawSource = input
         } else if let clip = UIPasteboard.general.string?.trimmingCharacters(in: .whitespacesAndNewlines), !clip.isEmpty {
-            urlToConvert = clip
+            rawSource = clip
         } else {
             throw ConvertSongIntentError.emptyClipboard
         }
+        urlToConvert = UrlUtils.shared.extractCleanUrl(rawInput: rawSource) ?? rawSource
 
         let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
         let rawTarget = defaults.string(forKey: "target_platform") ?? "appleMusic"

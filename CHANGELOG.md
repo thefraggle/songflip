@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.14.15] - 2026-11-12
+- **International Character & Script Support**: Preserved title and artist formatting for non-Latin writing systems during playlist deduplication and matching.
+- **Link & Redirect Validation**: Strengthened address verification across routing paths to block unsupported or malformed links.
+- **Resolver Performance & Precision**: Improved search accuracy across streaming catalogs and removed redundant full downloads for shortlinks.
+- **Storage Consistency & Reliability**: Hardened local database transactions and connection settings against race conditions during simultaneous lookups.
+- **Audio Environment Calibration**: Refined microphone quality detection to assess raw ambient sound levels accurately without distortion alarms.
+- **Expanded Multilingual Coverage**: Completed missing translation entries across all language catalogs, including Arabic interface integration.
+
 ## [1.14.14] - 2026-11-11
 - **Decoupled Architecture & Vendor Asset Security**: Completely decoupled proprietary recognition binaries from source tracking to ensure autonomous builds, with secure automated fetching in release pipelines (#168).
 - **Environment & Telemetry Neutrality**: Hardened configuration templates and build defaults to use neutral endpoints without exposing private infrastructure.

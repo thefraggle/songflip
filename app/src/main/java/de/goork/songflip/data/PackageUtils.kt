@@ -627,6 +627,10 @@ object PackageUtils {
      * - Priority 3: System Browser chooser, strictly excluding SongFlip from target candidates.
      */
     fun openWebFallback(context: Context, fallbackUrl: String): Boolean {
+        if (!de.goork.songflip.core.util.UrlUtils.isSafeTargetUrl(fallbackUrl)) {
+            android.util.Log.w("PackageUtils", "Blocked unsafe fallback URL: $fallbackUrl")
+            return false
+        }
         val uri = try {
             android.net.Uri.parse(fallbackUrl)
         } catch (_: Exception) {
@@ -707,6 +711,10 @@ object PackageUtils {
         nativeAppUri: String? = null
     ): Boolean {
         val targetUrl = rawTargetUrl.replace("music.music.youtube.com", "music.youtube.com")
+        if (!de.goork.songflip.core.util.UrlUtils.isSafeTargetUrl(targetUrl)) {
+            android.util.Log.w("PackageUtils", "Blocked unsafe target URL: $targetUrl")
+            return false
+        }
         val (targetPackage, uriStr) = resolveEffectiveLaunchTarget(context, targetUrl, platformKey, nativeAppUri)
         if (targetPackage != null) {
             try {

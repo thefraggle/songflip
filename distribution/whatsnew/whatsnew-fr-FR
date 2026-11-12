@@ -1,2 +1,2 @@
-- Interception de lien Anghami : intégration complète des liens Anghami dans la gestion des applications par défaut et le routage des liens système (#203).
-- Résolution résiliente des liens courts : les erreurs réseau lors de la résolution des liens courts n'empoisonnent plus le cache en mémoire, permettant des tentatives immédiates lors de la restauration de la connexion (#D8).
+- Prise en charge des caractères et des écritures internationaux : la mise en forme du titre et de l’artiste a été conservée pour les systèmes d’écriture non latins lors de la déduplication et de la mise en correspondance des playlists.
+- Validation des liens et des redirections : renforcement de la vérification des adresses sur les chemins de routage afin de bloquer les liens non pris en charge ou mal formés.

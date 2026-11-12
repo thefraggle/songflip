@@ -1,1 +1,3 @@
-- अंगामी लिंक इंटरसेप्शन: डीफॉल्ट ॲप हँडलिंग आणि सिस्टम लिंक राउटिंग (#203) मध्ये अंगामी लिंक्सचे संपूर्ण एकत्रीकरण.
+- International Character & Script Support: Preserved title and artist formatting for non-Latin writing systems during playlist deduplication and matching.
+- Link & Redirect Validation: Strengthened address verification across routing paths to block unsupported or malformed links.
+- Resolver Performance & Precision: Improved search accuracy across streaming catalogs and removed redundant full downloads for shortlinks.

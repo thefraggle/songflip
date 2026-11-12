@@ -43,10 +43,10 @@ fun ProPaywallBottomSheet(
     source: String = "paywall_sheet"
 ) {
     val proState by ProManager.proState.collectAsState()
+    val context = LocalContext.current
 
     if (proState.isPro) {
         val haptic = LocalHapticFeedback.current
-        val context = LocalContext.current
 
         ModalBottomSheet(
             onDismissRequest = onDismissRequest,
@@ -230,6 +230,18 @@ fun ProPaywallBottomSheet(
                 }
             }
         }
+    }
+
+    if (!com.revenuecat.purchases.Purchases.isConfigured) {
+        androidx.compose.runtime.LaunchedEffect(Unit) {
+            android.widget.Toast.makeText(
+                context,
+                context.getString(R.string.pro_play_store_unavailable),
+                android.widget.Toast.LENGTH_SHORT
+            ).show()
+            onDismissRequest()
+        }
+        return
     }
 
     if (offeringsLoaded) {

@@ -100,19 +100,22 @@ jobs:
 
       - name: Extract Release Notes from CHANGELOG
         if: startsWith(github.ref, 'refs/tags/')
+        env:
+          RAW_REF: ${{ github.ref_name }}
         run: |
-          VERSION="${GITHUB_REF_NAME#v}"
-          python3 -c "
-          import re
-          content = open('CHANGELOG.md').read()
-          pattern = r'## \[' + re.escape('$VERSION') + r'\].*?(?=\n## \[|\Z)'
+          python3 -c '
+          import os, re
+          from pathlib import Path
+          version = os.environ.get("RAW_REF", "").lstrip("v")
+          content = Path("CHANGELOG.md").read_text(encoding="utf-8")
+          pattern = r"## \[" + re.escape(version) + r"\].*?(?=\n## \[|\Z)"
           match = re.search(pattern, content, re.DOTALL)
           if match:
-              body = match.group(0).split('\n', 1)[1].strip()
-              open('release_notes.md', 'w').write(body)
+              body = match.group(0).split("\n", 1)[1].strip()
+              Path("release_notes.md").write_text(body, encoding="utf-8")
           else:
-              open('release_notes.md', 'w').write('Release $VERSION')
-          "
+              Path("release_notes.md").write_text(f"Release {version}", encoding="utf-8")
+          '
 
       - name: Attach APK & AAB to GitHub Release
         if: startsWith(github.ref, 'refs/tags/')
@@ -135,7 +138,7 @@ jobs:
           cat distribution/whatsnew/whatsnew-en-US || echo "No EN-US file"
 
       - name: Deploy AAB to Google Play Console (Internal Testing)
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/') && secrets.SERVICE_ACCOUNT_JSON != ''
         uses: r0adkll/upload-google-play@7f5b759879c088a86faf85d18779f7f14e79a086 # v1.1.4
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}

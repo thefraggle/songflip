@@ -50,8 +50,8 @@ class ResilienceAndCircuitBreakerTest {
     @Test
     fun testDynamicTokenRegistry() {
         DynamicTokenRegistry.reset()
-        assertEquals("REPLACED_SECRET", DynamicTokenRegistry.getTidalToken())
-        assertEquals("REPLACED_SECRET", DynamicTokenRegistry.getQobuzAppId())
+        assertEquals("", DynamicTokenRegistry.getTidalToken())
+        assertEquals("", DynamicTokenRegistry.getQobuzAppId())
 
         DynamicTokenRegistry.setToken(DynamicTokenRegistry.KEY_TIDAL_TOKEN, "new-tidal-token-123")
         DynamicTokenRegistry.setToken(DynamicTokenRegistry.KEY_QOBUZ_APP_ID, "new-qobuz-app-456")
@@ -59,8 +59,8 @@ class ResilienceAndCircuitBreakerTest {
         assertEquals("new-qobuz-app-456", DynamicTokenRegistry.getQobuzAppId())
 
         DynamicTokenRegistry.reset()
-        assertEquals("REPLACED_SECRET", DynamicTokenRegistry.getTidalToken())
-        assertEquals("REPLACED_SECRET", DynamicTokenRegistry.getQobuzAppId())
+        assertEquals("", DynamicTokenRegistry.getTidalToken())
+        assertEquals("", DynamicTokenRegistry.getQobuzAppId())
     }
 
     @Test

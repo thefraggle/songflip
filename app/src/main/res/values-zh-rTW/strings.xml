@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">SongFlip</string>
     <string name="app_tagline">音樂連結自動跳轉</string>
@@ -129,7 +130,6 @@
     <string name="podcast_dialog_body">SongFlip 專注於音樂曲目與專輯。目前暫不支援 Podcast 與有聲書的跨平台轉換。</string>
     <string name="podcast_badge">Podcast</string>
     <string name="audiobook_badge">有聲書</string>
-
     <string name="theme_label">主題外觀</string>
     <string name="theme_system">跟隨系統</string>
     <string name="theme_light">淺色</string>
@@ -267,8 +267,7 @@
     <string name="share_universal_link_desc">為任何音樂平台上的朋友建立通用的 songflip.link 連結</string>
     <string name="pro_offerings_error">無法載入 PRO 價格，請檢查網路連線。</string>
     <string name="action_retry">重試</string>
-    <!-- Playlist Converter Strings -->
-        <string name="playlist_large_notice_title">大型播放清單（%1$d首）</string>
+    <string name="playlist_large_notice_title">大型播放清單（%1$d首）</string>
     <string name="playlist_large_notice_desc">免登入模式下，前200首歌曲將分段傳輸。</string>
     <string name="playlist_spotify_limit_notice">提示：在未連結帳戶的情況下，Spotify 公開最多僅提供播放清單的前 100 首歌曲。</string>
     <string name="playlist_converter_title">播放清單轉換器</string>
@@ -301,7 +300,7 @@
     <string name="playlist_error_empty_desc">此播放清單中沒有可播放的歌曲。</string>
     <string name="playlist_btn_retry">重試</string>
     <string name="playlist_btn_open_original">開啟原始播放清單</string>
-<string name="pro_restore_no_subscription">未找到有效的 PRO 訂閱。</string>
+    <string name="pro_restore_no_subscription">未找到有效的 PRO 訂閱。</string>
     <string name="pro_purchase_failed">購買未能完成，請重試。</string>
     <string name="offline_waiting_title">等待網路連線…</string>
     <string name="offline_waiting_subtitle">網路恢復後，SongFlip 將自動重新導向。</string>
@@ -309,8 +308,6 @@
     <string name="offline_waiting_cancel">取消</string>
     <string name="history_empty_title">尚無轉換紀錄</string>
     <string name="history_empty_hint">提示：開啟或分享音樂連結後即可在此查看。</string>
-
-    <!-- Pro Features -->
     <string name="pro_feature_playlists_title">轉移播放清單</string>
     <string name="pro_feature_playlists_desc">將完整播放清單轉移到你的音樂服務</string>
     <string name="pro_feature_history_title">更大的歷史記錄</string>
@@ -321,20 +318,17 @@
     <string name="pro_feature_links_desc">一個連結，每個人都能在自己的播放器中開啟</string>
     <string name="pro_feature_review_title">母帶音質與版本選擇</string>
     <string name="pro_feature_review_desc">優先配對 Hi-Res/Atmos 並可手動選版本</string>
-    <!-- Pre-Release Notice -->
     <string name="prerelease_sheet_title">尚未發行</string>
     <string name="prerelease_sheet_desc">該專輯尚未在串流平台上架。</string>
     <string name="prerelease_btn_presave_spotify">在 Spotify 上預存</string>
     <string name="prerelease_btn_search_target">在 %1$s 中搜尋單曲</string>
     <string name="prerelease_btn_cancel">取消</string>
     <string name="share_self_link_notice">這是SongFlip連結，請分享音樂連結。</string>
-    <!-- Free Trial Offer -->
     <string name="pro_trial_badge">免費試用 %1$d 天</string>
     <string name="pro_price_annual_trial">免費試用 %1$d 天，之後 %2$s / 月（原價 %3$s）</string>
     <string name="pro_price_annual_trial_intro">免費試用 %1$d 天，首年 %2$s / 月（原價 %3$s）</string>
     <string name="pro_price_annual_trial_simple">免費試用 %1$d 天，之後 %2$s / 年</string>
     <string name="pro_btn_annual_trial">免費試用 %1$d 天</string>
-    <!-- In-App Feedback Dialog -->
     <string name="feedback_title">回饋與支援</string>
     <string name="feedback_cat_bug">🐛 問題回報</string>
     <string name="feedback_cat_feature">💡 功能建議</string>
@@ -347,19 +341,14 @@
     <string name="feedback_success">感謝您的回饋！</string>
     <string name="feedback_error_empty">請輸入至少10個字元。</string>
     <string name="feedback_error_network">傳送失敗，請嘗試使用電子郵件。</string>
-
     <string name="playlist_active_banner_title">進行中的播放清單</string>
     <string name="playlist_active_banner_details">詳細資訊</string>
     <string name="playlist_active_banner_open">在%1$s中開啟</string>
     <string name="playlist_active_banner_dismiss">關閉</string>
-
-    <!-- Preferred Player Selection -->
     <string name="settings_preferred_player_title">慣用播放器</string>
     <string name="settings_preferred_player_subtitle">選取用來播放的音樂應用程式</string>
     <string name="settings_preferred_player_auto">自動</string>
     <string name="settings_preferred_player_auto_desc">建議：使用預設應用程式</string>
-
-    <!-- In-App Search &amp; Disambiguation -->
     <string name="search_title">搜尋與轉換</string>
     <string name="search_hint">搜尋歌曲或演出者…</string>
     <string name="search_initial_prompt">輸入歌曲名或歌手</string>
@@ -384,13 +373,12 @@
     <string name="history_filter_all">全部</string>
     <string name="history_filter_favorites">最愛</string>
     <string name="target_player_chip">播放器：%1$s</string>
-    <!-- Listen &amp; Flip (#78) -->
     <string name="listen_and_flip_title">Listen &amp; Flip</string>
     <string name="listen_and_flip_subtitle">聽音識曲並轉換至你的播放器</string>
     <string name="badge_identified">已識曲</string>
     <string name="listen_free_scans_remaining">本月剩餘 %1$d/%2$d 次免費識曲</string>
     <string name="listen_status_listening">正在聆聽音樂…</string>
-        <string name="listen_status_hint_loud">聲音過大或失真——請將裝置稍移遠一些</string>
+    <string name="listen_status_hint_loud">聲音過大或失真——請將裝置稍移遠一些</string>
     <string name="listen_status_hint">請將裝置靠近音源</string>
     <string name="listen_status_resolving">正在配對你的播放器…</string>
     <string name="listen_saved_to_history">已儲存至歷史記錄</string>
@@ -399,7 +387,7 @@
     <string name="listen_scan_again">識別另一首歌曲</string>
     <string name="listen_offline_saved_title">已儲存至離線俱樂部模式</string>
     <string name="listen_offline_saved_desc">音訊指紋已儲存（%1$d 首待處理）。恢復網路連線後，SongFlip 將自動為您識別。</string>
-        <plurals name="listen_offline_resolved_toast">
+    <plurals name="listen_offline_resolved_toast">
         <item quantity="other">已成功識別 %1$d 首離線歌曲並加入歷史記錄！</item>
     </plurals>
     <string name="listen_no_match_title">未能識別出歌曲</string>
@@ -443,7 +431,8 @@
     <string name="first_launch_step3_desc">在系統設定中啟用「應用程式連結」，即可直接在目標播放器中開啟音樂連結。</string>
     <string name="first_launch_btn_done">開始使用</string>
     <string name="settings_how_it_works">快速指南 / 使用說明</string>
-
     <string name="target_anghami">Anghami</string>
     <string name="playlist_ghost_tracks_notice">已清理 %1$d 首疑似 AI 與虛擬幽靈曲目</string>
+    <string name="playlist_import_default_title">Imported Playlist</string>
+    <string name="unknown_track">Unknown Song</string>
 </resources>

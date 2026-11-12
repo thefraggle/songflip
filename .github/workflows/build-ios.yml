@@ -130,10 +130,12 @@ jobs:
         run: |
           if [ -n "$REVENUECAT_PUBLIC_KEY" ] || [ -n "$APTABASE_APP_KEY" ]; then
             echo "Generating iosApp/SongFlip/Config.xcconfig from repository secrets..."
+            HOST="${APTABASE_HOST:-https://api.aptabase.com}"
+            ESCAPED_HOST="${HOST/\/\//\/\$()\/}"
             cat << EOF > iosApp/SongFlip/Config.xcconfig
           REVENUECAT_PUBLIC_KEY = ${REVENUECAT_PUBLIC_KEY:-}
           APTABASE_APP_KEY = ${APTABASE_APP_KEY:-}
-          APTABASE_HOST = ${APTABASE_HOST:-https://api.aptabase.com}
+          APTABASE_HOST = ${ESCAPED_HOST}
           EOF
           else
             echo "ℹ️ No production secrets configured; building in open-source stub mode."
@@ -161,6 +163,7 @@ jobs:
           fi
 
       - name: Export IPA
+        if: env.HAVE_SIGNING == 'true'
         run: |
           mkdir -p dist
           cat << EOF > $RUNNER_TEMP/ExportOptions.plist
@@ -226,7 +229,7 @@ jobs:
             exit 0
           fi
           mkdir -p ~/.appstoreconnect/private_keys
-          echo "$ASC_API_KEY_P8" > ~/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8
+          (umask 077 && echo "$ASC_API_KEY_P8" > ~/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8)
 
           IPA_FILE=$(ls dist/*.ipa 2>/dev/null | head -n 1)
           if [ -n "$IPA_FILE" ] && [ -f "$IPA_FILE" ]; then
@@ -276,3 +279,8 @@ jobs:
             exit 0
           fi
           bundle exec fastlane upload_metadata
+
+      - name: Cleanup Private Keys
+        if: always()
+        run: |
+          rm -rf ~/.appstoreconnect/private_keys
