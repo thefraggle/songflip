@@ -2,6 +2,7 @@
 
 ## [1.14.18] - 2026-11-13
 - **History & Storage Recovery**: Restored local song history access by using cursor-compatible query execution for SQLite busy-timeout configuration and resilient schema upgrade handling.
+- **Disambiguation Resolution**: Fixed parameter forwarding during manual track selection for seamless history updates.
 - **Continuous Integration & Linker Configuration**: Streamlined automated test execution and linked native SQLite libraries across all binary targets.
 
 ## [1.14.17] - 2026-11-13

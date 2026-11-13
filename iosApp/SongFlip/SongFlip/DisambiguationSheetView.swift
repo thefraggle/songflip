@@ -365,6 +365,7 @@ struct DisambiguationSheetView: View {
                         customApiToken: settings.customApiToken,
                         isPro: ProManager.shared.isPro,
                         authToken: ProManager.shared.authToken,
+                        isPrefetch: false,
                         forceRefresh: true,
                         audiophileMode: ProManager.shared.isPro && settings.audiophileMode
                     )

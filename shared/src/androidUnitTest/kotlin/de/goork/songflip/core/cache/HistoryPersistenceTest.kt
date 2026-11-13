@@ -64,4 +64,27 @@ class HistoryPersistenceTest {
             content.contains("execSQL(\"PRAGMA")
         )
     }
+
+    @Test
+    fun testIosSwiftResolveTargetUrlCallsMustIncludeIsPrefetchWhenUsingFullSignature() {
+        val iosDir = java.io.File("../iosApp")
+        val swiftFiles = iosDir.walkTopDown().filter { it.isFile && it.extension == "swift" }.toList()
+        org.junit.Assert.assertTrue("Expected Swift source files in ../iosApp", swiftFiles.isNotEmpty())
+
+        val callBlockRegex = Regex("""\.resolveTargetUrl\s*\(([\s\S]*?)\n\s*\)""")
+        for (file in swiftFiles) {
+            val text = file.readText()
+            for (match in callBlockRegex.findAll(text)) {
+                val args = match.groupValues[1]
+                // Kotlin/Native exports no default parameter values to Objective-C/Swift.
+                // Any call passing isPro, authToken, or audiophileMode must pass all 9 parameters including isPrefetch:
+                if (args.contains("isPro:") || args.contains("authToken:") || args.contains("audiophileMode:")) {
+                    org.junit.Assert.assertTrue(
+                        "Missing 'isPrefetch:' parameter in Kotlin/Native resolveTargetUrl call in ${file.name}: $args",
+                        args.contains("isPrefetch:")
+                    )
+                }
+            }
+        }
+    }
 }

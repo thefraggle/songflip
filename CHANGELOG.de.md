@@ -2,6 +2,7 @@
 
 ## [1.14.18] - 2026-11-13
 - **Verlaufs- & Speicher-Wiederherstellung**: Lokaler Songverlauf wird wieder vollständig geladen, indem SQLite-Zeitlimit-Abfragen cursor-kompatibel ausgeführt und Schema-Aktualisierungen fehlertolerant abgesichert werden.
+- **Manuelle Trefferauswahl**: Korrigierte Parameterübergabe bei der alternativen Trefferauflösung für nahtlose Aktualisierungen im Verlauf.
 - **Build- & Test-Pipeline**: Optimierte automatisierte Testläufe sowie durchgängige SQLite-Bibliotheksverknüpfung für alle Binärziele.
 
 ## [1.14.17] - 2026-11-13
