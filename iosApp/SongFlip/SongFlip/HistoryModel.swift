@@ -179,8 +179,13 @@ class HistoryModel: ObservableObject {
         }
     }
 
+    private var isMigrating = false
+
     private func migrateRemainingUserDefaultsIfNeeded() async {
+        guard !isMigrating else { return }
         guard let data = defaults.data(forKey: Self.storageKey) else { return }
+        isMigrating = true
+        defer { isMigrating = false }
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
         var legacyItems: [HistoryItem] = []

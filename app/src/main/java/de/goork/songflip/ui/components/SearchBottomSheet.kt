@@ -158,6 +158,7 @@ fun SearchBottomSheet(
                     inputUrl = sourceUrl,
                     targetPlatformKey = targetPlatformKey,
                     isPro = proState.isPro,
+                    authToken = de.goork.songflip.data.ProManager.getAuthToken(),
                     audiophileMode = proState.isPro && settingsRepository.audiophileMode
                 )
             }
@@ -375,6 +376,7 @@ fun SearchBottomSheet(
                                                 inputUrl = trimmedQuery,
                                                 targetPlatformKey = targetPlatformKey,
                                                 isPro = proState.isPro,
+                                                authToken = de.goork.songflip.data.ProManager.getAuthToken(),
                                                 audiophileMode = proState.isPro && settingsRepository.audiophileMode
                                             )
                                         }
@@ -775,6 +777,7 @@ fun SearchBottomSheet(
                                 inputUrl = sUrl,
                                 targetPlatformKey = pickedTarget,
                                 isPro = proState.isPro,
+                                authToken = de.goork.songflip.data.ProManager.getAuthToken(),
                                 audiophileMode = proState.isPro && settingsRepository.audiophileMode
                             )
                         }

@@ -63,7 +63,7 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 - **📤 Share Sheet Target (`ACTION_SEND`)**: Supports shared text containing links from WhatsApp, Instagram, and Reddit with automatic URL sanitization, instant fast-fail forwarding for non-music social video links, and helpful guidance toward Listen & Flip.
 - **🛡️ Version & Remix Safeguards & Video Cleaning**: Smart stripping of video noise (`[Official Video]`, `[4K]`, `(Visualizer)`) with strict preservation and scoring to protect original studio tracks from unrequested remixes, club mixes, or alternate edits across streaming catalogs.
 - **⚡ Flicker-Free Instant Redirection**: 350ms debounced overlay threshold guarantees that fast memory and edge-cache resolutions remain completely silent and flicker-free, displaying smooth progress cards only when network delays occur.
-- **🔧 Guided App Link Conflict Diagnosis**: Proactively detects when third-party apps or browsers hijack supported music domains, providing 1-tap navigation to the exact conflicting app settings to restore zero-click redirection across all 10 streaming services.
+- **🔧 Guided App Link Conflict Diagnosis**: Proactively detects when third-party apps or browsers hijack supported music domains, providing 1-tap navigation to the exact conflicting app settings to restore zero-click redirection across all 11 selectable streaming services.
 - **♿ Accessible UI & 5-State Component Feedback**: All bottom sheets and interactive controls adhere to WCAG AA minimum 48dp touch targets, support instant dismissal via the Escape (ESC) key and backdrop clicks, and explicitly handle 5 UI states (Default, Hover, Active/Focus, Disabled, Loading) for instant visual feedback.
 - **🛡️ 100% Privacy & Zero Tracking**: No accounts, no logins, no advertising IDs, and no listening habits collected.
 
@@ -136,8 +136,6 @@ sdk.dir=/Users/<username>/Library/Android/sdk
 # revenuecat.api.key=goog_...
 # aptabase.app.key=A-EU-...
 # aptabase.host=https://api.aptabase.com
-# tidal.app.token=...
-# qobuz.app.id=...
 ```
 
 For iOS development, copy `iosApp/SongFlip/Config.example.xcconfig` to `iosApp/SongFlip/Config.xcconfig` (git-ignored) and build the shared framework first:

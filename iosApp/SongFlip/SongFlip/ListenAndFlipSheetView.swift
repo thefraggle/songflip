@@ -126,7 +126,18 @@ struct ListenAndFlipSheetView: View {
                                     isResolvingAlternative = false
                                     let action = FlipCoordinator.resolveAction(result: res, targetPlatform: chosenPlatform)
                                     switch action {
-                                    case .openResolved(let targetUrl, let nativeAppUri, let platformKey, let title, let artist, _, _, _, _):
+                                    case .openResolved(let targetUrl, let nativeAppUri, let platformKey, let title, let artist, let isAlbum, _, _, let thumb):
+                                        FlipCoordinator.trackAction(action, inputUrl: pUrl, targetPlatform: chosenPlatform)
+                                        HistoryModel.shared.add(
+                                            sourceUrl: pUrl,
+                                            targetPlatform: platformKey,
+                                            targetUrl: targetUrl,
+                                            title: title ?? LocalizationManager.string(for: "unknown_song", lang: lang),
+                                            artist: artist,
+                                            isAlbum: isAlbum,
+                                            thumbnailUrl: thumb,
+                                            isAcoustic: true
+                                        )
                                         settings.openResolvedTarget(
                                             targetUrl: targetUrl,
                                             nativeAppUri: nativeAppUri,

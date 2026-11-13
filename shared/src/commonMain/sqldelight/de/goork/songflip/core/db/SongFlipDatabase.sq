@@ -78,6 +78,15 @@ SELECT COUNT(*) FROM history WHERE is_favorite = 1 AND target_url != '';
 countAcousticHistory:
 SELECT COUNT(*) FROM history WHERE is_acoustic = 1 AND target_url != '';
 
+countNonFavoriteHistory:
+SELECT COUNT(*) FROM history WHERE is_favorite = 0 AND target_url != '';
+
+pruneOldestNonFavoriteHistory:
+DELETE FROM history
+WHERE cache_key IN (
+    SELECT cache_key FROM history WHERE is_favorite = 0 ORDER BY timestamp ASC LIMIT :limit
+);
+
 updateFavoriteFlag:
 UPDATE history SET is_favorite = :isFavorite WHERE cache_key = :cacheKey;
 

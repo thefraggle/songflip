@@ -3,10 +3,13 @@ name: Build & Release iOS to TestFlight / App Store Connect
 on:
   push:
     tags:
-      - 'v*'
-      - '[0-9]+.[0-9]+.[0-9]+*'
+      - 'v[0-9]*'
       - '[0-9]*'
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -34,7 +37,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install Python Dependencies
-        run: pip install deep-translator
+        run: pip install deep-translator==1.11.4
 
       - name: Generate iOS App Store Metadata & Release Notes
         run: |
@@ -266,7 +269,12 @@ jobs:
             echo "Skipping TestFlight notes: ASC_KEY_ID not configured"
             exit 0
           fi
-          bundle exec fastlane set_testflight_notes
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          if [ -z "$TAG_VERSION" ]; then
+            TAG_VERSION=$(grep -m1 'MARKETING_VERSION =' iosApp/SongFlip/SongFlip.xcodeproj/project.pbxproj | sed 's/.*= //;s/;//;s/ //g')
+          fi
+          BUILD_NUMBER=$(grep -m1 'CURRENT_PROJECT_VERSION =' iosApp/SongFlip/SongFlip.xcodeproj/project.pbxproj | sed 's/.*= //;s/;//;s/ //g')
+          bundle exec fastlane set_testflight_notes version:"$TAG_VERSION" build_number:"$BUILD_NUMBER"
 
       # Best-effort: updates ASC store metadata (release notes, keywords, description, etc.) if an editable version exists
       # Re-run anytime independently via ios-metadata.yml

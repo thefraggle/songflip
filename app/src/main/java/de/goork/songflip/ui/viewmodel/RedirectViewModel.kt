@@ -233,6 +233,7 @@ class RedirectViewModel : ViewModel() {
                                 _uiState.value = RedirectUiState.DirectShareUniversal(shareUrl)
                             }
                         } catch (e: Exception) {
+                            if (e is kotlinx.coroutines.CancellationException) throw e
                             de.goork.songflip.core.util.SongFlipLogger.w("RedirectViewModel", "Failed to resolve universal share for same-platform: ${e.message}", e)
                             withContext(Dispatchers.Main) {
                                 _uiState.value = RedirectUiState.ForwardOriginal(Uri.parse(incomingUrl))

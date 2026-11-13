@@ -363,7 +363,10 @@ struct DisambiguationSheetView: View {
                         targetPlatformKey: cleanPlatform,
                         customApiUrl: settings.customApiUrl,
                         customApiToken: settings.customApiToken,
-                        forceRefresh: true
+                        isPro: ProManager.shared.isPro,
+                        authToken: ProManager.shared.authToken,
+                        forceRefresh: true,
+                        audiophileMode: ProManager.shared.isPro && settings.audiophileMode
                     )
                     if let success = res as? ResolutionResult.Success {
                         finalTargetUrl = success.targetUrl

@@ -1,5 +1,12 @@
 # Changelog (Deutsch)
 
+## [1.14.17] - 2026-11-13
+- **Link-Sicherheit & Weiterleitung**: Verbesserte Adressprüfung für Podcasts, Wiedergabelisten und eigene Endpunkte zur Vermeidung von Weiterleitungsschleifen.
+- **Playlist-Verlauf & Zwischenspeicher**: Gespeicherte Wiedergabelisten öffnen jetzt zuverlässig im ursprünglich gewählten Ziel-Player ohne unnötiges Neuladen.
+- **Datenbank-Stabilität**: Optimierte Datenbank-Zugriffe und bereinigte Verlaufs-Migration sorgen für schnelleres, konfliktfreies Speichern.
+- **Schnellauswahl & Player-Erkennung**: Scrollbare Dienstauswahl auf kompakten Bildschirmen sowie erweiterte Erkennung alternativer und Podcast-Player.
+- **Farbkontraste & Auswertung**: Statusanzeigen richten sich nun konsequent nach dem gewählten App-Design für bessere Lesbarkeit.
+
 ## [1.14.16] - 2026-11-13
 - **Store-Katalog- & Konfigurations-Integrität**: Korrigierte Einbettung von Konfigurationsschlüsseln und Programmschemata in Release-Paketen für zuverlässige Katalog-Initialisierung.
 - **Internationale Schrift- & Zeichenunterstützung**: Erhalt von Titel- und Künstlernamen nicht-lateinischer Schriften bei der Duplikatbereinigung und Suche.
@@ -67,6 +74,12 @@
 - **Dienst-Zuverlässigkeit**: Verbesserte Ausweichrouten bei Server-Verzögerungen und optimierte Hintergrundinitialisierung.
 
 ## [1.14.5] - 2026-11-10
+- **Status-Anzeige & Store-Metadaten**: Kompakte Status-Ansicht für aktive Mitgliedschaften harmonisiert sowie sprachneutrale Release-Texte synchronisiert.
+
+## [1.14.4] - 2026-11-09
+- **Native Angebots-Ansicht**: Umstellung auf native, dynamisch verwaltete Angebots-Layouts mit verbesserter Schließen-Steuerung und 26 Sprachen.
+
+## [1.14.3] - 2026-11-09
 - **Zuverlässige Player-Erkennung & Weiterleitung**: Präzisierte automatische Player-Erkennung verhindert die fälschliche Vorauswahl nicht installierter Musikdienste und garantiert zuverlässigen Web-Fallback im Browser.
 - **Systemstabilität**: Optimierte Verknüpfungs- und Weiterleitungslogik zur Vermeidung stiller Abbrüche beim Öffnen von Titeln.
 

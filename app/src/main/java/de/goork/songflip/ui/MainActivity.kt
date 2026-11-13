@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.widget.Toast
+import de.goork.songflip.data.PackageUtils
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -206,10 +207,7 @@ class MainActivity : AppCompatActivity() {
                     val targetUrl = lastEntry?.targetUrl
                     if (!targetUrl.isNullOrBlank() && de.goork.songflip.core.util.UrlUtils.isSafeTargetUrl(targetUrl)) {
                         try {
-                            val playIntent = Intent(Intent.ACTION_VIEW, Uri.parse(targetUrl)).apply {
-                                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                            }
-                            startActivity(playIntent)
+                            PackageUtils.launchTargetOrFallback(this@MainActivity, targetUrl, lastEntry.targetPlatformKey)
                         } catch (e: Exception) {
                             de.goork.songflip.core.util.SongFlipLogger.w("MainActivity", "Failed to launch play last song intent: ${e.message}", e)
                             Toast.makeText(this@MainActivity, getString(R.string.shortcut_no_last_song), Toast.LENGTH_SHORT).show()
@@ -306,6 +304,7 @@ fun MainScreen(
     var proPaywallSource by remember { mutableStateOf("header_pro_badge") }
     var initialShowPromoInPaywall by remember { mutableStateOf(false) }
     var showPlaylistConvertSheet by remember { mutableStateOf(initialPlaylistUrl) }
+    var showPlaylistTargetKey by remember { mutableStateOf<String?>(null) }
     var importedPlaylistTracks by remember { mutableStateOf<List<ParsedImportTrack>?>(null) }
     var importedPlaylistTitle by remember { mutableStateOf<String?>(null) }
     var showPodcastNoticeSheet by remember { mutableStateOf<String?>(null) }
@@ -595,9 +594,11 @@ fun MainScreen(
                 showSettingsBottomSheet = false
                 showAppLinksSetupBottomSheet = true
             },
-            onOpenPlaylist = { playlistUrl, _ ->
+            onOpenPlaylist = { playlistUrl, targetKey ->
                 showSettingsBottomSheet = false
+                showPlaylistTargetKey = targetKey
                 showPlaylistConvertSheet = playlistUrl
+                viewModel.startPlaylistConversion(playlistUrl, targetKey, proState.isPro, force = false)
             },
             onImportPlaylistFile = {
                 playlistFilePickerLauncher.launch("*/*")
@@ -660,9 +661,11 @@ fun MainScreen(
                 proPaywallSource = source
                 showProPaywall = true
             },
-            onOpenPlaylist = { playlistUrl, _ ->
+            onOpenPlaylist = { playlistUrl, targetKey ->
                 showHistoryBottomSheet = false
+                showPlaylistTargetKey = targetKey
                 showPlaylistConvertSheet = playlistUrl
+                viewModel.startPlaylistConversion(playlistUrl, targetKey, proState.isPro, force = false)
             }
         )
     }
@@ -716,11 +719,13 @@ fun MainScreen(
     }
 
     showPlaylistConvertSheet?.let { playlistUrl ->
+        val effectiveTargetKey = showPlaylistTargetKey ?: selectedTargetKey
         PlaylistConvertBottomSheet(
             playlistUrl = playlistUrl,
-            targetPlatformKey = selectedTargetKey,
+            targetPlatformKey = effectiveTargetKey,
             onDismiss = {
                 showPlaylistConvertSheet = null
+                showPlaylistTargetKey = null
                 importedPlaylistTracks = null
                 importedPlaylistTitle = null
             },
@@ -730,7 +735,7 @@ fun MainScreen(
             },
             externalConversionState = activePlaylistConversion?.takeIf { it.playlistUrl == playlistUrl }?.state,
             onRetryConversion = {
-                viewModel.startPlaylistConversion(playlistUrl, selectedTargetKey, proState.isPro, force = true)
+                viewModel.startPlaylistConversion(playlistUrl, effectiveTargetKey, proState.isPro, force = true)
             },
             importedTracks = importedPlaylistTracks,
             importedPlaylistTitle = importedPlaylistTitle
@@ -812,22 +817,10 @@ fun MainScreen(
                         activeConversion = activeConversion,
                         isPro = proState.isPro,
                         onOpenTarget = { targetUrl ->
-                            try {
-                                val redirectIntent = Intent(Intent.ACTION_VIEW, Uri.parse(targetUrl)).apply {
-                                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                }
-                                context.startActivity(redirectIntent)
-                            } catch (_: Exception) {
-                            }
+                            PackageUtils.launchTargetOrFallback(context, targetUrl, activeConversion.targetPlatformKey)
                         },
                         onOpenOriginal = { originalUrl ->
-                            try {
-                                val redirectIntent = Intent(Intent.ACTION_VIEW, Uri.parse(originalUrl)).apply {
-                                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                }
-                                context.startActivity(redirectIntent)
-                            } catch (_: Exception) {
-                            }
+                            PackageUtils.openWebFallback(context, originalUrl)
                         },
                         onOpenDetails = {
                             showPlaylistConvertSheet = activeConversion.playlistUrl

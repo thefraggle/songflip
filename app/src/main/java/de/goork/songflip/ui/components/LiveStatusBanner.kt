@@ -3,8 +3,8 @@ package de.goork.songflip.ui.components
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -40,7 +40,7 @@ fun LiveStatusBanner(
 ) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
-    val isDarkTheme = isSystemInDarkTheme()
+    val isDarkTheme = MaterialTheme.colorScheme.background.luminance() < 0.5f
 
     val activeColor = if (isDarkTheme) StateActiveGreen else StateActiveGreenLight
     val pausedColor = if (isDarkTheme) StatePausedAmber else StatePausedAmberLight

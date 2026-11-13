@@ -5,7 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Error
@@ -206,7 +206,7 @@ fun StatusBadge(
     modifier: Modifier = Modifier,
     onClick: (() -> Unit)? = null
 ) {
-    val isDarkTheme = isSystemInDarkTheme()
+    val isDarkTheme = MaterialTheme.colorScheme.background.luminance() < 0.5f
     val (bgColor, textColor, icon: ImageVector) = when (statusType) {
         StatusType.ACTIVE -> Triple(
             (if (isDarkTheme) StateActiveGreen else StateActiveGreenLight).copy(alpha = 0.15f),

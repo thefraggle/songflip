@@ -186,4 +186,12 @@ final class FlipCoordinator {
         let primaryUrl = URL(string: primaryStr)
         return (primaryUrl: primaryUrl, fallbackUrl: fallbackUrl)
     }
+
+    static func incrementSuccessfulFlipCount(
+        defaults: UserDefaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? .standard
+    ) {
+        let key = "successful_flip_count"
+        let current = defaults.integer(forKey: key)
+        defaults.set(current + 1, forKey: key)
+    }
 }

@@ -30,6 +30,7 @@ class SqlDelightCacheStorage(
 
     companion object {
         private const val MAX_RESOLVER_CACHE_ENTRIES = 500L
+        private const val MAX_HISTORY_ENTRIES = 1000L
         private const val APPLE_REF_OFFSET_SEC = 978_307_200.0
 
         private val lenientJson = Json {
@@ -262,6 +263,14 @@ class SqlDelightCacheStorage(
                         is_favorite = if (entry.isFavorite) 1L else 0L,
                         is_acoustic = if (isAcousticFlag) 1L else 0L
                     )
+                }
+
+                if (entry.isHistory) {
+                    val nonFavCount = db.songFlipDatabaseQueries.countNonFavoriteHistory().executeAsOne()
+                    if (nonFavCount > MAX_HISTORY_ENTRIES) {
+                        val removeCount = nonFavCount - (MAX_HISTORY_ENTRIES - 50L)
+                        db.songFlipDatabaseQueries.pruneOldestNonFavoriteHistory(removeCount)
+                    }
                 }
 
                 val count = db.songFlipDatabaseQueries.countResolverCache().executeAsOne()

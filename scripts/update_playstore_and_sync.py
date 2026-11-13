@@ -367,10 +367,12 @@ def main():
         })
 
     # 1. Write clean Markdown (Single Source of Truth, 0 quotes)
+    version_match = re.search(r'val\s+appVersionName\s*=\s*"([^"]+)"', open(os.path.join(os.path.dirname(__file__), '../app/build.gradle.kts'), encoding='utf-8').read()) if os.path.exists(os.path.join(os.path.dirname(__file__), '../app/build.gradle.kts')) else None
+    app_version = version_match.group(1) if version_match else "1.14.17"
     print(f"Writing clean Markdown to {MD_PATH}...")
     with open(MD_PATH, 'w', encoding='utf-8') as f:
         f.write("# 📱 SongFlip – Play Store & App Store Listings (Alle Sprachen)\n")
-        f.write("> **Version:** 1.14.13 | **Umfang:** 34 Play Store-Sprachen + iOS App Store (DE/EN) | **Zertifiziert:** Titel ≤ 30 Zeichen, Kurzbeschreibung ≤ 80 Zeichen, Volltext ≤ 4.000 Zeichen (UTF-16), iOS Keywords ≤ 100 Zeichen. Ohne umschließende Anführungszeichen.\n")
+        f.write(f"> **Version:** {app_version} | **Umfang:** 34 Play Store-Sprachen + iOS App Store (DE/EN) | **Zertifiziert:** Titel ≤ 30 Zeichen, Kurzbeschreibung ≤ 80 Zeichen, Volltext ≤ 4.000 Zeichen (UTF-16), iOS Keywords ≤ 100 Zeichen. Ohne umschließende Anführungszeichen.\n")
         f.write("---\n\n")
         for r in updated_rows:
             loc = r['Language']

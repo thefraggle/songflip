@@ -25,6 +25,7 @@ struct ContentView: View {
     @State private var showingShareGuide = false
     @State private var showingPlaylistNotice = false
     @State private var playlistNoticeUrl: String? = nil
+    @State private var playlistNoticeTargetPlatform: String? = nil
     @State private var showingPlaylistFileImporter = false
     @State private var importedPlaylistFileUrl: URL? = nil
     @State private var showingPodcastNotice = false
@@ -222,10 +223,11 @@ struct ContentView: View {
                     .preferredColorScheme(settings.colorScheme)
             }
             .sheet(isPresented: $showingHistorySheet) {
-                HistorySheetView(onOpenPlaylist: { url, _ in
+                HistorySheetView(onOpenPlaylist: { url, targetPlatform in
                     showingHistorySheet = false
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
                         playlistNoticeUrl = url
+                        playlistNoticeTargetPlatform = targetPlatform
                         showingPlaylistNotice = true
                     }
                 })
@@ -242,11 +244,12 @@ struct ContentView: View {
             }
             .sheet(isPresented: $showingPlaylistNotice, onDismiss: {
                 importedPlaylistFileUrl = nil
+                playlistNoticeTargetPlatform = nil
             }) {
                 if let pUrl = playlistNoticeUrl {
                     PlaylistConverterView(
                         playlistUrl: pUrl,
-                        targetPlatformKey: settings.targetPlatform,
+                        targetPlatformKey: playlistNoticeTargetPlatform ?? settings.targetPlatform,
                         dismissAction: {
                             showingPlaylistNotice = false
                             importedPlaylistFileUrl = nil
@@ -313,6 +316,7 @@ struct ContentView: View {
                 AptabaseClient.shared.trackAppLaunched(platform: "iOS", language: lang)
                 AppDelegate.updateQuickActions(lang: lang)
                 consumePendingListenSheetIfNeeded()
+                settings.reloadSharedCounters()
                 history.loadHistory()
                 activeMilestone = settings.getActiveProNudgeMilestone()
                 Task {
@@ -335,6 +339,7 @@ struct ContentView: View {
                 if newPhase == .active {
                     AppDelegate.updateQuickActions(lang: lang)
                     consumePendingListenSheetIfNeeded()
+                    settings.reloadSharedCounters()
                     history.loadHistory()
                     activeMilestone = settings.getActiveProNudgeMilestone()
                     Task {
@@ -589,13 +594,19 @@ struct ContentView: View {
                     .replacingOccurrences(of: "_fallback", with: "")
                 Button(action: {
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                    settings.openResolvedTarget(
-                        targetUrl: item.targetUrl,
-                        nativeAppUri: nil,
-                        platformKey: cleanPlatform,
-                        title: item.title,
-                        artist: item.artist
-                    )
+                    if item.targetPlatform.contains("_playlist") {
+                        playlistNoticeUrl = item.sourceUrl
+                        playlistNoticeTargetPlatform = cleanPlatform
+                        showingPlaylistNotice = true
+                    } else {
+                        settings.openResolvedTarget(
+                            targetUrl: item.targetUrl,
+                            nativeAppUri: nil,
+                            platformKey: cleanPlatform,
+                            title: item.title,
+                            artist: item.artist
+                        )
+                    }
                 }) {
                     HStack(spacing: 12) {
                         Image(systemName: platformIcon(for: cleanPlatform))

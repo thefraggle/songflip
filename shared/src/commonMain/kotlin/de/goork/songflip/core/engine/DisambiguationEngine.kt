@@ -8,6 +8,9 @@ import io.ktor.client.statement.bodyAsText
 import io.ktor.http.encodeURLParameter
 import io.ktor.http.isSuccess
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 
@@ -118,20 +121,21 @@ class DisambiguationEngine(
                     val resp = client.get("https://api.deezer.com/search?q=$encoded&limit=$limit")
                     if (resp.status.isSuccess()) {
                         val parsed = json.decodeFromString<DeezerSearchResponse>(resp.bodyAsText())
-                        for (item in parsed.data) {
-                            val tName = item.title?.trim()
-                            val aName = item.artist?.name?.trim()
-                            if (!tName.isNullOrEmpty() && !aName.isNullOrEmpty()) {
-                                val query = "$aName $tName"
-                                val url = when (targetPlatformKey.lowercase()) {
-                                    "youtubemusic" -> "https://music.youtube.com/search?q=${query.encodeURLParameter()}"
-                                    "spotify" -> "https://open.spotify.com/search/${query.encodeURLParameter()}"
-                                    "tidal" -> "https://listen.tidal.com/search?q=${query.encodeURLParameter()}"
-                                    "qobuz" -> qobuzResolver.resolveTrack(query) ?: UrlUtils.buildSearchUrl(query, "qobuz")
-                                    "amazonmusic", "soundcloud", "bandcamp", "beatport" -> UrlUtils.buildSearchUrl(query, targetPlatformKey)
-                                    else -> UrlUtils.buildSearchUrl(query, targetPlatformKey)
-                                }
-                                candidates.add(
+                        val resolvedItems = coroutineScope {
+                            parsed.data.map { item ->
+                                async {
+                                    val tName = item.title?.trim()
+                                    val aName = item.artist?.name?.trim()
+                                    if (tName.isNullOrEmpty() || aName.isNullOrEmpty()) return@async null
+                                    val query = "$aName $tName"
+                                    val url = when (targetPlatformKey.lowercase()) {
+                                        "youtubemusic" -> "https://music.youtube.com/search?q=${query.encodeURLParameter()}"
+                                        "spotify" -> "https://open.spotify.com/search/${query.encodeURLParameter()}"
+                                        "tidal" -> "https://listen.tidal.com/search?q=${query.encodeURLParameter()}"
+                                        "qobuz" -> qobuzResolver.resolveTrack(query) ?: UrlUtils.buildSearchUrl(query, "qobuz")
+                                        "amazonmusic", "soundcloud", "bandcamp", "beatport" -> UrlUtils.buildSearchUrl(query, targetPlatformKey)
+                                        else -> UrlUtils.buildSearchUrl(query, targetPlatformKey)
+                                    }
                                     DisambiguationCandidate(
                                         id = item.id?.toString() ?: "${aName}_$tName",
                                         title = tName,
@@ -143,9 +147,10 @@ class DisambiguationEngine(
                                         previewUrl = item.preview,
                                         isCurrentMatch = currentMatchedUrl != null && (url.contains(currentMatchedUrl) || currentMatchedUrl.contains(url))
                                     )
-                                )
-                            }
+                                }
+                            }.awaitAll().filterNotNull()
                         }
+                        candidates.addAll(resolvedItems)
                     }
                 }
             }

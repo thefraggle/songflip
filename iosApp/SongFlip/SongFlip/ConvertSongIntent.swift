@@ -124,6 +124,7 @@ struct ConvertSongIntent: AppIntent {
 
         switch action {
         case .openResolved(let targetUrl, let nativeAppUri, let platformKey, let title, let artist, let isAlbum, _, _, let thumb):
+            FlipCoordinator.incrementSuccessfulFlipCount(defaults: defaults)
             _ = try? await engine.cache.addHistoryEntry(
                 sourceUrl: urlToConvert,
                 targetPlatformKey: platformKey,

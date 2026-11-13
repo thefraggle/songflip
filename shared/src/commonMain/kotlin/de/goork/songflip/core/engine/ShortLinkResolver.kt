@@ -21,8 +21,8 @@ class ShortLinkResolver(
 
     fun cacheResolvedShortLink(sourceUrl: String, resolvedUrl: String): String {
         shortLinkLock.withLock {
-            if (shortLinkResolutionCache.size > 500) {
-                shortLinkResolutionCache.clear()
+            if (shortLinkResolutionCache.size >= 500 && !shortLinkResolutionCache.containsKey(sourceUrl)) {
+                shortLinkResolutionCache.keys.firstOrNull()?.let { shortLinkResolutionCache.remove(it) }
             }
             shortLinkResolutionCache[sourceUrl] = resolvedUrl
         }

@@ -428,6 +428,7 @@ fun ListenAndFlipBottomSheet(
                             inputUrl = sUrl,
                             targetPlatformKey = pickedTarget,
                             isPro = isPro,
+                            authToken = de.goork.songflip.data.ProManager.getAuthToken(),
                             audiophileMode = isPro && settingsRepository.audiophileMode
                         )
                     }

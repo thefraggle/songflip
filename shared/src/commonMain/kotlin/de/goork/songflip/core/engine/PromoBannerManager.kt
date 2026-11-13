@@ -28,6 +28,7 @@ object PromoBannerManager {
     }
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    @kotlin.concurrent.Volatile
     private var client: HttpClient = createPlatformHttpClient()
 
     private val _config = MutableStateFlow(PromoBannerConfig())
@@ -36,6 +37,7 @@ object PromoBannerManager {
     private val _isDismissed = MutableStateFlow(false)
     val isDismissed: StateFlow<Boolean> = _isDismissed.asStateFlow()
 
+    @kotlin.concurrent.Volatile
     private var lastFetchTimeMs: Long = 0L
     private const val CACHE_TTL_MS = 15 * 60 * 1000L // 15 minutes
 

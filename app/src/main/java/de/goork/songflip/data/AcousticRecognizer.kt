@@ -147,7 +147,7 @@ object AcousticRecognizer {
             val req = Request.Builder()
                 .url(TOKEN_ENDPOINT)
                 .header("x-web-client", "songflip-app")
-                .header("x-app-version", "1.14.10")
+                .header("x-app-version", de.goork.songflip.BuildConfig.VERSION_NAME)
                 .header("x-client-platform", "android")
                 .get()
                 .build()

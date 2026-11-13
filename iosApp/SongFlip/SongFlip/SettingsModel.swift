@@ -308,6 +308,13 @@ class SettingsModel: ObservableObject {
         return successfulFlipCount
     }
 
+    func reloadSharedCounters() {
+        let latest = defaults.integer(forKey: Self.keySuccessfulFlipCount)
+        if latest != successfulFlipCount {
+            successfulFlipCount = latest
+        }
+    }
+
     func getActiveProNudgeMilestone() -> Int {
         let flips = successfulFlipCount
         let milestone: Int

@@ -242,6 +242,31 @@ class ShareViewController: UIViewController {
 
         contentStack.setCustomSpacing(14, after: urlSnippetLabel)
 
+        // Scrollable Service Buttons container (prevents overflow on smaller screens / landscape)
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.showsVerticalScrollIndicator = true
+        let buttonsStack = UIStackView()
+        buttonsStack.translatesAutoresizingMaskIntoConstraints = false
+        buttonsStack.axis = .vertical
+        buttonsStack.spacing = 10
+        buttonsStack.alignment = .fill
+        scrollView.addSubview(buttonsStack)
+        NSLayoutConstraint.activate([
+            buttonsStack.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+            buttonsStack.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
+            buttonsStack.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
+            buttonsStack.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+            buttonsStack.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor)
+        ])
+        let maxScrollHeight = scrollView.heightAnchor.constraint(lessThanOrEqualToConstant: 440)
+        maxScrollHeight.priority = .defaultHigh
+        maxScrollHeight.isActive = true
+        let contentHeightConstraint = scrollView.heightAnchor.constraint(equalTo: buttonsStack.heightAnchor)
+        contentHeightConstraint.priority = .defaultLow
+        contentHeightConstraint.isActive = true
+        contentStack.addArrangedSubview(scrollView)
+
         // Service Buttons
         for platform in targetPlatforms {
             let button = UIButton(type: .system)
@@ -323,7 +348,7 @@ class ShareViewController: UIViewController {
                 )
             }, for: .touchUpInside)
 
-            contentStack.addArrangedSubview(button)
+            buttonsStack.addArrangedSubview(button)
         }
 
         // Cancel Button
@@ -343,6 +368,7 @@ class ShareViewController: UIViewController {
             pickerContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             pickerContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -36),
             pickerContainerView.widthAnchor.constraint(lessThanOrEqualToConstant: 380),
+            pickerContainerView.heightAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.heightAnchor, constant: -32),
 
             contentStack.topAnchor.constraint(equalTo: pickerContainerView.topAnchor),
             contentStack.leadingAnchor.constraint(equalTo: pickerContainerView.leadingAnchor),
@@ -436,6 +462,7 @@ class ShareViewController: UIViewController {
             let action = FlipCoordinator.resolveAction(result: result, targetPlatform: targetPlatform)
 
             if case .openResolved(let targetUrl, _, let platformKey, let title, let artist, let isAlbum, _, _, let thumb) = action {
+                FlipCoordinator.incrementSuccessfulFlipCount(defaults: defaults)
                 _ = try? await self.engine.cache.addHistoryEntry(
                     sourceUrl: inputUrl,
                     targetPlatformKey: platformKey,

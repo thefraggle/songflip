@@ -319,7 +319,7 @@ class RedirectActivity : ComponentActivity() {
                                 state.feedbackText?.let {
                                     Toast.makeText(applicationContext, it, Toast.LENGTH_SHORT).show()
                                 }
-                                openTargetUrl(state.targetUrl, state.platform)
+                                openTargetUrl(state.targetUrl, state.platform, state.nativeAppUri)
                                 finish()
                                 suppressTransitionAnimation()
                             }
@@ -405,7 +405,7 @@ class RedirectActivity : ComponentActivity() {
      * completely eliminating intent disambiguation dialogs and infinite intercept loops.
      * Uses native URI schemas for Spotify, Deezer, Tidal for zero latency.
      */
-    private fun openTargetUrl(rawUrl: String, targetPlatformKey: String) {
+    private fun openTargetUrl(rawUrl: String, targetPlatformKey: String, candidateNativeUri: String? = null) {
         val url = if (rawUrl.contains("music.music.youtube.com")) {
             rawUrl.replace("music.music.youtube.com", "music.youtube.com")
         } else rawUrl
@@ -417,7 +417,7 @@ class RedirectActivity : ComponentActivity() {
         }
 
         de.goork.songflip.data.ShortcutHelper.updateShortcuts(this)
-        val (targetPackage, nativeUriString) = PackageUtils.resolveEffectiveLaunchTarget(this, url, targetPlatformKey)
+        val (targetPackage, nativeUriString) = PackageUtils.resolveEffectiveLaunchTarget(this, url, targetPlatformKey, candidateNativeUri)
 
         // Stage 1: Explicit target app launch (fastest, zero intent disambiguation)
         if (targetPackage != null) {

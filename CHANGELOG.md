@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.17] - 2026-11-13
+- **Link Safety & Routing**: Improved address validation for podcasts, playlists, and custom endpoints to prevent redirect loops and malformed links.
+- **Playlist History & Caching**: Preserved original target player selections when reopening playlists from history and eliminated unnecessary cache bypasses.
+- **Database Stability**: Enabled concurrent write-ahead logging and safer history migration cleanup for faster, conflict-free local storage.
+- **Quick-Picker & Player Detection**: Added scrollable service selection on compact screens and expanded detection for alternative and podcast players.
+- **Theme Contrast & Telemetry**: Aligned status banners with the selected app theme for better readability and refined purchase analytics accuracy.
+
 ## [1.14.16] - 2026-11-13
 - **Store Catalog & Configuration Integrity**: Fixed build configuration property injection so runtime store catalog keys and launch schemes are reliably embedded in release bundles.
 - **International Character & Script Support**: Preserved title and artist formatting for non-Latin writing systems during playlist deduplication and matching.

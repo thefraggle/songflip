@@ -10,7 +10,7 @@ SongFlip is built as a Kotlin Multiplatform (KMP) project:
 - **`app/`**: Native Android app (Jetpack Compose, MVVM architecture, Material 3, Quick Settings Tiles, Android 13+ Themed Icons).
 - **`iosApp/`**: Native iOS app (SwiftUI, Share Extension, App Intents for Siri Shortcuts & Action Button).
 - **`shared/`**: Shared KMP core engine (`SongLinkEngine`, platform resolvers, `UrlUtils`, SQLDelight `LinkCache`, `AptabaseClient`).
-- **`functions/`** *(Private / Closed Source)*: Proprietary hosted cloud backend (Firebase Cloud Functions by Daniel Notthoff) powering token verification, SSR web-share landing pages, playlist batch scrapers, and global L2 link caching. The client applications (Android, iOS & shared KMP core) are 100% autonomous and compile/run completely without this backend submodule.
+- **`functions/`** *(Private / Closed Source)*: Proprietary hosted cloud backend (Firebase Cloud Functions by Daniel Notthoff) powering token verification, SSR web-share landing pages, playlist batch scrapers, and global L2 link caching. The client applications (Android, iOS & shared KMP core) are 100% autonomous and compile/run completely without this backend.
 
 ---
 
@@ -21,7 +21,7 @@ SongFlip is built as a Kotlin Multiplatform (KMP) project:
 - **Android Studio** (Koala / Ladybug or newer) with Android SDK 26–36
 - **Xcode 16+** (for building the iOS target on macOS)
 
-> 💡 **Submodule Notice**: The `functions/` folder points to a private, closed-source backend submodule. You do **not** need this submodule to build, test, or contribute to SongFlip. A standard clone (`git clone https://github.com/thefraggle/songflip.git` without `--recursive`) builds both Android and iOS targets out of the box.
+> 💡 **Backend Notice**: The `functions/` folder (git-ignored in this public repository) points to a separate private backend project. You do **not** need this backend to build, test, or contribute to SongFlip. A standard clone (`git clone https://github.com/thefraggle/songflip.git`) builds both Android and iOS targets out of the box.
 
 ### Local Setup
 1. Clone the repository:

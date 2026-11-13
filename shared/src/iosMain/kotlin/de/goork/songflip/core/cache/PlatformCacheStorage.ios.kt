@@ -105,6 +105,7 @@ object IosAppGroupSqlDelightStorage {
                         name = DB_NAME,
                         onConfiguration = { config: DatabaseConfiguration ->
                             config.copy(
+                                journalMode = co.touchlab.sqliter.JournalMode.WAL,
                                 extendedConfig = config.extendedConfig.copy(
                                     basePath = basePath,
                                     busyTimeout = 5000
@@ -113,7 +114,18 @@ object IosAppGroupSqlDelightStorage {
                         }
                     )
                 } else {
-                    NativeSqliteDriver(SongFlipDatabase.Schema, DB_NAME)
+                    NativeSqliteDriver(
+                        schema = SongFlipDatabase.Schema,
+                        name = DB_NAME,
+                        onConfiguration = { config: DatabaseConfiguration ->
+                            config.copy(
+                                journalMode = co.touchlab.sqliter.JournalMode.WAL,
+                                extendedConfig = config.extendedConfig.copy(
+                                    busyTimeout = 5000
+                                )
+                            )
+                        }
+                    )
                 }
             },
             onDatabaseReady = { storage, _ ->
@@ -135,7 +147,9 @@ object IosAppGroupSqlDelightStorage {
                         defaults.stringForKey(LEGACY_HISTORY_KEY).orEmpty()
                     }
                     val parsedHistory = SqlDelightCacheStorage.parseLegacyIosHistoryJson(rawJson)
-                    storage.migrateLegacyEntries(parsedHistory, MIGRATION_KEY_IOS_HISTORY)
+                    if (storage.migrateLegacyEntries(parsedHistory, MIGRATION_KEY_IOS_HISTORY)) {
+                        defaults.removeObjectForKey(LEGACY_HISTORY_KEY)
+                    }
                 }
             }
         )

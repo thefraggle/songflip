@@ -122,7 +122,10 @@ struct ProPaywallSheetView: View {
                 }
             }
             .onPurchaseCompleted { customerInfo in
-                AptabaseClient.shared.trackEvent(eventName: "pro_purchased", props: [:])
+                let activeEntitlement = customerInfo.entitlements["pro"] ?? customerInfo.entitlements["songflip_pro"]
+                if activeEntitlement?.isActive == true && activeEntitlement?.isSandbox == false {
+                    AptabaseClient.shared.trackEvent(eventName: "pro_purchased", props: [:])
+                }
                 proManager.updateFromCustomerInfo(customerInfo)
                 dismiss()
             }

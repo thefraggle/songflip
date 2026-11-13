@@ -68,6 +68,12 @@ class AndroidSharedPreferencesCacheStorage(
                             context = ctx,
                             name = DB_NAME,
                             callback = object : AndroidSqliteDriver.Callback(SongFlipDatabase.Schema) {
+                                override fun onConfigure(db: androidx.sqlite.db.SupportSQLiteDatabase) {
+                                    super.onConfigure(db)
+                                    db.enableWriteAheadLogging()
+                                    db.execSQL("PRAGMA busy_timeout = 5000;")
+                                }
+
                                 override fun onUpgrade(
                                     db: androidx.sqlite.db.SupportSQLiteDatabase,
                                     oldVersion: Int,

@@ -815,7 +815,7 @@ class SongLinkEngine(
                 val root = json.parseToJsonElement(resp.bodyAsText()).jsonObject
                 val targetUrl = root["targetUrl"]?.jsonPrimitive?.content
                     ?: root["url"]?.jsonPrimitive?.content
-                if (!targetUrl.isNullOrEmpty()) {
+                if (!targetUrl.isNullOrEmpty() && UrlUtils.isSafeTargetUrl(targetUrl)) {
                     return targetUrl
                 }
             }

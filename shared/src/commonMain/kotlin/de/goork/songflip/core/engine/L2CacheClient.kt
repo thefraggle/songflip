@@ -71,7 +71,7 @@ class L2CacheClient(
                 client.post("https://cache.songflip.link/ingest") {
                     header("Content-Type", "application/json")
                     header("x-web-client", "songflip-app")
-                    header("x-app-version", "1.14.10")
+                    header("x-app-version", EngineConfig.APP_VERSION)
                     setBody(jsonPayload)
                 }
             } catch (t: Throwable) {
