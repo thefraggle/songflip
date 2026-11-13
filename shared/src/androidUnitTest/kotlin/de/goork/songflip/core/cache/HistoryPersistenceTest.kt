@@ -87,4 +87,30 @@ class HistoryPersistenceTest {
             }
         }
     }
+
+    @Test
+    fun testIosSwiftHistoryModelAddCallsMustFollowExactArgumentOrder() {
+        val iosDir = java.io.File("../iosApp")
+        val swiftFiles = iosDir.walkTopDown().filter { it.isFile && it.extension == "swift" }.toList()
+        org.junit.Assert.assertTrue("Expected Swift source files in ../iosApp", swiftFiles.isNotEmpty())
+
+        // HistoryModel.add signature requires exact parameter order:
+        // title:, artist:, sourceUrl:, targetUrl:, targetPlatform:
+        val callBlockRegex = Regex("""HistoryModel\.shared\.add\s*\(([\s\S]*?)\n\s*\)""")
+        for (file in swiftFiles) {
+            val text = file.readText()
+            for (match in callBlockRegex.findAll(text)) {
+                val args = match.groupValues[1]
+                val titleIdx = args.indexOf("title:")
+                val artistIdx = args.indexOf("artist:")
+                val sourceIdx = args.indexOf("sourceUrl:")
+                val targetUrlIdx = args.indexOf("targetUrl:")
+                val targetPlatIdx = args.indexOf("targetPlatform:")
+                org.junit.Assert.assertTrue(
+                    "Invalid parameter order in HistoryModel.shared.add call in ${file.name}: expected (title, artist, sourceUrl, targetUrl, targetPlatform), got:\n$args",
+                    titleIdx >= 0 && artistIdx > titleIdx && sourceIdx > artistIdx && targetUrlIdx > sourceIdx && targetPlatIdx > targetUrlIdx
+                )
+            }
+        }
+    }
 }
