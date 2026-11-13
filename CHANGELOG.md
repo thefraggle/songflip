@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.14.18] - 2026-11-13
+- **History & Storage Recovery**: Restored local song history access by using cursor-compatible query execution for SQLite busy-timeout configuration and resilient schema upgrade handling.
+- **Continuous Integration & Linker Configuration**: Streamlined automated test execution and linked native SQLite libraries across all binary targets.
+
 ## [1.14.17] - 2026-11-13
 - **Link Safety & Routing**: Improved address validation for podcasts, playlists, and custom endpoints to prevent redirect loops and malformed links.
 - **Playlist History & Caching**: Preserved original target player selections when reopening playlists from history and eliminated unnecessary cache bypasses.

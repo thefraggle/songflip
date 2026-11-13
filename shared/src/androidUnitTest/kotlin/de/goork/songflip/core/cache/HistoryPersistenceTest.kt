@@ -51,4 +51,17 @@ class HistoryPersistenceTest {
         assertEquals("Track 1", first?.title)
         assertEquals("Artist 1", first?.artist)
     }
+
+    @Test
+    fun testAndroidSqlitePragmaSyntaxMustUseQueryNotExecSQL() {
+        val sourceFile = java.io.File("src/androidMain/kotlin/de/goork/songflip/core/cache/PlatformCacheStorage.android.kt")
+        val content = sourceFile.readText()
+        // Android FrameworkSQLiteDatabase.execSQL("PRAGMA busy_timeout = 5000;") throws
+        // SQLiteException ("Queries can be performed using SQLiteDatabase query or rawQuery methods only.")
+        // during onConfigure(), preventing the SQLite DB from opening and leaving Android history empty!
+        org.junit.Assert.assertFalse(
+            "Forbidden db.execSQL(\"PRAGMA ...\") found in PlatformCacheStorage.android.kt; use db.query(\"PRAGMA ...\").close() instead",
+            content.contains("execSQL(\"PRAGMA")
+        )
+    }
 }

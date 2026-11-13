@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.14.18] - 2026-11-13
+- **Verlaufs- & Speicher-Wiederherstellung**: Lokaler Songverlauf wird wieder vollständig geladen, indem SQLite-Zeitlimit-Abfragen cursor-kompatibel ausgeführt und Schema-Aktualisierungen fehlertolerant abgesichert werden.
+- **Build- & Test-Pipeline**: Optimierte automatisierte Testläufe sowie durchgängige SQLite-Bibliotheksverknüpfung für alle Binärziele.
+
 ## [1.14.17] - 2026-11-13
 - **Link-Sicherheit & Weiterleitung**: Verbesserte Adressprüfung für Podcasts, Wiedergabelisten und eigene Endpunkte zur Vermeidung von Weiterleitungsschleifen.
 - **Playlist-Verlauf & Zwischenspeicher**: Gespeicherte Wiedergabelisten öffnen jetzt zuverlässig im ursprünglich gewählten Ziel-Player ohne unnötiges Neuladen.

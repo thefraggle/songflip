@@ -368,7 +368,7 @@ def main():
 
     # 1. Write clean Markdown (Single Source of Truth, 0 quotes)
     version_match = re.search(r'val\s+appVersionName\s*=\s*"([^"]+)"', open(os.path.join(os.path.dirname(__file__), '../app/build.gradle.kts'), encoding='utf-8').read()) if os.path.exists(os.path.join(os.path.dirname(__file__), '../app/build.gradle.kts')) else None
-    app_version = version_match.group(1) if version_match else "1.14.17"
+    app_version = version_match.group(1) if version_match else "1.14.18"
     print(f"Writing clean Markdown to {MD_PATH}...")
     with open(MD_PATH, 'w', encoding='utf-8') as f:
         f.write("# 📱 SongFlip – Play Store & App Store Listings (Alle Sprachen)\n")

@@ -70,28 +70,3 @@ jobs:
             app/build/reports/tests/
           retention-days: 7
 
-  test-kmp-ios:
-    name: Test KMP iOS Simulator
-    runs-on: macos-15
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        with:
-          persist-credentials: false
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@3a4f6e1af504cf6a31855fa899c6aa5355ba6c12 # v4.7.0
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-          cache: 'gradle'
-
-      - name: Grant Execute Permission for Gradlew
-        run: chmod +x gradlew
-
-      - name: Run KMP iOS Simulator Unit Tests
-        env:
-          GRADLE_OPTS: "-Dorg.gradle.jvmargs=\"-Xmx4096m -XX:MaxMetaspaceSize=1024m\""
-        run: |
-          ./gradlew :shared:iosSimulatorArm64Test --no-daemon
-

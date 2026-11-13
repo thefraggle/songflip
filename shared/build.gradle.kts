@@ -28,6 +28,9 @@ kotlin {
             isStatic = true
             linkerOpts("-lsqlite3")
         }
+        iosTarget.binaries.all {
+            linkerOpts("-lsqlite3")
+        }
     }
 
     sourceSets {

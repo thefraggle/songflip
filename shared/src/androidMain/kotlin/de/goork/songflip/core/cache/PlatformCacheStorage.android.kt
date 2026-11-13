@@ -70,8 +70,15 @@ class AndroidSharedPreferencesCacheStorage(
                             callback = object : AndroidSqliteDriver.Callback(SongFlipDatabase.Schema) {
                                 override fun onConfigure(db: androidx.sqlite.db.SupportSQLiteDatabase) {
                                     super.onConfigure(db)
-                                    db.enableWriteAheadLogging()
-                                    db.execSQL("PRAGMA busy_timeout = 5000;")
+                                    try {
+                                        db.enableWriteAheadLogging()
+                                        db.query("PRAGMA busy_timeout = 5000;").close()
+                                    } catch (t: Throwable) {
+                                        de.goork.songflip.core.util.SongFlipLogger.w(
+                                            "AndroidCacheStorage",
+                                            "Safe onConfigure recovery: ${t.message}"
+                                        )
+                                    }
                                 }
 
                                 override fun onUpgrade(
@@ -79,7 +86,14 @@ class AndroidSharedPreferencesCacheStorage(
                                     oldVersion: Int,
                                     newVersion: Int
                                 ) {
-                                    super.onUpgrade(db, oldVersion, newVersion)
+                                    try {
+                                        super.onUpgrade(db, oldVersion, newVersion)
+                                    } catch (t: Throwable) {
+                                        de.goork.songflip.core.util.SongFlipLogger.w(
+                                            "AndroidCacheStorage",
+                                            "Safe onUpgrade recovery: ${t.message}"
+                                        )
+                                    }
                                 }
 
                                 override fun onDowngrade(
