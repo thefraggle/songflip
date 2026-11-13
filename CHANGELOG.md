@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.16] - 2026-11-13
+- **Store Catalog & Configuration Integrity**: Fixed build configuration property injection so runtime store catalog keys and launch schemes are reliably embedded in release bundles.
+- **International Character & Script Support**: Preserved title and artist formatting for non-Latin writing systems during playlist deduplication and matching.
+- **Link & Redirect Validation**: Strengthened address verification across routing paths to block unsupported or malformed links.
+- **Resolver Performance & Precision**: Improved search accuracy across streaming catalogs and removed redundant full downloads for shortlinks.
+- **Storage Consistency & Reliability**: Hardened local database transactions and connection settings against race conditions during simultaneous lookups.
+
 ## [1.14.15] - 2026-11-12
 - **International Character & Script Support**: Preserved title and artist formatting for non-Latin writing systems during playlist deduplication and matching.
 - **Link & Redirect Validation**: Strengthened address verification across routing paths to block unsupported or malformed links.

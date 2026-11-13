@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>REVENUECAT_PUBLIC_KEY</key>
+	<string>$(REVENUECAT_PUBLIC_KEY)</string>
+	<key>APTABASE_APP_KEY</key>
+	<string>$(APTABASE_APP_KEY)</string>
+	<key>APTABASE_HOST</key>
+	<string>$(APTABASE_HOST)</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>music</string>
+		<string>youtubemusic</string>
+		<string>spotify</string>
+		<string>tidal</string>
+		<string>deezer</string>
+		<string>amznmp3</string>
+		<string>soundcloud</string>
+		<string>bandcamp</string>
+		<string>qobuz</string>
+		<string>beatport</string>
+		<string>audiomack</string>
+		<string>idagio</string>
+		<string>anghami</string>
+		<string>demus</string>
+		<string>yattee</string>
+		<string>marvispro</string>
+		<string>marvis</string>
+		<string>soor</string>
+		<string>joitunes</string>
+	</array>
+</dict>
+</plist>

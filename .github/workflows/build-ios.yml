@@ -128,6 +128,10 @@ jobs:
           APTABASE_APP_KEY: ${{ secrets.APTABASE_APP_KEY }}
           APTABASE_HOST: ${{ secrets.APTABASE_HOST }}
         run: |
+          if [ "$HAVE_SIGNING" = "true" ] && [ -z "$REVENUECAT_PUBLIC_KEY" ]; then
+            echo "::error::REVENUECAT_PUBLIC_KEY (or REVENUECAT_APPLE_KEY) secret is missing for signed App Store build!"
+            exit 1
+          fi
           if [ -n "$REVENUECAT_PUBLIC_KEY" ] || [ -n "$APTABASE_APP_KEY" ]; then
             echo "Generating iosApp/SongFlip/Config.xcconfig from repository secrets..."
             HOST="${APTABASE_HOST:-https://api.aptabase.com}"

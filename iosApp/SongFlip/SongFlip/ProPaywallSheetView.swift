@@ -97,7 +97,7 @@ struct ProPaywallSheetView: View {
                 Image(systemName: "exclamationmark.triangle")
                     .font(.system(size: 44))
                     .foregroundColor(.orange)
-                Text(LocalizationManager.string(for: "pro_play_store_unavailable", lang: lang))
+                Text(LocalizationManager.string(for: "pro_offerings_error", lang: lang))
                     .font(.headline)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal)

@@ -1,5 +1,12 @@
 # Changelog (Deutsch)
 
+## [1.14.16] - 2026-11-13
+- **Store-Katalog- & Konfigurations-Integrität**: Korrigierte Einbettung von Konfigurationsschlüsseln und Programmschemata in Release-Paketen für zuverlässige Katalog-Initialisierung.
+- **Internationale Schrift- & Zeichenunterstützung**: Erhalt von Titel- und Künstlernamen nicht-lateinischer Schriften bei der Duplikatbereinigung und Suche.
+- **Link- & Weiterleitungs-Sicherheit**: Strikte Adressprüfung auf allen Pfaden verhindert das Öffnen fehlerhafter oder nicht unterstützter Adressen.
+- **Resolver-Präzision & Geschwindigkeit**: Gesteigerte Suchgenauigkeit in Musikkatalogen und Vermeidung unnötiger Downloads bei Kurz-Links.
+- **Speicherkonsistenz & Stabilität**: Verbesserte Transaktions- und Verbindungseinstellungen für die lokale Datenbank schützen vor Konflikten.
+
 ## [1.14.15] - 2026-11-12
 - **Internationale Schrift- & Zeichenunterstützung**: Erhalt von Titel- und Künstlernamen nicht-lateinischer Schriften bei der Duplikatbereinigung und Suche.
 - **Link- & Weiterleitungs-Sicherheit**: Strikte Adressprüfung auf allen Pfaden verhindert das Öffnen fehlerhafter oder nicht unterstützter Adressen.
