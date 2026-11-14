@@ -215,7 +215,8 @@ class TidalResolver(
                             isAlbum = isAlbum,
                             getArtist = { it.artist?.name ?: it.artists.firstOrNull()?.name },
                             getTitle = { it.title ?: it.name },
-                            getVersion = { it.version }
+                            getVersion = { it.version },
+                            getAlbumTitle = { it.album?.title }
                         )
                     }
 

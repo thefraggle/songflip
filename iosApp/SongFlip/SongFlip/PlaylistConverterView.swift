@@ -768,6 +768,13 @@ struct PlaylistConverterView: View {
 
         let maxTracks: Int32 = proManager.isPro ? ProLimits.shared.MAX_PRO_PLAYLIST_TRACKS : ProLimits.shared.MAX_FREE_PLAYLIST_TRACKS
         let token = proManager.authToken
+        let srcKey = UrlUtils.shared.detectPlatform(url: playlistUrl)?.key ?? "unknown"
+
+        AptabaseClient.shared.trackPlaylistConversionStarted(
+            sourcePlatform: srcKey,
+            targetPlatform: targetPlatformKey,
+            trackCount: maxTracks
+        )
 
         conversionTask?.cancel()
         conversionTask = Task {
@@ -845,6 +852,21 @@ struct PlaylistConverterView: View {
                         isAlbum: false,
                         thumbnailUrl: decoded.thumbnailUrl
                     )
+                    let failedCount = Int32(max(0, decoded.totalTracks - decoded.matchedCount))
+                    AptabaseClient.shared.trackPlaylistConversionCompleted(
+                        sourcePlatform: srcKey,
+                        targetPlatform: targetPlatformKey,
+                        totalTracks: Int32(decoded.totalTracks),
+                        resolvedTracks: Int32(decoded.matchedCount),
+                        failedTracks: failedCount,
+                        isBatch: decoded.totalTracks > 50
+                    )
+                    AptabaseClient.shared.trackLinkFlipped(
+                        target: targetPlatformKey,
+                        isAlbum: false,
+                        isSearch: false,
+                        source: srcKey
+                    )
                     AptabaseClient.shared.trackEvent(eventName: "playlist_converted_ios", props: [
                         "source": sourcePlatformName,
                         "target": targetPlatformKey,
@@ -859,7 +881,14 @@ struct PlaylistConverterView: View {
                 let nsError = error as NSError
                 let kmpException = nsError.userInfo["KotlinException"] as? PlaylistConversionException
                 let codeName = kmpException?.errorCode.name ?? ""
+                let reason = kmpException?.reason ?? (codeName.isEmpty ? "unknown_error" : codeName.lowercased())
                 let resolvedErrorType = mapErrorCode(codeName)
+                AptabaseClient.shared.trackPlaylistConversionFailed(
+                    sourcePlatform: srcKey,
+                    targetPlatform: targetPlatformKey,
+                    reason: reason,
+                    errorCode: codeName.isEmpty ? "unknown_error" : codeName.lowercased()
+                )
                 await MainActor.run {
                     self.errorType = resolvedErrorType
                     self.isLoading = false

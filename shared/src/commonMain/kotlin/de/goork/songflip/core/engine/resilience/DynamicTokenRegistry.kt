@@ -9,8 +9,9 @@ object DynamicTokenRegistry {
     const val KEY_TIDAL_TOKEN = "tidal_app_token"
     const val KEY_QOBUZ_APP_ID = "qobuz_app_id"
 
-    const val DEFAULT_TIDAL_TOKEN = ""
-    const val DEFAULT_QOBUZ_APP_ID = ""
+    // Public Web Player client identifiers (required by Tidal / Qobuz public catalog search APIs)
+    const val DEFAULT_TIDAL_TOKEN = "CzET4vdadNUFQ5JU"
+    const val DEFAULT_QOBUZ_APP_ID = "712109809"
 
     fun setToken(key: String, token: String?) {
         lock.withLock {

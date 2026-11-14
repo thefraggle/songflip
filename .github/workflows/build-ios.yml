@@ -138,7 +138,7 @@ jobs:
           if [ -n "$REVENUECAT_PUBLIC_KEY" ] || [ -n "$APTABASE_APP_KEY" ]; then
             echo "Generating iosApp/SongFlip/Config.xcconfig from repository secrets..."
             HOST="${APTABASE_HOST:-https://api.aptabase.com}"
-            ESCAPED_HOST="${HOST/\/\//\/\$()\/}"
+            ESCAPED_HOST="${HOST/\/\///\$()/}"
             cat << EOF > iosApp/SongFlip/Config.xcconfig
           REVENUECAT_PUBLIC_KEY = ${REVENUECAT_PUBLIC_KEY:-}
           APTABASE_APP_KEY = ${APTABASE_APP_KEY:-}

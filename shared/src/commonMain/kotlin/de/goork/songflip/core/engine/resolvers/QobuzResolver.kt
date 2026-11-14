@@ -101,7 +101,12 @@ class QobuzResolver(
     override val platform: MusicPlatform = MusicPlatform.QOBUZ
 
     private fun getEffectiveAppId(): String {
-        return if (qobuzAppId != DynamicTokenRegistry.DEFAULT_QOBUZ_APP_ID) qobuzAppId else tokenProvider()
+        val candidate = if (qobuzAppId != DynamicTokenRegistry.DEFAULT_QOBUZ_APP_ID && qobuzAppId.isNotBlank()) {
+            qobuzAppId
+        } else {
+            tokenProvider()
+        }
+        return candidate.ifBlank { DynamicTokenRegistry.DEFAULT_QOBUZ_APP_ID }
     }
 
     override suspend fun resolveTrack(query: String, audiophileMode: Boolean): String? {

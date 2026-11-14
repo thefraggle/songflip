@@ -138,5 +138,34 @@ class AptabaseClientTest {
         // Flush returns boolean
         assertTrue(flushResult || !flushResult)
     }
+
+    @Test
+    fun testHostSanitizationHandlesEscapedSlashesAndXcconfigTruncation() {
+        // 1. Escaped slashes from bash replacement bug: https:\/\/telemetry-apps.goork.de
+        AptabaseClient.init(
+            appKey = "A-SH-4092372492",
+            host = "https:\\/\\/telemetry-apps.goork.de/",
+            osName = "iOS",
+            osVersion = "18.0",
+            locale = "de_DE",
+            appVersion = "1.14.19",
+            appBuildNumber = "144",
+            isDebug = false
+        )
+        assertEquals("https://telemetry-apps.goork.de", AptabaseClient.configuredHost)
+
+        // 2. Truncated xcconfig comment value: "https:"
+        AptabaseClient.init(
+            appKey = "A-SH-4092372492",
+            host = "https:",
+            osName = "iOS",
+            osVersion = "18.0",
+            locale = "de_DE",
+            appVersion = "1.14.19",
+            appBuildNumber = "144",
+            isDebug = false
+        )
+        assertEquals("https://telemetry-apps.goork.de", AptabaseClient.configuredHost)
+    }
 }
 

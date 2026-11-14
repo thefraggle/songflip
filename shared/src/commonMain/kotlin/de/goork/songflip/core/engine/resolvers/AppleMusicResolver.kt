@@ -33,10 +33,16 @@ internal data class ITunesItem(
 
 class AppleMusicResolver(
     private val client: HttpClient,
-    private val json: Json = Json { ignoreUnknownKeys = true; isLenient = true }
+    private val json: Json = Json { ignoreUnknownKeys = true; isLenient = true },
+    private val countryCodeProvider: () -> String = { "US" }
 ) : PlatformResolver {
 
     override val platform: MusicPlatform = MusicPlatform.APPLE_MUSIC
+
+    private fun getCountryCode(): String {
+        val raw = countryCodeProvider().trim().uppercase()
+        return if (raw.length == 2 && raw.all { it.isLetter() }) raw else "US"
+    }
 
     override suspend fun resolveTrack(query: String, audiophileMode: Boolean): String? {
         return searchAppleMusic(query, isAlbum = false, audiophileMode = audiophileMode)
@@ -61,7 +67,8 @@ class AppleMusicResolver(
             val encoded = query.encodeURLParameter()
             val entity = if (isAlbum) "album" else "song"
             val limit = 10
-            val resp = client.get("https://itunes.apple.com/search?term=$encoded&entity=$entity&limit=$limit")
+            val country = getCountryCode()
+            val resp = client.get("https://itunes.apple.com/search?term=$encoded&entity=$entity&limit=$limit&country=$country")
             if (resp.status.isSuccess()) {
                 val parsed = json.decodeFromString<ITunesResponse>(resp.bodyAsText())
                 val validItem = if (audiophileMode) {

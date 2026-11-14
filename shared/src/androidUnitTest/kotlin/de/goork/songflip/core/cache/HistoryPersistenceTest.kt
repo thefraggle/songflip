@@ -113,4 +113,21 @@ class HistoryPersistenceTest {
             }
         }
     }
+
+    @Test
+    fun testBuildIosWorkflowEscapedHostDoesNotContainEscapedSlashesInReplacement() {
+        val workflowFile = java.io.File("../.github/workflows/build-ios.yml")
+        val content = workflowFile.readText()
+        // In Bash ${HOST/\/\//...}, escaping slashes in the replacement part (\/\$()\/) inserts literal backslashes
+        // into Config.xcconfig ("https:\/$()\/telemetry-apps.goork.de"), causing Info.plist to contain "https:\/\/..."
+        // and breaking rawHost.hasPrefix("https://") on iOS!
+        org.junit.Assert.assertFalse(
+            "Forbidden escaped slash in Bash replacement string found in build-ios.yml; use /\\$()/ instead",
+            content.contains("\\/\\$()\\/")
+        )
+        org.junit.Assert.assertTrue(
+            "Expected ESCAPED_HOST=\"\${HOST/\\/\\///\\$()/}\" in build-ios.yml",
+            content.contains("ESCAPED_HOST=\"\${HOST/\\/\\///\\\$()/}\"")
+        )
+    }
 }

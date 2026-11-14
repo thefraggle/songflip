@@ -67,6 +67,7 @@ sealed interface RedirectUiState {
         val showErrorToast: Boolean = false,
         val isPlaylistNotSupported: Boolean = false,
         val isUnsupportedDomain: Boolean = false,
+        val unsupportedServiceName: String? = null,
         val isPrivatePlaylist: Boolean = false
     ) : RedirectUiState
 
@@ -385,7 +386,10 @@ class RedirectViewModel : ViewModel() {
                         _uiState.value = RedirectUiState.ForwardOriginal(Uri.parse(incomingUrl))
                     }
                     is ResolutionResult.UnsupportedEntity -> {
-                        val isForeignDomain = result.entityType == "unsupported_domain"
+                        val isForeignDomain = result.entityType == "unsupported_domain" || result.entityType == "unsupported_music_service"
+                        val unsupportedService = if (result.entityType == "unsupported_music_service") {
+                            result.platform.takeIf { it.isNotBlank() && it != "unknown" }
+                        } else null
                         val sourceDomain = UrlUtils.extractDomain(result.originalUrl)
                         de.goork.songflip.core.analytics.AptabaseClient.shared.trackUnsupportedEntityIntercepted(
                             target = targetPlatform,
@@ -395,7 +399,8 @@ class RedirectViewModel : ViewModel() {
                         _uiState.value = RedirectUiState.ForwardOriginal(
                             uri = Uri.parse(result.originalUrl.ifBlank { incomingUrl }),
                             showErrorToast = isForeignDomain,
-                            isUnsupportedDomain = isForeignDomain
+                            isUnsupportedDomain = isForeignDomain,
+                            unsupportedServiceName = unsupportedService
                         )
                     }
                     is ResolutionResult.PreRelease -> {

@@ -392,8 +392,17 @@ class ShareViewController: UIViewController {
         let locale = Locale.current.identifier
 
         let aptabaseKey = Bundle.main.infoDictionary?["APTABASE_APP_KEY"] as? String ?? ""
-        let rawHost = (Bundle.main.infoDictionary?["APTABASE_HOST"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        let aptabaseHost = (rawHost.hasPrefix("https://") || rawHost.hasPrefix("http://")) ? rawHost : "https://api.aptabase.com"
+        let rawHost = (Bundle.main.infoDictionary?["APTABASE_HOST"] as? String)?
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: "\\/", with: "/") ?? ""
+        let aptabaseHost: String
+        if rawHost.hasPrefix("https://") || rawHost.hasPrefix("http://") {
+            aptabaseHost = rawHost
+        } else if rawHost == "https:" || rawHost.isEmpty {
+            aptabaseHost = "https://telemetry-apps.goork.de"
+        } else {
+            aptabaseHost = "https://api.aptabase.com"
+        }
 
         #if DEBUG
         if aptabaseKey.isEmpty {
@@ -515,7 +524,14 @@ class ShareViewController: UIViewController {
                     self.openApp(urlString: originalUrl)
 
                 case .unsupportedEntity(let originalUrl, let entityType):
-                    if entityType == "unsupported_domain" {
+                    if entityType == "unsupported_music_service",
+                       let service = UrlUtils.shared.detectUnsupportedKnownMusicService(url: originalUrl.isEmpty ? inputUrl : originalUrl) {
+                        let isGerman = Locale.preferredLanguages.first?.hasPrefix("de") == true
+                        self.statusLabel.text = isGerman ? "\(service) wird noch nicht unterstützt." : "\(service) is not supported yet."
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                            self.openApp(urlString: originalUrl)
+                        }
+                    } else if entityType == "unsupported_domain" {
                         self.statusLabel.text = self.localizedText(
                             for: "unsupported_domain_toast",
                             default: "Not a supported streaming link – use Listen & Flip to identify music in videos."
@@ -559,7 +575,7 @@ class ShareViewController: UIViewController {
         }
         let allowedNativeSchemes: Set<String> = [
             "music", "youtubemusic", "spotify", "tidal", "deezer",
-            "amznmp3", "soundcloud", "bandcamp", "qobuz", "beatport",
+            "amznmp3", "soundcloud", "bandcamp", "qobuz", "qobuzapp", "beatport",
             "audiomack", "idagio", "anghami", "demus", "yattee",
             "marvispro", "marvis", "soor", "joitunes"
         ]

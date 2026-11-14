@@ -50,8 +50,10 @@ class ResilienceAndCircuitBreakerTest {
     @Test
     fun testDynamicTokenRegistry() {
         DynamicTokenRegistry.reset()
-        assertEquals("", DynamicTokenRegistry.getTidalToken())
-        assertEquals("", DynamicTokenRegistry.getQobuzAppId())
+        assertEquals("CzET4vdadNUFQ5JU", DynamicTokenRegistry.getTidalToken())
+        assertEquals("712109809", DynamicTokenRegistry.getQobuzAppId())
+        assertTrue(DynamicTokenRegistry.DEFAULT_QOBUZ_APP_ID.isNotBlank(), "DEFAULT_QOBUZ_APP_ID must never be blank (causes Qobuz HTTP 500)")
+        assertTrue(DynamicTokenRegistry.DEFAULT_TIDAL_TOKEN.isNotBlank(), "DEFAULT_TIDAL_TOKEN must never be blank (causes Tidal HTTP 400/401)")
 
         DynamicTokenRegistry.setToken(DynamicTokenRegistry.KEY_TIDAL_TOKEN, "new-tidal-token-123")
         DynamicTokenRegistry.setToken(DynamicTokenRegistry.KEY_QOBUZ_APP_ID, "new-qobuz-app-456")
@@ -59,8 +61,8 @@ class ResilienceAndCircuitBreakerTest {
         assertEquals("new-qobuz-app-456", DynamicTokenRegistry.getQobuzAppId())
 
         DynamicTokenRegistry.reset()
-        assertEquals("", DynamicTokenRegistry.getTidalToken())
-        assertEquals("", DynamicTokenRegistry.getQobuzAppId())
+        assertEquals("CzET4vdadNUFQ5JU", DynamicTokenRegistry.getTidalToken())
+        assertEquals("712109809", DynamicTokenRegistry.getQobuzAppId())
     }
 
     @Test

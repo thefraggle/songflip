@@ -100,8 +100,17 @@ struct SongFlipApp: App {
         let locale = Locale.current.identifier
 
         let aptabaseKey = Bundle.main.infoDictionary?["APTABASE_APP_KEY"] as? String ?? ""
-        let rawHost = (Bundle.main.infoDictionary?["APTABASE_HOST"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        let aptabaseHost = (rawHost.hasPrefix("https://") || rawHost.hasPrefix("http://")) ? rawHost : "https://api.aptabase.com"
+        let rawHost = (Bundle.main.infoDictionary?["APTABASE_HOST"] as? String)?
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: "\\/", with: "/") ?? ""
+        let aptabaseHost: String
+        if rawHost.hasPrefix("https://") || rawHost.hasPrefix("http://") {
+            aptabaseHost = rawHost
+        } else if rawHost == "https:" || rawHost.isEmpty {
+            aptabaseHost = "https://telemetry-apps.goork.de"
+        } else {
+            aptabaseHost = "https://api.aptabase.com"
+        }
 
         #if DEBUG
         if aptabaseKey.isEmpty {

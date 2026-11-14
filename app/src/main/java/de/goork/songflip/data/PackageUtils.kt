@@ -249,6 +249,7 @@ object PackageUtils {
             )
             "bandcamp" -> listOf("https://artist.bandcamp.com/track/song")
             "qobuz" -> listOf(
+                "qobuzapp://track/1068442",
                 "qobuz://track/1068442"
             )
             "beatport" -> listOf("https://www.beatport.com/track/song/12345")
@@ -366,6 +367,7 @@ object PackageUtils {
             "spotify" -> toNativeSpotifyUri(url)
             "deezer" -> toNativeDeezerUri(url)
             "tidal" -> toNativeTidalUri(url)
+            "qobuz" -> de.goork.songflip.core.util.UrlUtils.toNativeQobuzUri(url)
             "youtubeMusic" -> normalizeAndroidYouTubeMusicUri(url)
             else -> url
         }
@@ -476,9 +478,9 @@ object PackageUtils {
             return targetPackage to normalizeAndroidYouTubeMusicUri(chosen)
         }
         val effectiveUri = candidateNativeUri ?: toNativeAppUri(url, cleanKey, targetPackage)
-        // If a non-official 3rd-party client (e.g. NewPipe for SoundCloud/Bandcamp, Spotube, Cider)
-        // is selected that only handles https:// links rather than proprietary app schemes, fall back to the HTTPS URL (#139)
-        if (targetPackage != null && targetPackage != packageMap[cleanKey] && effectiveUri != url && !effectiveUri.startsWith("http")) {
+        // If the selected client (3rd-party or official) only handles https:// links rather than a custom scheme,
+        // fall back to the HTTPS URL on that same package before falling back to an external browser (#139)
+        if (targetPackage != null && effectiveUri != url && !effectiveUri.startsWith("http")) {
             val handlesCustomScheme = try {
                 val checkIntent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(effectiveUri)).apply {
                     setPackage(targetPackage)
@@ -584,7 +586,7 @@ object PackageUtils {
             lower.contains("amazon.") || lower.contains("amzn.to") || lower.contains("amzn.eu") || lower.contains("amzn.asia") || lower.contains("a.co") -> "amazonMusic"
             lower.contains("soundcloud.com") || lower.contains("on.soundcloud.com") || lower.startsWith("soundcloud:") -> "soundcloud"
             lower.contains("bandcamp.com") || lower.startsWith("bandcamp:") -> "bandcamp"
-            lower.contains("qobuz.com") || lower.startsWith("qobuz:") -> "qobuz"
+            lower.contains("qobuz.com") || lower.startsWith("qobuz:") || lower.startsWith("qobuzapp:") -> "qobuz"
             lower.contains("beatport.com") || lower.startsWith("beatport:") -> "beatport"
             lower.contains("audiomack.com") || lower.startsWith("audiomack:") -> "audiomack"
             lower.contains("idagio.com") || lower.startsWith("idagio:") -> "idagio"
@@ -731,6 +733,22 @@ object PackageUtils {
                 if (canResolve) {
                     context.startActivity(appIntent)
                     return true
+                } else if (uriStr != targetUrl && targetUrl.startsWith("https://")) {
+                    val httpsIntent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(targetUrl)).apply {
+                        flags = android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+                        setPackage(targetPackage)
+                        putExtra("de.goork.songflip.FORWARDED_FROM_SONGFLIP", true)
+                    }
+                    val canResolveHttps = try {
+                        context.packageManager.resolveActivity(httpsIntent, 0) != null
+                    } catch (_: Exception) {
+                        false
+                    }
+                    if (canResolveHttps) {
+                        context.startActivity(httpsIntent)
+                        return true
+                    }
+                    android.util.Log.w("PackageUtils", "Target package $targetPackage cannot resolve $uriStr or $targetUrl, falling back to web")
                 } else {
                     android.util.Log.w("PackageUtils", "Target package $targetPackage cannot resolve $uriStr, falling back to web")
                 }

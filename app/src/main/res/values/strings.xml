@@ -456,6 +456,7 @@
     <string name="pro_feature_listen_title">Unlimited Listen &amp; Flip</string>
     <string name="pro_feature_listen_desc">Identify unlimited songs around you + Offline Club Mode</string>
     <string name="unsupported_domain_toast">Not a supported streaming link – use Listen &amp; Flip to identify music in videos.</string>
+    <string name="unsupported_music_service_toast">%1$s is not supported yet.</string>
     <string name="settings_audiophile_title">Audiophile Quality Priority</string>
     <string name="settings_audiophile_subtitle">Prefer studio masters, Hi-Res, Lossless &amp; Dolby Atmos over radio edits and compilations</string>
     <string name="listen_change_target">Change target</string>

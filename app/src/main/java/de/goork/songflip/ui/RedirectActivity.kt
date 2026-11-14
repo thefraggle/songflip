@@ -362,6 +362,7 @@ class RedirectActivity : ComponentActivity() {
                                 if (state.showErrorToast) {
                                     val errorMsg = when {
                                         state.isPrivatePlaylist -> getString(R.string.playlist_error_private_toast)
+                                        !state.unsupportedServiceName.isNullOrBlank() -> getString(R.string.unsupported_music_service_toast, state.unsupportedServiceName)
                                         state.isUnsupportedDomain -> getString(R.string.unsupported_domain_toast)
                                         state.isPlaylistNotSupported -> getString(R.string.playlist_not_supported_toast)
                                         else -> getString(R.string.redirect_error_toast)

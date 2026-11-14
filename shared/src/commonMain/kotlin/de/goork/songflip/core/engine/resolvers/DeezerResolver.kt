@@ -170,7 +170,8 @@ class DeezerResolver(
                         isAlbum = isAlbum,
                         getArtist = { it.artist?.name },
                         getTitle = { it.title ?: it.titleShort ?: it.name },
-                        getVersion = { it.titleVersion }
+                        getVersion = { it.titleVersion },
+                        getAlbumTitle = { it.album?.title }
                     )
                 }
                 val link = match?.link

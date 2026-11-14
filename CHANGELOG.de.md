@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.14.19] - 2026-11-14
+- **Direkte Streaming-Links**: Verbessertes direktes Öffnen von Qobuz-Titeln, damit gefundene Songs zuverlässig ohne Fehlerseiten starten.
+- **Original-Alben & Regionale Treffer**: Die Titelsuche berücksichtigt nun die Geräteregion und bevorzugt Originalalben gegenüber "Best Of"-Zusammenstellungen.
+- **Klarere Dienst-Hinweise**: Beim Teilen von Links noch nicht unterstützter Musikdienste erscheint ab sofort ein verständlicher Hinweis mit dem jeweiligen Dienstnamen.
+- **Zuverlässige Diagnose**: Verbesserte Konfigurationsübergabe sorgt für eine durchgehend zuverlässige Erfassung anonymer Nutzungsstatistiken.
+
 ## [1.14.18] - 2026-11-13
 - **Verlaufs- & Speicher-Wiederherstellung**: Lokaler Songverlauf wird wieder vollständig geladen, indem SQLite-Zeitlimit-Abfragen cursor-kompatibel ausgeführt und Schema-Aktualisierungen fehlertolerant abgesichert werden.
 - **Manuelle Trefferauswahl**: Korrigierte Parameterübergabe bei der alternativen Trefferauflösung für nahtlose Aktualisierungen im Verlauf.

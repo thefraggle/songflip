@@ -61,7 +61,7 @@ enum class MusicPlatform(
         key = "qobuz",
         displayName = "Qobuz",
         androidPackage = "com.qobuz.music",
-        iosScheme = "qobuz://"
+        iosScheme = "qobuzapp://"
     ),
     BEATPORT(
         key = "beatport",

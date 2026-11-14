@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.14.19] - 2026-11-14
+- **Direct Streaming Links**: Improved direct track opening for Qobuz so matched songs open cleanly without landing on missing pages.
+- **Original Album & Regional Matching**: Catalog searches now respect your device region and prioritize original studio albums over "Best Of" compilations.
+- **Clearer Service Notices**: Sharing links from music services that are not supported yet now displays a clear notice naming the service.
+- **Diagnostics Reliability**: Improved configuration handling so anonymous usage statistics are recorded consistently across all builds.
+
 ## [1.14.18] - 2026-11-13
 - **History & Storage Recovery**: Restored local song history access by using cursor-compatible query execution for SQLite busy-timeout configuration and resilient schema upgrade handling.
 - **Disambiguation Resolution**: Fixed parameter forwarding during manual track selection for seamless history updates.

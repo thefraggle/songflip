@@ -159,8 +159,8 @@ object UrlUtils {
             return "https://www.beatport.com/$type/$slug/$id"
         }
 
-        // 10. Qobuz: (open|play|www).qobuz.com/(?:[a-z]{2}-[a-z]{2}/)?(track|album)/([a-zA-Z0-9_-]+/)?(\\d+)
-        val qobuzMatch = Regex("(?:https?://)?(?:open|play|www)\\.qobuz\\.com(?:/[a-z]{2}(?:-[a-z]{2})?)?/(track|album)/(?:[a-zA-Z0-9_-]+/)?([0-9a-zA-Z]+)").find(clean)
+        // 10. Qobuz: (open|play|www).qobuz.com/(?:[a-z]{2}-[a-z]{2}/)?(track|album|artist|playlist)/([a-zA-Z0-9_-]+/)?(\\d+)
+        val qobuzMatch = Regex("(?:https?://)?(?:open|play|www)\\.qobuz\\.com(?:/[a-z]{2}(?:-[a-z]{2})?)?/(track|album|artist|playlist)/(?:[a-zA-Z0-9_-]+/)?([0-9a-zA-Z]+)").find(clean)
         if (qobuzMatch != null) {
             val type = qobuzMatch.groupValues[1]
             val id = qobuzMatch.groupValues[2]
@@ -478,7 +478,7 @@ object UrlUtils {
             isHostOrSubdomain(host, "amzn.to", "amzn.eu", "amzn.asia", "a.co") || isAmazonHost(host) -> MusicPlatform.AMAZON_MUSIC
             isHostOrSubdomain(host, "soundcloud.com") -> MusicPlatform.SOUNDCLOUD
             isHostOrSubdomain(host, "bandcamp.com") -> MusicPlatform.BANDCAMP
-            isHostOrSubdomain(host, "qobuz.com") -> MusicPlatform.QOBUZ
+            isHostOrSubdomain(host, "qobuz.com") || lower.startsWith("qobuzapp:") || lower.startsWith("qobuz:") -> MusicPlatform.QOBUZ
             isHostOrSubdomain(host, "beatport.com") -> MusicPlatform.BEATPORT
             isHostOrSubdomain(host, "audiomack.com") -> MusicPlatform.AUDIOMACK
             isHostOrSubdomain(host, "idagio.com") -> MusicPlatform.IDAGIO
@@ -511,9 +511,30 @@ object UrlUtils {
         )
     }
 
+    /**
+     * Identifies known regional or third-party music services that SongFlip does not currently support,
+     * so the UI can show a specific "<Service> is not supported yet" message instead of a generic error.
+     */
+    fun detectUnsupportedKnownMusicService(url: String): String? {
+        val host = extractDomain(url.trim().lowercase())
+        if (host == "unknown" || host.isBlank()) return null
+        return when {
+            isHostOrSubdomain(host, "jiosaavn.com", "saavn.com") -> "JioSaavn"
+            isHostOrSubdomain(host, "gaana.com") -> "Gaana"
+            isHostOrSubdomain(host, "wynk.in") -> "Wynk Music"
+            isHostOrSubdomain(host, "hungama.com") -> "Hungama"
+            isHostOrSubdomain(host, "yandex.ru", "yandex.com") && url.lowercase().contains("music") -> "Yandex Music"
+            isHostOrSubdomain(host, "kkbox.com") -> "KKBOX"
+            isHostOrSubdomain(host, "boomplay.com") -> "Boomplay"
+            else -> null
+        }
+    }
+
     private val ALLOWED_NATIVE_SCHEMES = setOf(
         "spotify",
         "music",
+        "musics",
+        "youtubemusic",
         "podcast",
         "podcasts",
         "pocketcasts",
@@ -525,11 +546,18 @@ object UrlUtils {
         "soundcloud",
         "bandcamp",
         "qobuz",
+        "qobuzapp",
         "beatport",
         "audiomack",
         "idagio",
         "anghami",
-        "debridmusic"
+        "debridmusic",
+        "demus",
+        "yattee",
+        "marvispro",
+        "marvis",
+        "soor",
+        "joitunes"
     )
 
     /**
@@ -802,7 +830,7 @@ object UrlUtils {
             "amazonMusic", "amazonmusic" -> "https://music.amazon.com/search/$query"
             "soundcloud" -> "https://soundcloud.com/search?q=$query"
             "bandcamp" -> "https://bandcamp.com/search?q=$query"
-            "qobuz" -> "https://www.qobuz.com/us-en/search/tracks?q=$query"
+            "qobuz" -> "https://play.qobuz.com/search?q=$query"
             "beatport" -> "https://www.beatport.com/search?q=$query"
             "audiomack" -> "https://audiomack.com/search?q=$query"
             "idagio" -> "https://app.idagio.com/search?q=$query"
@@ -856,6 +884,12 @@ object UrlUtils {
                 return url.replaceFirst(ytDomainRegex, "https://music.youtube.com")
             }
         }
+        if (targetPlatformKey.substringBefore("_") == "qobuz" && url.contains("www.qobuz.com") && url.contains("/search")) {
+            val q = if (url.contains("q=")) url.substringAfter("q=").substringBefore("&").substringBefore("#") else ""
+            if (q.isNotEmpty()) {
+                return "https://play.qobuz.com/search?q=$q"
+            }
+        }
         return url
     }
 
@@ -871,6 +905,18 @@ object UrlUtils {
             url = url.replace("music.music.youtube.com", "music.youtube.com")
         }
         val cleanKey = targetPlatformKey.substringBefore("_")
+        if (cleanKey == "qobuz") {
+            if (url.startsWith("qobuzapp://") || url.startsWith("qobuz://")) {
+                val rest = url.substringAfter("://")
+                return "https://open.qobuz.com/$rest"
+            }
+            if (url.contains("www.qobuz.com") && url.contains("/search")) {
+                val q = if (url.contains("q=")) url.substringAfter("q=").substringBefore("&").substringBefore("#") else ""
+                if (q.isNotEmpty()) {
+                    return "https://play.qobuz.com/search?q=$q"
+                }
+            }
+        }
         if (cleanKey == "youtubeMusic") {
             if (url.startsWith("youtubemusic://")) {
                 url = url.replace("youtubemusic://", "https://")
@@ -930,13 +976,14 @@ object UrlUtils {
     }
 
     fun toNativeQobuzUri(url: String): String {
-        if (url.startsWith("qobuz://")) return url
+        if (url.startsWith("qobuzapp://")) return url
+        if (url.startsWith("qobuz://")) return "qobuzapp://" + url.removePrefix("qobuz://")
         val clean = url.trim().substringBefore("?")
-        val match = Regex("(?:open|play|www)\\.qobuz\\.com(?:/[a-z]{2}(?:-[a-z]{2})?)?/(track|album|playlist)/(?:[a-zA-Z0-9_-]+/)?([0-9a-zA-Z]+)").find(clean)
+        val match = Regex("(?:open|play|www)\\.qobuz\\.com(?:/[a-z]{2}(?:-[a-z]{2})?)?/(track|album|artist|playlist)/(?:[a-zA-Z0-9_-]+/)?([0-9a-zA-Z]+)").find(clean)
         if (match != null) {
             val type = match.groupValues[1]
             val id = match.groupValues[2]
-            return "qobuz://$type/$id"
+            return "qobuzapp://$type/$id"
         }
         return url
     }

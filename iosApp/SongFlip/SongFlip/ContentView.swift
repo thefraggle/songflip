@@ -812,7 +812,11 @@ struct ContentView: View {
                     showingPodcastNotice = true
 
                 case .unsupportedEntity(let originalUrl, let entityType):
-                    if entityType == "unsupported_domain" {
+                    if entityType == "unsupported_music_service",
+                       let service = UrlUtils.shared.detectUnsupportedKnownMusicService(url: originalUrl.isEmpty ? urlToConvert : originalUrl) {
+                        let msg = lang == "de" ? "\(service) wird noch nicht unterstützt." : "\(service) is not supported yet."
+                        showToast(msg)
+                    } else if entityType == "unsupported_domain" {
                         showToast(LocalizationManager.string(for: "unsupported_domain_toast", lang: lang))
                     }
                     let targetUrlStr = originalUrl.isEmpty ? urlToConvert : originalUrl

@@ -68,7 +68,7 @@ class SongLinkEngine(
     }
 
     // Platform Resolver Strategies
-    val appleMusicResolver = AppleMusicResolver(client, json)
+    val appleMusicResolver = AppleMusicResolver(client, json, countryCodeProvider = { getSystemCountryCode() })
     val deezerResolver = DeezerResolver(client, json)
     val tidalResolver = TidalResolver(client, json, countryCodeProvider = { getSystemCountryCode() })
     val youTubeMusicResolver = YouTubeMusicResolver(client)
@@ -289,11 +289,12 @@ class SongLinkEngine(
 
             // Fast-fail for foreign non-music domains (e.g. TikTok, Instagram Reels, generic websites) (#132)
             if (!UrlUtils.isSupportedMusicOrAggregatorUrl(canonicalUrl)) {
+                val knownUnsupportedService = UrlUtils.detectUnsupportedKnownMusicService(canonicalUrl)
                 return ResolutionResult.UnsupportedEntity(
                     originalUrl = canonicalUrl,
-                    platform = "unknown",
-                    entityType = "unsupported_domain",
-                    message = "UNSUPPORTED_DOMAIN"
+                    platform = knownUnsupportedService ?: "unknown",
+                    entityType = if (knownUnsupportedService != null) "unsupported_music_service" else "unsupported_domain",
+                    message = knownUnsupportedService ?: "UNSUPPORTED_DOMAIN"
                 )
             }
 
@@ -369,8 +370,9 @@ class SongLinkEngine(
             if (!forceRefresh) {
                 // 4. L1 Cache Lookup (< 5ms). On forceRefresh we skip the cache read to resolve freshly
                 // from upstream, while preserving existing history and favorite flags (#171).
+                // Self-healing: skip stale Qobuz search fallbacks cached on www.qobuz.com so they re-resolve to direct open.qobuz.com links.
                 val cached = cache.get(canonicalUrl, targetPlatformKey, now)
-                if (cached != null) {
+                if (cached != null && !cached.targetUrl.contains("www.qobuz.com/")) {
                     if (!isPrefetch) {
                         cache.markAsHistory(canonicalUrl, targetPlatformKey, now)
                     }

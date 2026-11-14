@@ -96,7 +96,8 @@ object ResolverUtils {
         isAlbum: Boolean = false,
         getArtist: (T) -> String?,
         getTitle: (T) -> String?,
-        getVersion: ((T) -> String?)? = null
+        getVersion: ((T) -> String?)? = null,
+        getAlbumTitle: ((T) -> String?)? = null
     ): T? {
         if (candidates.isEmpty()) return null
 
@@ -159,6 +160,19 @@ object ResolverUtils {
             val normQuery = normalizeTokens(query).joinToString(" ")
             if (normQuery.contains(normTitle) || normTitle == normQuery) {
                 s += 40
+            }
+
+            // Prefer original studio releases over "Best of" / compilation albums when not explicitly requested
+            val albumTitle = getAlbumTitle?.invoke(item)?.lowercase().orEmpty()
+            if (!isAlbum && albumTitle.isNotEmpty()) {
+                val compilationIndicators = listOf(
+                    "best of", "greatest hits", "anthology", "essential",
+                    "complete collection", "ultimate collection", "very best",
+                    "hits collection", "gold collection"
+                )
+                if (compilationIndicators.any { albumTitle.contains(it) && !lowerQuery.contains(it) }) {
+                    s -= 45
+                }
             }
 
             s

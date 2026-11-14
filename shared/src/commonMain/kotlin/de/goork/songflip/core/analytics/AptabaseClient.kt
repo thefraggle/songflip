@@ -68,6 +68,9 @@ object AptabaseClient {
     val isInitialized: Boolean
         get() = appKey.isNotEmpty() && host.isNotEmpty() && systemProps != null
 
+    val configuredHost: String
+        get() = host
+
     fun init(
         appKey: String,
         host: String,
@@ -78,8 +81,15 @@ object AptabaseClient {
         appBuildNumber: String,
         isDebug: Boolean
     ) {
-        this.appKey = appKey
-        this.host = host.trimEnd('/')
+        this.appKey = appKey.trim()
+        val sanitizedHost = host.trim()
+            .replace("\\/", "/")
+            .trimEnd('/')
+        this.host = when {
+            sanitizedHost.startsWith("https://") || sanitizedHost.startsWith("http://") -> sanitizedHost
+            sanitizedHost == "https:" || sanitizedHost == "http:" || sanitizedHost.isEmpty() -> "https://telemetry-apps.goork.de"
+            else -> "https://$sanitizedHost"
+        }
         this.systemProps = SystemProps(
             isDebug = isDebug,
             osName = osName,

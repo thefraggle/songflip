@@ -280,7 +280,7 @@ class UrlUtilsTest {
         assertEquals("https://app.idagio.com/search?q=Beethoven%20Symphony%20No.%205", builtIdagio)
 
         val builtQobuz = UrlUtils.buildSearchUrl("Romare The Blues", "qobuz")
-        assertEquals("https://www.qobuz.com/us-en/search/tracks?q=Romare%20The%20Blues", builtQobuz)
+        assertEquals("https://play.qobuz.com/search?q=Romare%20The%20Blues", builtQobuz)
     }
 
     @Test
@@ -319,10 +319,14 @@ class UrlUtilsTest {
         assertEquals("soundcloud://tracks/octobersveryown/drake-gods-plan", UrlUtils.toNativeAppUri("https://soundcloud.com/octobersveryown/drake-gods-plan", "soundcloud"))
         assertEquals("soundcloud://search?q=Skrillex%20Rumble", UrlUtils.toNativeAppUri("https://soundcloud.com/search?q=Skrillex%20Rumble", "soundcloud"))
 
-        // Qobuz with optional slug
-        assertEquals("qobuz://track/123456", UrlUtils.toNativeAppUri("https://www.qobuz.com/de-de/track/bohemian-rhapsody/123456", "qobuz"))
-        assertEquals("qobuz://album/abc123", UrlUtils.toNativeAppUri("https://open.qobuz.com/album/some-slug/abc123", "qobuz"))
-        assertEquals("qobuz://playlist/999888", UrlUtils.toNativeAppUri("https://open.qobuz.com/playlist/999888", "qobuz"))
+        // Qobuz with optional slug (uses official qobuzapp:// native scheme and self-heals legacy qobuz://)
+        assertEquals("qobuzapp://track/123456", UrlUtils.toNativeAppUri("https://www.qobuz.com/de-de/track/bohemian-rhapsody/123456", "qobuz"))
+        assertEquals("qobuzapp://album/abc123", UrlUtils.toNativeAppUri("https://open.qobuz.com/album/some-slug/abc123", "qobuz"))
+        assertEquals("qobuzapp://artist/43821", UrlUtils.toNativeAppUri("https://open.qobuz.com/artist/43821", "qobuz"))
+        assertEquals("qobuzapp://playlist/999888", UrlUtils.toNativeAppUri("https://open.qobuz.com/playlist/999888", "qobuz"))
+        assertEquals("qobuzapp://track/123456", UrlUtils.toNativeAppUri("qobuz://track/123456", "qobuz"))
+        assertEquals("https://play.qobuz.com/search?q=Queen", UrlUtils.formatTargetUrl("https://www.qobuz.com/us-en/search/tracks?q=Queen", "qobuz"))
+        assertEquals("https://play.qobuz.com/search?q=Queen", UrlUtils.toWebFallbackUrl("https://www.qobuz.com/us-en/search/tracks?q=Queen", "qobuz"))
     }
 
     @Test
@@ -679,6 +683,61 @@ class UrlUtilsTest {
 
         // Native URI
         assertEquals("anghami://song/12345678", UrlUtils.toNativeAppUri("https://play.anghami.com/song/12345678", "anghami"))
+    }
+
+    @Test
+    fun testAllSupportedPlatformsEndToEndInvariants() {
+        val sampleTrackUrls = mapOf(
+            "youtubeMusic" to "https://music.youtube.com/watch?v=dQw4w9WgXcQ",
+            "appleMusic" to "https://music.apple.com/de/album/veridis-quo/697194953?i=697195787",
+            "spotify" to "https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv",
+            "tidal" to "https://tidal.com/browse/track/196435445",
+            "deezer" to "https://www.deezer.com/track/3506388961",
+            "amazonMusic" to "https://music.amazon.com/albums/B004G92QE4?trackAsin=B004G8Z8UO",
+            "soundcloud" to "https://soundcloud.com/octobersveryown/drake-gods-plan",
+            "bandcamp" to "https://radiohead.bandcamp.com/track/reckoner",
+            "qobuz" to "https://open.qobuz.com/track/1068442",
+            "beatport" to "https://www.beatport.com/track/some-song/12345",
+            "audiomack" to "https://audiomack.com/eminem/song/houdini",
+            "idagio" to "https://app.idagio.com/recordings/12345",
+            "anghami" to "https://play.anghami.com/song/12345678"
+        )
+
+        for (platform in de.goork.songflip.core.model.MusicPlatform.entries) {
+            val key = platform.key
+            val trackUrl = sampleTrackUrls[key]
+            assertNotNull(trackUrl, "Missing sample track URL for $key")
+
+            // 1. Search URL must be a valid, safe HTTPS URL recognized as search & belonging to the platform
+            val searchUrl = UrlUtils.buildSearchUrl("Daft Punk Veridis Quo", key)
+            assertTrue(searchUrl.startsWith("https://"), "Search URL for $key must start with https://: $searchUrl")
+            assertTrue(UrlUtils.isSafeTargetUrl(searchUrl), "Search URL for $key must pass isSafeTargetUrl: $searchUrl")
+            assertTrue(UrlUtils.isSearchUrl(searchUrl), "Search URL for $key must pass isSearchUrl: $searchUrl")
+            assertEquals(platform, UrlUtils.detectPlatform(searchUrl), "Search URL for $key must map back to $platform")
+
+            // 2. Direct track URL must pass normalization, platform detection, and safety checks
+            val normalized = UrlUtils.normalizeUrl(trackUrl)
+            assertTrue(UrlUtils.isSafeTargetUrl(normalized), "Normalized track URL for $key must pass isSafeTargetUrl: $normalized")
+            assertEquals(platform, UrlUtils.detectPlatform(normalized), "Normalized track URL for $key must map to $platform")
+
+            // 3. Native URI conversion must pass isSafeNativeAppUri
+            val nativeUri = UrlUtils.toNativeAppUri(normalized, key)
+            assertTrue(UrlUtils.isSafeNativeAppUri(nativeUri), "Native URI for $key must pass isSafeNativeAppUri: $nativeUri")
+
+            // 4. Web fallback conversion must pass isSafeTargetUrl
+            val webFallback = UrlUtils.toWebFallbackUrl(normalized, key)
+            assertTrue(UrlUtils.isSafeTargetUrl(webFallback), "Web fallback URL for $key must pass isSafeTargetUrl: $webFallback")
+        }
+    }
+
+    @Test
+    fun testDetectUnsupportedKnownMusicService() {
+        assertEquals("JioSaavn", UrlUtils.detectUnsupportedKnownMusicService("https://www.jiosaavn.com/song/tum-hi-ho/123"))
+        assertEquals("Gaana", UrlUtils.detectUnsupportedKnownMusicService("https://gaana.com/song/tum-hi-ho"))
+        assertEquals("Wynk Music", UrlUtils.detectUnsupportedKnownMusicService("https://wynk.in/music/song/tum-hi-ho/123"))
+        assertEquals("KKBOX", UrlUtils.detectUnsupportedKnownMusicService("https://www.kkbox.com/tw/en/song/123"))
+        assertNull(UrlUtils.detectUnsupportedKnownMusicService("https://open.spotify.com/track/123"))
+        assertNull(UrlUtils.detectUnsupportedKnownMusicService("https://www.tiktok.com/@user/video/123"))
     }
 }
 
