@@ -1,4 +1,4 @@
-- Anghami Link Interception: Full integration of Anghami links into default app handling and system link routing (#203).
-- Resilient Shortlink Resolution: Network errors during shortlink resolution no longer poison the in-memory cache, enabling immediate retries upon connection restoration (#D8).
-- Precise Track Identification: Strict parameter isolation when detecting single tracks from complex web links (#L11).
-- Enhanced Data Safety & Cloud Backup Rules: Explicit exclusion of temporary session tokens from automatic cloud backup and device transfer (#A10).
+- Direct Streaming Links: Improved direct track opening for Qobuz so matched songs open cleanly without landing on missing pages.
+- Original Album & Regional Matching: Catalog searches now respect your device region and prioritize original studio albums over "Best Of" compilations.
+- Clearer Service Notices: Sharing links from music services that are not supported yet now displays a clear notice naming the service.
+- Diagnostics Reliability: Improved configuration handling so anonymous usage statistics are recorded consistently across all builds.

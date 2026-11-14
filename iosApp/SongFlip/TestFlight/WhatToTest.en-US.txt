@@ -1,3 +1,4 @@
-- International Character & Script Support: Preserved title and artist formatting for non-Latin writing systems during playlist deduplication and matching.
-- Link & Redirect Validation: Strengthened address verification across routing paths to block unsupported or malformed links.
-- Resolver Performance & Precision: Improved search accuracy across streaming catalogs and removed redundant full downloads for shortlinks.
+- Direct Streaming Links: Improved direct track opening for Qobuz so matched songs open cleanly without landing on missing pages.
+- Original Album & Regional Matching: Catalog searches now respect your device region and prioritize original studio albums over "Best Of" compilations.
+- Clearer Service Notices: Sharing links from music services that are not supported yet now displays a clear notice naming the service.
+- Diagnostics Reliability: Improved configuration handling so anonymous usage statistics are recorded consistently across all builds.

@@ -107,25 +107,26 @@ LIMITS = {
     'release_notes': 4000,
 }
 
-def extract_changelog_for_version(version=None):
-    changelog_path = os.path.join(BASE_DIR, "CHANGELOG.md")
+def extract_changelog_for_version(version=None, filepath="CHANGELOG.md"):
+    changelog_path = os.path.join(BASE_DIR, filepath)
     if not os.path.exists(changelog_path):
-        return "Performance improvements and bug fixes."
+        return None
 
     content = open(changelog_path, "r", encoding="utf-8").read()
 
-    if version:
+    if version and version != "latest":
         clean_v = version.lstrip('v').strip()
         pattern = r'## \[' + re.escape(clean_v) + r'\].*?\n(.*?)(?=\n## \[|\Z)'
         match = re.search(pattern, content, re.DOTALL)
         if match:
             return clean_markdown_notes(match.group(1).strip())
+        return None
 
     match = re.search(r"## \[.*?\][^\n]*\n(.*?)(?=\n## \[|\Z)", content, re.DOTALL)
     if match:
         return clean_markdown_notes(match.group(1).strip())
 
-    return "Performance improvements and bug fixes."
+    return None
 
 def clean_markdown_notes(body):
     lines = body.split('\n')
@@ -147,13 +148,34 @@ def main():
     target_version = sys.argv[1] if len(sys.argv) > 1 else os.environ.get("GITHUB_REF_NAME", "")
     print(f"Generating iOS App Store metadata (Version: '{target_version or 'latest'}')...\n")
 
-    release_notes_en = extract_changelog_for_version(target_version)
+    release_notes_en = extract_changelog_for_version(target_version, "CHANGELOG.md") or "Performance improvements and bug fixes."
+    release_notes_de = extract_changelog_for_version(target_version, "CHANGELOG.de.md")
 
-    try:
-        from deep_translator import MyMemoryTranslator
-        translator_cls = MyMemoryTranslator
-    except Exception:
-        translator_cls = None
+    if not release_notes_de:
+        try:
+            from deep_translator import MyMemoryTranslator
+            translated_lines = []
+            for line in release_notes_en.split('\n'):
+                if line.startswith('- '):
+                    raw_text = line[2:].strip()
+                    trans = MyMemoryTranslator(source='en-GB', target='de-DE').translate(raw_text)
+                    translated_lines.append(f"- {trans}")
+                elif line.strip():
+                    trans = MyMemoryTranslator(source='en-GB', target='de-DE').translate(line.strip())
+                    translated_lines.append(trans)
+            release_notes_de = '\n'.join(translated_lines)
+        except Exception as e:
+            print(f"German translation fallback failed: {e}")
+            release_notes_de = release_notes_en
+
+    # Update TestFlight WhatToTest notes on the fly from CHANGELOGs
+    testflight_dir = os.path.join(BASE_DIR, "iosApp", "SongFlip", "TestFlight")
+    os.makedirs(testflight_dir, exist_ok=True)
+    with open(os.path.join(testflight_dir, "WhatToTest.en-US.txt"), 'w', encoding='utf-8') as f:
+        f.write(release_notes_en[:4000].strip() + "\n")
+    with open(os.path.join(testflight_dir, "WhatToTest.de-DE.txt"), 'w', encoding='utf-8') as f:
+        f.write(release_notes_de[:4000].strip() + "\n")
+    print(f"✓ Updated TestFlight WhatToTest notes in {testflight_dir}\n")
 
     for locale, data in IOS_LISTINGS.items():
         locale_dir = os.path.join(IOS_METADATA_DIR, locale)
@@ -161,22 +183,8 @@ def main():
 
         current_data = dict(data)
         
-        # Localize release notes if DE
-        if locale.startswith('de') and translator_cls:
-            try:
-                translated_lines = []
-                for line in release_notes_en.split('\n'):
-                    if line.startswith('- '):
-                        raw_text = line[2:].strip()
-                        trans = translator_cls(source='en-GB', target='de-DE').translate(raw_text)
-                        translated_lines.append(f"- {trans}")
-                    elif line.strip():
-                        trans = translator_cls(source='en-GB', target='de-DE').translate(line.strip())
-                        translated_lines.append(trans)
-                current_data['release_notes'] = '\n'.join(translated_lines)
-            except Exception as e:
-                print(f"Translation failed for {locale}: {e}")
-                current_data['release_notes'] = release_notes_en
+        if locale.startswith('de'):
+            current_data['release_notes'] = release_notes_de
         else:
             current_data['release_notes'] = release_notes_en
 

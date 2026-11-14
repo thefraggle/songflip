@@ -1,3 +1,4 @@
-- Internationale Schrift- & Zeichenunterstützung: Erhalt von Titel- und Künstlernamen nicht-lateinischer Schriften bei der Duplikatbereinigung und Suche.
-- Link- & Weiterleitungs-Sicherheit: Strikte Adressprüfung auf allen Pfaden verhindert das Öffnen fehlerhafter oder nicht unterstützter Adressen.
-- Resolver-Präzision & Geschwindigkeit: Gesteigerte Suchgenauigkeit in Musikkatalogen und Vermeidung unnötiger Downloads bei Kurz-Links.
+- Direkte Streaming-Links: Verbessertes direktes Öffnen von Qobuz-Titeln, damit gefundene Songs zuverlässig ohne Fehlerseiten starten.
+- Original-Alben & Regionale Treffer: Die Titelsuche berücksichtigt nun die Geräteregion und bevorzugt Originalalben gegenüber "Best Of"-Zusammenstellungen.
+- Klarere Dienst-Hinweise: Beim Teilen von Links noch nicht unterstützter Musikdienste erscheint ab sofort ein verständlicher Hinweis mit dem jeweiligen Dienstnamen.
+- Zuverlässige Diagnose: Verbesserte Konfigurationsübergabe sorgt für eine durchgehend zuverlässige Erfassung anonymer Nutzungsstatistiken.
