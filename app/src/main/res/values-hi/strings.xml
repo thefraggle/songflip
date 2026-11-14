@@ -297,7 +297,7 @@
     <string name="playlist_error_title">प्लेलिस्ट रूपांतरण विफल</string>
     <string name="playlist_error_desc">इस प्लेलिस्ट से गाने निकाले नहीं जा सके। इसके बजाय आप मूल लिंक खोल सकते हैं।</string>
     <string name="playlist_error_private_title">निजी या व्यक्तिगत प्लेलिस्ट</string>
-    <string name="playlist_error_private_desc">SongFlip बिना किसी खाते या लॉगिन के 100%% निजी रूप से काम करता है। इसलिए व्यक्तिगत एल्गोरिथम मिक्स (जैसे Spotify Daily Mix) और निजी प्लेलिस्ट लोड नहीं हो सकती हैं। सुझाव: गानों को किसी सार्वजनिक प्लेलिस्ट में कॉपी करें या एल्बम/सार्वजनिक प्लेलिस्ट साझा करें।</string>
+    <string name="playlist_error_private_desc" formatted="false">SongFlip बिना किसी खाते या लॉगिन के 100% निजी रूप से काम करता है। इसलिए व्यक्तिगत एल्गोरिथम मिक्स (जैसे Spotify Daily Mix) और निजी प्लेलिस्ट लोड नहीं हो सकती हैं। सुझाव: गानों को किसी सार्वजनिक प्लेलिस्ट में कॉपी करें या एल्बम/सार्वजनिक प्लेलिस्ट साझा करें।</string>
     <string name="playlist_error_unsupported_title">इस प्लेटफ़ॉर्म पर प्लेलिस्ट समर्थित नहीं</string>
     <string name="playlist_error_unsupported_desc">SongFlip अभी Spotify, Apple Music, YouTube Music और Deezer की प्लेलिस्ट सपोर्ट करता है। इस प्लेटफ़ॉर्म के एकल गाने अब भी काम करते हैं।</string>
     <string name="playlist_error_timeout_title">कनेक्शन टाइमआउट</string>
@@ -429,7 +429,7 @@
     <string name="search_flip_playlist_action">प्लेलिस्ट रूपांतरित करें</string>
     <string name="search_paste_clipboard_action">क्लिपबोर्ड से लिंक पेस्ट करें</string>
     <string name="first_launch_guide_title">SongFlip कैसे काम करता है</string>
-    <string name="first_launch_guide_subtitle">अपने पसंदीदा ऐप में संगीत लिंक खोलें – 100%% निजी, कोई खाता नहीं।</string>
+    <string name="first_launch_guide_subtitle" formatted="false">अपने पसंदीदा ऐप में संगीत लिंक खोलें – 100% निजी, कोई खाता नहीं।</string>
     <string name="first_launch_step1_title">1. किसी भी संगीत ऐप से साझा करें</string>
     <string name="first_launch_step1_desc">Spotify, Apple Music आदि में \"शेयर\" पर टैप करें और SongFlip चुनें।</string>
     <string name="first_launch_step2_title">2. कॉपी करें और खोजें</string>

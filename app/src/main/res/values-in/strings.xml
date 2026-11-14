@@ -291,7 +291,7 @@
     <string name="playlist_error_title">Konversi Daftar Putar Gagal</string>
     <string name="playlist_error_desc">Tidak dapat mengekstrak trek dari daftar putar ini. Anda dapat membuka tautan asli sebagai gantinya.</string>
     <string name="playlist_error_private_title">Daftar Putar Pribadi atau Dipersonalisasi</string>
-    <string name="playlist_error_private_desc">SongFlip beroperasi 100%% privat tanpa akun atau login. Oleh karena itu, mix algoritmik pribadi (seperti Spotify Daily Mix) dan playlist privat tidak dapat diakses. Tips: Salin lagu ke playlist publik atau bagikan album/playlist publik.</string>
+    <string name="playlist_error_private_desc" formatted="false">SongFlip beroperasi 100% privat tanpa akun atau login. Oleh karena itu, mix algoritmik pribadi (seperti Spotify Daily Mix) dan playlist privat tidak dapat diakses. Tips: Salin lagu ke playlist publik atau bagikan album/playlist publik.</string>
     <string name="playlist_error_unsupported_title">Platform belum mendukung playlist</string>
     <string name="playlist_error_unsupported_desc">SongFlip saat ini mendukung playlist dari Spotify, Apple Music, YouTube Music, dan Deezer. Lagu satuan dari platform ini tetap berfungsi.</string>
     <string name="playlist_error_timeout_title">Waktu koneksi habis</string>
@@ -422,7 +422,7 @@
     <string name="search_flip_playlist_action">Konversi daftar putar</string>
     <string name="search_paste_clipboard_action">Tempel tautan dari papan klip</string>
     <string name="first_launch_guide_title">Cara Kerja SongFlip</string>
-    <string name="first_launch_guide_subtitle">Buka tautan musik di aplikasi pilihan Anda – 100%% privat, tanpa akun.</string>
+    <string name="first_launch_guide_subtitle" formatted="false">Buka tautan musik di aplikasi pilihan Anda – 100% privat, tanpa akun.</string>
     <string name="first_launch_step1_title">1. Bagikan dari aplikasi musik apa pun</string>
     <string name="first_launch_step1_desc">Ketuk \"Bagikan\" di Spotify, Apple Music, dll. lalu pilih SongFlip.</string>
     <string name="first_launch_step2_title">2. Salin &amp; Cari</string>

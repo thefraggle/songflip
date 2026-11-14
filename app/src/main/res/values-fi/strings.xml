@@ -297,7 +297,7 @@
     <string name="playlist_error_title">Soittolistan muuntaminen epäonnistui</string>
     <string name="playlist_error_desc">Kappaleita ei voitu hakea tästä soittolistasta. Voit avata alkuperäisen linkin.</string>
     <string name="playlist_error_private_title">Yksityinen tai henkilökohtainen soittolista</string>
-    <string name="playlist_error_private_desc">SongFlip toimii 100%% yksityisesti ilman käyttäjätilejä tai kirjautumista. Algoritmisia henkilökohtaisia miksauksia (kuten Spotify Daily Mix) tai yksityisiä soittolistoja ei siksi voi avata. Vinkki: Kopioi kappaleet julkiselle soittolistalle tai jaa albumi/julkinen lista.</string>
+    <string name="playlist_error_private_desc" formatted="false">SongFlip toimii 100% yksityisesti ilman käyttäjätilejä tai kirjautumista. Algoritmisia henkilökohtaisia miksauksia (kuten Spotify Daily Mix) tai yksityisiä soittolistoja ei siksi voi avata. Vinkki: Kopioi kappaleet julkiselle soittolistalle tai jaa albumi/julkinen lista.</string>
     <string name="playlist_error_unsupported_title">Alusta ei tue soittolistoja</string>
     <string name="playlist_error_unsupported_desc">SongFlip tukee tällä hetkellä soittolistoja Spotifysta, Apple Musicista, YouTube Musicista ja Deezeristä. Yksittäiset kappaleet tältä alustalta toimivat edelleen.</string>
     <string name="playlist_error_timeout_title">Yhteys aikakatkaistiin</string>
@@ -429,7 +429,7 @@
     <string name="search_flip_playlist_action">Muunna soittolista</string>
     <string name="search_paste_clipboard_action">Liitä linkki leikepöydältä</string>
     <string name="first_launch_guide_title">Miten SongFlip toimii</string>
-    <string name="first_launch_guide_subtitle">Avaa musiikkilinkit suosikkisovelluksessasi – 100%% yksityinen, ei tilejä.</string>
+    <string name="first_launch_guide_subtitle" formatted="false">Avaa musiikkilinkit suosikkisovelluksessasi – 100% yksityinen, ei tilejä.</string>
     <string name="first_launch_step1_title">1. Jaa mistä tahansa musiikkisovelluksesta</string>
     <string name="first_launch_step1_desc">Napauta \"Jaa\" Spotifyssa, Apple Musicissa jne. ja valitse SongFlip.</string>
     <string name="first_launch_step2_title">2. Kopioi ja hae</string>

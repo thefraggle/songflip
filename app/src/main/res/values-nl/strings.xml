@@ -297,7 +297,7 @@
     <string name="playlist_error_title">Conversie van afspeellijst mislukt</string>
     <string name="playlist_error_desc">Kon nummers niet uit deze afspeellijst halen. Je kunt de originele link openen.</string>
     <string name="playlist_error_private_title">Privé of gepersonaliseerde afspeellijst</string>
-    <string name="playlist_error_private_desc">SongFlip werkt 100%% privé zonder gebruikersaccounts of login. Persoonlijke algoritmische mixen (zoals Spotify Daily Mix of Discover Weekly) en privé-afspeellijsten kunnen daarom niet worden geopend. Tip: Kopieer de nummers naar een openbare afspeellijst of deel een album/openbare afspeellijst.</string>
+    <string name="playlist_error_private_desc" formatted="false">SongFlip werkt 100% privé zonder gebruikersaccounts of login. Persoonlijke algoritmische mixen (zoals Spotify Daily Mix of Discover Weekly) en privé-afspeellijsten kunnen daarom niet worden geopend. Tip: Kopieer de nummers naar een openbare afspeellijst of deel een album/openbare afspeellijst.</string>
     <string name="playlist_error_unsupported_title">Platform ondersteunt geen playlists</string>
     <string name="playlist_error_unsupported_desc">SongFlip ondersteunt momenteel playlists van Spotify, Apple Music, YouTube Music en Deezer. Losse nummers van dit platform werken nog steeds.</string>
     <string name="playlist_error_timeout_title">Time-out van verbinding</string>
@@ -429,7 +429,7 @@
     <string name="search_flip_playlist_action">Afspeellijst converteren</string>
     <string name="search_paste_clipboard_action">Link plakken van klembord</string>
     <string name="first_launch_guide_title">Hoe SongFlip werkt</string>
-    <string name="first_launch_guide_subtitle">Muzieklinks openen in je favoriete app – 100%% privé, zonder account.</string>
+    <string name="first_launch_guide_subtitle" formatted="false">Muzieklinks openen in je favoriete app – 100% privé, zonder account.</string>
     <string name="first_launch_step1_title">1. Delen vanuit elke muziek-app</string>
     <string name="first_launch_step1_desc">Tik op \'Delen\' in Spotify, Apple Music enz. en kies SongFlip.</string>
     <string name="first_launch_step2_title">2. Kopiëren en zoeken</string>

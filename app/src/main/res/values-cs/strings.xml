@@ -309,7 +309,7 @@
     <string name="playlist_error_title">Převod playlistu se nezdařil</string>
     <string name="playlist_error_desc">Z tohoto playlistu se nepodařilo extrahovat skladby. Můžete otevřít původní odkaz.</string>
     <string name="playlist_error_private_title">Soukromý nebo personalizovaný playlist</string>
-    <string name="playlist_error_private_desc">SongFlip funguje 100%% soukromě bez uživatelských účtů nebo přihlašování. Osobní algoritmické mixy (jako Spotify Daily Mix) a soukromé playlisty proto nelze načíst. Tip: Zkopírujte skladby do veřejného playlistu nebo sdílejte album/veřejný playlist.</string>
+    <string name="playlist_error_private_desc" formatted="false">SongFlip funguje 100% soukromě bez uživatelských účtů nebo přihlašování. Osobní algoritmické mixy (jako Spotify Daily Mix) a soukromé playlisty proto nelze načíst. Tip: Zkopírujte skladby do veřejného playlistu nebo sdílejte album/veřejný playlist.</string>
     <string name="playlist_error_unsupported_title">Platforma zatím nepodporuje playlisty</string>
     <string name="playlist_error_unsupported_desc">SongFlip aktuálně podporuje playlisty ze Spotify, Apple Music, YouTube Music a Deezer. Jednotlivé skladby z této platformy fungují dál.</string>
     <string name="playlist_error_timeout_title">Vypršel časový limit připojení</string>
@@ -443,7 +443,7 @@
     <string name="search_flip_playlist_action">Převést playlist</string>
     <string name="search_paste_clipboard_action">Vložit odkaz ze schránky</string>
     <string name="first_launch_guide_title">Jak SongFlip funguje</string>
-    <string name="first_launch_guide_subtitle">Otevírejte hudební odkazy ve své oblíbené aplikaci – 100%% soukromé, bez účtů.</string>
+    <string name="first_launch_guide_subtitle" formatted="false">Otevírejte hudební odkazy ve své oblíbené aplikaci – 100% soukromé, bez účtů.</string>
     <string name="first_launch_step1_title">1. Sdílejte z libovolné hudební aplikace</string>
     <string name="first_launch_step1_desc">Klepněte na „Sdílet“ ve Spotify, Apple Music atd. a vyberte SongFlip.</string>
     <string name="first_launch_step2_title">2. Kopírovat a hledat</string>

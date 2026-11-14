@@ -297,7 +297,7 @@
     <string name="playlist_error_title">প্লেলিস্ট রূপান্তর ব্যর্থ হয়েছে</string>
     <string name="playlist_error_desc">এই প্লেলিস্ট থেকে গানগুলো নেওয়া যায়নি। আপনি চাইলে মূল লিঙ্কটি খুলতে পারেন।</string>
     <string name="playlist_error_private_title">ব্যক্তিগত বা নিজস্ব প্লেলিস্ট</string>
-    <string name="playlist_error_private_desc">SongFlip কোনও অ্যাকাউন্ট বা লগইন ছাড়াই 100%% ব্যক্তিগতভাবে কাজ করে। তাই ব্যক্তিগত অ্যালগরিদম মিক্স (যেমন Spotify Daily Mix) এবং ব্যক্তিগত প্লেলিস্ট লোড করা যায় না। পরামর্শ: গানগুলি একটি সর্বজনীন প্লেলিস্টে অনুলিপি করুন বা অ্যালবাম/সর্বজনীন প্লেলিস্ট শেয়ার করুন। </string>
+    <string name="playlist_error_private_desc" formatted="false">SongFlip কোনও অ্যাকাউন্ট বা লগইন ছাড়াই 100% ব্যক্তিগতভাবে কাজ করে। তাই ব্যক্তিগত অ্যালগরিদম মিক্স (যেমন Spotify Daily Mix) এবং ব্যক্তিগত প্লেলিস্ট লোড করা যায় না। পরামর্শ: গানগুলি একটি সর্বজনীন প্লেলিস্টে অনুলিপি করুন বা অ্যালবাম/সর্বজনীন প্লেলিস্ট শেয়ার করুন। </string>
     <string name="playlist_error_unsupported_title">এই প্ল্যাটফর্মে প্লেলিস্ট সমর্থিত নয়</string>
     <string name="playlist_error_unsupported_desc">SongFlip বর্তমানে Spotify, Apple Music, YouTube Music এবং Deezer-এর প্লেলিস্ট সমর্থন করে। এই প্ল্যাটফর্মের একক গান এখনও কাজ করে।</string>
     <string name="playlist_error_timeout_title">সংযোগের সময় শেষ</string>
@@ -429,7 +429,7 @@
     <string name="search_flip_playlist_action">প্লেলিস্ট রূপান্তর করুন</string>
     <string name="search_paste_clipboard_action">ক্লিপবোর্ড থেকে লিঙ্ক পেস্ট করুন</string>
     <string name="first_launch_guide_title">SongFlip কীভাবে কাজ করে</string>
-    <string name="first_launch_guide_subtitle">আপনার পছন্দের অ্যাপে সঙ্গীত লিঙ্ক চালান – ১০০%% গোপনীয়, কোনো অ্যাকাউন্ট ছাড়া।</string>
+    <string name="first_launch_guide_subtitle" formatted="false">আপনার পছন্দের অ্যাপে সঙ্গীত লিঙ্ক চালান – ১০০% গোপনীয়, কোনো অ্যাকাউন্ট ছাড়া।</string>
     <string name="first_launch_step1_title">১. যেকোনো মিউজিক অ্যাপ থেকে শেয়ার করুন</string>
     <string name="first_launch_step1_desc">Spotify, Apple Music ইত্যাদিতে \"শেয়ার\" ট্যাপ করুন এবং SongFlip নির্বাচন করুন।</string>
     <string name="first_launch_step2_title">২. কপি এবং অনুসন্ধান</string>

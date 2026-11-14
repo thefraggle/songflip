@@ -332,7 +332,7 @@
     <string name="playlist_error_title">Playlist Conversion Failed</string>
     <string name="playlist_error_desc">Could not extract tracks from this playlist. You can open the original link instead.</string>
     <string name="playlist_error_private_title">Private or Personalized Playlist</string>
-    <string name="playlist_error_private_desc">SongFlip operates 100%% private without user accounts or login. Therefore, personal algorithmic mixes (such as Spotify Daily Mix or Discover Weekly) and private playlists cannot be accessed. Tip: Copy the tracks to a public playlist or share an album/public playlist.</string>
+    <string name="playlist_error_private_desc" formatted="false">SongFlip operates 100% private without user accounts or login. Therefore, personal algorithmic mixes (such as Spotify Daily Mix or Discover Weekly) and private playlists cannot be accessed. Tip: Copy the tracks to a public playlist or share an album/public playlist.</string>
     <string name="playlist_error_private_toast">Private playlists cannot be converted (please set to public)</string>
     <string name="playlist_banner_public_notice">Requires public playlist</string>
     <string name="playlist_error_unsupported_title">Platform Not Supported for Playlists</string>
@@ -476,7 +476,7 @@
     <string name="search_flip_playlist_action">Convert Playlist</string>
     <string name="search_paste_clipboard_action">Paste Link from Clipboard</string>
     <string name="first_launch_guide_title">How SongFlip Works</string>
-    <string name="first_launch_guide_subtitle">Play music links in your preferred app – 100%% private, zero accounts.</string>
+    <string name="first_launch_guide_subtitle" formatted="false">Play music links in your preferred app – 100% private, zero accounts.</string>
     <string name="first_launch_step1_title">1. Share from Any App</string>
     <string name="first_launch_step1_desc">Tap \"Share\" in Spotify, Apple Music, YouTube, etc. and select SongFlip.</string>
     <string name="first_launch_step2_title">2. Copy &amp; Search</string>

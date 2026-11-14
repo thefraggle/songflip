@@ -291,7 +291,7 @@
     <string name="playlist_error_title">재생목록 변환 실패</string>
     <string name="playlist_error_desc">이 재생목록에서 트랙을 추출할 수 없습니다. 원본 링크를 열 수 있습니다.</string>
     <string name="playlist_error_private_title">비공개 또는 맞춤형 재생목록</string>
-    <string name="playlist_error_private_desc">SongFlip은 로그인이나 계정 없이 100%% 비공개로 작동합니다. 따라서 개인 맞춤 믹스(Spotify Daily Mix 등)나 비공개 재생목록은 불러올 수 없습니다. 팁: 곡을 공개 재생목록에 복사하거나 앨범/공개 재생목록을 공유하세요.</string>
+    <string name="playlist_error_private_desc" formatted="false">SongFlip은 로그인이나 계정 없이 100% 비공개로 작동합니다. 따라서 개인 맞춤 믹스(Spotify Daily Mix 등)나 비공개 재생목록은 불러올 수 없습니다. 팁: 곡을 공개 재생목록에 복사하거나 앨범/공개 재생목록을 공유하세요.</string>
     <string name="playlist_error_unsupported_title">이 플랫폼은 플레이리스트를 지원하지 않습니다</string>
     <string name="playlist_error_unsupported_desc">SongFlip은 현재 Spotify, Apple Music, YouTube Music, Deezer의 플레이리스트를 지원합니다. 이 플랫폼의 개별 곡은 계속 사용할 수 있습니다.</string>
     <string name="playlist_error_timeout_title">연결 시간 초과</string>
@@ -422,7 +422,7 @@
     <string name="search_flip_playlist_action">재생목록 변환</string>
     <string name="search_paste_clipboard_action">클립보드에서 링크 붙여넣기</string>
     <string name="first_launch_guide_title">SongFlip 작동 방식</string>
-    <string name="first_launch_guide_subtitle">선호하는 앱에서 음악 링크 열기 – 100%% 비공개, 계정 불필요.</string>
+    <string name="first_launch_guide_subtitle" formatted="false">선호하는 앱에서 음악 링크 열기 – 100% 비공개, 계정 불필요.</string>
     <string name="first_launch_step1_title">1. 모든 음악 앱에서 공유</string>
     <string name="first_launch_step1_desc">Spotify, Apple Music 등에서 \'공유\'를 누르고 SongFlip을 선택하세요.</string>
     <string name="first_launch_step2_title">2. 복사 및 검색</string>

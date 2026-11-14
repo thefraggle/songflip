@@ -291,7 +291,7 @@
     <string name="playlist_error_title">プレイリストの変換に失敗しました</string>
     <string name="playlist_error_desc">このプレイリストから曲を抽出できませんでした。元のリンクを開くことができます。</string>
     <string name="playlist_error_private_title">非公開またはパーソナライズされたプレイリスト</string>
-    <string name="playlist_error_private_desc">SongFlipはログイン不要・アカウント不要で100%%プライベートに動作します。そのため、個人用ミックス（Spotify Daily Mixなど）や非公開プレイリストは読み込めません。ヒント：曲を公開プレイリストにコピーするか、アルバムや公開プレイリストを共有してください。</string>
+    <string name="playlist_error_private_desc" formatted="false">SongFlipはログイン不要・アカウント不要で100%プライベートに動作します。そのため、個人用ミックス（Spotify Daily Mixなど）や非公開プレイリストは読み込めません。ヒント：曲を公開プレイリストにコピーするか、アルバムや公開プレイリストを共有してください。</string>
     <string name="playlist_error_unsupported_title">このサービスのプレイリストは未対応です</string>
     <string name="playlist_error_unsupported_desc">SongFlipは現在、Spotify、Apple Music、YouTube Music、Deezerのプレイリストに対応しています。このサービスの単曲は引き続き利用できます。</string>
     <string name="playlist_error_timeout_title">接続がタイムアウトしました</string>
@@ -422,7 +422,7 @@
     <string name="search_flip_playlist_action">プレイリストを変換</string>
     <string name="search_paste_clipboard_action">クリップボードからリンクを貼り付け</string>
     <string name="first_launch_guide_title">SongFlipの使い方</string>
-    <string name="first_launch_guide_subtitle">お好みのアプリで音楽リンクを再生 – 100%%非公開、アカウント不要。</string>
+    <string name="first_launch_guide_subtitle" formatted="false">お好みのアプリで音楽リンクを再生 – 100%非公開、アカウント不要。</string>
     <string name="first_launch_step1_title">1. 任意の音楽アプリから共有</string>
     <string name="first_launch_step1_desc">SpotifyやApple Musicなどで「共有」をタップしてSongFlipを選択。</string>
     <string name="first_launch_step2_title">2. コピーと検索</string>

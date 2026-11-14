@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.14.20] - 2026-11-14
+- **Text & Translation Formatting**: Fixed duplicate percent signs (`%%100` / `100%%`) in guide and privacy notices across all supported languages.
+- **Release Notes Automation**: Improved automatic release note synchronization from the changelog across all store languages.
+
 ## [1.14.19] - 2026-11-14
 - **Direct Streaming Links**: Improved direct track opening for Qobuz so matched songs open cleanly without landing on missing pages.
 - **Original Album & Regional Matching**: Catalog searches now respect your device region and prioritize original studio albums over "Best Of" compilations.

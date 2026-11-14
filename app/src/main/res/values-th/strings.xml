@@ -291,7 +291,7 @@
     <string name="playlist_error_title">การแปลงเพลย์ลิสต์ล้มเหลว</string>
     <string name="playlist_error_desc">ไม่สามารถดึงเพลงจากเพลย์ลิสต์นี้ คุณสามารถเปิดลิงก์เดิมแทนได้</string>
     <string name="playlist_error_private_title">เพลย์ลิสต์ส่วนตัวหรือเพลย์ลิสต์เฉพาะบุคคล</string>
-    <string name="playlist_error_private_desc">SongFlip ทำงานอย่างเป็นส่วนตัว 100%% โดยไม่ต้องมีบัญชีหรือเข้าสู่ระบบ ดังนั้นมิกซ์อัลกอริทึมส่วนบุคคล (เช่น Spotify Daily Mix) และเพลย์ลิสต์ส่วนตัวจึงไม่สามารถเข้าถึงได้ คำแนะนำ: คัดลอกแทร็กไปยังเพลย์ลิสต์สาธารณะหรือแชร์อัลบั้ม/เพลย์ลิสต์สาธารณะ</string>
+    <string name="playlist_error_private_desc" formatted="false">SongFlip ทำงานอย่างเป็นส่วนตัว 100% โดยไม่ต้องมีบัญชีหรือเข้าสู่ระบบ ดังนั้นมิกซ์อัลกอริทึมส่วนบุคคล (เช่น Spotify Daily Mix) และเพลย์ลิสต์ส่วนตัวจึงไม่สามารถเข้าถึงได้ คำแนะนำ: คัดลอกแทร็กไปยังเพลย์ลิสต์สาธารณะหรือแชร์อัลบั้ม/เพลย์ลิสต์สาธารณะ</string>
     <string name="playlist_error_unsupported_title">แพลตฟอร์มนี้ยังไม่รองรับเพลย์ลิสต์</string>
     <string name="playlist_error_unsupported_desc">ขณะนี้ SongFlip รองรับเพลย์ลิสต์จาก Spotify, Apple Music, YouTube Music และ Deezer เพลงเดี่ยวจากแพลตฟอร์มนี้ยังใช้งานได้ตามปกติ</string>
     <string name="playlist_error_timeout_title">การเชื่อมต่อหมดเวลา</string>
@@ -422,7 +422,7 @@
     <string name="search_flip_playlist_action">แปลงเพลย์ลิสต์</string>
     <string name="search_paste_clipboard_action">วางลิงก์จากคลิปบอร์ด</string>
     <string name="first_launch_guide_title">SongFlip ทำงานอย่างไร</string>
-    <string name="first_launch_guide_subtitle">เปิดลิงก์เพลงในแอปที่คุณต้องการ – เป็นส่วนตัว 100%% ไม่ต้องมีบัญชี</string>
+    <string name="first_launch_guide_subtitle" formatted="false">เปิดลิงก์เพลงในแอปที่คุณต้องการ – เป็นส่วนตัว 100% ไม่ต้องมีบัญชี</string>
     <string name="first_launch_step1_title">1. แชร์จากแอปเพลงใดก็ได้</string>
     <string name="first_launch_step1_desc">แตะ \"แชร์\" ใน Spotify, Apple Music ฯลฯ แล้วเลือก SongFlip</string>
     <string name="first_launch_step2_title">2. คัดลอกและค้นหา</string>

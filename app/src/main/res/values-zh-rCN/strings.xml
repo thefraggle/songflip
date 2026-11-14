@@ -291,7 +291,7 @@
     <string name="playlist_error_title">歌单转换失败</string>
     <string name="playlist_error_desc">无法从该歌单中提取曲目。您可以打开原始链接。</string>
     <string name="playlist_error_private_title">私人或个性化歌单</string>
-    <string name="playlist_error_private_desc">SongFlip 100%% 保护隐私，无需账号或登录。因此无法访问个性化推荐歌单（例如 Spotify Daily Mix）及私人歌单。提示：可将歌曲复制到公开歌单，或直接分享专辑/公开歌单。</string>
+    <string name="playlist_error_private_desc" formatted="false">SongFlip 100% 保护隐私，无需账号或登录。因此无法访问个性化推荐歌单（例如 Spotify Daily Mix）及私人歌单。提示：可将歌曲复制到公开歌单，或直接分享专辑/公开歌单。</string>
     <string name="playlist_error_unsupported_title">该平台暂不支持歌单</string>
     <string name="playlist_error_unsupported_desc">SongFlip 目前支持 Spotify、Apple Music、YouTube Music 和 Deezer 的歌单。该平台的单曲仍可正常使用。</string>
     <string name="playlist_error_timeout_title">连接超时</string>
@@ -422,7 +422,7 @@
     <string name="search_flip_playlist_action">转换播放列表</string>
     <string name="search_paste_clipboard_action">从剪贴板粘贴链接</string>
     <string name="first_launch_guide_title">SongFlip 使用指南</string>
-    <string name="first_launch_guide_subtitle">在您喜欢的应用中打开音乐链接 – 100%% 隐私保护，无需注册。</string>
+    <string name="first_launch_guide_subtitle" formatted="false">在您喜欢的应用中打开音乐链接 – 100% 隐私保护，无需注册。</string>
     <string name="first_launch_step1_title">1. 从任意音乐应用分享</string>
     <string name="first_launch_step1_desc">在 Spotify、Apple Music 等应用中点击“分享”并选择 SongFlip。</string>
     <string name="first_launch_step2_title">2. 复制与搜索</string>

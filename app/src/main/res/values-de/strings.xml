@@ -331,7 +331,7 @@
     <string name="playlist_error_title">Playlist-Konvertierung fehlgeschlagen</string>
     <string name="playlist_error_desc">Titel konnten nicht aus dieser Playlist extrahiert werden. Du kannst stattdessen den Originallink öffnen.</string>
     <string name="playlist_error_private_title">Private oder personalisierte Playlist</string>
-    <string name="playlist_error_private_desc">SongFlip arbeitet 100%% privat ohne Benutzerkonto oder Login. Daher können persönliche algorithmische Mixe (wie Spotify Daily Mix oder Discover Weekly) und private Playlists nicht geladen werden. Tipp: Kopiere die Songs in eine öffentliche Playlist oder teile ein Album/eine öffentliche Playlist.</string>
+    <string name="playlist_error_private_desc" formatted="false">SongFlip arbeitet 100% privat ohne Benutzerkonto oder Login. Daher können persönliche algorithmische Mixe (wie Spotify Daily Mix oder Discover Weekly) und private Playlists nicht geladen werden. Tipp: Kopiere die Songs in eine öffentliche Playlist oder teile ein Album/eine öffentliche Playlist.</string>
     <string name="playlist_error_private_toast">Private Playlists können nicht konvertiert werden (bitte auf öffentlich stellen)</string>
     <string name="playlist_banner_public_notice">Erfordert öffentliche Playlist</string>
     <string name="playlist_error_unsupported_title">Plattform für Playlists noch nicht unterstützt</string>
@@ -475,7 +475,7 @@
     <string name="search_flip_playlist_action">Playlist konvertieren</string>
     <string name="search_paste_clipboard_action">Link aus Zwischenablage einfügen</string>
     <string name="first_launch_guide_title">So funktioniert SongFlip</string>
-    <string name="first_launch_guide_subtitle">Musik-Links im bevorzugten Player öffnen – 100%% privat, ohne Login.</string>
+    <string name="first_launch_guide_subtitle" formatted="false">Musik-Links im bevorzugten Player öffnen – 100% privat, ohne Login.</string>
     <string name="first_launch_step1_title">1. Aus jeder Musik-App teilen</string>
     <string name="first_launch_step1_desc">Tippe in Spotify, Apple Music, YouTube &amp; Co. einfach auf „Teilen“ und wähle SongFlip.</string>
     <string name="first_launch_step2_title">2. Kopieren &amp; Suchen</string>

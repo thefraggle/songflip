@@ -297,7 +297,7 @@
     <string name="playlist_error_title">Η μετατροπή της λίστας απέτυχε</string>
     <string name="playlist_error_desc">Δεν ήταν δυνατή η εξαγωγή κομματιών από αυτή τη λίστα. Μπορείτε να ανοίξετε τον αρχικό σύνδεσμο.</string>
     <string name="playlist_error_private_title">Ιδιωτική ή εξατομικευμένη λίστα αναπαραγωγής</string>
-    <string name="playlist_error_private_desc">Το SongFlip λειτουργεί 100%% ιδιωτικά χωρίς λογαριασμούς ή σύνδεση. Προσωπικά αλγοριθμικά μείγματα (όπως το Spotify Daily Mix) και ιδιωτικές λίστες δεν μπορούν να φορτωθούν. Συμβουλή: Αντιγράψτε τα κομμάτια σε μια δημόσια λίστα ή μοιραστείτε ένα άλμπουμ/δημόσια λίστα.</string>
+    <string name="playlist_error_private_desc" formatted="false">Το SongFlip λειτουργεί 100% ιδιωτικά χωρίς λογαριασμούς ή σύνδεση. Προσωπικά αλγοριθμικά μείγματα (όπως το Spotify Daily Mix) και ιδιωτικές λίστες δεν μπορούν να φορτωθούν. Συμβουλή: Αντιγράψτε τα κομμάτια σε μια δημόσια λίστα ή μοιραστείτε ένα άλμπουμ/δημόσια λίστα.</string>
     <string name="playlist_error_unsupported_title">Η πλατφόρμα δεν υποστηρίζει λίστες</string>
     <string name="playlist_error_unsupported_desc">Το SongFlip υποστηρίζει προς το παρόν λίστες από Spotify, Apple Music, YouTube Music και Deezer. Μεμονωμένα τραγούδια από αυτή την πλατφόρμα λειτουργούν κανονικά.</string>
     <string name="playlist_error_timeout_title">Λήξη χρόνου σύνδεσης</string>
@@ -429,7 +429,7 @@
     <string name="search_flip_playlist_action">Μετατροπή λίστας αναπαραγωγής</string>
     <string name="search_paste_clipboard_action">Επικόλληση συνδέσμου από το πρόχειρο</string>
     <string name="first_launch_guide_title">Πώς λειτουργεί το SongFlip</string>
-    <string name="first_launch_guide_subtitle">Ανοίξτε συνδέσμους μουσικής στην αγαπημένη σας εφαρμογή – 100%% ιδιωτικό, χωρίς λογαριασμούς.</string>
+    <string name="first_launch_guide_subtitle" formatted="false">Ανοίξτε συνδέσμους μουσικής στην αγαπημένη σας εφαρμογή – 100% ιδιωτικό, χωρίς λογαριασμούς.</string>
     <string name="first_launch_step1_title">1. Κοινοποίηση από οποιαδήποτε εφαρμογή μουσικής</string>
     <string name="first_launch_step1_desc">Πατήστε «Κοινοποίηση» στο Spotify, το Apple Music κ.λπ. και επιλέξτε το SongFlip.</string>
     <string name="first_launch_step2_title">2. Αντιγραφή και αναζήτηση</string>

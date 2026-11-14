@@ -1,5 +1,9 @@
 # Changelog (Deutsch)
 
+## [1.14.20] - 2026-11-14
+- **Text- & Übersetzungsformatierung**: Doppelte Prozentzeichen (`%%100` bzw. `100%%`) in Hinweistexten der Anleitung und Datenschutzerklärung in allen Sprachen korrigiert.
+- **Release-Notes-Automatisierung**: Automatische Übernahme und Übersetzung der Versionshinweise aus dem Changelog verbessert.
+
 ## [1.14.19] - 2026-11-14
 - **Direkte Streaming-Links**: Verbessertes direktes Öffnen von Qobuz-Titeln, damit gefundene Songs zuverlässig ohne Fehlerseiten starten.
 - **Original-Alben & Regionale Treffer**: Die Titelsuche berücksichtigt nun die Geräteregion und bevorzugt Originalalben gegenüber "Best Of"-Zusammenstellungen.

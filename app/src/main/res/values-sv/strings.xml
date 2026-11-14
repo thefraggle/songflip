@@ -297,7 +297,7 @@
     <string name="playlist_error_title">Spellistekonvertering misslyckades</string>
     <string name="playlist_error_desc">Kunde inte hämta spår från denna spellista. Du kan öppna ursprungslänken istället.</string>
     <string name="playlist_error_private_title">Privat eller anpassad spellista</string>
-    <string name="playlist_error_private_desc">SongFlip fungerar 100%% privat utan användarkonton eller inloggning. Personliga algoritmiska mixar (som Spotify Daily Mix eller Discover Weekly) och privata spellistor kan därför inte hämtas. Tips: Kopiera låtarna till en offentlig spellista eller dela ett album/en offentlig spellista.</string>
+    <string name="playlist_error_private_desc" formatted="false">SongFlip fungerar 100% privat utan användarkonton eller inloggning. Personliga algoritmiska mixar (som Spotify Daily Mix eller Discover Weekly) och privata spellistor kan därför inte hämtas. Tips: Kopiera låtarna till en offentlig spellista eller dela ett album/en offentlig spellista.</string>
     <string name="playlist_error_unsupported_title">Plattformen stöder inte spellistor</string>
     <string name="playlist_error_unsupported_desc">SongFlip stöder för närvarande spellistor från Spotify, Apple Music, YouTube Music och Deezer. Enskilda låtar från den här plattformen fungerar fortfarande.</string>
     <string name="playlist_error_timeout_title">Anslutningen tog för lång tid</string>
@@ -429,7 +429,7 @@
     <string name="search_flip_playlist_action">Konvertera spellista</string>
     <string name="search_paste_clipboard_action">Klistra in länk från urklipp</string>
     <string name="first_launch_guide_title">Så fungerar SongFlip</string>
-    <string name="first_launch_guide_subtitle">Öppna musiklänkar i din favoritapp – 100%% privat, inga konton.</string>
+    <string name="first_launch_guide_subtitle" formatted="false">Öppna musiklänkar i din favoritapp – 100% privat, inga konton.</string>
     <string name="first_launch_step1_title">1. Dela från valfri musikapp</string>
     <string name="first_launch_step1_desc">Tryck på \"Dela\" i Spotify, Apple Music osv. och välj SongFlip.</string>
     <string name="first_launch_step2_title">2. Kopiera och sök</string>

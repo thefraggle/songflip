@@ -291,7 +291,7 @@
     <string name="playlist_error_title">Chuyển đổi danh sách phát thất bại</string>
     <string name="playlist_error_desc">Không thể trích xuất bài hát từ danh sách phát này. Bạn có thể mở liên kết gốc thay thế.</string>
     <string name="playlist_error_private_title">Danh sách phát riêng tư hoặc cá nhân hóa</string>
-    <string name="playlist_error_private_desc">SongFlip hoạt động riêng tư 100%% không cần tài khoản hay đăng nhập. Do đó, các danh sách kết hợp thuật toán cá nhân (như Spotify Daily Mix) và playlist riêng tư không thể truy cập. Mẹo: Sao chép bài hát vào danh sách phát công khai hoặc chia sẻ album/playlist công khai.</string>
+    <string name="playlist_error_private_desc" formatted="false">SongFlip hoạt động riêng tư 100% không cần tài khoản hay đăng nhập. Do đó, các danh sách kết hợp thuật toán cá nhân (như Spotify Daily Mix) và playlist riêng tư không thể truy cập. Mẹo: Sao chép bài hát vào danh sách phát công khai hoặc chia sẻ album/playlist công khai.</string>
     <string name="playlist_error_unsupported_title">Nền tảng chưa hỗ trợ danh sách phát</string>
     <string name="playlist_error_unsupported_desc">SongFlip hiện hỗ trợ danh sách phát từ Spotify, Apple Music, YouTube Music và Deezer. Các bài hát lẻ từ nền tảng này vẫn hoạt động bình thường.</string>
     <string name="playlist_error_timeout_title">Hết thời gian kết nối</string>
@@ -422,7 +422,7 @@
     <string name="search_flip_playlist_action">Chuyển đổi danh sách phát</string>
     <string name="search_paste_clipboard_action">Dán liên kết từ khay nhớ tạm</string>
     <string name="first_launch_guide_title">Cách SongFlip hoạt động</string>
-    <string name="first_launch_guide_subtitle">Mở liên kết nhạc trong ứng dụng ưa thích – riêng tư 100%%, không cần tài khoản.</string>
+    <string name="first_launch_guide_subtitle" formatted="false">Mở liên kết nhạc trong ứng dụng ưa thích – riêng tư 100%, không cần tài khoản.</string>
     <string name="first_launch_step1_title">1. Chia sẻ từ bất kỳ ứng dụng nhạc nào</string>
     <string name="first_launch_step1_desc">Nhấn \"Chia sẻ\" trong Spotify, Apple Music, v.v. và chọn SongFlip.</string>
     <string name="first_launch_step2_title">2. Sao chép và tìm kiếm</string>

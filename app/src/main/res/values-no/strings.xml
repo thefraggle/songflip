@@ -297,7 +297,7 @@
     <string name="playlist_error_title">Konvertering av spilleliste mislyktes</string>
     <string name="playlist_error_desc">Kunne ikke hente spor fra denne spillelisten. Du kan åpne den opprinnelige lenken.</string>
     <string name="playlist_error_private_title">Privat eller personlig spilleliste</string>
-    <string name="playlist_error_private_desc">SongFlip fungerer 100%% privat uten brukerkonto eller pålogging. Personlige algoritmiske mikser (som Spotify Daily Mix eller Discover Weekly) og private spillelister kan derfor ikke leses. Tips: Kopier sangene til en offentlig spilleliste eller del et album/en offentlig spilleliste.</string>
+    <string name="playlist_error_private_desc" formatted="false">SongFlip fungerer 100% privat uten brukerkonto eller pålogging. Personlige algoritmiske mikser (som Spotify Daily Mix eller Discover Weekly) og private spillelister kan derfor ikke leses. Tips: Kopier sangene til en offentlig spilleliste eller del et album/en offentlig spilleliste.</string>
     <string name="playlist_error_unsupported_title">Plattformen støtter ikke spillelister</string>
     <string name="playlist_error_unsupported_desc">SongFlip støtter for øyeblikket spillelister fra Spotify, Apple Music, YouTube Music og Deezer. Enkeltsanger fra denne plattformen fungerer fortsatt.</string>
     <string name="playlist_error_timeout_title">Tidsavbrudd for tilkobling</string>
@@ -429,7 +429,7 @@
     <string name="search_flip_playlist_action">Konverter spilleliste</string>
     <string name="search_paste_clipboard_action">Lim inn lenke fra utklippstavle</string>
     <string name="first_launch_guide_title">Slik fungerer SongFlip</string>
-    <string name="first_launch_guide_subtitle">Åpne musikklenker i din foretrukne app – 100%% privat, uten konto.</string>
+    <string name="first_launch_guide_subtitle" formatted="false">Åpne musikklenker i din foretrukne app – 100% privat, uten konto.</string>
     <string name="first_launch_step1_title">1. Del fra enhver musikkapp</string>
     <string name="first_launch_step1_desc">Trykk på «Del» i Spotify, Apple Music osv., og velg SongFlip.</string>
     <string name="first_launch_step2_title">2. Kopier og søk</string>

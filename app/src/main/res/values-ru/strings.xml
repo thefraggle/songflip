@@ -309,7 +309,7 @@
     <string name="playlist_error_title">Не удалось сконвертировать плейлист</string>
     <string name="playlist_error_desc">Не удалось извлечь треки из этого плейлиста. Вы можете открыть исходную ссылку.</string>
     <string name="playlist_error_private_title">Приватный или персонализированный плейлист</string>
-    <string name="playlist_error_private_desc">SongFlip работает на 100%% конфиденциально без аккаунтов и входа. Персональные алгоритмические миксы (например, Spotify Daily Mix) и приватные плейлисты недоступны. Совет: скопируйте треки в публичный плейлист или поделитесь альбомом/публичным плейлистом.</string>
+    <string name="playlist_error_private_desc" formatted="false">SongFlip работает на 100% конфиденциально без аккаунтов и входа. Персональные алгоритмические миксы (например, Spotify Daily Mix) и приватные плейлисты недоступны. Совет: скопируйте треки в публичный плейлист или поделитесь альбомом/публичным плейлистом.</string>
     <string name="playlist_error_unsupported_title">Плейлисты этой платформы не поддерживаются</string>
     <string name="playlist_error_unsupported_desc">Сейчас SongFlip поддерживает плейлисты Spotify, Apple Music, YouTube Music и Deezer. Отдельные треки с этой платформы по-прежнему работают.</string>
     <string name="playlist_error_timeout_title">Время ожидания истекло</string>
@@ -443,7 +443,7 @@
     <string name="search_flip_playlist_action">Конвертировать плейлист</string>
     <string name="search_paste_clipboard_action">Вставить ссылку из буфера</string>
     <string name="first_launch_guide_title">Как работает SongFlip</string>
-    <string name="first_launch_guide_subtitle">Открывайте ссылки в любимом плеере – 100%% конфиденциально, без аккаунтов.</string>
+    <string name="first_launch_guide_subtitle" formatted="false">Открывайте ссылки в любимом плеере – 100% конфиденциально, без аккаунтов.</string>
     <string name="first_launch_step1_title">1. Поделиться из любого музыкального приложения</string>
     <string name="first_launch_step1_desc">Нажмите «Поделиться» в Spotify, Apple Music и выберите SongFlip.</string>
     <string name="first_launch_step2_title">2. Копирование и поиск</string>
