@@ -153,6 +153,9 @@ For iOS development, copy `iosApp/SongFlip/Config.example.xcconfig` to `iosApp/S
 # Build Release APK / Bundle (unsigned or signed via SIGNING_KEYSTORE_PATH env)
 ./gradlew :app:assembleRelease
 ./gradlew :app:bundleRelease
+
+# Optional: Generate Android Baseline Profile via Gradle Managed Device (:baselineprofile)
+./gradlew :app:generateReleaseBaselineProfile
 ```
 
 #### Shared KMP Core (iOS XCFramework):
