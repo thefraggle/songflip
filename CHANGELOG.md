@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.15.1] - 2026-11-15
+- **Acoustic Recognition Stability**: Removed an unstable legacy matching fallback and guarded background snapshot tasks so unmatched scans cleanly display the no-match screen without terminating the app.
+
 ## [1.15.0] - 2026-11-15
 - **Search & Flip Feedback**: Added tactile haptic feedback and a high-contrast resolving status indicator (with reduced-motion support) during track and link matching.
 - **Startup & Runtime Performance**: Added an application-level Baseline Profile module and automated profile generation workflow for faster cold starts and smoother UI rendering.

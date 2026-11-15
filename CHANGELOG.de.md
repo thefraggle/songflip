@@ -1,5 +1,8 @@
 # Changelog (Deutsch)
 
+## [1.15.1] - 2026-11-15
+- **Stabilität der Musikerkennung**: Fehleranfälligen Alt-Fallback bei der Trefferauflösung entfernt und Hintergrund-Snapshots abgesichert, sodass nicht erkannte Titel sauber den Hinweis ohne App-Absturz anzeigen.
+
 ## [1.15.0] - 2026-11-15
 - **Search & Flip Feedback**: Taktiles Haptik-Feedback und eine kontrastreiche Status-Anzeige (inklusive Unterstützung für reduzierte Bewegung) während der Titel- und Link-Auflösung ergänzt.
 - **Start- & Laufzeit-Performance**: Eigenes Baseline-Profile-Modul sowie einen automatisierten Generierungs-Workflow für schnellere Kaltstarts und flüssigere Darstellung eingerichtet.

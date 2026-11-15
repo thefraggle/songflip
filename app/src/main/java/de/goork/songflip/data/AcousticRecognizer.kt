@@ -7,9 +7,6 @@ import android.media.AudioRecord
 import android.media.MediaRecorder
 import android.util.Base64
 import com.shazam.shazamkit.AudioSampleRateInHz
-import com.shazam.shazamkit.DeveloperToken
-import com.shazam.shazamkit.DeveloperTokenProvider
-import com.shazam.shazamkit.MatchResult
 import com.shazam.shazamkit.ShazamKit
 import com.shazam.shazamkit.ShazamKitResult
 import com.shazam.shazamkit.Signature
@@ -529,16 +526,6 @@ object AcousticRecognizer {
                     return@launch
                 }
 
-                val tokenProvider = DeveloperTokenProvider {
-                    DeveloperToken(getOrFetchDeveloperToken(appCtx))
-                }
-                val catalog = ShazamKit.createShazamCatalog(tokenProvider, Locale.getDefault())
-                val fallbackSession = if (isOnlineAtStart) {
-                    (ShazamKit.createSession(catalog) as? ShazamKitResult.Success)?.data
-                } else {
-                    null
-                }
-
                 val readBufferSize = 4096
                 val readBuffer = ByteArray(readBufferSize)
                 val matchedRef = AtomicReference<DirectShazamMatch?>(null)
@@ -627,29 +614,15 @@ object AcousticRecognizer {
                             if (sigBytes.isNotEmpty()) {
                                 val sigBase64 = Base64.encodeToString(sigBytes, Base64.NO_WRAP)
                                 activeSnapshotJob = launch(Dispatchers.IO) {
-                                    val directMatch = matchSignatureBase64Direct(appCtx, sigBase64)
-                                    if (directMatch != null) {
-                                        matchedRef.compareAndSet(null, directMatch)
-                                    } else if (fallbackSession != null && snapshotSig.durationInMs >= 3_000L) {
-                                        when (val snapRes = fallbackSession.match(snapshotSig)) {
-                                            is MatchResult.Match -> {
-                                                val item = snapRes.matchedMediaItems.firstOrNull()
-                                                if (item != null) {
-                                                    matchedRef.compareAndSet(
-                                                        null,
-                                                        DirectShazamMatch(
-                                                            title = item.title?.takeIf { it.isNotBlank() } ?: appCtx.getString(R.string.unknown_track),
-                                                            artist = item.artist?.takeIf { it.isNotBlank() } ?: item.subtitle.orEmpty(),
-                                                            artworkUrl = item.artworkURL?.toString(),
-                                                            appleMusicId = item.appleMusicID,
-                                                            appleMusicUrl = item.appleMusicURL?.toString(),
-                                                            webUrl = item.webURL?.toString()
-                                                        )
-                                                    )
-                                                }
-                                            }
-                                            else -> {}
+                                    try {
+                                        val directMatch = matchSignatureBase64Direct(appCtx, sigBase64)
+                                        if (directMatch != null) {
+                                            matchedRef.compareAndSet(null, directMatch)
                                         }
+                                    } catch (ce: CancellationException) {
+                                        throw ce
+                                    } catch (t: Throwable) {
+                                        android.util.Log.w(TAG, "Background snapshot match failed: ${t.message}")
                                     }
                                 }
                             }
@@ -689,26 +662,6 @@ object AcousticRecognizer {
                         val directMatch = matchSignatureBase64Direct(appCtx, finalBase64)
                         if (directMatch != null) {
                             matchedRef.compareAndSet(null, directMatch)
-                        } else if (fallbackSession != null && finalSig.durationInMs >= 3_000L) {
-                            when (val finalRes = fallbackSession.match(finalSig)) {
-                                is MatchResult.Match -> {
-                                    val item = finalRes.matchedMediaItems.firstOrNull()
-                                    if (item != null) {
-                                        matchedRef.compareAndSet(
-                                            null,
-                                            DirectShazamMatch(
-                                                title = item.title?.takeIf { it.isNotBlank() } ?: appCtx.getString(R.string.unknown_track),
-                                                artist = item.artist?.takeIf { it.isNotBlank() } ?: item.subtitle.orEmpty(),
-                                                artworkUrl = item.artworkURL?.toString(),
-                                                appleMusicId = item.appleMusicID,
-                                                appleMusicUrl = item.appleMusicURL?.toString(),
-                                                webUrl = item.webURL?.toString()
-                                            )
-                                        )
-                                    }
-                                }
-                                else -> {}
-                            }
                         }
                     }
                 }
