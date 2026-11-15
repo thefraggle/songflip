@@ -564,7 +564,12 @@ object AcousticRecognizer {
                         totalBytesRead += bytesRead
                         val recordedAudioDurationMs = (totalBytesRead * 1000L) / bytesPerSecond
 
-                        val (uiAmp, nextGain, rawPeak) = applySoftwareAgcAndRms(readBuffer, bytesRead, smoothedGain)
+                        // Compute UI amplitude & signal quality on a copy so ShazamKit receives unmodified raw PCM
+                        val (uiAmp, nextGain, rawPeak) = applySoftwareAgcAndRms(
+                            readBuffer.copyOf(bytesRead),
+                            bytesRead,
+                            smoothedGain
+                        )
                         smoothedGain = nextGain
                         if (rawPeak > maxRawPeakSeen) maxRawPeakSeen = rawPeak
 

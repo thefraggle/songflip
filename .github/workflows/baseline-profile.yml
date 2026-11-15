@@ -1,0 +1,33 @@
+name: Generate Android Baseline Profile
+
+on:
+  workflow_dispatch:
+
+jobs:
+  baseline-profile:
+    runs-on: macos-latest
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Generate Release Baseline Profile
+        run: |
+          ./gradlew :app:generateReleaseBaselineProfile \
+            -Pandroid.testoptions.manageddevices.emulator.gpu=swiftshader_indirect \
+            --no-daemon
+
+      - name: Upload Generated Baseline Profile
+        uses: actions/upload-artifact@v4
+        with:
+          name: baseline-profile
+          path: app/src/release/generated/baselineProfiles/

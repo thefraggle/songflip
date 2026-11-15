@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.15.0] - 2026-11-15
+- **Search & Flip Feedback**: Taktiles Haptik-Feedback und eine kontrastreiche Status-Anzeige (inklusive Unterstützung für reduzierte Bewegung) während der Titel- und Link-Auflösung ergänzt.
+- **Start- & Laufzeit-Performance**: Eigenes Baseline-Profile-Modul sowie einen automatisierten Generierungs-Workflow für schnellere Kaltstarts und flüssigere Darstellung eingerichtet.
+- **Upgrade- & Fehler-Telemetrie**: Anonyme Erfassung abgeschlossener und fehlgeschlagener Upgrades vereinheitlicht sowie Sandbox-Transaktionen und Nutzerabbrüche herausgefiltert.
+- **Akustische Erkennungsqualität**: Unveränderte Roh-Audiodaten für das akustische Fingerprinting beibehalten, während die visuelle Pegelanzeige reaktionsschnell bleibt.
+
 ## [1.14.20] - 2026-11-14
 - **Text- & Übersetzungsformatierung**: Doppelte Prozentzeichen (`%%100` bzw. `100%%`) in Hinweistexten der Anleitung und Datenschutzerklärung in allen Sprachen korrigiert.
 - **Release-Notes-Automatisierung**: Automatische Übernahme und Übersetzung der Versionshinweise aus dem Changelog verbessert.

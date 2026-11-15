@@ -24,11 +24,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.revenuecat.purchases.CustomerInfo
 import com.revenuecat.purchases.Offering
+import com.revenuecat.purchases.PurchasesError
+import com.revenuecat.purchases.PurchasesErrorCode
 import com.revenuecat.purchases.models.StoreTransaction
 import com.revenuecat.purchases.ui.revenuecatui.PaywallDialog
 import com.revenuecat.purchases.ui.revenuecatui.PaywallDialogOptions
 import com.revenuecat.purchases.ui.revenuecatui.PaywallListener
 import de.goork.songflip.R
+import de.goork.songflip.core.analytics.AptabaseClient
 import de.goork.songflip.data.ProManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -248,8 +251,27 @@ fun ProPaywallBottomSheet(
         val listener = remember {
             object : PaywallListener {
                 override fun onPurchaseCompleted(customerInfo: CustomerInfo, storeTransaction: StoreTransaction) {
+                    val activeEntitlement = customerInfo.entitlements["pro"]
+                        ?: customerInfo.entitlements["songflip_pro"]
+                    resolveNonSandboxPurchaseProductId(
+                        isActive = activeEntitlement?.isActive == true,
+                        isSandbox = activeEntitlement?.isSandbox == true,
+                        transactionProductIds = storeTransaction.productIds,
+                        entitlementProductId = activeEntitlement?.productIdentifier
+                    )?.let { packageId ->
+                        AptabaseClient.trackProPurchased(packageId = packageId)
+                    }
                     ProManager.updateFromCustomerInfo(customerInfo)
                     onDismissRequest()
+                }
+
+                override fun onPurchaseError(error: PurchasesError) {
+                    if (!shouldTrackPurchaseError(error.code)) return
+                    AptabaseClient.trackProPurchaseFailed(
+                        error = error.message,
+                        errorCode = error.code.name,
+                        underlyingError = error.underlyingErrorMessage
+                    )
                 }
 
                 override fun onRestoreCompleted(customerInfo: CustomerInfo) {
@@ -288,3 +310,26 @@ internal fun Context.findActivity(): Activity? {
     }
     return null
 }
+
+/**
+ * Resolves the product ID for Aptabase `pro_purchased` telemetry while filtering out
+ * inactive entitlements and sandbox/test purchases.
+ */
+internal fun resolveNonSandboxPurchaseProductId(
+    isActive: Boolean,
+    isSandbox: Boolean,
+    transactionProductIds: List<String>,
+    entitlementProductId: String?
+): String? {
+    if (!isActive || isSandbox) return null
+    return transactionProductIds.firstOrNull { it.isNotBlank() }
+        ?: entitlementProductId?.takeIf { it.isNotBlank() }
+        ?: "unknown"
+}
+
+/**
+ * Filters out intentional user cancellations so only real billing/store errors
+ * are reported as `pro_purchase_failed`.
+ */
+internal fun shouldTrackPurchaseError(errorCode: PurchasesErrorCode): Boolean =
+    errorCode != PurchasesErrorCode.PurchaseCancelledError

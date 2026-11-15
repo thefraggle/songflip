@@ -22,6 +22,7 @@ struct SearchSheetView: View {
     var onImportPlaylistFile: (() -> Void)? = nil
     var onOpenPlaylistConversion: ((String) -> Void)? = nil
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @EnvironmentObject var settings: SettingsModel
     @ObservedObject var proManager = ProManager.shared
 
@@ -205,6 +206,14 @@ struct SearchSheetView: View {
                     }
 
                     // Results content
+                    if resolvingTrackId != nil {
+                        ResolvingSignalBannerView(
+                            statusText: LocalizationManager.string(for: "listen_status_resolving", lang: lang),
+                            reduceMotion: reduceMotion
+                        )
+                        .padding(.horizontal, 16)
+                    }
+
                     if isLoading {
                         Spacer()
                         VStack(spacing: 12) {
@@ -536,7 +545,7 @@ struct SearchSheetView: View {
         guard !track.sourceUrl.isEmpty else { return }
         let targetKey = targetOverride ?? settings.targetPlatform
         resolvingTrackId = track.id
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
 
         Task {
             do {
@@ -556,6 +565,7 @@ struct SearchSheetView: View {
                     resolvingTrackId = nil
                     if let success = res as? ResolutionResult.Success,
                        !success.targetUrl.isEmpty {
+                        UINotificationFeedbackGenerator().notificationOccurred(.success)
                         // Track in Aptabase
                         AptabaseClient.shared.trackLinkFlipped(
                             target: targetKey,
@@ -587,12 +597,14 @@ struct SearchSheetView: View {
                         )
                         dismiss()
                     } else {
+                        UINotificationFeedbackGenerator().notificationOccurred(.error)
                         showFlipErrorAlert = true
                     }
                 }
             } catch {
                 await MainActor.run {
                     resolvingTrackId = nil
+                    UINotificationFeedbackGenerator().notificationOccurred(.error)
                     showFlipErrorAlert = true
                 }
             }
@@ -609,7 +621,7 @@ struct SearchSheetView: View {
 
         let targetKey = settings.targetPlatform
         resolvingTrackId = "direct_url"
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
 
         Task {
             do {
@@ -629,6 +641,7 @@ struct SearchSheetView: View {
                     resolvingTrackId = nil
                     if let success = res as? ResolutionResult.Success,
                        !success.targetUrl.isEmpty {
+                        UINotificationFeedbackGenerator().notificationOccurred(.success)
                         AptabaseClient.shared.trackLinkFlipped(
                             target: targetKey,
                             isAlbum: success.isAlbum,
@@ -654,14 +667,55 @@ struct SearchSheetView: View {
                         )
                         dismiss()
                     } else {
+                        UINotificationFeedbackGenerator().notificationOccurred(.error)
                         showFlipErrorAlert = true
                     }
                 }
             } catch {
                 await MainActor.run {
                     resolvingTrackId = nil
+                    UINotificationFeedbackGenerator().notificationOccurred(.error)
                     showFlipErrorAlert = true
                 }
+            }
+        }
+    }
+}
+
+private struct ResolvingSignalBannerView: View {
+    let statusText: String
+    let reduceMotion: Bool
+    @State private var animateBars: Bool = false
+
+    var body: some View {
+        HStack(spacing: 10) {
+            HStack(alignment: .bottom, spacing: 2) {
+                ForEach(0..<3, id: \.self) { index in
+                    let height: CGFloat = reduceMotion
+                        ? [8, 14, 10][index]
+                        : (animateBars ? [14, 6, 12][index] : [6, 14, 8][index])
+                    RoundedRectangle(cornerRadius: 1.5)
+                        .fill(Color("AccentColor"))
+                        .frame(width: 3, height: height)
+                }
+            }
+            .frame(height: 14)
+
+            Text(statusText)
+                .font(.caption.weight(.medium))
+                .foregroundColor(.primary)
+                .lineLimit(1)
+
+            Spacer()
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .background(Color(uiColor: .secondarySystemBackground))
+        .cornerRadius(10)
+        .onAppear {
+            guard !reduceMotion else { return }
+            withAnimation(.linear(duration: 0.45).repeatForever(autoreverses: true)) {
+                animateBars = true
             }
         }
     }

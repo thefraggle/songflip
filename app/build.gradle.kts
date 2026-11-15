@@ -5,9 +5,10 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.androidx.baselineprofile)
 }
 
-val appVersionName = "1.14.20"
+val appVersionName = "1.15.0"
 val computedVersionCode = run {
     val cleanVersion = appVersionName.substringBefore("-").substringBefore("+")
     val parts = cleanVersion.split(".").mapNotNull { it.toIntOrNull() }
@@ -118,8 +119,14 @@ android {
     }
 }
 
+baselineProfile {
+    automaticGenerationDuringBuild = false
+}
+
 dependencies {
     implementation(project(":shared"))
+    implementation(libs.androidx.profileinstaller)
+    baselineProfile(project(":baselineprofile"))
     if (file("libs/shazamkit-android-release.aar").exists()) {
         implementation(files("libs/shazamkit-android-release.aar"))
     }

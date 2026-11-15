@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.15.0] - 2026-11-15
+- **Search & Flip Feedback**: Added tactile haptic feedback and a high-contrast resolving status indicator (with reduced-motion support) during track and link matching.
+- **Startup & Runtime Performance**: Added an application-level Baseline Profile module and automated profile generation workflow for faster cold starts and smoother UI rendering.
+- **Upgrade & Error Telemetry**: Unified anonymous upgrade completion and failure event reporting while filtering out sandbox transactions and user cancellations.
+- **Acoustic Recognition Fidelity**: Preserved unmodified raw audio frames for acoustic fingerprinting while keeping visual level metering responsive.
+
 ## [1.14.20] - 2026-11-14
 - **Text & Translation Formatting**: Fixed duplicate percent signs (`%%100` / `100%%`) in guide and privacy notices across all supported languages.
 - **Release Notes Automation**: Improved automatic release note synchronization from the changelog across all store languages.

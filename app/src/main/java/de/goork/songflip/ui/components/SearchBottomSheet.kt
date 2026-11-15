@@ -1,5 +1,6 @@
 package de.goork.songflip.ui.components
 
+import android.animation.ValueAnimator
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -7,6 +8,12 @@ import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -150,7 +157,7 @@ fun SearchBottomSheet(
     fun flipTrack(track: SearchTrackResult) {
         val sourceUrl = track.sourceUrl
         if (sourceUrl.isNullOrBlank() || resolvingTrackId != null) return
-        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
         resolvingTrackId = track.id
         coroutineScope.launch {
             val res = withContext(Dispatchers.IO) {
@@ -165,6 +172,7 @@ fun SearchBottomSheet(
             resolvingTrackId = null
             when (res) {
                 is ResolutionResult.Success -> {
+                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                     SongLinkEngine.shared.cache.markAsHistory(sourceUrl, targetPlatformKey)
                     settingsRepository.incrementSuccessfulFlips()
                     AptabaseClient.shared.trackLinkFlipped(
@@ -176,6 +184,7 @@ fun SearchBottomSheet(
                     launchTargetPlayer(res.targetUrl, res.nativeAppUri, targetPlatformKey)
                 }
                 else -> {
+                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                     Toast.makeText(context, context.getString(R.string.redirect_error_toast), Toast.LENGTH_SHORT).show()
                 }
             }
@@ -364,7 +373,7 @@ fun SearchBottomSheet(
 
                         Button(
                             onClick = {
-                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                                 if (isPlaylistUrl) {
                                     onOpenPlaylistConversion?.invoke(trimmedQuery)
                                     onDismissRequest()
@@ -383,6 +392,7 @@ fun SearchBottomSheet(
                                         isResolvingUrl = false
                                         when (res) {
                                             is ResolutionResult.Success -> {
+                                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                                                 SongLinkEngine.shared.cache.markAsHistory(trimmedQuery, targetPlatformKey)
                                                 settingsRepository.incrementSuccessfulFlips()
                                                 AptabaseClient.shared.trackLinkFlipped(
@@ -394,6 +404,7 @@ fun SearchBottomSheet(
                                                 launchTargetPlayer(res.targetUrl, res.nativeAppUri, targetPlatformKey)
                                             }
                                             else -> {
+                                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                                                 Toast.makeText(context, context.getString(R.string.redirect_error_toast), Toast.LENGTH_SHORT).show()
                                             }
                                         }
@@ -431,6 +442,13 @@ fun SearchBottomSheet(
                         }
                     }
                 }
+            }
+
+            AnimatedVisibility(visible = isResolvingUrl || resolvingTrackId != null) {
+                ResolvingSignalBanner(
+                    statusText = stringResource(R.string.listen_status_resolving),
+                    modifier = Modifier.padding(bottom = 10.dp)
+                )
             }
 
             if (isLoading) {
@@ -799,5 +817,85 @@ fun SearchBottomSheet(
                 }
             }
         )
+    }
+}
+
+/**
+ * Compact, high-contrast status indicator shown while a track or link is being resolved.
+ * Respects system reduced-motion settings by falling back to static signal bars.
+ */
+@Composable
+private fun ResolvingSignalBanner(
+    statusText: String,
+    modifier: Modifier = Modifier
+) {
+    val animatorsEnabled = remember { ValueAnimator.areAnimatorsEnabled() }
+    val barHeights: List<Float> = if (animatorsEnabled) {
+        val transition = rememberInfiniteTransition(label = "resolving_signal")
+        val bar1 by transition.animateFloat(
+            initialValue = 0.35f,
+            targetValue = 1.0f,
+            animationSpec = infiniteRepeatable(
+                animation = tween(durationMillis = 420, easing = LinearEasing),
+                repeatMode = RepeatMode.Reverse
+            ),
+            label = "bar1"
+        )
+        val bar2 by transition.animateFloat(
+            initialValue = 0.9f,
+            targetValue = 0.3f,
+            animationSpec = infiniteRepeatable(
+                animation = tween(durationMillis = 360, easing = LinearEasing),
+                repeatMode = RepeatMode.Reverse
+            ),
+            label = "bar2"
+        )
+        val bar3 by transition.animateFloat(
+            initialValue = 0.45f,
+            targetValue = 0.95f,
+            animationSpec = infiniteRepeatable(
+                animation = tween(durationMillis = 480, easing = LinearEasing),
+                repeatMode = RepeatMode.Reverse
+            ),
+            label = "bar3"
+        )
+        listOf(bar1, bar2, bar3)
+    } else {
+        listOf(0.55f, 1.0f, 0.7f)
+    }
+
+    Surface(
+        color = MaterialTheme.colorScheme.secondaryContainer,
+        contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+        shape = RoundedCornerShape(10.dp),
+        modifier = modifier.fillMaxWidth()
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Row(
+                verticalAlignment = Alignment.Bottom,
+                horizontalArrangement = Arrangement.spacedBy(2.dp),
+                modifier = Modifier.height(14.dp)
+            ) {
+                barHeights.forEach { fraction ->
+                    Box(
+                        modifier = Modifier
+                            .width(3.dp)
+                            .fillMaxHeight(fraction)
+                            .clip(RoundedCornerShape(1.5.dp))
+                            .background(MaterialTheme.colorScheme.primary)
+                    )
+                }
+            }
+            Text(
+                text = statusText,
+                style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Medium),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
     }
 }

@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "SongFlip"
 include(":app")
 include(":shared")
+include(":baselineprofile")
