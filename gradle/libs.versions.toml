@@ -12,7 +12,7 @@ androidx-lifecycle = "2.8.7"
 androidx-activity-compose = "1.9.3"
 
 # Compose & UI
-compose-bom = "2024.10.01"
+compose-bom = "2026.09.00"
 coil = "2.7.0"
 
 # Networking & Coroutines
