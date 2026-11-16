@@ -94,7 +94,7 @@ struct HistorySheetView: View {
                     )
                 }
             } catch {
-                // Graceful fallback
+                print("[HistorySheetView] Playlist refresh failed: \(error.localizedDescription)")
             }
         } else {
             let engine = SongLinkEngine.shared
@@ -128,7 +128,7 @@ struct HistorySheetView: View {
                     }
                 }
             } catch {
-                // Graceful fallback
+                print("[HistorySheetView] Playlist refresh failed: \(error.localizedDescription)")
             }
         }
         await MainActor.run { refreshingItemId = nil }

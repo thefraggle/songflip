@@ -73,6 +73,7 @@ class MainActivity : AppCompatActivity() {
         AndroidSharedPreferencesCacheStorage.init(this)
         showPauseSheetState.value = intent?.getBooleanExtra("show_pause_sheet", false) == true
         openPlaylistUrlState.value = intent?.getStringExtra("open_playlist_url")
+            ?.takeIf { isSupportedMusicUrl(it) }
         handleShortcutIntent(intent)
 
         val shared = intent?.takeIf { it.action == Intent.ACTION_SEND }?.let {
@@ -159,6 +160,7 @@ class MainActivity : AppCompatActivity() {
         handleShortcutIntent(intent)
 
         val playlistUrl = intent.getStringExtra("open_playlist_url")
+            ?.takeIf { isSupportedMusicUrl(it) }
         val shared = intent.takeIf { it.action == Intent.ACTION_SEND }?.let {
             it.getStringExtra(Intent.EXTRA_TEXT) ?: it.clipData?.takeIf { cd -> cd.itemCount > 0 }?.getItemAt(0)?.text?.toString()
         }?.let { UrlUtils.extractCleanUrl(it) ?: it }
@@ -202,6 +204,8 @@ class MainActivity : AppCompatActivity() {
                     val lastEntry = try {
                         de.goork.songflip.core.engine.SongLinkEngine.shared.cache.getHistoryEntries(1).firstOrNull()
                     } catch (e: Exception) {
+                        if (e is kotlinx.coroutines.CancellationException) throw e
+                        de.goork.songflip.core.util.SongFlipLogger.w("MainActivity", "Failed to load last history entry: ${e.message}", e)
                         null
                     }
                     val targetUrl = lastEntry?.targetUrl
@@ -359,6 +363,7 @@ fun MainScreen(
                         showPlaylistConvertSheet = "https://songflip.link/file-import/${cleanTitle.hashCode()}"
                     }
                 } catch (e: Exception) {
+                    if (e is kotlinx.coroutines.CancellationException) throw e
                     de.goork.songflip.core.util.SongFlipLogger.w("MainActivity", "Failed to read imported playlist file: ${e.message}", e)
                     Toast.makeText(context, context.getString(R.string.playlist_import_empty_error), Toast.LENGTH_SHORT).show()
                 }
@@ -527,7 +532,8 @@ fun MainScreen(
             LanguageItem("vi", "Tiếng Việt", "🇻🇳"),
             LanguageItem("bn", "বাংলা", "🇧🇩"),
             LanguageItem("hi", "हिन्दी", "🇮🇳"),
-            LanguageItem("mr", "मराठी", "🇮🇳")
+            LanguageItem("mr", "मराठी", "🇮🇳"),
+            LanguageItem("ar", "العربية", "🇸🇦")
         )
     }
 
@@ -633,7 +639,8 @@ fun MainScreen(
                             data = Uri.parse("package:${context.packageName}")
                         }
                         context.startActivity(fallbackIntent)
-                    } catch (_: Exception) {
+                    } catch (fallbackEx: Exception) {
+                        de.goork.songflip.core.util.SongFlipLogger.w("MainActivity", "Failed to open system app settings: ${fallbackEx.message}", fallbackEx)
                     }
                 }
             }
@@ -912,7 +919,8 @@ fun MainScreen(
                                     }
                                     try {
                                         context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share_universal_link)))
-                                    } catch (_: Exception) {
+                                    } catch (e: Exception) {
+                                        de.goork.songflip.core.util.SongFlipLogger.w("MainActivity", "Failed to start share chooser: ${e.message}", e)
                                     }
                                 }
                             } else {

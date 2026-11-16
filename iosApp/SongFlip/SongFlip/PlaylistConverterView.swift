@@ -345,7 +345,7 @@ struct PlaylistConverterView: View {
             VStack(spacing: 12) {
                 Button(action: {
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                    if let url = URL(string: playlistUrl) {
+                    if UrlUtils.shared.isSafeTargetUrl(url: playlistUrl), let url = URL(string: playlistUrl) {
                         UIApplication.shared.open(url)
                     }
                     dismissAction()

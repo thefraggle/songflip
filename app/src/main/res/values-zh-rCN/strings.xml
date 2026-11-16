@@ -435,4 +435,5 @@
     <string name="playlist_ghost_tracks_notice">已清理 %1$d 首疑似 AI 与虚拟幽灵曲目</string>
     <string name="playlist_import_default_title">Imported Playlist</string>
     <string name="unknown_track">Unknown Song</string>
+    <string name="unsupported_music_service_toast">暂不支持 %1$s – 正在打开原始链接…</string>
 </resources>

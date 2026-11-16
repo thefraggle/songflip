@@ -23,7 +23,8 @@ class PlatformCircuitBreaker(
             val state = hostStates[host] ?: return@withLock true
             if (!state.isOpen) return@withLock true
             if (now - state.openedAtMs >= state.cooldownMs) {
-                // Cooldown elapsed -> half-open probe attempt allowed
+                // Allow a single half-open probe by advancing the probe window
+                hostStates[host] = state.copy(openedAtMs = now, cooldownMs = 15_000L)
                 return@withLock true
             }
             false

@@ -435,4 +435,5 @@
     <string name="playlist_ghost_tracks_notice">Đã dọn dẹp %1$d bài hát AI &amp; ma đáng ngờ</string>
     <string name="playlist_import_default_title">Imported Playlist</string>
     <string name="unknown_track">Unknown Song</string>
+    <string name="unsupported_music_service_toast">%1$s chưa được hỗ trợ – đang mở liên kết gốc…</string>
 </resources>

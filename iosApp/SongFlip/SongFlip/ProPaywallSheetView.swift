@@ -34,6 +34,7 @@ struct ProPaywallSheetView: View {
                                 return LocalizationManager.string(for: "pro_active_lifetime", lang: lang)
                             } else if let exp = proManager.expirationDate {
                                 let formatter = DateFormatter()
+                                formatter.locale = Locale(identifier: lang)
                                 formatter.dateStyle = .medium
                                 return String(
                                     format: LocalizationManager.string(for: "pro_active_annual", lang: lang),
@@ -102,7 +103,7 @@ struct ProPaywallSheetView: View {
                     .multilineTextAlignment(.center)
                     .padding(.horizontal)
                 Button(action: { dismiss() }) {
-                    Text(LocalizationManager.string(for: "btn_ok", lang: lang))
+                    Text(LocalizationManager.string(for: "btn_done", lang: lang))
                         .fontWeight(.semibold)
                         .padding(.horizontal, 24)
                         .padding(.vertical, 10)

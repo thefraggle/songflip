@@ -136,7 +136,7 @@ func platformIcon(for key: String) -> String {
     }
 }
 
-func detectSourcePlatformName(url: String) -> String {
+func detectSourcePlatformName(url: String, lang: String = LocalizationManager.currentLanguage()) -> String {
     if let platform = UrlUtils.shared.detectPlatform(url: url) {
         return platform.displayName
     }
@@ -145,9 +145,9 @@ func detectSourcePlatformName(url: String) -> String {
         return "Anghami"
     }
     if lower.contains("song.link") || lower.contains("album.link") || lower.contains("odesli.co") {
-        return "Universal Link"
+        return LocalizationManager.string(for: "platform_label_universal", lang: lang)
     }
-    return "Music Link"
+    return LocalizationManager.string(for: "platform_label_unknown", lang: lang)
 }
 
 class SettingsModel: ObservableObject {
@@ -175,7 +175,8 @@ class SettingsModel: ObservableObject {
         LanguageOption(code: "ja", name: "日本語", flag: "🇯🇵"),
         LanguageOption(code: "ko", name: "한국어", flag: "🇰🇷"),
         LanguageOption(code: "zh", name: "简体中文", flag: "🇨🇳"),
-        LanguageOption(code: "in", name: "Bahasa Indonesia", flag: "🇮🇩"),
+        LanguageOption(code: "zh-Hant", name: "繁體中文", flag: "🇹🇼"),
+        LanguageOption(code: "id", name: "Bahasa Indonesia", flag: "🇮🇩"),
         LanguageOption(code: "vi", name: "Tiếng Việt", flag: "🇻🇳"),
         LanguageOption(code: "bn", name: "বাংলা", flag: "🇧🇩"),
         LanguageOption(code: "hi", name: "हिन्दी", flag: "🇮🇳"),
@@ -185,7 +186,8 @@ class SettingsModel: ObservableObject {
         LanguageOption(code: "fi", name: "Suomi", flag: "🇫🇮"),
         LanguageOption(code: "hu", name: "Magyar", flag: "🇭🇺"),
         LanguageOption(code: "ro", name: "Română", flag: "🇷🇴"),
-        LanguageOption(code: "th", name: "ไทย", flag: "🇹🇭")
+        LanguageOption(code: "th", name: "ไทย", flag: "🇹🇭"),
+        LanguageOption(code: "ar", name: "العربية", flag: "🇸🇦")
     ]
 
     @Published var targetPlatform: String {
@@ -213,9 +215,6 @@ class SettingsModel: ObservableObject {
         didSet { defaults.set(customApiToken, forKey: "custom_api_token") }
     }
 
-    @Published var lastConvertedTitle: String? = nil
-    @Published var lastConvertedArtist: String? = nil
-    @Published var lastTargetUrl: String? = nil
     @Published var isResolving: Bool = false
 
     var colorScheme: ColorScheme? {
@@ -250,11 +249,14 @@ class SettingsModel: ObservableObject {
                 let lower = preferred.lowercased()
                 let prefix2 = String(lower.prefix(2))
 
-                if lower.starts(with: "zh") {
+                if lower.starts(with: "zh-hant") || lower.starts(with: "zh-tw") || lower.starts(with: "zh-hk") || lower.starts(with: "zh-mo") {
+                    detectedLang = "zh-Hant"
+                    break
+                } else if lower.starts(with: "zh") {
                     detectedLang = "zh"
                     break
                 } else if prefix2 == "id" || prefix2 == "in" {
-                    detectedLang = "in"
+                    detectedLang = "id"
                     break
                 } else if prefix2 == "no" || prefix2 == "nb" || prefix2 == "nn" {
                     detectedLang = "nb"

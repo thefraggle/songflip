@@ -31,7 +31,8 @@ class AcousticQuotaManager(
          */
         fun computeYearMonthKey(timestampMs: Long = getCurrentTimeMillis()): String {
             // Civil date from days since 1970-01-01 (Howard Hinnant algorithm)
-            val daysSinceEpoch = timestampMs / 86_400_000L
+            val safeMs = timestampMs.coerceAtLeast(0L)
+            val daysSinceEpoch = safeMs / 86_400_000L
             val z = daysSinceEpoch + 719468L
             val era = (if (z >= 0) z else z - 146096L) / 146097L
             val doe = z - era * 146097L
@@ -81,12 +82,10 @@ class AcousticQuotaManager(
 
     fun getUsedScansThisMonth(timestampMs: Long = getCurrentTimeMillis()): Int {
         val key = metaKeyForTime(timestampMs)
-        val raw = sqlStorage?.getMetaValue(key)
-        if (raw != null) {
-            return raw.toIntOrNull()?.coerceAtLeast(0) ?: 0
-        }
         return quotaLock.withLock {
-            inMemoryQuotaFallback[key] ?: 0
+            val persisted = sqlStorage?.getMetaValue(key)?.toIntOrNull()?.coerceAtLeast(0)
+            val inMem = inMemoryQuotaFallback[key] ?: 0
+            maxOf(persisted ?: 0, inMem)
         }
     }
 

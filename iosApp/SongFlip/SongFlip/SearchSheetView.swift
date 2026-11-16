@@ -302,7 +302,7 @@ struct SearchSheetView: View {
                 LocalizationManager.string(for: "redirect_error_toast", lang: lang),
                 isPresented: $showFlipErrorAlert
             ) {
-                Button("OK", role: .cancel) {}
+                Button(LocalizationManager.string(for: "btn_done", lang: lang), role: .cancel) {}
             }
             .sheet(isPresented: $showingPaywallSheet) {
                 ProPaywallSheetView()

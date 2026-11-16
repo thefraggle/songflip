@@ -1160,7 +1160,8 @@ object UrlUtils {
                     title?.trim()?.takeIf { it.isNotEmpty() }
                 ).joinToString(" ").ifEmpty {
                     if (cleanUrl.contains("term=")) {
-                        cleanUrl.substringAfter("term=").substringBefore("&").replace("+", " ")
+                        extractSearchQuery(cleanUrl)
+                            ?: cleanUrl.substringAfter("term=").substringBefore("&").replace("+", " ")
                     } else {
                         val slugMatch = Regex("music\\.apple\\.com/(?:[a-zA-Z-]+/)?(?:album|song|artist)/([^/?#]+)").find(cleanUrl)
                         slugMatch?.groupValues?.get(1)?.replace("-", " ").orEmpty()
@@ -1196,15 +1197,8 @@ object UrlUtils {
      * Used as a defensive guard to prevent self-referential flips and guide users to share authentic music links.
      */
     fun isSongFlipUrl(url: String): Boolean {
-        val clean = url.trim().lowercase()
-        if (clean.isBlank()) return false
-        val host = clean
-            .substringAfter("://")
-            .substringBefore("/")
-            .substringBefore(":")
-            .substringBefore("?")
-            .trim()
-        if (host.isEmpty()) return false
+        val host = extractDomain(url)
+        if (host == "unknown" || host.isBlank()) return false
         return host == "songflip.link" || host.endsWith(".songflip.link") ||
                host == "songflip.de" || host.endsWith(".songflip.de") ||
                host == "songflip.app" || host.endsWith(".songflip.app") ||

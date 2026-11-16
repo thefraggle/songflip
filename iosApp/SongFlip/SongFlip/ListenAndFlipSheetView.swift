@@ -1,5 +1,6 @@
 import SwiftUI
 import SongFlipKit
+import CryptoKit
 
 struct ListenAndFlipSheetView: View {
     @EnvironmentObject var settings: SettingsModel
@@ -495,7 +496,18 @@ struct ListenAndFlipSheetView: View {
                 }
                 .buttonStyle(.plain)
 
-                if let shareUrl = URL(string: result.targetUrl) {
+                let shareUrlString: String = {
+                    if proManager.isPro, !result.sourceUrl.isEmpty {
+                        let normalized = UrlUtils.shared.normalizeUrl(url: result.sourceUrl)
+                            .trimmingCharacters(in: .whitespacesAndNewlines)
+                            .lowercased()
+                        let digest = SHA256.hash(data: Data(normalized.utf8))
+                        let shortId = String(digest.map { String(format: "%02x", $0) }.joined().prefix(12))
+                        return "https://songflip.link/s/\(shortId)"
+                    }
+                    return result.targetUrl
+                }()
+                if let shareUrl = URL(string: shareUrlString) {
                     ShareLink(item: shareUrl, message: Text("\(result.title) – \(result.artist)")) {
                         HStack(spacing: 6) {
                             Image(systemName: "square.and.arrow.up")

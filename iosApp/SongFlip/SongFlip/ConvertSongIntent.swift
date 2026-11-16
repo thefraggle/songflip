@@ -59,10 +59,10 @@ struct ConvertSongIntent: AppIntent {
         let aptabaseHost: String
         if rawHost.hasPrefix("https://") || rawHost.hasPrefix("http://") {
             aptabaseHost = rawHost
-        } else if rawHost == "https:" || rawHost.isEmpty {
-            aptabaseHost = "https://telemetry-apps.goork.de"
-        } else {
+        } else if rawHost == "https:" || rawHost == "http:" || rawHost.hasPrefix("$(") || rawHost.isEmpty {
             aptabaseHost = "https://api.aptabase.com"
+        } else {
+            aptabaseHost = rawHost
         }
 
         #if DEBUG
@@ -116,7 +116,7 @@ struct ConvertSongIntent: AppIntent {
                 customApiUrl: customUrl,
                 customApiToken: customToken,
                 isPro: isProCached,
-                authToken: defaults.string(forKey: "pro_auth_token") ?? "",
+                authToken: isProCached ? (defaults.string(forKey: "pro_auth_token") ?? "") : "",
                 isPrefetch: false,
                 forceRefresh: false,
                 audiophileMode: audiophileMode

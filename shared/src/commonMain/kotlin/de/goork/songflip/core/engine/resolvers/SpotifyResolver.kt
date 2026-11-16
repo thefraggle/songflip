@@ -98,8 +98,9 @@ class SpotifyResolver(
                                     )
                                 }
                             }
-                        } catch (t: Throwable) {
-                            de.goork.songflip.core.util.SongFlipLogger.d("SpotifyResolver", "Failed to parse initial_state JSON: ${t.message}")
+                        } catch (e: Exception) {
+                            if (e is CancellationException) throw e
+                            de.goork.songflip.core.util.SongFlipLogger.d("SpotifyResolver", "Failed to parse initial_state JSON: ${e.message}")
                         }
                     }
 
@@ -122,8 +123,9 @@ class SpotifyResolver(
                         )
                     }
                 }
-            } catch (t: Throwable) {
-                if (t is CancellationException) throw t
+            } catch (e: Exception) {
+                if (e is CancellationException) throw e
+                de.goork.songflip.core.util.SongFlipLogger.d("SpotifyResolver", "Embed metadata scrape failed: ${e.message}")
             }
         }
 
@@ -143,8 +145,9 @@ class SpotifyResolver(
                     )
                 } else null
             } else null
-        } catch (t: Throwable) {
-            if (t is CancellationException) throw t
+        } catch (e: Exception) {
+            if (e is CancellationException) throw e
+            de.goork.songflip.core.util.SongFlipLogger.d("SpotifyResolver", "oEmbed fallback failed: ${e.message}")
             null
         }
     }
@@ -177,7 +180,9 @@ class SpotifyResolver(
                     val rawB64 = match.groupValues[1].trim()
                     val decoded = try {
                         rawB64.decodeBase64String()
-                    } catch (_: Throwable) {
+                    } catch (e: Exception) {
+                        if (e is CancellationException) throw e
+                        de.goork.songflip.core.util.SongFlipLogger.d("SpotifyResolver", "Failed to decode pre-release initialState: ${e.message}")
                         ""
                     }
                     if (decoded.isNotEmpty()) {
@@ -192,8 +197,9 @@ class SpotifyResolver(
                     }
                 }
             }
-        } catch (t: Throwable) {
-            if (t is CancellationException) throw t
+        } catch (e: Exception) {
+            if (e is CancellationException) throw e
+            de.goork.songflip.core.util.SongFlipLogger.d("SpotifyResolver", "Pre-release scrape failed: ${e.message}")
         }
 
         // 2. Fallback / supplement via Spotify oEmbed if title is missing

@@ -24,6 +24,7 @@ struct SettingsSheetView: View {
                     return LocalizationManager.string(for: "pro_active_lifetime", lang: lang)
                 } else if let date = proManager.expirationDate {
                     let formatter = DateFormatter()
+                    formatter.locale = Locale(identifier: lang)
                     formatter.dateStyle = .medium
                     let dateStr = formatter.string(from: date)
                     return String(format: LocalizationManager.string(for: "pro_active_annual", lang: lang), dateStr)

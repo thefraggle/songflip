@@ -167,7 +167,7 @@ struct FeedbackSheetView: View {
             .alert(isPresented: $showAlert) {
                 Alert(
                     title: Text(alertMessage ?? ""),
-                    dismissButton: .default(Text("OK")) {
+                    dismissButton: .default(Text(LocalizationManager.string(for: "btn_done", lang: lang))) {
                         if alertMessage == LocalizationManager.string(for: "feedback_success", lang: lang) {
                             dismiss()
                         }

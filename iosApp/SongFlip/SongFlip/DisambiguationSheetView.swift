@@ -323,10 +323,6 @@ struct DisambiguationSheetView: View {
                     )
                 }
 
-                if !list.isEmpty && !list.contains(where: { $0.isCurrentMatch }) {
-                    list[0].isCurrentMatch = true
-                }
-
                 await MainActor.run {
                     self.candidates = list
                     self.isLoading = false

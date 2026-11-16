@@ -25,12 +25,15 @@ class SettingsRepository(context: Context) {
             val saved = prefs.getString(KEY_APP_LANGUAGE, null)
             if (!saved.isNullOrBlank()) return saved
             val currentAppLocale = androidx.appcompat.app.AppCompatDelegate.getApplicationLocales()
-            if (!currentAppLocale.isEmpty) {
-                val appLang = currentAppLocale[0]?.language
-                if (!appLang.isNullOrBlank() && SUPPORTED_LANGUAGE_CODES.contains(appLang)) return appLang
+            val locale = if (!currentAppLocale.isEmpty) currentAppLocale[0] else java.util.Locale.getDefault()
+            val lang = locale?.language.orEmpty()
+            val country = locale?.country.orEmpty()
+            val script = locale?.script.orEmpty()
+            if (lang == "zh" && (country in listOf("TW", "HK", "MO") || script == "Hant")) {
+                return "zh-TW"
             }
-            val sysLang = java.util.Locale.getDefault().language
-            return if (SUPPORTED_LANGUAGE_CODES.contains(sysLang)) sysLang else DEFAULT_LANGUAGE
+            if (lang == "no" || lang == "nn") return "nb"
+            return if (SUPPORTED_LANGUAGE_CODES.contains(lang)) lang else DEFAULT_LANGUAGE
         }
         set(value) {
             prefs.edit().putString(KEY_APP_LANGUAGE, value).apply()
@@ -215,7 +218,7 @@ class SettingsRepository(context: Context) {
         val SUPPORTED_LANGUAGE_CODES = setOf(
             "de", "en", "da", "nb", "sv", "nl", "fr", "es", "it", "pt", "pl",
             "ru", "tr", "uk", "ja", "ko", "zh", "zh-TW", "in", "id", "vi", "bn", "hi", "mr",
-            "cs", "hu", "fi", "el", "ro", "th"
+            "cs", "hu", "fi", "el", "ro", "th", "ar"
         )
 
         /**

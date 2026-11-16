@@ -153,6 +153,7 @@ struct HistoryItem: Identifiable, Codable, Equatable {
     }
 }
 
+@MainActor
 class HistoryModel: ObservableObject {
     static let shared = HistoryModel()
     private static let storageKey = "songflip_conversion_history"

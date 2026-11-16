@@ -255,14 +255,12 @@ class RedirectActivity : ComponentActivity() {
                             )
                         }
                         is RedirectUiState.OfflineWaiting -> {
-                            // Listen for network reconnect
-                            LaunchedEffect(state.incomingUrl) {
-                                networkRetryJob?.cancel()
-                                networkRetryJob = lifecycleScope.launch {
+                            // Listen for network reconnect; restarts cleanly if manual retry fails
+                            LaunchedEffect(state.incomingUrl, state.isRetrying) {
+                                if (!state.isRetrying) {
                                     NetworkUtils.observeNetworkAvailability(this@RedirectActivity)
                                         .collect { isAvailable ->
                                             if (isAvailable) {
-                                                networkRetryJob?.cancel()
                                                 viewModel.retryOffline(
                                                     isPro = ProManager.proState.value.isPro,
                                                     authToken = ProManager.getAuthToken(),
@@ -276,7 +274,6 @@ class RedirectActivity : ComponentActivity() {
                             OfflineWaitingBottomSheet(
                                 isRetrying = state.isRetrying,
                                 onRetry = {
-                                    networkRetryJob?.cancel()
                                     viewModel.retryOffline(
                                         isPro = ProManager.proState.value.isPro,
                                         authToken = ProManager.getAuthToken(),

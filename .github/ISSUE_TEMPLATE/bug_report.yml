@@ -28,7 +28,7 @@ body:
     id: app_version
     attributes:
       label: SongFlip Version
-      placeholder: 1.2.11
+      placeholder: 1.15.2
     validations:
       required: true
   - type: textarea
@@ -42,5 +42,5 @@ body:
     id: logs
     attributes:
       label: Relevant Log Output
-      description: Please copy and paste any relevant logs from the Test Studio or logcat.
+      description: Please copy and paste any relevant logcat or Xcode console output.
       render: shell

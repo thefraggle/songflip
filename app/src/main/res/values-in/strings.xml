@@ -211,7 +211,7 @@
     <string name="pro_btn_lifetime">Dapatkan SongFlip PRO (%1$s)</string>
     <string name="pro_btn_annual">Langganan seharga %1$s / tahun</string>
     <string name="pro_btn_monthly">Langganan seharga %1$s / bulan</string>
-    <string name="pro_processing">Memproses...</string>
+    <string name="pro_processing">Memproses…</string>
     <string name="shortcut_last_song_short">Putar Lagu Terakhir</string>
     <string name="shortcut_last_song_long">Putar lagu terakhir dikonversi: %s</string>
     <string name="shortcut_pause_1h_short">Jeda 1 jam</string>
@@ -435,4 +435,5 @@
     <string name="playlist_ghost_tracks_notice">%1$d trek AI &amp; hantu yang mencurigakan dibersihkan</string>
     <string name="playlist_import_default_title">Imported Playlist</string>
     <string name="unknown_track">Unknown Song</string>
+    <string name="unsupported_music_service_toast">%1$s belum didukung – membuka tautan asli…</string>
 </resources>

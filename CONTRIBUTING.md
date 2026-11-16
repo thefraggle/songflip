@@ -64,7 +64,7 @@ SongFlip uses a **zero-friction dual-mode setup** for Apple ShazamKit on Android
 
 SongFlip supports 34+ languages!
 - **Android**: Add or update strings in `app/src/main/res/values-<lang>/strings.xml`.
-- **iOS**: Add or update entries in `iosApp/SongFlip/SongFlip/LocalizationManager.swift`.
+- **iOS**: Add or update entries in `iosApp/SongFlip/SongFlip/Localizable.xcstrings` (and keep `iosApp/SongFlip/SongFlipShareExtension/Localizable.xcstrings` in sync).
 
 Please ensure all string keys present in `app/src/main/res/values/strings.xml` are maintained.
 

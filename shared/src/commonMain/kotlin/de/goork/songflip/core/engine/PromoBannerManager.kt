@@ -5,6 +5,7 @@ import de.goork.songflip.core.util.SongFlipLogger
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
+import io.ktor.http.isSuccess
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -107,6 +108,10 @@ object PromoBannerManager {
 
         return try {
             val response = client.get(endpointUrl)
+            if (!response.status.isSuccess()) {
+                SongFlipLogger.w("PromoBannerManager", "Non-2xx response fetching promo banner: ${response.status.value}")
+                return null
+            }
             val body = response.bodyAsText()
             val parsed = parsePromoBannerJson(body)
             if (parsed != null) {

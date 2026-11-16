@@ -13,7 +13,8 @@
 -keepclassmembers class *$$serializer {
     public static final *$$serializer INSTANCE;
 }
--keepclasseswithmembers class * {
+-if @kotlinx.serialization.Serializable class **
+-keepclassmembers class <1> {
     public static final *** Companion;
 }
 

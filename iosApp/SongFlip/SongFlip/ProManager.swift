@@ -598,22 +598,6 @@ final class ProManager: NSObject, ObservableObject {
             return .networkError
         }
     }
-
-    // Helper: Detect introductory free trial in days
-    func getFreeTrialDays(for package: Package) -> Int? {
-        guard let intro = package.storeProduct.introductoryDiscount,
-              intro.paymentMode == .freeTrial else {
-            return nil
-        }
-        let period = intro.subscriptionPeriod
-        switch period.unit {
-        case .day: return period.value
-        case .week: return period.value * 7
-        case .month: return period.value * 30
-        case .year: return period.value * 365
-        @unknown default: return 7
-        }
-    }
 }
 
 extension ProManager: PurchasesDelegate {

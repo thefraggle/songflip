@@ -76,121 +76,25 @@ class LocalizationTest {
         val dbFactory = DocumentBuilderFactory.newInstance()
         val dBuilder = dbFactory.newDocumentBuilder()
 
-        val requiredStringKeys = listOf(
-            "settings_tip_multiple_apps_title",
-            "settings_tip_multiple_apps_body",
-            "pro_debug_reset_status",
-            "pro_debug_reset_button",
-            "pro_save_badge",
-            "pro_price_annual_vs_monthly",
-            "pro_price_annual_vs_monthly_intro",
-            "pro_lifetime_onetime_badge",
-            "pro_subscription_terms",
-            "legal_terms",
-            "legal_privacy",
-            // Were English-only until 1.6.6 (lint MissingTranslation).
-            "history_copy_target",
-            "history_copy_source",
-            "action_more_options",
-            "playlist_error_unsupported_title",
-            "playlist_error_unsupported_desc",
-            "playlist_error_timeout_title",
-            "playlist_error_timeout_desc",
-            "playlist_error_empty_title",
-            "playlist_error_empty_desc",
-            "platform_label_unknown",
-            "platform_label_universal",
-            "history_copy_source_generic",
-            "pro_feature_playlists_title",
-            "pro_feature_playlists_desc",
-            "pro_feature_history_title",
-            "pro_feature_history_desc",
-            "pro_feature_cache_title",
-            "pro_feature_cache_desc",
-            "pro_feature_links_title",
-            "pro_feature_links_desc",
-            "pro_feature_review_title",
-            "pro_feature_review_desc",
-            "search_title",
-            "search_hint",
-            "search_initial_prompt",
-            "search_empty",
-            "search_error",
-            "disambiguate_action",
-            "disambiguate_title",
-            "disambiguate_subtitle",
-            "disambiguate_current",
-            "disambiguate_success",
-            "disambiguate_empty",
-            "disambiguate_error",
-            "pro_btn_lifetime",
-            "pro_btn_annual",
-            "pro_trial_badge",
-            "pro_price_annual_trial",
-            "pro_price_annual_trial_intro",
-            "pro_price_annual_trial_simple",
-            "pro_btn_annual_trial",
-            "pro_btn_monthly",
-            "feedback_title",
-            "feedback_cat_bug",
-            "feedback_cat_feature",
-            "feedback_cat_general",
-            "feedback_message_hint",
-            "feedback_email_hint",
-            "feedback_privacy_note",
-            "feedback_btn_send",
-            "feedback_btn_mail_fallback",
-            "feedback_success",
-            "feedback_error_empty",
-            "feedback_error_network",
-            "playlist_same_platform_title",
-            "playlist_same_platform_desc",
-            "qr_code_title",
-            "qr_code_hint",
-            "action_close",
-            "favorite_add",
-            "favorite_remove",
-            "history_filter_all",
-            "history_filter_favorites",
-            "target_player_chip",
-            "listen_and_flip_title",
-            "listen_and_flip_subtitle",
-            "badge_identified",
-            "listen_free_scans_remaining",
-            "listen_status_listening",
-            "listen_status_hint",
-            "listen_status_resolving",
-            "listen_saved_to_history",
-            "listen_open_in_player",
-            "listen_share_action",
-            "listen_scan_again",
-            "listen_offline_saved_title",
-            "listen_offline_saved_desc",
-            "listen_no_match_title",
-            "listen_no_match_subtitle",
-            "listen_try_again",
-            "listen_error_offline",
-            "listen_permission_title",
-            "listen_permission_desc",
-            "listen_permission_grant",
-            "listen_quota_reached_title",
-            "listen_quota_reached_desc",
-            "listen_unlock_pro",
-            "pro_feature_listen_title",
-            "pro_feature_listen_desc",
-            "unsupported_domain_toast",
-            // Replaced the hardcoded English "x/y Songs" history subtitle (#142).
-            "history_playlist_tracks_summary"
-        )
-        val requiredPluralKeys = listOf(
-            "history_cached_count",
-            "pro_nudge_title",
-            "history_capacity_free",
-            "history_capacity_pro",
-            "listen_offline_resolved_toast",
-            "setup_card_conflict_badge",
-            "setup_card_conflict_desc"
-        )
+        val baseStringsFile = File(File(resDir, "values"), "strings.xml")
+        assertTrue("Base values/strings.xml must exist", baseStringsFile.exists())
+        val baseDoc = dBuilder.parse(baseStringsFile)
+        val requiredStringKeys = mutableListOf<String>()
+        val baseStringNodes = baseDoc.getElementsByTagName("string")
+        for (i in 0 until baseStringNodes.length) {
+            val elem = baseStringNodes.item(i) as Element
+            if (elem.getAttribute("translatable") != "false") {
+                requiredStringKeys.add(elem.getAttribute("name"))
+            }
+        }
+        val requiredPluralKeys = mutableListOf<String>()
+        val basePluralNodes = baseDoc.getElementsByTagName("plurals")
+        for (i in 0 until basePluralNodes.length) {
+            val elem = basePluralNodes.item(i) as Element
+            if (elem.getAttribute("translatable") != "false") {
+                requiredPluralKeys.add(elem.getAttribute("name"))
+            }
+        }
 
         valuesDirs.forEach { dir ->
             val stringsFile = File(dir, "strings.xml")

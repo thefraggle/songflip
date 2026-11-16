@@ -30,4 +30,5 @@
     <locale android:name="bn"/>
     <locale android:name="hi"/>
     <locale android:name="mr"/>
+    <locale android:name="ar"/>
 </locale-config>

@@ -99811,6 +99811,30 @@
             "state": "translated",
             "value": "ऑडिओ खूप मोठा किंवा विकृत आहे - डिव्हाइस थोडे दूर धरा"
           }
+        },
+        "zh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "声音过大或失真——请将设备稍移远一些"
+          }
+        },
+        "in": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Audio terlalu keras atau terdistorsi – jauhkan sedikit perangkat"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lyden er veldig høy eller forvrengt – hold enheten litt lenger unna"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O áudio está muito alto ou distorcido – afaste um pouco o dispositivo"
+          }
         }
       }
     },
@@ -100228,6 +100252,233 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$d faixas suspeitas de IA e fantasmas limpas"
+          }
+        },
+        "zh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已清理 %1$d 首疑似 AI 与虚拟幽灵曲目"
+          }
+        },
+        "in": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$d trek AI & hantu yang mencurigakan dibersihkan"
+          }
+        }
+      }
+    },
+    "unsupported_music_service_toast": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ is not supported yet – opening original link…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ wird noch nicht unterstützt – öffne Original-Link …"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ understøttes ikke endnu – åbner originallink…"
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ støttes ikke ennå – åpner originallenken…"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ støttes ikke ennå – åpner originallenken…"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ stöds inte än – öppnar originallänk…"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ wordt nog niet ondersteund – originele link wordt geopend…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ n'est pas encore pris en charge – ouverture du lien d'origine…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ aún no es compatible – abriendo el enlace original…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ non è ancora supportato – apertura del link originale…"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ainda não é compatível – a abrir o link original…"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ainda não é compatível – a abrir o link original…"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ainda não é compatível – a abrir o link original…"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ nie jest jeszcze obsługiwane – otwieranie oryginalnego linku…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ пока не поддерживается – открытие исходной ссылки…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ henüz desteklenmiyor – orijinal bağlantı açılıyor…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ще не підтримується – відкриття оригінального посилання…"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ はまだサポートされていません – 元のリンクを開いています…"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@은(는) 아직 지원되지 않습니다 – 원본 링크를 여는 중…"
+          }
+        },
+        "zh": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "暂不支持 %@ – 正在打开原始链接…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "暂不支持 %@ – 正在打开原始链接…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚不支援 %@ – 正在開啟原始連結…"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ belum didukung – membuka tautan asli…"
+          }
+        },
+        "in": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ belum didukung – membuka tautan asli…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ chưa được hỗ trợ – đang mở liên kết gốc…"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ এখনও সমর্থিত নয় – আসল লিঙ্ক খোলা হচ্ছে…"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ अभी समर्थित नहीं है – मूल लिंक खोला जा रहा है…"
+          }
+        },
+        "mr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ अद्याप समर्थित नाही – मूळ लिंक उघडत आहे…"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ zatím není podporováno – otevírání původního odkazu…"
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Το %@ δεν υποστηρίζεται ακόμη – άνοιγμα αρχικού συνδέσμου…"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ei ole vielä tuettu – avataan alkuperäinen linkki…"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A(z) %@ még nem támogatott – eredeti link megnyitása…"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ nu este încă acceptat – se deschide linkul original…"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ยังไม่รองรับ %@ – กำลังเปิดลิงก์ต้นฉบับ…"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ غير مدعوم بعد – جارٍ فتح الرابط الأصلي…"
           }
         }
       }

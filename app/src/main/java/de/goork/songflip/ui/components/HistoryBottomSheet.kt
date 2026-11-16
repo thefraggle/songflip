@@ -52,8 +52,8 @@ import de.goork.songflip.core.cache.LinkHistoryItem
 import de.goork.songflip.core.engine.SongLinkEngine
 import de.goork.songflip.data.PackageUtils
 
-private val attemptedHydrationKeys = mutableSetOf<String>()
-private var isHydratingThumbnails = false
+private val attemptedHydrationKeys = java.util.Collections.synchronizedSet(mutableSetOf<String>())
+private val isHydratingThumbnails = java.util.concurrent.atomic.AtomicBoolean(false)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -79,7 +79,6 @@ fun HistoryBottomSheet(
     var refreshingKeys by remember { mutableStateOf(setOf<String>()) }
     var qrCodeItem by remember { mutableStateOf<LinkHistoryItem?>(null) }
     var disambiguateItem by remember { mutableStateOf<LinkHistoryItem?>(null) }
-    var showOnlyFavorites by remember { mutableStateOf(false) }
 
     fun refreshHistory() {
         coroutineScope.launch {
@@ -95,8 +94,7 @@ fun HistoryBottomSheet(
                     !it.targetPlatformKey.contains("_playlist") &&
                     !attemptedHydrationKeys.contains("${it.canonicalUrl}|${it.targetPlatformKey}")
             }
-            if (missingCoverItems.isNotEmpty() && !isHydratingThumbnails) {
-                isHydratingThumbnails = true
+            if (missingCoverItems.isNotEmpty() && isHydratingThumbnails.compareAndSet(false, true)) {
                 val batchToHydrate = missingCoverItems.take(5)
                 for (item in batchToHydrate) {
                     attemptedHydrationKeys.add("${item.canonicalUrl}|${item.targetPlatformKey}")
@@ -128,7 +126,7 @@ fun HistoryBottomSheet(
                             }
                         }
                     } finally {
-                        isHydratingThumbnails = false
+                        isHydratingThumbnails.set(false)
                     }
                 }
             }
@@ -591,7 +589,9 @@ fun HistoryBottomSheet(
                                                 authToken = de.goork.songflip.data.ProManager.getAuthToken(),
                                                 audiophileMode = isPro && settingsRepo.audiophileMode
                                             )
-                                        } catch (_: Exception) {
+                                        } catch (e: Exception) {
+                                            if (e is kotlinx.coroutines.CancellationException) throw e
+                                            android.util.Log.w("HistoryBottomSheet", "Manual link refresh failed: ${e.message}", e)
                                             null
                                         }
                                         result is de.goork.songflip.core.model.ResolutionResult.Success

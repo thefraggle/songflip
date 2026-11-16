@@ -141,7 +141,6 @@ class YouTubeMusicResolver(
 
     private suspend fun searchYouTubeMusicAlbumInnertube(query: String): String? {
         suspend fun executeSearch(params: String?): String? {
-            val paramsClause = if (params != null) ",\n                    \"params\": \"$params\"" else ""
             val payload = buildInnertubeSearchPayload(query, params)
 
             val resp = client.post("https://music.youtube.com/youtubei/v1/search") {

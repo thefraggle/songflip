@@ -270,7 +270,8 @@ class SongLinkEngine(
                 val customResult = queryCustomApi(customApiUrl, customApiToken, cleanUrl, targetPlatformKey)
                 if (customResult != null) {
                     val formatted = UrlUtils.formatTargetUrl(customResult, targetPlatformKey)
-                    val nativeUri = UrlUtils.toNativeAppUri(formatted, targetPlatformKey)
+                    val rawNativeUri = UrlUtils.toNativeAppUri(formatted, targetPlatformKey)
+                    val nativeUri = rawNativeUri.takeIf { UrlUtils.isSafeNativeAppUri(it) }
                     return ResolutionResult.Success(
                         targetUrl = formatted,
                         platform = "custom_api",
@@ -649,17 +650,19 @@ class SongLinkEngine(
 
             return ResolutionResult.Error("Could not resolve music link", errorReason = "no_match_found")
         } catch (e: Exception) {
-            if (e is CancellationException) {
+            if (e is CancellationException && e !is kotlinx.coroutines.TimeoutCancellationException) {
                 throw e
             }
+            SongFlipLogger.w("SongLinkEngine", "Primary resolution failed for $inputUrl: ${e.message}", e)
             try {
                 val cleanUrl = UrlUtils.extractCleanUrl(inputUrl) ?: inputUrl
                 val isExplicitAlbumUrl = UrlUtils.isAlbumUrl(cleanUrl)
 
-                val trackInfo = extractTrackInfo(cleanUrl)
+                val trackInfo = kotlinx.coroutines.withTimeoutOrNull(3_500L) { extractTrackInfo(cleanUrl) }
                 if (trackInfo != null) {
-                    val resolved = resolveDirectPlatformUrl(trackInfo, targetPlatformKey, isExplicitAlbumUrl, audiophileMode = effectiveAudiophile)
-                        ?: UrlUtils.buildSearchUrl(trackInfo, targetPlatformKey)
+                    val resolved = kotlinx.coroutines.withTimeoutOrNull(3_500L) {
+                        resolveDirectPlatformUrl(trackInfo, targetPlatformKey, isExplicitAlbumUrl, audiophileMode = effectiveAudiophile)
+                    } ?: UrlUtils.buildSearchUrl(trackInfo, targetPlatformKey)
                     val nativeUri = UrlUtils.toNativeAppUri(resolved, targetPlatformKey)
                     return ResolutionResult.Success(
                         targetUrl = resolved,
@@ -670,9 +673,11 @@ class SongLinkEngine(
                         nativeAppUri = nativeUri
                     )
                 }
-            } catch (fallbackEx: Throwable) {
-                if (fallbackEx is CancellationException) throw fallbackEx
-                // Log and continue to Error result below
+            } catch (fallbackEx: Exception) {
+                if (fallbackEx is CancellationException && fallbackEx !is kotlinx.coroutines.TimeoutCancellationException) {
+                    throw fallbackEx
+                }
+                SongFlipLogger.w("SongLinkEngine", "Fallback resolution failed for $inputUrl: ${fallbackEx.message}", fallbackEx)
             }
 
             val errorReason = if (e is io.ktor.client.plugins.HttpRequestTimeoutException || e is kotlinx.coroutines.TimeoutCancellationException) {
@@ -801,12 +806,17 @@ class SongLinkEngine(
     suspend fun resolveCanonicalUrl(url: String): String = shortLinkResolver.resolveCanonicalUrl(url)
 
     private suspend fun queryCustomApi(apiUrl: String, token: String, url: String, targetPlatform: String): String? {
+        val cleanApiUrl = apiUrl.trim()
+        if (!cleanApiUrl.startsWith("https://", ignoreCase = true) || UrlUtils.extractDomain(cleanApiUrl) == "unknown") {
+            SongFlipLogger.w("SongLinkEngine", "Rejected insecure customApiUrl")
+            return null
+        }
         return try {
             val payload = buildJsonObject {
                 put("url", url)
                 put("targetPlatform", targetPlatform)
             }.toString()
-            val resp = client.post(apiUrl) {
+            val resp = client.post(cleanApiUrl) {
                 contentType(ContentType.Application.Json)
                 setBody(payload)
                 if (token.isNotBlank()) {
@@ -824,6 +834,7 @@ class SongLinkEngine(
             null
         } catch (e: Exception) {
             if (e is CancellationException) throw e
+            SongFlipLogger.w("SongLinkEngine", "queryCustomApi failed: ${e.message}", e)
             null
         }
     }

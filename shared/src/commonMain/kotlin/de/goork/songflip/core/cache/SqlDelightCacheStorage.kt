@@ -339,7 +339,7 @@ class SqlDelightCacheStorage(
                     artist = newerResolver?.artist ?: row.artist,
                     isAlbum = newerResolver?.isAlbum ?: (row.is_album != 0L),
                     nativeAppUri = newerResolver?.nativeAppUri ?: row.native_app_uri,
-                    timestamp = row.timestamp,
+                    timestamp = maxOf(row.timestamp, newerResolver?.timestamp ?: 0L),
                     isHistory = true,
                     thumbnailUrl = newerResolver?.thumbnailUrl ?: row.thumbnail_url,
                     isFavorite = row.is_favorite != 0L,
@@ -375,7 +375,15 @@ class SqlDelightCacheStorage(
     fun enqueuePendingAcousticScan(id: String, signatureBase64: String, durationMs: Long, createdAt: Long = getCurrentTimeMillis()) {
         val db = getDatabase() ?: return
         try {
-            db.songFlipDatabaseQueries.insertPendingAcousticScan(id, signatureBase64, durationMs, createdAt)
+            db.transaction {
+                db.songFlipDatabaseQueries.insertPendingAcousticScan(id, signatureBase64, durationMs, createdAt)
+                val all = db.songFlipDatabaseQueries.getAllPendingAcousticScans().executeAsList()
+                if (all.size > 100) {
+                    for (old in all.take(all.size - 100)) {
+                        db.songFlipDatabaseQueries.deletePendingAcousticScanById(old.id)
+                    }
+                }
+            }
         } catch (t: Throwable) {
             SongFlipLogger.w("SqlDelightCacheStorage", "Failed to enqueue pending acoustic scan $id", t)
         }

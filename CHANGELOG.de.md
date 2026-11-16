@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.15.2] - 2026-11-16
+- **Sicherheit & Telemetrie-Hygiene**: Private Telemetrie-Fallbacks und Testdaten aus dem öffentlichen Quellcode entfernt, HTTPS-Prüfung für eigene Webhook-Endpunkte erzwungen und verbliebene CI-Workflow-Aktionen auf feste Commit-SHAs gepinnt.
+- **Link-Auflösung & Audio-Stabilität**: Timeout-Erkennung und Coroutine-Abbruchbehandlung in den Resolvern korrigiert, rohe Audio-Fingerprinting-Puffer von Block-Verstärkungsänderungen entkoppelt und Signaturpuffer beim Mikrofon-Fallback sauber zurückgesetzt.
+- **Speicher, Offline-Warteschlange & Nebenläufigkeit**: Redundante vollständige SQLite-Tabellenscans beim Lesen des Verlaufs beseitigt, Favoriten-Zählung sowie Offline-Scan-Warteschlange (max. 100 Einträge) synchronisiert und gemeinsame Zustände gegen parallele Zugriffe abgesichert.
+- **Vollständige Mehrsprachigkeit**: Fehlende Übersetzungen für Dienst-Hinweise und Playlist-Standards in allen unterstützten Sprachen ergänzt, Traditionelles Chinesisch (`zh-Hant`/`zh-TW`) sowie Arabisch (`ar`) freigeschaltet und Datumsformate an die gewählte App-Sprache angepasst.
+
 ## [1.15.1] - 2026-11-15
 - **Stabilität der Musikerkennung**: Fehleranfälligen Alt-Fallback bei der Trefferauflösung entfernt und Hintergrund-Snapshots abgesichert, sodass nicht erkannte Titel sauber den Hinweis ohne App-Absturz anzeigen.
 

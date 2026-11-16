@@ -163,12 +163,10 @@ class CouponService(
     }
 
     /**
-     * Verifies a server-issued coupon token offline (#109):
-     * - For `sct_v2_<payload>.<sig>`: verifies Ed25519 signature against embedded public key,
-     *   checks `installId` binding, and checks expiration against `max(currentTimeMs, lastSeenServerTimeMs)`.
-     * - For legacy `sct_<payload>.<sig>` tokens already stored before v1.9.0: decodes payload,
-     *   verifies `installId` and expiration, and marks `isLegacyToken = true` so callers can
-     *   preserve existing users' coupons while rejecting any local pref tampering without a token.
+     * Verifies a server-issued `sct_v2_<payload>.<sig>` coupon token offline (#109, #170):
+     * verifies Ed25519 signature against embedded public keys, checks `installId` binding,
+     * and checks expiration against `max(currentTimeMs, lastSeenServerTimeMs)`.
+     * Legacy `sct_` HMAC tokens are rejected.
      */
     fun verifyCouponToken(
         token: String?,
@@ -206,7 +204,7 @@ class CouponService(
         }
 
         // Legacy v1 HMAC tokens (sct_<payload>.<sig>) are fully deprecated and rejected (#170).
-        // Only cryptographic Ed25519-signed tokens (v3_...) are accepted.
+        // Only cryptographic Ed25519-signed tokens (sct_v2_...) are accepted.
         if (cleanToken.startsWith("sct_")) {
             return VerifiedCouponPayload(valid = false)
         }
@@ -314,7 +312,8 @@ class CouponService(
                 val respText = response.bodyAsText()
                 val obj = try {
                     json.parseToJsonElement(respText) as? JsonObject
-                } catch (e: Throwable) {
+                } catch (e: Exception) {
+                    if (e is CancellationException) throw e
                     SongFlipLogger.w("CouponService", "unparsable refresh response from $endpoint", e)
                     null
                 }
@@ -422,7 +421,11 @@ class CouponService(
                     } else {
                         verified.expirationTimestamp ?: exp ?: (now + (durationDays ?: 30L) * 24 * 60 * 60 * 1000L)
                     }
-                    val resolvedType = verified.type ?: type
+                    val resolvedType = when {
+                        verified.type == "lifetime" || type == "lifetime" -> "lifetime"
+                        verified.type in setOf("1year", "annual", "3months", "1month", "1week") -> verified.type
+                        else -> type
+                    }
                     val status = when (resolvedType) {
                         "lifetime" -> CouponRedeemStatus.SUCCESS_LIFETIME
                         "1year", "annual" -> CouponRedeemStatus.SUCCESS_1YEAR
@@ -444,12 +447,18 @@ class CouponService(
                         SongFlipLogger.w("CouponService", "Redeem endpoint $endpoint returned HTTP $statusCode, attempting fallback...")
                         continue
                     }
+                    if (statusCode >= 500) {
+                        SongFlipLogger.w("CouponService", "Server error $statusCode on $endpoint, trying fallback...")
+                        continue
+                    }
                     if (statusCode == 429) {
                         return CouponRedeemOutcome(status = CouponRedeemStatus.RATE_LIMITED)
                     }
                     val errObj = try {
                         json.parseToJsonElement(respText) as? JsonObject
-                    } catch (_: Throwable) {
+                    } catch (e: Exception) {
+                        if (e is CancellationException) throw e
+                        SongFlipLogger.w("CouponService", "Unparsable coupon error payload from $endpoint: ${e.message}")
                         null
                     }
                     val errCode = errObj?.get("error")?.jsonPrimitive?.content?.uppercase().orEmpty()

@@ -435,4 +435,5 @@
     <string name="playlist_ghost_tracks_notice">疑わしいAI・ゴーストトラック%1$d曲を除外しました</string>
     <string name="playlist_import_default_title">Imported Playlist</string>
     <string name="unknown_track">Unknown Song</string>
+    <string name="unsupported_music_service_toast">%1$s はまだサポートされていません – 元のリンクを開いています…</string>
 </resources>

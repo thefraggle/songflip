@@ -11,8 +11,8 @@ enum LocalizationManager {
 
     private nonisolated static let supportedLanguageCodes: Set<String> = [
         "de", "en", "da", "nb", "no", "sv", "nl", "fr", "es", "it", "pt", "pl", "ru",
-        "tr", "uk", "ja", "ko", "zh", "in", "id", "vi", "bn", "hi", "mr", "cs", "el",
-        "fi", "hu", "ro", "th"
+        "tr", "uk", "ja", "ko", "zh", "zh-Hant", "in", "id", "vi", "bn", "hi", "mr",
+        "cs", "el", "fi", "hu", "ro", "th", "ar"
     ]
 
     nonisolated static func currentLanguage() -> String {
@@ -23,6 +23,9 @@ enum LocalizationManager {
         for preferred in Locale.preferredLanguages {
             let lower = preferred.lowercased()
             let prefix2 = String(lower.prefix(2))
+            if lower.starts(with: "zh-hant") || lower.starts(with: "zh-tw") || lower.starts(with: "zh-hk") || lower.starts(with: "zh-mo") {
+                return "zh-Hant"
+            }
             if lower.starts(with: "zh") { return "zh" }
             if prefix2 == "id" || prefix2 == "in" { return "id" }
             if prefix2 == "no" || prefix2 == "nb" || prefix2 == "nn" { return "nb" }
@@ -33,6 +36,7 @@ enum LocalizationManager {
 
     private nonisolated static func normalizeLanguageCode(_ code: String) -> String {
         let lower = code.lowercased()
+        if lower == "zh-hant" || lower == "zh-tw" || lower == "zh-hk" || lower == "zh-mo" { return "zh-Hant" }
         if lower == "in" { return "id" }
         if lower == "no" { return "nb" }
         return lower

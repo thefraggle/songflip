@@ -435,4 +435,5 @@
     <string name="playlist_ghost_tracks_notice">의심스러운 AI 및 고스트 트랙 %1$d개 정리됨</string>
     <string name="playlist_import_default_title">Imported Playlist</string>
     <string name="unknown_track">Unknown Song</string>
+    <string name="unsupported_music_service_toast">%1$s은(는) 아직 지원되지 않습니다 – 원본 링크를 여는 중…</string>
 </resources>

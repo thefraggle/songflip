@@ -814,13 +814,14 @@ struct ContentView: View {
                 case .unsupportedEntity(let originalUrl, let entityType):
                     if entityType == "unsupported_music_service",
                        let service = UrlUtils.shared.detectUnsupportedKnownMusicService(url: originalUrl.isEmpty ? urlToConvert : originalUrl) {
-                        let msg = lang == "de" ? "\(service) wird noch nicht unterstützt." : "\(service) is not supported yet."
+                        let format = LocalizationManager.string(for: "unsupported_music_service_toast", lang: lang)
+                        let msg = String(format: format, service)
                         showToast(msg)
                     } else if entityType == "unsupported_domain" {
                         showToast(LocalizationManager.string(for: "unsupported_domain_toast", lang: lang))
                     }
                     let targetUrlStr = originalUrl.isEmpty ? urlToConvert : originalUrl
-                    if let original = URL(string: targetUrlStr) {
+                    if UrlUtils.shared.isSafeTargetUrl(url: targetUrlStr), let original = URL(string: targetUrlStr) {
                         UIApplication.shared.open(original)
                     }
                     dismissedClipboardUrl = urlToConvert

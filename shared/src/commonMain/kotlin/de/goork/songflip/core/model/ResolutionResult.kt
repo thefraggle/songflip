@@ -3,14 +3,6 @@ package de.goork.songflip.core.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SongMetadata(
-    val title: String? = null,
-    val artist: String? = null,
-    val isAlbum: Boolean = false,
-    val thumbnailUrl: String? = null
-)
-
-@Serializable
 sealed class ResolutionResult {
     @Serializable
     data class Success(

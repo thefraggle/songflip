@@ -435,4 +435,5 @@
     <string name="playlist_ghost_tracks_notice">ล้างแทร็ก AI และแทร็กผีที่น่าสงสัย %1$d แทร็ก</string>
     <string name="playlist_import_default_title">Imported Playlist</string>
     <string name="unknown_track">Unknown Song</string>
+    <string name="unsupported_music_service_toast">ยังไม่รองรับ %1$s – กำลังเปิดลิงก์ต้นฉบับ…</string>
 </resources>

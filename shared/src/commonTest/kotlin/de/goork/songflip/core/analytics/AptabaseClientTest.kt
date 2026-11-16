@@ -141,10 +141,10 @@ class AptabaseClientTest {
 
     @Test
     fun testHostSanitizationHandlesEscapedSlashesAndXcconfigTruncation() {
-        // 1. Escaped slashes from bash replacement bug: https:\/\/telemetry-apps.goork.de
+        // 1. Escaped slashes from bash replacement bug
         AptabaseClient.init(
-            appKey = "A-SH-4092372492",
-            host = "https:\\/\\/telemetry-apps.goork.de/",
+            appKey = "A-SH-0000000000",
+            host = "https:\\/\\/telemetry.example.com/",
             osName = "iOS",
             osVersion = "18.0",
             locale = "de_DE",
@@ -152,11 +152,11 @@ class AptabaseClientTest {
             appBuildNumber = "144",
             isDebug = false
         )
-        assertEquals("https://telemetry-apps.goork.de", AptabaseClient.configuredHost)
+        assertEquals("https://telemetry.example.com", AptabaseClient.configuredHost)
 
-        // 2. Truncated xcconfig comment value: "https:"
+        // 2. Truncated xcconfig comment value: "https:" or unexpanded "$(APTABASE_HOST)" disables host safely
         AptabaseClient.init(
-            appKey = "A-SH-4092372492",
+            appKey = "A-SH-0000000000",
             host = "https:",
             osName = "iOS",
             osVersion = "18.0",
@@ -165,7 +165,21 @@ class AptabaseClientTest {
             appBuildNumber = "144",
             isDebug = false
         )
-        assertEquals("https://telemetry-apps.goork.de", AptabaseClient.configuredHost)
+        assertEquals("", AptabaseClient.configuredHost)
+        assertEquals(false, AptabaseClient.isInitialized)
+
+        AptabaseClient.init(
+            appKey = "$(APTABASE_APP_KEY)",
+            host = "$(APTABASE_HOST)",
+            osName = "iOS",
+            osVersion = "18.0",
+            locale = "de_DE",
+            appVersion = "1.14.19",
+            appBuildNumber = "144",
+            isDebug = false
+        )
+        assertEquals("", AptabaseClient.configuredHost)
+        assertEquals(false, AptabaseClient.isInitialized)
     }
 }
 

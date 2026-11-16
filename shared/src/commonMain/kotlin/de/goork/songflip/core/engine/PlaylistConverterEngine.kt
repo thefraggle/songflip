@@ -124,57 +124,11 @@ class PlaylistConverterEngine(
         }.toString()
 
         val baseTimeout = if (isPro || limitedTracks.size > 20) 45000L else 25000L
-
-        for ((index, endpoint) in ENDPOINTS.withIndex()) {
-            try {
-                val timeoutMs = if (index == 0 && ENDPOINTS.size > 1) baseTimeout else (baseTimeout + 10000L)
-                val response = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
-                    kotlinx.coroutines.withTimeout(timeoutMs) {
-                        client.post(endpoint) {
-                            if (supportsHttpTimeout) {
-                                timeout {
-                                    requestTimeoutMillis = timeoutMs
-                                    socketTimeoutMillis = timeoutMs
-                                }
-                            }
-                            contentType(ContentType.Application.Json)
-                            header("x-web-client", "songflip-app")
-                            if (!authToken.isNullOrBlank()) {
-                                header("Authorization", "Bearer $authToken")
-                            }
-                            setBody(payload)
-                        }
-                    }
-                }
-
-                if (response.status.isSuccess()) {
-                    val body = response.bodyAsText()
-                    val result = json.decodeFromString<PlaylistConversionResult>(body).deduplicated().cleanGhostAndAiTracks()
-                    return Result.success(result)
-                } else {
-                    val errorBody = response.bodyAsText()
-                    val parsedException = parseErrorPayload(errorBody, response.status.value)
-                    val isJson = response.contentType()?.match(ContentType.Application.Json) == true
-                    if (response.status.value in 400..499 && isJson) {
-                        return Result.failure(parsedException)
-                    }
-                }
-            } catch (t: Throwable) {
-                if (t is kotlinx.coroutines.CancellationException && t !is kotlinx.coroutines.TimeoutCancellationException) throw t
-                if (t is HttpRequestTimeoutException || t is kotlinx.coroutines.TimeoutCancellationException) {
-                    de.goork.songflip.core.util.SongFlipLogger.w("PlaylistConverterEngine", "Import conversion timed out on $endpoint: ${t.message}")
-                    continue
-                }
-                if (t is kotlinx.coroutines.CancellationException) throw t
-                de.goork.songflip.core.util.SongFlipLogger.w("PlaylistConverterEngine", "Import conversion failed on $endpoint: ${t.message}", t)
-            }
-        }
-
-        return Result.failure(
-            PlaylistConversionException(
-                errorCode = PlaylistErrorCode.UNKNOWN_ERROR,
-                message = "Failed to convert imported playlist."
-            )
+        return executeConversionRequest(
+            payload = payload,
+            baseTimeout = baseTimeout,
+            authToken = authToken,
+            defaultErrorMessage = "Failed to convert imported playlist."
         )
     }
 
@@ -205,9 +159,22 @@ class PlaylistConverterEngine(
             }
         }.toString()
 
-        var lastException: Throwable? = null
         val baseTimeout = if (isPro || maxTracks > 20) 45000L else 25000L
+        return executeConversionRequest(
+            payload = payload,
+            baseTimeout = baseTimeout,
+            authToken = authToken,
+            defaultErrorMessage = "Failed to convert playlist"
+        )
+    }
 
+    private suspend fun executeConversionRequest(
+        payload: String,
+        baseTimeout: Long,
+        authToken: String?,
+        defaultErrorMessage: String
+    ): Result<PlaylistConversionResult> {
+        var lastException: Throwable? = null
         for ((index, endpoint) in ENDPOINTS.withIndex()) {
             try {
                 val timeoutMs = if (index == 0 && ENDPOINTS.size > 1) baseTimeout else (baseTimeout + 10000L)
@@ -238,16 +205,15 @@ class PlaylistConverterEngine(
                     val errorBody = response.bodyAsText()
                     val parsedException = parseErrorPayload(errorBody, response.status.value)
                     val isJson = response.contentType()?.match(ContentType.Application.Json) == true
-                    // Fast-fail on 4xx client errors (e.g. private playlist, bad request, rate limit)
-                    // only if it's structured JSON from our API, avoiding proxy 404s (#172).
+                    // Fast-fail on 4xx client errors only if it's structured JSON from our API (#172).
                     if (response.status.value in 400..499 && isJson) {
                         return Result.failure(parsedException)
                     }
                     lastException = parsedException
                 }
-            } catch (t: Throwable) {
-                if (t is kotlinx.coroutines.CancellationException && t !is kotlinx.coroutines.TimeoutCancellationException) throw t
-                if (t is HttpRequestTimeoutException || t is kotlinx.coroutines.TimeoutCancellationException) {
+            } catch (e: Exception) {
+                if (e is HttpRequestTimeoutException || e is kotlinx.coroutines.TimeoutCancellationException) {
+                    de.goork.songflip.core.util.SongFlipLogger.w("PlaylistConverterEngine", "Conversion timed out on $endpoint: ${e.message}")
                     lastException = PlaylistConversionException(
                         errorCode = PlaylistErrorCode.UPSTREAM_TIMEOUT,
                         message = "Playlist conversion timed out.",
@@ -255,8 +221,9 @@ class PlaylistConverterEngine(
                     )
                     continue
                 }
-                if (t is kotlinx.coroutines.CancellationException) throw t
-                lastException = t
+                if (e is kotlinx.coroutines.CancellationException) throw e
+                de.goork.songflip.core.util.SongFlipLogger.w("PlaylistConverterEngine", "Conversion failed on $endpoint: ${e.message}", e)
+                lastException = e
             }
         }
 
@@ -270,7 +237,7 @@ class PlaylistConverterEngine(
 
         return Result.failure(lastException ?: PlaylistConversionException(
             errorCode = de.goork.songflip.core.model.PlaylistErrorCode.UNKNOWN_ERROR,
-            message = "Failed to convert playlist"
+            message = defaultErrorMessage
         ))
     }
 

@@ -48,13 +48,17 @@ class SoundCloudResolver(
                     val candidatePath = m.groupValues[1]
                     val prefix = candidatePath.substringBefore("/").lowercase()
                     if (!invalidPrefixes.contains(prefix)) {
-                        return "https://soundcloud.com/$candidatePath"
+                        val slugWords = candidatePath.replace("/", " ").replace("-", " ").replace("_", " ")
+                        if (ResolverUtils.isMatch(query, slugWords, "") || ResolverUtils.isMatch(query, "", slugWords)) {
+                            return "https://soundcloud.com/$candidatePath"
+                        }
                     }
                 }
             }
             null
-        } catch (t: Throwable) {
-            if (t is CancellationException) throw t
+        } catch (e: Exception) {
+            if (e is CancellationException) throw e
+            de.goork.songflip.core.util.SongFlipLogger.d("SoundCloudResolver", "Search scrape failed: ${e.message}")
             null
         }
     }

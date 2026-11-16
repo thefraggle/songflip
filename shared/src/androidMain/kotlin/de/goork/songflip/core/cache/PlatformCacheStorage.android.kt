@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
-import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 import de.goork.songflip.core.db.SongFlipDatabase
 import de.goork.songflip.core.util.SongFlipLogger
 import kotlinx.serialization.encodeToString
@@ -37,13 +36,9 @@ class AndroidSharedPreferencesCacheStorage(
                 sqlDelightStorage = null
             }
             
-            // Initialize database and migrate legacy SharedPreferences entries BEFORE cleaning legacy cache keys
+            // Initialize database and trigger synchronous onDatabaseReady legacy migration
             val storage = getOrCreateSqlDelightStorage()
             storage.getDatabase()
-            if (!storage.isMigrationDone(MIGRATION_KEY_ANDROID)) {
-                val legacyEntries = AndroidSharedPreferencesCacheStorage().loadAll()
-                storage.migrateLegacyEntries(legacyEntries, MIGRATION_KEY_ANDROID)
-            }
             checkCacheVersionMigration()
         }
 
@@ -111,9 +106,7 @@ class AndroidSharedPreferencesCacheStorage(
                     } else {
                         // Warn and fallback to in-memory only in test/early-start scenarios until init(context) is called
                         de.goork.songflip.core.util.SongFlipLogger.w("AndroidCacheStorage", "appContext is null when creating SQL driver. Falling back to in-memory temporary database.")
-                        JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY).also {
-                            SongFlipDatabase.Schema.create(it)
-                        }
+                        createInMemoryTestDriver()
                     }
                 },
                 onDatabaseReady = { storage, _ ->
@@ -129,13 +122,17 @@ class AndroidSharedPreferencesCacheStorage(
             return created
         }
 
+        private fun createInMemoryTestDriver(): SqlDriver {
+            val driverClass = Class.forName("app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver")
+            val ctor = driverClass.getConstructor(String::class.java, java.util.Properties::class.java)
+            val driver = ctor.newInstance("jdbc:sqlite:", java.util.Properties()) as SqlDriver
+            SongFlipDatabase.Schema.create(driver)
+            return driver
+        }
+
         fun createInMemorySqlDelightStorage(legacyPrefs: SharedPreferences? = null): SqlDelightCacheStorage {
             return SqlDelightCacheStorage(
-                driverProvider = {
-                    JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY).also {
-                        SongFlipDatabase.Schema.create(it)
-                    }
-                },
+                driverProvider = { createInMemoryTestDriver() },
                 onDatabaseReady = { storage, _ ->
                     val legacy = if (legacyPrefs != null) {
                         AndroidSharedPreferencesCacheStorage { legacyPrefs }.loadAll()

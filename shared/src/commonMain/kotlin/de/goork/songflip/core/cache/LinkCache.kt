@@ -67,6 +67,7 @@ class LinkCache(
     private val mutex = Mutex()
     private val entries = LinkedHashMap<String, CacheEntry>()
     private var initialized = false
+    private var hasEvictedHistoryFromMemory = false
 
     /** Whether a cached resolution may be reused without hitting the network. */
     private fun CacheEntry.isFresh(now: Long): Boolean {
@@ -96,6 +97,8 @@ class LinkCache(
             entries.remove(oldestKey)
             if (!oldestEntry.isHistory && !oldestEntry.isFavorite) {
                 storage.remove(oldestKey)
+            } else if (oldestEntry.isHistory) {
+                hasEvictedHistoryFromMemory = true
             }
             evictable--
         }
@@ -255,6 +258,7 @@ class LinkCache(
 
     suspend fun clear() = mutex.withLock {
         initialized = true
+        hasEvictedHistoryFromMemory = false
         entries.clear()
         storage.clear()
     }
@@ -272,6 +276,7 @@ class LinkCache(
 
     private fun syncFromStorage(currentTimeMs: Long): Map<String, CacheEntry> {
         val allLoaded = storage.loadAll()
+        hasEvictedHistoryFromMemory = false
         for ((k, loadedEntry) in allLoaded.entries.sortedBy { it.value.timestamp }) {
             if (loadedEntry.isRetained(currentTimeMs)) {
                 val memEntry = entries[k]
@@ -313,10 +318,12 @@ class LinkCache(
     }
 
     private fun collectDeduplicatedHistoryItems(currentTimeMs: Long): List<LinkHistoryItem> {
-        val allLoaded = storage.loadAll()
+        val allLoaded = if (hasEvictedHistoryFromMemory) storage.loadAll() else emptyMap()
         val combinedKeys = mutableSetOf<String>()
         combinedKeys.addAll(entries.keys)
-        combinedKeys.addAll(allLoaded.keys)
+        if (allLoaded.isNotEmpty()) {
+            combinedKeys.addAll(allLoaded.keys)
+        }
 
         val rawItems = mutableListOf<LinkHistoryItem>()
         for (key in combinedKeys) {
@@ -423,13 +430,7 @@ class LinkCache(
         getHistoryEntries(limit = 10, currentTimeMs = getCurrentTimeMillis())
 
     private fun countFavoritesInternal(currentTimeMs: Long): Int {
-        var count = 0
-        for ((_, entry) in entries) {
-            if (entry.isFavorite && entry.targetUrl.isNotBlank()) {
-                count++
-            }
-        }
-        return count
+        return collectDeduplicatedHistoryItems(currentTimeMs).count { it.isFavorite }
     }
 
     suspend fun getFavoriteCount(currentTimeMs: Long = getCurrentTimeMillis()): Int = mutex.withLock {

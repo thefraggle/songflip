@@ -519,8 +519,7 @@ object AcousticRecognizer {
                 activeAudioRecord = audioRecord
 
                 val sigGenResult = ShazamKit.createSignatureGenerator(shazamSampleRate)
-                val sigGenerator = (sigGenResult as? ShazamKitResult.Success)?.data
-                if (sigGenerator == null) {
+                var sigGenerator = (sigGenResult as? ShazamKitResult.Success)?.data ?: run {
                     stopAudioRecordInternal(audioRecord)
                     _state.value = AcousticRecognitionState.Error("listen_error_generic")
                     return@launch
@@ -577,6 +576,13 @@ object AcousticRecognizer {
                                 audioRecord = fallbackCreated.first
                                 currentSource = fallbackCreated.second
                                 activeAudioRecord = audioRecord
+                                totalBytesRead = 0L
+                                nextSnapshotTargetMs = 3_600L
+                                (com.shazam.shazamkit.ShazamKit.createSignatureGenerator(shazamSampleRate) as? com.shazam.shazamkit.ShazamKitResult.Success)?.data?.let {
+                                    synchronized(sigLock) {
+                                        sigGenerator = it
+                                    }
+                                }
                                 audioRecord?.startRecording()
                                 continue
                             }

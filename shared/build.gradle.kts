@@ -51,6 +51,8 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)
             implementation(libs.sqldelight.driver.android)
+        }
+        androidUnitTest.dependencies {
             implementation(libs.sqldelight.driver.sqlite)
         }
         iosMain.dependencies {

@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.15.2] - 2026-11-16
+- **Security & Telemetry Hygiene**: Removed private telemetry host fallbacks and test fixtures from public source configuration, enforced HTTPS validation for custom webhook endpoints, and pinned remaining CI workflow actions to immutable commit SHAs.
+- **Link Resolution & Audio Stability**: Fixed coroutine timeout classification and cancellation propagation across resolvers, decoupled raw acoustic fingerprinting buffers from per-block gain adjustments, and reset signature buffers cleanly on microphone source fallback.
+- **Storage, Offline Queue & Concurrency**: Eliminated redundant full-table SQLite scans during history reads, synchronized favorite counts and offline scan queue bounds (max 100 entries), and guarded shared UI/history state against concurrent mutations.
+- **Multilingual Completeness**: Completed missing service-notice and playlist-default translations across all supported languages, unlocked Traditional Chinese (`zh-Hant`/`zh-TW`) and Arabic (`ar`) language selection, and aligned localized date formatting with the active in-app language.
+
 ## [1.15.1] - 2026-11-15
 - **Acoustic Recognition Stability**: Removed an unstable legacy matching fallback and guarded background snapshot tasks so unmatched scans cleanly display the no-match screen without terminating the app.
 

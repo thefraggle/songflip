@@ -546,6 +546,7 @@ final class AcousticRecognizer: ObservableObject {
         outBuffer.frameLength = buffer.frameLength
 
         var maxPeak: Float = 0
+        var rawSumSq: Float = 0
         for i in 0..<frameLength {
             var sample: Float = 0
             for c in 0..<channels {
@@ -553,36 +554,21 @@ final class AcousticRecognizer: ObservableObject {
             }
             sample /= Float(channels)
             outChannel[i] = sample
+            rawSumSq += sample * sample
             let absVal = abs(sample)
             if absVal > maxPeak {
                 maxPeak = absVal
             }
         }
 
-        let targetPeak: Float = 0.55
-        let gain: Float
-        if maxPeak > 0.0014 && maxPeak < targetPeak {
-            gain = min(24.0, targetPeak / maxPeak)
-        } else {
-            gain = 1.0
-        }
-
-        var sumSq: Float = 0
-        for i in 0..<frameLength {
-            var boosted = outChannel[i] * gain
-            if boosted > 0.98 { boosted = 0.98 }
-            if boosted < -0.98 { boosted = -0.98 }
-            outChannel[i] = boosted
-            sumSq += boosted * boosted
-        }
-
-        let rms = sqrt(sumSq / Float(frameLength))
-        let uiAmplitude = min(1.0, max(0.08, rms * 3.8))
+        // Keep outChannel unmodified raw PCM for ShazamKit spectral integrity; compute UI meter from raw RMS.
+        let rawRms = sqrt(rawSumSq / Float(frameLength))
+        let uiAmplitude = min(1.0, max(0.08, rawRms * 6.0))
 
         let quality: AcousticSignalQuality
-        if maxPeak >= 0.95 || uiAmplitude >= 0.94 {
+        if maxPeak >= 0.95 {
             quality = .tooLoud
-        } else if elapsedSeconds >= 3 && (maxPeak < 0.02 || uiAmplitude < 0.14) {
+        } else if elapsedSeconds >= 3 && (maxPeak < 0.015 || rawRms < 0.005) {
             quality = .tooQuiet
         } else {
             quality = .optimal

@@ -398,10 +398,10 @@ class ShareViewController: UIViewController {
         let aptabaseHost: String
         if rawHost.hasPrefix("https://") || rawHost.hasPrefix("http://") {
             aptabaseHost = rawHost
-        } else if rawHost == "https:" || rawHost.isEmpty {
-            aptabaseHost = "https://telemetry-apps.goork.de"
-        } else {
+        } else if rawHost == "https:" || rawHost == "http:" || rawHost.hasPrefix("$(") || rawHost.isEmpty {
             aptabaseHost = "https://api.aptabase.com"
+        } else {
+            aptabaseHost = rawHost
         }
 
         #if DEBUG
@@ -456,7 +456,7 @@ class ShareViewController: UIViewController {
                     customApiUrl: customUrl,
                     customApiToken: customToken,
                     isPro: isProCached,
-                    authToken: defaults.string(forKey: "pro_auth_token") ?? "",
+                    authToken: isProCached ? (defaults.string(forKey: "pro_auth_token") ?? "") : "",
                     isPrefetch: false,
                     forceRefresh: false,
                     audiophileMode: audiophileMode
@@ -526,8 +526,8 @@ class ShareViewController: UIViewController {
                 case .unsupportedEntity(let originalUrl, let entityType):
                     if entityType == "unsupported_music_service",
                        let service = UrlUtils.shared.detectUnsupportedKnownMusicService(url: originalUrl.isEmpty ? inputUrl : originalUrl) {
-                        let isGerman = Locale.preferredLanguages.first?.hasPrefix("de") == true
-                        self.statusLabel.text = isGerman ? "\(service) wird noch nicht unterstützt." : "\(service) is not supported yet."
+                        let format = self.localizedText(for: "unsupported_music_service_toast", default: "%@ is not supported yet.")
+                        self.statusLabel.text = String(format: format, service)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
                             self.openApp(urlString: originalUrl)
                         }

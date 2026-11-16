@@ -634,116 +634,68 @@ object ProManager {
         if (cleanCode.isEmpty()) return@withContext RedeemResult.INVALID
 
         val sp = prefs ?: return@withContext RedeemResult.INVALID
+        val installId = getAnonymousInstallId()
+        val endpoints = testBaseUrl?.let { listOf("$it/redeemPromoCode") }
 
-        val endpoints = testBaseUrl?.let { listOf("$it/redeemPromoCode") } ?: listOf(
-            "https://cache.songflip.link/redeemPromoCode",
-            "https://songflip-web.web.app/redeemPromoCode"
+        val outcome = de.goork.songflip.core.engine.CouponService.shared.redeemCoupon(
+            rawCode = cleanCode,
+            installId = installId,
+            customEndpoints = endpoints
         )
 
-        val installId = getAnonymousInstallId()
-        val jsonBody = org.json.JSONObject().apply {
-            put("code", cleanCode)
-            put("installId", installId)
-            // Request a token signed with the key this app version pins (#141).
-            put("tokenVersion", de.goork.songflip.core.engine.CouponService.CURRENT_TOKEN_VERSION)
-        }.toString()
-
-        val mediaType = "application/json; charset=utf-8".toMediaType()
-        val requestBody = jsonBody.toRequestBody(mediaType)
-
-        val client = testHttpClient ?: httpClient
-
-        for (endpoint in endpoints) {
-            try {
-                val request = okhttp3.Request.Builder()
-                    .url(endpoint)
-                    .post(requestBody)
-                    .build()
-
-                // use{} guarantees the connection is released even if body reading throws
-                val (bodyStr, isOk, httpCode) = client.newCall(request).execute().use { response ->
-                    Triple(response.body?.string() ?: "", response.isSuccessful, response.code)
+        val mappedStatus = when (outcome.status) {
+            de.goork.songflip.core.engine.CouponRedeemStatus.SUCCESS_LIFETIME -> {
+                if (_proState.value.isPro && _proState.value.proType == "lifetime_coupon") {
+                    return@withContext RedeemResult.ALREADY_ACTIVE
                 }
-
-                if (isOk) {
-                    val resJson = org.json.JSONObject(bodyStr)
-                    val type = resJson.optString("type", "1month").lowercase()
-                    val expTimestamp = if (resJson.has("expirationTimestamp") && !resJson.isNull("expirationTimestamp")) {
-                        resJson.optLong("expirationTimestamp")
-                    } else null
-
-                    val token = resJson.optString("token", "")
-                    val verified = de.goork.songflip.core.engine.CouponService.shared.verifyCouponToken(
-                        token = token,
-                        expectedInstallId = installId,
-                        currentTimeMs = System.currentTimeMillis(),
-                        lastSeenServerTimeMs = getLastSeenServerTime()
-                    )
-                    if (!verified.valid) {
-                        return@withContext RedeemResult.INVALID
-                    }
-                    updateLastSeenServerTime(verified.issuedAtTimestamp ?: System.currentTimeMillis())
-
-                    if (type == "lifetime" || verified.type == "lifetime") {
-                        if (_proState.value.isPro && _proState.value.proType == "lifetime_coupon") {
-                            return@withContext RedeemResult.ALREADY_ACTIVE
-                        }
-                        val editor = sp.edit()
-                            .putString(KEY_COUPON_TYPE, "lifetime")
-                            .putString(KEY_COUPON_CODE, cleanCode)
-                            .remove(KEY_COUPON_EXPIRATION)
-                        saveStoredCouponToken(editor, token)
-                        editor.apply()
-                        evaluateProState(revenueCatActive = false)
-                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemedSuccess(cleanCode)
-                        return@withContext RedeemResult.SUCCESS_LIFETIME
-                    } else {
-                        val durationDays = when (type) {
-                            "1year", "annual" -> 365L
-                            "3months" -> 90L
-                            else -> 30L
-                        }
-                        val expireTime = verified.expirationTimestamp
-                            ?: expTimestamp
-                            ?: (System.currentTimeMillis() + durationDays * 24 * 60 * 60 * 1000L)
-
-                        val editor = sp.edit()
-                            .putString(KEY_COUPON_TYPE, type)
-                            .putString(KEY_COUPON_CODE, cleanCode)
-                            .putLong(KEY_COUPON_EXPIRATION, expireTime)
-                        saveStoredCouponToken(editor, token)
-                        editor.apply()
-                        evaluateProState(revenueCatActive = false)
-                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemedSuccess(cleanCode)
-
-                        return@withContext when (type) {
-                            "1year", "annual" -> RedeemResult.SUCCESS_1YEAR
-                            "3months" -> RedeemResult.SUCCESS_3MONTHS
-                            else -> RedeemResult.SUCCESS_1MONTH
-                        }
-                    }
-                } else {
-                    if (httpCode == 429) {
-                        return@withContext RedeemResult.RATE_LIMITED
-                    }
-                    val errJson = try { org.json.JSONObject(bodyStr) } catch (e: Exception) { null }
-                    val errCode = errJson?.optString("error", "") ?: ""
-                    return@withContext when (errCode) {
-                        "TOO_MANY_REQUESTS", "TOO_MANY_FAILED_ATTEMPTS" -> RedeemResult.RATE_LIMITED
-                        "ALREADY_REDEEMED_ON_DEVICE" -> RedeemResult.ALREADY_REDEEMED
-                        "MAX_REDEMPTIONS_REACHED" -> RedeemResult.MAX_REACHED
-                        "CODE_INACTIVE" -> RedeemResult.INACTIVE
-                        "CODE_EXPIRED" -> RedeemResult.INACTIVE
-                        else -> RedeemResult.INVALID
-                    }
-                }
-            } catch (e: Exception) {
-                if (e is kotlinx.coroutines.CancellationException) throw e
-                android.util.Log.w("ProManager", "Redeem attempt failed for endpoint $endpoint: ${e.message}")
+                updateLastSeenServerTime(outcome.issuedAtTimestamp ?: System.currentTimeMillis())
+                val editor = sp.edit()
+                    .putString(KEY_COUPON_TYPE, "lifetime")
+                    .putString(KEY_COUPON_CODE, cleanCode)
+                    .remove(KEY_COUPON_EXPIRATION)
+                saveStoredCouponToken(editor, outcome.token)
+                editor.apply()
+                reevaluateKeepingRevenueCat()
+                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemedSuccess(cleanCode)
+                RedeemResult.SUCCESS_LIFETIME
             }
+            de.goork.songflip.core.engine.CouponRedeemStatus.SUCCESS_1YEAR,
+            de.goork.songflip.core.engine.CouponRedeemStatus.SUCCESS_3MONTHS,
+            de.goork.songflip.core.engine.CouponRedeemStatus.SUCCESS_1MONTH -> {
+                updateLastSeenServerTime(outcome.issuedAtTimestamp ?: System.currentTimeMillis())
+                val type = outcome.type.ifBlank { "1month" }
+                val durationDays = when (type) {
+                    "1year", "annual" -> 365L
+                    "3months" -> 90L
+                    "1week" -> 7L
+                    else -> 30L
+                }
+                val expireTime = outcome.expirationTimestamp
+                    ?: (System.currentTimeMillis() + durationDays * 24 * 60 * 60 * 1000L)
+                val editor = sp.edit()
+                    .putString(KEY_COUPON_TYPE, type)
+                    .putString(KEY_COUPON_CODE, cleanCode)
+                    .putLong(KEY_COUPON_EXPIRATION, expireTime)
+                saveStoredCouponToken(editor, outcome.token)
+                editor.apply()
+                reevaluateKeepingRevenueCat()
+                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemedSuccess(cleanCode)
+                when (outcome.status) {
+                    de.goork.songflip.core.engine.CouponRedeemStatus.SUCCESS_1YEAR -> RedeemResult.SUCCESS_1YEAR
+                    de.goork.songflip.core.engine.CouponRedeemStatus.SUCCESS_3MONTHS -> RedeemResult.SUCCESS_3MONTHS
+                    else -> RedeemResult.SUCCESS_1MONTH
+                }
+            }
+            de.goork.songflip.core.engine.CouponRedeemStatus.ALREADY_ACTIVE -> RedeemResult.ALREADY_ACTIVE
+            de.goork.songflip.core.engine.CouponRedeemStatus.ALREADY_REDEEMED -> RedeemResult.ALREADY_REDEEMED
+            de.goork.songflip.core.engine.CouponRedeemStatus.MAX_REACHED -> RedeemResult.MAX_REACHED
+            de.goork.songflip.core.engine.CouponRedeemStatus.INACTIVE -> RedeemResult.INACTIVE
+            de.goork.songflip.core.engine.CouponRedeemStatus.RATE_LIMITED -> RedeemResult.RATE_LIMITED
+            de.goork.songflip.core.engine.CouponRedeemStatus.INVALID -> RedeemResult.INVALID
+            de.goork.songflip.core.engine.CouponRedeemStatus.NETWORK_ERROR -> RedeemResult.NETWORK_ERROR
         }
 
-        return@withContext RedeemResult.NETWORK_ERROR
+        return@withContext mappedStatus
     }
 
     fun hashUrl(rawUrl: String): String {

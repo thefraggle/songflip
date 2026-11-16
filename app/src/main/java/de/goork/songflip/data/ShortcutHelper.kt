@@ -80,8 +80,9 @@ object ShortcutHelper {
                 }
 
                 ShortcutManagerCompat.setDynamicShortcuts(context, shortcuts)
-            } catch (_: Exception) {
-                // Graceful fallback if shortcuts are unsupported or launcher throws
+            } catch (e: Exception) {
+                if (e is kotlinx.coroutines.CancellationException) throw e
+                de.goork.songflip.core.util.SongFlipLogger.d("ShortcutHelper", "Failed to update dynamic shortcuts: ${e.message}")
             }
         }
     }

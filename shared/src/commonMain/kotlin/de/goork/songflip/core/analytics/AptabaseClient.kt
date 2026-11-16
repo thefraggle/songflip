@@ -61,7 +61,9 @@ object AptabaseClient {
     private var systemProps: SystemProps? = null
 
     private val sessionMutex = Mutex()
+    @Volatile
     private var currentSessionId: String = ""
+    @Volatile
     private var lastEventTimestamp: Long = 0
     private val sessionTimeoutMs = 60 * 60 * 1000L // 1 hour
 
@@ -81,13 +83,15 @@ object AptabaseClient {
         appBuildNumber: String,
         isDebug: Boolean
     ) {
-        this.appKey = appKey.trim()
+        val cleanKey = appKey.trim()
+        this.appKey = if (cleanKey.startsWith("$(")) "" else cleanKey
         val sanitizedHost = host.trim()
             .replace("\\/", "/")
             .trimEnd('/')
         this.host = when {
+            sanitizedHost.isEmpty() || sanitizedHost.startsWith("$(") ||
+                sanitizedHost == "https:" || sanitizedHost == "http:" -> ""
             sanitizedHost.startsWith("https://") || sanitizedHost.startsWith("http://") -> sanitizedHost
-            sanitizedHost == "https:" || sanitizedHost == "http:" || sanitizedHost.isEmpty() -> "https://telemetry-apps.goork.de"
             else -> "https://$sanitizedHost"
         }
         this.systemProps = SystemProps(

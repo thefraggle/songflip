@@ -456,4 +456,5 @@
     <string name="playlist_ghost_tracks_notice">Oczyszczono %1$d podejrzanych utworów AI i widmowych</string>
     <string name="playlist_import_default_title">Imported Playlist</string>
     <string name="unknown_track">Unknown Song</string>
+    <string name="unsupported_music_service_toast">%1$s nie jest jeszcze obsługiwane – otwieranie oryginalnego linku…</string>
 </resources>

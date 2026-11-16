@@ -442,4 +442,5 @@
     <string name="playlist_ghost_tracks_notice">Εκκαθαρίστηκαν %1$d ύποπτα κομμάτια τεχνητής νοημοσύνης &amp; ghost</string>
     <string name="playlist_import_default_title">Imported Playlist</string>
     <string name="unknown_track">Unknown Song</string>
+    <string name="unsupported_music_service_toast">Το %1$s δεν υποστηρίζεται ακόμη – άνοιγμα αρχικού συνδέσμου…</string>
 </resources>

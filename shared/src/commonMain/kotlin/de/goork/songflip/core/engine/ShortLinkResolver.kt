@@ -115,7 +115,10 @@ class ShortLinkResolver(
                 val domain = UrlUtils.extractDomain(base)
                 "$scheme$domain$location"
             }
-            else -> location
+            else -> {
+                val baseDir = base.substringBefore("?").substringBeforeLast("/", base)
+                "$baseDir/$location"
+            }
         }
     }
 }
