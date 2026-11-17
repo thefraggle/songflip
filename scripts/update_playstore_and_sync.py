@@ -14,7 +14,7 @@ M3U_PLAYLIST_PARAS = {
     "bn-BD": "• প্লেলিস্ট কনভার্টার, ফাইল ইমপোর্ট (M3U) এবং স্থানান্তর:\nস্পটিফাই, অ্যাপল মিউজিক, ইউটিউব মিউজিক, টিআইডিএল এবং ডিজারের মধ্যে প্লেলিস্ট রূপান্তর ও স্থানান্তর করুন। .m3u, .m3u8, .csv এবং টেক্সট ফাইল থেকে সরাসরি স্ট্রিমিং প্লেলিস্টে গান ইমপোর্ট করুন — স্বয়ংক্রিয় ডুপ্লিকেট পরিষ্কার, 200টি পর্যন্ত ট্র্যাক এবং দ্রুত ক্যাশিং সহ।",
     "cs-CZ": "• Převodník playlistů, import souborů (M3U) a přenos:\nPřevádějte a přenášejte playlisty mezi Spotify, Apple Music, YouTube Music, TIDAL a Deezer. Importujte lokální seznamy z .m3u, .m3u8, .csv a textových souborů přímo do streamovacích playlistů – s čištěním duplicit, až 200 stopami a rychlou mezipamětí.",
     "da-DK": "• Playlist Converter, filimport (M3U) og overførsel:\nKonverter og overfør afspilningslister mellem Spotify, Apple Music, YouTube Music, TIDAL og Deezer. Importer lokale sporlister fra .m3u-, .m3u8-, .csv- og tekstfiler direkte til streaming-afspilningslister – med duplikatrensning, op til 200 numre og hurtig caching.",
-    "de-DE": "• Universal Playlist Converter, Datei-Import (M3U) & Playlist Transfer App (Free):\nPlaylists konvertieren, Playlists übertragen und transferieren zwischen Spotify, Apple Music, YouTube Music, TIDAL und Deezer. Importiere lokale Tracklisten (.m3u, .m3u8, .csv, Text) direkt in deine Playlists – inklusive Duplikat-Bereinigung, bis zu 200 Tracks und Cache.",
+    "de-DE": "• Universal Playlist Converter, Datei-Import (M3U) & Musik Transfer:\nPlaylists konvertieren, Playlist übertragen kostenlos & Spotify zu Apple Playlist transferieren – zwischen Spotify, Apple Music, YouTube Music, TIDAL und Deezer. Importiere lokale Tracklisten (.m3u, .m3u8, .csv, Text) direkt in deine Playlists – inklusive Duplikat-Bereinigung, Ghost-Track-Filter, bis zu 200 Tracks und Cache.",
     "el-GR": "• Μετατροπέας playlist, εισαγωγή αρχείων (M3U) & μεταφορά:\nΜετατρέψτε και μεταφέρετε λίστες αναπαραγωγής μεταξύ Spotify, Apple Music, YouTube Music, TIDAL και Deezer. Εισαγάγετε τοπικές λίστες από αρχεία .m3u, .m3u8, .csv και κειμένου απευθείας σε λίστες streaming (έως 200 κομμάτια).",
     "en-GB": "• Universal Playlist Converter, File Import (M3U) & Playlist Transfer App (Free):\nConvert playlists and transfer playlists track-by-track between Spotify, Apple Music, YouTube Music, TIDAL, and Deezer. Import local tracklists from .m3u, .m3u8, .csv, and plain text files directly into streaming queues—with duplicate cleaning, up to 200 tracks, and fast caching.",
     "en-US": "• Universal Playlist Converter, File Import (M3U) & Playlist Transfer App (Free):\nConvert playlists and transfer playlists track-by-track between Spotify, Apple Music, YouTube Music, TIDAL, and Deezer. Import local tracklists from .m3u, .m3u8, .csv, and plain text files directly into streaming queues—with duplicate cleaning, up to 200 tracks, and fast caching.",
@@ -48,9 +48,9 @@ M3U_PLAYLIST_PARAS = {
 }
 
 LISTEN_AND_FLIP_PARAS = {
-    "de-DE": "• Listen & Flip – Lieder & Audio erkennen (auch offline):\nLieder erkennen & Tracks erkennen in Bars, Clubs oder im Radio: Songs blitzschnell identifizieren, im Verlauf speichern und direkt im Wunsch-Player öffnen. Dank Offline-Modus werden Audio-Fingerabdrücke ohne Empfang gesichert und automatisch erkannt, sobald du wieder online bist.",
-    "en-US": "• Listen & Flip – Song Recognizer & Audio Identifier (Online & Offline):\nIdentify tracks playing around you in clubs, bars, or on the radio with instant song recognizer matching, save them to your history, and open them in your favorite player. With Offline Mode, capture audio fingerprints even without reception and resolve tracks automatically once you're back online.",
-    "en-GB": "• Listen & Flip – Song Recognizer & Audio Identifier (Online & Offline):\nIdentify tracks playing around you in clubs, bars, or on the radio with instant song recognizer matching, save them to your history, and open them in your favorite player. With Offline Mode, capture audio fingerprints even without reception and resolve tracks automatically once you're back online.",
+    "de-DE": "• Listen & Flip – Lieder & Musik erkennen kostenlos (auch offline):\nLieder erkennen, Musik erkennen & Tracks identifizieren in Bars, Clubs oder im Radio: Songs im Verlauf speichern und direkt im Wunsch-Player öffnen. Dank Signalqualitäts-Feedback und Offline-Modus werden Audio-Fingerabdrücke ohne Empfang gesichert und automatisch erkannt, sobald du wieder online bist.",
+    "en-US": "• Listen & Flip – Song Recognizer & Song Identifier (Online & Offline):\nIdentify tracks playing around you in clubs, bars, or on the radio with instant song recognizer matching, save them to your history, and open them in your favorite player. With Offline Mode, capture audio fingerprints even without reception and resolve tracks automatically once you're back online.",
+    "en-GB": "• Listen & Flip – Song Recognizer & Song Identifier (Online & Offline):\nIdentify tracks playing around you in clubs, bars, or on the radio with instant song recognizer matching, save them to your history, and open them in your favorite player. With Offline Mode, capture audio fingerprints even without reception and resolve tracks automatically once you're back online.",
     "es-419": "• Listen & Flip (Reconocimiento musical e identificador de canciones):\nIdentifica canciones y música a tu alrededor en SongFlip. Las canciones se adaptan a tu reproductor favorito y se guardan en el historial. ¿Sin señal? Guarda la huella de audio sin conexión y SongFlip identificará la canción automáticamente al volver a estar en línea.",
     "es-ES": "• Listen & Flip (Reconocimiento musical e identificador de canciones):\nIdentifica canciones y música a tu alrededor en SongFlip. Las canciones se adaptan a tu reproductor favorito y se guardan en el historial. ¿Sin cobertura? Guarda la huella de audio sin conexión y SongFlip identificará la canción automáticamente al volver a conectarte.",
     "es-US": "• Listen & Flip (Reconocimiento musical e identificador de canciones):\nIdentifica canciones y música a tu alrededor en SongFlip. Las canciones se adaptan a tu reproductor favorito y se guardan en el historial. ¿Sin señal? Guarda la huella de audio sin conexión y SongFlip identificará la canción automáticamente al volver a estar en línea.",
@@ -169,7 +169,7 @@ Terms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/st
 Privacy Policy: https://songflip.link/privacy"""
 
 IOS_EN_KEYWORDS = "spotify,apple,youtube,transfer,deezer,beatport,qobuz,tidal,soundcloud,shazam,bandcamp,amazon,anghami"
-IOS_DE_KEYWORDS = "spotify,apple,youtube,transfer,deezer,beatport,qobuz,tidal,soundcloud,shazam,erkennen,amazon,anghami"
+IOS_DE_KEYWORDS = "spotify,apple,youtube,transfer,deezer,beatport,qobuz,tidal,soundcloud,shazam,lieder,erkennen,amazon"
 
 QUOTE_CHARS = {'"', "'", "“", "”", "‘", "’", "«", "»"}
 
@@ -321,17 +321,19 @@ def main():
 
         if loc == 'de-DE':
             paras[0] = "Ein Freund schickt dir einen Song- oder Podcast-Link auf Spotify, du nutzt aber YouTube Music, Apple Podcasts oder Deezer?"
-            paras[5] = "• Listen & Flip – Lieder & Audio erkennen (auch offline):\nLieder erkennen & Tracks erkennen in Bars, Clubs oder im Radio: Songs blitzschnell identifizieren, im Verlauf speichern und direkt im Wunsch-Player öffnen. Dank Signalqualitäts-Feedback und Offline-Modus werden Audio-Fingerabdrücke ohne Empfang gesichert und automatisch erkannt, sobald du wieder online bist."
+            paras[5] = LISTEN_AND_FLIP_PARAS["de-DE"]
             if len(paras) > 7:
                 paras[7] = "• QR-Codes für Audio & Songs teilen & scannen:\nGeneriere und scanne universelle QR-Codes für Audio & Songs. Teile Tracks & Alben vor Ort – egal welcher Streamingdienst beim Gegenüber installiert ist."
-            paras[8] = "• Universal Playlist Converter, Datei-Import (M3U) & Playlist Transfer App (Free):\nPlaylists konvertieren, Playlists übertragen und transferieren zwischen Spotify, Apple Music, YouTube Music, TIDAL und Deezer. Importiere lokale Tracklisten (.m3u, .m3u8, .csv, Text) direkt in deine Playlists – inklusive Duplikat-Bereinigung, Ghost-Track-Filter, bis zu 200 Tracks und Cache."
+            paras[8] = M3U_PLAYLIST_PARAS["de-DE"]
             if len(paras) > 18:
                 paras[18] = "Kompatibel mit universellen Streaming-Protokollen wie Songlink / Odesli. Hol dir SongFlip – deinen autonomen Link Converter und Musik-Link Redirect für Android!"
 
         if loc in ('en-US', 'en-GB'):
             paras[4] = update_p4_platforms(paras[4], loc)
             if len(paras) > 13:
-                paras[13] = "• Clipboard Smart-Banner & Native Sharing:\nConvert and open links instantly via the smart dashboard banner, or share song link universal URLs directly from WhatsApp, Telegram, Reddit, or your browser."
+                paras[13] = "• Clipboard Smart-Banner & Native Sharing:\nConvert and open links instantly via the smart dashboard banner, or share universal song link URLs directly from WhatsApp, Telegram, Reddit, or your browser."
+            if len(paras) > 14:
+                paras[14] = "• Universal Web Smart Links & HTML5 Player:\nGenerate neutral web-share URLs (songflip.link) with an embedded webplayer to share music across platforms on any device or browser."
             if len(paras) > 15:
                 paras[15] = "• Quick Settings Tile & App Shortcuts:\nPause redirection for 15 minutes, 1 hour, or until tomorrow morning via Quick Settings tile or app shortcuts."
             if len(paras) > 16:
