@@ -737,6 +737,46 @@ class PlatformResolversTest {
     }
 
     @Test
+    fun testSoundCloudResolverRejectsArtistOnlyMatchAndAcceptsExactTrack() = runTest {
+        val mockEngine = MockEngine { request ->
+            val q = request.url.parameters["q"] ?: ""
+            val html = if (!q.contains("-")) {
+                """
+                <html><body><noscript>
+                <ul>
+                  <li><a href="/seifsharaf/26-farin-urlaub-niemals">26 Farin Urlaub - Niemals</a></li>
+                </ul>
+                </noscript></body></html>
+                """.trimIndent()
+            } else {
+                """
+                <html><body><noscript>
+                <ul>
+                  <li><a href="/seifsharaf/26-farin-urlaub-niemals">26 Farin Urlaub - Niemals</a></li>
+                  <li><a href="/farin-urlaub/999">Farin Urlaub - 999</a></li>
+                </ul>
+                </noscript></body></html>
+                """.trimIndent()
+            }
+            respond(
+                content = html,
+                status = HttpStatusCode.OK,
+                headers = headersOf(HttpHeaders.ContentType, "text/html")
+            )
+        }
+
+        val resolver = SoundCloudResolver(client = HttpClient(mockEngine))
+        assertNull(
+            resolver.resolveTrack("Farin Urlaub 999"),
+            "SoundCloudResolver must reject artist-only match when title token '999' is missing"
+        )
+        assertEquals(
+            "https://soundcloud.com/farin-urlaub/999",
+            resolver.resolveTrack("Farin Urlaub - 999")
+        )
+    }
+
+    @Test
     fun testResolverUtilsMatchingAndNormalization() {
         // #194: Reject wrong track from same artist
         assertFalse(ResolverUtils.isMatch("Queen Bohemian Rhapsody", "Queen", "Radio Ga Ga"))

@@ -48,8 +48,8 @@ class SoundCloudResolver(
                     val candidatePath = m.groupValues[1]
                     val prefix = candidatePath.substringBefore("/").lowercase()
                     if (!invalidPrefixes.contains(prefix)) {
-                        val slugWords = candidatePath.replace("/", " ").replace("-", " ").replace("_", " ")
-                        if (ResolverUtils.isMatch(query, slugWords, "") || ResolverUtils.isMatch(query, "", slugWords)) {
+                        val trackSlug = candidatePath.substringAfter("/")
+                        if (isSlugMatch(query, prefix, trackSlug)) {
                             return "https://soundcloud.com/$candidatePath"
                         }
                     }
@@ -61,5 +61,47 @@ class SoundCloudResolver(
             de.goork.songflip.core.util.SongFlipLogger.d("SoundCloudResolver", "Search scrape failed: ${e.message}")
             null
         }
+    }
+
+    private fun isSlugMatch(query: String, uploaderSlug: String, trackSlug: String): Boolean {
+        val uploaderTokens = ResolverUtils.normalizeTokens(uploaderSlug.replace("-", " ").replace("_", " "))
+        val trackTokens = ResolverUtils.normalizeTokens(trackSlug.replace("-", " ").replace("_", " "))
+        if (trackTokens.isEmpty()) return false
+        val allTokens = (uploaderTokens + trackTokens).toSet()
+
+        fun tokensMatch(a: String, b: String): Boolean =
+            a == b || (a.length >= 4 && (b.startsWith(a) || a.startsWith(b)))
+
+        fun countMatches(needles: List<String>, haystack: Collection<String>): Int =
+            needles.count { n -> haystack.any { h -> tokensMatch(n, h) } }
+
+        fun requiredCount(total: Int): Int =
+            if (total <= 3) total else kotlin.math.ceil(total * 0.75).toInt()
+
+        val separatorMatch = Regex("""\s+[-–—]\s+""").find(query)
+        if (separatorMatch != null) {
+            val artistPart = query.substring(0, separatorMatch.range.first)
+            val titlePart = query.substring(separatorMatch.range.last + 1)
+            val artistTokens = ResolverUtils.normalizeTokens(artistPart)
+            val titleTokens = ResolverUtils.normalizeTokens(titlePart)
+
+            if (titleTokens.isNotEmpty() && countMatches(titleTokens, trackTokens) < requiredCount(titleTokens.size)) {
+                return false
+            }
+            if (artistTokens.isNotEmpty() && countMatches(artistTokens, allTokens) == 0) {
+                return false
+            }
+            return titleTokens.isNotEmpty() || artistTokens.isNotEmpty()
+        }
+
+        val queryTokens = ResolverUtils.normalizeTokens(query)
+        if (queryTokens.isEmpty()) return true
+        if (countMatches(queryTokens, allTokens) < requiredCount(queryTokens.size)) {
+            return false
+        }
+
+        val nonUploaderTokens = queryTokens.filter { qTok -> uploaderTokens.none { uTok -> tokensMatch(qTok, uTok) } }
+        val targetTokens = nonUploaderTokens.ifEmpty { queryTokens }
+        return countMatches(targetTokens, trackTokens) >= requiredCount(targetTokens.size)
     }
 }

@@ -30,6 +30,7 @@ struct SearchSheetView: View {
     @State private var searchResults: [SearchTrackItem] = []
     @State private var isLoading: Bool = false
     @State private var errorMessage: String? = nil
+    @State private var isSearchError: Bool = false
     @State private var resolvingTrackId: String? = nil
     @State private var showFlipErrorAlert: Bool = false
     @State private var clipboardMusicUrl: String? = nil
@@ -227,13 +228,32 @@ struct SearchSheetView: View {
                         Spacer()
                     } else if searchResults.isEmpty && !searchQuery.trimmingCharacters(in: .whitespaces).isEmpty {
                         Spacer()
-                        VStack(spacing: 10) {
-                            Image(systemName: "magnifyingglass")
+                        VStack(spacing: 12) {
+                            Image(systemName: isSearchError ? "exclamationmark.triangle" : "magnifyingglass")
                                 .font(.system(size: 40))
                                 .foregroundColor(.secondary.opacity(0.6))
                             Text(errorMessage ?? LocalizationManager.string(for: "search_empty", lang: lang))
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
+                                .multilineTextAlignment(.center)
+                            if isSearchError {
+                                Button(action: {
+                                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                    performSearch(query: searchQuery)
+                                }) {
+                                    HStack(spacing: 6) {
+                                        Image(systemName: "arrow.clockwise")
+                                        Text(LocalizationManager.string(for: "action_retry", lang: lang))
+                                    }
+                                    .font(.subheadline)
+                                    .fontWeight(.medium)
+                                    .padding(.horizontal, 16)
+                                    .padding(.vertical, 8)
+                                    .background(Color(uiColor: .secondarySystemBackground))
+                                    .cornerRadius(10)
+                                }
+                                .buttonStyle(.plain)
+                            }
                         }
                         Spacer()
                     } else if searchResults.isEmpty {
@@ -245,6 +265,34 @@ struct SearchSheetView: View {
                             Text(LocalizationManager.string(for: "search_initial_prompt", lang: lang))
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
+
+                            VStack(spacing: 8) {
+                                ForEach([
+                                    ("Queen – Bohemian Rhapsody", "Queen Bohemian Rhapsody"),
+                                    ("Daft Punk – Instant Crush", "Daft Punk Instant Crush"),
+                                    ("Billie Eilish – Birds of a Feather", "Billie Eilish Birds of a Feather")
+                                ], id: \.1) { label, sampleQuery in
+                                    Button(action: {
+                                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                        searchQuery = sampleQuery
+                                        performSearch(query: sampleQuery)
+                                    }) {
+                                        HStack(spacing: 6) {
+                                            Image(systemName: "magnifyingglass")
+                                                .font(.caption)
+                                            Text(label)
+                                                .font(.caption)
+                                                .fontWeight(.medium)
+                                                .lineLimit(1)
+                                        }
+                                        .padding(.horizontal, 12)
+                                        .padding(.vertical, 8)
+                                        .background(Color(uiColor: .secondarySystemBackground))
+                                        .cornerRadius(16)
+                                    }
+                                    .buttonStyle(.plain)
+                                }
+                            }
 
                             if let onImport = onImportPlaylistFile {
                                 Button(action: {
@@ -496,6 +544,7 @@ struct SearchSheetView: View {
 
         isLoading = true
         errorMessage = nil
+        isSearchError = false
 
         searchTask = Task {
             try? await Task.sleep(nanoseconds: 350_000_000)
@@ -533,6 +582,7 @@ struct SearchSheetView: View {
                 if !Task.isCancelled {
                     await MainActor.run {
                         self.isLoading = false
+                        self.isSearchError = true
                         self.errorMessage = LocalizationManager.string(for: "search_error", lang: lang)
                     }
                 }

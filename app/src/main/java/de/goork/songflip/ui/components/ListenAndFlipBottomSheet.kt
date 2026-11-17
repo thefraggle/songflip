@@ -1092,4 +1092,11 @@ private fun QuotaExhaustedContent(onUnlockPro: () -> Unit) {
 
 private fun openTargetInPlayer(context: Context, rawTargetUrl: String, platformKey: String) {
     PackageUtils.launchTargetOrFallback(context, rawTargetUrl, platformKey)
+    context.findActivity()?.let { act ->
+        de.goork.songflip.data.ReviewHelper.maybeRequestReview(
+            activity = act,
+            settingsRepository = de.goork.songflip.data.SettingsRepository(context),
+            trigger = "listen_success"
+        )
+    }
 }

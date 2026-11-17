@@ -146,6 +146,7 @@ struct ListenAndFlipSheetView: View {
                                             title: title,
                                             artist: artist
                                         )
+                                        ReviewManager.shared.maybeRequestReview(trigger: "listen_success", settings: settings)
                                     default:
                                         let fallbackUrl = UrlUtils.shared.toWebFallbackUrl(rawUrl: pUrl, targetPlatformKey: chosenPlatform)
                                         settings.openResolvedTarget(
@@ -414,6 +415,7 @@ struct ListenAndFlipSheetView: View {
                     title: result.title,
                     artist: result.artist
                 )
+                ReviewManager.shared.maybeRequestReview(trigger: "listen_success", settings: settings)
             }) {
                 HStack(spacing: 8) {
                     Image(systemName: "play.fill")

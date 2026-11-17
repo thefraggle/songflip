@@ -7,8 +7,8 @@ import SongFlipKit
 final class ReviewManager {
     static let shared = ReviewManager()
 
-    private static let minFlipsForReview = 5
-    private static let minDaysAfterInstallMs: Double = 3 * 24 * 60 * 60 * 1000 // 3 days
+    private static let minFlipsForReview = 3
+    private static let minDaysAfterInstallMs: Double = 1 * 24 * 60 * 60 * 1000 // 1 day
     private static let promptCooldownMs: Double = 21 * 24 * 60 * 60 * 1000 // 21 days
 
     private init() {}

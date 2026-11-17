@@ -11,8 +11,8 @@ import com.google.android.play.core.review.ReviewManagerFactory
  */
 object ReviewHelper {
 
-    private const val MIN_FLIPS_FOR_REVIEW = 5
-    private const val MIN_DAYS_AFTER_INSTALL_MS = 3 * 24 * 60 * 60 * 1000L // 3 days
+    private const val MIN_FLIPS_FOR_REVIEW = 3
+    private const val MIN_DAYS_AFTER_INSTALL_MS = 1 * 24 * 60 * 60 * 1000L // 1 day
     private const val PROMPT_COOLDOWN_MS = 21 * 24 * 60 * 60 * 1000L // 21 days (aligned with healthy store quotas)
 
     fun isEligibleForReview(

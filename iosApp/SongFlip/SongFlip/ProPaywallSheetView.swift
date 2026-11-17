@@ -130,6 +130,19 @@ struct ProPaywallSheetView: View {
                 proManager.updateFromCustomerInfo(customerInfo)
                 dismiss()
             }
+            .onPurchaseFailure { error in
+                let nsError = error as NSError
+                if nsError.domain == RevenueCat.ErrorCode.errorDomain &&
+                   nsError.code == RevenueCat.ErrorCode.purchaseCancelledError.rawValue {
+                    return
+                }
+                let underlying = (nsError.userInfo[NSUnderlyingErrorKey] as? NSError)?.localizedDescription
+                AptabaseClient.shared.trackProPurchaseFailed(
+                    error: nsError.localizedDescription,
+                    errorCode: "\(nsError.domain):\(nsError.code)",
+                    underlyingError: underlying
+                )
+            }
             .onRestoreCompleted { customerInfo in
                 proManager.updateFromCustomerInfo(customerInfo)
                 if customerInfo.entitlements["pro"]?.isActive == true ||

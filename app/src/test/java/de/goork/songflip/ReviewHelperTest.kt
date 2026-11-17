@@ -12,9 +12,9 @@ class ReviewHelperTest {
 
     @Test
     fun testEligibleWhenAllCriteriaMet() {
-        val installTime = now - (4 * dayMs) // Installed 4 days ago (needs >= 3 days)
-        val lastPrompt = 0L // Never prompted before (needs >= 60 days)
-        val flips = 5 // Has 5 flips (needs >= 5)
+        val installTime = now - (1 * dayMs) // Installed 1 day ago (needs >= 1 day)
+        val lastPrompt = 0L // Never prompted before
+        val flips = 3 // Has 3 flips (needs >= 3)
 
         val eligible = ReviewHelper.isEligibleForReview(now, flips, installTime, lastPrompt)
         assertTrue("Expected eligible when all criteria are met", eligible)
@@ -24,20 +24,20 @@ class ReviewHelperTest {
     fun testNotEligibleWhenFlipsBelowThreshold() {
         val installTime = now - (10 * dayMs)
         val lastPrompt = 0L
-        val flips = 4 // Only 4 flips, needs 5
+        val flips = 2 // Only 2 flips, needs 3
 
         val eligible = ReviewHelper.isEligibleForReview(now, flips, installTime, lastPrompt)
-        assertFalse("Should not prompt if flip count is below 5", eligible)
+        assertFalse("Should not prompt if flip count is below 3", eligible)
     }
 
     @Test
     fun testNotEligibleWhenInstalledTooRecently() {
-        val installTime = now - (1 * dayMs) // Only 1 day installed, needs >= 3 days
+        val installTime = now - (12 * 60 * 60 * 1000L) // Only 12h installed, needs >= 1 day
         val lastPrompt = 0L
         val flips = 10
 
         val eligible = ReviewHelper.isEligibleForReview(now, flips, installTime, lastPrompt)
-        assertFalse("Should not prompt if installed for less than 3 days", eligible)
+        assertFalse("Should not prompt if installed for less than 1 day", eligible)
     }
 
     @Test

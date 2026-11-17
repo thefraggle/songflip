@@ -41,6 +41,7 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -81,6 +82,8 @@ fun SearchBottomSheet(
     var isLoading by remember { mutableStateOf(false) }
     var isResolvingUrl by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
+    var isSearchError by remember { mutableStateOf(false) }
+    var retryNonce by remember { mutableStateOf(0) }
     var resolvingTrackId by remember { mutableStateOf<String?>(null) }
     var clipboardMusicUrl by remember { mutableStateOf<String?>(null) }
 
@@ -116,17 +119,19 @@ fun SearchBottomSheet(
     }
 
     // Debounced search trigger
-    LaunchedEffect(searchQuery) {
+    LaunchedEffect(searchQuery, retryNonce) {
         val trimmed = searchQuery.trim()
         if (isDirectMusicUrl || trimmed.length < 2) {
             searchResults = emptyList()
             isLoading = false
             errorMessage = null
+            isSearchError = false
             return@LaunchedEffect
         }
         delay(350L)
         isLoading = true
         errorMessage = null
+        isSearchError = false
         val result = withContext(Dispatchers.IO) {
             CatalogSearchEngine.shared.search(trimmed, limit = 35)
         }
@@ -137,7 +142,8 @@ fun SearchBottomSheet(
                 errorMessage = context.getString(R.string.search_empty)
             }
         }.onFailure { err ->
-            errorMessage = err.message ?: context.getString(R.string.search_error)
+            isSearchError = true
+            errorMessage = err.message?.takeIf { it.isNotBlank() } ?: context.getString(R.string.search_error)
         }
     }
 
@@ -465,31 +471,73 @@ fun SearchBottomSheet(
                     )
                 }
             } else if (!errorMessage.isNullOrBlank() && searchResults.isEmpty()) {
-                Box(
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 40.dp),
-                    contentAlignment = Alignment.Center
+                        .padding(vertical = 40.dp, horizontal = 16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Text(
                         text = errorMessage ?: "",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        textAlign = TextAlign.Center
                     )
+                    if (isSearchError) {
+                        OutlinedButton(
+                            onClick = {
+                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                retryNonce++
+                            },
+                            shape = RoundedCornerShape(12.dp)
+                        ) {
+                            Text(stringResource(R.string.action_retry))
+                        }
+                    }
                 }
             } else if (searchResults.isEmpty() && searchQuery.isBlank()) {
+                val sampleTracks = remember {
+                    listOf(
+                        "Queen – Bohemian Rhapsody" to "Queen Bohemian Rhapsody",
+                        "Daft Punk – Instant Crush" to "Daft Punk Instant Crush",
+                        "Billie Eilish – Birds of a Feather" to "Billie Eilish Birds of a Feather"
+                    )
+                }
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 40.dp),
+                        .padding(vertical = 28.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                    verticalArrangement = Arrangement.spacedBy(14.dp)
                 ) {
                     Text(
                         text = stringResource(R.string.search_initial_prompt),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
+
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        sampleTracks.forEach { (label, query) ->
+                            SuggestionChip(
+                                onClick = {
+                                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                    searchQuery = query
+                                },
+                                label = {
+                                    Text(
+                                        text = label,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                }
+                            )
+                        }
+                    }
 
                     OutlinedButton(
                         onClick = {

@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.15.3] - 2026-11-17
+- **Suche & Einstieg**: Klickbare Beispiel-Tracks im leeren Such-Zustand sowie einen Wiederholen-Button bei fehlgeschlagener Katalogsuche ergänzt.
+- **Link-Auflösung & Diagnose**: SoundCloud-Titelabgleich verschärft, um reine Künstler-Falschtreffer zu verhindern, Fehlerdiagnose bei fehlgeschlagenen Upgrades ergänzt und Bewertungs-Hinweise direkt nach erfolgreichen Treffern verfeinert.
+- **Build, Doku & Store-Einträge**: Build-Pipeline-Aktionen, Architektur-Dokumentation, Sprachangaben und mehrsprachige Store-Texte aktualisiert.
+
 ## [1.15.2] - 2026-11-16
 - **Sicherheit & Telemetrie-Hygiene**: Private Telemetrie-Fallbacks und Testdaten aus dem öffentlichen Quellcode entfernt, HTTPS-Prüfung für eigene Webhook-Endpunkte erzwungen und verbliebene CI-Workflow-Aktionen auf feste Commit-SHAs gepinnt.
 - **Link-Auflösung & Audio-Stabilität**: Timeout-Erkennung und Coroutine-Abbruchbehandlung in den Resolvern korrigiert, rohe Audio-Fingerprinting-Puffer von Block-Verstärkungsänderungen entkoppelt und Signaturpuffer beim Mikrofon-Fallback sauber zurückgesetzt.

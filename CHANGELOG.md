@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.15.3] - 2026-11-17
+- **Search & Onboarding**: Added clickable example tracks in the empty search view and a retry button when catalog searches fail.
+- **Link Resolution & Diagnostics**: Tightened SoundCloud track matching to prevent artist-only false positives, added diagnostics for failed upgrades, and refined in-app review prompt triggers after successful matches.
+- **Build, Docs & Store Metadata**: Updated CI workflow actions, architecture documentation, language counts, and multilingual store listings.
+
 ## [1.15.2] - 2026-11-16
 - **Security & Telemetry Hygiene**: Removed private telemetry host fallbacks and test fixtures from public source configuration, enforced HTTPS validation for custom webhook endpoints, and pinned remaining CI workflow actions to immutable commit SHAs.
 - **Link Resolution & Audio Stability**: Fixed coroutine timeout classification and cancellation propagation across resolvers, decoupled raw acoustic fingerprinting buffers from per-block gain adjustments, and reset signature buffers cleanly on microphone source fallback.
