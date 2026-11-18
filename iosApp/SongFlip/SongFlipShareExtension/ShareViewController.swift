@@ -664,7 +664,7 @@ class ShareViewController: UIViewController {
             let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
             let canonical: String
             if UrlUtils.shared.isShortLinkDomain(url: inputUrl) {
-                canonical = (try? await engine.resolveCanonicalUrl(inputUrl: inputUrl)) ?? inputUrl
+                canonical = (try? await engine.resolveCanonicalUrl(url: inputUrl)) ?? inputUrl
             } else {
                 canonical = inputUrl
             }
@@ -685,7 +685,12 @@ class ShareViewController: UIViewController {
 
             let authToken = defaults.string(forKey: "pro_auth_token") ?? ""
             Task.detached(priority: .utility) { [engine] in
-                _ = try? await engine.queryL2ServerCache(inputUrl: canonical, targetPlatformKey: "universal", authToken: authToken)
+                _ = try? await engine.queryL2ServerCache(
+                    canonicalUrl: canonical,
+                    targetPlatformKey: "universal",
+                    authToken: authToken,
+                    forceRefresh: false
+                )
             }
 
             await MainActor.run {

@@ -771,7 +771,7 @@ struct ContentView: View {
         Task {
             let canonical: String
             if UrlUtils.shared.isShortLinkDomain(url: sourceUrl) {
-                canonical = (try? await settings.engine.resolveCanonicalUrl(inputUrl: sourceUrl)) ?? sourceUrl
+                canonical = (try? await settings.engine.resolveCanonicalUrl(url: sourceUrl)) ?? sourceUrl
             } else {
                 canonical = sourceUrl
             }
@@ -791,7 +791,12 @@ struct ContentView: View {
 
             let authToken = proManager.authToken
             Task.detached(priority: .utility) { [engine = settings.engine] in
-                _ = try? await engine.queryL2ServerCache(inputUrl: canonical, targetPlatformKey: "universal", authToken: authToken)
+                _ = try? await engine.queryL2ServerCache(
+                    canonicalUrl: canonical,
+                    targetPlatformKey: "universal",
+                    authToken: authToken,
+                    forceRefresh: false
+                )
             }
 
             await MainActor.run {
