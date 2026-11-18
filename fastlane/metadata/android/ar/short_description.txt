@@ -1,1 +1,1 @@
-Automatically convert & open song and podcast links in your favorite player.
+حوّل روابط الأغاني والبودكاست وافتحها تلقائياً في مشغلك المفضل.

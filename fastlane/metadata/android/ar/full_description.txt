@@ -1,54 +1,54 @@
-A friend sends you a song link or podcast on Spotify, but you listen on Apple Podcasts, TIDAL, or Deezer?
+هل أرسل لك صديق رابط أغنية أو بودكاست على Spotify، بينما تستمع أنت عبر Apple Podcasts أو TIDAL أو Deezer؟
 
-SongFlip is your seamless, zero-click music link redirect and song link converter for Android. Once enabled, incoming song links and podcast links automatically convert in the background and open directly in your favorite player—no manual searching, no ads, no browser detours.
+تطبيق SongFlip هو محوّل روابط الموسيقى والبودكاست التلقائي لأجهزة Android. بمجرد تفعيله، يتم تحويل روابط الأغاني والبودكاست الواردة في الخلفية وفتحها مباشرة في مشغل الموسيقى المفضل لديك — بدون بحث يدوي، بدون إعلانات، وبدون فتح المتصفح.
 
-Whether switching Spotify to YouTube Music, Apple Podcasts to Pocket Casts, Spotify to Apple Music, or opening tracks from Shazam, SongFlip works as your universal song converter and link redirect tool to open Spotify links and audio streams instantly.
+سواء كنت تحوّل من Spotify إلى YouTube Music، أو من Apple Podcasts إلى Pocket Casts، أو تفتح مقاطع من Shazam، يعمل SongFlip كأداة شاملة لتحويل الروابط وتشغيل الصوتيات فوراً.
 
-🚀 KEY FEATURES:
+🚀 الميزات الرئيسية:
 
-• 14 Streaming Platforms, Podcasts & Shazam:
-Seamlessly convert and redirect song links and podcasts across Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud, Bandcamp, and Anghami. Instant converter support for shared Shazam links included!
+• 14 منصة بث وبودكاست وShazam:
+حوّل روابط الأغاني والبودكاست بسلاسة بين Spotify وYouTube Music وApple Music وApple Podcasts وPocket Casts وDeezer وTIDAL وAmazon Music وQobuz وBeatport وAudiomack وIdagio وSoundCloud وBandcamp وAnghami — مع دعم فوري لروابط Shazam!
 
-• Listen & Flip – Song Recognizer & Song Identifier (Online & Offline):
-Identify tracks playing around you in clubs, bars, or on the radio with instant song recognizer matching, save them to your history, and open them in your favorite player. With Offline Mode, capture audio fingerprints even without reception and resolve tracks automatically once you're back online.
+• Listen & Flip – التعرّف على الأغاني (متصل وبدون إنترنت):
+تعرّف على الأغاني التي تُعزف حولك في المقاهي أو الراديو خلال ثوانٍ، واحفظها في السجل وافتحها في مشغلك المفضل. مع الوضع غير المتصل، التقط البصمة الصوتية بدون إنترنت وسيتم التعرّف عليها تلقائياً عند عودة الاتصال.
 
-• Direct Track Search & Instant Playback:
-Search for tracks and artists directly inside SongFlip and trigger playback instantly in your preferred streaming player with 1-tap Fast Flip—no existing URL or empty search pages.
+• البحث المباشر عن المقاطع والتشغيل الفوري:
+ابحث عن الأغاني والفنانين داخل SongFlip وابدأ التشغيل فوراً في مشغلك المفضل بنقرة واحدة (Fast Flip).
 
-• QR Code Track Sharing & Scanning:
-Generate and scan universal QR codes for songs and albums.
+• مشاركة ومسح رموز QR للأغاني:
+أنشئ وامسح رموز QR عالمية للأغاني والألبومات لمشاركتها مع أصدقائك فوراً.
 
-• Universal Playlist Converter, File Import (M3U) & Playlist Transfer App (Free):
-Convert playlists and transfer playlists track-by-track between Spotify, Apple Music, YouTube Music, TIDAL, and Deezer. Import local tracklists from .m3u, .m3u8, .csv, and plain text files directly into streaming queues—with duplicate cleaning, up to 200 tracks, and fast caching.
+• محوّل قوائم التشغيل واستيراد الملفات (M3U) مجاناً:
+حوّل وانقل قوائم التشغيل مقطعاً بمقطع بين Spotify وApple Music وYouTube Music وTIDAL وDeezer. استورد قوائم الأغاني من ملفات .m3u و.m3u8 و.csv والنصوص العادية مباشرة — مع إزالة التكرارات وحتى 200 أغنية.
 
-• Podcast Converter & Podcast Redirect Engine:
-Share full podcast shows or episodes across platforms. SongFlip resolves episode titles automatically to convert and open podcast links right inside your favorite podcast player.
+• محوّل روابط البودكاست:
+شارك برامج البودكاست أو الحلقات الفردية عبر المنصات؛ يتعرف SongFlip على عنوان الحلقة ويفتحها مباشرة في تطبيق البودكاست المفضل لديك.
 
-• Audiophile Quality (Hi-Res & Lossless) & Favorites:
-Prioritize studio masters, 24-bit Hi-Res, Lossless, and Dolby Atmos over radio edits and compilations. Refine live or remaster matches and pin favorites with 1 tap.
+• جودة صوت عالية (Hi-Res وLossless) والمفضلة:
+امنح الأولوية للنسخ الأصلية (Studio Masters و24-bit Hi-Res وLossless وDolby Atmos) وثبّت أغانيك المفضلة بنقرة واحدة.
 
-• Quick Player Chooser (Ask Every Time):
-Enable the quick player chooser to pick your target player on the fly whenever you open a shared track or podcast episode.
+• اختيار المشغل السريع (اسأل في كل مرة):
+فعّل أداة الاختيار السريع لتحديد التطبيق الذي تريد التشغيل فيه عند فتح أي رابط.
 
-• Smart Redirect Assistant (Android 12+):
-Easily verify and configure Android Open by Default App Links with our interactive 1-tap setup assistant.
+• مساعد التوجيه الذكي (Android 12+):
+تحقق بسهولة من إعدادات الروابط الافتراضية في Android واضبطها بنقرة واحدة.
 
-• Clipboard Smart-Banner & Native Sharing:
-Convert and open links instantly via the smart dashboard banner, or share universal song link URLs directly from WhatsApp, Telegram, Reddit, or your browser.
+• شريط الحافظة الذكي والمشاركة المباشرة:
+حوّل الروابط المنسوخة فوراً من لوحة التطبيق، أو شارك روابط عالمية مباشرة عبر WhatsApp وTelegram وReddit.
 
-• Universal Web Smart Links & HTML5 Player:
-Generate neutral web-share URLs (songflip.link) with an embedded webplayer to share music across platforms on any device or browser.
+• روابط ويب عالمية ومشغل HTML5:
+أنشئ روابط ويب محايدة (songflip.link) مع مشغل مدمج لمشاركة الموسيقى على أي جهاز أو متصفح.
 
-• Quick Settings Tile & App Shortcuts:
-Pause redirection for 15 minutes, 1 hour, or until tomorrow morning via Quick Settings tile or app shortcuts.
+• زر الإعدادات السريعة واختصارات التطبيق:
+أوقف التحويل مؤقتاً لمدة 15 دقيقة أو ساعة أو حتى صباح الغد بلمسة واحدة.
 
-• Material You, AMOLED Dark Mode & Promo Codes:
-Matches system Dynamic Color with AMOLED dark mode, monochrome themed icon, and promo code redemption.
+• Material You والوضع الداكن AMOLED:
+يتكيف مع ألوان النظام مع دعم الوضع الداكن AMOLED وأيقونة أحادية اللون.
 
-🔒 PRIVACY & OPEN SOURCE FIRST:
-• 100% Open Source (GPLv3 licensed on GitHub)
-• No accounts, no sign-ups, no logins required
-• Completely ad-free forever
-• Zero tracking, no data harvesting, no listening habits logged
+🔒 الخصوصية والمصدر المفتوح أولاً:
+• مفتوح المصدر 100% (رخصة GPLv3 على GitHub)
+• بدون حسابات أو تسجيل دخول
+• خالٍ تماماً من الإعلانات للأبد
+• بدون تتبع أو جمع بيانات أو تسجيل عادات الاستماع
 
-Compatible with universal protocols including Songlink / Odesli. Download SongFlip now—your automatic music link redirect and song link converter to bridge songs & podcasts across all streaming services effortlessly!
+متوافق مع البروتوكولات العالمية مثل Songlink / Odesli. حمّل SongFlip الآن واستمتع بتحويل روابط الموسيقى والبودكاست بين جميع المنصات بكل سهولة!

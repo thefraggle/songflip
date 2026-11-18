@@ -1,0 +1,54 @@
+A friend sends you a song link or podcast on Spotify, but you listen on Apple Podcasts, TIDAL, or Deezer?
+
+SongFlip is your seamless, zero-click music link redirect and song link converter for Android. Once enabled, incoming song links and podcast links automatically convert in the background and open directly in your favorite player—no manual searching, no ads, no browser detours.
+
+Whether switching Spotify to YouTube Music, Apple Podcasts to Pocket Casts, Spotify to Apple Music, or opening tracks from Shazam, SongFlip works as your universal song converter and link redirect tool to open Spotify links and audio streams instantly.
+
+🚀 KEY FEATURES:
+
+• 14 Streaming Platforms, Podcasts & Shazam:
+Seamlessly convert and redirect song links and podcasts across Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud, Bandcamp, and Anghami. Instant converter support for shared Shazam links included!
+
+• Listen & Flip – Song Recognizer & Song Identifier (Online & Offline):
+Identify tracks playing around you in clubs, bars, or on the radio with instant song recognizer matching, save them to your history, and open them in your favorite player. With Offline Mode, capture audio fingerprints even without reception and resolve tracks automatically once you're back online.
+
+• Direct Track Search & Instant Playback:
+Search for tracks and artists directly inside SongFlip and trigger playback instantly in your preferred streaming player with 1-tap Fast Flip—no existing URL or empty search pages.
+
+• QR Code Track Sharing & Scanning:
+Generate and scan universal QR codes for songs and albums.
+
+• Universal Playlist Converter, File Import (M3U) & Playlist Transfer App (Free):
+Convert playlists and transfer playlists track-by-track between Spotify, Apple Music, YouTube Music, TIDAL, and Deezer. Import local tracklists from .m3u, .m3u8, .csv, and plain text files directly into streaming queues—with duplicate cleaning, up to 200 tracks, and fast caching.
+
+• Podcast Converter & Podcast Redirect Engine:
+Share full podcast shows or episodes across platforms. SongFlip resolves episode titles automatically to convert and open podcast links right inside your favorite podcast player.
+
+• Audiophile Quality (Hi-Res & Lossless) & Favorites:
+Prioritize studio masters, 24-bit Hi-Res, Lossless, and Dolby Atmos over radio edits and compilations. Refine live or remaster matches and pin favorites with 1 tap.
+
+• Quick Player Chooser (Ask Every Time):
+Enable the quick player chooser to pick your target player on the fly whenever you open a shared track or podcast episode.
+
+• Smart Redirect Assistant (Android 12+):
+Easily verify and configure Android Open by Default App Links with our interactive 1-tap setup assistant.
+
+• Clipboard Smart-Banner & Native Sharing:
+Convert and open links instantly via the smart dashboard banner, or share universal song link URLs directly from WhatsApp, Telegram, Reddit, or your browser.
+
+• Universal Web Smart Links & HTML5 Player:
+Generate neutral web-share URLs (songflip.link) with an embedded webplayer to share music across platforms on any device or browser.
+
+• Quick Settings Tile & App Shortcuts:
+Pause redirection for 15 minutes, 1 hour, or until tomorrow morning via Quick Settings tile or app shortcuts.
+
+• Material You, AMOLED Dark Mode & Promo Codes:
+Matches system Dynamic Color with AMOLED dark mode, monochrome themed icon, and promo code redemption.
+
+🔒 PRIVACY & OPEN SOURCE FIRST:
+• 100% Open Source (GPLv3 licensed on GitHub)
+• No accounts, no sign-ups, no logins required
+• Completely ad-free forever
+• Zero tracking, no data harvesting, no listening habits logged
+
+Compatible with universal protocols including Songlink / Odesli. Download SongFlip now—your automatic music link redirect and song link converter to bridge songs & podcasts across all streaming services effortlessly!
