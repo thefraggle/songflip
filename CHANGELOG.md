@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.15.4] - 2026-11-18
+- **Quick-Access Shortcuts & Tiles**: Added a dedicated Flip Clipboard quick-settings tile, app shortcuts, and deep-link actions (`songflip://listen`, `songflip://clipboard`) for instant zero-friction link flipping and music recognition.
+- **Universal Link in Quick-Picker**: Added direct one-tap copying and sharing of universal `songflip.link` pages inside the share extension, quick target picker, and clipboard banner.
+- **Playlist Converter Reliability**: Eliminated duplicate playlist conversion requests and telemetry events, added Amazon Music and SoundCloud playlist track matching, and fixed Firestore serialization errors on zero-match conversions.
+
 ## [1.15.3] - 2026-11-17
 - **Search & Onboarding**: Added clickable example tracks in the empty search view and a retry button when catalog searches fail.
 - **Link Resolution & Diagnostics**: Tightened SoundCloud track matching to prevent artist-only false positives, added diagnostics for failed upgrades, and refined in-app review prompt triggers after successful matches.

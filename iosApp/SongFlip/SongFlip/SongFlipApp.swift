@@ -16,6 +16,7 @@ final class SceneDelegate: NSObject, UIWindowSceneDelegate {
 
 final class AppDelegate: NSObject, UIApplicationDelegate {
     static let listenShortcutType = "de.goork.songflip.listen"
+    static let clipboardShortcutType = "de.goork.songflip.clipboard"
 
     func application(
         _ application: UIApplication,
@@ -42,27 +43,40 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
     }
 
     static func updateQuickActions(lang: String) {
-        let title = LocalizationManager.string(for: "listen_and_flip_title", lang: lang)
-        let subtitle = LocalizationManager.string(for: "listen_and_flip_subtitle", lang: lang)
-        let icon = UIApplicationShortcutIcon(systemImageName: "waveform")
-        let item = UIApplicationShortcutItem(
+        let listenItem = UIApplicationShortcutItem(
             type: listenShortcutType,
-            localizedTitle: title,
-            localizedSubtitle: subtitle,
-            icon: icon,
+            localizedTitle: LocalizationManager.string(for: "listen_and_flip_title", lang: lang),
+            localizedSubtitle: LocalizationManager.string(for: "listen_and_flip_subtitle", lang: lang),
+            icon: UIApplicationShortcutIcon(systemImageName: "waveform"),
             userInfo: nil
         )
-        UIApplication.shared.shortcutItems = [item]
+        let clipboardItem = UIApplicationShortcutItem(
+            type: clipboardShortcutType,
+            localizedTitle: LocalizationManager.string(for: "shortcut_flip_clipboard_short", lang: lang),
+            localizedSubtitle: LocalizationManager.string(for: "shortcut_flip_clipboard_long", lang: lang),
+            icon: UIApplicationShortcutIcon(systemImageName: "doc.on.clipboard"),
+            userInfo: nil
+        )
+        UIApplication.shared.shortcutItems = [listenItem, clipboardItem]
     }
 
     static func handleShortcutItem(_ shortcutItem: UIApplicationShortcutItem) -> Bool {
-        guard shortcutItem.type == listenShortcutType else { return false }
         let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
-        defaults.set(true, forKey: "pending_open_listen_sheet")
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: .openListenAndFlip, object: nil)
+        if shortcutItem.type == listenShortcutType {
+            defaults.set(true, forKey: "pending_open_listen_sheet")
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .openListenAndFlip, object: nil)
+            }
+            return true
         }
-        return true
+        if shortcutItem.type == clipboardShortcutType {
+            defaults.set(true, forKey: "pending_flip_clipboard")
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .openFlipClipboard, object: nil)
+            }
+            return true
+        }
+        return false
     }
 }
 
@@ -161,6 +175,24 @@ struct SongFlipApp: App {
             ContentView()
                 .environmentObject(settings)
                 .preferredColorScheme(colorScheme)
+                .onOpenURL { url in
+                    guard url.scheme?.lowercased() == "songflip" else { return }
+                    let host = url.host?.lowercased() ?? ""
+                    let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
+                    switch host {
+                    case "listen":
+                        defaults.set(true, forKey: "pending_open_listen_sheet")
+                        NotificationCenter.default.post(name: .openListenAndFlip, object: nil)
+                    case "clipboard":
+                        defaults.set(true, forKey: "pending_flip_clipboard")
+                        NotificationCenter.default.post(name: .openFlipClipboard, object: nil)
+                    case "paywall":
+                        defaults.set(true, forKey: "pending_open_paywall")
+                        NotificationCenter.default.post(name: .openProPaywall, object: nil)
+                    default:
+                        break
+                    }
+                }
         }
     }
 }

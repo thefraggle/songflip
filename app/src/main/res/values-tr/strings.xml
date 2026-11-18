@@ -443,4 +443,10 @@
     <string name="playlist_import_default_title">Imported Playlist</string>
     <string name="unknown_track">Unknown Song</string>
     <string name="unsupported_music_service_toast">%1$s henüz desteklenmiyor – orijinal bağlantı açılıyor…</string>
+
+    <string name="quick_picker_universal_link">Evrensel Bağlantı (songflip.link)</string>
+    <string name="quick_picker_universal_link_subtitle">Tüm platformlar için kopyala ve paylaş</string>
+    <string name="shortcut_flip_clipboard_short">Pano</string>
+    <string name="shortcut_flip_clipboard_long">Panodaki müzik bağlantısını aç</string>
+    <string name="clipboard_empty_toast">Panoda müzik bağlantısı bulunamadı.</string>
 </resources>

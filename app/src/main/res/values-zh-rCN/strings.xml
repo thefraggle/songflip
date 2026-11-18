@@ -436,4 +436,10 @@
     <string name="playlist_import_default_title">Imported Playlist</string>
     <string name="unknown_track">Unknown Song</string>
     <string name="unsupported_music_service_toast">暂不支持 %1$s – 正在打开原始链接…</string>
+
+    <string name="quick_picker_universal_link">通用链接 (songflip.link)</string>
+    <string name="quick_picker_universal_link_subtitle">复制并分享适用于所有平台的链接</string>
+    <string name="shortcut_flip_clipboard_short">剪贴板</string>
+    <string name="shortcut_flip_clipboard_long">打开剪贴板中的音乐链接</string>
+    <string name="clipboard_empty_toast">剪贴板中没有找到音乐链接。</string>
 </resources>

@@ -2,6 +2,7 @@ import UIKit
 import Social
 import MobileCoreServices
 import UniformTypeIdentifiers
+import CryptoKit
 import SongFlipKit
 import os
 
@@ -241,6 +242,97 @@ class ShareViewController: UIViewController {
         contentStack.addArrangedSubview(urlSnippetLabel)
 
         contentStack.setCustomSpacing(14, after: urlSnippetLabel)
+
+        // Universal Link (songflip.link) Quick Action (#254)
+        let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
+        let isProUser = isProActive(defaults: defaults)
+        let universalBtn = UIButton(type: .system)
+        universalBtn.translatesAutoresizingMaskIntoConstraints = false
+        universalBtn.heightAnchor.constraint(equalToConstant: 48).isActive = true
+        universalBtn.backgroundColor = UIColor(red: 0.11, green: 0.73, blue: 0.33, alpha: 0.16)
+        universalBtn.layer.cornerRadius = 12
+        universalBtn.layer.borderWidth = 1
+        universalBtn.layer.borderColor = UIColor(red: 0.11, green: 0.73, blue: 0.33, alpha: 0.45).cgColor
+
+        let uRow = UIStackView()
+        uRow.translatesAutoresizingMaskIntoConstraints = false
+        uRow.axis = .horizontal
+        uRow.spacing = 10
+        uRow.alignment = .center
+        uRow.isUserInteractionEnabled = false
+
+        let uIconBox = UIView()
+        uIconBox.translatesAutoresizingMaskIntoConstraints = false
+        uIconBox.backgroundColor = UIColor(red: 0.11, green: 0.73, blue: 0.33, alpha: 0.25)
+        uIconBox.layer.cornerRadius = 8
+        uIconBox.widthAnchor.constraint(equalToConstant: 32).isActive = true
+        uIconBox.heightAnchor.constraint(equalToConstant: 32).isActive = true
+
+        let uIcon = UIImageView(image: UIImage(systemName: "globe"))
+        uIcon.translatesAutoresizingMaskIntoConstraints = false
+        uIcon.tintColor = UIColor(red: 0.11, green: 0.73, blue: 0.33, alpha: 1.0)
+        uIcon.contentMode = .scaleAspectFit
+        uIconBox.addSubview(uIcon)
+        NSLayoutConstraint.activate([
+            uIcon.centerXAnchor.constraint(equalTo: uIconBox.centerXAnchor),
+            uIcon.centerYAnchor.constraint(equalTo: uIconBox.centerYAnchor),
+            uIcon.widthAnchor.constraint(equalToConstant: 18),
+            uIcon.heightAnchor.constraint(equalToConstant: 18)
+        ])
+        uRow.addArrangedSubview(uIconBox)
+
+        let uTextStack = UIStackView()
+        uTextStack.axis = .vertical
+        uTextStack.spacing = 1
+        let uTitle = UILabel()
+        uTitle.text = localizedText(for: "quick_picker_universal_link", default: "Universal Link (songflip.link)")
+        uTitle.font = .systemFont(ofSize: 14, weight: .bold)
+        uTitle.textColor = .white
+        let uSub = UILabel()
+        uSub.text = localizedText(for: "quick_picker_universal_link_subtitle", default: "Copy & share one link for all platforms")
+        uSub.font = .systemFont(ofSize: 11, weight: .regular)
+        uSub.textColor = UIColor(white: 0.78, alpha: 1.0)
+        uTextStack.addArrangedSubview(uTitle)
+        uTextStack.addArrangedSubview(uSub)
+        uRow.addArrangedSubview(uTextStack)
+
+        let uSpacer = UIView()
+        uSpacer.isUserInteractionEnabled = false
+        uRow.addArrangedSubview(uSpacer)
+
+        if !isProUser {
+            let proBadge = UILabel()
+            proBadge.text = "💎 PRO"
+            proBadge.font = .systemFont(ofSize: 10, weight: .bold)
+            proBadge.textColor = UIColor(red: 0.11, green: 0.73, blue: 0.33, alpha: 1.0)
+            uRow.addArrangedSubview(proBadge)
+        } else {
+            let shareIcon = UIImageView(image: UIImage(systemName: "square.and.arrow.up"))
+            shareIcon.translatesAutoresizingMaskIntoConstraints = false
+            shareIcon.tintColor = UIColor(red: 0.11, green: 0.73, blue: 0.33, alpha: 1.0)
+            shareIcon.contentMode = .scaleAspectFit
+            shareIcon.widthAnchor.constraint(equalToConstant: 16).isActive = true
+            shareIcon.heightAnchor.constraint(equalToConstant: 16).isActive = true
+            uRow.addArrangedSubview(shareIcon)
+        }
+
+        universalBtn.addSubview(uRow)
+        NSLayoutConstraint.activate([
+            uRow.leadingAnchor.constraint(equalTo: universalBtn.leadingAnchor, constant: 12),
+            uRow.trailingAnchor.constraint(equalTo: universalBtn.trailingAnchor, constant: -12),
+            uRow.centerYAnchor.constraint(equalTo: universalBtn.centerYAnchor)
+        ])
+
+        universalBtn.addAction(UIAction { [weak self] _ in
+            guard let self = self else { return }
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+            if isProUser {
+                self.shareUniversalLinkFromPicker(inputUrl: inputUrl)
+            } else {
+                self.openApp(urlString: "songflip://paywall?source=share_extension_universal")
+            }
+        }, for: .touchUpInside)
+        contentStack.addArrangedSubview(universalBtn)
 
         // Scrollable Service Buttons container (prevents overflow on smaller screens / landscape)
         let scrollView = UIScrollView()
@@ -559,6 +651,67 @@ class ShareViewController: UIViewController {
         }
     }
 
+    private func shareUniversalLinkFromPicker(inputUrl: String) {
+        ensureAptabaseInitialized()
+        isPickerVisible = false
+        pickerContainerView.removeFromSuperview()
+        iconImageView.isHidden = false
+        activityIndicator.startAnimating()
+        statusLabel.isHidden = false
+        statusLabel.text = localizedText(for: "share_universal_link_copied", default: "Universal SongFlip link copied!")
+
+        Task {
+            let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
+            let canonical: String
+            if UrlUtils.shared.isShortLinkDomain(url: inputUrl) {
+                canonical = (try? await engine.resolveCanonicalUrl(inputUrl: inputUrl)) ?? inputUrl
+            } else {
+                canonical = inputUrl
+            }
+
+            let shareUrlString: String
+            if UrlUtils.shared.isPlaylistUrl(url: canonical) {
+                let rawTarget = defaults.string(forKey: "target_platform") ?? "appleMusic"
+                let key = "\(canonical.trimmingCharacters(in: .whitespacesAndNewlines))|\(rawTarget)"
+                let digest = SHA256.hash(data: Data(key.utf8))
+                let shortId = String(digest.map { String(format: "%02x", $0) }.joined().prefix(10))
+                shareUrlString = "https://songflip.link/p/\(shortId)"
+            } else {
+                let normalized = UrlUtils.shared.normalizeUrl(url: canonical).trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+                let digest = SHA256.hash(data: Data(normalized.utf8))
+                let shortId = String(digest.map { String(format: "%02x", $0) }.joined().prefix(12))
+                shareUrlString = "https://songflip.link/s/\(shortId)"
+            }
+
+            let authToken = defaults.string(forKey: "pro_auth_token") ?? ""
+            Task.detached(priority: .utility) { [engine] in
+                _ = try? await engine.queryL2ServerCache(inputUrl: canonical, targetPlatformKey: "universal", authToken: authToken)
+            }
+
+            await MainActor.run {
+                UIPasteboard.general.string = shareUrlString
+                AptabaseClient.shared.trackSharePageGenerated(target: "share_extension_quick_picker")
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
+
+                guard let shareUrl = URL(string: shareUrlString) else {
+                    self.completeExtension()
+                    return
+                }
+                let activityVC = UIActivityViewController(activityItems: [shareUrl], applicationActivities: nil)
+                activityVC.completionWithItemsHandler = { [weak self] _, _, _, _ in
+                    self?.completeExtension()
+                }
+                if let popover = activityVC.popoverPresentationController {
+                    popover.sourceView = self.view
+                    popover.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+                    popover.permittedArrowDirections = []
+                }
+                self.present(activityVC, animated: true)
+            }
+        }
+    }
+
     private func completeExtension() {
         Task {
             _ = try? await AptabaseClient.shared.flush(timeoutMs: 1500)
@@ -570,7 +723,7 @@ class ShareViewController: UIViewController {
 
     private func isSafeUrlToOpen(_ url: URL) -> Bool {
         let scheme = url.scheme?.lowercased() ?? ""
-        if scheme == "http" || scheme == "https" {
+        if scheme == "http" || scheme == "https" || scheme == "songflip" {
             return true
         }
         let allowedNativeSchemes: Set<String> = [

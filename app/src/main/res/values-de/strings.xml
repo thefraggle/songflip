@@ -487,4 +487,10 @@
 
     <string name="target_anghami">Anghami</string>
     <string name="playlist_ghost_tracks_notice">%1$d KI- &amp; Ghost-Titel automatisch bereinigt</string>
+
+    <string name="quick_picker_universal_link">Universal-Link (songflip.link)</string>
+    <string name="quick_picker_universal_link_subtitle">Kopieren &amp; für alle Dienste teilen</string>
+    <string name="shortcut_flip_clipboard_short">Zwischenablage</string>
+    <string name="shortcut_flip_clipboard_long">Musik-Link aus Zwischenablage öffnen</string>
+    <string name="clipboard_empty_toast">Kein Musik-Link in der Zwischenablage.</string>
 </resources>

@@ -54,6 +54,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 class MainActivity : AppCompatActivity() {
 
     private var showPauseSheetState = mutableStateOf(false)
+    private var showPaywallSheetState = mutableStateOf(false)
+    private var flipClipboardRequestedState = mutableStateOf(false)
     private var openPlaylistUrlState = mutableStateOf<String?>(null)
     private val windowFocusState = mutableStateOf(false)
     private val windowFocusEpoch = mutableStateOf(0L)
@@ -72,6 +74,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         AndroidSharedPreferencesCacheStorage.init(this)
         showPauseSheetState.value = intent?.getBooleanExtra("show_pause_sheet", false) == true
+        showPaywallSheetState.value = intent?.getBooleanExtra("show_pro_paywall", false) == true
         openPlaylistUrlState.value = intent?.getStringExtra("open_playlist_url")
             ?.takeIf { isSupportedMusicUrl(it) }
         handleShortcutIntent(intent)
@@ -94,6 +97,7 @@ class MainActivity : AppCompatActivity() {
         // Consume intent extras to prevent re-triggering upon activity recreate (e.g. language/theme change)
         intent?.removeExtra("open_playlist_url")
         intent?.removeExtra("show_pause_sheet")
+        intent?.removeExtra("show_pro_paywall")
         if (intent?.action == Intent.ACTION_SEND) {
             intent?.action = null
             intent?.removeExtra(Intent.EXTRA_TEXT)
@@ -142,6 +146,10 @@ class MainActivity : AppCompatActivity() {
                     MainScreen(
                         showPauseSheetOnStart = showPauseSheetState.value,
                         onPauseSheetDismissed = { showPauseSheetState.value = false },
+                        showPaywallOnStart = showPaywallSheetState.value,
+                        onPaywallOnStartHandled = { showPaywallSheetState.value = false },
+                        flipClipboardRequested = flipClipboardRequestedState.value,
+                        onFlipClipboardHandled = { flipClipboardRequestedState.value = false },
                         initialPlaylistUrl = openPlaylistUrlState.value,
                         onPlaylistSheetDismissed = { openPlaylistUrlState.value = null },
                         windowFocused = windowFocusState.value,
@@ -182,10 +190,14 @@ class MainActivity : AppCompatActivity() {
         if (intent.getBooleanExtra("show_pause_sheet", false)) {
             showPauseSheetState.value = true
         }
+        if (intent.getBooleanExtra("show_pro_paywall", false)) {
+            showPaywallSheetState.value = true
+        }
 
         // Consume intent extras
         intent.removeExtra("open_playlist_url")
         intent.removeExtra("show_pause_sheet")
+        intent.removeExtra("show_pro_paywall")
         if (intent.action == Intent.ACTION_SEND) {
             intent.action = null
             intent.removeExtra(Intent.EXTRA_TEXT)
@@ -195,6 +207,10 @@ class MainActivity : AppCompatActivity() {
     private fun handleShortcutIntent(intent: Intent?) {
         if (intent == null) return
         when (intent.action) {
+            de.goork.songflip.data.ShortcutHelper.ACTION_FLIP_CLIPBOARD -> {
+                flipClipboardRequestedState.value = true
+                intent.action = null
+            }
             de.goork.songflip.data.ShortcutHelper.ACTION_PAUSE_1H -> {
                 PauseHelper.setPause(this, 60 * 60 * 1000L)
                 Toast.makeText(this, getString(R.string.shortcut_pause_1h_toast), Toast.LENGTH_SHORT).show()
@@ -248,6 +264,10 @@ data class LanguageItem(
 fun MainScreen(
     showPauseSheetOnStart: Boolean = false,
     onPauseSheetDismissed: () -> Unit = {},
+    showPaywallOnStart: Boolean = false,
+    onPaywallOnStartHandled: () -> Unit = {},
+    flipClipboardRequested: Boolean = false,
+    onFlipClipboardHandled: () -> Unit = {},
     initialPlaylistUrl: String? = null,
     onPlaylistSheetDismissed: () -> Unit = {},
     windowFocused: Boolean = true,
@@ -422,6 +442,45 @@ fun MainScreen(
         if (showPauseSheetOnStart) {
             showPauseBottomSheet = true
             onPauseSheetDismissed()
+        }
+    }
+
+    LaunchedEffect(showPaywallOnStart) {
+        if (showPaywallOnStart) {
+            proPaywallSource = "quick_picker_universal_share"
+            showProPaywall = true
+            onPaywallOnStartHandled()
+        }
+    }
+
+    LaunchedEffect(flipClipboardRequested, windowFocused, windowFocusEpoch) {
+        if (flipClipboardRequested && windowFocused) {
+            onFlipClipboardHandled()
+            val clipText = try {
+                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? android.content.ClipboardManager
+                clipboard?.primaryClip?.takeIf { it.itemCount > 0 }?.getItemAt(0)?.let { item ->
+                    item.text?.toString() ?: item.uri?.toString()
+                }
+            } catch (_: Exception) {
+                null
+            }
+            val cleanClip = clipText?.let { UrlUtils.extractCleanUrl(it) }
+            if (cleanClip != null && isSupportedMusicUrl(cleanClip)) {
+                if (UrlUtils.isPlaylistUrl(cleanClip)) {
+                    showPlaylistConvertSheet = cleanClip
+                    viewModel.startPlaylistConversion(cleanClip, selectedTargetKey, proState.isPro)
+                } else if (UrlUtils.isAudiobookUrl(cleanClip)) {
+                    showPodcastNoticeSheet = cleanClip
+                } else {
+                    val redirectIntent = Intent(context, RedirectActivity::class.java).apply {
+                        data = Uri.parse(cleanClip)
+                        putExtra("from_clipboard_banner", true)
+                    }
+                    context.startActivity(redirectIntent)
+                }
+            } else {
+                Toast.makeText(context, context.getString(R.string.clipboard_empty_toast), Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -740,7 +799,9 @@ fun MainScreen(
                 proPaywallSource = "playlist_limit_gate"
                 showProPaywall = true
             },
-            externalConversionState = activePlaylistConversion?.takeIf { it.playlistUrl == playlistUrl }?.state,
+            externalConversionState = activePlaylistConversion
+                ?.takeIf { it.playlistUrl == playlistUrl && it.targetPlatformKey == effectiveTargetKey }
+                ?.state,
             onRetryConversion = {
                 viewModel.startPlaylistConversion(playlistUrl, effectiveTargetKey, proState.isPro, force = true)
             },

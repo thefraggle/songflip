@@ -10,10 +10,12 @@ struct ClipboardSmartBannerView: View {
     let targetPlatform: String
     let isResolving: Bool
     let askEveryTime: Bool
+    var isPro: Bool = false
     let onDismiss: () -> Void
     let onOpenPlaylist: (String) -> Void
     let onOpenAudiobook: (String) -> Void
     let onConvert: (String) -> Void
+    var onShareUniversalLink: ((String) -> Void)? = nil
 
     var body: some View {
         let isPlaylist = UrlUtils.shared.isPlaylistUrl(url: detectedUrl)
@@ -130,33 +132,57 @@ struct ClipboardSmartBannerView: View {
             } else {
                 let targetChoice = PlatformChoice.allCases.first { $0.rawValue == targetPlatform }
                 let targetName = targetChoice?.displayName ?? "Player"
-                Button(action: {
-                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                    onConvert(detectedUrl)
-                }) {
-                    HStack(spacing: 6) {
-                        if isResolving {
-                            ProgressView()
-                                .progressViewStyle(CircularProgressViewStyle(tint: .black))
-                                .scaleEffect(0.8)
-                        } else {
-                            Image(systemName: askEveryTime ? "arrow.triangle.branch" : "play.fill")
-                                .font(.system(size: 12))
+                HStack(spacing: 8) {
+                    Button(action: {
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                        onConvert(detectedUrl)
+                    }) {
+                        HStack(spacing: 6) {
+                            if isResolving {
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle(tint: .black))
+                                    .scaleEffect(0.8)
+                            } else {
+                                Image(systemName: askEveryTime ? "arrow.triangle.branch" : "play.fill")
+                                    .font(.system(size: 12))
+                            }
+                            Text(askEveryTime
+                                ? LocalizationManager.string(for: "quick_picker_title", lang: lang)
+                                : String(format: LocalizationManager.string(for: "clipboard_banner_action_open", lang: lang), targetName))
+                                .font(.system(size: 13, weight: .bold))
+                                .lineLimit(1)
                         }
-                        Text(askEveryTime 
-                            ? LocalizationManager.string(for: "quick_picker_title", lang: lang) 
-                            : String(format: LocalizationManager.string(for: "clipboard_banner_action_open", lang: lang), targetName))
-                            .font(.system(size: 13, weight: .bold))
-                            .lineLimit(1)
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 12)
+                        .frame(maxWidth: .infinity)
+                        .background(isResolving ? Color.green.opacity(0.6) : Color.green)
+                        .foregroundColor(.black)
+                        .cornerRadius(10)
                     }
-                    .padding(.vertical, 8)
-                    .padding(.horizontal, 12)
-                    .frame(maxWidth: .infinity)
-                    .background(isResolving ? Color.green.opacity(0.6) : Color.green)
-                    .foregroundColor(.black)
-                    .cornerRadius(10)
+                    .disabled(isResolving)
+
+                    if let onShareUniversalLink = onShareUniversalLink {
+                        Button(action: {
+                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                            onShareUniversalLink(detectedUrl)
+                        }) {
+                            HStack(spacing: 4) {
+                                Image(systemName: "square.and.arrow.up")
+                                    .font(.system(size: 13, weight: .semibold))
+                                if !isPro {
+                                    Text("💎")
+                                        .font(.system(size: 11))
+                                }
+                            }
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 12)
+                            .background(Color.green.opacity(0.18))
+                            .foregroundColor(.green)
+                            .cornerRadius(10)
+                        }
+                        .accessibilityLabel(Text(LocalizationManager.string(for: "share_universal_link", lang: lang)))
+                    }
                 }
-                .disabled(isResolving)
             }
         }
         .padding(14)

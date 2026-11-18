@@ -443,4 +443,10 @@
     <string name="settings_how_it_works">Quick Guide / How it Works</string>
     <string name="target_anghami">أنغامي</string>
     <string name="playlist_ghost_tracks_notice">تم تنظيف %1$d مقطع مشبوه للذكاء الاصطناعي والمقاطع الوهمية</string>
+
+    <string name="quick_picker_universal_link">رابط شامل (songflip.link)</string>
+    <string name="quick_picker_universal_link_subtitle">نسخ ومشاركة رابط واحد لجميع المنصات</string>
+    <string name="shortcut_flip_clipboard_short">الحافظة</string>
+    <string name="shortcut_flip_clipboard_long">فتح رابط الموسيقى من الحافظة</string>
+    <string name="clipboard_empty_toast">لا يوجد رابط موسيقى في الحافظة.</string>
 </resources>

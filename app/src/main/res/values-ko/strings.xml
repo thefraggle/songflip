@@ -436,4 +436,10 @@
     <string name="playlist_import_default_title">Imported Playlist</string>
     <string name="unknown_track">Unknown Song</string>
     <string name="unsupported_music_service_toast">%1$s은(는) 아직 지원되지 않습니다 – 원본 링크를 여는 중…</string>
+
+    <string name="quick_picker_universal_link">유니버설 링크 (songflip.link)</string>
+    <string name="quick_picker_universal_link_subtitle">모든 플랫폼용 링크 복사 및 공유</string>
+    <string name="shortcut_flip_clipboard_short">클립보드</string>
+    <string name="shortcut_flip_clipboard_long">클립보드의 음악 링크 열기</string>
+    <string name="clipboard_empty_toast">클립보드에 음악 링크가 없습니다.</string>
 </resources>

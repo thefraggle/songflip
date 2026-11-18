@@ -443,4 +443,10 @@
     <string name="playlist_import_default_title">Imported Playlist</string>
     <string name="unknown_track">Unknown Song</string>
     <string name="unsupported_music_service_toast">%1$s n\'est pas encore pris en charge – ouverture du lien d\'origine…</string>
+
+    <string name="quick_picker_universal_link">Lien universel (songflip.link)</string>
+    <string name="quick_picker_universal_link_subtitle">Copier et partager pour toutes les plateformes</string>
+    <string name="shortcut_flip_clipboard_short">Presse-papiers</string>
+    <string name="shortcut_flip_clipboard_long">Ouvrir le lien musical du presse-papiers</string>
+    <string name="clipboard_empty_toast">Aucun lien musical dans le presse-papiers.</string>
 </resources>

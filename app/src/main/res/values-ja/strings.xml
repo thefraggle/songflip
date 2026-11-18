@@ -436,4 +436,10 @@
     <string name="playlist_import_default_title">Imported Playlist</string>
     <string name="unknown_track">Unknown Song</string>
     <string name="unsupported_music_service_toast">%1$s はまだサポートされていません – 元のリンクを開いています…</string>
+
+    <string name="quick_picker_universal_link">ユニバーサルリンク (songflip.link)</string>
+    <string name="quick_picker_universal_link_subtitle">全サービス共通リンクをコピー＆共有</string>
+    <string name="shortcut_flip_clipboard_short">クリップボード</string>
+    <string name="shortcut_flip_clipboard_long">クリップボードの音楽リンクを開く</string>
+    <string name="clipboard_empty_toast">クリップボードに音楽リンクがありません。</string>
 </resources>

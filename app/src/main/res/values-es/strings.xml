@@ -443,4 +443,10 @@
     <string name="playlist_import_default_title">Imported Playlist</string>
     <string name="unknown_track">Unknown Song</string>
     <string name="unsupported_music_service_toast">%1$s aún no es compatible – abriendo el enlace original…</string>
+
+    <string name="quick_picker_universal_link">Enlace universal (songflip.link)</string>
+    <string name="quick_picker_universal_link_subtitle">Copiar y compartir para todas las plataformas</string>
+    <string name="shortcut_flip_clipboard_short">Portapapeles</string>
+    <string name="shortcut_flip_clipboard_long">Abrir enlace musical del portapapeles</string>
+    <string name="clipboard_empty_toast">No hay ningún enlace musical en el portapapeles.</string>
 </resources>

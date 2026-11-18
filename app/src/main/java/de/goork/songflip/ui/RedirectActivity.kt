@@ -238,6 +238,50 @@ class RedirectActivity : ComponentActivity() {
                                 artistName = state.artistName,
                                 isResolving = state.isResolving,
                                 selectedPlatformKey = state.selectedPlatformKey,
+                                isPro = ProManager.proState.value.isPro,
+                                onShareUniversalLink = {
+                                    if (ProManager.proState.value.isPro) {
+                                        lifecycleScope.launch(kotlinx.coroutines.Dispatchers.IO) {
+                                            val canonical = kotlinx.coroutines.withTimeoutOrNull(8000L) {
+                                                if (UrlUtils.isShortLinkDomain(state.incomingUrl)) {
+                                                    de.goork.songflip.core.engine.SongLinkEngine.shared.resolveCanonicalUrl(state.incomingUrl)
+                                                } else {
+                                                    state.incomingUrl
+                                                }
+                                            } ?: state.incomingUrl
+                                            val shareUrl = ProManager.getUniversalWebShareUrl(canonical)
+                                            ProManager.warmupUniversalShare(canonical)
+                                            kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                                                val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+                                                clipboard?.setPrimaryClip(ClipData.newPlainText("SongFlip Universal Link", shareUrl))
+                                                Toast.makeText(applicationContext, getString(R.string.share_universal_link_copied), Toast.LENGTH_SHORT).show()
+                                                de.goork.songflip.core.analytics.AptabaseClient.shared.trackSharePageGenerated(target = "android_quick_picker")
+                                                val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                                                    type = "text/plain"
+                                                    putExtra(Intent.EXTRA_TEXT, shareUrl)
+                                                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                                }
+                                                val chooser = Intent.createChooser(shareIntent, getString(R.string.share_universal_link)).apply {
+                                                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                                }
+                                                try {
+                                                    startActivity(chooser)
+                                                } catch (_: Exception) {
+                                                }
+                                                finish()
+                                                suppressTransitionAnimation()
+                                            }
+                                        }
+                                    } else {
+                                        val paywallIntent = Intent(this@RedirectActivity, MainActivity::class.java).apply {
+                                            putExtra("show_pro_paywall", true)
+                                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                        }
+                                        startActivity(paywallIntent)
+                                        finish()
+                                        suppressTransitionAnimation()
+                                    }
+                                },
                                 onPlatformSelected = { key ->
                                     viewModel.onQuickPickerPlatformSelected(
                                         platformKey = key,

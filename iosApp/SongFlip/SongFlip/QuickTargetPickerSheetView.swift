@@ -4,7 +4,10 @@ import SongFlipKit
 struct QuickTargetPickerSheetView: View {
     let url: String
     let lang: String
+    var isPro: Bool = false
     var onSelectTarget: (String) -> Void
+    var onShareUniversalLink: ((String) -> Void)? = nil
+    var onOpenPaywall: (() -> Void)? = nil
     var onDismiss: () -> Void
 
     @Environment(\.dismiss) private var dismiss
@@ -35,6 +38,63 @@ struct QuickTargetPickerSheetView: View {
                 // List of Target Services
                 ScrollView {
                     VStack(spacing: 10) {
+                        if let onShareUniversalLink = onShareUniversalLink {
+                            Button(action: {
+                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                if isPro {
+                                    onShareUniversalLink(url)
+                                    dismiss()
+                                } else {
+                                    onOpenPaywall?()
+                                    dismiss()
+                                }
+                            }) {
+                                HStack(spacing: 14) {
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .fill(Color.green.opacity(0.18))
+                                            .frame(width: 44, height: 44)
+
+                                        Image(systemName: "globe")
+                                            .font(.system(size: 20, weight: .semibold))
+                                            .foregroundColor(.green)
+                                    }
+
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text(LocalizationManager.string(for: "quick_picker_universal_link", lang: lang))
+                                            .font(.body)
+                                            .fontWeight(.semibold)
+                                            .foregroundColor(.primary)
+
+                                        Text(LocalizationManager.string(for: "quick_picker_universal_link_subtitle", lang: lang))
+                                            .font(.caption)
+                                            .foregroundColor(.secondary)
+                                    }
+
+                                    Spacer()
+
+                                    if !isPro {
+                                        Text("💎 PRO")
+                                            .font(.caption2.weight(.bold))
+                                            .foregroundColor(.green)
+                                    } else {
+                                        Image(systemName: "square.and.arrow.up")
+                                            .font(.system(size: 14, weight: .semibold))
+                                            .foregroundColor(.green)
+                                    }
+                                }
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 10)
+                                .background(Color.green.opacity(0.10))
+                                .cornerRadius(14)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 14)
+                                        .stroke(Color.green.opacity(0.35), lineWidth: 1)
+                                )
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
+
                         ForEach(PlatformChoice.allCases) { platform in
                             Button(action: {
                                 UIImpactFeedbackGenerator(style: .medium).impactOccurred()

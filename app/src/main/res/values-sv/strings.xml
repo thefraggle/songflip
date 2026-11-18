@@ -443,4 +443,10 @@
     <string name="playlist_import_default_title">Imported Playlist</string>
     <string name="unknown_track">Unknown Song</string>
     <string name="unsupported_music_service_toast">%1$s stöds inte än – öppnar originallänk…</string>
+
+    <string name="quick_picker_universal_link">Universal Link (songflip.link)</string>
+    <string name="quick_picker_universal_link_subtitle">Copy &amp; share one link for all platforms</string>
+    <string name="shortcut_flip_clipboard_short">Flip Clipboard</string>
+    <string name="shortcut_flip_clipboard_long">Flip music link from clipboard</string>
+    <string name="clipboard_empty_toast">No music link found in clipboard.</string>
 </resources>

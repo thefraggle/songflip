@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.15.4] - 2026-11-18
+- **Schnellzugriff-Kacheln & Kurzbefehle**: Neue Schnellzugriffs-Kachel, App-Kurzbefehle und Deep-Links (`songflip://listen`, `songflip://clipboard`) für sofortiges Auflösen von Zwischenablage-Links und direkter Musikerkennung ergänzt.
+- **Universal-Link im Schnellwähler**: Direktes Kopieren und Teilen von universellen `songflip.link`-Seiten direkt im Teilen-Menü, Schnellwähler und Zwischenablage-Banner integriert.
+- **Zuverlässigkeit im Playlist-Converter**: Doppelte Konvertierungs-Anfragen und Doppel-Zählungen behoben, Track-Matching für Amazon Music und SoundCloud ergänzt sowie Speicherfehler bei 0-Treffer-Ergebnissen beseitigt.
+
 ## [1.15.3] - 2026-11-17
 - **Suche & Einstieg**: Klickbare Beispiel-Tracks im leeren Such-Zustand sowie einen Wiederholen-Button bei fehlgeschlagener Katalogsuche ergänzt.
 - **Link-Auflösung & Diagnose**: SoundCloud-Titelabgleich verschärft, um reine Künstler-Falschtreffer zu verhindern, Fehlerdiagnose bei fehlgeschlagenen Upgrades ergänzt und Bewertungs-Hinweise direkt nach erfolgreichen Treffern verfeinert.

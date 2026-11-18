@@ -446,6 +446,18 @@
             </intent-filter>
         </service>
 
+        <!-- Quick Settings Tile Service (Flip Clipboard) -->
+        <service
+            android:name=".service.FlipClipboardTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_qs_tile"
+            android:label="@string/shortcut_flip_clipboard_short"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
         <!-- FileProvider for Exporting Playlists (M3U8 / CSV) -->
         <provider
             android:name="androidx.core.content.FileProvider"

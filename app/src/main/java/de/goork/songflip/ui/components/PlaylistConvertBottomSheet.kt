@@ -53,6 +53,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+internal fun shouldAutoStartSheetConversion(
+    hasImportedTracks: Boolean,
+    isSamePlatform: Boolean,
+    isExternallyManaged: Boolean,
+    hasExternalState: Boolean,
+    isPro: Boolean,
+    isCurrentlyLimited: Boolean
+): Boolean {
+    if (hasImportedTracks || isSamePlatform) return false
+    if (isExternallyManaged) return false
+    return !hasExternalState || (isPro && isCurrentlyLimited)
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlaylistConvertBottomSheet(
@@ -298,7 +311,15 @@ fun PlaylistConvertBottomSheet(
             internalConversionState = PlaylistConversionState.SamePlatform
         } else {
             val isCurrentlyLimited = (conversionState is PlaylistConversionState.Success && (conversionState as PlaylistConversionState.Success).result.isLimited)
-            if (externalConversionState == null || (isPro && isCurrentlyLimited)) {
+            if (shouldAutoStartSheetConversion(
+                    hasImportedTracks = false,
+                    isSamePlatform = false,
+                    isExternallyManaged = onRetryConversion != null,
+                    hasExternalState = externalConversionState != null,
+                    isPro = isPro,
+                    isCurrentlyLimited = isCurrentlyLimited
+                )
+            ) {
                 runConversion(forceRefresh = isPro && isCurrentlyLimited)
             }
         }

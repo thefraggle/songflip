@@ -45,6 +45,28 @@ data class MainUiState(
     val diagnosisSummary: DiagnosisSummary? = null
 )
 
+internal fun shouldSkipDuplicateConversion(
+    current: ActivePlaylistConversion?,
+    isJobActive: Boolean,
+    playlistUrl: String,
+    targetPlatformKey: String,
+    isPro: Boolean,
+    force: Boolean
+): Boolean {
+    if (force || current == null) return false
+    if (current.playlistUrl != playlistUrl || current.targetPlatformKey != targetPlatformKey) return false
+    if (isJobActive || current.state is PlaylistConversionState.Loading || current.state is PlaylistConversionState.Converting) {
+        return true
+    }
+    if (current.state is PlaylistConversionState.Success) {
+        val successData = (current.state as PlaylistConversionState.Success).result
+        if (!isPro || !successData.isLimited) {
+            return true
+        }
+    }
+    return false
+}
+
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val settingsRepository = SettingsRepository(application)
@@ -64,6 +86,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _activePlaylistConversion = MutableStateFlow<ActivePlaylistConversion?>(null)
     val activePlaylistConversion: StateFlow<ActivePlaylistConversion?> = _activePlaylistConversion.asStateFlow()
+    private var activeConversionJob: kotlinx.coroutines.Job? = null
 
     init {
         refreshStatus()
@@ -159,25 +182,26 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
 
         val current = _activePlaylistConversion.value
-        if (!force && current != null && current.playlistUrl == playlistUrl && current.targetPlatformKey == targetPlatformKey) {
-            if (current.state is PlaylistConversionState.Loading || current.state is PlaylistConversionState.Converting) {
-                return
-            }
-            if (current.state is PlaylistConversionState.Success) {
-                val successData = (current.state as PlaylistConversionState.Success).result
-                if (!isPro || !successData.isLimited) {
-                    return
-                }
-            }
+        if (shouldSkipDuplicateConversion(
+                current = current,
+                isJobActive = activeConversionJob?.isActive == true,
+                playlistUrl = playlistUrl,
+                targetPlatformKey = targetPlatformKey,
+                isPro = isPro,
+                force = force
+            )
+        ) {
+            return
         }
 
+        activeConversionJob?.cancel()
         _activePlaylistConversion.value = ActivePlaylistConversion(
             playlistUrl = playlistUrl,
             targetPlatformKey = targetPlatformKey,
             state = PlaylistConversionState.Loading()
         )
 
-        viewModelScope.launch(Dispatchers.IO) {
+        activeConversionJob = viewModelScope.launch(Dispatchers.IO) {
             val maxTracksToConvert = if (isPro) {
                 de.goork.songflip.core.engine.ProLimits.MAX_PRO_PLAYLIST_TRACKS
             } else {

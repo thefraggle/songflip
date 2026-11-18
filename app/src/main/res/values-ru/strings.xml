@@ -457,4 +457,10 @@
     <string name="playlist_import_default_title">Imported Playlist</string>
     <string name="unknown_track">Unknown Song</string>
     <string name="unsupported_music_service_toast">%1$s пока не поддерживается – открытие исходной ссылки…</string>
+
+    <string name="quick_picker_universal_link">Универсальная ссылка (songflip.link)</string>
+    <string name="quick_picker_universal_link_subtitle">Скопировать и поделиться для всех сервисов</string>
+    <string name="shortcut_flip_clipboard_short">Буфер обмена</string>
+    <string name="shortcut_flip_clipboard_long">Открыть музыкальную ссылку из буфера</string>
+    <string name="clipboard_empty_toast">В буфере обмена нет музыкальной ссылки.</string>
 </resources>

@@ -8,6 +8,19 @@
 	<string>$(APTABASE_APP_KEY)</string>
 	<key>APTABASE_HOST</key>
 	<string>$(APTABASE_HOST)</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>de.goork.songflip</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>songflip</string>
+			</array>
+		</dict>
+	</array>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>music</string>

@@ -17,11 +17,13 @@ import kotlinx.coroutines.launch
 
 object ShortcutHelper {
     const val ACTION_LISTEN_AND_FLIP = "de.goork.songflip.ACTION_LISTEN_AND_FLIP"
+    const val ACTION_FLIP_CLIPBOARD = "de.goork.songflip.ACTION_FLIP_CLIPBOARD"
     const val ACTION_PLAY_LAST_SONG = "de.goork.songflip.ACTION_PLAY_LAST_SONG"
     const val ACTION_PAUSE_1H = "de.goork.songflip.ACTION_PAUSE_1H"
     const val EXTRA_TARGET_URL = "extra_target_url"
 
     private const val ID_LISTEN_AND_FLIP = "shortcut_listen_and_flip"
+    private const val ID_FLIP_CLIPBOARD = "shortcut_flip_clipboard"
     private const val ID_LAST_SONG = "shortcut_last_song"
     private const val ID_PAUSE_1H = "shortcut_pause_1h"
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -46,7 +48,21 @@ object ShortcutHelper {
                     .build()
                 shortcuts.add(listenShortcut)
 
-                // 2. Shortcut: 1h pausieren
+                // 2. Shortcut: Flip Clipboard
+                val clipboardIntent = Intent(context, MainActivity::class.java).apply {
+                    action = ACTION_FLIP_CLIPBOARD
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                }
+                val clipboardShortcut = ShortcutInfoCompat.Builder(context, ID_FLIP_CLIPBOARD)
+                    .setShortLabel(context.getString(R.string.shortcut_flip_clipboard_short))
+                    .setLongLabel(context.getString(R.string.shortcut_flip_clipboard_long))
+                    .setIcon(IconCompat.createWithResource(context, R.drawable.ic_shortcut_play))
+                    .setIntent(clipboardIntent)
+                    .setRank(1)
+                    .build()
+                shortcuts.add(clipboardShortcut)
+
+                // 3. Shortcut: 1h pausieren
                 val pauseIntent = Intent(context, MainActivity::class.java).apply {
                     action = ACTION_PAUSE_1H
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP

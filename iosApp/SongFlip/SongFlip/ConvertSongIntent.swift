@@ -200,6 +200,8 @@ struct ConvertSongIntent: AppIntent {
 
 extension Notification.Name {
     static let openListenAndFlip = Notification.Name("de.goork.songflip.openListenAndFlip")
+    static let openFlipClipboard = Notification.Name("de.goork.songflip.openFlipClipboard")
+    static let openProPaywall = Notification.Name("de.goork.songflip.openProPaywall")
 }
 
 struct ListenAndFlipIntent: AppIntent {
@@ -216,6 +218,20 @@ struct ListenAndFlipIntent: AppIntent {
     }
 }
 
+struct FlipClipboardIntent: AppIntent {
+    static var title: LocalizedStringResource = LocalizedStringResource("shortcut_flip_clipboard_short", defaultValue: "Flip Clipboard")
+    static var description = IntentDescription(LocalizedStringResource("shortcut_flip_clipboard_long", defaultValue: "Flip music link from clipboard"))
+    static var openAppWhenRun: Bool = true
+
+    @MainActor
+    func perform() async throws -> some IntentResult {
+        let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
+        defaults.set(true, forKey: "pending_flip_clipboard")
+        NotificationCenter.default.post(name: .openFlipClipboard, object: nil)
+        return .result()
+    }
+}
+
 struct SongFlipShortcuts: AppShortcutsProvider {
     static var appShortcuts: [AppShortcut] {
         AppShortcut(
@@ -226,6 +242,15 @@ struct SongFlipShortcuts: AppShortcutsProvider {
             ],
             shortTitle: LocalizedStringResource("listen_and_flip_title", defaultValue: "Listen & Flip"),
             systemImageName: "waveform"
+        )
+        AppShortcut(
+            intent: FlipClipboardIntent(),
+            phrases: [
+                "Flip clipboard in \(.applicationName)",
+                "Convert copied song in \(.applicationName)"
+            ],
+            shortTitle: LocalizedStringResource("shortcut_flip_clipboard_short", defaultValue: "Flip Clipboard"),
+            systemImageName: "doc.on.clipboard"
         )
         AppShortcut(
             intent: ConvertSongIntent(),

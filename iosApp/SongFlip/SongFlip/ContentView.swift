@@ -76,6 +76,7 @@ struct ContentView: View {
                                 targetPlatform: settings.targetPlatform,
                                 isResolving: settings.isResolving,
                                 askEveryTime: settings.askEveryTime,
+                                isPro: proManager.isPro,
                                 onDismiss: {
                                     withAnimation(.easeInOut(duration: 0.2)) {
                                         dismissedClipboardUrl = detectedUrl
@@ -97,6 +98,14 @@ struct ContentView: View {
                                         showingQuickPicker = true
                                     } else {
                                         convertLink(urlToConvert: url)
+                                    }
+                                },
+                                onShareUniversalLink: { url in
+                                    if proManager.isPro {
+                                        shareUniversalLink(for: url)
+                                    } else {
+                                        AptabaseClient.shared.trackEvent(eventName: "paywall_viewed", props: ["source": "clipboard_universal_share"])
+                                        showingPaywallSheet = true
                                     }
                                 }
                             )
@@ -302,8 +311,18 @@ struct ContentView: View {
                     QuickTargetPickerSheetView(
                         url: pUrl,
                         lang: lang,
+                        isPro: proManager.isPro,
                         onSelectTarget: { chosenPlatform in
                             convertLink(urlToConvert: pUrl, overrideTarget: chosenPlatform)
+                        },
+                        onShareUniversalLink: { shareUrl in
+                            shareUniversalLink(for: shareUrl)
+                        },
+                        onOpenPaywall: {
+                            AptabaseClient.shared.trackEvent(eventName: "paywall_viewed", props: ["source": "quick_picker_universal_share"])
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                showingPaywallSheet = true
+                            }
                         },
                         onDismiss: {
                             showingQuickPicker = false
@@ -316,6 +335,8 @@ struct ContentView: View {
                 AptabaseClient.shared.trackAppLaunched(platform: "iOS", language: lang)
                 AppDelegate.updateQuickActions(lang: lang)
                 consumePendingListenSheetIfNeeded()
+                consumePendingFlipClipboardIfNeeded()
+                consumePendingPaywallIfNeeded()
                 settings.reloadSharedCounters()
                 history.loadHistory()
                 activeMilestone = settings.getActiveProNudgeMilestone()
@@ -339,6 +360,8 @@ struct ContentView: View {
                 if newPhase == .active {
                     AppDelegate.updateQuickActions(lang: lang)
                     consumePendingListenSheetIfNeeded()
+                    consumePendingFlipClipboardIfNeeded()
+                    consumePendingPaywallIfNeeded()
                     settings.reloadSharedCounters()
                     history.loadHistory()
                     activeMilestone = settings.getActiveProNudgeMilestone()
@@ -359,6 +382,12 @@ struct ContentView: View {
             }
             .onReceive(NotificationCenter.default.publisher(for: .openListenAndFlip)) { _ in
                 consumePendingListenSheetIfNeeded(force: true)
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .openFlipClipboard)) { _ in
+                consumePendingFlipClipboardIfNeeded(force: true)
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .openProPaywall)) { _ in
+                consumePendingPaywallIfNeeded(force: true)
             }
             .onChange(of: settings.selectedLanguage) { _ in
                 AppDelegate.updateQuickActions(lang: lang)
@@ -704,6 +733,88 @@ struct ContentView: View {
         if force || defaults.bool(forKey: "pending_open_listen_sheet") {
             defaults.set(false, forKey: "pending_open_listen_sheet")
             showingListenSheet = true
+        }
+    }
+
+    private func consumePendingPaywallIfNeeded(force: Bool = false) {
+        let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
+        if force || defaults.bool(forKey: "pending_open_paywall") {
+            defaults.set(false, forKey: "pending_open_paywall")
+            showingPaywallSheet = true
+        }
+    }
+
+    private func consumePendingFlipClipboardIfNeeded(force: Bool = false) {
+        let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
+        guard force || defaults.bool(forKey: "pending_flip_clipboard") else { return }
+        defaults.set(false, forKey: "pending_flip_clipboard")
+
+        let rawClip = UIPasteboard.general.string ?? UIPasteboard.general.url?.absoluteString
+        guard let clip = rawClip, !clip.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            showToast(LocalizationManager.string(for: "clipboard_empty_toast", lang: lang))
+            return
+        }
+        let clean = UrlUtils.shared.extractCleanUrl(rawInput: clip) ?? clip
+        guard UrlUtils.shared.isSupportedMusicOrAggregatorUrl(url: clean) else {
+            showToast(LocalizationManager.string(for: "clipboard_empty_toast", lang: lang))
+            return
+        }
+        if UrlUtils.shared.isPlaylistUrl(url: clean) {
+            playlistNoticeUrl = clean
+            showingPlaylistNotice = true
+        } else {
+            convertLink(urlToConvert: clean)
+        }
+    }
+
+    private func shareUniversalLink(for sourceUrl: String) {
+        Task {
+            let canonical: String
+            if UrlUtils.shared.isShortLinkDomain(url: sourceUrl) {
+                canonical = (try? await settings.engine.resolveCanonicalUrl(inputUrl: sourceUrl)) ?? sourceUrl
+            } else {
+                canonical = sourceUrl
+            }
+
+            let shareUrlString: String
+            if UrlUtils.shared.isPlaylistUrl(url: canonical) {
+                let key = "\(canonical.trimmingCharacters(in: .whitespacesAndNewlines))|\(settings.targetPlatform)"
+                let digest = SHA256.hash(data: Data(key.utf8))
+                let shortId = String(digest.map { String(format: "%02x", $0) }.joined().prefix(10))
+                shareUrlString = "https://songflip.link/p/\(shortId)"
+            } else {
+                let normalized = UrlUtils.shared.normalizeUrl(url: canonical).trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+                let digest = SHA256.hash(data: Data(normalized.utf8))
+                let shortId = String(digest.map { String(format: "%02x", $0) }.joined().prefix(12))
+                shareUrlString = "https://songflip.link/s/\(shortId)"
+            }
+
+            let authToken = proManager.authToken
+            Task.detached(priority: .utility) { [engine = settings.engine] in
+                _ = try? await engine.queryL2ServerCache(inputUrl: canonical, targetPlatformKey: "universal", authToken: authToken)
+            }
+
+            await MainActor.run {
+                UIPasteboard.general.string = shareUrlString
+                showToast(LocalizationManager.string(for: "share_universal_link_copied", lang: lang))
+                AptabaseClient.shared.trackSharePageGenerated(target: "ios_quick_picker")
+                guard let url = URL(string: shareUrlString),
+                      let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                      let rootVC = windowScene.windows.first?.rootViewController else {
+                    return
+                }
+                var topVC = rootVC
+                while let presented = topVC.presentedViewController {
+                    topVC = presented
+                }
+                let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+                if let popover = activityVC.popoverPresentationController {
+                    popover.sourceView = topVC.view
+                    popover.sourceRect = CGRect(x: topVC.view.bounds.midX, y: topVC.view.bounds.midY, width: 0, height: 0)
+                    popover.permittedArrowDirections = []
+                }
+                topVC.present(activityVC, animated: true)
+            }
         }
     }
 

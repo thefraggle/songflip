@@ -488,4 +488,10 @@
 
     <string name="target_anghami">Anghami</string>
     <string name="playlist_ghost_tracks_notice">%1$d suspected AI &amp; ghost tracks cleaned</string>
+
+    <string name="quick_picker_universal_link">Universal Link (songflip.link)</string>
+    <string name="quick_picker_universal_link_subtitle">Copy &amp; share one link for all platforms</string>
+    <string name="shortcut_flip_clipboard_short">Flip Clipboard</string>
+    <string name="shortcut_flip_clipboard_long">Flip music link from clipboard</string>
+    <string name="clipboard_empty_toast">No music link found in clipboard.</string>
 </resources>
