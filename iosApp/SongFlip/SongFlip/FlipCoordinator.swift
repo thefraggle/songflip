@@ -37,10 +37,162 @@ enum FlipAction {
     )
 }
 
+protocol FlipEnginePort {
+    func resolveTargetUrl(
+        inputUrl: String,
+        targetPlatformKey: String,
+        customApiUrl: String,
+        customApiToken: String,
+        isPro: Bool,
+        authToken: String,
+        isPrefetch: Bool,
+        forceRefresh: Bool,
+        audiophileMode: Bool
+    ) async throws -> ResolutionResult
+}
+
+extension SongLinkEngine: FlipEnginePort {}
+
+protocol FlipAnalyticsPort {
+    func ensureInitialized()
+    func track(action: FlipAction, inputUrl: String, targetPlatform: String, errorDetail: String?)
+}
+
+struct DefaultFlipAnalyticsAdapter: FlipAnalyticsPort {
+    func ensureInitialized() {
+        if AptabaseClient.shared.isInitialized { return }
+        let isDebug: Bool = {
+            #if DEBUG
+            return true
+            #else
+            return false
+            #endif
+        }()
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "unknown"
+        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
+        let osVersion = UIDevice.current.systemVersion
+        let locale = Locale.current.identifier
+        let aptabaseKey = Bundle.main.infoDictionary?["APTABASE_APP_KEY"] as? String ?? ""
+        let rawHost = (Bundle.main.infoDictionary?["APTABASE_HOST"] as? String)?
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: "\\/", with: "/") ?? ""
+        let aptabaseHost: String
+        if rawHost.hasPrefix("https://") || rawHost.hasPrefix("http://") {
+            aptabaseHost = rawHost
+        } else if rawHost == "https:" || rawHost == "http:" || rawHost.hasPrefix("$(") || rawHost.isEmpty {
+            aptabaseHost = "https://api.aptabase.com"
+        } else {
+            aptabaseHost = rawHost
+        }
+
+        AptabaseClient.shared.doInit(
+            appKey: aptabaseKey,
+            host: aptabaseHost,
+            osName: "iOS",
+            osVersion: osVersion,
+            locale: locale,
+            appVersion: appVersion,
+            appBuildNumber: buildNumber,
+            isDebug: isDebug
+        )
+    }
+
+    func track(action: FlipAction, inputUrl: String, targetPlatform: String, errorDetail: String?) {
+        FlipCoordinator.trackAction(action, inputUrl: inputUrl, targetPlatform: targetPlatform, errorDetail: errorDetail)
+    }
+}
+
+struct FlipExecutionRequest {
+    let inputUrl: String
+    var targetPlatformOverride: String? = nil
+    var customApiUrlOverride: String? = nil
+    var customApiTokenOverride: String? = nil
+    var isProOverride: Bool? = nil
+    var authTokenOverride: String? = nil
+    var audiophileModeOverride: Bool? = nil
+}
+
+struct FlipExecutionOutcome {
+    let action: FlipAction
+    let targetPlatform: String
+    let primaryUrl: URL?
+    let fallbackUrl: URL?
+}
+
 final class FlipCoordinator {
     static let shared = FlipCoordinator()
 
-    private init() {}
+    private let engine: FlipEnginePort
+    private let defaults: UserDefaults
+    private let analytics: FlipAnalyticsPort
+
+    init(
+        engine: FlipEnginePort = SongLinkEngine.shared,
+        defaults: UserDefaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? .standard,
+        analytics: FlipAnalyticsPort = DefaultFlipAnalyticsAdapter()
+    ) {
+        self.engine = engine
+        self.defaults = defaults
+        self.analytics = analytics
+    }
+
+    func executeFlip(_ request: FlipExecutionRequest) async -> FlipExecutionOutcome {
+        analytics.ensureInitialized()
+
+        let rawTarget = request.targetPlatformOverride ?? defaults.string(forKey: "target_platform") ?? "appleMusic"
+        let targetPlatform = PlatformChoice(rawValue: rawTarget) != nil ? rawTarget : "appleMusic"
+        let customUrl = request.customApiUrlOverride ?? defaults.string(forKey: "custom_api_url") ?? ""
+        let customToken = request.customApiTokenOverride ?? defaults.string(forKey: "custom_api_token") ?? ""
+        let isPro = request.isProOverride ?? ProStateStorage.isProActive(defaults: defaults)
+        let authToken = request.authTokenOverride ?? (isPro ? (defaults.string(forKey: "pro_auth_token") ?? "") : "")
+        let audiophileMode = request.audiophileModeOverride ?? (isPro && defaults.bool(forKey: "audiophile_mode"))
+
+        let result: ResolutionResult
+        var bridgeErrorDetail: String? = nil
+        do {
+            result = try await engine.resolveTargetUrl(
+                inputUrl: request.inputUrl,
+                targetPlatformKey: targetPlatform,
+                customApiUrl: customUrl,
+                customApiToken: customToken,
+                isPro: isPro,
+                authToken: authToken,
+                isPrefetch: false,
+                forceRefresh: false,
+                audiophileMode: audiophileMode
+            )
+        } catch {
+            let errInfo = Self.mapError(error)
+            bridgeErrorDetail = errInfo.detail
+            result = ResolutionResult.Error(message: errInfo.reason, isUnsupported: false, errorReason: errInfo.errorReason)
+        }
+
+        let action = Self.resolveAction(result: result, targetPlatform: targetPlatform)
+        analytics.track(action: action, inputUrl: request.inputUrl, targetPlatform: targetPlatform, errorDetail: bridgeErrorDetail)
+
+        var primaryUrl: URL? = nil
+        var fallbackUrl: URL? = nil
+        if case .openResolved(let targetUrl, let nativeAppUri, let platformKey, let title, let artist, _, _, _, _) = action {
+            Self.incrementSuccessfulFlipCount(defaults: defaults)
+            let urls = Self.computeLaunchUrls(
+                targetUrl: targetUrl,
+                nativeAppUri: nativeAppUri,
+                platformKey: platformKey,
+                title: title,
+                artist: artist,
+                defaults: defaults
+            )
+            primaryUrl = urls.primaryUrl
+            fallbackUrl = urls.fallbackUrl
+        }
+
+        return FlipExecutionOutcome(
+            action: action,
+            targetPlatform: targetPlatform,
+            primaryUrl: primaryUrl,
+            fallbackUrl: fallbackUrl
+        )
+    }
 
     /// Normalizes Swift/ObjC Error into structured error reasons matching KMP engine contract
     static func mapError(_ error: Error) -> (reason: String, errorReason: String, detail: String) {

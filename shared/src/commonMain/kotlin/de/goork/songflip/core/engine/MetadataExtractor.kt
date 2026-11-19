@@ -1,11 +1,7 @@
 package de.goork.songflip.core.engine
 
 import de.goork.songflip.core.engine.resolvers.AppleMusicResolver
-import de.goork.songflip.core.engine.resolvers.AudiomackResolver
-import de.goork.songflip.core.engine.resolvers.BeatportResolver
 import de.goork.songflip.core.engine.resolvers.DeezerResolver
-import de.goork.songflip.core.engine.resolvers.IdagioResolver
-import de.goork.songflip.core.engine.resolvers.AnghamiResolver
 import de.goork.songflip.core.engine.resolvers.QobuzResolver
 import de.goork.songflip.core.engine.resolvers.SpotifyResolver
 import de.goork.songflip.core.engine.resolvers.YouTubeMusicResolver
@@ -34,6 +30,68 @@ internal data class CommonOEmbedDto(
     val thumbnailUrl: String? = null
 )
 
+private data class OgMetadataRule(
+    val acceptLanguage: String,
+    val titleFirst: Boolean = false,
+    val stripSuffixes: List<String>,
+    val rejectedTitles: Set<String>,
+    val slugRegex: Regex,
+    val rejectNumericSlug: Boolean = false,
+    val formatSlug: (MatchResult) -> String = { match ->
+        match.groupValues[1].replace("-", " ").replace("_", " ").trim()
+    },
+    val postProcessTitle: (String) -> String = { it }
+)
+
+private val OG_TITLE_REGEX = Regex("<meta\\s+property=[\"']og:title[\"']\\s+content=[\"']([^\"']+)[\"']", RegexOption.IGNORE_CASE)
+private val OG_TITLE_ALT_REGEX = Regex("<meta\\s+content=[\"']([^\"']+)[\"']\\s+property=[\"']og:title[\"']", RegexOption.IGNORE_CASE)
+private val HTML_TITLE_REGEX = Regex("<title[^>]*>([^<]+)</title>", RegexOption.IGNORE_CASE)
+
+private val OG_METADATA_RULES: Map<MusicPlatform, OgMetadataRule> = mapOf(
+    MusicPlatform.BEATPORT to OgMetadataRule(
+        acceptLanguage = "en-US,en;q=0.9",
+        stripSuffixes = listOf(" | Music & Downloads on Beatport", " | Beatport", " on Beatport"),
+        rejectedTitles = setOf("play", "beatport"),
+        slugRegex = Regex("beatport\\.com(?:/[a-z]{2})?/(?:track|release)/([a-zA-Z0-9_-]+)/\\d+"),
+        postProcessTitle = { it.replace(Regex("\\[[^\\]]+\\]$"), "").trim() }
+    ),
+    MusicPlatform.AUDIOMACK to OgMetadataRule(
+        acceptLanguage = "en-US,en;q=0.9",
+        titleFirst = true,
+        stripSuffixes = listOf(": Listen on Audiomack", " | Audiomack", " on Audiomack"),
+        rejectedTitles = setOf("audiomack"),
+        slugRegex = Regex("audiomack\\.com/([a-zA-Z0-9_-]+)/(?:song|album)/([a-zA-Z0-9_-]+)"),
+        formatSlug = { match ->
+            val artist = match.groupValues[1].replace("-", " ").replace("_", " ").trim()
+            val title = match.groupValues[2].replace("-", " ").replace("_", " ").trim()
+            "$artist $title".trim()
+        },
+        postProcessTitle = { cleaned ->
+            if (cleaned.contains(" by ")) {
+                val titlePart = cleaned.substringBefore(" by ").trim()
+                val artistPart = cleaned.substringAfter(" by ").trim()
+                if (titlePart.isNotBlank() && artistPart.isNotBlank()) "$artistPart - $titlePart" else cleaned
+            } else {
+                cleaned
+            }
+        }
+    ),
+    MusicPlatform.IDAGIO to OgMetadataRule(
+        acceptLanguage = "en-US,en;q=0.9",
+        stripSuffixes = listOf(" on IDAGIO", " | IDAGIO", " - IDAGIO"),
+        rejectedTitles = setOf("idagio"),
+        slugRegex = Regex("idagio\\.com/(?:[a-z]{2}/)?(?:recordings|albums|tracks|profiles)/([a-zA-Z0-9_-]+)"),
+        rejectNumericSlug = true
+    ),
+    MusicPlatform.ANGHAMI to OgMetadataRule(
+        acceptLanguage = "en-US,en;q=0.9,ar;q=0.8",
+        stripSuffixes = listOf(" on Anghami", " | Anghami", " - Anghami"),
+        rejectedTitles = setOf("anghami"),
+        slugRegex = Regex("anghami\\.com/(?:song|album|playlist)/([a-zA-Z0-9_-]+)"),
+        rejectNumericSlug = true
+    )
+)
+
 /**
  * Extracts music metadata (track title, artist, playlist name) directly from streaming links.
  */
@@ -44,11 +102,7 @@ class MetadataExtractor(
     private val deezerResolver: DeezerResolver,
     private val youTubeMusicResolver: YouTubeMusicResolver,
     private val spotifyResolver: SpotifyResolver,
-    private val qobuzResolver: QobuzResolver,
-    private val beatportResolver: BeatportResolver,
-    private val audiomackResolver: AudiomackResolver,
-    private val idagioResolver: IdagioResolver,
-    private val anghamiResolver: AnghamiResolver = AnghamiResolver(client)
+    private val qobuzResolver: QobuzResolver
 ) {
     suspend fun extractTrackInfo(url: String): String? {
         return try {
@@ -145,10 +199,10 @@ class MetadataExtractor(
                     } else null
                 }
                 MusicPlatform.QOBUZ -> qobuzResolver.extractMetadata(url)
-                MusicPlatform.BEATPORT -> beatportResolver.extractMetadata(url)
-                MusicPlatform.AUDIOMACK -> audiomackResolver.extractMetadata(url)
-                MusicPlatform.IDAGIO -> idagioResolver.extractMetadata(url)
-                MusicPlatform.ANGHAMI -> anghamiResolver.extractMetadata(url)
+                MusicPlatform.BEATPORT,
+                MusicPlatform.AUDIOMACK,
+                MusicPlatform.IDAGIO,
+                MusicPlatform.ANGHAMI -> OG_METADATA_RULES[UrlUtils.detectPlatform(url)]?.let { extractOgMetadata(url, it) }
                 else -> {
                     if (url.contains("shazam.com")) {
                         val trackMatch = Regex("shazam\\.com/(?:[a-z]{2}(?:-[a-z]{2})?/)?track/([0-9]+)", RegexOption.IGNORE_CASE).find(url)
@@ -177,6 +231,48 @@ class MetadataExtractor(
             if (e is CancellationException) throw e
             null
         }
+    }
+
+    private suspend fun extractOgMetadata(url: String, rule: OgMetadataRule): String? {
+        return try {
+            val resp = client.get(url) {
+                header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+                header("Accept-Language", rule.acceptLanguage)
+            }
+            if (resp.status.isSuccess()) {
+                val html = resp.bodyAsText()
+                val titleMatch = if (rule.titleFirst) {
+                    HTML_TITLE_REGEX.find(html) ?: OG_TITLE_REGEX.find(html) ?: OG_TITLE_ALT_REGEX.find(html)
+                } else {
+                    OG_TITLE_REGEX.find(html) ?: OG_TITLE_ALT_REGEX.find(html) ?: HTML_TITLE_REGEX.find(html)
+                }
+                if (titleMatch != null) {
+                    var cleaned = titleMatch.groupValues[1]
+                        .replace("&amp;", "&")
+                        .replace("&#39;", "'")
+                        .replace("&quot;", "\"")
+                    for (suffix in rule.stripSuffixes) {
+                        cleaned = cleaned.substringBefore(suffix)
+                    }
+                    cleaned = rule.postProcessTitle(cleaned.trim())
+                    if (cleaned.isNotBlank() && cleaned.lowercase() !in rule.rejectedTitles) {
+                        return cleaned
+                    }
+                }
+            }
+            extractSlugFallback(url, rule)
+        } catch (e: Exception) {
+            if (e is CancellationException) throw e
+            extractSlugFallback(url, rule)
+        }
+    }
+
+    private fun extractSlugFallback(url: String, rule: OgMetadataRule): String? {
+        val match = rule.slugRegex.find(url) ?: return null
+        val slug = rule.formatSlug(match)
+        if (slug.isBlank()) return null
+        if (rule.rejectNumericSlug && slug.all { it.isDigit() }) return null
+        return slug
     }
 
     suspend fun extractArtistInfo(url: String): String? {

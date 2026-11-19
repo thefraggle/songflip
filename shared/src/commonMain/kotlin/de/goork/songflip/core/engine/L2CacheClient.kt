@@ -1,5 +1,7 @@
 package de.goork.songflip.core.engine
 
+import de.goork.songflip.core.engine.resilience.ResolutionOutcome
+import de.goork.songflip.core.engine.resolvers.PlatformResolver
 import de.goork.songflip.core.model.ResolutionResult
 import de.goork.songflip.core.util.SongFlipLogger
 import de.goork.songflip.core.util.UrlUtils
@@ -87,7 +89,7 @@ class L2CacheClient(
         targetPlatformKey: String,
         authToken: String,
         forceRefresh: Boolean = false,
-        resolveDirectPlatformUrl: suspend (query: String, platform: String, isAlbum: Boolean) -> String?
+        platformResolvers: Map<String, PlatformResolver> = emptyMap()
     ): ResolutionResult.Success? {
         if (authToken.isBlank()) return null
         val encodedUrl = canonicalUrl.encodeURLParameter()
@@ -139,11 +141,20 @@ class L2CacheClient(
                                         searchFallbackQuery
                                     }
                                     val cleanQuery = UrlUtils.cleanSearchQuery(candidateQuery)
-                                    resolveDirectPlatformUrl(
-                                        cleanQuery,
-                                        targetPlatformKey,
-                                        isAlbum
-                                    )
+                                    val resolver = platformResolvers[targetPlatformKey]
+                                    val outcome = when {
+                                        resolver == null -> null
+                                        isAlbum -> resolver.resolveAlbumDetailed(cleanQuery, audiophileMode = false)
+                                        else -> resolver.resolveTrackDetailed(cleanQuery, audiophileMode = false)
+                                    }
+                                    when (outcome) {
+                                        is ResolutionOutcome.Success -> outcome.data.takeIf { !UrlUtils.isSearchUrl(it) }
+                                        is ResolutionOutcome.RateLimited -> {
+                                            SongFlipLogger.w("L2CacheClient", "Direct upgrade rate-limited for $targetPlatformKey")
+                                            null
+                                        }
+                                        else -> null
+                                    }
                                 } else null
 
                                 val effectiveRawTarget = upgradedDirectUrl ?: rawTarget

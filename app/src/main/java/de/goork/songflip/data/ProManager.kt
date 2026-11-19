@@ -10,6 +10,12 @@ import com.revenuecat.purchases.interfaces.ReceiveOfferingsCallback
 import com.revenuecat.purchases.interfaces.SyncPurchasesCallback
 import com.revenuecat.purchases.interfaces.UpdatedCustomerInfoListener
 import com.revenuecat.purchases.models.StoreTransaction
+import de.goork.songflip.core.engine.CouponRedeemStatus
+import de.goork.songflip.core.engine.CouponRefreshStatus
+import de.goork.songflip.core.engine.EntitlementState
+import de.goork.songflip.core.engine.ProEntitlementStore
+import de.goork.songflip.core.engine.RevenueCatSnapshot
+import de.goork.songflip.core.engine.SecureKeyValuePort
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import kotlinx.coroutines.CoroutineScope
@@ -190,68 +196,77 @@ object ProManager {
         return id
     }
 
-    private const val RC_EXPIRY_GRACE_MS = 15 * 60 * 1000L
-
-    private fun verifyStoredCouponOffline(storedToken: String?, currentTimeMs: Long): de.goork.songflip.core.engine.VerifiedCouponPayload {
-        val primaryId = getAnonymousInstallId()
-        val primaryVerified = de.goork.songflip.core.engine.CouponService.shared.verifyCouponToken(
-            token = storedToken,
-            expectedInstallId = primaryId,
-            currentTimeMs = currentTimeMs,
-            lastSeenServerTimeMs = getLastSeenServerTime()
-        )
-        if (primaryVerified.valid) return primaryVerified
-
-        // Legacy fallback: before v1.8.18 (Oct 14), getAnonymousInstallId() used a random UUID
-        // stored in SharedPreferences("anonymous_install_id") before ANDROID_ID was prioritized.
-        // If the stored token was issued to that legacy UUID on this device, honor it seamlessly.
-        val legacyPrefsId = prefs?.getString(KEY_INSTALL_ID, null)?.trim()
-        if (!legacyPrefsId.isNullOrBlank() && legacyPrefsId != primaryId) {
-            val legacyVerified = de.goork.songflip.core.engine.CouponService.shared.verifyCouponToken(
-                token = storedToken,
-                expectedInstallId = legacyPrefsId,
-                currentTimeMs = currentTimeMs,
-                lastSeenServerTimeMs = getLastSeenServerTime()
-            )
-            if (legacyVerified.valid) return legacyVerified
-        }
-        return primaryVerified
+    private fun CouponRedeemStatus.toRedeemResult(): RedeemResult = when (this) {
+        CouponRedeemStatus.SUCCESS_LIFETIME -> RedeemResult.SUCCESS_LIFETIME
+        CouponRedeemStatus.SUCCESS_1YEAR -> RedeemResult.SUCCESS_1YEAR
+        CouponRedeemStatus.SUCCESS_3MONTHS -> RedeemResult.SUCCESS_3MONTHS
+        CouponRedeemStatus.SUCCESS_1MONTH -> RedeemResult.SUCCESS_1MONTH
+        CouponRedeemStatus.ALREADY_ACTIVE -> RedeemResult.ALREADY_ACTIVE
+        CouponRedeemStatus.ALREADY_REDEEMED -> RedeemResult.ALREADY_REDEEMED
+        CouponRedeemStatus.MAX_REACHED -> RedeemResult.MAX_REACHED
+        CouponRedeemStatus.INACTIVE -> RedeemResult.INACTIVE
+        CouponRedeemStatus.RATE_LIMITED -> RedeemResult.RATE_LIMITED
+        CouponRedeemStatus.INVALID -> RedeemResult.INVALID
+        CouponRedeemStatus.NETWORK_ERROR -> RedeemResult.NETWORK_ERROR
     }
 
-    fun getAuthToken(): String {
-        val current = _proState.value
-        if (current.isPro && current.proType.startsWith("revenuecat")) {
-            return getAppUserId()
-        }
-        val savedToken = getStoredCouponToken()
-        if (!savedToken.isNullOrBlank()) {
-            val verified = verifyStoredCouponOffline(
-                storedToken = savedToken,
-                currentTimeMs = System.currentTimeMillis()
-            )
-            if (verified.valid) {
-                return "coupon:$savedToken"
+    private fun EntitlementState.toProState(): ProState = ProState(
+        isPro = isPro,
+        proType = proType,
+        expirationDate = expirationDateMs
+    )
+
+    private fun ProState.toEntitlementState(): EntitlementState = EntitlementState(
+        isPro = isPro,
+        proType = proType,
+        expirationDateMs = expirationDate
+    )
+
+    private val secureStoragePort = object : SecureKeyValuePort {
+        override fun getString(key: String): String? {
+            val sp = prefs ?: return null
+            return when (key) {
+                KEY_COUPON_TOKEN, KEY_LAST_SEEN_SERVER_TIME -> decryptFromStorage(sp.getString(key, null))
+                KEY_RC_IS_PRO -> sp.getBoolean(key, false).toString()
+                KEY_RC_EXPIRATION, KEY_COUPON_EXPIRATION -> if (sp.contains(key)) sp.getLong(key, 0L).toString() else null
+                else -> sp.getString(key, null)
             }
         }
-        return getAppUserId()
+
+        override fun putString(key: String, value: String) {
+            val sp = prefs ?: return
+            val editor = sp.edit()
+            when (key) {
+                KEY_COUPON_TOKEN, KEY_LAST_SEEN_SERVER_TIME -> editor.putString(key, encryptForStorage(value))
+                KEY_RC_IS_PRO -> editor.putBoolean(key, value == "true")
+                KEY_RC_EXPIRATION, KEY_COUPON_EXPIRATION -> editor.putLong(key, value.toLongOrNull() ?: 0L)
+                else -> editor.putString(key, value)
+            }
+            editor.apply()
+        }
+
+        override fun remove(key: String) {
+            prefs?.edit()?.remove(key)?.apply()
+        }
     }
 
-    fun hydrateLocalProState(): ProState {
-        val cachedRcPro = prefs?.getBoolean(KEY_RC_IS_PRO, false) ?: false
-        val cachedRcType = prefs?.getString(KEY_RC_TYPE, "revenuecat_subscription") ?: "revenuecat_subscription"
-        val cachedRcExp = prefs?.getLong(KEY_RC_EXPIRATION, 0L) ?: 0L
-        val isLifetime = cachedRcType == "revenuecat_lifetime"
-        val isExpired = !isLifetime && cachedRcExp > 0L && (cachedRcExp + RC_EXPIRY_GRACE_MS) <= System.currentTimeMillis()
-
-        return if (cachedRcPro && !isExpired) {
-            evaluateProState(
-                revenueCatActive = true,
-                rcExpirationMillis = if (isLifetime) null else cachedRcExp,
-                rcIsLifetime = isLifetime
+    private val entitlementStore = ProEntitlementStore(
+        storage = secureStoragePort,
+        installIdsProvider = {
+            listOfNotNull(
+                getAnonymousInstallId(),
+                prefs?.getString(KEY_INSTALL_ID, null)?.trim()
             )
-        } else {
-            evaluateProState(revenueCatActive = false)
-        }
+        },
+        rcAppUserIdProvider = { getAppUserId() }
+    )
+
+    fun getAuthToken(): String = entitlementStore.resolveAuthToken(_proState.value.toEntitlementState())
+
+    fun hydrateLocalProState(): ProState {
+        val state = entitlementStore.hydrateFromCache().toProState()
+        _proState.value = state
+        return state
     }
 
     fun init(context: Context) {
@@ -307,7 +322,7 @@ object ProManager {
                     val current = _proState.value
                     if (current.isPro && current.proType.startsWith("revenuecat")) {
                         val exp = current.expirationDate
-                        if (exp == null || (exp + RC_EXPIRY_GRACE_MS) > System.currentTimeMillis()) {
+                        if (exp == null || (exp + ProEntitlementStore.RC_EXPIRY_GRACE_MS) > System.currentTimeMillis()) {
                             return
                         }
                     }
@@ -344,55 +359,16 @@ object ProManager {
         rcIsLifetime: Boolean = false,
         isExplicitRcCheck: Boolean = false
     ): ProState {
-        val sp = prefs
-        val now = System.currentTimeMillis()
-        val storedToken = getStoredCouponToken()
-        val verified = verifyStoredCouponOffline(
-            storedToken = storedToken,
-            currentTimeMs = now
-        )
-        val issuedAt = verified.issuedAtTimestamp
-        if (verified.valid && issuedAt != null) {
-            updateLastSeenServerTime(issuedAt)
-        }
-
-        if (revenueCatActive) {
-            sp?.edit()
-                ?.putBoolean(KEY_RC_IS_PRO, true)
-                ?.putString(KEY_RC_TYPE, if (rcIsLifetime) "revenuecat_lifetime" else "revenuecat_subscription")
-                ?.putLong(KEY_RC_EXPIRATION, rcExpirationMillis ?: 0L)
-                ?.apply()
-        } else if (isExplicitRcCheck) {
-            sp?.edit()
-                ?.putBoolean(KEY_RC_IS_PRO, false)
-                ?.remove(KEY_RC_EXPIRATION)
-                ?.apply()
-        }
-
-        val newState = when {
-            revenueCatActive -> ProState(
-                isPro = true,
-                proType = if (rcIsLifetime) "revenuecat_lifetime" else "revenuecat_subscription",
-                expirationDate = if (rcIsLifetime) null else rcExpirationMillis
+        val snapshot = if (revenueCatActive) {
+            RevenueCatSnapshot(
+                active = true,
+                expirationMs = rcExpirationMillis,
+                isLifetime = rcIsLifetime
             )
-            verified.valid && verified.type == "lifetime" -> ProState(
-                isPro = true,
-                proType = "lifetime_coupon"
-            )
-            verified.valid -> {
-                val labelType = sp?.getString(KEY_COUPON_TYPE, null)
-                    ?.takeIf { it.isNotBlank() && it != "lifetime" }
-                    ?: verified.type
-                val normalizedType = if (labelType.endsWith("_coupon")) labelType else "${labelType}_coupon"
-                ProState(
-                    isPro = true,
-                    proType = normalizedType,
-                    expirationDate = verified.expirationTimestamp
-                )
-            }
-            else -> ProState(isPro = false)
+        } else {
+            null
         }
-
+        val newState = entitlementStore.evaluate(snapshot, isExplicitRcCheck).toProState()
         _proState.value = newState
         return newState
     }
@@ -409,49 +385,24 @@ object ProManager {
      */
     internal suspend fun migrateStoredCouponTokenIfNeeded() {
         if (isAutomatedTestEnv || !tokenMigrationAttempted.compareAndSet(false, true)) return
-        val sp = prefs ?: return
-        val storedToken = getStoredCouponToken() ?: return
-        val verified = verifyStoredCouponOffline(storedToken, System.currentTimeMillis())
-        val couponService = de.goork.songflip.core.engine.CouponService.shared
-        if (!couponService.needsTokenMigration(verified)) return
-
-        val outcome = couponService.refreshCouponToken(
-            token = storedToken,
-            installId = verified.installId,
+        if (prefs == null) return
+        val result = entitlementStore.migrateStoredCouponTokenIfNeeded(
+            currentState = _proState.value.toEntitlementState(),
             customEndpoints = testBaseUrl?.let { listOf("$it/redeemPromoCode") }
-        )
-        when (outcome.status) {
-            de.goork.songflip.core.engine.CouponRefreshStatus.UPGRADED -> {
-                val editor = sp.edit()
-                saveStoredCouponToken(editor, outcome.token)
-                editor.apply()
-                outcome.issuedAtTimestamp?.let { updateLastSeenServerTime(it) }
-                reevaluateKeepingRevenueCat()
-                migrationLogger("Coupon token migrated to current signing key")
-            }
-            de.goork.songflip.core.engine.CouponRefreshStatus.REVOKED -> {
-                sp.edit()
-                    .remove(KEY_COUPON_TOKEN)
-                    .remove(KEY_COUPON_TYPE)
-                    .remove(KEY_COUPON_CODE)
-                    .remove(KEY_COUPON_EXPIRATION)
-                    .apply()
-                reevaluateKeepingRevenueCat()
-                migrationLogger("Stored coupon token rejected by server (invalid signature) – removed")
-            }
-            else -> migrationLogger("Coupon token migration skipped: ${outcome.status}")
+        ) ?: return
+
+        val (status, updatedState) = result
+        _proState.value = updatedState.toProState()
+        when (status) {
+            CouponRefreshStatus.UPGRADED -> migrationLogger("Coupon token migrated to current signing key")
+            CouponRefreshStatus.REVOKED -> migrationLogger("Stored coupon token rejected by server (invalid signature) – removed")
+            else -> migrationLogger("Coupon token migration skipped: $status")
         }
     }
 
     /** Re-evaluates coupon state without dropping an active RevenueCat entitlement from memory. */
     private fun reevaluateKeepingRevenueCat() {
-        val current = _proState.value
-        val rcActive = current.isPro && current.proType.startsWith("revenuecat")
-        evaluateProState(
-            revenueCatActive = rcActive,
-            rcExpirationMillis = if (rcActive) current.expirationDate else null,
-            rcIsLifetime = current.proType == "revenuecat_lifetime"
-        )
+        _proState.value = entitlementStore.reevaluateKeepingRevenueCat(_proState.value.toEntitlementState()).toProState()
     }
 
     fun trackPaywallImpression() {
@@ -630,72 +581,24 @@ object ProManager {
     }
 
     suspend fun redeemCoupon(code: String): RedeemResult = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
-        val cleanCode = extractCouponCode(code)
-        if (cleanCode.isEmpty()) return@withContext RedeemResult.INVALID
-
-        val sp = prefs ?: return@withContext RedeemResult.INVALID
-        val installId = getAnonymousInstallId()
+        if (prefs == null) return@withContext RedeemResult.INVALID
         val endpoints = testBaseUrl?.let { listOf("$it/redeemPromoCode") }
-
-        val outcome = de.goork.songflip.core.engine.CouponService.shared.redeemCoupon(
-            rawCode = cleanCode,
-            installId = installId,
+        val outcome = entitlementStore.redeemCoupon(
+            rawCode = code,
+            currentState = _proState.value.toEntitlementState(),
             customEndpoints = endpoints
         )
-
-        val mappedStatus = when (outcome.status) {
-            de.goork.songflip.core.engine.CouponRedeemStatus.SUCCESS_LIFETIME -> {
-                if (_proState.value.isPro && _proState.value.proType == "lifetime_coupon") {
-                    return@withContext RedeemResult.ALREADY_ACTIVE
-                }
-                updateLastSeenServerTime(outcome.issuedAtTimestamp ?: System.currentTimeMillis())
-                val editor = sp.edit()
-                    .putString(KEY_COUPON_TYPE, "lifetime")
-                    .putString(KEY_COUPON_CODE, cleanCode)
-                    .remove(KEY_COUPON_EXPIRATION)
-                saveStoredCouponToken(editor, outcome.token)
-                editor.apply()
-                reevaluateKeepingRevenueCat()
-                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemedSuccess(cleanCode)
-                RedeemResult.SUCCESS_LIFETIME
-            }
-            de.goork.songflip.core.engine.CouponRedeemStatus.SUCCESS_1YEAR,
-            de.goork.songflip.core.engine.CouponRedeemStatus.SUCCESS_3MONTHS,
-            de.goork.songflip.core.engine.CouponRedeemStatus.SUCCESS_1MONTH -> {
-                updateLastSeenServerTime(outcome.issuedAtTimestamp ?: System.currentTimeMillis())
-                val type = outcome.type.ifBlank { "1month" }
-                val durationDays = when (type) {
-                    "1year", "annual" -> 365L
-                    "3months" -> 90L
-                    "1week" -> 7L
-                    else -> 30L
-                }
-                val expireTime = outcome.expirationTimestamp
-                    ?: (System.currentTimeMillis() + durationDays * 24 * 60 * 60 * 1000L)
-                val editor = sp.edit()
-                    .putString(KEY_COUPON_TYPE, type)
-                    .putString(KEY_COUPON_CODE, cleanCode)
-                    .putLong(KEY_COUPON_EXPIRATION, expireTime)
-                saveStoredCouponToken(editor, outcome.token)
-                editor.apply()
-                reevaluateKeepingRevenueCat()
-                de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemedSuccess(cleanCode)
-                when (outcome.status) {
-                    de.goork.songflip.core.engine.CouponRedeemStatus.SUCCESS_1YEAR -> RedeemResult.SUCCESS_1YEAR
-                    de.goork.songflip.core.engine.CouponRedeemStatus.SUCCESS_3MONTHS -> RedeemResult.SUCCESS_3MONTHS
-                    else -> RedeemResult.SUCCESS_1MONTH
-                }
-            }
-            de.goork.songflip.core.engine.CouponRedeemStatus.ALREADY_ACTIVE -> RedeemResult.ALREADY_ACTIVE
-            de.goork.songflip.core.engine.CouponRedeemStatus.ALREADY_REDEEMED -> RedeemResult.ALREADY_REDEEMED
-            de.goork.songflip.core.engine.CouponRedeemStatus.MAX_REACHED -> RedeemResult.MAX_REACHED
-            de.goork.songflip.core.engine.CouponRedeemStatus.INACTIVE -> RedeemResult.INACTIVE
-            de.goork.songflip.core.engine.CouponRedeemStatus.RATE_LIMITED -> RedeemResult.RATE_LIMITED
-            de.goork.songflip.core.engine.CouponRedeemStatus.INVALID -> RedeemResult.INVALID
-            de.goork.songflip.core.engine.CouponRedeemStatus.NETWORK_ERROR -> RedeemResult.NETWORK_ERROR
+        _proState.value = outcome.newState.toProState()
+        if (outcome.status in setOf(
+                CouponRedeemStatus.SUCCESS_LIFETIME,
+                CouponRedeemStatus.SUCCESS_1YEAR,
+                CouponRedeemStatus.SUCCESS_3MONTHS,
+                CouponRedeemStatus.SUCCESS_1MONTH
+            )
+        ) {
+            de.goork.songflip.core.analytics.AptabaseClient.shared.trackPromoRedeemedSuccess(outcome.cleanCode)
         }
-
-        return@withContext mappedStatus
+        return@withContext outcome.status.toRedeemResult()
     }
 
     fun hashUrl(rawUrl: String): String {

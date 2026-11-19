@@ -38,54 +38,7 @@ struct ConvertSongIntent: AppIntent {
     @Parameter(title: LocalizedStringResource("intent_param_music_link", defaultValue: "Music Link"))
     var inputUrl: String?
 
-    private func ensureAptabaseInitialized() {
-        if AptabaseClient.shared.isInitialized { return }
-        let isDebug: Bool = {
-            #if DEBUG
-            return true
-            #else
-            return false
-            #endif
-        }()
-        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "unknown"
-        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
-        let osVersion = UIDevice.current.systemVersion
-        let locale = Locale.current.identifier
-
-        let aptabaseKey = Bundle.main.infoDictionary?["APTABASE_APP_KEY"] as? String ?? ""
-        let rawHost = (Bundle.main.infoDictionary?["APTABASE_HOST"] as? String)?
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-            .replacingOccurrences(of: "\\/", with: "/") ?? ""
-        let aptabaseHost: String
-        if rawHost.hasPrefix("https://") || rawHost.hasPrefix("http://") {
-            aptabaseHost = rawHost
-        } else if rawHost == "https:" || rawHost == "http:" || rawHost.hasPrefix("$(") || rawHost.isEmpty {
-            aptabaseHost = "https://api.aptabase.com"
-        } else {
-            aptabaseHost = rawHost
-        }
-
-        #if DEBUG
-        if aptabaseKey.isEmpty {
-            Self.logger.error("[AppIntent] APTABASE_APP_KEY missing in Info.plist! Check Config.xcconfig")
-        }
-        #endif
-
-        AptabaseClient.shared.doInit(
-            appKey: aptabaseKey,
-            host: aptabaseHost,
-            osName: "iOS",
-            osVersion: osVersion,
-            locale: locale,
-            appVersion: appVersion,
-            appBuildNumber: buildNumber,
-            isDebug: isDebug
-        )
-    }
-
     func perform() async throws -> some IntentResult {
-        ensureAptabaseInitialized()
-
         let urlToConvert: String
         let rawSource: String
         if let input = inputUrl?.trimmingCharacters(in: .whitespacesAndNewlines), !input.isEmpty {
@@ -97,44 +50,13 @@ struct ConvertSongIntent: AppIntent {
         }
         urlToConvert = UrlUtils.shared.extractCleanUrl(rawInput: rawSource) ?? rawSource
 
-        let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
-        let rawTarget = defaults.string(forKey: "target_platform") ?? "appleMusic"
-        let targetPlatform = PlatformChoice(rawValue: rawTarget) != nil ? rawTarget : "appleMusic"
-        let customUrl = defaults.string(forKey: "custom_api_url") ?? ""
-        let customToken = defaults.string(forKey: "custom_api_token") ?? ""
+        let outcome = await FlipCoordinator.shared.executeFlip(
+            FlipExecutionRequest(inputUrl: urlToConvert)
+        )
 
-        let isProCached = ProManager.isProActive(defaults: defaults)
-        let audiophileMode = isProCached && defaults.bool(forKey: "audiophile_mode")
-
-        let engine = SongLinkEngine.shared
-        let res: ResolutionResult
-        var bridgeErrorDetail: String? = nil
-        do {
-            res = try await engine.resolveTargetUrl(
-                inputUrl: urlToConvert,
-                targetPlatformKey: targetPlatform,
-                customApiUrl: customUrl,
-                customApiToken: customToken,
-                isPro: isProCached,
-                authToken: isProCached ? (defaults.string(forKey: "pro_auth_token") ?? "") : "",
-                isPrefetch: false,
-                forceRefresh: false,
-                audiophileMode: audiophileMode
-            )
-        } catch {
-            Self.logger.error("[AppIntent] Resolution threw error: \(error.localizedDescription)")
-            let errInfo = FlipCoordinator.mapError(error)
-            bridgeErrorDetail = errInfo.detail
-            res = ResolutionResult.Error(message: errInfo.reason, isUnsupported: false, errorReason: errInfo.errorReason)
-        }
-
-        let action = FlipCoordinator.resolveAction(result: res, targetPlatform: targetPlatform)
-        FlipCoordinator.trackAction(action, inputUrl: urlToConvert, targetPlatform: targetPlatform, errorDetail: bridgeErrorDetail)
-
-        switch action {
-        case .openResolved(let targetUrl, let nativeAppUri, let platformKey, let title, let artist, let isAlbum, _, _, let thumb):
-            FlipCoordinator.incrementSuccessfulFlipCount(defaults: defaults)
-            _ = try? await engine.cache.addHistoryEntry(
+        switch outcome.action {
+        case .openResolved(let targetUrl, _, let platformKey, let title, let artist, let isAlbum, _, _, let thumb):
+            _ = try? await SongLinkEngine.shared.cache.addHistoryEntry(
                 sourceUrl: urlToConvert,
                 targetPlatformKey: platformKey,
                 targetUrl: targetUrl,
@@ -149,20 +71,11 @@ struct ConvertSongIntent: AppIntent {
                 HistoryModel.shared.loadHistory()
             }
 
-            let urls = FlipCoordinator.computeLaunchUrls(
-                targetUrl: targetUrl,
-                nativeAppUri: nativeAppUri,
-                platformKey: platformKey,
-                title: title,
-                artist: artist,
-                defaults: defaults
-            )
-
             var opened = false
-            if let primaryUrl = urls.primaryUrl {
+            if let primaryUrl = outcome.primaryUrl {
                 opened = await UIApplication.shared.open(primaryUrl)
             }
-            if !opened, let fallbackUrl = urls.fallbackUrl {
+            if !opened, let fallbackUrl = outcome.fallbackUrl {
                 await UIApplication.shared.open(fallbackUrl)
             }
             _ = try? await AptabaseClient.shared.flush(timeoutMs: 1500)

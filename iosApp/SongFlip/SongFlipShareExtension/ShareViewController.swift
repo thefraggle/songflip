@@ -534,36 +534,18 @@ class ShareViewController: UIViewController {
         customUrl: String,
         customToken: String
     ) {
-        ensureAptabaseInitialized()
         Task {
-            let defaults = UserDefaults(suiteName: "group.de.goork.songflip") ?? UserDefaults.standard
-            let isProCached = isProActive(defaults: defaults)
-            let audiophileMode = isProCached && defaults.bool(forKey: "audiophile_mode")
-            let result: ResolutionResult
-            var bridgeErrorDetail: String? = nil
-            do {
-                result = try await engine.resolveTargetUrl(
+            let outcome = await FlipCoordinator.shared.executeFlip(
+                FlipExecutionRequest(
                     inputUrl: inputUrl,
-                    targetPlatformKey: targetPlatform,
-                    customApiUrl: customUrl,
-                    customApiToken: customToken,
-                    isPro: isProCached,
-                    authToken: isProCached ? (defaults.string(forKey: "pro_auth_token") ?? "") : "",
-                    isPrefetch: false,
-                    forceRefresh: false,
-                    audiophileMode: audiophileMode
+                    targetPlatformOverride: targetPlatform,
+                    customApiUrlOverride: customUrl,
+                    customApiTokenOverride: customToken
                 )
-            } catch {
-                Self.logger.error("[ShareExtension] Resolution threw error: \(error.localizedDescription)")
-                let errInfo = FlipCoordinator.mapError(error)
-                bridgeErrorDetail = errInfo.detail
-                result = ResolutionResult.Error(message: errInfo.reason, isUnsupported: false, errorReason: errInfo.errorReason)
-            }
-
-            let action = FlipCoordinator.resolveAction(result: result, targetPlatform: targetPlatform)
+            )
+            let action = outcome.action
 
             if case .openResolved(let targetUrl, _, let platformKey, let title, let artist, let isAlbum, _, _, let thumb) = action {
-                FlipCoordinator.incrementSuccessfulFlipCount(defaults: defaults)
                 _ = try? await self.engine.cache.addHistoryEntry(
                     sourceUrl: inputUrl,
                     targetPlatformKey: platformKey,
@@ -581,24 +563,14 @@ class ShareViewController: UIViewController {
                 self.delayTimer?.cancel()
                 self.delayTimer = nil
 
-                FlipCoordinator.trackAction(action, inputUrl: inputUrl, targetPlatform: targetPlatform, errorDetail: bridgeErrorDetail)
-
                 switch action {
-                case .openResolved(let targetUrl, let nativeAppUri, let platformKey, let title, let artist, _, _, _, _):
+                case .openResolved(let targetUrl, _, _, let title, _, _, _, _, _):
                     if let title = title {
                         self.statusLabel.text = "🎵 \(title)"
                     }
-                    let urls = FlipCoordinator.computeLaunchUrls(
-                        targetUrl: targetUrl,
-                        nativeAppUri: nativeAppUri,
-                        platformKey: platformKey,
-                        title: title,
-                        artist: artist,
-                        defaults: defaults
-                    )
                     self.openApp(
-                        urlString: urls.primaryUrl?.absoluteString ?? targetUrl,
-                        fallbackUrlString: urls.fallbackUrl?.absoluteString
+                        urlString: outcome.primaryUrl?.absoluteString ?? targetUrl,
+                        fallbackUrlString: outcome.fallbackUrl?.absoluteString
                     )
 
                 case .openPodcast(let targetUrl, let nativeAppUri, _):

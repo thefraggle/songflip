@@ -402,5 +402,46 @@ class SongLinkEngineTest {
         val resolved = engine.resolveCanonicalUrl("https://link.deezer.com/s/319MrRotHC7J6de6Ziseq")
         assertEquals("https://www.deezer.com/track/590411542", resolved)
     }
+
+    @Test
+    fun testExtractTrackInfoForMetadataScrapedPlatforms() = runTest {
+        val mockEngine = MockEngine { request ->
+            val url = request.url.toString()
+            when {
+                url.contains("anghami.com/song/123") -> respond(
+                    content = """<html><head><meta property="og:title" content="Midnight City &amp; Friends on Anghami"/></head></html>""",
+                    status = HttpStatusCode.OK,
+                    headers = headersOf(HttpHeaders.ContentType, "text/html")
+                )
+                url.contains("idagio.com") -> respond(
+                    content = """<html><head><meta property="og:title" content="Symphony No. 9 | IDAGIO"/></head></html>""",
+                    status = HttpStatusCode.OK,
+                    headers = headersOf(HttpHeaders.ContentType, "text/html")
+                )
+                url.contains("beatport.com") -> respond(
+                    content = """<html><head><meta property="og:title" content="Strobe [Mau5trap] | Music &amp; Downloads on Beatport"/></head></html>""",
+                    status = HttpStatusCode.OK,
+                    headers = headersOf(HttpHeaders.ContentType, "text/html")
+                )
+                url.contains("audiomack.com/artist-one/song/cool-track") -> respond(
+                    content = """<html><head><title>Cool Track by Artist One: Listen on Audiomack</title></head></html>""",
+                    status = HttpStatusCode.OK,
+                    headers = headersOf(HttpHeaders.ContentType, "text/html")
+                )
+                url.contains("anghami.com/song/summer-breeze") -> respond(
+                    content = "",
+                    status = HttpStatusCode.InternalServerError
+                )
+                else -> respond("", status = HttpStatusCode.NotFound)
+            }
+        }
+
+        val engine = SongLinkEngine(client = HttpClient(mockEngine), cache = LinkCache())
+        assertEquals("Midnight City & Friends", engine.extractTrackInfo("https://play.anghami.com/song/123"))
+        assertEquals("Symphony No. 9", engine.extractTrackInfo("https://app.idagio.com/recordings/123"))
+        assertEquals("Strobe", engine.extractTrackInfo("https://www.beatport.com/track/strobe/12345"))
+        assertEquals("Artist One - Cool Track", engine.extractTrackInfo("https://audiomack.com/artist-one/song/cool-track"))
+        assertEquals("summer breeze", engine.extractTrackInfo("https://play.anghami.com/song/summer-breeze"))
+    }
 }
 

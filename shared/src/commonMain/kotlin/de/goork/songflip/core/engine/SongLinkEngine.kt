@@ -3,14 +3,13 @@ package de.goork.songflip.core.engine
 import de.goork.songflip.core.analytics.getSystemCountryCode
 import de.goork.songflip.core.cache.LinkCache
 import de.goork.songflip.core.cache.createDefaultCacheStorage
+import de.goork.songflip.core.engine.resilience.ResolutionOutcome
 import de.goork.songflip.core.engine.resolvers.AppleMusicResolver
-import de.goork.songflip.core.engine.resolvers.AudiomackResolver
-import de.goork.songflip.core.engine.resolvers.BeatportResolver
 import de.goork.songflip.core.engine.resolvers.DeezerResolver
-import de.goork.songflip.core.engine.resolvers.IdagioResolver
 import de.goork.songflip.core.engine.resolvers.PlatformResolver
 import de.goork.songflip.core.engine.resolvers.QobuzResolver
 import de.goork.songflip.core.engine.resolvers.SongLinkApiResolver
+import de.goork.songflip.core.engine.resolvers.SoundCloudResolver
 import de.goork.songflip.core.engine.resolvers.SpotifyResolver
 import de.goork.songflip.core.engine.resolvers.TidalResolver
 import de.goork.songflip.core.engine.resolvers.YouTubeMusicResolver
@@ -68,61 +67,42 @@ class SongLinkEngine(
     }
 
     // Platform Resolver Strategies
-    val appleMusicResolver = AppleMusicResolver(client, json, countryCodeProvider = { getSystemCountryCode() })
-    val deezerResolver = DeezerResolver(client, json)
-    val tidalResolver = TidalResolver(client, json, countryCodeProvider = { getSystemCountryCode() })
-    val youTubeMusicResolver = YouTubeMusicResolver(client)
-    val spotifyResolver = SpotifyResolver(client, json)
-    val songLinkApiResolver = SongLinkApiResolver(client, json)
-    val qobuzResolver = QobuzResolver(client, json)
-    val beatportResolver = BeatportResolver(client)
-    val audiomackResolver = AudiomackResolver(client)
-    val idagioResolver = IdagioResolver(client)
-    val anghamiResolver = de.goork.songflip.core.engine.resolvers.AnghamiResolver(client)
-    val soundCloudResolver = de.goork.songflip.core.engine.resolvers.SoundCloudResolver(client)
+    private val appleMusicResolver = AppleMusicResolver(client, json, countryCodeProvider = { getSystemCountryCode() })
+    private val deezerResolver = DeezerResolver(client, json)
+    private val tidalResolver = TidalResolver(client, json, countryCodeProvider = { getSystemCountryCode() })
+    private val youTubeMusicResolver = YouTubeMusicResolver(client)
+    private val spotifyResolver = SpotifyResolver(client, json)
+    private val songLinkApiResolver = SongLinkApiResolver(client, json)
+    private val qobuzResolver = QobuzResolver(client, json)
+    private val soundCloudResolver = SoundCloudResolver(client)
 
-    val metadataExtractor = MetadataExtractor(
+    private val platformResolvers: Map<String, PlatformResolver> = mapOf(
+        "youtubeMusic" to youTubeMusicResolver,
+        "appleMusic" to appleMusicResolver,
+        "deezer" to deezerResolver,
+        "tidal" to tidalResolver,
+        "spotify" to spotifyResolver,
+        "qobuz" to qobuzResolver,
+        "soundcloud" to soundCloudResolver
+    )
+
+    private val metadataExtractor = MetadataExtractor(
         client = client,
         json = json,
         appleMusicResolver = appleMusicResolver,
         deezerResolver = deezerResolver,
         youTubeMusicResolver = youTubeMusicResolver,
         spotifyResolver = spotifyResolver,
-        qobuzResolver = qobuzResolver,
-        beatportResolver = beatportResolver,
-        audiomackResolver = audiomackResolver,
-        idagioResolver = idagioResolver,
-        anghamiResolver = anghamiResolver
+        qobuzResolver = qobuzResolver
     )
 
-    val shortLinkResolver = ShortLinkResolver(client) { metadataExtractor.resolveShazamToAppleMusic(it) }
+    private val shortLinkResolver = ShortLinkResolver(client) { metadataExtractor.resolveShazamToAppleMusic(it) }
 
     private val backgroundScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
-    val l2CacheClient = L2CacheClient(client, json, backgroundScope)
+    private val l2CacheClient = L2CacheClient(client, json, backgroundScope)
 
-    val podcastResolver = PodcastResolver(client, json, cache)
-
-    private fun cacheResolvedShortLink(sourceUrl: String, resolvedUrl: String): String =
-        shortLinkResolver.cacheResolvedShortLink(sourceUrl, resolvedUrl)
-
-    private fun pingCacheIngestAsync(
-        originalUrl: String,
-        targetUrl: String,
-        targetPlatform: String,
-        title: String?,
-        artist: String?,
-        isAlbum: Boolean,
-        links: Map<String, String>? = null
-    ) = l2CacheClient.pingCacheIngestAsync(
-        originalUrl = originalUrl,
-        targetUrl = targetUrl,
-        targetPlatform = targetPlatform,
-        title = title,
-        artist = artist,
-        isAlbum = isAlbum,
-        links = links
-    )
+    private val podcastResolver = PodcastResolver(client, json, cache)
 
     suspend fun resolveTargetUrl(
         inputUrl: String,
@@ -243,10 +223,9 @@ class SongLinkEngine(
         canonicalUrl = canonicalUrl,
         targetPlatformKey = targetPlatformKey,
         authToken = authToken,
-        forceRefresh = forceRefresh
-    ) { query, platform, isAlbum ->
-        resolveDirectPlatformUrl(query, platform, isAlbum)
-    }
+        forceRefresh = forceRefresh,
+        platformResolvers = platformResolvers
+    )
 
     suspend fun resolveTargetUrl(
         inputUrl: String,
@@ -322,7 +301,7 @@ class SongLinkEngine(
 
             // Dynamic Podcast Resolution (Issue #31)
             if (UrlUtils.isPodcastUrl(canonicalUrl)) {
-                return resolvePodcast(canonicalUrl, targetPlatformKey, isPrefetch, forceRefresh)
+                return podcastResolver.resolvePodcast(canonicalUrl, targetPlatformKey, isPrefetch, forceRefresh)
             }
 
             // Social & Session links (Spotify Blend, Jam, Live, User profile) cannot be converted 1:1
@@ -442,7 +421,7 @@ class SongLinkEngine(
                         thumbnailUrl = songLinkData.thumbnailUrl
                     )
                     cache.put(canonicalUrl, targetPlatformKey, result, now, isHistory = !isPrefetch)
-                    pingCacheIngestAsync(
+                    l2CacheClient.pingCacheIngestAsync(
                         originalUrl = canonicalUrl,
                         targetUrl = finalTargetUrl,
                         targetPlatform = result.platform,
@@ -499,7 +478,7 @@ class SongLinkEngine(
                                 thumbnailUrl = songLinkData.thumbnailUrl
                             )
                             cache.put(canonicalUrl, targetPlatformKey, result, now, isHistory = !isPrefetch)
-                            pingCacheIngestAsync(
+                            l2CacheClient.pingCacheIngestAsync(
                                 originalUrl = canonicalUrl,
                                 targetUrl = resolvedDirectUrl,
                                 targetPlatform = targetPlatformKey,
@@ -524,7 +503,7 @@ class SongLinkEngine(
                         thumbnailUrl = songLinkData.thumbnailUrl
                     )
                     cache.put(canonicalUrl, targetPlatformKey, result, now, isHistory = !isPrefetch)
-                    pingCacheIngestAsync(
+                    l2CacheClient.pingCacheIngestAsync(
                         originalUrl = canonicalUrl,
                         targetUrl = formatted,
                         targetPlatform = targetPlatformKey,
@@ -570,7 +549,7 @@ class SongLinkEngine(
                         thumbnailUrl = songLinkData.thumbnailUrl
                     )
                     cache.put(canonicalUrl, targetPlatformKey, result, now, isHistory = !isPrefetch)
-                    pingCacheIngestAsync(
+                    l2CacheClient.pingCacheIngestAsync(
                         originalUrl = canonicalUrl,
                         targetUrl = finalTargetUrl,
                         targetPlatform = result.platform,
@@ -771,34 +750,24 @@ class SongLinkEngine(
         audiophileMode: Boolean = false
     ): String? {
         val cleanQuery = UrlUtils.cleanSearchQuery(query)
-        val resolver: PlatformResolver? = when (targetPlatformKey) {
-            "youtubeMusic" -> youTubeMusicResolver
-            "appleMusic" -> appleMusicResolver
-            "deezer" -> deezerResolver
-            "tidal" -> tidalResolver
-            "spotify" -> spotifyResolver
-            "qobuz" -> qobuzResolver
-            "soundcloud" -> soundCloudResolver
-            else -> null
-        }
-        val directMatch = if (isAlbum) {
-            resolver?.resolveAlbum(cleanQuery, audiophileMode)
+        val resolver = platformResolvers[targetPlatformKey] ?: return null
+        val outcome = if (isAlbum) {
+            resolver.resolveAlbumDetailed(cleanQuery, audiophileMode)
         } else {
-            resolver?.resolveTrack(cleanQuery, audiophileMode)
+            resolver.resolveTrackDetailed(cleanQuery, audiophileMode)
         }
-        return directMatch?.takeIf { !UrlUtils.isSearchUrl(it) }
+        return when (outcome) {
+            is ResolutionOutcome.Success -> outcome.data.takeIf { !UrlUtils.isSearchUrl(it) }
+            is ResolutionOutcome.RateLimited -> {
+                SongFlipLogger.w("SongLinkEngine", "Direct platform lookup rate-limited for $targetPlatformKey")
+                null
+            }
+            is ResolutionOutcome.NotFound, is ResolutionOutcome.Error -> null
+        }
     }
 
-    private suspend fun resolveDirectArtistUrl(artistName: String, targetPlatformKey: String): String? {
-        return when (targetPlatformKey) {
-            "deezer" -> deezerResolver.resolveArtist(artistName)
-            "appleMusic" -> appleMusicResolver.resolveArtist(artistName)
-            "youtubeMusic" -> youTubeMusicResolver.resolveArtist(artistName)
-            "tidal" -> tidalResolver.resolveArtist(artistName)
-            "qobuz" -> qobuzResolver.resolveArtist(artistName)
-            else -> null
-        }
-    }
+    private suspend fun resolveDirectArtistUrl(artistName: String, targetPlatformKey: String): String? =
+        platformResolvers[targetPlatformKey]?.resolveArtist(artistName)
 
 
     suspend fun extractTrackInfo(url: String): String? = metadataExtractor.extractTrackInfo(url)
@@ -838,16 +807,4 @@ class SongLinkEngine(
             null
         }
     }
-
-    suspend fun resolvePodcast(
-        canonicalUrl: String,
-        targetPlatformKey: String,
-        isPrefetch: Boolean = false,
-        forceRefresh: Boolean = false
-    ): ResolutionResult.Podcast = podcastResolver.resolvePodcast(
-        canonicalUrl = canonicalUrl,
-        targetPlatformKey = targetPlatformKey,
-        isPrefetch = isPrefetch,
-        forceRefresh = forceRefresh
-    )
 }
