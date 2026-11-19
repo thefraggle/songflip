@@ -27,6 +27,11 @@ data class RedeemEntitlementOutcome(
     val newState: EntitlementState
 )
 
+data class CouponMigrationResult(
+    val status: CouponRefreshStatus,
+    val newState: EntitlementState
+)
+
 /**
  * Deep KMP module owning cross-platform Pro entitlement precedence, 15-minute RC grace window,
  * monotonic anti-rollback server timestamps, coupon redemption persistence, and authToken derivation.
@@ -244,7 +249,7 @@ class ProEntitlementStore(
     suspend fun migrateStoredCouponTokenIfNeeded(
         currentState: EntitlementState,
         customEndpoints: List<String>? = null
-    ): Pair<CouponRefreshStatus, EntitlementState>? {
+    ): CouponMigrationResult? {
         val storedToken = storage.getString(KEY_COUPON_TOKEN) ?: return null
         val verified = verifyStoredCouponOffline(storedToken = storedToken, currentTimeMs = clockMs())
         if (!couponService.needsTokenMigration(verified)) return null
@@ -258,16 +263,16 @@ class ProEntitlementStore(
             CouponRefreshStatus.UPGRADED -> {
                 storage.putString(KEY_COUPON_TOKEN, outcome.token)
                 outcome.issuedAtTimestamp?.let { recordServerTimestamp(it) }
-                CouponRefreshStatus.UPGRADED to reevaluateKeepingRevenueCat(currentState)
+                CouponMigrationResult(CouponRefreshStatus.UPGRADED, reevaluateKeepingRevenueCat(currentState))
             }
             CouponRefreshStatus.REVOKED -> {
                 storage.remove(KEY_COUPON_TOKEN)
                 storage.remove(KEY_COUPON_TYPE)
                 storage.remove(KEY_COUPON_CODE)
                 storage.remove(KEY_COUPON_EXPIRATION)
-                CouponRefreshStatus.REVOKED to reevaluateKeepingRevenueCat(currentState)
+                CouponMigrationResult(CouponRefreshStatus.REVOKED, reevaluateKeepingRevenueCat(currentState))
             }
-            else -> outcome.status to currentState
+            else -> CouponMigrationResult(outcome.status, currentState)
         }
     }
 }

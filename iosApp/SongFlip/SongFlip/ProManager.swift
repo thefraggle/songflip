@@ -271,20 +271,18 @@ final class ProManager: NSObject, ObservableObject {
         guard !isAutomatedTest, !tokenMigrationAttempted else { return }
         tokenMigrationAttempted = true
         do {
-            guard let pair = try await entitlementStore.migrateStoredCouponTokenIfNeeded(
+            guard let result = try await entitlementStore.migrateStoredCouponTokenIfNeeded(
                 currentState: currentEntitlementState,
                 customEndpoints: nil
             ) else { return }
-            if let status = pair.first, let updatedState = pair.second {
-                applyEntitlementState(updatedState)
-                switch status {
-                case .upgraded:
-                    Self.logger.info("[ProManager] Coupon token migrated to current signing key")
-                case .revoked:
-                    Self.logger.warning("[ProManager] Stored coupon token rejected by server (invalid signature) – removed")
-                default:
-                    Self.logger.info("[ProManager] Coupon token migration skipped: \(String(describing: status))")
-                }
+            applyEntitlementState(result.newState)
+            switch result.status {
+            case .upgraded:
+                Self.logger.info("[ProManager] Coupon token migrated to current signing key")
+            case .revoked:
+                Self.logger.warning("[ProManager] Stored coupon token rejected by server (invalid signature) – removed")
+            default:
+                Self.logger.info("[ProManager] Coupon token migration skipped: \(String(describing: result.status))")
             }
         } catch {
             Self.logger.error("[ProManager] Coupon token migration failed: \(error.localizedDescription)")

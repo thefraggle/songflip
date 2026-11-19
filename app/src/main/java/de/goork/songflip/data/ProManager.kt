@@ -391,8 +391,8 @@ object ProManager {
             customEndpoints = testBaseUrl?.let { listOf("$it/redeemPromoCode") }
         ) ?: return
 
-        val (status, updatedState) = result
-        _proState.value = updatedState.toProState()
+        val status = result.status
+        _proState.value = result.newState.toProState()
         when (status) {
             CouponRefreshStatus.UPGRADED -> migrationLogger("Coupon token migrated to current signing key")
             CouponRefreshStatus.REVOKED -> migrationLogger("Stored coupon token rejected by server (invalid signature) – removed")

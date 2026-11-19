@@ -136,14 +136,34 @@ final class FlipCoordinator {
         self.analytics = analytics
     }
 
+    private static let supportedTargetPlatforms: Set<String> = [
+        "youtubeMusic", "appleMusic", "spotify", "deezer", "tidal",
+        "amazonMusic", "soundcloud", "bandcamp", "qobuz", "audiomack",
+        "idagio", "anghami", "pocketCasts", "youtube"
+    ]
+
+    private static func isProActiveInDefaults(_ defaults: UserDefaults) -> Bool {
+        guard defaults.bool(forKey: "is_pro_cached") else { return false }
+        let expMs = defaults.object(forKey: "pro_cache_exp") as? Int64
+            ?? (defaults.object(forKey: "pro_cache_exp") as? NSNumber)?.int64Value
+            ?? 0
+        if expMs > 0 {
+            let nowMs = Int64(Date().timeIntervalSince1970 * 1000)
+            if nowMs > (expMs + 15 * 60 * 1000) {
+                return false
+            }
+        }
+        return true
+    }
+
     func executeFlip(_ request: FlipExecutionRequest) async -> FlipExecutionOutcome {
         analytics.ensureInitialized()
 
         let rawTarget = request.targetPlatformOverride ?? defaults.string(forKey: "target_platform") ?? "appleMusic"
-        let targetPlatform = PlatformChoice(rawValue: rawTarget) != nil ? rawTarget : "appleMusic"
+        let targetPlatform = Self.supportedTargetPlatforms.contains(rawTarget) ? rawTarget : "appleMusic"
         let customUrl = request.customApiUrlOverride ?? defaults.string(forKey: "custom_api_url") ?? ""
         let customToken = request.customApiTokenOverride ?? defaults.string(forKey: "custom_api_token") ?? ""
-        let isPro = request.isProOverride ?? ProStateStorage.isProActive(defaults: defaults)
+        let isPro = request.isProOverride ?? Self.isProActiveInDefaults(defaults)
         let authToken = request.authTokenOverride ?? (isPro ? (defaults.string(forKey: "pro_auth_token") ?? "") : "")
         let audiophileMode = request.audiophileModeOverride ?? (isPro && defaults.bool(forKey: "audiophile_mode"))
 
