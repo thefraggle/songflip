@@ -77,4 +77,25 @@ class ShortLinkResolverTest {
         assertEquals("https://spoti.fi/AnotherShortLink", result)
         assertNull(resolver.getCachedUrl(initial), "Shortlink destination should not be cached as final target")
     }
+
+    @Test
+    fun testUnsafeHttpOrLocalRedirectIsRejectedAndNotCached() = runTest {
+        val mockEngine = MockEngine {
+            respond(
+                content = "",
+                status = HttpStatusCode.Found,
+                headers = headersOf("Location", listOf("http://127.0.0.1:8080/internal"))
+            )
+        }
+        val client = HttpClient(mockEngine) {
+            followRedirects = false
+        }
+        val resolver = ShortLinkResolver(client) { null }
+
+        val initial = "https://spotify.link/EvilRedirect"
+        val result = resolver.resolveCanonicalUrl(initial)
+
+        assertEquals(initial, result)
+        assertNull(resolver.getCachedUrl(initial), "Unsafe redirect target must not be cached")
+    }
 }

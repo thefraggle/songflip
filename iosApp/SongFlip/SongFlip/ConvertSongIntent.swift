@@ -91,14 +91,14 @@ struct ConvertSongIntent: AppIntent {
 
         case .showPlaylistNotice(let originalUrl),
              .showPodcastNotice(let originalUrl, _):
-            if let url = URL(string: originalUrl) {
+            if UrlUtils.shared.isSafeTargetUrl(url: originalUrl), let url = URL(string: originalUrl) {
                 await UIApplication.shared.open(url)
             }
             _ = try? await AptabaseClient.shared.flush(timeoutMs: 1500)
             return .result()
 
         case .unsupportedEntity(let originalUrl, _):
-            if let url = URL(string: originalUrl) {
+            if UrlUtils.shared.isSafeTargetUrl(url: originalUrl), let url = URL(string: originalUrl) {
                 await UIApplication.shared.open(url)
             }
             _ = try? await AptabaseClient.shared.flush(timeoutMs: 1500)

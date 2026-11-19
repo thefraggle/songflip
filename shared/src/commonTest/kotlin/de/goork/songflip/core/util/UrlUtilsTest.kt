@@ -637,6 +637,12 @@ class UrlUtilsTest {
         assertFalse(UrlUtils.isSafeTargetUrl("content://media/external/images"))
         assertFalse(UrlUtils.isSafeTargetUrl("intent://scan/#Intent;scheme=zxing;end"))
         assertFalse(UrlUtils.isSafeTargetUrl("https://evil-attacker.com/steal"))
+        assertFalse(UrlUtils.isSafeTargetUrl("https://evil.com/audiobook/x"))
+        assertFalse(UrlUtils.isSafeTargetUrl("https://evil.com/?q=audible.com"))
+        assertFalse(UrlUtils.isSafeTargetUrl("https://evil.amazon.evil.com/show/123"))
+        assertFalse(UrlUtils.isSafeTargetUrl("https://evil.amazon.evil.com/playlists/123"))
+        assertTrue(UrlUtils.isSafeTargetUrl("https://open.spotify.com/audiobook/123"))
+        assertTrue(UrlUtils.isSafeTargetUrl("https://www.audible.de/pd/Test/B012345"))
         assertFalse(UrlUtils.isSafeTargetUrl(""))
 
         // Safe native URIs

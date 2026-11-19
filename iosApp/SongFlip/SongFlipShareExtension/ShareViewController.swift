@@ -700,7 +700,10 @@ class ShareViewController: UIViewController {
 
     private func isSafeUrlToOpen(_ url: URL) -> Bool {
         let scheme = url.scheme?.lowercased() ?? ""
-        if scheme == "http" || scheme == "https" || scheme == "songflip" {
+        if scheme == "https" {
+            return UrlUtils.shared.isSafeTargetUrl(url: url.absoluteString)
+        }
+        if scheme == "songflip" {
             return true
         }
         let allowedNativeSchemes: Set<String> = [
@@ -738,7 +741,11 @@ class ShareViewController: UIViewController {
         }
 
         app.open(url, options: [:]) { [weak self] success in
-            if !success, let fallback = fallbackUrlString, let fallbackUrl = URL(string: fallback), fallback != urlString {
+            if !success,
+               let fallback = fallbackUrlString,
+               let fallbackUrl = URL(string: fallback),
+               fallback != urlString,
+               self?.isSafeUrlToOpen(fallbackUrl) == true {
                 app.open(fallbackUrl, options: [:]) { _ in
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                         self?.completeExtension()

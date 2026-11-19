@@ -19,7 +19,29 @@ class ShortLinkResolver(
     private val shortLinkResolutionCache = mutableMapOf<String, String>()
     private val shortLinkLock = PlatformLock()
 
+    private fun isAllowedRedirectTarget(targetUrl: String): Boolean {
+        if (!targetUrl.startsWith("https://", ignoreCase = true)) return false
+        val host = UrlUtils.extractDomain(targetUrl).lowercase()
+        if (host.isBlank() || host == "unknown") return false
+        if (host == "localhost" || host.endsWith(".local") || host.endsWith(".internal")) return false
+        if (host == "::1" || host == "[::1]" || host == "0.0.0.0" ||
+            host.startsWith("127.") || host.startsWith("10.") ||
+            host.startsWith("192.168.") || host.startsWith("169.254.")
+        ) {
+            return false
+        }
+        val parts = host.split(".")
+        if (parts.size == 4 && parts[0] == "172") {
+            val second = parts[1].toIntOrNull()
+            if (second != null && second in 16..31) return false
+        }
+        return true
+    }
+
     fun cacheResolvedShortLink(sourceUrl: String, resolvedUrl: String): String {
+        if (!UrlUtils.isSafeTargetUrl(resolvedUrl) && !UrlUtils.isShortLinkDomain(resolvedUrl)) {
+            return sourceUrl
+        }
         shortLinkLock.withLock {
             if (shortLinkResolutionCache.size >= 500 && !shortLinkResolutionCache.containsKey(sourceUrl)) {
                 shortLinkResolutionCache.keys.firstOrNull()?.let { shortLinkResolutionCache.remove(it) }
@@ -56,12 +78,15 @@ class ShortLinkResolver(
                 val finalHeadUrl = resp.request.url.toString()
                 if (finalHeadUrl != currentUrl && !UrlUtils.isShortLinkDomain(finalHeadUrl)) {
                     val target = UrlUtils.normalizeUrl(finalHeadUrl)
-                    return cacheResolvedShortLink(url, target)
+                    return if (isAllowedRedirectTarget(target)) cacheResolvedShortLink(url, target) else UrlUtils.normalizeUrl(url)
                 }
 
                 val rawLocation = resp.headers["Location"]
                 if (!rawLocation.isNullOrBlank()) {
                     val nextUrl = resolveRelativeUrl(currentUrl, rawLocation)
+                    if (!isAllowedRedirectTarget(nextUrl)) {
+                        return UrlUtils.normalizeUrl(url)
+                    }
                     currentUrl = nextUrl
                     val nextNormalized = UrlUtils.normalizeUrl(nextUrl)
                     if (nextNormalized != nextUrl && !UrlUtils.isShortLinkDomain(nextNormalized)) {
@@ -73,13 +98,13 @@ class ShortLinkResolver(
                 } else {
                     val target = UrlUtils.normalizeUrl(finalHeadUrl)
                     if (!UrlUtils.isShortLinkDomain(target)) {
-                        return cacheResolvedShortLink(url, target)
+                        return if (isAllowedRedirectTarget(target)) cacheResolvedShortLink(url, target) else UrlUtils.normalizeUrl(url)
                     }
                     val getResp = client.get(currentUrl) {
                         header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
                     }
                     val getTarget = UrlUtils.normalizeUrl(getResp.request.url.toString())
-                    return cacheResolvedShortLink(url, getTarget)
+                    return if (isAllowedRedirectTarget(getTarget)) cacheResolvedShortLink(url, getTarget) else UrlUtils.normalizeUrl(url)
                 }
             } catch (e: Exception) {
                 if (e is CancellationException) throw e
@@ -88,6 +113,7 @@ class ShortLinkResolver(
                         header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
                     }
                     val target = UrlUtils.normalizeUrl(getResp.request.url.toString())
+                    if (!isAllowedRedirectTarget(target)) return UrlUtils.normalizeUrl(url)
                     if (!UrlUtils.isShortLinkDomain(target)) {
                         return cacheResolvedShortLink(url, target)
                     }
@@ -100,6 +126,7 @@ class ShortLinkResolver(
             }
         }
         val target = UrlUtils.normalizeUrl(currentUrl)
+        if (!isAllowedRedirectTarget(target)) return UrlUtils.normalizeUrl(url)
         if (!UrlUtils.isShortLinkDomain(target)) {
             return cacheResolvedShortLink(url, target)
         }

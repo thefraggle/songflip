@@ -339,7 +339,7 @@ object UrlUtils {
                 (isHostOrSubdomain(host, "deezer.com", "link.deezer.com") && (path.contains("/playlist/") || path.contains("/playlists/") || path.contains("%2fplaylist%2f") || path.contains("%2fplaylists%2f"))) ||
                 (isHostOrSubdomain(host, "tidal.com") && (path.contains("/playlist/") || path.contains("/playlists/"))) ||
                 (isHostOrSubdomain(host, "soundcloud.com") && (path.contains("/sets/") || path.contains("/playlists/"))) ||
-                ((host.startsWith("music.amazon.") || host.contains(".amazon.")) && path.contains("/playlists/")) ||
+                (isAmazonHost(host) && path.contains("/playlists/")) ||
                 clean.startsWith("spotify:playlist:")
     }
 
@@ -349,7 +349,7 @@ object UrlUtils {
         val path = clean.substringAfter(host, "")
 
         return isHostOrSubdomain(host, "podcasts.apple.com", "podcasts.google.com", "pocketcasts.com", "pca.st", "castbox.fm", "overcast.fm") ||
-                ((isHostOrSubdomain(host, "spotify.com", "deezer.com", "tidal.com", "youtube.com", "apple.com") || host.startsWith("music.amazon.") || host.contains(".amazon.")) &&
+                ((isHostOrSubdomain(host, "spotify.com", "deezer.com", "tidal.com", "youtube.com", "apple.com") || isAmazonHost(host)) &&
                         (path.contains("/show/") || path.contains("/shows/") || path.contains("/episode/") || path.contains("/episodes/") || path.contains("/podcast/") || path.contains("/podcasts/"))) ||
                 clean.startsWith("spotify:episode:") ||
                 clean.startsWith("spotify:show:")
@@ -357,20 +357,26 @@ object UrlUtils {
 
     fun isAudiobookUrl(url: String): Boolean {
         val clean = url.lowercase()
-        return clean.contains("/audiobook/") ||
-                clean.contains("/audiobooks/") ||
-                clean.contains("books.apple.com") ||
-                clean.contains("audiobooks.apple.com") ||
-                clean.contains("audible.com") ||
-                clean.contains("audible.de") ||
-                clean.contains("audible.co.uk") ||
-                clean.contains("audible.fr") ||
-                clean.contains("audible.it") ||
-                clean.contains("audible.es") ||
-                clean.contains("audible.ca") ||
-                clean.contains("audible.in") ||
-                clean.contains("audible.com.au") ||
-                clean.startsWith("spotify:audiobook:")
+        if (clean.startsWith("spotify:audiobook:")) return true
+        val host = extractDomain(clean)
+        val path = clean.substringAfter(host, "")
+        return isHostOrSubdomain(
+            host,
+            "books.apple.com",
+            "audiobooks.apple.com",
+            "audible.com",
+            "audible.de",
+            "audible.co.uk",
+            "audible.fr",
+            "audible.it",
+            "audible.es",
+            "audible.ca",
+            "audible.in",
+            "audible.com.au"
+        ) || (
+            (isHostOrSubdomain(host, "spotify.com", "apple.com", "storytel.com", "bookbeat.com") || isAmazonHost(host)) &&
+                (path.contains("/audiobook/") || path.contains("/audiobooks/"))
+            )
     }
 
     fun isPodcastOrAudiobookUrl(url: String): Boolean {

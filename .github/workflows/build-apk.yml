@@ -51,6 +51,7 @@ jobs:
       - name: Fetch ShazamKit Android SDK (if token configured)
         env:
           SONGFLIP_API_READ_TOKEN: ${{ secrets.SONGFLIP_API_READ_TOKEN }}
+          SHAZAMKIT_AAR_SHA256: "e85310c6737f1025a3b0f7852fa73f06840fad5b484ea38ca4912d5d8ad2bc86"
         run: |
           mkdir -p app/libs
           if [ -n "$SONGFLIP_API_READ_TOKEN" ]; then
@@ -59,12 +60,13 @@ jobs:
               -H "Authorization: Bearer $SONGFLIP_API_READ_TOKEN" \
               -H "Accept: application/vnd.github.v3.raw" \
               "https://api.github.com/repos/thefraggle/songflip-api/contents/vendor/shazamkit-android-release.aar" \
-              -o app/libs/shazamkit-android-release.aar || echo "Download failed, falling back to open-source stub mode."
+              -o app/libs/shazamkit-android-release.aar
+            echo "${SHAZAMKIT_AAR_SHA256}  app/libs/shazamkit-android-release.aar" | sha256sum -c -
           fi
           if [ -f "app/libs/shazamkit-android-release.aar" ]; then
-            echo "✓ ShazamKit Android SDK successfully restored."
+            echo "✓ ShazamKit Android SDK successfully verified and restored."
           else
-            echo "ℹ️ Building in open-source stub mode."
+            echo "ℹ️ Building in open-source stub mode (no SONGFLIP_API_READ_TOKEN configured)."
           fi
 
       - name: Run Release Unit Tests Gate
@@ -92,9 +94,8 @@ jobs:
             cp app/build/outputs/apk/release/app-release.apk "dist/songflip-${VERSION}.apk"
             cp app/build/outputs/bundle/release/app-release.aab "dist/songflip-${VERSION}.aab"
           else
-            ./gradlew :app:assembleDebug :app:bundleDebug
-            cp app/build/outputs/apk/debug/app-debug.apk "dist/songflip-${VERSION}.apk"
-            cp app/build/outputs/bundle/debug/app-debug.aab "dist/songflip-${VERSION}.aab"
+            echo "❌ Missing /tmp/release.keystore — refusing to publish unsigned/debug release artifacts."
+            exit 1
           fi
 
       - name: Upload Build Artifacts (APK & AAB)
