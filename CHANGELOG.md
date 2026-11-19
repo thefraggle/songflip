@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.15.5] - 2026-11-19
+- **Link Safety & Redirect Validation**: Tightened host and redirect validation across shared music, podcast, audiobook, and share-extension link flows so only verified HTTPS streaming destinations are opened.
+- **Entitlement & Cache Integrity**: Unified cross-platform Pro entitlement evaluation in the shared core and strengthened server-side verification across link resolution, playlist conversion, and cache endpoints.
+- **Platform Reliability**: Consolidated iOS flip orchestration and metadata extraction pipelines for more consistent behavior across the main app, Share Extension, and Shortcuts.
+
 ## [1.15.4] - 2026-11-18
 - **Quick-Access Shortcuts & Tiles**: Added a dedicated Flip Clipboard quick-settings tile, app shortcuts, and deep-link actions (`songflip://listen`, `songflip://clipboard`) for instant zero-friction link flipping and music recognition.
 - **Universal Link in Quick-Picker**: Added direct one-tap copying and sharing of universal `songflip.link` pages inside the share extension, quick target picker, and clipboard banner.

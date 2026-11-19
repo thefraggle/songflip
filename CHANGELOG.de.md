@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.15.5] - 2026-11-19
+- **Link-Sicherheit & Weiterleitungsprüfung**: Host- und Weiterleitungsprüfungen für geteilte Musik-, Podcast-, Hörbuch- und Share-Extension-Links verschärft, sodass ausschließlich verifizierte HTTPS-Streaming-Ziele geöffnet werden.
+- **Abo-Status & Cache-Integrität**: Plattformübergreifende Pro-Status-Auswertung im gemeinsamen Kern vereinheitlicht sowie serverseitige Prüfungen für Link-Auflösung, Playlist-Konvertierung und Cache-Endpunkte gehärtet.
+- **Plattform-Zuverlässigkeit**: iOS-Flip-Orchestrierung und Metadaten-Extraktion gebündelt, um ein konsistentes Verhalten über Haupt-App, Share Extension und Kurzbefehle sicherzustellen.
+
 ## [1.15.4] - 2026-11-18
 - **Schnellzugriff-Kacheln & Kurzbefehle**: Neue Schnellzugriffs-Kachel, App-Kurzbefehle und Deep-Links (`songflip://listen`, `songflip://clipboard`) für sofortiges Auflösen von Zwischenablage-Links und direkter Musikerkennung ergänzt.
 - **Universal-Link im Schnellwähler**: Direktes Kopieren und Teilen von universellen `songflip.link`-Seiten direkt im Teilen-Menü, Schnellwähler und Zwischenablage-Banner integriert.
