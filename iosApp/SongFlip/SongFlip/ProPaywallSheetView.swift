@@ -132,8 +132,11 @@ struct ProPaywallSheetView: View {
             }
             .onPurchaseFailure { error in
                 let nsError = error as NSError
-                if nsError.domain == RevenueCat.ErrorCode.errorDomain &&
-                   nsError.code == RevenueCat.ErrorCode.purchaseCancelledError.rawValue {
+                let isRcCancelled = nsError.domain == RevenueCat.ErrorCode.errorDomain &&
+                    (nsError.code == RevenueCat.ErrorCode.purchaseCancelledError.rawValue ||
+                     nsError.code == RevenueCat.ErrorCode.paymentPendingError.rawValue)
+                let isSkCancelled = nsError.domain == "SKErrorDomain" && nsError.code == 2
+                if isRcCancelled || isSkCancelled {
                     return
                 }
                 let underlying = (nsError.userInfo[NSUnderlyingErrorKey] as? NSError)?.localizedDescription

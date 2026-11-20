@@ -332,4 +332,5 @@ internal fun resolveNonSandboxPurchaseProductId(
  * are reported as `pro_purchase_failed`.
  */
 internal fun shouldTrackPurchaseError(errorCode: PurchasesErrorCode): Boolean =
-    errorCode != PurchasesErrorCode.PurchaseCancelledError
+    errorCode != PurchasesErrorCode.PurchaseCancelledError &&
+        errorCode != PurchasesErrorCode.PaymentPendingError

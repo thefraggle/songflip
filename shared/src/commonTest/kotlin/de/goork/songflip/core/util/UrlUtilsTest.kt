@@ -745,6 +745,36 @@ class UrlUtilsTest {
         assertNull(UrlUtils.detectUnsupportedKnownMusicService("https://open.spotify.com/track/123"))
         assertNull(UrlUtils.detectUnsupportedKnownMusicService("https://www.tiktok.com/@user/video/123"))
     }
+
+    @Test
+    fun testLastFmSourceOnlyParsing() {
+        val trackUrl = "https://www.last.fm/music/Daft+Punk/_/Around+the+World"
+        assertTrue(UrlUtils.isLastFmUrl(trackUrl))
+        assertTrue(UrlUtils.isSupportedMusicOrAggregatorUrl(trackUrl))
+        assertNull(UrlUtils.detectPlatform(trackUrl)) // Source-only, not a target platform
+        assertFalse(UrlUtils.isAlbumUrl(trackUrl))
+        assertEquals(
+            UrlUtils.LastFmMetadata(artist = "Daft Punk", title = "Around the World", isAlbum = false),
+            UrlUtils.parseLastFmUrl(trackUrl)
+        )
+
+        val localizedTrackUrl = "https://www.last.fm/ja/music/YOASOBI/_/%E3%82%A2%E3%82%A4%E3%83%89%E3%83%AB"
+        assertTrue(UrlUtils.isLastFmUrl(localizedTrackUrl))
+        assertEquals(
+            UrlUtils.LastFmMetadata(artist = "YOASOBI", title = "アイドル", isAlbum = false),
+            UrlUtils.parseLastFmUrl(localizedTrackUrl)
+        )
+
+        val albumUrl = "https://www.last.fm/music/Radiohead/In+Rainbows"
+        assertTrue(UrlUtils.isAlbumUrl(albumUrl))
+        assertEquals(
+            UrlUtils.LastFmMetadata(artist = "Radiohead", title = "In Rainbows", isAlbum = true),
+            UrlUtils.parseLastFmUrl(albumUrl)
+        )
+
+        assertNull(UrlUtils.parseLastFmUrl("https://www.last.fm/music/Radiohead/+tracks"))
+        assertFalse(UrlUtils.isLastFmUrl("https://evil-last.fm/music/Daft+Punk/_/Around+the+World"))
+    }
 }
 
 

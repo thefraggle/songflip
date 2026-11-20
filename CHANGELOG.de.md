@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.15.6] - 2026-11-20
+- **Quellplattformen & Resolver-Updates**: Unterstützung für Last.fm-Track- und Album-Links als Quellplattform ergänzt sowie die Tidal-Katalogsuche auf den OpenAPI-v2-Flow migriert.
+- **Musikerkennung & Telemetrie**: Temporäre Netzwerkfehler im Live-Scan sauber von echten Nicht-Treffern getrennt, Storefront-Timeouts gestrafft und ausstehende/abgebrochene Store-Fehler aus der Kaufabbruch-Telemetrie gefiltert.
+- **Backend- & WebShare-Härtung**: Strikte URL-Schema-Prüfung auf geteilten Song- und Playlist-Seiten durchgesetzt, Zielplattformen sowie Feedback-E-Mails validiert, Podcast-Cache-Refreshes abgesichert und Coupon- sowie Token-Endpunkte gehärtet.
+
 ## [1.15.5] - 2026-11-19
 - **Link-Sicherheit & Weiterleitungsprüfung**: Host- und Weiterleitungsprüfungen für geteilte Musik-, Podcast-, Hörbuch- und Share-Extension-Links verschärft, sodass ausschließlich verifizierte HTTPS-Streaming-Ziele geöffnet werden.
 - **Abo-Status & Cache-Integrität**: Plattformübergreifende Pro-Status-Auswertung im gemeinsamen Kern vereinheitlicht sowie serverseitige Prüfungen für Link-Auflösung, Playlist-Konvertierung und Cache-Endpunkte gehärtet.

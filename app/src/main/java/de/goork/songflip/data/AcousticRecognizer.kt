@@ -204,20 +204,35 @@ object AcousticRecognizer {
     private fun matchSignatureBase64Outcome(
         context: Context,
         signatureBase64: String,
-        allowTokenRetry: Boolean = true
+        allowTokenRetry: Boolean = true,
+        liveScan: Boolean = false
     ): OfflineMatchOutcome {
         if (signatureBase64.isBlank()) return OfflineMatchOutcome.NoMatch
         val jwt = getOrFetchDeveloperToken(context)
         if (jwt.isBlank()) return OfflineMatchOutcome.TransientError("developer token unavailable")
 
         val primaryStoreFront = resolveStoreFront()
-        val storeFronts = listOf(primaryStoreFront, "us", "de").distinct()
+        val storeFronts = if (liveScan) {
+            listOf(primaryStoreFront, "us").distinct()
+        } else {
+            listOf(primaryStoreFront, "us", "de").distinct()
+        }
+        val effectiveClient = if (liveScan) {
+            httpClient.newBuilder()
+                .connectTimeout(4, TimeUnit.SECONDS)
+                .readTimeout(4, TimeUnit.SECONDS)
+                .callTimeout(4, TimeUnit.SECONDS)
+                .build()
+        } else {
+            httpClient
+        }
         val payload = JSONObject()
             .put("signature", JSONObject().put("uri", "data:audio/vnd.shazam.sig;base64,$signatureBase64"))
             .toString()
 
         val failures = mutableListOf<OfflineMatchOutcome>()
         for (sf in storeFronts) {
+            var abortStorefrontLoop = false
             try {
                 val url = String.format(Locale.US, SHAZAM_MATCH_URL_TEMPLATE, sf)
                 val req = Request.Builder()
@@ -228,12 +243,12 @@ object AcousticRecognizer {
                     .post(payload.toRequestBody(JSON_MEDIA_TYPE))
                     .build()
 
-                httpClient.newCall(req).execute().use { resp ->
+                effectiveClient.newCall(req).execute().use { resp ->
                     if (resp.code == 401 || resp.code == 403) {
                         android.util.Log.w("AcousticRecognizer", "Shazam API HTTP ${resp.code}; refreshing token")
                         invalidateCachedToken(context)
                         if (allowTokenRetry) {
-                            return matchSignatureBase64Outcome(context, signatureBase64, allowTokenRetry = false)
+                            return matchSignatureBase64Outcome(context, signatureBase64, allowTokenRetry = false, liveScan = liveScan)
                         }
                         return OfflineMatchOutcome.TransientError("HTTP ${resp.code} after token refresh")
                     }
@@ -252,13 +267,16 @@ object AcousticRecognizer {
                         else -> {
                             android.util.Log.w("AcousticRecognizer", "Shazam API HTTP ${resp.code} on storefront $sf: $outcome")
                             failures += outcome
+                            if (liveScan) abortStorefrontLoop = true
                         }
                     }
                 }
             } catch (t: Throwable) {
                 android.util.Log.w("AcousticRecognizer", "Direct match network error ($sf): ${t.message}")
                 failures += OfflineMatchOutcome.TransientError("network error on $sf: ${t::class.java.simpleName}: ${t.message}")
+                if (liveScan) abortStorefrontLoop = true
             }
+            if (abortStorefrontLoop) break
         }
         return OfflineScanQueueProcessor.combineFailedAttempts(failures)
     }
@@ -621,9 +639,9 @@ object AcousticRecognizer {
                                 val sigBase64 = Base64.encodeToString(sigBytes, Base64.NO_WRAP)
                                 activeSnapshotJob = launch(Dispatchers.IO) {
                                     try {
-                                        val directMatch = matchSignatureBase64Direct(appCtx, sigBase64)
-                                        if (directMatch != null) {
-                                            matchedRef.compareAndSet(null, directMatch)
+                                        val outcome = matchSignatureBase64Outcome(appCtx, sigBase64, liveScan = true)
+                                        if (outcome is OfflineMatchOutcome.Matched) {
+                                            matchedRef.compareAndSet(null, outcome.match)
                                         }
                                     } catch (ce: CancellationException) {
                                         throw ce
@@ -643,7 +661,7 @@ object AcousticRecognizer {
                 // Wait briefly if a background snapshot match request is still in flight
                 if (matchedRef.get() == null && activeSnapshotJob?.isActive == true) {
                     var waitMs = 0L
-                    while (matchedRef.get() == null && activeSnapshotJob?.isActive == true && waitMs < 1_500L) {
+                    while (matchedRef.get() == null && activeSnapshotJob?.isActive == true && waitMs < 2_500L) {
                         delay(80)
                         waitMs += 80L
                     }
@@ -651,6 +669,7 @@ object AcousticRecognizer {
                 activeSnapshotJob?.cancel()
 
                 // Final match attempt with full continuous 12s signature if no progressive snapshot matched yet
+                var finalOutcome: OfflineMatchOutcome = OfflineMatchOutcome.NoMatch
                 if (matchedRef.get() == null) {
                     val finalSig = synchronized(sigLock) { sigGenerator.generateSignature() }
                     if (!NetworkUtils.isNetworkAvailable(appCtx)) {
@@ -665,20 +684,24 @@ object AcousticRecognizer {
                     val finalBytes = finalSig.dataRepresentation
                     if (finalBytes.isNotEmpty()) {
                         val finalBase64 = Base64.encodeToString(finalBytes, Base64.NO_WRAP)
-                        val directMatch = matchSignatureBase64Direct(appCtx, finalBase64)
-                        if (directMatch != null) {
-                            matchedRef.compareAndSet(null, directMatch)
+                        finalOutcome = matchSignatureBase64Outcome(appCtx, finalBase64, liveScan = true)
+                        if (finalOutcome is OfflineMatchOutcome.Matched) {
+                            matchedRef.compareAndSet(null, finalOutcome.match)
                         }
                     }
                 }
 
                 val winner = matchedRef.get()
                 if (winner == null) {
-                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackAcousticScanNoMatch(
-                        target = targetPlatformKey,
-                        isPro = isPro
-                    )
-                    _state.value = AcousticRecognitionState.NoMatch
+                    if (shouldReportTransientError(finalOutcome)) {
+                        _state.value = AcousticRecognitionState.Error("listen_error_generic")
+                    } else {
+                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackAcousticScanNoMatch(
+                            target = targetPlatformKey,
+                            isPro = isPro
+                        )
+                        _state.value = AcousticRecognitionState.NoMatch
+                    }
                     return@launch
                 }
 
@@ -813,3 +836,6 @@ object AcousticRecognizer {
         }
     }
 }
+
+internal fun shouldReportTransientError(outcome: OfflineMatchOutcome): Boolean =
+    outcome is OfflineMatchOutcome.TransientError

@@ -14,6 +14,13 @@ import io.ktor.http.isSuccess
 import kotlinx.coroutines.CancellationException
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.contentOrNull
+import kotlinx.serialization.json.floatOrNull
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 
 @Serializable
 internal data class TidalSearchResponse(
@@ -64,7 +71,8 @@ class TidalResolver(
     private val tidalAppToken: String = DynamicTokenRegistry.DEFAULT_TIDAL_TOKEN,
     private val countryCodeProvider: () -> String = { "DE" },
     private val circuitBreaker: PlatformCircuitBreaker = PlatformCircuitBreaker.shared,
-    private val tokenProvider: () -> String = { DynamicTokenRegistry.getTidalToken() }
+    private val tokenProvider: () -> String = { DynamicTokenRegistry.getTidalToken() },
+    private val bearerTokenProvider: () -> String? = { DynamicTokenRegistry.getTidalBearerToken() }
 ) : PlatformResolver {
 
     override val platform: MusicPlatform = MusicPlatform.TIDAL
@@ -132,6 +140,70 @@ class TidalResolver(
         return ResolutionOutcome.NotFound
     }
 
+    private fun parseTidalV2Items(body: String, kind: String): List<TidalItem> {
+        val root = runCatching { json.parseToJsonElement(body).jsonObject }.getOrNull() ?: return emptyList()
+        val included = (root["included"] as? JsonArray) ?: return emptyList()
+
+        val byKey = mutableMapOf<String, JsonObject>()
+        for (el in included) {
+            val obj = el as? JsonObject ?: continue
+            val type = obj["type"]?.jsonPrimitive?.contentOrNull ?: continue
+            val id = obj["id"]?.jsonPrimitive?.contentOrNull ?: continue
+            byKey["$type:$id"] = obj
+        }
+
+        val relData = root["data"]?.jsonObject
+            ?.get("relationships")?.jsonObject
+            ?.get(kind)?.jsonObject
+            ?.get("data") as? JsonArray
+
+        val orderedObjects = if (relData != null && relData.isNotEmpty()) {
+            relData.mapNotNull { ref ->
+                val refObj = ref as? JsonObject ?: return@mapNotNull null
+                val t = refObj["type"]?.jsonPrimitive?.contentOrNull ?: kind
+                val id = refObj["id"]?.jsonPrimitive?.contentOrNull ?: return@mapNotNull null
+                byKey["$t:$id"]
+            }
+        } else {
+            included.mapNotNull { it as? JsonObject }.filter {
+                it["type"]?.jsonPrimitive?.contentOrNull == kind
+            }
+        }
+
+        return orderedObjects.map { entry ->
+            val id = entry["id"]?.jsonPrimitive?.contentOrNull
+            val attrs = entry["attributes"] as? JsonObject
+            val title = attrs?.get("title")?.jsonPrimitive?.contentOrNull
+            val name = attrs?.get("name")?.jsonPrimitive?.contentOrNull
+            val version = attrs?.get("version")?.jsonPrimitive?.contentOrNull
+            val popFloat = attrs?.get("popularity")?.jsonPrimitive?.floatOrNull
+            val popularity = popFloat?.let { if (it <= 1.0f) (it * 100).toInt() else it.toInt() }
+            val mediaTags = (attrs?.get("mediaTags") as? JsonArray)
+                ?.mapNotNull { it.jsonPrimitive.contentOrNull }
+                ?: emptyList()
+
+            val artistRefs = entry["relationships"]?.jsonObject
+                ?.get("artists")?.jsonObject
+                ?.get("data") as? JsonArray
+            val artists = artistRefs?.mapNotNull { ref ->
+                val refId = (ref as? JsonObject)?.get("id")?.jsonPrimitive?.contentOrNull ?: return@mapNotNull null
+                val artistName = byKey["artists:$refId"]?.get("attributes")?.jsonObject
+                    ?.get("name")?.jsonPrimitive?.contentOrNull
+                artistName?.let { TidalArtist(name = it) }
+            } ?: emptyList()
+
+            TidalItem(
+                id = id,
+                title = title,
+                name = name,
+                version = version,
+                mediaMetadata = if (mediaTags.isNotEmpty()) TidalMediaMetadata(tags = mediaTags) else null,
+                artists = artists,
+                popularity = popularity
+            )
+        }
+    }
+
     private suspend fun executeTidalSearch(
         query: String,
         isAlbum: Boolean = false,
@@ -140,6 +212,7 @@ class TidalResolver(
         val encoded = query.encodeURLParameter()
         val limit = if (audiophileMode) 20 else 15
         val countryCode = getCountryCode()
+        val bearerToken = bearerTokenProvider()?.takeIf { it.isNotBlank() }
         val effectiveToken = if (tidalAppToken != DynamicTokenRegistry.DEFAULT_TIDAL_TOKEN) {
             tidalAppToken
         } else {
@@ -148,6 +221,46 @@ class TidalResolver(
 
         var anyRateLimited = false
         var lastRateLimitRetryAfter: Long? = null
+
+        if (bearerToken != null) {
+            val host = "openapi.tidal.com"
+            if (!circuitBreaker.canExecute(host)) {
+                return ResolutionOutcome.RateLimited(
+                    host = host,
+                    retryAfterSeconds = circuitBreaker.getCooldownRemainingSeconds(host) ?: 300L
+                )
+            }
+            val includeType = if (isAlbum) "albums,artists" else "tracks,artists"
+            val v2Url = "https://openapi.tidal.com/v2/searchResults/$encoded?countryCode=$countryCode&include=${includeType.encodeURLParameter()}"
+            try {
+                val resp = client.get(v2Url) {
+                    header("Authorization", "Bearer $bearerToken")
+                    header("Accept", "application/vnd.tidal.v1+json")
+                    header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SongFlip/${EngineConfig.APP_VERSION}")
+                }
+                if (resp.status.value == 429) {
+                    val retryAfter = resp.headers["Retry-After"]?.toLongOrNull() ?: 300L
+                    circuitBreaker.recordRateLimit(host, retryAfter)
+                    return ResolutionOutcome.RateLimited(host = host, retryAfterSeconds = retryAfter)
+                }
+                if (resp.status.isSuccess()) {
+                    val body = resp.bodyAsText()
+                    if (body.isNotBlank()) {
+                        circuitBreaker.recordSuccess(host)
+                        val items = parseTidalV2Items(body, if (isAlbum) "albums" else "tracks")
+                        val match = selectBestTidalCandidate(items, query, isAlbum, audiophileMode)
+                        val itemId = match?.id
+                        if (!itemId.isNullOrEmpty()) {
+                            val directUrl = if (isAlbum) "https://tidal.com/browse/album/$itemId" else "https://tidal.com/browse/track/$itemId"
+                            return ResolutionOutcome.Success(directUrl)
+                        }
+                    }
+                }
+            } catch (t: Throwable) {
+                if (t is CancellationException) throw t
+            }
+            return ResolutionOutcome.NotFound
+        }
 
         for (baseUrl in searchBaseUrls) {
             val host = if (baseUrl.contains("listen.tidal.com")) "listen.tidal.com" else "api.tidal.com"
@@ -178,47 +291,7 @@ class TidalResolver(
                     val items = container?.items ?: emptyList()
                     if (items.isEmpty()) continue
 
-                    val validItem = if (audiophileMode) {
-                        items
-                            .map { item ->
-                                val candidateTitle = item.title ?: item.name
-                                val candidateArtist = item.artist?.name ?: item.artists.firstOrNull()?.name
-                                val tags = item.mediaMetadata?.tags ?: emptyList()
-                                val qualityUpper = (item.audioQuality ?: "").uppercase()
-                                val isHiRes = tags.any { it.contains("HIRES", ignoreCase = true) || it.equals("MQA", ignoreCase = true) } ||
-                                    qualityUpper.contains("HI_RES")
-                                val isLossless = isHiRes || tags.any { it.contains("LOSSLESS", ignoreCase = true) } ||
-                                    qualityUpper == "LOSSLESS"
-                                val isSpatial = item.audioModes.any { it.contains("ATMOS", ignoreCase = true) || it.contains("360", ignoreCase = true) } ||
-                                    tags.any { it.contains("ATMOS", ignoreCase = true) || it.contains("360", ignoreCase = true) }
-
-                                val baseScore = ResolverUtils.scoreAudiophileCandidate(
-                                    query = query,
-                                    candidateArtist = candidateArtist,
-                                    candidateTitle = candidateTitle,
-                                    candidateVersion = item.version,
-                                    albumTitle = item.album?.title,
-                                    isHiRes = isHiRes,
-                                    isLossless = isLossless,
-                                    isSpatialOrAtmos = isSpatial
-                                )
-                                val popBonus = ((item.popularity ?: 0).coerceIn(0, 100)) / 10
-                                item to (if (baseScore == Int.MIN_VALUE) Int.MIN_VALUE else baseScore + popBonus)
-                            }
-                            .filter { it.second > Int.MIN_VALUE }
-                            .maxByOrNull { it.second }
-                            ?.first
-                    } else {
-                        ResolverUtils.findBestCandidate(
-                            candidates = items,
-                            query = query,
-                            isAlbum = isAlbum,
-                            getArtist = { it.artist?.name ?: it.artists.firstOrNull()?.name },
-                            getTitle = { it.title ?: it.name },
-                            getVersion = { it.version },
-                            getAlbumTitle = { it.album?.title }
-                        )
-                    }
+                    val validItem = selectBestTidalCandidate(items, query, isAlbum, audiophileMode)
 
                     if (validItem != null) {
                         val itemId = validItem.id
@@ -240,9 +313,92 @@ class TidalResolver(
         return ResolutionOutcome.NotFound
     }
 
+    private fun selectBestTidalCandidate(
+        items: List<TidalItem>,
+        query: String,
+        isAlbum: Boolean,
+        audiophileMode: Boolean
+    ): TidalItem? {
+        if (items.isEmpty()) return null
+        return if (audiophileMode) {
+            items
+                .map { item ->
+                    val candidateTitle = item.title ?: item.name
+                    val candidateArtist = item.artist?.name ?: item.artists.firstOrNull()?.name
+                    val tags = item.mediaMetadata?.tags ?: emptyList()
+                    val qualityUpper = (item.audioQuality ?: "").uppercase()
+                    val isHiRes = tags.any { it.contains("HIRES", ignoreCase = true) || it.equals("MQA", ignoreCase = true) } ||
+                        qualityUpper.contains("HI_RES")
+                    val isLossless = isHiRes || tags.any { it.contains("LOSSLESS", ignoreCase = true) } ||
+                        qualityUpper == "LOSSLESS"
+                    val isSpatial = item.audioModes.any { it.contains("ATMOS", ignoreCase = true) || it.contains("360", ignoreCase = true) } ||
+                        tags.any { it.contains("ATMOS", ignoreCase = true) || it.contains("360", ignoreCase = true) }
+
+                    val baseScore = ResolverUtils.scoreAudiophileCandidate(
+                        query = query,
+                        candidateArtist = candidateArtist,
+                        candidateTitle = candidateTitle,
+                        candidateVersion = item.version,
+                        albumTitle = item.album?.title,
+                        isHiRes = isHiRes,
+                        isLossless = isLossless,
+                        isSpatialOrAtmos = isSpatial
+                    )
+                    val popBonus = ((item.popularity ?: 0).coerceIn(0, 100)) / 10
+                    item to (if (baseScore == Int.MIN_VALUE) Int.MIN_VALUE else baseScore + popBonus)
+                }
+                .filter { it.second > Int.MIN_VALUE }
+                .maxByOrNull { it.second }
+                ?.first
+        } else {
+            ResolverUtils.findBestCandidate(
+                candidates = items,
+                query = query,
+                isAlbum = isAlbum,
+                getArtist = { it.artist?.name ?: it.artists.firstOrNull()?.name },
+                getTitle = { it.title ?: it.name },
+                getVersion = { it.version },
+                getAlbumTitle = { it.album?.title }
+            )
+        }
+    }
+
     override suspend fun resolveArtist(artistName: String): String? {
         val encoded = artistName.encodeURLParameter()
         val countryCode = getCountryCode()
+        val bearerToken = bearerTokenProvider()?.takeIf { it.isNotBlank() }
+        if (bearerToken != null) {
+            val host = "openapi.tidal.com"
+            if (circuitBreaker.canExecute(host)) {
+                try {
+                    val v2Url = "https://openapi.tidal.com/v2/searchResults/$encoded?countryCode=$countryCode&include=artists"
+                    val resp = client.get(v2Url) {
+                        header("Authorization", "Bearer $bearerToken")
+                        header("Accept", "application/vnd.tidal.v1+json")
+                        header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SongFlip/${EngineConfig.APP_VERSION}")
+                    }
+                    if (resp.status.value == 429) {
+                        val retryAfter = resp.headers["Retry-After"]?.toLongOrNull() ?: 300L
+                        circuitBreaker.recordRateLimit(host, retryAfter)
+                    } else if (resp.status.isSuccess()) {
+                        val body = resp.bodyAsText()
+                        if (body.isNotBlank()) {
+                            circuitBreaker.recordSuccess(host)
+                            val items = parseTidalV2Items(body, "artists")
+                            val best = items
+                                .filter { ResolverUtils.isArtistNameMatch(it.name ?: "", artistName) }
+                                .maxByOrNull { it.popularity ?: 0 }
+                            if (!best?.id.isNullOrEmpty()) {
+                                return "https://tidal.com/artist/${best?.id}"
+                            }
+                        }
+                    }
+                } catch (t: Throwable) {
+                    if (t is CancellationException) throw t
+                }
+            }
+            return null
+        }
         val effectiveToken = if (tidalAppToken != DynamicTokenRegistry.DEFAULT_TIDAL_TOKEN) {
             tidalAppToken
         } else {

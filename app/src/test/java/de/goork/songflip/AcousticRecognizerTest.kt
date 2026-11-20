@@ -176,4 +176,20 @@ class AcousticRecognizerTest {
             AcousticRecognizer.evaluateSignalQuality(rawPeak = 300, uiAmplitude = 0.10f, elapsedSeconds = 1)
         )
     }
+
+    @Test
+    fun transientErrorIsSeparatedFromNoMatchInLiveScan() {
+        assertEquals(
+            true,
+            de.goork.songflip.data.shouldReportTransientError(
+                de.goork.songflip.data.OfflineMatchOutcome.TransientError("timeout")
+            )
+        )
+        assertEquals(
+            false,
+            de.goork.songflip.data.shouldReportTransientError(
+                de.goork.songflip.data.OfflineMatchOutcome.NoMatch
+            )
+        )
+    }
 }

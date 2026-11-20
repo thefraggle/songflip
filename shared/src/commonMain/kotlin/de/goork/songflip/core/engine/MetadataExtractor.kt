@@ -204,6 +204,18 @@ class MetadataExtractor(
                 MusicPlatform.IDAGIO,
                 MusicPlatform.ANGHAMI -> OG_METADATA_RULES[UrlUtils.detectPlatform(url)]?.let { extractOgMetadata(url, it) }
                 else -> {
+                    if (UrlUtils.isLastFmUrl(url)) {
+                        UrlUtils.parseLastFmUrl(url)?.let { return "${it.artist} ${it.title}" }
+                        return extractOgMetadata(
+                            url,
+                            OgMetadataRule(
+                                acceptLanguage = "en-US,en;q=0.9",
+                                stripSuffixes = listOf(" | Last.fm", " — Last.fm", " - Last.fm"),
+                                rejectedTitles = setOf("last.fm"),
+                                slugRegex = Regex("""/music/([^/?#]+)""")
+                            )
+                        )
+                    }
                     if (url.contains("shazam.com")) {
                         val trackMatch = Regex("shazam\\.com/(?:[a-z]{2}(?:-[a-z]{2})?/)?track/([0-9]+)", RegexOption.IGNORE_CASE).find(url)
                         val trackId = trackMatch?.groupValues?.get(1) ?: url.substringAfter("/track/").substringBefore("/").substringBefore("?").trim().takeIf { it.isNotEmpty() && it.all { c -> c.isDigit() } }

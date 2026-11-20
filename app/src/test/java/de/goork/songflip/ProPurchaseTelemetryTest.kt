@@ -67,6 +67,7 @@ class ProPurchaseTelemetryTest {
     @Test
     fun ignoresUserCancelledPurchaseErrorsInTelemetry() {
         assertEquals(false, shouldTrackPurchaseError(PurchasesErrorCode.PurchaseCancelledError))
+        assertEquals(false, shouldTrackPurchaseError(PurchasesErrorCode.PaymentPendingError))
         assertEquals(true, shouldTrackPurchaseError(PurchasesErrorCode.StoreProblemError))
     }
 }

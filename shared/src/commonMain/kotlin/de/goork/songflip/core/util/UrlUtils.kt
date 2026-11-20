@@ -310,6 +310,7 @@ object UrlUtils {
         if (url.contains("trackAsin=")) return false
         if (url.contains("/track/")) return false
         if (url.contains("/song/")) return false
+        parseLastFmUrl(url)?.let { return it.isAlbum }
         val fullLower = url.lowercase()
         if (fullLower.contains("youtube.com") && !fullLower.contains("watch?v=") && !fullLower.contains("youtu.be/")) {
             if (fullLower.contains("/browse/mpreb_") || fullLower.contains("list=olak5uy_")) {
@@ -505,6 +506,7 @@ object UrlUtils {
         if (detectPlatform(clean) != null) return true
         if (isPodcastOrAudiobookUrl(clean)) return true
         if (isShortLinkDomain(clean)) return true
+        if (isLastFmUrl(clean)) return true
         val host = extractDomain(clean)
         return isHostOrSubdomain(
             host,
@@ -513,8 +515,64 @@ object UrlUtils {
             "pods.link",
             "artist.link",
             "odesli.co",
-            "shazam.com"
+            "shazam.com",
+            "last.fm"
         )
+    }
+
+    data class LastFmMetadata(
+        val artist: String,
+        val title: String,
+        val isAlbum: Boolean
+    )
+
+    private val LASTFM_PATH_REGEX = Regex(
+        """^(?:/[a-z]{2}(?:-[a-z]{2})?)?/music/([^/?#]+)(?:/([^/?#]+))?(?:/([^/?#]+))?""",
+        RegexOption.IGNORE_CASE
+    )
+    private val LASTFM_NON_ALBUM_SEGMENTS = setOf(
+        "_", "+tracks", "+albums", "+wiki", "+images", "+similar", "+listeners", "+tags", "+shoutbox", "+events", "+partial"
+    )
+
+    fun isLastFmUrl(url: String): Boolean {
+        val host = extractDomain(url.trim().lowercase())
+        return isHostOrSubdomain(host, "last.fm")
+    }
+
+    fun parseLastFmUrl(url: String): LastFmMetadata? {
+        val trimmed = url.trim()
+        if (!isLastFmUrl(trimmed)) return null
+        val host = extractDomain(trimmed.lowercase())
+        val withoutScheme = trimmed.substringAfter("://", trimmed)
+        val pathStart = withoutScheme.indexOf('/')
+        if (pathStart < 0) return null
+        val path = withoutScheme.substring(pathStart).substringBefore("?").substringBefore("#")
+        val match = LASTFM_PATH_REGEX.find(path) ?: return null
+        val artistRaw = match.groupValues[1]
+        val secondRaw = match.groupValues[2]
+        val thirdRaw = match.groupValues[3]
+        if (artistRaw.isBlank() || artistRaw.startsWith("+")) return null
+
+        val artist = artistRaw.decodeUrl().trim()
+        if (artist.isBlank()) return null
+
+        // Track URL: /music/{Artist}/_/{Track}
+        if (secondRaw == "_" && thirdRaw.isNotBlank() && !thirdRaw.startsWith("+")) {
+            val track = thirdRaw.decodeUrl().trim()
+            if (track.isNotBlank()) {
+                return LastFmMetadata(artist = artist, title = track, isAlbum = false)
+            }
+        }
+
+        // Album URL: /music/{Artist}/{Album} (when secondRaw is not a special tab or "_")
+        if (secondRaw.isNotBlank() && secondRaw.lowercase() !in LASTFM_NON_ALBUM_SEGMENTS && !secondRaw.startsWith("+")) {
+            val album = secondRaw.decodeUrl().trim()
+            if (album.isNotBlank()) {
+                return LastFmMetadata(artist = artist, title = album, isAlbum = true)
+            }
+        }
+
+        return null
     }
 
     /**

@@ -129,4 +129,56 @@ class ResilienceAndCircuitBreakerTest {
         // variant 2 (stripped), variant 3 (noParens), variant 4 (collaboration) MUST NOT run!
         assertTrue(callCount <= 2, "Expected at most 2 calls across baseUrls, got $callCount")
     }
+
+    @Test
+    fun testTidalResolverUsesOpenApiV2WhenBearerTokenIsProvided() = runTest {
+        var capturedUrl = ""
+        var capturedAuth = ""
+        val cb = PlatformCircuitBreaker(clock = { 1000000L }, defaultCooldownMs = 300_000L)
+        val mockEngine = MockEngine { request ->
+            capturedUrl = request.url.toString()
+            capturedAuth = request.headers["Authorization"] ?: ""
+            respond(
+                content = """
+                    {
+                      "data": {
+                        "id": "Daft Punk - Around the World",
+                        "type": "searchResults",
+                        "relationships": {
+                          "tracks": { "data": [{ "id": "998877", "type": "tracks" }] }
+                        }
+                      },
+                      "included": [
+                        {
+                          "id": "998877",
+                          "type": "tracks",
+                          "attributes": { "title": "Around the World", "popularity": 0.9 },
+                          "relationships": {
+                            "artists": { "data": [{ "id": "42", "type": "artists" }] }
+                          }
+                        },
+                        {
+                          "id": "42",
+                          "type": "artists",
+                          "attributes": { "name": "Daft Punk", "popularity": 0.95 }
+                        }
+                      ]
+                    }
+                """.trimIndent(),
+                status = HttpStatusCode.OK,
+                headers = headersOf("Content-Type", "application/vnd.tidal.v1+json")
+            )
+        }
+        val resolver = TidalResolver(
+            client = HttpClient(mockEngine),
+            circuitBreaker = cb,
+            bearerTokenProvider = { "oauth-bearer-123" }
+        )
+
+        val outcome = resolver.resolveTrackDetailed("Daft Punk - Around the World")
+        assertTrue(outcome is ResolutionOutcome.Success)
+        assertEquals("https://tidal.com/browse/track/998877", outcome.getOrNull())
+        assertTrue(capturedUrl.startsWith("https://openapi.tidal.com/v2/searchResults/"))
+        assertEquals("Bearer oauth-bearer-123", capturedAuth)
+    }
 }

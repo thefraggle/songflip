@@ -8,7 +8,7 @@ plugins {
     alias(libs.plugins.androidx.baselineprofile)
 }
 
-val appVersionName = "1.15.5"
+val appVersionName = "1.15.6"
 val computedVersionCode = run {
     val cleanVersion = appVersionName.substringBefore("-").substringBefore("+")
     val parts = cleanVersion.split(".").mapNotNull { it.toIntOrNull() }

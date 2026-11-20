@@ -144,6 +144,9 @@ func detectSourcePlatformName(url: String, lang: String = LocalizationManager.cu
     if lower.contains("anghami.com") {
         return "Anghami"
     }
+    if lower.contains("last.fm") {
+        return "Last.fm"
+    }
     if lower.contains("song.link") || lower.contains("album.link") || lower.contains("odesli.co") {
         return LocalizationManager.string(for: "platform_label_universal", lang: lang)
     }

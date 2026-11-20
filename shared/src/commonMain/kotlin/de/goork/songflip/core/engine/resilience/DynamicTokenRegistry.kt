@@ -7,6 +7,7 @@ object DynamicTokenRegistry {
     private val dynamicTokens = mutableMapOf<String, String>()
 
     const val KEY_TIDAL_TOKEN = "tidal_app_token"
+    const val KEY_TIDAL_BEARER_TOKEN = "tidal_bearer_token"
     const val KEY_QOBUZ_APP_ID = "qobuz_app_id"
 
     // Public Web Player client identifiers (required by Tidal / Qobuz public catalog search APIs)
@@ -25,6 +26,10 @@ object DynamicTokenRegistry {
 
     fun getTidalToken(): String {
         return lock.withLock { dynamicTokens[KEY_TIDAL_TOKEN] ?: DEFAULT_TIDAL_TOKEN }
+    }
+
+    fun getTidalBearerToken(): String? {
+        return lock.withLock { dynamicTokens[KEY_TIDAL_BEARER_TOKEN] }
     }
 
     fun getQobuzAppId(): String {
