@@ -898,11 +898,11 @@ struct ContentView: View {
                     )
                     settings.incrementSuccessfulFlipCount()
                     activeMilestone = settings.getActiveProNudgeMilestone()
-                    if settings.shouldTriggerPostFlipPaywall(isPro: proManager.isPro) && !showingPaywall {
+                    if settings.shouldTriggerPostFlipPaywall(isPro: proManager.isPro) && !showingPaywallSheet {
                         settings.hasShownPostFlipPaywall = true
                         paywallShownThisSession = true
-                        showingPaywall = true
-                    } else if activeMilestone == 0 && !showingPaywall && !paywallShownThisSession {
+                        showingPaywallSheet = true
+                    } else if activeMilestone == 0 && !showingPaywallSheet && !paywallShownThisSession {
                         ReviewManager.shared.maybeRequestReview(trigger: "flip_success", settings: settings)
                     }
 
