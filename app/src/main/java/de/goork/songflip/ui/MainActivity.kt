@@ -325,6 +325,7 @@ fun MainScreen(
     var showAppLinksSetupBottomSheet by remember { mutableStateOf(false) }
     var openedAppLinksFromSettings by remember { mutableStateOf(false) }
     var showProPaywall by remember { mutableStateOf(false) }
+    var paywallShownThisSession by remember { mutableStateOf(false) }
     var proPaywallSource by remember { mutableStateOf("header_pro_badge") }
     var initialShowPromoInPaywall by remember { mutableStateOf(false) }
     var showPlaylistConvertSheet by remember { mutableStateOf(initialPlaylistUrl) }
@@ -516,7 +517,12 @@ fun MainScreen(
             if (event == Lifecycle.Event.ON_RESUME) {
                 refreshStatus()
                 activeMilestone = settingsRepository.getActiveProNudgeMilestone()
-                if (activeMilestone <= 0) {
+                if (settingsRepository.shouldTriggerPostFlipPaywall(currentIsPro) && !showProPaywall) {
+                    settingsRepository.hasShownPostFlipPaywall = true
+                    paywallShownThisSession = true
+                    proPaywallSource = "post_flip_2"
+                    showProPaywall = true
+                } else if (activeMilestone <= 0 && !showProPaywall && !paywallShownThisSession) {
                     context.findActivity()?.let { act ->
                         de.goork.songflip.data.ReviewHelper.maybeRequestReview(act, settingsRepository, trigger = "resume_milestone_idle")
                     }

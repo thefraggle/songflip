@@ -287,12 +287,14 @@ class SettingsModel: ObservableObject {
             self.firstInstallTimestamp = savedInstall
         }
         self.lastReviewPromptTimestamp = storage.double(forKey: Self.keyLastReviewPromptTimestamp)
+        self.hasShownPostFlipPaywall = storage.bool(forKey: Self.keyHasShownPostFlipPaywall)
     }
 
     static let keySuccessfulFlipCount = "successful_flip_count"
     static let keyLastDismissedProNudgeMilestone = "last_dismissed_pro_nudge_milestone"
     static let keyFirstInstallTimestamp = "first_install_timestamp"
     static let keyLastReviewPromptTimestamp = "last_review_prompt_timestamp"
+    static let keyHasShownPostFlipPaywall = "has_shown_post_flip_paywall"
 
     @Published var successfulFlipCount: Int {
         didSet { defaults.set(successfulFlipCount, forKey: Self.keySuccessfulFlipCount) }
@@ -305,6 +307,9 @@ class SettingsModel: ObservableObject {
     }
     @Published var lastReviewPromptTimestamp: Double {
         didSet { defaults.set(lastReviewPromptTimestamp, forKey: Self.keyLastReviewPromptTimestamp) }
+    }
+    @Published var hasShownPostFlipPaywall: Bool {
+        didSet { defaults.set(hasShownPostFlipPaywall, forKey: Self.keyHasShownPostFlipPaywall) }
     }
 
     @discardableResult
@@ -320,6 +325,10 @@ class SettingsModel: ObservableObject {
         }
     }
 
+    func shouldTriggerPostFlipPaywall(isPro: Bool) -> Bool {
+        !isPro && successfulFlipCount == 2 && !hasShownPostFlipPaywall
+    }
+
     func getActiveProNudgeMilestone() -> Int {
         let flips = successfulFlipCount
         let milestone: Int
@@ -330,6 +339,8 @@ class SettingsModel: ObservableObject {
             milestone = 50
         case 20..<50:
             milestone = 20
+        case 5..<20:
+            milestone = 5
         default:
             milestone = 0
         }

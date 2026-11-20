@@ -7,18 +7,33 @@ import org.junit.Test
 class ProNudgeMilestoneTest {
 
     @Test
-    fun testMilestonesBelow20() {
+    fun testMilestonesBelow5() {
         assertEquals(0, SettingsRepository.calculateActiveMilestone(flips = 0, lastDismissed = 0))
-        assertEquals(0, SettingsRepository.calculateActiveMilestone(flips = 10, lastDismissed = 0))
-        assertEquals(0, SettingsRepository.calculateActiveMilestone(flips = 19, lastDismissed = 0))
+        assertEquals(0, SettingsRepository.calculateActiveMilestone(flips = 4, lastDismissed = 0))
     }
 
     @Test
-    fun testFirstMilestoneAt20() {
-        assertEquals(20, SettingsRepository.calculateActiveMilestone(flips = 20, lastDismissed = 0))
-        assertEquals(20, SettingsRepository.calculateActiveMilestone(flips = 25, lastDismissed = 0))
+    fun testFirstMilestoneAt5() {
+        assertEquals(5, SettingsRepository.calculateActiveMilestone(flips = 5, lastDismissed = 0))
+        assertEquals(5, SettingsRepository.calculateActiveMilestone(flips = 19, lastDismissed = 0))
+        assertEquals(0, SettingsRepository.calculateActiveMilestone(flips = 19, lastDismissed = 5))
+    }
+
+    @Test
+    fun testMilestoneAt20() {
+        assertEquals(20, SettingsRepository.calculateActiveMilestone(flips = 20, lastDismissed = 5))
+        assertEquals(20, SettingsRepository.calculateActiveMilestone(flips = 25, lastDismissed = 5))
         assertEquals(0, SettingsRepository.calculateActiveMilestone(flips = 25, lastDismissed = 20))
         assertEquals(0, SettingsRepository.calculateActiveMilestone(flips = 49, lastDismissed = 20))
+    }
+
+    @Test
+    fun testPostFlipPaywallTriggerRules() {
+        assertEquals(false, SettingsRepository.shouldTriggerPostFlipPaywall(isPro = false, flips = 1, hasShown = false))
+        assertEquals(true, SettingsRepository.shouldTriggerPostFlipPaywall(isPro = false, flips = 2, hasShown = false))
+        assertEquals(false, SettingsRepository.shouldTriggerPostFlipPaywall(isPro = false, flips = 2, hasShown = true))
+        assertEquals(false, SettingsRepository.shouldTriggerPostFlipPaywall(isPro = true, flips = 2, hasShown = false))
+        assertEquals(false, SettingsRepository.shouldTriggerPostFlipPaywall(isPro = false, flips = 3, hasShown = false))
     }
 
     @Test

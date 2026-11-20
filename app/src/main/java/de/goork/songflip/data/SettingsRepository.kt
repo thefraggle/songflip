@@ -172,8 +172,17 @@ class SettingsRepository(context: Context) {
             prefs.edit().putBoolean(KEY_HAS_SEEN_FIRST_LAUNCH_GUIDE, value).apply()
         }
 
+    var hasShownPostFlipPaywall: Boolean
+        get() = prefs.getBoolean(KEY_HAS_SHOWN_POST_FLIP_PAYWALL, false)
+        set(value) {
+            prefs.edit().putBoolean(KEY_HAS_SHOWN_POST_FLIP_PAYWALL, value).apply()
+        }
+
+    fun shouldTriggerPostFlipPaywall(isPro: Boolean): Boolean =
+        shouldTriggerPostFlipPaywall(isPro, successfulFlipCount, hasShownPostFlipPaywall)
+
     /**
-     * Calculates the active milestone (20, 50, 100, and every 50 thereafter)
+     * Calculates the active milestone (5, 20, 50, 100, and every 50 thereafter)
      * if the user hasn't dismissed it yet. Returns 0 if no nudge should be shown.
      */
     fun getActiveProNudgeMilestone(): Int = calculateActiveMilestone(successfulFlipCount, lastDismissedProNudgeMilestone)
@@ -183,11 +192,15 @@ class SettingsRepository(context: Context) {
     }
 
     companion object {
+        fun shouldTriggerPostFlipPaywall(isPro: Boolean, flips: Int, hasShown: Boolean): Boolean =
+            !isPro && flips == 2 && !hasShown
+
         fun calculateActiveMilestone(flips: Int, lastDismissed: Int): Int {
             val milestone = when {
                 flips >= 100 -> (flips / 50) * 50
                 flips >= 50 -> 50
                 flips >= 20 -> 20
+                flips >= 5 -> 5
                 else -> 0
             }
             return if (milestone > 0 && lastDismissed < milestone) milestone else 0
@@ -209,6 +222,7 @@ class SettingsRepository(context: Context) {
         private const val KEY_LAST_DISMISSED_PRO_NUDGE_MILESTONE = "last_dismissed_pro_nudge_milestone"
         private const val KEY_CACHED_PROMO_BANNER = "cached_promo_banner_json"
         private const val KEY_HAS_SEEN_FIRST_LAUNCH_GUIDE = "has_seen_first_launch_guide"
+        private const val KEY_HAS_SHOWN_POST_FLIP_PAYWALL = "has_shown_post_flip_paywall"
         private val GLOBAL_LOCK = Any()
 
         const val DEFAULT_TARGET = "youtubeMusic"
