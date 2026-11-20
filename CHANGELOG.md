@@ -4,6 +4,7 @@
 - **Source Platforms & Resolver Updates**: Added Last.fm track and album URL support as a source platform and migrated the Tidal catalog integration to the OpenAPI v2 search flow.
 - **Acoustic Recognition & Telemetry**: Separated transient network errors from genuine no-match results during live acoustic recognition, tightened storefront fallback timeouts, and filtered pending/cancelled store errors from purchase failure telemetry.
 - **Backend & WebShare Hardening**: Enforced strict URL scheme sanitization on shared song and playlist pages, validated target platforms and feedback emails, gated podcast cache refreshes, and hardened coupon and token endpoints.
+- **Upgrade Prompt Coordination**: Introduced an unobtrusive, one-time upgrade prompt after early successful conversions with milestone adjustments and mutual suppression against review prompts.
 
 ## [1.15.5] - 2026-11-19
 - **Link Safety & Redirect Validation**: Tightened host and redirect validation across shared music, podcast, audiobook, and share-extension link flows so only verified HTTPS streaming destinations are opened.
