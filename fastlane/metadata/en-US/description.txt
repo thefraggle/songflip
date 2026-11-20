@@ -14,7 +14,7 @@ Supported Audio & Podcast Services (14 Platforms – Any-to-Any Link Redirect):
 - Audiomack & Idagio
 - Anghami
 - SoundCloud
-- Bandcamp & Shazam
+- Bandcamp, Shazam & Last.fm
 
 Key Features:
 - Seamless iOS Integration: Convert music links and open Spotify links from WhatsApp, Telegram, iMessage, Instagram, or Safari directly via the native Share Sheet.

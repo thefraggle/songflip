@@ -7,7 +7,7 @@ Egal ob Spotify zu YouTube Music, Apple Podcasts zu Spotify, Spotify zu Apple Mu
 🚀 DIE WICHTIGSTEN FUNKTIONEN:
 
 • 14 Streaming- & Podcast-Plattformen:
-Songs und Podcasts automatisch konvertieren und weiterleiten zwischen Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud, Bandcamp und Anghami. Erkennt auch Shazam sofort!
+Songs und Podcasts automatisch konvertieren und weiterleiten zwischen Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud, Bandcamp und Anghami. Erkennt auch Shazam & Last.fm sofort!
 
 • Listen & Flip – Lieder & Musik erkennen kostenlos (auch offline):
 Lieder erkennen, Musik erkennen & Tracks identifizieren in Bars, Clubs oder im Radio: Songs im Verlauf speichern und direkt im Wunsch-Player öffnen. Dank Signalqualitäts-Feedback und Offline-Modus werden Audio-Fingerabdrücke ohne Empfang gesichert und automatisch erkannt, sobald du wieder online bist.

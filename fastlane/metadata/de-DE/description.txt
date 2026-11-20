@@ -14,7 +14,7 @@ Unterstützte Musik- & Podcastdienste (14 Plattformen – Jeder-zu-Jeder Link Re
 - Audiomack & Idagio
 - Anghami
 - SoundCloud
-- Bandcamp & Shazam
+- Bandcamp, Shazam & Last.fm
 
 Hauptfunktionen:
 - Nahtlose iOS-Integration: Musik- und Podcast-Links sowie Spotify-Links aus WhatsApp, Telegram, iMessage, Instagram oder Safari direkt über das Teilen-Menü (Share Sheet) konvertieren und öffnen.

@@ -7,7 +7,7 @@ Whether switching Spotify to YouTube Music, Apple Podcasts to Pocket Casts, Spot
 🚀 KEY FEATURES:
 
 • 14 Streaming Platforms, Podcasts & Shazam:
-Seamlessly convert and redirect song links and podcasts across Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud, Bandcamp, and Anghami. Instant converter support for shared Shazam links included!
+Seamlessly convert and redirect song links and podcasts across Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud, Bandcamp, and Anghami. Instant converter support for shared Shazam & Last.fm links included!
 
 • Listen & Flip – Song Recognizer & Song Identifier (Online & Offline):
 Identify tracks playing around you in clubs, bars, or on the radio with instant song recognizer matching, save them to your history, and open them in your favorite player. With Offline Mode, capture audio fingerprints even without reception and resolve tracks automatically once you're back online.

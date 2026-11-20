@@ -7,7 +7,7 @@
 🚀 الميزات الرئيسية:
 
 • 14 منصة بث وبودكاست وShazam:
-حوّل روابط الأغاني والبودكاست بسلاسة بين Spotify وYouTube Music وApple Music وApple Podcasts وPocket Casts وDeezer وTIDAL وAmazon Music وQobuz وBeatport وAudiomack وIdagio وSoundCloud وBandcamp وAnghami — مع دعم فوري لروابط Shazam!
+حوّل روابط الأغاني والبودكاست بسلاسة بين Spotify وYouTube Music وApple Music وApple Podcasts وPocket Casts وDeezer وTIDAL وAmazon Music وQobuz وBeatport وAudiomack وIdagio وSoundCloud وBandcamp وAnghami — مع دعم فوري لروابط Shazam & Last.fm!
 
 • Listen & Flip – التعرّف على الأغاني (متصل وبدون إنترنت):
 تعرّف على الأغاني التي تُعزف حولك في المقاهي أو الراديو خلال ثوانٍ، واحفظها في السجل وافتحها في مشغلك المفضل. مع الوضع غير المتصل، التقط البصمة الصوتية بدون إنترنت وسيتم التعرّف عليها تلقائياً عند عودة الاتصال.
