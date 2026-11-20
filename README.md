@@ -41,6 +41,7 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
   - 🟠 **Audiomack** (`audiomack.com` — full source & target player support with track, album & web player fallbacks)
   - 🎻 **Idagio** (`idagio.com`, `app.idagio.com` — full source & target player support for classical music recordings and albums)
   - 🟣 **Anghami** (`play.anghami.com`, `anghami.com` — full source & target player support across the MENA region with Arabic script matching)
+  - 📻 **Last.fm** (`last.fm` — source link recognition & instant redirection to your target streaming player)
 - **📱 Dynamic Multi-Player Discovery & Selection**: Automatically detects compatible installed players across 11 direct streaming services and lets you choose your preferred default player in Settings or switch directly with a single tap from the main player card.
 - **🎧 Audiophile & Alternative Target Player Support**: Full target dispatch and fallback support for audiophile and FOSS media players, including USB Audio Player PRO (UAPP), BubbleUPnP, Musify, AntennaPod, Pocket Casts, and Podcast Addict.
 - **⚡ Shazam & Last.fm Link Interception**: Songs identified with Shazam or shared from Last.fm open directly and reliably in your preferred music player.
