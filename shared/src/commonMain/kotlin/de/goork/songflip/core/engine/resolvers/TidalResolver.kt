@@ -152,7 +152,13 @@ class TidalResolver(
             byKey["$type:$id"] = obj
         }
 
-        val relData = root["data"]?.jsonObject
+        val rootDataEl = root["data"]
+        val rootDataObj = when (rootDataEl) {
+            is JsonArray -> rootDataEl.firstOrNull() as? JsonObject
+            is JsonObject -> rootDataEl
+            else -> null
+        }
+        val relData = rootDataObj
             ?.get("relationships")?.jsonObject
             ?.get(kind)?.jsonObject
             ?.get("data") as? JsonArray
@@ -230,12 +236,12 @@ class TidalResolver(
                     retryAfterSeconds = circuitBreaker.getCooldownRemainingSeconds(host) ?: 300L
                 )
             }
-            val includeType = if (isAlbum) "albums,artists" else "tracks,artists"
-            val v2Url = "https://openapi.tidal.com/v2/searchResults/$encoded?countryCode=$countryCode&include=${includeType.encodeURLParameter()}"
+            val includeType = if (isAlbum) "albums.artists" else "tracks.artists"
+            val v2Url = "https://openapi.tidal.com/v2/searchResults?filter%5Bquery%5D=$encoded&countryCode=$countryCode&include=${includeType.encodeURLParameter()}"
             try {
                 val resp = client.get(v2Url) {
                     header("Authorization", "Bearer $bearerToken")
-                    header("Accept", "application/vnd.tidal.v1+json")
+                    header("Accept", "application/vnd.api+json")
                     header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SongFlip/${EngineConfig.APP_VERSION}")
                 }
                 if (resp.status.value == 429) {
@@ -371,10 +377,10 @@ class TidalResolver(
             val host = "openapi.tidal.com"
             if (circuitBreaker.canExecute(host)) {
                 try {
-                    val v2Url = "https://openapi.tidal.com/v2/searchResults/$encoded?countryCode=$countryCode&include=artists"
+                    val v2Url = "https://openapi.tidal.com/v2/searchResults?filter%5Bquery%5D=$encoded&countryCode=$countryCode&include=artists"
                     val resp = client.get(v2Url) {
                         header("Authorization", "Bearer $bearerToken")
-                        header("Accept", "application/vnd.tidal.v1+json")
+                        header("Accept", "application/vnd.api+json")
                         header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SongFlip/${EngineConfig.APP_VERSION}")
                     }
                     if (resp.status.value == 429) {

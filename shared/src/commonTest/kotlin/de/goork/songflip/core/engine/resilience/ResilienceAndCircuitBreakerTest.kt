@@ -141,13 +141,13 @@ class ResilienceAndCircuitBreakerTest {
             respond(
                 content = """
                     {
-                      "data": {
+                      "data": [{
                         "id": "Daft Punk - Around the World",
                         "type": "searchResults",
                         "relationships": {
                           "tracks": { "data": [{ "id": "998877", "type": "tracks" }] }
                         }
-                      },
+                      }],
                       "included": [
                         {
                           "id": "998877",
@@ -178,7 +178,7 @@ class ResilienceAndCircuitBreakerTest {
         val outcome = resolver.resolveTrackDetailed("Daft Punk - Around the World")
         assertTrue(outcome is ResolutionOutcome.Success)
         assertEquals("https://tidal.com/browse/track/998877", outcome.getOrNull())
-        assertTrue(capturedUrl.startsWith("https://openapi.tidal.com/v2/searchResults/"))
+        assertTrue(capturedUrl.startsWith("https://openapi.tidal.com/v2/searchResults?filter%5Bquery%5D="))
         assertEquals("Bearer oauth-bearer-123", capturedAuth)
     }
 }
