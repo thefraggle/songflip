@@ -556,8 +556,15 @@ object UrlUtils {
         val artist = artistRaw.decodeUrl().trim()
         if (artist.isBlank()) return null
 
-        // Track URL: /music/{Artist}/_/{Track}
-        if (secondRaw == "_" && thirdRaw.isNotBlank() && !thirdRaw.startsWith("+")) {
+        // Track URL: /music/{Artist}/_/{Track} or /music/{Artist}/{Album}/{Track}
+        val isSecondValidTrackParent = secondRaw == "_" ||
+            (secondRaw.isNotBlank() && !secondRaw.startsWith("+") && secondRaw.lowercase() !in LASTFM_NON_ALBUM_SEGMENTS)
+        if (
+            isSecondValidTrackParent &&
+            thirdRaw.isNotBlank() &&
+            !thirdRaw.startsWith("+") &&
+            thirdRaw.lowercase() !in LASTFM_NON_ALBUM_SEGMENTS
+        ) {
             val track = thirdRaw.decodeUrl().trim()
             if (track.isNotBlank()) {
                 return LastFmMetadata(artist = artist, title = track, isAlbum = false)

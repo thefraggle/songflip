@@ -765,6 +765,27 @@ class UrlUtilsTest {
             UrlUtils.parseLastFmUrl(localizedTrackUrl)
         )
 
+        val albumScopedTrackUrl = "https://www.last.fm/de/music/Die+Toten+Hosen/Tage+Wie+Diese/Tage+wie+diese"
+        assertFalse(UrlUtils.isAlbumUrl(albumScopedTrackUrl))
+        assertEquals(
+            UrlUtils.LastFmMetadata(artist = "Die Toten Hosen", title = "Tage wie diese", isAlbum = false),
+            UrlUtils.parseLastFmUrl(albumScopedTrackUrl)
+        )
+
+        val albumScopedDifferentTrackUrl = "https://www.last.fm/music/Radiohead/In+Rainbows/Nude"
+        assertFalse(UrlUtils.isAlbumUrl(albumScopedDifferentTrackUrl))
+        assertEquals(
+            UrlUtils.LastFmMetadata(artist = "Radiohead", title = "Nude", isAlbum = false),
+            UrlUtils.parseLastFmUrl(albumScopedDifferentTrackUrl)
+        )
+
+        val albumWithWikiUrl = "https://www.last.fm/music/Radiohead/In+Rainbows/+wiki"
+        assertTrue(UrlUtils.isAlbumUrl(albumWithWikiUrl))
+        assertEquals(
+            UrlUtils.LastFmMetadata(artist = "Radiohead", title = "In Rainbows", isAlbum = true),
+            UrlUtils.parseLastFmUrl(albumWithWikiUrl)
+        )
+
         val albumUrl = "https://www.last.fm/music/Radiohead/In+Rainbows"
         assertTrue(UrlUtils.isAlbumUrl(albumUrl))
         assertEquals(
