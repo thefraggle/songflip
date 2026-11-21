@@ -14,59 +14,16 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 
 ## ✨ Key Features
 
-- **⚡ 0-Click Background Redirect**: Intercepts music links transparently and launches direct playback in your target player.
-- **🛡️ Version & Remix Safeguards & Smart Video Cleaning**: Advanced metadata filtering strips video descriptors (`[Official Music Video]`, `4K`, `(Audio)`) while preserving actual song names and user-requested versions, preventing unwanted remixes or live takes from replacing original studio tracks.
-- **✨ Flicker-Free Link Forwarding & Conflict Detection**: A 350ms zero-flicker threshold ensures lightning-fast redirects remain completely invisible without flashing UI, paired with intelligent detection and guided resolution for competing default app handlers.
-- **🎵 Listen & Flip (Music Recognition & Instant Overlay)**: Identify music playing around you directly inside SongFlip, or launch recognition instantly from anywhere via the Quick Settings tile, app icon long-press shortcut, iPhone Action Button, or Siri Shortcuts. Recognized tracks are immediately resolved for your preferred streaming player and saved to your history without interrupting the moment (3 free recognitions/month, with repeat recognitions of songs already in your history never deducting a scan; unlimited in PRO).
-- **🕺 Offline Club Mode [PRO]**: No reception in a club, bar, or festival? Capture an acoustic fingerprint offline and let SongFlip automatically identify the song and add it to your history as soon as you're back online.
-- **🔎 In-App Direct Search & Flip**: Search for any song or artist directly in SongFlip without leaving the app (with automatic deduplication of compilation and remastered duplicates in favor of original studio releases) and launch playback with a single tap.
-- **🎛️ Precision Match-Review & Disambiguation [PRO]**: Easily pick alternative versions, recordings, or remixes right from your history or search options.
-- **🎧 Audiophile Quality Matcher (Studio Master & Hi-Res Prioritization) [PRO]**: Optional preference that prioritizes 24-bit Hi-Res, Lossless, Dolby Atmos, and full studio album masters over radio edits, compilation releases, and cover versions on Tidal, Qobuz, Apple Music, and Deezer.
-- **📶 Offline Resilience & Auto-Retry Queue**: If you tap a music link while in a subway, elevator, or spotty coverage, SongFlip holds the intent and automatically resolves and plays the song the second connectivity is restored.
-- **📑 Universal Playlist Converter & File Importer [PRO]**: Convert entire playlists (up to 200 tracks) across Spotify, YouTube Music, Deezer, Apple Music, and more with 1-click Zero-OAuth playback queue launch, universal local file import (`.M3U8`, `.CSV`, and plain-text tracklists), automatic duplicate track cleaning, multi-part chunk navigation, universal .M3U8 & .CSV file export, instant server-side caching, and 1-tap in-place playlist refresh directly from your conversion history.
-- **🌐 Playlist Web Sharing (`songflip.link/p/...`) [PRO]**: Share converted playlists as beautiful web landing pages with rich album artwork, 1-click import, and branded single-track preview buttons. *(Try the live demo: [songflip.link/p/76176a1354](https://songflip.link/p/76176a1354))*.
-- **🎙️ Cross-Platform Podcast Support**: Seamlessly convert and launch podcast shows and episodes across Spotify, Apple Podcasts, YouTube Music, Pocket Casts, Deezer, and Amazon Music with zero-delay app deep-search and web playback.
-- **🎧 Broad Multi-Service Support**: Full any-to-any redirection between:
-  - 🟢 **Spotify** (`open.spotify.com`, `spotify.link`)
-  - 🔴 **YouTube & YouTube Music** (`music.youtube.com`, `youtu.be`, `youtube.com/shorts`)
-  - 🍎 **Apple Music & Podcasts** (`music.apple.com`, `podcasts.apple.com`, `apple.co`, `itunes.apple.com`)
-  - 🌊 **Tidal** (`tidal.com`, `listen.tidal.com`)
-  - 🟣 **Deezer** (`deezer.com`, `link.deezer.com`, `deezer.page.link`)
-  - 🔵 **Amazon Music** (`music.amazon.com`, `music.amazon.de`, `music.amazon.co.uk`, `amzn.to`, `a.co`)
-  - 🎙️ **Pocket Casts** (`pocketcasts.com`, `pca.st`)
-  - 🟠 **SoundCloud** (`soundcloud.com`, `on.soundcloud.com` — full source & target player support with `soundcloud://` deep-links and direct track resolution)
-  - 🎸 **Bandcamp** (`bandcamp.com`, `*.bandcamp.com` — source link recognition & instant redirection)
-  - 🎶 **Qobuz** (`qobuz.com`, `open.qobuz.com`, `play.qobuz.com` — full source & target player support with Hi-Res playback)
-  - 🎧 **Beatport** (`beatport.com` — source link recognition & instant redirection)
-  - 🟠 **Audiomack** (`audiomack.com` — full source & target player support with track, album & web player fallbacks)
-  - 🎻 **Idagio** (`idagio.com`, `app.idagio.com` — full source & target player support for classical music recordings and albums)
-  - 🟣 **Anghami** (`play.anghami.com`, `anghami.com` — full source & target player support across the MENA region with Arabic script matching)
-  - 📻 **Last.fm** (`last.fm` — source link recognition & instant redirection to your target streaming player)
-- **📱 Dynamic Multi-Player Discovery & Selection**: Automatically detects compatible installed players across 11 direct streaming services and lets you choose your preferred default player in Settings or switch directly with a single tap from the main player card.
-- **🎧 Audiophile & Alternative Target Player Support**: Full target dispatch and fallback support for audiophile and FOSS media players, including USB Audio Player PRO (UAPP), BubbleUPnP, Musify, AntennaPod, Pocket Casts, and Podcast Addict.
-- **⚡ Shazam & Last.fm Link Interception**: Songs identified with Shazam or shared from Last.fm open directly and reliably in your preferred music player.
-- **🎯 Quick Player Picker ("Ask every time") & Universal Link**: Optional setting for users with multiple streaming apps to pick where each song should play with a single tap—or directly copy & share a universal `songflip.link` page from the picker or clipboard banner.
-- **💿 Full Album, Artist & Podcast Recognition**: Supports single tracks, full albums/EPs, artist channel/discography profiles (including `@handles`), and podcast shows/episodes.
-- **🛡️ Autonomous Client-Side Emergency Scrapers**: Built-in zero-auth embed and API scrapers for Spotify and YouTube Music guarantee seamless title, artist, and playback resolution even during third-party API downtime or rate limits.
-- **🔍 Robust Search Sanitization**: Automatically filters punctuation noise, disruptive symbols (`+`, `&`, `#`, `:`), quotes, and emojis from podcast and track queries so deep searches land accurately on every target player.
-- **📋 Clipboard Smart-Banner & Instant Detection**: Immediate 1-tap player launch and universal link copying when music links are copied on Android & iOS, with latency-free window focus detection.
-- **💬 Direct In-App Feedback & Zero-Tracking Support**: Submit bug reports, feature suggestions, or general feedback directly within the app without account requirements or tracking, with automatic email fallback.
-- **🍎 iOS Deep Integration**: Native Share Extension (with direct Universal Link sharing), Home Screen Quick Actions (`Listen & Flip`, `Flip Clipboard`), URL-scheme deep links (`songflip://listen`, `songflip://clipboard`), Action Button support, and Siri / Control Center App Intents (`ConvertSongIntent`, `ListenAndFlipIntent`, `FlipClipboardIntent`).
-- **🎨 Material You Themed Icon (Android 13+)**: Clean vector alpha silhouette dynamically adapting to your launcher wallpaper palette.
-- **🔗 Universal Smart Share Links (`songflip.link/s/...`) & oEmbed [PRO]**: Generate clean, lightning-fast multi-platform landing pages with rich cover art, `og:audio` previews, and oEmbed 1.0 cards for WhatsApp, Telegram, iMessage, Discord, Slack & Reddit. *(Try the permanent live demo: [songflip.link/s/rickroll](https://songflip.link/s/rickroll))*.
-- **📱 QR-Code Generator & Sharing [PRO]**: Generate and scan QR codes for universal smart links directly in the app (seamlessly available in history for Pro users) and on web share pages to share songs across devices effortlessly.
-- **⭐ 1-Tap Favorites & History Filtering**: Pin favorite songs and playlists with a single tap in your conversion history and filter them instantly (including a dedicated "Identified" filter for recognized songs). Favorites and conversion history are kept permanently.
-- **🔄 Smart Share-Sheet Routing**: Sharing directly from your music player generates a universal smart link for friends instead of looping back into your player.
-- **📜 Conversion History & Quick Sharing**: Offline history log with cover artwork thumbnails, 1-tap replay, search filter, and instant smart-link sharing.
-- **🚀 Direct Instant Playback Engine**: Extracts direct video/track IDs in the background (e.g. YouTube Music `watch?v=...`) for instant playback without search delays, with automatic paywall-free web fallbacks when dedicated apps are missing.
-- **🌍 31+ Languages Supported**: Fully localized across 31 in-app languages on Android and iOS (English, German, Spanish, French, Italian, Portuguese, Japanese, Korean, Chinese, Ukrainian, Polish, Turkish, Dutch, Arabic, Hindi, Swedish, Danish, Norwegian, Finnish, Czech, Greek, Hungarian, Romanian, Thai, and more), plus 37 localized App Store and Google Play descriptions.
-- **⏸️ Quick Settings Tiles (Listen & Flip, Flip Clipboard & Smart Pause)**: Launch Listen & Flip as a transparent floating overlay, instantly flip the link in your clipboard from the notification shade or app icon long-press, or pause redirection for 15 minutes, 1 hour, or until tomorrow morning (06:00).
-- **📤 Share Sheet Target (`ACTION_SEND`)**: Supports shared text containing links from WhatsApp, Instagram, and Reddit with automatic URL sanitization, instant fast-fail forwarding for non-music social video links, and helpful guidance toward Listen & Flip.
-- **🛡️ Version & Remix Safeguards & Video Cleaning**: Smart stripping of video noise (`[Official Video]`, `[4K]`, `(Visualizer)`) with strict preservation and scoring to protect original studio tracks from unrequested remixes, club mixes, or alternate edits across streaming catalogs.
-- **⚡ Flicker-Free Instant Redirection**: 350ms debounced overlay threshold guarantees that fast memory and edge-cache resolutions remain completely silent and flicker-free, displaying smooth progress cards only when network delays occur.
-- **🔧 Guided App Link Conflict Diagnosis**: Proactively detects when third-party apps or browsers hijack supported music domains, providing 1-tap navigation to the exact conflicting app settings to restore zero-click redirection across all 11 selectable streaming services.
-- **♿ Accessible UI & 5-State Component Feedback**: All bottom sheets and interactive controls adhere to WCAG AA minimum 48dp touch targets, support instant dismissal via the Escape (ESC) key and backdrop clicks, and explicitly handle 5 UI states (Default, Hover, Active/Focus, Disabled, Loading) for instant visual feedback.
-- **🛡️ 100% Privacy & Zero Tracking**: No accounts, no logins, no advertising IDs, and no listening habits collected.
+- **⚡ 0-Click Background Redirect**: Intercepts shared music links transparently (350ms zero-flicker threshold) and launches direct playback in your preferred player—with guided conflict diagnosis if another app hijacks links.
+- **🎵 Listen & Flip & Offline Club Mode**: Identify music around you via Quick Settings tile, app shortcut, iPhone Action Button, or Siri Shortcuts (3 free scans/month; unlimited + offline signature queueing in PRO).
+- **🔎 In-App Search, Disambiguation & Audiophile Matcher**: Search catalogs directly with compilation deduplication, pick alternative versions/remixes (`[PRO]`), or prioritize 24-bit Hi-Res, Lossless, and Dolby Atmos studio masters (`[PRO]`).
+- **📑 Universal Playlist Converter & File Importer [PRO]**: Convert playlists (up to 200 tracks) with 1-click Zero-OAuth queue launch, `.M3U8`/`.CSV`/`.TXT` import & export, duplicate cleaning, and shareable web pages (`songflip.link/p/...`, [demo](https://songflip.link/p/76176a1354)).
+- **🔗 Universal Smart Share Links & QR Codes [PRO]**: Generate multi-platform landing pages (`songflip.link/s/...`, [demo](https://songflip.link/s/rickroll)) with oEmbed/30s previews and in-app QR codes.
+- **🎙️ Podcasts & Broad Multi-Service Support**: Cross-platform routing for tracks, albums, artists, and podcasts across **Spotify**, **YouTube / YouTube Music**, **Apple Music & Podcasts**, **Tidal**, **Deezer**, **Amazon Music**, **Pocket Casts**, **SoundCloud**, **Bandcamp**, **Qobuz**, **Beatport**, **Audiomack**, **Idagio**, **Anghami**, **Shazam**, and **Last.fm**.
+- **📱 Multi-Player Discovery & Alternative Clients**: Detects installed players (including audiophile/FOSS clients like UAPP, BubbleUPnP, Musify, AntennaPod, Podcast Addict) with an optional "Ask every time" Quick Picker.
+- **🛡️ Smart Safeguards & Emergency Scrapers**: Strips video clutter (`[Official Video]`, `4K`) while protecting original studio versions from unwanted remixes, plus client-side fallback scrapers when third-party APIs rate-limit.
+- **📶 Offline Resilience & Native OS Integration**: Auto-retry queue for spotty connections, Clipboard Smart-Banner, iOS Share Extension & App Intents, Android Quick Settings tiles (Listen, Clipboard, Smart Pause), and Material You themed icons.
+- **📜 Permanent History, Favorites & 31+ Languages**: Offline history with cover art, 1-tap favorites, WCAG AA accessible controls, 31+ in-app languages, and **100% zero-tracking privacy** (no accounts, no ads, no profiling).
 
 ---
 
