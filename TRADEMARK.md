@@ -16,7 +16,7 @@ The following assets are the exclusive property of **Daniel Notthoff** (*All Rig
 1. **Word Marks & Names:**
    - **"SongFlip"** and **"SongFlip PRO"**
    - The package and bundle identifiers **`de.goork.songflip`** (Android `applicationId` and iOS Bundle IDs)
-   - Official domain names including **`songflip.link`**, **`songflip.de`**, and all associated subdomains (`cache.songflip.link`, `download.songflip.link`, etc.)
+   - Official domain names including **`songflip.link`**, **`songflip.de`**, **`songflip.eu`**, **`songflip.io`**, **`songflip.net`**, and all associated subdomains (`cache.songflip.link`, `download.songflip.link`, etc.)
 
 2. **Logos, App Icons & Promotional Graphics:**
    - The official SongFlip app icons and vector drawables (`ic_launcher*`, `AppIcon.appiconset`, `/images/favicon*`, `/images/apple-touch-icon.png`)
