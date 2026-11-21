@@ -130,19 +130,25 @@ jobs:
           REVENUECAT_PUBLIC_KEY: ${{ secrets.REVENUECAT_APPLE_KEY || secrets.REVENUECAT_PUBLIC_KEY }}
           APTABASE_APP_KEY: ${{ secrets.APTABASE_APP_KEY }}
           APTABASE_HOST: ${{ secrets.APTABASE_HOST }}
+          SONGFLIP_BACKEND_CACHE_URL: ${{ secrets.SONGFLIP_BACKEND_CACHE_URL }}
+          SONGFLIP_BACKEND_WEB_URL: ${{ secrets.SONGFLIP_BACKEND_WEB_URL }}
         run: |
           if [ "$HAVE_SIGNING" = "true" ] && [ -z "$REVENUECAT_PUBLIC_KEY" ]; then
             echo "::error::REVENUECAT_PUBLIC_KEY (or REVENUECAT_APPLE_KEY) secret is missing for signed App Store build!"
             exit 1
           fi
-          if [ -n "$REVENUECAT_PUBLIC_KEY" ] || [ -n "$APTABASE_APP_KEY" ]; then
+          if [ -n "$REVENUECAT_PUBLIC_KEY" ] || [ -n "$APTABASE_APP_KEY" ] || [ -n "$SONGFLIP_BACKEND_CACHE_URL" ] || [ -n "$SONGFLIP_BACKEND_WEB_URL" ]; then
             echo "Generating iosApp/SongFlip/Config.xcconfig from repository secrets..."
             HOST="${APTABASE_HOST:-https://api.aptabase.com}"
             ESCAPED_HOST="${HOST/\/\///\$()/}"
+            ESCAPED_CACHE="${SONGFLIP_BACKEND_CACHE_URL/\/\///\$()/}"
+            ESCAPED_WEB="${SONGFLIP_BACKEND_WEB_URL/\/\///\$()/}"
             cat << EOF > iosApp/SongFlip/Config.xcconfig
           REVENUECAT_PUBLIC_KEY = ${REVENUECAT_PUBLIC_KEY:-}
           APTABASE_APP_KEY = ${APTABASE_APP_KEY:-}
           APTABASE_HOST = ${ESCAPED_HOST}
+          SONGFLIP_BACKEND_CACHE_URL = ${ESCAPED_CACHE:-}
+          SONGFLIP_BACKEND_WEB_URL = ${ESCAPED_WEB:-}
           EOF
           else
             echo "ℹ️ No production secrets configured; building in open-source stub mode."

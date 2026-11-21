@@ -96,11 +96,6 @@ class CouponService(
     companion object {
         val shared: CouponService by lazy { CouponService() }
 
-        private val DEFAULT_ENDPOINTS = listOf(
-            "https://cache.songflip.link/redeemPromoCode",
-            "https://songflip-web.web.app/redeemPromoCode"
-        )
-
         /** Token generation requested from the backend; 3 = sign with the v3 key pinned below. */
         const val CURRENT_TOKEN_VERSION = 3
 
@@ -291,7 +286,9 @@ class CouponService(
         val cleanToken = token.removePrefix("coupon:").trim()
         if (cleanToken.isEmpty() || installId.isBlank()) return CouponRefreshOutcome(status = CouponRefreshStatus.KEEP)
 
-        val endpoints = customEndpoints?.takeIf { it.isNotEmpty() } ?: DEFAULT_ENDPOINTS
+        val endpoints = customEndpoints?.takeIf { it.isNotEmpty() }
+            ?: EngineConfig.buildBackendEndpoints("/redeemPromoCode")
+        if (endpoints.isEmpty()) return CouponRefreshOutcome(status = CouponRefreshStatus.KEEP)
         val bodyStr = buildJsonObject {
             put("installId", installId)
             put("refreshToken", cleanToken)
@@ -363,7 +360,11 @@ class CouponService(
             return CouponRedeemOutcome(status = CouponRedeemStatus.INVALID)
         }
 
-        val endpoints = customEndpoints?.takeIf { it.isNotEmpty() } ?: DEFAULT_ENDPOINTS
+        val endpoints = customEndpoints?.takeIf { it.isNotEmpty() }
+            ?: EngineConfig.buildBackendEndpoints("/redeemPromoCode")
+        if (endpoints.isEmpty()) {
+            return CouponRedeemOutcome(status = CouponRedeemStatus.NETWORK_ERROR)
+        }
         val bodyStr = buildJsonObject {
             put("code", cleanCode)
             put("installId", installId)

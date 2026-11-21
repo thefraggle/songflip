@@ -126,6 +126,20 @@ struct SongFlipApp: App {
             aptabaseHost = rawHost
         }
 
+        let normalizeUrl: (String) -> String = { key in
+            let raw = (Bundle.main.infoDictionary?[key] as? String)?
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+                .replacingOccurrences(of: "\\/", with: "/") ?? ""
+            guard (raw.hasPrefix("https://") || raw.hasPrefix("http://")), !raw.hasPrefix("$(") else {
+                return ""
+            }
+            return raw
+        }
+        EngineConfig.shared.configureBackend(
+            cacheBaseUrl: normalizeUrl("SONGFLIP_BACKEND_CACHE_URL"),
+            webBaseUrl: normalizeUrl("SONGFLIP_BACKEND_WEB_URL")
+        )
+
         #if DEBUG
         if aptabaseKey.isEmpty {
             Self.logger.error("[SongFlipApp] APTABASE_APP_KEY missing in Info.plist! Check Config.xcconfig")

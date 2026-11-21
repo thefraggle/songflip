@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.15.7] - 2026-11-21
+- **Entkoppelte Open-Source-Builds**: Gehostete Cloud-Endpunkte aus der öffentlichen Quellcode-Konfiguration ausgelagert, sodass eigenständige Builds vollständig lokal und ohne externe Server-Abhängigkeiten laufen.
+- **Marken- & Lizenzklarstellung**: Eigene Marken- und Asset-Richtlinie (`TRADEMARK.md`), einen GPLv3-Section-7(e)-Hinweis sowie aktualisierte Beitragsbedingungen ergänzt.
+- **Dienst-Sicherheit & Zuverlässigkeit**: Serverseitige Zugriffsprüfungen bei der Link-Auflösung durch striktere Web-Client-Validierung und Ratenbegrenzung gehärtet sowie die Token-Endpunkt-Konfiguration bereinigt.
+
 ## [1.15.6] - 2026-11-20
 - **Quellplattformen & Resolver-Updates**: Unterstützung für Last.fm-Track- und Album-Links als Quellplattform ergänzt sowie die Tidal-Katalogsuche auf den OpenAPI-v2-Flow migriert.
 - **Musikerkennung & Telemetrie**: Temporäre Netzwerkfehler im Live-Scan sauber von echten Nicht-Treffern getrennt, Storefront-Timeouts gestrafft und ausstehende/abgebrochene Store-Fehler aus der Kaufabbruch-Telemetrie gefiltert.

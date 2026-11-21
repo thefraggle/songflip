@@ -22,7 +22,12 @@ import java.util.concurrent.TimeUnit
  */
 object ContactHelper {
     const val SUPPORT_EMAIL = "songflip@goork.de"
-    private const val FEEDBACK_API_URL = "https://songflip-web.web.app/api/feedback"
+    private val FEEDBACK_API_URL: String
+        get() = de.goork.songflip.BuildConfig.BACKEND_WEB_URL
+            .ifBlank { de.goork.songflip.BuildConfig.BACKEND_CACHE_URL }
+            .takeIf { it.isNotBlank() }
+            ?.let { "$it/api/feedback" }
+            ?: ""
 
     private val httpClient: OkHttpClient by lazy {
         OkHttpClient.Builder()
@@ -37,6 +42,10 @@ object ContactHelper {
         message: String,
         email: String? = null
     ): Result<Unit> = withContext(Dispatchers.IO) {
+        val feedbackEndpoint = FEEDBACK_API_URL
+        if (feedbackEndpoint.isBlank()) {
+            return@withContext Result.failure(IllegalStateException("Feedback backend not configured in this build"))
+        }
         val appVersion = try {
             val pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
             "v" + (pInfo.versionName ?: "1.6.9")
@@ -59,7 +68,7 @@ object ContactHelper {
 
         val requestBody = json.toString().toRequestBody("application/json; charset=utf-8".toMediaType())
         val request = Request.Builder()
-            .url(FEEDBACK_API_URL)
+            .url(feedbackEndpoint)
             .post(requestBody)
             .build()
 

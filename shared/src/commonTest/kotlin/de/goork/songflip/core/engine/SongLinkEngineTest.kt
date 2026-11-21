@@ -108,48 +108,53 @@ class SongLinkEngineTest {
 
     @Test
     fun testL2ServerCacheResolution() = runTest {
-        val mockEngine = MockEngine { request ->
-            if (request.url.encodedPath.contains("/resolve")) {
-                val auth = request.headers["Authorization"]
-                if (auth == "Bearer valid-token") {
-                    respond(
-                        content = """
-                        {
-                            "status": "success",
-                            "item": {
-                                "title": "Server Song",
-                                "artist": "Server Artist",
-                                "isAlbum": false,
-                                "links": {
-                                    "youtubeMusic": "https://music.youtube.com/watch?v=server123"
+        EngineConfig.configureBackend("https://mock.songflip.link", "")
+        try {
+            val mockEngine = MockEngine { request ->
+                if (request.url.encodedPath.contains("/resolve")) {
+                    val auth = request.headers["Authorization"]
+                    if (auth == "Bearer valid-token") {
+                        respond(
+                            content = """
+                            {
+                                "status": "success",
+                                "item": {
+                                    "title": "Server Song",
+                                    "artist": "Server Artist",
+                                    "isAlbum": false,
+                                    "links": {
+                                        "youtubeMusic": "https://music.youtube.com/watch?v=server123"
+                                    }
                                 }
                             }
-                        }
-                        """.trimIndent(),
-                        status = HttpStatusCode.OK,
-                        headers = headersOf(HttpHeaders.ContentType, "application/json")
-                    )
+                            """.trimIndent(),
+                            status = HttpStatusCode.OK,
+                            headers = headersOf(HttpHeaders.ContentType, "application/json")
+                        )
+                    } else {
+                        respond("", status = HttpStatusCode.Unauthorized)
+                    }
                 } else {
-                    respond("", status = HttpStatusCode.Unauthorized)
+                    respond("", status = HttpStatusCode.NotFound)
                 }
-            } else {
-                respond("", status = HttpStatusCode.NotFound)
             }
+
+            val engine = SongLinkEngine(client = HttpClient(mockEngine), cache = LinkCache())
+            val result = engine.resolveTargetUrl(
+                inputUrl = "https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv",
+                targetPlatformKey = "youtubeMusic",
+                isPro = true,
+                authToken = "valid-token"
+            )
+
+            assertTrue(result is ResolutionResult.Success)
+            val success = result as ResolutionResult.Success
+            assertEquals("https://music.youtube.com/watch?v=server123", success.targetUrl)
+            assertEquals("Server Song", success.title)
+            assertEquals("Server Artist", success.artist)
+        } finally {
+            EngineConfig.configureBackend("", "")
         }
-
-        val engine = SongLinkEngine(client = HttpClient(mockEngine), cache = LinkCache())
-        val result = engine.resolveTargetUrl(
-            inputUrl = "https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv",
-            targetPlatformKey = "youtubeMusic",
-            isPro = true,
-            authToken = "valid-token"
-        )
-
-        assertTrue(result is ResolutionResult.Success)
-        val success = result as ResolutionResult.Success
-        assertEquals("https://music.youtube.com/watch?v=server123", success.targetUrl)
-        assertEquals("Server Song", success.title)
-        assertEquals("Server Artist", success.artist)
     }
 
     @Test

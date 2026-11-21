@@ -61,7 +61,15 @@ final class PromoBannerManager: ObservableObject {
     @Published var config: PromoBannerConfig = PromoBannerConfig()
     @Published var isDismissed: Bool = false
 
-    private let endpointUrl = "https://songflip-web.web.app/api/promo-banner"
+    private var endpointUrl: String {
+        let raw = (Bundle.main.infoDictionary?["SONGFLIP_BACKEND_WEB_URL"] as? String)?
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: "\\/", with: "/") ?? ""
+        guard (raw.hasPrefix("https://") || raw.hasPrefix("http://")), !raw.hasPrefix("$(") else {
+            return ""
+        }
+        return raw.trimmingCharacters(in: CharacterSet(charactersIn: "/")) + "/api/promo-banner"
+    }
     private let cacheKey = "cached_promo_banner_json"
     private var lastFetchTime: Date?
 
@@ -97,6 +105,7 @@ final class PromoBannerManager: ObservableObject {
     }
 
     func fetchPromoBanner(forceRefresh: Bool = false) async {
+        guard !endpointUrl.isEmpty else { return }
         if !forceRefresh, let last = lastFetchTime, Date().timeIntervalSince(last) < 900 {
             return
         }

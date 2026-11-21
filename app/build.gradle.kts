@@ -8,7 +8,7 @@ plugins {
     alias(libs.plugins.androidx.baselineprofile)
 }
 
-val appVersionName = "1.15.6"
+val appVersionName = "1.15.7"
 val computedVersionCode = run {
     val cleanVersion = appVersionName.substringBefore("-").substringBefore("+")
     val parts = cleanVersion.split(".").mapNotNull { it.toIntOrNull() }
@@ -37,6 +37,14 @@ val aptabaseHost = System.getenv("APTABASE_HOST")
     ?: localProps.getProperty("aptabase.host")
     ?: "https://api.aptabase.com"
 
+val backendCacheUrl = (System.getenv("SONGFLIP_BACKEND_CACHE_URL")
+    ?: localProps.getProperty("songflip.backend.cache.url")
+    ?: "").trim().trimEnd('/')
+
+val backendWebUrl = (System.getenv("SONGFLIP_BACKEND_WEB_URL")
+    ?: localProps.getProperty("songflip.backend.web.url")
+    ?: "").trim().trimEnd('/')
+
 android {
     namespace = "de.goork.songflip"
     compileSdk = 36
@@ -51,6 +59,8 @@ android {
         buildConfigField("String", "REVENUECAT_API_KEY", "\"$revenueCatApiKey\"")
         buildConfigField("String", "APTABASE_APP_KEY", "\"$aptabaseAppKey\"")
         buildConfigField("String", "APTABASE_HOST", "\"$aptabaseHost\"")
+        buildConfigField("String", "BACKEND_CACHE_URL", "\"$backendCacheUrl\"")
+        buildConfigField("String", "BACKEND_WEB_URL", "\"$backendWebUrl\"")
         buildConfigField("boolean", "SHAZAMKIT_AVAILABLE", "${file("libs/shazamkit-android-release.aar").exists()}")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

@@ -81,7 +81,11 @@ object AcousticRecognizer {
     private const val PREFS_NAME = "songflip_shazam_token_prefs"
     private const val KEY_TOKEN = "developer_token"
     private const val KEY_EXPIRES_AT = "developer_token_expires_at"
-    private const val TOKEN_ENDPOINT = "https://cache.songflip.link/getShazamToken"
+    private val TOKEN_ENDPOINT: String
+        get() = de.goork.songflip.BuildConfig.BACKEND_CACHE_URL
+            .takeIf { it.isNotBlank() }
+            ?.let { "$it/getShazamToken" }
+            ?: ""
     private const val SHAZAM_MATCH_URL_TEMPLATE =
         "https://api.shazam.apple.com/v1/catalog/%s/match?types=shazam-songs&include[shazam-songs]=songs&include[songs]=music-videos&meta=matchOffset,frequencySkew&format[resources]=map"
 
@@ -139,10 +143,14 @@ object AcousticRecognizer {
         if (!cached.isNullOrBlank() && expiresAt - now > 3_600_000L) {
             return cached
         }
+        val endpoint = TOKEN_ENDPOINT
+        if (endpoint.isBlank()) {
+            return cached.orEmpty()
+        }
 
         return try {
             val req = Request.Builder()
-                .url(TOKEN_ENDPOINT)
+                .url(endpoint)
                 .header("x-web-client", "songflip-app")
                 .header("x-app-version", de.goork.songflip.BuildConfig.VERSION_NAME)
                 .header("x-client-platform", "android")

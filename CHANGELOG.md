@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.15.7] - 2026-11-21
+- **Open-Source Build Isolation**: Decoupled hosted cloud endpoint configuration from the public source tree so standalone builds operate completely locally without contacting external backend services.
+- **Trademark & Licensing Clarity**: Added explicit trademark and brand-asset guidelines (`TRADEMARK.md`) alongside a GPLv3 Section 7(e) notice and updated contribution terms.
+- **Service Security & Reliability**: Hardened server-side link resolution access checks with stricter web-client validation and rate limiting, and aligned token endpoint configuration.
+
 ## [1.15.6] - 2026-11-20
 - **Source Platforms & Resolver Updates**: Added Last.fm track and album URL support as a source platform and migrated the Tidal catalog integration to the OpenAPI v2 search flow.
 - **Acoustic Recognition & Telemetry**: Separated transient network errors from genuine no-match results during live acoustic recognition, tightened storefront fallback timeouts, and filtered pending/cancelled store errors from purchase failure telemetry.

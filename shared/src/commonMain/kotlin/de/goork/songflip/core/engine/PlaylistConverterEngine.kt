@@ -31,11 +31,6 @@ class PlaylistConverterEngine(
 
     companion object {
         val shared: PlaylistConverterEngine by lazy { PlaylistConverterEngine() }
-
-        private val ENDPOINTS = listOf(
-            "https://songflip.link/api/playlist/convert",
-            "https://songflip-web.web.app/api/playlist/convert"
-        )
     }
 
     private val json = Json {
@@ -174,10 +169,20 @@ class PlaylistConverterEngine(
         authToken: String?,
         defaultErrorMessage: String
     ): Result<PlaylistConversionResult> {
+        val endpoints = EngineConfig.buildBackendEndpoints("/api/playlist/convert")
+        if (endpoints.isEmpty()) {
+            return Result.failure(
+                PlaylistConversionException(
+                    errorCode = PlaylistErrorCode.UNKNOWN_ERROR,
+                    message = "Playlist conversion backend is not configured in this build.",
+                    reason = "backend_unconfigured"
+                )
+            )
+        }
         var lastException: Throwable? = null
-        for ((index, endpoint) in ENDPOINTS.withIndex()) {
+        for ((index, endpoint) in endpoints.withIndex()) {
             try {
-                val timeoutMs = if (index == 0 && ENDPOINTS.size > 1) baseTimeout else (baseTimeout + 10000L)
+                val timeoutMs = if (index == 0 && endpoints.size > 1) baseTimeout else (baseTimeout + 10000L)
                 val response = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
                     kotlinx.coroutines.withTimeout(timeoutMs) {
                         client.post(endpoint) {

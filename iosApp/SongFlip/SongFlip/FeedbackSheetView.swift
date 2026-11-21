@@ -197,8 +197,14 @@ struct FeedbackSheetView: View {
             "device": device
         ]
 
-        guard let url = URL(string: "https://songflip-web.web.app/api/feedback") else {
+        let webBase = (Bundle.main.infoDictionary?["SONGFLIP_BACKEND_WEB_URL"] as? String)?
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: "\\/", with: "/") ?? ""
+        guard (webBase.hasPrefix("https://") || webBase.hasPrefix("http://")),
+              !webBase.hasPrefix("$("),
+              let url = URL(string: webBase.trimmingCharacters(in: CharacterSet(charactersIn: "/")) + "/api/feedback") else {
             isSubmitting = false
+            openMailFallback()
             return
         }
 

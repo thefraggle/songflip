@@ -9,6 +9,8 @@ import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.headersOf
 import kotlinx.coroutines.test.runTest
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -16,6 +18,16 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class PlaylistConverterEngineTest {
+
+    @BeforeTest
+    fun configureMockBackend() {
+        EngineConfig.configureBackend("https://mock.songflip.link", "")
+    }
+
+    @AfterTest
+    fun resetMockBackend() {
+        EngineConfig.configureBackend("", "")
+    }
 
     @Test
     fun testConvertPlaylistSuccess() = runTest {

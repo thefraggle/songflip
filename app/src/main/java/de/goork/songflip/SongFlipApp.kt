@@ -60,6 +60,10 @@ class SongFlipApp : Application() {
 
         val isDebug = isDebuggable || isAutomatedTestBot || isEmulator
         ProManager.setAutomatedTestEnvironment(isAutomatedTestBot)
+        de.goork.songflip.core.engine.EngineConfig.configureBackend(
+            cacheBaseUrl = BuildConfig.BACKEND_CACHE_URL,
+            webBaseUrl = BuildConfig.BACKEND_WEB_URL
+        )
 
         val pInfo = try { packageManager.getPackageInfo(packageName, 0) } catch (_: Exception) { null }
         val versionName = pInfo?.versionName ?: "1.2.11"

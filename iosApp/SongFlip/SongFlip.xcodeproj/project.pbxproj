@@ -426,7 +426,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.15.6;
+				MARKETING_VERSION = 1.15.7;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-lsqlite3",
@@ -467,7 +467,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.15.6;
+				MARKETING_VERSION = 1.15.7;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-lsqlite3",
@@ -501,7 +501,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.15.6;
+				MARKETING_VERSION = 1.15.7;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-lsqlite3",
@@ -536,7 +536,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.15.6;
+				MARKETING_VERSION = 1.15.7;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-lsqlite3",

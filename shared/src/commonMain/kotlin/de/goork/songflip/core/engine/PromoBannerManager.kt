@@ -77,11 +77,12 @@ object PromoBannerManager {
     fun initFromCachedJson(cachedJson: String) = initFromCachedJson(cachedJson, getCurrentTimeMillis())
 
     fun fetchPromoBanner(
-        endpointUrl: String = "https://songflip-web.web.app/api/promo-banner",
+        endpointUrl: String = EngineConfig.promoBannerEndpoint(),
         currentTimeMs: Long = getCurrentTimeMillis(),
         forceRefresh: Boolean = false,
         onSuccess: ((String) -> Unit)? = null
     ) {
+        if (endpointUrl.isBlank()) return
         scope.launch {
             val raw = fetchPromoBannerRaw(endpointUrl, currentTimeMs, forceRefresh)
             if (raw != null) {
@@ -97,10 +98,11 @@ object PromoBannerManager {
     ) = fetchPromoBanner(endpointUrl, getCurrentTimeMillis(), forceRefresh, onSuccess)
 
     suspend fun fetchPromoBannerRaw(
-        endpointUrl: String = "https://songflip-web.web.app/api/promo-banner",
+        endpointUrl: String = EngineConfig.promoBannerEndpoint(),
         currentTimeMs: Long = getCurrentTimeMillis(),
         forceRefresh: Boolean = false
     ): String? {
+        if (endpointUrl.isBlank()) return null
         val now = if (currentTimeMs > 0L) currentTimeMs else 0L
         if (!forceRefresh && lastFetchTimeMs > 0L && now > 0L && (now - lastFetchTimeMs) >= 0L && (now - lastFetchTimeMs) < CACHE_TTL_MS) {
             return null

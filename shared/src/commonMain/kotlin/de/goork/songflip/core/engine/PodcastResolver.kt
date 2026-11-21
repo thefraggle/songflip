@@ -64,10 +64,7 @@ class PodcastResolver(
         // 1. Try Backend /resolve for high-accuracy metadata & direct links
         val encodedUrl = canonicalUrl.encodeURLParameter()
         val refreshParam = if (forceRefresh) "&force_refresh=true" else ""
-        val endpoints = listOf(
-            "https://cache.songflip.link/resolve?url=$encodedUrl&platform=$targetPlatformKey$refreshParam",
-            "https://songflip-web.web.app/resolve?url=$encodedUrl&platform=$targetPlatformKey$refreshParam"
-        )
+        val endpoints = EngineConfig.buildBackendEndpoints("/resolve?url=$encodedUrl&platform=$targetPlatformKey$refreshParam")
 
         for (endpoint in endpoints) {
             try {

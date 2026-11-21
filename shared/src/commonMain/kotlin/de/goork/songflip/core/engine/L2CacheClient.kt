@@ -49,6 +49,8 @@ class L2CacheClient(
         if (UrlUtils.isSearchUrl(targetUrl) || UrlUtils.isSearchUrl(originalUrl)) return
         if (title.isNullOrBlank() || artist.isNullOrBlank()) return
         if (links == null || links.size < 3) return
+        val ingestBase = EngineConfig.backendCacheBaseUrl
+        if (ingestBase.isBlank()) return
 
         backgroundScope.launch {
             try {
@@ -70,7 +72,7 @@ class L2CacheClient(
                     }
                 }.toString()
 
-                client.post("https://cache.songflip.link/ingest") {
+                client.post("$ingestBase/ingest") {
                     header("Content-Type", "application/json")
                     header("x-web-client", "songflip-app")
                     header("x-app-version", EngineConfig.APP_VERSION)
@@ -94,10 +96,8 @@ class L2CacheClient(
         if (authToken.isBlank()) return null
         val encodedUrl = canonicalUrl.encodeURLParameter()
         val refreshParam = if (forceRefresh) "&force_refresh=true" else ""
-        val endpoints = listOf(
-            "https://cache.songflip.link/resolve?url=$encodedUrl$refreshParam",
-            "https://songflip-web.web.app/resolve?url=$encodedUrl$refreshParam"
-        )
+        val endpoints = EngineConfig.buildBackendEndpoints("/resolve?url=$encodedUrl$refreshParam")
+        if (endpoints.isEmpty()) return null
 
         for (endpoint in endpoints) {
             try {

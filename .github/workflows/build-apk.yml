@@ -85,6 +85,8 @@ jobs:
           REVENUECAT_API_KEY: ${{ secrets.REVENUECAT_API_KEY }}
           APTABASE_APP_KEY: ${{ secrets.APTABASE_APP_KEY }}
           APTABASE_HOST: ${{ secrets.APTABASE_HOST }}
+          SONGFLIP_BACKEND_CACHE_URL: ${{ secrets.SONGFLIP_BACKEND_CACHE_URL }}
+          SONGFLIP_BACKEND_WEB_URL: ${{ secrets.SONGFLIP_BACKEND_WEB_URL }}
         run: |
           mkdir -p dist
           VERSION="${GITHUB_REF_NAME:-release}"

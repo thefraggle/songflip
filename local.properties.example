@@ -5,3 +5,7 @@
 revenuecat.api.key=
 aptabase.app.key=
 aptabase.host=https://api.aptabase.com
+
+# Optional proprietary cloud backend URLs (empty in open-source builds)
+songflip.backend.cache.url=
+songflip.backend.web.url=
