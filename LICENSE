@@ -696,4 +696,18 @@ If you modify this Program, you may extend this exception to your version
 of the Program, but you are not obligated to do so. If you do not wish to
 provide this exception, you may delete this exception statement from your
 version.
+
+ADDITIONAL TERM UNDER GNU GPL VERSION 3 SECTION 7(e) (TRADEMARKS & BRAND ASSETS)
+
+Pursuant to Section 7(e) of the GNU General Public License version 3, this
+License explicitly declines to grant any rights under trademark law or
+copyright law for the use of the trade names, trademarks, service marks,
+app icons, logos, package identifiers ("de.goork.songflip"), or promotional
+graphics associated with "SongFlip" or "SongFlip PRO".
+
+All visual brand assets (including app launcher icons and promotional store
+assets in docs/assets/store/) remain the exclusive property of Daniel Notthoff
+(All Rights Reserved). Any redistribution of modified or unmodified versions
+by third parties must comply with the rebranding requirements set forth in
+TRADEMARK.md.
 ----------------------------------------------------------------------

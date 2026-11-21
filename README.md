@@ -182,11 +182,12 @@ If you love SongFlip and want to support its privacy-first, open-source developm
 
 ---
 
-## 📄 License
+## 📄 License & Trademarks
 
-This project is licensed under the **[GNU General Public License v3.0 (GPLv3)](LICENSE)**.
+This project's source code is licensed under the **[GNU General Public License v3.0 (GPLv3)](LICENSE)**.
 
-- **Freedom & Copyleft**: You are free to run, study, share, and modify this software.
+- **Freedom & Copyleft**: You are free to run, study, share, and modify the source code.
 - **Copyleft Requirement**: Any distributed modifications or derivative works must also be licensed under the GNU GPLv3 with full source code made available.
+- **Trademarks & Brand Assets**: Pursuant to GPLv3 Section 7(e), the **"SongFlip"** name, logos, app icons, package IDs (`de.goork.songflip`), and promotional store graphics (`docs/assets/store/`) are **not** licensed under the GPLv3 (*All Rights Reserved*). Redistributed forks must be rebranded with their own name and icons — see **[TRADEMARK.md](TRADEMARK.md)** for full details.
 
 © 2026 Daniel Notthoff ([notthoff.org](https://notthoff.org))

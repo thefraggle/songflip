@@ -81,10 +81,11 @@ Please ensure all string keys present in `app/src/main/res/values/strings.xml` a
 
 ---
 
-## ⚖️ License & Contributions
+## ⚖️ License, Trademarks & Contributions
 
-SongFlip is licensed under the **GNU General Public License v3.0 (GPLv3)** with an **Additional Permission under Section 7** allowing linking with Apple ShazamKit and RevenueCat SDKs and distribution through official digital distribution platforms (App Store, Google Play).
+SongFlip's source code is licensed under the **GNU General Public License v3.0 (GPLv3)** with an **Additional Permission under Section 7** allowing linking with Apple ShazamKit and RevenueCat SDKs and distribution through official digital distribution platforms (App Store, Google Play), and a **Section 7(e) Trademark & Brand Assets Notice** (see **[TRADEMARK.md](TRADEMARK.md)**).
 
-By contributing to SongFlip, you agree that:
+By submitting a pull request or contribution to SongFlip, you agree that:
 1. Your contributions are licensed under the **GPLv3** including the Section 7 Linking Exception described in `LICENSE`.
-2. You certify that you wrote the code or have the right to submit it under this license (Developer Certificate of Origin, DCO 1.1).
+2. You grant the project maintainer (**Daniel Notthoff**) a perpetual, worldwide, non-exclusive, royalty-free, irrevocable license to use, modify, sublicense, and distribute your contribution under the GPLv3 as well as under any future open-source or commercial/App-Store license required to distribute SongFlip across platforms.
+3. You certify that you wrote the code or have the right to submit it under these terms (Developer Certificate of Origin, DCO 1.1).
