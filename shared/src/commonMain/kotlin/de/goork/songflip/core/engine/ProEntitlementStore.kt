@@ -97,7 +97,8 @@ class ProEntitlementStore(
         val cachedRcType = storage.getString(KEY_RC_TYPE) ?: "revenuecat_subscription"
         val cachedRcExp = storage.getString(KEY_RC_EXPIRATION)?.toLongOrNull() ?: 0L
         val isLifetime = cachedRcType == "revenuecat_lifetime"
-        val isExpired = !isLifetime && cachedRcExp > 0L && (cachedRcExp + RC_EXPIRY_GRACE_MS) <= clockMs()
+        val effectiveNowMs = maxOf(clockMs(), getLastSeenServerTimeMs())
+        val isExpired = !isLifetime && (cachedRcExp <= 0L || (cachedRcExp + RC_EXPIRY_GRACE_MS) <= effectiveNowMs)
 
         return if (cachedRcPro && !isExpired) {
             evaluate(

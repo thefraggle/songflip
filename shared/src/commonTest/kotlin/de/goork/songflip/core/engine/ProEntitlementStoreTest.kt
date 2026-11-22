@@ -131,4 +131,35 @@ class ProEntitlementStoreTest {
         store.recordServerTimestamp(1_700_000_010_000L)
         assertEquals(1_700_000_050_000L, store.getLastSeenServerTimeMs())
     }
+
+    @Test
+    fun testHydrateFromCacheRejectsClockRollbackAndZeroExpiration() {
+        val storage = InMemorySecureKeyValuePort()
+        var nowMs = 1_700_000_000_000L
+        val store = ProEntitlementStore(
+            storage = storage,
+            couponService = CouponService(),
+            installIdsProvider = { listOf("install-1") },
+            rcAppUserIdProvider = { "rc_user_123" },
+            clockMs = { nowMs }
+        )
+
+        // Case A: Clock rollback after server timestamp moved past expiration + grace window
+        val expMs = 1_700_000_060_000L
+        store.evaluate(
+            rcSnapshot = RevenueCatSnapshot(active = true, expirationMs = expMs, isLifetime = false),
+            isExplicitRcCheck = true
+        )
+        store.recordServerTimestamp(1_700_001_500_000L) // > expMs + 15min grace
+        nowMs = 1_700_000_000_000L // Device clock rolled back before expiration
+        val rolledBackState = store.hydrateFromCache()
+        assertFalse(rolledBackState.isPro, "Clock rollback must not reactivate expired RC cache")
+
+        // Case B: Non-lifetime RC cache with missing/zero expiration must be treated as expired
+        storage.putString(ProEntitlementStore.KEY_RC_IS_PRO, "true")
+        storage.putString(ProEntitlementStore.KEY_RC_TYPE, "revenuecat_subscription")
+        storage.putString(ProEntitlementStore.KEY_RC_EXPIRATION, "0")
+        val zeroExpState = store.hydrateFromCache()
+        assertFalse(zeroExpState.isPro, "Zero expiration on non-lifetime RC cache must be treated as expired")
+    }
 }

@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.15.8] - 2026-11-22
+- **Quick-Access Tile Lockscreen Safety**: Resuming paused link handling from the quick-access tile on a locked screen now prompts for device unlock before changing the active state.
+- **Playlist Export Sanitization**: Hardened `.M3U8` playlist export by stripping carriage-return and line-break control characters from track metadata and verifying valid `https://` playback links before writing entries.
+- **Offline Cache Time Verification**: Strengthened local status cache validation against system clock rollbacks and missing expiration timestamps.
+- **Faster Playlist Preview Extraction**: Source playlist extraction and file imports now stop paginating once the active track limit is reached while preserving total track counts.
+
 ## [1.15.7] - 2026-11-21
 - **Open-Source Build Isolation**: Decoupled hosted cloud endpoint configuration from the public source tree so standalone builds operate completely locally without contacting external backend services.
 - **Trademark & Licensing Clarity**: Added explicit trademark and brand-asset guidelines (`TRADEMARK.md`) alongside a GPLv3 Section 7(e) notice and updated contribution terms.

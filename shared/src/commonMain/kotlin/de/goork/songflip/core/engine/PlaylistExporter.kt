@@ -2,6 +2,7 @@ package de.goork.songflip.core.engine
 
 import de.goork.songflip.core.model.PlaylistChunk
 import de.goork.songflip.core.model.PlaylistTrackItem
+import de.goork.songflip.core.util.UrlUtils
 import io.ktor.http.encodeURLParameter
 
 /**
@@ -29,16 +30,16 @@ object PlaylistExporter {
      * Compatible with VLC, Apple Music Desktop, Navidrome, Foobar, and community players.
      */
     fun exportToM3u8(title: String, tracks: List<PlaylistTrackItem>): String {
-        val safeTitle = title.ifBlank { "SongFlip Playlist" }.replace("\n", " ").trim()
+        val safeTitle = sanitizeM3u8Text(title.ifBlank { "SongFlip Playlist" })
         val sb = StringBuilder()
         sb.append("#EXTM3U\n")
         sb.append("#EXTENC:UTF-8\n")
         sb.append("#PLAYLIST:").append(safeTitle).append("\n\n")
 
         for (track in tracks) {
-            val artist = track.artist.ifBlank { "Unknown Artist" }.replace("\n", " ").trim()
-            val trackTitle = track.title.ifBlank { "Unknown Title" }.replace("\n", " ").trim()
-            val playbackUrl = track.targetUrl ?: track.sourceUrl ?: ""
+            val artist = sanitizeM3u8Text(track.artist.ifBlank { "Unknown Artist" })
+            val trackTitle = sanitizeM3u8Text(track.title.ifBlank { "Unknown Title" })
+            val playbackUrl = sanitizeM3u8Url(track.targetUrl).ifEmpty { sanitizeM3u8Url(track.sourceUrl) }
 
             sb.append("#EXTINF:-1,").append(artist).append(" - ").append(trackTitle).append("\n")
             if (playbackUrl.isNotBlank()) {
@@ -49,6 +50,17 @@ object PlaylistExporter {
         }
 
         return sb.toString()
+    }
+
+    private fun sanitizeM3u8Text(value: String): String =
+        value.replace("\r", " ").replace("\n", " ").trim()
+
+    private fun sanitizeM3u8Url(rawUrl: String?): String {
+        val candidate = rawUrl?.trim().orEmpty()
+        if (candidate.isEmpty() || candidate.any { it == '\r' || it == '\n' || it < ' ' }) {
+            return ""
+        }
+        return if (UrlUtils.isSafeTargetUrl(candidate)) candidate else ""
     }
 
     /**

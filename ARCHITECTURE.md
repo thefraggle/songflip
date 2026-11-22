@@ -151,7 +151,7 @@ sequenceDiagram
 ```
 
 ### Core Playlist Pipeline Components:
-1. **Extraction Scrapers:** Zero-auth extraction for Deezer API (`/playlist/{id}`), Spotify embed scraper, YouTube Music initial page data, and Apple Music meta tags.
+1. **Extraction Scrapers & Early Track Capping:** Zero-auth extraction for Deezer API (`/playlist/{id}`), Spotify embed scraper, YouTube Music initial page data, and Apple Music meta tags. Both source pagination and file imports enforce the caller's active track cap (`5` for free previews, up to `200` for Pro) before full extraction while preserving `totalTrackCount` for accurate UI indicators.
 2. **L2 Batch Cache Acceleration:** Evaluates all track URLs simultaneously via a single Firestore batch lookup (`db.getAll(...docRefs)`) to reuse previously resolved single-track mappings in `<50ms`.
 3. **Parallel Chunk Matching:** Resolves remaining cache misses in concurrent chunks (15 at a time) via target search scrapers and iTunes API.
 4. **Zero-OAuth Queue Generation:**
@@ -160,7 +160,7 @@ sequenceDiagram
 5. **Multi-Chunk Scaling (up to 200 tracks), Deduplication & File Export (v1.8.0+):** Extended beyond the 50-track limit to handle large playlists with up to 200 songs.
    - **Track Deduplication:** Case- and whitespace-insensitive deduplication removes duplicate titles before matching.
    - **Part Chunking (`PlaylistChunk`):** Automatically segments large playlists into 50-track sub-queues (`Part 1`, `Part 2`...), each playable with a single tap in YouTube Music and Spotify.
-   - **Universal File Export:** Generates Extended M3U8 (`audio/x-mpegurl`) and RFC 4180 CSV files directly on-device for desktop media players and cloud libraries.
+   - **Universal File Export:** Generates Extended M3U8 (`audio/x-mpegurl`) and RFC 4180 CSV files directly on-device for desktop media players and cloud libraries. M3U8 exports strip CR/LF control characters from metadata and validate `https://` target URLs (`UrlUtils.isSafeTargetUrl`) before writing track entries.
 6. **SSR Web Sharing (`songflip.link/s/...` & `songflip.link/p/...`) & oEmbed 1.0 (`/api/oembed`):** Server-rendered, localized web pages with strict CSP hardening, CDN edge-cache resilient client-device prioritization (synchronous DOM reordering via `navigator.userAgent` ensuring visitors on Android see YouTube Music & Spotify first while iOS/macOS users see Apple Music first, even when pages are globally cached at the edge), embedded 30-second audio previews (`og:audio` / `og:audio:secure_url`), oEmbed 1.0 JSON discovery (`<link rel="alternate" type="application/json+oembed">`), and built-in scannable QR code generator modals (with in-app QR code generation in history strictly scoped to Pro users without disruptive paywall prompts for free users).
 7. **90-Day Rolling TTL Lifecycle:** Playlist records are saved with an `expiresAt` timestamp and automatically refreshed on every web page view or conversion hit. Unused playlists expire cleanly via Firestore TTL policies.
 8. **Automatic L2 Song Cache Swarm Warmup:** Every playlist conversion asynchronously writes all successfully resolved tracks into the global Firestore `l2_song_cache` (with canonical 12-char SHA-256 short-hash single-write indexing). This automatically seeds the global cache, guaranteeing sub-30ms instant resolutions for any user subsequently flipping these tracks individually.
@@ -270,8 +270,8 @@ SongFlip enforces automated test coverage across all client layers to ensure zer
 
 | Test Scope | Location | Framework | What is Covered |
 | :--- | :--- | :--- | :--- |
-| **Shared KMP Core** | `shared/src/commonTest/` | Kotlin Test, Ktor `MockEngine`, Coroutines Test | URL normalization, entity type & platform detection, SQLDelight L1 cache TTL & eviction, all 12 platform resolvers (Spotify, Apple Music, Deezer, Tidal, YouTube Music, Qobuz, SoundCloud, Beatport, Audiomack, Idagio, Anghami, SongLink API), Ed25519 signature verification, Aptabase analytics client. |
-| **Android Client** | `app/src/test/` | JUnit 4, OkHttp `MockWebServer`, Coroutines Test | Domain verification info, quick settings tile states, dynamic app shortcuts, coupon redemption & error handling, review prompt rules, L1 hit detection, 31+ locale string formats (`strings.xml`). |
+| **Shared KMP Core** | `shared/src/commonTest/` | Kotlin Test, Ktor `MockEngine`, Coroutines Test | URL normalization, entity type & platform detection, SQLDelight L1 cache TTL & eviction, unified `MetadataExtractor` + core resolvers (Spotify, Apple Music, Deezer, Tidal OpenAPI v2, YouTube Music, Qobuz, SoundCloud, SongLink API), Ed25519 signature verification, M3U8/CSV export sanitization, Aptabase analytics client. |
+| **Android Client** | `app/src/test/` | JUnit 4, OkHttp `MockWebServer`, Coroutines Test | Domain verification info, quick settings tile states & lockscreen guard, dynamic app shortcuts, coupon redemption & error handling, review prompt rules, L1 hit detection, 34+ locale string formats (`strings.xml`). |
 | **Backend Functions** | Cloud Backend (Private Service) | Node.js Test Runner, TypeScript | Automated tests covering SSR crawler rendering, oEmbed 1.0 & `og:audio` social previews, Zero-OAuth playlist generation, Ed25519 signed coupons, promo code rate-limiting, and artist resolution. |
 
 ### Deterministic Mocking & Isolation:

@@ -23,7 +23,7 @@ SongFlip runs completely in the background: set it up in 30 seconds, and wheneve
 - **📱 Multi-Player Discovery & Alternative Clients**: Detects installed players (including audiophile/FOSS clients like UAPP, BubbleUPnP, Musify, AntennaPod, Podcast Addict) with an optional "Ask every time" Quick Picker.
 - **🛡️ Smart Safeguards & Emergency Scrapers**: Strips video clutter (`[Official Video]`, `4K`) while protecting original studio versions from unwanted remixes, plus client-side fallback scrapers when third-party APIs rate-limit.
 - **📶 Offline Resilience & Native OS Integration**: Auto-retry queue for spotty connections, Clipboard Smart-Banner, iOS Share Extension & App Intents, Android Quick Settings tiles (Listen, Clipboard, Smart Pause), and Material You themed icons.
-- **📜 Permanent History, Favorites & 31+ Languages**: Offline history with cover art, 1-tap favorites, WCAG AA accessible controls, 31+ in-app languages, and **100% zero-tracking privacy** (no accounts, no ads, no profiling).
+- **📜 Permanent History, Favorites & 34+ Languages**: Offline history with cover art, 1-tap favorites, WCAG AA accessible controls, 34+ in-app languages, and **100% zero-tracking privacy** (no accounts, no ads, no profiling).
 
 ---
 

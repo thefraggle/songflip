@@ -120,4 +120,47 @@ class PlaylistExporterTest {
         kotlin.test.assertFalse(PlaylistExporter.supportsBatchQueue("idagio"))
         kotlin.test.assertFalse(PlaylistExporter.supportsBatchQueue("unknown"))
     }
+
+    @Test
+    fun testExportToM3u8SanitizesCrLfAndRejectsUnsafeUrls() {
+        val maliciousTracks = listOf(
+            PlaylistTrackItem(
+                title = "Injected\r\n#EXTINF:-1,Fake - Track",
+                artist = "Bad\rArtist\nName",
+                matched = true,
+                targetUrl = "https://open.spotify.com/track/123\r\n#EXTINF:-1,Injected\nhttps://evil.example/x",
+                sourceUrl = "https://deezer.com/track/123"
+            ),
+            PlaylistTrackItem(
+                title = "Unsafe Scheme",
+                artist = "Tester",
+                matched = true,
+                targetUrl = "javascript:alert(1)",
+                sourceUrl = "file:///etc/passwd"
+            ),
+            PlaylistTrackItem(
+                title = "Insecure Http",
+                artist = "Tester",
+                matched = true,
+                targetUrl = "http://insecure.example/a",
+                sourceUrl = "https://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv"
+            )
+        )
+
+        val m3u8 = PlaylistExporter.exportToM3u8(
+            "My\r\n#EXTVLCOPT:network-caching=9999",
+            maliciousTracks
+        )
+
+        val lines = m3u8.lines()
+        assertTrue(lines.none { it.startsWith("#EXTVLCOPT") })
+        assertTrue(lines.none { it.contains("https://evil.example") })
+        assertTrue(lines.none { it.contains("javascript:") })
+        assertTrue(lines.none { it.contains("file:///etc/passwd") })
+        assertTrue(lines.none { it.contains("http://insecure.example") })
+        assertTrue(m3u8.contains("#PLAYLIST:My  #EXTVLCOPT:network-caching=9999\n") || m3u8.contains("#PLAYLIST:My #EXTVLCOPT:network-caching=9999\n"))
+        assertTrue(m3u8.contains("#EXTINF:-1,Bad Artist Name - Injected  #EXTINF:-1,Fake - Track\nhttps://deezer.com/track/123\n") || m3u8.contains("#EXTINF:-1,Bad Artist Name - Injected #EXTINF:-1,Fake - Track\nhttps://deezer.com/track/123\n"))
+        assertTrue(m3u8.contains("#EXTINF:-1,Tester - Unsafe Scheme\n# No URL available\n"))
+        assertTrue(m3u8.contains("#EXTINF:-1,Tester - Insecure Http\nhttps://open.spotify.com/track/4u7EnebtmKWzUH433cf5Qv\n"))
+    }
 }

@@ -25,9 +25,15 @@ class SongFlipTileService : TileService() {
         super.onClick()
         val currentlyPaused = PauseHelper.isCurrentlyPaused(this)
         if (currentlyPaused) {
-            PauseHelper.resume(this)
-            de.goork.songflip.core.analytics.AptabaseClient.shared.trackPauseStateChanged("unpaused_tile")
-            updateTileState()
+            handleResumeClick(
+                isLocked = isLocked,
+                unlockAndRun = { runnable -> unlockAndRun(runnable) },
+                onResumeUnlocked = {
+                    PauseHelper.resume(this)
+                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackPauseStateChanged("unpaused_tile")
+                    updateTileState()
+                }
+            )
         } else {
             // Open MainActivity with the pause bottom sheet requested
             val intent = Intent(this, MainActivity::class.java).apply {
@@ -78,5 +84,22 @@ class SongFlipTileService : TileService() {
             }
         }
         tile.updateTile()
+    }
+
+    internal companion object {
+        /**
+         * Defers unpausing behind the system unlock prompt when the device is locked (#286).
+         */
+        internal fun handleResumeClick(
+            isLocked: Boolean,
+            unlockAndRun: (Runnable) -> Unit,
+            onResumeUnlocked: () -> Unit
+        ) {
+            if (isLocked) {
+                unlockAndRun(Runnable { onResumeUnlocked() })
+            } else {
+                onResumeUnlocked()
+            }
+        }
     }
 }

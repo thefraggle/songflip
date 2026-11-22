@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.15.8] - 2026-11-22
+- **Sperrbildschirm-Schutz für Schnellzugriffs-Kachel**: Das Aufheben der Pausierung über die Schnellzugriffs-Kachel auf dem Sperrbildschirm fordert nun vor der Statusänderung zum Entsperren des Geräts auf.
+- **Bereinigung beim Playlist-Export**: `.M3U8`-Exporte bereinigen Zeilenumbruch- und Steuerzeichen in Titel-Metadaten vollständig und prüfen Wiedergabe-Links vor dem Schreiben auf gültige `https://`-Adressen.
+- **Zeitprüfung im lokalen Zwischenspeicher**: Lokale Status-Prüfungen im Offline-Zwischenspeicher gegen zurückgestellte Systemuhren und fehlende Ablaufzeitpunkte gehärtet.
+- **Schnellere Playlist-Vorschau-Extraktion**: Beim Einlesen großer Quell-Playlists und Datei-Importe wird das Nachladen weiterer Seiten beendet, sobald das aktive Track-Limit erreicht ist, während die Gesamtzahl der Titel erhalten bleibt.
+
 ## [1.15.7] - 2026-11-21
 - **Entkoppelte Open-Source-Builds**: Gehostete Cloud-Endpunkte aus der öffentlichen Quellcode-Konfiguration ausgelagert, sodass eigenständige Builds vollständig lokal und ohne externe Server-Abhängigkeiten laufen.
 - **Marken- & Lizenzklarstellung**: Eigene Marken- und Asset-Richtlinie (`TRADEMARK.md`), einen GPLv3-Section-7(e)-Hinweis sowie aktualisierte Beitragsbedingungen ergänzt.
