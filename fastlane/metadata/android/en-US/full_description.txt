@@ -7,7 +7,7 @@ Whether switching Spotify to YouTube Music, Apple Podcasts to Pocket Casts, Spot
 🚀 KEY FEATURES:
 
 • 14 Streaming Platforms, Podcasts & Shazam:
-Seamlessly convert and redirect song links and podcasts across Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud, Bandcamp, and Anghami. Instant converter support for shared Shazam & Last.fm links included!
+Seamlessly convert and redirect song links and podcasts across Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud, Bandcamp, and Anghami. Instant converter support for shared Shazam links included!
 
 • Listen & Flip – Song Recognizer & Song Identifier (Online & Offline):
 Identify tracks playing around you in clubs, bars, or on the radio with instant song recognizer matching, save them to your history, and open them in your favorite player. With Offline Mode, capture audio fingerprints even without reception and resolve tracks automatically once you're back online.
@@ -37,7 +37,7 @@ Easily verify and configure Android Open by Default App Links with our interacti
 Convert and open links instantly via the smart dashboard banner, or share universal song link URLs directly from WhatsApp, Telegram, Reddit, or your browser.
 
 • Universal Web Smart Links & HTML5 Player:
-Generate neutral web-share URLs (songflip.link) with an embedded webplayer to share music across platforms on any device or browser.
+Generate neutral web-share URLs (songflip.link) with an embedded webplayer to share tracks across platforms on any device or browser.
 
 • Quick Settings Tile & App Shortcuts:
 Pause redirection for 15 minutes, 1 hour, or until tomorrow morning via Quick Settings tile or app shortcuts.
@@ -51,4 +51,4 @@ Matches system Dynamic Color with AMOLED dark mode, monochrome themed icon, and 
 • Completely ad-free forever
 • Zero tracking, no data harvesting, no listening habits logged
 
-Compatible with universal protocols including Songlink / Odesli. Download SongFlip now—your automatic music link redirect and song link converter to bridge songs & podcasts across all streaming services effortlessly!
+Compatible with universal protocols including Songlink / Odesli. Download SongFlip now—your automatic audio link redirect and song link converter to bridge songs & podcasts across all streaming services effortlessly!

@@ -20,8 +20,8 @@ M3U_PLAYLIST_PARAS = {
     "en-GB": "• Universal Playlist Converter, File Import (M3U) & Playlist Transfer App (Free):\nConvert playlists and transfer playlists track-by-track between Spotify, Apple Music, YouTube Music, TIDAL, and Deezer. Import local tracklists from .m3u, .m3u8, .csv, and plain text files directly into streaming queues—with duplicate cleaning, up to 200 tracks, and fast caching.",
     "en-IN": "• Universal Playlist Converter, File Import (M3U) & Playlist Transfer App (Free):\nConvert playlists and transfer playlists track-by-track between Spotify, Apple Music, YouTube Music, TIDAL, and Deezer. Import local tracklists from .m3u, .m3u8, .csv, and plain text files directly into streaming queues—with duplicate cleaning, up to 200 tracks, and fast caching.",
     "en-US": "• Universal Playlist Converter, File Import (M3U) & Playlist Transfer App (Free):\nConvert playlists and transfer playlists track-by-track between Spotify, Apple Music, YouTube Music, TIDAL, and Deezer. Import local tracklists from .m3u, .m3u8, .csv, and plain text files directly into streaming queues—with duplicate cleaning, up to 200 tracks, and fast caching.",
-    "es-419": "• Convertidor de listas, importación (M3U) y transferencia:\nConvierta y transfiera listas de reproducción entre Spotify, Apple Music, YouTube Music, TIDAL y Deezer. Importe listas desde archivos .m3u, .m3u8, .csv y texto directamente a sus listas de streaming (con limpieza de duplicados y hasta 200 pistas).",
-    "es-ES": "• Convertidor de listas, importación (M3U) y transferencia:\nConvierta y transfiera listas de reproducción entre Spotify, Apple Music, YouTube Music, TIDAL y Deezer. Importe listas desde archivos .m3u, .m3u8, .csv y texto directamente a sus listas de streaming (con limpieza de duplicados y hasta 200 pistas).",
+    "es-419": "• Convertidor de listas, importación (M3U) y transferencia:\nPase playlists de Spotify a YouTube Music, Apple Music, TIDAL o Deezer pista por pista. Importe listas desde archivos .m3u, .m3u8, .csv y texto directamente a sus colas de streaming (con limpieza de duplicados y hasta 200 pistas).",
+    "es-ES": "• Convertidor de listas, importación (M3U) y transferencia:\nPase playlists de Spotify a YouTube Music, Apple Music, TIDAL o Deezer pista por pista. Importe listas desde archivos .m3u, .m3u8, .csv y texto directamente a sus colas de streaming (con limpieza de duplicados y hasta 200 pistas).",
     "es-US": "• Convertidor de listas, importación (M3U) y transferencia:\nConvierta y transfiera listas de reproducción entre Spotify, Apple Music, YouTube Music, TIDAL y Deezer. Importe listas desde archivos .m3u, .m3u8, .csv y texto directamente a sus listas de streaming (con limpieza de duplicados y hasta 200 pistas).",
     "fi-FI": "• Soittolistamuunnin, tiedostojen tuonti (M3U) ja siirto:\nMuunna ja siirrä soittolistoja Spotifyn, Apple Musicin, YouTube Musicin, TIDALin ja Deezerin välillä. Tuo paikallisia kappalelistoja .m3u-, .m3u8-, .csv- ja tekstitiedostoista suoraan suoratoistosoittolistoille – kaksoiskappaleiden puhdistuksella ja jopa 200 kappaleella.",
     "fr-CA": "• Convertisseur de playlist, import de fichiers (M3U) et transfert :\nConvertissez et transférez des listes de lecture entre Spotify, Apple Music, YouTube Music, TIDAL et Deezer. Importez des listes locales depuis des fichiers .m3u, .m3u8, .csv et texte directement dans vos playlists de streaming (jusqu'à 200 pistes).",
@@ -174,7 +174,7 @@ Compatible with universal music link protocols including Songlink / Odesli. Buil
 Terms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 Privacy Policy: https://songflip.link/privacy"""
 
-IOS_EN_KEYWORDS = "spotify,apple,youtube,transfer,deezer,beatport,qobuz,tidal,soundcloud,shazam,bandcamp,amazon,anghami"
+IOS_EN_KEYWORDS = "spotify,apple,youtube,transfer,deezer,qobuz,tidal,soundcloud,shazam,import,songs,amazon,anghami"
 IOS_DE_KEYWORDS = "spotify,apple,youtube,transfer,deezer,beatport,qobuz,tidal,soundcloud,shazam,lieder,erkennen,amazon"
 
 QUOTE_CHARS = {'"', "'", "“", "”", "‘", "’", "«", "»"}
@@ -339,11 +339,13 @@ def main():
             if len(paras) > 13:
                 paras[13] = "• Clipboard Smart-Banner & Native Sharing:\nConvert and open links instantly via the smart dashboard banner, or share universal song link URLs directly from WhatsApp, Telegram, Reddit, or your browser."
             if len(paras) > 14:
-                paras[14] = "• Universal Web Smart Links & HTML5 Player:\nGenerate neutral web-share URLs (songflip.link) with an embedded webplayer to share music across platforms on any device or browser."
+                paras[14] = "• Universal Web Smart Links & HTML5 Player:\nGenerate neutral web-share URLs (songflip.link) with an embedded webplayer to share tracks across platforms on any device or browser."
             if len(paras) > 15:
                 paras[15] = "• Quick Settings Tile & App Shortcuts:\nPause redirection for 15 minutes, 1 hour, or until tomorrow morning via Quick Settings tile or app shortcuts."
             if len(paras) > 16:
                 paras[16] = "• Material You, AMOLED Dark Mode & Promo Codes:\nMatches system Dynamic Color with AMOLED dark mode, monochrome themed icon, and promo code redemption."
+            if len(paras) > 17:
+                paras[-1] = paras[-1].replace("automatic music link redirect", "automatic audio link redirect")
 
         if loc in ('es-419', 'es-ES', 'es-US'):
             paras[11] = "• Selector rápido de reproductores:\nElija su reproductor de audio de destino cada vez que abra un enlace de canción o podcast compartido."

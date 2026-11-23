@@ -22,7 +22,7 @@ Cree y escanee códigos QR universales para canciones y álbumes en cualquier se
 Comparta programas o episodios completos de podcasts en todas las plataformas.
 
 • Convertidor de listas, importación (M3U) y transferencia:
-Convierta y transfiera listas de reproducción entre Spotify, Apple Music, YouTube Music, TIDAL y Deezer.
+Pase playlists de Spotify a YouTube Music, Apple Music, TIDAL o Deezer pista por pista.
 
 • Calidad audiófila (Hi-Res y Lossless) y favoritos:
 Prioriza masters de estudio, 24-bit Hi-Res, Lossless y Dolby Atmos frente a ediciones de radio y recopilatorios. Elige versiones y fija favoritos con 1 toque.

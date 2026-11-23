@@ -28,7 +28,7 @@ Konverter og overfør afspilningslister mellem Spotify, Apple Music, YouTube Mus
 Foretræk studiemasters, 24-bit Hi-Res, Lossless & Dolby Atmos frem for radio-edits og opsamlinger. Fastgør yndlingssange i historikken med 1 tryk.
 
 • Hurtig Afspillervælger (Spørg hver gang):
-Bruger du flere lyd-apps? Vælg lynhurtigt din målafspiller, hver gang du åbner et link.
+Vælg lynhurtigt din målafspiller, hver gang du åbner et link.
 
 • Smart Link Redirect Assistant (Android 12+):
 Bekræft og konfigurer nemt Android Open by Default App Links med vores interaktive 1-tryks link-omdirigeringsassistent.
