@@ -198,10 +198,18 @@ fun PlaylistConvertBottomSheet(
     }
 
     fun runConversion(forceRefresh: Boolean = false) {
+        if (importedTracks != null) {
+            handleImportedTracks(
+                importedTracks,
+                importedPlaylistTitle ?: context.getString(R.string.playlist_import_default_title)
+            )
+            return
+        }
         if (onRetryConversion != null) {
             onRetryConversion()
             return
         }
+        val sourceTelemetryKey = de.goork.songflip.ui.viewmodel.resolvePlaylistSourceTelemetryKey(playlistUrl)
         internalConversionState = PlaylistConversionState.Loading()
         conversionProgressStep = 0
         val maxTracksToConvert = if (isPro) {
@@ -210,7 +218,7 @@ fun PlaylistConvertBottomSheet(
             de.goork.songflip.core.engine.ProLimits.MAX_FREE_PLAYLIST_TRACKS
         }
         de.goork.songflip.core.analytics.AptabaseClient.shared.trackPlaylistConversionStarted(
-            sourcePlatform = sourcePlatform.key,
+            sourcePlatform = sourceTelemetryKey,
             targetPlatform = targetPlatformKey,
             trackCount = maxTracksToConvert
         )
@@ -247,7 +255,7 @@ fun PlaylistConvertBottomSheet(
                 )
 
                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackPlaylistConversionCompleted(
-                    sourcePlatform = sourcePlatform.key,
+                    sourcePlatform = sourceTelemetryKey,
                     targetPlatform = targetPlatformKey,
                     totalTracks = data.totalTracks,
                     resolvedTracks = data.matchedCount,
@@ -259,7 +267,7 @@ fun PlaylistConvertBottomSheet(
                     target = targetPlatformKey,
                     isAlbum = false,
                     isSearch = false,
-                    source = sourcePlatform.key
+                    source = sourceTelemetryKey
                 )
 
                 // Request In-App Review at this happy moment if eligible
@@ -285,7 +293,7 @@ fun PlaylistConvertBottomSheet(
                     reason = reason
                 )
                 de.goork.songflip.core.analytics.AptabaseClient.shared.trackPlaylistConversionFailed(
-                    sourcePlatform = sourcePlatform.key,
+                    sourcePlatform = sourceTelemetryKey,
                     targetPlatform = targetPlatformKey,
                     reason = reason,
                     errorCode = errorCode.name.lowercase()

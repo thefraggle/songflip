@@ -8,6 +8,8 @@ struct ProPaywallSheetView: View {
     @EnvironmentObject var settings: SettingsModel
     @ObservedObject var proManager = ProManager.shared
 
+    @State private var openedAsPro: Bool = ProManager.shared.isPro
+
     var offering: Offering? = nil
 
     private var lang: String {
@@ -15,7 +17,7 @@ struct ProPaywallSheetView: View {
     }
 
     var body: some View {
-        if proManager.isPro {
+        if openedAsPro {
             NavigationStack {
                 VStack(spacing: 24) {
                     Spacer()
@@ -125,7 +127,8 @@ struct ProPaywallSheetView: View {
             .onPurchaseCompleted { customerInfo in
                 let activeEntitlement = customerInfo.entitlements["pro"] ?? customerInfo.entitlements["songflip_pro"]
                 if activeEntitlement?.isActive == true && activeEntitlement?.isSandbox == false {
-                    AptabaseClient.shared.trackEvent(eventName: "pro_purchased", props: [:])
+                    let packageId = (activeEntitlement?.productIdentifier).flatMap { $0.isEmpty ? nil : $0 } ?? "unknown"
+                    AptabaseClient.shared.trackProPurchased(packageId: packageId, layout: nil, isSale: nil)
                 }
                 proManager.updateFromCustomerInfo(customerInfo)
                 dismiss()

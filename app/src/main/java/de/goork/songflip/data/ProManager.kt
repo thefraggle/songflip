@@ -71,6 +71,9 @@ object ProManager {
     private val isInitialized = java.util.concurrent.atomic.AtomicBoolean(false)
     @Volatile
     private var isAutomatedTestEnv: Boolean = false
+    @Volatile
+    internal var isLastCustomerInfoSandbox: Boolean = false
+        private set
     private val _proState = MutableStateFlow(ProState())
     val proState: StateFlow<ProState> = _proState.asStateFlow()
 
@@ -341,6 +344,7 @@ object ProManager {
         // Strictly verify 'pro' or 'songflip_pro' entitlement. Other purchases (tips/consumables) do not grant Pro (#108).
         val activeEntitlement = customerInfo.entitlements["pro"] ?: customerInfo.entitlements["songflip_pro"]
         val hasProEntitlement = activeEntitlement?.isActive == true
+        isLastCustomerInfoSandbox = activeEntitlement?.isSandbox == true
         val expDate = activeEntitlement?.expirationDate?.time
         val isLifetimeRc = hasProEntitlement && expDate == null
 
@@ -636,6 +640,7 @@ object ProManager {
 
     fun resetProForTesting() {
         isInitialized.set(false)
+        isLastCustomerInfoSandbox = false
         prefs?.edit()?.clear()?.apply()
         _proState.value = ProState(isPro = false, proType = "")
         tokenMigrationAttempted.set(false)

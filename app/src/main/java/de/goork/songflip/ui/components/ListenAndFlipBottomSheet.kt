@@ -78,7 +78,7 @@ fun ListenAndFlipBottomSheet(
     targetPlatformKey: String,
     isPro: Boolean,
     onDismissRequest: () -> Unit,
-    onOpenProPaywall: () -> Unit
+    onOpenProPaywall: (String) -> Unit
 ) {
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
@@ -114,8 +114,7 @@ fun ListenAndFlipBottomSheet(
         remainingFreeScans = AcousticQuotaManager.shared.getRemainingFreeScans(isPro = isPro)
         if (!AcousticQuotaManager.shared.canStartScan(isPro = isPro)) {
             haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-            de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("acoustic_quota_reached")
-            onOpenProPaywall()
+            onOpenProPaywall("acoustic_quota_reached")
             return
         }
 
@@ -225,8 +224,7 @@ fun ListenAndFlipBottomSheet(
                 Surface(
                     onClick = {
                         haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                        de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("acoustic_quota_badge")
-                        onOpenProPaywall()
+                        onOpenProPaywall("acoustic_quota_badge")
                     },
                     shape = RoundedCornerShape(12.dp),
                     color = if (remainingFreeScans > 0) {
@@ -268,8 +266,7 @@ fun ListenAndFlipBottomSheet(
                 !isPro && remainingFreeScans <= 0 && recognitionState !is AcousticRecognitionState.Matched -> {
                     QuotaExhaustedContent(
                         onUnlockPro = {
-                            de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("acoustic_quota_exhausted")
-                            onOpenProPaywall()
+                            onOpenProPaywall("acoustic_quota_exhausted")
                         }
                     )
                 }
@@ -332,7 +329,7 @@ fun ListenAndFlipBottomSheet(
                                                     context.getString(R.string.favorite_limit_reached),
                                                     Toast.LENGTH_LONG
                                                 ).show()
-                                                onOpenProPaywall()
+                                                onOpenProPaywall("listen_favorite_limit")
                                             }
                                             else -> {}
                                         }
@@ -390,8 +387,7 @@ fun ListenAndFlipBottomSheet(
                                 message = errMsg,
                                 isOfflineProGate = st.messageKey == "listen_error_offline" && !isPro,
                                 onUnlockPro = {
-                                    de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("listen_offline_club_mode")
-                                    onOpenProPaywall()
+                                    onOpenProPaywall("listen_offline_club_mode")
                                 },
                                 onRetry = {
                                     haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)

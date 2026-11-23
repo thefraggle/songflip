@@ -775,9 +775,9 @@ fun MainScreen(
             targetPlatformKey = selectedTargetKey,
             isPro = proState.isPro,
             onDismissRequest = { showListenBottomSheet = false },
-            onOpenProPaywall = {
+            onOpenProPaywall = { source ->
                 showListenBottomSheet = false
-                proPaywallSource = "listen_sheet"
+                proPaywallSource = source
                 showProPaywall = true
             }
         )
@@ -808,8 +808,12 @@ fun MainScreen(
             externalConversionState = activePlaylistConversion
                 ?.takeIf { it.playlistUrl == playlistUrl && it.targetPlatformKey == effectiveTargetKey }
                 ?.state,
-            onRetryConversion = {
-                viewModel.startPlaylistConversion(playlistUrl, effectiveTargetKey, proState.isPro, force = true)
+            onRetryConversion = if (importedPlaylistTracks != null) {
+                null
+            } else {
+                {
+                    viewModel.startPlaylistConversion(playlistUrl, effectiveTargetKey, proState.isPro, force = true)
+                }
             },
             importedTracks = importedPlaylistTracks,
             importedPlaylistTitle = importedPlaylistTitle

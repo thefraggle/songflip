@@ -254,7 +254,9 @@ class PlaylistConverterEngine(
             val errorCode = when {
                 rawCode.equals("NOT_FOUND", ignoreCase = true) || reason.equals("not_found", ignoreCase = true) || statusCode == 404 ->
                     de.goork.songflip.core.model.PlaylistErrorCode.NOT_FOUND
-                rawCode.equals("UNSUPPORTED_PLATFORM", ignoreCase = true) ->
+                rawCode.equals("UNSUPPORTED_PLATFORM", ignoreCase = true) ||
+                    rawCode.equals("INVALID_URL", ignoreCase = true) ||
+                    rawCode.equals("INVALID_TARGET_PLATFORM", ignoreCase = true) ->
                     de.goork.songflip.core.model.PlaylistErrorCode.UNSUPPORTED_PLATFORM
                 rawCode.equals("PRIVATE_OR_RESTRICTED", ignoreCase = true) ->
                     de.goork.songflip.core.model.PlaylistErrorCode.PRIVATE_OR_RESTRICTED
@@ -262,7 +264,9 @@ class PlaylistConverterEngine(
                     de.goork.songflip.core.model.PlaylistErrorCode.EMPTY_PLAYLIST
                 rawCode.equals("UPSTREAM_TIMEOUT", ignoreCase = true) ->
                     de.goork.songflip.core.model.PlaylistErrorCode.UPSTREAM_TIMEOUT
-                rawCode.equals("RATE_LIMITED", ignoreCase = true) ->
+                rawCode.equals("RATE_LIMITED", ignoreCase = true) ||
+                    rawCode.equals("TOO_MANY_REQUESTS", ignoreCase = true) ||
+                    statusCode == 429 ->
                     de.goork.songflip.core.model.PlaylistErrorCode.RATE_LIMITED
                 rawCode.equals("EXTRACTION_FAILED", ignoreCase = true) ->
                     de.goork.songflip.core.model.PlaylistErrorCode.EXTRACTION_FAILED

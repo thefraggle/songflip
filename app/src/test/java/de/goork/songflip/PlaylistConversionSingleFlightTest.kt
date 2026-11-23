@@ -4,7 +4,10 @@ import de.goork.songflip.core.model.PlaylistConversionResult
 import de.goork.songflip.core.model.PlaylistConversionState
 import de.goork.songflip.ui.components.shouldAutoStartSheetConversion
 import de.goork.songflip.ui.viewmodel.ActivePlaylistConversion
+import de.goork.songflip.ui.viewmodel.isFileOrSongFlipPlaylistUrl
+import de.goork.songflip.ui.viewmodel.resolvePlaylistSourceTelemetryKey
 import de.goork.songflip.ui.viewmodel.shouldSkipDuplicateConversion
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -116,5 +119,17 @@ class PlaylistConversionSingleFlightTest {
                 force = false
             )
         )
+    }
+
+    @Test
+    fun fileImportAndSongFlipUrlsResolveCorrectSourceTelemetryKeyWithoutYoutubeMusicFallback() {
+        assertEquals("file", resolvePlaylistSourceTelemetryKey("https://songflip.link/file-import/0a198a58e3542061"))
+        assertEquals("file", resolvePlaylistSourceTelemetryKey("file:///storage/emulated/0/Download/mix.m3u8"))
+        assertEquals("unknown", resolvePlaylistSourceTelemetryKey("https://songflip.link/p/0a198a58e3542061"))
+        assertEquals("spotify", resolvePlaylistSourceTelemetryKey("https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M"))
+
+        assertTrue(isFileOrSongFlipPlaylistUrl("https://songflip.link/file-import/0a198a58e3542061"))
+        assertTrue(isFileOrSongFlipPlaylistUrl("https://songflip.link/p/0a198a58e3542061"))
+        assertFalse(isFileOrSongFlipPlaylistUrl("https://music.youtube.com/playlist?list=PL123"))
     }
 }

@@ -47,6 +47,7 @@ class ListenAndFlipActivity : AppCompatActivity() {
             }
             val proState by ProManager.proState.collectAsState()
             var showPaywall by remember { mutableStateOf(false) }
+            var paywallSource by remember { mutableStateOf("listen_quick_tile") }
 
             SongFlipTheme(darkTheme = darkTheme) {
                 if (showPaywall) {
@@ -57,7 +58,8 @@ class ListenAndFlipActivity : AppCompatActivity() {
                             // The sheet is recomposed with the fresh proState.isPro, so the quota badge
                             // disappears and the auto-scan LaunchedEffect starts for new Pro users.
                             showPaywall = false
-                        }
+                        },
+                        source = paywallSource
                     )
                 } else {
                     ListenAndFlipBottomSheet(
@@ -66,8 +68,8 @@ class ListenAndFlipActivity : AppCompatActivity() {
                         onDismissRequest = {
                             finishQuietly()
                         },
-                        onOpenProPaywall = {
-                            de.goork.songflip.core.analytics.AptabaseClient.shared.trackPaywallViewed("listen_quick_tile")
+                        onOpenProPaywall = { source ->
+                            paywallSource = source
                             showPaywall = true
                         }
                     )

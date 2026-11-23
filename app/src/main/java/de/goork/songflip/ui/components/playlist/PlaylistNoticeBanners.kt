@@ -26,7 +26,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import de.goork.songflip.R
-import de.goork.songflip.core.analytics.AptabaseClient
 import de.goork.songflip.core.engine.ProLimits
 import de.goork.songflip.core.model.MusicPlatform
 import de.goork.songflip.core.model.PlaylistConversionResult
@@ -181,7 +180,6 @@ fun PlaylistNoticeBanners(
                 }
                 Button(
                     onClick = {
-                        AptabaseClient.shared.trackPaywallViewed("playlist_limit_gate")
                         onOpenPaywall()
                     },
                     contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp),

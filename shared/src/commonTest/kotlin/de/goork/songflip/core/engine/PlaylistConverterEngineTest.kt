@@ -175,6 +175,18 @@ class PlaylistConverterEngineTest {
         val rateLimitJson = """{"error": "RATE_LIMITED", "code": "RATE_LIMITED", "reason": "rate_limited", "message": "Too many requests"}"""
         val rateLimitEx = engine.parseErrorPayload(rateLimitJson, 429) as de.goork.songflip.core.model.PlaylistConversionException
         assertEquals(de.goork.songflip.core.model.PlaylistErrorCode.RATE_LIMITED, rateLimitEx.errorCode)
+
+        val tooManyJson = """{"error": "TOO_MANY_REQUESTS", "message": "Too many requests"}"""
+        val tooManyEx = engine.parseErrorPayload(tooManyJson, 429) as de.goork.songflip.core.model.PlaylistConversionException
+        assertEquals(de.goork.songflip.core.model.PlaylistErrorCode.RATE_LIMITED, tooManyEx.errorCode)
+
+        val invalidUrlJson = """{"error": "INVALID_URL", "code": "INVALID_URL", "reason": "invalid_url", "message": "Invalid URL"}"""
+        val invalidUrlEx = engine.parseErrorPayload(invalidUrlJson, 400) as de.goork.songflip.core.model.PlaylistConversionException
+        assertEquals(de.goork.songflip.core.model.PlaylistErrorCode.UNSUPPORTED_PLATFORM, invalidUrlEx.errorCode)
+
+        val notFoundJson = """{"error": "NOT_FOUND", "code": "NOT_FOUND", "reason": "not_found", "message": "Not found"}"""
+        val notFoundEx = engine.parseErrorPayload(notFoundJson, 404) as de.goork.songflip.core.model.PlaylistConversionException
+        assertEquals(de.goork.songflip.core.model.PlaylistErrorCode.NOT_FOUND, notFoundEx.errorCode)
     }
 
     @Test

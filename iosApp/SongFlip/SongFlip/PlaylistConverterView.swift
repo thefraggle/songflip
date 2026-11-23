@@ -768,7 +768,9 @@ struct PlaylistConverterView: View {
 
         let maxTracks: Int32 = proManager.isPro ? ProLimits.shared.MAX_PRO_PLAYLIST_TRACKS : ProLimits.shared.MAX_FREE_PLAYLIST_TRACKS
         let token = proManager.authToken
-        let srcKey = UrlUtils.shared.detectPlatform(url: playlistUrl)?.key ?? "unknown"
+        let srcKey = (playlistUrl.contains("file-import") || playlistUrl.hasPrefix("file://"))
+            ? "file"
+            : (UrlUtils.shared.detectPlatform(url: playlistUrl)?.key ?? "unknown")
 
         AptabaseClient.shared.trackPlaylistConversionStarted(
             sourcePlatform: srcKey,

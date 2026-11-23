@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
@@ -47,8 +48,11 @@ fun ProPaywallBottomSheet(
 ) {
     val proState by ProManager.proState.collectAsState()
     val context = LocalContext.current
+    // Latch initial Pro status so reactive CustomerInfo updates during an active purchase
+    // do not unmount PaywallDialog before awaitPurchase/onPurchaseCompleted finishes.
+    val openedAsPro = rememberSaveable { proState.isPro }
 
-    if (proState.isPro) {
+    if (openedAsPro) {
         val haptic = LocalHapticFeedback.current
 
         ModalBottomSheet(
@@ -207,11 +211,30 @@ fun ProPaywallBottomSheet(
     }
 
     LaunchedEffect(source) {
+        AptabaseClient.trackPaywallViewed(
+            source = source,
+            layout = null,
+            isSale = if (initialShowPromo) true else null
+        )
         ProManager.trackPaywallImpression()
     }
 
     var selectedOffering by remember { mutableStateOf<Offering?>(null) }
     var offeringsLoaded by remember { mutableStateOf(!initialShowPromo) }
+    var purchaseTracked by rememberSaveable { mutableStateOf(false) }
+    var startedPackageId by rememberSaveable { mutableStateOf<String?>(null) }
+
+    DisposableEffect(Unit) {
+        onDispose {
+            if (!purchaseTracked && startedPackageId != null && ProManager.proState.value.isPro && !ProManager.isLastCustomerInfoSandbox) {
+                purchaseTracked = true
+                AptabaseClient.trackProPurchased(
+                    packageId = startedPackageId ?: "unknown",
+                    isSale = if (initialShowPromo) true else null
+                )
+            }
+        }
+    }
 
     LaunchedEffect(initialShowPromo) {
         if (initialShowPromo) {
@@ -250,16 +273,26 @@ fun ProPaywallBottomSheet(
     if (offeringsLoaded) {
         val listener = remember {
             object : PaywallListener {
+                override fun onPurchaseStarted(rcPackage: com.revenuecat.purchases.Package) {
+                    startedPackageId = rcPackage.product.id.ifBlank { rcPackage.identifier }
+                }
+
                 override fun onPurchaseCompleted(customerInfo: CustomerInfo, storeTransaction: StoreTransaction) {
                     val activeEntitlement = customerInfo.entitlements["pro"]
                         ?: customerInfo.entitlements["songflip_pro"]
-                    resolveNonSandboxPurchaseProductId(
-                        isActive = activeEntitlement?.isActive == true,
-                        isSandbox = activeEntitlement?.isSandbox == true,
-                        transactionProductIds = storeTransaction.productIds,
-                        entitlementProductId = activeEntitlement?.productIdentifier
-                    )?.let { packageId ->
-                        AptabaseClient.trackProPurchased(packageId = packageId)
+                    if (!purchaseTracked) {
+                        resolveNonSandboxPurchaseProductId(
+                            isActive = activeEntitlement?.isActive == true,
+                            isSandbox = activeEntitlement?.isSandbox == true,
+                            transactionProductIds = storeTransaction.productIds,
+                            entitlementProductId = activeEntitlement?.productIdentifier ?: startedPackageId
+                        )?.let { packageId ->
+                            purchaseTracked = true
+                            AptabaseClient.trackProPurchased(
+                                packageId = packageId,
+                                isSale = if (initialShowPromo) true else null
+                            )
+                        }
                     }
                     ProManager.updateFromCustomerInfo(customerInfo)
                     onDismissRequest()

@@ -45,6 +45,17 @@ data class MainUiState(
     val diagnosisSummary: DiagnosisSummary? = null
 )
 
+internal fun isFileOrSongFlipPlaylistUrl(playlistUrl: String): Boolean =
+    playlistUrl.contains("file-import", ignoreCase = true) ||
+        playlistUrl.startsWith("file://", ignoreCase = true) ||
+        UrlUtils.isSongFlipUrl(playlistUrl)
+
+internal fun resolvePlaylistSourceTelemetryKey(playlistUrl: String): String = when {
+    playlistUrl.contains("file-import", ignoreCase = true) ||
+        playlistUrl.startsWith("file://", ignoreCase = true) -> "file"
+    else -> UrlUtils.detectPlatform(playlistUrl)?.key ?: "unknown"
+}
+
 internal fun shouldSkipDuplicateConversion(
     current: ActivePlaylistConversion?,
     isJobActive: Boolean,
@@ -171,8 +182,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         isPro: Boolean,
         force: Boolean = false
     ) {
-        val sourcePlatform = UrlUtils.detectPlatform(playlistUrl) ?: MusicPlatform.YOUTUBE_MUSIC
-        if (sourcePlatform.key == targetPlatformKey) {
+        val detectedPlatform = UrlUtils.detectPlatform(playlistUrl)
+        val isFileOrSongFlipUrl = isFileOrSongFlipPlaylistUrl(playlistUrl)
+        if (!isFileOrSongFlipUrl && detectedPlatform != null && detectedPlatform.key == targetPlatformKey) {
             _activePlaylistConversion.value = ActivePlaylistConversion(
                 playlistUrl = playlistUrl,
                 targetPlatformKey = targetPlatformKey,
@@ -180,6 +192,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             )
             return
         }
+        val sourceTelemetryKey = resolvePlaylistSourceTelemetryKey(playlistUrl)
 
         val current = _activePlaylistConversion.value
         if (shouldSkipDuplicateConversion(
@@ -208,7 +221,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 de.goork.songflip.core.engine.ProLimits.MAX_FREE_PLAYLIST_TRACKS
             }
             AptabaseClient.shared.trackPlaylistConversionStarted(
-                sourcePlatform = sourcePlatform.key,
+                sourcePlatform = sourceTelemetryKey,
                 targetPlatform = targetPlatformKey,
                 trackCount = maxTracksToConvert
             )
@@ -252,7 +265,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 )
 
                 AptabaseClient.shared.trackPlaylistConversionCompleted(
-                    sourcePlatform = sourcePlatform.key,
+                    sourcePlatform = sourceTelemetryKey,
                     targetPlatform = targetPlatformKey,
                     totalTracks = data.totalTracks,
                     resolvedTracks = data.matchedCount,
@@ -264,7 +277,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     target = targetPlatformKey,
                     isAlbum = false,
                     isSearch = false,
-                    source = sourcePlatform.key
+                    source = sourceTelemetryKey
                 )
             } else {
                 val exception = result.exceptionOrNull()
@@ -284,7 +297,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 )
 
                 AptabaseClient.shared.trackPlaylistConversionFailed(
-                    sourcePlatform = sourcePlatform.key,
+                    sourcePlatform = sourceTelemetryKey,
                     targetPlatform = targetPlatformKey,
                     reason = reason,
                     errorCode = errorCode.name.lowercase()

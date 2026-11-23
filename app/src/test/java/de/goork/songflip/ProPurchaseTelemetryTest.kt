@@ -70,4 +70,23 @@ class ProPurchaseTelemetryTest {
         assertEquals(false, shouldTrackPurchaseError(PurchasesErrorCode.PaymentPendingError))
         assertEquals(true, shouldTrackPurchaseError(PurchasesErrorCode.StoreProblemError))
     }
+
+    @Test
+    fun proPaywallLatchesInitialProStateAndTracksPaywallViewed() {
+        val paywallFile = java.io.File("src/main/java/de/goork/songflip/ui/components/ProPaywallBottomSheet.kt")
+        val resolved = if (paywallFile.exists()) paywallFile else java.io.File("app/src/main/java/de/goork/songflip/ui/components/ProPaywallBottomSheet.kt")
+        val content = resolved.readText()
+        org.junit.Assert.assertTrue(
+            "ProPaywallBottomSheet must latch initial Pro state via rememberSaveable so PaywallDialog is not unmounted mid-purchase",
+            content.contains("val openedAsPro = rememberSaveable { proState.isPro }") && content.contains("if (openedAsPro)")
+        )
+        org.junit.Assert.assertTrue(
+            "ProPaywallBottomSheet must track Aptabase paywall_viewed on impression",
+            content.contains("AptabaseClient.trackPaywallViewed(")
+        )
+        org.junit.Assert.assertTrue(
+            "ProPaywallBottomSheet must provide onPurchaseStarted and DisposableEffect fallback for pro_purchased",
+            content.contains("override fun onPurchaseStarted(") && content.contains("DisposableEffect(Unit)")
+        )
+    }
 }
