@@ -87,7 +87,7 @@ When an upstream resolver (e.g. Odesli) lacks a mapping for a target platform (f
 1. **Secondary Auth-Free API Resolvers with Strict Similarity Matching (`ResolverUtils`):**
    - **Apple Music:** iTunes Search API queries collection/track IDs with strict title/artist token overlap verification (rejecting false-positive compilations).
    - **Deezer:** Deezer Public Search API resolves direct album/track URLs with fuzzy name matching.
-   - **Tidal:** Tidal OpenAPI v2 (`openapi.tidal.com/v2/searchResults`) with OAuth2 Client Credentials (`auth.tidal.com/v1/oauth2/token`) and JSON:API track/album/artist resolution (with legacy v1 fallback when custom token overrides are configured).
+   - **Tidal:** Tidal OpenAPI v2 (`openapi.tidal.com/v2/searchResults`, `/v2/tracks/{id}`, `/v2/albums/{id}`, `/v2/playlists/{id}`) via OAuth2 Client Credentials (`auth.tidal.com/v1/oauth2/token`) and JSON:API resolution across tracks, albums, artists, and playlists.
    - **Qobuz:** Qobuz Public Catalog API resolves direct track, album, and artist IDs with strict title/artist similarity validation. Playlist matching in Cloud Functions backend resolves tracks via public catalog search with Zero-OAuth fallback.
    - **YouTube Music:** YouTube Music scraper resolves `browse/MPREb_...` album IDs and `watch?v=...` video IDs.
    - **Token & Diacritics Normalization (v1.12.5):** `ResolverUtils.isMatch` normalizes Unicode accents, diacritics (`é -> e`, `ñ -> n`), stylized leetspeak (`p!nk -> pink`, `ke$ha -> kesha`), and enforces minimum token coverage so tracks with matching artists but different titles (e.g. Queen "Bohemian Rhapsody" vs "Radio Ga Ga") are rejected before falling back to search.
@@ -135,7 +135,7 @@ sequenceDiagram
         Cache-->>Edge: Cached Doc + Rolling 90-day TTL Refresh (24h throttled)
         Edge-->>Client: Return Matched Tracks (up to 200) + Zero-OAuth URL
     else Cold Conversion
-        Edge->>Scraper: Extract Source Tracks (Deezer/Spotify/Apple/YT)
+        Edge->>Scraper: Extract Source Tracks (Deezer/Spotify/Apple/YT/Tidal v2)
         Scraper-->>Edge: Raw Track Metadata (up to 200 tracks)
         Edge->>Cache: L2 Batch Lookup (db.getAll for all track SHA hashes)
         Cache-->>Edge: Pre-resolved Target URLs for popular songs
@@ -151,7 +151,7 @@ sequenceDiagram
 ```
 
 ### Core Playlist Pipeline Components:
-1. **Extraction Scrapers & Early Track Capping:** Zero-auth extraction for Deezer API (`/playlist/{id}`), Spotify embed scraper, YouTube Music initial page data, and Apple Music meta tags. Both source pagination and file imports enforce the caller's active track cap (`5` for free previews, up to `200` for Pro) before full extraction while preserving `totalTrackCount` for accurate UI indicators.
+1. **Extraction Scrapers & Early Track Capping:** Zero-auth extraction for Deezer API (`/playlist/{id}`), Spotify embed scraper, YouTube Music initial page data, Apple Music meta tags, and Tidal OpenAPI v2 (`/v2/playlists/{id}` with cursor pagination). Both source pagination and file imports enforce the caller's active track cap (`5` for free previews, up to `200` for Pro) before full extraction while preserving `totalTrackCount` for accurate UI indicators.
 2. **L2 Batch Cache Acceleration:** Evaluates all track URLs simultaneously via a single Firestore batch lookup (`db.getAll(...docRefs)`) to reuse previously resolved single-track mappings in `<50ms`.
 3. **Parallel Chunk Matching:** Resolves remaining cache misses in concurrent chunks (15 at a time) via target search scrapers and iTunes API.
 4. **Zero-OAuth Queue Generation:**
