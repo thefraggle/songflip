@@ -8,7 +8,7 @@ plugins {
     alias(libs.plugins.androidx.baselineprofile)
 }
 
-val appVersionName = "1.15.8"
+val appVersionName = "1.15.9"
 val computedVersionCode = run {
     val cleanVersion = appVersionName.substringBefore("-").substringBefore("+")
     val parts = cleanVersion.split(".").mapNotNull { it.toIntOrNull() }
@@ -45,6 +45,18 @@ val backendWebUrl = (System.getenv("SONGFLIP_BACKEND_WEB_URL")
     ?: localProps.getProperty("songflip.backend.web.url")
     ?: "").trim().trimEnd('/')
 
+val firebaseProjectId = (System.getenv("FIREBASE_PROJECT_ID")
+    ?: localProps.getProperty("firebase.project.id")
+    ?: "").trim()
+
+val firebaseAppId = (System.getenv("FIREBASE_APP_ID")
+    ?: localProps.getProperty("firebase.app.id")
+    ?: "").trim()
+
+val firebaseApiKey = (System.getenv("FIREBASE_API_KEY")
+    ?: localProps.getProperty("firebase.api.key")
+    ?: "").trim()
+
 android {
     namespace = "de.goork.songflip"
     compileSdk = 36
@@ -61,6 +73,9 @@ android {
         buildConfigField("String", "APTABASE_HOST", "\"$aptabaseHost\"")
         buildConfigField("String", "BACKEND_CACHE_URL", "\"$backendCacheUrl\"")
         buildConfigField("String", "BACKEND_WEB_URL", "\"$backendWebUrl\"")
+        buildConfigField("String", "FIREBASE_PROJECT_ID", "\"$firebaseProjectId\"")
+        buildConfigField("String", "FIREBASE_APP_ID", "\"$firebaseAppId\"")
+        buildConfigField("String", "FIREBASE_API_KEY", "\"$firebaseApiKey\"")
         buildConfigField("boolean", "SHAZAMKIT_AVAILABLE", "${file("libs/shazamkit-android-release.aar").exists()}")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -167,8 +182,9 @@ dependencies {
     implementation(libs.revenuecat.purchases)
     implementation(libs.revenuecat.purchases.ui)
 
-    // Google Play In-App Review API
+    // Google Play In-App Review & Firebase App Check (Play Integrity)
     implementation(libs.play.review)
+    implementation(libs.firebase.appcheck.playintegrity)
 
     // Testing
     testImplementation(libs.junit)

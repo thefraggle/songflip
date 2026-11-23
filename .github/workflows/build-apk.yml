@@ -72,6 +72,9 @@ jobs:
       - name: Run Release Unit Tests Gate
         env:
           GRADLE_OPTS: "-Dorg.gradle.jvmargs=\"-Xmx4096m -XX:MaxMetaspaceSize=1024m\""
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+          FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
         run: |
           ./gradlew :shared:testReleaseUnitTest :app:testReleaseUnitTest --no-daemon
 
@@ -87,6 +90,9 @@ jobs:
           APTABASE_HOST: ${{ secrets.APTABASE_HOST }}
           SONGFLIP_BACKEND_CACHE_URL: ${{ secrets.SONGFLIP_BACKEND_CACHE_URL }}
           SONGFLIP_BACKEND_WEB_URL: ${{ secrets.SONGFLIP_BACKEND_WEB_URL }}
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+          FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
         run: |
           mkdir -p dist
           VERSION="${GITHUB_REF_NAME:-release}"

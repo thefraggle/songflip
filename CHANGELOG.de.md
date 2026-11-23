@@ -1,5 +1,11 @@
 # Changelog (Deutsch)
 
+## [1.15.9] - 2026-11-23
+- **Erneutes Konvertieren importierter Playlists**: Bereits importierte Playlist-Dateien lassen sich nun direkt aus dem Verlauf für beliebige Ziel-Streamingdienste erneut konvertieren.
+- **Erweiterte Playlist-Link-Erkennung**: Unterstützung für `/browse/VL...`- und `watch?list=`-Playlist-Adressen sowie korrigierte Suchabfragen beim Titel-Abgleich ergänzt.
+- **Integritätsprüfung für die Musikerkennung (Beobachtungsmodus)**: Optionale Geräte-Integritätsprüfung für Token-Anfragen der Musikerkennung mit automatischem Fallback ergänzt, sodass eigenständige Builds und Offline-Umgebungen unberührt bleiben.
+- **Stabilität von Upgrade-Dialog & Kauf-Telemetrie**: Zustand laufender Kauf-Dialoge bis zum Abschluss der Store-Transaktion stabilisiert, um Ereignis-Tracking und Rechte-Speicherung zuverlässig auszuführen.
+
 ## [1.15.8] - 2026-11-22
 - **Sperrbildschirm-Schutz für Schnellzugriffs-Kachel**: Das Aufheben der Pausierung über die Schnellzugriffs-Kachel auf dem Sperrbildschirm fordert nun vor der Statusänderung zum Entsperren des Geräts auf.
 - **Bereinigung beim Playlist-Export**: `.M3U8`-Exporte bereinigen Zeilenumbruch- und Steuerzeichen in Titel-Metadaten vollständig und prüfen Wiedergabe-Links vor dem Schreiben auf gültige `https://`-Adressen.

@@ -28,6 +28,7 @@ json = "20260719"
 revenuecat = "10.16.2"
 play-review = "2.0.2"
 zxing = "3.5.3"
+firebase-appcheck-playintegrity = "18.0.0"
 
 # Testing
 junit = "4.13.2"
@@ -96,6 +97,7 @@ revenuecat-purchases = { module = "com.revenuecat.purchases:purchases", version.
 revenuecat-purchases-ui = { module = "com.revenuecat.purchases:purchases-ui", version.ref = "revenuecat" }
 play-review = { module = "com.google.android.play:review-ktx", version.ref = "play-review" }
 zxing-core = { module = "com.google.zxing:core", version.ref = "zxing" }
+firebase-appcheck-playintegrity = { module = "com.google.firebase:firebase-appcheck-playintegrity", version.ref = "firebase-appcheck-playintegrity" }
 
 # Testing
 junit = { module = "junit:junit", version.ref = "junit" }

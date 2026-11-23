@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.15.9] - 2026-11-23
+- **Imported Playlist Reconversion**: Reopening and reconverting previously imported playlist files from history now works seamlessly across any target streaming service.
+- **Expanded Playlist Link Detection**: Added support for `/browse/VL...` and `watch?list=` playlist URLs alongside updated track matching queries.
+- **Acoustic Recognition Integrity (Monitoring Mode)**: Added optional device-integrity attestation for acoustic recognition token requests with graceful fallback so unconfigured and offline builds remain unaffected.
+- **Upgrade Dialog & Purchase Telemetry Stability**: Preserved active purchase dialog state throughout transaction completion to ensure reliable event reporting and entitlement storage updates.
+
 ## [1.15.8] - 2026-11-22
 - **Quick-Access Tile Lockscreen Safety**: Resuming paused link handling from the quick-access tile on a locked screen now prompts for device unlock before changing the active state.
 - **Playlist Export Sanitization**: Hardened `.M3U8` playlist export by stripping carriage-return and line-break control characters from track metadata and verifying valid `https://` playback links before writing entries.

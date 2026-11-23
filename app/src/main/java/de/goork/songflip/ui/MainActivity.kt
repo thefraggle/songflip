@@ -41,6 +41,7 @@ import de.goork.songflip.core.engine.ParsedImportTrack
 import de.goork.songflip.core.engine.PlaylistImportParser
 import de.goork.songflip.core.engine.PromoBannerManager
 import de.goork.songflip.core.engine.SongLinkEngine
+import de.goork.songflip.data.AppCheckHelper
 import de.goork.songflip.data.DomainVerificationUtils
 import de.goork.songflip.data.PauseHelper
 import de.goork.songflip.data.ProManager
@@ -73,6 +74,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         AndroidSharedPreferencesCacheStorage.init(this)
+        AppCheckHelper.initIfConfigured(this)
         showPauseSheetState.value = intent?.getBooleanExtra("show_pause_sheet", false) == true
         showPaywallSheetState.value = intent?.getBooleanExtra("show_pro_paywall", false) == true
         openPlaylistUrlState.value = intent?.getStringExtra("open_playlist_url")

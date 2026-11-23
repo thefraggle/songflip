@@ -12,6 +12,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import de.goork.songflip.core.cache.AndroidSharedPreferencesCacheStorage
+import de.goork.songflip.data.AppCheckHelper
 import de.goork.songflip.data.ProManager
 import de.goork.songflip.data.SettingsRepository
 import de.goork.songflip.ui.components.ListenAndFlipBottomSheet
@@ -29,6 +30,7 @@ class ListenAndFlipActivity : AppCompatActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         AndroidSharedPreferencesCacheStorage.init(this)
+        AppCheckHelper.initIfConfigured(this)
         ProManager.init(this)
 
         val settingsRepo = SettingsRepository(this)

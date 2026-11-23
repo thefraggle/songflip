@@ -97,6 +97,10 @@ sdk.dir=/Users/<username>/Library/Android/sdk
 # Optional proprietary cloud backend URLs (empty in open-source builds):
 # songflip.backend.cache.url=
 # songflip.backend.web.url=
+# Optional Firebase App Check (Play Integrity) configuration (empty in open-source builds):
+# firebase.project.id=
+# firebase.app.id=
+# firebase.api.key=
 ```
 
 For iOS development, copy `iosApp/SongFlip/Config.example.xcconfig` to `iosApp/SongFlip/Config.xcconfig` (git-ignored) and build the shared framework first:

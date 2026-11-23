@@ -149,13 +149,12 @@ object AcousticRecognizer {
         }
 
         return try {
-            val req = Request.Builder()
-                .url(endpoint)
-                .header("x-web-client", "songflip-app")
-                .header("x-app-version", de.goork.songflip.BuildConfig.VERSION_NAME)
-                .header("x-client-platform", "android")
-                .get()
-                .build()
+            val appCheckToken = AppCheckHelper.getAppCheckTokenOrNull(context)
+            val req = AppCheckHelper.buildShazamTokenRequest(
+                endpointUrl = endpoint,
+                appVersion = de.goork.songflip.BuildConfig.VERSION_NAME,
+                appCheckToken = appCheckToken
+            )
             httpClient.newCall(req).execute().use { resp ->
                 if (!resp.isSuccessful) {
                     android.util.Log.w("AcousticRecognizer", "Token endpoint HTTP ${resp.code}")
