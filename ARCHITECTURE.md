@@ -38,8 +38,8 @@ graph TD
 ### Step 1: Deterministic URL Sanitization & Robust Search Normalization
 Music streaming services append aggressive tracking clutters to share links (e.g. `?si=...`, `?context=...`, `?utm_source=...`, `intl-*` subdomains).
 Before hashing or resolving, the URL is strictly canonicalized:
-- Tracking query parameters are stripped.
-- Canonical entity types (`track`, `album`, `artist`, `playlist`, `podcast`) and platform IDs are extracted via regex guards.
+- Tracking query parameters are stripped, and social redirect wrappers (`youtube.com/redirect?q=...`, `l.facebook.com/l.php`, `l.instagram.com`) are unwrapped before validation, normalization, and entity detection.
+- Canonical entity types (`track`, `album`, `artist`, `playlist`, `podcast`) and platform IDs are extracted via regex guards (including Last.fm `/+noredirect/` track/album routes).
 - Eliminating tracking parameters maximizes cache hit rates across different social networks.
 - **Strict Host & Domain Verification (`isHostOrSubdomain`):** URL parsing validates hostnames against explicit service domains (and subdomains) instead of substring matching, preventing spoofed URLs (e.g. `evil-spotify.com`, `notspotify.com`) from triggering matching or query extraction.
 - **Search Query & Symbol Sanitization (`cleanSearchQuery`):** Fallback and deep-search queries are automatically sanitized across KMP and backend pipelines—stripping noise tags (`- 2011 Remaster`, `(Radio Edit)`, `[Live]`), disruptive search-breaking symbols (`+`, `&`, `#`, `|`, `/`, `:`, quotes), variation selectors, and emojis (`🎙️`, `🔥`) into clean whitespace. This prevents index failures on strict full-text search engines (such as Pocket Casts, Apple Podcasts, Spotify search operators, Tidal, and Deezer).
@@ -84,11 +84,12 @@ SongFlip enforces deterministic 1:1 entity mapping across streaming platforms:
 
 When an upstream resolver (e.g. Odesli) lacks a mapping for a target platform (frequent with regional identifiers such as Amazon Music ASINs), SongFlip applies a tiered fallback rather than failing hard:
 
-1. **Secondary Auth-Free API Resolvers with Strict Similarity Matching (`ResolverUtils`):**
-   - **Apple Music:** iTunes Search API queries collection/track IDs with strict title/artist token overlap verification (rejecting false-positive compilations).
+1. **Secondary Auth-Free API Resolvers with Strict Similarity Matching (`ResolverUtils`) & Circuit Breakers:**
+   - **Apple Music:** iTunes Search & Lookup API (`?i=<id>`, `/song/<id>`, `/album/<id>` with storefront country routing and HTML OpenGraph fallback) queries collection/track IDs with strict title/artist token overlap verification (rejecting false-positive compilations).
    - **Deezer:** Deezer Public Search API resolves direct album/track URLs with fuzzy name matching.
-   - **Tidal:** Tidal OpenAPI v2 (`openapi.tidal.com/v2/searchResults`, `/v2/tracks/{id}`, `/v2/albums/{id}`, `/v2/playlists/{id}`) via OAuth2 Client Credentials (`auth.tidal.com/v1/oauth2/token`) and JSON:API resolution across tracks, albums, artists, and playlists.
+   - **Tidal:** Tidal OpenAPI v2 (`openapi.tidal.com/v2/searchResults`, `/v2/tracks/{id}`, `/v2/albums/{id}`, `/v2/playlists/{id}`) via OAuth2 Client Credentials (`auth.tidal.com/v1/oauth2/token`) with automatic `401` token refresh and `HTTP 429` retry-backoff across tracks, albums, artists, and playlists.
    - **Qobuz:** Qobuz Public Catalog API resolves direct track, album, and artist IDs with strict title/artist similarity validation. Playlist matching in Cloud Functions backend resolves tracks via public catalog search with Zero-OAuth fallback.
+   - **Idagio & Anghami:** Direct scrapers protected by 15-minute in-memory circuit breakers (`403`/`429` for Idagio; `403`/`406`/`429` for Anghami) with instant URL-slug fallbacks when cloud IPs are rate-limited or blocked.
    - **YouTube Music:** YouTube Music scraper resolves `browse/MPREb_...` album IDs and `watch?v=...` video IDs.
    - **Token & Diacritics Normalization (v1.12.5):** `ResolverUtils.isMatch` normalizes Unicode accents, diacritics (`é -> e`, `ñ -> n`), stylized leetspeak (`p!nk -> pink`, `ke$ha -> kesha`), and enforces minimum token coverage so tracks with matching artists but different titles (e.g. Queen "Bohemian Rhapsody" vs "Radio Ga Ga") are rejected before falling back to search.
 2. **Deterministic Search Fallback (Graceful Degradation):**

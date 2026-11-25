@@ -30,12 +30,39 @@ object UrlUtils {
     }
 
     /**
+     * Unwraps known social redirect wrappers (YouTube comment redirects, Facebook/Instagram shims)
+     * so normalization and platform detection inspect the real target music URL.
+     */
+    fun unwrapSocialRedirectUrl(url: String): String {
+        val trimmed = url.trim()
+        if (trimmed.isBlank()) return trimmed
+        return try {
+            val parsed = Url(trimmed)
+            val host = parsed.host.trim().lowercase()
+            val path = parsed.encodedPath.trim().lowercase()
+            val candidate = when {
+                isHostOrSubdomain(host, "youtube.com") && path == "/redirect" -> parsed.parameters["q"]
+                (host == "l.facebook.com" || host == "lm.facebook.com") && path == "/l.php" -> parsed.parameters["u"]
+                host == "l.instagram.com" -> parsed.parameters["u"]
+                else -> null
+            }?.trim()
+            if (candidate != null && (candidate.startsWith("https://", ignoreCase = true) || candidate.startsWith("http://", ignoreCase = true))) {
+                candidate
+            } else {
+                trimmed
+            }
+        } catch (_: Throwable) {
+            trimmed
+        }
+    }
+
+    /**
      * Cleans tracking parameters, context query parameters, and regional prefixes
      * from streaming URLs across all supported platforms to guarantee maximum cache hit rates
      * and clean provider queries.
      */
     fun normalizeUrl(url: String): String {
-        var clean = url.trim()
+        var clean = unwrapSocialRedirectUrl(url)
         if (clean.isBlank()) return clean
 
         // 1. Spotify: open.spotify.com/track/{id} or /intl-*/track/{id}
@@ -325,7 +352,7 @@ object UrlUtils {
 
     fun isPlaylistUrl(url: String): Boolean {
         if (hasAppleMusicTrackId(url) || url.contains("trackAsin=") || url.contains("/track/") || url.contains("/song/")) return false
-        val clean = url.lowercase()
+        val clean = unwrapSocialRedirectUrl(url).lowercase()
         // YouTube URLs with watch?v= or youtu.be/ are individual songs, even if they have a &list= parameter
         if (clean.contains("watch?v=") || clean.contains("youtu.be/")) return false
         // YouTube Music OLAK5uy_ playlists and MPREb_ browse IDs represent official albums, not user playlists (#136)
@@ -527,7 +554,7 @@ object UrlUtils {
     )
 
     private val LASTFM_PATH_REGEX = Regex(
-        """^(?:/[a-z]{2}(?:-[a-z]{2})?)?/music/([^/?#]+)(?:/([^/?#]+))?(?:/([^/?#]+))?""",
+        """^(?:/[a-z]{2}(?:-[a-z]{2})?)?/music/(?:\+noredirect/)?([^/?#]+)(?:/([^/?#]+))?(?:/([^/?#]+))?""",
         RegexOption.IGNORE_CASE
     )
     private val LASTFM_NON_ALBUM_SEGMENTS = setOf(

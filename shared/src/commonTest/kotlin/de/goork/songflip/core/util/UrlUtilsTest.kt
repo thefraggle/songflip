@@ -794,7 +794,21 @@ class UrlUtilsTest {
         )
 
         assertNull(UrlUtils.parseLastFmUrl("https://www.last.fm/music/Radiohead/+tracks"))
+        assertEquals(
+            UrlUtils.LastFmMetadata(artist = "MINAKO YOSHIDA", title = "YUME DE AETARA", isAlbum = false),
+            UrlUtils.parseLastFmUrl("https://www.last.fm/music/+noredirect/MINAKO+YOSHIDA/_/YUME+DE+AETARA")
+        )
         assertFalse(UrlUtils.isLastFmUrl("https://evil-last.fm/music/Daft+Punk/_/Around+the+World"))
+    }
+
+    @Test
+    fun testUnwrapSocialRedirectUrls() {
+        val wrapped = "https://www.youtube.com/redirect?event=comments&q=https%3A%2F%2Fmusic.apple.com%2Fgb%2Fplaylist%2Fgolden-brown%2Fpl.u-kv9lq75uJMpWYX3"
+        assertEquals(
+            "https://music.apple.com/gb/playlist/golden-brown/pl.u-kv9lq75uJMpWYX3",
+            UrlUtils.normalizeUrl(wrapped)
+        )
+        assertTrue(UrlUtils.isPlaylistUrl(wrapped))
     }
 }
 
