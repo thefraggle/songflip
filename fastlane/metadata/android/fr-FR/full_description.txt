@@ -1,13 +1,13 @@
 Un ami vous envoie un lien de chanson ou un lien de podcast sur Spotify, mais vous l'écoutez sur YouTube Music, Apple Podcasts ou Deezer ?
 
-SongFlip est votre convertisseur de redirection de lien musical et de lien de chanson transparent et sans clic pour Android. Une fois activés, les liens de musique et de podcast entrants sont automatiquement convertis en arrière-plan et s'ouvrent directement dans votre lecteur préféré : pas de recherche manuelle, pas de publicité, pas de détours de navigateur.
+SongFlip est votre convertisseur et outil de redirection de lien musical et de chanson sans clic pour Android. Une fois activé, il convertit et ouvre vos chansons et podcasts entrants directement dans votre lecteur favori : pas de recherche manuelle, pas de publicité, pas de détours de navigateur.
 
 Qu'il s'agisse de passer de Spotify à YouTube Music, d'Apple Podcasts à Pocket Casts, de Spotify à Apple Music ou d'ouvrir des pistes depuis Shazam, SongFlip fonctionne comme votre convertisseur de musique universel et votre outil de redirection de lien pour ouvrir instantanément les liens Spotify et les flux audio.
 
 🚀 FONCTIONNALITÉS CLÉS :
 
-• 14 plateformes de streaming, podcasts et Shazam :
-Convertissez et redirigez en toute transparence les liens de chansons et les podcasts sur Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud Bandcamp et Anghami. Inclut la prise en charge instantanée du convertisseur de liens musicaux pour les liens Shazam & Last.fm partagés !
+• 14 plateformes de streaming, podcasts et Shazam :
+Convertissez et redirigez en toute transparence vos chansons, albums et podcasts sur Spotify, YouTube Music, Apple Music, Apple Podcasts, Pocket Casts, Deezer, TIDAL, Amazon Music, Qobuz, Beatport, Audiomack, Idagio, SoundCloud, Bandcamp et Anghami. Inclut la prise en charge instantanée pour les titres Shazam & Last.fm partagés !
 
 • Listen & Flip (Reconnaissance musicale) :
 Identifiez la musique autour de vous dans SongFlip. Les titres sont convertis pour votre lecteur préféré et ajoutés à l'historique. Pas de réseau ? Enregistrez l'empreinte audio hors ligne pour une identification automatique dès le retour de la connexion.
@@ -22,7 +22,7 @@ Créez et scannez des codes QR universels pour les chansons et les albums sur n'
 Partagez des émissions ou des épisodes de podcast sur plusieurs plateformes.
 
 • Convertisseur de playlist, import de fichiers (M3U) et transfert :
-Convertissez et transférez des listes de lecture entre Spotify, Apple Music, YouTube Music, TIDAL et Deezer.
+Convertissez et transférez vos listes de lecture (transférer playlist Spotify vers Deezer, Qobuz, Apple Music, YouTube Music ou TIDAL) vers votre lecteur favori.
 
 • Qualité audiophile (Hi-Res & Lossless) et favoris :
 Privilégiez les masters studio, 24-bit Hi-Res, Lossless et Dolby Atmos aux versions radio et compilations. Épinglez vos titres favoris en 1 clic.
@@ -30,14 +30,14 @@ Privilégiez les masters studio, 24-bit Hi-Res, Lossless et Dolby Atmos aux vers
 • Sélecteur de joueur rapide :
 Choisissez votre lecteur audio cible à la volée chaque fois que vous ouvrez un lien de chanson partagé ou un lien de podcast.
 
-• Assistant de redirection de lien (Android 12+) :
-Configurez les liens d'application Android ouverts par défaut avec notre assistant de configuration de redirection de lien en 1 clic.
+• Assistant de redirection (Android 12+) :
+Configurez l'ouverture par défaut sur Android avec notre assistant interactif en 1 clic.
 
-• Bannière du Presse-papiers et menu de partage :
-Convertissez-le et ouvrez-le via la bannière ou partagez des liens depuis WhatsApp, Telegram ou Instagram.
+• Bannière du Presse-papiers et menu de partage :
+Convertissez et ouvrez vos titres via la bannière ou partagez depuis WhatsApp, Telegram ou Instagram.
 
-• Liens Web intelligents (songflip.link) :
-Créez des liens Web neutres avec un lecteur intégré pour que vos amis puissent écouter dans n'importe quel navigateur.
+• Pages Web intelligentes (songflip.link) :
+Créez des pages universelles neutres avec un lecteur intégré pour que vos amis puissent écouter dans n'importe quel navigateur.
 
 • Paramètres rapides et raccourcis :
 Suspendez la redirection du lien pendant 15 minutes, 1 heure ou jusqu'à demain via les paramètres rapides.
@@ -54,4 +54,4 @@ Utilisez les codes promotionnels dans les paramètres pour débloquer des avanta
 • Entièrement sans publicité, pour toujours
 • Zéro suivi ni collecte de données
 
-Compatible avec les protocoles universels de liaison musicale, notamment Songlink/Odesli. Téléchargez SongFlip maintenant : votre redirection automatique de liens musicaux et votre convertisseur de liens de chansons pour relier les chansons et les podcasts sur tous les services de streaming sans effort !
+Compatible avec les protocoles universels de partage musical, notamment Songlink/Odesli. Téléchargez SongFlip maintenant : votre redirection automatique de liens musicaux et convertisseur de chansons pour relier musique et podcasts dans votre lecteur favori sans effort !

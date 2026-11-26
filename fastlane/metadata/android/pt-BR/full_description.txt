@@ -1,8 +1,8 @@
 Um amigo lhe envia um link de música ou podcast no Spotify, mas você ouve no YouTube Music, Apple Podcasts ou Deezer?
 
-SongFlip é o seu redirecionamento de link de música e conversor de link de música sem clique para Android. Uma vez ativados, os links de música e podcast recebidos são convertidos automaticamente em segundo plano e abertos diretamente no seu player favorito – sem pesquisa manual, sem anúncios, sem desvios do navegador.
+SongFlip é o seu redirecionamento de links de música e conversor de canções sem clique para Android. Uma vez ativado, converte e abre canções, faixas e podcasts recebidos diretamente no seu player favorito – sem pesquisa manual, sem anúncios, sem desvios do navegador.
 
-Seja mudando o Spotify para o YouTube Music, o Apple Podcasts para o Pocket Casts, o Spotify para o Apple Music ou abrindo faixas do Shazam, o SongFlip funciona como seu conversor universal de música e ferramenta de redirecionamento de link para abrir links do Spotify e fluxos de áudio instantaneamente.
+Seja mudando do Spotify para YouTube Music, do Apple Podcasts para Pocket Casts, do Spotify para Apple Music ou abrindo faixas do Shazam, o SongFlip funciona como seu conversor universal de música para abrir links do Spotify e fluxos de áudio instantaneamente.
 
 🚀 PRINCIPAIS RECURSOS:
 
@@ -22,16 +22,16 @@ Crie e digitalize códigos QR universais para músicas e álbuns em qualquer ser
 Compartilhe programas ou episódios completos de podcast entre plataformas.
 
 • Conversor de playlists, importação de arquivos (M3U) e transferência:
-Converta e transfira playlists entre Spotify, Apple Music, YouTube Music, TIDAL e Deezer.
+Converta e transfira playlists ou passe sua playlist do Spotify para YouTube Music, Apple Music, TIDAL, Qobuz e Deezer. Importe canções e listas locais de arquivos .m3u, .m3u8, .csv e texto diretamente para suas playlists de streaming (com limpeza de duplicatas e até 200 faixas).
 
 • Qualidade audiófila (Hi-Res e Lossless) e favoritos:
 Priorize masters de estúdio, 24-bit Hi-Res, Lossless e Dolby Atmos em vez de edições de rádio e coletâneas. Escolha versões e fixe favoritos com 1 toque.
 
-• Seletor rápido de jogadores:
-Escolha seu reprodutor de áudio de destino instantaneamente sempre que abrir um link de música ou podcast compartilhado.
+• Seletor rápido de reprodutores:
+Escolha seu reprodutor de áudio de destino instantaneamente sempre que abrir uma música, canção ou podcast compartilhado.
 
-• Assistente de redirecionamento de link inteligente (Android 12+):
-Verifique e configure facilmente Android Open by Default App Links com nosso assistente interativo de configuração de redirecionamento de link de 1 toque.
+• Assistente de redirecionamento inteligente (Android 12+):
+Verifique e configure facilmente a abertura padrão do Android com nosso assistente interativo de 1 toque.
 
 • Smart-Banner da área de transferência e compartilhamento nativo:
 Converta e abra-o instantaneamente por meio do banner do painel inteligente ou compartilhe links diretamente do WhatsApp, Telegram, Reddit ou Instagram no SongFlip.
@@ -40,7 +40,7 @@ Converta e abra-o instantaneamente por meio do banner do painel inteligente ou c
 Crie links da web neutros com um player incorporado para que os amigos possam ouvir em qualquer navegador.
 
 • Configurações rápidas e atalhos:
-Pause o redirecionamento do link por 15 minutos, 1 hora ou até amanhã por meio das Configurações rápidas.
+Pause o redirecionamento por 15 minutos, 1 hora ou até amanhã por meio das Configurações rápidas.
 
 • Material You e modo escuro AMOLED:
 Segue as cores dinâmicas do sistema com modo escuro AMOLED completo e ícone temático.
@@ -54,4 +54,4 @@ Resgate códigos promocionais nas configurações para desbloquear vantagens PRO
 • Totalmente livre de anúncios para sempre
 • Zero rastreamento de dados ou hábitos de escuta
 
-Compatível com protocolos universais de link de música, incluindo Songlink/Odesli. Baixe SongFlip agora - seu redirecionamento automático de link de música e conversor de link de música para conectar músicas e podcasts em todos os serviços de streaming sem esforço!
+Compatível com protocolos universais de música, incluindo Songlink/Odesli. Baixe o SongFlip agora – seu redirecionamento automático e conversor de música para conectar canções, faixas e podcasts em todos os serviços de streaming sem esforço!
