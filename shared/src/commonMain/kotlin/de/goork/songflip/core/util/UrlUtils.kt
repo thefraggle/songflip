@@ -461,6 +461,23 @@ object UrlUtils {
         return extractAppleMusicTrackId(url) != null
     }
 
+    /**
+     * Extracts a decoded track or album title slug from an Apple Music URL
+     * (/song/<slug>/<id> or /album/<slug>/<id>) as a fallback when iTunes lookup returns empty.
+     */
+    fun extractAppleMusicSlug(url: String): String? {
+        val host = extractDomain(url)
+        if (!isHostOrSubdomain(host, "apple.com", "music.apple.com")) return null
+        val clean = url.substringBefore("?").substringBefore("#")
+        val match = Regex("""/(?:song|album)/([^/]+)/\d+(?:/|$)""", RegexOption.IGNORE_CASE).find(clean) ?: return null
+        val rawSlug = match.groupValues[1].decodeUrl()
+            .replace(Regex("[-_]+"), " ")
+            .replace(Regex("\\s+"), " ")
+            .trim()
+        if (rawSlug.length < 2 || rawSlug.all { it.isDigit() }) return null
+        return rawSlug
+    }
+
     fun extractDomain(url: String): String {
         val clean = url.trim()
         if (clean.isBlank()) return "unknown"

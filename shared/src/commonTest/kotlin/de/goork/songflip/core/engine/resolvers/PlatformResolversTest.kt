@@ -2,6 +2,7 @@ package de.goork.songflip.core.engine.resolvers
 
 import de.goork.songflip.core.model.MusicPlatform
 import de.goork.songflip.core.model.ResolutionResult
+import de.goork.songflip.core.util.UrlUtils
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
@@ -206,6 +207,22 @@ class PlatformResolversTest {
 
         val metadata = resolver.extractMetadata("https://music.apple.com/de/album/night/1440650428?i=1440650711")
         assertEquals("Queen Bohemian Rhapsody", metadata)
+    }
+
+    @Test
+    fun testAppleMusicResolverExtractsUrlSlugWhenLookupReturnsEmpty() = runTest {
+        val url = "https://music.apple.com/us/song/%D8%B1%D9%8A%D9%85%D9%8A%DA%A9%D8%B3-%D8%A8%DB%8C%DA%AF/6803526254"
+        assertEquals("ريميکس بیگ", UrlUtils.extractAppleMusicSlug(url))
+
+        val mockEngine = MockEngine {
+            respond(
+                content = """{"resultCount": 0, "results": []}""",
+                status = HttpStatusCode.OK,
+                headers = headersOf(HttpHeaders.ContentType, "application/json")
+            )
+        }
+        val resolver = AppleMusicResolver(client = HttpClient(mockEngine))
+        assertEquals("ريميکس بیگ", resolver.extractMetadata(url))
     }
 
     @Test

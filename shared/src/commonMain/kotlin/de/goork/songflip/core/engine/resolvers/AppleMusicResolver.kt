@@ -232,10 +232,10 @@ class AppleMusicResolver(
                     }
                 }
             }
-            null
+            UrlUtils.extractAppleMusicSlug(url)
         } catch (t: Throwable) {
             if (t is CancellationException) throw t
-            null
+            UrlUtils.extractAppleMusicSlug(url)
         }
     }
 }
