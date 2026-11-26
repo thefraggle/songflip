@@ -6,6 +6,36 @@ on:
       - 'v[0-9]*'
       - '[0-9]*'
   workflow_dispatch:
+    inputs:
+      target_action:
+        description: 'Build & upload AAB + Play Store metadata, build APK only, or sync metadata only'
+        required: true
+        default: 'build-and-upload'
+        type: choice
+        options:
+          - build-and-upload
+          - apk-only
+          - metadata-only
+      version_code:
+        description: 'Android versionCode (auto = max(gradle, Google Play max + 1))'
+        required: true
+        default: 'auto'
+        type: string
+      play_track:
+        description: 'Target Google Play track'
+        required: true
+        default: 'internal'
+        type: choice
+        options:
+          - internal
+          - alpha
+          - beta
+          - production
+      upload_graphics:
+        description: 'Also sync screenshots/feature graphics on metadata upload (skips active A/B test locales)'
+        required: true
+        default: false
+        type: boolean
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -24,17 +54,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880 # v6.3.0
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-          cache: 'gradle'
-
-      - name: Grant Execute Permission for Gradlew
-        run: chmod +x gradlew
-
-      - name: Decode Release Keystore
+      - name: Decode Release Keystore & Check Play Credentials
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
           SERVICE_ACCOUNT_JSON: ${{ secrets.SERVICE_ACCOUNT_JSON }}
@@ -43,12 +63,25 @@ jobs:
             echo "$KEYSTORE_BASE64" | base64 -d > /tmp/release.keystore
           fi
           if [ -n "$SERVICE_ACCOUNT_JSON" ]; then
-            echo "HAVE_SERVICE_ACCOUNT=true" >> $GITHUB_ENV
+            echo "HAVE_SERVICE_ACCOUNT=true" >> "$GITHUB_ENV"
           else
-            echo "HAVE_SERVICE_ACCOUNT=false" >> $GITHUB_ENV
+            echo "HAVE_SERVICE_ACCOUNT=false" >> "$GITHUB_ENV"
           fi
 
+      - name: Set up JDK 17
+        if: ${{ inputs.target_action != 'metadata-only' }}
+        uses: actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880 # v6.3.0
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Grant Execute Permission for Gradlew
+        if: ${{ inputs.target_action != 'metadata-only' }}
+        run: chmod +x gradlew
+
       - name: Fetch ShazamKit Android SDK (if token configured)
+        if: ${{ inputs.target_action != 'metadata-only' }}
         env:
           SONGFLIP_API_READ_TOKEN: ${{ secrets.SONGFLIP_API_READ_TOKEN }}
           SHAZAMKIT_AAR_SHA256: "e85310c6737f1025a3b0f7852fa73f06840fad5b484ea38ca4912d5d8ad2bc86"
@@ -70,6 +103,7 @@ jobs:
           fi
 
       - name: Run Release Unit Tests Gate
+        if: ${{ inputs.target_action != 'metadata-only' }}
         env:
           GRADLE_OPTS: "-Dorg.gradle.jvmargs=\"-Xmx4096m -XX:MaxMetaspaceSize=1024m\""
           FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
@@ -78,7 +112,104 @@ jobs:
         run: |
           ./gradlew :shared:testReleaseUnitTest :app:testReleaseUnitTest --no-daemon
 
+      - name: Resolve Android versionCode (auto or explicit)
+        if: ${{ inputs.target_action != 'metadata-only' }}
+        env:
+          VERSION_CODE_INPUT: ${{ inputs.version_code || 'auto' }}
+          SERVICE_ACCOUNT_JSON: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          PLAY_PACKAGE_NAME: de.goork.songflip
+        run: |
+          node - <<'EOF'
+          const crypto = require('node:crypto');
+          const fs = require('node:fs');
+
+          function getGradleBaseVersionCode() {
+            const gradle = fs.readFileSync('app/build.gradle.kts', 'utf8');
+            const m = gradle.match(/val\s+appVersionName\s*=\s*"([^"]+)"/);
+            if (!m) return 1;
+            const clean = m[1].split('-')[0].split('+')[0];
+            const parts = clean.split('.').map((n) => Number.parseInt(n, 10) || 0);
+            const major = parts[0] ?? 1;
+            const minor = parts[1] ?? 0;
+            const patch = parts[2] ?? 0;
+            return (major * 10000) + (minor * 100) + patch + 2;
+          }
+
+          async function getMaxPlayVersionCode() {
+            const saRaw = process.env.SERVICE_ACCOUNT_JSON;
+            if (!saRaw) return 0;
+            try {
+              const sa = JSON.parse(saRaw);
+              const now = Math.floor(Date.now() / 1000);
+              const b64u = (o) => Buffer.from(JSON.stringify(o)).toString('base64url');
+              const input = `${b64u({ alg: 'RS256', typ: 'JWT' })}.${b64u({
+                iss: sa.client_email,
+                scope: 'https://www.googleapis.com/auth/androidpublisher',
+                aud: 'https://oauth2.googleapis.com/token',
+                iat: now,
+                exp: now + 300,
+              })}`;
+              const sig = crypto.sign('RSA-SHA256', Buffer.from(input), sa.private_key).toString('base64url');
+              const tokRes = await fetch('https://oauth2.googleapis.com/token', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({
+                  grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+                  assertion: `${input}.${sig}`,
+                }),
+              });
+              const { access_token } = await tokRes.json();
+              if (!access_token) return 0;
+
+              const base = `https://androidpublisher.googleapis.com/androidpublisher/v3/applications/${encodeURIComponent(process.env.PLAY_PACKAGE_NAME)}`;
+              const editRes = await fetch(`${base}/edits`, {
+                method: 'POST',
+                headers: { Authorization: `Bearer ${access_token}`, 'Content-Type': 'application/json' },
+                body: '{}',
+              });
+              if (!editRes.ok) return 0;
+              const edit = await editRes.json();
+              const bundlesRes = await fetch(`${base}/edits/${edit.id}/bundles`, {
+                headers: { Authorization: `Bearer ${access_token}` },
+              });
+              let maxCode = 0;
+              if (bundlesRes.ok) {
+                const bData = await bundlesRes.json();
+                for (const b of bData.bundles || []) {
+                  const code = Number.parseInt(String(b.versionCode ?? '0'), 10);
+                  if (Number.isFinite(code) && code > maxCode) maxCode = code;
+                }
+              }
+              await fetch(`${base}/edits/${edit.id}`, {
+                method: 'DELETE',
+                headers: { Authorization: `Bearer ${access_token}` },
+              }).catch(() => {});
+              return maxCode;
+            } catch (err) {
+              console.warn(`Notice: could not query Google Play bundles (${err.message})`);
+              return 0;
+            }
+          }
+
+          (async () => {
+            const baseCode = getGradleBaseVersionCode();
+            const reqInput = (process.env.VERSION_CODE_INPUT || 'auto').trim();
+            const explicit = Number.parseInt(reqInput, 10);
+            const maxPlay = await getMaxPlayVersionCode();
+            let effective = baseCode;
+            if (reqInput !== 'auto' && Number.isFinite(explicit) && explicit > 0) {
+              effective = Math.max(explicit, maxPlay + 1);
+            } else {
+              effective = Math.max(baseCode, maxPlay + 1);
+            }
+            console.log(`Resolved Android versionCode: ${effective} (gradle base: ${baseCode}, Play max: ${maxPlay})`);
+            fs.appendFileSync(process.env.GITHUB_ENV, `EFFECTIVE_VERSION_CODE=${effective}\n`);
+            fs.appendFileSync(process.env.GITHUB_ENV, `VERSION_CODE_OVERRIDE=${effective}\n`);
+          })();
+          EOF
+
       - name: Build Signed Release APK & AAB Bundle
+        if: ${{ inputs.target_action != 'metadata-only' }}
         env:
           GRADLE_OPTS: "-Dorg.gradle.jvmargs=\"-Xmx4096m -XX:MaxMetaspaceSize=1024m\""
           SIGNING_KEYSTORE_PATH: /tmp/release.keystore
@@ -107,9 +238,10 @@ jobs:
           fi
 
       - name: Upload Build Artifacts (APK & AAB)
+        if: ${{ inputs.target_action != 'metadata-only' }}
         uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
         with:
-          name: songflip-binaries
+          name: songflip-binaries-vc${{ env.EFFECTIVE_VERSION_CODE || 'local' }}
           path: |
             dist/*.apk
             dist/*.aab
@@ -117,7 +249,7 @@ jobs:
           retention-days: 14
 
       - name: Extract Release Notes from CHANGELOG
-        if: startsWith(github.ref, 'refs/tags/')
+        if: ${{ startsWith(github.ref, 'refs/tags/') && inputs.target_action != 'metadata-only' }}
         env:
           RAW_REF: ${{ github.ref_name }}
         run: |
@@ -136,7 +268,7 @@ jobs:
           '
 
       - name: Attach APK & AAB to GitHub Release
-        if: startsWith(github.ref, 'refs/tags/')
+        if: ${{ startsWith(github.ref, 'refs/tags/') && inputs.target_action != 'metadata-only' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -147,21 +279,30 @@ jobs:
           gh release upload "$TAG" dist/*.apk dist/*.aab --clobber
 
       - name: Prepare Play Store Release Notes
-        if: startsWith(github.ref, 'refs/tags/')
+        if: ${{ (startsWith(github.ref, 'refs/tags/') || (github.event_name == 'workflow_dispatch' && inputs.target_action == 'build-and-upload')) && env.HAVE_SERVICE_ACCOUNT == 'true' }}
         run: |
           pip install deep-translator==1.11.4
-          python3 scripts/generate_whatsnew.py "${GITHUB_REF_NAME}"
+          python3 scripts/generate_whatsnew.py "${GITHUB_REF_NAME:-latest}"
           echo "--- Verifying release notes (DE + EN) ---"
           cat distribution/whatsnew/whatsnew-de-DE || echo "No DE file"
           cat distribution/whatsnew/whatsnew-en-US || echo "No EN-US file"
 
-      - name: Deploy AAB to Google Play Console (Internal Testing)
-        if: startsWith(github.ref, 'refs/tags/') && env.HAVE_SERVICE_ACCOUNT == 'true'
+      - name: Deploy AAB to Google Play Console
+        if: ${{ (startsWith(github.ref, 'refs/tags/') || (github.event_name == 'workflow_dispatch' && inputs.target_action == 'build-and-upload')) && env.HAVE_SERVICE_ACCOUNT == 'true' }}
         uses: r0adkll/upload-google-play@7f5b759879c088a86faf85d18779f7f14e79a086 # v1.1.4
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: de.goork.songflip
           releaseFiles: dist/*.aab
-          tracks: internal
+          tracks: ${{ inputs.play_track || 'internal' }}
           status: completed
           whatsNewDirectory: ${{ github.workspace }}/distribution/whatsnew
+
+      - name: Sync Play Store Listing Metadata
+        if: ${{ (startsWith(github.ref, 'refs/tags/') || (github.event_name == 'workflow_dispatch' && inputs.target_action != 'apk-only')) && env.HAVE_SERVICE_ACCOUNT == 'true' }}
+        env:
+          SERVICE_ACCOUNT_JSON: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          PLAY_PACKAGE_NAME: de.goork.songflip
+          UPLOAD_GRAPHICS: ${{ inputs.upload_graphics || 'false' }}
+        run: |
+          node scripts/sync_playstore_metadata.mjs

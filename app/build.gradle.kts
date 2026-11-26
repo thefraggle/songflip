@@ -9,7 +9,7 @@ plugins {
 }
 
 val appVersionName = "1.15.9"
-val computedVersionCode = run {
+val baseVersionCode = run {
     val cleanVersion = appVersionName.substringBefore("-").substringBefore("+")
     val parts = cleanVersion.split(".").mapNotNull { it.toIntOrNull() }
     val major = parts.getOrElse(0) { 1 }
@@ -18,6 +18,8 @@ val computedVersionCode = run {
     // Offset +2 so 1.13.2 uses 11304, resolving Play Console collision
     (major * 10000) + (minor * 100) + patch + 2
 }
+val computedVersionCode = System.getenv("VERSION_CODE_OVERRIDE")?.trim()?.toIntOrNull()
+    ?.takeIf { it > 0 } ?: baseVersionCode
 
 val localProps = Properties()
 val localPropsFile = rootProject.file("local.properties")
