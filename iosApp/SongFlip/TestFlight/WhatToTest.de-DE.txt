@@ -1,4 +1,4 @@
-- Direkte Streaming-Links: Verbessertes direktes Öffnen von Qobuz-Titeln, damit gefundene Songs zuverlässig ohne Fehlerseiten starten.
-- Original-Alben & Regionale Treffer: Die Titelsuche berücksichtigt nun die Geräteregion und bevorzugt Originalalben gegenüber "Best Of"-Zusammenstellungen.
-- Klarere Dienst-Hinweise: Beim Teilen von Links noch nicht unterstützter Musikdienste erscheint ab sofort ein verständlicher Hinweis mit dem jeweiligen Dienstnamen.
-- Zuverlässige Diagnose: Verbesserte Konfigurationsübergabe sorgt für eine durchgehend zuverlässige Erfassung anonymer Nutzungsstatistiken.
+- Erneutes Konvertieren importierter Playlists: Bereits importierte Playlist-Dateien lassen sich nun direkt aus dem Verlauf für beliebige Ziel-Streamingdienste erneut konvertieren.
+- Erweiterte Playlist-Link-Erkennung: Unterstützung für `/browse/VL...`- und `watch?list=`-Playlist-Adressen sowie korrigierte Suchabfragen beim Titel-Abgleich ergänzt.
+- Integritätsprüfung für die Musikerkennung (Beobachtungsmodus): Optionale Geräte-Integritätsprüfung für Token-Anfragen der Musikerkennung mit automatischem Fallback ergänzt, sodass eigenständige Builds und Offline-Umgebungen unberührt bleiben.
+- Stabilität von Upgrade-Dialog & Kauf-Telemetrie: Zustand laufender Kauf-Dialoge bis zum Abschluss der Store-Transaktion stabilisiert, um Ereignis-Tracking und Rechte-Speicherung zuverlässig auszuführen.

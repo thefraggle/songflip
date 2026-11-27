@@ -12,7 +12,7 @@ IOS_LISTINGS = {
         'name': 'SongFlip: Music Link Redirect',
         'subtitle': 'Playlist & Podcast Converter',
         'promotional_text': 'Friends send Spotify or Apple Podcasts links, but you use YouTube Music or Pocket Casts? SongFlip instantly converts and opens shared audio links in your favorite player.',
-        'keywords': 'spotify,apple,youtube,transfer,deezer,beatport,qobuz,tidal,soundcloud,shazam,bandcamp,amazon,anghami',
+        'keywords': 'spotify,apple,youtube,transfer,deezer,qobuz,tidal,soundcloud,shazam,import,songs,amazon,anghami',
         'description': """Friends send you a song link or podcast link from Spotify, Tidal, or Apple Podcasts – but you listen on Apple Music, YouTube Music, or Pocket Casts?
 
 SongFlip is your universal music link redirect and song link converter for iOS. Whether via the iOS Share Sheet, Listen & Flip audio recognition, direct song search, universal QR codes, Shortcuts, or the Action Button: SongFlip instantly converts shared music links and podcast links to open them directly in your favorite player – with zero manual searching, no copying, and no friction.
@@ -56,7 +56,7 @@ Privacy Policy: https://songflip.link/privacy""",
         'name': 'SongFlip: Musik-Link Redirect',
         'subtitle': 'Playlist & Podcast Converter',
         'promotional_text': 'Freunde schicken Spotify- oder Apple Podcasts-Links, aber du nutzt YouTube Music oder Pocket Casts? SongFlip leitet Audio-Links blitzschnell in deinen Wunsch-Player um.',
-        'keywords': 'spotify,apple,youtube,transfer,deezer,beatport,qobuz,tidal,soundcloud,shazam,erkennen,amazon,anghami',
+        'keywords': 'spotify,apple,youtube,transfer,deezer,beatport,qobuz,tidal,soundcloud,shazam,lieder,erkennen,amazon',
         'description': """Freunde schicken dir einen Song-Link oder Podcast-Link von Spotify, Deezer oder Apple Podcasts – aber du nutzt Apple Music, YouTube Music oder Pocket Casts?
 
 SongFlip ist dein smarter Musik-Link Redirect sowie dein universeller Song- und Podcast-Link Converter für iOS. Ob über das native Teilen-Menü (Share Sheet), die Musikerkennung Listen & Flip, die direkte Titelsuche, universelle QR-Codes, Kurzbefehle oder den Action Button: SongFlip lässt dich geteilte Musik-Links und Podcast-Links blitzschnell konvertieren und direkt im Wunsch-Player öffnen – ganz ohne manuelles Suchen oder Kopieren.
@@ -106,6 +106,46 @@ LIMITS = {
     'description': 4000,
     'release_notes': 4000,
 }
+
+REVIEW_INFORMATION = {
+    'first_name': 'Daniel',
+    'last_name': 'Notthoff',
+    'phone_number': '+49 2335 8873531',
+    'email_address': 'hey@goork.de',
+    'demo_user': '',
+    'demo_password': '',
+    'notes': """1. Live Physical Device Walkthrough (No Login Required):
+SongFlip uses a Zero-Auth architecture with no account registration, no login wall, and no demo credentials required. 100% of free and PRO test flows are directly accessible from launch:
+- Launch SongFlip -> under "Preferred Target Player", tap any target streaming service (e.g., Apple Music, YouTube Music, Spotify, TIDAL).
+- Direct Song Search: Tap "Search song or artist..." -> search any track (e.g., "Daft Punk Get Lucky") -> tap a result to open it directly in the selected target player.
+- Clipboard / Link Conversion: Copy any public streaming URL (e.g., https://open.spotify.com/track/6rqhFgbbKwnb9MLmUQDhG6) and return to SongFlip, or share any music/podcast link via the iOS Share Sheet ("SongFlip"). Tap the detected link banner to resolve and redirect immediately.
+- Listen & Flip (Audio Recognition): Tap "Listen & Flip" next to the search bar to test microphone-based ShazamKit song recognition (requests microphone permission only on tap; works online and queues offline).
+- Playlist File Import: Open Settings (gear icon, top right) -> "Import Playlist File (.m3u8, .csv)" to convert local tracklists (Free tier converts up to 5 tracks; PRO unlocks up to 200 tracks).
+
+2. App Purpose & Target Audience:
+SongFlip is a universal music & podcast link converter and redirector across 14 streaming and podcast platforms. It solves the friction of receiving shared links from friends who use a different streaming service.
+
+3. In-App Purchases & Subscriptions (4 Attached Items):
+All 4 items are attached to this submission: SongFlip Pro Lifetime (non-consumable), SongFlip Pro Subscriptions (subscription group), SongFlip Pro (Annual), and SongFlip Pro (Monthly).
+- To view the native Paywall: Tap the "PRO" badge next to the "SongFlip" title on the Home Screen, OR open Settings (gear icon) -> "SongFlip PRO", OR toggle "Audiophile Quality Priority" in Settings.
+- All prices and subscription billing periods are loaded dynamically from StoreKit / App Store Connect via RevenueCatUI, and a "Restore Purchases" option is included.
+- Account Login / Demo Credentials: None required (demoAccountRequired = false).
+
+4. External Services & Infrastructure Used:
+- Resolution & Playlist API: https://cache.songflip.link / https://songflip.link (Firebase Cloud Functions v2 in europe-west3 + Firestore cache) and public catalog metadata endpoints (iTunes Search, Deezer, Qobuz, TIDAL, SoundCloud, Songlink/Odesli).
+- Audio Recognition: Apple ShazamKit signatures matched via SongFlip's short-lived developer token endpoint (/getShazamToken).
+- Billing: Apple StoreKit 2 via RevenueCat SDK.
+- Anonymous Diagnostics: Self-hosted, cookie-free Aptabase instance at https://telemetry-apps.goork.de (anonymous OS/app version and aggregate feature counters only; no personal data, no ad SDKs, no IDFA).
+
+5. Regional Differences:
+The app functions identically across all App Store storefronts worldwide (localized in 28 languages).
+
+6. Regulated Industry & Third-Party Material:
+SongFlip does not operate in a regulated industry and does not host, stream, or redistribute copyrighted audio. It strictly resolves public links and metadata to open tracks in the user's chosen licensed streaming app.""",
+}
+
+def utf16_len(s):
+    return len(s.encode('utf-16-le')) // 2
 
 def extract_changelog_for_version(version=None, filepath="CHANGELOG.md"):
     changelog_path = os.path.join(BASE_DIR, filepath)
@@ -192,10 +232,10 @@ def main():
         for field, text in current_data.items():
             text_clean = text.strip()
             max_limit = LIMITS.get(field)
-            char_count = len(text_clean)
+            char_count = utf16_len(text_clean)
 
             if max_limit and char_count > max_limit:
-                print(f"❌ ERROR: [{field}] exceeds limit! ({char_count}/{max_limit} chars)")
+                print(f"❌ ERROR: [{field}] exceeds limit! ({char_count}/{max_limit} UTF-16 units)")
                 sys.exit(1)
             elif max_limit:
                 print(f"✓ [{field}]: {char_count}/{max_limit} chars")
@@ -206,6 +246,21 @@ def main():
                 f.write(text_clean + "\n")
 
         print(f"Saved metadata files to: {locale_dir}\n")
+
+    review_dir = os.path.join(IOS_METADATA_DIR, 'review_information')
+    os.makedirs(review_dir, exist_ok=True)
+    notes_len = utf16_len(REVIEW_INFORMATION['notes'].strip())
+    if notes_len > 4000:
+        print(f"❌ ERROR: [review_information.notes] exceeds limit! ({notes_len}/4000 UTF-16 units)")
+        sys.exit(1)
+    print(f"--- App Review Information ---")
+    print(f"✓ [notes]: {notes_len}/4000 UTF-16 units")
+    for field, text in REVIEW_INFORMATION.items():
+        filepath = os.path.join(review_dir, f"{field}.txt")
+        with open(filepath, 'w', encoding='utf-8') as f:
+            clean = text.strip()
+            f.write((clean + "\n") if clean else "")
+    print(f"Saved review information files to: {review_dir}\n")
 
     print("🎉 All iOS App Store metadata successfully generated!")
 

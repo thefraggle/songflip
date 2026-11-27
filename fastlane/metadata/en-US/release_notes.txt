@@ -1,4 +1,4 @@
-- Direct Streaming Links: Improved direct track opening for Qobuz so matched songs open cleanly without landing on missing pages.
-- Original Album & Regional Matching: Catalog searches now respect your device region and prioritize original studio albums over "Best Of" compilations.
-- Clearer Service Notices: Sharing links from music services that are not supported yet now displays a clear notice naming the service.
-- Diagnostics Reliability: Improved configuration handling so anonymous usage statistics are recorded consistently across all builds.
+- Imported Playlist Reconversion: Reopening and reconverting previously imported playlist files from history now works seamlessly across any target streaming service.
+- Expanded Playlist Link Detection: Added support for `/browse/VL...` and `watch?list=` playlist URLs alongside updated track matching queries.
+- Acoustic Recognition Integrity (Monitoring Mode): Added optional device-integrity attestation for acoustic recognition token requests with graceful fallback so unconfigured and offline builds remain unaffected.
+- Upgrade Dialog & Purchase Telemetry Stability: Preserved active purchase dialog state throughout transaction completion to ensure reliable event reporting and entitlement storage updates.

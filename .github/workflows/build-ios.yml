@@ -21,6 +21,11 @@ on:
         required: true
         default: 'auto'
         type: string
+      cancel_active_review:
+        description: 'Cancel active WAITING_FOR_REVIEW submission before syncing version, build & review notes'
+        required: false
+        default: false
+        type: boolean
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -60,6 +65,7 @@ jobs:
           python3 scripts/generate_ios_store_listings.py "${GITHUB_REF_NAME:-latest}"
 
       - name: Set up Ruby
+        if: ${{ inputs.target_action != 'metadata-only' }}
         uses: ruby/setup-ruby@be3c7df29b3349ec6bcfc6b4792f1cf9f5237d18 # v1.343.0
         with:
           ruby-version: '3.3'
@@ -378,19 +384,20 @@ jobs:
           BUILD_NUMBER="${EFFECTIVE_BUILD_NUMBER:-$(grep -m1 'CURRENT_PROJECT_VERSION =' iosApp/SongFlip/SongFlip.xcodeproj/project.pbxproj | sed 's/.*= //;s/;//;s/ //g')}"
           bundle exec fastlane set_testflight_notes version:"$TAG_VERSION" build_number:"$BUILD_NUMBER"
 
-      - name: Upload Store Metadata to App Store Connect via Fastlane deliver
+      - name: Sync Store Metadata, Review Notes & Latest Build to App Store Connect
         if: ${{ startsWith(github.ref, 'refs/tags/') || (github.event_name == 'workflow_dispatch' && inputs.target_action != 'ipa-only') }}
         continue-on-error: ${{ inputs.target_action != 'metadata-only' }}
         env:
-          ASC_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
-          ASC_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
-          ASC_API_KEY_P8: ${{ secrets.APP_STORE_CONNECT_API_KEY_P8 }}
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_API_KEY_P8: ${{ secrets.APP_STORE_CONNECT_API_KEY_P8 }}
+          CANCEL_ACTIVE_REVIEW: ${{ inputs.cancel_active_review && 'true' || 'false' }}
         run: |
-          if [ -z "$ASC_KEY_ID" ]; then
-            echo "Skipping store metadata: ASC_KEY_ID not configured"
+          if [ -z "$APP_STORE_CONNECT_KEY_ID" ]; then
+            echo "Skipping store metadata: APP_STORE_CONNECT_KEY_ID not configured"
             exit 0
           fi
-          bundle exec fastlane upload_metadata
+          node scripts/sync_appstore_metadata.mjs
 
       - name: Cleanup Private Keys
         if: always()

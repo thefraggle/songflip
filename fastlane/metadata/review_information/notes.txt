@@ -1,0 +1,28 @@
+1. Live Physical Device Walkthrough (No Login Required):
+SongFlip uses a Zero-Auth architecture with no account registration, no login wall, and no demo credentials required. 100% of free and PRO test flows are directly accessible from launch:
+- Launch SongFlip -> under "Preferred Target Player", tap any target streaming service (e.g., Apple Music, YouTube Music, Spotify, TIDAL).
+- Direct Song Search: Tap "Search song or artist..." -> search any track (e.g., "Daft Punk Get Lucky") -> tap a result to open it directly in the selected target player.
+- Clipboard / Link Conversion: Copy any public streaming URL (e.g., https://open.spotify.com/track/6rqhFgbbKwnb9MLmUQDhG6) and return to SongFlip, or share any music/podcast link via the iOS Share Sheet ("SongFlip"). Tap the detected link banner to resolve and redirect immediately.
+- Listen & Flip (Audio Recognition): Tap "Listen & Flip" next to the search bar to test microphone-based ShazamKit song recognition (requests microphone permission only on tap; works online and queues offline).
+- Playlist File Import: Open Settings (gear icon, top right) -> "Import Playlist File (.m3u8, .csv)" to convert local tracklists (Free tier converts up to 5 tracks; PRO unlocks up to 200 tracks).
+
+2. App Purpose & Target Audience:
+SongFlip is a universal music & podcast link converter and redirector across 14 streaming and podcast platforms. It solves the friction of receiving shared links from friends who use a different streaming service.
+
+3. In-App Purchases & Subscriptions (4 Attached Items):
+All 4 items are attached to this submission: SongFlip Pro Lifetime (non-consumable), SongFlip Pro Subscriptions (subscription group), SongFlip Pro (Annual), and SongFlip Pro (Monthly).
+- To view the native Paywall: Tap the "PRO" badge next to the "SongFlip" title on the Home Screen, OR open Settings (gear icon) -> "SongFlip PRO", OR toggle "Audiophile Quality Priority" in Settings.
+- All prices and subscription billing periods are loaded dynamically from StoreKit / App Store Connect via RevenueCatUI, and a "Restore Purchases" option is included.
+- Account Login / Demo Credentials: None required (demoAccountRequired = false).
+
+4. External Services & Infrastructure Used:
+- Resolution & Playlist API: https://cache.songflip.link / https://songflip.link (Firebase Cloud Functions v2 in europe-west3 + Firestore cache) and public catalog metadata endpoints (iTunes Search, Deezer, Qobuz, TIDAL, SoundCloud, Songlink/Odesli).
+- Audio Recognition: Apple ShazamKit signatures matched via SongFlip's short-lived developer token endpoint (/getShazamToken).
+- Billing: Apple StoreKit 2 via RevenueCat SDK.
+- Anonymous Diagnostics: Self-hosted, cookie-free Aptabase instance at https://telemetry-apps.goork.de (anonymous OS/app version and aggregate feature counters only; no personal data, no ad SDKs, no IDFA).
+
+5. Regional Differences:
+The app functions identically across all App Store storefronts worldwide (localized in 28 languages).
+
+6. Regulated Industry & Third-Party Material:
+SongFlip does not operate in a regulated industry and does not host, stream, or redistribute copyrighted audio. It strictly resolves public links and metadata to open tracks in the user's chosen licensed streaming app.

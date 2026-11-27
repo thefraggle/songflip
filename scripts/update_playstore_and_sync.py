@@ -517,9 +517,15 @@ def main():
 
         pattern_en = r"('en-US':\s*\{.*?'description':\s*\"\"\").*?(\"\"\",)"
         script_code = re.sub(pattern_en, r"\g<1>" + IOS_EN_DESC + r"\g<2>", script_code, flags=re.DOTALL)
-        
+
         pattern_de = r"('de-DE':\s*\{.*?'description':\s*\"\"\").*?(\"\"\",)"
         script_code = re.sub(pattern_de, r"\g<1>" + IOS_DE_DESC + r"\g<2>", script_code, flags=re.DOTALL)
+
+        pattern_kw_en = r"('en-US':\s*\{.*?'keywords':\s*').*?(',)"
+        script_code = re.sub(pattern_kw_en, r"\g<1>" + IOS_EN_KEYWORDS + r"\g<2>", script_code, flags=re.DOTALL)
+
+        pattern_kw_de = r"('de-DE':\s*\{.*?'keywords':\s*').*?(',)"
+        script_code = re.sub(pattern_kw_de, r"\g<1>" + IOS_DE_KEYWORDS + r"\g<2>", script_code, flags=re.DOTALL)
 
         with open(GEN_IOS_SCRIPT, 'w', encoding='utf-8') as f:
             f.write(script_code)
