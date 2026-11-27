@@ -97,5 +97,8 @@ release_notes.md
 # Proprietary Vendor SDK Binaries (Apple ShazamKit Android)
 app/libs/*.aar
 
+# Browser Extension build artifacts
+extension/dist/
+
 # Closed-Source Backend Service (Separate Private Repo)
 /functions/

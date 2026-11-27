@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SongFlip</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="brand">
+        <img src="icons/icon-32.png" alt="SongFlip logo" width="24" height="24" class="brand-icon">
+        <div class="brand-text">
+          <h1 class="brand-title">SongFlip</h1>
+          <p class="brand-subtitle">Instant Music Link Switcher</p>
+        </div>
+      </div>
+      <button type="button" id="btn-toggle-apps" class="icon-pill-btn" title="Mobile Apps &amp; Playlists">
+        Mobile App
+      </button>
+    </header>
+
+    <section class="panel settings-panel" aria-label="Player preferences">
+      <div class="field-row">
+        <label for="target-select" class="field-label">Target Player</label>
+        <select id="target-select" class="select-input">
+          <option value="spotify">Spotify</option>
+          <option value="appleMusic">Apple Music</option>
+          <option value="youtubeMusic">YouTube Music</option>
+          <option value="tidal">Tidal</option>
+          <option value="deezer">Deezer</option>
+          <option value="qobuz">Qobuz</option>
+          <option value="amazonMusic">Amazon Music</option>
+          <option value="soundcloud">SoundCloud</option>
+          <option value="audiomack">Audiomack</option>
+          <option value="idagio">Idagio</option>
+          <option value="anghami">Anghami</option>
+        </select>
+      </div>
+
+      <div class="toggles-row">
+        <label class="toggle-label" for="toggle-desktop-app" title="Open converted links directly in your installed desktop app instead of the web player.">
+          <input type="checkbox" id="toggle-desktop-app" class="toggle-input">
+          <span>Open in Desktop App</span>
+        </label>
+        <label class="toggle-label" for="toggle-auto-redirect" title="Automatically redirect opened music streaming tabs to your Target Player.">
+          <input type="checkbox" id="toggle-auto-redirect" class="toggle-input">
+          <span>0-Click Auto-Redirect</span>
+        </label>
+      </div>
+    </section>
+
+    <form id="convert-form" class="convert-form">
+      <label for="url-input" class="sr-only">Music link</label>
+      <div class="input-group">
+        <input
+          type="url"
+          id="url-input"
+          class="url-input"
+          placeholder="Paste any music, album, or podcast link..."
+          autocomplete="off"
+          spellcheck="false"
+        >
+        <button type="button" id="btn-paste" class="btn-secondary btn-compact" title="Paste from clipboard">
+          Paste
+        </button>
+        <button type="submit" id="btn-convert" class="btn-primary btn-compact">
+          Flip
+        </button>
+      </div>
+    </form>
+
+    <div id="status-banner" class="status-banner hidden" role="status" aria-live="polite"></div>
+
+    <section id="result-card" class="panel result-card hidden" aria-label="Resolved track">
+      <div class="track-header">
+        <img id="result-cover" src="icons/icon-128.png" alt="Album cover" width="56" height="56" class="track-cover">
+        <div class="track-meta">
+          <div class="track-badges">
+            <span id="result-source" class="source-badge">Spotify</span>
+            <span id="result-type" class="type-badge hidden">Album</span>
+          </div>
+          <h2 id="result-title" class="track-title">Track Title</h2>
+          <p id="result-artist" class="track-artist">Artist</p>
+        </div>
+      </div>
+
+      <p id="fallback-notice" class="fallback-notice hidden">
+        Exact track unavailable on target service. Opens catalog search instead.
+      </p>
+
+      <div class="result-actions">
+        <button type="button" id="btn-open-target" class="btn-primary btn-full">
+          Open in Spotify
+        </button>
+        <button type="button" id="btn-copy-flippage" class="btn-secondary btn-full">
+          Copy Flippage (songflip.link)
+        </button>
+      </div>
+    </section>
+
+    <section id="playlist-card" class="panel app-funnel-card hidden" aria-label="Playlist conversion in mobile app">
+      <div class="funnel-header">
+        <div>
+          <span class="funnel-kicker" id="funnel-kicker">Playlist Detected</span>
+          <h2 class="funnel-title">Convert Playlists in the SongFlip App</h2>
+          <p class="funnel-desc">
+            Zero-login playlist transfer across 14 platforms and .m3u8 export run directly in the mobile app. Scan to install:
+          </p>
+        </div>
+        <img src="icons/qr-songflip.svg" alt="QR code to install SongFlip mobile app" width="76" height="76" class="qr-image">
+      </div>
+      <div class="store-links">
+        <button type="button" id="btn-playstore" class="btn-primary btn-half">Android (Google Play)</button>
+        <button type="button" id="btn-testflight" class="btn-secondary btn-half">iOS (TestFlight)</button>
+      </div>
+    </section>
+
+    <section id="history-section" class="history-section hidden" aria-label="Recent flips">
+      <div class="history-header">
+        <h2 class="section-heading">Recent Flips</h2>
+        <button type="button" id="btn-clear-history" class="text-link-btn">Clear</button>
+      </div>
+      <ul id="history-list" class="history-list"></ul>
+    </section>
+
+    <footer class="footer">
+      <button type="button" id="btn-open-web" class="text-link-btn">songflip.link</button>
+      <span class="footer-sep">•</span>
+      <button type="button" id="btn-open-github" class="text-link-btn">Open Source (GPLv3)</button>
+    </footer>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

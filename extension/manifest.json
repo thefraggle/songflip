@@ -1,0 +1,56 @@
+{
+  "manifest_version": 3,
+  "name": "SongFlip: Music Link Redirector & Converter",
+  "version": "1.0.1",
+  "description": "Open shared music, album, and podcast links in your preferred streaming player or copy a universal share link in one click.",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "SongFlip",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "contextMenus",
+    "alarms"
+  ],
+  "host_permissions": [
+    "https://cache.songflip.link/*"
+  ],
+  "optional_host_permissions": [
+    "*://open.spotify.com/*",
+    "*://music.apple.com/*",
+    "*://music.youtube.com/*",
+    "*://www.youtube.com/*",
+    "*://listen.tidal.com/*",
+    "*://tidal.com/*",
+    "*://www.deezer.com/*",
+    "*://open.qobuz.com/*",
+    "*://play.qobuz.com/*",
+    "*://music.amazon.com/*",
+    "*://music.amazon.de/*",
+    "*://music.amazon.co.uk/*",
+    "*://soundcloud.com/*",
+    "*://*.bandcamp.com/*",
+    "*://www.beatport.com/*",
+    "*://audiomack.com/*",
+    "*://app.idagio.com/*",
+    "*://play.anghami.com/*",
+    "*://www.last.fm/*"
+  ]
+}
