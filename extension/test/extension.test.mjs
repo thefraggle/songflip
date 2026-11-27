@@ -193,4 +193,11 @@ test('manifest and store listing descriptions avoid CWS Yellow Argon brand keywo
     false,
     'CHROMEWEBSTORE.md Store Listing section contains third-party brand names that trigger Yellow Argon'
   );
+
+  const ffManifest = JSON.parse(fs.readFileSync(path.join(EXT_DIR, 'manifest.firefox.json'), 'utf8'));
+  assert.equal(ffManifest.browser_specific_settings?.gecko?.strict_min_version, '140.0');
+  assert.deepEqual(
+    ffManifest.browser_specific_settings?.gecko?.data_collection_permissions,
+    { required: ['none'] }
+  );
 });

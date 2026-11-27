@@ -37,7 +37,11 @@ def validate_manifest(manifest_path: Path, is_firefox: bool) -> dict:
 
     if is_firefox:
         assert "scripts" in data.get("background", {}), "Firefox manifest requires background.scripts"
-        assert data.get("browser_specific_settings", {}).get("gecko", {}).get("id"), "Firefox manifest requires gecko.id"
+        gecko = data.get("browser_specific_settings", {}).get("gecko", {})
+        assert gecko.get("id"), "Firefox manifest requires gecko.id"
+        assert gecko.get("data_collection_permissions", {}).get("required"), (
+            "Firefox manifest requires gecko.data_collection_permissions.required"
+        )
     else:
         assert data.get("background", {}).get("service_worker") == "background.js", "Chrome manifest requires service_worker"
 

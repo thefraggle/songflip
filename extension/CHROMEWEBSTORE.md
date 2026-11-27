@@ -120,7 +120,7 @@ https://songflip.link/privacy-policy.html
 
 ## Firefox Add-ons (AMO) Notes
 - Build package: `python3 scripts/build_extension.py` -> `extension/dist/songflip-firefox-v1.0.1.zip`
-- Add-on ID: `extension@songflip.link` (`strict_min_version: 128.0`, supports `optional_host_permissions` in MV3).
+- Add-on ID: `extension@songflip.link` (`strict_min_version: 140.0`, `data_collection_permissions: { required: ["none"] }`, supports `optional_host_permissions` in MV3).
 - No minification or obfuscation is used; reviewers can inspect `background.js`, `popup.js`, and `shared.js` directly inside the XPI/ZIP package.
 
 ---
