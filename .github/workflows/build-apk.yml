@@ -298,6 +298,21 @@ jobs:
           status: completed
           whatsNewDirectory: ${{ github.workspace }}/distribution/whatsnew
 
+      - name: Restore Play Store Screenshots Bundle (when upload_graphics enabled)
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.target_action != 'apk-only' && inputs.upload_graphics == true && env.HAVE_SERVICE_ACCOUNT == 'true' }}
+        env:
+          SONGFLIP_API_READ_TOKEN: ${{ secrets.SONGFLIP_API_READ_TOKEN }}
+        run: |
+          if [ -n "$SONGFLIP_API_READ_TOKEN" ]; then
+            git clone --depth 1 "https://x-access-token:${SONGFLIP_API_READ_TOKEN}@github.com/thefraggle/songflip-api.git" /tmp/songflip-api
+            if [ -f "/tmp/songflip-api/vendor/playstore-screenshots.tar.gz" ]; then
+              mkdir -p distribution/screenshots
+              tar -xzf /tmp/songflip-api/vendor/playstore-screenshots.tar.gz -C distribution/screenshots
+              echo "✓ Restored localized Play Store screenshots for upload."
+            fi
+            rm -rf /tmp/songflip-api
+          fi
+
       - name: Sync Play Store Listing Metadata
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.target_action != 'apk-only' && env.HAVE_SERVICE_ACCOUNT == 'true' }}
         env:

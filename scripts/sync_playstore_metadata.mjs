@@ -10,8 +10,8 @@ const METADATA_DIR = path.resolve(SCRIPT_DIR, '..', 'fastlane', 'metadata', 'and
 const GRAPHICS_DIR = path.resolve(SCRIPT_DIR, '..', 'distribution', 'screenshots');
 const FEATURE_GRAPHICS_DIR = path.resolve(SCRIPT_DIR, '..', 'distribution', 'open-assets', 'exports', 'feature-graphics');
 
-// Active Google Play Store listing experiments break immediately if graphics are modified.
-const AB_TEST_ACTIVE_LOCALES = new Set(['es-419', 'en-US', 'es-ES', 'de-DE', 'pt-BR']);
+// All Play Store graphic A/B tests were ended on 2026-11-28; sync all locales freely.
+const AB_TEST_ACTIVE_LOCALES = new Set([]);
 
 // Directory alias fallbacks (local fastlane folder -> canonical Play Store language code)
 const SKIP_DUPLICATE_ALIAS_DIRS = new Set(['bn-IN', 'id-ID', 'no-NO', 'ro', 'th', 'uk-UA', 'vi-VN']);
@@ -226,14 +226,16 @@ export async function runSync() {
       if (fs.existsSync(localeShotsDir)) {
         const shots = fs
           .readdirSync(localeShotsDir)
-          .filter((f) => f.endsWith('.png'))
+          .filter((f) => f.startsWith('screen_') && f.endsWith('.png'))
           .sort()
           .map((f) => path.join(localeShotsDir, f));
         if (shots.length > 0) {
           await uploadImageGroup(token, baseUrl, editId, locale, 'phoneScreenshots', shots);
         }
       }
-      const fgPath = path.join(FEATURE_GRAPHICS_DIR, locale, 'feature_graphic.png');
+      const fastlaneFgPath = path.join(METADATA_DIR, locale, 'images', 'featureGraphic.png');
+      const exportFgPath = path.join(FEATURE_GRAPHICS_DIR, locale, 'feature_graphic.png');
+      const fgPath = fs.existsSync(fastlaneFgPath) ? fastlaneFgPath : exportFgPath;
       if (fs.existsSync(fgPath)) {
         await uploadImageGroup(token, baseUrl, editId, locale, 'featureGraphic', [fgPath]);
       }
