@@ -42,7 +42,7 @@ enum PlatformChoice: String, CaseIterable, Identifiable {
 
     var iconName: String {
         switch self {
-        case .youtubeMusic: return "play.rectangle.fill"
+        case .youtubeMusic: return "play.circle.fill"
         case .appleMusic: return "music.note"
         case .spotify: return "dot.radiowaves.left.and.right"
         case .tidal: return "waveform"
@@ -121,7 +121,8 @@ func platformIcon(for key: String) -> String {
     switch clean {
     case "spotify": return "dot.radiowaves.left.and.right"
     case "applemusic", "apple": return "music.note"
-    case "youtubemusic", "youtube": return "play.rectangle.fill"
+    case "youtubemusic": return "play.circle.fill"
+    case "youtube": return "play.rectangle.fill"
     case "deezer": return "music.quarternote.3"
     case "tidal": return "waveform"
     case "amazonmusic", "amazon": return "cart.fill"

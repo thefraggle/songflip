@@ -27,7 +27,7 @@ class ShareViewController: UIViewController {
     private let targetPlatforms: [TargetPlatformItem] = [
         TargetPlatformItem(key: "appleMusic", name: "Apple Music", iconSystemName: "music.note", color: UIColor(red: 0.99, green: 0.24, blue: 0.27, alpha: 1.0)),
         TargetPlatformItem(key: "spotify", name: "Spotify", iconSystemName: "dot.radiowaves.left.and.right", color: UIColor(red: 0.11, green: 0.73, blue: 0.33, alpha: 1.0)),
-        TargetPlatformItem(key: "youtubeMusic", name: "YouTube Music", iconSystemName: "play.rectangle.fill", color: UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)),
+        TargetPlatformItem(key: "youtubeMusic", name: "YouTube Music", iconSystemName: "play.circle.fill", color: UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)),
         TargetPlatformItem(key: "tidal", name: "Tidal", iconSystemName: "waveform", color: UIColor(red: 0.0, green: 0.85, blue: 0.9, alpha: 1.0)),
         TargetPlatformItem(key: "deezer", name: "Deezer", iconSystemName: "music.quarternote.3", color: UIColor(red: 0.64, green: 0.22, blue: 1.0, alpha: 1.0)),
         TargetPlatformItem(key: "amazonMusic", name: "Amazon Music", iconSystemName: "cart.fill", color: UIColor(red: 0.15, green: 0.82, blue: 0.85, alpha: 1.0)),
