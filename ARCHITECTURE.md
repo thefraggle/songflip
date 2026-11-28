@@ -133,7 +133,7 @@ sequenceDiagram
     
     alt Instant Playlist Cache Hit (<100ms)
         Edge->>Cache: Lookup 16-char Playlist Hash (db.getAll with 10-char fallback)
-        Cache-->>Edge: Cached Doc + Rolling 90-day TTL Refresh (24h throttled)
+        Cache-->>Edge: Cached Doc + Rolling 30-day TTL Refresh (24h throttled)
         Edge-->>Client: Return Matched Tracks (up to 200) + Zero-OAuth URL
     else Cold Conversion
         Edge->>Scraper: Extract Source Tracks (Deezer/Spotify/Apple/YT/Tidal v2)
@@ -142,7 +142,7 @@ sequenceDiagram
         Cache-->>Edge: Pre-resolved Target URLs for popular songs
         Edge->>Scraper: Resolve remaining misses in parallel chunks (15/chunk)
         Edge->>Edge: Build Zero-OAuth URI (watch_videos / trackset)
-        Edge->>Cache: Save Doc with 90-Day Rolling TTL
+        Edge->>Cache: Save Doc with 30-Day Rolling TTL
         Edge->>Cache: Async L2 Song Cache Warmup (Batch write up to 200 resolved tracks)
         Edge-->>Client: Return Conversion Result
     end
@@ -163,7 +163,7 @@ sequenceDiagram
    - **Part Chunking (`PlaylistChunk`):** Automatically segments large playlists into 50-track sub-queues (`Part 1`, `Part 2`...), each playable with a single tap in YouTube Music and Spotify.
    - **Universal File Export:** Generates Extended M3U8 (`audio/x-mpegurl`) and RFC 4180 CSV files directly on-device for desktop media players and cloud libraries. M3U8 exports strip CR/LF control characters from metadata and validate `https://` target URLs (`UrlUtils.isSafeTargetUrl`) before writing track entries.
 6. **SSR Web Sharing (`songflip.link/s/...` & `songflip.link/p/...`) & oEmbed 1.0 (`/api/oembed`):** Server-rendered, localized web pages with strict CSP hardening, CDN edge-cache resilient client-device prioritization (synchronous DOM reordering via `navigator.userAgent` ensuring visitors on Android see YouTube Music & Spotify first while iOS/macOS users see Apple Music first, even when pages are globally cached at the edge), embedded 30-second audio previews (`og:audio` / `og:audio:secure_url`), oEmbed 1.0 JSON discovery (`<link rel="alternate" type="application/json+oembed">`), and built-in scannable QR code generator modals (with in-app QR code generation in history strictly scoped to Pro users without disruptive paywall prompts for free users).
-7. **90-Day Rolling TTL Lifecycle (24h Write-Throttled) & Batch Lookups:** Cache hits across `l2_song_cache`, `l2_podcast_cache`, and `converted_playlists` refresh `lastAccessedAt` and the 90-day `expiresAt` timestamp at most once per 24 hours (`touchRollingTtl`), cutting redundant Firestore hit-writes by >90% while preserving the invariant that heuristic fallbacks never extend `expiresAt`. Multi-key fallbacks (12-char, 64-char legacy, regional Amazon/Apple aliases, playlist hashes) run in a single `db.getAll(...)` roundtrip. Unused records expire cleanly via Firestore TTL policies.
+7. **30-Day Rolling TTL Lifecycle (24h Write-Throttled) & Batch Lookups:** Cache hits across `l2_song_cache`, `l2_podcast_cache`, and `converted_playlists` refresh `lastAccessedAt` and the 30-day `expiresAt` timestamp at most once per 24 hours (`touchRollingTtl`), cutting redundant Firestore hit-writes by >90% while preserving the invariant that heuristic fallbacks never extend `expiresAt`. Multi-key fallbacks (12-char, 64-char legacy, regional Amazon/Apple aliases, playlist hashes) run in a single `db.getAll(...)` roundtrip. Unused records expire cleanly via Firestore TTL policies.
 8. **Automatic L2 Song Cache Swarm Warmup:** Every playlist conversion asynchronously writes all successfully resolved tracks into the global Firestore `l2_song_cache` (with canonical 12-char SHA-256 short-hash single-write indexing). This automatically seeds the global cache, guaranteeing sub-30ms instant resolutions for any user subsequently flipping these tracks individually.
 
 ---
@@ -253,7 +253,7 @@ To ensure sub-50ms user experience for cached items and prevent hanging UI on fl
 | **Cloud Function `/convertPlaylist`** | `60 s` (45s match budget) | Max execution budget for batch-scraping playlists up to 200 tracks; graceful partial-match return on deadline. |
 | **Cloud Function `/api/feedback`** | `15 s` | Rate-limited feedback submission with Firestore persistence and fallback to native email intent. |
 | **SSR `/renderWebShare`** | `10 s` | Fast server-side rendering for OpenGraph preview tags. |
-| **Cache Retention (L1 / L2)** | `7 Days (L1) / 90 Days (L2)` | L1 resolver cache holds 7 days (1h for search fallbacks; history/favorites retained permanently). L2 Firestore cache uses a rolling 90-day TTL. |
+| **Cache Retention (L1 / L2)** | `7 Days (L1) / 30 Days (L2)` | L1 resolver cache holds 7 days (1h for search fallbacks; history/favorites retained permanently). L2 Firestore cache uses a rolling 30-day TTL. |
 
 ## 7. Security & Verification
 

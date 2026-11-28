@@ -39,7 +39,7 @@ SongFlip is built as a modern **Kotlin Multiplatform (KMP)** project with a modu
 
 ### Resolution Pipeline
 1. **Tier 1 (Local Device Memory & SQLDelight SQLite Cache)**: Instant sub-5ms lookup on device for previously converted songs.
-2. **Tier 2 (L2 Server-Side Cloud Cache) [PRO]**: High-speed Firebase edge cache with 90-day TTL for zero-latency (<50ms) global conversions and web-share landing page generation (gracefully bypassed on network misses or local builds).
+2. **Tier 2 (L2 Server-Side Cloud Cache) [PRO]**: High-speed Firebase edge cache with 30-day TTL for zero-latency (<50ms) global conversions and web-share landing page generation (gracefully bypassed on network misses or local builds).
 3. **Tier 3 (Direct 0-Redirect SongLink Engine)**: Normalizes incoming URLs into direct internal IDs for instant HTTP responses without redirect loops.
 4. **Tier 4 (Direct Playback Extractor)**: Background video/track ID regex extraction for YouTube Music instant play.
 5. **Tier 5 (Shazam & Catalog Discovery APIs)**: Shazam Discovery REST API (`amp.shazam.com`) for direct Apple Music IDs, iTunes Search & Lookup, Deezer Catalog API, Qobuz Public Catalog API, SoundCloud Web Scraper, and YouTube oEmbed.
