@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.15.10] - 2026-11-28
+- **Streaming Icon & Brand Alignment**: Updated the YouTube Music and YouTube service icons to their official two-color vector shapes across the application and shared web pages.
+- **Server Cache Retention Cap**: Adjusted the server-side metadata cache rolling retention window from 90 days to 30 days in compliance with external streaming API policies.
+- **Legal & Privacy Policy Disclosures**: Added direct references and links to third-party streaming platform terms of service and privacy policies across all 22 supported web languages.
+
 ## [1.15.9] - 2026-11-23
 - **Imported Playlist Reconversion**: Reopening and reconverting previously imported playlist files from history now works seamlessly across any target streaming service.
 - **Expanded Playlist Link Detection**: Added support for `/browse/VL...` and `watch?list=` playlist URLs alongside updated track matching queries.

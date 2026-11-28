@@ -9,6 +9,7 @@ Thank you for your interest in contributing to SongFlip! Whether you are reporti
 SongFlip is built as a Kotlin Multiplatform (KMP) project:
 - **`app/`**: Native Android app (Jetpack Compose, MVVM architecture, Material 3, Quick Settings Tiles, Android 13+ Themed Icons).
 - **`iosApp/`**: Native iOS app (SwiftUI, Share Extension, App Intents for Siri Shortcuts & Action Button).
+- **`extension/`**: Desktop browser extension (Chrome/Firefox Manifest V3) for desktop link conversion & universal share pages.
 - **`shared/`**: Shared KMP core engine (`SongLinkEngine`, platform resolvers, `UrlUtils`, SQLDelight `LinkCache`, `AptabaseClient`).
 - **`functions/`** *(Private / Closed Source)*: Proprietary hosted cloud backend (Firebase Cloud Functions by Daniel Notthoff) powering token verification, SSR web-share landing pages, playlist batch scrapers, and global L2 link caching. The client applications (Android, iOS & shared KMP core) are 100% autonomous and compile/run completely without this backend.
 

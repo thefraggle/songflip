@@ -1,5 +1,10 @@
 # Changelog (Deutsch)
 
+## [1.15.10] - 2026-11-28
+- **Streaming-Icons & Markendarstellung**: YouTube-Music- und YouTube-Symbole in der Anwendung sowie auf geteilten Webseiten auf die offiziellen zweifarbigen Vektorformen aktualisiert.
+- **Server-Cache-Vorhaltedauer**: Gleitende Speicherdauer des serverseitigen Metadaten-Caches gemäß den API-Richtlinien der Streaming-Dienste von 90 auf 30 Tage angepasst.
+- **Nutzungsbedingungen & Datenschutzhinweise**: Direkte Verweise und Links zu den Nutzungsbedingungen und Datenschutzerklärungen der unterstützten Streaming-Plattformen in allen 22 Web-Sprachen ergänzt.
+
 ## [1.15.9] - 2026-11-23
 - **Erneutes Konvertieren importierter Playlists**: Bereits importierte Playlist-Dateien lassen sich nun direkt aus dem Verlauf für beliebige Ziel-Streamingdienste erneut konvertieren.
 - **Erweiterte Playlist-Link-Erkennung**: Unterstützung für `/browse/VL...`- und `watch?list=`-Playlist-Adressen sowie korrigierte Suchabfragen beim Titel-Abgleich ergänzt.
