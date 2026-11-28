@@ -68,7 +68,7 @@ Purchases are powered by **RevenueCat** with native store backends:
 - **Android**: Google Play Billing Library 8+ via `com.revenuecat.purchases:purchases` (`ProManager.kt`)
 - **iOS**: StoreKit 2 via RevenueCat iOS SDK v5 (`ProManager.swift`)
 - **Options**: Non-consumable Lifetime purchase (`songflip_pro_lifetime`), Annual subscription (`songflip_pro_annual`), and Monthly subscription (`songflip_pro_monthly`).
-- **Security & Offline Caching**: Asymmetric Ed25519 signature verification (`sct_v2_`), hardware-backed Keystore/Keychain storage, and monotonic `lastSeenServerTime` clock-rollback protection to safeguard offline entitlements across app restarts.
+- **Security & Offline Caching**: Asymmetric Ed25519 signature verification (`sct_v3_` / `sct_v2_`), hardware-backed Keystore/Keychain storage, and monotonic `lastSeenServerTime` clock-rollback protection to safeguard offline entitlements across app restarts.
 
 
 ## 🛠️ Building & Development

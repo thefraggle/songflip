@@ -8,7 +8,7 @@ SongFlip is designed to solve a simple problem with high engineering rigor: **Ho
 
 ## 1. High-Level System Overview
 
-SongFlip operates across three client layers (Android, iOS, Web) backed by a shared Kotlin Multiplatform engine and a serverless edge cache:
+SongFlip operates across four client layers (Android, iOS, Desktop Browser Extension, Web) backed by a shared Kotlin Multiplatform engine and a serverless edge cache:
 
 ```mermaid
 graph TD
@@ -89,7 +89,7 @@ When an upstream resolver (e.g. Odesli) lacks a mapping for a target platform (f
    - **Deezer:** Deezer Public Search API resolves direct album/track URLs with fuzzy name matching.
    - **Tidal:** Tidal OpenAPI v2 (`openapi.tidal.com/v2/searchResults`, `/v2/tracks/{id}`, `/v2/albums/{id}`, `/v2/playlists/{id}`) via OAuth2 Client Credentials (`auth.tidal.com/v1/oauth2/token`) with automatic `401` token refresh and `HTTP 429` retry-backoff across tracks, albums, artists, and playlists.
    - **Qobuz:** Qobuz Public Catalog API resolves direct track, album, and artist IDs with strict title/artist similarity validation. Playlist matching in Cloud Functions backend resolves tracks via public catalog search with Zero-OAuth fallback.
-   - **Idagio & Anghami:** Direct scrapers protected by 15-minute in-memory circuit breakers (`403`/`429` for Idagio; `403`/`406`/`429` for Anghami) with instant URL-slug fallbacks when cloud IPs are rate-limited or blocked.
+   - **Idagio, Anghami & SoundCloud:** Direct scrapers and oEmbed lookups protected by progressive-backoff in-memory circuit breakers (`15 min → 60 min → 6 h` on HTTP `401`/`403`/`406`/`429`/`503`), a 60-minute per-URL SoundCloud oEmbed negative cache, and deterministic URL-slug fallbacks when cloud IPs or tracks are blocked or rate-limited (mirrored in KMP `SoundCloudResolver` & `MetadataExtractor` via `PlatformCircuitBreaker`).
    - **YouTube Music:** YouTube Music scraper resolves `browse/MPREb_...` album IDs and `watch?v=...` video IDs.
    - **Token & Diacritics Normalization (v1.12.5):** `ResolverUtils.isMatch` normalizes Unicode accents, diacritics (`é -> e`, `ñ -> n`), stylized leetspeak (`p!nk -> pink`, `ke$ha -> kesha`), and enforces minimum token coverage so tracks with matching artists but different titles (e.g. Queen "Bohemian Rhapsody" vs "Radio Ga Ga") are rejected before falling back to search.
 2. **Deterministic Search Fallback (Graceful Degradation):**
@@ -104,9 +104,9 @@ When an upstream resolver (e.g. Odesli) lacks a mapping for a target platform (f
 | **Spotify** | `spotify:track:<id>` | `spotify:album:<id>` | `spotify:artist:<id>` | `spotify:search:<query>` | ✅ Backend Live Resolver (ISRC/Title) | `spotify:search:<query>` |
 | **Amazon Music** | `amznmp3://... ?trackAsin=` | `amznmp3://.../albums/<ASIN>` | `amznmp3://.../artists/<ASIN>` | `music.amazon.com/search/` | ❌ None (ASIN regional) | `amznmp3://music.amazon.com/search/` |
 | **Tidal** | `tidal://track/<id>` | `tidal://album/<id>` | `tidal://artist/<id>` | — | ✅ Tidal OpenAPI v2 (`openapi.tidal.com/v2`) | `listen.tidal.com/search?q=` |
-| **SoundCloud** | `soundcloud://sounds:<id>` | `soundcloud://sets:<id>` | `soundcloud://users:<id>` | — | ✅ SoundCloud Scraper (`soundcloud.com`) | `soundcloud://search?q=` |
+| **SoundCloud** | `soundcloud://sounds:<id>` | `soundcloud://sets:<id>` | `soundcloud://users:<id>` | — | ✅ SoundCloud oEmbed / Scraper + Circuit Breaker | `soundcloud://search?q=` |
 | **Bandcamp** | `bandcamp://...` | `bandcamp://...` | `bandcamp://...` | — | ❌ None (Web only) | `bandcamp.com/search?q=` |
-| **Qobuz** | `qobuz://open.qobuz.com/track/<id>` | `qobuz://open.qobuz.com/album/<id>` | `qobuz://open.qobuz.com/artist/<id>` | — | ✅ Qobuz Public API | `qobuz.com/us-en/search/tracks?q=` |
+| **Qobuz** | `qobuzapp://track/<id>` | `qobuzapp://album/<id>` | `qobuzapp://artist/<id>` | — | ✅ Qobuz Public API | `play.qobuz.com/search?q=` |
 | **Beatport** | *(Source only)* | *(Source only)* | — | — | ✅ Beatport OG Scraper | `beatport.com/search?q=` |
 | **Audiomack** | `audiomack://...` | `audiomack://...` | — | `audiomack.com/search?q=` | ✅ Audiomack Scraper | `audiomack.com/search?q=` |
 | **Idagio** | `idagio://...` | `idagio://...` | — | `app.idagio.com/search?q=` | ✅ Idagio Scraper | `app.idagio.com/search?q=` |
@@ -175,6 +175,7 @@ The codebase separates platform-specific UI from deterministic platform-agnostic
 ```text
 ├── app/                  # Native Android App (Jetpack Compose, MVVM ViewModels, Material 3, Quick Settings Tile)
 ├── iosApp/               # Native iOS App (SwiftUI, Share Extension, App Intents)
+├── extension/            # Desktop Browser Extension (Chrome & Firefox Manifest V3, URL-only client)
 ├── shared/               # Kotlin Multiplatform Core (Shared by Android & iOS)
 │   ├── commonMain/       # Shared URL sanitizers, SQLDelight cache manager, HTTP engine (Ktor), models
 │   ├── androidMain/      # Android SQLDelight driver, Keystore coupon storage & PackageUtils
@@ -216,7 +217,7 @@ The iOS architecture decouples the main user interface (`de.goork.SongFlip`) fro
 - **Interactive Playlist & History Parity**: Full feature parity with Android via native SwiftUI components: `PlaylistConverterView` (live progress, match detection, Zero-OAuth queue launch for Spotify/YouTube Music, 5-song free limit gating), `HistorySheetView` (10 free / 100 PRO capacity indicator), and `FeedbackSheetView` (zero-tracking Firestore feedback with mail fallback).
 
 ### Acoustic Recognition ("Listen & Flip") & Proprietary SDK Dual-Mode
-- **Android (`AcousticRecognizer.kt` & `AppCheckHelper.kt`)**: Captures 48 kHz mono PCM via `AudioRecord` (`VOICE_RECOGNITION` with `CAMCORDER`/`MIC` fallback), applies software AGC (`applySoftwareAgcAndRms`) without mutating raw fingerprinting frames, and matches progressive snapshots against Apple ShazamKit REST using short-lived ES256 tokens from `/getShazamToken`. When Firebase parameters are provided, `AppCheckHelper` initializes Play Integrity App Check programmatically (without `google-services.json`) and attaches an `X-Firebase-AppCheck` token header with a non-blocking 2.5 s timeout and soft fallback.
+- **Android (`AcousticRecognizer.kt` & `AppCheckHelper.kt`)**: Captures 44.1 kHz mono PCM (with 48 kHz fallback) via `AudioRecord` (`VOICE_RECOGNITION` with `CAMCORDER`/`MIC` fallback), computes UI amplitude/quality via `applySoftwareAgcAndRms` without mutating raw fingerprinting frames, and matches progressive snapshots against Apple ShazamKit REST using short-lived ES256 tokens from `/getShazamToken`. When Firebase parameters are provided, `AppCheckHelper` initializes Play Integrity App Check programmatically (without `google-services.json`) and attaches an `X-Firebase-AppCheck` token header with a non-blocking 2.5 s timeout and soft fallback.
 - **iOS (`AcousticRecognizer.swift`)**: Captures downmixed mono float32 audio via `AVAudioEngine` and matches natively through Apple's `SHSession` without external token endpoints.
 - **Offline Club Mode & Quota (`AcousticQuotaManager.kt`)**: Grants 3 free successful scans/month (repeated matches in history are free) and queues 6-second offline signatures in SQLDelight (`pending_acoustic_scans`) for automatic background matching once connectivity returns.
 - **Dual-Mode Open-Source Build**: When `app/libs/shazamkit-android-release.aar` is absent, Gradle automatically compiles against `app/src/stub/java` so public clones build cleanly without proprietary binaries.
@@ -273,7 +274,7 @@ SongFlip enforces automated test coverage across all client layers to ensure zer
 | :--- | :--- | :--- | :--- |
 | **Shared KMP Core** | `shared/src/commonTest/` | Kotlin Test, Ktor `MockEngine`, Coroutines Test | URL normalization, entity type & platform detection, SQLDelight L1 cache TTL & eviction, unified `MetadataExtractor` + core resolvers (Spotify, Apple Music, Deezer, Tidal OpenAPI v2, YouTube Music, Qobuz, SoundCloud, SongLink API), Ed25519 signature verification, M3U8/CSV export sanitization, Aptabase analytics client. |
 | **Android Client** | `app/src/test/` | JUnit 4, OkHttp `MockWebServer`, Coroutines Test | Domain verification info, quick settings tile states & lockscreen guard, dynamic app shortcuts, coupon redemption & error handling, App Check configuration & header injection, review prompt rules, L1 hit detection, 34+ locale string formats (`strings.xml`). |
-| **Backend Functions** | Cloud Backend (Private Service) | Node.js Test Runner, TypeScript | Automated tests covering SSR crawler rendering, oEmbed 1.0 & `og:audio` social previews, Zero-OAuth playlist generation, Ed25519 signed coupons, promo code rate-limiting, artist resolution, L2 cache batch candidate lookup, and 24h rolling-TTL write throttling. |
+| **Backend Functions** | Cloud Backend (Private Service) | Node.js Test Runner, TypeScript | Automated tests covering SSR crawler rendering, oEmbed 1.0 & `og:audio` social previews, Zero-OAuth playlist generation, Ed25519 signed coupons, promo code rate-limiting, artist resolution, progressive circuit breakers (`Idagio`/`Anghami`/`SoundCloud`) & SoundCloud oEmbed/slug fallback, L2 cache batch candidate lookup, and 24h rolling-TTL write throttling. |
 
 ### Deterministic Mocking & Isolation:
 - **No Live Network Dependencies:** KMP and Android unit tests mock external endpoints using Ktor's `MockEngine` and OkHttp's `MockWebServer` for instant (< 5s), repeatable execution without flaky upstream API rate limits.

@@ -1,7 +1,13 @@
 package de.goork.songflip.core.engine.resilience
 
+import de.goork.songflip.core.engine.MetadataExtractor
+import de.goork.songflip.core.engine.resolvers.AppleMusicResolver
 import de.goork.songflip.core.engine.resolvers.DeezerResolver
+import de.goork.songflip.core.engine.resolvers.QobuzResolver
+import de.goork.songflip.core.engine.resolvers.SoundCloudResolver
+import de.goork.songflip.core.engine.resolvers.SpotifyResolver
 import de.goork.songflip.core.engine.resolvers.TidalResolver
+import de.goork.songflip.core.engine.resolvers.YouTubeMusicResolver
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
@@ -9,9 +15,11 @@ import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.headersOf
 import kotlinx.coroutines.test.runTest
+import kotlinx.serialization.json.Json
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class ResilienceAndCircuitBreakerTest {
@@ -180,5 +188,54 @@ class ResilienceAndCircuitBreakerTest {
         assertEquals("https://tidal.com/browse/track/998877", outcome.getOrNull())
         assertTrue(capturedUrl.startsWith("https://openapi.tidal.com/v2/searchResults?filter%5Bquery%5D="))
         assertEquals("Bearer oauth-bearer-123", capturedAuth)
+    }
+
+    @Test
+    fun testSoundCloudResolverAndMetadataExtractorTripCircuitBreakerOnHttp403() = runTest {
+        var callCount = 0
+        val cb = PlatformCircuitBreaker(clock = { 1000000L }, defaultCooldownMs = 900_000L)
+        val mockEngine = MockEngine {
+            callCount++
+            respond(
+                content = "Forbidden",
+                status = HttpStatusCode.Forbidden
+            )
+        }
+        val client = HttpClient(mockEngine)
+        val json = Json { ignoreUnknownKeys = true }
+
+        val scResolver = SoundCloudResolver(client = client, circuitBreaker = cb)
+        assertNull(scResolver.resolveTrack("Daft Punk - One More Time"))
+        assertEquals(1, callCount)
+        assertTrue(cb.isHostOpen("soundcloud.com"))
+
+        // Second call during cooldown skips network
+        assertNull(scResolver.resolveTrack("Justice - Genesis"))
+        assertEquals(1, callCount)
+
+        // MetadataExtractor uses circuit breaker + slug fallback
+        val extractor = MetadataExtractor(
+            client = client,
+            json = json,
+            appleMusicResolver = AppleMusicResolver(client, json),
+            deezerResolver = DeezerResolver(client, json, cb),
+            youTubeMusicResolver = YouTubeMusicResolver(client),
+            spotifyResolver = SpotifyResolver(client, json),
+            qobuzResolver = QobuzResolver(client, json),
+            circuitBreaker = cb
+        )
+        val extracted = extractor.extractTrackInfo("https://soundcloud.com/user-560156833/cypress-hill-horrorcore-we-are")
+        assertEquals("cypress hill horrorcore we are", extracted)
+        assertEquals(1, callCount)
+
+        // Idagio OG metadata trips host circuit breaker on 403 and falls back to slug
+        val idagio1 = extractor.extractTrackInfo("https://app.idagio.com/recordings/beethoven-symphony-no-5")
+        assertEquals("beethoven symphony no 5", idagio1)
+        assertEquals(2, callCount)
+        assertTrue(cb.isHostOpen("app.idagio.com"))
+
+        val idagio2 = extractor.extractTrackInfo("https://app.idagio.com/recordings/bach-toccata")
+        assertEquals("bach toccata", idagio2)
+        assertEquals(2, callCount)
     }
 }

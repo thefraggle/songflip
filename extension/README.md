@@ -1,6 +1,6 @@
 # SongFlip Browser Extension (Manifest V3)
 
-Official open-source browser extension (GPLv3) for **Chrome, Brave, Edge, Vivaldi, Opera, Arc**, and **Firefox**.
+Official open-source browser extension (GPLv3) for **Chrome, Brave, Edge, Vivaldi, Opera, Arc**, and **Firefox** — live on the [Chrome Web Store](https://chromewebstore.google.com/detail/nloohflhncnpknknfnmehflaeoihpkmg).
 
 ## Features
 - **Instant Active-Tab Conversion:** Click the toolbar icon on any Spotify, Apple Music, YouTube Music, Tidal, Deezer, Qobuz, SoundCloud, Bandcamp, Beatport, Audiomack, Idagio, Anghami, Last.fm, or Podcast page to open it in your preferred player.

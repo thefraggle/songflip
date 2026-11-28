@@ -1,5 +1,6 @@
 package de.goork.songflip.core.engine.resolvers
 
+import de.goork.songflip.core.engine.resilience.PlatformCircuitBreaker
 import de.goork.songflip.core.model.MusicPlatform
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
@@ -10,7 +11,8 @@ import io.ktor.http.isSuccess
 import kotlinx.coroutines.CancellationException
 
 class SoundCloudResolver(
-    private val client: HttpClient
+    private val client: HttpClient,
+    private val circuitBreaker: PlatformCircuitBreaker = PlatformCircuitBreaker.shared
 ) : PlatformResolver {
 
     override val platform: MusicPlatform = MusicPlatform.SOUNDCLOUD
@@ -25,6 +27,8 @@ class SoundCloudResolver(
     }
 
     private suspend fun searchSoundCloud(query: String): String? {
+        val host = "soundcloud.com"
+        if (!circuitBreaker.canExecute(host)) return null
         return try {
             val encoded = query.encodeURLParameter()
             val resp = client.get("https://soundcloud.com/search/sounds?q=$encoded") {
@@ -32,7 +36,12 @@ class SoundCloudResolver(
                 header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
                 header("Accept-Language", "en-US,en;q=0.9")
             }
+            if (resp.status.value in setOf(403, 406, 429)) {
+                circuitBreaker.recordRateLimit(host, retryAfterSeconds = 900L)
+                return null
+            }
             if (resp.status.isSuccess()) {
+                circuitBreaker.recordSuccess(host)
                 val html = resp.bodyAsText()
                 val noscriptMatch = Regex("<noscript>(.*?)</noscript>", RegexOption.DOT_MATCHES_ALL).find(html)
                 val searchBody = noscriptMatch?.groupValues?.get(1) ?: html

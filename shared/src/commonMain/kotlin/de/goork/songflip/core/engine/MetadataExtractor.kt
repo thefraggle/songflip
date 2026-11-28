@@ -1,5 +1,6 @@
 package de.goork.songflip.core.engine
 
+import de.goork.songflip.core.engine.resilience.PlatformCircuitBreaker
 import de.goork.songflip.core.engine.resolvers.AppleMusicResolver
 import de.goork.songflip.core.engine.resolvers.DeezerResolver
 import de.goork.songflip.core.engine.resolvers.QobuzResolver
@@ -102,7 +103,8 @@ class MetadataExtractor(
     private val deezerResolver: DeezerResolver,
     private val youTubeMusicResolver: YouTubeMusicResolver,
     private val spotifyResolver: SpotifyResolver,
-    private val qobuzResolver: QobuzResolver
+    private val qobuzResolver: QobuzResolver,
+    private val circuitBreaker: PlatformCircuitBreaker = PlatformCircuitBreaker.shared
 ) {
     suspend fun extractTrackInfo(url: String): String? {
         return try {
@@ -168,17 +170,26 @@ class MetadataExtractor(
                     } else null
                 }
                 MusicPlatform.SOUNDCLOUD -> {
-                    val encoded = url.encodeURLParameter()
-                    val resp = client.get("https://soundcloud.com/oembed?url=$encoded&format=json")
-                    if (resp.status.isSuccess()) {
-                        val oembed = json.decodeFromString<CommonOEmbedDto>(resp.bodyAsText())
-                        val rawTitle = oembed.title
-                        val author = oembed.authorName
-                        if (!rawTitle.isNullOrEmpty()) {
-                            val title = UrlUtils.cleanVideoTitle(rawTitle)
-                            if (!author.isNullOrEmpty() && !title.contains(author, ignoreCase = true)) "$author $title" else title
-                        } else null
-                    } else null
+                    val host = "soundcloud.com"
+                    if (circuitBreaker.canExecute(host)) {
+                        val encoded = url.encodeURLParameter()
+                        val resp = client.get("https://soundcloud.com/oembed?url=$encoded&format=json") {
+                            header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+                        }
+                        if (resp.status.value in setOf(403, 406, 429)) {
+                            circuitBreaker.recordRateLimit(host, retryAfterSeconds = 900L)
+                        } else if (resp.status.isSuccess()) {
+                            circuitBreaker.recordSuccess(host)
+                            val oembed = json.decodeFromString<CommonOEmbedDto>(resp.bodyAsText())
+                            val rawTitle = oembed.title
+                            val author = oembed.authorName
+                            if (!rawTitle.isNullOrEmpty()) {
+                                val title = UrlUtils.cleanVideoTitle(rawTitle)
+                                return if (!author.isNullOrEmpty() && !title.contains(author, ignoreCase = true)) "$author $title" else title
+                            }
+                        }
+                    }
+                    extractSoundCloudSlugFallback(url)
                 }
                 MusicPlatform.AMAZON_MUSIC -> {
                     val clean = url.substringBefore("?").trimEnd('/')
@@ -246,12 +257,21 @@ class MetadataExtractor(
     }
 
     private suspend fun extractOgMetadata(url: String, rule: OgMetadataRule): String? {
+        val host = url.substringAfter("://", "").substringBefore("/").substringBefore("?").lowercase()
+        if (host.isNotEmpty() && !circuitBreaker.canExecute(host)) {
+            return extractSlugFallback(url, rule)
+        }
         return try {
             val resp = client.get(url) {
                 header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
                 header("Accept-Language", rule.acceptLanguage)
             }
+            if (host.isNotEmpty() && resp.status.value in setOf(403, 406, 429)) {
+                circuitBreaker.recordRateLimit(host, retryAfterSeconds = 900L)
+                return extractSlugFallback(url, rule)
+            }
             if (resp.status.isSuccess()) {
+                if (host.isNotEmpty()) circuitBreaker.recordSuccess(host)
                 val html = resp.bodyAsText()
                 val titleMatch = if (rule.titleFirst) {
                     HTML_TITLE_REGEX.find(html) ?: OG_TITLE_REGEX.find(html) ?: OG_TITLE_ALT_REGEX.find(html)
@@ -276,6 +296,27 @@ class MetadataExtractor(
         } catch (e: Exception) {
             if (e is CancellationException) throw e
             extractSlugFallback(url, rule)
+        }
+    }
+
+    private fun extractSoundCloudSlugFallback(url: String): String? {
+        val match = Regex("""soundcloud\.com/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)""", RegexOption.IGNORE_CASE).find(url)
+            ?: return null
+        val uploader = match.groupValues[1]
+        val trackSlug = match.groupValues[2]
+        val reserved = setOf(
+            "search", "discover", "upload", "you", "stream", "settings", "sets",
+            "charts", "popular", "pages", "terms", "imprint", "tags", "jobs", "mobile", "contact"
+        )
+        if (uploader.lowercase() in reserved || trackSlug.equals("sets", ignoreCase = true)) return null
+        val cleanTrack = trackSlug.replace("-", " ").replace("_", " ").trim()
+        if (cleanTrack.isBlank()) return null
+        val isGenericUser = Regex("""^user[-_]?\d+$""", RegexOption.IGNORE_CASE).matches(uploader)
+        return if (isGenericUser) {
+            cleanTrack
+        } else {
+            val cleanArtist = uploader.replace("-", " ").replace("_", " ").trim()
+            "$cleanArtist $cleanTrack".trim()
         }
     }
 
